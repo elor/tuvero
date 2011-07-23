@@ -1,0 +1,92 @@
+
+body {
+    max-width: 700px;
+    margin: auto;
+    padding-left: 5pt;
+    padding-right: 5pt;
+}
+
+h1 {
+    text-align: center;
+}
+
+h1 #save {
+    margin-left: 25px;
+}
+
+h1 #load {
+    margin-right: 25px;
+}
+
+#javascript {
+    background-color: red;
+    font-size: 200%;
+}
+
+#playerlist {
+    width: 45%;
+    float:left;
+}
+
+#playerlist .div {
+    clear: both;
+}
+
+#playerlist .avail {
+    background-color: lightgreen;
+}
+
+#playerlist .pass {
+    background-color: lightgrey;
+}
+
+#playerlist .inactive {
+    background-color: grey;
+    text-decoration: line-through;
+}
+
+#playerlist .playing {
+    background-color: grey;
+}
+
+#playerlist .points {
+    margin-left: 100px;
+}
+
+#gamelist {
+    width: 50%;
+    float: right;
+}
+
+.game {
+    text-align: center;
+    padding: 5px;
+    background-color: grey;
+    clear: both;
+    height: 96pt;
+}
+
+.game div {
+    padding: 0px 5px 0px 5px;
+    max-width: 45%;
+    max-height: 100%;
+    background-color: white;
+}
+
+.game .left {
+    float: left
+}
+
+.game .right {
+    float: right;
+}
+
+.game input {
+    max-width: 50%;
+    margin-left: 20px;
+}
+
+.game span{
+    padding: 4px;
+    background-color: white;
+}

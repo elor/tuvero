@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="main.css" />
+    <title>Boules Melee</title>
+</head>
+<body>
+    <p id="javascript">Um diese Tabelle nutzen zu koennen, muss JavaScript
+        aktiviert sein.</p>
+
+    <h1><input id="save" type="button" value="save" />
+        <input id="load" type="button" value="load" />Boules Melee System
+        <input id="cleardatabase" type="button" value="clear database"></h1>
+    
+    <div id="playerlist">
+        <p>Spiele, Siege, Buchholz, Feind-BH, Netto</p>
+        <div class="oldplayer">
+            <select>
+                <option value="avail">verf&uuml;gbar</option>
+                <option value="pass">setzt aus</option>
+                <option value="inactive">inaktiv</option>
+                <option value="playing" disabled>im Spiel</option>
+            </select>
+            <span>%NAME</span><br><span class="points">pts</span>
+        </div>
+        <div id="newplayer">
+            <span></span>
+            <input id="playername" type="text" placeholder="neuer Spieler"
+                    maxlength="32"/>
+            <input id="playerbutton" type="button" value="anmelden" />
+        </div>
+        <input id="newgame" type="button" value="Spiel starten" />
+    </div>
+
+    <div id="gamelist">
+        <div class="running game">
+            <div class="left">
+                <p>%A1<br>
+                    %A2<br>
+                    <input class="score" type="number" min="0" max="13"
+                            value="0"/>
+                </p>
+            </div>
+            <div class="right">
+                <p>%B1<br>
+                    %B2<br>
+                    <input class="score" type="number" min="0" max="13"
+                            value="0"/>
+                </p>
+            </div>
+            <span>timer</span>
+            <input class="endbutton" type="button" value="Spiel beenden"/>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="melee.js"></script>
+</body>
+</html>
