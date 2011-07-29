@@ -32,6 +32,22 @@ window.addEventListener('load', function () {
 
 // Game constructor
     function Game(A1, A2, B1, B2, gid) {
+        if (A1 === undefined) {
+            A1 = 0;
+        }
+        if (A2 === undefined) {
+            A2 = 0;
+        }
+        if (B1 === undefined) {
+            B1 = 0;
+        }
+        if (B2 === undefined) {
+            B2 = 0;
+        }
+        if (gid === undefined) {
+            gid = Game.games.length;
+        }
+        
         this.gid = gid;
 
         this.A1 = A1;    //  integer
@@ -51,6 +67,14 @@ window.addEventListener('load', function () {
 
 // Player constructor
     function Player(name, pid) {
+        if (name === undefined) {
+            name = '';
+        }
+        
+        if (pid === undefined) {
+            pid = Player.players.length;
+        }
+        
         this.pid = pid; // integer
         this.name = name;   // string
         this.state = 0; // integer
@@ -67,28 +91,79 @@ window.addEventListener('load', function () {
     // a day holds all games of that day as well as an array of its results
     // The data of the day is taken from the current day, which is then restored
     // to an initial state, i.e. a new day
-    function Day() {
-        var results = [];
-        var i = Player.players.length;
+    function Day(input) {
+        this.results = [];
+        var i;
+        var max;
         var p;
+        var lines;
         
-        this.games = Game.games;
-        Game.games = [];
-        
-        while (i) {
-            --i;
+        if (input === undefined) {
+            i = Player.players.length;
+            this.games = Game.games;
+            Game.games = [];
+
+            while (i) {
+                --i;
+
+                p = Player.players[i];
+                this.results[i] = [p.games, p.siege, p.buchholz, p.feindbuchholz,
+                        p.netto];
+            }
+        }
+        else {
+            this.games = [];
             
-            p = Player.players[i];
-            this.results[i] = [p.games, p.siege, p.buchholz, p.feindbuchholz,
-                    p.netto];
+            lines = input.split('\n');
+            max = Number(lines[0]);
+            
+            for (i = 1; i <= max; ++i) {
+                p = new Game();
+                p.fromString(lines[i]);
+                this.games.push(p);
+            }
+            
+            max = lines.length;
+            for (; i < max; ++i) {
+                this.results[i] = lines[i].split(' ');
+                this.results[i].shift();
+            }
         }
     }
     Day.days = [];
+    
+    Day.restore = function () {
+        var txt = localStorage.getItem('days');
+        if (!txt) {
+            return;
+        }
+        var raw = txt.split('\r\n');
+        var max = raw.length;
+        var i = 0;
+        
+        Day.days = [];
+        
+        for (i = 0; i < max; ++i) {
+            Day.days.push(new Day(raw[i]));
+        }
+    };
+    
+    Day.save = function () {
+        var lines = [];
+        var i;
+        var max = Day.days.length;
+        for (i = 0; i < max; ++i) {
+            lines.push('day ' + i + '\n' + Day.days[i].toString());
+        }
+        
+        localStorage.setItem('days', lines.join('\r\n'));
+    };
     
     Day.prototype.toString = function () {
         var lines = [this.games.length];
         var i = 0;
         var max = this.games.length;
+        var tmp;
         
         // write games
         for (i = 0; i < max; ++i) {
@@ -98,14 +173,17 @@ window.addEventListener('load', function () {
         // write results
         max = Player.players.length;
         for (i = 0; i < max; ++i) {
-            lines.push([i, this.results[i][0], this.results[i][1],
-                    this.results[i][2], this.results[i][3],
-                    this.results[i][4]].join(' '));
+            tmp = this.results[i];
+            if (tmp === undefined) {
+                tmp = [0, 0, 0, 0, 0];
+                this.results[i] = tmp;
+            }
+            lines.push([i, tmp.join(' ')].join(' '));
         }
         
         return lines.join('\n');
     };
-
+    
     Player.prototype.resetPoints = function () {
         this.games = 0;
         this.siege = 0;
@@ -124,11 +202,11 @@ window.addEventListener('load', function () {
     };
 
     Player.prototype.fromString = function (str) {
-        var arr = str.split(' ', 3);
+        var arr = str.split(' ');
 
-//        this.pid = Number(arr[0]);
-        this.state = Number(arr[1]);
-        this.name = arr[2];
+        arr.shift();// remove pid
+        this.state = Number(arr.shift());
+        this.name = arr.join(' ');
         
         return this;
     };
@@ -231,13 +309,12 @@ window.addEventListener('load', function () {
         }
         
         var i = Player.players.length;
-
-
+        
         localStorage.setItem('numplayers', i);
-
+        
         while (i) {
             i--;
-
+            
             Player.players[i].save();
         }
     };
@@ -632,6 +709,79 @@ window.addEventListener('load', function () {
         localStorage.setItem('numgames', Game.games.length);
     };
     
+    function parseFileContent(txt) {
+        if (!txt) {
+            return;
+        }
+        
+        var numplayers;
+        var numgames;
+        var lines;
+        var i;
+        var tmp;
+        
+// reset everything
+        localStorage.clear();
+        
+        Player.clearDOM();
+        Player.players = [];
+        Game.clearDOM();
+        Game.games = [];
+        Day.days = [];
+        
+        lines = txt.split('\n');
+        numplayers = lines.shift();
+        i = numplayers;
+        
+        while (i) {
+            --i;
+            tmp = new Player();
+            tmp.fromString(lines.shift());
+            Player.players.push(tmp);
+        }
+        
+        while (lines.length) {
+            if (lines.shift() !== 'day 0') {
+                Day.days.push(new Day());
+            }
+            
+            numgames = Number(lines.shift());
+            
+            while (numgames) {
+                --numgames;
+                
+                tmp = new Game();
+                tmp.fromString(lines.shift());
+                Game.games.push(tmp);
+            }
+            
+            // don't trust file data: recalculate the points
+            Player.calcPoints();
+            
+            // skip the "result lines"
+            i = numplayers;
+            while (i) {
+                --i;
+                lines.shift();
+            }
+            
+            // now, a new day should start
+        }
+        
+        Player.sort();
+        
+        numgames = Game.games.length;
+        for (i = 0; i < numgames; ++i) {
+            Game.games[i].appendToDOM();
+        }
+        
+        if (storage) {
+            Player.save();
+            Game.save();
+            Day.save();
+        }
+    }
+    
     function createFileContent() {
         var lines = [];
         var i = 0;
@@ -743,6 +893,7 @@ window.addEventListener('load', function () {
     gamebutton.addEventListener('click', newgame, false);
 
     if (storage) {
+        Day.restore();
         Player.restore();
         Game.restore();
         Player.calcPoints();
@@ -756,25 +907,66 @@ window.addEventListener('load', function () {
         if (storage) {
             Player.save();
             Game.save();
-            
-//            alert('Alle Daten wurden gesichert. Sie koennen das Fenster schliessen.');
+            Day.save();
         }
         
-        alert(createFileContent());
+        var win = window.open();
+        
+        win.document.body.innerHTML = ['<p>Kopiere den Inhalt dieses Feldes in\n\
+                eine Datei, um das Turnier zu speichern.</p>\
+                <textarea style="width: 90%; height: 90%">',
+                createFileContent(), '</textarea>'].join('');
         
     }, false);
 
     loadbutton.addEventListener('click', function () {
         
-        if (!confirm('Alle Daten loeschen und aus Datei neu laden?')) {
-            return;
-        }
+        var win = window.open();
+        var area = win.document.createElement('textarea');
+        area.setAttribute('style', 'height: 90%; width: 90%');
+        var p = win.document.createElement('p')
+        var p_txt = win.document.createTextNode('Fuege gespeicherten Text hier\
+                ein und druecke den Knopf. Dabei werden alle momentan\
+                gespeicherten Daten ueberschrieben.')
+        p.appendChild(p_txt);
+        var button = win.document.createElement('input')
+        button.setAttribute('type', 'button');
+        button.setAttribute('value', 'Laden');
         
-        if (storage) {
+        button.addEventListener('click', function () {
+            parseFileContent(area.value);
+        }, false);
+        
+        p.appendChild(button);
+        win.document.body.appendChild(p);
+        win.document.body.appendChild(area);
+        
+/*        if (storage) {
             Player.restore();
             Game.restore();
             Player.calcPoints();
             Player.sort();
+        }
+*/
+    }, false);
+    
+    document.getElementById('endday').addEventListener('click', function() {
+        
+        var i = Game.games.length;
+        while (i) {
+            --i;
+            
+            if (Game.games[i].state === 'running') {
+                alert('Es gibt noch offene Spiele!');
+                return;
+            }
+        }
+        
+        if (confirm('Soll der aktuelle Spieltag wirklich beendet werden?')) {
+            Day.days.push(new Day());
+            Day.save();
+            Player.calcPoints();
+            Player.updateInfos();
         }
     }, false);
     
