@@ -47,6 +47,7 @@ window.addEventListener('load', function () {
         // 'running' or 'finished'
         this.state = 'running';
     }
+    Game.games = [];
 
 // Player constructor
     function Player(name, pid) {
@@ -60,8 +61,53 @@ window.addEventListener('load', function () {
         this.feindbuchholz = 0;
         this.netto = 0;
     }
+    Player.players = [];
+    
+    // Day constructor:
+    // a day holds all games of that day as well as an array of its results
+    // The data of the day is taken from the current day, which is then restored
+    // to an initial state, i.e. a new day
+    function Day() {
+        var results = [];
+        var i = Player.players.length;
+        var p;
+        
+        this.games = Game.games;
+        Game.games = [];
+        
+        while (i) {
+            --i;
+            
+            p = Player.players[i];
+            this.results[i] = [p.games, p.siege, p.buchholz, p.feindbuchholz,
+                    p.netto];
+        }
+    }
+    Day.days = [];
+    
+    Day.prototype.toString = function () {
+        var lines = [this.games.length];
+        var i = 0;
+        var max = this.games.length;
+        
+        // write games
+        for (i = 0; i < max; ++i) {
+            lines.push(this.games[i].toString());
+        }
+        
+        // write results
+        max = Player.players.length;
+        for (i = 0; i < max; ++i) {
+            lines.push([i, this.results[i][0], this.results[i][1],
+                    this.results[i][2], this.results[i][3],
+                    this.results[i][4]].join(' '));
+        }
+        
+        return lines.join('\n');
+    };
 
     Player.prototype.resetPoints = function () {
+        this.games = 0;
         this.siege = 0;
         this.buchholz = 0;
         this.feindbuchholz = 0;
@@ -69,7 +115,7 @@ window.addEventListener('load', function () {
     };
 
     Player.prototype.toString = function () {
-        return [this.name, this.state].join('|');
+        return [this.pid, this.state, this.name].join(' ');
     };
 
     Player.prototype.pointsToString = function () {
@@ -78,14 +124,15 @@ window.addEventListener('load', function () {
     };
 
     Player.prototype.fromString = function (str) {
-        var arr = str.split('|');
+        var arr = str.split(' ', 3);
 
-        this.name = arr[0];
+//        this.pid = Number(arr[0]);
         this.state = Number(arr[1]);
-
+        this.name = arr[2];
+        
         return this;
     };
-
+    
     Player.prototype.setStatus = function (status) {
         var element = document.getElementById('player' + this.pid);
         if (!element) {
@@ -95,7 +142,7 @@ window.addEventListener('load', function () {
         var select = element.getElementsByTagName('select')[0];
         this.state = Player.stringToSid(status);
 
-        element.className = status;
+        element.className = 'oldplayer ' + status;
         select.selectedIndex = this.state;
         var opts = select.getElementsByTagName('option');
 
@@ -123,7 +170,59 @@ window.addEventListener('load', function () {
     };
 
     Player.prototype.restore = function () {
-        this.fromString(localStorage.getItem(this.getKey())).appendToDOM();
+        this.fromString(localStorage.getItem(this.getKey()));
+        // appendToDOM is called from within Player.restore now
+    };
+    
+    Player.sort = function () {
+        
+        var tmparr = [];
+        var i = Player.players.length;
+        var j = i;
+        
+        function sortfunc(a, b) {
+            if (a.state !== b.state) {
+                return b.state - a.state;
+            }
+            
+            if (a.games !== b.games) {
+                return a.games - b.games;
+            }
+            
+            if (a.siege !== b.siege) {
+                return a.siege - b.siege;
+            }
+            
+            if (a.buchholz !== b.buchholz) {
+                return a.buchholz - b.buchholz;
+            }
+            
+            if (a.feindbuchholz !== b.feindbuchholz) {
+                return a.feindbuchholz - b.feindbuchholz;
+            }
+            
+            if (a.netto !== b.netto) {
+                return a.netto - b.netto;
+            }
+            
+            return b.pid - a.pid;
+        }
+        
+        while (i) {
+            --i;
+            
+            tmparr[i] = Player.players[i];
+        }
+        
+        tmparr.sort(sortfunc);
+        
+        Player.clearDOM();
+        
+        while (j) {
+            --j;
+            tmparr[j].appendToDOM();
+        }
+        
     };
 
     Player.save = function () {
@@ -142,23 +241,37 @@ window.addEventListener('load', function () {
             Player.players[i].save();
         }
     };
+    
+    Player.clearDOM = function () {
+        var classes = document.getElementsByClassName('oldplayer');
+        var i = classes.length;
+        
+        while (i) {
+            --i;
+            classes[i].parentNode.removeChild(classes[i]);
+        }
+
+    };
 
     Player.restore = function () {
-        Player.players = [];
-        var max = localStorage.getItem("numplayers");
         var p;
-        var i = 0;
-
-        while (i < max) {
+        var i;
+        var max = localStorage.getItem("numplayers");
+        
+        Player.clearDOM();
+        
+        Player.players = [];
+        
+        for (i = 0; i < max; ++i) {
             p = new Player('', i);
             Player.players[i] = p;
             p.restore();
-
-            i++;
         }
+        
+        Player.calcPoints();
+        
+        Player.sort();
     };
-
-    Player.players = [];
 
     Player.get = function (pid) {
         return Player.players[pid];
@@ -264,70 +377,6 @@ window.addEventListener('load', function () {
         }
     };
 
-// Game constructor
-    Game.prototype.toString = function () {
-        return [this.A1, this.A2, this.B1, this.B2, this.scoreA,
-                this.scoreB, this.time, this.state].join('|');
-    };
-
-    Game.prototype.fromString = function (str) {
-        var arr = str.split('|');
-        this.A1 = Number(arr[0]);
-        this.A2 = Number(arr[1]);
-        this.B1 = Number(arr[2]);
-        this.B2 = Number(arr[3]);
-        
-        this.scoreA = Number(arr[4]);
-        this.scoreB = Number(arr[5]);
-
-        var d = new Date();
-        d.setTime(Number(arr[6]));
-        this.time = d;
-
-        this.state = arr[7];
-
-        return this;
-    };
-
-    Game.save = function () {
-        if (!storage) {
-            return;
-        }
-
-        var i = Game.games.length;
-        localStorage.setItem('numgames', i);
-
-        while (i) {
-            i--;
-
-            Game.games[i].save();
-        }
-    };
-
-    Game.prototype.save = function () {
-        localStorage.setItem('game' + this.gid, this.toString());
-    };
-
-    Game.prototype.restore = function () {
-        this.fromString(localStorage.getItem('game' + this.gid)).appendToDOM();
-    };
-
-    Game.restore = function () {
-        var max = localStorage.getItem('numgames');
-        var i = 0;
-        var g;
-
-        while (i < max) {
-            g = new Game(0, 0, 0, 0, i);
-            Game.games[i] = g;
-            g.restore();
-
-            i++;
-        }
-    };
-
-    Game.games = [];
-
     Player.prototype.appendToDOM = function () {
         // add according elements to DOM
 
@@ -335,15 +384,16 @@ window.addEventListener('load', function () {
         element.innerHTML = templates.oldplayer.innerHTML.replace('%NAME',
                 this.name);
         element.id = 'player' + this.pid;
-        newplayer.self.parentNode.insertBefore(element, newplayer.self);
+        newplayer.self.parentNode.appendChild(element);
 
         this.updateInfo();
 
         var that = this;
-
+        
         var select = element.getElementsByTagName('select')[0];
         select.addEventListener('change', function () {
             that.setStatus(Player.sidToString(select.selectedIndex));
+            Player.sort();
         }, false);
 
         this.setStatus(Player.sidToString(this.state));
@@ -385,9 +435,12 @@ window.addEventListener('load', function () {
 
         Player.players[pid] = player;
 
-        player.appendToDOM();
+// not required anymore (sort() takes care now)
+//        player.appendToDOM();
 
         localStorage.setItem("numplayers", Player.players.length);
+        
+        Player.sort();
     };
 
 //  function for creating a new game and assigning teams
@@ -395,16 +448,89 @@ window.addEventListener('load', function () {
         Game.add(0, 2, 1, 3);
     }
 
+    Game.prototype.toString = function () {
+        return [this.A1, this.A2, this.B1, this.B2, this.scoreA,
+                this.scoreB, this.time, this.state].join(' ');
+    };
+
+    Game.prototype.fromString = function (str) {
+        var arr = str.split(' ');
+        this.A1 = Number(arr[0]);
+        this.A2 = Number(arr[1]);
+        this.B1 = Number(arr[2]);
+        this.B2 = Number(arr[3]);
+        
+        this.scoreA = Number(arr[4]);
+        this.scoreB = Number(arr[5]);
+
+        this.time = Number(arr[6]);
+
+        this.state = arr[7];
+
+        return this;
+    };
+
+    Game.save = function () {
+        if (!storage) {
+            return;
+        }
+
+        var i = Game.games.length;
+        localStorage.setItem('numgames', i);
+
+        while (i) {
+            i--;
+
+            Game.games[i].save();
+        }
+    };
+
+    Game.prototype.save = function () {
+        localStorage.setItem('game' + this.gid, this.toString());
+    };
+
+    Game.prototype.restore = function () {
+        this.fromString(localStorage.getItem('game' + this.gid)).appendToDOM();
+    };
+    
+    Game.clearDOM = function () {
+        var classes = document.getElementsByClassName('game');
+        var i = classes.length;
+
+        while (i) {
+            --i;
+            classes[i].parentNode.removeChild(classes[i]);
+        }
+    };
+
+    Game.restore = function () {
+        var max = localStorage.getItem('numgames');
+        var g;
+        var i;
+        
+        Game.clearDOM();
+        
+        Game.games = [];
+        
+        for (i = 0; i < max; ++i) {
+            g = new Game(0, 0, 0, 0, i);
+            Game.games[i] = g;
+            g.restore();
+        }
+    };
+
     Game.prototype.appendToDOM = function () {
         if (this.state === 'finished') {
             return;
         }
-
+        
         // bind player status
         Player.get(this.A1).setStatus('playing');
         Player.get(this.A2).setStatus('playing');
         Player.get(this.B1).setStatus('playing');
         Player.get(this.B2).setStatus('playing');
+        
+        Player.sort();
 
         var that = this;
         var element;
@@ -442,6 +568,7 @@ window.addEventListener('load', function () {
 
             Player.calcPoints();
             Player.updateInfos();
+            Player.sort();
         }
 
         // bind to DOM
@@ -457,11 +584,11 @@ window.addEventListener('load', function () {
 
         // add timer
         var timer = element.getElementsByTagName('span')[0];
-        timer.innerHTML = "adjusting";
+        timer.innerHTML = "0:00:00";
         begin = new Date();
 
         if (this.time !== 0) {
-            begin.setTime(this.time.getTime());
+            begin.setTime(this.time);
         } else {
             this.time = begin.getTime();
         }
@@ -479,7 +606,7 @@ window.addEventListener('load', function () {
         }, 1000);
 
         // finally add to DOM
-        gamelist.insertBefore(element, gamelist.firstChild);
+        gamelist.insertBefore(element, gamelist.firstChild.nextChild);
 
         // bind endbutton
         var endbutton = element.getElementsByClassName('endbutton')[0];
@@ -504,7 +631,49 @@ window.addEventListener('load', function () {
         game.save();
         localStorage.setItem('numgames', Game.games.length);
     };
-
+    
+    function createFileContent() {
+        var lines = [];
+        var i = 0;
+        var max = 0;
+        var p;
+        
+        // write number of players to first line:
+        lines.push(Player.players.length);
+        
+        // add players to string
+        max = Player.players.length;
+        for (i = 0; i < max; ++i) {
+            lines.push(Player.players[i].toString());
+        }
+        
+        // add previous days to string
+        max = Day.days.length;
+        for (i = 0; i < max; ++i) {
+            lines.push('day ' + i);
+            lines.push(Day.days[i].toString());
+        }
+        
+        // add current day to string
+        lines.push('day ' + max);
+        max = Game.games.length;
+        lines.push(max);
+        for (i = 0; i < max; ++i) {
+            lines.push(Game.games[i].toString());
+        }
+        
+        // return results of current day
+        max = Player.players.length;
+        for (i = 0; i < max; ++i) {
+            p = Player.players[i];
+            lines.push([i, p.games, p.siege, p.buchholz, p.feindbuchholz, 
+                    p.netto].join(' '));
+        }
+        
+        // return finished string
+        return lines.join('\n');
+    }
+    
     function supports_html5_storage() {
         try {
             if (!window.localStorage) {
@@ -517,7 +686,8 @@ window.addEventListener('load', function () {
                 return false;
             }
             
-            if (/irefox/.test(navigator.userAgent)) {
+            if (/irefox/.test(navigator.userAgent) &&
+                    /file/.test(location.href)) {
                 return false;
             }
             
@@ -529,11 +699,14 @@ window.addEventListener('load', function () {
     }
     
     function beforeunload() {
+        window.onbeforeunload = null;
+        
         if (!storage) {
             return 'Wenn du die Seite schliesst, gehen alle Daten verloren!';
         } else {
             return 'Keine Sorge: Die Spieldaten werden gespeichert.';
         }
+        
     }
 
     storage = supports_html5_storage();
@@ -573,7 +746,7 @@ window.addEventListener('load', function () {
         Player.restore();
         Game.restore();
         Player.calcPoints();
-        Player.updateInfos();
+        Player.sort();
     }
 
     window.onbeforeunload = beforeunload;
@@ -584,8 +757,10 @@ window.addEventListener('load', function () {
             Player.save();
             Game.save();
             
-            alert('Alle Daten wurden gesichert. Sie koennen das Fenster schliessen.');
+//            alert('Alle Daten wurden gesichert. Sie koennen das Fenster schliessen.');
         }
+        
+        alert(createFileContent());
         
     }, false);
 
@@ -598,8 +773,9 @@ window.addEventListener('load', function () {
         if (storage) {
             Player.restore();
             Game.restore();
+            Player.calcPoints();
+            Player.sort();
         }
-        
     }, false);
     
 }, false);

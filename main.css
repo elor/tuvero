@@ -32,6 +32,10 @@ h1 #load {
     clear: both;
 }
 
+#playerlist p {
+    font-size: 75%;
+}
+
 #playerlist .avail {
     background-color: lightgreen;
 }
@@ -42,7 +46,6 @@ h1 #load {
 
 #playerlist .inactive {
     background-color: grey;
-    text-decoration: line-through;
 }
 
 #playerlist .playing {
@@ -56,6 +59,10 @@ h1 #load {
 #gamelist {
     width: 50%;
     float: right;
+}
+
+#gamelist .void {
+    text-decoration: line-through;
 }
 
 .game {
