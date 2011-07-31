@@ -6,16 +6,31 @@ body {
     padding-right: 5pt;
 }
 
+table {
+    
+    background-color: black;
+}
+
 h1 {
     text-align: center;
 }
 
 h1 #save {
+    margin: auto;
     margin-left: 25px;
 }
 
 h1 #load {
+    margin: auto;
     margin-right: 25px;
+}
+
+#timelimit {
+    width: 20%;
+}
+
+#mingames,#maxgames {
+    width: 15%;
 }
 
 #javascript {
@@ -36,6 +51,10 @@ h1 #load {
     font-size: 75%;
 }
 
+#playerlist .rapid {
+    background-color: orange;
+}
+
 #playerlist .avail {
     background-color: lightgreen;
 }
@@ -49,7 +68,7 @@ h1 #load {
 }
 
 #playerlist .playing {
-    background-color: grey;
+    background-color: darkgrey;
 }
 
 #playerlist .points {
@@ -93,7 +112,11 @@ h1 #load {
     margin-left: 20px;
 }
 
-.game span{
+.game span {
     padding: 4px;
     background-color: white;
+}
+
+.abovetimelimit {
+    background-color: red;
 }

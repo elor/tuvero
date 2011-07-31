@@ -7,15 +7,71 @@
 **/
 
 window.addEventListener('load', function () {
-
+    
     'use strict';
+
+    var strings = {
+        keys: {
+            days: 'days',
+            player: 'player',
+            numplayers: 'numplayers',
+            mingames: 'mingames',
+            maxgames: 'maxgames',
+            game: 'game',
+            numgames: 'numgames',
+            timelimit: 'timelimit'
+        },
+        
+        state: {
+            object: {
+                rapid: 0,
+                avail: 1,
+                pass: 2,
+                playing: 3,
+                inactive: 4
+            },
+            arr: ['rapid', 'avail', 'pass', 'playing', 'inactive'],
+            rapid: 'rapid',
+            avail: 'avail',
+            pass: 'pass',
+            playing: 'playing',
+            inactive: 'inactive'
+        },
+        
+        game: {
+            running: 'running',
+            finished: 'finished'
+        },
+        
+        err: {
+            pid: 'pid error!',
+            nostorage: 'Dein Browser nutzt keinen HTML5 Storage. Du musst manuell speichern.'
+        },
+        
+        timedefault: '0:00:00',
+        endday: 'Soll der aktuelle Spieltag wirklich beendet werden?',
+        stillopengames: 'Es gibt noch offene Spiele!',
+        pastehere: 'Füge gespeicherten Text hier ein und drücke den Knopf. Dabei werden alle momentan gespeicherten Daten überschrieben.',
+        copythis: 'Kopiere den Inhalt dieses Feldes in eine Datei, um das Turnier zu speichern.',
+        clearall: 'Sollen alle gespeicherten Daten entfernt werden?',
+        alllost: 'Wenn du die Seite schliesst, gehen alle Daten verloren!',
+        allsaved: 'Keine Sorge: Die Spieldaten werden gespeichert.',
+        endgame: 'Spiel "%A1 & %A2" gegen "%B1 & %B2" mit Stand %S1:%S2 beenden?',
+        notenoughplayers: 'Zu wenige Spieler',
+        nogamepossible: 'Kein neues Spiel moeglich',
+        createplayer: 'Soll "%NAME" angemeldet werden?'
+    };
 
     var warning = document.getElementById('javascript');
     var templates = {
         oldplayer : document.getElementsByClassName('oldplayer')[0],
         game : document.getElementsByClassName('running')[0]
     };
-
+    
+    var timelimitbox = document.getElementById('timelimit');
+    var mingamesbox = document.getElementById('mingames');
+    var maxgamesbox = document.getElementById('maxgames');
+    
     var gamelist = document.getElementById('gamelist');
     var gamebutton = document.getElementById('newgame');
 
@@ -25,7 +81,7 @@ window.addEventListener('load', function () {
         button : document.getElementById('playerbutton'),
         name : document.getElementById('playername')
     };
-
+    
     var storage = false;
     var savebutton = document.getElementById('save');
     var loadbutton = document.getElementById('load');
@@ -60,11 +116,13 @@ window.addEventListener('load', function () {
 
         this.time = 0;    //  Date (either begin or total)
 
-        // 'running' or 'finished'
-        this.state = 'running';
+        // running or finished
+        this.state = strings.game.running;
     }
     Game.games = [];
-
+    Game.constellations = [];
+    Game.timelimit = 75;
+    
 // Player constructor
     function Player(name, pid) {
         if (name === undefined) {
@@ -77,15 +135,21 @@ window.addEventListener('load', function () {
         
         this.pid = pid; // integer
         this.name = name;   // string
-        this.state = 0; // integer
+        this.state = strings.state.object.avail; // integer
 
         this.games = 0;
         this.siege = 0;
         this.buchholz = 0;
         this.feindbuchholz = 0;
         this.netto = 0;
+        
+        this.rank = 1;
+        
+        this.time = 0;
     }
     Player.players = [];
+    Player.mingames = 4;
+    Player.maxgames = 5;
     
     // Day constructor:
     // a day holds all games of that day as well as an array of its results
@@ -95,13 +159,17 @@ window.addEventListener('load', function () {
         this.results = [];
         var i;
         var max;
+        var off;
         var p;
         var lines;
+        var tmp;
         
         if (input === undefined) {
             i = Player.players.length;
             this.games = Game.games;
             Game.games = [];
+            
+            Game.save();
 
             while (i) {
                 --i;
@@ -110,12 +178,26 @@ window.addEventListener('load', function () {
                 this.results[i] = [p.games, p.siege, p.buchholz, p.feindbuchholz,
                         p.netto];
             }
-        }
-        else {
+            
+            this.mingames = Player.mingames;
+            this.maxgames = Player.maxgames;
+            
+        } else {
+            
+//            console.log(input);
+            
             this.games = [];
             
             lines = input.split('\n');
-            max = Number(lines[0]);
+            if (/day/.test(lines[0])) {
+                lines.shift();
+            }
+            
+            tmp = lines[0].split(' ');
+            max = Number(tmp[0]);
+            
+            this.mingames = Number(tmp[1]);
+            this.maxgames = Number(tmp[2]);
             
             for (i = 1; i <= max; ++i) {
                 p = new Game();
@@ -123,21 +205,29 @@ window.addEventListener('load', function () {
                 this.games.push(p);
             }
             
+            off = i;
+            
             max = lines.length;
             for (; i < max; ++i) {
-                this.results[i] = lines[i].split(' ');
-                this.results[i].shift();
+                this.results[i - off] = lines[i].split(' ');
+                this.results[i - off].shift();
+                
+//                var j = 0;
+//                for (; j < 5; ++j) {
+//                    this.results[i-off][j] = Number(this.results[i-off][j]);
+//                }
             }
         }
     }
     Day.days = [];
     
     Day.restore = function () {
-        var txt = localStorage.getItem('days');
+        var txt = localStorage.getItem(strings.keys.days);
         if (!txt) {
             return;
         }
         var raw = txt.split('\r\n');
+//        console.log(raw);
         var max = raw.length;
         var i = 0;
         
@@ -156,7 +246,9 @@ window.addEventListener('load', function () {
             lines.push('day ' + i + '\n' + Day.days[i].toString());
         }
         
-        localStorage.setItem('days', lines.join('\r\n'));
+//        console.log(lines.join('\r\n'));
+        
+        localStorage.setItem(strings.keys.days, lines.join('\r\n'));
     };
     
     Day.prototype.toString = function () {
@@ -167,14 +259,15 @@ window.addEventListener('load', function () {
         
         // write games
         for (i = 0; i < max; ++i) {
-            lines.push(this.games[i].toString());
+            lines.push([this.games[i].toString(), this.mingames, this.maxgames].join(' '));
         }
         
         // write results
         max = Player.players.length;
         for (i = 0; i < max; ++i) {
             tmp = this.results[i];
-            if (tmp === undefined) {
+//            console.log(tmp);
+            if (!tmp) {
                 tmp = [0, 0, 0, 0, 0];
                 this.results[i] = tmp;
             }
@@ -184,12 +277,38 @@ window.addEventListener('load', function () {
         return lines.join('\n');
     };
     
+    Player.checkGameLimits = function () {
+        var i = Player.players.length;
+        var p;
+        
+        while (i) {
+            --i;
+            p = Player.players[i];
+            if (p.games >= Player.maxgames) {
+                p.setStatus(strings.state.inactive);
+            } else if (p.state === strings.state.object.inactive) {
+                p.setStatus(strings.state.avail);
+            }
+        }
+        
+        Player.sort();
+    };
+    
+    Player.updateMinMax = function () {
+        mingamesbox.value = Player.mingames;
+        maxgamesbox.value = Player.maxgames;
+        
+        Player.checkGameLimits();
+    };
+    
     Player.prototype.resetPoints = function () {
         this.games = 0;
         this.siege = 0;
         this.buchholz = 0;
         this.feindbuchholz = 0;
         this.netto = 0;
+        this.rank = 1;
+        this.time = 0;
     };
 
     Player.prototype.toString = function () {
@@ -212,9 +331,9 @@ window.addEventListener('load', function () {
     };
     
     Player.prototype.setStatus = function (status) {
-        var element = document.getElementById('player' + this.pid);
+        var element = document.getElementById(strings.keys.player + this.pid);
         if (!element) {
-            alert("pid error!");
+            alert(strings.err.pid);
         }
 
         var select = element.getElementsByTagName('select')[0];
@@ -224,7 +343,7 @@ window.addEventListener('load', function () {
         select.selectedIndex = this.state;
         var opts = select.getElementsByTagName('option');
 
-        if (status === 'playing') {
+        if (status === strings.state.playing || status === strings.state.inactive) {
             opts[0].disabled = true;
             opts[1].disabled = true;
             opts[2].disabled = true;
@@ -240,7 +359,7 @@ window.addEventListener('load', function () {
     };
 
     Player.prototype.getKey = function () {
-        return "player" + this.pid;
+        return strings.keys.player + this.pid;
     };
 
     Player.prototype.save = function () {
@@ -252,6 +371,53 @@ window.addEventListener('load', function () {
         // appendToDOM is called from within Player.restore now
     };
     
+    Player.calcRank = function () {
+        
+        function sortrank(a, b) {
+            if (a.siege !== b.siege) {
+                return b.siege - a.siege;
+            }
+            
+            if (a.buchholz !== b.buchholz) {
+                return b.buchholz - a.buchholz;
+            }
+            
+            if (a.feindbuchholz !== b.feindbuchholz) {
+                return b.feindbuchholz - a.feindbuchholz;
+            }
+            
+            return b.netto - a.netto;
+        }
+        
+        var tmparr = [];
+        var i = Player.players.length;
+        
+        while (i) {
+            --i;
+            tmparr[i] = Player.players[i];
+        }
+        
+        function samerank(i) {
+            return tmparr[i].siege === tmparr[i + 1].siege &&
+                    tmparr[i].buchholz === tmparr[i + 1].buchholz &&
+                    tmparr[i].feindbuchholz === tmparr[i + 1].feindbuchholz &&
+                    tmparr[i].netto === tmparr[i + 1].netto;
+        }
+        
+        tmparr.sort(sortrank);
+        
+        var imax = tmparr.length;
+        var rank = 1;
+        for (i = 0; i < imax; ++i) {
+            
+            tmparr[i].rank = rank;
+            
+            if (i !== imax - 1 && !samerank(i)) {
+                rank = i + 2;
+            }
+        }
+    }
+    
     Player.sort = function () {
         
         var tmparr = [];
@@ -262,25 +428,29 @@ window.addEventListener('load', function () {
             if (a.state !== b.state) {
                 return b.state - a.state;
             }
+//            
+//            if (a.games !== b.games) {
+//                return a.games - b.games;
+//            }
+//            
+//            if (a.siege !== b.siege) {
+//                return a.siege - b.siege;
+//            }
+//            
+//            if (a.buchholz !== b.buchholz) {
+//                return a.buchholz - b.buchholz;
+//            }
+//            
+//            if (a.feindbuchholz !== b.feindbuchholz) {
+//                return a.feindbuchholz - b.feindbuchholz;
+//            }
+//            
+//            if (a.netto !== b.netto) {
+//                return a.netto - b.netto;
+//            }
             
-            if (a.games !== b.games) {
-                return a.games - b.games;
-            }
-            
-            if (a.siege !== b.siege) {
-                return a.siege - b.siege;
-            }
-            
-            if (a.buchholz !== b.buchholz) {
-                return a.buchholz - b.buchholz;
-            }
-            
-            if (a.feindbuchholz !== b.feindbuchholz) {
-                return a.feindbuchholz - b.feindbuchholz;
-            }
-            
-            if (a.netto !== b.netto) {
-                return a.netto - b.netto;
+            if (b.rank !== a.rank) {
+                return b.rank - a.rank;
             }
             
             return b.pid - a.pid;
@@ -310,7 +480,9 @@ window.addEventListener('load', function () {
         
         var i = Player.players.length;
         
-        localStorage.setItem('numplayers', i);
+        localStorage.setItem(strings.keys.numplayers, i);
+        localStorage.setItem(strings.keys.mingames, Player.mingames);
+        localStorage.setItem(strings.keys.maxgames, Player.maxgames);
         
         while (i) {
             i--;
@@ -333,7 +505,18 @@ window.addEventListener('load', function () {
     Player.restore = function () {
         var p;
         var i;
-        var max = localStorage.getItem("numplayers");
+        var tmp;
+        var max = localStorage.getItem(strings.keys.numplayers);
+        
+        tmp = localStorage.getItem(strings.keys.mingames);
+        if (tmp !== null) {
+            Player.mingames = Number(tmp);
+        }
+        
+        tmp = localStorage.getItem(strings.keys.maxgames);
+        if (tmp !== null) {
+            Player.maxgames = Number(tmp);
+        }
         
         Player.clearDOM();
         
@@ -347,7 +530,7 @@ window.addEventListener('load', function () {
         
         Player.calcPoints();
         
-        Player.sort();
+        Player.updateMinMax();
     };
 
     Player.get = function (pid) {
@@ -359,20 +542,11 @@ window.addEventListener('load', function () {
     };
 
     Player.sidToString = function (sid) {
-        var array = ['avail', 'pass', 'inactive', 'playing'];
-
-        return array[sid];
+        return strings.state.arr[sid];
     };
 
     Player.stringToSid = function (string) {
-        var object = {
-            avail : 0,
-            pass : 1,
-            inactive : 2,
-            playing : 3
-        };
-
-        return object[string];
+        return strings.state.object[string];
     };
 
     Player.calcPoints = function () {
@@ -395,17 +569,22 @@ window.addEventListener('load', function () {
             i--;
 
             g = Game.games[i];
-            if (g.state !== 'finished') {
+            if (g.state !== strings.game.finished) {
                 continue;
             }
 
             diff = g.scoreA - g.scoreB;
 
+            p(g.A1).time += g.time;
+            p(g.A2).time += g.time;
+            p(g.B1).time += g.time;
+            p(g.B2).time += g.time;
+            
             p(g.A1).games++;
             p(g.A2).games++;
             p(g.B1).games++;
             p(g.B2).games++;
-
+            
             p(g.A1).netto += diff;
             p(g.A2).netto += diff;
             p(g.B1).netto -= diff;
@@ -414,7 +593,7 @@ window.addEventListener('load', function () {
             if (g.scoreA > g.scoreB) {
                 p(g.A1).siege++;
                 p(g.A2).siege++;
-            } else {
+            } else if (g.scoreB > g.scoreA) {
                 p(g.B1).siege++;
                 p(g.B2).siege++;
             }
@@ -425,7 +604,7 @@ window.addEventListener('load', function () {
             i--;
 
             g = Game.games[i];
-            if (g.state !== 'finished') {
+            if (g.state !== strings.game.finished) {
                 continue;
             }
 
@@ -442,7 +621,7 @@ window.addEventListener('load', function () {
             i--;
 
             g = Game.games[i];
-            if (g.state !== 'finished') {
+            if (g.state !== strings.game.finished) {
                 continue;
             }
 
@@ -452,8 +631,10 @@ window.addEventListener('load', function () {
             p(g.B1).feindbuchholz += p(g.A1).buchholz + p(g.A2).buchholz;
             p(g.B2).feindbuchholz += p(g.A1).buchholz + p(g.A2).buchholz;
         }
+        
+        Player.calcRank();
     };
-
+    
     Player.prototype.appendToDOM = function () {
         // add according elements to DOM
 
@@ -471,17 +652,29 @@ window.addEventListener('load', function () {
         select.addEventListener('change', function () {
             that.setStatus(Player.sidToString(select.selectedIndex));
             Player.sort();
+            Game.checkConstellations();
         }, false);
 
         this.setStatus(Player.sidToString(this.state));
     };
-
+    
     Player.prototype.updateInfo = function () {
         var element = document.getElementById('player' + this.pid);
         var span = element.getElementsByClassName('points')[0];
-        span.innerHTML = this.pointsToString();
-    };
+        
+        var d = new Date();
+        d.setTime(this.time);
+        
+        var min = d.getUTCMinutes();
+        var sec = d.getUTCSeconds();
+        min = (min < 10 ? '0' : '') + min;
 
+        var str = [d.getUTCHours(), min].join(':');
+
+        span.innerHTML = ['<b>', this.rank, '</b> (', this.pointsToString(),
+                ') ', str].join('');
+    };
+    
     Player.updateInfos = function () {
         var i = Player.players.length;
         while (i) {
@@ -503,7 +696,7 @@ window.addEventListener('load', function () {
         var name = newplayer.name.value;
         newplayer.name.value = '';
 
-        if (!name || !confirm('create "' + name + '"?')) {
+        if (!name || !confirm(strings.createplayer.replace('%NAME', name))) {
             return;
         }
 
@@ -511,20 +704,209 @@ window.addEventListener('load', function () {
         var player = new Player(name, pid);
 
         Player.players[pid] = player;
+        
+        var i = Day.days.length;
+        while (i) {
+            --i;
+            Day.days[i].results[pid] = [0, 0, 0, 0, 0];
+        }
 
-// not required anymore (sort() takes care now)
-//        player.appendToDOM();
-
-        localStorage.setItem("numplayers", Player.players.length);
+        localStorage.setItem(strings.keys.numplayers, Player.players.length);
         
         Player.sort();
+        
+        Game.checkConstellations();
     };
+    
+    function randpick(arr) {
+        if (!arr || !arr.length) {
+            return undefined;
+        }
+        
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+    
+    function previousTeams() {
+        var out = [];
+        var i = Player.players.length;
+        var j;
+        var g;
+        
+        while (i) {
+            --i;
+            out[i] = [];
+        }
+        
+        if (document.getElementById('alldays').checked) {
+            i = Day.days.length;
+            while (i) {
+                --i;
 
+                g = Day.days[i].games;
+
+                j = g.length;
+                while (j) {
+                    --j;
+
+                    out[g[j].A1].push(g[j].A2);
+                    out[g[j].A2].push(g[j].A1);
+                    out[g[j].B1].push(g[j].B2);
+                    out[g[j].B2].push(g[j].B1);
+                }
+            }
+        }
+        
+        g = Game.games;
+        
+        j = g.length;
+        while (j) {
+            --j;
+
+            out[g[j].A1].push(g[j].A2);
+            out[g[j].A2].push(g[j].A1);
+            out[g[j].B1].push(g[j].B2);
+            out[g[j].B2].push(g[j].B1);
+        }
+        
+        return out;
+    }
+    
+    // This function builds a list of possible team constellations
+    // It is intended to be used to calculate game weights and random pick
+    // one constellation automagically
+    // This function doesn't use the Player class internally. PIDs are used.
+    function possibleConstellations() {
+        var available = []; // pids of available players
+        var invalidteams = previousTeams();
+        var teams = []; // possible teams
+        var out = [];   // possible constellations
+        var rapids = [];
+        var forcerapid = false;
+        var tmp;
+        
+        var a, b; // players of one team
+        var i = Player.players.length;
+        
+        // build list of available players
+        while (i) {
+            --i;
+            
+            if (Player.players[i].state === strings.state.object.avail) {
+                available.push(i);
+            } else if (Player.players[i].state === strings.state.object.rapid) {
+                available.push(i);
+                rapids.push(i);
+            }
+        }
+        
+        if (rapids.length >= 4) {
+            available = rapids;
+        } else if (rapids.length) {
+            forcerapid = true;
+        }
+        
+        // a game requires four players
+        if (available.length < 4) {
+            return undefined;
+        }
+        
+        // get list of possible teams
+        a = available.length;
+        while (a) {
+            --a;
+            
+            b = a;  // no permutations
+            while (b) {
+                --b;
+                
+                if (invalidteams[available[a]].indexOf(available[b]) === -1) {
+                    teams.push([available[a], available[b]]);
+                }
+            }
+        }
+        
+        // build all possible constellations (TODO: really necessary?)
+        a = teams.length;
+        while (a) {
+            --a;
+            
+            b = a;
+            while (b) {
+                --b;
+                
+                if (teams[a][0] !== teams[b][0] && 
+                        teams[a][0] !== teams[b][1] && 
+                        teams[a][1] !== teams[b][0] && 
+                        teams[a][1] !== teams[b][1]) {
+                    if (forcerapid) {
+                        i = rapids.length;
+                        tmp = false;
+                        while (i) {
+                            --i;
+                            if (teams[a].indexOf(rapids[i]) === -1 &&
+                                    teams[b].indexOf(rapids[i]) === -1) {
+                                tmp = true;
+                                break;
+                            }
+                            
+                        }
+                        
+                        if (tmp) {
+                            continue;
+                        }
+                    }
+                    
+                    out.push([teams[a][0], teams[a][1], teams[b][0], teams[b][1]]);
+                }
+            }
+        }
+        
+        if (!out.length && rapids === available) {
+            return [rapids.slice(0, 4)];
+        }
+        
+        return out;
+    }
+    
 //  function for creating a new game and assigning teams
     function newgame() {
-        Game.add(0, 2, 1, 3);
+        
+        gamebutton.disable = true;
+        
+        var c;
+        
+        if (Game.constellations === undefined) {
+            alert(strings.notenoughplayers);
+            return;
+        }
+        
+        if (Game.constellations.length === 0) {
+            alert(strings.nogamepossible);
+            return;
+        }
+        
+        c = randpick(Game.constellations);
+        
+        Game.add(c[0], c[1], c[2], c[3]);
     }
-
+    
+    Game.checkConstellations = function () {
+        Game.constellations = possibleConstellations();
+        
+//        if (Game.constellations) {
+//            console.log('# possible constellations: ' + Game.constellations.length);
+//        }
+//        else {
+//            console.log('no games possible')
+//        }
+        
+        if (!Game.constellations || Game.constellations.length === 0) {
+            gamebutton.disabled = true;
+        } else {
+            gamebutton.disabled = false;
+        }
+    };
+        
     Game.prototype.toString = function () {
         return [this.A1, this.A2, this.B1, this.B2, this.scoreA,
                 this.scoreB, this.time, this.state].join(' ');
@@ -553,7 +935,10 @@ window.addEventListener('load', function () {
         }
 
         var i = Game.games.length;
-        localStorage.setItem('numgames', i);
+        localStorage.setItem(strings.keys.numgames, i);
+        localStorage.setItem(strings.keys.timelimit, Game.timelimit);
+        
+//        console.log(Game.timelimit);
 
         while (i) {
             i--;
@@ -563,11 +948,11 @@ window.addEventListener('load', function () {
     };
 
     Game.prototype.save = function () {
-        localStorage.setItem('game' + this.gid, this.toString());
+        localStorage.setItem(strings.keys.game + this.gid, this.toString());
     };
 
     Game.prototype.restore = function () {
-        this.fromString(localStorage.getItem('game' + this.gid)).appendToDOM();
+        this.fromString(localStorage.getItem(strings.keys.game + this.gid)).appendToDOM();
     };
     
     Game.clearDOM = function () {
@@ -581,9 +966,17 @@ window.addEventListener('load', function () {
     };
 
     Game.restore = function () {
-        var max = localStorage.getItem('numgames');
+        var max = Number(localStorage.getItem(strings.keys.numgames));
         var g;
         var i;
+        
+        Game.timelimit = localStorage.getItem(strings.keys.timelimit);
+        if (Game.timelimit === null) {
+            Game.timelimit = 75;
+        } else {
+            Game.timelimit = Number(Game.timelimit);
+        }
+        timelimitbox.value = Game.timelimit;
         
         Game.clearDOM();
         
@@ -594,18 +987,20 @@ window.addEventListener('load', function () {
             Game.games[i] = g;
             g.restore();
         }
+        
+        Game.checkConstellations();
     };
-
+    
     Game.prototype.appendToDOM = function () {
-        if (this.state === 'finished') {
+        if (this.state === strings.game.finished) {
             return;
         }
         
         // bind player status
-        Player.get(this.A1).setStatus('playing');
-        Player.get(this.A2).setStatus('playing');
-        Player.get(this.B1).setStatus('playing');
-        Player.get(this.B2).setStatus('playing');
+        Player.get(this.A1).setStatus(strings.state.playing);
+        Player.get(this.A2).setStatus(strings.state.playing);
+        Player.get(this.B1).setStatus(strings.state.playing);
+        Player.get(this.B2).setStatus(strings.state.playing);
         
         Player.sort();
 
@@ -615,12 +1010,7 @@ window.addEventListener('load', function () {
         var interval;
 
         // add function to control state
-        function endgame() {
-            var scorea = element.getElementsByClassName('left')[0].
-                    getElementsByClassName('score')[0].value;
-            var scoreb = element.getElementsByClassName('right')[0].
-                    getElementsByClassName('score')[0].value;
-
+        function endgame(scorea, scoreb) {
             that.scoreA = Number(scorea);
             that.scoreB = Number(scoreb);
 
@@ -628,24 +1018,27 @@ window.addEventListener('load', function () {
             d.setTime(d.getTime() - begin.getTime());
 
             that.time = d.getTime();
-            that.state = 'finished';
+            that.state = strings.game.finished;
 
             clearInterval(interval);
 
             element.parentNode.removeChild(element);
 
-            Player.get(that.A1).setStatus('avail');
-            Player.get(that.A2).setStatus('avail');
-            Player.get(that.B1).setStatus('avail');
-            Player.get(that.B2).setStatus('avail');
+            Player.get(that.A1).setStatus(strings.state.avail);
+            Player.get(that.A2).setStatus(strings.state.avail);
+            Player.get(that.B1).setStatus(strings.state.avail);
+            Player.get(that.B2).setStatus(strings.state.avail);
 
             if (storage) {
                 that.save();
             }
 
             Player.calcPoints();
+            Player.checkGameLimits();
             Player.updateInfos();
-            Player.sort();
+            
+            
+            Game.checkConstellations();
         }
 
         // bind to DOM
@@ -661,7 +1054,7 @@ window.addEventListener('load', function () {
 
         // add timer
         var timer = element.getElementsByTagName('span')[0];
-        timer.innerHTML = "0:00:00";
+        timer.innerHTML = strings.timedefault;
         begin = new Date();
 
         if (this.time !== 0) {
@@ -669,11 +1062,21 @@ window.addEventListener('load', function () {
         } else {
             this.time = begin.getTime();
         }
-
+        
+        function checkTimeLimit(milliseconds) {
+            if (milliseconds >= Game.timelimit * 60000 && !/abovetimelimit/.test(element.className)) {
+                element.className += ' abovetimelimit';
+            } else if (/abovetimelimit/.test(element.className)) {
+                element.className = element.className.split(' ').slice(0, 2).join(' ');
+            }
+            
+            return milliseconds;
+        }
+        
         // set timer
         interval = setInterval(function () {
             var d = new Date();
-            d.setTime(d.getTime() - begin.getTime());
+            d.setTime(checkTimeLimit(d.getTime() - begin.getTime()));
             var min = d.getUTCMinutes();
             var sec = d.getUTCSeconds();
             min = (min < 10 ? '0' : '') + min;
@@ -688,9 +1091,21 @@ window.addEventListener('load', function () {
         // bind endbutton
         var endbutton = element.getElementsByClassName('endbutton')[0];
         endbutton.addEventListener('click', function () {
-            var c = confirm('Spiel beenden?');
-            if (c) {
-                endgame();
+            var scorea = element.getElementsByClassName('left')[0].
+                    getElementsByClassName('score')[0].value;
+            var scoreb = element.getElementsByClassName('right')[0].
+                    getElementsByClassName('score')[0].value;
+                
+            var str = strings.endgame;
+            str = str.replace('%A1', Player.players[that.A1].name);
+            str = str.replace('%A2', Player.players[that.A2].name);
+            str = str.replace('%B1', Player.players[that.B1].name);
+            str = str.replace('%B2', Player.players[that.B2].name);
+            str = str.replace('%S1', scorea);
+            str = str.replace('%S2', scoreb);
+            
+            if (confirm(str)) {
+                endgame(scorea, scoreb);
             }
         }, false);
     };
@@ -699,14 +1114,32 @@ window.addEventListener('load', function () {
     Game.add = function (A1, A2, B1, B2) {
         // init Game
         var gid = Game.games.length;
-
-        var game = new Game(A1, A2, B1, B2, gid);
+        var game;
+        
+        if (typeof A1 === 'number') {
+            A1 = Player.players[A1];
+        }
+        if (typeof A2 === 'number') {
+            A2 = Player.players[A2];
+        }
+        if (typeof B1 === 'number') {
+            B1 = Player.players[B1];
+        }
+        if (typeof B2 === 'number') {
+            B2 = Player.players[B2];
+        }
+        
+        game = new Game(A1.pid, A2.pid, B1.pid, B2.pid, gid);
         Game.games[gid] = game;
 
         game.appendToDOM();
 
         game.save();
-        localStorage.setItem('numgames', Game.games.length);
+        localStorage.setItem(strings.keys.numgames, Game.games.length);
+        
+        Game.checkConstellations();
+        
+        alert([A1.name, A2.name, 'gg.', B1.name, B2.name].join('\n'));
     };
     
     function parseFileContent(txt) {
@@ -730,7 +1163,10 @@ window.addEventListener('load', function () {
         Day.days = [];
         
         lines = txt.split('\n');
-        numplayers = lines.shift();
+        tmp = lines.shift().split(' ');
+        numplayers = Number(tmp[0]);
+        Game.timelimit = Number(tmp[1]);
+        timelimitbox.value = Game.timelimit;
         i = numplayers;
         
         while (i) {
@@ -745,7 +1181,10 @@ window.addEventListener('load', function () {
                 Day.days.push(new Day());
             }
             
-            numgames = Number(lines.shift());
+            tmp = lines.shift().split(' ');
+            numgames = Number(tmp[0]);
+            Player.mingames = Number(tmp[1]);
+            Player.maxgames = Number(tmp[2]);
             
             while (numgames) {
                 --numgames;
@@ -768,12 +1207,14 @@ window.addEventListener('load', function () {
             // now, a new day should start
         }
         
-        Player.sort();
+        Player.updateMinMax();
         
         numgames = Game.games.length;
         for (i = 0; i < numgames; ++i) {
             Game.games[i].appendToDOM();
         }
+        
+        Game.checkConstellations();
         
         if (storage) {
             Player.save();
@@ -789,7 +1230,7 @@ window.addEventListener('load', function () {
         var p;
         
         // write number of players to first line:
-        lines.push(Player.players.length);
+        lines.push([Player.players.length, Game.timelimit].join(' '));
         
         // add players to string
         max = Player.players.length;
@@ -807,7 +1248,7 @@ window.addEventListener('load', function () {
         // add current day to string
         lines.push('day ' + max);
         max = Game.games.length;
-        lines.push(max);
+        lines.push([max, Player.mingames, Player.maxgames].join(' '));
         for (i = 0; i < max; ++i) {
             lines.push(Game.games[i].toString());
         }
@@ -820,7 +1261,7 @@ window.addEventListener('load', function () {
                     p.netto].join(' '));
         }
         
-        // return finished string
+        // return complete string
         return lines.join('\n');
     }
     
@@ -852,9 +1293,9 @@ window.addEventListener('load', function () {
         window.onbeforeunload = null;
         
         if (!storage) {
-            return 'Wenn du die Seite schliesst, gehen alle Daten verloren!';
+            return strings.alllost;
         } else {
-            return 'Keine Sorge: Die Spieldaten werden gespeichert.';
+            return strings.allsaved;
         }
         
     }
@@ -863,7 +1304,7 @@ window.addEventListener('load', function () {
 
     document.getElementById('cleardatabase').addEventListener('click',
         function () {
-            if (confirm('Wirklich alle gespeicherten Eintraege loeschen?')) {
+            if (confirm(strings.clearall)) {
                 localStorage.clear();
                 window.onbeforeunload = null;
                 location.reload();
@@ -874,7 +1315,8 @@ window.addEventListener('load', function () {
     if (storage) {
         warning.parentNode.removeChild(warning);
     } else {
-        warning.innerHTML = "html5 storage is not enabled. In-browser saving disabled.";
+        warning.innerHTML = strings.err.nostorage;
+        warning.setAttribute('style', 'font-size: 100%');
     }
 
 // remove template elements
@@ -897,7 +1339,7 @@ window.addEventListener('load', function () {
         Player.restore();
         Game.restore();
         Player.calcPoints();
-        Player.sort();
+        Player.checkGameLimits();
     }
 
     window.onbeforeunload = beforeunload;
@@ -911,11 +1353,13 @@ window.addEventListener('load', function () {
         }
         
         var win = window.open();
-        
-        win.document.body.innerHTML = ['<p>Kopiere den Inhalt dieses Feldes in\n\
-                eine Datei, um das Turnier zu speichern.</p>\
-                <textarea style="width: 90%; height: 90%">',
-                createFileContent(), '</textarea>'].join('');
+        var area = win.document.createElement('textarea');
+        var p = win.document.createElement('p');
+        p.appendChild(win.document.createTextNode(strings.copythis));
+        area.setAttribute('style', 'width: 90%; height: 90%');
+        area.value = createFileContent();
+        win.document.body.appendChild(p);
+        win.document.body.appendChild(area);
         
     }, false);
 
@@ -924,17 +1368,15 @@ window.addEventListener('load', function () {
         var win = window.open();
         var area = win.document.createElement('textarea');
         area.setAttribute('style', 'height: 90%; width: 90%');
-        var p = win.document.createElement('p')
-        var p_txt = win.document.createTextNode('Fuege gespeicherten Text hier\
-                ein und druecke den Knopf. Dabei werden alle momentan\
-                gespeicherten Daten ueberschrieben.')
-        p.appendChild(p_txt);
-        var button = win.document.createElement('input')
+        var p = win.document.createElement('p');
+        p.appendChild(win.document.createTextNode(strings.pastehere));
+        var button = win.document.createElement('input');
         button.setAttribute('type', 'button');
         button.setAttribute('value', 'Laden');
         
         button.addEventListener('click', function () {
             parseFileContent(area.value);
+            win.close();
         }, false);
         
         p.appendChild(button);
@@ -950,24 +1392,140 @@ window.addEventListener('load', function () {
 */
     }, false);
     
-    document.getElementById('endday').addEventListener('click', function() {
-        
+    document.getElementById('endday').addEventListener('click', function () {
         var i = Game.games.length;
         while (i) {
             --i;
             
-            if (Game.games[i].state === 'running') {
-                alert('Es gibt noch offene Spiele!');
+            if (Game.games[i].state === strings.game.running) {
+                alert(strings.stillopengames);
                 return;
             }
         }
         
-        if (confirm('Soll der aktuelle Spieltag wirklich beendet werden?')) {
+        if (confirm(strings.endday)) {
             Day.days.push(new Day());
             Day.save();
             Player.calcPoints();
             Player.updateInfos();
+            
+            Game.checkConstellations();
         }
     }, false);
+    
+    document.getElementById('overview').addEventListener('click', function () {
+        
+        var win = window.open();
+        var doc = win.document;
+        var body = doc.body;
+        
+        var p = Player.players;
+        var i;
+        var imax;
+        var j;
+        var jmax;
+        
+        var table = doc.createElement('table');
+        var tr = doc.createElement('tr');
+        var td;
+        
+        var style = doc.createElement('style');
+        style.appendChild(doc.createTextNode('\n\
+table {\n\
+    border-width: 1px;\n\
+}\n\
+\n\
+td {\n\
+    border-width: 1px;\n\
+}\n\
+\n\
+\n\
+        '));
+        doc.getElementsByTagName('head')[0].appendChild(style);
+        
+        td = doc.createElement('th');
+        td.appendChild(doc.createTextNode('Spieler'));
+        tr.appendChild(td);
+        
+        imax = Day.days.length;
+        for (i = 0; i < imax; ++i) {
+            td = doc.createElement('th');
+            td.appendChild(doc.createTextNode('Tag ' + (i + 1)));
+            tr.appendChild(td);
+        }
+        
+        td = doc.createElement('th');
+        td.appendChild(doc.createTextNode('Tag ' + (imax + 1)));
+        tr.appendChild(td);
+        
+        td = doc.createElement('th');
+        td.appendChild(doc.createTextNode('Gesamt'));
+        tr.appendChild(td);
+        
+        table.appendChild(tr);
+        
+        // <MAGIC>
+        jmax = p.length;
+        for (j = 0; j < jmax; ++j) {
+            
+            tr = doc.createElement('tr');
+            
+            td = doc.createElement('td');
+            td.appendChild(doc.createTextNode(p[j].name));
+            tr.appendChild(td);
+            
+            imax = Day.days.length;
+            for (i = 0; i < imax; ++i) {
+                td = doc.createElement('td');
+                td.appendChild(doc.createTextNode(Day.days[i].results[j]));
+                tr.appendChild(td);
+            }
+            
+            td = doc.createElement('td');
+            td.appendChild(doc.createTextNode(p[j].pointsToString()));
+            tr.appendChild(td);
+            
+            td = doc.createElement('td');
+            td.appendChild(doc.createTextNode('TODO'));
+            tr.appendChild(td);
+            
+            table.appendChild(tr);
+        }
+        
+        // </MAGIC>
+        
+        body.appendChild(table);
+        
+    }, false);
+    
+    document.getElementById('alldays').addEventListener('change', function () {
+        Game.checkConstellations();
+    }, false);
+    
+    document.getElementById('ok').addEventListener('click', function () {
+        updateTimeLimit();
+        updateGameLimits();
+    }, false);
+    
+    function updateGameLimits() {
+        Player.mingames = Number(mingames.value);
+        Player.maxgames = Number(maxgames.value);
+        
+        Player.checkGameLimits();
+        
+        Game.checkConstellations();
+        
+        Player.save();
+    }
+    
+    function updateTimeLimit() {
+        Game.timelimit = Number(timelimitbox.value);
+        Game.save();
+    }
+    
+//    timelimitbox.addEventListener('change', updateTimeLimit, false);
+    timelimitbox.addEventListener('blur', updateTimeLimit, false);
+    mingamesbox.addEventListener('blur', updateGameLimits, false);
+    maxgamesbox.addEventListener('blur', updateGameLimits, false);
     
 }, false);

@@ -9,32 +9,46 @@
     <p id="javascript">Um diese Tabelle nutzen zu koennen, muss JavaScript
         aktiviert sein.</p>
 
-    <h1><input id="save" type="button" value="save" />
-        <input id="load" type="button" value="load" />Boules Melee System
-        <input id="cleardatabase" type="button" value="clear database"></h1>
+    <h1>
+        <input id="save" type="button" value="speichern" />
+        <input id="load" type="button" value="laden" />
+        Boules Melee
+        <input id="cleardatabase" type="button" value="clear database">
+    </h1>
     
     <div id="playerlist">
         <div class="oldplayer">
-            <select>
+            <select title="Spielerstatus">
+                <option value="rapid">bevorzugt</option>
                 <option value="avail">verf&uuml;gbar</option>
-                <option value="pass">setzt aus</option>
-                <option value="inactive">inaktiv</option>
+                <option value="pass">Pause</option>
                 <option value="playing" disabled>im Spiel</option>
+                <option value="inactive" disabled>inaktiv</option>
             </select>
             <span>%NAME</span><br><span class="points">pts</span>
         </div>
         <div id="newplayer">
             <span></span>
+            <span>Zeitlimit in min</span>
+            <input id="timelimit" type="number" title="Zeitlimit" min="0" max="900" step="15" value="75" />
+            <input id="ok" type="button" title="alle Formulardaten speichern" value="OK" />
+            <br>
+            <input id="mingames" type="number" title="Spiele Minimum" min="1" max="99" value="4" />
+            <span>Min / Max</span>
+            <input id="maxgames" type="number" title="Spiele Maximum" min="1" max="99" value="5" />
+            <br>
             <input id="playername" type="text" placeholder="neuer Spieler"
-                    maxlength="32"/>
+                    maxlength="32" title="Namen eintragen" />
             <input id="playerbutton" type="button" value="anmelden" />
         </div>
         <p>(Spiele, Siege, Buchholz, Feind-BH, Netto)</p>
     </div>
 
     <div id="gamelist">
+        <input type="checkbox" id="alldays" title="Dopplungen aller Tage vermeiden" checked />
         <input id="newgame" type="button" value="Spiel starten" />
         <input id="endday" type="button" value="Tag beenden" />
+        <input id="overview" type="button" value="Übersicht" />
         <div class="running game">
             <div class="left">
                 <p>%A1<br>
