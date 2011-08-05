@@ -56,7 +56,7 @@ window.addEventListener('load', function () {
         clearall: 'Sollen alle gespeicherten Daten entfernt werden?',
         alllost: 'Wenn du die Seite schliesst, gehen alle Daten verloren!',
         allsaved: 'Keine Sorge: Die Spieldaten werden gespeichert.',
-        endgame: 'Spiel "%A1 & %A2" gegen "%B1 & %B2" mit Stand %S1:%S2 beenden?',
+        endgame: 'Spiel "%A1% & %A2%" gegen "%B1% & %B2%" mit Stand %S1%:%S2% beenden?',
         notenoughplayers: 'Zu wenige Spieler',
         nogamepossible: 'Kein neues Spiel moeglich',
         createplayer: 'Soll "%NAME" angemeldet werden?'
@@ -1097,12 +1097,12 @@ window.addEventListener('load', function () {
                     getElementsByClassName('score')[0].value;
                 
             var str = strings.endgame;
-            str = str.replace('%A1', Player.players[that.A1].name);
-            str = str.replace('%A2', Player.players[that.A2].name);
-            str = str.replace('%B1', Player.players[that.B1].name);
-            str = str.replace('%B2', Player.players[that.B2].name);
-            str = str.replace('%S1', scorea);
-            str = str.replace('%S2', scoreb);
+            str = str.replace('%A1%', Player.players[that.A1].name);
+            str = str.replace('%A2%', Player.players[that.A2].name);
+            str = str.replace('%B1%', Player.players[that.B1].name);
+            str = str.replace('%B2%', Player.players[that.B2].name);
+            str = str.replace('%S1%', scorea);
+            str = str.replace('%S2%', scoreb);
             
             if (confirm(str)) {
                 endgame(scorea, scoreb);
