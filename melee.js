@@ -80,21 +80,11 @@ window.addEventListener('load', function () {
 
 // Game constructor
     function Game(A1, A2, B1, B2, gid) {
-        if (A1 === undefined) {
-            A1 = 0;
-        }
-        if (A2 === undefined) {
-            A2 = 0;
-        }
-        if (B1 === undefined) {
-            B1 = 0;
-        }
-        if (B2 === undefined) {
-            B2 = 0;
-        }
-        if (gid === undefined) {
-            gid = Game.games.length;
-        }
+        A1 = A1 || 0;
+        A2 = A2 || 0;
+        B1 = B1 || 0;
+        B2 = B2 || 0;
+        gid = gid || Game.games.length;
         
         this.gid = gid;
 
@@ -117,13 +107,8 @@ window.addEventListener('load', function () {
     
 // Player constructor
     function Player(name, pid) {
-        if (name === undefined) {
-            name = '';
-        }
-        
-        if (pid === undefined) {
-            pid = Player.players.length;
-        }
+        name = name || '';
+        pid = pid || Player.players.length;
         
         this.pid = pid; // integer
         this.name = name;   // string
@@ -212,7 +197,15 @@ window.addEventListener('load', function () {
         }
     }
     Day.days = [];
-    
+
+    Day.setDayNum = function () {
+        var button = document.getElementById('endday');
+        button.originalValue = button.originalValue || button.value;
+
+        button.value = button.originalValue.replace('%DAYNUM%',
+                (Day.days.length + 1));
+    };
+
     Day.restore = function () {
         var txt = localStorage.getItem(strings.keys.days);
         if (!txt) {
@@ -391,9 +384,9 @@ window.addEventListener('load', function () {
         
         function samerank(i) {
             return tmparr[i].siege === tmparr[i + 1].siege &&
-                    tmparr[i].buchholz === tmparr[i + 1].buchholz &&
-                    tmparr[i].feindbuchholz === tmparr[i + 1].feindbuchholz &&
-                    tmparr[i].netto === tmparr[i + 1].netto;
+                tmparr[i].buchholz === tmparr[i + 1].buchholz &&
+                tmparr[i].feindbuchholz === tmparr[i + 1].feindbuchholz &&
+                tmparr[i].netto === tmparr[i + 1].netto;
         }
         
         tmparr.sort(sortrank);
@@ -408,7 +401,7 @@ window.addEventListener('load', function () {
                 rank = i + 2;
             }
         }
-    }
+    };
     
     Player.sort = function () {
         
@@ -658,7 +651,6 @@ window.addEventListener('load', function () {
         d.setTime(this.time);
         
         var min = d.getUTCMinutes();
-        var sec = d.getUTCSeconds();
         min = (min < 10 ? '0' : '') + min;
 
         var str = [d.getUTCHours(), min].join(':');
@@ -1198,6 +1190,8 @@ window.addEventListener('load', function () {
             
             // now, a new day should start
         }
+
+        Player.sort();
         
         Player.updateMinMax();
         
@@ -1208,6 +1202,7 @@ window.addEventListener('load', function () {
         
         Game.checkConstellations();
         
+        Day.setDayNum();
         if (storage) {
             Player.save();
             Game.save();
@@ -1332,6 +1327,8 @@ window.addEventListener('load', function () {
         Game.restore();
         Player.calcPoints();
         Player.checkGameLimits();
+
+        Day.setDayNum();
     }
 
     window.onbeforeunload = beforeunload;
@@ -1401,29 +1398,31 @@ window.addEventListener('load', function () {
             Player.calcPoints();
             Player.updateInfos();
             
+            Day.setDayNum();
             Player.checkGameLimits();
 
             Game.checkConstellations();
         }
     }, false);
 
-    function copyArray(orig) {
+    function copyArray(orig, testfunc) {
         var arr = [];
-        var i = orig.length;
-        while (i) {
-            --i;
-
-            arr[i] = orig[i];
+        var imax = orig.length;
+        var i;
+        for (i = 0; i < imax; ++i) {
+            if (testfunc && testfunc(orig[i])) {
+                arr.push(orig[i]);
+            }
         }
 
         return arr;
     }
-
+    
     function rd(x) {
         return Math.round(x * 10) / 10;
     }
-
-    function calcResults () {
+    
+    function calcResults() {
         var out = [];   // array of 'result objects'
         var days = [];  // array of all days, holding their results
         var d = Day.days;   // reference
@@ -1440,32 +1439,34 @@ window.addEventListener('load', function () {
             out[i] = {name: p[i].name,
                     pid: i,
                     days: []
-            };
+                };
+            
             days = out[i].days;
 
             j = d.length;
 
             // add current day
             n = p[i].games;
-            days[j] = {n: p[i].games,
+            days[j] = {
+                n: p[i].games,
 
-                        s: p[i].siege,
-                        bh: p[i].buchholz,
-                        fbh: p[i].feindbuchholz,
-                        net: p[i].netto,
+                s: p[i].siege,
+                bh: p[i].buchholz,
+                fbh: p[i].feindbuchholz,
+                net: p[i].netto,
 
-                        rs: p[i].siege / n,
-                        rbh: p[i].buchholz / n,
-                        rfbh: p[i].feindbuchholz / n,
-                        rnet: p[i].netto / n,
+                rs: p[i].siege / n,
+                rbh: p[i].buchholz / n,
+                rfbh: p[i].feindbuchholz / n,
+                rnet: p[i].netto / n,
 
-                        counts: (n >= Player.mingames),
+                counts: (n >= Player.mingames),
 
-                        toString: function () {
-                            return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
-                                    rd(this.rnet)].join(', ') + ' (' + this.n +
-                                    ')';
-                        }
+                toString: function () {
+                    return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
+                            rd(this.rnet)].join(', ') + ' (' + this.n +
+                        ')';
+                }
             };
             
             // add past days
@@ -1475,27 +1476,47 @@ window.addEventListener('load', function () {
                 r = d[j].results[i];
                 n = r[0];
 
-                days[j] = {n: r[0],
+                days[j] = {
+                    n: r[0],
 
-                        s: r[1],
-                        bh: r[2],
-                        fbh: r[3],
-                        net: r[4],
+                    s: r[1],
+                    bh: r[2],
+                    fbh: r[3],
+                    net: r[4],
 
-                        rs: r[1] / n,
-                        rbh: r[2] / n,
-                        rfbh: r[3] / n,
-                        rnet: r[4] / n,
+                    rs: r[1] / n,
+                    rbh: r[2] / n,
+                    rfbh: r[3] / n,
+                    rnet: r[4] / n,
 
-                        counts: (n >= d[j].mingames),
+                    counts: (n >= d[j].mingames),
 
-                        toString: function () {
-                            return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
-                                    rd(this.rnet)].join(', ') + ' (' + this.n +
-                                    ')';
-                        }
-                    };
+                    toString: function () {
+                        return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
+                                rd(this.rnet)].join(', ') + ' (' + this.n +
+                            ')';
+                    }
+                };
             }
+
+            days = copyArray(days, function (a) {
+                return a.counts;
+            });
+
+            days.sort(function (a, b) {
+                if (a.rs !== b.rs) {
+                    return b.rs - a.rs;
+                }
+                if (a.rbh !== b.rbh) {
+                    return b.rbh - a.rbh;
+                }
+                if (a.rfbh !== b.rfbh) {
+                    return b.rfbh - a.rfbh;
+                }
+                return b.rnet - a.rnet;
+            });
+
+            out[i].bestDays = days;
         }
 
         return out;
@@ -1514,29 +1535,108 @@ window.addEventListener('load', function () {
         return out;
     }
 
+    function bestDays(results, numdays) {
+        numdays = numdays || 1;
+        
+        var arr = [];
+        var out = [];
+        var i = Player.players.length;
+        var o;  // temporary object
+        var j;  // day counter
+        while (i) {
+            --i;
+            if (results[i].bestDays.length < numdays) {
+                continue;
+            }
+
+            o = {
+                rs: 0,
+                rbh: 0,
+                rfbh: 0,
+                rnet: 0,
+                n: 0,
+
+                toString: function () {
+                    return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
+                            rd(this.rnet)].join(', ') + ' (' + this.n + ')';
+                },
+
+                append: function (o) {
+                    this.rs += o.rs;
+                    this.rbh += o.rbh;
+                    this.rfbh += o.rfbh;
+                    this.rnet += o.rnet;
+
+                    this.n += Number(o.n);
+                },
+
+                finish: function () {
+                    this.rs /= numdays;
+                    this.rbh /= numdays;
+                    this.rfbh /= numdays;
+                    this.rnet /= numdays;
+                }
+            };
+
+            for (j = 0; j < numdays; ++j) {
+                o.append(results[i].bestDays[j]);
+            }
+
+            o.finish();
+
+            arr.push({pid: i, day: o});
+
+        }
+
+//        console.log(arr);
+
+        arr.sort(function (a, b) {
+            if (a.day.rs !== b.day.rs) {
+                return a.day.rs - b.day.rs;
+            }
+            if (a.day.rbh !== b.day.rbh) {
+                return a.day.rbh - b.day.rbh;
+            }
+            if (a.day.rfbh !== b.day.rfbh) {
+                return a.day.rfbh - b.day.rfbh;
+            }
+            return a.day.rnet - b.day.rnet;
+        });
+        
+        i = arr.length;
+        while (i) {
+            --i;
+            out.push([Player.players[arr[i].pid].name, arr[i].day.toString()]);
+        }
+
+        return out;
+    }
+
     function listDay(results, j) {
         var out = [];   // return array with name and values
         var arr = [];   // array of special object (pid and results)
-        var d;  // reference to 'day result object'
 
         var i = Player.players.length;
 
         function sortfunc(a, b) {
-            if (a.day.rs !== b.day.rs)
+            if (a.day.rs !== b.day.rs) {
                 return a.day.rs - b.day.rs;
-            if (a.day.rbh !== b.day.rbh)
+            }
+            if (a.day.rbh !== b.day.rbh) {
                 return a.day.rbh - b.day.rbh;
-            if (a.day.rfbh !== b.day.rfbh)
+            }
+            if (a.day.rfbh !== b.day.rfbh) {
                 return a.day.rfbh - b.day.rfbh;
+            }
             return a.day.rnet - b.day.rnet;
-        };
+        }
         
         while (i) {
             --i;
             if (results[i].days[j].counts) {
                 arr.push({pid: i,
                         day: results[i].days[j]
-                });
+                    });
             }
         }
 
@@ -1548,6 +1648,23 @@ window.addEventListener('load', function () {
         }
 
         return out;
+    }
+
+
+    function updateGameLimits() {
+        Player.mingames = Number(mingamesbox.value);
+        Player.maxgames = Number(maxgamesbox.value);
+
+        Player.checkGameLimits();
+
+        Game.checkConstellations();
+
+        Player.save();
+    }
+
+    function updateTimeLimit() {
+        Game.timelimit = Number(timelimitbox.value);
+        Game.save();
     }
 
     document.getElementById('overview').addEventListener('click', function () {
@@ -1568,39 +1685,57 @@ window.addEventListener('load', function () {
         var li; // one of its elements
         var a;  // sub-array (containing data for current column)
         var array = [];  // four-dimensional array for the data. Format:
+        var style;
+
+        var cnt;    // counter variable
         // [[Name, [[Player, Points], ...]], ...]
 
         var results = calcResults();
 
-        // TODO Fill array
+        // filling array
         array.push(["Teilnehmer", listPlayers(results)]);
-        imax = Day.days.length;
-        for (i = 0; i <= imax; ++i) {
+
+        imax = Day.days.length + 1;
+        for (i = 1; i <= imax; ++i) {
+            array.push([i !== 1 ? ['Beste', i, 'Tage'].join(' ') : 'Bester Tag',
+                    bestDays(results, i)]);
+        }
+
+        for (i = 0; i < imax; ++i) {
             array.push(["Tag " + (i + 1), listDay(results, i)]);
         }
 
-        // create "header row"
+        // create row of headers
         tr = doc.createElement('tr');
 
         // fill headers with descriptions from the array
         imax = array.length;
-        for (i = 0; i < imax; ++i) {
+        for (cnt = 0, i = 0; i < imax; ++i) {
             if (array[i][1].length) {
                 td = doc.createElement('th');
+                style = 'min-width: 200 px; ';
+
+                if (cnt++ % 2) {
+                    style += 'background-color: lightgrey; ';
+                }
+                
+                td.setAttribute('style', style);
+
                 td.appendChild(doc.createTextNode(array[i][0]));
                 tr.appendChild(td);
             }
         }
         
         table.appendChild(tr);
-
+        
         // create content row (there's just one, internals are lists!)
         tr = doc.createElement('tr');
         tr.setAttribute("valign", "top");   // cheap hack
 
         imax = array.length;
-        for (i = 0; i < imax; ++i) {
+        for (cnt = 0, i = 0; i < imax; ++i) {
             td = doc.createElement('td');
+            style = 'min-width: 200 px; ';
             
             ul = doc.createElement('ol');
 
@@ -1609,6 +1744,12 @@ window.addEventListener('load', function () {
             if (!jmax) {
                 continue;
             }
+
+            if (cnt++ % 2) {
+                style += 'background-color: lightgrey; ';
+            }
+
+            td.setAttribute('style', style);
 
             for (j = 0; j < jmax; ++j) {
                 li = doc.createElement('li');
@@ -1641,22 +1782,6 @@ window.addEventListener('load', function () {
         updateTimeLimit();
         updateGameLimits();
     }, false);
-    
-    function updateGameLimits() {
-        Player.mingames = Number(mingames.value);
-        Player.maxgames = Number(maxgames.value);
-        
-        Player.checkGameLimits();
-        
-        Game.checkConstellations();
-        
-        Player.save();
-    }
-    
-    function updateTimeLimit() {
-        Game.timelimit = Number(timelimitbox.value);
-        Game.save();
-    }
     
 //    timelimitbox.addEventListener('change', updateTimeLimit, false);
     timelimitbox.addEventListener('blur', updateTimeLimit, false);
