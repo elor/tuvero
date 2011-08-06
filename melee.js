@@ -1,11 +1,3 @@
-/**
-* TODO:
-* - Teams auswuerfeln (status beruecksichtigen)
-* - Spieler nach Punkten sortieren
-* - Maximum / Minimum an Spielen -> gleiche Zahl fuer alle Beteiligten
-* - Tage unterscheiden (Tagesuebersicht)
-**/
-
 window.addEventListener('load', function () {
     
     'use strict';
@@ -252,14 +244,14 @@ window.addEventListener('load', function () {
     };
     
     Day.prototype.toString = function () {
-        var lines = [this.games.length];
+        var lines = [[this.games.length, this.mingames, this.maxgames].join(' ')];
         var i = 0;
         var max = this.games.length;
         var tmp;
         
         // write games
         for (i = 0; i < max; ++i) {
-            lines.push([this.games[i].toString(), this.mingames, this.maxgames].join(' '));
+            lines.push(this.games[i].toString());
         }
         
         // write results
@@ -1409,90 +1401,233 @@ window.addEventListener('load', function () {
             Player.calcPoints();
             Player.updateInfos();
             
+            Player.checkGameLimits();
+
             Game.checkConstellations();
         }
     }, false);
-    
+
+    function copyArray(orig) {
+        var arr = [];
+        var i = orig.length;
+        while (i) {
+            --i;
+
+            arr[i] = orig[i];
+        }
+
+        return arr;
+    }
+
+    function rd(x) {
+        return Math.round(x * 10) / 10;
+    }
+
+    function calcResults () {
+        var out = [];   // array of 'result objects'
+        var days = [];  // array of all days, holding their results
+        var d = Day.days;   // reference
+        var p = Player.players; // reference
+
+        var r;  // results of a specific day and player; tmpvar
+        var n;  // number of games on a day
+
+        var j;  // counter variable
+        var i = p.length;   // another counter variable
+
+        while (i) {
+            --i;
+            out[i] = {name: p[i].name,
+                    pid: i,
+                    days: []
+            };
+            days = out[i].days;
+
+            j = d.length;
+
+            // add current day
+            n = p[i].games;
+            days[j] = {n: p[i].games,
+
+                        s: p[i].siege,
+                        bh: p[i].buchholz,
+                        fbh: p[i].feindbuchholz,
+                        net: p[i].netto,
+
+                        rs: p[i].siege / n,
+                        rbh: p[i].buchholz / n,
+                        rfbh: p[i].feindbuchholz / n,
+                        rnet: p[i].netto / n,
+
+                        counts: (n >= Player.mingames),
+
+                        toString: function () {
+                            return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
+                                    rd(this.rnet)].join(', ') + ' (' + this.n +
+                                    ')';
+                        }
+            };
+            
+            // add past days
+            while (j) {
+                --j;
+
+                r = d[j].results[i];
+                n = r[0];
+
+                days[j] = {n: r[0],
+
+                        s: r[1],
+                        bh: r[2],
+                        fbh: r[3],
+                        net: r[4],
+
+                        rs: r[1] / n,
+                        rbh: r[2] / n,
+                        rfbh: r[3] / n,
+                        rnet: r[4] / n,
+
+                        counts: (n >= d[j].mingames),
+
+                        toString: function () {
+                            return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
+                                    rd(this.rnet)].join(', ') + ' (' + this.n +
+                                    ')';
+                        }
+                    };
+            }
+        }
+
+        return out;
+    }
+
+    function listPlayers(results) {
+        var out = [];
+        
+        var i;
+        var imax = results.length;
+
+        for (i = 0; i < imax; ++i) {
+            out.push([results[i].name, undefined]);
+        }
+
+        return out;
+    }
+
+    function listDay(results, j) {
+        var out = [];   // return array with name and values
+        var arr = [];   // array of special object (pid and results)
+        var d;  // reference to 'day result object'
+
+        var i = Player.players.length;
+
+        function sortfunc(a, b) {
+            if (a.day.rs !== b.day.rs)
+                return a.day.rs - b.day.rs;
+            if (a.day.rbh !== b.day.rbh)
+                return a.day.rbh - b.day.rbh;
+            if (a.day.rfbh !== b.day.rfbh)
+                return a.day.rfbh - b.day.rfbh;
+            return a.day.rnet - b.day.rnet;
+        };
+        
+        while (i) {
+            --i;
+            if (results[i].days[j].counts) {
+                arr.push({pid: i,
+                        day: results[i].days[j]
+                });
+            }
+        }
+
+        arr.sort(sortfunc);
+        i = arr.length;
+        while (i) {
+            --i;
+            out.push([Player.players[arr[i].pid].name, arr[i].day.toString()]);
+        }
+
+        return out;
+    }
+
     document.getElementById('overview').addEventListener('click', function () {
         
-        var win = window.open();
-        var doc = win.document;
-        var body = doc.body;
+        var win = window.open();    // the popup window to show the overview in
+        var doc = win.document; // its document
+        var body = doc.body;    // its body
         
-        var p = Player.players;
-        var i;
-        var imax;
-        var j;
-        var jmax;
+        var i;  // counter variable 1
+        var imax;   // its maximum
+        var j;  // counter variable 2
+        var jmax;   // its maximum
         
-        var table = doc.createElement('table');
-        var tr = doc.createElement('tr');
-        var td;
-        
-        var style = doc.createElement('style');
-        style.appendChild(doc.createTextNode('\n\
-table {\n\
-    border-width: 1px;\n\
-}\n\
-\n\
-td {\n\
-    border-width: 1px;\n\
-}\n\
-\n\
-\n\
-        '));
-        doc.getElementsByTagName('head')[0].appendChild(style);
-        
-        td = doc.createElement('th');
-        td.appendChild(doc.createTextNode('Spieler'));
-        tr.appendChild(td);
-        
+        var table = doc.createElement('table'); // the table of results
+        var tr; // the row to be filled and appended
+        var td; // current cell
+        var ul; // list within the cell
+        var li; // one of its elements
+        var a;  // sub-array (containing data for current column)
+        var array = [];  // four-dimensional array for the data. Format:
+        // [[Name, [[Player, Points], ...]], ...]
+
+        var results = calcResults();
+
+        // TODO Fill array
+        array.push(["Teilnehmer", listPlayers(results)]);
         imax = Day.days.length;
-        for (i = 0; i < imax; ++i) {
-            td = doc.createElement('th');
-            td.appendChild(doc.createTextNode('Tag ' + (i + 1)));
-            tr.appendChild(td);
+        for (i = 0; i <= imax; ++i) {
+            array.push(["Tag " + (i + 1), listDay(results, i)]);
         }
-        
-        td = doc.createElement('th');
-        td.appendChild(doc.createTextNode('Tag ' + (imax + 1)));
-        tr.appendChild(td);
-        
-        td = doc.createElement('th');
-        td.appendChild(doc.createTextNode('Gesamt'));
-        tr.appendChild(td);
-        
-        table.appendChild(tr);
-        
-        // <MAGIC>
-        jmax = p.length;
-        for (j = 0; j < jmax; ++j) {
-            
-            tr = doc.createElement('tr');
-            
-            td = doc.createElement('td');
-            td.appendChild(doc.createTextNode(p[j].name));
-            tr.appendChild(td);
-            
-            imax = Day.days.length;
-            for (i = 0; i < imax; ++i) {
-                td = doc.createElement('td');
-                td.appendChild(doc.createTextNode(Day.days[i].results[j]));
+
+        // create "header row"
+        tr = doc.createElement('tr');
+
+        // fill headers with descriptions from the array
+        imax = array.length;
+        for (i = 0; i < imax; ++i) {
+            if (array[i][1].length) {
+                td = doc.createElement('th');
+                td.appendChild(doc.createTextNode(array[i][0]));
                 tr.appendChild(td);
             }
-            
-            td = doc.createElement('td');
-            td.appendChild(doc.createTextNode(p[j].pointsToString()));
-            tr.appendChild(td);
-            
-            td = doc.createElement('td');
-            td.appendChild(doc.createTextNode('TODO'));
-            tr.appendChild(td);
-            
-            table.appendChild(tr);
         }
         
-        // </MAGIC>
+        table.appendChild(tr);
+
+        // create content row (there's just one, internals are lists!)
+        tr = doc.createElement('tr');
+        tr.setAttribute("valign", "top");   // cheap hack
+
+        imax = array.length;
+        for (i = 0; i < imax; ++i) {
+            td = doc.createElement('td');
+            
+            ul = doc.createElement('ol');
+
+            a = array[i][1];
+            jmax = a.length;
+            if (!jmax) {
+                continue;
+            }
+
+            for (j = 0; j < jmax; ++j) {
+                li = doc.createElement('li');
+
+                // cheap hack ahead
+                if (a[j][1] !== undefined) {
+                    li.innerHTML = '<b>' + a[j][0] + '</b><br />' + a[j][1];
+                } else {
+                    li.innerHTML = '<b>' + a[j][0] + '</b>';
+                }
+
+                ul.appendChild(li);
+            }
+            
+            td.appendChild(ul);
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
         
         body.appendChild(table);
         
