@@ -1720,6 +1720,88 @@ window.addEventListener('load', function () {
 
         return out;
     }
+    
+    function getPlayTimeOverview(games) {
+        var out = [];   // return array with name and values
+        var arr = [];   // array of special object (time and numgames)
+        var g;  // tmparr of games of one day
+        var o;  // tmp object
+
+        var i = Player.players.length;
+        var j;
+        
+        // fill arr with objects capable of getting sorted
+        // (i.e. holding time and numgames
+        while (i) {
+            --i;
+            
+            arr[i] = {pid: i, n: 0, t: 0,
+                toString: function () {
+                    var d = new Date(this.t);
+                    var h = d.getUTCHours();
+                    var min = d.getUTCMinutes();
+                    var sec = d.getUTCSeconds();
+                    if (min < 10) {
+                        min = '0' + min;
+                    }
+                    if (sec < 10) {
+                        sec = '0' + sec;
+                    }
+                    return [h, ':', min, ':', sec, ' (', this.n, ')'].join('');
+                }
+            };
+        }
+        
+        // iterate over all days and games
+        i = games.length;
+        while (i) {
+            --i;
+            g = games[i];
+            j = g.length;
+            
+            while (j) {
+                --j;
+                o = g[j];
+                if (o.state === strings.game.finished) {
+                    arr[o.A1].t += o.time;
+                    arr[o.A2].t += o.time;
+                    arr[o.B1].t += o.time;
+                    arr[o.B2].t += o.time;
+
+                    arr[o.A1].n += 1;
+                    arr[o.A2].n += 1;
+                    arr[o.B1].n += 1;
+                    arr[o.B2].n += 1;
+                }
+            }
+        }
+        
+        // calc playtime per game
+        
+        i = arr.length;
+        while (i) {
+            --i;
+            if (arr[i].n) {
+                arr[i].t /= arr[i].n;
+            }
+        }
+
+        // sort by relative playtime
+        
+        arr.sort(function (a, b) {
+            return a.t - b.t;
+        });
+        
+        i = arr.length;
+        while (i) {
+            --i;
+            if (arr[i].n) {
+                out.push([Player.players[arr[i].pid].name, arr[i].toString()]);
+            }
+        }
+
+        return out;
+    }
 
     Game.prototype.toOverviewString = function () {
         var p = Player.players;
@@ -1761,6 +1843,7 @@ window.addEventListener('load', function () {
         var li; // one of its elements
         var a;  // sub-array (containing data for current column)
         var array = [];  // four-dimensional array for the data. Format:
+        var games = getGamesArray();
         var style;
 
         var cnt;    // counter variable
@@ -1771,6 +1854,8 @@ window.addEventListener('load', function () {
         // filling array
         array.push(["Teilnehmer", listPlayers(results)]);
 
+        array.push(["Spielzeit (pro Spiel)", getPlayTimeOverview(games)])
+        
         imax = Day.days.length + 1;
         for (i = 1; i <= imax; ++i) {
             array.push([i !== 1 ? ['Beste', i, 'Tage'].join(' ') : 'Bester Tag',
@@ -1852,14 +1937,13 @@ window.addEventListener('load', function () {
         // create games overview
         ////////
 
-        array = getGamesArray();
         table = doc.createElement('table');
 
         // create row of headers
         tr = doc.createElement('tr');
 
-        // fill headers with descriptions from the array
-        imax = array.length;
+        // fill headers with descriptions from the games array
+        imax = games.length;
         for (i = 0; i < imax; ++i) {
             td = doc.createElement('th');
             style = 'min-width: 350 px; ';
@@ -1870,7 +1954,7 @@ window.addEventListener('load', function () {
 
             td.setAttribute('style', style);
 
-            td.appendChild(doc.createTextNode('Tag ' + i));
+            td.appendChild(doc.createTextNode('Tag ' + (i + 1)));
             tr.appendChild(td);
         }
 
@@ -1886,7 +1970,7 @@ window.addEventListener('load', function () {
 
             ul = doc.createElement('ol');
 
-            a = array[i];
+            a = games[i];
             jmax = a.length;
             if (!jmax) {
                 continue;
