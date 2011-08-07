@@ -149,7 +149,8 @@ window.addEventListener('load', function () {
             this.games = Game.games;
             Game.games = [];
             
-            Game.save();
+// 55555            Game.save();
+            saveAll();
 
             while (i) {
                 --i;
@@ -336,7 +337,8 @@ window.addEventListener('load', function () {
         }
 
         if (storage) {
-            this.save();
+// 55555            this.save();
+            saveAll();
         }
     };
 
@@ -709,7 +711,7 @@ window.addEventListener('load', function () {
             Day.days[i].results[pid] = [0, 0, 0, 0, 0];
         }
 
-        localStorage.setItem(strings.keys.numplayers, Player.players.length);
+// 55555        localStorage.setItem(strings.keys.numplayers, Player.players.length);
         
         Player.sort();
         
@@ -1037,7 +1039,8 @@ window.addEventListener('load', function () {
             Player.get(that.B2).setStatus(strings.state.avail);
 
             if (storage) {
-                that.save();
+// 55555                that.save();
+                saveAll();
             }
 
             Player.calcPoints();
@@ -1140,8 +1143,9 @@ window.addEventListener('load', function () {
 
         game.appendToDOM();
 
-        game.save();
-        localStorage.setItem(strings.keys.numgames, Game.games.length);
+// 55555        game.save();
+        saveAll();
+// 55555        localStorage.setItem(strings.keys.numgames, Game.games.length);
         
         Game.checkConstellations();
         
@@ -1226,9 +1230,10 @@ window.addEventListener('load', function () {
         
         Day.setDayNum();
         if (storage) {
-            Player.save();
-            Game.save();
-            Day.save();
+// 55555            Player.save();
+//            Game.save();
+//            Day.save();
+            saveAll();
         }
     }
     
@@ -1356,24 +1361,15 @@ window.addEventListener('load', function () {
         }
     }, false);
 
-    if (storage) {
-        Day.restore();
-        Player.restore();
-        Game.restore();
-        Player.calcPoints();
-        Player.checkGameLimits();
-
-        Day.setDayNum();
-    }
-
     window.onbeforeunload = beforeunload;
 
     savebutton.addEventListener('click', function () {
         
         if (storage) {
-            Player.save();
-            Game.save();
-            Day.save();
+// 55555            Player.save();
+//            Game.save();
+//            Day.save();
+            saveAll();
         }
         
         var win = window.open();
@@ -1407,13 +1403,13 @@ window.addEventListener('load', function () {
         win.document.body.appendChild(p);
         win.document.body.appendChild(area);
         
-/*        if (storage) {
-            Player.restore();
-            Game.restore();
-            Player.calcPoints();
-            Player.sort();
-        }
-*/
+//        if (storage) {
+//            Player.restore();
+//            Game.restore();
+//            Player.calcPoints();
+//            Player.sort();
+//        }
+
     }, false);
     
     document.getElementById('endday').addEventListener('click', function () {
@@ -1429,7 +1425,8 @@ window.addEventListener('load', function () {
         
         if (confirm(strings.endday)) {
             Day.days.push(new Day());
-            Day.save();
+// 55555            Day.save();
+            saveAll();
             Player.calcPoints();
             Player.updateInfos();
             
@@ -1697,12 +1694,14 @@ window.addEventListener('load', function () {
 
         Game.checkConstellations();
 
-        Player.save();
+// 55555        Player.save();
+        saveAll();
     }
 
     function updateTimeLimit() {
         Game.timelimit = Number(timelimitbox.value);
-        Game.save();
+// 55555        Game.save();
+        saveAll();
     }
 
     function getGamesArray() {
@@ -1863,7 +1862,7 @@ window.addEventListener('load', function () {
         imax = array.length;
         for (i = 0; i < imax; ++i) {
             td = doc.createElement('th');
-            style = 'min-width: 250 px; ';
+            style = 'min-width: 350 px; ';
 
             if (i % 2) {
                 style += 'background-color: lightgrey; ';
@@ -1883,7 +1882,7 @@ window.addEventListener('load', function () {
 
         for (i = 0; i < imax; ++i) {
             td = doc.createElement('td');
-            style = 'min-width: 250 px; text-align: center; ';
+            style = 'min-width: 350 px; text-align: center; ';
 
             ul = doc.createElement('ol');
 
@@ -1931,5 +1930,29 @@ window.addEventListener('load', function () {
     timelimitbox.addEventListener('blur', updateTimeLimit, false);
     mingamesbox.addEventListener('blur', updateGameLimits, false);
     maxgamesbox.addEventListener('blur', updateGameLimits, false);
+
+    function saveAll() {
+        localStorage.setItem('all', createFileContent());
+    }
+
+    function restoreAll() {
+        var txt = localStorage.getItem('all');
+        if (txt) {
+            parseFileContent(txt);
+        }
+    }
+
+    if (storage) {
+
+//        Day.restore();
+//        Player.restore();
+//        Game.restore();
+
+        restoreAll();
+
+        Player.calcPoints();
+        Player.checkGameLimits();
+        Day.setDayNum();
+    }
     
 }, false);
