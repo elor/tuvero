@@ -17,12 +17,10 @@ h1 {
 
 h1 #save {
     margin: auto;
-    margin-left: 25px;
 }
 
 h1 #load {
     margin: auto;
-    margin-right: 25px;
 }
 
 #timelimit {
@@ -69,6 +67,10 @@ h1 #load {
 
 #playerlist .playing {
     background-color: darkgrey;
+}
+
+#playerlist .blink {
+    background-color: orange;
 }
 
 #playerlist .points {

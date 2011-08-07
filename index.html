@@ -10,10 +10,12 @@
         aktiviert sein.</p>
 
     <h1>
+        <input id="overview" type="button" value="Übersicht" />
         <input id="save" type="button" value="speichern" />
         <input id="load" type="button" value="laden" />
-        Boules Melee
-        <input id="cleardatabase" type="button" value="clear database">
+        GrateBouleDeadCup
+        <input id="cleardatabase" type="button" value="clear database" disabled>
+        <input type="checkbox" id="confirmdatabase" title="Datenbankentfernung aktivieren" />
     </h1>
     
     <div id="playerlist">
@@ -41,14 +43,14 @@
                     maxlength="32" title="Namen eintragen" />
             <input id="playerbutton" type="button" value="anmelden" />
         </div>
-        <p>(Spiele, Siege, Buchholz, Feind-BH, Netto)</p>
+        <p><b>Platz</b> (Spiele, Siege, Buchholz, Feind-BH, Netto)</p>
     </div>
 
     <div id="gamelist">
         <input type="checkbox" id="alldays" title="Dopplungen aller Tage vermeiden" checked />
         <input id="newgame" type="button" value="Spiel starten" />
+        <input id="allgames" type="button" value="(alle)" />
         <input id="endday" type="button" value="Tag %DAYNUM% beenden" />
-        <input id="overview" type="button" value="Übersicht" />
         <div class="running game">
             <div class="left">
                 <p>%A1<br>

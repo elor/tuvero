@@ -66,6 +66,7 @@ window.addEventListener('load', function () {
     
     var gamelist = document.getElementById('gamelist');
     var gamebutton = document.getElementById('newgame');
+    var allgamesbutton = document.getElementById('allgames');
 
     // 'new player' elements:
     var newplayer = {
@@ -123,7 +124,9 @@ window.addEventListener('load', function () {
         this.rank = 1;
         
         this.time = 0;
+        this.blink = undefined; // interval for blinking
     }
+
     Player.players = [];
     Player.mingames = 4;
     Player.maxgames = 5;
@@ -160,8 +163,6 @@ window.addEventListener('load', function () {
             this.maxgames = Player.maxgames;
             
         } else {
-            
-//            console.log(input);
             
             this.games = [];
             
@@ -212,7 +213,6 @@ window.addEventListener('load', function () {
             return;
         }
         var raw = txt.split('\r\n');
-//        console.log(raw);
         var max = raw.length;
         var i = 0;
         
@@ -230,8 +230,6 @@ window.addEventListener('load', function () {
         for (i = 0; i < max; ++i) {
             lines.push('day ' + i + '\n' + Day.days[i].toString());
         }
-        
-//        console.log(lines.join('\r\n'));
         
         localStorage.setItem(strings.keys.days, lines.join('\r\n'));
     };
@@ -251,7 +249,6 @@ window.addEventListener('load', function () {
         max = Player.players.length;
         for (i = 0; i < max; ++i) {
             tmp = this.results[i];
-//            console.log(tmp);
             if (!tmp) {
                 tmp = [0, 0, 0, 0, 0];
                 this.results[i] = tmp;
@@ -406,33 +403,20 @@ window.addEventListener('load', function () {
     Player.sort = function () {
         
         var tmparr = [];
-        var i = Player.players.length;
+        var p = Player.players;
+        var i = p.length;
         var j = i;
+        var max = 0;
+        var d;  // tmpvar
         
         function sortfunc(a, b) {
             if (a.state !== b.state) {
                 return b.state - a.state;
             }
-//            
-//            if (a.games !== b.games) {
-//                return a.games - b.games;
-//            }
-//            
-//            if (a.siege !== b.siege) {
-//                return a.siege - b.siege;
-//            }
-//            
-//            if (a.buchholz !== b.buchholz) {
-//                return a.buchholz - b.buchholz;
-//            }
-//            
-//            if (a.feindbuchholz !== b.feindbuchholz) {
-//                return a.feindbuchholz - b.feindbuchholz;
-//            }
-//            
-//            if (a.netto !== b.netto) {
-//                return a.netto - b.netto;
-//            }
+
+            if (!!a.blink !== !!b.blink) {
+                return (a.blink ? 1 : 0) - (b.blink ? 1 : 0);
+            }
             
             if (b.rank !== a.rank) {
                 return b.rank - a.rank;
@@ -443,8 +427,41 @@ window.addEventListener('load', function () {
         
         while (i) {
             --i;
+            if (p[i].games > max) {
+                max = p[i].games;
+            }
+        }
+
+        i = p.length;
+        while (i) {
+            --i;
+            if (p[i].games < max - 1 && p[i].state === strings.state.object.avail) {
+                if (!p[i].blink) {
+                    (function () {
+                        var id = i;
+                        p[id].blink = setInterval(function () {
+                            var d = document.getElementById('player' + id);
+                            if (/blink/.test(d.className)) {
+                                d.className = d.className.replace(' blink', '');
+                            } else {
+                                d.className += ' blink';
+                            }
+                        }, 666);
+                    }());
+                }
+            } else if (p[i].blink) {
+                clearInterval(p[i].blink);
+                p[i].blink = undefined;
+                d = document.getElementById('player' + i);
+                d.className = d.className.replace(' blink', '');
+            }
+        }
+
+        i = p.length;
+        while (i) {
+            --i;
             
-            tmparr[i] = Player.players[i];
+            tmparr[i] = p[i];
         }
         
         tmparr.sort(sortfunc);
@@ -455,7 +472,7 @@ window.addEventListener('load', function () {
             --j;
             tmparr[j].appendToDOM();
         }
-        
+
     };
 
     Player.save = function () {
@@ -513,7 +530,7 @@ window.addEventListener('load', function () {
             p.restore();
         }
         
-        Player.calcPoints();
+        Player.calcPoints();    // TODO might be unnecessary
         
         Player.updateMinMax();
     };
@@ -535,15 +552,12 @@ window.addEventListener('load', function () {
     };
 
     Player.calcPoints = function () {
-        var i = Player.players.length;
-
-        function p(id) {
-            return Player.players[id];
-        }
+        var p = Player.players;
+        var i = p.length;
 
         while (i) {
             i--;
-            p(i).resetPoints();
+            p[i].resetPoints();
         }
 
         i = Game.games.length;
@@ -560,45 +574,28 @@ window.addEventListener('load', function () {
 
             diff = g.scoreA - g.scoreB;
 
-            p(g.A1).time += g.time;
-            p(g.A2).time += g.time;
-            p(g.B1).time += g.time;
-            p(g.B2).time += g.time;
+            p[g.A1].time += g.time;
+            p[g.A2].time += g.time;
+            p[g.B1].time += g.time;
+            p[g.B2].time += g.time;
             
-            p(g.A1).games++;
-            p(g.A2).games++;
-            p(g.B1).games++;
-            p(g.B2).games++;
+            p[g.A1].games++;
+            p[g.A2].games++;
+            p[g.B1].games++;
+            p[g.B2].games++;
             
-            p(g.A1).netto += diff;
-            p(g.A2).netto += diff;
-            p(g.B1).netto -= diff;
-            p(g.B2).netto -= diff;
+            p[g.A1].netto += diff;
+            p[g.A2].netto += diff;
+            p[g.B1].netto -= diff;
+            p[g.B2].netto -= diff;
 
             if (g.scoreA > g.scoreB) {
-                p(g.A1).siege++;
-                p(g.A2).siege++;
+                p[g.A1].siege++;
+                p[g.A2].siege++;
             } else if (g.scoreB > g.scoreA) {
-                p(g.B1).siege++;
-                p(g.B2).siege++;
+                p[g.B1].siege++;
+                p[g.B2].siege++;
             }
-        }
-        
-        i = Game.games.length;
-        while (i) {
-            i--;
-
-            g = Game.games[i];
-            if (g.state !== strings.game.finished) {
-                continue;
-            }
-
-            p(g.A1).buchholz += p(g.B1).siege + p(g.B2).siege;
-            p(g.A2).buchholz += p(g.B1).siege + p(g.B2).siege;
-
-            p(g.B1).buchholz += p(g.A1).siege + p(g.A2).siege;
-            p(g.B2).buchholz += p(g.A1).siege + p(g.A2).siege;
-
         }
 
         i = Game.games.length;
@@ -610,11 +607,28 @@ window.addEventListener('load', function () {
                 continue;
             }
 
-            p(g.A1).feindbuchholz += p(g.B1).buchholz + p(g.B2).buchholz;
-            p(g.A2).feindbuchholz += p(g.B1).buchholz + p(g.B2).buchholz;
+            p[g.A1].buchholz += p[g.B1].siege + p[g.B2].siege;
+            p[g.A2].buchholz += p[g.B1].siege + p[g.B2].siege;
 
-            p(g.B1).feindbuchholz += p(g.A1).buchholz + p(g.A2).buchholz;
-            p(g.B2).feindbuchholz += p(g.A1).buchholz + p(g.A2).buchholz;
+            p[g.B1].buchholz += p[g.A1].siege + p[g.A2].siege;
+            p[g.B2].buchholz += p[g.A1].siege + p[g.A2].siege;
+
+        }
+
+        i = Game.games.length;
+        while (i) {
+            i--;
+
+            g = Game.games[i];
+            if (g.state !== strings.game.finished) {
+                continue;
+            }
+
+            p[g.A1].feindbuchholz += p[g.B1].buchholz + p[g.B2].buchholz;
+            p[g.A2].feindbuchholz += p[g.B1].buchholz + p[g.B2].buchholz;
+
+            p[g.B1].feindbuchholz += p[g.A1].buchholz + p[g.A2].buchholz;
+            p[g.B2].feindbuchholz += p[g.A1].buchholz + p[g.A2].buchholz;
         }
         
         Player.calcRank();
@@ -776,10 +790,10 @@ window.addEventListener('load', function () {
             --i;
             
             if (Player.players[i].state === strings.state.object.avail) {
-                available.push(i);
+                available.push({pid: i, rnd: Math.random()});
             } else if (Player.players[i].state === strings.state.object.rapid) {
-                available.push(i);
-                rapids.push(i);
+                available.push({pid: i, rnd: Math.random()});
+                rapids.push({pid: i, rnd: Math.random()});
             }
         }
         
@@ -793,7 +807,11 @@ window.addEventListener('load', function () {
         if (available.length < 4) {
             return undefined;
         }
-        
+
+        available.sort(function (a, b) {
+            return a.rnd - b.rnd;
+        });
+
         // get list of possible teams
         a = available.length;
         while (a) {
@@ -803,8 +821,8 @@ window.addEventListener('load', function () {
             while (b) {
                 --b;
                 
-                if (invalidteams[available[a]].indexOf(available[b]) === -1) {
-                    teams.push([available[a], available[b]]);
+                if (invalidteams[available[a].pid].indexOf(available[b].pid) === -1) {
+                    teams.push([available[a].pid, available[b].pid]);
                 }
             }
         }
@@ -827,8 +845,8 @@ window.addEventListener('load', function () {
                         tmp = false;
                         while (i) {
                             --i;
-                            if (teams[a].indexOf(rapids[i]) === -1 &&
-                                    teams[b].indexOf(rapids[i]) === -1) {
+                            if (teams[a].indexOf(rapids[i].pid) === -1 &&
+                                    teams[b].indexOf(rapids[i].pid) === -1) {
                                 tmp = true;
                                 break;
                             }
@@ -841,12 +859,16 @@ window.addEventListener('load', function () {
                     }
                     
                     out.push([teams[a][0], teams[a][1], teams[b][0], teams[b][1]]);
+                    if (out.length === 500000) {
+                        a = 0;
+                        b = 0;
+                    }
                 }
             }
         }
         
         if (!out.length && rapids === available) {
-            return [rapids.slice(0, 4)];
+            return [rapids[0].pid, rapids[1].pid, rapids[2].pid, rapids[3].pid];
         }
         
         return out;
@@ -855,7 +877,8 @@ window.addEventListener('load', function () {
 //  function for creating a new game and assigning teams
     function newgame() {
         
-        gamebutton.disable = true;
+        gamebutton.disabled = true;
+        allgamesbutton.disabled = true;
         
         var c;
         
@@ -886,8 +909,10 @@ window.addEventListener('load', function () {
         
         if (!Game.constellations || Game.constellations.length === 0) {
             gamebutton.disabled = true;
+            allgamesbutton.disabled = true;
         } else {
             gamebutton.disabled = false;
+            allgamesbutton.disabled = false;
         }
     };
         
@@ -922,8 +947,6 @@ window.addEventListener('load', function () {
         localStorage.setItem(strings.keys.numgames, i);
         localStorage.setItem(strings.keys.timelimit, Game.timelimit);
         
-//        console.log(Game.timelimit);
-
         while (i) {
             i--;
 
@@ -1005,7 +1028,7 @@ window.addEventListener('load', function () {
             that.state = strings.game.finished;
 
             clearInterval(interval);
-
+            
             element.parentNode.removeChild(element);
 
             Player.get(that.A1).setStatus(strings.state.avail);
@@ -1020,7 +1043,6 @@ window.addEventListener('load', function () {
             Player.calcPoints();
             Player.checkGameLimits();
             Player.updateInfos();
-            
             
             Game.checkConstellations();
         }
@@ -1289,6 +1311,13 @@ window.addEventListener('load', function () {
 
     storage = supports_html5_storage();
 
+    document.getElementById('confirmdatabase').addEventListener('change',
+        function () {
+            var cdb = document.getElementById('cleardatabase');
+            cdb.disabled = !document.getElementById('confirmdatabase').checked;
+            
+        }, false);
+
     document.getElementById('cleardatabase').addEventListener('click',
         function () {
             if (confirm(strings.clearall)) {
@@ -1320,6 +1349,12 @@ window.addEventListener('load', function () {
     }, false);
 
     gamebutton.addEventListener('click', newgame, false);
+
+    allgamesbutton.addEventListener('click', function () {
+        while (Game.constellations && Game.constellations.length) {
+            newgame();
+        }
+    }, false);
 
     if (storage) {
         Day.restore();
@@ -1422,6 +1457,10 @@ window.addEventListener('load', function () {
         return Math.round(x * 10) / 10;
     }
     
+    function percent(x) {
+        return Math.round(x * 100);
+    }
+    
     function calcResults() {
         var out = [];   // array of 'result objects'
         var days = [];  // array of all days, holding their results
@@ -1463,9 +1502,9 @@ window.addEventListener('load', function () {
                 counts: (n >= Player.mingames),
 
                 toString: function () {
-                    return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
-                            rd(this.rnet)].join(', ') + ' (' + this.n +
-                        ')';
+                    return [percent(this.rs), '%, ', [rd(this.rbh),
+                            rd(this.rfbh), rd(this.rnet)].join(', '), ' (',
+                            this.n, ')'].join('');
                 }
             };
             
@@ -1492,9 +1531,9 @@ window.addEventListener('load', function () {
                     counts: (n >= d[j].mingames),
 
                     toString: function () {
-                        return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
-                                rd(this.rnet)].join(', ') + ' (' + this.n +
-                            ')';
+                        return [percent(this.rs), '%, ', [rd(this.rbh),
+                                rd(this.rfbh), rd(this.rnet)].join(', '), ' (',
+                                this.n, ')'].join('');
                     }
                 };
             }
@@ -1557,8 +1596,9 @@ window.addEventListener('load', function () {
                 n: 0,
 
                 toString: function () {
-                    return [rd(this.rs), rd(this.rbh), rd(this.rfbh),
-                            rd(this.rnet)].join(', ') + ' (' + this.n + ')';
+                    return [percent(this.rs), '%, ', [rd(this.rbh),
+                            rd(this.rfbh), rd(this.rnet)].join(', '), ' (',
+                            this.n, ')'].join('');
                 },
 
                 append: function (o) {
@@ -1587,8 +1627,6 @@ window.addEventListener('load', function () {
             arr.push({pid: i, day: o});
 
         }
-
-//        console.log(arr);
 
         arr.sort(function (a, b) {
             if (a.day.rs !== b.day.rs) {
@@ -1667,12 +1705,51 @@ window.addEventListener('load', function () {
         Game.save();
     }
 
+    function getGamesArray() {
+        var out = [];   // 2D-Array of games: [day][gid];
+        var d = Day.days;
+        
+        var i;
+        var imax = d.length;
+
+        for (i = 0; i < imax; ++i) {
+
+            out.push(d[i].games);
+        }
+
+        out.push(Game.games);
+
+        return out;
+    }
+
+    Game.prototype.toOverviewString = function () {
+        var p = Player.players;
+        var timestr = '';
+        var d = new Date(this.time);
+        var h;
+        var min;
+
+        if (this.state === strings.game.finished) {
+            h = d.getUTCHours();
+            min = d.getUTCMinutes();
+            if (min < 10) {
+                min = '0' + min;
+            }
+
+            timestr = [' (', h, ':', min, ')'].join('');
+        }
+
+        return ['<p><b>', p[this.A1].name, ' & ', p[this.A2].name, '<br>',
+                p[this.B1].name, ' & ', p[this.B2].name, '</b><br>',
+                this.scoreA, ' : ', this.scoreB, timestr, '</p>'].join('');
+    };
+
     document.getElementById('overview').addEventListener('click', function () {
         
         var win = window.open();    // the popup window to show the overview in
         var doc = win.document; // its document
         var body = doc.body;    // its body
-        
+
         var i;  // counter variable 1
         var imax;   // its maximum
         var j;  // counter variable 2
@@ -1769,7 +1846,74 @@ window.addEventListener('load', function () {
         }
 
         table.appendChild(tr);
-        
+
+        body.appendChild(table);
+
+        ////////
+        // create games overview
+        ////////
+
+        array = getGamesArray();
+        table = doc.createElement('table');
+
+        // create row of headers
+        tr = doc.createElement('tr');
+
+        // fill headers with descriptions from the array
+        imax = array.length;
+        for (i = 0; i < imax; ++i) {
+            td = doc.createElement('th');
+            style = 'min-width: 250 px; ';
+
+            if (i % 2) {
+                style += 'background-color: lightgrey; ';
+            }
+
+            td.setAttribute('style', style);
+
+            td.appendChild(doc.createTextNode('Tag ' + i));
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
+        // create content row (there's just one, internals are lists!)
+        tr = doc.createElement('tr');
+        tr.setAttribute("valign", "top");   // cheap hack
+
+        for (i = 0; i < imax; ++i) {
+            td = doc.createElement('td');
+            style = 'min-width: 250 px; text-align: center; ';
+
+            ul = doc.createElement('ol');
+
+            a = array[i];
+            jmax = a.length;
+            if (!jmax) {
+                continue;
+            }
+
+            if (i % 2) {
+                style += 'background-color: lightgrey; ';
+            }
+
+            td.setAttribute('style', style);
+
+            for (j = 0; j < jmax; ++j) {
+                li = doc.createElement('li');
+
+                // cheap hack ahead
+                li.innerHTML = a[j].toOverviewString();
+                
+                ul.appendChild(li);
+            }
+
+            td.appendChild(ul);
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
         body.appendChild(table);
         
     }, false);
