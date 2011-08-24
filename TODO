@@ -1,3 +1,2 @@
-- remove unused save() and restore() functions
 - add possibility to add names for days
     - dates maybe?

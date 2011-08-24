@@ -149,7 +149,6 @@ window.addEventListener('load', function () {
             this.games = Game.games;
             Game.games = [];
             
-// 55555            Game.save();
             saveAll();
 
             while (i) {
@@ -208,33 +207,6 @@ window.addEventListener('load', function () {
                 (Day.days.length + 1));
     };
 
-    Day.restore = function () {
-        var txt = localStorage.getItem(strings.keys.days);
-        if (!txt) {
-            return;
-        }
-        var raw = txt.split('\r\n');
-        var max = raw.length;
-        var i = 0;
-        
-        Day.days = [];
-        
-        for (i = 0; i < max; ++i) {
-            Day.days.push(new Day(raw[i]));
-        }
-    };
-    
-    Day.save = function () {
-        var lines = [];
-        var i;
-        var max = Day.days.length;
-        for (i = 0; i < max; ++i) {
-            lines.push('day ' + i + '\n' + Day.days[i].toString());
-        }
-        
-        localStorage.setItem(strings.keys.days, lines.join('\r\n'));
-    };
-    
     Day.prototype.toString = function () {
         var lines = [[this.games.length, this.mingames, this.maxgames].join(' ')];
         var i = 0;
@@ -337,7 +309,6 @@ window.addEventListener('load', function () {
         }
 
         if (storage) {
-// 55555            this.save();
             saveAll();
         }
     };
@@ -346,15 +317,6 @@ window.addEventListener('load', function () {
         return strings.keys.player + this.pid;
     };
 
-    Player.prototype.save = function () {
-        localStorage.setItem(this.getKey(), this.toString());
-    };
-
-    Player.prototype.restore = function () {
-        this.fromString(localStorage.getItem(this.getKey()));
-        // appendToDOM is called from within Player.restore now
-    };
-    
     Player.calcRank = function () {
         
         function sortrank(a, b) {
@@ -477,24 +439,6 @@ window.addEventListener('load', function () {
 
     };
 
-    Player.save = function () {
-        if (!storage) {
-            return;
-        }
-        
-        var i = Player.players.length;
-        
-        localStorage.setItem(strings.keys.numplayers, i);
-        localStorage.setItem(strings.keys.mingames, Player.mingames);
-        localStorage.setItem(strings.keys.maxgames, Player.maxgames);
-        
-        while (i) {
-            i--;
-            
-            Player.players[i].save();
-        }
-    };
-    
     Player.clearDOM = function () {
         var classes = document.getElementsByClassName('oldplayer');
         var i = classes.length;
@@ -504,37 +448,6 @@ window.addEventListener('load', function () {
             classes[i].parentNode.removeChild(classes[i]);
         }
 
-    };
-
-    Player.restore = function () {
-        var p;
-        var i;
-        var tmp;
-        var max = localStorage.getItem(strings.keys.numplayers);
-        
-        tmp = localStorage.getItem(strings.keys.mingames);
-        if (tmp !== null) {
-            Player.mingames = Number(tmp);
-        }
-        
-        tmp = localStorage.getItem(strings.keys.maxgames);
-        if (tmp !== null) {
-            Player.maxgames = Number(tmp);
-        }
-        
-        Player.clearDOM();
-        
-        Player.players = [];
-        
-        for (i = 0; i < max; ++i) {
-            p = new Player('', i);
-            Player.players[i] = p;
-            p.restore();
-        }
-        
-        Player.calcPoints();    // TODO might be unnecessary
-        
-        Player.updateMinMax();
     };
 
     Player.get = function (pid) {
@@ -940,30 +853,6 @@ window.addEventListener('load', function () {
         return this;
     };
 
-    Game.save = function () {
-        if (!storage) {
-            return;
-        }
-
-        var i = Game.games.length;
-        localStorage.setItem(strings.keys.numgames, i);
-        localStorage.setItem(strings.keys.timelimit, Game.timelimit);
-        
-        while (i) {
-            i--;
-
-            Game.games[i].save();
-        }
-    };
-
-    Game.prototype.save = function () {
-        localStorage.setItem(strings.keys.game + this.gid, this.toString());
-    };
-
-    Game.prototype.restore = function () {
-        this.fromString(localStorage.getItem(strings.keys.game + this.gid)).appendToDOM();
-    };
-    
     Game.clearDOM = function () {
         var classes = document.getElementsByClassName('game');
         var i = classes.length;
@@ -974,32 +863,6 @@ window.addEventListener('load', function () {
         }
     };
 
-    Game.restore = function () {
-        var max = Number(localStorage.getItem(strings.keys.numgames));
-        var g;
-        var i;
-        
-        Game.timelimit = localStorage.getItem(strings.keys.timelimit);
-        if (Game.timelimit === null) {
-            Game.timelimit = 75;
-        } else {
-            Game.timelimit = Number(Game.timelimit);
-        }
-        timelimitbox.value = Game.timelimit;
-        
-        Game.clearDOM();
-        
-        Game.games = [];
-        
-        for (i = 0; i < max; ++i) {
-            g = new Game(0, 0, 0, 0, i);
-            Game.games[i] = g;
-            g.restore();
-        }
-        
-        Game.checkConstellations();
-    };
-    
     Game.prototype.appendToDOM = function () {
         if (this.state === strings.game.finished) {
             return;
@@ -1039,7 +902,6 @@ window.addEventListener('load', function () {
             Player.get(that.B2).setStatus(strings.state.avail);
 
             if (storage) {
-// 55555                that.save();
                 saveAll();
             }
 
@@ -1143,7 +1005,6 @@ window.addEventListener('load', function () {
 
         game.appendToDOM();
 
-// 55555        game.save();
         saveAll();
 // 55555        localStorage.setItem(strings.keys.numgames, Game.games.length);
         
@@ -1230,9 +1091,6 @@ window.addEventListener('load', function () {
         
         Day.setDayNum();
         if (storage) {
-// 55555            Player.save();
-//            Game.save();
-//            Day.save();
             saveAll();
         }
     }
@@ -1366,9 +1224,6 @@ window.addEventListener('load', function () {
     savebutton.addEventListener('click', function () {
         
         if (storage) {
-// 55555            Player.save();
-//            Game.save();
-//            Day.save();
             saveAll();
         }
         
@@ -1403,13 +1258,6 @@ window.addEventListener('load', function () {
         win.document.body.appendChild(p);
         win.document.body.appendChild(area);
         
-//        if (storage) {
-//            Player.restore();
-//            Game.restore();
-//            Player.calcPoints();
-//            Player.sort();
-//        }
-
     }, false);
     
     document.getElementById('endday').addEventListener('click', function () {
@@ -1425,7 +1273,6 @@ window.addEventListener('load', function () {
         
         if (confirm(strings.endday)) {
             Day.days.push(new Day());
-// 55555            Day.save();
             saveAll();
             Player.calcPoints();
             Player.updateInfos();
@@ -1694,13 +1541,11 @@ window.addEventListener('load', function () {
 
         Game.checkConstellations();
 
-// 55555        Player.save();
         saveAll();
     }
 
     function updateTimeLimit() {
         Game.timelimit = Number(timelimitbox.value);
-// 55555        Game.save();
         saveAll();
     }
 
@@ -2027,10 +1872,6 @@ window.addEventListener('load', function () {
     }
 
     if (storage) {
-
-//        Day.restore();
-//        Player.restore();
-//        Game.restore();
 
         restoreAll();
 
