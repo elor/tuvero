@@ -869,8 +869,8 @@ window.addEventListener('load', function () {
             }
         }
         
-        if (!out.length && rapids === available) {
-            return [rapids[0].pid, rapids[1].pid, rapids[2].pid, rapids[3].pid];
+        if (out.length === 0 && rapids === available) {
+            return [[rapids[0].pid, rapids[1].pid, rapids[2].pid, rapids[3].pid]];
         }
         
         return out;
