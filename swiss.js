@@ -120,8 +120,8 @@ window.addEventListener('load', function () {
     }
 
     Player.players = [];
-    Player.mingames = 4;
-    Player.maxgames = 5;
+    Player.mingames = 0;
+    Player.maxgames = 3;
     
     Player.checkGameLimits = function () {
         var i = Player.players.length;
@@ -130,10 +130,13 @@ window.addEventListener('load', function () {
         while (i) {
             --i;
             p = Player.players[i];
-            if (p.games >= Player.maxgames) {
-                p.setStatus(strings.state.inactive);
-            } else if (p.state === strings.state.object.inactive) {
-                p.setStatus(strings.state.avail);
+            if (p.state === strings.state.object.inactive ||
+                    p.state === strings.state.object.avail) {
+                if (p.siege > Player.maxgames || p.siege < Player.mingames) {
+                    p.setStatus(strings.state.inactive);
+                } else if (p.state === strings.state.object.inactive) {
+                    p.setStatus(strings.state.avail);
+                }
             }
         }
         
