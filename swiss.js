@@ -110,7 +110,7 @@ window.addEventListener('load', function () {
         this.games = 0;
         this.siege = 0;
         this.buchholz = 0;
-        this.feindbuchholz = 0;
+        this.feinbuchholz = 0;
         this.netto = 0;
         
         this.rank = 1;
@@ -154,7 +154,7 @@ window.addEventListener('load', function () {
         this.games = 0;
         this.siege = 0;
         this.buchholz = 0;
-        this.feindbuchholz = 0;
+        this.feinbuchholz = 0;
         this.netto = 0;
         this.rank = 1;
         this.time = 0;
@@ -165,7 +165,7 @@ window.addEventListener('load', function () {
     };
 
     Player.prototype.pointsToString = function () {
-        return [this.games, this.siege, this.buchholz, this.feindbuchholz,
+        return [this.games, this.siege, this.buchholz, this.feinbuchholz,
                 this.netto].join(', ');
     };
 
@@ -222,8 +222,8 @@ window.addEventListener('load', function () {
                 return b.buchholz - a.buchholz;
             }
             
-            if (a.feindbuchholz !== b.feindbuchholz) {
-                return b.feindbuchholz - a.feindbuchholz;
+            if (a.feinbuchholz !== b.feinbuchholz) {
+                return b.feinbuchholz - a.feinbuchholz;
             }
             
             return b.netto - a.netto;
@@ -240,7 +240,7 @@ window.addEventListener('load', function () {
         function samerank(i) {
             return tmparr[i].siege === tmparr[i + 1].siege &&
                 tmparr[i].buchholz === tmparr[i + 1].buchholz &&
-                tmparr[i].feindbuchholz === tmparr[i + 1].feindbuchholz &&
+                tmparr[i].feinbuchholz === tmparr[i + 1].feinbuchholz &&
                 tmparr[i].netto === tmparr[i + 1].netto;
         }
         
@@ -423,9 +423,9 @@ window.addEventListener('load', function () {
                 continue;
             }
 
-            p[g.A].feindbuchholz += p[g.B].buchholz;
+            p[g.A].feinbuchholz += p[g.B].buchholz;
 
-            p[g.B].feindbuchholz += p[g.A].buchholz;
+            p[g.B].feinbuchholz += p[g.A].buchholz;
         }
         
         Player.calcRank();
@@ -954,7 +954,7 @@ window.addEventListener('load', function () {
         max = Player.players.length;
         for (i = 0; i < max; ++i) {
             p = Player.players[i];
-            lines.push([i, p.games, p.siege, p.buchholz, p.feindbuchholz, 
+            lines.push([i, p.games, p.siege, p.buchholz, p.feinbuchholz, 
                     p.netto].join(' '));
         }
         
@@ -1133,12 +1133,12 @@ window.addEventListener('load', function () {
 
                 s: p[i].siege,
                 bh: p[i].buchholz,
-                fbh: p[i].feindbuchholz,
+                fbh: p[i].feinbuchholz,
                 net: p[i].netto,
 
                 rs: p[i].siege / n,
                 rbh: p[i].buchholz / n,
-                rfbh: p[i].feindbuchholz / n,
+                rfbh: p[i].feinbuchholz / n,
                 rnet: p[i].netto / n,
 
                 counts: (n >= Player.mingames),
