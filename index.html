@@ -3,17 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="main.css" />
-    <title>Boules Melee</title>
+    <title>Boules Schweizer Vorrunde</title>
 </head>
 <body>
     <p id="javascript">Um diese Tabelle nutzen zu koennen, muss JavaScript
         aktiviert sein.</p>
 
     <h1>
-        <input id="overview" type="button" value="Übersicht" />
         <input id="save" type="button" value="speichern" />
         <input id="load" type="button" value="laden" />
-        GrateBouleDeadCup
+        Boules Schweizer Vorrunde
         <input id="cleardatabase" type="button" value="clear database" disabled>
         <input type="checkbox" id="confirmdatabase" title="Datenbankentfernung aktivieren" />
     </h1>
@@ -47,21 +46,17 @@
     </div>
 
     <div id="gamelist">
-        <input type="checkbox" id="alldays" title="Dopplungen aller Tage vermeiden" checked />
         <input id="newgame" type="button" value="Spiel starten" />
         <input id="allgames" type="button" value="(alle)" />
-        <input id="endday" type="button" value="Tag %DAYNUM% beenden" />
         <div class="running game">
             <div class="left">
-                <p>%A1<br>
-                    %A2<br>
+                <p>%A<br>
                     <input class="score" type="number" min="0" max="13"
                             value="0"/>
                 </p>
             </div>
             <div class="right">
-                <p>%B1<br>
-                    %B2<br>
+                <p>%B<br>
                     <input class="score" type="number" min="0" max="13"
                             value="0"/>
                 </p>
@@ -71,6 +66,6 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="melee.js"></script>
+    <script type="text/javascript" src="swiss.js"></script>
 </body>
 </html>
