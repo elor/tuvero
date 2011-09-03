@@ -144,8 +144,8 @@ window.addEventListener('load', function () {
     };
     
     Player.updateMinMax = function () {
-        mingamesbox.value = Player.mingames;
-        maxgamesbox.value = Player.maxgames;
+        mingamesbox.value = Number(Player.mingames);
+        maxgamesbox.value = Number(Player.maxgames);
         
         Player.checkGameLimits();
     };
@@ -820,8 +820,8 @@ window.addEventListener('load', function () {
                 var str = strings.endgame;
                 str = str.replace('%A%', Player.players[that.A].name);
                 str = str.replace('%B%', Player.players[that.B].name);
-                str = str.replace('%S1%', scorea);
-                str = str.replace('%S2%', scoreb);
+                str = str.replace('%S1%', Number(scorea));
+                str = str.replace('%S2%', Number(scoreb));
             }
             
             if (isinvalid || confirm(str)) {
@@ -1399,186 +1399,186 @@ window.addEventListener('load', function () {
             timestr = [' (', h, ':', min, ')'].join('');
         }
 
-        return ['<p><b>', p[this.A].name, '<br>',
+        return ['<p><b>', p[this.A].name, ' : ',
                 p[this.B].name, '</b><br>',
                 this.scoreA, ' : ', this.scoreB, timestr, '</p>'].join('');
     };
     
-//    document.getElementById('overview').addEventListener('click', function () {
-//        
-//        var win = window.open();    // the popup window to show the overview in
-//        var doc = win.document; // its document
-//        var body = doc.body;    // its body
-//
-//        var i;  // counter variable 1
-//        var imax;   // its maximum
-//        var j;  // counter variable 2
-//        var jmax;   // its maximum
-//        
-//        var table = doc.createElement('table'); // the table of results
-//        var tr; // the row to be filled and appended
-//        var td; // current cell
-//        var ul; // list within the cell
-//        var li; // one of its elements
-//        var a;  // sub-array (containing data for current column)
-//        var array = [];  // four-dimensional array for the data. Format:
-//        var games = getGamesArray();
-//        var style;
-//
-//        var cnt;    // counter variable
-//        // [[Name, [[Player, Points], ...]], ...]
-//
-//        var results = calcResults();
-//
-//        // filling array
-//        array.push(["Teilnehmer", listPlayers(results)]);
-//
-//        array.push(["Spielzeit (pro Spiel)", getPlayTimeOverview(games)])
-//        
-//        imax = 1;
-//        for (i = 1; i <= imax; ++i) {
-//            array.push([i !== 1 ? ['Beste', i, 'Tage'].join(' ') : 'Bester Tag',
-//                    bestDays(results, i)]);
-//        }
-//
+    document.getElementById('overview').addEventListener('click', function () {
+        
+        var win = window.open();    // the popup window to show the overview in
+        var doc = win.document; // its document
+        var body = doc.body;    // its body
+
+        var i;  // counter variable 1
+        var imax;   // its maximum
+        var j;  // counter variable 2
+        var jmax;   // its maximum
+        
+        var table = doc.createElement('table'); // the table of results
+        var tr; // the row to be filled and appended
+        var td; // current cell
+        var ul; // list within the cell
+        var li; // one of its elements
+        var a;  // sub-array (containing data for current column)
+        var array = [];  // four-dimensional array for the data. Format:
+        var games = getGamesArray();
+        var style;
+
+        var cnt;    // counter variable
+        // [[Name, [[Player, Points], ...]], ...]
+
+        var results = calcResults();
+
+        // filling array
+        array.push(["Teilnehmer", listPlayers(results)]);
+
+        array.push(["Spielzeit (pro Spiel)", getPlayTimeOverview(games)])
+        
+        imax = 1;
+        for (i = 1; i <= imax; ++i) {
+            array.push([i !== 1 ? ['Beste', i, 'Tage'].join(' ') : 'Bester Tag',
+                    bestDays(results, i)]);
+        }
+
 //        for (i = 0; i < imax; ++i) {
 //            array.push(["Tag " + (i + 1), listDay(results, i)]);
 //        }
-//
-//        // create row of headers
-//        tr = doc.createElement('tr');
-//
-//        // fill headers with descriptions from the array
-//        imax = array.length;
-//        for (cnt = 0, i = 0; i < imax; ++i) {
-//            if (array[i][1].length) {
-//                td = doc.createElement('th');
-//                style = 'min-width: 200 px; ';
-//
-//                if (cnt++ % 2) {
-//                    style += 'background-color: lightgrey; ';
-//                }
-//                
-//                td.setAttribute('style', style);
-//
-//                td.appendChild(doc.createTextNode(array[i][0]));
-//                tr.appendChild(td);
-//            }
-//        }
-//        
-//        table.appendChild(tr);
-//        
-//        // create content row (there's just one, internals are lists!)
-//        tr = doc.createElement('tr');
-//        tr.setAttribute("valign", "top");   // cheap hack
-//
-//        imax = array.length;
-//        for (cnt = 0, i = 0; i < imax; ++i) {
-//            td = doc.createElement('td');
-//            style = 'min-width: 200 px; ';
-//            
-//            ul = doc.createElement('ol');
-//
-//            a = array[i][1];
-//            jmax = a.length;
-//            if (!jmax) {
-//                continue;
-//            }
-//
-//            if (cnt++ % 2) {
-//                style += 'background-color: lightgrey; ';
-//            }
-//
-//            td.setAttribute('style', style);
-//
-//            for (j = 0; j < jmax; ++j) {
-//                li = doc.createElement('li');
-//
-//                // cheap hack ahead
-//                if (a[j][1] !== undefined) {
-//                    li.innerHTML = '<b>' + a[j][0] + '</b><br />' + a[j][1];
-//                } else {
-//                    li.innerHTML = '<b>' + a[j][0] + '</b>';
-//                }
-//
-//                ul.appendChild(li);
-//            }
-//            
-//            td.appendChild(ul);
-//            tr.appendChild(td);
-//        }
-//
-//        table.appendChild(tr);
-//
-//        body.appendChild(table);
-//
-//        ////////
-//        // create games overview
-//        ////////
-//
-//        table = doc.createElement('table');
-//
-//        // create row of headers
-//        tr = doc.createElement('tr');
-//
-//        // fill headers with descriptions from the games array
-//        imax = games.length;
-//        for (i = 0; i < imax; ++i) {
-//            td = doc.createElement('th');
-//            style = 'min-width: 350 px; ';
-//
-//            if (i % 2) {
-//                style += 'background-color: lightgrey; ';
-//            }
-//
-//            td.setAttribute('style', style);
-//
-//            td.appendChild(doc.createTextNode('Tag ' + (i + 1)));
-//            tr.appendChild(td);
-//        }
-//
-//        table.appendChild(tr);
-//
-//        // create content row (there's just one, internals are lists!)
-//        tr = doc.createElement('tr');
-//        tr.setAttribute("valign", "top");   // cheap hack
-//
-//        for (i = 0; i < imax; ++i) {
-//            td = doc.createElement('td');
-//            style = 'min-width: 350 px; text-align: center; ';
-//
-//            ul = doc.createElement('ol');
-//
-//            a = games[i];
-//            jmax = a.length;
-//            if (!jmax) {
-//                continue;
-//            }
-//
-//            if (i % 2) {
-//                style += 'background-color: lightgrey; ';
-//            }
-//
-//            td.setAttribute('style', style);
-//
-//            for (j = 0; j < jmax; ++j) {
-//                li = doc.createElement('li');
-//
-//                // cheap hack ahead
-//                li.innerHTML = a[j].toOverviewString();
-//                
-//                ul.appendChild(li);
-//            }
-//
-//            td.appendChild(ul);
-//            tr.appendChild(td);
-//        }
-//
-//        table.appendChild(tr);
-//
-//        body.appendChild(table);
-//        
-//    }, false);
+
+        // create row of headers
+        tr = doc.createElement('tr');
+
+        // fill headers with descriptions from the array
+        imax = array.length;
+        for (cnt = 0, i = 0; i < imax; ++i) {
+            if (array[i][1].length) {
+                td = doc.createElement('th');
+                style = 'min-width: 200 px; ';
+
+                if (cnt++ % 2) {
+                    style += 'background-color: lightgrey; ';
+                }
+                
+                td.setAttribute('style', style);
+
+                td.appendChild(doc.createTextNode(array[i][0]));
+                tr.appendChild(td);
+            }
+        }
+        
+        table.appendChild(tr);
+        
+        // create content row (there's just one, internals are lists!)
+        tr = doc.createElement('tr');
+        tr.setAttribute("valign", "top");   // cheap hack
+
+        imax = array.length;
+        for (cnt = 0, i = 0; i < imax; ++i) {
+            td = doc.createElement('td');
+            style = 'min-width: 200 px; ';
+            
+            ul = doc.createElement('ol');
+
+            a = array[i][1];
+            jmax = a.length;
+            if (!jmax) {
+                continue;
+            }
+
+            if (cnt++ % 2) {
+                style += 'background-color: lightgrey; ';
+            }
+
+            td.setAttribute('style', style);
+
+            for (j = 0; j < jmax; ++j) {
+                li = doc.createElement('li');
+
+                // cheap hack ahead
+                if (a[j][1] !== undefined) {
+                    li.innerHTML = '<b>' + a[j][0] + '</b><br />' + a[j][1];
+                } else {
+                    li.innerHTML = '<b>' + a[j][0] + '</b>';
+                }
+
+                ul.appendChild(li);
+            }
+            
+            td.appendChild(ul);
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
+        body.appendChild(table);
+
+        ////////
+        // create games overview
+        ////////
+
+        table = doc.createElement('table');
+
+        // create row of headers
+        tr = doc.createElement('tr');
+
+        // fill headers with descriptions from the games array
+        imax = games.length;
+        for (i = 0; i < imax; ++i) {
+            td = doc.createElement('th');
+            style = 'min-width: 350 px; ';
+
+            if (i % 2) {
+                style += 'background-color: lightgrey; ';
+            }
+
+            td.setAttribute('style', style);
+
+            td.appendChild(doc.createTextNode('Tag ' + (i + 1)));
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
+        // create content row (there's just one, internals are lists!)
+        tr = doc.createElement('tr');
+        tr.setAttribute("valign", "top");   // cheap hack
+
+        for (i = 0; i < imax; ++i) {
+            td = doc.createElement('td');
+            style = 'min-width: 350 px; text-align: center; ';
+
+            ul = doc.createElement('ol');
+
+            a = games[i];
+            jmax = a.length;
+            if (!jmax) {
+                continue;
+            }
+
+            if (i % 2) {
+                style += 'background-color: lightgrey; ';
+            }
+
+            td.setAttribute('style', style);
+
+            for (j = 0; j < jmax; ++j) {
+                li = doc.createElement('li');
+
+                // cheap hack ahead
+                li.innerHTML = a[j].toOverviewString();
+                
+                ul.appendChild(li);
+            }
+
+            td.appendChild(ul);
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
+        body.appendChild(table);
+        
+    }, false);
     
     document.getElementById('ok').addEventListener('click', function () {
         updateTimeLimit();
