@@ -1591,11 +1591,11 @@ window.addEventListener('load', function () {
     maxgamesbox.addEventListener('blur', updateGameLimits, false);
 
     function saveAll() {
-        localStorage.setItem('all', createFileContent());
+        localStorage.setItem('swiss', createFileContent());
     }
 
     function restoreAll() {
-        var txt = localStorage.getItem('all');
+        var txt = localStorage.getItem('swiss');
         if (txt) {
             parseFileContent(txt);
         }
