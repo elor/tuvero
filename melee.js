@@ -239,11 +239,14 @@ window.addEventListener('load', function () {
         while (i) {
             --i;
             p = Player.players[i];
-            if (p.games >= Player.maxgames) {
-                p.setStatus(strings.state.inactive);
-            } else if (p.state === strings.state.object.inactive) {
-                p.setStatus(strings.state.avail);
-            }
+	    if (p.state === strings.state.inactive || p.state === strings.state.avail)
+	    {
+	            if (p.games >= Player.maxgames) {
+	                p.setStatus(strings.state.inactive);
+	            } else if (p.state === strings.state.object.inactive) {
+	                p.setStatus(strings.state.avail);
+	            }
+	    }
         }
         
         Player.sort();
@@ -1861,11 +1864,11 @@ window.addEventListener('load', function () {
     maxgamesbox.addEventListener('blur', updateGameLimits, false);
 
     function saveAll() {
-        localStorage.setItem('all', createFileContent());
+        localStorage.setItem('melee', createFileContent());
     }
 
     function restoreAll() {
-        var txt = localStorage.getItem('all');
+        var txt = localStorage.getItem('melee');
         if (txt) {
             parseFileContent(txt);
         }
@@ -1881,3 +1884,4 @@ window.addEventListener('load', function () {
     }
     
 }, false);
+
