@@ -239,14 +239,15 @@ window.addEventListener('load', function () {
         while (i) {
             --i;
             p = Player.players[i];
-	    if (p.state === strings.state.inactive || p.state === strings.state.avail)
-	    {
-	            if (p.games >= Player.maxgames) {
-	                p.setStatus(strings.state.inactive);
-	            } else if (p.state === strings.state.object.inactive) {
-	                p.setStatus(strings.state.avail);
-	            }
-	    }
+            if (p.state === strings.state.object.inactive ||
+                    p.state === strings.state.object.avail)
+            {
+                if (p.games >= Player.maxgames) {
+                    p.setStatus(strings.state.inactive);
+                } else if (p.state === strings.state.object.inactive) {
+                    p.setStatus(strings.state.avail);
+                }
+            }
         }
         
         Player.sort();
