@@ -32,13 +32,17 @@ window.addEventListener('load', function () {
         
         game: {
             running: 'running',
-            finished: 'finished'
+            finished: 'finished',
+	    invalid: 'invalid'
         },
         
         err: {
             pid: 'pid error!',
             nostorage: 'Dein Browser nutzt keinen HTML5 Storage. Du musst manuell speichern.'
         },
+
+        abortgame: 'Dieses Spiel für ungültig erklären?',
+        invalidresult: 'Ein Spiel darf nicht mit Gleichstand beendet werden.',
         
         timedefault: '0:00:00',
         endday: 'Soll der aktuelle Spieltag wirklich beendet werden?',
@@ -868,7 +872,7 @@ window.addEventListener('load', function () {
     };
 
     Game.prototype.appendToDOM = function () {
-        if (this.state === strings.game.finished) {
+        if (this.state !== strings.game.running) {
             return;
         }
         
@@ -886,15 +890,17 @@ window.addEventListener('load', function () {
         var interval;
 
         // add function to control state
-        function endgame(scorea, scoreb) {
+        function endgame(scorea, scoreb, isinvalid) {
             that.scoreA = Number(scorea);
             that.scoreB = Number(scoreb);
+
+	    isinvalid = !!isinvalid;
 
             var d = new Date();
             d.setTime(d.getTime() - begin.getTime());
 
             that.time = d.getTime();
-            that.state = strings.game.finished;
+            that.state = isinvalid ? strings.game.invalid : strings.game.finished;
 
             clearInterval(interval);
             
@@ -933,7 +939,8 @@ window.addEventListener('load', function () {
         begin = new Date();
 
         if (this.time !== 0) {
-            begin.setTime(this.time);
+            
+	    begin.setTime(this.time);
         } else {
             this.time = begin.getTime();
         }
@@ -970,17 +977,31 @@ window.addEventListener('load', function () {
                     getElementsByClassName('score')[0].value;
             var scoreb = element.getElementsByClassName('right')[0].
                     getElementsByClassName('score')[0].value;
-                
-            var str = strings.endgame;
-            str = str.replace('%A1%', Player.players[that.A1].name);
-            str = str.replace('%A2%', Player.players[that.A2].name);
-            str = str.replace('%B1%', Player.players[that.B1].name);
-            str = str.replace('%B2%', Player.players[that.B2].name);
-            str = str.replace('%S1%', scorea);
-            str = str.replace('%S2%', scoreb);
             
-            if (confirm(str)) {
-                endgame(scorea, scoreb);
+	    var isinvalid = false;
+
+	    if (scorea === scoreb)
+	    {
+	        if (scorea == 0 && confirm(strings.abortgame)) {
+		    isinvalid = true;
+		} else {
+		    alert(strings.invalidresult);
+		    return;
+		}
+	    }
+            
+            if (!isinvalid) {
+                var str = strings.endgame;
+                str = str.replace('%A1%', Player.players[that.A1].name);
+                str = str.replace('%A2%', Player.players[that.A2].name);
+                str = str.replace('%B1%', Player.players[that.B1].name);
+                str = str.replace('%B2%', Player.players[that.B2].name);
+                str = str.replace('%S1%', scorea);
+                str = str.replace('%S2%', scoreb);
+            }
+            
+            if (isinvalid || confirm(str)) {
+                endgame(scorea, scoreb, isinvalid);
             }
         }, false);
     };
