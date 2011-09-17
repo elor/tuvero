@@ -1562,6 +1562,10 @@ window.addEventListener('load', function () {
             td.setAttribute('style', style);
 
             for (j = 0; j < jmax; ++j) {
+	        if (a[j].state === strings.game.invalid) {
+		    continue;
+		}
+
                 li = doc.createElement('li');
 
                 // cheap hack ahead
