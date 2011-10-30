@@ -1,6 +1,1 @@
-This web-based application manages a boules doublet tournament with up to
-a thousand players. It features automatic team and game randomization, overviews
-of games and rankings and further ranking analysis.
-
-However, it's hacked in JavaScript, utilizing bad knowledge of the language and
-a whole bunch of bad decisions.
+A browser-based application for managing boules rankings and tournaments.
