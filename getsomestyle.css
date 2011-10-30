@@ -1,0 +1,193 @@
+body {
+  background-color: gray;
+}
+
+#playermenu {
+  z-index: 5;
+  background-color: gray;
+  border-bottom-right-radius: 1em;
+  position: absolute;
+  left: 0em;
+  top: 0em;
+
+  padding: 2% 1em 1em 2%;
+  font-weight: bold;
+  font-style: italic;
+  text-shadow: darkgray .2em .1em .2em;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.main {
+  z-index: 2;
+  border-radius: 1em;
+  background-color: white;
+  text-align: center;
+  width: 96%;
+  min-height: 96%;
+  position: absolute;
+  left: -102%;
+  top: 2%;
+  opacity: .0;
+  -webkit-transition: all .3s ease-in;
+}
+
+.main.above {
+  top: -102%;
+}
+
+.main.below {
+  top: 102%;
+}
+
+.main:target {
+  left: 2%;
+  top: 2%;
+  display: block;
+  opacity: 1.0;
+}
+
+.home {
+  border-radius: 1em;
+  background-color: white;
+  text-align: center;
+  min-height: 20em;
+  width: 96%;
+  height: 96%;
+  max-width: 75em;
+  max-height: 40em;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 8em;
+  padding: .5em;
+  -webkit-transition: all .2s ease-in;
+}
+
+.home img {
+  float: left;
+  width: 48%;
+  min-width: 12em;
+  margin: 1%;
+  max-width: 32em;
+}
+
+.home.fadeout {
+  opacity: .0;
+}
+
+.home.inactive {
+  display: none;
+}
+
+.clear {
+  clear: both;
+}
+
+#players .container {
+  padding: 0.5em;
+}
+
+.player {
+  float: left;
+  width: 16em;
+  height: 4em;
+  background-color: lightgray;
+  text-align: left;
+  margin: .2em;
+  padding: .5em;
+  border-radius: .8em;
+  overflow: hidden;
+}
+
+.player .name {
+  font-weight: bold;
+}
+
+.player input {
+  width: 10em;
+  border-radius: 0.3em;
+}
+
+.player .active, .player .inactive {
+  right: 1em;
+  margin-right: 1em;
+  border-radius: .5em;
+  padding: 0em .3em 0em .3em;
+  cursor: pointer;
+}
+
+.player .active {
+  background-color: lightgreen;
+}
+
+.player .active:hover {
+  background-color: green;
+}
+
+.player.inactive {
+  background-color: gray;
+}
+
+.player.inactive .active {
+  display: none;
+}
+
+.player .inactive {
+  background-color: darkred;
+  display: none;
+}
+
+.player.inactive .inactive {
+  display: inline;
+}
+
+.player.inactive .inactive:hover {
+  background-color: red;
+}
+
+.player.new .gender {
+  font-weight: bold;
+  color: gray;
+  cursor: pointer;
+}
+
+.player.inactive.new .gender {
+  color: lightgray;
+}
+
+.player.new .gender.f .f, .player.new .gender.m .m {
+  color: black;
+}
+
+.player .technique {
+  color: gray;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.player.inactive .technique {
+  color: lightgray;
+}
+
+.player .technique.s .s , .player .technique.l .l {
+  color: black;
+}
+
+.player .pool {
+  font-weight: bold;
+  color: gray;
+  cursor: pointer;
+}
+
+.player.inactive .pool {
+  color: lightgray;
+}
+
+.player .pool.a .a, .player .pool.b .b {
+  color: black;
+}
+
