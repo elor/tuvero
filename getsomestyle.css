@@ -18,7 +18,7 @@ a {
   float: left;
   height: 100%;
   width: 3em;
-  background-color: white;
+  background-color: lightgray;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-origin: content-box;
@@ -28,8 +28,16 @@ a {
   cursor: pointer;
 }
 
+.menu .open {
+  background-color: white;
+}
+
 #playersicon {
   background-image: url('images/people-icon.jpg');
+}
+
+#sundayicon {
+  background-image: url('images/sun.png');
 }
 
 #newicon {

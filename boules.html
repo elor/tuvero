@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="utf-8" />
-<title>test</title>
-<link rel="stylesheet" href="getsomestyle.css" />
-<script src="jquery-1.6.4.min.js"></script>
-<script src="main.js"></script>
-<head>
-</head>
+  <meta charset="utf-8" />
+  <title>test</title>
+  <link rel="stylesheet" href="getsomestyle.css" />
+  <script src="jquery.min.js"></script>
+  <script src="main.js"></script>
+  <head>
+  </head>
 <body>
 
 <div class="menu">
-<div class="item" id="playersicon"></div>
-<div class="item" id="sundayicon"></div>
-<div class="item" id="newicon"></div>
+  <div class="item" id="playersicon" accesskey="p">
+    <a accesskey="p"></a>
+  </div>
+  <div class="item" id="sundayicon">
+    <a accesskey="s"></a>
+  </div>
+  <div class="item" id="newicon">
+    <a accesskey="a"></a>
+  </div>
 </div>
 
 <div class="main" id="players">
-<h2>Players</h2>
+  <h2>Players</h2>
 
-<div class="player" id="pid0">
-<span class="name">Erik Lorenz</span>
-<span class="active">active</span>
-<span class="inactive">inactive</span>
-<br>
-<span class="rank">1</span>
-<span class="points">1 2 3 4 5</span>
-</div>
+  <div class="player" id="pid0">
+    <span class="name">Erik Lorenz</span>
+    <span class="active switch">active</span>
+    <span class="inactive switch">inactive</span>
+    <br>
+    <span class="rank">1</span>
+    <span class="points">1 2 3 4 5</span>
+  </div>
 
-<div class="player new">
-<form>
-<input type="text" class="name" placeholder="new player" />
-<span class="active new">active</span>
-<span class="inactive new">inactive</span>
-<br>
-<span class="gender m"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
-<span class="technique s l"><span class="s">S</span><span class="l">L</span></span>
-<span class="pool a"><span class="a">A</span><span class="b">B</span></span>
-<br>
-<input class="create" type="button" value="create player" />
-</form>
-</div>
+  <form class="player new">
+    <input type="text" class="name nokey" placeholder="new player" />
+    <span class="active switch">active</span>
+    <span class="inactive switch">inactive</span>
+    <br>
+    <span class="gender m"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
+    <span class="technique s l"><span class="s">S</span><span class="l">L</span></span>
+    <span class="pool a"><span class="a">A</span><span class="b">B</span></span>
+    <br>
+    <input class="create nokey" type="button" value="create player" />
+  </form>
 
-<br class="clear">
+  <br class="clear">
 
 </div>
 
 
 <div class="main" id="sunday">
-<h2>Sunday Mode</h2>
+  <h2>Sunday Mode</h2>
 </div>
 
 
 <div class="main" id="new">
-<h2>New Tournament</h2>
+  <h2>New Tournament</h2>
 </div>
 
 

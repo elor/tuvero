@@ -1,32 +1,55 @@
 $(function ($) {
+
+  function openTab(name) {
+    $('.menu .open').removeClass('open');
+    location.hash=name;
+    $(name + 'icon').addClass('open');
+  }
+  
+  if (!location.hash) {
+    openTab('#players');
+  }
+
+  console.log(location.hash);
+
+  $(location.hash + 'icon').addClass('open');
+
   $('#playersicon').click(function(evt) {
-    location.hash='players';
+    openTab('#players');
   });
   
   $('#sundayicon').click(function(evt) {
-    location.hash='sunday';
+    openTab('#sunday');
   });
   
   $('#newicon').click(function(evt) {
-    location.hash='new';
-  });
-  
-  $('.player .active').live('click', function (evt) {
-    if ($(evt.target).hasClass('new')) {
-      $(evt.target.parentNode.parentNode).addClass('inactive');
-    } else {
-      $(evt.target.parentNode).addClass('inactive');
-    }
-  });
-  
-  $('.player .inactive').live('click', function (evt) {
-    if ($(evt.target).hasClass('new')) {
-      $(evt.target.parentNode.parentNode).removeClass('inactive');
-    } else {
-      $(evt.target.parentNode).removeClass('inactive');
-    }
+    openTab('#new');
   });
 
+  $('body').keypress(function(evt) {
+    if (!$(evt.target).hasClass('nokey')) {
+      console.log('fuuuu');
+    } else {
+      console.log('intercepted');
+    }
+  });
+  
+  $('.player').live('click', function (evt) {
+    if ($(evt.target.parentNode).hasClass('player') && $(evt.target).hasClass('switch')) {
+      evt.target = evt.target.parentNode;
+    }
+
+    if (!$(evt.target).hasClass('player')) {
+      return;
+    }
+
+    if ($(evt.target).hasClass('inactive')) {
+      $(evt.target).removeClass('inactive');
+    } else {
+      $(evt.target).addClass('inactive');
+    }
+  });
+  
   $('.player.new .gender').click( function (evt) {
     var $this = $(this);
     if ($this.hasClass('m')) {
