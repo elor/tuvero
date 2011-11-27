@@ -10,8 +10,6 @@ $(function ($) {
     openTab('#players');
   }
 
-  console.log(location.hash);
-
   $(location.hash + 'icon').addClass('open');
 
   $('#playersicon').click(function(evt) {
@@ -26,14 +24,6 @@ $(function ($) {
     openTab('#new');
   });
 
-  $('body').keypress(function(evt) {
-    if (!$(evt.target).hasClass('nokey')) {
-      console.log('fuuuu');
-    } else {
-      console.log('intercepted');
-    }
-  });
-  
   $('.player').live('click', function (evt) {
     if ($(evt.target.parentNode).hasClass('player') && $(evt.target).hasClass('switch')) {
       evt.target = evt.target.parentNode;
