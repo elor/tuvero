@@ -8,22 +8,16 @@
 <head>
 </head>
 <body>
-<div id="playermenu"><a href="#players">Players</a></div>
-<div class="home">
-<h2>Main Menu</h1>
-<a href="#tournament"><img src="images/tournament.jpg" class="left"></img></a>
-<a href="#sunday"><img src="images/sunday.jpg" class="right"></img></a>
-<br class="clear">
+
+<div class="menu">
+<div class="item" id="playersicon"></div>
+<div class="item" id="sundayicon"></div>
+<div class="item" id="newicon"></div>
 </div>
-<div class="main" id="tournament">
-<h2>Tournament Mode</h2>
-</div>
-<div class="main" id="sunday">
-<h2>Sunday Mode</h2>
-</div>
-<div class="main above" id="players">
+
+<div class="main" id="players">
 <h2>Players</h2>
-<div class="container">
+
 <div class="player" id="pid0">
 <span class="name">Erik Lorenz</span>
 <span class="active">active</span>
@@ -32,6 +26,7 @@
 <span class="rank">1</span>
 <span class="points">1 2 3 4 5</span>
 </div>
+
 <div class="player new">
 <form>
 <input type="text" class="name" placeholder="new player" />
@@ -45,9 +40,22 @@
 <input class="create" type="button" value="create player" />
 </form>
 </div>
+
 <br class="clear">
+
 </div>
+
+
+<div class="main" id="sunday">
+<h2>Sunday Mode</h2>
 </div>
+
+
+<div class="main" id="new">
+<h2>New Tournament</h2>
+</div>
+
+
 </body>
 </html>
 

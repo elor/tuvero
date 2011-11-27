@@ -1,4 +1,16 @@
 $(function ($) {
+  $('#playersicon').click(function(evt) {
+    location.hash='players';
+  });
+  
+  $('#sundayicon').click(function(evt) {
+    location.hash='sunday';
+  });
+  
+  $('#newicon').click(function(evt) {
+    location.hash='new';
+  });
+  
   $('.player .active').live('click', function (evt) {
     if ($(evt.target).hasClass('new')) {
       $(evt.target.parentNode.parentNode).addClass('inactive');
