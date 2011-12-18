@@ -120,18 +120,14 @@ a {
   background-color: red;
 }
 
-.player.new .gender {
+.player .gender {
   font-weight: bold;
-  color: gray;
+  color: black;
   cursor: pointer;
 }
 
-.player.inactive.new .gender {
-  color: lightgray;
-}
-
-.player.new .gender.f .f, .player.new .gender.m .m {
-  color: black;
+.player .gender.f .m, .player .gender.m .f {
+  display: none;
 }
 
 .player .technique {
@@ -162,3 +158,6 @@ a {
   color: black;
 }
 
+.player.tpl {
+  display: none;
+}

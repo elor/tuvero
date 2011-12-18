@@ -1,6 +1,6 @@
 function Player(pid, name) {
   this.name = name.replace('\\', '') || "noname";
-  this.pid = Number(pid);
+  this.id = Number(pid);
 
   this.female = false;
   this.inactive = false;
@@ -16,11 +16,11 @@ Player.prototype.toString = function() {
       + (this.B ? 'B' : '') + (this.inactive ? 'I' : '') + '\\' + this.name;
 };
 
-// Player.parsePlayers
+// Player.parse
 //
 // This function turns a string or Players (database or file segment) into the
 // current list of players, thereby destroying the current list
-Player.parsePlayers = function (string) {
+Player.parse = function (string) {
   Player.list = [];
 
   if (!string) {
@@ -60,11 +60,11 @@ Player.parsePlayers = function (string) {
   }
 };
 
-Player.loadPlayers = function () {
-  Player.parsePlayers(localStorage.getItem('boules.players'));
+Player.load = function () {
+  Player.parse(localStorage.getItem('boules.players'));
 };
 
-Player.composePlayers = function() {
+Player.compose = function() {
   var lines = [];
   var p = Player.list;
   var length = p.length;
@@ -80,7 +80,7 @@ Player.composePlayers = function() {
   return lines.join('\n');
 };
 
-Player.savePlayers = function () {
-  localStorage.setItem('boules.players', Player.composePlayers());
+Player.save = function () {
+  localStorage.setItem('boules.players', Player.compose());
 };
 
