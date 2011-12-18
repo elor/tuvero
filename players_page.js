@@ -1,17 +1,27 @@
 $(function ($) {
+  // trigger active and inactive
   $('.player').live('click', function (evt) {
     if ($(evt.target.parentNode).hasClass('player') && $(evt.target).hasClass('switch')) {
       evt.target = evt.target.parentNode;
     }
 
-    if (!$(evt.target).hasClass('player')) {
+    var $this = $(evt.target);
+    if (!$this.hasClass('player')) {
       return;
     }
 
-    if ($(evt.target).hasClass('inactive')) {
-      $(evt.target).removeClass('inactive');
+    if ($this.hasClass('inactive')) {
+      $this.removeClass('inactive');
     } else {
-      $(evt.target).addClass('inactive');
+      $this.addClass('inactive');
+    }
+
+    // save to storage
+    if (!$this.hasClass('new')) {
+      // write to player list
+      Player.list[$this.attr('id').replace('pid', '')].inactive = $this.hasClass('inactive');
+      // save all players
+      savePlayers();
     }
   });
   
@@ -31,6 +41,13 @@ $(function ($) {
     } else {
       $this.addClass('s');
     }
+
+    if (!$this.parent().hasClass('new')) {
+      // write to player list
+      Player.list[$this.parent().attr('id').replace('pid', '')].S = $this.hasClass('s');
+      // save all players
+      savePlayers();
+    }
   });
 
   $('.player .technique .l').live('click', function (evt) {
@@ -39,6 +56,13 @@ $(function ($) {
       $this.removeClass('l');
     } else {
       $this.addClass('l');
+    }
+
+    if (!$this.parent().hasClass('new')) {
+      // write to player list
+      Player.list[$this.parent().attr('id').replace('pid', '')].L = $this.hasClass('l');
+      // save all players
+      savePlayers();
     }
   });
 
@@ -50,6 +74,13 @@ $(function ($) {
     } else {
       $this.removeClass('b');
       $this.addClass('a');
+    }
+
+    if (!$this.parent().hasClass('new')) {
+      // write to player list
+      Player.list[$this.parent().attr('id').replace('pid', '')].B = $this.hasClass('b');
+      // save all players
+      savePlayers();
     }
   });
 
@@ -117,6 +148,10 @@ $(function ($) {
     $new.find('.name').text(p.name);
     $new.attr('id', 'pid' + p.id);
 
+    if (p.inactive) {
+      $new.addClass('inactive');
+    }
+
     if (p.female) {
       $new.find('.gender').addClass('f');
     } else {
@@ -139,6 +174,14 @@ $(function ($) {
     
     // release it into the DOM
     $('.player.new').before($new);
+
+    // save to storage
+    savePlayers();
+  }
+
+  function savePlayers() {
+  // TODO: think of a system to avoid writing large chunks every few seconds
+    Player.save();
   }
 
   function restorePlayers() {
