@@ -1,20 +1,18 @@
 $(function ($) {
-  // trigger active and inactive
+
+  // toggle active and inactive
   $('.player').live('click', function (evt) {
-    if ($(evt.target.parentNode).hasClass('player') && $(evt.target).hasClass('switch')) {
-      evt.target = evt.target.parentNode;
+    var $this = $(evt.target);
+
+    if ($this.parent().hasClass('player') && $this.hasClass('switch')) {
+      $this = $this.parent();
     }
 
-    var $this = $(evt.target);
     if (!$this.hasClass('player')) {
       return;
     }
 
-    if ($this.hasClass('inactive')) {
-      $this.removeClass('inactive');
-    } else {
-      $this.addClass('inactive');
-    }
+    $this.toggleClass('inactive');
 
     // save to storage
     if (!$this.hasClass('new')) {
@@ -25,22 +23,18 @@ $(function ($) {
     }
   });
   
+
+  // toggle gender
   $('.player.new .gender').click( function (evt) {
     var $this = $(this);
-    if ($this.hasClass('m')) {
-      $this.removeClass('m').addClass('f');
-    } else {
-      $this.removeClass('f').addClass('m');
-    }
+    $this.toggleClass('f');
   });
+  
 
+  // toggle tireur
   $('.player .technique .s').live('click', function (evt) {
     var $this = $(this.parentNode);
-    if ($this.hasClass('s')) {
-      $this.removeClass('s');
-    } else {
-      $this.addClass('s');
-    }
+    $this.toggleClass('s');
 
     if (!$this.parent().hasClass('new')) {
       // write to player list
@@ -50,13 +44,11 @@ $(function ($) {
     }
   });
 
+
+  // toggle pointeur
   $('.player .technique .l').live('click', function (evt) {
     var $this = $(this.parentNode);
-    if ($this.hasClass('l')) {
-      $this.removeClass('l');
-    } else {
-      $this.addClass('l');
-    }
+    $this.toggleClass('l');
 
     if (!$this.parent().hasClass('new')) {
       // write to player list
@@ -66,15 +58,11 @@ $(function ($) {
     }
   });
 
+
+  // toggle pool
   $('.player .pool').live('click', function (evt) {
     var $this = $(this);
-    if ($this.hasClass('a')) {
-      $this.removeClass('a');
-      $this.addClass('b');
-    } else {
-      $this.removeClass('b');
-      $this.addClass('a');
-    }
+    $this.toggleClass('b');
 
     if (!$this.parent().hasClass('new')) {
       // write to player list
@@ -84,11 +72,15 @@ $(function ($) {
     }
   });
 
+
+  // autotrigger button click on new player form submit
   $('.player.new form').submit(function (evt) {
     $('.player.new .create').trigger('click');
     return false;
   });
-  
+
+
+  // add new player to player list and DOM
   $('.player.new .create').click(function (evt) {
     // set up references
     var $input = $('.player.new');
@@ -179,11 +171,15 @@ $(function ($) {
     savePlayers();
   }
 
+
+  // save players...
   function savePlayers() {
   // TODO: think of a system to avoid writing large chunks every few seconds
     Player.save();
   }
 
+
+  // restore players...
   function restorePlayers() {
     $('.player:not(.tpl):not(.new)').remove();
 
@@ -194,6 +190,9 @@ $(function ($) {
     }
   }
   
+
+  // load and restore players since it's the first time this page has been
+  // opened
   restorePlayers();
 });
 

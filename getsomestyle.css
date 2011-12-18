@@ -126,7 +126,7 @@ a {
   cursor: pointer;
 }
 
-.player .gender.f .m, .player .gender.m .f {
+.player .gender.f .m, .player .gender:not(.f) .f {
   display: none;
 }
 
@@ -154,7 +154,7 @@ a {
   color: lightgray;
 }
 
-.player .pool.a .a, .player .pool.b .b {
+.player .pool:not(.b) .a, .player .pool.b .b {
   color: black;
 }
 
