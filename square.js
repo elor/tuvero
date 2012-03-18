@@ -83,3 +83,49 @@ Square.prototype.extend = function () {
   return this;
 };
 
+Square.prototype.vecmult = function (vec) {
+  var ret = [];
+  var i;
+  var j;
+  var size = this.matrix.length;
+  var val;
+
+  if (size != vec.length) {
+    return undefined;
+  }
+
+  for (i = 0; i < size; ++i) {
+    val = 0;
+    for (j = 0; j < size; ++j) {
+      val += vec[i] * this.matrix[j][i];
+    }
+
+    ret.push(val);
+  }
+
+  return ret;
+}
+
+Square.prototype.multvec = function () {
+  var ret = [];
+  var i;
+  var j;
+  var size = this.matrix.length;
+  var val;
+
+  if (size != vec.length) {
+    return undefined;
+  }
+
+  for (i = 0; i < size; ++i) {
+    val = 0;
+    for (j = 0; j < size; ++j) {
+      val += this.matrix[i][j] * vec[i];
+    }
+
+    ret.push(val);
+  }
+
+  return ret;
+}
+
