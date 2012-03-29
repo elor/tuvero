@@ -104,9 +104,9 @@ Square.prototype.vecmult = function (vec) {
   }
 
   return ret;
-}
+};
 
-Square.prototype.multvec = function () {
+Square.prototype.multvec = function (vec) {
   var ret = [];
   var i;
   var j;
@@ -129,3 +129,49 @@ Square.prototype.multvec = function () {
   return ret;
 }
 
+Square.prototype.mult = function (sq2) {
+  var ret = new Square;
+  var i, j, k;
+  var size = this.matrix.length;
+  var val;
+
+  if (size != sq2.matrix.length) {
+    return;
+  }
+
+  for (i = 0; i < size; ++i) {
+    ret.matrix[i] = [];
+  }
+
+  for (i = 0; i < size; ++i) {
+    for (j = 0; j < size; ++j) {
+      val = 0;
+      for (k = 0; k < size; ++k) {
+        val += this.matrix[j][k] * sq2.matrix[k][i];
+      }
+      ret.matrix[j][i] = val;
+    }
+  }
+
+  return ret;
+};
+
+// test begin
+var I = new Square();
+I.fromString("1  \n 1 \n  1\n");
+
+V = [1, 2, 3];
+
+var M1 = new Square();
+M1.fromString("1  \n\n\n");
+
+var M2 = new Square();
+M2.fromString("\n 1 \n\n");
+
+var M3 = new Square();
+M3.fromString("\n\n  1\n");
+
+var D1 = new Square();
+D1.fromString("\n\n1  \n");
+
+// test end
