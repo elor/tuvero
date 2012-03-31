@@ -30,11 +30,14 @@ Square.prototype.toString = function () {
       }
     }
 
-    if (allnull) {
-      lines.push('');
-    } else {
-      lines.push(line.join(' '));
+    for (j = line.length - 1; j >= 0; --j) {
+      if (line[j]) {
+        line.length = j + 1;
+        break;
+      }
     }
+    
+    lines.push(line.join(' '));
   }
 
   return lines.join('\n') + '\n';
@@ -53,15 +56,9 @@ Square.prototype.fromString = function (string) {
   for (i = 0; i < size; ++i) {
     ptr = [];
 
-    if (lines[i]) {
-      numbers = lines[i].split(' ');
-      for (j = 0; j < size; ++j) {
-        ptr.push(Number(numbers[j]));
-      }
-    } else {
-      for (j = 0; j < size; ++j) {
-        ptr.push(0);
-      }
+    numbers = lines[i].split(' ');
+    for (j = 0; j < size; ++j) {
+      ptr.push(Number(numbers[j] || 0));
     }
 
     this.matrix.push(ptr);
@@ -158,20 +155,20 @@ Square.prototype.mult = function (sq2) {
 
 // test begin
 var I = new Square();
-I.fromString("1  \n 1 \n  1\n");
+I.fromString("1\n 1\n  1\n");
 
 V = [1, 2, 3];
 
 var M1 = new Square();
-M1.fromString("1  \n\n\n");
+M1.fromString("1\n\n\n");
 
 var M2 = new Square();
-M2.fromString("\n 1 \n\n");
+M2.fromString("\n 1\n\n");
 
 var M3 = new Square();
 M3.fromString("\n\n  1\n");
 
 var D1 = new Square();
-D1.fromString("\n\n1  \n");
+D1.fromString("\n\n1\n");
 
 // test end
