@@ -1,0 +1,39 @@
+square.js
+
+A Square is a representation of a (integer) square matrix with the main focus on typical
+mat-mat and mat-vec functions as well as low-profile serialization.
+
+The serialization format is as follows:
+
+- every line in the string represents a line in the matrix
+- in ever line, the integer values are separated by a space
+- "0" is not printed. Thus, "  " equals " 0 "
+- all spaces at the end of the line are omitted
+- every line (including the last one) is finished by '\n',
+  hence enabling 0x0 matrices (== empty string)
+- the size of the matrix is  (number_of_lines - 1)
+- entries outside the matrix are omitted from the string without error
+
+Examples:
+
+"" => []
+
+"
+" => [[0]]
+
+"1
+" => [[1]]
+
+"1
+ 1
+  1
+" => [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
+
+"1 2 3
+4 5 6
+7 8 9
+
+" => [[1, 2, 3, 0], [4, 5, 6, 0], [7, 8, 9, 0], [0, 0, 0, 0]]
+
+The Square class is designed to be elorpack-compressable
+
