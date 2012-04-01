@@ -1,0 +1,24 @@
+player.js
+
+A Player instance holds general values of a player.
+Those general values include properties that don't change that often, like
+name, gender or location. They are used to identify a player in a list or using
+a search method. A player can be serialized to and extracted from a single-line
+string.
+
+Properties:
+Name (inline string)
+Gender (m or f)
+Year of Birth (integer)
+Location (inline string, preferably without spaces)
+Association (inline string, preferably an abbreviation)
+
+
+Serialization format:
+[Name]\[gender**][year]\[Location]\[Association]
+
+  \ stands for an escaped backspace, thereby prohibiting the use of backspaces
+  within strings
+
+**  the gender is encoded in a single character (or '' if the developer wants)
+
