@@ -1,8 +1,13 @@
-function Square () {
+function Square(size) {
+  size = size || 0;
   this.matrix = [];
+
+  while (size--) {
+    this.matrix.push([]);
+  }
 }
 
-Square.prototype.toString = function () {
+Square.prototype.toString = function() {
   var lines = [];
   var i;
   var j;
@@ -43,7 +48,7 @@ Square.prototype.toString = function () {
   return lines.join('\n') + '\n';
 };
 
-Square.prototype.fromString = function (string) {
+Square.prototype.fromString = function(string) {
   var lines = string.split('\n');
   var numbers;
   var size = lines.length - 1;
@@ -58,7 +63,9 @@ Square.prototype.fromString = function (string) {
 
     numbers = lines[i].split(' ');
     for (j = 0; j < size; ++j) {
-      ptr.push(Number(numbers[j] || 0));
+      if (numbers[j] {
+        ptr[j] = numbers[j];
+      }
     }
 
     this.matrix.push(ptr);
@@ -67,46 +74,41 @@ Square.prototype.fromString = function (string) {
   return this;
 };
 
-Square.prototype.extend = function () {
-  var size = this.matrix.length;
-  var i;
-  this.matrix.push([]);
+Square.prototype.extend = function(by) {
+  by = by || 1;
 
-  for (i = 0; i < size; ++i) {
-    this.matrix[i].push(0);
-    this.matrix[size].push(0);
+  while (by--) {
+    this.matrix.push([]);
   }
 
   return this;
 };
 
-Square.prototype.vecmult = function (vec) {
+Square.prototype.vecmult = function(vec) {
   var ret = [];
-  var i;
-  var j;
+  var i, j;
   var size = this.matrix.length;
   var val;
 
   if (size != vec.length) {
-    return undefined;
+    return;
   }
 
   for (i = 0; i < size; ++i) {
     val = 0;
     for (j = 0; j < size; ++j) {
-      val += vec[i] * this.matrix[j][i];
+      val += vec[i] * (this.matrix[j][i] || 0);
     }
 
-    ret.push(val);
+    ret[i] = val;
   }
 
   return ret;
 };
 
-Square.prototype.multvec = function (vec) {
+Square.prototype.multvec = function(vec) {
   var ret = [];
-  var i;
-  var j;
+  var i, j;
   var size = this.matrix.length;
   var val;
 
@@ -116,59 +118,110 @@ Square.prototype.multvec = function (vec) {
 
   for (i = 0; i < size; ++i) {
     val = 0;
-    for (j = 0; j < size; ++j) {
-      val += this.matrix[i][j] * vec[i];
+    for (j = 0; j < size; ++j) 
+      val += (this.matrix[i][j] || 0) * vec[i];
     }
 
-    ret.push(val);
+    ret[i] = val;
   }
 
   return ret;
 }
 
-Square.prototype.mult = function (sq2) {
-  var ret = new Square;
+Square.prototype.mult = function(sq2) {
   var i, j, k;
   var size = this.matrix.length;
   var val;
+  var ret;
 
   if (size != sq2.matrix.length) {
     return;
   }
 
-  for (i = 0; i < size; ++i) {
-    ret.matrix[i] = [];
-  }
+  ret = new Square(size);
 
   for (i = 0; i < size; ++i) {
     for (j = 0; j < size; ++j) {
       val = 0;
       for (k = 0; k < size; ++k) {
-        val += this.matrix[j][k] * sq2.matrix[k][i];
+        val += (this.matrix[j][k] || 0) * (sq2.matrix[k][i] || 0);
       }
-      ret.matrix[j][i] = val;
+
+      if (val) {
+        ret.matrix[j][i] = val;
+      }
     }
   }
 
   return ret;
 };
 
-// test begin
-var I = new Square();
-I.fromString("1\n 1\n  1\n");
+Square.prototype.clone = function() {
+  var size = this.matrix.length;
+  var ret = new Square(size);
+  var i, j;
+  var mat = this.matrix;
+  var tam = ret.matrix;
+    
+  for (i = 0; i < size; ++i) {
+    for (j = 0; j < size; ++j) {
+      if (mat[i][j]) {
+        tam[i][j] = mat[i][j];
+      }
+    }
+  }
 
-V = [1, 2, 3];
+  return ret;
+}
 
-var M1 = new Square();
-M1.fromString("1\n\n\n");
+Square.sum = function(sq, sq2) {
+  var size = sq.matrix.length;
+  var ret;
+  var i, j;
+  var mat, m1, m2;
+  var val;
 
-var M2 = new Square();
-M2.fromString("\n 1\n\n");
+  if (size != sq2.matrix.length) {
+    return;
+  }
+  
+  ret = new Square(size);
+  mat = ret.matrix;
+  m1 = sq.matrix;
+  m2 = sq2.matrix;
 
-var M3 = new Square();
-M3.fromString("\n\n  1\n");
+  for (i = 0; i < size; ++i) {
+    for (j = 0; j < size; ++j) {
+      val = (m1[i][j] || 0) + (m2[i][j] || 0);
+      if (val) {
+        mat[i][j] = val;
+      }
+    }
+  }
+};
 
-var D1 = new Square();
-D1.fromString("\n\n1\n");
+Square.diff = function(sq, sq2) {
+  var size = sq.matrix.length;
+  var ret;
+  var i, j;
+  var mat, m1, m2;
 
-// test end
+  if (size != sq2.matrix.length) {
+    return;
+  }
+  
+  ret = new Square(size);
+  mat = ret.matrix;
+  m1 = sq.matrix;
+  m2 = sq2.matrix;
+
+  for (i = 0; i < size; ++i) {
+    for (j = 0; j < size; ++j) {
+      val = (m1[i][j] || 0) - (m2[i][j] || 0);
+      if (val) {
+        mat[i][j] = val;
+      }
+    }
+  }
+}
+
