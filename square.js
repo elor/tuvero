@@ -314,7 +314,7 @@ Square.diff = function(sq, sq2) {
   }
 };
 
-Square.linesum = function() {
+Square.prototype.linesum = function() {
   var ret = [];
   var size = this.matrix.length;
   var i, j;
@@ -330,9 +330,10 @@ Square.linesum = function() {
     ret[i] = val;
   }
 
+  return ret;
 };
 
-Square.rowsum = function() {
+Square.prototype.rowsum = function() {
   var ret = [];
   var size = this.matrix.length;
   var i, j;
@@ -348,5 +349,6 @@ Square.rowsum = function() {
     ret[i] = val;
   }
 
+  return ret;
 };
 

@@ -9,6 +9,7 @@ Ranking.prototype.process = function() {
   var feinbuchholz = this.games.multvec(buchholz);
 
   return {
+    games: this.games.linesum(),
     wins: this.wins,
     buchholz: buchholz,
     feinbuchholz: feinbuchholz,
