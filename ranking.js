@@ -1,19 +1,18 @@
 function Ranking() {
   this.games = new Square();
-  this.wins = new Square();
+  this.wins = [];
   this.netto = [];
 }
 
 Ranking.prototype.process = function() {
-  var games = games.linesum();
+  var buchholz = this.games.multvec(this.wins);
+  var feinbuchholz = this.games.multvec(buchholz);
 
-
-  var ret = {
-    netto: this.netto,
-    wins: this.wins.linesum(),
-    
+  return {
+    wins: this.wins,
+    buchholz: buchholz,
+    feinbuchholz: feinbuchholz,
+    netto: this.netto
   };
-
-  return ret;
 };
 
