@@ -15,10 +15,10 @@ Association (inline string, preferably an abbreviation)
 
 
 Serialization format:
-[Name]\[gender**][year]\[Location]\[Association]
+[Name]\[gender*][year]\[Location]\[Association]
 
   \ stands for an escaped backspace, thereby prohibiting the use of backspaces
   within strings
 
-**  the gender is encoded in a single character (or '' if the developer wants)
+*  the gender is encoded in a single character (or '' if the developer wants)
 
