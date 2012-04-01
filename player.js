@@ -8,9 +8,12 @@ Player.prototype = {
   name: 'noname',
   female: false,
   year: 1900,
-  city: '',
-  association: ''
+  city: 0,
+  association: 0
 }
+
+Player.cities = [''];
+Player.assocs = [''];
 
 // list of used strings as well as some handy functions
 Player.consts = {
@@ -31,17 +34,17 @@ Player.consts = {
   }
 };
 
-// 
+// serialize the player. see code or docs for the conversion scheme
 Player.prototype.toString = function() {
   var year = [this.female ? Player.consts.female : Player.consts.male, this.year].join('');
   return [Player.consts.encode(this.name),
       year,
-      Player.consts.encode(this.city),
-      Player.consts.encode(this.association)
+      Player.consts.encode(Player.cities[this.city]),
+      Player.consts.encode(Player.assocs[this.association])
     ].join(Player.consts.separator);
 };
 
-// read 
+// deserialize. see code or docs for conversion scheme
 Player.prototype.fromString = function(string) {
   var val = string.split(Player.consts.separator);
 
@@ -58,13 +61,37 @@ Player.prototype.fromString = function(string) {
   }
 
   if (val[2]) {
-    this.city = val[2];
+    this.setCity(val[2]);
   }
 
   if (val[3]) {
-    this.association = val[3];
+    this.setAssociation(val[3]);
   }
 
   return this;
 }
+
+Player.prototype.setCity = function(string) {
+  switch (this.city = Player.cities.indexOf(string)) {
+  case -1:
+    this.city = Player.cities.length;
+    Player.cities.push(string);
+    break;
+  case 0:
+    delete this.city;
+    break;
+  }
+};
+
+Player.prototype.setAssociation = function(string) {
+  switch(this.association = Player.assocs.indexOf(string)) {
+  case -1:
+    this.association = Player.assocs.length;
+    Player.assocs.push(string);
+    break;
+  case 0:
+    delete this.association;
+    break;
+  }
+};
 
