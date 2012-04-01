@@ -126,7 +126,7 @@ Square.prototype.multvec = function(vec) {
   }
 
   return ret;
-}
+};
 
 Square.prototype.mult = function(sq2) {
   var i, j, k;
@@ -172,7 +172,7 @@ Square.prototype.clone = function() {
   }
 
   return ret;
-}
+};
 
 Square.sum = function(sq, sq2) {
   var size = sq.matrix.length;
@@ -223,5 +223,23 @@ Square.diff = function(sq, sq2) {
       }
     }
   }
-}
+};
+
+Square.linesum = function() {
+  var ret = [];
+  var size = this.matrix.length;
+  var i, j;
+  var val;
+  var mat = this.matrix;
+
+  for (i = 0; i < size; ++i) {
+    val = 0;
+    for (j = 0; j < size; ++j) {
+      val += (mat[i][j] || 0);
+    }
+
+    ret[i] = val;
+  }
+
+};
 
