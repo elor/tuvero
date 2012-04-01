@@ -156,6 +156,27 @@ Square.prototype.mult = function(sq2) {
   return ret;
 };
 
+Square.prototype.sumWithTranspose = function() {
+  var size = this.matrix.length;
+  var ret = new Square(size);
+  var i, j;
+  var mat = this.matrix;
+  var tam = ret.matrix;
+  var val;
+    
+  for (i = 0; i < size; ++i) {
+    for (j = 0; j < i; ++j) {
+      val = mat[i][j] + mat[j][i];
+      if (val) {
+        tam[i][j] = val;
+        tam[j][i] = val;
+      }
+    }
+  }
+
+  return ret;
+};
+
 Square.prototype.clone = function() {
   var size = this.matrix.length;
   var ret = new Square(size);

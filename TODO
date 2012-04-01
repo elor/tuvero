@@ -1,5 +1,11 @@
+ranking.js
+  calculate the points and ranking from the squares)
+  replace Games square with sum of Wins and transposed Wins?
+    should work
 
-
-Stuff to change after previous changes:
-  everything related to index.html
+square.js
+  create triangle version
+    upper triangle matrix
+    lower triangle matrix
+    mirrored matrix
 
