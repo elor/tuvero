@@ -243,3 +243,21 @@ Square.linesum = function() {
 
 };
 
+Square.rowsum = function() {
+  var ret = [];
+  var size = this.matrix.length;
+  var i, j;
+  var val;
+  var mat = this.matrix;
+
+  for (i = 0; i < size; ++i) {
+    val = 0;
+    for (j = 0; j < size; ++j) {
+      val += (mat[j][i] || 0);
+    }
+
+    ret[i] = val;
+  }
+
+};
+
