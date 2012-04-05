@@ -1263,11 +1263,20 @@ window.addEventListener('load', function () {
         var win = window.open();
         var area = win.document.createElement('textarea');
         var p = win.document.createElement('p');
+        var button = win.document.createElement('input')
+        button.setAttribute('value', 'try to download');
+        button.setAttribute('type', 'button');
         p.appendChild(win.document.createTextNode(strings.copythis));
+        p.appendChild(button);
+
         area.setAttribute('style', 'width: 90%; height: 90%');
         area.value = createFileContent();
         win.document.body.appendChild(p);
         win.document.body.appendChild(area);
+
+        button.onclick = function (evt) {
+          win.document.location.href = ['data:image/octet-stream;base64,', window.btoa(area.value)].join('');
+        }
         
     }, false);
 
