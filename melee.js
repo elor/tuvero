@@ -1264,10 +1264,15 @@ window.addEventListener('load', function () {
         var area = win.document.createElement('textarea');
         var p = win.document.createElement('p');
         var button = win.document.createElement('input')
+        var a = win.document.createElement('a');
         button.setAttribute('value', 'try to download');
         button.setAttribute('type', 'button');
+        a.setAttribute('href', ['data:text/plain;base64,', window.btoa(area.value)].join(''))
+        a.setAttribute('download', 'melee_save.txt');
+        a.appendChild(win.document.createTextNode(' or click here'));
         p.appendChild(win.document.createTextNode(strings.copythis));
         p.appendChild(button);
+        p.appendChild(a);
 
         area.setAttribute('style', 'width: 90%; height: 90%');
         area.value = createFileContent();
