@@ -5,6 +5,8 @@
   <title>test</title>
   <link rel="stylesheet" href="getsomestyle.css" />
   <script src="jquery.min.js"></script>
+  <script src="elorpack.min.js"></script>
+  <script src="storage.js"></script>
   <script src="main.js"></script>
   <script src="player.js"></script>
   <script src="players_page.js"></script>
@@ -24,34 +26,18 @@
 </div>
 
 <div class="main" id="players">
-  <h2>Players</h2>
+  <h2>Spieler</h2>
 
   <div class="player tpl">
-    <span class="name"></span>
-    <span class="active switch">active</span>
-    <span class="inactive switch">inactive</span>
+    <span class="name "></span>
+    <span class="gender m"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
     <br>
-    <span class="rank"></span>
-    <span class="points"></span>
-    <br>
-    <span class="gender"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
-    <span class="technique"><span class="s">S</span><span class="l">L</span></span>
-    <span class="pool"><span class="a">A</span><span class="b">B</span></span>
+    <span class="city "></span>
+    <span class="assoc "></span>
   </div>
 
-  <form class="player new">
-    <input type="text" class="name nokey" placeholder="new player" />
-    <span class="active switch">active</span>
-    <span class="inactive switch">inactive</span>
-    <br>
-    <span class="gender m"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
-    <span class="technique s l"><span class="s">S</span><span class="l">L</span></span>
-    <span class="pool a"><span class="a">A</span><span class="b">B</span></span>
-    <br>
-    <input class="create nokey" type="button" value="create player" />
-  </form>
-
   <br class="clear">
+  <div class="noplayers"><h3>Es sind keine Spieler eingetragen</h3></div>
 
 </div>
 

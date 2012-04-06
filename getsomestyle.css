@@ -3,11 +3,18 @@ body {
   padding: 0;
   border-width: 0;
   margin: 0;
+  min-width: 20em;
 }
 
 a {
   color: inherit;
   text-decoration: inherit;
+}
+
+.h2 {
+  font-size: 150%;
+  font-weight: bold;
+  margin: 0.5em;
 }
 
 .menu {
@@ -64,100 +71,47 @@ a {
 
 .player {
   float: left;
-  width: 16em;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: lightgrey;
+  width: 13em;
   height: 4em;
-  background-color: lightgray;
+  padding: 0.5em;
   text-align: left;
-  margin: .2em;
-  padding: .5em;
-  border-radius: .8em;
-  overflow: hidden;
 }
 
 .player .name {
   font-weight: bold;
 }
 
-.player input {
-  width: 10em;
-  border-radius: 0.3em;
-}
-
-.player .active, .player .inactive {
-  right: 1em;
-  margin-right: 1em;
-  border-radius: .5em;
-  padding: 0em .3em 0em .3em;
-  cursor: pointer;
-}
-
-.player .active {
-  background-color: lightgreen;
-}
-
-.player .active:hover {
-  background-color: green;
-}
-
-.player.inactive {
-  background-color: gray;
-}
-
-.player.inactive .active {
-  display: none;
-}
-
-.player .inactive {
-  background-color: darkred;
-  display: none;
-}
-
-.player.inactive .inactive {
-  display: inline;
-}
-
-.player.inactive .inactive:hover {
-  background-color: red;
-}
-
 .player .gender {
-  font-weight: bold;
-  color: black;
-  cursor: pointer;
+  text-align: right;
 }
 
-.player .gender.f .m, .player .gender:not(.f) .f {
-  display: none;
+.player .city {
 }
 
-.player .technique {
-  color: gray;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.player.inactive .technique {
-  color: lightgray;
-}
-
-.player .technique.s .s , .player .technique.l .l {
-  color: black;
-}
-
-.player .pool {
-  font-weight: bold;
-  color: gray;
-  cursor: pointer;
-}
-
-.player.inactive .pool {
-  color: lightgray;
-}
-
-.player .pool:not(.b) .a, .player .pool.b .b {
-  color: black;
+.player .assoc {
+  font-style: italic;
 }
 
 .player.tpl {
   display: none;
 }
+
+.player:not(.f) .f {
+  display: none;
+}
+
+.player:.f .m {
+  display: none;
+}
+
+.noplayers {
+  display: none;
+}
+
+.noplayers:nth-child(4) {
+  display: block;
+}
+
