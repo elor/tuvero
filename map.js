@@ -7,7 +7,7 @@ Map.prototype.add = function(global) {
 
   if (local == -1) {
     local = map.length;
-    map[] = global;
+    map.push(global);
   }
 
   return local;
