@@ -10,8 +10,9 @@ Player.prototype = {
   year: 1900,
   city: 0,
   association: 0
-}
+};
 
+Player.list = [];
 Player.cities = [''];
 Player.assocs = [''];
 
@@ -69,7 +70,46 @@ Player.prototype.fromString = function(string) {
   }
 
   return this;
-}
+};
+
+// serialize all the players
+
+Player.toString = function() {
+  var length = Player.list.length;
+  var lines = [];
+  var i;
+
+  if (!length) {
+    return '';
+  }
+
+  for (i = 0; i != length; ++i) {
+    lines.push(Player.list[i].toString);
+  }
+
+  return lines.join('\n');
+};
+
+Player.fromString = function(string) {
+  Player.clear();
+  if (!string) {
+    return;
+  }
+
+  var lines = string.split('\n');
+  var length = lines.length;
+  var i;
+
+  for (i = 0; i != length; ++i) {
+    Player.list[i] = new Player(string);
+  }
+};
+
+Player.clear = function() {
+  Player.list = [];
+  Player.cities = [''];
+  Player.assocs = [''];
+};
 
 Player.prototype.setCity = function(string) {
   switch (this.city = Player.cities.indexOf(string)) {
