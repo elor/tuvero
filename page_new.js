@@ -60,7 +60,7 @@ Page_New = (function() {
       $preview.find('.name').text(name);
       $preview.find('.year').text(year);
       if (female) {
-        $preview.addClass('f');
+        $preview.find('.gender').addClass('f');
       }
       $preview.find('.city').text(city);
       $preview.find('.assoc').text(assoc);
