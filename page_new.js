@@ -69,6 +69,10 @@ Page_New = (function() {
     }
   };
 
+  function correctPlayer() {
+    $('#newplayer').removeClass('preview');
+  }
+
   function confirmPlayer() {
     var $newplayer = $('#newplayer');
     var $form = $('#newplayer_input');
@@ -95,7 +99,8 @@ Page_New = (function() {
 
   return {
     newPlayer: newPlayer,
-    confirmPlayer: confirmPlayer
+    confirmPlayer: confirmPlayer,
+    correctPlayer: correctPlayer
   };
 })();
 

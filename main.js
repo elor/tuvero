@@ -55,6 +55,10 @@ $(function ($) {
     Page_New.newPlayer();
   });
 
+  $('#newplayer .preview .correct').click(function() {
+    Page_New.correctPlayer();
+  });
+
   $('#newplayer .preview .submit').click(function() {
     Page_New.confirmPlayer();
   });

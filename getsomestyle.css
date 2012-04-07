@@ -173,3 +173,7 @@ a {
   display: none;
 }
 
+#newplayer.preview input {
+  width: 6.5em;
+}
+
