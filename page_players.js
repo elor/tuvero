@@ -1,4 +1,4 @@
-$(function ($) {
+Page_Players = (function () {
   // addPlayer()
   //   p - the Player instance to be added to the DOM
   // 
@@ -11,6 +11,8 @@ $(function ($) {
 
     // clone the player template
     var $new = $('.player.tpl').clone().removeClass('tpl');
+
+    $new.attr('href', '#profile' + p.id);
 
     // fill with data
     $new.find('.name').text(p.name);
@@ -48,10 +50,37 @@ $(function ($) {
       addPlayer(Player.list[f]);
     }
   }
-  
 
-  // load and restore players since it's the first time this page has been
-  // opened
-  restorePlayers();
-});
+  var $profile;
+
+  function showProfile(p) {
+    if (!$profile) {
+      $profile = $('#profile');
+      $profile.remove();
+    }
+
+    var $new = $profile.clone().attr('id', location.hash.slice(1));
+    $new.find('.name').text(p.name);
+    $new.find('.year').text(p.year.toString());
+    $new.find('.city').text(p.getCity());
+    $new.find('.assoc').text(p.getAssociation());
+    if (p.female) {
+      $new.find('.gender').addClass('f');
+    }
+    $new.find('.id').text(p.id);
+    $('#players').before($new).focus();
+
+    $('.menu .open').removeClass('open');
+    $('#playersicon').addClass('open');
+
+    return $new;
+  }
+
+  return {
+    savePlayers: savePlayers,
+    restorePlayers: restorePlayers,
+    addPlayer: addPlayer,
+    showProfile: showProfile
+  };
+})();
 

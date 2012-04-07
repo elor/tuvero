@@ -7,9 +7,9 @@
   <script src="jquery.min.js"></script>
   <script src="elorpack.min.js"></script>
   <script src="storage.js"></script>
-  <script src="main.js"></script>
   <script src="player.js"></script>
   <script src="page_players.js"></script>
+  <script src="main.js"></script>
 </head>
 
 <body>
@@ -25,19 +25,49 @@
 <div class="main" id="players">
   <h2>Spieler</h2>
 
-  <div class="player tpl">
+  <a class="player tpl">
     <span class="name "></span>
     <br>
-    <span class="gender m"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
+    <span class="gender"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
     <span class="year"></span>
     <br>
     <span class="city "></span>
     <span class="assoc "></span>
-  </div>
+  </a>
 
   <br class="clear">
   <div class="noplayers"><h3>Es sind keine Spieler eingetragen</h3></div>
 
+</div>
+
+<div class="main profile" id="profile">
+  <h2>Profil von <span class="name"></span></h2>
+  <table>
+  <tr>
+    <td>Name</td>
+    <td class="name"></td>
+  </tr>
+  <tr>
+    <td>Geschlecht</td>
+    <td class="gender"><span class="m">m&auml;nnlich</span><span class="f">weiblich</span></td>
+  </tr>
+  <tr>
+    <td>Geburtsjahr</td>
+    <td class="year"></td>
+  </tr>
+  <tr>
+    <td>Stadt</td>
+    <td class="city"></td>
+  </tr>
+  <tr>
+    <td>Verein</td>
+    <td class="assoc"></td>
+  </tr>
+  <tr>
+    <td>Spieler-ID</td>
+    <td class="id"></td>
+  </tr>
+  </table>
 </div>
 
 <div class="main" id="new">

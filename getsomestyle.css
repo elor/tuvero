@@ -43,10 +43,6 @@ a {
   background-image: url('images/people-icon.jpg');
 }
 
-#sundayicon {
-  background-image: url('images/sun.png');
-}
-
 #newicon {
   background-image: url('images/plus.png');
 }
@@ -61,8 +57,12 @@ a {
   display: none;
 }
 
-.main:target {
+.main:target, .profile {
   display: block;
+}
+
+#profile {
+  display: none;
 }
 
 .clear {
@@ -70,6 +70,7 @@ a {
 }
 
 .player {
+  display: block;
   float: left;
   margin: 0.5em;
   border-radius: 0.5em;
@@ -88,6 +89,14 @@ a {
   text-align: right;
 }
 
+.player .gender:not(.f) .f {
+  display: none;
+}
+
+.player .gender.f .m {
+  display: none;
+}
+
 .player .city {
 }
 
@@ -99,19 +108,24 @@ a {
   display: none;
 }
 
-.player:not(.f) .f {
-  display: none;
-}
-
-.player:.f .m {
-  display: none;
-}
-
 .noplayers {
   display: none;
 }
 
 .noplayers:nth-child(4) {
   display: block;
+}
+
+.profile .gender:not(.f) .f {
+  display: none;
+}
+
+.profile .gender.f .m {
+  display: none;
+}
+
+.profile td {
+  padding-left: 1em;
+  text-align: left;
 }
 

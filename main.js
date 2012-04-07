@@ -1,8 +1,9 @@
 $(function ($) {
+  Page_Players.restorePlayers();
 
   function openTab(name) {
     $('.menu .open').removeClass('open');
-    location.hash=name;
+    location.hash = name;
     $(name).focus();
     $(name + 'icon').addClass('open');
   }
@@ -16,11 +17,32 @@ $(function ($) {
   $('#playersicon').click(function(evt) {
     openTab('#players');
   });
-  
-  $('#sundayicon').click(function(evt) {
-    openTab('#sunday');
-  });
-  
+
+  var $currentProfile = undefined;
+
+  function profilehash() {
+    if ($currentProfile) {
+      $currentProfile.remove();
+      $currentProfile = undefined;
+    }
+
+    if (location.hash.length > 8 && location.hash.slice(0, 8) === '#profile') {
+      var id = Number(location.hash.slice(8));
+      var p = Player.list[id];
+
+      if (p) {
+        $currentProfile = Page_Players.showProfile(p);
+      } else {
+        openTab('#players');
+      }
+
+    }
+  }
+
+  profilehash();
+
+  $(window).bind('hashchange', profilehash);
+
   $('#newicon').click(function(evt) {
     openTab('#new');
   });
