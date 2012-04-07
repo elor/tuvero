@@ -18,7 +18,7 @@ Page_Players = (function () {
     $new.find('.name').text(p.name);
     $new.find('.year').text(p.year.toString());
     $new.find('.city').text(p.getCity());
-    $new.find('.assoc').text(p.getAssociation());
+    $new.find('.assoc').text(p.getAssoc());
 
     if (p.id !== undefined) {
       $new.attr('id', 'pid' + p.id);
@@ -42,7 +42,7 @@ Page_Players = (function () {
 
   // restore players...
   function restorePlayers() {
-    $('.player:not(.tpl)').remove();
+    $('#players .player:not(.tpl)').remove();
 
     Player.fromString(Storage.get('players'));
 
@@ -63,7 +63,7 @@ Page_Players = (function () {
     $new.find('.name').text(p.name);
     $new.find('.year').text(p.year.toString());
     $new.find('.city').text(p.getCity());
-    $new.find('.assoc').text(p.getAssociation());
+    $new.find('.assoc').text(p.getAssoc());
     if (p.female) {
       $new.find('.gender').addClass('f');
     }

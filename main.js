@@ -47,5 +47,17 @@ $(function ($) {
     openTab('#new');
   });
 
+  $('#newplayer_input .gender').click(function() {
+    $(this).toggleClass('f');
+  });
+
+  $('#newplayer_input .submit').click(function() {
+    Page_New.newPlayer();
+  });
+
+  $('#newplayer .preview .submit').click(function() {
+    Page_New.confirmPlayer();
+  });
+
 });
 

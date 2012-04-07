@@ -76,7 +76,6 @@ a {
   border-radius: 0.5em;
   background-color: lightgrey;
   width: 13em;
-  height: 4em;
   padding: 0.5em;
   text-align: left;
 }
@@ -127,5 +126,50 @@ a {
 .profile td {
   padding-left: 1em;
   text-align: left;
+}
+
+.redbg {
+  background-color: red;
+}
+
+#newplayer_input  {
+  text-align: center;
+}
+
+#newplayer input {
+  -webkit-transition: background-color 0.5s ease-out;
+  width: 13em;
+}
+
+#newplayer_input .year {
+  width: 6em;
+}
+
+#newplayer_input .gender {
+  display: inline-block;
+  text-align: center;
+  width: 5.4em;
+  background-color: white;
+  border-radius: 1em;
+  border-style: solid;
+  border-width: 1px;
+  border-color: gray;
+  cursor: pointer;
+}
+
+#newplayer_input .gender:not(.f) .f {
+  display: none;
+}
+
+#newplayer_input .gender.f .m {
+  display: none;
+}
+
+#newplayer:not(.preview) .preview {
+  display: none;
+}
+
+#newplayer.preview form {
+  display: none;
 }
 

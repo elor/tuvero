@@ -1,12 +1,32 @@
-function Player(string, id) {
-  if (string && typeof(string) == "string") {
-    this.fromString(string);
+function Player(init) {
+  if (init) {
+    switch (typeof init) {
+    case 'string':
+      this.fromString(init);
+      break;
+    case 'object':
+      if (init.name)
+      {
+        this.name = init.name;
+      }
+      if (init.female)
+      {
+        this.female = true;
+      }
+      if (init.year) {
+        this.year = Number(init.year);
+      }
+      if (init.city) {
+        this.setCity(init.city);
+      }
+      if (init.assoc) {
+        this.setAssoc(init.assoc);
+      }
+    }
   }
 
-  if (id || id === 0) {
-    this.id = id;
-    Player.list[id] = this;
-  }
+  this.id = Player.list.length;
+  Player.list[this.id] = this;
 }
 
 Player.prototype = {
@@ -14,7 +34,7 @@ Player.prototype = {
   female: false,
   year: 1900,
   city: 0,
-  association: 0
+  assoc: 0
 };
 
 Player.list = [];
@@ -46,7 +66,7 @@ Player.prototype.toString = function() {
   return [Player.consts.encode(this.name),
       year,
       Player.consts.encode(Player.cities[this.city]),
-      Player.consts.encode(Player.assocs[this.association])
+      Player.consts.encode(Player.assocs[this.assoc])
     ].join(Player.consts.separator);
 };
 
@@ -71,7 +91,7 @@ Player.prototype.fromString = function(string) {
   }
 
   if (val[3]) {
-    this.setAssociation(val[3]);
+    this.setAssoc(val[3]);
   }
 
   return this;
@@ -99,20 +119,20 @@ Player.prototype.getCity = function() {
   return Player.cities[this.city];
 };
 
-Player.prototype.setAssociation = function(string) {
-  switch(this.association = Player.assocs.indexOf(string)) {
+Player.prototype.setAssoc = function(string) {
+  switch(this.assoc = Player.assocs.indexOf(string)) {
   case -1:
-    this.association = Player.assocs.length;
+    this.assoc = Player.assocs.length;
     Player.assocs.push(string);
     break;
   case 0:
-    delete this.association;
+    delete this.assoc;
     break;
   }
 };
 
-Player.prototype.getAssociation = function() {
-  return Player.assocs[this.association];
+Player.prototype.getAssoc = function() {
+  return Player.assocs[this.assoc];
 };
 
 Player.toString = function() {
@@ -134,12 +154,16 @@ Player.toString = function() {
 Player.fromString = function(string) {
   Player.clear();
 
+  if (!string) {
+    return;
+  }
+
   var lines = string.split('\n');
   var length = lines.length;
   var i;
 
   for (i = 0; i < length; ++i) {
-    Player.list[i] = new Player(lines[i], i);
+    new Player(lines[i]);
   }
 };
 

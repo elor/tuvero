@@ -9,6 +9,7 @@
   <script src="storage.js"></script>
   <script src="player.js"></script>
   <script src="page_players.js"></script>
+  <script src="page_new.js"></script>
   <script src="main.js"></script>
 </head>
 
@@ -71,7 +72,33 @@
 </div>
 
 <div class="main" id="new">
-  <h2>New Tournament</h2>
+  <div class="player " id="newplayer">
+    <form id="newplayer_input">
+      <h2>Neuer Spieler</h2>
+      <input type="text" class="name nokey" placeholder="Vorname Nachname" />
+      <br>
+      <input type="number" min="1900" max="2020" class="year nokey" placeholder="Jahr" />
+      <span class="gender"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
+      <br>
+      <input type="text" class="city" placeholder="Stadt" />
+      <br>
+      <input type="text" class="assoc" placeholder="Verein" />
+      <br>
+      <input type="button" class="submit" value="Erstellen" />
+    </form>
+    <div class="preview">
+      <span class="name "></span>
+      <br>
+      <span class="gender"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
+      <span class="year"></span>
+      <br>
+      <span class="city "></span>
+      <span class="assoc "></span>
+      <br>
+      <input type="button" class="submit" value="Best&auml;tigen" />
+    </div>
+  </div>
+  <br class="clear">
 </div>
 
 </body>

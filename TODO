@@ -1,15 +1,15 @@
 
 
 Roadmap
-  Player GUI
+  Pages
     Add new Player
     Search for Player
-    Detailed Player page
   Game
     run a game
     end a game
       Ranking entries
   Ranking
     rank players by multiple criteria
+    Ranking Page
   Wrap everything in a namespace
 
