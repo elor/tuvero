@@ -1,8 +1,6 @@
 
 
 Roadmap
-  Download
-    grab references and toString() them, enabling wait locks and update intervals
   Player GUI
     Add new Player
     Search for Player

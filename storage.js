@@ -12,8 +12,8 @@ var Storage = (function() {
     get: function(key) {
       return window.localStorage.getItem(key);
     },
-    put: function(key, value) {
-      window.localStorage.setItem(key, value);
+    set: function(key, item) {
+      window.localStorage.setItem(key, item.toString());
     },
     clear: function() {
       window.localStorage.clear();
