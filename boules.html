@@ -9,16 +9,13 @@
   <script src="storage.js"></script>
   <script src="main.js"></script>
   <script src="player.js"></script>
-  <script src="players_page.js"></script>
+  <script src="page_players.js"></script>
 </head>
 
 <body>
 <div class="menu">
   <div class="item" id="playersicon" accesskey="p">
     <a accesskey="p"></a>
-  </div>
-  <div class="item" id="sundayicon">
-    <a accesskey="s"></a>
   </div>
   <div class="item" id="newicon">
     <a accesskey="a"></a>
@@ -30,7 +27,9 @@
 
   <div class="player tpl">
     <span class="name "></span>
+    <br>
     <span class="gender m"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
+    <span class="year"></span>
     <br>
     <span class="city "></span>
     <span class="assoc "></span>
@@ -40,12 +39,6 @@
   <div class="noplayers"><h3>Es sind keine Spieler eingetragen</h3></div>
 
 </div>
-
-
-<div class="main" id="sunday">
-  <h2>Sunday Mode</h2>
-</div>
-
 
 <div class="main" id="new">
   <h2>New Tournament</h2>

@@ -1,6 +1,11 @@
-function Player(string) {
+function Player(string, id) {
   if (string && typeof(string) == "string") {
     this.fromString(string);
+  }
+
+  if (id || id === 0) {
+    this.id = id;
+    Player.list[id] = this;
   }
 }
 
@@ -72,39 +77,6 @@ Player.prototype.fromString = function(string) {
   return this;
 };
 
-// serialize all the players
-
-Player.toString = function() {
-  var length = Player.list.length;
-  var lines = [];
-  var i;
-
-  if (!length) {
-    return '';
-  }
-
-  for (i = 0; i != length; ++i) {
-    lines.push(Player.list[i].toString);
-  }
-
-  return lines.join('\n');
-};
-
-Player.fromString = function(string) {
-  Player.clear();
-  if (!string) {
-    return;
-  }
-
-  var lines = string.split('\n');
-  var length = lines.length;
-  var i;
-
-  for (i = 0; i != length; ++i) {
-    Player.list[i] = new Player(string);
-  }
-};
-
 Player.clear = function() {
   Player.list = [];
   Player.cities = [''];
@@ -123,6 +95,10 @@ Player.prototype.setCity = function(string) {
   }
 };
 
+Player.prototype.getCity = function() {
+  return Player.cities[this.city];
+};
+
 Player.prototype.setAssociation = function(string) {
   switch(this.association = Player.assocs.indexOf(string)) {
   case -1:
@@ -132,6 +108,38 @@ Player.prototype.setAssociation = function(string) {
   case 0:
     delete this.association;
     break;
+  }
+};
+
+Player.prototype.getAssociation = function() {
+  return Player.assocs[this.association];
+};
+
+Player.toString = function() {
+  var length = Player.list.length;
+  var lines = [];
+  var i;
+
+  if (!length) {
+    return '';
+  }
+
+  for (i = 0; i < length; ++i) {
+    lines.push(Player.list[i].toString());
+  }
+
+  return lines.join('\n');
+};
+
+Player.fromString = function(string) {
+  Player.clear();
+
+  var lines = string.split('\n');
+  var length = lines.length;
+  var i;
+
+  for (i = 0; i < length; ++i) {
+    Player.list[i] = new Player(lines[i], i);
   }
 };
 
