@@ -1,3 +1,17 @@
-ranking.js
-  produce ranking map
+
+
+Roadmap
+  Download
+    grab references and toString() them, enabling wait locks and update intervals
+  Player GUI
+    Add new Player
+    Search for Player
+    Detailed Player page
+  Game
+    run a game
+    end a game
+      Ranking entries
+  Ranking
+    rank players by multiple criteria
+  Wrap everything in a namespace
 
