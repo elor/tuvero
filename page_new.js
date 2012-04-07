@@ -93,7 +93,7 @@ Page_New = (function() {
       assoc: $preview.find('.assoc').text()
     };
 
-    Page_Players.addPlayer(new Player(init));
+    Page_Players.updatePlayer(new Player(init));
     Storage.set('players', Player);
   }
 

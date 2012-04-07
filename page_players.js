@@ -1,15 +1,17 @@
 Page_Players = (function () {
-  // addPlayer()
+  // updatePlayer()
   //   p - the Player instance to be added to the DOM
   // 
   // This function takes a player instance, removes a probably existing entry
   // from the DOM and adds a new one, which is just a brief clone of the player
   // template filled with the player data
-  function addPlayer(p) {
-    // remove existing element
-    removePlayer(p);
-
-    // clone the player template
+  function updatePlayer(p) {
+    var $old = $('#pid' + p.id);
+    if (!$old.length) {
+      $old = undefined;
+    } else {
+      $old.removeAttr('id');
+    }
     var $new = $('.player.tpl').clone().removeClass('tpl');
 
     $new.attr('href', '#profile' + p.id);
@@ -28,12 +30,12 @@ Page_Players = (function () {
       $new.find('.gender').addClass('f');
     }
 
-    // release it into the DOM
-    $('.player.tpl').before($new);
-  }
-
-  function removePlayer(p) {
-    $('#pid' + p.id).remove();
+    if ($old) {
+      $old.before($new);
+      $old.remove();
+    } else {
+      $('.player.tpl').before($new);
+    }
   }
 
   function savePlayers() {
@@ -47,7 +49,7 @@ Page_Players = (function () {
     Player.fromString(Storage.get('players'));
 
     for (var f in Player.list) {
-      addPlayer(Player.list[f]);
+      updatePlayer(Player.list[f]);
     }
   }
 
@@ -56,7 +58,7 @@ Page_Players = (function () {
   function showProfile(p) {
     if (!$profile) {
       $profile = $('#profile');
-      $profile.remove();
+      $profile.detach();
     }
 
     var $new = $profile.clone().attr('id', location.hash.slice(1));
@@ -79,7 +81,7 @@ Page_Players = (function () {
   return {
     savePlayers: savePlayers,
     restorePlayers: restorePlayers,
-    addPlayer: addPlayer,
+    updatePlayer: updatePlayer,
     showProfile: showProfile
   };
 })();

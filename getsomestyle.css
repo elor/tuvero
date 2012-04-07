@@ -123,9 +123,26 @@ a {
   display: none;
 }
 
+.profile table td:nth-child(2):not(.gender) {
+  cursor: text;
+  padding-right: 1em;
+}
+
+.profile table .gender span, .profile table .gender {
+  cursor: pointer;
+}
+
+.profile table td:nth-child(2):hover {
+  background-color: lightgray;
+}
+
 .profile td {
   padding-left: 1em;
   text-align: left;
+}
+
+.profile td.tmp {
+  padding: 0em;
 }
 
 .redbg {
