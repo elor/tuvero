@@ -24,6 +24,50 @@ Ranking.ArrayDivision = function(a, b) {
   return ret;
 }
 
+Ranking.prototype.addResult = function(team_a, team_b, score_a, score_b) {
+  var diff = score_b - score_a;
+  var a_wins = diff < 0;
+
+  var size_a, size_b;
+  var i, j;
+  var a, b;
+
+  if (typeof team_a == "number") {
+    team_a = [team_a];
+  }
+  if (typeof team_b == "number") {
+    team_b = [team_b];
+  }
+
+  size_a = team_a.length;
+  size_b = team_b.length;
+  for (i = 0; i < size_a; ++i) {
+    a = team_a[i];
+    if (a_wins) {
+      ++this.wins[a];
+    }
+
+    this.netto[a] -= diff;
+
+    for (j = 0; j < size_b; ++j) {
+      b = team_b[j];
+
+      this.games.matrix[a][b] = (this.games.matrix[a][b] || 0) + 1;
+      this.games.matrix[b][a] = this.games.matrix[a][b];
+    }
+  }
+
+  console.log('asd');
+  for (i = 0; i < size_b; ++i) {
+    b = team_b[i];
+    if (!a_wins) {
+      ++this.wins[b];
+    }
+
+    this.netto[b] += diff;
+  }
+};
+
 Ranking.prototype.process = function() {
   var length = this.wins.length;
   var buchholz = this.games.multvec(this.wins);
@@ -66,10 +110,10 @@ Ranking.prototype.process = function() {
   };
 };
 
-// test
 
+// test
 var rk = new Ranking();
-rk.games.fromString("0 2 1\n2 0 1\n1 1 0\n");
-rk.wins = [1, 2, 1];
-rk.netto = [1, 2, 3];
+rk.games.fromTriString("\n\n\n");
+rk.wins = [0, 0, 0];
+rk.netto = [0, 0, 0];
 
