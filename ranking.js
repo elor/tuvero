@@ -20,7 +20,19 @@ Ranking.ArrayDivision = function(a, b) {
   }
 
   return ret;
-}
+};
+
+Ranking.ArrayScalarDivision = function(a, b) {
+  var length = a.length;
+  var ret = [];
+  var i;
+
+  for (i = 0; i < length; ++i) {
+    ret[i] = a[i] / b;
+  }
+
+  return ret;
+};
 
 Ranking.prototype.addResult = function(team_a, team_b, score_a, score_b) {
   var diff = score_b - score_a;
@@ -65,12 +77,13 @@ Ranking.prototype.addResult = function(team_a, team_b, score_a, score_b) {
   }
 };
 
-Ranking.prototype.process = function() {
+Ranking.prototype.process = function(teamsize) {
+  teamsize = teamsize || 1;
   var length = Player.list.length;
   var buchholz = this.games.multvec(this.wins);
-  var games = this.games.linesum();
+  var games = Ranking.ArrayScalarDivision(this.games.linesum(), teamsize);
 
-  var absolute = {
+  var abs = {
     wins: this.wins,
     buchholz: buchholz,
     feinbuchholz: this.games.multvec(buchholz),
@@ -78,38 +91,38 @@ Ranking.prototype.process = function() {
     ranking: []
   };
 
-  var relative = {
-    wins: Ranking.ArrayDivision(absolute.wins, games),
-    buchholz: Ranking.ArrayDivision(absolute.buchholz, games),
-    feinbuchholz: Ranking.ArrayDivision(absolute.feinbuchholz, games),
-    netto: Ranking.ArrayDivision(absolute.netto, games),
+  var rel = {
+    wins: Ranking.ArrayDivision(abs.wins, games),
+    buchholz: Ranking.ArrayDivision(abs.buchholz, games),
+    feinbuchholz: Ranking.ArrayDivision(abs.feinbuchholz, games),
+    netto: Ranking.ArrayDivision(abs.netto, games),
     ranking: []
   };
 
   var abssort = function(a, b) {
-    return (absolute.wins[b] - absolute.wins[a]) || (absolute.buchholz[b] - absolute.buchholz[a]) || (absolute.feinbuchholz[b] - absolute.feinbuchholz[a]) || (absolute.netto[b] - absolute.netto[a]) || (games[b] - games[a]);
+    return ((abs.wins[b] || 0) - (abs.wins[a] || 0)) || (abs.buchholz[b] - abs.buchholz[a]) || (abs.feinbuchholz[b] - abs.feinbuchholz[a]) || (abs.netto[b] - abs.netto[a]) || (games[b] - games[a]) || (a - b);
   }
   var relsort = function(a, b) {
-    return (relative.wins[b] - relative.wins[a]) || (relative.buchholz[b] - relative.buchholz[a]) || (relative.feinbuchholz[b] - relative.feinbuchholz[a]) || (relative.netto[b] - relative.netto[a]) || (games[b] - games[a]);
+    return ((rel.wins[b] || 0) - (rel.wins[a] || 0)) || (rel.buchholz[b] - rel.buchholz[a]) || (rel.feinbuchholz[b] - rel.feinbuchholz[a]) || (rel.netto[b] - rel.netto[a]) || (games[b] - games[a]) || (a - b);
   }
 
-  var abs = absolute.ranking;
-  var rel = relative.ranking;
+  var a = abs.ranking;
+  var r = rel.ranking;
   var i;
   for (i = 0; i < length; ++i) {
     if (games[i]) {
-      abs.push(i);
-      rel.push(i);
+      a.push(i);
+      r.push(i);
     }
   }
 
-  abs.sort(abssort);
-  rel.sort(relsort);
+  a.sort(abssort);
+  r.sort(relsort);
 
   return {
     games: games,
-    absolute: absolute,
-    relative: relative
+    abs: abs,
+    rel: rel
   };
 };
 
@@ -154,9 +167,9 @@ Global = {
     this.updatePlayerCount();
 
     return {
-      tete: this.tete.process(),
-      doublette: this.doublette.process(),
-      triplette: this.triplette.process()
+      tete: this.tete.process(1),
+      doublette: this.doublette.process(2),
+      triplette: this.triplette.process(3)
     };
   },
 
@@ -181,4 +194,5 @@ new Player("Sabine Felber\\1990\\Chemnitz\\BC");
 Global.updatePlayerCount();
 
 Global.addResult([3], [5], 13, 7);
-
+Global.addResult([3, 1], [5, 0], 13, 7);
+Global.addResult([5, 4, 3], [2, 1, 0], 13, 7);
