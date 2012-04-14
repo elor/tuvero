@@ -142,8 +142,24 @@ Square.prototype.fromTriString = function(string) {
   return this;
 };
 
-Square.prototype.extend = function(by) {
-  by = by || 1;
+// by:  either to - this.matrix.length
+//      OR 1 if to === undefined
+//      OR 0 if this.matrix.length >= to
+Square.prototype.extend = function(to) {
+  var by = 1;
+  switch (true) {
+  case to === undefined:
+    by = 1
+    break;
+  case to <= this.matrix.length:
+    by = 0;
+    break;
+  case typeof to === 'number':
+    by = to - this.matrix.length;
+    break;
+  default:
+    console.error('Square.extend: wrong input');
+  }
 
   while (by--) {
     this.matrix.push([]);
@@ -180,14 +196,10 @@ Square.prototype.multvec = function(vec) {
   var size = this.matrix.length;
   var val;
 
-  if (size != vec.length) {
-    return undefined;
-  }
-
   for (i = 0; i < size; ++i) {
     val = 0;
     for (j = 0; j < size; ++j) {
-      val += (this.matrix[i][j] || 0) * vec[j];
+      val += (this.matrix[i][j] || 0) * (vec[j] || 0);
     }
 
     ret[i] = val;
