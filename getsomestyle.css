@@ -43,6 +43,10 @@ a {
   background-image: url('images/people-icon.jpg');
 }
 
+#rankingicon {
+  background-image: url('images/ranking.png');
+}
+
 #newicon {
   background-image: url('images/plus.png');
 }

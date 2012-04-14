@@ -159,6 +159,10 @@ $(function ($) {
     });
   });
 
+  $('#rankingicon').click(function(evt) {
+    openTab('#ranking');
+  });
+
   $('#newicon').click(function(evt) {
     openTab('#new');
   });
