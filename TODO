@@ -8,3 +8,9 @@ Roadmap
   Wrap everything in a namespace
   Clean up
 
+  Tournament tools
+    overview over all played games
+    different sort modes (registration number, rank, alphabetic)
+    search (player/team/state)
+    tournament table (gegner, sieg/niederlage, netto fuer jedes Spiel)
+

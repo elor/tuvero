@@ -1,7 +1,12 @@
-function Ranking() {
+function Ranking(string) {
   this.games = new Square();
-  this.wins = [];
-  this.netto = [];
+
+  if (string) {
+    this.fromString(string);
+  } else {
+    this.wins = [];
+    this.netto = [];
+  }
 }
 
 Ranking.ArrayDivision = function(a, b) {
@@ -33,6 +38,19 @@ Ranking.ArrayScalarDivision = function(a, b) {
 
   return ret;
 };
+
+Ranking.prototype.toString = function() {
+  return [ArrayToString(this.wins), ArrayToString(this.netto), this.games.toTriString()].join('\n');
+};
+
+Ranking.prototype.fromString = function(string) {
+  if (string) {
+    var lines = string.split('\n');
+    this.wins = ArrayFromString(lines.shift());
+    this.netto = ArrayFromString(lines.shift());
+    this.games.fromString(lines.join('\n'));
+  }
+}
 
 Ranking.prototype.addResult = function(team_a, team_b, score_a, score_b) {
   var diff = score_b - score_a;
@@ -130,6 +148,17 @@ Global = {
   tete: new Ranking(),
   doublette: new Ranking(),
   triplette: new Ranking(),
+
+  toString: function() {
+    return [this.tete.toString(), this.doublette.toString(), this.triplette.toString()].join('--\n');
+  },
+
+  fromString: function(str) {
+    var tmp = str.split('--\n');
+    this.tete.fromString(tmp.shift());
+    this.doublette.fromString(tmp.shift());
+    this.triplette.fromString(tmp.shift());
+  },
 
   addResult: function(team_a, team_b, score_a, score_b) {
     var len_a = team_a.length;
