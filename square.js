@@ -90,7 +90,7 @@ Square.prototype.toTriString = function() {
 }
 
 Square.prototype.fromString = function(string) {
-  var lines = string.split('\n');
+  var lines = string.split('\n') || [];
   var numbers;
   var size = lines.length - 1;
   var i;
@@ -116,7 +116,7 @@ Square.prototype.fromString = function(string) {
 };
 
 Square.prototype.fromTriString = function(string) {
-  var lines = string.split('\n');
+  var lines = string.split('\n') || [];
   var numbers;
   var size = lines.length - 1;
   var i, j;

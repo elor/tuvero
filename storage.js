@@ -13,7 +13,12 @@ var Storage = (function() {
       return window.localStorage.getItem(key);
     },
     set: function(key, item) {
-      window.localStorage.setItem(key, item.toString());
+      var str = item.toString();
+      if (str === undefined) {
+        window.localStorage.removeItem(key);
+      } else {
+        window.localStorage.setItem(key, str);
+      }
     },
     clear: function() {
       window.localStorage.clear();

@@ -44,12 +44,12 @@ Ranking.prototype.toString = function() {
 };
 
 Ranking.prototype.fromString = function(string) {
-  if (string) {
-    var lines = string.split('\n');
-    this.wins = ArrayFromString(lines.shift());
-    this.netto = ArrayFromString(lines.shift());
-    this.games.fromString(lines.join('\n'));
-  }
+  var lines = string ? string.split('\n') : [];
+  this.wins = ArrayFromString(lines.shift());
+  this.netto = ArrayFromString(lines.shift());
+  this.games.fromString(lines.join('\n'));
+
+  return this;
 }
 
 Ranking.prototype.addResult = function(team_a, team_b, score_a, score_b) {
@@ -150,14 +150,21 @@ Global = {
   triplette: new Ranking(),
 
   toString: function() {
-    return [this.tete.toString(), this.doublette.toString(), this.triplette.toString()].join('--\n');
+    var str = [this.tete.toString(), this.doublette.toString(), this.triplette.toString()].join('--\n');
+    if (str === "\n\n--\n\n\n--\n\n\n") {
+      return undefined;
+    } else {
+      return str;
+    }
   },
 
   fromString: function(str) {
-    var tmp = str.split('--\n');
+    var tmp = str ? str.split('--\n') : [];
     this.tete.fromString(tmp.shift());
     this.doublette.fromString(tmp.shift());
     this.triplette.fromString(tmp.shift());
+
+    return this;
   },
 
   addResult: function(team_a, team_b, score_a, score_b) {

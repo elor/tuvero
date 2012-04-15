@@ -11,7 +11,7 @@ function ArrayToString(arr) {
 }
 
 function ArrayFromString(string) {
-  var tmp = string.split(' ');
+  var tmp = string ? string.split(' ') : [];
   var ret = [];
   var len = tmp.length;
   var i;
