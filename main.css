@@ -122,3 +122,9 @@ h1 #load {
 .abovetimelimit {
     background-color: red;
 }
+
+.clear {
+  clear: both;
+  height: 0.5em;
+}
+
