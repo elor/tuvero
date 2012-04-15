@@ -211,17 +211,3 @@ Global = {
   }
 };
 
-// test
-
-new Player("Erik Lorenz\\1990\\Chemnitz\\BC");
-new Player("Fabian Böttcher\\1988\\Chemnitz\\BC");
-new Player("Rita Böttcher\\f1961\\Chemnitz\\BC");
-new Player("Mario Bach\\1960\\Chemnitz\\BC");
-new Player("Antje Müller\\1968\\Chemnitz\\BC");
-new Player("Sabine Felber\\1990\\Chemnitz\\BC");
-
-Global.updatePlayerCount();
-
-Global.addResult([3], [5], 13, 7);
-Global.addResult([3, 1], [5, 0], 13, 7);
-Global.addResult([5, 4, 3], [2, 1, 0], 13, 7);
