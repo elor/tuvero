@@ -25,7 +25,6 @@ var Storage = (function() {
     },
     set: function(key, item, isNumeric) {
       var str = item.toString();
-      console.log(str);
       if (str === undefined) {
         window.localStorage.removeItem(key);
         Toast(["'", key, "' removed"].join(''));
