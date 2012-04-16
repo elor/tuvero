@@ -31,14 +31,27 @@
 </div>
 
 <div class="main" id="players">
+  <div class="playersearch">
+    <select class="sorting">
+      <option value="id">ID</option>
+      <option value="name">Name</option>
+      <option value="year">Jahr</option>
+    </select>
+    <a class="sortdir desc"><span class="asc">&#8593;</span><span class="desc">&#8595;</span></a>
+    <input type="text" placeholder="Suche" />
+    <a class="gender m f"><span class="m">&#9794;</span><span class="f">&#9792;</span></a>
+    <input class="minyear" min="1900" max="2020" type="number" placeholder="1900" />
+    -
+    <input class="maxyear" min="1900" max="2020" type="number" placeholder="2020" />
+  </div>
   <a class="player tpl">
-    <span class="name "></span>
+    <span class="name ">%name</span>
     <br>
-    <span class="gender"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
-    <span class="year"></span>
+    <span class="gender%gender"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
+    <span class="year">%year</span>
     <br>
-    <span class="city "></span>
-    <span class="assoc "></span>
+    <span class="city">%city</span>
+    <span class="assoc">%assoc</span>
   </a>
 
   <br class="clear">

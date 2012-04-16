@@ -56,6 +56,13 @@ $(function ($) {
     $this.detach();
     $text.focus();
 
+    $that.keydown(function(e) {
+      if (e.keyCode === 9 && !e.shiftKey) {
+        $('.profile table .year').click();
+        return false;
+      }
+    });
+
     $that.bind('focusout change', function() {
       var name = $text.val();
       var p = Player.list[Number(location.hash.slice(8))];
@@ -93,6 +100,17 @@ $(function ($) {
     $this.detach();
     $text.focus();
 
+    $that.keydown(function(e) {
+      if (e.keyCode === 9) {
+        if (e.shiftKey) {
+          $('.profile table .name').click();
+        } else {
+          $('.profile table .city').click();
+        }
+        return false;
+      }
+    });
+
     $that.bind('focusout change', function() {
       var year = $text.val();
       var p = Player.list[Number(location.hash.slice(8))];
@@ -118,6 +136,17 @@ $(function ($) {
     $this.detach();
     $text.focus();
 
+    $that.keydown(function(e) {
+      if (e.keyCode === 9) {
+        if (e.shiftKey) {
+          $('.profile table .year').click();
+        } else {
+          $('.profile table .assoc').click();
+        }
+        return false;
+      }
+    });
+
     $that.bind('focusout change', function() {
       var city = $text.val();
       var p = Player.list[Number(location.hash.slice(8))];
@@ -130,7 +159,7 @@ $(function ($) {
       $that.after($this);
       $that.remove();
     });
-  });
+  })
 
   $('.profile table .assoc').live('click', function() {
     var $this = $(this);
@@ -144,6 +173,13 @@ $(function ($) {
     $this.after($that);
     $this.detach();
     $text.focus();
+
+    $that.keydown(function(e) {
+      if (e.keyCode === 9 && e.shiftKey) {
+        $('.profile table .city').click();
+        return false;
+      }
+    });
 
     $that.bind('focusout change', function() {
       var assoc = $text.val();
@@ -181,6 +217,74 @@ $(function ($) {
 
   $('#newplayer .preview .submit').click(function() {
     Page_New.confirmPlayer();
+  });
+
+  $('.playersearch .sortdir').click(function() {
+    $(this).toggleClass('desc');
+
+    Page_Players.sortPlayers();
+  });
+
+  var sortmode;
+  $('.playersearch .sorting').on('click keyup blur', function() {
+    var tmp = $(this).val();
+    if (tmp != sortmode) {
+      sortmode = tmp;
+      Page_Players.sortPlayers();
+    }
+  }).click();
+
+  $('.playersearch .gender').click(function() {
+    var $this = $(this);
+
+    // m f mf
+    if ($this.hasClass('f')) {
+      if ($this.hasClass('m')) {
+        $this.removeClass('f');
+      } else {
+        $this.addClass('m');
+      }
+    } else {
+      $this.addClass('f');
+      $this.removeClass('m');
+    }
+
+    Page_Players.filterPlayers();
+  });
+
+
+  var $minyear = $('#players .playersearch .minyear');
+  var $maxyear = $('#players .playersearch .maxyear');
+  var minyear, maxyear;
+
+  function updateYears() {
+    var tmp = Number($minyear.val());
+    var changed = false;
+    if (tmp != minyear) {
+      minyear = tmp;
+      changed = true;
+    }
+
+    tmp = Number($maxyear.val());
+
+    if (tmp != maxyear) {
+      maxyear = tmp;
+      changed = true;
+    }
+
+    if (changed) {
+      Page_Players.filterPlayers();
+    }
+  }
+
+  var minterval;
+
+  $minyear.on("blur mouseup click change keyup", function() {
+    updateYears();
+  });
+
+  $maxyear.on("blur mouseup click change keyup", function() {
+    updateYears();
   });
 
 });

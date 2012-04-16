@@ -131,7 +131,7 @@ a {
   font-style: italic;
 }
 
-.player.tpl {
+.player.tpl, .player.hidden {
   display: none;
 }
 
@@ -139,16 +139,47 @@ a {
   display: none;
 }
 
-.noplayers:nth-child(3) {
+.noplayers:nth-child(4) {
   display: block;
 }
 
-.profile .gender:not(.f) .f {
+.playersearch {
+  text-align: left;
+}
+
+.playersearch .sortdir {
+  cursor: pointer;
+}
+
+.playersearch .sortdir:not(.desc) .desc {
   display: none;
 }
 
-.profile .gender.f .m {
+.playersearch .sortdir.desc .asc {
   display: none;
+}
+
+.playersearch .minyear, .playersearch .maxyear {
+  width: 5em;
+}
+
+.playersearch .gender {
+  display: inline-block;
+  cursor: pointer;
+  width: 2em;
+  text-align: center;
+}
+
+.playersearch .gender .f, .playersearch .gender .m {
+  display: none;
+}
+
+.playersearch .gender.f .f, .playersearch .gender.m .m {
+  display: inline;
+}
+
+.profile .gender:not(.f) .f, .profile .gender.f .m {
+  display: none
 }
 
 .profile table td:nth-child(2):not(.gender) {
