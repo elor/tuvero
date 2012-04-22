@@ -265,6 +265,8 @@ $(function ($) {
 
   var $minyear = $('#players .playersearch .minyear');
   var $maxyear = $('#players .playersearch .maxyear');
+  var $query = $('#players .playersearch .query');
+  var query;
   var minyear, maxyear;
 
   function updateYears() {
@@ -276,9 +278,14 @@ $(function ($) {
     }
 
     tmp = Number($maxyear.val());
-
     if (tmp != maxyear) {
       maxyear = tmp;
+      changed = true;
+    }
+
+    tmp = $query.val();
+    if (tmp != query) {
+      query = tmp;
       changed = true;
     }
 
@@ -288,6 +295,10 @@ $(function ($) {
   }
 
   var minterval;
+
+  $query.on("blur mouseup click change keyup", function() {
+    updateYears();
+  });
 
   $minyear.on("blur mouseup click change keyup", function() {
     updateYears();

@@ -153,9 +153,15 @@ Page_Players = (function () {
     var $gender = $('#players .playersearch .gender');
     var male = $gender.hasClass('m');
     var female = $gender.hasClass('f');
+    var query = $('#players .playersearch .query').val();
+    var regex;
     var minyear = Number($('#players .playersearch .minyear').val());
     var maxyear = Number($('#players .playersearch .maxyear').val());
     var $list = $('#players .player:not(.tpl)');
+
+    if (query) {
+      regex = new RegExp(['.*', query, '.*'].join(''));
+    }
 
     if (minyear < 1900 || minyear > 2020) {
       minyear = undefined;
@@ -170,12 +176,14 @@ Page_Players = (function () {
       var $gender = $this.find('.gender');
       var year = Number($this.find('.year').text());
       var hide;
+      var name = $this.find('.name').text();
 
       switch (true) {
       case !male && !$gender.hasClass('f'):
       case !female && $gender.hasClass('f'):
       case minyear && minyear > year:
       case maxyear && maxyear < year:
+      case regex && !regex.test(name):
         hide = true;
         break;
       }
