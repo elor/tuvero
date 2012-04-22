@@ -66,10 +66,12 @@ $(function ($) {
     $that.bind('focusout change', function() {
       var name = $text.val();
       var p = Player.list[Number(location.hash.slice(8))];
-      if (name) {
+      if (name && name != p.name) {
         p.name = name;
         Page_Players.updatePlayer(p);
         Storage.set('players', Player);
+      } else {
+        name = p.name;
       }
       $this.text(name);
       $that.after($this);
@@ -112,11 +114,15 @@ $(function ($) {
     });
 
     $that.bind('focusout change', function() {
-      var year = $text.val();
+      var year = Number($text.val());
       var p = Player.list[Number(location.hash.slice(8))];
-      p.year = year;
-      Page_Players.updatePlayer(p);
-      Storage.set('players', Player);
+      if (year && year != p.year) {
+        p.year = year;
+        Page_Players.updatePlayer(p);
+        Storage.set('players', Player);
+      } else {
+        year = p.year;
+      }
       $this.text(year);
       $that.after($this);
       $that.remove();
@@ -150,10 +156,12 @@ $(function ($) {
     $that.bind('focusout change', function() {
       var city = $text.val();
       var p = Player.list[Number(location.hash.slice(8))];
-      if (city) {
+      if (city && city != p.getCity()) {
         p.setCity(city);
         Page_Players.updatePlayer(p);
         Storage.set('players', Player);
+      } else {
+        city = p.getCity();
       }
       $this.text(city);
       $that.after($this);
@@ -184,10 +192,12 @@ $(function ($) {
     $that.bind('focusout change', function() {
       var assoc = $text.val();
       var p = Player.list[Number(location.hash.slice(8))];
-      if (assoc)  {
+      if (assoc && assoc != p.getAssoc())  {
         p.setAssoc(assoc);
         Page_Players.updatePlayer(p);
         Storage.set('players', Player);
+      } else {
+        assoc = p.getAssoc();
       }
       $this.text(assoc);
       $that.after($this);

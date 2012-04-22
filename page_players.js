@@ -49,20 +49,30 @@ Page_Players = (function () {
 
     Player.fromString(Storage.get('players'));
 
-    var str = [];
+    var str = '';
     var $tpl = $('#players .player.tpl');
-    var tpl = ['<a href="#profile%id" class="player" id="pid%id">', $tpl.html(), '</a>'].join('');
+    var tpl = ['<a href="#profile%%%%" class="player" id="pid%%%%">', $tpl.html(), '</a>'].join('');
 
     var P = Player.list;
     var i, len = P.length;
     var p;
 
+    var arr = tpl.split('%%');
+
     for (i=0; i < len; ++i) {
       p = P[i];
-      str.push(tpl.replace(/%id/g, i).replace(/%name/, p.name).replace(/%year/, p.year).replace(/%city/, p.getCity()).replace(/%assoc/, p.getAssoc()));
+      arr[1] = i;
+      arr[3] = i;
+      arr[5] = p.name;
+      arr[7] = p.female ? ' f' : '';
+      arr[9] = p.year;
+      arr[11] = p.getCity();
+      arr[13] = p.getAssoc();
+
+      str += arr.join('');
     }
 
-    $tpl.before($(str.join('')));
+    $tpl.before($(str));
   }
 
   var $profile;
