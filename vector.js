@@ -8,6 +8,25 @@ var Vector = {
   Interface : [],
 
   /**
+   * Copies the the vector into a new sparse array
+   * 
+   * @param vector
+   *          {Array} source
+   * @returns {Array} copy
+   */
+  Copy : function(vector) {
+    var ret = [];
+    var size = vector.length;
+
+    for ( var i = 0; i < size; ++i) {
+      if (vector[i]) {
+        ret[i] = vector[i];
+      }
+    }
+
+    return ret;
+  },
+  /**
    * dot product of two vectors
    * 
    * @param a
@@ -29,6 +48,43 @@ var Vector = {
   },
 
   /**
+   * Fills undefined elements of the vector with 0
+   * 
+   * @param vector
+   *          {Array} input and output vector
+   * @returns {Array} reference to the vector
+   */
+  Fill : function(vector) {
+    var size = vector.length;
+
+    for ( var i = 0; i < size; ++i) {
+      vector[i] = vector[i] || 0;
+    }
+
+    return vector;
+  },
+  /**
+   * scales the vector by the factor
+   * 
+   * @param vector
+   *          {Array} vector
+   * @param factor
+   *          {Number} factor
+   * @returns {Array} reference to vector
+   */
+  Scale : function(vector, factor) {
+    var size = vector.length;
+
+    for ( var i = 0; i < size; ++i) {
+      if (vector[i]) {
+        vector[i] *= factor;
+      }
+    }
+
+    return vector;
+  },
+
+  /**
    * Sum calculates the sum of all elements of the vector
    * 
    * @param vector
@@ -46,20 +102,4 @@ var Vector = {
     return sum;
   },
 
-  /**
-   * Fills undefined elements of the vector with 0
-   * 
-   * @param vector
-   *          {Array} input and output vector
-   * @returns {Array} reference to the vector
-   */
-  Fill : function(vector) {
-    var size = vector.length;
-
-    for ( var i = 0; i < size; ++i) {
-      vector[i] = vector[i] || 0;
-    }
-
-    return vector;
-  },
 };

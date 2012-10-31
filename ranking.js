@@ -1,3 +1,11 @@
+var Ranking = {
+  Interface : {
+    get : function() {
+      return new Map();
+    }
+  },
+};
+
 function Ranking(string) {
   this.games = new Square();
 
@@ -40,7 +48,8 @@ Ranking.ArrayScalarDivision = function(a, b) {
 };
 
 Ranking.prototype.toString = function() {
-  return [ArrayToString(this.wins), ArrayToString(this.netto), this.games.toTriString()].join('\n');
+  return [ ArrayToString(this.wins), ArrayToString(this.netto),
+      this.games.toTriString() ].join('\n');
 };
 
 Ranking.prototype.fromString = function(string) {
@@ -61,10 +70,10 @@ Ranking.prototype.addResult = function(team_a, team_b, score_a, score_b) {
   var a, b;
 
   if (typeof team_a == "number") {
-    team_a = [team_a];
+    team_a = [ team_a ];
   }
   if (typeof team_b == "number") {
-    team_b = [team_b];
+    team_b = [ team_b ];
   }
 
   size_a = team_a.length;
@@ -102,26 +111,32 @@ Ranking.prototype.process = function(teamsize) {
   var games = Ranking.ArrayScalarDivision(this.games.linesum(), teamsize);
 
   var abs = {
-    wins: this.wins,
-    buchholz: buchholz,
-    feinbuchholz: this.games.multvec(buchholz),
-    netto: this.netto,
-    ranking: []
+    wins : this.wins,
+    buchholz : buchholz,
+    feinbuchholz : this.games.multvec(buchholz),
+    netto : this.netto,
+    ranking : []
   };
 
   var rel = {
-    wins: Ranking.ArrayDivision(abs.wins, games),
-    buchholz: Ranking.ArrayDivision(abs.buchholz, games),
-    feinbuchholz: Ranking.ArrayDivision(abs.feinbuchholz, games),
-    netto: Ranking.ArrayDivision(abs.netto, games),
-    ranking: []
+    wins : Ranking.ArrayDivision(abs.wins, games),
+    buchholz : Ranking.ArrayDivision(abs.buchholz, games),
+    feinbuchholz : Ranking.ArrayDivision(abs.feinbuchholz, games),
+    netto : Ranking.ArrayDivision(abs.netto, games),
+    ranking : []
   };
 
   var abssort = function(a, b) {
-    return ((abs.wins[b] || 0) - (abs.wins[a] || 0)) || (abs.buchholz[b] - abs.buchholz[a]) || (abs.feinbuchholz[b] - abs.feinbuchholz[a]) || (abs.netto[b] - abs.netto[a]) || (games[b] - games[a]) || (a - b);
+    return ((abs.wins[b] || 0) - (abs.wins[a] || 0))
+        || (abs.buchholz[b] - abs.buchholz[a])
+        || (abs.feinbuchholz[b] - abs.feinbuchholz[a])
+        || (abs.netto[b] - abs.netto[a]) || (games[b] - games[a]) || (a - b);
   };
   var relsort = function(a, b) {
-    return ((rel.wins[b] || 0) - (rel.wins[a] || 0)) || (rel.buchholz[b] - rel.buchholz[a]) || (rel.feinbuchholz[b] - rel.feinbuchholz[a]) || (rel.netto[b] - rel.netto[a]) || (games[b] - games[a]) || (a - b);
+    return ((rel.wins[b] || 0) - (rel.wins[a] || 0))
+        || (rel.buchholz[b] - rel.buchholz[a])
+        || (rel.feinbuchholz[b] - rel.feinbuchholz[a])
+        || (rel.netto[b] - rel.netto[a]) || (games[b] - games[a]) || (a - b);
   };
 
   var a = abs.ranking;
@@ -138,19 +153,20 @@ Ranking.prototype.process = function(teamsize) {
   r.sort(relsort);
 
   return {
-    games: games,
-    abs: abs,
-    rel: rel
+    games : games,
+    abs : abs,
+    rel : rel
   };
 };
 
 Global = {
-  tete: new Ranking(),
-  doublette: new Ranking(),
-  triplette: new Ranking(),
+  tete : new Ranking(),
+  doublette : new Ranking(),
+  triplette : new Ranking(),
 
-  toString: function() {
-    var str = [this.tete.toString(), this.doublette.toString(), this.triplette.toString()].join('--\n');
+  toString : function() {
+    var str = [ this.tete.toString(), this.doublette.toString(),
+        this.triplette.toString() ].join('--\n');
     if (str === "\n\n--\n\n\n--\n\n\n") {
       return undefined;
     } else {
@@ -158,7 +174,7 @@ Global = {
     }
   },
 
-  fromString: function(str) {
+  fromString : function(str) {
     var tmp = str ? str.split('--\n') : [];
     this.tete.fromString(tmp.shift());
     this.doublette.fromString(tmp.shift());
@@ -167,7 +183,7 @@ Global = {
     return this;
   },
 
-  addResult: function(team_a, team_b, score_a, score_b) {
+  addResult : function(team_a, team_b, score_a, score_b) {
     var len_a = team_a.length;
     var len_b = team_b.length;
 
@@ -199,17 +215,17 @@ Global = {
     }
   },
 
-  getRanking: function() {
+  getRanking : function() {
     this.updatePlayerCount();
 
     return {
-      tete: this.tete.process(1),
-      doublette: this.doublette.process(2),
-      triplette: this.triplette.process(3)
+      tete : this.tete.process(1),
+      doublette : this.doublette.process(2),
+      triplette : this.triplette.process(3)
     };
   },
 
-  updatePlayerCount: function() {
+  updatePlayerCount : function() {
     var len = Player.list.length;
 
     this.tete.games.extend(len);
@@ -217,4 +233,3 @@ Global = {
     this.triplette.games.extend(len);
   }
 };
-

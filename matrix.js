@@ -31,6 +31,19 @@ var Matrix = {
       return this;
     }
   },
+  
+  Transpose : function(dst, src) {
+    var size = src.size;
+    
+    dst.clear(size);
+    
+    for (var i = 0; i < size; ++i) {
+      for (var j = 0; j < size; ++j)
+      dst.set(i, j, src.get(j, i));
+    }
+    
+    return dst;
+  },
 
   /**
    * EqualSize performs an equality test of the sizes of both matrices
@@ -62,7 +75,7 @@ var Matrix = {
       C.clear();
     }
     if (!this.EqualSize(A, B)) {
-      console.error("Matrix.Mult: wrong sizes: ", type);
+//      console.error("Matrix.Mult: wrong sizes: ", A.size, " != ", B.size);
       return undefined;
     }
 
@@ -162,7 +175,7 @@ var Matrix = {
    *          {Integer} row number
    * @returns {Array} populated vector representing the line
    */
-  GetLine : function(matrix, row) {
+  GetRow : function(matrix, row) {
     var vector = [];
     var size = matrix.size;
 
@@ -225,7 +238,7 @@ var Matrix = {
     var size = matrix.size;
 
     for ( var i = 0; i < size; ++i) {
-      vector[i] = LineSum(matrix, i);
+      vector[i] = this.LineSum(matrix, i);
     }
 
     return vector;
@@ -243,7 +256,7 @@ var Matrix = {
     var size = matrix.size;
 
     for ( var i = 0; i < size; ++i) {
-      vector[i] = RowSum(matrix, i);
+      vector[i] = this.RowSum(matrix, i);
     }
 
     return vector;
@@ -274,7 +287,7 @@ function FullMatrix(size) {
  */
 FullMatrix.prototype.extend = function(by) {
   if (by <= 0) {
-    return;
+    return this;
   }
   by = by || 1;
   this.size += by;
@@ -354,8 +367,8 @@ function HalfMatrix(type, size) {
   type = type || 0;
   switch (type) {
   case HalfMatrix.empty:
-//    already defaulting to prototype.get:
-//    this.get = this.get;
+    // already defaulting to prototype.get:
+    // this.get = this.get;
     break;
   case HalfMatrix.mirrored:
     this.get = this.getMirrored;
@@ -387,7 +400,7 @@ HalfMatrix.negated = -1; // return the negative mirrored value
  */
 HalfMatrix.prototype.extend = function(by) {
   if (by <= 0) {
-    return;
+    return this;
   }
   by = by || 1;
   this.size += by;
