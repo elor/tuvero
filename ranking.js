@@ -50,7 +50,7 @@ Ranking.prototype.fromString = function(string) {
   this.games.fromString(lines.join('\n'));
 
   return this;
-}
+};
 
 Ranking.prototype.addResult = function(team_a, team_b, score_a, score_b) {
   var diff = score_b - score_a;
@@ -119,10 +119,10 @@ Ranking.prototype.process = function(teamsize) {
 
   var abssort = function(a, b) {
     return ((abs.wins[b] || 0) - (abs.wins[a] || 0)) || (abs.buchholz[b] - abs.buchholz[a]) || (abs.feinbuchholz[b] - abs.feinbuchholz[a]) || (abs.netto[b] - abs.netto[a]) || (games[b] - games[a]) || (a - b);
-  }
+  };
   var relsort = function(a, b) {
     return ((rel.wins[b] || 0) - (rel.wins[a] || 0)) || (rel.buchholz[b] - rel.buchholz[a]) || (rel.feinbuchholz[b] - rel.feinbuchholz[a]) || (rel.netto[b] - rel.netto[a]) || (games[b] - games[a]) || (a - b);
-  }
+  };
 
   var a = abs.ranking;
   var r = rel.ranking;

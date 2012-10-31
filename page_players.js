@@ -75,7 +75,7 @@ Page_Players = (function () {
     $tpl.before($(str));
   }
 
-  var $profile;
+  var $profile = undefined;
 
   function showProfile(p) {
     if (!$profile) {
@@ -154,7 +154,7 @@ Page_Players = (function () {
     var male = $gender.hasClass('m');
     var female = $gender.hasClass('f');
     var query = $('#players .playersearch .query').val();
-    var regex;
+    var regex = undefined;
     var minyear = Number($('#players .playersearch .minyear').val());
     var maxyear = Number($('#players .playersearch .maxyear').val());
     var $list = $('#players .player:not(.tpl)');
@@ -175,7 +175,7 @@ Page_Players = (function () {
       var $this = $(this);
       var $gender = $this.find('.gender');
       var year = Number($this.find('.year').text());
-      var hide;
+      var hide = false;
       var name = $this.find('.name').text();
 
       switch (true) {

@@ -137,7 +137,7 @@ Player.prototype.getAssoc = function() {
 
 Player.toString = function() {
   var length = Player.list.length;
-  var lines = [];
+  var lines = new Array;
   var i;
 
   if (!length) {

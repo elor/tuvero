@@ -1,46 +1,72 @@
-var Storage = (function() {
-  if (!window.localStorage) {
-    return {
-      get: function(key) {},
-      put: function(key, value) {},
-      clear: function() {},
-      available: false
-    };
-  };
-
-  return {
-    get: function(key, toItem, isNumeric) {
-      var ret = window.localStorage.getItem(key);
-
-      if (isNumeric) {
-        ret = elorpack.unpack(ret);
-      }
-      if (toItem) {
-        toItem.fromString(ret);
-      }
-
-      Toast(["'", key, "' restored"].join(''));
-
-      return ret;
+/**
+ * Storage API for persistent state
+ */
+var Storage = {
+  /**
+   * required interface for storage actions on items
+   */
+  Interface : {
+    toBlob : function() {
+      return "";
     },
-    set: function(key, item, isNumeric) {
-      var str = item.toString();
-      if (str === undefined) {
-        window.localStorage.removeItem(key);
-        Toast(["'", key, "' removed"].join(''));
-      } else {
-        if (isNumeric) {
-          str = elorpack.pack(str);
-        }
-        window.localStorage.setItem(key, str);
-        Toast(["'", key, "' saved"].join(''));
-      }
+  },
 
-    },
-    clear: function() {
-      window.localStorage.clear();
-    },
-    available: true
-  };
-})();
+  /**
+   * Tests for availability of the underlying Storage API
+   * 
+   * @returns {Boolean} whether the Storage is available
+   */
+  available : function() {
+    // TODO check if you can really write and read the storage
+    // I might use modernizr
+    return !!window.localStorage;
+  },
 
+  /**
+   * Clears all stored
+   */
+  clear : function() {
+    window.localStorage.clear();
+  },
+
+  /**
+   * removes the key from the database
+   * 
+   * @param key
+   */
+  remove : function(key) {
+    window.localStorage.removeItem(key);
+  },
+
+  /**
+   * write a key. If toBlob() returns undefined, the key is removed from the
+   * database as a precaution.
+   * 
+   * @param key
+   *          {String} key
+   * @param item
+   *          {Storage} item to write to the storage
+   * @returns {Boolean} true if the key exists after writing; false otherwise
+   */
+  write : function(key, item) {
+    var str = item.toBlob();
+    if (str === undefined) {
+      window.localStorage.removeItem(key);
+      return false;
+    } else {
+      window.localStorage.setItem(key, str);
+      return true;
+    }
+  },
+
+  /**
+   * reads and returns a string from the storage
+   * 
+   * @param key
+   *          {String} key
+   * @returns {String} value
+   */
+  read : function(key) {
+    return window.localStorage.getItem("key");
+  },
+};

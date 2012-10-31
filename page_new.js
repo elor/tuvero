@@ -19,14 +19,23 @@ Page_New = (function() {
 
     if (year < yearmin) {
       if (year <= 0) {
-        invalid.push($year)
+        invalid.push($year);
       } else if (year < 100) {
         year += 1900;
       } else {
-        invalid.push($year)
+        invalid.push($year);
       }
     }
 
+    if (year > yearmax) {
+      if (year <= 0) {
+        invalid.push($year);
+      } else if (year < 100) {
+        year += 1900;
+      } else {
+        invalid.push($year);
+      }
+    }
     var female = $form.find('.gender').hasClass('f');
 
     var $city = $form.find('.city');

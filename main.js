@@ -167,7 +167,7 @@ $(function ($) {
       $that.after($this);
       $that.remove();
     });
-  })
+  });
 
   $('.profile table .assoc').live('click', function() {
     var $this = $(this);
@@ -235,7 +235,7 @@ $(function ($) {
     Page_Players.sortPlayers();
   });
 
-  var sortmode;
+  var sortmode = undefined;
   $('.playersearch .sorting').on('click keyup blur', function() {
     var tmp = $(this).val();
     if (tmp != sortmode) {
@@ -266,8 +266,8 @@ $(function ($) {
   var $minyear = $('#players .playersearch .minyear');
   var $maxyear = $('#players .playersearch .maxyear');
   var $query = $('#players .playersearch .query');
-  var query;
-  var minyear, maxyear;
+  var query = undefined;
+  var minyear = undefined, maxyear = undefined;
 
   function updateYears() {
     var tmp = Number($minyear.val());
@@ -293,8 +293,6 @@ $(function ($) {
       Page_Players.filterPlayers();
     }
   }
-
-  var minterval;
 
   $query.on("blur mouseup click change keyup", function() {
     updateYears();

@@ -48,6 +48,5 @@ $(function($) {
   Toast = toastfunc;
 
   var text = ['lorem ipsum', 'dolor sit amet', 'blablabla'];
-  var id = 0;
 });
 
