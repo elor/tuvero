@@ -11,38 +11,38 @@
  */
 var Matrix = {
   /**
-   * Square Matrix interface with size 0 and Behaviour for out-of-bounds indices
-   * and wrong types is undefined
+   * Square Matrix interface with default size 0. behavior for out-of-bounds
+   * indices and wrong types is undefined.
    */
   Interface : {
-    size : 0,
+    size : 0, // indicator of the current size of the matrix in both dimensions
+
+    clear : function() {
+      // reset the Matrix to a blank state with default size
+      // implementations in the form of clear(newsize) are encouraged
+      return this;
+    },
+    clone : function() {
+      // create a deep copy of the matrix
+      return copy;
+    },
+    erase : function(index) {
+      // erase an index (rows and lines) from the matrix
+      return this;
+    },
     extend : function(by) {
       // safely extend the size of the matrix by "by" with 1 as a default value
       // behaviour with negative "by" value is undefined
       return this;
     },
     get : function(line, row) {
+      // retrieve the value stored at (line, row)
       return 0;
     },
-    clear : function() {
+    set : function(line, row, value) {
+      // store value at (line, row)
       return this;
     },
-    set : function(line, row, value) {
-      return this;
-    }
-  },
-  
-  Transpose : function(dst, src) {
-    var size = src.size;
-    
-    dst.clear(size);
-    
-    for (var i = 0; i < size; ++i) {
-      for (var j = 0; j < size; ++j)
-      dst.set(i, j, src.get(j, i));
-    }
-    
-    return dst;
   },
 
   /**
@@ -56,94 +56,6 @@ var Matrix = {
    */
   EqualSize : function(A, B) {
     return A.size === B.size && A.size !== undefined;
-  },
-
-  /**
-   * Matrix Multiplication. All arguments are required to implement the Matrix
-   * interface.
-   * 
-   * @param A
-   *          first operand
-   * @param B
-   *          second operand
-   * @param C
-   *          return reference
-   * @returns C
-   */
-  Mult : function(A, B, C) {
-    if (C.size !== 0) {
-      C.clear();
-    }
-    if (!this.EqualSize(A, B)) {
-//      console.error("Matrix.Mult: wrong sizes: ", A.size, " != ", B.size);
-      return undefined;
-    }
-
-    var size = A.size;
-    var val;
-    C.extend(size);
-
-    for ( var line = 0; line < size; ++line) {
-      for ( var row = 0; row < size; ++row) {
-        val = 0;
-        for ( var i = 0; i < size; ++i) {
-          val += A.get(line, i) * B.get(i, row);
-        }
-        C.set(line, row, val);
-      }
-    }
-
-    return C;
-  },
-
-  /**
-   * Vector-Matrix multiplication. vector is automatically extended or shrinked
-   * to the size of the matrix.
-   * 
-   * @param vector
-   *          {Array} vector operand
-   * @param matrix
-   *          {Matrix} matrix operand
-   * @returns {Array} resulting vector, which is fully populated with integer
-   *          values
-   */
-  VecMult : function(vector, matrix) {
-    var retvec = [];
-    var size = matrix.size;
-
-    for ( var i = 0; i < size; ++i) {
-      retvec[i] = 0;
-      for ( var j = 0; j < size; ++j) {
-        retvec[i] += (vector[j] || 0) * matrix.get(j, i);
-      }
-    }
-
-    return retvec;
-  },
-
-  /**
-   * Matrix-Vector multiplication. vector is automatically extended or shrinked
-   * to the size of the matrix.
-   * 
-   * @param matrix
-   *          {Matrix} matrix operand
-   * @param vector
-   *          {Array} vector operand
-   * @returns {Array} resulting vector, which is fully populated with integer
-   *          values
-   */
-  MultVec : function(matrix, vector) {
-    var retvec = [];
-    var size = matrix.size;
-
-    for ( var i = 0; i < size; ++i) {
-      retvec[i] = 0;
-      for ( var j = 0; j < size; ++j) {
-        retvec[i] += matrix.get(i, j) * (vector[j] || 0);
-      }
-    }
-
-    return retvec;
   },
 
   /**
@@ -207,6 +119,87 @@ var Matrix = {
   },
 
   /**
+   * Calculates all line sums
+   * 
+   * @param matrix
+   *          {Matrix} matrix
+   * @returns {Array} vector of line sums
+   */
+  LineSums : function(matrix) {
+    var vector = [];
+    var size = matrix.size;
+
+    for ( var i = 0; i < size; ++i) {
+      vector[i] = this.LineSum(matrix, i);
+    }
+
+    return vector;
+  },
+
+  /**
+   * Matrix Multiplication. All arguments are required to implement the Matrix
+   * interface.
+   * 
+   * @param A
+   *          first operand
+   * @param B
+   *          second operand
+   * @param C
+   *          return reference
+   * @returns C
+   */
+  Mult : function(A, B, C) {
+    if (C.size !== 0) {
+      C.clear();
+    }
+    if (!this.EqualSize(A, B)) {
+      // console.error("Matrix.Mult: wrong sizes: ", A.size, " != ", B.size);
+      return undefined;
+    }
+
+    var size = A.size;
+    var val;
+    C.extend(size);
+
+    for ( var line = 0; line < size; ++line) {
+      for ( var row = 0; row < size; ++row) {
+        val = 0;
+        for ( var i = 0; i < size; ++i) {
+          val += A.get(line, i) * B.get(i, row);
+        }
+        C.set(line, row, val);
+      }
+    }
+
+    return C;
+  },
+
+  /**
+   * Matrix-Vector multiplication. vector is automatically extended or shrinked
+   * to the size of the matrix.
+   * 
+   * @param matrix
+   *          {Matrix} matrix operand
+   * @param vector
+   *          {Array} vector operand
+   * @returns {Array} resulting vector, which is fully populated with integer
+   *          values
+   */
+  MultVec : function(matrix, vector) {
+    var retvec = [];
+    var size = matrix.size;
+
+    for ( var i = 0; i < size; ++i) {
+      retvec[i] = 0;
+      for ( var j = 0; j < size; ++j) {
+        retvec[i] += matrix.get(i, j) * (vector[j] || 0);
+      }
+    }
+
+    return retvec;
+  },
+
+  /**
    * calculates and returns the row sum
    * 
    * @param matrix
@@ -227,24 +220,6 @@ var Matrix = {
   },
 
   /**
-   * Calculates all line sums
-   * 
-   * @param matrix
-   *          {Matrix} matrix
-   * @returns {Array} vector of line sums
-   */
-  LineSums : function(matrix) {
-    var vector = [];
-    var size = matrix.size;
-
-    for ( var i = 0; i < size; ++i) {
-      vector[i] = this.LineSum(matrix, i);
-    }
-
-    return vector;
-  },
-
-  /**
    * Calculates all row sums
    * 
    * @param matrix
@@ -260,7 +235,53 @@ var Matrix = {
     }
 
     return vector;
-  }
+  },
+
+  /**
+   * Transpose the matrix in place
+   * 
+   * @param matrix
+   *          {Matrix} matrix to transpose
+   * @returns {Matrix} a reference to matrix
+   */
+  Transpose : function(matrix) {
+    var size = matrix.size;
+
+    for ( var i = 0; i < size; ++i) {
+      for ( var j = 0; j < i; ++j) {
+        tmp = matrix.get(i, j);
+        matrix.set(i, j, matrix.get(j, i));
+        matrix.set(j, i, tmp);
+      }
+    }
+
+    return matrix;
+  },
+
+  /**
+   * Vector-Matrix multiplication. vector is automatically extended or shrinked
+   * to the size of the matrix.
+   * 
+   * @param vector
+   *          {Array} vector operand
+   * @param matrix
+   *          {Matrix} matrix operand
+   * @returns {Array} resulting vector, which is fully populated with integer
+   *          values
+   */
+  VecMult : function(vector, matrix) {
+    var retvec = [];
+    var size = matrix.size;
+
+    for ( var i = 0; i < size; ++i) {
+      retvec[i] = 0;
+      for ( var j = 0; j < size; ++j) {
+        retvec[i] += (vector[j] || 0) * matrix.get(j, i);
+      }
+    }
+
+    return retvec;
+  },
 };
 
 /**
@@ -277,6 +298,74 @@ function FullMatrix(size) {
 
   return this;
 }
+
+/**
+ * Restores a blank state of the FullMatrix
+ * 
+ * @returns {FullMatrix} this
+ */
+FullMatrix.prototype.clear = function(size) {
+  this.array = [];
+  this.size = size || 0;
+
+  return this;
+};
+
+/**
+ * copies the matrix. Optimizations in term of memory are attempted
+ * 
+ * @returns {FullMatrix} the copy
+ */
+FullMatrix.prototype.clone = function() {
+  var size = this.size;
+  var retval = new FullMatrix(size);
+  var a = this.array;
+  var b = retval.array;
+
+  // loop over the lines, skipping empty lines
+  // loop over every row within the lines and copy only non-null values
+  // create line-arrays (first index of b) as needed
+  for ( var i = 0; i < size; ++i) {
+    if (a[i]) {
+      for ( var j = 0; j < size; ++j) {
+        if (a[i][j]) {
+          if (!b[i]) {
+            b[i] = [];
+          }
+          b[i][j] = a[i][j];
+        }
+      }
+    }
+  }
+
+  return retval;
+};
+
+/**
+ * erases the lines and rows associated with the index from the matrix
+ * 
+ * @param index
+ *          {Integer} index
+ * @returns {FullMatrix} this
+ */
+FullMatrix.prototype.erase = function(index) {
+  if (index >= this.size || index < 0) {
+    return this;
+  }
+
+  var a = this.array;
+  var size = a.length;
+  a.splice(index, 1);
+  for ( var i = 0; i < size; ++i) {
+    if (a[i]) {
+      a[i].splice(index, 1);
+    }
+  }
+
+  this.size -= 1;
+
+  return this;
+};
 
 /**
  * simply increases this.size. array expansions occur in the set function
@@ -313,18 +402,6 @@ FullMatrix.prototype.get = function(line, row) {
 };
 
 /**
- * Restores a blank state of the FullMatrix
- * 
- * @returns {FullMatrix} this
- */
-FullMatrix.prototype.clear = function(size) {
-  this.array = [];
-  this.size = size || 0;
-
-  return this;
-};
-
-/**
  * sets the value at the given indices and allocates/frees the field if
  * necessary
  * 
@@ -354,7 +431,9 @@ FullMatrix.prototype.set = function(line, row, value) {
 /**
  * HalfMatrix: Half square matrix implementation according to Matrix.Interface.
  * Empty entries are referenced as undefined array values. All values above the
- * main diagonal aren't stored at all. See get/set for details.
+ * main diagonal aren't stored at all. See get/set for details. The
+ * implementation may use more arrays than necessary, but they are expected to
+ * be populated to a reasonable degree
  * 
  * @param size
  *          {Integer} size of the matrix
@@ -377,7 +456,6 @@ function HalfMatrix(type, size) {
     this.get = this.getNegated;
     break;
   default:
-    console.error("HalfMatrix: wrong type: ", type);
     break;
   }
   this.size = size || 0;
@@ -390,6 +468,88 @@ function HalfMatrix(type, size) {
 HalfMatrix.empty = 0; // return 0
 HalfMatrix.mirrored = 1; // return the mirrored value
 HalfMatrix.negated = -1; // return the negative mirrored value
+
+/**
+ * Restores a blank state of the HalfMatrix
+ * 
+ * @returns {HalfMatrix} this
+ */
+HalfMatrix.prototype.clear = function(size) {
+  this.array = [];
+  this.size = size || 0;
+
+  return this;
+};
+
+/**
+ * copies the matrix. Optimizations in term of memory are attempted
+ * 
+ * @returns {HalfMatrix} the copy
+ */
+HalfMatrix.prototype.clone = function() {
+  var size = this.size;
+  var type;
+
+  switch (this.get) {
+  case HalfMatrix.prototype.getMirrored:
+    type = 1;
+    break;
+  case HalfMatrix.prototype.getNegated:
+    type = -1;
+    break;
+  default:
+    type = 0;
+    break;
+  }
+
+  var retval = new HalfMatrix(type, size);
+  var a = this.array;
+  var b = retval.array;
+
+  // loop over the lines, skipping empty lines
+  // loop over every row within the lines and copy only non-null values
+  // create line-arrays (first index of b) as needed
+  for ( var i = 0; i < size; ++i) {
+    if (a[i]) {
+      for ( var j = 0; j <= i; ++j) {
+        if (a[i][j]) {
+          if (!b[i]) {
+            b[i] = [];
+          }
+          b[i][j] = a[i][j];
+        }
+      }
+    }
+  }
+
+  return retval;
+};
+
+/**
+ * erases the lines and rows associated with the index from the matrix
+ * 
+ * @param index
+ *          {Integer} index
+ * @returns {HalfMatrix} this
+ */
+HalfMatrix.prototype.erase = function(index) {
+  if (index >= this.size || index < 0) {
+    return this;
+  }
+
+  var a = this.array;
+  var size = a.length;
+  a.splice(index, 1);
+  for ( var i = 0; i < size; ++i) {
+    if (a[i]) {
+      a[i].splice(index, 1);
+    }
+  }
+
+  this.size -= 1;
+
+  return this;
+};
 
 /**
  * simply increases this.size. array expansions occur in the set function
@@ -418,7 +578,7 @@ HalfMatrix.prototype.extend = function(by) {
  * @returns value at (line, row). defaults to 0
  */
 HalfMatrix.prototype.get = function(line, row) {
-  if (line > row) {
+  if (row > line) {
     return 0;
   }
   if (this.array[line] === undefined) {
@@ -438,7 +598,7 @@ HalfMatrix.prototype.get = function(line, row) {
  * @returns value at (line, row). defaults to 0
  */
 HalfMatrix.prototype.getMirrored = function(line, row) {
-  if (line > row) {
+  if (row > line) {
     return this.get(row, line);
   }
   if (this.array[line] === undefined) {
@@ -458,7 +618,7 @@ HalfMatrix.prototype.getMirrored = function(line, row) {
  * @returns value at (line, row). defaults to 0
  */
 HalfMatrix.prototype.getNegated = function(line, row) {
-  if (line > row) {
+  if (row > line) {
     return -this.get(row, line);
   }
   if (this.array[line] === undefined) {
@@ -466,18 +626,6 @@ HalfMatrix.prototype.getNegated = function(line, row) {
   }
 
   return this.array[line][row] || 0;
-};
-
-/**
- * Restores a blank state of the HalfMatrix
- * 
- * @returns {HalfMatrix} this
- */
-HalfMatrix.prototype.clear = function(size) {
-  this.array = [];
-  this.size = size || 0;
-
-  return this;
 };
 
 /**
@@ -493,7 +641,7 @@ HalfMatrix.prototype.clear = function(size) {
  * @returns {HalfMatrix} this
  */
 HalfMatrix.prototype.set = function(line, row, value) {
-  if (line > row) {
+  if (row > line) {
     return this;
   }
 

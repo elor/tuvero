@@ -76,10 +76,15 @@ test("FullMatrix", function() {
   b = (new FullMatrix(0)).extend(5);
   deepEqual(b, a, "extend(0) validation");
 
-  // get and set
+  // clone, get and set
+  a.clear(3);
   a.array[0] = [ 1, 2, 3 ];
   a.array[1] = [];
   a.array[1][2] = 4;
+
+  deepEqual(a.clone(), a, "clone");
+
+  b.clear(3);
   b.set(0, 0, 1).set(0, 1, 2).set(0, 2, 3).set(1, 2, 4);
   deepEqual(b, a, "chained set() commands");
 
@@ -87,11 +92,20 @@ test("FullMatrix", function() {
   b.set(1, 2, 0);
   deepEqual(b, a, "set(0) undefines the element");
 
-  var getok = b.get(0, 0) === 1 && b.get(0, 1) === 2 && b.get(0, 2) === 3
+  equal(b.get(0, 0) === 1 && b.get(0, 1) === 2 && b.get(0, 2) === 3
       && b.get(0, 4) === 0 && b.get(1, 0) === 0 && b.get(1, 2) === 0
-      && b.get(2, 3) === 0 && b.get(4, 4) === 0;
+      && b.get(2, 3) === 0 && b.get(4, 4) === 0, true, "get test");
 
-  equal(getok, true, "get test");
+  // erase
+  a = new FullMatrix(3);
+  a.array = [ [ 1, 2, 3 ], [ 4, 5 ], [ undefined, undefined, 7 ] ];
+  b = new FullMatrix(2);
+  b.array = [ [ 1, 3 ], [ undefined, 7 ] ];
+  deepEqual((new FullMatrix()).erase(0), new FullMatrix(),
+      "erase line from matrix of size 0");
+  deepEqual((new FullMatrix(3)).erase(0), new FullMatrix(2),
+      "erase line from empty matrix");
+  deepEqual(a.erase(1), b, "erase line from sparse matrix");
 });
 
 test("HalfMatrix",
@@ -123,20 +137,34 @@ test("HalfMatrix",
       b = (new HalfMatrix(0, 0)).extend(5);
       deepEqual(b, a, "extend(0) validation");
 
-      // get and set
-      a.array[0] = [ 1, 2, 3 ];
-      a.array[1] = [];
-      a.array[1][2] = 4;
-      b.set(0, 0, 1).set(0, 1, 2).set(0, 2, 3).set(1, 2, 4);
-      deepEqual(b, a, "chained set() commands");
+      // clone, get and set
+      a.clear(3);
+      a.array = [ [ 1 ], [ undefined, 2 ], [ 3, 4 ] ];
+
+      deepEqual(a.clone(), a, "clone");
+
+      b.clear(3);
+      b.set(0, 0, 1).set(0, 2, 5).set(1, 1, 2).set(2, 0, 3).set(2, 1, 4);
+      deepEqual(b, a, "chained set() commands (top half ignored)");
 
       delete a.array[1][2];
       b.set(1, 2, 0);
       deepEqual(b, a, "set(0) undefines the element");
 
-      ok(b.get(0, 0) === 1 && b.get(0, 1) === 2 && b.get(0, 2) === 3
-          && b.get(0, 4) === 0 && b.get(1, 0) === 0 && b.get(1, 2) === 0
-          && b.get(2, 3) === 0 && b.get(4, 4) === 0, "get test");
+      ok(b.get(0, 0) === 1 && b.get(1, 0) === 0 && b.get(1, 1) === 2
+          && b.get(2, 0) === 3 && b.get(2, 1) === 4 && b.get(2, 2) === 0,
+          "get test");
+
+      // erase
+      a = new HalfMatrix(0, 3);
+      a.array = [ [ 1, 2, 3 ], [ 4, 5 ], [ undefined, undefined, 7 ] ];
+      b = new HalfMatrix(0, 2);
+      b.array = [ [ 1, 3 ], [ undefined, 7 ] ];
+      deepEqual((new HalfMatrix()).erase(0), new HalfMatrix(),
+          "erase line from matrix of size 0");
+      deepEqual((new HalfMatrix(3)).erase(0), new HalfMatrix(2),
+          "erase line from empty matrix");
+      deepEqual(a.erase(1), b, "erase line from sparse matrix");
 
       // HalfMatrix.type tests
       // empty
@@ -145,7 +173,7 @@ test("HalfMatrix",
       deepEqual(b, a, "HalfMatrix.empty constant");
 
       a.extend(5).set(2, 2, 1).set(0, 2, 2).set(2, 0, 3);
-      ok(a.get(2, 2) === 1 && a.get(0, 2) === 2 && a.get(2, 0) === 0,
+      ok(a.get(2, 2) === 1 && a.get(0, 2) === 0 && a.get(2, 0) === 3,
           "empty get()");
 
       // mirrored
@@ -154,8 +182,8 @@ test("HalfMatrix",
       deepEqual(b, a, "HalfMatrix.mirrored constant");
 
       a.extend(5).set(2, 2, 1).set(0, 2, 2).set(2, 0, 3);
-      ok(a.get(2, 2) === 1 && a.get(0, 2) === 2 && a.get(2, 0) === 2,
-          "empty get()");
+      ok(a.get(2, 2) === 1 && a.get(0, 2) === 3 && a.get(2, 0) === 3,
+          "mirrored get()");
 
       // negated
       a = new HalfMatrix(HalfMatrix.negated);
@@ -163,8 +191,8 @@ test("HalfMatrix",
       deepEqual(b, a, "HalfMatrix.negated constant");
 
       a.extend(5).set(2, 2, 1).set(0, 2, 2).set(2, 0, 3);
-      ok(a.get(2, 2) === 1 && a.get(0, 2) === 2 && a.get(2, 0) === -2,
-          "empty get()");
+      ok(a.get(2, 2) === 1 && a.get(0, 2) === -3 && a.get(2, 0) === 3,
+          "negated get()");
     });
 
 test("Matrix", function() {
@@ -175,7 +203,7 @@ test("Matrix", function() {
 
   var transpose = new FullMatrix(3);
   transpose.array = [ [ 1, 4, 7 ], [ 2, 5, 8 ], [ 3, 6, 9 ] ];
-  deepEqual(Matrix.Transpose(out, a), transpose,
+  deepEqual(Matrix.Transpose(a.clone()), transpose,
       "Transpose: return value validation");
 
   out = new FullMatrix(5);
@@ -206,7 +234,7 @@ test("Matrix", function() {
   deepEqual(Matrix.GetLine(b, 2), [ 0, 3, 0 ], "GetLine with sparse line");
   deepEqual(Matrix.GetLine(b, 0), [ 0, 0, 0 ], "GetLine with empty line");
 
-  Matrix.Transpose(out, b);
+  out = Matrix.Transpose(b.clone());
   deepEqual(Matrix.GetRow(out, 1), [ 7, 9, 5 ], "GetRow with populated row");
   deepEqual(Matrix.GetRow(out, 2), [ 0, 3, 0 ], "GetRow with sparse row");
   deepEqual(Matrix.GetRow(out, 0), [ 0, 0, 0 ], "GetRow with empty row");
