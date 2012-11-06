@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>test</title>
-<link href="lib/qunit-1.10.0.css" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <title>test</title>
+  <link href="style/qunit-git.css" rel="stylesheet" />
+	<script src="scripts/lib/qunit-git.js"></script>
+	<script>
+	var require = {
+	  shim: {
+	  'qunit' : {
+	     exports: 'QUnit'
+	   },
+	  }
+	};
+	</script>
+	<script data-main="scripts/test" src="scripts/lib/require-jquery.js"></script>
 </head>
 
 <body>
 	<div id="qunit"></div>
-	<script src="lib/qunit-1.10.0.js"></script>
-
-	<script src="vector.js"></script>
-	<script src="matrix.js"></script>
-	<script src="test.js"></script>
 </body>
 
 </html>

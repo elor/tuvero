@@ -1,7 +1,7 @@
 /**
  * Vector variable to contain all vector operations and definitions
  */
-var Vector = {
+define({
   /**
    * The representation of a vector is a basic Javascript array
    */
@@ -102,4 +102,4 @@ var Vector = {
     return sum;
   },
 
-};
+});
