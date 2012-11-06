@@ -27,7 +27,7 @@ var Matrix = {
       return copy;
     },
     erase : function(index) {
-      // erase an index (rows and lines) from the matrix
+      // erase an index (cols and rows) from the matrix
       return this;
     },
     extend : function(by) {
@@ -35,12 +35,12 @@ var Matrix = {
       // behaviour with negative "by" value is undefined
       return this;
     },
-    get : function(line, row) {
-      // retrieve the value stored at (line, row)
+    get : function(row, col) {
+      // retrieve the value stored at (row, col)
       return 0;
     },
-    set : function(line, row, value) {
-      // store value at (line, row)
+    set : function(row, col, value) {
+      // store value at (row, col)
       return this;
     },
   },
@@ -59,78 +59,78 @@ var Matrix = {
   },
 
   /**
-   * copies the specified line of the matrix to a populated vector
-   * 
-   * @param matrix
-   *          {Matrix} matrix
-   * @param line
-   *          {Integer} line number
-   * @returns {Array} populated vector representing the line
-   */
-  GetLine : function(matrix, line) {
-    var vector = [];
-    var size = matrix.size;
-
-    for ( var i = 0; i < size; ++i) {
-      vector[i] = matrix.get(line, i);
-    }
-
-    return vector;
-  },
-
-  /**
    * copies the specified row of the matrix to a populated vector
    * 
    * @param matrix
    *          {Matrix} matrix
    * @param row
    *          {Integer} row number
-   * @returns {Array} populated vector representing the line
+   * @returns {Array} populated vector representing the row
    */
   GetRow : function(matrix, row) {
     var vector = [];
     var size = matrix.size;
 
     for ( var i = 0; i < size; ++i) {
-      vector[i] = matrix.get(i, row);
+      vector[i] = matrix.get(row, i);
     }
 
     return vector;
   },
 
   /**
-   * calculates and returns the line sum
+   * copies the specified col of the matrix to a populated vector
    * 
    * @param matrix
    *          {Matrix} matrix
-   * @param line
-   *          {Integer} line number
-   * @returns {Number} the line sum
+   * @param col
+   *          {Integer} col number
+   * @returns {Array} populated vector representing the row
    */
-  LineSum : function(matrix, line) {
+  GetCol : function(matrix, col) {
+    var vector = [];
+    var size = matrix.size;
+
+    for ( var i = 0; i < size; ++i) {
+      vector[i] = matrix.get(i, col);
+    }
+
+    return vector;
+  },
+
+  /**
+   * calculates and returns the row sum
+   * 
+   * @param matrix
+   *          {Matrix} matrix
+   * @param row
+   *          {Integer} row number
+   * @returns {Number} the row sum
+   */
+  RowSum : function(matrix, row) {
     var sum = 0;
     var size = matrix.size;
 
     for ( var i = 0; i < size; ++i) {
-      sum += matrix.get(line, i);
+      sum += matrix.get(row, i);
     }
 
     return sum;
   },
 
   /**
-   * Calculates all line sums
+   * Calculates all row sums
    * 
    * @param matrix
    *          {Matrix} matrix
-   * @returns {Array} vector of line sums
+   * @returns {Array} vector of row sums
    */
-  LineSums : function(matrix) {
+  RowSums : function(matrix) {
     var vector = [];
     var size = matrix.size;
 
     for ( var i = 0; i < size; ++i) {
-      vector[i] = this.LineSum(matrix, i);
+      vector[i] = this.RowSum(matrix, i);
     }
 
     return vector;
@@ -161,13 +161,13 @@ var Matrix = {
     var val;
     C.extend(size);
 
-    for ( var line = 0; line < size; ++line) {
-      for ( var row = 0; row < size; ++row) {
+    for ( var row = 0; row < size; ++row) {
+      for ( var col = 0; col < size; ++col) {
         val = 0;
         for ( var i = 0; i < size; ++i) {
-          val += A.get(line, i) * B.get(i, row);
+          val += A.get(row, i) * B.get(i, col);
         }
-        C.set(line, row, val);
+        C.set(row, col, val);
       }
     }
 
@@ -200,38 +200,38 @@ var Matrix = {
   },
 
   /**
-   * calculates and returns the row sum
+   * calculates and returns the col sum
    * 
    * @param matrix
    *          {Matrix} matrix
-   * @param row
-   *          {Integer} row number
-   * @returns {Number} the row sum
+   * @param col
+   *          {Integer} col number
+   * @returns {Number} the col sum
    */
-  RowSum : function(matrix, row) {
+  ColSum : function(matrix, col) {
     var sum = 0;
     var size = matrix.size;
 
     for ( var i = 0; i < size; ++i) {
-      sum += matrix.get(i, row);
+      sum += matrix.get(i, col);
     }
 
     return sum;
   },
 
   /**
-   * Calculates all row sums
+   * Calculates all col sums
    * 
    * @param matrix
    *          {Matrix} matrix
-   * @returns {Array} vector of row sums
+   * @returns {Array} vector of col sums
    */
-  RowSums : function(matrix) {
+  ColSums : function(matrix) {
     var vector = [];
     var size = matrix.size;
 
     for ( var i = 0; i < size; ++i) {
-      vector[i] = this.RowSum(matrix, i);
+      vector[i] = this.ColSum(matrix, i);
     }
 
     return vector;
@@ -322,9 +322,9 @@ FullMatrix.prototype.clone = function() {
   var a = this.array;
   var b = retval.array;
 
-  // loop over the lines, skipping empty lines
-  // loop over every row within the lines and copy only non-null values
-  // create line-arrays (first index of b) as needed
+  // loop over the rows, skipping empty rows
+  // loop over every col within the rows and copy only non-null values
+  // create row-arrays (first index of b) as needed
   for ( var i = 0; i < size; ++i) {
     if (a[i]) {
       for ( var j = 0; j < size; ++j) {
@@ -342,7 +342,7 @@ FullMatrix.prototype.clone = function() {
 };
 
 /**
- * erases the lines and rows associated with the index from the matrix
+ * erases the rows and cols associated with the index from the matrix
  * 
  * @param index
  *          {Integer} index
@@ -387,42 +387,42 @@ FullMatrix.prototype.extend = function(by) {
 /**
  * retrieves the value from the given indices.
  * 
- * @param line
- *          vertical position
  * @param row
+ *          vertical position
+ * @param col
  *          horizontal position
- * @returns value at (line, row). defaults to 0
+ * @returns value at (row, col). defaults to 0
  */
-FullMatrix.prototype.get = function(line, row) {
-  if (this.array[line] === undefined) {
+FullMatrix.prototype.get = function(row, col) {
+  if (this.array[row] === undefined) {
     return 0;
   }
 
-  return this.array[line][row] || 0;
+  return this.array[row][col] || 0;
 };
 
 /**
  * sets the value at the given indices and allocates/frees the field if
  * necessary
  * 
- * @param line
- *          vertical position
  * @param row
+ *          vertical position
+ * @param col
  *          horizontal position
  * @param value
- *          integer value to store in position (line, row)
+ *          integer value to store in position (row, col)
  * @returns {FullMatrix} this
  */
-FullMatrix.prototype.set = function(line, row, value) {
-  var lineref = this.array[line];
+FullMatrix.prototype.set = function(row, col, value) {
+  var rowref = this.array[row];
 
   if (value) {
-    if (lineref === undefined) {
-      lineref = this.array[line] = [];
+    if (rowref === undefined) {
+      rowref = this.array[row] = [];
     }
-    lineref[row] = value;
-  } else if (lineref) {
-    delete lineref[row];
+    rowref[col] = value;
+  } else if (rowref) {
+    delete rowref[col];
   }
 
   return this;
@@ -506,9 +506,9 @@ HalfMatrix.prototype.clone = function() {
   var a = this.array;
   var b = retval.array;
 
-  // loop over the lines, skipping empty lines
-  // loop over every row within the lines and copy only non-null values
-  // create line-arrays (first index of b) as needed
+  // loop over the rows, skipping empty rows
+  // loop over every col within the rows and copy only non-null values
+  // create row-arrays (first index of b) as needed
   for ( var i = 0; i < size; ++i) {
     if (a[i]) {
       for ( var j = 0; j <= i; ++j) {
@@ -526,7 +526,7 @@ HalfMatrix.prototype.clone = function() {
 };
 
 /**
- * erases the lines and rows associated with the index from the matrix
+ * erases the rows and cols associated with the index from the matrix
  * 
  * @param index
  *          {Integer} index
@@ -571,89 +571,89 @@ HalfMatrix.prototype.extend = function(by) {
 /**
  * retrieves the value from the given indices using the empty type
  * 
- * @param line
- *          vertical position
  * @param row
+ *          vertical position
+ * @param col
  *          horizontal position
- * @returns value at (line, row). defaults to 0
+ * @returns value at (row, col). defaults to 0
  */
-HalfMatrix.prototype.get = function(line, row) {
-  if (row > line) {
+HalfMatrix.prototype.get = function(row, col) {
+  if (col > row) {
     return 0;
   }
-  if (this.array[line] === undefined) {
+  if (this.array[row] === undefined) {
     return 0;
   }
 
-  return this.array[line][row] || 0;
+  return this.array[row][col] || 0;
 };
 
 /**
  * retrieves the value from the given indices using the mirrored type
  * 
- * @param line
- *          vertical position
  * @param row
+ *          vertical position
+ * @param col
  *          horizontal position
- * @returns value at (line, row). defaults to 0
+ * @returns value at (row, col). defaults to 0
  */
-HalfMatrix.prototype.getMirrored = function(line, row) {
-  if (row > line) {
-    return this.get(row, line);
+HalfMatrix.prototype.getMirrored = function(row, col) {
+  if (col > row) {
+    return this.get(col, row);
   }
-  if (this.array[line] === undefined) {
+  if (this.array[row] === undefined) {
     return 0;
   }
 
-  return this.array[line][row] || 0;
+  return this.array[row][col] || 0;
 };
 
 /**
  * retrieves the value from the given indices using the negated type
  * 
- * @param line
- *          vertical position
  * @param row
+ *          vertical position
+ * @param col
  *          horizontal position
- * @returns value at (line, row). defaults to 0
+ * @returns value at (row, col). defaults to 0
  */
-HalfMatrix.prototype.getNegated = function(line, row) {
-  if (row > line) {
-    return -this.get(row, line);
+HalfMatrix.prototype.getNegated = function(row, col) {
+  if (col > row) {
+    return -this.get(col, row);
   }
-  if (this.array[line] === undefined) {
+  if (this.array[row] === undefined) {
     return 0;
   }
 
-  return this.array[line][row] || 0;
+  return this.array[row][col] || 0;
 };
 
 /**
  * sets the value at the given indices and allocates/frees the field if
  * necessary. Values below the main diagonal are ignored.
  * 
- * @param line
- *          vertical position
  * @param row
+ *          vertical position
+ * @param col
  *          horizontal position
  * @param value
- *          integer value to store in position (line, row)
+ *          integer value to store in position (row, col)
  * @returns {HalfMatrix} this
  */
-HalfMatrix.prototype.set = function(line, row, value) {
-  if (row > line) {
+HalfMatrix.prototype.set = function(row, col, value) {
+  if (col > row) {
     return this;
   }
 
-  var lineref = this.array[line];
+  var rowref = this.array[row];
 
   if (value) {
-    if (lineref === undefined) {
-      lineref = this.array[line] = [];
+    if (rowref === undefined) {
+      rowref = this.array[row] = [];
     }
-    lineref[row] = value;
-  } else if (lineref) {
-    delete lineref[row];
+    rowref[col] = value;
+  } else if (rowref) {
+    delete rowref[col];
   }
 
   return this;

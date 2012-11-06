@@ -102,10 +102,10 @@ test("FullMatrix", function() {
   b = new FullMatrix(2);
   b.array = [ [ 1, 3 ], [ undefined, 7 ] ];
   deepEqual((new FullMatrix()).erase(0), new FullMatrix(),
-      "erase line from matrix of size 0");
+      "erase row from matrix of size 0");
   deepEqual((new FullMatrix(3)).erase(0), new FullMatrix(2),
-      "erase line from empty matrix");
-  deepEqual(a.erase(1), b, "erase line from sparse matrix");
+      "erase row from empty matrix");
+  deepEqual(a.erase(1), b, "erase row from sparse matrix");
 });
 
 test("HalfMatrix",
@@ -161,10 +161,10 @@ test("HalfMatrix",
       b = new HalfMatrix(0, 2);
       b.array = [ [ 1, 3 ], [ undefined, 7 ] ];
       deepEqual((new HalfMatrix()).erase(0), new HalfMatrix(),
-          "erase line from matrix of size 0");
+          "erase row from matrix of size 0");
       deepEqual((new HalfMatrix(3)).erase(0), new HalfMatrix(2),
-          "erase line from empty matrix");
-      deepEqual(a.erase(1), b, "erase line from sparse matrix");
+          "erase row from empty matrix");
+      deepEqual(a.erase(1), b, "erase row from sparse matrix");
 
       // HalfMatrix.type tests
       // empty
@@ -229,27 +229,27 @@ test("Matrix", function() {
   deepEqual(Matrix.MultVec(b, vec), [ 0, 40, 6 ], "MultVec check");
   deepEqual(Matrix.VecMult(vec, b), [ 14, 27, 10 ], "VecMult check");
 
-  // GetLine und GetRow
-  deepEqual(Matrix.GetLine(b, 1), [ 7, 9, 5 ], "GetLine with populated line");
-  deepEqual(Matrix.GetLine(b, 2), [ 0, 3, 0 ], "GetLine with sparse line");
-  deepEqual(Matrix.GetLine(b, 0), [ 0, 0, 0 ], "GetLine with empty line");
+  // GetRow und GetCol
+  deepEqual(Matrix.GetRow(b, 1), [ 7, 9, 5 ], "GetRow with populated row");
+  deepEqual(Matrix.GetRow(b, 2), [ 0, 3, 0 ], "GetRow with sparse row");
+  deepEqual(Matrix.GetRow(b, 0), [ 0, 0, 0 ], "GetRow with empty row");
 
   out = Matrix.Transpose(b.clone());
-  deepEqual(Matrix.GetRow(out, 1), [ 7, 9, 5 ], "GetRow with populated row");
-  deepEqual(Matrix.GetRow(out, 2), [ 0, 3, 0 ], "GetRow with sparse row");
-  deepEqual(Matrix.GetRow(out, 0), [ 0, 0, 0 ], "GetRow with empty row");
+  deepEqual(Matrix.GetCol(out, 1), [ 7, 9, 5 ], "GetCol with populated col");
+  deepEqual(Matrix.GetCol(out, 2), [ 0, 3, 0 ], "GetCol with sparse col");
+  deepEqual(Matrix.GetCol(out, 0), [ 0, 0, 0 ], "GetCol with empty col");
 
   // Sums
-  deepEqual(Matrix.LineSum(b, 1), 21, "LineSum populated line");
-  deepEqual(Matrix.LineSum(b, 2), 3, "LineSum sparse line");
-  deepEqual(Matrix.LineSum(b, 0), 0, "LineSum empty line");
+  deepEqual(Matrix.RowSum(b, 1), 21, "RowSum populated row");
+  deepEqual(Matrix.RowSum(b, 2), 3, "RowSum sparse row");
+  deepEqual(Matrix.RowSum(b, 0), 0, "RowSum empty row");
 
-  deepEqual(Matrix.RowSum(out, 1), 21, "RowSum populated line");
-  deepEqual(Matrix.RowSum(out, 2), 3, "RowSum sparse line");
-  deepEqual(Matrix.RowSum(out, 0), 0, "RowSum empty line");
+  deepEqual(Matrix.ColSum(out, 1), 21, "ColSum populated row");
+  deepEqual(Matrix.ColSum(out, 2), 3, "ColSum sparse row");
+  deepEqual(Matrix.ColSum(out, 0), 0, "ColSum empty row");
 
-  deepEqual(Matrix.LineSums(a), [], "LineSums with matrix of size 0");
-  deepEqual(Matrix.LineSums(b), [ 0, 21, 3 ], "LineSums with sparse matrix");
   deepEqual(Matrix.RowSums(a), [], "RowSums with matrix of size 0");
-  deepEqual(Matrix.RowSums(out), [ 0, 21, 3 ], "RowSums with sparse matrix");
+  deepEqual(Matrix.RowSums(b), [ 0, 21, 3 ], "RowSums with sparse matrix");
+  deepEqual(Matrix.ColSums(a), [], "ColSums with matrix of size 0");
+  deepEqual(Matrix.ColSums(out), [ 0, 21, 3 ], "ColSums with sparse matrix");
 });
