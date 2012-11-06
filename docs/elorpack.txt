@@ -1,8 +1,0 @@
-elorpack.min.js
-
-elorpack is a separate js library designed to compress and unpack strings
-containing only integers, \n and spaces, with a compression rate is about 23%.
-
-Download:
-https://github.com/elor/elorpack
-
