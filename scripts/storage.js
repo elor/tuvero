@@ -1,7 +1,7 @@
 /**
  * Storage API for persistent state
  */
-var Storage = {
+define({
   /**
    * required interface for storage actions on items
    */
@@ -69,4 +69,4 @@ var Storage = {
   read : function(key) {
     return window.localStorage.getItem("key");
   },
-};
+});

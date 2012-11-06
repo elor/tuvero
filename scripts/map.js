@@ -6,83 +6,89 @@
  * 
  * @returns {Map} new Map
  */
-function Map() {
-  this.map = [];
-};
-
-/**
- * Inserts an element into the map if not already present. Returns the internal
- * id in both cases
- * 
- * @param external
- *          {Integer} external id
- * @returns {Integer} internal id
- */
-Map.prototype.insert = function(external) {
-  var internal = find(external);
-  if (internal !== -1) {
-    return internal;
+define(function() {
+  function Map() {
+    this.map = [];
   }
+  ;
 
-  map.push(external);
-  return map.length - 1;
-};
+  /**
+   * Inserts an element into the map if not already present. Returns the
+   * internal id in both cases
+   * 
+   * @param external
+   *          {Integer} external id
+   * @returns {Integer} internal id
+   */
+  Map.prototype.insert = function(external) {
+    var internal = find(external);
+    if (internal !== -1) {
+      return internal;
+    }
 
-/**
- * Erases an element from the map and decrements all following internal indices.
- * Note that this function invalidates externally stored internal ids.
- * 
- * @param internal
- *          {Integer} internal id of the element to erase
- */
-Map.prototype.erase = function(internal) {
-  map.splice(internal, 1);
-};
+    map.push(external);
+    return map.length - 1;
+  };
 
-/**
- * Removes an element from the map and decrements all following internal
- * indices. It works similar to erase(), with the main difference of passing the
- * external instead of the internal id
- * 
- * @param external
- *          {Integer} external id
- */
-Map.prototype.remove = function(external) {
-  var internal = find(external);
-  if (internal !== -1) {
-    erase(internal);
-  }
-};
+  /**
+   * Erases an element from the map and decrements all following internal
+   * indices. Note that this function invalidates externally stored internal
+   * ids.
+   * 
+   * @param internal
+   *          {Integer} internal id of the element to erase
+   */
+  Map.prototype.erase = function(internal) {
+    map.splice(internal, 1);
+  };
 
-/**
- * Resets the map to an empty state
- * 
- * @returns {Map} this
- */
-Map.prototype.clear = function() {
-  this.map = [];
+  /**
+   * Removes an element from the map and decrements all following internal
+   * indices. It works similar to erase(), with the main difference of passing
+   * the external instead of the internal id
+   * 
+   * @param external
+   *          {Integer} external id
+   */
+  Map.prototype.remove = function(external) {
+    var internal = find(external);
+    if (internal !== -1) {
+      erase(internal);
+    }
+  };
 
-  return this;
-};
+  /**
+   * Resets the map to an empty state
+   * 
+   * @returns {Map} this
+   */
+  Map.prototype.clear = function() {
+    this.map = [];
 
-/**
- * Looks up the external id of the given internal id
- * 
- * @param internal
- *          {Integer} internal id
- * @returns {Integer} external id or undefined
- */
-Map.prototype.at = function(internal) {
-  return this.map[internal];
-};
+    return this;
+  };
 
-/**
- * Finds the internal id of the given external id
- * 
- * @param external
- *          {Integer} external id
- * @returns {Integer} internal id or -1 if not found
- */
-Map.prototype.find = function(external) {
-  return this.map.indexOf(external);
-};
+  /**
+   * Looks up the external id of the given internal id
+   * 
+   * @param internal
+   *          {Integer} internal id
+   * @returns {Integer} external id or undefined
+   */
+  Map.prototype.at = function(internal) {
+    return this.map[internal];
+  };
+
+  /**
+   * Finds the internal id of the given external id
+   * 
+   * @param external
+   *          {Integer} external id
+   * @returns {Integer} internal id or -1 if not found
+   */
+  Map.prototype.find = function(external) {
+    return this.map.indexOf(external);
+  };
+
+  return Map;
+});
