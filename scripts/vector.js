@@ -111,6 +111,6 @@ define({
     }
 
     return sum;
-  },
+  }
 
 });
