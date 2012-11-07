@@ -8,7 +8,7 @@ define({
   Interface : {
     toBlob : function () {
       return "";
-    },
+    }
   },
 
   /**
@@ -71,5 +71,5 @@ define({
    */
   read : function (key) {
     return window.localStorage.getItem("key");
-  },
+  }
 });
