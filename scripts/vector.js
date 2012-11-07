@@ -14,11 +14,13 @@ define({
    *          {Array} source
    * @returns {Array} copy
    */
-  Copy : function(vector) {
-    var ret = [];
-    var size = vector.length;
+  Copy : function (vector) {
+    var ret, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    ret = [];
+    size = vector.length;
+
+    for (i = 0; i < size; i += 1) {
       if (vector[i]) {
         ret[i] = vector[i];
       }
@@ -38,10 +40,13 @@ define({
    *          max(a.length, b.length))
    * @returns {Number}
    */
-  Dot : function(a, b, size) {
+  Dot : function (a, b, size) {
+    var retval, i;
+
     size = size || Math.max(a.length, b.length);
-    var retval = 0;
-    for ( var i = 0; i < size; ++i) {
+    retval = 0;
+
+    for (i = 0; i < size; i += 1) {
       retval += (a[i] || 0) * (b[i] || 0);
     }
     return retval;
@@ -54,10 +59,12 @@ define({
    *          {Array} input and output vector
    * @returns {Array} reference to the vector
    */
-  Fill : function(vector) {
-    var size = vector.length;
+  Fill : function (vector) {
+    var size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    size = vector.length;
+
+    for (i = 0; i < size; i += 1) {
       vector[i] = vector[i] || 0;
     }
 
@@ -72,10 +79,12 @@ define({
    *          {Number} factor
    * @returns {Array} reference to vector
    */
-  Scale : function(vector, factor) {
-    var size = vector.length;
+  Scale : function (vector, factor) {
+    var size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    size = vector.length;
+
+    for (i = 0; i < size; i += 1) {
       if (vector[i]) {
         vector[i] *= factor;
       }
@@ -91,11 +100,13 @@ define({
    *          {Array} input vector
    * @returns {Number} the vector sum
    */
-  Sum : function(vector) {
-    var sum = 0;
-    var size = vector.length;
+  Sum : function (vector) {
+    var sum, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    sum = 0;
+    size = vector.length;
+
+    for (i = 0; i < size; i += 1) {
       sum += vector[i] || 0;
     }
 

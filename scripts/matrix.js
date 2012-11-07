@@ -15,32 +15,33 @@ define({
   Interface : {
     size : 0, // indicator of the current size of the matrix in both dimensions
 
-    clear : function() {
+    clear : function () {
       // reset the Matrix to a blank state with default size
       // implementations in the form of clear(newsize) are encouraged
       return this;
     },
-    clone : function() {
+    clone : function () {
+      var copy = null;
       // create a deep copy of the matrix
       return copy;
     },
-    erase : function(index) {
+    erase : function (index) {
       // erase an index (cols and rows) from the matrix
       return this;
     },
-    extend : function(by) {
+    extend : function (by) {
       // safely extend the size of the matrix by "by" with 1 as a default value
       // behaviour with negative "by" value is undefined
       return this;
     },
-    get : function(row, col) {
+    get : function (row, col) {
       // retrieve the value stored at (row, col)
       return 0;
     },
-    set : function(row, col, value) {
+    set : function (row, col, value) {
       // store value at (row, col)
       return this;
-    },
+    }
   },
 
   /**
@@ -52,7 +53,7 @@ define({
    *          {Matrix} second matrix
    * @returns {Boolean} true if sizes are equal, false otherwise
    */
-  EqualSize : function(A, B) {
+  EqualSize : function (A, B) {
     return A.size === B.size && A.size !== undefined;
   },
 
@@ -65,11 +66,13 @@ define({
    *          {Integer} row number
    * @returns {Array} populated vector representing the row
    */
-  GetRow : function(matrix, row) {
-    var vector = [];
-    var size = matrix.size;
+  GetRow : function (matrix, row) {
+    var vector, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       vector[i] = matrix.get(row, i);
     }
 
@@ -85,11 +88,13 @@ define({
    *          {Integer} col number
    * @returns {Array} populated vector representing the row
    */
-  GetCol : function(matrix, col) {
-    var vector = [];
-    var size = matrix.size;
+  GetCol : function (matrix, col) {
+    var vector, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       vector[i] = matrix.get(i, col);
     }
 
@@ -105,11 +110,13 @@ define({
    *          {Integer} row number
    * @returns {Number} the row sum
    */
-  RowSum : function(matrix, row) {
-    var sum = 0;
-    var size = matrix.size;
+  RowSum : function (matrix, row) {
+    var sum, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    sum = 0;
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       sum += matrix.get(row, i);
     }
 
@@ -123,11 +130,13 @@ define({
    *          {Matrix} matrix
    * @returns {Array} vector of row sums
    */
-  RowSums : function(matrix) {
-    var vector = [];
-    var size = matrix.size;
+  RowSums : function (matrix) {
+    var vector, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       vector[i] = this.RowSum(matrix, i);
     }
 
@@ -146,7 +155,11 @@ define({
    *          return reference
    * @returns C
    */
-  Mult : function(A, B, C) {
+  Mult : function (A, B, C) {
+    var size, val, row, col, i;
+
+    size = A.size;
+
     if (C.size !== 0) {
       C.clear();
     }
@@ -155,14 +168,12 @@ define({
       return undefined;
     }
 
-    var size = A.size;
-    var val;
     C.extend(size);
 
-    for ( var row = 0; row < size; ++row) {
-      for ( var col = 0; col < size; ++col) {
+    for (row = 0; row < size; row += 1) {
+      for (col = 0; col < size; col += 1) {
         val = 0;
-        for ( var i = 0; i < size; ++i) {
+        for (i = 0; i < size; i += 1) {
           val += A.get(row, i) * B.get(i, col);
         }
         C.set(row, col, val);
@@ -183,13 +194,15 @@ define({
    * @returns {Array} resulting vector, which is fully populated with integer
    *          values
    */
-  MultVec : function(matrix, vector) {
-    var retvec = [];
-    var size = matrix.size;
+  MultVec : function (matrix, vector) {
+    var retvec, size, i, j;
 
-    for ( var i = 0; i < size; ++i) {
+    retvec = [];
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       retvec[i] = 0;
-      for ( var j = 0; j < size; ++j) {
+      for (j = 0; j < size; j += 1) {
         retvec[i] += matrix.get(i, j) * (vector[j] || 0);
       }
     }
@@ -206,11 +219,13 @@ define({
    *          {Integer} col number
    * @returns {Number} the col sum
    */
-  ColSum : function(matrix, col) {
-    var sum = 0;
-    var size = matrix.size;
+  ColSum : function (matrix, col) {
+    var sum, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    sum = 0;
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       sum += matrix.get(i, col);
     }
 
@@ -224,11 +239,13 @@ define({
    *          {Matrix} matrix
    * @returns {Array} vector of col sums
    */
-  ColSums : function(matrix) {
-    var vector = [];
-    var size = matrix.size;
+  ColSums : function (matrix) {
+    var vector, size, i;
 
-    for ( var i = 0; i < size; ++i) {
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       vector[i] = this.ColSum(matrix, i);
     }
 
@@ -242,11 +259,13 @@ define({
    *          {Matrix} matrix to transpose
    * @returns {Matrix} a reference to matrix
    */
-  Transpose : function(matrix) {
-    var size = matrix.size;
+  Transpose : function (matrix) {
+    var size, i, j, tmp;
 
-    for ( var i = 0; i < size; ++i) {
-      for ( var j = 0; j < i; ++j) {
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
+      for (j = 0; j < i; j += 1) {
         tmp = matrix.get(i, j);
         matrix.set(i, j, matrix.get(j, i));
         matrix.set(j, i, tmp);
@@ -267,17 +286,19 @@ define({
    * @returns {Array} resulting vector, which is fully populated with integer
    *          values
    */
-  VecMult : function(vector, matrix) {
-    var retvec = [];
-    var size = matrix.size;
+  VecMult : function (vector, matrix) {
+    var retvec, size, i, j;
 
-    for ( var i = 0; i < size; ++i) {
+    retvec = [];
+    size = matrix.size;
+
+    for (i = 0; i < size; i += 1) {
       retvec[i] = 0;
-      for ( var j = 0; j < size; ++j) {
+      for (j = 0; j < size; j += 1) {
         retvec[i] += (vector[j] || 0) * matrix.get(j, i);
       }
     }
 
     return retvec;
-  },
+  }
 });

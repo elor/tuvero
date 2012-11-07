@@ -6,11 +6,10 @@
  * 
  * @returns {Map} new Map
  */
-define(function() {
-  function Map() {
+define(function () {
+  var Map = function () {
     this.map = [];
-  }
-  ;
+  };
 
   /**
    * Inserts an element into the map if not already present. Returns the
@@ -20,14 +19,17 @@ define(function() {
    *          {Integer} external id
    * @returns {Integer} internal id
    */
-  Map.prototype.insert = function(external) {
-    var internal = find(external);
+  Map.prototype.insert = function (external) {
+    var internal;
+
+    internal = this.find(external);
+
     if (internal !== -1) {
       return internal;
     }
 
-    map.push(external);
-    return map.length - 1;
+    this.map.push(external);
+    return this.map.length - 1;
   };
 
   /**
@@ -38,8 +40,8 @@ define(function() {
    * @param internal
    *          {Integer} internal id of the element to erase
    */
-  Map.prototype.erase = function(internal) {
-    map.splice(internal, 1);
+  Map.prototype.erase = function (internal) {
+    this.map.splice(internal, 1);
   };
 
   /**
@@ -50,10 +52,13 @@ define(function() {
    * @param external
    *          {Integer} external id
    */
-  Map.prototype.remove = function(external) {
-    var internal = find(external);
+  Map.prototype.remove = function (external) {
+    var internal;
+
+    internal = this.find(external);
+
     if (internal !== -1) {
-      erase(internal);
+      this.erase(internal);
     }
   };
 
@@ -62,7 +67,7 @@ define(function() {
    * 
    * @returns {Map} this
    */
-  Map.prototype.clear = function() {
+  Map.prototype.clear = function () {
     this.map = [];
 
     return this;
@@ -75,7 +80,7 @@ define(function() {
    *          {Integer} internal id
    * @returns {Integer} external id or undefined
    */
-  Map.prototype.at = function(internal) {
+  Map.prototype.at = function (internal) {
     return this.map[internal];
   };
 
@@ -86,9 +91,9 @@ define(function() {
    *          {Integer} external id
    * @returns {Integer} internal id or -1 if not found
    */
-  Map.prototype.find = function(external) {
+  Map.prototype.find = function (external) {
     return this.map.indexOf(external);
   };
 
-  return Map;
+  // return Map;
 });

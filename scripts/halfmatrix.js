@@ -1,39 +1,41 @@
-/**
- * HalfMatrix: Half square matrix implementation according to Matrix.Interface.
- * Empty entries are referenced as undefined array values. All values above the
- * main diagonal aren't stored at all. See get/set for details. The
- * implementation may use more arrays than necessary, but they are expected to
- * be populated to a reasonable degree
- * 
- * @param size
- *          {Integer} size of the matrix
- * @param type
- *          {Integer} an integer identifying the type of the half matrix: -1:
- *          negated, 0: empty, 1: mirrored
- * @returns {HalfMatrix} this
- */
-define(function() {
-  function HalfMatrix(type, size) {
+define(function () {
+  /**
+   * HalfMatrix: Half square matrix implementation according to
+   * Matrix.Interface. Empty entries are referenced as undefined array values.
+   * All values above the main diagonal aren't stored at all. See get/set for
+   * details. The implementation may use more arrays than necessary, but they
+   * are expected to be populated to a reasonable degree
+   * 
+   * @param size
+   *          {Integer} size of the matrix
+   * @param type
+   *          {Integer} an integer identifying the type of the half matrix: -1:
+   *          negated, 0: empty, 1: mirrored
+   * @returns {HalfMatrix} this
+   */
+  var HalfMatrix = function (type, size) {
     type = type || 0;
+
     switch (type) {
-    case HalfMatrix.empty:
+    case 0:
       // already defaulting to prototype.get:
       // this.get = this.get;
       break;
-    case HalfMatrix.mirrored:
+    case 1:
       this.get = this.getMirrored;
       break;
-    case HalfMatrix.negated:
+    case -1:
       this.get = this.getNegated;
       break;
     default:
       break;
     }
+
     this.size = size || 0;
     this.array = [];
 
     return this;
-  }
+  };
 
   // What to do with values above the main diagonal:
   HalfMatrix.empty = 0; // return 0
@@ -45,7 +47,7 @@ define(function() {
    * 
    * @returns {HalfMatrix} this
    */
-  HalfMatrix.prototype.clear = function(size) {
+  HalfMatrix.prototype.clear = function (size) {
     this.array = [];
     this.size = size || 0;
 
@@ -57,9 +59,8 @@ define(function() {
    * 
    * @returns {HalfMatrix} the copy
    */
-  HalfMatrix.prototype.clone = function() {
-    var size = this.size;
-    var type;
+  HalfMatrix.prototype.clone = function () {
+    var size, type, retval, a, b, i, j;
 
     switch (this.get) {
     case HalfMatrix.prototype.getMirrored:
@@ -73,16 +74,17 @@ define(function() {
       break;
     }
 
-    var retval = new HalfMatrix(type, size);
-    var a = this.array;
-    var b = retval.array;
+    size = this.size;
+    retval = new HalfMatrix(type, size);
+    a = this.array;
+    b = retval.array;
 
     // loop over the rows, skipping empty rows
     // loop over every col within the rows and copy only non-null values
     // create row-arrays (first index of b) as needed
-    for ( var i = 0; i < size; ++i) {
+    for (i = 0; i < size; i += 1) {
       if (a[i]) {
-        for ( var j = 0; j <= i; ++j) {
+        for (j = 0; j <= i; j += 1) {
           if (a[i][j]) {
             if (!b[i]) {
               b[i] = [];
@@ -103,15 +105,18 @@ define(function() {
    *          {Integer} index
    * @returns {HalfMatrix} this
    */
-  HalfMatrix.prototype.erase = function(index) {
+  HalfMatrix.prototype.erase = function (index) {
+    var size, a, i;
+
     if (index >= this.size || index < 0) {
       return this;
     }
 
-    var a = this.array;
-    var size = a.length;
+    a = this.array;
+    size = a.length;
+
     a.splice(index, 1);
-    for ( var i = 0; i < size; ++i) {
+    for (i = 0; i < size; i += 1) {
       if (a[i]) {
         a[i].splice(index, 1);
       }
@@ -129,7 +134,7 @@ define(function() {
    *          integer amount by which to extend the array. defaults to 1
    * @returns {HalfMatrix} this
    */
-  HalfMatrix.prototype.extend = function(by) {
+  HalfMatrix.prototype.extend = function (by) {
     if (by <= 0) {
       return this;
     }
@@ -148,7 +153,7 @@ define(function() {
    *          horizontal position
    * @returns value at (row, col). defaults to 0
    */
-  HalfMatrix.prototype.get = function(row, col) {
+  HalfMatrix.prototype.get = function (row, col) {
     if (col > row) {
       return 0;
     }
@@ -168,7 +173,7 @@ define(function() {
    *          horizontal position
    * @returns value at (row, col). defaults to 0
    */
-  HalfMatrix.prototype.getMirrored = function(row, col) {
+  HalfMatrix.prototype.getMirrored = function (row, col) {
     if (col > row) {
       return this.get(col, row);
     }
@@ -188,7 +193,7 @@ define(function() {
    *          horizontal position
    * @returns value at (row, col). defaults to 0
    */
-  HalfMatrix.prototype.getNegated = function(row, col) {
+  HalfMatrix.prototype.getNegated = function (row, col) {
     if (col > row) {
       return -this.get(col, row);
     }
@@ -211,12 +216,14 @@ define(function() {
    *          integer value to store in position (row, col)
    * @returns {HalfMatrix} this
    */
-  HalfMatrix.prototype.set = function(row, col, value) {
+  HalfMatrix.prototype.set = function (row, col, value) {
+    var rowref;
+
     if (col > row) {
       return this;
     }
 
-    var rowref = this.array[row];
+    rowref = this.array[row];
 
     if (value) {
       if (rowref === undefined) {
@@ -229,5 +236,6 @@ define(function() {
 
     return this;
   };
+
   return HalfMatrix;
 });

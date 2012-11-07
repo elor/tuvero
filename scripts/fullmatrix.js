@@ -1,25 +1,25 @@
-/**
- * FullMatrix: Square matrix implementation according to Matrix.Interface Empty
- * entries are specified as undefined array values
- * 
- * @param size
- *          {Integer} size of the matrix. defaults to 0
- * @returns {FullMatrix} this
- */
-define(function() {
-  function FullMatrix(size) {
+define(function () {
+  /**
+   * FullMatrix: Square matrix implementation according to Matrix.Interface
+   * Empty entries are specified as undefined array values
+   * 
+   * @param size
+   *          {Integer} size of the matrix. defaults to 0
+   * @returns {FullMatrix} this
+   */
+  var FullMatrix = function (size) {
     this.size = size || 0;
     this.array = [];
 
     return this;
-  }
+  };
 
   /**
    * Restores a blank state of the FullMatrix
    * 
    * @returns {FullMatrix} this
    */
-  FullMatrix.prototype.clear = function(size) {
+  FullMatrix.prototype.clear = function (size) {
     this.array = [];
     this.size = size || 0;
 
@@ -31,18 +31,22 @@ define(function() {
    * 
    * @returns {FullMatrix} the copy
    */
-  FullMatrix.prototype.clone = function() {
-    var size = this.size;
-    var retval = new FullMatrix(size);
-    var a = this.array;
-    var b = retval.array;
+  FullMatrix.prototype.clone = function () {
+    var size, retval, a, b, i, j;
+
+    size = this.size;
+    retval = new FullMatrix(size);
+    a = this.array;
+    b = retval.array;
 
     // loop over the rows, skipping empty rows
-    // loop over every col within the rows and copy only non-null values
-    // create row-arrays (first index of b) as needed
-    for ( var i = 0; i < size; ++i) {
+    // loop over every col within the rows and
+    // copy only non-null values
+    // create row-arrays (first index of b) as
+    // needed
+    for (i = 0; i < size; i += 1) {
       if (a[i]) {
-        for ( var j = 0; j < size; ++j) {
+        for (j = 0; j < size; j += 1) {
           if (a[i][j]) {
             if (!b[i]) {
               b[i] = [];
@@ -63,15 +67,18 @@ define(function() {
    *          {Integer} index
    * @returns {FullMatrix} this
    */
-  FullMatrix.prototype.erase = function(index) {
+  FullMatrix.prototype.erase = function (index) {
+    var a, size, i;
+
     if (index >= this.size || index < 0) {
       return this;
     }
 
-    var a = this.array;
-    var size = a.length;
+    a = this.array;
+    size = a.length;
+
     a.splice(index, 1);
-    for ( var i = 0; i < size; ++i) {
+    for (i = 0; i < size; i += 1) {
       if (a[i]) {
         a[i].splice(index, 1);
       }
@@ -89,7 +96,7 @@ define(function() {
    *          integer amount by which to extend the array. defaults to 1
    * @returns {FullMatrix} this
    */
-  FullMatrix.prototype.extend = function(by) {
+  FullMatrix.prototype.extend = function (by) {
     if (by <= 0) {
       return this;
     }
@@ -108,7 +115,7 @@ define(function() {
    *          horizontal position
    * @returns value at (row, col). defaults to 0
    */
-  FullMatrix.prototype.get = function(row, col) {
+  FullMatrix.prototype.get = function (row, col) {
     if (this.array[row] === undefined) {
       return 0;
     }
@@ -128,8 +135,10 @@ define(function() {
    *          integer value to store in position (row, col)
    * @returns {FullMatrix} this
    */
-  FullMatrix.prototype.set = function(row, col, value) {
-    var rowref = this.array[row];
+  FullMatrix.prototype.set = function (row, col, value) {
+    var rowref;
+
+    rowref = this.array[row];
 
     if (value) {
       if (rowref === undefined) {
@@ -142,5 +151,6 @@ define(function() {
 
     return this;
   };
+
   return FullMatrix;
 });
