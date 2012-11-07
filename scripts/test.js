@@ -1,7 +1,6 @@
 /*
  * Vector Tests
  */
-
 require([ "vector" ], function (Vector) {
   QUnit.test("Vector", function () {
     var vec, ret, i;
@@ -52,9 +51,8 @@ require([ "vector" ], function (Vector) {
 });
 
 /*
- * Matrix Tests
+ * FullMatrix Tests
  */
-
 require([ "fullmatrix" ], function (FullMatrix) {
   QUnit.test("FullMatrix", function () {
     // constructor validation
@@ -119,6 +117,9 @@ require([ "fullmatrix" ], function (FullMatrix) {
   });
 });
 
+/*
+ * HalfMatrix Tests
+ */
 require([ "halfmatrix" ], function (HalfMatrix) {
   QUnit.test("HalfMatrix", function () {
     var a, b;
@@ -209,6 +210,9 @@ require([ "halfmatrix" ], function (HalfMatrix) {
   });
 });
 
+/*
+ * Matrix Tests
+ */
 require([ "matrix", "fullmatrix", "vector" ], function (Matrix, FullMatrix,
     Vector) {
   QUnit.test("Matrix", function () {
@@ -282,5 +286,45 @@ require([ "matrix", "fullmatrix", "vector" ], function (Matrix, FullMatrix,
     QUnit.deepEqual(Matrix.ColSums(a), [], "ColSums with matrix of size 0");
     QUnit.deepEqual(Matrix.ColSums(out), [ 0, 21, 3 ],
         "ColSums with sparse matrix");
+  });
+});
+
+/*
+ * Map Tests
+ */
+require([ "map" ], function (Map) {
+  QUnit.test("Map", function () {
+    var map, a, b, c;
+
+    map = new Map();
+    QUnit.equal(map.size(), 0, "empty map size");
+
+    a = map.insert(5);
+    b = map.insert(4);
+    c = map.insert(3);
+
+    QUnit.equal(map.size(), 3, "full map size (absolute)");
+    QUnit.equal(map.size(), c + 1, "full map size (relative)");
+
+    QUnit.equal(map.find(1), -1, "correct failure on missing element");
+    QUnit.equal(map.find(5), a, "first index");
+    QUnit.equal(map.find(4), b, "second index");
+    QUnit.equal(map.find(3), c, "third index");
+    QUnit.equal(map.at(a), 5, "first value");
+    QUnit.equal(map.at(b), 4, "second value");
+    QUnit.equal(map.at(c), 3, "third value");
+
+    map.erase(1);
+    QUnit.equal(map.size(), 2, "reduced map size");
+    QUnit.equal(map.at(a), 5, "first reduced value");
+    QUnit.equal(map.at(b), 3, "third reduced value");
+    QUnit.equal(map.find(3), b, "third reduced index");
+
+    map.remove(5);
+    QUnit.equal(map.size(), 1, "further reduced map size");
+    QUnit.equal(map.find(3), 0, "third further reduced index");
+
+    map.remove(3);
+    QUnit.equal(map.size(), 0, "completely reduced map size");
   });
 });

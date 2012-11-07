@@ -1,12 +1,12 @@
-/**
- * Map maps integers to close-packed integers in ascending order. It's intended
- * to serve as a mapping between global and local player ids, but may work for
- * other purposes as well. Actually, it works as a stack with random read
- * access, but let's just call it a map
- * 
- * @returns {Map} new Map
- */
 define(function () {
+  /**
+   * Map maps integers to close-packed integers in ascending order. It's
+   * intended to serve as a mapping between global and local player ids, but may
+   * work for other purposes as well. Actually, it works as a stack with random
+   * read access, but let's just call it a map
+   * 
+   * @returns {Map} new Map
+   */
   var Map = function () {
     this.map = [];
   };
@@ -95,5 +95,15 @@ define(function () {
     return this.map.indexOf(external);
   };
 
-  // return Map;
+  /**
+   * Returns the number of elements in the map. This equals the internal index
+   * of the last element plus one.
+   * 
+   * @returns {Integer} size
+   */
+  Map.prototype.size = function () {
+    return this.map.length;
+  };
+
+  return Map;
 });
