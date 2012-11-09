@@ -4,21 +4,22 @@
   <meta charset="utf-8" />
   <title>test</title>
   <link href="style/qunit-git.css" rel="stylesheet" />
-	<script src="scripts/lib/qunit-git.js"></script>
-	<script>
-	var require = {
-	  shim: {
-	  'qunit' : {
-	     exports: 'QUnit'
-	   },
-	  }
-	};
-	</script>
-	<script data-main="scripts/test" src="scripts/lib/require-jquery.js"></script>
+  <script src="scripts/lib/qunit-git.js"></script>
+  <script>
+  var require = {
+    shim: {
+    'qunit' : {
+       exports: 'QUnit'
+     },
+    },
+    urlArgs: "bust=" +  (new Date()).getTime()
+  };
+  </script>
+  <script data-main="scripts/test" src="scripts/lib/require-jquery.js"></script>
 </head>
 
 <body>
-	<div id="qunit"></div>
+  <div id="qunit"></div>
 </body>
 
 </html>
