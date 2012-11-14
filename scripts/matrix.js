@@ -1,9 +1,4 @@
 /**
- * This file contains the following variables/classes:
- * Matrix - static object with common matrix operations and matrix interface
- */
-
-/**
  * Matrix variable contains functions and interfaces for matrix/vector
  * operations.
  */
