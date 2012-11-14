@@ -328,3 +328,39 @@ require([ "map" ], function (Map) {
     QUnit.equal(map.size(), 0, "completely reduced map size");
   });
 });
+
+/*
+ * Result Tests
+ */
+require([ "result" ], function (Result) {
+  QUnit.test("Result", function () {
+    var a, b, c, pa, pb, res;
+
+    a = 1;
+    b = [ 2, 3 ];
+    c = [ 2, 3 ];
+
+    pa = 5;
+    pb = 13;
+
+    res = new Result(a, b, pa, pb);
+
+    // team tests
+    QUnit.equal(res.getTeam(), undefined, "undefined team request");
+    QUnit.equal(res.getTeam(0), undefined, "0 team request");
+    QUnit.equal(res.getTeam(b), undefined, "array team request");
+    QUnit.deepEqual(res.getTeam(2), b, "team constructed by array");
+    b[1] = 5;
+    QUnit.deepEqual(res.getTeam(2), c, "team copied in constructor");
+    QUnit.deepEqual(res.getTeam(1), [ a ], "team constructed by integer");
+
+    // points tests
+    QUnit.equal(res.getPoints(), undefined, "undefined points request");
+    QUnit.equal(res.getPoints(0), undefined, "0 points request");
+
+    QUnit.equal(res.getPoints(1), pa, "points of first team");
+    QUnit.equal(res.getPoints(1), pa, "points of second team");
+
+    QUnit.equal(res.getNetto(), pa - pb, "netto points");
+  });
+});
