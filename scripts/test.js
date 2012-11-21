@@ -5,48 +5,48 @@ require([ "vector" ], function (Vector) {
   QUnit.test("Vector", function () {
     var vec, ret, i;
 
-    QUnit.deepEqual(Vector.Copy([]), [], "copy empty vector");
+    QUnit.deepEqual(Vector.copy([]), [], "copy empty vector");
 
     vec = [ 1, 2, 3, 4, 5 ];
-    QUnit.deepEqual(Vector.Copy(vec), vec, "copy populated vector");
+    QUnit.deepEqual(Vector.copy(vec), vec, "copy populated vector");
 
     vec = [ 1 ];
     vec[4] = 5;
-    QUnit.deepEqual(Vector.Copy(vec), vec, "copy sparse vector");
+    QUnit.deepEqual(Vector.copy(vec), vec, "copy sparse vector");
 
-    QUnit.equal(Vector.Dot([], []), 0, "dow with both operands empty");
-    QUnit.equal(Vector.Dot([ 1, 2, 3, 4, 5 ], []), 0, "dot operand a empty");
-    QUnit.equal(Vector.Dot([], [ 1, 2, 3, 4, 5 ]), 0, "dow operand b empty");
-    QUnit.equal(Vector.Dot([ 1, 2, 3 ], [ 3, 2, 1 ]), 10,
+    QUnit.equal(Vector.dot([], []), 0, "dow with both operands empty");
+    QUnit.equal(Vector.dot([ 1, 2, 3, 4, 5 ], []), 0, "dot operand a empty");
+    QUnit.equal(Vector.dot([], [ 1, 2, 3, 4, 5 ]), 0, "dow operand b empty");
+    QUnit.equal(Vector.dot([ 1, 2, 3 ], [ 3, 2, 1 ]), 10,
         "dot return value check");
 
     vec = [];
     vec[5] = 0;
-    ret = Vector.Fill(vec);
+    ret = Vector.fill(vec);
 
-    QUnit.equal(ret, vec, "Fill return value provided");
-    QUnit.equal(vec.length, 6, "Fill vector size retained");
+    QUnit.equal(ret, vec, "fill return value provided");
+    QUnit.equal(vec.length, 6, "fill vector size retained");
     for (i = 0; i < 5; i += 1) {
-      QUnit.equal(vec[i], 0, "Fill element " + i + " successfully filled");
+      QUnit.equal(vec[i], 0, "fill element " + i + " successfully filled");
     }
 
-    QUnit.equal(vec[5], 0, "Fill preset element retained");
+    QUnit.equal(vec[5], 0, "fill preset element retained");
 
     vec = [ 1, 2, 3 ];
-    ret = Vector.Scale(vec, 1);
-    QUnit.deepEqual(ret, vec, "Scale identity");
-    QUnit.deepEqual(Vector.Scale([ 1, 2, 3 ], 0), [ 0, 0, 0 ],
-        "Scale by 0 retains size");
-    QUnit.deepEqual(Vector.Scale([ 1, 2, 0 ], -0.3), [ -0.3, 2 * -0.3, 0 ],
-        "Scale negative float factor");
+    ret = Vector.scale(vec, 1);
+    QUnit.deepEqual(ret, vec, "scale identity");
+    QUnit.deepEqual(Vector.scale([ 1, 2, 3 ], 0), [ 0, 0, 0 ],
+        "scale by 0 retains size");
+    QUnit.deepEqual(Vector.scale([ 1, 2, 0 ], -0.3), [ -0.3, 2 * -0.3, 0 ],
+        "scale negative float factor");
 
-    QUnit.equal(Vector.Sum([]), 0, "Sum empty vector");
-    QUnit.equal(Vector.Sum([ 1, 2, 3, 4 ]), 10, "Sum populated vector");
+    QUnit.equal(Vector.sum([]), 0, "sum empty vector");
+    QUnit.equal(Vector.sum([ 1, 2, 3, 4 ]), 10, "sum populated vector");
 
     vec = [];
     vec[3] = 5;
     vec[6] = 3;
-    QUnit.equal(Vector.Sum(vec), 8, "Sum sparse vector");
+    QUnit.equal(Vector.sum(vec), 8, "sum sparse vector");
   });
 });
 
@@ -226,66 +226,66 @@ require([ "matrix", "fullmatrix", "vector" ], function (Matrix, FullMatrix,
 
     transpose = new FullMatrix(3);
     transpose.array = [ [ 1, 4, 7 ], [ 2, 5, 8 ], [ 3, 6, 9 ] ];
-    QUnit.deepEqual(Matrix.Transpose(a.clone()), transpose,
-        "Transpose: return value validation");
+    QUnit.deepEqual(Matrix.transpose(a.clone()), transpose,
+        "transpose: return value validation");
 
     out = new FullMatrix(5);
 
     b = new FullMatrix(2);
-    QUnit.deepEqual(Matrix.Mult(a, b, out), undefined,
-        "Matrix.Mult: abort on different sizes Matrix");
+    QUnit.deepEqual(Matrix.mult(a, b, out), undefined,
+        "Matrix.mult: abort on different sizes Matrix");
     QUnit.deepEqual(out, new FullMatrix(),
-        "Matrix.Mult: output matrix cleared on abort");
+        "Matrix.mult: output matrix cleared on abort");
 
     b.extend();
     b.array = [ undefined, [ 7, 9, 5 ], [ undefined, 3, undefined ] ];
     expected = new FullMatrix(3);
     expected.array = [ [ 14, 27, 10 ], [ 35, 63, 25 ], [ 56, 99, 40 ] ];
-    QUnit.deepEqual(Matrix.Mult(a, b, out), expected, "Matrix Multiplication");
+    QUnit.deepEqual(Matrix.mult(a, b, out), expected, "Matrix multiplication");
 
     vec = [ 1, 2, 3 ];
     a = new FullMatrix();
-    QUnit.deepEqual(Matrix.MultVec(b, []), [ 0, 0, 0 ],
-        "MultVec with empty vector");
-    QUnit.deepEqual(Matrix.VecMult([], b), [ 0, 0, 0 ],
-        "VecMult with empty vector");
-    QUnit.deepEqual(Matrix.MultVec(a, vec), [], "MultVec with empty matrix");
-    QUnit.deepEqual(Matrix.VecMult(vec, a), [], "VecMult with empty matrix");
-    QUnit.deepEqual(Matrix.MultVec(b, vec), [ 0, 40, 6 ], "MultVec check");
-    QUnit.deepEqual(Matrix.VecMult(vec, b), [ 14, 27, 10 ], "VecMult check");
+    QUnit.deepEqual(Matrix.multVec(b, []), [ 0, 0, 0 ],
+        "multVec with empty vector");
+    QUnit.deepEqual(Matrix.vecMult([], b), [ 0, 0, 0 ],
+        "vecMult with empty vector");
+    QUnit.deepEqual(Matrix.multVec(a, vec), [], "multVec with empty matrix");
+    QUnit.deepEqual(Matrix.vecMult(vec, a), [], "vecMult with empty matrix");
+    QUnit.deepEqual(Matrix.multVec(b, vec), [ 0, 40, 6 ], "multVec check");
+    QUnit.deepEqual(Matrix.vecMult(vec, b), [ 14, 27, 10 ], "vecMult check");
 
-    // GetRow und GetCol
-    QUnit.deepEqual(Matrix.GetRow(b, 1), [ 7, 9, 5 ],
-        "GetRow with populated row");
+    // getRow und getCol
+    QUnit.deepEqual(Matrix.getRow(b, 1), [ 7, 9, 5 ],
+        "getRow with populated row");
 
-    vec = Matrix.GetRow(b, 2);
-    QUnit.deepEqual(vec, [ 0, 3, 0 ], "GetRow with sparse row");
+    vec = Matrix.getRow(b, 2);
+    QUnit.deepEqual(vec, [ 0, 3, 0 ], "getRow with sparse row");
 
-    QUnit.deepEqual(Matrix.GetRow(b, 0), [ 0, 0, 0 ], "GetRow with empty row");
+    QUnit.deepEqual(Matrix.getRow(b, 0), [ 0, 0, 0 ], "getRow with empty row");
 
-    out = Matrix.Transpose(b.clone());
-    QUnit.deepEqual(Matrix.GetCol(out, 1), [ 7, 9, 5 ],
-        "GetCol with populated col");
-    QUnit.deepEqual(Matrix.GetCol(out, 2), [ 0, 3, 0 ],
-        "GetCol with sparse col");
-    vec = Matrix.GetCol(out, 0);
-    QUnit.deepEqual(vec, [ 0, 0, 0 ], "GetCol with empty col");
+    out = Matrix.transpose(b.clone());
+    QUnit.deepEqual(Matrix.getCol(out, 1), [ 7, 9, 5 ],
+        "getCol with populated col");
+    QUnit.deepEqual(Matrix.getCol(out, 2), [ 0, 3, 0 ],
+        "getCol with sparse col");
+    vec = Matrix.getCol(out, 0);
+    QUnit.deepEqual(vec, [ 0, 0, 0 ], "getCol with empty col");
 
-    // Sums
-    QUnit.deepEqual(Matrix.RowSum(b, 1), 21, "RowSum populated row");
-    QUnit.deepEqual(Matrix.RowSum(b, 2), 3, "RowSum sparse row");
-    QUnit.deepEqual(Matrix.RowSum(b, 0), 0, "RowSum empty row");
+    // sums
+    QUnit.deepEqual(Matrix.rowSum(b, 1), 21, "rowSum populated row");
+    QUnit.deepEqual(Matrix.rowSum(b, 2), 3, "rowSum sparse row");
+    QUnit.deepEqual(Matrix.rowSum(b, 0), 0, "rowSum empty row");
 
-    QUnit.deepEqual(Matrix.ColSum(out, 1), 21, "ColSum populated row");
-    QUnit.deepEqual(Matrix.ColSum(out, 2), 3, "ColSum sparse row");
-    QUnit.deepEqual(Matrix.ColSum(out, 0), 0, "ColSum empty row");
+    QUnit.deepEqual(Matrix.colSum(out, 1), 21, "colSum populated row");
+    QUnit.deepEqual(Matrix.colSum(out, 2), 3, "colSum sparse row");
+    QUnit.deepEqual(Matrix.colSum(out, 0), 0, "colSum empty row");
 
-    QUnit.deepEqual(Matrix.RowSums(a), [], "RowSums with matrix of size 0");
-    QUnit.deepEqual(Matrix.RowSums(b), [ 0, 21, 3 ],
-        "RowSums with sparse matrix");
-    QUnit.deepEqual(Matrix.ColSums(a), [], "ColSums with matrix of size 0");
-    QUnit.deepEqual(Matrix.ColSums(out), [ 0, 21, 3 ],
-        "ColSums with sparse matrix");
+    QUnit.deepEqual(Matrix.rowSums(a), [], "rowSums with matrix of size 0");
+    QUnit.deepEqual(Matrix.rowSums(b), [ 0, 21, 3 ],
+        "rowSums with sparse matrix");
+    QUnit.deepEqual(Matrix.colSums(a), [], "colSums with matrix of size 0");
+    QUnit.deepEqual(Matrix.colSums(out), [ 0, 21, 3 ],
+        "colSums with sparse matrix");
   });
 });
 
@@ -370,7 +370,7 @@ require([ "result" ], function (Result) {
  */
 require([ 'result', 'nettoranking' ], function (Result, Netto) {
   QUnit.test("NettoRanking", function () {
-    var resa, resb, netto;
+    var resa, resb, netto, tmp;
 
     netto = new Netto(5);
     QUnit.equal(netto.getSize(), 5, "size test");
@@ -380,13 +380,23 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     netto.addResult(resa);
     netto.addResult(resb);
 
+    QUnit.deepEqual(netto.wins, [ 1, 1, 0, 1, 0 ], "addResult win values");
     QUnit.deepEqual(netto.netto, [ 11, 3, -11, 8, -11 ],
         "addResult netto values");
     QUnit.deepEqual(netto.getRanking(), [ 0, 3, 1, 2, 4 ],
         "addResult ranking order");
 
+    tmp = [ netto.getNetto(0), netto.getNetto(1), netto.getNetto(2),
+        netto.getNetto(3), netto.getNetto(4) ];
+    QUnit.deepEqual(netto.netto, tmp, "getNetto() test");
+
+    tmp = [ netto.getWins(0), netto.getWins(1), netto.getWins(2),
+        netto.getWins(3), netto.getWins(4) ];
+    QUnit.deepEqual(netto.wins, tmp, "getWins() test");
+
     netto.eraseResult(resa);
 
+    QUnit.deepEqual(netto.wins, [ 1, 1, 0, 0, 0 ], "eraseResult win values");
     QUnit.deepEqual(netto.netto, [ 11, 11, -11, 0, -11 ],
         "eraseResult netto values");
     QUnit.deepEqual(netto.getRanking(), [ 0, 1, 3, 2, 4 ],
@@ -396,9 +406,66 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     netto.addResult(resa);
     netto.correctResult(resa, resb);
 
+    QUnit.deepEqual(netto.wins, [ 1, 1, 1, 0, 0 ], "correctResult win values");
     QUnit.deepEqual(netto.netto, [ 11, 11, -3, -8, -11 ],
         "correctResult netto values");
     QUnit.deepEqual(netto.getRanking(), [ 0, 1, 2, 3, 4 ],
         "correctResult ranking order");
+  });
+});
+
+/*
+ * BuchholzRanking test
+ */
+require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
+  QUnit.test("BuchholzRanking", function () {
+    var resa, resb, resc, ranking, tmp, i;
+
+    ranking = new Buchholz(5);
+    QUnit.equal(ranking.getSize(), 5, "size test");
+
+    resa = new Result(1, 2, 0, 13);
+    resb = new Result(2, 3, 13, 3);
+    resc = new Result(1, 4, 13, 10);
+    ranking.addResult(resa);
+    ranking.addResult(resb);
+    ranking.addResult(resc);
+
+    tmp = [];
+    for (i = 0; i < 5; i += 1) {
+      tmp[i] = ranking.getBuchholz(i);
+    }
+
+    QUnit.deepEqual(ranking.wins, [ 0, 1, 2, 0, 0 ], "addResult win values");
+    QUnit.deepEqual(ranking.netto, [ 0, -10, 23, -10, -3 ],
+        "addResult netto values");
+    QUnit.deepEqual(tmp, [ 0, 2, 1, 2, 1 ], "addResult buchholz values");
+    QUnit.deepEqual(ranking.getRanking(), [ 2, 1, 3, 4, 0 ],
+        "addResult ranking order");
+
+    tmp = [];
+    for (i = 0; i < 5; i += 1) {
+      tmp[i] = ranking.getNetto(i);
+    }
+
+    QUnit.deepEqual(ranking.netto, tmp, "getNetto() validation");
+
+    tmp = [];
+    for (i = 0; i < 5; i += 1) {
+      tmp[i] = ranking.getWins(i);
+    }
+
+    QUnit.deepEqual(ranking.wins, tmp, "getWins() validation");
+
+    ranking.eraseResult(resb);
+    QUnit.deepEqual(ranking.getRanking(), [ 2, 1, 4, 0, 3 ],
+        "eraseResult getRanking() test");
+
+    ranking.addResult(resb);
+    tmp = new Result(2, 0, 13, 5);
+    ranking.correctResult(resb, tmp);
+    QUnit.deepEqual(ranking.netto, [ -8, -10, 21, 0, -3 ],
+        "correctResult netto values");
+    QUnit.deepEqual(ranking.getRanking(), [ 2, 1, 0, 4, 3 ], "correctResult ranking order");
   });
 });

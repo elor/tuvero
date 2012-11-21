@@ -40,7 +40,7 @@ define({
   },
 
   /**
-   * EqualSize performs an equality test of the sizes of both matrices
+   * equalSize performs an equality test of the sizes of both matrices
    * 
    * @param A
    *          {Matrix} first matrix
@@ -48,7 +48,7 @@ define({
    *          {Matrix} second matrix
    * @returns {Boolean} true if sizes are equal, false otherwise
    */
-  EqualSize : function (A, B) {
+  equalSize : function (A, B) {
     return A.size === B.size && A.size !== undefined;
   },
 
@@ -61,7 +61,7 @@ define({
    *          {Integer} row number
    * @returns {Array} populated vector representing the row
    */
-  GetRow : function (matrix, row) {
+  getRow : function (matrix, row) {
     var vector, size, i;
 
     vector = [];
@@ -83,7 +83,7 @@ define({
    *          {Integer} col number
    * @returns {Array} populated vector representing the row
    */
-  GetCol : function (matrix, col) {
+  getCol : function (matrix, col) {
     var vector, size, i;
 
     vector = [];
@@ -105,7 +105,7 @@ define({
    *          {Integer} row number
    * @returns {Number} the row sum
    */
-  RowSum : function (matrix, row) {
+  rowSum : function (matrix, row) {
     var sum, size, i;
 
     sum = 0;
@@ -125,14 +125,14 @@ define({
    *          {Matrix} matrix
    * @returns {Array} vector of row sums
    */
-  RowSums : function (matrix) {
+  rowSums : function (matrix) {
     var vector, size, i;
 
     vector = [];
     size = matrix.size;
 
     for (i = 0; i < size; i += 1) {
-      vector[i] = this.RowSum(matrix, i);
+      vector[i] = this.rowSum(matrix, i);
     }
 
     return vector;
@@ -150,7 +150,7 @@ define({
    *          return reference
    * @returns C
    */
-  Mult : function (A, B, C) {
+  mult : function (A, B, C) {
     var size, val, row, col, i;
 
     size = A.size;
@@ -158,7 +158,7 @@ define({
     if (C.size !== 0) {
       C.clear();
     }
-    if (!this.EqualSize(A, B)) {
+    if (!this.equalSize(A, B)) {
       // console.error("Matrix.Mult: wrong sizes: ", A.size, " != ", B.size);
       return undefined;
     }
@@ -189,7 +189,7 @@ define({
    * @returns {Array} resulting vector, which is fully populated with integer
    *          values
    */
-  MultVec : function (matrix, vector) {
+  multVec : function (matrix, vector) {
     var retvec, size, i, j;
 
     retvec = [];
@@ -214,7 +214,7 @@ define({
    *          {Integer} col number
    * @returns {Number} the col sum
    */
-  ColSum : function (matrix, col) {
+  colSum : function (matrix, col) {
     var sum, size, i;
 
     sum = 0;
@@ -234,14 +234,14 @@ define({
    *          {Matrix} matrix
    * @returns {Array} vector of col sums
    */
-  ColSums : function (matrix) {
+  colSums : function (matrix) {
     var vector, size, i;
 
     vector = [];
     size = matrix.size;
 
     for (i = 0; i < size; i += 1) {
-      vector[i] = this.ColSum(matrix, i);
+      vector[i] = this.colSum(matrix, i);
     }
 
     return vector;
@@ -254,7 +254,7 @@ define({
    *          {Matrix} matrix to transpose
    * @returns {Matrix} a reference to matrix
    */
-  Transpose : function (matrix) {
+  transpose : function (matrix) {
     var size, i, j, tmp;
 
     size = matrix.size;
@@ -281,7 +281,7 @@ define({
    * @returns {Array} resulting vector, which is fully populated with integer
    *          values
    */
-  VecMult : function (vector, matrix) {
+  vecMult : function (vector, matrix) {
     var retvec, size, i, j;
 
     retvec = [];

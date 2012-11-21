@@ -20,12 +20,15 @@ define(function () {
     case 0:
       // already defaulting to prototype.get:
       // this.get = this.get;
+      this.set = this.setEmpty;
       break;
     case 1:
       this.get = this.getMirrored;
+      this.set = this.setMirrored;
       break;
     case -1:
       this.get = this.getNegated;
+      this.set = this.setNegated;
       break;
     default:
       break;
@@ -197,11 +200,48 @@ define(function () {
     if (col > row) {
       return -this.get(col, row);
     }
+
     if (this.array[row] === undefined) {
       return 0;
     }
 
     return this.array[row][col] || 0;
+  };
+
+  /**
+   * set() function for mirrored half matrices
+   * 
+   * @param row
+   *          row
+   * @param col
+   *          column
+   * @param value
+   *          value
+   * @returns this
+   */
+  HalfMatrix.prototype.setMirrored = function (row, col, value) {
+    if (col > row) {
+      return this.set(col, row, value);
+    }
+    return this.setEmpty(row, col, value);
+  };
+
+  /**
+   * set() function for 'negated' half matrices
+   * 
+   * @param row
+   *          row
+   * @param col
+   *          column
+   * @param value
+   *          value
+   * @returns this
+   */
+  HalfMatrix.prototype.setNegated = function (row, col, value) {
+    if (col > row) {
+      return this.set(col, row, -value);
+    }
+    return this.setEmpty(row, col, value);
   };
 
   /**
@@ -216,7 +256,7 @@ define(function () {
    *          integer value to store in position (row, col)
    * @returns {HalfMatrix} this
    */
-  HalfMatrix.prototype.set = function (row, col, value) {
+  HalfMatrix.prototype.setEmpty = function (row, col, value) {
     var rowref;
 
     if (col > row) {
