@@ -364,3 +364,41 @@ require([ "result" ], function (Result) {
     QUnit.equal(res.getNetto(), pa - pb, "netto points");
   });
 });
+
+/*
+ * NettoRanking test
+ */
+require([ 'result', 'nettoranking' ], function (Result, Netto) {
+  QUnit.test("NettoRanking", function () {
+    var resa, resb, netto;
+
+    netto = new Netto(5);
+    QUnit.equal(netto.getSize(), 5, "size test");
+
+    resa = new Result(1, 3, 5, 13);
+    resb = new Result([ 0, 1 ], [ 2, 4 ], 11, 0);
+    netto.addResult(resa);
+    netto.addResult(resb);
+
+    QUnit.deepEqual(netto.netto, [ 11, 3, -11, 8, -11 ],
+        "addResult netto values");
+    QUnit.deepEqual(netto.getRanking(), [ 0, 3, 1, 2, 4 ],
+        "addResult ranking order");
+
+    netto.eraseResult(resa);
+
+    QUnit.deepEqual(netto.netto, [ 11, 11, -11, 0, -11 ],
+        "eraseResult netto values");
+    QUnit.deepEqual(netto.getRanking(), [ 0, 1, 3, 2, 4 ],
+        "eraseResult ranking order");
+
+    resb = new Result(2, 3, 13, 5);
+    netto.addResult(resa);
+    netto.correctResult(resa, resb);
+
+    QUnit.deepEqual(netto.netto, [ 11, 11, -3, -8, -11 ],
+        "correctResult netto values");
+    QUnit.deepEqual(netto.getRanking(), [ 0, 1, 2, 3, 4 ],
+        "correctResult ranking order");
+  });
+});
