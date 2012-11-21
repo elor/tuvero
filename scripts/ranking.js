@@ -1,5 +1,8 @@
 /**
- * Ranking is an interface for different ranking methods.
+ * Ranking is an interface for different ranking methods. The most important
+ * assumption is about the player ids: They're required to be tight-packed
+ * integer values starting at 0.
+ * 
  */
 define(function () {
   return {
@@ -11,46 +14,63 @@ define(function () {
        * 
        * @returns the size of the ranking
        */
-      getSize : function () {
+      size : function () {
         return 0;
       },
 
       /**
-       * getRanking() calculates the rankings and returns a sorted list of
-       * player ids. Specific methods to get the values by which the ranking was
-       * produced may still be implemented.
+       * Set a certain size. If it shrinks from the current size, older values
+       * are expected to be discarded.
        * 
-       * @returns sorted list of player ids
+       * @param size
+       *          the new size
+       * @returns this
        */
-      getRanking : function () {
-        return [];
+      resize : function (size) {
+        return this;
       },
 
       /**
-       * addResult() adds a new game result to the internal storage methods.
+       * get() calculates the rankings and returns a sorted list of player ids.
+       * Specific methods to get the values by which the ranking was produced
+       * may still be implemented. CAUTION: The returned object may (and most
+       * likely will) contain references to internal data structures, so be
+       * careful when editing them. Consider them readonly and all's fine
+       * 
+       * @returns an object containing the ranking as well as and
+       *          implementation-specific data which was used for ranking.
+       */
+      get : function () {
+        return {
+          ranking : []
+        };
+      },
+
+      /**
+       * add() adds a new game result to the internal storage methods.
        * 
        * @param {Result}
        *          result to add
        * @returns {Ranking} this
        */
-      addResult : function (result) {
+      add : function (result) {
         return this;
       },
 
       /**
-       * eraseResult() remove a game result from the storage. Optional method, but
-       * useful in case of misentry.
+       * remove() removes a game result from the storage. Optional method,
+       * but useful in case of misentry.
        * 
        * @param {Result}
        *          result to erase
        * @returns {Ranking} this
        */
-      eraseResult : function (result) {
+      remove : function (result) {
         return this;
       },
 
       /**
-       * correctResult() change the result of a previously added game to a new
+       * correct() changes the result of a previously added game to a new
        * state. This function should act linke erasing the old result and adding
        * the new one, but might encourage optimized algorithms.
        * 
@@ -60,7 +80,7 @@ define(function () {
        *          newresult
        * @returns {Ranking} this
        */
-      correctResult : function (oldresult, newresult) {
+      correct : function (oldresult, newresult) {
         return this;
       }
     }

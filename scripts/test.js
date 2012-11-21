@@ -101,8 +101,8 @@ require([ "fullmatrix" ], function (FullMatrix) {
     QUnit.deepEqual(b, a, "set(0) undefines the element");
 
     QUnit.equal(b.get(0, 0) === 1 && b.get(0, 1) === 2 && b.get(0, 2) === 3
-        && b.get(0, 4) === 0 && b.get(1, 0) === 0 && b.get(1, 2) === 0
-        && b.get(2, 3) === 0 && b.get(4, 4) === 0, true, "get QUnit.test");
+      && b.get(0, 4) === 0 && b.get(1, 0) === 0 && b.get(1, 2) === 0
+      && b.get(2, 3) === 0 && b.get(4, 4) === 0, true, "get QUnit.test");
 
     // erase
     a = new FullMatrix(3);
@@ -166,7 +166,7 @@ require([ "halfmatrix" ], function (HalfMatrix) {
     QUnit.deepEqual(b, a, "set(0) undefines the element");
 
     QUnit.ok(b.get(0, 0) === 1 && b.get(1, 0) === 0 && b.get(1, 1) === 2
-        && b.get(2, 0) === 3 && b.get(2, 1) === 4 && b.get(2, 2) === 0,
+      && b.get(2, 0) === 3 && b.get(2, 1) === 4 && b.get(2, 2) === 0,
         "get QUnit.test");
 
     // erase
@@ -370,47 +370,57 @@ require([ "result" ], function (Result) {
  */
 require([ 'result', 'nettoranking' ], function (Result, Netto) {
   QUnit.test("NettoRanking", function () {
-    var resa, resb, netto, tmp;
+    var resa, resb, ranking, tmp;
 
-    netto = new Netto(5);
-    QUnit.equal(netto.getSize(), 5, "size test");
+    ranking = new Netto(5);
+    QUnit.equal(ranking.size(), 5, "size test");
 
     resa = new Result(1, 3, 5, 13);
     resb = new Result([ 0, 1 ], [ 2, 4 ], 11, 0);
-    netto.addResult(resa);
-    netto.addResult(resb);
+    ranking.add(resa).add(resb);
 
-    QUnit.deepEqual(netto.wins, [ 1, 1, 0, 1, 0 ], "addResult win values");
-    QUnit.deepEqual(netto.netto, [ 11, 3, -11, 8, -11 ],
-        "addResult netto values");
-    QUnit.deepEqual(netto.getRanking(), [ 0, 3, 1, 2, 4 ],
-        "addResult ranking order");
+    tmp = {
+      netto : [ 11, 3, -11, 8, -11 ],
+      ranking : [ 0, 3, 1, 2, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 1, 0 ],
+    };
+    QUnit.deepEqual(ranking.get(), tmp, "get() after add()");
 
-    tmp = [ netto.getNetto(0), netto.getNetto(1), netto.getNetto(2),
-        netto.getNetto(3), netto.getNetto(4) ];
-    QUnit.deepEqual(netto.netto, tmp, "getNetto() test");
+    ranking.remove(resa);
+    tmp = {
+      netto : [ 11, 11, -11, 0, -11 ],
+      size : 5,
+      ranking : [ 0, 1, 3, 2, 4 ],
+      wins : [ 1, 1, 0, 0, 0 ],
+    };
 
-    tmp = [ netto.getWins(0), netto.getWins(1), netto.getWins(2),
-        netto.getWins(3), netto.getWins(4) ];
-    QUnit.deepEqual(netto.wins, tmp, "getWins() test");
-
-    netto.eraseResult(resa);
-
-    QUnit.deepEqual(netto.wins, [ 1, 1, 0, 0, 0 ], "eraseResult win values");
-    QUnit.deepEqual(netto.netto, [ 11, 11, -11, 0, -11 ],
-        "eraseResult netto values");
-    QUnit.deepEqual(netto.getRanking(), [ 0, 1, 3, 2, 4 ],
-        "eraseResult ranking order");
+    QUnit.deepEqual(ranking.get(), tmp, "get() after remove()");
 
     resb = new Result(2, 3, 13, 5);
-    netto.addResult(resa);
-    netto.correctResult(resa, resb);
+    ranking.add(resa);
+    ranking.correct(resa, resb);
 
-    QUnit.deepEqual(netto.wins, [ 1, 1, 1, 0, 0 ], "correctResult win values");
-    QUnit.deepEqual(netto.netto, [ 11, 11, -3, -8, -11 ],
-        "correctResult netto values");
-    QUnit.deepEqual(netto.getRanking(), [ 0, 1, 2, 3, 4 ],
-        "correctResult ranking order");
+    tmp = {
+      netto : [ 11, 11, -3, -8, -11 ],
+      ranking : [ 0, 1, 2, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 1, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after correct()");
+
+    ranking.resize(2);
+    ranking.resize(5);
+
+    tmp = {
+      netto : [ 11, 11, 0, 0, 0 ],
+      ranking : [ 0, 1, 2, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after resize()");
   });
 });
 
@@ -422,50 +432,130 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
     var resa, resb, resc, ranking, tmp, i;
 
     ranking = new Buchholz(5);
-    QUnit.equal(ranking.getSize(), 5, "size test");
+    QUnit.equal(ranking.size(), 5, "size test");
 
     resa = new Result(1, 2, 0, 13);
     resb = new Result(2, 3, 13, 3);
     resc = new Result(1, 4, 13, 10);
-    ranking.addResult(resa);
-    ranking.addResult(resb);
-    ranking.addResult(resc);
+    ranking.add(resa).add(resb).add(resc);
 
-    tmp = [];
-    for (i = 0; i < 5; i += 1) {
-      tmp[i] = ranking.getBuchholz(i);
-    }
+    tmp = {
+      buchholz : [ 0, 2, 1, 2, 1 ],
+      netto : [ 0, -10, 23, -10, -3 ],
+      ranking : [ 2, 1, 3, 4, 0 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
 
-    QUnit.deepEqual(ranking.wins, [ 0, 1, 2, 0, 0 ], "addResult win values");
-    QUnit.deepEqual(ranking.netto, [ 0, -10, 23, -10, -3 ],
-        "addResult netto values");
-    QUnit.deepEqual(tmp, [ 0, 2, 1, 2, 1 ], "addResult buchholz values");
-    QUnit.deepEqual(ranking.getRanking(), [ 2, 1, 3, 4, 0 ],
-        "addResult ranking order");
+    QUnit.deepEqual(ranking.get(), tmp, "get() after add()");
 
-    tmp = [];
-    for (i = 0; i < 5; i += 1) {
-      tmp[i] = ranking.getNetto(i);
-    }
+    ranking.remove(resb);
 
-    QUnit.deepEqual(ranking.netto, tmp, "getNetto() validation");
+    tmp = {
+      buchholz : [ 0, 1, 1, 0, 1 ],
+      netto : [ 0, -10, 13, 0, -3 ],
+      ranking : [ 2, 1, 4, 0, 3 ],
+      size : 5,
+      wins : [ 0, 1, 1, 0, 0 ]
+    };
 
-    tmp = [];
-    for (i = 0; i < 5; i += 1) {
-      tmp[i] = ranking.getWins(i);
-    }
+    QUnit.deepEqual(ranking.get(), tmp, "get() after remove()");
 
-    QUnit.deepEqual(ranking.wins, tmp, "getWins() validation");
-
-    ranking.eraseResult(resb);
-    QUnit.deepEqual(ranking.getRanking(), [ 2, 1, 4, 0, 3 ],
-        "eraseResult getRanking() test");
-
-    ranking.addResult(resb);
+    ranking.add(resb);
     tmp = new Result(2, 0, 13, 5);
-    ranking.correctResult(resb, tmp);
-    QUnit.deepEqual(ranking.netto, [ -8, -10, 21, 0, -3 ],
-        "correctResult netto values");
-    QUnit.deepEqual(ranking.getRanking(), [ 2, 1, 0, 4, 3 ], "correctResult ranking order");
+    ranking.correct(resb, tmp);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 1 ],
+      netto : [ -8, -10, 21, 0, -3 ],
+      ranking : [ 2, 1, 0, 4, 3 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after correct()");
+
+    ranking.resize(3);
+    ranking.resize(5);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after resize()");
+  });
+});
+
+/*
+ * Finebuchholz test
+ */
+require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
+  QUnit.test("Finebuchholz", function () {
+    var resa, resb, resc, ranking, tmp, i;
+
+    ranking = new Finebuchholz(5);
+    QUnit.equal(ranking.size(), 5, "size test");
+
+    resa = new Result(1, 2, 0, 13);
+    resb = new Result(2, 3, 13, 3);
+    resc = new Result(1, 4, 13, 10);
+    ranking.add(resa).add(resb).add(resc);
+
+    tmp = {
+      buchholz : [ 0, 2, 1, 2, 1 ],
+      finebuchholz : [ 0, 2, 4, 1, 2 ],
+      netto : [ 0, -10, 23, -10, -3 ],
+      ranking : [ 2, 1, 3, 4, 0 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after add()");
+
+    ranking.remove(resb);
+
+    tmp = {
+      buchholz : [ 0, 1, 1, 0, 1 ],
+      finebuchholz : [ 0, 2, 1, 0, 1 ],
+      netto : [ 0, -10, 13, 0, -3 ],
+      ranking : [ 1, 2, 4, 0, 3 ],
+      size : 5,
+      wins : [ 0, 1, 1, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after remove()");
+
+    ranking.add(resb);
+    tmp = new Result(2, 0, 13, 5);
+    ranking.correct(resb, tmp);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 1 ],
+      finebuchholz : [ 1, 2, 4, 0, 2 ],
+      netto : [ -8, -10, 21, 0, -3 ],
+      ranking : [ 2, 1, 0, 4, 3 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after correct()");
+
+    ranking.resize(3);
+    ranking.resize(5);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      finebuchholz : [ 1, 1, 4, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after resize()");
   });
 });

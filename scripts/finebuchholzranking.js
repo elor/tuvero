@@ -1,10 +1,10 @@
 define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     HalfMatrix) {
   /**
-   * BuchholzRanking: A ranking variant which sorts players by wins, buchholz
-   * points and netto points, in this order.
+   * FinebuchholzRanking: A ranking variant which sorts players by wins,
+   * buchholz points, finebuchholz points and netto points, in this order.
    */
-  var Buchholz = function (size) {
+  var Finebuchholz = function (size) {
     this.wins = [];
     this.netto = [];
     this.games = new HalfMatrix(1, size);
@@ -20,7 +20,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * 
    * @returns the size
    */
-  Buchholz.prototype.size = function () {
+  Finebuchholz.prototype.size = function () {
     return this.netto.length;
   };
 
@@ -29,9 +29,9 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * 
    * @param size
    *          new size
-   * @returns {Buchholz} this
+   * @returns {Finebuchholz} this
    */
-  Buchholz.prototype.resize = function (size) {
+  Finebuchholz.prototype.resize = function (size) {
     var length = this.netto.length;
 
     if (size < length) {
@@ -58,12 +58,13 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * 
    * @returns data object
    */
-  Buchholz.prototype.get = function () {
-    var rank, i, n, w, bh;
+  Finebuchholz.prototype.get = function () {
+    var rank, i, n, w, bh, fbh;
 
     n = this.netto;
     w = this.wins;
     bh = Matrix.multVec(this.games, w); // calculate the buchholz points
+    fbh = Matrix.multVec(this.games, bh); // calculate the finebuchholz points
 
     rank = [];
     for (i = 0; i < n.length; i += 1) {
@@ -71,11 +72,13 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     }
 
     rank.sort(function (a, b) {
-      return (w[b] - w[a]) || (bh[b] - bh[a]) || (n[b] - n[a]);
+      return (w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a])
+        || (n[b] - n[a]);
     });
 
     return {
       buchholz : bh,
+      finebuchholz : fbh,
       netto : n,
       ranking : rank,
       size : n.length,
@@ -88,9 +91,9 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * 
    * @param result
    *          the result
-   * @returns {Buchholz} this
+   * @returns {Finebuchholz} this
    */
-  Buchholz.prototype.add = function (result) {
+  Finebuchholz.prototype.add = function (result) {
     var netto, n, w, g, t1, t2;
 
     n = this.netto;
@@ -127,9 +130,9 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * 
    * @param result
    *          the result
-   * @returns {Buchholz} this
+   * @returns {Finebuchholz} this
    */
-  Buchholz.prototype.remove = function (result) {
+  Finebuchholz.prototype.remove = function (result) {
     var netto, n, w, g, t1, t2;
 
     n = this.netto;
@@ -168,14 +171,14 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    *          the old result
    * @param newres
    *          the new (corrected) result
-   * @returns {Buchholz} this
+   * @returns {Finebuchholz} this
    */
-  Buchholz.prototype.correct = function (oldres, newres) {
+  Finebuchholz.prototype.correct = function (oldres, newres) {
     this.remove(oldres);
     this.add(newres);
 
     return this;
   };
 
-  return Buchholz;
+  return Finebuchholz;
 });

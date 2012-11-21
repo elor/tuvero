@@ -14,57 +14,63 @@ define(function () {
   };
 
   /**
-   * get wins of a player
-   * 
-   * @param pid
-   *          player id
-   * @returns number of wins
-   */
-  Netto.prototype.getWins = function (pid) {
-    return this.wins[pid];
-  };
-
-  /**
-   * get netto points of a player
-   * 
-   * @param pid
-   *          player id
-   * @returns netto points
-   */
-  Netto.prototype.getNetto = function (pid) {
-    return this.netto[pid];
-  };
-
-  /**
    * simply return the stored size
    * 
    * @returns the size
    */
-  Netto.prototype.getSize = function () {
+  Netto.prototype.size = function () {
     return this.netto.length;
   };
 
   /**
-   * return an array of sorted player ids representing the ranking.
+   * resize the internal arrays
    * 
-   * @returns {Array[Integer]} the ranking
+   * @param size
+   *          new size
+   * @returns {Netto} this
    */
-  Netto.prototype.getRanking = function () {
-    var ranking, i, n, w;
+  Netto.prototype.resize = function (size) {
+    var length = this.netto.length;
+
+    if (size < length) {
+      this.netto.splice(size);
+      this.wins.splice(size);
+    } else {
+      for (; length < size; length += 1) {
+        this.netto.push(0);
+        this.wins.push(0);
+      }
+    }
+
+    return this;
+  };
+
+  /**
+   * return an object with ranking-specific data.
+   * 
+   * @returns {Object} the return object
+   */
+  Netto.prototype.get = function () {
+    var rank, i, n, w;
 
     n = this.netto;
     w = this.wins;
 
-    ranking = [];
+    rank = [];
     for (i = 0; i < n.length; i += 1) {
-      ranking[i] = i;
+      rank[i] = i;
     }
 
-    ranking.sort(function (a, b) {
+    rank.sort(function (a, b) {
       return (w[b] - w[a]) || (n[b] - n[a]);
     });
 
-    return ranking;
+    return {
+      netto : n,
+      ranking : rank,
+      size : n.length,
+      wins : w
+    };
   };
 
   /**
@@ -74,7 +80,7 @@ define(function () {
    *          the result
    * @returns {Netto} this
    */
-  Netto.prototype.addResult = function (result) {
+  Netto.prototype.add = function (result) {
     var netto, n, w;
 
     n = this.netto;
@@ -104,7 +110,7 @@ define(function () {
    *          the result
    * @returns {Netto} this
    */
-  Netto.prototype.eraseResult = function (result) {
+  Netto.prototype.remove = function (result) {
     var netto, n, w;
 
     n = this.netto;
@@ -136,9 +142,9 @@ define(function () {
    *          the new (corrected) result
    * @returns {Netto} this
    */
-  Netto.prototype.correctResult = function (oldres, newres) {
-    this.eraseResult(oldres);
-    this.addResult(newres);
+  Netto.prototype.correct = function (oldres, newres) {
+    this.remove(oldres);
+    this.add(newres);
 
     return this;
   };
