@@ -84,6 +84,9 @@ define([ 'map', 'ranking', 'game' ], function (Map, Ranking, Game) {
       getRanking : function () {
         var res = this.ranking.get();
 
+        // this line merely ensures jslint compatibility
+        res.ranking = res.ranking || [];
+
         // *magic*
 
         return {

@@ -101,8 +101,8 @@ require([ "fullmatrix" ], function (FullMatrix) {
     QUnit.deepEqual(b, a, "set(0) undefines the element");
 
     QUnit.equal(b.get(0, 0) === 1 && b.get(0, 1) === 2 && b.get(0, 2) === 3
-      && b.get(0, 4) === 0 && b.get(1, 0) === 0 && b.get(1, 2) === 0
-      && b.get(2, 3) === 0 && b.get(4, 4) === 0, true, "get QUnit.test");
+        && b.get(0, 4) === 0 && b.get(1, 0) === 0 && b.get(1, 2) === 0
+        && b.get(2, 3) === 0 && b.get(4, 4) === 0, true, "get QUnit.test");
 
     // erase
     a = new FullMatrix(3);
@@ -166,7 +166,7 @@ require([ "halfmatrix" ], function (HalfMatrix) {
     QUnit.deepEqual(b, a, "set(0) undefines the element");
 
     QUnit.ok(b.get(0, 0) === 1 && b.get(1, 0) === 0 && b.get(1, 1) === 2
-      && b.get(2, 0) === 3 && b.get(2, 1) === 4 && b.get(2, 2) === 0,
+        && b.get(2, 0) === 3 && b.get(2, 1) === 4 && b.get(2, 2) === 0,
         "get QUnit.test");
 
     // erase
@@ -383,7 +383,7 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
       netto : [ 11, 3, -11, 8, -11 ],
       ranking : [ 0, 3, 1, 2, 4 ],
       size : 5,
-      wins : [ 1, 1, 0, 1, 0 ],
+      wins : [ 1, 1, 0, 1, 0 ]
     };
     QUnit.deepEqual(ranking.get(), tmp, "get() after add()");
 
@@ -392,7 +392,7 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
       netto : [ 11, 11, -11, 0, -11 ],
       size : 5,
       ranking : [ 0, 1, 3, 2, 4 ],
-      wins : [ 1, 1, 0, 0, 0 ],
+      wins : [ 1, 1, 0, 0, 0 ]
     };
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after remove()");
@@ -429,7 +429,7 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
  */
 require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
   QUnit.test("BuchholzRanking", function () {
-    var resa, resb, resc, ranking, tmp, i;
+    var resa, resb, resc, ranking, tmp;
 
     ranking = new Buchholz(5);
     QUnit.equal(ranking.size(), 5, "size test");
@@ -495,7 +495,7 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
  */
 require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
   QUnit.test("Finebuchholz", function () {
-    var resa, resb, resc, ranking, tmp, i;
+    var resa, resb, resc, ranking, tmp;
 
     ranking = new Finebuchholz(5);
     QUnit.equal(ranking.size(), 5, "size test");

@@ -17,8 +17,7 @@ define({
    * @returns {Boolean} whether the Storage is available
    */
   available : function () {
-    // TODO check if you can really write and read the storage
-    // I might use modernizr
+    // TODO use modernizr
     return !!window.localStorage;
   },
 
