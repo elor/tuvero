@@ -73,7 +73,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
 
     rank.sort(function (a, b) {
       return (w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a])
-        || (n[b] - n[a]);
+          || (n[b] - n[a]);
     });
 
     return {
