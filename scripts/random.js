@@ -31,5 +31,9 @@ define(function () {
     return this.nextInt() / this.maxInt;
   };
 
+  Random.prototype.pick = function (array) {
+    return array[this.nextInt(array.length)];
+  };
+
   return Random;
 });

@@ -2,8 +2,8 @@
  * Implementation of the swiss tournament system
  */
 define(
-    [ 'map', 'finebuchholzranking', 'game', 'result', 'random' ],
-    function (Map, Finebuchholzranking, Game, Result, Random) {
+    [ 'map', 'finebuchholzranking', 'game', 'result', 'random', 'halfmatrix' ],
+    function (Map, Finebuchholzranking, Game, Result, Random, Halfmatrix) {
       var Swisstournament;
 
       Swisstournament = function () {
@@ -97,7 +97,7 @@ define(
       };
 
       Swisstournament.prototype.getRanking = function () {
-        var res, wins, netto, bh, fbh, ids, i, rank;
+        var res, wins, netto, bh, fbh, ids;
 
         bh = [];
         fbh = [];
@@ -108,14 +108,12 @@ define(
         res = this.ranking.get();
 
         // rearrange the arrays from internal id indexing to ranked indexing
-        for (i = 0; i < res.size; i += 1) {
-          rank = res.ranking[i];
-
+        res.ranking.forEach(function (rank, i) {
           bh[rank] = res.buchholz[i];
           fbh[rank] = res.finebuchholz[i];
           netto[rank] = res.netto[i];
           wins[rank] = res.wins[i];
-        }
+        });
 
         return {
           bh : bh,
@@ -127,196 +125,135 @@ define(
       };
 
       Swisstournament.prototype.randomizeGames = function () {
-        var wins, wingroups, i, j, w, wgroup, tmparr, byevote, p, /*upvotes, */downvotes, invalidOpponents, downvote, k, q, arrsortfunc, visited, count, dsgsortfunc;
+        var wingroups, votes;
+
+        if (this.state !== Swisstournament.state.RUNNING) {
+          return undefined;
+        }
         if (this.games.length !== 0) {
           return undefined;
         }
-        
-        arrsortfunc = function (a, b) {
-          return a.length - b.length;
-        };
-
-        dsgsortfunc = function (a, b) {
-          return biggraph[a].length - biggraph[b].length;
-        };
 
         // TODO implement an algorithm for getting new games
-        // TODO verify internal ids
         // TODO remember that games uses external ids
         // TODO validate, of course
         // TODO DON'T exceed O(n^2)
 
-        // Algorithm: for better understanding, read comments only.
-        // create list of teams, ranked by wins (i.e. fbh ranking order)
-        wins = this.ranking.get().wins;
+        // / Algorithm: for better understanding, read comments only.
+        // / create win groups
+        wingroups = this.winGroups();
+        // ensure even win group sizes
+        votes = this.preliminaryDownVotes(wingroups);
 
-        // create win groups
-        wingroups = [];
-        for (i = 0; i < ids.length; i += 1) {
-          w = wins[i];
+        // randomize every win group by itself
+        // direction of iteration doesn't matter anymore
+        wingroups.forEach(function (wg, wins) {
+          // for every player:
+          // // count previous games
+          // // avoid accidental upvote
+          // // exclude players that have already been voted
+          // randomly pick one player with highest invalid count
+          // construct list of possible opponents
+          // randomly pick from it
+          // -> new game
+          // increase count for previously possible opponents
+          // repeat until failure
 
-          if (wingroups[w] === undefined) {
-            wingroups[w] = [];
-          }
+          invalid = new Halfmatrix(wg.length);
+          // store byevote
+        }, this);
 
-          wingroups[w].push(i);
-        }
-
-        byevote = undefined;
-        upvotes = [];
-        downvotes = [];
-
-        // within the win groups:
-        for (i = wingroups.length - 1; i >= 0; i -= 1) {
-          wgroup = wingroups[i];
-
-          // if uneven number of teams:
-          if (wgroup.length % 2 === 1) {
-            // find a random player that hasn't been up/down/byevoted
-            // and move him to lower wingroup
-            tmparr = [];
-
-            for (j = 0; j < wgroup.length; j += 1) {
-              p = wgroup[j];
-              if (!this.byevote(p) && !this.upvote(p) && !this.downvote(p)
-                  && downvotes.indexOf(p) === -1) {
-                // player can be safely down/byevoted
-                tmparr.push(wgroup[j]);
-              }
-            }
-
-            // randomly pick the player
-            p = tmparr[rng.nextInt(tmparr.length)];
-
-            if (i === 0) {
-              // already in lowest wingroup => byevote
-              byevote = p;
-            } else {
-              // move player to lower wingroup
-              wgroup.splice(wgroup.indexOf(p), 1);
-              wingroups[i - 1].push(p);
-              downvotes.push(p);
-            }
-
-          }
-
-          // store the current downvote for later
-          p = wgroup[wgroup.length - 1];
-          if (downvotes.indexOf(p) !== -1) {
-            downvote = p;
-          } else {
-            downvote = undefined;
-          }
-
-          // for every team:
-          invalidOpponents = []; // pid-indexed true/false-list, true being
-          for (j = 0; j < wgroup.length; j += 1) {
-            invalidOpponents[p] = [];
-
-            // invalid
-            p = wgroup[j];
-
-            // TODO find all previous opponents within the group
-
-            // don't let a down/bye/upvote play against the current downvote
-            // this avoids it being another upvote
-            if (this.downvote[p] || this.upvote[p] || this.byevote[p]) {
-              invalidOpponents[p][downvote] = true;
-              invalidOpponents[downvote][p] = true;
-            }
-          }
-
-          // invert the list, compressing it on the fly
-          // -> graph: edges are possible games)
-          biggraph = [];
-          for (j = 0; j < wgroup.length; j += 1) {
-            biggraph[j] = [];
-            p = wgroup[j];
-            for (k = j + 1; k < wgroup.length; k += 1) {
-              q = wgroup[k];
-
-              if (!invalidOpponents[p][q]) {
-                biggraph[j].push(k);
-                biggraph[k].push(j);
-              }
-            }
-          }
-
-          // // find all disconnected subgraphs (dsg)
-          dsgs = [];
-          tmparr = [];
-          visited = [];
-          for (j = wgroup.length - 1; j > 0; j -= 1) {
-            if (tmparr.length === 0) {
-              p = visited.indexOf(undefined);
-              dsg = [];
-              dsgs.push(dsg);
-            } else {
-              p = tmparr.shift();
-            }
-
-            visited[p] = true;
-
-            dgs.push(p);
-
-            for (k = 0; k < biggraph[j].length; k += 1) {
-              q = biggraph[j][k];
-              if (!visited[q]) {
-                tmparr.push(q);
-              }
-            }
-          }
-
-          // // sort dsgs by size
-          dsgs.sort(arrsortfunc);
-
-          // critically abort if the size of two dsgs is odd
-          count = 0;
-          for (j = 0; j < dsgs.length; j += 1) {
-            if (dsgs[j].length % 2 === 1) {
-              count += 1;
-            }
-          }
-          if (count > 1) {
-            // TODO critically abort
-            return undefined;
-          }
-
-          // for each dsg:
-          for (j = 0; j < dsgs.length; j += 1) {
-            dsg = dsgs[j];
-
-            while (dsg.length > 0) {
-              // sort nodes by number of edges
-              dsg.sort(dsgsortfunc);
-
-              // grab node with fewest edges
-              p = dsg[0];
-
-              if (biggraph[p].length < 1) {
-                // TODO problem?
-                return undefined;
-              } else {
-                // determine random edge
-                r = this.rng.nextInt(biggraph[p].length);
-                q = biggraph[p][r];
-
-                // extract random edge along with both nodes
-                // TODO continue here
-              }
-            }
-          }
-
-        }
-
-        // //// extract edges until the size is less than 2:
-        // ////// if node is out of edges:
-        // //////// repeat for this dsg
-        // //////// abort after 10 times
-        // // store byevote
+        this.applyVotes(votes);
 
         return this.games;
       };
 
+      Swisstournament.prototype.winGroups = function () {
+        var wingroups, res;
+
+        wingroups = [];
+
+        res = this.ranking.get();
+
+        res.wins.forEach(function (wins, i) {
+          if (wingroups[wins] === undefined) {
+            wingroups[wins] = [];
+          }
+          wingroups[wins].push(i);
+        });
+
+        return wingroups;
+      };
+
+      Swisstournament.prototype.preliminaryDownVotes = function (wingroups) {
+        var i, downvotes, byevote, tmparr, candidateFunc, p, wg;
+        if (wingroups === undefined) {
+          return undefined;
+        }
+
+        i = 0;
+        tmparr = [];
+        downvotes = [];
+        byevote = undefined;
+
+        candidateFunc = function (id) {
+          // find a random player that hasn't been up/down/byevoted
+          if (this.wasVoted(id)) {
+            return;
+          }
+          if (downvotes[i + 1] === id) {
+            return;
+          }
+
+          tmparr.push(id);
+        };
+
+        // within the win groups:
+        for (i = wingroups.length - 1; i >= 0; i -= 1) {
+          wg = wingroups[i];
+          if (wg.length % 2 === 1) {
+            // if uneven number of teams:
+
+            // find all players that haven't been up/down/byevoted
+            tmparr = [];
+            wg.forEach(candidateFunc, this);
+
+            // critically abort if there's none
+            if (tmparr.size === 0) {
+              return undefined;
+            }
+
+            // randomly pick one
+            p = rng.pick(tmparr);
+
+            // move player to lower wingroup
+            wg.splice(wg.indexOf(p), 1);
+            if (i === 0) {
+              // already in lowest wingroup? byevote.
+              byevote = p;
+            } else {
+              wingroups[i - 1].push(p);
+
+              // remember the downvote
+              downvotes[i - 1] = p;
+            }
+          }
+        }
+
+        return {
+          byevote : byevote,
+          downvotes : downvotes,
+          upvotes : []
+        };
+      };
+
+      Swisstournament.prototype.wasVoted = function (id) {
+        return this.byevote[id] || this.upvote[id] || this.downvote[id]
+            || false;
+      };
+
       return Swisstournament;
     });
+
+// TODO hide internal functions
+// TODO teams contain one player only (manage team vs. player externally)

@@ -618,7 +618,6 @@ require([ "graph" ], function (Graph) {
 
     QUnit.deepEqual(res, [ a, b ], "two subgraphs test");
 
-    console.log(g);
     g.removeEdge(5, 6);
     b = (new Graph()).addVertex(5);
     c = (new Graph()).addVertex(6);
@@ -676,7 +675,8 @@ require([ 'random' ], function (Random) {
       sum += x;
     }
 
-    QUnit.equal(Math.abs(sum - 5000) < 20, true, "mean");
+    // approximate testing
+    QUnit.equal(Math.abs(sum - 5000) < 100, true, "double mean");
     QUnit.equal(min < 0.01, true, "double min top");
     QUnit.equal(min >= 0.0, true, "double min bottom");
     QUnit.equal(max > 0.99, true, "double max top");
@@ -684,10 +684,8 @@ require([ 'random' ], function (Random) {
 
     max = min = r.nextInt(64);
 
-    var arr = [];
     for (i = 0; i < 10000; i += 1) {
       x = r.nextInt(64);
-      arr.push(x);
 
       if (x < min) {
         min = x;
@@ -699,7 +697,5 @@ require([ 'random' ], function (Random) {
 
     QUnit.equal(min, 0, "int min");
     QUnit.equal(max, 63, "int max");
-
-    console.log(arr);
   });
 });
