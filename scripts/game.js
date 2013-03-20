@@ -63,7 +63,8 @@ define(function () {
       t1 = this.teams[i];
       t2 = game.teams[i];
 
-      if (t1 && t2 && t1.length === t2.length && t1.length !== 0) {
+      if (t1 === undefined || t2 === undefined || t1.length !== t2.length
+          || t1.length === 0) {
         return false;
       }
 
@@ -76,4 +77,6 @@ define(function () {
 
     return true;
   };
+
+  return Game;
 });

@@ -380,6 +380,7 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     ranking.add(resa).add(resb);
 
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ 11, 3, -11, 8, -11 ],
       ranking : [ 0, 3, 1, 2, 4 ],
       size : 5,
@@ -389,6 +390,7 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
 
     ranking.remove(resa);
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ 11, 11, -11, 0, -11 ],
       size : 5,
       ranking : [ 0, 1, 3, 2, 4 ],
@@ -402,6 +404,7 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     ranking.correct(resa, resb);
 
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ 11, 11, -3, -8, -11 ],
       ranking : [ 0, 1, 2, 3, 4 ],
       size : 5,
@@ -414,6 +417,7 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     ranking.resize(5);
 
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ 11, 11, 0, 0, 0 ],
       ranking : [ 0, 1, 2, 3, 4 ],
       size : 5,
@@ -421,6 +425,34 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     };
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after resize()");
+
+    ranking.grantBye(3);
+
+    tmp = {
+      byes : [ 0, 0, 0, 1, 0 ],
+      netto : [ 11, 11, 0, 6, 0 ],
+      ranking : [ 0, 1, 3, 2, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 1, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after grantBye()");
+
+    ranking.revokeBye(1);
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after invalid revokeBye()");
+
+    ranking.revokeBye(3);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 11, 11, 0, 0, 0 ],
+      ranking : [ 0, 1, 2, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after revokeBye()");
   });
 });
 
@@ -441,6 +473,7 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
 
     tmp = {
       buchholz : [ 0, 2, 1, 2, 1 ],
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ 0, -10, 23, -10, -3 ],
       ranking : [ 2, 1, 3, 4, 0 ],
       size : 5,
@@ -453,6 +486,7 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
 
     tmp = {
       buchholz : [ 0, 1, 1, 0, 1 ],
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ 0, -10, 13, 0, -3 ],
       ranking : [ 2, 1, 4, 0, 3 ],
       size : 5,
@@ -467,6 +501,7 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
 
     tmp = {
       buchholz : [ 2, 2, 1, 0, 1 ],
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ -8, -10, 21, 0, -3 ],
       ranking : [ 2, 1, 0, 4, 3 ],
       size : 5,
@@ -480,6 +515,7 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
 
     tmp = {
       buchholz : [ 2, 2, 1, 0, 0 ],
+      byes : [ 0, 0, 0, 0, 0 ],
       netto : [ -8, -10, 21, 0, 0 ],
       ranking : [ 2, 1, 0, 3, 4 ],
       size : 5,
@@ -487,6 +523,37 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
     };
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after resize()");
+
+    ranking.grantBye(1);
+
+    tmp = {
+      buchholz : [ 2, 2, 2, 0, 0 ],
+      byes : [ 0, 1, 0, 0, 0 ],
+      netto : [ -8, -4, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 2, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after grantBye()");
+
+    ranking.revokeBye(0);
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after invalid revokeBye()");
+
+    ranking.revokeBye(1);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after revokeBye()");
+
   });
 });
 
@@ -506,6 +573,7 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
     ranking.add(resa).add(resb).add(resc);
 
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       buchholz : [ 0, 2, 1, 2, 1 ],
       finebuchholz : [ 0, 2, 4, 1, 2 ],
       netto : [ 0, -10, 23, -10, -3 ],
@@ -519,6 +587,7 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
     ranking.remove(resb);
 
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       buchholz : [ 0, 1, 1, 0, 1 ],
       finebuchholz : [ 0, 2, 1, 0, 1 ],
       netto : [ 0, -10, 13, 0, -3 ],
@@ -534,6 +603,7 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
     ranking.correct(resb, tmp);
 
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       buchholz : [ 2, 2, 1, 0, 1 ],
       finebuchholz : [ 1, 2, 4, 0, 2 ],
       netto : [ -8, -10, 21, 0, -3 ],
@@ -548,6 +618,7 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
     ranking.resize(5);
 
     tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
       buchholz : [ 2, 2, 1, 0, 0 ],
       finebuchholz : [ 1, 1, 4, 0, 0 ],
       netto : [ -8, -10, 21, 0, 0 ],
@@ -557,6 +628,37 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
     };
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after resize()");
+
+    ranking.grantBye(0);
+
+    tmp = {
+      byes : [ 1, 0, 0, 0, 0 ],
+      buchholz : [ 2, 2, 2, 0, 0 ],
+      finebuchholz : [ 2, 2, 4, 0, 0 ],
+      netto : [ -2, -10, 21, 0, 0 ],
+      ranking : [ 2, 0, 1, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after grantBye()");
+
+    ranking.revokeBye(1);
+    QUnit.deepEqual(ranking.get(), tmp, "get() after invalid revokeBye()");
+
+    ranking.revokeBye(0);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      finebuchholz : [ 1, 1, 4, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, "get() after revokeBye()");
   });
 });
 
@@ -607,5 +709,94 @@ require([ 'random' ], function (Random) {
 
     QUnit.equal(min, 0, "int min");
     QUnit.equal(max, 63, "int max");
+  });
+});
+
+/*
+ * Swisstournament Test
+ */
+require([ "swisstournament" ], function (Swisstournament) {
+  QUnit.test("Swisstournament", function () {
+    var st, players, count, pid, valid;
+
+    st = new Swisstournament();
+    QUnit.equal(st.state, Swisstournament.state.preparing || 0,
+        'initial state is 0 (preparing)');
+
+    QUnit.equal(st.start(), undefined, 'premature start is aborted');
+
+    players = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe',
+        'Hartmut', 'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
+
+    // only append 9 players
+    players.forEach(function (p, pid) {
+      if (pid >= players.length - 9) {
+        st.addPlayer(pid);
+      }
+    });
+
+    QUnit.equal(st.players.size(), 9, 'player map size');
+
+    QUnit.equal(st.getRound(), 0, 'round is 0 before starting');
+    QUnit.equal(st.start(), st, 'start() retval');
+    QUnit.equal(st.state, Swisstournament.state.running || 1,
+        'running state is 1 (running)');
+    QUnit.equal(st.getRound(), 1, 'round  is 1 after starting (autostart)');
+
+    games = st.openGames();
+
+    QUnit.equal(games.length, 4, 'first round: correct number of games');
+
+    count = 0;
+    pid = -1;
+    st.byevote.forEach(function (bye, p) {
+      if (bye === true) {
+        count += 1;
+        pid = p;
+      }
+    });
+
+    QUnit.equal(count, 1, 'first round: one byevote');
+
+    valid = true;
+    games.forEach(function (game) {
+      if (game.teams[0][0] === pid || game.teams[1][0] === pid) {
+        valid = false;
+      }
+    });
+
+    QUnit.equal(valid, true, 'first round: byevote didn\'t play');
+
+    count = 0;
+    pid = -1;
+    st.downvote.forEach(function (down, p) {
+      if (down === true) {
+        count += 1;
+        pid = p;
+      }
+    });
+
+    QUnit.equal(count, 0, 'first round: no downvotes');
+
+    count = 0;
+    pid = -1;
+    st.upvote.forEach(function (up, p) {
+      if (up === true) {
+        count += 1;
+        pid = p;
+      }
+    });
+
+    QUnit.equal(count, 0, 'first round: no upvotes');
+
+    st.finishGame(st.openGames()[0], [ 13, 7 ]);
+    st.finishGame(st.openGames()[0], [ 5, 13 ]);
+    st.finishGame(st.openGames()[0], [ 13, 4 ]);
+    st.finishGame(st.openGames()[0], [ 13, 7 ]);
+
+    QUnit.equal(st.openGames().length, 0, 'first round: all games finished');
+
+    // TODO consider second round
+    // TODO consider third round
   });
 });

@@ -6,10 +6,12 @@ define(function () {
   var Netto = function (size) {
     this.wins = [];
     this.netto = [];
+    this.byes = [];
 
     while (this.netto.length < size) {
       this.netto.push(0);
       this.wins.push(0);
+      this.byes.push(0);
     }
   };
 
@@ -30,15 +32,17 @@ define(function () {
    * @returns {Netto} this
    */
   Netto.prototype.resize = function (size) {
-    var length = this.netto.length;
+    var length = this.size();
 
     if (size < length) {
       this.netto.splice(size);
       this.wins.splice(size);
+      this.byes.splice(size);
     } else {
       for (; length < size; length += 1) {
         this.netto.push(0);
         this.wins.push(0);
+        this.byes.push(0);
       }
     }
 
@@ -66,6 +70,7 @@ define(function () {
     });
 
     return {
+      byes : this.byes,
       netto : n,
       ranking : rank,
       size : n.length,
@@ -147,6 +152,50 @@ define(function () {
     this.add(newres);
 
     return this;
+  };
+
+  Netto.prototype.grantBye = function (team) {
+    var n, w, b, size;
+
+    if (typeof team === 'number') {
+      team = [ team ];
+    }
+
+    n = this.netto;
+    w = this.wins;
+    b = this.byes;
+
+    size = this.size();
+
+    team.forEach(function (pid) {
+      if (pid < size) {
+        n[pid] += 6; // win 13 to 7
+        w[pid] += 1; // win against nobody
+        b[pid] += 1; // keep track of the byes
+      }
+    }, this);
+  };
+
+  Netto.prototype.revokeBye = function (team) {
+    var n, w, size;
+
+    if (typeof team === 'number') {
+      team = [ team ];
+    }
+
+    n = this.netto;
+    w = this.wins;
+    b = this.byes;
+
+    size = this.size();
+
+    team.forEach(function (pid) {
+      if (pid < size && b[pid] > 0) {
+        n[pid] -= 6; // revoke a win of 13 to 7
+        w[pid] -= 1; // revoke a win against nobody
+        b[pid] -= 1; // keep track of byes
+      }
+    }, this);
   };
 
   return Netto;

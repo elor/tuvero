@@ -6,6 +6,11 @@ define(
     function (Map, Finebuchholzranking, Game, Result, Random, Halfmatrix) {
       var Swisstournament;
 
+      /**
+       * constructor
+       * 
+       * @returns {Swisstournament}
+       */
       Swisstournament = function () {
         this.players = new Map();
         this.ranking = new Finebuchholzranking();
@@ -18,12 +23,21 @@ define(
         this.round = 0; // 0 if not started yet, 1 is first valid round, ...
       };
 
+      /**
+       * the three possible states
+       */
       Swisstournament.state = {
         PREPARING : 0,
         RUNNING : 1,
         FINISHED : 2
       };
 
+      /**
+       * (implemented tournament function)
+       * 
+       * @param id
+       * @returns
+       */
       Swisstournament.prototype.addPlayer = function (id) {
         if (this.state !== Swisstournament.state.PREPARING) {
           return undefined;
@@ -33,17 +47,31 @@ define(
         return this;
       };
 
+      /**
+       * (implemented tournament function)
+       * 
+       * @returns
+       */
       Swisstournament.prototype.start = function () {
         if (this.state !== Swisstournament.state.PREPARING) {
           return undefined;
         }
 
+        if (this.players.size() < 2) {
+          return undefined;
+        }
+
         this.state = Swisstournament.state.RUNNING;
-        this.randomizeGames();
+        this.newRound();
 
         return this;
       };
 
+      /**
+       * (implemented tournament function)
+       * 
+       * @returns
+       */
       Swisstournament.prototype.end = function () {
         if (this.state !== Swisstournament.state.RUNNING) {
           return undefined;
@@ -58,16 +86,23 @@ define(
         return this.getRanking();
       };
 
+      /**
+       * (implemented tournament function)
+       * 
+       * @param game
+       * @param points
+       * @returns
+       */
       Swisstournament.prototype.finishGame = function (game, points) {
         var t1, t2, i, invalid;
-        if (this.state !== Swisstournament.state.RUNNIG) {
+        if (this.state !== Swisstournament.state.RUNNING) {
           return undefined;
         }
 
         // verify that the game is in the games list
         invalid = true;
         for (i = 0; i < this.games.length; i += 1) {
-          if (game.equal(this.games[i])) {
+          if (game.equals(this.games[i])) {
             invalid = false;
             break;
           }
@@ -76,6 +111,9 @@ define(
         if (invalid === true) {
           return undefined;
         }
+
+        // remove the game from the list
+        this.games.splice(i, 1);
 
         t1 = [];
         t2 = [];
@@ -87,16 +125,26 @@ define(
         }
 
         // apply ranking
-        this.ranking.add(new Ranking(t1, t2, points[0], points[1]));
+        this.ranking.add(new Result(t1, t2, points[0], points[1]));
 
         return this;
       };
 
+      /**
+       * (implemented tournament function)
+       * 
+       * @returns {Array}
+       */
       Swisstournament.prototype.openGames = function () {
         // return array of open games. Referenced, because bad code
         return this.games;
       };
 
+      /**
+       * (implemented tournament function)
+       * 
+       * @returns
+       */
       Swisstournament.prototype.getRanking = function () {
         var res, wins, netto, bh, fbh, ids;
 
@@ -114,7 +162,7 @@ define(
           fbh[rank] = res.finebuchholz[i];
           netto[rank] = res.netto[i];
           wins[rank] = res.wins[i];
-        });
+        }, this);
 
         return {
           bh : bh,
@@ -123,6 +171,14 @@ define(
           netto : netto,
           wins : wins
         };
+      };
+
+      /**
+       * @returns current round or 0 if tournament hasn't been proberly started
+       *          yet
+       */
+      Swisstournament.prototype.getRound = function () {
+        return this.round;
       };
 
       /**
@@ -177,7 +233,7 @@ define(
 
             // create game with a random upvote candidate
             wingroup.forEach(function (pid2) {
-              // TODO canPlay: performance vs security?
+              // TODO use canPlay: performance vs security?
               if (this.canUpVote(pid2) && this.canPlay(down, pid2)) {
                 candidates.push(pid2);
               }
@@ -209,7 +265,7 @@ define(
               return undefined;
             }
           }
-        });
+        }, this);
 
         // apply the votes
         if (this.applyVotes(votes) === undefined) {
@@ -243,7 +299,7 @@ define(
           if (!this.canDownVote(down)) {
             downvalid = false;
           }
-        });
+        }, this);
 
         upcount = 0;
         upvalid = true;
@@ -254,7 +310,7 @@ define(
           if (!this.canUpVote(up)) {
             upvalid = false;
           }
-        });
+        }, this);
 
         // abort if upvotes and downvotes differ or some vote was invalid
         if (downcount !== upcount || !downvalid || !upvalid) {
@@ -271,11 +327,11 @@ define(
         // apply downvotes
         votes.downvotes.forEach(function (down) {
           this.downVote(down);
-        });
+        }, this);
 
         votes.upvotes.forEach(function (up) {
           this.upVote(up);
-        });
+        }, this);
 
         return this;
       };
@@ -287,18 +343,22 @@ define(
        * @returns 2d array of wingroups
        */
       Swisstournament.prototype.winGroups = function () {
-        var wingroups, res;
+        var wingroups, res, pid, numplayers, wins;
 
         wingroups = [];
 
         res = this.ranking.get();
 
-        res.wins.forEach(function (wins, i) {
+        numplayers = this.players.size();
+
+        for (pid = 0; pid < numplayers; pid += 1) {
+          wins = res.wins[pid] || 0;
+
           if (wingroups[wins] === undefined) {
             wingroups[wins] = [];
           }
-          wingroups[wins].push(i);
-        });
+          wingroups[wins].push(pid);
+        }
 
         return wingroups;
       };
@@ -340,7 +400,7 @@ define(
           if ((wingroups[w].length + (downvoted ? 1 : 0)) & 0x1) {
             // create a dense list of candidates
             candidates = [];
-            wingroups[w].forEach(fillCandidates);
+            wingroups[w].forEach(fillCandidates, this);
 
             // abort if no player can be downvoted
             if (candidates.length === 0) {
@@ -367,7 +427,7 @@ define(
             }
           };
 
-          wingroups[0].forEach(fillCandidates);
+          wingroups[0].forEach(fillCandidates, this);
 
           if (candidates.length === 0) {
             return undefined;
@@ -448,6 +508,7 @@ define(
       Swisstournament.prototype.byeVote = function (id) {
         if (this.canByeVote(id)) {
           this.byevote[id] = true;
+          this.ranking.grantBye(id);
         }
 
         return this;

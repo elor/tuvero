@@ -7,11 +7,13 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
   var Finebuchholz = function (size) {
     this.wins = [];
     this.netto = [];
+    this.byes = [];
     this.games = new HalfMatrix(HalfMatrix.mirrored, size);
 
     while (this.netto.length < size) {
       this.netto.push(0);
       this.wins.push(0);
+      this.byes.push(0);
     }
   };
 
@@ -32,11 +34,12 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * @returns {Finebuchholz} this
    */
   Finebuchholz.prototype.resize = function (size) {
-    var length = this.netto.length;
+    var length = this.size();
 
     if (size < length) {
       this.netto.splice(size);
       this.wins.splice(size);
+      this.byes.splice(size);
       while (this.games.size > size) {
         this.games.erase(size);
       }
@@ -46,6 +49,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
       for (; length < size; length += 1) {
         this.netto.push(0);
         this.wins.push(0);
+        this.byes.push(0);
       }
     }
 
@@ -78,6 +82,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
 
     return {
       buchholz : bh,
+      byes : this.byes,
       finebuchholz : fbh,
       netto : n,
       ranking : rank,
@@ -178,6 +183,50 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     this.add(newres);
 
     return this;
+  };
+
+  Finebuchholz.prototype.grantBye = function (team) {
+    var n, w, b, size;
+
+    if (typeof team === 'number') {
+      team = [ team ];
+    }
+
+    n = this.netto;
+    w = this.wins;
+    b = this.byes;
+
+    size = this.size();
+
+    team.forEach(function (pid) {
+      if (pid < size) {
+        n[pid] += 6; // win 13 to 7
+        w[pid] += 1; // win against nobody
+        b[pid] += 1; // keep track of the byes
+      }
+    }, this);
+  };
+
+  Finebuchholz.prototype.revokeBye = function (team) {
+    var n, w, size;
+
+    if (typeof team === 'number') {
+      team = [ team ];
+    }
+
+    n = this.netto;
+    w = this.wins;
+    b = this.byes;
+
+    size = this.size();
+
+    team.forEach(function (pid) {
+      if (pid < size && b[pid] > 0) {
+        n[pid] -= 6; // revoke a win of 13 to 7
+        w[pid] -= 1; // revoke a win against nobody
+        b[pid] -= 1; // keep track of byes
+      }
+    }, this);
   };
 
   return Finebuchholz;
