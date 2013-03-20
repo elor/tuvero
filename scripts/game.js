@@ -6,16 +6,24 @@ define(function () {
   /**
    * constructor of a Game instance. It simply initiates both variables
    */
-  var Game = function () {
+  var Game = function (p1, p2) {
     this.teams = []; // team array
     this.starttime = 0; // start time in unix epoch milliseconds
+
+    // default behaviour: two teams, one player per team (tournaments are
+    // expected to treat teams as players)
+    if (p1 !== undefined && p2 !== undefined && typeof p1 === 'number'
+        && typeof p2 === 'number') {
+      this.add(0, p1);
+      this.add(1, p2);
+    }
   };
 
   /**
    * add a team member
    * 
    * @param team
-   *          id of the team
+   *          id of the team, starting with 0
    * @param pid
    *          player id
    * @returns this

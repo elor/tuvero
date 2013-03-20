@@ -7,7 +7,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
   var Finebuchholz = function (size) {
     this.wins = [];
     this.netto = [];
-    this.games = new HalfMatrix(1, size);
+    this.games = new HalfMatrix(HalfMatrix.mirrored, size);
 
     while (this.netto.length < size) {
       this.netto.push(0);
