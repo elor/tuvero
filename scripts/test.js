@@ -758,6 +758,8 @@ require([ "swisstournament" ], function (Swisstournament) {
 
     QUnit.equal(count, 1, 'first round: one byevote');
 
+    pid = st.players.find(pid);
+
     valid = true;
     games.forEach(function (game) {
       if (game.teams[0][0] === pid || game.teams[1][0] === pid) {

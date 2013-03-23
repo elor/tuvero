@@ -99,6 +99,10 @@ define(
           return undefined;
         }
 
+        // convert to internal pid
+        game = new Game(this.players.find(game.teams[0][0]), this.players
+            .find(game.teams[1][0]));
+
         // verify that the game is in the games list
         invalid = true;
         for (i = 0; i < this.games.length; i += 1) {
@@ -136,8 +140,14 @@ define(
        * @returns {Array}
        */
       Swisstournament.prototype.openGames = function () {
-        // return array of open games. Referenced, because bad code
-        return this.games;
+        // convert internal to external ids
+        var games = [];
+        this.games.forEach(function (game, i) {
+          games[i] = new Game(this.players.at(game.teams[0][0]), this.players
+              .at(game.teams[1][0]));
+        }, this);
+
+        return games;
       };
 
       /**

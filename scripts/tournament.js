@@ -54,8 +54,8 @@ define([ 'map', 'ranking', 'game' ], function (Map, Ranking, Game) {
 
       /**
        * apply the result of a running game. This function may manipulate the
-       * list of games in any fashion, thereby invalidating the result of the
-       * openGames() function.
+       * list of games in any fashion, thereby generally invalidating the result
+       * of the openGames() function.
        * 
        * @param game
        *          a running or applicable game
