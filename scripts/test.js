@@ -798,13 +798,7 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
 
     QUnit.equal(st.openGames().length, 0, 'first round: all games finished');
 
-    console.log('first round');
     rnk = st.getRanking();
-    console.log(rnk.ids);
-    console.log(rnk.wins);
-    console.log(rnk.bh);
-    console.log(rnk.fbh);
-    console.log(rnk.netto);
 
     QUnit.equal(rnk.wins.length, 9, 'ranking: correct length (wins)');
     QUnit.equal(rnk.ids.length, 9, 'ranking: correct length (ids)');
@@ -912,15 +906,8 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
     res = st.openGames();
     QUnit.equal(res.length, 0, 'second round: all games closed');
 
-    console.log('second round');
-    rnk = st.getRanking();
-    console.log(rnk.ids);
-    console.log(rnk.wins);
-    console.log(rnk.bh);
-    console.log(rnk.fbh);
-    console.log(rnk.netto);
-
-    // consider third round
+    // consider third round. Shuffling can fail with too few players as in this
+    // test, so shuffle multiple times and it should work in 99.999% of cases
     for (tmp = 0; tmp < 10; tmp += 1) {
       res = st.newRound();
       if (res !== undefined) {
@@ -949,14 +936,6 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
 
     QUnit.equal(count, 0, 'third round: finished');
 
-    console.log('third round');
-    rnk = st.getRanking();
-    console.log(rnk.ids);
-    console.log(rnk.wins);
-    console.log(rnk.bh);
-    console.log(rnk.fbh);
-    console.log(rnk.netto);
-
     // check tournament deadlock with too few players
     st = new Swisstournament();
 
@@ -982,7 +961,7 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
     st.finishGame(games2[0], [ 13, 5 ]);
 
     // third round is impossible
-    for (tmp = 0; tmp < 1000; tmp += 1) {
+    for (tmp = 0; tmp < 100; tmp += 1) {
       res = st.newRound();
       if (res !== undefined) {
         break;
