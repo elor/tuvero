@@ -44,6 +44,7 @@ define(
         }
 
         this.players.insert(id);
+        this.ranking.resize(this.players.size());
         return this;
       };
 
@@ -94,8 +95,13 @@ define(
        * @returns
        */
       Swisstournament.prototype.finishGame = function (game, points) {
-        var t1, t2, i, invalid;
+        var i, invalid;
         if (this.state !== Swisstournament.state.RUNNING) {
+          return undefined;
+        }
+
+        // abort if game has too many players
+        if (game.teams[0].length !== 1 || game.teams[1].length !== 1) {
           return undefined;
         }
 
@@ -119,17 +125,9 @@ define(
         // remove the game from the list
         this.games.splice(i, 1);
 
-        t1 = [];
-        t2 = [];
-
-        // ids are external. Convert them to internal ids
-        for (i = 0; i < game.teams[0].length; i += 1) {
-          t1[i] = this.players.find(game.teams[0][i]);
-          t2[i] = this.players.find(game.teams[1][i]);
-        }
-
         // apply ranking
-        this.ranking.add(new Result(t1, t2, points[0], points[1]));
+        this.ranking.add(new Result(game.teams[0], game.teams[1], points[0],
+            points[1]));
 
         return this;
       };
@@ -167,11 +165,12 @@ define(
         res = this.ranking.get();
 
         // rearrange the arrays from internal id indexing to ranked indexing
-        res.ranking.forEach(function (rank, i) {
+        res.ranking.forEach(function (i, rank) {
           bh[rank] = res.buchholz[i];
           fbh[rank] = res.finebuchholz[i];
           netto[rank] = res.netto[i];
           wins[rank] = res.wins[i];
+          ids[rank] = this.players.at(i);
         }, this);
 
         return {
@@ -198,7 +197,7 @@ define(
        * @returns this on success, undefined otherwise
        */
       Swisstournament.prototype.newRound = function () {
-        var wingroups, votes, games;
+        var wingroups, votes, games, timeout;
 
         // abort if the tournament isn't running
         if (this.state !== Swisstournament.state.RUNNING) {
@@ -209,6 +208,7 @@ define(
           return undefined;
         }
 
+        timeout = this.players.size() * 10;
         wingroups = this.winGroups();
         votes = this.preliminaryDownVotes(wingroups);
 
@@ -228,6 +228,11 @@ define(
         wingroups.forEach(function (wingroup, wins) {
           var candidates, p1, p2;
           // exclude the downvote or byevote from this group, if any
+
+          if (timeout <= 0) {
+            return;
+          }
+
           p1 = votes.downvotes[wins];
           if (wins === 0) {
             p1 = votes.byevote;
@@ -244,42 +249,49 @@ define(
             // create game with a random upvote candidate
             wingroup.forEach(function (pid2) {
               // TODO use canPlay: performance vs security?
-              if (this.canUpVote(pid2) && this.canPlay(down, pid2)) {
+              if (this.canUpVote(pid2) && this.canPlay(p1, pid2)) {
                 candidates.push(pid2);
               }
-            });
+            }, this);
 
             p2 = this.rng.pick(candidates);
 
             games.push(new Game(p1, p2));
             wingroup.splice(wingroup.indexOf(p2), 1);
-            votes.upvote[wins] = p2;
+            votes.upvotes[wins] = p2;
           }
 
-          timeout = wingroup.length * 2;
           // while there are players in this group:
           while (wingroup.length > 0) {
             // pick any two random players
             p1 = this.rng.pick(wingroup);
             p2 = this.rng.pick(wingroup);
-            // if they haven't already played against another
-            if (this.canPlay(p1, p2)) {
-              // create game
-              games.push(new Game(p1, p2));
-              wingroup.splice(wingroup.indexOf(p1), 1);
-              wingroup.splice(wingroup.indexOf(p2), 1);
-            }
+            if (p1 !== p2) {
 
-            timeout -= 1;
-            if (timeout === 0) {
-              return undefined;
+              // if they haven't already played against another
+              if (this.canPlay(p1, p2)) {
+                // create game
+                games.push(new Game(p1, p2));
+                wingroup.splice(wingroup.indexOf(p1), 1);
+                wingroup.splice(wingroup.indexOf(p2), 1);
+              }
+
+              timeout -= 1;
+              if (timeout <= 0) {
+                return;
+              }
             }
           }
         }, this);
 
+        if (timeout <= 0) {
+          return undefined;
+        }
+
         // apply the votes
         if (this.applyVotes(votes) === undefined) {
           // abort if something's wrong with the votes
+          this.games = [];
           return undefined;
         }
         // apply the games
@@ -428,9 +440,8 @@ define(
         // byevote from the lowest group, if necessary. Same procedure as with
         // the downvotes
         if ((wingroups[0].length + (downvoted ? 1 : 0)) & 0x1) {
-          // forEach-function to fill the candidates array. ByeVote version.
           candidates = [];
-
+          // forEach-function to fill the candidates array. ByeVote version.
           fillCandidates = function (pid) {
             if (this.canByeVote(pid)) {
               candidates.push(pid);

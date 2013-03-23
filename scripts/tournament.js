@@ -46,7 +46,7 @@ define([ 'map', 'ranking', 'game' ], function (Map, Ranking, Game) {
        * ends the tournament, thereby creating the final result and invalidating
        * most functions
        * 
-       * @returns this if valid, undefined otherwise
+       * @returns this.getRanking() if valid, undefined otherwise
        */
       end : function () {
         return this.getRanking();
@@ -78,7 +78,8 @@ define([ 'map', 'ranking', 'game' ], function (Map, Ranking, Game) {
 
       /**
        * return sorted ranking object including the global ids and important
-       * points and (numeric) annotations (A/B/C-Tournament -> 1/2/3 and so on)
+       * points and (numeric) annotations in their own arrays (A/B/C-Tournament ->
+       * 1/2/3 and so on)
        * 
        * @returns the ranking
        */
