@@ -1,0 +1,116 @@
+body {
+  background-color: gray;
+  padding: 0;
+  border-width: 0;
+  margin: 0;
+  min-width: 30em;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.h2 {
+  font-size: 150%;
+  font-weight: bold;
+  margin: 0.5em;
+}
+
+#toasts {
+  margin: 0.3em 0.3em 0em 0em;
+  max-width: 10em;
+  text-align: right;
+  top: 0em;
+  right: 0em;
+  position: fixed;
+}
+
+#toasts > div {
+  margin-bottom: 0.2em;
+  display: inline-block;
+  background-color: lightgrey;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-out;
+}
+
+#toasts > div.toast {
+  opacity: 1;
+  -webkit-transition: all 0.2s ease-in;
+}
+
+#tabs > div:not(:target) {
+  display: none;
+}
+
+.tabs {
+  height: 3em;
+}
+
+.tabs > a > img {
+  float: left;
+  height: 100%;
+  width: 3em;
+  background-color: lightgray;
+  padding: 1em 1em 0em 1em;
+  margin: 0.5em 0em 0em 0.5em;
+  border-radius: 1em 1em 0em 0em;
+}
+
+.tabs .open {
+  background-color: white;
+}
+
+.tab {
+  margin: 0.5em;
+  padding: 0.5em;
+  padding-top: 3.5em;
+  clear: both;
+  border-radius: 0em 1em 1em 1em;
+  background-color: white;
+  text-align: center;
+}
+
+.clear {
+  clear: both;
+}
+
+.team {
+  display: block;
+  float: left;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: lightgrey;
+  width: 13em;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.team .name {
+  font-weight: bold;
+}
+
+.team .gender {
+  text-align: right;
+}
+
+.team .gender:not(.f) .f {
+  display: none;
+}
+
+.team .gender.f .m {
+  display: none;
+}
+
+.team .city {
+}
+
+.team .assoc {
+  font-style: italic;
+}
+
+.team.tpl {
+  display: none;
+}

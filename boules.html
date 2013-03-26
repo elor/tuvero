@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>test</title>
+  <link rel="stylesheet" href="style/getsomestyle.css" />
+  <script>
+  var require = {
+    urlArgs: "bust=" +  (new Date()).getTime()
+  };
+  </script>
+  <script data-main="scripts/ui/main" src="scripts/lib/require-jquery.js"></script>
+</head>
+
+<body>
+
+<div id="tabs">
+  <div id="teams" accesskey="t">
+    <div class="tab">
+      <a class="team tpl">
+        <span class="name ">%%%%</span>
+        <br>
+        <span class="gender%%%%"><span class="m">&#9794;</span><span class="f">&#9792;</span></span>
+        <span class="year">%%%%</span>
+        <br>
+        <span class="city">%%%%</span>
+        <span class="assoc">%%%%</span>
+      </a>
+    
+      <br class="clear">
+    </div>
+  </div>
+
+  <div id="games" accesskey="g">
+    <div class="tab">
+    </div>
+  </div>
+
+  <div id="ranking" accesskey="r">
+    <div class="tab">
+      <h2>Ranking</h2>
+    </div>
+  </div>
+
+  <div id="history" accesskey="h">
+    <div class="tab">
+    </div>
+  </div>
+  
+  <div id="storage" accesskey="s">
+    <div class="tab">
+    </div>
+  </div>
+  
+</div>
+
+</body>
+
+</html>
+

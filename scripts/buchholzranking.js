@@ -34,7 +34,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * @returns {Buchholz} this
    */
   Buchholz.prototype.resize = function (size) {
-    var length = this.size();;
+    var length = this.size();
 
     if (size < length) {
       this.netto.splice(size);
