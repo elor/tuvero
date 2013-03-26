@@ -1,5 +1,5 @@
-define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
-    HalfMatrix) {
+define([ 'vector', 'matrix', 'halfmatrix', 'result', 'correction' ], function (
+    Vector, Matrix, HalfMatrix, Result, Correction) {
   /**
    * FinebuchholzRanking: A ranking variant which sorts players by wins,
    * buchholz points, finebuchholz points and netto points, in this order.
@@ -8,6 +8,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     this.wins = [];
     this.netto = [];
     this.byes = [];
+    this.corrections = [];
     this.games = new HalfMatrix(HalfMatrix.mirrored, size);
 
     while (this.netto.length < size) {
@@ -148,7 +149,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     t1 = result.getTeam(1);
     t2 = result.getTeam(2);
 
-    t1.map(function (v) {
+    t1.forEach(function (v) {
       n[v] -= netto;
       if (netto > 0) {
         w[v] -= 1;
@@ -157,14 +158,14 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
       t2.map(function (v2) {
         g.set(v, v2, g.get(v, v2) - 1);
       });
-    });
+    }, this);
 
-    t2.map(function (v) {
+    t2.forEach(function (v) {
       n[v] += netto;
       if (netto < 0) {
         w[v] -= 1;
       }
-    });
+    }, this);
 
     return this;
   };
@@ -173,16 +174,19 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * Correct the result of a game.
    * 
    * @param oldres
-   *          the old result
-   * @param newres
-   *          the new (corrected) result
-   * @returns {Finebuchholz} this
+   *          the correction
+   * @returns {Finebuchholz} undefined on failure, this otherwise
    */
-  Finebuchholz.prototype.correct = function (oldres, newres) {
-    this.remove(oldres);
-    this.add(newres);
+  Finebuchholz.prototype.correct = function (correction) {
+    if (this.added(correction.pre.getGame())) {
+      this.remove(correction.pre);
+      this.add(correction.post);
 
-    return this;
+      this.corrections.push(correction.copy());
+
+      return this;
+    }
+    return undefined;
   };
 
   Finebuchholz.prototype.grantBye = function (team) {
@@ -237,15 +241,15 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    * @returns true if all data indicates that this game took place, false
    *          otherwise.
    */
-  Finebuchholz.prototype.wasPlayed = function (game) {
+  Finebuchholz.prototype.added = function (game) {
     // if a game has taken place, all players of one team have played against
     // all players of another team.
     var len, i, j, t1, t2, t1func, invalid;
 
     invalid = false;
 
-    // jslint false positive
-    t1 = t2 = [];
+    // avoid jslint false positive. shouldn't impact performance too much
+    t2 = undefined;
 
     t1func = function (p1) {
       t2.forEach(function (p2) {
@@ -273,6 +277,17 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     }
 
     return !invalid;
+  };
+
+  /**
+   * get a copy of the applied corrections
+   * 
+   * @returns copy of the array of corrections
+   */
+  Finebuchholz.prototype.getCorrections = function () {
+    return this.corrections.map(function (corr) {
+      return corr.copy();
+    }, this);
   };
 
   return Finebuchholz;

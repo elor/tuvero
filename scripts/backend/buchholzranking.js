@@ -9,6 +9,7 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     this.netto = [];
     this.byes = [];
     this.games = new HalfMatrix(HalfMatrix.mirrored, size);
+    this.corrections = [];
 
     while (this.netto.length < size) {
       this.netto.push(0);
@@ -175,11 +176,16 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
    *          the new (corrected) result
    * @returns {Buchholz} this
    */
-  Buchholz.prototype.correct = function (oldres, newres) {
-    this.remove(oldres);
-    this.add(newres);
+  Buchholz.prototype.correct = function (correction) {
+    if (this.added(correction.pre.getGame())) {
+      this.remove(correction.pre);
+      this.add(correction.post);
 
-    return this;
+      this.corrections.push(correction.copy());
+
+      return this;
+    }
+    return undefined;
   };
 
   Buchholz.prototype.grantBye = function (team) {
@@ -223,6 +229,63 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
         w[pid] -= 1; // revoke a win against nobody
         b[pid] -= 1; // keep track of byes
       }
+    }, this);
+  };
+
+  /**
+   * whether a game was played
+   * 
+   * @param game
+   *          an instance of the game that could have taken place
+   * @returns true if all data indicates that this game took place, false
+   *          otherwise.
+   */
+  Buchholz.prototype.added = function (game) {
+    // if a game has taken place, all players of one team have played against
+    // all players of another team.
+    var len, i, j, t1, t2, t1func, invalid;
+
+    invalid = false;
+
+    // avoid jslint false positive. shouldn't impact performance too much
+    t2 = undefined;
+
+    t1func = function (p1) {
+      t2.forEach(function (p2) {
+        if (this.games.get(p1, p2) <= 0) {
+          invalid = true;
+        }
+      }, this);
+    };
+
+    len = game.teams.length;
+
+    for (i = 0; i < len; i += 1) {
+      t1 = game.teams[i];
+      for (j = i + 1; j < len; j += 1) {
+        t2 = game.teams[j];
+
+        t1.forEach(t1func, this);
+        if (invalid) {
+          break;
+        }
+      }
+      if (invalid) {
+        break;
+      }
+    }
+
+    return !invalid;
+  };
+
+  /**
+   * get a copy of the applied corrections
+   * 
+   * @returns copy of the array of corrections
+   */
+  Buchholz.prototype.getCorrections = function () {
+    return this.corrections.map(function (corr) {
+      return corr.copy();
     }, this);
   };
 

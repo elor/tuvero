@@ -58,8 +58,8 @@ define(function () {
       },
 
       /**
-       * remove() removes a game result from the storage. Optional method,
-       * but useful in case of misentry.
+       * remove() removes a game result from the storage. Optional method, but
+       * useful in case of misentry.
        * 
        * @param {Result}
        *          result to erase
@@ -70,18 +70,38 @@ define(function () {
       },
 
       /**
-       * correct() changes the result of a previously added game to a new
-       * state. This function should act linke erasing the old result and adding
-       * the new one, but might encourage optimized algorithms.
+       * correct() changes the result of a previously added game to a new state.
+       * This function should act like erasing the old result and adding the new
+       * one, but might encourage optimized algorithms. Checks whether the old
+       * result was submitted before are encouraged for additional safety.
        * 
-       * @param {Result}
-       *          oldresult
-       * @param {Result}
-       *          newresult
-       * @returns {Ranking} this
+       * @param {Correction}
+       *          correction
+       * @returns {Ranking} undefined on failure, this on success
        */
-      correct : function (oldresult, newresult) {
+      correct : function (correction) {
         return this;
+      },
+
+      /**
+       * getCorrections() returns a copy of all corrections applied to this.
+       * 
+       * @returns deep copy of an array of previous corrections
+       */
+      getCorrections : function () {
+        return [];
+      },
+
+      /**
+       * verify as good as possible with the stored data whether a particular
+       * game took place and was added to the ranking.
+       * 
+       * @param game
+       *          the game to verify
+       * @returns true of the game is likely to have been added, false otherwise
+       */
+      added : function (game) {
+        return true;
       }
     }
   };

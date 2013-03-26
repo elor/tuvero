@@ -1,9 +1,11 @@
 /**
- * Implementation of the swiss tournament system
+ * Implementation of the swiss tournament system where there's only one player.
+ * If you need teams, first consider to enter a team as a single player before
+ * rewriting for multi-player teams, which are only useful for random teams.
  */
 define(
-    [ 'map', 'finebuchholzranking', 'game', 'result', 'random', 'halfmatrix' ],
-    function (Map, Finebuchholzranking, Game, Result, Random, Halfmatrix) {
+    [ 'map', 'finebuchholzranking', 'game', 'result', 'random', 'correction' ],
+    function (Map, Finebuchholzranking, Game, Result, Random, Correction) {
       var Swisstournament;
 
       /**
@@ -248,7 +250,7 @@ define(
 
             // create game with a random upvote candidate
             wingroup.forEach(function (pid2) {
-              // TODO use canPlay: performance vs security?
+              // canPlay: performance vs security?
               if (this.canUpVote(pid2) && this.canPlay(p1, pid2)) {
                 candidates.push(pid2);
               }
@@ -548,11 +550,69 @@ define(
       Swisstournament.prototype.canPlay = function (pid1, pid2) {
         return pid1 < this.players.size() && pid2 < this.players.size()
             && pid1 !== pid2
-            && this.ranking.wasPlayed(new Game(pid1, pid2)) === false;
+            && this.ranking.added(new Game(pid1, pid2)) === false;
+      };
+
+      /**
+       * correct the result of a game. Since the games are determined by the
+       * tournament itself, there's no need to correct the team
+       * 
+       * @param game
+       *          the game
+       * @param oldpoints
+       *          array of faulty points
+       * @param newpoints
+       *          array of corrected points
+       * @returns {Swisstournament} undefined on failure, this otherwise
+       */
+      // TODO test
+      Swisstournament.prototype.correct = function (game, oldpoints, newpoints) {
+        var res1, res2;
+
+        // map to internal ids
+        game = new Game(this.players.find(game.teams[0][0]), this.players
+            .find(game.teams[1][0]));
+
+        // create results
+        res1 = new Result(game.teams[0], game.teams[1], oldpoints[0],
+            oldpoints[1]);
+        res2 = new Result(game.teams[0], game.teams[1], newpoints[0],
+            newpoints[1]);
+        
+        // apply correction
+        this.ranking.correct(new Correction(res1, res2));
+
+        return this;
+      };
+
+      /**
+       * build a list of corrections which are consistent in format with the
+       * correct() function
+       * 
+       * @returns
+       */
+      // TODO test
+      Swisstournament.prototype.getCorrections = function () {
+        return this.ranking.getCorrections().map(
+            function (corr) {
+              var g;
+              g = corr.pre.getGame();
+              if (corr.post.getGame().equals(g)) {
+                g = new Game(this.players.at(g.teams[0][0]), this.players
+                    .at(g.teams[1][0]));
+              } else {
+                g = undefined;
+              }
+
+              return {
+                game : g,
+                oldpoints : [ corr.pre.points1, corr.pre.points2 ],
+                newpoints : [ corr.post.points1, corr.post.points2 ]
+              };
+            }, this);
       };
 
       return Swisstournament;
     });
 
 // TODO hide internal functions
-// TODO teams contain one player only (manage team vs. player externally)

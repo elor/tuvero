@@ -44,10 +44,25 @@ define(function () {
     return this;
   };
 
+  /**
+   * set the start time to the given argument or the current time
+   * 
+   * @param time
+   *          (optional) the time to set to. If undefined, the current time is
+   *          used.
+   */
   Game.prototype.start = function (time) {
     this.starttime = time || (new Date()).getTime();
   };
 
+  /**
+   * deep equal test of this and another game
+   * 
+   * @param game
+   *          another game
+   * @returns {Boolean} true if the games are equivalent (save for starttime),
+   *          false otherwise
+   */
   Game.prototype.equals = function (game) {
     var i, j, t1, t2;
 
@@ -76,6 +91,27 @@ define(function () {
     }
 
     return true;
+  };
+
+  /**
+   * create a deep copy of the game, including the starttime
+   * 
+   * @returns copy
+   */
+  Game.prototype.copy = function () {
+    var ret;
+
+    ret = new Game();
+
+    this.teams.forEach(function (team, tid) {
+      team.forEach(function (pid) {
+        ret.add(tid, pid);
+      }, this);
+    }, this);
+
+    ret.starttime = this.starttime;
+
+    return ret;
   };
 
   return Game;

@@ -330,9 +330,43 @@ require([ "map" ], function (Map) {
 });
 
 /*
+ * Game Tests
+ */
+
+require([ 'game' ], function (Game) {
+  QUnit.test('Game', function () {
+    var game, res;
+    game = new Game();
+
+    QUnit.equal(game.teams.length, 0, 'no teams after construction');
+    QUnit.equal(game.starttime, 0, 'no starttime');
+
+    game.add(0, 1);
+    game.add(1, 2);
+    game.add(1, 5);
+
+    QUnit.equal(game.teams.length, 2, 'two teams after three add() calls');
+    QUnit.deepEqual([ game.teams[0], game.teams[1] ], [ [ 1 ], [ 2, 5 ] ],
+        'teams verified');
+
+    game.start();
+    QUnit.ok(game.starttime !== 0, 'start() seems to work');
+
+    QUnit.ok(game !== game.copy(), 'copy() does in fact copy');
+    res = game.copy();
+    QUnit.deepEqual(res, game, "copy() works");
+
+    res.starttime = 0;
+    QUnit.ok(game.equals(res), 'equals works if equal');
+    res.add(0, 3);
+    QUnit.ok(!game.equals(res), 'equals works if different');
+  });
+});
+
+/*
  * Result Tests
  */
-require([ "result" ], function (Result) {
+require([ "result", 'game' ], function (Result, Game) {
   QUnit.test("Result", function () {
     var a, b, c, pa, pb, res;
 
@@ -362,15 +396,46 @@ require([ "result" ], function (Result) {
     QUnit.equal(res.getPoints(1), pa, "points of second team");
 
     QUnit.equal(res.getNetto(), pa - pb, "netto points");
+
+    QUnit.deepEqual(res.copy(), res, 'copy()');
+    QUnit.ok(res.copy() !== res, "copy() doesn't return this");
+
+    b = new Game();
+
+    b.add(0, a);
+    c.forEach(function (i) {
+      b.add(1, i);
+    });
+
+    QUnit.deepEqual(res.getGame(), b, 'result getGame()');
+  });
+});
+
+/*
+ * Correction Tests
+ */
+require([ "result", 'correction' ], function (Result, Correction) {
+  QUnit.test("Result", function () {
+    var res1, res2, corr;
+    res1 = new Result(1, 2, 3, 4);
+    res2 = new Result(4, 3, 2, 1);
+    corr = new Correction(res1, res2);
+
+    QUnit.deepEqual(corr.pre, res1, 'pre field');
+    QUnit.deepEqual(corr.post, res2, 'post field');
+
+    QUnit.deepEqual(corr.copy(), corr, 'copy copies');
+    QUnit.ok(corr.copy() !== corr, "copy doesn't just reference");
   });
 });
 
 /*
  * NettoRanking test
  */
-require([ 'result', 'nettoranking' ], function (Result, Netto) {
+require([ 'result', 'nettoranking', 'game', 'correction' ], function (Result,
+    Netto, Game, Correction) {
   QUnit.test("NettoRanking", function () {
-    var resa, resb, ranking, tmp;
+    var resa, resb, ranking, tmp, corr;
 
     ranking = new Netto(5);
     QUnit.equal(ranking.size(), 5, "size test");
@@ -388,6 +453,9 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     };
     QUnit.deepEqual(ranking.get(), tmp, "get() after add()");
 
+    QUnit.ok(ranking.added(new Game(3, 1)), 'valid added()');
+    QUnit.ok(!ranking.added(new Game(2, 4)), 'invalid added()');
+
     ranking.remove(resa);
     tmp = {
       byes : [ 0, 0, 0, 0, 0 ],
@@ -401,7 +469,10 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
 
     resb = new Result(2, 3, 13, 5);
     ranking.add(resa);
-    ranking.correct(resa, resb);
+    corr = new Correction(resa, resb);
+    tmp = ranking.correct(corr);
+
+    QUnit.equal(tmp, ranking, 'correct() was successful');
 
     tmp = {
       byes : [ 0, 0, 0, 0, 0 ],
@@ -453,15 +524,18 @@ require([ 'result', 'nettoranking' ], function (Result, Netto) {
     };
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after revokeBye()");
+
+    QUnit.deepEqual(ranking.getCorrections(), [ corr ], 'getCorrections()');
   });
 });
 
 /*
  * BuchholzRanking test
  */
-require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
+require([ 'result', 'buchholzranking', 'correction', 'game' ], function (
+    Result, Buchholz, Correction, Game) {
   QUnit.test("BuchholzRanking", function () {
-    var resa, resb, resc, ranking, tmp;
+    var resa, resb, resc, ranking, tmp, corr;
 
     ranking = new Buchholz(5);
     QUnit.equal(ranking.size(), 5, "size test");
@@ -482,6 +556,9 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after add()");
 
+    QUnit.ok(ranking.added(new Game(3, 2)), 'valid added()');
+    QUnit.ok(!ranking.added(new Game(2, 4)), 'invalid added()');
+
     ranking.remove(resb);
 
     tmp = {
@@ -495,9 +572,13 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after remove()");
 
+    resb = new Result(2, 0, 5, 13);
     ranking.add(resb);
     tmp = new Result(2, 0, 13, 5);
-    ranking.correct(resb, tmp);
+    corr = new Correction(resb, tmp);
+    tmp = ranking.correct(corr);
+
+    QUnit.equal(tmp, ranking, 'correct() was successful');
 
     tmp = {
       buchholz : [ 2, 2, 1, 0, 1 ],
@@ -554,15 +635,17 @@ require([ 'result', 'buchholzranking' ], function (Result, Buchholz) {
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after revokeBye()");
 
+    QUnit.deepEqual(ranking.getCorrections(), [ corr ], 'getCorrections()');
   });
 });
 
 /*
  * Finebuchholz test
  */
-require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
+require([ 'result', 'finebuchholzranking', 'correction', 'game' ], function (
+    Result, Finebuchholz, Correction, Game) {
   QUnit.test("Finebuchholz", function () {
-    var resa, resb, resc, ranking, tmp;
+    var resa, resb, resc, ranking, tmp, corr;
 
     ranking = new Finebuchholz(5);
     QUnit.equal(ranking.size(), 5, "size test");
@@ -582,6 +665,9 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
       wins : [ 0, 1, 2, 0, 0 ]
     };
 
+    QUnit.ok(ranking.added(new Game(3, 2)), 'valid added()');
+    QUnit.ok(!ranking.added(new Game(2, 4)), 'invalid added()');
+
     QUnit.deepEqual(ranking.get(), tmp, "get() after add()");
 
     ranking.remove(resb);
@@ -598,9 +684,13 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after remove()");
 
+    resb = new Result(2, 0, 5, 13);
     ranking.add(resb);
     tmp = new Result(2, 0, 13, 5);
-    ranking.correct(resb, tmp);
+    corr = new Correction(resb, tmp);
+    tmp = ranking.correct(corr);
+
+    QUnit.equal(tmp, ranking, 'correct() successful');
 
     tmp = {
       byes : [ 0, 0, 0, 0, 0 ],
@@ -659,6 +749,8 @@ require([ 'result', 'finebuchholzranking' ], function (Result, Finebuchholz) {
     };
 
     QUnit.deepEqual(ranking.get(), tmp, "get() after revokeBye()");
+
+    QUnit.deepEqual(ranking.getCorrections(), [ corr ], 'getCorrections()');
   });
 });
 
@@ -717,7 +809,7 @@ require([ 'random' ], function (Random) {
  */
 require([ "swisstournament", "game" ], function (Swisstournament, Game) {
   QUnit.test("Swisstournament", function () {
-    var st, players, count, pid, valid, games1, games2, games3, rnk, res, tmp;
+    var st, corr, count, pid, valid, games1, games2, games3, rnk, res, tmp;
 
     st = new Swisstournament();
     QUnit.equal(st.state, Swisstournament.state.preparing || 0,
@@ -725,12 +817,12 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
 
     QUnit.equal(st.start(), undefined, 'premature start is aborted');
 
-    players = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe',
-        'Hartmut', 'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
+    tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Hartmut',
+        'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
 
     // only append 9 players
-    players.forEach(function (p, pid) {
-      if (pid >= players.length - 9) {
+    tmp.forEach(function (p, pid) {
+      if (pid >= tmp.length - 9) {
         st.addPlayer(pid);
       }
     });
@@ -793,11 +885,33 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
 
     st.finishGame(games1[0], [ 13, 8 ]);
     st.finishGame(games1[1], [ 5, 13 ]);
-    st.finishGame(games1[2], [ 4, 13 ]);
+    st.finishGame(games1[2], [ 13, 4 ]);
     st.finishGame(games1[3], [ 13, 6 ]);
 
     QUnit.equal(st.openGames().length, 0, 'first round: all games finished');
 
+    rnk = st.getRanking();
+
+    QUnit.equal(rnk.wins.length, 9, 'ranking: correct length (wins)');
+    QUnit.equal(rnk.ids.length, 9, 'ranking: correct length (ids)');
+
+    res = rnk.wins[0] + rnk.wins[1] + rnk.wins[2] + rnk.wins[3] + rnk.wins[4];
+
+    QUnit.equal(res, 5, 'ranking: five wins in right order');
+
+    res = rnk.wins[5] + rnk.wins[6] + rnk.wins[7] + rnk.wins[8];
+
+    QUnit.equal(res, 0, 'ranking: four losses in right order');
+
+    // correct a game
+    st.correct(games1[2], [ 13, 4 ], [ 4, 13 ]);
+    corr = {
+      game : games1[2].copy(),
+      oldpoints : [ 13, 4 ],
+      newpoints : [ 4, 13 ]
+    };
+
+    // recheck the results
     rnk = st.getRanking();
 
     QUnit.equal(rnk.wins.length, 9, 'ranking: correct length (wins)');
@@ -936,12 +1050,16 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
 
     QUnit.equal(count, 0, 'third round: finished');
 
+    QUnit.deepEqual(st.getCorrections(), [ corr ], 'getCorrections()');
+
     // check tournament deadlock with too few players
     st = new Swisstournament();
+    tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Hartmut',
+        'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
 
     // only append 9 players
-    players.forEach(function (p, pid) {
-      if (pid >= players.length - 9) {
+    tmp.forEach(function (p, pid) {
+      if (pid >= tmp.length - 9) {
         st.addPlayer(pid);
       }
     });

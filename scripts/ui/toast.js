@@ -23,7 +23,7 @@ define(function () {
     $('body').append('<div id="toasts"></div>');
 
     // fade durations
-    // TODO take from getsomestyle.css
+    // TODO take fade times from getsomestyle.css
     fadein = 200;
     fadeout = 200;
 

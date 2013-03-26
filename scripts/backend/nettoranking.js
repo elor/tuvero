@@ -7,6 +7,7 @@ define(function () {
     this.wins = [];
     this.netto = [];
     this.byes = [];
+    this.corrections = [];
 
     while (this.netto.length < size) {
       this.netto.push(0);
@@ -141,17 +142,21 @@ define(function () {
   /**
    * Correct the result of a game.
    * 
-   * @param oldres
-   *          the old result
-   * @param newres
-   *          the new (corrected) result
+   * @param correction
+   *          the correction
    * @returns {Netto} this
    */
-  Netto.prototype.correct = function (oldres, newres) {
-    this.remove(oldres);
-    this.add(newres);
+  Netto.prototype.correct = function (correction) {
+    if (this.added(correction.pre.getGame())) {
+      this.remove(correction.pre);
+      this.add(correction.post);
 
-    return this;
+      this.corrections.push(correction.copy());
+
+      return this;
+    }
+
+    return undefined;
   };
 
   Netto.prototype.grantBye = function (team) {
@@ -196,6 +201,61 @@ define(function () {
         b[pid] -= 1; // keep track of byes
       }
     }, this);
+  };
+
+  /**
+   * get a copy of the applied corrections
+   * 
+   * @returns copy of the array of corrections
+   */
+  Netto.prototype.getCorrections = function () {
+    return this.corrections.map(function (corr) {
+      return corr.copy();
+    }, this);
+  };
+
+  /**
+   * whether the game took place
+   * 
+   * @param game
+   *          the game in question
+   * @returns {Boolean} true if the game is likely to have been added, false
+   *          otherwise
+   */
+  Netto.prototype.added = function (game) {
+    var valid, failure, len;
+
+    valid = false;
+    failure = false;
+    len = this.wins.length;
+
+    // ideas:
+    // every player of one team must have won
+    // additionally, players without wins must have negative netto score
+    game.teams.forEach(function (team) {
+      var invalid = false;
+      if (!failure) {
+        team.forEach(function (pid) {
+          if (pid >= len || pid < 0) {
+            failure = true;
+            return;
+          }
+
+          if (this.wins[pid] <= 0) {
+            invalid = true;
+            if (this.netto[pid] >= 0) {
+              failure = true;
+            }
+          }
+        }, this);
+      }
+
+      if (!invalid) {
+        valid = true;
+      }
+    }, this);
+
+    return !failure && valid;
   };
 
   return Netto;

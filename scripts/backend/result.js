@@ -12,7 +12,7 @@
  *          {Integer} Points of the second team
  * @returns the newly constructed Result object
  */
-define(function () {
+define([ 'game' ], function (Game) {
   var Result = function (team1, team2, points1, points2) {
     if (typeof (team1) === 'number') {
       team1 = [ team1 ];
@@ -21,15 +21,9 @@ define(function () {
       team2 = [ team2 ];
     }
 
-    // copy the array using the map function
-    // not really fast or elegant, but handy
-    this.team1 = team1.map(function (value) {
-      return value;
-    });
-
-    this.team2 = team2.map(function (value) {
-      return value;
-    });
+    // copy the array using the slice function
+    this.team1 = team1.slice();
+    this.team2 = team2.slice();
 
     this.points1 = points1;
     this.points2 = points2;
@@ -73,12 +67,64 @@ define(function () {
   };
 
   /**
+   * point setter
+   * 
+   * @param teamnumber
+   *          1 or 2
+   * @param points
+   *          points
+   * @returns {Result} undefined on failure, this otherwise
+   */
+  Result.prototype.setPoints = function (teamnumber, points) {
+    switch (teamnumber) {
+    case 1:
+      this.points1 = points;
+      break;
+    case 2:
+      this.points2 = points;
+      break;
+    default:
+      return undefined;
+    }
+    return this;
+  };
+
+  /**
    * getNetto() returns the difference between the team's points
    * 
    * @returns {Number} gained netto points for first team
    */
   Result.prototype.getNetto = function () {
     return this.points1 - this.points2;
+  };
+
+  /**
+   * copies this
+   * 
+   * @returns the copy
+   */
+  Result.prototype.copy = function () {
+    return new Result(this.team1, this.team2, this.points1, this.points2);
+  };
+
+  /**
+   * Creates a Game instance from the teams
+   * 
+   * @returns {Game} the game that lead to this result, excluding the correct
+   *          start time.
+   */
+  Result.prototype.getGame = function () {
+    var game = new Game();
+
+    this.team1.forEach(function (pid) {
+      game.add(0, pid);
+    }, this);
+
+    this.team2.forEach(function (pid) {
+      game.add(1, pid);
+    }, this);
+
+    return game;
   };
 
   return Result;
