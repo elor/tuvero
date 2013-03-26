@@ -546,9 +546,9 @@ define(
        *          otherwise
        */
       Swisstournament.prototype.canPlay = function (pid1, pid2) {
-        // FIXME write wrapping function for the matrix call
         return pid1 < this.players.size() && pid2 < this.players.size()
-            && pid1 !== pid2 && this.ranking.games.get(pid1, pid2) === 0;
+            && pid1 !== pid2
+            && this.ranking.wasPlayed(new Game(pid1, pid2)) === false;
       };
 
       return Swisstournament;

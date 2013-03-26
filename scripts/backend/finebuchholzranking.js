@@ -229,5 +229,51 @@ define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
     }, this);
   };
 
+  /**
+   * whether a game was played
+   * 
+   * @param game
+   *          an instance of the game that could have taken place
+   * @returns true if all data indicates that this game took place, false
+   *          otherwise.
+   */
+  Finebuchholz.prototype.wasPlayed = function (game) {
+    // if a game has taken place, all players of one team have played against
+    // all players of another team.
+    var len, i, j, t1, t2, t1func, invalid;
+
+    invalid = false;
+
+    // jslint false positive
+    t1 = t2 = [];
+
+    t1func = function (p1) {
+      t2.forEach(function (p2) {
+        if (this.games.get(p1, p2) <= 0) {
+          invalid = true;
+        }
+      }, this);
+    };
+
+    len = game.teams.length;
+
+    for (i = 0; i < len; i += 1) {
+      t1 = game.teams[i];
+      for (j = i + 1; j < len; j += 1) {
+        t2 = game.teams[j];
+
+        t1.forEach(t1func, this);
+        if (invalid) {
+          break;
+        }
+      }
+      if (invalid) {
+        break;
+      }
+    }
+
+    return !invalid;
+  };
+
   return Finebuchholz;
 });
