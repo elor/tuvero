@@ -5,7 +5,7 @@ define(function () {
     imgpattern = imgpattern || 'images/%s.png';
 
     $(function ($) {
-      var tabs, keys, $menu;
+      var tabs, keys, $menu, $body;
 
       tabs = [];
       keys = [];
@@ -20,8 +20,8 @@ define(function () {
 
         if (tab) {
           tabs.push(tab);
+          keys.push(key);
           if (key) {
-            keys.push(key);
             $elem.removeAttr('accesskey');
           }
         }
@@ -40,9 +40,9 @@ define(function () {
 
         $tab = $('<a>');
         $tab.attr('href', '#' + tabname);
-        if (keys) {
-          $tab.attr('accesskey', keys[i]);
-        }
+        // if (keys) {
+        // $tab.attr('accesskey', keys[i]);
+        // }
         $tab.append($img);
 
         $menu.append($tab);
@@ -58,6 +58,15 @@ define(function () {
 
         $page.prepend($clone);
       }, this);
+
+      // create empty invisible links to every tab
+      $body = $('body');
+      keys.forEach(function (key, index) {
+        var $a = $('<a>');
+        $a.attr('href', '#' + tabs[index]);
+        $a.attr('accesskey', key);
+        $body.append($a);
+      });
 
       // enforce
       if (enforce && tabs.indexOf(location.hash.replace('#', '')) === -1) {
