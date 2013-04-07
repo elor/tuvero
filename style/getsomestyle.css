@@ -28,11 +28,19 @@ a {
   padding: 0.5em;
   opacity: 0;
   -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  -ms-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 #toasts > div.toast {
   opacity: 1;
   -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  -ms-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 }
 
 #tabs > div:not(:target) {
@@ -102,6 +110,7 @@ a {
   max-width: 10em;
   -webkit-transition: max-width 0.2s;
   -moz-transition: max-width 0.2s;
+  -ms-transition: max-width 0.2s;
   -o-transition: max-width 0.2s;
   transition: max-width 0.2s;
 }
@@ -110,6 +119,7 @@ a {
   max-width: 50em;
   -webkit-transition: max-width 0.5s;
   -moz-transition: max-width 0.5s;
+  -ms-transition: max-width 0.5s;
   -o-transition: max-width 0.5s;
   transition: max-width 0.5s;
 }
