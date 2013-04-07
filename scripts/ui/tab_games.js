@@ -259,7 +259,7 @@ define(
         });
 
         // prepare vote elements
-        $vtpl = $('#games .running .votes .team.tpl');
+        $vtpl = $('#games .running .votes .tpl');
         $vnames = $vtpl.find('.name');
         $vno = $vtpl.find('.teamno');
         $vtpl.detach();
@@ -271,7 +271,7 @@ define(
          * remove all elements in the vote area
          */
         Tab_Games.clearVotes = function () {
-          $('#games .running .votes .team').remove();
+          $('#games .running .votes .vote').remove();
         };
 
         /**

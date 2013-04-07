@@ -118,21 +118,23 @@
           <br class="clear">
           </div>
           
-          <table class="team tpl">
-            <tr>
-              <th colspan="2"></th>
-            </tr>
-            <tr>
-              <td rowspan="3" class="teamno">##</td>
-              <td class="name">%% %%</td>
-            </tr>
-            <tr>
-              <td class="name">%% %%</td>
-            </tr>
-            <tr>
-              <td class="name">%% %%</td>
-            </tr>
-          </table>
+          <div class="vote tpl">
+            <table class="team">
+              <tr>
+                <th colspan="2"></th>
+              </tr>
+              <tr>
+                <td rowspan="3" class="teamno">##</td>
+                <td class="name">%% %%</td>
+              </tr>
+              <tr>
+                <td class="name">%% %%</td>
+              </tr>
+              <tr>
+                <td class="name">%% %%</td>
+              </tr>
+            </table>
+          </div>
           
         </div>
         
@@ -154,10 +156,10 @@
       <button class="update">manuelles Update</button>
       </div>
       <h2>Ranking</h2>
-        <p class="preparing">
-        Es wurden noch keine Platzierungen berechnet.
-        </p>
-        <table>
+      <p class="preparing">
+      Es wurden noch keine Platzierungen berechnet.
+      </p>
+      <table>
         <tr class="head">
           <th>Platz</th>
           <th>No.</th>
@@ -182,13 +184,30 @@
           <td>##</td>
           <td>##</td>
         </tr>
-        </table>
-      <br class="clear">
+      </table>
+      <br>
+      <table class="corrections">
+        <tr>
+          <th colspan="2">Teams</th>
+          <th>Fehler</th>
+          <th>Korrektur</th>
+        </tr>
+        <tr class="corr tpl">
+          <td class="teamno">##</td>
+          <td class="teamno">##</td>
+          <td><span>##</span> : <span>##</span></td>
+          <td><span>##</span> : <span>##</span></td>
+        </tr>
+      </table>
     </div>
   </div>
 
   <div id="history" accesskey="h">
     <div class="tab">
+      <h2>Spielverlauf</h2>
+      <div class="round tpl">
+        <h3>Runde <span>##</span></h3>
+      </div>
     </div>
   </div>
   

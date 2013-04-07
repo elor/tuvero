@@ -195,7 +195,14 @@ a {
 }
 
 #games .votes .team {
+  margin: 0.0em;
+}
+
+#games .votes .vote {
   float: left;
+  border-radius: 0.5em;
+  background-color: grey;
+  padding: 0.3em;
 }
 
 #games .finished {
@@ -224,6 +231,7 @@ a {
 #ranking th {
   font-size: 1.2em;
   width: 3em;
+  white-space: nowrap;
 }
 
 #ranking td {
