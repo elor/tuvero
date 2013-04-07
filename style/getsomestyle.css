@@ -8,13 +8,7 @@ body {
 
 a {
   color: inherit;
-  text-decoration: inherit;
-}
-
-.h2 {
-  font-size: 150%;
-  font-weight: bold;
-  margin: 0.5em;
+  text-decoration: underline;
 }
 
 #toasts {
@@ -66,7 +60,7 @@ a {
 .tab {
   margin: 0.5em;
   padding: 0.5em;
-  padding-top: 3.5em;
+  padding-top: 1.5em;
   clear: both;
   border-radius: 0em 1em 1em 1em;
   background-color: white;
@@ -77,9 +71,12 @@ a {
   clear: both;
 }
 
-.team {
+.tpl {
+  display: none;
+}
+
+#teams .team, #games .team {
   display: block;
-  float: left;
   margin: 0.5em;
   border-radius: 0.5em;
   background-color: lightgrey;
@@ -87,56 +84,145 @@ a {
   text-align: left;
   border-spacing: 0em;
 }
+#teams .team {
+  float: left;
+}
 
-.team .teamno {
+#teams .team .teamno, #games .team .teamno {
   width: 1.5em;
   font-size: 200%;
   text-align: center;
 }
 
-.team.new {
+#teams .team .name, #games .team .name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 10em;
+  max-width: 10em;
+  -webkit-transition: max-width 0.2s;
+  -moz-transition: max-width 0.2s;
+  -o-transition: max-width 0.2s;
+  transition: max-width 0.2s;
+}
+
+#teams .team:hover .name {
+  max-width: 50em;
+  -webkit-transition: max-width 0.5s;
+  -moz-transition: max-width 0.5s;
+  -o-transition: max-width 0.5s;
+  transition: max-width 0.5s;
+}
+
+#teams #newteam > .team {
 /*  border-spacing: 0.05em; */
   background-color: lightgreen;
 }
 
-.team.new button {
+#teams #newteam > .team button {
   font-size: 1em;
   width: 1.5em;
   height: 1.5em;
   border-radius: 0.3em;
 }
 
-.team.new {
-  float: right;
+#teams #newteam > .team .name {
+  max-width: none;
 }
 
-.team .name {
-  font-weight: bold;
+#games .preparing button, #games .finished button {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+}
+
+#games .running {
+  display: none;
+}
+
+#games .game {
+  display: table;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: grey;
+  padding: 0.3em;
+  text-align: left;
+  border-spacing: 0em;
+  float: left;
   white-space: nowrap;
-  overflow: hidden;
-  width: 9em;
-  max-width: 9em;
+  
+  vertical-align: middle;
 }
 
-.team .gender {
+#games .game > .team {
+  display: table-cell;
+  margin: 0.0em;
+}
+
+#games .game > div {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0px;
+  margin: 0px;
+}
+
+#games .game > div > button {
+  margin: 0px;
+  border: none;
+  background-color: lightgrey;
+}
+
+#games .game > .team.left .name {
   text-align: right;
 }
 
-.team .gender:not(.f) .f {
+#games .game > .team .points {
+  text-align: center;
+  position: relative;
+  width: 90%;
+  margin: auto;
+}
+
+#games .votes .team {
+  float: left;
+}
+
+#games .finished {
   display: none;
 }
 
-.team .gender.f .m {
-  display: none;
+#ranking .tab {
+  position: relative;
+  margin-top: 0px;
+  float: left;
 }
 
-.team .city {
+#ranking .options {
+  white-space: nowrap;
+  float: right;
 }
 
-.team .assoc {
-  font-style: italic;
+#ranking table {
+  border-spacing: 0.3em 0.0em;
 }
 
-.team.tpl {
-  display: none;
+#ranking table tr:nth-child(even) {
+  background-color: lightgrey;
+}
+
+#ranking th {
+  font-size: 1.2em;
+  width: 3em;
+}
+
+#ranking td {
+  white-space: nowrap;
+}
+
+#ranking .name {
+  text-align: left;
+  min-width: 10em;
+  min-width: 10em;
+  max-width: 10em;
+  overflow: hidden;
 }

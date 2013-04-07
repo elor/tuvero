@@ -12,7 +12,7 @@
  *          {Integer} Points of the second team
  * @returns the newly constructed Result object
  */
-define([ 'game' ], function (Game) {
+define([ './game' ], function (Game) {
   var Result = function (team1, team2, points1, points2) {
     if (typeof (team1) === 'number') {
       team1 = [ team1 ];

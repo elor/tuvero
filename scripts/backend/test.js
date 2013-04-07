@@ -415,7 +415,7 @@ require([ "result", 'game' ], function (Result, Game) {
  * Correction Tests
  */
 require([ "result", 'correction' ], function (Result, Correction) {
-  QUnit.test("Result", function () {
+  QUnit.test("Correction", function () {
     var res1, res2, corr;
     res1 = new Result(1, 2, 3, 4);
     res2 = new Result(4, 3, 2, 1);

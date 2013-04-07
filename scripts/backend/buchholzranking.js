@@ -1,4 +1,4 @@
-define([ 'vector', 'matrix', 'halfmatrix' ], function (Vector, Matrix,
+define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix,
     HalfMatrix) {
   /**
    * BuchholzRanking: A ranking variant which sorts players by wins, buchholz

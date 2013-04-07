@@ -1,4 +1,4 @@
-define([ 'vector', 'matrix', 'halfmatrix', 'result', 'correction' ], function (
+define([ './vector', './matrix', './halfmatrix', './result', './correction' ], function (
     Vector, Matrix, HalfMatrix, Result, Correction) {
   /**
    * FinebuchholzRanking: A ranking variant which sorts players by wins,

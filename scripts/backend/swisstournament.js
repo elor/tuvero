@@ -4,7 +4,8 @@
  * rewriting for multi-player teams, which are only useful for random teams.
  */
 define(
-    [ 'map', 'finebuchholzranking', 'game', 'result', 'random', 'correction' ],
+    [ './map', './finebuchholzranking', './game', './result', './random',
+        './correction' ],
     function (Map, Finebuchholzranking, Game, Result, Random, Correction) {
       var Swisstournament;
 
@@ -23,6 +24,11 @@ define(
         this.byevote = []; // true, wenn jemand ein Freilos bekommen hat
         this.rng = new Random();
         this.round = 0; // 0 if not started yet, 1 is first valid round, ...
+        this.roundvotes = {
+          upvotes : [],
+          downvotes : [],
+          byevote : undefined
+        };
       };
 
       /**
@@ -151,6 +157,69 @@ define(
       };
 
       /**
+       * return the up/down/byevotes of the current round
+       * 
+       * @returns an object containing the three votes
+       */
+      // TODO test
+      Swisstournament.prototype.getRoundVotes = function () {
+        // convert internal to external ids
+        var votes = {
+          up : [],
+          down : [],
+          bye : undefined
+        };
+
+        this.roundvotes.upvotes.forEach(function (up) {
+          votes.up.push(this.players.at(up));
+        }, this);
+
+        this.roundvotes.downvotes.forEach(function (down) {
+          votes.down.push(this.players.at(down));
+        }, this);
+
+        if (this.roundvotes.byevote !== undefined) {
+          votes.bye = this.players.at(this.roundvotes.byevote);
+        }
+
+        return votes;
+      };
+
+      /**
+       * returns all up/down/byevotes ever granted
+       * 
+       * @returns an object containing arrays of the three votes
+       */
+      // TODO test
+      Swisstournament.prototype.getAllVotes = function () {
+        var votes = {
+          up : [],
+          down : [],
+          bye : []
+        };
+
+        this.upvote.forEach(function (voted, pid) {
+          if (voted) {
+            votes.up.push(this.players.at(pid));
+          }
+        }, this);
+
+        this.downvote.forEach(function (voted, pid) {
+          if (voted) {
+            votes.down.push(this.players.at(pid));
+          }
+        }, this);
+
+        this.byevote.forEach(function (voted, pid) {
+          if (voted) {
+            votes.bye.push(this.players.at(pid));
+          }
+        }, this);
+
+        return votes;
+      };
+
+      /**
        * (implemented tournament function)
        * 
        * @returns
@@ -212,7 +281,19 @@ define(
 
         timeout = this.players.size() * 10;
         wingroups = this.winGroups();
+
+        // abort if there are no consistent wingroups, which is a sign for too
+        // many rounds
+        if (wingroups === undefined) {
+          return undefined;
+        }
+
         votes = this.preliminaryDownVotes(wingroups);
+
+        if (votes === undefined) {
+          // abort. there's no way to downvote properly
+          return undefined;
+        }
 
         // Algorithm (copy of the comments below)
         // for each wingroup:
@@ -357,6 +438,8 @@ define(
           this.upVote(up);
         }, this);
 
+        this.roundvotes = votes;
+
         return this;
       };
 
@@ -367,9 +450,11 @@ define(
        * @returns 2d array of wingroups
        */
       Swisstournament.prototype.winGroups = function () {
-        var wingroups, res, pid, numplayers, wins;
+        var wingroups, res, pid, numplayers, wins, highest;
 
         wingroups = [];
+
+        highest = -1;
 
         res = this.ranking.get();
 
@@ -378,10 +463,22 @@ define(
         for (pid = 0; pid < numplayers; pid += 1) {
           wins = res.wins[pid] || 0;
 
+          if (wins > highest) {
+            highest = wins;
+          }
+
           if (wingroups[wins] === undefined) {
             wingroups[wins] = [];
           }
           wingroups[wins].push(pid);
+        }
+
+        // verify that there's at least one player in every win group
+        for (wins = 0; wins <= highest; wins += 1) {
+          if (wingroups[wins] === undefined) {
+            // there's a wingroup missing. The tournament lasts too long
+            return undefined;
+          }
         }
 
         return wingroups;
@@ -578,7 +675,7 @@ define(
             oldpoints[1]);
         res2 = new Result(game.teams[0], game.teams[1], newpoints[0],
             newpoints[1]);
-        
+
         // apply correction
         this.ranking.correct(new Correction(res1, res2));
 

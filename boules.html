@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <title>test</title>
+  <title>Schweizer Triplette</title>
   <link rel="stylesheet" href="style/getsomestyle.css" />
   <script>
   var require = {
@@ -17,6 +17,7 @@
 <div id="tabs">
   <div id="teams" accesskey="t">
     <div class="tab">
+      <h2>Angemeldete Teams</h2>
       <table class="team tpl">
         <tr>
           <th colspan="2"></th>
@@ -33,7 +34,7 @@
         </tr>
       </table>
 
-      <table class="team new">
+      <form id="newteam"><table class="team">
         <tr>
           <th colspan="2"></th>
         </tr>
@@ -48,6 +49,7 @@
           <td class="name"><input type="text" /></td>
         </tr>
       </table>
+      </form>
     
       <br class="clear">
     </div>
@@ -55,12 +57,133 @@
 
   <div id="games" accesskey="g">
     <div class="tab">
+      <div class="preparing">
+        <h2>Vorbereitungen zum Schweizer Turnier</h2>
+        <button>Registrierung beenden</button>
+      </div>
+      <div class="running">
+        <h2>Laufende Spiele (Runde <span class="round">##</span>)</h2>
+        
+        <form class="game tpl">
+          <table class="team left">
+            <tr>
+              <th colspan="2"></th>
+            </tr>
+            <tr>
+              <td class="name">%% %%</td>
+              <td rowspan="3" class="teamno">##</td>
+            <tr>
+            </tr>
+              <td class="name">%% %%</td>
+            </tr>
+            </tr>
+              <td class="name">%% %%</td>
+              <td><input class="points" type="number" min="0" max="13" value="0" /></td>
+            </tr>
+          </table>
+          <div><button type="submit"></button></div>
+          <table class="team">
+            <tr>
+              <th colspan="2"></th>
+            </tr>
+            <tr>
+              <td rowspan="3" class="teamno">##</td>
+              <td class="name">%% %%</td>
+            <tr>
+            </tr>
+              <td class="name">%% %%</td>
+            </tr>
+            </tr>
+              <td><input class="points" type="number" min="0" max="13" value="0" /></td>
+              <td class="name">%% %%</td>
+            </tr>
+          </table>
+        </form>
+
+        <br class="clear">
+        
+        <div class="votes">
+          <div class="up">
+          <h3>hochgelost</h3>
+          <br class="clear">
+          </div>
+          
+          <div class="down">
+          <h3>runtergelost</h3>
+          <br class="clear">
+          </div>
+          
+          <div class="bye">
+          <h3>Freilos</h3>
+          <br class="clear">
+          </div>
+          
+          <table class="team tpl">
+            <tr>
+              <th colspan="2"></th>
+            </tr>
+            <tr>
+              <td rowspan="4" class="teamno">##</td>
+              <td class="name">%% %%</td>
+            <tr>
+            </tr>
+              <td class="name">%% %%</td>
+            </tr>
+            </tr>
+              <td class="name">%% %%</td>
+            </tr>
+          </table>
+          
+        </div>
+        
+      </div>
+      <div class="finished">
+        <h2>Runde <span class="round">##</span> beendet</h2>
+        <button class="newround">Neue Runde</button>
+        <button class="korounds">KO-Runden (TODO)</button>
+      </div>
     </div>
   </div>
 
   <div id="ranking" accesskey="r">
     <div class="tab">
+      <div class="options">
+      <input class="autoupdate" type="checkbox" checked="checked" />
+      <span class="autoupdatetext">Auto-Update</span>
+      <br>
+      <button class="update">manuelles Update</button>
+      </div>
       <h2>Ranking</h2>
+        <p class="preparing">
+        Es wurden noch keine Platzierungen berechnet.
+        </p>
+        <table>
+        <tr class="head">
+          <th>Platz</th>
+          <th>No.</th>
+          <th>Spieler 1</th>
+          <th>Spieler 2</th>
+          <th>Spieler 3</th>
+          <th>Siege</th>
+          <th>BH</th>
+          <th>FBH</th>
+          <th>Netto</th>
+          <th>Lose</th>
+        </tr>
+        <tr class="line tpl">
+          <td>##</td>
+          <td>##</td>
+          <td class="name">%%%</td>
+          <td class="name">%%%</td>
+          <td class="name">%%%</td>
+          <td>##</td>
+          <td>##</td>
+          <td>##</td>
+          <td>##</td>
+          <td>##</td>
+        </tr>
+        </table>
+      <br class="clear">
     </div>
   </div>
 
@@ -79,4 +202,3 @@
 </body>
 
 </html>
-

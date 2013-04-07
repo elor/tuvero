@@ -1,13 +1,12 @@
-$(function ($) {
-  require([ 'tabs', 'toast', 'team', 'tab_players' ], function (Tabs, Toast,
-      Team, Tab_Players) {
-    // debug toast
-    new Toast("load");
+require([ './tabs', './toast', './tab_teams', './tab_games', './strings',
+    './team', './tab_ranking' ], function (Tabs, Toast, Tab_Teams, Tab_Games,
+    Strings, Team, Tab_Ranking) {
 
-    // initialize tabs and select first tab (hence the true)
+  $(function ($) {
+    // initialize tabs and select first one (hence the true)
     new Tabs('#tabs > div', 'images/%s.png', true);
 
-    Tab_Players.newTeam([ 'Erik Lorenz', 'Fabian Böttcher',
-        'Doktor Saideh Mohammadzadeh' ]);
+    // debug toast
+    new Toast(Strings.pageload);
   });
 });
