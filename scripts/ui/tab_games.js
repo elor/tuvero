@@ -264,8 +264,14 @@ define(
         $vno = $vtpl.find('.teamno');
         $vtpl.detach();
         $vtpl.removeClass('tpl');
-        $vanchors = $('#games .running .votes .clear');
-        $vcontainers = $('#games .running .votes > div');
+        $vanchors = [];
+        $vanchors.push($('#games .running .votes > .up .clear'));
+        $vanchors.push($('#games .running .votes > .down .clear'));
+        $vanchors.push($('#games .running .votes > .bye .clear'));
+        $vcontainers = [];
+        $vcontainers.push($('#games .running .votes > .up'));
+        $vcontainers.push($('#games .running .votes > .down'));
+        $vcontainers.push($('#games .running .votes > .bye'));
 
         /**
          * remove all elements in the vote area
@@ -299,30 +305,30 @@ define(
 
           // apply upvotes
           if (votes.up && votes.up.length !== 0) {
-            $($vcontainers[0]).show();
+            $vcontainers[0].show();
             votes.up.forEach(function (tid) {
-              $($vanchors[0]).before(makeBox(tid));
+              $vanchors[0].before(makeBox(tid));
             });
           } else {
-            $($vcontainers[0]).hide();
+            $vcontainers[0].hide();
           }
 
           // apply down
           if (votes.down && votes.down.length !== 0) {
-            $($vcontainers[1]).show();
+            $vcontainers[1].show();
             votes.down.forEach(function (tid) {
-              $($vanchors[1]).before(makeBox(tid));
+              $vanchors[1].before(makeBox(tid));
             });
           } else {
-            $($vcontainers[1]).hide();
+            $vcontainers[1].hide();
           }
 
           // apply bye
           if (votes.bye !== undefined) {
-            $($vcontainers[2]).show();
-            $($vanchors[2]).before(makeBox(votes.bye));
+            $vcontainers[2].show();
+            $vanchors[2].before(makeBox(votes.bye));
           } else {
-            $($vcontainers[2]).hide();
+            $vcontainers[2].hide();
           }
         };
 

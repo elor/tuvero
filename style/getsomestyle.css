@@ -194,6 +194,10 @@ a {
   margin: auto;
 }
 
+#games .votes h3 {
+  text-align: left;
+}
+
 #games .votes .team {
   margin: 0.0em;
 }
