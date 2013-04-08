@@ -68,7 +68,7 @@ define(function () {
         $body.append($a);
       });
 
-      // enforce
+      // show the first tab of this set if hash doesn't match any of them
       if (enforce && tabs.indexOf(location.hash.replace('#', '')) === -1) {
         location.hash = '#' + tabs[0];
       }

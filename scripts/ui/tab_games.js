@@ -1,6 +1,6 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking' ], function (Team, Toast, Strings, Tab_Teams, Swiss,
-    Tab_Ranking) {
+    './tab_ranking', './history', './tab_history' ], function (Team, Toast,
+    Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History) {
   var Tab_Games, games, $games, $vtpl, $vanchors, $vnames, $vno, $vcontainers;
 
   // references to html elements of the games
@@ -11,7 +11,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   Tab_Games = {};
 
   $(function ($) {
-    var $closeregistration, $stages, $tpl, $tplnames, $tplnos, $anchor, isInt;
+    var $regbut, $stages, $tpl, $tplnames, $tplnos, $anchor, isInt, roundStart;
 
     isInt = function (n) {
       return n % 1 === 0;
@@ -37,10 +37,37 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return Tab_Games;
     };
 
-    $closeregistration = $('#games .preparing button');
+    /**
+     * a round has started, so we init some stuff. called after Swiss.start()
+     * and Swiss.newRound(), hence the separete function
+     */
+    roundStart = function () {
+      var votes, team;
+
+      new Toast(Strings.roundstarted.replace("%s", Swiss.getRound()));
+      Tab_Games.showRound();
+      Tab_Games.showRunning();
+      Tab_Games.showVotes();
+      Tab_Ranking.update();
+
+      // tell the history that there's a new round
+      Tab_History.nextRound();
+
+      // see if there's a byevote
+      votes = Swiss.getRoundVotes();
+      if (votes.bye !== undefined) {
+        team = Team.get(votes.bye);
+        // remember the byevote
+        History.addBye(team);
+        // immediately show the byevote
+        Tab_History.createBye(team.id);
+      }
+    };
+
+    $regbut = $('#games .preparing button');
 
     // close registration and start swiss tournament
-    $closeregistration.click(function () {
+    $regbut.click(function () {
       if (Team.count() < 2) {
         new Toast(Strings.toofewteams);
         return;
@@ -62,11 +89,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         return undefined;
       }
 
-      new Toast(Strings.roundstarted.replace("%s", Swiss.getRound()));
-      Tab_Games.showRound();
-      Tab_Games.showRunning();
-      Tab_Games.showVotes();
-      Tab_Ranking.update();
+      roundStart();
     });
 
     // prepare template and anchor
@@ -162,7 +185,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // * remove the game
     // * drink a toast to the game
     $('#games .running').delegate('.game', 'submit', function () {
-      var index, points, $input, i;
+      var index, points, $input, i, res;
 
       index = $games.indexOf(this);
 
@@ -217,6 +240,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
         return false;
       }
+
+      // the game was accepted, store it in history
+      res = History.add(games[index], points);
+      Tab_History.createBox(res);
 
       // game was accepted. remove it.
       Tab_Games.removeGame(games[index]);
@@ -347,13 +374,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       // show game overview and hide this button
       Tab_Games.stage(1);
 
-      new Toast(Strings.roundstarted.replace("%s", Swiss.getRound()));
-      Tab_Games.showRound();
-      Tab_Games.showRunning();
-      Tab_Games.showVotes();
-
-      Tab_Ranking.update();
-
+      roundStart();
     };
 
     $('#games .finished button.newround').click(Tab_Games.newRound);

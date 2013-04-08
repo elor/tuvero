@@ -5,7 +5,7 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
   Tab_Ranking = {};
 
   $(function ($) {
-    var $tpl, $fields, $anchor, shown, autoupdate, update, $box, $txt, $button;
+    var $tpl, $fields, $anchor, shown, autoupdate, update, $box, $button;
 
     autoupdate = false;
 
@@ -97,7 +97,6 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
     };
 
     $box = $('#ranking .options .autoupdate');
-    $txt = $('#ranking .options .autoupdatetext');
     $button = $('#ranking .options button.update');
 
     autoupdate = !!$box.prop('checked');
@@ -110,10 +109,6 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
       } else {
         new Toast(Strings.autoupdateoff);
       }
-    });
-
-    $txt.click(function () {
-      $box.click();
     });
 
     // update button

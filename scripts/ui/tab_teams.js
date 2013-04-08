@@ -7,7 +7,7 @@ define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
   $tpl = $n1 = $n2 = $n3 = $no = $page = undefined;
 
   $(function ($) {
-    var newteamfunc, $box, $text, $teams, maxwidthtest;
+    var newteamfunc, $box, $teams, maxwidthtest;
 
     // get page
     $anchor = $('#newteam');
@@ -43,6 +43,27 @@ define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
       $no.text(team.id + 1);
 
       $anchor.before($tpl.clone());
+    };
+
+    /**
+     * removes all teams from the overview
+     */
+    Tab_Teams.clearBoxes = function () {
+      $('#players > .team').remove(); // '>' relation excludes the entry form
+    };
+
+    /**
+     * replaces the current team boxes with new ones creates from Team
+     */
+    Tab_Teams.updateBoxes = function () {
+      var i, l;
+      Tab_Teams.clearBoxes();
+
+      l = Team.count();
+
+      for (i = 0; i < l; i += 1) {
+        Tab_Teams.createBox(Team.get(i));
+      }
     };
 
     /**
@@ -100,7 +121,6 @@ define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
 
     // width checkbox
     $box = $('#teams .options .maxwidth');
-    $text = $('#teams .options .maxwidthtext');
     $teams = $('#teams');
 
     maxwidthtest = function () {
@@ -112,10 +132,6 @@ define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
     };
 
     $box.click(maxwidthtest);
-
-    $text.click(function () {
-      $box.click();
-    });
 
     maxwidthtest();
   });

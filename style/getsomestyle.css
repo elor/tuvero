@@ -49,6 +49,8 @@ a {
 
 .tabs {
   height: 3em;
+  position: absolute;
+  margin: -6em 0.5em 0.5em -1em;
 }
 
 .tabs > a > img {
@@ -65,8 +67,8 @@ a {
   background-color: white;
 }
 
-.tab {
-  margin: 0.5em;
+#tabs > div {
+  margin: 4.5em 0.5em 0.5em 0.5em;
   padding: 0.5em;
   padding-top: 1.5em;
   clear: both;
@@ -75,7 +77,7 @@ a {
   text-align: center;
 }
 
-.tab .options {
+#tabs > div > .options {
   white-space: nowrap;
   float: right;
 }
@@ -101,7 +103,7 @@ a {
   float: left;
 }
 
-#teams .team .teamno, #games .team .teamno {
+#teams .team .teamno, #games .team .teamno, #history .teamno {
   width: 1.5em;
   font-size: 200%;
   text-align: center;
@@ -222,7 +224,7 @@ a {
   display: none;
 }
 
-#ranking .tab {
+#ranking {
   position: relative;
   margin-top: 0px;
   float: left;
@@ -252,4 +254,35 @@ a {
   min-width: 10em;
   max-width: 10em;
   overflow: hidden;
+}
+
+#history h3 {
+	text-align: left;
+}
+
+#history .game, #history .bye {
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: grey;
+  padding: 0.3em;
+  text-align: center;
+  white-space: nowrap;
+  float: left;
+}
+
+#history .game > button {
+  display: inline-block;
+  margin: 0px;
+  border: none;
+  background-color: lightgrey;
+  font-size: 0.8em;
+  padding: 0.1em 0.2em;
+}
+
+#history .game .teamno, #history .bye .teamno {
+  display: inline-block;
+  margin: 0px;
+  border-radius: 0.3em;
+  background-color: lightgrey;
+  padding: 0.3em;
 }
