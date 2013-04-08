@@ -12,6 +12,7 @@ define(function () {
     upvote : 'Hoch',
     gamefinished : 'Spiel beendet',
     invalidresult : 'Ungültiges Ergebnis',
+    notimplemented : 'Funktion noch nicht verfügbar',
     pageload : 'Seite geladen',
     rankingupdate : 'Ranking wurde berechnet',
     roundfailed : 'Auslosung fehlgeschlagen',
