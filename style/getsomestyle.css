@@ -75,6 +75,11 @@ a {
   text-align: center;
 }
 
+.tab .options {
+  white-space: nowrap;
+  float: right;
+}
+
 .clear {
   clear: both;
 }
@@ -106,6 +111,9 @@ a {
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
+}
+
+#teams.maxwidth .team .name, #games .team .name {
   min-width: 10em;
   max-width: 10em;
   -webkit-transition: max-width 0.2s;
@@ -115,7 +123,7 @@ a {
   transition: max-width 0.2s;
 }
 
-#teams .team:hover .name {
+#teams.maxwidth .team:hover .name {
   max-width: 50em;
   -webkit-transition: max-width 0.5s;
   -moz-transition: max-width 0.5s;
@@ -138,6 +146,7 @@ a {
 
 #teams #newteam > .team .name {
   max-width: none;
+  min-width: 0.0em;
 }
 
 #games .preparing button, #games .finished button {
@@ -217,11 +226,6 @@ a {
   position: relative;
   margin-top: 0px;
   float: left;
-}
-
-#ranking .options {
-  white-space: nowrap;
-  float: right;
 }
 
 #ranking table {
