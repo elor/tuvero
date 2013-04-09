@@ -43,6 +43,10 @@ a {
 	transition: all 0.2s ease-in;
 }
 
+#tabs {
+  display: none;
+}
+
 #tabs > div:not(:target ) {
 	display: none;
 }
@@ -77,7 +81,7 @@ a {
 	text-align: center;
 }
 
-#tabs > div > .options {
+#tabs > div .options {
 	white-space: nowrap;
 	float: right;
 }
@@ -104,6 +108,10 @@ a {
 	float: left;
 }
 
+#teams .team.tpl {
+  display: none;
+}
+
 #teams .team .teamno, #games .team .teamno, #history .teamno {
 	width: 1.5em;
 	font-size: 200%;
@@ -121,7 +129,7 @@ a {
 	overflow: hidden;
 }
 
-#teams.maxwidth .team .name, #games .team .name {
+#teams.maxwidth .team .name, #games.maxwidth .team .name {
 	display: inline-block;
 	min-width: 10em;
 	max-width: 10em;

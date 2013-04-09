@@ -178,6 +178,8 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
     // hide all corrections initially
     Tab_Ranking.showCorrections();
 
+    // show corrections for the first time (avoids flashing)
+    $('#ranking .corrections').removeClass('tpl');
   });
 
   return Tab_Ranking;

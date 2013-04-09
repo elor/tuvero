@@ -395,5 +395,24 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Tab_Games.stage(0);
   });
 
+  $(function ($) {
+    var $box, maxwidthtest, $games;
+
+    $box = $('#games .options .maxwidth');
+    $games = $('#games');
+
+    maxwidthtest = function () {
+      if ($box.prop('checked')) {
+        $games.addClass('maxwidth');
+      } else {
+        $games.removeClass('maxwidth');
+      }
+    };
+
+    $box.click(maxwidthtest);
+
+    maxwidthtest();
+  });
+
   return Tab_Games;
 });
