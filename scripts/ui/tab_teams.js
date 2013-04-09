@@ -1,13 +1,16 @@
-define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
-  var Tab_Teams, $tpl, $n1, $n2, $n3, $no, $anchor, $new, $t1, $t2, $t3;
+define([ './team', './toast', './strings', './tab_ranking' ], function (Team,
+    Toast, Strings, Tab_Ranking) {
+  var Tab_Teams, $tpl, $n1, $n2, $n3, $no, $anchor, $new, $t1, $t2, $t3, $tms;
 
   Tab_Teams = {};
+
+  $tms = [];
 
   // avoid jslint false positive
   $tpl = $n1 = $n2 = $n3 = $no = $page = undefined;
 
   $(function ($) {
-    var newteamfunc, $box, $teams, maxwidthtest;
+    var newteamfunc, $box, $teams, maxwidthtest, $chname, chshow, chhide;
 
     // get page
     $anchor = $('#newteam');
@@ -28,6 +31,8 @@ define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
     $no = $tpl.find('.teamno');
     $tpl.detach();
     $tpl.removeClass('tpl');
+    $chname = $tpl.find('.chname');
+    $chname.detach();
 
     /**
      * this function adds a new team box to the page
@@ -37,19 +42,28 @@ define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
      *          order
      */
     Tab_Teams.createBox = function (team) {
+      var $team, tmsid;
+
       $n1.text(team.names[0]);
       $n2.text(team.names[1]);
       $n3.text(team.names[2]);
       $no.text(team.id + 1);
 
-      $anchor.before($tpl.clone());
+      $team = $tpl.clone();
+      $anchor.before($team);
+
+      tmsid = $team.prevAll().length;
+
+      $tms[tmsid] = team;
     };
 
     /**
      * removes all teams from the overview
      */
     Tab_Teams.clearBoxes = function () {
-      $('#players > .team').remove(); // '>' relation excludes the entry form
+      $('#teams > .team').remove(); // '>' relation excludes the entry
+      // form
+      $tms = [];
     };
 
     /**
@@ -134,6 +148,68 @@ define([ './team', './toast', './strings' ], function (Team, Toast, Strings) {
     $box.click(maxwidthtest);
 
     maxwidthtest();
+
+    chshow = function ($name) {
+      $chname.val($name.text());
+      $name.text('');
+      $name.append($chname);
+      $chname.focus();
+    };
+
+    chhide = function () {
+      var $name, $team, $parents;
+
+      $parents = $chname.parents();
+      $name = $parents.eq(0);
+
+      $chname.detach();
+      $name.text($chname.val());
+
+      $team = $parents.eq(3);
+
+      Tab_Teams.updateTeam($team);
+    };
+
+    Tab_Teams.updateTeam = function ($team) {
+      var tmsid, team, $names, Tab_Games;
+
+      // retrieve team
+      tmsid = $team.prevAll().length;
+      team = $tms[tmsid];
+
+      $names = $team.find('.name');
+
+      team.names[0] = $($names[0]).text();
+      team.names[1] = $($names[1]).text();
+      team.names[2] = $($names[2]).text();
+
+      // avoid circular dependency
+      Tab_Games = require('./tab_games');
+      // refresh all tabs
+      Tab_Games.showRunning();
+      Tab_Games.showVotes();
+      Tab_Ranking.update();
+    };
+
+    $('#teams').delegate('.team .name', 'click', function (elem) {
+      var $name;
+
+      $name = $(elem.target);
+
+      chshow($name);
+    });
+
+    $chname.blur(function () {
+      console.log('blur');
+      chhide();
+    });
+
+    // avoid bubbling of the click event towards .name, which would remove
+    // chname and cause DOM exceptions
+    $chname.click(function (e) {
+      e.preventDefault();
+      return false;
+    });
   });
 
   Tab_Teams.newTeam = function (names) {

@@ -4,9 +4,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   var Tab_Games, games, $games, $vtpl, $vanchors, $vnames, $vno, $vcontainers;
 
   // references to html elements of the games
-  $games = [];
+  $games = undefined;
   // local copy of the running games
-  games = [];
+  games = undefined;
 
   Tab_Games = {};
 
@@ -89,6 +89,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         return undefined;
       }
 
+      // initiate the games
+      $games = [];
+      games = [];
+
       roundStart();
     });
 
@@ -130,8 +134,12 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
      */
     Tab_Games.clearGames = function () {
       $('#games .running .game').remove();
-      $games = [];
-      games = [];
+      if ($games !== undefined) {
+        $games = [];
+      }
+      if (games !== undefined) {
+        games = [];
+      }
     };
 
     /**
@@ -144,7 +152,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         Tab_Games.appendGame(game);
       });
 
-      if (games.length === 0) {
+      if (games !== undefined && games.length === 0) {
         Tab_Games.stage(2);
       }
     };
