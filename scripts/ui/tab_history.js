@@ -1,17 +1,21 @@
-define([ './toast', './strings', './history', './swiss' ], function (Toast,
-    Strings, History, Swiss) {
-  var Tab_History, currentround;
+define([ './toast', './strings', './history', './swiss', './tab_ranking',
+    '../backend/game' ], function (Toast, Strings, History, Swiss, Tab_Ranking,
+    Game) {
+  var Tab_History, currentround, $form, abort;
+
+  $form = undefined;
+  abort = undefined;
 
   currentround = 0;
 
   Tab_History = {};
 
   $(function ($) {
-    var $tpl, $header, $anchor, $nextanchor, $spans, $hanchor, setRound, $bye;
+    var $tpl, $h3, $anchor, $nanchor, $spans, $hanchor, setRound, $bye;
 
-    $header = $('h3.tpl');
-    $header.detach();
-    $header.removeClass('tpl');
+    $h3 = $('h3.tpl');
+    $h3.detach();
+    $h3.removeClass('tpl');
 
     // prepare templates
     $tpl = $('#history .game.tpl');
@@ -19,13 +23,16 @@ define([ './toast', './strings', './history', './swiss' ], function (Toast,
     $tpl.removeClass('tpl');
     $spans = $tpl.find('span');
 
+    $form = $tpl.find('.chpoints');
+    $form.detach();
+
     $bye = $('#history .bye.tpl');
     $bye.detach();
     $bye.removeClass('tpl');
 
     // no games can be added by default
     $anchor = undefined;
-    $nextanchor = $('#history > br.clear');
+    $nanchor = $('#history > br.clear'); // next anchor
     $hanchor = $('#history > h2');
 
     setRound = function (round) {
@@ -36,10 +43,10 @@ define([ './toast', './strings', './history', './swiss' ], function (Toast,
       currentround = round;
 
       // update anchor and insert new header with current round
-      $anchor = $nextanchor;
-      $nextanchor = $header.clone();
-      $nextanchor.find('span').text(currentround);
-      $hanchor.after($nextanchor);
+      $anchor = $nanchor;
+      $nanchor = $h3.clone();
+      $nanchor.find('span').text(currentround);
+      $hanchor.after($nanchor);
     };
 
     /**
@@ -94,6 +101,8 @@ define([ './toast', './strings', './history', './swiss' ], function (Toast,
      * remove all evidence of any games ever (from the overview only)
      */
     Tab_History.clear = function () {
+      abort();
+
       // remove games
       $('#history > .game').remove();
 
@@ -108,7 +117,7 @@ define([ './toast', './strings', './history', './swiss' ], function (Toast,
 
       // reset anchors
       $anchor = undefined;
-      $nextanchor = $('#history > br.clear');
+      $nanchor = $('#history > br.clear');
     };
 
     /**
@@ -134,6 +143,180 @@ define([ './toast', './strings', './history', './swiss' ], function (Toast,
         }
       }
     };
+  });
+
+  $(function ($) {
+    var $button, $inputs, show, save, isInt, verify;
+
+    isInt = function (n) {
+      return n % 1 === 0;
+    };
+
+    $button = undefined;
+
+    $inputs = $form.find('input');
+    $inputs = [ $($inputs[0]), $($inputs[1]) ];
+    $save = $form.find('button');
+
+    verify = function (p1, p2) {
+      return isInt(p1) && isInt(p2) && !isNaN(p1) && !isNaN(p2) && p1 !== p2
+          && p1 > 0 && p2 > 0;
+    };
+
+    show = function ($game) {
+      var $spans;
+
+      $button = $game.find('button');
+      $spans = $button.find('span');
+      $spans = [ $($spans[0]), $($spans[1]) ];
+
+      $inputs[0].val($spans[0].text());
+      $inputs[1].val($spans[1].text());
+
+      $button.after($form);
+      $button.detach();
+
+      $inputs[0].focus();
+    };
+
+    abort = function () {
+      if ($button === undefined) {
+        return undefined;
+      }
+
+      $form.after($button);
+      $form.detach();
+      $button = undefined;
+
+      new Toast(Strings.pointchangeaborted);
+    };
+
+    save = function () {
+      var op1, op2, np1, np2, $spans, t1, t2, res, game;
+
+      if ($button === undefined) {
+        return undefined;
+      }
+
+      $spans = $button.find('span');
+
+      // retrieve values
+      op1 = Number($($spans[0]).text());
+      op2 = Number($($spans[1]).text());
+
+      np1 = Number($inputs[0].val());
+      np2 = Number($inputs[1].val());
+
+      // verify values
+      if (!verify(op1, op2) || !verify(np1, np2)) {
+        new Toast(Strings.invalidresult);
+        abort();
+        Tab_History.updateBoxes();
+        return undefined;
+      }
+
+      // check for equality
+      if (op1 === np1 && op2 === np2) {
+        abort();
+        return undefined;
+      }
+
+      // retrieve team ids from displayed team number
+      $teams = $form.parent().find('.teamno');
+      t1 = Number($($teams[0]).text());
+      t2 = Number($($teams[1]).text());
+
+      if (!isInt(t1) || !isInt(t2) || isNaN(t1) || isNaN(t2)) {
+        new Toast(Strings.invalidresult);
+        abort();
+        Tab_History.updateBoxes();
+        return undefined;
+      }
+
+      t1 -= 1;
+      t2 -= 1;
+
+      // find the game by team ids only
+      res = History.find(t1, t2);
+
+      if (res === undefined) {
+        new Toast(Strings.invalidresult);
+        abort();
+        Tab_History.updateBoxes();
+        return undefined;
+      }
+
+      // correct new points order if necessary
+      if (t1 === res.t2) {
+        t1 = np1;
+        np1 = np2;
+        np2 = t1;
+
+        t1 = op1;
+        op1 = op2;
+        op2 = t1;
+      }
+
+      // compare original points with saved ones
+      if (res.p1 !== op1 || res.p2 !== op2) {
+        new Toast(Strings.invalidresult);
+        abort();
+        Tab_History.updateBoxes();
+        return undefined;
+      }
+
+      // create Game instance (old one is already destroyed, but swiss doesn't
+      // mind)
+      game = new Game(res.t1, res.t2);
+
+      // apply correction
+      Swiss.correct(game, [ op1, op2 ], [ np1, np2 ]);
+
+      // store correction in history
+      res.p1 = np1;
+      res.p2 = np2;
+      History.correct(res);
+
+      // show correction and recalc ranking
+      Tab_Ranking.update();
+
+      // apply values to interface
+      $($spans[0]).text(np1);
+      $($spans[1]).text(np2);
+
+      $form.after($button);
+      $form.detach();
+      $button = undefined;
+
+      new Toast(Strings.pointchangeapplied);
+    };
+
+    $('#history').delegate('.game > button', 'click', function (e) {
+      var $game;
+
+      abort();
+
+      $button = $(e.target);
+      if ($button.prop('tagName') === 'SPAN') {
+        $button = $button.parent();
+      }
+      $game = $button.parent();
+
+      show($game);
+
+      return false;
+    });
+
+    $form.submit(function (e) {
+      save();
+    });
+
+    $form.find('button.abort').click(function (e) {
+      abort();
+
+      e.preventDefault();
+      return false;
+    });
 
   });
 

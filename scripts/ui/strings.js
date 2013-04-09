@@ -14,6 +14,8 @@ define(function () {
     invalidresult : 'Ungültiges Ergebnis',
     notimplemented : 'Funktion noch nicht verfügbar',
     pageload : 'Seite geladen',
+    pointchangeaborted : 'Korrektur verworfen',
+    pointchangeapplied : 'Korrektur angewandt',
     rankingupdate : 'Ranking wurde berechnet',
     roundfailed : 'Auslosung fehlgeschlagen',
     roundfinished : '%s. Runde abgeschlossen',

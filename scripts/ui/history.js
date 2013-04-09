@@ -88,6 +88,62 @@ define([ './swiss', '../backend/correction' ], function (Swiss, Correction) {
     },
 
     /**
+     * finds and returns the result of the game of the given teams, if present
+     * 
+     * @param team1
+     *          team 1
+     * @param team2
+     *          team 2
+     * @returns a copy of the result if successful, undefined otherwise
+     */
+    find : function (team1, team2) {
+      var round, game, numrounds, numgames, res;
+
+      numrounds = rounds.length;
+
+      for (round = 0; round < numrounds; round += 1) {
+        numgames = rounds[round].length;
+        for (game = 0; game < numgames; games += 1) {
+          res = rounds[round][game];
+          if ((res.t1 === team1 && res.t2 === team2)
+              || (res.t1 === team2 && res.t2 === team1)) {
+            return res.clone();
+          }
+        }
+      }
+
+      return undefined;
+    },
+
+    /**
+     * Replaces an existing result with a corrected one.
+     * 
+     * @param res
+     *          the new result
+     * @returns a copy of the new result (equal to res) if successful, undefined
+     *          otherwise
+     */
+    correct : function (res) {
+      var round, game, numrounds, numgames, r;
+
+      numrounds = rounds.length;
+
+      for (round = 0; round < numrounds; round += 1) {
+        numgames = rounds[round].length;
+        for (game = 0; game < numgames; games += 1) {
+          r = rounds[round][game];
+          if (res.t1 === r.t1 && res.t2 === r.t2) {
+            r.p1 = res.p1;
+            r.p2 = res.p2;
+            return r.clone();
+          }
+        }
+      }
+
+      return undefined;
+    },
+
+    /**
      * returns the number of rounds
      * 
      * @returns the number of rounds
@@ -104,7 +160,7 @@ define([ './swiss', '../backend/correction' ], function (Swiss, Correction) {
      * @returns number of games in that round on success, undefined otherwise
      */
     numGames : function (round) {
-      return rounds[round].length;
+      return rounds[round - 1].length;
     }
   };
 

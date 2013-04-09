@@ -1,6 +1,6 @@
 define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
     Strings, Swiss) {
-  var Tab_Ranking, $ctpl, $cspans, $corrections, $cnos;
+  var Tab_Ranking, $ctpl, $cpts, $corrections, $cnos;
 
   Tab_Ranking = {};
 
@@ -85,6 +85,9 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
         shown = true;
       }
 
+      Tab_Ranking.clearCorrections();
+      Tab_Ranking.showCorrections();
+
       return true;
     };
 
@@ -126,12 +129,12 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
     };
 
     // prepare nodes
-    $corrections = $('#ranking .corrections');
+    $corrections = $('#ranking .corrections > table');
     $ctpl = $corrections.find('.corr.tpl');
     $ctpl.detach();
     $ctpl.removeClass('tpl');
-    $cspans = $ctpl.find('span');
-    $cnos = $ctpl.find('.name');
+    $cpts = $ctpl.find('.points span');
+    $cnos = $ctpl.find('.teamno');
 
     /**
      * retrieves the corrections and displays them in the correction table
@@ -143,7 +146,7 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
       corrs = Swiss.getCorrections();
 
       if (corrs === undefined || corrs.length === 0) {
-        $corrections.hide();
+        $corrections.parent().hide();
         return;
       }
 
@@ -151,25 +154,25 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast,
         var tid;
 
         tid = corr.game.teams[0][0];
-        $($cnos[0]).text(tid);
+        $($cnos[0]).text(tid + 1);
 
         tid = corr.game.teams[1][0];
-        $($cnos[1]).text(tid);
+        $($cnos[1]).text(tid + 1);
 
-        $($cspans[0]).text(corr.oldpoints[0]);
-        $($cspans[1]).text(corr.oldpoints[1]);
+        $($cpts[0]).text(corr.oldpoints[0]);
+        $($cpts[1]).text(corr.oldpoints[1]);
 
-        $($cspans[2]).text(corr.newpoints[0]);
-        $($cspans[3]).text(corr.newpoints[1]);
+        $($cpts[2]).text(corr.newpoints[0]);
+        $($cpts[3]).text(corr.newpoints[1]);
 
-        return $tpl.clone();
+        return $ctpl.clone();
       };
 
       corrs.forEach(function (corr) {
         $corrections.append(makeline(corr));
       });
 
-      $corrections.show();
+      $corrections.parent().show();
     };
 
     // hide all corrections initially
