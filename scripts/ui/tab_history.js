@@ -309,6 +309,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     $form.submit(function (e) {
       save();
+      e.preventDefault();
+      return false;
     });
 
     $form.find('button.abort').click(function (e) {

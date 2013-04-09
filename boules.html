@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <title>Schweizer Triplette</title>
 <link rel="stylesheet" href="style/getsomestyle.css" />
+<script src="scripts/lib/modernizr.js"></script>
 <script>
   var require = {
     urlArgs: "bust=" +  (new Date()).getTime()
@@ -41,13 +42,13 @@
           <tbody>
             <tr>
               <td rowspan="3" class="teamno"><button>+</button></td>
-              <td class="name"><input type="text" /></td>
+              <td class="name"><input type="text" placeholder="Spieler 1"/></td>
             </tr>
             <tr>
-              <td class="name"><input type="text" /></td>
+              <td class="name"><input type="text" placeholder="Spieler 2" /></td>
             </tr>
             <tr>
-              <td class="name"><input type="text" /></td>
+              <td class="name"><input type="text" placeholder="Spieler 3" /></td>
             </tr>
           </tbody>
         </table>
@@ -244,7 +245,10 @@
 
     </div>
 
-    <div id="storage" accesskey="s"></div>
+    <div id="storage" accesskey="s">
+      <button class="test">test</button>
+      <button class="finishgames">test</button>
+    </div>
 
   </div>
 

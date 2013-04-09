@@ -41,5 +41,13 @@ define([ './swiss' ], function (Swiss) {
     return teams.length;
   };
 
+  Team.serialize = function () {
+    return JSON.stringify(teams);
+  };
+
+  Team.deserialize = function (string) {
+    teams = JSON.parse(string);
+  };
+
   return Team;
 });

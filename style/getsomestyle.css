@@ -11,6 +11,10 @@ a {
 	text-decoration: underline;
 }
 
+h3 {
+  margin-left: 0.5em;
+}
+
 #toasts {
 	margin: 0.3em 0.3em 0em 0em;
 	max-width: 10em;

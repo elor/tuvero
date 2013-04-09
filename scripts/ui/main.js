@@ -1,34 +1,29 @@
-require([ './tabs', './toast', './tab_teams', './tab_games', './strings',
-    './tab_teams' ], function (Tabs, Toast, Tab_Teams, Tab_Games, Strings,
-    Tab_Teams) {
+require([ './tabs', './toast', './tab_games', './strings',
+    './tab_storage' ], function (Tabs, Toast, Tab_Games, Strings,
+    Tab_Storage) {
 
   // initialize tabs and select first one (hence the true)
   new Tabs('#tabs > div', 'images/%s.png', true);
 
-  // actual initializations are started after any other module has been set up,
+  // actual initializations are started after any other module has been set
+  // up,
   // hence the jquery function.
   $(function ($) {
+    var i;
     // show the page
     $('#tabs').show();
+
+    // TODO read page from local storage
+    // TODO event handlers for missing features
 
     // debug toast
     new Toast(Strings.pageload);
 
-    // DEBUG
-    Tab_Teams.newTeam([ 'a', 's', 'd' ]);
-    Tab_Teams.newTeam([ 'q', 'w', 'e' ]);
-    Tab_Teams.newTeam([ 'a', 's', 'd' ]);
-    Tab_Teams.newTeam([ 'q', 'w', 'e' ]);
-    Tab_Teams.newTeam([ 'q', 'w', 'e' ]);
+    for (i = 0; i < 100; i += 1) {
+      $('#newteam input').val('Erik Eberhard Lorenz');
+      $('#newteam button').click();
+    }
 
-    $('#games .preparing button').click();
-
-    $($('#games .running .game .points')[0]).val(13);
-    $($('#games .running .game .points')[1]).val(10);
-    $($('#games .running .game button')[0]).click();
-
-    $('#history .game button').click();
-    $($('#history .game .chpoints input')[1]).val(6);
-    $($('#history .game button')[0]).click();
+    $('#ranking .options input').click();
   });
 });
