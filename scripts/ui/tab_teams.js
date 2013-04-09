@@ -191,7 +191,7 @@ define([ './team', './toast', './strings', './tab_ranking' ], function (Team,
       Tab_Ranking.update();
     };
 
-    $('#teams').delegate('.team .name', 'click', function (elem) {
+    $('#tabs').delegate('#teams > .team .name', 'click', function (elem) {
       var $name;
 
       $name = $(elem.target);
@@ -200,7 +200,6 @@ define([ './team', './toast', './strings', './tab_ranking' ], function (Team,
     });
 
     $chname.blur(function () {
-      console.log('blur');
       chhide();
     });
 
