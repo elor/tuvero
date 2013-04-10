@@ -3,7 +3,6 @@ body {
 	padding: 0;
 	border-width: 0;
 	margin: 0;
-	min-width: 30em;
 }
 
 a {
@@ -83,6 +82,7 @@ h3 {
 	border-radius: 0em 1em 1em 1em;
 	background-color: white;
 	text-align: center;
+	min-width: 30em;
 }
 
 #tabs > div .options {

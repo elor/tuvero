@@ -1,7 +1,8 @@
 /**
  * History of results, keyed by round and index.
  */
-define([ './swiss', '../backend/correction' ], function (Swiss, Correction) {
+define([ './swiss', '../backend/correction', './team' ], function (Swiss,
+    Correction, Team) {
   var History, rounds, byes, Result;
 
   // 2d array: [round][resultid]
@@ -103,7 +104,7 @@ define([ './swiss', '../backend/correction' ], function (Swiss, Correction) {
 
       for (round = 0; round < numrounds; round += 1) {
         numgames = rounds[round].length;
-        for (game = 0; game < numgames; games += 1) {
+        for (game = 0; game < numgames; game += 1) {
           res = rounds[round][game];
           if ((res.t1 === team1 && res.t2 === team2)
               || (res.t1 === team2 && res.t2 === team1)) {
@@ -130,7 +131,7 @@ define([ './swiss', '../backend/correction' ], function (Swiss, Correction) {
 
       for (round = 0; round < numrounds; round += 1) {
         numgames = rounds[round].length;
-        for (game = 0; game < numgames; games += 1) {
+        for (game = 0; game < numgames; game += 1) {
           r = rounds[round][game];
           if (res.t1 === r.t1 && res.t2 === r.t2) {
             r.p1 = res.p1;
@@ -161,6 +162,51 @@ define([ './swiss', '../backend/correction' ], function (Swiss, Correction) {
      */
     numGames : function (round) {
       return rounds[round - 1].length;
+    },
+
+    /**
+     * converts the stored content to CSV format
+     */
+    toCSV : function () {
+      var lines;
+
+      lines = [ [ 'Runde', 'Team 1', '', '', '', 'Team 2', '', '', '',
+          'Punkte', 'Punkte' ].join(',') ];
+
+      rounds.forEach(function (games, round) {
+        games.forEach(function (game) {
+          var t1, t2, line;
+          t1 = Team.get(game.t1);
+          t2 = Team.get(game.t2);
+
+          line = [ round + 1, t1.id + 1,
+              '"' + t1.names[0].replace(/"/g, '""') + '"',
+              '"' + t1.names[1].replace(/"/g, '""') + '"',
+              '"' + t1.names[2].replace(/"/g, '""') + '"', t2.id + 1,
+              '"' + t2.names[0].replace(/"/g, '""') + '"',
+              '"' + t2.names[1].replace(/"/g, '""') + '"',
+              '"' + t2.names[2].replace(/"/g, '""') + '"', game.p1, game.p2 ]
+              .join(',');
+          lines.push(line);
+
+        });
+
+        if (byes[round] !== undefined) {
+          (function (bye) {
+            var team, line;
+            team = Team.get(bye);
+
+            line = [ round + 1, team.id + 1,
+                '"' + team.names[0].replace(/"/g, '""') + '"',
+                '"' + team.names[1].replace(/"/g, '""') + '"',
+                '"' + team.names[2].replace(/"/g, '""') + '"', '"Freilos"', '',
+                '', '', 13, 7 ].join(',');
+            lines.push(line);
+          }(byes[round]));
+        }
+      });
+
+      return lines.join('\r\n');
     }
   };
 

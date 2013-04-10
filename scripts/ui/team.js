@@ -49,5 +49,30 @@ define([ './swiss' ], function (Swiss) {
     teams = JSON.parse(string);
   };
 
+  /**
+   * create ordered CSV strings from team data
+   * 
+   * @returns CSV file content
+   */
+  Team.toCSV = function () {
+    var lines;
+
+    lines = [ 'No.,Spieler 1,Spieler 2,Spieler 3' ];
+
+    teams.forEach(function (team) {
+      var line, i;
+
+      line = [ team.id + 1 ];
+
+      for (i = 0; i < 3; i += 1) {
+        line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+      }
+
+      lines.push(line.join(','));
+    });
+
+    return lines.join('\r\n');
+  };
+
   return Team;
 });
