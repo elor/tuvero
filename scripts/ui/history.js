@@ -61,6 +61,10 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
       var round;
       round = Swiss.getRound() - 1;
 
+      while (round >= rounds.length) {
+        rounds.push([]);
+      }
+
       byes[round] = team.id;
     },
 

@@ -378,6 +378,10 @@ h3 {
   background-color: white;
 }
 
+#storage .load input.file {
+  margin-bottom: 1em;
+}
+
 #storage .nojson {
   background-color: red;
   font-weight: bold;

@@ -143,6 +143,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
         }
       }
     };
+
   });
 
   $(function ($) {

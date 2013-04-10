@@ -29,6 +29,12 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         return undefined;
       }
 
+      if (stage === 0) {
+        Tab_Teams.active(true);
+      } else {
+        Tab_Teams.active(false);
+      }
+
       $stages.forEach(function ($stage) {
         $stage.hide();
       });
@@ -76,9 +82,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         new Toast(Strings.toofewteams);
         return;
       }
-
-      // deactivate 'new player' form
-      Tab_Teams.active(false);
 
       // register all teams at the tournament
       Team.prepareTournament();
@@ -148,7 +151,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         Tab_Games.appendGame(game);
       });
 
-      if (games.length === 0) {
+      if (Swiss.getRound() !== 0 && games.length === 0) {
         Tab_Games.stage(2);
       }
     };
@@ -415,9 +418,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $('#games .finished button.korounds').click(function () {
       new Toast(Strings.notimplemented);
     });
-
-    // reset the interface just in case
-    Tab_Games.stage(0);
   });
 
   $(function ($) {
