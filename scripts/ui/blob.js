@@ -43,6 +43,7 @@ define([ './team', './history', './swiss', './tab_teams', './tab_games',
       // update all tabs
       Tab_Teams.updateBoxes();
       Tab_Games.reset();
+      Tab_History.updateBoxes();
 
       Tab_Ranking.clear();
       Tab_Ranking.update(); // attempt ranking update
