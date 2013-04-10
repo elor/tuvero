@@ -1,21 +1,22 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking', './history', './tab_history' ], function (Team, Toast,
-    Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History) {
+    './tab_ranking', './history', './tab_history', './storage' ], function (
+    Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History,
+    Storage) {
   var Tab_Games, games, $games, $vtpl, $vanchors, $vnames, $vno, $vcontainers;
 
   // references to html elements of the games
-  $games = undefined;
+  $games = [];
   // local copy of the running games
-  games = undefined;
+  games = [];
 
   Tab_Games = {};
 
   $(function ($) {
-    var $regbut, $stages, $tpl, $tplnames, $tplnos, $anchor, isInt, roundStart;
+    var $regbut, $stages, $tpl, $tplnames, $tplnos, $anchor;
 
-    isInt = function (n) {
+    function isInt (n) {
       return n % 1 === 0;
-    };
+    }
 
     $stages = [];
 
@@ -41,7 +42,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
      * a round has started, so we init some stuff. called after Swiss.start()
      * and Swiss.newRound(), hence the separete function
      */
-    roundStart = function () {
+    function roundStart () {
       var votes, team;
 
       new Toast(Strings.roundstarted.replace("%s", Swiss.getRound()));
@@ -62,7 +63,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         // immediately show the byevote
         Tab_History.createBye(team.id);
       }
-    };
+
+      // save changes
+      Storage.changed();
+    }
 
     $regbut = $('#games .preparing button');
 
@@ -88,10 +92,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         new Toast(Strings.startfailed, 5);
         return undefined;
       }
-
-      // initiate the games
-      $games = [];
-      games = [];
 
       roundStart();
     });
@@ -134,12 +134,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
      */
     Tab_Games.clearGames = function () {
       $('#games .running .game').remove();
-      if ($games !== undefined) {
-        $games = [];
-      }
-      if (games !== undefined) {
-        games = [];
-      }
+      $games = [];
+      games = [];
     };
 
     /**
@@ -152,7 +148,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         Tab_Games.appendGame(game);
       });
 
-      if (games !== undefined && games.length === 0) {
+      if (games.length === 0) {
         Tab_Games.stage(2);
       }
     };
@@ -173,7 +169,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
      * @returns Tab_Games on success, undefined otherwise
      */
     Tab_Games.removeGame = function (game) {
-      var index = games.indexOf(game);
+      var index;
+
+      index = games.indexOf(game);
 
       if (index === -1) {
         // something's wrong
@@ -287,6 +285,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         new Toast(Strings.roundfinished.replace('%s', Swiss.getRound()));
       }
 
+      // save changes
+      Storage.changed();
+
       Tab_Ranking.update();
 
       return false;
@@ -341,7 +342,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       if (votes.up && votes.up.length !== 0) {
         $vcontainers[0].show();
         votes.up.forEach(function (tid) {
-          $vanchors[0].before(makeBox(tid));
+          if (tid !== undefined) {
+            $vanchors[0].before(makeBox(tid));
+          }
         });
       } else {
         $vcontainers[0].hide();
@@ -351,12 +354,13 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       if (votes.down && votes.down.length !== 0) {
         $vcontainers[1].show();
         votes.down.forEach(function (tid) {
-          $vanchors[1].before(makeBox(tid));
+          if (tid !== undefined) {
+            $vanchors[1].before(makeBox(tid));
+          }
         });
       } else {
         $vcontainers[1].hide();
       }
-
       // apply bye
       if (votes.bye !== undefined) {
         $vcontainers[2].show();
@@ -385,6 +389,27 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       roundStart();
     };
 
+    /**
+     * reset an original game state, respecting the current state of Swiss
+     */
+    Tab_Games.reset = function () {
+
+      if (Swiss.getRound() === 0) {
+        // preparing
+        Tab_Games.stage(0);
+      } else {
+        Tab_Games.showRunning();
+        Tab_Games.showRound();
+        Tab_Games.showVotes();
+
+        if (games.length === 0 || $games.length === 0) {
+          Tab_Games.stage(2);
+        } else {
+          Tab_Games.stage(1);
+        }
+      }
+    };
+
     $('#games .finished button.newround').click(Tab_Games.newRound);
 
     $('#games .finished button.korounds').click(function () {
@@ -396,18 +421,18 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   });
 
   $(function ($) {
-    var $box, maxwidthtest, $games;
+    var $box, $games;
 
     $box = $('#games .options .maxwidth');
     $games = $('#games');
 
-    maxwidthtest = function () {
+    function maxwidthtest () {
       if ($box.prop('checked')) {
         $games.addClass('maxwidth');
       } else {
         $games.removeClass('maxwidth');
       }
-    };
+    }
 
     $box.click(maxwidthtest);
 

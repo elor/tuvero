@@ -234,7 +234,7 @@ define(
         wins = [];
 
         res = this.ranking.get();
-
+        
         // rearrange the arrays from internal id indexing to ranked indexing
         res.ranking.forEach(function (i, rank) {
           bh[rank] = res.buchholz[i];
@@ -571,7 +571,7 @@ define(
        */
       Swisstournament.prototype.canDownVote = function (id) {
         return id < this.players.size() && !this.byevote[id]
-            && !this.upvote[id] && !this.downvote[id];
+            && !this.downvote[id];
       };
 
       /**
@@ -593,8 +593,7 @@ define(
        * @returns {Boolean} whether the player can be upvoted
        */
       Swisstournament.prototype.canUpVote = function (id) {
-        return id < this.players.size() && !this.byevote[id]
-            && !this.upvote[id] && !this.downvote[id];
+        return id < this.players.size() && !this.upvote[id];
       };
 
       /**
@@ -617,7 +616,7 @@ define(
        */
       Swisstournament.prototype.canByeVote = function (id) {
         return id < this.players.size() && !this.byevote[id]
-            && !this.upvote[id] && !this.downvote[id];
+            && !this.downvote[id];
       };
 
       /**
@@ -707,6 +706,55 @@ define(
                 newpoints : [ corr.post.points1, corr.post.points2 ]
               };
             }, this);
+      };
+
+      /**
+       * stores the current state in a blob, mostly using JSON (
+       * 
+       * @returns the blob
+       */
+      Swisstournament.prototype.toBlob = function () {
+        var ob;
+
+        ob = {
+          byevote : this.byevote,
+          downvote : this.downvote,
+          games : this.games,
+          players : this.players.toBlob(),
+          ranking : this.ranking.toBlob(),
+          round : this.round,
+          roundvotes : this.roundvotes,
+          state : this.state,
+          upvote : this.upvote
+        };
+
+        return JSON.stringify(ob);
+      };
+
+      /**
+       * restores a state from the blob
+       * 
+       * @param blob
+       *          the blob
+       */
+      Swisstournament.prototype.fromBlob = function (blob) {
+        var ob = JSON.parse(blob);
+
+        function copyGame (game) {
+          return Game.copy(game);
+        }
+
+        this.byevote = ob.byevote;
+        this.downvote = ob.downvote;
+        this.round = ob.round;
+        this.roundvotes = ob.roundvotes;
+        this.state = ob.state;
+        this.upvote = ob.upvote;
+
+        this.games = ob.games.map(copyGame);
+
+        this.players.fromBlob(ob.players);
+        this.ranking.fromBlob(ob.ranking);
       };
 
       return Swisstournament;

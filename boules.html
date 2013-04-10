@@ -4,6 +4,7 @@
 <meta charset="utf-8" />
 <title>Schweizer Triplette</title>
 <link rel="stylesheet" href="style/getsomestyle.css" />
+<script src="scripts/lib/json2.js"></script>
 <script src="scripts/lib/modernizr.js"></script>
 <script>
   var require = {
@@ -59,7 +60,7 @@
 
     <div id="games" accesskey="g">
       <div class="preparing">
-        <h2>Vorbereitungen zum Schweizer Turnier</h2>
+        <h2>Turniervorbereitung</h2>
         <button>Registrierung beenden</button>
       </div>
       <div class="running">
@@ -164,8 +165,8 @@
     <div id="ranking" accesskey="r">
       <div class="options">
         <input class="autoupdate" type="checkbox" checked="checked" /> <span
-          class="autoupdatetext">Auto-Update</span> <br>
-        <button class="update">manuelles Update</button>
+          class="autoupdatetext">Autom. Aktualisierung</span> <br>
+        <button class="update">manuelle Aktualisierung</button>
       </div>
       <h2>Ranking</h2>
       <p class="preparing">Es wurden noch keine Platzierungen
@@ -246,10 +247,60 @@
     </div>
 
     <div id="storage" accesskey="s">
-      <button class="test">test</button>
-      <button class="finishgames">test</button>
-    </div>
+      <h2>Speichern und Laden</h2>
 
+      <div class="csv">      
+        <h3>Excel-Export</h3>
+        <p>Exportierte '.csv'-Dateien lassen sich mit Office-Programmen wie Excel, LibreOffice und Google Docs öffnen.</p>
+        <p class="noadownload">Damit die Datei richtig erkannt wird, muss sie mit ihrer '.csv'-Dateiendung gespeichert werden, beispielsweise als 'boules.csv'.</p>
+        <button><img src="images/teams.png" /></button>
+        <button><img src="images/ranking.png" /></button>
+        <button><img src="images/history.png" /></button>
+        <br>
+        <textarea rows="20" cols="50" readonly></textarea>
+        <br>
+        <a href="#" type="application/csv" download="boules.csv">Download</a>
+      </div>
+      
+      <div class="nojson">ACHTUNG: Dieser Browser unterstützt wichtige Standards nicht, die zum Speichern und Laden notwendig sind. Beim Schließen des Browserfensters gehen sämtliche Daten verloren.</div>
+
+      <div class="save json">
+        <h3>Turnier speichern</h3>
+        <p>Das Turnier lässt sich in einer Datei zur späteren Fortsetzung des Turnieres speichern.</p>
+        <p class="storage">Obwohl das Turnier automatisch gespeichert wird, wird empfohlen, gelegentlich eine manuelle Sicherung anzulegen.</p>
+        <p class="nostorage">Um das Turnier nach Schließen des Browsers fortzusetzen, muss der Zustand manuell in einer Datei zwischengespeichert oder ein aktueller Browser installiert werden.</p>
+        <br>
+        <button><img src="images/download.png" /></button>
+        <br>
+        <textarea rows="20" cols="50" readonly></textarea>
+        <br>
+        <a href="#" type="application/json" download="boules.json">Download</a>
+      </div>
+      
+      <div class="load json">
+        <h3>Turnier laden</h3>
+        <p>Das Turnier wird aus einer Sicherungsdatei geladen. Das aktuelle Turnier wird dabei überschrieben.</p>
+        <input class="filereader file" type="file" />
+        <br>
+        <button><img src="images/upload.png" /></button>
+        <br>
+        <textarea rows="20" cols="50"></textarea>
+      </div>
+      
+      <div class="local storage json">
+        <h3>Gespeicherte Daten</h3>
+        <p>Das Turnier wird automatisch gespeichert, wodurch es nach dem Schließen des Browsers automatisch fortgesetzt wird. Auf Wunsch können die gespeicherten Daten gelöscht werden.</p>
+        <button class="save">Speichern</button>
+        <input type="checkbox" class="autosave" checked />Automatisches Speichern
+        <br>
+        <input type="checkbox" class="clearbox" />
+        <button class="clear" disabled>Gespeicherte Daten löschen</button>
+      </div>
+      
+      <br class="clear">
+      
+    </div>
+    
   </div>
 
 </body>

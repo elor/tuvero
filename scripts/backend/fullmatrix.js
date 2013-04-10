@@ -116,7 +116,7 @@ define(function () {
    * @returns value at (row, col). defaults to 0
    */
   FullMatrix.prototype.get = function (row, col) {
-    if (this.array[row] === undefined) {
+    if (!this.array[row]) {
       return 0;
     }
 
@@ -141,7 +141,7 @@ define(function () {
     rowref = this.array[row];
 
     if (value) {
-      if (rowref === undefined) {
+      if (!rowref) {
         rowref = this.array[row] = [];
       }
       rowref[col] = value;

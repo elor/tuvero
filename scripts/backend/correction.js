@@ -3,7 +3,7 @@
  * intended for secure storage only, hence the copying efforts. Since
  * corrections should be sparse, the copying shouldn't matter.
  */
-define(function () {
+define([ './result' ], function (Result) {
   var Correction;
 
   /**
@@ -27,6 +27,18 @@ define(function () {
    */
   Correction.prototype.copy = function () {
     return new Correction(this.pre, this.post);
+  };
+
+  /**
+   * copies a correction object
+   * 
+   * @param corr
+   *          correction object, which doesn't have to have the same prototype
+   *          and functions. Fields are sufficient
+   * @returns the instance
+   */
+  Correction.copy = function (corr) {
+    return new Correction(Result.copy(corr.pre), Result.copy(corr.post));
   };
 
   return Correction;

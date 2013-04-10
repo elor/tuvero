@@ -22,6 +22,7 @@ define(
 
         Tab_Ranking.clear = function () {
           $('#ranking table .line').remove();
+          Tab_Ranking.clearCorrections();
         };
 
         update = function () {
@@ -87,7 +88,6 @@ define(
             shown = true;
           }
 
-          Tab_Ranking.clearCorrections();
           Tab_Ranking.showCorrections();
 
           return true;
@@ -141,7 +141,6 @@ define(
         /**
          * retrieves the corrections and displays them in the correction table
          */
-        // TODO manage corrections using the game history
         Tab_Ranking.showCorrections = function () {
           var corrs, makeline;
 
@@ -235,11 +234,6 @@ define(
 
           for (rank = 0; rank < length; rank += 1) {
             lines.push(makeline(rank));
-          }
-
-          if (!shown) {
-            $('#ranking .preparing').hide();
-            shown = true;
           }
 
           corrs = Swiss.getCorrections();

@@ -16,23 +16,7 @@ define(function () {
   var HalfMatrix = function (type, size) {
     type = type || 0;
 
-    switch (type) {
-    case 0:
-      // already defaulting to prototype.get:
-      // this.get = this.get;
-      this.set = this.setEmpty;
-      break;
-    case 1:
-      this.get = this.getMirrored;
-      this.set = this.setMirrored;
-      break;
-    case -1:
-      this.get = this.getNegated;
-      this.set = this.setNegated;
-      break;
-    default:
-      break;
-    }
+    this.setType(type);
 
     this.size = size || 0;
     this.array = [];
@@ -44,6 +28,34 @@ define(function () {
   HalfMatrix.empty = 0; // return 0
   HalfMatrix.mirrored = 1; // return the mirrored value
   HalfMatrix.negated = -1; // return the negative mirrored value
+
+  /**
+   * sets a type
+   * 
+   * @param type
+   *          type id (HalfMatrix.empty/mirrored/negated)
+   * @returns this on success, undefined otherwise
+   */
+  HalfMatrix.prototype.setType = function (type) {
+    switch (type) {
+    case HalfMatrix.empty:
+      this.get = this.getEmpty;
+      this.set = this.setEmpty;
+      break;
+    case HalfMatrix.mirrored:
+      this.get = this.getMirrored;
+      this.set = this.setMirrored;
+      break;
+    case HalfMatrix.negated:
+      this.get = this.getNegated;
+      this.set = this.setNegated;
+      break;
+    default:
+      return undefined;
+    }
+
+    return this;
+  };
 
   /**
    * Restores a blank state of the HalfMatrix
@@ -156,11 +168,11 @@ define(function () {
    *          horizontal position
    * @returns value at (row, col). defaults to 0
    */
-  HalfMatrix.prototype.get = function (row, col) {
+  HalfMatrix.prototype.getEmpty = function (row, col) {
     if (col > row) {
       return 0;
     }
-    if (this.array[row] === undefined) {
+    if (!this.array[row]) {
       return 0;
     }
 
@@ -180,7 +192,8 @@ define(function () {
     if (col > row) {
       return this.get(col, row);
     }
-    if (this.array[row] === undefined) {
+
+    if (!this.array[row]) {
       return 0;
     }
 
@@ -201,7 +214,7 @@ define(function () {
       return -this.get(col, row);
     }
 
-    if (this.array[row] === undefined) {
+    if (!this.array[row]) {
       return 0;
     }
 
@@ -266,7 +279,7 @@ define(function () {
     rowref = this.array[row];
 
     if (value) {
-      if (rowref === undefined) {
+      if (!rowref) {
         rowref = this.array[row] = [];
       }
       rowref[col] = value;
@@ -275,6 +288,27 @@ define(function () {
     }
 
     return this;
+  };
+
+  /**
+   * store content in a convenient blob
+   * 
+   * @returns
+   */
+  HalfMatrix.prototype.toBlob = function () {
+    return JSON.stringify(this);
+  };
+
+  HalfMatrix.prototype.fromBlob = function (blob) {
+    var ob;
+
+    ob = JSON.parse(blob);
+
+    this.size = ob.size;
+    this.array = ob.array; // TODO use some sort of compression
+
+    this.setType(ob.type);
+
   };
 
   return HalfMatrix;

@@ -207,6 +207,42 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
       });
 
       return lines.join('\r\n');
+    },
+
+    /**
+     * store the current state in a blob, usually using JSON
+     * 
+     * @returns the blob
+     */
+    toBlob : function () {
+      return JSON.stringify({
+        rounds : rounds,
+        byes : byes
+      });
+    },
+
+    /**
+     * restore a state from a blob written by toBlob();
+     * 
+     * @param blob
+     *          the blob
+     */
+    fromBlob : function (blob) {
+      var ob, copyround, copyres;
+
+      ob = JSON.parse(blob);
+
+      byes = ob.byes;
+
+      copyres = function (res) {
+        return new Result(res.t1, res.t2, res.p1, res.p2);
+      };
+
+      copyround = function (round) {
+        return round.map(copyres);
+      };
+
+      rounds = ob.rounds.map(copyround);
     }
   };
 

@@ -41,14 +41,6 @@ define([ './swiss' ], function (Swiss) {
     return teams.length;
   };
 
-  Team.serialize = function () {
-    return JSON.stringify(teams);
-  };
-
-  Team.deserialize = function (string) {
-    teams = JSON.parse(string);
-  };
-
   /**
    * create ordered CSV strings from team data
    * 
@@ -72,6 +64,25 @@ define([ './swiss' ], function (Swiss) {
     });
 
     return lines.join('\r\n');
+  };
+
+  /**
+   * stores the current state in a blob, usually using JSON
+   * 
+   * @returns the blob
+   */
+  Team.toBlob = function () {
+    return JSON.stringify(teams);
+  };
+
+  /**
+   * restores the state written by toBlob
+   * 
+   * @param blob
+   *          the blob
+   */
+  Team.fromBlob = function (blob) {
+    teams = JSON.parse(blob);
   };
 
   return Team;

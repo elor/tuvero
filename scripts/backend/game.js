@@ -114,5 +114,28 @@ define(function () {
     return ret;
   };
 
+  /**
+   * create a fresh copy from another game instance. This function works without
+   * the proper prototype
+   * 
+   * @param game
+   *          a game object with the typical Game fields, but not necessarily
+   *          with the correct prototype
+   * @returns the newly copied game instance
+   */
+  Game.copy = function (game) {
+    var g;
+
+    function copyTeam (team) {
+      return team.slice();
+    }
+
+    g = new Game();
+    g.teams = game.teams.map(copyTeam);
+    g.starttime = game.starttime;
+
+    return g;
+  };
+
   return Game;
 });

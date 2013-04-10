@@ -49,7 +49,7 @@ define({
    * @returns {Boolean} true if sizes are equal, false otherwise
    */
   equalSize : function (A, B) {
-    return A.size === B.size && A.size !== undefined;
+    return A.size === B.size && A.size !== undefined && A.size !== null;
   },
 
   /**

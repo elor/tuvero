@@ -105,5 +105,24 @@ define(function () {
     return this.map.length;
   };
 
+  /**
+   * store the state in a blob object
+   * 
+   * @returns the blob
+   */
+  Map.prototype.toBlob = function () {
+    return JSON.stringify(this.map);
+  };
+
+  /**
+   * restore a state from the blob
+   * 
+   * @param blob
+   *          the blob
+   */
+  Map.prototype.fromBlob = function (blob) {
+    this.map = JSON.parse(blob);
+  };
+
   return Map;
 });

@@ -14,6 +14,10 @@ h3 {
   margin-left: 0.5em;
 }
 
+.noadownload, .nostorage, .nofilereader, .nojson, .noatob {
+  display: none;
+}
+
 #toasts {
 	margin: 0.3em 0.3em 0em 0em;
 	max-width: 10em;
@@ -58,6 +62,7 @@ h3 {
 	height: 3em;
 	position: absolute;
 	margin: -6em 0.5em 0.5em -1em;
+  white-space: nowrap;
 }
 
 .tabs > a > img {
@@ -344,4 +349,43 @@ h3 {
   text-align: center;
   width: 3em;
   margin: auto;
+}
+
+#storage > div:not(.tabs) {
+  float: left;
+  width: 25em;
+  padding: 1em;
+  margin: auto;
+}
+#storage > div > p {
+  text-align: justify;
+}
+
+#storage .csv button, #storage .save button, #storage .load button {
+  background-color: lightgrey;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+#storage button > img {
+  width: 3.0em;
+  height: 3.0em;
+}
+
+#storage button.selected {
+  background-color: white;
+}
+
+#storage .nojson {
+  background-color: red;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+#storage .local button {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
 }

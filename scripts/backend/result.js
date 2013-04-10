@@ -127,5 +127,17 @@ define([ './game' ], function (Game) {
     return game;
   };
 
+  /**
+   * creates an identical copy of a Result instance
+   * 
+   * @param res
+   *          raw Result object, not necessarily with appropriate prototype and
+   *          functions. Fields are sufficient.
+   * @returns the copy
+   */
+  Result.copy = function (res) {
+    return new Result(res.team1, res.team2, res.points1, res.points2);
+  };
+
   return Result;
 });

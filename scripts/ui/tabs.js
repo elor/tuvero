@@ -72,6 +72,10 @@ define(function () {
       if (enforce && tabs.indexOf(location.hash.replace('#', '')) === -1) {
         location.hash = '#' + tabs[0];
       }
+
+      $(window).on('hashchange', function () {
+        window.scrollTo(0, 0);
+      });
     });
   };
 

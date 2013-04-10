@@ -1,6 +1,6 @@
 define([ './toast', './strings', './history', './swiss', './tab_ranking',
-    '../backend/game' ], function (Toast, Strings, History, Swiss, Tab_Ranking,
-    Game) {
+    '../backend/game', './storage' ], function (Toast, Strings, History, Swiss,
+    Tab_Ranking, Game, Storage) {
   var Tab_History, currentround, $form, abort;
 
   $form = undefined;
@@ -160,7 +160,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     verify = function (p1, p2) {
       return isInt(p1) && isInt(p2) && !isNaN(p1) && !isNaN(p2) && p1 !== p2
-          && p1 > 0 && p2 > 0;
+          && p1 >= 0 && p2 >= 0;
     };
 
     show = function ($game) {
@@ -287,6 +287,9 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       $form.after($button);
       $form.detach();
       $button = undefined;
+
+      // save changes
+      Storage.changed();
 
       new Toast(Strings.pointchangeapplied);
     };
