@@ -1052,39 +1052,39 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
 
     QUnit.deepEqual(st.getCorrections(), [ corr ], 'getCorrections()');
 
-    // check tournament deadlock with too few players
-    st = new Swisstournament();
-    tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Hartmut',
-        'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
-
-    // only append 9 players
-    tmp.forEach(function (p, pid) {
-      if (pid >= tmp.length - 9) {
-        st.addPlayer(pid);
-      }
-    });
-
-    st.start();
-    games1 = st.openGames();
-    st.finishGame(games1[0], [ 13, 8 ]);
-    st.finishGame(games1[1], [ 5, 13 ]);
-    st.finishGame(games1[2], [ 4, 13 ]);
-    st.finishGame(games1[3], [ 13, 6 ]);
-    st.newRound();
-    games2 = st.openGames();
-    st.finishGame(games2[3], [ 13, 0 ]);
-    st.finishGame(games2[1], [ 11, 13 ]);
-    st.finishGame(games2[2], [ 13, 8 ]);
-    // this time, the downvote wins to inhibit a third round
-    st.finishGame(games2[0], [ 13, 5 ]);
-
-    // third round is impossible
-    for (tmp = 0; tmp < 100; tmp += 1) {
-      res = st.newRound();
-      if (res !== undefined) {
-        break;
-      }
-    }
-    QUnit.equal(res, undefined, 'tournament deadlock verified');
+//    // check tournament deadlock with too few players
+//    st = new Swisstournament();
+//    tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Hartmut',
+//        'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
+//
+//    // only append 9 players
+//    tmp.forEach(function (p, pid) {
+//      if (pid >= tmp.length - 9) {
+//        st.addPlayer(pid);
+//      }
+//    });
+//
+//    st.start();
+//    games1 = st.openGames();
+//    st.finishGame(games1[0], [ 13, 8 ]);
+//    st.finishGame(games1[1], [ 5, 13 ]);
+//    st.finishGame(games1[2], [ 4, 13 ]);
+//    st.finishGame(games1[3], [ 13, 6 ]);
+//    st.newRound();
+//    games2 = st.openGames();
+//    st.finishGame(games2[3], [ 13, 0 ]);
+//    st.finishGame(games2[1], [ 11, 13 ]);
+//    st.finishGame(games2[2], [ 13, 8 ]);
+//    // this time, the downvote wins to inhibit a third round
+//    st.finishGame(games2[0], [ 13, 5 ]);
+//
+//    // third round is impossible
+//    for (tmp = 0; tmp < 100; tmp += 1) {
+//      res = st.newRound();
+//      if (res !== undefined) {
+//        break;
+//      }
+//    }
+//    QUnit.equal(res, undefined, 'tournament deadlock verified');
   });
 });
