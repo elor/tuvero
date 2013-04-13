@@ -1,15 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="manifest.appcache">
 <head>
   <meta charset="utf-8" />
   <title>test</title>
   <link href="style/qunit-git.css" rel="stylesheet" />
   <script src="scripts/lib/qunit-git.js"></script>
-  <script>
-  var require = {
-    urlArgs: "bust=" +  (new Date()).getTime()
-  };
-  </script>
   <script data-main="scripts/backend/test" src="scripts/lib/require-jquery.js"></script>
 </head>
 
