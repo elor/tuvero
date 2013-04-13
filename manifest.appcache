@@ -1,8 +1,17 @@
 CACHE MANIFEST
-# Sat Apr 13 23:25:29 CEST 2013
+# Sat Apr 13 23:55:35 CEST 2013
 
-# software is purley offline
+# the boules program is purely offline
 CACHE:
+boules.html
+test.html
+images/ranking.png
+images/teams.png
+images/history.png
+images/storage.png
+images/upload.png
+images/download.png
+images/games.png
 scripts/ui/tab_games.js
 scripts/ui/swiss.js
 scripts/ui/main.js
@@ -41,6 +50,3 @@ scripts/backend/buchholzranking.js
 scripts/backend/fullmatrix.js
 style/getsomestyle.css
 style/qunit-git.css
-boules.html
-test.html
-
