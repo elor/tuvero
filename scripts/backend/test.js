@@ -1,4 +1,163 @@
 /*
+ * Interface Test
+ */
+
+require([ "../lib/interface" ], function (Interface) {
+  QUnit.test("Interface", function () {
+    var intf;
+
+    intf = {};
+
+    QUnit.equal(Interface.isInterface(intf), false, "empty interface");
+
+    intf = {
+      Interface : {}
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, "minimal interface");
+
+    intf = {
+      Interface : {
+        asd : function () {
+        },
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, "interface with function");
+
+    intf = {
+      Interface : {
+        otherinterface : intf,
+        funky : function () {
+        }
+      }
+    };
+    intf = {
+      Interface : {
+        otherinterface : intf,
+        funky : function () {
+        }
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, "nested Interfaces");
+
+    intf = {
+      Interface : {
+        asd : 0
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "Interface with number");
+
+    intf = {
+      Interface : {
+        asd : undefined
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "Interface undefined");
+
+    intf = {
+      Interface : {
+        asd : "asd"
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "Interface with string");
+
+    intf = {
+      Interface : {
+        asd : /asd/g
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "Interface with regexp");
+
+    intf = {
+      Interface : {
+        asd : true
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "Interface with bool");
+
+    intf = {
+      Interface : {
+        asd : [ 4, 8, 15, 16, 23, 42 ]
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "Interface with array");
+
+    intf = {
+      Interface : {
+        asd : {}
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "invalid nesting");
+
+    intf = {
+      Interface : {
+        intf : intf
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "invalid nesting 2");
+
+    intf = {
+      Interface : {},
+      ASD : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, "number constant");
+
+    intf = {
+      Interface : {},
+      ASd : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "constant not all caps 1");
+
+    intf = {
+      Interface : {},
+      asd : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "constant not all caps 2");
+
+    intf = {
+      Interface : {},
+      AS_D : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "constant not all caps 3");
+
+    intf = {
+      Interface : {},
+      A : "ASD",
+      B : true,
+      C : [ 0, "dux", {
+        F : 5
+      } ],
+      D : undefined,
+      E : /imaregex/
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, "valid constants");
+
+    intf = {
+      Interface : {},
+      A : function () {
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, "function as constant");
+  });
+});
+
+/*
  * Vector Tests
  */
 require([ "vector" ], function (Vector) {
@@ -1052,39 +1211,40 @@ require([ "swisstournament", "game" ], function (Swisstournament, Game) {
 
     QUnit.deepEqual(st.getCorrections(), [ corr ], 'getCorrections()');
 
-//    // check tournament deadlock with too few players
-//    st = new Swisstournament();
-//    tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Hartmut',
-//        'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
-//
-//    // only append 9 players
-//    tmp.forEach(function (p, pid) {
-//      if (pid >= tmp.length - 9) {
-//        st.addPlayer(pid);
-//      }
-//    });
-//
-//    st.start();
-//    games1 = st.openGames();
-//    st.finishGame(games1[0], [ 13, 8 ]);
-//    st.finishGame(games1[1], [ 5, 13 ]);
-//    st.finishGame(games1[2], [ 4, 13 ]);
-//    st.finishGame(games1[3], [ 13, 6 ]);
-//    st.newRound();
-//    games2 = st.openGames();
-//    st.finishGame(games2[3], [ 13, 0 ]);
-//    st.finishGame(games2[1], [ 11, 13 ]);
-//    st.finishGame(games2[2], [ 13, 8 ]);
-//    // this time, the downvote wins to inhibit a third round
-//    st.finishGame(games2[0], [ 13, 5 ]);
-//
-//    // third round is impossible
-//    for (tmp = 0; tmp < 100; tmp += 1) {
-//      res = st.newRound();
-//      if (res !== undefined) {
-//        break;
-//      }
-//    }
-//    QUnit.equal(res, undefined, 'tournament deadlock verified');
+    // // check tournament deadlock with too few players
+    // st = new Swisstournament();
+    // tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe',
+    // 'Hartmut',
+    // 'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
+    //
+    // // only append 9 players
+    // tmp.forEach(function (p, pid) {
+    // if (pid >= tmp.length - 9) {
+    // st.addPlayer(pid);
+    // }
+    // });
+    //
+    // st.start();
+    // games1 = st.openGames();
+    // st.finishGame(games1[0], [ 13, 8 ]);
+    // st.finishGame(games1[1], [ 5, 13 ]);
+    // st.finishGame(games1[2], [ 4, 13 ]);
+    // st.finishGame(games1[3], [ 13, 6 ]);
+    // st.newRound();
+    // games2 = st.openGames();
+    // st.finishGame(games2[3], [ 13, 0 ]);
+    // st.finishGame(games2[1], [ 11, 13 ]);
+    // st.finishGame(games2[2], [ 13, 8 ]);
+    // // this time, the downvote wins to inhibit a third round
+    // st.finishGame(games2[0], [ 13, 5 ]);
+    //
+    // // third round is impossible
+    // for (tmp = 0; tmp < 100; tmp += 1) {
+    // res = st.newRound();
+    // if (res !== undefined) {
+    // break;
+    // }
+    // }
+    // QUnit.equal(res, undefined, 'tournament deadlock verified');
   });
 });

@@ -25,6 +25,9 @@ define(
           Tab_Ranking.clearCorrections();
         };
 
+        /**
+         * @returns {boolean} undefined on failure, true on success
+         */
         update = function () {
           var ranking, makeline, rank;
 
