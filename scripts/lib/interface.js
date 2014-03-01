@@ -1,6 +1,8 @@
 /**
  * Interface class for definition and testing purposes
  * 
+ * Allows the validation of Java-inspired interfaces.
+ * 
  * An interface is a JavaScript object that contains only constants (objects and
  * arrays), global functions and a mandatory object called "Interface", which in
  * turn contains only placeholder functions and other interfaces.
@@ -260,7 +262,7 @@ define([ '../lib/toType' ], function (toType) {
       }
 
       if (j < 0 || a[i] === b[j]) {
-        obj.shared.push(a[i]);
+        out.shared.push(a[i]);
         j -= 1;
       } else {
         out.a.push(a[i]);
