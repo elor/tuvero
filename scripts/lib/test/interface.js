@@ -2,7 +2,7 @@
  * Interface Test
  */
 define([ '../../lib/interface' ], function (Interface) {
-  QUnit.test("Interface", function () {
+  QUnit.test("Interface Implementation Validator", function () {
     var intf;
 
     intf = {};
