@@ -10,6 +10,7 @@
  * Every implementation of an interface must be a JavaScript class, i.e. it can
  * be allocated with the new keyword.
  * 
+ * Note to self: console.log is for debugging, console.warn is considered output
  */
 
 define([ '../lib/toType' ], function (toType) {
@@ -261,7 +262,7 @@ define([ '../lib/toType' ], function (toType) {
         out.b.push(b[j]);
       }
 
-      if (j < 0 || a[i] === b[j]) {
+      if (j >= 0 && a[i] === b[j]) {
         out.shared.push(a[i]);
         j -= 1;
       } else {
@@ -296,14 +297,11 @@ define([ '../lib/toType' ], function (toType) {
 
     if (isInstance) {
       out = Object.keys(obj);
-      out = arrayUnique(out.concat(getObjectKeys(obj.constructor)));
-    } else if (isClass) {
-      if (obj === Object) {
-        // base constructor reached
-        out = [];
-      } else {
-        out = getObjectKeys(obj.prototype);
+      if (obj !== obj.constructor.prototype) {
+        out = arrayUnique(out.concat(getObjectKeys(obj.constructor)));
       }
+    } else if (isClass) {
+      out = getObjectKeys(obj.prototype);
     } else {
       return undefined;
     }
@@ -339,10 +337,15 @@ define([ '../lib/toType' ], function (toType) {
     diff.i = diff.a;
     diff.o = diff.b;
 
+    print && console.log(ikeys);
+    print && console.log(okeys);
+    print && console.log([ diff.i, diff.shared, diff.o ].join(' | '));
+
     // if interface keys are missing, abort with console.warn
     if (diff.i.length !== 0) {
-      print && console.warn([ "match: missing keys in implementation: ",
-          diff.i.join(', ') ].join(''));
+      print && console.warn([
+          "match: missing keys in implementation or class: ", diff.i.join(', ') ].join(''));
+      return false;
     }
 
     // if there are additional members in the implementation, compare
@@ -370,17 +373,18 @@ define([ '../lib/toType' ], function (toType) {
     for (tmp in diff.shared) {
       tmp = diff.shared[tmp];
       i = toType(intf.Interface[tmp]);
-      j = toType(obj[tmp]);
-      
-      console.log(i);
-      console.log(j);
+      if (obj.prototype !== undefined) {
+        j = toType(obj.prototype[tmp]);
+        // this is a class
+      } else {
+        j = toType(obj[tmp]);
+      }
 
       if (i === j) {
         // match sub-interface
         if (recurse && i === 'object') {
           if (matchInterface(intf.Interface[tmp], obj[tmp], noMoreFuncs, noMoreMembers, recurse) !== true) {
-            print && console.warn([ 'subinterface mismatch: ', i ].join(''));
-            err.push([ tmp, ':', subintf ].join(''));
+            err.push([ tmp, ':subintf mismatch' ].join(''));
           }
         }
       } else {
