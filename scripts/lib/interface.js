@@ -67,7 +67,7 @@ define([ '../lib/toType' ], function (toType) {
       case 'object':
         // must be an interface
         if (isInterface(val) === false) {
-          print && console.error([ "obj.[", key, "]: is no interface" ].join(''));
+          print && console.warn([ "obj.[", key, "]: is no interface" ].join(''));
           return false;
         }
         break;
@@ -75,7 +75,7 @@ define([ '../lib/toType' ], function (toType) {
         // any function is fine at the moment
         break;
       default:
-        print && console.error([ "obj[", key, "] = ", val, ": invalid type: ",
+        print && console.warn([ "obj[", key, "] = ", val, ": invalid type: ",
             toType(val) ].join(''));
         return false;
       }
@@ -115,13 +115,13 @@ define([ '../lib/toType' ], function (toType) {
 
         // check for all caps key, since it's a constant
         if (isCaps(key) === false) {
-          print && console.error([ "obj.[", key, "]: is not all caps" ].join(''));
+          print && console.warn([ "obj.[", key, "]: is not all caps" ].join(''));
           return false;
         }
 
         // check recursively for constant
         if (isConstant(obj[key]) === false) {
-          print && console.error([ "obj.[", key, "]: object is no constant" ].join(''));
+          print && console.warn([ "obj.[", key, "]: object is no constant" ].join(''));
           return false;
         }
       }
@@ -132,7 +132,7 @@ define([ '../lib/toType' ], function (toType) {
       for (elem in obj) {
         elem = obj[elem];
         if (isConstant(elem) === false) {
-          print && console.error([ "obj.[", elem, "]: array is no constant" ].join(''));
+          print && console.warn([ "obj.[", elem, "]: array is no constant" ].join(''));
           return false;
         }
       }
@@ -147,7 +147,7 @@ define([ '../lib/toType' ], function (toType) {
       // TODO Did I miss a type?
       return true;
     default:
-      print && console.error([ "invalid type: ", totype(obj) ].join(''));
+      print && console.warn([ "invalid type: ", totype(obj) ].join(''));
       return false;
     }
   }
@@ -170,13 +170,13 @@ define([ '../lib/toType' ], function (toType) {
 
     // abort if there's no Interface key
     if (keys.indexOf('Interface') === -1) {
-      print && console.error("intf.Interface: not found");
+      print && console.warn("intf.Interface: not found");
       return false;
     }
 
     // validate the interface object
     if (isInterfaceObject(intf.Interface) === false) {
-      print && console.error([ "intf.Interface: is no interface object" ].join(''));
+      print && console.warn([ "intf.Interface: is no interface object" ].join(''));
       return false;
     }
 
@@ -188,13 +188,13 @@ define([ '../lib/toType' ], function (toType) {
 
       // enforce all caps
       if (isCaps(key) === false) {
-        print && console.error([ "intf.[", key, "]: is not all caps" ].join(''));
+        print && console.warn([ "intf.[", key, "]: is not all caps" ].join(''));
         return false;
       }
 
       // test for constant
       if (isConstant(intf[key]) === false) {
-        print && console.error([ "intf.[", key, "]: is not constant" ].join(''));
+        print && console.warn([ "intf.[", key, "]: is not constant" ].join(''));
         return false;
       }
     }
@@ -329,10 +329,6 @@ define([ '../lib/toType' ], function (toType) {
     ikeys = Object.keys(intf.Interface).sort();
     okeys = getObjectKeys(obj).sort();
 
-    print && console.log(ikeys)
-    print && console.log(okeys)
-    console.log(arrayDiff(ikeys, okeys));
-
     // compare names
     // create diff
     diff = arrayDiff(ikeys, okeys);
@@ -340,9 +336,9 @@ define([ '../lib/toType' ], function (toType) {
     diff.i = diff.a;
     diff.o = diff.b;
 
-    // if interface keys are missing, abort with console.error
+    // if interface keys are missing, abort with console.warn
     if (diff.i.length !== 0) {
-      print && console.error([ "match: missing keys in implementation: ",
+      print && console.warn([ "match: missing keys in implementation: ",
           diff.i.join(', ') ].join(''));
     }
 
@@ -361,7 +357,7 @@ define([ '../lib/toType' ], function (toType) {
         }
       }
       if (err.length !== 0) {
-        print && console.error([ "extra keys: ", err.join(', ') ].join(''));
+        print && console.warn([ "extra keys: ", err.join(', ') ].join(''));
         return false;
       }
     }
@@ -377,7 +373,7 @@ define([ '../lib/toType' ], function (toType) {
         // match sub-interface
         if (recurse && i === 'object') {
           if (matchInterface(intf.Interface[tmp], obj[tmp], noMoreFuncs, noMoreMembers, recurse) !== true) {
-            print && console.error([ 'subinterface mismatch: ', i ].join(''));
+            print && console.warn([ 'subinterface mismatch: ', i ].join(''));
             err.push([ tmp, ':', subintf ].join(''));
           }
         }
@@ -387,7 +383,7 @@ define([ '../lib/toType' ], function (toType) {
     }
 
     if (err.length !== 0) {
-      print && console.error([ "type mismatch:", err.join(', ') ].join(''));
+      print && console.warn([ "type mismatch:", err.join(', ') ].join(''));
       return false;
     }
 
@@ -421,12 +417,12 @@ define([ '../lib/toType' ], function (toType) {
     testIntf = noMoreFuncs = noMoreMembers = err = false;
 
     if (!intf) {
-      print && console.error("missing interface to match against");
+      print && console.warn("missing interface to match against");
       err = true;
     }
 
     if (!obj && obj != {}) {
-      print && console.error("missing object for matching");
+      print && console.warn("missing object for matching");
       err = true;
     }
 
@@ -450,7 +446,7 @@ define([ '../lib/toType' ], function (toType) {
         noMoreFuncs = true;
         break;
       default:
-        print && console.error([ 'unknown character in opts "', opts, '": ',
+        print && console.warn([ 'unknown character in opts "', opts, '": ',
             tmp ].join(''));
         err = true;
         break;
@@ -458,12 +454,12 @@ define([ '../lib/toType' ], function (toType) {
     }
 
     if (err) {
-      print && console.error('aborting on invalid arguments');
+      print && console.warn('aborting on invalid arguments');
       return undefined;
     }
 
     if (testIntf && (isInterface(intf) == false)) {
-      print && console.error('match(): intf is no interface');
+      print && console.warn('match(): intf is no interface');
       return false;
     }
 
@@ -509,7 +505,7 @@ define([ '../lib/toType' ], function (toType) {
       if (toType(isVerbose) === 'boolean') {
         print = isVerbose;
       } else {
-        print && console.error("Interface.verbose(): invalid input type: not boolean");
+        print && console.warn("Interface.verbose(): invalid input type: not boolean");
       }
     }
   };
