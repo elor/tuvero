@@ -320,7 +320,8 @@ define([ '../lib/toType' ], function (toType) {
    *          noMoreFuncs disallow additional functions
    * @param {boolean}
    *          NoMoreMembers disallow additional members
-   * @param{boolean} recurse match interfaces recursively
+   * @param {boolean}
+   *          recurse match interfaces recursively
    * @returns {boolean} true it if matches, false otherwise
    */
   function matchInterface (intf, obj, noMoreFuncs, noMoreMembers, recurse) {
@@ -399,16 +400,16 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * 'r' - check sub-interfaces recursively
    * 
-   * '-' - disallow additional functions
+   * 'f' - disallow additional functions
    * 
-   * '=' - disallow additional members, including functions
+   * 'm' - disallow additional members, including functions
    * 
    * @param {Interface}
    *          intf The interface to match against
    * @param {object}
    *          obj the implementation
    * @param {string}
-   *          opts string of option characters (see above)
+   *          opts string of option characters (see above) Default: ""
    * @returns true if they match, false if they dont, undefined on other error
    */
   function match (intf, obj, opts) {
@@ -440,14 +441,14 @@ define([ '../lib/toType' ], function (toType) {
       case 'r':
         recurse = true;
         break;
-      case '=':
-        noMoreMembers = true;
-      case '-':
+      case 'f':
         noMoreFuncs = true;
         break;
+      case 'm':
+        noMoreMembers = true;
+        break;
       default:
-        print && console.warn([ 'unknown character in opts "', opts, '": ',
-            tmp ].join(''));
+        print && console.warn([ 'unknown character in opts "', opts, '": ', tmp ].join(''));
         err = true;
         break;
       }
@@ -484,20 +485,19 @@ define([ '../lib/toType' ], function (toType) {
      * 
      * 'i' - also validate the interface using isInterface()
      * 
-     * 'p' - only check prototype functions. Useful for validating the whole
-     * class instead of a single instance
+     * 'r' - check sub-interfaces recursively
      * 
-     * '-' - disallow additional functions
+     * 'f' - disallow additional functions
      * 
-     * '=' - disallow additional members, including functions
+     * 'm' - disallow additional members, including functions
      * 
      * @param {Interface}
      *          intf The interface to match against
      * @param {object}
      *          obj the implementation
      * @param {string}
-     *          opts string of option characters (see above)
-     * @returns
+     *          opts string of option characters (see above) Default: ""
+     * @returns true if they match, false if they dont, undefined on other error
      */
     match : match,
 
