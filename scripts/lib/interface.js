@@ -8,15 +8,20 @@
  * Every implementation of an interface must be a JavaScript class, i.e. it can
  * be allocated with the new keyword.
  * 
- * TODO: return or print an error message
  */
 
 define(
     [ '../lib/toType' ],
-    function (toType) { // TODO: toType path?
-      var Example, isInterfaceObject, isInterface, isConstant, isCaps, print;
+    function (toType) {
+      var Example, print;
 
       print = false;
+
+      Example = {
+        Interface : {
+          asd : 5
+        }
+      };
 
       Example = {
         Interface : {
@@ -52,8 +57,8 @@ define(
        *          obj the object
        * @returns {boolean} true if obj is an Interface Object, false otherwise
        */
-      isInterfaceObject = function (obj) {
-        var keys, val;
+      function isInterfaceObject (obj) {
+        var key, keys, val;
 
         keys = Object.keys(obj);
 
@@ -82,7 +87,7 @@ define(
         }
 
         return true;
-      };
+      }
 
       /**
        * test whether a string is all caps
@@ -91,9 +96,9 @@ define(
        *          str the string to test
        * @returns true if str is all caps, false otherwise
        */
-      isCaps = function (str) {
+      function isCaps (str) {
         return /^[A-Z]+$/.test(str);
-      };
+      }
 
       /**
        * test recursively whether the object is a constant
@@ -104,8 +109,8 @@ define(
        *          obj the object to test
        * @returns {boolean} true if obj is constant, false otherwise
        */
-      isConstant = function (obj) {
-        var keys;
+      function isConstant (obj) {
+        var keys, key;
 
         switch (toType(obj)) {
         case 'object':
@@ -137,7 +142,7 @@ define(
             elem = obj[elem];
             if (isConstant(elem) === false) {
               print
-                  && console.error([ "obj.[", key, "]: array is no constant" ]
+                  && console.error([ "obj.[", elem, "]: array is no constant" ]
                       .join(''));
               return false;
             }
@@ -150,12 +155,13 @@ define(
         case 'undefined':
         case 'boolean':
         case 'regexp':
+          // TODO Did I miss a type?
           return true;
         default:
           print && console.error([ "invalid type: ", totype(obj) ].join(''));
           return false;
         }
-      };
+      }
 
       /**
        * validate an interface object
@@ -168,8 +174,8 @@ define(
        *          intf A candidate for an interface
        * @returns {boolean} true if intf is an interface, false otherwise
        */
-      isInterface = function (intf) {
-        var keys;
+      function isInterface (intf) {
+        var keys, key;
 
         keys = Object.keys(intf);
 
@@ -211,7 +217,273 @@ define(
         }
 
         return true;
-      };
+      }
+
+      /**
+       * return an array with unique values while preserving the order of first
+       * appearance. Lazy O(n^2) version
+       * 
+       * @param {Array}
+       *          array with arbitrary elements
+       * @returns {Array} a tight-packed array with unique values
+       * 
+       * TODO extract to my own array library
+       */
+      function arrayUnique (array) {
+        var out, value;
+
+        out = [];
+        value = undefined;
+
+        for (value in array) {
+          value = array[value];
+          if (out.indexOf(value) === -1) {
+            out.push(value);
+          }
+        }
+
+        return out;
+      }
+
+      /**
+       * returns keys that are unique to either array
+       * 
+       * @param {array}
+       *          a, the first array
+       * @param {array}
+       *          b, the second array
+       * @returns {object} an object containing the unique keys for each array
+       * 
+       * TODO extract to my own array library
+       */
+      function arrayDiff (a, b) {
+        var out, i, j;
+
+        out = {
+          a : [],
+          b : [],
+          shared : []
+        };
+
+        a = arrayUnique(a).sort();
+        b = arrayUnique(b).sort();
+
+        i = a.length - 1;
+        j = b.length - 1;
+
+        for (; i >= 0; i -= 1) {
+          for (; a[i] < b[j] && j >= 0; j -= 1) {
+            out.b.push(b[j]);
+          }
+
+          if (j < 0 || a[i] === b[j]) {
+            obj.shared.push(a[i]);
+            j -= 1;
+          } else {
+            out.a.push(a[i]);
+          }
+        }
+
+        // reverse to order of first appearance
+        out.a.reverse();
+        out.b.reverse();
+
+        return out;
+      }
+
+      /**
+       * retrieve all keys of an object from itself, its prototype (if it's a
+       * class) or the prototype if its class. Recursive.
+       * 
+       * @param {instance,
+       *          class} obj the object or class
+       * @returns {string array} an array of all referenced keys
+       */
+      function getObjectKeys (obj) {
+        var out, isClass, isInstance;
+
+        isClass = obj.prototype != undefined && toType(obj) === 'function';
+        isInstance = obj.constructor != undefined && toType(obj) === 'object';
+
+        if (isInstance) {
+          out = Object.keys(obj);
+          out = arrayUnique(out
+              .concat(getObjectKeys(obj.constructor.prototype)));
+        } else if (isClass) {
+          if (obj === Object) {
+            // base constructor reached
+            out = [];
+          } else {
+            out = getObjectKeys(obj.prototype);
+          }
+        } else {
+          return undefined;
+        }
+
+        return out;
+      }
+
+      /**
+       * Performs an interface match
+       * 
+       * @param {Interface}
+       *          intf the interface to match against
+       * @param {object}
+       *          obj the implementation
+       * @param {boolean}
+       *          noMoreFuncs disallow additional functions
+       * @param {boolean}
+       *          NoMoreMembers disallow additional members
+       * @param{boolean} recurse match interfaces recursively
+       * @returns {boolean} true it if matches, false otherwise
+       */
+      function matchInterface (intf, obj, noMoreFuncs, noMoreMembers, recurse) {
+        var ikeys, okeys, diff, tmp, i, err;
+
+        ikeys = Object.keys(intf.Interface).sort();
+        okeys = getObjectKeys(obj).sort();
+
+        // compare names
+        // create diff
+        diff = arrayDiff(ikeys, okeys);
+        // reference for better understanding
+        diff.i = diff.a;
+        diff.o = diff.b;
+
+        // if interface keys are missing, abort with console.error
+        if (diff.i.length !== 0) {
+          print
+              && console.error([ "match: missing keys in implementation: ",
+                  diff.i.join(', ') ].join(''));
+        }
+
+        // if there are additional members in the implementation, compare
+        // with noMoreFuncs and noMoreMembers and the object member's type
+        if (diff.o.length !== 0 && (noMoreMembers || noMoreFuncs)) {
+          err = [];
+          // find all differences
+          for (i in diff.o) {
+            i = diff.o[i];
+            if (noMoreMembers && toType(obj[i]) !== 'function') {
+              err.push(i);
+            }
+            if (noMoreFuncs && toType(obj[i]) === 'function') {
+              err.push(i);
+            }
+          }
+          if (err.length !== 0) {
+            print && console.error([ "extra keys: ", err.join(', ') ].join(''));
+            return false;
+          }
+        }
+
+        err = [];
+        // match the types of each shared key
+        for (tmp in diff.shared) {
+          tmp = diff.shared[i];
+          i = toType(intf.Interface[i]);
+          j = toType(obj[i]);
+
+          if (i === j) {
+            // match sub-interface
+            if (recurse && i === 'object') {
+              if (matchInterface(intf.Interface[tmp], obj[tmp], noMoreFuncs,
+                  noMoreMembers, recurse) !== true) {
+                print
+                    && console.error([ 'subinterface mismatch: ', i ].join(''));
+                err.push([ tmp, ':', subintf ].join(''));
+              }
+            }
+          } else {
+            err.push([ tmp, ':', j, '!=', i ].join(''));
+          }
+        }
+
+        if (err.length !== 0) {
+          print && console.error([ "type mismatch:", err.join(', ') ].join(''));
+          return false;
+        }
+
+        return true;
+      }
+
+      /**
+       * Tests the implementation against the interface
+       * 
+       * opts string characters:
+       * 
+       * 'i' - also validate the interface using isInterface()
+       * 
+       * 'r' - check sub-interfaces recursively
+       * 
+       * '-' - disallow additional functions
+       * 
+       * '=' - disallow additional members, including functions
+       * 
+       * @param {Interface}
+       *          intf The interface to match against
+       * @param {object}
+       *          obj the implementation
+       * @param {string}
+       *          opts string of option characters (see above)
+       * @returns true if they match, false if they dont, undefined on other
+       *          error
+       */
+      function match (intf, obj, opts) {
+        var testIntf, noMoreFuncs, noMoreMembers, tmp, err, recurse;
+
+        testIntf = noMoreFuncs = noMoreMembers = err = false;
+
+        if (!intf) {
+          print && console.error("missing interface to match against");
+          err = true;
+        }
+
+        if (!obj && obj != {}) {
+          print && console.error("missing object for matching");
+          err = true;
+        }
+
+        opts = opts || "";
+
+        tmp = ''; // stub to please jslint
+
+        opts.split('');
+        for (tmp in opts) {
+          switch (tmp) {
+          case 'i':
+            testIntf = true;
+            break;
+          case 'r':
+            recurse = true;
+            break;
+          case '=':
+            noMoreMembers = true;
+          case '-':
+            noMoreFuncs = true;
+            break;
+          default:
+            print
+                && console.error([ 'unknown character in opts "', opts, '": ',
+                    tmp ].join(''));
+            err = true;
+            break;
+          }
+        }
+
+        if (err) {
+          print && console.error('aborting on option parsing error');
+          return undefined;
+        }
+
+        if (testIntf && (isInterface(intf) == false)) {
+          print && console.error('match(): intf is no interface');
+          return false;
+        }
+
+        return matchInterface(intf, obj, testClass, noMoreFuncs, noMoreMembers,
+            recurse);
+      }
 
       return {
         /**
@@ -223,6 +495,31 @@ define(
          * @returns {boolean} true if intf is an interface, false otherwise
          */
         isInterface : isInterface,
+
+        /**
+         * Tests the implementation against the interface
+         * 
+         * opts string characters:
+         * 
+         * 'i' - also validate the interface using isInterface()
+         * 
+         * 'p' - only check prototype functions. Useful for validating the whole
+         * class instead of a single instance
+         * 
+         * '-' - disallow additional functions
+         * 
+         * '=' - disallow additional members, including functions
+         * 
+         * @param {Interface}
+         *          intf The interface to match against
+         * @param {object}
+         *          obj the implementation
+         * @param {string}
+         *          opts string of option characters (see above)
+         * @returns
+         */
+        match : match,
+
         verbose : function (isVerbose) {
           if (toType(isVerbose) === 'boolean') {
             print = isVerbose;
