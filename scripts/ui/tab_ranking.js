@@ -26,13 +26,13 @@ define(
         };
 
         /**
-         * @returns {boolean} undefined on failure, true on success
+         * @returns {boolean} false on failure, true on success
          */
         update = function () {
-          var ranking, makeline, rank;
+          var ranking, makeline, rank, votes;
 
           if (Swiss.getRound() <= 0) {
-            return undefined;
+            return false;
           }
 
           Tab_Ranking.clear();
@@ -48,23 +48,23 @@ define(
            *          0
            * @returns a filled copy of the template
            */
-          makeline = function (rank) {
+          makeline = function (rnk) {
             var tid, team, vote;
 
-            tid = ranking.ids[rank];
+            tid = rnking.ids[rnk];
             team = Team.get(tid);
 
-            $($fields[0]).text(rank + 1);
+            $($fields[0]).text(rnk + 1);
 
             $($fields[1]).text(team.id + 1);
             $($fields[2]).text(team.names[0]);
             $($fields[3]).text(team.names[1]);
             $($fields[4]).text(team.names[2]);
 
-            $($fields[5]).text(ranking.wins[rank]);
-            $($fields[6]).text(ranking.bh[rank]);
-            $($fields[7]).text(ranking.fbh[rank]);
-            $($fields[8]).text(ranking.netto[rank]);
+            $($fields[5]).text(rnking.wins[rnk]);
+            $($fields[6]).text(rnking.bh[rnk]);
+            $($fields[7]).text(rnking.fbh[rnk]);
+            $($fields[8]).text(rnking.netto[rnk]);
 
             vote = [];
             if (votes.up.indexOf(tid) !== -1) {
@@ -98,7 +98,7 @@ define(
 
         Tab_Ranking.update = function () {
           if (autoupdate) {
-            if (update()) {
+            if (update() === true) {
               // new Toast(Strings.rankingupdate);
             }
           }
@@ -121,7 +121,7 @@ define(
 
         // update button
         $button.click(function () {
-          if (update()) {
+          if (update() === true) {
             new Toast(Strings.rankingupdate);
           }
         });
@@ -197,25 +197,25 @@ define(
           ranking = Swiss.getRanking();
           votes = Swiss.getAllVotes();
 
-          makeline = function (rank) {
+          makeline = function (rnk) {
             var line, tid, team, vote;
 
             line = [];
 
-            tid = ranking.ids[rank];
+            tid = rnking.ids[rnk];
             team = Team.get(tid);
 
-            line.push(rank + 1);
+            line.push(rnk + 1);
 
             line.push(team.id + 1);
             line.push('"' + team.names[0].replace(/"/g, '""') + '"');
             line.push('"' + team.names[1].replace(/"/g, '""') + '"');
             line.push('"' + team.names[2].replace(/"/g, '""') + '"');
 
-            line.push(ranking.wins[rank]);
-            line.push(ranking.bh[rank]);
-            line.push(ranking.fbh[rank]);
-            line.push(ranking.netto[rank]);
+            line.push(rnking.wins[rnk]);
+            line.push(rnking.bh[rnk]);
+            line.push(rnking.fbh[rnk]);
+            line.push(rnking.netto[rnk]);
 
             vote = [];
             if (votes.up.indexOf(tid) !== -1) {

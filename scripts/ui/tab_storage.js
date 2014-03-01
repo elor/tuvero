@@ -267,10 +267,10 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
       if ($box.prop('checked')) {
         Storage.enable();
         return true;
-      } else {
-        Storage.disable();
-        return false;
       }
+
+      Storage.disable();
+      return false;
     };
 
     $box.click(function () {
