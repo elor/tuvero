@@ -368,9 +368,12 @@ define([ '../lib/toType' ], function (toType) {
     err = [];
     // match the types of each shared key
     for (tmp in diff.shared) {
-      tmp = diff.shared[i];
-      i = toType(intf.Interface[i]);
-      j = toType(obj[i]);
+      tmp = diff.shared[tmp];
+      i = toType(intf.Interface[tmp]);
+      j = toType(obj[tmp]);
+      
+      console.log(i);
+      console.log(j);
 
       if (i === j) {
         // match sub-interface
