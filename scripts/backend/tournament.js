@@ -97,6 +97,10 @@ define([ './map', './ranking', './game' ], function (Map, Ranking, Game) {
       getState : function () {
         return -1;
       },
+
+      /**
+       * Incorporate a correction
+       */
       correct : function () {
         return true;
       }
