@@ -11,8 +11,9 @@
  * be allocated with the new keyword.
  * 
  * Note to self: console.log is for debugging, console.warn is considered output
+ * 
+ * TODO: return a list of errors instead of true/false
  */
-
 define([ '../lib/toType' ], function (toType) {
   var Example, print;
 
