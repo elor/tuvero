@@ -2,13 +2,17 @@
  * various ranking tests
  */
 
-define([ '../result', '../nettoranking', '../buchholzranking', '../finebuchholzranking',
-    '../game', '../correction' ], function (Result, Netto, Buchholz, Finebuchholz, Game, Correction) {
+define([ '../result', '../nettoranking', '../buchholzranking',
+    '../finebuchholzranking', '../game', '../correction',
+    '../../lib/interface', '../ranking' ], function (Result, Netto, Buchholz, Finebuchholz, Game, Correction, Interface, Ranking) {
   /*
    * NettoRanking test
    */
   QUnit.test("NettoRanking", function () {
     var resa, resb, ranking, tmp, corr;
+
+    QUnit.equal(Interface(Ranking), true, 'Ranking interface validation');
+    QUnit.equal(Interface(Ranking, Netto, 'rfm'), true, 'NettoRanking interface match');
 
     ranking = new Netto(5);
     QUnit.equal(ranking.size(), 5, "size test");
@@ -106,6 +110,9 @@ define([ '../result', '../nettoranking', '../buchholzranking', '../finebuchholzr
    */
   QUnit.test("BuchholzRanking", function () {
     var resa, resb, resc, ranking, tmp, corr;
+
+    QUnit.equal(Interface(Ranking), true, 'Ranking interface validation');
+    QUnit.equal(Interface(Ranking, Buchholz, 'rfm'), true, 'BuchholzRanking interface match');
 
     ranking = new Buchholz(5);
     QUnit.equal(ranking.size(), 5, "size test");
@@ -213,6 +220,9 @@ define([ '../result', '../nettoranking', '../buchholzranking', '../finebuchholzr
    */
   QUnit.test("Finebuchholz", function () {
     var resa, resb, resc, ranking, tmp, corr;
+
+    QUnit.equal(Interface(Ranking), true, 'Ranking interface validation');
+    QUnit.equal(Interface(Ranking, Finebuchholz, 'rfm'), true, 'FinebuchholzRanking interface match');
 
     ranking = new Finebuchholz(5);
     QUnit.equal(ranking.size(), 5, "size test");

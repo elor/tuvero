@@ -1,13 +1,17 @@
 /*
  * Various Matrix Tests
  */
-define([ '../fullmatrix', '../halfmatrix', '../matrix', '../vector' ], function (FullMatrix, HalfMatrix, Matrix, Vector) {
+define([ '../fullmatrix', '../halfmatrix', '../matrix', '../vector',
+    '../../lib/interface' ], function (FullMatrix, HalfMatrix, Matrix, Vector, Interface) {
   /*
    * FullMatrix Tests
    */
   QUnit.test("FullMatrix", function () {
     // constructor validation
     var a, b;
+
+    QUnit.equal(Interface(Matrix), true, 'Matrix interface validation');
+    QUnit.equal(Interface(Matrix, FullMatrix), true, 'FullMatrix interface match');
 
     a = new FullMatrix();
     QUnit.equal(a.size, 0, "empty size initialization");

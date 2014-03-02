@@ -14,6 +14,8 @@
  * Note to self: console.log is for debugging, console.warn is considered output
  * 
  * TODO: return a list of errors instead of true/false
+ * 
+ * TODO: allow global functions?
  */
 define([ '../lib/toType' ], function (toType) {
   var Interface, Example, print;

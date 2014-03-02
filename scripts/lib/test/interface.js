@@ -16,9 +16,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    Interface.verbose(true);
     QUnit.equal(Interface(intf, Interface, 'fm'), true, 'self-matching');
-    Interface.verbose(false);
 
     intf = {};
 
