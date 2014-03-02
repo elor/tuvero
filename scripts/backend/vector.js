@@ -1,12 +1,8 @@
 /**
- * Vector variable to contain all vector operations and definitions
+ * Vector variable to contain all vector operations and definitions where a
+ * vector is represented as a javascript array
  */
 define({
-  /**
-   * The representation of a vector is a basic Javascript array
-   */
-  Interface : [],
-
   /**
    * Copies the the vector into a new sparse array
    * 
@@ -28,6 +24,7 @@ define({
 
     return ret;
   },
+
   /**
    * dot product of two vectors
    * 
