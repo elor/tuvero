@@ -7,8 +7,9 @@
  * arrays), global functions and a mandatory object called "Interface", which in
  * turn contains only placeholder functions and other interfaces.
  * 
- * Every implementation of an interface must be a JavaScript class, i.e. it can
- * be allocated with the new keyword.
+ * An implementation can be a javascript object, an instance of a class or a
+ * function with assigned members. Matching of constructor functions can be
+ * performed as long as all functions are members of its prototype.
  * 
  * Note to self: console.log is for debugging, console.warn is considered output
  * 
