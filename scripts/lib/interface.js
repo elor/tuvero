@@ -15,7 +15,7 @@
  * TODO: return a list of errors instead of true/false
  */
 define([ '../lib/toType' ], function (toType) {
-  var Example, print;
+  var Interface, Example, print;
 
   print = false;
 
@@ -59,7 +59,7 @@ define([ '../lib/toType' ], function (toType) {
    *          obj the object
    * @returns {boolean} true if obj is an Interface Object, false otherwise
    */
-  function isInterfaceObject (obj) {
+  function validateObject (obj) {
     var key, keys, val;
 
     keys = Object.keys(obj);
@@ -70,7 +70,7 @@ define([ '../lib/toType' ], function (toType) {
       switch (toType(val)) {
       case 'object':
         // must be an interface
-        if (isInterface(val) === false) {
+        if (validate(val) === false) {
           print && console.warn([ "obj.[", key, "]: is no interface" ].join(''));
           return false;
         }
@@ -167,7 +167,7 @@ define([ '../lib/toType' ], function (toType) {
    *          intf A candidate for an interface
    * @returns {boolean} true if intf is an interface, false otherwise
    */
-  function isInterface (intf) {
+  function validate (intf) {
     var keys, key;
 
     keys = Object.keys(intf);
@@ -179,7 +179,7 @@ define([ '../lib/toType' ], function (toType) {
     }
 
     // validate the interface object
-    if (isInterfaceObject(intf.Interface) === false) {
+    if (validateObject(intf.Interface) === false) {
       print && console.warn([ "intf.Interface: is no interface object" ].join(''));
       return false;
     }
@@ -293,8 +293,9 @@ define([ '../lib/toType' ], function (toType) {
   function getObjectKeys (obj) {
     var out, isClass, isInstance;
 
-    isClass = obj.prototype != undefined && toType(obj) === 'function';
-    isInstance = obj.constructor != undefined && toType(obj) === 'object';
+    isFunction = obj.prototype === undefined && toType(obj) === 'function';
+    isClass = obj.prototype !== undefined && toType(obj) === 'function';
+    isInstance = obj.constructor !== undefined && toType(obj) === 'object';
 
     if (isInstance) {
       out = Object.keys(obj);
@@ -303,6 +304,8 @@ define([ '../lib/toType' ], function (toType) {
       }
     } else if (isClass) {
       out = getObjectKeys(obj.prototype);
+    } else if (isFunction) {
+      out = Object.keys(obj);
     } else {
       return undefined;
     }
@@ -406,7 +409,7 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * opts string characters:
    * 
-   * 'i' - also validate the interface using isInterface()
+   * 'i' - also validate the interface using validate()
    * 
    * 'r' - check sub-interfaces recursively
    * 
@@ -469,7 +472,7 @@ define([ '../lib/toType' ], function (toType) {
       return undefined;
     }
 
-    if (testIntf && (isInterface(intf) == false)) {
+    if (testIntf && (validate(intf) == false)) {
       print && console.warn('match(): intf is no interface');
       return false;
     }
@@ -477,46 +480,81 @@ define([ '../lib/toType' ], function (toType) {
     return matchInterface(intf, obj, noMoreFuncs, noMoreMembers, recurse);
   }
 
-  return {
-    /**
-     * Tests whether the Interface consists only of functions and other
-     * interfaces
-     * 
-     * @param {Interface}
-     *          intf A candidate for an interface
-     * @returns {boolean} true if intf is an interface, false otherwise
-     */
-    isInterface : isInterface,
-
-    /**
-     * Tests the implementation against the interface
-     * 
-     * opts string characters:
-     * 
-     * 'i' - also validate the interface using isInterface()
-     * 
-     * 'r' - check sub-interfaces recursively
-     * 
-     * 'f' - disallow additional functions
-     * 
-     * 'm' - disallow additional members, including functions
-     * 
-     * @param {Interface}
-     *          intf The interface to match against
-     * @param {object}
-     *          obj the implementation
-     * @param {string}
-     *          opts string of option characters (see above) Default: ""
-     * @returns true if they match, false if they dont, undefined on other error
-     */
-    match : match,
-
-    verbose : function (isVerbose) {
-      if (toType(isVerbose) === 'boolean') {
-        print = isVerbose;
-      } else {
-        print && console.warn("Interface.verbose(): invalid input type: not boolean");
-      }
+  /**
+   * calls its internal functions validate() or match():
+   * 
+   * 1 argument ->validate()
+   * 
+   * 2 or 3 arguments -> match()
+   * 
+   * @param {Interface}
+   *          intf an interface object
+   * @param {object}
+   *          obj (optional) an object to match against intf
+   * @param {string}
+   *          opts (optional) match options. See match()
+   * 
+   */
+  Interface = function () {
+    switch (arguments.length) {
+    case 1:
+      return validate(arguments[0]);
+    case 2:
+      return match(arguments[0], arguments[1]);
+    case 3:
+      return match(arguments[0], arguments[1], arguments[2]);
+    default:
+      print && console.error([ "Interface(): invalid number of arguments: ",
+          arguments.length ].join(''));
     }
   };
+  Interface.prototype = undefined;
+
+  /**
+   * Tests whether the Interface consists only of functions and other interfaces
+   * 
+   * @param {Interface}
+   *          intf A candidate for an interface
+   * @returns {boolean} true if intf is an interface, false otherwise
+   */
+  Interface.validate = validate;
+
+  /**
+   * Tests the implementation against the interface
+   * 
+   * opts string characters:
+   * 
+   * 'i' - also validate the interface using validate()
+   * 
+   * 'r' - check sub-interfaces recursively
+   * 
+   * 'f' - disallow additional functions
+   * 
+   * 'm' - disallow additional members, including functions
+   * 
+   * @param {Interface}
+   *          intf The interface to match against
+   * @param {object}
+   *          obj the implementation
+   * @param {string}
+   *          opts string of option characters (see above) Default: ""
+   * @returns true if they match, false if they dont, undefined on other error
+   */
+  Interface.match = match;
+
+  /**
+   * Enable/Disable console output
+   * 
+   * @param {boolean}
+   *          printErrors whether to print errors
+   */
+  Interface.verbose = function (printErrors) {
+    if (toType(printErrors) === 'boolean') {
+      print = printErrors;
+    } else {
+      print && console.warn("Interface.verbose(): invalid input type: not boolean");
+    }
+  };
+
+  return Interface;
 });
