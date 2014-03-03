@@ -312,9 +312,9 @@ define([ '../lib/toType' ], function (toType) {
     diff.i = diff.a;
     diff.o = diff.b;
 
-    // console.log(ikeys);
-    // console.log(okeys);
-    // console.log([ diff.i, diff.shared, diff.o ].join(' | '));
+    console.log(ikeys);
+    console.log(okeys);
+    console.log([ diff.i, diff.shared, diff.o ].join(' | '));
 
     // if interface keys are missing, abort with console.warn
     if (diff.i.length !== 0) {
@@ -382,21 +382,9 @@ define([ '../lib/toType' ], function (toType) {
    *          err (output) an array of errors
    */
   function prepareMatch (intf, obj, opts, err) {
-    var testIntf, noMoreFuncs, noMoreMembers, tmp, recurse;
+    var testIntf, noMoreFuncs, noMoreMembers, tmp, recurse, critical;
 
-    testIntf = noMoreFuncs = noMoreMembers = false;
-
-    if (!intf) {
-      err.push("missing interface to match against");
-    } else if (toType(intf) !== 'object') {
-      err.push([ "Interface.match(): invalid type of intf: ", toType(intf) ].join(''));
-    }
-
-    if (!obj && obj !== {}) {
-      err.push("missing object for matching");
-    } else if (toType(obj) !== 'object' && toType(obj) !== 'function') {
-      err.push([ 'object has invalid type: ', toType(obj) ].join(''));
-    }
+    testIntf = noMoreFuncs = noMoreMembers = critical = false;
 
     opts = opts || "";
 
@@ -420,15 +408,35 @@ define([ '../lib/toType' ], function (toType) {
         break;
       default:
         err.push([ 'unknown character in opts "', opts, '": ', tmp ].join(''));
+        critical = true;
         break;
       }
     }
 
-    if (!err && testIntf) {
-      validateInterface(intf, err);
+    if (!critical) {
+      if (!intf) {
+        err.push("missing interface to match against");
+        critical = true;
+      } else if (toType(intf) !== 'object') {
+        err.push([ "Interface.match(): invalid type of intf: ", toType(intf) ].join(''));
+        critical = true;
+      } else if (testIntf) {
+        critical = err.length;
+        validateInterface(intf, err);
+        critical = err.length !== critical;
+      }
+
+      if (!obj && obj !== {}) {
+        err.push("missing object for matching");
+        critical = true;
+      } else if (toType(obj) !== 'object' && toType(obj) !== 'function') {
+        err.push([ 'object has invalid type: ', toType(obj) ].join(''));
+        critical = true;
+      }
+
     }
 
-    if (!err) {
+    if (!critical) {
       matchInterface(intf, obj, noMoreFuncs, noMoreMembers, recurse, err);
     }
   }

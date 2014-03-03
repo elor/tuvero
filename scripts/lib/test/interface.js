@@ -181,9 +181,9 @@ define([ '../../lib/interface' ], function (Interface) {
     intf = {};
     obj = {};
 
-    QUnit.equal(Interface(), undefined, "missing arguments");
-    QUnit.equal(Interface.match(intf), undefined, "missing obj");
-    QUnit.equal(Interface(undefined, obj), undefined, "missing intf");
+    QUnit.notEqual(Interface(), '', "missing arguments");
+    QUnit.notEqual(Interface.match(intf), '', "missing obj");
+    QUnit.notEqual(Interface(undefined, obj), '', "missing intf");
 
     QUnit.notEqual(Interface(intf, obj, 'i'), '', "interface validator invocation: missing Interface member");
     intf = {
@@ -227,7 +227,9 @@ define([ '../../lib/interface' ], function (Interface) {
 
     obj = {};
 
+    console.log("JERE");
     QUnit.notEqual(Interface(intf, obj, 'i'), '', "missing function");
+    console.log("HERE");
 
     obj = {
       asd : function () {
