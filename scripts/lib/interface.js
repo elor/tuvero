@@ -16,52 +16,21 @@
  * TODO: return a list of errors instead of true/false
  * 
  * TODO: allow global functions?
+ * 
+ * TODO: watch call stack to avoid infinite loops
  */
 define([ '../lib/toType' ], function (toType) {
   var Interface, Example, print;
-
-  print = false;
-
-  Example = {
-    Interface : {
-      asd : 5
-    }
-  };
-
-  Example = {
-    Interface : {
-      /**
-       * An example function for an interface
-       * 
-       * @param {Integer}
-       *          argument An arbitrary argument
-       * @returns {boolean} true on default, false otherwise
-       */
-      exampleFunction : function (argument) {
-        return true;
-      },
-
-      obj : Example
-    },
-
-    CONSTANT : {
-      SUCCESS : 0,
-      FAILURE : -1
-    },
-
-    ARRAY : [ 1, 1, 2, 3, 5 ],
-
-    STRING : "asd",
-  };
 
   /**
    * checks the internal interface object for compliance
    * 
    * @param {Object}
    *          obj the object
-   * @returns {boolean} true if obj is an Interface Object, false otherwise
+   * @param {Array}
+   *          err (output) an array to which error lines are pushed
    */
-  function validateObject (obj) {
+  function validateObject (obj, err) {
     var key, keys, val;
 
     keys = Object.keys(obj);
@@ -72,22 +41,15 @@ define([ '../lib/toType' ], function (toType) {
       switch (toType(val)) {
       case 'object':
         // must be an interface
-        if (validate(val) === false) {
-          print && console.warn([ "obj.[", key, "]: is no interface" ].join(''));
-          return false;
-        }
+        validateInterface(val, err);
         break;
       case 'function':
         // any function is fine at the moment
         break;
       default:
-        print && console.warn([ "obj[", key, "] = ", val, ": invalid type: ",
-            toType(val) ].join(''));
-        return false;
+        err.push([ "obj[", key, "] = ", val, ": invalid type: ", toType(val) ].join(''));
       }
     }
-
-    return true;
   }
 
   /**
@@ -95,10 +57,21 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * @param {String}
    *          str the string to test
-   * @returns true if str is all caps, false otherwise
+   * @returns {boolean} true if str is all caps, false otherwise
    */
   function isCaps (str) {
     return /^[A-Z]+$/.test(str);
+  }
+
+  /**
+   * test whether a string is a valid lower case function name
+   * 
+   * @param {String}
+   *          str the potential function name
+   * @returns {boolean} true on match
+   */
+  function isFunctionName (str) {
+    return /^[a-z][a-zA-Z0-9]*/.test(str);
   }
 
   /**
@@ -108,9 +81,8 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * @param {Object}
    *          obj the object to test
-   * @returns {boolean} true if obj is constant, false otherwise
    */
-  function isConstant (obj) {
+  function isConstant (obj, err) {
     var keys, key;
 
     switch (toType(obj)) {
@@ -121,40 +93,27 @@ define([ '../lib/toType' ], function (toType) {
 
         // check for all caps key, since it's a constant
         if (isCaps(key) === false) {
-          print && console.warn([ "obj.[", key, "]: is not all caps" ].join(''));
-          return false;
+          err.push([ "obj.[", key, "]: is not all caps" ].join(''));
         }
 
         // check recursively for constant
-        if (isConstant(obj[key]) === false) {
-          print && console.warn([ "obj.[", key, "]: object is no constant" ].join(''));
-          return false;
-        }
+        isConstant(obj[key], err);
       }
-
-      // didn't return earlier, so obj must be a constant
-      return true;
+      break;
     case 'array':
       for (elem in obj) {
         elem = obj[elem];
-        if (isConstant(elem) === false) {
-          print && console.warn([ "obj.[", elem, "]: array is no constant" ].join(''));
-          return false;
-        }
+        isConstant(elem, err);
       }
-
-      // didn't return earlier, so obj must be a constant
-      return true;
+      break;
     case 'number':
     case 'string':
     case 'undefined':
     case 'boolean':
     case 'regexp':
-      // TODO Did I miss a type?
-      return true;
+      break;
     default:
-      print && console.warn([ "invalid type: ", totype(obj) ].join(''));
-      return false;
+      err.push([ "invalid type for a constant: ", totype(obj) ].join(''));
     }
   }
 
@@ -167,51 +126,59 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * @param {Interface}
    *          intf A candidate for an interface
-   * @returns {boolean} true if intf is an interface, false otherwise
+   * @param {Array}
+   *          err (output) array of errors
    */
-  function validate (intf) {
+  function validateInterface (intf, err) {
     var keys, key;
 
     if (toType(intf) !== 'object') {
-      print && console.warn([ "intf.validate: invalid argument type: ",
-          toType(intf) ].join(''));
-      return false;
+      err.push([ "intf.validate: invalid argument type: ", toType(intf) ].join(''));
+    } else {
+      keys = Object.keys(intf);
     }
 
-    keys = Object.keys(intf);
-
     // abort if there's no Interface key
-    if (keys.indexOf('Interface') === -1) {
-      print && console.warn("intf.Interface: not found");
-      return false;
+    if (!err && keys.indexOf('Interface') === -1) {
+      err.push("intf.Interface: not found");
     }
 
     // validate the interface object
-    if (validateObject(intf.Interface) === false) {
-      print && console.warn([ "intf.Interface: is no interface object" ].join(''));
-      return false;
+    if (!err) {
+      validateObject(intf.Interface, err);
     }
 
-    for (key in keys) {
-      key = keys[key];
-      if (key === 'Interface') {
-        continue;
-      }
+    if (!err) {
+      for (key in keys) {
+        key = keys[key];
+        if (key === 'Interface') {
+          continue;
+        }
 
-      // enforce all caps
-      if (isCaps(key) === false) {
-        print && console.warn([ "intf.[", key, "]: is not all caps" ].join(''));
-        return false;
-      }
+        // enforce all caps
+        if (isCaps(key) === false) {
+          err.push([ "intf.[", key, "]: constant is not all caps" ].join(''));
+        }
 
-      // test for constant
-      if (isConstant(intf[key]) === false) {
-        print && console.warn([ "intf.[", key, "]: is not constant" ].join(''));
-        return false;
+        // test for constant
+        isConstant(intf[key], err);
       }
     }
+  }
 
-    return true;
+  /**
+   * wrapper around validateInterface
+   * 
+   * @param {Interface}
+   *          intf the interface to validate
+   * @returns {string} a newline-separated string of errors. "" on success
+   */
+  function validate (intf) {
+    var err = [];
+
+    validateInterface(intf, err);
+
+    return err.join('\n');
   }
 
   /**
@@ -334,10 +301,11 @@ define([ '../lib/toType' ], function (toType) {
    *          NoMoreMembers disallow additional members
    * @param {boolean}
    *          recurse match interfaces recursively
-   * @returns {boolean} true it if matches, false otherwise
+   * @param {array}
+   *          err (output) array of errors
    */
-  function matchInterface (intf, obj, noMoreFuncs, noMoreMembers, recurse) {
-    var ikeys, okeys, diff, tmp, i, err;
+  function matchInterface (intf, obj, noMoreFuncs, noMoreMembers, recurse, err) {
+    var ikeys, okeys, diff, tmp, i;
 
     ikeys = Object.keys(intf.Interface).sort();
     okeys = getObjectKeys(obj).sort();
@@ -355,32 +323,25 @@ define([ '../lib/toType' ], function (toType) {
 
     // if interface keys are missing, abort with console.warn
     if (diff.i.length !== 0) {
-      print && console.warn([
-          "match: missing keys in implementation or class: ", diff.i.join(', ') ].join(''));
-      return false;
+      err.push([ "match: missing keys in implementation or class: ",
+          diff.i.join(', ') ].join(''));
     }
 
     // if there are additional members in the implementation, compare
     // with noMoreFuncs and noMoreMembers and the object member's type
     if (diff.o.length !== 0 && (noMoreMembers || noMoreFuncs)) {
-      err = [];
       // find all differences
       for (i in diff.o) {
         i = diff.o[i];
         if (noMoreMembers && toType(obj[i]) !== 'function') {
-          err.push(i);
+          err.push([ "unallowed extra member: ", i ].join(''));
         }
         if (noMoreFuncs && toType(obj[i]) === 'function') {
-          err.push(i);
+          err.push([ "unallowed extra function: ", i ].join(''));
         }
-      }
-      if (err.length !== 0) {
-        print && console.warn([ "extra keys: ", err.join(', ') ].join(''));
-        return false;
       }
     }
 
-    err = [];
     // match the types of each shared key
     for (tmp in diff.shared) {
       tmp = diff.shared[tmp];
@@ -395,21 +356,12 @@ define([ '../lib/toType' ], function (toType) {
       if (i === j) {
         // match sub-interface
         if (recurse && i === 'object') {
-          if (matchInterface(intf.Interface[tmp], obj[tmp], noMoreFuncs, noMoreMembers, recurse) !== true) {
-            err.push([ tmp, ':subintf mismatch' ].join(''));
-          }
+          matchInterface(intf.Interface[tmp], obj[tmp], noMoreFuncs, noMoreMembers, recurse, err);
         }
       } else {
-        err.push([ tmp, ':', j, '!=', i ].join(''));
+        err.push([ "type mismatch of ", tmp, ": ", j, " != ", i ].join(''));
       }
     }
-
-    if (err.length !== 0) {
-      print && console.warn([ "type mismatch:", err.join(', ') ].join(''));
-      return false;
-    }
-
-    return true;
   }
 
   /**
@@ -431,28 +383,24 @@ define([ '../lib/toType' ], function (toType) {
    *          obj the implementation
    * @param {string}
    *          opts string of option characters (see above) Default: ""
-   * @returns true if they match, false if they dont, undefined on other error
+   * @param {array}
+   *          err (output) an array of errors
    */
-  function match (intf, obj, opts) {
-    var testIntf, noMoreFuncs, noMoreMembers, tmp, err, recurse;
+  function prepareMatch (intf, obj, opts, err) {
+    var testIntf, noMoreFuncs, noMoreMembers, tmp, recurse;
 
-    testIntf = noMoreFuncs = noMoreMembers = err = false;
+    testIntf = noMoreFuncs = noMoreMembers = false;
 
     if (!intf) {
-      print && console.warn("missing interface to match against");
-      err = true;
+      err.push("missing interface to match against");
     } else if (toType(intf) !== 'object') {
-      print && console.warn([ "Interface.match(): invalid type of intf: ",
-          toType(intf) ].join(''));
-      err = true;
+      err.push([ "Interface.match(): invalid type of intf: ", toType(intf) ].join(''));
     }
 
     if (!obj && obj !== {}) {
-      print && console.warn("missing object for matching");
-      err = true;
+      err.push("missing object for matching");
     } else if (toType(obj) !== 'object') {
-      print && console.warn("object has invalid type");
-      err = true;
+      err.push("object has invalid type");
     }
 
     opts = opts || "";
@@ -476,23 +424,34 @@ define([ '../lib/toType' ], function (toType) {
         noMoreMembers = true;
         break;
       default:
-        print && console.warn([ 'unknown character in opts "', opts, '": ', tmp ].join(''));
-        err = true;
+        err.push([ 'unknown character in opts "', opts, '": ', tmp ].join(''));
         break;
       }
     }
 
-    if (err) {
-      print && console.warn('aborting on invalid arguments');
-      return undefined;
+    if (!err && testIntf) {
+      validateInterface(intf, err);
     }
 
-    if (testIntf && (validate(intf) == false)) {
-      print && console.warn('match(): intf is no interface');
-      return false;
+    if (!err) {
+      matchInterface(intf, obj, noMoreFuncs, noMoreMembers, recurse, err);
     }
+  }
 
-    return matchInterface(intf, obj, noMoreFuncs, noMoreMembers, recurse);
+  /**
+   * a wrapper around matchInterface(). see matchInterface() for information on
+   * the parameters and options
+   * 
+   * @returns {string} a newline-separated string of errors
+   */
+  function match (intf, obj, opts) {
+    var err;
+
+    err = [];
+
+    prepareMatch(intf, obj, opts, err);
+
+    return err.join('\n');
   }
 
   /**
@@ -507,7 +466,7 @@ define([ '../lib/toType' ], function (toType) {
    * @param {object}
    *          obj (optional) an object to match against intf
    * @param {string}
-   *          opts (optional) match options. See match()
+   *          opts (optional) match options. See prepareMatch()
    * 
    */
   Interface = function () {
@@ -519,10 +478,10 @@ define([ '../lib/toType' ], function (toType) {
     case 3:
       return match(arguments[0], arguments[1], arguments[2]);
     default:
-      print && console.error([ "Interface(): invalid number of arguments: ",
-          arguments.length ].join(''));
+      return [ "Interface(): invalid number of arguments: ", arguments.length ].join('');
     }
   };
+  // disallow instantiation
   Interface.prototype = undefined;
 
   /**
@@ -530,7 +489,8 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * @param {Interface}
    *          intf A candidate for an interface
-   * @returns {boolean} true if intf is an interface, false otherwise
+   * @returns {string} a newline-separated string with error description. "" on
+   *          match.
    */
   Interface.validate = validate;
 
@@ -553,23 +513,10 @@ define([ '../lib/toType' ], function (toType) {
    *          obj the implementation
    * @param {string}
    *          opts string of option characters (see above) Default: ""
-   * @returns true if they match, false if they dont, undefined on other error
+   * @returns {string} a newline-separated string with error description. "" on
+   *          match.
    */
   Interface.match = match;
-
-  /**
-   * Enable/Disable console output
-   * 
-   * @param {boolean}
-   *          printErrors whether to print errors
-   */
-  Interface.verbose = function (printErrors) {
-    if (toType(printErrors) === 'boolean') {
-      print = printErrors;
-    } else {
-      print && console.warn("Interface.verbose(): invalid input type: not boolean");
-    }
-  };
 
   return Interface;
 });
