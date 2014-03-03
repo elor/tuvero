@@ -259,7 +259,7 @@ define([ '../lib/toType' ], function (toType) {
    * @returns {string array} an array of all referenced keys
    */
   function getObjectKeys (obj) {
-    var out, isClass, isInstance;
+    var out, isClass, isInstance, isFunction;
 
     isFunction = obj.prototype === undefined && toType(obj) === 'function';
     isClass = obj.prototype !== undefined && toType(obj) === 'function';
@@ -295,7 +295,7 @@ define([ '../lib/toType' ], function (toType) {
    *          err (output) array of errors
    */
   function compareKeys (intf, obj, opts, err) {
-    var ikeys, okeys, diff, tmp, i;
+    var ikeys, okeys, diff, key, iType, oType;
 
     ikeys = Object.keys(intf.Interface).sort();
     okeys = getObjectKeys(obj).sort();
@@ -321,35 +321,36 @@ define([ '../lib/toType' ], function (toType) {
     // with noMoreFuncs and noMoreMembers and the object member's type
     if (diff.o.length !== 0 && (opts.noMoreMembers || opts.noMoreFuncs)) {
       // find all differences
-      for (i in diff.o) {
-        i = diff.o[i];
-        if (opts.noMoreMembers && toType(obj[i]) !== 'function') {
-          err.push([ "unallowed extra member: ", i ].join(''));
+      for (key in diff.o) {
+        key = diff.o[key];
+        if (opts.noMoreMembers && toType(obj[key]) !== 'function') {
+          err.push([ "unallowed extra member: ", key ].join(''));
         }
-        if (opts.noMoreFuncs && toType(obj[i]) === 'function') {
-          err.push([ "unallowed extra function: ", i ].join(''));
+        if (opts.noMoreFuncs && toType(obj[key]) === 'function') {
+          err.push([ "unallowed extra function: ", key ].join(''));
         }
       }
     }
 
     // match the types of each shared key
-    for (tmp in diff.shared) {
-      tmp = diff.shared[tmp];
-      i = toType(intf.Interface[tmp]);
+    for (key in diff.shared) {
+      key = diff.shared[key];
+      iType = toType(intf.Interface[key]);
       if (obj.prototype !== undefined) {
-        j = toType(obj.prototype[tmp]);
         // this is a class
+        oType = toType(obj.prototype[key]);
       } else {
-        j = toType(obj[tmp]);
+        // this is an object, implementation or specially prepared function
+        oType = toType(obj[key]);
       }
 
-      if (i === j) {
+      if (iType === oType) {
         // match sub-interface
-        if (opts.recurse && i === 'object') {
-          compareKeys(intf.Interface[tmp], obj[tmp], opts, err);
+        if (opts.recurse && iType === 'object') {
+          compareKeys(intf.Interface[key], obj[key], opts, err);
         }
       } else {
-        err.push([ "type mismatch of ", tmp, ": ", j, " != ", i ].join(''));
+        err.push([ "type mismatch of ", key, ": ", oType, " != ", iType ].join(''));
       }
     }
   }
@@ -377,7 +378,7 @@ define([ '../lib/toType' ], function (toType) {
    *          err (output) an array of errors
    */
   function matchInterface (intf, obj, opts, err) {
-    var options, tmp, critical;
+    var options, opt, critical;
 
     critical = false;
 
@@ -391,9 +392,9 @@ define([ '../lib/toType' ], function (toType) {
     opts = opts || "";
 
     opts.split('');
-    for (tmp in opts) {
-      tmp = opts[tmp];
-      switch (tmp) {
+    for (opt in opts) {
+      opt = opts[opt];
+      switch (opt) {
       case 'i':
         options.testIntf = true;
         break;
@@ -407,7 +408,7 @@ define([ '../lib/toType' ], function (toType) {
         options.noMoreMembers = true;
         break;
       default:
-        err.push([ 'unknown character in opts "', opts, '": ', tmp ].join(''));
+        err.push([ 'unknown character in opts "', opts, '": ', opt ].join(''));
         critical = true;
         break;
       }
