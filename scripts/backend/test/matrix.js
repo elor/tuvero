@@ -10,8 +10,8 @@ define([ '../fullmatrix', '../halfmatrix', '../matrix', '../vector',
     // constructor validation
     var a, b;
 
-    QUnit.equal(Interface(Matrix), true, 'Matrix interface validation');
-    QUnit.equal(Interface(Matrix, FullMatrix), true, 'FullMatrix interface match');
+    QUnit.equal(Interface(Matrix), '', 'Matrix interface validation');
+    QUnit.equal(Interface(Matrix, FullMatrix), '', 'FullMatrix interface match');
 
     a = new FullMatrix();
     QUnit.equal(a.size, 0, "empty size initialization");

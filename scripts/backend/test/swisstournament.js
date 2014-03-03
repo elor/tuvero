@@ -6,8 +6,8 @@ define([ '../swisstournament', '../game', '../tournament',
   QUnit.test("Swisstournament", function () {
     var st, corr, count, pid, valid, games1, games2, games3, rnk, res, tmp;
 
-    QUnit.equal(Interface(Tournament), true, 'Tournament interface validation');
-    QUnit.equal(Interface(Tournament, Swisstournament, 'rfm'), true, 'Swisstournament interface match');
+    QUnit.equal(Interface(Tournament), '', 'Tournament interface validation');
+    QUnit.equal(Interface(Tournament, Swisstournament, 'rfm'), '', 'Swisstournament interface match');
 
     st = new Swisstournament();
     QUnit.equal(st.state, Swisstournament.state.preparing || 0, 'initial state is 0 (preparing)');

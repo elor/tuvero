@@ -93,7 +93,7 @@ define([ '../lib/toType' ], function (toType) {
 
         // check for all caps key, since it's a constant
         if (isCaps(key) === false) {
-          err.push([ "obj.[", key, "]: is not all caps" ].join(''));
+          err.push([ "obj.", key, ": nested constant is not all caps" ].join(''));
         }
 
         // check recursively for constant
@@ -151,7 +151,7 @@ define([ '../lib/toType' ], function (toType) {
 
           // enforce all caps
           if (isCaps(key) === false) {
-            err.push([ "intf.[", key, "]: constant is not all caps" ].join(''));
+            err.push([ "intf.", key, ": constant is not all caps" ].join(''));
           }
 
           // test for constant
