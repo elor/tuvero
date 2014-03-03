@@ -28,7 +28,7 @@ define([ '../lib/toType' ], function (toType) {
    * @param {Array}
    *          err (output) an array to which error lines are pushed
    */
-  function validateObject (obj, err) {
+  function validateInterfaceObject (obj, err) {
     var key, keys, val;
 
     keys = Object.keys(obj);
@@ -57,7 +57,7 @@ define([ '../lib/toType' ], function (toType) {
    *          str the string to test
    * @returns {boolean} true if str is all caps, false otherwise
    */
-  function isCaps (str) {
+  function validateConstantName (str) {
     return /^[A-Z]+$/.test(str);
   }
 
@@ -68,7 +68,7 @@ define([ '../lib/toType' ], function (toType) {
    *          str the potential function name
    * @returns {boolean} true on match
    */
-  function isFunctionName (str) {
+  function validateFunctionName (str) {
     return /^[a-z][a-zA-Z0-9]*/.test(str);
   }
 
@@ -80,7 +80,7 @@ define([ '../lib/toType' ], function (toType) {
    * @param {Object}
    *          obj the object to test
    */
-  function isConstant (obj, err) {
+  function validateConstant (obj, err) {
     var keys, key;
 
     switch (toType(obj)) {
@@ -90,18 +90,18 @@ define([ '../lib/toType' ], function (toType) {
         key = keys[key];
 
         // check for all caps key, since it's a constant
-        if (isCaps(key) === false) {
+        if (validateConstantName(key) === false) {
           err.push([ "obj.", key, ": nested constant is not all caps" ].join(''));
         }
 
         // check recursively for constant
-        isConstant(obj[key], err);
+        validateConstant(obj[key], err);
       }
       break;
     case 'array':
       for (elem in obj) {
         elem = obj[elem];
-        isConstant(elem, err);
+        validateConstant(elem, err);
       }
       break;
     case 'number':
@@ -139,7 +139,7 @@ define([ '../lib/toType' ], function (toType) {
         err.push("intf.Interface: not found");
       } else {
         // validate the interface object
-        validateObject(intf.Interface, err);
+        validateInterfaceObject(intf.Interface, err);
 
         for (key in keys) {
           key = keys[key];
@@ -148,12 +148,12 @@ define([ '../lib/toType' ], function (toType) {
           }
 
           // enforce all caps
-          if (isCaps(key) === false) {
+          if (validateConstantName(key) === false) {
             err.push([ "intf.", key, ": constant is not all caps" ].join(''));
           }
 
           // test for constant
-          isConstant(intf[key], err);
+          validateConstant(intf[key], err);
         }
       }
     }
@@ -184,7 +184,7 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * TODO extract to my own array library
    */
-  function arrayUnique (array) {
+  function arrayUniq (array) {
     var out, value;
 
     out = [];
@@ -220,8 +220,8 @@ define([ '../lib/toType' ], function (toType) {
       shared : []
     };
 
-    a = arrayUnique(a).sort();
-    b = arrayUnique(b).sort();
+    a = arrayUniq(a).sort();
+    b = arrayUniq(b).sort();
 
     i = a.length - 1;
     j = b.length - 1;
@@ -268,7 +268,7 @@ define([ '../lib/toType' ], function (toType) {
     if (isInstance) {
       out = Object.keys(obj);
       if (obj !== obj.constructor.prototype) {
-        out = arrayUnique(out.concat(getObjectKeys(obj.constructor)));
+        out = arrayUniq(out.concat(getObjectKeys(obj.constructor)));
       }
     } else if (isClass) {
       out = getObjectKeys(obj.prototype);
@@ -288,16 +288,13 @@ define([ '../lib/toType' ], function (toType) {
    *          intf the interface to match against
    * @param {object}
    *          obj the implementation
-   * @param {boolean}
-   *          noMoreFuncs disallow additional functions
-   * @param {boolean}
-   *          NoMoreMembers disallow additional members
-   * @param {boolean}
-   *          recurse match interfaces recursively
+   * @param {Object}
+   *          opts different options. see matchInterface() source code for a
+   *          complete list
    * @param {array}
    *          err (output) array of errors
    */
-  function matchInterface (intf, obj, noMoreFuncs, noMoreMembers, recurse, err) {
+  function compareKeys (intf, obj, opts, err) {
     var ikeys, okeys, diff, tmp, i;
 
     ikeys = Object.keys(intf.Interface).sort();
@@ -322,14 +319,14 @@ define([ '../lib/toType' ], function (toType) {
 
     // if there are additional members in the implementation, compare
     // with noMoreFuncs and noMoreMembers and the object member's type
-    if (diff.o.length !== 0 && (noMoreMembers || noMoreFuncs)) {
+    if (diff.o.length !== 0 && (opts.noMoreMembers || opts.noMoreFuncs)) {
       // find all differences
       for (i in diff.o) {
         i = diff.o[i];
-        if (noMoreMembers && toType(obj[i]) !== 'function') {
+        if (opts.noMoreMembers && toType(obj[i]) !== 'function') {
           err.push([ "unallowed extra member: ", i ].join(''));
         }
-        if (noMoreFuncs && toType(obj[i]) === 'function') {
+        if (opts.noMoreFuncs && toType(obj[i]) === 'function') {
           err.push([ "unallowed extra function: ", i ].join(''));
         }
       }
@@ -348,8 +345,8 @@ define([ '../lib/toType' ], function (toType) {
 
       if (i === j) {
         // match sub-interface
-        if (recurse && i === 'object') {
-          matchInterface(intf.Interface[tmp], obj[tmp], noMoreFuncs, noMoreMembers, recurse, err);
+        if (opts.recurse && i === 'object') {
+          compareKeys(intf.Interface[tmp], obj[tmp], opts, err);
         }
       } else {
         err.push([ "type mismatch of ", tmp, ": ", j, " != ", i ].join(''));
@@ -379,30 +376,35 @@ define([ '../lib/toType' ], function (toType) {
    * @param {array}
    *          err (output) an array of errors
    */
-  function prepareMatch (intf, obj, opts, err) {
-    var testIntf, noMoreFuncs, noMoreMembers, tmp, recurse, critical;
+  function matchInterface (intf, obj, opts, err) {
+    var options, tmp, critical;
 
-    testIntf = noMoreFuncs = noMoreMembers = critical = false;
+    critical = false;
+
+    options = {
+      noMoreFuncs : false,
+      noMoreMembers : false,
+      recurse : false,
+      testIntf : false
+    };
 
     opts = opts || "";
-
-    tmp = ''; // stub to please jslint
 
     opts.split('');
     for (tmp in opts) {
       tmp = opts[tmp];
       switch (tmp) {
       case 'i':
-        testIntf = true;
+        options.testIntf = true;
         break;
       case 'r':
-        recurse = true;
+        options.recurse = true;
         break;
       case 'f':
-        noMoreFuncs = true;
+        options.noMoreFuncs = true;
         break;
       case 'm':
-        noMoreMembers = true;
+        options.noMoreMembers = true;
         break;
       default:
         err.push([ 'unknown character in opts "', opts, '": ', tmp ].join(''));
@@ -418,7 +420,7 @@ define([ '../lib/toType' ], function (toType) {
       } else if (toType(intf) !== 'object') {
         err.push([ "Interface.match(): invalid type of intf: ", toType(intf) ].join(''));
         critical = true;
-      } else if (testIntf) {
+      } else if (options.testIntf) {
         critical = err.length;
         validateInterface(intf, err);
         critical = err.length !== critical;
@@ -435,7 +437,7 @@ define([ '../lib/toType' ], function (toType) {
     }
 
     if (!critical) {
-      matchInterface(intf, obj, noMoreFuncs, noMoreMembers, recurse, err);
+      compareKeys(intf, obj, options, err);
     }
   }
 
@@ -450,7 +452,7 @@ define([ '../lib/toType' ], function (toType) {
 
     err = [];
 
-    prepareMatch(intf, obj, opts, err);
+    matchInterface(intf, obj, opts, err);
 
     return err.join('\n');
   }
@@ -467,7 +469,7 @@ define([ '../lib/toType' ], function (toType) {
    * @param {object}
    *          obj (optional) an object to match against intf
    * @param {string}
-   *          opts (optional) match options. See prepareMatch()
+   *          opts (optional) match options. See matchInterface()
    * 
    */
   Interface = function () {
