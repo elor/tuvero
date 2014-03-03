@@ -52,7 +52,6 @@ define([ '../lib/toType' ], function (toType) {
     ARRAY : [ 1, 1, 2, 3, 5 ],
 
     STRING : "asd",
-
   };
 
   /**
@@ -172,6 +171,12 @@ define([ '../lib/toType' ], function (toType) {
    */
   function validate (intf) {
     var keys, key;
+
+    if (toType(intf) !== 'object') {
+      print && console.warn([ "intf.validate: invalid argument type: ",
+          toType(intf) ].join(''));
+      return false;
+    }
 
     keys = Object.keys(intf);
 
@@ -436,10 +441,17 @@ define([ '../lib/toType' ], function (toType) {
     if (!intf) {
       print && console.warn("missing interface to match against");
       err = true;
+    } else if (toType(intf) !== 'object') {
+      print && console.warn([ "Interface.match(): invalid type of intf: ",
+          toType(intf) ].join(''));
+      err = true;
     }
 
-    if (!obj && obj != {}) {
+    if (!obj && obj !== {}) {
       print && console.warn("missing object for matching");
+      err = true;
+    } else if (toType(obj) !== 'object') {
+      print && console.warn("object has invalid type");
       err = true;
     }
 

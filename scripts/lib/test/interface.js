@@ -29,6 +29,12 @@ define([ '../../lib/interface' ], function (Interface) {
     QUnit.equal(Interface(intf), true, "minimal interface");
 
     intf = {
+      Interface : []
+    };
+
+    QUnit.equal(Interface(intf), false, "subminimal array interface");
+
+    intf = {
       Interface : {
         asd : function () {
         },
