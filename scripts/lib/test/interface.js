@@ -10,29 +10,30 @@ define([ '../../lib/interface' ], function (Interface) {
         validate : function () {
         },
         match : function () {
-        },
-        verbose : function () {
         }
       }
     };
 
-    QUnit.equal(Interface(intf, Interface, 'fm'), true, 'self-matching');
+    QUnit.equal(Interface(intf, Interface, 'fm'), '', 'self-matching');
 
     intf = {};
 
-    QUnit.equal(Interface(intf), false, "empty interface");
+    QUnit.notEqual(Interface(intf), '', "empty interface");
 
     intf = {
       Interface : {}
     };
 
-    QUnit.equal(Interface(intf), true, "minimal interface");
+    QUnit.equal(Interface(intf), '', "minimal interface");
 
     intf = {
       Interface : []
     };
 
-    QUnit.equal(Interface(intf), false, "subminimal array interface");
+    /*
+     * TODO: implement array interfaces QUnit.notEqual(Interface(intf), '',
+     * "subminimal array interface");
+     */
 
     intf = {
       Interface : {
@@ -41,7 +42,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), true, "interface with function");
+    QUnit.equal(Interface(intf), '', "interface with function");
 
     intf = {
       Interface : {
@@ -58,7 +59,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), true, "nested Interfaces");
+    QUnit.equal(Interface(intf), '', "nested Interfaces");
 
     intf = {
       Interface : {
@@ -66,7 +67,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "Interface with number");
+    QUnit.notEqual(Interface(intf), '', "Interface with number");
 
     intf = {
       Interface : {
@@ -74,7 +75,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "Interface with undefined");
+    QUnit.notEqual(Interface(intf), '', "Interface with undefined");
 
     intf = {
       Interface : {
@@ -82,7 +83,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "Interface with string");
+    QUnit.notEqual(Interface(intf), '', "Interface with string");
 
     intf = {
       Interface : {
@@ -90,7 +91,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "Interface with regexp");
+    QUnit.notEqual(Interface(intf), '', "Interface with regexp");
 
     intf = {
       Interface : {
@@ -98,7 +99,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "Interface with bool");
+    QUnit.notEqual(Interface(intf), '', "Interface with bool");
 
     intf = {
       Interface : {
@@ -106,7 +107,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "Interface with array");
+    QUnit.notEqual(Interface(intf), '', "Interface with array");
 
     intf = {
       Interface : {
@@ -114,7 +115,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "invalid nesting");
+    QUnit.notEqual(Interface(intf), '', "invalid nesting");
 
     intf = {
       Interface : {
@@ -122,35 +123,35 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "invalid nesting 2");
+    QUnit.notEqual(Interface(intf), '', "invalid nesting 2");
 
     intf = {
       Interface : {},
       ASD : 0
     };
 
-    QUnit.equal(Interface(intf), true, "number constant");
+    QUnit.equal(Interface(intf), '', "number constant");
 
     intf = {
       Interface : {},
       ASd : 0
     };
 
-    QUnit.equal(Interface(intf), false, "constant not all caps 1");
+    QUnit.notEqual(Interface(intf), '', "constant not all caps 1");
 
     intf = {
       Interface : {},
       asd : 0
     };
 
-    QUnit.equal(Interface(intf), false, "constant not all caps 2");
+    QUnit.notEqual(Interface(intf), '', "constant not all caps 2");
 
     intf = {
       Interface : {},
       AS_D : 0
     };
 
-    QUnit.equal(Interface(intf), false, "constant not all caps 3");
+    QUnit.notEqual(Interface(intf), '', "constant not all caps 3");
 
     intf = {
       Interface : {},
@@ -163,7 +164,7 @@ define([ '../../lib/interface' ], function (Interface) {
       E : /imaregex/
     };
 
-    QUnit.equal(Interface(intf), true, "valid constants");
+    QUnit.equal(Interface(intf), '', "valid constants");
 
     intf = {
       Interface : {},
@@ -171,9 +172,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.equal(Interface(intf), false, "function as constant");
-
-    Interface.verbose(false);
+    QUnit.notEqual(Interface(intf), '', "function as constant");
   });
 
   QUnit.test("Interface Implementation Matcher", function () {
@@ -186,38 +185,38 @@ define([ '../../lib/interface' ], function (Interface) {
     QUnit.equal(Interface.match(intf), undefined, "missing obj");
     QUnit.equal(Interface(undefined, obj), undefined, "missing intf");
 
-    QUnit.equal(Interface(intf, obj, 'i'), false, "interface validator invocation: missing Interface member");
+    QUnit.notEqual(Interface(intf, obj, 'i'), '', "interface validator invocation: missing Interface member");
     intf = {
       Interface : {
         asd : undefined
       }
     };
-    QUnit.equal(Interface(intf, obj, 'i'), false, "interface validator invocation: invalid type");
+    QUnit.notEqual(Interface(intf, obj, 'i'), '', "interface validator invocation: invalid type");
 
     intf = {
       Interface : {}
     };
 
-    QUnit.equal(Interface(intf, obj), true, "valid empty interface match");
-    QUnit.equal(Interface(intf, obj, 'f'), true, "option 'f'");
-    QUnit.equal(Interface(intf, obj, 'm'), true, "option 'm'");
-    QUnit.equal(Interface(intf, obj, 'r'), true, "option 'r' without subinterfaces");
+    QUnit.equal(Interface(intf, obj), '', "valid empty interface match");
+    QUnit.equal(Interface(intf, obj, 'f'), '', "option 'f'");
+    QUnit.equal(Interface(intf, obj, 'm'), '', "option 'm'");
+    QUnit.equal(Interface(intf, obj, 'r'), '', "option 'r' without subinterfaces");
 
     obj = {
       asd : 5
     };
 
-    QUnit.equal(Interface(intf, obj), true, "default option with additional member");
-    QUnit.equal(Interface(intf, obj, 'm'), false, "option 'm' with member");
-    QUnit.equal(Interface(intf, obj, 'f'), true, "option 'f' with member");
+    QUnit.equal(Interface(intf, obj), '', "default option with additional member");
+    QUnit.notEqual(Interface(intf, obj, 'm'), '', "option 'm' with member");
+    QUnit.equal(Interface(intf, obj, 'f'), '', "option 'f' with member");
 
     obj = {
       asd : function () {
       }
     };
 
-    QUnit.equal(Interface(intf, obj, 'f'), false, "option 'f' with function");
-    QUnit.equal(Interface(intf, obj, 'm'), true, "option 'm' with function");
+    QUnit.notEqual(Interface(intf, obj, 'f'), '', "option 'f' with function");
+    QUnit.equal(Interface(intf, obj, 'm'), '', "option 'm' with function");
 
     intf = {
       Interface : {
@@ -228,20 +227,20 @@ define([ '../../lib/interface' ], function (Interface) {
 
     obj = {};
 
-    QUnit.equal(Interface(intf, obj, 'i'), false, "missing function");
+    QUnit.notEqual(Interface(intf, obj, 'i'), '', "missing function");
 
     obj = {
       asd : function () {
       }
     };
 
-    QUnit.equal(Interface(intf, obj), true, "object with function");
+    QUnit.equal(Interface(intf, obj), '', "object with function");
 
     obj = {
       asd : "5"
     };
 
-    QUnit.equal(Interface(intf, obj), false, "object with member of wrong type");
+    QUnit.notEqual(Interface(intf, obj), '', "object with member of wrong type");
 
     Obj = function () {
       this.asd = function () {
@@ -251,8 +250,8 @@ define([ '../../lib/interface' ], function (Interface) {
 
     obj = new Obj();
 
-    QUnit.equal(Interface(intf, Obj), false, "class with local function");
-    QUnit.equal(Interface(intf, obj), true, "instance with local function");
+    QUnit.notEqual(Interface(intf, Obj), '', "class with local function");
+    QUnit.equal(Interface(intf, obj), '', "instance with local function");
 
     Obj = function () {
       return this;
@@ -262,8 +261,8 @@ define([ '../../lib/interface' ], function (Interface) {
 
     obj = new Obj();
 
-    QUnit.equal(Interface(intf, obj), true, "instance with prototype function");
-    QUnit.equal(Interface(intf, Obj), true, "class with prototype function");
+    QUnit.equal(Interface(intf, obj), '', "instance with prototype function");
+    QUnit.equal(Interface(intf, Obj), '', "class with prototype function");
 
     intf = {
       Interface : {
@@ -278,14 +277,14 @@ define([ '../../lib/interface' ], function (Interface) {
 
     obj = {};
 
-    QUnit.equal(Interface(intf, obj), false, "nested interface: missing subinterface");
+    QUnit.notEqual(Interface(intf, obj), '', "nested interface: missing subinterface");
 
     obj = {
       intf : {}
     };
 
-    QUnit.equal(Interface(intf, obj, 'i'), true, "nested interface: non-recursive false positive");
-    QUnit.equal(Interface(intf, obj, 'r'), false, "nested interface: recursive failure");
+    QUnit.equal(Interface(intf, obj, 'i'), '', "nested interface: non-recursive false positive");
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "nested interface: recursive failure");
 
     obj = {
       intf : {
@@ -293,8 +292,6 @@ define([ '../../lib/interface' ], function (Interface) {
         }
       }
     };
-    QUnit.equal(Interface(intf, obj, 'r'), true, "nested interface: recursive success");
-
-    Interface.verbose(false);
+    QUnit.equal(Interface(intf, obj, 'r'), '', "nested interface: recursive success");
   });
 });

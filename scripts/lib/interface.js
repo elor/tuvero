@@ -20,7 +20,7 @@
  * TODO: watch call stack to avoid infinite loops
  */
 define([ '../lib/toType' ], function (toType) {
-  var Interface, Example, print;
+  var Interface, Example;
 
   /**
    * checks the internal interface object for compliance
@@ -47,7 +47,7 @@ define([ '../lib/toType' ], function (toType) {
         // any function is fine at the moment
         break;
       default:
-        err.push([ "obj[", key, "] = ", val, ": invalid type: ", toType(val) ].join(''));
+        err.push([ "obj.", key, " = ", val, ": invalid type: ", toType(val) ].join(''));
       }
     }
   }
@@ -113,7 +113,7 @@ define([ '../lib/toType' ], function (toType) {
     case 'regexp':
       break;
     default:
-      err.push([ "invalid type for a constant: ", totype(obj) ].join(''));
+      err.push([ "invalid type for a constant: ", toType(obj) ].join(''));
     }
   }
 
@@ -136,32 +136,27 @@ define([ '../lib/toType' ], function (toType) {
       err.push([ "intf.validate: invalid argument type: ", toType(intf) ].join(''));
     } else {
       keys = Object.keys(intf);
-    }
+      // abort if there's no Interface key
+      if (keys.indexOf('Interface') === -1) {
+        err.push("intf.Interface: not found");
+      } else {
+        // validate the interface object
+        validateObject(intf.Interface, err);
 
-    // abort if there's no Interface key
-    if (!err && keys.indexOf('Interface') === -1) {
-      err.push("intf.Interface: not found");
-    }
+        for (key in keys) {
+          key = keys[key];
+          if (key === 'Interface') {
+            continue;
+          }
 
-    // validate the interface object
-    if (!err) {
-      validateObject(intf.Interface, err);
-    }
+          // enforce all caps
+          if (isCaps(key) === false) {
+            err.push([ "intf.[", key, "]: constant is not all caps" ].join(''));
+          }
 
-    if (!err) {
-      for (key in keys) {
-        key = keys[key];
-        if (key === 'Interface') {
-          continue;
+          // test for constant
+          isConstant(intf[key], err);
         }
-
-        // enforce all caps
-        if (isCaps(key) === false) {
-          err.push([ "intf.[", key, "]: constant is not all caps" ].join(''));
-        }
-
-        // test for constant
-        isConstant(intf[key], err);
       }
     }
   }
@@ -317,9 +312,9 @@ define([ '../lib/toType' ], function (toType) {
     diff.i = diff.a;
     diff.o = diff.b;
 
-    // print && console.log(ikeys);
-    // print && console.log(okeys);
-    // print && console.log([ diff.i, diff.shared, diff.o ].join(' | '));
+    // console.log(ikeys);
+    // console.log(okeys);
+    // console.log([ diff.i, diff.shared, diff.o ].join(' | '));
 
     // if interface keys are missing, abort with console.warn
     if (diff.i.length !== 0) {
@@ -399,8 +394,8 @@ define([ '../lib/toType' ], function (toType) {
 
     if (!obj && obj !== {}) {
       err.push("missing object for matching");
-    } else if (toType(obj) !== 'object') {
-      err.push("object has invalid type");
+    } else if (toType(obj) !== 'object' && toType(obj) !== 'function') {
+      err.push([ 'object has invalid type: ', toType(obj) ].join(''));
     }
 
     opts = opts || "";
