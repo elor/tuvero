@@ -1,5 +1,7 @@
 /*
  * Interface Test
+ * 
+ * TODO test nesting loop detection
  */
 define([ '../../lib/interface' ], function (Interface) {
   QUnit.test("Interface Implementation Validator", function () {
@@ -30,10 +32,9 @@ define([ '../../lib/interface' ], function (Interface) {
       Interface : []
     };
 
-    /*
-     * TODO: implement array interfaces QUnit.notEqual(Interface(intf), '',
-     * "subminimal array interface");
-     */
+    // TODO: implement array interfaces
+    //
+    // QUnit.notEqual(Interface(intf), '', "subminimal array interface");
 
     intf = {
       Interface : {

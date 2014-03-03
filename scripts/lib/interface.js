@@ -13,12 +13,40 @@
  * 
  * Note to self: console.log is for debugging, console.warn is considered output
  * 
- * TODO: allow global functions?
+ * TODO: allow global functions
+ * 
+ * TODO: Extends, Requires
+ * 
+ * TODO: array interface
  * 
  * TODO: watch call stack to avoid infinite loops
  */
 define([ '../lib/toType' ], function (toType) {
-  var Interface, Example;
+  var Interface;
+
+  /**
+   * search for the object in the stack and abort if present, clone and push
+   * otherwise
+   * 
+   * @param {array}
+   *          stack a stack of objects
+   * @param {object}
+   *          obj an object
+   * @returns {array} a new stack with obj on top or undefined if obj is already
+   *          present
+   */
+  function getStack (stack, obj) {
+    var newstack;
+
+    if (stack.indexOf(obj) !== -1) {
+      return undefined;
+    }
+
+    newstack = stack.slice();
+    newstack.push(obj);
+
+    return newstack;
+  }
 
   /**
    * checks the internal interface object for compliance
@@ -28,8 +56,15 @@ define([ '../lib/toType' ], function (toType) {
    * @param {Array}
    *          err (output) an array to which error lines are pushed
    */
-  function validateInterfaceObject (obj, err) {
+  function validateInterfaceObject (obj, err, stack) {
     var key, keys, val;
+
+    stack = getStack(stack, obj);
+    if (!stack) {
+      // infinite nesting is not an error, as long as the rest of the Interface
+      // is valid
+      return;
+    }
 
     keys = Object.keys(obj);
 
@@ -39,13 +74,14 @@ define([ '../lib/toType' ], function (toType) {
       switch (toType(val)) {
       case 'object':
         // must be an interface
-        validateInterface(val, err);
+        validateInterface(val, err, stack);
         break;
       case 'function':
         // any function is fine at the moment
         break;
       default:
-        err.push([ "obj.", key, " = ", val, ": invalid type: ", toType(val) ].join(''));
+        err.push([ stack.length, " invalid type for key ", key, ': ',
+            toType(val) ].join(''));
       }
     }
   }
@@ -75,13 +111,18 @@ define([ '../lib/toType' ], function (toType) {
   /**
    * test recursively whether the object is a constant
    * 
-   * TODO: catch nesting loop
-   * 
    * @param {Object}
    *          obj the object to test
    */
-  function validateConstant (obj, err) {
+  function validateConstant (obj, err, stack) {
     var keys, key;
+
+    stack = getStack(stack, obj);
+    if (!stack) {
+      // infinite nesting is not an error, as long as the rest of the Interface
+      // is valid
+      return;
+    }
 
     switch (toType(obj)) {
     case 'object':
@@ -91,17 +132,17 @@ define([ '../lib/toType' ], function (toType) {
 
         // check for all caps key, since it's a constant
         if (validateConstantName(key) === false) {
-          err.push([ "obj.", key, ": nested constant is not all caps" ].join(''));
+          err.push([ stack.length, " nested constant is not all caps:", key ].join(''));
         }
 
         // check recursively for constant
-        validateConstant(obj[key], err);
+        validateConstant(obj[key], err, stack);
       }
       break;
     case 'array':
       for (elem in obj) {
         elem = obj[elem];
-        validateConstant(elem, err);
+        validateConstant(elem, err, stack);
       }
       break;
     case 'number':
@@ -111,7 +152,7 @@ define([ '../lib/toType' ], function (toType) {
     case 'regexp':
       break;
     default:
-      err.push([ "invalid type for a constant: ", toType(obj) ].join(''));
+      err.push([ stack.length, " invalid type for a constant: ", toType(obj) ].join(''));
     }
   }
 
@@ -127,19 +168,26 @@ define([ '../lib/toType' ], function (toType) {
    * @param {Array}
    *          err (output) array of errors
    */
-  function validateInterface (intf, err) {
+  function validateInterface (intf, err, stack) {
     var keys, key;
 
+    stack = getStack(stack, intf);
+    if (!stack) {
+      // infinite nesting is not an error, as long as the rest of the Interface
+      // is valid
+      return;
+    }
+
     if (toType(intf) !== 'object') {
-      err.push([ "intf.validate: invalid argument type: ", toType(intf) ].join(''));
+      err.push([ stack.length, " intf is no object, but of type ", toType(intf) ].join(''));
     } else {
       keys = Object.keys(intf);
       // abort if there's no Interface key
       if (keys.indexOf('Interface') === -1) {
-        err.push("intf.Interface: not found");
+        err.push([ stack.length, " intf.Interface: not found" ].join(''));
       } else {
         // validate the interface object
-        validateInterfaceObject(intf.Interface, err);
+        validateInterfaceObject(intf.Interface, err, stack);
 
         for (key in keys) {
           key = keys[key];
@@ -149,11 +197,11 @@ define([ '../lib/toType' ], function (toType) {
 
           // enforce all caps
           if (validateConstantName(key) === false) {
-            err.push([ "intf.", key, ": constant is not all caps" ].join(''));
+            err.push([ stack.length, " constant is not all caps: ", key ].join(''));
           }
 
           // test for constant
-          validateConstant(intf[key], err);
+          validateConstant(intf[key], err, stack);
         }
       }
     }
@@ -167,9 +215,12 @@ define([ '../lib/toType' ], function (toType) {
    * @returns {string} a newline-separated string of errors. "" on success
    */
   function validate (intf) {
-    var err = [];
+    var err, stack;
 
-    validateInterface(intf, err);
+    err = [];
+    stack = [];
+
+    validateInterface(intf, err, stack);
 
     return err.join('\n');
   }
@@ -307,9 +358,9 @@ define([ '../lib/toType' ], function (toType) {
     diff.i = diff.a;
     diff.o = diff.b;
 
-    console.log(ikeys);
-    console.log(okeys);
-    console.log([ diff.i, diff.shared, diff.o ].join(' | '));
+    // console.log(ikeys);
+    // console.log(okeys);
+    // console.log([ diff.i, diff.shared, diff.o ].join(' | '));
 
     // if interface keys are missing, abort with console.warn
     if (diff.i.length !== 0) {
@@ -449,9 +500,10 @@ define([ '../lib/toType' ], function (toType) {
    * @returns {string} a newline-separated string of errors
    */
   function match (intf, obj, opts) {
-    var err;
+    var err, stack;
 
     err = [];
+    stack = [];
 
     matchInterface(intf, obj, opts, err);
 
