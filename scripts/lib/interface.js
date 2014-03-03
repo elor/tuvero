@@ -13,8 +13,6 @@
  * 
  * Note to self: console.log is for debugging, console.warn is considered output
  * 
- * TODO: return a list of errors instead of true/false
- * 
  * TODO: allow global functions?
  * 
  * TODO: watch call stack to avoid infinite loops
