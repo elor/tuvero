@@ -1,7 +1,5 @@
 /*
  * Interface Test
- * 
- * TODO test nesting loop detection
  */
 define([ '../../lib/interface' ], function (Interface) {
   QUnit.test("Interface Implementation Validator", function () {
@@ -52,15 +50,32 @@ define([ '../../lib/interface' ], function (Interface) {
         }
       }
     };
+
+    QUnit.equal(Interface(intf), '', "nested Interfaces");
+
+    intf.Interface.otherinterface = intf;
+
+    QUnit.equal(Interface(intf), '', "directly infinitely nested Interfaces");
+
     intf = {
       Interface : {
-        otherinterface : intf,
+        otherinterface : {
+          Interface : {
+            firstinterface : undefined
+          }
+        },
         funky : function () {
         }
       }
     };
 
-    QUnit.equal(Interface(intf), '', "nested Interfaces");
+    intf.Interface.otherinterface.Interface.firstinterface = intf;
+
+    QUnit.equal(Interface(intf), '', "second order infinitely nested Interfaces");
+
+    intf.Interface.otherinterface.Interface.error = {};
+
+    QUnit.notEqual(Interface(intf), '', "second order infinitely nested Interfaces with invalid data type");
 
     intf = {
       Interface : {
@@ -287,14 +302,42 @@ define([ '../../lib/interface' ], function (Interface) {
     };
 
     QUnit.equal(Interface(intf, obj, 'i'), '', "nested interface: non-recursive false positive");
-    QUnit.notEqual(Interface(intf, obj, 'r'), '', "nested interface: recursive failure");
+    QUnit.equal(Interface(intf, obj, 'i'), '', "nested interface: non-recursive false positive");
 
-    obj = {
-      intf : {
-        asd : function () {
-        }
-      }
+    obj.intf.asd = function () {
     };
     QUnit.equal(Interface(intf, obj, 'r'), '', "nested interface: recursive success");
+
+    intf = {
+      Interface : {
+        sub : undefined
+      }
+    };
+    intf.Interface.sub = intf;
+
+    obj = {
+      sub : undefined
+    };
+    obj.sub = obj;
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "infinite recursion, first order (both)");
+
+    obj.sub = {
+      sub : obj
+    };
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "infinite recursion, second order (obj)");
+
+    intf.Interface.sub = {
+      Interface : {
+        sub : intf
+      }
+    };
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "infinite recursion, second order (both)");
+
+    obj.sub = obj;
+    QUnit.equal(Interface(intf, obj, 'r'), '', "infinite recursion, second order (intf)");
+
   });
 });
