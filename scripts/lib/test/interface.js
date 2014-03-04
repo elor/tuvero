@@ -150,6 +150,13 @@ define([ '../../lib/interface' ], function (Interface) {
 
     intf = {
       Interface : {},
+      ASD2 : 0
+    };
+
+    QUnit.equal(Interface(intf), '', "upper case alphanumerical constant name");
+
+    intf = {
+      Interface : {},
       ASd : 0
     };
 
@@ -189,6 +196,30 @@ define([ '../../lib/interface' ], function (Interface) {
     };
 
     QUnit.notEqual(Interface(intf), '', "function as constant");
+
+    intf = {
+      Interface : {},
+      a : function () {
+      },
+      asd : function () {
+      },
+      a4 : function () {
+      },
+      aSdF : function () {
+      },
+      aSdF5 : function () {
+      }
+    };
+
+    QUnit.equal(Interface(intf), '', "global function name tests");
+
+    intf = {
+      Interface : {},
+      6 : function () {
+      }
+    };
+
+    QUnit.notEqual(Interface(intf), '', 'numerical global function name');
 
     intf = {
       Interface : {},

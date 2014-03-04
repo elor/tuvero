@@ -13,8 +13,6 @@
  * 
  * Note to self: console.log is for debugging, console.warn is considered output
  * 
- * TODO: allow global functions
- * 
  * TODO: array interface
  */
 define([ '../lib/toType' ], function (toType) {
@@ -136,7 +134,7 @@ define([ '../lib/toType' ], function (toType) {
    * @returns {boolean} true if str is all caps, false otherwise
    */
   function validateConstantName (str) {
-    return /^[A-Z]+$/.test(str);
+    return /^[A-Z][A-Z0-9]*$/.test(str);
   }
 
   /**
@@ -244,12 +242,12 @@ define([ '../lib/toType' ], function (toType) {
           default:
             if (validateConstantName(key) === true) {
               validateConstant(intf[key], err, stack);
-              // } else if (validateFunctionName(key) === true) {
-              // if (toType(intf[key] !== 'function')) {
-              // err.push([ stack.length, 'invalid type for global function ',
-              // key, ':', toType(intf[key]), '. Did you mean ',
-              // key.toUpperCase(), '?' ].join(''));
-              // }
+            } else if (validateFunctionName(key) === true) {
+              if (toType(intf[key]) !== 'function') {
+                err.push([ stack.length, 'invalid type for global function ',
+                    key, ':', toType(intf[key]), '. Did you mean ',
+                    key.toUpperCase(), '?' ].join(''));
+              }
             } else {
               err.push([ stack.length, "invalid name: ", key,
                   ". Is neither CONSTANTNAME nor functionName" ].join(''));
