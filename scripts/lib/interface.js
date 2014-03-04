@@ -49,6 +49,52 @@ define([ '../lib/toType' ], function (toType) {
   }
 
   /**
+   * create a fresh bistack
+   * 
+   * @returns {object} a bistack for use with getBiStack
+   */
+  function createBiStack () {
+    return {
+      i : [],
+      o : []
+    };
+  }
+
+  /**
+   * getStack for two objects at once (here: interface and object)
+   * 
+   * @param {object}
+   *          bistack the bistack itself
+   * @param {Interface}
+   *          intf
+   * @param {object}
+   *          obj
+   * @returns {object} undefined if an infinite recursion is detected, an
+   *          updated bistack otherwise
+   */
+  function getBiStack (bistack, intf, obj) {
+    var newbistack, index;
+
+    // loop instead of if, because multiple instances of intf and obj are
+    // possible. Since hierarchies should be
+    for (index = 0; index < bistack.i.length; index += 1) {
+      if (bistack.i[index] === intf && bistack.o[index] === obj) {
+        return undefined;
+      }
+    }
+
+    newbistack = {
+      i : bistack.i.slice(),
+      o : bistack.o.slice()
+    };
+
+    newbistack.i.push(intf);
+    newbistack.o.push(obj);
+
+    return newbistack;
+  }
+
+  /**
    * checks the internal interface object for compliance
    * 
    * @param {Object}
@@ -342,11 +388,19 @@ define([ '../lib/toType' ], function (toType) {
    * @param {Object}
    *          opts different options. see matchInterface() source code for a
    *          complete list
+   * @param {object}
+   *          a bistack for infinite loop avoidance
    * @param {array}
    *          err (output) array of errors
    */
-  function compareKeys (intf, obj, opts, err) {
+  function compareKeys (intf, obj, opts, err, bistack) {
     var ikeys, okeys, diff, key, iType, oType;
+
+    bistack = getBiStack(bistack, intf, obj);
+    if (bistack === undefined) {
+      // infinite loop, but still valid unless other errors are found
+      return;
+    }
 
     ikeys = Object.keys(intf.Interface).sort();
     okeys = getObjectKeys(obj).sort();
@@ -398,7 +452,7 @@ define([ '../lib/toType' ], function (toType) {
       if (iType === oType) {
         // match sub-interface
         if (opts.recurse && iType === 'object') {
-          compareKeys(intf.Interface[key], obj[key], opts, err);
+          compareKeys(intf.Interface[key], obj[key], opts, err, bistack);
         }
       } else {
         err.push([ "type mismatch of ", key, ": ", oType, " != ", iType ].join(''));
@@ -429,7 +483,7 @@ define([ '../lib/toType' ], function (toType) {
    *          err (output) an array of errors
    */
   function matchInterface (intf, obj, opts, err) {
-    var options, opt, critical;
+    var options, opt, critical, bistack;
 
     critical = false;
 
@@ -474,7 +528,7 @@ define([ '../lib/toType' ], function (toType) {
         critical = true;
       } else if (options.testIntf) {
         critical = err.length;
-        validateInterface(intf, err);
+        validateInterface(intf, err, []);
         critical = err.length !== critical;
       }
 
@@ -489,7 +543,8 @@ define([ '../lib/toType' ], function (toType) {
     }
 
     if (!critical) {
-      compareKeys(intf, obj, options, err);
+      bistack = createBiStack();
+      compareKeys(intf, obj, options, err, bistack);
     }
   }
 
