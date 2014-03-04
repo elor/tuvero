@@ -15,8 +15,6 @@
  * 
  * TODO: allow global functions
  * 
- * TODO: Requires
- * 
  * TODO: array interface
  */
 define([ '../lib/toType' ], function (toType) {
@@ -239,17 +237,23 @@ define([ '../lib/toType' ], function (toType) {
             validateInterfaceObject(intf.Interface, err, stack);
             break;
           case 'Extends':
+          case 'Requires':
             // validate Extends as array and its elements of it as Interfaces
-            validateInterfaceArray(intf.Extends, err, stack);
+            validateInterfaceArray(intf[key], err, stack);
             break;
           default:
-            // enforce all caps
-            if (validateConstantName(key) === false) {
-              err.push([ stack.length, " constant is not all caps: ", key ].join(''));
+            if (validateConstantName(key) === true) {
+              validateConstant(intf[key], err, stack);
+              // } else if (validateFunctionName(key) === true) {
+              // if (toType(intf[key] !== 'function')) {
+              // err.push([ stack.length, 'invalid type for global function ',
+              // key, ':', toType(intf[key]), '. Did you mean ',
+              // key.toUpperCase(), '?' ].join(''));
+              // }
+            } else {
+              err.push([ stack.length, "invalid name: ", key,
+                  ". Is neither CONSTANTNAME nor functionName" ].join(''));
             }
-
-            // test for constant
-            validateConstant(intf[key], err, stack);
           }
         }
       }
