@@ -234,6 +234,51 @@ define([ '../../lib/interface' ], function (Interface) {
     intf.Extends[5] = intf;
 
     QUnit.notEqual(Interface(intf), '', 'Extends isn\'t compact');
+
+    intf = {
+      Interface : {},
+      Requires : {
+        Interface : {}
+      }
+    };
+
+    QUnit.notEqual(Interface(intf), '', 'Requires is no array');
+
+    intf = {
+      Interface : {},
+      Requires : []
+    };
+
+    console.log(Interface(intf));
+
+    QUnit.equal(Interface(intf), '', 'Requires is empty');
+
+    intf = {
+      Interface : {},
+      Requires : [ {
+        Interface : {}
+      } ]
+    };
+
+    QUnit.equal(Interface(intf), '', 'Requires is minimal');
+
+    intf.Requires.push(intf);
+    QUnit.equal(Interface(intf), '', 'Requires is recursively nested');
+
+    intf = {
+      Interface : {},
+      Requires : [ {} ]
+    };
+
+    QUnit.notEqual(Interface(intf), '', 'Requires contains invalid Interface');
+
+    intf.Requires = [];
+    intf.Requires[1] = {
+      Interface : {}
+    };
+    intf.Requires[5] = intf;
+
+    QUnit.notEqual(Interface(intf), '', 'Requires isn\'t compact');
   });
 
   QUnit.test("Interface Implementation Matcher", function () {
