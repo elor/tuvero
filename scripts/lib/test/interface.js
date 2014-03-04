@@ -189,6 +189,44 @@ define([ '../../lib/interface' ], function (Interface) {
     };
 
     QUnit.notEqual(Interface(intf), '', "function as constant");
+
+    intf = {
+      Interface : {},
+      Extends : {
+        Interface : {}
+      }
+    };
+
+    QUnit.notEqual(Interface(intf), '', 'Extends is no array');
+
+    intf = {
+      Interface : {},
+      Extends : []
+    };
+
+    console.log(Interface(intf));
+
+    QUnit.equal(Interface(intf), '', 'Extends is empty');
+
+    intf = {
+      Interface : {},
+      Extends : [ {
+        Interface : {}
+      } ]
+    };
+
+    QUnit.equal(Interface(intf), '', 'Extends is minimal');
+
+    intf.Extends.push(intf);
+    QUnit.equal(Interface(intf), '', 'Extends is recursively nested');
+
+    intf = {
+      Interface : {},
+      Extends : [ {} ]
+    };
+
+    QUnit.notEqual(Interface(intf), '', 'Extends contains invalid Interface');
+
   });
 
   QUnit.test("Interface Implementation Matcher", function () {
