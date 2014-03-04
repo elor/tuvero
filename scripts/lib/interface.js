@@ -447,7 +447,6 @@ define([ '../lib/toType' ], function (toType) {
       }
     }
 
-    console.log(keys);
     return keys;
   }
 
@@ -517,10 +516,6 @@ define([ '../lib/toType' ], function (toType) {
     // reference for better understanding
     diff.i = diff.a;
     diff.o = diff.b;
-
-    // console.log(ikeys);
-    // console.log(okeys);
-    // console.log([ diff.i, diff.shared, diff.o ].join(' | '));
 
     // if interface keys are missing, abort with console.warn
     if (diff.i.length !== 0) {
