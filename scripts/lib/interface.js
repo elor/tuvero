@@ -260,22 +260,27 @@ define([ '../lib/toType' ], function (toType) {
    * validate an array of interfaces
    * 
    * @param {array}
-   *          array an array of interfaces
+   *          array a compact array of interfaces
    * @param {array}
    *          err an array of errors
    * @param {object}
    *          stack a stack for infinite loop avoidance
    */
   function validateInterfaceArray (array, err, stack) {
-    var intf, type;
+    var intf, type, count;
 
     type = toType(array);
     if (type !== 'array') {
       err.push([ stack.length, ' array of interfaces is no array, but ', type ]);
     } else {
+      count = 0;
       for (intf in array) {
         intf = array[intf];
         validateInterface(intf, err, stack);
+        count += 1;
+      }
+      if (array.length !== count) {
+        err.push([ stack.length, 'array if interfaces is not compact' ].join(''));
       }
     }
   }
@@ -406,6 +411,78 @@ define([ '../lib/toType' ], function (toType) {
   }
 
   /**
+   * retrieves all keys if .Interface and .Extends
+   * 
+   * @param {object}
+   *          intf the interface
+   * @param {object}
+   *          stack a stack for infinite loop avoidance
+   * @returns {array} an array of effective interfaces
+   */
+  function getInterfaceKeys (intf, stack) {
+    var stack, sub, subkeys, keys;
+
+    stack = stack || [];
+
+    stack = getStack(stack, intf);
+    if (stack === undefined) {
+      return [];
+    }
+
+    keys = Object.keys(intf.Interface);
+
+    if (intf.Extends) {
+      for (sub in intf.Extends) {
+        sub = intf.Extends[sub];
+        subkeys = getInterfaceKeys(sub, stack);
+        for (subkey in subkeys) {
+          subkey = subkeys[subkey];
+          // append uniquely
+          if (keys.indexOf(subkey) === -1) {
+            keys.push(subkey);
+          }
+        }
+      }
+    }
+
+    console.log(keys);
+    return keys;
+  }
+
+  /**
+   * recurse the Extends tree until the key is found
+   */
+  function getInterfaceMember (intf, key, stack) {
+    var index, sub, retval;
+    stack = stack || [];
+
+    if (!intf) {
+      return undefined;
+    }
+
+    stack = getStack(stack, intf);
+    if (stack === undefined) {
+      return undefined;
+    }
+
+    if (intf.Interface && intf.Interface[key] !== undefined) {
+      return intf.Interface[key];
+    }
+
+    if (intf.Extends) {
+      for (index = intf.Extends.length; index >= 0; index -= 1) {
+        sub = intf.Extends[index];
+        retval = getInterfaceMember(sub, key, stack);
+        if (retval !== undefined) {
+          return retval;
+        }
+      }
+    }
+
+    return undefined;
+  }
+
+  /**
    * Performs an interface match
    * 
    * @param {Interface}
@@ -429,14 +506,7 @@ define([ '../lib/toType' ], function (toType) {
       return;
     }
 
-    // match Extends before the actual interface
-    if (intf.Extends) {
-      for (index in intf.Extends) {
-        compareKeys(intf.Extends[index], obj, opts, err, bistack);
-      }
-    }
-
-    ikeys = Object.keys(intf.Interface).sort();
+    ikeys = getInterfaceKeys(intf).sort();
     okeys = getObjectKeys(obj).sort();
 
     // compare names
@@ -474,7 +544,7 @@ define([ '../lib/toType' ], function (toType) {
     // match the types of each shared key
     for (key in diff.shared) {
       key = diff.shared[key];
-      iType = toType(intf.Interface[key]);
+      iType = toType(getInterfaceMember(intf, key));
       if (obj.prototype !== undefined) {
         // this is a class
         oType = toType(obj.prototype[key]);

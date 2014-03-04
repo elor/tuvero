@@ -227,6 +227,13 @@ define([ '../../lib/interface' ], function (Interface) {
 
     QUnit.notEqual(Interface(intf), '', 'Extends contains invalid Interface');
 
+    intf.Extends = [];
+    intf.Extends[1] = {
+      Interface : {}
+    };
+    intf.Extends[5] = intf;
+
+    QUnit.notEqual(Interface(intf), '', 'Extends isn\'t compact');
   });
 
   QUnit.test("Interface Implementation Matcher", function () {
@@ -281,9 +288,7 @@ define([ '../../lib/interface' ], function (Interface) {
 
     obj = {};
 
-    console.log("JERE");
     QUnit.notEqual(Interface(intf, obj, 'i'), '', "missing function");
-    console.log("HERE");
 
     obj = {
       asd : function () {
@@ -398,5 +403,57 @@ define([ '../../lib/interface' ], function (Interface) {
 
     obj.dsa = undefined;
     QUnit.notEqual(Interface(intf, obj, 'r'), '', "infinite recursion, multiple interfaces, nesting depth test");
+
+    intf = {
+      Interface : {
+        asd : function () {
+        }
+      },
+      Extends : [ {
+        Interface : {
+          dsa : function () {
+          }
+        }
+      } ]
+    };
+
+    obj = {
+      asd : function () {
+      },
+    };
+
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "Extends: missing function");
+
+    obj.dsa = function () {
+    };
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "Extends: valid object");
+    QUnit.equal(Interface(intf, obj, 'rfm'), '', "Extends: valid object, strict matching");
+
+    intf = {
+      Interface : {
+        asd : function () {
+        }
+      },
+      Extends : [ {
+        Interface : {
+          asd : function () {
+          }
+        }
+      } ]
+    };
+
+    obj = {
+      asd : function () {
+      }
+    };
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "Extends: function overload");
+
+    intf.Extends.push(intf);
+    QUnit.equal(Interface(intf, obj, 'r'), '', "Extends: recursion");
+
+    intf.Extends = [];
+    QUnit.equal(Interface(intf, obj, 'r'), '', "Extends: empty interface");
   });
 });
