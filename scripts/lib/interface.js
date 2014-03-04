@@ -421,12 +421,19 @@ define([ '../lib/toType' ], function (toType) {
    *          err (output) array of errors
    */
   function compareKeys (intf, obj, opts, err, bistack) {
-    var ikeys, okeys, diff, key, iType, oType;
+    var ikeys, okeys, diff, key, iType, oType, index;
 
     bistack = getBiStack(bistack, intf, obj);
     if (bistack === undefined) {
       // infinite loop, but still valid unless other errors are found
       return;
+    }
+
+    // match Extends before the actual interface
+    if (intf.Extends) {
+      for (index in intf.Extends) {
+        compareKeys(intf.Extends[index], obj, opts, err, bistack);
+      }
     }
 
     ikeys = Object.keys(intf.Interface).sort();
