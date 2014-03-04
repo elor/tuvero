@@ -15,7 +15,7 @@
  * 
  * TODO: allow global functions
  * 
- * TODO: Extends, Requires
+ * TODO: Requires
  * 
  * TODO: array interface
  */
@@ -226,27 +226,56 @@ define([ '../lib/toType' ], function (toType) {
       err.push([ stack.length, " intf is no object, but of type ", toType(intf) ].join(''));
     } else {
       keys = Object.keys(intf);
+
       // abort if there's no Interface key
       if (keys.indexOf('Interface') === -1) {
         err.push([ stack.length, " intf.Interface: not found" ].join(''));
       } else {
-        // validate the interface object
-        validateInterfaceObject(intf.Interface, err, stack);
-
         for (key in keys) {
           key = keys[key];
-          if (key === 'Interface') {
-            continue;
-          }
+          switch (key) {
+          case 'Interface':
+            // validate the interface object
+            validateInterfaceObject(intf.Interface, err, stack);
+            break;
+          case 'Extends':
+            // validate Extends as array and its elements of it as Interfaces
+            validateInterfaceArray(intf.Extends, err, stack);
+            break;
+          default:
+            // enforce all caps
+            if (validateConstantName(key) === false) {
+              err.push([ stack.length, " constant is not all caps: ", key ].join(''));
+            }
 
-          // enforce all caps
-          if (validateConstantName(key) === false) {
-            err.push([ stack.length, " constant is not all caps: ", key ].join(''));
+            // test for constant
+            validateConstant(intf[key], err, stack);
           }
-
-          // test for constant
-          validateConstant(intf[key], err, stack);
         }
+      }
+    }
+  }
+
+  /**
+   * validate an array of interfaces
+   * 
+   * @param {array}
+   *          array an array of interfaces
+   * @param {array}
+   *          err an array of errors
+   * @param {object}
+   *          stack a stack for infinite loop avoidance
+   */
+  function validateInterfaceArray (array, err, stack) {
+    var intf, type;
+
+    type = toType(array);
+    if (type !== 'array') {
+      err.push([ stack.length, ' array of interfaces is no array, but ', type ]);
+    } else {
+      for (intf in array) {
+        intf = array[intf];
+        validateInterface(intf, err, stack);
       }
     }
   }
