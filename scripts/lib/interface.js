@@ -18,8 +18,6 @@
  * TODO: Extends, Requires
  * 
  * TODO: array interface
- * 
- * TODO: watch call stack to avoid infinite loops
  */
 define([ '../lib/toType' ], function (toType) {
   var Interface;

@@ -339,5 +339,26 @@ define([ '../../lib/interface' ], function (Interface) {
     obj.sub = obj;
     QUnit.equal(Interface(intf, obj, 'r'), '', "infinite recursion, second order (intf)");
 
+    intf = {
+      Interface : {
+        asd : {
+          Interface : {
+            dsa : undefined
+          }
+        }
+      }
+    };
+    intf.Interface.asd.Interface.dsa = intf;
+
+    obj = {
+      asd : undefined,
+      dsa : undefined
+    };
+    obj.asd = obj.dsa = obj;
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "infinite recursion, multiple interface matching");
+
+    obj.dsa = undefined;
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "infinite recursion, multiple interfaces, nesting depth test");
   });
 });
