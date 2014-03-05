@@ -13,7 +13,7 @@
  * 
  * Note to self: console.log is for debugging only
  * 
- * TODO: array interface
+ * TODO: match the array interface
  * 
  * TODO: type checking by class, not toType() string
  */
@@ -269,8 +269,6 @@ define([ '../lib/toType' ], function (toType) {
   /**
    * validate an interface object
    * 
-   * TODO: enforce naming conventions
-   * 
    * @param {Interface}
    *          intf A candidate for an interface
    * @param {Array}
@@ -309,8 +307,9 @@ define([ '../lib/toType' ], function (toType) {
             case 'array':
               validateInterfaceArray(intf.Interface, err, stack);
               break;
-            // TODO simple interfaces?
             default:
+              // other datatypes don't make sense since you can't extend them
+              // and they're basic and don't need validation. Hence: Error.
               err.push([ stack.length, ' invalid type for intf.Interface: ',
                   type ].join(''));
             }
@@ -360,10 +359,14 @@ define([ '../lib/toType' ], function (toType) {
       for (intf in array) {
         intf = array[intf];
         validateInterface(intf, err, stack);
+        if (intf && toType(intf.Interface) !== 'object') {
+          err.push([ stack.length,
+              ' Extend and Require can only contain objects, no arrays' ]);
+        }
         count += 1;
       }
       if (array.length !== count) {
-        err.push([ stack.length, 'array if interfaces is not compact' ].join(''));
+        err.push([ stack.length, ' array of interfaces is not compact' ].join(''));
       }
     }
   }
@@ -600,8 +603,10 @@ define([ '../lib/toType' ], function (toType) {
 
     // if interface keys are missing, abort
     if (diff.i.length !== 0) {
-      err.push([ "match: missing keys in implementation or class: ",
-          diff.i.join(', ') ].join(''));
+      for (key in diff.i) {
+        key = diff.i[key];
+        err.push([ bistack.i.length, " missing key: ", key ].join(''));
+      }
     }
 
     // if there are additional members in the implementation, compare
@@ -611,10 +616,10 @@ define([ '../lib/toType' ], function (toType) {
       for (key in diff.o) {
         key = diff.o[key];
         if (opts.noMoreMembers && toType(obj[key]) !== 'function') {
-          err.push([ "unallowed extra member: ", key ].join(''));
+          err.push([ bistack.i.length, "extra member: ", key ].join(''));
         }
         if (opts.noMoreFuncs && toType(obj[key]) === 'function') {
-          err.push([ "unallowed extra function: ", key ].join(''));
+          err.push([ bistack.i.length, "extra function: ", key ].join(''));
         }
       }
     }
@@ -637,7 +642,8 @@ define([ '../lib/toType' ], function (toType) {
           compareKeys(intf.Interface[key], obj[key], opts, err, bistack);
         }
       } else {
-        err.push([ "type mismatch of ", key, ": ", oType, " != ", iType ].join(''));
+        err.push([ bistack.i.length, "type mismatch of ", key, ": ", oType,
+            " != ", iType ].join(''));
       }
     }
   }
@@ -705,7 +711,7 @@ define([ '../lib/toType' ], function (toType) {
       if (!intf) {
         err.push("missing interface to match against");
         critical = true;
-      } else if (toType(intf) !== 'object') {
+      } else if (toType(intf) !== 'object' && toType(intf) !== 'array') {
         err.push([ "Interface.match(): invalid type of intf: ", toType(intf) ].join(''));
         critical = true;
       } else if (options.testIntf) {
