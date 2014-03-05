@@ -145,6 +145,7 @@ define([ '../lib/toType' ], function (toType) {
     for (sub in array) {
       sub = array[sub];
       count += 1;
+      validateInterfaceType(sub, err, stack);
     }
 
     if (count !== array.length) {
@@ -224,7 +225,7 @@ define([ '../lib/toType' ], function (toType) {
    *          stack a stack for infinite recursion avoidance
    */
   function validateConstant (obj, err, stack) {
-    var keys, key;
+    var keys, key, elem;
 
     stack = getStack(stack, obj);
     if (!stack) {
@@ -353,7 +354,7 @@ define([ '../lib/toType' ], function (toType) {
 
     type = toType(array);
     if (type !== 'array') {
-      err.push([ stack.length, ' array of interfaces is no array, but ', type ]);
+      err.push([ stack.length, ' array of interfaces is no array, but ', type ].join(''));
     } else {
       count = 0;
       for (intf in array) {
@@ -361,7 +362,7 @@ define([ '../lib/toType' ], function (toType) {
         validateInterface(intf, err, stack);
         if (intf && toType(intf.Interface) !== 'object') {
           err.push([ stack.length,
-              ' Extend and Require can only contain objects, no arrays' ]);
+              ' Extend and Require can only contain objects, no arrays' ].join(''));
         }
         count += 1;
       }
@@ -403,7 +404,6 @@ define([ '../lib/toType' ], function (toType) {
     var out, value;
 
     out = [];
-    value = undefined;
 
     for (value in array) {
       value = array[value];
@@ -550,6 +550,8 @@ define([ '../lib/toType' ], function (toType) {
       return undefined;
     }
 
+    // The following line prevents "undefined" as an Interface key or within an
+    // Interface array. hasOwnProperty() doesn't help because of the prototype
     if (intf.Interface && intf.Interface[key] !== undefined) {
       return intf.Interface[key];
     }
@@ -591,6 +593,15 @@ define([ '../lib/toType' ], function (toType) {
       return;
     }
 
+    switch (otype) {
+    case 'function':
+    case 'object':
+      break;
+    default:
+      err.push([ bistack.i.length, " invalid type of obj: ", type ].join(''));
+      return;
+    }
+
     ikeys = getInterfaceKeys(intf).sort();
     okeys = getObjectKeys(obj).sort();
 
@@ -616,10 +627,10 @@ define([ '../lib/toType' ], function (toType) {
       for (key in diff.o) {
         key = diff.o[key];
         if (opts.noMoreMembers && toType(obj[key]) !== 'function') {
-          err.push([ bistack.i.length, "extra member: ", key ].join(''));
+          err.push([ bistack.i.length, " extra member: ", key ].join(''));
         }
         if (opts.noMoreFuncs && toType(obj[key]) === 'function') {
-          err.push([ bistack.i.length, "extra function: ", key ].join(''));
+          err.push([ bistack.i.length, " extra function: ", key ].join(''));
         }
       }
     }
@@ -636,14 +647,110 @@ define([ '../lib/toType' ], function (toType) {
         oType = toType(obj[key]);
       }
 
-      if (iType === oType) {
+      switch (true) {
+      case iType === oType:
+      case iType === 'object' && (oType === 'function' || oType === 'array'):
         // match sub-interface
         if (opts.recurse && iType === 'object') {
-          compareKeys(intf.Interface[key], obj[key], opts, err, bistack);
+          if (toType(intf.Interface[key].Interface) === 'array') {
+            matchArrays(intf.Interface[key].Interface, obj[key], opts, err, bistack);
+          } else {
+            compareKeys(intf.Interface[key], obj[key], opts, err, bistack);
+          }
+        } else if (opts.recurse && iType === 'array') {
+          matchArrays(intf.Interface[key], obj[key], opts, err, bistack);
         }
-      } else {
-        err.push([ bistack.i.length, "type mismatch of ", key, ": ", oType,
+        // other types are only required to match
+        break;
+      default:
+        err.push([ bistack.i.length, " type mismatch of ", key, ": ", oType,
             " != ", iType ].join(''));
+      }
+    }
+  }
+
+  /**
+   * For each element of obj, find an type/interface match within array and
+   * output error if not
+   * 
+   * @param {array}
+   *          array an Interface array
+   * @param {array}
+   *          obj an array of arbitrary objects
+   * @param {object}
+   *          opts an object with options. See matchInterface() source code for
+   *          a full list
+   * @param {array}
+   *          err an array of errors
+   * @param {object}
+   *          bistack a stack for infinite recursion detection
+   */
+  function matchArrays (array, obj, opts, err, bistack) {
+    var itype, otype, intf, index, elem, critical, suberr;
+
+    critital = false;
+
+    bistack = getBiStack(bistack, array, obj);
+    if (bistack === undefined) {
+      // recursion limit reached, but still a valid match
+      return;
+    }
+
+    itype = toType(array);
+    otype = toType(obj);
+
+    if (itype !== 'array') {
+      err.push([ bistack.i.length, ' intf.Interface array is no array, but a ',
+          itype ].join(''));
+      critical = true;
+    }
+    if (otype !== 'array') {
+      err.push([ bistack.i.length,
+          ' array matching: object is no array, but a ', otype ].join(''));
+      critical = true;
+    }
+
+    if (!critical) {
+      for (index in obj) {
+        elem = obj[index];
+        otype = toType(elem);
+        found = false;
+
+        for (intf in array) {
+          intf = array[intf];
+          itype = toType(intf);
+
+          suberr = [];
+
+          switch (itype) {
+          case 'object':
+            // must be an interface, hence: full interface match
+
+            compareKeys(intf, elem, options, suberr, bistack);
+            found = (suberr.length === 0);
+
+            break;
+          case 'array':
+            // nested arrays. great.
+            matchArrays(intf, elem, opts, suberr, bistack);
+            found = (suberr.length === 0);
+            break;
+          default:
+            // a simple match should suffice
+            found = (itype === otype);
+            break;
+          }
+
+          if (found) {
+            break;
+          }
+        }
+
+        if (!found) {
+          err.push([ bistack.i.length,
+              " Interface array doesn't contain match for element at index ",
+              index, ': ', elem ].join(''));
+        }
       }
     }
   }
@@ -671,7 +778,7 @@ define([ '../lib/toType' ], function (toType) {
    *          err (output) an array of errors
    */
   function matchInterface (intf, obj, opts, err) {
-    var options, opt, critical, bistack;
+    var options, opt, critical, bistack, type;
 
     critical = false;
 
@@ -708,10 +815,11 @@ define([ '../lib/toType' ], function (toType) {
     }
 
     if (!critical) {
+      type = intf && toType(intf.Interface);
       if (!intf) {
         err.push("missing interface to match against");
         critical = true;
-      } else if (toType(intf) !== 'object' && toType(intf) !== 'array') {
+      } else if (type !== 'object' && type !== 'array') {
         err.push([ "Interface.match(): invalid type of intf: ", toType(intf) ].join(''));
         critical = true;
       } else if (options.testIntf) {
@@ -720,10 +828,11 @@ define([ '../lib/toType' ], function (toType) {
         critical = err.length !== critical;
       }
 
+      otype = toType(obj);
       if (!obj && obj !== {}) {
         err.push("missing object for matching");
         critical = true;
-      } else if (toType(obj) !== 'object' && toType(obj) !== 'function') {
+      } else if (otype !== 'object' && otype !== 'function' && otype !== 'array') {
         err.push([ 'object has invalid type: ', toType(obj) ].join(''));
         critical = true;
       }
@@ -732,7 +841,11 @@ define([ '../lib/toType' ], function (toType) {
 
     if (!critical) {
       bistack = createBiStack();
-      compareKeys(intf, obj, options, err, bistack);
+      if (type === 'object') {
+        compareKeys(intf, obj, options, err, bistack);
+      } else if (type === 'array') {
+        matchArrays(intf.Interface, obj, opts, err, bistack);
+      }
     }
   }
 
@@ -743,10 +856,9 @@ define([ '../lib/toType' ], function (toType) {
    * @returns {string} a newline-separated string of errors
    */
   function match (intf, obj, opts) {
-    var err, stack;
+    var err;
 
     err = [];
-    stack = [];
 
     matchInterface(intf, obj, opts, err);
 

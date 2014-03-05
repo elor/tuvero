@@ -33,6 +33,18 @@ define([ '../../lib/interface' ], function (Interface) {
     QUnit.notEqual(Interface(intf), '', "empty array interface");
 
     intf = {
+      Interface : [ undefined ]
+    };
+
+    QUnit.notEqual(Interface(intf), '', "array interface with undefined");
+
+    intf = {
+      Interface : [ {} ]
+    };
+
+    QUnit.notEqual(Interface(intf), '', "array interface with empty object");
+
+    intf = {
       Interface : [ 5 ]
     };
 
@@ -124,6 +136,14 @@ define([ '../../lib/interface' ], function (Interface) {
 
     intf = {
       Interface : {
+        asd : new Date()
+      }
+    };
+
+    QUnit.equal(Interface(intf), '', "Interface with date");
+
+    intf = {
+      Interface : {
         asd : true
       }
     };
@@ -156,10 +176,62 @@ define([ '../../lib/interface' ], function (Interface) {
 
     intf = {
       Interface : {},
-      ASD : 0
+      ASD : 0,
+      ASE : "0",
+      ASF : new Date(0),
+      ASG : /0/,
+      ASH : undefined,
+      ASJ : false
     };
 
-    QUnit.equal(Interface(intf), '', "number constant");
+    QUnit.equal(Interface(intf), '', "valid atomic constants");
+
+    intf = {
+      Interface : {},
+      CONSTANT : {
+        ASD : 0,
+        ASE : "0",
+        ASF : new Date(0),
+        ASG : /0/,
+        ASH : undefined,
+        ASJ : false
+      }
+    };
+
+    QUnit.equal(Interface(intf), '', "valid constants within an object");
+
+    intf = {
+      Interface : {},
+      CONSTANT : {
+        ASD : function () {
+        },
+      }
+    };
+
+    QUnit.notEqual(Interface(intf), '', "invalid constants within an object");
+
+    intf = {
+      Interface : {},
+      CONSTANT : {
+        asd : 5,
+      }
+    };
+
+    QUnit.notEqual(Interface(intf), '', "invalid constant name within an object");
+
+    intf = {
+      Interface : {},
+      ASD : []
+    };
+
+    QUnit.equal(Interface(intf), '', "empty constant array");
+
+    intf = {
+      Interface : {},
+      ASD : [ 0, "0", new Date(0), /0/, undefined, false ]
+    };
+
+    QUnit.equal(Interface(intf), '', "array of atomic constants");
 
     intf = {
       Interface : {},
@@ -540,5 +612,73 @@ define([ '../../lib/interface' ], function (Interface) {
 
     intf.Extends = [];
     QUnit.equal(Interface(intf, obj, 'r'), '', "Extends: empty interface");
+
+    intf = {
+      Interface : [ 4 ]
+    };
+    obj = {};
+    obj[0] = 5;
+
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "array interface with an object object");
+
+    obj = [ 6 ];
+    QUnit.equal(Interface(intf, obj, 'r'), '', "array interface with an array object");
+
+    intf = {
+      Interface : [ 4, "5" ]
+    };
+    obj = [ "6", 7 ];
+    QUnit.equal(Interface(intf, obj, 'r'), '', "array: multiple datatypes");
+
+    obj = [ /0/ ];
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "array: mismatching element type");
+
+    intf = {
+      Interface : [ [ 5, /5/ ] ]
+    };
+    obj = [ [ 1, /2/ ], [ 1 ], [ /3/ ], [] ];
+    QUnit.equal(Interface(intf, obj, 'r'), '', "array match: nested arrays");
+
+    intf = {
+      Interface : [ [ 5 ], [ /5/ ] ]
+    };
+    obj = [ [ 1, /2/ ], [ 1 ], [ /3/ ], [] ];
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "array match: separation of nested arrays");
+
+    intf = {
+      Interface : {
+        subarr : [ 5, /5/ ]
+      }
+    };
+    obj = {
+      subarr : [ 6, /sechs/ ]
+    };
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "interface object subarray shorthand");
+
+    obj = {
+      subarr : [ false ]
+    };
+
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "interface object subarray shorthand: wrong element type");
+
+    intf = {
+      Interface : {
+        subarr : {
+          Interface : [ 5, /5/ ]
+        }
+      }
+    };
+    obj = {
+      subarr : [ 6, /sechs/ ]
+    };
+
+    QUnit.equal(Interface(intf, obj, 'r'), '', "interface object subarray shorthand");
+
+    obj = {
+      subarr : [ false ]
+    };
+
+    QUnit.notEqual(Interface(intf, obj, 'r'), '', "interface object subarray shorthand: wrong element type");
   });
 });
