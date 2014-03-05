@@ -175,6 +175,7 @@ define([ '../lib/toType' ], function (toType) {
     case 'function':
     case 'number':
     case 'string':
+    case 'date':
     case 'regexp':
     case 'boolean':
       // all of the above are valid
@@ -186,6 +187,7 @@ define([ '../lib/toType' ], function (toType) {
     default:
       err.push([ stack.length, " invalid type for interface object: ",
           toType(obj) ].join(''));
+      break;
     }
   }
 
@@ -254,9 +256,10 @@ define([ '../lib/toType' ], function (toType) {
       break;
     case 'number':
     case 'string':
-    case 'undefined':
-    case 'boolean':
+    case 'date':
     case 'regexp':
+    case 'boolean':
+    case 'undefined':
       break;
     default:
       err.push([ stack.length, " invalid type for a constant: ", toType(obj) ].join(''));
