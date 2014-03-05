@@ -11,9 +11,11 @@
  * function with assigned members. Matching of constructor functions can be
  * performed as long as all functions are members of its prototype.
  * 
- * Note to self: console.log is for debugging, console.warn is considered output
+ * Note to self: console.log is for debugging only
  * 
  * TODO: array interface
+ * 
+ * TODO: type checking by class, not toType() string
  */
 define([ '../lib/toType' ], function (toType) {
   var Interface;
@@ -30,16 +32,14 @@ define([ '../lib/toType' ], function (toType) {
    *          present
    */
   function getStack (stack, obj) {
-    var newstack;
-
     if (stack.indexOf(obj) !== -1) {
       return undefined;
     }
 
-    newstack = stack.slice();
-    newstack.push(obj);
+    stack = stack.slice();
+    stack.push(obj);
 
-    return newstack;
+    return stack;
   }
 
   /**
@@ -67,7 +67,7 @@ define([ '../lib/toType' ], function (toType) {
    *          updated bistack otherwise
    */
   function getBiStack (bistack, intf, obj) {
-    var newbistack, index;
+    var index;
 
     // loop instead of if, because multiple instances of intf and obj are
     // possible. Since hierarchies should be
@@ -77,15 +77,15 @@ define([ '../lib/toType' ], function (toType) {
       }
     }
 
-    newbistack = {
+    bistack = {
       i : bistack.i.slice(),
       o : bistack.o.slice()
     };
 
-    newbistack.i.push(intf);
-    newbistack.o.push(obj);
+    bistack.i.push(intf);
+    bistack.o.push(obj);
 
-    return newbistack;
+    return bistack;
   }
 
   /**
@@ -111,18 +111,81 @@ define([ '../lib/toType' ], function (toType) {
     for (key in keys) {
       key = keys[key];
       val = obj[key];
-      switch (toType(val)) {
-      case 'object':
-        // must be an interface
-        validateInterface(val, err, stack);
-        break;
-      case 'function':
-        // any function is fine at the moment
-        break;
-      default:
-        err.push([ stack.length, " invalid type for key ", key, ': ',
-            toType(val) ].join(''));
-      }
+      validateInterfaceType(val, err, stack);
+    }
+  }
+
+  /**
+   * validate an intf.Interface array
+   * 
+   * @param {array}
+   *          array the Interface array
+   * @param {array}
+   *          err an array of errors
+   * @param {array}
+   *          stack a stack for infinite recursion avoidance
+   */
+  function validateInterfaceArray (array, err, stack) {
+    var sub, count;
+
+    stack = getStack(stack, array);
+    if (!stack) {
+      // infinite nesting is not an error, as long as the rest of the Interface
+      // is valid
+      return;
+    }
+
+    if (array.constructor !== Array) {
+      err.push([ stack.length, ' array.Interface = [] is not an array: ',
+          toType(array) ].join(''));
+      return;
+    }
+
+    count = 0;
+    for (sub in array) {
+      sub = array[sub];
+      count += 1;
+    }
+
+    if (count !== array.length) {
+      err.push([ stack.length, ' intf.Interface array is not compact' ].join(''));
+    }
+    if (count === 0) {
+      err.push([ stack.length, ' intf.Interface array cannot be empty' ].join(''));
+    }
+  }
+
+  /**
+   * validate the type of an object inside an Interface
+   * 
+   * @param {any}
+   *          obj the object to verify
+   * @param {array}
+   *          err an array of errors
+   * @param {array}
+   *          stack a stack for infinite recursion avoidance
+   * 
+   */
+  function validateInterfaceType (obj, err, stack) {
+    switch (toType(obj)) {
+    case 'object':
+      // must be an interface
+      validateInterface(obj, err, stack);
+      break;
+    case 'function':
+    case 'number':
+    case 'string':
+    case 'regexp':
+    case 'boolean':
+      // all of the above are valid
+      break;
+    case 'array':
+      // take a shortcut
+      validateInterfaceArray(obj, err, stack);
+      break;
+    default:
+      err.push([ stack.length, " invalid type for interface object: ",
+          toType(obj) ].join(''));
     }
   }
 
@@ -153,6 +216,10 @@ define([ '../lib/toType' ], function (toType) {
    * 
    * @param {Object}
    *          obj the object to test
+   * @param {array}
+   *          err an array of errors
+   * @param {array}
+   *          stack a stack for infinite recursion avoidance
    */
   function validateConstant (obj, err, stack) {
     var keys, key;
@@ -199,8 +266,6 @@ define([ '../lib/toType' ], function (toType) {
   /**
    * validate an interface object
    * 
-   * TODO: catch interface nesting loops
-   * 
    * TODO: enforce naming conventions
    * 
    * @param {Interface}
@@ -209,7 +274,7 @@ define([ '../lib/toType' ], function (toType) {
    *          err (output) array of errors
    */
   function validateInterface (intf, err, stack) {
-    var keys, key;
+    var keys, key, type;
 
     stack = getStack(stack, intf);
     if (!stack) {
@@ -218,8 +283,9 @@ define([ '../lib/toType' ], function (toType) {
       return;
     }
 
-    if (toType(intf) !== 'object') {
-      err.push([ stack.length, " intf is no object, but of type ", toType(intf) ].join(''));
+    type = toType(intf);
+    if (type !== 'object') {
+      err.push([ stack.length, " intf is no object, but of type ", type ].join(''));
     } else {
       keys = Object.keys(intf);
 
@@ -232,12 +298,24 @@ define([ '../lib/toType' ], function (toType) {
           switch (key) {
           case 'Interface':
             // validate the interface object
-            validateInterfaceObject(intf.Interface, err, stack);
+            type = toType(intf.Interface);
+            switch (type) {
+            case 'object':
+              validateInterfaceObject(intf.Interface, err, stack);
+              break;
+            case 'array':
+              validateInterfaceArray(intf.Interface, err, stack);
+              break;
+            // TODO simple interfaces?
+            default:
+              err.push([ stack.length, ' invalid type for intf.Interface: ',
+                  type ].join(''));
+            }
             break;
           case 'Extends':
           case 'Requires':
             // validate Extends as array and its elements of it as Interfaces
-            validateInterfaceArray(intf[key], err, stack);
+            validateArrayOfInterfaces(intf[key], err, stack);
             break;
           default:
             if (validateConstantName(key) === true) {
@@ -268,7 +346,7 @@ define([ '../lib/toType' ], function (toType) {
    * @param {object}
    *          stack a stack for infinite loop avoidance
    */
-  function validateInterfaceArray (array, err, stack) {
+  function validateArrayOfInterfaces (array, err, stack) {
     var intf, type, count;
 
     type = toType(array);
@@ -517,7 +595,7 @@ define([ '../lib/toType' ], function (toType) {
     diff.i = diff.a;
     diff.o = diff.b;
 
-    // if interface keys are missing, abort with console.warn
+    // if interface keys are missing, abort
     if (diff.i.length !== 0) {
       err.push([ "match: missing keys in implementation or class: ",
           diff.i.join(', ') ].join(''));

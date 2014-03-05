@@ -30,9 +30,22 @@ define([ '../../lib/interface' ], function (Interface) {
       Interface : []
     };
 
-    // TODO: implement array interfaces
-    //
-    // QUnit.notEqual(Interface(intf), '', "subminimal array interface");
+    QUnit.notEqual(Interface(intf), '', "empty array interface");
+
+    intf = {
+      Interface : [ 5 ]
+    };
+
+    QUnit.equal(Interface(intf), '', "minimal array interface");
+
+    intf = {
+      Interface : [ 5 ],
+      Extends : [ {
+        Interface : {}
+      } ]
+    };
+
+    QUnit.equal(Interface(intf), '', "array interface with Extends");
 
     intf = {
       Interface : {
@@ -83,7 +96,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.notEqual(Interface(intf), '', "Interface with number");
+    QUnit.equal(Interface(intf), '', "Interface with number");
 
     intf = {
       Interface : {
@@ -99,7 +112,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.notEqual(Interface(intf), '', "Interface with string");
+    QUnit.equal(Interface(intf), '', "Interface with string");
 
     intf = {
       Interface : {
@@ -107,7 +120,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.notEqual(Interface(intf), '', "Interface with regexp");
+    QUnit.equal(Interface(intf), '', "Interface with regexp");
 
     intf = {
       Interface : {
@@ -115,7 +128,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.notEqual(Interface(intf), '', "Interface with bool");
+    QUnit.equal(Interface(intf), '', "Interface with bool");
 
     intf = {
       Interface : {
@@ -123,7 +136,7 @@ define([ '../../lib/interface' ], function (Interface) {
       }
     };
 
-    QUnit.notEqual(Interface(intf), '', "Interface with array");
+    QUnit.equal(Interface(intf), '', "Interface with array");
 
     intf = {
       Interface : {
@@ -235,8 +248,6 @@ define([ '../../lib/interface' ], function (Interface) {
       Extends : []
     };
 
-    console.log(Interface(intf));
-
     QUnit.equal(Interface(intf), '', 'Extends is empty');
 
     intf = {
@@ -279,8 +290,6 @@ define([ '../../lib/interface' ], function (Interface) {
       Interface : {},
       Requires : []
     };
-
-    console.log(Interface(intf));
 
     QUnit.equal(Interface(intf), '', 'Requires is empty');
 
