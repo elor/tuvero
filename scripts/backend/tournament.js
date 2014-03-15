@@ -3,7 +3,7 @@
  * assumes unique player ids for every tournament, so the use of global ids is
  * encouraged.
  */
-define([ './map', './ranking', './game' ], function (Map, Ranking, Game) {
+define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, Game, Blobber) {
   return {
     Interface : {
       /**
@@ -105,6 +105,8 @@ define([ './map', './ranking', './game' ], function (Map, Ranking, Game) {
         return true;
       }
     },
+
+    Extends : [ Blobber ],
 
     /**
      * Possible states of a tournament.

@@ -1,13 +1,10 @@
 define([ './toast', './strings', './team', './history', './tab_ranking',
-    './blob', './base64', './storage' ], function (Toast, Strings, Team,
-    History, Tab_Ranking, Blob, Base64, Storage) {
-  var Tab_Storage;
+    './blob', './base64', './storage' ], function (Toast, Strings, Team, History, Tab_Ranking, Blob, Base64, Storage) {
+  var Tab_Storage, $csvanchor, $csvarea, $saveanchor, $savearea, $loadarea, $loadfile;
 
   Tab_Storage = {};
 
   $(function ($) {
-    var csvupdate, $csvanchor, $csvarea;
-
     $csvanchor = $('#storage .csv a');
     $csvarea = $('#storage .csv textarea');
 
@@ -15,66 +12,66 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
       $csvarea.select();
     });
 
-    csvupdate = function () {
-      var $buttons, csv;
+    invalidateCSV();
+  });
 
-      $buttons = $('#storage .csv button');
+  function invalidateCSV () {
+    $('#storage .csv .selected').removeClass('selected');
 
-      csv = [];
+    $csvanchor.attr('href', '#');
+    $csvanchor.hide();
 
-      if ($($buttons[0]).hasClass('selected')) {
-        csv.push(Team.toCSV());
-      }
-      if ($($buttons[1]).hasClass('selected')) {
-        csv.push(Tab_Ranking.toCSV());
-      }
-      if ($($buttons[2]).hasClass('selected')) {
-        csv.push(History.toCSV());
-      }
+    $csvarea.val('');
+    $csvarea.hide();
+  }
 
-      if (csv.length === 0) {
-        Tab_Storage.invalidateCSV();
-        return;
-      }
+  function csvupdate () {
+    var $buttons, csv;
 
-      csv = csv.join('\r\n""\r\n');
+    $buttons = $('#storage .csv button');
 
-      // update link
-      $csvanchor.attr('href', 'data:application/csv;base64,' + btoa(csv));
-      $csvanchor.show();
+    csv = [];
 
-      // update area
-      $csvarea.val(csv);
-      $csvarea.show();
-    };
+    if ($($buttons[0]).hasClass('selected')) {
+      csv.push(Team.toCSV());
+    }
+    if ($($buttons[1]).hasClass('selected')) {
+      csv.push(Tab_Ranking.toCSV());
+    }
+    if ($($buttons[2]).hasClass('selected')) {
+      csv.push(History.toCSV());
+    }
 
-    $('#storage .csv button').click(function (e) {
-      var $button = $(e.target);
+    if (csv.length === 0) {
+      invalidateCSV();
+      return;
+    }
 
-      if ($button.prop('tagName') === 'IMG') {
-        $button = $button.parent();
-      }
+    csv = csv.join('\r\n""\r\n');
 
-      $button.toggleClass('selected');
+    // update link
+    $csvanchor.attr('href', 'data:application/csv;base64,' + btoa(csv));
+    $csvanchor.show();
 
-      csvupdate();
-    });
+    // update area
+    $csvarea.val(csv);
+    $csvarea.show();
+  }
 
-    Tab_Storage.invalidateCSV = function () {
-      $('#storage .csv .selected').removeClass('selected');
+  $('#storage .csv button').click(function (e) {
+    var $button = $(e.target);
 
-      $csvanchor.attr('href', '#');
-      $csvanchor.hide();
+    if ($button.prop('tagName') === 'IMG') {
+      $button = $button.parent();
+    }
 
-      $csvarea.val('');
-      $csvarea.hide();
-    };
+    $button.toggleClass('selected');
 
-    Tab_Storage.invalidateCSV();
+    csvupdate();
   });
 
   $(function ($) {
-    var saveupdate, $saveanchor, $savearea, $savebutton;
+    var saveupdate, $savebutton;
 
     $saveanchor = $('#storage .save a');
     $savearea = $('#storage .save textarea');
@@ -85,7 +82,7 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
     });
 
     saveupdate = function () {
-      var save;
+      var save, $buttons;
 
       $buttons = $('#storage .save button');
 
@@ -105,23 +102,23 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
       if ($savebutton.hasClass('selected')) {
         saveupdate();
       } else {
-        Tab_Storage.invalidateSave();
+        invalidateSave();
       }
     });
 
-    Tab_Storage.invalidateSave = function () {
-      $saveanchor.attr('href', '#');
-      $saveanchor.hide();
-
-      $savearea.val('');
-      $savearea.hide();
-    };
-
-    Tab_Storage.invalidateSave();
+    invalidateSave();
   });
 
+  function invalidateSave () {
+    $saveanchor.attr('href', '#');
+    $saveanchor.hide();
+
+    $savearea.val('');
+    $savearea.hide();
+  }
+
   $(function ($) {
-    var loadupdate, $loadarea, $loadbutton, $loadfile;
+    var loadupdate, $loadbutton;
 
     $loadarea = $('#storage .load textarea');
     $loadbutton = $('#storage .load button');
@@ -132,7 +129,7 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
     });
 
     loadupdate = function () {
-      var load;
+      var load, $buttons;
 
       $buttons = $('#storage .load button');
 
@@ -154,7 +151,7 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
         }, 2000);
       }
 
-      Tab_Storage.invalidateLoad();
+      invalidateLoad();
     };
 
     $loadbutton.click(function () {
@@ -218,15 +215,14 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
       reader.readAsBinaryString(evt.target.files[0]);
     });
 
-    Tab_Storage.invalidateLoad = function () {
-      $loadarea.val('');
-      $loadarea.hide();
-      $loadfile.val('');
-    };
-
-    Tab_Storage.invalidateLoad();
-
+    invalidateLoad();
   });
+
+  function invalidateLoad () {
+    $loadarea.val('');
+    $loadarea.hide();
+    $loadfile.val('');
+  }
 
   $(function ($) {
     var $box, $save, $clear, $clearbox;
@@ -290,9 +286,9 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
     });
 
     Tab_Storage.invalidate = function () {
-      Tab_Storage.invalidateCSV();
-      Tab_Storage.invalidateSave();
-      Tab_Storage.invalidateLoad();
+      invalidateCSV();
+      invalidateSave();
+      invalidateLoad();
     };
   });
 
