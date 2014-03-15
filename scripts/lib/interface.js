@@ -286,9 +286,7 @@ define([ '../lib/toType' ], function (toType) {
     }
 
     type = toType(intf);
-    if (type !== 'object') {
-      err.push([ stack.length, " intf is no object, but of type ", type ].join(''));
-    } else {
+    if (type === 'object') {
       keys = Object.keys(intf);
 
       // abort if there's no Interface key
@@ -336,6 +334,8 @@ define([ '../lib/toType' ], function (toType) {
           }
         }
       }
+    } else {
+      err.push([ stack.length, " intf is no object, but of type ", type ].join(''));
     }
   }
 
