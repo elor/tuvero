@@ -5,16 +5,7 @@ define([ '../../lib/interface' ], function (Interface) {
   QUnit.test("Interface Implementation Validator", function () {
     var intf;
 
-    intf = {
-      Interface : {
-        validate : function () {
-        },
-        match : function () {
-        }
-      }
-    };
-
-    QUnit.equal(Interface(intf, Interface, 'fm'), '', 'self-matching');
+    QUnit.equal(Interface(Interface.selfInterface, Interface, 'ifm'), '', 'self-matching');
 
     intf = {};
 
@@ -31,6 +22,10 @@ define([ '../../lib/interface' ], function (Interface) {
     };
 
     QUnit.notEqual(Interface(intf), '', "empty array interface");
+
+    intf = [];
+
+    QUnit.notEqual(Interface(intf), '', "array as interface (wrong type)");
 
     intf = {
       Interface : [ undefined ]
@@ -391,6 +386,18 @@ define([ '../../lib/interface' ], function (Interface) {
     intf.Requires[5] = intf;
 
     QUnit.notEqual(Interface(intf), '', 'Requires isn\'t compact');
+
+    intf = {
+      Interface : {
+        asd : 0,
+        dsa : function () {
+        }
+      },
+      Extends : [],
+      Requires : []
+    };
+
+    QUnit.equal(Interface(Interface.combine(intf, intf, intf)), '', 'Interface.combine returned interface validation');
   });
 
   QUnit.test("Interface Implementation Matcher", function () {

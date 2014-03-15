@@ -13,8 +13,6 @@
  * 
  * Note to self: console.log is for debugging only
  * 
- * TODO: match the array interface
- * 
  * TODO: type checking by class, not toType() string
  */
 define([ '../lib/toType' ], function (toType) {
@@ -866,6 +864,28 @@ define([ '../lib/toType' ], function (toType) {
   }
 
   /**
+   * combine all arguments into a single interface
+   * 
+   * @param {Interface}
+   *          arguments one or more interfaces
+   * @returns a combined interface
+   */
+  function combine () {
+    var ext, intf;
+
+    ext = [];
+
+    for (intf in arguments) {
+      ext.push(arguments[intf]);
+    }
+
+    return {
+      Interface : {},
+      Extends : ext
+    };
+  }
+
+  /**
    * calls its internal functions validate() or match():
    * 
    * 1 argument ->validate()
@@ -928,6 +948,32 @@ define([ '../lib/toType' ], function (toType) {
    *          match.
    */
   Interface.match = match;
+
+  /**
+   * combine all arguments into a single interface object.
+   * 
+   * @param {Interface}
+   *          one or more interfaces
+   * @returns {Interface} a combined interface
+   */
+  Interface.combine = combine;
+
+  Interface.selfInterface = {
+    Interface : {
+      validate : function () {
+      },
+      match : function () {
+      },
+      combine : function () {
+      },
+      selfInterface : {
+        Interface : {}
+      }
+    }
+  };
+
+  // Interface.selfInterface.Interface.selfInterface.Interface.Interface =
+  // Interface.selfInterface;
 
   return Interface;
 });
