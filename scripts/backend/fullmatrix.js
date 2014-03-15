@@ -15,6 +15,11 @@ define(function () {
   };
 
   /**
+   * for interface validation. Is superseded by constructor
+   */
+  FullMatrix.prototype.size = 0;
+
+  /**
    * Restores a blank state of the FullMatrix
    * 
    * @returns {FullMatrix} this
