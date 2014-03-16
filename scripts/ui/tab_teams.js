@@ -11,15 +11,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
   $(function ($) {
     var newteamfunc, $box, $teams, maxwidthtest, $chname;
 
-    /**
-     * removes all teams from the overview
-     */
-    function clearBoxes () {
-      $('#teams > .team').remove(); // '>' relation excludes the entry
-      // form
-      $tms = [];
-    }
-
     // get page
     $anchor = $('#newteam');
 
@@ -66,11 +57,20 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
     }
 
     /**
+     * removes all teams from the overview
+     */
+    Tab_Teams.reset = function () {
+      $('#teams > .team').remove(); // '>' relation excludes the entry
+      // form
+      $tms = [];
+    };
+
+    /**
      * replaces the current team boxes with new ones creates from Team
      */
-    Tab_Teams.updateBoxes = function () {
+    Tab_Teams.update = function () {
       var i, l;
-      clearBoxes();
+      Tab_Teams.reset();
 
       l = Team.count();
 

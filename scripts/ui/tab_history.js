@@ -1,6 +1,5 @@
 define([ './toast', './strings', './history', './swiss', './tab_ranking',
-    '../backend/game', './storage' ], function (Toast, Strings, History, Swiss,
-    Tab_Ranking, Game, Storage) {
+    '../backend/game', './storage' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage) {
   var Tab_History, currentround, $form, abort;
 
   $form = undefined;
@@ -123,7 +122,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     /**
      * removes and redraws all boxes from History
      */
-    Tab_History.updateBoxes = function () {
+    Tab_History.update = function () {
       var round, maxround, id, numgames, bye;
 
       Tab_History.reset();
@@ -160,8 +159,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     $save = $form.find('button');
 
     verify = function (p1, p2) {
-      return isInt(p1) && isInt(p2) && !isNaN(p1) && !isNaN(p2) && p1 !== p2
-          && p1 >= 0 && p2 >= 0;
+      return isInt(p1) && isInt(p2) && !isNaN(p1) && !isNaN(p2) && p1 !== p2 && p1 >= 0 && p2 >= 0;
     };
 
     show = function ($game) {
@@ -212,7 +210,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       if (!verify(op1, op2) || !verify(np1, np2)) {
         new Toast(Strings.invalidresult);
         abort();
-        Tab_History.updateBoxes();
+        Tab_History.update();
         return undefined;
       }
 
@@ -230,7 +228,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       if (!isInt(t1) || !isInt(t2) || isNaN(t1) || isNaN(t2)) {
         new Toast(Strings.invalidresult);
         abort();
-        Tab_History.updateBoxes();
+        Tab_History.update();
         return undefined;
       }
 
@@ -243,7 +241,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       if (res === undefined) {
         new Toast(Strings.invalidresult);
         abort();
-        Tab_History.updateBoxes();
+        Tab_History.update();
         return undefined;
       }
 
@@ -262,7 +260,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       if (res.p1 !== op1 || res.p2 !== op2) {
         new Toast(Strings.invalidresult);
         abort();
-        Tab_History.updateBoxes();
+        Tab_History.update();
         return undefined;
       }
 
