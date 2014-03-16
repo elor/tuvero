@@ -1,5 +1,4 @@
-define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix,
-    HalfMatrix) {
+define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, HalfMatrix) {
   /**
    * BuchholzRanking: A ranking variant which sorts players by wins, buchholz
    * points and netto points, in this order.
@@ -8,8 +7,8 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix,
     this.wins = [];
     this.netto = [];
     this.byes = [];
-    this.games = new HalfMatrix(HalfMatrix.mirrored, size);
     this.corrections = [];
+    this.games = new HalfMatrix(HalfMatrix.mirrored, size);
 
     while (this.netto.length < size) {
       this.netto.push(0);
@@ -287,6 +286,43 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix,
     return this.corrections.map(function (corr) {
       return corr.copy();
     }, this);
+  };
+
+  /**
+   * stores the current state in a blob
+   * 
+   * @returns the blob
+   */
+  Buchholz.prototype.toBlob = function () {
+    var ob;
+
+    ob = {
+      byes : this.byes,
+      corrections : this.corrections,
+      games : this.games.toBlob(),
+      netto : this.netto,
+      wins : this.wins
+    };
+
+    return JSON.stringify(ob);
+  };
+
+  Buchholz.prototype.fromBlob = function (blob) {
+    var ob;
+
+    function copyCorrection (corr) {
+      return Correction.copy(corr);
+    }
+
+    ob = JSON.parse(blob);
+
+    this.byes = ob.byes;
+    this.netto = ob.netto;
+    this.wins = ob.wins;
+
+    this.games.fromBlob(ob.games);
+
+    this.corrections = ob.corrections.map(copyCorrection);
   };
 
   return Buchholz;

@@ -4,7 +4,7 @@
  * integer values starting at 0.
  * 
  */
-define(function () {
+define([ './blobber' ], function (Blobber) {
   return {
     Interface : {
       /**
@@ -102,7 +102,26 @@ define(function () {
        */
       added : function (game) {
         return true;
+      },
+
+      /**
+       * grant a bye to a player
+       * 
+       * @param {Integer}
+       *          playerid the player's index
+       */
+      grantBye : function (playerid) {
+      },
+
+      /**
+       * revoke a bye
+       * 
+       * @param {Integer}
+       *          playerid the player's index
+       */
+      revokeBye : function (playerid) {
       }
-    }
+    },
+    Extends : [ Blobber ]
   };
 });

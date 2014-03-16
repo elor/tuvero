@@ -3,20 +3,9 @@
  * assumes unique player ids for every tournament, so the use of global ids is
  * encouraged.
  */
-define([ './map', './ranking', './game' ], function (Map, Ranking, Game) {
+define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, Game, Blobber) {
   return {
     Interface : {
-      /**
-       * internal map of players. This restriction might be unnecessary, but is
-       * required by any ranking anyway, so yeah.
-       */
-      players : new Map(),
-
-      /**
-       * internal ranking of any kind, since tournaments are useless without
-       */
-      ranking : new Ranking(),
-
       /**
        * Add a player to the internal data structures such as maps and arrays.
        * the ids have to be unique
@@ -77,24 +66,56 @@ define([ './map', './ranking', './game' ], function (Map, Ranking, Game) {
       },
 
       /**
-       * return sorted ranking object including the global ids and important
-       * points and (numeric) annotations in their own arrays (A/B/C-Tournament ->
-       * 1/2/3 and so on)
+       * return sorted ranking object including the global ids, actual place and
+       * important points and (numeric) annotations in their own arrays
        * 
        * @returns the ranking
        */
       getRanking : function () {
-        var res = this.ranking.get();
-
-        // this line merely ensures jslint compatibility
-        res.ranking = res.ranking || [];
-
-        // *magic*
-
         return {
-          ids : []
+          place : [], // actual place, usually [1, 2, 3, ...]. Necessary.
+          ids : [], // sorted for ranking. Necessary
+          mydata : [], // optional numerical data, e.g. points
+          mydata2 : [], // same indices as place[] and ids[]
         };
+      },
+
+      /**
+       * Check for changes in the ranking
+       * 
+       * @returns {boolean} true if the ranking changed, false otherwise
+       */
+      rankingChanged : function () {
+        return true;
+      },
+
+      /**
+       * Return the current state of the tournament
+       * 
+       * @returns {Integer} the current state. See Tournament.STATE
+       */
+      getState : function () {
+        return -1;
+      },
+
+      /**
+       * Incorporate a correction
+       */
+      correct : function () {
+        return true;
       }
+    },
+
+    Extends : [ Blobber ],
+
+    /**
+     * Possible states of a tournament.
+     */
+    STATE : {
+      PREPARING : 0,
+      RUNNING : 1,
+      FINISHED : 2,
+      FAILURE : -1
     }
   };
 });

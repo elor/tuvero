@@ -1,7 +1,5 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking', './history', './tab_history', './storage' ], function (
-    Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History,
-    Storage) {
+    './tab_ranking', './history', './tab_history', './storage' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage) {
   var Tab_Games, games, $games, $vtpl, $vanchors, $vnames, $vno, $vcontainers;
 
   // references to html elements of the games
@@ -24,7 +22,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $stages.push($('#games .running'));
     $stages.push($('#games .finished'));
 
-    Tab_Games.stage = function (stage) {
+    stage = function (stage) {
       if (stage >= $stages.length) {
         return undefined;
       }
@@ -52,7 +50,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       var votes, team;
 
       new Toast(Strings.roundstarted.replace("%s", Swiss.getRound()));
-      Tab_Games.showRound();
+      showRound();
       Tab_Games.showRunning();
       Tab_Games.showVotes();
       Tab_Ranking.update();
@@ -88,7 +86,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       new Toast(Strings.registrationclosed);
 
       // show game overview and hide this button
-      Tab_Games.stage(1);
+      stage(1);
 
       // start game and notify of possible failure (i.e. too few teams)
       if (Swiss.start() === undefined) {
@@ -110,7 +108,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     /**
      * create and show a box displaying a certain game
      */
-    Tab_Games.appendGame = function (game) {
+    function appendGame (game) {
       var t1, t2, names, $game;
 
       t1 = Team.get(game.teams[0][0]);
@@ -130,39 +128,39 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
       $games.push($game[0]);
       games.push(game);
-    };
+    }
 
     /**
      * removes all games from the overview
      */
-    Tab_Games.clearGames = function () {
+    function clearGames () {
       $('#games .running .game').remove();
       $games = [];
       games = [];
-    };
+    }
 
     /**
      * clears the overview and appends all open games of the tournament
      */
     Tab_Games.showRunning = function () {
-      Tab_Games.clearGames();
+      clearGames();
 
       Swiss.openGames().forEach(function (game) {
-        Tab_Games.appendGame(game);
+        appendGame(game);
       });
 
       if (Swiss.getRound() !== 0 && games.length === 0) {
-        Tab_Games.stage(2);
+        stage(2);
       }
     };
 
     /**
      * update all appearences of the current round in the games tab
      */
-    Tab_Games.showRound = function () {
+    function showRound () {
       $('#games .running .round').text(Swiss.getRound());
       $('#games .finished .round').text(Swiss.getRound());
-    };
+    }
 
     /**
      * this function removes the game from the local reference arrays
@@ -171,7 +169,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
      *          the game in question
      * @returns Tab_Games on success, undefined otherwise
      */
-    Tab_Games.removeGame = function (game) {
+    function removeGame (game) {
       var index;
 
       index = games.indexOf(game);
@@ -185,7 +183,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       $($games[index]).remove();
       $games.splice(index, 1);
       return Tab_Games;
-    };
+    }
 
     // if someone wants to finish a game, do the following:
     // * verify that the game was running
@@ -255,7 +253,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       Tab_History.createBox(res);
 
       // game was accepted. remove it.
-      Tab_Games.removeGame(games[index]);
+      removeGame(games[index]);
       // TODO keep game history
 
       if (points[0] > points[1]) {
@@ -279,11 +277,11 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
       // no games left? clean up and go to stage 2.
       if (games.length === 0) {
-        Tab_Games.clearGames();
-        Tab_Games.clearVotes();
+        clearGames();
+        clearVotes();
 
-        Tab_Games.showRound();
-        Tab_Games.stage(2);
+        showRound();
+        stage(2);
 
         new Toast(Strings.roundfinished.replace('%s', Swiss.getRound()));
       }
@@ -314,9 +312,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     /**
      * remove all elements in the vote area
      */
-    Tab_Games.clearVotes = function () {
+    function clearVotes () {
       $('#games .running .votes .vote').remove();
-    };
+    }
 
     /**
      * display the votes for the current round
@@ -325,7 +323,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       var votes, makeBox;
 
       // remove old votes
-      Tab_Games.clearVotes();
+      clearVotes();
 
       // get votes
       votes = Swiss.getRoundVotes();
@@ -373,7 +371,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       }
     };
 
-    Tab_Games.newRound = function () {
+    function newRound () {
       var i;
       for (i = 0; i < 10; i += 1) {
         if (Swiss.newRound() !== undefined) {
@@ -387,10 +385,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       }
 
       // show game overview and hide this button
-      Tab_Games.stage(1);
+      stage(1);
 
       roundStart();
-    };
+    }
 
     /**
      * reset an original game state, respecting the current state of Swiss
@@ -399,21 +397,21 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
       if (Swiss.getRound() === 0) {
         // preparing
-        Tab_Games.stage(0);
+        stage(0);
       } else {
         Tab_Games.showRunning();
-        Tab_Games.showRound();
+        showRound();
         Tab_Games.showVotes();
 
         if (games.length === 0 || $games.length === 0) {
-          Tab_Games.stage(2);
+          stage(2);
         } else {
-          Tab_Games.stage(1);
+          stage(1);
         }
       }
     };
 
-    $('#games .finished button.newround').click(Tab_Games.newRound);
+    $('#games .finished button.newround').click(newRound);
 
     $('#games .finished button.korounds').click(function () {
       new Toast(Strings.notimplemented);

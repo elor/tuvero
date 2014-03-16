@@ -258,5 +258,39 @@ define(function () {
     return !failure && valid;
   };
 
+  /**
+   * stores the current state in a blob
+   * 
+   * @returns the blob
+   */
+  Netto.prototype.toBlob = function () {
+    var ob;
+
+    ob = {
+      byes : this.byes,
+      corrections : this.corrections,
+      netto : this.netto,
+      wins : this.wins
+    };
+
+    return JSON.stringify(ob);
+  };
+
+  Netto.prototype.fromBlob = function (blob) {
+    var ob;
+
+    function copyCorrection (corr) {
+      return Correction.copy(corr);
+    }
+
+    ob = JSON.parse(blob);
+
+    this.byes = ob.byes;
+    this.netto = ob.netto;
+    this.wins = ob.wins;
+
+    this.corrections = ob.corrections.map(copyCorrection);
+  };
+
   return Netto;
 });
