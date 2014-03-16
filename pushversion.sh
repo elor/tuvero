@@ -11,7 +11,7 @@ version=${branch_name##release-}
 # replace all %VERSION% and $VERSION$ placeholders
 echo "pushing version $version"
 IFS=$'\r\n'
-for file in `git ls-files | grep -v pushversion.sh`; do
+for file in `git ls-files | grep -v images | grep -v pushversion.sh`; do
   sed -i -e "s/\\\$VERSION\\$/$version/g" -e "s/%VERSION%/$version/g" $file
 done
 git add -u
