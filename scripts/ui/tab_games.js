@@ -51,8 +51,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
       new Toast(Strings.roundstarted.replace("%s", Swiss.getRound()));
       showRound();
-      Tab_Games.showRunning();
-      Tab_Games.showVotes();
+      showRunning();
+      showVotes();
       Tab_Ranking.update();
 
       // tell the history that there's a new round
@@ -142,7 +142,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     /**
      * clears the overview and appends all open games of the tournament
      */
-    Tab_Games.showRunning = function () {
+    function showRunning () {
       clearGames();
 
       Swiss.openGames().forEach(function (game) {
@@ -152,7 +152,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       if (Swiss.getRound() !== 0 && games.length === 0) {
         stage(2);
       }
-    };
+    }
 
     /**
      * update all appearences of the current round in the games tab
@@ -200,7 +200,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         // game is invalid. Someone tempered with the system.
 
         // redraw all games
-        Tab_Games.showRunning();
+        showRunning();
 
         Tab_Ranking.update();
 
@@ -238,7 +238,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         // game was somehow invalid. Someone tempered with the system.
 
         // redraw all games
-        Tab_Games.showRunning();
+        showRunning();
 
         Tab_Ranking.update();
 
@@ -265,7 +265,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         // game was somehow invalid. Someone tempered with the system.
 
         // redraw all games
-        Tab_Games.showRunning();
+        showRunning();
 
         Tab_Ranking.update();
 
@@ -319,7 +319,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     /**
      * display the votes for the current round
      */
-    Tab_Games.showVotes = function () {
+    function showVotes () {
       var votes, makeBox;
 
       // remove old votes
@@ -369,7 +369,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       } else {
         $vcontainers[2].hide();
       }
-    };
+    }
 
     function newRound () {
       var i;
@@ -391,17 +391,28 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
 
     /**
-     * reset an original game state, respecting the current state of Swiss
+     * reset an original state.
+     * 
+     * TODO: test
      */
     Tab_Games.reset = function () {
+      clearGames();
+      clearVotes();
+      stage(0);
+    };
+
+    /**
+     * reset an original game state, respecting the current state of Swiss
+     */
+    Tab_Games.update = function () {
 
       if (Swiss.getRound() === 0) {
         // preparing
         stage(0);
       } else {
-        Tab_Games.showRunning();
+        showRunning();
         showRound();
-        Tab_Games.showVotes();
+        showVotes();
 
         if (games.length === 0 || $games.length === 0) {
           stage(2);

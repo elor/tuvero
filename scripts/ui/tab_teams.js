@@ -180,8 +180,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       // avoid circular dependency
       Tab_Games = require('./tab_games');
       // refresh all tabs
-      Tab_Games.showRunning();
-      Tab_Games.showVotes();
+      Tab_Games.update();
       Tab_Ranking.update();
 
       // save change
