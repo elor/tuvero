@@ -285,10 +285,17 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       }
     });
 
-    Tab_Storage.invalidate = function () {
+    /**
+     * reset an initial state
+     */
+    Tab_Storage.reset = function () {
       invalidateCSV();
       invalidateSave();
       invalidateLoad();
+    };
+
+    Tab_Storage.update = function () {
+      Tab_Storage.reset();
     };
   });
 

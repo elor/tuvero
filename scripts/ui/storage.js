@@ -96,7 +96,7 @@ define(function () {
     }
 
     // invalidate
-    Tab_Storage.invalidate();
+    Tab_Storage.reset();
     Storage.store();
   };
 
