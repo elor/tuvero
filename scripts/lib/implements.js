@@ -1,4 +1,8 @@
 /**
+ * @author <erik.e.lorenz@gmail.com> Erik E. Lorenz
+ * 
+ * Version 1.0
+ * 
  * Interface class for definition and testing purposes
  * 
  * Allows the validation of Java-inspired interfaces.
@@ -13,10 +17,19 @@
  * 
  * Note to self: console.log is for debugging only
  * 
- * TODO: type checking by class, not toType() string
  */
-define([ '../lib/toType' ], function (toType) {
-  var Interface;
+define(function () {
+  var Implements;
+
+  /**
+   * replacement of the typeof function
+   * 
+   * Source:
+   * http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+   */
+  function toType (obj) {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+  }
 
   /**
    * search for the object in the stack and abort if present, clone and push
@@ -495,7 +508,7 @@ define([ '../lib/toType' ], function (toType) {
   }
 
   /**
-   * retrieves all keys if .Interface and .Extends
+   * retrieves all keys of .Interface and .Extends
    * 
    * @param {object}
    *          intf the interface
@@ -888,9 +901,13 @@ define([ '../lib/toType' ], function (toType) {
   /**
    * calls its internal functions validate() or match():
    * 
-   * 1 argument ->validate()
+   * Implements() / new Implements() -> create new empty interface object
    * 
-   * 2 or 3 arguments -> match()
+   * Implements(interface) -> Implements.validate(interface)
+   * 
+   * Implements(intf, implementation) -> Implements.match(intf, implementation)
+   * 
+   * Implements(intf, impl, opts) -> Implements.match(intf, impl, opts)
    * 
    * @param {Interface}
    *          intf an interface object
@@ -900,8 +917,16 @@ define([ '../lib/toType' ], function (toType) {
    *          opts (optional) match options. See matchInterface()
    * 
    */
-  Interface = function () {
+  Implements = function () {
     switch (arguments.length) {
+    case 0:
+      // called as a constructor or a blank function. Just ignore `this` and
+      // return a blank interface object
+      return {
+        Interface : {},
+        Extends : [],
+        Requires : []
+      };
     case 1:
       return validate(arguments[0]);
     case 2:
@@ -913,7 +938,7 @@ define([ '../lib/toType' ], function (toType) {
     }
   };
   // disallow instantiation
-  Interface.prototype = undefined;
+  Implements.prototype = undefined;
 
   /**
    * Tests whether the Interface consists only of functions and other interfaces
@@ -923,7 +948,7 @@ define([ '../lib/toType' ], function (toType) {
    * @returns {string} a newline-separated string with error description. "" on
    *          match.
    */
-  Interface.validate = validate;
+  Implements.validate = validate;
 
   /**
    * Tests the implementation against the interface
@@ -947,7 +972,7 @@ define([ '../lib/toType' ], function (toType) {
    * @returns {string} a newline-separated string with error description. "" on
    *          match.
    */
-  Interface.match = match;
+  Implements.match = match;
 
   /**
    * combine all arguments into a single interface object.
@@ -956,9 +981,9 @@ define([ '../lib/toType' ], function (toType) {
    *          one or more interfaces
    * @returns {Interface} a combined interface
    */
-  Interface.combine = combine;
+  Implements.combine = combine;
 
-  Interface.selfInterface = {
+  Implements.selfInterface = {
     Interface : {
       validate : function () {
       },
@@ -972,8 +997,8 @@ define([ '../lib/toType' ], function (toType) {
     }
   };
 
-  // Interface.selfInterface.Interface.selfInterface.Interface.Interface =
-  // Interface.selfInterface;
+  // Implements.selfInterface.Interface.selfInterface.Interface.Interface =
+  // Implements.selfInterface;
 
-  return Interface;
+  return Implements;
 });

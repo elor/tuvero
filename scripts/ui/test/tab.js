@@ -1,7 +1,7 @@
 /*
  * Tab Test
  */
-define([ '../../lib/interface', '../tab', '../tab_games', '../tab_history',
+define([ '../../lib/implements', '../tab', '../tab_games', '../tab_history',
     '../tab_ranking', '../tab_storage', '../tab_teams' ], function (Interface, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Storage, Tab_Teams) {
   QUnit.test("Tab Interfaces", function () {
 

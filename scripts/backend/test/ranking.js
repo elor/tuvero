@@ -4,7 +4,7 @@
 
 define([ '../result', '../nettoranking', '../buchholzranking',
     '../finebuchholzranking', '../game', '../correction',
-    '../../lib/interface', '../ranking' ], function (Result, Netto, Buchholz, Finebuchholz, Game, Correction, Interface, Ranking) {
+    '../../lib/implements', '../ranking' ], function (Result, Netto, Buchholz, Finebuchholz, Game, Correction, Interface, Ranking) {
   /*
    * NettoRanking test
    */
