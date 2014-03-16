@@ -14,12 +14,13 @@ IFS=$'\r\n'
 for file in `git ls-files | grep -v images | grep -v pushversion.sh`; do
   sed -i -e "s/\\\$VERSION\\$/$version/g" -e "s/%VERSION%/$version/g" $file
 done
-git add -u
 
 # remove debugging url arguments
 for file in `git ls-files '*.html'`; do
   sed -i -e '/urlArgs: "bust="/d' $file
 done
+
+git add -u
 
 git rm pushversion.sh --cached
 
