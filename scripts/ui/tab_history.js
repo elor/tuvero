@@ -100,7 +100,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     /**
      * remove all evidence of any games ever (from the overview only)
      */
-    Tab_History.clear = function () {
+    Tab_History.reset = function () {
       abort();
 
       // remove games
@@ -126,7 +126,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     Tab_History.updateBoxes = function () {
       var round, maxround, id, numgames, bye;
 
-      Tab_History.clear();
+      Tab_History.reset();
 
       maxround = History.numRounds();
       for (round = 1; round <= maxround; round += 1) {

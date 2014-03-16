@@ -18,7 +18,7 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, S
     $tpl.removeClass('tpl');
     $anchor = $('#ranking table .head');
 
-    Tab_Ranking.clear = function () {
+    Tab_Ranking.reset = function () {
       $('#ranking table .line').remove();
       clearCorrections();
     };
@@ -33,7 +33,7 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, S
         return false;
       }
 
-      Tab_Ranking.clear();
+      Tab_Ranking.reset();
 
       ranking = Swiss.getRanking();
       votes = Swiss.getAllVotes();

@@ -10,7 +10,7 @@ define([], function () {
        * 
        * @returns {boolean} true on success, false on error
        */
-      clear : function () {
+      reset : function () {
         return true;
       },
       /**
