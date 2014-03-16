@@ -1,5 +1,5 @@
-define([ './toast', './strings', './team', './history', './tab_ranking',
-    './blob', './base64', './storage' ], function (Toast, Strings, Team, History, Tab_Ranking, Blob, Base64, Storage) {
+define([ './toast', './strings', './team', './history', './ranking', './blob',
+    './base64', './storage' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage) {
   var Tab_Storage, $csvanchor, $csvarea, $saveanchor, $savearea, $loadarea, $loadfile;
 
   Tab_Storage = {};
@@ -36,7 +36,7 @@ define([ './toast', './strings', './team', './history', './tab_ranking',
       csv.push(Team.toCSV());
     }
     if ($($buttons[1]).hasClass('selected')) {
-      csv.push(Tab_Ranking.toCSV());
+      csv.push(Ranking.toCSV());
     }
     if ($($buttons[2]).hasClass('selected')) {
       csv.push(History.toCSV());
