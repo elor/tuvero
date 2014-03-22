@@ -140,6 +140,13 @@ display:none
   vertical-align: middle;
 }
 
+#teams .team .name {
+	width: 100%;
+	display: inline-block;
+	line-height: 1em;
+	width: 10em;
+}
+
 #teams .teamno,#games .team .teamno,#history .teamno {
 	width: 1.5em;
 	height: 1.5em;

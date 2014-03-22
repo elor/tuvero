@@ -10,6 +10,9 @@ define(function () {
   Player.read = function () {
     // TODO extract to Storage object
     names = JSON.parse(localStorage.getItem('players'));
+    if (!names) {
+      names = [ 'Erik Lorenz' ];
+    }
     // TODO verify array of strings
     // XXX implements.js?
     names.sort();

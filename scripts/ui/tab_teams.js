@@ -198,7 +198,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       $chname.detach();
       $name.text($chname.val());
 
-      $team = $parents.eq(3);
+      $team = $parents.eq(2);
 
       updateTeam($team);
     }
