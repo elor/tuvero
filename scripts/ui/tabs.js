@@ -40,6 +40,7 @@ define(function () {
 
         $tab = $('<a>');
         $tab.attr('href', '#' + tabname);
+        $tab.attr('tabindex', '-1');
         // if (keys) {
         // $tab.attr('accesskey', keys[i]);
         // }
@@ -64,6 +65,7 @@ define(function () {
       keys.forEach(function (key, index) {
         var $a = $('<a>');
         $a.attr('href', '#' + tabs[index]);
+        $a.attr('tabindex', '-1');
         $a.attr('accesskey', key);
         $body.append($a);
       });
