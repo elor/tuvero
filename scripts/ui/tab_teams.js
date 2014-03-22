@@ -1,4 +1,5 @@
-define([ './team', './toast', './strings', './tab_ranking', './storage' ], function (Team, Toast, Strings, Tab_Ranking, Storage) {
+define([ './team', './toast', './strings', './tab_ranking', './storage',
+    './players' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Players) {
   var Tab_Teams, $tpl, $n1, $n2, $n3, $no, $anchor, $new, $t1, $t2, $t3, $tms;
 
   Tab_Teams = {};
@@ -222,13 +223,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
     });
 
     // autocomplete
-    // TODO use Storage.load() or similar
-    names = JSON.parse(localStorage.getItem('players'));
-    if (!names) {
-      names = [ 'Erik Lorenz' ];
-    }
-
-    names.sort();
+    names = Players.get();
 
     var states = new Bloodhound({
       datumTokenizer : Bloodhound.tokenizers.obj.whitespace('val'),

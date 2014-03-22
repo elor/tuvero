@@ -184,15 +184,18 @@ display:none
 	background-color: lightgreen;
 }
 
-#newteam .teamno {
-	margin-top: 0.4em;
-	margin-right: 0.2em;
+#newteam .teamno button {
+	background-color: rgb(221, 221, 221);
+	width: inherit;
+	height: inherit;
+	font-size: 100%;
 	border-radius: 0.2em;
 	border: none;
 	box-shadow: 1px 1px 0px grey;
 }
 
 #newteam .names {
+	padding-left: 0.5em;
 	display: table-cell;
 	text-align: left;
 	vertical-align: middle;
@@ -200,6 +203,7 @@ display:none
 
 
 #newteam .playername {
+	background-color: white;
 	border: none;
 	width: 100%;
 	box-shadow: 1px 1px 0px grey;
