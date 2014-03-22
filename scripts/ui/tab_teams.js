@@ -91,9 +91,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
 
       names = [];
 
-      names.push($t1.val());
-      names.push($t2.val());
-      names.push($t3.val());
+      names.push($t1.val().trim());
+      names.push($t2.val().trim());
+      names.push($t3.val().trim());
 
       for (i = 0; i < 3; i += 1) {
         if (names[i] === '') {
@@ -168,7 +168,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       $names = $team.find('.name');
 
       for (i = 0; i < 3; i += 1) {
-        name = $($names[i]).text();
+        name = $($names[i]).text().trim();
         // prevent empty names
         if (name) {
           team.names[i] = name;
