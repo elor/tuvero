@@ -222,7 +222,12 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
     });
 
     // autocomplete
-    names = [];
+    // TODO use Storage.load() or similar
+    names = JSON.parse(localStorage.getItem('players'));
+    if (!names) {
+      names = [ 'Erik Lorenz' ];
+    }
+
     names.sort();
 
     var states = new Bloodhound({
@@ -237,7 +242,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
 
     states.initialize();
 
-    $('#teams input.playername').typeahead({
+    $('#teams input.playername, #teams .chname').typeahead({
       hint : true,
       highlight : true,
       limit : 3
