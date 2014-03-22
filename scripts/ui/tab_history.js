@@ -10,7 +10,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   Tab_History = {};
 
   $(function ($) {
-    var $tpl, $h3, $anchor, $nanchor, $spans, $hanchor, setRound, $bye;
+    var $tpl, $h3, $anchor, $nanchor, $spans, $hanchor, setRound, $bye, $teamnos;
 
     $h3 = $('h3.tpl');
     $h3.detach();
@@ -20,7 +20,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     $tpl = $('#history .game.tpl');
     $tpl.detach();
     $tpl.removeClass('tpl');
-    $spans = $tpl.find('span');
+    $teamnos = $tpl.find('.teamno');
+    $spans = $tpl.find('.correct .points');
 
     $form = $tpl.find('.chpoints');
     $form.detach();
@@ -69,10 +70,10 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       }
 
       // fill the fields
-      $($spans[0]).text(result.t1 + 1);
-      $($spans[1]).text(result.p1);
-      $($spans[2]).text(result.p2);
-      $($spans[3]).text(result.t2 + 1);
+      $($teamnos[0]).text(result.t1 + 1);
+      $($teamnos[1]).text(result.t2 + 1);
+      $($spans[0]).text(result.p1);
+      $($spans[1]).text(result.p2);
 
       // release the box to the DOM
       $anchor.before($tpl.clone());
@@ -165,8 +166,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     show = function ($game) {
       var $spans;
 
-      $button = $game.find('button');
-      $spans = $button.find('span');
+      $button = $game.find('button.correct');
+      $spans = $button.find('.points');
       $spans = [ $($spans[0]), $($spans[1]) ];
 
       $inputs[0].val($spans[0].text());
@@ -205,6 +206,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
       np1 = Number($inputs[0].val());
       np2 = Number($inputs[1].val());
+      
 
       // verify values
       if (!verify(op1, op2) || !verify(np1, np2)) {
@@ -221,7 +223,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       }
 
       // retrieve team ids from displayed team number
-      $teams = $form.parent().find('.teamno');
+      $teams = $form.parents('.game').find('.teamno');
       t1 = Number($($teams[0]).text());
       t2 = Number($($teams[1]).text());
 
@@ -293,7 +295,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       new Toast(Strings.pointchangeapplied);
     };
 
-    $('#history').delegate('.game > button', 'click', function (e) {
+    $('#history').delegate('.game .correct', 'click', function (e) {
       var $game;
 
       abort();

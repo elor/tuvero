@@ -14,13 +14,13 @@ h3 {
 	margin-left: 0.5em;
 }
 
-div, button {
+div,button {
 	margin: 0px;
 	padding: 0px;
 }
 
 .tpl {
-  display: none;
+	display: none;
 }
 
 .noadownload,.nostorage,.nofilereader,.nojson,.noatob {
@@ -63,8 +63,8 @@ div, button {
 	display: none;
 }
 
-#tabs > div:not(:target) {
-display:none
+#tabs > div:not(:target ) {
+	display: none;
 }
 
 .tabs {
@@ -99,7 +99,7 @@ display:none
 	min-width: 30em;
 }
 
-#tabs>div .options {
+#tabs > div .options {
 	white-space: nowrap;
 	float: right;
 }
@@ -112,7 +112,7 @@ display:none
 	display: none;
 }
 
-#teams .team, #newteam, #games .team {
+#teams .team,#newteam,#games .team {
 	display: block;
 	margin: 0.5em;
 	border-radius: 0.5em;
@@ -122,22 +122,22 @@ display:none
 	border-spacing: 0px;
 }
 
-#teams .team, #newteam {
+#teams .team,#newteam {
 	float: left;
-  display: table;
-  height: 5em;
-  white-space: nowrap;
-  padding: 0em 0.5em;
+	display: table;
+	height: 5em;
+	white-space: nowrap;
+	padding: 0em 0.5em;
 }
 
 #teams .teamno {
-  display: table-cell;
+	display: table-cell;
 }
 
 #teams .team .names {
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
 }
 
 #teams .team .name {
@@ -152,7 +152,7 @@ display:none
 	height: 1.5em;
 	font-size: 200%;
 	text-align: center;
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 #teams .team .name:hover {
@@ -166,7 +166,9 @@ display:none
 	overflow: hidden;
 }
 
-/*#teams.maxwidth .team .name*/,#games.maxwidth .team .name {
+/*#teams.maxwidth .team .name*/
+,
+#games.maxwidth .team .name {
 	display: inline-block;
 	min-width: 10em;
 	max-width: 10em;
@@ -178,13 +180,13 @@ display:none
 	min-width: 10em;
 }
 
-/*#teams.maxwidth .team:hover .name*/ {
+#teams.maxwidth .team:hover .name {
 	max-width: 50em;
-	-webkit-transition: max-width 0.5s;
-	-moz-transition: max-width 0.5s;
-	-ms-transition: max-width 0.5s;
-	-o-transition: max-width 0.5s;
-	transition: max-width 0.5s;
+	-webkit-transition: max-width 0 .5s;
+	-moz-transition: max-width 0 .5s;
+	-ms-transition: max-width 0 .5s;
+	-o-transition: max-width 0 .5s;
+	transition: max-width 0 .5s;
 }
 
 #newteam {
@@ -208,7 +210,6 @@ display:none
 	vertical-align: middle;
 	line-height: 1.4em;
 }
-
 
 #newteam .playername {
 	background-color: white;
@@ -365,37 +366,51 @@ display:none
 }
 
 #history .game,#history .bye {
+	display: table;
+	float: left;
 	margin: 0.5em;
 	border-radius: 0.5em;
 	background-color: grey;
 	padding: 0.3em;
 	text-align: center;
 	white-space: nowrap;
-	float: left;
-}
-
-#history .game>button {
-	display: inline-block;
-	margin: 0px;
-	border: none;
-	background-color: lightgrey;
-	font-size: 0.8em;
-	padding: 0.1em 0.2em;
-	width: 4em;
-	cursor: pointer;
 }
 
 #history .game .teamno,#history .bye .teamno {
-	display: inline-block;
+	display: table-cell;
 	margin: 0px;
 	border-radius: 0.3em;
 	background-color: lightgrey;
 	padding: 0.3em;
 }
 
+#history .game .correctbox {
+	display: table-cell;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#history .game .correct {
+	display: block;
+	border: none;
+	margin: 0.2em;
+	box-shadow: 1px 1px 0px grey;
+	background-color: lightgrey;
+	font-size: 0.8em;
+	width: 4em;
+	cursor: pointer;
+}
+
 #history .chpoints {
-	display: inline-block;
+	display: table-cell;
 	white-space: nowrap;
+	vertical-align: middle;
+  margin: 0.5em;
+}
+
+#history .chpoints .middle {
+	display: block;
+	vertical-align: middle;
 }
 
 #history .chpoints button {
@@ -414,11 +429,11 @@ display:none
 	margin: auto;
 }
 
-#storage>div:not (.tabs ) {
-	float: left;
-	width: 25em;
-	padding: 1em;
-	margin: auto;
+#storage .block {
+  float: left;
+  width: 25em;
+  padding: 1em;
+  margin: auto;
 }
 
 #storage>div>p {
