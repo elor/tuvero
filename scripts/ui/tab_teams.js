@@ -1,4 +1,5 @@
-define([ './team', './toast', './strings', './tab_ranking', './storage' ], function (Team, Toast, Strings, Tab_Ranking, Storage) {
+define([ './team', './toast', './strings', './tab_ranking', './storage',
+    './autocomplete' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete) {
   var Tab_Teams, $tpl, $n1, $n2, $n3, $no, $anchor, $new, $t1, $t2, $t3, $tms;
 
   Tab_Teams = {};
@@ -16,7 +17,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
 
     // prepare submission field
     $new = $('#newteam');
-    $no = $new.find('input');
+    $no = $new.find('input.playername');
     $t1 = $($no[0]);
     $t2 = $($no[1]);
     $t3 = $($no[2]);
@@ -105,6 +106,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       $t2.val('');
       $t3.val('');
 
+      Autocomplete.clear();
+
       return names;
     };
 
@@ -115,7 +118,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       names = newteamfunc();
 
       if (names !== undefined) {
-        team = new Team(names);
+        team = Team.create(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
         $t1.focus();
@@ -196,7 +199,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       $chname.detach();
       $name.text($chname.val());
 
-      $team = $parents.eq(3);
+      $team = $parents.eq(2);
 
       updateTeam($team);
     }
@@ -219,6 +222,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       e.preventDefault();
       return false;
     });
+
+    Autocomplete.update();
+
   });
 
   return Tab_Teams;

@@ -11,11 +11,20 @@ a {
 }
 
 h3 {
-  margin-left: 0.5em;
+	margin-left: 0.5em;
 }
 
-.noadownload, .nostorage, .nofilereader, .nojson, .noatob {
+div, button {
+	margin: 0px;
+	padding: 0px;
+}
+
+.tpl {
   display: none;
+}
+
+.noadownload,.nostorage,.nofilereader,.nojson,.noatob {
+	display: none;
 }
 
 #toasts {
@@ -27,7 +36,7 @@ h3 {
 	position: fixed;
 }
 
-#toasts > div {
+#toasts>div {
 	margin-bottom: 0.2em;
 	display: inline-block;
 	background-color: lightgrey;
@@ -41,7 +50,7 @@ h3 {
 	transition: all 0.2s ease-out;
 }
 
-#toasts > div.toast {
+#toasts>div.toast {
 	opacity: 1;
 	-webkit-transition: all 0.2s ease-in;
 	-moz-transition: all 0.2s ease-in;
@@ -51,21 +60,21 @@ h3 {
 }
 
 #tabs {
-  display: none;
+	display: none;
 }
 
-#tabs > div:not(:target ) {
-	display: none;
+#tabs > div:not(:target) {
+display:none
 }
 
 .tabs {
 	height: 3em;
 	position: absolute;
 	margin: -6em 0.5em 0.5em -1em;
-  white-space: nowrap;
+	white-space: nowrap;
 }
 
-.tabs > a > img {
+.tabs>a>img {
 	float: left;
 	height: 100%;
 	width: 3em;
@@ -79,7 +88,7 @@ h3 {
 	background-color: white;
 }
 
-#tabs > div {
+#tabs>div {
 	margin: 4.5em 0.5em 0.5em 0.5em;
 	padding: 0.5em;
 	padding-top: 1.5em;
@@ -90,7 +99,7 @@ h3 {
 	min-width: 30em;
 }
 
-#tabs > div .options {
+#tabs>div .options {
 	white-space: nowrap;
 	float: right;
 }
@@ -103,7 +112,7 @@ h3 {
 	display: none;
 }
 
-#teams .team, #games .team {
+#teams .team, #newteam, #games .team {
 	display: block;
 	margin: 0.5em;
 	border-radius: 0.5em;
@@ -113,18 +122,37 @@ h3 {
 	border-spacing: 0px;
 }
 
-#teams .team {
+#teams .team, #newteam {
 	float: left;
+  display: table;
+  height: 5em;
+  white-space: nowrap;
+  padding: 0em 0.5em;
 }
 
-#teams .team.tpl {
-  display: none;
+#teams .teamno {
+  display: table-cell;
 }
 
-#teams .team .teamno, #games .team .teamno, #history .teamno {
+#teams .team .names {
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+}
+
+#teams .team .name {
+	width: 100%;
+	display: inline-block;
+	line-height: 1em;
+	width: 10em;
+}
+
+#teams .teamno,#games .team .teamno,#history .teamno {
 	width: 1.5em;
+	height: 1.5em;
 	font-size: 200%;
 	text-align: center;
+  vertical-align: middle;
 }
 
 #teams .team .name:hover {
@@ -132,13 +160,13 @@ h3 {
 	text-decoration: underline;
 }
 
-#teams .team .name, #games .team .name {
+#teams .team .name,#games .team .name {
 	font-weight: bold;
 	white-space: nowrap;
 	overflow: hidden;
 }
 
-#teams.maxwidth .team .name, #games.maxwidth .team .name {
+/*#teams.maxwidth .team .name*/,#games.maxwidth .team .name {
 	display: inline-block;
 	min-width: 10em;
 	max-width: 10em;
@@ -150,7 +178,7 @@ h3 {
 	min-width: 10em;
 }
 
-#teams.maxwidth .team:hover .name {
+/*#teams.maxwidth .team:hover .name*/ {
 	max-width: 50em;
 	-webkit-transition: max-width 0.5s;
 	-moz-transition: max-width 0.5s;
@@ -159,30 +187,65 @@ h3 {
 	transition: max-width 0.5s;
 }
 
-#teams #newteam > .team {
-	/*  border-spacing: 0.05em; */
+#newteam {
 	background-color: lightgreen;
 }
 
-#teams #newteam > .team button {
-	font-size: 1em;
-	width: 1.5em;
-	height: 1.5em;
-	border-radius: 0.3em;
+#newteam .teamno button {
+	background-color: rgb(221, 221, 221);
+	width: inherit;
+	height: inherit;
+	font-size: 100%;
+	border-radius: 0.2em;
+	border: none;
+	box-shadow: 1px 1px 0px grey;
 }
 
-#teams #newteam > .team .name {
-	max-width: 10em;
-	min-width: 0.0em;
+#newteam .names {
+	padding-left: 0.5em;
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
+	line-height: 1.4em;
 }
 
-#teams .name > input {
-  border: none;
-  margin: 0px;
-  padding: 0px;
+
+#newteam .playername {
+	background-color: white;
+	border: none;
+	width: 100%;
+	box-shadow: 1px 1px 0px grey;
+	margin: 0em;
 }
 
-#games .preparing button, #games .finished button {
+.tt-dropdown-menu {
+	width: 100%;
+	background: white;
+	margin-left: 0em;
+}
+
+.tt-suggestion {
+	display: block;
+	margin-left: 0em;
+}
+
+.tt-suggestion.tt-cursor {
+	background: #adadad;
+}
+
+.tt-query {
+	color: red;
+}
+
+.tt-hint {
+	color: #adadad;
+}
+
+.tt-suggestion p {
+	margin: 0;
+}
+
+#games .preparing button,#games .finished button {
 	font-size: 1em;
 	padding: 0.5em;
 	border-radius: 0.3em;
@@ -205,30 +268,30 @@ h3 {
 	vertical-align: middle;
 }
 
-#games .game > .team {
+#games .game>.team {
 	display: table-cell;
 	margin: 0.0em;
 }
 
-#games .game > div {
+#games .game>div {
 	display: table-cell;
 	vertical-align: middle;
 	padding: 0px;
 	margin: 0px;
 }
 
-#games .game > div > button {
+#games .game>div>button {
 	margin: 0px;
 	height: 1em;
 	border: none;
 	background-color: lightgrey;
 }
 
-#games .game > .team.left .name {
+#games .game>.team.left .name {
 	text-align: right;
 }
 
-#games .game > .team .points {
+#games .game>.team .points {
 	text-align: center;
 	position: relative;
 	width: 90%;
@@ -287,13 +350,13 @@ h3 {
 }
 
 #ranking .corrections h2 {
-  text-align: left;
-  margin-left: 1em;
+	text-align: left;
+	margin-left: 1em;
 }
 
 #ranking .corrections td {
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 }
 
 #history h3 {
@@ -301,7 +364,7 @@ h3 {
 	margin-top: 1em;
 }
 
-#history .game, #history .bye {
+#history .game,#history .bye {
 	margin: 0.5em;
 	border-radius: 0.5em;
 	background-color: grey;
@@ -311,7 +374,7 @@ h3 {
 	float: left;
 }
 
-#history .game > button {
+#history .game>button {
 	display: inline-block;
 	margin: 0px;
 	border: none;
@@ -322,7 +385,7 @@ h3 {
 	cursor: pointer;
 }
 
-#history .game .teamno, #history .bye .teamno {
+#history .game .teamno,#history .bye .teamno {
 	display: inline-block;
 	margin: 0px;
 	border-radius: 0.3em;
@@ -331,65 +394,66 @@ h3 {
 }
 
 #history .chpoints {
-  display: inline-block;
-  white-space: nowrap;
+	display: inline-block;
+	white-space: nowrap;
 }
 
 #history .chpoints button {
-  margin: 0px;
-  border: none;
-  background-color: lightgrey;
-  font-size: 0.8em;
-  min-width: 1em;
-  padding: 0em 0.2em;
-  cursor: pointer;
+	margin: 0px;
+	border: none;
+	background-color: lightgrey;
+	font-size: 0.8em;
+	min-width: 1em;
+	padding: 0em 0.2em;
+	cursor: pointer;
 }
 
 #history .chpoints .points {
-  text-align: center;
-  width: 3em;
-  margin: auto;
+	text-align: center;
+	width: 3em;
+	margin: auto;
 }
 
-#storage > div:not(.tabs) {
-  float: left;
-  width: 25em;
-  padding: 1em;
-  margin: auto;
-}
-#storage > div > p {
-  text-align: justify;
+#storage>div:not (.tabs ) {
+	float: left;
+	width: 25em;
+	padding: 1em;
+	margin: auto;
 }
 
-#storage .csv button, #storage .save button, #storage .load button {
-  background-color: lightgrey;
-  border-radius: 0.5em;
-  padding: 0.5em;
-  cursor: pointer;
-  margin-bottom: 1em;
+#storage>div>p {
+	text-align: justify;
 }
 
-#storage button > img {
-  width: 3.0em;
-  height: 3.0em;
+#storage .csv button,#storage .save button,#storage .load button {
+	background-color: lightgrey;
+	border-radius: 0.5em;
+	padding: 0.5em;
+	cursor: pointer;
+	margin-bottom: 1em;
+}
+
+#storage button>img {
+	width: 3.0em;
+	height: 3.0em;
 }
 
 #storage button.selected {
-  background-color: white;
+	background-color: white;
 }
 
 #storage .load input.file {
-  margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 #storage .nojson {
-  background-color: red;
-  font-weight: bold;
-  font-size: 120%;
+	background-color: red;
+	font-weight: bold;
+	font-size: 120%;
 }
 
 #storage .local button {
-  font-size: 1em;
-  padding: 0.5em;
-  border-radius: 0.3em;
+	font-size: 1em;
+	padding: 0.5em;
+	border-radius: 0.3em;
 }

@@ -7,9 +7,10 @@
   <script src="scripts/lib/json2.js"></script>
   <script src="scripts/lib/modernizr.custom.49416.js"></script>
   <script src="scripts/lib/jquery-2.1.0.min.js"></script>
+  <script src="scripts/lib/typeahead.bundle.min.js"></script>
   <script>
   var require = {
-    urlArgs: "bust=" +  (new Date()).getTime()
+    urlArgs: "bust=" + (new Date()).getTime()
   };
   </script>
   <script data-main="scripts/ui/main" src="scripts/lib/require.js"></script>
@@ -24,36 +25,25 @@
         <span class="maxwidthtext">feste Breite</span>
       </div>
       <h2>Angemeldete Teams</h2>
-      <table class="team tpl">
-        <tbody>
-          <tr>
-            <td rowspan="3" class="teamno">##</td>
-            <td class="name"><input class="chname" type="text" value="%% %%" /></td>
-          </tr>
-          <tr>
-            <td class="name">%% %%</td>
-          </tr>
-          <tr>
-            <td class="name">%% %%</td>
-          </tr>
-        </tbody>
-      </table>
+
+      <div class="team tpl">
+        <div class="teamno">##</div>
+        <div class="names">
+          <span class="name"><input class="chname" type="text" value="%% %%" /></span><br>
+          <span class="name">%% %%</span><br>
+          <span class="name">%% %%</span>
+        </div>
+      </div>
 
       <form id="newteam">
-        <table class="team">
-          <tbody>
-            <tr>
-              <td rowspan="3" class="teamno"><button>+</button></td>
-              <td class="name"><input type="text" placeholder="Spieler 1"/></td>
-            </tr>
-            <tr>
-              <td class="name"><input type="text" placeholder="Spieler 2" /></td>
-            </tr>
-            <tr>
-              <td class="name"><input type="text" placeholder="Spieler 3" /></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="teamno">
+          <button>+</button>
+        </div>
+        <div class="names">
+          <input class="playername" type="text" placeholder="Spieler 1" /><br>
+          <input class="playername" type="text" placeholder="Spieler 2" /><br>
+          <input class="playername" type="text" placeholder="Spieler 3" />
+        </div>
       </form>
 
       <br class="clear">

@@ -2,93 +2,138 @@
  * Storage API for persistent state
  */
 define(function () {
-  var Storage, key, Blob, Tab_Storage;
+  var Storage, keys, Tab_Storage;
 
   Blob = undefined;
   Tab_Storage = undefined;
-  key = 'swiss';
 
-  Storage = {
-    /**
-     * remove this and only this key from localStorage to avoid collision with
-     * other software under the same domain
-     */
-    clear : function () {
-      if (Blob) {
-        window.localStorage.removeItem(key);
-      }
-    },
+  Storage = {};
+  keys = {};
 
-    /**
-     * store the blob
-     */
-    store : function () {
-      var blob;
+  function saveKey (key) {
+    var val, blob;
 
-      if (!Blob) {
-        return undefined;
-      }
+    // if (!keys.hasOwnProperty(key)) {
+    // return true;
+    // }
 
-      blob = Blob.toBlob();
+    val = keys[key];
 
-      if (!blob) {
-        return undefined;
-      }
-
-      window.localStorage.setItem(key, blob);
-      return window.localStorage.getItem(key) === blob;
-    },
-
-    /**
-     * restore from blob
-     * 
-     * @returns true on successful load, undefined otherwise
-     */
-    restore : function () {
-      var blob;
-
-      if (!Blob) {
-        return undefined;
-      }
-
-      blob = window.localStorage.getItem(key);
-
-      if (!blob) {
-        return undefined;
-      }
-
-      try {
-        Blob.fromBlob(blob);
-      } catch (e) {
-        console.error(e);
-        return undefined;
-      }
-
+    if (!val) {
       return true;
-    },
+    }
 
-    /**
-     * enables localStorage, if possible. Necessary initialization
-     */
-    enable : function () {
-      if (Modernizr.localstorage) {
-        Blob = require('./blob');
-      } else {
-        Blob = undefined;
-      }
-    },
+    blob = val.toBlob();
+    if (!blob) {
+      return true;
+    }
 
-    /**
-     * disables the storage. This will inhibit any of the other functions,
-     * including clear(). Note that disable() doesn't clear the storage.
-     */
-    disable : function () {
-      Blob = undefined;
+    window.localStorage.setItem(key, blob);
+
+    return window.localStorage.getItem(key) !== blob;
+  }
+
+  function loadKey (key) {
+    var val, blob;
+
+    // if (!keys.hasOwnProperty(key)) {
+    // return true;
+    // }
+
+    val = keys[key];
+
+    if (!val) {
+      console.error('localStorage.' + key + " doesn't exist");
+      return true;
+    }
+
+    blob = window.localStorage.getItem(key);
+
+    if (!blob) {
+      return true;
+    }
+
+    try {
+      val.fromBlob(blob);
+    } catch (e) {
+      console.error(e);
+      return true;
+    }
+  }
+
+  /**
+   * remove this and only this key from localStorage to avoid collision with
+   * other software under the same domain
+   */
+  Storage.clear = function () {
+    var key;
+
+    for (key in keys) {
+      window.localStorage.removeItem(key);
     }
   };
 
   /**
-   * this function indicates a change in the tournament state
+   * store everything
+   */
+  Storage.store = function () {
+    var key, val, err;
+
+    err = false;
+
+    for (key in keys) {
+      if (saveKey(key)) {
+        err = true;
+         console.error('Error when storing ' + key);
+      }
+    }
+
+    return !err;
+  };
+
+  /**
+   * restore everything
+   * 
+   * @returns true on successful load, false otherwise
+   */
+  Storage.restore = function () {
+    var key, err, blob;
+
+    err = false;
+
+    for (key in keys) {
+      if (loadKey(key)) {
+        err = true;
+         console.error('Error when restoring ' + key);
+      }
+    }
+
+    return !err;
+  };
+
+  /**
+   * enables localStorage, if possible. Necessary initialization
+   */
+  Storage.enable = function () {
+
+    Storage.disable();
+
+    if (Modernizr.localstorage) {
+      keys['swiss'] = require('./blob');
+      keys['players'] = require('./players');
+    }
+  };
+
+  /**
+   * disables the storage. This will inhibit any of the other functions,
+   * including clear(). Note that disable() doesn't clear the storage.
+   */
+  Storage.disable = function () {
+    keys = {};
+  };
+
+  /**
+   * this function indicates a change in the tournament state TODO move to Blob
    */
   Storage.changed = function () {
     if (Tab_Storage === undefined) {
