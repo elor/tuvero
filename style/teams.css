@@ -1,0 +1,106 @@
+#teams .team,#newteam,#games .team {
+  display: block;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: lightgrey;
+  padding: 0.3em;
+  text-align: left;
+  border-spacing: 0px;
+}
+
+#teams .team,#newteam {
+  float: left;
+  display: table;
+  height: 5em;
+  white-space: nowrap;
+  padding: 0em 0.5em;
+}
+
+#teams .teamno {
+  display: table-cell;
+}
+
+#teams .team .names {
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+}
+
+#teams .team .name {
+  width: 100%;
+  display: inline-block;
+  line-height: 1em;
+  width: 10em;
+}
+
+#teams .teamno,#games .team .teamno,#history .teamno {
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 200%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#teams .team .name:hover {
+  cursor: text;
+  text-decoration: underline;
+}
+
+#teams .team .name,#games .team .name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/*#teams.maxwidth .team .name*/
+,
+#games.maxwidth .team .name {
+  display: inline-block;
+  min-width: 10em;
+  max-width: 10em;
+  -webkit-transition: max-width 0.2s;
+  -moz-transition: max-width 0.2s;
+  -ms-transition: max-width 0.2s;
+  -o-transition: max-width 0.2s;
+  transition: max-width 0.2s;
+  min-width: 10em;
+}
+
+#teams.maxwidth .team:hover .name {
+  max-width: 50em;
+  -webkit-transition: max-width 0 .5s;
+  -moz-transition: max-width 0 .5s;
+  -ms-transition: max-width 0 .5s;
+  -o-transition: max-width 0 .5s;
+  transition: max-width 0 .5s;
+}
+
+#newteam {
+  background-color: lightgreen;
+}
+
+#newteam .teamno button {
+  background-color: rgb(221, 221, 221);
+  width: inherit;
+  height: inherit;
+  font-size: 100%;
+  border-radius: 0.2em;
+  border: none;
+  box-shadow: 1px 1px 0px grey;
+}
+
+#newteam .names {
+  padding-left: 0.5em;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  line-height: 1.4em;
+}
+
+#newteam .playername {
+  background-color: white;
+  border: none;
+  width: 100%;
+  box-shadow: 1px 1px 0px grey;
+  margin: 0em;
+}

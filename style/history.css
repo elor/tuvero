@@ -1,0 +1,69 @@
+#history h3 {
+  text-align: left;
+  margin-top: 1em;
+}
+
+#history .game,#history .bye {
+  display: table;
+  float: left;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: grey;
+  padding: 0.3em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#history .game .teamno,#history .bye .teamno {
+  display: table-cell;
+  margin: 0px;
+  border-radius: 0.3em;
+  background-color: lightgrey;
+  padding: 0.3em;
+}
+
+#history .game .correctbox {
+  display: table-cell;
+  height: 100%;
+  vertical-align: middle;
+}
+
+#history .game .correct {
+  display: block;
+  border: none;
+  margin: 0.2em;
+  box-shadow: 1px 1px 0px grey;
+  background-color: lightgrey;
+  font-size: 0.8em;
+  width: 4em;
+  cursor: pointer;
+}
+
+#history .chpoints {
+  display: table-cell;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin: 0.5em;
+}
+
+#history .chpoints .middle {
+  display: block;
+  vertical-align: middle;
+}
+
+#history .chpoints button {
+  margin: 0px;
+  border: none;
+  background-color: lightgrey;
+  font-size: 0.8em;
+  min-width: 1em;
+  padding: 0em 0.2em;
+  cursor: pointer;
+}
+
+#history .chpoints .points {
+  text-align: center;
+  width: 3em;
+  margin: auto;
+}
+

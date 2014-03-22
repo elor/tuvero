@@ -1,0 +1,27 @@
+.tt-dropdown-menu {
+  width: 100%;
+  background: white;
+  margin-left: 0em;
+}
+
+.tt-suggestion {
+  display: block;
+  margin-left: 0em;
+}
+
+.tt-suggestion.tt-cursor {
+  background: #adadad;
+}
+
+.tt-query {
+  color: red;
+}
+
+.tt-hint {
+  color: #adadad;
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+

@@ -1,0 +1,72 @@
+#games .preparing button,#games .finished button {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+}
+
+#games .running {
+  display: none;
+}
+
+#games .game {
+  display: table;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: grey;
+  padding: 0.3em;
+  text-align: left;
+  border-spacing: 0em;
+  float: left;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+#games .game>.team {
+  display: table-cell;
+  margin: 0.0em;
+}
+
+#games .game>div {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0px;
+  margin: 0px;
+}
+
+#games .game>div>button {
+  margin: 0px;
+  height: 1em;
+  border: none;
+  background-color: lightgrey;
+}
+
+#games .game>.team.left .name {
+  text-align: right;
+}
+
+#games .game>.team .points {
+  text-align: center;
+  position: relative;
+  width: 90%;
+  margin: auto;
+}
+
+#games .votes h3 {
+  text-align: left;
+}
+
+#games .votes .team {
+  margin: 0.0em;
+}
+
+#games .votes .vote {
+  float: left;
+  border-radius: 0.5em;
+  background-color: grey;
+  padding: 0.3em;
+}
+
+#games .finished {
+  display: none;
+}
+

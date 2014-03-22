@@ -206,7 +206,6 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
       np1 = Number($inputs[0].val());
       np2 = Number($inputs[1].val());
-      
 
       // verify values
       if (!verify(op1, op2) || !verify(np1, np2)) {

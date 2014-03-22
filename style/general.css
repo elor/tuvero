@@ -1,0 +1,32 @@
+body {
+	background-color: gray;
+	padding: 0;
+	border-width: 0;
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: underline;
+}
+
+h3 {
+	margin-left: 0.5em;
+}
+
+div,button {
+	margin: 0px;
+	padding: 0px;
+}
+
+.tpl {
+	display: none;
+}
+
+.clear {
+  clear: both;
+}
+
+.noadownload,.nostorage,.nofilereader,.nojson,.noatob {
+	display: none;
+}
