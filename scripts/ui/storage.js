@@ -84,7 +84,7 @@ define(function () {
     for (key in keys) {
       if (saveKey(key)) {
         err = true;
-        // console.error('Error when storing ' + key);
+         console.error('Error when storing ' + key);
       }
     }
 
@@ -104,7 +104,7 @@ define(function () {
     for (key in keys) {
       if (loadKey(key)) {
         err = true;
-        // console.error('Error when restoring ' + key);
+         console.error('Error when restoring ' + key);
       }
     }
 
@@ -120,6 +120,7 @@ define(function () {
 
     if (Modernizr.localstorage) {
       keys['swiss'] = require('./blob');
+      keys['players'] = require('./players');
     }
   };
 
@@ -132,7 +133,7 @@ define(function () {
   };
 
   /**
-   * this function indicates a change in the tournament state
+   * this function indicates a change in the tournament state TODO move to Blob
    */
   Storage.changed = function () {
     if (Tab_Storage === undefined) {

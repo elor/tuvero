@@ -6,10 +6,22 @@ define([ './swiss' ], function (Swiss) {
 
   teams = [];
 
-  Team = function (names) {
-    this.names = names.slice();
-    this.id = teams.length;
-    teams.push(this);
+  Team = {};
+
+  /**
+   * create a new team;
+   */
+  Team.create = function (names) {
+    var team;
+
+    team = {};
+
+    team.names = names.slice();
+    team.id = teams.length;
+
+    teams.push(team);
+
+    return team;
   };
 
   /**

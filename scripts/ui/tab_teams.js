@@ -118,7 +118,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       names = newteamfunc();
 
       if (names !== undefined) {
-        team = new Team(names);
+        team = Team.create(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
         $t1.focus();

@@ -5,23 +5,26 @@
 define(function () {
   var Player, names;
 
+  names = [];
+
   Player = {};
 
-  Player.read = function () {
-    // TODO extract to Storage object
-    names = JSON.parse(localStorage.getItem('players'));
-    if (!names) {
-      names = [ 'Erik Lorenz' ];
+  Player.fromBlob = function (blob) {
+    var blobnames = JSON.parse(blob);
+    if (!blobnames) {
+      return;
     }
+
     // TODO verify array of strings
     // XXX implements.js?
-    names.sort();
+    blobnames.sort();
+    names = blobnames;
+
+    require('./autocomplete').update();
   };
 
-  Player.write = function () {
-    // TODO extract to Storage object
-    localStorage.setItem('players', JSON.stringify(names));
-    // XXX necessary?
+  Player.toBlob = function () {
+    return JSON.stringify(names);
   };
 
   Player.clear = function () {
@@ -46,8 +49,6 @@ define(function () {
   Player.erase = function (name) {
     // TODO do we need it?
   };
-
-  Player.read();
 
   return Player;
 });
