@@ -1,5 +1,5 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './players' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Players) {
+    './autocomplete' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete) {
   var Tab_Teams, $tpl, $n1, $n2, $n3, $no, $anchor, $new, $t1, $t2, $t3, $tms;
 
   Tab_Teams = {};
@@ -17,7 +17,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     // prepare submission field
     $new = $('#newteam');
-    $no = $new.find('input');
+    $no = $new.find('input.playername');
     $t1 = $($no[0]);
     $t2 = $($no[1]);
     $t3 = $($no[2]);
@@ -105,6 +105,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       $t1.val('');
       $t2.val('');
       $t3.val('');
+
+      Autocomplete.clear();
 
       return names;
     };
@@ -221,42 +223,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       return false;
     });
 
-    // autocomplete
-    names = Players.get();
-
-    var states = new Bloodhound({
-      datumTokenizer : Bloodhound.tokenizers.obj.whitespace('val'),
-      queryTokenizer : Bloodhound.tokenizers.whitespace,
-      local : names.map(function (value) {
-        return {
-          val : value
-        };
-      })
-    });
-
-    states.initialize();
-
-    $('#teams input.playername').typeahead('destroy').typeahead({
-      hint : true,
-      highlight : true,
-      limit : 3
-    }, {
-      name : 'names',
-      displayKey : 'val',
-      source : states.ttAdapter()
-    }).parents('form').submit(function () {
-      var $in, i;
-
-      $in = $('#teams input.playername');
-
-      for (i = 0; i < $in.size(); i += 1) {
-        if (!$($in[i]).val().trim()) {
-          return;
-        }
-      }
-
-      $in.typeahead('val', '');
-    });
+    Autocomplete.update();
 
   });
 
