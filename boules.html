@@ -7,9 +7,10 @@
   <script src="scripts/lib/json2.js"></script>
   <script src="scripts/lib/modernizr.custom.49416.js"></script>
   <script src="scripts/lib/jquery-2.1.0.min.js"></script>
+  <script src="scripts/lib/typeahead.bundle.min.js"></script>
   <script>
   var require = {
-    urlArgs: "bust=" +  (new Date()).getTime()
+    urlArgs: "bust=" + (new Date()).getTime()
   };
   </script>
   <script data-main="scripts/ui/main" src="scripts/lib/require.js"></script>
@@ -40,20 +41,12 @@
       </table>
 
       <form id="newteam">
-        <table class="team">
-          <tbody>
-            <tr>
-              <td rowspan="3" class="teamno"><button>+</button></td>
-              <td class="name"><input type="text" placeholder="Spieler 1"/></td>
-            </tr>
-            <tr>
-              <td class="name"><input type="text" placeholder="Spieler 2" /></td>
-            </tr>
-            <tr>
-              <td class="name"><input type="text" placeholder="Spieler 3" /></td>
-            </tr>
-          </tbody>
-        </table>
+        <button class="teamno">+</button>
+        <div class="names">
+          <input class="playername" type="text" placeholder="Spieler 1"/><br />
+          <input class="playername" type="text" placeholder="Spieler 2"/><br />
+          <input class="playername" type="text" placeholder="Spieler 3"/>
+        </div>
       </form>
 
       <br class="clear">

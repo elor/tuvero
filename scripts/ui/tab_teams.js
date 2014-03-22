@@ -115,6 +115,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       names = newteamfunc();
 
       if (names !== undefined) {
+        $('#teams input.playername').typeahead('val', '');
         team = new Team(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
@@ -219,6 +220,33 @@ define([ './team', './toast', './strings', './tab_ranking', './storage' ], funct
       e.preventDefault();
       return false;
     });
+
+    // autocomplete
+    names = [];
+    names.sort();
+
+    var states = new Bloodhound({
+      datumTokenizer : Bloodhound.tokenizers.obj.whitespace('val'),
+      queryTokenizer : Bloodhound.tokenizers.whitespace,
+      local : names.map(function (value) {
+        return {
+          val : value
+        };
+      })
+    });
+
+    states.initialize();
+
+    $('#teams input.playername').typeahead({
+      hint : true,
+      highlight : true,
+      limit : 3
+    }, {
+      name : 'names',
+      displayKey : 'val',
+      source : states.ttAdapter()
+    });
+
   });
 
   return Tab_Teams;
