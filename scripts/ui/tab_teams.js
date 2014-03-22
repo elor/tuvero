@@ -116,7 +116,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       names = newteamfunc();
 
       if (names !== undefined) {
-        $('#teams input.playername').typeahead('val', '');
         team = new Team(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
@@ -237,7 +236,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     states.initialize();
 
-    $('#teams input.playername, #teams .chname').typeahead({
+    $('#teams input.playername').typeahead('destroy').typeahead({
       hint : true,
       highlight : true,
       limit : 3
@@ -245,6 +244,18 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       name : 'names',
       displayKey : 'val',
       source : states.ttAdapter()
+    }).parents('form').submit(function () {
+      var $in, i;
+
+      $in = $('#teams input.playername');
+
+      for (i = 0; i < $in.size(); i += 1) {
+        if (!$($in[i]).val().trim()) {
+          return;
+        }
+      }
+
+      $in.typeahead('val', '');
     });
 
   });
