@@ -1,10 +1,12 @@
 require([ './tabs', './toast', './strings', './storage', './tab_storage',
-    './featuredetect', './tabshandle' ], function (Tabs, Toast, Strings, Storage, Tab_Storage, Tabshandle) {
+    './featuredetect', './tabshandle', './alltabs' ], function (Tabs, Toast, Strings, Storage, Tab_Storage, Featuredetect, Tabshandle, Alltabs) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
   $(function ($) {
-    // var i;
+
+    Alltabs.reset();
+
     // show the page
     $('#tabs').show();
 

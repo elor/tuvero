@@ -2,14 +2,15 @@
  * Load and manage all tabs centrally
  */
 
-define([ './tab_games', './tab_history', './tab_new', './tab_ranking',
-    './tab_storage', './tab_teams' ], function () {
+// define([ './tab_games', './tab_history', './tab_new', './tab_ranking',
+// './tab_storage', './tab_teams' ], function () {
+define([ './tab_teams' ], function () {
   var i, tabs, Alltabs;
 
   tabs = [];
 
-  for (i = 0; i < arguments.size(); i += 1) {
-    tabs[i] = $arguments;
+  for (i = 0; i < arguments.length; i += 1) {
+    tabs[i] = arguments[i];
   }
 
   Alltabs = {
@@ -25,4 +26,6 @@ define([ './tab_games', './tab_history', './tab_new', './tab_ranking',
       }
     }
   };
+
+  return Alltabs;
 });

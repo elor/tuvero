@@ -1,91 +1,312 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
     './autocomplete', './options' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options) {
-  var Tab_Teams, $tpl, $names, $no, $anchor, $new, $t1, $tms;
 
-  Tab_Teams = {};
+  var Tab_Teams, $tab, template, newteam, $anchor;
 
-  $tms = [];
+  $tab = undefined;
 
-  // avoid jslint false positive
-  $tpl = $no = $page = undefined;
+  function trimName (name) {
+    return name.replace(/^\s*|\s*$/g, '').replace(/\s\s*/g, ' ');
+  }
 
-  $(function ($) {
-    var $box, $teams, $chname, i;
+  function initTemplate () {
+    var tmp, $tpl, $teamno, $names, $chname, i;
 
-    // get page
-    $anchor = $('#newteam');
+    if (template) {
+      console.error('tab_teams: template already exists: ');
+      console.error(template);
+      return;
+    }
 
-    // prepare submission field
-    $new = $('#newteam');
-    $no = $new.find('input.playername');
-    $t = [];
-    $t[0] = $($no[0]);
-    $t[1] = $($no[1]);
-    $t[2] = $($no[2]);
+    $tpl = $tab.find('.team.tpl');
 
-    // prepare template
-    $tpl = $('#teams .team.tpl');
-    $no = $tpl.find('.name');
-    $names = [];
-    $names[0] = $($no[0]);
-    $names[1] = $($no[1]);
-    $names[2] = $($no[2]);
-    $no = $tpl.find('.teamno');
     $tpl.detach();
     $tpl.removeClass('tpl');
+
+    $names = [];
+    tmp = $tpl.find('.name');
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      $names[i] = tmp.eq(i);
+    }
+
+    $teamno = $tpl.find('.teamno');
+
     $chname = $tpl.find('.chname');
     $chname.detach();
 
+    template = {
+      $tpl : $tpl,
+      $teamno : $teamno,
+      $names : $names,
+      $chname : $chname,
+    };
+
+    updateTemplate();
+  }
+
+  function updateTemplate () {
+    var i, $names;
+
+    $names = template.$names;
+
     for (i = 0; i < Options.maxteamsize; i += 1) {
       if (i < Options.teamsize) {
-        $t[i].prev('br').css('display', '');
-        $t[i].css('display', '');
         $names[i].prev('br').css('display', '');
         $names[i].css('display', '');
       } else {
-        $t[i].prev('br').css('display', 'none');
-        $t[i].css('display', 'none');
         $names[i].prev('br').css('display', 'none');
         $names[i].css('display', 'none');
       }
     }
+  }
 
-    /**
-     * this function adds a new team box to the page
-     * 
-     * @param team
-     *          array of team member names. team number is determined from call
-     *          order
-     */
-    function createBox (team) {
-      var $team, tmsid, i;
+  function initNewTeam () {
+    var i, tmp, $names, $form;
 
-      for (i = 0; i < Options.teamsize; i += 1) {
-        $names[i].text(team.names[i]);
-      }
-      $no.text(team.id + 1);
-
-      $team = $tpl.clone();
-      $anchor.before($team);
-
-      tmsid = $team.prevAll().length;
-
-      $tms[tmsid] = team;
+    if (newteam) {
+      console.error('tab_teams: newteam is already defined:');
+      console.error(newteam);
+      return;
     }
 
+    // ================== FUNCTIONS BEGIN ==================
     /**
-     * removes all teams from the overview
+     * Retrieves, validates and returns names of new players, resetting the
+     * input fields if valid
+     * 
+     * @returns array of player names on successful validation, undefined
+     *          otherwise
      */
-    Tab_Teams.reset = function () {
-      $('#teams > .team').remove(); // '>' relation excludes the entry
-      // form
-      $tms = [];
+    function readNewTeamNames () {
+      var names, i;
+
+      names = [];
+
+      // get and trim names
+      for (i = 0; i < Options.teamsize; i += 1) {
+        names.push(trimName(newteam.$names[i].val()));
+      }
+
+      // abort on empty names
+      for (i = 0; i < Options.teamsize; i += 1) {
+        if (names[i] === '') {
+          return undefined;
+        }
+      }
+
+      // reset input fields
+      for (i = 0; i < Options.teamsize; i += 1) {
+        newteam.$names[i].val('');
+      }
+
+      // clear autocomplete entries
+      Autocomplete.clear();
+
+      return names;
+    }
+
+    function createTeamFromForm () {
+      var names, team;
+
+      names = readNewTeamNames();
+
+      if (names !== undefined) {
+        team = Team.create(names);
+        new Toast(Strings.teamadded.replace('%s', team.id + 1));
+        createBox(team);
+        template.$names[0].focus();
+
+        // save changes
+        Storage.changed();
+      }
+
+      return false;
+    }
+    // ================== FUNCTIONS END ==================
+
+    $form = $tab.find('#newteam');
+
+    tmp = $form.find('input.playername');
+    $names = [];
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      $names[i] = tmp.eq(i);
+    }
+
+    newteam = {
+      $form : $form,
+      $names : $names,
     };
 
+    // register 'new player' form submission
+    $form.submit(createTeamFromForm);
+
+    updateNewTeam();
+  }
+
+  function updateNewTeam () {
+    var i, $names;
+
+    $names = newteam.$names;
+
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      if (i < Options.teamsize) {
+        $names[i].prev('br').css('display', '');
+        $names[i].css('display', '');
+      } else {
+        $names[i].prev('br').css('display', 'none');
+        $names[i].css('display', 'none');
+      }
+    }
+  }
+
+  function initMaxWidth () {
+    var $box;
+
+    // width checkbox
+    $box = $tab.find('.options .maxwidth');
+
+    // toggle#teams.maxwidth
+    function maxwidthtest () {
+      if (!!$box.prop('checked')) {
+        $tab.addClass('maxwidth');
+      } else {
+        $tab.removeClass('maxwidth');
+      }
+    }
+
+    $box.click(maxwidthtest);
+
+    maxwidthtest();
+  }
+
+  function initRename () {
+
+    // ================== FUNCTIONS BEGIN ==================
+    function chshow ($name) {
+      template.$chname.val($name.text());
+      $name.text('');
+      $name.append(template.$chname);
+      template.$chname.focus();
+    }
+
+    function updateTeam ($team) {
+      var teamid, team, $names, Tab_Games, i, name;
+
+      // retrieve team
+      teamid = $team.prevAll('.team').length;
+
+      team = Team.get(teamid);
+
+      $names = $team.find('.name');
+
+      for (i = 0; i < Options.teamsize; i += 1) {
+        name = trimName($names.eq(i).text());
+        if (name) {
+          // accept non-empty names
+          team.names[i] = name;
+        } else {
+          // reset to stored name
+          $names.eq(i).text(team.names[i]);
+        }
+      }
+
+      // TODO use event system
+      // avoid circular dependency
+      Tab_Games = require('./tab_games');
+      // refresh all tabs
+      Tab_Games.update();
+      Tab_Ranking.update();
+
+      // save change
+      // TODO use event system
+      Storage.changed();
+    }
+
+    function chhide () {
+      var name, $name, $team, $parents;
+
+      $parents = template.$chname.parents();
+      $name = $parents.eq(0);
+
+      template.$chname.detach();
+      // trim the string
+      name = trimName(template.$chname.val());
+      $name.text(name);
+
+      $team = $parents.eq(2);
+
+      updateTeam($team);
+    }
+    // ================== FUNCTIONS END ==================
+
+    $tab.delegate('.team .name', 'click', function () {
+      var $name;
+
+      $name = $(this);
+
+      chshow($name);
+    });
+
+    template.$chname.blur(function () {
+      chhide();
+    });
+
+    // avoid bubbling of the click event towards .name, which would remove
+    // chname and cause DOM exceptions
+    template.$chname.click(function (e) {
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function init () {
+    // remember that we have initialized this page
+    if ($tab) {
+      console.error('tab_teams: $tab is already defined:');
+      console.error($tab);
+      return;
+    }
+
+    $tab = $('#teams');
+    initTemplate();
+    initNewTeam();
+    initMaxWidth();
+    initRename();
+    $anchor = newteam.$form;
+
+    Autocomplete.update();
+  }
+
+  /**
+   * this function adds a new team box to the page
+   * 
+   * @param team
+   *          array of team member names. team number is determined from call
+   *          order
+   */
+  function createBox (team) {
+    var i;
+
+    for (i = 0; i < Options.teamsize; i += 1) {
+      template.$names[i].text(team.names[i]);
+    }
+    template.$teamno.text(team.id + 1);
+
+    $anchor.before(template.$tpl.clone());
+  }
+
+  Tab_Teams = {
     /**
-     * replaces the current team boxes with new ones creates from Team
+     * init, clear and reset all in one
      */
-    Tab_Teams.update = function () {
+    reset : function () {
+      if (!$tab) {
+        init();
+      }
+
+      $tab.find('.team').remove();
+    },
+    update : function () {
       var i, l;
       Tab_Teams.reset();
 
@@ -94,154 +315,17 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       for (i = 0; i < l; i += 1) {
         createBox(Team.get(i));
       }
-    };
+    },
+  };
 
-    /**
-     * Retrieves, validates and returns names of new players, resetting the
-     * input fields if valid
-     * 
-     * @returns array of player names on successful validation, undefined
-     *          otherwise
-     */
-    function newteamfunc () {
-      var names, i;
-
-      names = [];
-
-      for (i = 0; i < Options.teamsize; i += 1) {
-        names.push($t[i].val().trim());
-      }
-
-      for (i = 0; i < Options.teamsize; i += 1) {
-        if (names[i] === '') {
-          return undefined;
-        }
-      }
-
-      for (i = 0; i < Options.teamsize; i += 1) {
-        $t[i].val('');
-      }
-
-      Autocomplete.clear();
-
-      return names;
+  // TODO use event system
+  Tab_Teams.active = function (active) {
+    if (active) {
+      newteam.$form.show();
+    } else {
+      newteam.$form.hide();
     }
-
-    // register 'new player' form submission
-    $new.submit(function () {
-      var names, team;
-
-      names = newteamfunc();
-
-      if (names !== undefined) {
-        team = Team.create(names);
-        new Toast(Strings.teamadded.replace('%s', team.id + 1));
-        createBox(team);
-        $t[0].focus();
-
-        // save changes
-        Storage.changed();
-      }
-
-      return false;
-    });
-
-    Tab_Teams.active = function (active) {
-      if (active) {
-        $new.show();
-      } else {
-        $new.hide();
-      }
-    };
-
-    // width checkbox
-    $box = $('#teams .options .maxwidth');
-    $teams = $('#teams');
-
-    function maxwidthtest () {
-      if (!!$box.prop('checked')) {
-        $teams.addClass('maxwidth');
-      } else {
-        $teams.removeClass('maxwidth');
-      }
-    }
-
-    $box.click(maxwidthtest);
-
-    maxwidthtest();
-
-    function chshow ($name) {
-      $chname.val($name.text());
-      $name.text('');
-      $name.append($chname);
-      $chname.focus();
-    }
-
-    function updateTeam ($team) {
-      var tmsid, team, $names, Tab_Games, i, name;
-
-      // retrieve team
-      tmsid = $team.prevAll().length;
-      team = $tms[tmsid];
-
-      $names = $team.find('.name');
-
-      for (i = 0; i < Options.teamsize; i += 1) {
-        name = $($names[i]).text().trim();
-        // prevent empty names
-        if (name) {
-          team.names[i] = name;
-        } else {
-          $($names[i]).text(team.names[i]);
-        }
-      }
-
-      // avoid circular dependency
-      Tab_Games = require('./tab_games');
-      // refresh all tabs
-      Tab_Games.update();
-      Tab_Ranking.update();
-
-      // save change
-      Storage.changed();
-    }
-
-    function chhide () {
-      var $name, $team, $parents;
-
-      $parents = $chname.parents();
-      $name = $parents.eq(0);
-
-      $chname.detach();
-      $name.text($chname.val());
-
-      $team = $parents.eq(2);
-
-      updateTeam($team);
-    }
-
-    $('#tabs').delegate('#teams > .team .name', 'click', function (elem) {
-      var $name;
-
-      $name = $(elem.target);
-
-      chshow($name);
-    });
-
-    $chname.blur(function () {
-      chhide();
-    });
-
-    // avoid bubbling of the click event towards .name, which would remove
-    // chname and cause DOM exceptions
-    $chname.click(function (e) {
-      e.preventDefault();
-      return false;
-    });
-
-    Autocomplete.update();
-
-  });
+  };
 
   return Tab_Teams;
 });
