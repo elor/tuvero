@@ -202,7 +202,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     };
 
     // TODO validate everything!
-    // * point ranges * /[^0-9]/
+    // * point ranges * a-z * space
     save = function () {
       var op1, op2, np1, np2, $spans, t1, t2, res, game;
 
@@ -333,7 +333,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       // by default, the first button is pressed, not type="submit". Let's
       // submit on default
       if (e.which === 13) {
-        $form.submit();
+        $form.find('button.save').click();
 
         e.preventDefault();
         return false;
