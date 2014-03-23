@@ -201,6 +201,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       new Toast(Strings.pointchangeaborted);
     };
 
+    // TODO validate on the fly
     save = function () {
       var op1, op2, np1, np2, $spans, t1, t2, res, game;
 
