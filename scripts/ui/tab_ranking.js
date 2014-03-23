@@ -1,4 +1,5 @@
-define([ './team', './toast', './strings', './swiss', './options' ], function (Team, Toast, Strings, Swiss, Options) {
+define([ './team', './toast', './strings', './swiss', './options',
+    './tabshandle' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle) {
   var Tab_Ranking, $ctpl, $cpts, $corrections, $cnos;
 
   Tab_Ranking = {};
@@ -39,9 +40,12 @@ define([ './team', './toast', './strings', './swiss', './options' ], function (T
      * @returns {boolean} false on failure, true on success
      */
     update = function () {
-      var ranking, makeline, rank, votes;
+      var ranking, makeline, rank, votes, empty;
+
+      empty = true;
 
       if (Swiss.getRound() <= 0) {
+        Tabshandle.hide('ranking');
         return false;
       }
 
@@ -93,6 +97,7 @@ define([ './team', './toast', './strings', './swiss', './options' ], function (T
 
       for (rank = ranking.ids.length - 1; rank >= 0; rank -= 1) {
         $anchor.after(makeline(rank));
+        empty = false;
       }
 
       if (!shown) {
@@ -101,6 +106,12 @@ define([ './team', './toast', './strings', './swiss', './options' ], function (T
       }
 
       showCorrections();
+
+      if (empty) {
+        Tabshandle.hide('ranking');
+      } else {
+        Tabshandle.show('ranking');
+      }
 
       return true;
     };
@@ -193,6 +204,8 @@ define([ './team', './toast', './strings', './swiss', './options' ], function (T
 
     // show corrections for the first time (avoids flashing)
     $('#ranking .corrections').removeClass('tpl');
+
+    Tabshandle.hide('ranking');
   });
 
   return Tab_Ranking;

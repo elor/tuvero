@@ -1,5 +1,5 @@
 define([ './toast', './strings', './history', './swiss', './tab_ranking',
-    '../backend/game', './storage' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage) {
+    '../backend/game', './storage', './tabshandle' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle) {
   var Tab_History, currentround, $form, abort;
 
   $form = undefined;
@@ -77,6 +77,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
       // release the box to the DOM
       $anchor.before($tpl.clone());
+
+      Tabshandle.show('history');
     };
 
     /**
@@ -124,7 +126,9 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
      * removes and redraws all boxes from History
      */
     Tab_History.update = function () {
-      var round, maxround, id, numgames, bye;
+      var round, maxround, id, numgames, bye, empty;
+
+      empty = true;
 
       Tab_History.reset();
 
@@ -134,13 +138,19 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
         bye = History.getBye(round);
         if (bye !== undefined) {
+          empty = false;
           Tab_History.createBye(bye);
         }
 
         numgames = History.numGames(round);
         for (id = 0; id < numgames; id += 1) {
+          empty = false;
           Tab_History.createBox(History.get(round, id));
         }
+      }
+
+      if (empty) {
+        Tabshandle.hide('history');
       }
     };
 
@@ -322,8 +332,10 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       e.preventDefault();
       return false;
     });
-
   });
+
+  // FIXME reload from history page moves to another tab because it's closed
+  Tabshandle.hide('history');
 
   return Tab_History;
 });
