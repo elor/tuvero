@@ -61,10 +61,7 @@ define([ './swiss', './options', './strings' ], function (Swiss, Options, String
   Team.toCSV = function () {
     var lines, i;
 
-    lines = [ 'No.' ];
-    for (i = 0; i < Options.teamsize; i += 1) {
-      lines[0] += ',"' + Strings.player + ' ' + (i + 1) + '"';
-    }
+    lines = [ Strings['teamhead' + Options.teamsize] ];
 
     teams.forEach(function (team) {
       var line, i;

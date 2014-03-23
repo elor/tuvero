@@ -37,7 +37,13 @@ define(function () {
     startfailed : 'Auslosung fehlgeschlagen. Zu wenige Teams?',
     teamadded : 'Team %s registriert',
     notenoughteams : 'Zu wenige Teams',
-    player : 'Spieler'
+    player : 'Spieler',
+    teamhead1 : 'No.,Spieler',
+    teamhead2 : 'No.,Spieler 1,Spieler 2',
+    teamhead3 : 'No.,Spieler 1,Spieler 2,Spieler 3',
+    rankhead1 : 'Rang,Team,Spieler,Siege,BH,FBH,Netto,Lose',
+    rankhead2 : 'Rang,Team,Spieler 1,Spieler 2,Siege,BH,FBH,Netto,Lose',
+    rankhead3 : 'Rang,Team,Spieler 1,Spieler 2,Spieler 3,Siege,BH,FBH,Netto,Lose',
   };
 
   return Strings;
