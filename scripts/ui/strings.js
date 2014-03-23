@@ -36,7 +36,18 @@ define(function () {
     savefailed : 'Speichervorgang fehlgeschlagen.',
     startfailed : 'Auslosung fehlgeschlagen. Zu wenige Teams?',
     teamadded : 'Team %s registriert',
-    toofewteams : 'Zu wenige Teams'
+    notenoughteams : 'Zu wenige Teams',
+    player : 'Spieler',
+    teamhead1 : 'No.,Spieler',
+    teamhead2 : 'No.,Spieler 1,Spieler 2',
+    teamhead3 : 'No.,Spieler 1,Spieler 2,Spieler 3',
+    rankhead1 : 'Rang,Team,Spieler,Siege,BH,FBH,Netto,Lose',
+    rankhead2 : 'Rang,Team,Spieler 1,Spieler 2,Siege,BH,FBH,Netto,Lose',
+    rankhead3 : 'Rang,Team,Spieler 1,Spieler 2,Spieler 3,Siege,BH,FBH,Netto,Lose',
+    correctionhead : 'Team 1,Team 2,P1 vorher, P2 vorher,P1 nachher, P2 nachher',
+    histhead1 : 'Runde,Teamno. 1,Spieler 1,Teamno. 2,Spieler 1,P1,P2',
+    histhead2 : 'Runde,Teamno. 1,Spieler 1,Spieler 2,Teamno. 2,Spieler 1,Spieler 2,P1,P2',
+    histhead3 : 'Runde,Teamno. 1,Spieler 1,Spieler 2,Spieler 3,Teamno. 2,Spieler 1,Spieler 2,Spieler 3,P1,P2',
   };
 
   return Strings;

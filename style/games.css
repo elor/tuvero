@@ -15,7 +15,6 @@
   background-color: #808080;
   padding: 0.3em;
   text-align: left;
-  border-spacing: 0em;
   float: left;
   white-space: nowrap;
 }
@@ -25,16 +24,27 @@
   margin: 0.0em;
   padding: 0.0em;
   width: 100%;
+  background-color: #d3d3d3;
 }
 
-#games .game > div > div {
+#games .game .top {
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+}
+
+#games .game .bottom {
+  border-bottom-left-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
+}
+
+#games .game .finish {
   display: table-cell;
   text-align: center;
 }
 
 #games .game .teamno {
-  border-bottom-left-radius: 0em;
-  border-bottom-right-radius: 0em;
+  display: table-cell;
+  background: none;
 }
 
 #games .game input {
@@ -45,44 +55,37 @@
 #games .game button {
   width: 6.5em;
   border: none;
-  box-shadow: 1px 1px 0px gray;
+  box-shadow: inset 0px 0px 1px #000000;
+  border-radius: 5px;
   background-color: #d3d3d3;
-  color: gray;
   transition: color 0.2s;
 }
 
-#games .game button.active {
-  color: black;
-  transition: color 0.2s;
-}
-
-#games .game button.active:hover {
+/* this is awesome! */
+#games .game button:not([disabled]):hover {
   cursor: pointer;
 }
 
 #games .names {
-  /*width: 50%;*/
+  display: table-cell;
   padding: 0em;0.5em;
-  background-color: #d3d3d3;
   padding: 0em 0.3em;
-  overflow: hidden;
-  border-radius: 0.4em;
   font-weight: bold;
 }
 
 #games.maxwidth .names {
   width: 8em;
   max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #games .names.left {
   text-align: left;
-  border-top-left-radius: 0em;
 }
 
 #games .names.right {
   text-align: right;
-  border-top-right-radius: 0em;
 }
 
 #games .votes {
@@ -101,8 +104,19 @@
   padding: 0.3em;
   white-space: nowrap;
 }
-#games .votes .vote > div {
+
+#games .votes .vote .teamno {
   display: table-cell;
+  border-radius: 0em;
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
+}
+
+#games .votes .vote .names {
+  display: table-cell;
+  background-color: #d3d3d3;
+  border-top-right-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
 }
 
 #games .finished {

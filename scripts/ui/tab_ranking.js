@@ -1,10 +1,10 @@
-define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, Strings, Swiss) {
+define([ './team', './toast', './strings', './swiss', './options' ], function (Team, Toast, Strings, Swiss, Options) {
   var Tab_Ranking, $ctpl, $cpts, $corrections, $cnos;
 
   Tab_Ranking = {};
 
   $(function ($) {
-    var $tpl, $fields, $anchor, shown, autoupdate, update, $box, $button;
+    var $tpl, $fields, $anchor, shown, autoupdate, update, $box, $button, i;
 
     autoupdate = false;
 
@@ -13,10 +13,22 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, S
 
     // prepare template
     $tpl = $('#ranking table .line.tpl');
-    $fields = $tpl.find('td');
+    $fields = $tpl.find('td').map(function () {
+      return $(this);
+    });
     $tpl.detach();
     $tpl.removeClass('tpl');
     $anchor = $('#ranking table .head');
+
+    $('th:nth-child(3)').attr('colspan', Options.teamsize);
+
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      if (i < Options.teamsize) {
+        $fields[i + 2].css('display', '');
+      } else {
+        $fields[i + 2].css('display', 'none');
+      }
+    }
 
     Tab_Ranking.reset = function () {
       $('#ranking table .line').remove();
@@ -46,22 +58,22 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, S
        * @returns a filled copy of the template
        */
       makeline = function (rnk) {
-        var tid, team, vote;
+        var tid, team, vote, i;
 
         tid = ranking.ids[rnk];
         team = Team.get(tid);
 
-        $($fields[0]).text(rnk + 1);
+        $fields[0].text(rnk + 1);
 
-        $($fields[1]).text(team.id + 1);
-        $($fields[2]).text(team.names[0]);
-        $($fields[3]).text(team.names[1]);
-        $($fields[4]).text(team.names[2]);
+        $fields[1].text(team.id + 1);
+        for (i = 0; i < Options.teamsize; i += 1) {
+          $fields[i + 2].text(team.names[i]);
+        }
 
-        $($fields[5]).text(ranking.wins[rnk]);
-        $($fields[6]).text(ranking.bh[rnk]);
-        $($fields[7]).text(ranking.fbh[rnk]);
-        $($fields[8]).text(ranking.netto[rnk]);
+        $fields[5].text(ranking.wins[rnk]);
+        $fields[6].text(ranking.bh[rnk]);
+        $fields[7].text(ranking.fbh[rnk]);
+        $fields[8].text(ranking.netto[rnk]);
 
         vote = [];
         if (votes.up.indexOf(tid) !== -1) {
@@ -74,7 +86,7 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, S
           vote.push(Strings.byevote);
         }
 
-        $($fields[9]).text(vote.join(', '));
+        $fields[9].text(vote.join(', '));
 
         return $tpl.clone();
       };

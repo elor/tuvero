@@ -1,5 +1,5 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking', './history', './tab_history', './storage' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage) {
+    './tab_ranking', './history', './tab_history', './storage', './options' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options) {
   var Tab_Games, games, $games, $vtpl, $vanchors, $vnames, $vno, $vcontainers;
 
   // references to html elements of the games
@@ -10,7 +10,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   Tab_Games = {};
 
   $(function ($) {
-    var $regbut, $stages, $tpl, $tplnames, $tplnos, $anchor;
+    var $regbut, $stages, $tpl, $tplnames, $tplnos, $anchor, i;
 
     function isInt (n) {
       return n % 1 === 0;
@@ -77,7 +77,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // close registration and start swiss tournament
     $regbut.click(function () {
       if (Team.count() < 2) {
-        new Toast(Strings.toofewteams);
+        new Toast(Strings.notenoughteams);
         return;
       }
 
@@ -99,26 +99,41 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // prepare template and anchor
     $tpl = $('#games .running .game.tpl');
-    $tplnames = $tpl.find('.name');
+    $tplnames = $tpl.find('.name').map(function () {
+      return $(this);
+    });
     $tplnos = $tpl.find('.teamno');
     $tpl.detach();
     $tpl.removeClass('tpl');
     $anchor = $($('#games .running .clear')[0]);
 
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      if (i < Options.teamsize) {
+        $tplnames[i].css('display', '');
+        $tplnames[i].prev('br').css('display', '');
+        $tplnames[i + Options.maxteamsize].css('display', '');
+        $tplnames[i + Options.maxteamsize].css('display', '');
+      } else {
+        $tplnames[i].css('display', 'none');
+        $tplnames[i].prev('br').css('display', 'none');
+        $tplnames[i + Options.maxteamsize].css('display', 'none');
+        $tplnames[i + Options.maxteamsize].css('display', 'none');
+      }
+    }
+
     /**
      * create and show a box displaying a certain game
      */
     function appendGame (game) {
-      var t1, t2, names, $game;
+      var t1, t2, $game, i;
 
       t1 = Team.get(game.teams[0][0]);
       t2 = Team.get(game.teams[1][0]);
 
-      names = t1.names.concat(t2.names);
-
-      names.forEach(function (name, index) {
-        $($tplnames[index]).text(name);
-      });
+      for (i = 0; i < Options.teamsize; i += 1) {
+        $tplnames[i].text(t1.names[i]);
+        $tplnames[i + Options.maxteamsize].text(t2.names[i]);
+      }
 
       $($tplnos[0]).text(t1.id + 1);
       $($tplnos[1]).text(t2.id + 1);
@@ -311,17 +326,19 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }).delegate('.game input', 'change', function () {
       var $button = $(this).parent().find('button');
       if (readResults($(this).parents('.game')[0]) === undefined) {
-        $button.removeClass('active');
+        $button.attr('disabled', 'disabled');
         $button.attr('tabindex', '-1');
       } else {
-        $button.addClass('active');
+        $button.removeAttr('disabled');
         $button.removeAttr('tabindex');
       }
     });
 
     // prepare vote elements
     $vtpl = $('#games .running .votes .tpl');
-    $vnames = $vtpl.find('.name');
+    $vnames = $vtpl.find('.name').map(function () {
+      return $(this);
+    });
     $vno = $vtpl.find('.teamno');
     $vtpl.detach();
     $vtpl.removeClass('tpl');
@@ -333,6 +350,16 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $vcontainers.push($('#games .running .votes > .up'));
     $vcontainers.push($('#games .running .votes > .down'));
     $vcontainers.push($('#games .running .votes > .bye'));
+
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      if (i < Options.teamsize) {
+        $vnames[i].css('display', '');
+        $vnames[i].prev('br').css('display', '');
+      } else {
+        $vnames[i].css('display', 'none');
+        $vnames[i].prev('br').css('display', 'none');
+      }
+    }
 
     /**
      * remove all elements in the vote area
@@ -354,12 +381,13 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       votes = Swiss.getRoundVotes();
 
       makeBox = function (tid) {
-        var team = Team.get(tid);
+        var team, i;
+        team = Team.get(tid);
 
         $vno.text(team.id + 1);
-        team.names.forEach(function (name, id) {
-          $($vnames[id]).text(name);
-        });
+        for (i = 0; i < Options.teamsize; i += 1) {
+          $vnames[i].text(team.names[i]);
+        }
 
         return $vtpl.clone();
       };

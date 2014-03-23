@@ -1,10 +1,8 @@
 /**
  * wrapper around the tournament ranking
- * 
- * TODO: unit test TODO: interface test
  */
 
-define([ './swiss', './team', './strings' ], function (Swiss, Team, Strings) {
+define([ './swiss', './team', './strings', './options' ], function (Swiss, Team, Strings, Options) {
   var Ranking;
 
   Ranking = {
@@ -12,19 +10,19 @@ define([ './swiss', './team', './strings' ], function (Swiss, Team, Strings) {
      * converts ranking and correction information to a csv string
      */
     toCSV : function () {
-      var lines, ranking, votes, rank, length, corrs, makeline;
+      var lines, ranking, votes, rank, length, corrs, makeline, i;
 
       if (Swiss.getRound() <= 0) {
         return '';
       }
 
-      lines = [ 'Rang,Team,Spieler 1,Spieler 2,Spieler 3,Siege,BH,FBH,Netto,Lose' ];
+      lines = [ Strings['rankhead' + Options.teamsize] ];
 
       ranking = Swiss.getRanking();
       votes = Swiss.getAllVotes();
 
       makeline = function (rnk) {
-        var line, tid, team, vote;
+        var line, tid, team, vote, i;
 
         line = [];
 
@@ -34,9 +32,9 @@ define([ './swiss', './team', './strings' ], function (Swiss, Team, Strings) {
         line.push(rnk + 1);
 
         line.push(team.id + 1);
-        line.push('"' + team.names[0].replace(/"/g, '""') + '"');
-        line.push('"' + team.names[1].replace(/"/g, '""') + '"');
-        line.push('"' + team.names[2].replace(/"/g, '""') + '"');
+        for (i = 0; i < Options.teamsize; i += 1) {
+          line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+        }
 
         line.push(ranking.wins[rnk]);
         line.push(ranking.bh[rnk]);
@@ -69,7 +67,7 @@ define([ './swiss', './team', './strings' ], function (Swiss, Team, Strings) {
 
       if (corrs !== undefined && corrs.length !== 0) {
         lines.push('');
-        lines.push('Team 1,Team 2,Fehler 1,Fehler 1,Korrektur 1,Korrektur 2');
+        lines.push(Strings.correctionhead);
 
         makeline = function (corr) {
           var tid, line;
