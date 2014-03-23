@@ -1,316 +1,357 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="utf-8" />
-<title>Boules Turnierverwaltung %VERSION%</title>
-<link rel="stylesheet" href="style/mainstyle.css" />
-<script src="scripts/lib/json2.js"></script>
-<script src="scripts/lib/modernizr.custom.49416.js"></script>
-<script src="scripts/lib/jquery-2.1.0.min.js"></script>
-<script src="scripts/lib/typeahead.bundle.min.js"></script>
-<script>
-  var require = {
-    urlArgs : "bust=" + (new Date()).getTime()
-  };
-</script>
-<script data-main="scripts/ui/main" src="scripts/lib/require.js"></script>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Turnierverwaltung %VERSION%</title>
+    <link rel="stylesheet" href="style/mainstyle.css" />
+    <script src="scripts/lib/json2.js"></script>
+    <script src="scripts/lib/modernizr.custom.49416.js"></script>
+    <script src="scripts/lib/jquery-2.1.0.min.js"></script>
+    <script src="scripts/lib/typeahead.bundle.min.js"></script>
+    <script>
+					var require= {
+					urlArgs:"bust="+(new Date()).getTime()
+					};
+    </script>
+    <script data-main="scripts/ui/main" src="scripts/lib/require.js"></script>
+  </head>
 
-<body>
+  <body>
 
-	<div id="tabs">
-		<div id="teams" accesskey="t">
-			<div class="options">
-				<input class="maxwidth" type="checkbox" checked="checked" /> <span
-					class="maxwidthtext">feste Breite</span>
-			</div>
-			<h2>Angemeldete Teams</h2>
+    <div id="tabs">
+      <div id="teams" accesskey="t">
+        <div class="options">
+          <input class="maxwidth" type="checkbox" checked="checked" />
+          <span
+          class="maxwidthtext">feste Breite</span>
+        </div>
+        <h2>Angemeldete Teams</h2>
 
-			<div class="team tpl">
-				<div class="teamno">##</div>
-				<div class="names">
-					<span class="name"><input class="chname" type="text"
-						value="%% %%" /></span><br> <span class="name">%% %%</span><br>
-					<span class="name">%% %%</span>
-				</div>
-			</div>
+        <div class="team tpl">
+          <div class="teamno">
+            ##
+          </div>
+          <div class="names">
+            <span class="name">
+              <input class="chname" type="text"
+              value="%% %%" />
+            </span>
+            <br>
+            <span class="name">%% %%</span>
+            <br>
+            <span class="name">%% %%</span>
+          </div>
+        </div>
 
-			<form id="newteam">
-				<div class="teamno">
-					<button>+</button>
-				</div>
-				<div class="names">
-					<input class="playername" type="text" placeholder="Spieler 1" /><br>
-					<input class="playername" type="text" placeholder="Spieler 2" /><br>
-					<input class="playername" type="text" placeholder="Spieler 3" />
-				</div>
-			</form>
+        <form id="newteam">
+          <div class="teamno">
+            <button>
+              +
+            </button>
+          </div>
+          <div class="names">
+            <input class="playername" type="text" placeholder="Spieler 1" />
+            <br>
+            <input class="playername" type="text" placeholder="Spieler 2" />
+            <br>
+            <input class="playername" type="text" placeholder="Spieler 3" />
+          </div>
+        </form>
 
-			<br class="clear">
-		</div>
+        <br class="clear">
+      </div>
 
-		<div id="games" accesskey="g">
-			<div class="preparing">
-				<h2>Turniervorbereitung</h2>
-				<button>Registrierung beenden</button>
-			</div>
-			<div class="running">
-				<div class="options">
-					<input class="maxwidth" type="checkbox" checked="checked" /> <span
-						class="maxwidthtext">feste Breite</span>
-				</div>
-				<h2>
-					Laufende Spiele (Runde <span class="round">##</span>)
-				</h2>
+      <div id="games" accesskey="g">
+        <div class="preparing">
+          <h2>Turniervorbereitung</h2>
+          <button>
+            Registrierung beenden
+          </button>
+        </div>
+        <div class="running">
+          <div class="options">
+            <input class="maxwidth" type="checkbox" checked="checked" />
+            <span
+            class="maxwidthtext">feste Breite</span>
+          </div>
+          <h2> Laufende Spiele (Runde <span class="round">##</span>) </h2>
 
-				<form class="game tpl">
-					<table class="team left">
-						<tr>
-							<th colspan="2"></th>
-						</tr>
-						<tr>
-							<td class="name">%% %%</td>
-							<td rowspan="2" class="teamno">##</td>
-						</tr>
-						<tr>
-							<td class="name">%% %%</td>
-						</tr>
-						<tr>
-							<td class="name">%% %%</td>
-							<td><input class="points" type="number" min="0" max="13"
-								value="0" /></td>
-						</tr>
-					</table>
-					<div>
-						<button type="submit" tabindex="-1"></button>
-					</div>
-					<table class="team">
-						<tbody>
-							<tr>
-								<th colspan="2"></th>
-							</tr>
-							<tr>
-								<td rowspan="2" class="teamno">##</td>
-								<td class="name">%% %%</td>
-							</tr>
-							<tr>
-								<td class="name">%% %%</td>
-							</tr>
-							<tr>
-								<td><input class="points" type="number" min="0" max="13"
-									value="0" /></td>
-								<td class="name">%% %%</td>
-							</tr>
-						</tbody>
-					</table>
-				</form>
+          <form class="game tpl">
+            <div>
+              <div class="teamno">
+                ##
+              </div>
+              <div class="finish">
+                <input class="points" type="number" min="0" max="13" value="0" />
+                <input class="points" type="number" min="0" max="13" value="0" />
+                <br>
+                <button type="submit">
+                  Beenden
+                </button>
+              </div>
+              <div class="teamno">
+                ##
+              </div>
+            </div>
+            <div>
+              <div class="names left">
+                <span class="name">%% %%</span>
+                <br>
+                <span class="name">%% %%</span>
+                <br>
+                <span class="name">%% %%</span>
+              </div>
+              <div class="names right">
+                <span class="name">%% %%</span>
+                <br>
+                <span class="name">%% %%</span>
+                <br>
+                <span class="name">%% %%</span>
+              </div>
+            </div>
+          </form>
 
-				<br class="clear">
+          <br class="clear">
 
-				<div class="votes">
-					<div class="bye">
-						<h3>Freilos</h3>
-						<br class="clear">
-					</div>
+          <div class="votes">
+            <div class="bye">
+              <h3>Freilos</h3>
+              <br class="clear">
+            </div>
 
-					<div class="up">
-						<h3>hochgelost</h3>
-						<br class="clear">
-					</div>
+            <div class="up">
+              <h3>hochgelost</h3>
+              <br class="clear">
+            </div>
 
-					<div class="down">
-						<h3>runtergelost</h3>
-						<br class="clear">
-					</div>
+            <div class="down">
+              <h3>runtergelost</h3>
+              <br class="clear">
+            </div>
 
-					<div class="vote tpl">
-						<table class="team">
-							<tr>
-								<th colspan="2"></th>
-							</tr>
-							<tr>
-								<td rowspan="3" class="teamno">##</td>
-								<td class="name">%% %%</td>
-							</tr>
-							<tr>
-								<td class="name">%% %%</td>
-							</tr>
-							<tr>
-								<td class="name">%% %%</td>
-							</tr>
-						</table>
-					</div>
+            <div class="vote tpl">
+              <div class="teamno">
+                ##
+              </div>
+              <div class="names">
+                <span class="name">%% %%</span>
+                <br>
+                <span class="name">%% %%</span>
+                <br>
+                <span class="name">%% %%</span>
+              </div>
+            </div>
 
-				</div>
+          </div>
 
-			</div>
-			<div class="finished">
-				<h2>
-					Runde <span class="round">##</span> beendet
-				</h2>
-				<button class="newround">Neue Runde</button>
-				<button class="korounds">KO-Runden (TODO)</button>
-			</div>
-		</div>
+        </div>
+        <div class="finished">
+          <h2> Runde <span class="round">##</span> beendet </h2>
+          <button class="newround">
+            Neue Runde
+          </button>
+          <button class="korounds">
+            KO-Runden (TODO)
+          </button>
+        </div>
+      </div>
 
-		<div id="ranking" accesskey="r">
-			<div class="options">
-				<input class="autoupdate" type="checkbox" checked="checked" /> <span
-					class="autoupdatetext">Autom. Aktualisierung</span> <br>
-				<button class="update">manuelle Aktualisierung</button>
-			</div>
-			<h2>Ranking</h2>
-			<p class="preparing">Es wurden noch keine Platzierungen
-				berechnet.</p>
-			<table>
-				<tr class="head">
-					<th>Platz</th>
-					<th>No.</th>
-					<th colspan="3">Spieler</th>
-					<th>Siege</th>
-					<th>BH</th>
-					<th>FBH</th>
-					<th>Netto</th>
-					<th>Lose</th>
-				</tr>
-				<tr class="line tpl">
-					<td>##</td>
-					<td>##</td>
-					<td class="name">%%%</td>
-					<td class="name">%%%</td>
-					<td class="name">%%%</td>
-					<td>##</td>
-					<td>##</td>
-					<td>##</td>
-					<td>##</td>
-					<td>##</td>
-				</tr>
-			</table>
-			<br>
+      <div id="ranking" accesskey="r">
+        <div class="options">
+          <input class="autoupdate" type="checkbox" checked="checked" />
+          <span
+          class="autoupdatetext">Autom. Aktualisierung</span>
+          <br>
+          <button class="update">
+            manuelle Aktualisierung
+          </button>
+        </div>
+        <h2>Ranking</h2>
+        <p class="preparing">
+          Es wurden noch keine Platzierungen
+          berechnet.
+        </p>
+        <table>
+          <tr class="head">
+            <th>Platz</th>
+            <th>No.</th>
+            <th colspan="3">Spieler</th>
+            <th>Siege</th>
+            <th>BH</th>
+            <th>FBH</th>
+            <th>Netto</th>
+            <th>Lose</th>
+          </tr>
+          <tr class="line tpl">
+            <td>##</td>
+            <td>##</td>
+            <td class="name">%%%</td>
+            <td class="name">%%%</td>
+            <td class="name">%%%</td>
+            <td>##</td>
+            <td>##</td>
+            <td>##</td>
+            <td>##</td>
+            <td>##</td>
+          </tr>
+        </table>
+        <br>
 
-			<div class="corrections tpl">
-				<h2>Korrekturen</h2>
-				<table>
-					<tr>
-						<th>Spiel</th>
-						<th>Korrektur</th>
-					</tr>
-					<tr class="corr tpl">
-						<td><span class="teamno">##</span> gg. <span class="teamno">##</span>
-						</td>
-						<td class="points"><span>##</span> : <span>##</span> &rarr; <span>##</span>
-							: <span>##</span></td>
-					</tr>
-				</table>
-			</div>
-		</div>
+        <div class="corrections tpl">
+          <h2>Korrekturen</h2>
+          <table>
+            <tr>
+              <th>Spiel</th>
+              <th>Korrektur</th>
+            </tr>
+            <tr class="corr tpl">
+              <td><span class="teamno">##</span> gg. <span class="teamno">##</span></td>
+              <td class="points"><span>##</span> : <span>##</span> &rarr; <span>##</span> : <span>##</span></td>
+            </tr>
+          </table>
+        </div>
+      </div>
 
-		<div id="history" accesskey="h">
-			<h2>Turnierverlauf</h2>
+      <div id="history" accesskey="h">
+        <h2>Turnierverlauf</h2>
 
-			<h3 class="clear tpl">
-				Runde <span>##</span>
-			</h3>
-			<div class="bye tpl">
-				<span class="teamno">##</span>
-			</div>
-			<div class="game tpl">
-				<div class="teamno">##</div>
-				<div class="correctbox">
-          <button class="correct"><span class="points">##</span> : <span class="points">##</span></button>
-				</div>
-				<form class="chpoints">
-					<div class="middle">
-						<input class="points" type="number" min="0" max="13" value="0" />
-						<input class="points" type="number" min="0" max="13" value="0" />
-						<br>
-						<button class="save" type="submit">ok</button>
-						<button class="abort">x</button>
-					</div>
-				</form>
-				<div class="teamno">##</div>
-			</div>
-			<br class="clear">
+        <h3 class="clear tpl"> Runde <span>##</span></h3>
+        <div class="bye tpl">
+          <span class="teamno">##</span>
+        </div>
+        <div class="game tpl">
+          <div class="teamno">
+            ##
+          </div>
+          <div class="correctbox">
+            <button class="correct">
+              <span class="points">##</span> : <span class="points">##</span>
+            </button>
+          </div>
+          <form class="chpoints">
+            <div class="middle">
+              <input class="points" type="number" min="0" max="13" value="0" />
+              <input class="points" type="number" min="0" max="13" value="0" />
+              <br>
+              <button class="save" type="submit">
+                ok
+              </button>
+              <button class="abort">
+                x
+              </button>
+            </div>
+          </form>
+          <div class="teamno">
+            ##
+          </div>
+        </div>
+        <br class="clear">
 
-		</div>
+      </div>
 
-		<div id="storage" accesskey="s">
-			<h2>Speichern und Laden</h2>
+      <div id="storage" accesskey="s">
+        <h2>Speichern und Laden</h2>
 
-			<div class="block csv">
-				<h3>Tabellen-Export</h3>
-				<p>Exportierte '.csv'-Dateien lassen sich mit Office-Programmen
-					wie Excel, LibreOffice und Google Docs öffnen.</p>
-				<p class="noadownload">Damit die Datei richtig erkannt wird,
-					muss sie mit ihrer '.csv'-Dateiendung gespeichert werden,
-					beispielsweise als 'boules.csv'.</p>
-				<button>
-					<img src="images/teams.png" />
-				</button>
-				<button>
-					<img src="images/ranking.png" />
-				</button>
-				<button>
-					<img src="images/history.png" />
-				</button>
-				<br>
-				<textarea rows="20" cols="50" readonly></textarea>
-				<br> <a href="#" type="application/csv" download="boules.csv">Download</a>
-			</div>
+        <div class="block csv">
+          <h3>Tabellen-Export</h3>
+          <p>
+            Exportierte '.csv'-Dateien lassen sich mit Office-Programmen
+            wie Excel, LibreOffice und Google Docs öffnen.
+          </p>
+          <p class="noadownload">
+            Damit die Datei richtig erkannt wird,
+            muss sie mit ihrer '.csv'-Dateiendung gespeichert werden,
+            beispielsweise als 'boules.csv'.
+          </p>
+          <button>
+            <img src="images/teams.png" />
+          </button>
+          <button>
+            <img src="images/ranking.png" />
+          </button>
+          <button>
+            <img src="images/history.png" />
+          </button>
+          <br>
+          <textarea rows="20" cols="50" readonly></textarea>
+          <br>
+          <a href="#" type="application/csv" download="boules.csv">Download</a>
+        </div>
 
-			<div class="block nojson">ACHTUNG: Dieser Browser unterstützt
-				wichtige Standards nicht, die zum Speichern und Laden notwendig
-				sind. Beim Schließen des Browserfensters gehen sämtliche Daten
-				verloren.</div>
+        <div class="block nojson">
+          ACHTUNG: Dieser Browser unterstützt
+          wichtige Standards nicht, die zum Speichern und Laden notwendig
+          sind. Beim Schließen des Browserfensters gehen sämtliche Daten
+          verloren.
+        </div>
 
-			<div class="block save json">
-				<h3>Turnier speichern</h3>
-				<p>Das Turnier lässt sich in einer Datei zur späteren
-					Fortsetzung des Turnieres speichern.</p>
-				<p class="storage">Obwohl das Turnier automatisch gespeichert
-					wird, wird empfohlen, gelegentlich eine manuelle Sicherung
-					anzulegen.</p>
-				<p class="nostorage">Um das Turnier nach Schließen des Browsers
-					fortzusetzen, muss der Zustand manuell in einer Datei
-					zwischengespeichert oder ein aktueller Browser installiert werden.</p>
-				<br>
-				<button>
-					<img src="images/download.png" />
-				</button>
-				<br>
-				<textarea rows="20" cols="50" readonly></textarea>
-				<br> <a href="#" type="application/json" download="boules.json">Download</a>
-			</div>
+        <div class="block save json">
+          <h3>Turnier speichern</h3>
+          <p>
+            Das Turnier lässt sich in einer Datei zur späteren
+            Fortsetzung des Turnieres speichern.
+          </p>
+          <p class="storage">
+            Obwohl das Turnier automatisch gespeichert
+            wird, wird empfohlen, gelegentlich eine manuelle Sicherung
+            anzulegen.
+          </p>
+          <p class="nostorage">
+            Um das Turnier nach Schließen des Browsers
+            fortzusetzen, muss der Zustand manuell in einer Datei
+            zwischengespeichert oder ein aktueller Browser installiert werden.
+          </p>
+          <br>
+          <button>
+            <img src="images/download.png" />
+          </button>
+          <br>
+          <textarea rows="20" cols="50" readonly></textarea>
+          <br>
+          <a href="#" type="application/json" download="boules.json">Download</a>
+        </div>
 
-			<div class="block load json">
-				<h3>Turnier laden</h3>
-				<p>Das Turnier wird aus einer Sicherungsdatei geladen. Das
-					aktuelle Turnier wird dabei überschrieben.</p>
-				<input class="filereader file" type="file" /> <br>
-				<button>
-					<img src="images/upload.png" />
-				</button>
-				<br>
-				<textarea rows="20" cols="50"></textarea>
-			</div>
+        <div class="block load json">
+          <h3>Turnier laden</h3>
+          <p>
+            Das Turnier wird aus einer Sicherungsdatei geladen. Das
+            aktuelle Turnier wird dabei überschrieben.
+          </p>
+          <input class="filereader file" type="file" />
+          <br>
+          <button>
+            <img src="images/upload.png" />
+          </button>
+          <br>
+          <textarea rows="20" cols="50"></textarea>
+        </div>
 
-			<div class="block local storage json">
-				<h3>Gespeicherte Daten</h3>
-				<p>Das Turnier wird automatisch gespeichert, wodurch es nach dem
-					Schließen des Browsers automatisch fortgesetzt wird. Auf Wunsch
-					können die gespeicherten Daten gelöscht werden.</p>
-				<button class="save">Speichern</button>
-				<input type="checkbox" class="autosave" checked />Automatisches
-				Speichern <br> <input type="checkbox" class="clearbox" />
-				<button class="clear" disabled>Gespeicherte Daten löschen</button>
-			</div>
+        <div class="block local storage json">
+          <h3>Gespeicherte Daten</h3>
+          <p>
+            Das Turnier wird automatisch gespeichert, wodurch es nach dem
+            Schließen des Browsers automatisch fortgesetzt wird. Auf Wunsch
+            können die gespeicherten Daten gelöscht werden.
+          </p>
+          <button class="save">
+            Speichern
+          </button>
+          <input type="checkbox" class="autosave" checked />
+          Automatisches
+          Speichern
+          <br>
+          <input type="checkbox" class="clearbox" />
+          <button class="clear" disabled>
+            Gespeicherte Daten löschen
+          </button>
+        </div>
 
-			<br class="clear">
+        <br class="clear">
 
-		</div>
+      </div>
 
-	</div>
+    </div>
 
-</body>
+  </body>
 
 </html>

@@ -1,5 +1,5 @@
 define([ './toast', './strings', './team', './history', './ranking', './blob',
-    './base64', './storage' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage) {
+    './base64', './storage', './options' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options) {
   var Tab_Storage, $csvanchor, $csvarea, $saveanchor, $savearea, $loadarea, $loadfile;
 
   Tab_Storage = {};
@@ -136,7 +136,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       load = $loadarea.val();
 
       Storage.enable();
-      Storage.clear();
+      Storage.clear(Options.dbname);
 
       try {
         if (Blob.fromBlob(load)) {
@@ -186,7 +186,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       $loadarea.val(blob);
 
       Storage.enable();
-      Storage.clear();
+      Storage.clear(Options.dbname);
 
       try {
         if (Blob.fromBlob(blob)) {
@@ -235,7 +235,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     $clear.click(function () {
       if (confirm(Strings.clearstorage)) {
         Storage.enable();
-        Storage.clear();
+        Storage.clear(Options.dbname);
         window.location.hash = '#teams';
         window.location.reload();
       }

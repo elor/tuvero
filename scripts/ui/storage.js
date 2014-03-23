@@ -65,10 +65,13 @@ define([ 'options' ], function (Options) {
    * remove this and only this key from localStorage to avoid collision with
    * other software under the same domain
    */
-  Storage.clear = function () {
-    var key;
+  Storage.clear = function (key) {
 
-    for (key in keys) {
+    if (key === undefined) {
+      for (key in keys) {
+        Storage.clear(key);
+      }
+    } else {
       window.localStorage.removeItem(key);
     }
   };

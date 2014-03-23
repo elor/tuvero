@@ -9,7 +9,7 @@
 }
 
 #games .game {
-  display: table;
+  display: block;
   margin: 0.5em;
   border-radius: 0.5em;
   background-color: #808080;
@@ -18,40 +18,56 @@
   border-spacing: 0em;
   float: left;
   white-space: nowrap;
-  vertical-align: middle;
-}
-
-#games .game > .team {
-  display: table-cell;
-  margin: 0.0em;
 }
 
 #games .game > div {
+  display: table;
+  margin: 0.0em;
+  padding: 0.0em;
+  width: 100%;
+}
+
+#games .game > div > div {
   display: table-cell;
-  vertical-align: middle;
-  padding: 0px;
-  margin: 0px;
-}
-
-#games .game > div > button {
-  margin: 0px;
-  height: 1em;
-  border: none;
-  background-color: #d3d3d3;
-}
-
-#games .game > .team.left .name {
-  text-align: right;
-}
-
-#games .game > .team .points {
   text-align: center;
-  position: relative;
-  width: 90%;
-  margin: auto;
 }
 
-#games .votes h3 {
+#games .game .teamno {
+  border-bottom-left-radius: 0em;
+  border-bottom-right-radius: 0em;
+}
+
+#games .game input {
+  width: 3em;
+  text-align: center;
+}
+
+#games .names {
+  /*width: 50%;*/
+  padding: 0em;0.5em;
+  background-color: #d3d3d3;
+  padding: 0em 0.3em;
+  overflow: hidden;
+  border-radius: 0.4em;
+  font-weight: bold;
+}
+
+#games.maxwidth .names {
+  width: 8em;
+  max-width: 8em;
+}
+
+#games .names.left {
+  text-align: left;
+  border-top-left-radius: 0em;
+}
+
+#games .names.right {
+  text-align: right;
+  border-top-right-radius: 0em;
+}
+
+#games .votes {
   text-align: left;
 }
 
@@ -60,10 +76,15 @@
 }
 
 #games .votes .vote {
+  display: table;
   float: left;
   border-radius: 0.5em;
   background-color: #808080;
   padding: 0.3em;
+  white-space: nowrap;
+}
+#games .votes .vote > div {
+  display: table-cell;
 }
 
 #games .finished {

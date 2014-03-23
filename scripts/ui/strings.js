@@ -2,13 +2,13 @@
  * a list of teams with some accessor functions
  */
 define(function () {
-  var Strings;
+  var Strings, key;
 
   Strings = {
-    autosaveoff : 'Automatisches  Speichern deaktiviert',
-    autosaveon : 'Automatisches Speichern aktiviert',
-    autoupdateoff : 'Automatische Aktualisierung deaktiviert',
-    autoupdateon : 'Automatische Aktualisierung aktiviert',
+    autosaveoff : 'Automatisches  Speichern aus',
+    autosaveon : 'Automatisches Speichern an',
+    autoupdateoff : 'Automatische Aktualisierung aus',
+    autoupdateon : 'Automatische Aktualisierung an',
     byevote : 'Freilos',
     clearstorage : 'Lokal gespeicherte Daten löschen? Sämtliche Turnierdaten gehen damit verloren.',
     confirmleave : 'Das Turnier kann nicht gespeichert werden. Fenster trotzdem schließen?',
