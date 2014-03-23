@@ -38,15 +38,15 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     for (i = 0; i < 3; i += 1) {
       if (i < Options.teamsize) {
-        $t[i].prev('br').show();
-        $t[i].show();
-        $names[i].prev('br').show();
-        $names[i].show();
+        $t[i].prev('br').css('display', '');
+        $t[i].css('display', '');
+        $names[i].prev('br').css('display', '');
+        $names[i].css('display', '');
       } else {
-        $t[i].prev('br').hide();
-        $t[i].hide();
-        $names[i].prev('br').hide();
-        $names[i].hide();
+        $t[i].prev('br').css('display', 'none');
+        $t[i].css('display', 'none');
+        $names[i].prev('br').css('display', 'none');
+        $names[i].css('display', 'none');
       }
     }
 
