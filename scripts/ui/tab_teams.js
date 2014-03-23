@@ -36,7 +36,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $chname = $tpl.find('.chname');
     $chname.detach();
 
-    for (i = 0; i < 3; i += 1) {
+    for (i = 0; i < Options.maxteamsize; i += 1) {
       if (i < Options.teamsize) {
         $t[i].prev('br').css('display', '');
         $t[i].css('display', '');
@@ -186,7 +186,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
       $names = $team.find('.name');
 
-      for (i = 0; i < 3; i += 1) {
+      for (i = 0; i < Options.teamsize; i += 1) {
         name = $($names[i]).text().trim();
         // prevent empty names
         if (name) {
