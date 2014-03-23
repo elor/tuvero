@@ -152,7 +152,7 @@ define([ './options' ], function (Options) {
 
         index = tabs.indexOf(tabname);
         if (index === -1) {
-          console.error('tabname ' + tabname + 'not found');
+          // console.error('tabname ' + tabname + ' not found');
           return;
         }
 

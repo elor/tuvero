@@ -1,7 +1,7 @@
 /**
  * Storage API for persistent state
  */
-define([ 'options' ], function (Options) {
+define([ './options' ], function (Options) {
   var Storage, keys, Tab_Storage;
 
   Blob = undefined;

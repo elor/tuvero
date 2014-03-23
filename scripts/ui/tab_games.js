@@ -107,17 +107,19 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $tpl.removeClass('tpl');
     $anchor = $($('#games .running .clear')[0]);
 
-    for (i = 0; i < Options.maxteamsize; i += 1) {
-      if (i < Options.teamsize) {
-        $tplnames[i].css('display', '');
-        $tplnames[i].prev('br').css('display', '');
-        $tplnames[i + Options.maxteamsize].css('display', '');
-        $tplnames[i + Options.maxteamsize].css('display', '');
-      } else {
-        $tplnames[i].css('display', 'none');
-        $tplnames[i].prev('br').css('display', 'none');
-        $tplnames[i + Options.maxteamsize].css('display', 'none');
-        $tplnames[i + Options.maxteamsize].css('display', 'none');
+    if ($tplnames.size()) {
+      for (i = 0; i < Options.maxteamsize; i += 1) {
+        if (i < Options.teamsize) {
+          $tplnames[i].css('display', '');
+          $tplnames[i].prev('br').css('display', '');
+          $tplnames[i + Options.maxteamsize].css('display', '');
+          $tplnames[i + Options.maxteamsize].css('display', '');
+        } else {
+          $tplnames[i].css('display', 'none');
+          $tplnames[i].prev('br').css('display', 'none');
+          $tplnames[i + Options.maxteamsize].css('display', 'none');
+          $tplnames[i + Options.maxteamsize].css('display', 'none');
+        }
       }
     }
 
@@ -351,13 +353,15 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $vcontainers.push($('#games .running .votes > .down'));
     $vcontainers.push($('#games .running .votes > .bye'));
 
-    for (i = 0; i < Options.maxteamsize; i += 1) {
-      if (i < Options.teamsize) {
-        $vnames[i].css('display', '');
-        $vnames[i].prev('br').css('display', '');
-      } else {
-        $vnames[i].css('display', 'none');
-        $vnames[i].prev('br').css('display', 'none');
+    if ($vnames.size()) {
+      for (i = 0; i < Options.maxteamsize; i += 1) {
+        if (i < Options.teamsize) {
+          $vnames[i].css('display', '');
+          $vnames[i].prev('br').css('display', '');
+        } else {
+          $vnames[i].css('display', 'none');
+          $vnames[i].prev('br').css('display', 'none');
+        }
       }
     }
 

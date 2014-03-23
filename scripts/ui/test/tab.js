@@ -2,8 +2,9 @@
  * Tab Test
  */
 define([ '../../lib/implements', '../tab', '../tab_games', '../tab_history',
-    '../tab_ranking', '../tab_storage', '../tab_teams', '../autocomplete' ], function (Implements, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Storage, Tab_Teams, Autocomplete) {
-  QUnit.test("Tab Implementss", function () {
+    '../tab_ranking', '../tab_storage', '../tab_teams', '../tab_new',
+    '../autocomplete' ], function (Implements, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Storage, Tab_Teams, Tab_New, Autocomplete) {
+  QUnit.test("Tab Implements", function () {
 
     QUnit.equal(Implements(Tab), '', "Tab is an interface");
 
@@ -12,6 +13,7 @@ define([ '../../lib/implements', '../tab', '../tab_games', '../tab_history',
     QUnit.equal(Implements(Tab, Tab_Ranking, 'frm'), '', "Tab_Ranking interface match");
     QUnit.equal(Implements(Tab, Tab_Storage, 'frm'), '', "Tab_Storage interface match");
     QUnit.equal(Implements(Tab, Tab_Teams, 'frm'), '', "Tab_Teams interface match");
+    QUnit.equal(Implements(Tab, Tab_New, 'frm'), '', "Tab_New interface match");
 
     QUnit.equal(Implements({
       Interface : {

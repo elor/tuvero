@@ -25,9 +25,9 @@ define([ './team', './toast', './strings', './swiss', './options',
 
     for (i = 0; i < Options.maxteamsize; i += 1) {
       if (i < Options.teamsize) {
-        $fields[i + 2].css('display', '');
+        $fields[i + 2] && $fields[i + 2].css('display', '');
       } else {
-        $fields[i + 2].css('display', 'none');
+        $fields[i + 2] && $fields[i + 2].css('display', 'none');
       }
     }
 
