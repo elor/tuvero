@@ -1,7 +1,7 @@
 /**
  * Storage API for persistent state
  */
-define(function () {
+define([ 'options' ], function (Options) {
   var Storage, keys, Tab_Storage;
 
   Blob = undefined;
@@ -84,7 +84,7 @@ define(function () {
     for (key in keys) {
       if (saveKey(key)) {
         err = true;
-         console.error('Error when storing ' + key);
+        console.error('Error when storing ' + key);
       }
     }
 
@@ -104,7 +104,7 @@ define(function () {
     for (key in keys) {
       if (loadKey(key)) {
         err = true;
-         console.error('Error when restoring ' + key);
+        console.error('Error when restoring ' + key);
       }
     }
 
@@ -119,8 +119,8 @@ define(function () {
     Storage.disable();
 
     if (Modernizr.localstorage) {
-      keys['swiss'] = require('./blob');
-      keys['players'] = require('./players');
+      keys[Options.dbname] = require('./blob');
+      keys[Options.dbplayername] = require('./players');
     }
   };
 
