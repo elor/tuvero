@@ -136,13 +136,15 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
      */
     $stages[stage.RUNNING].delegate('.game input', 'change', function () {
       var $button = $(this).parent().find('button');
-      if (readResults($(this).parents('.game').eq(0)) === undefined) {
+
+      if (readResults($(this).parents('.game')) === undefined) {
         $button.attr('disabled', 'disabled');
         $button.attr('tabindex', '-1');
       } else {
         $button.removeAttr('disabled');
         $button.removeAttr('tabindex');
       }
+
     });
 
     $stages[stage.RUNNING].delegate('.game', 'submit', finishGame);
@@ -323,11 +325,19 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     var $input, i, ret;
 
     ret = {
-      index : $games.indexOf($container),
+      index : -1,
       points : []
     };
 
-    $input = template.game.$form.find('.points');
+    // 
+    for (i = 0; i < $games.length; i += 1) {
+      if ($games[i].data() === $container.data()) {
+        ret.index = i;
+        break;
+      }
+    }
+
+    $input = $container.find('.points');
 
     // game is invalid. Someone tampered with the system.
     if (ret.index === -1) {
