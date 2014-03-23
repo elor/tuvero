@@ -77,7 +77,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // close registration and start swiss tournament
     $regbut.click(function () {
       if (Team.count() < 2) {
-        new Toast(Strings.toofewteams);
+        new Toast(Strings.notenoughteams);
         return;
       }
 

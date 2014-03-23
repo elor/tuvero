@@ -1,16 +1,16 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete) {
-  var Tab_Teams, $tpl, $n1, $n2, $n3, $no, $anchor, $new, $t1, $t2, $t3, $tms;
+    './autocomplete', './options' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options) {
+  var Tab_Teams, $tpl, $names, $no, $anchor, $new, $t1, $tms;
 
   Tab_Teams = {};
 
   $tms = [];
 
   // avoid jslint false positive
-  $tpl = $n1 = $n2 = $n3 = $no = $page = undefined;
+  $tpl = $no = $page = undefined;
 
   $(function ($) {
-    var newteamfunc, $box, $teams, maxwidthtest, $chname;
+    var $box, $teams, $chname, i;
 
     // get page
     $anchor = $('#newteam');
@@ -18,21 +18,37 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     // prepare submission field
     $new = $('#newteam');
     $no = $new.find('input.playername');
-    $t1 = $($no[0]);
-    $t2 = $($no[1]);
-    $t3 = $($no[2]);
+    $t = [];
+    $t[0] = $($no[0]);
+    $t[1] = $($no[1]);
+    $t[2] = $($no[2]);
 
     // prepare template
     $tpl = $('#teams .team.tpl');
     $no = $tpl.find('.name');
-    $n1 = $($no[0]);
-    $n2 = $($no[1]);
-    $n3 = $($no[2]);
+    $names = [];
+    $names[0] = $($no[0]);
+    $names[1] = $($no[1]);
+    $names[2] = $($no[2]);
     $no = $tpl.find('.teamno');
     $tpl.detach();
     $tpl.removeClass('tpl');
     $chname = $tpl.find('.chname');
     $chname.detach();
+
+    for (i = 0; i < 3; i += 1) {
+      if (i < Options.teamsize) {
+        $t[i].prev('br').show();
+        $t[i].show();
+        $names[i].prev('br').show();
+        $names[i].show();
+      } else {
+        $t[i].prev('br').hide();
+        $t[i].hide();
+        $names[i].prev('br').hide();
+        $names[i].hide();
+      }
+    }
 
     /**
      * this function adds a new team box to the page
@@ -42,11 +58,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
      *          order
      */
     function createBox (team) {
-      var $team, tmsid;
+      var $team, tmsid, i;
 
-      $n1.text(team.names[0]);
-      $n2.text(team.names[1]);
-      $n3.text(team.names[2]);
+      for (i = 0; i < Options.teamsize; i += 1) {
+        $names[i].text(team.names[i]);
+      }
       $no.text(team.id + 1);
 
       $team = $tpl.clone();
@@ -87,29 +103,29 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
      * @returns array of player names on successful validation, undefined
      *          otherwise
      */
-    newteamfunc = function () {
+    function newteamfunc () {
       var names, i;
 
       names = [];
 
-      names.push($t1.val().trim());
-      names.push($t2.val().trim());
-      names.push($t3.val().trim());
+      for (i = 0; i < Options.teamsize; i += 1) {
+        names.push($t[i].val().trim());
+      }
 
-      for (i = 0; i < 3; i += 1) {
+      for (i = 0; i < Options.teamsize; i += 1) {
         if (names[i] === '') {
           return undefined;
         }
       }
 
-      $t1.val('');
-      $t2.val('');
-      $t3.val('');
+      for (i = 0; i < Options.teamsize; i += 1) {
+        $t[i].val('');
+      }
 
       Autocomplete.clear();
 
       return names;
-    };
+    }
 
     // register 'new player' form submission
     $new.submit(function () {
@@ -121,7 +137,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         team = Team.create(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
-        $t1.focus();
+        $t[0].focus();
 
         // save changes
         Storage.changed();
@@ -142,13 +158,13 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $box = $('#teams .options .maxwidth');
     $teams = $('#teams');
 
-    maxwidthtest = function () {
+    function maxwidthtest () {
       if (!!$box.prop('checked')) {
         $teams.addClass('maxwidth');
       } else {
         $teams.removeClass('maxwidth');
       }
-    };
+    }
 
     $box.click(maxwidthtest);
 

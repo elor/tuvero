@@ -36,7 +36,7 @@ define(function () {
     savefailed : 'Speichervorgang fehlgeschlagen.',
     startfailed : 'Auslosung fehlgeschlagen. Zu wenige Teams?',
     teamadded : 'Team %s registriert',
-    toofewteams : 'Zu wenige Teams'
+    notenoughteams : 'Zu wenige Teams'
   };
 
   return Strings;
