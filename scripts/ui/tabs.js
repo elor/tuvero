@@ -28,13 +28,29 @@ define([ './options' ], function (Options) {
     imgpattern = imgpattern || 'images/%s.png';
 
     $(function ($) {
-      var tabs, keys, opts, $menu, $body, $links, $menus;
+      var tabs, keys, opts, $menu, $body, $links, $menus, visible;
 
       tabs = that.tabs;
       keys = that.keys;
       opts = that.opts;
       $links = {};
       $menus = {};
+      visible = [];
+
+      function openValidTab () {
+        var tabindex, index;
+
+        // show the first tab of this set if hash doesn't match any of them
+        tabindex = tabs.indexOf(location.hash.replace(/^#/, ''));
+        if (enforce && tabindex === -1 || !visible[tabindex]) {
+          index = visible.indexOf(true);
+          if (index === -1) {
+            console.error('no visible tabs to force open');
+          } else {
+            location.hash = '#' + tabs[index];
+          }
+        }
+      }
 
       // get tabs
       $(tabselector).each(function (i, elem) {
@@ -52,6 +68,7 @@ define([ './options' ], function (Options) {
             $elem.removeAttr('accesskey');
           }
           opts.push(opt);
+          visible.push(true);
         }
       });
 
@@ -104,11 +121,7 @@ define([ './options' ], function (Options) {
         $links[tabs[index]] = $a;
       });
 
-      // show the first tab of this set if hash doesn't match any of them
-      // TODO extract to function and reference from that.display()
-      if (enforce && tabs.indexOf(location.hash.replace('#', '')) === -1) {
-        location.hash = '#' + tabs[0];
-      }
+      openValidTab();
 
       $(window).on('hashchange', function () {
         window.scrollTo(0, 0);
@@ -132,9 +145,10 @@ define([ './options' ], function (Options) {
       that.display = function (tabname, val) {
         var key, index;
 
-        console.log(tabs);
-        console.log(keys);
-        console.log(opts);
+        if (typeof (val) !== 'boolean') {
+          // my own mistake
+          return;
+        }
 
         index = tabs.indexOf(tabname);
         if (index === -1) {
@@ -155,6 +169,9 @@ define([ './options' ], function (Options) {
             $links[tabname].removeAttr('accesskey');
           }
         }
+
+        visible[index] = val;
+        openValidTab();
       };
     });
 
