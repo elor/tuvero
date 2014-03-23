@@ -1,28 +1,36 @@
-define(function () {
+define([ './options' ], function (Options) {
   var Tabs;
 
   Tabs = function (tabselector, imgpattern, enforce) {
     imgpattern = imgpattern || 'images/%s.png';
 
+    // TODO update opts
+
     $(function ($) {
-      var tabs, keys, $menu, $body;
+      var tabs, keys, opts, $menu, $body;
 
       tabs = [];
       keys = [];
+      opts = [];
 
       // get tabs
       $(tabselector).each(function (i, elem) {
-        var tab, key, $elem;
+        var tab, key, opt, $elem;
         $elem = $(elem);
 
         tab = $elem.attr('id');
         key = $elem.attr('accesskey');
+        opt = $elem.attr('data-tabimgopt');
 
         if (tab) {
           tabs.push(tab);
           keys.push(key);
           if (key) {
             $elem.removeAttr('accesskey');
+          }
+          opts.push(opt);
+          if (opt) {
+            $elem.removeAttr('data-tabimgopt');
           }
         }
       });
@@ -36,7 +44,11 @@ define(function () {
         var $img, $tab;
 
         $img = $('<img>');
-        $img.attr('src', imgpattern.replace('%s', tabname));
+        if (opts[i]) {
+          $img.attr('src', imgpattern.replace('%s', tabname + Options[opts[i]]));
+        } else {
+          $img.attr('src', imgpattern.replace('%s', tabname));
+        }
 
         $tab = $('<a>');
         $tab.attr('href', '#' + tabname);

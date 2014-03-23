@@ -23,7 +23,7 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
     /**
      * adds a game of the running (or just finished) round to the history
      * 
-     * @param game
+     * @param gamed
      *          game instance as returned by Swiss.openGames()
      * @param points
      *          an array with two integers representing the points
