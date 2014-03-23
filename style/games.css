@@ -42,6 +42,24 @@
   text-align: center;
 }
 
+#games .game button {
+  width: 6.5em;
+  border: none;
+  box-shadow: 1px 1px 0px gray;
+  background-color: #d3d3d3;
+  color: gray;
+  transition: color 0.2s;
+}
+
+#games .game button.active {
+  color: black;
+  transition: color 0.2s;
+}
+
+#games .game button.active:hover {
+  cursor: pointer;
+}
+
 #games .names {
   /*width: 50%;*/
   padding: 0em;0.5em;

@@ -185,6 +185,48 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return Tab_Games;
     }
 
+    function readResults (container) {
+      var $input, i, ret;
+
+      ret = {
+        index : $games.indexOf(container),
+        points : []
+      };
+
+      $input = $(container).find('.points');
+
+      // game is invalid. Someone tampered with the system.
+      if (ret.index === -1) {
+        // redraw all games
+        showRunning();
+        Tab_Ranking.update();
+        return undefined;
+      }
+
+      // read and validate
+      for (i = 0; i < 2; i += 1) {
+        // read and convert to number
+        ret.points[i] = Number($($input[i]).val());
+
+        // validate whether number and >= 0
+        // TODO Options.maxpoints
+        if (isNaN(ret.points[i]) || !isInt(ret.points[i]) || ret.points[i] < 0 || ret.points[i] > 13) {
+          // FIXME find a better solution
+          // flash?
+          // $($input[i]).focus();
+
+          return undefined;
+        }
+      }
+
+      // there has to be a winner
+      if (ret.points[0] === ret.points[1]) {
+        return undefined;
+      }
+
+      return ret;
+    }
+
     // if someone wants to finish a game, do the following:
     // * verify that the game was running
     // * get and verify the points
@@ -192,50 +234,22 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // * remove the game
     // * drink a toast to the game
     $('#games .running').delegate('.game', 'submit', function () {
-      var index, points, $input, i, res;
+      var result, $input, i, res, index, points;
 
-      index = $games.indexOf(this);
+      result = readResults(this);
 
-      if (index === -1) {
-        // game is invalid. Someone tempered with the system.
-
-        // redraw all games
-        showRunning();
-
-        Tab_Ranking.update();
-
-        // notify the user of this failure
+      if (result === undefined) {
         new Toast(Strings.invalidresult, 5);
-
         return false;
       }
 
-      $input = $(this).find('.points');
+      // TODO extract everything to a new function!
 
-      points = [];
-
-      // read and validate
-      for (i = 0; i < 2; i += 1) {
-        // read and convert to number
-        points[i] = Number($($input[i]).val());
-
-        // validate whether number and >= 0
-        if (isNaN(points[i]) || points[i] < 0 || !isInt(points[i])) {
-          new Toast(Strings.invalidresult);
-          $($input[i]).focus();
-
-          return false;
-        }
-      }
-
-      // there has to be a winner
-      if (points[0] === points[1]) {
-        new Toast(Strings.invalidresult);
-        return false;
-      }
+      index = result.index;
+      points = result.points;
 
       if (Swiss.finishGame(games[index], points) === undefined) {
-        // game was somehow invalid. Someone tempered with the system.
+        // game was somehow invalid. Someone tampered with the system.
 
         // redraw all games
         showRunning();
@@ -250,11 +264,13 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
       // the game was accepted, store it in history
       res = History.add(games[index], points);
+      // TODO avoid direct calls to another tab. use Tab_History.update somehow
       Tab_History.createBox(res);
 
       // game was accepted. remove it.
       removeGame(games[index]);
       // TODO keep game history
+      // XXX why?
 
       if (points[0] > points[1]) {
         new Toast(Strings.gamefinished);
@@ -292,6 +308,15 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       Tab_Ranking.update();
 
       return false;
+    }).delegate('.game input', 'change', function () {
+      var $button = $(this).parent().find('button');
+      if (readResults($(this).parents('.game')[0]) === undefined) {
+        $button.removeClass('active');
+        $button.attr('tabindex', '-1');
+      } else {
+        $button.addClass('active');
+        $button.removeAttr('tabindex');
+      }
     });
 
     // prepare vote elements

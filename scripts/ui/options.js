@@ -8,6 +8,7 @@ define(function () {
 
   Options = {
     teamsize : 3,
+    maxpoints : 13,
     name : 'swiss',
     dbname : 'swiss',
     dbplayername : 'players'
