@@ -3,12 +3,24 @@
  */
 
 define([], function () {
-  var Tab_New;
+  var Tab_New, $tab;
 
   Tab_New = {};
 
+  function init () {
+    if ($tab) {
+      console.error('tab_new: $tab already exists:');
+      console.error($tab);
+      return;
+    }
+
+    $tab = $('#new');
+  }
+
   Tab_New.reset = function () {
-    // TODO do something
+    if (!$tab) {
+      init();
+    }
   };
 
   Tab_New.update = function () {

@@ -237,6 +237,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       $team = $parents.eq(2);
 
       updateTeam($team);
+
+      new Toast(Strings.namechanged.replace('%s', name));
     }
     // ================== FUNCTIONS END ==================
 

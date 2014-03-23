@@ -4,7 +4,7 @@
 
 // define([ './tab_games', './tab_history', './tab_new', './tab_ranking',
 // './tab_storage', './tab_teams' ], function () {
-define([ './tab_teams', './tab_games' ], function () {
+define([ './tab_new', './tab_teams', './tab_games' ], function () {
   var i, tabs, Alltabs;
 
   tabs = [];
