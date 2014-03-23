@@ -1,7 +1,7 @@
 /**
  * a list of teams with some accessor functions
  */
-define([ './swiss' ], function (Swiss) {
+define([ './swiss', './options', './strings' ], function (Swiss, Options, Strings) {
   var Team, teams;
 
   teams = [];
@@ -59,16 +59,19 @@ define([ './swiss' ], function (Swiss) {
    * @returns CSV file content
    */
   Team.toCSV = function () {
-    var lines;
+    var lines, i;
 
-    lines = [ 'No.,Spieler 1,Spieler 2,Spieler 3' ];
+    lines = [ 'No.' ];
+    for (i = 0; i < Options.teamsize; i += 1) {
+      lines[0] += ',"' + Strings.player + ' ' + (i + 1) + '"';
+    }
 
     teams.forEach(function (team) {
       var line, i;
 
       line = [ team.id + 1 ];
 
-      for (i = 0; i < 3; i += 1) {
+      for (i = 0; i < Options.teamsize; i += 1) {
         line.push('"' + team.names[i].replace(/"/g, '""') + '"');
       }
 
