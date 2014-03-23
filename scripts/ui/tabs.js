@@ -8,22 +8,33 @@ define([ './options' ], function (Options) {
       tabs : [],
       keys : [],
       opts : [],
-      updateOpts : function () {
-      }
+      updateOpts : undefined,
+      hide : undefined,
+      show : undefined,
     };
 
     this.updateOpts = function () {
       that.updateOpts();
-    }
+    };
+
+    this.hide = function (tabname) {
+      that.display(tabname, false);
+    };
+
+    this.show = function (tabname) {
+      that.display(tabname, true);
+    };
 
     imgpattern = imgpattern || 'images/%s.png';
 
     $(function ($) {
-      var tabs, keys, opts, $menu, $body;
+      var tabs, keys, opts, $menu, $body, $links, $menus;
 
       tabs = that.tabs;
       keys = that.keys;
       opts = that.opts;
+      $links = {};
+      $menus = {};
 
       // get tabs
       $(tabselector).each(function (i, elem) {
@@ -79,6 +90,7 @@ define([ './options' ], function (Options) {
         $clone.find('a[href=#' + tabname + '] > img').addClass('open');
 
         $page.prepend($clone);
+        $menus[tabname] = $clone;
       }, this);
 
       // create empty invisible links to every tab
@@ -89,9 +101,11 @@ define([ './options' ], function (Options) {
         $a.attr('tabindex', '-1');
         $a.attr('accesskey', key);
         $body.append($a);
+        $links[tabs[index]] = $a;
       });
 
       // show the first tab of this set if hash doesn't match any of them
+      // TODO extract to function and reference from that.display()
       if (enforce && tabs.indexOf(location.hash.replace('#', '')) === -1) {
         location.hash = '#' + tabs[0];
       }
@@ -110,6 +124,37 @@ define([ './options' ], function (Options) {
             $('.tabs a[href=#' + tab + '] img').attr('src', imgpattern.replace('%s', tab + Options[opt]));
           }
         });
+      };
+
+      /**
+       * show/hide all references to a certain
+       */
+      that.display = function (tabname, val) {
+        var key, index;
+
+        console.log(tabs);
+        console.log(keys);
+        console.log(opts);
+
+        index = tabs.indexOf(tabname);
+        if (index === -1) {
+          console.error('tabname ' + tabname + 'not found');
+          return;
+        }
+
+        // hide tabs in all menus
+        for (key in $menus) {
+          $menus[key].find('a[href=#' + tabname + ']').css('display', (val ? '' : 'none'));
+        }
+
+        // hide hidden hotkey links
+        if ($links[tabname]) {
+          if (val) {
+            $links[tabname].attr('accesskey', keys[index]);
+          } else {
+            $links[tabname].removeAttr('accesskey');
+          }
+        }
       };
     });
 
