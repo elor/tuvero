@@ -1,7 +1,7 @@
 /**
  * a list of teams with some accessor functions
  */
-define([ './swiss', './options', './strings' ], function (Swiss, Options, Strings) {
+define([ './options', './strings' ], function (Options, Strings) {
   var Team, teams;
 
   teams = [];
@@ -38,9 +38,9 @@ define([ './swiss', './options', './strings' ], function (Swiss, Options, String
   /**
    * adds all players to the tournament
    */
-  Team.prepareTournament = function () {
+  Team.prepareTournament = function (Tournament) {
     teams.forEach(function (team, index) {
-      Swiss.addPlayer(index);
+      Tournament.addPlayer(index);
     });
   };
 
