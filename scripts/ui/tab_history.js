@@ -201,7 +201,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       new Toast(Strings.pointchangeaborted);
     };
 
-    // TODO validate on the fly
+    // TODO validate everything!
+    // * point ranges * /[^0-9]/
     save = function () {
       var op1, op2, np1, np2, $spans, t1, t2, res, game;
 
@@ -331,10 +332,12 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     $form.find('.points').keypress(function (e) {
       // by default, the first button is pressed, not type="submit". Let's
       // submit on default
-      $form.submit();
+      if (e.which === 13) {
+        $form.submit();
 
-      e.preventDefault();
-      return false;
+        e.preventDefault();
+        return false;
+      }
     });
 
     $form.find('button.abort').click(function (e) {
