@@ -58,16 +58,11 @@
   box-shadow: inset 0px 0px 1px #000000;
   border-radius: 5px;
   background-color: #d3d3d3;
-  color: gray;
   transition: color 0.2s;
 }
 
-#games .game button.active {
-  color: black;
-  transition: color 0.2s;
-}
-
-#games .game button.active:hover {
+/* this is awesome! */
+#games .game button:not([disabled]):hover {
   cursor: pointer;
 }
 

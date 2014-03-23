@@ -326,10 +326,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }).delegate('.game input', 'change', function () {
       var $button = $(this).parent().find('button');
       if (readResults($(this).parents('.game')[0]) === undefined) {
-        $button.removeClass('active');
+        $button.attr('disabled', 'disabled');
         $button.attr('tabindex', '-1');
       } else {
-        $button.addClass('active');
+        $button.removeAttr('disabled');
         $button.removeAttr('tabindex');
       }
     });
