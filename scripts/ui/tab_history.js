@@ -326,7 +326,17 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       return false;
     });
 
+    $form.find('.points').keypress(function (e) {
+      // by default, the first button is pressed, not type="submit". Let's
+      // submit on default
+      $form.submit();
+
+      e.preventDefault();
+      return false;
+    });
+
     $form.find('button.abort').click(function (e) {
+      console.log('abort');
       abort();
 
       e.preventDefault();
