@@ -1,8 +1,5 @@
 require([ './tabs', './toast', './strings', './storage', './tab_storage',
-    './featuredetect' ], function (Tabs, Toast, Strings, Storage, Tab_Storage) {
-
-  // initialize tabs and select first one (hence the true)
-  new Tabs('#tabs > div', 'images/%s.png', true);
+    './featuredetect', './tabshandle' ], function (Tabs, Toast, Strings, Storage, Tab_Storage, Tabshandle) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.

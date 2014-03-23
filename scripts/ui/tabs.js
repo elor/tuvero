@@ -2,16 +2,28 @@ define([ './options' ], function (Options) {
   var Tabs;
 
   Tabs = function (tabselector, imgpattern, enforce) {
-    imgpattern = imgpattern || 'images/%s.png';
+    var that;
 
-    // TODO update opts
+    that = {
+      tabs : [],
+      keys : [],
+      opts : [],
+      updateOpts : function () {
+      }
+    };
+
+    this.updateOpts = function () {
+      that.updateOpts();
+    }
+
+    imgpattern = imgpattern || 'images/%s.png';
 
     $(function ($) {
       var tabs, keys, opts, $menu, $body;
 
-      tabs = [];
-      keys = [];
-      opts = [];
+      tabs = that.tabs;
+      keys = that.keys;
+      opts = that.opts;
 
       // get tabs
       $(tabselector).each(function (i, elem) {
@@ -29,9 +41,6 @@ define([ './options' ], function (Options) {
             $elem.removeAttr('accesskey');
           }
           opts.push(opt);
-          if (opt) {
-            $elem.removeAttr('data-tabimgopt');
-          }
         }
       });
 
@@ -90,7 +99,21 @@ define([ './options' ], function (Options) {
       $(window).on('hashchange', function () {
         window.scrollTo(0, 0);
       });
+
+      that.updateOpts = function () {
+        opts.forEach(function (opt, i) {
+          var tab;
+
+          tab = tabs[i];
+
+          if (opt) {
+            $('.tabs a[href=#' + tab + '] img').attr('src', imgpattern.replace('%s', tab + Options[opt]));
+          }
+        });
+      };
     });
+
+    return this;
   };
 
   return Tabs;
