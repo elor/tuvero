@@ -336,7 +336,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // prepare vote elements
     $vtpl = $('#games .running .votes .tpl');
-    $vnames = $vtpl.find('.name');
+    $vnames = $vtpl.find('.name').map(function () {
+      return $(this);
+    });
     $vno = $vtpl.find('.teamno');
     $vtpl.detach();
     $vtpl.removeClass('tpl');
@@ -348,6 +350,16 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $vcontainers.push($('#games .running .votes > .up'));
     $vcontainers.push($('#games .running .votes > .down'));
     $vcontainers.push($('#games .running .votes > .bye'));
+
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      if (i < Options.teamsize) {
+        $vnames[i].css('display', '');
+        $vnames[i].prev('br').css('display', '');
+      } else {
+        $vnames[i].css('display', 'none');
+        $vnames[i].prev('br').css('display', 'none');
+      }
+    }
 
     /**
      * remove all elements in the vote area
@@ -369,12 +381,13 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       votes = Swiss.getRoundVotes();
 
       makeBox = function (tid) {
-        var team = Team.get(tid);
+        var team, i;
+        team = Team.get(tid);
 
         $vno.text(team.id + 1);
-        team.names.forEach(function (name, id) {
-          $($vnames[id]).text(name);
-        });
+        for (i = 0; i < Options.teamsize; i += 1) {
+          $vnames[i].text(team.names[i]);
+        }
 
         return $vtpl.clone();
       };
