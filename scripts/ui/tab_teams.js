@@ -247,8 +247,12 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       chshow($name);
     });
 
-    template.$chname.blur(function () {
-      chhide();
+    template.$chname.blur(chhide);
+    template.$chname.keypress(function (e) {
+      if (e.which === 13) {
+        // automatically calls chhide
+        template.$chname.blur();
+      }
     });
 
     // avoid bubbling of the click event towards .name, which would remove
