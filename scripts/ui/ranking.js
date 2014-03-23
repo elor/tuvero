@@ -67,7 +67,7 @@ define([ './swiss', './team', './strings', './options' ], function (Swiss, Team,
 
       if (corrs !== undefined && corrs.length !== 0) {
         lines.push('');
-        lines.push('Team 1,Team 2,Fehler 1,Fehler 1,Korrektur 1,Korrektur 2');
+        lines.push(Strings.correctionhead);
 
         makeline = function (corr) {
           var tid, line;

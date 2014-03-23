@@ -44,6 +44,7 @@ define(function () {
     rankhead1 : 'Rang,Team,Spieler,Siege,BH,FBH,Netto,Lose',
     rankhead2 : 'Rang,Team,Spieler 1,Spieler 2,Siege,BH,FBH,Netto,Lose',
     rankhead3 : 'Rang,Team,Spieler 1,Spieler 2,Spieler 3,Siege,BH,FBH,Netto,Lose',
+    correctionhead : 'Team 1,Team 2,P1 vorher, P2 vorher,P1 nachher, P2 nachher',
   };
 
   return Strings;
