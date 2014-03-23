@@ -114,7 +114,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         team = Team.create(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
-        template.$names[0].focus();
+
+        newteam.$names[0].focus();
 
         // save changes
         Storage.changed();

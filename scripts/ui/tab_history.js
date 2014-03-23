@@ -232,6 +232,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       }
 
       // retrieve team ids from displayed team number
+      // TODO find better solution!
       $teams = $form.parents('.game').find('.teamno');
       t1 = Number($($teams[0]).text());
       t2 = Number($($teams[1]).text());
