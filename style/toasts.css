@@ -1,16 +1,16 @@
 #toasts {
-  margin: 0.3em 0.3em 0em 0em;
-  max-width: 10em;
-  text-align: right;
+  position: fixed;
   top: 0em;
   right: 0em;
-  position: fixed;
+  max-width: 10em;
+  text-align: right;
+  margin: 0.3em 0.3em 0em 0em;
 }
 
-#toasts>div {
+#toasts > div {
   margin-bottom: 0.2em;
   display: inline-block;
-  background-color: lightgrey;
+  background-color: #d0d0d0;
   border-radius: 0.5em;
   padding: 0.5em;
   opacity: 0;
@@ -21,7 +21,7 @@
   transition: all 0.2s ease-out;
 }
 
-#toasts>div.toast {
+#toasts > div.toast {
   opacity: 1;
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;

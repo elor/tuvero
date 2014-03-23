@@ -1,14 +1,14 @@
-#teams .team,#newteam,#games .team {
+#teams .team, #newteam, #games .team {
   display: block;
   margin: 0.5em;
   border-radius: 0.5em;
-  background-color: lightgrey;
+  background-color: #d0d0d0;
   padding: 0.3em;
   text-align: left;
   border-spacing: 0px;
 }
 
-#teams .team,#newteam {
+#teams .team, #newteam {
   float: left;
   display: table;
   height: 5em;
@@ -33,7 +33,7 @@
   width: 10em;
 }
 
-#teams .teamno,#games .team .teamno,#history .teamno {
+#teams .teamno, #games .team .teamno, #history .teamno {
   width: 1.5em;
   height: 1.5em;
   font-size: 200%;
@@ -46,7 +46,7 @@
   text-decoration: underline;
 }
 
-#teams .team .name,#games .team .name {
+#teams .team .name, #games .team .name {
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
@@ -76,17 +76,17 @@
 }
 
 #newteam {
-  background-color: lightgreen;
+  background-color: #90ee90;
 }
 
 #newteam .teamno button {
-  background-color: rgb(221, 221, 221);
+  background-color: #d3d3d3;
   width: inherit;
   height: inherit;
   font-size: 100%;
   border-radius: 0.2em;
   border: none;
-  box-shadow: 1px 1px 0px grey;
+  box-shadow: 1px 1px 0px #808080;
 }
 
 #newteam .names {
@@ -98,9 +98,9 @@
 }
 
 #newteam .playername {
-  background-color: white;
+  background-color: #ffffff;
   border: none;
   width: 100%;
-  box-shadow: 1px 1px 0px grey;
+  box-shadow: 1px 1px 0px #808080;
   margin: 0em;
 }

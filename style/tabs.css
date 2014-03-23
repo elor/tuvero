@@ -13,27 +13,27 @@
   white-space: nowrap;
 }
 
-.tabs>a>img {
+.tabs > a > img {
   float: left;
   height: 100%;
   width: 3em;
-  background-color: lightgray;
+  background-color: #d0d0d0;
   padding: 1em 1em 0em 1em;
   margin: 0.5em 0em 0em 0.5em;
   border-radius: 1em 1em 0em 0em;
 }
 
 .tabs .open {
-  background-color: white;
+  background-color: #ffffff;
 }
 
-#tabs>div {
+#tabs > div {
   margin: 4.5em 0.5em 0.5em 0.5em;
   padding: 0.5em;
   padding-top: 1.5em;
   clear: both;
   border-radius: 0em 1em 1em 1em;
-  background-color: white;
+  background-color: #ffffff;
   text-align: center;
   min-width: 30em;
 }

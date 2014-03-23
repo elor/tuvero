@@ -1,4 +1,4 @@
-#games .preparing button,#games .finished button {
+#games .preparing button, #games .finished button {
   font-size: 1em;
   padding: 0.5em;
   border-radius: 0.3em;
@@ -12,7 +12,7 @@
   display: table;
   margin: 0.5em;
   border-radius: 0.5em;
-  background-color: grey;
+  background-color: #808080;
   padding: 0.3em;
   text-align: left;
   border-spacing: 0em;
@@ -21,30 +21,30 @@
   vertical-align: middle;
 }
 
-#games .game>.team {
+#games .game > .team {
   display: table-cell;
   margin: 0.0em;
 }
 
-#games .game>div {
+#games .game > div {
   display: table-cell;
   vertical-align: middle;
   padding: 0px;
   margin: 0px;
 }
 
-#games .game>div>button {
+#games .game > div > button {
   margin: 0px;
   height: 1em;
   border: none;
-  background-color: lightgrey;
+  background-color: #d3d3d3;
 }
 
-#games .game>.team.left .name {
+#games .game > .team.left .name {
   text-align: right;
 }
 
-#games .game>.team .points {
+#games .game > .team .points {
   text-align: center;
   position: relative;
   width: 90%;
@@ -62,7 +62,7 @@
 #games .votes .vote {
   float: left;
   border-radius: 0.5em;
-  background-color: grey;
+  background-color: #808080;
   padding: 0.3em;
 }
 

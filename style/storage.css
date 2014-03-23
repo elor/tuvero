@@ -5,25 +5,25 @@
   margin: auto;
 }
 
-#storage>div>p {
+#storage > div > p {
   text-align: justify;
 }
 
-#storage .csv button,#storage .save button,#storage .load button {
-  background-color: lightgrey;
+#storage .csv button, #storage .save button, #storage .load button {
+  background-color: #d0d0d0;
   border-radius: 0.5em;
   padding: 0.5em;
   cursor: pointer;
   margin-bottom: 1em;
 }
 
-#storage button>img {
+#storage button > img {
   width: 3.0em;
   height: 3.0em;
 }
 
 #storage button.selected {
-  background-color: white;
+  background-color: #ffffff;
 }
 
 #storage .load input.file {
@@ -31,7 +31,7 @@
 }
 
 #storage .nojson {
-  background-color: red;
+  background-color: #ff0000;
   font-weight: bold;
   font-size: 120%;
 }

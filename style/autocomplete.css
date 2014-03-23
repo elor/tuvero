@@ -1,6 +1,6 @@
 .tt-dropdown-menu {
   width: 100%;
-  background: white;
+  background-color: #ffffff;
   margin-left: 0em;
 }
 
@@ -10,11 +10,11 @@
 }
 
 .tt-suggestion.tt-cursor {
-  background: #adadad;
+  background-color: #adadad;
 }
 
 .tt-query {
-  color: red;
+  color: #ff0000;
 }
 
 .tt-hint {

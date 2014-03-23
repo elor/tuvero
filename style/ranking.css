@@ -9,7 +9,7 @@
 }
 
 #ranking table tr:nth-child(even) {
-  background-color: lightgrey;
+  background-color: #d3d3d3;
 }
 
 #ranking th {
