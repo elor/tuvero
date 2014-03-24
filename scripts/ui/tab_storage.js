@@ -1,44 +1,59 @@
 define([ './toast', './strings', './team', './history', './ranking', './blob',
     './base64', './storage', './options' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options) {
-  var Tab_Storage, $csvanchor, $csvarea, $saveanchor, $savearea, $loadarea, $loadfile;
+  var Tab_Storage, $tab, areas;
 
   Tab_Storage = {};
+  areas = {};
 
-  $(function ($) {
-    $csvanchor = $('#storage .csv a');
-    $csvarea = $('#storage .csv textarea');
+  function initCSV () {
+    areas.csv = {};
+    areas.csv.$download = $tab.find('.csv a');
+    areas.csv.$text = $tab.find('.csv textarea');
+    areas.csv.$buttons = $tab.find('.csv button');
 
-    $csvarea.click(function () {
-      $csvarea.select();
+    areas.csv.$text.click(function () {
+      areas.csv.$text.select();
     });
 
-    invalidateCSV();
-  });
+    // set csv selection buttons
+    areas.csv.$buttons.click(function () {
+      var $button = $(this);
+
+      // button contains image. Forward accidental clicks.
+      if ($button.prop('tagName') === 'IMG') {
+        $button = $button.parent();
+      }
+
+      $button.toggleClass('selected');
+
+      csvupdate();
+    });
+  }
 
   function invalidateCSV () {
-    $('#storage .csv .selected').removeClass('selected');
+    $tab.find('.csv .selected').removeClass('selected');
 
-    $csvanchor.attr('href', '#');
-    $csvanchor.hide();
+    areas.csv.$download.attr('href', '#');
+    areas.csv.$download.hide();
 
-    $csvarea.val('');
-    $csvarea.hide();
+    areas.csv.$text.val('');
+    areas.csv.$text.hide();
   }
 
   function csvupdate () {
     var $buttons, csv;
 
-    $buttons = $('#storage .csv button');
+    $buttons = areas.csv.$buttons;
 
     csv = [];
 
-    if ($($buttons[0]).hasClass('selected')) {
+    if ($buttons.eq(0).hasClass('selected')) {
       csv.push(Team.toCSV());
     }
-    if ($($buttons[1]).hasClass('selected')) {
+    if ($buttons.eq(1).hasClass('selected')) {
       csv.push(Ranking.toCSV());
     }
-    if ($($buttons[2]).hasClass('selected')) {
+    if ($buttons.eq(2).hasClass('selected')) {
       csv.push(History.toCSV());
     }
 
@@ -49,199 +64,186 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     csv = csv.join('\r\n""\r\n');
 
-    // update link
-    $csvanchor.attr('href', 'data:application/csv;base64,' + btoa(csv));
-    $csvanchor.show();
+    // update download link
+    areas.csv.$download.attr('href', 'data:application/csv;base64,' + btoa(csv));
+    areas.csv.$download.show();
 
     // update area
-    $csvarea.val(csv);
-    $csvarea.show();
+    areas.csv.$text.val(csv);
+    areas.csv.$text.show();
   }
 
-  $('#storage .csv button').click(function (e) {
-    var $button = $(e.target);
+  function initSave () {
+    areas.save = {};
+    areas.save.$download = $tab.find('.save a');
+    areas.save.$text = $tab.find('.save textarea');
+    areas.save.$button = $tab.find('.save button');
 
-    if ($button.prop('tagName') === 'IMG') {
-      $button = $button.parent();
-    }
-
-    $button.toggleClass('selected');
-
-    csvupdate();
-  });
-
-  $(function ($) {
-    var saveupdate, $savebutton;
-
-    $saveanchor = $('#storage .save a');
-    $savearea = $('#storage .save textarea');
-    $savebutton = $('#storage .save button');
-
-    $savearea.click(function () {
-      $savearea.select();
+    areas.save.$text.click(function () {
+      areas.save.$text.select();
     });
 
-    saveupdate = function () {
-      var save, $buttons;
+    areas.save.$button.click(function () {
+      areas.save.$button.toggleClass('selected');
 
-      $buttons = $('#storage .save button');
-
-      save = Blob.toBlob();
-
-      // update link
-      $saveanchor.attr('href', 'data:application/json;base64,' + btoa(save));
-      $saveanchor.show();
-
-      // update area
-      $savearea.val(save);
-      $savearea.show();
-    };
-
-    $savebutton.click(function () {
-      $savebutton.toggleClass('selected');
-      if ($savebutton.hasClass('selected')) {
-        saveupdate();
+      if (areas.save.$button.hasClass('selected')) {
+        updateSave();
       } else {
         invalidateSave();
       }
     });
 
-    invalidateSave();
-  });
-
-  function invalidateSave () {
-    $saveanchor.attr('href', '#');
-    $saveanchor.hide();
-
-    $savearea.val('');
-    $savearea.hide();
   }
 
-  $(function ($) {
-    var loadupdate, $loadbutton;
+  function updateSave () {
+    var save;
 
-    $loadarea = $('#storage .load textarea');
-    $loadbutton = $('#storage .load button');
-    $loadfile = $('#storage .load input.file');
+    // TODO read from/compare with database
 
-    $loadarea.click(function () {
-      $loadarea.select();
+    save = Blob.toBlob();
+
+    // update link
+    areas.save.$download.attr('href', 'data:application/json;base64,' + btoa(save));
+    areas.save.$download.show();
+
+    // update area
+    areas.save.$text.val(save);
+    areas.save.$text.show();
+  }
+
+  function invalidateSave () {
+    areas.save.$download.attr('href', '#');
+    areas.save.$download.hide();
+
+    areas.save.$text.val('');
+    areas.save.$text.hide();
+  }
+
+  function initLoad () {
+    areas.load = {};
+
+    areas.load.$text = $tab.find('.load textarea');
+    areas.load.$button = $tab.find('.load button');
+    areas.load.$file = $tab.find('.load input.file');
+
+    areas.load.$text.click(function () {
+      areas.load.$text.select();
     });
 
-    loadupdate = function () {
-      var load, $buttons;
+    areas.load.$button.click(function () {
+      areas.load.$button.toggleClass('selected');
 
-      $buttons = $('#storage .load button');
-
-      load = $loadarea.val();
-
-      Storage.enable();
-      Storage.clear(Options.dbname);
-
-      try {
-        if (Blob.fromBlob(load)) {
-          Storage.changed();
-          Tab_Storage.toggleStorage();
-          new Toast(Strings.loaded);
-        }
-      } catch (e) {
-        new Toast(Strings.loadfailed);
-        window.setTimeout(function () {
-          window.location.reload();
-        }, 2000);
-      }
-
-      invalidateLoad();
-    };
-
-    $loadbutton.click(function () {
-      $loadbutton.toggleClass('selected');
-      if ($loadbutton.hasClass('selected')) {
-        $loadarea.show();
+      if (areas.load.$button.hasClass('selected')) {
+        areas.load.$text.show();
       } else {
-        loadupdate();
+        updateLoad();
       }
     });
 
-    function fileerror (evt) {
-      switch (evt.target.error.code) {
-      case evt.target.error.NOT_FOUND_ERR:
-        new Toast(Strings.filenotfound);
-        break;
-      case evt.target.error.NOT_READABLE_ERR:
-        new Toast(Strings.filenotreadable);
-        break;
-      case evt.target.error.ABORT_ER:
-        break;
-      default:
-        new Toast(Strings.fileerror);
-      }
-    }
-
-    function fileload (evt) {
-      var blob;
-
-      blob = evt.target.result;
-
-      $loadarea.val(blob);
-
-      Storage.enable();
-      Storage.clear(Options.dbname);
-
-      try {
-        if (Blob.fromBlob(blob)) {
-          Storage.changed();
-          Tab_Storage.toggleStorage();
-          new Toast(Strings.loaded);
-        }
-      } catch (e) {
-        new Toast(Strings.loadfailed);
-        window.setTimeout(function () {
-          // window.location.reload();
-        }, 2000);
-      }
-    }
-
-    function fileabort () {
-      new Toast(Strings.fileabort);
-    }
-
-    $loadfile.change(function (evt) {
+    areas.load.$file.change(function (evt) {
       var reader = new FileReader();
-      reader.onerror = fileerror;
-      reader.onabort = fileabort;
-      reader.onload = fileload;
+      reader.onerror = loadFileError;
+      reader.onabort = loadFileAbort;
+      reader.onload = loadFileLoad;
 
       reader.readAsBinaryString(evt.target.files[0]);
     });
-
-    invalidateLoad();
-  });
-
-  function invalidateLoad () {
-    $loadarea.val('');
-    $loadarea.hide();
-    $loadfile.val('');
   }
 
-  $(function ($) {
-    var $box, $save, $clear, $clearbox;
+  function updateLoad () {
+    var load;
 
-    $box = $('#storage .local input.autosave');
-    $save = $('#storage .local button.save');
-    $clearbox = $('#storage .local input.clearbox');
-    $clear = $('#storage .local button.clear');
+    load = areas.load.$text.val();
 
-    $clear.click(function () {
+    Storage.enable();
+    Storage.clear(Options.dbname);
+
+    try {
+      if (Blob.fromBlob(load)) {
+        Storage.changed();
+        Tab_Storage.toggleStorage();
+        new Toast(Strings.loaded);
+      }
+    } catch (e) {
+      new Toast(Strings.loadfailed);
+      window.setTimeout(function () {
+        window.location.reload();
+      }, 2000);
+    }
+
+    invalidateLoad();
+  }
+
+  function invalidateLoad () {
+    areas.load.$text.val('');
+    areas.load.$text.hide();
+    areas.load.$file.val('');
+  }
+
+  function loadFileError (evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ER:
+      break;
+    default:
+      new Toast(Strings.fileerror);
+    }
+  }
+
+  function loadFileLoad (evt) {
+    var blob;
+
+    blob = evt.target.result;
+
+    areas.load.$text.val(blob);
+
+    Storage.enable();
+    Storage.clear(Options.dbname);
+
+    try {
+      if (Blob.fromBlob(blob)) {
+        Storage.changed();
+        // TODO event handler
+        Tab_Storage.toggleStorage();
+        new Toast(Strings.loaded);
+      }
+    } catch (e) {
+      new Toast(Strings.loadfailed);
+      window.setTimeout(function () {
+        window.location.reload();
+      }, 2000);
+    }
+  }
+
+  function loadFileAbort () {
+    new Toast(Strings.fileabort);
+  }
+
+  function initLocalStorage () {
+    areas.local = {};
+
+    areas.local.$autosave = $tab.find('.local input.autosave');
+    areas.local.$savebutton = $tab.find('.local button.save');
+    areas.local.$clearbox = $tab.find('.local input.clearbox');
+    areas.local.$clearbutton = $tab.find('.local button.clear');
+
+    areas.local.$clearbox.click(function () {
+      // TODO use some jQuery magic
       if (confirm(Strings.clearstorage)) {
         Storage.enable();
         Storage.clear(Options.dbname);
-        window.location.hash = '#teams';
+        window.location.hash = '#';
         window.location.reload();
       }
     });
 
-    $save.click(function () {
+    areas.local.$savebutton.click(function () {
       Storage.enable();
 
       if (Storage.store()) {
@@ -253,23 +255,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       Tab_Storage.toggleStorage();
     });
 
-    /**
-     * toggles the storage state depending on the current autosave checkbox
-     * state.
-     * 
-     * @returns {Boolean} true if autosave is enabled, false otherwise
-     */
-    Tab_Storage.toggleStorage = function () {
-      if ($box.prop('checked')) {
-        Storage.enable();
-        return true;
-      }
-
-      Storage.disable();
-      return false;
-    };
-
-    $box.click(function () {
+    areas.local.$autosave.click(function () {
       if (Tab_Storage.toggleStorage()) {
         new Toast(Strings.autosaveon);
       } else {
@@ -277,27 +263,63 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       }
     });
 
-    $clearbox.click(function () {
-      if ($clearbox.prop('checked')) {
-        $clear.prop('disabled', false);
+    areas.local.$clearbox.click(function () {
+      if (areas.local.$clearbox.prop('checked')) {
+        areas.local.$clearbutton.prop('disabled', false);
       } else {
-        $clear.prop('disabled', true);
+        areas.local.$clearbutton.prop('disabled', true);
       }
     });
+  }
 
-    /**
-     * reset an initial state
-     */
-    Tab_Storage.reset = function () {
-      invalidateCSV();
-      invalidateSave();
-      invalidateLoad();
-    };
+  /**
+   * toggles the storage state depending on the current autosave checkbox state.
+   * 
+   * FIXME get rid of this function, e.g. through an event handler
+   * 
+   * @returns {Boolean} true if autosave is enabled, false otherwise
+   */
+  Tab_Storage.toggleStorage = function () {
+    if (areas.local.$autosave.prop('checked')) {
+      Storage.enable();
+      return true;
+    }
 
-    Tab_Storage.update = function () {
-      Tab_Storage.reset();
-    };
-  });
+    Storage.disable();
+    return false;
+  };
+
+  function init () {
+    if ($tab) {
+      console.error('tab_storage: $tab is already defined:');
+      console.error($tab);
+      return;
+    }
+
+    $tab = $('#storage');
+
+    initCSV();
+    initSave();
+    initLoad();
+    initLocalStorage();
+  }
+
+  /**
+   * reset an initial state
+   */
+  Tab_Storage.reset = function () {
+    if (!$tab) {
+      init();
+    }
+
+    invalidateCSV();
+    invalidateSave();
+    invalidateLoad();
+  };
+
+  Tab_Storage.update = function () {
+    Tab_Storage.reset();
+  };
 
   return Tab_Storage;
 });
