@@ -2,10 +2,8 @@
  * Load and manage all tabs centrally
  */
 
-// define([ './tab_history' ], function () {
-// });
-define([ './tab_ranking', './tab_storage', './tab_new', './tab_teams',
-    './tab_games' ], function () {
+define([ './tab_history', './tab_ranking', './tab_storage', './tab_new',
+    './tab_teams', './tab_games' ], function () {
   var i, tabs, Alltabs;
 
   tabs = [];
@@ -30,3 +28,5 @@ define([ './tab_ranking', './tab_storage', './tab_new', './tab_teams',
 
   return Alltabs;
 });
+
+// TODO EVERYWHERE: prevent default behavior!
