@@ -233,16 +233,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     areas.local.$clearbox = $tab.find('.local input.clearbox');
     areas.local.$clearbutton = $tab.find('.local button.clear');
 
-    areas.local.$clearbox.click(function () {
-      // TODO use some jQuery magic
-      if (confirm(Strings.clearstorage)) {
-        Storage.enable();
-        Storage.clear(Options.dbname);
-        window.location.hash = '#';
-        window.location.reload();
-      }
-    });
-
     areas.local.$savebutton.click(function () {
       Storage.enable();
 
@@ -268,6 +258,16 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         areas.local.$clearbutton.prop('disabled', false);
       } else {
         areas.local.$clearbutton.prop('disabled', true);
+      }
+    });
+
+    areas.local.$clearbutton.click(function () {
+      // TODO use some jQuery magic
+      if (confirm(Strings.clearstorage)) {
+        Storage.enable();
+        Storage.clear(Options.dbname);
+        window.location.hash = '#';
+        window.location.reload();
       }
     });
   }
