@@ -5,6 +5,9 @@ require([ './tabs', './toast', './strings', './storage', './tab_storage',
   // up, hence the jquery function.
   $(function ($) {
 
+    // TODO show loading screen
+    // TODO show tabs only after everything has been set up
+
     Alltabs.reset();
 
     // show the page
