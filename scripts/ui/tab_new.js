@@ -7,16 +7,7 @@ define([ './options', './tabshandle' ], function (Options, Tabshandle) {
 
   Tab_New = {};
 
-  function init () {
-    if ($tab) {
-      console.error('tab_new: $tab already exists:');
-      console.error($tab);
-      return;
-    }
-
-    $tab = $('#new');
-    $tab.find('form input').val(Options.teamsize);
-
+  function initTeamSize () {
     $tab.find('form').on('load submit change', function (e) {
       var teamsize;
 
@@ -34,14 +25,31 @@ define([ './options', './tabshandle' ], function (Options, Tabshandle) {
     });
   }
 
+  function updateTeamSize () {
+    $tab.find('form input').val(Options.teamsize);
+  }
+  function init () {
+    if ($tab) {
+      console.error('tab_new: $tab already exists:');
+      console.error($tab);
+      return;
+    }
+
+    $tab = $('#new');
+
+    initTeamSize();
+  }
+
   Tab_New.reset = function () {
     if (!$tab) {
       init();
     }
+
+    updateTeamSize();
   };
 
   Tab_New.update = function () {
-    // TODO do something
+    Tab_New.reset();
   };
 
   return Tab_New;

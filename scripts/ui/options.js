@@ -7,10 +7,9 @@ define(function () {
   var Options;
 
   Options = {
-    teamsize : 2,
+    teamsize : 3,
     maxteamsize : 3,
     maxpoints : 13,
-    name : 'swiss',
     dbname : 'swiss',
     dbplayername : 'players'
   };
@@ -23,12 +22,14 @@ define(function () {
     var opts, key;
     opts = JSON.parse(blob);
 
+    // delete everything
     for (key in Options) {
       if (typeof (Options[key]) !== 'function') {
         delete Options[key];
       }
     }
 
+    // reset everything
     for (key in opts) {
       if (typeof (opts[key]) !== 'function') {
         Options[key] = opts[key];
