@@ -599,8 +599,12 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       init();
     }
 
+    // delete everything
     clearGames();
     clearVotes();
+
+    // reset everything
+    updateTemplates();
     stage(stage.PREPARING);
   };
 

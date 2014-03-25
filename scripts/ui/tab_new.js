@@ -2,7 +2,7 @@
  * Tab_New handler
  */
 
-define([], function () {
+define([ './options', './tabshandle' ], function (Options, Tabshandle) {
   var Tab_New, $tab;
 
   Tab_New = {};
@@ -15,6 +15,24 @@ define([], function () {
     }
 
     $tab = $('#new');
+    $tab.find('form input').val(Options.teamsize);
+
+    $tab.find('form').on('load submit change', function (e) {
+      var teamsize;
+
+      teamsize = Number($(this).find('input').val());
+
+      console.log(teamsize);
+
+      Options.teamsize = teamsize;
+
+      Tabshandle.updateOpts();
+      require('./alltabs').reset();
+
+      e.preventDefault();
+
+      return false;
+    });
   }
 
   Tab_New.reset = function () {
@@ -26,10 +44,6 @@ define([], function () {
   Tab_New.update = function () {
     // TODO do something
   };
-
-  $('#new form').submit(function () {
-    console.log($(this).find('input').val());
-  });
 
   return Tab_New;
 });

@@ -47,6 +47,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   function updateTemplate () {
     var i, $names;
 
+    Autocomplete.reset();
+
     $names = template.$names;
 
     for (i = 0; i < Options.maxteamsize; i += 1) {
@@ -280,8 +282,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     initMaxWidth();
     initRename();
     $anchor = newteam.$form;
-
-    Autocomplete.update();
   }
 
   /**
@@ -311,7 +311,16 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         init();
       }
 
+      // delete everything
       $tab.find('.team').remove();
+      Autocomplete.reset();
+
+      // reset everything
+      updateTemplate();
+      updateNewTeam();
+
+      Autocomplete.update();
+
     },
     update : function () {
       var i, l;

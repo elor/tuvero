@@ -255,8 +255,12 @@ define([ './team', './toast', './strings', './swiss', './options',
       init();
     }
 
+    // delete everything
     $tab.find('table .line').remove();
     clearCorrections();
+
+    // reset everything
+    updateTemplate();
   };
 
   function update () {
