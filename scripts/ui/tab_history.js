@@ -247,12 +247,15 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       return false;
     });
 
-    template.chpoints.$chpoints.find('.points').keypress(function (e) {
-      // by default, the first button is pressed, not type="submit". Let's
-      // submit on default
+    template.chpoints.$chpoints.find('.points').keyup(function (e) {
       if (e.which === 13) {
+        // Enter --> submit
         template.chpoints.$chpoints.find('button.save').click();
-
+        e.preventDefault();
+        return false;
+      } else if (e.which === 27) {
+        // Escape --> abort
+        template.chpoints.$chpoints.find('button.abort').click();
         e.preventDefault();
         return false;
       }
@@ -396,7 +399,6 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       }
 
       numgames = History.numGames(round);
-      console.log(numgames);
       for (id = 0; id < numgames; id += 1) {
         empty = false;
         Tab_History.createBox(History.get(round, id));

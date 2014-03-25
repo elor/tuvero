@@ -22,12 +22,11 @@ define([ './options', './tabshandle' ], function (Options, Tabshandle) {
 
       teamsize = Number($(this).find('input').val());
 
-      console.log(teamsize);
-
       Options.teamsize = teamsize;
 
       Tabshandle.updateOpts();
       require('./alltabs').reset();
+      require('./alltabs').update();
 
       e.preventDefault();
 

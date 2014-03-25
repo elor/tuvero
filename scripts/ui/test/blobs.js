@@ -10,7 +10,6 @@ define([ '../../lib/implements', '../../backend/blobber', '../blob',
     QUnit.equal(Implements(Blobber, Players), '', 'Players interface match');
     QUnit.equal(Implements(Blobber, Blob), '', 'Blob interface match');
     QUnit.equal(Implements(Blobber, Swiss), '', 'Swiss interface match');
-    console.log(Team);
     QUnit.equal(Implements(Blobber, Team), '', 'Team interface match');
     QUnit.equal(Implements(Blobber, History), '', 'History interface match');
 

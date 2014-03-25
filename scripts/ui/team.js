@@ -69,7 +69,11 @@ define([ './options', './strings' ], function (Options, Strings) {
       line = [ team.id + 1 ];
 
       for (i = 0; i < Options.teamsize; i += 1) {
-        line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+        if (team.names[i]) {
+          line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+        } else {
+          line.push('"%% %%"');
+        }
       }
 
       lines.push(line.join(','));

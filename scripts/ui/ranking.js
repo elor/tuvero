@@ -33,7 +33,11 @@ define([ './swiss', './team', './strings', './options' ], function (Swiss, Team,
 
         line.push(team.id + 1);
         for (i = 0; i < Options.teamsize; i += 1) {
-          line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+          if (team.names[i]) {
+            line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+          } else {
+            line.push('"%% %%"');
+          }
         }
 
         line.push(ranking.wins[rnk]);

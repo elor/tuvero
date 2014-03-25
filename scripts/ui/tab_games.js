@@ -148,6 +148,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     });
 
     $stages[stage.RUNNING].delegate('.game', 'submit', finishGame);
+    // TODO Enter key -> press submit button (as a failsafe)
+    // TODO Escape key -> reset form
 
     template.game = {
       $anchor : $anchor,

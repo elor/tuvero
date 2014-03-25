@@ -253,10 +253,16 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     });
 
     template.$chname.blur(chhide);
-    template.$chname.keypress(function (e) {
+    template.$chname.keyup(function (e) {
       if (e.which === 13) {
         // automatically calls chhide
         template.$chname.blur();
+        e.preventDefault();
+        return false;
+      } else if (e.which === 27) {
+        // TODO abort name change
+        e.preventDefault();
+        return false;
       }
     });
 

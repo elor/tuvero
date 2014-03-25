@@ -183,11 +183,19 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
           line.push(round + 1);
           line.push(t1.id + 1);
           for (i = 0; i < Options.teamsize; i += 1) {
-            line.push('"' + t1.names[i].replace(/"/g, '""') + '"');
+            if (t1.names[i]) {
+              line.push('"' + t1.names[i].replace(/"/g, '""') + '"');
+            } else {
+              line.push('"%% %%"');
+            }
           }
           line.push(t2.id + 1);
           for (i = 0; i < Options.teamsize; i += 1) {
-            line.push('"' + t2.names[i].replace(/"/g, '""') + '"');
+            if (t2.names[i]) {
+              line.push('"' + t2.names[i].replace(/"/g, '""') + '"');
+            } else {
+              line.push('"%% %%"');
+            }
           }
           line.push(game.p1);
           line.push(game.p2);
