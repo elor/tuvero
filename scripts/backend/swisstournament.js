@@ -3,8 +3,8 @@
  * If you need teams, first consider to enter a team as a single player before
  * rewriting for multi-player teams, which are only useful for random teams.
  */
-define([ './map', './finebuchholzranking', './game', './result', './random',
-    './correction' ], function (Map, Finebuchholzranking, Game, Result, Random, Correction) {
+define([ './tournament', './map', './finebuchholzranking', './game',
+    './result', './random', './correction' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction) {
   var Swisstournament;
 
   /**
@@ -15,7 +15,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
   Swisstournament = function () {
     this.players = new Map();
     this.ranking = new Finebuchholzranking();
-    this.state = 0; // 0 always is the first state, regardless of its name
+    this.state = Tournament.STATE.PREPARING;
     this.games = [];
     this.upvote = []; // true, wenn jemand hochgelost wurde
     this.downvote = []; // true, wenn jemand runtergelost wurde
@@ -27,15 +27,8 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
       downvotes : [],
       byevote : undefined
     };
-  };
 
-  /**
-   * the three possible states
-   */
-  Swisstournament.state = {
-    PREPARING : 0,
-    RUNNING : 1,
-    FINISHED : 2
+    this.rkch = false;
   };
 
   /**
@@ -45,7 +38,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
    * @returns
    */
   Swisstournament.prototype.addPlayer = function (id) {
-    if (this.state !== Swisstournament.state.PREPARING) {
+    if (this.state !== Tournament.STATE.PREPARING) {
       return undefined;
     }
 
@@ -60,7 +53,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
    * @returns
    */
   Swisstournament.prototype.start = function () {
-    if (this.state !== Swisstournament.state.PREPARING) {
+    if (this.state !== Tournament.STATE.PREPARING) {
       return undefined;
     }
 
@@ -68,8 +61,9 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
       return undefined;
     }
 
-    this.state = Swisstournament.state.RUNNING;
+    this.state = Tournament.STATE.RUNNING;
     this.newRound();
+    this.rkch = true;
 
     return this;
   };
@@ -80,7 +74,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
    * @returns
    */
   Swisstournament.prototype.end = function () {
-    if (this.state !== Swisstournament.state.RUNNING) {
+    if (this.state !== Tournament.STATE.RUNNING) {
       return undefined;
     }
 
@@ -89,7 +83,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
       return undefined;
     }
 
-    this.state = Swisstournament.state.FINISHED;
+    this.state = Tournament.STATE.FINISHED;
     return this.getRanking();
   };
 
@@ -102,7 +96,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
    */
   Swisstournament.prototype.finishGame = function (game, points) {
     var i, invalid;
-    if (this.state !== Swisstournament.state.RUNNING) {
+    if (this.state !== Tournament.STATE.RUNNING) {
       return undefined;
     }
 
@@ -132,6 +126,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
 
     // apply ranking
     this.ranking.add(new Result(game.teams[0], game.teams[1], points[0], points[1]));
+    this.rkch = true;
 
     return this;
   };
@@ -229,6 +224,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
     wins = [];
 
     res = this.ranking.get();
+    this.rkch = false;
 
     // rearrange the arrays from internal id indexing to ranked indexing
     res.ranking.forEach(function (i, rank) {
@@ -265,7 +261,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
     var wingroups, votes, games, timeout;
 
     // abort if the tournament isn't running
-    if (this.state !== Swisstournament.state.RUNNING) {
+    if (this.state !== Tournament.STATE.RUNNING) {
       return undefined;
     }
     // abort if there are unfinished games from a previous round
@@ -376,6 +372,7 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
 
     // round increment
     this.round += 1;
+    this.rkch = true;
 
     return this;
   };
@@ -739,6 +736,14 @@ define([ './map', './finebuchholzranking', './game', './result', './random',
 
     this.players.fromBlob(ob.players);
     this.ranking.fromBlob(ob.ranking);
+  };
+
+  Swisstournament.prototype.getState = function () {
+    return this.state;
+  };
+
+  Swisstournament.prototype.rankingChanged = function () {
+    return rkch;
   };
 
   return Swisstournament;
