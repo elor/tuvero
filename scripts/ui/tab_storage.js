@@ -167,6 +167,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     } catch (e) {
       new Toast(Strings.loadfailed);
       window.setTimeout(function () {
+        // FIXME don't reload, but warn and reset from storage
         window.location.reload();
       }, 2000);
     }
@@ -216,6 +217,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     } catch (e) {
       new Toast(Strings.loadfailed);
       window.setTimeout(function () {
+        // TODO don't reload, but reset from storage or something
         window.location.reload();
       }, 2000);
     }
@@ -267,6 +269,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         Storage.enable();
         Storage.clear(Options.dbname);
         window.location.hash = '#';
+        // TODO don't reload, just reset
         window.location.reload();
       }
     });
