@@ -282,6 +282,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function newRound () {
     var wingroups, votes, games, timeout;
+    // "The local variable games is hiding a field from type newRound" is bogus
 
     // abort if the tournament isn't running
     if (this.state === Tournament.STATE.RUNNING) {

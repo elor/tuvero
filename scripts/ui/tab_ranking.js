@@ -133,7 +133,7 @@ define([ './team', './toast', './strings', './swiss', './options',
    *          a valid votes object
    * @returns a filled copy of the template
    */
-  function createRankRow (rank, ranking, votes) {
+  function createRankRow (rank, ranking) {
     var tid, team, vote, i;
 
     tid = ranking.ids[rank];
@@ -147,18 +147,18 @@ define([ './team', './toast', './strings', './swiss', './options',
     }
 
     template.rank.$fields[5].text(ranking.wins[rank]);
-    template.rank.$fields[6].text(ranking.bh[rank]);
-    template.rank.$fields[7].text(ranking.fbh[rank]);
+    template.rank.$fields[6].text(ranking.buchholz[rank]);
+    template.rank.$fields[7].text(ranking.finebuchholz[rank]);
     template.rank.$fields[8].text(ranking.netto[rank]);
 
     vote = [];
-    if (votes.up.indexOf(tid) !== -1) {
+    if (ranking.upvote[rank]) {
       vote.push(Strings.upvote);
     }
-    if (votes.down.indexOf(tid) !== -1) {
+    if (ranking.downvote[rank]) {
       vote.push(Strings.downvote);
     }
-    if (votes.bye.indexOf(tid) !== -1) {
+    if (ranking.byevote[rank]) {
       vote.push(Strings.byevote);
     }
 
@@ -171,11 +171,11 @@ define([ './team', './toast', './strings', './swiss', './options',
    * @returns {boolean} false on failure, true on success
    */
   function showRanks () {
-    var ranking, rank, votes, empty;
+    var ranking, rank, empty;
 
     empty = true;
 
-    if (Swiss.getRound() <= 0) {
+    if (Swiss.getRanking().round <= 0) {
       Tabshandle.hide('ranking');
       return false;
     }
@@ -183,10 +183,9 @@ define([ './team', './toast', './strings', './swiss', './options',
     Tab_Ranking.reset();
 
     ranking = Swiss.getRanking();
-    votes = Swiss.getAllVotes();
 
     for (rank = ranking.ids.length - 1; rank >= 0; rank -= 1) {
-      template.rank.$anchor.after(createRankRow(rank, ranking, votes));
+      template.rank.$anchor.after(createRankRow(rank, ranking));
       empty = false;
     }
 
