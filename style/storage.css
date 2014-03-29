@@ -1,0 +1,43 @@
+#storage .block {
+  float: left;
+  width: 25em;
+  padding: 1em;
+  margin: auto;
+}
+
+#storage > div > p {
+  text-align: justify;
+}
+
+#storage .csv button, #storage .save button, #storage .load button {
+  background-color: #d0d0d0;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+#storage button > img {
+  width: 3.0em;
+  height: 3.0em;
+}
+
+#storage button.selected {
+  background-color: #ffffff;
+}
+
+#storage .load input.file {
+  margin-bottom: 1em;
+}
+
+#storage .nojson {
+  background-color: #ff0000;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+#storage .local button {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+}

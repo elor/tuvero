@@ -1,113 +1,67 @@
-define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, Strings, Swiss) {
-  var Tab_Ranking, $ctpl, $cpts, $corrections, $cnos;
+define([ './team', './toast', './strings', './swiss', './options',
+    './tabshandle' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle) {
+  var Tab_Ranking, template, autoupdate, shown, $tab;
 
   Tab_Ranking = {};
 
-  $(function ($) {
-    var $tpl, $fields, $anchor, shown, autoupdate, update, $box, $button;
-
+  function initState () {
+    // whether to automatically update the tables
     autoupdate = false;
-
     // whether a ranking has been calculated and displayed
     shown = false;
+  }
 
-    // prepare template
-    $tpl = $('#ranking table .line.tpl');
-    $fields = $tpl.find('td');
-    $tpl.detach();
-    $tpl.removeClass('tpl');
-    $anchor = $('#ranking table .head');
+  function initRankRow () {
+    var i, tmp;
 
-    Tab_Ranking.clear = function () {
-      $('#ranking table .line').remove();
-      clearCorrections();
-    };
+    template = {};
 
-    /**
-     * @returns {boolean} false on failure, true on success
-     */
-    update = function () {
-      var ranking, makeline, rank, votes;
+    // ranks, i.e. table rows
+    template.rank = {};
 
-      if (Swiss.getRound() <= 0) {
-        return false;
+    template.rank.$row = $tab.find('table .line.tpl');
+    template.rank.$row.detach();
+    template.rank.$row.removeClass('tpl');
+
+    tmp = template.rank.$row.find('td');
+    template.rank.$fields = [];
+    for (i = 0; i < tmp.length; i += 1) {
+      template.rank.$fields[i] = tmp.eq(i);
+    }
+    template.rank.$anchor = $tab.find('table .head');
+
+    // corrections
+    template.correction = {};
+
+    updateTemplate();
+  }
+
+  function updateTemplate () {
+    var i;
+    // adjust number of columns to the teamsize
+    $tab.find('table th:nth-child(3)').attr('colspan', Options.teamsize);
+
+    // hide unimportant columns
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      if (i < Options.teamsize) {
+        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', '');
+      } else {
+        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', 'none');
       }
+    }
+  }
 
-      Tab_Ranking.clear();
+  function initAutoupdate () {
+    var $autoupdate, $button;
 
-      ranking = Swiss.getRanking();
-      votes = Swiss.getAllVotes();
+    $autoupdate = $tab.find('.options .autoupdate');
+    $button = $tab.find('.options button.update');
 
-      /**
-       * fill template and return copy
-       * 
-       * @param rnk
-       *          rank of the team for which to create the line. starting at 0
-       * @returns a filled copy of the template
-       */
-      makeline = function (rnk) {
-        var tid, team, vote;
+    autoupdate = !!$autoupdate.prop('checked');
 
-        tid = ranking.ids[rnk];
-        team = Team.get(tid);
-
-        $($fields[0]).text(rnk + 1);
-
-        $($fields[1]).text(team.id + 1);
-        $($fields[2]).text(team.names[0]);
-        $($fields[3]).text(team.names[1]);
-        $($fields[4]).text(team.names[2]);
-
-        $($fields[5]).text(ranking.wins[rnk]);
-        $($fields[6]).text(ranking.bh[rnk]);
-        $($fields[7]).text(ranking.fbh[rnk]);
-        $($fields[8]).text(ranking.netto[rnk]);
-
-        vote = [];
-        if (votes.up.indexOf(tid) !== -1) {
-          vote.push(Strings.upvote);
-        }
-        if (votes.down.indexOf(tid) !== -1) {
-          vote.push(Strings.downvote);
-        }
-        if (votes.bye.indexOf(tid) !== -1) {
-          vote.push(Strings.byevote);
-        }
-
-        $($fields[9]).text(vote.join(', '));
-
-        return $tpl.clone();
-      };
-
-      for (rank = ranking.ids.length - 1; rank >= 0; rank -= 1) {
-        $anchor.after(makeline(rank));
-      }
-
-      if (!shown) {
-        $('#ranking .preparing').hide();
-        shown = true;
-      }
-
-      showCorrections();
-
-      return true;
-    };
-
-    Tab_Ranking.update = function () {
-      if (autoupdate) {
-        if (update() === true) {
-          // new Toast(Strings.rankingupdate);
-        }
-      }
-    };
-
-    $box = $('#ranking .options .autoupdate');
-    $button = $('#ranking .options button.update');
-
-    autoupdate = !!$box.prop('checked');
-
-    $box.click(function () {
-      autoupdate = !!$box.prop('checked');
+    // TODO use $autoupdate.change() instead?
+    $autoupdate.click(function () {
+      autoupdate = !!$autoupdate.prop('checked');
       if (autoupdate) {
         new Toast(Strings.autoupdateon);
         $button.click();
@@ -122,157 +76,220 @@ define([ './team', './toast', './strings', './swiss' ], function (Team, Toast, S
         new Toast(Strings.rankingupdate);
       }
     });
+  }
 
-    /**
-     * removes all correction DOM nodes
-     */
-    function clearCorrections () {
-      $('#ranking .corrections .corr').remove();
-    }
-
+  function initCorrection () {
+    var i, tmp;
     // prepare nodes
-    $corrections = $('#ranking .corrections > table');
-    $ctpl = $corrections.find('.corr.tpl');
-    $ctpl.detach();
-    $ctpl.removeClass('tpl');
-    $cpts = $ctpl.find('.points span');
-    $cnos = $ctpl.find('.teamno');
 
-    /**
-     * retrieves the corrections and displays them in the correction table
-     */
-    function showCorrections () {
-      var corrs, makeline;
+    template.correction.$correction = $tab.find('.corr.tpl');
 
-      corrs = Swiss.getCorrections();
+    template.correction.$correction.detach();
+    template.correction.$correction.removeClass('tpl');
 
-      if (corrs === undefined || corrs.length === 0) {
-        $corrections.parent().hide();
-        return;
-      }
-
-      makeline = function (corr) {
-        var tid;
-
-        tid = corr.game.teams[0][0];
-        $($cnos[0]).text(tid + 1);
-
-        tid = corr.game.teams[1][0];
-        $($cnos[1]).text(tid + 1);
-
-        $($cpts[0]).text(corr.oldpoints[0]);
-        $($cpts[1]).text(corr.oldpoints[1]);
-
-        $($cpts[2]).text(corr.newpoints[0]);
-        $($cpts[3]).text(corr.newpoints[1]);
-
-        return $ctpl.clone();
-      };
-
-      corrs.forEach(function (corr) {
-        $corrections.append(makeline(corr));
-      });
-
-      $corrections.parent().show();
+    template.correction.$container = $tab.find('.corrections');
+    template.correction.$anchor = $tab.find('.corrections > table');
+    template.correction.$points = [];
+    tmp = template.correction.$correction.find('.points span');
+    for (i = 0; i < tmp.length; i += 1) {
+      template.correction.$points[i] = tmp.eq(i);
+    }
+    template.correction.$teamnos = [];
+    tmp = template.correction.$correction.find('.teamno');
+    for (i = 0; i < tmp.length; i += 1) {
+      template.correction.$teamnos[i] = tmp.eq(i);
     }
 
     // hide all corrections initially
     showCorrections();
+  }
 
-    /**
-     * converts ranking and correction information to a csv string
-     */
-    Tab_Ranking.toCSV = function () {
-      var lines, ranking, votes, rank, length, corrs, makeline;
+  function init () {
+    if ($tab) {
+      console.error('tab_ranking: $tab already exists:');
+      console.error($tab);
+      return;
+    }
 
-      if (Swiss.getRound() <= 0) {
-        return '';
+    $tab = $('#ranking');
+
+    initState();
+    initAutoupdate();
+    initRankRow();
+    initCorrection();
+
+    // TODO reload within ranking tab?
+    // Tabshandle.hide('ranking');
+  }
+
+  /**
+   * fill template and return copy
+   * 
+   * @param rank
+   *          rank of the team for which to create the line. starting at 0
+   * @param ranking
+   *          a valid ranking object
+   * @param votes
+   *          a valid votes object
+   * @returns a filled copy of the template
+   */
+  function createRankRow (rank, ranking) {
+    var tid, team, vote, i;
+
+    tid = ranking.ids[rank];
+    team = Team.get(tid);
+
+    template.rank.$fields[0].text(rank + 1);
+
+    template.rank.$fields[1].text(team.id + 1);
+    for (i = 0; i < Options.teamsize; i += 1) {
+      template.rank.$fields[i + 2].text(team.names[i]);
+    }
+
+    template.rank.$fields[5].text(ranking.wins[rank]);
+    template.rank.$fields[6].text(ranking.buchholz[rank]);
+    template.rank.$fields[7].text(ranking.finebuchholz[rank]);
+    template.rank.$fields[8].text(ranking.netto[rank]);
+
+    vote = [];
+    if (ranking.upvote[rank]) {
+      vote.push(Strings.upvote);
+    }
+    if (ranking.downvote[rank]) {
+      vote.push(Strings.downvote);
+    }
+    if (ranking.byevote[rank]) {
+      vote.push(Strings.byevote);
+    }
+
+    template.rank.$fields[9].text(vote.join(', '));
+
+    return template.rank.$row.clone();
+  }
+
+  /**
+   * @returns {boolean} false on failure, true on success
+   */
+  function showRanks () {
+    var ranking, rank, empty;
+
+    empty = true;
+
+    if (Swiss.getRanking().round <= 0) {
+      Tabshandle.hide('ranking');
+      return false;
+    }
+
+    Tab_Ranking.reset();
+
+    ranking = Swiss.getRanking();
+
+    for (rank = ranking.ids.length - 1; rank >= 0; rank -= 1) {
+      template.rank.$anchor.after(createRankRow(rank, ranking));
+      empty = false;
+    }
+
+    if (!shown) {
+      // TODO move somewhere else
+      $tab.find('.preparing').hide();
+      shown = true;
+    }
+
+    return !empty;
+  }
+
+  /**
+   * removes all correction DOM nodes
+   */
+  function clearCorrections () {
+    $tab.find('.corrections .corr').remove();
+  }
+
+  /**
+   * retrieves the corrections and displays them in the correction table
+   */
+  function showCorrections () {
+    var corrections, empty;
+
+    empty = true;
+
+    corrections = Swiss.getCorrections();
+
+    if (corrections === undefined || corrections.length === 0) {
+      template.correction.$container.hide();
+      return false;
+    }
+
+    corrections.forEach(function (correction) {
+      var tid;
+
+      tid = correction.game.teams[0][0];
+      template.correction.$teamnos[0].text(tid + 1);
+
+      tid = correction.game.teams[1][0];
+      template.correction.$teamnos[1].text(tid + 1);
+
+      template.correction.$points[0].text(correction.oldpoints[0]);
+      template.correction.$points[1].text(correction.oldpoints[1]);
+
+      template.correction.$points[2].text(correction.newpoints[0]);
+      template.correction.$points[3].text(correction.newpoints[1]);
+
+      template.correction.$anchor.append(template.correction.$correction.clone());
+
+      empty = false;
+    });
+
+    if (empty) {
+      template.correction.$container.hide();
+    } else {
+      template.correction.$container.show();
+    }
+
+    return !empty;
+  }
+
+  Tab_Ranking.reset = function () {
+    if (!$tab) {
+      init();
+    }
+
+    // delete everything
+    $tab.find('table .line').remove();
+    clearCorrections();
+
+    // reset everything
+    updateTemplate();
+  };
+
+  function update () {
+    var hidden;
+
+    hidden = true;
+
+    if (showRanks()) {
+      hidden = false;
+    }
+
+    if (showCorrections()) {
+      hidden = false;
+    }
+
+    if (hidden) {
+      Tabshandle.hide('ranking');
+    } else {
+      Tabshandle.show('ranking');
+    }
+
+  }
+
+  Tab_Ranking.update = function () {
+    if (autoupdate) {
+      if (update() === true) {
+        // new Toast(Strings.rankingupdate);
       }
-
-      lines = [ 'Rang,Team,Spieler 1,Spieler 2,Spieler 3,Siege,BH,FBH,Netto,Lose' ];
-
-      ranking = Swiss.getRanking();
-      votes = Swiss.getAllVotes();
-
-      makeline = function (rnk) {
-        var line, tid, team, vote;
-
-        line = [];
-
-        tid = ranking.ids[rnk];
-        team = Team.get(tid);
-
-        line.push(rnk + 1);
-
-        line.push(team.id + 1);
-        line.push('"' + team.names[0].replace(/"/g, '""') + '"');
-        line.push('"' + team.names[1].replace(/"/g, '""') + '"');
-        line.push('"' + team.names[2].replace(/"/g, '""') + '"');
-
-        line.push(ranking.wins[rnk]);
-        line.push(ranking.bh[rnk]);
-        line.push(ranking.fbh[rnk]);
-        line.push(ranking.netto[rnk]);
-
-        vote = [];
-        if (votes.up.indexOf(tid) !== -1) {
-          vote.push(Strings.upvote);
-        }
-        if (votes.down.indexOf(tid) !== -1) {
-          vote.push(Strings.downvote);
-        }
-        if (votes.bye.indexOf(tid) !== -1) {
-          vote.push(Strings.byevote);
-        }
-
-        line.push('"' + vote.join(',') + '"');
-
-        return line.join(',');
-      };
-
-      length = ranking.ids.length;
-
-      for (rank = 0; rank < length; rank += 1) {
-        lines.push(makeline(rank));
-      }
-
-      corrs = Swiss.getCorrections();
-
-      if (corrs !== undefined && corrs.length !== 0) {
-        lines.push('');
-        lines.push('Team 1,Team 2,Fehler 1,Fehler 1,Korrektur 1,Korrektur 2');
-
-        makeline = function (corr) {
-          var tid, line;
-
-          line = [];
-
-          tid = corr.game.teams[0][0];
-          line.push(tid + 1);
-
-          tid = corr.game.teams[1][0];
-          line.push(tid + 1);
-
-          line.push(corr.oldpoints[0]);
-          line.push(corr.oldpoints[1]);
-
-          line.push(corr.newpoints[0]);
-          line.push(corr.newpoints[1]);
-
-          return line.join(',');
-        };
-
-        corrs.forEach(function (corr) {
-          lines.push(makeline(corr));
-        });
-      }
-
-      return lines.join('\r\n');
-    };
-
-    // show corrections for the first time (avoids flashing)
-    $('#ranking .corrections').removeClass('tpl');
-  });
+    }
+  };
 
   return Tab_Ranking;
 });

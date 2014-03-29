@@ -1,0 +1,88 @@
+#teams .team, #newteam {
+  display: block;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: #d0d0d0;
+  padding: 0.3em;
+  text-align: left;
+  border-spacing: 0px;
+}
+
+#teams .team, #newteam {
+  float: left;
+  display: table;
+  height: 5em;
+  white-space: nowrap;
+  padding: 0em 0.5em;
+}
+
+#teams .teamno {
+  display: table-cell;
+  background: none;
+}
+
+#teams .team .names {
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+}
+
+#teams .team .name {
+  display: inline-block;
+  line-height: 1em;
+}
+
+#teams .team .name:hover {
+  cursor: text;
+  text-decoration: underline;
+}
+
+#teams .team .name {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+#teams.maxwidth .team .name {
+  width: 10em;
+  min-width: 10em;
+  max-width: 10em;
+  transition: max-width 0.5s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#teams.maxwidth .team:hover .name {
+  width: auto;
+  max-width: 50em;
+  transition: max-width 0.5s;
+}
+
+#newteam {
+  background-color: #90ee90;
+}
+
+#newteam .teamno button {
+  background-color: #d3d3d3;
+  width: inherit;
+  height: inherit;
+  font-size: 100%;
+  border-radius: 0.2em;
+  border: none;
+  box-shadow: 1px 1px 0px #808080;
+}
+
+#newteam .names {
+  padding-left: 0.5em;
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
+  line-height: 1.4em;
+}
+
+#newteam .playername {
+  background-color: #ffffff;
+  border: none;
+  width: 100%;
+  box-shadow: 1px 1px 0px #808080;
+  margin: 0em;
+}

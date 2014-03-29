@@ -1,15 +1,27 @@
 /**
  * a list of teams with some accessor functions
  */
-define([ './swiss' ], function (Swiss) {
+define([ './options', './strings' ], function (Options, Strings) {
   var Team, teams;
 
   teams = [];
 
-  Team = function (names) {
-    this.names = names.slice();
-    this.id = teams.length;
-    teams.push(this);
+  Team = {};
+
+  /**
+   * create a new team;
+   */
+  Team.create = function (names) {
+    var team;
+
+    team = {};
+
+    team.names = names.slice();
+    team.id = teams.length;
+
+    teams.push(team);
+
+    return team;
   };
 
   /**
@@ -26,9 +38,9 @@ define([ './swiss' ], function (Swiss) {
   /**
    * adds all players to the tournament
    */
-  Team.prepareTournament = function () {
+  Team.prepareTournament = function (Tournament) {
     teams.forEach(function (team, index) {
-      Swiss.addPlayer(index);
+      Tournament.addPlayer(index);
     });
   };
 
@@ -47,17 +59,21 @@ define([ './swiss' ], function (Swiss) {
    * @returns CSV file content
    */
   Team.toCSV = function () {
-    var lines;
+    var lines, i;
 
-    lines = [ 'No.,Spieler 1,Spieler 2,Spieler 3' ];
+    lines = [ Strings['teamhead' + Options.teamsize] ];
 
     teams.forEach(function (team) {
       var line, i;
 
       line = [ team.id + 1 ];
 
-      for (i = 0; i < 3; i += 1) {
-        line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+      for (i = 0; i < Options.teamsize; i += 1) {
+        if (team.names[i]) {
+          line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+        } else {
+          line.push('"%% %%"');
+        }
       }
 
       lines.push(line.join(','));

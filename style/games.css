@@ -1,0 +1,125 @@
+#games .preparing button, #games .finished button {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+}
+
+#games .running {
+  display: none;
+}
+
+#games .game {
+  display: block;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  background-color: #808080;
+  padding: 0.3em;
+  text-align: left;
+  float: left;
+  white-space: nowrap;
+}
+
+#games .game > div {
+  display: table;
+  margin: 0.0em;
+  padding: 0.0em;
+  width: 100%;
+  background-color: #d3d3d3;
+}
+
+#games .game .top {
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+}
+
+#games .game .bottom {
+  border-bottom-left-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
+}
+
+#games .game .finish {
+  display: table-cell;
+  text-align: center;
+}
+
+#games .game .teamno {
+  display: table-cell;
+  background: none;
+}
+
+#games .game input {
+  width: 3em;
+  text-align: center;
+}
+
+#games .game button {
+  width: 6.5em;
+  border: none;
+  box-shadow: inset 0px 0px 1px #000000;
+  border-radius: 5px;
+  background-color: #d3d3d3;
+  transition: color 0.2s;
+}
+
+/* this is awesome! */
+#games .game button:not([disabled]):hover {
+  cursor: pointer;
+}
+
+#games .names {
+  display: table-cell;
+  padding: 0em;0.5em;
+  padding: 0em 0.3em;
+  font-weight: bold;
+}
+
+#games.maxwidth .names {
+  width: 8em;
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#games .names.left {
+  text-align: left;
+}
+
+#games .names.right {
+  text-align: right;
+}
+
+#games .votes {
+  text-align: left;
+}
+
+#games .votes .team {
+  margin: 0.0em;
+}
+
+#games .votes .vote {
+  display: table;
+  float: left;
+  border-radius: 0.5em;
+  background-color: #808080;
+  padding: 0.3em;
+  white-space: nowrap;
+}
+
+#games .votes .vote .teamno {
+  display: table-cell;
+  border-radius: 0em;
+  border-top-left-radius: 0.2em;
+  border-bottom-left-radius: 0.2em;
+}
+
+#games .votes .vote .names {
+  display: table-cell;
+  background-color: #d3d3d3;
+  border-top-right-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
+}
+
+#games .finished {
+  display: none;
+}
+

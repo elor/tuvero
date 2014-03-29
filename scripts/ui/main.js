@@ -1,13 +1,15 @@
 require([ './tabs', './toast', './strings', './storage', './tab_storage',
-    './featuredetect' ], function (Tabs, Toast, Strings, Storage, Tab_Storage) {
-
-  // initialize tabs and select first one (hence the true)
-  new Tabs('#tabs > div', 'images/%s.png', true);
+    './featuredetect', './tabshandle', './alltabs' ], function (Tabs, Toast, Strings, Storage, Tab_Storage, Featuredetect, Tabshandle, Alltabs) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
   $(function ($) {
-    // var i;
+
+    // TODO show loading screen
+    // TODO show tabs only after everything has been set up
+
+    Alltabs.reset();
+
     // show the page
     $('#tabs').show();
 
@@ -18,6 +20,8 @@ require([ './tabs', './toast', './strings', './storage', './tab_storage',
     } else {
       new Toast(Strings.newtournament);
     }
+
+    Alltabs.update();
 
     Tab_Storage.toggleStorage();
   });

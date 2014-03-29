@@ -1,4 +1,4 @@
-# Boules 1.1
+# Boules 1.2
 ## Description
 A browser-based boule tournament management software.
 

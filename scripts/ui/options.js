@@ -1,0 +1,41 @@
+/**
+ * returns an object with options, such as number of players, tournament name,
+ * ...
+ */
+
+define(function () {
+  var Options;
+
+  Options = {
+    teamsize : 3,
+    maxteamsize : 3,
+    maxpoints : 13,
+    dbname : 'swiss',
+    dbplayername : 'players'
+  };
+
+  Options.toBlob = function () {
+    return JSON.stringify(Options);
+  };
+
+  Options.fromBlob = function (blob) {
+    var opts, key;
+    opts = JSON.parse(blob);
+
+    // delete everything
+    for (key in Options) {
+      if (typeof (Options[key]) !== 'function') {
+        delete Options[key];
+      }
+    }
+
+    // reset everything
+    for (key in opts) {
+      if (typeof (opts[key]) !== 'function') {
+        Options[key] = opts[key];
+      }
+    }
+  };
+
+  return Options;
+});

@@ -45,5 +45,7 @@ define([ '../random' ], function (Random) {
 
     QUnit.equal(min, 0, "int min");
     QUnit.equal(max, 63, "int max");
+
+    // TODO test pick() and pickAndRemove()
   });
 });

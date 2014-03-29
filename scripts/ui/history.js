@@ -1,8 +1,7 @@
 /**
  * History of results, keyed by round and index.
  */
-define([ './swiss', '../backend/correction', './team' ], function (Swiss,
-    Correction, Team) {
+define([ './swiss', '../backend/correction', './team', './strings', './options' ], function (Swiss, Correction, Team, Strings, Options) {
   var History, rounds, byes, Result;
 
   // 2d array: [round][resultid]
@@ -24,7 +23,7 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
     /**
      * adds a game of the running (or just finished) round to the history
      * 
-     * @param game
+     * @param gamed
      *          game instance as returned by Swiss.openGames()
      * @param points
      *          an array with two integers representing the points
@@ -33,7 +32,7 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
     add : function (game, points) {
       var result, round;
 
-      round = Swiss.getRound() - 1;
+      round = Swiss.getRanking().round - 1;
 
       if (round === -1) {
         return undefined;
@@ -43,8 +42,7 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
         rounds[round] = [];
       }
 
-      result = new Result(game.teams[0][0], game.teams[1][0], points[0],
-          points[1]);
+      result = new Result(game.teams[0][0], game.teams[1][0], points[0], points[1]);
 
       rounds[round].push(result);
 
@@ -59,7 +57,7 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
      */
     addBye : function (team) {
       var round;
-      round = Swiss.getRound() - 1;
+      round = Swiss.getRanking().round - 1;
 
       while (round >= rounds.length) {
         rounds.push([]);
@@ -110,8 +108,7 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
         numgames = rounds[round].length;
         for (game = 0; game < numgames; game += 1) {
           res = rounds[round][game];
-          if ((res.t1 === team1 && res.t2 === team2)
-              || (res.t1 === team2 && res.t2 === team1)) {
+          if ((res.t1 === team1 && res.t2 === team2) || (res.t1 === team2 && res.t2 === team1)) {
             return res.clone();
           }
         }
@@ -172,26 +169,38 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
      * converts the stored content to CSV format
      */
     toCSV : function () {
-      var lines;
+      var lines, i;
 
-      lines = [ [ 'Runde', 'Team 1', '', '', '', 'Team 2', '', '', '',
-          'Punkte', 'Punkte' ].join(',') ];
+      lines = [ Strings['histhead' + Options.teamsize] ];
 
       rounds.forEach(function (games, round) {
         games.forEach(function (game) {
-          var t1, t2, line;
+          var t1, t2, line, i;
           t1 = Team.get(game.t1);
           t2 = Team.get(game.t2);
 
-          line = [ round + 1, t1.id + 1,
-              '"' + t1.names[0].replace(/"/g, '""') + '"',
-              '"' + t1.names[1].replace(/"/g, '""') + '"',
-              '"' + t1.names[2].replace(/"/g, '""') + '"', t2.id + 1,
-              '"' + t2.names[0].replace(/"/g, '""') + '"',
-              '"' + t2.names[1].replace(/"/g, '""') + '"',
-              '"' + t2.names[2].replace(/"/g, '""') + '"', game.p1, game.p2 ]
-              .join(',');
-          lines.push(line);
+          line = [];
+          line.push(round + 1);
+          line.push(t1.id + 1);
+          for (i = 0; i < Options.teamsize; i += 1) {
+            if (t1.names[i]) {
+              line.push('"' + t1.names[i].replace(/"/g, '""') + '"');
+            } else {
+              line.push('"%% %%"');
+            }
+          }
+          line.push(t2.id + 1);
+          for (i = 0; i < Options.teamsize; i += 1) {
+            if (t2.names[i]) {
+              line.push('"' + t2.names[i].replace(/"/g, '""') + '"');
+            } else {
+              line.push('"%% %%"');
+            }
+          }
+          line.push(game.p1);
+          line.push(game.p2);
+
+          lines.push(line.join(','));
 
         });
 
@@ -200,12 +209,23 @@ define([ './swiss', '../backend/correction', './team' ], function (Swiss,
             var team, line;
             team = Team.get(bye);
 
-            line = [ round + 1, team.id + 1,
-                '"' + team.names[0].replace(/"/g, '""') + '"',
-                '"' + team.names[1].replace(/"/g, '""') + '"',
-                '"' + team.names[2].replace(/"/g, '""') + '"', '"Freilos"', '',
-                '', '', 13, 7 ].join(',');
-            lines.push(line);
+            line = [ round + 1, team.id + 1 ];
+
+            for (i = 0; i < Options.teamsize; i += 1) {
+              if (team.names[i]) {
+                line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+              } else {
+                line.push('"%% %%"');
+              }
+            }
+
+            line.push('"Freilos"');
+            line.push('');
+            line.push('');
+            line.push('');
+            line.push(13);
+            line.push(7);
+            lines.push(line.join(','));
           }(byes[round]));
         }
       });

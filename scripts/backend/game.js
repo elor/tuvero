@@ -9,11 +9,10 @@ define(function () {
   var Game = function (p1, p2) {
     this.teams = []; // team array
     this.starttime = 0; // start time in unix epoch milliseconds
-
+    
     // default behaviour: two teams, one player per team (tournaments are
     // expected to treat teams as players)
-    if (p1 !== undefined && p2 !== undefined && typeof p1 === 'number'
-        && typeof p2 === 'number') {
+    if (p1 !== undefined && p2 !== undefined && typeof p1 === 'number' && typeof p2 === 'number') {
       this.add(0, p1);
       this.add(1, p2);
     }
@@ -78,8 +77,7 @@ define(function () {
       t1 = this.teams[i];
       t2 = game.teams[i];
 
-      if (t1 === undefined || t2 === undefined || t1.length !== t2.length
-          || t1.length === 0) {
+      if (t1 === undefined || t2 === undefined || t1.length !== t2.length || t1.length === 0) {
         return false;
       }
 
