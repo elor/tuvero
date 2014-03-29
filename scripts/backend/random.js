@@ -35,5 +35,9 @@ define(function () {
     return array[this.nextInt(array.length)];
   };
 
+  Random.prototype.pickAndRemove = function (array) {
+    return array.splice(this.nextInt(array.length), 1)[0];
+  };
+
   return Random;
 });
