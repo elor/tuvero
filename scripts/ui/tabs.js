@@ -45,7 +45,7 @@ define([ './options' ], function (Options) {
         if (enforce && tabindex === -1 || !visible[tabindex]) {
           index = visible.indexOf(true);
           if (index === -1) {
-            console.error('no visible tabs to force open');
+            // console.error('no visible tabs to force open');
           } else {
             location.hash = '#' + tabs[index];
           }

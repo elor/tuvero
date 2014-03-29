@@ -401,6 +401,10 @@ define([ './tournament', './map', './random', './game' ], function (Tournament, 
       return undefined;
     }
 
+    if (this.games.length === 0) {
+      this.state = Tournament.STATE.FINISHED;
+    }
+
     return this;
   };
 
