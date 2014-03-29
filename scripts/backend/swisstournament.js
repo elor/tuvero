@@ -260,12 +260,12 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         ret.finebuchholz[rank] = result.finebuchholz[i];
         ret.netto[rank] = result.netto[i];
         ret.wins[rank] = result.wins[i];
-        ret.roundupvote[rank] = (roundvotes.up.indexOf(pid) !== -1);
-        ret.rounddownvote[rank] = (roundvotes.down.indexOf(pid) !== -1);
-        ret.roundbyevote[rank] = (roundvotes.bye === pid);
-        ret.upvote[rank] = (allvotes.up.indexOf(pid) !== -1);
-        ret.downvote[rank] = (allvotes.down.indexOf(pid) !== -1);
-        ret.byevote[rank] = (allvotes.bye.indexOf(pid) !== -1);
+        ret.roundupvote[rank] = (roundvotes.up.indexOf(pid) !== -1) ? 1 : 0;
+        ret.rounddownvote[rank] = (roundvotes.down.indexOf(pid) !== -1) ? 1 : 0;
+        ret.roundbyevote[rank] = (roundvotes.bye === pid) ? 1 : 0;
+        ret.upvote[rank] = (allvotes.up.indexOf(pid) !== -1) ? 1 : 0;
+        ret.downvote[rank] = (allvotes.down.indexOf(pid) !== -1) ? 1 : 0;
+        ret.byevote[rank] = (allvotes.bye.indexOf(pid) !== -1) ? 1 : 0;
       }, this);
 
       this.rnkbuffer = ret;

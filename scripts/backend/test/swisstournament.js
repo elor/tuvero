@@ -14,8 +14,8 @@ define([ '../swisstournament', '../game', '../tournament',
 
     QUnit.equal(st.start(), undefined, 'premature start is aborted');
 
-    tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Hartmut',
-        'Inka', 'Karo', 'Mario', 'Peter', 'Stefan', 'Thomas' ];
+    tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Gert',
+        'Hartmut', 'Inka', 'Jennifer' ];
 
     // only append 9 players
     tmp.forEach(function (p, playerid) {
