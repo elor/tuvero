@@ -119,7 +119,7 @@ define([ './team', './toast', './strings', './swiss', './options',
     initCorrection();
 
     // TODO reload within ranking tab?
-    Tabshandle.hide('ranking');
+    // Tabshandle.hide('ranking');
   }
 
   /**

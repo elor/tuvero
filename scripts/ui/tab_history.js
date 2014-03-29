@@ -34,6 +34,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    *          a result as returned by history.get()
    */
   Tab_History.createBox = function (result) {
+    // console.log(currentround);
+    // console.log(template.$anchor);
     if (currentround === 0 || template.$anchor === undefined) {
       return undefined;
     }
@@ -63,6 +65,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     template.bye.$text.text(teamid + 1);
     template.$anchor.before(template.bye.$bye.clone());
+
+    Tabshandle.show('history');
   };
 
   function isInt (n) {
@@ -247,7 +251,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       return false;
     });
 
-    template.chpoints.$chpoints.find('.points').keyup(function (e) {
+    template.chpoints.$chpoints.find('.points').keydown(function (e) {
       if (e.which === 13) {
         // Enter --> submit
         template.chpoints.$chpoints.find('button.save').click();
@@ -350,7 +354,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     initCorrection();
 
     // FIXME reload from history page moves to another tab because it's closed
-    Tabshandle.hide('history');
+    // Tabshandle.hide('history');
   }
 
   /**

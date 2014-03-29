@@ -3,7 +3,7 @@
  */
 define([ '../kotournament', '../game', '../tournament', '../../lib/implements' ], function (KOTournament, Game, Tournament, Interface) {
   QUnit.test("KOTournament", function () {
-    var i, names, kot;
+    var i, names, kot, opts;
 
     QUnit.equal(Interface(Tournament), '', 'Tournament interface validation');
     QUnit.equal(Interface(Tournament, KOTournament, 'rfm'), '', 'KOTournament interface match');
@@ -13,10 +13,14 @@ define([ '../kotournament', '../game', '../tournament', '../../lib/implements' ]
 
     kot = new KOTournament();
     for (i in names) {
-      kot.addPlayer(i);
+      kot.addPlayer(Number(i));
     }
 
-    kot.start();
+    opts = kot.getOptions();
+    opts.matchingMethod = KOTournament.OPTIONS.matchingMethod.shifted;
+    opts.loserMatchMinRound = 1;
+    kot.setOptions(opts);
+    console.log(kot.start());
 
     return;
   });

@@ -13,8 +13,11 @@
   white-space: nowrap;
 }
 
+.tabs > a {
+  display: inline-block;
+}
+
 .tabs > a > img {
-  float: left;
   height: 100%;
   width: 3em;
   background-color: #d0d0d0;
@@ -35,7 +38,7 @@
   border-radius: 0em 1em 1em 1em;
   background-color: #ffffff;
   text-align: center;
-  min-width: 30em;
+  min-width: 40em;
 }
 
 #tabs > div .options {

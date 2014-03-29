@@ -21,6 +21,8 @@ require([ './tabs', './toast', './strings', './storage', './tab_storage',
       new Toast(Strings.newtournament);
     }
 
+    Alltabs.update();
+
     Tab_Storage.toggleStorage();
   });
 });

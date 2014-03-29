@@ -1,5 +1,5 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options) {
+    './autocomplete', './options', './tab_new' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New) {
 
   var Tab_Teams, $tab, template, newteam, $anchor;
 
@@ -306,6 +306,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     template.$teamno.text(team.id + 1);
 
     $anchor.before(template.$tpl.clone());
+
+    Tab_New.update();
   }
 
   Tab_Teams = {

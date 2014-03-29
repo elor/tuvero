@@ -2,16 +2,22 @@
  * Tab_New handler
  */
 
-define([ './options', './tabshandle' ], function (Options, Tabshandle) {
+define([ './options', './tabshandle', './team' ], function (Options, Tabshandle, Team) {
   var Tab_New, $tab;
 
   Tab_New = {};
 
   function initTeamSize () {
-    $tab.find('form').on('load submit change', function (e) {
-      var teamsize;
+    $tab.find('button').on('click', function (e) {
+      var teamsize, $button;
 
-      teamsize = Number($(this).find('input').val());
+      $button = $(this);
+
+      if ($button.prop('tagName') === 'IMG') {
+        $button = $button.parent();
+      }
+
+      teamsize = Number($button.val());
 
       Options.teamsize = teamsize;
 
@@ -26,8 +32,10 @@ define([ './options', './tabshandle' ], function (Options, Tabshandle) {
   }
 
   function updateTeamSize () {
-    $tab.find('form input').val(Options.teamsize);
+    $tab.find('form button').removeClass('selected');
+    $tab.find('form button[value=' + Options.teamsize + ']').addClass('selected');
   }
+
   function init () {
     if ($tab) {
       console.error('tab_new: $tab already exists:');
@@ -50,6 +58,12 @@ define([ './options', './tabshandle' ], function (Options, Tabshandle) {
 
   Tab_New.update = function () {
     Tab_New.reset();
+
+    if (Team.count() === 0) {
+      Tabshandle.show('new');
+    } else {
+      Tabshandle.hide('new');
+    }
   };
 
   return Tab_New;
