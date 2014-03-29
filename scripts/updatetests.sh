@@ -4,6 +4,8 @@
 
 outfile="test.js"
 
+pushd `dirname $0`
+
 files=`echo ./*/test/*.js`
 files=${files//.js/}
 files=${files// /\', \'}
@@ -19,3 +21,5 @@ require([ '$files' ]);
 EOF
 
 cat $outfile
+
+popd
