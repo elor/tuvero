@@ -13,6 +13,7 @@ define([ , './tournament', './map', './random', './game' ], function (Tournament
     this.games = [];
     this.byes = [];
     this.state = Tournament.STATE.PREPARING;
+    this.options = {};
   };
 
   KOTournament.prototype.addPlayer = function (id) {
@@ -54,7 +55,7 @@ define([ , './tournament', './map', './random', './game' ], function (Tournament
     return this;
   };
 
-  KOTournament.prototype.openGames = function () {
+  KOTournament.prototype.getGames = function () {
     var games = [];
     this.games.forEach(function (game, i) {
       games[i] = new Game(this.players.at(game.teams[0][0]), this.players.at(game.teams[1][0]));
@@ -94,6 +95,42 @@ define([ , './tournament', './map', './random', './game' ], function (Tournament
   KOTournament.prototype.fromBlob = function () {
     return undefined;
   };
+
+  KOTournament.prototype.getOptions = function () {
+    var key, ret;
+
+    ret = {};
+    for (key in this.options) {
+      // FIXME only works for non-referenced values
+      ret[key] = options[key];
+    }
+
+    return ret;
+  };
+
+  KOTournament.prototype.setOptions = function (options) {
+    var key;
+
+    for (key in options) {
+      if (!options.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+
+    // TODO compare types
+
+    for (key in this.options) {
+      // TODO deep copy
+      this.options[key] = options[key];
+    }
+  };
+
+  KOTournament.prototype.getCorrections = function () {
+    // TODO return corrections
+    return [];
+  };
+
+  KOTournament.OPTIONS = {};
 
   return KOTournament;
 });

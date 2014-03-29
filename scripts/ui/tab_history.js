@@ -23,7 +23,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    * itself. If so, a new header is added and the anchors are updated
    */
   Tab_History.nextRound = function () {
-    setRound(Swiss.getRound());
+    setRound(Swiss.getRanking().round);
   };
 
   /**

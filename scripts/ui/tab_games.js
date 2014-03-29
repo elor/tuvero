@@ -50,7 +50,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   function startRound () {
     var votes, team;
 
-    new Toast(Strings.roundstarted.replace("%s", Swiss.getRound()));
+    new Toast(Strings.roundstarted.replace("%s", Swiss.getRanking().round));
     showRound();
     showRunning();
     showVotes();
@@ -63,7 +63,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // see if there's a byevote
     // TODO extract functions into a wrapper around Swiss?
-    votes = Swiss.getRoundVotes();
+    votes = getRoundVotes();
     if (votes.bye !== undefined) {
       team = Team.get(votes.bye);
       // remember the byevote
@@ -285,11 +285,11 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   function showRunning () {
     clearGames();
 
-    Swiss.openGames().forEach(function (game) {
+    Swiss.getGames().forEach(function (game) {
       appendGame(game);
     });
 
-    if (Swiss.getRound() !== 0 && games.length === 0) {
+    if (Swiss.getRanking().round !== 0 && games.length === 0) {
       stage(stage.FINISHED);
     }
   }
@@ -298,7 +298,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * update all appearances of the current round in the games tab
    */
   function showRound () {
-    $tab.find('.round').text(Swiss.getRound());
+    $tab.find('.round').text(Swiss.getRanking().round);
   }
 
   /**
@@ -450,7 +450,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       showRound();
       stage(stage.FINISHED);
 
-      new Toast(Strings.roundfinished.replace('%s', Swiss.getRound()));
+      new Toast(Strings.roundfinished.replace('%s', Swiss.getRanking().round));
     }
 
     // save changes
@@ -481,6 +481,39 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   /**
+   * translates the Swiss ranking into a traditional votes object
+   * 
+   * TODO rewrite this file to replace this function
+   * 
+   * @returns {Object} a votes object of the current round
+   */
+  function getRoundVotes () {
+    var votes, ranking, i;
+
+    ranking = Swiss.getRanking();
+
+    votes = {
+      up : [],
+      down : [],
+      bye : undefined,
+    };
+
+    for (i = 0; i < ranking.ids.length; i += 1) {
+      if (ranking.roundupvote[i]) {
+        votes.up.push(ranking.ids[i]);
+      }
+      if (ranking.rounddownvote[i]) {
+        votes.down.push(ranking.ids[i]);
+      }
+      if (ranking.roundbyevote[i]) {
+        votes.bye = ranking.ids[i];
+      }
+    }
+
+    return votes;
+  }
+
+  /**
    * display the votes for the current round
    */
   function showVotes () {
@@ -490,7 +523,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     clearVotes();
 
     // get votes
-    votes = Swiss.getRoundVotes();
+    votes = getRoundVotes();
 
     $containers = template.vote.$containers;
     $anchors = template.vote.$anchors;
@@ -532,7 +565,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     var i;
 
     for (i = 0; i < 10; i += 1) {
-      if (Swiss.newRound() !== undefined) {
+      if (Swiss.start() !== undefined) {
         break;
       }
     }
@@ -614,8 +647,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * reset an original game state, respecting the current state of Swiss
    */
   Tab_Games.update = function () {
+    Tab_Games.reset();
 
-    if (Swiss.getRound() === 0) {
+    if (Swiss.getRanking().round === 0) {
       // preparing
       stage(stage.PREPARING);
     } else {

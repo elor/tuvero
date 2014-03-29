@@ -10,16 +10,15 @@ define([ './swiss', './team', './strings', './options' ], function (Swiss, Team,
      * converts ranking and correction information to a csv string
      */
     toCSV : function () {
-      var lines, ranking, votes, rank, length, corrs, makeline, i;
+      var lines, ranking, rank, length, corrs, makeline, i;
 
-      if (Swiss.getRound() <= 0) {
+      if (Swiss.getRanking().round <= 0) {
         return '';
       }
 
       lines = [ Strings['rankhead' + Options.teamsize] ];
 
       ranking = Swiss.getRanking();
-      votes = Swiss.getAllVotes();
 
       makeline = function (rnk) {
         var line, tid, team, vote, i;
@@ -41,18 +40,18 @@ define([ './swiss', './team', './strings', './options' ], function (Swiss, Team,
         }
 
         line.push(ranking.wins[rnk]);
-        line.push(ranking.bh[rnk]);
-        line.push(ranking.fbh[rnk]);
+        line.push(ranking.buchholz[rnk]);
+        line.push(ranking.finebuchholz[rnk]);
         line.push(ranking.netto[rnk]);
 
         vote = [];
-        if (votes.up.indexOf(tid) !== -1) {
+        if (ranking.roundupvote[rnk]) {
           vote.push(Strings.upvote);
         }
-        if (votes.down.indexOf(tid) !== -1) {
+        if (ranking.rounddownvote[rnk]) {
           vote.push(Strings.downvote);
         }
-        if (votes.bye.indexOf(tid) !== -1) {
+        if (ranking.roundbyevote[rnk]) {
           vote.push(Strings.byevote);
         }
 

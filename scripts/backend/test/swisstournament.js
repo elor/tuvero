@@ -10,7 +10,7 @@ define([ '../swisstournament', '../game', '../tournament',
     QUnit.equal(Interface(Tournament, Swisstournament, 'rfm'), '', 'Swisstournament interface match');
 
     st = new Swisstournament();
-    QUnit.equal(st.state, Swisstournament.state.preparing || 0, 'initial state is 0 (preparing)');
+    QUnit.equal(st.state, Tournament.STATE.PREPARING, 'initial state is 0 (preparing)');
 
     QUnit.equal(st.start(), undefined, 'premature start is aborted');
 
@@ -26,12 +26,12 @@ define([ '../swisstournament', '../game', '../tournament',
 
     QUnit.equal(st.players.size(), 9, 'player map size');
 
-    QUnit.equal(st.getRound(), 0, 'round is 0 before starting');
-    QUnit.equal(st.start(), st, 'start() retval');
-    QUnit.equal(st.state, Swisstournament.state.running || 1, 'running state is 1 (running)');
-    QUnit.equal(st.getRound(), 1, 'round  is 1 after starting (autostart)');
+    QUnit.equal(st.getRanking().round, 0, 'round is 0 before starting');
+    QUnit.notEqual(st.start(), undefined, 'start() retval');
+    QUnit.equal(st.state, Tournament.STATE.RUNNING, 'running state is 1 (running)');
+    QUnit.equal(st.getRanking().round, 1, 'round  is 1 after starting (autostart)');
 
-    games1 = st.openGames();
+    games1 = st.getGames();
 
     QUnit.equal(games1.length, 4, 'first round: correct number of games');
 
@@ -84,7 +84,7 @@ define([ '../swisstournament', '../game', '../tournament',
     st.finishGame(games1[2], [ 13, 4 ]);
     st.finishGame(games1[3], [ 13, 6 ]);
 
-    QUnit.equal(st.openGames().length, 0, 'first round: all games finished');
+    QUnit.equal(st.getGames().length, 0, 'first round: all games finished');
 
     rnk = st.getRanking();
 
@@ -122,11 +122,11 @@ define([ '../swisstournament', '../game', '../tournament',
     QUnit.equal(res, 0, 'ranking: four losses in right order');
 
     // consider second round
-    res = st.newRound();
+    res = st.start();
 
-    QUnit.equal(res, st, 'second round: generation successful');
+    games2 = st.getGames();
 
-    games2 = st.openGames();
+    QUnit.deepEqual(res, games2, 'second round: generation successful');
 
     QUnit.equal(games2.length, 4, 'second round: 4 games');
 
@@ -213,19 +213,19 @@ define([ '../swisstournament', '../game', '../tournament',
     // the upvote wins this game to secure a third round
     st.finishGame(games2[0], [ 5, 13 ]);
 
-    res = st.openGames();
+    res = st.getGames();
     QUnit.equal(res.length, 0, 'second round: all games closed');
 
     // consider third round. Shuffling can fail with too few players as in this
     // test, so shuffle multiple times and it should work in 99.999% of cases
     for (tmp = 0; tmp < 10; tmp += 1) {
-      res = st.newRound();
+      res = st.start();
       if (res !== undefined) {
         break;
       }
     }
-    games3 = st.openGames();
-    QUnit.equal(res, st, 'third round: valid randomization');
+    games3 = st.getGames();
+    QUnit.deepEqual(res, games3, 'third round: valid randomization');
     QUnit.equal(games3.length, 4, 'third round: four games');
 
     count = 0;
@@ -242,7 +242,7 @@ define([ '../swisstournament', '../game', '../tournament',
     st.finishGame(games3[1], [ 13, 9 ]);
     st.finishGame(games3[0], [ 13, 12 ]);
 
-    count = st.openGames().length;
+    count = st.getGames().length;
 
     QUnit.equal(count, 0, 'third round: finished');
 
@@ -262,13 +262,13 @@ define([ '../swisstournament', '../game', '../tournament',
     // });
     //
     // st.start();
-    // games1 = st.openGames();
+    // games1 = st.getGames();
     // st.finishGame(games1[0], [ 13, 8 ]);
     // st.finishGame(games1[1], [ 5, 13 ]);
     // st.finishGame(games1[2], [ 4, 13 ]);
     // st.finishGame(games1[3], [ 13, 6 ]);
-    // st.newRound();
-    // games2 = st.openGames();
+    // st.start();
+    // games2 = st.getGames();
     // st.finishGame(games2[3], [ 13, 0 ]);
     // st.finishGame(games2[1], [ 11, 13 ]);
     // st.finishGame(games2[2], [ 13, 8 ]);
@@ -277,7 +277,7 @@ define([ '../swisstournament', '../game', '../tournament',
     //
     // // third round is impossible
     // for (tmp = 0; tmp < 100; tmp += 1) {
-    // res = st.newRound();
+    // res = st.start();
     // if (res !== undefined) {
     // break;
     // }

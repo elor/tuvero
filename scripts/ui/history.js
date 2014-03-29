@@ -32,7 +32,7 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
     add : function (game, points) {
       var result, round;
 
-      round = Swiss.getRound() - 1;
+      round = Swiss.getRanking().round - 1;
 
       if (round === -1) {
         return undefined;
@@ -57,7 +57,7 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
      */
     addBye : function (team) {
       var round;
-      round = Swiss.getRound() - 1;
+      round = Swiss.getRanking().round - 1;
 
       while (round >= rounds.length) {
         rounds.push([]);
@@ -169,7 +169,7 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
      * converts the stored content to CSV format
      */
     toCSV : function () {
-      var lines;
+      var lines, i;
 
       lines = [ Strings['histhead' + Options.teamsize] ];
 
@@ -209,12 +209,23 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
             var team, line;
             team = Team.get(bye);
 
-            line = [ round + 1, team.id + 1,
-                '"' + team.names[0].replace(/"/g, '""') + '"',
-                '"' + team.names[1].replace(/"/g, '""') + '"',
-                '"' + team.names[2].replace(/"/g, '""') + '"', '"Freilos"', '',
-                '', '', 13, 7 ].join(',');
-            lines.push(line);
+            line = [ round + 1, team.id + 1 ];
+
+            for (i = 0; i < Options.teamsize; i += 1) {
+              if (team.names[i]) {
+                line.push('"' + team.names[i].replace(/"/g, '""') + '"');
+              } else {
+                line.push('"%% %%"');
+              }
+            }
+
+            line.push('"Freilos"');
+            line.push('');
+            line.push('');
+            line.push('');
+            line.push(13);
+            line.push(7);
+            lines.push(line.join(','));
           }(byes[round]));
         }
       });
