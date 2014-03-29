@@ -27,8 +27,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       downvotes : [],
       byevote : undefined
     };
+    this.rnkbuffer;
 
-    this.rkch = false;
+    this.rkch = true;
   };
 
   /**
@@ -50,10 +51,10 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * (implemented tournament function)
    * 
-   * @returns
+   * @returns this on success, undefined otherwise
    */
   Swisstournament.prototype.start = function () {
-    if (this.state !== Tournament.STATE.PREPARING) {
+    if (this.state === Tournament.STATE.RUNNING) {
       return undefined;
     }
 
@@ -61,11 +62,14 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
-    this.state = Tournament.STATE.RUNNING;
-    this.newRound();
-    this.rkch = true;
+    if (newRound.call(this) === this) {
+      this.state = Tournament.STATE.RUNNING;
+      this.rkch = true;
+    } else {
+      return undefined;
+    }
 
-    return this;
+    return this.getGames();
   };
 
   /**
@@ -124,6 +128,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // remove the game from the list
     this.games.splice(i, 1);
 
+    // last game, finished for now
+    if (this.games.length === 0) {
+      this.state = Tournament.STATE.FINISHED;
+    }
+
     // apply ranking
     this.ranking.add(new Result(game.teams[0], game.teams[1], points[0], points[1]));
     this.rkch = true;
@@ -136,7 +145,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * 
    * @returns {Array}
    */
-  Swisstournament.prototype.openGames = function () {
+  Swisstournament.prototype.getGames = function () {
     // convert internal to external ids
     var games = [];
     this.games.forEach(function (game, i) {
@@ -151,8 +160,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * 
    * @returns an object containing the three votes
    */
-  // TODO test
-  Swisstournament.prototype.getRoundVotes = function () {
+  function getRoundVotes () {
     // convert internal to external ids
     var votes = {
       up : [],
@@ -173,7 +181,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     return votes;
-  };
+  }
 
   /**
    * returns all up/down/byevotes ever granted
@@ -181,7 +189,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns an object containing arrays of the three votes
    */
   // TODO test
-  Swisstournament.prototype.getAllVotes = function () {
+  function getAllVotes () {
     var votes = {
       up : [],
       down : [],
@@ -207,7 +215,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }, this);
 
     return votes;
-  };
+  }
 
   /**
    * (implemented tournament function)
@@ -215,40 +223,55 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns
    */
   Swisstournament.prototype.getRanking = function () {
-    var res, wins, netto, bh, fbh, ids;
+    var result, ret, roundvotes, allvotes;
 
-    bh = [];
-    fbh = [];
-    ids = [];
-    netto = [];
-    wins = [];
+    if (this.rankingChanged()) {
+      ret = {
+        place : [],
+        ids : [],
+        wins : [],
+        buchholz : [],
+        finebuchholz : [],
+        netto : [],
+        roundupvote : [],
+        rounddownvote : [],
+        roundbyevote : [],
+        upvote : [],
+        downvote : [],
+        byevote : [],
+        round : this.round,
+      };
 
-    res = this.ranking.get();
-    this.rkch = false;
+      result = this.ranking.get();
+      this.rkch = false;
+      roundvotes = getRoundVotes.call(this);
+      allvotes = getAllVotes.call(this);
 
-    // rearrange the arrays from internal id indexing to ranked indexing
-    res.ranking.forEach(function (i, rank) {
-      bh[rank] = res.buchholz[i];
-      fbh[rank] = res.finebuchholz[i];
-      netto[rank] = res.netto[i];
-      wins[rank] = res.wins[i];
-      ids[rank] = this.players.at(i);
-    }, this);
+      // rearrange the arrays from internal id indexing to ranked indexing
+      result.ranking.forEach(function (i, rank) {
+        var pid;
 
-    return {
-      bh : bh,
-      fbh : fbh,
-      ids : ids,
-      netto : netto,
-      wins : wins
-    };
-  };
+        // external player id
+        pid = this.players.at(i);
 
-  /**
-   * @returns current round or 0 if tournament hasn't been proberly started yet
-   */
-  Swisstournament.prototype.getRound = function () {
-    return this.round;
+        ret.place[rank] = rank;
+        ret.ids[rank] = pid;
+        ret.buchholz[rank] = result.buchholz[i];
+        ret.finebuchholz[rank] = result.finebuchholz[i];
+        ret.netto[rank] = result.netto[i];
+        ret.wins[rank] = result.wins[i];
+        ret.roundupvote[rank] = (roundvotes.up.indexOf(pid) !== -1);
+        ret.rounddownvote[rank] = (roundvotes.down.indexOf(pid) !== -1);
+        ret.roundbyevote[rank] = (roundvotes.bye === pid);
+        ret.upvote[rank] = (allvotes.up.indexOf(pid) !== -1);
+        ret.downvote[rank] = (allvotes.down.indexOf(pid) !== -1);
+        ret.byevote[rank] = (allvotes.bye.indexOf(pid) !== -1);
+      }, this);
+
+      this.rnkbuffer = ret;
+    }
+
+    return this.rnkbuffer;
   };
 
   /**
@@ -257,11 +280,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * 
    * @returns this on success, undefined otherwise
    */
-  Swisstournament.prototype.newRound = function () {
+  function newRound () {
     var wingroups, votes, games, timeout;
 
     // abort if the tournament isn't running
-    if (this.state !== Tournament.STATE.RUNNING) {
+    if (this.state === Tournament.STATE.RUNNING) {
       return undefined;
     }
     // abort if there are unfinished games from a previous round
@@ -375,7 +398,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.rkch = true;
 
     return this;
-  };
+  }
 
   /**
    * @param votes
@@ -743,7 +766,37 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   };
 
   Swisstournament.prototype.rankingChanged = function () {
-    return rkch;
+    return this.rkch;
+  };
+
+  Swisstournament.prototype.getOptions = function () {
+    // TODO use options
+    return {
+      firstRoundMode : 'random'
+    };
+  };
+  Swisstournament.FIRSTROUNDMODES = [ 'random' ];
+  // Swisstournament.FIRSTROUNDMODES = [ 'random', 'halves', 'order', 'inverse'
+  // ];
+
+  Swisstournament.prototype.setOptions = function (options) {
+    var key;
+
+    if (this.state !== Tournament.STATE.PREPARING) {
+      return false;
+    }
+
+    for (key in options) {
+      switch (key) {
+      case 'firstRoundMode':
+        // TODO set the mode
+        break;
+      default:
+        return false;
+      }
+
+      return true;
+    }
   };
 
   return Swisstournament;

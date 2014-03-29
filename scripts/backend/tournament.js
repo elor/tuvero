@@ -24,7 +24,7 @@ define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, 
        * starts the tournament. This function might block the entry of new
        * players and is able to create the first valid list of open games
        * 
-       * @returns a first array of open games (like openGames) if valid,
+       * @returns a first array of open games (like getGames) if valid,
        *          undefined otherwise
        */
       start : function () {
@@ -44,7 +44,7 @@ define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, 
       /**
        * apply the result of a running game. This function may manipulate the
        * list of games in any fashion, thereby generally invalidating the result
-       * of the openGames() function.
+       * of the getGames() function.
        * 
        * @param game
        *          a running or applicable game
@@ -61,7 +61,7 @@ define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, 
        * 
        * @returns an array of open games
        */
-      openGames : function () {
+      getGames : function () {
         return []; // Array of games
       },
 
@@ -77,6 +77,7 @@ define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, 
           ids : [], // sorted for ranking. Necessary
           mydata : [], // optional numerical data, e.g. points
           mydata2 : [], // same indices as place[] and ids[]
+          mydata3 : 0, // single numerical values are fine, too
         };
       },
 
@@ -103,7 +104,37 @@ define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, 
        */
       correct : function () {
         return true;
+      },
+
+      /**
+       * return all corrections
+       * 
+       * @returns an array of corrections
+       */
+      getCorrections : function () {
+        return [];
+      },
+
+      /**
+       * get an object with options
+       * 
+       * @returns an object containing tournament-specific options
+       */
+      getOptions : function () {
+        return {};
+      },
+
+      /**
+       * set options
+       * 
+       * @param {Object}
+       *          options a modified options object retrieved from getOptions()
+       * @returns true on success, false or undefined otherwise
+       */
+      setOptions : function (options) {
+        return true;
       }
+
     },
 
     Extends : [ Blobber ],
