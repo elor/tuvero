@@ -3,3 +3,12 @@
 * Pdf export of registered players
 * Pdf export of ranking page
 * Pdf export of Detlef's list
+* Ranking: Small Points
+* backend: arbitrary ranking orders
+* backend swisstournament: options.bye.bye, options.up.down... exclusion lists
+* tournament presets
+* multiple parallel tournament (-> Maastricht K.O. round)
+* Supermelee backend
+* Pool backend
+* K.O. frontend
+* Swisstournament: group by id halves
