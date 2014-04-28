@@ -1,0 +1,7 @@
+* Tab_Storage update: Button .active not removed
+* fileload: games not shown (update)
+* Tab_History: Round 2 not started
+* Tab_Teams: overflow-x
+* Tab_Games: Votes: margin-y
+* Tab_Ranking: Name cut off
+* CSV: escape header line ("Spieler 1")
