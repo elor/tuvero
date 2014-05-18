@@ -1,0 +1,5 @@
+2014-05-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_storage: Fixed buttons not resetting on update()
+
+

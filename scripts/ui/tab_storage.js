@@ -115,6 +115,8 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     areas.save.$download.attr('href', '#');
     areas.save.$download.hide();
 
+    $tab.find('.save .selected').removeClass('selected');
+
     areas.save.$text.val('');
     areas.save.$text.hide();
   }
@@ -178,6 +180,9 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   function invalidateLoad () {
     areas.load.$text.val('');
     areas.load.$text.hide();
+    
+    $tab.find('.load .selected').removeClass('selected');
+
     areas.load.$file.val('');
   }
 
