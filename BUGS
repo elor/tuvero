@@ -1,6 +1,12 @@
+[TODO]
 * fileload: games not shown (update)
 * Tab_History: Round 2 not started
-* Tab_Teams: overflow-x
 * Tab_Games: Votes: margin-y
 * Tab_Ranking: Name cut off
 * CSV: escape header line ("Spieler 1")
+
+[UNFIXABLE]
+* Tab_Teams: overflow-x hidden, overflow-y visible
+  cannot be fixed properly due to inconsistent default behavior:
+  'visible' becomes 'auto' if used with 'hidden' as overflow-x
+  

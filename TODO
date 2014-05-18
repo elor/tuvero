@@ -1,5 +1,7 @@
 * Tab_Games: sort function
 * Tab_Ranking: number of games
+* Tab_Teams: delete team during registration
+* Tab_Teams: load teams from file or list
 * Pdf export of registered players
 * Pdf export of ranking page
 * Pdf export of Detlef's list

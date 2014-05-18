@@ -47,7 +47,11 @@
   min-width: 10em;
   max-width: 10em;
   transition: max-width 0.5s;
-  overflow: hidden;
+  overflow-x: hidden;
+  /* Cannot do make y visible due to inconsistent standard behavior: */
+  /* 'visible' becomes 'auto' if used with 'hidden' as overflow-x */
+  /*  overflow-y: visible; */
+  overflow-y: hidden;
   text-overflow: ellipsis;
 }
 

@@ -2,4 +2,5 @@
 
 	* scripts/ui/tab_storage: Fixed buttons not resetting on update()
 
+	* style/teams.css: Made overflow-x/y inconsistency note
 
