@@ -1,26 +1,28 @@
 * debugging tools: finish all games
 * debugging tools: enter N players
-* debugging tools: 
+* debugging tools: play as long as possible
+* debugging tools: extra tab
 * Tabs: hidden tab (for debugging tools)
 * swisstournament: test up/down/byevote options
+* swisstournament: test halves and random
 * Tab_Games: sort function
-* Tab_Ranking: number of games
+* Tab_Ranking: number of games column
 * Tab_Teams: delete team during registration
 * Tab_Teams: load teams from file or list
 * Pdf export of registered players
 * Pdf export of ranking page
 * Pdf export of Detlef's list
-* Ranking: Small Points
 * backend: arbitrary ranking orders
-* backend swisstournament: options.bye.bye, options.up.down... exclusion lists
-* tournament presets
+* tournament presets (PVO, Chemnitz, ...)
 * multiple parallel tournament (-> Maastricht K.O. rounds, pools, ...)
 * Supermelee backend
 * Pool backend
 * K.O. frontend
-* Swisstournament: group by id halves
 * Autosave to disk (every n minutes, after every major change)
-* prettify the storage tab
+* redesign the storage tab
+* add tournament selection to Tab_New
 * print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
 * read names from the interwebs, but possibly another domain...
-* Sonneborn-Berger-Zahl
+* General Ranking Class
+* Ranking: Small Points
+* Ranking: Sonneborn-Berger-Zahl
