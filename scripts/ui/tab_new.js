@@ -2,10 +2,11 @@
  * Tab_New handler
  */
 
-define([ './options', './tabshandle', './team' ], function (Options, Tabshandle, Team) {
-  var Tab_New, $tab;
+define([ './options', './tabshandle', './team', './opts' ], function (Options, Tabshandle, Team, Opts) {
+  var Tab_New, $tab, options;
 
   Tab_New = {};
+  options = {};
 
   function initTeamSize () {
     $tab.find('button').on('click', function (e) {
@@ -64,6 +65,18 @@ define([ './options', './tabshandle', './team' ], function (Options, Tabshandle,
     } else {
       Tabshandle.hide('new');
     }
+  };
+
+  Tab_New.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_New.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
   };
 
   return Tab_New;

@@ -1,8 +1,9 @@
 define([ './team', './toast', './strings', './swiss', './options',
-    './tabshandle' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle) {
-  var Tab_Ranking, template, autoupdate, shown, $tab;
+    './tabshandle', './opts' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle, Opts) {
+  var Tab_Ranking, template, autoupdate, shown, $tab, options;
 
   Tab_Ranking = {};
+  options = {};
 
   function initState () {
     // whether to automatically update the tables
@@ -289,6 +290,18 @@ define([ './team', './toast', './strings', './swiss', './options',
         // new Toast(Strings.rankingupdate);
       }
     }
+  };
+
+  Tab_Ranking.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_Ranking.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
   };
 
   return Tab_Ranking;

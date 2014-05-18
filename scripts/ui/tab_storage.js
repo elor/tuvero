@@ -1,8 +1,9 @@
 define([ './toast', './strings', './team', './history', './ranking', './blob',
-    './base64', './storage', './options' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options) {
-  var Tab_Storage, $tab, areas;
+    './base64', './storage', './options', './opts' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts) {
+  var Tab_Storage, $tab, areas, options;
 
   Tab_Storage = {};
+  options = {};
   areas = {};
 
   function initCSV () {
@@ -180,7 +181,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   function invalidateLoad () {
     areas.load.$text.val('');
     areas.load.$text.hide();
-    
+
     $tab.find('.load .selected').removeClass('selected');
 
     areas.load.$file.val('');
@@ -327,6 +328,18 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
   Tab_Storage.update = function () {
     Tab_Storage.reset();
+  };
+
+  Tab_Storage.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_Storage.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
   };
 
   return Tab_Storage;

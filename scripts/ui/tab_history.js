@@ -1,8 +1,9 @@
 define([ './toast', './strings', './history', './swiss', './tab_ranking',
-    '../backend/game', './storage', './tabshandle' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle) {
-  var Tab_History, $tab, template, currentround, $button;
+    '../backend/game', './storage', './tabshandle', './opts' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle, Opts) {
+  var Tab_History, $tab, template, currentround, $button, options;
 
   Tab_History = {};
+  options = {};
 
   function setRound (round) {
     if (currentround === round) {
@@ -412,6 +413,18 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     if (empty) {
       Tabshandle.hide('history');
     }
+  };
+
+  Tab_History.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_History.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
   };
 
   return Tab_History;

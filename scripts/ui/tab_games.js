@@ -1,6 +1,7 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking', './history', './tab_history', './storage', './options' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options) {
-  var Tab_Games, $tab, $stages, template, games, $games;
+    './tab_ranking', './history', './tab_history', './storage', './options',
+    './opts' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts) {
+  var Tab_Games, $tab, $stages, template, games, $games, options;
 
   // references to html elements of the games
   $games = [];
@@ -8,6 +9,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   games = [];
 
   Tab_Games = {};
+  options = {};
 
   function isInt (n) {
     return n % 1 === 0;
@@ -671,6 +673,18 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         stage(stage.RUNNING);
       }
     }
+  };
+
+  Tab_Games.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_Games.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
   };
 
   return Tab_Games;
