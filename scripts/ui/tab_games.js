@@ -21,15 +21,23 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $stages[stage.FINISHED] = $tab.find('.finished');
   }
 
+  function setTeamsActive (active) {
+    var opts;
+
+    opts = Tab_Teams.getOptions();
+    opts.allowRegistrations = active;
+    Tab_Teams.setOptions(opts);
+  }
+
   function stage (stage) {
     if (stage >= $stages.length) {
       return undefined;
     }
 
     if (stage === 0) {
-      Tab_Teams.active(true);
+      setTeamsActive(true);
     } else {
-      Tab_Teams.active(false);
+      setTeamsActive(false);
     }
 
     $stages.forEach(function ($stage) {

@@ -1,7 +1,7 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options', './tab_new' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New) {
+    './autocomplete', './options', './tab_new', './opts' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts) {
 
-  var Tab_Teams, $tab, template, newteam, $anchor;
+  var Tab_Teams, $tab, template, newteam, $anchor, options;
 
   $tab = undefined;
 
@@ -310,7 +310,28 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     Tab_New.update();
   }
 
+  options = {
+    allowRegistrations : true,
+    allowDeletions : true,
+  };
+
   Tab_Teams = {
+    // several options
+    getOptions : function () {
+      return Opts.getOptions({
+        options : options
+      });
+    },
+
+    setOptions : function (opts) {
+      Opts.setOptions({
+        options : options
+      }, opts);
+
+      // reset active state
+      setActive(options.allowRegistrations);
+    },
+
     /**
      * init, clear and reset all in one
      */
@@ -342,14 +363,13 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     },
   };
 
-  // TODO use event system
-  Tab_Teams.active = function (active) {
+  function setActive (active) {
     if (active) {
       newteam.$form.show();
     } else {
       newteam.$form.hide();
     }
-  };
+  }
 
   return Tab_Teams;
 });

@@ -15,3 +15,5 @@
 
 	* scripts/ui/strings.js: CSV headers: multiword strings grouped with quotes
 
+	* scripts/ui/tab_games: using Options (Opts) to allow registrations
+

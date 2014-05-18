@@ -26,7 +26,7 @@ define([], function () {
        */
       setOptions : function (options) {
         return true;
-      }
+      },
     },
   };
 
@@ -91,6 +91,9 @@ define([], function () {
   Options.prototype.getOptions = function () {
     return copyStaticObject(this.options);
   };
+  Options.getOptions = function (obj) {
+    return Options.prototype.getOptions.call(obj);
+  };
 
   Options.prototype.setOptions = function (options) {
     var key;
@@ -115,6 +118,9 @@ define([], function () {
     }
 
     return true;
+  };
+  Options.setOptions = function (obj, opts) {
+    return Options.prototype.setOptions.call(obj, opts);
   };
 
   Options.Interface = Interface;
