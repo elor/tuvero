@@ -1,8 +1,34 @@
 /**
- * define, store, read and write options
+ * define, store, read and write options of arbitrary type
+ * 
+ * Undefined behavior (most likely infinite loops) on nesting loops
  */
 define([], function () {
-  var Options;
+  var Interface, Options;
+
+  Interface = {
+    Interface : {
+      /**
+       * get an object which contains a copy of all options
+       * 
+       * @returns an object containing copies of the current options
+       */
+      getOptions : function () {
+        return {};
+      },
+
+      /**
+       * set options
+       * 
+       * @param options
+       *          a modified options object retrieved from getOptions()
+       * @returns true on success, false or undefined otherwise
+       */
+      setOptions : function (options) {
+        return true;
+      }
+    },
+  };
 
   /**
    * constructor
@@ -10,9 +36,8 @@ define([], function () {
    * @returns {Options}
    */
   Options = function () {
+    this.options = {};
   };
-
-  Options.prototype.options = {};
 
   /**
    * stores the current state in a blob, mostly using JSON (
@@ -32,9 +57,7 @@ define([], function () {
   Options.prototype.fromBlob = function (blob) {
     var ob = JSON.parse(blob);
 
-    // TODO verify the object
-
-    this.options = ob;
+    this.setOptions(ob);
 
     return this;
   };
@@ -87,11 +110,14 @@ define([], function () {
 
     // copy every option, not the whole object
     for (key in options) {
+      // TODO at least compare the type
       this.options[key] = copyStaticObject(options[key]);
     }
 
     return true;
   };
+
+  Options.Interface = Interface;
 
   return Options;
 });
