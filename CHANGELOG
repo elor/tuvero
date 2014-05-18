@@ -4,6 +4,8 @@
 
 	* style/teams.css: Made overflow-x/y inconsistency note
 
+	* style/games.css: added margin to .vote containers
+
 	* scripts/backend/swisstournament.js: options extended and option functions generalized
 	enabled vote permissions
 
