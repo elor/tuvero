@@ -12,3 +12,5 @@
 	enabled vote permissions
 	fromBlob: missing this.rkch=true added to notify about updates to this.ranking
 
+	* scripts/ui/strings.js: CSV headers: multiword strings grouped with quotes
+

@@ -1,6 +1,5 @@
-[TODO]
+[KNOWN]
 * Tab_History: Round 2 not started
-* CSV: escape header line ("Spieler 1")
 
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible
