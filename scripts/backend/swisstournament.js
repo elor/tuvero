@@ -806,6 +806,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns {Boolean} whether vote action complies with the permissions
    */
   function canVote (id, permissions) {
+
+    if (typeof (id) !== 'number') {
+      return false;
+    }
+
     if (id >= this.players.size()) {
       return false;
     }

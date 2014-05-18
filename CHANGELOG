@@ -12,6 +12,7 @@
 	enabled vote permissions
 	fromBlob: missing this.rkch=true added to notify about updates to this.ranking
 	'random' and 'halves' modes added
+	undefined-byevote-bug fixed
 
 	* scripts/ui/strings.js: CSV headers: multiword strings grouped with quotes
 
