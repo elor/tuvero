@@ -5,4 +5,3 @@
 * Tab_Teams: overflow-x hidden, overflow-y visible
   cannot be fixed properly due to inconsistent default behavior:
   'visible' becomes 'auto' if used with 'hidden' as overflow-x
-  

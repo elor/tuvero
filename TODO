@@ -22,3 +22,4 @@
 * Autosave to disk (every n minutes, after every major change)
 * prettify the storage tab
 * print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
+* read names from the interwebs, but possibly another domain...
