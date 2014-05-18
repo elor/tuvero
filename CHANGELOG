@@ -4,3 +4,5 @@
 
 	* style/teams.css: Made overflow-x/y inconsistency note
 
+	* scripts/backend/swisstournament.js: options extended and option functions generalized
+

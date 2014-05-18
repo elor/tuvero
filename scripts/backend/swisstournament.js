@@ -30,6 +30,27 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.rnkbuffer;
 
     this.rkch = true;
+
+    this.options = {
+      mode : 'random',
+      permissions : {
+        up : {
+          up : false,
+          down : true,
+          bye : true,
+        },
+        down : {
+          up : true,
+          down : false,
+          bye : true,
+        },
+        bye : {
+          up : true,
+          down : true,
+          bye : false,
+        }
+      }
+    };
   };
 
   /**
@@ -770,34 +791,86 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     return this.rkch;
   };
 
+  function toType (obj) {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+  }
+
+  function copyStaticObject (obj) {
+    var key, ret;
+
+    switch (toType(obj)) {
+    case 'object':
+      ret = {};
+      break;
+    case 'array':
+      ret = [];
+      break;
+    default:
+      // this is no reference
+      return obj;
+    }
+
+    for (key in obj) {
+      ret[key] = copyStaticObject(obj[key]);
+    }
+
+    return ret;
+  }
+
   Swisstournament.prototype.getOptions = function () {
-    // TODO use options
-    return {
-      firstRoundMode : 'random'
-    };
+    return copyStaticObject(this.options);
   };
+
   Swisstournament.FIRSTROUNDMODES = [ 'random' ];
-  // Swisstournament.FIRSTROUNDMODES = [ 'random', 'halves', 'order', 'inverse'
+  // Swisstournament.FIRSTROUNDMODES = [ 'random', 'halves', 'order',
+  // 'interlaced'
   // ];
 
   Swisstournament.prototype.setOptions = function (options) {
     var key;
 
-    if (this.state !== Tournament.STATE.PREPARING) {
+    if (toType(options) !== 'object') {
+      console.error('Swisstournament.setOptions: invalid argument type');
       return false;
     }
 
     for (key in options) {
-      switch (key) {
-      case 'firstRoundMode':
-        // TODO set the mode
-        break;
-      default:
+      // ignore unknown keys
+      if (typeof (this.options[key]) === undefined) {
+        console.error('Swisstournament.setOptions: unknown key: ' + key);
         return false;
       }
 
-      return true;
+      // filter all modes that can't be set after the tournament started
+      if (this.state !== Tournament.STATE.PREPARING) {
+        switch (key) {
+        case 'mode':
+          console.error('Swisstournament.setOptions: cannot set key during running tournament: ' + key);
+          return false;
+        default:
+          break
+        }
+      }
+
+      // validate every single option
+      switch (key) {
+      case 'mode':
+        if (Swisstournament.FIRSTROUNDMODES.indexOf(options[key]) === -1) {
+          console.error('Swisstournament.setOptions: unknown mode: ' + options[key]);
+          return false;
+        }
+        break;
+      case 'permissions':
+        // TODO deep-validate (implements.js?)
+      }
     }
+
+    // copy every option, not the whole object
+    for (key in options) {
+      this.options[key] = copyStaticObject(options[key]);
+    }
+
+    return true;
   };
 
   return Swisstournament;
