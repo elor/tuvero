@@ -1,3 +1,4 @@
+* swisstournament: test up/down/byevote options
 * Tab_Games: sort function
 * Tab_Ranking: number of games
 * Tab_Teams: delete team during registration
@@ -14,3 +15,4 @@
 * Pool backend
 * K.O. frontend
 * Swisstournament: group by id halves
+

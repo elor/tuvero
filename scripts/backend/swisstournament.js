@@ -302,7 +302,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns this on success, undefined otherwise
    */
   function newRound () {
-    var wingroups, votes, games, timeout;
+    var wingroups, votes, newgames, timeout;
     // "The local variable games is hiding a field from type newRound" is bogus
 
     // abort if the tournament isn't running
@@ -340,7 +340,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // / / if they haven't already played against another
     // / / / create game
 
-    games = [];
+    newgames = [];
 
     // for each wingroup:
     wingroups.forEach(function (wingroup, wins) {
@@ -374,7 +374,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
         p2 = this.rng.pick(candidates);
 
-        games.push(new Game(p1, p2));
+        newgames.push(new Game(p1, p2));
         wingroup.splice(wingroup.indexOf(p2), 1);
         votes.upvotes[wins] = p2;
       }
@@ -389,7 +389,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
           // if they haven't already played against another
           if (canPlay.call(this, p1, p2)) {
             // create game
-            games.push(new Game(p1, p2));
+            newgames.push(new Game(p1, p2));
             wingroup.splice(wingroup.indexOf(p1), 1);
             wingroup.splice(wingroup.indexOf(p2), 1);
           }
@@ -413,7 +413,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
     // apply the games
-    this.games = games;
+    this.games = newgames;
 
     // round increment
     this.round += 1;
@@ -603,10 +603,53 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id
-   * @returns {Boolean} whether the player can be downvoted
+   * @param permissions
+   *          reference to this.options.permissions.something
+   * @returns {Boolean} whether vote action complies with the permissions
+   */
+  function canVote (id, permissions) {
+    if (id >= this.players.size()) {
+      return false;
+    }
+
+    if (permissions.up && this.upvote[id]) {
+      return false;
+    }
+    if (permissions.down && this.downvote[id]) {
+      return false;
+    }
+    if (permissions.bye && this.byevote[id]) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * @param id
+   *          internal player id
+   * @returns true of the player can be downvoted, false otherwise
    */
   function canDownVote (id) {
-    return id < this.players.size() && !this.byevote[id] && !this.downvote[id];
+    return canVote.call(this, id, this.options.permissions.down);
+  }
+
+  /**
+   * @param id
+   *          internal player id
+   * @returns true of the player can be upvoted, false otherwise
+   */
+  function canUpVote (id) {
+    return canVote.call(this, id, this.options.permissions.up);
+  }
+
+  /**
+   * @param id
+   *          internal player id
+   * @returns true of the player can be byevoted, false otherwise
+   */
+  function canByeVote (id) {
+    return canVote.call(this, id, this.options.permissions.bye);
   }
 
   /**
@@ -624,15 +667,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
   /**
    * @param id
-   *          internal player id
-   * @returns {Boolean} whether the player can be upvoted
-   */
-  function canUpVote (id) {
-    return id < this.players.size() && !this.upvote[id];
-  }
-
-  /**
-   * @param id
    *          internal player id to be upvoted
    * @returns {Swisstournament} this
    */
@@ -642,15 +676,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     return this;
-  }
-
-  /**
-   * @param id
-   *          internal player id
-   * @returns {Boolean} whether the player can be byevoted
-   */
-  function canByeVote (id) {
-    return id < this.players.size() && !this.byevote[id] && !this.downvote[id];
   }
 
   /**
@@ -848,7 +873,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
           console.error('Swisstournament.setOptions: cannot set key during running tournament: ' + key);
           return false;
         default:
-          break
+          break;
         }
       }
 
