@@ -6,6 +6,8 @@
 
 	* style/games.css: added margin to .vote containers
 
+	* style/ranking.css: using ellipsis when player names are too long
+
 	* scripts/backend/swisstournament.js: options extended and option functions generalized
 	enabled vote permissions
 	fromBlob: missing this.rkch=true added to notify about updates to this.ranking
