@@ -32,7 +32,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.rkch = true;
 
     this.options = {
-      mode : 'random',
+      mode : 'wins',
       permissions : {
         up : {
           up : false,
@@ -75,6 +75,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns this on success, undefined otherwise
    */
   Swisstournament.prototype.start = function () {
+    var valid;
+
     if (this.state === Tournament.STATE.RUNNING) {
       return undefined;
     }
@@ -83,7 +85,21 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
-    if (newRound.call(this) === this) {
+    valid = false;
+
+    switch (this.options.mode) {
+    case 'wins':
+      valid = (newRoundByWins.call(this) === this);
+      break;
+    case 'random':
+      valid = (newRoundByRandom.call(this) === this);
+      break;
+    case 'halves':
+      valid = (newRoundByHalves.call(this) === this);
+      break;
+    }
+
+    if (valid) {
       this.state = Tournament.STATE.RUNNING;
       this.rkch = true;
     } else {
@@ -297,13 +313,195 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
   /**
    * Start a new round. This function creates a randomized set of new games,
+   * disregarding the players' ids and previous games
+   * 
+   * @returns this on success, undefined otherwise
+   */
+  function newRoundByRandom () {
+    // TODO test
+    var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft;
+
+    // abort if the tournament isn't running
+    if (this.state === Tournament.STATE.RUNNING) {
+      return undefined;
+    }
+    // abort if there are unfinished games from a previous round
+    if (this.games.length !== 0) {
+      return undefined;
+    }
+
+    playersleft = [];
+    numplayers = this.players.size();
+
+    bye = undefined;
+
+    if (numplayers % 2 === 1) {
+      // we need a bye;
+
+      byes = [];
+
+      for (id = 0; id < numplayers; id += 1) {
+        if (canByeVote.call(this, id)) {
+          byes.push(id);
+        }
+      }
+
+      if (byes.length == 0) {
+        console.error("All players got byes");
+        return undefined;
+      }
+
+      bye = this.rng.pick(byes);
+    }
+
+    for (id = 0; id < numplayers; i += 1) {
+      if (id !== bye) {
+        playersleft[id] = id;
+      }
+    }
+
+    // just randomize it
+
+    triesleft = playersleft.length * 2;
+
+    while (playersleft.length > 0) {
+      p1 = this.rng.pickAndRemove(playersleft);
+      p2 = this.rng.pickAndRemove(playersleft);
+
+      if (canPlay.call(this, p1, p2)) {
+        newgames.push(new Game(p1, p2));
+      } else {
+        playersleft.push(p1);
+        playersleft.push(p2);
+      }
+
+      triesleft -= 1;
+      if (triesleft <= 0) {
+        console.error("Failed to find non-repeating games");
+        return undefined;
+      }
+    }
+
+    this.games = newgames;
+    if (bye !== undefined) {
+      byeVote.call(this, bye);
+    }
+
+    return this;
+  }
+
+  /**
+   * Start a new round. This function creates a randomized set of new games,
    * maintaining up/down/byevotes.
    * 
    * @returns this on success, undefined otherwise
    */
-  function newRound () {
+  function newRoundByHalves () {
+    // TODO test
+    var upper, lower, byes, bye, id, numplayers, p1, p2, newgames, triesleft;
+
+    // abort if the tournament isn't running
+    if (this.state === Tournament.STATE.RUNNING) {
+      return undefined;
+    }
+    // abort if there are unfinished games from a previous round
+    if (this.games.length !== 0) {
+      return undefined;
+    }
+
+    lower = [];
+    upper = [];
+    numplayers = this.players.size();
+
+    bye = undefined;
+
+    // construct the halves
+    // The lower half is allowed to have one more player than the upper half
+    for (id = 0; id < numplayers; i += 1) {
+
+      /*
+       * Examples:
+       * 
+       * 5 -> 2.5 : 0 1 2 | 3 4 (wrong)
+       * 
+       * 4 -> 2 : 0 1 | 2 3 (right)
+       * 
+       * 5 -> 4 -> 2 : 0 1 | 2 3 4 (right)
+       * 
+       * 4 -> 3 -> 1.5 : 0 1 | 2 3 (right)
+       */
+
+      if (id < (numplayers - 1) / 2) {
+        upper.push(id);
+      } else {
+        lower.push(id);
+      }
+    }
+
+    if (upper.length != lower.length && upper.length != lower.length - 1) {
+      console.error("Swisstournament: Halves aren't of a valid size. Aborting");
+      return undefined;
+    }
+
+    if (numplayers % 2 === 1) {
+      // we need a bye;
+
+      byes = [];
+
+      for (id in lower) {
+        id = lower[id];
+        if (canByeVote.call(this, id)) {
+          byes.push(id);
+        }
+      }
+
+      if (byes.length == 0) {
+        console.error("All players got byes");
+        return undefined;
+      }
+
+      bye = this.rng.pick(byes);
+    }
+
+    // just randomize it
+
+    triesleft = playersleft.length * 2;
+
+    while (lower.length > 0) {
+      p1 = this.rng.pickAndRemove(lower);
+      p2 = this.rng.pickAndRemove(upper);
+
+      if (canPlay.call(this, p1, p2)) {
+        newgames.push(new Game(p1, p2));
+      } else {
+        lower.push(p1);
+        upper.push(p2);
+      }
+
+      triesleft -= 1;
+      if (triesleft <= 0) {
+        console.error("Failed to find non-repeating games");
+        return undefined;
+      }
+    }
+
+    // apply
+    this.games = newgames;
+    if (bye !== undefined) {
+      byeVote.call(this, bye);
+    }
+
+    return this;
+  }
+
+  /**
+   * Start a new round. This function creates a randomized set of new games,
+   * maintaining up/down/byevotes.
+   * 
+   * @returns this on success, undefined otherwise
+   */
+  function newRoundByWins () {
     var wingroups, votes, newgames, timeout;
-    // "The local variable games is hiding a field from type newRound" is bogus
 
     // abort if the tournament isn't running
     if (this.state === Tournament.STATE.RUNNING) {
@@ -425,7 +623,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param votes
    *          processed votes structure as returned by preliminaryDownVotes()
-   *          and processed by newRound()
+   *          and processed by newRoundByWins()
    * @returns {Swisstournament} this
    */
   function applyVotes (votes) {
@@ -849,8 +1047,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   Swisstournament.prototype.getOptions = Options.prototype.getOptions;
   Swisstournament.prototype.setOptions = Options.prototype.setOptions;
 
-  Swisstournament.FIRSTROUNDMODES = [ 'random' ];
-  // Swisstournament.FIRSTROUNDMODES = [ 'random', 'halves', 'order',
+  Swisstournament.MODES = [ 'random' ];
+  // Swisstournament.MODES = [ 'random', 'halves', 'order',
   // 'interlaced'
   // ];
 
