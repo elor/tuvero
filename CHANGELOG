@@ -8,4 +8,5 @@
 
 	* scripts/backend/swisstournament.js: options extended and option functions generalized
 	enabled vote permissions
+	fromBlob: missing this.rkch=true added to notify about updates to this.ranking
 

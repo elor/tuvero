@@ -790,6 +790,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   Swisstournament.prototype.fromBlob = function (blob) {
     var ob = JSON.parse(blob);
+    
+    console.log('swisstournament deblob:');
+    console.log(ob);
 
     function copyGame (game) {
       return Game.copy(game);
@@ -798,6 +801,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.byevote = ob.byevote;
     this.downvote = ob.downvote;
     this.round = ob.round;
+    console.log('swisstournament: round ' + this.round);
     this.roundvotes = ob.roundvotes;
     this.state = ob.state;
     this.upvote = ob.upvote;
@@ -806,6 +810,10 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     this.players.fromBlob(ob.players);
     this.ranking.fromBlob(ob.ranking);
+    
+    this.rkch = true;
+    
+    return this;
   };
 
   Swisstournament.prototype.getState = function () {

@@ -14,10 +14,11 @@
 * backend: arbitrary ranking orders
 * backend swisstournament: options.bye.bye, options.up.down... exclusion lists
 * tournament presets
-* multiple parallel tournament (-> Maastricht K.O. round)
+* multiple parallel tournament (-> Maastricht K.O. rounds, pools, ...)
 * Supermelee backend
 * Pool backend
 * K.O. frontend
 * Swisstournament: group by id halves
 * Autosave to disk (every n minutes, after every major change)
 * prettify the storage tab
+* print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
