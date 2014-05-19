@@ -1,3 +1,7 @@
+2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* images/qr_github.png: added
+
 2014-05-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_storage: Fixed buttons not resetting on update()
