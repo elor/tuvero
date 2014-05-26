@@ -147,10 +147,12 @@ define([ './team', './toast', './strings', './swiss', './options',
       template.rank.$fields[i + 2].text(team.names[i]);
     }
 
-    template.rank.$fields[5].text(ranking.wins[rank]);
-    template.rank.$fields[6].text(ranking.buchholz[rank]);
-    template.rank.$fields[7].text(ranking.finebuchholz[rank]);
-    template.rank.$fields[8].text(ranking.netto[rank]);
+    template.rank.$fields[5].text(ranking.games[rank]);
+
+    template.rank.$fields[6].text(ranking.wins[rank]);
+    template.rank.$fields[7].text(ranking.buchholz[rank]);
+    template.rank.$fields[8].text(ranking.finebuchholz[rank]);
+    template.rank.$fields[9].text(ranking.netto[rank]);
 
     vote = [];
     if (ranking.upvote[rank]) {
@@ -163,7 +165,7 @@ define([ './team', './toast', './strings', './swiss', './options',
       vote.push(Strings.byevote);
     }
 
-    template.rank.$fields[9].text(vote.join(', '));
+    template.rank.$fields[10].text(vote.join(', '));
 
     return template.rank.$row.clone();
   }

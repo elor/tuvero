@@ -63,10 +63,17 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
    * @returns data object
    */
   Finebuchholz.prototype.get = function () {
-    var rank, i, n, w, bh, fbh;
+    var rank, i, n, w, bh, fbh, games;
 
     n = this.netto;
     w = this.wins;
+    games = Matrix.rowSums(this.games);
+    // add byes to the number of games
+    for (i in this.byes) {
+      if (this.byes[i]) {
+        games[i] += 1;
+      }
+    }
     bh = Matrix.multVec(this.games, w); // calculate the buchholz points
     fbh = Matrix.multVec(this.games, bh); // calculate the finebuchholz
     // points
@@ -77,13 +84,14 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
     }
 
     rank.sort(function (a, b) {
-      return (w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a]) || (n[b] - n[a]);
+      return (games[b] - games[a]) || (w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a]) || (n[b] - n[a]);
     });
 
     return {
       buchholz : bh,
       byes : this.byes,
       finebuchholz : fbh,
+      games : games,
       netto : n,
       ranking : rank,
       size : n.length,

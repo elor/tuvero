@@ -266,6 +266,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       ret = {
         place : [],
         ids : [],
+        games : [],
         wins : [],
         buchholz : [],
         finebuchholz : [],
@@ -296,6 +297,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         ret.buchholz[rank] = result.buchholz[i];
         ret.finebuchholz[rank] = result.finebuchholz[i];
         ret.netto[rank] = result.netto[i];
+        ret.games[rank] = result.games[i];
         ret.wins[rank] = result.wins[i];
         ret.roundupvote[rank] = (roundvotes.up.indexOf(pid) !== -1) ? 1 : 0;
         ret.rounddownvote[rank] = (roundvotes.down.indexOf(pid) !== -1) ? 1 : 0;

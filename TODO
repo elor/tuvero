@@ -1,10 +1,11 @@
-* auto-create the manifest
+* (release) auto-create the manifest
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
 * swiss halves: use ranking
 * debugging tools: play as long as possible
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random
 * Tab_Games: sort function
+* Tab_Ranking: sort function
 * Tab_Ranking: number of games column
 * Tab_Teams: delete team during registration
 * Tab_Teams: load teams from file or list

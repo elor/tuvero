@@ -9,6 +9,9 @@
 	* scripts/ui/tabs.js: hidden debugging tab added
 	* style/debug.css: hidden debugging tab added
 	* style/mainstyle.css: hidden debugging tab added
+	* scripts/backend/finebuchholzranking.js: games[] added
+	* scripts/backend/swisstournament.js: getRanking().games[] added
+	* scripts/ui/tab_ranking.js: number of games
 
 2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
