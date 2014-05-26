@@ -1,32 +1,32 @@
-* (release) auto-create the manifest
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
+* add tournament selection to Tab_New
+* print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
 * swiss halves: use ranking
-* debugging tools: play as long as possible
+* General Ranking Class
+* Ranking: arbitrary sort orders
+* Ranking: Small Points
+* Ranking: Sonneborn-Berger-Zahl
+* autocomplete: read names from the interwebs, but possibly another domain...
+* autocomplete: read names from a file
+* (release) auto-create the manifest
+* debugging tools: implement 'finish tournament'
+* Autosave to disk (every n minutes, after every major change)
+* redesign the storage tab
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random
+* swisstournament: add mode selection before starting tournament
+* Tab_New: add tournament selection
 * Tab_Games: sort function
 * Tab_Ranking: sort function
-* Tab_Ranking: number of games column
 * Tab_Teams: delete team during registration
 * Tab_Teams: load teams from file or list
 * Pdf export of registered players
 * Pdf export of ranking page
 * Pdf export of Detlef's list
-* backend: arbitrary ranking orders
 * tournament presets (PVO, Chemnitz, ...)
 * multiple parallel tournament (-> Maastricht K.O. rounds, pools, ...)
 * Supermelee backend
 * Pool backend
 * K.O. frontend
-* Autosave to disk (every n minutes, after every major change)
-* redesign the storage tab
-* add tournament selection to Tab_New
-* print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
-* read names from the interwebs, but possibly another domain...
-* General Ranking Class
-* Ranking: Small Points
-* Ranking: Sonneborn-Berger-Zahl
 * Loading Screen for large tournaments (512 players)
 * tab_debug: use global strings object for toasts
-* autocomplete names: read names from a file
-* hide/remove copy-paste fields
