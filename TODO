@@ -1,5 +1,6 @@
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
 * add tournament selection to Tab_New
+* swiss/history: store which mode a round was in
 * print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
 * General Ranking Class
 * Ranking: arbitrary sort orders

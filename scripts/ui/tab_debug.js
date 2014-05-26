@@ -155,7 +155,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
   }
 
   function playTournament () {
-    new Toast('Noch nicht eingearbeitet');
+    new Toast('Noch nicht verfügbar');
   }
 
   function initForms () {

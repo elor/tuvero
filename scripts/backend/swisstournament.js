@@ -99,12 +99,16 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     case 'halves':
       valid = (newRoundByHalves.call(this) === this);
       break;
+    default:
+      console.error('swiss: undefined round mode: ' + this.options.mode);
+      return undefined;
     }
 
     if (valid) {
       this.state = Tournament.STATE.RUNNING;
       this.round += 1;
       this.rkch = true;
+      this.options.mode = Swisstournament.MODES[0]; // should be 'wins'
     } else {
       return undefined;
     }
@@ -323,7 +327,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns this on success, undefined otherwise
    */
   function newRoundByRandom () {
-    // TODO test
+    // TODO write test
     var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft;
 
     // abort if the tournament isn't running
@@ -335,7 +339,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
-    playersleft = [];
     numplayers = this.players.size();
 
     bye = undefined;
@@ -359,17 +362,19 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       bye = this.rng.pick(byes);
     }
 
+    playersleft = [];
     for (id = 0; id < numplayers; id += 1) {
       if (id !== bye) {
-        playersleft[id] = id;
+        playersleft.push(id);
       }
     }
 
     // just randomize it
 
-    triesleft = playersleft.length * 2;
+    triesleft = numplayers * 10;
     newgames = [];
 
+    // TODO add backtracking
     while (playersleft.length > 0) {
       p1 = this.rng.pickAndRemove(playersleft);
       p2 = this.rng.pickAndRemove(playersleft);
@@ -475,7 +480,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // just randomize it
 
-    triesleft = numplayers.length * 2;
+    triesleft = numplayers * 10;
     newgames = [];
 
     while (lower.length > 0) {
@@ -513,6 +518,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function newRoundByWins () {
     var wingroups, votes, newgames, timeout;
+    // TODO add backtracking
 
     // abort if the tournament isn't running
     if (this.state === Tournament.STATE.RUNNING) {
@@ -1069,10 +1075,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   Swisstournament.prototype.getOptions = Options.prototype.getOptions;
   Swisstournament.prototype.setOptions = Options.prototype.setOptions;
 
-  Swisstournament.MODES = [ 'random' ];
-  // Swisstournament.MODES = [ 'random', 'halves', 'order',
-  // 'interlaced'
-  // ];
+  // TODO add 'interlaced'
+  Swisstournament.MODES = [ 'wins', 'halves', 'random' ];
 
   return Swisstournament;
 });
