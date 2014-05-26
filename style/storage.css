@@ -46,6 +46,6 @@
   display: inline-block;
 }
 
-#storage .dangerous {
+#storage .storage .clear:hover, #storage .storage .clear:focus {
   background-color: #ee0000;
 }

@@ -190,11 +190,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       }
     });
 
-    areas.local.$clearbutton.hover(function () {
-      areas.local.$clearbutton.addClass('dangerous');
-    }, function () {
-      areas.local.$clearbutton.removeClass('dangerous');
-    }).click(function () {
+    areas.local.$clearbutton.click(function () {
       // TODO use some jQuery magic
       if (confirm(Strings.clearstorage)) {
         Storage.enable();
