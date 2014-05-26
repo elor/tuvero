@@ -88,15 +88,25 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Storage.changed();
   }
 
+  function setSwissMode (mode) {
+    var tournamentOptions;
+
+    tournamentOptions = Swiss.getOptions();
+    tournamentOptions.mode = mode;
+    Swiss.setOptions(tournamentOptions);
+  }
+
   function initPreparations () {
     // close registration and start swiss tournament
     // TODO other tournament types and options
-    $tab.find('.preparing button').click(function () {
+    $tab.find('.preparing .swiss').submit(function () {
       // TODO dynamic threshold for different tournament types (grey others out)
       if (Team.count() < 2) {
         new Toast(Strings.notenoughteams);
         return;
       }
+
+      setSwissMode($tab.find('.preparing .swiss .mode').val());
 
       // register all teams at the tournament
       Team.prepareTournament(Swiss);

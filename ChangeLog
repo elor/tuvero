@@ -6,11 +6,14 @@
 	* scripts/ui/alltabs.js: hidden debugging tab added
 	* scripts/ui/tab_debug.js: hidden debugging tab added
 	* scripts/ui/tab_games.js: hidden debugging tab added
+	options.stage added
 	* scripts/ui/tabs.js: hidden debugging tab added
 	* style/debug.css: hidden debugging tab added
 	* style/mainstyle.css: hidden debugging tab added
 	* scripts/backend/finebuchholzranking.js: games[] added
 	* scripts/backend/swisstournament.js: getRanking().games[] added
+	newRoundByHalves uses ranking order
+	newRoundBy* fixed
 	* scripts/ui/tab_ranking.js: number of games
 	* scripts/ui/tab_storage: developer tools added
 	textareas and localstorage-checkbox removed

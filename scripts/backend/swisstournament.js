@@ -66,6 +66,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     this.players.insert(id);
     this.ranking.resize(this.players.size());
+    this.rkch = true;
+
     return this;
   };
 
@@ -101,6 +103,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     if (valid) {
       this.state = Tournament.STATE.RUNNING;
+      this.round += 1;
       this.rkch = true;
     } else {
       return undefined;
@@ -356,7 +359,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       bye = this.rng.pick(byes);
     }
 
-    for (id = 0; id < numplayers; i += 1) {
+    for (id = 0; id < numplayers; id += 1) {
       if (id !== bye) {
         playersleft[id] = id;
       }
@@ -365,6 +368,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // just randomize it
 
     triesleft = playersleft.length * 2;
+    newgames = [];
 
     while (playersleft.length > 0) {
       p1 = this.rng.pickAndRemove(playersleft);
@@ -400,7 +404,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function newRoundByHalves () {
     // TODO test
-    var upper, lower, byes, bye, id, numplayers, p1, p2, newgames, triesleft;
+    var upper, lower, byes, bye, id, numplayers, p1, p2, newgames, triesleft, ids;
 
     // abort if the tournament isn't running
     if (this.state === Tournament.STATE.RUNNING) {
@@ -415,29 +419,33 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     upper = [];
     numplayers = this.players.size();
 
+    ids = this.getRanking().ids;
+    if (!ids || numplayers !== ids.length) {
+      console.error('swisstournament halves: lengths of sorted ids and players differ');
+      return undefined;
+    }
+
     bye = undefined;
 
     // construct the halves
     // The lower half is allowed to have one more player than the upper half
-    for (id = 0; id < numplayers; i += 1) {
+    id = 0;
+    while (numplayers - upper.length - lower.length > 1) {
+      upper.push(ids[id]);
+      lower.push(ids[numplayers - id - 1]);
+      id += 1;
+    }
 
-      /*
-       * Examples:
-       * 
-       * 5 -> 2.5 : 0 1 2 | 3 4 (wrong)
-       * 
-       * 4 -> 2 : 0 1 | 2 3 (right)
-       * 
-       * 5 -> 4 -> 2 : 0 1 | 2 3 4 (right)
-       * 
-       * 4 -> 3 -> 1.5 : 0 1 | 2 3 (right)
-       */
-
-      if (id < (numplayers - 1) / 2) {
-        upper.push(id);
-      } else {
-        lower.push(id);
-      }
+    switch (numplayers - upper.length - lower.length) {
+    case 0:
+      // all players got assigned
+      break;
+    case 1:
+      lower.push(id);
+      break;
+    default:
+      console.error('swisstournament halves: too many players left. Aborting');
+      return undefined;
     }
 
     if (upper.length != lower.length && upper.length != lower.length - 1) {
@@ -467,7 +475,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // just randomize it
 
-    triesleft = playersleft.length * 2;
+    triesleft = numplayers.length * 2;
+    newgames = [];
 
     while (lower.length > 0) {
       p1 = this.rng.pickAndRemove(lower);
@@ -614,10 +623,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
     // apply the games
     this.games = newgames;
-
-    // round increment
-    this.round += 1;
-    this.rkch = true;
 
     return this;
   }
@@ -907,6 +912,16 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns {Boolean} true if they would form a valid game, false otherwise
    */
   function canPlay (pid1, pid2) {
+    // DEBUG START
+    // if (!pid1 < this.players.size())
+    // console.error('pid1 too big');
+    // if (!pid2 < this.players.size())
+    // console.error('pid2 too big');
+    // if (!pid1 !== pid2)
+    // console.error('pid1 == pid2')
+    // if (this.ranking.added(new Game(pid1, pid2)))
+    // console.error('game was already played')
+    // DEBUG END
     return pid1 < this.players.size() && pid2 < this.players.size() && pid1 !== pid2 && this.ranking.added(new Game(pid1, pid2)) === false;
   }
 

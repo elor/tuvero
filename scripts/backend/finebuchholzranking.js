@@ -84,7 +84,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
     }
 
     rank.sort(function (a, b) {
-      return (games[b] - games[a]) || (w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a]) || (n[b] - n[a]);
+      return (games[b] - games[a]) || (w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a]) || (n[b] - n[a]) || (a - b);
     });
 
     return {

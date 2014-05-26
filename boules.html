@@ -83,9 +83,18 @@
       <div id="games" accesskey="g">
         <div class="preparing">
           <h2>Turniervorbereitung</h2>
-          <button>
-            Registrierung beenden
-          </button>
+          <form class="swiss">
+            <button type="submit">
+              Schweizer Turnier starten
+            </button>
+            <br>
+            Modus der 1. Runde:
+            <select class="mode">
+              <option value="wins">Schweizer</option>
+              <option value="halves" selected="selected">2 Lostöpfe</option>
+              <option value="random">Zufall</option>
+            </select>
+          </form>
         </div>
         <div class="running">
           <div class="options">

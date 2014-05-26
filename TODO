@@ -1,7 +1,6 @@
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
 * add tournament selection to Tab_New
 * print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
-* swiss halves: use ranking
 * General Ranking Class
 * Ranking: arbitrary sort orders
 * Ranking: Small Points
