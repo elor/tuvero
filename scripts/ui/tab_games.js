@@ -9,7 +9,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   games = [];
 
   Tab_Games = {};
-  options = {};
+  options = {
+    stage : 0,
+  };
 
   function isInt (n) {
     return n % 1 === 0;
@@ -47,6 +49,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     });
 
     $stages[stage].show();
+
+    options.stage = stage;
   }
 
   stage.PREPARING = 0;

@@ -114,11 +114,21 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
   }
 
   function startRound () {
-    var $button;
+    var $button, Tab_Games;
 
-    $button = $('#games .preparing > button');
+    Tab_Games = require('./tab_games');
 
-    $button.click();
+    switch (Tab_Games.getOptions().stage) {
+    case 0:
+      $('#games .preparing .swiss button').click();
+      break;
+    case 1:
+      new Toast('Runde läuft noch');
+      break;
+    case 2:
+      $('#games .finished .newround').click();
+      break;
+    }
   }
 
   function finishRound () {
