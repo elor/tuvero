@@ -2,8 +2,6 @@
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
 * swiss halves: use ranking
 * debugging tools: play as long as possible
-* debugging tools: extra tab
-* Tabs: hidden tab (for debugging tools)
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random
 * Tab_Games: sort function
