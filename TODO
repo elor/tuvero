@@ -26,3 +26,6 @@
 * Ranking: Small Points
 * Ranking: Sonneborn-Berger-Zahl
 * Loading Screen for large tournaments (512 players)
+* tab_debug: use global strings object for toasts
+* autocomplete names: read names from a file
+* hide/remove copy-paste fields

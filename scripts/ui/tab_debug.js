@@ -31,6 +31,53 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
     return first + ' ' + last;
   }
 
+  function updateTabs () {
+    require('./alltabs').update();
+    new Toast('Alle Tabs neu geladen');
+  }
+
+  function loadMods () {
+    var key, keyparts, rjsdef, subobject, partid, part;
+
+    rjsdef = require.s.contexts._.defined;
+    if (!rjsdef) {
+      console.error('require.s.contexts._.defined is undefined');
+      return;
+    }
+
+    mods = {};
+
+    // add every key to mods, which is similar to the directory tree
+    for (key in rjsdef) {
+      keyparts = key.split('/');
+      // change the key words for a global naming scheme
+      if (keyparts.length === 1) {
+        keyparts.unshift('ui');
+      }
+      if (keyparts[0] === '..') {
+        keyparts.shift();
+      }
+
+      subobject = mods;
+
+      // search the position of the key, add new objects as necessary
+      for (partid = 0; partid < keyparts.length; ++partid) {
+        part = keyparts[partid];
+        if (partid >= keyparts.length - 1) {
+          subobject[part] = rjsdef[key];
+        } else {
+          if (subobject[part] === undefined) {
+            subobject[part] = {};
+          }
+
+          subobject = subobject[part];
+        }
+      }
+    }
+
+    new Toast('global mods object added');
+  }
+
   function clearEverything () {
     var Storage;
 
@@ -50,6 +97,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
 
     if (!Tab_Teams.getOptions().allowRegistrations) {
       new Toast('error: registration closed');
+      return;
     }
 
     num = Number(form.register.$num.val());
@@ -123,6 +171,11 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
         $finishRound : $tab.find('.tournament .round'),
         $playTournament : $tab.find('.tournament .all'),
       },
+      script : {
+        $form : $tab.find('.script'),
+        $loadmods : $tab.find('.script .loadmods'),
+        $updatetabs : $tab.find('.script .updatetabs'),
+      }
     };
 
     // register buttons and stuff
@@ -148,6 +201,16 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
     });
     form.games.$playTournament.click(function (e) {
       playTournament();
+      e.preventDefault();
+      return false;
+    });
+    form.script.$loadmods.click(function (e) {
+      loadMods();
+      e.preventDefault();
+      return false;
+    });
+    form.script.$updatetabs.click(function (e) {
+      updateTabs();
       e.preventDefault();
       return false;
     });
