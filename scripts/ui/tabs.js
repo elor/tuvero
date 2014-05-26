@@ -38,10 +38,18 @@ define([ './options' ], function (Options) {
       visible = [];
 
       function openValidTab () {
-        var tabindex, index;
+        var tabindex, index, currentTab;
 
         // show the first tab of this set if hash doesn't match any of them
-        tabindex = tabs.indexOf(location.hash.replace(/^#/, ''));
+        currentTab = location.hash.replace(/^#/, '');
+
+        if (currentTab === 'debug') {
+          // don't mess with a guy who's just debugging
+          return;
+        }
+
+        tabindex = tabs.indexOf();
+        // TODO apply parens to make it cleas!
         if (enforce && tabindex === -1 || !visible[tabindex]) {
           index = visible.indexOf(true);
           if (index === -1) {

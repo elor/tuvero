@@ -1,5 +1,6 @@
-* debugging tools: finish all games
-* debugging tools: enter N players
+* auto-create the manifest
+* swiss new round by wins: backtracking (-> allow identical match as last resort)
+* swiss halves: use ranking
 * debugging tools: play as long as possible
 * debugging tools: extra tab
 * Tabs: hidden tab (for debugging tools)
@@ -26,3 +27,4 @@
 * General Ranking Class
 * Ranking: Small Points
 * Ranking: Sonneborn-Berger-Zahl
+* Loading Screen for large tournaments (512 players)

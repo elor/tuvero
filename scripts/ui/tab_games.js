@@ -617,8 +617,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function init () {
-    var i;
-
     if ($tab) {
       console.error('tab_games: $tab is already defined:');
       console.error($tab);

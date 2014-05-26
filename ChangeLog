@@ -1,6 +1,14 @@
 2014-05-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
-	*
+	* scripts/ui/tab_games.js: tiny variable cleanup (var i removed)
+	* boules.html: hidden debugging tab added
+	* images/debug.png: hidden debugging tab added
+	* scripts/ui/alltabs.js: hidden debugging tab added
+	* scripts/ui/tab_debug.js: hidden debugging tab added
+	* scripts/ui/tab_games.js: hidden debugging tab added
+	* scripts/ui/tabs.js: hidden debugging tab added
+	* style/debug.css: hidden debugging tab added
+	* style/mainstyle.css: hidden debugging tab added
 
 2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
@@ -25,4 +33,3 @@
 	* scripts/ui/strings.js: CSV headers: multiword strings grouped with quotes
 
 	* scripts/ui/tab_games: using Options (Opts) to allow registrations
-
