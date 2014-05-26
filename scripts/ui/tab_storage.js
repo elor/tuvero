@@ -9,12 +9,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   function initCSV () {
     areas.csv = {};
     areas.csv.$download = $tab.find('.csv a');
-    areas.csv.$text = $tab.find('.csv textarea');
     areas.csv.$buttons = $tab.find('.csv button');
-
-    areas.csv.$text.click(function () {
-      areas.csv.$text.select();
-    });
 
     // set csv selection buttons
     areas.csv.$buttons.click(function () {
@@ -36,9 +31,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     areas.csv.$download.attr('href', '#');
     areas.csv.$download.hide();
-
-    areas.csv.$text.val('');
-    areas.csv.$text.hide();
   }
 
   function csvupdate () {
@@ -68,21 +60,12 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     // update download link
     areas.csv.$download.attr('href', 'data:application/csv;base64,' + btoa(csv));
     areas.csv.$download.show();
-
-    // update area
-    areas.csv.$text.val(csv);
-    areas.csv.$text.show();
   }
 
   function initSave () {
     areas.save = {};
     areas.save.$download = $tab.find('.save a');
-    areas.save.$text = $tab.find('.save textarea');
     areas.save.$button = $tab.find('.save button');
-
-    areas.save.$text.click(function () {
-      areas.save.$text.select();
-    });
 
     areas.save.$button.click(function () {
       areas.save.$button.toggleClass('selected');
@@ -106,10 +89,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     // update link
     areas.save.$download.attr('href', 'data:application/json;base64,' + btoa(save));
     areas.save.$download.show();
-
-    // update area
-    areas.save.$text.val(save);
-    areas.save.$text.show();
   }
 
   function invalidateSave () {
@@ -117,31 +96,12 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     areas.save.$download.hide();
 
     $tab.find('.save .selected').removeClass('selected');
-
-    areas.save.$text.val('');
-    areas.save.$text.hide();
   }
 
   function initLoad () {
     areas.load = {};
 
-    areas.load.$text = $tab.find('.load textarea');
-    areas.load.$button = $tab.find('.load button');
     areas.load.$file = $tab.find('.load input.file');
-
-    areas.load.$text.click(function () {
-      areas.load.$text.select();
-    });
-
-    areas.load.$button.click(function () {
-      areas.load.$button.toggleClass('selected');
-
-      if (areas.load.$button.hasClass('selected')) {
-        areas.load.$text.show();
-      } else {
-        updateLoad();
-      }
-    });
 
     areas.load.$file.change(function (evt) {
       var reader = new FileReader();
@@ -153,35 +113,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     });
   }
 
-  function updateLoad () {
-    var load;
-
-    load = areas.load.$text.val();
-
-    Storage.enable();
-    Storage.clear(Options.dbname);
-
-    try {
-      if (Blob.fromBlob(load)) {
-        Storage.changed();
-        Tab_Storage.toggleStorage();
-        new Toast(Strings.loaded);
-      }
-    } catch (e) {
-      new Toast(Strings.loadfailed);
-      window.setTimeout(function () {
-        // FIXME don't reload, but warn and reset from storage
-        window.location.reload();
-      }, 2000);
-    }
-
-    invalidateLoad();
-  }
-
   function invalidateLoad () {
-    areas.load.$text.val('');
-    areas.load.$text.hide();
-
     $tab.find('.load .selected').removeClass('selected');
 
     areas.load.$file.val('');
@@ -207,8 +139,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     var blob;
 
     blob = evt.target.result;
-
-    areas.load.$text.val(blob);
 
     Storage.enable();
     Storage.clear(Options.dbname);
@@ -238,7 +168,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     areas.local.$autosave = $tab.find('.local input.autosave');
     areas.local.$savebutton = $tab.find('.local button.save');
-    areas.local.$clearbox = $tab.find('.local input.clearbox');
     areas.local.$clearbutton = $tab.find('.local button.clear');
 
     areas.local.$savebutton.click(function () {
@@ -261,15 +190,11 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       }
     });
 
-    areas.local.$clearbox.click(function () {
-      if (areas.local.$clearbox.prop('checked')) {
-        areas.local.$clearbutton.prop('disabled', false);
-      } else {
-        areas.local.$clearbutton.prop('disabled', true);
-      }
-    });
-
-    areas.local.$clearbutton.click(function () {
+    areas.local.$clearbutton.hover(function () {
+      areas.local.$clearbutton.addClass('dangerous');
+    }, function () {
+      areas.local.$clearbutton.removeClass('dangerous');
+    }).click(function () {
       // TODO use some jQuery magic
       if (confirm(Strings.clearstorage)) {
         Storage.enable();

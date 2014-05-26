@@ -45,3 +45,7 @@
 #storage .devel > div {
   display: inline-block;
 }
+
+#storage .dangerous {
+  background-color: #ee0000;
+}

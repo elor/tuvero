@@ -276,12 +276,12 @@
         <div class="block csv">
           <h3>Tabellen-Export</h3>
           <p>
-            Exportierte '.csv'-Dateien lassen sich mit Office-Programmen
+            Exportierte csv-Dateien lassen sich bequem mit Office-Programmen
             wie Excel, LibreOffice und Google Docs öffnen.
           </p>
           <p class="noadownload">
-            Damit die Datei richtig erkannt wird,
-            muss sie mit ihrer '.csv'-Dateiendung gespeichert werden,
+            Damit die Datei geöffnet werden kann,
+            muss sie mit der .csv-Dateiendung gespeichert werden,
             beispielsweise als 'boules.csv'.
           </p>
           <button>
@@ -293,8 +293,6 @@
           <button>
             <img src="images/history.png" />
           </button>
-          <br>
-          <textarea rows="20" cols="50" readonly></textarea>
           <br>
           <a href="#" type="application/csv" download="boules.csv">Download</a>
         </div>
@@ -309,13 +307,8 @@
         <div class="block save json">
           <h3>Turnier speichern</h3>
           <p>
-            Das Turnier lässt sich in einer Datei zur späteren
-            Fortsetzung des Turnieres speichern.
-          </p>
-          <p class="storage">
-            Obwohl das Turnier automatisch gespeichert
-            wird, wird empfohlen, gelegentlich eine manuelle Sicherung
-            anzulegen.
+            Speichert das aktuelle Turnier in einer Datei. Diese kann später
+            wieder geladen werden, um das Turnier wieder herzustellen.
           </p>
           <p class="nostorage">
             Um das Turnier nach Schließen des Browsers
@@ -327,43 +320,32 @@
             <img src="images/download.png" />
           </button>
           <br>
-          <textarea rows="20" cols="50" readonly></textarea>
-          <br>
           <a href="#" type="application/json" download="boules.json">Download</a>
         </div>
 
         <div class="block load json">
           <h3>Turnier laden</h3>
           <p>
-            Das Turnier wird aus einer Sicherungsdatei geladen. Das
-            aktuelle Turnier wird dabei überschrieben.
+            Das Turnier wird aus einer Datei neu geladen. Eventuell laufende
+            Turniere werden überschrieben.
           </p>
           <input class="filereader file" type="file" />
-          <br>
-          <button>
-            <img src="images/upload.png" />
-          </button>
-          <br>
-          <textarea rows="20" cols="50"></textarea>
         </div>
 
         <div class="block local storage json">
           <h3>Gespeicherte Daten</h3>
           <p>
-            Das Turnier wird automatisch gespeichert, wodurch es nach dem
-            Schließen des Browsers automatisch fortgesetzt wird. Auf Wunsch
-            können die gespeicherten Daten gelöscht werden.
+            Das Turnier wird vom Browser automatisch gespeichert und kann nach
+            Schließen des Browsers automatisch fortgesetzt werden.
           </p>
           <button class="save">
             Speichern
           </button>
           <input type="checkbox" class="autosave" checked />
-          Automatisches
-          Speichern
+          Automatisch Speichern
           <br>
-          <input type="checkbox" class="clearbox" />
-          <button class="clear" disabled>
-            Gespeicherte Daten löschen
+          <button class="clear" tabindex="-1">
+            Turnier löschen
           </button>
         </div>
 
@@ -371,12 +353,12 @@
           <h3>Entwicklerwerkzeuge</h3>
           <div>
             <a href="test.html"><img src="images/puzzle.png" />
-            <br />
+            <br>
             Unit Tests</a>
           </div>
           <div>
             <a href="#debug"><img src="images/debug.png" />
-            <br />
+            <br>
             Debugging Console</a>
           </div>
         </div>
@@ -394,19 +376,19 @@
             Teams registrieren
           </button>
           <button class="delete">
-            Storage löschen
+            Alles löschen
           </button>
         </form>
 
         <form class="tournament">
-          <button class="all">
-            Turnier bis zum Schluss ausspielen
-          </button>
           <button class="start">
             Runde starten
           </button>
           <button class="round">
             Runde ausspielen
+          </button>
+          <button class="all">
+            Turnier durchspielen
           </button>
         </form>
 

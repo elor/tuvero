@@ -12,6 +12,9 @@
 	* scripts/backend/finebuchholzranking.js: games[] added
 	* scripts/backend/swisstournament.js: getRanking().games[] added
 	* scripts/ui/tab_ranking.js: number of games
+	* scripts/ui/tab_storage: developer tools added
+	textareas and localstorage-checkbox removed
+	
 
 2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
