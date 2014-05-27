@@ -103,29 +103,30 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   function initPreparations () {
     // close registration and start swiss tournament
     // TODO other tournament types and options
-    $tab.find('.preparing .swiss').submit(function () {
+    $tab.find('.preparing .swiss').submit(function (e) {
       // TODO dynamic threshold for different tournament types (grey others out)
       if (Team.count() < 2) {
         new Toast(Strings.notenoughteams);
-        return;
+      } else {
+        setSwissMode($tab.find('.preparing .swiss .mode').val());
+
+        // register all teams at the tournament
+        Team.prepareTournament(Swiss);
+        new Toast(Strings.registrationclosed);
+
+        // show game overview and hide this button
+        stage(stage.RUNNING);
+
+        // start game and notify of possible failure (i.e. too few teams)
+        if (Swiss.start() === undefined) {
+          new Toast(Strings.startfailed, 5);
+        } else {
+          startRound();
+        }
       }
 
-      setSwissMode($tab.find('.preparing .swiss .mode').val());
-
-      // register all teams at the tournament
-      Team.prepareTournament(Swiss);
-      new Toast(Strings.registrationclosed);
-
-      // show game overview and hide this button
-      stage(stage.RUNNING);
-
-      // start game and notify of possible failure (i.e. too few teams)
-      if (Swiss.start() === undefined) {
-        new Toast(Strings.startfailed, 5);
-        return undefined;
-      }
-
-      startRound();
+      e.preventDefault();
+      return false;
     });
   }
 
