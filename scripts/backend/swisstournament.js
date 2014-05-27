@@ -542,7 +542,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // abort if there are no consistent wingroups, which is a sign for too
     // many rounds
     if (wingroups === undefined) {
-      console.log('cannot form consistent wingroups')
+      console.error('cannot form consistent wingroups')
       return undefined;
     }
 
@@ -576,8 +576,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       console.error('no lowest win group detected, meaning that there are not players');
       return undefined;
     }
-
-    console.log("lowestWinGroup: " + lowestWinGroup);
 
     // for each wingroup:
     wingroups.forEach(function (wingroup, wins) {
