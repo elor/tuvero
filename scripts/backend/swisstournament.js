@@ -393,9 +393,12 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       }
     }
 
+    clearRoundvotes.call(this);
+
     this.games = newgames;
     if (bye !== undefined) {
       byeVote.call(this, bye);
+      this.roundvotes.byevote = bye;
     }
 
     return this;
@@ -476,6 +479,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       }
 
       bye = this.rng.pick(byes);
+      lower.splice(lower.indexOf(bye), 1);
     }
 
     // just randomize it
@@ -502,9 +506,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     // apply
+    clearRoundvotes.call(this);
     this.games = newgames;
     if (bye !== undefined) {
       byeVote.call(this, bye);
+      this.roundvotes.byevote = bye;
     }
 
     return this;
@@ -729,6 +735,15 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     return wingroups;
+  }
+
+  // TODO write a clear solution instead of dirty hacks
+  function clearRoundvotes () {
+    this.roundvotes = {
+      upvotes : [],
+      downvotes : [],
+      byevote : undefined,
+    };
   }
 
   /**
