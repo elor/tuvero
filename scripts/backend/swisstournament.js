@@ -523,7 +523,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns this on success, undefined otherwise
    */
   function newRoundByWins () {
-    var wingroups, votes, newgames, timeout;
+    var wingroups, votes, newgames, timeout, lowestWinGroup;
     // TODO add backtracking
 
     // abort if the tournament isn't running
@@ -532,6 +532,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
     // abort if there are unfinished games from a previous round
     if (this.games.length !== 0) {
+      console.error('there are still games running');
       return undefined;
     }
 
@@ -541,6 +542,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // abort if there are no consistent wingroups, which is a sign for too
     // many rounds
     if (wingroups === undefined) {
+      console.log('cannot form consistent wingroups')
       return undefined;
     }
 
@@ -548,6 +550,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     if (votes === undefined) {
       // abort. there's no way to downvote properly
+      console.error('wingroups: missing downvotes');
       return undefined;
     }
 
@@ -563,6 +566,19 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     newgames = [];
 
+    for (lowestWinGroup = 0; lowestWinGroup < wingroups.length; lowestWinGroup += 1) {
+      if (wingroups[lowestWinGroup] !== undefined && wingroups[lowestWinGroup].length !== 0) {
+        break;
+      }
+    }
+
+    if (lowestWinGroup === wingroups.length) {
+      console.error('no lowest win group detected, meaning that there are not players');
+      return undefined;
+    }
+
+    console.log("lowestWinGroup: " + lowestWinGroup);
+
     // for each wingroup:
     wingroups.forEach(function (wingroup, wins) {
       var candidates, p1, p2;
@@ -573,7 +589,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       }
 
       p1 = votes.downvotes[wins];
-      if (wins === 0) {
+      if (wins === lowestWinGroup) {
         p1 = votes.byevote;
       }
       if (p1 !== undefined) {
@@ -708,6 +724,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     wingroups = [];
 
     highest = -1;
+    lowest = -1;
 
     res = this.ranking.get();
 
@@ -730,7 +747,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     for (wins = 0; wins <= highest; wins += 1) {
       if (wingroups[wins] === undefined) {
         // there's a wingroup missing. The tournament lasts too long
-        return undefined;
+        // return undefined;
+        console.error('wingroup #' + wins + ' is empty');
       }
     }
 
@@ -759,13 +777,24 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // Due to the symmetric properties of a swiss tournament, we don't
     // verify possible upvotes. If the tournament has too many rounds, this
     // may fail someday.
-    var byevote, downvotes, w, candidates, downvoted, fillCandidates;
+    var byevote, downvotes, w, candidates, downvoted, fillCandidates, lowestWinGroup;
 
     byevote = undefined;
     downvoted = false; // whether a player has been downvoted into the
     // current wingroup
     downvotes = [];
     candidates = [];
+
+    for (lowestWinGroup = 0; lowestWinGroup < wingroups.length; lowestWinGroup += 1) {
+      if (wingroups[lowestWinGroup] !== undefined && wingroups[lowestWinGroup].length !== 0) {
+        break;
+      }
+    }
+
+    if (lowestWinGroup === wingroups.length) {
+      console.error('no lowest win group detected, meaning that there are not players');
+      return undefined;
+    }
 
     // forEach-function to fill the candidates array. DownVote version.
     fillCandidates = function (pid) {
@@ -777,7 +806,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // iterate over all wingroups, starting with the highest one, thereby
     // ensuring that all groups except the lowest one are even in player
     // count.
-    for (w = wingroups.length - 1; w > 0; w -= 1) {
+    for (w = wingroups.length - 1; w > lowestWinGroup; w -= 1) {
       // only downvote a player if the current group has an odd number of
       // players
       if ((wingroups[w].length + (downvoted ? 1 : 0)) & 0x1) {
@@ -787,6 +816,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
         // abort if no player can be downvoted
         if (candidates.length === 0) {
+          console.error('no player in wingroup ' + w + ' can be downvoted');
           return undefined;
         }
 
@@ -800,7 +830,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // byevote from the lowest group, if necessary. Same procedure as with
     // the downvotes
-    if ((wingroups[0].length + (downvoted ? 1 : 0)) & 0x1) {
+    if ((wingroups[lowestWinGroup].length + (downvoted ? 1 : 0)) & 0x1) {
       candidates = [];
       // forEach-function to fill the candidates array. ByeVote version.
       fillCandidates = function (pid) {
@@ -809,9 +839,10 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         }
       };
 
-      wingroups[0].forEach(fillCandidates, this);
+      wingroups[lowestWinGroup].forEach(fillCandidates, this);
 
       if (candidates.length === 0) {
+        console.error('no candidate wingroup ' + w + ' can be byevoted');
         return undefined;
       }
 

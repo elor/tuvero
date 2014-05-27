@@ -3,6 +3,7 @@
 	* boules.html: debug values changed
 
 	* scripts/backend/swisstournament.js: mode 'halves': byevote fixed
+	allowed more corner cases when working with win groups
 
 	* scripts/ui/alltabs.js: tab_debug added
 
