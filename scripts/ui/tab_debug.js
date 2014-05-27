@@ -1,4 +1,5 @@
-define([ './tabshandle', './opts', './toast', '../backend/random', './options' ], function (Tabshandle, Opts, Toast, Random, Options) {
+define([ './tabshandle', './opts', './toast', '../backend/random', './options',
+    './strings' ], function (Tabshandle, Opts, Toast, Random, Options, Strings) {
   var Tab_Debug, $tab, form, options, letters, Letters, rng;
 
   Tab_Debug = {};
@@ -79,16 +80,20 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
   }
 
   function clearEverything () {
-    var Storage, Alltabs;
+    var Storage, Alltabs, Blob, Tab_Storage;
 
     Storage = require('./storage');
+    Alltabs = require('./alltabs');
+    Blob = require('./blob');
+    Tab_Storage = require('./tab_storage');
+
     Storage.enable();
     Storage.clear(Options.dbname);
-    Alltabs = require('./alltabs');
     Alltabs.reset();
     Blob.reset();
-    new Toast(Strings.newtournament);
     Alltabs.update();
+
+    new Toast(Strings.newtournament);
 
     Tab_Storage.toggleStorage();
   }
