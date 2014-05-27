@@ -4,9 +4,11 @@
  */
 
 define(function () {
-  var Options;
+  var Options, Default;
 
-  Options = {
+  Options = {};
+
+  Default = {
     teamsize : 3,
     maxteamsize : 3,
     maxpoints : 13,
@@ -36,6 +38,13 @@ define(function () {
       }
     }
   };
+
+  Options.reset = function () {
+    // just use available functions instead of cloning
+    Options.fromBlob(JSON.stringify(Default));
+  };
+
+  Options.reset();
 
   return Options;
 });

@@ -202,16 +202,10 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         Storage.clear(Options.dbname);
 
         Alltabs = require('./alltabs');
+
         Alltabs.reset();
-
-        Storage.enable();
-
-        if (Storage.restore()) {
-          new Toast(Strings.loaded);
-        } else {
-          new Toast(Strings.newtournament);
-        }
-
+        Blob.reset();
+        new Toast(Strings.newtournament);
         Alltabs.update();
 
         Tab_Storage.toggleStorage();

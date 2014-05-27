@@ -101,5 +101,12 @@ define([ './options', './strings' ], function (Options, Strings) {
     teams = JSON.parse(blob);
   };
 
+  /**
+   * resets the teams
+   */
+  Team.reset = function () {
+    teams = [];
+  };
+
   return Team;
 });

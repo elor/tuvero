@@ -53,7 +53,18 @@ define([ './options', './tabshandle', './team', './history', './swiss',
       Tab_Ranking.update(); // attempt ranking update
 
       return true;
-    }
+    },
+
+    /**
+     * resets everything managed by Blob
+     */
+    reset : function () {
+      Team.reset();
+      History.reset();
+      Swiss.reset();
+      Options.reset();
+      Tabshandle.updateOpts();
+    },
   };
 
   return Blob;

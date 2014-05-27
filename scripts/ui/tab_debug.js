@@ -79,15 +79,18 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options' ]
   }
 
   function clearEverything () {
-    var Storage;
+    var Storage, Alltabs;
 
     Storage = require('./storage');
     Storage.enable();
     Storage.clear(Options.dbname);
-    window.location.hash = '#debug';
-    // TODO don't reload, just reset
-    window.location.reload();
+    Alltabs = require('./alltabs');
+    Alltabs.reset();
+    Blob.reset();
+    new Toast(Strings.newtournament);
+    Alltabs.update();
 
+    Tab_Storage.toggleStorage();
   }
 
   function registerPlayers () {
