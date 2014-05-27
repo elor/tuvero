@@ -149,12 +149,14 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         // TODO event handler
         Tab_Storage.toggleStorage();
         new Toast(Strings.loaded);
+      } else {
+        // TODO what if something invalid has been returned?
       }
     } catch (e) {
       new Toast(Strings.loadfailed);
       window.setTimeout(function () {
         // TODO don't reload, but reset from storage or something
-        window.location.reload();
+        window.location.reload(); // reload after load fail
       }, 2000);
     }
   }
