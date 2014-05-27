@@ -170,7 +170,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     areas.local.$savebutton = $tab.find('.local button.save');
     areas.local.$clearbutton = $tab.find('.local button.clear');
 
-    areas.local.$savebutton.click(function () {
+    areas.local.$savebutton.click(function (e) {
       Storage.enable();
 
       if (Storage.store()) {
@@ -180,6 +180,9 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       }
 
       Tab_Storage.toggleStorage();
+
+      e.preventDefault();
+      return false;
     });
 
     areas.local.$autosave.click(function () {
@@ -190,15 +193,32 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       }
     });
 
-    areas.local.$clearbutton.click(function () {
+    areas.local.$clearbutton.click(function (e) {
+      var Alltabs;
+
       // TODO use some jQuery magic
       if (confirm(Strings.clearstorage)) {
         Storage.enable();
         Storage.clear(Options.dbname);
-        window.location.hash = '#';
-        // TODO don't reload, just reset
-        window.location.reload();
+
+        Alltabs = require('./alltabs');
+        Alltabs.reset();
+
+        Storage.enable();
+
+        if (Storage.restore()) {
+          new Toast(Strings.loaded);
+        } else {
+          new Toast(Strings.newtournament);
+        }
+
+        Alltabs.update();
+
+        Tab_Storage.toggleStorage();
       }
+
+      e.preventDefault();
+      return false;
     });
   }
 

@@ -2,23 +2,44 @@
 
 	* scripts/backend/swisstournament.js: mode 'halves': byevote fixed
 
+	* scripts/ui/alltabs.js: tab_debug added
+
+	* scripts/ui/tab_games.js: Don't reload on tournament start
+
+	* scripts/ui/tab_storage.js: Don't reload no storage clear
+
+	* scripts/ui/test/tab.js: tab_debug and alltabs (technically a tab) added
+
+
 2014-05-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: tiny variable cleanup (var i removed)
+
 	* boules.html: hidden debugging tab added
+
 	* images/debug.png: hidden debugging tab added
+
 	* scripts/ui/alltabs.js: hidden debugging tab added
+
 	* scripts/ui/tab_debug.js: hidden debugging tab added
+
 	* scripts/ui/tab_games.js: hidden debugging tab added
 	options.stage added
+
 	* scripts/ui/tabs.js: hidden debugging tab added
+
 	* style/debug.css: hidden debugging tab added
+
 	* style/mainstyle.css: hidden debugging tab added
+
 	* scripts/backend/finebuchholzranking.js: games[] added
+
 	* scripts/backend/swisstournament.js: getRanking().games[] added
 	newRoundByHalves uses ranking order
 	newRoundBy* fixed
+
 	* scripts/ui/tab_ranking.js: number of games
+
 	* scripts/ui/tab_storage: developer tools added
 	textareas and localstorage-checkbox removed
 	
@@ -46,3 +67,6 @@
 	* scripts/ui/strings.js: CSV headers: multiword strings grouped with quotes
 
 	* scripts/ui/tab_games: using Options (Opts) to allow registrations
+
+	* ChangeLog: changelog started. For previous changes, see git history
+
