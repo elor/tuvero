@@ -175,6 +175,38 @@
         </div>
         <div class="finished">
           <h2> Runde <span class="round">##</span> beendet </h2>
+          <table class="votepermissions">
+            <tr class="up">
+              <td>&#x25b2;&#x21cf;</td>
+              <td class="perm up">&#x25b2;</td>
+              <td class="perm down">&#x25bc;</td>
+              <td class="perm bye">&#x2205;</td>
+            </tr>
+            <tr class="down">
+              <td>&#x25bc;&#x21cf;</td>
+              <td class="perm up">&#x25b2;</td>
+              <td class="perm down">&#x25bc;</td>
+              <td class="perm bye">&#x2205;</td>
+            </tr>
+            <tr class="bye">
+              <td>&#x2205;&#x21cf;</td>
+              <td class="perm up">&#x25b2;</td>
+              <td class="perm down">&#x25bc;</td>
+              <td class="perm bye">&#x2205;</td>
+            </tr>
+            <tr>
+              <td colspan="4">
+              <select class="preset">
+                <option value="strict">streng</option>
+                <option value="updown" selected="selected">hoch/runter</option>
+                <option value="pvo" selected="selected">PVO LM</option>
+                <option value="relaxed">gelockert</option>
+                <option value="none">frei</option>
+                <option value="custom">manuell</option>
+              </select></td>
+            </tr>
+          </table>
+
           <button class="newround">
             Neue Runde
           </button>

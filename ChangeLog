@@ -9,6 +9,7 @@
 	* scripts/ui/tab_debug: don't reload on storage clear
 
 	* scripts/ui/tab_games.js: Don't reload on tournament start
+	permission selection added
 
 	* scripts/ui/tab_storage.js: Don't reload no storage clear
 

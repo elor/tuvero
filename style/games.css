@@ -124,3 +124,15 @@
   display: none;
 }
 
+#games .finished .votepermissions .perm {
+  cursor: pointer;
+}
+
+#games .finished .votepermissions .forbidden {
+  color: #a3a3a3;
+}
+
+#games .finished .votepermissions .perm:hover {
+  color: #969696;
+}
+

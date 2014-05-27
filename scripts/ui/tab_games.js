@@ -1,7 +1,98 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
     './tab_ranking', './history', './tab_history', './storage', './options',
     './opts' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts) {
-  var Tab_Games, $tab, $stages, template, games, $games, options;
+  var Tab_Games, $tab, $stages, template, games, $games, options, $perms, permPresets;
+
+  // TODO move to its own file / database
+  permPresets = {
+    strict : {
+      up : {
+        up : false,
+        down : false,
+        bye : false
+      },
+      down : {
+        up : false,
+        down : false,
+        bye : false
+      },
+      bye : {
+        up : false,
+        down : false,
+        bye : false
+      },
+    },
+    none : {
+      up : {
+        up : true,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : true,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : true
+      },
+    },
+    updown : {
+      up : {
+        up : false,
+        down : false,
+        bye : true
+      },
+      down : {
+        up : false,
+        down : false,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : false
+      },
+    },
+    pvo : {
+      up : {
+        up : false,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : false,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : false
+      },
+    },
+    relaxed : {
+      up : {
+        up : false,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : false,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : true
+      },
+    },
+    // indicate that we don't want to change anything
+    custom : undefined
+  };
 
   // references to html elements of the games
   $games = [];
@@ -589,6 +680,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   function newRound () {
     var i;
 
+    setSwissPermissions();
+
     for (i = 0; i < 10; i += 1) {
       if (Swiss.start() !== undefined) {
         break;
@@ -606,11 +699,133 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     startRound();
   }
 
+  function setPermissions (perms) {
+    var k1, k2, keys;
+
+    $perms.all.removeClass('forbidden');
+
+    for (k1 in perms) {
+      for (k2 in perms) {
+        if (perms[k1][k2] === false) {
+          $perms[k2][k1].addClass('forbidden');
+        }
+      }
+    }
+  }
+
+  function updatePermissions () {
+    var perms;
+
+    perms = Swiss.getOptions().permissions;
+
+    setPermissions(perms);
+  }
+
+  function readPermissions () {
+    var perms;
+
+    perms = {
+      up : {},
+      down : {},
+      bye : {},
+    };
+
+    // flip the order (swisstournament logic is different)
+    // flip the value (permitted vs. forbidden)
+    for (k1 in perms) {
+      for (k2 in perms) {
+        perms[k1][k2] = !$perms[k2][k1].hasClass('forbidden');
+      }
+    }
+
+    return perms;
+  }
+
+  function setSwissPermissions () {
+    var opts = Swiss.getOptions();
+    opts.permissions = readPermissions();
+    Swiss.setOptions(opts);
+  }
+
+  function readPermissionPreset () {
+    var preset;
+
+    preset = $perms.preset.val();
+
+    if (permPresets[preset]) {
+      setPermissions(permPresets[preset]);
+    } else if (preset === 'custom') {
+      // all fine
+    } else {
+      console.error('unknown permission preset: ' + preset);
+    }
+  }
+
+  function initPermissions () {
+    var $container;
+
+    if ($perms) {
+      console.error('initPermissions: $perms has already been defined');
+      return undefined;
+    }
+
+    $container = $tab.find('.finished .votepermissions');
+
+    $perms = {
+      up : {
+        up : $container.find('.up .up'),
+        down : $container.find('.up .down'),
+        bye : $container.find('.up .bye'),
+      },
+      down : {
+        up : $container.find('.down .up'),
+        down : $container.find('.down .down'),
+        bye : $container.find('.down .bye'),
+      },
+      bye : {
+        up : $container.find('.bye .up'),
+        down : $container.find('.bye .down'),
+        bye : $container.find('.bye .bye'),
+      },
+      preset : $container.find('.preset'),
+      all : $container.find('.perm'),
+    };
+
+    $perms.all.click(function (event) {
+      var $this;
+
+      $this = $(this);
+
+      // TODO don't save the state of the system in the DOM!
+      if ($this.hasClass('forbidden')) {
+        $this.removeClass('forbidden');
+      } else {
+        $this.addClass('forbidden');
+      }
+
+      $perms.preset.val('custom');
+
+      event.preventDefault();
+      return false;
+    });
+
+    $perms.preset.change(function (event) {
+      readPermissionPreset();
+
+      event.preventDefault();
+      return false;
+    });
+
+    readPermissionPreset();
+  }
+
   function initFinished () {
     $stages[stage.FINISHED].find('button.newround').click(newRound);
     $stages[stage.FINISHED].find('button.korounds').click(function () {
       new Toast(Strings.notimplemented);
     });
+
+    initPermissions();
   }
 
   function initMaxWidth () {

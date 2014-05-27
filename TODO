@@ -1,3 +1,5 @@
+* IMPORTANT: give the bye in the last wingroup, not necessarily wingroup 0
+* design our own icons
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
 * add tournament selection to Tab_New
 * history: store which mode a round was in
