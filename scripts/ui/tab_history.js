@@ -35,8 +35,6 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    *          a result as returned by history.get()
    */
   Tab_History.createBox = function (result) {
-    // console.log(currentround);
-    // console.log(template.$anchor);
     if (currentround === 0 || template.$anchor === undefined) {
       return undefined;
     }

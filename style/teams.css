@@ -29,7 +29,7 @@
 
 #teams .team .name {
   display: inline-block;
-  line-height: 1em;
+  line-height: 1.2em;
 }
 
 #teams .team .name:hover {

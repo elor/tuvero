@@ -6,8 +6,6 @@ define([ './tab_history', './tab_ranking', './tab_new',
     './tab_teams', './tab_games', './tab_debug', './tab_storage' ], function () {
   var tab, tabs, Alltabs;
 
-  console.log(require('./tab_debug'));
-
   tabs = [];
 
   for (tab = 0; tab < arguments.length; tab += 1) {

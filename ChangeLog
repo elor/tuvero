@@ -1,5 +1,7 @@
 2014-05-27  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
 
+	* boules.html: debug values changed
+
 	* scripts/backend/swisstournament.js: mode 'halves': byevote fixed
 
 	* scripts/ui/alltabs.js: tab_debug added
@@ -9,6 +11,8 @@
 	* scripts/ui/tab_storage.js: Don't reload no storage clear
 
 	* scripts/ui/test/tab.js: tab_debug and alltabs (technically a tab) added
+
+	* style/teams.css: name height extended to a reasonable value
 
 
 2014-05-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
