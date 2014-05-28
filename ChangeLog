@@ -6,6 +6,9 @@
 
 	* scripts/ui/toast.js: reading fading times from css
 
+	* scripts/ui/tab_debug.js: finishtournament implemented
+
+
 	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
 	showing the number of votes
 

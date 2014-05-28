@@ -166,7 +166,7 @@ define([ './team', './toast', './strings', './swiss', './options',
       vote.push(Strings.byevote);
     }
 
-    template.rank.$fields[10].text(vote.join(', '));
+    template.rank.$fields[10].text(vote.join(''));
 
     return template.rank.$row.clone();
   }

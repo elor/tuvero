@@ -161,7 +161,17 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function playTournament () {
-    new Toast('Noch nicht verfügbar');
+    var Swiss;
+
+    Swiss = require('./swiss');
+
+    startRound() || startRound() || startRound();
+    while (Swiss.getState() == 1) {
+      finishRound();
+      startRound() || startRound() || startRound();
+    }
+
+    new Toast('tournament finished');
   }
 
   function initForms () {
