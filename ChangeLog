@@ -25,6 +25,8 @@
 
 	* scripts/ui/tabs.js: involuntary tab reloading fixed
 
+	* scripts/backend/test/swisstournament.js: tests "fixed"
+
 2014-05-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: debug values changed

@@ -1,22 +1,29 @@
-* options: save autosave status
-* store the permissions -> create standalone permissions object
-* on reload and update, don't switch to teams tab
-* design our own icons
-* Loading Screen
-* swiss new round by wins: backtracking (-> allow identical match as last resort)
+[1.3]
 * add tournament selection to Tab_New
-* history: store which mode a round was in
+* combine first and subsequent sounds
+* autocomplete: read names from a file
+* autocomplete: read names from the interwebs, but possibly another domain...
+* Tab_Teams: delete team during registration
+* Tab_Teams: load teams from file or list
+* redesign the storage tab
+
+[later]
+* test.html: fix all errors
+* reset/store the permissions -> create standalone permissions object
 * add a print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
-* General Ranking Class
+* design our own icons
 * Ranking: arbitrary sort orders
 * Ranking: Small Points
 * Ranking: Sonneborn-Berger-Zahl
-* autocomplete: read names from the interwebs, but possibly another domain...
-* autocomplete: read names from a file
+* options: save autosave status
+* on reload and update, don't switch to teams tab
+* Loading Screen
+* swiss new round by wins: backtracking (-> allow identical match as last resort)
+* history: store which mode a round was in
+* General Ranking Class
 * (release) auto-create the manifest
 * debugging tools: implement 'finish tournament'
 * Autosave to disk (every n minutes, after every major change)
-* redesign the storage tab
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random
 * swisstournament: add mode selection for every round
@@ -24,8 +31,6 @@
 * tab_games: show vote icons next to the names. Bye still separate
 * Tab_Games: sort function
 * Tab_Ranking: sort function
-* Tab_Teams: delete team during registration
-* Tab_Teams: load teams from file or list
 * Pdf export of registered players
 * Pdf export of ranking page
 * Pdf export of Detlef's list
@@ -35,3 +40,5 @@
 * Pool backend
 * K.O. frontend
 * tab_debug: use Strings object for toasts
+* tab_games: when finishing a game, focus the next game in list
+* tab_games: show why a round cannot be started
