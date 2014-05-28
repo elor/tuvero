@@ -22,7 +22,5 @@ require([ './tabs', './toast', './strings', './storage', './tab_storage',
     }
 
     Alltabs.update();
-
-    Tab_Storage.toggleStorage();
   });
 });

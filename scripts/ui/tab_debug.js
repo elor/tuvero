@@ -94,8 +94,6 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     Alltabs.update();
 
     new Toast(Strings.newtournament);
-
-    Tab_Storage.toggleStorage();
   }
 
   function registerPlayers () {

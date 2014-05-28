@@ -147,7 +147,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       if (Blob.fromBlob(blob)) {
         Storage.changed();
         // TODO event handler
-        Tab_Storage.toggleStorage();
+        readStorageState();
         new Toast(Strings.loaded);
       } else {
         // TODO what if something invalid has been returned?
@@ -181,14 +181,14 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         new Toast(Strings.savefailed);
       }
 
-      Tab_Storage.toggleStorage();
+      readStorageState();
 
       e.preventDefault();
       return false;
     });
 
     areas.local.$autosave.click(function () {
-      if (Tab_Storage.toggleStorage()) {
+      if (readStorageState()) {
         new Toast(Strings.autosaveon);
       } else {
         new Toast(Strings.autosaveoff);
@@ -210,7 +210,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         new Toast(Strings.newtournament);
         Alltabs.update();
 
-        Tab_Storage.toggleStorage();
+        readStorageState();
       }
 
       e.preventDefault();
@@ -221,11 +221,9 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   /**
    * toggles the storage state depending on the current autosave checkbox state.
    * 
-   * FIXME get rid of this function, e.g. through an event handler
-   * 
    * @returns {Boolean} true if autosave is enabled, false otherwise
    */
-  Tab_Storage.toggleStorage = function () {
+  function readStorageState () {
     if (areas.local.$autosave.prop('checked')) {
       Storage.enable();
       return true;
@@ -233,7 +231,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     Storage.disable();
     return false;
-  };
+  }
 
   function init () {
     if ($tab) {
@@ -264,7 +262,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   };
 
   Tab_Storage.update = function () {
-    Tab_Storage.reset();
+    readStorageState();
   };
 
   Tab_Storage.getOptions = function () {

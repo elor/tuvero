@@ -542,7 +542,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // abort if there are no consistent wingroups, which is a sign for too
     // many rounds
     if (wingroups === undefined) {
-      console.error('cannot form consistent wingroups')
+      console.error('cannot form consistent wingroups');
       return undefined;
     }
 

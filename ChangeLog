@@ -1,3 +1,7 @@
+2014-05-28  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
+
+	* scripts\ui\tab_storage.js: toggleStorage function hidden
+
 2014-05-27  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
 
 	* boules.html: debug values changed

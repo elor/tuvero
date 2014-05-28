@@ -16,7 +16,7 @@ define(function () {
     }
 
     // TODO verify array of strings
-    // XXX implements.js?
+    // via implements.js?
     blobnames.sort();
     names = blobnames;
 

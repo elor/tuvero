@@ -1,3 +1,4 @@
+* options: save autosave status
 * store the permissions -> create standalone permissions object
 * remember and display the number of votes
 * on reload and update, don't switch to teams tab

@@ -536,8 +536,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // game was accepted. remove it.
     removeGame(games[index]);
-    // XXX keep game history
-    // XXX why?
 
     if (points[0] > points[1]) {
       new Toast(Strings.gamefinished);
