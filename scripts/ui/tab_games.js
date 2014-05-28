@@ -863,7 +863,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   /**
    * reset an original state.
    * 
-   * TODO: test
+   * TODO test Tab_Games.reset
    */
   Tab_Games.reset = function () {
     if (!$tab) {

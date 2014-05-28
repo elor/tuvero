@@ -259,10 +259,13 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     invalidateCSV();
     invalidateSave();
     invalidateLoad();
+
+    // TODO reset autosave?
+    readStorageState();
   };
 
   Tab_Storage.update = function () {
-    readStorageState();
+    Tab_Storage.reset();
   };
 
   Tab_Storage.getOptions = function () {

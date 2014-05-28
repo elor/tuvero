@@ -260,7 +260,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         e.preventDefault();
         return false;
       } else if (e.which === 27) {
-        // TODO abort name change
+        // TODO abort name change on escape key
         e.preventDefault();
         return false;
       }

@@ -1,6 +1,10 @@
 2014-05-28  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
 
-	* scripts\ui\tab_storage.js: toggleStorage function hidden
+	* scripts/ui/tab_storage.js: toggleStorage function hidden
+
+	* scripts/ui/toast.js: reading fading times from css
+
+	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
 
 2014-05-27  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
 

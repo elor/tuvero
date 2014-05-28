@@ -30,3 +30,6 @@
   transition: all 0.2s ease-in;
 }
 
+#toasts > div.hidden {
+  display: none;
+}

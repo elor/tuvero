@@ -60,8 +60,9 @@ define([ './team', './toast', './strings', './swiss', './options',
 
     autoupdate = !!$autoupdate.prop('checked');
 
-    // TODO use $autoupdate.change() instead?
-    $autoupdate.click(function () {
+    // we're not using 'click()' because 'change()' is its consequence and what
+    // we actually want to register
+    $autoupdate.change(function () {
       autoupdate = !!$autoupdate.prop('checked');
       if (autoupdate) {
         new Toast(Strings.autoupdateon);

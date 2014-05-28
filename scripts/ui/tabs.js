@@ -49,7 +49,7 @@ define([ './options' ], function (Options) {
         }
 
         tabindex = tabs.indexOf();
-        // TODO apply parens to make it cleas!
+        // TODO apply parens to make this line clear!
         if (enforce && tabindex === -1 || !visible[tabindex]) {
           index = visible.indexOf(true);
           if (index === -1) {

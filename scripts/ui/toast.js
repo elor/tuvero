@@ -19,13 +19,33 @@ define(function () {
 
   // wait for jquery
   $(function ($) {
+    var $hidden, transition, duration, regex;
     // create toast container
-    $('body').append('<div id="toasts"></div>');
+    $('body').append('<div id="toasts"><div class="hidden">ERROR</div></div>');
 
-    // fade durations
-    // TODO take fade times from getsomestyle.css
-    fadein = 200;
-    fadeout = 200;
+    // read fade durations from css
+    $hidden = $('#toasts .hidden');
+    regex = /^all ([0-9.]+)s ease-(in|out) ([0-9.]+)s$/;
+
+    transition = $hidden.css('transition');
+    duration = Number(transition.replace(regex, '$1'));
+    fadeout = duration;
+
+    $hidden.addClass('toast');
+
+    transition = $hidden.css('transition');
+    duration = Number(transition.replace(regex, '$1'));
+    fadein = duration;
+
+    if (fadein != Number(fadein) || !isFinite(fadein) || isNaN(fadein)) {
+      console.error('fadein: not a valid number: ' + fadein);
+      $hidden.removeClass('hidden');
+    }
+
+    if (fadeout != Number(fadeout) || !isFinite(fadeout) || isNaN(fadeout)) {
+      console.error('fadeout: not a valid number: ' + fadeout);
+      $hidden.removeClass('hidden');
+    }
 
     // actual Toast constructor
     Toast = function (str, seconds) {
@@ -55,15 +75,16 @@ define(function () {
       }, 10);
 
       // fadeout timeout
+      // TODO on toast fadeout: move whole column upwards
       window.setTimeout(function () {
         $div.removeClass('toast');
-      }, 1000 * seconds + fadein);
+      }, 1000 * (seconds + fadein));
 
       // remove timeout
       window.setTimeout(function () {
         $br.remove();
         $div.remove();
-      }, 1000 * seconds + fadein + fadeout);
+      }, 1000 * (seconds + fadein + fadeout));
     };
 
     // issue any pending toasts
