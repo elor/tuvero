@@ -90,6 +90,23 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         bye : true
       },
     },
+    nice : {
+      up : {
+        up : false,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : false,
+        bye : false
+      },
+      bye : {
+        up : true,
+        down : false,
+        bye : false
+      },
+    },
     // indicate that we don't want to change anything
     custom : undefined
   };
@@ -263,7 +280,11 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     });
 
-    $stages[stage.RUNNING].delegate('.game', 'submit', finishGame);
+    $stages[stage.RUNNING].delegate('.game', 'submit', function (event) {
+      finishGame.call(this);
+      event.preventDefault();
+      return false;
+    });
     // TODO Enter key -> press submit button (as a failsafe)
     // TODO Escape key -> reset form
 
@@ -545,6 +566,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     if (games.length !== $games.length) {
       // game was somehow invalid. Someone tempered with the system.
 
+      console.error('games != $games');
+
       // redraw all games
       showRunning();
 
@@ -676,17 +699,19 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function newRound () {
-    var i;
+    var i, swissreturn;
 
     setSwissPermissions();
 
-    for (i = 0; i < 10; i += 1) {
-      if (Swiss.start() !== undefined) {
+    swissreturn = undefined;
+    for (i = 0; i < 20; i += 1) {
+      swissreturn = Swiss.start();
+      if (swissreturn !== undefined) {
         break;
       }
     }
 
-    if (i === 10) {
+    if (swissreturn === undefined) {
       new Toast(Strings.roundfailed, 5);
       return undefined;
     }

@@ -565,7 +565,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
       // if player has been downvoted into this group:
       p1 = votes.downvotes[wins + 1];
-      if (p1 !== undefined) {
+      if (p1 !== undefined && p1 != votes.downvotes[wins]) {
         candidates = [];
 
         // create game with a random upvote candidate
@@ -584,22 +584,24 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       }
 
       // while there are players in this group:
-      while (wingroup.length > 0) {
+      while (wingroup.length > 1) {
         // pick any two random players
         p1 = this.rng.pick(wingroup);
         p2 = this.rng.pick(wingroup);
         if (p1 !== p2) {
-
           // if they haven't already played against another
           if (canPlay.call(this, p1, p2)) {
             // create game
             newgames.push(new Game(p1, p2));
             wingroup.splice(wingroup.indexOf(p1), 1);
             wingroup.splice(wingroup.indexOf(p2), 1);
+          } else {
+            // TODO keep track of previous matchings and avoid them
           }
 
           timeout -= 1;
           if (timeout <= 0) {
+            console.error('newRoundByWins: timeout reached. Key players have already been matched');
             return;
           }
         }
@@ -712,10 +714,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // verify that there's at least one player in every win group
     for (wins = 0; wins <= highest; wins += 1) {
-      if (wingroups[wins] === undefined) {
+      if (!wingroups[wins]) {
         // there's a wingroup missing. The tournament lasts too long
         // return undefined;
         console.error('wingroup #' + wins + ' is empty');
+        wingroups[wins] = [];
       }
     }
 
@@ -780,6 +783,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         // create a dense list of candidates
         candidates = [];
         wingroups[w].forEach(fillCandidates, this);
+        if (wingroups[w].length === 0 && downvoted) {
+          candidates.push(downvotes[w + 1])
+        }
 
         // abort if no player can be downvoted
         if (candidates.length === 0) {

@@ -8,12 +8,14 @@
 
 	* scripts/ui/tab_debug.js: finishtournament implemented
 
+	* scripts/ui/tab_games.js: preset 'nice' added
 
 	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
 	showing the number of votes
 
 	* scripts/backend/swisstournament.js: storing the number of votes
 	critical bug with the permissions matrix fixed
+	If a wingroup is empty, one player can be downvoted multiple times
 
 	* scripts/ui/strings.js: vote strings: using the respective unicode characters
 

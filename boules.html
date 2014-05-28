@@ -177,6 +177,9 @@
         <div class="finished">
           <h2> Runde <span class="round">##</span> beendet </h2>
           <table class="votepermissions">
+            <tr>
+              <td colspan="4"> Losbedingungen </td>
+            </tr>
             <tr class="up">
               <td>&#x25b2;&rArr;</td>
               <td class="perm up">&#x25b2;</td>
@@ -198,12 +201,13 @@
             <tr>
               <td colspan="4">
               <select class="preset">
-                <option value="strict">streng</option>
-                <option value="updown" selected="selected">hoch/runter</option>
-                <option value="pvo" selected="selected">PVO LM</option>
-                <option value="relaxed">gelockert</option>
-                <option value="none">frei</option>
-                <option value="custom">manuell</option>
+                <!-- <option value="strict">streng</option> -->
+                <!-- <option value="updown" selected="selected">hoch/runter</option> -->
+                <option value="custom">Benutzer</option>
+                <option value="pvo" selected="selected">Schweizer</option>
+                <option value="relaxed">locker</option>
+                <option value="nice">nett</option>
+                <option value="none">unbegrenzt</option>
               </select></td>
             </tr>
           </table>
@@ -423,14 +427,14 @@
         </form>
 
         <form class="tournament">
+          <button class="all">
+            Turnier durchspielen
+          </button>
           <button class="start">
             Runde starten
           </button>
           <button class="round">
             Runde ausspielen
-          </button>
-          <button class="all">
-            Turnier durchspielen
           </button>
         </form>
 
