@@ -34,6 +34,10 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.options = {
       mode : 'wins',
       permissions : {
+        // false: combination not allowed
+        // true: combination allowed
+        // outer key: previous vote
+        // inner key: next vote (i.e. the one to be validated)
         up : {
           up : false,
           down : true,
@@ -837,13 +841,13 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return false;
     }
 
-    if (permissions.up && this.upvote[id]) {
+    if (!permissions.up && this.upvote[id]) {
       return false;
     }
-    if (permissions.down && this.downvote[id]) {
+    if (!permissions.down && this.downvote[id]) {
       return false;
     }
-    if (permissions.bye && this.byevote[id]) {
+    if (!permissions.bye && this.byevote[id]) {
       return false;
     }
 
