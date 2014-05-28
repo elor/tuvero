@@ -10,6 +10,7 @@
 	* scripts/ui/tab_debug.js: finishtournament implemented
 
 	* scripts/ui/tab_games.js: preset 'nice' added
+	using Options.maxpoints
 
 	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
 	showing the number of votes

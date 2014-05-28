@@ -493,7 +493,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
       // validate whether number and >= 0
       // TODO Options.maxpoints
-      if (isNaN(ret.points[i]) || !isInt(ret.points[i]) || ret.points[i] < 0 || ret.points[i] > 13) {
+      if (isNaN(ret.points[i]) || !isInt(ret.points[i]) || ret.points[i] < 0 || ret.points[i] > Options.maxpoints) {
         // FIXME find a better solution
         // flash?
         // $input.eq(i).focus();
