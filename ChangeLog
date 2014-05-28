@@ -6,6 +6,7 @@
 	* scripts/ui/tab_storage.js: toggleStorage function hidden
 
 	* scripts/ui/toast.js: reading fading times from css
+	Toast: use console.error without a style sheet
 
 	* scripts/ui/tab_debug.js: finishtournament implemented
 
