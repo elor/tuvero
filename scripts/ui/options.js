@@ -11,7 +11,7 @@ define(function () {
   Default = {
     teamsize : 3,
     maxteamsize : 3,
-    maxpoints : 13,
+    maxpoints : 15,
     dbname : 'swiss',
     dbplayername : 'players'
   };
