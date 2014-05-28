@@ -7,10 +7,13 @@
 	* scripts/ui/toast.js: reading fading times from css
 
 	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
+	showing the number of votes
 
 	* scripts/backend/swisstournament.js: storing the number of votes
 
 	* scripts/ui/strings.js: vote strings: using the respective unicode characters
+
+	* style/games.css: permission behavior changed
 
 2014-05-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

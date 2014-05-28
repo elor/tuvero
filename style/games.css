@@ -128,11 +128,22 @@
   cursor: pointer;
 }
 
+#games .finished .votepermissions .perm {
+  color: #000000;
+}
+
 #games .finished .votepermissions .forbidden {
-  color: #a3a3a3;
+  color: #d3d3d3;
 }
 
-#games .finished .votepermissions .perm:hover {
-  color: #969696;
+#games .finished .votepermissions .perm:hover:not(:active) {
+color: #969696;
 }
 
+#games .finished .votepermissions .perm:hover:active {
+  color: #d3d3d3;
+}
+
+#games .finished .votepermissions .perm.forbidden:hover:active {
+  color: #000000;
+}

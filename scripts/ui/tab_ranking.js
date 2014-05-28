@@ -156,13 +156,13 @@ define([ './team', './toast', './strings', './swiss', './options',
     template.rank.$fields[9].text(ranking.netto[rank]);
 
     vote = [];
-    if (ranking.upvote[rank]) {
+    for (i = 0; i < ranking.upvote[rank]; ++i) {
       vote.push(Strings.upvote);
     }
-    if (ranking.downvote[rank]) {
+    for (i = 0; i < ranking.downvote[rank]; ++i) {
       vote.push(Strings.downvote);
     }
-    if (ranking.byevote[rank]) {
+    for (i = 0; i < ranking.byevote[rank]; ++i) {
       vote.push(Strings.byevote);
     }
 
