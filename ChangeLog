@@ -1,4 +1,4 @@
-2014-05-28  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
+2014-05-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: favicon added (games.png)
 
@@ -8,7 +8,11 @@
 
 	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
 
-2014-05-27  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
+	* scripts/backend/swisstournament.js: storing the number of votes
+
+	* scripts/ui/strings.js: vote strings: using the respective unicode characters
+
+2014-05-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: debug values changed
 

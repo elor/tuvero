@@ -17,9 +17,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.ranking = new Finebuchholzranking();
     this.state = Tournament.STATE.PREPARING;
     this.games = [];
-    this.upvote = []; // true, wenn jemand hochgelost wurde
-    this.downvote = []; // true, wenn jemand runtergelost wurde
-    this.byevote = []; // true, wenn jemand ein Freilos bekommen hat
+    this.upvote = []; // number of upvotes. undefined or 0 if none
+    this.downvote = []; // number of downvotes. undefined or 0 if none
+    this.byevote = []; // number of byes. undefined or 0 if none
     this.rng = new Random();
     this.round = 0; // 0 if not started yet, 1 is first valid round, ...
     this.roundvotes = {
@@ -228,40 +228,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   }
 
   /**
-   * returns all up/down/byevotes ever granted
-   * 
-   * @returns an object containing arrays of the three votes
-   */
-  // TODO test
-  function getAllVotes () {
-    var votes = {
-      up : [],
-      down : [],
-      bye : []
-    };
-
-    this.upvote.forEach(function (voted, pid) {
-      if (voted) {
-        votes.up.push(this.players.at(pid));
-      }
-    }, this);
-
-    this.downvote.forEach(function (voted, pid) {
-      if (voted) {
-        votes.down.push(this.players.at(pid));
-      }
-    }, this);
-
-    this.byevote.forEach(function (voted, pid) {
-      if (voted) {
-        votes.bye.push(this.players.at(pid));
-      }
-    }, this);
-
-    return votes;
-  }
-
-  /**
    * (implemented tournament function)
    * 
    * @returns
@@ -290,7 +256,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       result = this.ranking.get();
       this.rkch = false;
       roundvotes = getRoundVotes.call(this);
-      allvotes = getAllVotes.call(this);
 
       // rearrange the arrays from internal id indexing to ranked indexing
       result.ranking.forEach(function (i, rank) {
@@ -309,9 +274,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         ret.roundupvote[rank] = (roundvotes.up.indexOf(pid) !== -1) ? 1 : 0;
         ret.rounddownvote[rank] = (roundvotes.down.indexOf(pid) !== -1) ? 1 : 0;
         ret.roundbyevote[rank] = (roundvotes.bye === pid) ? 1 : 0;
-        ret.upvote[rank] = (allvotes.up.indexOf(pid) !== -1) ? 1 : 0;
-        ret.downvote[rank] = (allvotes.down.indexOf(pid) !== -1) ? 1 : 0;
-        ret.byevote[rank] = (allvotes.bye.indexOf(pid) !== -1) ? 1 : 0;
+        ret.upvote[rank] = (this.upvote[this.players.find(pid)] || 0);
+        ret.downvote[rank] = (this.downvote[this.players.find(pid)] || 0);
+        ret.byevote[rank] = (this.byevote[this.players.find(pid)] || 0);
       }, this);
 
       this.rnkbuffer = ret;
@@ -919,7 +884,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function downVote (id) {
     if (canDownVote.call(this, id)) {
-      this.downvote[id] = true;
+      if (isNaN(this.downvote[id])) {
+        this.downvote[id] = 1;
+      } else {
+        this.downvote[id] += 1;
+      }
     }
 
     return this;
@@ -932,7 +901,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function upVote (id) {
     if (canUpVote.call(this, id)) {
-      this.upvote[id] = true;
+      if (isNaN(this.upvote[id])) {
+        this.upvote[id] = 1;
+      } else {
+        this.upvote[id] += 1;
+      }
     }
 
     return this;
@@ -945,7 +918,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function byeVote (id) {
     if (canByeVote.call(this, id)) {
-      this.byevote[id] = true;
+      if (isNaN(this.byevote[id])) {
+        this.byevote[id] = 1;
+      } else {
+        this.byevote[id] += 1;
+      }
       this.ranking.grantBye(id);
     }
 

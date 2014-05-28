@@ -1,4 +1,4 @@
-* remember and display the number of votes
+* display the number of votes
 * Loading Screen
 * options: save autosave status
 * store the permissions -> create standalone permissions object
@@ -22,6 +22,7 @@
 * swisstournament: test halves and random
 * swisstournament: add mode selection for every round
 * swisstournament: add permission selection for first round
+* tab_games: show vote icons next to the names. Bye still separate
 * Tab_Games: sort function
 * Tab_Ranking: sort function
 * Tab_Teams: delete team during registration
