@@ -1,5 +1,7 @@
 2014-05-28  Erik E. Lorenz  <erik.e.lorenz@gmail.com>
 
+	* boules.html: favicon added (games.png)
+
 	* scripts/ui/tab_storage.js: toggleStorage function hidden
 
 	* scripts/ui/toast.js: reading fading times from css

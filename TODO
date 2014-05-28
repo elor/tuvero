@@ -1,6 +1,7 @@
+* remember and display the number of votes
+* Loading Screen
 * options: save autosave status
 * store the permissions -> create standalone permissions object
-* remember and display the number of votes
 * on reload and update, don't switch to teams tab
 * design our own icons
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
@@ -33,5 +34,4 @@
 * Supermelee backend
 * Pool backend
 * K.O. frontend
-* Loading Screen for large tournaments (512 players)
 * tab_debug: use Strings object for toasts
