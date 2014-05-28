@@ -24,7 +24,7 @@ define(function () {
     $('body').append('<div id="toasts"><div class="hidden" style="display:none;">ERROR</div></div>');
 
     // abort if the style is not set
-    if ($('#toasts').css('position') !== 'absolute') {
+    if ($('#toasts').css('position') !== 'fixed') {
       console.error('Toast: stylesheet not found');
       Toast = function (str, seconds) {
         console.error('Toast: ' + str);
