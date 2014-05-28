@@ -48,7 +48,7 @@ define([ './options' ], function (Options) {
           return;
         }
 
-        tabindex = tabs.indexOf();
+        tabindex = tabs.indexOf(currentTab);
         // TODO apply parens to make this line clear!
         if (enforce && tabindex === -1 || !visible[tabindex]) {
           index = visible.indexOf(true);

@@ -1,4 +1,3 @@
-* don't reload everything when finishing a game
 * options: save autosave status
 * store the permissions -> create standalone permissions object
 * on reload and update, don't switch to teams tab
