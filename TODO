@@ -1,14 +1,15 @@
 [1.3]
 * add tournament selection to Tab_New
-* combine first and subsequent sounds
+* combine first and subsequent rounds
+* swisstournament: add mode selection for every round
+* swisstournament: add permission selection for first round
 * autocomplete: read names from a file
 * autocomplete: read names from the interwebs, but possibly another domain...
 * Tab_Teams: delete team during registration
 * redesign the storage tab
-* swisstournament: add mode selection for every round
-* swisstournament: add permission selection for first round
 
 [later]
+* ranking: export number of games to csv
 * test.html: fix all errors
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random

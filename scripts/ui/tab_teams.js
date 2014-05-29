@@ -51,7 +51,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
    * @returns true on success, undefined or false on failure
    */
   function createTeamsFromString (str) {
-    var lines, line, names, stripregex, teamsize, team, i;
+    var lines, line, names, teamsize, team, i;
 
     if (Team.count() !== 0) {
       new Toast(Strings.teamsnotempty);
@@ -65,7 +65,18 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     // strip unnecessary lines and characters
     for (i = lines.length - 1; i >= 0; i -= 1) {
       // strip white spaces
-      lines[i] = lines[i].replace(stripregex, '');
+      lines[i] = trimName(lines[i]);
+
+      // convert CSV format to plain text
+      // first, replace all commas inside quotes
+      lines[i] = lines[i].replace(/(, ?"([^,"]|"")*),/g, '$1%COMMA%');
+      // second, remove spaces around commas
+      lines[i] = lines[i].replace(/ *, */g, ',');
+      // second, convert the actual content
+      lines[i] = lines[i].replace(/^([0-9]+,)?"(([^"]|"")*)","(([^"]|"")*)","(([^"]|"")*)"$/, '$2,$4,$6');
+      lines[i] = lines[i].replace(/^([0-9]+,)?"(([^"]|"")*)","(([^"]|"")*)"$/, '$2,$4');
+      lines[i] = lines[i].replace(/^([0-9]+,)?"(([^"]|"")*)"$/, '$2');
+
       // remove all comments
       lines[i] = lines[i].replace(/^#.*/, '');
       // remove empty lines (and the aforementioned comments)
@@ -83,7 +94,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       names = lines[names];
 
       for (name in names) {
-        names[name] = names[name].replace(stripregex, '');
+        names[name] = trimName(names[name]).replace('%COMMA%', ',');
         if (names[name].length === 0) {
           names[name] = Strings.emptyname;
         }
