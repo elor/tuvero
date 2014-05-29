@@ -4,11 +4,14 @@
 * autocomplete: read names from a file
 * autocomplete: read names from the interwebs, but possibly another domain...
 * Tab_Teams: delete team during registration
-* Tab_Teams: load teams from file or list
 * redesign the storage tab
+* swisstournament: add mode selection for every round
+* swisstournament: add permission selection for first round
 
 [later]
 * test.html: fix all errors
+* swisstournament: test up/down/byevote options
+* swisstournament: test halves and random
 * reset/store the permissions -> create standalone permissions object
 * add a print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
 * design our own icons
@@ -24,10 +27,6 @@
 * (release) auto-create the manifest
 * debugging tools: implement 'finish tournament'
 * Autosave to disk (every n minutes, after every major change)
-* swisstournament: test up/down/byevote options
-* swisstournament: test halves and random
-* swisstournament: add mode selection for every round
-* swisstournament: add permission selection for first round
 * tab_games: show vote icons next to the names. Bye still separate
 * Tab_Games: sort function
 * Tab_Ranking: sort function
@@ -35,7 +34,7 @@
 * Pdf export of ranking page
 * Pdf export of Detlef's list
 * tournament presets (PVO, Chemnitz, ...)
-* multiple parallel tournament (-> Maastricht K.O. rounds, pools, ...)
+* multiple parallel tournaments (-> Maastricht K.O. rounds, pools, ...)
 * Supermelee backend
 * Pool backend
 * K.O. frontend

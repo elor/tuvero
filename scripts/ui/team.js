@@ -16,6 +16,7 @@ define([ './options', './strings' ], function (Options, Strings) {
 
     team = {};
 
+    // copy the names array
     team.names = names.slice();
     team.id = teams.length;
 

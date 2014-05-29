@@ -128,7 +128,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     case evt.target.error.NOT_READABLE_ERR:
       new Toast(Strings.filenotreadable);
       break;
-    case evt.target.error.ABORT_ER:
+    case evt.target.error.ABORT_ERR:
       break;
     default:
       new Toast(Strings.fileerror);

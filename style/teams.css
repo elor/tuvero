@@ -1,19 +1,18 @@
-#teams .team, #newteam {
-  display: block;
-  margin: 0.5em;
+#teams .team, #newteam, #teams .load {
+  display: table;
+  float: left;
+  height: 5em;
   border-radius: 0.5em;
-  background-color: #d0d0d0;
-  padding: 0.3em;
-  text-align: left;
   border-spacing: 0px;
+  background-color: #d0d0d0;
+  margin: 0.5em;
+  padding: 0em 0.5em;
+  text-align: left;
+  white-space: nowrap;
 }
 
-#teams .team, #newteam {
-  float: left;
-  display: table;
-  height: 5em;
-  white-space: nowrap;
-  padding: 0em 0.5em;
+#teams .load {
+  text-align: center;
 }
 
 #teams .teamno {

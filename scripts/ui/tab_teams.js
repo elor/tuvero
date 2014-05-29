@@ -1,7 +1,7 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options', './tab_new', './opts' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts) {
+    './autocomplete', './options', './tab_new', './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle) {
 
-  var Tab_Teams, $tab, template, newteam, $anchor, options;
+  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload;
 
   $tab = undefined;
 
@@ -42,6 +42,152 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     };
 
     updateTemplate();
+  }
+
+  /**
+   * reads names from a string and adds the players accordingly. Ignores
+   * #-escaped lines
+   * 
+   * @returns true on success, undefined or false on failure
+   */
+  function createTeamsFromString (str) {
+    var lines, line, names, stripregex, teamsize, team, i;
+
+    if (Team.count() !== 0) {
+      new Toast(Strings.teamsnotempty);
+      return undefined;
+    }
+
+    stripregex = /(^\s+|\s+$)/g;
+
+    lines = str.split('\n');
+
+    // strip unnecessary lines and characters
+    for (i = lines.length - 1; i >= 0; i -= 1) {
+      // strip white spaces
+      lines[i] = lines[i].replace(stripregex, '');
+      // remove all comments
+      lines[i] = lines[i].replace(/^#.*/, '');
+      // remove empty lines (and the aforementioned comments)
+      if (lines[i].length === 0) {
+        lines.splice(i, 1);
+      }
+    }
+
+    teamsize = -1;
+
+    // split and strip the individual player names and store them in the lines
+    // variable
+    for (names in lines) {
+      lines[names] = lines[names].split(',');
+      names = lines[names];
+
+      for (name in names) {
+        names[name] = names[name].replace(stripregex, '');
+        if (names[name].length === 0) {
+          names[name] = Strings.emptyname;
+        }
+      }
+
+      // verify that all teams have the same number of playuers
+      if (teamsize !== names.length) {
+        if (teamsize === -1) {
+          teamsize = names.length;
+        } else {
+          new Toast(Strings.differentteamsizes);
+          return undefined;
+        }
+      }
+    }
+
+    // validate team size
+    switch (teamsize) {
+    case 1:
+    case 2:
+    case 3:
+      // set the team size
+      Options.teamsize = teamsize;
+      // update tabs to the new teamsize
+      Tabshandle.updateOpts();
+      require('./alltabs').reset();
+      require('./alltabs').update();
+      break;
+    default:
+      new Toast(Strings.invalidteamsize);
+      return undefined;
+    }
+
+    // enter new teams
+    for (names in lines) {
+      names = lines[names];
+
+      team = Team.create(names);
+      createBox(team);
+    }
+
+    // save changes
+    Storage.changed();
+
+    return true;
+  }
+
+  function invalidateFileLoad () {
+    $fileload.find('input').val('');
+  }
+
+  function loadFileError (evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ERR:
+      break;
+    default:
+      new Toast(Strings.fileerror);
+    }
+
+    invalidateFileLoad();
+  }
+
+  function loadFileLoad (evt) {
+    var contents;
+
+    contents = evt.target.result;
+
+    if (createTeamsFromString(contents)) {
+      new Toast(Strings.loaded);
+    } else {
+      // toast already sent by createTeamsFromString
+    }
+
+    invalidateFileLoad();
+  }
+
+  function loadFileAbort () {
+    new Toast(Strings.fileabort);
+
+    invalidateFileLoad();
+  }
+
+  function initFileLoad () {
+    $fileload = $tab.find('.load');
+
+    $fileload.find('input').change(function (evt) {
+      var reader = new FileReader();
+      reader.onerror = loadFileError;
+      reader.onabort = loadFileAbort;
+      reader.onload = loadFileLoad;
+
+      reader.readAsBinaryString(evt.target.files[0]);
+    });
+  }
+
+  function updateFileLoad () {
+    $fileload.show();
   }
 
   function updateTemplate () {
@@ -287,6 +433,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     initNewTeam();
     initMaxWidth();
     initRename();
+    initFileLoad();
     $anchor = newteam.$form;
   }
 
@@ -306,6 +453,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     template.$teamno.text(team.id + 1);
 
     $anchor.before(template.$tpl.clone());
+
+    // hide file load
+    $fileload.hide();
 
     Tab_New.update();
   }
@@ -347,6 +497,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       // reset everything
       updateTemplate();
       updateNewTeam();
+      updateFileLoad();
 
       Autocomplete.update();
 
