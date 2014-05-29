@@ -1,6 +1,8 @@
 [REPORTED]
 * Tab_History: Round 2 not started
-
+* Toast: chunky positioning right before a toast disappears
+  caused bye its <br> tag and possibly its padding/margin
+  
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible
   cannot be fixed properly due to inconsistent default behavior:

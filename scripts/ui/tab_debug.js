@@ -171,7 +171,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       startRound() || startRound() || startRound();
     }
 
-    new Toast(Strings.tournamentfinished);
+    new Toast(Strings.tournamentfinished, 5);
   }
 
   function initForms () {

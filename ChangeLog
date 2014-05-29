@@ -4,6 +4,8 @@
 
 	* scripts/ui/tab_debug.js: using Strings object for Toasts
 
+	* scripts/ui/toast.js: fading behavior improved
+
 2014-05-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: favicon added (games.png)

@@ -2,7 +2,7 @@
   position: fixed;
   top: 0em;
   right: 0em;
-  max-width: 10em;
+  max-width: 20em;
   text-align: right;
   margin: 0.3em 0.3em 0em 0em;
 }
@@ -13,6 +13,14 @@
   background-color: #d0d0d0;
   border-radius: 0.5em;
   padding: 0.5em;
+}
+
+#toasts > div:not(.toast) {
+  max-height: 0em;
+  padding-top: 0em;
+  margin-top: 0em;
+  border: 0em;
+  overflow-y: hidden;
   opacity: 0;
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
@@ -23,11 +31,12 @@
 
 #toasts > div.toast {
   opacity: 1;
-  -webkit-transition: all 0.2s ease-in;
+  -webkit-transition: 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
   -ms-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
+  max-height: 3em;
 }
 
 #toasts > div.hidden {
