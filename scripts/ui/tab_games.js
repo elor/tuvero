@@ -130,7 +130,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     $stages[stage.PREPARING] = $tab.find('.preparing');
     $stages[stage.RUNNING] = $tab.find('.running');
-    $stages[stage.FINISHED] = $tab.find('.finished');
+    $stages[stage.FINISHED] = $tab.find('.preparing');
   }
 
   function setTeamsActive (active) {
@@ -200,38 +200,67 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Storage.changed();
   }
 
-  function setSwissMode (mode) {
-    var tournamentOptions;
+  function getSwissMode () {
+    var mode;
+
+    mode = Swiss.getOptions().mode;
+
+    $tab.find('.preparing .swiss .mode').val(mode);
+  }
+
+  function setSwissMode () {
+    var tournamentOptions, mode;
+
+    mode = $tab.find('.preparing .swiss .mode').val();
 
     tournamentOptions = Swiss.getOptions();
     tournamentOptions.mode = mode;
     Swiss.setOptions(tournamentOptions);
   }
 
+  function newRound () {
+    var i, swissreturn;
+
+    // abort if there's not enough players
+    if (Team.count() < 2) {
+      new Toast(Strings.notenoughteams);
+      return undefined;
+    }
+
+    // register all teams at the tournament before the first round
+    if (Swiss.getRanking().round === 0) {
+      Team.prepareTournament(Swiss);
+      new Toast(Strings.registrationclosed);
+    }
+
+    // TODO use a private variable
+    setSwissMode();
+    setSwissPermissions();
+
+    swissreturn = undefined;
+    for (i = 0; i < Options.roundtries; i += 1) {
+      swissreturn = Swiss.start();
+      if (swissreturn !== undefined) {
+        break;
+      }
+    }
+
+    if (swissreturn === undefined) {
+      new Toast(Strings.roundfailed, 5);
+      return undefined;
+    }
+
+    // show game overview and hide this button
+    stage(stage.RUNNING);
+
+    startRound();
+  }
+
   function initPreparations () {
     // close registration and start swiss tournament
     // TODO other tournament types and options
     $tab.find('.preparing .swiss').submit(function (e) {
-      // TODO dynamic threshold for different tournament types (grey others out)
-      if (Team.count() < 2) {
-        new Toast(Strings.notenoughteams);
-      } else {
-        setSwissMode($tab.find('.preparing .swiss .mode').val());
-
-        // register all teams at the tournament
-        Team.prepareTournament(Swiss);
-        new Toast(Strings.registrationclosed);
-
-        // show game overview and hide this button
-        stage(stage.RUNNING);
-
-        // start game and notify of possible failure (i.e. too few teams)
-        if (Swiss.start() === undefined) {
-          new Toast(Strings.startfailed, 5);
-        } else {
-          startRound();
-        }
-      }
+      newRound();
 
       e.preventDefault();
       return false;
@@ -435,7 +464,12 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * update all appearances of the current round in the games tab
    */
   function showRound () {
+    // getRanking() is actually buffered, so no caveat here
     $tab.find('.round').text(Swiss.getRanking().round);
+    $tab.find('.nextround').text(Swiss.getRanking().round + 1);
+
+    // TODO rename function or move
+    getSwissMode();
   }
 
   /**
@@ -698,30 +732,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
   }
 
-  function newRound () {
-    var i, swissreturn;
-
-    setSwissPermissions();
-
-    swissreturn = undefined;
-    for (i = 0; i < 20; i += 1) {
-      swissreturn = Swiss.start();
-      if (swissreturn !== undefined) {
-        break;
-      }
-    }
-
-    if (swissreturn === undefined) {
-      new Toast(Strings.roundfailed, 5);
-      return undefined;
-    }
-
-    // show game overview and hide this button
-    stage(stage.RUNNING);
-
-    startRound();
-  }
-
   function setPermissions (perms) {
     var k1, k2, keys;
 
@@ -792,7 +802,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return undefined;
     }
 
-    $container = $tab.find('.finished .votepermissions');
+    $container = $stages[stage.FINISHED].find('.votepermissions');
 
     $perms = {
       up : {
@@ -810,7 +820,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         down : $container.find('.bye .down'),
         bye : $container.find('.bye .bye'),
       },
-      preset : $container.find('.preset'),
+      preset : $container.parents('form').find('.preset'),
       all : $container.find('.perm'),
     };
 
@@ -843,8 +853,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function initFinished () {
-    $stages[stage.FINISHED].find('button.newround').click(newRound);
-
     initPermissions();
   }
 
@@ -907,12 +915,13 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   Tab_Games.update = function () {
     Tab_Games.reset();
 
+    showRound();
+
     if (Swiss.getRanking().round === 0) {
       // preparing
       stage(stage.PREPARING);
     } else {
       showRunning();
-      showRound();
       showVotes();
 
       if (games.length === 0 || $games.length === 0) {

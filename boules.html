@@ -46,7 +46,7 @@
           <span
           class="maxwidthtext">feste Breite</span>
         </div>
-        <h2>Anmeldungen</h2>
+        <h2><span class="numteams">##</span> Anmeldungen</h2>
 
         <div class="team tpl">
           <div class="teamno">
@@ -93,40 +93,22 @@
         <div class="preparing">
           <h2>Runde <span class="nextround">##</span> auslosen</h2>
           <form class="swiss">
-            <button type="submit">
-              Schweizer Turnier starten
-            </button>
-            <br>
-            Losmodus
-            <select class="mode">
-              <option value="wins">Schweizer</option>
-              <option value="halves" selected="selected">2 Lostöpfe</option>
-              <option value="random">Zufall</option>
-            </select>
-            <table class="votepermissions">
+            <table>
               <tr>
-                <td colspan="4"> Losbedingungen </td>
-              </tr>
-              <tr class="up">
-                <td>&#x25b2;&rArr;</td>
-                <td class="perm up">&#x25b2;</td>
-                <td class="perm down">&#x25bc;</td>
-                <td class="perm bye">&#x2205;</td>
-              </tr>
-              <tr class="down">
-                <td>&#x25bc;&rArr;</td>
-                <td class="perm up">&#x25b2;</td>
-                <td class="perm down">&#x25bc;</td>
-                <td class="perm bye">&#x2205;</td>
-              </tr>
-              <tr class="bye">
-                <td>&#x2205;&rArr;</td>
-                <td class="perm up">&#x25b2;</td>
-                <td class="perm down">&#x25bc;</td>
-                <td class="perm bye">&#x2205;</td>
+                <td>Modus</td><td>
+                <select class="mode">
+                  <option value="wins">Schweizer</option>
+                  <option value="halves" selected="selected">2 Lostöpfe</option>
+                  <option value="random">Zufall</option>
+                </select></td>
               </tr>
               <tr>
-                <td colspan="4">
+                <td>Los-
+                <br>
+                beding-
+                <br>
+                ungen</td>
+                <td>
                 <select class="preset">
                   <!-- <option value="strict">streng</option> -->
                   <!-- <option value="updown" selected="selected">hoch/runter</option> -->
@@ -135,13 +117,36 @@
                   <option value="pvo" selected="selected">Schweizer</option>
                   <option value="relaxed">locker</option>
                   <option value="none">unbegrenzt</option>
-                </select></td>
+                </select>
+                <br>
+                <table class="votepermissions">
+                  <tr class="up">
+                    <td>&#x25b2;&rArr;</td>
+                    <td class="perm up">&#x25b2;</td>
+                    <td class="perm down">&#x25bc;</td>
+                    <td class="perm bye">&#x2205;</td>
+                  </tr>
+                  <tr class="down">
+                    <td>&#x25bc;&rArr;</td>
+                    <td class="perm up">&#x25b2;</td>
+                    <td class="perm down">&#x25bc;</td>
+                    <td class="perm bye">&#x2205;</td>
+                  </tr>
+                  <tr class="bye">
+                    <td>&#x2205;&rArr;</td>
+                    <td class="perm up">&#x25b2;</td>
+                    <td class="perm down">&#x25bc;</td>
+                    <td class="perm bye">&#x2205;</td>
+                  </tr>
+                </table></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                <button type="submit">
+                  Runde starten
+                </button></td>
               </tr>
             </table>
-
-            <button class="newround">
-              Neue Runde
-            </button>
           </form>
 
         </div>
@@ -454,7 +459,7 @@
 
     </div>
 
-    <a href="#debug" accesskey="d" tabindex="-1">&nbsp;</a>
+    <a href="#debug" accesskey="d" tabindex="-1" class="hiddenlink">&nbsp;</a>
 
   </body>
 </html>

@@ -1,9 +1,3 @@
-#games .preparing button, #games .finished button {
-  font-size: 1em;
-  padding: 0.5em;
-  border-radius: 0.3em;
-}
-
 #games .running {
   display: none;
 }
@@ -120,30 +114,46 @@
   border-bottom-right-radius: 0.4em;
 }
 
-#games .finished {
-  display: none;
+#games .preparing form > table {
+  text-align: center;
+  display: inline-block;
 }
 
-#games .finished .votepermissions .perm {
+#games .preparing form > table td {
+  vertical-align: top;
+}
+
+#games .preparing button {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  display: inline-block;
+}
+
+#games .votepermissions {
+  display: inline-block;
+}
+
+#games .votepermissions .perm {
   cursor: pointer;
 }
 
-#games .finished .votepermissions .perm {
+#games .votepermissions .perm {
   color: #000000;
 }
 
-#games .finished .votepermissions .forbidden {
+#games .votepermissions .forbidden {
   color: #d3d3d3;
 }
 
-#games .finished .votepermissions .perm:hover:not(:active) {
+#games .votepermissions .perm:hover:not(:active) {
 color: #969696;
 }
 
-#games .finished .votepermissions .perm:hover:active {
+#games .votepermissions .perm:hover:active {
   color: #d3d3d3;
 }
 
-#games .finished .votepermissions .perm.forbidden:hover:active {
+#games .votepermissions .perm.forbidden:hover:active {
   color: #000000;
 }

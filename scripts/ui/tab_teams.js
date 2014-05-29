@@ -9,6 +9,10 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     return name.replace(/^\s*|\s*$/g, '').replace(/\s\s*/g, ' ');
   }
 
+  function updateTeamCounts () {
+    $tab.find('.numteams').text(Team.count());
+  }
+
   function initTemplate () {
     var tmp, $tpl, $teamno, $names, $chname, i;
 
@@ -469,6 +473,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $fileload.hide();
 
     Tab_New.update();
+    updateTeamCounts();
   }
 
   options = {
@@ -509,9 +514,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       updateTemplate();
       updateNewTeam();
       updateFileLoad();
-
+      updateTeamCounts();
       Autocomplete.update();
-
     },
     update : function () {
       var i, l;

@@ -6,6 +6,8 @@
 
 	* scripts/ui/toast.js: fading behavior improved
 
+	* scripts/ui/tab_games.js: first and subsequent rounds started from the same page
+
 2014-05-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: favicon added (games.png)

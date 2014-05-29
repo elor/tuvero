@@ -12,6 +12,7 @@ define(function () {
     teamsize : 3,
     maxteamsize : 3,
     maxpoints : 15,
+    roundtries : 20,
     dbname : 'swiss',
     dbplayername : 'players'
   };

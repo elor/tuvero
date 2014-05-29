@@ -124,16 +124,10 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     Tab_Games = require('./tab_games');
 
-    switch (Tab_Games.getOptions().stage) {
-    case 0:
-      $('#games .preparing .swiss button').click();
-      break;
-    case 1:
+    if (Tab_Games.getOptions().stage === 1) {
       new Toast(Strings.roundrunning.replace(/%s/g, ''));
-      break;
-    case 2:
-      $('#games .finished .newround').click();
-      break;
+    } else {
+      $('#games .preparing .swiss button').click();
     }
   }
 
