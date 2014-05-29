@@ -94,6 +94,7 @@ define([ './options' ], function (Options) {
         } else {
           $img.attr('src', imgpattern.replace('%s', tabname));
         }
+        $img.attr('alt', $img.attr('src'));
 
         $tab = $('<a>');
         $tab.attr('href', '#' + tabname);

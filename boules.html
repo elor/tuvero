@@ -28,13 +28,13 @@
             Teamgröße:
           </p>
           <button value="1">
-            <img src="images/teams1.png" />
+            <img src="images/teams1.png" alt="tete"/>
           </button>
           <button value="2">
-            <img src="images/teams2.png" />
+            <img src="images/teams2.png" alt="doublette"/>
           </button>
           <button value="3">
-            <img src="images/teams3.png" />
+            <img src="images/teams3.png" alt="triplette"/>
           </button>
 
         </form>
@@ -82,8 +82,7 @@
           <p>
             Spieler aus Datei laden
             <br>
-            <input type="file">
-            </input>
+            <input type="file" />
           </p>
         </div>
 
@@ -92,19 +91,59 @@
 
       <div id="games" accesskey="g">
         <div class="preparing">
-          <h2>Turniervorbereitung</h2>
+          <h2>Runde <span class="nextround">##</span> auslosen</h2>
           <form class="swiss">
             <button type="submit">
               Schweizer Turnier starten
             </button>
             <br>
-            Modus der 1. Runde:
+            Losmodus
             <select class="mode">
               <option value="wins">Schweizer</option>
               <option value="halves" selected="selected">2 Lostöpfe</option>
               <option value="random">Zufall</option>
             </select>
+            <table class="votepermissions">
+              <tr>
+                <td colspan="4"> Losbedingungen </td>
+              </tr>
+              <tr class="up">
+                <td>&#x25b2;&rArr;</td>
+                <td class="perm up">&#x25b2;</td>
+                <td class="perm down">&#x25bc;</td>
+                <td class="perm bye">&#x2205;</td>
+              </tr>
+              <tr class="down">
+                <td>&#x25bc;&rArr;</td>
+                <td class="perm up">&#x25b2;</td>
+                <td class="perm down">&#x25bc;</td>
+                <td class="perm bye">&#x2205;</td>
+              </tr>
+              <tr class="bye">
+                <td>&#x2205;&rArr;</td>
+                <td class="perm up">&#x25b2;</td>
+                <td class="perm down">&#x25bc;</td>
+                <td class="perm bye">&#x2205;</td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                <select class="preset">
+                  <!-- <option value="strict">streng</option> -->
+                  <!-- <option value="updown" selected="selected">hoch/runter</option> -->
+                  <option value="custom">Benutzer</option>
+                  <option value="nice">freundlich</option>
+                  <option value="pvo" selected="selected">Schweizer</option>
+                  <option value="relaxed">locker</option>
+                  <option value="none">unbegrenzt</option>
+                </select></td>
+              </tr>
+            </table>
+
+            <button class="newround">
+              Neue Runde
+            </button>
           </form>
+
         </div>
         <div class="running">
           <div class="options">
@@ -182,48 +221,6 @@
 
           </div>
 
-        </div>
-        <div class="finished">
-          <h2> Runde <span class="round">##</span> beendet </h2>
-          <table class="votepermissions">
-            <tr>
-              <td colspan="4"> Losbedingungen </td>
-            </tr>
-            <tr class="up">
-              <td>&#x25b2;&rArr;</td>
-              <td class="perm up">&#x25b2;</td>
-              <td class="perm down">&#x25bc;</td>
-              <td class="perm bye">&#x2205;</td>
-            </tr>
-            <tr class="down">
-              <td>&#x25bc;&rArr;</td>
-              <td class="perm up">&#x25b2;</td>
-              <td class="perm down">&#x25bc;</td>
-              <td class="perm bye">&#x2205;</td>
-            </tr>
-            <tr class="bye">
-              <td>&#x2205;&rArr;</td>
-              <td class="perm up">&#x25b2;</td>
-              <td class="perm down">&#x25bc;</td>
-              <td class="perm bye">&#x2205;</td>
-            </tr>
-            <tr>
-              <td colspan="4">
-              <select class="preset">
-                <!-- <option value="strict">streng</option> -->
-                <!-- <option value="updown" selected="selected">hoch/runter</option> -->
-                <option value="custom">Benutzer</option>
-                <option value="nice">freundlich</option>
-                <option value="pvo" selected="selected">Schweizer</option>
-                <option value="relaxed">locker</option>
-                <option value="none">unbegrenzt</option>
-              </select></td>
-            </tr>
-          </table>
-
-          <button class="newround">
-            Neue Runde
-          </button>
         </div>
       </div>
 
@@ -337,13 +334,13 @@
             beispielsweise als 'boules.csv'.
           </p>
           <button>
-            <img src="images/teams3.png" />
+            <img src="images/teams3.png" alt="export teams" />
           </button>
           <button>
-            <img src="images/ranking.png" />
+            <img src="images/ranking.png" alt="export ranking" />
           </button>
           <button>
-            <img src="images/history.png" />
+            <img src="images/history.png" alt="export history" />
           </button>
           <br>
           <a href="#" type="application/csv" download="boules.csv">Download</a>
@@ -369,7 +366,7 @@
           </p>
           <br>
           <button>
-            <img src="images/download.png" />
+            <img src="images/download.png" alt="download save file" />
           </button>
           <br>
           <a href="#" type="application/json" download="boules.json">Download</a>
@@ -404,12 +401,12 @@
         <div class="block devel">
           <h3>Entwicklerwerkzeuge</h3>
           <div>
-            <a href="test.html"><img src="images/puzzle.png" />
+            <a href="test.html"><img src="images/puzzle.png" alt="unit tests" />
             <br>
             Unit Tests</a>
           </div>
           <div>
-            <a href="#debug"><img src="images/debug.png" />
+            <a href="#debug"><img src="images/debug.png" alt="debugging console" />
             <br>
             Debugging Console</a>
           </div>

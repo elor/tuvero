@@ -1,6 +1,6 @@
 [1.3]
-* add tournament selection to Tab_New
 * combine first and subsequent rounds
+* add tournament selection to Tab_New
 * swisstournament: add mode selection for every round
 * swisstournament: add permission selection for first round
 * autocomplete: read names from a file
@@ -10,7 +10,6 @@
 
 [later]
 * ranking: export number of games to csv
-* test.html: fix all errors
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random
 * reset/store the permissions -> create standalone permissions object
@@ -40,3 +39,7 @@
 * K.O. frontend
 * tab_games: when finishing a game, focus the next game in list
 * tab_games: show why a round cannot be started
+
+[ongoing]
+* w3c validation
+* test.html: fix all errors
