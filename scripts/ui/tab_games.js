@@ -844,9 +844,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
   function initFinished () {
     $stages[stage.FINISHED].find('button.newround').click(newRound);
-    $stages[stage.FINISHED].find('button.korounds').click(function () {
-      new Toast(Strings.notimplemented);
-    });
 
     initPermissions();
   }

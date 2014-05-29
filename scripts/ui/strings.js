@@ -53,6 +53,8 @@ define(function () {
     emptyname : 'N.N.',
     differentteamsizes : 'Teams haben unterschiedliche Größe',
     invalidteamsize : 'Unzulässige Spielerzahl pro Team',
+    alltabsreloaded : 'Alle Tabs neu geladen',
+    modsvariableadded : 'globale Variable "mods" erstellt',
   };
 
   return Strings;

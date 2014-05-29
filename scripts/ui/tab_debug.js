@@ -34,7 +34,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
   function updateTabs () {
     require('./alltabs').update();
-    new Toast('Alle Tabs neu geladen');
+    new Toast(Strings.alltabsreloaded);
   }
 
   function loadMods () {
@@ -76,7 +76,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       }
     }
 
-    new Toast('global mods object added');
+    new Toast(Strings.modsvariableadded);
   }
 
   function clearEverything () {
@@ -102,7 +102,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     Tab_Teams = require('./tab_teams');
 
     if (!Tab_Teams.getOptions().allowRegistrations) {
-      new Toast('error: registration closed');
+      new Toast(Strings.registrationclosed);
       return;
     }
 
