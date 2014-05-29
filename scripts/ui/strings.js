@@ -31,9 +31,10 @@ define(function () {
     roundfailed : 'Auslosung fehlgeschlagen',
     roundfinished : '%s. Runde abgeschlossen',
     roundstarted : '%s. Runde ausgelost',
+    roundrunning : 'Runde %s läuft',
     registrationclosed : 'Registrierung geschlossen',
-    saved : 'Turnier gespeichert.',
-    savefailed : 'Speichervorgang fehlgeschlagen.',
+    saved : 'gespeichert',
+    savefailed : 'Speichern fehlgeschlagen.',
     startfailed : 'Auslosung fehlgeschlagen. Zu wenige Teams?',
     teamadded : 'Team %s registriert',
     notenoughteams : 'Zu wenige Teams',
@@ -55,6 +56,7 @@ define(function () {
     invalidteamsize : 'Unzulässige Spielerzahl pro Team',
     alltabsreloaded : 'Alle Tabs neu geladen',
     modsvariableadded : 'globale Variable "mods" erstellt',
+    tournamentfinished : 'Turnier beendet',
   };
 
   return Strings;

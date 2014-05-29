@@ -26,7 +26,6 @@
 * history: store which mode a round was in
 * General Ranking Class
 * (release) auto-create the manifest
-* debugging tools: implement 'finish tournament'
 * Autosave to disk (every n minutes, after every major change)
 * tab_games: show vote icons next to the names. Bye still separate
 * Tab_Games: sort function
@@ -39,6 +38,5 @@
 * Supermelee backend
 * Pool backend
 * K.O. frontend
-* tab_debug: use Strings object for toasts
 * tab_games: when finishing a game, focus the next game in list
 * tab_games: show why a round cannot be started

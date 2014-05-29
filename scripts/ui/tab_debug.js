@@ -129,7 +129,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       $('#games .preparing .swiss button').click();
       break;
     case 1:
-      new Toast('Runde läuft noch');
+      new Toast(Strings.roundrunning.replace(/%s/g, ''));
       break;
     case 2:
       $('#games .finished .newround').click();
@@ -171,7 +171,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       startRound() || startRound() || startRound();
     }
 
-    new Toast('tournament finished');
+    new Toast(Strings.tournamentfinished);
   }
 
   function initForms () {
