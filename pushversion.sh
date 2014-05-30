@@ -12,6 +12,18 @@ branch_name="(unnamed branch)"     # detached HEAD
 branch_name=${branch_name##refs/heads/}
 version=${branch_name##release-}
 
+echo $version > Version
+git add Version
+
+./createmanifest.sh >$manifest
+git add $manifest
+# add manifest links to all html files
+for file in `git ls-files '*.html'`; do
+  sed -i -e "/<html/ s/\s*>/ manifest=\"$manifest\">/" $file
+done
+git add -u
+git commit -m "release-$version: manifest generated and linked"
+
 # remove debugging url arguments
 for file in `git ls-files '*.html'`; do
   sed -i -e '/urlArgs: "bust="/d' $file
@@ -32,17 +44,7 @@ done
 git add -u
 git commit -m "release-$version: pushed to version $version"
 
-cat >$manifest << EOF
-CACHE MANIFEST
-# Version: $version
-# Date: $(date)
+git rm $self
 
-# the boules program is purely offline
-CACHE:
-$(find -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.png' | sed 's/^\.\///')
-EOF
+git commit -m "release-$version: $self removed"
 
-git add $manifest
-git commit -m "release-$version: manifest generated"
-
-rm $self
