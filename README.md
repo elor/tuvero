@@ -23,7 +23,10 @@ Depending on your browser and operating system, you may not be able to use in-br
 
 Open `boules.html` in a web browser, register players and teams and start your tournament.
 
+## Autocomplete
+
+Add names.txt to the installation and manually reload via via the storage tab or load the file directly
+
 ## Testing
 
 Open `test.html` in a web browser
-

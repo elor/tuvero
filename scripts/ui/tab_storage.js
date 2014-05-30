@@ -1,5 +1,5 @@
 define([ './toast', './strings', './team', './history', './ranking', './blob',
-    './base64', './storage', './options', './opts' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts) {
+    './base64', './storage', './options', './opts', './players' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts, Players) {
   var Tab_Storage, $tab, areas, options;
 
   Tab_Storage = {};
@@ -165,6 +165,57 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     new Toast(Strings.fileabort);
   }
 
+  function initAutocomplete () {
+    areas.autocomplete = {};
+
+    areas.autocomplete.$file = $tab.find('.autocomplete input.file');
+
+    areas.autocomplete.$file.change(function (evt) {
+      var reader = new FileReader();
+      reader.onerror = autocompleteFileError;
+      reader.onabort = autocompleteFileAbort;
+      reader.onload = autocompleteFileLoad;
+
+      reader.readAsBinaryString(evt.target.files[0]);
+    });
+  }
+
+  function invalidateAutocomplete () {
+    $tab.find('.autocomplete .selected').removeClass('selected');
+
+    areas.autocomplete.$file.val('');
+  }
+
+  function autocompleteFileError (evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ERR:
+      break;
+    default:
+      new Toast(Strings.fileerror);
+    }
+  }
+
+  function autocompleteFileLoad (evt) {
+    var string;
+
+    string = evt.target.result;
+
+    Players.fromString(string);
+
+    new Toast(Strings.autocompleteloaded);
+  }
+
+  function autocompleteFileAbort () {
+    new Toast(Strings.fileabort);
+  }
+
   function initLocalStorage () {
     areas.local = {};
 
@@ -245,6 +296,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     initCSV();
     initSave();
     initLoad();
+    initAutocomplete();
     initLocalStorage();
   }
 

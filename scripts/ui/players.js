@@ -3,9 +3,11 @@
  */
 
 define(function () {
-  var Players, names;
+  var Players, names, author;
 
-  names = [];
+  author = "Erik Lorenz";
+
+  names = [ author ];
 
   Players = {};
 
@@ -41,6 +43,8 @@ define(function () {
     // set names
     names = lines;
 
+    Players.insert(author);
+
     // update
     updateDependencies();
   };
@@ -60,6 +64,8 @@ define(function () {
     blobnames.sort();
     names = blobnames;
 
+    Players.insert(author);
+
     updateDependencies();
   };
 
@@ -68,7 +74,7 @@ define(function () {
   };
 
   Players.clear = function () {
-    names = [];
+    names = [ author ];
 
     updateDependencies();
   };
@@ -95,7 +101,7 @@ define(function () {
     name = trimName(name);
     if (typeof (name) === 'string' && name.length > 0) {
       index = names.indexOf(name);
-      if (index !== -1) {
+      if (index !== -1 && name !== author) {
         names.splice(index, 1);
         updateDependencies();
       }
