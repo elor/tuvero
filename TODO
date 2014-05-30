@@ -1,10 +1,12 @@
 [1.3]
 * autocomplete: read names from a file
 * autocomplete: read names from the interwebs, but possibly another domain...
+* add autocomplete/player database option to tab_storage
 * Tab_Teams: delete team during registration
 * redesign the storage tab
 
 [later]
+* test players and autocomplete
 * combine history and games?
 * clean up tab_new.js and tab_games.js; merge redundant functions
 * ranking: export number of games to csv
