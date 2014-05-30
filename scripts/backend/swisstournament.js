@@ -784,7 +784,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         candidates = [];
         wingroups[w].forEach(fillCandidates, this);
         if (wingroups[w].length === 0 && downvoted) {
-          candidates.push(downvotes[w + 1])
+          candidates.push(downvotes[w + 1]);
         }
 
         // abort if no player can be downvoted

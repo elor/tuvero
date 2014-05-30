@@ -25,6 +25,8 @@
 
 	* scripts/ui/team.js: erase() added
 
+	* scripts/backend/finebuchholzranking.js: critical bug fixed where the number of games was calculated incorrectly
+
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_teams.js: reading teams from a file

@@ -71,7 +71,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
     // add byes to the number of games
     for (i in this.byes) {
       if (this.byes[i]) {
-        games[i] += 1;
+        games[i] += this.byes[i];
       }
     }
     bh = Matrix.multVec(this.games, w); // calculate the buchholz points
