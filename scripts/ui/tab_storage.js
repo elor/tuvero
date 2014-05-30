@@ -177,6 +177,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       } else {
         // TODO check format?
         Players.fromString(response);
+        Storage.store();
         new Toast(Strings.autocompleteloaded);
       }
     }).fail(function () {
@@ -185,7 +186,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
       console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
 
-      new Toast(Strings.autocompletereloadfailed);
+      new Toast(Strings.autocompletereloadfailed, 5);
       for (i = 0; i < arguments.length; ++i) {
         console.log(arguments[i]);
       }
@@ -219,9 +220,14 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     });
   }
 
-  function invalidateAutocomplete () {
-    $tab.find('.autocomplete .selected').removeClass('selected');
+  function updateAutocomplete () {
+    if (Players.get().length <= 1) {
+      // try to reload the player names from web
+      reloadAutocomplete();
+    }
+  }
 
+  function invalidateAutocomplete () {
     areas.autocomplete.$file.val('');
   }
 
@@ -350,6 +356,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     invalidateCSV();
     invalidateSave();
     invalidateLoad();
+    invalidateAutocomplete();
 
     // TODO reset autosave?
     readStorageState();
@@ -357,6 +364,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
   Tab_Storage.update = function () {
     Tab_Storage.reset();
+    updateAutocomplete();
   };
 
   Tab_Storage.getOptions = function () {

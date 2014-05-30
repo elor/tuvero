@@ -16,6 +16,8 @@
 
 	* scripts/ui/players.js: toString and fromString added
 
+	* scripts/ui/tab_storage.js: automatically loading players from players.txt
+
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_teams.js: reading teams from a file
