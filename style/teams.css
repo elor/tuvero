@@ -19,7 +19,7 @@
   height: 3.0em;
 }
 
-#teams .team, #newteam, #teams .load {
+#teams .team, #newteam, #teams .load, #teams .delete {
   display: table;
   float: left;
   height: 5em;
@@ -109,4 +109,39 @@
   width: 100%;
   box-shadow: 1px 1px 0px #808080;
   margin: 0em;
+}
+
+#teams button.delete {
+  background-color: #d3d3d3;
+  height: 3em;
+  font-size: 100%;
+  border-radius: 0.2em;
+  border: none;
+  box-shadow: 1px 1px 0px #808080;
+  cursor: crosshair;
+}
+
+#teams.deletion button.delete {
+  background-color: red;
+}
+
+/*
+ * as many attributes as possible so specificity jumps up and overwrites everything
+ * 0121 -> highest specificity
+ */
+#teams.deletion:hover, #teams.deletion .team .name:hover {
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+#teams.deletion .team:hover, #teams.deletion .team .name:hover {
+  cursor: crosshair;
+}
+
+#teams.deletion {
+  background-color: #969696;
+}
+
+#teams.deletion .load, #teams.deletion #newteam {
+  display: none;
 }

@@ -5,6 +5,7 @@
 	"fixed" a clear:both bug
 
 	* scripts/ui/tab_teams.js: csv import correctly interprets double quotes
+	Deletion button and logic added
 
 	* scripts/ui/tab_new.js: moved 'new round' form from tab_games to tab_new
 	when starting a round, automatically focus tab_games
@@ -21,6 +22,8 @@
 	* scripts/ui/storage.js: run reset() on every stored object on deletion
 
 	* scripts/ui/tab_debug.js: really removing everything, not just the current state
+
+	* scripts/ui/team.js: erase() added
 
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

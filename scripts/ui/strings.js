@@ -60,6 +60,7 @@ define(function () {
     autocompleteloaded : 'Spielernamen geladen',
     autocompletereloadfailed : 'Konnte Spielernamen nicht laden',
     fileempty : 'Datei ist leer',
+    teamdeleted : 'Anmeldung %s gelöscht',
   };
 
   return Strings;

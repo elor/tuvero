@@ -37,6 +37,25 @@ define([ './options', './strings' ], function (Options, Strings) {
   };
 
   /**
+   * erase team at index
+   * 
+   * @param index
+   *          index (starting at zero)
+   * @returns nothing at all
+   */
+  Team.erase = function (index) {
+    var i;
+    if (typeof (index) === 'number' && index >= 0 && index < teams.length) {
+      // remove the team
+      teams.splice(index, 1);
+      // update all ids
+      for (i in teams) {
+        teams[i].id = Number(i);
+      }
+    }
+  };
+
+  /**
    * adds all players to the tournament
    */
   Team.prepareTournament = function (Tournament) {
