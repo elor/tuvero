@@ -1,5 +1,5 @@
 define([ './toast', './strings', './team', './history', './ranking', './blob',
-    './base64', './storage', './options', './opts', './players' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts, Players) {
+    './base64', './storage', './options', './opts', './players', './tabshandle' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts, Players, Tabshandle) {
   var Tab_Storage, $tab, areas, options;
 
   Tab_Storage = {};
@@ -149,6 +149,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         // TODO event handler
         readStorageState();
         new Toast(Strings.loaded);
+        Tabshandle.focus('teams');
       } else {
         // TODO what if something invalid has been returned?
       }

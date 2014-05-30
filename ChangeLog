@@ -1,3 +1,7 @@
+2014-05-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_storage.js: focus tab_teams on file load
+
 2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: moved tab_new after tab_teams
