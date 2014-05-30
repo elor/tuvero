@@ -1,8 +1,9 @@
 2014-05-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_storage.js: focus tab_teams on file load
+	autosave option removed. Serialization proved fast enough
 
-	* scripts/ui/tab_ranking.js: Auto-update option removed. The program is fast enough
+	* scripts/ui/tab_ranking.js: Auto-update option removed. The calculations proved fast enough
 
 2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

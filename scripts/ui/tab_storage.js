@@ -147,7 +147,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       if (Blob.fromBlob(blob)) {
         Storage.changed();
         // TODO event handler
-        readStorageState();
+        resetStorageState();
         new Toast(Strings.loaded);
         Tabshandle.focus('teams');
       } else {
@@ -262,7 +262,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   function initLocalStorage () {
     areas.local = {};
 
-    areas.local.$autosave = $tab.find('.local input.autosave');
     areas.local.$savebutton = $tab.find('.local button.save');
     areas.local.$clearbutton = $tab.find('.local button.clear');
 
@@ -275,18 +274,10 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         new Toast(Strings.savefailed);
       }
 
-      readStorageState();
+      resetStorageState();
 
       e.preventDefault();
       return false;
-    });
-
-    areas.local.$autosave.click(function () {
-      if (readStorageState()) {
-        new Toast(Strings.autosaveon);
-      } else {
-        new Toast(Strings.autosaveoff);
-      }
     });
 
     areas.local.$clearbutton.click(function (e) {
@@ -304,7 +295,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         new Toast(Strings.newtournament);
         Alltabs.update();
 
-        readStorageState();
+        resetStorageState();
       }
 
       e.preventDefault();
@@ -317,14 +308,8 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
    * 
    * @returns {Boolean} true if autosave is enabled, false otherwise
    */
-  function readStorageState () {
-    if (areas.local.$autosave.prop('checked')) {
-      Storage.enable();
-      return true;
-    }
-
-    Storage.disable();
-    return false;
+  function resetStorageState () {
+    Storage.enable();
   }
 
   function init () {
@@ -356,8 +341,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     invalidateLoad();
     invalidateAutocomplete();
 
-    // TODO reset autosave?
-    readStorageState();
+    resetStorageState();
   };
 
   Tab_Storage.update = function () {
