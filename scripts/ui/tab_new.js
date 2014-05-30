@@ -4,7 +4,7 @@
 
 define([ './options', './tabshandle', './opts', './toast', './team',
     './strings', './swiss', './tab_games', './tab_ranking', './tab_history',
-    './history', './storage' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Swiss, Tab_Games, Tab_Ranking, Tab_History, History, Storage) {
+    './history', './storage', '../backend/tournament' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Swiss, Tab_Games, Tab_Ranking, Tab_History, History, Storage, Tournament) {
   var Tab_New, $tab, $teamsize, options, $perms;
 
   Tab_New = {};
@@ -176,16 +176,15 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function startRound () {
     var votes, team;
 
-    Tab_Games.update();
-
+    // make the ranking update
     // TODO use event system
     Tab_Ranking.update();
 
     // tell the history that there's a new round
-    // TODO use event system
+    // TODO use event system / Tab_History.update()
     Tab_History.nextRound();
 
-    // see if there's a byevote
+    // make the history update
     // TODO extract functions into a wrapper around Swiss?
     votes = getRoundVotes();
     if (votes.bye !== undefined) {
@@ -200,6 +199,12 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     // save changes
     // TODO event system
     Storage.changed();
+
+    // show all games
+    Tab_Games.update();
+    // focus tab_games
+
+    Tabshandle.focus('games');
   }
 
   function newRound () {
@@ -234,12 +239,11 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       return undefined;
     }
 
-    // show game overview and hide this button
-    // FIXME hide this tab
-
     new Toast(Strings.roundstarted.replace("%s", Swiss.getRanking().round));
 
     startRound();
+
+    Tab_New.update();
   }
 
   function initPreparations () {
@@ -410,11 +414,14 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   Tab_New.update = function () {
     Tab_New.reset();
 
-    if (Team.count() === 0) {
-      Tabshandle.show('new');
+    if (Team.count() < 2) {
+      Tabshandle.hide('new');
     } else {
-      Tabshandle.show('new');
-      // Tabshandle.hide('new');
+      if (Swiss.getState() === Tournament.STATE.RUNNING) {
+        Tabshandle.hide('new');
+      } else {
+        Tabshandle.show('new');
+      }
     }
 
     showRound();

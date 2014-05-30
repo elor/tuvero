@@ -1,6 +1,6 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
     './tab_ranking', './history', './tab_history', './storage', './options',
-    './opts' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts) {
+    './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle) {
   var Tab_Games, $tab, template, games, $games, options;
 
   // references to html elements of the games
@@ -203,8 +203,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Swiss.getGames().forEach(function (game) {
       appendGame(game);
     });
-
-    // FIXME hide tab if games are empty
   }
 
   /**
@@ -214,6 +212,14 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // getRanking() is actually buffered, so no caveat here
     $tab.find('.round').text(Swiss.getRanking().round);
     $tab.find('.nextround').text(Swiss.getRanking().round + 1);
+  }
+
+  function showTab () {
+    if (games.length === 0 || $games.length === 0) {
+      Tabshandle.hide('games');
+    } else {
+      Tabshandle.show('games');
+    }
   }
 
   /**
@@ -363,8 +369,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       clearVotes();
 
       showRound();
-      // FIXME call tab_new.update()
-      // stage(stage.FINISHED);
+
+      // hide this tab
+      showTab();
+      // open tab_new
 
       new Toast(Strings.roundfinished.replace('%s', Swiss.getRanking().round));
     }
@@ -375,6 +383,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Tab_Ranking.update();
     // due to circular dependency, we must load Tab_New separately
     require('./tab_new').update();
+    if (games.length === 0) {
+      Tabshandle.focus('new');
+    }
 
     return false;
   }
@@ -535,19 +546,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Tab_Games.reset();
 
     showRound();
-
-    if (Swiss.getRanking().round === 0) {
-      // FIXME hide this tab
-    } else {
-      showRunning();
-      showVotes();
-
-      if (games.length === 0 || $games.length === 0) {
-        // FIXME hide this tab
-      } else {
-        // FIXME show this tab
-      }
-    }
+    showRunning();
+    showVotes();
+    showTab();
   };
 
   Tab_Games.getOptions = function () {

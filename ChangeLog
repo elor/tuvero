@@ -6,9 +6,13 @@
 
 	* scripts/ui/tab_teams.js: csv import correctly interprets double quotes
 
-	*script/ui/tab_new.js: moved 'new round' form from tab_games to tab_new
+	* scripts/ui/tab_new.js: moved 'new round' form from tab_games to tab_new
+	when starting a round, automatically focus tab_games
 
-	*script/ui/tab_games.js: moved 'new round' form from tab_games to tab_new
+	* scripts/ui/tab_games.js: moved 'new round' form from tab_games to tab_new
+	when finishing a round, automatically focus tab_new
+
+	* scripts/ui/tabs.js: focus() added
 
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

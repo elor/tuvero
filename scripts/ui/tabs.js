@@ -24,6 +24,9 @@ define([ './options' ], function (Options) {
     this.show = function (tabname) {
       that.display(tabname, true);
     };
+    this.focus = function (tabname) {
+      that.focus(tabname);
+    };
 
     imgpattern = imgpattern || 'images/%s.png';
 
@@ -180,6 +183,28 @@ define([ './options' ], function (Options) {
         }
 
         visible[index] = val;
+        openValidTab();
+      };
+
+      that.focus = function (tabname) {
+        var key, index, currentTab;
+
+        index = tabs.indexOf(tabname);
+        if (index === -1) {
+          // console.error('tabname ' + tabname + ' not found');
+          return;
+        }
+
+        currentTab = location.hash.replace(/^#/, '');
+
+        if (currentTab !== tabname) {
+          if (currentTab !== 'debug') {
+            if (visible[index]) {
+              window.location.hash = '#' + tabname;
+            }
+          }
+        }
+
         openValidTab();
       };
     });
