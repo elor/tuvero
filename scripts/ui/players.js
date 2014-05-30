@@ -3,11 +3,11 @@
  */
 
 define(function () {
-  var Player, names;
+  var Players, names;
 
   names = [];
 
-  Player = {};
+  Players = {};
 
   function trimName (name) {
     return name.replace(/^\s*|\s*$|\n|\r/g, '').replace(/\s\s*/g, ' ');
@@ -18,7 +18,7 @@ define(function () {
     // TODO update storage
   }
 
-  Player.fromString = function (string) {
+  Players.fromString = function (string) {
     var lines, name;
 
     lines = string.split('\n');
@@ -45,11 +45,11 @@ define(function () {
     updateDependencies();
   };
 
-  Player.toString = function () {
+  Players.toString = function () {
     return names.join('\n');
   };
 
-  Player.fromBlob = function (blob) {
+  Players.fromBlob = function (blob) {
     var blobnames = JSON.parse(blob);
     if (!blobnames) {
       return;
@@ -63,21 +63,21 @@ define(function () {
     updateDependencies();
   };
 
-  Player.toBlob = function () {
+  Players.toBlob = function () {
     return JSON.stringify(names);
   };
 
-  Player.clear = function () {
+  Players.clear = function () {
     names = [];
 
     updateDependencies();
   };
 
-  Player.get = function () {
+  Players.get = function () {
     return names.slice();
   };
 
-  Player.insert = function (name) {
+  Players.insert = function (name) {
     name = trimName(name);
     if (typeof (name) === 'string' && name.length > 0) {
       if (names.indexOf(name) === -1) {
@@ -90,7 +90,7 @@ define(function () {
     }
   };
 
-  Player.erase = function (name) {
+  Players.erase = function (name) {
     var index;
     name = trimName(name);
     if (typeof (name) === 'string' && name.length > 0) {
@@ -102,5 +102,5 @@ define(function () {
     }
   };
 
-  return Player;
+  return Players;
 });
