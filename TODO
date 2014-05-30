@@ -6,6 +6,7 @@
 * redesign the storage tab
 
 [later]
+* add autocomplete to player rename
 * test players and autocomplete
 * combine history and games?
 * clean up tab_new.js and tab_games.js; merge redundant functions
