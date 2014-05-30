@@ -86,141 +86,135 @@
       </div>
 
       <div id="new" accesskey="n">
-        <h2>Neues Turnier</h2>
+        <h2>Runde <span class="nextround">##</span> auslosen</h2>
+        <form class="swiss">
+          <table>
+            <tr>
+              <td>Modus</td><td>
+              <select class="mode">
+                <option value="wins">Schweizer</option>
+                <option value="halves" selected="selected">2 Lostöpfe</option>
+                <option value="random">Zufall</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Los-
+              <br>
+              beding-
+              <br>
+              ungen</td>
+              <td>
+              <select class="preset">
+                <!-- <option value="strict">streng</option> -->
+                <!-- <option value="updown" selected="selected">hoch/runter</option> -->
+                <option value="custom">Benutzer</option>
+                <option value="nice">freundlich</option>
+                <option value="pvo" selected="selected">Schweizer</option>
+                <option value="relaxed">locker</option>
+                <option value="none">unbegrenzt</option>
+              </select>
+              <br>
+              <table class="votepermissions">
+                <tr class="up">
+                  <td>&#x25b2;&rArr;</td>
+                  <td class="perm up">&#x25b2;</td>
+                  <td class="perm down">&#x25bc;</td>
+                  <td class="perm bye">&#x2205;</td>
+                </tr>
+                <tr class="down">
+                  <td>&#x25bc;&rArr;</td>
+                  <td class="perm up">&#x25b2;</td>
+                  <td class="perm down">&#x25bc;</td>
+                  <td class="perm bye">&#x2205;</td>
+                </tr>
+                <tr class="bye">
+                  <td>&#x2205;&rArr;</td>
+                  <td class="perm up">&#x25b2;</td>
+                  <td class="perm down">&#x25bc;</td>
+                  <td class="perm bye">&#x2205;</td>
+                </tr>
+              </table></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+              <button type="submit">
+                Runde starten
+              </button></td>
+            </tr>
+          </table>
+        </form>
+
       </div>
 
       <div id="games" accesskey="g">
-        <div class="preparing">
-          <h2>Runde <span class="nextround">##</span> auslosen</h2>
-          <form class="swiss">
-            <table>
-              <tr>
-                <td>Modus</td><td>
-                <select class="mode">
-                  <option value="wins">Schweizer</option>
-                  <option value="halves" selected="selected">2 Lostöpfe</option>
-                  <option value="random">Zufall</option>
-                </select></td>
-              </tr>
-              <tr>
-                <td>Los-
-                <br>
-                beding-
-                <br>
-                ungen</td>
-                <td>
-                <select class="preset">
-                  <!-- <option value="strict">streng</option> -->
-                  <!-- <option value="updown" selected="selected">hoch/runter</option> -->
-                  <option value="custom">Benutzer</option>
-                  <option value="nice">freundlich</option>
-                  <option value="pvo" selected="selected">Schweizer</option>
-                  <option value="relaxed">locker</option>
-                  <option value="none">unbegrenzt</option>
-                </select>
-                <br>
-                <table class="votepermissions">
-                  <tr class="up">
-                    <td>&#x25b2;&rArr;</td>
-                    <td class="perm up">&#x25b2;</td>
-                    <td class="perm down">&#x25bc;</td>
-                    <td class="perm bye">&#x2205;</td>
-                  </tr>
-                  <tr class="down">
-                    <td>&#x25bc;&rArr;</td>
-                    <td class="perm up">&#x25b2;</td>
-                    <td class="perm down">&#x25bc;</td>
-                    <td class="perm bye">&#x2205;</td>
-                  </tr>
-                  <tr class="bye">
-                    <td>&#x2205;&rArr;</td>
-                    <td class="perm up">&#x25b2;</td>
-                    <td class="perm down">&#x25bc;</td>
-                    <td class="perm bye">&#x2205;</td>
-                  </tr>
-                </table></td>
-              </tr>
-              <tr>
-                <td colspan="2">
-                <button type="submit">
-                  Runde starten
-                </button></td>
-              </tr>
-            </table>
-          </form>
-
+        <div class="options">
+          <input class="maxwidth" type="checkbox" checked="checked" />
+          <span
+          class="maxwidthtext">feste Breite</span>
         </div>
-        <div class="running">
-          <div class="options">
-            <input class="maxwidth" type="checkbox" checked="checked" />
-            <span
-            class="maxwidthtext">feste Breite</span>
+        <h2> Laufende Spiele (Runde <span class="round">##</span>) </h2>
+
+        <form class="game tpl">
+          <div class="top">
+            <div class="teamno left">
+              ##
+            </div>
+            <div class="finish">
+              <button type="submit" tabindex="-1" disabled="disabled">
+                Beenden
+              </button>
+              <br>
+              <input class="points" type="number" min="0" max="15" value="0" />
+              <input class="points" type="number" min="0" max="15" value="0" />
+            </div>
+            <div class="teamno right">
+              ##
+            </div>
           </div>
-          <h2> Laufende Spiele (Runde <span class="round">##</span>) </h2>
-
-          <form class="game tpl">
-            <div class="top">
-              <div class="teamno left">
-                ##
-              </div>
-              <div class="finish">
-                <button type="submit" tabindex="-1" disabled="disabled">
-                  Beenden
-                </button>
-                <br>
-                <input class="points" type="number" min="0" max="15" value="0" />
-                <input class="points" type="number" min="0" max="15" value="0" />
-              </div>
-              <div class="teamno right">
-                ##
-              </div>
+          <div class="bottom">
+            <div class="names left">
+              <span class="name">%% %%</span>
+              <br>
+              <span class="name">%% %%</span>
+              <br>
+              <span class="name">%% %%</span>
             </div>
-            <div class="bottom">
-              <div class="names left">
-                <span class="name">%% %%</span>
-                <br>
-                <span class="name">%% %%</span>
-                <br>
-                <span class="name">%% %%</span>
-              </div>
-              <div class="names right">
-                <span class="name">%% %%</span>
-                <br>
-                <span class="name">%% %%</span>
-                <br>
-                <span class="name">%% %%</span>
-              </div>
+            <div class="names right">
+              <span class="name">%% %%</span>
+              <br>
+              <span class="name">%% %%</span>
+              <br>
+              <span class="name">%% %%</span>
             </div>
-          </form>
+          </div>
+        </form>
 
-          <br class="clear">
+        <br class="clear">
 
-          <div class="votes">
-            <div class="bye">
-              <h3>&#x2205; Freilos</h3>
+        <div class="votes">
+          <div class="bye">
+            <h3>&#x2205; Freilos</h3>
+          </div>
+
+          <div class="up">
+            <h3>&#x25b2; Hochlos</h3>
+          </div>
+
+          <div class="down">
+            <h3>&#x25bc; Runterlos</h3>
+          </div>
+
+          <div class="vote tpl">
+            <div class="teamno">
+              ##
             </div>
-
-            <div class="up">
-              <h3>&#x25b2; Hochlos</h3>
+            <div class="names">
+              <span class="name">%% %%</span>
+              <br>
+              <span class="name">%% %%</span>
+              <br>
+              <span class="name">%% %%</span>
             </div>
-
-            <div class="down">
-              <h3>&#x25bc; Runterlos</h3>
-            </div>
-
-            <div class="vote tpl">
-              <div class="teamno">
-                ##
-              </div>
-              <div class="names">
-                <span class="name">%% %%</span>
-                <br>
-                <span class="name">%% %%</span>
-                <br>
-                <span class="name">%% %%</span>
-              </div>
-            </div>
-
           </div>
 
         </div>

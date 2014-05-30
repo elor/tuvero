@@ -1,0 +1,43 @@
+#new  .swiss > table {
+  text-align: center;
+  display: inline-block;
+}
+
+#new  .swiss > table td {
+  vertical-align: top;
+}
+
+#new button {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.3em;
+  display: inline-block;
+}
+
+#new .votepermissions {
+  display: inline-block;
+}
+
+#new .votepermissions .perm {
+  cursor: pointer;
+}
+
+#new .votepermissions .perm {
+  color: #000000;
+}
+
+#new .votepermissions .forbidden {
+  color: #d3d3d3;
+}
+
+#new .votepermissions .perm:hover:not(:active) {
+color: #969696;
+}
+
+#new .votepermissions .perm:hover:active {
+  color: #d3d3d3;
+}
+
+#new .votepermissions .perm.forbidden:hover:active {
+  color: #000000;
+}

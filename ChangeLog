@@ -6,6 +6,10 @@
 
 	* scripts/ui/tab_teams.js: csv import correctly interprets double quotes
 
+	*script/ui/tab_new.js: moved 'new round' form from tab_games to tab_new
+
+	*script/ui/tab_games.js: moved 'new round' form from tab_games to tab_new
+
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_teams.js: reading teams from a file

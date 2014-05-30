@@ -127,15 +127,15 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     if (Tab_Games.getOptions().stage === 1) {
       new Toast(Strings.roundrunning.replace(/%s/g, ''));
     } else {
-      $('#games .preparing .swiss button').click();
+      $('#new .swiss button').click();
     }
   }
 
   function finishRound () {
     var $buttons, $points, teamid, p1, p2;
 
-    $points = $('#games .running .game .finish .points');
-    $buttons = $('#games .running .game .finish button');
+    $points = $('#games .game .finish .points');
+    $buttons = $('#games .game .finish button');
 
     for (teamid = 0; teamid < $buttons.length; ++teamid) {
       if (rng.nextInt(2)) {

@@ -1,115 +1,7 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
     './tab_ranking', './history', './tab_history', './storage', './options',
     './opts' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts) {
-  var Tab_Games, $tab, $stages, template, games, $games, options, $perms, permPresets;
-
-  // TODO move to its own file / database
-  permPresets = {
-    strict : {
-      up : {
-        up : false,
-        down : false,
-        bye : false
-      },
-      down : {
-        up : false,
-        down : false,
-        bye : false
-      },
-      bye : {
-        up : false,
-        down : false,
-        bye : false
-      },
-    },
-    none : {
-      up : {
-        up : true,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : true,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : true
-      },
-    },
-    updown : {
-      up : {
-        up : false,
-        down : false,
-        bye : true
-      },
-      down : {
-        up : false,
-        down : false,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : false
-      },
-    },
-    pvo : {
-      up : {
-        up : false,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : false,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : false
-      },
-    },
-    relaxed : {
-      up : {
-        up : false,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : false,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : true
-      },
-    },
-    nice : {
-      up : {
-        up : false,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : false,
-        bye : false
-      },
-      bye : {
-        up : true,
-        down : false,
-        bye : false
-      },
-    },
-    // indicate that we don't want to change anything
-    custom : undefined
-  };
+  var Tab_Games, $tab, template, games, $games, options;
 
   // references to html elements of the games
   $games = [];
@@ -117,154 +9,18 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   games = [];
 
   Tab_Games = {};
-  options = {
-    stage : 0,
-  };
+  options = {};
 
   function isInt (n) {
     return n % 1 === 0;
   }
 
-  function initStages () {
-    $stages = [];
-
-    $stages[stage.PREPARING] = $tab.find('.preparing');
-    $stages[stage.RUNNING] = $tab.find('.running');
-    $stages[stage.FINISHED] = $tab.find('.preparing');
-  }
-
-  function setTeamsActive (active) {
+  function enableTeamRegistration (active) {
     var opts;
 
     opts = Tab_Teams.getOptions();
     opts.allowRegistrations = active;
     Tab_Teams.setOptions(opts);
-  }
-
-  function stage (stage) {
-    if (stage >= $stages.length) {
-      return undefined;
-    }
-
-    if (stage === 0) {
-      setTeamsActive(true);
-    } else {
-      setTeamsActive(false);
-    }
-
-    $stages.forEach(function ($stage) {
-      $stage.hide();
-    });
-
-    $stages[stage].show();
-
-    options.stage = stage;
-  }
-
-  stage.PREPARING = 0;
-  stage.RUNNING = 1;
-  stage.FINISHED = 2;
-
-  /**
-   * a round has started, so we init some stuff. called after Swiss.start() and
-   * Swiss.newRound(), hence the separete function
-   */
-  function startRound () {
-    var votes, team;
-
-    new Toast(Strings.roundstarted.replace("%s", Swiss.getRanking().round));
-    showRound();
-    showRunning();
-    showVotes();
-    // TODO use event system
-    Tab_Ranking.update();
-
-    // tell the history that there's a new round
-    // TODO use event system
-    Tab_History.nextRound();
-
-    // see if there's a byevote
-    // TODO extract functions into a wrapper around Swiss?
-    votes = getRoundVotes();
-    if (votes.bye !== undefined) {
-      team = Team.get(votes.bye);
-      // remember the byevote
-      History.addBye(team);
-      // immediately show the byevote
-      // TODO FIXME use event system
-      Tab_History.createBye(team.id);
-    }
-
-    // save changes
-    // TODO event system
-    Storage.changed();
-  }
-
-  function getSwissMode () {
-    var mode;
-
-    mode = Swiss.getOptions().mode;
-
-    $tab.find('.preparing .swiss .mode').val(mode);
-  }
-
-  function setSwissMode () {
-    var tournamentOptions, mode;
-
-    mode = $tab.find('.preparing .swiss .mode').val();
-
-    tournamentOptions = Swiss.getOptions();
-    tournamentOptions.mode = mode;
-    Swiss.setOptions(tournamentOptions);
-  }
-
-  function newRound () {
-    var i, swissreturn;
-
-    // abort if there's not enough players
-    if (Team.count() < 2) {
-      new Toast(Strings.notenoughteams);
-      return undefined;
-    }
-
-    // register all teams at the tournament before the first round
-    if (Swiss.getRanking().round === 0) {
-      Team.prepareTournament(Swiss);
-      new Toast(Strings.registrationclosed);
-    }
-
-    // TODO use a private variable
-    setSwissMode();
-    setSwissPermissions();
-
-    swissreturn = undefined;
-    for (i = 0; i < Options.roundtries; i += 1) {
-      swissreturn = Swiss.start();
-      if (swissreturn !== undefined) {
-        break;
-      }
-    }
-
-    if (swissreturn === undefined) {
-      new Toast(Strings.roundfailed, 5);
-      return undefined;
-    }
-
-    // show game overview and hide this button
-    stage(stage.RUNNING);
-
-    startRound();
-  }
-
-  function initPreparations () {
-    // close registration and start swiss tournament
-    // TODO other tournament types and options
-    $tab.find('.preparing .swiss').submit(function (e) {
-      newRound();
-
-      e.preventDefault();
-      return false;
-    });
   }
 
   function initGameTemplate () {
@@ -276,7 +32,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return;
     }
 
-    $form = $stages[stage.RUNNING].find('.game.tpl');
+    $form = $tab.find('.game.tpl');
 
     $form.detach();
     $form.removeClass('tpl');
@@ -291,12 +47,12 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     tmp = $form.find('.teamno');
     $teamnos = [ tmp.eq(0), tmp.eq(1) ];
 
-    $anchor = $stages[stage.RUNNING].find('.clear').eq(0);
+    $anchor = $tab.find('.clear').eq(0);
 
     /**
      * disable/enable the submit button if input is valid
      */
-    $stages[stage.RUNNING].delegate('.game input', 'change', function () {
+    $tab.delegate('.game input', 'change', function () {
       var $button = $(this).parent().find('button');
 
       if (readResults($(this).parents('.game')) === undefined) {
@@ -309,7 +65,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     });
 
-    $stages[stage.RUNNING].delegate('.game', 'submit', function (event) {
+    $tab.delegate('.game', 'submit', function (event) {
       finishGame.call(this);
       event.preventDefault();
       return false;
@@ -326,7 +82,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function initVoteTemplate () {
-    var $vote, $containers, $names, $teamno, i, tmp, $votesarea;
+    var $vote, $containers, $names, $teamno, i, tmp;
 
     if (template.vote) {
       console.error('tab_games: template.vote is already defined:');
@@ -334,8 +90,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return;
     }
 
-    $votesarea = $stages[stage.RUNNING];
-    $vote = $votesarea.find('.votes .tpl');
+    $tab = $tab;
+    $vote = $tab.find('.votes .tpl');
 
     $vote.detach();
     $vote.removeClass('tpl');
@@ -349,9 +105,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $teamno = $vote.find('.teamno');
 
     $containers = {
-      up : $votesarea.find('.up'),
-      down : $votesarea.find('.down'),
-      bye : $votesarea.find('.bye'),
+      up : $tab.find('.up'),
+      down : $tab.find('.down'),
+      bye : $tab.find('.bye'),
     };
 
     template.vote = {
@@ -433,7 +189,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * removes all games from the overview
    */
   function clearGames () {
-    $stages[stage.RUNNING].find('.game').remove();
+    $tab.find('.game').remove();
     $games = [];
     games = [];
   }
@@ -448,9 +204,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       appendGame(game);
     });
 
-    if (Swiss.getRanking().round !== 0 && games.length === 0) {
-      stage(stage.FINISHED);
-    }
+    // FIXME hide tab if games are empty
   }
 
   /**
@@ -460,9 +214,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // getRanking() is actually buffered, so no caveat here
     $tab.find('.round').text(Swiss.getRanking().round);
     $tab.find('.nextround').text(Swiss.getRanking().round + 1);
-
-    // TODO rename function or move
-    getSwissMode();
   }
 
   /**
@@ -612,7 +363,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       clearVotes();
 
       showRound();
-      stage(stage.FINISHED);
+      // FIXME call tab_new.update()
+      // stage(stage.FINISHED);
 
       new Toast(Strings.roundfinished.replace('%s', Swiss.getRanking().round));
     }
@@ -621,6 +373,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Storage.changed();
 
     Tab_Ranking.update();
+    // due to circular dependency, we must load Tab_New separately
+    require('./tab_new').update();
 
     return false;
   }
@@ -629,7 +383,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * remove all elements in the vote area
    */
   function clearVotes () {
-    $stages[stage.RUNNING].find('.votes .vote').remove();
+    $tab.find('.votes .vote').remove();
   }
 
   function createVoteBox (tid) {
@@ -652,6 +406,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * @returns {Object} a votes object of the current round
    */
   function getRoundVotes () {
+    // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
     ranking = Swiss.getRanking();
@@ -724,130 +479,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
   }
 
-  function setPermissions (perms) {
-    var k1, k2, keys;
-
-    $perms.all.removeClass('forbidden');
-
-    for (k1 in perms) {
-      for (k2 in perms) {
-        if (perms[k1][k2] === false) {
-          $perms[k2][k1].addClass('forbidden');
-        }
-      }
-    }
-  }
-
-  function updatePermissions () {
-    var perms;
-
-    perms = Swiss.getOptions().permissions;
-
-    setPermissions(perms);
-  }
-
-  function readPermissions () {
-    var perms;
-
-    perms = {
-      up : {},
-      down : {},
-      bye : {},
-    };
-
-    // flip the order (swisstournament logic is different)
-    // flip the value (permitted vs. forbidden)
-    for (k1 in perms) {
-      for (k2 in perms) {
-        perms[k1][k2] = !$perms[k2][k1].hasClass('forbidden');
-      }
-    }
-
-    return perms;
-  }
-
-  function setSwissPermissions () {
-    var opts = Swiss.getOptions();
-    opts.permissions = readPermissions();
-    Swiss.setOptions(opts);
-  }
-
-  function readPermissionPreset () {
-    var preset;
-
-    preset = $perms.preset.val();
-
-    if (permPresets[preset]) {
-      setPermissions(permPresets[preset]);
-    } else if (preset === 'custom') {
-      // all fine
-    } else {
-      console.error('unknown permission preset: ' + preset);
-    }
-  }
-
-  function initPermissions () {
-    var $container;
-
-    if ($perms) {
-      console.error('initPermissions: $perms has already been defined');
-      return undefined;
-    }
-
-    $container = $stages[stage.FINISHED].find('.votepermissions');
-
-    $perms = {
-      up : {
-        up : $container.find('.up .up'),
-        down : $container.find('.up .down'),
-        bye : $container.find('.up .bye'),
-      },
-      down : {
-        up : $container.find('.down .up'),
-        down : $container.find('.down .down'),
-        bye : $container.find('.down .bye'),
-      },
-      bye : {
-        up : $container.find('.bye .up'),
-        down : $container.find('.bye .down'),
-        bye : $container.find('.bye .bye'),
-      },
-      preset : $container.parents('form').find('.preset'),
-      all : $container.find('.perm'),
-    };
-
-    $perms.all.click(function (event) {
-      var $this;
-
-      $this = $(this);
-
-      // TODO don't save the state of the system in the DOM!
-      if ($this.hasClass('forbidden')) {
-        $this.removeClass('forbidden');
-      } else {
-        $this.addClass('forbidden');
-      }
-
-      $perms.preset.val('custom');
-
-      event.preventDefault();
-      return false;
-    });
-
-    $perms.preset.change(function (event) {
-      readPermissionPreset();
-
-      event.preventDefault();
-      return false;
-    });
-
-    readPermissionPreset();
-  }
-
-  function initFinished () {
-    initPermissions();
-  }
-
   function initMaxWidth () {
     var $box;
 
@@ -875,10 +506,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     $tab = $('#games');
 
-    initStages();
-    initPreparations();
     initTemplates();
-    initFinished();
     initMaxWidth();
   }
 
@@ -898,7 +526,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // reset everything
     updateTemplates();
-    stage(stage.PREPARING);
   };
 
   /**
@@ -910,16 +537,15 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     showRound();
 
     if (Swiss.getRanking().round === 0) {
-      // preparing
-      stage(stage.PREPARING);
+      // FIXME hide this tab
     } else {
       showRunning();
       showVotes();
 
       if (games.length === 0 || $games.length === 0) {
-        stage(stage.FINISHED);
+        // FIXME hide this tab
       } else {
-        stage(stage.RUNNING);
+        // FIXME show this tab
       }
     }
   };

@@ -1,6 +1,7 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
     './autocomplete', './options', './tab_new', './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle) {
 
+  // TODO combine $anchors, $fileload and $teamsize
   var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize;
 
   $tab = undefined;
