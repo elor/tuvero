@@ -5,6 +5,8 @@
 
 	* scripts/ui/tab_ranking.js: Auto-update option removed. The calculations proved fast enough
 
+	* style/*.css: print mode added. Printing looks nice now
+
 2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: moved tab_new after tab_teams

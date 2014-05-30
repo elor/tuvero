@@ -161,3 +161,14 @@
 #teams.deletion .load, #teams.deletion #newteam {
   display: none;
 }
+
+@media print {
+  #newteam, #teams button.delete, #teams .filereader {
+    display: none;
+  }
+
+  #teams .team {
+    margin: 0em;
+  }
+}
+

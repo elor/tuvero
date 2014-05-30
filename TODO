@@ -10,11 +10,11 @@
 * test players and autocomplete
 * combine history and games?
 * clean up tab_new.js and tab_games.js; merge redundant functions
+* clean up tab_teams (reset functions in particular)
 * ranking: export number of games to csv
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random
 * reset/store the permissions -> create standalone permissions object
-* add a print mode for all tabs (hidden borders, tabs and backgrounds, just black on white)
 * design our own icons
 * Ranking: arbitrary sort orders
 * Ranking: Small Points
@@ -43,4 +43,4 @@
 
 [ongoing]
 * w3c validation
-* test.html: fix all errors
+* test.html: fix all displayed errors

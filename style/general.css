@@ -5,6 +5,17 @@ body {
   margin: 0;
 }
 
+@media print {
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  button, input {
+    display: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: underline;
