@@ -5,6 +5,7 @@
 
 [later]
 * style file input tags
+* test debug.js
 * add autocomplete to player rename
 * test players and autocomplete
 * combine history and games?
