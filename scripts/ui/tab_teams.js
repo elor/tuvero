@@ -17,7 +17,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   function deleteTeam ($team) {
     var teamid, team, $names, Tab_Games, i, name;
 
-    if (!options.allowDeletions) {
+    if (!options.allowRegistrations) {
       new Toast(Strings.registrationclosed);
       return undefined;
     }
@@ -33,8 +33,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     Tab_Teams.reset();
     Tab_Teams.update();
-    
-    new Toast(Strings.teamdeleted.replace('%s', (teamid+1)));
+
+    new Toast(Strings.teamdeleted.replace('%s', (teamid + 1)));
   }
 
   function initDeletion () {
@@ -73,10 +73,10 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   }
 
   function updateDeletion () {
-    if (options.allowDeletions) {
-      $delete.show();
+    if (Team.count() === 0) {
+      $delete.addClass('hidden');
     } else {
-      $delete.hide();
+      $delete.removeClass('hidden');
     }
   }
 
@@ -162,6 +162,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     if (Team.count() !== 0) {
       new Toast(Strings.teamsnotempty);
+      return undefined;
+    }
+
+    if (!options.allowRegistrations) {
+      new Toast(Strings.registrationclosed);
       return undefined;
     }
 
@@ -376,6 +381,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     function createTeamFromForm () {
       var names, team;
 
+      if (!options.allowRegistrations) {
+        new Toast(Strings.registrationclosed);
+        return undefined;
+      }
+
       names = readNewTeamNames();
 
       if (names !== undefined) {
@@ -574,6 +584,10 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $anchor = newteam.$form;
   }
 
+  function resetOptions () {
+    options.allowRegistrations = true;
+  }
+
   /**
    * this function adds a new team box to the page
    * 
@@ -595,6 +609,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $fileload.hide();
     // hide teamsize selection
     $teamsize.hide();
+    // show deletion button
+    updateDeletion();
 
     Tab_New.update();
     updateTeamCounts();
@@ -602,8 +618,15 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
   options = {
     allowRegistrations : true,
-    allowDeletions : true,
   };
+
+  function updateActiveState () {
+    if (options.allowRegistrations) {
+      $tab.removeClass('noreg');
+    } else {
+      $tab.addClass('noreg');
+    }
+  }
 
   Tab_Teams = {
     // several options
@@ -618,8 +641,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         options : options
       }, opts);
 
-      // reset active state
-      setActive(options.allowRegistrations);
+      updateActiveState();
     },
 
     /**
@@ -634,7 +656,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       $tab.find('.team').remove();
       Autocomplete.reset();
 
+      resetOptions();
+      updateActiveState();
+
       // reset everything
+      updateDeletion();
       updateTeamSize();
       updateTemplate();
       updateNewTeam();
@@ -653,14 +679,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       }
     },
   };
-
-  function setActive (active) {
-    if (active) {
-      newteam.$form.show();
-    } else {
-      newteam.$form.hide();
-    }
-  }
 
   return Tab_Teams;
 });

@@ -15,14 +15,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     return n % 1 === 0;
   }
 
-  function enableTeamRegistration (active) {
-    var opts;
-
-    opts = Tab_Teams.getOptions();
-    opts.allowRegistrations = active;
-    Tab_Teams.setOptions(opts);
-  }
-
   function initGameTemplate () {
     var $form, $names, $teamnos, i, tmp, $anchor;
 

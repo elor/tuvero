@@ -169,6 +169,16 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     return votes;
   }
 
+  function closeTeamRegistration () {
+    var opts, Tab_Teams;
+
+    Tab_Teams = require('./tab_teams');
+
+    opts = Tab_Teams.getOptions();
+    opts.allowRegistrations = false;
+    Tab_Teams.setOptions(opts);
+  }
+
   /**
    * a round has started, so we init some stuff. called after Swiss.start() and
    * Swiss.newRound(), hence the separete function
@@ -419,6 +429,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     } else {
       if (Swiss.getState() === Tournament.STATE.RUNNING) {
         Tabshandle.hide('new');
+        closeTeamRegistration();
       } else {
         Tabshandle.show('new');
       }

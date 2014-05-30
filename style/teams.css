@@ -111,6 +111,22 @@
   margin: 0em;
 }
 
+#teams.noreg #newteam {
+  display: none;
+}
+
+#teams.noreg button.delete {
+  display: none;
+}
+
+#teams.noreg .filereader {
+  display: none;
+}
+
+#teams button.delete.hidden {
+  display: none;
+}
+
 #teams button.delete {
   background-color: #d3d3d3;
   height: 3em;

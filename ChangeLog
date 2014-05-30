@@ -6,6 +6,7 @@
 
 	* scripts/ui/tab_teams.js: csv import correctly interprets double quotes
 	Deletion button and logic added
+	registration and deletion forms/buttons now show and hide correctly
 
 	* scripts/ui/tab_new.js: moved 'new round' form from tab_games to tab_new
 	when starting a round, automatically focus tab_games
