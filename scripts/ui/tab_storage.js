@@ -252,6 +252,8 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     Players.fromString(string);
 
+    Storage.store();
+
     new Toast(Strings.autocompleteloaded);
   }
 

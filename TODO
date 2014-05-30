@@ -3,6 +3,7 @@
 * test random number generator again!
 
 [later]
+* clean up all dependencies
 * use html classes instead of $.hide()/$.show()
 * style file input tags
 * test debug.js
