@@ -1,11 +1,13 @@
 [1.3]
-* add tournament selection to Tab_New
+* move tournament selection to Tab_New
+* move team size to tab_teams
 * autocomplete: read names from a file
 * autocomplete: read names from the interwebs, but possibly another domain...
 * Tab_Teams: delete team during registration
 * redesign the storage tab
 
 [later]
+* combine history and games?
 * ranking: export number of games to csv
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random

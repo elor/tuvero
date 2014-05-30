@@ -1,3 +1,7 @@
+2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: moved tab_new after tab_teams
+
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_teams.js: reading teams from a file
