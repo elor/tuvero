@@ -172,20 +172,18 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       url : Options.playernameurl,
       timeout : 3000
     }).done(function (response, status) {
-      console.log('successfully read ' + Options.playernameurl);
-      console.log(response);
-
-      // FIXME check length
-      // FIXME check format?
-
-      Players.fromString(response);
+      if (response.length === 0) {
+        new Toast(Strings.fileempty);
+      } else {
+        // TODO check format?
+        Players.fromString(response);
+        new Toast(Strings.autocompleteloaded);
+      }
     }).fail(function () {
       var content, i;
+      // TODO use an iframe, message passing and and a separate player database
 
       console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
-
-      // FIXME DEBUG TEST
-      areas.autocomplete.$iframe.load(Options.playernameurl);
 
       new Toast(Strings.autocompletereloadfailed);
       for (i = 0; i < arguments.length; ++i) {
@@ -199,7 +197,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     areas.autocomplete.$button = $tab.find('.autocomplete button');
     areas.autocomplete.$file = $tab.find('.autocomplete input.file');
-    areas.autocomplete.$iframe = $tab.find('.autocomplete div');
 
     areas.autocomplete.$button.click(function () {
       var $button = $(this);

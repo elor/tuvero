@@ -59,6 +59,7 @@ define(function () {
     tournamentfinished : 'Turnier beendet',
     autocompleteloaded : 'Spielernamen geladen',
     autocompletereloadfailed : 'Konnte Spielernamen nicht laden',
+    fileempty : 'Datei ist leer',
   };
 
   return Strings;
