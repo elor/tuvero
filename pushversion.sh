@@ -30,6 +30,7 @@ for file in `git ls-files '*.html'`; do
 done
 
 git add -u
+git rm BUGS TODO ChangeLog
 git rm `git ls-files '*.sh' | grep -v "$self"`
 git rm --cached $self
 git commit -m "release-$version: debugging and build stuff removed"
@@ -44,7 +45,5 @@ done
 git add -u
 git commit -m "release-$version: pushed to version $version"
 
-git rm $self
-
-git commit -m "release-$version: $self removed"
+rm $self
 
