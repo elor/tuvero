@@ -86,7 +86,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
    * @returns true on success, undefined or false on failure
    */
   function createTeamsFromString (str) {
-    var lines, line, names, teamsize, team, i;
+    var lines, line, name, names, teamsize, team, i;
 
     if (Team.count() !== 0) {
       new Toast(Strings.teamsnotempty);
