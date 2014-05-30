@@ -26,8 +26,9 @@ define(function () {
     lines = string.split('\n');
 
     // strip the names from white spaces
+    // also, remove comments
     for (name in lines) {
-      lines[name] = trimName(lines[name]);
+      lines[name] = trimName(lines[name]).replace(/^#.*/, '');
     }
 
     // remove empty entries
