@@ -57,7 +57,8 @@ define(function () {
     alltabsreloaded : 'Alle Tabs neu geladen',
     modsvariableadded : 'globale Variable "mods" erstellt',
     tournamentfinished : 'Turnier beendet',
-    autocompleteloaded: 'Spielernamen geladen',
+    autocompleteloaded : 'Spielernamen geladen',
+    autocompletereloadfailed : 'Konnte Spielernamen nicht laden',
   };
 
   return Strings;

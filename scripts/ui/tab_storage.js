@@ -165,10 +165,52 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     new Toast(Strings.fileabort);
   }
 
+  function reloadAutocomplete () {
+    $.ajax({
+      async : false,
+      dataType : 'text',
+      url : Options.playernameurl,
+      timeout : 3000
+    }).done(function (response, status) {
+      console.log('successfully read ' + Options.playernameurl);
+      console.log(response);
+
+      // FIXME check length
+      // FIXME check format?
+
+      Players.fromString(response);
+    }).fail(function () {
+      var content, i;
+
+      console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
+
+      // FIXME DEBUG TEST
+      areas.autocomplete.$iframe.load(Options.playernameurl);
+
+      new Toast(Strings.autocompletereloadfailed);
+      for (i = 0; i < arguments.length; ++i) {
+        console.log(arguments[i]);
+      }
+    });
+  }
+
   function initAutocomplete () {
     areas.autocomplete = {};
 
+    areas.autocomplete.$button = $tab.find('.autocomplete button');
     areas.autocomplete.$file = $tab.find('.autocomplete input.file');
+    areas.autocomplete.$iframe = $tab.find('.autocomplete div');
+
+    areas.autocomplete.$button.click(function () {
+      var $button = $(this);
+
+      // button contains image. Forward accidental clicks.
+      if ($button.prop('tagName') !== 'BUTTON') {
+        $button = $button.parents('button');
+      }
+
+      reloadAutocomplete();
+    });
 
     areas.autocomplete.$file.change(function (evt) {
       var reader = new FileReader();

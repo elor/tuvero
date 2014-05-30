@@ -14,7 +14,8 @@ define(function () {
     maxpoints : 15,
     roundtries : 20,
     dbname : 'swiss',
-    dbplayername : 'players'
+    dbplayername : 'players',
+    playernameurl : 'players.txt',
   };
 
   Options.toBlob = function () {
