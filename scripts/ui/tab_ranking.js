@@ -1,14 +1,13 @@
 define([ './team', './toast', './strings', './swiss', './options',
     './tabshandle', './opts' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle, Opts) {
-  var Tab_Ranking, template, autoupdate, shown, $tab, options;
+  var Tab_Ranking, template, shown, $tab, options;
 
   Tab_Ranking = {};
   options = {};
 
   function initState () {
-    // whether to automatically update the tables
-    autoupdate = false;
     // whether a ranking has been calculated and displayed
+    // TODO use some kind of checksum
     shown = false;
   }
 
@@ -52,34 +51,6 @@ define([ './team', './toast', './strings', './swiss', './options',
     }
   }
 
-  function initAutoupdate () {
-    var $autoupdate, $button;
-
-    $autoupdate = $tab.find('.options .autoupdate');
-    $button = $tab.find('.options button.update');
-
-    autoupdate = !!$autoupdate.prop('checked');
-
-    // we're not using 'click()' because 'change()' is its consequence and what
-    // we actually want to register
-    $autoupdate.change(function () {
-      autoupdate = !!$autoupdate.prop('checked');
-      if (autoupdate) {
-        new Toast(Strings.autoupdateon);
-        $button.click();
-      } else {
-        new Toast(Strings.autoupdateoff);
-      }
-    });
-
-    // update button
-    $button.click(function () {
-      if (update() === true) {
-        new Toast(Strings.rankingupdate);
-      }
-    });
-  }
-
   function initCorrection () {
     var i, tmp;
     // prepare nodes
@@ -116,7 +87,6 @@ define([ './team', './toast', './strings', './swiss', './options',
     $tab = $('#ranking');
 
     initState();
-    initAutoupdate();
     initRankRow();
     initCorrection();
 
@@ -288,10 +258,8 @@ define([ './team', './toast', './strings', './swiss', './options',
   }
 
   Tab_Ranking.update = function () {
-    if (autoupdate) {
-      if (update() === true) {
-        // new Toast(Strings.rankingupdate);
-      }
+    if (update() === true) {
+      // new Toast(Strings.rankingupdate);
     }
   };
 

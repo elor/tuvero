@@ -2,6 +2,8 @@
 
 	* scripts/ui/tab_storage.js: focus tab_teams on file load
 
+	* scripts/ui/tab_ranking.js: Auto-update option removed. The program is fast enough
+
 2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: moved tab_new after tab_teams
