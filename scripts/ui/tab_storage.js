@@ -167,8 +167,8 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
   function reloadAutocomplete () {
     $.ajax({
-      async : false,
       dataType : 'text',
+      contentType : "text/plain; charset=utf-8",
       url : Options.playernameurl,
       timeout : 3000
     }).done(function (response, status) {
