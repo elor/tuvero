@@ -24,10 +24,24 @@
       <div id="teams" data-tabimgopt="teamsize" accesskey="t">
         <div class="options">
           <input class="maxwidth" type="checkbox" checked="checked" />
-          <span
-          class="maxwidthtext">feste Breite</span>
+          <span class="maxwidthtext">feste Breite</span>
         </div>
+
         <h2><span class="numteams">##</span> Anmeldungen</h2>
+
+        <div class="teamsize">
+          <button value="1">
+            <img src="images/teams1.png" alt="tete"/>
+          </button>
+          <button value="2">
+            <img src="images/teams2.png" alt="doublette"/>
+          </button>
+          <button value="3">
+            <img src="images/teams3.png" alt="triplette"/>
+          </button>
+        </div>
+
+        <br>
 
         <div class="team tpl">
           <div class="teamno">
@@ -66,27 +80,13 @@
             <input type="file" />
           </p>
         </div>
-
-        <br class="clear">
+        <!-- dirty hack: a br.clear would have been ignored -->
+        <!-- overflow: auto is no option because it messes with autocomplete -->
+        <img class="blank clear" src="images/blank.png" alt="blank"/>
       </div>
 
       <div id="new" accesskey="n">
         <h2>Neues Turnier</h2>
-        <form class="teamsize">
-          <p>
-            Teamgröße:
-          </p>
-          <button value="1">
-            <img src="images/teams1.png" alt="tete"/>
-          </button>
-          <button value="2">
-            <img src="images/teams2.png" alt="doublette"/>
-          </button>
-          <button value="3">
-            <img src="images/teams3.png" alt="triplette"/>
-          </button>
-
-        </form>
       </div>
 
       <div id="games" accesskey="g">
@@ -197,18 +197,15 @@
 
           <div class="votes">
             <div class="bye">
-              <h3>Freilos</h3>
-              <br class="clear">
+              <h3>&#x2205; Freilos</h3>
             </div>
 
             <div class="up">
-              <h3>hochgelost</h3>
-              <br class="clear">
+              <h3>&#x25b2; Hochlos</h3>
             </div>
 
             <div class="down">
-              <h3>runtergelost</h3>
-              <br class="clear">
+              <h3>&#x25bc; Runterlos</h3>
             </div>
 
             <div class="vote tpl">
@@ -321,7 +318,6 @@
           </div>
         </div>
         <br class="clear">
-
       </div>
 
       <div id="storage" accesskey="s">
@@ -416,9 +412,6 @@
             Debugging Console</a>
           </div>
         </div>
-
-        <br class="clear">
-
       </div>
 
       <div id="debug">
@@ -455,6 +448,7 @@
           </button>
 
         </form>
+        <br class="clear">
       </div>
 
     </div>

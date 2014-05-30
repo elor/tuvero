@@ -326,7 +326,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function initVoteTemplate () {
-    var $vote, $containers, $names, $teamno, i, tmp, $anchors, $votesarea;
+    var $vote, $containers, $names, $teamno, i, tmp, $votesarea;
 
     if (template.vote) {
       console.error('tab_games: template.vote is already defined:');
@@ -354,14 +354,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       bye : $votesarea.find('.bye'),
     };
 
-    $anchors = {
-      up : $containers.up.find('.clear'),
-      down : $containers.down.find('.clear'),
-      bye : $containers.bye.find('.clear'),
-    };
-
     template.vote = {
-      $anchors : $anchors,
       $containers : $containers,
       $vote : $vote,
       $names : $names,
@@ -688,7 +681,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * display the votes for the current round
    */
   function showVotes () {
-    var votes, i, $containers, $anchors;
+    var votes, i, $containers;
 
     // remove old votes
     clearVotes();
@@ -697,14 +690,13 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     votes = getRoundVotes();
 
     $containers = template.vote.$containers;
-    $anchors = template.vote.$anchors;
 
     // apply upvotes
     if (votes.up && votes.up.length !== 0) {
       $containers.up.show();
       votes.up.forEach(function (tid) {
         if (tid !== undefined) {
-          $anchors.up.before(createVoteBox(tid));
+          $containers.up.append(createVoteBox(tid));
         }
       });
     } else {
@@ -716,7 +708,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       $containers.down.show();
       votes.down.forEach(function (tid) {
         if (tid !== undefined) {
-          $anchors.down.before(createVoteBox(tid));
+          $containers.down.append(createVoteBox(tid));
         }
       });
     } else {
@@ -726,7 +718,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // apply bye
     if (votes.bye !== undefined) {
       $containers.bye.show();
-      $anchors.bye.before(createVoteBox(votes.bye));
+      $containers.bye.append(createVoteBox(votes.bye));
     } else {
       $containers.bye.hide();
     }

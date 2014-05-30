@@ -86,6 +86,10 @@
   text-align: left;
 }
 
+#games .votes > div {
+  overflow: auto;
+}
+
 #games .votes .team {
   margin: 0.0em;
 }

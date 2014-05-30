@@ -1,7 +1,7 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
     './autocomplete', './options', './tab_new', './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle) {
 
-  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload;
+  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize;
 
   $tab = undefined;
 
@@ -11,6 +11,36 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
   function updateTeamCounts () {
     $tab.find('.numteams').text(Team.count());
+  }
+
+  function initTeamSize () {
+    $teamsize = $tab.find('.teamsize');
+    $teamsize.find('button').on('click', function (e) {
+      var teamsize, $button;
+
+      $button = $(this);
+
+      if ($button.prop('tagName') !== 'BUTTON') {
+        $button = $button.parents('button');
+      }
+
+      teamsize = Number($button.val());
+
+      Options.teamsize = teamsize;
+
+      Tabshandle.updateOpts();
+      require('./alltabs').reset();
+      require('./alltabs').update();
+
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function updateTeamSize () {
+    $teamsize.find('button').removeClass('selected');
+    $teamsize.find('button[value=' + Options.teamsize + ']').addClass('selected');
+    $teamsize.show();
   }
 
   function initTemplate () {
@@ -72,14 +102,15 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       lines[i] = trimName(lines[i]);
 
       // convert CSV format to plain text
-      // first, replace all commas inside quotes
-      lines[i] = lines[i].replace(/(, ?"([^,"]|"")*),/g, '$1%COMMA%');
+      // first, replace all commas and double quotes inside quotes
+      lines[i] = lines[i].replace(/(, ?"([^,"])*)""/g, '$1%DBQUOTE%');
+      lines[i] = lines[i].replace(/(, ?"([^,"])*),/g, '$1%COMMA%');
       // second, remove spaces around commas
       lines[i] = lines[i].replace(/ *, */g, ',');
       // second, convert the actual content
-      lines[i] = lines[i].replace(/^([0-9]+,)?"(([^"]|"")*)","(([^"]|"")*)","(([^"]|"")*)"$/, '$2,$4,$6');
-      lines[i] = lines[i].replace(/^([0-9]+,)?"(([^"]|"")*)","(([^"]|"")*)"$/, '$2,$4');
-      lines[i] = lines[i].replace(/^([0-9]+,)?"(([^"]|"")*)"$/, '$2');
+      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)","([^"]*)"$/, '$2,$3,$4');
+      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)"$/, '$2,$3');
+      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)"$/, '$2');
 
       // remove all comments
       lines[i] = lines[i].replace(/^#.*/, '');
@@ -99,6 +130,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
       for (name in names) {
         names[name] = trimName(names[name]).replace('%COMMA%', ',');
+        names[name] = trimName(names[name]).replace('%DBQUOTE%', '"');
         if (names[name].length === 0) {
           names[name] = Strings.emptyname;
         }
@@ -449,6 +481,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     initMaxWidth();
     initRename();
     initFileLoad();
+    initTeamSize();
     $anchor = newteam.$form;
   }
 
@@ -471,6 +504,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     // hide file load
     $fileload.hide();
+    // hide teamsize selection
+    $teamsize.hide();
 
     Tab_New.update();
     updateTeamCounts();
@@ -511,6 +546,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Autocomplete.reset();
 
       // reset everything
+      updateTeamSize();
       updateTemplate();
       updateNewTeam();
       updateFileLoad();

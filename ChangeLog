@@ -1,6 +1,10 @@
 2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: moved tab_new after tab_teams
+	moved team size selection to tab_teams
+	"fixed" a clear:both bug
+
+	* scripts/ui/tab_teams.js: csv import correctly interprets double quotes
 
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
