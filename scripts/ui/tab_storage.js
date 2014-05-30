@@ -187,9 +187,6 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
 
       new Toast(Strings.autocompletereloadfailed, 5);
-      for (i = 0; i < arguments.length; ++i) {
-        console.log(arguments[i]);
-      }
     });
   }
 

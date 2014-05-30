@@ -88,7 +88,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     Tab_Storage = require('./tab_storage');
 
     Storage.enable();
-    Storage.clear(Options.dbname);
+    Storage.clear();
     Alltabs.reset();
     Blob.reset();
     Alltabs.update();

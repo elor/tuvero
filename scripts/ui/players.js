@@ -80,6 +80,8 @@ define(function () {
     updateDependencies();
   };
 
+  Players.reset = Players.clear;
+
   Players.get = function () {
     return names.slice();
   };

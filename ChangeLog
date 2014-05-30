@@ -18,6 +18,10 @@
 
 	* scripts/ui/tab_storage.js: automatically loading players from players.txt
 
+	* scripts/ui/storage.js: run reset() on every stored object on deletion
+
+	* scripts/ui/tab_debug.js: really removing everything, not just the current state
+
 2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_teams.js: reading teams from a file
