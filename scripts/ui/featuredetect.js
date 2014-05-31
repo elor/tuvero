@@ -1,7 +1,7 @@
 /**
  * modernizr and own feature detections
  */
-define([ './strings' ], function (Strings) {
+define([ './strings', './toast' ], function (Strings, Toast) {
   var FeatureDetect;
 
   FeatureDetect = {};
@@ -19,18 +19,21 @@ define([ './strings' ], function (Strings) {
 
     if (!Modernizr.filereader) {
       $('.nofilereader').show();
-      $('.filereader').hide();
+      $('.filereader').detach();
+      new Toast(Strings.nofilereader, 5);
     }
 
     if (!Modernizr.json) {
       $('.nojson').show();
-      $('.json').hide();
+      $('.json').detach();
+      new Toast(Strings.nojson, 5);
       confirmLeave();
     }
 
     if (!Modernizr.localstorage) {
       $('.nostorage').show();
-      $('.storage').hide();
+      $('.storage').detach();
+      new Toast(Strings.nostorage, 5);
       confirmLeave();
     }
   });

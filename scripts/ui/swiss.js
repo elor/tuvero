@@ -6,5 +6,14 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
   Swiss = new Swisstournament();
 
+  if (Swiss.reset) {
+    console.error('Swiss.reset() already defined');
+    return undefined;
+  }
+
+  Swiss.reset = function () {
+    Swiss.fromBlob((new Swisstournament()).toBlob());
+  };
+
   return Swiss;
 });

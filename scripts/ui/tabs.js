@@ -24,6 +24,9 @@ define([ './options' ], function (Options) {
     this.show = function (tabname) {
       that.display(tabname, true);
     };
+    this.focus = function (tabname) {
+      that.focus(tabname);
+    };
 
     imgpattern = imgpattern || 'images/%s.png';
 
@@ -38,10 +41,18 @@ define([ './options' ], function (Options) {
       visible = [];
 
       function openValidTab () {
-        var tabindex, index;
+        var tabindex, index, currentTab;
 
         // show the first tab of this set if hash doesn't match any of them
-        tabindex = tabs.indexOf(location.hash.replace(/^#/, ''));
+        currentTab = location.hash.replace(/^#/, '');
+
+        if (currentTab === 'debug') {
+          // don't mess with a guy who's just debugging
+          return;
+        }
+
+        tabindex = tabs.indexOf(currentTab);
+        // TODO apply parens to make this line clear!
         if (enforce && tabindex === -1 || !visible[tabindex]) {
           index = visible.indexOf(true);
           if (index === -1) {
@@ -86,6 +97,7 @@ define([ './options' ], function (Options) {
         } else {
           $img.attr('src', imgpattern.replace('%s', tabname));
         }
+        $img.attr('alt', $img.attr('src'));
 
         $tab = $('<a>');
         $tab.attr('href', '#' + tabname);
@@ -171,6 +183,28 @@ define([ './options' ], function (Options) {
         }
 
         visible[index] = val;
+        openValidTab();
+      };
+
+      that.focus = function (tabname) {
+        var key, index, currentTab;
+
+        index = tabs.indexOf(tabname);
+        if (index === -1) {
+          // console.error('tabname ' + tabname + ' not found');
+          return;
+        }
+
+        currentTab = location.hash.replace(/^#/, '');
+
+        if (currentTab !== tabname) {
+          if (currentTab !== 'debug') {
+            if (visible[index]) {
+              window.location.hash = '#' + tabname;
+            }
+          }
+        }
+
         openValidTab();
       };
     });

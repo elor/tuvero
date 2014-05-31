@@ -3,7 +3,7 @@
  * assumes unique player ids for every tournament, so the use of global ids is
  * encouraged.
  */
-define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, Game, Blobber) {
+define([ './map', './ranking', './game', './blobber', './options' ], function (Map, Ranking, Game, Blobber, Options) {
   return {
     Interface : {
       /**
@@ -115,29 +115,9 @@ define([ './map', './ranking', './game', './blobber' ], function (Map, Ranking, 
         return [];
       },
 
-      /**
-       * get an object with options
-       * 
-       * @returns an object containing tournament-specific options
-       */
-      getOptions : function () {
-        return {};
-      },
-
-      /**
-       * set options
-       * 
-       * @param {Object}
-       *          options a modified options object retrieved from getOptions()
-       * @returns true on success, false or undefined otherwise
-       */
-      setOptions : function (options) {
-        return true;
-      }
-
     },
 
-    Extends : [ Blobber ],
+    Extends : [ Blobber, Options.Interface ],
 
     /**
      * Possible states of a tournament.

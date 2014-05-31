@@ -1,20 +1,43 @@
-#new form {
+#new  .swiss > table {
+  text-align: center;
   display: inline-block;
 }
 
+#new  .swiss > table td {
+  vertical-align: top;
+}
+
 #new button {
-  background-color: #d0d0d0;
-  border-radius: 0.5em;
+  font-size: 1em;
   padding: 0.5em;
+  border-radius: 0.3em;
+  display: inline-block;
+}
+
+#new .votepermissions {
+  display: inline-block;
+}
+
+#new .votepermissions .perm {
   cursor: pointer;
-  margin-bottom: 1em;
 }
 
-#new button.selected {
-  background-color: #ffffff;
+#new .votepermissions .perm {
+  color: #000000;
 }
 
-#new button > img {
-  width: 3.0em;
-  height: 3.0em;
+#new .votepermissions .forbidden {
+  color: #d3d3d3;
+}
+
+#new .votepermissions .perm:hover:not(:active) {
+color: #969696;
+}
+
+#new .votepermissions .perm:hover:active {
+  color: #d3d3d3;
+}
+
+#new .votepermissions .perm.forbidden:hover:active {
+  color: #000000;
 }

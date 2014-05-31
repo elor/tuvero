@@ -5,9 +5,31 @@ body {
   margin: 0;
 }
 
+@media print {
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  button, input {
+    display: none;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: underline;
+}
+
+a.hiddenlink {
+  text-decoration: none;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  display: block;
+  position: fixed;
+  right: 0px;
+  top: 0px;
 }
 
 h3 {
@@ -41,3 +63,9 @@ div, button {
   border-radius: 0.2em;
 }
 
+img.blank {
+  height: 1px;
+  width: 1px;
+  opacity: 0;
+  display: block;
+}

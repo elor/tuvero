@@ -1,0 +1,165 @@
+2014-05-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_storage.js: focus tab_teams on file load
+	autosave option removed. Serialization proved fast enough
+	save newly loaded player names
+	filereader/nofilereader fallbacks updated
+
+	* scripts/ui/tab_ranking.js: Auto-update option removed. The calculations proved fast enough
+
+	* style/*.css: print mode added. Printing looks nice now
+
+	* scripts/ui/toast.js: parsing different transition formats (opera)
+
+	* scripts/ui/tab_new.js: error fixed where the registration wasn't closed after Blob.fromBlob()
+
+2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: moved tab_new after tab_teams
+	moved team size selection to tab_teams
+	"fixed" a clear:both bug
+
+	* scripts/ui/tab_teams.js: csv import correctly interprets double quotes
+	Deletion button and logic added
+	registration and deletion forms/buttons now show and hide correctly
+
+	* scripts/ui/tab_new.js: moved 'new round' form from tab_games to tab_new
+	when starting a round, automatically focus tab_games
+
+	* scripts/ui/tab_games.js: moved 'new round' form from tab_games to tab_new
+	when finishing a round, automatically focus tab_new
+
+	* scripts/ui/tabs.js: focus() added
+
+	* scripts/ui/players.js: toString and fromString added
+
+	* scripts/ui/tab_storage.js: automatically loading players from players.txt
+
+	* scripts/ui/storage.js: run reset() on every stored object on deletion
+
+	* scripts/ui/tab_debug.js: really removing everything, not just the current state
+
+	* scripts/ui/team.js: erase() added
+
+	* scripts/backend/finebuchholzranking.js: critical bug fixed where the number of games was calculated incorrectly
+
+2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_teams.js: reading teams from a file
+
+	* scripts/ui/tab_debug.js: using Strings object for Toasts
+
+	* scripts/ui/toast.js: fading behavior improved
+
+	* scripts/ui/tab_games.js: first and subsequent rounds started from the same page
+
+2014-05-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: favicon added (games.png)
+	increased max points to 15
+
+	* scripts/ui/tab_storage.js: toggleStorage function hidden
+
+	* scripts/ui/toast.js: reading fading times from css
+	Toast: use console.error without a style sheet
+
+	* scripts/ui/tab_debug.js: finishtournament implemented
+
+	* scripts/ui/tab_games.js: preset 'nice' added
+	using Options.maxpoints
+
+	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
+	showing the number of votes
+
+	* scripts/backend/swisstournament.js: storing the number of votes
+	critical bug with the permissions matrix fixed
+	If a wingroup is empty, one player can be downvoted multiple times
+
+	* scripts/ui/strings.js: vote strings: using the respective unicode characters
+
+	* style/games.css: permission behavior changed
+
+	* scripts/ui/tabs.js: involuntary tab reloading fixed
+
+	* scripts/backend/test/swisstournament.js: tests "fixed"
+
+2014-05-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: debug values changed
+
+	* scripts/backend/swisstournament.js: mode 'halves': byevote fixed
+	allowed more corner cases when working with win groups
+
+	* scripts/ui/alltabs.js: tab_debug added
+
+	* scripts/ui/tab_debug: don't reload on storage clear
+
+	* scripts/ui/tab_games.js: Don't reload on tournament start
+	permission selection added
+
+	* scripts/ui/tab_storage.js: Don't reload no storage clear
+
+	* scripts/ui/test/tab.js: tab_debug and alltabs (technically a tab) added
+
+	* style/teams.css: name height extended to a reasonable value
+
+
+2014-05-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_games.js: tiny variable cleanup (var i removed)
+
+	* boules.html: hidden debugging tab added
+
+	* images/debug.png: hidden debugging tab added
+
+	* scripts/ui/alltabs.js: hidden debugging tab added
+
+	* scripts/ui/tab_debug.js: hidden debugging tab added
+
+	* scripts/ui/tab_games.js: hidden debugging tab added
+	options.stage added
+
+	* scripts/ui/tabs.js: hidden debugging tab added
+
+	* style/debug.css: hidden debugging tab added
+
+	* style/mainstyle.css: hidden debugging tab added
+
+	* scripts/backend/finebuchholzranking.js: games[] added
+
+	* scripts/backend/swisstournament.js: getRanking().games[] added
+	newRoundByHalves uses ranking order
+	newRoundBy* fixed
+
+	* scripts/ui/tab_ranking.js: number of games
+
+	* scripts/ui/tab_storage: developer tools added
+	textareas and localstorage-checkbox removed
+	
+
+2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* images/qr_github.png: added
+
+2014-05-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_storage: Fixed buttons not resetting on update()
+
+	* style/teams.css: Made overflow-x/y inconsistency note
+
+	* style/games.css: added margin to .vote containers
+
+	* style/ranking.css: using ellipsis when player names are too long
+
+	* scripts/backend/swisstournament.js: options extended and option functions generalized
+	enabled vote permissions
+	fromBlob: missing this.rkch=true added to notify about updates to this.ranking
+	'random' and 'halves' modes added
+	undefined-byevote-bug fixed
+
+	* scripts/ui/strings.js: CSV headers: multiword strings grouped with quotes
+
+	* scripts/ui/tab_games: using Options (Opts) to allow registrations
+
+	* ChangeLog: changelog started. For previous changes, see git history
+

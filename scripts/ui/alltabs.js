@@ -2,31 +2,42 @@
  * Load and manage all tabs centrally
  */
 
-define([ './tab_history', './tab_ranking', './tab_storage', './tab_new',
-    './tab_teams', './tab_games' ], function () {
-  var i, tabs, Alltabs;
+define([ './tab_history', './tab_ranking', './tab_new',
+    './tab_teams', './tab_games', './tab_debug', './tab_storage' ], function () {
+  var tab, tabs, Alltabs;
 
   tabs = [];
 
-  for (i = 0; i < arguments.length; i += 1) {
-    tabs[i] = arguments[i];
+  for (tab = 0; tab < arguments.length; tab += 1) {
+    if (!arguments[tab]) {
+      console.error('alltabs: argument id ' + tab + ' has invalid value: ');
+      console.error(arguments[tab]);
+      continue;
+    }
+
+    tabs[tab] = arguments[tab];
   }
 
   Alltabs = {
     reset : function () {
-      var i;
-      for (i in tabs) {
-        tabs[i].reset();
+      var tab;
+      for (tab in tabs) {
+        tabs[tab].reset();
       }
     },
     update : function () {
-      for (i in tabs) {
-        tabs[i].update();
+      for (tab in tabs) {
+        tabs[tab].update();
       }
-    }
+    },
+    getOptions : function () {
+      return {};
+    },
+    setOptions : function () {
+    },
   };
 
   return Alltabs;
 });
 
-// TODO EVERYWHERE: prevent default behavior!
+// TODO EVERYWHERE: prevent default behavtabor!
