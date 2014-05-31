@@ -9,6 +9,9 @@
 * IE11: seams everywhere
 * IE11: Cannot download
 * IE11: FileReader cannot readAsBinaryString
+* github.io: autocomplete encoding is messed up
+* release version: must reload twice due to manifest update
+* Firefox, Opera, Safari: Print Page doesn't show anything (doesn't it print the subpages?)
   
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible
