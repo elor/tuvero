@@ -427,9 +427,11 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     if (Team.count() < 2) {
       Tabshandle.hide('new');
     } else {
+      if (Swiss.getRanking().round !== 0) {
+        closeTeamRegistration();
+      }
       if (Swiss.getState() === Tournament.STATE.RUNNING) {
         Tabshandle.hide('new');
-        closeTeamRegistration();
       } else {
         Tabshandle.show('new');
       }

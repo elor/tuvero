@@ -3,7 +3,7 @@
  * state in a different user session.
  */
 define([ './options', './tabshandle', './team', './history', './swiss',
-    './tab_teams', './tab_games', './tab_ranking', './tab_history' ], function (Options, Tabshandle, Team, History, Swiss, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History) {
+    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new' ], function (Options, Tabshandle, Team, History, Swiss, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New) {
   var Blob;
 
   Blob = {
@@ -48,6 +48,7 @@ define([ './options', './tabshandle', './team', './history', './swiss',
 
       // update all tabs
       Tab_Teams.update();
+      Tab_New.update();
       Tab_Games.update();
       Tab_History.update();
       Tab_Ranking.update(); // attempt ranking update

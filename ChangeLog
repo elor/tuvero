@@ -10,6 +10,8 @@
 
 	* scripts/ui/toast.js: parsing different transition formats (opera)
 
+	* scripts/ui/tab_new.js: error fixed where the registration wasn't closed after Blob.fromBlob()
+
 2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: moved tab_new after tab_teams
