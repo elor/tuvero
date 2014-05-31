@@ -1,0 +1,16 @@
+[REPORTED]
+* Tab_History: Round 2 not started
+* Toast: chunky positioning right before a toast disappears
+  caused bye its <br> tag and possibly its padding/margin  
+* Opera: tab_games: bye character doesn't display properly. Font problem?
+* Safari for windows: no FileReader
+* Safari for Windows: bye character looks strange (small and right-aligned)
+* IE11: button.deletion: text aligned to top
+* IE11: seams everywhere
+* IE11: Cannot download
+* IE11: FileReader cannot readAsBinaryString
+  
+[UNFIXABLE]
+* Tab_Teams: overflow-x hidden, overflow-y visible
+  cannot be fixed properly due to inconsistent default behavior:
+  'visible' becomes 'auto' if used with 'hidden' as overflow-x

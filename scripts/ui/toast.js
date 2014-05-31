@@ -19,52 +19,98 @@ define(function () {
 
   // wait for jquery
   $(function ($) {
+    var $hidden, transition, duration;
     // create toast container
-    $('body').append('<div id="toasts"></div>');
+    $('body').append('<div id="toasts"><div class="hidden" style="display:none;">ERROR</div></div>');
 
-    // fade durations
-    // TODO take fade times from getsomestyle.css
-    fadein = 200;
-    fadeout = 200;
+    function getTransitionDuration () {
+      var prefix, prefixes, transition;
 
-    // actual Toast constructor
-    Toast = function (str, seconds) {
-      var $toasts, $div, $br;
+      prefixes = [ '', '-o-', '-ms-', '-moz-', '-webkit-' ];
+      transition = undefined;
 
-      // default to two seconds duration
-      seconds = seconds || 2;
-
-      $toasts = $('#toasts');
-      $div = $('<div></div>');
-      $br = $('<br>');
-
-      // decide between text and jquery object handle
-      if (typeof str === 'string') {
-        $div.text(str);
-      } else {
-        $div.append(str);
+      for (prefix in prefixes) {
+        prefix = prefixes[prefix];
+        transition = $hidden.css(prefix + 'transition');
+        if (transition) {
+          break;
+        }
+      }
+      if (transition === undefined) {
+        console.error("could not read any transition lengths. What's your browser?");
+        return 0.2;
       }
 
-      // insert the toast and a line break
-      $toasts.append($div);
-      $div.after($br);
+      // return duration
+      return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, '$1'));
+    }
 
-      // fadein timeout
-      window.setTimeout(function () {
-        $div.addClass('toast');
-      }, 10);
+    // abort if the style is not set
+    if ($('#toasts').css('position') !== 'fixed') {
+      console.error('Toast: stylesheet not found');
+      Toast = function (str, seconds) {
+        console.error('Toast: ' + str);
+      };
+    } else {
+      // read fade durations from css
+      $hidden = $('#toasts .hidden');
 
-      // fadeout timeout
-      window.setTimeout(function () {
-        $div.removeClass('toast');
-      }, 1000 * seconds + fadein);
+      fadeout = getTransitionDuration();
 
-      // remove timeout
-      window.setTimeout(function () {
-        $br.remove();
-        $div.remove();
-      }, 1000 * seconds + fadein + fadeout);
-    };
+      $hidden.addClass('toast');
+
+      fadein = getTransitionDuration();
+
+      if (fadein != Number(fadein) || !isFinite(fadein) || isNaN(fadein)) {
+        console.error('fadein: not a valid number: ' + fadein);
+        $hidden.show();
+      }
+
+      if (fadeout != Number(fadeout) || !isFinite(fadeout) || isNaN(fadeout)) {
+        console.error('fadeout: not a valid number: ' + fadeout);
+        $hidden.show();
+      }
+
+      // actual Toast constructor
+      Toast = function (str, seconds) {
+        var $toasts, $div, $br;
+
+        // default to two seconds duration
+        seconds = seconds || 2;
+
+        $toasts = $('#toasts');
+        $div = $('<div></div>');
+        $br = $('<br>');
+
+        // decide between text and jquery object handle
+        if (typeof str === 'string') {
+          $div.text(str);
+        } else {
+          $div.append(str);
+        }
+
+        // insert the toast and a line break
+        $toasts.append($div);
+        $div.after($br);
+
+        // fadein timeout
+        window.setTimeout(function () {
+          $div.addClass('toast');
+        }, 10);
+
+        // fadeout timeout
+        // TODO on toast fadeout: move whole column upwards
+        window.setTimeout(function () {
+          $div.removeClass('toast');
+        }, 1000 * (seconds + fadein));
+
+        // remove timeout
+        window.setTimeout(function () {
+          $br.remove();
+          $div.remove();
+        }, 1000 * (seconds + fadein + fadeout));
+      };
+    }
 
     // issue any pending toasts
     pending.forEach(function (toast) {

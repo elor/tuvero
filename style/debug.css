@@ -1,0 +1,24 @@
+#debug {
+  display: none;
+}
+
+#debug:target {
+  display: block;
+}
+
+#debug button {
+  background-color: #d0d0d0;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+#debug button.selected {
+  background-color: #ffffff;
+}
+
+#debug button > img {
+  width: 3.0em;
+  height: 3.0em;
+}

@@ -2,7 +2,7 @@
  * Tab Interface
  */
 
-define([], function () {
+define([ './opts' ], function (Opts) {
   return {
     Interface : {
       /**
@@ -21,6 +21,8 @@ define([], function () {
       update : function () {
         return true;
       },
-    }
+    },
+
+    Extends : [ Opts.Interface ]
   };
 });

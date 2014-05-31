@@ -4,7 +4,7 @@
  * rewriting for multi-player teams, which are only useful for random teams.
  */
 define([ './tournament', './map', './finebuchholzranking', './game',
-    './result', './random', './correction' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction) {
+    './result', './random', './correction', './options' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction, Options) {
   var Swisstournament;
 
   /**
@@ -17,9 +17,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.ranking = new Finebuchholzranking();
     this.state = Tournament.STATE.PREPARING;
     this.games = [];
-    this.upvote = []; // true, wenn jemand hochgelost wurde
-    this.downvote = []; // true, wenn jemand runtergelost wurde
-    this.byevote = []; // true, wenn jemand ein Freilos bekommen hat
+    this.upvote = []; // number of upvotes. undefined or 0 if none
+    this.downvote = []; // number of downvotes. undefined or 0 if none
+    this.byevote = []; // number of byes. undefined or 0 if none
     this.rng = new Random();
     this.round = 0; // 0 if not started yet, 1 is first valid round, ...
     this.roundvotes = {
@@ -30,6 +30,31 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     this.rnkbuffer;
 
     this.rkch = true;
+
+    this.options = {
+      mode : 'wins',
+      permissions : {
+        // false: combination not allowed
+        // true: combination allowed
+        // outer key: previous vote
+        // inner key: next vote (i.e. the one to be validated)
+        up : {
+          up : false,
+          down : true,
+          bye : true,
+        },
+        down : {
+          up : true,
+          down : false,
+          bye : true,
+        },
+        bye : {
+          up : true,
+          down : true,
+          bye : false,
+        }
+      }
+    };
   };
 
   /**
@@ -45,6 +70,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     this.players.insert(id);
     this.ranking.resize(this.players.size());
+    this.rkch = true;
+
     return this;
   };
 
@@ -54,6 +81,8 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns this on success, undefined otherwise
    */
   Swisstournament.prototype.start = function () {
+    var valid;
+
     if (this.state === Tournament.STATE.RUNNING) {
       return undefined;
     }
@@ -62,9 +91,28 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
-    if (newRound.call(this) === this) {
+    valid = false;
+
+    switch (this.options.mode) {
+    case 'wins':
+      valid = (newRoundByWins.call(this) === this);
+      break;
+    case 'random':
+      valid = (newRoundByRandom.call(this) === this);
+      break;
+    case 'halves':
+      valid = (newRoundByHalves.call(this) === this);
+      break;
+    default:
+      console.error('swiss: undefined round mode: ' + this.options.mode);
+      return undefined;
+    }
+
+    if (valid) {
       this.state = Tournament.STATE.RUNNING;
+      this.round += 1;
       this.rkch = true;
+      this.options.mode = Swisstournament.MODES[0]; // should be 'wins'
     } else {
       return undefined;
     }
@@ -184,40 +232,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   }
 
   /**
-   * returns all up/down/byevotes ever granted
-   * 
-   * @returns an object containing arrays of the three votes
-   */
-  // TODO test
-  function getAllVotes () {
-    var votes = {
-      up : [],
-      down : [],
-      bye : []
-    };
-
-    this.upvote.forEach(function (voted, pid) {
-      if (voted) {
-        votes.up.push(this.players.at(pid));
-      }
-    }, this);
-
-    this.downvote.forEach(function (voted, pid) {
-      if (voted) {
-        votes.down.push(this.players.at(pid));
-      }
-    }, this);
-
-    this.byevote.forEach(function (voted, pid) {
-      if (voted) {
-        votes.bye.push(this.players.at(pid));
-      }
-    }, this);
-
-    return votes;
-  }
-
-  /**
    * (implemented tournament function)
    * 
    * @returns
@@ -229,6 +243,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       ret = {
         place : [],
         ids : [],
+        games : [],
         wins : [],
         buchholz : [],
         finebuchholz : [],
@@ -245,7 +260,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       result = this.ranking.get();
       this.rkch = false;
       roundvotes = getRoundVotes.call(this);
-      allvotes = getAllVotes.call(this);
 
       // rearrange the arrays from internal id indexing to ranked indexing
       result.ranking.forEach(function (i, rank) {
@@ -259,13 +273,14 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         ret.buchholz[rank] = result.buchholz[i];
         ret.finebuchholz[rank] = result.finebuchholz[i];
         ret.netto[rank] = result.netto[i];
+        ret.games[rank] = result.games[i];
         ret.wins[rank] = result.wins[i];
         ret.roundupvote[rank] = (roundvotes.up.indexOf(pid) !== -1) ? 1 : 0;
         ret.rounddownvote[rank] = (roundvotes.down.indexOf(pid) !== -1) ? 1 : 0;
         ret.roundbyevote[rank] = (roundvotes.bye === pid) ? 1 : 0;
-        ret.upvote[rank] = (allvotes.up.indexOf(pid) !== -1) ? 1 : 0;
-        ret.downvote[rank] = (allvotes.down.indexOf(pid) !== -1) ? 1 : 0;
-        ret.byevote[rank] = (allvotes.bye.indexOf(pid) !== -1) ? 1 : 0;
+        ret.upvote[rank] = (this.upvote[this.players.find(pid)] || 0);
+        ret.downvote[rank] = (this.downvote[this.players.find(pid)] || 0);
+        ret.byevote[rank] = (this.byevote[this.players.find(pid)] || 0);
       }, this);
 
       this.rnkbuffer = ret;
@@ -276,13 +291,13 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
   /**
    * Start a new round. This function creates a randomized set of new games,
-   * maintaining up/down/byevotes.
+   * disregarding the players' ids and previous games
    * 
    * @returns this on success, undefined otherwise
    */
-  function newRound () {
-    var wingroups, votes, games, timeout;
-    // "The local variable games is hiding a field from type newRound" is bogus
+  function newRoundByRandom () {
+    // TODO write test
+    var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft;
 
     // abort if the tournament isn't running
     if (this.state === Tournament.STATE.RUNNING) {
@@ -293,12 +308,210 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
+    numplayers = this.players.size();
+
+    bye = undefined;
+
+    if (numplayers % 2 === 1) {
+      // we need a bye;
+
+      byes = [];
+
+      for (id = 0; id < numplayers; id += 1) {
+        if (canByeVote.call(this, id)) {
+          byes.push(id);
+        }
+      }
+
+      if (byes.length == 0) {
+        console.error("All players got byes");
+        return undefined;
+      }
+
+      bye = this.rng.pick(byes);
+    }
+
+    playersleft = [];
+    for (id = 0; id < numplayers; id += 1) {
+      if (id !== bye) {
+        playersleft.push(id);
+      }
+    }
+
+    // just randomize it
+
+    triesleft = numplayers * 10;
+    newgames = [];
+
+    // TODO add backtracking
+    while (playersleft.length > 0) {
+      p1 = this.rng.pickAndRemove(playersleft);
+      p2 = this.rng.pickAndRemove(playersleft);
+
+      if (canPlay.call(this, p1, p2)) {
+        newgames.push(new Game(p1, p2));
+      } else {
+        playersleft.push(p1);
+        playersleft.push(p2);
+      }
+
+      triesleft -= 1;
+      if (triesleft <= 0) {
+        console.error("Failed to find non-repeating games");
+        return undefined;
+      }
+    }
+
+    clearRoundvotes.call(this);
+
+    this.games = newgames;
+    if (bye !== undefined) {
+      byeVote.call(this, bye);
+      this.roundvotes.byevote = bye;
+    }
+
+    return this;
+  }
+
+  /**
+   * Start a new round. This function creates a randomized set of new games,
+   * maintaining up/down/byevotes.
+   * 
+   * @returns this on success, undefined otherwise
+   */
+  function newRoundByHalves () {
+    // TODO test
+    var upper, lower, byes, bye, id, numplayers, p1, p2, newgames, triesleft, ids;
+
+    // abort if the tournament isn't running
+    if (this.state === Tournament.STATE.RUNNING) {
+      return undefined;
+    }
+    // abort if there are unfinished games from a previous round
+    if (this.games.length !== 0) {
+      return undefined;
+    }
+
+    lower = [];
+    upper = [];
+    numplayers = this.players.size();
+
+    ids = this.getRanking().ids;
+    if (!ids || numplayers !== ids.length) {
+      console.error('swisstournament halves: lengths of sorted ids and players differ');
+      return undefined;
+    }
+
+    bye = undefined;
+
+    // construct the halves
+    // The lower half is allowed to have one more player than the upper half
+    id = 0;
+    while (numplayers - upper.length - lower.length > 1) {
+      upper.push(ids[id]);
+      lower.push(ids[numplayers - id - 1]);
+      id += 1;
+    }
+
+    switch (numplayers - upper.length - lower.length) {
+    case 0:
+      // all players got assigned
+      break;
+    case 1:
+      lower.push(id);
+      break;
+    default:
+      console.error('swisstournament halves: too many players left. Aborting');
+      return undefined;
+    }
+
+    if (upper.length != lower.length && upper.length != lower.length - 1) {
+      console.error("Swisstournament: Halves aren't of a valid size. Aborting");
+      return undefined;
+    }
+
+    if (numplayers % 2 === 1) {
+      // we need a bye;
+
+      byes = [];
+
+      for (id in lower) {
+        id = lower[id];
+        if (canByeVote.call(this, id)) {
+          byes.push(id);
+        }
+      }
+
+      if (byes.length == 0) {
+        console.error("All players got byes");
+        return undefined;
+      }
+
+      bye = this.rng.pick(byes);
+      lower.splice(lower.indexOf(bye), 1);
+    }
+
+    // just randomize it
+
+    triesleft = numplayers * 10;
+    newgames = [];
+
+    while (lower.length > 0) {
+      p1 = this.rng.pickAndRemove(lower);
+      p2 = this.rng.pickAndRemove(upper);
+
+      if (canPlay.call(this, p1, p2)) {
+        newgames.push(new Game(p1, p2));
+      } else {
+        lower.push(p1);
+        upper.push(p2);
+      }
+
+      triesleft -= 1;
+      if (triesleft <= 0) {
+        console.error("Failed to find non-repeating games");
+        return undefined;
+      }
+    }
+
+    // apply
+    clearRoundvotes.call(this);
+    this.games = newgames;
+    if (bye !== undefined) {
+      byeVote.call(this, bye);
+      this.roundvotes.byevote = bye;
+    }
+
+    return this;
+  }
+
+  /**
+   * Start a new round. This function creates a randomized set of new games,
+   * maintaining up/down/byevotes.
+   * 
+   * @returns this on success, undefined otherwise
+   */
+  function newRoundByWins () {
+    var wingroups, votes, newgames, timeout, lowestWinGroup;
+    // TODO add backtracking
+
+    // abort if the tournament isn't running
+    if (this.state === Tournament.STATE.RUNNING) {
+      return undefined;
+    }
+    // abort if there are unfinished games from a previous round
+    if (this.games.length !== 0) {
+      console.error('there are still games running');
+      return undefined;
+    }
+
     timeout = this.players.size() * 10;
     wingroups = winGroups.call(this);
 
     // abort if there are no consistent wingroups, which is a sign for too
     // many rounds
     if (wingroups === undefined) {
+      console.error('cannot form consistent wingroups');
       return undefined;
     }
 
@@ -306,6 +519,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     if (votes === undefined) {
       // abort. there's no way to downvote properly
+      console.error('wingroups: missing downvotes');
       return undefined;
     }
 
@@ -319,7 +533,18 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // / / if they haven't already played against another
     // / / / create game
 
-    games = [];
+    newgames = [];
+
+    for (lowestWinGroup = 0; lowestWinGroup < wingroups.length; lowestWinGroup += 1) {
+      if (wingroups[lowestWinGroup] !== undefined && wingroups[lowestWinGroup].length !== 0) {
+        break;
+      }
+    }
+
+    if (lowestWinGroup === wingroups.length) {
+      console.error('no lowest win group detected, meaning that there are not players');
+      return undefined;
+    }
 
     // for each wingroup:
     wingroups.forEach(function (wingroup, wins) {
@@ -331,7 +556,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       }
 
       p1 = votes.downvotes[wins];
-      if (wins === 0) {
+      if (wins === lowestWinGroup) {
         p1 = votes.byevote;
       }
       if (p1 !== undefined) {
@@ -340,7 +565,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
       // if player has been downvoted into this group:
       p1 = votes.downvotes[wins + 1];
-      if (p1 !== undefined) {
+      if (p1 !== undefined && p1 != votes.downvotes[wins]) {
         candidates = [];
 
         // create game with a random upvote candidate
@@ -353,28 +578,30 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
         p2 = this.rng.pick(candidates);
 
-        games.push(new Game(p1, p2));
+        newgames.push(new Game(p1, p2));
         wingroup.splice(wingroup.indexOf(p2), 1);
         votes.upvotes[wins] = p2;
       }
 
       // while there are players in this group:
-      while (wingroup.length > 0) {
+      while (wingroup.length > 1) {
         // pick any two random players
         p1 = this.rng.pick(wingroup);
         p2 = this.rng.pick(wingroup);
         if (p1 !== p2) {
-
           // if they haven't already played against another
           if (canPlay.call(this, p1, p2)) {
             // create game
-            games.push(new Game(p1, p2));
+            newgames.push(new Game(p1, p2));
             wingroup.splice(wingroup.indexOf(p1), 1);
             wingroup.splice(wingroup.indexOf(p2), 1);
+          } else {
+            // TODO keep track of previous matchings and avoid them
           }
 
           timeout -= 1;
           if (timeout <= 0) {
+            console.error('newRoundByWins: timeout reached. Key players have already been matched');
             return;
           }
         }
@@ -392,11 +619,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
     // apply the games
-    this.games = games;
-
-    // round increment
-    this.round += 1;
-    this.rkch = true;
+    this.games = newgames;
 
     return this;
   }
@@ -404,7 +627,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param votes
    *          processed votes structure as returned by preliminaryDownVotes()
-   *          and processed by newRound()
+   *          and processed by newRoundByWins()
    * @returns {Swisstournament} this
    */
   function applyVotes (votes) {
@@ -470,6 +693,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     wingroups = [];
 
     highest = -1;
+    lowest = -1;
 
     res = this.ranking.get();
 
@@ -490,13 +714,24 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // verify that there's at least one player in every win group
     for (wins = 0; wins <= highest; wins += 1) {
-      if (wingroups[wins] === undefined) {
+      if (!wingroups[wins]) {
         // there's a wingroup missing. The tournament lasts too long
-        return undefined;
+        // return undefined;
+        console.error('wingroup #' + wins + ' is empty');
+        wingroups[wins] = [];
       }
     }
 
     return wingroups;
+  }
+
+  // TODO write a clear solution instead of dirty hacks
+  function clearRoundvotes () {
+    this.roundvotes = {
+      upvotes : [],
+      downvotes : [],
+      byevote : undefined,
+    };
   }
 
   /**
@@ -512,13 +747,24 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // Due to the symmetric properties of a swiss tournament, we don't
     // verify possible upvotes. If the tournament has too many rounds, this
     // may fail someday.
-    var byevote, downvotes, w, candidates, downvoted, fillCandidates;
+    var byevote, downvotes, w, candidates, downvoted, fillCandidates, lowestWinGroup;
 
     byevote = undefined;
     downvoted = false; // whether a player has been downvoted into the
     // current wingroup
     downvotes = [];
     candidates = [];
+
+    for (lowestWinGroup = 0; lowestWinGroup < wingroups.length; lowestWinGroup += 1) {
+      if (wingroups[lowestWinGroup] !== undefined && wingroups[lowestWinGroup].length !== 0) {
+        break;
+      }
+    }
+
+    if (lowestWinGroup === wingroups.length) {
+      console.error('no lowest win group detected, meaning that there are not players');
+      return undefined;
+    }
 
     // forEach-function to fill the candidates array. DownVote version.
     fillCandidates = function (pid) {
@@ -530,16 +776,20 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // iterate over all wingroups, starting with the highest one, thereby
     // ensuring that all groups except the lowest one are even in player
     // count.
-    for (w = wingroups.length - 1; w > 0; w -= 1) {
+    for (w = wingroups.length - 1; w > lowestWinGroup; w -= 1) {
       // only downvote a player if the current group has an odd number of
       // players
       if ((wingroups[w].length + (downvoted ? 1 : 0)) & 0x1) {
         // create a dense list of candidates
         candidates = [];
         wingroups[w].forEach(fillCandidates, this);
+        if (wingroups[w].length === 0 && downvoted) {
+          candidates.push(downvotes[w + 1]);
+        }
 
         // abort if no player can be downvoted
         if (candidates.length === 0) {
+          console.error('no player in wingroup ' + w + ' can be downvoted');
           return undefined;
         }
 
@@ -553,7 +803,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // byevote from the lowest group, if necessary. Same procedure as with
     // the downvotes
-    if ((wingroups[0].length + (downvoted ? 1 : 0)) & 0x1) {
+    if ((wingroups[lowestWinGroup].length + (downvoted ? 1 : 0)) & 0x1) {
       candidates = [];
       // forEach-function to fill the candidates array. ByeVote version.
       fillCandidates = function (pid) {
@@ -562,9 +812,10 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         }
       };
 
-      wingroups[0].forEach(fillCandidates, this);
+      wingroups[lowestWinGroup].forEach(fillCandidates, this);
 
       if (candidates.length === 0) {
+        console.error('no candidate wingroup ' + w + ' can be byevoted');
         return undefined;
       }
 
@@ -582,10 +833,58 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id
-   * @returns {Boolean} whether the player can be downvoted
+   * @param permissions
+   *          reference to this.options.permissions.something
+   * @returns {Boolean} whether vote action complies with the permissions
+   */
+  function canVote (id, permissions) {
+
+    if (typeof (id) !== 'number') {
+      return false;
+    }
+
+    if (id >= this.players.size()) {
+      return false;
+    }
+
+    if (!permissions.up && this.upvote[id]) {
+      return false;
+    }
+    if (!permissions.down && this.downvote[id]) {
+      return false;
+    }
+    if (!permissions.bye && this.byevote[id]) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * @param id
+   *          internal player id
+   * @returns true of the player can be downvoted, false otherwise
    */
   function canDownVote (id) {
-    return id < this.players.size() && !this.byevote[id] && !this.downvote[id];
+    return canVote.call(this, id, this.options.permissions.down);
+  }
+
+  /**
+   * @param id
+   *          internal player id
+   * @returns true of the player can be upvoted, false otherwise
+   */
+  function canUpVote (id) {
+    return canVote.call(this, id, this.options.permissions.up);
+  }
+
+  /**
+   * @param id
+   *          internal player id
+   * @returns true of the player can be byevoted, false otherwise
+   */
+  function canByeVote (id) {
+    return canVote.call(this, id, this.options.permissions.bye);
   }
 
   /**
@@ -595,19 +894,14 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function downVote (id) {
     if (canDownVote.call(this, id)) {
-      this.downvote[id] = true;
+      if (isNaN(this.downvote[id])) {
+        this.downvote[id] = 1;
+      } else {
+        this.downvote[id] += 1;
+      }
     }
 
     return this;
-  }
-
-  /**
-   * @param id
-   *          internal player id
-   * @returns {Boolean} whether the player can be upvoted
-   */
-  function canUpVote (id) {
-    return id < this.players.size() && !this.upvote[id];
   }
 
   /**
@@ -617,19 +911,14 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function upVote (id) {
     if (canUpVote.call(this, id)) {
-      this.upvote[id] = true;
+      if (isNaN(this.upvote[id])) {
+        this.upvote[id] = 1;
+      } else {
+        this.upvote[id] += 1;
+      }
     }
 
     return this;
-  }
-
-  /**
-   * @param id
-   *          internal player id
-   * @returns {Boolean} whether the player can be byevoted
-   */
-  function canByeVote (id) {
-    return id < this.players.size() && !this.byevote[id] && !this.downvote[id];
   }
 
   /**
@@ -639,7 +928,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function byeVote (id) {
     if (canByeVote.call(this, id)) {
-      this.byevote[id] = true;
+      if (isNaN(this.byevote[id])) {
+        this.byevote[id] = 1;
+      } else {
+        this.byevote[id] += 1;
+      }
       this.ranking.grantBye(id);
     }
 
@@ -656,6 +949,16 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns {Boolean} true if they would form a valid game, false otherwise
    */
   function canPlay (pid1, pid2) {
+    // DEBUG START
+    // if (!pid1 < this.players.size())
+    // console.error('pid1 too big');
+    // if (!pid2 < this.players.size())
+    // console.error('pid2 too big');
+    // if (!pid1 !== pid2)
+    // console.error('pid1 == pid2')
+    // if (this.ranking.added(new Game(pid1, pid2)))
+    // console.error('game was already played')
+    // DEBUG END
     return pid1 < this.players.size() && pid2 < this.players.size() && pid1 !== pid2 && this.ranking.added(new Game(pid1, pid2)) === false;
   }
 
@@ -760,6 +1063,10 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     this.players.fromBlob(ob.players);
     this.ranking.fromBlob(ob.ranking);
+
+    this.rkch = true;
+
+    return this;
   };
 
   Swisstournament.prototype.getState = function () {
@@ -770,35 +1077,37 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     return this.rkch;
   };
 
-  Swisstournament.prototype.getOptions = function () {
-    // TODO use options
-    return {
-      firstRoundMode : 'random'
-    };
-  };
-  Swisstournament.FIRSTROUNDMODES = [ 'random' ];
-  // Swisstournament.FIRSTROUNDMODES = [ 'random', 'halves', 'order', 'inverse'
-  // ];
+  function toType (obj) {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+  }
 
-  Swisstournament.prototype.setOptions = function (options) {
-    var key;
+  function copyStaticObject (obj) {
+    var key, ret;
 
-    if (this.state !== Tournament.STATE.PREPARING) {
-      return false;
+    switch (toType(obj)) {
+    case 'object':
+      ret = {};
+      break;
+    case 'array':
+      ret = [];
+      break;
+    default:
+      // this is no reference
+      return obj;
     }
 
-    for (key in options) {
-      switch (key) {
-      case 'firstRoundMode':
-        // TODO set the mode
-        break;
-      default:
-        return false;
-      }
-
-      return true;
+    for (key in obj) {
+      ret[key] = copyStaticObject(obj[key]);
     }
-  };
+
+    return ret;
+  }
+
+  Swisstournament.prototype.getOptions = Options.prototype.getOptions;
+  Swisstournament.prototype.setOptions = Options.prototype.setOptions;
+
+  // TODO add 'interlaced' swiss mode
+  Swisstournament.MODES = [ 'wins', 'halves', 'random' ];
 
   return Swisstournament;
 });

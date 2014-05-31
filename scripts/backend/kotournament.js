@@ -4,7 +4,7 @@
  * Complies to Tournament and Blobber interfaces
  */
 
-define([ './tournament', './map', './random', './game' ], function (Tournament, Map, Random, Game) {
+define([ './tournament', './map', './random', './game', './options' ], function (Tournament, Map, Random, Game, Options) {
   var KOTournament, rnd, match;
 
   rnd = new Random();
@@ -460,34 +460,8 @@ define([ './tournament', './map', './random', './game' ], function (Tournament, 
     return undefined;
   };
 
-  KOTournament.prototype.getOptions = function () {
-    var key, ret;
-
-    ret = {};
-    for (key in this.options) {
-      // FIXME only works for non-referenced values
-      ret[key] = this.options[key];
-    }
-
-    return ret;
-  };
-
-  KOTournament.prototype.setOptions = function (options) {
-    var key;
-
-    for (key in this.options) {
-      if (!options.hasOwnProperty(key)) {
-        return false;
-      }
-    }
-
-    // TODO compare types
-
-    for (key in this.options) {
-      // TODO deep copy
-      this.options[key] = options[key];
-    }
-  };
+  KOTournament.prototype.getOptions = Options.prototype.getOptions;
+  KOTournament.prototype.setOptions = Options.prototype.setOptions;
 
   KOTournament.prototype.getCorrections = function () {
     // TODO return corrections

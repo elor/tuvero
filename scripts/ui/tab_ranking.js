@@ -1,13 +1,13 @@
 define([ './team', './toast', './strings', './swiss', './options',
-    './tabshandle' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle) {
-  var Tab_Ranking, template, autoupdate, shown, $tab;
+    './tabshandle', './opts' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle, Opts) {
+  var Tab_Ranking, template, shown, $tab, options;
 
   Tab_Ranking = {};
+  options = {};
 
   function initState () {
-    // whether to automatically update the tables
-    autoupdate = false;
     // whether a ranking has been calculated and displayed
+    // TODO use some kind of checksum
     shown = false;
   }
 
@@ -51,33 +51,6 @@ define([ './team', './toast', './strings', './swiss', './options',
     }
   }
 
-  function initAutoupdate () {
-    var $autoupdate, $button;
-
-    $autoupdate = $tab.find('.options .autoupdate');
-    $button = $tab.find('.options button.update');
-
-    autoupdate = !!$autoupdate.prop('checked');
-
-    // TODO use $autoupdate.change() instead?
-    $autoupdate.click(function () {
-      autoupdate = !!$autoupdate.prop('checked');
-      if (autoupdate) {
-        new Toast(Strings.autoupdateon);
-        $button.click();
-      } else {
-        new Toast(Strings.autoupdateoff);
-      }
-    });
-
-    // update button
-    $button.click(function () {
-      if (update() === true) {
-        new Toast(Strings.rankingupdate);
-      }
-    });
-  }
-
   function initCorrection () {
     var i, tmp;
     // prepare nodes
@@ -114,7 +87,6 @@ define([ './team', './toast', './strings', './swiss', './options',
     $tab = $('#ranking');
 
     initState();
-    initAutoupdate();
     initRankRow();
     initCorrection();
 
@@ -146,23 +118,25 @@ define([ './team', './toast', './strings', './swiss', './options',
       template.rank.$fields[i + 2].text(team.names[i]);
     }
 
-    template.rank.$fields[5].text(ranking.wins[rank]);
-    template.rank.$fields[6].text(ranking.buchholz[rank]);
-    template.rank.$fields[7].text(ranking.finebuchholz[rank]);
-    template.rank.$fields[8].text(ranking.netto[rank]);
+    template.rank.$fields[5].text(ranking.games[rank]);
+
+    template.rank.$fields[6].text(ranking.wins[rank]);
+    template.rank.$fields[7].text(ranking.buchholz[rank]);
+    template.rank.$fields[8].text(ranking.finebuchholz[rank]);
+    template.rank.$fields[9].text(ranking.netto[rank]);
 
     vote = [];
-    if (ranking.upvote[rank]) {
+    for (i = 0; i < ranking.upvote[rank]; ++i) {
       vote.push(Strings.upvote);
     }
-    if (ranking.downvote[rank]) {
+    for (i = 0; i < ranking.downvote[rank]; ++i) {
       vote.push(Strings.downvote);
     }
-    if (ranking.byevote[rank]) {
+    for (i = 0; i < ranking.byevote[rank]; ++i) {
       vote.push(Strings.byevote);
     }
 
-    template.rank.$fields[9].text(vote.join(', '));
+    template.rank.$fields[10].text(vote.join(''));
 
     return template.rank.$row.clone();
   }
@@ -284,11 +258,21 @@ define([ './team', './toast', './strings', './swiss', './options',
   }
 
   Tab_Ranking.update = function () {
-    if (autoupdate) {
-      if (update() === true) {
-        // new Toast(Strings.rankingupdate);
-      }
+    if (update() === true) {
+      // new Toast(Strings.rankingupdate);
     }
+  };
+
+  Tab_Ranking.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_Ranking.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
   };
 
   return Tab_Ranking;

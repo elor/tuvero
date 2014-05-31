@@ -72,7 +72,12 @@ define([ './options' ], function (Options) {
         Storage.clear(key);
       }
     } else {
-      window.localStorage.removeItem(key);
+      if (keys[key]) {
+        if (keys[key].reset) {
+          keys[key].reset();
+        }
+        window.localStorage.removeItem(key);
+      }
     }
   };
 
@@ -107,7 +112,7 @@ define([ './options' ], function (Options) {
     for (key in keys) {
       if (loadKey(key)) {
         err = true;
-        console.error('Error when restoring ' + key);
+        console.error("Could not read key '" + key + "' from localStorage (yet)");
       }
     }
 

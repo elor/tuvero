@@ -3,52 +3,113 @@
  */
 
 define(function () {
-  var Player, names;
+  var Players, names, author;
 
-  names = [];
+  author = "Erik Lorenz";
 
-  Player = {};
+  names = [ author ];
 
-  Player.fromBlob = function (blob) {
+  Players = {};
+
+  function trimName (name) {
+    return name.replace(/^\s*|\s*$|\n|\r/g, '').replace(/\s\s*/g, ' ');
+  }
+
+  function updateDependencies () {
+    require('./autocomplete').update();
+    // TODO update storage
+  }
+
+  Players.fromString = function (string) {
+    var lines, name;
+
+    lines = string.split('\n');
+
+    // strip the names from white spaces
+    // also, remove comments
+    for (name in lines) {
+      lines[name] = trimName(lines[name]).replace(/^#.*/, '');
+    }
+
+    // remove empty entries
+    for (name = lines.length - 1; name >= 0; name -= 1) {
+      if (lines[name].length === 0) {
+        lines.splice(name, 1);
+      }
+    }
+
+    // sort names
+    lines.sort();
+
+    // set names
+    names = lines;
+
+    Players.insert(author);
+
+    // update
+    updateDependencies();
+  };
+
+  Players.toString = function () {
+    return names.join('\n');
+  };
+
+  Players.fromBlob = function (blob) {
     var blobnames = JSON.parse(blob);
     if (!blobnames) {
       return;
     }
 
     // TODO verify array of strings
-    // XXX implements.js?
+    // via implements.js?
     blobnames.sort();
     names = blobnames;
 
-    require('./autocomplete').update();
+    Players.insert(author);
+
+    updateDependencies();
   };
 
-  Player.toBlob = function () {
+  Players.toBlob = function () {
     return JSON.stringify(names);
   };
 
-  Player.clear = function () {
-    names = [];
+  Players.clear = function () {
+    names = [ author ];
+
+    updateDependencies();
   };
 
-  Player.get = function () {
+  Players.reset = Players.clear;
+
+  Players.get = function () {
     return names.slice();
   };
 
-  Player.insert = function (name) {
-    if (typeof (name) === 'string') {
+  Players.insert = function (name) {
+    name = trimName(name);
+    if (typeof (name) === 'string' && name.length > 0) {
       if (names.indexOf(name) === -1) {
         names.push(name);
         names.sort();
+        updateDependencies();
       }
     } else {
       console.error('ui/players.js: name is no string: ' + name);
     }
   };
 
-  Player.erase = function (name) {
-    // TODO do we need it?
+  Players.erase = function (name) {
+    var index;
+    name = trimName(name);
+    if (typeof (name) === 'string' && name.length > 0) {
+      index = names.indexOf(name);
+      if (index !== -1 && name !== author) {
+        names.splice(index, 1);
+        updateDependencies();
+      }
+    }
   };
 
-  return Player;
+  return Players;
 });

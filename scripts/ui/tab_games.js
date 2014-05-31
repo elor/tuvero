@@ -1,6 +1,7 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking', './history', './tab_history', './storage', './options' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options) {
-  var Tab_Games, $tab, $stages, template, games, $games;
+    './tab_ranking', './history', './tab_history', './storage', './options',
+    './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle) {
+  var Tab_Games, $tab, template, games, $games, options;
 
   // references to html elements of the games
   $games = [];
@@ -8,101 +9,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   games = [];
 
   Tab_Games = {};
+  options = {};
 
   function isInt (n) {
     return n % 1 === 0;
-  }
-
-  function initStages () {
-    $stages = [];
-
-    $stages[stage.PREPARING] = $tab.find('.preparing');
-    $stages[stage.RUNNING] = $tab.find('.running');
-    $stages[stage.FINISHED] = $tab.find('.finished');
-  }
-
-  function stage (stage) {
-    if (stage >= $stages.length) {
-      return undefined;
-    }
-
-    if (stage === 0) {
-      Tab_Teams.active(true);
-    } else {
-      Tab_Teams.active(false);
-    }
-
-    $stages.forEach(function ($stage) {
-      $stage.hide();
-    });
-
-    $stages[stage].show();
-  }
-
-  stage.PREPARING = 0;
-  stage.RUNNING = 1;
-  stage.FINISHED = 2;
-
-  /**
-   * a round has started, so we init some stuff. called after Swiss.start() and
-   * Swiss.newRound(), hence the separete function
-   */
-  function startRound () {
-    var votes, team;
-
-    new Toast(Strings.roundstarted.replace("%s", Swiss.getRanking().round));
-    showRound();
-    showRunning();
-    showVotes();
-    // TODO use event system
-    Tab_Ranking.update();
-
-    // tell the history that there's a new round
-    // TODO use event system
-    Tab_History.nextRound();
-
-    // see if there's a byevote
-    // TODO extract functions into a wrapper around Swiss?
-    votes = getRoundVotes();
-    if (votes.bye !== undefined) {
-      team = Team.get(votes.bye);
-      // remember the byevote
-      History.addBye(team);
-      // immediately show the byevote
-      // TODO FIXME use event system
-      Tab_History.createBye(team.id);
-    }
-
-    // save changes
-    // TODO event system
-    Storage.changed();
-  }
-
-  function initPreparations () {
-    // close registration and start swiss tournament
-    // TODO other tournament types and options
-    $tab.find('.preparing button').click(function () {
-      // TODO dynamic threshold for different tournament types (grey others out)
-      if (Team.count() < 2) {
-        new Toast(Strings.notenoughteams);
-        return;
-      }
-
-      // register all teams at the tournament
-      Team.prepareTournament(Swiss);
-      new Toast(Strings.registrationclosed);
-
-      // show game overview and hide this button
-      stage(stage.RUNNING);
-
-      // start game and notify of possible failure (i.e. too few teams)
-      if (Swiss.start() === undefined) {
-        new Toast(Strings.startfailed, 5);
-        return undefined;
-      }
-
-      startRound();
-    });
   }
 
   function initGameTemplate () {
@@ -114,7 +24,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return;
     }
 
-    $form = $stages[stage.RUNNING].find('.game.tpl');
+    $form = $tab.find('.game.tpl');
 
     $form.detach();
     $form.removeClass('tpl');
@@ -129,12 +39,12 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     tmp = $form.find('.teamno');
     $teamnos = [ tmp.eq(0), tmp.eq(1) ];
 
-    $anchor = $stages[stage.RUNNING].find('.clear').eq(0);
+    $anchor = $tab.find('.clear').eq(0);
 
     /**
      * disable/enable the submit button if input is valid
      */
-    $stages[stage.RUNNING].delegate('.game input', 'change', function () {
+    $tab.delegate('.game input', 'change', function () {
       var $button = $(this).parent().find('button');
 
       if (readResults($(this).parents('.game')) === undefined) {
@@ -147,7 +57,11 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     });
 
-    $stages[stage.RUNNING].delegate('.game', 'submit', finishGame);
+    $tab.delegate('.game', 'submit', function (event) {
+      finishGame.call(this);
+      event.preventDefault();
+      return false;
+    });
     // TODO Enter key -> press submit button (as a failsafe)
     // TODO Escape key -> reset form
 
@@ -160,7 +74,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function initVoteTemplate () {
-    var $vote, $containers, $names, $teamno, i, tmp, $anchors, $votesarea;
+    var $vote, $containers, $names, $teamno, i, tmp;
 
     if (template.vote) {
       console.error('tab_games: template.vote is already defined:');
@@ -168,8 +82,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return;
     }
 
-    $votesarea = $stages[stage.RUNNING];
-    $vote = $votesarea.find('.votes .tpl');
+    $tab = $tab;
+    $vote = $tab.find('.votes .tpl');
 
     $vote.detach();
     $vote.removeClass('tpl');
@@ -183,19 +97,12 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $teamno = $vote.find('.teamno');
 
     $containers = {
-      up : $votesarea.find('.up'),
-      down : $votesarea.find('.down'),
-      bye : $votesarea.find('.bye'),
-    };
-
-    $anchors = {
-      up : $containers.up.find('.clear'),
-      down : $containers.down.find('.clear'),
-      bye : $containers.bye.find('.clear'),
+      up : $tab.find('.up'),
+      down : $tab.find('.down'),
+      bye : $tab.find('.bye'),
     };
 
     template.vote = {
-      $anchors : $anchors,
       $containers : $containers,
       $vote : $vote,
       $names : $names,
@@ -274,7 +181,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * removes all games from the overview
    */
   function clearGames () {
-    $stages[stage.RUNNING].find('.game').remove();
+    $tab.find('.game').remove();
     $games = [];
     games = [];
   }
@@ -288,17 +195,23 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Swiss.getGames().forEach(function (game) {
       appendGame(game);
     });
-
-    if (Swiss.getRanking().round !== 0 && games.length === 0) {
-      stage(stage.FINISHED);
-    }
   }
 
   /**
    * update all appearances of the current round in the games tab
    */
   function showRound () {
+    // getRanking() is actually buffered, so no caveat here
     $tab.find('.round').text(Swiss.getRanking().round);
+    $tab.find('.nextround').text(Swiss.getRanking().round + 1);
+  }
+
+  function showTab () {
+    if (games.length === 0 || $games.length === 0) {
+      Tabshandle.hide('games');
+    } else {
+      Tabshandle.show('games');
+    }
   }
 
   /**
@@ -356,7 +269,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
       // validate whether number and >= 0
       // TODO Options.maxpoints
-      if (isNaN(ret.points[i]) || !isInt(ret.points[i]) || ret.points[i] < 0 || ret.points[i] > 13) {
+      if (isNaN(ret.points[i]) || !isInt(ret.points[i]) || ret.points[i] < 0 || ret.points[i] > Options.maxpoints) {
         // FIXME find a better solution
         // flash?
         // $input.eq(i).focus();
@@ -420,8 +333,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // game was accepted. remove it.
     removeGame(games[index]);
-    // XXX keep game history
-    // XXX why?
 
     if (points[0] > points[1]) {
       new Toast(Strings.gamefinished);
@@ -430,6 +341,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // verify for safety. Doesn't cost much
     if (games.length !== $games.length) {
       // game was somehow invalid. Someone tempered with the system.
+
+      console.error('games != $games');
 
       // redraw all games
       showRunning();
@@ -448,7 +361,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       clearVotes();
 
       showRound();
-      stage(stage.FINISHED);
+
+      // hide this tab
+      showTab();
+      // open tab_new
 
       new Toast(Strings.roundfinished.replace('%s', Swiss.getRanking().round));
     }
@@ -457,6 +373,11 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     Storage.changed();
 
     Tab_Ranking.update();
+    // due to circular dependency, we must load Tab_New separately
+    require('./tab_new').update();
+    if (games.length === 0) {
+      Tabshandle.focus('new');
+    }
 
     return false;
   }
@@ -465,7 +386,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * remove all elements in the vote area
    */
   function clearVotes () {
-    $stages[stage.RUNNING].find('.votes .vote').remove();
+    $tab.find('.votes .vote').remove();
   }
 
   function createVoteBox (tid) {
@@ -488,6 +409,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * @returns {Object} a votes object of the current round
    */
   function getRoundVotes () {
+    // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
     ranking = Swiss.getRanking();
@@ -517,7 +439,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * display the votes for the current round
    */
   function showVotes () {
-    var votes, i, $containers, $anchors;
+    var votes, i, $containers;
 
     // remove old votes
     clearVotes();
@@ -526,14 +448,13 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     votes = getRoundVotes();
 
     $containers = template.vote.$containers;
-    $anchors = template.vote.$anchors;
 
     // apply upvotes
     if (votes.up && votes.up.length !== 0) {
       $containers.up.show();
       votes.up.forEach(function (tid) {
         if (tid !== undefined) {
-          $anchors.up.before(createVoteBox(tid));
+          $containers.up.append(createVoteBox(tid));
         }
       });
     } else {
@@ -545,7 +466,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       $containers.down.show();
       votes.down.forEach(function (tid) {
         if (tid !== undefined) {
-          $anchors.down.before(createVoteBox(tid));
+          $containers.down.append(createVoteBox(tid));
         }
       });
     } else {
@@ -555,37 +476,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // apply bye
     if (votes.bye !== undefined) {
       $containers.bye.show();
-      $anchors.bye.before(createVoteBox(votes.bye));
+      $containers.bye.append(createVoteBox(votes.bye));
     } else {
       $containers.bye.hide();
     }
-  }
-
-  function newRound () {
-    var i;
-
-    for (i = 0; i < 10; i += 1) {
-      if (Swiss.start() !== undefined) {
-        break;
-      }
-    }
-
-    if (i === 10) {
-      new Toast(Strings.roundfailed, 5);
-      return undefined;
-    }
-
-    // show game overview and hide this button
-    stage(stage.RUNNING);
-
-    startRound();
-  }
-
-  function initFinished () {
-    $stages[stage.FINISHED].find('button.newround').click(newRound);
-    $stages[stage.FINISHED].find('button.korounds').click(function () {
-      new Toast(Strings.notimplemented);
-    });
   }
 
   function initMaxWidth () {
@@ -607,8 +501,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function init () {
-    var i;
-
     if ($tab) {
       console.error('tab_games: $tab is already defined:');
       console.error($tab);
@@ -617,17 +509,14 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     $tab = $('#games');
 
-    initStages();
-    initPreparations();
     initTemplates();
-    initFinished();
     initMaxWidth();
   }
 
   /**
    * reset an original state.
    * 
-   * TODO: test
+   * TODO test Tab_Games.reset
    */
   Tab_Games.reset = function () {
     if (!$tab) {
@@ -640,7 +529,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // reset everything
     updateTemplates();
-    stage(stage.PREPARING);
   };
 
   /**
@@ -649,20 +537,22 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   Tab_Games.update = function () {
     Tab_Games.reset();
 
-    if (Swiss.getRanking().round === 0) {
-      // preparing
-      stage(stage.PREPARING);
-    } else {
-      showRunning();
-      showRound();
-      showVotes();
+    showRound();
+    showRunning();
+    showVotes();
+    showTab();
+  };
 
-      if (games.length === 0 || $games.length === 0) {
-        stage(stage.FINISHED);
-      } else {
-        stage(stage.RUNNING);
-      }
-    }
+  Tab_Games.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_Games.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
   };
 
   return Tab_Games;

@@ -267,7 +267,15 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
       };
 
       rounds = ob.rounds.map(copyround);
-    }
+    },
+
+    /**
+     * resets the history
+     */
+    reset : function () {
+      rounds = [];
+      byes = [];
+    },
   };
 
   return History;

@@ -1,19 +1,39 @@
-#teams .team, #newteam {
-  display: block;
-  margin: 0.5em;
-  border-radius: 0.5em;
-  background-color: #d0d0d0;
-  padding: 0.3em;
-  text-align: left;
-  border-spacing: 0px;
+#teams .teamsize {
+  display: inline-block;
 }
 
-#teams .team, #newteam {
-  float: left;
+#teams .teamsize button {
+  background-color: #d0d0d0;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+#teams .teamsize button.selected {
+  background-color: #ffffff;
+}
+
+#teams .teamsize button > img {
+  width: 3.0em;
+  height: 3.0em;
+}
+
+#teams .team, #newteam, #teams .load, #teams .delete {
   display: table;
+  float: left;
   height: 5em;
-  white-space: nowrap;
+  border-radius: 0.5em;
+  border-spacing: 0px;
+  background-color: #d0d0d0;
+  margin: 0.5em;
   padding: 0em 0.5em;
+  text-align: left;
+  white-space: nowrap;
+}
+
+#teams .load {
+  text-align: center;
 }
 
 #teams .teamno {
@@ -29,7 +49,7 @@
 
 #teams .team .name {
   display: inline-block;
-  line-height: 1em;
+  line-height: 1.2em;
 }
 
 #teams .team .name:hover {
@@ -47,7 +67,11 @@
   min-width: 10em;
   max-width: 10em;
   transition: max-width 0.5s;
-  overflow: hidden;
+  overflow-x: hidden;
+  /* Cannot do make y visible due to inconsistent standard behavior: */
+  /* 'visible' becomes 'auto' if used with 'hidden' as overflow-x */
+  /*  overflow-y: visible; */
+  overflow-y: hidden;
   text-overflow: ellipsis;
 }
 
@@ -86,3 +110,65 @@
   box-shadow: 1px 1px 0px #808080;
   margin: 0em;
 }
+
+#teams.noreg #newteam {
+  display: none;
+}
+
+#teams.noreg button.delete {
+  display: none;
+}
+
+#teams.noreg .filereader {
+  display: none;
+}
+
+#teams button.delete.hidden {
+  display: none;
+}
+
+#teams button.delete {
+  background-color: #d3d3d3;
+  height: 3em;
+  font-size: 100%;
+  border-radius: 0.2em;
+  border: none;
+  box-shadow: 1px 1px 0px #808080;
+  cursor: crosshair;
+}
+
+#teams.deletion button.delete {
+  background-color: red;
+}
+
+/*
+ * as many attributes as possible so specificity jumps up and overwrites everything
+ * 0121 -> highest specificity
+ */
+#teams.deletion:hover, #teams.deletion .team .name:hover {
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+#teams.deletion .team:hover, #teams.deletion .team .name:hover {
+  cursor: crosshair;
+}
+
+#teams.deletion {
+  background-color: #969696;
+}
+
+#teams.deletion .load, #teams.deletion #newteam {
+  display: none;
+}
+
+@media print {
+  #newteam, #teams button.delete, #teams .filereader {
+    display: none;
+  }
+
+  #teams .team {
+    margin: 0em;
+  }
+}
+

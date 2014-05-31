@@ -1,12 +1,119 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options', './tab_new' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New) {
+    './autocomplete', './options', './tab_new', './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle) {
 
-  var Tab_Teams, $tab, template, newteam, $anchor;
+  // TODO combine $anchors, $fileload, $delete and $teamsize
+  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete;
 
   $tab = undefined;
 
   function trimName (name) {
     return name.replace(/^\s*|\s*$/g, '').replace(/\s\s*/g, ' ');
+  }
+
+  function updateTeamCounts () {
+    $tab.find('.numteams').text(Team.count());
+  }
+
+  function deleteTeam ($team) {
+    var teamid, team, $names, Tab_Games, i, name;
+
+    if (!options.allowRegistrations) {
+      new Toast(Strings.registrationclosed);
+      return undefined;
+    }
+
+    // retrieve team id
+    teamid = $team.prevAll('.team').length;
+
+    Team.erase(teamid);
+
+    Tab_New.update();
+
+    Storage.changed();
+
+    Tab_Teams.reset();
+    Tab_Teams.update();
+
+    new Toast(Strings.teamdeleted.replace('%s', (teamid + 1)));
+  }
+
+  function initDeletion () {
+    $delete = $tab.find('button.delete');
+    $delete.on('click', function (e) {
+      $tab.toggleClass('deletion');
+      e.preventDefault();
+      return false;
+    });
+
+    $('body').delegate('#teams.deletion', 'click', function (e) {
+      // delete the team
+      var $this;
+
+      $this = $(e.target);
+
+      console.log($this);
+
+      if (!$this.hasClass('team')) {
+        $this = $this.parents('.team');
+      }
+
+      if ($this.hasClass('team')) {
+        deleteTeam($this);
+      }
+
+      $tab.removeClass('deletion');
+
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function deletionPending () {
+    return $tab.hasClass('deletion');
+  }
+
+  function updateDeletion () {
+    if (Team.count() === 0) {
+      $delete.addClass('hidden');
+    } else {
+      $delete.removeClass('hidden');
+    }
+  }
+
+  function initTeamSize () {
+    $teamsize = $tab.find('.teamsize');
+    $teamsize.find('button').on('click', function (e) {
+      var teamsize, $button;
+
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+
+      }
+
+      $button = $(this);
+
+      if ($button.prop('tagName') !== 'BUTTON') {
+        $button = $button.parents('button');
+      }
+
+      teamsize = Number($button.val());
+
+      Options.teamsize = teamsize;
+
+      Tabshandle.updateOpts();
+      require('./alltabs').reset();
+      require('./alltabs').update();
+
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function updateTeamSize () {
+    $teamsize.find('button').removeClass('selected');
+    $teamsize.find('button[value=' + Options.teamsize + ']').addClass('selected');
+    $teamsize.show();
   }
 
   function initTemplate () {
@@ -42,6 +149,170 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     };
 
     updateTemplate();
+  }
+
+  /**
+   * reads names from a string and adds the players accordingly. Ignores
+   * #-escaped lines
+   * 
+   * @returns true on success, undefined or false on failure
+   */
+  function createTeamsFromString (str) {
+    var lines, line, name, names, teamsize, team, i;
+
+    if (Team.count() !== 0) {
+      new Toast(Strings.teamsnotempty);
+      return undefined;
+    }
+
+    if (!options.allowRegistrations) {
+      new Toast(Strings.registrationclosed);
+      return undefined;
+    }
+
+    stripregex = /(^\s+|\s+$)/g;
+
+    lines = str.split('\n');
+
+    // strip unnecessary lines and characters
+    for (i = lines.length - 1; i >= 0; i -= 1) {
+      // strip white spaces
+      lines[i] = trimName(lines[i]);
+
+      // convert CSV format to plain text
+      // first, replace all commas and double quotes inside quotes
+      lines[i] = lines[i].replace(/(, ?"([^,"])*)""/g, '$1%DBQUOTE%');
+      lines[i] = lines[i].replace(/(, ?"([^,"])*),/g, '$1%COMMA%');
+      // second, remove spaces around commas
+      lines[i] = lines[i].replace(/ *, */g, ',');
+      // second, convert the actual content
+      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)","([^"]*)"$/, '$2,$3,$4');
+      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)"$/, '$2,$3');
+      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)"$/, '$2');
+
+      // remove all comments
+      lines[i] = lines[i].replace(/^#.*/, '');
+      // remove empty lines (and the aforementioned comments)
+      if (lines[i].length === 0) {
+        lines.splice(i, 1);
+      }
+    }
+
+    teamsize = -1;
+
+    // split and strip the individual player names and store them in the lines
+    // variable
+    for (names in lines) {
+      lines[names] = lines[names].split(',');
+      names = lines[names];
+
+      for (name in names) {
+        names[name] = trimName(names[name]).replace('%COMMA%', ',');
+        names[name] = trimName(names[name]).replace('%DBQUOTE%', '"');
+        if (names[name].length === 0) {
+          names[name] = Strings.emptyname;
+        }
+      }
+
+      // verify that all teams have the same number of playuers
+      if (teamsize !== names.length) {
+        if (teamsize === -1) {
+          teamsize = names.length;
+        } else {
+          new Toast(Strings.differentteamsizes);
+          return undefined;
+        }
+      }
+    }
+
+    // validate team size
+    switch (teamsize) {
+    case 1:
+    case 2:
+    case 3:
+      // set the team size
+      Options.teamsize = teamsize;
+      // update tabs to the new teamsize
+      Tabshandle.updateOpts();
+      require('./alltabs').reset();
+      require('./alltabs').update();
+      break;
+    default:
+      new Toast(Strings.invalidteamsize);
+      return undefined;
+    }
+
+    // enter new teams
+    for (names in lines) {
+      names = lines[names];
+
+      team = Team.create(names);
+      createBox(team);
+    }
+
+    // save changes
+    Storage.changed();
+
+    return true;
+  }
+
+  function invalidateFileLoad () {
+    $fileload.find('input').val('');
+  }
+
+  function loadFileError (evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ERR:
+      break;
+    default:
+      new Toast(Strings.fileerror);
+    }
+
+    invalidateFileLoad();
+  }
+
+  function loadFileLoad (evt) {
+    var contents;
+
+    contents = evt.target.result;
+
+    if (createTeamsFromString(contents)) {
+      new Toast(Strings.loaded);
+    } else {
+      // toast already sent by createTeamsFromString
+    }
+
+    invalidateFileLoad();
+  }
+
+  function loadFileAbort () {
+    new Toast(Strings.fileabort);
+
+    invalidateFileLoad();
+  }
+
+  function initFileLoad () {
+    $fileload = $tab.find('.load');
+
+    $fileload.find('input').change(function (evt) {
+      var reader = new FileReader();
+      reader.onerror = loadFileError;
+      reader.onabort = loadFileAbort;
+      reader.onload = loadFileLoad;
+
+      reader.readAsBinaryString(evt.target.files[0]);
+    });
+  }
+
+  function updateFileLoad () {
+    $fileload.show();
   }
 
   function updateTemplate () {
@@ -110,6 +381,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     function createTeamFromForm () {
       var names, team;
 
+      if (!options.allowRegistrations) {
+        new Toast(Strings.registrationclosed);
+        return undefined;
+      }
+
       names = readNewTeamNames();
 
       if (names !== undefined) {
@@ -170,6 +446,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     // toggle#teams.maxwidth
     function maxwidthtest () {
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+      }
+
       if (!!$box.prop('checked')) {
         $tab.addClass('maxwidth');
       } else {
@@ -195,7 +476,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     function updateTeam ($team) {
       var teamid, team, $names, Tab_Games, i, name;
 
-      // retrieve team
+      // retrieve team id
       teamid = $team.prevAll('.team').length;
 
       team = Team.get(teamid);
@@ -247,6 +528,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $tab.delegate('.team .name', 'click', function () {
       var $name;
 
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+      }
+
       $name = $(this);
 
       chshow($name);
@@ -260,7 +546,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         e.preventDefault();
         return false;
       } else if (e.which === 27) {
-        // TODO abort name change
+        // TODO abort name change on escape key
         e.preventDefault();
         return false;
       }
@@ -269,6 +555,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     // avoid bubbling of the click event towards .name, which would remove
     // chname and cause DOM exceptions
     template.$chname.click(function (e) {
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+      }
+
       e.preventDefault();
       return false;
     });
@@ -287,7 +578,14 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     initNewTeam();
     initMaxWidth();
     initRename();
+    initFileLoad();
+    initTeamSize();
+    initDeletion();
     $anchor = newteam.$form;
+  }
+
+  function resetOptions () {
+    options.allowRegistrations = true;
   }
 
   /**
@@ -307,10 +605,45 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     $anchor.before(template.$tpl.clone());
 
+    // hide file load
+    $fileload.hide();
+    // hide teamsize selection
+    $teamsize.hide();
+    // show deletion button
+    updateDeletion();
+
     Tab_New.update();
+    updateTeamCounts();
+  }
+
+  options = {
+    allowRegistrations : true,
+  };
+
+  function updateActiveState () {
+    if (options.allowRegistrations) {
+      $tab.removeClass('noreg');
+    } else {
+      $tab.addClass('noreg');
+    }
   }
 
   Tab_Teams = {
+    // several options
+    getOptions : function () {
+      return Opts.getOptions({
+        options : options
+      });
+    },
+
+    setOptions : function (opts) {
+      Opts.setOptions({
+        options : options
+      }, opts);
+
+      updateActiveState();
+    },
+
     /**
      * init, clear and reset all in one
      */
@@ -323,12 +656,17 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       $tab.find('.team').remove();
       Autocomplete.reset();
 
+      resetOptions();
+      updateActiveState();
+
       // reset everything
+      updateDeletion();
+      updateTeamSize();
       updateTemplate();
       updateNewTeam();
-
+      updateFileLoad();
+      updateTeamCounts();
       Autocomplete.update();
-
     },
     update : function () {
       var i, l;
@@ -340,15 +678,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         createBox(Team.get(i));
       }
     },
-  };
-
-  // TODO use event system
-  Tab_Teams.active = function (active) {
-    if (active) {
-      newteam.$form.show();
-    } else {
-      newteam.$form.hide();
-    }
   };
 
   return Tab_Teams;

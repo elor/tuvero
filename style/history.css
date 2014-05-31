@@ -36,7 +36,7 @@
   box-shadow: 1px 1px 0px #808080;
   background-color: #d0d0d0;
   font-size: 0.8em;
-  width: 4em;
+  width: 3em;
   cursor: pointer;
 }
 
@@ -72,4 +72,46 @@
 #history .chpoints .points {
   width: 3em;
   text-align: center;
+}
+
+@media print {
+
+  #history .game, #history .bye, #history .game .teamno, #history .bye .teamno {
+    padding: 0em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+  }
+
+  #history .game:before, #history .bye:before {
+    content: "(";
+    font-size: 200%;
+  }
+
+  #history .game:after, #history .bye:after {
+    content: ")";
+    font-size: 200%;
+  }
+
+  #history .game .correctbox button {
+    box-shadow: 0px 0px 0px #000000;
+    font-size: 100%;
+    width: auto;
+  }
+
+  #history .game .correct {
+    display: block;
+    height: 2em;
+    border: none;
+    margin: 0.2em;
+    box-shadow: 1px 1px 0px #808080;
+    background-color: #d0d0d0;
+    font-size: 0.8em;
+    width: 4em;
+    cursor: pointer;
+  }
+
+  #history .bye .teamno:after {
+    content: "∅";
+    font-size: 75%;
+  }
 }

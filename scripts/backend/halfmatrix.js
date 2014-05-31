@@ -305,7 +305,8 @@ define(function () {
     ob = JSON.parse(blob);
 
     this.size = ob.size;
-    this.array = ob.array; // TODO use some sort of compression
+    // TODO use some sort of compression while unpacking
+    this.array = ob.array;
 
     this.setType(ob.type);
 
