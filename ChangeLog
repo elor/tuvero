@@ -8,6 +8,8 @@
 
 	* style/*.css: print mode added. Printing looks nice now
 
+	* scripts/ui/toast.js: parsing different transition formats (opera)
+
 2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: moved tab_new after tab_teams

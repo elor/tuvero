@@ -19,9 +19,31 @@ define(function () {
 
   // wait for jquery
   $(function ($) {
-    var $hidden, transition, duration, regex;
+    var $hidden, transition, duration;
     // create toast container
     $('body').append('<div id="toasts"><div class="hidden" style="display:none;">ERROR</div></div>');
+
+    function getTransitionDuration () {
+      var prefix, prefixes, transition;
+
+      prefixes = [ '', '-o-', '-ms-', '-moz-', '-webkit-' ];
+      transition = undefined;
+
+      for (prefix in prefixes) {
+        prefix = prefixes[prefix];
+        transition = $hidden.css(prefix + 'transition');
+        if (transition) {
+          break;
+        }
+      }
+      if (transition === undefined) {
+        console.error("could not read any transition lengths. What's your browser?");
+        return 0.2;
+      }
+
+      // return duration
+      return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, '$1'));
+    }
 
     // abort if the style is not set
     if ($('#toasts').css('position') !== 'fixed') {
@@ -32,17 +54,12 @@ define(function () {
     } else {
       // read fade durations from css
       $hidden = $('#toasts .hidden');
-      regex = /^all ([0-9.]+)s ease-(in|out) ([0-9.]+)s$/;
 
-      transition = $hidden.css('transition');
-      duration = Number(transition.replace(regex, '$1'));
-      fadeout = duration;
+      fadeout = getTransitionDuration();
 
       $hidden.addClass('toast');
 
-      transition = $hidden.css('transition');
-      duration = Number(transition.replace(regex, '$1'));
-      fadein = duration;
+      fadein = getTransitionDuration();
 
       if (fadein != Number(fadein) || !isFinite(fadein) || isNaN(fadein)) {
         console.error('fadein: not a valid number: ' + fadein);

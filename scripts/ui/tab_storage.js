@@ -294,8 +294,10 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
         Alltabs.reset();
         Blob.reset();
-        new Toast(Strings.newtournament);
         Alltabs.update();
+
+        new Toast(Strings.newtournament);
+        Tabshandle.focus('teams');
 
         resetStorageState();
       }
