@@ -5,6 +5,10 @@
 * Opera: tab_games: bye character doesn't display properly. Font problem?
 * Safari for windows: no FileReader
 * Safari for Windows: bye character looks strange (small and right-aligned)
+* IE11: button.deletion: text aligned to top
+* IE11: seams everywhere
+* IE11: Cannot download
+* IE11: FileReader cannot readAsBinaryString
   
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible
