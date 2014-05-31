@@ -26,7 +26,7 @@ git commit -m "release-$version: manifest generated and linked"
 
 # remove debugging url arguments
 for file in `git ls-files '*.html'`; do
-  sed -i -e '/urlArgs: "bust="/d' $file
+  sed -i -e '/urlArgs.*bust/d' $file
 done
 
 git add -u
