@@ -73,7 +73,7 @@
           </div>
         </form>
 
-        <div class="load">
+        <div class="load filereader">
           <p>
             Spieler aus Datei laden
             <br>
@@ -370,6 +370,14 @@
             Das Turnier wird aus einer Datei neu geladen. Eventuell laufende
             Turniere werden überschrieben.
           </p>
+          <p class="nofilereader">
+            Dieser Browser kann keine lokalen Dateien laden.
+            Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
+            moderneren Browser.
+            Manche Hersteller stellen keine Updates für
+            ihre Browser unter einigen Betriebssystemen zur Verfügung
+            (z.B. Apple mit Safari für Windows).
+          </p>
           <input class="filereader file" type="file" />
         </div>
 
@@ -377,6 +385,9 @@
           <h3>Autovervollständigung</h3>
           <p>
             Lade alle Spielernamen neu aus dem Internet oder einer lokalen Datei.
+          </p>
+          <p class="nofilereader">
+            Dieser Browser kann keine lokalen Dateien laden.
           </p>
           <button>
             <img src="images/reload.png" alt="reload autocomplete list" />

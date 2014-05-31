@@ -3,6 +3,7 @@
 	* scripts/ui/tab_storage.js: focus tab_teams on file load
 	autosave option removed. Serialization proved fast enough
 	save newly loaded player names
+	filereader/nofilereader fallbacks updated
 
 	* scripts/ui/tab_ranking.js: Auto-update option removed. The calculations proved fast enough
 

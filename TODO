@@ -3,6 +3,7 @@
 * test random number generator again!
 
 [later]
+* update modernizr
 * clean up all dependencies
 * use html classes instead of $.hide()/$.show()
 * style file input tags
@@ -44,4 +45,5 @@
 
 [ongoing]
 * w3c validation
+* test with all major browsers: chrome, firefox, opera, safari, ie10
 * test.html: fix all displayed errors
