@@ -1,6 +1,7 @@
-[1.3]
+[next]
 * redesign the storage tab
 * test random number generator again!
+* rotate reload and save preparation buttons ^^
 
 [later]
 * update modernizr
