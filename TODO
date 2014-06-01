@@ -2,6 +2,7 @@
 * redesign the storage tab
 * test random number generator again!
 * rotate reload and save preparation buttons ^^
+* use modernizr html.[class] definitions
 
 [later]
 * update modernizr

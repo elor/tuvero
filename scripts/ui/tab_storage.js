@@ -1,5 +1,6 @@
-define([ './toast', './strings', './team', './history', './ranking', './blob',
-    '../lib/base64', './storage', './options', './opts', './players', './tabshandle' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts, Players, Tabshandle) {
+define([ './toast', './strings', './team', './history', './ranking', './state',
+    '../lib/base64', './storage', './options', './opts', './players',
+    './tabshandle' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle) {
   var Tab_Storage, $tab, areas, options;
 
   Tab_Storage = {};
@@ -33,8 +34,21 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     areas.csv.$download.hide();
   }
 
+  function createDownloadURL (content, mimetype) {
+    var url;
+    mimetype = mimetype || 'text/plain';
+
+    if (window.URL && window.URL.createObjectURL && Blob) {
+      url = window.URL.createObjectURL(new Blob([ content ]));
+    } else {
+      url = 'data:' + mimetype + ';base64,' + btoa(content);
+    }
+
+    return url;
+  }
+
   function csvupdate () {
-    var $buttons, csv;
+    var $buttons, csv, url;
 
     $buttons = areas.csv.$buttons;
 
@@ -57,8 +71,9 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     csv = csv.join('\r\n""\r\n');
 
-    // update download link
-    areas.csv.$download.attr('href', 'data:application/csv;base64,' + btoa(csv));
+    url = createDownloadURL(csv, 'application/csv');
+
+    areas.csv.$download.attr('href', url);
     areas.csv.$download.show();
   }
 
@@ -84,10 +99,11 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     // TODO read from/compare with database
 
-    save = Blob.toBlob();
+    save = State.toBlob();
 
+    url = url = createDownloadURL(save, 'application/json');
     // update link
-    areas.save.$download.attr('href', 'data:application/json;base64,' + btoa(save));
+    areas.save.$download.attr('href', url);
     areas.save.$download.show();
   }
 
@@ -144,7 +160,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     Storage.clear(Options.dbname);
 
     try {
-      if (Blob.fromBlob(blob)) {
+      if (State.fromBlob(blob)) {
         Storage.changed();
         // TODO event handler
         resetStorageState();
@@ -293,7 +309,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         Alltabs = require('./alltabs');
 
         Alltabs.reset();
-        Blob.reset();
+        State.reset();
         Alltabs.update();
 
         new Toast(Strings.newtournament);
