@@ -3,6 +3,8 @@
 * Toast: chunky positioning right before a toast disappears
   caused bye its <br> tag and possibly its padding/margin  
 * Opera: tab_games: bye character doesn't display properly. Font problem?
+* Opera: downloads don't have a name
+* Opera: INVALID_CHARACTER_ERR on CSV export
 * Safari for windows: no FileReader
 * Safari for Windows: bye character looks strange (small and right-aligned)
 * IE11: button.deletion: text aligned to top
