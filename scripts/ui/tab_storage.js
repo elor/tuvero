@@ -1,5 +1,5 @@
 define([ './toast', './strings', './team', './history', './ranking', './blob',
-    './base64', './storage', './options', './opts', './players', './tabshandle' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts, Players, Tabshandle) {
+    '../lib/base64', './storage', './options', './opts', './players', './tabshandle' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts, Players, Tabshandle) {
   var Tab_Storage, $tab, areas, options;
 
   Tab_Storage = {};
