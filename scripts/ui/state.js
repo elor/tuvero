@@ -4,9 +4,9 @@
  */
 define([ './options', './tabshandle', './team', './history', './swiss',
     './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new' ], function (Options, Tabshandle, Team, History, Swiss, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New) {
-  var Blob;
+  var State;
 
-  Blob = {
+  State = {
     /**
      * store the current program state in a blob
      * 
@@ -68,5 +68,5 @@ define([ './options', './tabshandle', './team', './history', './swiss',
     },
   };
 
-  return Blob;
+  return State;
 });

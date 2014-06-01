@@ -80,17 +80,17 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function clearEverything () {
-    var Storage, Alltabs, Blob, Tab_Storage;
+    var Storage, Alltabs, State, Tab_Storage;
 
     Storage = require('./storage');
     Alltabs = require('./alltabs');
-    Blob = require('./blob');
+    State = require('./state');
     Tab_Storage = require('./tab_storage');
 
     Storage.enable();
     Storage.clear();
     Alltabs.reset();
-    Blob.reset();
+    State.reset();
     Alltabs.update();
 
     new Toast(Strings.newtournament);

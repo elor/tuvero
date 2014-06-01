@@ -4,7 +4,6 @@
 define([ './options' ], function (Options) {
   var Storage, keys, Tab_Storage;
 
-  Blob = undefined;
   Tab_Storage = undefined;
 
   Storage = {};
@@ -127,7 +126,7 @@ define([ './options' ], function (Options) {
     Storage.disable();
 
     if (Modernizr.localstorage) {
-      keys[Options.dbname] = require('./blob');
+      keys[Options.dbname] = require('./state');
       keys[Options.dbplayername] = require('./players');
     }
   };
