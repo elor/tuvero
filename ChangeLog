@@ -1,3 +1,8 @@
+2014-08-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/toast.js: Toast length constants added
+	added infinite toasts (intended for update notifications)
+
 2014-06-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_storage.js: Download under specific file name (using Blob and window.URI, where available)

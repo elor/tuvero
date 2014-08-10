@@ -203,7 +203,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
 
       console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
 
-      new Toast(Strings.autocompletereloadfailed, 5);
+      new Toast(Strings.autocompletereloadfailed, Toast.LONG);
     });
   }
 

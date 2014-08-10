@@ -245,7 +245,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
 
     if (swissreturn === undefined) {
-      new Toast(Strings.roundfailed, 5);
+      new Toast(Strings.roundfailed, Toast.LONG);
       return undefined;
     }
 

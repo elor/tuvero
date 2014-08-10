@@ -302,7 +302,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     result = readResults($(this));
 
     if (result === undefined) {
-      new Toast(Strings.invalidresult, 5);
+      new Toast(Strings.invalidresult, Toast.LONG);
       return false;
     }
 
@@ -321,7 +321,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       Tab_Ranking.update();
 
       // notify the user of this failure
-      new Toast(Strings.invalidresult, 5);
+      new Toast(Strings.invalidresult, Toast.LONG);
 
       return false;
     }
@@ -350,7 +350,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       Tab_Ranking.update();
 
       // notify the user of this failure
-      new Toast(Strings.invalidresult, 5);
+      new Toast(Strings.invalidresult, Toast.LONG);
 
       return false;
     }

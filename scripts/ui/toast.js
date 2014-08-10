@@ -98,17 +98,20 @@ define(function () {
           $div.addClass('toast');
         }, 10);
 
-        // fadeout timeout
-        // TODO on toast fadeout: move whole column upwards
-        window.setTimeout(function () {
-          $div.removeClass('toast');
-        }, 1000 * (seconds + fadein));
+        // remote the toast if it's not infinite
+        if (seconds > 0) {
+          // fadeout timeout
+          // TODO on toast fadeout: move whole column upwards
+          window.setTimeout(function () {
+            $div.removeClass('toast');
+          }, 1000 * (seconds + fadein));
 
-        // remove timeout
-        window.setTimeout(function () {
-          $br.remove();
-          $div.remove();
-        }, 1000 * (seconds + fadein + fadeout));
+          // remove timeout
+          window.setTimeout(function () {
+            $br.remove();
+            $div.remove();
+          }, 1000 * (seconds + fadein + fadeout));
+        }
       };
     }
 
@@ -117,6 +120,10 @@ define(function () {
       new Toast(toast.str, toast.seconds);
     }, this);
   });
+
+  Toast.SHORT = 2;
+  Toast.LONG = 5;
+  Toast.INFINITE = -1;
 
   // remember: return by reference. The new function will replace the old one
   return Toast;
