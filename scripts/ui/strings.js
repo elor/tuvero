@@ -61,9 +61,14 @@ define(function () {
     autocompletereloadfailed : 'Konnte Spielernamen nicht laden',
     fileempty : 'Datei ist leer',
     teamdeleted : 'Anmeldung %s gelöscht',
-    nofilereader : 'Browser kann keine Speicherstände laden!',
-    nojson : 'Browser kann keine Speicherstände erstellen!',
-    nostorage : 'Browser kann keine Spielstände speichern!',
+    nofilereader : 'Dieser Browser kann keine Speicherstände laden!',
+    nojson : 'Dieser Browser kann keine Speicherstände erstellen!',
+    nostorage : 'Dieser Browser kann keine Spielstände speichern!',
+    updatedownloading : 'Neue Version wird heruntergeladen...',
+    updatefailed : 'Fehler beim Download der neuen Version',
+    updateavailable : 'Neue Version heruntergeladen. Bitte Seite neu laden.',
+    dev : 'Entwicklerversion',
+    rc : 'Versionsvorschau',
   };
 
   return Strings;

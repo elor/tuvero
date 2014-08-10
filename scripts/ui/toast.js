@@ -76,7 +76,7 @@ define(function () {
         var $toasts, $div, $br;
 
         // default to two seconds duration
-        seconds = seconds || 2;
+        seconds = seconds || Toast.SHORT;
 
         $toasts = $('#toasts');
         $div = $('<div></div>');

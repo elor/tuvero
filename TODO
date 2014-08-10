@@ -3,6 +3,8 @@
 * test random number generator again!
 * rotate reload and save preparation buttons ^^
 * use modernizr html.[class] definitions
+* show why a round cannot be started
+* provide an update check and status indicator
 
 [later]
 * update modernizr
