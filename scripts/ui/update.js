@@ -19,7 +19,7 @@ define([ './strings', './toast' ], function (Strings, Toast) {
       break;
     case appCache.DOWNLOADING:
       // downloading new files
-      new Toast(Strings.updatedownloading);
+//      new Toast(Strings.updatedownloading);
       break;
     case appCache.UPDATEREADY:
       // finished downloading. ready to swap the cache
@@ -34,13 +34,12 @@ define([ './strings', './toast' ], function (Strings, Toast) {
       break;
     }
   }
-
-  function cacheError () {
-    new Toast(Strings.updatefailed, Toast.LONG);
-  }
-
   appCache.addEventListener('updateready', cacheStatus);
-  appCache.addEventListener('error', cacheError);
+
+//  function cacheError () {
+//    new Toast(Strings.updatefailed, Toast.LONG);
+//  }
+//  appCache.addEventListener('error', cacheError);
 
   Update = function () {
     if (appCache.status != appCache.UNCACHED) {
