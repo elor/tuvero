@@ -46,7 +46,7 @@ define([ './strings', './toast' ], function (Strings, Toast) {
       appCache.update();
     } else {
       console.error('no cache manifest found. This is normal for development versions and release candidates.');
-      new Toast(Strings.dev, Toast.LONG);
+      new Toast(Strings.dev, Toast.INFINITE);
     }
   };
 

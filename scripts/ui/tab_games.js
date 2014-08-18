@@ -82,7 +82,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return;
     }
 
-    $tab = $tab;
     $vote = $tab.find('.votes .tpl');
 
     $vote.detach();

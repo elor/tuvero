@@ -10,6 +10,14 @@
 
 	* style/about.css: added
 
+	* scripts/ui/history.js: eclipse warning suppressed
+
+	* scripts/ui/tab_storage.js: accidental double-assignment fixed
+
+	* scripts/ui/tab_games.js: unnecessary jslint warning unsuppressed
+
+	* scripts/update.js: "dev version" toast is now infinite
+
 2014-08-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/update.sh: less error messages

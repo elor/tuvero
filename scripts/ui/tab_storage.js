@@ -101,7 +101,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
 
     save = State.toBlob();
 
-    url = url = createDownloadURL(save, 'application/json');
+    url = createDownloadURL(save, 'application/json');
     // update link
     areas.save.$download.attr('href', url);
     areas.save.$download.show();

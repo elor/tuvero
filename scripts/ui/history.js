@@ -1,5 +1,7 @@
 /**
  * History of results, keyed by round and index.
+ * 
+ * @returns History
  */
 define([ './swiss', '../backend/correction', './team', './strings', './options' ], function (Swiss, Correction, Team, Strings, Options) {
   var History, rounds, byes, Result;
