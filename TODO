@@ -5,6 +5,7 @@
 * use modernizr html.[class] definitions
 * show why a round cannot be started
 * provide an update check and status indicator
+* write readme
 
 [later]
 * update modernizr

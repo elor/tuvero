@@ -4,6 +4,12 @@
 
 	* images/about.png: question mark icon added
 
+	* boules.html: 'about' tab added
+
+	* readme.html: added
+
+	* style/about.css: added
+
 2014-08-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/update.sh: less error messages

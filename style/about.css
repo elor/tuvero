@@ -1,0 +1,40 @@
+#about {
+  max-width: 40em;
+}
+
+#about .content {
+  padding: 1em;
+  text-align: justify;
+}
+
+#about .float {
+  float: right;
+}
+
+#about .manual {
+  display: inline-block;
+  background-color: #90EE90;
+  padding: 0.5em;
+  border-radius: 1em;
+  font-weight: bold;
+}
+
+#about .manual img {
+  height: 2em;
+  vertical-align: middle;
+}
+
+#about img.logo {
+  max-height: 4em;
+  max-width: 4em;
+  border-radius: 0.5em;
+}
+
+#about img.supported {
+  background-color: #90ee90;
+}
+
+#about img.unsupported {
+  background-color: #484848;
+  opacity: 0.5;
+}
