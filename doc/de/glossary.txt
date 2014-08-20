@@ -1,0 +1,95 @@
+* Boule
+Der Oberbegriff für verschiedene, aber verwandte Spielarten, inklusive #Petanque und #Tireur.
+Im #Turnier werden mit speziellen #Turnierkugeln gespielt.
+
+* Boules
+Der Name dieser #Turnierverwaltung.
+Nicht zu verwechseln mit #Boule, dem allgemeinen Namen der Sportart.
+
+* Petanque
+
+* Tireur
+
+* Sonneborn-Berger-Zahl
+
+* Spieler
+
+* Mannschaft
+
+* Siege
+
+* Nettopunkte
+
+* Buchholz-Punkte 
+
+* Feinbuchholz-Punkte
+
+* Ranking
+Siehe #Platzierung. 
+
+* Platzierung
+
+* Auslosung
+
+* Schweizer System
+
+* Maastrichter System
+
+* KO-Runde
+
+* ABCD-Turnier
+
+* Cadrage
+
+* Barrage
+
+* Pool-System
+
+* Turnier
+
+* Bouleskugeln
+
+* Kugeln
+
+* Spielregeln
+
+* Turnierregeln
+
+* Regeln
+Siehe #Spielregeln bzw. #Turnierregeln.
+
+* Turnierkugeln
+
+* Anmeldung
+
+* Hochlos
+
+* Runterlos
+
+* Freilos
+Anrechnung eines Sieges ohne Spiel, z.B. wegen ungerader Zahl von Mannschaften.
+Zählt in der Regel als ein Sieg 13:7.
+
+* Tete-a-Tete
+Ein Spiel 1 gegen 1
+
+* Doublette
+Ein Spiel 2 gegen 2
+
+* Triplette
+Ein Spiel 3 gegen 3
+
+* Omelett
+Ein Spiel 3 gegen 2. Vergleich #Tete, #Doublette und #Triplette
+
+* Schiedsrichter
+
+* Ergebnis
+
+* Turnier
+
+* Turnierleitung
+
+* Spielergebnis
+Ungleiche positive Punktzahl, die der #Turnierleitung zu melden ist, z.B. 13 zu 9.
+

@@ -1,3 +1,11 @@
+2014-08-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* doc/de/glossary.*: german glossary started
+
+	* doc/writeglossary.sh: Automatic script to update glossary.html from glossary.txt
+
+	* readme.html: moved to doc/de/index.html
+
 2014-08-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/logos/: browser logos added
