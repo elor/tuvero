@@ -183,21 +183,16 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
   }
 
   function reloadAutocomplete () {
-    $.ajax({
-      dataType : 'text',
-      contentType : "text/plain; charset=utf-8",
-      url : Options.playernameurl,
-      timeout : 3000
-    }).done(function (response, status) {
-      if (response.length === 0) {
+    $.get(Options.playernameurl, undefined, function (jsontext, status, response) {
+      if (jsontext.length === 0) {
         new Toast(Strings.fileempty);
       } else {
         // TODO check format?
-        Players.fromString(response);
+        Players.fromBlob(jsontext);
         Storage.store();
         new Toast(Strings.autocompleteloaded);
       }
-    }).fail(function () {
+    }, 'text').fail(function () {
       var content, i;
       // TODO use an iframe, message passing and and a separate player database
 

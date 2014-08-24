@@ -15,7 +15,7 @@ define(function () {
     roundtries : 20,
     dbname : 'swiss',
     dbplayername : 'players',
-    playernameurl : 'players.txt',
+    playernameurl : 'https://boulesdb.appspot.com/json',
   };
 
   Options.toBlob = function () {

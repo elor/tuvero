@@ -1,4 +1,0 @@
-# placeholder names. Insert your own players.txt before installing to a webserver
-Erik Lorenz
-Fabian Böttcher
-

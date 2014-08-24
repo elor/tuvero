@@ -1,3 +1,11 @@
+2014-08-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* players.txt: removed in favor of external solution
+
+	* scripts/ui/options.js: playername location changed to boulesdb installation
+
+	* scripts/ui/tab_storage.js: ajax mess cleaned up: using json and boulesdb now
+
 2014-08-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* doc/de/glossary.*: german glossary started
