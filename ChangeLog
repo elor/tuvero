@@ -1,3 +1,11 @@
+2014-08-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* doc/de/glossary.html: automatic update
+
+	* doc/de/glossary.txt: Fabe and I edited some stuff
+
+	* doc/writeglossary.sh: support for more link formats added
+
 2014-08-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* players.txt: removed in favor of external solution
