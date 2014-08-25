@@ -38,3 +38,15 @@
   background-color: #484848;
   opacity: 0.5;
 }
+
+.js #about .no-js, .postmessage #about .no-postmessage, .hashchange #about .no-hashchange, .localstorage #about .no-localstorage, .webworkers #about .no-webworkers, .adownload #about .no-adownload, .filereader #about .no-filereader, .json #about .no-json {
+  display: none;
+}
+
+.js.postmessage.hashchange.localstorage.webworkers.adownload.filereader.json #about .no-support {
+  display: none;
+}
+
+.no-js #about .support, .no-postmessage #about .support, .no-hashchange #about .support, .no-localstorage #about .support, .no-webworkers #about .support, .no-adownload #about .support, .no-filereader #about .support, .no-json #about .support {
+  display: none;
+}
