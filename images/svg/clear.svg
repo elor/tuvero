@@ -502,11 +502,11 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1474"
-     inkscape:window-height="841"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-width="638"
+     inkscape:window-height="1078"
+     inkscape:window-x="1280"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      showguides="true"
      inkscape:guide-bbox="true" />
   <metadata
@@ -525,17 +525,5 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1004.3622)">
-    <path
-       style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
-       d="m 30.179543,1006.9959 -22.3590859,0 0,42.7327 32.3590859,0 0,-32.7327 -10,-10 m 0,0 0,10 10,0"
-       id="rect8859"
-       inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccccc" />
-    <path
-       style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutS-5)"
-       d="m 24,1016.5932 0,19.643"
-       id="path4157"
-       inkscape:connector-curvature="0" />
-  </g>
+     transform="translate(0,-1004.3622)" />
 </svg>

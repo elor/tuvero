@@ -7,8 +7,13 @@
 	* doc/writeglossary.sh: support for more link formats added
 
 	* boules.html: feature notifications added. Note to self: Don't forget to add new features
+	icon paths updated
 
 	* style/about.css: showing and hiding feature notifications as needed
+
+	* images/*.png: new icons created
+
+	* images/svg/*.svg: new icons created
 
 2014-08-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

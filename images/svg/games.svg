@@ -9,12 +9,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="48"
-   height="48"
+   width="128"
+   height="128"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="clear.svg">
+   sodipodi:docname="games.svg"
+   inkscape:export-filename="/home/elor/code/boules/images/games.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,24 +27,19 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="28.32704"
-     inkscape:cy="-2.9675124"
+     inkscape:zoom="1.28"
+     inkscape:cx="-58.504032"
+     inkscape:cy="-10.623921"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="721"
-     inkscape:window-height="825"
-     inkscape:window-x="737"
+     inkscape:window-width="1918"
+     inkscape:window-height="1078"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
      showguides="true"
-     inkscape:guide-bbox="true">
-    <sodipodi:guide
-       orientation="0,1"
-       position="-18.035714,37.678571"
-       id="guide3803" />
-  </sodipodi:namedview>
+     inkscape:guide-bbox="true" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -50,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,63 +56,11 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1004.3622)">
-    <rect
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-opacity:1"
-       id="rect3031"
-       width="35.355339"
-       height="35.355339"
-       x="6.3223305"
-       y="1010.6845"
-       rx="6.6652107"
-       ry="6.6652107" />
-    <g
-       id="g3888">
-      <rect
-         ry="4.9079952"
-         rx="5.9094133"
-         y="1016.4135"
-         x="12.051263"
-         height="4.9079952"
-         width="4.9079952"
-         id="rect3033"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-      <rect
-         ry="4.9079952"
-         rx="5.9094133"
-         y="1016.4135"
-         x="31.040741"
-         height="4.9079952"
-         width="4.9079952"
-         id="rect3033-9"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-      <rect
-         ry="4.9079952"
-         rx="5.9094133"
-         y="1035.403"
-         x="31.040741"
-         height="4.9079952"
-         width="4.9079952"
-         id="rect3033-2"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-      <rect
-         ry="4.9079952"
-         rx="5.9094133"
-         y="1035.403"
-         x="12.051263"
-         height="4.9079952"
-         width="4.9079952"
-         id="rect3033-7"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-      <rect
-         ry="4.9079952"
-         rx="5.9094133"
-         y="1025.9082"
-         x="21.546001"
-         height="4.9079952"
-         width="4.9079952"
-         id="rect3033-95"
-         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none" />
-    </g>
+     transform="translate(0,-924.3622)">
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:3.30075312;stroke-opacity:1"
+       d="M 27.65625 5.65625 C 15.468131 5.65625 5.65625 15.468131 5.65625 27.65625 L 5.65625 100.34375 C 5.65625 112.53187 15.468131 122.34375 27.65625 122.34375 L 100.34375 122.34375 C 112.53187 122.34375 122.34375 112.53187 122.34375 100.34375 L 122.34375 27.65625 C 122.34375 15.468131 112.53187 5.65625 100.34375 5.65625 L 27.65625 5.65625 z M 32.65625 17.09375 C 41.272101 17.09375 48.21875 24.040399 48.21875 32.65625 C 48.21875 41.272101 41.272101 48.21875 32.65625 48.21875 C 24.040399 48.21875 17.09375 41.272101 17.09375 32.65625 C 17.09375 24.040399 24.040399 17.09375 32.65625 17.09375 z M 95.34375 17.09375 C 103.9596 17.09375 110.90625 24.040399 110.90625 32.65625 C 110.90625 41.272101 103.9596 48.21875 95.34375 48.21875 C 86.727899 48.21875 79.78125 41.272101 79.78125 32.65625 C 79.78125 24.040399 86.727899 17.09375 95.34375 17.09375 z M 64 48.4375 C 72.615851 48.4375 79.5625 55.384149 79.5625 64 C 79.5625 72.615851 72.615851 79.5625 64 79.5625 C 55.384149 79.5625 48.4375 72.615851 48.4375 64 C 48.4375 55.384149 55.384149 48.4375 64 48.4375 z M 32.65625 79.78125 C 41.272101 79.78125 48.21875 86.727899 48.21875 95.34375 C 48.21875 103.9596 41.272101 110.90625 32.65625 110.90625 C 24.040399 110.90625 17.09375 103.9596 17.09375 95.34375 C 17.09375 86.727899 24.040399 79.78125 32.65625 79.78125 z M 95.34375 79.78125 C 103.9596 79.78125 110.90625 86.727899 110.90625 95.34375 C 110.90625 103.9596 103.9596 110.90625 95.34375 110.90625 C 86.727899 110.90625 79.78125 103.9596 79.78125 95.34375 C 79.78125 86.727899 86.727899 79.78125 95.34375 79.78125 z "
+       transform="translate(0,924.3622)"
+       id="rect3031" />
   </g>
 </svg>

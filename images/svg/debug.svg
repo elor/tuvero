@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="reload.svg">
+   sodipodi:docname="console.svg">
   <defs
      id="defs4">
     <marker
@@ -205,12 +205,12 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="4.6294145"
-     inkscape:cy="30.275545"
+     inkscape:cx="57.002518"
+     inkscape:cy="60.554197"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1918"
+     inkscape:window-width="958"
      inkscape:window-height="1078"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -234,10 +234,47 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-924.3622)">
-    <path
-       style="fill:none;stroke:#000000;stroke-width:18.55327606;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutS)"
-       d="m 108.84812,991.54059 c 1.44636,24.76921 -17.460318,46.02091 -42.229248,47.46731 -24.768936,1.446 -46.020631,-17.4605 -47.466992,-42.22941 -1.446361,-24.7689 17.460321,-46.02036 42.229254,-47.46699 0.872025,-0.0504 1.745346,-0.0769 2.618855,-0.0769"
-       id="path7973"
-       inkscape:connector-curvature="0" />
+    <g
+       id="g3014"
+       transform="matrix(2.8855419,0,0,2.8855419,-5.2530063,-1979.02)">
+      <g
+         id="g9532">
+        <path
+           style="fill:#000000;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           d="m 7.4292784,1011.0137 33.1414436,0 c 2.553286,0 4.608821,2.0555 4.608821,4.6088 l -42.3590855,0 c 0,-2.5533 2.0555341,-4.6088 4.6088209,-4.6088 z"
+           id="rect8859-5"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="ssccs" />
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+           id="rect8859"
+           width="42.359085"
+           height="34.697044"
+           x="2.8204575"
+           y="1011.0137"
+           rx="4.6088209"
+           ry="4.6088209" />
+      </g>
+      <g
+         id="flowRoot9463"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Impact;-inkscape-font-specification:Impact"
+         transform="translate(15.634949,1031.4897)">
+        <path
+           inkscape:connector-curvature="0"
+           id="path3177"
+           style="font-size:28px;font-family:Impact;-inkscape-font-specification:Impact"
+           d="m -6.2988281,-8.3480554 13.1523437,5.46875 0,2.78906247 -13.1523437,5.49609373 0,-3.609375 8.1210937,-3.2675781 -8.1210937,-3.2539063 z" />
+      </g>
+      <g
+         id="flowRoot9463-2"
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Impact;-inkscape-font-specification:Impact Bold"
+         transform="translate(31.927918,1023.6284)">
+        <path
+           inkscape:connector-curvature="0"
+           id="path3174"
+           style="font-size:28px;font-family:Impact;-inkscape-font-specification:Impact Bold"
+           d="m -7.3481445,11.353116 16.0841064,0 0,1.914063 -16.0841064,0 z" />
+      </g>
+    </g>
   </g>
 </svg>
