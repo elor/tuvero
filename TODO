@@ -8,6 +8,7 @@
 * write readme
 * icons!
 * about.png: add space at the bottom
+* add global options (installation-specific) instead of storing them in the database/save files
 
 [later]
 * update modernizr
