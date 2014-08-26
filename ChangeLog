@@ -17,6 +17,11 @@
 	* scripts/ui/test/tab.js: tab_storage -> tab_settings
 
 	* style/storage.css: #storage -> #settings
+	renamed to settings.css
+
+	* style/mainstyle.css: storage -> settings
+
+	* style/settings.css: storage -> settings
 
 2014-08-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
