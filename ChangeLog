@@ -24,6 +24,11 @@
 	* style/settings.css: storage -> settings
 	floating block layout replaced by vertical arrangement
 
+	* createmanifest.sh: executable permissions added
+
+	* pushversion.sh: executable permissions added
+
+	* scripts/updatetests.sh: executable permissions added
 
 2014-08-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
