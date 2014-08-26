@@ -22,6 +22,8 @@
 	* style/mainstyle.css: storage -> settings
 
 	* style/settings.css: storage -> settings
+	floating block layout replaced by vertical arrangement
+
 
 2014-08-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

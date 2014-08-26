@@ -1,11 +1,17 @@
 #settings .block {
-  float: left;
-  width: 25em;
-  padding: 1em;
-  margin: auto;
+  margin: 1em;
+  padding: 0em 1em 1em 1em;
+  border-radius: 1em;
+  border-style: solid;
+  border-width: 1px;
 }
 
-#settings > div > p {
+#settings .block h3 {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+#settings > .block > p {
   text-align: justify;
 }
 
@@ -17,7 +23,7 @@
   margin-bottom: 1em;
 }
 
-#settings button > img {
+#settings img {
   width: 3.0em;
   height: 3.0em;
 }
