@@ -80,12 +80,12 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function clearEverything () {
-    var Storage, Alltabs, State, Tab_Storage;
+    var Storage, Alltabs, State, Tab_Settings;
 
     Storage = require('./storage');
     Alltabs = require('./alltabs');
     State = require('./state');
-    Tab_Storage = require('./tab_storage');
+    Tab_Settings = require('./tab_settings');
 
     Storage.enable();
     Storage.clear();

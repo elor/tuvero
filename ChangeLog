@@ -1,3 +1,23 @@
+2014-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: storage -> settings
+
+	* scripts/ui/alltabs.js: tab_storage -> tab_settings
+
+	* scripts/ui/main.js: tab_storage -> tab_settings
+
+	* scripts/ui/storage.js: tab_storage -> tab_settings
+
+	* scripts/ui/tab_debug.js: tab_storage -> tab_settings
+
+	* scripts/ui/tab_storage.js: tab_storage -> tab_settings
+
+	* scripts/ui/tab_settings.js: tab_storage -> tab_settings
+
+	* scripts/ui/test/tab.js: tab_storage -> tab_settings
+
+	* style/storage.css: #storage -> #settings
+
 2014-08-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* doc/de/glossary.html: automatic update
@@ -238,4 +258,3 @@
 	* scripts/ui/tab_games: using Options (Opts) to allow registrations
 
 	* ChangeLog: changelog started. For previous changes, see git history
-

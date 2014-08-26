@@ -3,7 +3,7 @@
  */
 
 define([ './tab_history', './tab_ranking', './tab_new',
-    './tab_teams', './tab_games', './tab_debug', './tab_storage' ], function () {
+    './tab_teams', './tab_games', './tab_debug', './tab_settings' ], function () {
   var tab, tabs, Alltabs;
 
   tabs = [];

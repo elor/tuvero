@@ -1,9 +1,9 @@
 define([ './toast', './strings', './team', './history', './ranking', './state',
     '../lib/base64', './storage', './options', './opts', './players',
     './tabshandle' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle) {
-  var Tab_Storage, $tab, areas, options;
+  var Tab_Settings, $tab, areas, options;
 
-  Tab_Storage = {};
+  Tab_Settings = {};
   options = {};
   areas = {};
 
@@ -329,7 +329,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
 
   function init () {
     if ($tab) {
-      console.error('tab_storage: $tab is already defined:');
+      console.error('tab_settings: $tab is already defined:');
       console.error($tab);
       return;
     }
@@ -346,7 +346,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
   /**
    * reset an initial state
    */
-  Tab_Storage.reset = function () {
+  Tab_Settings.reset = function () {
     if (!$tab) {
       init();
     }
@@ -359,22 +359,22 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     resetStorageState();
   };
 
-  Tab_Storage.update = function () {
-    Tab_Storage.reset();
+  Tab_Settings.update = function () {
+    Tab_Settings.reset();
     updateAutocomplete();
   };
 
-  Tab_Storage.getOptions = function () {
+  Tab_Settings.getOptions = function () {
     return Opts.getOptions({
       options : options
     });
   };
 
-  Tab_Storage.setOptions = function (opts) {
+  Tab_Settings.setOptions = function (opts) {
     return Opts.setOptions({
       options : options
     }, opts);
   };
 
-  return Tab_Storage;
+  return Tab_Settings;
 });

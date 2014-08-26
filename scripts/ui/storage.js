@@ -2,9 +2,9 @@
  * Storage API for persistent state
  */
 define([ './options' ], function (Options) {
-  var Storage, keys, Tab_Storage;
+  var Storage, keys, Tab_Settings;
 
-  Tab_Storage = undefined;
+  Tab_Settings = undefined;
 
   Storage = {};
   keys = {};
@@ -143,12 +143,12 @@ define([ './options' ], function (Options) {
    * this function indicates a change in the tournament state TODO move to Blob
    */
   Storage.changed = function () {
-    if (Tab_Storage === undefined) {
-      Tab_Storage = require('./tab_storage');
+    if (Tab_Settings === undefined) {
+      Tab_Settings = require('./tab_settings');
     }
 
     // invalidate
-    Tab_Storage.reset();
+    Tab_Settings.reset();
     Storage.store();
   };
 
