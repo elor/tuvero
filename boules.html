@@ -314,6 +314,22 @@
       <div id="settings" accesskey="s">
         <h2>Optionen und Einstellungen</h2>
 
+        <div class="block">
+          <h3>Import &amp; Export</h3>
+          <div class="autocomplete">
+            <p>
+              Spielernamen für Autovervollständigung aus dem Internet laden.
+            </p>
+            <p class="nofilereader">
+              Dieser Browser kann keine lokalen Dateien laden.
+            </p>
+            <button>
+              <img src="images/reload.png" alt="reload autocomplete list" />
+            </button>
+            <input class="filereader file" type="file" />
+          </div>
+        </div>
+
         <div class="block csv">
           <h3>Tabellen-Export</h3>
           <p>
@@ -381,48 +397,50 @@
           <input class="filereader file" type="file" />
         </div>
 
-        <div class="block autocomplete">
-          <h3>Autovervollständigung</h3>
+        <div class="block">
+          <h3>Storage</h3>
           <p>
-            Lade alle Spielernamen neu aus dem Internet oder einer lokalen Datei.
+            Dieses Programm und alle Eingaben werden im Browser gespeichert, um
+            auch offline und nach Beenden des Browsers fortfahren zu können.
+            Dazu werden aktuelle Turnierstände nach jeder Änderung
+            <b>automatisch gespeichert</b>.
           </p>
-          <p class="nofilereader">
-            Dieser Browser kann keine lokalen Dateien laden.
-          </p>
-          <button>
-            <img src="images/reload.png" alt="reload autocomplete list" />
-          </button>
-          <input class="filereader file" type="file" />
+          <div class="local">
+            <button class="save">
+              Manuell Speichern
+            </button>
+            <button class="clear" tabindex="-1">
+              Turnier löschen
+            </button>
+          </div>
         </div>
 
-        <div class="block local storage json">
-          <h3>Gespeicherte Daten</h3>
-          <p>
-            Das Turnier wird vom Browser automatisch gespeichert und kann auch
-            nach Schließen des Browsers fortgesetzt werden.
-          </p>
-          <button class="save">
-            Speichern
-          </button>
-          <button class="clear" tabindex="-1">
-            Turnier löschen
-          </button>
-        </div>
-
-        <div class="block devel">
+        <div class="block">
           <h3>Entwicklerwerkzeuge</h3>
-          <div>
-            <a href="test.html"><img src="images/test.png" alt="unit tests" />
-            <br>
-            Unit Tests</a>
-          </div>
-          <div>
-            <a href="#debug"><img src="images/debug.png" alt="debugging console" />
-            <br>
-            Debugging Console</a>
+          <div class="devel">
+            <div>
+              <a href="test.html"><img src="images/test.png" alt="unit tests" />
+              <br>
+              Unit Tests</a>
+            </div>
+            <div>
+              <a href="#debug"><img src="images/debug.png" alt="debugging console" />
+              <br>
+              Debug</a>
+            </div>
+            <div>
+              <a><img src="images/debug.png" alt="debugging console" />
+              <br>
+              Storage</a>
+            </div>
+            <div>
+              <a href="manifest.appcache"><img src="images/debug.png" alt="debugging console" />
+              <br>
+              Manifest</a>
+            </div>
           </div>
         </div>
-        <br class="clear">
+
       </div>
 
       <div id="debug">
@@ -518,13 +536,27 @@
           </p>
           <p class="no-support">
             Dieser Browser unterstützt folgende Funktionen nicht:
-            <div class="no-js">JavaScript</div>
-            <div class="no-hashchange">HashChange</div>
-            <div class="no-localstorage">LocalStorage</div>
-            <div class="no-webworkers">WebWorkers</div>
-            <div class="no-adownload">Download Attribute</div>
-            <div class="no-filereader">FileReader</div>
-            <div class="no-json">JSON</div>
+            <div class="no-js">
+              JavaScript
+            </div>
+            <div class="no-hashchange">
+              HashChange
+            </div>
+            <div class="no-localstorage">
+              LocalStorage
+            </div>
+            <div class="no-webworkers">
+              WebWorkers
+            </div>
+            <div class="no-adownload">
+              Download Attribute
+            </div>
+            <div class="no-filereader">
+              FileReader
+            </div>
+            <div class="no-json">
+              JSON
+            </div>
           </p>
           <p class="support">
             Dieser Browser unterstützt alle notwendingen Funktionen.

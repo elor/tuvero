@@ -5,6 +5,12 @@
 	* doc/writeglossary.sh: typo fixed that created the wrong link href
 	functions added
 
+	* boules.html: settings tab blocks redesigned
+
+	* style/general.css: link underlining: now only for links, not all anchors
+
+	* style/settings.css: settings tab: look improved
+
 2014-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: storage -> settings

@@ -1,5 +1,6 @@
 [next]
 * redesign the storage tab
+* add localStorage meter to show how much has been used
 * test random number generator again!
 * rotate reload and save preparation buttons ^^
 * use modernizr html.[class] definitions

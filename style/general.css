@@ -16,7 +16,7 @@ body {
   }
 }
 
-a {
+a[href] {
   color: inherit;
   text-decoration: underline;
 }
