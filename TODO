@@ -1,59 +1,62 @@
 [next]
 * redesign the storage tab
-* add localStorage meter to show how much has been used
-* test random number generator again!
+* add localStorage meter to show how much is still available
 * rotate reload and save preparation buttons ^^
 * use modernizr html.[class] definitions
-* show why a round cannot be started
 * provide an update check and status indicator
 * write readme
-* icons!
-* about.png: add space at the bottom
 * add global options (installation-specific) instead of storing them in the database/save files
+* add user options, as opposed to global options and tournament options
+* add tab options to user options
+* add list view option for tournament history
+* add list view for running games
+* combine history and games?
+* ranking: export number of games to csv
+* options: save autosave status
+* loading screen for page load
+* loading screen for round start
+* tab_games: show vote icons next to the names. Bye still separate
+
+[next-to-next]
+* test random number generator again!
+* update modernizr
+* General Ranking Class
+* Ranking: arbitrary sort orders
+* Ranking: Small Points
+* Ranking: Sonneborn-Berger-Zahl
+* Tab_Ranking: sort/search function
+* Tab_Games: sort/search function
+* history: store which mode a round was in
+* Tab_History: sort/search function
+* show why a round cannot be started
+* swiss new round by wins: backtracking (-> allow identical match as last resort)
 
 [later]
 * debug tab in external tab
-* update modernizr
-* clean up all dependencies
 * use html classes instead of $.hide()/$.show()
 * style file input tags
 * test debug.js
 * add autocomplete to player rename
 * test players and autocomplete
-* combine history and games?
 * clean up tab_new.js and tab_games.js; merge redundant functions
 * clean up tab_teams (reset functions in particular)
-* ranking: export number of games to csv
 * swisstournament: test up/down/byevote options
 * swisstournament: test halves and random
 * reset/store the permissions -> create standalone permissions object
-* design our own icons
-* Ranking: arbitrary sort orders
-* Ranking: Small Points
-* Ranking: Sonneborn-Berger-Zahl
-* options: save autosave status
-* on reload and update, don't switch to teams tab
-* Loading Screen
-* swiss new round by wins: backtracking (-> allow identical match as last resort)
-* history: store which mode a round was in
-* General Ranking Class
-* (release) auto-create the manifest
 * Autosave to disk (every n minutes, after every major change)
-* tab_games: show vote icons next to the names. Bye still separate
-* Tab_Games: sort function
-* Tab_Ranking: sort function
 * Pdf export of registered players
 * Pdf export of ranking page
 * Pdf export of Detlef's list
 * tournament presets (PVO, Chemnitz, ...)
 * multiple parallel tournaments (-> Maastricht K.O. rounds, pools, ...)
 * Supermelee backend
-* Pool backend
+* Poules backend
 * K.O. frontend
 * tab_games: when finishing a game, focus the next game in list
-* tab_games: show why a round cannot be started
 
 [ongoing]
 * w3c validation
+* clean up all dependencies
 * test with all major browsers: chrome, firefox, opera, safari, ie10
 * test.html: fix all displayed errors
+* (release) auto-create the manifest
