@@ -481,22 +481,34 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
   }
 
-  function initMaxWidth () {
-    var $box;
+  function initOptions () {
+    var $maxwidthbox, $shownamesbox;
 
-    $box = $tab.find('.options .maxwidth');
-
+    // show or hide playernames
+    $maxwidthbox = $tab.find('.options .maxwidth');
     function maxwidthtest () {
-      if ($box.prop('checked')) {
+      if ($maxwidthbox.prop('checked')) {
         $tab.addClass('maxwidth');
       } else {
         $tab.removeClass('maxwidth');
       }
     }
 
-    $box.click(maxwidthtest);
-
+    $maxwidthbox.click(maxwidthtest);
     maxwidthtest();
+
+    // show or hide playernames
+    $shownamesbox = $tab.find('.options .shownames');
+    function shownamestest () {
+      if ($shownamesbox.prop('checked')) {
+        $tab.removeClass('hidenames');
+      } else {
+        $tab.addClass('hidenames');
+      }
+    }
+
+    $shownamesbox.click(shownamestest);
+    shownamestest();
   }
 
   function init () {
@@ -509,7 +521,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $tab = $('#games');
 
     initTemplates();
-    initMaxWidth();
+    initOptions();
   }
 
   /**

@@ -69,6 +69,20 @@
   text-overflow: ellipsis;
 }
 
+#games.hidenames .names {
+  display: none;
+}
+
+#games.hidenames .game .top {
+  border-bottom-left-radius: 0.4em;
+  border-bottom-right-radius: 0.4em;
+}
+
+#games.hidenames .votes .vote .teamno {
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+}
+
 #games .names.left {
   text-align: left;
 }
@@ -106,7 +120,7 @@
   border-bottom-left-radius: 0.2em;
 }
 
-#games .votes .vote .names {
+#games:not(.hidenames) .votes .vote .names {
   display: table-cell;
   background-color: #d3d3d3;
   border-top-right-radius: 0.4em;
