@@ -1,3 +1,14 @@
+2014-09-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: TODO, BUGS, ChangeLog added to developer settings
+
+	* style/settings.css: unnecessary divs removed
+
+	* images/file.png: added
+
+	* images/svg/file.svg: added
+
+
 2014-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* doc/de/glossary.html: updated automatically
@@ -256,7 +267,6 @@
 
 	* scripts/ui/tab_storage: developer tools added
 	textareas and localstorage-checkbox removed
-	
 
 2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
