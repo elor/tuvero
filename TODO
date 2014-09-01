@@ -12,6 +12,7 @@
 * add global options (installation-specific) instead of storing them in the database/save files
 
 [later]
+* debug tab in external tab
 * update modernizr
 * clean up all dependencies
 * use html classes instead of $.hide()/$.show()

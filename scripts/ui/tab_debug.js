@@ -131,13 +131,22 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     }
   }
 
-  function finishRound () {
-    var $buttons, $points, teamid, p1, p2;
+  function finishRound (maxgames, timeout) {
+    var $buttons, $points, teamid, p1, p2, endtime;
 
     $points = $('#games .game .finish .points');
     $buttons = $('#games .game .finish button');
+    maxgames = maxgames || $buttons.length;
 
-    for (teamid = 0; teamid < $buttons.length; ++teamid) {
+    if (timeout === 0)
+      timeout = -1;
+    timeout = timeout || undefined;
+
+    if (timeout) {
+      endtime = new Date().getTime() + timeout;
+    }
+
+    for (teamid = 0; teamid < $buttons.length && maxgames > 0; teamid += 1, maxgames -= 1) {
       if (rng.nextInt(2)) {
         p1 = 13 - rng.nextInt(2);
         p2 = rng.nextInt(p1);
@@ -148,10 +157,12 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
       $($points[teamid * 2]).val(p1);
       $($points[teamid * 2 + 1]).val(p2);
-    }
+      $($buttons[teamid]).removeAttr('disabled').click();
 
-    $buttons.removeAttr('disabled');
-    $buttons.click();
+      if (timeout && (new Date()).getTime() >= endtime) {
+        break;
+      }
+    }
   }
 
   function playTournament () {
@@ -159,13 +170,17 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     Swiss = require('./swiss');
 
-    startRound() || startRound() || startRound();
-    while (Swiss.getState() == 1) {
-      finishRound();
+    starttime = new Date();
+    if (Swiss.getState() != 1) {
       startRound() || startRound() || startRound();
     }
 
-    new Toast(Strings.tournamentfinished, Toast.LONG);
+    if (Swiss.getState() == 1) {
+      finishRound(undefined, 1000);
+      window.setTimeout(playTournament, 1);
+    } else {
+      new Toast(Strings.tournamentfinished, Toast.LONG);
+    }
   }
 
   function initForms () {

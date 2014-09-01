@@ -8,6 +8,9 @@
 
 	* images/svg/file.svg: added
 
+	* scripts/ui/tab_debug.js: playTournament(): let the browser render every second
+
+	* style/toasts.css: toast border added
 
 2014-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -18,6 +18,8 @@
   display: inline-block;
   background-color: #d0d0d0;
   border-radius: 0.5em;
+  border-style: solid;
+  border-width: 1px;
   padding: 0.5em;
 }
 
