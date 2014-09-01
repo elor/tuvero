@@ -272,11 +272,39 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     new Toast(Strings.fileabort);
   }
 
+  function updateLocalStorageMeters () {
+    var dbvalue, usage; // usage in MiB
+
+    if (window.localStorage) {
+      // player
+      dbvalue = window.localStorage[Options.dbplayername];
+      if (dbvalue) {
+        usage = dbvalue.length / (1024 * 1024);
+      } else {
+        usage = 0.0;
+      }
+
+      areas.local.$playermeter.val(usage.toString());
+
+      // tournament
+      dbvalue = window.localStorage[Options.dbname];
+      if (dbvalue) {
+        usage = dbvalue.length / (1024 * 1024);
+      } else {
+        usage = 0.0;
+      }
+
+      areas.local.$tournamentmeter.val(usage.toString());
+    }
+  }
+
   function initLocalStorage () {
     areas.local = {};
 
     areas.local.$savebutton = $tab.find('.local button.save');
     areas.local.$clearbutton = $tab.find('.local button.clear');
+    areas.local.$playermeter = $tab.find('.local .playerstoragemeter');
+    areas.local.$tournamentmeter = $tab.find('.local .tournamentstoragemeter');
 
     areas.local.$savebutton.click(function (e) {
       Storage.enable();
@@ -334,7 +362,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       return;
     }
 
-    $tab = $('#storage');
+    $tab = $('#settings');
 
     initCSV();
     initSave();
@@ -357,11 +385,14 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     invalidateAutocomplete();
 
     resetStorageState();
+
+    updateLocalStorageMeters();
   };
 
   Tab_Settings.update = function () {
     Tab_Settings.reset();
     updateAutocomplete();
+    updateLocalStorageMeters();
   };
 
   Tab_Settings.getOptions = function () {

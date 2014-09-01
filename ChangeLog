@@ -2,6 +2,7 @@
 
 	* boules.html: TODO, BUGS, ChangeLog added to developer settings
 	"shownames" button added in games tab
+	localStorage usage meters added
 
 	* style/settings.css: unnecessary divs removed
 
@@ -16,6 +17,8 @@
 	* scripts/ui/tab_games.js: "shownames" button added in games tab
 
 	* style/games.css: "shownames" button added in games tab
+
+	* scripts/ui/tab_settings.js: localStorage usage meters added
 
 2014-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
