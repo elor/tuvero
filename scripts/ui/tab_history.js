@@ -6,6 +6,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   options = {};
 
   function setRound (round) {
+    var $newcontainer;
     if (currentround === round) {
       return;
     }
@@ -13,10 +14,10 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     currentround = round;
 
     // update anchor and insert new header with current round
-    template.$anchor = template.$nextanchor;
-    template.$nextanchor = template.h3.$h3.clone();
-    template.$nextanchor.find('span').text(currentround);
-    template.h3.$anchor.after(template.$nextanchor);
+    template.$roundno.text(currentround);
+    $newcontainer = template.$container.clone();
+    $tab.append($newcontainer);
+    template.$anchor = $newcontainer;
   }
 
   /**
@@ -46,7 +47,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.game.$points[1].text(result.p2);
 
     // release the box to the DOM
-    template.$anchor.before(template.game.$game.clone());
+    template.$anchor.append(template.game.$game.clone());
 
     Tabshandle.show('history');
   };
@@ -63,7 +64,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     }
 
     template.bye.$text.text(teamid + 1);
-    template.$anchor.before(template.bye.$bye.clone());
+    template.$anchor.append(template.bye.$bye.clone());
 
     Tabshandle.show('history');
   };
@@ -283,17 +284,18 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     template = {};
 
+    // round container template
+    template.$container = $tab.find('.round.tpl');
+    template.$container.detach();
+    template.$container.removeClass('tpl');
+
     // header template
-    template.h3 = {};
-    template.h3.$h3 = $tab.find('h3.tpl');
-    template.h3.$h3.detach();
-    template.h3.$h3.removeClass('tpl');
-    template.h3.$anchor = $tab.find('h2');
+    template.$roundno = template.$container.find('.roundno');
 
     // game template
     template.game = {};
 
-    template.game.$game = $tab.find('.game.tpl');
+    template.game.$game = template.$container.find('.game.tpl');
     template.game.$game.detach();
     template.game.$game.removeClass('tpl');
 
@@ -321,18 +323,12 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     // bye template
     template.bye = {};
-    template.bye.$bye = $tab.find('.bye.tpl');
+    template.bye.$bye = template.$container.find('.bye.tpl');
     template.bye.$bye.detach();
     template.bye.$bye.removeClass('tpl');
     template.bye.$text = template.bye.$bye.find('span');
 
-    resetAnchors();
-  }
-
-  function resetAnchors () {
-    // no games can be added by default
     template.$anchor = undefined;
-    template.$nextanchor = $tab.find('br.clear');
   }
 
   function initRounds () {
@@ -373,12 +369,10 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     $tab.find('.bye').remove();
 
     // remove headers
-    $tab.find('h3').remove();
+    $tab.find('.round').remove();
 
     // reset the round to 0
     currentround = 0;
-
-    resetAnchors();
   };
 
   /**

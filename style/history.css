@@ -1,11 +1,28 @@
-#history h3 {
+#history .round {
   text-align: left;
-  margin-top: 1em;
+  position: relative;
+  margin: 1em;
+  padding: 1em;
+  border-top-style: none;
+  border-radius: 1em;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+}
+
+#history .round h3 {
+  text-align: center;
+  position: relative;
+  display: block;
+  padding: 0.3em 0em 0.2em 0em;
+  margin: -1em -1em 1em -1em;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  background-color: #d0d0d0;
 }
 
 #history .game, #history .bye {
-  display: table;
-  float: left;
+  display: inline-block;
   margin: 0.5em;
   border-radius: 0.5em;
   background-color: #808080;
@@ -107,7 +124,6 @@
     background-color: #d0d0d0;
     font-size: 0.8em;
     width: 4em;
-    cursor: pointer;
   }
 
   #history .bye .teamno:after {
