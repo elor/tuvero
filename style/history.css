@@ -60,56 +60,13 @@
   display: none;
 }
 
-/*
-#history .game .correctbox {
-  display: table-cell;
-  height: 100%;
-  vertical-align: middle;
-}
-
 #history .game .correct {
-  display: block;
   height: 2em;
   border: none;
-  margin: 0.2em;
   box-shadow: 1px 1px 0px #808080;
   background-color: #d0d0d0;
+  border-radius: 0.2em;
+  padding: 0.5em;
   font-size: 0.8em;
-  width: 3em;
   cursor: pointer;
 }
-
-#history .chpoints {
-  display: table-cell;
-  white-space: nowrap;
-  vertical-align: middle;
-  margin: 0.5em;
-}
-
-#history .chpoints .middle {
-  display: block;
-  text-align: center;
-  vertical-align: middle;
-}
-
-#history .chpoints button {
-  width: 6.5em;
-  border: none;
-  box-shadow: inset 0px 0px 1px #000000;
-  border-radius: 5px;
-  background-color: #d3d3d3;
-  transition: color 0.2s;
-  display: inline-block;
-  height: 1.5em;
-  margin: 0px;
-  font-size: 0.8em;
-  min-width: 1em;
-  padding: 0em 0.2em;
-  cursor: pointer;
-}
-
-#history .chpoints .points {
-  width: 3em;
-  text-align: center;
-}
-*/
