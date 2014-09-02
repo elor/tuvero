@@ -1,4 +1,7 @@
 [next]
+* show up/downvotes in history
+* delete tournament -> load playernames
+* pageload when registration is still open -> load playernames
 * redesign the settings tab
 * combine and style the localStorage meters
 * add localStorage meter to show how much is still available
@@ -9,7 +12,6 @@
 * add global options (installation-specific) instead of storing them in the database/save files
 * add user options, as opposed to global options and tournament options
 * add tab options to user options
-* add list view option for tournament history
 * add list view for running games
 * combine history and games?
 * ranking: export number of games to csv

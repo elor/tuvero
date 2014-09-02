@@ -1,10 +1,9 @@
 #ranking {
-  position: relative;
-  margin-top: 0px;
-  float: left;
+  text-align: center;
 }
 
 #ranking table {
+  display: inline-block;
   border-spacing: 0.3em 0.0em;
 }
 

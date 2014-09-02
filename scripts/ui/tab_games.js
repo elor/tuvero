@@ -502,8 +502,10 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     function shownamestest () {
       if ($shownamesbox.prop('checked')) {
         $tab.removeClass('hidenames');
+        $maxwidthbox.removeAttr("disabled");
       } else {
         $tab.addClass('hidenames');
+        $maxwidthbox.attr("disabled", "disabled");
       }
     }
 

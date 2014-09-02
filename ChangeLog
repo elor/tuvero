@@ -1,3 +1,18 @@
+2014-09-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: list view in history tab
+
+	* scripts/ui/tab_games.js: disabling maxwidth option when showing no player names
+
+	* scripts/ui/tab_history.js: disabling maxwidth option when showing no player names
+	tab options added
+	using list view
+
+	* style/history.css: using list view
+	tab options added
+
+	* style/ranking.css: using full width again
+
 2014-09-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: TODO, BUGS, ChangeLog added to developer settings

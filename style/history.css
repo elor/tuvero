@@ -1,5 +1,5 @@
 #history .round {
-  text-align: left;
+  display: block;
   position: relative;
   margin: 1em;
   padding: 1em;
@@ -8,6 +8,15 @@
   border-style: solid;
   border-width: 1px;
   overflow: hidden;
+}
+
+#history.compact .round {
+  display: inline-block;
+}
+
+#history .round table {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 #history .round h3 {
@@ -21,24 +30,37 @@
   background-color: #d0d0d0;
 }
 
-#history .game, #history .bye {
-  display: inline-block;
-  margin: 0.5em;
-  border-radius: 0.5em;
-  background-color: #808080;
-  padding: 0.3em;
-  text-align: center;
-  white-space: nowrap;
-}
-
-#history .game .teamno, #history .bye .teamno {
-  display: table-cell;
-  margin: 0px;
-  border-radius: 0.3em;
+#history .round .team {
+  text-align: left;
   background-color: #d0d0d0;
-  padding: 0.3em;
+  border-radius: 0.5em;
+  padding: 0.5em;
 }
 
+#history .round .team .number {
+  width: 1.5em;
+  font-size: 200%;
+  text-align: center;
+}
+
+#history .round .team span {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0em;
+}
+
+#history.maxwidth .round .team .names  {
+  width: 8em;
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#history.hidenames .round .team .names  {
+  display: none;
+}
+
+/*
 #history .game .correctbox {
   display: table-cell;
   height: 100%;
@@ -90,44 +112,4 @@
   width: 3em;
   text-align: center;
 }
-
-@media print {
-
-  #history .game, #history .bye, #history .game .teamno, #history .bye .teamno {
-    padding: 0em;
-    margin-top: 0em;
-    margin-bottom: 0em;
-  }
-
-  #history .game:before, #history .bye:before {
-    content: "(";
-    font-size: 200%;
-  }
-
-  #history .game:after, #history .bye:after {
-    content: ")";
-    font-size: 200%;
-  }
-
-  #history .game .correctbox button {
-    box-shadow: 0px 0px 0px #000000;
-    font-size: 100%;
-    width: auto;
-  }
-
-  #history .game .correct {
-    display: block;
-    height: 2em;
-    border: none;
-    margin: 0.2em;
-    box-shadow: 1px 1px 0px #808080;
-    background-color: #d0d0d0;
-    font-size: 0.8em;
-    width: 4em;
-  }
-
-  #history .bye .teamno:after {
-    content: "∅";
-    font-size: 75%;
-  }
-}
+*/

@@ -1,5 +1,5 @@
 define([ './toast', './strings', './history', './swiss', './tab_ranking',
-    '../backend/game', './storage', './tabshandle', './opts' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle, Opts) {
+    '../backend/game', './storage', './tabshandle', './opts', './team' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team) {
   var Tab_History, $tab, template, currentround, $button, options;
 
   Tab_History = {};
@@ -17,7 +17,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.$roundno.text(currentround);
     $newcontainer = template.$container.clone();
     $tab.append($newcontainer);
-    template.$anchor = $newcontainer;
+    template.$anchor = $newcontainer.find('table');
   }
 
   /**
@@ -27,6 +27,17 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   Tab_History.nextRound = function () {
     setRound(Swiss.getRanking().round);
   };
+
+  function formatNamesHTML (teamid) {
+    var team, names;
+
+    team = Team.get(teamid);
+
+    if (!team)
+      return undefined;
+
+    return team.names.join('<br>');
+  }
 
   /**
    * creates a box for the current result in the current round. Note that the
@@ -43,6 +54,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     // fill the fields
     template.game.$teamnos[0].text(result.t1 + 1);
     template.game.$teamnos[1].text(result.t2 + 1);
+    template.game.$names[0].html(formatNamesHTML(result.t1));
+    template.game.$names[1].html(formatNamesHTML(result.t2));
     template.game.$points[0].text(result.p1);
     template.game.$points[1].text(result.p2);
 
@@ -63,7 +76,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       return undefined;
     }
 
-    template.bye.$text.text(teamid + 1);
+    template.bye.$teamno.text(teamid + 1);
+    template.bye.$names.html(formatNamesHTML(teamid));
     template.$anchor.append(template.bye.$bye.clone());
 
     Tabshandle.show('history');
@@ -78,14 +92,14 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   }
 
   function showCorrection ($game) {
-    var $spans;
+    var $points;
 
     $button = $game.find('button.correct');
-    $spans = $button.find('.points');
-    $spans = [ $($spans[0]), $($spans[1]) ];
+    $points = $button.find('.points');
+    $points = [ $($points[0]), $($points[1]) ];
 
-    template.chpoints.$inputs[0].val($spans[0].text());
-    template.chpoints.$inputs[1].val($spans[1].text());
+    template.chpoints.$inputs[0].val($points[0].text());
+    template.chpoints.$inputs[1].val($points[1].text());
 
     $button.after(template.chpoints.$chpoints);
     // TODO hide() instead of detach()
@@ -109,18 +123,18 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   function saveCorrection () {
     // TODO validate everything:
     // * point ranges * a-z * space
-    var op1, op2, np1, np2, $spans, t1, t2, res, game, tmp;
+    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp;
 
     if ($button === undefined) {
       return undefined;
     }
 
-    $spans = $button.find('span');
+    $points = $button.find('.points');
 
     // retrieve values
     // TODO find better solution!
-    op1 = Number($($spans[0]).text());
-    op2 = Number($($spans[1]).text());
+    op1 = Number($($points[0]).text());
+    op2 = Number($($points[1]).text());
 
     np1 = Number(template.chpoints.$inputs[0].val());
     np2 = Number(template.chpoints.$inputs[1].val());
@@ -144,7 +158,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     // retrieve team ids from displayed team number
     // TODO find better solution!
-    $teams = template.chpoints.$chpoints.parents('.game').find('.teamno');
+    $teams = template.chpoints.$chpoints.parents('.game').find('.number');
     t1 = Number($($teams[0]).text());
     t2 = Number($($teams[1]).text());
 
@@ -211,8 +225,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     Tab_Ranking.update();
 
     // apply values to interface
-    $($spans[0]).text(np1);
-    $($spans[1]).text(np2);
+    $($points[0]).text(np1);
+    $($points[1]).text(np2);
 
     template.chpoints.$chpoints.after($button);
     template.chpoints.$chpoints.detach();
@@ -223,6 +237,51 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     Storage.changed();
 
     new Toast(Strings.pointchangeapplied);
+  }
+
+  function initOptions () {
+    var $maxwidthbox, $shownamesbox, $compactbox;
+
+    // show or hide playernames
+    $maxwidthbox = $tab.find('.options .maxwidth');
+    function maxwidthtest () {
+      if ($maxwidthbox.prop('checked')) {
+        $tab.addClass('maxwidth');
+      } else {
+        $tab.removeClass('maxwidth');
+      }
+    }
+
+    $maxwidthbox.click(maxwidthtest);
+    maxwidthtest();
+
+    // show or hide playernames
+    $shownamesbox = $tab.find('.options .shownames');
+    function shownamestest () {
+      if ($shownamesbox.prop('checked')) {
+        $tab.removeClass('hidenames');
+        $maxwidthbox.removeAttr("disabled");
+      } else {
+        $tab.addClass('hidenames');
+        $maxwidthbox.attr("disabled", "disabled");
+      }
+    }
+
+    $shownamesbox.click(shownamestest);
+    shownamestest();
+
+    // use compact layout
+    $compactbox = $tab.find('.options .compact');
+    function compacttest () {
+      if ($compactbox.prop('checked')) {
+        $tab.addClass('compact');
+      } else {
+        $tab.removeClass('compact');
+      }
+    }
+
+    $compactbox.click(compacttest);
+    compacttest();
   }
 
   function initCorrection () {
@@ -300,9 +359,14 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.game.$game.removeClass('tpl');
 
     template.game.$teamnos = [];
-    tmp = template.game.$game.find('.teamno');
+    tmp = template.game.$game.find('.number');
     for (i = 0; i < tmp.length; i += 1) {
       template.game.$teamnos[i] = tmp.eq(i);
+    }
+    template.game.$names = [];
+    tmp = template.game.$game.find('.names');
+    for (i = 0; i < tmp.length; i += 1) {
+      template.game.$names[i] = tmp.eq(i);
     }
     template.game.$points = [];
     tmp = template.game.$game.find('.correct .points');
@@ -326,7 +390,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.bye.$bye = template.$container.find('.bye.tpl');
     template.bye.$bye.detach();
     template.bye.$bye.removeClass('tpl');
-    template.bye.$text = template.bye.$bye.find('span');
+    template.bye.$teamno = template.bye.$bye.find('.number');
+    template.bye.$names = template.bye.$bye.find('.names');
 
     template.$anchor = undefined;
   }
@@ -347,6 +412,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     initRounds();
     initTemplates();
     initCorrection();
+    initOptions();
 
     // FIXME reload from history page moves to another tab because it's closed
     // Tabshandle.hide('history');
