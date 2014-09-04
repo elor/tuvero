@@ -13,6 +13,10 @@
 
 	* style/about.css: accidentally used the wrong file
 
+	* images/lane.png: lane icon added
+
+	* images/svg/lane.svg: lane icon added
+
 2014-09-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: list view in history tab
