@@ -2,10 +2,13 @@
 
 	* boules.html: donate button added
 	amazon wishlist link added
+	placed donate buttons on the same line
 
 	* images/ext/amazonwishlist.png: amazon wishlist image added
 
 	* images/xcf/amazonwishlist.xcf: gimp file added
+
+	* style/settings.css: placed donate buttons on the same line
 
 2014-09-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
