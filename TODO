@@ -1,4 +1,7 @@
 [next]
+* '/#reset' target for clearing the storage
+* reload image: center (for rotation)
+* automatic overview over all icons and images
 * history: use separate button for corrections
 * show up/downvotes in history
 * delete tournament -> load playernames

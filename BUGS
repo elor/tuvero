@@ -15,6 +15,7 @@
 * release version: must reload twice due to manifest update
 * Firefox, Opera, Safari: Print Page doesn't show anything (doesn't it print the subpages?)
 * "alles löschen": doesn't clear .newteam input
+* History doesn't appear
   
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible
