@@ -64,7 +64,3 @@
 #settings .storage .clear:hover, #settings .storage .clear:focus {
   background-color: #ee0000;
 }
-
-#settings .donate {
-  display: inline-block;
-}

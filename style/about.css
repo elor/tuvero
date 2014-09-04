@@ -50,3 +50,7 @@
 .no-js #about .support, .no-postmessage #about .support, .no-hashchange #about .support, .no-localstorage #about .support, .no-webworkers #about .support, .no-adownload #about .support, .no-filereader #about .support, .no-json #about .support {
   display: none;
 }
+
+#about .donate {
+  display: inline-block;
+}
