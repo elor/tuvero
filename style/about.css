@@ -1,5 +1,10 @@
 #about {
-  max-width: 40em;
+  text-align: center;
+}
+
+#about .box {
+  width: 40em;
+  margin: 1em auto;
 }
 
 #about p {

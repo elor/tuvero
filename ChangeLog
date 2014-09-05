@@ -5,8 +5,10 @@ B1;2802;0c2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	using a box around the running games
 	team tab: teams aren't floating anymore
 	validator run: only 3 errors this time
+	using a list for no-support items
 
 	* style/about.css: restyling
+	no tab should have a max-width. Centered its boxes instead
 
 	* style/general.css: .box contents are usually centered
 	box header selector disambituated
