@@ -9,6 +9,9 @@
 
 	* scripts/ui/tab_games.js: names entry simplified (well, not for JQuery :-D )
 
+
+	* style/games.css: games tab .game boxes updated
+
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash screen added
