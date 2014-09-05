@@ -30,11 +30,9 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $form.removeClass('tpl');
 
     $names = [];
-    tmp = $form.find('.name');
-    for (i = 0; i < Options.maxteamsize; i += 1) {
-      $names[i] = tmp.eq(i);
-      $names[i + Options.maxteamsize] = tmp.eq(i + Options.maxteamsize);
-    }
+    tmp = $form.find('.names');
+    $names[0] = tmp.eq(0);
+    $names[1] = tmp.eq(1);
 
     tmp = $form.find('.teamno');
     $teamnos = [ tmp.eq(0), tmp.eq(1) ];
@@ -87,11 +85,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     $vote.detach();
     $vote.removeClass('tpl');
 
-    $names = [];
-    tmp = $vote.find('.name');
-    for (i = 0; i < Options.maxteamsize; i += 1) {
-      $names[i] = tmp.eq(i);
-    }
+    $names = $vote.find('.names');
 
     $teamno = $vote.find('.teamno');
 
@@ -122,34 +116,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     initGameTemplate();
     initVoteTemplate();
-
-    updateTemplates();
-  }
-
-  function updateTemplates () {
-    var i, $g1, $g2, $v;
-
-    for (i = 0; i < Options.maxteamsize; i += 1) {
-      $g1 = template.game.$names[i];
-      $g2 = template.game.$names[i + Options.maxteamsize];
-      $v = template.vote.$names[i];
-
-      if (i < Options.teamsize) {
-        $g1.css('display', '');
-        $g1.prev('br').css('display', '');
-        $g2.css('display', '');
-        $g2.prev('br').css('display', '');
-        $v.css('display', '');
-        $v.prev('br').css('display', '');
-      } else {
-        $g1.css('display', 'none');
-        $g1.prev('br').css('display', 'none');
-        $g2.css('display', 'none');
-        $g2.prev('br').css('display', 'none');
-        $v.css('display', 'none');
-        $v.prev('br').css('display', 'none');
-      }
-    }
   }
 
   /**
@@ -161,10 +127,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     t1 = Team.get(game.teams[0][0]);
     t2 = Team.get(game.teams[1][0]);
 
-    for (i = 0; i < Options.teamsize; i += 1) {
-      template.game.$names[i].text(t1.names[i]);
-      template.game.$names[i + Options.maxteamsize].text(t2.names[i]);
-    }
+    template.game.$names[0].html(t1.names.join('<br>'));
+    template.game.$names[1].html(t2.names.join('<br>'));
 
     template.game.$teamnos[0].text(t1.id + 1);
     template.game.$teamnos[1].text(t2.id + 1);
@@ -393,9 +357,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     team = Team.get(tid);
 
     template.vote.$teamno.text(team.id + 1);
-    for (i = 0; i < Options.teamsize; i += 1) {
-      template.vote.$names[i].text(team.names[i]);
-    }
+    template.vote.$names.html(team.names.join('<br>'));
 
     return template.vote.$vote.clone();
   }
@@ -539,9 +501,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // delete everything
     clearGames();
     clearVotes();
-
-    // reset everything
-    updateTemplates();
   };
 
   /**

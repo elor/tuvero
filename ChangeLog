@@ -1,10 +1,13 @@
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class
+	simplified the name fields in the games tab
 
 	* style/about.css: restyling
 
 	* style/general.css: .box contents are usually centered
+
+	* scripts/ui/tab_games.js: names entry simplified (well, not for JQuery :-D )
 
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
