@@ -71,10 +71,6 @@
   text-align: right;
 }
 
-#games .votes {
-  text-align: left;
-}
-
 #games .votes > div {
   overflow: auto;
 }
@@ -84,8 +80,7 @@
 }
 
 #games .votes .vote {
-  display: table;
-  float: left;
+  display: inline-table;
   border-radius: 0.5em;
   border-style: solid;
   border-width: 0.2em;

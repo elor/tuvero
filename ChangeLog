@@ -16,6 +16,7 @@
 	using .votes as an anchor
 
 	* style/games.css: games tab .game boxes updated
+	forgot to un-float .vote boxes
 
 	* style/teams.css: floats were changed to inline-blocks
 
