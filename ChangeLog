@@ -2,15 +2,19 @@
 
 	* boules.html: #about is now using the .box class
 	simplified the name fields in the games tab
+	using a box around the running games
 
 	* style/about.css: restyling
 
 	* style/general.css: .box contents are usually centered
+	box header selector disambituated
+	box header is automatically centered
 
 	* scripts/ui/tab_games.js: names entry simplified (well, not for JQuery :-D )
-
+	using .votes as an anchor
 
 	* style/games.css: games tab .game boxes updated
+
 
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

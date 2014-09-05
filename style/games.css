@@ -1,14 +1,12 @@
-#games .game {
-  display: block;
+#games .game, #games .votes .vote {
+  display: inline-block;
   margin: 0.5em;
   border-radius: 0.5em;
-  border-color: #808080;
-  border-style: solid;
-  border-width: 0.2em;
+  border: solid 0.2em #808080;
   background-color: #d3d3d3;
   text-align: left;
-  float: left;
   white-space: nowrap;
+  vertical-align: top;
 }
 
 #games .game > div {

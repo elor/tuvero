@@ -37,7 +37,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     tmp = $form.find('.teamno');
     $teamnos = [ tmp.eq(0), tmp.eq(1) ];
 
-    $anchor = $tab.find('.clear').eq(0);
+    $anchor = $tab.find('.votes').eq(0);
 
     /**
      * disable/enable the submit button if input is valid
