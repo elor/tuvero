@@ -2,13 +2,21 @@
   max-width: 40em;
 }
 
-#about .content {
-  padding: 1em;
+#about p {
   text-align: justify;
 }
 
 #about .float {
   float: right;
+}
+
+#about h4 {
+  text-align: left;
+}
+
+#about ul {
+  list-style-type: none;
+  text-align: left;
 }
 
 #about .manual {

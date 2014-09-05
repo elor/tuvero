@@ -1,3 +1,11 @@
+2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: #about is now using the .box class
+
+	* style/about.css: restyling
+
+	* style/general.css: .box contents are usually centered
+
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash screen added
