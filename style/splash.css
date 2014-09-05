@@ -19,8 +19,10 @@
 }
 
 #splash.hiding {
-  -webkit-transition-duration: 1s;
-  -webkit-transition-property: margin-top;
+  -webkit-transition: margin-top 1s;
+  -moz-transition: margin-top 1s;
+  -o-transition: margin-top 1s;
+  transition: margin-top 1s;
   margin-top: -25em;
 }
 

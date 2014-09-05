@@ -10,6 +10,8 @@
 	* style/mainstyle.css: splash screen stylesheet included
 
 	* style/splash.css: style sheet for the splash screen added
+	multibrowser support for splash sliding transition added
+
 
 2014-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
