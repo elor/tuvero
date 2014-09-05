@@ -1,3 +1,16 @@
+2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: splash screen added
+	scripts relocated to bottom of the body
+
+	* scripts/ui/main.js: hiding the splash screen
+
+	* scripts/ui/splash.js: changing and hiding the splash screen
+
+	* style/mainstyle.css: splash screen stylesheet included
+
+	* style/splash.css: style sheet for the splash screen added
+
 2014-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: donate button added

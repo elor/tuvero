@@ -6,19 +6,18 @@
     <title>Boules Turnierverwaltung %VERSION%</title>
     <link rel="shortcut icon" href="images/games.png" type="image/png" />
     <link rel="stylesheet" href="style/mainstyle.css" />
-    <script src="scripts/lib/json2.js"></script>
-    <script src="scripts/lib/modernizr.custom.45982.js"></script>
-    <script src="scripts/lib/jquery-2.1.1.min.js"></script>
-    <script src="scripts/lib/typeahead.bundle.min.js"></script>
-    <script>
-      var require = {
-        urlArgs : "bust=" + (new Date()).getTime()
-      };
-    </script>
-    <script data-main="scripts/ui/main" src="scripts/lib/require.js"></script>
   </head>
 
   <body>
+    
+    <div id="splash">
+      <h1>Boules Turnierverwaltung</h1>
+      <h2>Version %VERSION%</h2>
+      <p>&copy; Erik E. Lorenz</p>
+      <p class="loadingpage">Lade Dateien...</p>
+      <p class="pageloaded hidden">Starte Programm...</p>
+      <p class="loadingsave hidden">Lade gespeicherten Turnierstand...</p>
+    </div>
 
     <div id="tabs">
 
@@ -606,5 +605,17 @@
 
     <a href="#debug" accesskey="d" tabindex="-1" class="hiddenlink">&nbsp;</a>
 
+    <script src="scripts/lib/json2.js"></script>
+    <script src="scripts/lib/modernizr.custom.45982.js"></script>
+    <script src="scripts/lib/jquery-2.1.1.min.js"></script>
+    <script src="scripts/lib/typeahead.bundle.min.js"></script>
+    <script>
+      var require = {
+      urlArgs : "bust=" + (new Date()).getTime()
+      };
+    </script>
+    <script data-main="scripts/ui/main" src="scripts/lib/require.js"></script>
+  
   </body>
+  
 </html>

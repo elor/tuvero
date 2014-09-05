@@ -1,0 +1,29 @@
+#splash {
+  width: 30em;
+  height: 15em;
+  margin: 2.5em auto 9.5em auto;
+  padding: 2.5em 4em;
+  clear: both;
+  border-radius: 1em 1em 1em 1em;
+  background-color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+#splash p {
+  margin-bottom: 2em;
+}
+
+#splash .hidden {
+  display: none;
+}
+
+#splash.hiding {
+  -webkit-transition-duration: 1s;
+  -webkit-transition-property: margin-top;
+  margin-top: -25em;
+}
+
+#splash.hidden {
+  display: none;
+}

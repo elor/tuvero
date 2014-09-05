@@ -1,5 +1,6 @@
-require([ './tabs', './toast', './strings', './storage', './tab_settings',
-    './featuredetect', './tabshandle', './alltabs', './update' ], function (Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update) {
+require([ './splash', './tabs', './toast', './strings', './storage',
+    './tab_settings', './featuredetect', './tabshandle', './alltabs',
+    './update' ], function (Splash, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
@@ -25,5 +26,7 @@ require([ './tabs', './toast', './strings', './storage', './tab_settings',
     }
 
     Alltabs.update();
+    
+    Splash.hide();
   });
 });
