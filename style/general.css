@@ -69,3 +69,24 @@ img.blank {
   opacity: 0;
   display: block;
 }
+
+div.box {
+  position: relative;
+  margin: 1em;
+  padding: 1em;
+  border-top-style: none;
+  border-radius: 1em;
+  border-style: solid;
+  border-width: 1px;
+  overflow: hidden;
+}
+
+div.box h3 {
+  position: relative;
+  display: block;
+  padding: 0.3em 0em 0.2em 0em;
+  margin: -1em -1em 1em -1em;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  background-color: #d0d0d0;
+}

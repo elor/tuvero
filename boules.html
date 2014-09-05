@@ -286,7 +286,7 @@
         </div>
         <h2>Turnierverlauf</h2>
 
-        <div class="round tpl" style="text-align: center;">
+        <div class="box tpl">
           <h3>Runde <span class="roundno">##</span></h3>
           <table>
             <tr>
@@ -338,7 +338,7 @@
       <div id="settings" accesskey="s">
         <h2>Optionen und Einstellungen</h2>
 
-        <div class="block">
+        <div class="box">
           <h3>Import &amp; Export</h3>
           <div class="autocomplete">
             <p>
@@ -354,7 +354,7 @@
           </div>
         </div>
 
-        <div class="block csv">
+        <div class="box csv">
           <h3>Tabellen-Export</h3>
           <p>
             Exportierte csv-Dateien lassen sich bequem mit Office-Programmen
@@ -378,14 +378,14 @@
           <a href="#" type="application/csv" download="boules.csv">Download</a>
         </div>
 
-        <div class="block nojson">
+        <div class="box nojson">
           ACHTUNG: Dieser Browser unterstützt
           wichtige Standards nicht, die zum Speichern und Laden notwendig
           sind. Beim Schließen des Browserfensters gehen sämtliche Daten
           verloren.
         </div>
 
-        <div class="block save json">
+        <div class="box save json">
           <h3>Turnier speichern</h3>
           <p>
             Speichert das aktuelle Turnier in einer Datei. Diese kann später
@@ -404,7 +404,7 @@
           <a href="#" type="application/json" download="boules.json">Download</a>
         </div>
 
-        <div class="block load json">
+        <div class="box load json">
           <h3>Turnier laden</h3>
           <p>
             Das Turnier wird aus einer Datei neu geladen. Eventuell laufende
@@ -421,7 +421,7 @@
           <input class="filereader file" type="file" />
         </div>
 
-        <div class="block">
+        <div class="box">
           <h3>Storage</h3>
           <p>
             Dieses Programm und alle Eingaben werden im Browser gespeichert, um
@@ -446,7 +446,7 @@
           </div>
         </div>
 
-        <div class="block">
+        <div class="box">
           <h3>Entwicklerwerkzeuge</h3>
           <div class="devel">
             <a href="test.html"><img src="images/test.png" alt="unit tests" /><br>Unit Tests</a>
@@ -589,15 +589,17 @@
             <br>
             Wenn sie dem Entwicklerteam dennoch eine Aufmerksamkeit zukommen lassen möchten, können sie das hier tun:
           </p>
-          <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="ZCU4ZVDREECYE">
-            <input type="image" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
-            <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
-          </form>
-          <form class="donate" action="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R">
-            <input type="image" src="images/ext/amazonwishlist.png" border="0" name="submit" alt="Mein Amazon.de Wunschzettel">
-          </form>
+          <div class="donatebuttons">
+            <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+              <input type="hidden" name="cmd" value="_s-xclick">
+              <input type="hidden" name="hosted_button_id" value="ZCU4ZVDREECYE">
+              <input type="image" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
+              <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+            </form>
+            <form class="donate" action="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R">
+              <input type="image" src="images/ext/amazonwishlist.png" border="0" name="submit" alt="Mein Amazon.de Wunschzettel">
+            </form>
+          </div>
         </div>
       </div>
 

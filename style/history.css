@@ -1,62 +1,39 @@
-#history .round {
-  display: block;
-  position: relative;
-  margin: 1em;
-  padding: 1em;
-  border-top-style: none;
-  border-radius: 1em;
-  border-style: solid;
-  border-width: 1px;
-  overflow: hidden;
-}
-
-#history.compact .round {
+#history.compact .box {
   display: inline-block;
 }
 
-#history .round table {
+#history .box table {
   display: inline-block;
   white-space: nowrap;
 }
 
-#history .round h3 {
-  text-align: center;
-  position: relative;
-  display: block;
-  padding: 0.3em 0em 0.2em 0em;
-  margin: -1em -1em 1em -1em;
-  border-bottom-style: solid;
-  border-bottom-width: 1px;
-  background-color: #d0d0d0;
-}
-
-#history .round .team {
+#history .team {
   text-align: left;
   background-color: #d0d0d0;
   border-radius: 0.5em;
   padding: 0.5em;
 }
 
-#history .round .team .number {
+#history .team .number {
   width: 1.5em;
   font-size: 200%;
   text-align: center;
 }
 
-#history .round .team span {
+#history .box .team span {
   display: inline-block;
   vertical-align: middle;
   padding: 0em;
 }
 
-#history.maxwidth .round .team .names  {
+#history.maxwidth .team .names  {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#history.hidenames .round .team .names  {
+#history.hidenames .team .names  {
   display: none;
 }
 

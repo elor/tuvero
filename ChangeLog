@@ -3,6 +3,7 @@
 	* boules.html: splash screen added
 	scripts relocated to bottom of the body
 	splash classes unambiguated
+	using generalised .box classes for containers
 
 	* scripts/ui/main.js: hiding the splash screen
 	using several splash stages
@@ -26,6 +27,16 @@
 	* images/reload.png: recentered
 
 	* images/svg/reload.svg: recentered
+
+	* scripts/ui/tab_history.js: using .box instead of .round
+
+	* style/about.css: donatebuttons are now centered
+
+	* style/general.css: general .box style defined
+
+	* style/history.css: .round classes removed in favour of .box classes
+
+	* style/settings.css: .block classes removed in favour of .box classes
 
 2014-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

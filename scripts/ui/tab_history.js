@@ -344,7 +344,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template = {};
 
     // round container template
-    template.$container = $tab.find('.round.tpl');
+    template.$container = $tab.find('.box.tpl');
     template.$container.detach();
     template.$container.removeClass('tpl');
 
@@ -428,14 +428,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     abortCorrection();
 
-    // remove games
-    $tab.find('.game').remove();
-
-    // remove byes
-    $tab.find('.bye').remove();
-
-    // remove headers
-    $tab.find('.round').remove();
+    // remove containers
+    $tab.find('.box').remove();
 
     // reset the round to 0
     currentround = 0;

@@ -51,6 +51,10 @@
   display: none;
 }
 
+#about .donatebuttons {
+  text-align: center;
+}
+
 #about .donate {
   display: inline-block;
 }
