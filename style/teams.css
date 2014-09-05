@@ -1,5 +1,10 @@
+div#teams {
+    text-align: left;
+}
+
+
 #teams .teamsize {
-  display: inline-block;
+  text-align: center;
 }
 
 #teams .teamsize button {
@@ -20,8 +25,7 @@
 }
 
 #teams .team, #newteam, #teams .load, #teams .delete {
-  display: table;
-  float: left;
+  display: inline-table;
   height: 5em;
   border-radius: 0.5em;
   border-spacing: 0px;
@@ -29,6 +33,7 @@
   margin: 0.5em;
   padding: 0em 0.5em;
   text-align: left;
+  vertical-align: top;
   white-space: nowrap;
 }
 

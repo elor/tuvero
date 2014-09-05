@@ -32,6 +32,10 @@ a.hiddenlink {
   top: 0px;
 }
 
+h2 {
+  text-align: center;
+}
+
 h3 {
   margin-left: 0.5em;
 }
