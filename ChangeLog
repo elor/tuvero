@@ -1,9 +1,10 @@
-2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+B1;2802;0c2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class
 	simplified the name fields in the games tab
 	using a box around the running games
 	team tab: teams aren't floating anymore
+	validator run: only 3 errors this time
 
 	* style/about.css: restyling
 
@@ -19,6 +20,7 @@
 	forgot to un-float .vote boxes
 
 	* style/teams.css: floats were changed to inline-blocks
+
 
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
