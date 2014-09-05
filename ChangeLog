@@ -19,8 +19,10 @@
 	using the new staging approach
 
 	* scripts/ui/toast.js: using an init() function to avoid bad timing due to long hangs
+	Toast timing bug fixed (don't redefine a module-loaded constructor!)
 
 	* style/tabs.css: showing the tabs only after the tournament has been loaded
+
 
 2014-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
