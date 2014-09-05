@@ -14,19 +14,21 @@ require([ './splash', './tabs', './toast', './strings', './storage',
 
     Alltabs.reset();
 
-    // show the page
-    $('#tabs').show();
-
     Storage.enable();
 
-    if (Storage.restore()) {
-      new Toast(Strings.loaded);
-    } else {
-      new Toast(Strings.newtournament);
-    }
+    Splash.loading();
 
-    Alltabs.update();
-    
-    Splash.hide();
+    setTimeout(function () {
+      if (Storage.restore()) {
+        new Toast(Strings.loaded);
+      } else {
+        new Toast(Strings.newtournament);
+      }
+
+      Alltabs.update();
+
+      Toast.init();
+      Splash.hide();
+    }, 1);
   });
 });

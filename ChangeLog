@@ -2,16 +2,25 @@
 
 	* boules.html: splash screen added
 	scripts relocated to bottom of the body
+	splash classes unambiguated
 
 	* scripts/ui/main.js: hiding the splash screen
+	using several splash stages
+	starting Toasts separately, or the timing would mess things up
+	showing the tabs only after the tournament has been loaded
 
 	* scripts/ui/splash.js: changing and hiding the splash screen
+	using a better staging/state mechanism
 
 	* style/mainstyle.css: splash screen stylesheet included
 
 	* style/splash.css: style sheet for the splash screen added
 	multibrowser support for splash sliding transition added
+	using the new staging approach
 
+	* scripts/ui/toast.js: using an init() function to avoid bad timing due to long hangs
+
+	* style/tabs.css: showing the tabs only after the tournament has been loaded
 
 2014-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

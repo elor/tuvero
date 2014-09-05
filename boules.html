@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="style/mainstyle.css" />
   </head>
 
-  <body>
+  <body class="splash">
     
-    <div id="splash">
+    <div id="splash" class="loading">
       <h1>Boules Turnierverwaltung</h1>
       <h2>Version %VERSION%</h2>
-      <p>&copy; Erik E. Lorenz</p>
-      <p class="loadingpage">Lade Dateien...</p>
-      <p class="pageloaded hidden">Starte Programm...</p>
-      <p class="loadingsave hidden">Lade gespeicherten Turnierstand...</p>
+      <span>&copy; Erik E. Lorenz</span>
+      <p class="loading">Lade Dateien...</p>
+      <p class="starting">Starte Programm...</p>
+      <p class="restoring">Lade letzten Turnierstand...</p>
+      <p class="ready">Schönes Spiel!</p>
     </div>
 
     <div id="tabs">
@@ -227,7 +228,6 @@
       </div>
 
       <div id="ranking" accesskey="r">
-        <div class="options"></div>
         <h2>Platzierung</h2>
         <p class="preparing">
           Es wurde noch keine Rangfolge berechnet.

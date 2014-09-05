@@ -8,18 +8,32 @@ define(function () {
   Splash = {
     hide : function () {
       console.error('Splash.hide() called before pageload');
+    },
+    loading : function () {
+      console.error('Splash.loading() called before pageload');
     }
   };
 
   $(function ($) {
     var $splash;
 
+    function setState (state) {
+      $splash.removeClass();
+      $splash.addClass(state);
+    }
+
     $splash = $('#splash');
-    $splash.find('.loadingpage').addClass('hidden');
-    $splash.find('.pageloaded').removeClass('hidden');
+
+    setState('starting');
+
+    Splash.loading = function () {
+      setState('restoring');
+    };
 
     Splash.hide = function () {
-      $splash.addClass('hiding');
+      setState('ready');
+
+      $('body').removeClass('splash');
 
       setTimeout(function () {
         $splash.addClass('hidden');

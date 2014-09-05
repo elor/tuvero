@@ -12,13 +12,17 @@
 
 #splash p {
   margin-bottom: 2em;
-}
-
-#splash .hidden {
   display: none;
 }
 
-#splash.hiding {
+#splash.loading .loading,
+#splash.starting .starting,
+#splash.restoring .restoring,
+#splash.ready .ready {
+  display: block;
+}
+
+body:not(.splash) #splash {
   -webkit-transition: margin-top 1s;
   -moz-transition: margin-top 1s;
   -o-transition: margin-top 1s;
