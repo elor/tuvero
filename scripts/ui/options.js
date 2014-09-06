@@ -9,13 +9,19 @@ define(function () {
   Options = {};
 
   Default = {
-    teamsize : 3,
+    // installation-specific
+    // global : {},
+    playernameurl : 'https://boulesdb.appspot.com/json',
     maxteamsize : 3,
     maxpoints : 15,
-    roundtries : 20,
+    // user-specific
+    // local : {},
     dbname : 'swiss',
     dbplayername : 'players',
-    playernameurl : 'https://boulesdb.appspot.com/json',
+    roundtries : 20,
+    // tournament-specific
+    // tournament : {},
+    teamsize : 3,
   };
 
   Options.toBlob = function () {

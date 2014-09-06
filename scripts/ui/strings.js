@@ -55,7 +55,7 @@ define(function () {
     differentteamsizes : 'Teams haben unterschiedliche Größe',
     invalidteamsize : 'Unzulässige Spielerzahl pro Team',
     alltabsreloaded : 'Alle Tabs neu geladen',
-    modsvariableadded : 'globale Variable "mods" erstellt',
+    modsvariableadded : 'window.mods erstellt',
     tournamentfinished : 'Turnier beendet',
     autocompleteloaded : 'Spielernamen geladen',
     autocompletereloadfailed : 'Konnte Spielernamen nicht laden',

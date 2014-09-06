@@ -74,6 +74,14 @@ define([ './options', './strings' ], function (Options, Strings) {
   };
 
   /**
+   * fallback for the C++ user in me
+   */
+  Team.size = function () {
+    console.error('use Team.count() instead of Team.size()');
+    return Team.count();
+  };
+
+  /**
    * create ordered CSV strings from team data
    * 
    * @returns CSV file content

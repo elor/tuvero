@@ -3,405 +3,306 @@
  */
 
 define([ './options', './tabshandle', './opts', './toast', './team',
-    './strings', './swiss', './tab_games', './tab_ranking', './tab_history',
-    './history', './storage', '../backend/tournament' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Swiss, Tab_Games, Tab_Ranking, Tab_History, History, Storage, Tournament) {
-  var Tab_New, $tab, $teamsize, options, $perms, updatepending;
+    './strings', './tab_games', './tab_ranking', './tab_history', './history',
+    './storage', '../backend/tournament' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, Tournament) {
+  var Tab_New, $tab, updatepending, template, swissperms;
 
   updatepending = false;
-
+  $tab = undefined;
   Tab_New = {};
-  options = {
-    presets : {
-      strict : {
-        up : {
-          up : false,
-          down : false,
-          bye : false
-        },
-        down : {
-          up : false,
-          down : false,
-          bye : false
-        },
-        bye : {
-          up : false,
-          down : false,
-          bye : false
-        },
-      },
-      none : {
-        up : {
-          up : true,
-          down : true,
-          bye : true
-        },
-        down : {
-          up : true,
-          down : true,
-          bye : true
-        },
-        bye : {
-          up : true,
-          down : true,
-          bye : true
-        },
-      },
-      updown : {
-        up : {
-          up : false,
-          down : false,
-          bye : true
-        },
-        down : {
-          up : false,
-          down : false,
-          bye : true
-        },
-        bye : {
-          up : true,
-          down : true,
-          bye : false
-        },
-      },
-      pvo : {
-        up : {
-          up : false,
-          down : true,
-          bye : true
-        },
-        down : {
-          up : true,
-          down : false,
-          bye : true
-        },
-        bye : {
-          up : true,
-          down : true,
-          bye : false
-        },
-      },
-      relaxed : {
-        up : {
-          up : false,
-          down : true,
-          bye : true
-        },
-        down : {
-          up : true,
-          down : false,
-          bye : true
-        },
-        bye : {
-          up : true,
-          down : true,
-          bye : true
-        },
-      },
-      nice : {
-        up : {
-          up : false,
-          down : true,
-          bye : true
-        },
-        down : {
-          up : true,
-          down : false,
-          bye : false
-        },
-        bye : {
-          up : true,
-          down : false,
-          bye : false
-        },
-      },
-      // indicate that we don't want to change anything
-      custom : undefined
-    }
-  };
 
-  function getSwissMode () {
-    var mode;
+  function initTemplate () {
+    template = {
+      team : {}
+    };
+    template.team.$container = $tab.find('.team.tpl');
 
-    mode = Swiss.getOptions().mode;
+    template.team.$container.detach();
+    template.team.$container.removeClass('tpl');
 
-    $tab.find('.swiss .mode').val(mode);
+    template.team.$rank = template.team.$container.find('.rank');
+    template.team.$teamno = template.team.$container.find('.teamno');
+    template.team.$names = template.team.$container.find('.names');
+
+    template.$system = template.team.$container.find('.system');
+    template.$system.detach();
+    template.$system.text('');
+    template.$anchor = $tab.find('table.playertable');
+
+    template.system = {};
+    template.system.$swiss = $tab.find('.swiss.tpl').detach().find('> *');
   }
 
-  function setSwissMode () {
-    var tournamentOptions, mode;
-
-    mode = $tab.find('.swiss .mode').val();
-
-    tournamentOptions = Swiss.getOptions();
-    tournamentOptions.mode = mode;
-    Swiss.setOptions(tournamentOptions);
+  function resetTeams () {
+    $tab.find('.team').remove();
   }
 
-  /**
-   * translates the Swiss ranking into a traditional votes object
-   * 
-   * TODO rewrite this file to replace this function
-   * 
-   * @returns {Object} a votes object of the current round
-   */
-  function getRoundVotes () {
-    // FIXME duplicate within tab_games.js
-    var votes, ranking, i;
+  function resetSystems () {
+    $tab.find('.system').remove();
+  }
+
+  function getRanking () {
+    var Swiss, ranking, ranks, ids, i;
+
+    Swiss = require('./swiss');
 
     ranking = Swiss.getRanking();
 
-    votes = {
-      up : [],
-      down : [],
-      bye : undefined,
+    ids = ranking.ids;
+    ranks = ranking.place;
+
+    if (ranks.length == 0) {
+      ids = [];
+      ranks = ids;
+      for (i = 0; i < Team.count(); i += 1) {
+        ids[i] = i;
+      }
+    }
+
+    return {
+      ids : ids,
+      ranks : ranks,
     };
-
-    for (i = 0; i < ranking.ids.length; i += 1) {
-      if (ranking.roundupvote[i]) {
-        votes.up.push(ranking.ids[i]);
-      }
-      if (ranking.rounddownvote[i]) {
-        votes.down.push(ranking.ids[i]);
-      }
-      if (ranking.roundbyevote[i]) {
-        votes.bye = ranking.ids[i];
-      }
-    }
-
-    return votes;
   }
 
-  function closeTeamRegistration () {
-    var opts, Tab_Teams;
+  function updateTeams () {
+    var ranking, ranks, ids, i;
 
-    Tab_Teams = require('./tab_teams');
+    ranking = getRanking();
+    ranks = ranking.ranks;
+    ids = ranking.ids;
 
-    opts = Tab_Teams.getOptions();
-    opts.allowRegistrations = false;
-    Tab_Teams.setOptions(opts);
+    for (i = 0; i < ranks.length; i += 1) {
+      template.team.$rank.text(ranks[i] + 1);
+      template.team.$teamno.text(ids[i] + 1);
+      template.team.$names.text(Team.get(ids[i]).names.join(', '));
+      template.$anchor.append(template.team.$container.clone());
+    }
   }
 
-  /**
-   * a round has started, so we init some stuff. called after Swiss.start() and
-   * Swiss.newRound(), hence the separete function
-   */
-  function startRound () {
-    var votes, team;
+  function updateSystems () {
+    var $anchor, height, $clone, $swiss;
 
-    // make the ranking update
-    // TODO use event system
-    Tab_Ranking.update();
+    $anchor = $tab.find('.team').get(0);
+    $anchor = $($anchor);
 
-    // tell the history that there's a new round
-    // TODO use event system / Tab_History.update()
-    Tab_History.nextRound();
-
-    // make the history update
-    // TODO extract functions into a wrapper around Swiss?
-    votes = getRoundVotes();
-    if (votes.bye !== undefined) {
-      team = Team.get(votes.bye);
-      // remember the byevote
-      History.addBye(team);
-      // immediately show the byevote
-      // TODO FIXME use event system
-      Tab_History.createBye(team.id);
-    }
-
-    // save changes
-    // TODO event system
-    Storage.changed();
-
-    // show all games
-    Tab_Games.update();
-    // focus tab_games
-
-    Tabshandle.focus('games');
-  }
-
-  function newRound () {
-    var i, swissreturn;
-
-    // abort if there's not enough players
-    if (Team.count() < 2) {
-      new Toast(Strings.notenoughteams);
-      return undefined;
-    }
-
-    // register all teams at the tournament before the first round
-    if (Swiss.getRanking().round === 0) {
-      Team.prepareTournament(Swiss);
-      new Toast(Strings.registrationclosed);
-    }
-
-    // TODO use a private variable
-    setSwissMode();
-    setSwissPermissions();
-
-    swissreturn = undefined;
-    for (i = 0; i < Options.roundtries; i += 1) {
-      swissreturn = Swiss.start();
-      if (swissreturn !== undefined) {
-        break;
+    if ($anchor.length == 0) {
+      if (Team.count() > 0) {
+        console.error("could't find anchor for system");
       }
+      return;
     }
 
-    if (swissreturn === undefined) {
-      new Toast(Strings.roundfailed, Toast.LONG);
-      return undefined;
-    }
+    height = Team.count();
 
-    new Toast(Strings.roundstarted.replace("%s", Swiss.getRanking().round));
+    template.$system.attr('rowspan', height);
+    $clone = template.$system.clone();
+    $clone.append(template.system.$swiss.clone());
+    $clone.addClass('swiss');
+    initSwiss($clone, require('./swiss'));
 
-    startRound();
-
-    Tab_New.update();
+    $anchor.find('td').css('border-top', 'solid 1px black');
+    $anchor.append($clone);
   }
 
-  function initPreparations () {
-    initPermissions();
+  function initSwiss ($swiss, Swiss) {
+    var $swissmode, round, $perms;
 
-    $tab.find('.swiss').submit(function (e) {
-      newRound();
+    // round numbers
+    round = Swiss.getRanking().round;
+    $swiss.find('.round').text(round);
+    $swiss.find('.nextround').text(round + 1);
 
-      e.preventDefault();
-      return false;
+    // swissmode select field
+    $swissmode = $swiss.find('.mode');
+    getSwissMode($swissmode, Swiss);
+
+    $swissmode.change(function () {
+      setSwissMode($swissmode, Swiss);
+    });
+
+    $perms = queryPerms($swiss);
+    // TODO init vote perms presets
+    $perms.preset.change(function () {
+      setPermissionPreset($perms.preset.val(), $perms);
+      setPermissions($perms, Swiss);
+    });
+
+    getPermissions($perms, Swiss);
+
+    // TODO init perms matrix
+    $perms.all.click(function () {
+      var $perm;
+      $perm = $(this);
+
+      $perm.toggleClass('forbidden');
+      $perms.preset.val('custom');
+      setPermissions($perms, Swiss);
+    });
+
+    // submit button
+    $swiss.find('button').click(function () {
+      var i;
+      if (Swiss.getState() === 0) {
+        // register players
+        for (i = 0; i < Team.count(); i += 1) {
+          Swiss.addPlayer(i);
+        }
+      }
+      if (Swiss.start()) {
+        new Toast(Strings.roundstarted.replace('%s', Swiss.getRanking().round));
+        Storage.store();
+
+        Tab_Games.update();
+        Tab_New.update();
+        Tab_History.update();
+        Tab_Ranking.update();
+      } else {
+        new Toast(Strings.roundfailed);
+      }
     });
   }
 
-  /**
-   * update all appearances of the current round in the games tab
-   */
-  function showRound () {
-    // getRanking() is actually buffered, so no caveat here
-    $tab.find('.round').text(Swiss.getRanking().round);
-    $tab.find('.nextround').text(Swiss.getRanking().round + 1);
+  function setPermissionPreset (preset, $perms) {
+    var perms;
 
-    // TODO rename function or move
-    getSwissMode();
-  }
+    perms = swissperms[preset];
 
-  function setPermissions (perms) {
-    var k1, k2, keys;
+    if (perms === undefined) {
+      // not available. most likely 'custom'
+      return;
+    }
 
     $perms.all.removeClass('forbidden');
 
-    for (k1 in perms) {
-      for (k2 in perms) {
-        if (perms[k1][k2] === false) {
-          $perms[k2][k1].addClass('forbidden');
-        }
-      }
-    }
+    // just copy the values over to the grid
+    !perms.up.up && $perms.up.up.addClass('forbidden');
+    !perms.up.down && $perms.up.down.addClass('forbidden');
+    !perms.up.bye && $perms.up.bye.addClass('forbidden');
+    !perms.down.up && $perms.down.up.addClass('forbidden');
+    !perms.down.down && $perms.down.down.addClass('forbidden');
+    !perms.down.bye && $perms.down.bye.addClass('forbidden');
+    !perms.bye.up && $perms.bye.up.addClass('forbidden');
+    !perms.bye.down && $perms.bye.down.addClass('forbidden');
+    !perms.bye.bye && $perms.bye.bye.addClass('forbidden');
   }
 
-  function updatePermissions () {
+  function getPermissions ($perms, Swiss) {
     var perms;
 
     perms = Swiss.getOptions().permissions;
 
-    setPermissions(perms);
+    $perms.all.removeClass('forbidden');
+
+    !perms.up.up && $perms.up.up.addClass('forbidden');
+    !perms.up.down && $perms.down.up.addClass('forbidden');
+    !perms.up.bye && $perms.bye.up.addClass('forbidden');
+    !perms.down.up && $perms.up.down.addClass('forbidden');
+    !perms.down.down && $perms.down.down.addClass('forbidden');
+    !perms.down.bye && $perms.bye.down.addClass('forbidden');
+    !perms.bye.up && $perms.up.bye.addClass('forbidden');
+    !perms.bye.down && $perms.down.bye.addClass('forbidden');
+    !perms.bye.bye && $perms.bye.bye.addClass('forbidden');
   }
 
-  function readPermissions () {
-    var perms;
+  function setPermissions ($perms, Swiss) {
+    var opts, perms;
 
-    perms = {
-      up : {},
-      down : {},
-      bye : {},
-    };
+    opts = Swiss.getOptions();
+    perms = opts.permissions;
 
-    // flip the order (swisstournament logic is different)
-    // flip the value (permitted vs. forbidden)
-    for (k1 in perms) {
-      for (k2 in perms) {
-        perms[k1][k2] = !$perms[k2][k1].hasClass('forbidden');
-      }
-    }
+    perms.up.up = !$perms.up.up.hasClass('forbidden');
+    perms.up.down = !$perms.down.up.hasClass('forbidden');
+    perms.up.bye = !$perms.bye.up.hasClass('forbidden');
+    perms.down.up = !$perms.up.down.hasClass('forbidden');
+    perms.down.down = !$perms.down.down.hasClass('forbidden');
+    perms.down.bye = !$perms.bye.down.hasClass('forbidden');
+    perms.bye.up = !$perms.up.bye.hasClass('forbidden');
+    perms.bye.down = !$perms.down.bye.hasClass('forbidden');
+    perms.bye.bye = !$perms.bye.bye.hasClass('forbidden');
 
-    return perms;
-  }
-
-  function setSwissPermissions () {
-    var opts = Swiss.getOptions();
-    opts.permissions = readPermissions();
+    opts.permissions = perms;
     Swiss.setOptions(opts);
   }
 
-  function readPermissionPreset () {
-    var preset;
+  function queryPerms ($swiss) {
+    var $grid, $perms;
 
-    preset = $perms.preset.val();
-
-    if (options.presets[preset]) {
-      setPermissions(options.presets[preset]);
-    } else if (preset === 'custom') {
-      // all fine
-    } else {
-      console.error('unknown permission preset: ' + preset);
-    }
-  }
-
-  function initPermissions () {
-    var $container;
-
-    if ($perms) {
-      console.error('initPermissions: $perms has already been defined');
-      return undefined;
-    }
-
-    $container = $tab.find('.votepermissions');
+    $grid = $swiss.find('.votepermissions');
 
     $perms = {
+      all : $grid.find('.perm'),
       up : {
-        up : $container.find('.up .up'),
-        down : $container.find('.up .down'),
-        bye : $container.find('.up .bye'),
+        up : $grid.find('.up .up'),
+        down : $grid.find('.up .down'),
+        bye : $grid.find('.up .bye'),
       },
       down : {
-        up : $container.find('.down .up'),
-        down : $container.find('.down .down'),
-        bye : $container.find('.down .bye'),
+        up : $grid.find('.down .up'),
+        down : $grid.find('.down .down'),
+        bye : $grid.find('.down .bye'),
+
       },
       bye : {
-        up : $container.find('.bye .up'),
-        down : $container.find('.bye .down'),
-        bye : $container.find('.bye .bye'),
+        up : $grid.find('.bye .up'),
+        down : $grid.find('.bye .down'),
+        bye : $grid.find('.bye .bye'),
+
       },
-      preset : $container.parents('form').find('.preset'),
-      all : $container.find('.perm'),
+      preset : $swiss.find('select.preset'),
     };
 
-    $perms.all.click(function (event) {
-      var $this;
-
-      $this = $(this);
-
-      // TODO don't save the state of the system in the DOM!
-      if ($this.hasClass('forbidden')) {
-        $this.removeClass('forbidden');
-      } else {
-        $this.addClass('forbidden');
-      }
-
-      $perms.preset.val('custom');
-
-      event.preventDefault();
-      return false;
-    });
-
-    $perms.preset.change(function (event) {
-      readPermissionPreset();
-
-      event.preventDefault();
-      return false;
-    });
-
-    readPermissionPreset();
+    return $perms;
   }
 
-  function initFinished () {
+  function setSwissMode ($modeselect, Swiss) {
+    var opts, mode;
+
+    mode = $modeselect.val();
+
+    opts = Swiss.getOptions();
+    opts.mode = mode;
+
+    Swiss.setOptions(opts);
+  }
+
+  function getSwissMode ($modeselect, Swiss) {
+    var mode;
+
+    mode = Swiss.getOptions().mode;
+    $modeselect.val(mode);
+  }
+
+  function initOptions () {
+    var $maxwidthbox, $shownamesbox;
+
+    // show or hide playernames
+    $maxwidthbox = $tab.find('.options .maxwidth');
+    function maxwidthtest () {
+      if ($maxwidthbox.prop('checked')) {
+        $tab.addClass('maxwidth');
+      } else {
+        $tab.removeClass('maxwidth');
+      }
+    }
+
+    $maxwidthbox.click(maxwidthtest);
+    maxwidthtest();
+
+    // show or hide playernames
+    $shownamesbox = $tab.find('.options .shownames');
+    function shownamestest () {
+      if ($shownamesbox.prop('checked')) {
+        $tab.removeClass('hidenames');
+        $maxwidthbox.removeAttr("disabled");
+      } else {
+        $tab.addClass('hidenames');
+        $maxwidthbox.attr("disabled", "disabled");
+      }
+    }
+
+    $shownamesbox.click(shownamestest);
+    shownamestest();
   }
 
   function init () {
@@ -413,17 +314,31 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     $tab = $('#new');
 
-    initPreparations();
-    initFinished();
+    initTemplate();
+    initOptions();
   }
 
   Tab_New.reset = function () {
     if (!$tab) {
       init();
     }
+
+    resetSystems();
+    resetTeams();
   };
 
+  function closeTeamRegistration () {
+    var opts, Tab_Teams;
+
+    Tab_Teams = require('./tab_teams');
+
+    opts = Tab_Teams.getOptions();
+    opts.allowRegistrations = false;
+    Tab_Teams.setOptions(opts);
+  }
+
   Tab_New.update = function () {
+    var Swiss;
     if (updatepending) {
       console.log('updatepending');
     } else {
@@ -434,17 +349,22 @@ define([ './options', './tabshandle', './opts', './toast', './team',
         if (Team.count() < 2) {
           Tabshandle.hide('new');
         } else {
+          // TODO don't rely on Swiss
+          Swiss = require('./swiss');
           if (Swiss.getRanking().round !== 0) {
             closeTeamRegistration();
           }
           if (Swiss.getState() === Tournament.STATE.RUNNING) {
             Tabshandle.hide('new');
+            Tabshandle.focus('games');
           } else {
             Tabshandle.show('new');
           }
         }
 
-        showRound();
+        updateTeams();
+        updateSystems();
+
         updatepending = false;
         console.log('update');
       }, 1);
@@ -461,6 +381,115 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     return Opts.setOptions({
       options : options
     }, opts);
+  };
+
+  // default permissions for swiss tournaments
+  // TODO move to another file, and/or use setOptions() for passing them around
+  swissperms = {
+    strict : {
+      up : {
+        up : false,
+        down : false,
+        bye : false
+      },
+      down : {
+        up : false,
+        down : false,
+        bye : false
+      },
+      bye : {
+        up : false,
+        down : false,
+        bye : false
+      },
+    },
+    none : {
+      up : {
+        up : true,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : true,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : true
+      },
+    },
+    updown : {
+      up : {
+        up : false,
+        down : false,
+        bye : true
+      },
+      down : {
+        up : false,
+        down : false,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : false
+      },
+    },
+    pvo : {
+      up : {
+        up : false,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : false,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : false
+      },
+    },
+    relaxed : {
+      up : {
+        up : false,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : false,
+        bye : true
+      },
+      bye : {
+        up : true,
+        down : true,
+        bye : true
+      },
+    },
+    nice : {
+      up : {
+        up : false,
+        down : true,
+        bye : true
+      },
+      down : {
+        up : true,
+        down : false,
+        bye : false
+      },
+      bye : {
+        up : true,
+        down : false,
+        bye : false
+      },
+    },
+    // indicate that we don't want to change anything
+    custom : undefined
   };
 
   return Tab_New;

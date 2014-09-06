@@ -1,3 +1,34 @@
+2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: #new tab drastically rearranged
+	#reset accesskey added
+
+	* scripts/ui/main.js: adding window.mods if this is a dev version
+
+	* scripts/ui/options.js: restructuring started
+
+	* scripts/ui/reset.js: moving to #debug after reload
+
+	* scripts/ui/strings.js: mods string changed
+
+	* scripts/ui/tab_debug.js: automatically adding window.mods in dev versions
+	removing dangerous content (.devonly) in release versions
+	not overwriting existing window.mods variables
+
+	* scripts/ui/tab_new.js: complete rewrite
+	create table layout to enable multiple parallel tournaments
+	first step towards tournament encapsulation
+
+	* scripts/ui/team.js: Team.size() added for faster development
+
+	* scripts/ui/update.js: autoformat
+	Update.isDevVersion added (only in dev versions)
+
+	* style/general.css: tables don't have border-spacing
+	wider x-margins for box headers
+
+	* style/new.css: restyled
+
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class

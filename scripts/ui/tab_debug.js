@@ -1,5 +1,5 @@
 define([ './tabshandle', './opts', './toast', '../backend/random', './options',
-    './strings' ], function (Tabshandle, Opts, Toast, Random, Options, Strings) {
+    './strings', './update' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Update) {
   var Tab_Debug, $tab, form, options, letters, Letters, rng;
 
   Tab_Debug = {};
@@ -38,7 +38,11 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function loadMods () {
-    var key, keyparts, rjsdef, subobject, partid, part;
+    var key, keyparts, rjsdef, subobject, partid, part, mods;
+
+    if (window.mods !== undefined) {
+      return;
+    }
 
     rjsdef = require.s.contexts._.defined;
     if (!rjsdef) {
@@ -46,7 +50,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       return;
     }
 
-    mods = {};
+    mods = window.mods = {};
 
     // add every key to mods, which is similar to the directory tree
     for (key in rjsdef) {
@@ -287,6 +291,13 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
    */
   Tab_Debug.update = function () {
     Tab_Debug.reset();
+
+    if (Update.isDevVersion) {
+      loadMods();
+    } else {
+      // FIXME run only once
+      $('.devonly').remove();
+    }
   };
 
   Tab_Debug.getOptions = function () {

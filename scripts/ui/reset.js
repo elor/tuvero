@@ -10,7 +10,7 @@ define([ './toast', './strings' ], function (Toast, Strings) {
       localStorage.clear();
 
       new Toast(Strings.reset, Toast.LONG);
-      location.hash === '';
+      location.hash = '#debug';
 
       return true;
     }

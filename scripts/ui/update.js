@@ -19,7 +19,7 @@ define([ './strings', './toast' ], function (Strings, Toast) {
       break;
     case appCache.DOWNLOADING:
       // downloading new files
-//      new Toast(Strings.updatedownloading);
+      // new Toast(Strings.updatedownloading);
       break;
     case appCache.UPDATEREADY:
       // finished downloading. ready to swap the cache
@@ -36,15 +36,17 @@ define([ './strings', './toast' ], function (Strings, Toast) {
   }
   appCache.addEventListener('updateready', cacheStatus);
 
-//  function cacheError () {
-//    new Toast(Strings.updatefailed, Toast.LONG);
-//  }
-//  appCache.addEventListener('error', cacheError);
+  // function cacheError () {
+  // new Toast(Strings.updatefailed, Toast.LONG);
+  // }
+  // appCache.addEventListener('error', cacheError);
 
   Update = function () {
     if (appCache.status != appCache.UNCACHED) {
       appCache.update();
     } else {
+      Update.isDevVersion = true;
+
       console.error('no cache manifest found. This is normal for development versions and release candidates.');
       new Toast(Strings.dev, Toast.INFINITE);
     }

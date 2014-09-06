@@ -1,6 +1,6 @@
 require([ './splash', './reset', './tabs', './toast', './strings', './storage',
     './tab_settings', './featuredetect', './tabshandle', './alltabs',
-    './update' ], function (Splash, Reset, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update) {
+    './update', './tab_debug' ], function (Splash, Reset, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update, Tab_Debug) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
@@ -8,6 +8,7 @@ require([ './splash', './reset', './tabs', './toast', './strings', './storage',
 
     // look for updates
     Update();
+    Tab_Debug.update();
 
     // TODO show loading screen
     // TODO show tabs only after everything has been set up
