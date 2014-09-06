@@ -1,4 +1,4 @@
-B1;2802;0c2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class
 	simplified the name fields in the games tab
@@ -23,6 +23,11 @@ B1;2802;0c2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/teams.css: floats were changed to inline-blocks
 
+	* scripts/backend/rleblobber.js: Run length blobber for sparse nested numerical arrays written
+
+	* scripts/backend/test/rleblobber.js: Exhaustive RLEBlobber tests written
+
+	* scripts/test.js: RLEBlobber tests linked in
 
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
