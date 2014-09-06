@@ -29,6 +29,9 @@
 
 	* style/new.css: restyled
 
+	* style/tabs.css: page content fades in after pageload
+	tab menu has fixed height (quadratic images)
+
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class
