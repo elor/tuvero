@@ -69,6 +69,7 @@ define(function () {
     updateavailable : 'Neue Version heruntergeladen. Bitte Seite neu laden.',
     dev : 'Entwicklerversion',
     rc : 'Versionsvorschau',
+    reset : 'Gespeicherte Daten gelöscht',
   };
 
   return Strings;

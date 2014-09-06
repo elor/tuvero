@@ -8,6 +8,7 @@ FEATURES:
   * Settings tab overhaul
   * List view in History tab
   * Splash Screen added
+  * #reset target added to delete your data in case of failure
 
 PERFORMANCE IMPROVEMENTS:
 

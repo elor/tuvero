@@ -1,6 +1,6 @@
-require([ './splash', './tabs', './toast', './strings', './storage',
+require([ './splash', './reset', './tabs', './toast', './strings', './storage',
     './tab_settings', './featuredetect', './tabshandle', './alltabs',
-    './update' ], function (Splash, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update) {
+    './update' ], function (Splash, Reset, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
@@ -18,6 +18,7 @@ require([ './splash', './tabs', './toast', './strings', './storage',
 
     Splash.loading();
 
+    // using a timeout to let the browser update the splashtext
     setTimeout(function () {
       if (Storage.restore()) {
         new Toast(Strings.loaded);
@@ -29,6 +30,7 @@ require([ './splash', './tabs', './toast', './strings', './storage',
 
       Toast.init();
       Splash.hide();
+      Tabs.valid();
     }, 1);
   });
 });

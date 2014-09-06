@@ -46,6 +46,16 @@
 
 	* scripts/ui/tab_teams.js: combining multiple updates into one
 
+	* scripts/ui/main.js: reset.js enabled
+	calling Tabs.valid() instead of letting it call on pageload
+
+	* scripts/ui/reset.js: #reset: reset localStorage to factory settings
+
+	* scripts/ui/strings.js: reset string added
+
+	* scripts/ui/tabs.js: not switching to the first valid tab on pageload
+	switching to the first valid tab on hashchange
+
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash screen added

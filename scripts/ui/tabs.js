@@ -11,6 +11,7 @@ define([ './options' ], function (Options) {
       updateOpts : undefined,
       hide : undefined,
       show : undefined,
+      valid : undefined,
     };
 
     this.updateOpts = function () {
@@ -26,6 +27,10 @@ define([ './options' ], function (Options) {
     };
     this.focus = function (tabname) {
       that.focus(tabname);
+    };
+
+    this.valid = function () {
+      that.openValidTab();
     };
 
     imgpattern = imgpattern || 'images/%s.png';
@@ -133,10 +138,9 @@ define([ './options' ], function (Options) {
         $links[tabs[index]] = $a;
       });
 
-      openValidTab();
-
       $(window).on('hashchange', function () {
         window.scrollTo(0, 0);
+        openValidTab();
       });
 
       that.updateOpts = function () {
@@ -207,6 +211,8 @@ define([ './options' ], function (Options) {
 
         openValidTab();
       };
+
+      that.openValidTab = openValidTab;
     });
 
     return this;
