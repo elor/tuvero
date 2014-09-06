@@ -340,7 +340,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
     this.games.fromBlob(ob.games);
 
-    for (i = 0; i < this.size; i += 1) {
+    for (i = 0; i < this.length; i += 1) {
       this.byes[i] = this.byes[i] || 0;
       this.netto[i] = this.netto[i] || 0;
       this.wins[i] = this.wins[i] || 0;

@@ -33,6 +33,7 @@
 	* scripts/test.js: RLEBlobber tests linked in
 
 	* scripts/backend/finebuchholzranking.js: using rleblobber
+	critical typo fixed: didn't repopulate the sparse array with 0s
 
 	* scripts/backend/halfmatrix.js: using rleblobber
 
