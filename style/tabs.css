@@ -1,4 +1,5 @@
 body.splash #tabs {
+  display: none;
   opacity: 0;
   -webkit-transition: opacity 0s;
 }

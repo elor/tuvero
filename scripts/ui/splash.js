@@ -28,6 +28,7 @@ define(function () {
 
     Splash.loading = function () {
       setState('restoring');
+      $('#tabs').show();
     };
 
     Splash.hide = function () {
