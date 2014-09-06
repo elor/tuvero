@@ -6,6 +6,7 @@
 	team tab: teams aren't floating anymore
 	validator run: only 3 errors this time
 	using a list for no-support items
+	wrapped the ranking table inside a box
 
 	* style/about.css: restyling
 	no tab should have a max-width. Centered its boxes instead
@@ -14,6 +15,7 @@
 	box header selector disambituated
 	box header is automatically centered
 	h2 is always centered
+	boxes are wrapping their contents
 
 	* scripts/ui/tab_games.js: names entry simplified (well, not for JQuery :-D )
 	using .votes as an anchor
@@ -62,6 +64,7 @@
 
 	* style/tabs.css: tabs are now contained in their container, not absolute-floating
 	adjusting min-width according to content width (CSS extensions needed)
+
 
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

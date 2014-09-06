@@ -84,6 +84,10 @@ div.box {
   border-width: 1px;
   overflow: hidden;
   text-align: center;
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: -o-min-content;
+  min-width: min-content;
 }
 
 div.box > h3:first-child {
