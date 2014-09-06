@@ -1,7 +1,9 @@
 define([ './team', './toast', './strings', './tab_teams', './swiss',
     './tab_ranking', './history', './tab_history', './storage', './options',
     './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle) {
-  var Tab_Games, $tab, template, games, $games, options;
+  var Tab_Games, $tab, template, games, $games, options, updatependng;
+
+  updatepending = false;
 
   // references to html elements of the games
   $games = [];
@@ -507,12 +509,21 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * reset an original game state, respecting the current state of Swiss
    */
   Tab_Games.update = function () {
-    Tab_Games.reset();
+    if (updatepending) {
+      console.log('updatepending');
+    } else {
+      updatepending = true;
+      window.setTimeout(function () {
+        Tab_Games.reset();
 
-    showRound();
-    showRunning();
-    showVotes();
-    showTab();
+        showRound();
+        showRunning();
+        showVotes();
+        showTab();
+        updatepending = false;
+        console.log('update');
+      }, 1);
+    }
   };
 
   Tab_Games.getOptions = function () {

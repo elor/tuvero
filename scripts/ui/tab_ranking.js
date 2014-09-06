@@ -1,6 +1,8 @@
 define([ './team', './toast', './strings', './swiss', './options',
     './tabshandle', './opts' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle, Opts) {
-  var Tab_Ranking, template, shown, $tab, options;
+  var Tab_Ranking, template, shown, $tab, options, updatepending;
+
+  updatepending = false;
 
   Tab_Ranking = {};
   options = {};
@@ -258,8 +260,17 @@ define([ './team', './toast', './strings', './swiss', './options',
   }
 
   Tab_Ranking.update = function () {
-    if (update() === true) {
-      // new Toast(Strings.rankingupdate);
+    if (updatepending) {
+      console.log('updatepending');
+    } else {
+      updatepending = true;
+      window.setTimeout(function () {
+        if (update() === true) {
+          // new Toast(Strings.rankingupdate);
+        }
+        updatepending = false;
+        console.log('update');
+      }, 1);
     }
   };
 

@@ -1,7 +1,9 @@
 define([ './toast', './strings', './team', './history', './ranking', './state',
     '../lib/base64', './storage', './options', './opts', './players',
     './tabshandle' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle) {
-  var Tab_Settings, $tab, areas, options;
+  var Tab_Settings, $tab, areas, options, updatepending;
+
+  updatepending = false;
 
   Tab_Settings = {};
   options = {};
@@ -390,9 +392,18 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
   };
 
   Tab_Settings.update = function () {
-    Tab_Settings.reset();
-    updateAutocomplete();
-    updateLocalStorageMeters();
+    if (updatepending) {
+      console.log('updatepending');
+    } else {
+      updatepending = true;
+      window.setTimeout(function () {
+        Tab_Settings.reset();
+        updateAutocomplete();
+        updateLocalStorageMeters();
+        updatepending = false;
+        console.log('update');
+      }, 1);
+    }
   };
 
   Tab_Settings.getOptions = function () {

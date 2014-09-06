@@ -1,6 +1,8 @@
 define([ './toast', './strings', './history', './swiss', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './opts', './team' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team) {
-  var Tab_History, $tab, template, currentround, $button, options;
+  var Tab_History, $tab, template, currentround, $button, options, updatepending;
+
+  updatepending = false;
 
   Tab_History = {};
   options = {};
@@ -439,31 +441,40 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    * removes and redraws all boxes from History
    */
   Tab_History.update = function () {
-    var round, maxround, id, numgames, bye, empty;
+    if (updatepending) {
+      console.log('updatepending');
+    } else {
+      updatepending = true;
+      window.setTimeout(function () {
+        var round, maxround, id, numgames, bye, empty;
 
-    empty = true;
+        empty = true;
 
-    Tab_History.reset();
+        Tab_History.reset();
 
-    maxround = History.numRounds();
-    for (round = 1; round <= maxround; round += 1) {
-      setRound(round);
+        maxround = History.numRounds();
+        for (round = 1; round <= maxround; round += 1) {
+          setRound(round);
 
-      bye = History.getBye(round);
-      if (bye !== undefined) {
-        empty = false;
-        Tab_History.createBye(bye);
-      }
+          bye = History.getBye(round);
+          if (bye !== undefined) {
+            empty = false;
+            Tab_History.createBye(bye);
+          }
 
-      numgames = History.numGames(round);
-      for (id = 0; id < numgames; id += 1) {
-        empty = false;
-        Tab_History.createBox(History.get(round, id));
-      }
-    }
+          numgames = History.numGames(round);
+          for (id = 0; id < numgames; id += 1) {
+            empty = false;
+            Tab_History.createBox(History.get(round, id));
+          }
+        }
 
-    if (empty) {
-      Tabshandle.hide('history');
+        if (empty) {
+          Tabshandle.hide('history');
+        }
+        updatepending = false;
+        console.log('update');
+      }, 1);
     }
   };
 

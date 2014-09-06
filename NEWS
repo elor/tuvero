@@ -8,4 +8,8 @@ FEATURES:
   * Settings tab overhaul
   * List view in History tab
   * Splash Screen added
-  * Run Length Compression of tournament data added
+
+PERFORMANCE IMPROVEMENTS:
+
+  * compressing swisstournament data to enable more than 2000 players
+  * performance improved for all tabs by combining successive updates

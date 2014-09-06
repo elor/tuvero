@@ -5,7 +5,9 @@
 define([ './options', './tabshandle', './opts', './toast', './team',
     './strings', './swiss', './tab_games', './tab_ranking', './tab_history',
     './history', './storage', '../backend/tournament' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Swiss, Tab_Games, Tab_Ranking, Tab_History, History, Storage, Tournament) {
-  var Tab_New, $tab, $teamsize, options, $perms;
+  var Tab_New, $tab, $teamsize, options, $perms, updatepending;
+
+  updatepending = false;
 
   Tab_New = {};
   options = {
@@ -422,22 +424,31 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   };
 
   Tab_New.update = function () {
-    Tab_New.reset();
-
-    if (Team.count() < 2) {
-      Tabshandle.hide('new');
+    if (updatepending) {
+      console.log('updatepending');
     } else {
-      if (Swiss.getRanking().round !== 0) {
-        closeTeamRegistration();
-      }
-      if (Swiss.getState() === Tournament.STATE.RUNNING) {
-        Tabshandle.hide('new');
-      } else {
-        Tabshandle.show('new');
-      }
-    }
+      updatepending = true;
+      window.setTimeout(function () {
+        Tab_New.reset();
 
-    showRound();
+        if (Team.count() < 2) {
+          Tabshandle.hide('new');
+        } else {
+          if (Swiss.getRanking().round !== 0) {
+            closeTeamRegistration();
+          }
+          if (Swiss.getState() === Tournament.STATE.RUNNING) {
+            Tabshandle.hide('new');
+          } else {
+            Tabshandle.show('new');
+          }
+        }
+
+        showRound();
+        updatepending = false;
+        console.log('update');
+      }, 1);
+    }
   };
 
   Tab_New.getOptions = function () {

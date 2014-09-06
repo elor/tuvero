@@ -17,6 +17,7 @@
 
 	* scripts/ui/tab_games.js: names entry simplified (well, not for JQuery :-D )
 	using .votes as an anchor
+	combining multiple updates into one
 
 	* style/games.css: games tab .game boxes updated
 	forgot to un-float .vote boxes
@@ -34,6 +35,16 @@
 	* scripts/backend/halfmatrix.js: using rleblobber
 
 	* scripts/backend/swisstournament.js: using rleblobber
+
+	* scripts/ui/tab_history.js: combining multiple updates into one
+
+	* scripts/ui/tab_new.js: combining multiple updates into one
+
+	* scripts/ui/tab_ranking.js: combining multiple updates into one
+
+	* scripts/ui/tab_settings.js: combining multiple updates into one
+
+	* scripts/ui/tab_teams.js: combining multiple updates into one
 
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -2,8 +2,10 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     './autocomplete', './options', './tab_new', './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle) {
 
   // TODO combine $anchors, $fileload, $delete and $teamsize
-  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete;
-
+  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
+  
+  updatepending = false;
+  
   $tab = undefined;
 
   function trimName (name) {
@@ -669,15 +671,24 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Autocomplete.update();
     },
     update : function () {
-      var i, l;
-      Tab_Teams.reset();
+      if (updatepending) {
+        console.log('updatepending');
+      } else {
+        updatepending = true;
+        window.setTimeout(function () {
+          var i, l;
+          Tab_Teams.reset();
 
-      l = Team.count();
+          l = Team.count();
 
-      for (i = 0; i < l; i += 1) {
-        createBox(Team.get(i));
+          for (i = 0; i < l; i += 1) {
+            createBox(Team.get(i));
+          }
+          console.log('update');
+          updatepending = false;
+        }, 1);
       }
-    },
+    }
   };
 
   return Tab_Teams;
