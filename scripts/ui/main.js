@@ -28,9 +28,11 @@ require([ './splash', './reset', './tabs', './toast', './strings', './storage',
 
       Alltabs.update();
 
-      Toast.init();
-      Splash.hide();
-      Tabs.valid();
+      setTimeout(function () {
+        Toast.init();
+        Splash.hide();
+        Tabshandle.valid();
+      }, 10);
     }, 1);
   });
 });

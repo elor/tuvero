@@ -48,6 +48,7 @@
 
 	* scripts/ui/main.js: reset.js enabled
 	calling Tabs.valid() instead of letting it call on pageload
+	using yet another timeout for smoother transitions
 
 	* scripts/ui/reset.js: #reset: reset localStorage to factory settings
 
@@ -55,6 +56,12 @@
 
 	* scripts/ui/tabs.js: not switching to the first valid tab on pageload
 	switching to the first valid tab on hashchange
+
+	* style/ranking.css: tables are now inline-tables, not inline-blocks
+	names width typo fixed
+
+	* style/tabs.css: tabs are now contained in their container, not absolute-floating
+	adjusting min-width according to content width (CSS extensions needed)
 
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
