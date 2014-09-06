@@ -1,4 +1,5 @@
-define([ './vector', './matrix', './halfmatrix', './result', './correction' ], function (Vector, Matrix, HalfMatrix, Result, Correction) {
+define([ './vector', './matrix', './halfmatrix', './result', './correction',
+    './rleblobber' ], function (Vector, Matrix, HalfMatrix, Result, Correction, RLEBlobber) {
   /**
    * FinebuchholzRanking: A ranking variant which sorts players by wins,
    * buchholz points, finebuchholz points and netto points, in this order.
@@ -10,10 +11,12 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
     this.corrections = [];
     this.games = new HalfMatrix(HalfMatrix.mirrored, size);
 
-    while (this.netto.length < size) {
+    this.length = 0;
+    while (this.length < size) {
       this.netto.push(0);
       this.wins.push(0);
       this.byes.push(0);
+      this.length += 1;
     }
   };
 
@@ -23,7 +26,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
    * @returns the size
    */
   Finebuchholz.prototype.size = function () {
-    return this.netto.length;
+    return this.length;
   };
 
   /**
@@ -36,6 +39,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
   Finebuchholz.prototype.resize = function (size) {
     var length = this.size();
 
+    // FIXME test the length of every array on its own!
     if (size < length) {
       this.netto.splice(size);
       this.wins.splice(size);
@@ -52,6 +56,8 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
         this.byes.push(0);
       }
     }
+    
+    this.length = size;
 
     return this;
   };
@@ -307,18 +313,19 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
     var ob;
 
     ob = {
-      byes : this.byes,
+      byes : RLEBlobber.toBlob(this.byes),
       corrections : this.corrections,
       games : this.games.toBlob(),
-      netto : this.netto,
-      wins : this.wins
+      netto : RLEBlobber.toBlob(this.netto),
+      wins : RLEBlobber.toBlob(this.wins),
+      length : this.length,
     };
 
     return JSON.stringify(ob);
   };
 
   Finebuchholz.prototype.fromBlob = function (blob) {
-    var ob;
+    var ob, i;
 
     function copyCorrection (corr) {
       return Correction.copy(corr);
@@ -326,11 +333,18 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction' ], f
 
     ob = JSON.parse(blob);
 
-    this.byes = ob.byes;
-    this.netto = ob.netto;
-    this.wins = ob.wins;
+    this.length = ob.length;
+    this.byes = RLEBlobber.fromBlob(ob.byes);
+    this.netto = RLEBlobber.fromBlob(ob.netto);
+    this.wins = RLEBlobber.fromBlob(ob.wins);
 
     this.games.fromBlob(ob.games);
+
+    for (i = 0; i < this.size; i += 1) {
+      this.byes[i] = this.byes[i] || 0;
+      this.netto[i] = this.netto[i] || 0;
+      this.wins[i] = this.wins[i] || 0;
+    }
 
     this.corrections = ob.corrections.map(copyCorrection);
   };

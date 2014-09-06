@@ -29,6 +29,12 @@
 
 	* scripts/test.js: RLEBlobber tests linked in
 
+	* scripts/backend/finebuchholzranking.js: using rleblobber
+
+	* scripts/backend/halfmatrix.js: using rleblobber
+
+	* scripts/backend/swisstournament.js: using rleblobber
+
 2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash screen added

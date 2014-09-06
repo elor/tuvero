@@ -4,7 +4,7 @@
  * rewriting for multi-player teams, which are only useful for random teams.
  */
 define([ './tournament', './map', './finebuchholzranking', './game',
-    './result', './random', './correction', './options' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction, Options) {
+    './result', './random', './correction', './options', './rleblobber' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction, Options, RLEBlobber) {
   var Swisstournament;
 
   /**
@@ -1025,15 +1025,15 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     var ob;
 
     ob = {
-      byevote : this.byevote,
-      downvote : this.downvote,
+      byevote : RLEBlobber.toBlob(this.byevote),
+      downvote : RLEBlobber.toBlob(this.downvote),
       games : this.games,
       players : this.players.toBlob(),
       ranking : this.ranking.toBlob(),
       round : this.round,
       roundvotes : this.roundvotes,
       state : this.state,
-      upvote : this.upvote
+      upvote : RLEBlobber.toBlob(this.upvote),
     };
 
     return JSON.stringify(ob);
@@ -1052,12 +1052,12 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return Game.copy(game);
     }
 
-    this.byevote = ob.byevote;
-    this.downvote = ob.downvote;
+    this.byevote = RLEBlobber.fromBlob(ob.byevote);
+    this.downvote = RLEBlobber.fromBlob(ob.downvote);
     this.round = ob.round;
     this.roundvotes = ob.roundvotes;
     this.state = ob.state;
-    this.upvote = ob.upvote;
+    this.upvote = RLEBlobber.fromBlob(ob.upvote);
 
     this.games = ob.games.map(copyGame);
 
