@@ -208,34 +208,32 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
    * 
    * @param game
    *          the game in question
-   * @returns Tab_Games on success, undefined otherwise
+   * @returns true on success, undefined otherwise
    */
-  function removeGame (game) {
+  function removeGame (tournamentid, index) {
     var index;
 
-    index = games.indexOf(game);
+    games[tournamentid].splice(index, 1);
+    $games[tournamentid][index].remove();
+    $games[tournamentid].splice(index, 1);
 
-    if (index === -1) {
-      // something's wrong
-      return undefined;
-    }
-
-    games.splice(index, 1);
-    $games[index].remove();
-    $games.splice(index, 1);
+    return true;
   }
 
   function readResults ($container) {
-    var $input, i, ret, round;
+    var $input, i, ret, round, tournamentid;
 
     ret = {
       index : -1,
       points : []
     };
 
-    // 
-    for (i = 0; i < $games.length; i += 1) {
-      if ($games[i].data() === $container.data()) {
+    // FIXME don't store data in the DOM. Use an array!
+    tournamentid = $container.parents('.box').attr('data-tournamentid');
+
+    for (i = 0; i < $games[tournamentid].length; i += 1) {
+      // find the container in the array of containers
+      if ($games[tournamentid][i].data() === $container.data()) {
         ret.index = i;
         break;
       }
@@ -279,7 +277,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
    * jQuery callback function. works with "this"
    */
   function finishGame () {
-    var result, $input, i, res, index, points;
+    var result, $input, i, res, index, points, tournamentid, tournament;
 
     // if someone wants to finish a game, do the following:
     // * verify that the game was running
@@ -287,6 +285,19 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     // * submit the result
     // * remove the game
     // * drink a toast to the game
+
+    tournamentid = $(this).parents('.box').attr('data-tournamentid');
+
+    if (!(tournamentid >= 0)) {
+      console.error('cannot read tournamentid from data-tournamentid attribute');
+      return false;
+    }
+    if (!Tournaments.isRunning(tournamentid)) {
+      console.error("tournament isn't running anymore, but player wants to finish a game");
+      return false;
+    }
+
+    tournament = Tournaments.getTournament(tournamentid);
 
     result = readResults($(this));
 
@@ -300,7 +311,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     index = result.index;
     points = result.points;
 
-    if (Swiss().finishGame(games[index], points) === undefined) {
+    if (tournament.finishGame(games[tournamentid][index], points) === undefined) {
       // game was somehow invalid. Someone tampered with the system.
 
       // redraw all games
@@ -316,12 +327,14 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     }
 
     // the game was accepted, store it in history
-    round = Swiss().getRanking().round;
-    res = History.addResult(0, games[index].teams[0][0], games[index].teams[1][0], points[0], points[1], round - 1);
+    round = tournament.getRanking().round;
+    res = History.addResult(0, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1);
     Tab_History.update();
 
     // game was accepted. remove it.
-    removeGame(games[index]);
+    if (!removeGame(tournamentid, index)) {
+      console.error("cannot remove game: it's already gone");
+    }
 
     if (points[0] > points[1]) {
       new Toast(Strings.gamefinished);
