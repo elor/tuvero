@@ -2,12 +2,13 @@
  * Storage API for persistent state
  */
 define([ './options' ], function (Options) {
-  var Storage, keys, Tab_Settings;
+  var Storage, keys, Tab_Settings, savespending;
 
   Tab_Settings = undefined;
 
   Storage = {};
   keys = {};
+  savespending = {};
 
   function saveKey (key) {
     var val, blob;
@@ -22,11 +23,13 @@ define([ './options' ], function (Options) {
       return true;
     }
 
+    console.log('blobbing ' + key);
     blob = val.toBlob();
     if (!blob) {
       return true;
     }
 
+    console.log('storing ' + key);
     window.localStorage.setItem(key, blob);
 
     return window.localStorage.getItem(key) !== blob;
@@ -86,16 +89,20 @@ define([ './options' ], function (Options) {
   Storage.store = function () {
     var key, val, err;
 
-    err = false;
-
     for (key in keys) {
-      if (saveKey(key)) {
-        err = true;
-        console.error('Error when storing ' + key);
+      if (savespending[key] == true) {
+      } else {
+        savespending[key] = true;
+        window.setTimeout(function (mykey) {
+          if (saveKey(mykey)) {
+            console.error('Error when storing ' + mykey);
+          }
+          savespending[mykey] = false;
+        }, 1, key);
       }
     }
 
-    return !err;
+    return true;
   };
 
   /**
