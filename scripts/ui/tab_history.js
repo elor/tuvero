@@ -22,14 +22,6 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.$anchor = $newcontainer.find('table');
   }
 
-  /**
-   * hints Tab_history that a new round might have started, which it verifies by
-   * itself. If so, a new header is added and the anchors are updated
-   */
-  Tab_History.nextRound = function () {
-    setRound(Swiss.getRanking().round);
-  };
-
   function formatNamesHTML (teamid) {
     var team, names;
 
@@ -48,7 +40,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    * @param result
    *          a result as returned by history.get()
    */
-  Tab_History.createBox = function (result) {
+  function createBox (result) {
     if (currentround === 0 || template.$anchor === undefined) {
       return undefined;
     }
@@ -65,7 +57,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.$anchor.append(template.game.$game.clone());
 
     Tabshandle.show('history');
-  };
+  }
 
   /**
    * creates a box for a bye within the current round. No round verification.
@@ -73,7 +65,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    * @param teamid
    *          id of the team receiving a bye
    */
-  Tab_History.createBye = function (teamid) {
+  function createBye (teamid) {
     if (template.$anchor === undefined) {
       return undefined;
     }
@@ -83,7 +75,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.$anchor.append(template.bye.$bye.clone());
 
     Tabshandle.show('history');
-  };
+  }
 
   function isInt (n) {
     return n % 1 === 0;
@@ -459,13 +451,13 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
           bye = History.getBye(round);
           if (bye !== undefined) {
             empty = false;
-            Tab_History.createBye(bye);
+            createBye(bye);
           }
 
           numgames = History.numGames(round);
           for (id = 0; id < numgames; id += 1) {
             empty = false;
-            Tab_History.createBox(History.get(round, id));
+            createBox(History.get(round, id));
           }
         }
 

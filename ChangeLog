@@ -61,11 +61,14 @@
 	* scripts/ui/storage.js: combining subsequent store() calls into one
 	nagging debug text added (for now)
 
-	* scripts/ui/tab_games.js: 
+	* scripts/ui/tab_games.js: removed Tab_History.createBox() dependency
 
-	* scripts/ui/tab_history.js: 
+	* scripts/ui/tab_history.js: nextRound() removed
+	moved createBox() and createBye() into local block
 
-	* scripts/ui/tab_teams.js: 
+	* scripts/ui/tab_teams.js: reduced the number of cross-Tab update calls:
+	createBox() doesn't call other Tabs anymore
+	updateAfterTeamAdd() added
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

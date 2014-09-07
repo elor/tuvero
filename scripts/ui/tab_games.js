@@ -293,8 +293,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     // the game was accepted, store it in history
     res = History.add(games[index], points);
-    // TODO avoid direct calls to another tab. use Tab_History.update somehow
-    Tab_History.createBox(res);
+    Tab_History.update();
 
     // game was accepted. remove it.
     removeGame(games[index]);

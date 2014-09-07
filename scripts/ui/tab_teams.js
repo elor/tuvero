@@ -3,9 +3,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
   // TODO combine $anchors, $fileload, $delete and $teamsize
   var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
-  
+
   updatepending = false;
-  
+
   $tab = undefined;
 
   function trimName (name) {
@@ -251,6 +251,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       team = Team.create(names);
       createBox(team);
     }
+    updateAfterTeamAdd();
 
     // save changes
     Storage.changed();
@@ -394,6 +395,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         team = Team.create(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
+        updateAfterTeamAdd();
 
         newteam.$names[0].focus();
 
@@ -606,16 +608,19 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     template.$teamno.text(team.id + 1);
 
     $anchor.before(template.$tpl.clone());
+  }
 
+  function updateAfterTeamAdd () {
     // hide file load
     $fileload.hide();
     // hide teamsize selection
     $teamsize.hide();
     // show deletion button
     updateDeletion();
+    // show the number of teams
+    updateTeamCounts();
 
     Tab_New.update();
-    updateTeamCounts();
   }
 
   options = {
@@ -684,6 +689,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
           for (i = 0; i < l; i += 1) {
             createBox(Team.get(i));
           }
+
+          updateAfterTeamAdd();
+
           console.log('update');
           updatepending = false;
         }, 1);
