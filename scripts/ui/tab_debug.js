@@ -208,7 +208,15 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   function playTournament () {
     var Swiss;
 
-    Swiss = require('./swiss');
+    // FIXME rewrite for multiple tournaments!
+    // this line is a cheap hack
+    Swiss = require('./tournaments').getTournament(0);
+
+    if (!Swiss) {
+      console.error('No tournament object has been allocated / it has been deallocated');
+      new Toast(Strings.tournamentfinished, Toast.LONG);
+      return;
+    }
 
     starttime = new Date();
     if (Swiss().getState() != 1) {

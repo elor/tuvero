@@ -4,7 +4,7 @@
 
 define([ './options', './tabshandle', './opts', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
-    './storage', '../backend/tournament' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, Tournament) {
+    './storage', '../backend/tournament', './tournaments' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, Tournament, Tournaments) {
   var Tab_New, $tab, updatepending, template, swissperms;
 
   updatepending = false;
@@ -24,7 +24,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
-    ranking = Swiss().getRanking();
+    ranking = Swiss.getRanking();
 
     votes = {
       up : [],
@@ -80,9 +80,11 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function getRanking () {
     var Swiss, ranking, ranks, ids, i;
 
-    Swiss = require('./swiss');
+    // TODO use global ranking and stuff.
+    // This still is a cheap hack
+    Swiss = Tournaments.getTournament(Tournaments.size() - 1);
 
-    ranking = Swiss().getRanking();
+    ranking = Swiss.getRanking();
 
     ids = ranking.ids;
     ranks = ranking.place;
@@ -131,21 +133,25 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     height = Team.count();
 
+    // FIXME read all tournaments and span accordingly
     template.$system.attr('rowspan', height);
     $clone = template.$system.clone();
     $clone.append(template.system.$swiss.clone());
     $clone.addClass('swiss');
-    initSwiss($clone, require('./swiss'));
+    initSwiss($clone, Tournaments.getTournament(Tournaments.size() - 1));
 
     $anchor.find('td').css('border-top', 'solid 1px black');
     $anchor.append($clone);
   }
 
+  /**
+   * prepare a swiss tournament management box
+   */
   function initSwiss ($swiss, Swiss) {
     var $swissmode, round, $perms;
 
     // round numbers
-    round = Swiss().getRanking().round;
+    round = Swiss.getRanking().round;
     $swiss.find('.round').text(round);
     $swiss.find('.nextround').text(round + 1);
 
@@ -179,14 +185,14 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     // submit button
     $swiss.find('button').click(function () {
       var i, bye, team, round;
-      if (Swiss().getState() === 0) {
+      if (Swiss.getState() === 0) {
         // register players
         for (i = 0; i < Team.count(); i += 1) {
-          Swiss().addPlayer(i);
+          Swiss.addPlayer(i);
         }
       }
-      if (Swiss().start()) {
-        round = Swiss().getRanking().round;
+      if (Swiss.start()) {
+        round = Swiss.getRanking().round;
 
         // add the bye to history
         bye = getRoundVotes(Swiss).bye;
@@ -235,7 +241,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function getPermissions ($perms, Swiss) {
     var perms;
 
-    perms = Swiss().getOptions().permissions;
+    perms = Swiss.getOptions().permissions;
 
     $perms.all.removeClass('forbidden');
 
@@ -253,7 +259,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function setPermissions ($perms, Swiss) {
     var opts, perms;
 
-    opts = Swiss().getOptions();
+    opts = Swiss.getOptions();
     perms = opts.permissions;
 
     perms.up.up = !$perms.up.up.hasClass('forbidden');
@@ -267,7 +273,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     perms.bye.bye = !$perms.bye.bye.hasClass('forbidden');
 
     opts.permissions = perms;
-    Swiss().setOptions(opts);
+    Swiss.setOptions(opts);
   }
 
   function queryPerms ($swiss) {
@@ -305,16 +311,16 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     mode = $modeselect.val();
 
-    opts = Swiss().getOptions();
+    opts = Swiss.getOptions();
     opts.mode = mode;
 
-    Swiss().setOptions(opts);
+    Swiss.setOptions(opts);
   }
 
   function getSwissMode ($modeselect, Swiss) {
     var mode;
 
-    mode = Swiss().getOptions().mode;
+    mode = Swiss.getOptions().mode;
     $modeselect.val(mode);
   }
 
@@ -394,12 +400,12 @@ define([ './options', './tabshandle', './opts', './toast', './team',
         if (Team.count() < 2) {
           Tabshandle.hide('new');
         } else {
-          // TODO don't rely on Swiss
-          Swiss = require('./swiss');
-          if (Swiss().getRanking().round !== 0) {
+          // TODO don't rely on Tournaments order
+          Swiss = Tournaments.getTournament(Tournaments.size() - 1);
+          if (Swiss.getRanking().round !== 0) {
             closeTeamRegistration();
           }
-          if (Swiss().getState() === Tournament.STATE.RUNNING) {
+          if (Swiss.getState() === Tournament.STATE.RUNNING) {
             Tabshandle.hide('new');
             Tabshandle.focus('games');
           } else {

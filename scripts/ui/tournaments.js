@@ -137,6 +137,7 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     tournaments = [];
     // TODO remove this line AFTER removing swiss.js
     Tournaments.addTournament('swiss');
+    Tournaments.setName(0, 'Schweizer System');
   };
 
   // TODO remove this line AFTER removing swiss.js

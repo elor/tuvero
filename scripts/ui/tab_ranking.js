@@ -1,5 +1,5 @@
-define([ './team', './toast', './strings', './swiss', './options',
-    './tabshandle', './opts' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle, Opts) {
+define([ './tournaments', './team', './toast', './strings', './options',
+    './tabshandle', './opts' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts) {
   var Tab_Ranking, template, shown, $tab, options, updatepending;
 
   updatepending = false;

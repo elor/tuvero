@@ -1,6 +1,6 @@
-define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking', './history', './tab_history', './storage', './options',
-    './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle) {
+define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
+    './history', './tab_history', './storage', './options', './opts',
+    './tabshandle', './tournaments' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle, Tournaments) {
   var Tab_Games, $tab, template, games, $games, options, updatependng;
 
   updatepending = false;

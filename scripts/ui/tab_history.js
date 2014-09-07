@@ -1,5 +1,5 @@
-define([ './toast', './strings', './history', './swiss', './tab_ranking',
-    '../backend/game', './storage', './tabshandle', './opts', './team' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team) {
+define([ './toast', './strings', './history', './tournaments', './tab_ranking',
+    '../backend/game', './storage', './tabshandle', './opts', './team' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team) {
   var Tab_History, $tab, template, currentround, $button, options, updatepending;
 
   updatepending = false;
@@ -223,7 +223,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     // FIXME Why store two separate representations of the same correction?
     // Can I just use the tournament correction all the time?
     // This problem is related to the post-tournament ranking storage
-    Swiss().correct(game, [ op1, op2 ], [ np1, np2 ]);
+    // TODO use correct tournament and round id
+    Tournaments.getTournament(0).correct(game, [ op1, op2 ], [ np1, np2 ]);
 
     correction = res.slice(0);
 
