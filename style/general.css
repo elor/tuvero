@@ -93,6 +93,7 @@ div.box {
   min-width: -moz-min-content;
   min-width: -o-min-content;
   min-width: min-content;
+  vertical-align: top;
 }
 
 div.box.collapsed {
