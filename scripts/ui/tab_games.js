@@ -183,8 +183,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       });
 
       if (showVotes(tournament, $box)) {
-        hidden = false;
-        notempty = true;
+        // nothing, because the information is in the history tab, too
       }
 
       if (notempty) {
@@ -196,7 +195,17 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
   }
 
   function showTab () {
-    if (games.length === 0 || $games.length === 0) {
+    var tournamentid, empty;
+
+    empty = true;
+    for (tournamentid = 0; tournamentid < games.length; tournamentid += 1) {
+      if (games[tournamentid] && games[tournamentid].length > 0) {
+        empty = false;
+        break;
+      }
+    }
+
+    if (empty) {
       Tabshandle.hide('games');
     } else {
       Tabshandle.show('games');
@@ -358,14 +367,14 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     }
 
     // no games left? clean up and go to stage 2.
-    if (games.length === 0) {
+    if (games[tournamentid].length === 0) {
       clearBoxes();
 
       // hide this tab
       showTab();
       // open tab_new
 
-      new Toast(Strings.roundfinished.replace('%s', Swiss().getRanking().round));
+      new Toast(Strings.roundfinished.replace('%s', tournament.getRanking().round));
     }
 
     // save changes
