@@ -7,6 +7,7 @@
 	donate button image placed in image/ext/
 	#debug .box.allimages added
 	update splash text added
+	lanes tab added (hidden)
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
 	calling Splash.update()
@@ -54,6 +55,8 @@
 	* images/svg/lane.svg: renamed to lanes.svg
 
 	* style/debug.css: allimages fixed image height added
+
+	* style/lanes.css: lanes tab is currently disabled
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
