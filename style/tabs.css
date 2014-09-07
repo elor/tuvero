@@ -1,11 +1,11 @@
 body.splash #tabs {
   display: none;
   opacity: 0;
-  -webkit-transition: opacity 0s;
+  transition: opacity 0s;
 }
 
 #tabs {
-  -webkit-transition: opacity 1s ease-in;
+  transition: opacity 1s ease-in;
   opacity: 1;
 }
 

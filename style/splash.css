@@ -24,9 +24,6 @@
 }
 
 body:not(.splash) #splash {
-  -webkit-transition: margin-top 1s;
-  -moz-transition: margin-top 1s;
-  -o-transition: margin-top 1s;
   transition: margin-top 1s;
   margin-top: -25em;
 }

@@ -44,6 +44,7 @@
 	* style/tabs.css: page content fades in after pageload
 	tab menu has fixed height (quadratic images)
 	double-slide fix for splash screen
+	not using transition prefixes anymore!
 
 	* scripts/ui/splash.js: double-slide fix for splash screen
 	showing tabs at view update, not at storage load
@@ -89,6 +90,10 @@
 
 	* scripts/ui/box.js: box collapse mechanism added
 	I managed to let it transition BACK to height:auto! Yeah!
+
+	* style/splash.css: not using transition prefixes anymore
+
+	* style/toasts.css: not using transition prefixes anymore
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
