@@ -3,282 +3,318 @@
  * 
  * @returns History
  */
-define([ './swiss', '../backend/correction', './team', './strings', './options' ], function (Swiss, Correction, Team, Strings, Options) {
-  var History, rounds, byes, Result;
 
-  // 2d array: [round][resultid]
-  rounds = [];
-  byes = [];
+/**
+ * NOTES ON IMPLEMENTATION
+ * 
+ * A history consists of:
+ * 
+ * Tournaments - Multiple subsequent tournaments, which have been split from
+ * larger tournaments. The order coincides with the tournament ids. Tournaments
+ * are only added after the first game has finished
+ * 
+ * Games - consist of many (finished) games with one or more teams (players) on
+ * either side, a result of two small integer values and information about its
+ * round within the tournament and the original place in the games array (useful
+ * for structured tournaments). A compact array is good enough for storage.
+ * 
+ * Byes - In a round of a tournament, a vote can be applied. It can be a bye
+ * (0), an upvote (1) and a downvote (-1). For storage, the type, team and round
+ * is required, in this order
+ * 
+ * Corrections - For bookkeeping and transparency, records of corrected games
+ * are kept. Corrections change one finished Game into another finished Game,
+ * and as such are perfectly represented by two Game objects. A change of the
+ * round is not allowed. A compact array is good enough for storage.
+ * 
+ * An object-array structure is sufficient to store all information:
+ */
+// uncommented to avoid auto-format
+[ {
+  votes : [ [ 0, 4, 0 ] ],
+  games : [ [ 0, 2, 13, 7, 0, 0 ], [ 3, 1, 13, 12, 0, 1 ] ],
+  corrections : [ [ [ 3, 1, 12, 13, 0, 1 ], [ 3, 1, 13, 12, 0, 1 ] ] ],
+}, undefined, {
+  votes : [],
+  games : [ [ 2, 3, 13, 3, 0, 1 ] ],
+  corrections : [],
+} ];
+/**
+ * Yeah. That way, most of it is easily JSON-compressible, using a number-only
+ * format. It can contain empty entries, if a still running tournament doesn't
+ * have a finished game
+ */
 
-  Result = function (t1, t2, p1, p2) {
-    this.t1 = t1;
-    this.t2 = t2;
-    this.p1 = p1;
-    this.p2 = p2;
-  };
+define([ './tournaments' ], function (Tournaments) {
+  var History, history;
 
-  Result.prototype.clone = function () {
-    return new Result(this.t1, this.t2, this.p1, this.p2);
-  };
+  history = [];
+
+  function getTournament (id, alloc) {
+    if (alloc && !history[id]) {
+      history[id] = {
+        votes : [],
+        games : [],
+        corrections : [],
+      };
+    }
+    return history[id];
+  }
 
   History = {
     /**
-     * adds a game of the running (or just finished) round to the history
      * 
-     * @param gamed
-     *          game instance as returned by Swiss().openGames()
-     * @param points
-     *          an array with two integers representing the points
-     * @returns a copy of the result on success, undefined otherwise
+     * @param tournamentid
+     *          the id of the game's tournament
+     * @param t1
+     *          team 1
+     * @param t2
+     *          team 2
+     * @param p1
+     *          points of team 1
+     * @param p2
+     *          points of team 2
+     * @param round
+     *          (optional) the round within its subtournament
+     * @param id
+     *          (optional) the game id within its round
+     * @returns: true on success, false otherwise
      */
-    add : function (game, points) {
-      var result, round;
+    addResult : function (tournamentid, t1, t2, p1, p2, round, id) {
+      var tournament;
 
-      round = Swiss().getRanking().round - 1;
+      round = round || 0;
+      id = id || 0;
 
-      if (round === -1) {
+      // TODO validate data types and results
+
+      tournament = getTournament(tournamentid, true);
+      if (!tournament) {
+        return false;
+      }
+
+      tournament.games.push([ t1, t2, p1, p2, round, id ]);
+      return true;
+    },
+
+    /**
+     * 
+     * @param tournamentid
+     * @param before
+     *          an object containing t1, t2, p1, p2, round and id
+     * @param after
+     *          an object containing t1, t2, p1, p2, round and id
+     * @returns true on success, false otherwise
+     */
+    addCorrection : function (tournamentid, before, after) {
+      var tournament;
+
+      // TODO validate data types and values
+      // TODO check whether the result really existed
+
+      // Do not allocate. For a correction, a finished game is required.
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return false;
+      }
+
+      tournament.corrections.push([ before.t1, before.t2, before.p1, before.p2,
+          before.round || 0, before.id || 0 ], [ after.t1, after.t2, after.p1,
+          after.p2, after.round || 0, after.id || 0 ]);
+      return true;
+    },
+
+    addVote : function (tournamentid, type, team, round) {
+      var tournament;
+
+      // TODO validate data types and values
+      // TODO check whether the result really existed
+
+      tournament = getTournament(tournamentid, true);
+      if (!tournament) {
+        return false;
+      }
+
+      tournament.votes.push([ type, team, round ]);
+      return true;
+    },
+
+    /**
+     * 
+     * @param tournamentid
+     *          the tournament id
+     * @returns undefined on failure, number of finished games in this
+     *          tournament otherwise
+     */
+    numGames : function (tournamentid) {
+      var tournament;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
         return undefined;
       }
 
-      if (rounds[round] === undefined) {
-        rounds[round] = [];
+      return tournament.games.length;
+    },
+
+    /**
+     * Return all votes, for the user to search. This is way simpler than some
+     * artificial restriction
+     * 
+     * Do not manipulate!
+     * 
+     * @param tournamentid
+     *          the tournament id
+     * @returns the raw votes array of this tournament and round
+     */
+    getVotes : function (tournamentid) {
+      var tournament;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
       }
 
-      result = new Result(game.teams[0][0], game.teams[1][0], points[0], points[1]);
-
-      rounds[round].push(result);
-
-      return result.clone();
+      return tournament.votes;
     },
 
     /**
-     * remember the bye of a team for the current round
      * 
-     * @param team
-     *          Team instance of the team receiving the bye
-     */
-    addBye : function (team) {
-      var round;
-      round = Swiss().getRanking().round - 1;
-
-      while (round >= rounds.length) {
-        rounds.push([]);
-      }
-
-      byes[round] = team.id;
-    },
-
-    /**
-     * retrieve the bye of the given round
-     * 
-     * @param round
-     *          round
-     * @returns the bye (team id) if there was a bye, undefined otherwise
-     */
-    getBye : function (round) {
-      return byes[round - 1];
-    },
-
-    /**
-     * retrieves a copy of the result under the given ids
-     * 
-     * @param round
-     *          round for which to retrieve (starting at 1)
-     * @param id
-     *          id of the game (add() order, starting at 0)
-     * @returns a copy of the game on success, undefined otherwise
-     */
-    get : function (round, id) {
-      return rounds[round - 1][id].clone();
-    },
-
-    /**
-     * finds and returns the result of the game of the given teams, if present
-     * 
-     * @param team1
-     *          team 1
-     * @param team2
-     *          team 2
-     * @returns a copy of the result if successful, undefined otherwise
-     */
-    find : function (team1, team2) {
-      var round, game, numrounds, numgames, res;
-
-      numrounds = rounds.length;
-
-      for (round = 0; round < numrounds; round += 1) {
-        numgames = rounds[round].length;
-        for (game = 0; game < numgames; game += 1) {
-          res = rounds[round][game];
-          if ((res.t1 === team1 && res.t2 === team2) || (res.t1 === team2 && res.t2 === team1)) {
-            return res.clone();
-          }
-        }
-      }
-
-      return undefined;
-    },
-
-    /**
-     * Replaces an existing result with a corrected one.
-     * 
-     * @param res
-     *          the new result
-     * @returns a copy of the new result (equal to res) if successful, undefined
+     * @param tournamentid
+     *          the tournament id
+     * @returns undefined on failure, number of corrections in this tournament
      *          otherwise
      */
-    correct : function (res) {
-      var round, game, numrounds, numgames, r;
+    numCorrections : function (tournamentid) {
+      var tournament;
 
-      numrounds = rounds.length;
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
 
-      for (round = 0; round < numrounds; round += 1) {
-        numgames = rounds[round].length;
-        for (game = 0; game < numgames; game += 1) {
-          r = rounds[round][game];
-          if (res.t1 === r.t1 && res.t2 === r.t2) {
-            r.p1 = res.p1;
-            r.p2 = res.p2;
-            return r.clone();
-          }
+      return tournament.corrections.length;
+    },
+
+    numRounds : function (tournamentid, id) {
+      var tournament, games;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
+
+      return 1 + Math.max(Math.max.apply(this, tournament.games.map(function (val) {
+        return val[4];
+      })), Math.max.apply(this, tournament.votes.map(function (val) {
+        return val[2];
+      })));
+    },
+
+    /**
+     * returns the raw data of this game for further viewing.
+     * 
+     * Do not manipulate! Use corrections instead!
+     * 
+     * @param tournamentid
+     *          the id of the tournament
+     * @param id
+     *          the game id
+     * @returns the array containing game information on success, undefined
+     *          otherwise
+     */
+    getGame : function (tournamentid, id) {
+      var tournament;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
+
+      return tournament.games[id];
+    },
+
+    /**
+     * get all games of a specific round.
+     * 
+     * Do not manipulate!
+     * 
+     * @param tournamentid
+     *          the tournament id
+     * @param round
+     *          the round within its tournament
+     * @returns
+     */
+    getRound : function (tournamentid, round) {
+      var tournament, round, game;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
+
+      roundgames = [];
+
+      for (game in tournament.games) {
+        game = tournament.games[game];
+        if (game[4] === round) {
+          roundgames.push(game);
         }
       }
 
-      return undefined;
+      return roundgames;
     },
 
     /**
-     * returns the number of rounds
+     * returns a raw correction object for further viewing
      * 
-     * @returns the number of rounds
-     */
-    numRounds : function () {
-      return rounds.length;
-    },
-
-    /**
-     * returns the number of games in the given round
+     * Do not manipulate! Use Tournaments.get(tournamentid).correct() for that!
      * 
-     * @param round
-     *          round
-     * @returns number of games in that round on success, undefined otherwise
+     * @param tournamentid
+     *          the tournament id
+     * @param id
+     *          the correction id
+     * @returns a raw correction array on success, undefined otherwise
      */
-    numGames : function (round) {
-      return rounds[round - 1].length;
+    getCorrection : function (tournamentid, id) {
+      var tournament;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
+
+      return tournament.corrections[id];
+    },
+
+    reset : function () {
+      history = [];
     },
 
     /**
-     * converts the stored content to CSV format
-     */
-    toCSV : function () {
-      var lines, i;
-
-      lines = [ Strings['histhead' + Options.teamsize] ];
-
-      rounds.forEach(function (games, round) {
-        games.forEach(function (game) {
-          var t1, t2, line, i;
-          t1 = Team.get(game.t1);
-          t2 = Team.get(game.t2);
-
-          line = [];
-          line.push(round + 1);
-          line.push(t1.id + 1);
-          for (i = 0; i < Options.teamsize; i += 1) {
-            if (t1.names[i]) {
-              line.push('"' + t1.names[i].replace(/"/g, '""') + '"');
-            } else {
-              line.push('"%% %%"');
-            }
-          }
-          line.push(t2.id + 1);
-          for (i = 0; i < Options.teamsize; i += 1) {
-            if (t2.names[i]) {
-              line.push('"' + t2.names[i].replace(/"/g, '""') + '"');
-            } else {
-              line.push('"%% %%"');
-            }
-          }
-          line.push(game.p1);
-          line.push(game.p2);
-
-          lines.push(line.join(','));
-
-        });
-
-        if (byes[round] !== undefined) {
-          (function (bye) {
-            var team, line;
-            team = Team.get(bye);
-
-            line = [ round + 1, team.id + 1 ];
-
-            for (i = 0; i < Options.teamsize; i += 1) {
-              if (team.names[i]) {
-                line.push('"' + team.names[i].replace(/"/g, '""') + '"');
-              } else {
-                line.push('"%% %%"');
-              }
-            }
-
-            line.push('"Freilos"');
-            line.push('');
-            line.push('');
-            line.push('');
-            line.push(13);
-            line.push(7);
-            lines.push(line.join(','));
-          }(byes[round]));
-        }
-      });
-
-      return lines.join('\r\n');
-    },
-
-    /**
-     * store the current state in a blob, usually using JSON
+     * Serializer.
      * 
-     * @returns the blob
+     * @returns a string representation of the data
      */
     toBlob : function () {
-      return JSON.stringify({
-        rounds : rounds,
-        byes : byes
-      });
+      return JSON.stringify(history);
     },
 
     /**
-     * restore a state from a blob written by toBlob();
+     * Deserializer.
      * 
      * @param blob
-     *          the blob
+     *          a string represention with which to replace the current data
      */
     fromBlob : function (blob) {
-      var ob, copyround, copyres;
-
-      ob = JSON.parse(blob);
-
-      byes = ob.byes;
-
-      copyres = function (res) {
-        return new Result(res.t1, res.t2, res.p1, res.p2);
-      };
-
-      copyround = function (round) {
-        return round.map(copyres);
-      };
-
-      rounds = ob.rounds.map(copyround);
-    },
-
-    /**
-     * resets the history
-     */
-    reset : function () {
-      rounds = [];
-      byes = [];
+      history = JSON.parse(blob);
+      // TODO verify
     },
   };
+
+  History.BYE = 0;
+  History.UPVOTE = 1;
+  History.DOWNVOTE = -1;
 
   return History;
 });

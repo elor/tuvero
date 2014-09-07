@@ -1,7 +1,7 @@
 define([ './team', './toast', './strings', './swiss', './options',
     './tabshandle', './opts' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle, Opts) {
   var Tab_Ranking, template, shown, $tab, options, updatepending;
-  
+
   updatepending = false;
 
   Tab_Ranking = {};

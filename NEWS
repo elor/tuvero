@@ -9,6 +9,7 @@ FEATURES:
   * List view in History tab
   * Splash Screen added
   * #reset target added to delete your data in case of failure
+  * boxes can be collapsed by clicking the header
 
 PERFORMANCE IMPROVEMENTS:
 
@@ -18,3 +19,4 @@ PERFORMANCE IMPROVEMENTS:
 FIXES:
 
   * pages won't be smaller than their content
+

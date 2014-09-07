@@ -29,6 +29,7 @@ define(function () {
     function getTransitionDuration () {
       var prefix, prefixes, transition;
 
+      // TODO remove prefixes from this file
       prefixes = [ '', '-o-', '-ms-', '-moz-', '-webkit-' ];
       transition = undefined;
 

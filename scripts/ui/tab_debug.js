@@ -44,7 +44,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     for (i = 0; i < sorted.length; i += 1) {
       url = sorted[i];
-      $anchor.append($('<img>').attr('src', url).attr('alt', url));
+      $anchor.append($('<img>').attr('src', url).attr('alt', url).attr('title', url));
     }
   }
 

@@ -24,15 +24,19 @@
 	removing dangerous content (.devonly) in release versions
 	not overwriting existing window.mods variables
 	showing all <img>s at pageload in .allimages box
+	allimages: title added for hover text
 
 	* scripts/ui/tab_new.js: complete rewrite
 	create table layout to enable multiple parallel tournaments
 	first step towards tournament encapsulation
+	getRoundVotes() copied over from tab_games
+	using new History format
 
 	* scripts/ui/team.js: Team.size() added for faster development
 
 	* scripts/ui/update.js: autoformat
 	Update.isDevVersion added (only in dev versions)
+	error -> warn
 
 	* style/general.css: tables don't have border-spacing
 	wider x-margins for box headers
@@ -65,11 +69,14 @@
 
 	* scripts/ui/storage.js: combining subsequent store() calls into one
 	nagging debug text added (for now)
+	'key doesnt exist' error is now just a warning
 
 	* scripts/ui/tab_games.js: removed Tab_History.createBox() dependency
+	using new history format
 
 	* scripts/ui/tab_history.js: nextRound() removed
 	moved createBox() and createBye() into local block
+	using new history format
 
 	* scripts/ui/tab_teams.js: reduced the number of cross-Tab update calls:
 	createBox() doesn't call other Tabs anymore
@@ -94,6 +101,15 @@
 	* style/splash.css: not using transition prefixes anymore
 
 	* style/toasts.css: not using transition prefixes anymore
+
+	* scripts/ui/history.js: Complete rewrite for the following reasons:
+	accomodate for multiple tournaments
+	reduce storage space
+
+	* scripts/ui/tournaments.js: new, more efficient internal format
+	fixed tournament ids
+	getType() function added
+	Tournament now works with the same tournamentids as History
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

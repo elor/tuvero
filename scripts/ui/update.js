@@ -47,7 +47,7 @@ define([ './strings', './toast' ], function (Strings, Toast) {
     } else {
       Update.isDevVersion = true;
 
-      console.error('no cache manifest found. This is normal for development versions and release candidates.');
+      console.warn('no cache manifest found. This is normal for development versions and release candidates.');
       new Toast(Strings.dev, Toast.INFINITE);
     }
   };

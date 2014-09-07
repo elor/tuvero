@@ -6,6 +6,6 @@
 // TODO remove this whole file
 define([ './tournaments' ], function (Tournaments) {
   return function () {
-    return Tournaments.get(0);
+    return Tournaments.getTournament(0);
   };
 });

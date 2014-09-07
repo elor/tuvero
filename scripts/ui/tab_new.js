@@ -11,6 +11,42 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   $tab = undefined;
   Tab_New = {};
 
+  /**
+   * translates the Swiss ranking into a traditional votes object
+   * 
+   * TODO rewrite this file to replace this function
+   * 
+   * @param Swiss
+   *          the swiss object
+   * @returns {Object} a votes object of the current round
+   */
+  function getRoundVotes (Swiss) {
+    // FIXME duplicate within tab_new.js
+    var votes, ranking, i;
+
+    ranking = Swiss().getRanking();
+
+    votes = {
+      up : [],
+      down : [],
+      bye : undefined,
+    };
+
+    for (i = 0; i < ranking.ids.length; i += 1) {
+      if (ranking.roundupvote[i]) {
+        votes.up.push(ranking.ids[i]);
+      }
+      if (ranking.rounddownvote[i]) {
+        votes.down.push(ranking.ids[i]);
+      }
+      if (ranking.roundbyevote[i]) {
+        votes.bye = ranking.ids[i];
+      }
+    }
+
+    return votes;
+  }
+
   function initTemplate () {
     template = {
       team : {}
@@ -142,7 +178,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     // submit button
     $swiss.find('button').click(function () {
-      var i;
+      var i, bye, team, round;
       if (Swiss().getState() === 0) {
         // register players
         for (i = 0; i < Team.count(); i += 1) {
@@ -150,7 +186,16 @@ define([ './options', './tabshandle', './opts', './toast', './team',
         }
       }
       if (Swiss().start()) {
-        new Toast(Strings.roundstarted.replace('%s', Swiss().getRanking().round));
+        round = Swiss().getRanking().round;
+
+        // add the bye to history
+        bye = getRoundVotes(Swiss).bye;
+        if (bye) {
+          bye;
+          History.addVote(0, History.BYE, bye, round - 1);
+        }
+
+        new Toast(Strings.roundstarted.replace('%s', round));
         Storage.store();
 
         Tab_Games.update();

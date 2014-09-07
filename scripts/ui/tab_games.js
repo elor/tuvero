@@ -202,7 +202,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function readResults ($container) {
-    var $input, i, ret;
+    var $input, i, ret, round;
 
     ret = {
       index : -1,
@@ -292,7 +292,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
 
     // the game was accepted, store it in history
-    res = History.add(games[index], points);
+    round = Swiss().getRanking().round;
+    res = History.addResult(0, games[index].teams[0][0], games[index].teams[1][0], points[0], points[1], round - 1);
     Tab_History.update();
 
     // game was accepted. remove it.

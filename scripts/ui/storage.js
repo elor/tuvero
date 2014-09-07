@@ -118,7 +118,7 @@ define([ './options' ], function (Options) {
     for (key in keys) {
       if (loadKey(key)) {
         err = true;
-        console.error("Could not read key '" + key + "' from localStorage (yet)");
+        console.warn("Could not read key '" + key + "' from localStorage (yet)");
       }
     }
 

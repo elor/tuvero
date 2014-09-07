@@ -46,12 +46,12 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     }
 
     // fill the fields
-    template.game.$teamnos[0].text(result.t1 + 1);
-    template.game.$teamnos[1].text(result.t2 + 1);
-    template.game.$names[0].html(formatNamesHTML(result.t1));
-    template.game.$names[1].html(formatNamesHTML(result.t2));
-    template.game.$points[0].text(result.p1);
-    template.game.$points[1].text(result.p2);
+    template.game.$teamnos[0].text(result[0] + 1);
+    template.game.$teamnos[1].text(result[1] + 1);
+    template.game.$names[0].html(formatNamesHTML(result[0]));
+    template.game.$names[1].html(formatNamesHTML(result[1]));
+    template.game.$points[0].text(result[2]);
+    template.game.$points[1].text(result[3]);
 
     // release the box to the DOM
     template.$anchor.append(template.game.$game.clone());
@@ -169,6 +169,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     t2 -= 1;
 
     // find the game by team ids only
+    // TODO make it work
     res = History.find(t1, t2);
 
     if (res === undefined) {
@@ -206,12 +207,14 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     game = new Game(res.t1, res.t2);
 
     // apply correction
-    // TODO Does Swiss().correct return a game object? wouldn't need the next step
+    // TODO Does Swiss().correct return a game object? wouldn't need the next
+    // step
     Swiss().correct(game, [ op1, op2 ], [ np1, np2 ]);
 
     // store correction in history
     res.p1 = np1;
     res.p2 = np2;
+    // TODO use History.addCorrection()
     History.correct(res);
 
     // show correction and recalc ranking
@@ -438,27 +441,35 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     } else {
       updatepending = true;
       window.setTimeout(function () {
-        var round, maxround, id, numgames, bye, empty;
+        var round, maxround, id, numgames, bye, empty, votes;
 
         empty = true;
 
         Tab_History.reset();
 
-        maxround = History.numRounds();
-        for (round = 1; round <= maxround; round += 1) {
-          setRound(round);
+        votes = History.getVotes(0);
+        maxround = History.numRounds(0);
+        for (round = 0; round < maxround; round += 1) {
+          setRound(round + 1);
 
-          bye = History.getBye(round);
-          if (bye !== undefined) {
-            empty = false;
-            createBye(bye);
-          }
+          bye = undefined;
+          // search the bye for this round
+          // TODO preprocessing?
+          votes.map(function (vote) {
+            var bye;
+            if (vote[0] == History.BYE && vote[2] == round) {
+              bye = vote[1];
+              if (bye !== undefined) {
+                empty = false;
+                createBye(bye);
+              }
+            }
+          });
 
-          numgames = History.numGames(round);
-          for (id = 0; id < numgames; id += 1) {
+          History.getRound(0, round).map(function (game) {
             empty = false;
-            createBox(History.get(round, id));
-          }
+            createBox(game);
+          });
         }
 
         if (empty) {
