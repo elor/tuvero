@@ -88,6 +88,7 @@
 	* scripts/ui/test/blobs.js: testing whether Tournaments implements Blobber
 
 	* scripts/ui/box.js: box collapse mechanism added
+	I managed to let it transition BACK to height:auto! Yeah!
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
