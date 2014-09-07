@@ -10,6 +10,7 @@
 	lanes tab added (hidden)
 	history tab progresslist logic inverted
 	ranking templates update for multiple tournaments
+	games templates updated for simultaneous tournaments
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
 	calling Splash.update()
@@ -79,6 +80,8 @@
 	using new history format
 	$.delegate replaced by $.on
 	Swiss removed from includes, but I'm still working on it
+	now displaying multiple tournaments simultaneously
+	functions cleaned up while we're at it
 
 	* scripts/ui/tab_history.js: nextRound() removed
 	moved createBox() and createBye() into local block
