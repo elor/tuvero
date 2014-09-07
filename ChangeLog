@@ -9,6 +9,7 @@
 	update splash text added
 	lanes tab added (hidden)
 	history tab progresslist logic inverted
+	ranking templates update for multiple tournaments
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
 	calling Splash.update()
@@ -129,6 +130,9 @@
 	* scripts/ui/ranking.js: CSV export of multiple tournaments (not yet tested)
 
 	* scripts/ui/tab_ranking.js: swiss removed from the header, but I'm still working on it
+	process all running tournaments
+	template functions updated
+
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

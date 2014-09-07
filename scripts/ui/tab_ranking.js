@@ -1,69 +1,46 @@
 define([ './tournaments', './team', './toast', './strings', './options',
     './tabshandle', './opts' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts) {
-  var Tab_Ranking, template, shown, $tab, options, updatepending;
+  var Tab_Ranking, template, $tab, options, updatepending;
 
   updatepending = false;
 
   Tab_Ranking = {};
   options = {};
 
-  function initState () {
-    // whether a ranking has been calculated and displayed
-    // TODO use some kind of checksum
-    shown = false;
-  }
-
-  function initRankRow () {
+  function initTemplate () {
     var i, tmp;
 
     template = {};
 
-    // ranks, i.e. table rows
+    template.$box = $tab.find('div.box.tpl');
+    template.$box.detach();
+    template.$box.removeClass('tpl');
+
+    template.$boxname = template.$box.find('>h3');
+
+    // ranking table
     template.rank = {};
 
-    template.rank.$row = $tab.find('table .line.tpl');
+    template.rank.$table = template.$box.find('table.ranking');
+
+    template.rank.$row = template.rank.$table.find('.line');
     template.rank.$row.detach();
-    template.rank.$row.removeClass('tpl');
 
     tmp = template.rank.$row.find('td');
     template.rank.$fields = [];
     for (i = 0; i < tmp.length; i += 1) {
       template.rank.$fields[i] = tmp.eq(i);
     }
-    template.rank.$anchor = $tab.find('table .head');
 
     // corrections
     template.correction = {};
 
-    updateTemplate();
-  }
+    template.correction.$container = template.$box.find('.corrections');
+    template.correction.$container.detach();
 
-  function updateTemplate () {
-    var i;
-    // adjust number of columns to the teamsize
-    $tab.find('table th:nth-child(3)').attr('colspan', Options.teamsize);
-
-    // hide unimportant columns
-    for (i = 0; i < Options.maxteamsize; i += 1) {
-      if (i < Options.teamsize) {
-        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', '');
-      } else {
-        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', 'none');
-      }
-    }
-  }
-
-  function initCorrection () {
-    var i, tmp;
-    // prepare nodes
-
-    template.correction.$correction = $tab.find('.corr.tpl');
-
+    template.correction.$correction = template.$box.find('.corr');
     template.correction.$correction.detach();
-    template.correction.$correction.removeClass('tpl');
 
-    template.correction.$container = $tab.find('.corrections');
-    template.correction.$anchor = $tab.find('.corrections > table');
     template.correction.$points = [];
     tmp = template.correction.$correction.find('.points span');
     for (i = 0; i < tmp.length; i += 1) {
@@ -75,8 +52,22 @@ define([ './tournaments', './team', './toast', './strings', './options',
       template.correction.$teamnos[i] = tmp.eq(i);
     }
 
-    // hide all corrections initially
-    showCorrections();
+    updateTemplate();
+  }
+
+  function updateTemplate () {
+    var i;
+    // adjust number of columns to the teamsize
+    template.rank.$table.find('th:nth-child(3)').attr('colspan', Options.teamsize);
+
+    // hide unimportant columns
+    for (i = 0; i < Options.maxteamsize; i += 1) {
+      if (i < Options.teamsize) {
+        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', '');
+      } else {
+        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', 'none');
+      }
+    }
   }
 
   function init () {
@@ -88,9 +79,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     $tab = $('#ranking');
 
-    initState();
-    initRankRow();
-    initCorrection();
+    initTemplate();
 
     // TODO reload within ranking tab?
     // Tabshandle.hide('ranking');
@@ -146,55 +135,48 @@ define([ './tournaments', './team', './toast', './strings', './options',
   /**
    * @returns {boolean} false on failure, true on success
    */
-  function showRanks () {
-    var ranking, rank, empty;
+  function showRanking (Tournament, $box) {
+    var ranking, rank, $container, notempty;
 
-    empty = true;
+    $container = template.rank.$table.clone();
 
-    if (Swiss().getRanking().round <= 0) {
+    if (Tournament.getRanking().round <= 0) {
       Tabshandle.hide('ranking');
       return false;
     }
 
-    Tab_Ranking.reset();
+    ranking = Tournament.getRanking();
 
-    ranking = Swiss().getRanking();
-
-    for (rank = ranking.ids.length - 1; rank >= 0; rank -= 1) {
-      template.rank.$anchor.after(createRankRow(rank, ranking));
-      empty = false;
+    for (rank = 0; rank < ranking.ids.length; rank += 1) {
+      $container.append(createRankRow(rank, ranking));
     }
 
-    if (!shown) {
-      // TODO move somewhere else
-      $tab.find('.preparing').hide();
-      shown = true;
+    notempty = ranking.ids.length > 0;
+
+    if (notempty) {
+      $box.append($container);
     }
 
-    return !empty;
-  }
-
-  /**
-   * removes all correction DOM nodes
-   */
-  function clearCorrections () {
-    $tab.find('.corrections .corr').remove();
+    return notempty;
   }
 
   /**
    * retrieves the corrections and displays them in the correction table
    */
-  function showCorrections () {
-    var corrections, empty;
+  function showCorrections (Tournament, $box) {
+    var corrections, empty, $container, $table;
 
     empty = true;
 
-    corrections = Swiss().getCorrections();
+    corrections = Tournament.getCorrections();
 
     if (corrections === undefined || corrections.length === 0) {
       template.correction.$container.hide();
       return false;
     }
+
+    $container = template.correction.$container.clone();
+    $table = $container.find('table.correctiontable');
 
     corrections.forEach(function (correction) {
       var tid;
@@ -211,15 +193,13 @@ define([ './tournaments', './team', './toast', './strings', './options',
       template.correction.$points[2].text(correction.newpoints[0]);
       template.correction.$points[3].text(correction.newpoints[1]);
 
-      template.correction.$anchor.append(template.correction.$correction.clone());
+      $table.append(template.correction.$correction.clone());
 
       empty = false;
     });
 
-    if (empty) {
-      template.correction.$container.hide();
-    } else {
-      template.correction.$container.show();
+    if (!empty) {
+      $box.append($container);
     }
 
     return !empty;
@@ -230,25 +210,48 @@ define([ './tournaments', './team', './toast', './strings', './options',
       init();
     }
 
-    // delete everything
-    $tab.find('table .line').remove();
-    clearCorrections();
+    // delete everything, i.e. the wrapping box
+    $tab.find('.box').remove();
 
-    // reset everything
+    // update template to the team size
     updateTemplate();
   };
 
-  function update () {
-    var hidden;
+  function updateTournamentRankings () {
+    var hidden, tournamentid, tournament, keepbox, $box;
 
     hidden = true;
 
-    if (showRanks()) {
-      hidden = false;
-    }
+    Tab_Ranking.reset();
 
-    if (showCorrections()) {
-      hidden = false;
+    for (tournamentid = 0; tournamentid < Tournaments.size(); tournamentid += 1) {
+
+      // skip finished tournaments
+      // TODO print past rankings!
+      if (!Tournaments.isRunning) {
+        continue;
+      }
+
+      tournament = Tournaments.getTournament(tournamentid);
+
+      keepbox = false;
+
+      template.$boxname.text(Tournaments.getName(tournamentid));
+      $box = template.$box.clone();
+
+      if (showRanking(tournament, $box)) {
+        hidden = false;
+        keepbox = true;
+      }
+
+      if (showCorrections(tournament, $box)) {
+        hidden = false;
+        keepbox = true;
+      }
+
+      if (keepbox) {
+        $tab.append($box);
+      }
     }
 
     if (hidden) {
@@ -265,7 +268,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     } else {
       updatepending = true;
       window.setTimeout(function () {
-        if (update() === true) {
+        if (updateTournamentRankings() === true) {
           // new Toast(Strings.rankingupdate);
         }
         updatepending = false;
