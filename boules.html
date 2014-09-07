@@ -188,6 +188,11 @@
           <p><em>Coming later</em></p>
         </div>
 
+        <div class="box supermelee">
+          <h3>Supermelee</h3>
+          <p><em>Coming some time in the future</em></p>
+        </div>
+
       </div>
 
       <div id="games" accesskey="g">
@@ -478,52 +483,16 @@
         <div class="box">
           <h3>Entwicklerwerkzeuge</h3>
           <div class="devel">
-            <a href="test.html"><img src="images/test.png" alt="unit tests" /><br>Unit Tests</a>
-            <a href="NEWS"><img src="images/file.png" alt="NEWS" /><br>NEWS</a>
-            <a href="ChangeLog"><img src="images/file.png" alt="ChangeLog" /><br>ChangeLog</a>
-            <a href="TODO"><img src="images/file.png" alt="TODO" /><br>TODO</a>
-            <a href="BUGS"><img src="images/file.png" alt="BUGS" /><br>BUGS</a>
-            <a href="manifest.appcache"><img src="images/file.png" alt="manifest" /><br>Manifest</a>
+            <a href="test.html" target="_blank"><img src="images/test.png" alt="unit tests" /><br>Unit Tests</a>
+            <a href="NEWS" target="_blank"><img src="images/file.png" alt="NEWS" /><br>NEWS</a>
+            <a href="ChangeLog" target="_blank"><img src="images/file.png" alt="ChangeLog" /><br>ChangeLog</a>
+            <a href="TODO" target="_blank"><img src="images/file.png" alt="TODO" /><br>TODO</a>
+            <a href="BUGS" target="_blank"><img src="images/file.png" alt="BUGS" /><br>BUGS</a>
+            <a href="manifest.appcache" target="_blank"><img src="images/file.png" alt="manifest" /><br>Manifest</a>
             <a href="#debug"><img src="images/debug.png" alt="debugging console" /><br>Debug</a>
           </div>
         </div>
 
-      </div>
-
-      <div id="debug">
-        <h2>Debugging Console</h2>
-
-        <form class="register">
-          <button type="button" class="delete">
-            Alles löschen
-          </button>
-          <input class="num" type="number" min="0" max="9999" value="33" placeholder="Spielerzahl" />
-          <button type="submit" class="submit">
-            Teams anmelden
-          </button>
-        </form>
-
-        <form class="tournament">
-          <button class="all">
-            Turnier durchspielen
-          </button>
-          <button class="start">
-            Runde starten
-          </button>
-          <button class="round">
-            Runde ausspielen
-          </button>
-        </form>
-
-        <form class="script">
-          <button class="loadmods">
-            RequireJS -> var mods (global)
-          </button>
-          <button class="updatetabs">
-            Alle Tabs neu laden
-          </button>
-
-        </form>
       </div>
 
       <div id="about" accesskey="?">
@@ -636,7 +605,7 @@
             <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
               <input type="hidden" name="cmd" value="_s-xclick">
               <input type="hidden" name="hosted_button_id" value="ZCU4ZVDREECYE">
-              <input type="image" src="https://www.paypalobjects.com/de_DE/DE/i/btn/btn_donateCC_LG.gif" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
+              <input type="image" src="images/ext/btn_donateCC_LG.gif" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
               <img alt="" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
             </form>
             <form class="donate" action="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R" target="_blank">
@@ -644,6 +613,49 @@
             </form>
           </div>
         </div>
+      </div>
+
+      <div id="debug">
+        <h2>Debugging Console</h2>
+
+        <div class="box">
+          <h3>GUI Shortcuts</h3>
+          <form class="register">
+            <button type="button" class="delete">
+              Alles löschen
+            </button>
+            <input class="num" type="number" min="0" max="9999" value="33" placeholder="Spielerzahl" />
+            <button type="submit" class="submit">
+              Teams anmelden
+            </button>
+          </form>
+
+          <form class="tournament">
+            <button class="all">
+              Turnier durchspielen
+            </button>
+            <button class="start">
+              Runde starten
+            </button>
+            <button class="round">
+              Runde ausspielen
+            </button>
+          </form>
+
+          <form class="script">
+            <button class="loadmods">
+              RequireJS -> var mods (global)
+            </button>
+            <button class="updatetabs">
+              Alle Tabs neu laden
+            </button>
+          </form>
+      </div>
+      <div class="box allimages">
+        <h3>Images at Pageload</h3>
+        <!-- All images get inserted here -->
+      </div>
+        
       </div>
 
     </div>

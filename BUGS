@@ -1,7 +1,4 @@
 [REPORTED]
-* Tab_History: Round 2 not started
-* Toast: chunky positioning right before a toast disappears
-  caused by its <br> tag and possibly its padding/margin  
 * Opera: tab_games: bye character doesn't display properly. Font problem?
 * Opera: downloads don't have a name
 * Opera: INVALID_CHARACTER_ERR on CSV export
@@ -11,13 +8,21 @@
 * IE11: seams everywhere
 * IE11: Cannot download
 * IE11: FileReader cannot readAsBinaryString
-* github.io: autocomplete encoding is messed up
-* release version: must reload twice due to manifest update
 * Firefox, Opera, Safari: Print Page doesn't show anything (doesn't it print the subpages?)
-* "alles löschen": doesn't clear .newteam input
+
+[CONFIRMED]
+* Toast: chunky positioning right before a toast disappears
+  caused by its <br> tag and possibly its padding/margin  
+
+[SHOULD BE FIXED]
+* Tab_History: Round 2 not started
+* github.io: autocomplete encoding is messed up
+* Tab_Debug clearEverything(): doesn't clear .newteam input
 * History doesn't appear
-  
+
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible
   cannot be fixed properly due to inconsistent default behavior:
   'visible' becomes 'auto' if used with 'hidden' as overflow-x
+* release version: must reload twice due to manifest update
+  A note should now appear to notify the user

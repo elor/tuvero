@@ -12,6 +12,42 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   Letters = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
       'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
 
+  function showAllImages () {
+    var $anchor, $images, imagepaths, i, url, sorted;
+
+    $anchor = $tab.find('.allimages');
+    $images = $('img');
+    images = {};
+
+    for (i = 0; i < $images.length; i += 1) {
+      url = $($images.get(i)).attr('src');
+      if (/^(https?:\/\/)?images/.test(url)) {
+        images[url] = true;
+      }
+    }
+
+    $images = $('input[type="image"]');
+    for (i = 0; i < $images.length; i += 1) {
+      url = $($images.get(i)).attr('src');
+      if (/^(https?:\/\/)?images/.test(url)) {
+        images[url] = true;
+      }
+    }
+
+    sorted = [];
+
+    for (url in images) {
+      sorted.push(url);
+    }
+
+    sorted.sort();
+
+    for (i = 0; i < sorted.length; i += 1) {
+      url = sorted[i];
+      $anchor.append($('<img>').attr('src', url).attr('alt', url));
+    }
+  }
+
   function randomName () {
     var first, last, length, i;
 
@@ -270,6 +306,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     $tab = $('#debug');
 
     initForms();
+    showAllImages();
   }
 
   /**

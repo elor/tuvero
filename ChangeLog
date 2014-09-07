@@ -2,6 +2,10 @@
 
 	* boules.html: #new tab drastically rearranged
 	#reset accesskey added
+	supermelee placeholder added
+	debug tab relocated
+	donate button image placed in image/ext/
+	#debug .box.allimages added
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
 
@@ -14,6 +18,7 @@
 	* scripts/ui/tab_debug.js: automatically adding window.mods in dev versions
 	removing dangerous content (.devonly) in release versions
 	not overwriting existing window.mods variables
+	showing all <img>s at pageload in .allimages box
 
 	* scripts/ui/tab_new.js: complete rewrite
 	create table layout to enable multiple parallel tournaments

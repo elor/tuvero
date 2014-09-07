@@ -1,6 +1,4 @@
 [next]
-* '/#reset' target for clearing the storage
-* reload image: center (for rotation)
 * automatic overview over all icons and images
 * history: use separate button for corrections
 * show up/downvotes in history
@@ -8,21 +6,18 @@
 * pageload when registration is still open -> load playernames
 * redesign the settings tab
 * combine and style the localStorage meters
-* add localStorage meter to show how much is still available
 * rotate reload and save preparation buttons ^^
 * use modernizr html.[class] definitions
-* provide an update check and status indicator
-* write readme
+* write readme (-> Fabe)
 * add global options (installation-specific) instead of storing them in the database/save files
 * add user options, as opposed to global options and tournament options
 * add tab options to user options
-* add list view for running games
-* combine history and games?
+* add list view for running games (Fortschrittsliste)
 * ranking: export number of games to csv
 * options: save autosave status
-* loading screen for page load
 * loading screen for round start
 * tab_games: show vote icons next to the names. Bye still separate
+* K.O. frontend
 
 [next-to-next]
 * test random number generator again!
@@ -39,11 +34,10 @@
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
 
 [later]
-* debug tab in external tab
+* debug tab in external window
 * use html classes instead of $.hide()/$.show()
 * style file input tags
 * test debug.js
-* add autocomplete to player rename
 * test players and autocomplete
 * clean up tab_new.js and tab_games.js; merge redundant functions
 * clean up tab_teams (reset functions in particular)
@@ -53,12 +47,11 @@
 * Autosave to disk (every n minutes, after every major change)
 * Pdf export of registered players
 * Pdf export of ranking page
-* Pdf export of Detlef's list
+* Pdf export of Detlef's list (Fortschrittsliste)
 * tournament presets (PVO, Chemnitz, ...)
 * multiple parallel tournaments (-> Maastricht K.O. rounds, pools, ...)
 * Supermelee backend
 * Poules backend
-* K.O. frontend
 * tab_games: when finishing a game, focus the next game in list
 
 [ongoing]
