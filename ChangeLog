@@ -13,6 +13,7 @@
 	calling Splash.update()
 
 	* scripts/ui/options.js: restructuring started
+	tournament key changed to 'boulestournament'
 
 	* scripts/ui/reset.js: moving to #debug after reload
 
@@ -75,6 +76,11 @@
 	* scripts/backend/swisstournament.js: getType() added
 
 	* scripts/backend/tournament.js: getType() added to interface
+
+	* scripts/ui/swiss.js: only referencing tournaments.js anymore
+	tournaments key changed from 'swiss' to 'tournaments'
+
+	* scripts/ui/state.js: swapped Swiss with Tournaments
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

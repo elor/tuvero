@@ -206,8 +206,8 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     game = new Game(res.t1, res.t2);
 
     // apply correction
-    // TODO Does Swiss.correct return a game object? wouldn't need the next step
-    Swiss.correct(game, [ op1, op2 ], [ np1, np2 ]);
+    // TODO Does Swiss().correct return a game object? wouldn't need the next step
+    Swiss().correct(game, [ op1, op2 ], [ np1, np2 ]);
 
     // store correction in history
     res.p1 = np1;

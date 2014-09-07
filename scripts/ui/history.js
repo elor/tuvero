@@ -26,7 +26,7 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
      * adds a game of the running (or just finished) round to the history
      * 
      * @param gamed
-     *          game instance as returned by Swiss.openGames()
+     *          game instance as returned by Swiss().openGames()
      * @param points
      *          an array with two integers representing the points
      * @returns a copy of the result on success, undefined otherwise
@@ -34,7 +34,7 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
     add : function (game, points) {
       var result, round;
 
-      round = Swiss.getRanking().round - 1;
+      round = Swiss().getRanking().round - 1;
 
       if (round === -1) {
         return undefined;
@@ -59,7 +59,7 @@ define([ './swiss', '../backend/correction', './team', './strings', './options' 
      */
     addBye : function (team) {
       var round;
-      round = Swiss.getRanking().round - 1;
+      round = Swiss().getRanking().round - 1;
 
       while (round >= rounds.length) {
         rounds.push([]);

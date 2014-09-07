@@ -157,7 +157,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   function showRunning () {
     clearGames();
 
-    Swiss.getGames().forEach(function (game) {
+    Swiss().getGames().forEach(function (game) {
       appendGame(game);
     });
   }
@@ -167,8 +167,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    */
   function showRound () {
     // getRanking() is actually buffered, so no caveat here
-    $tab.find('.round').text(Swiss.getRanking().round);
-    $tab.find('.nextround').text(Swiss.getRanking().round + 1);
+    $tab.find('.round').text(Swiss().getRanking().round);
+    $tab.find('.nextround').text(Swiss().getRanking().round + 1);
   }
 
   function showTab () {
@@ -276,7 +276,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     index = result.index;
     points = result.points;
 
-    if (Swiss.finishGame(games[index], points) === undefined) {
+    if (Swiss().finishGame(games[index], points) === undefined) {
       // game was somehow invalid. Someone tampered with the system.
 
       // redraw all games
@@ -330,7 +330,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       showTab();
       // open tab_new
 
-      new Toast(Strings.roundfinished.replace('%s', Swiss.getRanking().round));
+      new Toast(Strings.roundfinished.replace('%s', Swiss().getRanking().round));
     }
 
     // save changes
@@ -374,7 +374,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
-    ranking = Swiss.getRanking();
+    ranking = Swiss().getRanking();
 
     votes = {
       up : [],

@@ -211,11 +211,11 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     Swiss = require('./swiss');
 
     starttime = new Date();
-    if (Swiss.getState() != 1) {
+    if (Swiss().getState() != 1) {
       startRound() || startRound() || startRound();
     }
 
-    if (Swiss.getState() == 1) {
+    if (Swiss().getState() == 1) {
       finishRound(undefined, 1000);
       window.setTimeout(playTournament, 1);
     } else {

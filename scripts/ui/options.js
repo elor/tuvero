@@ -16,7 +16,7 @@ define(function () {
     maxpoints : 15,
     // user-specific
     // local : {},
-    dbname : 'swiss',
+    dbname : 'boulestournament',
     dbplayername : 'players',
     roundtries : 20,
     // tournament-specific

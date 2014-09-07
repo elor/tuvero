@@ -2,8 +2,8 @@
  * interface for creating a singular blob for data necessary to continue the
  * state in a different user session.
  */
-define([ './options', './tabshandle', './team', './history', './swiss',
-    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new' ], function (Options, Tabshandle, Team, History, Swiss, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New) {
+define([ './options', './tabshandle', './team', './history', './tournaments',
+    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new' ], function (Options, Tabshandle, Team, History, Tournaments, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New) {
   var State;
 
   State = {
@@ -17,7 +17,7 @@ define([ './options', './tabshandle', './team', './history', './swiss',
         options : Options.toBlob(),
         team : Team.toBlob(),
         history : History.toBlob(),
-        swiss : Swiss.toBlob()
+        tournaments : Tournaments.toBlob()
       });
     },
 
@@ -44,7 +44,7 @@ define([ './options', './tabshandle', './team', './history', './swiss',
 
       Team.fromBlob(ob.team);
       History.fromBlob(ob.history);
-      Swiss.fromBlob(ob.swiss);
+      Tournaments.fromBlob(ob.tournaments);
 
       // update all tabs
       Tab_Teams.update();
@@ -62,7 +62,7 @@ define([ './options', './tabshandle', './team', './history', './swiss',
     reset : function () {
       Team.reset();
       History.reset();
-      Swiss.reset();
+      Tournaments.reset();
       Options.reset();
       Tabshandle.updateOpts();
     },

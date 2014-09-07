@@ -1,7 +1,7 @@
 define([ './team', './toast', './strings', './swiss', './options',
     './tabshandle', './opts' ], function (Team, Toast, Strings, Swiss, Options, Tabshandle, Opts) {
   var Tab_Ranking, template, shown, $tab, options, updatepending;
-
+  
   updatepending = false;
 
   Tab_Ranking = {};
@@ -151,14 +151,14 @@ define([ './team', './toast', './strings', './swiss', './options',
 
     empty = true;
 
-    if (Swiss.getRanking().round <= 0) {
+    if (Swiss().getRanking().round <= 0) {
       Tabshandle.hide('ranking');
       return false;
     }
 
     Tab_Ranking.reset();
 
-    ranking = Swiss.getRanking();
+    ranking = Swiss().getRanking();
 
     for (rank = ranking.ids.length - 1; rank >= 0; rank -= 1) {
       template.rank.$anchor.after(createRankRow(rank, ranking));
@@ -189,7 +189,7 @@ define([ './team', './toast', './strings', './swiss', './options',
 
     empty = true;
 
-    corrections = Swiss.getCorrections();
+    corrections = Swiss().getCorrections();
 
     if (corrections === undefined || corrections.length === 0) {
       template.correction.$container.hide();

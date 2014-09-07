@@ -1,19 +1,11 @@
 /**
  * This object is intended to create and reference a Swisstournament singleton
+ * 
+ * @deprecated
  */
-define([ '../backend/swisstournament' ], function (Swisstournament) {
-  var Swiss;
-
-  Swiss = new Swisstournament();
-
-  if (Swiss.reset) {
-    console.error('Swiss.reset() already defined');
-    return undefined;
-  }
-
-  Swiss.reset = function () {
-    Swiss.fromBlob((new Swisstournament()).toBlob());
+// TODO remove this whole file
+define([ './tournaments' ], function (Tournaments) {
+  return function () {
+    return Tournaments.get(0);
   };
-
-  return Swiss;
 });

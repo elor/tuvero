@@ -12,13 +12,13 @@ define([ './swiss', './team', './strings', './options' ], function (Swiss, Team,
     toCSV : function () {
       var lines, ranking, rank, length, corrs, makeline, i;
 
-      if (Swiss.getRanking().round <= 0) {
+      if (Swiss().getRanking().round <= 0) {
         return '';
       }
 
       lines = [ Strings['rankhead' + Options.teamsize] ];
 
-      ranking = Swiss.getRanking();
+      ranking = Swiss().getRanking();
 
       makeline = function (rnk) {
         var line, tid, team, vote, i;
@@ -66,7 +66,7 @@ define([ './swiss', './team', './strings', './options' ], function (Swiss, Team,
         lines.push(makeline(rank));
       }
 
-      corrs = Swiss.getCorrections();
+      corrs = Swiss().getCorrections();
 
       if (corrs !== undefined && corrs.length !== 0) {
         lines.push('');
