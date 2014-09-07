@@ -5,6 +5,7 @@
 
 #new > div.box {
   display: inline-block;
+  vertical-align: top;
 }
 
 #new .playertable td,

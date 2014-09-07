@@ -11,6 +11,7 @@
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
 	calling Splash.update()
+	Box reference added for requirejs
 
 	* scripts/ui/options.js: restructuring started
 	tournament key changed to 'boulestournament'
@@ -35,8 +36,10 @@
 
 	* style/general.css: tables don't have border-spacing
 	wider x-margins for box headers
+	collapsed box style added
 
 	* style/new.css: restyled
+	'TODO' boxes are vertically aligned
 
 	* style/tabs.css: page content fades in after pageload
 	tab menu has fixed height (quadratic images)
@@ -83,6 +86,8 @@
 	* scripts/ui/state.js: swapped Swiss with Tournaments
 
 	* scripts/ui/test/blobs.js: testing whether Tournaments implements Blobber
+
+	* scripts/ui/box.js: box collapse mechanism added
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -95,6 +95,10 @@ div.box {
   min-width: min-content;
 }
 
+div.box.collapsed {
+  border-radius: 1em 1em 0em 0em;
+}
+
 div.box > h3:first-child {
   position: relative;
   display: block;
