@@ -82,6 +82,8 @@
 
 	* scripts/ui/state.js: swapped Swiss with Tournaments
 
+	* scripts/ui/test/blobs.js: testing whether Tournaments implements Blobber
+
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class
