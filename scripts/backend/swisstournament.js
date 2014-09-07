@@ -1105,6 +1105,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
   Swisstournament.prototype.getOptions = Options.prototype.getOptions;
   Swisstournament.prototype.setOptions = Options.prototype.setOptions;
+  Swisstournament.prototype.getType = function () {
+    return 'swiss';
+  };
 
   // TODO add 'interlaced' swiss mode
   Swisstournament.MODES = [ 'wins', 'halves', 'random' ];

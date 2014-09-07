@@ -115,6 +115,14 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
         return [];
       },
 
+      /**
+       * returns a type identifier, e.g. 'swiss' or 'ko'
+       * 
+       * @returns a static string describing the tournament type
+       */
+      getType : function () {
+        return '';
+      },
     },
 
     Extends : [ Blobber, Options.Interface ],

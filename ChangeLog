@@ -70,6 +70,12 @@
 	createBox() doesn't call other Tabs anymore
 	updateAfterTeamAdd() added
 
+	* scripts/backend/kotournament.js: getType() added
+
+	* scripts/backend/swisstournament.js: getType() added
+
+	* scripts/backend/tournament.js: getType() added to interface
+
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class

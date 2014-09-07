@@ -462,6 +462,9 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
   KOTournament.prototype.getOptions = Options.prototype.getOptions;
   KOTournament.prototype.setOptions = Options.prototype.setOptions;
+  KOTournament.prototype.getType = function () {
+    return 'ko';
+  };
 
   KOTournament.prototype.getCorrections = function () {
     // TODO return corrections
