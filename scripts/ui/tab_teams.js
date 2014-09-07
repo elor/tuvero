@@ -47,7 +47,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       return false;
     });
 
-    $('body').delegate('#teams.deletion', 'click', function (e) {
+    $('body').on('click', '#teams.deletion', function (e) {
       // delete the team
       var $this;
 
@@ -529,7 +529,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
     // ================== FUNCTIONS END ==================
 
-    $tab.delegate('.team .name', 'click', function () {
+    $tab.on('click', '.team .name', function () {
       var $name;
 
       if (deletionPending()) {

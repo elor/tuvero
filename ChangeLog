@@ -8,6 +8,7 @@
 	#debug .box.allimages added
 	update splash text added
 	lanes tab added (hidden)
+	history tab progresslist logic inverted
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
 	calling Splash.update()
@@ -73,14 +74,19 @@
 
 	* scripts/ui/tab_games.js: removed Tab_History.createBox() dependency
 	using new history format
+	$.delegate replaced by $.on
 
 	* scripts/ui/tab_history.js: nextRound() removed
 	moved createBox() and createBye() into local block
 	using new history format
+	missing variable added
+	corrections fixed again (They now work with the new History format)
+	progresstable checkbox logic changed
 
 	* scripts/ui/tab_teams.js: reduced the number of cross-Tab update calls:
 	createBox() doesn't call other Tabs anymore
 	updateAfterTeamAdd() added
+	$.delegate replaced by $.on
 
 	* scripts/backend/kotournament.js: getType() added
 
@@ -105,11 +111,15 @@
 	* scripts/ui/history.js: Complete rewrite for the following reasons:
 	accomodate for multiple tournaments
 	reduce storage space
+	History.findGames() added to find games by participating teams
+
 
 	* scripts/ui/tournaments.js: new, more efficient internal format
 	fixed tournament ids
 	getType() function added
 	Tournament now works with the same tournamentids as History
+
+	* style/history.css: progresslist logic flipped
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

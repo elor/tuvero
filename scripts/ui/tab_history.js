@@ -88,6 +88,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   function showCorrection ($game) {
     var $points;
 
+    // TODO somehow store the actual game id!
     $button = $game.find('button.correct');
     $points = $button.find('.points');
     $points = [ $($points[0]), $($points[1]) ];
@@ -117,7 +118,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   function saveCorrection () {
     // TODO validate everything:
     // * point ranges * a-z * space
-    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp;
+    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp, correction;
 
     if ($button === undefined) {
       return undefined;
@@ -169,10 +170,9 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     t2 -= 1;
 
     // find the game by team ids only
-    // TODO make it work
-    res = History.find(t1, t2);
+    res = History.findGames(0, t1, t2);
 
-    if (res === undefined) {
+    if (res === undefined || res.length === 0) {
       new Toast(Strings.invalidresult);
       // TODO don't abort?
       abortCorrection();
@@ -181,8 +181,19 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       return undefined;
     }
 
-    // correct new points order if necessary
-    if (t1 === res.t2) {
+    if (res.length !== 1) {
+      console.error('History.findGames() result contains more than 1 match');
+      // TODO don't abort?
+      abortCorrection();
+      // TODO event passing
+      Tab_History.update();
+      return undefined;
+    }
+
+    res = res[0];
+
+    // flip team order if necessary (shouldn't be, but let's be careful)
+    if (t1 === res[1]) {
       tmp = np1;
       np1 = np2;
       np2 = tmp;
@@ -193,7 +204,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     }
 
     // compare original points with saved ones
-    if (res.p1 !== op1 || res.p2 !== op2) {
+    if (res[2] !== op1 || res[3] !== op2) {
       new Toast(Strings.invalidresult);
       // TODO don't abort?
       abortCorrection();
@@ -202,20 +213,24 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
       return undefined;
     }
 
-    // create Game instance (old one is already destroyed, but swiss doesn't
-    // mind)
-    game = new Game(res.t1, res.t2);
+    // create Game instance (old one is already destroyed, but the backend is
+    // designed to not mind
+    game = new Game(res[0], res[1]);
 
     // apply correction
     // TODO Does Swiss().correct return a game object? wouldn't need the next
     // step
+    // FIXME Why store two separate representations of the same correction?
+    // Can I just use the tournament correction all the time?
+    // This problem is related to the post-tournament ranking storage
     Swiss().correct(game, [ op1, op2 ], [ np1, np2 ]);
 
+    correction = res.slice(0);
+
     // store correction in history
-    res.p1 = np1;
-    res.p2 = np2;
-    // TODO use History.addCorrection()
-    History.correct(res);
+    correction[2] = np1;
+    correction[3] = np2;
+    History.addCorrection(0, res, correction);
 
     // show correction and recalc ranking
     // TODO event passing
@@ -237,7 +252,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   }
 
   function initOptions () {
-    var $maxwidthbox, $shownamesbox, $compactbox;
+    var $maxwidthbox, $shownamesbox, $progressbox;
 
     // show or hide playernames
     $maxwidthbox = $tab.find('.options .maxwidth');
@@ -267,30 +282,31 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     $shownamesbox.click(shownamestest);
     shownamestest();
 
-    // use compact layout
-    $compactbox = $tab.find('.options .compact');
-    function compacttest () {
-      if ($compactbox.prop('checked')) {
-        $tab.addClass('compact');
+    // use progress layout
+    $progressbox = $tab.find('.options .progress');
+    function progresstest () {
+      if ($progressbox.prop('checked')) {
+        $tab.addClass('progress');
       } else {
-        $tab.removeClass('compact');
+        $tab.removeClass('progress');
       }
     }
 
-    $compactbox.click(compacttest);
-    compacttest();
+    $progressbox.click(progresstest);
+    progresstest();
   }
 
   function initCorrection () {
     $button = undefined;
 
-    $tab.delegate('.game .correct', 'click', function () {
+    $tab.on('click', '.game .correct', function () {
       var $game;
 
+      // abort previous correction attempts
       abortCorrection();
 
       $button = $(this);
-      // TODO necessary?
+      // move to the actual button, if the user clicked the span
       if ($button.prop('tagName') === 'SPAN') {
         $button = $button.parent();
       }

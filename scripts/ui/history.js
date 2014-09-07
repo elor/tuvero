@@ -30,6 +30,7 @@
  * An object-array structure is sufficient to store all information:
  */
 // uncommented to avoid auto-format
+// FIXME allow more than 1 player per team (Supermelee)
 [ {
   votes : [ [ 0, 4, 0 ] ],
   games : [ [ 0, 2, 13, 7, 0, 0 ], [ 3, 1, 13, 12, 0, 1 ] ],
@@ -246,7 +247,7 @@ define([ './tournaments' ], function (Tournaments) {
      * @returns
      */
     getRound : function (tournamentid, round) {
-      var tournament, round, game;
+      var tournament, game, roundgames;
 
       tournament = getTournament(tournamentid);
       if (!tournament) {
@@ -263,6 +264,39 @@ define([ './tournaments' ], function (Tournaments) {
       }
 
       return roundgames;
+    },
+
+    /**
+     * get all games of a specific round.
+     * 
+     * Do not manipulate!
+     * 
+     * @param tournamentid
+     *          the tournament id
+     * @param t1
+     *          team id 1
+     * @param t2
+     *          team id 2
+     * @returns
+     */
+    findGames : function (tournamentid, t1, t2) {
+      var tournament, round, game, matches;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
+
+      matches = [];
+
+      for (game in tournament.games) {
+        game = tournament.games[game];
+        if ((game[0] === t1 && game[1] === t2) || (game[0] === t2 && game[1] === t1)) {
+          matches.push(game);
+        }
+      }
+
+      return matches;
     },
 
     /**

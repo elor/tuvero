@@ -13,6 +13,7 @@
 [CONFIRMED]
 * Toast: chunky positioning right before a toast disappears
   caused by its <br> tag and possibly its padding/margin  
+* History cannot store more than two teams per game (Supermelee)
 
 [SHOULD BE FIXED]
 * Tab_History: Round 2 not started

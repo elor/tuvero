@@ -1,5 +1,9 @@
-#history.compact .box {
+#history .box {
   display: inline-block;
+}
+
+#history.progress .box {
+  display: block;
 }
 
 #history .box table {

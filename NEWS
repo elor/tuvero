@@ -15,6 +15,7 @@ PERFORMANCE IMPROVEMENTS:
 
   * compressing swisstournament data to enable more than 2000 players
   * performance improved for all tabs by combining successive updates
+  * history packing improved (unnecessary keys removed)
 
 FIXES:
 

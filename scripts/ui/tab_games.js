@@ -44,7 +44,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     /**
      * disable/enable the submit button if input is valid
      */
-    $tab.delegate('.game input', 'change', function () {
+    $tab.on('change', '.game input', function () {
       var $button = $(this).parent().find('button');
 
       if (readResults($(this).parents('.game')) === undefined) {
@@ -57,7 +57,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     });
 
-    $tab.delegate('.game', 'submit', function (event) {
+    $tab.on('submit', '.game', function (event) {
       finishGame.call(this);
       event.preventDefault();
       return false;
