@@ -35,6 +35,16 @@
 
 	* scripts/ui/splash.js: double-slide fix for splash screen
 
+	* images/lane.png: renamed to lanes.png
+
+	* images/lanes.png: renamed from lane.png
+	redesigned
+
+	* images/svg/lanes.svg: renamed from lane.svg
+	redesigned
+
+	* images/svg/lane.svg: renamed to lanes.svg
+
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class
