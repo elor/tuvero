@@ -6,8 +6,10 @@
 	debug tab relocated
 	donate button image placed in image/ext/
 	#debug .box.allimages added
+	update splash text added
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
+	calling Splash.update()
 
 	* scripts/ui/options.js: restructuring started
 
@@ -39,6 +41,7 @@
 	double-slide fix for splash screen
 
 	* scripts/ui/splash.js: double-slide fix for splash screen
+	showing tabs at view update, not at storage load
 
 	* images/lane.png: renamed to lanes.png
 
@@ -49,6 +52,8 @@
 	redesigned
 
 	* images/svg/lane.svg: renamed to lanes.svg
+
+	* style/debug.css: allimages fixed image height added
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -18,6 +18,7 @@
 #splash.loading .loading,
 #splash.starting .starting,
 #splash.restoring .restoring,
+#splash.update .update,
 #splash.ready .ready {
   display: block;
 }

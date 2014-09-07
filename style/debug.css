@@ -22,3 +22,9 @@
   width: 3.0em;
   height: 3.0em;
 }
+
+#debug .allimages img {
+  height: 3em;
+  background-color: #d3d3d3;
+  margin: 0.2em;
+}

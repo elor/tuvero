@@ -28,6 +28,10 @@ define(function () {
 
     Splash.loading = function () {
       setState('restoring');
+    };
+
+    Splash.update = function () {
+      setState('update');
       $('#tabs').show();
     };
 

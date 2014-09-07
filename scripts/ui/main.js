@@ -26,7 +26,9 @@ require([ './splash', './reset', './tabs', './toast', './strings', './storage',
       } else {
         new Toast(Strings.newtournament);
       }
-
+      
+      Splash.update();
+      
       Alltabs.update();
 
       setTimeout(function () {
