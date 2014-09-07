@@ -157,7 +157,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
    * clears the overview and appends all open games of the tournament
    */
   function showRunning () {
-    var tournamentid, tournament, $box, notempty, hidden;
+    var tournamentid, tournament, $box, notempty, hidden, round;
     clearBoxes();
 
     hidden = true; // the tab is hidden
@@ -169,8 +169,9 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       }
 
       tournament = Tournaments.getTournament(tournamentid);
+      round = tournament.getRanking().round;
 
-      template.$boxname.text(Tournaments.getName(tournamentid));
+      template.$boxname.text(Tournaments.getName(tournamentid) + ' - Runde ' + round);
       $box = template.$box.attr('data-tournamentid', tournamentid).clone();
 
       notempty = false;
