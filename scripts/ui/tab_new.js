@@ -121,8 +121,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function updateSystems () {
     var $anchor, height, $clone, $swiss;
 
-    $anchor = $tab.find('.team').get(0);
-    $anchor = $($anchor);
+    $anchor = $tab.find('.team').eq(0);
 
     if ($anchor.length == 0) {
       if (Team.count() > 0) {

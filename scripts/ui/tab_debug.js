@@ -20,7 +20,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     images = {};
 
     for (i = 0; i < $images.length; i += 1) {
-      url = $($images.get(i)).attr('src');
+      url = $images.eq(i).attr('src');
       if (/^(https?:\/\/)?images/.test(url)) {
         images[url] = true;
       }
@@ -28,7 +28,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     $images = $('input[type="image"]');
     for (i = 0; i < $images.length; i += 1) {
-      url = $($images.get(i)).attr('src');
+      url = $images.eq(i).attr('src');
       if (/^(https?:\/\/)?images/.test(url)) {
         images[url] = true;
       }

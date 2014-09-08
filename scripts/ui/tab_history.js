@@ -38,7 +38,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
    * correct round isn't verified (both in the result and currentround)
    * 
    * @param result
-   *          a result as returned by history.get()
+   *          a result as returned by history.getGame()
    */
   function createBox (result) {
     if (currentround === 0 || template.$anchor === undefined) {
