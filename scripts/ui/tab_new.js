@@ -4,7 +4,7 @@
 
 define([ './options', './tabshandle', './opts', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
-    './storage', '../backend/tournament', './tournaments' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, Tournament, Tournaments) {
+    './storage', '../backend/tournament', './tournaments' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments) {
   var Tab_New, $tab, updatepending, template, swissperms;
 
   updatepending = false;
@@ -12,19 +12,19 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   Tab_New = {};
 
   /**
-   * translates the Swiss ranking into a traditional votes object
+   * translates the Tournament ranking into a traditional votes object
    * 
    * TODO rewrite this file to replace this function
    * 
-   * @param Swiss
+   * @param Tournament
    *          the swiss object
    * @returns {Object} a votes object of the current round
    */
-  function getRoundVotes (Swiss) {
+  function getRoundVotes (Tournament) {
     // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
-    ranking = Swiss.getRanking();
+    ranking = Tournament.getRanking();
 
     votes = {
       up : [],
@@ -78,13 +78,13 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function getRanking () {
-    var Swiss, ranking, ranks, ids, i;
+    var Tournament, ranking, ranks, ids, i;
 
     // TODO use global ranking and stuff.
     // This still is a cheap hack
-    Swiss = Tournaments.getTournament(Tournaments.size() - 1);
+    Tournament = Tournaments.getTournament(Tournaments.size() - 1);
 
-    ranking = Swiss.getRanking();
+    ranking = Tournament.getRanking();
 
     ids = ranking.ids;
     ranks = ranking.place;
@@ -118,8 +118,30 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
   }
 
+  function setSystemState ($system, Tournament) {
+    var stateclass;
+
+    switch (Tournament ? Tournament.getState() : BackendTournament.STATE.FAILURE) {
+    case BackendTournament.STATE.PREPARING:
+      stateclass = 'preparing';
+      break;
+    case BackendTournament.STATE.RUNNING:
+      stateclass = 'running';
+      break;
+    case BackendTournament.STATE.FINISHED:
+      stateclass = 'finished';
+      break;
+    case BackendTournament.STATE.FAILURE:
+    default:
+      stateclass = 'failure';
+      break;
+    }
+
+    $system.removeClass('preparing running finished failure').addClass(stateclass);
+  }
+
   function updateSystems () {
-    var $anchor, height, $clone, $swiss;
+    var $anchor, height, $clone, $swiss, Tournament;
 
     $anchor = $tab.find('.team').eq(0);
 
@@ -130,6 +152,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       return;
     }
 
+    // TODO read number of teams from Tournaments
     height = Team.count();
 
     // FIXME read all tournaments and span accordingly
@@ -137,7 +160,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $clone = template.$system.clone();
     $clone.append(template.system.$swiss.clone());
     $clone.addClass('swiss');
-    initSwiss($clone, Tournaments.getTournament(Tournaments.size() - 1));
+    Tournament = Tournaments.getTournament(Tournaments.size() - 1);
+    initSwiss($clone, Tournament);
+    setSystemState($clone, Tournament);
 
     $anchor.find('td').css('border-top', 'solid 1px black');
     $anchor.append($clone);
@@ -149,7 +174,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function initSwiss ($swiss, Swiss) {
     var $swissmode, round, $perms;
 
-    // round numbers
+    // set texts for current round
     round = Swiss.getRanking().round;
     $swiss.find('.round').text(round);
     $swiss.find('.nextround').text(round + 1);
@@ -388,7 +413,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   Tab_New.update = function () {
-    var Swiss;
+    var Tournament;
     if (updatepending) {
       console.log('updatepending');
     } else {
@@ -399,16 +424,10 @@ define([ './options', './tabshandle', './opts', './toast', './team',
         if (Team.count() < 2) {
           Tabshandle.hide('new');
         } else {
-          // TODO don't rely on Tournaments order
-          Swiss = Tournaments.getTournament(Tournaments.size() - 1);
-          if (Swiss.getRanking().round !== 0) {
+          Tabshandle.show('new');
+
+          if (Tournaments.size() !== 0) {
             closeTeamRegistration();
-          }
-          if (Swiss.getState() === Tournament.STATE.RUNNING) {
-            Tabshandle.hide('new');
-            Tabshandle.focus('games');
-          } else {
-            Tabshandle.show('new');
           }
         }
 

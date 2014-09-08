@@ -7,6 +7,7 @@
 
 	* boules.html: .corr.tpl -> .corr
 	history gamestable class added
+	tab_new system: states added (at least for swiss)
 
 	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
 	.correctiontable -> .correctionstable. Stupid typo.
@@ -26,6 +27,13 @@
 	* scripts/ui/strings.js: toolatetournamentfinished added
 
 	* scripts/ui/tab_debug.js: playTournament() and finishRound() work with multiple tournaments
+
+	* scripts/ui/tab_new.js: supporting Tournament states
+	Swiss -> Tournament for all general variable names
+	always showing the New tab (which is likely to be renamed in the future)
+
+	* style/new.css: only show current tournament state
+	header x-padding added
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
