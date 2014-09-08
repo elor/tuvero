@@ -50,6 +50,8 @@
 
 	* scripts/ui/tab_teams.js: seemingly ancient bug: teamsize was hidden
 
+	* scripts/backend/swisstournament.js: Do not reset the swiss mode without the user expecting it
+
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #new tab drastically rearranged

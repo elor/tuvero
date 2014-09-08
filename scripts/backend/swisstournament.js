@@ -112,7 +112,6 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       this.state = Tournament.STATE.RUNNING;
       this.round += 1;
       this.rkch = true;
-      this.options.mode = Swisstournament.MODES[0]; // should be 'wins'
     } else {
       return undefined;
     }
