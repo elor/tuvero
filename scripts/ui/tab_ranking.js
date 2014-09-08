@@ -258,7 +258,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
     } else {
       Tabshandle.show('ranking');
     }
-
   }
 
   Tab_Ranking.update = function () {

@@ -25,6 +25,8 @@
 
 	* scripts/ui/strings.js: toolatetournamentfinished added
 
+	* scripts/ui/tab_debug.js: playTournament() and finishRound() work with multiple tournaments
+
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #new tab drastically rearranged

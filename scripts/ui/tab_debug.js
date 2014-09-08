@@ -1,5 +1,5 @@
 define([ './tabshandle', './opts', './toast', '../backend/random', './options',
-    './strings', './update' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Update) {
+    './strings', './update', './tournaments' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Update, Tournaments) {
   var Tab_Debug, $tab, form, options, letters, Letters, rng;
 
   Tab_Debug = {};
@@ -159,8 +159,12 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     }
   }
 
-  function startRound () {
-    var $button, Tab_Games;
+  function startRound (tournamentid) {
+    var $button, Tab_Games, $boxes, $box, i;
+
+    if (!$box) {
+      return undefined;
+    }
 
     Tab_Games = require('./tab_games');
 
@@ -171,22 +175,37 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     }
   }
 
-  function finishRound (maxgames, timeout) {
-    var $buttons, $points, teamid, p1, p2, endtime;
+  function finishRound (tournamentid, timeout) {
+    var $buttons, $points, teamid, p1, p2, endtime, $boxes, $box, i;
 
-    $points = $('#games .game .finish .points');
-    $buttons = $('#games .game .finish button');
-    maxgames = maxgames || $buttons.length;
+    if (tournamentid === undefined) {
+      $box = $('#games');
+    } else {
+      $boxes = $('#games .box');
+      for (i = 0; i < $boxes.length; i += 1) {
+        if ($boxes.eq(i).data('tournamentid') === tournamentid) {
+          $box = $boxes.eq(i);
+        }
+      }
+    }
 
-    if (timeout === 0)
+    if (!$box) {
+      return undefined;
+    }
+
+    $points = $box.find('.game .finish .points');
+    $buttons = $box.find('.game .finish button');
+
+    if (timeout === 0) {
       timeout = -1;
+    }
     timeout = timeout || undefined;
 
     if (timeout) {
       endtime = new Date().getTime() + timeout;
     }
 
-    for (teamid = 0; teamid < $buttons.length && maxgames > 0; teamid += 1, maxgames -= 1) {
+    for (teamid = 0; teamid < $buttons.length; teamid += 1) {
       if (rng.nextInt(2)) {
         p1 = 13 - rng.nextInt(2);
         p2 = rng.nextInt(p1);
@@ -195,9 +214,9 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
         p1 = rng.nextInt(p2);
       }
 
-      $($points[teamid * 2]).val(p1);
-      $($points[teamid * 2 + 1]).val(p2);
-      $($buttons[teamid]).removeAttr('disabled').click();
+      $points.eq(teamid * 2).val(p1);
+      $points.eq(teamid * 2 + 1).val(p2);
+      $buttons.eq(teamid).removeAttr('disabled').click();
 
       if (timeout && (new Date()).getTime() >= endtime) {
         break;
@@ -206,28 +225,27 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function playTournament () {
-    var Swiss;
-
-    // FIXME rewrite for multiple tournaments!
-    // this line is a cheap hack
-    Swiss = require('./tournaments').getTournament(0);
-
-    if (!Swiss) {
-      console.error('No tournament object has been allocated / it has been deallocated');
-      new Toast(Strings.tournamentfinished, Toast.LONG);
-      return;
-    }
+    var tournamentid, Tournament;
 
     starttime = new Date();
-    if (Swiss().getState() != 1) {
-      startRound() || startRound() || startRound();
-    }
+    for (tournamentid = 0; tournamentid < Tournaments.size(); tournamentid += 1) {
 
-    if (Swiss().getState() == 1) {
-      finishRound(undefined, 1000);
-      window.setTimeout(playTournament, 1);
-    } else {
-      new Toast(Strings.tournamentfinished, Toast.LONG);
+      if (!Tournaments.isRunning(tournamentid)) {
+        continue;
+      }
+
+      Tournament = Tournaments.getTournament(tournamentid);
+
+      if (Tournament.getState() != 1) {
+        startRound(tournamentid) || startRound(tournamentid) || startRound(tournamentid);
+      }
+
+      if (Tournament.getState() == 1) {
+        finishRound(tournamentid, 1000);
+        window.setTimeout(playTournament, 1);
+      } else {
+        new Toast(Strings.tournamentfinished, Toast.LONG);
+      }
     }
   }
 
