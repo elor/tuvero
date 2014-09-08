@@ -38,7 +38,17 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     return newtournament;
   };
 
+  /**
+   * deprecated for misleading name. Use numTournaments() instead
+   * 
+   * @returns total number of tournaments of this session
+   */
   Tournaments.size = function () {
+    console.error('deprecated function Tournaments.size(). Use Tournaments.numTournaments() instead');
+    return Tournaments.numTournaments();
+  };
+
+  Tournaments.numTournaments = function () {
     return tournaments.length;
   };
 
@@ -51,7 +61,22 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
   };
 
   Tournaments.getTournament = function (id) {
+    if (!tournaments[id]) {
+      return undefined;
+    }
     return tournaments[id].tournament;
+  };
+
+  Tournaments.getTournamentID = function (Tournament) {
+    var tournamentid;
+
+    for (tournamentid = 0; tournamentid < tournaments.length; tournamentid += 1) {
+      if (tournaments[tournamentid].tournament && tournaments[tournamentid].tournament == Tournament) {
+        return tournamentid;
+      }
+    }
+
+    return undefined;
   };
 
   Tournaments.isRunning = function (id) {
@@ -135,12 +160,7 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
   Tournaments.reset = function () {
     tournaments = [];
-    // TODO remove this line AFTER removing swiss.js
-    Tournaments.addTournament('swiss');
   };
-
-  // TODO remove this line AFTER removing swiss.js
-  Tournaments.reset();
 
   return Tournaments;
 });

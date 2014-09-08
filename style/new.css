@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-#new > div.box {
+#new > div.box:not(.tpl) {
   display: inline-block;
 }
 
@@ -52,7 +52,7 @@
 #new .playertable .system > h3:first-child {
   position: relative;
   display: block;
-  padding: 0.3em 0em 0.2em 0em;
+  padding: 0.3em 1em 0.2em 1em;
   margin: -1em -1em 1em -1em;
   border-bottom-style: solid;
   border-bottom-width: 1px;
@@ -60,12 +60,31 @@
   text-align: center;
 }
 
-#new  .swiss table {
+#new .playertable .system img {
+  height: 2em;
+  vertical-align: middle;
+}
+
+#new .playertable .system > .preparing,
+#new .playertable .system > .running,
+#new .playertable .system > .finished,
+#new .playertable .system > .failure {
+  display: none;
+}
+
+#new .playertable .system.preparing > .preparing,
+#new .playertable .system.running > .running,
+#new .playertable .system.finished > .finished,
+#new .playertable .system.failure > .failure {
+  display: block;
+}
+
+#new .swiss table {
   text-align: center;
   display: inline-block;
 }
 
-#new .playertable .swiss table td {
+#new .swiss table td {
   vertical-align: top;
   border: none;
 }

@@ -1,12 +1,13 @@
-define([ './team', './toast', './strings', './tab_teams', './swiss',
-    './tab_ranking', './history', './tab_history', './storage', './options',
-    './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Teams, Swiss, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle) {
-  var Tab_Games, $tab, template, games, $games, options, updatependng;
+define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
+    './history', './tab_history', './storage', './options', './opts',
+    './tabshandle', './tournaments' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle, Tournaments) {
+  var Tab_Games, $tab, template, games, $games, $tournaments, options, updatependng;
 
   updatepending = false;
 
-  // references to html elements of the games
+  // references to html elements of the games and tournaments
   $games = [];
+  $tournaments = [];
   // local copy of the running games
   games = [];
 
@@ -18,7 +19,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function initGameTemplate () {
-    var $form, $names, $teamnos, i, tmp, $anchor;
+    var $form, $names, $teamnos, i, tmp;
 
     if (template.game) {
       console.error('tab_games: template.game is already defined:');
@@ -26,10 +27,8 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return;
     }
 
-    $form = $tab.find('.game.tpl');
-
+    $form = template.$box.find('.game');
     $form.detach();
-    $form.removeClass('tpl');
 
     $names = [];
     tmp = $form.find('.names');
@@ -66,7 +65,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // TODO Escape key -> reset form
 
     template.game = {
-      $anchor : $anchor,
       $form : $form,
       $names : $names,
       $teamnos : $teamnos,
@@ -74,7 +72,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function initVoteTemplate () {
-    var $vote, $containers, $names, $teamno, i, tmp;
+    var $vote, $container, $names, $teamno, i, tmp;
 
     if (template.vote) {
       console.error('tab_games: template.vote is already defined:');
@@ -82,23 +80,17 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       return;
     }
 
-    $vote = $tab.find('.votes .tpl');
+    $container = template.$box.find('.votes');
+    $container.detach();
 
+    $vote = $container.find('.vote');
     $vote.detach();
-    $vote.removeClass('tpl');
 
     $names = $vote.find('.names');
-
     $teamno = $vote.find('.teamno');
 
-    $containers = {
-      up : $tab.find('.up'),
-      down : $tab.find('.down'),
-      bye : $tab.find('.bye'),
-    };
-
     template.vote = {
-      $containers : $containers,
+      $container : $container,
       $vote : $vote,
       $names : $names,
       $teamno : $teamno
@@ -106,8 +98,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   }
 
   function initTemplates () {
-    var $gameform, $gnames, $gteamnos, $vote, i, tmp;
-
     if (template) {
       console.error('tab_games: template is already defined:');
       console.error(template);
@@ -116,6 +106,11 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
 
     template = {};
 
+    template.$box = $tab.find('.box.tpl');
+    template.$box.detach();
+    template.$box.removeClass('tpl');
+    template.$boxname = template.$box.find('>h3');
+
     initGameTemplate();
     initVoteTemplate();
   }
@@ -123,7 +118,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   /**
    * create and show a box displaying a certain game
    */
-  function appendGame (game) {
+  function appendGame (game, tournamentid, $box) {
     var t1, t2, $game, i;
 
     t1 = Team.get(game.teams[0][0]);
@@ -136,18 +131,27 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     template.game.$teamnos[1].text(t2.id + 1);
 
     $game = template.game.$form.clone();
-    template.game.$anchor.before($game);
+    $box.append($game);
 
-    $games.push($game);
-    games.push(game);
+    // insert data and representation into the reference containers
+    if (!$games[tournamentid]) {
+      $games[tournamentid] = [];
+    }
+    $games[tournamentid].push($game);
+
+    if (!games[tournamentid]) {
+      games[tournamentid] = [];
+    }
+    games[tournamentid].push(game);
   }
 
   /**
    * removes all games from the overview
    */
-  function clearGames () {
-    $tab.find('.game').remove();
+  function clearBoxes () {
+    $tab.find('.box').remove();
     $games = [];
+    $tournaments = [];
     games = [];
   }
 
@@ -155,28 +159,78 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * clears the overview and appends all open games of the tournament
    */
   function showRunning () {
-    clearGames();
+    var tournamentid, tournament, $box, notempty, hidden, round;
+    clearBoxes();
 
-    Swiss().getGames().forEach(function (game) {
-      appendGame(game);
-    });
-  }
+    hidden = true; // the tab is hidden
 
-  /**
-   * update all appearances of the current round in the games tab
-   */
-  function showRound () {
-    // getRanking() is actually buffered, so no caveat here
-    $tab.find('.round').text(Swiss().getRanking().round);
-    $tab.find('.nextround').text(Swiss().getRanking().round + 1);
+    for (tournamentid = 0; tournamentid < Tournaments.size(); tournamentid += 1) {
+
+      if (!Tournaments.isRunning(tournamentid)) {
+        continue;
+      }
+
+      tournament = Tournaments.getTournament(tournamentid);
+      round = tournament.getRanking().round;
+
+      template.$boxname.text(Tournaments.getName(tournamentid) + ' - Runde ' + round);
+      $box = template.$box.clone();
+
+      notempty = false;
+
+      tournament.getGames().forEach(function (game) {
+        appendGame(game, tournamentid, $box);
+        hidden = false;
+        notempty = true;
+      });
+
+      if (showVotes(tournament, $box)) {
+        // nothing, because the information is in the history tab, too
+      }
+
+      if (notempty) {
+        $box.data('tournamentid', tournamentid);
+        $tab.append($box);
+        $tournaments[tournamentid] = $box;
+      }
+    }
+
+    return !hidden;
   }
 
   function showTab () {
-    if (games.length === 0 || $games.length === 0) {
+    var tournamentid, empty;
+
+    empty = true;
+    for (tournamentid = 0; tournamentid < games.length; tournamentid += 1) {
+      if (games[tournamentid] && games[tournamentid].length > 0) {
+        empty = false;
+        break;
+      }
+    }
+
+    if (empty) {
       Tabshandle.hide('games');
     } else {
       Tabshandle.show('games');
     }
+  }
+
+  function getTournamentID ($game) {
+    var $box, i, boxdata;
+
+    if (!$game) {
+      return undefined;
+    }
+
+    $box = $game.parents('.box');
+
+    if ($box.length !== 1) {
+      console.error('cannot find $box of $game');
+      return undefined;
+    }
+
+    return $box.data('tournamentid');
   }
 
   /**
@@ -184,34 +238,37 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * 
    * @param game
    *          the game in question
-   * @returns Tab_Games on success, undefined otherwise
+   * @returns true on success, undefined otherwise
    */
-  function removeGame (game) {
+  function removeGame (tournamentid, index) {
     var index;
 
-    index = games.indexOf(game);
+    games[tournamentid].splice(index, 1);
+    $games[tournamentid][index].remove();
+    $games[tournamentid].splice(index, 1);
 
-    if (index === -1) {
-      // something's wrong
-      return undefined;
-    }
-
-    games.splice(index, 1);
-    $games[index].remove();
-    $games.splice(index, 1);
+    return true;
   }
 
   function readResults ($container) {
-    var $input, i, ret, round;
+    var $input, i, ret, round, tournamentid;
 
     ret = {
       index : -1,
       points : []
     };
 
-    // 
-    for (i = 0; i < $games.length; i += 1) {
-      if ($games[i].data() === $container.data()) {
+    tournamentid = getTournamentID($container);
+    if (tournamentid === undefined) {
+      return undefined;
+    }
+
+    for (i = 0; i < $games[tournamentid].length; i += 1) {
+      // find the container in the array of containers
+      // Compare TWO empty objects?
+      // This works because they're an EXACT match, i.e. the same object.
+      // They're still just empty objects without identifiers!
+      if ($games[tournamentid][i].data() === $container.data()) {
         ret.index = i;
         break;
       }
@@ -255,7 +312,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * jQuery callback function. works with "this"
    */
   function finishGame () {
-    var result, $input, i, res, index, points;
+    var result, $input, i, res, index, points, tournamentid, tournament;
 
     // if someone wants to finish a game, do the following:
     // * verify that the game was running
@@ -263,6 +320,19 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     // * submit the result
     // * remove the game
     // * drink a toast to the game
+
+    tournamentid = getTournamentID($(this));
+
+    if (tournamentid === undefined) {
+      return false;
+    }
+
+    if (!Tournaments.isRunning(tournamentid)) {
+      console.error("tournament isn't running anymore, but player wants to finish a game");
+      return false;
+    }
+
+    tournament = Tournaments.getTournament(tournamentid);
 
     result = readResults($(this));
 
@@ -276,7 +346,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     index = result.index;
     points = result.points;
 
-    if (Swiss().finishGame(games[index], points) === undefined) {
+    if (tournament.finishGame(games[tournamentid][index], points) === undefined) {
       // game was somehow invalid. Someone tampered with the system.
 
       // redraw all games
@@ -292,12 +362,14 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
 
     // the game was accepted, store it in history
-    round = Swiss().getRanking().round;
-    res = History.addResult(0, games[index].teams[0][0], games[index].teams[1][0], points[0], points[1], round - 1);
+    round = tournament.getRanking().round;
+    res = History.addResult(tournamentid, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1);
     Tab_History.update();
 
     // game was accepted. remove it.
-    removeGame(games[index]);
+    if (!removeGame(tournamentid, index)) {
+      console.error("cannot remove game: it's already gone");
+    }
 
     if (points[0] > points[1]) {
       new Toast(Strings.gamefinished);
@@ -321,17 +393,14 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
 
     // no games left? clean up and go to stage 2.
-    if (games.length === 0) {
-      clearGames();
-      clearVotes();
-
-      showRound();
+    if (games[tournamentid].length === 0) {
+      clearBoxes();
 
       // hide this tab
       showTab();
       // open tab_new
 
-      new Toast(Strings.roundfinished.replace('%s', Swiss().getRanking().round));
+      new Toast(Strings.roundfinished.replace('%s', tournament.getRanking().round));
     }
 
     // save changes
@@ -345,13 +414,6 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
 
     return false;
-  }
-
-  /**
-   * remove all elements in the vote area
-   */
-  function clearVotes () {
-    $tab.find('.votes .vote').remove();
   }
 
   function createVoteBox (tid) {
@@ -371,16 +433,16 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
    * 
    * @returns {Object} a votes object of the current round
    */
-  function getRoundVotes () {
+  function getRoundVotes (Tournament) {
     // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
-    ranking = Swiss().getRanking();
+    ranking = Tournament.getRanking();
 
     votes = {
       up : [],
       down : [],
-      bye : undefined,
+      bye : [],
     };
 
     for (i = 0; i < ranking.ids.length; i += 1) {
@@ -391,7 +453,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
         votes.down.push(ranking.ids[i]);
       }
       if (ranking.roundbyevote[i]) {
-        votes.bye = ranking.ids[i];
+        votes.bye.push(ranking.ids[i]);
       }
     }
 
@@ -401,16 +463,21 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
   /**
    * display the votes for the current round
    */
-  function showVotes () {
-    var votes, i, $containers;
+  function showVotes (Tournament, $box) {
+    var votes, i, $containers, $container, notempty;
 
-    // remove old votes
-    clearVotes();
+    notempty = false;
 
     // get votes
-    votes = getRoundVotes();
+    votes = getRoundVotes(Tournament);
 
-    $containers = template.vote.$containers;
+    $container = template.vote.$container.clone();
+
+    $containers = {
+      up : $container.find('.up'),
+      down : $container.find('.down'),
+      bye : $container.find('.bye'),
+    };
 
     // apply upvotes
     if (votes.up && votes.up.length !== 0) {
@@ -418,6 +485,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       votes.up.forEach(function (tid) {
         if (tid !== undefined) {
           $containers.up.append(createVoteBox(tid));
+          notempty = true;
         }
       });
     } else {
@@ -430,6 +498,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       votes.down.forEach(function (tid) {
         if (tid !== undefined) {
           $containers.down.append(createVoteBox(tid));
+          notempty = true;
         }
       });
     } else {
@@ -437,12 +506,23 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
 
     // apply bye
-    if (votes.bye !== undefined) {
+    if (votes.bye && votes.bye.length !== 0) {
       $containers.bye.show();
-      $containers.bye.append(createVoteBox(votes.bye));
+      votes.bye.forEach(function (tid) {
+        if (tid !== undefined) {
+          $containers.bye.append(createVoteBox(tid));
+          notempty = true;
+        }
+      });
     } else {
       $containers.bye.hide();
     }
+
+    if (notempty) {
+      $box.append($container);
+    }
+
+    return notempty;
   }
 
   function initOptions () {
@@ -501,8 +581,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
     }
 
     // delete everything
-    clearGames();
-    clearVotes();
+    clearBoxes();
   };
 
   /**
@@ -516,9 +595,7 @@ define([ './team', './toast', './strings', './tab_teams', './swiss',
       window.setTimeout(function () {
         Tab_Games.reset();
 
-        showRound();
         showRunning();
-        showVotes();
         showTab();
         updatepending = false;
         console.log('update');

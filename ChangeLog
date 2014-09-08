@@ -1,3 +1,51 @@
+2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_games.js: Game result submissions work again
+	got rid of DOM injection of tournament ids
+	and now we're using jquery for unique identifiers
+	adding game with the correct tournamentid to History
+
+	* boules.html: .corr.tpl -> .corr
+	history gamestable class added
+	tab_new system: states added (at least for swiss)
+	newsystem box added to tab_new
+	trailing whitespaces stripped
+
+	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
+	.correctiontable -> .correctionstable. Stupid typo.
+	some idiot (me) hid a detached container and wondered when it didn't show
+
+	* scripts/ui/history.js: History.numTournaments() added to avoid calling Tournaments.size()
+	Tournaments.size() != History.numTournaments() in some cases
+
+	* scripts/ui/tab_history.js: setRound() removed
+	createBox() -> createGame()
+	template updated
+	showTournaments() added for drawing all past and present tournaments
+	update(): code length reduced
+	getting tournamentid from previourly stored jquery data
+	using the correct tournament id for corrections
+
+	* scripts/ui/strings.js: toolatetournamentfinished added
+
+	* scripts/ui/tab_debug.js: playTournament() and finishRound() work with multiple tournaments
+
+	* scripts/ui/tab_new.js: supporting Tournament states
+	Swiss -> Tournament for all general variable names
+	always showing the New tab (which is likely to be renamed in the future)
+	.newsystem added for tournament system selection
+	getRanking() handles empty tournaments
+
+	* style/new.css: only show current tournament state
+	header x-padding added
+	accidentally prevented templates from hiding
+
+	* scripts/ui/tournaments.js: Tournaments.size() deprecated
+	Tournaments.numTournaments() added
+	Tournaments.getTournamentID added (for inverse association of a Tournament to its id)
+	getTournament() checks whether the tournament exists, first
+	Swiss stub removed. We're live now!
+
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #new tab drastically rearranged
@@ -9,6 +57,8 @@
 	update splash text added
 	lanes tab added (hidden)
 	history tab progresslist logic inverted
+	ranking templates update for multiple tournaments
+	games templates updated for simultaneous tournaments
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
 	calling Splash.update()
@@ -26,12 +76,14 @@
 	not overwriting existing window.mods variables
 	showing all <img>s at pageload in .allimages box
 	allimages: title added for hover text
+	removed Swiss references, but I have to redo the whole GUI shortcut system
 
 	* scripts/ui/tab_new.js: complete rewrite
 	create table layout to enable multiple parallel tournaments
 	first step towards tournament encapsulation
 	getRoundVotes() copied over from tab_games
 	using new History format
+	all operations use the last Tournaments entry, but it's capable of multiple ones
 
 	* scripts/ui/team.js: Team.size() added for faster development
 
@@ -75,6 +127,9 @@
 	* scripts/ui/tab_games.js: removed Tab_History.createBox() dependency
 	using new history format
 	$.delegate replaced by $.on
+	Swiss removed from includes, but I'm still working on it
+	now displaying multiple tournaments simultaneously
+	functions cleaned up while we're at it
 
 	* scripts/ui/tab_history.js: nextRound() removed
 	moved createBox() and createBye() into local block
@@ -82,6 +137,7 @@
 	missing variable added
 	corrections fixed again (They now work with the new History format)
 	progresstable checkbox logic changed
+	Swiss removed. The History tab uses only the first Tournament so far
 
 	* scripts/ui/tab_teams.js: reduced the number of cross-Tab update calls:
 	createBox() doesn't call other Tabs anymore
@@ -96,6 +152,7 @@
 
 	* scripts/ui/swiss.js: only referencing tournaments.js anymore
 	tournaments key changed from 'swiss' to 'tournaments'
+	removed in favor of the Tournaments system
 
 	* scripts/ui/state.js: swapped Swiss with Tournaments
 
@@ -120,6 +177,13 @@
 	Tournament now works with the same tournamentids as History
 
 	* style/history.css: progresslist logic flipped
+
+	* scripts/ui/ranking.js: CSV export of multiple tournaments (not yet tested)
+
+	* scripts/ui/tab_ranking.js: swiss removed from the header, but I'm still working on it
+	process all running tournaments
+	template functions updated
+
 
 2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

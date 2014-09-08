@@ -1,26 +1,11 @@
-define([ './toast', './strings', './history', './swiss', './tab_ranking',
-    '../backend/game', './storage', './tabshandle', './opts', './team' ], function (Toast, Strings, History, Swiss, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team) {
+define([ './toast', './strings', './history', './tournaments', './tab_ranking',
+    '../backend/game', './storage', './tabshandle', './opts', './team' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team) {
   var Tab_History, $tab, template, currentround, $button, options, updatepending;
 
   updatepending = false;
 
   Tab_History = {};
   options = {};
-
-  function setRound (round) {
-    var $newcontainer;
-    if (currentround === round) {
-      return;
-    }
-
-    currentround = round;
-
-    // update anchor and insert new header with current round
-    template.$roundno.text(currentround);
-    $newcontainer = template.$container.clone();
-    $tab.append($newcontainer);
-    template.$anchor = $newcontainer.find('table');
-  }
 
   function formatNamesHTML (teamid) {
     var team, names;
@@ -38,13 +23,9 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    * correct round isn't verified (both in the result and currentround)
    * 
    * @param result
-   *          a result as returned by history.get()
+   *          a result as returned by history.getGame()
    */
-  function createBox (result) {
-    if (currentround === 0 || template.$anchor === undefined) {
-      return undefined;
-    }
-
+  function createGame (result, $table) {
     // fill the fields
     template.game.$teamnos[0].text(result[0] + 1);
     template.game.$teamnos[1].text(result[1] + 1);
@@ -54,9 +35,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.game.$points[1].text(result[3]);
 
     // release the box to the DOM
-    template.$anchor.append(template.game.$game.clone());
-
-    Tabshandle.show('history');
+    $table.append(template.game.$game.clone());
   }
 
   /**
@@ -65,16 +44,11 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
    * @param teamid
    *          id of the team receiving a bye
    */
-  function createBye (teamid) {
-    if (template.$anchor === undefined) {
-      return undefined;
-    }
-
+  function createBye (teamid, $table) {
     template.bye.$teamno.text(teamid + 1);
     template.bye.$names.html(formatNamesHTML(teamid));
-    template.$anchor.append(template.bye.$bye.clone());
 
-    Tabshandle.show('history');
+    $table.append(template.bye.$bye.clone());
   }
 
   function isInt (n) {
@@ -118,13 +92,28 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
   function saveCorrection () {
     // TODO validate everything:
     // * point ranges * a-z * space
-    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp, correction;
+    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp, correction, $box, tournamentid;
 
     if ($button === undefined) {
       return undefined;
     }
 
     $points = $button.find('.points');
+    if (!$points.length) {
+      console.error('$points not found');
+      return undefined;
+    }
+    $box = template.chpoints.$chpoints.parents('.box');
+    if (!$box.length) {
+      console.error('$box not found');
+      return undefined;
+    }
+    tournamentid = $box.data('tournamentid');
+    if (tournamentid === undefined) {
+      console.error('cannot find tournamentid of $box');
+      return undefined;
+    }
+    console.log(tournamentid);
 
     // retrieve values
     // TODO find better solution!
@@ -170,7 +159,7 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     t2 -= 1;
 
     // find the game by team ids only
-    res = History.findGames(0, t1, t2);
+    res = History.findGames(tournamentid, t1, t2);
 
     if (res === undefined || res.length === 0) {
       new Toast(Strings.invalidresult);
@@ -223,14 +212,20 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     // FIXME Why store two separate representations of the same correction?
     // Can I just use the tournament correction all the time?
     // This problem is related to the post-tournament ranking storage
-    Swiss().correct(game, [ op1, op2 ], [ np1, np2 ]);
+    // TODO use correct tournament and round id
+    if (Tournaments.isRunning(tournamentid)) {
+      Tournaments.getTournament(tournamentid).correct(game, [ op1, op2 ], [
+          np1, np2 ]);
+    } else {
+      new Toast(Strings.toolatetournamentfinished);
+    }
 
     correction = res.slice(0);
 
     // store correction in history
     correction[2] = np1;
     correction[3] = np2;
-    History.addCorrection(0, res, correction);
+    History.addCorrection(tournamentid, res, correction);
 
     // show correction and recalc ranking
     // TODO event passing
@@ -405,8 +400,6 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     template.bye.$bye.removeClass('tpl');
     template.bye.$teamno = template.bye.$bye.find('.number');
     template.bye.$names = template.bye.$bye.find('.names');
-
-    template.$anchor = undefined;
   }
 
   function initRounds () {
@@ -429,6 +422,51 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
 
     // FIXME reload from history page moves to another tab because it's closed
     // Tabshandle.hide('history');
+  }
+
+  function showTournaments () {
+    var round, maxround, id, numgames, bye, hidden, empty, votes, tournamentid, $box, $table;
+
+    hidden = true;
+
+    for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
+
+      votes = History.getVotes(tournamentid);
+      maxround = History.numRounds(tournamentid);
+
+      for (round = 0; round < maxround; round += 1) {
+        $box = template.$container.clone();
+        $box.find('>h3:first-child').text(Tournaments.getName(tournamentid) + ' - Runde ' + (round + 1));
+        $table = $box.find('table.gamestable');
+
+        bye = undefined;
+        // search the bye for this round
+        // TODO preprocessing?
+        votes.map(function (vote) {
+          var bye;
+          if (vote[0] == History.BYE && vote[2] == round) {
+            bye = vote[1];
+            if (bye !== undefined) {
+              createBye(bye, $table);
+              empty = false;
+            }
+          }
+        });
+
+        History.getRound(tournamentid, round).map(function (game) {
+          createGame(game, $table);
+          empty = false;
+        });
+
+        if (!empty) {
+          $tab.append($box);
+          $box.data('tournamentid', tournamentid);
+          hidden = false;
+        }
+      }
+    }
+
+    return !hidden;
   }
 
   /**
@@ -457,38 +495,12 @@ define([ './toast', './strings', './history', './swiss', './tab_ranking',
     } else {
       updatepending = true;
       window.setTimeout(function () {
-        var round, maxround, id, numgames, bye, empty, votes;
-
-        empty = true;
 
         Tab_History.reset();
 
-        votes = History.getVotes(0);
-        maxround = History.numRounds(0);
-        for (round = 0; round < maxround; round += 1) {
-          setRound(round + 1);
-
-          bye = undefined;
-          // search the bye for this round
-          // TODO preprocessing?
-          votes.map(function (vote) {
-            var bye;
-            if (vote[0] == History.BYE && vote[2] == round) {
-              bye = vote[1];
-              if (bye !== undefined) {
-                empty = false;
-                createBye(bye);
-              }
-            }
-          });
-
-          History.getRound(0, round).map(function (game) {
-            empty = false;
-            createBox(game);
-          });
-        }
-
-        if (empty) {
+        if (showTournaments()) {
+          Tabshandle.show('history');
+        } else {
           Tabshandle.hide('history');
         }
         updatepending = false;
