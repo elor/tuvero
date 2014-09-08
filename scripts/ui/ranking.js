@@ -15,7 +15,7 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
 
       retval = [];
 
-      for (tournamentid = 0; tournamentid < Tournaments.size(); tournamentid += 1) {
+      for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
         // is it finished?
         if (!Tournaments.isRunning(tournamentid)) {

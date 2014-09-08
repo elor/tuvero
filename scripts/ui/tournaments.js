@@ -38,16 +38,6 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     return newtournament;
   };
 
-  /**
-   * deprecated for misleading name. Use numTournaments() instead
-   * 
-   * @returns total number of tournaments of this session
-   */
-  Tournaments.size = function () {
-    console.error('deprecated function Tournaments.size(). Use Tournaments.numTournaments() instead');
-    return Tournaments.numTournaments();
-  };
-
   Tournaments.numTournaments = function () {
     return tournaments.length;
   };

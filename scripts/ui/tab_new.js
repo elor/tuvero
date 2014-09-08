@@ -456,7 +456,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
         } else {
           Tabshandle.show('new');
 
-          if (Tournaments.size() !== 0) {
+          if (Tournaments.numTournaments() !== 0) {
             closeTeamRegistration();
           }
         }

@@ -228,7 +228,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     var tournamentid, Tournament;
 
     starttime = new Date();
-    for (tournamentid = 0; tournamentid < Tournaments.size(); tournamentid += 1) {
+    for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
       if (!Tournaments.isRunning(tournamentid)) {
         continue;

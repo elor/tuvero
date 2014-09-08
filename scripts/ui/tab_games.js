@@ -164,7 +164,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     hidden = true; // the tab is hidden
 
-    for (tournamentid = 0; tournamentid < Tournaments.size(); tournamentid += 1) {
+    for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
       if (!Tournaments.isRunning(tournamentid)) {
         continue;

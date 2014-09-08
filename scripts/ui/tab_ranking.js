@@ -223,7 +223,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     Tab_Ranking.reset();
 
-    for (tournamentid = 0; tournamentid < Tournaments.size(); tournamentid += 1) {
+    for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
       // skip finished tournaments
       // TODO print past rankings!
