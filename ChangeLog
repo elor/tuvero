@@ -2,6 +2,7 @@
 
 	* scripts/ui/tab_games.js: Game result submissions work again
 	got rid of DOM injection of tournament ids
+	and now we're using jquery for unique identifiers
 
 	* boules.html: .corr.tpl -> .corr
 

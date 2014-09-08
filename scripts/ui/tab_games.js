@@ -189,6 +189,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       }
 
       if (notempty) {
+        $box.data('tournamentid', tournamentid);
         $tab.append($box);
         $tournaments[tournamentid] = $box;
       }
@@ -229,16 +230,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       return undefined;
     }
 
-    boxdata = $box.data();
-
-    for (i = 0; i < $tournaments.length; i += 1) {
-      if ($tournaments[i] && $tournaments[i].data() === boxdata) {
-        return i;
-      }
-    }
-
-    console.error('cannot find the tournament of $box');
-    return undefined;
+    return $box.data('tournamentid');
   }
 
   /**
@@ -273,6 +265,9 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     for (i = 0; i < $games[tournamentid].length; i += 1) {
       // find the container in the array of containers
+      // Compare TWO empty objects?
+      // This works because they're an EXACT match, i.e. the same object.
+      // They're still just empty objects without identifiers!
       if ($games[tournamentid][i].data() === $container.data()) {
         ret.index = i;
         break;
