@@ -27,6 +27,7 @@ define(function () {
     pageload : 'Seite geladen',
     pointchangeaborted : 'Änderung verworfen',
     pointchangeapplied : 'Änderung gespeichert',
+    toolatetournamentfinished : 'Turnier ist schon beendet. Korrektur hat keinen Einfluss auf Rangfolge.',
     rankingupdate : 'Ranking wurde berechnet',
     roundfailed : 'Auslosung fehlgeschlagen',
     roundfinished : '%s. Runde abgeschlossen',

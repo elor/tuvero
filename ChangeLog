@@ -3,12 +3,14 @@
 	* scripts/ui/tab_games.js: Game result submissions work again
 	got rid of DOM injection of tournament ids
 	and now we're using jquery for unique identifiers
+	adding game with the correct tournamentid to History
 
 	* boules.html: .corr.tpl -> .corr
 	history gamestable class added
 
 	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
 	.correctiontable -> .correctionstable. Stupid typo.
+	some idiot (me) hid a detached container and wondered when it didn't show
 
 	* scripts/ui/history.js: History.numTournaments() added to avoid calling Tournaments.size()
 	Tournaments.size() != History.numTournaments() in some cases
@@ -18,6 +20,10 @@
 	template updated
 	showTournaments() added for drawing all past and present tournaments
 	update(): code length reduced
+	getting tournamentid from previourly stored jquery data
+	using the correct tournament id for corrections
+
+	* scripts/ui/strings.js: toolatetournamentfinished added
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

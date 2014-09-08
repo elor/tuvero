@@ -363,7 +363,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     // the game was accepted, store it in history
     round = tournament.getRanking().round;
-    res = History.addResult(0, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1);
+    res = History.addResult(tournamentid, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1);
     Tab_History.update();
 
     // game was accepted. remove it.

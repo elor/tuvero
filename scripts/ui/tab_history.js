@@ -92,13 +92,28 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   function saveCorrection () {
     // TODO validate everything:
     // * point ranges * a-z * space
-    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp, correction;
+    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp, correction, $box, tournamentid;
 
     if ($button === undefined) {
       return undefined;
     }
 
     $points = $button.find('.points');
+    if (!$points.length) {
+      console.error('$points not found');
+      return undefined;
+    }
+    $box = template.chpoints.$chpoints.parents('.box');
+    if (!$box.length) {
+      console.error('$box not found');
+      return undefined;
+    }
+    tournamentid = $box.data('tournamentid');
+    if (tournamentid === undefined) {
+      console.error('cannot find tournamentid of $box');
+      return undefined;
+    }
+    console.log(tournamentid);
 
     // retrieve values
     // TODO find better solution!
@@ -144,7 +159,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     t2 -= 1;
 
     // find the game by team ids only
-    res = History.findGames(0, t1, t2);
+    res = History.findGames(tournamentid, t1, t2);
 
     if (res === undefined || res.length === 0) {
       new Toast(Strings.invalidresult);
@@ -198,14 +213,19 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // Can I just use the tournament correction all the time?
     // This problem is related to the post-tournament ranking storage
     // TODO use correct tournament and round id
-    Tournaments.getTournament(0).correct(game, [ op1, op2 ], [ np1, np2 ]);
+    if (Tournaments.isRunning(tournamentid)) {
+      Tournaments.getTournament(tournamentid).correct(game, [ op1, op2 ], [
+          np1, np2 ]);
+    } else {
+      new Toast(Strings.toolatetournamentfinished);
+    }
 
     correction = res.slice(0);
 
     // store correction in history
     correction[2] = np1;
     correction[3] = np2;
-    History.addCorrection(0, res, correction);
+    History.addCorrection(tournamentid, res, correction);
 
     // show correction and recalc ranking
     // TODO event passing

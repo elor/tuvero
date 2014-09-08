@@ -171,7 +171,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
     corrections = Tournament.getCorrections();
 
     if (corrections === undefined || corrections.length === 0) {
-      template.correction.$container.hide();
       return false;
     }
 
