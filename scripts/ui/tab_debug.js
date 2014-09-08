@@ -281,13 +281,14 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       players.push(players.length);
     }
 
-    while (numplayers -= 1) {
+    while ((numplayers -= 1) >= 0) {
       Tournament.addPlayer(rng.pickAndRemove(players));
     }
 
     Tournament.start();
+
     if (Tournament.getRanking().byevote[0]) {
-      History.addVote(tournamentid, Tournament.getRanking().ids[0], 0, 0);
+      require('./history').addVote(tournamentid, Tournament.getRanking().ids[0], 0, 0);
     }
 
     require('./storage').store();
