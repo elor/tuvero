@@ -3,6 +3,10 @@
 	* scripts/ui/tab_games.js: Game result submissions work again
 	got rid of DOM injection of tournament ids
 
+	* boules.html: .corr.tpl -> .corr
+
+	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
+	.correctiontable -> .correctionstable. Stupid typo.
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

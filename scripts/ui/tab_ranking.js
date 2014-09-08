@@ -38,7 +38,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     template.correction.$container = template.$box.find('.corrections');
     template.correction.$container.detach();
 
-    template.correction.$correction = template.$box.find('.corr');
+    template.correction.$correction = template.correction.$container.find('.corr');
     template.correction.$correction.detach();
 
     template.correction.$points = [];
@@ -176,7 +176,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     }
 
     $container = template.correction.$container.clone();
-    $table = $container.find('table.correctiontable');
+    $table = $container.find('.correctionstable');
 
     corrections.forEach(function (correction) {
       var tid;
