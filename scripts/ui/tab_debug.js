@@ -1,5 +1,5 @@
 define([ './tabshandle', './opts', './toast', '../backend/random', './options',
-    './strings', './update', './tournaments' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Update, Tournaments) {
+    './strings', './update', './tournaments', './team' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Update, Tournaments, Team) {
   var Tab_Debug, $tab, form, options, letters, Letters, rng;
 
   Tab_Debug = {};
@@ -249,6 +249,48 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     }
   }
 
+  /**
+   * starts a new sidetournament with a random selection of the players (2 min)
+   */
+  function addSideTournament (type) {
+    var min, max, numplayers, Tournament, players;
+
+    min = 2;
+    max = Team.count();
+
+    if (max <= min) {
+      new Toast(Strings.notenoughteams);
+      return undefined;
+    }
+
+    numplayers = rng.nextInt(max - min) + min;
+
+    Tournament = Tournaments.addTournament(type);
+
+    if (!Tournament) {
+      console.error('tournament type not accepted');
+      return undefined;
+    }
+
+    Tournaments.setName(Tournaments.getTournamentID(Tournament), type + ' Nebenturnier ID' + Tournaments.getTournamentID(Tournament));
+
+    players = [];
+
+    while (players.length < Team.count()) {
+      players.push(players.length);
+    }
+
+    while (numplayers -= 1) {
+      Tournament.addPlayer(rng.pickAndRemove(players));
+    }
+
+    Tournament.start();
+    new Toast(Strings.roundstarted.replace('%s', 1));
+
+    require('./storage').store();
+    updateTabs();
+  }
+
   function initForms () {
     var $gameform, $gnames, $gteamnos, $vote, i, tmp;
 
@@ -271,6 +313,10 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
         $startRound : $tab.find('.tournament .start'),
         $finishRound : $tab.find('.tournament .round'),
         $playTournament : $tab.find('.tournament .all'),
+      },
+      phases : {
+        $form : $tab.find('.phases'),
+        $sideTournamentSwiss : $tab.find('.phases .sidetournamentswiss'),
       },
       script : {
         $form : $tab.find('.script'),
@@ -302,6 +348,11 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     });
     form.games.$playTournament.click(function (e) {
       playTournament();
+      e.preventDefault();
+      return false;
+    });
+    form.phases.$sideTournamentSwiss.click(function (e) {
+      addSideTournament('swiss');
       e.preventDefault();
       return false;
     });
