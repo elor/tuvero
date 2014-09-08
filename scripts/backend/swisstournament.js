@@ -296,7 +296,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function newRoundByRandom () {
     // TODO write test
-    var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft;
+    var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft, globaltries;
 
     // abort if the tournament isn't running
     if (this.state === Tournament.STATE.RUNNING) {
@@ -330,35 +330,49 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       bye = this.rng.pick(byes);
     }
 
-    playersleft = [];
-    for (id = 0; id < numplayers; id += 1) {
-      if (id !== bye) {
-        playersleft.push(id);
+    // just randomize it
+
+    globaltries = 50;
+    newgames = [];
+
+    while (globaltries > 0) {
+      triesleft = numplayers * 20;
+      globaltries -= 1;
+
+      playersleft = [];
+      for (id = 0; id < numplayers; id += 1) {
+        if (id !== bye) {
+          playersleft.push(id);
+        }
+      }
+        
+      // TODO add backtracking
+      while (playersleft.length > 0) {
+        p1 = this.rng.pickAndRemove(playersleft);
+        p2 = this.rng.pickAndRemove(playersleft);
+
+        if (canPlay.call(this, p1, p2)) {
+          newgames.push(new Game(p1, p2));
+        } else {
+          playersleft.push(p1);
+          playersleft.push(p2);
+        }
+
+        triesleft -= 1;
+        if (triesleft <= 0) {
+          newgames = [];
+          break;
+        }
+      }
+
+      if (newgames.length){
+        break;
       }
     }
 
-    // just randomize it
-
-    triesleft = numplayers * 10;
-    newgames = [];
-
-    // TODO add backtracking
-    while (playersleft.length > 0) {
-      p1 = this.rng.pickAndRemove(playersleft);
-      p2 = this.rng.pickAndRemove(playersleft);
-
-      if (canPlay.call(this, p1, p2)) {
-        newgames.push(new Game(p1, p2));
-      } else {
-        playersleft.push(p1);
-        playersleft.push(p2);
-      }
-
-      triesleft -= 1;
-      if (triesleft <= 0) {
-        console.error("Failed to find non-repeating games");
-        return undefined;
-      }
+    if (newgames.length === 0) {
+      console.error("Failed to find non-repeating games");
+      return undefined
     }
 
     clearRoundvotes.call(this);
