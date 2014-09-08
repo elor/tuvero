@@ -1,6 +1,8 @@
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again
+	got rid of DOM injection of tournament ids
+
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

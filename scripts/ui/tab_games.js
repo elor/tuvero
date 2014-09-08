@@ -1,12 +1,13 @@
 define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     './history', './tab_history', './storage', './options', './opts',
     './tabshandle', './tournaments' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle, Tournaments) {
-  var Tab_Games, $tab, template, games, $games, options, updatependng;
+  var Tab_Games, $tab, template, games, $games, $tournaments, options, updatependng;
 
   updatepending = false;
 
-  // references to html elements of the games
+  // references to html elements of the games and tournaments
   $games = [];
+  $tournaments = [];
   // local copy of the running games
   games = [];
 
@@ -150,6 +151,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
   function clearBoxes () {
     $tab.find('.box').remove();
     $games = [];
+    $tournaments = [];
     games = [];
   }
 
@@ -172,7 +174,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       round = tournament.getRanking().round;
 
       template.$boxname.text(Tournaments.getName(tournamentid) + ' - Runde ' + round);
-      $box = template.$box.attr('data-tournamentid', tournamentid).clone();
+      $box = template.$box.clone();
 
       notempty = false;
 
@@ -188,6 +190,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
       if (notempty) {
         $tab.append($box);
+        $tournaments[tournamentid] = $box;
       }
     }
 
@@ -210,6 +213,32 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     } else {
       Tabshandle.show('games');
     }
+  }
+
+  function getTournamentID ($game) {
+    var $box, i, boxdata;
+
+    if (!$game) {
+      return undefined;
+    }
+
+    $box = $game.parents('.box');
+
+    if ($box.length !== 1) {
+      console.error('cannot find $box of $game');
+      return undefined;
+    }
+
+    boxdata = $box.data();
+
+    for (i = 0; i < $tournaments.length; i += 1) {
+      if ($tournaments[i] && $tournaments[i].data() === boxdata) {
+        return i;
+      }
+    }
+
+    console.error('cannot find the tournament of $box');
+    return undefined;
   }
 
   /**
@@ -237,8 +266,10 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       points : []
     };
 
-    // FIXME don't store data in the DOM. Use an array!
-    tournamentid = $container.parents('.box').attr('data-tournamentid');
+    tournamentid = getTournamentID($container);
+    if (tournamentid === undefined) {
+      return undefined;
+    }
 
     for (i = 0; i < $games[tournamentid].length; i += 1) {
       // find the container in the array of containers
@@ -295,12 +326,12 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     // * remove the game
     // * drink a toast to the game
 
-    tournamentid = $(this).parents('.box').attr('data-tournamentid');
+    tournamentid = getTournamentID($(this));
 
-    if (!(tournamentid >= 0)) {
-      console.error('cannot read tournamentid from data-tournamentid attribute');
+    if (tournamentid === undefined) {
       return false;
     }
+
     if (!Tournaments.isRunning(tournamentid)) {
       console.error("tournament isn't running anymore, but player wants to finish a game");
       return false;
