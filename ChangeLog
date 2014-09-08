@@ -8,6 +8,8 @@
 	* boules.html: .corr.tpl -> .corr
 	history gamestable class added
 	tab_new system: states added (at least for swiss)
+	newsystem box added to tab_new
+	trailing whitespaces stripped
 
 	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
 	.correctiontable -> .correctionstable. Stupid typo.
@@ -31,9 +33,18 @@
 	* scripts/ui/tab_new.js: supporting Tournament states
 	Swiss -> Tournament for all general variable names
 	always showing the New tab (which is likely to be renamed in the future)
+	.newsystem added for tournament system selection
+	getRanking() handles empty tournaments
 
 	* style/new.css: only show current tournament state
 	header x-padding added
+	accidentally prevented templates from hiding
+
+	* scripts/ui/tournaments.js: Tournaments.size() deprecated
+	Tournaments.numTournaments() added
+	Tournaments.getTournamentID added (for inverse association of a Tournament to its id)
+	getTournament() checks whether the tournament exists, first
+	Swiss stub removed. We're live now!
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

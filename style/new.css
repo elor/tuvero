@@ -3,7 +3,7 @@
   text-align: center;
 }
 
-#new > div.box {
+#new > div.box:not(.tpl) {
   display: inline-block;
 }
 
@@ -79,12 +79,12 @@
   display: block;
 }
 
-#new  .swiss table {
+#new .swiss table {
   text-align: center;
   display: inline-block;
 }
 
-#new .playertable .swiss table td {
+#new .swiss table td {
   vertical-align: top;
   border: none;
 }

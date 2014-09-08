@@ -67,6 +67,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     template.system = {};
     template.system.$swiss = $tab.find('.swiss.tpl').detach().find('> *');
+    template.system.$newsystem = $tab.find('.newsystem.tpl').detach().find('> *');
   }
 
   function resetTeams () {
@@ -78,16 +79,19 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function getRanking () {
-    var Tournament, ranking, ranks, ids, i;
+    var ranking, ranks, ids, i;
 
     // TODO use global ranking and stuff.
     // This still is a cheap hack
-    Tournament = Tournaments.getTournament(Tournaments.size() - 1);
+    ranks = [];
+    ids = [];
 
-    ranking = Tournament.getRanking();
+    if (Tournaments.numTournaments()) {
+      ranking = Tournaments.getTournament(0).getRanking();
 
-    ids = ranking.ids;
-    ranks = ranking.place;
+      ids = ranking.ids;
+      ranks = ranking.place;
+    }
 
     if (ranks.length == 0) {
       ids = [];
@@ -155,17 +159,43 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     // TODO read number of teams from Tournaments
     height = Team.count();
 
-    // FIXME read all tournaments and span accordingly
-    template.$system.attr('rowspan', height);
     $clone = template.$system.clone();
-    $clone.append(template.system.$swiss.clone());
-    $clone.addClass('swiss');
-    Tournament = Tournaments.getTournament(Tournaments.size() - 1);
-    initSwiss($clone, Tournament);
+
+    if (Tournaments.numTournaments() > 0) {
+      // FIXME find the last running one
+      Tournament = Tournaments.getTournament(0);
+
+      // FIXME read all tournaments and span accordingly
+      $clone.append(template.system.$swiss.clone());
+      $clone.addClass('swiss');
+      initSwiss($clone, Tournament);
+    } else {
+      $clone.append(template.system.$newsystem.clone());
+      $clone.addClass('newsystem');
+      initNewsystem($clone);
+    }
+
+    $clone.attr('rowspan', height);
     setSystemState($clone, Tournament);
 
     $anchor.find('td').css('border-top', 'solid 1px black');
     $anchor.append($clone);
+  }
+
+  /**
+   * prepare Newsystem management box, which starts a new tournament round
+   */
+  function initNewsystem ($clone) {
+    var $swissbutton;
+
+    $swissbutton = $clone.find('button.swiss');
+
+    $swissbutton.click(function () {
+      // TODO use position information
+      Tournaments.addTournament('swiss');
+      Storage.store();
+      Tab_New.update();
+    });
   }
 
   /**
