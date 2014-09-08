@@ -7,21 +7,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   Tab_History = {};
   options = {};
 
-  function setRound (round) {
-    var $newcontainer;
-    if (currentround === round) {
-      return;
-    }
-
-    currentround = round;
-
-    // update anchor and insert new header with current round
-    template.$roundno.text(currentround);
-    $newcontainer = template.$container.clone();
-    $tab.append($newcontainer);
-    template.$anchor = $newcontainer.find('table');
-  }
-
   function formatNamesHTML (teamid) {
     var team, names;
 
@@ -40,11 +25,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
    * @param result
    *          a result as returned by history.getGame()
    */
-  function createBox (result) {
-    if (currentround === 0 || template.$anchor === undefined) {
-      return undefined;
-    }
-
+  function createGame (result, $table) {
     // fill the fields
     template.game.$teamnos[0].text(result[0] + 1);
     template.game.$teamnos[1].text(result[1] + 1);
@@ -54,9 +35,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.game.$points[1].text(result[3]);
 
     // release the box to the DOM
-    template.$anchor.append(template.game.$game.clone());
-
-    Tabshandle.show('history');
+    $table.append(template.game.$game.clone());
   }
 
   /**
@@ -65,16 +44,11 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
    * @param teamid
    *          id of the team receiving a bye
    */
-  function createBye (teamid) {
-    if (template.$anchor === undefined) {
-      return undefined;
-    }
-
+  function createBye (teamid, $table) {
     template.bye.$teamno.text(teamid + 1);
     template.bye.$names.html(formatNamesHTML(teamid));
-    template.$anchor.append(template.bye.$bye.clone());
 
-    Tabshandle.show('history');
+    $table.append(template.bye.$bye.clone());
   }
 
   function isInt (n) {
@@ -406,8 +380,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.bye.$bye.removeClass('tpl');
     template.bye.$teamno = template.bye.$bye.find('.number');
     template.bye.$names = template.bye.$bye.find('.names');
-
-    template.$anchor = undefined;
   }
 
   function initRounds () {
@@ -430,6 +402,51 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     // FIXME reload from history page moves to another tab because it's closed
     // Tabshandle.hide('history');
+  }
+
+  function showTournaments () {
+    var round, maxround, id, numgames, bye, hidden, empty, votes, tournamentid, $box, $table;
+
+    hidden = true;
+
+    for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
+
+      votes = History.getVotes(tournamentid);
+      maxround = History.numRounds(tournamentid);
+
+      for (round = 0; round < maxround; round += 1) {
+        $box = template.$container.clone();
+        $box.find('>h3:first-child').text(Tournaments.getName(tournamentid) + ' - Runde ' + (round + 1));
+        $table = $box.find('table.gamestable');
+
+        bye = undefined;
+        // search the bye for this round
+        // TODO preprocessing?
+        votes.map(function (vote) {
+          var bye;
+          if (vote[0] == History.BYE && vote[2] == round) {
+            bye = vote[1];
+            if (bye !== undefined) {
+              createBye(bye, $table);
+              empty = false;
+            }
+          }
+        });
+
+        History.getRound(tournamentid, round).map(function (game) {
+          createGame(game, $table);
+          empty = false;
+        });
+
+        if (!empty) {
+          $tab.append($box);
+          $box.data('tournamentid', tournamentid);
+          hidden = false;
+        }
+      }
+    }
+
+    return !hidden;
   }
 
   /**
@@ -458,38 +475,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     } else {
       updatepending = true;
       window.setTimeout(function () {
-        var round, maxround, id, numgames, bye, empty, votes;
-
-        empty = true;
 
         Tab_History.reset();
 
-        votes = History.getVotes(0);
-        maxround = History.numRounds(0);
-        for (round = 0; round < maxround; round += 1) {
-          setRound(round + 1);
-
-          bye = undefined;
-          // search the bye for this round
-          // TODO preprocessing?
-          votes.map(function (vote) {
-            var bye;
-            if (vote[0] == History.BYE && vote[2] == round) {
-              bye = vote[1];
-              if (bye !== undefined) {
-                empty = false;
-                createBye(bye);
-              }
-            }
-          });
-
-          History.getRound(0, round).map(function (game) {
-            empty = false;
-            createBox(game);
-          });
-        }
-
-        if (empty) {
+        if (showTournaments()) {
+          Tabshandle.show('history');
+        } else {
           Tabshandle.hide('history');
         }
         updatepending = false;

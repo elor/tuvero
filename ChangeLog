@@ -5,9 +5,19 @@
 	and now we're using jquery for unique identifiers
 
 	* boules.html: .corr.tpl -> .corr
+	history gamestable class added
 
 	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
 	.correctiontable -> .correctionstable. Stupid typo.
+
+	* scripts/ui/history.js: History.numTournaments() added to avoid calling Tournaments.size()
+	Tournaments.size() != History.numTournaments() in some cases
+
+	* scripts/ui/tab_history.js: setRound() removed
+	createBox() -> createGame()
+	template updated
+	showTournaments() added for drawing all past and present tournaments
+	update(): code length reduced
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -302,7 +302,8 @@ define([ './tournaments' ], function (Tournaments) {
     /**
      * returns a raw correction object for further viewing
      * 
-     * Do not manipulate! Use Tournaments.getTournament(tournamentid).correct() for that!
+     * Do not manipulate! Use Tournaments.getTournament(tournamentid).correct()
+     * for that!
      * 
      * @param tournamentid
      *          the tournament id
@@ -319,6 +320,10 @@ define([ './tournaments' ], function (Tournaments) {
       }
 
       return tournament.corrections[id];
+    },
+
+    numTournaments : function () {
+      return history.length;
     },
 
     reset : function () {
