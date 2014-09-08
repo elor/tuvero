@@ -48,6 +48,7 @@
 	getTournament() checks whether the tournament exists, first
 	Swiss stub removed. We're live now!
 
+	* scripts/ui/tab_teams.js: seemingly ancient bug: teamsize was hidden
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

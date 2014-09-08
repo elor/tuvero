@@ -611,16 +611,18 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   }
 
   function updateAfterTeamAdd () {
-    // hide file load
-    $fileload.hide();
-    // hide teamsize selection
-    $teamsize.hide();
-    // show deletion button
-    updateDeletion();
-    // show the number of teams
-    updateTeamCounts();
+    if (Team.count() > 0) {
+      // hide file load
+      $fileload.hide();
+      // hide teamsize selection
+      $teamsize.hide();
+      // show deletion button
+      updateDeletion();
+      // show the number of teams
+      updateTeamCounts();
 
-    Tab_New.update();
+      Tab_New.update();
+    }
   }
 
   options = {
