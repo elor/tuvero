@@ -160,19 +160,31 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function startRound (tournamentid) {
-    var $button, Tab_Games, $boxes, $box, i;
-
-    if (!$box) {
-      return undefined;
-    }
+    var $button, Tab_Games;
 
     Tab_Games = require('./tab_games');
 
-    if (Tab_Games.getOptions().stage === 1) {
-      new Toast(Strings.roundrunning.replace(/%s/g, ''));
-    } else {
-      $('#new .swiss button').click();
+    $button = $('#new .newsystem button.swiss').eq(0);
+    if ($button.length === 1) {
+      $button.click();
+      // let it render
+      window.setTimeout(startRound, 1);
+      return false;
     }
+
+    $button = $('#new .swiss button').eq(0);
+
+    if ($button.length !== 1) {
+      new Toast(Strings.notenoughteams + '?');
+      return false;
+    }
+
+    if ($button.parents('.running').length) {
+      new Toast(Strings.roundrunning.replace(/%s/g, ''));
+      return false;
+    }
+
+    $button.click();
   }
 
   function finishRound (tournamentid, timeout) {

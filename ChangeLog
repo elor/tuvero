@@ -29,6 +29,7 @@
 	* scripts/ui/strings.js: toolatetournamentfinished added
 
 	* scripts/ui/tab_debug.js: playTournament() and finishRound() work with multiple tournaments
+	startRound adapted to new multi-system layout
 
 	* scripts/ui/tab_new.js: supporting Tournament states
 	Swiss -> Tournament for all general variable names
@@ -45,6 +46,7 @@
 	Tournaments.getTournamentID added (for inverse association of a Tournament to its id)
 	getTournament() checks whether the tournament exists, first
 	Swiss stub removed. We're live now!
+
 
 2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
