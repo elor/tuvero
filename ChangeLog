@@ -30,6 +30,7 @@
 
 	* scripts/ui/tab_debug.js: playTournament() and finishRound() work with multiple tournaments
 	startRound adapted to new multi-system layout
+	playTournament can cold-start without manually calling startRound first
 
 	* scripts/ui/tab_new.js: supporting Tournament states
 	Swiss -> Tournament for all general variable names

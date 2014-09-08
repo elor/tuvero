@@ -239,6 +239,12 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   function playTournament () {
     var tournamentid, Tournament;
 
+    if (Tournaments.numTournaments() === 0) {
+      startRound();
+      setTimeout(playTournament, 1);
+      return undefined;
+    }
+
     starttime = new Date();
     for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
