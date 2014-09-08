@@ -253,7 +253,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
    * starts a new sidetournament with a random selection of the players (2 min)
    */
   function addSideTournament (type) {
-    var min, max, numplayers, Tournament, players;
+    var min, max, numplayers, Tournament, players, tournamentid;
 
     min = 2;
     max = Team.count();
@@ -272,7 +272,8 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       return undefined;
     }
 
-    Tournaments.setName(Tournaments.getTournamentID(Tournament), type + ' Nebenturnier ID' + Tournaments.getTournamentID(Tournament));
+    tournamentid = Tournaments.getTournamentID(Tournament);
+    Tournaments.setName(tournamentid, type + ' Sidetournament ID' + tournamentid);
 
     players = [];
 
@@ -285,10 +286,13 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     }
 
     Tournament.start();
-    new Toast(Strings.roundstarted.replace('%s', 1));
+    if (Tournament.getRanking().byevote[0]) {
+      History.addVote(tournamentid, Tournament.getRanking().ids[0], 0, 0);
+    }
 
     require('./storage').store();
     updateTabs();
+    new Toast(Strings.roundstarted.replace('%s', 1));
   }
 
   function initForms () {
