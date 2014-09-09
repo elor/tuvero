@@ -33,11 +33,16 @@
 	* scripts/ui/ranking.js: toCSV fixed (showing corrections + using nice headers)
 
 	* scripts/ui/main.js: online.js reference added
+	using backgroundscripts.js
 
 	* scripts/ui/online.js: online/offline detection added
 	if offline and not cached, ask before exiting
 
 	* scripts/ui/update.js: Update.isCached added
+
+	* scripts/ui/debug.js: stacktrace not divided into multiple files
+
+	* scripts/ui/backgroundscripts.js: loader for a collection of background scripts
 
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

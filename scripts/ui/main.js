@@ -1,6 +1,6 @@
-require([ './splash', './reset', './tabs', './toast', './strings', './storage',
-    './tab_settings', './featuredetect', './tabshandle', './alltabs',
-    './update', './tab_debug', './box', './online' ], function (Splash, Reset, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update, Tab_Debug, Box) {
+require([ './backgroundscripts', './splash', './toast', './strings',
+    './storage', './tab_settings', './tabshandle', './alltabs', './tab_debug',
+    './update' ], function (undefined, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug, Update) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
@@ -8,6 +8,7 @@ require([ './splash', './reset', './tabs', './toast', './strings', './storage',
 
     // look for updates
     Update();
+    // update Tab_Debug for dev version notifications
     Tab_Debug.update();
 
     // TODO show loading screen
