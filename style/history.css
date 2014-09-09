@@ -9,13 +9,14 @@
 #history .box table {
   display: inline-block;
   white-space: nowrap;
+  border-spacing: 0.1em;
 }
 
 #history .team {
   text-align: left;
   background-color: #d0d0d0;
   border-radius: 0.5em;
-  padding: 0.5em;
+  padding: 0em;
 }
 
 #history .team .number {
