@@ -182,6 +182,25 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $anchor.append($clone);
   }
 
+  function addNewSystem (type) {
+    var Tournament, tournamentid;
+
+    // TODO use position information
+    // TODO verify type
+
+    Tournament = Tournaments.addTournament(type);
+    if (!Tournament) {
+      console.error('cannot create tournament of type ' + type);
+      Tab_New.update();
+      return undefined;
+    }
+    tournamentid = Tournaments.getTournamentID(Tournament);
+    Tournaments.setName(tournamentid, Strings['defaultname' + type]);
+
+    Storage.store();
+    Tab_New.update();
+  }
+
   /**
    * prepare Newsystem management box, which starts a new tournament round
    */
@@ -191,10 +210,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $swissbutton = $clone.find('button.swiss');
 
     $swissbutton.click(function () {
-      // TODO use position information
-      Tournaments.addTournament('swiss');
-      Storage.store();
-      Tab_New.update();
+      addNewSystem('swiss');
     });
   }
 

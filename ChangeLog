@@ -1,10 +1,14 @@
 2014-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_new.js: Bye of the first team was not added
+	addNewSystem() for unified tournament creation added
+	setting the name of new tournaments
 
 	* scripts/ui/tab_debug.js: sidetournaments have correct byes
 	sidetournaments allow max players
 	sidetournaments allow two players
+
+	* scripts/ui/strings.js: default tournament names added
 
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -71,6 +71,11 @@ define(function () {
     dev : 'Entwicklerversion',
     rc : 'Versionsvorschau',
     reset : 'Gespeicherte Daten gelöscht',
+    defaultnameswiss : 'Schweizer System',
+    defaultnameko : 'KO-Turnier',
+    defaultnamepoule : 'Poule-System',
+    defaultnameroundtournament : 'Rundenturnier',
+    defaultnamesupermelee : 'Supermelee',
   };
 
   return Strings;
