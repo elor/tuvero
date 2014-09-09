@@ -22,6 +22,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     template.rank = {};
 
     template.rank.$table = template.$box.find('table.ranking');
+    template.rank.$table.detach();
 
     template.rank.$row = template.rank.$table.find('.line');
     template.rank.$row.detach();

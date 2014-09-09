@@ -345,7 +345,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
           playersleft.push(id);
         }
       }
-        
+
       // TODO add backtracking
       while (playersleft.length > 0) {
         p1 = this.rng.pickAndRemove(playersleft);
@@ -365,14 +365,14 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         }
       }
 
-      if (newgames.length){
+      if (newgames.length) {
         break;
       }
     }
 
     if (newgames.length === 0) {
       console.error("Failed to find non-repeating games");
-      return undefined
+      return undefined;
     }
 
     clearRoundvotes.call(this);

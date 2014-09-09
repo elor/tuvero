@@ -17,6 +17,8 @@
 	* style/history.css: height of team block reduced
 	table cell spacing adjusted
 
+	* scripts/ui/tab_ranking.js: tab_ranking: double ranking table removed
+
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again
