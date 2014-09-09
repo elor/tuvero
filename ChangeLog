@@ -23,6 +23,12 @@
 
 	* scripts/ui/tab_settings.js: don't reload the page if a file load fails
 
+	* scripts/ui/csver.js: toCSV interface added
+
+	* scripts/ui/test/csv.js: CSVer interface tests added
+
+	* scripts/ui/history.js: toCSV() added, implemented and tested
+
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again

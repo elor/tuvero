@@ -18,7 +18,7 @@
  * round within the tournament and the original place in the games array (useful
  * for structured tournaments). A compact array is good enough for storage.
  * 
- * Byes - In a round of a tournament, a vote can be applied. It can be a bye
+ * Votes - In a round of a tournament, a vote can be applied. It can be a bye
  * (0), an upvote (1) and a downvote (-1). For storage, the type, team and round
  * is required, in this order
  * 
@@ -197,7 +197,7 @@ define([ './tournaments' ], function (Tournaments) {
       return tournament.corrections.length;
     },
 
-    numRounds : function (tournamentid, id) {
+    numRounds : function (tournamentid) {
       var tournament, games;
 
       tournament = getTournament(tournamentid);
@@ -328,6 +328,115 @@ define([ './tournaments' ], function (Tournaments) {
 
     reset : function () {
       history = [];
+    },
+
+    /**
+     * CSV exporter
+     * 
+     * Tournament Comment Line Format: 'name Round roundno'
+     * 
+     * Game Format:
+     * 'No1,No2,Name1_1,Name1_2,Name1_3,Names2_1,Names2_2,Names2_3,Points1,Points2'
+     * 
+     * VoteFormat: 'No1,Name1,Name2,Name3,Type'
+     * 
+     * @returns a comma-separated-values compatible History representation
+     */
+    toCSV : function () {
+      var lines, tournamentid, roundid, numrounds, votes, vote, game, games, line, names, hasvotes, Team, Tournaments;
+
+      lines = [];
+
+      Team = require('./team');
+      Tournaments = require('./tournaments');
+
+      for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
+        numrounds = History.numRounds(tournamentid);
+        votes = History.getVotes(tournamentid);
+        for (roundid = 0; roundid < numrounds; roundid += 1) {
+          // FIXME use Strings. Somehow.
+          games = History.getRound(tournamentid, roundid);
+
+          if (games && games.length) {
+            lines.push('#' + Tournaments.getName(tournamentid) + ' Runde ' + (roundid + 1) + ' Spiele,');
+
+            lines.push('No1,No2,Name1_1,Name1_2,Name1_3,Name2_1,Name2_2,Name2_3,Points1,Points2');
+
+            for (game in games) {
+              game = games[game];
+
+              line = [];
+              line.push(game[0] + 1);
+              line.push(game[1] + 1);
+
+              // Team 1, id
+              names = Team.get(game[0]).names;
+
+              // Team 1, names (escaped)
+              line.push('"' + (names[0] || '').replace('"', '""') + '"');
+              line.push('"' + (names[1] || '').replace('"', '""') + '"');
+              line.push('"' + (names[2] || '').replace('"', '""') + '"');
+
+              // Team 2, id
+              names = Team.get(game[1]).names;
+
+              // Team 2, names (escaped)
+              line.push('"' + (names[0] || '').replace('"', '""') + '"');
+              line.push('"' + (names[1] || '').replace('"', '""') + '"');
+              line.push('"' + (names[2] || '').replace('"', '""') + '"');
+
+              // points
+              line.push(game[2]);
+              line.push(game[3]);
+
+              lines.push(line.join(','));
+            }
+          }
+
+          // print votes
+          firstvote = true;
+          for (vote in votes) {
+            vote = votes[vote];
+
+            if (vote[2] === roundid) {
+              if (firstvote) {
+                firstvote = false;
+                lines.push('#' + Tournaments.getName(tournamentid) + ' Runde ' + (roundid + 1) + ' Lose,');
+                lines.push('No,Name1,Name2,Name3,Typ');
+              }
+
+              names = Team.get(vote[1]).names;
+              line = [];
+
+              line.push(vote[1] + 1);
+              line.push('"' + (names[0] || '').replace('"', '""') + '"');
+              line.push('"' + (names[1] || '').replace('"', '""') + '"');
+              line.push('"' + (names[2] || '').replace('"', '""') + '"');
+              switch (vote[0]) {
+              case History.BYE:
+                line.push('frei');
+                break;
+              case History.DOWNVOTE:
+                line.push('hoch');
+                break;
+              case History.UPVOTE:
+                line.push('runter');
+                break;
+              default:
+                line.push(undefined);
+              }
+
+              lines.push(line.join(','));
+            }
+          }
+        }
+      }
+
+      if (!lines.length) {
+        lines.push('#No History yet');
+      }
+
+      return lines.join('\r\n');
     },
 
     /**
