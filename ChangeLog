@@ -19,6 +19,8 @@
 
 	* scripts/ui/tab_ranking.js: tab_ranking: double ranking table removed
 
+	* scripts/ui/tab_teams.js: tab_teams rename -> tab_new update
+
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again

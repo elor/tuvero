@@ -502,6 +502,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       // avoid circular dependency
       Tab_Games = require('./tab_games');
       // refresh all tabs
+      Tab_New.update();
       Tab_Games.update();
       Tab_Ranking.update();
 
