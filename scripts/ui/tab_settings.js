@@ -149,12 +149,12 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     case evt.target.error.ABORT_ERR:
       break;
     default:
-      new Toast(Strings.fileerror);
+      new Toast(Strings.fileerror, Toast.LONG);
     }
   }
 
   function loadFileLoad (evt) {
-    var blob;
+    var blob, Alltabs;
 
     blob = evt.target.result;
 
@@ -172,11 +172,17 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
         // TODO what if something invalid has been returned?
       }
     } catch (e) {
-      new Toast(Strings.loadfailed);
-      window.setTimeout(function () {
-        // TODO don't reload, but reset from storage or something
-        window.location.reload(); // reload after load fail
-      }, 2000);
+      new Toast(Strings.loadfailed, Toast.LONG);
+      // perform a complete reset of the everything related to the tournament
+      Storage.enable();
+      Storage.clear(Options.dbname);
+      Alltabs = require('./alltabs');
+      Alltabs.reset();
+      State.reset();
+      Alltabs.update();
+
+      new Toast(Strings.newtournament);
+      Tabshandle.focus('teams');
     }
   }
 

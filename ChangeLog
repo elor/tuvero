@@ -21,6 +21,8 @@
 
 	* scripts/ui/tab_teams.js: tab_teams rename -> tab_new update
 
+	* scripts/ui/tab_settings.js: don't reload the page if a file load fails
+
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again
