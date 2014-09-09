@@ -24,12 +24,17 @@
   text-align: left;
 }
 
-#about .manual {
+
+#about .links a[href] {
   display: inline-block;
-  background-color: #90EE90;
-  padding: 0.5em;
-  border-radius: 1em;
+  /* background-color: #d3d3d3; */
+  padding: 0.2em;
+  border-radius: 0.2em;
   font-weight: bold;
+}
+
+#about .links a.manual {
+  background-color: #90EE90;
 }
 
 #about .manual img {
