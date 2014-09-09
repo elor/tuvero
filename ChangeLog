@@ -17,6 +17,7 @@
 
 	* style/history.css: height of team block reduced
 	table cell spacing adjusted
+	number has no max-width anymore (4-digit-numbers look ... bad)
 
 	* scripts/ui/tab_ranking.js: tab_ranking: double ranking table removed
 
@@ -43,6 +44,7 @@
 	* scripts/ui/debug.js: stacktrace not divided into multiple files
 
 	* scripts/ui/backgroundscripts.js: loader for a collection of background scripts
+
 
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

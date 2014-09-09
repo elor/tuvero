@@ -20,7 +20,7 @@
 }
 
 #history .team .number {
-  width: 1.5em;
+  min-width: 1.5em;
   font-size: 200%;
   text-align: center;
 }
