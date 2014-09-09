@@ -37,7 +37,7 @@
 
 #new .playertable .system {
   position: relative;
-  padding: 1em;
+  padding: 1em 1em 3em 1em;
   border: solid 1px;
   border-radius: 0em 1em 1em 0em;
   overflow: hidden;
@@ -56,6 +56,19 @@
   margin: -1em -1em 1em -1em;
   border-bottom-style: solid;
   border-bottom-width: 1px;
+  background-color: #d0d0d0;
+  text-align: center;
+}
+
+#new .playertable .system > h3:last-child {
+  position: absolute;
+  display: block;
+  width: 100%;
+  bottom: 0em;
+  padding: 0.2em 0.2em 0.3em 0.2em;
+  margin: 0em -1em;
+  border-top-style: solid;
+  border-top-width: 1px;
   background-color: #d0d0d0;
   text-align: center;
 }

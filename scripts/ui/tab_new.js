@@ -175,6 +175,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       initNewsystem($clone);
     }
 
+    $clone.append($clone.find('>h3').clone());
+
     $clone.attr('rowspan', height);
     setSystemState($clone, Tournament);
 
