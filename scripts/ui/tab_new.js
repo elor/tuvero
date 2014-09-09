@@ -29,7 +29,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     votes = {
       up : [],
       down : [],
-      bye : undefined,
+      bye : [],
     };
 
     for (i = 0; i < ranking.ids.length; i += 1) {
@@ -40,7 +40,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
         votes.down.push(ranking.ids[i]);
       }
       if (ranking.roundbyevote[i]) {
-        votes.bye = ranking.ids[i];
+        votes.bye.push(ranking.ids[i]);
       }
     }
 
@@ -250,9 +250,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
         // add the bye to history
         bye = getRoundVotes(Swiss).bye;
-        if (bye) {
-          bye;
-          History.addVote(0, History.BYE, bye, round - 1);
+        while (bye.length > 0) {
+          History.addVote(0, History.BYE, bye.shift(), round - 1);
         }
 
         new Toast(Strings.roundstarted.replace('%s', round));
