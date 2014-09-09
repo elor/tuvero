@@ -4,6 +4,7 @@
 	addNewSystem() for unified tournament creation added
 	setting the name of new tournaments
 	showing system footer
+	showing the tournament name, if available
 
 	* scripts/ui/tab_debug.js: sidetournaments have correct byes
 	sidetournaments allow max players

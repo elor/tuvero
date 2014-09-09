@@ -145,7 +145,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function updateSystems () {
-    var $anchor, height, $clone, $swiss, Tournament;
+    var $anchor, height, $clone, $swiss, Tournament, name;
 
     $anchor = $tab.find('.team').eq(0);
 
@@ -160,22 +160,27 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     height = Team.count();
 
     $clone = template.$system.clone();
+    name = undefined;
 
     if (Tournaments.numTournaments() > 0) {
       // FIXME find the last running one
       Tournament = Tournaments.getTournament(0);
+      name = Tournaments.getName(0);
 
       // FIXME read all tournaments and span accordingly
       $clone.append(template.system.$swiss.clone());
       $clone.addClass('swiss');
       initSwiss($clone, Tournament);
-    } else {
+    } else { 
       $clone.append(template.system.$newsystem.clone());
       $clone.addClass('newsystem');
       initNewsystem($clone);
     }
 
     $clone.append($clone.find('>h3').clone());
+    if (name){
+      $clone.find('.name').text(name);
+    }
 
     $clone.attr('rowspan', height);
     setSystemState($clone, Tournament);
