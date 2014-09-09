@@ -276,12 +276,12 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     min = 2;
     max = Team.count();
 
-    if (max <= min) {
+    if (max < min) {
       new Toast(Strings.notenoughteams);
       return undefined;
     }
 
-    numplayers = rng.nextInt(max - min) + min;
+    numplayers = rng.nextInt(max - min + 1) + min;
 
     Tournament = Tournaments.addTournament(type);
 
@@ -306,7 +306,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     Tournament.start();
 
     if (Tournament.getRanking().byevote[0]) {
-      require('./history').addVote(tournamentid, Tournament.getRanking().ids[0], 0, 0);
+      require('./history').addVote(tournamentid, 0, Tournament.getRanking().ids[0], 0);
     }
 
     require('./storage').store();

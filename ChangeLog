@@ -2,6 +2,10 @@
 
 	* scripts/ui/tab_new.js: Bye of the first team was not added
 
+	* scripts/ui/tab_debug.js: sidetournaments have correct byes
+	sidetournaments allow max players
+	sidetournaments allow two players
+
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again
