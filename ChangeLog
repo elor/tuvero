@@ -11,6 +11,7 @@
 	sidetournaments allow two players
 
 	* scripts/ui/strings.js: default tournament names added
+	offline exit question added
 
 	* style/new.css: showing system footer
 
@@ -34,6 +35,9 @@
 	* scripts/ui/main.js: online.js reference added
 
 	* scripts/ui/online.js: online/offline detection added
+	if offline and not cached, ask before exiting
+
+	* scripts/ui/update.js: Update.isCached added
 
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

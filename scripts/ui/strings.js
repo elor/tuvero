@@ -76,6 +76,7 @@ define(function () {
     defaultnamepoule : 'Poule-System',
     defaultnameroundtournament : 'Rundenturnier',
     defaultnamesupermelee : 'Supermelee',
+    offlineconfirmexit : 'Der Browser hat keine Internetverbindung und die Seite liegt nicht im Cache. Wenn sie die Seite jetzt schließen, können sie sie nur mit bestehender Internetverbindung neu laden. Seite wirklich verlassen?',
   };
 
   return Strings;

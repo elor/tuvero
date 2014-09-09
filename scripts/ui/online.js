@@ -2,7 +2,7 @@
  * Am I online or offline?
  */
 // FIXME modernizr
-define(function () {
+define([ './strings', './update' ], function (Strings, Update) {
   var Online;
 
   /**
@@ -12,13 +12,18 @@ define(function () {
     return navigator.onLine;
   };
 
-  // if offline, send a nag message!
+  // if offline, send a nag message on exit!
 
-  // debug: nag every second
+  $(window).on('beforeunload', function (e) {
+    var message = Strings.offlineconfirmexit;
 
-  setInterval(function () {
-    new require('./toast')(Online() ? 'online' : 'offline');
-  }, 1000);
+    if (!Online() && !Update.isCached) {
+      e.returnValue = message;
+      return message;
+    }
+
+    return undefined;
+  });
 
   return Online;
 });

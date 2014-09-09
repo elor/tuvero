@@ -44,8 +44,10 @@ define([ './strings', './toast' ], function (Strings, Toast) {
   Update = function () {
     if (appCache.status != appCache.UNCACHED) {
       appCache.update();
+      Update.isCached = true;
     } else {
       Update.isDevVersion = true;
+      Update.isCached = false;
 
       console.warn('no cache manifest found. This is normal for development versions and release candidates.');
       new Toast(Strings.dev, Toast.INFINITE);
