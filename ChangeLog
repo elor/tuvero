@@ -29,6 +29,8 @@
 
 	* scripts/ui/history.js: toCSV() added, implemented and tested
 
+	* scripts/ui/ranking.js: toCSV fixed (showing corrections + using nice headers)
+
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again

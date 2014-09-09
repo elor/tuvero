@@ -11,9 +11,9 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
      * converts ranking and correction information to a csv string
      */
     toCSV : function () {
-      var lines, ranking, rank, length, corrs, makeline, i, tournamentid, retval, tournament;
+      var lines, ranking, rank, length, corrs, makeline, i, tournamentid, tournament;
 
-      retval = [];
+      lines = [];
 
       for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
@@ -30,7 +30,7 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
           continue;
         }
 
-        lines = [ Tournaments.getName(tournamentid) ];
+        lines.push('#' + Tournaments.getName(tournamentid) + ' Ranking,');
         lines.push(Strings['rankhead' + Options.teamsize]);
 
         ranking = tournament.getRanking();
@@ -81,10 +81,10 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
           lines.push(makeline(rank));
         }
 
-        corrs = Swiss().getCorrections();
+        corrs = tournament.getCorrections();
 
         if (corrs !== undefined && corrs.length !== 0) {
-          lines.push('');
+          lines.push('#' + Tournaments.getName(tournamentid) + ' Korrekturen,');
           lines.push(Strings.correctionhead);
 
           makeline = function (corr) {
@@ -111,10 +111,8 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
             lines.push(makeline(corr));
           });
         }
-
-        retval.push(lines.join('\r\n'));
       }
-      return retval.join('\r\n\r\n');
+      return lines.join('\r\n');
     }
   };
 

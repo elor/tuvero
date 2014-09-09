@@ -429,6 +429,8 @@ define([ './tournaments' ], function (Tournaments) {
               lines.push(line.join(','));
             }
           }
+
+          // FIXME add corrections
         }
       }
 
