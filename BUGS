@@ -2,8 +2,6 @@
 * Opera: tab_games: bye character doesn't display properly. Font problem?
 * Opera: downloads don't have a name
 * Opera: INVALID_CHARACTER_ERR on CSV export
-* Safari for windows: no FileReader
-* Safari for Windows: bye character looks strange (small and right-aligned)
 * IE11: button.deletion: text aligned to top
 * IE11: seams everywhere
 * IE11: Cannot download
@@ -15,11 +13,11 @@
   caused by its <br> tag and possibly its padding/margin  
 * History cannot store more than two teams per game (Supermelee)
 
-[SHOULD BE FIXED]
-* Tab_History: Round 2 not started
+[IRREPRODUCIBLE]
+* Android-Chrome: page reload on Debug->finishRound
+
+[SHOULD BE FIXED now]
 * github.io: autocomplete encoding is messed up
-* Tab_Debug clearEverything(): doesn't clear .newteam input
-* History doesn't appear
 
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible

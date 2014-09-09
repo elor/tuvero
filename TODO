@@ -1,5 +1,5 @@
 [next]
-* automatic overview over all icons and images
+* tab_games: when finishing a game, focus the next game in list
 * history: use separate button for corrections
 * show up/downvotes in history
 * delete tournament -> load playernames
@@ -15,7 +15,6 @@
 * add list view for running games (Fortschrittsliste)
 * ranking: export number of games to csv
 * options: save autosave status
-* loading screen for round start
 * tab_games: show vote icons next to the names. Bye still separate
 * K.O. frontend
 
@@ -28,7 +27,6 @@
 * Ranking: Sonneborn-Berger-Zahl
 * Tab_Ranking: sort/search function
 * Tab_Games: sort/search function
-* history: store which mode a round was in
 * Tab_History: sort/search function
 * show why a round cannot be started
 * swiss new round by wins: backtracking (-> allow identical match as last resort)
@@ -39,6 +37,7 @@
 * style file input tags
 * test debug.js
 * test players and autocomplete
+* test everything loaded through backgroundscripts.js
 * clean up tab_new.js and tab_games.js; merge redundant functions
 * clean up tab_teams (reset functions in particular)
 * swisstournament: test up/down/byevote options
@@ -49,10 +48,9 @@
 * Pdf export of ranking page
 * Pdf export of Detlef's list (Fortschrittsliste)
 * tournament presets (PVO, Chemnitz, ...)
-* multiple parallel tournaments (-> Maastricht K.O. rounds, pools, ...)
+* Roundtournament backend
 * Supermelee backend
 * Poules backend
-* tab_games: when finishing a game, focus the next game in list
 
 [ongoing]
 * w3c validation
@@ -60,3 +58,4 @@
 * test with all major browsers: chrome, firefox, opera, safari, ie10
 * test.html: fix all displayed errors
 * (release) auto-create the manifest
+
