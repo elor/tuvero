@@ -1,6 +1,6 @@
 require([ './splash', './reset', './tabs', './toast', './strings', './storage',
     './tab_settings', './featuredetect', './tabshandle', './alltabs',
-    './update', './tab_debug', './box' ], function (Splash, Reset, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update, Tab_Debug, Box) {
+    './update', './tab_debug', './box', './online' ], function (Splash, Reset, Tabs, Toast, Strings, Storage, Tab_Settings, Featuredetect, Tabshandle, Alltabs, Update, Tab_Debug, Box) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.

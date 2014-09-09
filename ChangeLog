@@ -31,6 +31,10 @@
 
 	* scripts/ui/ranking.js: toCSV fixed (showing corrections + using nice headers)
 
+	* scripts/ui/main.js: online.js reference added
+
+	* scripts/ui/online.js: online/offline detection added
+
 2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: Game result submissions work again
