@@ -22,21 +22,27 @@ require([ './backgroundscripts', './splash', './toast', './strings',
 
     // using a timeout to let the browser update the splashtext
     setTimeout(function () {
-      if (Storage.restore()) {
-        new Toast(Strings.loaded);
-      } else {
-        new Toast(Strings.newtournament);
+      try {
+        if (Storage.restore()) {
+          new Toast(Strings.loaded);
+        } else {
+          new Toast(Strings.newtournament);
+        }
+
+        Splash.update();
+
+        Alltabs.update();
+
+        setTimeout(function () {
+          Toast.init();
+          Splash.hide();
+          Tabshandle.valid();
+        }, 10);
+      } catch (e) {
+        console.error('Storage.restore() error caught');
+        console.error(e);
+        Splash.error();
       }
-
-      Splash.update();
-
-      Alltabs.update();
-
-      setTimeout(function () {
-        Toast.init();
-        Splash.hide();
-        Tabshandle.valid();
-      }, 10);
     }, 1);
   });
 }, function(err) {

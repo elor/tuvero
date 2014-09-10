@@ -55,12 +55,7 @@ define([ './options' ], function (Options) {
       return true;
     }
 
-    try {
-      val.fromBlob(blob);
-    } catch (e) {
-      console.error(e);
-      return true;
-    }
+    val.fromBlob(blob);
   }
 
   /**

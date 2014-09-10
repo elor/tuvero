@@ -45,6 +45,10 @@ define(function () {
         $splash.removeClass('hiding');
       }, 1000);
     };
+
+    Splash.error = function(){
+      setState('error');
+    }
   });
 
   return Splash;

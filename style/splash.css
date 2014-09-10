@@ -1,6 +1,6 @@
 #splash {
   width: 30em;
-  height: 15em;
+  min-height: 15em;
   margin: 2.5em auto 9.5em auto;
   padding: 2.5em 4em;
   clear: both;
@@ -15,11 +15,17 @@
   display: none;
 }
 
+#splash p a[href] {
+  font-weight: bold;
+}
+
 #splash.loading .loading,
 #splash.starting .starting,
 #splash.restoring .restoring,
 #splash.update .update,
-#splash.ready .ready {
+#splash.ready .ready,
+#splash.error .error {
+	white-space: normal;
   display: block;
 }
 
