@@ -18,7 +18,9 @@ define([ './strings', './update' ], function (Strings, Update) {
     var message = Strings.offlineconfirmexit;
 
     if (!Online() && !Update.isCached) {
-      e.returnValue = message;
+      if (e) {
+        e.returnValue = message;
+      }
       return message;
     }
 
