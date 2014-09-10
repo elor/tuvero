@@ -25,13 +25,17 @@ define([ './strings', './update' ], function (Strings, Update) {
       return message;
     }
 
-    if (Update.isDevVersion) {
-      message='(dev output) beforeunload ' + (Online() ? 'online' : 'offline') + ' ' + (Update.isCached ? 'cached' : 'uncached');
-      if (e) {
-        e.returnValue = message;
-      }
-      return message;
-    }
+
+// uncomment to show dev reload notifications again
+//
+//    if (Update.isDevVersion) {
+//      message='(dev output) beforeunload ' + (Online() ? 'online' : 'offline') + ' ' + (Update.isCached ? 'cached' : 'uncached');
+//      if (e) {
+//        e.returnValue = message;
+//      }
+//      return message;
+//    }
+//
 
     // let it reload
     return undefined;

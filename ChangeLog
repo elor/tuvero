@@ -2,6 +2,7 @@
 
 	* scripts/ui/online.js: callback function: event verification
 	callback function: dev output temporarily added
+	dev output disabled again
 
 	* boules.html: splash error text added
 
