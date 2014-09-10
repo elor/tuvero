@@ -14,6 +14,8 @@
 	* style/splash.css: highlighting links boldly ;-D
 	error text added to the display/hide rules
 
+	* scripts/ui/tab_debug.js: showing debugging tab in dev versions
+
 2014-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_new.js: Bye of the first team was not added

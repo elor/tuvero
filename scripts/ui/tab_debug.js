@@ -430,6 +430,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     Tab_Debug.reset();
 
     if (Update.isDevVersion) {
+      Tabshandle.show('debug');
       loadMods();
     } else {
       // FIXME run only once
