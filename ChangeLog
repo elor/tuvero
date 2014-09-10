@@ -3,6 +3,17 @@
 	* scripts/ui/online.js: callback function: event verification
 	callback function: dev output temporarily added
 
+	* boules.html: splash error text added
+
+	* scripts/ui/main.js: catching load errors to be shown by the splash screen
+
+	* scripts/ui/splash.js: error display added
+
+	* scripts/ui/storage.js: try..catch block removed. Didn't work anyway
+
+	* style/splash.css: highlighting links boldly ;-D
+	error text added to the display/hide rules
+
 2014-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_new.js: Bye of the first team was not added

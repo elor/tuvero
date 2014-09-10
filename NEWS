@@ -10,6 +10,8 @@ FEATURES:
   * Splash Screen added
   * #reset target added to delete your data in case of failure
   * boxes can be collapsed by clicking the header
+  * offline notification when leaving and the page is not cached
+  * Load errors shown on splash screen
 
 PERFORMANCE IMPROVEMENTS:
 
