@@ -393,6 +393,45 @@
         <h2>Optionen und Einstellungen</h2>
 
         <div class="box">
+          <h3>Laden und Speichern</h3>
+          <div class="load json">
+            <h3>Laden</h3>
+            <p>
+              Das Turnier wird aus einer Datei neu geladen. Eventuell laufende
+              Turniere werden überschrieben.
+            </p>
+            <p class="nofilereader">
+              Dieser Browser kann keine lokalen Dateien laden.
+              Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
+              moderneren Browser.
+              Manche Hersteller stellen keine Updates für
+              ihre Browser unter einigen Betriebssystemen zur Verfügung
+              (z.B. Apple mit Safari für Windows).
+            </p>
+            <input class="filereader file" type="file" />
+          </div>
+
+          <div class="save json">
+            <h3>Turnier speichern</h3>
+            <p>
+              Speichert das aktuelle Turnier in einer Datei. Diese kann später
+              wieder geladen werden, um das Turnier wieder herzustellen.
+            </p>
+            <p class="nostorage">
+              Um das Turnier nach Schließen des Browsers
+              fortzusetzen, muss der Zustand manuell in einer Datei
+              zwischengespeichert oder ein aktueller Browser installiert werden.
+            </p>
+            <br>
+            <button>
+              <img src="images/download.png" alt="download save file" />
+            </button>
+            <br>
+            <a href="#" type="application/json" download="boules.json">Download</a>
+          </div>
+        </div>
+
+        <div class="box">
           <h3>Import &amp; Export</h3>
           <div class="autocomplete">
             <p>
@@ -437,42 +476,6 @@
           wichtige Standards nicht, die zum Speichern und Laden notwendig
           sind. Beim Schließen des Browserfensters gehen sämtliche Daten
           verloren.
-        </div>
-
-        <div class="box save json">
-          <h3>Turnier speichern</h3>
-          <p>
-            Speichert das aktuelle Turnier in einer Datei. Diese kann später
-            wieder geladen werden, um das Turnier wieder herzustellen.
-          </p>
-          <p class="nostorage">
-            Um das Turnier nach Schließen des Browsers
-            fortzusetzen, muss der Zustand manuell in einer Datei
-            zwischengespeichert oder ein aktueller Browser installiert werden.
-          </p>
-          <br>
-          <button>
-            <img src="images/download.png" alt="download save file" />
-          </button>
-          <br>
-          <a href="#" type="application/json" download="boules.json">Download</a>
-        </div>
-
-        <div class="box load json">
-          <h3>Turnier laden</h3>
-          <p>
-            Das Turnier wird aus einer Datei neu geladen. Eventuell laufende
-            Turniere werden überschrieben.
-          </p>
-          <p class="nofilereader">
-            Dieser Browser kann keine lokalen Dateien laden.
-            Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
-            moderneren Browser.
-            Manche Hersteller stellen keine Updates für
-            ihre Browser unter einigen Betriebssystemen zur Verfügung
-            (z.B. Apple mit Safari für Windows).
-          </p>
-          <input class="filereader file" type="file" />
         </div>
 
         <div class="box">

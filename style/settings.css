@@ -19,6 +19,13 @@
   background-color: #ffffff;
 }
 
+#settings .box > div {
+  display: inline-block;
+  max-width: 17em;
+  vertical-align: top;
+  padding: 1em;
+}
+
 #settings .load input.file {
   margin-bottom: 1em;
 }
