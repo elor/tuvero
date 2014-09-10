@@ -39,4 +39,7 @@ require([ './backgroundscripts', './splash', './toast', './strings',
       }, 10);
     }, 1);
   });
+}, function(err) {
+  console.error('requirejs load error');
+  Splash.error();
 });
