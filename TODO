@@ -1,4 +1,5 @@
 [next]
+* storage.changed -> storage.update() + storage.isEnabled(); remove storage.store() from global interface
 * tab_games: when finishing a game, focus the next game in list
 * history: use separate button for corrections
 * show up/downvotes in history

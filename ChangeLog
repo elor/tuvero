@@ -1,6 +1,7 @@
 2014-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/online.js: callback function: event verification
+	callback function: dev output temporarily added
 
 2014-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
