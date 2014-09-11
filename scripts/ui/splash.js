@@ -48,7 +48,7 @@ define(function () {
 
     Splash.error = function(){
       setState('error');
-    }
+    };
   });
 
   return Splash;

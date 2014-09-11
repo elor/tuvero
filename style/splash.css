@@ -24,7 +24,8 @@
 #splash.restoring .restoring,
 #splash.update .update,
 #splash.ready .ready,
-#splash.error .error {
+#splash.error .error,
+#splash.loaderror .loaderror {
 	white-space: normal;
   display: block;
 }

@@ -45,7 +45,16 @@ require([ './backgroundscripts', './splash', './toast', './strings',
       }
     }, 1);
   });
-}, function(err) {
-  console.error('requirejs load error');
-  Splash.error();
 });
+
+requirejs.onError = function (err) {
+  $(function ($) {
+    // Splash.setState(), but without splash being loaded
+    $('body').addClass('splash');
+    $splash = $('#splash');
+    $splash.removeClass();
+    $splash.addClass('loaderror');
+  });
+
+  throw err;
+};

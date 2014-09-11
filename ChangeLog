@@ -1,3 +1,11 @@
+2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: splash loaderror added
+
+	* scripts/ui/main.js: handling all requirejs errors by showing a loaderror
+
+	* style/splash.css: loaderror class added
+
 2014-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/online.js: callback function: event verification
