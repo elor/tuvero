@@ -6,6 +6,8 @@
 
 	* style/splash.css: loaderror class added
 
+	* scripts/ui/tabs.js: another try at disabling hashchange jumps
+
 2014-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/online.js: callback function: event verification

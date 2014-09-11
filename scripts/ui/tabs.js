@@ -127,6 +127,16 @@ define([ './options' ], function (Options) {
         $menus[tabname] = $clone;
       }, this);
 
+      // add event handlers for menu items
+      $('#tabs').on('click', '.tabs a', function (e) {
+        var hash;
+        hash = $(this).attr('href');
+        location.hash = hash;
+        window.scrollTo(0, 0);
+        e.preventDefault();
+        return false;
+      });
+
       // create empty invisible links to every tab
       $body = $('body');
       keys.forEach(function (key, index) {
