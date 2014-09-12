@@ -1,6 +1,7 @@
 #new .playertable {
   display: inline-block;
   text-align: center;
+  border-collapse: separate;
 }
 
 #new > div.box:not(.tpl) {
