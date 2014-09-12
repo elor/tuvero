@@ -14,9 +14,11 @@
 	using the byevote symbol for the progress table
 
 	* style/general.css: tables: borders-collapse by default
+	print mode looks pretty
 
 	* style/history.css: different styles for gamestable and progresstable
 	progresstable beautification
+	print mode bugs fixed
 
 	* scripts/backend/finebuchholzranking.js: number of completed games removed from sort order
 
@@ -33,6 +35,7 @@
 	* style/new.css: separate border-collapse enabled for this table only
 	unwanted table borders removed
 
+	* style/tabs.css: 
 
 2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

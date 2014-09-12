@@ -25,6 +25,10 @@ body.splash #tabs {
   .tabs {
     display: none;
   }
+  
+  .tabs > div {
+    margin-top: 0em;
+  }
 }
 
 .tabs > a {

@@ -81,3 +81,9 @@
   font-size: 0.8em;
   cursor: pointer;
 }
+
+@media print {
+  #history .progresstable tr:nth-child(even) {
+    background: none;
+  }
+}

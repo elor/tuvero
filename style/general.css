@@ -5,17 +5,6 @@ body {
   margin: 0;
 }
 
-@media print {
-  body {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  
-  button, input {
-    display: none;
-  }
-}
-
 a[href] {
   color: inherit;
   text-decoration: underline;
@@ -109,4 +98,28 @@ div.box > h3:first-child {
   background-color: #d0d0d0;
   text-align: center;
   cursor: pointer;
+}
+
+
+@media print {
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  button, input {
+    display: none;
+  }
+  
+  div.box {
+    border:none;
+    overflow:visible;
+    padding: 0em;
+    margin: 0.2em;
+  }
+  
+  div.box > h3:first-child {
+    border: none;
+    background: none;
+  }
 }
