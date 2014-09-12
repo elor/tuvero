@@ -177,7 +177,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       initNewsystem($clone);
     }
 
-    $clone.append($clone.find('>h3').clone());
+    $clone.append($clone.find('>h3').addClass('editable').clone());
     if (name){
       $clone.find('.name').text(name);
     }

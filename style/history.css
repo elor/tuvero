@@ -12,6 +12,10 @@
   border-spacing: 0.1em;
 }
 
+#history .gamestable {
+  border-collapse: separate;
+}
+
 #history .gamestable .team {
   text-align: left;
   background-color: #d0d0d0;
@@ -69,17 +73,6 @@
 
 #history .progresstable tr:nth-child(even) {
   background-color: #d3d3d3;
-}
-
-#history .game .correct {
-  height: 2em;
-  border: none;
-  box-shadow: 1px 1px 0px #808080;
-  background-color: #d0d0d0;
-  border-radius: 0.2em;
-  padding: 0.5em;
-  font-size: 0.8em;
-  cursor: pointer;
 }
 
 @media print {

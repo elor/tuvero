@@ -65,7 +65,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     var $points;
 
     // TODO somehow store the actual game id!
-    $button = $game.find('button.correct');
+    $button = $game.find('.correct');
     $points = $button.find('.points');
     $points = [ $($points[0]), $($points[1]) ];
 

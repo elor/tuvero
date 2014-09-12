@@ -100,6 +100,15 @@ div.box > h3:first-child {
   cursor: pointer;
 }
 
+.editable:hover:after {
+  display: inline-block;
+  content: ' ';
+  width: 0.8em;
+  height: 0.8em;
+  background-image: url('../images/smallchange.png');
+  background-size: 0.8em;
+}
+
 
 @media print {
   body {

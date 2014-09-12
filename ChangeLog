@@ -4,6 +4,9 @@
 	progresstable template added
 	text for some tournament systems added
 	progresstable header simplified
+	classes for smallchange image added
+	correct button replaced by a text span
+	corrections in progresstable enabled
 
 	* scripts/ui/history.js: getGames added for easy iteration
 
@@ -12,13 +15,17 @@
 	* scripts/ui/tab_history.js: progress table creation
 	using progress table if enabled by checkbox
 	using the byevote symbol for the progress table
+	not relying on button.correct anymore, using .correct only
 
 	* style/general.css: tables: borders-collapse by default
 	print mode looks pretty
+	.editable class added
 
 	* style/history.css: different styles for gamestable and progresstable
 	progresstable beautification
 	print mode bugs fixed
+	gamestable: separate border-collapse
+	button.correct style removed
 
 	* scripts/backend/finebuchholzranking.js: number of completed games removed from sort order
 
@@ -44,6 +51,8 @@
 	* images/svg/smallchange.svg: added
 
 	* style/teams.css: text change hover -> show smallchange icon
+
+	* scripts/ui/tab_new.js: 'editable' class added
 
 2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
