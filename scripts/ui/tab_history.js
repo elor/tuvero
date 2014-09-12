@@ -33,8 +33,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.game.$teamnos[1].text(result[1] + 1);
     template.game.$names[0].html(formatNamesHTML(result[0]));
     template.game.$names[1].html(formatNamesHTML(result[1]));
-    template.game.$points[0].text(result[2]);
-    template.game.$points[1].text(result[3]);
+    template.game.$correct.text(result[2] + ':' + result[3]);
 
     // release the box to the DOM
     $table.append(template.game.$game.clone());
@@ -62,15 +61,16 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function showCorrection ($game) {
-    var $points;
-
+    var points;
     // TODO somehow store the actual game id!
     $button = $game.find('.correct');
-    $points = $button.find('.points');
-    $points = [ $($points[0]), $($points[1]) ];
 
-    template.chpoints.$inputs[0].val($points[0].text());
-    template.chpoints.$inputs[1].val($points[1].text());
+    points = $button.text().split(':').map(function (str) {
+      return Number(str);
+    });
+
+    template.chpoints.$inputs[0].val(points[0]);
+    template.chpoints.$inputs[1].val(points[1]);
 
     $button.after(template.chpoints.$chpoints);
     // TODO hide() instead of detach()
@@ -94,17 +94,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   function saveCorrection () {
     // TODO validate everything:
     // * point ranges * a-z * space
-    var op1, op2, np1, np2, $points, t1, t2, res, game, tmp, correction, $box, tournamentid;
+    var op1, op2, np1, np2, points, t1, t2, res, game, tmp, correction, $box, tournamentid;
 
     if ($button === undefined) {
       return undefined;
     }
 
-    $points = $button.find('.points');
-    if (!$points.length) {
-      console.error('$points not found');
-      return undefined;
-    }
     $box = template.chpoints.$chpoints.parents('.box');
     if (!$box.length) {
       console.error('$box not found');
@@ -117,8 +112,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     }
     // retrieve values
     // TODO find better solution!
-    op1 = Number($($points[0]).text());
-    op2 = Number($($points[1]).text());
+    points = $button.text().split(':').map(function (str) {
+      return Number(str);
+    });
+
+    op1 = points[0];
+    op2 = points[1];
 
     np1 = Number(template.chpoints.$inputs[0].val());
     np2 = Number(template.chpoints.$inputs[1].val());
@@ -232,8 +231,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     Tab_Ranking.update();
 
     // apply values to interface
-    $($points[0]).text(np1);
-    $($points[1]).text(np2);
+    $button.text(np1 + ':' + np2);
 
     template.chpoints.$chpoints.after($button);
     template.chpoints.$chpoints.detach();
@@ -242,6 +240,8 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // save changes
     // TODO event handler
     Storage.changed();
+
+    // TODO reload?
 
     new Toast(Strings.pointchangeapplied);
   }
@@ -301,9 +301,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
       $button = $(this);
       // move to the actual button, if the user clicked the span
-      if ($button.prop('tagName') === 'SPAN') {
-        $button = $button.parent();
-      }
       $game = $button.parent();
 
       showCorrection($game);
@@ -397,11 +394,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     for (i = 0; i < tmp.length; i += 1) {
       template.game.$names[i] = tmp.eq(i);
     }
-    template.game.$points = [];
-    tmp = template.game.$game.find('.correct .points');
-    for (i = 0; i < tmp.length; i += 1) {
-      template.game.$points[i] = tmp.eq(i);
-    }
+    template.game.$correct = template.game.$game.find('.correct');
 
     // points change template (actually not a template, but who cares?)
     template.chpoints = {};

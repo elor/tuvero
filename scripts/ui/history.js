@@ -102,13 +102,13 @@ define([ './tournaments' ], function (Tournaments) {
      * 
      * @param tournamentid
      * @param before
-     *          an object containing t1, t2, p1, p2, round and id
+     *          an object containing similar to what you get from getGame
      * @param after
-     *          an object containing t1, t2, p1, p2, round and id
+     *          an object containing similar to what you get from getGame
      * @returns true on success, false otherwise
      */
     addCorrection : function (tournamentid, before, after) {
-      var tournament;
+      var tournament, game;
 
       // TODO validate data types and values
       // TODO check whether the result really existed
@@ -119,9 +119,30 @@ define([ './tournaments' ], function (Tournaments) {
         return false;
       }
 
-      tournament.corrections.push([ before.t1, before.t2, before.p1, before.p2,
-          before.round || 0, before.id || 0 ], [ after.t1, after.t2, after.p1,
-          after.p2, after.round || 0, after.id || 0 ]);
+      // TODO change the actual game
+      for (game in tournament.games) {
+        game = tournament.games[game];
+        // match every aspect of the game
+        if (before[0] == game[0] && before[1] == game[1] && before[2] == game[2] && before[3] == game[3] && (!before[4] || before[4] == game[4]) && (!before[5] || before[5] == game[5])) {
+          game[0] = after[0];
+          game[1] = after[1];
+          game[2] = after[2];
+          game[3] = after[3];
+          game[4] = after[4] || 0;
+          game[5] = after[5] || 0;
+          break;
+        }
+      }
+
+      before = before.slice(0);
+      before[4] = before[4] || 0;
+      before[5] = before[5] || 0;
+
+      after = after.slice(0);
+      after[4] = after[4] || 0;
+      after[5] = after[5] || 0;
+
+      tournament.corrections.push(before, after);
       return true;
     },
 

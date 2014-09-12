@@ -1,3 +1,13 @@
+2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: got rid of the strange span system for corrections
+
+	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
+	addCorrection() also rewrites the matching game
+
+	* scripts/ui/tab_history.js: taking old point for corrections from colon-separated text
+
+
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: progresstable checkbox active by default

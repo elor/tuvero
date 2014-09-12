@@ -171,7 +171,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       } else {
         // TODO what if something invalid has been returned?
       }
-    } catch (e) {
+    } catch (err) {
       new Toast(Strings.loadfailed, Toast.LONG);
       // perform a complete reset of the everything related to the tournament
       Storage.enable();
