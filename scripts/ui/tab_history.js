@@ -1,8 +1,10 @@
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
-    '../backend/game', './storage', './tabshandle', './opts', './team' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team) {
-  var Tab_History, $tab, template, currentround, $button, options, updatepending;
+    '../backend/game', './storage', './tabshandle', './opts', './team',
+    './options' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options) {
+  var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable;
 
   updatepending = false;
+  progresstable = true;
 
   Tab_History = {};
   options = {};
@@ -113,8 +115,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       console.error('cannot find tournamentid of $box');
       return undefined;
     }
-    console.log(tournamentid);
-
     // retrieve values
     // TODO find better solution!
     op1 = Number($($points[0]).text());
@@ -280,14 +280,13 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // use progress layout
     $progressbox = $tab.find('.options .progress');
     function progresstest () {
-      if ($progressbox.prop('checked')) {
-        $tab.addClass('progress');
-      } else {
-        $tab.removeClass('progress');
-      }
+      progresstable = $progressbox.prop('checked');
     }
 
-    $progressbox.click(progresstest);
+    $progressbox.click(function () {
+      progresstest();
+      Tab_History.update();
+    });
     progresstest();
   }
 
@@ -356,13 +355,35 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.$container.detach();
     template.$container.removeClass('tpl');
 
-    // header template
-    template.$roundno = template.$container.find('.roundno');
+    template.progresstable = {};
+
+    template.progresstable.$container = template.$container.find('table.progresstable');
+    template.progresstable.$container.detach();
+    template.progresstable.$nameheader = template.progresstable.$container.find('th.names');
+
+    template.progresstable.$gameheader = template.progresstable.$container.find('th.game');
+    template.progresstable.$gameheader.detach();
+    template.progresstable.$resultheader = template.progresstable.$container.find('th.result');
+    template.progresstable.$resultheader.detach();
+
+    template.progresstable.$team = template.progresstable.$container.find('.team');
+    template.progresstable.$team.detach();
+    template.progresstable.$teamno = template.progresstable.$team.find('.number');
+    template.progresstable.$names = template.progresstable.$team.find('.names');
+
+    template.progresstable.$game = template.progresstable.$team.find('td.game');
+    template.progresstable.$game.detach();
+
+    template.progresstable.$result = template.progresstable.$team.find('td.result');
+    template.progresstable.$result.detach();
 
     // game template
     template.game = {};
 
-    template.game.$game = template.$container.find('.game.tpl');
+    template.$gamescontainer = template.$container.find('table.gamestable');
+    template.$gamescontainer.detach();
+
+    template.game.$game = template.$gamescontainer.find('.game.tpl');
     template.game.$game.detach();
     template.game.$game.removeClass('tpl');
 
@@ -395,7 +416,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     // bye template
     template.bye = {};
-    template.bye.$bye = template.$container.find('.bye.tpl');
+    template.bye.$bye = template.$gamescontainer.find('.bye.tpl');
     template.bye.$bye.detach();
     template.bye.$bye.removeClass('tpl');
     template.bye.$teamno = template.bye.$bye.find('.number');
@@ -424,46 +445,259 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // Tabshandle.hide('history');
   }
 
+  function createGamesTable (tournamentid) {
+    var round, maxround, bye, hidden, empty, votes, tournamentid, $box, $table;
+
+    votes = History.getVotes(tournamentid);
+    maxround = History.numRounds(tournamentid);
+
+    for (round = 0; round < maxround; round += 1) {
+      $box = template.$container.clone();
+      $box.find('>h3:first-child').text(Tournaments.getName(tournamentid) + ' - Runde ' + (round + 1));
+      $table = template.$gamescontainer.clone();
+      $box.append($table);
+
+      bye = undefined;
+      // search the bye for this round
+      // TODO preprocessing?
+      votes.map(function (vote) {
+        var bye;
+        if (vote[0] == History.BYE && vote[2] == round) {
+          bye = vote[1];
+          if (bye !== undefined) {
+            createBye(bye, $table);
+            empty = false;
+          }
+        }
+      });
+
+      History.getRound(tournamentid, round).map(function (game) {
+        createGame(game, $table);
+        empty = false;
+      });
+
+      if (!empty) {
+        $tab.append($box);
+        $box.data('tournamentid', tournamentid);
+        hidden = false;
+      }
+    }
+
+    return !hidden;
+  }
+
+  /**
+   * borrowed from jQuery
+   */
+  function isNumeric (obj) {
+    return !jQuery.isArray(obj) && (obj - parseFloat(obj) + 1) >= 0;
+  }
+
+  /**
+   * creates a progress mapping, which, for every player, lists every game in
+   * every round, with its result and
+   * 
+   * @param tournamentid
+   * @returns the progress mapping
+   */
+  function getProgressMapping (tournamentid) {
+    var teamgames, numteams, roundno, tournament;
+    teamgames = [];
+
+    function addGame (round, team, opponent, p1, p2) {
+      if (!teamgames[team]) {
+        teamgames[team] = [];
+      }
+      // increase opponent id by 1, since it's zero-indicated, but users like to
+      // start at 1
+      if (isNumeric(opponent)) {
+        opponent += 1;
+      }
+      teamgames[team][round] = {
+        opponent : opponent,
+        points : p1 + ':' + p2,
+        won : (p1 == p2 ? undefined : p1 > p2),
+      };
+    }
+
+    History.getVotes(tournamentid).map(function (vote) {
+      if (vote[0] === History.BYE) {
+        // TODO read '13:7' from the options!
+        addGame(vote[2], vote[1], 'F', 13, 7);
+      }
+    });
+
+    History.getGames(tournamentid).map(function (game) {
+      addGame(game[4], game[0], game[1], game[2], game[3]);
+      addGame(game[4], game[1], game[0], game[3], game[2]);
+    });
+
+    tournament = Tournaments.getTournament(tournamentid);
+    if (tournament) {
+      roundno = tournament.getRanking().round - 1;
+      tournament.getGames().map(function (game) {
+        addGame(roundno, game.teams[0][0], game.teams[1][0], '', '');
+        addGame(roundno, game.teams[1][0], game.teams[0][0], '', '');
+      });
+    } else {
+      console.warn('no tournament');
+    }
+
+    return teamgames;
+  }
+
+  function getTeamVotes (tournamentid) {
+    var teamvotes;
+    teamvotes = [];
+
+    History.getVotes(tournamentid).map(function (vote) {
+      var team;
+
+      team = vote[1];
+      if (!teamvotes[team]) {
+        teamvotes[team] = '';
+      }
+
+      switch (vote) {
+      case History.BYE:
+        teamvotes[team] += Strings.byevote;
+        break;
+      case History.UP:
+        teamvotes[team] += Strings.upvote;
+        break;
+      case History.DOWN:
+        teamvotes[team] += Strings.downvote;
+        break;
+      }
+    });
+
+    return teamvotes;
+  }
+
+  function getRankingMapping (tournamentid) {
+    var tournament, ranking, mapping;
+    mapping = [];
+
+    tournament = Tournaments.getTournament(tournamentid);
+    if (!tournament) {
+      console.error("tournament doesn't exist (anymore): " + tournamentid);
+      return [];
+    }
+
+    ranking = tournament.getRanking();
+
+    ranking.ids.map(function (teamid, index) {
+      mapping[teamid] = [ ranking.wins[index], ranking.buchholz[index],
+          ranking.finebuchholz[index], ranking.netto[index],
+          ranking.place[index] + 1 ];
+    });
+
+    return mapping;
+  }
+
+  function createProgressTable (tournamentid) {
+    var teamgames, teamid, team, round, maxround, $box, $table, $row, i, $game;
+
+    maxround = History.numRounds(tournamentid);
+
+    // prepare table headers
+    template.progresstable.$nameheader.removeClass('hidden');
+    for (i = Options.teamsize; i < 3; i += 1) {
+      template.progresstable.$nameheader.eq(i).addClass('hidden');
+    }
+
+    $box = template.$container.clone();
+    $box.find('>h3:first-child').text(Tournaments.getName(tournamentid) + ' - Fortschrittstabelle');
+
+    $table = template.progresstable.$container.clone();
+
+    for (i = 0; i < maxround; i += 1) {
+      template.progresstable.$gameheader.find('.roundno').text(i + 1);
+      $table.find('th:last-child').after(template.progresstable.$gameheader.clone());
+    }
+    $table.find('th:last-child').after(template.progresstable.$resultheader.clone());
+
+    teamgames = getProgressMapping(tournamentid);
+    teamranks = getRankingMapping(tournamentid);
+
+    if (teamgames.length != teamranks.length) {
+      console.error('teamgames.length != teamranks.length: ' + teamgames.length + '!=' + teamranks.length);
+    }
+
+    template.progresstable.$names.removeClass('hidden');
+
+    for (teamid = 0; teamid < teamgames.length; teamid += 1) {
+      if (teamid === undefined) {
+        continue;
+      }
+      team = Team.get(teamid);
+
+      // add team-specific content
+      template.progresstable.$teamno.text(teamid + 1);
+      for (i = 0; i < 3; i += 1) {
+        if (team.names[i]) {
+          template.progresstable.$names.eq(i).text(team.names[i]);
+        } else {
+          template.progresstable.$names.eq(i).addClass('hidden');
+        }
+      }
+
+      $row = template.progresstable.$team.clone();
+
+      if (teamgames[teamid]) {
+        teamgames[teamid].map(function (game) {
+          var $game;
+          $game = template.progresstable.$game.clone();
+          $game.eq(0).text(game.opponent);
+          $game.eq(1).text(game.points);
+          $game.eq(2).text(Strings['winstatus' + game.won]);
+          $row.append($game);
+        });
+      }
+
+      // append ranking
+      teamranks[teamid].map(function (text, id) {
+        template.progresstable.$result.eq(id).text(text);
+      });
+      $row.append(template.progresstable.$result.clone());
+
+      $table.append($row);
+    }
+
+    $box.append($table);
+    $tab.append($box);
+
+    return maxround > 0;
+  }
+
   function showTournaments () {
-    var round, maxround, id, numgames, bye, hidden, empty, votes, tournamentid, $box, $table;
+    var hidden, tournamentid, displayfunc, PROGRESSTABLE, GAMESTABLE;
 
     hidden = true;
 
+    PROGRESSTABLE = 'progresstable';
+    GAMESTABLE = 'gamestable';
+
+    displaytype = progresstable ? PROGRESSTABLE : GAMESTABLE;
+
     for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
 
-      votes = History.getVotes(tournamentid);
-      maxround = History.numRounds(tournamentid);
-
-      for (round = 0; round < maxround; round += 1) {
-        $box = template.$container.clone();
-        $box.find('>h3:first-child').text(Tournaments.getName(tournamentid) + ' - Runde ' + (round + 1));
-        $table = $box.find('table.gamestable');
-
-        bye = undefined;
-        // search the bye for this round
-        // TODO preprocessing?
-        votes.map(function (vote) {
-          var bye;
-          if (vote[0] == History.BYE && vote[2] == round) {
-            bye = vote[1];
-            if (bye !== undefined) {
-              createBye(bye, $table);
-              empty = false;
-            }
-          }
-        });
-
-        History.getRound(tournamentid, round).map(function (game) {
-          createGame(game, $table);
-          empty = false;
-        });
-
-        if (!empty) {
-          $tab.append($box);
-          $box.data('tournamentid', tournamentid);
-          hidden = false;
-        }
+      switch (displaytype) {
+      case PROGRESSTABLE:
+        displayfunc = createProgressTable;
+        break;
+      case GAMESTABLE:
+        displayfunc = createGamesTable;
+        break;
+      default:
+        console.error('invalid displaytype: ' + displaytype);
+        continue;
       }
+
+      if (displayfunc(tournamentid)) {
+        hidden = false;
+      }
+
     }
 
     return !hidden;

@@ -12,34 +12,59 @@
   border-spacing: 0.1em;
 }
 
-#history .team {
+#history .gamestable .team {
   text-align: left;
   background-color: #d0d0d0;
   border-radius: 0.5em;
   padding: 0em;
 }
 
-#history .team .number {
+#history .gamestable .team .number {
   min-width: 1.5em;
   font-size: 200%;
   text-align: center;
 }
 
-#history .box .team span {
+#history .gamestable .team span {
   display: inline-block;
   vertical-align: middle;
   padding: 0em;
 }
 
-#history.maxwidth .team .names  {
+#history.maxwidth .names {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#history.hidenames .team .names  {
+#history.hidenames .names  {
   display: none;
+}
+
+#history .names.hidden {
+  display: none;
+}
+
+#history .progresstable {
+  border: solid 1px;
+}
+
+#history .progresstable th {
+  border-bottom: solid 1px;
+}
+
+#history .progresstable .vsep {
+  border-left: solid 1px;
+}
+
+#history .progresstable .names {
+  text-align: left;
+}
+
+#history .progresstable .game, 
+#history .progresstable .result {
+  padding: 0em 0.1em;
 }
 
 #history .game .correct {

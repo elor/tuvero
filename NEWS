@@ -12,6 +12,7 @@ FEATURES:
   * boxes can be collapsed by clicking the header
   * offline notification when leaving and the page is not cached
   * Load errors shown on splash screen
+  * Progresstable visible in History tab
 
 PERFORMANCE IMPROVEMENTS:
 

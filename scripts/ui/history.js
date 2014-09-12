@@ -235,6 +235,17 @@ define([ './tournaments' ], function (Tournaments) {
       return tournament.games[id];
     },
 
+    getGames : function (tournamentid) {
+      var tournament;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
+
+      return tournament.games;
+    },
+
     /**
      * get all games of a specific round.
      * 

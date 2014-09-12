@@ -77,6 +77,9 @@ define(function () {
     defaultnameroundtournament : 'Rundenturnier',
     defaultnamesupermelee : 'Supermelee',
     offlineconfirmexit : 'Der Browser hat keine Internetverbindung und die Seite liegt nicht im Cache. Wenn sie die Seite jetzt schließen, kann das Programm nur mit bestehender Internetverbindung wieder gestartet werden.',
+    winstatustrue : 'S',
+    winstatusfalse : 'N',
+    winstatusundefined : '',
   };
 
   return Strings;

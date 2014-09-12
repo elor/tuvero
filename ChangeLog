@@ -1,3 +1,19 @@
+2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: progresstable checkbox active by default
+	progresstable template added
+
+	* scripts/ui/history.js: getGames added for easy iteration
+
+	* scripts/ui/strings.js: winstatus* strings added
+
+	* scripts/ui/tab_history.js: progress table creation
+	using progress table if enabled by checkbox
+
+	* style/general.css: tables: borders-collapse by default
+
+	* style/history.css: different styles for gamestable and progresstable
+
 2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash loaderror added

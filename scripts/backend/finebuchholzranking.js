@@ -56,7 +56,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
         this.byes.push(0);
       }
     }
-    
+
     this.length = size;
 
     return this;
