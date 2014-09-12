@@ -6,6 +6,7 @@
 	addCorrection() also rewrites the matching game
 
 	* scripts/ui/tab_history.js: taking old point for corrections from colon-separated text
+	extra jquery calls removed
 
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>

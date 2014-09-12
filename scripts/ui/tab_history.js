@@ -60,11 +60,10 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     return isInt(p1) && isInt(p2) && !isNaN(p1) && !isNaN(p2) && p1 !== p2 && p1 >= 0 && p2 >= 0;
   }
 
-  function showCorrection ($game) {
+  function showCorrection () {
     var points;
-    // TODO somehow store the actual game id!
-    $button = $game.find('.correct');
 
+    // TODO somehow store the actual game id!
     points = $button.text().split(':').map(function (str) {
       return Number(str);
     });
@@ -300,10 +299,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       abortCorrection();
 
       $button = $(this);
-      // move to the actual button, if the user clicked the span
-      $game = $button.parent();
 
-      showCorrection($game);
+      // move to the actual button, if the user clicked the span
+      showCorrection();
 
       return false;
     });
