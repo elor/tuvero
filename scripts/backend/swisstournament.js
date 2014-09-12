@@ -116,7 +116,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
-    return this.getGames();
+    return true;
   };
 
   /**

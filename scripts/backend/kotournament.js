@@ -353,7 +353,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
     this.state = Tournament.STATE.RUNNING;
 
-    return this.getGames();
+    return true;
   };
 
   KOTournament.prototype.end = function () {

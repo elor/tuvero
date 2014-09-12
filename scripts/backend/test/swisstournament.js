@@ -124,10 +124,10 @@ define([ '../swisstournament', '../game', '../tournament',
     // consider second round
     res = st.start();
 
+    QUnit.deepEqual(res, true, 'second round: generation successful');
+
     games2 = st.getGames();
-
-    QUnit.deepEqual(res, games2, 'second round: generation successful');
-
+    
     QUnit.equal(games2.length, 4, 'second round: 4 games');
 
     count = 0;
@@ -225,8 +225,8 @@ define([ '../swisstournament', '../game', '../tournament',
         break;
       }
     }
+    QUnit.deepEqual(res, true, 'third round: valid randomization');
     games3 = st.getGames();
-    QUnit.deepEqual(res, games3, 'third round: valid randomization');
     QUnit.equal(games3.length, 4, 'third round: four games');
 
     count = 0;

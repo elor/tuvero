@@ -8,8 +8,8 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
   Tournaments = {};
   tournaments = [];
 
-  Tournaments.addTournament = function (type) {
-    var newtournament;
+  Tournaments.addTournament = function (type, numteams, startteam) {
+    var newtournament, i, teams;
 
     newtournament = undefined;
 
@@ -29,9 +29,16 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
       return undefined;
     }
 
+    // TODO use global ranking instead of this cheap hack
+    teams = [];
+    for (i = 0; i < numteams; i += 1) {
+      teams.push(i);
+    }
+
     tournaments.push({
       name : type,
       type : type,
+      teams : teams,
       tournament : newtournament,
     });
 
@@ -48,6 +55,10 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
   Tournaments.getName = function (id) {
     return tournaments[id].name;
+  };
+
+  Tournaments.getTeams = function (id) {
+    return tournaments[id].teams;
   };
 
   Tournaments.getTournament = function (id) {
@@ -118,7 +129,7 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
     for (id = 0; id < tournaments.length; id += 1) {
       t = tournaments[id];
-      ob[id] = [ t.type, t.name, t.tournament.toBlob() ];
+      ob[id] = [ t.type, t.name, t.tournament.toBlob(), t.teams ];
     }
 
     return JSON.stringify(ob);
@@ -142,6 +153,7 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
         tournaments.push({
           type : t[0],
           name : t[1],
+          teams : t[3],
           tournament : undefined,
         });
       }

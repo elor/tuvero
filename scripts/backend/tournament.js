@@ -24,8 +24,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
        * starts the tournament. This function might block the entry of new
        * players and is able to create the first valid list of open games
        * 
-       * @returns a first array of open games (like getGames) if valid,
-       *          undefined otherwise
+       * @returns true if valid, undefined otherwise
        */
       start : function () {
         return this;

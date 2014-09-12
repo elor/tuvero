@@ -14,6 +14,18 @@
 
 	* style/history.css: different styles for gamestable and progresstable
 
+	* scripts/backend/finebuchholzranking.js: number of completed games removed from sort order
+
+	* scripts/backend/kotournament.js: start() return value now is a simple bool
+
+	* scripts/backend/swisstournament.js: start() return value now is a simple bool
+
+	* scripts/backend/test/swisstournament.js: start() return value now is a simple bool
+
+	* scripts/backend/tournament.js: start() return value now is a simple bool
+
+	* scripts/ui/tournaments.js: support for team lists added
+
 2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash loaderror added
