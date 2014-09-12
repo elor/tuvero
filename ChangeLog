@@ -35,7 +35,15 @@
 	* style/new.css: separate border-collapse enabled for this table only
 	unwanted table borders removed
 
-	* style/tabs.css: 
+	* images/change.png: added
+
+	* images/smallchange.png: added
+
+	* images/svg/change.svg: added
+
+	* images/svg/smallchange.svg: added
+
+	* style/teams.css: text change hover -> show smallchange icon
 
 2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
