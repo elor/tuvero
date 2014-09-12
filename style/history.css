@@ -43,11 +43,11 @@
 }
 
 #history.hidenames .names  {
-  display: none;
+  display: none !important;
 }
 
 #history .names.hidden {
-  display: none;
+  display: none !important;
 }
 
 #history .progresstable {
