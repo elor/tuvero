@@ -98,7 +98,7 @@
   display: inline-block;
 }
 
-#new .swiss table td {
+#new .playertable .swiss table tr td {
   vertical-align: top;
   border: none;
 }

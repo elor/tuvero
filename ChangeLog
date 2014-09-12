@@ -28,6 +28,8 @@
 	* scripts/ui/tournaments.js: support for team lists added
 
 	* style/new.css: separate border-collapse enabled for this table only
+	unwanted table borders removed
+
 
 2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
