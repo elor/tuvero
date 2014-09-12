@@ -140,9 +140,15 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     // retrieve team ids from displayed team number
     // TODO find better solution!
-    $teams = template.chpoints.$chpoints.parents('.game').find('.number');
-    t1 = Number($($teams[0]).text());
-    t2 = Number($($teams[1]).text());
+    if (progresstable) {
+      $teams = template.chpoints.$chpoints.parents('.team').find('.number');
+      t1 = Number($teams.text());
+      t2 = Number(template.chpoints.$chpoints.prev().text());
+    } else {
+      $teams = template.chpoints.$chpoints.parents('.game').find('.number');
+      t1 = Number($($teams[0]).text());
+      t2 = Number($($teams[1]).text());
+    }
 
     if (!isInt(t1) || !isInt(t2) || isNaN(t1) || isNaN(t2)) {
       new Toast(Strings.invalidresult);
@@ -292,7 +298,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   function initCorrection () {
     $button = undefined;
 
-    $tab.on('click', '.game .correct', function () {
+    $tab.on('click', '.team .correct', function () {
       var $game;
 
       // abort previous correction attempts
@@ -655,6 +661,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       $table.append($row);
     }
 
+    $box.data('tournamentid', tournamentid);
     $box.append($table);
     $tab.append($box);
 
