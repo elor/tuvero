@@ -64,7 +64,11 @@
 
 #history .progresstable .game, 
 #history .progresstable .result {
-  padding: 0em 0.1em;
+  padding: 0em 0.2em;
+}
+
+#history .progresstable tr:nth-child(even) {
+  background-color: #d3d3d3;
 }
 
 #history .game .correct {

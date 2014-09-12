@@ -523,7 +523,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     History.getVotes(tournamentid).map(function (vote) {
       if (vote[0] === History.BYE) {
         // TODO read '13:7' from the options!
-        addGame(vote[2], vote[1], 'F', 13, 7);
+        addGame(vote[2], vote[1], Strings.byevote, 13, 7);
       }
     });
 

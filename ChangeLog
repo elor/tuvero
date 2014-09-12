@@ -3,6 +3,7 @@
 	* boules.html: progresstable checkbox active by default
 	progresstable template added
 	text for some tournament systems added
+	progresstable header simplified
 
 	* scripts/ui/history.js: getGames added for easy iteration
 
@@ -10,10 +11,12 @@
 
 	* scripts/ui/tab_history.js: progress table creation
 	using progress table if enabled by checkbox
+	using the byevote symbol for the progress table
 
 	* style/general.css: tables: borders-collapse by default
 
 	* style/history.css: different styles for gamestable and progresstable
+	progresstable beautification
 
 	* scripts/backend/finebuchholzranking.js: number of completed games removed from sort order
 
