@@ -647,6 +647,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
           $game = template.progresstable.$game.clone();
           $game.eq(0).text(game.opponent);
           $game.eq(1).text(game.points);
+          if (game.opponent === Strings.byevote) {
+            $game.eq(1).removeClass('correct editable');
+          }
           $game.eq(2).text(Strings['winstatus' + game.won]);
           $row.append($game);
         });
