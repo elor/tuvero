@@ -2,6 +2,7 @@
 
 	* boules.html: progresstable checkbox active by default
 	progresstable template added
+	text for some tournament systems added
 
 	* scripts/ui/history.js: getGames added for easy iteration
 
