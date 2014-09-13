@@ -82,6 +82,8 @@ define(function () {
     winstatusfalse : 'N',
     winstatusundefined : '',
     nomanifest : 'Offline-Modus deaktiviert: Kein Manifest',
+    tournamentalreadyfinished : 'Turnier ist schon beendet',
+    gamesstillrunning : 'Es gibt noch offene Spiele',
   };
 
   return Strings;

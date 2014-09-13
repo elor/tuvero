@@ -161,6 +161,48 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     });
   }
 
+  function initRemove () {
+    $tab.on('click', '.system .removesystem', function () {
+      var $system, tournamentid, tournament, games;
+
+      $system = $(this).parent('.system');
+
+      tournamentid = $system.data('tournamentid');
+
+      if (!Tournaments.isRunning(tournamentid)) {
+        new Toast(Strings.tournamentalreadyfinished);
+        return undefined;
+      }
+
+      tournament = Tournaments.getTournament(tournamentid);
+      if (!tournament) {
+        console.error("tournament running, but there's no tournament object!");
+        return undefined;
+      }
+
+      games = tournament.getGames();
+
+      if (games && games.length) {
+        new Toast(Strings.gamesstillrunning);
+        return undefined;
+      }
+
+      if (!Tournaments.removeTournament(tournamentid)) {
+        // failure
+        console.error("something's wrong");
+        return undefined;
+      }
+
+      // the other tabs don't need to update, since nothing should have changed
+      // for them (yet)
+      Tab_New.update();
+      Storage.changed();
+      new Toast(Strings.tournamentfinished);
+
+      return true;
+    });
+  }
+
   function resetTeams () {
     $tab.find('.team').remove();
   }
@@ -246,10 +288,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $title = $clone.find('>h3');
     if (tournamentid !== undefined) {
       $title.addClass('editable');
+      $title.after(template.$removesystem.clone());
     }
     $clone.append($title.clone());
-
-    $title.after(template.$removesystem.clone());
 
     if (name) {
       $clone.find('.name').text(name);
@@ -517,6 +558,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     initTemplate();
     initRename();
+    initRemove();
     initOptions();
   }
 

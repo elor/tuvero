@@ -24,6 +24,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/strings.js: nomanifest added
 	namechangeaborted added
+	tournament removal strings added
 
 	* scripts/ui/tab_debug.js: using Debug.isDevVersion
 	using updating teams for the Tournaments array
@@ -44,6 +45,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	showing an error if a tournament isn't running, but wants to be displayed
 	adding removal button to every system block
 	adding 'editable' class only to actual tournaments
+	tournament removal enabled
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -75,7 +77,6 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
 
-	* style/new.css: 
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
