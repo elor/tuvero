@@ -182,8 +182,10 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
   }
 
-  function setSystemState ($system, Tournament) {
-    var stateclass;
+  function setSystemState ($system, tournamentid) {
+    var stateclass, Tournament;
+
+    Tournament = tournamentid !== undefined && Tournaments.getTournament(tournamentid);
 
     switch (Tournament ? Tournament.getState() : BackendTournament.STATE.FAILURE) {
     case BackendTournament.STATE.PREPARING:
@@ -205,7 +207,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function updateSystems () {
-    var $anchor, height, $clone, $swiss, Tournament, name, tournamentid;
+    var $anchor, height, $clone, $swiss, name, tournamentid;
 
     // TODO startTeam === 0
     $anchor = $tab.find('.team').eq(0);
@@ -221,19 +223,19 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     height = Team.count();
 
     $clone = template.$system.clone();
+    tournamentid = undefined;
     name = undefined;
 
     if (Tournaments.numTournaments() > 0) {
       tournamentid = 0;
       // FIXME find the last running one
-      Tournament = Tournaments.getTournament(tournamentid);
       name = Tournaments.getName(tournamentid);
       $clone.data('tournamentid', tournamentid);
 
       // FIXME read all tournaments and span accordingly
       $clone.append(template.system.$swiss.clone());
       $clone.addClass('swiss');
-      initSwiss($clone, Tournament);
+      initSwiss($clone, tournamentid);
     } else {
       $clone.append(template.system.$newsystem.clone());
       $clone.addClass('newsystem');
@@ -246,7 +248,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
 
     $clone.attr('rowspan', height);
-    setSystemState($clone, Tournament);
+    setSystemState($clone, tournamentid);
 
     $anchor.find('td').css('border-top', 'solid 1px black');
     $anchor.append($clone);
@@ -287,13 +289,20 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   /**
    * prepare a swiss tournament management box
    */
-  function initSwiss ($swiss, Swiss) {
-    var $swissmode, round, $perms;
+  function initSwiss ($swiss, tournamentid) {
+    var $swissmode, round, $perms, Swiss;
 
     // set texts for current round
-    round = Tournaments.getRanking(Tournaments.getTournamentID(Swiss)).round;
+    round = Tournaments.getRanking(tournamentid).round;
     $swiss.find('.round').text(round);
     $swiss.find('.nextround').text(round + 1);
+
+    if (!Tournaments.isRunning(tournamentid)) {
+      // this is finished.
+      return undefined;
+    }
+
+    Swiss = Tournaments.getTournament(tournamentid);
 
     // swissmode select field
     $swissmode = $swiss.find('.mode');

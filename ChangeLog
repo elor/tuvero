@@ -6,6 +6,9 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
+	stupid error fixed where I didn't copy arrays first
+	another stupid error in the same function where I forgot to create arrays
+	getCorrections() added
 
 	* scripts/ui/tab_history.js: taking old point for corrections from colon-sep'd text
 	extra jquery calls removed
@@ -35,6 +38,8 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	tournament namechange logic added
 	stub for multiple parallel tournaments added
 	chabort function simplified
+	not passing Tournament objects around
+	showing an error if a tournament isn't running, but wants to be displayed
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -50,6 +55,8 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	using and storing game ids
 
 	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
+	not passing around Tournament objects
+	reading corrections from History, not Tournaments
 
 	* scripts/ui/tab_teams.js: escape rename abort added
 	namechangeaborted Toast added

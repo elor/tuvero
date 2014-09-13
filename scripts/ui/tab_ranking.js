@@ -1,5 +1,5 @@
 define([ './tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './opts' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts) {
+    './tabshandle', './opts', './history' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts, History) {
   var Tab_Ranking, template, $tab, options, updatepending;
 
   updatepending = false;
@@ -136,12 +136,12 @@ define([ './tournaments', './team', './toast', './strings', './options',
   /**
    * @returns {boolean} false on failure, true on success
    */
-  function showRanking (Tournament, $box) {
+  function showRanking (tournamentid, $box) {
     var ranking, rank, $container, notempty;
 
     $container = template.rank.$table.clone();
 
-    ranking = Tournaments.getRanking(Tournaments.getTournamentID(Tournament));
+    ranking = Tournaments.getRanking(tournamentid);
 
     if (ranking.round <= 0) {
       return false;
@@ -163,12 +163,12 @@ define([ './tournaments', './team', './toast', './strings', './options',
   /**
    * retrieves the corrections and displays them in the correction table
    */
-  function showCorrections (Tournament, $box) {
+  function showCorrections (tournamentid, $box) {
     var corrections, empty, $container, $table;
 
     empty = true;
 
-    corrections = Tournament.getCorrections();
+    corrections = History.getCorrections(tournamentid);
 
     if (corrections === undefined || corrections.length === 0) {
       return false;
@@ -180,17 +180,17 @@ define([ './tournaments', './team', './toast', './strings', './options',
     corrections.forEach(function (correction) {
       var tid;
 
-      tid = correction.game.teams[0][0];
+      tid = correction[0][0];
       template.correction.$teamnos[0].text(tid + 1);
 
-      tid = correction.game.teams[1][0];
+      tid = correction[0][1];
       template.correction.$teamnos[1].text(tid + 1);
 
-      template.correction.$points[0].text(correction.oldpoints[0]);
-      template.correction.$points[1].text(correction.oldpoints[1]);
+      template.correction.$points[0].text(correction[0][2]);
+      template.correction.$points[1].text(correction[0][3]);
 
-      template.correction.$points[2].text(correction.newpoints[0]);
-      template.correction.$points[3].text(correction.newpoints[1]);
+      template.correction.$points[2].text(correction[1][2]);
+      template.correction.$points[3].text(correction[1][3]);
 
       $table.append(template.correction.$correction.clone());
 
@@ -217,7 +217,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
   };
 
   function updateTournamentRankings () {
-    var hidden, tournamentid, tournament, keepbox, $box;
+    var hidden, tournamentid, keepbox, $box;
 
     hidden = true;
 
@@ -231,19 +231,17 @@ define([ './tournaments', './team', './toast', './strings', './options',
         continue;
       }
 
-      tournament = Tournaments.getTournament(tournamentid);
-
       keepbox = false;
 
       template.$boxname.text(Tournaments.getName(tournamentid));
       $box = template.$box.clone();
 
-      if (showRanking(tournament, $box)) {
+      if (showRanking(tournamentid, $box)) {
         hidden = false;
         keepbox = true;
       }
 
-      if (showCorrections(tournament, $box)) {
+      if (showCorrections(tournamentid, $box)) {
         hidden = false;
         keepbox = true;
       }

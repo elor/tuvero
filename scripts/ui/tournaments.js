@@ -74,12 +74,12 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     var tournament;
 
     tournament = tournaments[tournamentid];
-    if (!tournament) {
+    if (!tournament || !tournament.tournament) {
       console.error('tournament already removed?');
       return undefined;
     }
 
-    tournaments[tournamentid].finalranking = tournament.getRanking();
+    tournaments[tournamentid].finalranking = tournament.tournament.getRanking();
     tournaments[tournamentid].tournament = undefined;
 
     return true;

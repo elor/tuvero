@@ -110,6 +110,9 @@ define([ './tournaments' ], function (Tournaments) {
     addCorrection : function (tournamentid, before, after) {
       var tournament, game;
 
+      before = before.slice(0);
+      after = after.slice(0);
+      
       // TODO validate data types and values
       // TODO check whether the result really existed
 
@@ -134,15 +137,13 @@ define([ './tournaments' ], function (Tournaments) {
         }
       }
 
-      before = before.slice(0);
       before[4] = before[4] || 0;
       before[5] = before[5] || 0;
 
-      after = after.slice(0);
       after[4] = after[4] || 0;
       after[5] = after[5] || 0;
 
-      tournament.corrections.push(before, after);
+      tournament.corrections.push([ before, after ]);
       return true;
     },
 
@@ -352,6 +353,17 @@ define([ './tournaments' ], function (Tournaments) {
       }
 
       return tournament.corrections[id];
+    },
+
+    getCorrections : function (tournamentid) {
+      var tournament;
+
+      tournament = getTournament(tournamentid);
+      if (!tournament) {
+        return undefined;
+      }
+
+      return tournament.corrections;
     },
 
     numTournaments : function () {
