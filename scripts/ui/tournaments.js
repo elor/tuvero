@@ -2,7 +2,7 @@
  * Tournaments is a list of _running_ tournaments, with null entries for
  * finished tournaments, but still keeping name and type information
  */
-define([ '../backend/swisstournament', './team' ], function (Swisstournament, Team) {
+define([ '../backend/swisstournament', '../backend/kotournament', './team' ], function (Swisstournament, KOTournament, Team) {
   var Tournaments, tournaments, globalranking;
 
   Tournaments = {};
@@ -21,7 +21,7 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
       tournament = new Swisstournament();
       break;
     case 'ko':
-      console.log(type + ' tournament type coming soon');
+      tournament = new KOTournament();
       break;
     default:
       console.error('undefined tournament type: ' + type);

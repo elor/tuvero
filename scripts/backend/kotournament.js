@@ -43,7 +43,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     this.rounds = 0;
     this.state = Tournament.STATE.PREPARING;
     this.options = {
-      matchingMethod : 'order',
+      firstround : 'order',
     };
   };
 
@@ -52,7 +52,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     // 'order': order of entry
     // 'set': first vs. last and so on
     // 'random': first matches are random
-    matchingMethod : {
+    firstround : {
       order : 'order',
       set : 'set',
       random : 'random',
@@ -195,9 +195,9 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   }
 
   match = {};
-  match[KOTournament.OPTIONS.matchingMethod.order] = matchOrder;
-  match[KOTournament.OPTIONS.matchingMethod.shifted] = matchShifted;
-  match[KOTournament.OPTIONS.matchingMethod.random] = matchRandom;
+  match[KOTournament.OPTIONS.firstround.order] = matchOrder;
+  match[KOTournament.OPTIONS.firstround.shifted] = matchShifted;
+  match[KOTournament.OPTIONS.firstround.random] = matchRandom;
 
   function buildTree (numRounds, loserMinRound) {
     var games, nextRoundWinners, nextRoundLosers, i, numgames, thisRound;
@@ -319,7 +319,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
     this.rounds = numRounds(this.players.size());
     this.matches = [];
-    pids = match[this.options.matchingMethod](this.players.size(), this.options.byeOrder);
+    pids = match[this.options.firstround](this.players.size(), this.options.byeOrder);
 
     for (i = 1; i < this.rounds; i += 1) {
       this.matches[i] = (new Array(1 << (this.rounds - i))).map(function () {
@@ -450,13 +450,29 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   };
 
   KOTournament.prototype.toBlob = function () {
-    // TODO blobbify
-    return undefined;
+    var ob;
+
+    ob = {
+      players : this.players.toBlob(),
+      games : this.games,
+      state : this.state,
+      options : this.getOptions(),
+    };
+
+    console.log(JSON.stringify(ob));
+    
+    return JSON.stringify(ob);
   };
 
-  KOTournament.prototype.fromBlob = function () {
-    // TODO deblobbify
-    return undefined;
+  KOTournament.prototype.fromBlob = function (blob) {
+    var ob;
+
+    ob = JSON.parse(blob);
+
+    this.players.fromBlob(ob.players);
+    this.games = ob.games;
+    this.state = ob.state;
+    this.setOptions(ob.options);
   };
 
   KOTournament.prototype.getOptions = Options.prototype.getOptions;

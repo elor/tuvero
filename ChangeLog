@@ -7,6 +7,7 @@
 	added a teamsize input for new tournaments
 	pre-collapsed advanced options box for swisstournament
 	Mail and Phone swapped
+	KO-system button added
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
@@ -60,6 +61,7 @@
 	using correct parent ids
 	starting tournaments with the user-defined team size
 	specifically asking for the place of the next child
+	ko tournaments enabled
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -81,6 +83,7 @@
 	flipped comparison
 	allowing to count all children during getStartRank. That way...
 	...the user can specify that he wants the position of the next child
+	ko tournaments enabled
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 
@@ -97,6 +100,8 @@
 	* scripts/backend/game.js: game id added
 
 	* scripts/backend/kotournament.js: game id added
+	options adjusted
+	blob functions written
 
 	* scripts/backend/swisstournament.js: game id added and passed through most functions
 

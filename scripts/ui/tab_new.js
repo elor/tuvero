@@ -69,6 +69,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     template.system = {};
     template.system.$swiss = $tab.find('.swiss.tpl').detach().find('> *');
+    template.system.$ko = $tab.find('.ko.tpl').detach().find('> *');
     template.system.$newsystem = $tab.find('.newsystem.tpl').detach().find('> *');
 
     template.$chname = template.system.$newsystem.find('.chname');
@@ -293,6 +294,10 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     return $anchor;
   }
 
+  function initKO ($anchor, tournamentid) {
+
+  }
+
   function createTournamentBox ($anchor, tournamentid) {
     var type;
 
@@ -304,6 +309,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     switch (type) {
     case 'swiss':
       initSwiss($anchor, tournamentid);
+      break;
+    case 'ko':
+      initKO($anchor, tournamentid);
       break;
     default:
       console.error('unsupported tournament type: ' + type);
@@ -403,10 +411,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
    * prepare Newsystem management box, which starts a new tournament round
    */
   function initNewsystem ($system) {
-    var $swissbutton, $numteams, maxteams, parentid;
+    var $numteams, maxteams, parentid;
 
     parentid = $system.data('tournamentid');
-    $swissbutton = $system.find('button.swiss');
 
     $numteams = $system.find('input.numteams');
     maxteams = $system.attr('rowspan');
@@ -417,8 +424,12 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       return Number($numteams.val());
     }
 
-    $swissbutton.click(function () {
+    $system.find('button.swiss').click(function () {
       addNewSystem('swiss', numTeams(), parentid);
+    });
+
+    $system.find('button.ko').click(function () {
+      addNewSystem('ko', numTeams(), parentid);
     });
   }
 
