@@ -1,4 +1,4 @@
-2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: got rid of the strange span system for corrections
 	tournamentrank column added in tab_new
@@ -52,6 +52,16 @@
 
 	* scripts/ui/tab_teams.js: escape rename abort added
 	namechangeaborted Toast added
+
+	* scripts/backend/game.js: game id added
+
+	* scripts/backend/kotournament.js: game id added
+
+	* scripts/backend/swisstournament.js: game id added and passed through most functions
+
+	* scripts/backend/tournament.js: getCorrections() doesn't set a game id
+
+	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

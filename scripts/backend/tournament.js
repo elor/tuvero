@@ -106,7 +106,9 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
       },
 
       /**
-       * return all corrections
+       * return all corrections as [ game, points before, points after ]
+       * 
+       * The game.id can be 0, regardless of the actual game id
        * 
        * @returns an array of corrections
        */

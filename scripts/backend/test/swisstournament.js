@@ -106,6 +106,7 @@ define([ '../swisstournament', '../game', '../tournament',
       oldpoints : [ 13, 4 ],
       newpoints : [ 4, 13 ]
     };
+    corr.game.id = 0;
 
     // recheck the results
     rnk = st.getRanking();
@@ -127,7 +128,7 @@ define([ '../swisstournament', '../game', '../tournament',
     QUnit.deepEqual(res, true, 'second round: generation successful');
 
     games2 = st.getGames();
-    
+
     QUnit.equal(games2.length, 4, 'second round: 4 games');
 
     count = 0;

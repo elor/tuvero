@@ -412,7 +412,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     var games = [];
 
     this.games.forEach(function (game, i) {
-      games[i] = new Game(this.players.at(game.p1), this.players.at(game.p2));
+      games[i] = new Game(this.players.at(game.p1), this.players.at(game.p2), game.id);
     }, this);
 
     return games;

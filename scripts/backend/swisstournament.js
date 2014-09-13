@@ -157,7 +157,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     // convert to internal pid
-    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]));
+    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]), game.id);
 
     // verify that the game is in the games list
     invalid = true;
@@ -196,7 +196,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // convert internal to external ids
     var games = [];
     this.games.forEach(function (game, i) {
-      games[i] = new Game(this.players.at(game.teams[0][0]), this.players.at(game.teams[1][0]));
+      games[i] = new Game(this.players.at(game.teams[0][0]), this.players.at(game.teams[1][0]), game.id);
     }, this);
 
     return games;
@@ -352,7 +352,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
         p2 = this.rng.pickAndRemove(playersleft);
 
         if (canPlay.call(this, p1, p2)) {
-          newgames.push(new Game(p1, p2));
+          newgames.push(new Game(p1, p2, newgames.length));
         } else {
           playersleft.push(p1);
           playersleft.push(p2);
@@ -371,7 +371,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     if (newgames.length === 0) {
-      console.error("Failed to find non-repeating games");
+      console.warn("Failed to find non-repeating games");
       return undefined;
     }
 
@@ -474,7 +474,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       p2 = this.rng.pickAndRemove(upper);
 
       if (canPlay.call(this, p1, p2)) {
-        newgames.push(new Game(p1, p2));
+        newgames.push(new Game(p1, p2, newgames.length));
       } else {
         lower.push(p1);
         upper.push(p2);
@@ -482,7 +482,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
       triesleft -= 1;
       if (triesleft <= 0) {
-        console.error("Failed to find non-repeating games");
+        console.warn("Failed to find non-repeating games");
         return undefined;
       }
     }
@@ -532,7 +532,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     if (votes === undefined) {
       // abort. there's no way to downvote properly
-      console.error('wingroups: missing downvotes');
+      console.warn('wingroups: missing downvotes');
       return undefined;
     }
 
@@ -555,7 +555,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     if (lowestWinGroup === wingroups.length) {
-      console.error('no lowest win group detected, meaning that there are not players');
+      console.warn('no lowest win group detected, meaning that there are no players');
       return undefined;
     }
 
@@ -591,7 +591,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
         p2 = this.rng.pick(candidates);
 
-        newgames.push(new Game(p1, p2));
+        newgames.push(new Game(p1, p2, newgames.length));
         wingroup.splice(wingroup.indexOf(p2), 1);
         votes.upvotes[wins] = p2;
       }
@@ -605,7 +605,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
           // if they haven't already played against another
           if (canPlay.call(this, p1, p2)) {
             // create game
-            newgames.push(new Game(p1, p2));
+            newgames.push(new Game(p1, p2, newgames.length));
             wingroup.splice(wingroup.indexOf(p1), 1);
             wingroup.splice(wingroup.indexOf(p2), 1);
           } else {
@@ -614,7 +614,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
           timeout -= 1;
           if (timeout <= 0) {
-            console.error('newRoundByWins: timeout reached. Key players have already been matched');
+            console.warn('newRoundByWins: timeout reached. Key players have already been matched');
             return;
           }
         }
@@ -730,7 +730,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       if (!wingroups[wins]) {
         // there's a wingroup missing. The tournament lasts too long
         // return undefined;
-        console.error('wingroup #' + wins + ' is empty');
+        console.warn('wingroup #' + wins + ' is empty');
         wingroups[wins] = [];
       }
     }
@@ -802,7 +802,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
         // abort if no player can be downvoted
         if (candidates.length === 0) {
-          console.error('no player in wingroup ' + w + ' can be downvoted');
+          console.warn('no player in wingroup ' + w + ' can be downvoted');
           return undefined;
         }
 
@@ -828,7 +828,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       wingroups[lowestWinGroup].forEach(fillCandidates, this);
 
       if (candidates.length === 0) {
-        console.error('no candidate wingroup ' + w + ' can be byevoted');
+        console.warn('no candidate wingroup ' + w + ' can be byevoted');
         return undefined;
       }
 
@@ -972,6 +972,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // if (this.ranking.added(new Game(pid1, pid2)))
     // console.error('game was already played')
     // DEBUG END
+    // FIXME dont allocate a new Game EVERY TIME!
     return pid1 < this.players.size() && pid2 < this.players.size() && pid1 !== pid2 && this.ranking.added(new Game(pid1, pid2)) === false;
   }
 
@@ -992,7 +993,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     var res1, res2;
 
     // map to internal ids
-    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]));
+    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]), game.id);
 
     // create results
     res1 = new Result(game.teams[0], game.teams[1], oldpoints[0], oldpoints[1]);
@@ -1008,7 +1009,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * build a list of corrections which are consistent in format with the
    * correct() function
    * 
-   * @returns
+   * @returns a list of correction objects
    */
   // TODO test
   Swisstournament.prototype.getCorrections = function () {
