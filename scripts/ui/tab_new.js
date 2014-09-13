@@ -69,6 +69,107 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     template.system = {};
     template.system.$swiss = $tab.find('.swiss.tpl').detach().find('> *');
     template.system.$newsystem = $tab.find('.newsystem.tpl').detach().find('> *');
+
+    template.$chname = template.system.$newsystem.find('.chname');
+    template.$chname.detach();
+  }
+
+  function initRename () {
+    // copied over from tab_teams.js
+
+    // ================== FUNCTIONS BEGIN ==================
+    function chshow ($name) {
+      template.$chname.val($name.text());
+      $name.text('');
+      $name.append(template.$chname);
+      template.$chname.focus();
+    }
+
+    function updateName () {
+      var $title, $system, tournamentid, newname;
+
+      $title = template.$chname.parent('h3');
+      $system = $title.parent('.system');
+
+      if ($title.length === 0 || $system.length === 0) {
+        console.error('cannot find required DOM elements');
+        return undefined;
+      }
+
+      // retrieve tournament id
+      tournamentid = $system.data('tournamentid');
+      newname = template.$chname.val();
+      template.$chname.detach();
+
+      if (!newname || /^\s*$/.test(newname) || Tournaments.getName(tournamentid) === newname) {
+        $title.text(Tournaments.getName(tournamentid));
+        new Toast(Strings.namechangeaborted);
+        return undefined;
+      }
+
+      $title.parents('.system').find('.name').text(newname);
+
+      Tournaments.setName(tournamentid, newname);
+
+      // save change
+      Storage.changed();
+
+      // refresh all tabs
+      // Tab_New.update(); // not necessary
+      require('./tab_games').update();
+      require('./tab_ranking').update();
+      require('./tab_history').update();
+
+      new Toast(Strings.namechanged.replace('%s', newname));
+    }
+
+    function chabort () {
+      var $title, $system, tournamentid, newname;
+
+      $system = template.$chname.parents('.system');
+
+      if ($system.length === 0) {
+        console.error('cannot find required DOM elements');
+        return undefined;
+      }
+
+      // retrieve tournament id
+      tournamentid = $system.data('tournamentid');
+      template.$chname.val(Tournaments.getName(tournamentid));
+
+      template.$chname.blur();
+    }
+
+    $tab.on('click', '.system > h3:first-child.name.editable', function () {
+      chshow($(this));
+    });
+
+    template.$chname.blur(updateName);
+
+    template.$chname.keyup(function (e) {
+      if (e.which === 13) {
+        // automatically calls chhide
+        template.$chname.blur();
+        e.preventDefault();
+        return false;
+      } else if (e.which === 27) {
+        chabort();
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // avoid bubbling of the click event towards .name, which would remove
+    // chname and cause DOM exceptions
+    template.$chname.click(function (e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // you clicked the bottom h3? no problem, just click the other one
+    $tab.on('click', '.system >h3:last-child.name.editable', function () {
+      $(this).parents('.system').find('>h3:first-child.name.editable').click().focus();
+    });
   }
 
   function resetTeams () {
@@ -116,8 +217,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function updateSystems () {
-    var $anchor, height, $clone, $swiss, Tournament, name;
+    var $anchor, height, $clone, $swiss, Tournament, name, tournamentid;
 
+    // TODO startTeam === 0
     $anchor = $tab.find('.team').eq(0);
 
     if ($anchor.length == 0) {
@@ -134,9 +236,11 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     name = undefined;
 
     if (Tournaments.numTournaments() > 0) {
+      tournamentid = 0;
       // FIXME find the last running one
-      Tournament = Tournaments.getTournament(0);
-      name = Tournaments.getName(0);
+      Tournament = Tournaments.getTournament(tournamentid);
+      name = Tournaments.getName(tournamentid);
+      $clone.data('tournamentid', tournamentid);
 
       // FIXME read all tournaments and span accordingly
       $clone.append(template.system.$swiss.clone());
@@ -407,6 +511,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $tab = $('#new');
 
     initTemplate();
+    initRename();
     initOptions();
   }
 

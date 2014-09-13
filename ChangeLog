@@ -2,6 +2,7 @@
 
 	* boules.html: got rid of the strange span system for corrections
 	tournamentrank column added in tab_new
+	tournament chname field added
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
@@ -18,6 +19,7 @@
 	determining dev status by parsing the page title for "%version%"
 
 	* scripts/ui/strings.js: nomanifest added
+	namechangeaborted added
 
 	* scripts/ui/tab_debug.js: using Debug.isDevVersion
 	using updating teams for the Tournaments array
@@ -30,6 +32,8 @@
 	GlobalRanking used
 	players are added by Tournaments.addTournament from global ranking
 	using Tournaments.getRanking()
+	tournament namechange logic added
+	stub for multiple parallel tournaments added
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()

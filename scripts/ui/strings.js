@@ -51,6 +51,7 @@ define(function () {
     histhead2 : 'Runde,"Teamno. 1","Spieler 1","Spieler 2","Teamno. 2","Spieler 1","Spieler 2",P1,P2',
     histhead3 : 'Runde,"Teamno. 1","Spieler 1","Spieler 2","Spieler 3","Teamno. 2","Spieler 1","Spieler 2","Spieler 3",P1,P2',
     namechanged : 'Umbenannt: %s',
+    namechangeaborted : 'Name verworfen',
     teamsnotempty : 'Spieler wurden schon eingetragen',
     emptyname : 'N.N.',
     differentteamsizes : 'Teams haben unterschiedliche Größe',
