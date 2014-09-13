@@ -47,6 +47,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 
 	* scripts/ui/tab_games.js: using Tournaments.getRanking()
+	using and storing game ids
 
 	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
 
@@ -62,6 +63,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	* scripts/backend/tournament.js: getCorrections() doesn't set a game id
 
 	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
+
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

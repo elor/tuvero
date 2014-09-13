@@ -312,7 +312,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
    * jQuery callback function. works with "this"
    */
   function finishGame () {
-    var result, $input, i, res, index, points, tournamentid, tournament;
+    var result, $input, i, res, index, points, tournamentid, tournament, gameid;
 
     // if someone wants to finish a game, do the following:
     // * verify that the game was running
@@ -345,6 +345,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     index = result.index;
     points = result.points;
+    gameid = games[tournamentid][index].id;
 
     if (tournament.finishGame(games[tournamentid][index], points) === undefined) {
       // game was somehow invalid. Someone tampered with the system.
@@ -363,7 +364,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     // the game was accepted, store it in history
     round = Tournaments.getRanking(tournamentid).round;
-    res = History.addResult(tournamentid, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1);
+    res = History.addResult(tournamentid, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1, gameid);
     Tab_History.update();
 
     // game was accepted. remove it.
