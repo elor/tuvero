@@ -1,4 +1,4 @@
-require([ './backgroundscripts', './splash', './toast', './strings',
+define([ './backgroundscripts', './splash', './toast', './strings',
     './storage', './tab_settings', './tabshandle', './alltabs', './tab_debug',
     './update' ], function (undefined, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug, Update) {
 

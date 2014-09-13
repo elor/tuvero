@@ -46,14 +46,18 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	adding removal button to every system block
 	adding 'editable' class only to actual tournaments
 	tournament removal enabled
+	new global ranking format used
+	preparing the use of parentid and multiple tournaments
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
+	Tournaments.getRankingOrder() is used to determine tournament dependencies
 
 	* scripts/ui/tournaments.js: addTournament adds players according to global ranking
 	removeTournament added
 	getRanking added to get the last ranking transparently
 	blob functions updated to the new format
+	using parent referencing to build an ordered tree for global rankings
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 
@@ -78,6 +82,9 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
 
 	* style/general.css: collapsed boxes aren't printed
+
+	* scripts/ui/backgroundscripts.js: 
+	* scripts/ui/main.js: 
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

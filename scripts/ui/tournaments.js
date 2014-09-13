@@ -35,8 +35,8 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     return tournament;
   }
 
-  Tournaments.addTournament = function (type, numteams, startteam) {
-    var newtournament, i, teams;
+  Tournaments.addTournament = function (type, numteams, parent) {
+    var newtournament, i, teams, startteam;
 
     teams = [];
 
@@ -48,6 +48,8 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
     globalranking = require('./globalranking').get();
 
+    startteam = 0;
+
     if (globalranking.length > startteam + numteams) {
       console.error('you want too many teams in your tournament');
       return undefined;
@@ -55,15 +57,18 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
     console.log(numteams);
     for (i = 0; i < numteams; i += 1) {
-      teams.push(globalranking[i + startteam].id);
-      newtournament.addPlayer(globalranking[i + startteam].id);
+      teams.push(globalranking[i + startteam].teamid);
+      newtournament.addPlayer(globalranking[i + startteam].teamid);
     }
+
+    // TODO verify parent number type / undefined
 
     tournaments.push({
       name : type,
       type : type,
       tournament : newtournament,
       teams : teams,
+      parent : parent,
       finalranking : undefined,
     });
 
@@ -83,6 +88,54 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     tournaments[tournamentid].tournament = undefined;
 
     return true;
+  };
+
+  Tournaments.getParent = function (tournamentid) {
+    return tournaments[tournamentid] && tournaments[tournamentid].parent;
+  };
+
+  /**
+   * performs an inefficient left-traversal of the tournament tree and returns
+   * the ranking order (left-right-parent)
+   * 
+   * @returns an array with tournament ids, sorted by their logical global
+   *          ranking order
+   */
+  Tournaments.getRankingOrder = function () {
+    var queue, order, i, parent, children;
+
+    queue = [ undefined ];
+
+    while (queue.length) {
+      parent = queue.shift();
+
+      children = [];
+      for (i = 0; i < tournaments.length; i += 1) {
+        if (tournaments[i].parent === parent) {
+
+          if (queue.indexOf(i) > -1) {
+            console.error('already visited: ' + i);
+          }
+
+          children.push(i);
+          queue.push(i);
+        }
+      }
+
+      if (!order) {
+        order = children;
+      } else {
+        i = order.indexOf(parent);
+        if (i === -1) {
+          console.error('parent id not found in index');
+        }
+        while (children.length) {
+          order.splice(i, 0, children.pop());
+        }
+      }
+    }
+
+    return order;
   };
 
   Tournaments.numTournaments = function () {

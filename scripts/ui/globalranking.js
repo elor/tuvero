@@ -8,61 +8,85 @@
 define([ './tournaments', './team' ], function (Tournaments, Team) {
   var GlobalRanking, teamobjects, teamsset;
 
-  function TeamObject (teamid, tournamentid, tournamentrank) {
-    this.id = teamid;
-    this.tournamentid = tournamentid;
-    this.tournamentrank = tournamentrank;
+  function mapTeamsToTournamentIDs () {
+    var tournamentorder, teams, i, tournamentid;
+
+    teams = [];
+
+    tournamentorder = Tournaments.getRankingOrder();
+
+    while (teams.length < Team.count()) {
+      i = teams.length;
+      teams.push({
+        rankoftournament : Tournaments.numTournaments(),
+        tournamentid : undefined,
+        teamid : i,
+      });
+    }
+
+    for (i = tournamentorder.length - 1; i >= 0; i -= 1) {
+      tournamentid = tournamentorder[i];
+      Tournaments.getTeams(tournamentid).map(function (teamid) {
+        teams[teamid] = {
+          rankoftournament : i,
+          tournamentid : tournamentid,
+          teamid : teamid,
+        };
+      });
+    }
+
+    return teams;
   }
 
-  function updateTeamObjects () {
-    var tournamentid, numtournaments, tournamentranking, i, teamobjects, teamsset;
-
-    teamobjects = [];
-    teamsset = [];
-    lowplayer = 0;
+  function mapTeamsToTournamentRanks (teamtournaments) {
+    var i, tournamentid, numtournaments, teamid;
 
     numtournaments = Tournaments.numTournaments();
 
     for (tournamentid = 0; tournamentid < numtournaments; tournamentid += 1) {
-      if (Tournaments.isRunning(tournamentid)) {
-        tournamentranking = Tournaments.getRanking(tournamentid);
+      tournamentranking = Tournaments.getRanking(tournamentid);
 
-        for (i = 0; i < tournamentranking.ids.length; i += 1) {
-          teamobjects.push(new TeamObject(tournamentranking.ids[i], tournamentid, tournamentranking.place[i]));
-          teamsset[tournamentranking.ids[i]] = true;
+      for (i = 0; i < tournamentranking.ids.length; i += 1) {
+        teamid = tournamentranking.ids[i];
+
+        if (teamtournaments[teamid].tournamentid === tournamentid) {
+          teamtournaments[teamid].tournamentrank = tournamentranking.place[i];
         }
       }
     }
 
-    for (i = 0; i < Team.count(); i += 1) {
-      if (!teamsset[i]) {
-        teamobjects.push(new TeamObject(i, numtournaments + 1337, 0));
-      }
-    }
+    return teamtournaments;
+  }
+
+  function updateTeamObjects () {
+    var ranking, i;
 
     function sortfunc (a, b) {
-      return a.tournamentid - b.tournamentid || a.tournamentrank - b.tournamentrank;
+      return a.rankoftournament - b.rankoftournament || a.tournamentrank - b.tournamentrank;
     }
 
     function strictsortfunc (a, b) {
-      var sfres;
-      return sortfunc(a, b) || a.id - b.id;
+      return sortfunc(a, b) || a.teamid - b.teamid;
     }
 
-    teamobjects.sort(strictsortfunc);
+    ranking = mapTeamsToTournamentIDs();
+    ranking = mapTeamsToTournamentRanks(ranking);
 
-    if (teamobjects[0]) {
-      teamobjects[0].globalrank = 0;
-      for (i = 1; i < teamobjects.length; i += 1) {
-        if (sortfunc(teamobjects[i - 1], teamobjects[i]) === 0) {
-          teamobjects[i].globalrank = teamobjects[i - 1].globalrank;
+    ranking.sort(strictsortfunc);
+
+    if (ranking[0]) {
+      ranking[0].globalrank = 0;
+
+      for (i = 1; i < ranking.length; i += 1) {
+        if (sortfunc(ranking[i - 1], ranking[i]) === 0) {
+          ranking[i].globalrank = ranking[i - 1].globalrank;
         } else {
-          teamobjects[i].globalrank = i;
+          ranking[i].globalrank = i;
         }
       }
     }
 
-    return teamobjects;
+    return ranking;
   }
 
   GlobalRanking = {

@@ -218,9 +218,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     for (i = 0; i < ranking.length; i += 1) {
       template.team.$rank.text(ranking[i].globalrank + 1);
-      template.team.$tournamentrank.text(ranking[i].tournamentrank + 1);
-      template.team.$teamno.text(ranking[i].id + 1);
-      template.team.$names.text(Team.get(ranking[i].id).names.join(', '));
+      template.team.$tournamentrank.text(ranking[i].tournamentrank + 1 || '');
+      template.team.$teamno.text(ranking[i].teamid + 1);
+      template.team.$names.text(Team.get(ranking[i].teamid).names.join(', '));
       template.$anchor.append(template.team.$container.clone());
     }
   }
@@ -304,12 +304,15 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function addNewSystem (type) {
-    var Tournament, tournamentid;
+    var Tournament, tournamentid, parentid;
 
     // TODO use position information
     // TODO verify type
 
-    Tournament = Tournaments.addTournament(type, Team.count(), 0);
+    // TODO get parentid
+    parentid = undefined;
+
+    Tournament = Tournaments.addTournament(type, Team.count(), parentid);
     if (!Tournament) {
       console.error('cannot create tournament of type ' + type);
       Tab_New.update();
