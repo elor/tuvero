@@ -49,9 +49,12 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
       }
 
       parentid = tournaments[tournamentid].parent;
-      // recursive functions FTW!
-      startteam = Tournaments.getStartRank(parentid);
-
+      if (parentid == undefined) {
+        startteam = 0;
+      } else {
+        // recursive functions FTW!
+        startteam = Tournaments.getStartRank(parentid);
+      }
     }
 
     for (id in tournaments) {
@@ -99,7 +102,7 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
 
     startteam = Tournaments.getStartRank(parent);
 
-    if (Tournaments.numTeamsLeft(parent) > numteams) {
+    if (numteams > Tournaments.numTeamsLeft(parent)) {
       console.error('you want too many teams in your tournament');
       return undefined;
     }

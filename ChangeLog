@@ -4,6 +4,7 @@
 	tournamentrank column added in tab_new
 	tournament chname field added
 	unicode entity added for tournament removal "button"
+	added a teamsize input for new tournaments
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
@@ -52,6 +53,10 @@
 	supporting the display of multiple tournaments
 	startRank bugfix
 	using the tournament order for displaying running systems
+	avoiding stupid startteam indices (e.g. >numplayers)
+	avoiding stupid team sizes
+	using correct parent ids
+	starting tournaments with the user-defined team size
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -69,6 +74,8 @@
 	some minor bugfixes
 	getStartRank bugfixing
 	null vs undefined!
+	don't recurse all the way to undefined in getStartRank
+	flipped comparison
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 
@@ -93,7 +100,7 @@
 	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
 
 	* style/general.css: collapsed boxes aren't printed
-
+	box headers adjusted in size in printing mode
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

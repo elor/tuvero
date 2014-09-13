@@ -254,6 +254,10 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     startteam = Tournaments.getStartRank(tournamentid);
 
+    if (startteam >= Team.count()) {
+      return undefined;
+    }
+
     return template.$anchor.find('.team').eq(startteam);
   }
 
@@ -265,6 +269,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     var $firstrow, height, $anchor;
 
     $firstrow = getAnchor(tournamentid);
+    if ($firstrow === undefined) {
+      return undefined;
+    }
     height = getHeight(tournamentid);
 
     if ($firstrow.length !== 1) {
@@ -307,9 +314,13 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function createSelectionBox ($anchor) {
-
+    if (Number($anchor.attr('rowspan')) < 2) {
+      // TODO add a placeholder text
+      return undefined;
+    }
     $anchor.append(template.system.$newsystem.clone());
     $anchor.addClass('newsystem');
+
     initNewsystem($anchor);
 
     return $anchor;
@@ -333,6 +344,10 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
   function updateSystems () {
     var $system, tournamentid, i, order;
+
+    if (Team.count() < 2) {
+      return undefined;
+    }
 
     // TODO we have to print this in globalranking order!
     order = Tournaments.getRankingOrder();
@@ -368,13 +383,10 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
   }
 
-  function addNewSystem (type, parentid) {
+  function addNewSystem (type, numteams, parentid) {
     var Tournament, tournamentid;
 
-    // TODO use position information
-    // TODO verify type
-
-    Tournament = Tournaments.addTournament(type, Team.count(), parentid);
+    Tournament = Tournaments.addTournament(type, numteams, parentid);
     if (!Tournament) {
       console.error('cannot create tournament of type ' + type);
       Tab_New.update();
@@ -391,13 +403,22 @@ define([ './options', './tabshandle', './opts', './toast', './team',
    * prepare Newsystem management box, which starts a new tournament round
    */
   function initNewsystem ($system) {
-    var $swissbutton, tournamentid;
+    var $swissbutton, $numteams, maxteams, parentid;
 
-    tournamentid = $system.data('tournamentid');
+    parentid = $system.data('tournamentid');
     $swissbutton = $system.find('button.swiss');
 
+    $numteams = $system.find('input.numteams');
+    maxteams = $system.attr('rowspan');
+    $numteams.attr('max', maxteams);
+    $numteams.val(maxteams);
+
+    function numTeams () {
+      return Number($numteams.val());
+    }
+
     $swissbutton.click(function () {
-      addNewSystem('swiss');
+      addNewSystem('swiss', numTeams(), parentid);
     });
   }
 

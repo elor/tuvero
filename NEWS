@@ -13,6 +13,7 @@ FEATURES:
   * offline notification when leaving and the page is not cached
   * Load errors shown on splash screen
   * Progresstable visible in History tab
+  * start multiple tournaments in parallel, e.g. A/B/C/D-Tournaments
 
 PERFORMANCE IMPROVEMENTS:
 
