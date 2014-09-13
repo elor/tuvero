@@ -517,17 +517,21 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       };
     }
 
-    History.getVotes(tournamentid).map(function (vote) {
-      if (vote[0] === History.BYE) {
-        // TODO read '13:7' from the options!
-        addGame(vote[2], vote[1], Strings.byevote, 13, 7);
-      }
-    });
+    if (History.getVotes(tournamentid)) {
+      History.getVotes(tournamentid).map(function (vote) {
+        if (vote[0] === History.BYE) {
+          // TODO read '13:7' from the options!
+          addGame(vote[2], vote[1], Strings.byevote, 13, 7);
+        }
+      });
+    }
 
-    History.getGames(tournamentid).map(function (game) {
-      addGame(game[4], game[0], game[1], game[2], game[3]);
-      addGame(game[4], game[1], game[0], game[3], game[2]);
-    });
+    if (History.getGames(tournamentid)) {
+      History.getGames(tournamentid).map(function (game) {
+        addGame(game[4], game[0], game[1], game[2], game[3]);
+        addGame(game[4], game[1], game[0], game[3], game[2]);
+      });
+    }
 
     tournament = Tournaments.getTournament(tournamentid);
     if (tournament) {
@@ -594,7 +598,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   function createProgressTable (tournamentid) {
     var teamgames, teamid, team, round, maxround, $box, $table, $row, i, $game;
 
-    maxround = History.numRounds(tournamentid);
+    maxround = Math.max(History.numRounds(tournamentid) || 0, Tournaments.getRanking(tournamentid).round || 0);
 
     // prepare table headers
     template.progresstable.$nameheader.removeClass('hidden');
@@ -671,7 +675,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function showTournaments () {
-    var hidden, tournamentid, displayfunc, PROGRESSTABLE, GAMESTABLE;
+    var hidden, tournamentid, displayfunc, PROGRESSTABLE, GAMESTABLE, numtournaments;
 
     hidden = true;
 
@@ -680,7 +684,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     displaytype = progresstable ? PROGRESSTABLE : GAMESTABLE;
 
-    for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
+    numtournaments = Math.max(History.numTournaments() || 0, Tournaments.numTournaments() || 0);
+
+    for (tournamentid = 0; tournamentid < numtournaments; tournamentid += 1) {
 
       switch (Tournaments.getType(tournamentid)) {
       case 'ko':
