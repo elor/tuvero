@@ -17,23 +17,18 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
 
       for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
-        // is it finished?
-        if (!Tournaments.isRunning(tournamentid)) {
-          continue;
-        }
-
         tournament = Tournaments.getTournament(tournamentid);
         name = Tournaments.getName(tournamentid);
 
+        ranking = Tournaments.getRanking(0);
+
         // has it started?
-        if (tournament.getRanking().round <= 0) {
+        if (ranking.round <= 0) {
           continue;
         }
 
         lines.push('#' + Tournaments.getName(tournamentid) + ' Ranking,');
         lines.push(Strings['rankhead' + Options.teamsize]);
-
-        ranking = tournament.getRanking();
 
         makeline = function (rnk) {
           var line, tid, team, vote, i;

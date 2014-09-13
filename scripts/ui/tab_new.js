@@ -24,7 +24,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
-    ranking = Tournament.getRanking();
+    ranking = Tournaments.getRanking(Tournaments.getTournamentID(Tournament));
 
     votes = {
       up : [],
@@ -199,7 +199,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     var $swissmode, round, $perms;
 
     // set texts for current round
-    round = Swiss.getRanking().round;
+    round = Tournaments.getRanking(Tournaments.getTournamentID(Swiss)).round;
     $swiss.find('.round').text(round);
     $swiss.find('.nextround').text(round + 1);
 
@@ -234,7 +234,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $swiss.find('button').click(function () {
       var i, bye, team, round;
       if (Swiss.start()) {
-        round = Swiss.getRanking().round;
+        round = Tournaments.getRanking(Tournaments.getTournamentID(Swiss)).round;
 
         // add the bye to history
         bye = getRoundVotes(Swiss).bye;

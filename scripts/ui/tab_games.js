@@ -171,7 +171,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       }
 
       tournament = Tournaments.getTournament(tournamentid);
-      round = tournament.getRanking().round;
+      round = Tournaments.getRanking(tournamentid).round;
 
       template.$boxname.text(Tournaments.getName(tournamentid) + ' - Runde ' + round);
       $box = template.$box.clone();
@@ -362,7 +362,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     }
 
     // the game was accepted, store it in history
-    round = tournament.getRanking().round;
+    round = Tournaments.getRanking(tournamentid).round;
     res = History.addResult(tournamentid, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1);
     Tab_History.update();
 
@@ -400,7 +400,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       showTab();
       // open tab_new
 
-      new Toast(Strings.roundfinished.replace('%s', tournament.getRanking().round));
+      new Toast(Strings.roundfinished.replace('%s', Tournaments.getRanking(tournamentid).round));
     }
 
     // save changes
@@ -437,7 +437,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     // FIXME duplicate within tab_new.js
     var votes, ranking, i;
 
-    ranking = Tournament.getRanking();
+    ranking = Tournaments.getRanking(Tournaments.getTournamentID(Tournament));
 
     votes = {
       up : [],

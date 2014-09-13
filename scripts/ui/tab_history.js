@@ -531,7 +531,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     tournament = Tournaments.getTournament(tournamentid);
     if (tournament) {
-      roundno = tournament.getRanking().round - 1;
+      roundno = Tournaments.getRanking(tournamentid).round - 1;
       tournament.getGames().map(function (game) {
         addGame(roundno, game.teams[0][0], game.teams[1][0], '', '');
         addGame(roundno, game.teams[1][0], game.teams[0][0], '', '');
@@ -575,13 +575,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     var tournament, ranking, mapping;
     mapping = [];
 
-    tournament = Tournaments.getTournament(tournamentid);
-    if (!tournament) {
-      console.error("tournament doesn't exist (anymore): " + tournamentid);
-      return [];
-    }
+    ranking = Tournaments.getRanking(tournamentid);
 
-    ranking = tournament.getRanking();
+    if (!ranking) {
+      console.error('no ranking returned');
+      return undefined;
+    }
 
     ranking.ids.map(function (teamid, index) {
       mapping[teamid] = [ ranking.wins[index], ranking.buchholz[index],

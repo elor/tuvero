@@ -141,12 +141,11 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     $container = template.rank.$table.clone();
 
-    if (Tournament.getRanking().round <= 0) {
-      Tabshandle.hide('ranking');
+    ranking = Tournaments.getRanking(Tournaments.getTournamentID(Tournament));
+
+    if (ranking.round <= 0) {
       return false;
     }
-
-    ranking = Tournament.getRanking();
 
     for (rank = 0; rank < ranking.ids.length; rank += 1) {
       $container.append(createRankRow(rank, ranking));

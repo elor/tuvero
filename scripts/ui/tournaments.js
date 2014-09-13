@@ -104,12 +104,12 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
   Tournaments.getRanking = function (tournamentid) {
     var tournament;
 
-    if (!tournaments[i]) {
+    tournament = tournaments[tournamentid];
+
+    if (!tournament) {
       console.error('tournamentid doesnt exist: ' + tournamentid);
       return undefined;
     }
-
-    tournament = tournaments[i];
 
     return (tournament.tournament && tournament.tournament.getRanking()) || tournament.finalranking;
   };

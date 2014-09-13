@@ -6,10 +6,11 @@
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
 
-	* scripts/ui/tab_history.js: taking old point for corrections from colon-separated text
+	* scripts/ui/tab_history.js: taking old point for corrections from colon-sep'd text
 	extra jquery calls removed
 	can now correct within progress lists
 	it's forbidden to change byes
+	using Tournaments.getRanking()
 
 	* style/history.css: name hide override
 
@@ -20,6 +21,7 @@
 
 	* scripts/ui/tab_debug.js: using Debug.isDevVersion
 	using updating teams for the Tournaments array
+	using Tournaments.getRanking()
 
 	* scripts/ui/update.js: Update.isDevVersion removed
 	if no dev version and manifest is missing: print warning Toast
@@ -27,13 +29,21 @@
 	* scripts/ui/tab_new.js: tournamentrank column used
 	GlobalRanking used
 	players are added by Tournaments.addTournament from global ranking
+	using Tournaments.getRanking()
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
+	using Tournaments.getRanking()
 
 	* scripts/ui/tournaments.js: addTournament adds players according to global ranking
 	removeTournament added
 	getRanking added to get the last ranking transparently
 	blob functions updated to the new format
+
+	* scripts/ui/ranking.js: using Tournaments.getRanking()
+
+	* scripts/ui/tab_games.js: using Tournaments.getRanking()
+
+	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

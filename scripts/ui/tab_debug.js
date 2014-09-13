@@ -305,8 +305,8 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     Tournament.start();
 
-    if (Tournament.getRanking().byevote[0]) {
-      require('./history').addVote(tournamentid, 0, Tournament.getRanking().ids[0], 0);
+    if (Tournaments.getRanking(tournamentid).byevote[0]) {
+      require('./history').addVote(tournamentid, 0, Tournaments.getRanking(tournamentid).ids[0], 0);
     }
 
     require('./storage').store();

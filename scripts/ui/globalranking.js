@@ -25,7 +25,7 @@ define([ './tournaments', './team' ], function (Tournaments, Team) {
 
     for (tournamentid = 0; tournamentid < numtournaments; tournamentid += 1) {
       if (Tournaments.isRunning(tournamentid)) {
-        tournamentranking = Tournaments.getTournament(tournamentid).getRanking();
+        tournamentranking = Tournaments.getRanking(tournamentid);
 
         for (i = 0; i < tournamentranking.ids.length; i += 1) {
           teamobjects.push(new TeamObject(tournamentranking.ids[i], tournamentid, tournamentranking.place[i]));
