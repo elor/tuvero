@@ -104,7 +104,7 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team' ], fu
       return undefined;
     }
 
-    startteam = Tournaments.getStartRank(parent);
+    startteam = Tournaments.getStartRank(parent, true);
 
     if (numteams > Tournaments.numTeamsLeft(parent)) {
       console.error('you want too many teams in your tournament');
@@ -112,6 +112,8 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team' ], fu
     }
 
     globalranking = require('./globalranking').get();
+
+    console.log(startteam);
 
     for (i = 0; i < numteams; i += 1) {
       teams.push(globalranking[i + startteam].teamid);

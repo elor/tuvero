@@ -59,7 +59,7 @@ define([ './tournaments', './team' ], function (Tournaments, Team) {
   }
 
   function updateTeamObjects () {
-    var ranking, i;
+    var ranking, i, offset, tournamentid;
 
     function sortfunc (a, b) {
       return a.rankoftournament - b.rankoftournament || a.tournamentrank - b.tournamentrank;
@@ -75,14 +75,16 @@ define([ './tournaments', './team' ], function (Tournaments, Team) {
     ranking.sort(strictsortfunc);
 
     if (ranking[0]) {
-      ranking[0].globalrank = 0;
+      offset = 0;
+      tournamentid = ranking[0].tournamentid;
 
-      for (i = 1; i < ranking.length; i += 1) {
-        if (sortfunc(ranking[i - 1], ranking[i]) === 0) {
-          ranking[i].globalrank = ranking[i - 1].globalrank;
-        } else {
-          ranking[i].globalrank = i;
+      for (i = 0; i < ranking.length; i += 1) {
+        if (tournamentid !== ranking[i].tournamentid || ranking[i].tournamentid === undefined) {
+          offset = i;
+          tournamentid = ranking[i].tournamentid;
         }
+
+        ranking[i].globalrank = (ranking[i].tournamentrank || 0) + offset;
       }
     }
 

@@ -222,7 +222,6 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     for (i = 0; i < pids.length; i += 2, gameid += 1) {
       p1 = pids[i];
       p2 = pids[i + 1];
-      console.log(p1 + ' vs ' + p2);
 
       if (p1 === undefined && p2 === undefined) {
         this.gameid = [];
@@ -372,7 +371,9 @@ define([ './tournament', './map', './random', './game', './options' ], function 
       place : idmap.map(function (id) {
         return Math.min(numplayers - 1, worstplaces[id]);
       }), // actual place, usually [1, 2, 3, ...]. Necessary.
-      ids : idmap, // sorted for ranking. Necessary
+      ids : idmap.map(function (id) {
+        return this.players.at(id);
+      }, this), // sorted by place. Necessary
       round : 1, // always 1.
     };
   };
