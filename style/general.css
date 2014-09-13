@@ -127,6 +127,10 @@ div.box > h3:first-child {
     margin: 0.2em;
   }
   
+  div.box.collapsed {
+    display:none !important;
+  }
+
   div.box > h3:first-child {
     border: none;
     background: none;
