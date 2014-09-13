@@ -80,6 +80,7 @@ define(function () {
     winstatustrue : 'S',
     winstatusfalse : 'N',
     winstatusundefined : '',
+    nomanifest : 'Offline-Modus deaktiviert: Kein Manifest',
   };
 
   return Strings;

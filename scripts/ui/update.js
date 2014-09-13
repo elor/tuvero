@@ -1,7 +1,7 @@
 /**
  * detect updates to the manifest, if available
  */
-define([ './strings', './toast' ], function (Strings, Toast) {
+define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   var Update, appCache;
 
   appCache = window.applicationCache;
@@ -46,11 +46,13 @@ define([ './strings', './toast' ], function (Strings, Toast) {
       appCache.update();
       Update.isCached = true;
     } else {
-      Update.isDevVersion = true;
       Update.isCached = false;
 
-      console.warn('no cache manifest found. This is normal for development versions and release candidates.');
-      new Toast(Strings.dev, Toast.INFINITE);
+      if (!Debug.isDevVersion) {
+        console.error('no cache manifest found!');
+
+        new Toast(Strings.nomanifest, Toast.INFINITE);
+      }
     }
   };
 

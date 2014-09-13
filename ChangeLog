@@ -12,6 +12,16 @@
 
 	* style/history.css: name hide override
 
+	* scripts/ui/debug.js: Debug.isDevVersion added
+	determining dev status by parsing the page title for "%version%"
+
+	* scripts/ui/strings.js: nomanifest added
+
+	* scripts/ui/tab_debug.js: using Debug.isDevVersion
+
+	* scripts/ui/update.js: Update.isDevVersion removed
+	if no dev version and manifest is missing: print warning Toast
+
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: progresstable checkbox active by default

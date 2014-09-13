@@ -1,5 +1,5 @@
 define([ './tabshandle', './opts', './toast', '../backend/random', './options',
-    './strings', './update', './tournaments', './team' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Update, Tournaments, Team) {
+    './strings', './debug', './tournaments', './team' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Debug, Tournaments, Team) {
   var Tab_Debug, $tab, form, options, letters, Letters, rng;
 
   Tab_Debug = {};
@@ -429,7 +429,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   Tab_Debug.update = function () {
     Tab_Debug.reset();
 
-    if (Update.isDevVersion) {
+    if (Debug.isDevVersion) {
       Tabshandle.show('debug');
       loadMods();
     } else {
