@@ -69,7 +69,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function updateTabs () {
-    require('./alltabs').update();
+    require('./alltabs').update(true);
     new Toast(Strings.alltabsreloaded);
   }
 

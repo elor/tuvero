@@ -207,6 +207,10 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team' ], fu
     return tournaments[id] && tournaments[id].name;
   };
 
+  Tournaments.getType = function (id) {
+    return tournaments[id] && tournaments[id].type;
+  };
+
   Tournaments.getTeams = function (id) {
     return tournaments[id] && tournaments[id].teams;
   };

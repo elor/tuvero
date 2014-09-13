@@ -723,7 +723,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   /**
    * removes and redraws all boxes from History
    */
-  Tab_History.update = function () {
+  Tab_History.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
     if (updatepending) {
       console.log('updatepending');
     } else {

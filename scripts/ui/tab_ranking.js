@@ -258,7 +258,12 @@ define([ './tournaments', './team', './toast', './strings', './options',
     }
   }
 
-  Tab_Ranking.update = function () {
+  Tab_Ranking.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
     if (updatepending) {
       console.log('updatepending');
     } else {

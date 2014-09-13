@@ -210,8 +210,34 @@
         </div>
 
         <div class="box ko tpl">
-          <h3>KO-System</h3>
-          <p><em>Coming soon</em></p>
+          <h3 class="name">KO-System</h3>
+          <div class="finished">
+            Turnier beendet
+          </div>
+          <div class="preparing">
+            <button>
+              KO-Turnier starten
+            </button>
+            <div class="box collapsed">
+              <h3>Erweiterte Optionen</h3>
+              <div>Erste Runde</div>
+              <select class="mode" size="3">
+                <option value="order">Reihenfolge</option>
+                <option value="set" selected="selected">Setzen</option>
+                <option value="random">Zufall</option>
+              </select>
+            </div>
+          </div>
+          <div class="running">
+            <p>
+            KO-Turnier wird gespielt
+            </p><p>
+            &rArr; <a href="#games"><img src="images/games.png" alt="#games">Laufende Spiele</a>
+            </p>
+          </div>
+          <div class="failure">
+            Unerwarteter Fehler bei der Turnierberechnung.
+          </div>
         </div>
 
         <div class="box poule">

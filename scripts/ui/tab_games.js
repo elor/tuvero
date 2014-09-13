@@ -588,7 +588,12 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
   /**
    * reset an original game state, respecting the current state of Swiss
    */
-  Tab_Games.update = function () {
+  Tab_Games.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
     if (updatepending) {
       console.log('updatepending');
     } else {

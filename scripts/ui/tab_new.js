@@ -294,8 +294,46 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     return $anchor;
   }
 
-  function initKO ($anchor, tournamentid) {
+  function initKO ($ko, tournamentid) {
+    var $komode, round, $perms, KO;
 
+    if (!Tournaments.isRunning(tournamentid)) {
+      // this is finished.
+      console.error('system box for a finished KO tournament');
+      return undefined;
+    }
+
+    KO = Tournaments.getTournament(tournamentid);
+
+    // komode select field
+    $komode = $ko.find('.mode');
+    getKOMode($komode, KO);
+
+    $komode.change(function () {
+      setKOMode($komode, KO);
+    });
+
+    // submit button
+    $ko.find('button').click(function () {
+      var i, bye, team, round;
+      if (KO.start()) {
+        // add the bye to history
+        bye = getRoundVotes(KO).bye;
+        while (bye.length > 0) {
+          History.addVote(0, History.BYE, bye.shift(), round - 1);
+        }
+
+        new Toast(Strings.tournamentstarted);
+        Storage.store();
+
+        Tab_Games.update();
+        Tab_New.update();
+        Tab_History.update();
+        Tab_Ranking.update();
+      } else {
+        new Toast(Strings.roundfailed);
+      }
+    });
   }
 
   function createTournamentBox ($anchor, tournamentid) {
@@ -613,6 +651,24 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $modeselect.val(mode);
   }
 
+  function setKOMode ($modeselect, KO) {
+    var opts, mode;
+
+    mode = $modeselect.val();
+
+    opts = KO.getOptions();
+    opts.firstround = mode;
+
+    KO.setOptions(opts);
+  }
+
+  function getKOMode ($modeselect, KO) {
+    var mode;
+
+    mode = KO.getOptions().firstround;
+    $modeselect.val(mode);
+  }
+
   function initOptions () {
     var $maxwidthbox, $shownamesbox;
 
@@ -679,8 +735,13 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     Tab_Teams.setOptions(opts);
   }
 
-  Tab_New.update = function () {
+  Tab_New.update = function (force) {
     var Tournament;
+
+    if (force) {
+      updatepending = false;
+    }
+
     if (updatepending) {
       console.log('updatepending');
     } else {

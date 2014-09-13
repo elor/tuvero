@@ -26,7 +26,10 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   }
 
   function levelbynodes (numnodes) {
-    return Math.ceil(Math.log(numnodes)) / Math.LN2;
+    if (numnodes > 0) {
+      return Math.ceil(Math.log(numnodes) / Math.LN2) + 1;
+    }
+    return 0;
   }
 
   function nodesbylevel (level) {
@@ -34,16 +37,21 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   }
 
   function numLevels (numnodes) {
-    return Math.ceil(Math.log(numnodes + 1) / Math.LN2) - 1;
+    return Math.ceil(Math.log(numnodes + 1) / Math.LN2);
+  }
+
+  function numRounds (numplayers) {
+    return levelbynodes(numplayers) - 1;
   }
 
   KOTournament = function () {
     this.players = new Map();
     this.games = [];
+    this.ranking = [];
     this.rounds = 0;
     this.state = Tournament.STATE.PREPARING;
     this.options = {
-      firstround : 'order',
+      firstround : 'set',
     };
   };
 
@@ -82,38 +90,24 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     }
 
     numbyes = 0;
-    numrounds = level(numPlayers) + 1;
+    numrounds = numRounds(numPlayers);
 
     // totalplayers = Math.round(Math.pow(2, numrounds));
     totalplayers = 1 << numrounds;
 
     pids = [];
 
-    switch (byeOrder) {
-    case KOTournament.OPTIONS.byeOrder.first:
-      for (i = 0; i < numPlayers;) {
+    // set as many byes as possible
+    for (i = 0; i < numPlayers;) {
+      pids.push(i);
+      i += 1;
+      if (numPlayers - i > totalplayers - numPlayers - numbyes) {
         pids.push(i);
         i += 1;
-        if (numPlayers - i > totalplayers - numPlayers - numbyes) {
-          pids.push(i);
-          i += 1;
-        } else {
-          pids.push(undefined);
-          numbyes += 1;
-        }
-      }
-      break;
-    case KOTournament.OPTIONS.byeOrder.later:
-      for (i = 0; i < numPlayers; i += 1) {
-        pids.push(i);
-      }
-      // just add all byes to the end
-      for (i = numPlayers; i < totalplayers; i += 1) {
+      } else {
         pids.push(undefined);
+        numbyes += 1;
       }
-      break;
-    default:
-      return undefined;
     }
 
     return pids;
@@ -196,7 +190,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
   match = {};
   match[KOTournament.OPTIONS.firstround.order] = matchOrder;
-  match[KOTournament.OPTIONS.firstround.shifted] = matchShifted;
+  match[KOTournament.OPTIONS.firstround.set] = matchShifted;
   match[KOTournament.OPTIONS.firstround.random] = matchRandom;
 
   function buildTree (numRounds, loserMinRound) {
@@ -328,7 +322,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     }
 
     // build the game tree
-    this.games = buildTree(this.rounds, this.options.loserMatchMinRound);
+    this.games = buildTree(this.rounds);
 
     // enter the players
     for (i = 0; i < pids.length; i += 2) {
@@ -359,6 +353,8 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     if (this.state !== Tournament.STATE.FINISHED) {
       return undefined;
     }
+
+    // nothing to do here
 
     return this.getRanking();
   };
@@ -419,10 +415,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
   KOTournament.prototype.getRanking = function () {
 
-    // TODO create sorted ranking and stuff
-    // TODO how the hell do we translate KO games to an actual ranking?
-    // proposition: each game assigns a rank range which is further specified by
-    // subsequent games
+    // TODO create an actual ranking
 
     return {
       place : [], // actual place, usually [1, 2, 3, ...]. Necessary.
@@ -459,8 +452,6 @@ define([ './tournament', './map', './random', './game', './options' ], function 
       options : this.getOptions(),
     };
 
-    console.log(JSON.stringify(ob));
-    
     return JSON.stringify(ob);
   };
 
