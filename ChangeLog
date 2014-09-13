@@ -7,6 +7,8 @@
 	added a teamsize input for new tournaments
 	pre-collapsed advanced options box for swisstournament
 	Mail and Phone swapped
+	KO-system button added
+	KO mode selection added
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
@@ -19,6 +21,8 @@
 	can now correct within progress lists
 	it's forbidden to change byes
 	using Tournaments.getRanking()
+	update(force) added
+	showing KOTournaments with the simple interface
 
 	* style/history.css: name hide override
 
@@ -28,10 +32,12 @@
 	* scripts/ui/strings.js: nomanifest added
 	namechangeaborted added
 	tournament removal strings added
+	tournamentstarted added
 
 	* scripts/ui/tab_debug.js: using Debug.isDevVersion
 	using updating teams for the Tournaments array
 	using Tournaments.getRanking()
+	update(force) added (not for itself)
 
 	* scripts/ui/update.js: Update.isDevVersion removed
 	if no dev version and manifest is missing: print warning Toast
@@ -60,6 +66,9 @@
 	using correct parent ids
 	starting tournaments with the user-defined team size
 	specifically asking for the place of the next child
+	ko tournaments enabled
+	update(force) added
+	initKO() added
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -81,22 +90,39 @@
 	flipped comparison
 	allowing to count all children during getStartRank. That way...
 	...the user can specify that he wants the position of the next child
+	ko tournaments enabled
+	getType() added
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 
 	* scripts/ui/tab_games.js: using Tournaments.getRanking()
 	using and storing game ids
+	update(force) added
+	update everything once a game has finished, because it's going to be updated anyway
 
 	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
 	not passing around Tournament objects
 	reading corrections from History, not Tournaments
+	update(force) added
 
 	* scripts/ui/tab_teams.js: escape rename abort added
 	namechangeaborted Toast added
+	update(force) added
 
 	* scripts/backend/game.js: game id added
 
 	* scripts/backend/kotournament.js: game id added
+	options adjusted
+	blob functions written
+	numRounds corrected
+	default mode: 'set'
+	byeOrder removed
+	minmatchround removed
+	some logging removed
+	start() and finishGame() rewritten to get rid of KOTournament
+	starting new games as soon as they become available
+	indexing bugs fixed
+	getRanking() written
 
 	* scripts/backend/swisstournament.js: game id added and passed through most functions
 
@@ -108,6 +134,10 @@
 	box headers adjusted in size in printing mode
 
 	* scripts/ui/box.js: allowing pre-collapsed boxes
+
+	* scripts/ui/alltabs.js: update(force) added
+
+	* scripts/ui/tab_settings.js: update(force) added
 
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>

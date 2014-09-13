@@ -2,8 +2,8 @@
  * Load and manage all tabs centrally
  */
 
-define([ './tab_history', './tab_ranking', './tab_new',
-    './tab_teams', './tab_games', './tab_debug', './tab_settings' ], function () {
+define([ './tab_history', './tab_ranking', './tab_new', './tab_teams',
+    './tab_games', './tab_debug', './tab_settings' ], function () {
   var tab, tabs, Alltabs;
 
   tabs = [];
@@ -25,9 +25,9 @@ define([ './tab_history', './tab_ranking', './tab_new',
         tabs[tab].reset();
       }
     },
-    update : function () {
+    update : function (force) {
       for (tab in tabs) {
-        tabs[tab].update();
+        tabs[tab].update(force);
       }
     },
     getOptions : function () {

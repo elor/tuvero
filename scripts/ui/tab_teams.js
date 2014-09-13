@@ -687,7 +687,12 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       updateTeamCounts();
       Autocomplete.update();
     },
-    update : function () {
+    update : function (force) {
+
+      if (force) {
+        updatepending = false;
+      }
+      
       if (updatepending) {
         console.log('updatepending');
       } else {

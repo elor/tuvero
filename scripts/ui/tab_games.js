@@ -367,11 +367,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     res = History.addResult(tournamentid, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1, gameid);
     Tab_History.update();
 
-    // game was accepted. remove it.
-    if (!removeGame(tournamentid, index)) {
-      console.error("cannot remove game: it's already gone");
-    }
-
     if (points[0] > points[1]) {
       new Toast(Strings.gamefinished);
     }
@@ -413,6 +408,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     if (games.length === 0) {
       Tabshandle.focus('new');
     }
+    Tab_Games.update();
 
     return false;
   }
@@ -447,13 +443,13 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     };
 
     for (i = 0; i < ranking.ids.length; i += 1) {
-      if (ranking.roundupvote[i]) {
+      if (ranking.roundupvote && ranking.roundupvote[i]) {
         votes.up.push(ranking.ids[i]);
       }
-      if (ranking.rounddownvote[i]) {
+      if (ranking.rounddownvote && ranking.rounddownvote[i]) {
         votes.down.push(ranking.ids[i]);
       }
-      if (ranking.roundbyevote[i]) {
+      if (ranking.roundbyevote && ranking.roundbyevote[i]) {
         votes.bye.push(ranking.ids[i]);
       }
     }
@@ -588,7 +584,12 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
   /**
    * reset an original game state, respecting the current state of Swiss
    */
-  Tab_Games.update = function () {
+  Tab_Games.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
     if (updatepending) {
       console.log('updatepending');
     } else {

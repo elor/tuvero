@@ -682,6 +682,15 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
 
+      switch (Tournaments.getType(tournamentid)) {
+      case 'ko':
+        // progresstable doesnt work with ko tournaments. The ranking is off.
+        displaytype = GAMESTABLE;
+        break;
+      default:
+        break;
+      }
+
       switch (displaytype) {
       case PROGRESSTABLE:
         displayfunc = createProgressTable;
@@ -723,7 +732,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   /**
    * removes and redraws all boxes from History
    */
-  Tab_History.update = function () {
+  Tab_History.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
     if (updatepending) {
       console.log('updatepending');
     } else {

@@ -397,7 +397,12 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     updateLocalStorageMeters();
   };
 
-  Tab_Settings.update = function () {
+  Tab_Settings.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
     if (updatepending) {
       console.log('updatepending');
     } else {
