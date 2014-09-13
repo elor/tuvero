@@ -9,6 +9,7 @@ listScripts(){
 
 listImages(){
   find images -name '*.png'
+  find images -name '*.gif'
 }
 
 listHTMLs(){
@@ -18,6 +19,7 @@ listHTMLs(){
 listPlainFiles(){
   find * -name '*.md'
   find * -name '*.txt'
+  ls Changelog BUGS LICENSE NEWS TODO
 }
 
 listStylesheets(){
