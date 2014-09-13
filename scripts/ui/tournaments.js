@@ -3,46 +3,86 @@
  * finished tournaments, but still keeping name and type information
  */
 define([ '../backend/swisstournament' ], function (Swisstournament) {
-  var Tournaments, tournaments;
+  var Tournaments, tournaments, globalranking;
 
   Tournaments = {};
   tournaments = [];
 
-  Tournaments.addTournament = function (type, numteams, startteam) {
-    var newtournament, i, teams;
+  function createTournament (type, blob) {
+    var tournament;
 
-    newtournament = undefined;
+    tournament = undefined;
+    if (!type) {
+      return undefined;
+    }
 
     switch (type) {
     case 'swiss':
-      newtournament = new Swisstournament();
+      tournament = new Swisstournament();
       break;
     case 'ko':
       console.log(type + ' tournament type coming soon');
       break;
     default:
       console.error('undefined tournament type: ' + type);
-      return undefined;
+      break;
     }
+
+    if (blob) {
+      tournament.fromBlob(blob);
+    }
+
+    return tournament;
+  }
+
+  Tournaments.addTournament = function (type, numteams, startteam) {
+    var newtournament, i, teams;
+
+    teams = [];
+
+    newtournament = createTournament(type);
 
     if (!newtournament) {
       return undefined;
     }
 
-    // TODO use global ranking instead of this cheap hack
-    teams = [];
+    globalranking = require('./globalranking').get();
+
+    if (globalranking.length > startteam + numteams) {
+      console.error('you want too many teams in your tournament');
+      return undefined;
+    }
+
+    console.log(numteams);
     for (i = 0; i < numteams; i += 1) {
-      teams.push(i);
+      teams.push(globalranking[i + startteam].id);
+      newtournament.addPlayer(globalranking[i + startteam].id);
     }
 
     tournaments.push({
       name : type,
       type : type,
-      teams : teams,
       tournament : newtournament,
+      teams : teams,
+      finalranking : undefined,
     });
 
     return newtournament;
+  };
+
+  Tournaments.removeTournament = function (tournamentid) {
+    var tournament;
+
+    tournament = tournaments[tournamentid];
+    if (!tournament) {
+      console.error('tournament already removed?');
+      return undefined;
+    }
+
+    tournaments[tournamentid].finalranking = tournament.getRanking();
+    tournaments[tournamentid].tournament = undefined;
+
+    return true;
   };
 
   Tournaments.numTournaments = function () {
@@ -59,6 +99,19 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
   Tournaments.getTeams = function (id) {
     return tournaments[id].teams;
+  };
+
+  Tournaments.getRanking = function (tournamentid) {
+    var tournament;
+
+    if (!tournaments[i]) {
+      console.error('tournamentid doesnt exist: ' + tournamentid);
+      return undefined;
+    }
+
+    tournament = tournaments[i];
+
+    return (tournament.tournament && tournament.tournament.getRanking()) || tournament.finalranking;
   };
 
   Tournaments.getTournament = function (id) {
@@ -129,7 +182,8 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
     for (id = 0; id < tournaments.length; id += 1) {
       t = tournaments[id];
-      ob[id] = [ t.type, t.name, t.tournament.toBlob(), t.teams ];
+      ob[id] = [ t.type, t.name, t.tournament && t.tournament.toBlob(),
+          t.teams, t.finalranking ];
     }
 
     return JSON.stringify(ob);
@@ -146,17 +200,13 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
 
     for (id = 0; id < ob.length; id += 1) {
       t = ob[id];
-      if (t[2]) {
-        Tournaments.addTournament(t[0]).fromBlob(t[2]);
-        Tournaments.setName(id, t[1]);
-      } else {
-        tournaments.push({
-          type : t[0],
-          name : t[1],
-          teams : t[3],
-          tournament : undefined,
-        });
-      }
+      tournaments.push({
+        type : t[0],
+        name : t[1],
+        tournament : (t[2] && createTournament(t[0], t[2])),
+        teams : t[3],
+        finalranking : t[4],
+      });
     }
   };
 

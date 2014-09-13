@@ -166,7 +166,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     // TODO use position information
     // TODO verify type
 
-    Tournament = Tournaments.addTournament(type);
+    Tournament = Tournaments.addTournament(type, Team.count(), 0);
     if (!Tournament) {
       console.error('cannot create tournament of type ' + type);
       Tab_New.update();
@@ -233,12 +233,6 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     // submit button
     $swiss.find('button').click(function () {
       var i, bye, team, round;
-      if (Swiss.getState() === 0) {
-        // register players
-        for (i = 0; i < Team.count(); i += 1) {
-          Swiss.addPlayer(i);
-        }
-      }
       if (Swiss.start()) {
         round = Swiss.getRanking().round;
 

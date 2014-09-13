@@ -293,7 +293,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     tournamentid = Tournaments.getTournamentID(Tournament);
     Tournaments.setName(tournamentid, type + ' Sidetournament ID' + tournamentid);
 
-    players = [];
+    players = Tournaments.getTeams(tournamentid);
 
     while (players.length < Team.count()) {
       players.push(players.length);

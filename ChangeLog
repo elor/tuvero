@@ -19,14 +19,21 @@
 	* scripts/ui/strings.js: nomanifest added
 
 	* scripts/ui/tab_debug.js: using Debug.isDevVersion
+	using updating teams for the Tournaments array
 
 	* scripts/ui/update.js: Update.isDevVersion removed
 	if no dev version and manifest is missing: print warning Toast
 
 	* scripts/ui/tab_new.js: tournamentrank column used
 	GlobalRanking used
+	players are added by Tournaments.addTournament from global ranking
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
+
+	* scripts/ui/tournaments.js: addTournament adds players according to global ranking
+	removeTournament added
+	getRanking added to get the last ranking transparently
+	blob functions updated to the new format
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
