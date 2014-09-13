@@ -1,7 +1,6 @@
 [next]
 * storage.changed -> storage.update() + storage.isEnabled(); remove storage.store() from global interface
 * tab_games: when finishing a game, focus the next game in list
-* history: use separate button for corrections
 * show up/downvotes in history
 * delete tournament -> load playernames
 * pageload when registration is still open -> load playernames
@@ -17,7 +16,6 @@
 * ranking: export number of games to csv
 * options: save autosave status
 * tab_games: show vote icons next to the names. Bye still separate
-* K.O. frontend
 
 [next-to-next]
 * test random number generator again!

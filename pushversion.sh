@@ -30,7 +30,6 @@ for file in `git ls-files '*.html'`; do
 done
 
 git add -u
-git rm TODO
 git rm `git ls-files '*.sh' | grep -v "$self"`
 git rm --cached $self
 git commit -m "release-$version: debugging and build stuff removed"
