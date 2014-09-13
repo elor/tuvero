@@ -252,11 +252,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function getAnchor (tournamentid) {
     var startteam;
 
-    if (tournamentid === undefined) {
-      startteam = 0;
-    } else {
-      startteam = Tournaments.getStartRank(tournamentid);
-    }
+    startteam = Tournaments.getStartRank(tournamentid);
 
     return template.$anchor.find('.team').eq(startteam);
   }
@@ -272,7 +268,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     height = getHeight(tournamentid);
 
     if ($firstrow.length !== 1) {
-      console.error('cannot find anchor for tournament id' + tournamentid);
+      console.error('cannot find anchor for tournament id ' + tournamentid);
       return undefined;
     }
 
@@ -363,21 +359,18 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
 
     // process all teams without tournament
-    $system = createSystemAnchor(undefined);
+    $system = createSystemAnchor();
     if ($system) {
       createSelectionBox($system);
       setSystemTitle($system);
     }
   }
 
-  function addNewSystem (type) {
-    var Tournament, tournamentid, parentid;
+  function addNewSystem (type, parentid) {
+    var Tournament, tournamentid;
 
     // TODO use position information
     // TODO verify type
-
-    // TODO get parentid
-    parentid = undefined;
 
     Tournament = Tournaments.addTournament(type, Team.count(), parentid);
     if (!Tournament) {
@@ -395,10 +388,11 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   /**
    * prepare Newsystem management box, which starts a new tournament round
    */
-  function initNewsystem ($clone) {
-    var $swissbutton;
+  function initNewsystem ($system) {
+    var $swissbutton, tournamentid;
 
-    $swissbutton = $clone.find('button.swiss');
+    tournamentid = $system.data('tournamentid');
+    $swissbutton = $system.find('button.swiss');
 
     $swissbutton.click(function () {
       addNewSystem('swiss');

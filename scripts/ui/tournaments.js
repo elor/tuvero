@@ -38,18 +38,24 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
   Tournaments.getStartRank = function (tournamentid) {
     var id, parentid, startteam;
 
-    if (tournamentid === undefined || tournaments[tournamentid] === undefined) {
-      // must be an error or the root node
-      return 0;
+    if (tournamentid == undefined) {
+      startteam = 0;
+      parentid = undefined;
+    } else {
+      if (tournaments[tournamentid] === undefined) {
+        // must be an error or the root node
+        console.error('tournamentid not defined: ' + tournamentid);
+        return undefined;
+      }
+
+      parentid = tournaments[tournamentid].parent;
+      // recursive functions FTW!
+      startteam = Tournaments.getStartRank(parentid);
+
     }
 
-    parentid = tournaments[tournamentid].parent;
-
-    // recurse
-    startteam = Tournaments.getStartRank(parentid);
-
     for (id in tournaments) {
-      if (tournaments[id].parent === parentid && id < tournamentid) {
+      if (tournaments[id].parent == parentid && (tournamentid === undefined || id < tournamentid)) {
         startteam += tournaments[id].teams.length;
       }
     }
