@@ -2,13 +2,13 @@
  * Storage API for persistent state
  */
 define([ './options' ], function (Options) {
-  var Storage, keys, Tab_Storage;
+  var Storage, keys, Tab_Settings, savespending;
 
-  Blob = undefined;
-  Tab_Storage = undefined;
+  Tab_Settings = undefined;
 
   Storage = {};
   keys = {};
+  savespending = {};
 
   function saveKey (key) {
     var val, blob;
@@ -23,11 +23,13 @@ define([ './options' ], function (Options) {
       return true;
     }
 
+    console.log('blobbing ' + key);
     blob = val.toBlob();
     if (!blob) {
       return true;
     }
 
+    console.log('storing ' + key);
     window.localStorage.setItem(key, blob);
 
     return window.localStorage.getItem(key) !== blob;
@@ -53,12 +55,7 @@ define([ './options' ], function (Options) {
       return true;
     }
 
-    try {
-      val.fromBlob(blob);
-    } catch (e) {
-      console.error(e);
-      return true;
-    }
+    val.fromBlob(blob);
   }
 
   /**
@@ -87,16 +84,20 @@ define([ './options' ], function (Options) {
   Storage.store = function () {
     var key, val, err;
 
-    err = false;
-
     for (key in keys) {
-      if (saveKey(key)) {
-        err = true;
-        console.error('Error when storing ' + key);
+      if (savespending[key] == true) {
+      } else {
+        savespending[key] = true;
+        window.setTimeout(function (mykey) {
+          if (saveKey(mykey)) {
+            console.error('Error when storing ' + mykey);
+          }
+          savespending[mykey] = false;
+        }, 1, key);
       }
     }
 
-    return !err;
+    return true;
   };
 
   /**
@@ -112,7 +113,7 @@ define([ './options' ], function (Options) {
     for (key in keys) {
       if (loadKey(key)) {
         err = true;
-        console.error("Could not read key '" + key + "' from localStorage (yet)");
+        console.warn("Could not read key '" + key + "' from localStorage (yet)");
       }
     }
 
@@ -127,7 +128,7 @@ define([ './options' ], function (Options) {
     Storage.disable();
 
     if (Modernizr.localstorage) {
-      keys[Options.dbname] = require('./blob');
+      keys[Options.dbname] = require('./state');
       keys[Options.dbplayername] = require('./players');
     }
   };
@@ -144,12 +145,12 @@ define([ './options' ], function (Options) {
    * this function indicates a change in the tournament state TODO move to Blob
    */
   Storage.changed = function () {
-    if (Tab_Storage === undefined) {
-      Tab_Storage = require('./tab_storage');
+    if (Tab_Settings === undefined) {
+      Tab_Settings = require('./tab_settings');
     }
 
     // invalidate
-    Tab_Storage.reset();
+    Tab_Settings.reset();
     Storage.store();
   };
 

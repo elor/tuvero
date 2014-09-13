@@ -1,4 +1,4 @@
-define(function () {
+define([ './rleblobber' ], function (RLEBlobber) {
   /**
    * HalfMatrix: Half square matrix implementation according to
    * Matrix.Interface. Empty entries are referenced as undefined array values.
@@ -53,6 +53,8 @@ define(function () {
     default:
       return undefined;
     }
+
+    this.type = type;
 
     return this;
   };
@@ -296,7 +298,15 @@ define(function () {
    * @returns
    */
   HalfMatrix.prototype.toBlob = function () {
-    return JSON.stringify(this);
+    var ob;
+
+    ob = {
+      type : this.type,
+      size : this.size,
+      array : RLEBlobber.toBlob(this.array)
+    };
+
+    return JSON.stringify(ob);
   };
 
   HalfMatrix.prototype.fromBlob = function (blob) {
@@ -306,10 +316,9 @@ define(function () {
 
     this.size = ob.size;
     // TODO use some sort of compression while unpacking
-    this.array = ob.array;
+    this.array = RLEBlobber.fromBlob(ob.array);
 
     this.setType(ob.type);
-
   };
 
   return HalfMatrix;

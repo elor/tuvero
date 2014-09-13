@@ -1,5 +1,5 @@
 define([ './tabshandle', './opts', './toast', '../backend/random', './options',
-    './strings' ], function (Tabshandle, Opts, Toast, Random, Options, Strings) {
+    './strings', './debug', './tournaments', './team' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Debug, Tournaments, Team) {
   var Tab_Debug, $tab, form, options, letters, Letters, rng;
 
   Tab_Debug = {};
@@ -11,6 +11,42 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
   Letters = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
       'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
+
+  function showAllImages () {
+    var $anchor, $images, imagepaths, i, url, sorted;
+
+    $anchor = $tab.find('.allimages');
+    $images = $('img');
+    images = {};
+
+    for (i = 0; i < $images.length; i += 1) {
+      url = $images.eq(i).attr('src');
+      if (/^(https?:\/\/)?images/.test(url)) {
+        images[url] = true;
+      }
+    }
+
+    $images = $('input[type="image"]');
+    for (i = 0; i < $images.length; i += 1) {
+      url = $images.eq(i).attr('src');
+      if (/^(https?:\/\/)?images/.test(url)) {
+        images[url] = true;
+      }
+    }
+
+    sorted = [];
+
+    for (url in images) {
+      sorted.push(url);
+    }
+
+    sorted.sort();
+
+    for (i = 0; i < sorted.length; i += 1) {
+      url = sorted[i];
+      $anchor.append($('<img>').attr('src', url).attr('alt', url).attr('title', url));
+    }
+  }
 
   function randomName () {
     var first, last, length, i;
@@ -33,12 +69,16 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function updateTabs () {
-    require('./alltabs').update();
+    require('./alltabs').update(true);
     new Toast(Strings.alltabsreloaded);
   }
 
   function loadMods () {
-    var key, keyparts, rjsdef, subobject, partid, part;
+    var key, keyparts, rjsdef, subobject, partid, part, mods;
+
+    if (window.mods !== undefined) {
+      return;
+    }
 
     rjsdef = require.s.contexts._.defined;
     if (!rjsdef) {
@@ -46,7 +86,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       return;
     }
 
-    mods = {};
+    mods = window.mods = {};
 
     // add every key to mods, which is similar to the directory tree
     for (key in rjsdef) {
@@ -80,17 +120,17 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function clearEverything () {
-    var Storage, Alltabs, Blob, Tab_Storage;
+    var Storage, Alltabs, State, Tab_Settings;
 
     Storage = require('./storage');
     Alltabs = require('./alltabs');
-    Blob = require('./blob');
-    Tab_Storage = require('./tab_storage');
+    State = require('./state');
+    Tab_Settings = require('./tab_settings');
 
     Storage.enable();
     Storage.clear();
     Alltabs.reset();
-    Blob.reset();
+    State.reset();
     Alltabs.update();
 
     new Toast(Strings.newtournament);
@@ -119,25 +159,65 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     }
   }
 
-  function startRound () {
+  function startRound (tournamentid) {
     var $button, Tab_Games;
 
     Tab_Games = require('./tab_games');
 
-    if (Tab_Games.getOptions().stage === 1) {
-      new Toast(Strings.roundrunning.replace(/%s/g, ''));
-    } else {
-      $('#new .swiss button').click();
+    $button = $('#new .newsystem button.swiss').eq(0);
+    if ($button.length === 1) {
+      $button.click();
+      // let it render
+      window.setTimeout(startRound, 1);
+      return false;
     }
+
+    $button = $('#new .swiss button').eq(0);
+
+    if ($button.length !== 1) {
+      new Toast(Strings.notenoughteams + '?');
+      return false;
+    }
+
+    if ($button.parents('.running').length) {
+      new Toast(Strings.roundrunning.replace(/%s/g, ''));
+      return false;
+    }
+
+    $button.click();
   }
 
-  function finishRound () {
-    var $buttons, $points, teamid, p1, p2;
+  function finishRound (tournamentid, timeout) {
+    var $buttons, $points, teamid, p1, p2, endtime, $boxes, $box, i;
 
-    $points = $('#games .game .finish .points');
-    $buttons = $('#games .game .finish button');
+    if (tournamentid === undefined) {
+      $box = $('#games');
+    } else {
+      $boxes = $('#games .box');
+      for (i = 0; i < $boxes.length; i += 1) {
+        if ($boxes.eq(i).data('tournamentid') === tournamentid) {
+          $box = $boxes.eq(i);
+        }
+      }
+    }
 
-    for (teamid = 0; teamid < $buttons.length; ++teamid) {
+    if (!$box) {
+      return undefined;
+    }
+
+    $points = $box.find('.game .finish .points');
+    $buttons = $box.find('.game .finish button');
+
+    if (timeout === 0) {
+      timeout = -1;
+    }
+    timeout = timeout || undefined;
+
+    if (timeout) {
+      endtime = new Date().getTime() + timeout;
+    }
+
+    for (teamid = 0; teamid < $buttons.length; teamid += 1) {
       if (rng.nextInt(2)) {
         p1 = 13 - rng.nextInt(2);
         p2 = rng.nextInt(p1);
@@ -146,26 +226,92 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
         p1 = rng.nextInt(p2);
       }
 
-      $($points[teamid * 2]).val(p1);
-      $($points[teamid * 2 + 1]).val(p2);
-    }
+      $points.eq(teamid * 2).val(p1);
+      $points.eq(teamid * 2 + 1).val(p2);
+      $buttons.eq(teamid).removeAttr('disabled').click();
 
-    $buttons.removeAttr('disabled');
-    $buttons.click();
+      if (timeout && (new Date()).getTime() >= endtime) {
+        break;
+      }
+    }
   }
 
   function playTournament () {
-    var Swiss;
+    var tournamentid, Tournament;
 
-    Swiss = require('./swiss');
-
-    startRound() || startRound() || startRound();
-    while (Swiss.getState() == 1) {
-      finishRound();
-      startRound() || startRound() || startRound();
+    if (Tournaments.numTournaments() === 0) {
+      startRound();
+      setTimeout(playTournament, 1);
+      return undefined;
     }
 
-    new Toast(Strings.tournamentfinished, 5);
+    starttime = new Date();
+    for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
+
+      if (!Tournaments.isRunning(tournamentid)) {
+        continue;
+      }
+
+      Tournament = Tournaments.getTournament(tournamentid);
+
+      if (Tournament.getState() != 1) {
+        startRound(tournamentid) || startRound(tournamentid) || startRound(tournamentid);
+      }
+
+      if (Tournament.getState() == 1) {
+        finishRound(tournamentid, 1000);
+        window.setTimeout(playTournament, 1);
+      } else {
+        new Toast(Strings.tournamentfinished, Toast.LONG);
+      }
+    }
+  }
+
+  /**
+   * starts a new sidetournament with a random selection of the players (2 min)
+   */
+  function addSideTournament (type) {
+    var min, max, numplayers, Tournament, players, tournamentid;
+
+    min = 2;
+    max = Team.count();
+
+    if (max < min) {
+      new Toast(Strings.notenoughteams);
+      return undefined;
+    }
+
+    numplayers = rng.nextInt(max - min + 1) + min;
+
+    Tournament = Tournaments.addTournament(type);
+
+    if (!Tournament) {
+      console.error('tournament type not accepted');
+      return undefined;
+    }
+
+    tournamentid = Tournaments.getTournamentID(Tournament);
+    Tournaments.setName(tournamentid, type + ' Sidetournament ID' + tournamentid);
+
+    players = Tournaments.getTeams(tournamentid);
+
+    while (players.length < Team.count()) {
+      players.push(players.length);
+    }
+
+    while ((numplayers -= 1) >= 0) {
+      Tournament.addPlayer(rng.pickAndRemove(players));
+    }
+
+    Tournament.start();
+
+    if (Tournaments.getRanking(tournamentid).byevote[0]) {
+      require('./history').addVote(tournamentid, 0, Tournaments.getRanking(tournamentid).ids[0], 0);
+    }
+
+    require('./storage').store();
+    updateTabs();
+    new Toast(Strings.roundstarted.replace('%s', 1));
   }
 
   function initForms () {
@@ -190,6 +336,10 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
         $startRound : $tab.find('.tournament .start'),
         $finishRound : $tab.find('.tournament .round'),
         $playTournament : $tab.find('.tournament .all'),
+      },
+      phases : {
+        $form : $tab.find('.phases'),
+        $sideTournamentSwiss : $tab.find('.phases .sidetournamentswiss'),
       },
       script : {
         $form : $tab.find('.script'),
@@ -224,6 +374,11 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       e.preventDefault();
       return false;
     });
+    form.phases.$sideTournamentSwiss.click(function (e) {
+      addSideTournament('swiss');
+      e.preventDefault();
+      return false;
+    });
     form.script.$loadmods.click(function (e) {
       loadMods();
       e.preventDefault();
@@ -251,6 +406,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     $tab = $('#debug');
 
     initForms();
+    showAllImages();
   }
 
   /**
@@ -272,6 +428,14 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
    */
   Tab_Debug.update = function () {
     Tab_Debug.reset();
+
+    if (Debug.isDevVersion) {
+      Tabshandle.show('debug');
+      loadMods();
+    } else {
+      // FIXME run only once
+      $('.devonly').remove();
+    }
   };
 
   Tab_Debug.getOptions = function () {

@@ -2,7 +2,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     './autocomplete', './options', './tab_new', './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle) {
 
   // TODO combine $anchors, $fileload, $delete and $teamsize
-  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete;
+  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
+
+  updatepending = false;
 
   $tab = undefined;
 
@@ -45,7 +47,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       return false;
     });
 
-    $('body').delegate('#teams.deletion', 'click', function (e) {
+    $('body').on('click', '#teams.deletion', function (e) {
       // delete the team
       var $this;
 
@@ -249,6 +251,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       team = Team.create(names);
       createBox(team);
     }
+    updateAfterTeamAdd();
 
     // save changes
     Storage.changed();
@@ -392,6 +395,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         team = Team.create(names);
         new Toast(Strings.teamadded.replace('%s', team.id + 1));
         createBox(team);
+        updateAfterTeamAdd();
 
         newteam.$names[0].focus();
 
@@ -498,12 +502,18 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       // avoid circular dependency
       Tab_Games = require('./tab_games');
       // refresh all tabs
+      Tab_New.update();
       Tab_Games.update();
       Tab_Ranking.update();
 
       // save change
       // TODO use event system
       Storage.changed();
+    }
+
+    function chabort () {
+      template.$chname.val('');
+      template.$chname.blur();
     }
 
     function chhide () {
@@ -521,11 +531,15 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
       updateTeam($team);
 
-      new Toast(Strings.namechanged.replace('%s', name));
+      if (/^\s*$/.test(template.$chname.val())) {
+        new Toast(Strings.namechangeaborted);
+      } else {
+        new Toast(Strings.namechanged.replace('%s', name));
+      }
     }
     // ================== FUNCTIONS END ==================
 
-    $tab.delegate('.team .name', 'click', function () {
+    $tab.on('click', '.team .name', function () {
       var $name;
 
       if (deletionPending()) {
@@ -546,7 +560,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         e.preventDefault();
         return false;
       } else if (e.which === 27) {
-        // TODO abort name change on escape key
+        chabort();
         e.preventDefault();
         return false;
       }
@@ -604,16 +618,21 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     template.$teamno.text(team.id + 1);
 
     $anchor.before(template.$tpl.clone());
+  }
 
-    // hide file load
-    $fileload.hide();
-    // hide teamsize selection
-    $teamsize.hide();
-    // show deletion button
-    updateDeletion();
+  function updateAfterTeamAdd () {
+    if (Team.count() > 0) {
+      // hide file load
+      $fileload.hide();
+      // hide teamsize selection
+      $teamsize.hide();
+      // show deletion button
+      updateDeletion();
+      // show the number of teams
+      updateTeamCounts();
 
-    Tab_New.update();
-    updateTeamCounts();
+      Tab_New.update();
+    }
   }
 
   options = {
@@ -668,16 +687,33 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       updateTeamCounts();
       Autocomplete.update();
     },
-    update : function () {
-      var i, l;
-      Tab_Teams.reset();
+    update : function (force) {
 
-      l = Team.count();
-
-      for (i = 0; i < l; i += 1) {
-        createBox(Team.get(i));
+      if (force) {
+        updatepending = false;
       }
-    },
+      
+      if (updatepending) {
+        console.log('updatepending');
+      } else {
+        updatepending = true;
+        window.setTimeout(function () {
+          var i, l;
+          Tab_Teams.reset();
+
+          l = Team.count();
+
+          for (i = 0; i < l; i += 1) {
+            createBox(Team.get(i));
+          }
+
+          updateAfterTeamAdd();
+
+          console.log('update');
+          updatepending = false;
+        }, 1);
+      }
+    }
   };
 
   return Tab_Teams;

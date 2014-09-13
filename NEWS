@@ -1,0 +1,27 @@
+boules 1.4 (insert date here)
+----------------------------------
+
+FEATURES:
+
+	* 'about' tab added
+	* README added
+  * Settings tab overhaul
+  * List view in History tab
+  * Splash Screen added
+  * #reset target added to delete your data in case of failure
+  * boxes can be collapsed by clicking the header
+  * offline notification when leaving and the page is not cached
+  * Load errors shown on splash screen
+  * Progresstable visible in History tab
+  * start multiple tournaments in parallel, e.g. A/B/C/D-Tournaments
+
+PERFORMANCE IMPROVEMENTS:
+
+  * compressing swisstournament data to enable more than 2000 players
+  * performance improved for all tabs by combining successive updates
+  * history packing improved (unnecessary keys removed)
+
+FIXES:
+
+  * pages won't be smaller than their content
+

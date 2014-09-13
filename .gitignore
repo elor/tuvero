@@ -4,3 +4,6 @@
 .metadata
 Thumbs.db
 thumbs.db
+.*.swp
+*~
+#*#

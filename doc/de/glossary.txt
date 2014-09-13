@@ -1,0 +1,229 @@
+* la {boule}
+Frz. für Kugel
+
+* Boulespiel
+Sammelbegriff für verschiedene Kugelsportarten, wie z.B. #Pétanque.
+
+Benannt nach der #{Boule}(Boulekugel).
+
+Siehe auch #{Boule}kugel.
+
+
+* Boules
+Der Name dieses Programmes
+
+* Pétanque
+Kugelsportart, Präzisionssportart, dem #Boulespiel zuzuordnen
+
+
+* Tireur
+Der Schießer, von frz. tirer, schießen. Der Tireur nimmt im #Doublette und #Tripplette die hintere Position ein. Er schießt mit seinen Kugeln auf andere Kugelen.
+
+
+* Sonneborn-Berger-Wertung im Petanque
+#Wertungssysem im #Rundenturnier. Haben 2 Teams die gleiche Anzahl von Siegen, zählt die Summe der Siege der besiegten Gegner (SB-Zahl). Das Team mit der höheren SB-Zahl ist besser platziert.
+
+
+* Rundenturnier
+Ein Turnier in dem Jeder gegen Jeden gespielt wird.
+
+
+* Spieler
+Bestandteil einer #Mannschaft
+
+
+* Mannschaft
+Eine Mannschaft besteht aus 1, 2 oder 3 #Spielern, Siehe #Formation.
+
+
+* Siege
+Anzahl der gewonnenen Spiele.
+
+
+* Nettopunkte
+Spielpunktediffernz (Wird ein Spiel 13:9 gewonnen, bekommt der Gewinner 4 Nettopunkte)
+
+
+* Buchholz-Punkte
+Summe der #Siege der Gegner
+
+
+* Feinbuchholz-Punkte
+Summe der #Buchholzpunkte der Gegner
+
+
+* Wertungssystem
+Siehe #Ranking und #Platzierung
+
+
+* Ranking
+ermittelte Rangfolge nach festgelegten Kriterien. Siehe #Platzierung. 
+
+
+* Platzierung
+nach oder während (durch eine #Vorrunde) eines Turniers belegt jedes Team einen bestimmten Platz, welcher nach einem #Ranking ermittelt wird.
+
+
+* Losverfahren
+zufälliges ermitteln von Begegnungen. Findet häufig Anwendung im #Schweizer System, #Poule oder #Cadrage
+
+
+
+
+* Schweizer System (im Pétanque)
+Turnierform. Schweizer System kann als ganzes Turnier und auch als Vorrunde gespielt werden. Es wird eine festgelegte Anzahl von Runden gespielt. Die erste Runde kann #gesetzt oder #gelost werden. Es wird angestrebt gleich oder ähnlich starke Mannschaften gegeneinander spielen zulassen, die z.B. die gleiche Anzahl von #Siegen haben (Im Ausnahmefall wird ein #Hochlos und ein #Runterlos vergeben). Jede Begegnung findet nur einmal statt. Ist die Anzahl der teilnehmenden Mannschaften ungerade wird jede Runde ein #Freilos vergeben. Nach Beendigung von #Vorrunde oder Turnier wird ein #Ranking erstellt. Gerankt wird nach #Siege, #Buchholz, #Feinbuchholz, #Nettopunkte, #kleine Punkte. Im vereinfachten Schweizer System werden Buchholz- und Feinbuchholzpunkte weggelassen.
+
+
+* Vorrunde
+Teil eines Turniers, kann z.B. als #Poule, #schweizer System oder Gruppenphase gespielt werden. Anschließend wird ein #Ranking erstellt.
+
+
+* Maastrichter System
+im weitesten Sinne eine Turnierform, welche Schweizersystem als Vorrunde und anschließenden #KO-System in #Subturnieren kombiniert (meist 3 Vorrundenspiele und anschließendem ABCD- oder AB-KO)
+
+
+* KO-System
+Das KO-System ist eine #Turnierform, das meist einer #Vorrunde folgt. Begegnen sich 2 Mannschaften in einer KO-Runde, scheidet der Verlierer aus dem Turnier (wenigstens aus dem #Hauptturnier) aus.
+
+
+
+
+* KO-Runde / direktes KO
+Siehe #KO-System
+
+
+*Hauptturnier
+A-Turnier
+
+
+*Turnierform
+Es gibt verschiedene Arten, Kombinationen ein Turnier auszurichten. Z.B. #Schweizersystem, #Poule, #Maastrichter System, #KO-System, …
+
+
+*Subturniere
+Ein Turnier kann nach der #Vorrunde in mehrere kleinere Turniere geteilt werden.
+
+
+* ABCD-Turnier
+Ein Turnier wird in 4 #Subturniere aufgeteilt, diese müssen nicht gleich groß sein. Zugrunde der Teilung liegen in der Regel die Ergebnisse der Vorrunde.
+
+
+* Cadrage
+Eine dem #KO-System vorhergehende KO-Runde um die Anzahl der #Mannschaften auf  die nächste #Zweiterpotenz zu verringern.
+
+
+*Zweierpotenz
+Potenz zur Basis 2, n = 2^x, (1, 2, 4, 8, 16, 32, 64, 128, 256, 512, usw.)
+
+
+* Barrage
+Letzte Runde des #(poule){Poule-Systems}
+
+
+* Poule-System
+Ist eine Art Gruppenphase. Wird als #Vorrunde gespielt. Alle Mannschaften werden in möglichst gleichgroße Poules Aufgeteilt (in der Regel 4 Mannschaften pro Poule). Ist die Anzahl der #Mannschaften nicht durch 4 teilbar wird mit kleineren Poules aufgefüllt, sodass alle Mannschaften untergebracht werden können (Z.B. werden aus 16 Mannschaften werden 4 4er-Poules, aus 19 vier 4er und ein 3er, aus 17 zwei 4er und drei 3er!). Welche Mannschaften sich in den einzelnen Poules zuerst begegnen wird gelost oder gesetzt. Nach der ersten Begegnung haben 2 Mannschaften gewonnen und 2 Verloren. Nun spielen Gewinner gegen Gewinner und Verlierer gegen Verlierer. Nach dieser Runde hat eine Mannschaft 2 #Siege, eine Mannschaft keinen Sieg und zwei Mannschaften haben jeweils einen Sieg. 
+Im 3er-Poule wird Jeder gegen Jeden gespielt, wobei jede Runde ein Team aussetzen muss. Im Anschluss sind mehrere Variante möglich.
+
+
+Variante 1: Diese beiden Mannschaften spielen nun die #Barrage. Der Gewinner der #Barrage hat auch 2 Siege. Mannschaften mit 2 Siegen haben sich für das höherwertige Subturnier qualifiziert. Mannschaften mit einem und null Siegen für das niedrigere.
+
+
+Variante 2: Es wird jeder gegen jeden gespielt. Das #Ranking nach der 3. Runde ist #Siege, (#Sonneborn-Berger-Zahl), Nettopunkte, kleine Punkte.
+
+
+Variante 3: nach diesen 2 Runden ist die Vorrunde beendet, es wird in ein #ABCD-Turnier übergegangen. 
+Beide Spiele gewonnen: A 
+1. gewonnen 2. verloren: B
+1. verloren 2. gewonnen: C
+Beide Spiele verloren: D
+
+
+*Sonneborn-Berger-Zahl
+Siehe #Sonneborn-Berger-Wertung im Pétanque
+
+
+*Turnier
+Im #Pétanque werden unterschiedliche Wettbewerbe ausgetragen. Diese lassen sich nach folgenden Aspekten kategorisieren. Lizenzpflichtig vs. nicht lizenzpflichtig; Freizeit- und/oder Sportcharakter; Formations-, Mannschafts- und Schießwettbewerbe; mit oder ohne geschlechtsspezifische Einschränkungen; für bestimmte Altersgruppen.
+
+
+*Bouleskugeln für Pétanque
+Müssen spezielle Kriterien erfüllen bzgl. Material, Größe und Gewicht. Es gibt Freizeit- und #Wettkampfkugeln.
+
+
+* Kugeln
+Eine Kugel ist in der Geometrie die Kurzbezeichnung für Kugelfläche und Kugelkörper.
+
+
+*Spielregeln
+http://www.petanque-dpv.de/fileadmin/dpv/download/schiri/101230_PetanqueRegelnDPV_2010.pdf
+
+
+* Turnierregeln
+Werden durch Sportordnungen (z.B. Landesmeisterschaft) und die Turnierleitung (offene Stadtmeisterschaft) festgelegt.
+
+
+* Regeln
+Siehe #Spielregeln bzw. #Turnierregeln.
+
+
+* Wettkampfkugeln
+Zu Lizenzturnieren werden Wettkampfkugeln benötigt, siehe #Spielregeln Artikel 2
+
+
+* Anmeldung
+Um an einem Turnier teilnehmen zu können muss sich eine Mannschaft anmelden. In der Regel gibt es eine Meldefrist.
+
+
+* Runterlos
+Wird #Schweizer System gespielt und eine Mannschaft mit mehr Siegen muss gegen eine Mannschaft mit weniger Siegen antreten, wurde die stärkere (nach Siegen) runtergelost. Vgl. #Hochlos 
+
+
+* Hochlos
+Wird #Schweizer System gespielt und eine Mannschaft mit weniger Siegen muss gegen eine Mannschaft mit mehr Siegen antreten, wurde die schwächere (nach Siegen) hochgelost. Vgl. #Runterlos
+
+
+* Freilos
+Muss eine Mannschaft aufgrund einer ungeraden Anzahl von Mannschaften aussetzen bekommt sie ein Freilos. Dies zählt i.d.R. als 13:7 Sieg. Ein Freilos wird i.d.R. einer der schwächsten Mannschaften zugelost. Eine Mannschaft darf höchsten ein Freilos erhalten.
+
+
+*Formation
+Pétanque wird in verschiedenen Mannschaftsstärken gespielt: offiziell: #Tête-a-Tête, #Doublette, #Triplette und inoffiziell das „#Omelett“
+
+
+* Tête-a-Tête
+Ein Spiel 1 gegen 1
+
+
+* Doublette
+Ein Spiel 2 gegen 2
+
+
+* Triplette
+Ein Spiel 3 gegen 3
+
+
+* Omelett
+Ein Spiel 3 gegen 2. Vergleich #Tête, #Doublette und #Triplette
+
+
+* Schiedsrichter
+
+
+* Ergebnis
+
+
+* Turnierleitung
+
+
+* Spielergebnis
+Spielstand nach Beendigung eines Spiels. Das Spiel kann durch Zeitbegrenzung oder erreichen der #maximalen Punktzahl beendet werden. Das Ergebnis ist vom Gewinner unverzüglich der Turnierleitung zu melden.
+
+
+* maximale Punktzahl
+i.d.R wird gespielt bis eine Mannschaft 13 Punkte hat. Ein Vorrundenspiel kann bis 11 Punkte gespielt werden (wird durch #Turnierleitung festgelegt). Es gibt Boule-Sportarten die bis 15 Punkte gespielt werden.
+
+* Setzen
+Begegnungen werden nach dem Ergebnis der #Vorrunde oder einer #Rangliste festgelegt.
+
+* Rangliste
+Das macht Fabe dann

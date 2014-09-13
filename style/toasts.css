@@ -18,6 +18,8 @@
   display: inline-block;
   background-color: #d0d0d0;
   border-radius: 0.5em;
+  border-style: solid;
+  border-width: 1px;
   padding: 0.5em;
 }
 
@@ -28,19 +30,11 @@
   border: 0em;
   overflow-y: hidden;
   opacity: 0;
-  -webkit-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  -ms-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
 #toasts > div.toast {
   opacity: 1;
-  -webkit-transition: 0.2s ease-in;
-  -moz-transition: all 0.2s ease-in;
-  -ms-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   max-height: 3em;
 }

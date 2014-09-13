@@ -106,6 +106,7 @@ define([ '../swisstournament', '../game', '../tournament',
       oldpoints : [ 13, 4 ],
       newpoints : [ 4, 13 ]
     };
+    corr.game.id = 0;
 
     // recheck the results
     rnk = st.getRanking();
@@ -124,9 +125,9 @@ define([ '../swisstournament', '../game', '../tournament',
     // consider second round
     res = st.start();
 
-    games2 = st.getGames();
+    QUnit.deepEqual(res, true, 'second round: generation successful');
 
-    QUnit.deepEqual(res, games2, 'second round: generation successful');
+    games2 = st.getGames();
 
     QUnit.equal(games2.length, 4, 'second round: 4 games');
 
@@ -225,8 +226,8 @@ define([ '../swisstournament', '../game', '../tournament',
         break;
       }
     }
+    QUnit.deepEqual(res, true, 'third round: valid randomization');
     games3 = st.getGames();
-    QUnit.deepEqual(res, games3, 'third round: valid randomization');
     QUnit.equal(games3.length, 4, 'third round: four games');
 
     count = 0;

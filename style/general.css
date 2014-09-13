@@ -5,18 +5,7 @@ body {
   margin: 0;
 }
 
-@media print {
-  body {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  
-  button, input {
-    display: none;
-  }
-}
-
-a {
+a[href] {
   color: inherit;
   text-decoration: underline;
 }
@@ -32,8 +21,17 @@ a.hiddenlink {
   top: 0px;
 }
 
+h2 {
+  text-align: center;
+}
+
 h3 {
   margin-left: 0.5em;
+}
+
+table {
+  border-spacing: 0em;
+  border-collapse: collapse;
 }
 
 div, button {
@@ -68,4 +66,74 @@ img.blank {
   width: 1px;
   opacity: 0;
   display: block;
+}
+
+div.box {
+  position: relative;
+  margin: 1em;
+  padding: 1em;
+  border-top-style: none;
+  border: solid 1px;
+  border-radius: 1em;
+  overflow: hidden;
+  text-align: center;
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: -o-min-content;
+  min-width: min-content;
+  vertical-align: top;
+}
+
+div.box.collapsed {
+  border-radius: 1em 1em 0em 0em;
+}
+
+div.box > h3:first-child {
+  position: relative;
+  display: block;
+  padding: 0.3em 1em 0.2em 1em;
+  margin: -1em -1em 1em -1em;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  background-color: #d0d0d0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.editable:hover:after {
+  display: inline-block;
+  content: ' ';
+  width: 0.8em;
+  height: 0.8em;
+  background-image: url('../images/smallchange.png');
+  background-size: 0.8em;
+}
+
+
+@media print {
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  button, input {
+    display: none;
+  }
+  
+  div.box {
+    border:none;
+    overflow:visible;
+    padding: 0em;
+    margin: 0.2em;
+  }
+  
+  div.box.collapsed {
+    display:none !important;
+  }
+
+  div.box > h3:first-child {
+    border: none;
+    background: none;
+    margin-top: 1em;
+  }
 }
