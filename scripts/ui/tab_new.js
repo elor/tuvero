@@ -124,19 +124,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
 
     function chabort () {
-      var $title, $system, tournamentid, newname;
-
-      $system = template.$chname.parents('.system');
-
-      if ($system.length === 0) {
-        console.error('cannot find required DOM elements');
-        return undefined;
-      }
-
-      // retrieve tournament id
-      tournamentid = $system.data('tournamentid');
-      template.$chname.val(Tournaments.getName(tournamentid));
-
+      template.$chname.val('');
       template.$chname.blur();
     }
 

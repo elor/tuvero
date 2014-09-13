@@ -34,6 +34,7 @@
 	using Tournaments.getRanking()
 	tournament namechange logic added
 	stub for multiple parallel tournaments added
+	chabort function simplified
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -48,6 +49,9 @@
 	* scripts/ui/tab_games.js: using Tournaments.getRanking()
 
 	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
+
+	* scripts/ui/tab_teams.js: escape rename abort added
+	namechangeaborted Toast added
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

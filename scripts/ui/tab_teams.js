@@ -511,6 +511,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Storage.changed();
     }
 
+    function chabort () {
+      template.$chname.val('');
+      template.$chname.blur();
+    }
+
     function chhide () {
       var name, $name, $team, $parents;
 
@@ -526,7 +531,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
       updateTeam($team);
 
-      new Toast(Strings.namechanged.replace('%s', name));
+      if (/^\s*$/.test(template.$chname.val())) {
+        new Toast(Strings.namechangeaborted);
+      } else {
+        new Toast(Strings.namechanged.replace('%s', name));
+      }
     }
     // ================== FUNCTIONS END ==================
 
@@ -551,7 +560,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         e.preventDefault();
         return false;
       } else if (e.which === 27) {
-        // TODO abort name change on escape key
+        chabort();
         e.preventDefault();
         return false;
       }
