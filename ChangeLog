@@ -97,6 +97,7 @@
 	* scripts/ui/tab_games.js: using Tournaments.getRanking()
 	using and storing game ids
 	update(force) added
+	update everything once a game has finished, because it's going to be updated anyway
 
 	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
 	not passing around Tournament objects
@@ -119,6 +120,7 @@
 	some logging removed
 	start() and finishGame() rewritten to get rid of KOTournament
 	starting new games as soon as they become available
+	indexing bugs fixed
 
 	* scripts/backend/swisstournament.js: game id added and passed through most functions
 

@@ -367,11 +367,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     res = History.addResult(tournamentid, games[tournamentid][index].teams[0][0], games[tournamentid][index].teams[1][0], points[0], points[1], round - 1, gameid);
     Tab_History.update();
 
-    // game was accepted. remove it.
-    if (!removeGame(tournamentid, index)) {
-      console.error("cannot remove game: it's already gone");
-    }
-
     if (points[0] > points[1]) {
       new Toast(Strings.gamefinished);
     }
@@ -413,6 +408,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     if (games.length === 0) {
       Tabshandle.focus('new');
     }
+    Tab_Games.update();
 
     return false;
   }

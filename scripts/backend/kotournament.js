@@ -18,7 +18,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   }
 
   function parent (id) {
-    return Math.floor((id - 2) / 2);
+    return Math.floor((id - 1) / 2);
   }
 
   function level (id) {
@@ -234,12 +234,10 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
       if (p1 === undefined) {
         checkforGame.call(this, p2, gameid);
-        this.gameid[p2] = parent(gameid);
         continue;
       }
       if (p2 === undefined) {
         checkforGame.call(this, p1, gameid);
-        this.gameid[p1] = parent(gameid);
         continue;
       }
 
@@ -291,7 +289,6 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     }
 
     gameid = this.gameid[p1];
-    parentid = parent(gameid);
 
     if (points[0] > points[1]) {
       winner = p1;
@@ -301,20 +298,21 @@ define([ './tournament', './map', './random', './game', './options' ], function 
       // points are equal
       return undefined;
     }
-    this.gameid[winner] = parentid;
 
     for (i = 0; i <= this.games.length; i += 1) {
       if (i == this.games.length) {
         // couldn't find game
+
         return undefined;
       }
-      if (this.games[i].p1 === p1 && this.games[i].p2 === p2) {
+      if (this.games[i].teams[0][0] === p1 && this.games[i].teams[1][0] === p2) {
         this.games.splice(i, 1);
         break;
       }
     }
 
     checkforGame.call(this, winner, gameid);
+
     if (this.games.length === 0) {
       this.state = Tournament.STATE.FINISHED;
     }
@@ -337,6 +335,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
       opponent = this.gameid.indexOf(parentid, pid + 1);
     }
 
+    this.gameid[pid] = parentid;
     if (opponent > -1) {
       this.games.push(new Game((isleft ? pid : opponent), (isleft ? opponent : pid), parentid));
     }
@@ -359,10 +358,6 @@ define([ './tournament', './map', './random', './game', './options' ], function 
       place : [], // actual place, usually [1, 2, 3, ...]. Necessary.
       ids : [], // sorted for ranking. Necessary
       round : [], // the current round or the last round
-      subtournament : [],// number of subtournament. Winners are always at 0
-      gameid : [], // the number of the game within this round
-      eliminated : [], // 1 if the player has been eliminated, 0 otherwise
-      totalrounds : this.rounds,
     };
   };
 
@@ -386,6 +381,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     ob = {
       players : this.players.toBlob(),
       games : this.games,
+      gameid : this.gameid,
       state : this.state,
       options : this.getOptions(),
     };
@@ -400,6 +396,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
     this.players.fromBlob(ob.players);
     this.games = ob.games;
+    this.gameid = ob.gameid;
     this.state = ob.state;
     this.setOptions(ob.options);
   };
