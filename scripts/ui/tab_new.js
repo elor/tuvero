@@ -4,7 +4,7 @@
 
 define([ './options', './tabshandle', './opts', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
-    './storage', '../backend/tournament', './tournaments' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments) {
+    './storage', '../backend/tournament', './tournaments', './globalranking' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking) {
   var Tab_New, $tab, updatepending, template, swissperms;
 
   updatepending = false;
@@ -57,6 +57,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     template.team.$container.removeClass('tpl');
 
     template.team.$rank = template.team.$container.find('.rank');
+    template.team.$tournamentrank = template.team.$container.find('.tournamentrank');
     template.team.$teamno = template.team.$container.find('.teamno');
     template.team.$names = template.team.$container.find('.names');
 
@@ -78,46 +79,16 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $tab.find('.system').remove();
   }
 
-  function getRanking () {
-    var ranking, ranks, ids, i;
-
-    // TODO use global ranking and stuff.
-    // This still is a cheap hack
-    ranks = [];
-    ids = [];
-
-    if (Tournaments.numTournaments()) {
-      ranking = Tournaments.getTournament(0).getRanking();
-
-      ids = ranking.ids;
-      ranks = ranking.place;
-    }
-
-    if (ranks.length == 0) {
-      ids = [];
-      ranks = ids;
-      for (i = 0; i < Team.count(); i += 1) {
-        ids[i] = i;
-      }
-    }
-
-    return {
-      ids : ids,
-      ranks : ranks,
-    };
-  }
-
   function updateTeams () {
-    var ranking, ranks, ids, i;
+    var ranking, i;
 
-    ranking = getRanking();
-    ranks = ranking.ranks;
-    ids = ranking.ids;
+    ranking = GlobalRanking.get();
 
-    for (i = 0; i < ranks.length; i += 1) {
-      template.team.$rank.text(ranks[i] + 1);
-      template.team.$teamno.text(ids[i] + 1);
-      template.team.$names.text(Team.get(ids[i]).names.join(', '));
+    for (i = 0; i < ranking.length; i += 1) {
+      template.team.$rank.text(ranking[i].globalrank + 1);
+      template.team.$tournamentrank.text(ranking[i].tournamentrank + 1);
+      template.team.$teamno.text(ranking[i].id + 1);
+      template.team.$names.text(Team.get(ranking[i].id).names.join(', '));
       template.$anchor.append(template.team.$container.clone());
     }
   }
@@ -171,14 +142,14 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       $clone.append(template.system.$swiss.clone());
       $clone.addClass('swiss');
       initSwiss($clone, Tournament);
-    } else { 
+    } else {
       $clone.append(template.system.$newsystem.clone());
       $clone.addClass('newsystem');
       initNewsystem($clone);
     }
 
     $clone.append($clone.find('>h3').addClass('editable').clone());
-    if (name){
+    if (name) {
       $clone.find('.name').text(name);
     }
 

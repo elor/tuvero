@@ -1,6 +1,7 @@
 2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: got rid of the strange span system for corrections
+	tournamentrank column added in tab_new
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
@@ -21,6 +22,11 @@
 
 	* scripts/ui/update.js: Update.isDevVersion removed
 	if no dev version and manifest is missing: print warning Toast
+
+	* scripts/ui/tab_new.js: tournamentrank column used
+	GlobalRanking used
+
+	* scripts/ui/globalranking.js: GlobalRanking.get() added
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
