@@ -117,6 +117,7 @@
 	byeOrder removed
 	minmatchround removed
 	some logging removed
+	start() and finishGame() rewritten to get rid of KOTournament
 
 	* scripts/backend/swisstournament.js: game id added and passed through most functions
 
@@ -132,6 +133,7 @@
 	* scripts/ui/alltabs.js: update(force) added
 
 	* scripts/ui/tab_settings.js: update(force) added
+
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
