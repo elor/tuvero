@@ -356,6 +356,17 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.$container.detach();
     template.$container.removeClass('tpl');
 
+    template.kotree = {};
+
+    template.kotree.$container = template.$container.find('.kotree');
+    template.kotree.$container.detach();
+
+    template.kotree.$game = template.kotree.$container.find('.game');
+    template.kotree.$game.detach();
+    template.kotree.$names = template.kotree.$game.find('.names');
+    template.kotree.$teamno = template.kotree.$game.find('.number');
+    template.kotree.$points = template.kotree.$game.find('.points');
+
     template.progresstable = {};
 
     template.progresstable.$container = template.$container.find('table.progresstable');
@@ -674,13 +685,221 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     return maxround > 0;
   }
 
+  /*****************************************************************************
+   * Copied from kotournament.js
+   ****************************************************************************/
+  function level (id) {
+    return Math.floor(Math.log(id + 1) / Math.LN2);
+  }
+
+  function parent (id) {
+    return Math.floor((id - 1) / 2);
+  }
+
+  function lowestid (level) {
+    return nodesbylevel(level) - 1;
+  }
+
+  function nodesbylevel (level) {
+    return 1 << level;
+  }
+
+  /*****************************************************************************
+   * end (Copied from kotournament.js)
+   ****************************************************************************/
+
+  function getGameTreeX (gameid, maxid) {
+    var maxlevel, gamelevel, x0, width;
+
+    x0 = 1;
+    width = 15;
+
+    maxlevel = level(maxid);
+    gamelevel = level(gameid);
+
+    return x0 + (maxlevel - gamelevel) * width;
+  }
+
+  function getGameTreeY (gameid, maxid) {
+    var maxlevel, gamelevel, y0, height;
+
+    y0 = 1;
+    height = 5;
+
+    maxlevel = level(maxid);
+    gamelevel = level(gameid);
+    firstid = lowestid(gamelevel);
+
+    return y0 + height * Math.pow(2, maxlevel - gamelevel - 1) + height * Math.floor(Math.pow(2, maxlevel - gamelevel + 1) * 0.5) * (gameid - firstid);
+  }
+
+  function createGameTreeBox (game, maxid) {
+    var x, y;
+
+    template.kotree.$teamno.eq(0).text(game.t1 === undefined ? '' : game.t1 + 1);
+    template.kotree.$teamno.eq(1).text(game.t2 === undefined ? '' : game.t2 + 1);
+
+    template.kotree.$names.text('');
+    if (game.t1 !== undefined) {
+      template.kotree.$names.eq(0).text(Team.get(game.t1).names.join(', '));
+    }
+    if (game.t2 !== undefined) {
+      template.kotree.$names.eq(1).text(Team.get(game.t2).names.join(', '));
+    }
+
+    template.kotree.$points.text(game.p1 + ':' + game.p2);
+
+    x = getGameTreeX(game.id, maxid);
+    y = getGameTreeY(game.id, maxid);
+
+    return template.kotree.$game.clone().css('left', x + 'em').css('top', y + 'em');
+  }
+
+  function createKOTree (tournamentid) {
+    var games, i, $box, g, $game, parentid;
+
+    games = [];
+
+    // add finished games
+    if (History.numRounds(tournamentid)) {
+      History.getGames(tournamentid).map(function (game) {
+        games.push({
+          id : game[5],
+          t1 : game[0],
+          t2 : game[1],
+          p1 : game[2],
+          p2 : game[3],
+        });
+      });
+    }
+
+    // add running games
+    if (Tournaments.isRunning(tournamentid)) {
+      Tournaments.getTournament(tournamentid).getGames().map(function (game) {
+        games.push({
+          id : game.id,
+          t1 : game.teams[0][0],
+          t2 : game.teams[1][0],
+          p1 : '',
+          p2 : '',
+        });
+      });
+    }
+
+    // sort all the games
+    games.sort(function (a, b) {
+      return a.id - b.id;
+    });
+
+    // insert empty games where they're missing
+    for (i = 0; i < games.length; i += 1) {
+      if (games[i].id > i) {
+        games.splice(i, 0, {
+          id : i,
+          t1 : undefined,
+          t2 : undefined,
+          p1 : '',
+          p2 : '',
+        });
+
+      }
+    }
+
+    // add byevotes through another cheap hack
+    if (Tournaments.isRunning(tournamentid)) {
+      Tournaments.getTournament(tournamentid).gameid.map(function (id, teamno) {
+        if (games[id].t1 === undefined) {
+          games[id].t1 = teamno;
+        }
+      });
+    }
+
+    if (!games.length) {
+      return false;
+    }
+
+    // print the games
+
+    $box = template.$container.clone();
+    $box.find('>h3:first-child').text(Tournaments.getName(tournamentid) + ' - KO-Baum');
+
+    $tree = template.kotree.$container.clone();
+
+    for (i = 0; i < games.length; i += 1) {
+      g = games[i];
+      $game = createGameTreeBox(g, games.length - 1);
+      g.$box = $game;
+      $tree.append($game);
+    }
+
+    $box.append($tree);
+    $tab.append($box);
+
+    rightmost = 0;
+    bottommost = 0;
+
+    jsPlumbInstance = jsPlumb.getInstance();
+
+    // create endpoints and update the leftmost and bottommost points
+    for (i = 0; i < games.length; i += 1) {
+      $game = games[i].$box;
+
+      addKOGamesEndpoints($game, jsPlumbInstance);
+
+      rightmost = Math.max($game.offset().left + $game.outerWidth(), rightmost);
+      bottommost = Math.max($game.offset().top + $game.outerHeight(), bottommost);
+    }
+
+    rightmost -= $tree.offset().left - 10;
+    bottommost -= $tree.offset().top - 10;
+
+    $tree.width(rightmost);
+    $tree.height(bottommost);
+
+    // connect the games
+    for (i = games.length - 1; i >= 0; i -= 1) {
+      parentid = parent(games[i].id);
+      if (parentid >= 0) {
+        connectKOGames(games[i].$box, games[parentid].$box, jsPlumbInstance);
+      }
+    }
+
+    return games.length > 0;
+  }
+
+  function addKOGamesEndpoints ($game, jsPlumbInstance) {
+    $game.data('rightendpoint', jsPlumbInstance.addEndpoint($game.get(0), {
+      endpoint : "Blank",
+      anchor : "Right",
+      maxConnections : 5,
+    }, undefined));
+
+    $game.data('leftendpoint', jsPlumbInstance.addEndpoint($game.get(0), {
+      endpoint : "Blank",
+      anchor : "Left",
+      maxConnections : 5,
+    }, undefined));
+  }
+
+  function connectKOGames ($left, $right, jsPlumbInstance) {
+    jsPlumbInstance.connect({
+      source : $left.data('rightendpoint'),
+      target : $right.data('leftendpoint'),
+      paintStyle : {
+        lineWidth : 2,
+        strokeStyle : 'black'
+      },
+      connector : [ "Flowchart", {
+        curviness : 20,
+        width : 1
+      }, undefined ]
+    }, undefined);
+  }
+
   function showTournaments () {
     var hidden, tournamentid, displayfunc, PROGRESSTABLE, GAMESTABLE, numtournaments;
 
     hidden = true;
-
-    PROGRESSTABLE = 'progresstable';
-    GAMESTABLE = 'gamestable';
 
     displaytype = progresstable ? PROGRESSTABLE : GAMESTABLE;
 
@@ -689,30 +908,24 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     for (tournamentid = 0; tournamentid < numtournaments; tournamentid += 1) {
 
       switch (Tournaments.getType(tournamentid)) {
+      case 'swiss':
+        displayfunc = createProgressTable;
+        break;
       case 'ko':
-        // progresstable doesnt work with ko tournaments. The ranking is off.
-        displaytype = GAMESTABLE;
+        displayfunc = createKOTree;
         break;
       default:
+        displayfunc = createGamesTable;
         break;
       }
 
-      switch (displaytype) {
-      case PROGRESSTABLE:
-        displayfunc = createProgressTable;
-        break;
-      case GAMESTABLE:
+      if (!progresstable) {
         displayfunc = createGamesTable;
-        break;
-      default:
-        console.error('invalid displaytype: ' + displaytype);
-        continue;
       }
 
       if (displayfunc(tournamentid)) {
         hidden = false;
       }
-
     }
 
     return !hidden;

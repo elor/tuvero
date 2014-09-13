@@ -383,7 +383,7 @@
           <input class="shownames" type="checkbox" checked="checked" />
           <span>Spielernamen</span>
           <input class="progress" type="checkbox" checked="checked" />
-          <span>Fortschrittstabelle</span>
+          <span>Schöne Listen</span>
         </div>
         <h2>Turnierverlauf</h2>
 
@@ -458,6 +458,20 @@
               <td class="result">##</td>
             </tr>
           </table>
+
+          <div class="kotree">
+            <table class="game">
+              <tr>
+                <td class="number">##</td>
+                <td class="names">%%</td>
+                <td rowspan="2" class="points">%%</td>
+              </tr>
+              <tr>
+                <td class="number">##</td>
+                <td class="names">%%</td>
+              </tr>
+            </table> 
+          </div>
         </div>
       </div>
 
@@ -772,6 +786,7 @@
     <script src="scripts/lib/modernizr.custom.45982.js"></script>
     <script src="scripts/lib/jquery-2.1.1.min.js"></script>
     <script src="scripts/lib/typeahead.bundle.min.js"></script>
+    <script src="scripts/lib/jquery.jsPlumb-1.6.4-min.js"></script>
     <script>
       var require = {
       urlArgs : "bust=" + (new Date()).getTime()

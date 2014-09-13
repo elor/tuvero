@@ -1,3 +1,13 @@
+2014-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: KO tournament renderer added
+
+	* scripts/lib/jquery.jsPlumb-1.6.4-min.js: library for block connectors
+
+	* scripts/ui/tab_history.js: drawing KOTournaments as trees by default
+
+	* style/history.css: ko tree
+
 2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: got rid of the strange span system for corrections
