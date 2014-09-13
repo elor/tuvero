@@ -58,6 +58,9 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	getRanking added to get the last ranking transparently
 	blob functions updated to the new format
 	using parent referencing to build an ordered tree for global rankings
+	numTeamsLeft() and getStartRank() added
+	addTournament uses the correct start rank
+	number of teams verification during tournament start
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 
@@ -83,8 +86,6 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/general.css: collapsed boxes aren't printed
 
-	* scripts/ui/backgroundscripts.js: 
-	* scripts/ui/main.js: 
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

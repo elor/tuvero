@@ -35,8 +35,49 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     return tournament;
   }
 
+  Tournaments.getStartRank = function (tournamentid) {
+    var id, parentid, startteam;
+
+    if (tournamentid === undefined || tournaments[tournamentid] === undefined) {
+      // must be an error or the root node
+      return 0;
+    }
+
+    parentid = tournaments[tournamentid].parent;
+
+    // recurse
+    startteam = getStartRank(parentid);
+
+    for (id in tournaments) {
+      if (tournaments[id].parent === parentid && id < tournamentid) {
+        startteam += tournaments[id].teams.length;
+      }
+    }
+
+    return startteam;
+  };
+
+  Tournaments.numTeamsLeft = function (tournamentid) {
+    var numteams, id;
+
+    if (tournamentid === undefined || tournaments[tournamentid] === undefined) {
+      // must be an error or the root node
+      return -1;
+    }
+
+    numteams = tournaments[tournamentid].teams.length;
+
+    for (id in tournaments) {
+      if (tournaments[id].parent === parentid && id < tournamentid) {
+        numteams -= tournaments[id].teams.length;
+      }
+    }
+
+    return numteams;
+  };
+
   Tournaments.addTournament = function (type, numteams, parent) {
-    var newtournament, i, teams, startteam;
+    var newtournament, i, teams, startteam, globalranking;
 
     teams = [];
 
@@ -46,16 +87,15 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
       return undefined;
     }
 
-    globalranking = require('./globalranking').get();
+    startteam = Tournaments.getStartRank(parent);
 
-    startteam = 0;
-
-    if (globalranking.length > startteam + numteams) {
+    if (Tournaments.numTeamsLeft(parent) > numteams) {
       console.error('you want too many teams in your tournament');
       return undefined;
     }
 
-    console.log(numteams);
+    globalranking = require('./globalranking').get();
+
     for (i = 0; i < numteams; i += 1) {
       teams.push(globalranking[i + startteam].teamid);
       newtournament.addPlayer(globalranking[i + startteam].teamid);
@@ -236,7 +276,7 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     for (id = 0; id < tournaments.length; id += 1) {
       t = tournaments[id];
       ob[id] = [ t.type, t.name, t.tournament && t.tournament.toBlob(),
-          t.teams, t.finalranking ];
+          t.teams, t.finalranking, t.parent ];
     }
 
     return JSON.stringify(ob);
@@ -259,6 +299,7 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
         tournament : (t[2] && createTournament(t[0], t[2])),
         teams : t[3],
         finalranking : t[4],
+        parent : t[5],
       });
     }
   };
