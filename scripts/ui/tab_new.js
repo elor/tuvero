@@ -252,7 +252,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function getAnchor (tournamentid) {
     var startteam;
 
-    startteam = Tournaments.getStartRank(tournamentid);
+    startteam = Tournaments.getStartRank(tournamentid, !Tournaments.isRunning(tournamentid));
 
     if (startteam >= Team.count()) {
       return undefined;
@@ -376,7 +376,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
 
     // process all teams without tournament
-    $system = createSystemAnchor();
+    $system = createSystemAnchor(undefined);
     if ($system) {
       createSelectionBox($system);
       setSystemTitle($system);

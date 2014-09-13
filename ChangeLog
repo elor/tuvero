@@ -59,6 +59,7 @@
 	avoiding stupid team sizes
 	using correct parent ids
 	starting tournaments with the user-defined team size
+	specifically asking for the place of the next child
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -78,6 +79,8 @@
 	null vs undefined!
 	don't recurse all the way to undefined in getStartRank
 	flipped comparison
+	allowing to count all children during getStartRank. That way...
+	...the user can specify that he wants the position of the next child
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 
@@ -105,6 +108,7 @@
 	box headers adjusted in size in printing mode
 
 	* scripts/ui/box.js: allowing pre-collapsed boxes
+
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

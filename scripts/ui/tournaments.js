@@ -35,7 +35,7 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
     return tournament;
   }
 
-  Tournaments.getStartRank = function (tournamentid) {
+  Tournaments.getStartRank = function (tournamentid, countchildren) {
     var id, parentid, startteam;
 
     if (tournamentid == undefined) {
@@ -48,7 +48,11 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
         return undefined;
       }
 
-      parentid = tournaments[tournamentid].parent;
+      if (countchildren) {
+        parentid = tournamentid;
+      } else {
+        parentid = tournaments[tournamentid].parent;
+      }
       if (parentid == undefined) {
         startteam = 0;
       } else {
@@ -58,7 +62,7 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
     }
 
     for (id in tournaments) {
-      if (tournaments[id].parent == parentid && (tournamentid === undefined || id < tournamentid)) {
+      if (tournaments[id].parent == parentid && (countchildren || tournamentid === undefined || id < tournamentid)) {
         startteam += tournaments[id].teams.length;
       }
     }
