@@ -2,7 +2,7 @@
  * Tournaments is a list of _running_ tournaments, with null entries for
  * finished tournaments, but still keeping name and type information
  */
-define([ '../backend/swisstournament' ], function (Swisstournament) {
+define([ '../backend/swisstournament', './team' ], function (Swisstournament, Team) {
   var Tournaments, tournaments, globalranking;
 
   Tournaments = {};
@@ -46,7 +46,7 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
     parentid = tournaments[tournamentid].parent;
 
     // recurse
-    startteam = getStartRank(parentid);
+    startteam = Tournaments.getStartRank(parentid);
 
     for (id in tournaments) {
       if (tournaments[id].parent === parentid && id < tournamentid) {
@@ -60,15 +60,19 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
   Tournaments.numTeamsLeft = function (tournamentid) {
     var numteams, id;
 
-    if (tournamentid === undefined || tournaments[tournamentid] === undefined) {
-      // must be an error or the root node
-      return -1;
+    if (tournamentid === undefined) {
+      numteams = Team.count();
+    } else {
+      if (tournaments[tournamentid] === undefined) {
+        // must be an error
+        console.error('tournament id not defined: ' + tournamentid);
+        return 0;
+      }
+      numteams = tournaments[tournamentid].teams.length;
     }
 
-    numteams = tournaments[tournamentid].teams.length;
-
     for (id in tournaments) {
-      if (tournaments[id].parent === parentid && id < tournamentid) {
+      if (tournaments[id].parent == tournamentid) {
         numteams -= tournaments[id].teams.length;
       }
     }
@@ -187,11 +191,11 @@ define([ '../backend/swisstournament' ], function (Swisstournament) {
   };
 
   Tournaments.getName = function (id) {
-    return tournaments[id].name;
+    return tournaments[id] && tournaments[id].name;
   };
 
   Tournaments.getTeams = function (id) {
-    return tournaments[id].teams;
+    return tournaments[id] && tournaments[id].teams;
   };
 
   Tournaments.getRanking = function (tournamentid) {

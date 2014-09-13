@@ -48,6 +48,8 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	tournament removal enabled
 	new global ranking format used
 	preparing the use of parentid and multiple tournaments
+	major updateSystems() cleanup!
+	supporting the display of multiple tournaments
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -61,6 +63,8 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	numTeamsLeft() and getStartRank() added
 	addTournament uses the correct start rank
 	number of teams verification during tournament start
+	numTeams() prints the correct number, even for (undefined)
+	some minor bugfixes
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 

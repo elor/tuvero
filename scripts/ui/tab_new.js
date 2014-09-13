@@ -249,58 +249,125 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $system.removeClass('preparing running finished failure').addClass(stateclass);
   }
 
-  function updateSystems () {
-    var $anchor, height, $clone, $swiss, name, tournamentid, $title;
+  function getAnchor (tournamentid) {
+    var startteam;
 
-    // TODO startTeam === 0
-    $anchor = $tab.find('.team').eq(0);
-
-    if ($anchor.length == 0) {
-      if (Team.count() > 0) {
-        console.error("could't find anchor for system");
-      }
-      return;
-    }
-
-    // TODO read number of teams from Tournaments
-    height = Team.count();
-
-    $clone = template.$system.clone();
-    tournamentid = undefined;
-    name = undefined;
-
-    if (Tournaments.numTournaments() > 0) {
-      tournamentid = 0;
-      // FIXME find the last running one
-      name = Tournaments.getName(tournamentid);
-      $clone.data('tournamentid', tournamentid);
-
-      // FIXME read all tournaments and span accordingly
-      $clone.append(template.system.$swiss.clone());
-      $clone.addClass('swiss');
-      initSwiss($clone, tournamentid);
+    if (tournamentid === undefined) {
+      startteam = 0;
     } else {
-      $clone.append(template.system.$newsystem.clone());
-      $clone.addClass('newsystem');
-      initNewsystem($clone);
+      startteam = Tournaments.getStartRank(tournamentid);
     }
 
-    $title = $clone.find('>h3');
+    return template.$anchor.find('.team').eq(startteam);
+  }
+
+  function getHeight (tournamentid) {
+    return Tournaments.numTeamsLeft(tournamentid);
+  }
+
+  function createSystemAnchor (tournamentid) {
+    var $firstrow, height, $anchor;
+
+    $firstrow = getAnchor(tournamentid);
+    height = getHeight(tournamentid);
+
+    if ($firstrow.length !== 1) {
+      console.error('cannot find anchor for tournament id' + tournamentid);
+      return undefined;
+    }
+
+    if (!height) {
+      return undefined;
+    }
+
+    $anchor = template.$system.clone();
+    $anchor.attr('rowspan', height);
+
+    // TODO is this too early?
+    $firstrow.append($anchor);
+    $firstrow.find('td').css('border-top', 'solid 1px black');
+
+    return $anchor;
+  }
+
+  function createTournamentBox ($anchor, tournamentid) {
+    var type;
+
+    type = Tournaments.getTournament(tournamentid).getType();
+
+    $anchor.append(template.system['$' + type].clone());
+    $anchor.addClass(type);
+
+    switch (type) {
+    case 'swiss':
+      initSwiss($anchor, tournamentid);
+      break;
+    default:
+      console.error('unsupported tournament type: ' + type);
+      return undefined;
+    }
+
+    return $anchor;
+  }
+
+  function createSelectionBox ($anchor) {
+
+    $anchor.append(template.system.$newsystem.clone());
+    $anchor.addClass('newsystem');
+    initNewsystem($anchor);
+
+    return $anchor;
+  }
+
+  function setSystemTitle ($anchor) {
+    var title, tournamentid;
+
+    tournamentid = $anchor.data('tournamentid');
+
+    $title = $anchor.find('>h3');
+
     if (tournamentid !== undefined) {
       $title.addClass('editable');
       $title.after(template.$removesystem.clone());
+    } else {
+      $anchor.find('.name').text(Tournaments.getName(tournamentid));
     }
-    $clone.append($title.clone());
+    $anchor.append($title.clone());
+  }
 
-    if (name) {
-      $clone.find('.name').text(name);
+  function updateSystems () {
+    var $system, tournamentid;
+
+    // TODO we have to print this in globalranking order!
+
+    for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
+
+      $system = createSystemAnchor(tournamentid);
+      if (!$system) {
+        continue;
+      }
+
+      $system.data('tournamentid', tournamentid);
+
+      if (Tournaments.isRunning(tournamentid)) {
+        createTournamentBox($system, tournamentid);
+
+        setSystemState($system, tournamentid);
+
+      } else {
+        // there's still at least one player who needs a tournament
+        createSelectionBox($system);
+      }
+
+      setSystemTitle($system);
     }
 
-    $clone.attr('rowspan', height);
-    setSystemState($clone, tournamentid);
-
-    $anchor.find('td').css('border-top', 'solid 1px black');
-    $anchor.append($clone);
+    // process all teams without tournament
+    $system = createSystemAnchor(undefined);
+    if ($system) {
+      createSelectionBox($system);
+      setSystemTitle($system);
+    }
   }
 
   function addNewSystem (type) {
