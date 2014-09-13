@@ -1,0 +1,78 @@
+#about {
+  text-align: center;
+}
+
+#about .box {
+  width: 40em;
+  margin: 1em auto;
+}
+
+#about p {
+  text-align: justify;
+}
+
+#about .float {
+  float: right;
+}
+
+#about h4 {
+  text-align: left;
+}
+
+#about ul {
+  list-style-type: none;
+  text-align: left;
+}
+
+
+#about .links a[href] {
+  display: inline-block;
+  /* background-color: #d3d3d3; */
+  padding: 0.2em;
+  border-radius: 0.2em;
+  font-weight: bold;
+}
+
+#about .links a.manual {
+  background-color: #90EE90;
+}
+
+#about .manual img {
+  height: 2em;
+  vertical-align: middle;
+}
+
+#about img.logo {
+  max-height: 4em;
+  max-width: 4em;
+  border-radius: 0.5em;
+}
+
+#about img.supported {
+  background-color: #90ee90;
+}
+
+#about img.unsupported {
+  background-color: #484848;
+  opacity: 0.5;
+}
+
+.js #about .no-js, .postmessage #about .no-postmessage, .hashchange #about .no-hashchange, .localstorage #about .no-localstorage, .webworkers #about .no-webworkers, .adownload #about .no-adownload, .filereader #about .no-filereader, .json #about .no-json {
+  display: none;
+}
+
+.js.postmessage.hashchange.localstorage.webworkers.adownload.filereader.json #about .no-support {
+  display: none;
+}
+
+.no-js #about .support, .no-postmessage #about .support, .no-hashchange #about .support, .no-localstorage #about .support, .no-webworkers #about .support, .no-adownload #about .support, .no-filereader #about .support, .no-json #about .support {
+  display: none;
+}
+
+#about .donatebuttons {
+  text-align: center;
+}
+
+#about .donate {
+  display: inline-block;
+}

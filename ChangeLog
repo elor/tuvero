@@ -1,3 +1,772 @@
+2014-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: KO tournament renderer added
+
+	* scripts/lib/jquery.jsPlumb-1.6.4-min.js: library for block connectors
+
+	* scripts/ui/tab_history.js: drawing KOTournaments as trees by default
+
+	* style/history.css: ko tree
+
+2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: got rid of the strange span system for corrections
+	tournamentrank column added in tab_new
+	tournament chname field added
+	unicode entity added for tournament removal "button"
+	added a teamsize input for new tournaments
+	pre-collapsed advanced options box for swisstournament
+	Mail and Phone swapped
+	KO-system button added
+	KO mode selection added
+
+	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
+	addCorrection() also rewrites the matching game
+	stupid error fixed where I didn't copy arrays first
+	another stupid error in the same function where I forgot to create arrays
+	getCorrections() added
+
+	* scripts/ui/tab_history.js: taking old point for corrections from colon-sep'd text
+	extra jquery calls removed
+	can now correct within progress lists
+	it's forbidden to change byes
+	using Tournaments.getRanking()
+	update(force) added
+	showing KOTournaments with the simple interface
+
+	* style/history.css: name hide override
+
+	* scripts/ui/debug.js: Debug.isDevVersion added
+	determining dev status by parsing the page title for "%version%"
+
+	* scripts/ui/strings.js: nomanifest added
+	namechangeaborted added
+	tournament removal strings added
+	tournamentstarted added
+
+	* scripts/ui/tab_debug.js: using Debug.isDevVersion
+	using updating teams for the Tournaments array
+	using Tournaments.getRanking()
+	update(force) added (not for itself)
+
+	* scripts/ui/update.js: Update.isDevVersion removed
+	if no dev version and manifest is missing: print warning Toast
+	eclipse warning suppressed with another cheap hack
+
+	* scripts/ui/tab_new.js: tournamentrank column used
+	GlobalRanking used
+	players are added by Tournaments.addTournament from global ranking
+	using Tournaments.getRanking()
+	tournament namechange logic added
+	stub for multiple parallel tournaments added
+	chabort function simplified
+	not passing Tournament objects around
+	showing an error if a tournament isn't running, but wants to be displayed
+	adding removal button to every system block
+	adding 'editable' class only to actual tournaments
+	tournament removal enabled
+	new global ranking format used
+	preparing the use of parentid and multiple tournaments
+	major updateSystems() cleanup!
+	supporting the display of multiple tournaments
+	startRank bugfix
+	using the tournament order for displaying running systems
+	avoiding stupid startteam indices (e.g. >numplayers)
+	avoiding stupid team sizes
+	using correct parent ids
+	starting tournaments with the user-defined team size
+	specifically asking for the place of the next child
+	ko tournaments enabled
+	update(force) added
+	initKO() added
+
+	* scripts/ui/globalranking.js: GlobalRanking.get() added
+	using Tournaments.getRanking()
+	Tournaments.getRankingOrder() is used to determine tournament dependencies
+
+	* scripts/ui/tournaments.js: addTournament adds players according to global ranking
+	removeTournament added
+	getRanking added to get the last ranking transparently
+	blob functions updated to the new format
+	using parent referencing to build an ordered tree for global rankings
+	numTeamsLeft() and getStartRank() added
+	addTournament uses the correct start rank
+	number of teams verification during tournament start
+	numTeams() prints the correct number, even for (undefined)
+	some minor bugfixes
+	getStartRank bugfixing
+	null vs undefined!
+	don't recurse all the way to undefined in getStartRank
+	flipped comparison
+	allowing to count all children during getStartRank. That way...
+	...the user can specify that he wants the position of the next child
+	ko tournaments enabled
+	getType() added
+
+	* scripts/ui/ranking.js: using Tournaments.getRanking()
+
+	* scripts/ui/tab_games.js: using Tournaments.getRanking()
+	using and storing game ids
+	update(force) added
+	update everything once a game has finished, because it's going to be updated anyway
+
+	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
+	not passing around Tournament objects
+	reading corrections from History, not Tournaments
+	update(force) added
+
+	* scripts/ui/tab_teams.js: escape rename abort added
+	namechangeaborted Toast added
+	update(force) added
+
+	* scripts/backend/game.js: game id added
+
+	* scripts/backend/kotournament.js: game id added
+	options adjusted
+	blob functions written
+	numRounds corrected
+	default mode: 'set'
+	byeOrder removed
+	minmatchround removed
+	some logging removed
+	start() and finishGame() rewritten to get rid of KOTournament
+	starting new games as soon as they become available
+	indexing bugs fixed
+	getRanking() written
+
+	* scripts/backend/swisstournament.js: game id added and passed through most functions
+
+	* scripts/backend/tournament.js: getCorrections() doesn't set a game id
+
+	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
+
+	* style/general.css: collapsed boxes aren't printed
+	box headers adjusted in size in printing mode
+
+	* scripts/ui/box.js: allowing pre-collapsed boxes
+
+	* scripts/ui/alltabs.js: update(force) added
+
+	* scripts/ui/tab_settings.js: update(force) added
+
+
+2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: progresstable checkbox active by default
+	progresstable template added
+	text for some tournament systems added
+	progresstable header simplified
+	classes for smallchange image added
+	correct button replaced by a text span
+	corrections in progresstable enabled
+
+	* scripts/ui/history.js: getGames added for easy iteration
+
+	* scripts/ui/strings.js: winstatus* strings added
+
+	* scripts/ui/tab_history.js: progress table creation
+	using progress table if enabled by checkbox
+	using the byevote symbol for the progress table
+	not relying on button.correct anymore, using .correct only
+
+	* style/general.css: tables: borders-collapse by default
+	print mode looks pretty
+	.editable class added
+
+	* style/history.css: different styles for gamestable and progresstable
+	progresstable beautification
+	print mode bugs fixed
+	gamestable: separate border-collapse
+	button.correct style removed
+
+	* scripts/backend/finebuchholzranking.js: number of completed games removed from sort order
+
+	* scripts/backend/kotournament.js: start() return value now is a simple bool
+
+	* scripts/backend/swisstournament.js: start() return value now is a simple bool
+
+	* scripts/backend/test/swisstournament.js: start() return value now is a simple bool
+
+	* scripts/backend/tournament.js: start() return value now is a simple bool
+
+	* scripts/ui/tournaments.js: support for team lists added
+
+	* style/new.css: separate border-collapse enabled for this table only
+	unwanted table borders removed
+
+	* images/change.png: added
+
+	* images/smallchange.png: added
+
+	* images/svg/change.svg: added
+
+	* images/svg/smallchange.svg: added
+
+	* style/teams.css: text change hover -> show smallchange icon
+
+	* scripts/ui/tab_new.js: 'editable' class added
+
+2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: splash loaderror added
+
+	* scripts/ui/main.js: handling all requirejs errors by showing a loaderror
+
+	* style/splash.css: loaderror class added
+
+	* scripts/ui/tabs.js: another try at disabling hashchange jumps
+
+2014-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/online.js: callback function: event verification
+	callback function: dev output temporarily added
+	dev output disabled again
+
+	* boules.html: splash error text added
+
+	* scripts/ui/main.js: catching load errors to be shown by the splash screen
+
+	* scripts/ui/splash.js: error display added
+
+	* scripts/ui/storage.js: try..catch block removed. Didn't work anyway
+
+	* style/splash.css: highlighting links boldly ;-D
+	error text added to the display/hide rules
+
+	* scripts/ui/tab_debug.js: showing debugging tab in dev versions
+
+2014-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_new.js: Bye of the first team was not added
+	addNewSystem() for unified tournament creation added
+	setting the name of new tournaments
+	showing system footer
+	showing the tournament name, if available
+
+	* scripts/ui/tab_debug.js: sidetournaments have correct byes
+	sidetournaments allow max players
+	sidetournaments allow two players
+
+	* scripts/ui/strings.js: default tournament names added
+	offline exit question added
+
+	* style/new.css: showing system footer
+
+	* style/history.css: height of team block reduced
+	table cell spacing adjusted
+	number has no max-width anymore (4-digit-numbers look ... bad)
+
+	* scripts/ui/tab_ranking.js: tab_ranking: double ranking table removed
+
+	* scripts/ui/tab_teams.js: tab_teams rename -> tab_new update
+
+	* scripts/ui/tab_settings.js: don't reload the page if a file load fails
+
+	* scripts/ui/csver.js: toCSV interface added
+
+	* scripts/ui/test/csv.js: CSVer interface tests added
+
+	* scripts/ui/history.js: toCSV() added, implemented and tested
+
+	* scripts/ui/ranking.js: toCSV fixed (showing corrections + using nice headers)
+
+	* scripts/ui/main.js: online.js reference added
+	using backgroundscripts.js
+
+	* scripts/ui/online.js: online/offline detection added
+	if offline and not cached, ask before exiting
+
+	* scripts/ui/update.js: Update.isCached added
+
+	* scripts/ui/debug.js: stacktrace not divided into multiple files
+
+	* scripts/ui/backgroundscripts.js: loader for a collection of background scripts
+
+
+2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_games.js: Game result submissions work again
+	got rid of DOM injection of tournament ids
+	and now we're using jquery for unique identifiers
+	adding game with the correct tournamentid to History
+
+	* boules.html: .corr.tpl -> .corr
+	history gamestable class added
+	tab_new system: states added (at least for swiss)
+	newsystem box added to tab_new
+	trailing whitespaces stripped
+
+	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
+	.correctiontable -> .correctionstable. Stupid typo.
+	some idiot (me) hid a detached container and wondered when it didn't show
+
+	* scripts/ui/history.js: History.numTournaments() added to avoid calling Tournaments.size()
+	Tournaments.size() != History.numTournaments() in some cases
+
+	* scripts/ui/tab_history.js: setRound() removed
+	createBox() -> createGame()
+	template updated
+	showTournaments() added for drawing all past and present tournaments
+	update(): code length reduced
+	getting tournamentid from previourly stored jquery data
+	using the correct tournament id for corrections
+
+	* scripts/ui/strings.js: toolatetournamentfinished added
+
+	* scripts/ui/tab_debug.js: playTournament() and finishRound() work with multiple tournaments
+	startRound adapted to new multi-system layout
+	playTournament can cold-start without manually calling startRound first
+
+	* scripts/ui/tab_new.js: supporting Tournament states
+	Swiss -> Tournament for all general variable names
+	always showing the New tab (which is likely to be renamed in the future)
+	.newsystem added for tournament system selection
+	getRanking() handles empty tournaments
+
+	* style/new.css: only show current tournament state
+	header x-padding added
+	accidentally prevented templates from hiding
+
+	* scripts/ui/tournaments.js: Tournaments.size() deprecated
+	Tournaments.numTournaments() added
+	Tournaments.getTournamentID added (for inverse association of a Tournament to its id)
+	getTournament() checks whether the tournament exists, first
+	Swiss stub removed. We're live now!
+
+	* scripts/ui/tab_teams.js: seemingly ancient bug: teamsize was hidden
+
+	* scripts/backend/swisstournament.js: Do not reset the swiss mode without the user expecting it
+
+2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: #new tab drastically rearranged
+	#reset accesskey added
+	supermelee placeholder added
+	debug tab relocated
+	donate button image placed in image/ext/
+	#debug .box.allimages added
+	update splash text added
+	lanes tab added (hidden)
+	history tab progresslist logic inverted
+	ranking templates update for multiple tournaments
+	games templates updated for simultaneous tournaments
+
+	* scripts/ui/main.js: adding window.mods if this is a dev version
+	calling Splash.update()
+	Box reference added for requirejs
+
+	* scripts/ui/options.js: restructuring started
+	tournament key changed to 'boulestournament'
+
+	* scripts/ui/reset.js: moving to #debug after reload
+
+	* scripts/ui/strings.js: mods string changed
+
+	* scripts/ui/tab_debug.js: automatically adding window.mods in dev versions
+	removing dangerous content (.devonly) in release versions
+	not overwriting existing window.mods variables
+	showing all <img>s at pageload in .allimages box
+	allimages: title added for hover text
+	removed Swiss references, but I have to redo the whole GUI shortcut system
+
+	* scripts/ui/tab_new.js: complete rewrite
+	create table layout to enable multiple parallel tournaments
+	first step towards tournament encapsulation
+	getRoundVotes() copied over from tab_games
+	using new History format
+	all operations use the last Tournaments entry, but it's capable of multiple ones
+
+	* scripts/ui/team.js: Team.size() added for faster development
+
+	* scripts/ui/update.js: autoformat
+	Update.isDevVersion added (only in dev versions)
+	error -> warn
+
+	* style/general.css: tables don't have border-spacing
+	wider x-margins for box headers
+	collapsed box style added
+
+	* style/new.css: restyled
+	'TODO' boxes are vertically aligned
+
+	* style/tabs.css: page content fades in after pageload
+	tab menu has fixed height (quadratic images)
+	double-slide fix for splash screen
+	not using transition prefixes anymore!
+
+	* scripts/ui/splash.js: double-slide fix for splash screen
+	showing tabs at view update, not at storage load
+
+	* images/lane.png: renamed to lanes.png
+
+	* images/lanes.png: renamed from lane.png
+	redesigned
+
+	* images/svg/lanes.svg: renamed from lane.svg
+	redesigned
+
+	* images/svg/lane.svg: renamed to lanes.svg
+
+	* style/debug.css: allimages fixed image height added
+
+	* style/lanes.css: lanes tab is currently disabled
+
+	* scripts/ui/storage.js: combining subsequent store() calls into one
+	nagging debug text added (for now)
+	'key doesnt exist' error is now just a warning
+
+	* scripts/ui/tab_games.js: removed Tab_History.createBox() dependency
+	using new history format
+	$.delegate replaced by $.on
+	Swiss removed from includes, but I'm still working on it
+	now displaying multiple tournaments simultaneously
+	functions cleaned up while we're at it
+
+	* scripts/ui/tab_history.js: nextRound() removed
+	moved createBox() and createBye() into local block
+	using new history format
+	missing variable added
+	corrections fixed again (They now work with the new History format)
+	progresstable checkbox logic changed
+	Swiss removed. The History tab uses only the first Tournament so far
+
+	* scripts/ui/tab_teams.js: reduced the number of cross-Tab update calls:
+	createBox() doesn't call other Tabs anymore
+	updateAfterTeamAdd() added
+	$.delegate replaced by $.on
+
+	* scripts/backend/kotournament.js: getType() added
+
+	* scripts/backend/swisstournament.js: getType() added
+
+	* scripts/backend/tournament.js: getType() added to interface
+
+	* scripts/ui/swiss.js: only referencing tournaments.js anymore
+	tournaments key changed from 'swiss' to 'tournaments'
+	removed in favor of the Tournaments system
+
+	* scripts/ui/state.js: swapped Swiss with Tournaments
+
+	* scripts/ui/test/blobs.js: testing whether Tournaments implements Blobber
+
+	* scripts/ui/box.js: box collapse mechanism added
+	I managed to let it transition BACK to height:auto! Yeah!
+
+	* style/splash.css: not using transition prefixes anymore
+
+	* style/toasts.css: not using transition prefixes anymore
+
+	* scripts/ui/history.js: Complete rewrite for the following reasons:
+	accomodate for multiple tournaments
+	reduce storage space
+	History.findGames() added to find games by participating teams
+
+
+	* scripts/ui/tournaments.js: new, more efficient internal format
+	fixed tournament ids
+	getType() function added
+	Tournament now works with the same tournamentids as History
+
+	* style/history.css: progresslist logic flipped
+
+	* scripts/ui/ranking.js: CSV export of multiple tournaments (not yet tested)
+
+	* scripts/ui/tab_ranking.js: swiss removed from the header, but I'm still working on it
+	process all running tournaments
+	template functions updated
+
+
+2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: #about is now using the .box class
+	simplified the name fields in the games tab
+	using a box around the running games
+	team tab: teams aren't floating anymore
+	validator run: only 3 errors this time
+	using a list for no-support items
+	wrapped the ranking table inside a box
+
+	* style/about.css: restyling
+	no tab should have a max-width. Centered its boxes instead
+
+	* style/general.css: .box contents are usually centered
+	box header selector disambituated
+	box header is automatically centered
+	h2 is always centered
+	boxes are wrapping their contents
+
+	* scripts/ui/tab_games.js: names entry simplified (well, not for JQuery :-D )
+	using .votes as an anchor
+	combining multiple updates into one
+
+	* style/games.css: games tab .game boxes updated
+	forgot to un-float .vote boxes
+
+	* style/teams.css: floats were changed to inline-blocks
+
+	* scripts/backend/rleblobber.js: Run length blobber for sparse nested numerical arrays written
+
+	* scripts/backend/test/rleblobber.js: Exhaustive RLEBlobber tests written
+
+	* scripts/test.js: RLEBlobber tests linked in
+
+	* scripts/backend/finebuchholzranking.js: using rleblobber
+	critical typo fixed: didn't repopulate the sparse array with 0s
+
+	* scripts/backend/halfmatrix.js: using rleblobber
+
+	* scripts/backend/swisstournament.js: using rleblobber
+
+	* scripts/ui/tab_history.js: combining multiple updates into one
+
+	* scripts/ui/tab_new.js: combining multiple updates into one
+
+	* scripts/ui/tab_ranking.js: combining multiple updates into one
+
+	* scripts/ui/tab_settings.js: combining multiple updates into one
+
+	* scripts/ui/tab_teams.js: combining multiple updates into one
+
+	* scripts/ui/main.js: reset.js enabled
+	calling Tabs.valid() instead of letting it call on pageload
+	using yet another timeout for smoother transitions
+
+	* scripts/ui/reset.js: #reset: reset localStorage to factory settings
+
+	* scripts/ui/strings.js: reset string added
+
+	* scripts/ui/tabs.js: not switching to the first valid tab on pageload
+	switching to the first valid tab on hashchange
+
+	* style/ranking.css: tables are now inline-tables, not inline-blocks
+	names width typo fixed
+
+	* style/tabs.css: tabs are now contained in their container, not absolute-floating
+	adjusting min-width according to content width (CSS extensions needed)
+
+
+2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: splash screen added
+	scripts relocated to bottom of the body
+	splash classes unambiguated
+	using generalised .box classes for containers
+
+	* scripts/ui/main.js: hiding the splash screen
+	using several splash stages
+	starting Toasts separately, or the timing would mess things up
+	showing the tabs only after the tournament has been loaded
+
+	* scripts/ui/splash.js: changing and hiding the splash screen
+	using a better staging/state mechanism
+
+	* style/mainstyle.css: splash screen stylesheet included
+
+	* style/splash.css: style sheet for the splash screen added
+	multibrowser support for splash sliding transition added
+	using the new staging approach
+
+	* scripts/ui/toast.js: using an init() function to avoid bad timing due to long hangs
+	Toast timing bug fixed (don't redefine a module-loaded constructor!)
+
+	* style/tabs.css: showing the tabs only after the tournament has been loaded
+
+	* images/reload.png: recentered
+
+	* images/svg/reload.svg: recentered
+
+	* scripts/ui/tab_history.js: using .box instead of .round
+
+	* style/about.css: donatebuttons are now centered
+
+	* style/general.css: general .box style defined
+
+	* style/history.css: .round classes removed in favour of .box classes
+
+	* style/settings.css: .block classes removed in favour of .box classes
+
+2014-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: donate button added
+	amazon wishlist link added
+	placed donate buttons on the same line
+
+	* images/ext/amazonwishlist.png: amazon wishlist image added
+
+	* images/xcf/amazonwishlist.xcf: gimp file added
+
+	* style/settings.css: placed donate buttons on the same line
+	accidentally used the wrong file
+
+	* style/about.css: accidentally used the wrong file
+
+	* images/lane.png: lane icon added
+
+	* images/svg/lane.svg: lane icon added
+
+2014-09-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: list view in history tab
+
+	* scripts/ui/tab_games.js: disabling maxwidth option when showing no player names
+
+	* scripts/ui/tab_history.js: disabling maxwidth option when showing no player names
+	tab options added
+	using list view
+
+	* style/history.css: using list view
+	tab options added
+
+	* style/ranking.css: using full width again
+
+2014-09-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: TODO, BUGS, ChangeLog added to developer settings
+	"shownames" button added in games tab
+	localStorage usage meters added
+	history tab restructured
+
+	* style/settings.css: unnecessary divs removed
+
+	* images/file.png: added
+
+	* images/svg/file.svg: added
+
+	* scripts/ui/tab_debug.js: playTournament(): let the browser render every second
+
+	* style/toasts.css: toast border added
+
+	* scripts/ui/tab_games.js: "shownames" button added in games tab
+
+	* style/games.css: "shownames" button added in games tab
+
+	* scripts/ui/tab_settings.js: localStorage usage meters added
+
+	* scripts/ui/tab_history.js: history tab restructured
+
+	* style/history.css: history tab restructured
+
+2014-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* doc/de/glossary.html: updated automatically
+
+	* doc/writeglossary.sh: typo fixed that created the wrong link href
+	functions added
+
+	* boules.html: settings tab blocks redesigned
+
+	* style/general.css: link underlining: now only for links, not all anchors
+
+	* style/settings.css: settings tab: look improved
+
+2014-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boules.html: storage -> settings
+
+	* scripts/ui/alltabs.js: tab_storage -> tab_settings
+
+	* scripts/ui/main.js: tab_storage -> tab_settings
+
+	* scripts/ui/storage.js: tab_storage -> tab_settings
+
+	* scripts/ui/tab_debug.js: tab_storage -> tab_settings
+
+	* scripts/ui/tab_storage.js: tab_storage -> tab_settings
+
+	* scripts/ui/tab_settings.js: tab_storage -> tab_settings
+
+	* scripts/ui/test/tab.js: tab_storage -> tab_settings
+
+	* style/storage.css: #storage -> #settings
+	renamed to settings.css
+
+	* style/mainstyle.css: storage -> settings
+
+	* style/settings.css: storage -> settings
+	floating block layout replaced by vertical arrangement
+
+	* createmanifest.sh: executable permissions added
+
+	* pushversion.sh: executable permissions added
+
+	* scripts/updatetests.sh: executable permissions added
+
+2014-08-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* doc/de/glossary.html: automatic update
+
+	* doc/de/glossary.txt: Fabe and I edited some stuff
+
+	* doc/writeglossary.sh: support for more link formats added
+
+	* boules.html: feature notifications added. Note to self: Don't forget to add new features
+	icon paths updated
+
+	* style/about.css: showing and hiding feature notifications as needed
+
+	* images/*.png: new icons created
+
+	* images/svg/*.svg: new icons created
+
+2014-08-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* players.txt: removed in favor of external solution
+
+	* scripts/ui/options.js: playername location changed to boulesdb installation
+
+	* scripts/ui/tab_storage.js: ajax mess cleaned up: using json and boulesdb now
+
+2014-08-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* doc/de/glossary.*: german glossary started
+
+	* doc/writeglossary.sh: Automatic script to update glossary.html from glossary.txt
+
+	* readme.html: moved to doc/de/index.html
+
+2014-08-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* images/logos/: browser logos added
+
+	* images/about.png: question mark icon added
+
+	* boules.html: 'about' tab added
+
+	* readme.html: added
+
+	* style/about.css: added
+
+	* scripts/ui/history.js: eclipse warning suppressed
+
+	* scripts/ui/tab_storage.js: accidental double-assignment fixed
+
+	* scripts/ui/tab_games.js: unnecessary jslint warning unsuppressed
+
+	* scripts/update.js: "dev version" toast is now infinite
+
+2014-08-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/update.sh: less error messages
+
+
+2014-08-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/toast.js: Toast length constants added
+	added infinite toasts (intended for update notifications)
+
+	* scripts/ui/main.js: checking for updates once
+
+	* scripts/ui/strings.js: update strings added
+	fallback strings updated
+
+	* .gitignore: ignoring temporary files of various editors
+
+2014-06-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_storage.js: Download under specific file name (using Blob and window.URI, where available)
+
+	* scripts/ui/state.js: moved from blob.js
+
 2014-05-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_storage.js: focus tab_teams on file load
@@ -135,7 +904,6 @@
 
 	* scripts/ui/tab_storage: developer tools added
 	textareas and localstorage-checkbox removed
-	
 
 2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
@@ -162,4 +930,3 @@
 	* scripts/ui/tab_games: using Options (Opts) to allow registrations
 
 	* ChangeLog: changelog started. For previous changes, see git history
-

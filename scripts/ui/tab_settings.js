@@ -1,8 +1,11 @@
-define([ './toast', './strings', './team', './history', './ranking', './blob',
-    './base64', './storage', './options', './opts', './players', './tabshandle' ], function (Toast, Strings, Team, History, Ranking, Blob, Base64, Storage, Options, Opts, Players, Tabshandle) {
-  var Tab_Storage, $tab, areas, options;
+define([ './toast', './strings', './team', './history', './ranking', './state',
+    '../lib/base64', './storage', './options', './opts', './players',
+    './tabshandle' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle) {
+  var Tab_Settings, $tab, areas, options, updatepending;
 
-  Tab_Storage = {};
+  updatepending = false;
+
+  Tab_Settings = {};
   options = {};
   areas = {};
 
@@ -33,8 +36,21 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     areas.csv.$download.hide();
   }
 
+  function createDownloadURL (content, mimetype) {
+    var url;
+    mimetype = mimetype || 'text/plain';
+
+    if (window.URL && window.URL.createObjectURL && Blob) {
+      url = window.URL.createObjectURL(new Blob([ content ]));
+    } else {
+      url = 'data:' + mimetype + ';base64,' + btoa(content);
+    }
+
+    return url;
+  }
+
   function csvupdate () {
-    var $buttons, csv;
+    var $buttons, csv, url;
 
     $buttons = areas.csv.$buttons;
 
@@ -57,8 +73,9 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     csv = csv.join('\r\n""\r\n');
 
-    // update download link
-    areas.csv.$download.attr('href', 'data:application/csv;base64,' + btoa(csv));
+    url = createDownloadURL(csv, 'application/csv');
+
+    areas.csv.$download.attr('href', url);
     areas.csv.$download.show();
   }
 
@@ -84,10 +101,11 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
     // TODO read from/compare with database
 
-    save = Blob.toBlob();
+    save = State.toBlob();
 
+    url = createDownloadURL(save, 'application/json');
     // update link
-    areas.save.$download.attr('href', 'data:application/json;base64,' + btoa(save));
+    areas.save.$download.attr('href', url);
     areas.save.$download.show();
   }
 
@@ -131,12 +149,12 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     case evt.target.error.ABORT_ERR:
       break;
     default:
-      new Toast(Strings.fileerror);
+      new Toast(Strings.fileerror, Toast.LONG);
     }
   }
 
   function loadFileLoad (evt) {
-    var blob;
+    var blob, Alltabs;
 
     blob = evt.target.result;
 
@@ -144,7 +162,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     Storage.clear(Options.dbname);
 
     try {
-      if (Blob.fromBlob(blob)) {
+      if (State.fromBlob(blob)) {
         Storage.changed();
         // TODO event handler
         resetStorageState();
@@ -153,12 +171,18 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
       } else {
         // TODO what if something invalid has been returned?
       }
-    } catch (e) {
-      new Toast(Strings.loadfailed);
-      window.setTimeout(function () {
-        // TODO don't reload, but reset from storage or something
-        window.location.reload(); // reload after load fail
-      }, 2000);
+    } catch (err) {
+      new Toast(Strings.loadfailed, Toast.LONG);
+      // perform a complete reset of the everything related to the tournament
+      Storage.enable();
+      Storage.clear(Options.dbname);
+      Alltabs = require('./alltabs');
+      Alltabs.reset();
+      State.reset();
+      Alltabs.update();
+
+      new Toast(Strings.newtournament);
+      Tabshandle.focus('teams');
     }
   }
 
@@ -167,27 +191,22 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   }
 
   function reloadAutocomplete () {
-    $.ajax({
-      dataType : 'text',
-      contentType : "text/plain; charset=utf-8",
-      url : Options.playernameurl,
-      timeout : 3000
-    }).done(function (response, status) {
-      if (response.length === 0) {
+    $.get(Options.playernameurl, undefined, function (jsontext, status, response) {
+      if (jsontext.length === 0) {
         new Toast(Strings.fileempty);
       } else {
         // TODO check format?
-        Players.fromString(response);
+        Players.fromBlob(jsontext);
         Storage.store();
         new Toast(Strings.autocompleteloaded);
       }
-    }).fail(function () {
+    }, 'text').fail(function () {
       var content, i;
       // TODO use an iframe, message passing and and a separate player database
 
       console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
 
-      new Toast(Strings.autocompletereloadfailed, 5);
+      new Toast(Strings.autocompletereloadfailed, Toast.LONG);
     });
   }
 
@@ -261,11 +280,39 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     new Toast(Strings.fileabort);
   }
 
+  function updateLocalStorageMeters () {
+    var dbvalue, usage; // usage in MiB
+
+    if (window.localStorage) {
+      // player
+      dbvalue = window.localStorage[Options.dbplayername];
+      if (dbvalue) {
+        usage = dbvalue.length / (1024 * 1024);
+      } else {
+        usage = 0.0;
+      }
+
+      areas.local.$playermeter.val(usage.toString());
+
+      // tournament
+      dbvalue = window.localStorage[Options.dbname];
+      if (dbvalue) {
+        usage = dbvalue.length / (1024 * 1024);
+      } else {
+        usage = 0.0;
+      }
+
+      areas.local.$tournamentmeter.val(usage.toString());
+    }
+  }
+
   function initLocalStorage () {
     areas.local = {};
 
     areas.local.$savebutton = $tab.find('.local button.save');
     areas.local.$clearbutton = $tab.find('.local button.clear');
+    areas.local.$playermeter = $tab.find('.local .playerstoragemeter');
+    areas.local.$tournamentmeter = $tab.find('.local .tournamentstoragemeter');
 
     areas.local.$savebutton.click(function (e) {
       Storage.enable();
@@ -293,7 +340,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
         Alltabs = require('./alltabs');
 
         Alltabs.reset();
-        Blob.reset();
+        State.reset();
         Alltabs.update();
 
         new Toast(Strings.newtournament);
@@ -318,12 +365,12 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
 
   function init () {
     if ($tab) {
-      console.error('tab_storage: $tab is already defined:');
+      console.error('tab_settings: $tab is already defined:');
       console.error($tab);
       return;
     }
 
-    $tab = $('#storage');
+    $tab = $('#settings');
 
     initCSV();
     initSave();
@@ -335,7 +382,7 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
   /**
    * reset an initial state
    */
-  Tab_Storage.reset = function () {
+  Tab_Settings.reset = function () {
     if (!$tab) {
       init();
     }
@@ -346,24 +393,41 @@ define([ './toast', './strings', './team', './history', './ranking', './blob',
     invalidateAutocomplete();
 
     resetStorageState();
+
+    updateLocalStorageMeters();
   };
 
-  Tab_Storage.update = function () {
-    Tab_Storage.reset();
-    updateAutocomplete();
+  Tab_Settings.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
+    if (updatepending) {
+      console.log('updatepending');
+    } else {
+      updatepending = true;
+      window.setTimeout(function () {
+        Tab_Settings.reset();
+        updateAutocomplete();
+        updateLocalStorageMeters();
+        updatepending = false;
+        console.log('update');
+      }, 1);
+    }
   };
 
-  Tab_Storage.getOptions = function () {
+  Tab_Settings.getOptions = function () {
     return Opts.getOptions({
       options : options
     });
   };
 
-  Tab_Storage.setOptions = function (opts) {
+  Tab_Settings.setOptions = function (opts) {
     return Opts.setOptions({
       options : options
     }, opts);
   };
 
-  return Tab_Storage;
+  return Tab_Settings;
 });

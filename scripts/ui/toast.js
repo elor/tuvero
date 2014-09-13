@@ -4,21 +4,24 @@
  * insert an html node instead of text
  */
 define(function () {
-  var Toast, fadein, fadeout, pending;
+  var Toast, fadein, fadeout, pending, toastfn;
 
   // pending toasts which have been issued before jquery was available
   pending = [];
 
-  // temporary toast constructor
-  Toast = function (str, seconds) {
+  toastfn = function (str, seconds) {
     pending.push({
       str : str,
       seconds : seconds
     });
   };
 
-  // wait for jquery
-  $(function ($) {
+  // temporary toast constructor
+  Toast = function (str, seconds) {
+    toastfn(str, seconds);
+  };
+
+  Toast.init = function () {
     var $hidden, transition, duration;
     // create toast container
     $('body').append('<div id="toasts"><div class="hidden" style="display:none;">ERROR</div></div>');
@@ -26,6 +29,7 @@ define(function () {
     function getTransitionDuration () {
       var prefix, prefixes, transition;
 
+      // TODO remove prefixes from this file
       prefixes = [ '', '-o-', '-ms-', '-moz-', '-webkit-' ];
       transition = undefined;
 
@@ -48,7 +52,7 @@ define(function () {
     // abort if the style is not set
     if ($('#toasts').css('position') !== 'fixed') {
       console.error('Toast: stylesheet not found');
-      Toast = function (str, seconds) {
+      toastfn = function (str, seconds) {
         console.error('Toast: ' + str);
       };
     } else {
@@ -72,11 +76,11 @@ define(function () {
       }
 
       // actual Toast constructor
-      Toast = function (str, seconds) {
+      toastfn = function (str, seconds) {
         var $toasts, $div, $br;
 
         // default to two seconds duration
-        seconds = seconds || 2;
+        seconds = seconds || Toast.SHORT;
 
         $toasts = $('#toasts');
         $div = $('<div></div>');
@@ -98,17 +102,20 @@ define(function () {
           $div.addClass('toast');
         }, 10);
 
-        // fadeout timeout
-        // TODO on toast fadeout: move whole column upwards
-        window.setTimeout(function () {
-          $div.removeClass('toast');
-        }, 1000 * (seconds + fadein));
+        // remote the toast if it's not infinite
+        if (seconds > 0) {
+          // fadeout timeout
+          // TODO on toast fadeout: move whole column upwards
+          window.setTimeout(function () {
+            $div.removeClass('toast');
+          }, 1000 * (seconds + fadein));
 
-        // remove timeout
-        window.setTimeout(function () {
-          $br.remove();
-          $div.remove();
-        }, 1000 * (seconds + fadein + fadeout));
+          // remove timeout
+          window.setTimeout(function () {
+            $br.remove();
+            $div.remove();
+          }, 1000 * (seconds + fadein + fadeout));
+        }
       };
     }
 
@@ -116,7 +123,11 @@ define(function () {
     pending.forEach(function (toast) {
       new Toast(toast.str, toast.seconds);
     }, this);
-  });
+  };
+
+  Toast.SHORT = 2;
+  Toast.LONG = 5;
+  Toast.INFINITE = -1;
 
   // remember: return by reference. The new function will replace the old one
   return Toast;

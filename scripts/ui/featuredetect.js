@@ -20,20 +20,20 @@ define([ './strings', './toast' ], function (Strings, Toast) {
     if (!Modernizr.filereader) {
       $('.nofilereader').show();
       $('.filereader').detach();
-      new Toast(Strings.nofilereader, 5);
+      new Toast(Strings.nofilereader, Toast.LONG);
     }
 
     if (!Modernizr.json) {
       $('.nojson').show();
       $('.json').detach();
-      new Toast(Strings.nojson, 5);
+      new Toast(Strings.nojson, Toast.LONG);
       confirmLeave();
     }
 
     if (!Modernizr.localstorage) {
       $('.nostorage').show();
       $('.storage').detach();
-      new Toast(Strings.nostorage, 5);
+      new Toast(Strings.nostorage, Toast.LONG);
       confirmLeave();
     }
   });

@@ -1,117 +1,109 @@
-#history h3 {
-  text-align: left;
-  margin-top: 1em;
-}
-
-#history .game, #history .bye {
-  display: table;
-  float: left;
-  margin: 0.5em;
-  border-radius: 0.5em;
-  background-color: #808080;
-  padding: 0.3em;
-  text-align: center;
-  white-space: nowrap;
-}
-
-#history .game .teamno, #history .bye .teamno {
-  display: table-cell;
-  margin: 0px;
-  border-radius: 0.3em;
-  background-color: #d0d0d0;
-  padding: 0.3em;
-}
-
-#history .game .correctbox {
-  display: table-cell;
-  height: 100%;
-  vertical-align: middle;
-}
-
-#history .game .correct {
-  display: block;
-  height: 2em;
-  border: none;
-  margin: 0.2em;
-  box-shadow: 1px 1px 0px #808080;
-  background-color: #d0d0d0;
-  font-size: 0.8em;
-  width: 3em;
-  cursor: pointer;
-}
-
-#history .chpoints {
-  display: table-cell;
-  white-space: nowrap;
-  vertical-align: middle;
-  margin: 0.5em;
-}
-
-#history .chpoints .middle {
-  display: block;
-  text-align: center;
-  vertical-align: middle;
-}
-
-#history .chpoints button {
-  width: 6.5em;
-  border: none;
-  box-shadow: inset 0px 0px 1px #000000;
-  border-radius: 5px;
-  background-color: #d3d3d3;
-  transition: color 0.2s;
+#history .box {
   display: inline-block;
-  height: 1.5em;
-  margin: 0px;
-  font-size: 0.8em;
-  min-width: 1em;
-  padding: 0em 0.2em;
-  cursor: pointer;
 }
 
-#history .chpoints .points {
-  width: 3em;
+#history.progress .box {
+  display: block;
+}
+
+#history .box table {
+  display: inline-block;
+  white-space: nowrap;
+  border-spacing: 0.1em;
+}
+
+#history .gamestable {
+  border-collapse: separate;
+}
+
+#history .gamestable .team {
+  text-align: left;
+  background-color: #d0d0d0;
+  border-radius: 0.5em;
+  padding: 0em;
+}
+
+#history .gamestable .team .number {
+  min-width: 1.5em;
+  font-size: 200%;
   text-align: center;
+}
+
+#history .gamestable .team span {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0em;
+}
+
+#history.maxwidth .names {
+  width: 8em;
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#history.hidenames .names  {
+  display: none !important;
+}
+
+#history .names.hidden {
+  display: none !important;
+}
+
+#history .progresstable {
+  border: solid 1px;
+}
+
+#history .progresstable th {
+  border-bottom: solid 1px;
+}
+
+#history .progresstable .vsep {
+  border-left: solid 1px;
+}
+
+#history .progresstable .names {
+  text-align: left;
+}
+
+#history .progresstable .game, 
+#history .progresstable .result {
+  padding: 0em 0.2em;
+}
+
+#history .progresstable tr:nth-child(even) {
+  background-color: #d3d3d3;
+}
+
+#history .kotree {
+  position: relative;
+}
+
+#history .kotree .game {
+  display: block;
+  position: absolute;
+  background-color: #d0d0d0;
+  border-radius: 0.5em;
+  padding: 0.2em;
+  border: solid 1px;
+}
+
+#history .kotree .game .names {
+  display: inline-block;
+  min-height: 1em;
+}
+
+#history .kotree .game .number {
+  min-width: 1.5em;
+  font-weight: bold;
+}
+
+#history .kotree .game .points {
+  min-width: 3em;
 }
 
 @media print {
-
-  #history .game, #history .bye, #history .game .teamno, #history .bye .teamno {
-    padding: 0em;
-    margin-top: 0em;
-    margin-bottom: 0em;
-  }
-
-  #history .game:before, #history .bye:before {
-    content: "(";
-    font-size: 200%;
-  }
-
-  #history .game:after, #history .bye:after {
-    content: ")";
-    font-size: 200%;
-  }
-
-  #history .game .correctbox button {
-    box-shadow: 0px 0px 0px #000000;
-    font-size: 100%;
-    width: auto;
-  }
-
-  #history .game .correct {
-    display: block;
-    height: 2em;
-    border: none;
-    margin: 0.2em;
-    box-shadow: 1px 1px 0px #808080;
-    background-color: #d0d0d0;
-    font-size: 0.8em;
-    width: 4em;
-    cursor: pointer;
-  }
-
-  #history .bye .teamno:after {
-    content: "∅";
-    font-size: 75%;
+  #history .progresstable tr:nth-child(even) {
+    background: none;
   }
 }

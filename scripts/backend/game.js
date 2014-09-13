@@ -6,10 +6,11 @@ define(function () {
   /**
    * constructor of a Game instance. It simply initiates both variables
    */
-  var Game = function (p1, p2) {
+  var Game = function (p1, p2, id) {
     this.teams = []; // team array
     this.starttime = 0; // start time in unix epoch milliseconds
-    
+    this.id = id || 0; // additional internal id of the game
+
     // default behaviour: two teams, one player per team (tournaments are
     // expected to treat teams as players)
     if (p1 !== undefined && p2 !== undefined && typeof p1 === 'number' && typeof p2 === 'number') {
@@ -55,7 +56,9 @@ define(function () {
   };
 
   /**
-   * deep equal test of this and another game
+   * deep equal of this and another game.
+   * 
+   * This function ignores the id
    * 
    * @param game
    *          another game
@@ -108,6 +111,7 @@ define(function () {
     }, this);
 
     ret.starttime = this.starttime;
+    ret.id = this.id;
 
     return ret;
   };

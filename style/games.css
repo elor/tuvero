@@ -1,12 +1,12 @@
-#games .game {
-  display: block;
+#games .game, #games .votes .vote {
+  display: inline-table;
   margin: 0.5em;
   border-radius: 0.5em;
-  background-color: #808080;
-  padding: 0.3em;
+  border: solid 0.2em #808080;
+  background-color: #d3d3d3;
   text-align: left;
-  float: left;
   white-space: nowrap;
+  vertical-align: top;
 }
 
 #games .game > div {
@@ -14,17 +14,6 @@
   margin: 0.0em;
   padding: 0.0em;
   width: 100%;
-  background-color: #d3d3d3;
-}
-
-#games .game .top {
-  border-top-left-radius: 0.4em;
-  border-top-right-radius: 0.4em;
-}
-
-#games .game .bottom {
-  border-bottom-left-radius: 0.4em;
-  border-bottom-right-radius: 0.4em;
 }
 
 #games .game .finish {
@@ -60,6 +49,7 @@
   display: table-cell;
   padding: 0em 0.3em;
   font-weight: bold;
+  vertical-align: middle;
 }
 
 #games.maxwidth .names {
@@ -69,16 +59,16 @@
   text-overflow: ellipsis;
 }
 
+#games.hidenames .names {
+  display: none;
+}
+
 #games .names.left {
   text-align: left;
 }
 
 #games .names.right {
   text-align: right;
-}
-
-#games .votes {
-  text-align: left;
 }
 
 #games .votes > div {
@@ -90,25 +80,20 @@
 }
 
 #games .votes .vote {
-  display: table;
-  float: left;
+  display: inline-table;
   border-radius: 0.5em;
-  background-color: #808080;
-  padding: 0.3em;
+  border-style: solid;
+  border-width: 0.2em;
+  border-color: #808080;
+  background-color: #d3d3d3;
   margin: 0.5em;
   white-space: nowrap;
 }
 
 #games .votes .vote .teamno {
   display: table-cell;
-  border-radius: 0em;
-  border-top-left-radius: 0.2em;
-  border-bottom-left-radius: 0.2em;
 }
 
-#games .votes .vote .names {
+#games:not(.hidenames) .votes .vote .names {
   display: table-cell;
-  background-color: #d3d3d3;
-  border-top-right-radius: 0.4em;
-  border-bottom-right-radius: 0.4em;
 }

@@ -4,7 +4,7 @@
  * rewriting for multi-player teams, which are only useful for random teams.
  */
 define([ './tournament', './map', './finebuchholzranking', './game',
-    './result', './random', './correction', './options' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction, Options) {
+    './result', './random', './correction', './options', './rleblobber' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction, Options, RLEBlobber) {
   var Swisstournament;
 
   /**
@@ -112,12 +112,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       this.state = Tournament.STATE.RUNNING;
       this.round += 1;
       this.rkch = true;
-      this.options.mode = Swisstournament.MODES[0]; // should be 'wins'
     } else {
       return undefined;
     }
 
-    return this.getGames();
+    return true;
   };
 
   /**
@@ -158,7 +157,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     // convert to internal pid
-    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]));
+    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]), game.id);
 
     // verify that the game is in the games list
     invalid = true;
@@ -197,7 +196,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // convert internal to external ids
     var games = [];
     this.games.forEach(function (game, i) {
-      games[i] = new Game(this.players.at(game.teams[0][0]), this.players.at(game.teams[1][0]));
+      games[i] = new Game(this.players.at(game.teams[0][0]), this.players.at(game.teams[1][0]), game.id);
     }, this);
 
     return games;
@@ -297,7 +296,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    */
   function newRoundByRandom () {
     // TODO write test
-    var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft;
+    var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft, globaltries;
 
     // abort if the tournament isn't running
     if (this.state === Tournament.STATE.RUNNING) {
@@ -331,35 +330,49 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       bye = this.rng.pick(byes);
     }
 
-    playersleft = [];
-    for (id = 0; id < numplayers; id += 1) {
-      if (id !== bye) {
-        playersleft.push(id);
+    // just randomize it
+
+    globaltries = 50;
+    newgames = [];
+
+    while (globaltries > 0) {
+      triesleft = numplayers * 20;
+      globaltries -= 1;
+
+      playersleft = [];
+      for (id = 0; id < numplayers; id += 1) {
+        if (id !== bye) {
+          playersleft.push(id);
+        }
+      }
+
+      // TODO add backtracking
+      while (playersleft.length > 0) {
+        p1 = this.rng.pickAndRemove(playersleft);
+        p2 = this.rng.pickAndRemove(playersleft);
+
+        if (canPlay.call(this, p1, p2)) {
+          newgames.push(new Game(p1, p2, newgames.length));
+        } else {
+          playersleft.push(p1);
+          playersleft.push(p2);
+        }
+
+        triesleft -= 1;
+        if (triesleft <= 0) {
+          newgames = [];
+          break;
+        }
+      }
+
+      if (newgames.length) {
+        break;
       }
     }
 
-    // just randomize it
-
-    triesleft = numplayers * 10;
-    newgames = [];
-
-    // TODO add backtracking
-    while (playersleft.length > 0) {
-      p1 = this.rng.pickAndRemove(playersleft);
-      p2 = this.rng.pickAndRemove(playersleft);
-
-      if (canPlay.call(this, p1, p2)) {
-        newgames.push(new Game(p1, p2));
-      } else {
-        playersleft.push(p1);
-        playersleft.push(p2);
-      }
-
-      triesleft -= 1;
-      if (triesleft <= 0) {
-        console.error("Failed to find non-repeating games");
-        return undefined;
-      }
+    if (newgames.length === 0) {
+      console.warn("Failed to find non-repeating games");
+      return undefined;
     }
 
     clearRoundvotes.call(this);
@@ -461,7 +474,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       p2 = this.rng.pickAndRemove(upper);
 
       if (canPlay.call(this, p1, p2)) {
-        newgames.push(new Game(p1, p2));
+        newgames.push(new Game(p1, p2, newgames.length));
       } else {
         lower.push(p1);
         upper.push(p2);
@@ -469,7 +482,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
       triesleft -= 1;
       if (triesleft <= 0) {
-        console.error("Failed to find non-repeating games");
+        console.warn("Failed to find non-repeating games");
         return undefined;
       }
     }
@@ -519,7 +532,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     if (votes === undefined) {
       // abort. there's no way to downvote properly
-      console.error('wingroups: missing downvotes');
+      console.warn('wingroups: missing downvotes');
       return undefined;
     }
 
@@ -542,7 +555,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     }
 
     if (lowestWinGroup === wingroups.length) {
-      console.error('no lowest win group detected, meaning that there are not players');
+      console.warn('no lowest win group detected, meaning that there are no players');
       return undefined;
     }
 
@@ -578,7 +591,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
         p2 = this.rng.pick(candidates);
 
-        newgames.push(new Game(p1, p2));
+        newgames.push(new Game(p1, p2, newgames.length));
         wingroup.splice(wingroup.indexOf(p2), 1);
         votes.upvotes[wins] = p2;
       }
@@ -592,7 +605,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
           // if they haven't already played against another
           if (canPlay.call(this, p1, p2)) {
             // create game
-            newgames.push(new Game(p1, p2));
+            newgames.push(new Game(p1, p2, newgames.length));
             wingroup.splice(wingroup.indexOf(p1), 1);
             wingroup.splice(wingroup.indexOf(p2), 1);
           } else {
@@ -601,7 +614,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
           timeout -= 1;
           if (timeout <= 0) {
-            console.error('newRoundByWins: timeout reached. Key players have already been matched');
+            console.warn('newRoundByWins: timeout reached. Key players have already been matched');
             return;
           }
         }
@@ -717,7 +730,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       if (!wingroups[wins]) {
         // there's a wingroup missing. The tournament lasts too long
         // return undefined;
-        console.error('wingroup #' + wins + ' is empty');
+        console.warn('wingroup #' + wins + ' is empty');
         wingroups[wins] = [];
       }
     }
@@ -789,7 +802,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
         // abort if no player can be downvoted
         if (candidates.length === 0) {
-          console.error('no player in wingroup ' + w + ' can be downvoted');
+          console.warn('no player in wingroup ' + w + ' can be downvoted');
           return undefined;
         }
 
@@ -815,7 +828,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       wingroups[lowestWinGroup].forEach(fillCandidates, this);
 
       if (candidates.length === 0) {
-        console.error('no candidate wingroup ' + w + ' can be byevoted');
+        console.warn('no candidate wingroup ' + w + ' can be byevoted');
         return undefined;
       }
 
@@ -959,6 +972,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     // if (this.ranking.added(new Game(pid1, pid2)))
     // console.error('game was already played')
     // DEBUG END
+    // FIXME dont allocate a new Game EVERY TIME!
     return pid1 < this.players.size() && pid2 < this.players.size() && pid1 !== pid2 && this.ranking.added(new Game(pid1, pid2)) === false;
   }
 
@@ -979,7 +993,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     var res1, res2;
 
     // map to internal ids
-    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]));
+    game = new Game(this.players.find(game.teams[0][0]), this.players.find(game.teams[1][0]), game.id);
 
     // create results
     res1 = new Result(game.teams[0], game.teams[1], oldpoints[0], oldpoints[1]);
@@ -995,7 +1009,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * build a list of corrections which are consistent in format with the
    * correct() function
    * 
-   * @returns
+   * @returns a list of correction objects
    */
   // TODO test
   Swisstournament.prototype.getCorrections = function () {
@@ -1025,15 +1039,15 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     var ob;
 
     ob = {
-      byevote : this.byevote,
-      downvote : this.downvote,
+      byevote : RLEBlobber.toBlob(this.byevote),
+      downvote : RLEBlobber.toBlob(this.downvote),
       games : this.games,
       players : this.players.toBlob(),
       ranking : this.ranking.toBlob(),
       round : this.round,
       roundvotes : this.roundvotes,
       state : this.state,
-      upvote : this.upvote
+      upvote : RLEBlobber.toBlob(this.upvote),
     };
 
     return JSON.stringify(ob);
@@ -1052,12 +1066,12 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return Game.copy(game);
     }
 
-    this.byevote = ob.byevote;
-    this.downvote = ob.downvote;
+    this.byevote = RLEBlobber.fromBlob(ob.byevote);
+    this.downvote = RLEBlobber.fromBlob(ob.downvote);
     this.round = ob.round;
     this.roundvotes = ob.roundvotes;
     this.state = ob.state;
-    this.upvote = ob.upvote;
+    this.upvote = RLEBlobber.fromBlob(ob.upvote);
 
     this.games = ob.games.map(copyGame);
 
@@ -1105,6 +1119,9 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
   Swisstournament.prototype.getOptions = Options.prototype.getOptions;
   Swisstournament.prototype.setOptions = Options.prototype.setOptions;
+  Swisstournament.prototype.getType = function () {
+    return 'swiss';
+  };
 
   // TODO add 'interlaced' swiss mode
   Swisstournament.MODES = [ 'wins', 'halves', 'random' ];
