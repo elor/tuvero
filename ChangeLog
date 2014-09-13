@@ -3,6 +3,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	* boules.html: got rid of the strange span system for corrections
 	tournamentrank column added in tab_new
 	tournament chname field added
+	unicode entity added for tournament removal "button"
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
@@ -30,6 +31,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/update.js: Update.isDevVersion removed
 	if no dev version and manifest is missing: print warning Toast
+	eclipse warning suppressed with another cheap hack
 
 	* scripts/ui/tab_new.js: tournamentrank column used
 	GlobalRanking used
@@ -40,6 +42,8 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	chabort function simplified
 	not passing Tournament objects around
 	showing an error if a tournament isn't running, but wants to be displayed
+	adding removal button to every system block
+	adding 'editable' class only to actual tournaments
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -71,6 +75,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
 
+	* style/new.css: 
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

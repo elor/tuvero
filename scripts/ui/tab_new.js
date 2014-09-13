@@ -63,7 +63,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     template.$system = template.team.$container.find('.system');
     template.$system.detach();
-    template.$system.text('');
+    template.$removesystem = template.$system.find('.removesystem');
+    template.$removesystem.detach();
     template.$anchor = $tab.find('table.playertable');
 
     template.system = {};
@@ -207,7 +208,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function updateSystems () {
-    var $anchor, height, $clone, $swiss, name, tournamentid;
+    var $anchor, height, $clone, $swiss, name, tournamentid, $title;
 
     // TODO startTeam === 0
     $anchor = $tab.find('.team').eq(0);
@@ -242,7 +243,14 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       initNewsystem($clone);
     }
 
-    $clone.append($clone.find('>h3').addClass('editable').clone());
+    $title = $clone.find('>h3');
+    if (tournamentid !== undefined) {
+      $title.addClass('editable');
+    }
+    $clone.append($title.clone());
+
+    $title.after(template.$removesystem.clone());
+
     if (name) {
       $clone.find('.name').text(name);
     }

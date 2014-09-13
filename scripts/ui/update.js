@@ -56,5 +56,9 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
     }
   };
 
+  // Note: Update() is NOT A CLASS
+  // This is just a cheap hack to keep type mismatch warnings suppressed
+  Update.prototype = {};
+
   return Update;
 });

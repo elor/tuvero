@@ -79,6 +79,19 @@
   vertical-align: middle;
 }
 
+#new .playertable .system .removesystem {
+  display: block;
+  position: absolute;
+  top: 0.3em;
+  right: 0.3em;
+  cursor: pointer;
+}
+
+#new .playertable .system .removesystem:hover {
+  color: red;
+  text-shadow: black 1px 1px;
+}
+
 #new .playertable .system > .preparing,
 #new .playertable .system > .running,
 #new .playertable .system > .finished,
