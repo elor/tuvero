@@ -118,6 +118,7 @@
 	minmatchround removed
 	some logging removed
 	start() and finishGame() rewritten to get rid of KOTournament
+	starting new games as soon as they become available
 
 	* scripts/backend/swisstournament.js: game id added and passed through most functions
 
