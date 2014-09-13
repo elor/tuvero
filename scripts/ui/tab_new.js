@@ -318,10 +318,11 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       var i, bye, team, round;
       if (KO.start()) {
         // add the bye to history
-        bye = getRoundVotes(KO).bye;
-        while (bye.length > 0) {
-          History.addVote(0, History.BYE, bye.shift(), round - 1);
-        }
+        // at the moment, there's no bye in KO. This might change in the future
+        // bye = getRoundVotes(KO).bye;
+        // while (bye.length > 0) {
+        // History.addVote(0, History.BYE, bye.shift(), round - 1);
+        // }
 
         new Toast(Strings.tournamentstarted);
         Storage.store();

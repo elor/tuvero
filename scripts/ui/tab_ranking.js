@@ -103,29 +103,35 @@ define([ './tournaments', './team', './toast', './strings', './options',
     tid = ranking.ids[rank];
     team = Team.get(tid);
 
-    template.rank.$fields[0].text(rank + 1);
+    template.rank.$fields[0].text(ranking.place[rank] + 1);
 
     template.rank.$fields[1].text(team.id + 1);
     for (i = 0; i < Options.teamsize; i += 1) {
       template.rank.$fields[i + 2].text(team.names[i]);
     }
 
-    template.rank.$fields[5].text(ranking.games[rank]);
+    template.rank.$fields[5].text(ranking.games ? ranking.games[rank] : '');
 
-    template.rank.$fields[6].text(ranking.wins[rank]);
-    template.rank.$fields[7].text(ranking.buchholz[rank]);
-    template.rank.$fields[8].text(ranking.finebuchholz[rank]);
-    template.rank.$fields[9].text(ranking.netto[rank]);
+    template.rank.$fields[6].text(ranking.wins ? ranking.wins[rank] : '');
+    template.rank.$fields[7].text(ranking.buchholz ? ranking.buchholz[rank] : '');
+    template.rank.$fields[8].text(ranking.finebuchholz ? ranking.finebuchholz[rank] : '');
+    template.rank.$fields[9].text(ranking.netto ? ranking.netto[rank] : '');
 
     vote = [];
-    for (i = 0; i < ranking.upvote[rank]; ++i) {
-      vote.push(Strings.upvote);
+    if (ranking.upvote) {
+      for (i = 0; i < ranking.upvote[rank]; ++i) {
+        vote.push(Strings.upvote);
+      }
     }
-    for (i = 0; i < ranking.downvote[rank]; ++i) {
-      vote.push(Strings.downvote);
+    if (ranking.downvote) {
+      for (i = 0; i < ranking.downvote[rank]; ++i) {
+        vote.push(Strings.downvote);
+      }
     }
-    for (i = 0; i < ranking.byevote[rank]; ++i) {
-      vote.push(Strings.byevote);
+    if (ranking.byevote) {
+      for (i = 0; i < ranking.byevote[rank]; ++i) {
+        vote.push(Strings.byevote);
+      }
     }
 
     template.rank.$fields[10].text(vote.join(''));

@@ -443,13 +443,13 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     };
 
     for (i = 0; i < ranking.ids.length; i += 1) {
-      if (ranking.roundupvote[i]) {
+      if (ranking.roundupvote && ranking.roundupvote[i]) {
         votes.up.push(ranking.ids[i]);
       }
-      if (ranking.rounddownvote[i]) {
+      if (ranking.rounddownvote && ranking.rounddownvote[i]) {
         votes.down.push(ranking.ids[i]);
       }
-      if (ranking.roundbyevote[i]) {
+      if (ranking.roundbyevote && ranking.roundbyevote[i]) {
         votes.bye.push(ranking.ids[i]);
       }
     }

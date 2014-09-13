@@ -22,7 +22,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   }
 
   function level (id) {
-    return Math.floor(Math.log(id) / Math.LN2);
+    return Math.floor(Math.log(id + 1) / Math.LN2);
   }
 
   function levelbynodes (numnodes) {
@@ -99,7 +99,6 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     numbyes = 0;
     numrounds = numRounds(numPlayers);
 
-    // totalplayers = Math.round(Math.pow(2, numrounds));
     totalplayers = 1 << numrounds;
 
     pids = [];
@@ -263,7 +262,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   };
 
   KOTournament.prototype.finishGame = function (game, points) {
-    var p1, p2, gameid, parentid, i, winner;
+    var p1, p2, gameid, i, winner;
 
     if (this.state !== Tournament.STATE.RUNNING) {
       return undefined;
@@ -324,6 +323,8 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     var isleft, i, parentid, opponent;
 
     parentid = parent(gameid);
+    this.gameid[pid] = parentid;
+
     if (parentid === -1) {
       return;
     }
@@ -335,7 +336,6 @@ define([ './tournament', './map', './random', './game', './options' ], function 
       opponent = this.gameid.indexOf(parentid, pid + 1);
     }
 
-    this.gameid[pid] = parentid;
     if (opponent > -1) {
       this.games.push(new Game((isleft ? pid : opponent), (isleft ? opponent : pid), parentid));
     }
@@ -352,12 +352,28 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   };
 
   KOTournament.prototype.getRanking = function () {
-    // TODO create an actual ranking
+    var idmap, worstplaces, numplayers;
+
+    worstplaces = [];
+    idmap = [];
+
+    while (idmap.length < this.players.size()) {
+      worstplaces[idmap.length] = worstplace(level(this.gameid[idmap.length]));
+      idmap.push(idmap.length);
+    }
+
+    idmap.sort(function (a, b) {
+      return worstplaces[a] - worstplaces[b] || a - b;
+    });
+
+    numplayers = this.players.size();
 
     return {
-      place : [], // actual place, usually [1, 2, 3, ...]. Necessary.
-      ids : [], // sorted for ranking. Necessary
-      round : [], // the current round or the last round
+      place : idmap.map(function (id) {
+        return Math.min(numplayers - 1, worstplaces[id]);
+      }), // actual place, usually [1, 2, 3, ...]. Necessary.
+      ids : idmap, // sorted for ranking. Necessary
+      round : 1, // always 1.
     };
   };
 
