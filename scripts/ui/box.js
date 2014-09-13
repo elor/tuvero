@@ -39,6 +39,9 @@ define(function () {
         $box.css('transition', '');
       }, 500);
     });
+
+    // collapse all .box.collapsed boxes
+    $('div.box.collapsed').css('height', 0);
   });
 
   return Box;

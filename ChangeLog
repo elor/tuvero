@@ -5,6 +5,8 @@
 	tournament chname field added
 	unicode entity added for tournament removal "button"
 	added a teamsize input for new tournaments
+	pre-collapsed advanced options box for swisstournament
+	Mail and Phone swapped
 
 	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
 	addCorrection() also rewrites the matching game
@@ -101,6 +103,8 @@
 
 	* style/general.css: collapsed boxes aren't printed
 	box headers adjusted in size in printing mode
+
+	* scripts/ui/box.js: allowing pre-collapsed boxes
 
 2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
