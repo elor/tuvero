@@ -9,6 +9,34 @@ define([ './tournament', './map', './random', './game', './options' ], function 
 
   rnd = new Random();
 
+  function left (id) {
+    return id * 2 + 1;
+  }
+
+  function right (id) {
+    return id * 2 + 2;
+  }
+
+  function parent (id) {
+    return Math.floor((id - 2) / 2);
+  }
+
+  function level (id) {
+    return Math.floor(Math.log(id) / Math.LN2);
+  }
+
+  function levelbynodes (numnodes) {
+    return Math.ceil(Math.log(numnodes)) / Math.LN2;
+  }
+
+  function nodesbylevel (level) {
+    return 2 << level;
+  }
+
+  function numLevels (numnodes) {
+    return Math.ceil(Math.log(numnodes + 1) / Math.LN2) - 1;
+  }
+
   KOTournament = function () {
     this.players = new Map();
     this.games = [];
@@ -16,34 +44,18 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     this.state = Tournament.STATE.PREPARING;
     this.options = {
       matchingMethod : 'order',
-      loserMatchMinRound : 0, // TODO better name!
-      byeOrder : 'first'
     };
   };
 
   KOTournament.OPTIONS = {
     // how the first game is determined
     // 'order': order of entry
-    // 'shifted': first vs. last and so on
+    // 'set': first vs. last and so on
     // 'random': first matches are random
     matchingMethod : {
       order : 'order',
-      shifted : 'shifted',
+      set : 'set',
       random : 'random',
-    },
-
-    // let losers play if they reached this round
-    // 0: never
-    // 1: 'third place' match
-    // 2: up to seventh place
-    loserMatchMinRound : [ 0, 1, 2, 3, 4 ], // 5...
-
-    // when to set byes
-    // 'first': add all byes in the first round
-    // 'later': let as many players play as possible
-    byeOrder : {
-      first : 'first',
-      later : 'later',
     },
   };
 
@@ -55,19 +67,6 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     this.players.insert(id);
     return this;
   };
-
-  /**
-   * returns the number of necessary rounds to get a clear winner. obviously
-   * based on logarithms
-   * 
-   * @returns the number of necessary rounds or undefined on failure
-   */
-  function numRounds (numplayers) {
-    if (numplayers >= 1) {
-      return Math.ceil(Math.log(numplayers) / Math.log(2));
-    }
-    return undefined;
-  }
 
   /**
    * create an array of players where an even-indexed player and the subsequent
@@ -83,7 +82,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
     }
 
     numbyes = 0;
-    numrounds = numRounds(numPlayers);
+    numrounds = level(numPlayers) + 1;
 
     // totalplayers = Math.round(Math.pow(2, numrounds));
     totalplayers = 1 << numrounds;
