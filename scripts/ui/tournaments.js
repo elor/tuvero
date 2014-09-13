@@ -161,7 +161,7 @@ define([ '../backend/swisstournament', './team' ], function (Swisstournament, Te
 
       children = [];
       for (i = 0; i < tournaments.length; i += 1) {
-        if (tournaments[i].parent === parent) {
+        if (tournaments[i].parent == parent) {
 
           if (queue.indexOf(i) > -1) {
             console.error('already visited: ' + i);

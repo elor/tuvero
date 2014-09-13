@@ -1,4 +1,4 @@
-c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: got rid of the strange span system for corrections
 	tournamentrank column added in tab_new
@@ -51,6 +51,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	major updateSystems() cleanup!
 	supporting the display of multiple tournaments
 	startRank bugfix
+	using the tournament order for displaying running systems
 
 	* scripts/ui/globalranking.js: GlobalRanking.get() added
 	using Tournaments.getRanking()
@@ -67,6 +68,7 @@ c2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 	numTeams() prints the correct number, even for (undefined)
 	some minor bugfixes
 	getStartRank bugfixing
+	null vs undefined!
 
 	* scripts/ui/ranking.js: using Tournaments.getRanking()
 

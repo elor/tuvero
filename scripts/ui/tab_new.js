@@ -332,11 +332,13 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function updateSystems () {
-    var $system, tournamentid;
+    var $system, tournamentid, i, order;
 
     // TODO we have to print this in globalranking order!
+    order = Tournaments.getRankingOrder();
 
-    for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
+    for (i = 0; i < order.length; i += 1) {
+      tournamentid = order[i];
 
       $system = createSystemAnchor(tournamentid);
       if (!$system) {
