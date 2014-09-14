@@ -383,7 +383,6 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     if (tournamentid !== undefined) {
       $title.addClass('editable');
       $title.after(template.$removesystem.clone());
-    } else {
       $anchor.find('.name').text(Tournaments.getName(tournamentid));
     }
     $anchor.append($title.clone());
