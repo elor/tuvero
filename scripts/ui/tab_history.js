@@ -808,7 +808,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // add byevotes through another cheap hack
     if (Tournaments.isRunning(tournamentid)) {
       Tournaments.getTournament(tournamentid).gameid.map(function (id, teamno) {
-        if (games[id].t1 === undefined) {
+        if (id > 0 && games[id].t1 === undefined) {
           games[id].t1 = teamno;
         }
       });
@@ -846,12 +846,13 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
       addKOGamesEndpoints($game, jsPlumbInstance);
 
-      rightmost = Math.max($game.offset().left + $game.outerWidth(), rightmost);
-      bottommost = Math.max($game.offset().top + $game.outerHeight(), bottommost);
+      console.log();
+      rightmost = Math.max(Number($game.css('left').replace(/px$/, '')) + Number($game.css('width').replace(/px$/, '')), rightmost);
+      bottommost = Math.max(Number($game.css('top').replace(/px$/, '')) + Number($game.css('height').replace(/px$/, '')), bottommost);
     }
 
-    rightmost -= $tree.offset().left - 10;
-    bottommost -= $tree.offset().top - 10;
+    rightmost += 10;
+    bottommost += 10;
 
     $tree.width(rightmost);
     $tree.height(bottommost);
