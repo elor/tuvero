@@ -27,7 +27,9 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
       break;
 
     case appCache.UPDATEREADY:
-      appCache.swapCache();
+      // We don't need swapCache. In fact, it would likely break the page in
+      // horrible ways if there's an API change
+      // appCache.swapCache();
       setCached(true);
       new Toast(Strings.updateavailable, Toast.INFINITE);
     case appCache.IDLE:
