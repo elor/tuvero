@@ -13,7 +13,7 @@ listImages(){
 }
 
 listHTMLs(){
-  ls *.html
+  find * -name '*.html'
 }
 
 listPlainFiles(){
