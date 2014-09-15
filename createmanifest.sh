@@ -19,7 +19,7 @@ listHTMLs(){
 listPlainFiles(){
   find * -name '*.md'
   find * -name '*.txt'
-  ls Changelog BUGS LICENSE NEWS TODO
+  ls ChangeLog BUGS LICENSE NEWS TODO
 }
 
 listStylesheets(){
