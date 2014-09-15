@@ -64,7 +64,6 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
     try {
       appCache.update();
     } catch (e) {
-      new Toast("AppCache error", Toast.LONG);
       console.error(e);
     }
   };

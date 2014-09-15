@@ -10,17 +10,17 @@ function notifyAboutLoadError (err) {
   console.log(err);
 }
 
-define([ './backgroundscripts', './splash', './toast', './strings',
-    './storage', './tab_settings', './tabshandle', './alltabs', './tab_debug',
-    './update' ], function (undefined, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug, Update) {
+define([ './update', './backgroundscripts', './splash', './toast', './strings',
+    './storage', './tab_settings', './tabshandle', './alltabs', './tab_debug', ], function (Update, undefined, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
   $(function ($) {
 
     try {
-      // look for updates
-      Update();
+      // NOT actively looking for updates. The events are handled automatically
+      // Update();
+
       // update Tab_Debug for dev version notifications
       Tab_Debug.update();
 
