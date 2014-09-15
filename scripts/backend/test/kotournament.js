@@ -17,7 +17,7 @@ define([ '../kotournament', '../game', '../tournament', '../../lib/implements' ]
     }
 
     opts = kot.getOptions();
-    opts.matchingMethod = KOTournament.OPTIONS.matchingMethod.shifted;
+    opts.matchingMethod = KOTournament.OPTIONS.matchingMethod.set;
     opts.loserMatchMinRound = 1;
     kot.setOptions(opts);
     kot.start();
