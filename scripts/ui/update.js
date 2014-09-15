@@ -4,61 +4,69 @@
 define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   var Update, appCache;
 
-  appCache = window.applicationCache;
-
-  function cacheStatus () {
-    switch (appCache.status) {
-    case appCache.UNCACHED:
-      // no cache manifest available
-      break;
-    case appCache.IDLE:
-      // everything up-to-date
-      break;
-    case appCache.CHECKING:
-      // downloading and checking manifest
-      break;
-    case appCache.DOWNLOADING:
-      // downloading new files
-      // new Toast(Strings.updatedownloading);
-      break;
-    case appCache.UPDATEREADY:
-      // finished downloading. ready to swap the cache
-      appCache.swapCache();
-      new Toast(Strings.updateavailable, Toast.INFINITE);
-      break;
-    case appCache.OBSOLETE:
-      // new version of the manifest was uploaded during download of the files.
-      break;
-    default:
-      console.error('unhandled appCache status: ' + appCache.status);
-      break;
-    }
-  }
-  appCache.addEventListener('updateready', cacheStatus);
-
-  // function cacheError () {
-  // new Toast(Strings.updatefailed, Toast.LONG);
-  // }
-  // appCache.addEventListener('error', cacheError);
-
   Update = function () {
-    if (appCache.status != appCache.UNCACHED) {
+    cacheStatus();
+    try {
       appCache.update();
-      Update.isCached = true;
-    } else {
-      Update.isCached = false;
-
-      if (!Debug.isDevVersion) {
-        console.error('no cache manifest found!');
-
-        new Toast(Strings.nomanifest, Toast.INFINITE);
-      }
+    } catch (e) {
+      console.error(e);
     }
   };
-
   // Note: Update() is NOT A CLASS
   // This is just a cheap hack to keep type mismatch warnings suppressed
   Update.prototype = {};
+
+  appCache = window.applicationCache;
+
+  function setCached (cached) {
+    if (cached) {
+      Update.isCached = true;
+    } else {
+      Update.isCached = false;
+      if (!Debug.isDevVersion) {
+        console.error('no cache manifest found!');
+        new Toast(Strings.nomanifest, Toast.INFINITE);
+      }
+    }
+  }
+
+  function cacheStatus () {
+    switch (appCache.status) {
+    case appCache.OBSOLETE:
+    case appCache.UNCACHED:
+      // no cache manifest available
+      setCached(false);
+      break;
+
+    case appCache.UPDATEREADY:
+      // We don't need swapCache. In fact, it would likely break the page in
+      // horrible ways if there's an API change
+      // appCache.swapCache();
+      setCached(true);
+      new Toast(Strings.updateavailable, Toast.INFINITE);
+      console.warn('boulesprog application cache updated');
+    case appCache.IDLE:
+      setCached(true);
+      break;
+    case appCache.CHECKING:
+    case appCache.DOWNLOADING:
+      break;
+    default:
+      console.error('unhandled appCache status: ' + appCache.status);
+      setCached(false);
+      break;
+    }
+  }
+
+  function cacheError () {
+    new Toast(Strings.updatefailed, Toast.LONG);
+    console.error('unexpected applicationCache error. window.applicationCache.status = ' + window.applicationCache.status);
+  }
+
+  appCache.addEventListener('error', cacheStatus);
+  appCache.addEventListener('cached', cacheStatus);
+  appCache.addEventListener('noupdate', cacheStatus);
+  appCache.addEventListener('updateready', cacheStatus);
 
   return Update;
 });

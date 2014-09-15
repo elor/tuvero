@@ -756,7 +756,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function createKOTree (tournamentid) {
-    var games, i, $box, g, $game, parentid;
+    var games, i, $box, g, $game, parentid, jsPlumbInstance;
 
     games = [];
 
@@ -963,16 +963,20 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     } else {
       updatepending = true;
       window.setTimeout(function () {
+        try {
+          Tab_History.reset();
 
-        Tab_History.reset();
-
-        if (showTournaments()) {
-          Tabshandle.show('history');
-        } else {
-          Tabshandle.hide('history');
+          if (showTournaments()) {
+            Tabshandle.show('history');
+          } else {
+            Tabshandle.hide('history');
+          }
+          console.log('update');
+        } catch (e) {
+          console.log(e);
+          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_history));
         }
         updatepending = false;
-        console.log('update');
       }, 1);
     }
   };
