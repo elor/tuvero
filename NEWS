@@ -1,4 +1,4 @@
-boules %VERSION (yyyy-mm-dd)
+boules %VERSION (2014-09-15)
 ----------------------------
 
 FIXES:
@@ -6,6 +6,7 @@ FIXES:
   * offline mode through application cache now works as intended
   * catching and displaying more load errors
   * display errors for each tab are caught and notified to the user
+  * Test errors fixed
 
 boules 1.4 (2014-09-14)
 -----------------------
