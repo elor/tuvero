@@ -57,7 +57,10 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   // }
   // appCache.addEventListener('error', cacheError);
 
+  cacheStatus();
+
   Update = function () {
+    cacheStatus();
     try {
       appCache.update();
     } catch (e) {
