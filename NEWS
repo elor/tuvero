@@ -1,5 +1,15 @@
-boules 1.4.1 (insert date here)
-----------------------------------
+boules %VERSION (2014-09-15)
+----------------------------
+
+FIXES:
+
+  * offline mode through application cache now works as intended
+  * catching and displaying more load errors
+  * display errors for each tab are caught and notified to the user
+  * Test errors fixed
+
+boules 1.4 (2014-09-14)
+-----------------------
 
 FEATURES:
 

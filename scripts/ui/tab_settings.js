@@ -408,11 +408,17 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     } else {
       updatepending = true;
       window.setTimeout(function () {
-        Tab_Settings.reset();
-        updateAutocomplete();
-        updateLocalStorageMeters();
+        try {
+          Tab_Settings.reset();
+          updateAutocomplete();
+          updateLocalStorageMeters();
+
+          console.log('update');
+        } catch (e) {
+          console.log(e);
+          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_settings));
+        }
         updatepending = false;
-        console.log('update');
       }, 1);
     }
   };

@@ -275,11 +275,16 @@ define([ './tournaments', './team', './toast', './strings', './options',
     } else {
       updatepending = true;
       window.setTimeout(function () {
-        if (updateTournamentRankings() === true) {
-          // new Toast(Strings.rankingupdate);
+        try {
+          if (updateTournamentRankings() === true) {
+            // new Toast(Strings.rankingupdate);
+          }
+          console.log('update');
+        } catch (e) {
+          console.log(e);
+          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_ranking));
         }
         updatepending = false;
-        console.log('update');
       }, 1);
     }
   };

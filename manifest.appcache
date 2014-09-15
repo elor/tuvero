@@ -1,10 +1,12 @@
 CACHE MANIFEST
-# Version: 1.4.1
-# Date: So 14. Sep 07:40:05 CEST 2014
+# Version: 1.4.2
+# Date: Mo 15. Sep 21:56:02 CEST 2014
 
 # the boules program is purely offline
 CACHE:
 boules.html
+doc/de/glossary.html
+doc/de/index.html
 index.html
 test.html
 scripts/backend/kotournament.js
@@ -116,6 +118,7 @@ images/ext/btn_donateCC_LG.gif
 README.md
 doc/de/glossary.txt
 BUGS
+ChangeLog
 LICENSE
 NEWS
 TODO
@@ -135,4 +138,8 @@ style/general.css
 style/settings.css
 style/qunit-1.14.0.css
 style/about.css
+
+# allow player database updates
+NETWORK:
+*
 

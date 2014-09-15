@@ -747,23 +747,28 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     } else {
       updatepending = true;
       window.setTimeout(function () {
-        Tab_New.reset();
+        try {
+          Tab_New.reset();
 
-        if (Team.count() < 2) {
-          Tabshandle.hide('new');
-        } else {
-          Tabshandle.show('new');
+          if (Team.count() < 2) {
+            Tabshandle.hide('new');
+          } else {
+            Tabshandle.show('new');
 
-          if (Tournaments.numTournaments() !== 0) {
-            closeTeamRegistration();
+            if (Tournaments.numTournaments() !== 0) {
+              closeTeamRegistration();
+            }
           }
+
+          updateTeams();
+          updateSystems();
+
+          console.log('update');
+        } catch (e) {
+          console.log(e);
+          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_new));
         }
-
-        updateTeams();
-        updateSystems();
-
         updatepending = false;
-        console.log('update');
       }, 1);
     }
   };
