@@ -39,5 +39,9 @@ CACHE:
 `listPlainFiles`
 `listStylesheets`
 
+# allow player database updates
+NETWORK:
+*
+
 EOF
 
