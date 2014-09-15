@@ -1,5 +1,13 @@
-boules %VERSION% (insert date here)
-----------------------------------
+boules %VERSION (yyyy-mm-dd)
+----------------------------
+
+FIXES:
+
+  * offline mode through application cache now works as intended
+  * catching and displaying more load errors
+
+boules 1.4 (2014-09-14)
+-----------------------
 
 FEATURES:
 

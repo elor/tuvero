@@ -68,7 +68,7 @@ define(function () {
     nostorage : 'Dieser Browser kann keine Spielstände speichern!',
     updatedownloading : 'Neue Version wird heruntergeladen...',
     updatefailed : 'Fehler beim Download der neuen Version',
-    updateavailable : 'Neue Version: Bitte Seite neu laden',
+    updateavailable : 'Neu laden für neue Version',
     dev : 'Entwicklerversion',
     rc : 'Versionsvorschau',
     reset : 'Gespeicherte Daten gelöscht',
