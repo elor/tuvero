@@ -85,6 +85,15 @@ define(function () {
     tournamentalreadyfinished : 'Turnier ist schon beendet',
     gamesstillrunning : 'Es gibt noch offene Spiele',
     tournamentstarted : 'Turnier gestartet',
+    tabupdateerror : 'Fehler bei Aktualisierung vom %s-Tab',
+    tab_teams : 'Mannschaften',
+    tab_new : 'Turniersysteme',
+    tab_games : 'Offene Spiele',
+    tab_ranking : 'Platzierungen',
+    tab_history : 'Spielverlauf',
+    tab_debug : 'Debugging Console',
+    tab_settings : 'Optionen und Einstellungen',
+    tab_about : 'Über...',
   };
 
   return Strings;

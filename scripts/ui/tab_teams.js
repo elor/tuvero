@@ -692,24 +692,29 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       if (force) {
         updatepending = false;
       }
-      
+
       if (updatepending) {
         console.log('updatepending');
       } else {
         updatepending = true;
         window.setTimeout(function () {
-          var i, l;
-          Tab_Teams.reset();
+          try {
+            var i, l;
+            Tab_Teams.reset();
 
-          l = Team.count();
+            l = Team.count();
 
-          for (i = 0; i < l; i += 1) {
-            createBox(Team.get(i));
+            for (i = 0; i < l; i += 1) {
+              createBox(Team.get(i));
+            }
+
+            updateAfterTeamAdd();
+
+            console.log('update');
+          } catch (e) {
+            console.log(e);
+            new Toast(Strings.tabupdateerror.replace('%s', strings.tab_teams));
           }
-
-          updateAfterTeamAdd();
-
-          console.log('update');
           updatepending = false;
         }, 1);
       }
