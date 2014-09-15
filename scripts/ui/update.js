@@ -4,6 +4,18 @@
 define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   var Update, appCache;
 
+  Update = function () {
+    cacheStatus();
+    try {
+      appCache.update();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  // Note: Update() is NOT A CLASS
+  // This is just a cheap hack to keep type mismatch warnings suppressed
+  Update.prototype = {};
+
   appCache = window.applicationCache;
 
   function setCached (cached) {
@@ -60,19 +72,6 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   // appCache.addEventListener('error', cacheError);
 
   cacheStatus();
-
-  Update = function () {
-    cacheStatus();
-    try {
-      appCache.update();
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  // Note: Update() is NOT A CLASS
-  // This is just a cheap hack to keep type mismatch warnings suppressed
-  Update.prototype = {};
 
   return Update;
 });
