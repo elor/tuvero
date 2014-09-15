@@ -41,9 +41,10 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
     case appCache.UPDATEREADY:
       // We don't need swapCache. In fact, it would likely break the page in
       // horrible ways if there's an API change
-      // appCache.swapCache();
+      appCache.swapCache();
       setCached(true);
       new Toast(Strings.updateavailable, Toast.INFINITE);
+      console.warn('boulesprog application cache updated');
     case appCache.IDLE:
       setCached(true);
       break;
@@ -58,6 +59,7 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   }
 
   function cacheError () {
+    new Toast(Strings.updatefailed, Toast.LONG);
     console.error('unexpected applicationCache error. window.applicationCache.status = ' + window.applicationCache.status);
   }
 
@@ -65,13 +67,6 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   appCache.addEventListener('cached', cacheStatus);
   appCache.addEventListener('noupdate', cacheStatus);
   appCache.addEventListener('updateready', cacheStatus);
-
-  // function cacheError () {
-  // new Toast(Strings.updatefailed, Toast.LONG);
-  // }
-  // appCache.addEventListener('error', cacheError);
-
-//  cacheStatus();
 
   return Update;
 });
