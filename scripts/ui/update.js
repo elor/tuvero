@@ -42,8 +42,36 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   // appCache.addEventListener('error', cacheError);
 
   Update = function () {
+    switch (appCache.status) {
+    case appCache.DOWNLOADING:
+      console.log(' appCache.DOWNLOADING');
+      break;
+    case appCache.CHECKING:
+      console.log(' appCache.CHECKING');
+      break;
+    case appCache.IDLE:
+      console.log(' appCache.IDLE');
+      break;
+    case appCache.OBSOLETE:
+      console.log(' appCache.OBSOLETE');
+      break;
+    case appCache.UNCACHED:
+      console.log(' appCache.UNCACHED');
+      break;
+    case appCache.UPDATEREADY:
+      console.log(' appCache.UPDATEREADY');
+      break;
+    }
+
     if (appCache.status != appCache.UNCACHED) {
-      appCache.update();
+      if (appCache.status == appCache.IDLE || appCache.status == appCache.UPDATEREADY) {
+        try {
+          appCache.update();
+        } catch (e) {
+          new Toast("AppCache error", Toast.LONG);
+          console.error(e);
+        }
+      }
       Update.isCached = true;
     } else {
       Update.isCached = false;
