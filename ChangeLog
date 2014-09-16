@@ -6,6 +6,9 @@
 
 	* index.html: contains the actual page
 
+	* scripts/ui/tab_history.js: drawing the tree without byevotes (for now)
+	also drawing an "expecting" player in the topmost game
+
 2014-09-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* createmanifest.sh: NETWORK section added for interaction with the database

@@ -708,25 +708,23 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
    * end (Copied from kotournament.js)
    ****************************************************************************/
 
-  function getGameTreeX (gameid, maxid) {
+  function getGameTreeX (gameid, maxlevel) {
     var maxlevel, gamelevel, x0, width;
 
     x0 = 1;
     width = 15;
 
-    maxlevel = level(maxid);
     gamelevel = level(gameid);
 
     return x0 + (maxlevel - gamelevel) * width;
   }
 
-  function getGameTreeY (gameid, maxid) {
+  function getGameTreeY (gameid, maxlevel) {
     var maxlevel, gamelevel, y0, height;
 
     y0 = 1;
     height = 5;
 
-    maxlevel = level(maxid);
     gamelevel = level(gameid);
     firstid = lowestid(gamelevel);
 
@@ -734,7 +732,13 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function createGameTreeBox (game, maxid) {
-    var x, y;
+    var x, y, maxlevel;
+
+    maxlevel = level(maxid);
+
+    if (game.t1 === undefined && game.t2 === undefined && level(game.id) === maxlevel) {
+      return;
+    }
 
     template.kotree.$teamno.eq(0).text(game.t1 === undefined ? '' : game.t1 + 1);
     template.kotree.$teamno.eq(1).text(game.t2 === undefined ? '' : game.t2 + 1);
@@ -749,8 +753,8 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     template.kotree.$points.text(game.p1 + ':' + game.p2);
 
-    x = getGameTreeX(game.id, maxid);
-    y = getGameTreeY(game.id, maxid);
+    x = getGameTreeX(game.id, maxlevel);
+    y = getGameTreeY(game.id, maxlevel);
 
     return template.kotree.$game.clone().css('left', x + 'em').css('top', y + 'em');
   }
@@ -808,7 +812,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // add byevotes through another cheap hack
     if (Tournaments.isRunning(tournamentid)) {
       Tournaments.getTournament(tournamentid).gameid.map(function (id, teamno) {
-        if (id > 0 && games[id].t1 === undefined) {
+        if (id >= 0 && games[id].t1 === undefined) {
           games[id].t1 = teamno;
         }
       });
@@ -828,8 +832,10 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     for (i = 0; i < games.length; i += 1) {
       g = games[i];
       $game = createGameTreeBox(g, games.length - 1);
-      g.$box = $game;
-      $tree.append($game);
+      if ($game) {
+        g.$box = $game;
+        $tree.append($game);
+      }
     }
 
     $box.append($tree);
@@ -843,6 +849,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // create endpoints and update the leftmost and bottommost points
     for (i = 0; i < games.length; i += 1) {
       $game = games[i].$box;
+      if (!$game) {
+        continue;
+      }
 
       addKOGamesEndpoints($game, jsPlumbInstance);
 
@@ -869,6 +878,10 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function addKOGamesEndpoints ($game, jsPlumbInstance) {
+    if (!$game) {
+      return;
+    }
+
     $game.data('rightendpoint', jsPlumbInstance.addEndpoint($game.get(0), {
       endpoint : "Blank",
       anchor : "Right",
@@ -883,6 +896,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function connectKOGames ($left, $right, jsPlumbInstance) {
+    if (!$left || !$right) {
+      return;
+    }
     jsPlumbInstance.connect({
       source : $left.data('rightendpoint'),
       target : $right.data('leftendpoint'),
@@ -974,7 +990,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
           console.log('update');
         } catch (e) {
           console.log(e);
-          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_history));
+          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_history));
         }
         updatepending = false;
       }, 1);
