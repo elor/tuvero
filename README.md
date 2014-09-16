@@ -9,8 +9,8 @@ A browser-based boule tournament management software.
 
 Visit one of the following web addresses with a modern browser if your choice:
 
-* [https://elor.github.io/boules/boules.html](https://elor.github.io/boules/boules.html)
-* [http://elor.neon.org/boules/boules.html](http://elor.neon.org/boules/boules.html)
+* [https://elor.github.io/boules](https://elor.github.io/boules)
+* [http://elor.neon.org/boules](http://elor.neon.org/boules)
 
 The page will be automatically stored within your browser for offline use.
 
@@ -21,7 +21,7 @@ Depending on your browser and operating system, you may not be able to use in-br
 
 ## Usage
 
-Open `boules.html` in a web browser, register players and teams and start your tournament.
+Open `index.html` in a web browser, register players and teams and start your tournament.
 
 ## Autocomplete
 

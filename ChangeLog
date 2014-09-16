@@ -2,6 +2,10 @@
 
 	* scripts/ui/tab_debug.js: names with umlaut characters added
 
+	* boules.html: contains only redirects
+
+	* index.html: contains the actual page
+
 2014-09-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* createmanifest.sh: NETWORK section added for interaction with the database
