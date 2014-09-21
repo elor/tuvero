@@ -6,6 +6,8 @@
 
 	* pushversion.sh: setting the NEWS date
 
+	* scripts/ui/tab_ranking.js: useless code fragment removed
+
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_debug.js: names with umlaut characters added

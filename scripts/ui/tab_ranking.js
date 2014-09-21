@@ -231,12 +231,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
-      // skip finished tournaments
-      // TODO print past rankings!
-      if (!Tournaments.isRunning) {
-        continue;
-      }
-
       keepbox = false;
 
       template.$boxname.text(Tournaments.getName(tournamentid));
