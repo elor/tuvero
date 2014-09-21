@@ -174,9 +174,6 @@ define([ '../swisstournament', '../game', '../tournament',
       }
     }, this);
 
-    // FIXME what does this test do?
-    // QUnit.equal(count, 1, 'second round: downvote vs. upvote');
-
     tmp = [];
     games1.forEach(function (game) {
       tmp.push(new Game(game.teams[1][0], game.teams[0][0]));

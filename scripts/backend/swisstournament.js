@@ -295,7 +295,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns this on success, undefined otherwise
    */
   function newRoundByRandom () {
-    // TODO write test
+    // TODO test
     var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft, globaltries;
 
     // abort if the tournament isn't running
@@ -466,7 +466,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // just randomize it
 
-    triesleft = numplayers * 10;
+    triesleft = numplayers * 25;
     newgames = [];
 
     while (lower.length > 0) {
@@ -518,7 +518,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
-    timeout = this.players.size() * 10;
+    timeout = this.players.size() * 25;
     wingroups = winGroups.call(this);
 
     // abort if there are no consistent wingroups, which is a sign for too
@@ -738,7 +738,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     return wingroups;
   }
 
-  // TODO write a clear solution instead of dirty hacks
+  // TODO don't reset the roundvotes, but only apply them from a temp. object
   function clearRoundvotes () {
     this.roundvotes = {
       upvotes : [],
@@ -1000,7 +1000,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     res2 = new Result(game.teams[0], game.teams[1], newpoints[0], newpoints[1]);
 
     // apply correction
-    this.ranking.correct(new Correction(res1, res2));
+    if (!this.ranking.correct(new Correction(res1, res2))) {
+      return undefined;
+    }
+
+    this.rkch = true;
 
     return this;
   };
@@ -1128,5 +1132,3 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
   return Swisstournament;
 });
-
-// TODO hide internal functions

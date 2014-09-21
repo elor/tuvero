@@ -498,7 +498,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         }
       }
 
-      // TODO use event system
       // avoid circular dependency
       Tab_Games = require('./tab_games');
       // refresh all tabs
@@ -507,7 +506,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Tab_Ranking.update();
 
       // save change
-      // TODO use event system
       Storage.changed();
     }
 
@@ -711,9 +709,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
             updateAfterTeamAdd();
 
             console.log('update');
-          } catch (e) {
-            console.log(e);
-            new Toast(Strings.tabupdateerror.replace('%s', strings.tab_teams));
+          } catch (er) {
+            console.log(er);
+            new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_teams));
           }
           updatepending = false;
         }, 1);

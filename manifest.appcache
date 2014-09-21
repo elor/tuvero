@@ -1,6 +1,6 @@
 CACHE MANIFEST
-# Version: 1.4.2
-# Date: Mo 15. Sep 21:56:02 CEST 2014
+# Version: 1.4.3
+# Date: So 21. Sep 21:29:34 CEST 2014
 
 # the boules program is purely offline
 CACHE:
@@ -45,6 +45,8 @@ scripts/lib/modernizr.custom.45982.js
 scripts/lib/jquery.jsPlumb-1.6.4-min.js
 scripts/lib/typeahead.bundle.min.js
 scripts/lib/require.js
+scripts/lib/FileSaver.min.js
+scripts/lib/Blob.js
 scripts/lib/qunit-1.14.0.js
 scripts/ui/tab.js
 scripts/ui/csver.js
@@ -89,6 +91,7 @@ images/ranking.png
 images/games.png
 images/debug.png
 images/lanes.png
+images/all.png
 images/qr_github.png
 images/file.png
 images/settings.png

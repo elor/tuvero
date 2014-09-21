@@ -24,7 +24,6 @@ define([ '../kotournament', '../game', '../tournament', '../../lib/implements' ]
 
     while (kot.getState() === Tournament.STATE.RUNNING) {
       kot.finishGame(kot.getGames()[0], [ 13, 0 ]);
-      // FIXME visual investigation shows too few 'third place' matches
     }
 
     return;

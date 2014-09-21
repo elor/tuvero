@@ -1,9 +1,10 @@
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './opts', './team',
     './options' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options) {
-  var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable;
+  var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;
+  visibleupdatepending = false;
   progresstable = true;
 
   Tab_History = {};
@@ -72,7 +73,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.chpoints.$inputs[1].val(points[1]);
 
     $button.after(template.chpoints.$chpoints);
-    // TODO hide() instead of detach()
     $button.detach();
 
     template.chpoints.$inputs[0].focus();
@@ -124,16 +124,13 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // verify values
     if (!verify(op1, op2) || !verify(np1, np2)) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
 
     // check for equality
     if (op1 === np1 && op2 === np2) {
-      // TODO don't abort?
       abortCorrection();
       return undefined;
     }
@@ -152,9 +149,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     if (!isInt(t1) || !isInt(t2) || isNaN(t1) || isNaN(t2)) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
@@ -167,18 +162,14 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     if (res === undefined || res.length === 0) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
 
     if (res.length !== 1) {
       console.error('History.findGames() result contains more than 1 match');
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
@@ -199,9 +190,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // compare original points with saved ones
     if (res[2] !== op1 || res[3] !== op2) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
@@ -210,18 +199,16 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // designed to not mind
     game = new Game(res[0], res[1]);
 
-    // apply correction
-    // TODO Does Swiss().correct return a game object? wouldn't need the next
-    // step
-    // FIXME Why store two separate representations of the same correction?
-    // Can I just use the tournament correction all the time?
-    // This problem is related to the post-tournament ranking storage
-    // TODO use correct tournament and round id
+    // FIXME read the rankings from History OR Tournament, not both
     if (Tournaments.isRunning(tournamentid)) {
-      Tournaments.getTournament(tournamentid).correct(game, [ op1, op2 ], [
-          np1, np2 ]);
+      if (!Tournaments.getTournament(tournamentid).correct(game, [ op1, op2 ], [
+          np1, np2 ])) {
+        console.error('could not apply correction');
+        new Toast(Strings.invalidresult);
+        return undefined;
+      }
     } else {
-      new Toast(Strings.toolatetournamentfinished);
+      new Toast(Strings.toolatetournamentfinished, Toast.LONG);
     }
 
     correction = res.slice(0);
@@ -232,7 +219,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     History.addCorrection(tournamentid, res, correction);
 
     // show correction and recalc ranking
-    // TODO event passing
     Tab_Ranking.update();
 
     // apply values to interface
@@ -243,10 +229,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     $button = undefined;
 
     // save changes
-    // TODO event handler
     Storage.changed();
 
-    // TODO reload?
+    Tab_History.update();
 
     new Toast(Strings.pointchangeapplied);
   }
@@ -448,9 +433,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     initTemplates();
     initCorrection();
     initOptions();
-
-    // FIXME reload from history page moves to another tab because it's closed
-    // Tabshandle.hide('history');
   }
 
   function createGamesTable (tournamentid) {
@@ -552,7 +534,8 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
         addGame(roundno, game.teams[1][0], game.teams[0][0], '', '');
       });
     } else {
-      console.warn('no tournament');
+      // tournament has already been finished
+      // console.warn('no tournament');
     }
 
     return teamgames;
@@ -708,25 +691,23 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
    * end (Copied from kotournament.js)
    ****************************************************************************/
 
-  function getGameTreeX (gameid, maxid) {
+  function getGameTreeX (gameid, maxlevel) {
     var maxlevel, gamelevel, x0, width;
 
     x0 = 1;
     width = 15;
 
-    maxlevel = level(maxid);
     gamelevel = level(gameid);
 
     return x0 + (maxlevel - gamelevel) * width;
   }
 
-  function getGameTreeY (gameid, maxid) {
+  function getGameTreeY (gameid, maxlevel) {
     var maxlevel, gamelevel, y0, height;
 
     y0 = 1;
     height = 5;
 
-    maxlevel = level(maxid);
     gamelevel = level(gameid);
     firstid = lowestid(gamelevel);
 
@@ -734,7 +715,13 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function createGameTreeBox (game, maxid) {
-    var x, y;
+    var x, y, maxlevel;
+
+    maxlevel = level(maxid);
+
+    if (game.t1 === undefined && game.t2 === undefined && level(game.id) === maxlevel) {
+      return;
+    }
 
     template.kotree.$teamno.eq(0).text(game.t1 === undefined ? '' : game.t1 + 1);
     template.kotree.$teamno.eq(1).text(game.t2 === undefined ? '' : game.t2 + 1);
@@ -749,14 +736,19 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     template.kotree.$points.text(game.p1 + ':' + game.p2);
 
-    x = getGameTreeX(game.id, maxid);
-    y = getGameTreeY(game.id, maxid);
+    x = getGameTreeX(game.id, maxlevel);
+    y = getGameTreeY(game.id, maxlevel);
 
     return template.kotree.$game.clone().css('left', x + 'em').css('top', y + 'em');
   }
 
   function createKOTree (tournamentid) {
-    var games, i, $box, g, $game, parentid, jsPlumbInstance;
+    var games, i, $box, g, $game, parentid, jsPlumbInstance, boxwidth, boxheight;
+
+    // TODO use a more sophisticated method
+    if (window.location.hash !== '#history'){
+      visibleupdatepending = true;
+    }
 
     games = [];
 
@@ -808,8 +800,8 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // add byevotes through another cheap hack
     if (Tournaments.isRunning(tournamentid)) {
       Tournaments.getTournament(tournamentid).gameid.map(function (id, teamno) {
-        if (id > 0 && games[id].t1 === undefined) {
-          games[id].t1 = teamno;
+        if (id >= 0 && games[id].t1 === undefined) {
+          games[id].t1 = Tournaments.getTournament(tournamentid).players.at(teamno);
         }
       });
     }
@@ -828,34 +820,32 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     for (i = 0; i < games.length; i += 1) {
       g = games[i];
       $game = createGameTreeBox(g, games.length - 1);
-      g.$box = $game;
-      $tree.append($game);
+      if ($game) {
+        g.$box = $game;
+        $tree.append($game);
+      }
     }
 
     $box.append($tree);
     $tab.append($box);
-
-    rightmost = 0;
-    bottommost = 0;
 
     jsPlumbInstance = jsPlumb.getInstance();
 
     // create endpoints and update the leftmost and bottommost points
     for (i = 0; i < games.length; i += 1) {
       $game = games[i].$box;
+      if (!$game) {
+        continue;
+      }
 
       addKOGamesEndpoints($game, jsPlumbInstance);
-
-      console.log();
-      rightmost = Math.max(Number($game.css('left').replace(/px$/, '')) + Number($game.css('width').replace(/px$/, '')), rightmost);
-      bottommost = Math.max(Number($game.css('top').replace(/px$/, '')) + Number($game.css('height').replace(/px$/, '')), bottommost);
     }
 
-    rightmost += 10;
-    bottommost += 10;
+    boxwidth = getGameTreeX(0, level(games.length - 1)) + 14.5;
+    boxheight = getGameTreeY(games.length - 1, level(games.length - 1)) + 4;
 
-    $tree.width(rightmost);
-    $tree.height(bottommost);
+    $tree.css('width', boxwidth + 'em');
+    $tree.css('height', boxheight + 'em');
 
     // connect the games
     for (i = games.length - 1; i >= 0; i -= 1) {
@@ -869,6 +859,10 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function addKOGamesEndpoints ($game, jsPlumbInstance) {
+    if (!$game) {
+      return;
+    }
+
     $game.data('rightendpoint', jsPlumbInstance.addEndpoint($game.get(0), {
       endpoint : "Blank",
       anchor : "Right",
@@ -883,6 +877,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function connectKOGames ($left, $right, jsPlumbInstance) {
+    if (!$left || !$right) {
+      return;
+    }
     jsPlumbInstance.connect({
       source : $left.data('rightendpoint'),
       target : $right.data('leftendpoint'),
@@ -956,6 +953,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     if (force) {
       updatepending = false;
+      visibleupdatepending = false;
     }
 
     if (updatepending) {
@@ -972,9 +970,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
             Tabshandle.hide('history');
           }
           console.log('update');
-        } catch (e) {
-          console.log(e);
-          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_history));
+        } catch (er) {
+          console.error(er);
+          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_history));
         }
         updatepending = false;
       }, 1);
@@ -992,6 +990,14 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       options : options
     }, opts);
   };
+
+  // FIXME use something that works for all tabs.
+  window.addEventListener('hashchange', function () {
+    if (window.location.hash === '#history' && visibleupdatepending) {
+      Tab_History.update();
+      visibleupdatepending = false;
+    }
+  });
 
   return Tab_History;
 });

@@ -21,7 +21,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
    * @returns {Object} a votes object of the current round
    */
   function getRoundVotes (Tournament) {
-    // FIXME duplicate within tab_new.js
+    // FIXME duplicate within tab_games.js
     var votes, ranking, i;
 
     ranking = Tournaments.getRanking(Tournaments.getTournamentID(Tournament));
@@ -287,7 +287,6 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $anchor = template.$system.clone();
     $anchor.attr('rowspan', height);
 
-    // TODO is this too early?
     $firstrow.append($anchor);
     $firstrow.find('td').css('border-top', 'solid 1px black');
 
@@ -362,7 +361,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
   function createSelectionBox ($anchor) {
     if (Number($anchor.attr('rowspan')) < 2) {
-      // TODO add a placeholder text
+      $anchor.css('padding', 0);
+      $anchor.text(Strings.notenoughteams);
       return undefined;
     }
     $anchor.append(template.system.$newsystem.clone());
@@ -395,7 +395,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       return undefined;
     }
 
-    // TODO we have to print this in globalranking order!
+    // we have to print this in globalranking order
     order = Tournaments.getRankingOrder();
 
     for (i = 0; i < order.length; i += 1) {
@@ -498,7 +498,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     });
 
     $perms = queryPerms($swiss);
-    // TODO init vote perms presets
+
     $perms.preset.change(function () {
       setPermissionPreset($perms.preset.val(), $perms);
       setPermissions($perms, Swiss);
@@ -506,7 +506,6 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     getPermissions($perms, Swiss);
 
-    // TODO init perms matrix
     $perms.all.click(function () {
       var $perm;
       $perm = $(this);
@@ -764,9 +763,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
           updateSystems();
 
           console.log('update');
-        } catch (e) {
-          console.log(e);
-          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_new));
+        } catch (er) {
+          console.log(er);
+          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_new));
         }
         updatepending = false;
       }, 1);

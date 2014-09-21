@@ -2,7 +2,6 @@
  * wrapper around the tournament ranking
  */
 
-// TODO show past rankings, too
 define([ './team', './strings', './options', './tournaments' ], function (Team, Strings, Options, Tournaments) {
   var Ranking;
 
@@ -20,7 +19,7 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
         tournament = Tournaments.getTournament(tournamentid);
         name = Tournaments.getName(tournamentid);
 
-        ranking = Tournaments.getRanking(0);
+        ranking = Tournaments.getRanking(tournamentid);
 
         // has it started?
         if (ranking.round <= 0) {
@@ -38,7 +37,7 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
           tid = ranking.ids[rnk];
           team = Team.get(tid);
 
-          line.push(rnk + 1);
+          line.push(ranking.place[rnk] + 1);
 
           line.push(team.id + 1);
           for (i = 0; i < Options.teamsize; i += 1) {
@@ -49,19 +48,19 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
             }
           }
 
-          line.push(ranking.wins[rnk]);
-          line.push(ranking.buchholz[rnk]);
-          line.push(ranking.finebuchholz[rnk]);
-          line.push(ranking.netto[rnk]);
+          line.push(ranking.wins ? ranking.wins[rnk] : '""');
+          line.push(ranking.buchholz ? ranking.buchholz[rnk] : '""');
+          line.push(ranking.finebuchholz ? ranking.finebuchholz[rnk] : '""');
+          line.push(ranking.netto ? ranking.netto[rnk] : '""');
 
           vote = [];
-          if (ranking.roundupvote[rnk]) {
+          if (ranking.roundupvote && ranking.roundupvote[rnk]) {
             vote.push(Strings.upvote);
           }
-          if (ranking.rounddownvote[rnk]) {
+          if (ranking.rounddownvote && ranking.rounddownvote[rnk]) {
             vote.push(Strings.downvote);
           }
-          if (ranking.roundbyevote[rnk]) {
+          if (ranking.roundbyevote && ranking.roundbyevote[rnk]) {
             vote.push(Strings.byevote);
           }
 
@@ -76,7 +75,7 @@ define([ './team', './strings', './options', './tournaments' ], function (Team, 
           lines.push(makeline(rank));
         }
 
-        corrs = tournament.getCorrections();
+        corrs = tournament ? tournament.getCorrections() : undefined;
 
         if (corrs !== undefined && corrs.length !== 0) {
           lines.push('#' + Tournaments.getName(tournamentid) + ' Korrekturen,');

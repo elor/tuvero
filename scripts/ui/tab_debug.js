@@ -8,9 +8,11 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   rng = new Random();
 
   letters = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' ];
+      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ä',
+      'ö', 'ü', 'ß' ];
   Letters = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' ];
+      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä',
+      'Ö', 'Ü' ];
 
   function showAllImages () {
     var $anchor, $images, imagepaths, i, url, sorted;
@@ -396,6 +398,15 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   function updateForms () {
   }
 
+  function initDevContents () {
+    if (Debug.isDevVersion) {
+      loadMods();
+    } else {
+      Tabshandle.hide('debug');
+      $('.devonly').remove();
+    }
+  }
+
   function init () {
     if ($tab) {
       console.error('tab_debug: $tab is already defined:');
@@ -407,6 +418,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     initForms();
     showAllImages();
+    initDevContents();
   }
 
   /**
@@ -417,8 +429,6 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       init();
     }
 
-    Tabshandle.hide('debug');
-
     // reset everything
     updateForms();
   };
@@ -428,14 +438,6 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
    */
   Tab_Debug.update = function () {
     Tab_Debug.reset();
-
-    if (Debug.isDevVersion) {
-      Tabshandle.show('debug');
-      loadMods();
-    } else {
-      // FIXME run only once
-      $('.devonly').remove();
-    }
   };
 
   Tab_Debug.getOptions = function () {
