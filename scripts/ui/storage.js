@@ -142,8 +142,9 @@ define([ './options' ], function (Options) {
   };
 
   /**
-   * this function indicates a change in the tournament state TODO move to Blob
+   * this function indicates a change in the tournament state
    */
+  // TODO move to Blob
   Storage.changed = function () {
     if (Tab_Settings === undefined) {
       Tab_Settings = require('./tab_settings');

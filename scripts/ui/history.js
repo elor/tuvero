@@ -30,7 +30,7 @@
  * An object-array structure is sufficient to store all information:
  */
 // uncommented to avoid auto-format
-// FIXME allow more than 1 player per team (Supermelee)
+// TODO allow more than 1 player per team (Supermelee)
 [ {
   votes : [ [ 0, 4, 0 ] ],
   games : [ [ 0, 2, 13, 7, 0, 0 ], [ 3, 1, 13, 12, 0, 1 ] ],
@@ -112,7 +112,7 @@ define([ './tournaments' ], function (Tournaments) {
 
       before = before.slice(0);
       after = after.slice(0);
-      
+
       // TODO validate data types and values
       // TODO check whether the result really existed
 
@@ -122,7 +122,7 @@ define([ './tournaments' ], function (Tournaments) {
         return false;
       }
 
-      // TODO change the actual game
+      // change the actual game
       for (game in tournament.games) {
         game = tournament.games[game];
         // match every aspect of the game
@@ -149,9 +149,6 @@ define([ './tournaments' ], function (Tournaments) {
 
     addVote : function (tournamentid, type, team, round) {
       var tournament;
-
-      // TODO validate data types and values
-      // TODO check whether the result really existed
 
       tournament = getTournament(tournamentid, true);
       if (!tournament) {
@@ -473,8 +470,6 @@ define([ './tournaments' ], function (Tournaments) {
               lines.push(line.join(','));
             }
           }
-
-          // FIXME add corrections
         }
       }
 

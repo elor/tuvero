@@ -39,5 +39,3 @@ define([ './tab_history', './tab_ranking', './tab_new', './tab_teams',
 
   return Alltabs;
 });
-
-// TODO EVERYWHERE: prevent default behavtabor!

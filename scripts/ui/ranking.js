@@ -2,7 +2,6 @@
  * wrapper around the tournament ranking
  */
 
-// TODO show past rankings, too
 define([ './team', './strings', './options', './tournaments' ], function (Team, Strings, Options, Tournaments) {
   var Ranking;
 

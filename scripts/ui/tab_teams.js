@@ -498,7 +498,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         }
       }
 
-      // TODO use event system
       // avoid circular dependency
       Tab_Games = require('./tab_games');
       // refresh all tabs
@@ -507,7 +506,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Tab_Ranking.update();
 
       // save change
-      // TODO use event system
       Storage.changed();
     }
 

@@ -295,7 +295,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @returns this on success, undefined otherwise
    */
   function newRoundByRandom () {
-    // TODO write test
+    // TODO test
     var playersleft, byes, bye, id, numplayers, p1, p2, newgames, triesleft, globaltries;
 
     // abort if the tournament isn't running
@@ -738,7 +738,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     return wingroups;
   }
 
-  // TODO write a clear solution instead of dirty hacks
+  // TODO don't reset the roundvotes, but only apply them from a temp. object
   function clearRoundvotes () {
     this.roundvotes = {
       upvotes : [],
@@ -1132,5 +1132,3 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
   return Swisstournament;
 });
-
-// TODO hide internal functions

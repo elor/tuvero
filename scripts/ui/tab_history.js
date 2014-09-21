@@ -72,7 +72,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.chpoints.$inputs[1].val(points[1]);
 
     $button.after(template.chpoints.$chpoints);
-    // TODO hide() instead of detach()
     $button.detach();
 
     template.chpoints.$inputs[0].focus();
@@ -124,16 +123,13 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // verify values
     if (!verify(op1, op2) || !verify(np1, np2)) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
 
     // check for equality
     if (op1 === np1 && op2 === np2) {
-      // TODO don't abort?
       abortCorrection();
       return undefined;
     }
@@ -152,9 +148,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     if (!isInt(t1) || !isInt(t2) || isNaN(t1) || isNaN(t2)) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
@@ -167,18 +161,14 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     if (res === undefined || res.length === 0) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
 
     if (res.length !== 1) {
       console.error('History.findGames() result contains more than 1 match');
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
@@ -199,9 +189,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // compare original points with saved ones
     if (res[2] !== op1 || res[3] !== op2) {
       new Toast(Strings.invalidresult);
-      // TODO don't abort?
       abortCorrection();
-      // TODO event passing
       Tab_History.update();
       return undefined;
     }
@@ -210,13 +198,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // designed to not mind
     game = new Game(res[0], res[1]);
 
-    // apply correction
-    // TODO Does Swiss().correct return a game object? wouldn't need the next
-    // step
-    // FIXME Why store two separate representations of the same correction?
-    // Can I just use the tournament correction all the time?
-    // This problem is related to the post-tournament ranking storage
-    // TODO use correct tournament and round id
+    // FIXME read the rankings from History OR Tournament, not both
     if (Tournaments.isRunning(tournamentid)) {
       if (!Tournaments.getTournament(tournamentid).correct(game, [ op1, op2 ], [
           np1, np2 ])) {
@@ -225,7 +207,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
         return undefined;
       }
     } else {
-      new Toast(Strings.toolatetournamentfinished);
+      new Toast(Strings.toolatetournamentfinished, Toast.LONG);
     }
 
     correction = res.slice(0);
@@ -236,7 +218,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     History.addCorrection(tournamentid, res, correction);
 
     // show correction and recalc ranking
-    // TODO event passing
     Tab_Ranking.update();
 
     // apply values to interface
@@ -451,9 +432,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     initTemplates();
     initCorrection();
     initOptions();
-
-    // FIXME reload from history page moves to another tab because it's closed
-    // Tabshandle.hide('history');
   }
 
   function createGamesTable (tournamentid) {

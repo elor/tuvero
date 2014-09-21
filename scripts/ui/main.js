@@ -19,13 +19,10 @@ define([ './update', './backgroundscripts', './splash', './toast', './strings',
 
     try {
       // NOT actively looking for updates. The events are handled automatically
-      //Update();
+      // Update();
 
       // update Tab_Debug for dev version notifications
       Tab_Debug.update();
-
-      // TODO show loading screen
-      // TODO show tabs only after everything has been set up
 
       Alltabs.reset();
 

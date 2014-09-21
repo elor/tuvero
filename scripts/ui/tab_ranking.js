@@ -81,9 +81,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
     $tab = $('#ranking');
 
     initTemplate();
-
-    // TODO reload within ranking tab?
-    // Tabshandle.hide('ranking');
   }
 
   /**

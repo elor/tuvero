@@ -425,7 +425,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
   };
 
   KOTournament.prototype.getCorrections = function () {
-    // TODO return corrections
+    // TODO use and return actual corrections
     return [];
   };
 

@@ -99,8 +99,6 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
   function updateSave () {
     var save;
 
-    // TODO read from/compare with database
-
     save = State.toBlob();
 
     url = createDownloadURL(save, 'application/json');
@@ -164,7 +162,6 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     try {
       if (State.fromBlob(blob)) {
         Storage.changed();
-        // TODO event handler
         resetStorageState();
         new Toast(Strings.loaded);
         Tabshandle.focus('teams');
@@ -195,14 +192,19 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       if (jsontext.length === 0) {
         new Toast(Strings.fileempty);
       } else {
-        // TODO check format?
-        Players.fromBlob(jsontext);
-        Storage.store();
-        new Toast(Strings.autocompleteloaded);
+        try {
+          Players.fromBlob(jsontext);
+          Storage.store();
+          new Toast(Strings.autocompleteloaded);
+        } catch (e) {
+          console.error(e);
+          Players.reset();
+          Storage.store();
+          new Toast(Strings.autocompletereloadfailed, Toast.LONG);
+        }
       }
     }, 'text').fail(function () {
       var content, i;
-      // TODO use an iframe, message passing and and a separate player database
 
       console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
 
@@ -332,7 +334,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     areas.local.$clearbutton.click(function (e) {
       var Alltabs;
 
-      // TODO use some jQuery magic
+      // TODO don't use confirm()
       if (confirm(Strings.clearstorage)) {
         Storage.enable();
         Storage.clear(Options.dbname);
