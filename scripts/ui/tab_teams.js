@@ -711,7 +711,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
             console.log('update');
           } catch (er) {
             console.log(er);
-            new Toast(Strings.tabupdateerror.replace('%s', strings.tab_teams));
+            new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_teams));
           }
           updatepending = false;
         }, 1);

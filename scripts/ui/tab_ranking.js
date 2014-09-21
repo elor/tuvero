@@ -273,7 +273,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
           console.log('update');
         } catch (er) {
           console.log(er);
-          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_ranking));
+          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_ranking));
         }
         updatepending = false;
       }, 1);

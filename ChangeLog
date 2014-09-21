@@ -10,6 +10,7 @@
 	* pushversion.sh: setting the NEWS date
 
 	* scripts/ui/tab_ranking.js: useless code fragment removed
+	typo fixed
 
 	* scripts/backend/finebuchholzranking.js: correct() fails -> console.error
 
@@ -28,6 +29,12 @@
 	* scripts/ui/history.js: toCSV don't store anything if there's no history
 
 	* scripts/ui/strings.js: several file download strings added
+
+	* scripts/ui/tab_games.js: typo fixed
+
+	* scripts/ui/tab_new.js: typo fixed
+
+	* scripts/ui/tab_teams.js: typo fixed
 
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
