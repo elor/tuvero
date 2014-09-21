@@ -17,7 +17,6 @@ define(function () {
 
   function updateDependencies () {
     require('./autocomplete').update();
-    // TODO update storage
   }
 
   Players.fromString = function (string) {

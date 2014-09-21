@@ -105,7 +105,6 @@ define(function () {
         // remote the toast if it's not infinite
         if (seconds > 0) {
           // fadeout timeout
-          // TODO on toast fadeout: move whole column upwards
           window.setTimeout(function () {
             $div.removeClass('toast');
           }, 1000 * (seconds + fadein));

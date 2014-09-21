@@ -315,7 +315,6 @@ define([ './rleblobber' ], function (RLEBlobber) {
     ob = JSON.parse(blob);
 
     this.size = ob.size;
-    // TODO use some sort of compression while unpacking
     this.array = RLEBlobber.fromBlob(ob.array);
 
     this.setType(ob.type);

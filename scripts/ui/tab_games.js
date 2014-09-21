@@ -61,8 +61,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       event.preventDefault();
       return false;
     });
-    // TODO Enter key -> press submit button (as a failsafe)
-    // TODO Escape key -> reset form
 
     template.game = {
       $form : $form,
@@ -290,12 +288,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       ret.points[i] = Number($($input[i]).val());
 
       // validate whether number and >= 0
-      // TODO Options.maxpoints
       if (isNaN(ret.points[i]) || !isInt(ret.points[i]) || ret.points[i] < 0 || ret.points[i] > Options.maxpoints) {
-        // FIXME find a better solution
-        // flash?
-        // $input.eq(i).focus();
-
         return undefined;
       }
     }
@@ -353,7 +346,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       // redraw all games
       showRunning();
 
-      // TODO event handler
       Tab_Ranking.update();
 
       // notify the user of this failure
@@ -569,8 +561,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
   /**
    * reset an original state.
-   * 
-   * TODO test Tab_Games.reset
    */
   Tab_Games.reset = function () {
     if (!$tab) {
@@ -601,9 +591,9 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
           showRunning();
           showTab();
           console.log('update');
-        } catch (e) {
-          console.log(e);
-          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_games));
+        } catch (er) {
+          console.log(er);
+          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_games));
         }
         updatepending = false;
       }, 1);

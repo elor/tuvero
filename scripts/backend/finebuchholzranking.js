@@ -199,6 +199,8 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
       return this;
     }
+
+    console.error('correction not applicable!');
     return undefined;
   };
 

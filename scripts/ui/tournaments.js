@@ -283,8 +283,6 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team' ], fu
       return undefined;
     }
 
-    // TODO update global ranking and stuff
-
     // finally: remove the tournament
     tournament.tournament = undefined;
 

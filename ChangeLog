@@ -1,3 +1,57 @@
+\2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_history.js: 'no tournament' warning disabled
+	calculating KO box size from its content, not using jQuery
+	mapping KO players with byes correctly
+	warning about non-applicable corrections
+	update after corrections (to update the other teams' points)
+	automatic redraw if it becomes visible and there's a KO tournament
+
+	* pushversion.sh: setting the NEWS date
+
+	* scripts/ui/tab_ranking.js: useless code fragment removed
+	typo fixed
+
+	* scripts/backend/finebuchholzranking.js: correct() fails -> console.error
+
+	* scripts/backend/swisstournament.js: signal non-applicable corrections
+	recalculate the ranking after a correction
+	number of tries doubled
+
+	* scripts/ui/tab_settings.js: properly loading from utf-8 files (incl. umlauts)
+	using fileSaver instead of handrwitten file download soluton
+	loading playernames every time the program is opened
+
+	* index.html: download links removed in favor of FileSaver
+
+	* scripts/lib/Blob.js: bringing "new Blob" to old browsers
+
+	* scripts/lib/FileSaver.min.js: allow for easy file downloads/saves
+
+	* scripts/ui/history.js: toCSV don't store anything if there's no history
+
+	* scripts/ui/strings.js: several file download strings added
+
+	* scripts/ui/tab_games.js: typo fixed
+
+	* scripts/ui/tab_new.js: typo fixed
+
+	* scripts/ui/tab_teams.js: typo fixed
+
+	* scripts/ui/ranking.js: csv export works properly, even for KO systems and multiple tournaments
+
+
+2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_debug.js: names with umlaut characters added
+
+	* boules.html: contains only redirects
+
+	* index.html: contains the actual page
+
+	* scripts/ui/tab_history.js: drawing the tree without byevotes (for now)
+	also drawing an "expecting" player in the topmost game
+
 2014-09-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* createmanifest.sh: NETWORK section added for interaction with the database

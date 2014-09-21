@@ -1,27 +1,13 @@
 [REPORTED]
 * Opera: tab_games: bye character doesn't display properly. Font problem?
-* Opera: downloads don't have a name
-* Opera: INVALID_CHARACTER_ERR on CSV export
 * IE11: button.deletion: text aligned to top
 * IE11: seams everywhere
-* IE11: Cannot download
-* IE11: FileReader cannot readAsBinaryString
-* Firefox, Opera, Safari: Print Page doesn't show anything (doesn't it print the subpages?)
+* Firefox, Opera, Safari: Print Page doesn't show anything
 
 [CONFIRMED]
-* Toast: chunky positioning right before a toast disappears
-  caused by its <br> tag and possibly its padding/margin  
-* History cannot store more than two teams per game (Supermelee)
-
-[IRREPRODUCIBLE]
-* Android-Chrome: page reload on Debug->finishRound
-
-[SHOULD BE FIXED now]
-* github.io: autocomplete encoding is messed up
+* History is currently not able to store more than two teams per game (Supermelee)
 
 [UNFIXABLE]
 * Tab_Teams: overflow-x hidden, overflow-y visible
   cannot be fixed properly due to inconsistent default behavior:
   'visible' becomes 'auto' if used with 'hidden' as overflow-x
-* release version: must reload twice due to manifest update
-  A note should now appear to notify the user

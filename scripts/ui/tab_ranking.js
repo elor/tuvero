@@ -81,9 +81,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
     $tab = $('#ranking');
 
     initTemplate();
-
-    // TODO reload within ranking tab?
-    // Tabshandle.hide('ranking');
   }
 
   /**
@@ -231,12 +228,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
-      // skip finished tournaments
-      // TODO print past rankings!
-      if (!Tournaments.isRunning) {
-        continue;
-      }
-
       keepbox = false;
 
       template.$boxname.text(Tournaments.getName(tournamentid));
@@ -280,9 +271,9 @@ define([ './tournaments', './team', './toast', './strings', './options',
             // new Toast(Strings.rankingupdate);
           }
           console.log('update');
-        } catch (e) {
-          console.log(e);
-          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_ranking));
+        } catch (er) {
+          console.log(er);
+          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_ranking));
         }
         updatepending = false;
       }, 1);
