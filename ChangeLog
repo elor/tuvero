@@ -36,6 +36,8 @@
 
 	* scripts/ui/tab_teams.js: typo fixed
 
+	* scripts/ui/ranking.js: csv export works properly, even for KO systems and multiple tournaments
+
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_debug.js: names with umlaut characters added
