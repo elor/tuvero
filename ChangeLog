@@ -1,4 +1,4 @@
-2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+\2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_history.js: 'no tournament' warning disabled
 	calculating KO box size from its content, not using jQuery
@@ -17,6 +17,17 @@
 	recalculate the ranking after a correction
 
 	* scripts/ui/tab_settings.js: properly loading from utf-8 files (incl. umlauts)
+	using fileSaver instead of handrwitten file download soluton
+
+	* index.html: download links removed in favor of FileSaver
+
+	* scripts/lib/Blob.js: bringing "new Blob" to old browsers
+
+	* scripts/lib/FileSaver.min.js: allow for easy file downloads/saves
+
+	* scripts/ui/history.js: toCSV don't store anything if there's no history
+
+	* scripts/ui/strings.js: several file download strings added
 
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -516,8 +516,6 @@
             <button>
               <img src="images/download.png" alt="download save file" />
             </button>
-            <br>
-            <a href="#" type="application/json" download="boules.json">Download</a>
           </div>
         </div>
 
@@ -548,17 +546,18 @@
             muss sie mit der .csv-Dateiendung gespeichert werden,
             beispielsweise als 'boules.csv'.
           </p>
-          <button>
-            <img src="images/teams3.png" alt="export teams" />
+          <button class="teams">
+            <img src="images/teams3.png" alt="teams exportieren" />
           </button>
-          <button>
-            <img src="images/ranking.png" alt="export ranking" />
+          <button class="ranking">
+            <img src="images/ranking.png" alt="ranking exportieren" />
           </button>
-          <button>
-            <img src="images/history.png" alt="export history" />
+          <button class="history">
+            <img src="images/history.png" alt="history exportieren" />
           </button>
-          <br>
-          <a href="#" type="application/csv" download="boules.csv">Download</a>
+          <button class="teams ranking history">
+            <img src="images/all.png" alt="alles exportieren" />
+          </button>
         </div>
 
         <div class="box nojson">
@@ -784,6 +783,7 @@
 
     <script src="scripts/lib/json2.js"></script>
     <script src="scripts/lib/modernizr.custom.45982.js"></script>
+    <script src="scripts/lib/Blob.js"></script>
     <script src="scripts/lib/jquery-2.1.1.min.js"></script>
     <script src="scripts/lib/typeahead.bundle.min.js"></script>
     <script src="scripts/lib/jquery.jsPlumb-1.6.4-min.js"></script>

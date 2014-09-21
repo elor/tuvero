@@ -1,6 +1,6 @@
 define([ './toast', './strings', './team', './history', './ranking', './state',
     '../lib/base64', './storage', './options', './opts', './players',
-    './tabshandle' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle) {
+    './tabshandle', '../lib/FileSaver.min' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, saveAs) {
   var Tab_Settings, $tab, areas, options, updatepending;
 
   updatepending = false;
@@ -11,7 +11,6 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
 
   function initCSV () {
     areas.csv = {};
-    areas.csv.$download = $tab.find('.csv a');
     areas.csv.$buttons = $tab.find('.csv button');
 
     // set csv selection buttons
@@ -23,95 +22,64 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
         $button = $button.parent();
       }
 
-      $button.toggleClass('selected');
-
-      csvupdate();
+      csvupdate($button);
     });
   }
 
-  function invalidateCSV () {
-    $tab.find('.csv .selected').removeClass('selected');
-
-    areas.csv.$download.attr('href', '#');
-    areas.csv.$download.hide();
-  }
-
-  function createDownloadURL (content, mimetype) {
-    var url;
-    mimetype = mimetype || 'text/plain';
-
-    if (window.URL && window.URL.createObjectURL && Blob) {
-      url = window.URL.createObjectURL(new Blob([ content ]));
-    } else {
-      url = 'data:' + mimetype + ';base64,' + btoa(content);
-    }
-
-    return url;
-  }
-
-  function csvupdate () {
-    var $buttons, csv, url;
-
-    $buttons = areas.csv.$buttons;
+  function csvupdate ($button) {
+    var csv, blob;
 
     csv = [];
 
-    if ($buttons.eq(0).hasClass('selected')) {
+    if ($button.hasClass('teams')) {
       csv.push(Team.toCSV());
     }
-    if ($buttons.eq(1).hasClass('selected')) {
+    if ($button.hasClass('ranking')) {
       csv.push(Ranking.toCSV());
     }
-    if ($buttons.eq(2).hasClass('selected')) {
+    if ($button.hasClass('history')) {
       csv.push(History.toCSV());
-    }
-
-    if (csv.length === 0) {
-      invalidateCSV();
-      return;
     }
 
     csv = csv.join('\r\n""\r\n');
 
-    url = createDownloadURL(csv, 'application/csv');
+    if (csv.length === 0) {
+      new Toast(Strings.nodata);
+      return;
+    }
 
-    areas.csv.$download.attr('href', url);
-    areas.csv.$download.show();
+    try {
+      blob = new Blob([ csv ], {
+        type : 'application/csv'
+      });
+      saveAs(blob, 'boules.csv');
+    } catch (e) {
+      console.error('Blobbing failed');
+      new Toast(Strings.savefailed);
+    }
   }
 
   function initSave () {
     areas.save = {};
-    areas.save.$download = $tab.find('.save a');
     areas.save.$button = $tab.find('.save button');
 
-    areas.save.$button.click(function () {
-      areas.save.$button.toggleClass('selected');
-
-      if (areas.save.$button.hasClass('selected')) {
-        updateSave();
-      } else {
-        invalidateSave();
-      }
-    });
-
+    areas.save.$button.click(saveState);
   }
 
-  function updateSave () {
-    var save;
+  function saveState () {
+    var save, blob;
 
     save = State.toBlob();
 
-    url = createDownloadURL(save, 'application/json');
-    // update link
-    areas.save.$download.attr('href', url);
-    areas.save.$download.show();
-  }
-
-  function invalidateSave () {
-    areas.save.$download.attr('href', '#');
-    areas.save.$download.hide();
-
-    $tab.find('.save .selected').removeClass('selected');
+    try {
+      blob = new Blob([ save ], {
+        type : 'application/json'
+      });
+      saveAs(blob, 'boules.json');
+    } catch (e) {
+      console.error(e);
+      new Toast(Strings.savefailed);
+    }
   }
 
   function initLoad () {
@@ -389,8 +357,6 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       init();
     }
 
-    invalidateCSV();
-    invalidateSave();
     invalidateLoad();
     invalidateAutocomplete();
 
@@ -418,7 +384,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
           console.log('update');
         } catch (er) {
           console.log(er);
-          new Toast(Strings.tabupdateerror.replace('%s', strings.tab_settings));
+          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_settings));
         }
         updatepending = false;
       }, 1);

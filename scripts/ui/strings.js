@@ -9,7 +9,7 @@ define(function () {
     autosaveon : 'Automatisches Speichern an',
     autoupdateoff : 'Automatische Aktualisierung aus',
     autoupdateon : 'Automatische Aktualisierung an',
-    clearstorage : 'Lokal gespeicherte Daten löschen? Sämtliche Turnierdaten gehen damit verloren.',
+    clearstorage : 'Lokal gespeicherte Daten löschen? Sämtliche Turnierdaten gehen damit verloren!',
     confirmleave : 'Das Turnier kann nicht gespeichert werden. Fenster trotzdem schließen?',
     upvote : '▲',
     downvote : '▼',
@@ -35,7 +35,7 @@ define(function () {
     roundrunning : 'Runde %s läuft',
     registrationclosed : 'Registrierung geschlossen',
     saved : 'gespeichert',
-    savefailed : 'Speichern fehlgeschlagen.',
+    savefailed : 'Speichern fehlgeschlagen',
     startfailed : 'Auslosung fehlgeschlagen. Zu wenige Teams?',
     teamadded : 'Team %s registriert',
     notenoughteams : 'Zu wenige Teams',
@@ -94,6 +94,7 @@ define(function () {
     tab_debug : 'Debugging Console',
     tab_settings : 'Optionen und Einstellungen',
     tab_about : 'Über...',
+    nodata : 'Keine Daten',
   };
 
   return Strings;

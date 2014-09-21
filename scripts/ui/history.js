@@ -473,10 +473,6 @@ define([ './tournaments' ], function (Tournaments) {
         }
       }
 
-      if (!lines.length) {
-        lines.push('#No History yet');
-      }
-
       return lines.join('\r\n');
     },
 
