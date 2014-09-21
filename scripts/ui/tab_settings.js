@@ -205,13 +205,9 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
 
       reader.readAsText(evt.target.files[0]);
     });
-  }
 
-  function updateAutocomplete () {
-    if (Players.get().length <= 1) {
-      // try to reload the player names from web
-      reloadAutocomplete();
-    }
+    // always load playernames when the program is opened
+    window.setTimeout(reloadAutocomplete, 1000);
   }
 
   function invalidateAutocomplete () {
@@ -378,7 +374,6 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       window.setTimeout(function () {
         try {
           Tab_Settings.reset();
-          updateAutocomplete();
           updateLocalStorageMeters();
 
           console.log('update');

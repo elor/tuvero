@@ -2,8 +2,6 @@
 * storage.changed -> storage.update() + storage.isEnabled(); remove storage.store() from global interface
 * tab_games: when finishing a game, focus the next game in list
 * show up/downvotes in history
-* delete tournament -> load playernames
-* pageload when registration is still open -> load playernames
 * redesign the settings tab
 * combine and style the localStorage meters
 * rotate reload and save preparation buttons ^^
@@ -12,10 +10,9 @@
 * add global options (installation-specific) instead of storing them in the database/save files
 * add user options, as opposed to global options and tournament options
 * add tab options to user options
-* add list view for running games (Fortschrittsliste)
-* ranking: export number of games to csv
 * options: save autosave status
 * tab_games: show vote icons next to the names. Bye still separate
+* tab_teams: add an optional list view
 
 [next-to-next]
 * test random number generator again!
@@ -57,4 +54,3 @@
 * test with all major browsers: chrome, firefox, opera, safari, ie10
 * test.html: fix all displayed errors
 * (release) auto-create the manifest
-

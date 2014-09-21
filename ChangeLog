@@ -19,6 +19,7 @@
 
 	* scripts/ui/tab_settings.js: properly loading from utf-8 files (incl. umlauts)
 	using fileSaver instead of handrwitten file download soluton
+	loading playernames every time the program is opened
 
 	* index.html: download links removed in favor of FileSaver
 

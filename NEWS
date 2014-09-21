@@ -13,6 +13,7 @@ FIXES:
   * properly loading unicode files
   * KO tournament trees don't forget to draw their lines
   * ranking csv export bugs fixed
+  * player names are loaded every time the program is started
 
 boules 1.4.2 (2014-09-15)
 -------------------------
