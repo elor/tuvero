@@ -16,6 +16,7 @@
 	* scripts/backend/swisstournament.js: signal non-applicable corrections
 	recalculate the ranking after a correction
 
+	* scripts/ui/tab_settings.js: properly loading from utf-8 files (incl. umlauts)
 
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

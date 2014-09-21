@@ -125,7 +125,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       reader.onabort = loadFileAbort;
       reader.onload = loadFileLoad;
 
-      reader.readAsBinaryString(evt.target.files[0]);
+      reader.readAsText(evt.target.files[0]);
     });
   }
 
@@ -235,7 +235,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       reader.onabort = autocompleteFileAbort;
       reader.onload = autocompleteFileLoad;
 
-      reader.readAsBinaryString(evt.target.files[0]);
+      reader.readAsText(evt.target.files[0]);
     });
   }
 

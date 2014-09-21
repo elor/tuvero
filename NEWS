@@ -6,6 +6,7 @@ FIXES:
   * waiting teams in KO tournaments have the correct names and ids
   * using correct size for KO box in the history tab
   * tabs update after a correction
+  * properly loading unicode files
 
 boules 1.4.2 (2014-09-15)
 -------------------------
