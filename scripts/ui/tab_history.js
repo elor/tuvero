@@ -218,8 +218,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     // This problem is related to the post-tournament ranking storage
     // TODO use correct tournament and round id
     if (Tournaments.isRunning(tournamentid)) {
-      Tournaments.getTournament(tournamentid).correct(game, [ op1, op2 ], [
-          np1, np2 ]);
+      if (!Tournaments.getTournament(tournamentid).correct(game, [ op1, op2 ], [
+          np1, np2 ])) {
+        console.error('could not apply correction');
+        new Toast(Strings.invalidresult);
+        return undefined;
+      }
     } else {
       new Toast(Strings.toolatetournamentfinished);
     }
@@ -243,10 +247,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     $button = undefined;
 
     // save changes
-    // TODO event handler
     Storage.changed();
 
-    // TODO reload?
+    Tab_History.update();
 
     new Toast(Strings.pointchangeapplied);
   }
@@ -553,7 +556,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       });
     } else {
       // tournament has already been finished
-//      console.warn('no tournament');
+      // console.warn('no tournament');
     }
 
     return teamgames;
@@ -855,7 +858,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     }
 
     boxwidth = getGameTreeX(0, level(games.length - 1)) + 14.5;
-    boxheight = getGameTreeY(games.length-1, level(games.length - 1)) + 4;
+    boxheight = getGameTreeY(games.length - 1, level(games.length - 1)) + 4;
 
     $tree.css('width', boxwidth + 'em');
     $tree.css('height', boxheight + 'em');

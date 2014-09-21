@@ -1000,7 +1000,11 @@ define([ './tournament', './map', './finebuchholzranking', './game',
     res2 = new Result(game.teams[0], game.teams[1], newpoints[0], newpoints[1]);
 
     // apply correction
-    this.ranking.correct(new Correction(res1, res2));
+    if (!this.ranking.correct(new Correction(res1, res2))) {
+      return undefined;
+    }
+
+    this.rkch = true;
 
     return this;
   };
