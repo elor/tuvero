@@ -466,7 +466,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
 
     // just randomize it
 
-    triesleft = numplayers * 10;
+    triesleft = numplayers * 25;
     newgames = [];
 
     while (lower.length > 0) {
@@ -518,7 +518,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
       return undefined;
     }
 
-    timeout = this.players.size() * 10;
+    timeout = this.players.size() * 25;
     wingroups = winGroups.call(this);
 
     // abort if there are no consistent wingroups, which is a sign for too

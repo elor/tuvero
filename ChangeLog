@@ -16,6 +16,7 @@
 
 	* scripts/backend/swisstournament.js: signal non-applicable corrections
 	recalculate the ranking after a correction
+	number of tries doubled
 
 	* scripts/ui/tab_settings.js: properly loading from utf-8 files (incl. umlauts)
 	using fileSaver instead of handrwitten file download soluton
@@ -38,6 +39,7 @@
 	* scripts/ui/tab_teams.js: typo fixed
 
 	* scripts/ui/ranking.js: csv export works properly, even for KO systems and multiple tournaments
+
 
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
