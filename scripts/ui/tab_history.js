@@ -745,7 +745,10 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   function createKOTree (tournamentid) {
     var games, i, $box, g, $game, parentid, jsPlumbInstance, boxwidth, boxheight;
 
-    visibleupdatepending = true;
+    // TODO use a more sophisticated method
+    if (window.location.hash !== '#history'){
+      visibleupdatepending = true;
+    }
 
     games = [];
 
