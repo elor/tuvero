@@ -1,6 +1,10 @@
-boules %VERSION% (yyyy-mm-dd)
+Boules %VERSION% (yyyy-mm-dd)
 -------------------------
 
+FIXES:
+
+  * waiting teams in KO tournaments have the correct names and ids
+  * using correct size for KO box in the history tab
 
 boules 1.4.2 (2014-09-15)
 -------------------------
@@ -38,4 +42,3 @@ PERFORMANCE IMPROVEMENTS:
 FIXES:
 
   * pages won't be smaller than their content
-

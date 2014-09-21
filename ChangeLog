@@ -1,3 +1,11 @@
+2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/tab_history.js: 'no tournament' warning disabled
+	calculating KO box size from its content, not using jQuery
+	mapping KO players with byes correctly
+
+	* pushversion.sh: setting the NEWS date
+
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_debug.js: names with umlaut characters added

@@ -40,6 +40,8 @@ IFS=$'\r\n'
 for file in `git ls-files | grep -v images | grep -v "$self"`; do
   sed -i -e "s/\\\$VERSION\\$/$version/g" -e "s/%VERSION%/$version/g" $file
 done
+# set release date in NEWS file
+sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
 
 git add -u
 git commit -m "release-$version: pushed to version $version"

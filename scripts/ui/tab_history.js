@@ -552,7 +552,8 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
         addGame(roundno, game.teams[1][0], game.teams[0][0], '', '');
       });
     } else {
-      console.warn('no tournament');
+      // tournament has already been finished
+//      console.warn('no tournament');
     }
 
     return teamgames;
@@ -760,7 +761,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   }
 
   function createKOTree (tournamentid) {
-    var games, i, $box, g, $game, parentid, jsPlumbInstance;
+    var games, i, $box, g, $game, parentid, jsPlumbInstance, boxwidth, boxheight;
 
     games = [];
 
@@ -813,7 +814,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     if (Tournaments.isRunning(tournamentid)) {
       Tournaments.getTournament(tournamentid).gameid.map(function (id, teamno) {
         if (id >= 0 && games[id].t1 === undefined) {
-          games[id].t1 = teamno;
+          games[id].t1 = Tournaments.getTournament(tournamentid).players.at(teamno);
         }
       });
     }
@@ -841,9 +842,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     $box.append($tree);
     $tab.append($box);
 
-    rightmost = 0;
-    bottommost = 0;
-
     jsPlumbInstance = jsPlumb.getInstance();
 
     // create endpoints and update the leftmost and bottommost points
@@ -854,17 +852,13 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       }
 
       addKOGamesEndpoints($game, jsPlumbInstance);
-
-      console.log();
-      rightmost = Math.max(Number($game.css('left').replace(/px$/, '')) + Number($game.css('width').replace(/px$/, '')), rightmost);
-      bottommost = Math.max(Number($game.css('top').replace(/px$/, '')) + Number($game.css('height').replace(/px$/, '')), bottommost);
     }
 
-    rightmost += 10;
-    bottommost += 10;
+    boxwidth = getGameTreeX(0, level(games.length - 1)) + 14.5;
+    boxheight = getGameTreeY(games.length-1, level(games.length - 1)) + 4;
 
-    $tree.width(rightmost);
-    $tree.height(bottommost);
+    $tree.css('width', boxwidth + 'em');
+    $tree.css('height', boxheight + 'em');
 
     // connect the games
     for (i = games.length - 1; i >= 0; i -= 1) {
@@ -988,8 +982,8 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
             Tabshandle.hide('history');
           }
           console.log('update');
-        } catch (e) {
-          console.log(e);
+        } catch (er) {
+          console.error(er);
           new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_history));
         }
         updatepending = false;

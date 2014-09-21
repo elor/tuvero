@@ -601,8 +601,8 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
           showRunning();
           showTab();
           console.log('update');
-        } catch (e) {
-          console.log(e);
+        } catch (er) {
+          console.log(er);
           new Toast(Strings.tabupdateerror.replace('%s', strings.tab_games));
         }
         updatepending = false;

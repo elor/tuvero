@@ -764,8 +764,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
           updateSystems();
 
           console.log('update');
-        } catch (e) {
-          console.log(e);
+        } catch (er) {
+          console.log(er);
           new Toast(Strings.tabupdateerror.replace('%s', strings.tab_new));
         }
         updatepending = false;

@@ -8,8 +8,8 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
     cacheStatus();
     try {
       appCache.update();
-    } catch (e) {
-      console.error(e);
+    } catch (er) {
+      console.error(er);
     }
   };
   // Note: Update() is NOT A CLASS

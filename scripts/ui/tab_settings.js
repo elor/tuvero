@@ -414,8 +414,8 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
           updateLocalStorageMeters();
 
           console.log('update');
-        } catch (e) {
-          console.log(e);
+        } catch (er) {
+          console.log(er);
           new Toast(Strings.tabupdateerror.replace('%s', strings.tab_settings));
         }
         updatepending = false;

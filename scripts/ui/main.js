@@ -51,8 +51,8 @@ define([ './update', './backgroundscripts', './splash', './toast', './strings',
               Toast.init();
               Splash.hide();
               Tabshandle.valid();
-            } catch (e) {
-              notifyAboutLoadError(e);
+            } catch (er) {
+              notifyAboutLoadError(er);
             }
           }, 10);
         } catch (e) {
