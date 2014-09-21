@@ -5,6 +5,7 @@
 	mapping KO players with byes correctly
 	warning about non-applicable corrections
 	update after corrections (to update the other teams' points)
+	automatic redraw if it becomes visible and there's a KO tournament
 
 	* pushversion.sh: setting the NEWS date
 
@@ -14,6 +15,7 @@
 
 	* scripts/backend/swisstournament.js: signal non-applicable corrections
 	recalculate the ranking after a correction
+
 
 2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

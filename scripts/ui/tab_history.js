@@ -1,9 +1,10 @@
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './opts', './team',
     './options' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options) {
-  var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable;
+  var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;
+  visibleupdatepending = false;
   progresstable = true;
 
   Tab_History = {};
@@ -744,6 +745,8 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   function createKOTree (tournamentid) {
     var games, i, $box, g, $game, parentid, jsPlumbInstance, boxwidth, boxheight;
 
+    visibleupdatepending = true;
+
     games = [];
 
     // add finished games
@@ -947,6 +950,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     if (force) {
       updatepending = false;
+      visibleupdatepending = false;
     }
 
     if (updatepending) {
@@ -983,6 +987,14 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       options : options
     }, opts);
   };
+
+  // FIXME use something that works for all tabs.
+  window.addEventListener('hashchange', function () {
+    if (window.location.hash === '#history' && visibleupdatepending) {
+      Tab_History.update();
+      visibleupdatepending = false;
+    }
+  });
 
   return Tab_History;
 });
