@@ -8,6 +8,7 @@
 	* scripts/build.js: optimization enabled
 	building and using common.js
 	excluding build.js
+	FileSaver.js is a module on its own
 
 	* scripts/ui/alltabs.js: Shared added
 
@@ -88,6 +89,7 @@
 	* style/qunit.css: moved from qunit-1.14.0.css
 
 	* test.html: using common.js for script loading
+
 
 2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

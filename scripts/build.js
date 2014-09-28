@@ -6,7 +6,7 @@
     modules: [
         {
             name: 'lib/FileSaver',
-        }
+        },
         {
             name: 'common',
             exclipde: ['lib/FileSaver']
