@@ -59,10 +59,10 @@ require.config({
       exports : 'Blob'
     },
       'lib/typeahead' : {
-      deps: [ 'lib/jquery' ]
+//      deps: [ 'lib/jquery' ]
     },
     'lib/jsPlumb' : {
-      deps: ['lib/jquery'],
+//      deps: ['lib/jquery'],
       exports: 'jsPlumb'
     },
     'lib/qunit' : {
