@@ -1,8 +1,8 @@
 /*
  * Various Matrix Tests
  */
-define([ '../fullmatrix', '../halfmatrix', '../matrix', '../vector',
-    '../../lib/implements' ], function (FullMatrix, HalfMatrix, Matrix, Vector, Interface) {
+define([ 'lib/qunit', '../fullmatrix', '../halfmatrix', '../matrix', '../vector',
+    '../../lib/implements' ], function (QUnit, FullMatrix, HalfMatrix, Matrix, Vector, Interface) {
   /*
    * FullMatrix Tests
    */

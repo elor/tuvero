@@ -1,7 +1,8 @@
 /*
  * Map Tests
  */
-define([ '../map' ], function (Map) {
+define([ 'lib/qunit', '../map' ], function (QUnit, Map) {
+  console.log('asd');
   QUnit.test("Map", function () {
     var map, a, b, c;
 

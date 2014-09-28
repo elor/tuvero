@@ -1,8 +1,8 @@
 /*
  * Tab Test
  */
-define([ '../../lib/implements', '../csver', '../team', '../history',
-    '../ranking' ], function (Implements, CSVer, Team, History, Ranking) {
+define([ 'lib/qunit', '../../lib/implements', '../csver', '../team', '../history',
+    '../ranking' ], function (QUnit, Implements, CSVer, Team, History, Ranking) {
   QUnit.test("UI CSV tests", function () {
 
     QUnit.equal(Implements(CSVer), '', "CSVer is an interface");

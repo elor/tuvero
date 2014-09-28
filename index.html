@@ -783,23 +783,7 @@
     <script src="scripts/lib/jquery.js"></script>
     <script>
       require = {
-      urlArgs : "bust=" + (new Date()).getTime(),
-      shim : {
-      'lib/modernizr' : {
-      deps: ['lib/Blob'],
-      exports: 'Modernizr'
-      },
-      'lib/Blob' : {
-      exports : 'Blob'
-      },
-      'lib/typeahead' : {
-      deps: [ 'lib/jquery' ]
-      },
-      'lib/jsPlumb' : {
-      deps: ['lib/jquery'],
-      exports: 'jsPlumb'
-      },
-      },
+        urlArgs : "bust=" + (new Date()).getTime(),
       };
 
     </script>

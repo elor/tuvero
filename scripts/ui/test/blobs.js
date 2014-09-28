@@ -1,8 +1,8 @@
 /*
  * Tab Test
  */
-define([ '../../lib/implements', '../../backend/blobber', '../state',
-    '../players', '../tournaments', '../team', '../history' ], function (Implements, Blobber, State, Players, Tournaments, Team, History) {
+define([ 'lib/qunit', '../../lib/implements', '../../backend/blobber', '../state',
+    '../players', '../tournaments', '../team', '../history' ], function (QUnit, Implements, Blobber, State, Players, Tournaments, Team, History) {
   QUnit.test("UI Blob tests", function () {
 
     QUnit.equal(Implements(Blobber), '', "Blobber is an interface");

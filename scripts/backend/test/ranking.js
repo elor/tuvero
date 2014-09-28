@@ -2,9 +2,9 @@
  * various ranking tests
  */
 
-define([ '../result', '../nettoranking', '../buchholzranking',
+define([ 'lib/qunit', '../result', '../nettoranking', '../buchholzranking',
     '../finebuchholzranking', '../game', '../correction',
-    '../../lib/implements', '../ranking' ], function (Result, Netto, Buchholz, Finebuchholz, Game, Correction, Interface, Ranking) {
+    '../../lib/implements', '../ranking' ], function (QUnit, Result, Netto, Buchholz, Finebuchholz, Game, Correction, Interface, Ranking) {
   /*
    * NettoRanking test
    */

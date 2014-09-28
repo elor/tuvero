@@ -18,14 +18,6 @@ version=${branch_name##release-}
 echo $version > Version
 git add Version
 
-#######################
-# update the manifest #
-#######################
-./manifest.sh
-git add -u
-git add manifest.appcache
-git commit -m "release-$version: manifest generated and linked"
-
 #####################################
 # optimize the whole project folder #
 #####################################
@@ -36,6 +28,14 @@ git commit -m 'release-$version: optimized for deployment'
 git rm `git ls-files '*.sh' | grep -v "$self"`
 git rm --cached $self
 git commit -m "release-$version: build/debugging scripts removed"
+
+#######################
+# update the manifest #
+#######################
+./manifest.sh
+git add -u
+git add manifest.appcache
+git commit -m "release-$version: manifest generated and linked"
 
 # replace all %VERSION% and $VERSION$ placeholders
 echo "pushing version $version"

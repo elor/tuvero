@@ -1,7 +1,7 @@
 /*
  * Random Test
  */
-define([ '../random' ], function (Random) {
+define([ 'lib/qunit', '../random' ], function (QUnit, Random) {
   QUnit.test("Random", function () {
     var min, max, r, x, i, sum;
 

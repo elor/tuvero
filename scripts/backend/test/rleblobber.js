@@ -1,7 +1,7 @@
 /*
  * Map Tests
  */
-define([ '../rleblobber', '../blobber', '../../lib/implements' ], function (RLEBlobber, Blobber, Implements) {
+define([ 'lib/qunit', '../rleblobber', '../blobber', '../../lib/implements' ], function (QUnit, RLEBlobber, Blobber, Implements) {
   QUnit.test("RLEBlobber", function () {
     var data, rle, exp;
 

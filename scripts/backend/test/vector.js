@@ -1,7 +1,7 @@
 /*
  * Vector Tests
  */
-define([ "../vector" ], function (Vector) {
+define([ 'lib/qunit', '../vector' ], function (QUnit, Vector) {
   QUnit.test("Vector", function () {
     var vec, ret, i;
 

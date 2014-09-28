@@ -1,7 +1,7 @@
 /*
  * Game, Results and Correction
  */
-define([ '../game', '../result', '../correction' ], function (Game, Result, Correction) {
+define([ 'lib/qunit', '../game', '../result', '../correction' ], function (QUnit, Game, Result, Correction) {
   /*
    * Game Tests
    */

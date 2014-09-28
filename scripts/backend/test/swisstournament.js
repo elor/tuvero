@@ -1,8 +1,8 @@
 /*
  * Swisstournament Test
  */
-define([ '../swisstournament', '../game', '../tournament',
-    '../../lib/implements' ], function (Swisstournament, Game, Tournament, Interface) {
+define([ 'lib/qunit', '../swisstournament', '../game', '../tournament',
+    '../../lib/implements' ], function (QUnit, Swisstournament, Game, Tournament, Interface) {
   QUnit.test("Swisstournament", function () {
     var st, corr, count, pid, valid, games1, games2, games3, rnk, res, tmp;
 

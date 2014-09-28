@@ -1,9 +1,9 @@
 /*
  * Tab Test
  */
-define([ '../../lib/implements', '../tab', '../tab_games', '../tab_history',
+define([ 'lib/qunit', '../../lib/implements', '../tab', '../tab_games', '../tab_history',
     '../tab_ranking', '../tab_settings', '../tab_teams', '../tab_new',
-    '../autocomplete', '../alltabs', '../tab_debug' ], function (Implements, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Settings, Tab_Teams, Tab_New, Autocomplete, AllTabs, Tab_Debug) {
+    '../autocomplete', '../alltabs', '../tab_debug' ], function (QUnit, Implements, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Settings, Tab_Teams, Tab_New, Autocomplete, AllTabs, Tab_Debug) {
   QUnit.test("Tab Implements", function () {
 
     QUnit.equal(Implements(Tab), '', "Tab is an interface");

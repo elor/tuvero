@@ -1,7 +1,7 @@
 /*
  * KOTournament Test
  */
-define([ '../kotournament', '../game', '../tournament', '../../lib/implements' ], function (KOTournament, Game, Tournament, Interface) {
+define([ 'lib/qunit', '../kotournament', '../game', '../tournament', '../../lib/implements' ], function (QUnit, KOTournament, Game, Tournament, Interface) {
   QUnit.test("KOTournament", function () {
     var i, names, kot, opts;
 
