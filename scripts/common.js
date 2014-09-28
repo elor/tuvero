@@ -27,6 +27,7 @@ define([
   "lib/base64",
   "lib/FileSaver",
   "lib/implements",
+  "lib/jsPlumb",
   "ui/alltabs",
   "ui/autocomplete",
   "ui/backgroundscripts",

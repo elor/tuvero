@@ -1,7 +1,7 @@
 /**
  * modernizr and own feature detections
  */
-define([ './strings', './toast' ], function (Strings, Toast) {
+define([ 'lib/modernizr', './strings', './toast' ], function (Modernizr, Strings, Toast) {
   var FeatureDetect;
 
   FeatureDetect = {};

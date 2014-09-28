@@ -1,6 +1,6 @@
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './opts', './team',
-    './options', './shared' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options, Shared) {
+    './options', './shared', 'lib/jsPlumb' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options, Shared, jsPlumb) {
   var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;

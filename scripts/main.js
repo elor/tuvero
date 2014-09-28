@@ -1,4 +1,6 @@
 function notifyAboutLoadError (err) {
+  console.log(err);
+
   $(function ($) {
     // Splash.setState(), but without splash being loaded
     $('body').addClass('splash');
@@ -6,11 +8,9 @@ function notifyAboutLoadError (err) {
     $splash.removeClass();
     $splash.addClass('loaderror');
   });
-
-  console.log(err);
 }
 
-define([ 'common' ], function () {
+define([ 'common'], function () {
     var Shared, Update, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug;
 
     Shared = require('./ui/shared');
@@ -28,7 +28,7 @@ define([ 'common' ], function () {
   // up, hence the jquery function.
   $(function ($) {
 
-    try {
+    // try {
       // NOT actively looking for updates. The events are handled automatically
       // Update();
 
@@ -69,10 +69,10 @@ define([ 'common' ], function () {
           Splash.error();
         }
       }, 1);
-    } catch (e) {
-      notifyAboutLoadError(e);
-    }
+    // } catch (e) {
+    //   notifyAboutLoadError(e);
+    // }
   });
 });
 
-requirejs.onError = notifyAboutLoadError;
+// requirejs.onError = notifyAboutLoadError;

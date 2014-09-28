@@ -780,16 +780,28 @@
     <a href="#debug" accesskey="d" tabindex="-1" class="hiddenlink">&nbsp;</a>
     <a href="#reset" accesskey="!" tabindex="-1" class="hiddenlink devonly">&nbsp;</a>
 
-    <script src="scripts/lib/json2.js"></script>
-    <script src="scripts/lib/modernizr.custom.45982.js"></script>
-    <script src="scripts/lib/Blob.js"></script>
-    <script src="scripts/lib/jquery-2.1.1.min.js"></script>
-    <script src="scripts/lib/typeahead.bundle.min.js"></script>
-    <script src="scripts/lib/jquery.jsPlumb-1.6.4-min.js"></script>
+    <script src="scripts/lib/jquery.js"></script>
     <script>
-      var require = {
-      urlArgs : "bust=" + (new Date()).getTime()
+      require = {
+      urlArgs : "bust=" + (new Date()).getTime(),
+      shim : {
+      'lib/modernizr' : {
+      deps: ['lib/Blob'],
+      exports: 'Modernizr'
+      },
+      'lib/Blob' : {
+      exports : 'Blob'
+      },
+      'lib/typeahead' : {
+      deps: [ 'lib/jquery' ]
+      },
+      'lib/jsPlumb' : {
+      deps: ['lib/jquery'],
+      exports: 'jsPlumb'
+      },
+      },
       };
+
     </script>
     <script data-main="scripts/main" src="scripts/lib/require.js"></script>
 
