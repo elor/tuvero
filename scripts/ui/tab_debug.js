@@ -93,13 +93,6 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     // add every key to mods, which is similar to the directory tree
     for (key in rjsdef) {
       keyparts = key.split('/');
-      // change the key words for a global naming scheme
-      if (keyparts.length === 1) {
-        keyparts.unshift('ui');
-      }
-      if (keyparts[0] === '..') {
-        keyparts.shift();
-      }
 
       subobject = mods;
 

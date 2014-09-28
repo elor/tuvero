@@ -76,8 +76,8 @@ define([ 'lib/Blob', './toast', './strings', './team', './history', './ranking',
         type : 'application/json'
       });
       saveAs(blob, 'boules.json');
-    } catch (e) {
-      console.error(e);
+    } catch (er) {
+      console.error(er);
       new Toast(Strings.savefailed);
     }
   }

@@ -746,7 +746,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     var games, i, $box, g, $game, parentid, jsPlumbInstance, boxwidth, boxheight;
 
     // TODO use a more sophisticated method
-    if (window.location.hash !== '#history'){
+    if (window.location.hash !== '#history') {
       visibleupdatepending = true;
     }
 
@@ -971,7 +971,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
           }
           console.log('update');
         } catch (er) {
-          console.error(er);
+          console.error(er.stack);
           new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_history));
         }
         updatepending = false;
