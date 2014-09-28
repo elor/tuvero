@@ -80,7 +80,21 @@ define(`formatpatharray`);
 EOF
 }
 
+getShim(){
+    sed -n '/^\s*shim\s*:/,/})/p' common.js
+}
+
+updateBuildJS(){
+    newbuild=`sed -e '/^\s*shim\s*:/,$ d' build.js`
+    cat <<EOF > build.js
+$newbuild
+`getShim`
+EOF
+}
+
 createCommonJS > common.js
 echo "common.js written"
 createTestJS > test.js
 echo "test.js written"
+updateBuildJS
+echo "build.js updated"
