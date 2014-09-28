@@ -1,6 +1,7 @@
 2014-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: expaining text added to tab_new
+	Platz -> Rang
 
 	* scripts/ui/globalranking.js: fixed issue #2 (global ranking too high)
 
