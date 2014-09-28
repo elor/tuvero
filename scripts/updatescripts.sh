@@ -80,9 +80,6 @@ require.config({
         QUnit.config.autostart = false;
       }
     },
-    'lib/FileSaver' : {
-      exports : 'saveAs'
-    },
   },
 });
 

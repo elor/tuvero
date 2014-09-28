@@ -5,7 +5,11 @@
     optimize: "uglify2",
     modules: [
         {
+            name: 'lib/FileSaver',
+        }
+        {
             name: 'common',
+            exclipde: ['lib/FileSaver']
         },
         {
             name: "main",
@@ -40,9 +44,6 @@
         QUnit.config.autoload = false;
         QUnit.config.autostart = false;
       }
-    },
-    'lib/FileSaver' : {
-      exports : 'saveAs'
     },
   },
 })
