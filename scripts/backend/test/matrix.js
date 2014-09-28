@@ -2,7 +2,7 @@
  * Various Matrix Tests
  */
 define(function () {
-  return function (QUnit) {
+  return function (QUnit, require) {
     var FullMatrix, HalfMatrix, Matrix, Vector, Implements;
 
     FullMatrix = require('backend/fullmatrix');

@@ -2,7 +2,7 @@
  * Swisstournament Test
  */
 define(function () {
-  return function (QUnit) {
+  return function (QUnit, require) {
     var Swisstournament, Game, Tournament, Interface;
 
     Swisstournament = require('backend/swisstournament');

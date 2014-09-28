@@ -2,7 +2,7 @@
  * Random Test
  */
 define(function () {
-  return function (QUnit) {
+  return function (QUnit, require) {
     var Random;
 
     Random = require('backend/random');

@@ -3,7 +3,7 @@
  */
 
 define(function () {
-  return function (QUnit) {
+  return function (QUnit, require) {
     var Result, Netto, Buchholz, Finebuchholz, Game, Correction, Implements, Ranking;
 
     Result = require('backend/result');

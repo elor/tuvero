@@ -2,7 +2,7 @@
  * KOTournament Test
  */
 define(function () {
-  return function (QUnit) {
+  return function (QUnit, require) {
     var KOTournament, Game, Tournament, Implements;
 
     KOTournament = require('backend/kotournament');

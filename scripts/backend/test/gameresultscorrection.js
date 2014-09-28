@@ -2,7 +2,7 @@
  * Game, Results and Correction
  */
 define(function () {
-  return function (QUnit) {
+  return function (QUnit, require) {
     var Game, Result, Correction;
 
     Game = require('backend/game');
