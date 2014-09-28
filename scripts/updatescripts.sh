@@ -14,7 +14,7 @@ createTestJS(){
 * this file is automatically created by updatetests.sh, located in the same folder. Do not attempt manual changes
 */
 
-require([ './common', 'lib/qunit', '$files'], function(Common, QUnit){
+require([ 'common', 'lib/qunit', '$files' ], function(Common, QUnit){
   QUnit.load();
   QUnit.start();
 });
