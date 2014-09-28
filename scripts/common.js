@@ -25,7 +25,7 @@ define([
   "backend/tournament",
   "backend/vector",
   "lib/base64",
-  "lib/FileSaver.min",
+  "lib/FileSaver",
   "lib/implements",
   "ui/alltabs",
   "ui/autocomplete",

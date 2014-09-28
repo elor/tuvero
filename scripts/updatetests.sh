@@ -17,7 +17,7 @@ cat << EOF > $outfile
 * this file is automatically created by updatetests.sh, located in the same folder. Do not attempt manual changes
 */
 
-require([ '$files' ]);
+require([ './common', '$files' ]);
 EOF
 
 cat $outfile
