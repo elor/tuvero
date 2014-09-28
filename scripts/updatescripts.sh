@@ -16,8 +16,12 @@ createTestJS(){
 
 require([ 'common', 'lib/qunit', '$files' ], function(Common, QUnit){
   var i;
+  function myrequire (str) {
+    console.log(str);
+    return require.s.contexts._.defined[str];
+  }
   for (i = 2; i < arguments.length; i += 1) {
-    arguments[i](QUnit);
+    arguments[i](QUnit, myrequire);
   }
   QUnit.load();
   QUnit.start();
@@ -75,7 +79,10 @@ require.config({
         QUnit.config.autoload = false;
         QUnit.config.autostart = false;
       }
-    }
+    },
+    'lib/FileSaver' : {
+      exports : 'FileSaver'
+    },
   },
 });
 

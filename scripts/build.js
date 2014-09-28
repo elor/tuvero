@@ -40,6 +40,9 @@
         QUnit.config.autoload = false;
         QUnit.config.autostart = false;
       }
-    }
+    },
+    'lib/FileSaver' : {
+      exports : 'FileSaver'
+    },
   },
 })
