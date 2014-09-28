@@ -388,8 +388,8 @@ define([ './tournaments' ], function (Tournaments) {
 
       lines = [];
 
-      Team = require('./team');
-      Tournaments = require('./tournaments');
+      Team = Shared.Team;
+      Tournaments = Shared.Tournaments;
 
       for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
         numrounds = History.numRounds(tournamentid);

@@ -1,7 +1,7 @@
 /**
  * Storage API for persistent state
  */
-define([ './options' ], function (Options) {
+define([ './options', './shared' ], function (Options, Shared) {
   var Storage, keys, Tab_Settings, savespending;
 
   Tab_Settings = undefined;
@@ -128,8 +128,8 @@ define([ './options' ], function (Options) {
     Storage.disable();
 
     if (Modernizr.localstorage) {
-      keys[Options.dbname] = require('./state');
-      keys[Options.dbplayername] = require('./players');
+      keys[Options.dbname] = Shared.State;
+      keys[Options.dbplayername] = Shared.Players;
     }
   };
 
@@ -147,7 +147,7 @@ define([ './options' ], function (Options) {
   // TODO move to Blob
   Storage.changed = function () {
     if (Tab_Settings === undefined) {
-      Tab_Settings = require('./tab_settings');
+      Tab_Settings = Shared.Tab_Settings;
     }
 
     // invalidate
@@ -155,5 +155,6 @@ define([ './options' ], function (Options) {
     Storage.store();
   };
 
+  Shared.Storage = Storage;
   return Storage;
 });

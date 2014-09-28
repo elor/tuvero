@@ -5,7 +5,7 @@
  * 
  * If two players are equally ranked, the lowest ID is first.
  */
-define([ './tournaments', './team' ], function (Tournaments, Team) {
+define([ './tournaments', './team', './shared'], function (Tournaments, Team, Shared) {
   var GlobalRanking, teamobjects, teamsset;
 
   function mapTeamsToTournamentIDs () {
@@ -98,5 +98,6 @@ define([ './tournaments', './team' ], function (Tournaments, Team) {
     get : updateTeamObjects,
   };
 
+  Shared.GlobalRanking = GlobalRanking;
   return GlobalRanking;
 });

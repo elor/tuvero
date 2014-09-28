@@ -1,5 +1,5 @@
 define([ './tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './opts', './history' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts, History) {
+    './tabshandle', './opts', './history', './shared' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts, History, Shared) {
   var Tab_Ranking, template, $tab, options, updatepending;
 
   updatepending = false;
@@ -292,5 +292,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
     }, opts);
   };
 
+  Shared.Tab_Ranking = Tab_Ranking;
   return Tab_Ranking;
 });

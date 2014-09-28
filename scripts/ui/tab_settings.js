@@ -1,6 +1,6 @@
 define([ './toast', './strings', './team', './history', './ranking', './state',
     '../lib/base64', './storage', './options', './opts', './players',
-    './tabshandle', '../lib/FileSaver.min' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, saveAs) {
+    './tabshandle', '../lib/FileSaver.min', './shared' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, saveAs, Shared) {
   var Tab_Settings, $tab, areas, options, updatepending;
 
   updatepending = false;
@@ -141,7 +141,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
       // perform a complete reset of the everything related to the tournament
       Storage.enable();
       Storage.clear(Options.dbname);
-      Alltabs = require('./alltabs');
+      Alltabs = Shared.Alltabs;
       Alltabs.reset();
       State.reset();
       Alltabs.update();
@@ -303,7 +303,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
         Storage.enable();
         Storage.clear(Options.dbname);
 
-        Alltabs = require('./alltabs');
+        Alltabs = Shared.Alltabs;
 
         Alltabs.reset();
         State.reset();
@@ -398,5 +398,6 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
     }, opts);
   };
 
+  Shared.Tab_Settings = Tab_Settings;
   return Tab_Settings;
 });

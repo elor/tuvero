@@ -1,7 +1,7 @@
 /**
  * a list of teams with some accessor functions
  */
-define([ './options', './strings' ], function (Options, Strings) {
+define([ './options', './strings', './shared'], function (Options, Strings, Shared) {
   var Team, teams;
 
   teams = [];
@@ -136,5 +136,6 @@ define([ './options', './strings' ], function (Options, Strings) {
     teams = [];
   };
 
+  Shared.Team = Team;
   return Team;
 });

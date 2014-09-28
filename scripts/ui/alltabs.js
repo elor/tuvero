@@ -2,13 +2,13 @@
  * Load and manage all tabs centrally
  */
 
-define([ './tab_history', './tab_ranking', './tab_new', './tab_teams',
-    './tab_games', './tab_debug', './tab_settings' ], function () {
+define([ './shared', './tab_history', './tab_ranking', './tab_new', './tab_teams',
+    './tab_games', './tab_debug', './tab_settings' ], function (Shared) {
   var tab, tabs, Alltabs;
 
   tabs = [];
 
-  for (tab = 0; tab < arguments.length; tab += 1) {
+  for (tab = 1; tab < arguments.length; tab += 1) {
     if (!arguments[tab]) {
       console.error('alltabs: argument id ' + tab + ' has invalid value: ');
       console.error(arguments[tab]);
@@ -37,5 +37,6 @@ define([ './tab_history', './tab_ranking', './tab_new', './tab_teams',
     },
   };
 
+  Shared.Alltabs = Alltabs;
   return Alltabs;
 });

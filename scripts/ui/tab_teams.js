@@ -1,5 +1,5 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options', './tab_new', './opts', './tabshandle' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle) {
+    './autocomplete', './options', './tab_new', './opts', './tabshandle', './shared' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle, Shared) {
 
   // TODO combine $anchors, $fileload, $delete and $teamsize
   var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
@@ -104,8 +104,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Options.teamsize = teamsize;
 
       Tabshandle.updateOpts();
-      require('./alltabs').reset();
-      require('./alltabs').update();
+      Shared.Alltabs.reset();
+      Shared.Alltabs.update();
 
       e.preventDefault();
       return false;
@@ -236,8 +236,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Options.teamsize = teamsize;
       // update tabs to the new teamsize
       Tabshandle.updateOpts();
-      require('./alltabs').reset();
-      require('./alltabs').update();
+      Shared.Alltabs.reset();
+      Shared.Alltabs.update();
       break;
     default:
       new Toast(Strings.invalidteamsize);
@@ -499,7 +499,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       }
 
       // avoid circular dependency
-      Tab_Games = require('./tab_games');
+      Tab_Games = Shared.Tab_Games;
       // refresh all tabs
       Tab_New.update();
       Tab_Games.update();
@@ -719,5 +719,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
   };
 
+  Shared.Tab_Teams = Tab_Teams;
   return Tab_Teams;
 });

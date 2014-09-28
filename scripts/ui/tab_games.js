@@ -1,6 +1,6 @@
 define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     './history', './tab_history', './storage', './options', './opts',
-    './tabshandle', './tournaments' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle, Tournaments) {
+    './tabshandle', './tournaments', './shared' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle, Tournaments, Shared) {
   var Tab_Games, $tab, template, games, $games, $tournaments, options, updatependng;
 
   updatepending = false;
@@ -396,7 +396,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     Tab_Ranking.update();
     // due to circular dependency, we must load Tab_New separately
-    require('./tab_new').update();
+    Shared.Tab_New.update();
     if (games.length === 0) {
       Tabshandle.focus('new');
     }
@@ -612,5 +612,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     }, opts);
   };
 
+  Shared.Tab_Games = Tab_Games;
   return Tab_Games;
 });

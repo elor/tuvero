@@ -4,5 +4,6 @@
  */
 define([ './reset', './tabs', './featuredetect', './box', './online',
     './debug' ], function () {
+
   return arguments;
 });
