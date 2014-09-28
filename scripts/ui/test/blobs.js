@@ -2,16 +2,16 @@
  * Tab Test
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Implements, Blobber, State, Players, Tournaments, Team, History;
 
-    Implements = require('lib/implements');
-    Blobber = require('backend/blobber');
-    State = require('ui/state');
-    Players = require('ui/players');
-    Tournaments = require('ui/tournaments');
-    Team = require('ui/team');
-    History = require('ui/history');
+    Implements = getModule('lib/implements');
+    Blobber = getModule('backend/blobber');
+    State = getModule('ui/state');
+    Players = getModule('ui/players');
+    Tournaments = getModule('ui/tournaments');
+    Team = getModule('ui/team');
+    History = getModule('ui/history');
 
     QUnit.test("UI Blob tests", function () {
 

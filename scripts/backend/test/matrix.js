@@ -2,14 +2,14 @@
  * Various Matrix Tests
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var FullMatrix, HalfMatrix, Matrix, Vector, Implements;
 
-    FullMatrix = require('backend/fullmatrix');
-    HalfMatrix = require('backend/halfmatrix');
-    Matrix = require('backend/matrix');
-    Vector = require('backend/vector');
-    Implements = require('lib/implements');
+    FullMatrix = getModule('backend/fullmatrix');
+    HalfMatrix = getModule('backend/halfmatrix');
+    Matrix = getModule('backend/matrix');
+    Vector = getModule('backend/vector');
+    Implements = getModule('lib/implements');
 
     /*
      * FullMatrix Tests

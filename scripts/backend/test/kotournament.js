@@ -2,13 +2,13 @@
  * KOTournament Test
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var KOTournament, Game, Tournament, Implements;
 
-    KOTournament = require('backend/kotournament');
-    Game = require('backend/game');
-    Tournament = require('backend/tournament');
-    Implements = require('lib/implements');
+    KOTournament = getModule('backend/kotournament');
+    Game = getModule('backend/game');
+    Tournament = getModule('backend/tournament');
+    Implements = getModule('lib/implements');
 
     QUnit.test("KOTournament", function () {
       var i, names, kot, opts;

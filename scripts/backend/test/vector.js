@@ -2,8 +2,8 @@
  * Vector Tests
  */
 define(function () {
-  return function (QUnit, require) {
-    var Vector = require('backend/vector');
+  return function (QUnit, getModule) {
+    var Vector = getModule('backend/vector');
     QUnit.test("Vector", function () {
       var vec, ret, i;
 

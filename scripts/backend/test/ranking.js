@@ -3,17 +3,17 @@
  */
 
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Result, Netto, Buchholz, Finebuchholz, Game, Correction, Implements, Ranking;
 
-    Result = require('backend/result');
-    Netto = require('backend/nettoranking');
-    Buchholz = require('backend/buchholzranking');
-    Finebuchholz = require('backend/finebuchholzranking');
-    Game = require('backend/game');
-    Correction = require('backend/correction');
-    Implements = require('lib/implements');
-    Ranking = require('backend/ranking');
+    Result = getModule('backend/result');
+    Netto = getModule('backend/nettoranking');
+    Buchholz = getModule('backend/buchholzranking');
+    Finebuchholz = getModule('backend/finebuchholzranking');
+    Game = getModule('backend/game');
+    Correction = getModule('backend/correction');
+    Implements = getModule('lib/implements');
+    Ranking = getModule('backend/ranking');
 
     /*
      * NettoRanking test

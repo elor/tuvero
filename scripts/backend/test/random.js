@@ -2,10 +2,10 @@
  * Random Test
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Random;
 
-    Random = require('backend/random');
+    Random = getModule('backend/random');
 
     QUnit.test("Random", function () {
       var min, max, r, x, i, sum;

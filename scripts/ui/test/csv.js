@@ -2,14 +2,14 @@
  * Tab Test
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Implements, CSVer, Team, History, Ranking;
 
-    Implements = require('lib/implements');
-    CSVer = require('ui/csver');
-    Team = require('ui/team');
-    History = require('ui/history');
-    Ranking = require('ui/ranking');
+    Implements = getModule('lib/implements');
+    CSVer = getModule('ui/csver');
+    Team = getModule('ui/team');
+    History = getModule('ui/history');
+    Ranking = getModule('ui/ranking');
 
     QUnit.test("UI CSV tests", function () {
       QUnit.equal(Implements(CSVer), '', "CSVer is an interface");

@@ -2,12 +2,12 @@
  * Game, Results and Correction
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Game, Result, Correction;
 
-    Game = require('backend/game');
-    Result = require('backend/result');
-    Correction = require('backend/correction');
+    Game = getModule('backend/game');
+    Result = getModule('backend/result');
+    Correction = getModule('backend/correction');
     /*
      * Game Tests
      */

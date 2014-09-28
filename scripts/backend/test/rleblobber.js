@@ -2,12 +2,12 @@
  * Map Tests
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var RLEBlobber, Blobber, Implements;
 
-    RLEBlobber = require('backend/rleblobber');
-    Blobber = require('backend/blobber');
-    Implements = require('lib/implements');
+    RLEBlobber = getModule('backend/rleblobber');
+    Blobber = getModule('backend/blobber');
+    Implements = getModule('lib/implements');
 
     QUnit.test("RLEBlobber", function () {
       var data, rle, exp;

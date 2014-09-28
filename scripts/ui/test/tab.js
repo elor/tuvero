@@ -2,20 +2,20 @@
  * Tab Test
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Implements, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Settings, Tab_Teams, Tab_New, Autocomplete, Alltabs, Tab_Debug;
 
-    Implements = require('lib/implements');
-    Tab = require('ui/tab');
-    Tab_Games = require('ui/tab_games');
-    Tab_History = require('ui/tab_history');
-    Tab_Ranking = require('ui/tab_ranking');
-    Tab_Settings = require('ui/tab_settings');
-    Tab_Teams = require('ui/tab_teams');
-    Tab_New = require('ui/tab_new');
-    Autocomplete = require('ui/autocomplete');
-    Alltabs = require('ui/alltabs');
-    Tab_Debug = require('ui/tab_debug');
+    Implements = getModule('lib/implements');
+    Tab = getModule('ui/tab');
+    Tab_Games = getModule('ui/tab_games');
+    Tab_History = getModule('ui/tab_history');
+    Tab_Ranking = getModule('ui/tab_ranking');
+    Tab_Settings = getModule('ui/tab_settings');
+    Tab_Teams = getModule('ui/tab_teams');
+    Tab_New = getModule('ui/tab_new');
+    Autocomplete = getModule('ui/autocomplete');
+    Alltabs = getModule('ui/alltabs');
+    Tab_Debug = getModule('ui/tab_debug');
 
     QUnit.test("Tab Implements", function () {
 

@@ -2,10 +2,10 @@
  * Map Tests
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Map;
 
-    Map = require('backend/map');
+    Map = getModule('backend/map');
 
     QUnit.test("Map", function () {
       var map, a, b, c;

@@ -2,13 +2,13 @@
  * Swisstournament Test
  */
 define(function () {
-  return function (QUnit, require) {
+  return function (QUnit, getModule) {
     var Swisstournament, Game, Tournament, Interface;
 
-    Swisstournament = require('backend/swisstournament');
-    Game = require('backend/game');
-    Tournament = require('backend/tournament');
-    Interface = require('lib/implements');
+    Swisstournament = getModule('backend/swisstournament');
+    Game = getModule('backend/game');
+    Tournament = getModule('backend/tournament');
+    Interface = getModule('lib/implements');
 
     QUnit.test("Swisstournament", function () {
       var st, corr, count, pid, valid, games1, games2, games3, rnk, res, tmp;
