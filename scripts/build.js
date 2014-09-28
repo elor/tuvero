@@ -42,7 +42,7 @@
       }
     },
     'lib/FileSaver' : {
-      exports : 'FileSaver'
+      exports : 'saveAs'
     },
   },
 })

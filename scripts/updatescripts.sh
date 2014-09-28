@@ -81,7 +81,7 @@ require.config({
       }
     },
     'lib/FileSaver' : {
-      exports : 'FileSaver'
+      exports : 'saveAs'
     },
   },
 });
