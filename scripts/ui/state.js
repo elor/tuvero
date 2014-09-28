@@ -3,7 +3,7 @@
  * state in a different user session.
  */
 define([ './options', './tabshandle', './team', './history', './tournaments',
-    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new' ], function (Options, Tabshandle, Team, History, Tournaments, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New) {
+    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function (Options, Tabshandle, Team, History, Tournaments, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New, Shared) {
   var State;
 
   State = {
@@ -68,5 +68,6 @@ define([ './options', './tabshandle', './team', './history', './tournaments',
     },
   };
 
+  Shared.State = State;
   return State;
 });

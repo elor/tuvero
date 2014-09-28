@@ -1,3 +1,41 @@
+2014-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/build.js: optimization enabled
+
+	* scripts/ui/alltabs.js: Shared added
+
+	* scripts/ui/autocomplete.js: Shared added
+
+	* scripts/ui/globalranking.js: Shared added
+
+	* scripts/ui/history.js: Shared added
+
+	* scripts/ui/players.js: Shared added
+
+	* scripts/ui/state.js: Shared added
+
+	* scripts/ui/storage.js: Shared added
+
+	* scripts/ui/tab_debug.js: Shared added
+
+	* scripts/ui/tab_games.js: Shared added
+
+	* scripts/ui/tab_history.js: Shared added
+
+	* scripts/ui/tab_new.js: Shared added
+
+	* scripts/ui/tab_ranking.js: Shared added
+
+	* scripts/ui/tab_settings.js: Shared added
+
+	* scripts/ui/tab_teams.js: Shared added
+
+	* scripts/ui/team.js: Shared added
+
+	* scripts/ui/tournaments.js: Shared added
+
+	* scripts/ui/shared.js: Shared added
+
 \2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_history.js: 'no tournament' warning disabled

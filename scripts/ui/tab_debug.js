@@ -1,5 +1,5 @@
 define([ './tabshandle', './opts', './toast', '../backend/random', './options',
-    './strings', './debug', './tournaments', './team' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Debug, Tournaments, Team) {
+    './strings', './debug', './tournaments', './team', './history', './shared' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Debug, Tournaments, Team, History, Shared) {
   var Tab_Debug, $tab, form, options, letters, Letters, rng;
 
   Tab_Debug = {};
@@ -71,7 +71,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   }
 
   function updateTabs () {
-    require('./alltabs').update(true);
+    Shared.Alltabs.update(true);
     new Toast(Strings.alltabsreloaded);
   }
 
@@ -124,10 +124,10 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   function clearEverything () {
     var Storage, Alltabs, State, Tab_Settings;
 
-    Storage = require('./storage');
-    Alltabs = require('./alltabs');
-    State = require('./state');
-    Tab_Settings = require('./tab_settings');
+    Storage = Shared.Storage;
+    Alltabs = Shared.Alltabs;
+    State = Shared.State;
+    Tab_Settings = Shared.Tab_Settings;
 
     Storage.enable();
     Storage.clear();
@@ -141,7 +141,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   function registerPlayers () {
     var num, Tab_Teams, teamno, $template, $names, playerno;
 
-    Tab_Teams = require('./tab_teams');
+    Tab_Teams = Shared.Tab_Teams;
 
     if (!Tab_Teams.getOptions().allowRegistrations) {
       new Toast(Strings.registrationclosed);
@@ -164,7 +164,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   function startRound (tournamentid) {
     var $button, Tab_Games;
 
-    Tab_Games = require('./tab_games');
+    Tab_Games = Shared.Tab_Games;
 
     $button = $('#new .newsystem button.swiss').eq(0);
     if ($button.length === 1) {
@@ -308,10 +308,10 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     Tournament.start();
 
     if (Tournaments.getRanking(tournamentid).byevote[0]) {
-      require('./history').addVote(tournamentid, 0, Tournaments.getRanking(tournamentid).ids[0], 0);
+      History.addVote(tournamentid, 0, Tournaments.getRanking(tournamentid).ids[0], 0);
     }
 
-    require('./storage').store();
+    Shared.Storage.store();
     updateTabs();
     new Toast(Strings.roundstarted.replace('%s', 1));
   }

@@ -1,6 +1,6 @@
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './opts', './team',
-    './options' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options) {
+    './options', './shared' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options, Shared) {
   var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;
@@ -999,5 +999,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     }
   });
 
+  Shared.Tab_History = Tab_History;
   return Tab_History;
 });

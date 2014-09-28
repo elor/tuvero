@@ -2,7 +2,7 @@
  * Tournaments is a list of _running_ tournaments, with null entries for
  * finished tournaments, but still keeping name and type information
  */
-define([ '../backend/swisstournament', '../backend/kotournament', './team' ], function (Swisstournament, KOTournament, Team) {
+define([ '../backend/swisstournament', '../backend/kotournament', './team', './shared' ], function (Swisstournament, KOTournament, Team, Shared) {
   var Tournaments, tournaments, globalranking;
 
   Tournaments = {};
@@ -111,7 +111,7 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team' ], fu
       return undefined;
     }
 
-    globalranking = require('./globalranking').get();
+    globalranking = Shared.GlobalRanking.get();
 
     console.log(startteam);
 
@@ -329,5 +329,6 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team' ], fu
     tournaments = [];
   };
 
+  Shared.Tournaments = Tournaments;
   return Tournaments;
 });

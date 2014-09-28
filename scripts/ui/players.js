@@ -2,7 +2,7 @@
  * Maintain a sorted list of player names
  */
 
-define(function () {
+define(['./shared'], function (Shared) {
   var Players, names, author;
 
   author = "Erik Lorenz";
@@ -16,7 +16,7 @@ define(function () {
   }
 
   function updateDependencies () {
-    require('./autocomplete').update();
+    Shared.Autocomplete.update();
   }
 
   Players.fromString = function (string) {
@@ -110,5 +110,6 @@ define(function () {
     }
   };
 
+	Shared.Players = Players;
   return Players;
 });

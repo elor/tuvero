@@ -4,7 +4,7 @@
 
 define([ './options', './tabshandle', './opts', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
-    './storage', '../backend/tournament', './tournaments', './globalranking' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking) {
+    './storage', '../backend/tournament', './tournaments', './globalranking', './shared' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared) {
   var Tab_New, $tab, updatepending, template, swissperms;
 
   updatepending = false;
@@ -118,9 +118,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
       // refresh all tabs
       // Tab_New.update(); // not necessary
-      require('./tab_games').update();
-      require('./tab_ranking').update();
-      require('./tab_history').update();
+      Shared.Tab_Games.update();
+      Shared.Tab_Ranking.update();
+      Shared.Tab_History.update();
 
       new Toast(Strings.namechanged.replace('%s', newname));
     }
@@ -727,7 +727,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   function closeTeamRegistration () {
     var opts, Tab_Teams;
 
-    Tab_Teams = require('./tab_teams');
+    Tab_Teams = Shared.Tab_Teams;
 
     opts = Tab_Teams.getOptions();
     opts.allowRegistrations = false;
@@ -893,5 +893,6 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     custom : undefined
   };
 
+  Shared.Tab_New = Tab_New;
   return Tab_New;
 });
