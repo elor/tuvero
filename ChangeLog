@@ -61,6 +61,15 @@
 
 	* scripts/updatecommon.sh: using define() instead of require()
 
+	* createmanifest.sh: moved to manifest.sh
+
+	* manifest.sh: moved from createmanifest.sh
+
+	* optimize.sh: moved from build.sh
+	copying the build results over from the build directory
+
+	* pushversion.sh: calling manifest.sh and optimize.sh instead of performing everything locally
+
 2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_history.js: 'no tournament' warning disabled

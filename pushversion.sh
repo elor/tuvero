@@ -1,12 +1,15 @@
 #!/bin/bash
 #
-# update all version information, delete this file and commit your changes
+# update all version information, pack the files, all scripts and commit the changes
 
-# constants
-manifest=manifest.appcache
+#############
+# constants #
+#############
 self="$0"
 
-# get the current version from the branch name
+################################################
+# get the current version from the branch name #
+################################################
 branch_name="$(git symbolic-ref HEAD 2>/dev/null)" ||
 branch_name="(unnamed branch)"     # detached HEAD
 branch_name=${branch_name##refs/heads/}
@@ -15,36 +18,35 @@ version=${branch_name##release-}
 echo $version > Version
 git add Version
 
-./createmanifest.sh >$manifest
-git add $manifest
-# add manifest links to all html files
-for file in `git ls-files '*.html'`; do
-  sed -i -e "/<html/ s/\s*>/ manifest=\"$manifest\">/" $file
-done
+#######################
+# update the manifest #
+#######################
+./manifest.sh
 git add -u
+git add manifest.appcache
 git commit -m "release-$version: manifest generated and linked"
 
-# remove debugging url arguments
-for file in `git ls-files '*.html'`; do
-  sed -i -e '/urlArgs.*bust/d' $file
-done
-
+#####################################
+# optimize the whole project folder #
+#####################################
+./optimize.sh
 git add -u
+git commit -m 'release-$version: optimized for deployment'
+
 git rm `git ls-files '*.sh' | grep -v "$self"`
 git rm --cached $self
-git commit -m "release-$version: debugging and build stuff removed"
+git commit -m "release-$version: build/debugging scripts removed"
 
 # replace all %VERSION% and $VERSION$ placeholders
 echo "pushing version $version"
 IFS=$'\r\n'
 for file in `git ls-files | grep -v images | grep -v "$self"`; do
-  sed -i -e "s/\\\$VERSION\\$/$version/g" -e "s/%VERSION%/$version/g" $file
+    sed -i -e "s/\\\$VERSION\\$/$version/g" -e "s/%VERSION%/$version/g" $file
 done
 # set release date in NEWS file
 sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
 
 git add -u
-git commit -m "release-$version: pushed to version $version"
+git commit -m "release-$version: Version $version pushed"
 
 rm $self
-
