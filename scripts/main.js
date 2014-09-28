@@ -10,8 +10,8 @@ function notifyAboutLoadError (err) {
   console.log(err);
 }
 
-define([ './update', './backgroundscripts', './splash', './toast', './strings',
-    './storage', './tab_settings', './tabshandle', './alltabs', './tab_debug', ], function (Update, undefined, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug) {
+define([ './ui/update', './ui/backgroundscripts', './ui/splash', './ui/toast', './ui/strings',
+    './ui/storage', './ui/tab_settings', './ui/tabshandle', './ui/alltabs', './ui/tab_debug', ], function (Update, undefined, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug) {
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.

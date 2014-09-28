@@ -36,7 +36,14 @@
 
 	* scripts/ui/shared.js: Shared added
 
-\2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+	* index.html: using scripts/main.js
+
+	* scripts/main.js: moved from scripts/ui/main.js
+	require paths prepended with 'ui/' to reflect the relative move
+
+	* scripts/ui/main.js: moved to scripts/main.js
+
+2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_history.js: 'no tournament' warning disabled
 	calculating KO box size from its content, not using jQuery
