@@ -27,7 +27,7 @@ define([ './strings', './update' ], function (Strings, Update) {
 
     // uncomment to show dev reload notifications again
     //
-    // if (require('./debug').isDevVersion) {
+    // if (Shared.Debug.isDevVersion) {
     // message='(dev output) beforeunload ' + (Online() ? 'online' : 'offline')
     // + ' ' + (Update.isCached ? 'cached' : 'uncached');
     // if (e) {

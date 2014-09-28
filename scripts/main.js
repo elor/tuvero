@@ -10,8 +10,19 @@ function notifyAboutLoadError (err) {
   console.log(err);
 }
 
-define([ './ui/update', './ui/backgroundscripts', './ui/splash', './ui/toast', './ui/strings',
-    './ui/storage', './ui/tab_settings', './ui/tabshandle', './ui/alltabs', './ui/tab_debug', ], function (Update, undefined, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug) {
+define([ 'common' ], function () {
+    var Shared, Update, Splash, Toast, Strings, Storage, Tab_Settings, Tabshandle, Alltabs, Tab_Debug;
+
+    Shared = require('./ui/shared');
+    Update = require('ui/update');
+    Splash = require('ui/splash');
+    Toast = require('ui/toast');
+    Strings = require('ui/strings');
+    Storage = Shared.Storage;
+    Tab_Settings = Shared.Tab_Settings;
+    Tabshandle = require('ui/tabshandle');
+    Alltabs = Shared.Alltabs;
+    Tab_Debug = require('ui/tab_debug');
 
   // actual initializations are started after any other module has been set
   // up, hence the jquery function.
