@@ -53,7 +53,7 @@ define([ 'lib/Blob', './toast', './strings', './team', './history', './ranking',
         type : 'application/csv'
       });
       saveAs(blob, 'boules.csv');
-    } catch (e) {
+    } catch (er) {
       console.error('Blobbing failed');
       new Toast(Strings.savefailed);
     }

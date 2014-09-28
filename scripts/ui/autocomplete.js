@@ -47,6 +47,6 @@ define([ './players', './shared', 'lib/typeahead' ], function (Players, Shared, 
 
   });
 
-	Shared.Autocomplete = Autocomplete
+	Shared.Autocomplete = Autocomplete;
   return Autocomplete;
 });
