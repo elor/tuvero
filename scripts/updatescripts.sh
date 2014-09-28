@@ -81,7 +81,7 @@ EOF
 }
 
 getShim(){
-    sed -n '/^\s*shim\s*:/,/})/p' common.js
+    sed -n '/^\s*shim\s*:/,/})/p' common.js | sed '$s/;$//'
 }
 
 updateBuildJS(){
