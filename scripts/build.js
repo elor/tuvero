@@ -19,4 +19,4 @@
     findNestedDependencies: true,
     removeCombined: true,
     fileExclusionRegExp: /^\.|\.(svg|xcf|sh)$|^build\.js$/,
-});
+})
