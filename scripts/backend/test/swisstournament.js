@@ -1,8 +1,8 @@
 /*
  * Swisstournament Test
  */
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var Swisstournament, Game, Tournament, Interface;
 
     Swisstournament = require('backend/swisstournament');

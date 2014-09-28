@@ -1,8 +1,8 @@
 /*
  * Game, Results and Correction
  */
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var Game, Result, Correction;
 
     Game = require('backend/game');

@@ -1,8 +1,8 @@
 /*
  * Various Matrix Tests
  */
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var FullMatrix, HalfMatrix, Matrix, Vector, Implements;
 
     FullMatrix = require('backend/fullmatrix');

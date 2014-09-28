@@ -1,8 +1,8 @@
 /*
  * Vector Tests
  */
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var Vector = require('backend/vector');
     QUnit.test("Vector", function () {
       var vec, ret, i;

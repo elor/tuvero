@@ -2,8 +2,8 @@
  * various ranking tests
  */
 
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var Result, Netto, Buchholz, Finebuchholz, Game, Correction, Implements, Ranking;
 
     Result = require('backend/result');

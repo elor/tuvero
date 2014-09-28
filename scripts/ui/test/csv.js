@@ -1,8 +1,8 @@
 /*
  * Tab Test
  */
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var Implements, CSVer, Team, History, Ranking;
 
     Implements = require('lib/implements');

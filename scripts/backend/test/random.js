@@ -1,8 +1,8 @@
 /*
  * Random Test
  */
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var Random;
 
     Random = require('backend/random');

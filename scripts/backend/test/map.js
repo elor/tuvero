@@ -1,8 +1,8 @@
 /*
  * Map Tests
  */
-define([ 'lib/qunit' ], function (QUnit) {
-  return function () {
+define(function () {
+  return function (QUnit) {
     var Map;
 
     Map = require('backend/map');

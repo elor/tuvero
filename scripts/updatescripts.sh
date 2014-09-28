@@ -15,6 +15,10 @@ createTestJS(){
 */
 
 require([ 'common', 'lib/qunit', '$files' ], function(Common, QUnit){
+  var i;
+  for (i = 2; i < arguments.length; i += 1) {
+    arguments[i](QUnit);
+  }
   QUnit.load();
   QUnit.start();
 });
