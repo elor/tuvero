@@ -1,5 +1,5 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options', './tab_new', './opts', './tabshandle', './shared' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab_New, Opts, Tabshandle, Shared) {
+    './autocomplete', './options', './opts', './tabshandle', './shared' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Opts, Tabshandle, Shared) {
 
   // TODO combine $anchors, $fileload, $delete and $teamsize
   var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
@@ -29,7 +29,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     Team.erase(teamid);
 
-    Tab_New.update();
+    Shared.Tab_New.update();
 
     Storage.changed();
 
@@ -501,7 +501,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       // avoid circular dependency
       Tab_Games = Shared.Tab_Games;
       // refresh all tabs
-      Tab_New.update();
+      Shared.Tab_New.update();
       Tab_Games.update();
       Tab_Ranking.update();
 
@@ -629,7 +629,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       // show the number of teams
       updateTeamCounts();
 
-      Tab_New.update();
+      Shared.Tab_New.update();
     }
   }
 

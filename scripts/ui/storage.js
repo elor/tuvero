@@ -1,7 +1,7 @@
 /**
  * Storage API for persistent state
  */
-define([ './options', './shared' ], function (Options, Shared) {
+define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, Modernizr) {
   var Storage, keys, Tab_Settings, savespending;
 
   Tab_Settings = undefined;

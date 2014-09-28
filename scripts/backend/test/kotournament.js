@@ -1,31 +1,40 @@
 /*
  * KOTournament Test
  */
-define([ '../kotournament', '../game', '../tournament', '../../lib/implements' ], function (KOTournament, Game, Tournament, Interface) {
-  QUnit.test("KOTournament", function () {
-    var i, names, kot, opts;
+define(function () {
+  return function (QUnit, getModule) {
+    var KOTournament, Game, Tournament, Implements;
 
-    QUnit.equal(Interface(Tournament), '', 'Tournament interface validation');
-    QUnit.equal(Interface(Tournament, KOTournament, 'rfm'), '', 'KOTournament interface match');
+    KOTournament = getModule('backend/kotournament');
+    Game = getModule('backend/game');
+    Tournament = getModule('backend/tournament');
+    Implements = getModule('lib/implements');
 
-    names = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Gert',
-        'Hartmut', 'Inka', 'Jennifer' ];
+    QUnit.test("KOTournament", function () {
+      var i, names, kot, opts;
 
-    kot = new KOTournament();
-    for (i in names) {
-      kot.addPlayer(Number(i));
-    }
+      QUnit.equal(Implements(Tournament), '', 'Tournament interface validation');
+      QUnit.equal(Implements(Tournament, KOTournament, 'rfm'), '', 'KOTournament interface match');
 
-    opts = kot.getOptions();
-    opts.matchingMethod = KOTournament.OPTIONS.firstround.set;
-    opts.loserMatchMinRound = 1;
-    kot.setOptions(opts);
-    kot.start();
+      names = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Gert',
+          'Hartmut', 'Inka', 'Jennifer' ];
 
-    while (kot.getState() === Tournament.STATE.RUNNING) {
-      kot.finishGame(kot.getGames()[0], [ 13, 0 ]);
-    }
+      kot = new KOTournament();
+      for (i in names) {
+        kot.addPlayer(Number(i));
+      }
 
-    return;
-  });
+      opts = kot.getOptions();
+      opts.matchingMethod = KOTournament.OPTIONS.firstround.set;
+      opts.loserMatchMinRound = 1;
+      kot.setOptions(opts);
+      kot.start();
+
+      while (kot.getState() === Tournament.STATE.RUNNING) {
+        kot.finishGame(kot.getGames()[0], [ 13, 0 ]);
+      }
+
+      return;
+    });
+  };
 });

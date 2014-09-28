@@ -1,6 +1,6 @@
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './opts', './team',
-    './options', './shared' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options, Shared) {
+    './options', './shared', 'lib/jsPlumb' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options, Shared, jsPlumb) {
   var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;
@@ -746,7 +746,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     var games, i, $box, g, $game, parentid, jsPlumbInstance, boxwidth, boxheight;
 
     // TODO use a more sophisticated method
-    if (window.location.hash !== '#history'){
+    if (window.location.hash !== '#history') {
       visibleupdatepending = true;
     }
 
@@ -971,7 +971,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
           }
           console.log('update');
         } catch (er) {
-          console.error(er);
+          console.error(er.stack);
           new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_history));
         }
         updatepending = false;

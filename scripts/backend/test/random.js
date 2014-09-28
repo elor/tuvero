@@ -1,51 +1,57 @@
 /*
  * Random Test
  */
-define([ '../random' ], function (Random) {
-  QUnit.test("Random", function () {
-    var min, max, r, x, i, sum;
+define(function () {
+  return function (QUnit, getModule) {
+    var Random;
 
-    r = new Random();
+    Random = getModule('backend/random');
 
-    min = max = r.nextDouble();
-    sum = 0.0;
+    QUnit.test("Random", function () {
+      var min, max, r, x, i, sum;
 
-    for (i = 0; i < 10000; i += 1) {
-      x = r.nextDouble();
+      r = new Random();
 
-      if (x < min) {
-        min = x;
+      min = max = r.nextDouble();
+      sum = 0.0;
+
+      for (i = 0; i < 10000; i += 1) {
+        x = r.nextDouble();
+
+        if (x < min) {
+          min = x;
+        }
+        if (x > max) {
+          max = x;
+        }
+
+        sum += x;
       }
-      if (x > max) {
-        max = x;
+
+      // approximate testing
+      QUnit.equal(Math.abs(sum - 5000) < 100, true, "double mean");
+      QUnit.equal(min < 0.01, true, "double min top");
+      QUnit.equal(min >= 0.0, true, "double min bottom");
+      QUnit.equal(max > 0.99, true, "double max top");
+      QUnit.equal(max < 1.0, true, "double max bottom");
+
+      max = min = r.nextInt(64);
+
+      for (i = 0; i < 10000; i += 1) {
+        x = r.nextInt(64);
+
+        if (x < min) {
+          min = x;
+        }
+        if (x > max) {
+          max = x;
+        }
       }
 
-      sum += x;
-    }
+      QUnit.equal(min, 0, "int min");
+      QUnit.equal(max, 63, "int max");
 
-    // approximate testing
-    QUnit.equal(Math.abs(sum - 5000) < 100, true, "double mean");
-    QUnit.equal(min < 0.01, true, "double min top");
-    QUnit.equal(min >= 0.0, true, "double min bottom");
-    QUnit.equal(max > 0.99, true, "double max top");
-    QUnit.equal(max < 1.0, true, "double max bottom");
-
-    max = min = r.nextInt(64);
-
-    for (i = 0; i < 10000; i += 1) {
-      x = r.nextInt(64);
-
-      if (x < min) {
-        min = x;
-      }
-      if (x > max) {
-        max = x;
-      }
-    }
-
-    QUnit.equal(min, 0, "int min");
-    QUnit.equal(max, 63, "int max");
-
-    // TODO test pick() and pickAndRemove()
-  });
+      // TODO test pick() and pickAndRemove()
+    });
+  };
 });

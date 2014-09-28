@@ -1,7 +1,7 @@
 /**
  * Manage autocomplete using typeahead.js
  */
-define([ './players', './shared' ], function (Players, Shared) {
+define([ './players', './shared', 'lib/typeahead' ], function (Players, Shared, undefined) {
   var Autocomplete, $fields;
 
   Autocomplete = {};
@@ -47,6 +47,6 @@ define([ './players', './shared' ], function (Players, Shared) {
 
   });
 
-	Shared.Autocomplete = Autocomplete
+	Shared.Autocomplete = Autocomplete;
   return Autocomplete;
 });

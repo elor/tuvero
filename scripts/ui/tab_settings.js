@@ -1,6 +1,6 @@
-define([ './toast', './strings', './team', './history', './ranking', './state',
+define([ 'lib/Blob', './toast', './strings', './team', './history', './ranking', './state',
     '../lib/base64', './storage', './options', './opts', './players',
-    './tabshandle', '../lib/FileSaver', './shared' ], function (Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, saveAs, Shared) {
+    './tabshandle', './shared' ], function (Blob, Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, Shared) {
   var Tab_Settings, $tab, areas, options, updatepending;
 
   updatepending = false;
@@ -53,7 +53,7 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
         type : 'application/csv'
       });
       saveAs(blob, 'boules.csv');
-    } catch (e) {
+    } catch (er) {
       console.error('Blobbing failed');
       new Toast(Strings.savefailed);
     }
@@ -76,8 +76,8 @@ define([ './toast', './strings', './team', './history', './ranking', './state',
         type : 'application/json'
       });
       saveAs(blob, 'boules.json');
-    } catch (e) {
-      console.error(e);
+    } catch (er) {
+      console.error(er);
       new Toast(Strings.savefailed);
     }
   }

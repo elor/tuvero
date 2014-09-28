@@ -3,6 +3,6 @@
 */
 
 define(function(){
-  return {}
+  return {};
 });
 
