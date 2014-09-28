@@ -1,6 +1,6 @@
 define([ 'lib/Blob', './toast', './strings', './team', './history', './ranking', './state',
     '../lib/base64', './storage', './options', './opts', './players',
-    './tabshandle', '../lib/FileSaver', './shared' ], function (Blob, Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, saveAs, Shared) {
+    './tabshandle', 'lib/FileSaver', './shared' ], function (Blob, Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, saveAs, Shared) {
   var Tab_Settings, $tab, areas, options, updatepending;
 
   updatepending = false;
