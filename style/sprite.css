@@ -1,0 +1,203 @@
+[data-img="about.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -1px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="all.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -130px -1px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="change.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -259px -1px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="debug.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -388px -1px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="deleteteam.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -517px -1px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="download.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -646px -1px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="file.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -775px -1px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="games.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -130px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="history.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -129px -130px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="HTML5_Logo_128.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -258px -130px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="lanes.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -387px -130px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="logos/chrome_128x128.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -516px -130px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="logos/chrome-android_128x128.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -645px -130px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="logos/firefox_128x128.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -774px -130px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="logos/internet-explorer_128x128.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -259px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="logos/opera_128x128.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -129px -259px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="new.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -258px -259px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="ranking.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -387px -259px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="reload.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -516px -259px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="settings.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -645px -259px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="smallchange.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -774px -259px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="teams1.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -388px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="teams2.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -129px -388px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="teams3.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -258px -388px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="test.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -387px -388px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="upload.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -516px -388px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="ext/amazonwishlist.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -645px -388px;
+    width: 119px;
+    height: 52px;
+}
+
+[data-img="ext/btn_donateCC_LG.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -765px -388px;
+    width: 126px;
+    height: 47px;
+}
+
+[data-img="blank.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -892px -388px;
+    width: 1px;
+    height: 1px;
+}
+
