@@ -6,6 +6,16 @@
 
 	* index.html: currently not using a gif file
 
+	* images/logos/safari_128x128.png: removed
+
+	* images/qr_github.png: removed
+
+	* images/storage.png: removed
+
+	* optimize.sh: writesprite.sh added
+
+	* writesprite.sh: script to combine all images into one sprite
+
 2014-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: expaining text added to tab_new
