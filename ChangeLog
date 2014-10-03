@@ -26,6 +26,9 @@
 
 	* optimize.sh: removing only sprited images
 
+	* manifest.sh: hiding plain text files for now
+	using 'dev' when there's no current version number
+
 2014-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/ext/btn_donateCC_LG.gif: removed

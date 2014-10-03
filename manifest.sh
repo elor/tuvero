@@ -17,9 +17,13 @@ listHTMLs(){
 }
 
 listPlainFiles(){
-    find * -name '*.md'
-    find * -name '*.txt'
-    ls ChangeLog BUGS LICENSE NEWS TODO
+#########################################################################
+# re-enable when there's a way to actually view them when being offline #
+#########################################################################
+#    find * -name '*.md'
+#    find * -name '*.txt'
+#    ls ChangeLog BUGS LICENSE NEWS TODO
+    echo>&2
 }
 
 listStylesheets(){
@@ -29,7 +33,7 @@ listStylesheets(){
 createManifest(){
     cat << EOF
 CACHE MANIFEST
-# Version: `cat Version`
+# Version: `cat Version || echo dev`
 # Date: `date`
 
 # the boules program is purely offline
