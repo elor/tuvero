@@ -3,5 +3,5 @@
  */
 
 define([ './tabs' ], function (Tabs) {
-  return new Tabs('#tabs > div', 'images/%s.png', true);
+  return new Tabs('#tabs > div', '%s.png', true);
 });

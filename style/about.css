@@ -37,22 +37,17 @@
   background-color: #90EE90;
 }
 
-#about .manual img {
-  height: 2em;
-  vertical-align: middle;
+#about .box [data-img] {
+  display: inline-block;
+  zoom: 0.7;
+  border-radius: 1.5em;
 }
 
-#about img.logo {
-  max-height: 4em;
-  max-width: 4em;
-  border-radius: 0.5em;
-}
-
-#about img.supported {
+#about [data-img].supported {
   background-color: #90ee90;
 }
 
-#about img.unsupported {
+#about [data-img].unsupported {
   background-color: #484848;
   opacity: 0.5;
 }

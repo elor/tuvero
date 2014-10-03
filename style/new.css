@@ -74,8 +74,7 @@
   text-align: center;
 }
 
-#new .playertable .system img {
-  height: 2em;
+#new .playertable .system [data-img] {
   vertical-align: middle;
 }
 

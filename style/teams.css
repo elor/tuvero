@@ -9,7 +9,7 @@ div#teams {
 
 #teams .teamsize button {
   background-color: #d0d0d0;
-  border-radius: 0.5em;
+  border-radius: 1em;
   padding: 0.5em;
   cursor: pointer;
   margin-bottom: 1em;
@@ -17,11 +17,6 @@ div#teams {
 
 #teams .teamsize button.selected {
   background-color: #ffffff;
-}
-
-#teams .teamsize button > img {
-  width: 3.0em;
-  height: 3.0em;
 }
 
 #teams .team, #newteam, #teams .load, #teams .delete {

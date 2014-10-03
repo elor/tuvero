@@ -95,20 +95,20 @@ define([ './options' ], function (Options) {
       tabs.forEach(function (tabname, i) {
         var $img, $tab;
 
-        $img = $('<img>');
-        if (opts[i]) {
-          $img.attr('src', imgpattern.replace('%s', tabname + Options[opts[i]]));
-        } else {
-          $img.attr('src', imgpattern.replace('%s', tabname));
-        }
-        $img.attr('alt', $img.attr('src'));
-
         $tab = $('<a>');
         $tab.attr('href', '#' + tabname);
         $tab.attr('tabindex', '-1');
         // if (keys) {
         // $tab.attr('accesskey', keys[i]);
         // }
+
+        $img = $('<div>');
+        if (opts[i]) {
+          $img.attr('data-img', imgpattern.replace('%s', tabname + Options[opts[i]]));
+        } else {
+          $img.attr('data-img', imgpattern.replace('%s', tabname));
+        }
+
         $tab.append($img);
 
         $menu.append($tab);
@@ -120,7 +120,7 @@ define([ './options' ], function (Options) {
         $page = $('#' + tabname);
         $clone = $menu.clone();
 
-        $clone.find('a[href=#' + tabname + '] > img').addClass('open');
+        $clone.find('a[href=#' + tabname + ']').addClass('open');
 
         $page.prepend($clone);
         $menus[tabname] = $clone;
@@ -159,7 +159,7 @@ define([ './options' ], function (Options) {
           tab = tabs[i];
 
           if (opt) {
-            $('.tabs a[href=#' + tab + '] img').attr('src', imgpattern.replace('%s', tab + Options[opt]));
+            $('.tabs a[href=#' + tab + '] [data-img]').attr('data-img', imgpattern.replace('%s', tab + Options[opt]));
           }
         });
       };

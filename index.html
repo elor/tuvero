@@ -44,13 +44,13 @@
 
         <div class="teamsize">
           <button value="1">
-            <img src="images/teams1.png" alt="tete"/>
+            <div data-img="teams1.png">&nbsp;</div>
           </button>
           <button value="2">
-            <img src="images/teams2.png" alt="doublette"/>
+            <div data-img="teams2.png">&nbsp;</div>
           </button>
           <button value="3">
-            <img src="images/teams3.png" alt="triplette"/>
+            <div data-img="teams3.png">&nbsp;</div>
           </button>
         </div>
 
@@ -199,9 +199,9 @@
           </div>
           <div class="running">
             <p>
-            Runde <span class="round"></span> wird gespielt
+            Runde <span class="round">#</span> wird gespielt
             </p><p>
-            &rArr; <a href="#games"><img src="images/games.png" alt="#games">Laufende Spiele</a>
+            &rArr; <a href="#games"><div data-img="games.png">&nbsp;</div>Laufende Spiele</a>
             </p>
           </div>
           <div class="failure">
@@ -232,7 +232,7 @@
             <p>
             KO-Turnier wird gespielt
             </p><p>
-            &rArr; <a href="#games"><img src="images/games.png" alt="#games">Laufende Spiele</a>
+            &rArr; <a href="#games"><div data-img="games.png">&nbsp;</div>Laufende Spiele</a>
             </p>
           </div>
           <div class="failure">
@@ -514,7 +514,7 @@
             </p>
             <br>
             <button>
-              <img src="images/download.png" alt="download save file" />
+              <div data-img="download.png">&nbsp;</div>
             </button>
           </div>
         </div>
@@ -529,7 +529,7 @@
               Dieser Browser kann keine lokalen Dateien laden.
             </p>
             <button>
-              <img src="images/reload.png" alt="reload autocomplete list" />
+              <div data-img="reload.png">&nbsp;</div>
             </button>
             <input class="filereader file" type="file" />
           </div>
@@ -547,16 +547,16 @@
             beispielsweise als 'boules.csv'.
           </p>
           <button class="teams">
-            <img src="images/teams3.png" alt="teams exportieren" />
+            <div data-img="teams3.png">&nbsp;</div>
           </button>
           <button class="ranking">
-            <img src="images/ranking.png" alt="ranking exportieren" />
+            <div data-img="ranking.png">&nbsp;</div>
           </button>
           <button class="history">
-            <img src="images/history.png" alt="history exportieren" />
+            <div data-img="history.png">&nbsp;</div>
           </button>
           <button class="teams ranking history">
-            <img src="images/all.png" alt="alles exportieren" />
+            <div data-img="all.png">&nbsp;</div>
           </button>
         </div>
 
@@ -595,13 +595,13 @@
         <div class="box">
           <h3>Entwicklerwerkzeuge</h3>
           <div class="devel">
-            <a href="test.html" target="_blank"><img src="images/test.png" alt="unit tests" /><br>Unit Tests</a>
-            <a href="NEWS" target="_blank"><img src="images/file.png" alt="NEWS" /><br>NEWS</a>
-            <a href="ChangeLog" target="_blank"><img src="images/file.png" alt="ChangeLog" /><br>ChangeLog</a>
-            <a href="TODO" target="_blank"><img src="images/file.png" alt="TODO" /><br>TODO</a>
-            <a href="BUGS" target="_blank"><img src="images/file.png" alt="BUGS" /><br>BUGS</a>
-            <a href="manifest.appcache" target="_blank"><img src="images/file.png" alt="manifest" /><br>Manifest</a>
-            <a href="#debug"><img src="images/debug.png" alt="debugging console" /><br>Debug</a>
+            <a href="test.html" target="_blank"><div data-img="test.png">&nbsp;</div><br>Unit Tests</a>
+            <a href="NEWS" target="_blank"><div data-img="file.png">&nbsp;</div><br>NEWS</a>
+            <a href="ChangeLog" target="_blank"><div data-img="file.png">&nbsp;</div><br>ChangeLog</a>
+            <a href="TODO" target="_blank"><div data-img="file.png">&nbsp;</div><br>TODO</a>
+            <a href="BUGS" target="_blank"><div data-img="file.png">&nbsp;</div><br>BUGS</a>
+            <a href="manifest.appcache" target="_blank"><div data-img="file.png">&nbsp;</div><br>Manifest</a>
+            <a href="#debug"><div data-img="debug.png">&nbsp;</div><br>Debug</a>
           </div>
         </div>
 
@@ -650,7 +650,7 @@
         </div>
         <div class="box">
           <h3>Browserunterstützung </h3>
-          <img class="logo float" alt="HTML5" src="images/HTML5_Logo_128.png">
+          <div data-img="HTML5_Logo_128.png" class="logo float">>&nbsp;</div>
           <p>
             Für diese Software wird auf <a href="http://de.wikipedia.org/wiki/HTML5">freie Webstandards</a> gesetzt.
             Leider werden diese <a href="http://fmbip.com/litmus/">nicht von allen Browsern vollständig</a> unterstützt.
@@ -659,17 +659,14 @@
           </p>
           <p>
             Desktop:
-            <br>
-            <img class="logo supported" alt="Google Chrome" title="Google Chrome" src="images/logos/chrome_128x128.png" />
-            <img class="logo supported" alt="Mozilla Firefox" title="Mozilla Firefox" src="images/logos/firefox_128x128.png" />
-            <img class="logo supported" alt="Opera" title="Opera" src="images/logos/opera_128x128.png" />
-            <!--          <img class="logo unsupported" alt="Safari" title="Safari" src="images/logos/safari_128x128.png"> -->
-            <img class="logo unsupported" alt="Internet Explorer" title="Internet Explorer" src="images/logos/internet-explorer_128x128.png" />
+            <div class="logo supported" title="Google Chrome" data-img="logos/chrome_128x128.png">&nbsp;</div>
+            <div class="logo supported" title="Mozilla Firefox" data-img="logos/firefox_128x128.png">&nbsp;</div>
+            <div class="logo supported" data-img="logos/opera_128x128.png">&nbsp;</div>
+            <div class="logo unsupported" title="Internet Explorer" data-img="logos/internet-explorer_128x128.png">&nbsp;</div>
           </p>
           <p>
             Mobil:
-            <br>
-            <img class="logo supported" alt="Google Chrome for Android" title="Google Chrome for Android" src="images/logos/chrome-android_128x128.png">
+            <div class="logo supported" title="Google Chrome for Android" data-img="logos/chrome-android_128x128.png">&nbsp;</div>
           </p>
           <p class="no-support">
             Dieser Browser unterstützt folgende Funktionen nicht:
@@ -714,14 +711,8 @@
             Wenn sie dem Entwicklerteam dennoch eine Aufmerksamkeit zukommen lassen möchten, können sie das auf diese Arten tun:
           </p>
           <div class="donatebuttons">
-            <form class="donate" action="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R" target="_blank">
-              <input type="image" src="images/ext/amazonwishlist.png" name="submit" alt="Mein Amazon.de Wunschzettel">
-            </form>
-            <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-              <input type="hidden" name="cmd" value="_s-xclick">
-              <input type="hidden" name="hosted_button_id" value="ZCU4ZVDREECYE">
-              <input type="image" src="images/ext/btn_donateCC_LG.png" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
-            </form>
+            <a data-img="ext/amazonwishlist.png" href="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R" target="_blank">&nbsp;</a>
+            <a data-img="ext/btn_donateCC_LG.png" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank">&nbsp;</a>
           </div>
         </div>
       </div>

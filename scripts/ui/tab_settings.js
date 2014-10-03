@@ -164,8 +164,8 @@ define([ 'lib/FileSaver', 'lib/Blob', './toast', './strings', './team', './histo
           Players.fromBlob(jsontext);
           Storage.store();
           new Toast(Strings.autocompleteloaded);
-        } catch (e) {
-          console.error(e);
+        } catch (err) {
+          console.error(err);
           Players.reset();
           Storage.store();
           new Toast(Strings.autocompletereloadfailed, Toast.LONG);

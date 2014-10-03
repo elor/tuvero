@@ -107,6 +107,18 @@ EOF
 
 done
 
+cat <<EOF >> $stylesheet
+button > [data-img],
+a > [data-img] {
+  display: inline-block;
+  zoom: 0.5;
+}
+
+a[data-img] {
+  display: inline-block;
+}
+EOF
+
 canvaswidth=$xmax
 canvasheight=$nexty
 

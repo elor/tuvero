@@ -61,13 +61,6 @@ div, button {
   border-radius: 0.2em;
 }
 
-img.blank {
-  height: 1px;
-  width: 1px;
-  opacity: 0;
-  display: block;
-}
-
 div.box {
   position: relative;
   margin: 1em;

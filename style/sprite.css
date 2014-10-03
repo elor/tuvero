@@ -201,3 +201,12 @@
     height: 1px;
 }
 
+button > [data-img],
+a > [data-img] {
+  display: inline-block;
+  zoom: 0.5;
+}
+
+a[data-img] {
+  display: inline-block;
+}

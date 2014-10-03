@@ -18,11 +18,6 @@
   background-color: #ffffff;
 }
 
-#debug button > img {
-  width: 3.0em;
-  height: 3.0em;
-}
-
 #debug .allimages [data-img] {
   display: inline-block;
   margin: 0.2em;
