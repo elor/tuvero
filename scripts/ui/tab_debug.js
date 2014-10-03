@@ -28,6 +28,12 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
       }
     }
 
+    $images = $('[data-img]');
+    for (i = 0; i < $images.length; i += 1) {
+      url = $images.eq(i).attr('data-img');
+      images['images/'+url] = true;
+    }
+
     $images = $('input[type="image"]');
     for (i = 0; i < $images.length; i += 1) {
       url = $images.eq(i).attr('src');
@@ -39,6 +45,9 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     sorted = [];
 
     for (url in images) {
+      if (/^(images\/)?sprite.png/.test(url)) {
+        continue;
+      }
       sorted.push(url);
     }
 
@@ -46,7 +55,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     for (i = 0; i < sorted.length; i += 1) {
       url = sorted[i];
-      $anchor.append($('<img>').attr('src', url).attr('alt', url).attr('title', url));
+      $anchor.append($('<div>').attr('data-img', url.replace(/^images\//, '')).css('zoom', 0.5).css('display', 'inline-block').css('margin', '0.2em'));
     }
   }
 

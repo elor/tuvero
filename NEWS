@@ -2,6 +2,12 @@ Boules %VERSION% (yyyy-mm-dd)
 -------------------------
 
 FEATURES:
+  * number of image downloads reduced by using sprites
+
+Boules 1.4.3 (2014-09-21)
+-------------------------
+
+FEATURES:
 
   * file downloads don't require doubleclicks or hidden states
 

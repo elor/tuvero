@@ -23,8 +23,10 @@
   height: 3.0em;
 }
 
-#debug .allimages img {
-  height: 3em;
+#debug .allimages [data-img] {
   background-color: #d3d3d3;
-  margin: 0.2em;
+}
+
+#debug .sprite img {
+  background-color: #d3d3d3;
 }

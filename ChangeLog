@@ -5,6 +5,27 @@
 	* images/ext/btn_donateCC_LG.png: converted from the gif file
 
 	* index.html: currently not using a gif file
+	showing the sprite in the debug page
+
+	* images/logos/safari_128x128.png: removed
+
+	* images/qr_github.png: removed
+
+	* images/storage.png: removed
+
+	* optimize.sh: writesprite.sh added
+
+	* writesprite.sh: script to combine all images into one sprite
+	excluding sprite.png
+
+	* scripts/ui/tab_debug.js: showing sprite images, too
+	conversion of paths
+	using sprites instead of img
+	not showing sprite.png again
+
+	* style/debug.css: using sprites for image list
+
+	* style/mainstyle.css: using sprite.css
 
 2014-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
