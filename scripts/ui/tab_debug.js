@@ -45,6 +45,9 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     sorted = [];
 
     for (url in images) {
+      if (/^(images\/)?sprite.png/.test(url)) {
+        continue;
+      }
       sorted.push(url);
     }
 

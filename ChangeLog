@@ -16,10 +16,12 @@
 	* optimize.sh: writesprite.sh added
 
 	* writesprite.sh: script to combine all images into one sprite
+	excluding sprite.png
 
 	* scripts/ui/tab_debug.js: showing sprite images, too
 	conversion of paths
 	using sprites instead of img
+	not showing sprite.png again
 
 	* style/debug.css: using sprites for image list
 

@@ -10,8 +10,14 @@ listFiles(){
     find images -type f -name '*.png' -or -name '*.jpg' | sort
 }
 
+sprite=images/sprite.png
+rm -f $sprite
+
 getSizes(){
     while IFS= read file; do
+
+        [ "$file" == "$sprite" ] && continue;
+
         case $file in
             *.png)
                 size=`file "$file" | sed -r -n "s!^$file: PNG image data, ([0-9]+) x ([0-9]+), .*!$file \1 \2!p"`
@@ -33,9 +39,6 @@ getSizes(){
         esac
     done
 }
-
-sprite=images/sprite.png
-rm -f $sprite
 
 files="`listFiles | getSizes | sort -k3,3rn`"
 heights=(`cut -d ' ' -f 3 <<< "$files"`)
