@@ -21,8 +21,9 @@ r.js -o scripts/build.js || exit 1
 #########################################################################
 # delete the now-optimized files and copy them from the build directory #
 #########################################################################
-find images -type f -not -name '*.gif' -print0 | rm style scripts images -rf
+find images -type f -not -name '*.gif' -not -name 'sprite.png' -not -name 'games.png' -print0 | xargs -0 rm
 find images -type d -print0 | xargs -0 -n1 rmdir
+rm style scripts -r
 cp -r ../boules-build/{scripts,style} .
 
 ########

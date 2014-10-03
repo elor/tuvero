@@ -24,6 +24,8 @@
 
 	* writesprite.sh: default values added (zoom and display)
 
+	* optimize.sh: removing only sprited images
+
 2014-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/ext/btn_donateCC_LG.gif: removed
