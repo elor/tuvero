@@ -55,7 +55,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     for (i = 0; i < sorted.length; i += 1) {
       url = sorted[i];
-      $anchor.append($('<div>').attr('data-img', url.replace(/^images\//, '')).css('zoom', 0.5).css('display', 'inline-block').css('margin', '0.2em'));
+      $anchor.append($('<div>').attr('data-img', url.replace(/^images\//, '')));
     }
   }
 
