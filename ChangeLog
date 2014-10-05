@@ -12,6 +12,16 @@
 
 	* scripts/ui/tabs.js: not overwriting '#reset' hash
 
+	* images/home.png: home icon added
+
+	* images/sprite.png: home icon added
+
+	* images/svg/home.svg: home icon added
+
+	* index.html: home tab added
+
+	* style/sprite.css: home icon added
+
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: replaced img tags with data-img attributes

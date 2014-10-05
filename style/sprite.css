@@ -61,142 +61,149 @@
     height: 128px;
 }
 
-[data-img="HTML5_Logo_128.png"] {
+[data-img="home.png"] {
     background-image: url("../images/sprite.png");
     background-position: -258px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="lanes.png"] {
+[data-img="HTML5_Logo_128.png"] {
     background-image: url("../images/sprite.png");
     background-position: -387px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/chrome_128x128.png"] {
+[data-img="lanes.png"] {
     background-image: url("../images/sprite.png");
     background-position: -516px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/chrome-android_128x128.png"] {
+[data-img="logos/chrome_128x128.png"] {
     background-image: url("../images/sprite.png");
     background-position: -645px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/firefox_128x128.png"] {
+[data-img="logos/chrome-android_128x128.png"] {
     background-image: url("../images/sprite.png");
     background-position: -774px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/internet-explorer_128x128.png"] {
+[data-img="logos/firefox_128x128.png"] {
     background-image: url("../images/sprite.png");
     background-position: -1px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/opera_128x128.png"] {
+[data-img="logos/internet-explorer_128x128.png"] {
     background-image: url("../images/sprite.png");
     background-position: -129px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="new.png"] {
+[data-img="logos/opera_128x128.png"] {
     background-image: url("../images/sprite.png");
     background-position: -258px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="ranking.png"] {
+[data-img="new.png"] {
     background-image: url("../images/sprite.png");
     background-position: -387px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="reload.png"] {
+[data-img="ranking.png"] {
     background-image: url("../images/sprite.png");
     background-position: -516px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="settings.png"] {
+[data-img="reload.png"] {
     background-image: url("../images/sprite.png");
     background-position: -645px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="smallchange.png"] {
+[data-img="settings.png"] {
     background-image: url("../images/sprite.png");
     background-position: -774px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams1.png"] {
+[data-img="smallchange.png"] {
     background-image: url("../images/sprite.png");
     background-position: -1px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams2.png"] {
+[data-img="teams1.png"] {
     background-image: url("../images/sprite.png");
     background-position: -129px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams3.png"] {
+[data-img="teams2.png"] {
     background-image: url("../images/sprite.png");
     background-position: -258px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="test.png"] {
+[data-img="teams3.png"] {
     background-image: url("../images/sprite.png");
     background-position: -387px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="upload.png"] {
+[data-img="test.png"] {
     background-image: url("../images/sprite.png");
     background-position: -516px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="ext/amazonwishlist.png"] {
+[data-img="upload.png"] {
     background-image: url("../images/sprite.png");
     background-position: -645px -388px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="ext/amazonwishlist.png"] {
+    background-image: url("../images/sprite.png");
+    background-position: -774px -388px;
     width: 119px;
     height: 52px;
 }
 
 [data-img="ext/btn_donateCC_LG.png"] {
     background-image: url("../images/sprite.png");
-    background-position: -765px -388px;
+    background-position: -894px -388px;
     width: 126px;
     height: 47px;
 }
 
 [data-img="blank.png"] {
     background-image: url("../images/sprite.png");
-    background-position: -892px -388px;
+    background-position: -1021px -388px;
     width: 1px;
     height: 1px;
 }
