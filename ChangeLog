@@ -5,6 +5,7 @@
 	simpler sprite invocation
 	print button added
 	tab menu positioning rules simplified
+	tab header positioning bug fixed
 
 	* optimize.sh: exit with code 1 on copy failure
 	not trying to `rmdir images/`
