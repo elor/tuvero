@@ -4,6 +4,11 @@ Boules %VERSION% (yyyy-mm-dd)
 FEATURES:
   * number of image downloads reduced by using sprites
 
+FIXES:
+
+  * cosmetic changes: bigger tabs and buttons
+  * program download: combined and compressed scripts and images
+
 Boules 1.4.3 (2014-09-21)
 -------------------------
 

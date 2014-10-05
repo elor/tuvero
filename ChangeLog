@@ -1,10 +1,12 @@
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/tabs.css: space between tabmenu and tab removed
+	tabs: pre-header space in pixel coordinates
 
 	* optimize.sh: exit with code 1 on copy failure
 
 	* writesprite.sh: python3-compatibility
+
 
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

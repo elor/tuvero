@@ -17,7 +17,7 @@ body.splash #tabs {
   position: relative;
   z-index: -1;
   height: 72px;
-  margin: -128px 0.5em 3.5em -1em;
+  margin: -128px 0.5em 64px -1em;
   white-space: nowrap;
   text-align: left;
 }
