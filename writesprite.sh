@@ -59,7 +59,7 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
 done
 
-canvaswidth=`python -c "import math; print max($maxwidth, int(2**math.ceil(math.log(math.sqrt($area), 2))))"`
+canvaswidth=`python -c "import math; print(max($maxwidth, int(2**math.ceil(math.log(math.sqrt($area), 2)))))"`
 
 margin=1
 y=$margin

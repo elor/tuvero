@@ -24,7 +24,7 @@ r.js -o scripts/build.js || exit 1
 find images -type f -not -name '*.gif' -not -name 'sprite.png' -not -name 'games.png' -print0 | xargs -0 rm
 find images -type d -print0 | xargs -0 -n1 rmdir
 rm style scripts -r
-cp -r ../boules-build/{scripts,style} .
+cp -r ../boules-build/{scripts,style} . || exit 1
 
 ########
 # done #
