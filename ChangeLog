@@ -4,6 +4,7 @@
 	tabs: pre-header space in pixel coordinates
 
 	* optimize.sh: exit with code 1 on copy failure
+	not trying to `rmdir images/`
 
 	* writesprite.sh: python3-compatibility
 
