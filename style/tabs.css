@@ -46,12 +46,6 @@ body.splash #tabs {
   background-color: #ffffff;
 }
 
-.tabs [data-img] {
-  display: inline-block;
-  width: 128px;
-  height: 128px;
-}
-
 #tabs > div {
   margin: 96px 0.5em 0.5em 0.5em;
   padding: 0.5em;
@@ -85,3 +79,7 @@ body.splash #tabs {
   }
 }
 
+#tabs button.print {
+  float: left;
+  border-radius: 20px;
+}

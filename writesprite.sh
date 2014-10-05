@@ -94,7 +94,7 @@ for i in `seq 0 $((${#files[@]}-1))`; do
     compositecommand="$compositecommand $file -geometry ${width}x${height}+${x}+${y} -composite"
 
     cat <<EOF >> $stylesheet
-[data-img="${file#images/}"] {
+[data-img="${file#images/}"]::before {
     background-image: url("../$sprite");
     background-position: -${x}px -${y}px;
     width: ${width}px;
@@ -108,14 +108,14 @@ EOF
 done
 
 cat <<EOF >> $stylesheet
-button > [data-img],
-a > [data-img] {
-  display: inline-block;
+button[data-img]::before,
+a[data-img]::before {
   zoom: 0.5;
 }
 
-a[data-img] {
+[data-img]::before {
   display: inline-block;
+  content: '';
 }
 EOF
 

@@ -102,14 +102,11 @@ define([ './options' ], function (Options) {
         // $tab.attr('accesskey', keys[i]);
         // }
 
-        $img = $('<div>');
         if (opts[i]) {
-          $img.attr('data-img', imgpattern.replace('%s', tabname + Options[opts[i]]));
+          $tab.attr('data-img', imgpattern.replace('%s', tabname + Options[opts[i]]));
         } else {
-          $img.attr('data-img', imgpattern.replace('%s', tabname));
+          $tab.attr('data-img', imgpattern.replace('%s', tabname));
         }
-
-        $tab.append($img);
 
         $menu.append($tab);
       }, this);
@@ -163,7 +160,7 @@ define([ './options' ], function (Options) {
           tab = tabs[i];
 
           if (opt) {
-            $('.tabs a[href=#' + tab + '] [data-img]').attr('data-img', imgpattern.replace('%s', tab + Options[opt]));
+            $('.tabs a[href=#' + tab + '][data-img]').attr('data-img', imgpattern.replace('%s', tab + Options[opt]));
           }
         });
       };

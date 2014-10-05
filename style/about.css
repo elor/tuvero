@@ -38,18 +38,19 @@
 }
 
 #about .box [data-img] {
-  display: inline-block;
-  zoom: 0.7;
-  border-radius: 1.5em;
+  border-radius: 2em;
 }
 
 #about [data-img].supported {
   background-color: #90ee90;
 }
 
+#about [data-img].maywork {
+  background-color: #eed048;
+}
+
 #about [data-img].unsupported {
-  background-color: #484848;
-  opacity: 0.5;
+  background-color: #d00000;
 }
 
 .js #about .no-js, .postmessage #about .no-postmessage, .hashchange #about .no-hashchange, .localstorage #about .no-localstorage, .webworkers #about .no-webworkers, .adownload #about .no-adownload, .filereader #about .no-filereader, .json #about .no-json {
@@ -66,6 +67,7 @@
 
 #about .donatebuttons {
   text-align: center;
+  zoom: 2;
 }
 
 #about .donate {

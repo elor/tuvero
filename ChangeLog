@@ -2,31 +2,39 @@
 
 	* style/tabs.css: space between tabmenu and tab removed
 	tabs: pre-header space in pixel coordinates
+	simpler sprite invocation
 
 	* optimize.sh: exit with code 1 on copy failure
 	not trying to `rmdir images/`
 
 	* writesprite.sh: python3-compatibility
+	simpler sprite invocation
 
 	* scripts/ui/tab_new.js: hiding tournamentrank whenever it's unnecessary
 
 	* scripts/ui/tabs.js: not overwriting '#reset' hash
+	simpler sprite invocation
 
 	* images/home.png: home icon added
 
 	* images/sprite.png: home icon added
+	simpler sprite invocation
 
 	* images/svg/home.svg: home icon added
 
 	* index.html: home tab added
+	simpler sprite invocation
 
 	* style/sprite.css: home icon added
+	simpler sprite invocation
 
 	* images/print.png: print icon added
 
 	* images/svg/clear.svg: resized to 128px
 
 	* images/svg/print.svg: print icon added
+
+	* style/about.css: simpler sprite invocation
 
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
