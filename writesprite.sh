@@ -28,10 +28,6 @@ getSizes(){
                     echo "cannot read size of $file. defaulting to 128x128">&2
                 fi
                 ;;
-            *.jpg)
-                echo "$file 128 128"
-                echo "jpg is not properly supported yet. Using 128px size as default" >&2
-                ;;
             *)
                 echo "$file 128 128"
                 echo "unsupported file type: $file" >&2
@@ -93,8 +89,10 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
     compositecommand="$compositecommand $file -geometry ${width}x${height}+${x}+${y} -composite"
 
+    shortname=`sed -r 's:images/(.*).png:\1:' <<< "$file"`
+
     cat <<EOF >> $stylesheet
-[data-img="${file#images/}"]::before {
+[data-img="$shortname"]::before {
     background-image: url("../$sprite");
     background-position: -${x}px -${y}px;
     width: ${width}px;

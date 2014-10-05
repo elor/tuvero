@@ -31,7 +31,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     $images = $('[data-img]');
     for (i = 0; i < $images.length; i += 1) {
       url = $images.eq(i).attr('data-img');
-      images['images/'+url] = true;
+      images['images/' + url] = true;
     }
 
     $images = $('input[type="image"]');
@@ -45,7 +45,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
     sorted = [];
 
     for (url in images) {
-      if (/^(images\/)?sprite.png/.test(url)) {
+      if (/^(images\/)?sprite(.png)?$/.test(url)) {
         continue;
       }
       sorted.push(url);
@@ -55,7 +55,7 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
 
     for (i = 0; i < sorted.length; i += 1) {
       url = sorted[i];
-      $anchor.append($('<div>').attr('data-img', url.replace(/^images\//, '')));
+      $anchor.append($('<div>').attr('data-img', url.replace(/^images\//, '').replace(/\.png$/, '')));
     }
   }
 
