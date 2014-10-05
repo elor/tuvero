@@ -8,6 +8,7 @@
 
 	* writesprite.sh: python3-compatibility
 
+	* scripts/ui/tab_new.js: hiding tournamentrank whenever it's unnecessary
 
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

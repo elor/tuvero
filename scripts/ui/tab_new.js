@@ -4,7 +4,8 @@
 
 define([ './options', './tabshandle', './opts', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
-    './storage', '../backend/tournament', './tournaments', './globalranking', './shared' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared) {
+    './storage', '../backend/tournament', './tournaments', './globalranking',
+    './shared' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared) {
   var Tab_New, $tab, updatepending, template, swissperms;
 
   updatepending = false;
@@ -213,13 +214,21 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function updateTeams () {
-    var ranking, i;
+    var ranking, i, showsubrank;
 
+    showsubrank = false;
     ranking = GlobalRanking.get();
 
     for (i = 0; i < ranking.length; i += 1) {
+      if (ranking[i].globalrank !== ranking[i].tournamentrank) {
+        showsubrank = true;
+        break;
+      }
+    }
+
+    for (i = 0; i < ranking.length; i += 1) {
       template.team.$rank.text(ranking[i].globalrank + 1);
-      template.team.$tournamentrank.text(ranking[i].tournamentrank + 1 || '');
+      template.team.$tournamentrank.text(showsubrank && ranking[i].tournamentrank ? ranking[i].tournamentrank + 1 : '');
       template.team.$teamno.text(ranking[i].teamid + 1);
       template.team.$names.text(Team.get(ranking[i].teamid).names.join(', '));
       template.$anchor.append(template.team.$container.clone());
