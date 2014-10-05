@@ -22,6 +22,12 @@
 
 	* style/sprite.css: home icon added
 
+	* images/print.png: print icon added
+
+	* images/svg/clear.svg: resized to 128px
+
+	* images/svg/print.svg: print icon added
+
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: replaced img tags with data-img attributes
