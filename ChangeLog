@@ -6,6 +6,7 @@
 	print button added
 	tab menu positioning rules simplified
 	tab header positioning bug fixed
+	print button is no longer 'position: absolute'
 
 	* optimize.sh: exit with code 1 on copy failure
 	not trying to `rmdir images/`
@@ -27,6 +28,7 @@
 
 	* index.html: home tab added
 	simpler sprite invocation
+	home accesskey: 'a'
 
 	* style/sprite.css: home icon added
 	simpler sprite invocation
