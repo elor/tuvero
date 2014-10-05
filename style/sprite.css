@@ -124,79 +124,79 @@
     height: 128px;
 }
 
-[data-img="print.png"]::before {
+[data-img="ranking.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -516px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="ranking.png"]::before {
+[data-img="reload.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -645px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="reload.png"]::before {
+[data-img="settings.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -774px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="settings.png"]::before {
+[data-img="smallchange.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="smallchange.png"]::before {
+[data-img="teams1.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -129px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams1.png"]::before {
+[data-img="teams2.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -258px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams2.png"]::before {
+[data-img="teams3.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -387px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams3.png"]::before {
+[data-img="test.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -516px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="test.png"]::before {
+[data-img="upload.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -645px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="upload.png"]::before {
+[data-img="print.png"]::before {
     background-image: url("../images/sprite.png");
     background-position: -774px -388px;
-    width: 128px;
-    height: 128px;
+    width: 96px;
+    height: 96px;
 }
 
 [data-img="ext/amazonwishlist.png"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -903px -388px;
+    background-position: -871px -388px;
     width: 119px;
     height: 52px;
 }
