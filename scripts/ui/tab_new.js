@@ -164,10 +164,10 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function initRemove () {
-    $tab.on('click', '.system .removesystem', function () {
+    $tab.on('click', '.system .removesystem button', function () {
       var $system, tournamentid, tournament, games;
 
-      $system = $(this).parent('.system');
+      $system = $(this).parents('.system');
 
       tournamentid = $system.data('tournamentid');
 
@@ -391,7 +391,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
 
     if (tournamentid !== undefined) {
       $title.addClass('editable');
-      $title.after(template.$removesystem.clone());
+      $anchor.append(template.$removesystem.clone());
       $anchor.find('.name').text(Tournaments.getName(tournamentid));
     }
     $anchor.append($title.clone());

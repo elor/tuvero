@@ -16,6 +16,7 @@
 	omitting '.png' extension
 
 	* scripts/ui/tab_new.js: hiding tournamentrank whenever it's unnecessary
+	removesystem button logic
 
 	* scripts/ui/tabs.js: not overwriting '#reset' hash
 	simpler sprite invocation
@@ -28,6 +29,7 @@
 	simpler sprite invocation
 	home accesskey: 'a'
 	omitting '.png' extensions
+	tab_new .removesystem: button with subtournament name instead of tiny xmark
 
 	* images/print.png: print icon added
 
