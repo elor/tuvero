@@ -21,6 +21,15 @@
   border-bottom: solid 1px;
 }
 
+#new .playertable tr.firstrow td {
+  border-top: solid 1px black;
+}
+
+#new .playertable tr.lastrow td {
+  height: 100%;
+  vertical-align: top;
+}
+
 #new .names {
   white-space: nowrap;
   text-align: left;

@@ -17,6 +17,7 @@
 
 	* scripts/ui/tab_new.js: hiding tournamentrank whenever it's unnecessary
 	removesystem button logic
+	first and last line of a tournament use css to style themselves, not jquery
 
 	* scripts/ui/tabs.js: not overwriting '#reset' hash
 	simpler sprite invocation
@@ -46,6 +47,8 @@
 	* scripts/ui/tab_debug.js: omitting '.png' extensions
 
 	* scripts/ui/tabshandle.js: omitting '.png' extensions
+
+	* style/new.css: expand only the last row of a tournament, not each row
 
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

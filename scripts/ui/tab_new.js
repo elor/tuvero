@@ -259,8 +259,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $system.removeClass('preparing running finished failure').addClass(stateclass);
   }
 
-  function getAnchor (tournamentid) {
-    var startteam;
+  function getAnchors (tournamentid) {
+    var startteam, endteam, teams;
 
     startteam = Tournaments.getStartRank(tournamentid, !Tournaments.isRunning(tournamentid));
 
@@ -268,7 +268,14 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       return undefined;
     }
 
-    return template.$anchor.find('.team').eq(startteam);
+    endteam = startteam + getHeight(tournamentid) - 1;
+
+    teams = template.$anchor.find('.team');
+
+    return {
+      first : teams.eq(startteam),
+      last : teams.eq(endteam)
+    };
   }
 
   function getHeight (tournamentid) {
@@ -276,13 +283,15 @@ define([ './options', './tabshandle', './opts', './toast', './team',
   }
 
   function createSystemAnchor (tournamentid) {
-    var $firstrow, height, $anchor;
+    var anchors, $firstrow, $lastrow, height, $anchor;
 
-    $firstrow = getAnchor(tournamentid);
+    anchors = getAnchors(tournamentid);
+    $firstrow = anchors.first;
     if ($firstrow === undefined) {
       return undefined;
     }
     height = getHeight(tournamentid);
+    $lastrow = anchors.last;
 
     if ($firstrow.length !== 1) {
       console.error('cannot find anchor for tournament id ' + tournamentid);
@@ -297,7 +306,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     $anchor.attr('rowspan', height);
 
     $firstrow.append($anchor);
-    $firstrow.find('td').css('border-top', 'solid 1px black');
+    $firstrow.addClass('firstrow');
+    $lastrow.addClass('lastrow');
 
     return $anchor;
   }

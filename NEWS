@@ -11,6 +11,7 @@ FIXES:
   * cosmetic changes: bigger tabs and buttons
   * program download: combined and compressed scripts and images
   * "remove system" xmark now is a well-visible button
+  * tab_new: expand last row in a tournament if there's not enough players
 
 Boules 1.4.3 (2014-09-21)
 -------------------------
