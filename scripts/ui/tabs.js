@@ -148,8 +148,12 @@ define([ './options' ], function (Options) {
       });
 
       $(window).on('hashchange', function () {
-        window.scrollTo(0, 0);
-        openValidTab();
+        if (location.hash !== '#reset') {
+          window.scrollTo(0, 0);
+          openValidTab();
+        }
+
+        return true;
       });
 
       that.updateOpts = function () {

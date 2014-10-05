@@ -10,6 +10,8 @@
 
 	* scripts/ui/tab_new.js: hiding tournamentrank whenever it's unnecessary
 
+	* scripts/ui/tabs.js: not overwriting '#reset' hash
+
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: replaced img tags with data-img attributes
