@@ -16,8 +16,7 @@ body.splash #tabs {
 .tabs {
   position: relative;
   z-index: -1;
-  height: 72px;
-  margin: -128px 0.5em 64px -1em;
+  margin: -112px 0.5em 64px -0.5em;
   white-space: nowrap;
   text-align: left;
 }
@@ -34,11 +33,9 @@ body.splash #tabs {
 
 .tabs > a {
   display: inline-block;
-  width: 64px;
-  height: 72px;
   background-color: #d0d0d0;
-  padding: 16px 16px 0em 16px;
-  margin: 16px 0em 0em 0.5em;
+  padding: 16px;
+  margin-right: 0.5em;
   border-radius: 1em 1em 0em 0em;
 }
 

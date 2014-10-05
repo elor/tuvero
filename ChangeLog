@@ -4,6 +4,7 @@
 	tabs: pre-header space in pixel coordinates
 	simpler sprite invocation
 	print button added
+	tab menu positioning rules simplified
 
 	* optimize.sh: exit with code 1 on copy failure
 	not trying to `rmdir images/`
@@ -40,6 +41,7 @@
 	* scripts/ui/backgroundscripts.js: loading print.js
 
 	* scripts/ui/print.js: print button logic added
+
 
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
