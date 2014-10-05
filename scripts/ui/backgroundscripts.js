@@ -3,7 +3,7 @@
  * but which need to be loaded and be able to be loaded by require()
  */
 define([ './reset', './tabs', './featuredetect', './box', './online',
-    './debug' ], function () {
+    './debug', './print' ], function () {
 
   return arguments;
 });

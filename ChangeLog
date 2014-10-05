@@ -3,6 +3,7 @@
 	* style/tabs.css: space between tabmenu and tab removed
 	tabs: pre-header space in pixel coordinates
 	simpler sprite invocation
+	print button added
 
 	* optimize.sh: exit with code 1 on copy failure
 	not trying to `rmdir images/`
@@ -35,6 +36,10 @@
 	* images/svg/print.svg: print icon added
 
 	* style/about.css: simpler sprite invocation
+
+	* scripts/ui/backgroundscripts.js: loading print.js
+
+	* scripts/ui/print.js: print button logic added
 
 2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
