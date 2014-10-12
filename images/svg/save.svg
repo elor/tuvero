@@ -9,12 +9,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="128"
-   height="128"
+   width="96"
+   height="96"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="download.svg">
+   sodipodi:docname="save.svg">
   <defs
      id="defs4">
     <marker
@@ -563,13 +563,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="-94.086379"
-     inkscape:cy="40.397911"
+     inkscape:cx="118.55073"
+     inkscape:cy="28.781157"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1918"
-     inkscape:window-height="1078"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -591,10 +591,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-924.3622)">
+     transform="translate(0,-956.3622)">
     <g
        id="use3063"
-       transform="matrix(2.6826013,0,0,2.6826013,-0.38243147,-1770.3237)">
+       transform="matrix(2.011951,0,0,2.011951,-0.2868242,-1064.6523)">
       <path
          style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
          d="m 30.179543,1006.9959 -22.3590858,0 0,42.7327 32.3590858,0 0,-32.7327 -10,-10 m 0,0 0,10 10,0"
