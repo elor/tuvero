@@ -46,7 +46,7 @@
  * have a finished game
  */
 
-define([ './tournaments' ], function (Tournaments) {
+define([ './shared', './tournaments' ], function (Shared, Tournaments) {
   var History, history;
 
   history = [];
