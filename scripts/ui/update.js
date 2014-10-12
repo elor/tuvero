@@ -1,8 +1,11 @@
 /**
  * detect updates to the manifest, if available
  */
+// FIXME start this script as early as possible!
 define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
-  var Update, appCache;
+  var Update, appCache, downloadToasts;
+
+  downloadToast = undefined;
 
   Update = function () {
     cacheStatus();
@@ -18,6 +21,13 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
 
   appCache = window.applicationCache;
 
+  function closeDownloadToast () {
+    if (downloadToast) {
+      downloadToast.close();
+      downloadToast = undefined;
+    }
+  }
+
   function setCached (cached) {
     if (cached) {
       Update.isCached = true;
@@ -28,6 +38,7 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
         new Toast(Strings.nomanifest, Toast.INFINITE);
       }
     }
+    closeDownloadToast();
   }
 
   function cacheStatus () {
@@ -49,7 +60,11 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
       setCached(true);
       break;
     case appCache.CHECKING:
+      break;
     case appCache.DOWNLOADING:
+      if (!downloadToast) {
+        downloadToast = new Toast(Strings.updatedownloading, Toast.INFINITE);
+      }
       break;
     default:
       console.error('unhandled appCache status: ' + appCache.status);
@@ -64,6 +79,8 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
   }
 
   appCache.addEventListener('error', cacheStatus);
+  appCache.addEventListener('downloading', cacheStatus);
+  appCache.addEventListener('progress', cacheStatus);
   appCache.addEventListener('cached', cacheStatus);
   appCache.addEventListener('noupdate', cacheStatus);
   appCache.addEventListener('updateready', cacheStatus);

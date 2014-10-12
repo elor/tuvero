@@ -22,7 +22,7 @@ sed -i '/<script>/,/<\/script>/d' *.html || exit 1
 #########################################
 # optimize and copy to ../boules-build/ #
 #########################################
-if ( "`readlink -f .`" == "`readlink -f ../boules-build`" ); then
+if ( "`readlink -f $PWD`" == "`readlink -f ../boules-build`" ); then
     echo "cannot remove ../boules-build when it's the current working directory">&2
     exit 1
 fi

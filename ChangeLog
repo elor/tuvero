@@ -72,6 +72,9 @@
 	* scripts/ui/history.js: Shared wasn't loaded
 
 	* scripts/ui/toast.js: toasts can be closed by the calling code
+	'undefined.str' error fixed
+
+	* scripts/ui/update.js: showing a 'downloading...' toast
 
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -66,7 +66,7 @@ define(function () {
     nofilereader : 'Dieser Browser kann keine Speicherstände laden!',
     nojson : 'Dieser Browser kann keine Speicherstände erstellen!',
     nostorage : 'Dieser Browser kann keine Spielstände speichern!',
-    updatedownloading : 'Neue Version wird heruntergeladen...',
+    updatedownloading : 'Neue Version wird geladen...',
     updatefailed : 'Fehler beim Download der neuen Version',
     updateavailable : 'Neu laden für neue Version',
     dev : 'Entwicklerversion',

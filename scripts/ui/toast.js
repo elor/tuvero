@@ -169,7 +169,9 @@ define(function () {
 
     // issue any pending toasts
     pending.forEach(function (toast) {
-      new Toast(toast.str, toast.seconds);
+      if (toast) {
+        new Toast(toast.str, toast.seconds);
+      }
     }, this);
   };
 
