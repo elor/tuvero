@@ -26,6 +26,7 @@
 	* scripts/ui/tab_teams.js: using the tab factory
 
 	* build-scripts/optimize.sh: generating/updating the scripts
+	automatically creating manifest for boules-build directory
 
 	* build-scripts/updatescripts.sh: moved from scripts/
 
@@ -73,6 +74,7 @@
 	* build-scripts/writesprite.sh: 
 	* images/sprite.png: 
 	* style/sprite.css: 
+
 
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

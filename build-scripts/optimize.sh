@@ -37,6 +37,15 @@ find images -type d -not -path images -print0 | xargs -0 -n1 rmdir
 rm style scripts -r
 cp -r ../boules-build/{scripts,style} . || exit 1
 
+##########################################################
+# createmanifest in the build directory, for convenience #
+##########################################################
+manifestscript=`readlink -f "$buildscriptdir"/manifest.sh`
+(
+    cd ../boules-build || exit 1
+    "$manifestscript"
+)
+
 ########
 # done #
 ########
