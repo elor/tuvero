@@ -6,6 +6,7 @@
 
 	* scripts/ui/tab_new.js: showing the system type next to the subtournament name
 	checking for missing anchors
+	moved the swissperm data object to its own file
 
 	* scripts/ui/tab.js: wrote a general tab factory
 
@@ -20,6 +21,16 @@
 	* scripts/ui/tab_settings.js: using the tab factory
 
 	* scripts/ui/tab_teams.js: using the tab factory
+
+	* build-scripts/optimize.sh: generating/updating the scripts
+
+	* build-scripts/updatescripts.sh: moved from scripts/
+
+	* scripts/ui/storage.js: unnecessary variable removed
+
+	* scripts/updatescripts.sh: moved to build-scripts
+
+	* scripts/data/swissperm.js: swissperm object now has its own data file
 
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

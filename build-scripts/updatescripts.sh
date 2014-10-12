@@ -2,6 +2,8 @@
 #
 # creates the common.js and test.js files
 
+cd scripts || exit 1
+
 createTestJS(){
     files=`echo ./*/test/*.js`
     files=${files//.js/}
@@ -93,8 +95,8 @@ getShim(){
 }
 
 updateBuildJS(){
-    newbuild=`sed -e '/^\s*shim\s*:/,$ d' build.js`
-    cat <<EOF > build.js
+    newbuild=`sed -e '/^\s*shim\s*:/,$ d' ../build-scripts/build.js`
+    cat <<EOF > ../build-scripts/build.js
 $newbuild
 `getShim`
 EOF

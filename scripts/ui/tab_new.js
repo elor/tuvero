@@ -5,8 +5,8 @@
 define([ './tab', './options', './tabshandle', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
     './storage', '../backend/tournament', './tournaments', './globalranking',
-    './shared' ], function (Tab, Options, Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared) {
-  var Tab_New, $tab, updatepending, template, swissperms;
+    './shared', './data/swissperms' ], function (Tab, Options, Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared, Swissperms) {
+  var Tab_New, $tab, updatepending, template;
 
   updatepending = false;
   $tab = undefined;
@@ -565,7 +565,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
   function setPermissionPreset (preset, $perms) {
     var perms;
 
-    perms = swissperms[preset];
+    perms = Swissperms[preset];
 
     if (perms === undefined) {
       // not available. most likely 'custom'
@@ -772,115 +772,6 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     updateTeams();
     updateSystems();
   }
-
-  // default permissions for swiss tournaments
-  // TODO move to another file, and/or use setOptions() for passing them around
-  swissperms = {
-    strict : {
-      up : {
-        up : false,
-        down : false,
-        bye : false
-      },
-      down : {
-        up : false,
-        down : false,
-        bye : false
-      },
-      bye : {
-        up : false,
-        down : false,
-        bye : false
-      },
-    },
-    none : {
-      up : {
-        up : true,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : true,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : true
-      },
-    },
-    updown : {
-      up : {
-        up : false,
-        down : false,
-        bye : true
-      },
-      down : {
-        up : false,
-        down : false,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : false
-      },
-    },
-    pvo : {
-      up : {
-        up : false,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : false,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : false
-      },
-    },
-    relaxed : {
-      up : {
-        up : false,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : false,
-        bye : true
-      },
-      bye : {
-        up : true,
-        down : true,
-        bye : true
-      },
-    },
-    nice : {
-      up : {
-        up : false,
-        down : true,
-        bye : true
-      },
-      down : {
-        up : true,
-        down : false,
-        bye : false
-      },
-      bye : {
-        up : true,
-        down : false,
-        bye : false
-      },
-    },
-    // indicate that we don't want to change anything
-    custom : undefined
-  };
 
   Tab_New = Tab.createTab('new', reset, update);
   Shared.Tab_New = Tab_New;

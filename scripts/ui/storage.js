@@ -2,9 +2,7 @@
  * Storage API for persistent state
  */
 define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, Modernizr) {
-  var Storage, keys, Tab_Settings, savespending;
-
-  Tab_Settings = undefined;
+  var Storage, keys, savespending;
 
   Storage = {};
   keys = {};
@@ -146,12 +144,8 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
    */
   // TODO move to Blob
   Storage.changed = function () {
-    if (Tab_Settings === undefined) {
-      Tab_Settings = Shared.Tab_Settings;
-    }
 
-    // invalidate
-    Tab_Settings.reset();
+    Shared.Tab_Settings.reset();
     Storage.store();
   };
 

@@ -4,6 +4,11 @@
 
 buildscriptdir=`dirname "$0"`
 
+######################
+# update all scripts #
+######################
+"$buildscriptdir"/updatescripts.sh
+
 ####################################
 # remove require.js debugging code #
 ####################################
