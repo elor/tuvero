@@ -11,6 +11,31 @@ define(function () {
   };
 
   $(function ($) {
+
+    function setTabbing ($box) {
+      var i, $inputs, $input, enable;
+
+      enable = !$box.hasClass('collapsed');
+
+      $inputs = $box.find('a, button, input, select');
+
+      for (i = 0; i < $inputs.length; i += 1) {
+        $input = $inputs.eq(i);
+
+        if (enable) {
+          if ($input.data().tabindex === undefined) {
+            $input.removeAttr('tabindex');
+          } else {
+            $input.attr('tabindex', $input.data().tabindex);
+          }
+          delete $input.data().tabindex;
+        } else {
+          $input.data().tabindex = $input.attr('tabindex');
+          $input.attr('tabindex', -1);
+        }
+      }
+    }
+
     $('#tabs').on('click', 'div.box > h3:first-child', function () {
       var $box, targetheight, oldheight;
 
@@ -34,6 +59,8 @@ define(function () {
       $box[0].offsetHeight;
       $box.css('height', targetheight);
 
+      setTabbing($box);
+
       // reset the transition value
       setTimeout(function () {
         $box.css('transition', '');
@@ -41,7 +68,7 @@ define(function () {
     });
 
     // collapse all .box.collapsed boxes
-    $('div.box.collapsed').css('height', 0);
+    setTabbing($('div.box.collapsed').css('height', 0));
   });
 
   return Box;

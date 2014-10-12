@@ -35,6 +35,7 @@
 	* scripts/data/swissperm.js: swissperm object now has its own data file
 
 	* scripts/ui/backgroundscripts/box.js: moved from scripts/ui
+	disallow tabbing inside closed boxes
 
 	* scripts/ui/backgroundscripts/featuredetect.js: moved from scripts/ui
 
@@ -67,6 +68,7 @@
 	* scripts/lib/base64.js: removed in favor of Blob.js
 
 	* scripts/ui/history.js: Shared wasn't loaded
+
 
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
