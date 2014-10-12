@@ -77,10 +77,11 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
     x=$nextx
     nextx=$(( x + width + margin ))
+    nextx=$((nextx+nextx%2))
 
     if (( nextx >= canvaswidth )); then
         x=$margin
-        y=$nexty
+        y=$((nexty+nexty%2))
         nextx=$((width + margin))
     fi
 
