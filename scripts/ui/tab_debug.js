@@ -1,9 +1,6 @@
-define([ './tabshandle', './opts', './toast', '../backend/random', './options',
-    './strings', './debug', './tournaments', './team', './history', './shared' ], function (Tabshandle, Opts, Toast, Random, Options, Strings, Debug, Tournaments, Team, History, Shared) {
-  var Tab_Debug, $tab, form, options, letters, Letters, rng;
-
-  Tab_Debug = {};
-  options = {};
+define([ './tabshandle', './tab', './toast', '../backend/random', './options',
+    './strings', './debug', './tournaments', './team', './history', './shared' ], function (Tabshandle, Tab, Toast, Random, Options, Strings, Debug, Tournaments, Team, History, Shared) {
+  var Tab_Debug, $tab, form, letters, Letters, rng;
 
   rng = new Random();
 
@@ -426,33 +423,15 @@ define([ './tabshandle', './opts', './toast', '../backend/random', './options',
   /**
    * reset an original state.
    */
-  Tab_Debug.reset = function () {
+  function reset () {
     if (!$tab) {
       init();
     }
 
     // reset everything
     updateForms();
-  };
+  }
 
-  /**
-   * reset an original game state, respecting the current state
-   */
-  Tab_Debug.update = function () {
-    Tab_Debug.reset();
-  };
-
-  Tab_Debug.getOptions = function () {
-    return Opts.getOptions({
-      options : options
-    });
-  };
-
-  Tab_Debug.setOptions = function (opts) {
-    return Opts.setOptions({
-      options : options
-    }, opts);
-  };
-
+  Tab_Debug = Tab.createTab('debug', reset, reset);
   return Tab_Debug;
 });

@@ -1,5 +1,5 @@
 define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options', './opts', './tabshandle', './shared' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Opts, Tabshandle, Shared) {
+    './autocomplete', './options', './tab', './tabshandle', './shared' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab, Tabshandle, Shared) {
 
   // TODO combine $anchors, $fileload, $delete and $teamsize
   var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
@@ -7,6 +7,13 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   updatepending = false;
 
   $tab = undefined;
+
+  options = {
+    allowRegistrations : true,
+    _changed : function () {
+      updateActiveState();
+    }
+  };
 
   function trimName (name) {
     return name.replace(/^\s*|\s*$/g, '').replace(/\s\s*/g, ' ');
@@ -633,11 +640,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
   }
 
-  options = {
-    allowRegistrations : true,
-  };
-
+  // TODO call after an option update
   function updateActiveState () {
+    console.log('allowRegistrations: ' + options.allowRegistrations);
     if (options.allowRegistrations) {
       $tab.removeClass('noreg');
     } else {
@@ -645,80 +650,45 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
   }
 
-  Tab_Teams = {
-    // several options
-    getOptions : function () {
-      return Opts.getOptions({
-        options : options
-      });
-    },
-
-    setOptions : function (opts) {
-      Opts.setOptions({
-        options : options
-      }, opts);
-
-      updateActiveState();
-    },
-
-    /**
-     * init, clear and reset all in one
-     */
-    reset : function () {
-      if (!$tab) {
-        init();
-      }
-
-      // delete everything
-      $tab.find('.team').remove();
-      Autocomplete.reset();
-
-      resetOptions();
-      updateActiveState();
-
-      // reset everything
-      updateDeletion();
-      updateTeamSize();
-      updateTemplate();
-      updateNewTeam();
-      updateFileLoad();
-      updateTeamCounts();
-      Autocomplete.update();
-    },
-    update : function (force) {
-
-      if (force) {
-        updatepending = false;
-      }
-
-      if (updatepending) {
-        console.log('updatepending');
-      } else {
-        updatepending = true;
-        window.setTimeout(function () {
-          try {
-            var i, l;
-            Tab_Teams.reset();
-
-            l = Team.count();
-
-            for (i = 0; i < l; i += 1) {
-              createBox(Team.get(i));
-            }
-
-            updateAfterTeamAdd();
-
-            console.log('update');
-          } catch (er) {
-            console.log(er);
-            new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_teams));
-          }
-          updatepending = false;
-        }, 1);
-      }
+  /**
+   * init, clear and reset all in one
+   */
+  function reset () {
+    if (!$tab) {
+      init();
     }
-  };
 
+    // delete everything
+    $tab.find('.team').remove();
+    Autocomplete.reset();
+
+    resetOptions();
+    updateActiveState();
+
+    // reset everything
+    updateDeletion();
+    updateTeamSize();
+    updateTemplate();
+    updateNewTeam();
+    updateFileLoad();
+    updateTeamCounts();
+    Autocomplete.update();
+  }
+
+  function update () {
+    var i, l;
+    Tab_Teams.reset();
+
+    l = Team.count();
+
+    for (i = 0; i < l; i += 1) {
+      createBox(Team.get(i));
+    }
+
+    updateAfterTeamAdd();
+  }
+
+  Tab_Teams = Tab.createTab('teams', reset, update, options);
   Shared.Tab_Teams = Tab_Teams;
   return Tab_Teams;
 });

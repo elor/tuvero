@@ -2,15 +2,14 @@
  * Tab_New handler
  */
 
-define([ './options', './tabshandle', './opts', './toast', './team',
+define([ './tab', './options', './tabshandle', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
     './storage', '../backend/tournament', './tournaments', './globalranking',
-    './shared' ], function (Options, Tabshandle, Opts, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared) {
+    './shared' ], function (Tab, Options, Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared) {
   var Tab_New, $tab, updatepending, template, swissperms;
 
   updatepending = false;
   $tab = undefined;
-  Tab_New = {};
 
   /**
    * translates the Tournament ranking into a traditional votes object
@@ -738,14 +737,14 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     initOptions();
   }
 
-  Tab_New.reset = function () {
+  function reset () {
     if (!$tab) {
       init();
     }
 
     resetSystems();
     resetTeams();
-  };
+  }
 
   function closeTeamRegistration () {
     var opts, Tab_Teams;
@@ -757,55 +756,22 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     Tab_Teams.setOptions(opts);
   }
 
-  Tab_New.update = function (force) {
-    var Tournament;
+  function update () {
+    reset();
 
-    if (force) {
-      updatepending = false;
-    }
-
-    if (updatepending) {
-      console.log('updatepending');
+    if (Team.count() < 2) {
+      Tabshandle.hide('new');
     } else {
-      updatepending = true;
-      window.setTimeout(function () {
-        try {
-          Tab_New.reset();
+      Tabshandle.show('new');
 
-          if (Team.count() < 2) {
-            Tabshandle.hide('new');
-          } else {
-            Tabshandle.show('new');
-
-            if (Tournaments.numTournaments() !== 0) {
-              closeTeamRegistration();
-            }
-          }
-
-          updateTeams();
-          updateSystems();
-
-          console.log('update');
-        } catch (er) {
-          console.log(er);
-          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_new));
-        }
-        updatepending = false;
-      }, 1);
+      if (Tournaments.numTournaments() !== 0) {
+        closeTeamRegistration();
+      }
     }
-  };
 
-  Tab_New.getOptions = function () {
-    return Opts.getOptions({
-      options : options
-    });
-  };
-
-  Tab_New.setOptions = function (opts) {
-    return Opts.setOptions({
-      options : options
-    }, opts);
-  };
+    updateTeams();
+    updateSystems();
+  }
 
   // default permissions for swiss tournaments
   // TODO move to another file, and/or use setOptions() for passing them around
@@ -916,6 +882,7 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     custom : undefined
   };
 
+  Tab_New = Tab.createTab('new', reset, update);
   Shared.Tab_New = Tab_New;
   return Tab_New;
 });

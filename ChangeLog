@@ -7,6 +7,20 @@
 	* scripts/ui/tab_new.js: showing the system type next to the subtournament name
 	checking for missing anchors
 
+	* scripts/ui/tab.js: wrote a general tab factory
+
+	* scripts/ui/tab_debug.js: using the tab factory
+
+	* scripts/ui/tab_games.js: using the tab factory
+
+	* scripts/ui/tab_history.js: using the tab factory
+
+	* scripts/ui/tab_ranking.js: using the tab factory
+
+	* scripts/ui/tab_settings.js: using the tab factory
+
+	* scripts/ui/tab_teams.js: using the tab factory
+
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/tabs.css: space between tabmenu and tab removed

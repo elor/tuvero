@@ -1,7 +1,7 @@
 define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
-    './history', './tab_history', './storage', './options', './opts',
-    './tabshandle', './tournaments', './shared' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Opts, Tabshandle, Tournaments, Shared) {
-  var Tab_Games, $tab, template, games, $games, $tournaments, options, updatependng;
+    './history', './tab_history', './storage', './options', './tab',
+    './tabshandle', './tournaments', './shared' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Tab, Tabshandle, Tournaments, Shared) {
+  var Tab_Games, $tab, template, games, $games, $tournaments, updatependng;
 
   updatepending = false;
 
@@ -10,9 +10,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
   $tournaments = [];
   // local copy of the running games
   games = [];
-
-  Tab_Games = {};
-  options = {};
 
   function isInt (n) {
     return n % 1 === 0;
@@ -562,56 +559,27 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
   /**
    * reset an original state.
    */
-  Tab_Games.reset = function () {
+  function reset () {
     if (!$tab) {
       init();
     }
 
     // delete everything
     clearBoxes();
-  };
+  }
 
   /**
    * reset an original game state, respecting the current state of Swiss
    */
-  Tab_Games.update = function (force) {
+  function update () {
+    Tab_Games.reset();
 
-    if (force) {
-      updatepending = false;
-    }
+    showRunning();
+    showTab();
+    console.log('update');
+  }
 
-    if (updatepending) {
-      console.log('updatepending');
-    } else {
-      updatepending = true;
-      window.setTimeout(function () {
-        try {
-          Tab_Games.reset();
-
-          showRunning();
-          showTab();
-          console.log('update');
-        } catch (er) {
-          console.log(er);
-          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_games));
-        }
-        updatepending = false;
-      }, 1);
-    }
-  };
-
-  Tab_Games.getOptions = function () {
-    return Opts.getOptions({
-      options : options
-    });
-  };
-
-  Tab_Games.setOptions = function (opts) {
-    return Opts.setOptions({
-      options : options
-    }, opts);
-  };
-
+  Tab_Games = Tab.createTab('games', reset, update);
   Shared.Tab_Games = Tab_Games;
   return Tab_Games;
 });

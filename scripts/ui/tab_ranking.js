@@ -1,11 +1,8 @@
 define([ './tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './opts', './history', './shared' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts, History, Shared) {
-  var Tab_Ranking, template, $tab, options, updatepending;
+    './tabshandle', './tab', './history', './shared' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History, Shared) {
+  var Tab_Ranking, template, $tab, updatepending;
 
   updatepending = false;
-
-  Tab_Ranking = {};
-  options = {};
 
   function initTemplate () {
     var i, tmp;
@@ -207,7 +204,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     return !empty;
   }
 
-  Tab_Ranking.reset = function () {
+  function reset () {
     if (!$tab) {
       init();
     }
@@ -217,14 +214,14 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     // update template to the team size
     updateTemplate();
-  };
+  }
 
   function updateTournamentRankings () {
     var hidden, tournamentid, keepbox, $box;
 
     hidden = true;
 
-    Tab_Ranking.reset();
+    reset();
 
     for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
@@ -255,43 +252,13 @@ define([ './tournaments', './team', './toast', './strings', './options',
     }
   }
 
-  Tab_Ranking.update = function (force) {
-
-    if (force) {
-      updatepending = false;
+  function update () {
+    if (updateTournamentRankings() === true) {
+      // new Toast(Strings.rankingupdate);
     }
+  }
 
-    if (updatepending) {
-      console.log('updatepending');
-    } else {
-      updatepending = true;
-      window.setTimeout(function () {
-        try {
-          if (updateTournamentRankings() === true) {
-            // new Toast(Strings.rankingupdate);
-          }
-          console.log('update');
-        } catch (er) {
-          console.log(er);
-          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_ranking));
-        }
-        updatepending = false;
-      }, 1);
-    }
-  };
-
-  Tab_Ranking.getOptions = function () {
-    return Opts.getOptions({
-      options : options
-    });
-  };
-
-  Tab_Ranking.setOptions = function (opts) {
-    return Opts.setOptions({
-      options : options
-    }, opts);
-  };
-
+  Tab_Ranking = Tab.createTab('ranking', reset, update);
   Shared.Tab_Ranking = Tab_Ranking;
   return Tab_Ranking;
 });

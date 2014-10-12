@@ -1,14 +1,11 @@
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
-    '../backend/game', './storage', './tabshandle', './opts', './team',
-    './options', './shared', 'lib/jsPlumb' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Opts, Team, Options, Shared, jsPlumb) {
-  var Tab_History, $tab, template, currentround, $button, options, updatepending, progresstable, visibleupdatepending;
+    '../backend/game', './storage', './tabshandle', './tab', './team',
+    './options', './shared', 'lib/jsPlumb' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Tab, Team, Options, Shared, jsPlumb) {
+  var Tab_History, $tab, template, currentround, $button, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;
   visibleupdatepending = false;
   progresstable = true;
-
-  Tab_History = {};
-  options = {};
 
   function formatNamesHTML (teamid) {
     var team, names;
@@ -932,7 +929,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
   /**
    * remove all evidence of any games ever (from the overview only)
    */
-  Tab_History.reset = function () {
+  function reset () {
     if (!$tab) {
       init();
     }
@@ -944,61 +941,22 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     // reset the round to 0
     currentround = 0;
-  };
+  }
 
   /**
    * removes and redraws all boxes from History
    */
-  Tab_History.update = function (force) {
+  function update () {
+    Tab_History.reset();
 
-    if (force) {
-      updatepending = false;
-      visibleupdatepending = false;
-    }
-
-    if (updatepending) {
-      console.log('updatepending');
+    if (showTournaments()) {
+      Tabshandle.show('history');
     } else {
-      updatepending = true;
-      window.setTimeout(function () {
-        try {
-          Tab_History.reset();
-
-          if (showTournaments()) {
-            Tabshandle.show('history');
-          } else {
-            Tabshandle.hide('history');
-          }
-          console.log('update');
-        } catch (er) {
-          console.error(er.stack);
-          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_history));
-        }
-        updatepending = false;
-      }, 1);
+      Tabshandle.hide('history');
     }
-  };
+  }
 
-  Tab_History.getOptions = function () {
-    return Opts.getOptions({
-      options : options
-    });
-  };
-
-  Tab_History.setOptions = function (opts) {
-    return Opts.setOptions({
-      options : options
-    }, opts);
-  };
-
-  // FIXME use something that works for all tabs.
-  window.addEventListener('hashchange', function () {
-    if (window.location.hash === '#history' && visibleupdatepending) {
-      Tab_History.update();
-      visibleupdatepending = false;
-    }
-  });
-
+  Tab_History = Tab.createTab('history', reset, update);
   Shared.Tab_History = Tab_History;
   return Tab_History;
 });

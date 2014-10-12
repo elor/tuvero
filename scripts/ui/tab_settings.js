@@ -1,12 +1,10 @@
-define([ 'lib/FileSaver', 'lib/Blob', './toast', './strings', './team', './history', './ranking', './state',
-    '../lib/base64', './storage', './options', './opts', './players',
-    './tabshandle', './shared' ], function (saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, Shared) {
-  var Tab_Settings, $tab, areas, options, updatepending;
+define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
+    './team', './history', './ranking', './state', '../lib/base64',
+    './storage', './options', './players', './tabshandle', './shared' ], function (Tab, saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Players, Tabshandle, Shared) {
+  var Tab_Settings, $tab, areas, updatepending;
 
   updatepending = false;
 
-  Tab_Settings = {};
-  options = {};
   areas = {};
 
   function initCSV () {
@@ -348,7 +346,7 @@ define([ 'lib/FileSaver', 'lib/Blob', './toast', './strings', './team', './histo
   /**
    * reset an initial state
    */
-  Tab_Settings.reset = function () {
+  function reset () {
     if (!$tab) {
       init();
     }
@@ -359,45 +357,14 @@ define([ 'lib/FileSaver', 'lib/Blob', './toast', './strings', './team', './histo
     resetStorageState();
 
     updateLocalStorageMeters();
-  };
+  }
 
-  Tab_Settings.update = function (force) {
+  function update () {
+    reset();
+    updateLocalStorageMeters();
+  }
 
-    if (force) {
-      updatepending = false;
-    }
-
-    if (updatepending) {
-      console.log('updatepending');
-    } else {
-      updatepending = true;
-      window.setTimeout(function () {
-        try {
-          Tab_Settings.reset();
-          updateLocalStorageMeters();
-
-          console.log('update');
-        } catch (er) {
-          console.log(er);
-          new Toast(Strings.tabupdateerror.replace('%s', Strings.tab_settings));
-        }
-        updatepending = false;
-      }, 1);
-    }
-  };
-
-  Tab_Settings.getOptions = function () {
-    return Opts.getOptions({
-      options : options
-    });
-  };
-
-  Tab_Settings.setOptions = function (opts) {
-    return Opts.setOptions({
-      options : options
-    }, opts);
-  };
-
+  Tab_Settings = Tab.createTab('settings', reset, update);
   Shared.Tab_Settings = Tab_Settings;
   return Tab_Settings;
 });
