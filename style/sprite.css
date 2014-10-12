@@ -33,170 +33,170 @@
     height: 128px;
 }
 
-[data-img="download"]::before {
+[data-img="file"]::before {
     background-image: url("../images/sprite.png");
     background-position: -646px -1px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="file"]::before {
+[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -775px -1px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="games"]::before {
+[data-img="history"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="history"]::before {
+[data-img="home"]::before {
     background-image: url("../images/sprite.png");
     background-position: -129px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="home"]::before {
+[data-img="HTML5_Logo_128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -258px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="HTML5_Logo_128"]::before {
+[data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
     background-position: -387px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="lanes"]::before {
+[data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -516px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/chrome_128x128"]::before {
+[data-img="logos/chrome-android_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -645px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/chrome-android_128x128"]::before {
+[data-img="logos/firefox_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -774px -130px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/firefox_128x128"]::before {
+[data-img="logos/internet-explorer_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/internet-explorer_128x128"]::before {
+[data-img="logos/opera_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -129px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="logos/opera_128x128"]::before {
+[data-img="new"]::before {
     background-image: url("../images/sprite.png");
     background-position: -258px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="new"]::before {
+[data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
     background-position: -387px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="ranking"]::before {
+[data-img="reload"]::before {
     background-image: url("../images/sprite.png");
     background-position: -516px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="reload"]::before {
+[data-img="settings"]::before {
     background-image: url("../images/sprite.png");
     background-position: -645px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="settings"]::before {
+[data-img="smallchange"]::before {
     background-image: url("../images/sprite.png");
     background-position: -774px -259px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="smallchange"]::before {
+[data-img="teams1"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams1"]::before {
+[data-img="teams2"]::before {
     background-image: url("../images/sprite.png");
     background-position: -129px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams2"]::before {
+[data-img="teams3"]::before {
     background-image: url("../images/sprite.png");
     background-position: -258px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams3"]::before {
+[data-img="test"]::before {
     background-image: url("../images/sprite.png");
     background-position: -387px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="test"]::before {
+[data-img="upload"]::before {
     background-image: url("../images/sprite.png");
     background-position: -516px -388px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="upload"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -645px -388px;
-    width: 128px;
-    height: 128px;
-}
-
 [data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -774px -388px;
+    background-position: -645px -388px;
+    width: 96px;
+    height: 96px;
+}
+
+[data-img="save"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -742px -388px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="ext/amazonwishlist"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -871px -388px;
+    background-position: -839px -388px;
     width: 119px;
     height: 52px;
 }

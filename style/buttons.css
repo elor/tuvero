@@ -1,0 +1,9 @@
+#tabs button.print,
+#tabs button.save
+ {
+  float: left;
+  padding: 0.25em;
+  border-radius: 10px;
+  background-color: #d0d0d0;
+  cursor: pointer;
+}

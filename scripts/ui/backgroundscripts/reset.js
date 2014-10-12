@@ -2,7 +2,7 @@
  * checks for the hash '#reset' and resets the localStorage, if it is ever
  * visited
  */
-define([ './toast', './strings' ], function (Toast, Strings) {
+define([ '../toast', '../strings' ], function (Toast, Strings) {
 
   function hashcheck () {
     if (location.hash === '#reset') {

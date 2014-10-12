@@ -60,8 +60,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
       $this = $(e.target);
 
-      console.log($this);
-
       if (!$this.hasClass('team')) {
         $this = $this.parents('.team');
       }
@@ -642,7 +640,6 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
   // TODO call after an option update
   function updateActiveState () {
-    console.log('allowRegistrations: ' + options.allowRegistrations);
     if (options.allowRegistrations) {
       $tab.removeClass('noreg');
     } else {

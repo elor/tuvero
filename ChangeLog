@@ -3,6 +3,7 @@
 	* writesprite.sh: optimizing sprite.png
 
 	* index.html: showing the system type next to the subtournament name
+	added a save button to every tab
 
 	* scripts/ui/tab_new.js: showing the system type next to the subtournament name
 	checking for missing anchors
@@ -19,6 +20,7 @@
 	* scripts/ui/tab_ranking.js: using the tab factory
 
 	* scripts/ui/tab_settings.js: using the tab factory
+	save button is now governed by save.js
 
 	* scripts/ui/tab_teams.js: using the tab factory
 
@@ -31,6 +33,38 @@
 	* scripts/updatescripts.sh: moved to build-scripts
 
 	* scripts/data/swissperm.js: swissperm object now has its own data file
+
+	* scripts/ui/backgroundscripts/box.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts/featuredetect.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts.js: removed in favor of auto-loading
+
+	* scripts/ui/backgroundscripts/online.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts/print.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts/reset.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts/save.js: moved from scripts/ui
+
+	* scripts/ui/box.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/featuredetect.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/online.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/print.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/reset.js: moved to scripts/ui/backgroundscripts
+
+	* style/buttons.css: separate css file for all floating buttons
+
+	* style/mainstyle.css: loading buttons.css
+
+	* style/tabs.css: moved some content to buttons.css
+
+	* scripts/lib/base64.js: removed in favor of Blob.js
 
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

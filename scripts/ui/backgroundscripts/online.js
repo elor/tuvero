@@ -2,7 +2,7 @@
  * Am I online or offline?
  */
 // FIXME modernizr
-define([ './strings', './update' ], function (Strings, Update) {
+define([ '../strings', '../update' ], function (Strings, Update) {
   var Online;
 
   /**

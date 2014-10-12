@@ -19,7 +19,6 @@ createTestJS(){
 require([ 'common', 'lib/qunit', '$files' ], function(Common, QUnit){
   var i;
   function myrequire (str) {
-    console.log(str);
     return require.s.contexts._.defined[str];
   }
   for (i = 2; i < arguments.length; i += 1) {

@@ -1,6 +1,6 @@
 define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
-    './team', './history', './ranking', './state', '../lib/base64',
-    './storage', './options', './players', './tabshandle', './shared' ], function (Tab, saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Players, Tabshandle, Shared) {
+    './team', './history', './ranking', './state', './storage', './options',
+    './players', './tabshandle', './shared' ], function (Tab, saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Storage, Options, Players, Tabshandle, Shared) {
   var Tab_Settings, $tab, areas, updatepending;
 
   updatepending = false;
@@ -53,29 +53,6 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
       saveAs(blob, 'boules.csv');
     } catch (er) {
       console.error('Blobbing failed');
-      new Toast(Strings.savefailed);
-    }
-  }
-
-  function initSave () {
-    areas.save = {};
-    areas.save.$button = $tab.find('.save button');
-
-    areas.save.$button.click(saveState);
-  }
-
-  function saveState () {
-    var save, blob;
-
-    save = State.toBlob();
-
-    try {
-      blob = new Blob([ save ], {
-        type : 'application/json'
-      });
-      saveAs(blob, 'boules.json');
-    } catch (er) {
-      console.error(er);
       new Toast(Strings.savefailed);
     }
   }
@@ -337,7 +314,6 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     $tab = $('#settings');
 
     initCSV();
-    initSave();
     initLoad();
     initAutocomplete();
     initLocalStorage();

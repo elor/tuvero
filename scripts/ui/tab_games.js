@@ -576,7 +576,6 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     showRunning();
     showTab();
-    console.log('update');
   }
 
   Tab_Games = Tab.createTab('games', reset, update);
