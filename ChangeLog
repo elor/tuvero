@@ -71,10 +71,7 @@
 
 	* scripts/ui/history.js: Shared wasn't loaded
 
-	* build-scripts/writesprite.sh: 
-	* images/sprite.png: 
-	* style/sprite.css: 
-
+	* scripts/ui/toast.js: toasts can be closed by the calling code
 
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

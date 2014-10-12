@@ -4,25 +4,67 @@
  * insert an html node instead of text
  */
 define(function () {
-  var Toast, fadein, fadeout, pending, toastfn;
+  var Toast, fadein, fadeout, pending, toastfn, nextid, fadeoutfn;
 
   // pending toasts which have been issued before jquery was available
   pending = [];
+  nextid = 0;
+
+  function getid () {
+    var id;
+    id = nextid;
+    nextid += 1;
+    return id;
+  }
+
+  // will become a function once jquery has been initialized
+  fadeoutfn = undefined;
 
   toastfn = function (str, seconds) {
+    var id;
+
+    id = getid();
+
     pending.push({
       str : str,
-      seconds : seconds
+      seconds : seconds,
+      id : id,
     });
+
+    return id;
   };
+
+  function createCloseFunction (id) {
+    return function () {
+      var i, $alltoasts, $div;
+      if (pending[id]) {
+        pending[id] = undefined;
+      }
+
+      // see if jquery has been initialized
+      if (fadeoutfn) {
+        $alltoasts = $('#toasts .toast');
+        for (i = 0; i < $alltoasts.length; i += 1) {
+          $div = $alltoasts.eq(i);
+          if ($div.data().id === id) {
+            fadeoutfn($div);
+          }
+        }
+      }
+    };
+  }
 
   // temporary toast constructor
   Toast = function (str, seconds) {
-    toastfn(str, seconds);
+    var id;
+
+    id = toastfn(str, seconds);
+
+    this.close = createCloseFunction(id);
   };
 
   Toast.init = function () {
-    var $hidden, transition, duration;
+    var $hidden, transition, duration, id;
     // create toast container
     $('body').append('<div id="toasts"><div class="hidden" style="display:none;">ERROR</div></div>');
 
@@ -54,6 +96,7 @@ define(function () {
       console.error('Toast: stylesheet not found');
       toastfn = function (str, seconds) {
         console.error('Toast: ' + str);
+        return getid();
       };
     } else {
       // read fade durations from css
@@ -84,7 +127,6 @@ define(function () {
 
         $toasts = $('#toasts');
         $div = $('<div></div>');
-        $br = $('<br>');
 
         // decide between text and jquery object handle
         if (typeof str === 'string') {
@@ -95,26 +137,33 @@ define(function () {
 
         // insert the toast and a line break
         $toasts.append($div);
-        $div.after($br);
+        $div.after($('<br>'));
 
         // fadein timeout
         window.setTimeout(function () {
           $div.addClass('toast');
         }, 10);
 
-        // remote the toast if it's not infinite
+        // remove the toast if it's not infinite
         if (seconds > 0) {
           // fadeout timeout
           window.setTimeout(function () {
-            $div.removeClass('toast');
+            fadeoutfn($div);
           }, 1000 * (seconds + fadein));
-
-          // remove timeout
-          window.setTimeout(function () {
-            $br.remove();
-            $div.remove();
-          }, 1000 * (seconds + fadein + fadeout));
         }
+
+        id = getid();
+        $div.data().id = id;
+        return id;
+      };
+
+      fadeoutfn = function ($div) {
+        // remove timeout
+        $div.removeClass('toast');
+        window.setTimeout(function () {
+          $div.next().remove();
+          $div.remove();
+        }, 1000 * fadeout);
       };
     }
 
