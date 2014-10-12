@@ -4,6 +4,7 @@
 
 	* index.html: showing the system type next to the subtournament name
 	added a save button to every tab
+	access keys changed
 
 	* scripts/ui/tab_new.js: showing the system type next to the subtournament name
 	checking for missing anchors
@@ -69,6 +70,9 @@
 
 	* scripts/ui/history.js: Shared wasn't loaded
 
+	* build-scripts/writesprite.sh: 
+	* images/sprite.png: 
+	* style/sprite.css: 
 
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
