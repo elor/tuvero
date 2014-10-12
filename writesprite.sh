@@ -124,7 +124,9 @@ canvasheight=$nexty
 # actually combine the images #
 ###############################
 
-convert -quality 100 -size ${canvaswidth}x${canvasheight} xc:transparent $compositecommand $sprite
+convert -quality 100 -size ${canvaswidth}x${canvasheight} xc:transparent $compositecommand $sprite || exit 1
+
+optipng -o7 $sprite || exit 1
 
 cat <<EOF
 

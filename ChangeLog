@@ -1,3 +1,7 @@
+2014-10-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* writesprite.sh: optimizing sprite.png
+
 2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/tabs.css: space between tabmenu and tab removed
