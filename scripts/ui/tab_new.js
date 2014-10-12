@@ -89,12 +89,13 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     }
 
     function updateName () {
-      var $title, $system, tournamentid, newname;
+      var $title, $name, $system, tournamentid, newname;
 
-      $title = template.$chname.parent('h3');
+      $name = template.$chname.parent('.name');
+      $title = $name.parent('h3');
       $system = $title.parent('.system');
 
-      if ($title.length === 0 || $system.length === 0) {
+      if ($name.length === 0 || $title.length === 0 || $system.length === 0) {
         console.error('cannot find required DOM elements');
         return undefined;
       }
@@ -105,12 +106,12 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       template.$chname.detach();
 
       if (!newname || /^\s*$/.test(newname) || Tournaments.getName(tournamentid) === newname) {
-        $title.text(Tournaments.getName(tournamentid));
+        $name.text(Tournaments.getName(tournamentid));
         new Toast(Strings.namechangeaborted);
         return undefined;
       }
 
-      $title.parents('.system').find('.name').text(newname);
+      $system.find('.name').text(newname);
 
       Tournaments.setName(tournamentid, newname);
 
@@ -131,8 +132,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
       template.$chname.blur();
     }
 
-    $tab.on('click', '.system > h3:first-child.name.editable', function () {
-      chshow($(this));
+    $tab.on('click', '.system > h3:first-child.editable', function () {
+      chshow($(this).find('.name'));
     });
 
     template.$chname.blur(updateName);
@@ -158,8 +159,8 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     });
 
     // you clicked the bottom h3? no problem, just click the other one
-    $tab.on('click', '.system >h3:last-child.name.editable', function () {
-      $(this).parents('.system').find('>h3:first-child.name.editable').click().focus();
+    $tab.on('click', '.system >h3:last-child.editable', function () {
+      $(this).parents('.system').find('>h3:first-child.editable').click().focus();
     });
   }
 
@@ -286,6 +287,9 @@ define([ './options', './tabshandle', './opts', './toast', './team',
     var anchors, $firstrow, $lastrow, height, $anchor;
 
     anchors = getAnchors(tournamentid);
+    if (!anchors) {
+      return undefined;
+    }
     $firstrow = anchors.first;
     if ($firstrow === undefined) {
       return undefined;
