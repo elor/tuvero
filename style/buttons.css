@@ -1,5 +1,6 @@
 #tabs button.print,
-#tabs button.save
+#tabs button.save,
+#tabs button.reloadtab
  {
   float: left;
   padding: 0.25em;
@@ -7,3 +8,4 @@
   background-color: #d0d0d0;
   cursor: pointer;
 }
+
