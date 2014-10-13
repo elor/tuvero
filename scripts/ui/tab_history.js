@@ -476,6 +476,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     return !hidden;
   }
 
+  // FIXME: remove this function in favor of BoxView
   function CHEAPHACKcollapseBox($box){
     $box.addClass('collapsed');
     $box.css('height', 0);

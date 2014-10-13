@@ -6,6 +6,10 @@
 
 	* style/buttons.css: reload button added
 
+	* scripts/ui/tab_history.js: finished tournaments start collapsed
+
+	* scripts/ui/tab_ranking.js: finished tournaments start collapsed
+
 2014-10-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* writesprite.sh: optimizing sprite.png

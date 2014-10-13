@@ -216,6 +216,13 @@ define([ './tournaments', './team', './toast', './strings', './options',
     updateTemplate();
   }
 
+  // FIXME: remove this function in favor of BoxView
+  function CHEAPHACKcollapseBox($box){
+    $box.addClass('collapsed');
+    $box.css('height', 0);
+  }
+
+
   function updateTournamentRankings () {
     var hidden, tournamentid, keepbox, $box;
 
@@ -242,6 +249,9 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
       if (keepbox) {
         $tab.append($box);
+        if (!Tournaments.isRunning(tournamentid)) {
+          CHEAPHACKcollapseBox($box);
+        }
       }
     }
 
