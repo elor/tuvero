@@ -466,11 +466,19 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       if (!empty) {
         $tab.append($box);
         $box.data('tournamentid', tournamentid);
+        if (!Tournaments.isRunning(tournamentid)) {
+          CHEAPHACKcollapseBox($box);
+        }
         hidden = false;
       }
     }
 
     return !hidden;
+  }
+
+  function CHEAPHACKcollapseBox($box){
+    $box.addClass('collapsed');
+    $box.css('height', 0);
   }
 
   /**
@@ -661,6 +669,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     $box.data('tournamentid', tournamentid);
     $box.append($table);
     $tab.append($box);
+    if (!Tournaments.isRunning(tournamentid)) {
+      CHEAPHACKcollapseBox($box);
+    }
 
     return maxround > 0;
   }
@@ -825,7 +836,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
 
     $box.append($tree);
     $tab.append($box);
-
     jsPlumbInstance = jsPlumb.getInstance();
 
     // create endpoints and update the leftmost and bottommost points
@@ -850,6 +860,10 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       if (parentid >= 0) {
         connectKOGames(games[i].$box, games[parentid].$box, jsPlumbInstance);
       }
+    }
+
+    if (!Tournaments.isRunning(tournamentid)) {
+      CHEAPHACKcollapseBox($box);
     }
 
     return games.length > 0;
