@@ -2,9 +2,11 @@ Boules %VERSION% (yyyy-mm-dd)
 -------------------------
 
 FEATURES:
+
   * number of image downloads reduced by using sprites
   * Home Tab for general tasks and informations added
   * print buttons added
+  * ranking & history: finished tournaments are collapsed by default
 
 FIXES:
 

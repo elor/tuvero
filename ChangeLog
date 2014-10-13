@@ -10,6 +10,10 @@
 
 	* scripts/ui/tab_ranking.js: finished tournaments start collapsed
 
+	* images/reload.png: reduced to button size
+
+	* images/svg/reload.svg: reduced to button size
+
 2014-10-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* writesprite.sh: optimizing sprite.png

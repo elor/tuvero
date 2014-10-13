@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="128"
-   height="128"
+   width="96"
+   height="96"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="29.999748"
-     inkscape:cy="59.209556"
+     inkscape:zoom="5.6"
+     inkscape:cx="26.847898"
+     inkscape:cy="44.196114"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -43,15 +43,16 @@
     <marker
        style="overflow:visible"
        id="TriangleInS"
-       refX="0.0"
-       refY="0.0"
+       refX="0"
+       refY="0"
        orient="auto"
        inkscape:stockid="TriangleInS">
       <path
-         transform="scale(-0.2)"
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt"
-         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
-         id="path4615" />
+         transform="scale(-0.2,-0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path4615"
+         inkscape:connector-curvature="0" />
     </marker>
     <marker
        style="overflow:visible"
@@ -246,28 +247,32 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(0,-924.3622)"
+     transform="translate(0,-956.3622)"
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
-    <path
-       sodipodi:open="true"
-       sodipodi:end="4.712389"
-       sodipodi:start="0"
-       transform="matrix(0.76665307,0.76665307,-0.76665307,0.76665307,58.907237,881.46885)"
-       d="m 117.85714,66.39286 c 0,24.754193 -20.067234,44.82143 -44.821427,44.82143 -24.754192,0 -44.82143,-20.067237 -44.82143,-44.82143 0,-24.754192 20.067238,-44.82143 44.82143,-44.82143 0,0 10e-7,0 10e-7,0"
-       sodipodi:ry="44.82143"
-       sodipodi:rx="44.82143"
-       sodipodi:cy="66.39286"
-       sodipodi:cx="73.035713"
-       id="path4265"
-       style="fill:none;stroke:#000000;stroke-width:19.36892054999999857;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none"
-       sodipodi:type="arc" />
-    <path
-       id="path4988"
-       inkscape:label="Triangle"
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.08792448"
-       d="m 69.71258,965.14746 52.54272,14.07878 -14.07878,-52.54273 -38.46394,38.46395 z"
-       inkscape:connector-curvature="0" />
+    <g
+       id="g3011"
+       transform="matrix(0.76434219,0.20480487,-0.20480487,0.76434219,201.50349,235.80776)">
+      <path
+         sodipodi:type="arc"
+         style="fill:none;stroke:#000000;stroke-width:16.31811905;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:none"
+         id="path4265"
+         sodipodi:cx="73.035713"
+         sodipodi:cy="66.39286"
+         sodipodi:rx="44.82143"
+         sodipodi:ry="44.82143"
+         d="M 117.85714,66.39286 A 44.82143,44.82143 0 1 1 73.035714,21.57143"
+         transform="matrix(0.76665307,0.76665307,-0.76665307,0.76665307,58.907237,881.46885)"
+         sodipodi:start="0"
+         sodipodi:end="4.712389"
+         sodipodi:open="true" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 69.71258,965.14746 52.54272,14.07878 -14.07878,-52.54273 -38.46394,38.46395 z"
+         style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.26373482;stroke-miterlimit:4;stroke-dasharray:none"
+         inkscape:label="Triangle"
+         id="path4988" />
+    </g>
   </g>
 </svg>
