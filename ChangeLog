@@ -12,11 +12,15 @@
 	* build-scripts/write-manifest.sh: moved from manifest.sh
 
 	* build-scripts/write-scripts.sh: moved from update-scripts.sh
+	hardcoded file names corrected
 
 	* build-scripts/write-sprite.sh: moved from writesprite.sh
 	doesn't optimize anymore (using Makefile for that)
 
 	* build-scripts/write-Version.sh: writes the Version-file
+
+	* build-scripts/write-reference.sh: first html files produced
+
 
 2014-10-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
