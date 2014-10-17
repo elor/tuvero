@@ -23,7 +23,7 @@ cp -r ../boules-build/{scripts,style} . || exit 1
 ##############################################################
 # createmanifest inside the build directory, for convenience #
 ##############################################################
-manifestscript=`readlink -f "$buildscriptdir"/manifest.sh`
+manifestscript=`readlink -f build-scripts/manifest.sh`
 (
     cd ../boules-build || exit 1
     "$manifestscript"
