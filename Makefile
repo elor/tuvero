@@ -42,6 +42,7 @@ merge-master: FORCE
 # builds (packs, optimizes and compresses) the whole project for test distribution #
 ####################################################################################
 build: images scripts remove-debug-code
+	make remove-images
 	./build-scripts/build.sh
 
 ##############################################
@@ -55,4 +56,10 @@ scripts: FORCE
 ######################
 sprite: images/sprite.png
 
-include build-scripts/Makefile.inc
+###############################
+# remove auto-generated files #
+###############################
+clean:
+	rm -f Version manifest.appcache
+
+include build-scripts/Makefile.in

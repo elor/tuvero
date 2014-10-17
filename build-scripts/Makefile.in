@@ -5,8 +5,7 @@
 
 # compresses the whole images directory
 images: images/sprite.png
-	make remove-images
-	optipng -o3 images/sprite.png #images/favicon.png
+	optipng -o3 images/sprite.png images/games.png
 
 # creates the sprite
 images/sprite.png: FORCE

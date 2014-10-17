@@ -7,7 +7,7 @@
 #########################################
 # optimize and copy to ../boules-build/ #
 #########################################
-if ( "`readlink -f $PWD`" == "`readlink -f ../boules-build`" ); then
+if [ "`readlink -f $PWD`" == "`readlink -f ../boules-build`" ]; then
     echo "cannot build when boules-build is the working directory">&2
     exit 1
 fi
@@ -23,7 +23,7 @@ cp -r ../boules-build/{scripts,style} . || exit 1
 ##############################################################
 # createmanifest inside the build directory, for convenience #
 ##############################################################
-manifestscript=`readlink -f build-scripts/manifest.sh`
+manifestscript=`readlink -f build-scripts/write-manifest.sh`
 (
     cd ../boules-build || exit 1
     "$manifestscript"
