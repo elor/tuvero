@@ -1,8 +1,18 @@
 ############
 # Makefile #
-###########################################
-# prepares a new release for distribution #
-###########################################
+################################################
+# Usable Targets:                              #
+# * sprite: rebuild the sprite                 #
+# * scripts: rebuild auto-generated scripts    #
+# * build: build the project                   #
+# * release: prepare a new release             #
+# * merge-master: merges a release into master #
+################################################
+
+################################################
+# prepares a new release for distribution      #
+# requires an active  "release-VERSION" branch #
+################################################
 release: Version NEWS
 	./build-scripts/applyversion.sh
 	$(eval VERSION := $(shell cat Version))
@@ -19,8 +29,8 @@ release: Version NEWS
 
 ################################################
 # merge the current release branch with master #
-# use directly after 'make release'						 #
-# DO NOT use lightly!													 #
+# use directly after 'make release'            #
+# THINK (and TEST) before using!               #
 ################################################
 merge-master: FORCE
 	$(eval VERSION := $(shell cat Version))
@@ -45,53 +55,4 @@ scripts: FORCE
 ######################
 sprite: images/sprite.png
 
-
-################################
-##                            ##
-## end of user-usable targets ##
-##                            ##
-################################
-
-# compresses the whole images directory
-images: images/sprite.png
-	make remove-images
-	optipng -o7 images/sprite.png #images/favicon.png
-
-# creates the sprite
-images/sprite.png: FORCE
-	./build-scripts/write-sprite.sh
-
-# create the manifest and update all links in the top-level HTML files
-manifest.appcache: Version FORCE
-	./build-scripts/write-manifest.sh
-
-Version: FORCE
-	./build-scripts/write-Version.sh
-
-# set release date in NEWS file
-NEWS: FORCE
-	sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
-
-# dummy target for forcing a rebuild of existing files
-FORCE:
-
-# removes all unnecessary images after building the images
-remove-images: 
-	find images -type f -not -name '*.gif' -not -name 'sprite.png' -not -name 'games.png' -print0 | xargs -0 -n1 rm
-	find images -type d -not -path images -print0 | xargs -0 -n1 rmdir
-
-# self-explanatory
-remove-debug-code:
-	sed -i '/<script>/,/<\/script>/d' *.html
-
-# self-explanatory
-remove-build-scripts:
-	rm -rf build-scripts
-
-# self-explanatory
-remove-dev-files:
-	rm Makefile TODO BUGS
-
-# currently, there's no plan to create a "clean" target
-clean:
-	echo "use 'git checkout' to reset to a fresh state"
+include build-scripts/Makefile.inc

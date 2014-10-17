@@ -1,0 +1,44 @@
+###############################
+# included makefile					  #
+# contains some logic targets #
+###############################
+
+# compresses the whole images directory
+images: images/sprite.png
+	make remove-images
+	optipng -o3 images/sprite.png #images/favicon.png
+
+# creates the sprite
+images/sprite.png: FORCE
+	./build-scripts/write-sprite.sh
+
+# create the manifest and update all links in the top-level HTML files
+manifest.appcache: Version FORCE
+	./build-scripts/write-manifest.sh
+
+Version: FORCE
+	./build-scripts/write-Version.sh
+
+# set release date in NEWS file
+NEWS: FORCE
+	sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
+
+# dummy target for forcing a rebuild of existing files
+FORCE:
+
+# removes all unnecessary images after building the images
+remove-images: 
+	find images -type f -not -name '*.gif' -not -name 'sprite.png' -not -name 'games.png' -print0 | xargs -0 -n1 rm
+	find images -type d -not -path images -print0 | xargs -0 -n1 rmdir
+
+# self-explanatory
+remove-debug-code:
+	sed -i '/<script>/,/<\/script>/d' *.html
+
+# self-explanatory
+remove-build-scripts:
+	rm -rf build-scripts
+
+# self-explanatory
+remove-dev-files:
+	rm Makefile TODO BUGS
