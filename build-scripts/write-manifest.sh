@@ -13,17 +13,8 @@ listImages(){
 }
 
 listHTMLs(){
-    find * -name '*.html'
-}
-
-listPlainFiles(){
-#########################################################################
-# re-enable when there's a way to actually view them when being offline #
-#########################################################################
-#    find * -name '*.md'
-#    find * -name '*.txt'
-#    ls ChangeLog BUGS LICENSE NEWS TODO
-    echo>&2
+#    find * -name '*.html'
+    ls *.html
 }
 
 listStylesheets(){
@@ -33,7 +24,7 @@ listStylesheets(){
 createManifest(){
     cat << EOF
 CACHE MANIFEST
-# Version: `cat Version || echo dev`
+# Version: `[ -s Version ] && cat Version || echo dev`
 # Date: `date`
 
 # the boules program is purely offline
@@ -41,7 +32,6 @@ CACHE:
 `listHTMLs`
 `listScripts`
 `listImages`
-`listPlainFiles`
 `listStylesheets`
 
 # allow player database updates
