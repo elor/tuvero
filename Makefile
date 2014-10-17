@@ -59,6 +59,12 @@ scripts: FORCE
 ######################
 sprite: images/sprite.png
 
+############################
+# update all documentation #
+############################
+doc: remove-reference
+	./build-scripts/write-reference.sh
+
 ###############################
 # remove auto-generated files #
 ###############################

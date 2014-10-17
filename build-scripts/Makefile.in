@@ -40,4 +40,8 @@ remove-build-scripts:
 
 # self-explanatory
 remove-dev-files:
-	rm Makefile TODO BUGS
+	rm -f Makefile TODO BUGS
+
+# self-explanatory
+remove-reference:
+	rm -rf doc/reference
