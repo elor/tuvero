@@ -26,6 +26,7 @@ release: Version NEWS
 	make remove-dev-files
 	git add -u
 	git commit -m 'release-$(VERSION): build scripts and dev files removed'
+	echo "Release Build finished. See 'git log' for automatic commits"
 
 ################################################
 # merge the current release branch with master #
@@ -37,6 +38,7 @@ merge-master: FORCE
 	git checkout master
 	git merge -X theirs release-$(VERSION)
 	git tag -a -m 'Release $(VERSION)' $(VERSION)
+	echo "Finished merging branch release-$(VERSION) into branch master."
 
 ####################################################################################
 # builds (packs, optimizes and compresses) the whole project for test distribution #
@@ -44,6 +46,7 @@ merge-master: FORCE
 build: images scripts remove-debug-code
 	make remove-images
 	./build-scripts/build.sh
+	echo "Build finished."
 
 ##############################################
 # update all automatically generated scripts #
