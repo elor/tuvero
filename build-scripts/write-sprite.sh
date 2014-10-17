@@ -127,8 +127,6 @@ canvasheight=$nexty
 
 convert -quality 100 -size ${canvaswidth}x${canvasheight} xc:transparent $compositecommand $sprite || exit 1
 
-optipng -o7 $sprite || exit 1
-
 cat <<EOF
 
 output: `getSizes <<< $sprite`
