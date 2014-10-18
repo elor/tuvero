@@ -50,7 +50,11 @@ parseglobalcomment(){
     if [ "`head -n1 $script`" != '/**' ]; then
         fakeglobalcomment $script
     else
-        sed -n '1,/\*\//p' $script | stripcommentchars
+        sed -n '1,/\*\//p' $script | stripcommentchars | {
+            sed -r -e 's/@author\s*([^<]+)\s*(<([^>]+)>)/* Author: \1\
+* Mail: <\3>/' -e 's/@license\s*(.*)/* License: \1/' -e '/@see/d' \
+                -e 's/@exports\s*(.*)/* Exports: \1/' -e 's/@implements\s*(.*)/* Implements: \1/'
+        }
     fi
     echo
 }
@@ -65,7 +69,7 @@ parsedependencies(){
 
     echo "## Dependencies"
     echo
-    sed -n '/define(/,/function/p' $script | grep -Po '\[[^\]]*\]' | grep -Po '(\.+/)*\w*(/\w*)*' | sed 's/^/* /' | sort -h
+    sed -n '/define(/,/function/p' $script | grep -Po '\[[^\]]*\]' | grep -Po '(\.+/)*\w*(/\w*)*' | sed 's/^/* /' | sort -h | grep '' || echo "No Dependencies"
     echo
 }
 
