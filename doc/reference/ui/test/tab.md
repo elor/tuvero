@@ -14,7 +14,17 @@ No Dependencies
 
 ## Functions
 
-Not yet implemented
+###           clear : function ()
+
+---
+
+###           reset : function ()
+
+---
+
+###           update : function ()
+
+---
 
 ## Metrics
 

@@ -14,7 +14,13 @@ No Dependencies
 
 ## Functions
 
-Not yet implemented
+###       toBlob : function ()
+
+---
+
+###       fromBlob : function ()
+
+---
 
 ## Metrics
 

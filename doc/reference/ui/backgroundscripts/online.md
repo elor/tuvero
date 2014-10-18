@@ -16,7 +16,10 @@ Am I online or offline?
 
 ## Functions
 
-Not yet implemented
+###   Online = function ()
+
+
+---
 
 ## Metrics
 

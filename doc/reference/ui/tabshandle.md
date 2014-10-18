@@ -13,7 +13,7 @@ a handle to all tabs for update purposes
 
 ## Functions
 
-Not yet implemented
+No exported functions
 
 ## Metrics
 

@@ -15,7 +15,41 @@ corrections should be sparse, the copying shouldn't matter.
 
 ## Functions
 
-Not yet implemented
+###   Correction = function (pre, post)
+constructor
+
+**Argument:** **pre**
+
+previous result (Result instance)
+**Argument:** **post**
+
+corrected result (Result instance)
+
+**Returns:** {Correction} new instance
+
+---
+
+
+###   Correction.prototype.copy = function ()
+copy function that creates a new correction from this
+
+
+**Returns:** {Correction} copy
+
+---
+
+
+###   Correction.copy = function (corr)
+copies a correction object
+
+**Argument:** **corr**
+
+correction object, which doesn't have to have the same prototype
+and functions. Fields are sufficient
+
+**Returns:** the instance
+
+---
 
 ## Metrics
 

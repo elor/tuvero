@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Errors</title>
-</head>
-<body>
-<a href="index.html">back to index</a>
-<h1>Code Style Warnings and Errors</h1>
-<pre><code>Warning: scripts/backend/blobber.js: undocumented: 'toBlob : function'
+```
+Warning: scripts/backend/blobber.js: undocumented: 'toBlob : function'
 Warning: scripts/backend/blobber.js: undocumented: 'fromBlob : function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 'Buchholz.prototype.grantBye = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 'Buchholz.prototype.revokeBye = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 't1func = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 'Buchholz.prototype.fromBlob = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 'function copyCorrection'
-Warning: scripts/backend/buchholzranking.js: &gt; 10 functions: 15
-Warning: scripts/backend/finebuchholzranking.js: &gt; 5 dependencies: 6
+Warning: scripts/backend/buchholzranking.js: > 10 functions: 15
+Warning: scripts/backend/finebuchholzranking.js: > 5 dependencies: 6
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'Finebuchholz.prototype.grantBye = function'
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'Finebuchholz.prototype.revokeBye = function'
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 't1func = function'
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'Finebuchholz.prototype.fromBlob = function'
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'function copyCorrection'
-Warning: scripts/backend/finebuchholzranking.js: &gt; 10 functions: 15
+Warning: scripts/backend/finebuchholzranking.js: > 10 functions: 15
 Warning: scripts/backend/game.js: undocumented: 'function copyTeam'
 Warning: scripts/backend/halfmatrix.js: undocumented: 'HalfMatrix.prototype.fromBlob = function'
-Warning: scripts/backend/halfmatrix.js: &gt; 10 functions: 17
+Warning: scripts/backend/halfmatrix.js: > 10 functions: 17
 Warning: scripts/backend/kotournament.js: undocumented: 'function left'
 Warning: scripts/backend/kotournament.js: undocumented: 'function right'
 Warning: scripts/backend/kotournament.js: undocumented: 'function parent'
@@ -50,38 +42,38 @@ Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.
 Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.fromBlob = function'
 Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.getType = function'
 Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.getCorrections = function'
-Warning: scripts/backend/kotournament.js: &gt; 10 functions: 29
-Warning: scripts/backend/kotournament.js: &gt; 400 lines: 436
-Warning: scripts/backend/map.js: &gt; 10 functions: 11
+Warning: scripts/backend/kotournament.js: > 10 functions: 29
+Warning: scripts/backend/kotournament.js: > 400 lines: 436
+Warning: scripts/backend/map.js: > 10 functions: 11
 Warning: scripts/backend/matrix.js: undocumented: 'clone : function'
 Warning: scripts/backend/matrix.js: undocumented: 'erase : function'
 Warning: scripts/backend/matrix.js: undocumented: 'extend : function'
 Warning: scripts/backend/matrix.js: undocumented: 'get : function'
 Warning: scripts/backend/matrix.js: undocumented: 'set : function'
-Warning: scripts/backend/matrix.js: &gt; 10 functions: 17
+Warning: scripts/backend/matrix.js: > 10 functions: 17
 Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.grantBye = function'
 Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.revokeBye = function'
 Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.fromBlob = function'
 Warning: scripts/backend/nettoranking.js: undocumented: 'function copyCorrection'
-Warning: scripts/backend/nettoranking.js: &gt; 10 functions: 14
+Warning: scripts/backend/nettoranking.js: > 10 functions: 14
 Warning: scripts/backend/options.js: undocumented: 'function toType'
 Warning: scripts/backend/options.js: undocumented: 'function copyStaticObject'
 Warning: scripts/backend/options.js: undocumented: 'Options.prototype.getOptions = function'
 Warning: scripts/backend/options.js: undocumented: 'Options.getOptions = function'
 Warning: scripts/backend/options.js: undocumented: 'Options.prototype.setOptions = function'
 Warning: scripts/backend/options.js: undocumented: 'Options.setOptions = function'
-Warning: scripts/backend/options.js: &gt; 10 functions: 11
+Warning: scripts/backend/options.js: > 10 functions: 11
 Warning: scripts/backend/random.js: undocumented: 'Random = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.nextInt = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.nextDouble = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.pick = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.pickAndRemove = function'
-Warning: scripts/backend/ranking.js: &gt; 10 functions: 11
+Warning: scripts/backend/ranking.js: > 10 functions: 11
 Warning: scripts/backend/result.js: undocumented: 'Result = function'
 Warning: scripts/backend/rleblobber.js: undocumented: 'function isArray'
 Warning: scripts/backend/rleblobber.js: undocumented: 'function isNumber'
-Warning: scripts/backend/rleblobber.js: &gt; 10 functions: 12
-Warning: scripts/backend/swisstournament.js: &gt; 5 dependencies: 9
+Warning: scripts/backend/rleblobber.js: > 10 functions: 12
+Warning: scripts/backend/swisstournament.js: > 5 dependencies: 9
 Warning: scripts/backend/swisstournament.js: undocumented: 'function clearRoundvotes'
 Warning: scripts/backend/swisstournament.js: undocumented: 'fillCandidates = function'
 Warning: scripts/backend/swisstournament.js: undocumented: 'fillCandidates = function'
@@ -91,16 +83,16 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: undocumented: 'function toType'
 Warning: scripts/backend/swisstournament.js: undocumented: 'function copyStaticObject'
 Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prototype.getType = function'
-Warning: scripts/backend/swisstournament.js: &gt; 10 functions: 45
-Warning: scripts/backend/swisstournament.js: &gt; 400 lines: 1137
-Warning: scripts/backend/tournament.js: &gt; 10 functions: 15
-Warning: scripts/common.js: &gt; 5 dependencies: 59
+Warning: scripts/backend/swisstournament.js: > 10 functions: 45
+Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
+Warning: scripts/backend/tournament.js: > 10 functions: 15
+Warning: scripts/common.js: > 5 dependencies: 59
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
-Warning: scripts/test.js: &gt; 5 dependencies: 14
+Warning: scripts/test.js: > 5 dependencies: 14
 Warning: scripts/test.js: undocumented: 'function myrequire'
-Warning: scripts/ui/alltabs.js: &gt; 5 dependencies: 8
+Warning: scripts/ui/alltabs.js: > 5 dependencies: 8
 Warning: scripts/ui/alltabs.js: undocumented: 'reset : function'
 Warning: scripts/ui/alltabs.js: undocumented: 'update : function'
 Warning: scripts/ui/alltabs.js: undocumented: 'getOptions : function'
@@ -113,7 +105,7 @@ Warning: scripts/ui/backgroundscripts/box.js: undocumented: 'function setTabbing
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'function confirmLeave'
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'window.onbeforeunload = function'
 Warning: scripts/ui/backgroundscripts/reset.js: undocumented: 'function hashcheck'
-Warning: scripts/ui/backgroundscripts/save.js: &gt; 5 dependencies: 7
+Warning: scripts/ui/backgroundscripts/save.js: > 5 dependencies: 7
 Warning: scripts/ui/backgroundscripts/updatetab.js: undocumented: 'function getSharedName'
 Warning: scripts/ui/csver.js: undocumented: 'toCSV : function'
 Warning: scripts/ui/debug.js: undocumented: 'stackTrace : function'
@@ -129,8 +121,8 @@ Warning: scripts/ui/history.js: undocumented: 'getGames : function'
 Warning: scripts/ui/history.js: undocumented: 'getCorrections : function'
 Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
-Warning: scripts/ui/history.js: &gt; 10 functions: 19
-Warning: scripts/ui/history.js: &gt; 400 lines: 508
+Warning: scripts/ui/history.js: > 10 functions: 19
+Warning: scripts/ui/history.js: > 400 lines: 508
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
@@ -153,10 +145,10 @@ Warning: scripts/ui/splash.js: undocumented: 'Splash.loading = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.update = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.hide = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.error = function'
-Warning: scripts/ui/state.js: &gt; 5 dependencies: 11
+Warning: scripts/ui/state.js: > 5 dependencies: 11
 Warning: scripts/ui/storage.js: undocumented: 'function saveKey'
 Warning: scripts/ui/storage.js: undocumented: 'function loadKey'
-Warning: scripts/ui/tab_debug.js: &gt; 5 dependencies: 13
+Warning: scripts/ui/tab_debug.js: > 5 dependencies: 13
 Warning: scripts/ui/tab_debug.js: undocumented: 'function showAllImages'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function randomName'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function updateTabs'
@@ -170,9 +162,9 @@ Warning: scripts/ui/tab_debug.js: undocumented: 'function initForms'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function updateForms'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function initDevContents'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function init'
-Warning: scripts/ui/tab_debug.js: &gt; 10 functions: 15
-Warning: scripts/ui/tab_debug.js: &gt; 400 lines: 445
-Warning: scripts/ui/tab_games.js: &gt; 5 dependencies: 15
+Warning: scripts/ui/tab_debug.js: > 10 functions: 15
+Warning: scripts/ui/tab_debug.js: > 400 lines: 445
+Warning: scripts/ui/tab_games.js: > 5 dependencies: 15
 Warning: scripts/ui/tab_games.js: undocumented: 'function isInt'
 Warning: scripts/ui/tab_games.js: undocumented: 'function initGameTemplate'
 Warning: scripts/ui/tab_games.js: undocumented: 'function initTemplates'
@@ -184,9 +176,9 @@ Warning: scripts/ui/tab_games.js: undocumented: 'function initOptions'
 Warning: scripts/ui/tab_games.js: undocumented: 'function maxwidthtest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function shownamestest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function init'
-Warning: scripts/ui/tab_games.js: &gt; 10 functions: 24
-Warning: scripts/ui/tab_games.js: &gt; 400 lines: 592
-Warning: scripts/ui/tab_history.js: &gt; 5 dependencies: 15
+Warning: scripts/ui/tab_games.js: > 10 functions: 24
+Warning: scripts/ui/tab_games.js: > 400 lines: 592
+Warning: scripts/ui/tab_history.js: > 5 dependencies: 15
 Warning: scripts/ui/tab_history.js: undocumented: 'function formatNamesHTML'
 Warning: scripts/ui/tab_history.js: undocumented: 'function isInt'
 Warning: scripts/ui/tab_history.js: undocumented: 'function verify'
@@ -216,14 +208,14 @@ Warning: scripts/ui/tab_history.js: undocumented: 'function createKOTree'
 Warning: scripts/ui/tab_history.js: undocumented: 'function addKOGamesEndpoints'
 Warning: scripts/ui/tab_history.js: undocumented: 'function connectKOGames'
 Warning: scripts/ui/tab_history.js: undocumented: 'function showTournaments'
-Warning: scripts/ui/tab_history.js: &gt; 10 functions: 37
-Warning: scripts/ui/tab_history.js: &gt; 400 lines: 985
+Warning: scripts/ui/tab_history.js: > 10 functions: 37
+Warning: scripts/ui/tab_history.js: > 400 lines: 985
 Warning: scripts/ui/tab.js: undocumented: 'createTab : function'
 Warning: scripts/ui/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/tab.js: undocumented: 'update : function'
 Warning: scripts/ui/tab.js: undocumented: 'getOptions : function'
 Warning: scripts/ui/tab.js: undocumented: 'setOptions : function'
-Warning: scripts/ui/tab_new.js: &gt; 5 dependencies: 18
+Warning: scripts/ui/tab_new.js: > 5 dependencies: 18
 Warning: scripts/ui/tab_new.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_new.js: undocumented: 'function initRename'
 Warning: scripts/ui/tab_new.js: undocumented: 'function chshow'
@@ -259,9 +251,9 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function init'
 Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
-Warning: scripts/ui/tab_new.js: &gt; 10 functions: 39
-Warning: scripts/ui/tab_new.js: &gt; 400 lines: 782
-Warning: scripts/ui/tab_ranking.js: &gt; 5 dependencies: 11
+Warning: scripts/ui/tab_new.js: > 10 functions: 39
+Warning: scripts/ui/tab_new.js: > 400 lines: 782
+Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 11
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function init'
@@ -269,7 +261,7 @@ Warning: scripts/ui/tab_ranking.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function CHEAPHACKcollapseBox'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTournamentRankings'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function update'
-Warning: scripts/ui/tab_settings.js: &gt; 5 dependencies: 16
+Warning: scripts/ui/tab_settings.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initCSV'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function csvupdate'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initLoad'
@@ -287,7 +279,7 @@ Warning: scripts/ui/tab_settings.js: undocumented: 'function updateLocalStorageM
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initLocalStorage'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function init'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function update'
-Warning: scripts/ui/tab_settings.js: &gt; 10 functions: 19
+Warning: scripts/ui/tab_settings.js: > 10 functions: 19
 Warning: scripts/ui/tabs.js: undocumented: 'Tabs = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.hide = function'
@@ -297,7 +289,7 @@ Warning: scripts/ui/tabs.js: undocumented: 'this.valid = function'
 Warning: scripts/ui/tabs.js: undocumented: 'function openValidTab'
 Warning: scripts/ui/tabs.js: undocumented: 'that.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'that.focus = function'
-Warning: scripts/ui/tab_teams.js: &gt; 5 dependencies: 12
+Warning: scripts/ui/tab_teams.js: > 5 dependencies: 12
 Warning: scripts/ui/tab_teams.js: undocumented: '_changed : function'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function trimName'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateTeamCounts'
@@ -330,8 +322,8 @@ Warning: scripts/ui/tab_teams.js: undocumented: 'function resetOptions'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateAfterTeamAdd'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateActiveState'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function update'
-Warning: scripts/ui/tab_teams.js: &gt; 10 functions: 37
-Warning: scripts/ui/tab_teams.js: &gt; 400 lines: 699
+Warning: scripts/ui/tab_teams.js: > 10 functions: 37
+Warning: scripts/ui/tab_teams.js: > 400 lines: 699
 Warning: scripts/ui/test/tab.js: undocumented: 'clear : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'update : function'
@@ -362,12 +354,10 @@ Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.isRunning = funct
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.toBlob = function'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.fromBlob = function'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.reset = function'
-Warning: scripts/ui/tournaments.js: &gt; 10 functions: 20
+Warning: scripts/ui/tournaments.js: > 10 functions: 20
 Warning: scripts/ui/update.js: undocumented: 'Update = function'
 Warning: scripts/ui/update.js: undocumented: 'function closeDownloadToast'
 Warning: scripts/ui/update.js: undocumented: 'function setCached'
 Warning: scripts/ui/update.js: undocumented: 'function cacheStatus'
 Warning: scripts/ui/update.js: undocumented: 'function cacheError'
-</code></pre>
-</body>
-</html>
+```

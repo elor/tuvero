@@ -14,7 +14,45 @@ Maintain a sorted list of player names
 
 ## Functions
 
-Not yet implemented
+###   function trimName (name)
+
+---
+
+###   function updateDependencies ()
+
+---
+
+###   Players.fromString = function (string)
+
+---
+
+###   Players.toString = function ()
+
+---
+
+###   Players.fromBlob = function (blob)
+
+---
+
+###   Players.toBlob = function ()
+
+---
+
+###   Players.clear = function ()
+
+---
+
+###   Players.get = function ()
+
+---
+
+###   Players.insert = function (name)
+
+---
+
+###   Players.erase = function (name)
+
+---
 
 ## Metrics
 

@@ -21,7 +21,31 @@
 <li><a href="./shared.html">./shared</a></li>
 </ul>
 <h2>Functions</h2>
-<p>Not yet implemented</p>
+<h3>function saveKey (key)</h3>
+<hr />
+<h3>function loadKey (key)</h3>
+<hr />
+<h3>Storage.clear = function (key)</h3>
+<p>remove this and only this key from localStorage to avoid collision with
+other software under the same domain</p>
+<hr />
+<h3>Storage.store = function ()</h3>
+<p>store everything</p>
+<hr />
+<h3>Storage.restore = function ()</h3>
+<p>restore everything</p>
+<p><strong>Returns:</strong> true on successful load, false otherwise</p>
+<hr />
+<h3>Storage.enable = function ()</h3>
+<p>enables localStorage, if possible. Necessary initialization</p>
+<hr />
+<h3>Storage.disable = function ()</h3>
+<p>disables the storage. This will inhibit any of the other functions,
+including clear(). Note that disable() doesn't clear the storage.</p>
+<hr />
+<h3>Storage.changed = function ()</h3>
+<p>this function indicates a change in the tournament state</p>
+<hr />
 <h2>Metrics</h2>
 <ul>
 <li>157 Lines</li>

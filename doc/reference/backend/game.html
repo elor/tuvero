@@ -18,7 +18,45 @@ and the time at which the game started.</p>
 <h2>Dependencies</h2>
 <p>No Dependencies</p>
 <h2>Functions</h2>
-<p>Not yet implemented</p>
+<h3>var Game = function (p1, p2, id)</h3>
+<p>constructor of a Game instance. It simply initiates both variables</p>
+<hr />
+<h3>Game.prototype.add = function (team, pid)</h3>
+<p>add a team member</p>
+<p><strong>Argument:</strong> <strong>team</strong></p>
+<p>id of the team, starting with 0
+<strong>Argument:</strong> <strong>pid</strong></p>
+<p>player id</p>
+<p><strong>Returns:</strong> this</p>
+<hr />
+<h3>Game.prototype.start = function (time)</h3>
+<p>set the start time to the given argument or the current time</p>
+<p><strong>Argument:</strong> <strong>time</strong></p>
+<p>(optional) the time to set to. If undefined, the current time is
+used.</p>
+<hr />
+<h3>Game.prototype.equals = function (game)</h3>
+<p>deep equal of this and another game.</p>
+<p>This function ignores the id</p>
+<p><strong>Argument:</strong> <strong>game</strong></p>
+<p>another game</p>
+<p><strong>Returns:</strong> {Boolean} true if the games are equivalent (save for starttime),
+false otherwise</p>
+<hr />
+<h3>Game.prototype.copy = function ()</h3>
+<p>create a deep copy of the game, including the starttime</p>
+<p><strong>Returns:</strong> copy</p>
+<hr />
+<h3>Game.copy = function (game)</h3>
+<p>create a fresh copy from another game instance. This function works without
+the proper prototype</p>
+<p><strong>Argument:</strong> <strong>game</strong></p>
+<p>a game object with the typical Game fields, but not necessarily
+with the correct prototype</p>
+<p><strong>Returns:</strong> the newly copied game instance</p>
+<hr />
+<h3>function copyTeam (team)</h3>
+<hr />
 <h2>Metrics</h2>
 <ul>
 <li>146 Lines</li>

@@ -24,7 +24,29 @@ state in a different user session.
 
 ## Functions
 
-Not yet implemented
+###     toBlob : function ()
+store the current program state in a blob
+
+
+**Returns:** the blob
+
+---
+
+
+###     fromBlob : function (blob)
+restore the program state from the blob
+
+**Argument:** **blob**
+
+the blob
+
+---
+
+
+###     reset : function ()
+resets everything managed by Blob
+
+---
 
 ## Metrics
 

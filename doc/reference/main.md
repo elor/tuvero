@@ -16,7 +16,13 @@ No Description
 
 ## Functions
 
-Not yet implemented
+### function notifyAboutLoadError (err)
+
+---
+
+### define([ 'common' ], function ()
+
+---
 
 ## Metrics
 

@@ -13,7 +13,7 @@ No Dependencies
 
 ## Functions
 
-Not yet implemented
+No exported functions
 
 ## Metrics
 

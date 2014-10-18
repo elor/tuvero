@@ -16,7 +16,19 @@ wrapper around the tournament ranking
 
 ## Functions
 
-Not yet implemented
+###     toCSV : function ()
+converts ranking and correction information to a csv string
+
+---
+
+
+###         makeline = function (rnk)
+
+---
+
+###           makeline = function (corr)
+
+---
 
 ## Metrics
 

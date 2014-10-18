@@ -14,7 +14,25 @@ No Dependencies
 
 ## Functions
 
-Not yet implemented
+###   var Random = function (x, c)
+
+---
+
+###   Random.prototype.nextInt = function (top)
+
+---
+
+###   Random.prototype.nextDouble = function ()
+
+---
+
+###   Random.prototype.pick = function (array)
+
+---
+
+###   Random.prototype.pickAndRemove = function (array)
+
+---
 
 ## Metrics
 

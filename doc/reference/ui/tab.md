@@ -15,7 +15,43 @@ Tab Interface
 
 ## Functions
 
-Not yet implemented
+###       reset : function ()
+Reset to an empty state, usually the initial state
+
+
+**Returns:** {boolean} true on success, false on error
+
+---
+
+
+###       update : function ()
+Update everything to the current overall state
+
+
+**Returns:** {boolean} true on success, false on error
+
+---
+
+
+###     createTab : function (name, reset, update, options)
+
+---
+
+###         reset : function ()
+
+---
+
+###         update : function (force)
+
+---
+
+###         getOptions : function ()
+
+---
+
+###         setOptions : function (opts)
+
+---
 
 ## Metrics
 

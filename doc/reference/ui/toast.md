@@ -17,7 +17,41 @@ insert an html node instead of text
 
 ## Functions
 
-Not yet implemented
+###   function getid ()
+
+---
+
+###   toastfn = function (str, seconds)
+
+---
+
+###   function createCloseFunction (id)
+
+---
+
+###   Toast = function (str, seconds)
+
+---
+
+###   Toast.init = function ()
+
+---
+
+###     function getTransitionDuration ()
+
+---
+
+###       toastfn = function (str, seconds)
+
+---
+
+###       toastfn = function (str, seconds)
+
+---
+
+###       fadeoutfn = function ($div)
+
+---
 
 ## Metrics
 

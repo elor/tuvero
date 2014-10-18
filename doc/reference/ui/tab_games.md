@@ -28,7 +28,119 @@ No Description
 
 ## Functions
 
-Not yet implemented
+###   function isInt (n)
+
+---
+
+###   function initGameTemplate ()
+
+---
+
+###   function initVoteTemplate ()
+disable/enable the submit button if input is valid
+
+---
+
+
+###   function initTemplates ()
+
+---
+
+###   function appendGame (game, tournamentid, $box)
+create and show a box displaying a certain game
+
+---
+
+
+###   function clearBoxes ()
+removes all games from the overview
+
+---
+
+
+###   function showRunning ()
+clears the overview and appends all open games of the tournament
+
+---
+
+
+###   function showTab ()
+
+---
+
+###   function getTournamentID ($game)
+
+---
+
+###   function removeGame (tournamentid, index)
+this function removes the game from the local reference arrays
+
+**Argument:** **game**
+
+the game in question
+
+**Returns:** true on success, undefined otherwise
+
+---
+
+
+###   function readResults ($container)
+
+---
+
+###   function finishGame ()
+jQuery callback function. works with "this"
+
+---
+
+
+###   function createVoteBox (tid)
+
+---
+
+###   function getRoundVotes (Tournament)
+translates the Swiss ranking into a traditional votes object
+
+TODO rewrite this file to replace this function
+
+
+**Returns:** {Object} a votes object of the current round
+
+---
+
+
+###   function showVotes (Tournament, $box)
+display the votes for the current round
+
+---
+
+
+###   function initOptions ()
+
+---
+
+###     function maxwidthtest ()
+
+---
+
+###     function shownamestest ()
+
+---
+
+###   function init ()
+
+---
+
+###   function reset ()
+reset an original state.
+
+---
+
+
+###   function update ()
+reset an original game state, respecting the current state of Swiss
+
+---
 
 ## Metrics
 

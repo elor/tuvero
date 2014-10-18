@@ -10,12 +10,14 @@
 	warning about long scripts
 	warning about too many dependencies
 	writing 'make doc' warnings and errors to errors.html
+	extracting functions of a script file
+	JavaDoc-style comments of functions are parsed and displayed
+	not discarding any more errors from the error page
 
 	* Makefile: rebuilding scripts before building docs
 	release -> dist
 	description updated
 	building doc with every build
-
 
 	* build-scripts/Makefile.in: removing favicon.png, not games.png
 	optimizing favicon
@@ -29,6 +31,9 @@
 	* doc/reference/errors.html: contains doc errors and warnings
 
 	* doc/reference/index.html: link to errors.html instead of itself
+
+	* build-scripts/write-scripts.sh: function comment added to common.js
+	test.js uses define() instead of require() for improved reference parsing
 
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

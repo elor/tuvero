@@ -13,7 +13,7 @@ provides getOptions and setOptions functions
 
 ## Functions
 
-Not yet implemented
+No exported functions
 
 ## Metrics
 

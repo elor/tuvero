@@ -17,7 +17,9 @@ visited
 
 ## Functions
 
-Not yet implemented
+###   function hashcheck ()
+
+---
 
 ## Metrics
 

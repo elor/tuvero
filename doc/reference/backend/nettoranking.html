@@ -17,7 +17,65 @@
 <h2>Dependencies</h2>
 <p>No Dependencies</p>
 <h2>Functions</h2>
-<p>Not yet implemented</p>
+<h3>var Netto = function (size)</h3>
+<p>NettoRanking: A ranking variant which sorts players by wins and netto
+points, in this order.</p>
+<hr />
+<h3>Netto.prototype.size = function ()</h3>
+<p>simply return the stored size</p>
+<p><strong>Returns:</strong> the size</p>
+<hr />
+<h3>Netto.prototype.resize = function (size)</h3>
+<p>resize the internal arrays</p>
+<p><strong>Argument:</strong> <strong>size</strong></p>
+<p>new size</p>
+<p><strong>Returns:</strong> {Netto} this</p>
+<hr />
+<h3>Netto.prototype.get = function ()</h3>
+<p>return an object with ranking-specific data.</p>
+<p><strong>Returns:</strong> {Object} the return object</p>
+<hr />
+<h3>Netto.prototype.add = function (result)</h3>
+<p>Add the result of a game to the ranking table.</p>
+<p><strong>Argument:</strong> <strong>result</strong></p>
+<p>the result</p>
+<p><strong>Returns:</strong> {Netto} this</p>
+<hr />
+<h3>Netto.prototype.remove = function (result)</h3>
+<p>remove the result of a game from the ranking table</p>
+<p><strong>Argument:</strong> <strong>result</strong></p>
+<p>the result</p>
+<p><strong>Returns:</strong> {Netto} this</p>
+<hr />
+<h3>Netto.prototype.correct = function (correction)</h3>
+<p>Correct the result of a game.</p>
+<p><strong>Argument:</strong> <strong>correction</strong></p>
+<p>the correction</p>
+<p><strong>Returns:</strong> {Netto} this</p>
+<hr />
+<h3>Netto.prototype.grantBye = function (team)</h3>
+<hr />
+<h3>Netto.prototype.revokeBye = function (team)</h3>
+<hr />
+<h3>Netto.prototype.getCorrections = function ()</h3>
+<p>get a copy of the applied corrections</p>
+<p><strong>Returns:</strong> copy of the array of corrections</p>
+<hr />
+<h3>Netto.prototype.added = function (game)</h3>
+<p>whether the game took place</p>
+<p><strong>Argument:</strong> <strong>game</strong></p>
+<p>the game in question</p>
+<p><strong>Returns:</strong> {Boolean} true if the game is likely to have been added, false
+otherwise</p>
+<hr />
+<h3>Netto.prototype.toBlob = function ()</h3>
+<p>stores the current state in a blob</p>
+<p><strong>Returns:</strong> the blob</p>
+<hr />
+<h3>Netto.prototype.fromBlob = function (blob)</h3>
+<hr />
+<h3>function copyCorrection (corr)</h3>
+<hr />
 <h2>Metrics</h2>
 <ul>
 <li>304 Lines</li>

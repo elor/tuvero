@@ -75,10 +75,13 @@ Do not attempt manual changes
 
 ## Functions
 
-Not yet implemented
+###       init: function()
+disable QUnit autoload/autostart for requirejs optimizer compatibility
+
+---
 
 ## Metrics
 
-* 99 Lines
-* 2064 Bytes
+* 102 Lines
+* 2162 Bytes
 

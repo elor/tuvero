@@ -5,8 +5,6 @@
 
 refdir=doc/reference
 
-errors=""
-
 listuserscripts(){
     listusersubscripts scripts
 }
@@ -30,16 +28,20 @@ listlibscripts(){
     find scripts/lib -type f -name '*.js' | sort
 }
 
+initerrors(){
+    echo '```' > $refdir/errors.md
+}
+
+closeerrors(){
+    echo '```' >> $refdir/errors.md
+}
+
 warning(){
-    echo "Warning: $@" >&2
-    errors="$errors
-Warning: $@"
+    echo "Warning: $@" | tee -a $refdir/errors.md >&2
 }
 
 error(){
-    echo "ERROR: $@" >&2
-    errors="$errors
-ERROR: $@"
+    echo "ERROR: $@" | tee -a $refdir/errors.md >&2
 }
 
 getdocfile(){
@@ -81,7 +83,8 @@ parseglobalcomment(){
 }
 
 fakeglobalcomment(){
-    warning "no global comment: ${script##scripts/}"
+    script=$1
+    warning "$script: no global comment"
     echo "No Description."
 }
 
@@ -115,13 +118,98 @@ $dependencies
 EOF
 }
 
+formatfunctions(){
+    sed -e '/\/\*\*/d' -e 's/.*\*\/.*/\n---\n/' -e 's/^\s*\*\s*//' -e '/function\s*\S*\s*(/ {s/^/### /;s/\s*{\s*$//}' -e 's/@return\s*/\n**Returns:** /' -e 's/@param\s\s*\(\S\S*\)\s*/**Argument:** **\1**\n/'
+}
+
 parsefunctions(){
     script=$1
+
+    state=init
+
+    functions=$(
+        comment=""
+        sed -r '0,/\*\//d' $script | grep -P '(?<!\()(?<![\(,]\s)(?<!return\s)function\s*(\S*\s*)?\(|define\s*\(|^\s*/?\*' | while IFS= read line; do
+
+            # state transitions
+            case $state in
+                init)
+                    if grep -q '^\s*/\*\*' <<< "$line"; then
+                        state=comment
+                    elif grep -q 'define\s*(' <<< "$line"; then
+                        state=define
+                        if grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                            state=idle
+                        fi
+                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                        warning "$script: function before define("
+                        state=func
+                    fi
+                    ;;
+                define)
+                    if grep -q '^\s*/\*\*' <<< "$line"; then
+                        state=comment
+                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                        state=func
+                    fi
+                    ;;
+                comment) 
+                    if grep -q 'define\s*(' <<< "$line"; then
+                        state=define 
+                        if grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                            state=idle
+                        fi
+                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                        state=func
+                    elif grep -q '^\s*/\*\*' <<< "$line"; then
+                        comment=""
+                    fi
+                    ;;
+                idle)
+                    if grep -q '^\s*/\*\*' <<< "$line"; then
+                        state=comment
+                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                        state=func
+                    fi
+                    ;;
+                *)
+                    error "$script: unexpected state during function parsing: $state"
+                    ;;
+            esac
+
+            # actual printing and logging
+            case $state in
+                func)
+                    if [ -z "$comment" ]; then
+                        comment="/**
+*/"
+                        warning "$script: undocumented: '`grep -Po '(\S*\s*[=:])?\s*function(\s*[^ \t(]+)?' <<< $line`'"
+                    fi
+                    cat <<EOF
+$line
+$comment
+EOF
+                    comment=""
+                    state=idle
+                    ;;
+                comment)
+                    comment="$comment$line
+"
+                    ;;
+                *)
+                    comment=""
+            esac
+        done 
+    )
+
+    numfuncs=`grep 'function' <<< "$functions" | wc -l`
+    threshold=10
+    (( numfuncs > threshold )) && warning "$script: > $threshold functions: $numfuncs"
 
     cat <<EOF
 ## Functions
 
-Not yet implemented
+$([ -n "$functions" ] && { echo -e "$functions" | formatfunctions; } || echo -e 'No exported functions')
 
 EOF
 }
@@ -167,10 +255,10 @@ EOF
 }
 
 createoverviewpage(){
-   scriptdir=$1
-   docfile=`getdocfile $scriptdir/index`
-   docfiledir=`dirname $docfile`
-   docfile=$docfiledir/`basename $docfile .md`.html
+    scriptdir=$1
+    docfile=`getdocfile $scriptdir/index`
+    docfiledir=`dirname $docfile`
+    docfile=$docfiledir/`basename $docfile .md`.html
     cat <<EOF > $docfile
 <!DOCTYPE html>
 <html lang="en">
@@ -221,6 +309,9 @@ EOF
 
 createrrorpage(){
     docfile=$refdir/errors.html
+
+    closeerrors
+
     cat <<EOF > $docfile
 <!DOCTYPE html>
 <html lang="en">
@@ -230,10 +321,8 @@ createrrorpage(){
 </head>
 <body>
 <a href="index.html">back to index</a>
-<h1>Script Warnings and Errors</h1>
-<pre>
-$errors
-</pre>
+<h1>Code Style Warnings and Errors</h1>
+`stmd $refdir/errors.md`
 </body>
 </html>
 EOF
@@ -253,6 +342,7 @@ processscript(){
 }
 
 mkdir $refdir
+initerrors
 
 echo "generating script references"
 for script in `listuserscripts`; do

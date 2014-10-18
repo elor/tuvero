@@ -30,7 +30,171 @@ Tab_New handler
 
 ## Functions
 
-Not yet implemented
+###   function getRoundVotes (Tournament)
+translates the Tournament ranking into a traditional votes object
+
+TODO rewrite this file to replace this function
+
+**Argument:** **Tournament**
+
+the swiss object
+
+**Returns:** {Object} a votes object of the current round
+
+---
+
+
+###   function initTemplate ()
+
+---
+
+###   function initRename ()
+
+---
+
+###     function chshow ($name)
+
+---
+
+###     function updateName ()
+
+---
+
+###     function chabort ()
+
+---
+
+###   function initRemove ()
+
+---
+
+###   function resetTeams ()
+
+---
+
+###   function resetSystems ()
+
+---
+
+###   function updateTeams ()
+
+---
+
+###   function setSystemState ($system, tournamentid)
+
+---
+
+###   function getAnchors (tournamentid)
+
+---
+
+###   function getHeight (tournamentid)
+
+---
+
+###   function createSystemAnchor (tournamentid)
+
+---
+
+###   function initKO ($ko, tournamentid)
+
+---
+
+###   function createTournamentBox ($anchor, tournamentid)
+
+---
+
+###   function createSelectionBox ($anchor)
+
+---
+
+###   function setSystemTitle ($anchor)
+
+---
+
+###   function updateSystems ()
+
+---
+
+###   function addNewSystem (type, numteams, parentid)
+
+---
+
+###   function initNewsystem ($system)
+prepare Newsystem management box, which starts a new tournament round
+
+---
+
+
+###     function numTeams ()
+
+---
+
+###   function initSwiss ($swiss, tournamentid)
+prepare a swiss tournament management box
+
+---
+
+
+###   function setPermissionPreset (preset, $perms)
+
+---
+
+###   function getPermissions ($perms, Swiss)
+
+---
+
+###   function setPermissions ($perms, Swiss)
+
+---
+
+###   function queryPerms ($swiss)
+
+---
+
+###   function setSwissMode ($modeselect, Swiss)
+
+---
+
+###   function getSwissMode ($modeselect, Swiss)
+
+---
+
+###   function setKOMode ($modeselect, KO)
+
+---
+
+###   function getKOMode ($modeselect, KO)
+
+---
+
+###   function initOptions ()
+
+---
+
+###     function maxwidthtest ()
+
+---
+
+###     function shownamestest ()
+
+---
+
+###   function init ()
+
+---
+
+###   function reset ()
+
+---
+
+###   function closeTeamRegistration ()
+
+---
+
+###   function update ()
+
+---
 
 ## Metrics
 

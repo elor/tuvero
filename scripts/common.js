@@ -27,6 +27,9 @@ require.config({
     },
     'lib/qunit' : {
       exports: 'QUnit',
+      /**
+      * disable QUnit autoload/autostart for requirejs optimizer compatibility
+      */
       init: function() {
         QUnit.config.autoload = false;
         QUnit.config.autostart = false;

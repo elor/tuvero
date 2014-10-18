@@ -26,7 +26,68 @@ No Description
 
 ## Functions
 
-Not yet implemented
+###   function showAllImages ()
+
+---
+
+###   function randomName ()
+
+---
+
+###   function updateTabs ()
+
+---
+
+###   function loadMods ()
+
+---
+
+###   function clearEverything ()
+
+---
+
+###   function registerPlayers ()
+
+---
+
+###   function startRound (tournamentid)
+
+---
+
+###   function finishRound (tournamentid, timeout)
+
+---
+
+###   function playTournament ()
+
+---
+
+###   function addSideTournament (type)
+starts a new sidetournament with a random selection of the players (2 min)
+
+---
+
+
+###   function initForms ()
+
+---
+
+###   function updateForms ()
+
+---
+
+###   function initDevContents ()
+
+---
+
+###   function init ()
+
+---
+
+###   function reset ()
+reset an original state.
+
+---
 
 ## Metrics
 

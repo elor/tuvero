@@ -24,7 +24,89 @@ one to three players.
 
 ## Functions
 
-Not yet implemented
+###   var Result = function (team1, team2, points1, points2)
+
+---
+
+###   Result.prototype.getTeam = function (number)
+getTeam() returns the team array
+
+**Argument:** **number**
+
+{Integer} team number (1 or 2)
+
+**Returns:** {[Integer]} list of player ids or undefined if invalid number
+
+---
+
+
+###   Result.prototype.getPoints = function (teamnumber)
+getPoints() returns the points for the given team
+
+**Argument:** **teamnumber**
+
+{Integer} team number (1 or 2)
+
+**Returns:** {Integer} points of the given team or undefined if invalid team
+number
+
+---
+
+
+###   Result.prototype.setPoints = function (teamnumber, points)
+point setter
+
+**Argument:** **teamnumber**
+
+1 or 2
+**Argument:** **points**
+
+points
+
+**Returns:** {Result} undefined on failure, this otherwise
+
+---
+
+
+###   Result.prototype.getNetto = function ()
+getNetto() returns the difference between the team's points
+
+
+**Returns:** {Number} gained netto points for first team
+
+---
+
+
+###   Result.prototype.copy = function ()
+copies this
+
+
+**Returns:** the copy
+
+---
+
+
+###   Result.prototype.getGame = function ()
+Creates a Game instance from the teams
+
+
+**Returns:** {Game} the game that lead to this result, excluding the correct
+start time.
+
+---
+
+
+###   Result.copy = function (res)
+creates an identical copy of a Result instance
+
+**Argument:** **res**
+
+raw Result object, not necessarily with appropriate prototype and
+functions. Fields are sufficient.
+
+**Returns:** the copy
+
+---
 
 ## Metrics
 

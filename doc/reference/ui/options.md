@@ -14,7 +14,17 @@ No Dependencies
 
 ## Functions
 
-Not yet implemented
+###   Options.toBlob = function ()
+
+---
+
+###   Options.fromBlob = function (blob)
+
+---
+
+###   Options.reset = function ()
+
+---
 
 ## Metrics
 

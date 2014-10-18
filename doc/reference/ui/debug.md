@@ -16,7 +16,9 @@ some debugging functions
 
 ## Functions
 
-Not yet implemented
+###     stackTrace : function ()
+
+---
 
 ## Metrics
 

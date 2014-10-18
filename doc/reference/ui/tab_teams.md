@@ -25,7 +25,171 @@ No Description
 
 ## Functions
 
-Not yet implemented
+###     _changed : function ()
+
+---
+
+###   function trimName (name)
+
+---
+
+###   function updateTeamCounts ()
+
+---
+
+###   function deleteTeam ($team)
+
+---
+
+###   function initDeletion ()
+
+---
+
+###   function deletionPending ()
+
+---
+
+###   function updateDeletion ()
+
+---
+
+###   function initTeamSize ()
+
+---
+
+###   function updateTeamSize ()
+
+---
+
+###   function initTemplate ()
+
+---
+
+###   function createTeamsFromString (str)
+reads names from a string and adds the players accordingly. Ignores
+#-escaped lines
+
+
+**Returns:** true on success, undefined or false on failure
+
+---
+
+
+###   function invalidateFileLoad ()
+
+---
+
+###   function loadFileError (evt)
+
+---
+
+###   function loadFileLoad (evt)
+
+---
+
+###   function loadFileAbort ()
+
+---
+
+###   function initFileLoad ()
+
+---
+
+###   function updateFileLoad ()
+
+---
+
+###   function updateTemplate ()
+
+---
+
+###   function initNewTeam ()
+
+---
+
+###     function readNewTeamNames ()
+Retrieves, validates and returns names of new players, resetting the
+input fields if valid
+
+
+**Returns:** array of player names on successful validation, undefined
+otherwise
+
+---
+
+
+###     function createTeamFromForm ()
+
+---
+
+###   function updateNewTeam ()
+
+---
+
+###   function initMaxWidth ()
+
+---
+
+###     function maxwidthtest ()
+
+---
+
+###   function initRename ()
+
+---
+
+###     function chshow ($name)
+
+---
+
+###     function updateTeam ($team)
+
+---
+
+###     function chabort ()
+
+---
+
+###     function chhide ()
+
+---
+
+###   function init ()
+
+---
+
+###   function resetOptions ()
+
+---
+
+###   function createBox (team)
+this function adds a new team box to the page
+
+**Argument:** **team**
+
+array of team member names. team number is determined from call
+order
+
+---
+
+
+###   function updateAfterTeamAdd ()
+
+---
+
+###   function updateActiveState ()
+
+---
+
+###   function reset ()
+init, clear and reset all in one
+
+---
+
+
+###   function update ()
+
+---
 
 ## Metrics
 

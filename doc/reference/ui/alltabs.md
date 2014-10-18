@@ -20,7 +20,21 @@ Load and manage all tabs centrally
 
 ## Functions
 
-Not yet implemented
+###     reset : function ()
+
+---
+
+###     update : function (force)
+
+---
+
+###     getOptions : function ()
+
+---
+
+###     setOptions : function ()
+
+---
 
 ## Metrics
 

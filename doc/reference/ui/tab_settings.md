@@ -29,7 +29,88 @@ No Description
 
 ## Functions
 
-Not yet implemented
+###   function initCSV ()
+
+---
+
+###   function csvupdate ($button)
+
+---
+
+###   function initLoad ()
+
+---
+
+###   function invalidateLoad ()
+
+---
+
+###   function loadFileError (evt)
+
+---
+
+###   function loadFileLoad (evt)
+
+---
+
+###   function loadFileAbort ()
+
+---
+
+###   function reloadAutocomplete ()
+
+---
+
+###   function initAutocomplete ()
+
+---
+
+###   function invalidateAutocomplete ()
+
+---
+
+###   function autocompleteFileError (evt)
+
+---
+
+###   function autocompleteFileLoad (evt)
+
+---
+
+###   function autocompleteFileAbort ()
+
+---
+
+###   function updateLocalStorageMeters ()
+
+---
+
+###   function initLocalStorage ()
+
+---
+
+###   function resetStorageState ()
+toggles the storage state depending on the current autosave checkbox state.
+
+
+**Returns:** {Boolean} true if autosave is enabled, false otherwise
+
+---
+
+
+###   function init ()
+
+---
+
+###   function reset ()
+reset an initial state
+
+---
+
+
+###   function update ()
+
+---
 
 ## Metrics
 

@@ -16,7 +16,7 @@ createTestJS(){
  * This file is automatically created on build. Do not attempt manual changes
  */
 
-require([ 'common', 'lib/qunit', '$files' ], function(Common, QUnit){
+define([ 'common', 'lib/qunit', '$files' ], function(Common, QUnit){
   var i;
   function myrequire (str) {
     return require.s.contexts._.defined[str];
@@ -77,6 +77,9 @@ require.config({
     },
     'lib/qunit' : {
       exports: 'QUnit',
+      /**
+      * disable QUnit autoload/autostart for requirejs optimizer compatibility
+      */
       init: function() {
         QUnit.config.autoload = false;
         QUnit.config.autostart = false;

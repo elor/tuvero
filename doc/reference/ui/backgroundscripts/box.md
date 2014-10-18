@@ -15,7 +15,13 @@ manages box click events, i.e. if you click the header, the box is collapsed
 
 ## Functions
 
-Not yet implemented
+###     reset : function ()
+
+---
+
+###     function setTabbing ($box)
+
+---
 
 ## Metrics
 

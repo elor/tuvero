@@ -24,7 +24,64 @@ No Description
 
 ## Functions
 
-Not yet implemented
+###   function initTemplate ()
+
+---
+
+###   function updateTemplate ()
+
+---
+
+###   function init ()
+
+---
+
+###   function createRankRow (rank, ranking)
+fill template and return copy
+
+**Argument:** **rank**
+
+rank of the team for which to create the line. starting at 0
+**Argument:** **ranking**
+
+a valid ranking object
+**Argument:** **votes**
+
+a valid votes object
+
+**Returns:** a filled copy of the template
+
+---
+
+
+###   function showRanking (tournamentid, $box)
+
+**Returns:** {boolean} false on failure, true on success
+
+---
+
+
+###   function showCorrections (tournamentid, $box)
+retrieves the corrections and displays them in the correction table
+
+---
+
+
+###   function reset ()
+
+---
+
+###   function CHEAPHACKcollapseBox($box)
+
+---
+
+###   function updateTournamentRankings ()
+
+---
+
+###   function update ()
+
+---
 
 ## Metrics
 

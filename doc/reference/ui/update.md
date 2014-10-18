@@ -15,7 +15,25 @@ detect updates to the manifest, if available
 
 ## Functions
 
-Not yet implemented
+###   Update = function ()
+
+---
+
+###   function closeDownloadToast ()
+
+---
+
+###   function setCached (cached)
+
+---
+
+###   function cacheStatus ()
+
+---
+
+###   function cacheError ()
+
+---
 
 ## Metrics
 

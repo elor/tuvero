@@ -16,7 +16,47 @@ No Description
 
 ## Functions
 
-Not yet implemented
+###   Tabs = function (tabselector, imgpattern, enforce)
+
+---
+
+###     this.updateOpts = function ()
+
+---
+
+###     this.hide = function (tabname)
+
+---
+
+###     this.show = function (tabname)
+
+---
+
+###     this.focus = function (tabname)
+
+---
+
+###     this.valid = function ()
+
+---
+
+###       function openValidTab ()
+
+---
+
+###       that.updateOpts = function ()
+
+---
+
+###       that.display = function (tabname, val)
+show/hide all references to a certain
+
+---
+
+
+###       that.focus = function (tabname)
+
+---
 
 ## Metrics
 

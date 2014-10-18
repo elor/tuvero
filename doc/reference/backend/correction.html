@@ -21,7 +21,25 @@ corrections should be sparse, the copying shouldn't matter.</p>
 <li><a href="./result.html">./result</a></li>
 </ul>
 <h2>Functions</h2>
-<p>Not yet implemented</p>
+<h3>Correction = function (pre, post)</h3>
+<p>constructor</p>
+<p><strong>Argument:</strong> <strong>pre</strong></p>
+<p>previous result (Result instance)
+<strong>Argument:</strong> <strong>post</strong></p>
+<p>corrected result (Result instance)</p>
+<p><strong>Returns:</strong> {Correction} new instance</p>
+<hr />
+<h3>Correction.prototype.copy = function ()</h3>
+<p>copy function that creates a new correction from this</p>
+<p><strong>Returns:</strong> {Correction} copy</p>
+<hr />
+<h3>Correction.copy = function (corr)</h3>
+<p>copies a correction object</p>
+<p><strong>Argument:</strong> <strong>corr</strong></p>
+<p>correction object, which doesn't have to have the same prototype
+and functions. Fields are sufficient</p>
+<p><strong>Returns:</strong> the instance</p>
+<hr />
 <h2>Metrics</h2>
 <ul>
 <li>48 Lines</li>

@@ -15,7 +15,33 @@ removes the splash screen after pageload
 
 ## Functions
 
-Not yet implemented
+###     hide : function ()
+
+---
+
+###     loading : function ()
+
+---
+
+###     function setState (state)
+
+---
+
+###     Splash.loading = function ()
+
+---
+
+###     Splash.update = function ()
+
+---
+
+###     Splash.hide = function ()
+
+---
+
+###     Splash.error = function()
+
+---
 
 ## Metrics
 

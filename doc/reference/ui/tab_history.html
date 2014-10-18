@@ -32,7 +32,96 @@
 <li>JQuery</li>
 </ul>
 <h2>Functions</h2>
-<p>Not yet implemented</p>
+<h3>function formatNamesHTML (teamid)</h3>
+<hr />
+<h3>function createGame (result, $table)</h3>
+<p>creates a box for the current result in the current round. Note that the
+correct round isn't verified (both in the result and currentround)</p>
+<p><strong>Argument:</strong> <strong>result</strong></p>
+<p>a result as returned by history.getGame()</p>
+<hr />
+<h3>function createBye (teamid, $table)</h3>
+<p>creates a box for a bye within the current round. No round verification.</p>
+<p><strong>Argument:</strong> <strong>teamid</strong></p>
+<p>id of the team receiving a bye</p>
+<hr />
+<h3>function isInt (n)</h3>
+<hr />
+<h3>function verify (p1, p2)</h3>
+<hr />
+<h3>function showCorrection ()</h3>
+<hr />
+<h3>function abortCorrection ()</h3>
+<hr />
+<h3>function saveCorrection ()</h3>
+<hr />
+<h3>function initOptions ()</h3>
+<hr />
+<h3>function maxwidthtest ()</h3>
+<hr />
+<h3>function shownamestest ()</h3>
+<hr />
+<h3>function progresstest ()</h3>
+<hr />
+<h3>function initCorrection ()</h3>
+<hr />
+<h3>function initTemplates ()</h3>
+<hr />
+<h3>function initRounds ()</h3>
+<hr />
+<h3>function init ()</h3>
+<hr />
+<h3>function createGamesTable (tournamentid)</h3>
+<hr />
+<h3>function CHEAPHACKcollapseBox($box)</h3>
+<hr />
+<h3>function isNumeric (obj)</h3>
+<p>borrowed from jQuery</p>
+<hr />
+<h3>function getProgressMapping (tournamentid)</h3>
+<p>creates a progress mapping, which, for every player, lists every game in
+every round, with its result and</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p><strong>Returns:</strong> the progress mapping</p>
+<hr />
+<h3>function addGame (round, team, opponent, p1, p2)</h3>
+<hr />
+<h3>function getTeamVotes (tournamentid)</h3>
+<hr />
+<h3>function getRankingMapping (tournamentid)</h3>
+<hr />
+<h3>function createProgressTable (tournamentid)</h3>
+<hr />
+<h3>function level (id)</h3>
+<p>Copied from kotournament.js</p>
+<hr />
+<h3>function parent (id)</h3>
+<hr />
+<h3>function lowestid (level)</h3>
+<hr />
+<h3>function nodesbylevel (level)</h3>
+<hr />
+<h3>function getGameTreeX (gameid, maxlevel)</h3>
+<p>end (Copied from kotournament.js)</p>
+<hr />
+<h3>function getGameTreeY (gameid, maxlevel)</h3>
+<hr />
+<h3>function createGameTreeBox (game, maxid)</h3>
+<hr />
+<h3>function createKOTree (tournamentid)</h3>
+<hr />
+<h3>function addKOGamesEndpoints ($game, jsPlumbInstance)</h3>
+<hr />
+<h3>function connectKOGames ($left, $right, jsPlumbInstance)</h3>
+<hr />
+<h3>function showTournaments ()</h3>
+<hr />
+<h3>function reset ()</h3>
+<p>remove all evidence of any games ever (from the overview only)</p>
+<hr />
+<h3>function update ()</h3>
+<p>removes and redraws all boxes from History</p>
+<hr />
 <h2>Metrics</h2>
 <ul>
 <li>985 Lines</li>

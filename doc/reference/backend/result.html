@@ -29,7 +29,49 @@ Array of player ids of the second team. Creates an internal copy.
 <li><a href="./game.html">./game</a></li>
 </ul>
 <h2>Functions</h2>
-<p>Not yet implemented</p>
+<h3>var Result = function (team1, team2, points1, points2)</h3>
+<hr />
+<h3>Result.prototype.getTeam = function (number)</h3>
+<p>getTeam() returns the team array</p>
+<p><strong>Argument:</strong> <strong>number</strong></p>
+<p>{Integer} team number (1 or 2)</p>
+<p><strong>Returns:</strong> {[Integer]} list of player ids or undefined if invalid number</p>
+<hr />
+<h3>Result.prototype.getPoints = function (teamnumber)</h3>
+<p>getPoints() returns the points for the given team</p>
+<p><strong>Argument:</strong> <strong>teamnumber</strong></p>
+<p>{Integer} team number (1 or 2)</p>
+<p><strong>Returns:</strong> {Integer} points of the given team or undefined if invalid team
+number</p>
+<hr />
+<h3>Result.prototype.setPoints = function (teamnumber, points)</h3>
+<p>point setter</p>
+<p><strong>Argument:</strong> <strong>teamnumber</strong></p>
+<p>1 or 2
+<strong>Argument:</strong> <strong>points</strong></p>
+<p>points</p>
+<p><strong>Returns:</strong> {Result} undefined on failure, this otherwise</p>
+<hr />
+<h3>Result.prototype.getNetto = function ()</h3>
+<p>getNetto() returns the difference between the team's points</p>
+<p><strong>Returns:</strong> {Number} gained netto points for first team</p>
+<hr />
+<h3>Result.prototype.copy = function ()</h3>
+<p>copies this</p>
+<p><strong>Returns:</strong> the copy</p>
+<hr />
+<h3>Result.prototype.getGame = function ()</h3>
+<p>Creates a Game instance from the teams</p>
+<p><strong>Returns:</strong> {Game} the game that lead to this result, excluding the correct
+start time.</p>
+<hr />
+<h3>Result.copy = function (res)</h3>
+<p>creates an identical copy of a Result instance</p>
+<p><strong>Argument:</strong> <strong>res</strong></p>
+<p>raw Result object, not necessarily with appropriate prototype and
+functions. Fields are sufficient.</p>
+<p><strong>Returns:</strong> the copy</p>
+<hr />
 <h2>Metrics</h2>
 <ul>
 <li>146 Lines</li>

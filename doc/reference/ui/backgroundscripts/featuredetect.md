@@ -17,7 +17,13 @@ modernizr and own feature detections
 
 ## Functions
 
-Not yet implemented
+###     function confirmLeave ()
+
+---
+
+###       window.onbeforeunload = function ()
+
+---
 
 ## Metrics
 

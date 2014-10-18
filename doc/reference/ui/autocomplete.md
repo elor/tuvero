@@ -17,7 +17,17 @@ Manage autocomplete using typeahead.js
 
 ## Functions
 
-Not yet implemented
+###     Autocomplete.clear = function ()
+
+---
+
+###     Autocomplete.reset = function ()
+
+---
+
+###     Autocomplete.update = function ()
+
+---
 
 ## Metrics
 

@@ -25,7 +25,62 @@ encouraged.</p>
 <li><a href="./ranking.html">./ranking</a></li>
 </ul>
 <h2>Functions</h2>
-<p>Not yet implemented</p>
+<h3>addPlayer : function (id)</h3>
+<p>Add a player to the internal data structures such as maps and arrays.
+the ids have to be unique</p>
+<p><strong>Argument:</strong> <strong>id</strong></p>
+<p>unique external player id</p>
+<p><strong>Returns:</strong> this if valid, undefined otherwise</p>
+<hr />
+<h3>start : function ()</h3>
+<p>starts the tournament. This function might block the entry of new
+players and is able to create the first valid list of open games</p>
+<p><strong>Returns:</strong> true if valid, undefined otherwise</p>
+<hr />
+<h3>end : function ()</h3>
+<p>ends the tournament, thereby creating the final result and invalidating
+most functions</p>
+<p><strong>Returns:</strong> this.getRanking() if valid, undefined otherwise</p>
+<hr />
+<h3>finishGame : function (game, points)</h3>
+<p>apply the result of a running game. This function may manipulate the
+list of games in any fashion, thereby generally invalidating the result
+of the getGames() function.</p>
+<p><strong>Argument:</strong> <strong>game</strong></p>
+<p>a running or applicable game
+<strong>Argument:</strong> <strong>points</strong></p>
+<p>array with points for every team (usually 2)</p>
+<p><strong>Returns:</strong> this</p>
+<hr />
+<h3>getGames : function ()</h3>
+<p>return an array of open games</p>
+<p><strong>Returns:</strong> an array of open games</p>
+<hr />
+<h3>getRanking : function ()</h3>
+<p>return sorted ranking object including the global ids, actual place and
+important points and (numeric) annotations in their own arrays</p>
+<p><strong>Returns:</strong> the ranking</p>
+<hr />
+<h3>rankingChanged : function ()</h3>
+<p>Check for changes in the ranking</p>
+<p><strong>Returns:</strong> {boolean} true if the ranking changed, false otherwise</p>
+<hr />
+<h3>getState : function ()</h3>
+<p>Return the current state of the tournament</p>
+<p><strong>Returns:</strong> {Integer} the current state. See Tournament.STATE</p>
+<hr />
+<h3>correct : function ()</h3>
+<p>Incorporate a correction</p>
+<hr />
+<h3>getCorrections : function ()</h3>
+<p>return all corrections as [ game, points before, points after]</p>
+<p>The game.id can be 0, regardless of the actual game id</p>
+<p><strong>Returns:</strong> an array of corrections</p>
+<hr />
+<h3>getType : function ()</h3>
+<p>returns a type identifier, e.g. 'swiss' or 'ko'</p>
+<p><strong>Returns:</strong> a static string describing the tournament type</p>
+<hr />
 <h2>Metrics</h2>
 <ul>
 <li>144 Lines</li>
