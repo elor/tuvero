@@ -15,6 +15,15 @@
 	description updated
 	building doc with every build
 
+
+	* build-scripts/Makefile.in: removing favicon.png, not games.png
+
+	* build-scripts/write-sprite.sh: ignoring favicon.png
+
+	* images/favicon.png: new dedicated favicon, copied from games.png
+
+	* index.html: using favicon.png
+
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: Makefile added for easier building and updating

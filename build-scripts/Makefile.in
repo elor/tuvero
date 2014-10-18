@@ -27,7 +27,7 @@ FORCE:
 
 # removes all unnecessary images after building the images
 remove-images: 
-	find images -type f -not -name '*.gif' -not -name 'sprite.png' -not -name 'games.png' -print0 | xargs -0 -n1 rm
+	find images -type f -not -name '*.gif' -not -name 'sprite.png' -not -name 'favicon.png' -print0 | xargs -0 -n1 rm
 	find images -type d -not -path images -print0 | xargs -0 -n1 rmdir
 
 # self-explanatory
