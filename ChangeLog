@@ -13,6 +13,7 @@
 	* Makefile: rebuilding scripts before building docs
 	release -> dist
 	description updated
+	building doc with every build
 
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

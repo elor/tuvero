@@ -47,6 +47,7 @@ merge-master: FORCE
 ####################################################################################
 build: images scripts remove-debug-code
 	make remove-images
+	make doc
 	./build-scripts/build.sh
 	echo "Build finished."
 
