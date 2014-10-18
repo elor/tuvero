@@ -10,7 +10,7 @@ define([ './options', './tabshandle', './team', './history', './tournaments',
     /**
      * store the current program state in a blob
      * 
-     * @returns the blob
+     * @return the blob
      */
     toBlob : function () {
       return JSON.stringify({

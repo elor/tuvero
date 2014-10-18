@@ -20,7 +20,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
   /**
    * simply return the stored size
    * 
-   * @returns the size
+   * @return the size
    */
   Buchholz.prototype.size = function () {
     return this.netto.length;
@@ -31,7 +31,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    * 
    * @param size
    *          new size
-   * @returns {Buchholz} this
+   * @return {Buchholz} this
    */
   Buchholz.prototype.resize = function (size) {
     var length = this.size();
@@ -60,7 +60,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    * return an object containing all points data and a sorted array of pids
    * representing the ranking
    * 
-   * @returns data object
+   * @return data object
    */
   Buchholz.prototype.get = function () {
     var rank, i, n, w, bh;
@@ -93,7 +93,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    * 
    * @param result
    *          the result
-   * @returns {Buchholz} this
+   * @return {Buchholz} this
    */
   Buchholz.prototype.add = function (result) {
     var netto, n, w, g, t1, t2;
@@ -132,7 +132,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    * 
    * @param result
    *          the result
-   * @returns {Buchholz} this
+   * @return {Buchholz} this
    */
   Buchholz.prototype.remove = function (result) {
     var netto, n, w, g, t1, t2;
@@ -173,7 +173,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    *          the old result
    * @param newres
    *          the new (corrected) result
-   * @returns {Buchholz} this
+   * @return {Buchholz} this
    */
   Buchholz.prototype.correct = function (correction) {
     if (this.added(correction.pre.getGame())) {
@@ -236,7 +236,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    * 
    * @param game
    *          an instance of the game that could have taken place
-   * @returns true if all data indicates that this game took place, false
+   * @return true if all data indicates that this game took place, false
    *          otherwise.
    */
   Buchholz.prototype.added = function (game) {
@@ -280,7 +280,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
   /**
    * get a copy of the applied corrections
    * 
-   * @returns copy of the array of corrections
+   * @return copy of the array of corrections
    */
   Buchholz.prototype.getCorrections = function () {
     return this.corrections.map(function (corr) {
@@ -291,7 +291,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
   /**
    * stores the current state in a blob
    * 
-   * @returns the blob
+   * @return the blob
    */
   Buchholz.prototype.toBlob = function () {
     var ob;

@@ -101,7 +101,7 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
   /**
    * restore everything
    * 
-   * @returns true on successful load, false otherwise
+   * @return true on successful load, false otherwise
    */
   Storage.restore = function () {
     var key, err, blob;

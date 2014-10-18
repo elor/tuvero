@@ -30,7 +30,7 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
    * 
    * @param index
    *          index (starting at zero!)
-   * @returns a reference to the registered team on success, undefined otherwise
+   * @return a reference to the registered team on success, undefined otherwise
    */
   Team.get = function (index) {
     return teams[index];
@@ -41,7 +41,7 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
    * 
    * @param index
    *          index (starting at zero)
-   * @returns nothing at all
+   * @return nothing at all
    */
   Team.erase = function (index) {
     var i;
@@ -67,7 +67,7 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
   /**
    * returns the number of teams
    * 
-   * @returns the number of teams
+   * @return the number of teams
    */
   Team.count = function () {
     return teams.length;
@@ -84,7 +84,7 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
   /**
    * create ordered CSV strings from team data
    * 
-   * @returns CSV file content
+   * @return CSV file content
    */
   Team.toCSV = function () {
     var lines, i;
@@ -113,7 +113,7 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
   /**
    * stores the current state in a blob, usually using JSON
    * 
-   * @returns the blob
+   * @return the blob
    */
   Team.toBlob = function () {
     return JSON.stringify(teams);

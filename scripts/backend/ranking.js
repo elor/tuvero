@@ -12,7 +12,7 @@ define([ './blobber' ], function (Blobber) {
        * correspond to the number of players, the largest player id + 1 and the
        * size of returned arrays. Not that there's no setSize method.
        * 
-       * @returns the size of the ranking
+       * @return the size of the ranking
        */
       size : function () {
         return 0;
@@ -24,7 +24,7 @@ define([ './blobber' ], function (Blobber) {
        * 
        * @param size
        *          the new size
-       * @returns this
+       * @return this
        */
       resize : function (size) {
         return this;
@@ -37,7 +37,7 @@ define([ './blobber' ], function (Blobber) {
        * likely will) contain references to internal data structures, so be
        * careful when editing them. Consider them readonly and all's fine
        * 
-       * @returns an object containing the ranking as well as and
+       * @return an object containing the ranking as well as and
        *          implementation-specific data which was used for ranking.
        */
       get : function () {
@@ -51,7 +51,7 @@ define([ './blobber' ], function (Blobber) {
        * 
        * @param {Result}
        *          result to add
-       * @returns {Ranking} this
+       * @return {Ranking} this
        */
       add : function (result) {
         return this;
@@ -63,7 +63,7 @@ define([ './blobber' ], function (Blobber) {
        * 
        * @param {Result}
        *          result to erase
-       * @returns {Ranking} this
+       * @return {Ranking} this
        */
       remove : function (result) {
         return this;
@@ -77,7 +77,7 @@ define([ './blobber' ], function (Blobber) {
        * 
        * @param {Correction}
        *          correction
-       * @returns {Ranking} undefined on failure, this on success
+       * @return {Ranking} undefined on failure, this on success
        */
       correct : function (correction) {
         return this;
@@ -86,7 +86,7 @@ define([ './blobber' ], function (Blobber) {
       /**
        * getCorrections() returns a copy of all corrections applied to this.
        * 
-       * @returns deep copy of an array of previous corrections
+       * @return deep copy of an array of previous corrections
        */
       getCorrections : function () {
         return [];
@@ -98,7 +98,7 @@ define([ './blobber' ], function (Blobber) {
        * 
        * @param game
        *          the game to verify
-       * @returns true of the game is likely to have been added, false otherwise
+       * @return true of the game is likely to have been added, false otherwise
        */
       added : function (game) {
         return true;

@@ -11,7 +11,7 @@ define(function () {
    * 
    * @param array
    *          a reference to the array
-   * @returns {RLEBlobber} this
+   * @return {RLEBlobber} this
    */
   var RLEBlobber = function (array) {
     this.array = array;
@@ -22,7 +22,7 @@ define(function () {
   /**
    * getter for the contained array
    * 
-   * @returns the contained array
+   * @return the contained array
    */
   RLEBlobber.prototype.getArray = function () {
     return this.array;
@@ -31,7 +31,7 @@ define(function () {
   /**
    * creates and returns a string representation of the contained array
    * 
-   * @returns a string representation of the contained array
+   * @return a string representation of the contained array
    */
   RLEBlobber.prototype.toBlob = function () {
     return RLEBlobber.toBlob(this.array);
@@ -43,7 +43,7 @@ define(function () {
    * @param blob
    *          the string representation
    * 
-   * @returns nothing
+   * @return nothing
    */
   RLEBlobber.prototype.fromBlob = function (blob) {
     this.array = RLEBlobber.fromBlob(blob);
@@ -57,7 +57,7 @@ define(function () {
    * 
    * @param array
    *          a sparse multidimensional non-circular array
-   * @returns a string representation of array
+   * @return a string representation of array
    */
   RLEBlobber.toBlob = function (array) {
     var i, nullstart, str, elem, elemstr, notnull;
@@ -131,7 +131,7 @@ define(function () {
    * 
    * @param blob
    *          the string representation
-   * @returns an array which has been decoded from the blob, or undefined on
+   * @return an array which has been decoded from the blob, or undefined on
    *          failure
    */
   RLEBlobber.fromBlob = function (blob) {

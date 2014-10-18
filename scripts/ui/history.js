@@ -1,7 +1,7 @@
 /**
  * History of results, keyed by round and index.
  * 
- * @returns History
+ * @return History
  */
 
 /**
@@ -79,7 +79,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      *          (optional) the round within its subtournament
      * @param id
      *          (optional) the game id within its round
-     * @returns: true on success, false otherwise
+     * @return: true on success, false otherwise
      */
     addResult : function (tournamentid, t1, t2, p1, p2, round, id) {
       var tournament;
@@ -105,7 +105,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      *          an object containing similar to what you get from getGame
      * @param after
      *          an object containing similar to what you get from getGame
-     * @returns true on success, false otherwise
+     * @return true on success, false otherwise
      */
     addCorrection : function (tournamentid, before, after) {
       var tournament, game;
@@ -163,7 +163,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      * 
      * @param tournamentid
      *          the tournament id
-     * @returns undefined on failure, number of finished games in this
+     * @return undefined on failure, number of finished games in this
      *          tournament otherwise
      */
     numGames : function (tournamentid) {
@@ -185,7 +185,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      * 
      * @param tournamentid
      *          the tournament id
-     * @returns the raw votes array of this tournament and round
+     * @return the raw votes array of this tournament and round
      */
     getVotes : function (tournamentid) {
       var tournament;
@@ -202,7 +202,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      * 
      * @param tournamentid
      *          the tournament id
-     * @returns undefined on failure, number of corrections in this tournament
+     * @return undefined on failure, number of corrections in this tournament
      *          otherwise
      */
     numCorrections : function (tournamentid) {
@@ -240,7 +240,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      *          the id of the tournament
      * @param id
      *          the game id
-     * @returns the array containing game information on success, undefined
+     * @return the array containing game information on success, undefined
      *          otherwise
      */
     getGame : function (tournamentid, id) {
@@ -274,7 +274,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      *          the tournament id
      * @param round
      *          the round within its tournament
-     * @returns
+     * @return
      */
     getRound : function (tournamentid, round) {
       var tournament, game, roundgames;
@@ -307,7 +307,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      *          team id 1
      * @param t2
      *          team id 2
-     * @returns
+     * @return
      */
     findGames : function (tournamentid, t1, t2) {
       var tournament, round, game, matches;
@@ -339,7 +339,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      *          the tournament id
      * @param id
      *          the correction id
-     * @returns a raw correction array on success, undefined otherwise
+     * @return a raw correction array on success, undefined otherwise
      */
     getCorrection : function (tournamentid, id) {
       var tournament;
@@ -381,7 +381,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
      * 
      * VoteFormat: 'No1,Name1,Name2,Name3,Type'
      * 
-     * @returns a comma-separated-values compatible History representation
+     * @return a comma-separated-values compatible History representation
      */
     toCSV : function () {
       var lines, tournamentid, roundid, numrounds, votes, vote, game, games, line, names, hasvotes, Team, Tournaments;
@@ -479,7 +479,7 @@ define([ './shared', './tournaments' ], function (Shared, Tournaments) {
     /**
      * Serializer.
      * 
-     * @returns a string representation of the data
+     * @return a string representation of the data
      */
     toBlob : function () {
       return JSON.stringify(history);

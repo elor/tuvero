@@ -13,7 +13,7 @@ define([ './result' ], function (Result) {
    *          previous result (Result instance)
    * @param post
    *          corrected result (Result instance)
-   * @returns {Correction} new instance
+   * @return {Correction} new instance
    */
   Correction = function (pre, post) {
     this.pre = pre.copy();
@@ -23,7 +23,7 @@ define([ './result' ], function (Result) {
   /**
    * copy function that creates a new correction from this
    * 
-   * @returns {Correction} copy
+   * @return {Correction} copy
    */
   Correction.prototype.copy = function () {
     return new Correction(this.pre, this.post);
@@ -35,7 +35,7 @@ define([ './result' ], function (Result) {
    * @param corr
    *          correction object, which doesn't have to have the same prototype
    *          and functions. Fields are sufficient
-   * @returns the instance
+   * @return the instance
    */
   Correction.copy = function (corr) {
     return new Correction(Result.copy(corr.pre), Result.copy(corr.post));

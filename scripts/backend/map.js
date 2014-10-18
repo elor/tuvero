@@ -5,7 +5,7 @@ define(function () {
    * work for other purposes as well. Actually, it works as a stack with random
    * read access, but let's just call it a map
    * 
-   * @returns {Map} new Map
+   * @return {Map} new Map
    */
   var Map = function () {
     this.map = [];
@@ -17,7 +17,7 @@ define(function () {
    * 
    * @param external
    *          {Integer} external id
-   * @returns {Integer} internal id
+   * @return {Integer} internal id
    */
   Map.prototype.insert = function (external) {
     var internal;
@@ -65,7 +65,7 @@ define(function () {
   /**
    * Resets the map to an empty state
    * 
-   * @returns {Map} this
+   * @return {Map} this
    */
   Map.prototype.clear = function () {
     this.map = [];
@@ -78,7 +78,7 @@ define(function () {
    * 
    * @param internal
    *          {Integer} internal id
-   * @returns {Integer} external id or undefined
+   * @return {Integer} external id or undefined
    */
   Map.prototype.at = function (internal) {
     return this.map[internal];
@@ -89,7 +89,7 @@ define(function () {
    * 
    * @param external
    *          {Integer} external id
-   * @returns {Integer} internal id or -1 if not found
+   * @return {Integer} internal id or -1 if not found
    */
   Map.prototype.find = function (external) {
     return this.map.indexOf(external);
@@ -99,7 +99,7 @@ define(function () {
    * Returns the number of elements in the map. This equals the internal index
    * of the last element plus one.
    * 
-   * @returns {Integer} size
+   * @return {Integer} size
    */
   Map.prototype.size = function () {
     return this.map.length;
@@ -108,7 +108,7 @@ define(function () {
   /**
    * store the state in a blob object
    * 
-   * @returns the blob
+   * @return the blob
    */
   Map.prototype.toBlob = function () {
     return JSON.stringify(this.map);

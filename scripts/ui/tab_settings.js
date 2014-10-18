@@ -298,7 +298,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
   /**
    * toggles the storage state depending on the current autosave checkbox state.
    * 
-   * @returns {Boolean} true if autosave is enabled, false otherwise
+   * @return {Boolean} true if autosave is enabled, false otherwise
    */
   function resetStorageState () {
     Storage.enable();

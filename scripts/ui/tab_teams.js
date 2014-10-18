@@ -162,7 +162,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
    * reads names from a string and adds the players accordingly. Ignores
    * #-escaped lines
    * 
-   * @returns true on success, undefined or false on failure
+   * @return true on success, undefined or false on failure
    */
   function createTeamsFromString (str) {
     var lines, line, name, names, teamsize, team, i;
@@ -355,7 +355,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
      * Retrieves, validates and returns names of new players, resetting the
      * input fields if valid
      * 
-     * @returns array of player names on successful validation, undefined
+     * @return array of player names on successful validation, undefined
      *          otherwise
      */
     function readNewTeamNames () {

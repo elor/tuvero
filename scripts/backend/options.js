@@ -11,7 +11,7 @@ define([], function () {
       /**
        * get an object which contains a copy of all options
        * 
-       * @returns an object containing copies of the current options
+       * @return an object containing copies of the current options
        */
       getOptions : function () {
         return {};
@@ -22,7 +22,7 @@ define([], function () {
        * 
        * @param options
        *          a modified options object retrieved from getOptions()
-       * @returns true on success, false or undefined otherwise
+       * @return true on success, false or undefined otherwise
        */
       setOptions : function (options) {
         return true;
@@ -33,7 +33,7 @@ define([], function () {
   /**
    * constructor
    * 
-   * @returns {Options}
+   * @return {Options}
    */
   Options = function () {
     this.options = {};
@@ -42,7 +42,7 @@ define([], function () {
   /**
    * stores the current state in a blob, mostly using JSON (
    * 
-   * @returns the blob
+   * @return the blob
    */
   Options.prototype.toBlob = function () {
     return JSON.stringify(this.options);

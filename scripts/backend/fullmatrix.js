@@ -5,7 +5,7 @@ define(function () {
    * 
    * @param size
    *          {Integer} size of the matrix. defaults to 0
-   * @returns {FullMatrix} this
+   * @return {FullMatrix} this
    */
   var FullMatrix = function (size) {
     this.size = size || 0;
@@ -22,7 +22,7 @@ define(function () {
   /**
    * Restores a blank state of the FullMatrix
    * 
-   * @returns {FullMatrix} this
+   * @return {FullMatrix} this
    */
   FullMatrix.prototype.clear = function (size) {
     this.array = [];
@@ -34,7 +34,7 @@ define(function () {
   /**
    * copies the matrix. Optimizations in term of memory are attempted
    * 
-   * @returns {FullMatrix} the copy
+   * @return {FullMatrix} the copy
    */
   FullMatrix.prototype.clone = function () {
     var size, retval, a, b, i, j;
@@ -70,7 +70,7 @@ define(function () {
    * 
    * @param index
    *          {Integer} index
-   * @returns {FullMatrix} this
+   * @return {FullMatrix} this
    */
   FullMatrix.prototype.erase = function (index) {
     var a, size, i;
@@ -99,7 +99,7 @@ define(function () {
    * 
    * @param by
    *          integer amount by which to extend the array. defaults to 1
-   * @returns {FullMatrix} this
+   * @return {FullMatrix} this
    */
   FullMatrix.prototype.extend = function (by) {
     if (by <= 0) {
@@ -118,7 +118,7 @@ define(function () {
    *          vertical position
    * @param col
    *          horizontal position
-   * @returns value at (row, col). defaults to 0
+   * @return value at (row, col). defaults to 0
    */
   FullMatrix.prototype.get = function (row, col) {
     if (!this.array[row]) {
@@ -138,7 +138,7 @@ define(function () {
    *          horizontal position
    * @param value
    *          integer value to store in position (row, col)
-   * @returns {FullMatrix} this
+   * @return {FullMatrix} this
    */
   FullMatrix.prototype.set = function (row, col, value) {
     var rowref;

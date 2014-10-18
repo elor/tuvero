@@ -46,7 +46,7 @@ define({
    *          {Matrix} first matrix
    * @param B
    *          {Matrix} second matrix
-   * @returns {Boolean} true if sizes are equal, false otherwise
+   * @return {Boolean} true if sizes are equal, false otherwise
    */
   equalSize : function (A, B) {
     return A.size === B.size && A.size !== undefined && A.size !== null;
@@ -59,7 +59,7 @@ define({
    *          {Matrix} matrix
    * @param row
    *          {Integer} row number
-   * @returns {Array} populated vector representing the row
+   * @return {Array} populated vector representing the row
    */
   getRow : function (matrix, row) {
     var vector, size, i;
@@ -81,7 +81,7 @@ define({
    *          {Matrix} matrix
    * @param col
    *          {Integer} col number
-   * @returns {Array} populated vector representing the row
+   * @return {Array} populated vector representing the row
    */
   getCol : function (matrix, col) {
     var vector, size, i;
@@ -103,7 +103,7 @@ define({
    *          {Matrix} matrix
    * @param row
    *          {Integer} row number
-   * @returns {Number} the row sum
+   * @return {Number} the row sum
    */
   rowSum : function (matrix, row) {
     var sum, size, i;
@@ -123,7 +123,7 @@ define({
    * 
    * @param matrix
    *          {Matrix} matrix
-   * @returns {Array} vector of row sums
+   * @return {Array} vector of row sums
    */
   rowSums : function (matrix) {
     var vector, size, i;
@@ -148,7 +148,7 @@ define({
    *          second operand
    * @param C
    *          return reference
-   * @returns C
+   * @return C
    */
   mult : function (A, B, C) {
     var size, val, row, col, i;
@@ -186,7 +186,7 @@ define({
    *          {Matrix} matrix operand
    * @param vector
    *          {Array} vector operand
-   * @returns {Array} resulting vector, which is fully populated with integer
+   * @return {Array} resulting vector, which is fully populated with integer
    *          values
    */
   multVec : function (matrix, vector) {
@@ -212,7 +212,7 @@ define({
    *          {Matrix} matrix
    * @param col
    *          {Integer} col number
-   * @returns {Number} the col sum
+   * @return {Number} the col sum
    */
   colSum : function (matrix, col) {
     var sum, size, i;
@@ -232,7 +232,7 @@ define({
    * 
    * @param matrix
    *          {Matrix} matrix
-   * @returns {Array} vector of col sums
+   * @return {Array} vector of col sums
    */
   colSums : function (matrix) {
     var vector, size, i;
@@ -252,7 +252,7 @@ define({
    * 
    * @param matrix
    *          {Matrix} matrix to transpose
-   * @returns {Matrix} a reference to matrix
+   * @return {Matrix} a reference to matrix
    */
   transpose : function (matrix) {
     var size, i, j, tmp;
@@ -278,7 +278,7 @@ define({
    *          {Array} vector operand
    * @param matrix
    *          {Matrix} matrix operand
-   * @returns {Array} resulting vector, which is fully populated with integer
+   * @return {Array} resulting vector, which is fully populated with integer
    *          values
    */
   vecMult : function (vector, matrix) {

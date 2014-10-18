@@ -11,7 +11,7 @@ define(function () {
      * 
      * @param vector
      *          {Array} source
-     * @returns {Array} copy
+     * @return {Array} copy
      */
     copy : function (vector) {
       var ret, size, i;
@@ -38,7 +38,7 @@ define(function () {
      * @param size
      *          {Integer} supposed size of the vectors (optional, defaults to
      *          max(a.length, b.length))
-     * @returns {Number}
+     * @return {Number}
      */
     dot : function (a, b, size) {
       var retval, i;
@@ -57,7 +57,7 @@ define(function () {
      * 
      * @param vector
      *          {Array} input and output vector
-     * @returns {Array} reference to the vector
+     * @return {Array} reference to the vector
      */
     fill : function (vector) {
       var size, i;
@@ -77,7 +77,7 @@ define(function () {
      *          {Array} vector
      * @param factor
      *          {Number} factor
-     * @returns {Array} reference to vector
+     * @return {Array} reference to vector
      */
     scale : function (vector, factor) {
       var size, i;
@@ -98,7 +98,7 @@ define(function () {
      * 
      * @param vector
      *          {Array} input vector
-     * @returns {Number} the vector sum
+     * @return {Number} the vector sum
      */
     sum : function (vector) {
       var sum, size, i;

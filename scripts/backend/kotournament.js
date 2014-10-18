@@ -87,7 +87,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
    * create an array of players where an even-indexed player and the subsequent
    * player are supposed to be in a game
    * 
-   * @returns an array of internal player ids
+   * @return an array of internal player ids
    */
   function matchOrder (numPlayers, byeOrder) {
     var numrounds, totalplayers, pids, i, numbyes;
@@ -123,7 +123,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
    * create a randomized first KO round by manipulating an array returned from
    * matchOrder()
    * 
-   * @returns an array of internal pids
+   * @return an array of internal pids
    */
   function matchRandom (numPlayers, byeOrder) {
     var pids, availablePids, i;
@@ -182,7 +182,7 @@ define([ './tournament', './map', './random', './game', './options' ], function 
    * create a first round of games of players by permutation of matchOrder()
    * results
    * 
-   * @returns an array of internal pids
+   * @return an array of internal pids
    */
   function matchSet (numPlayers, byeOrder) {
     var pids, order, i;

@@ -12,7 +12,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
        * 
        * @param id
        *          unique external player id
-       * @returns this if valid, undefined otherwise
+       * @return this if valid, undefined otherwise
        */
       addPlayer : function (id) {
         this.players.insert(id);
@@ -24,7 +24,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
        * starts the tournament. This function might block the entry of new
        * players and is able to create the first valid list of open games
        * 
-       * @returns true if valid, undefined otherwise
+       * @return true if valid, undefined otherwise
        */
       start : function () {
         return this;
@@ -34,7 +34,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
        * ends the tournament, thereby creating the final result and invalidating
        * most functions
        * 
-       * @returns this.getRanking() if valid, undefined otherwise
+       * @return this.getRanking() if valid, undefined otherwise
        */
       end : function () {
         return this.getRanking();
@@ -49,7 +49,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
        *          a running or applicable game
        * @param points
        *          array with points for every team (usually 2)
-       * @returns this
+       * @return this
        */
       finishGame : function (game, points) {
         return this;
@@ -58,7 +58,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
       /**
        * return an array of open games
        * 
-       * @returns an array of open games
+       * @return an array of open games
        */
       getGames : function () {
         return []; // Array of games
@@ -68,7 +68,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
        * return sorted ranking object including the global ids, actual place and
        * important points and (numeric) annotations in their own arrays
        * 
-       * @returns the ranking
+       * @return the ranking
        */
       getRanking : function () {
         return {
@@ -83,7 +83,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
       /**
        * Check for changes in the ranking
        * 
-       * @returns {boolean} true if the ranking changed, false otherwise
+       * @return {boolean} true if the ranking changed, false otherwise
        */
       rankingChanged : function () {
         return true;
@@ -92,7 +92,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
       /**
        * Return the current state of the tournament
        * 
-       * @returns {Integer} the current state. See Tournament.STATE
+       * @return {Integer} the current state. See Tournament.STATE
        */
       getState : function () {
         return -1;
@@ -110,7 +110,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
        * 
        * The game.id can be 0, regardless of the actual game id
        * 
-       * @returns an array of corrections
+       * @return an array of corrections
        */
       getCorrections : function () {
         return [];
@@ -119,7 +119,7 @@ define([ './map', './ranking', './game', './blobber', './options' ], function (M
       /**
        * returns a type identifier, e.g. 'swiss' or 'ko'
        * 
-       * @returns a static string describing the tournament type
+       * @return a static string describing the tournament type
        */
       getType : function () {
         return '';

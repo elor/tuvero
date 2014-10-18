@@ -89,7 +89,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
    *          a valid ranking object
    * @param votes
    *          a valid votes object
-   * @returns a filled copy of the template
+   * @return a filled copy of the template
    */
   function createRankRow (rank, ranking) {
     var tid, team, vote, i;
@@ -134,7 +134,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
   }
 
   /**
-   * @returns {boolean} false on failure, true on success
+   * @return {boolean} false on failure, true on success
    */
   function showRanking (tournamentid, $box) {
     var ranking, rank, $container, notempty;

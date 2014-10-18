@@ -26,7 +26,7 @@ define(function () {
    *          id of the team, starting with 0
    * @param pid
    *          player id
-   * @returns this
+   * @return this
    */
   Game.prototype.add = function (team, pid) {
     if (typeof team !== 'number' || typeof pid !== 'number') {
@@ -62,7 +62,7 @@ define(function () {
    * 
    * @param game
    *          another game
-   * @returns {Boolean} true if the games are equivalent (save for starttime),
+   * @return {Boolean} true if the games are equivalent (save for starttime),
    *          false otherwise
    */
   Game.prototype.equals = function (game) {
@@ -97,7 +97,7 @@ define(function () {
   /**
    * create a deep copy of the game, including the starttime
    * 
-   * @returns copy
+   * @return copy
    */
   Game.prototype.copy = function () {
     var ret;
@@ -123,7 +123,7 @@ define(function () {
    * @param game
    *          a game object with the typical Game fields, but not necessarily
    *          with the correct prototype
-   * @returns the newly copied game instance
+   * @return the newly copied game instance
    */
   Game.copy = function (game) {
     var g;

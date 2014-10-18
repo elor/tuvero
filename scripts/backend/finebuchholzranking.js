@@ -23,7 +23,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   /**
    * simply return the stored size
    * 
-   * @returns the size
+   * @return the size
    */
   Finebuchholz.prototype.size = function () {
     return this.length;
@@ -34,7 +34,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
    * 
    * @param size
    *          new size
-   * @returns {Finebuchholz} this
+   * @return {Finebuchholz} this
    */
   Finebuchholz.prototype.resize = function (size) {
     var length = this.size();
@@ -66,7 +66,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
    * return an object containing all points data and a sorted array of pids
    * representing the ranking
    * 
-   * @returns data object
+   * @return data object
    */
   Finebuchholz.prototype.get = function () {
     var rank, i, n, w, bh, fbh, games;
@@ -110,7 +110,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
    * 
    * @param result
    *          the result
-   * @returns {Finebuchholz} this
+   * @return {Finebuchholz} this
    */
   Finebuchholz.prototype.add = function (result) {
     var netto, n, w, g, t1, t2;
@@ -149,7 +149,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
    * 
    * @param result
    *          the result
-   * @returns {Finebuchholz} this
+   * @return {Finebuchholz} this
    */
   Finebuchholz.prototype.remove = function (result) {
     var netto, n, w, g, t1, t2;
@@ -188,7 +188,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
    * 
    * @param oldres
    *          the correction
-   * @returns {Finebuchholz} undefined on failure, this otherwise
+   * @return {Finebuchholz} undefined on failure, this otherwise
    */
   Finebuchholz.prototype.correct = function (correction) {
     if (this.added(correction.pre.getGame())) {
@@ -253,7 +253,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
    * 
    * @param game
    *          an instance of the game that could have taken place
-   * @returns true if all data indicates that this game took place, false
+   * @return true if all data indicates that this game took place, false
    *          otherwise.
    */
   Finebuchholz.prototype.added = function (game) {
@@ -298,7 +298,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   /**
    * get a copy of the applied corrections
    * 
-   * @returns copy of the array of corrections
+   * @return copy of the array of corrections
    */
   Finebuchholz.prototype.getCorrections = function () {
     return this.corrections.map(function (corr) {
@@ -309,7 +309,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   /**
    * stores the current state in a blob
    * 
-   * @returns the blob
+   * @return the blob
    */
   Finebuchholz.prototype.toBlob = function () {
     var ob;

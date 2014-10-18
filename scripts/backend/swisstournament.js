@@ -10,7 +10,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * constructor
    * 
-   * @returns {Swisstournament}
+   * @return {Swisstournament}
    */
   Swisstournament = function () {
     this.players = new Map();
@@ -61,7 +61,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * (implemented tournament function)
    * 
    * @param id
-   * @returns
+   * @return
    */
   Swisstournament.prototype.addPlayer = function (id) {
     if (this.state !== Tournament.STATE.PREPARING) {
@@ -78,7 +78,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * (implemented tournament function)
    * 
-   * @returns this on success, undefined otherwise
+   * @return this on success, undefined otherwise
    */
   Swisstournament.prototype.start = function () {
     var valid;
@@ -122,7 +122,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * (implemented tournament function)
    * 
-   * @returns
+   * @return
    */
   Swisstournament.prototype.end = function () {
     if (this.state !== Tournament.STATE.RUNNING) {
@@ -143,7 +143,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * 
    * @param game
    * @param points
-   * @returns
+   * @return
    */
   Swisstournament.prototype.finishGame = function (game, points) {
     var i, invalid;
@@ -190,7 +190,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * (implemented tournament function)
    * 
-   * @returns {Array}
+   * @return {Array}
    */
   Swisstournament.prototype.getGames = function () {
     // convert internal to external ids
@@ -205,7 +205,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * return the up/down/byevotes of the current round
    * 
-   * @returns an object containing the three votes
+   * @return an object containing the three votes
    */
   function getRoundVotes () {
     // convert internal to external ids
@@ -233,7 +233,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * (implemented tournament function)
    * 
-   * @returns
+   * @return
    */
   Swisstournament.prototype.getRanking = function () {
     var result, ret, roundvotes, allvotes;
@@ -292,7 +292,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * Start a new round. This function creates a randomized set of new games,
    * disregarding the players' ids and previous games
    * 
-   * @returns this on success, undefined otherwise
+   * @return this on success, undefined otherwise
    */
   function newRoundByRandom () {
     // TODO test
@@ -390,7 +390,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * Start a new round. This function creates a randomized set of new games,
    * maintaining up/down/byevotes.
    * 
-   * @returns this on success, undefined otherwise
+   * @return this on success, undefined otherwise
    */
   function newRoundByHalves () {
     // TODO test
@@ -502,7 +502,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * Start a new round. This function creates a randomized set of new games,
    * maintaining up/down/byevotes.
    * 
-   * @returns this on success, undefined otherwise
+   * @return this on success, undefined otherwise
    */
   function newRoundByWins () {
     var wingroups, votes, newgames, timeout, lowestWinGroup;
@@ -641,7 +641,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * @param votes
    *          processed votes structure as returned by preliminaryDownVotes()
    *          and processed by newRoundByWins()
-   * @returns {Swisstournament} this
+   * @return {Swisstournament} this
    */
   function applyVotes (votes) {
     var downcount, upcount, downvalid, upvalid;
@@ -698,7 +698,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * Build a 2d array of wingroups. Outer key is the number of wins (0+), values
    * in inner array are internal player ids
    * 
-   * @returns 2d array of wingroups
+   * @return 2d array of wingroups
    */
   function winGroups () {
     var wingroups, res, pid, numplayers, wins, highest;
@@ -752,7 +752,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * 
    * @param wingroups
    *          wingroups as returned by winGroups()
-   * @returns An object containing byevote, downvotes and an empty array of
+   * @return An object containing byevote, downvotes and an empty array of
    *          upvotes. The key of the downvote array is the number of wins this
    *          player has been voted from.
    */
@@ -848,7 +848,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    *          internal player id
    * @param permissions
    *          reference to this.options.permissions.something
-   * @returns {Boolean} whether vote action complies with the permissions
+   * @return {Boolean} whether vote action complies with the permissions
    */
   function canVote (id, permissions) {
 
@@ -876,7 +876,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id
-   * @returns true of the player can be downvoted, false otherwise
+   * @return true of the player can be downvoted, false otherwise
    */
   function canDownVote (id) {
     return canVote.call(this, id, this.options.permissions.down);
@@ -885,7 +885,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id
-   * @returns true of the player can be upvoted, false otherwise
+   * @return true of the player can be upvoted, false otherwise
    */
   function canUpVote (id) {
     return canVote.call(this, id, this.options.permissions.up);
@@ -894,7 +894,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id
-   * @returns true of the player can be byevoted, false otherwise
+   * @return true of the player can be byevoted, false otherwise
    */
   function canByeVote (id) {
     return canVote.call(this, id, this.options.permissions.bye);
@@ -903,7 +903,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id to downvote
-   * @returns {Swisstournament} this
+   * @return {Swisstournament} this
    */
   function downVote (id) {
     if (canDownVote.call(this, id)) {
@@ -920,7 +920,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id to be upvoted
-   * @returns {Swisstournament} this
+   * @return {Swisstournament} this
    */
   function upVote (id) {
     if (canUpVote.call(this, id)) {
@@ -937,7 +937,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * @param id
    *          internal player id to be byevoted
-   * @returns {Swisstournament} this
+   * @return {Swisstournament} this
    */
   function byeVote (id) {
     if (canByeVote.call(this, id)) {
@@ -959,7 +959,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    *          internal id of first player
    * @param pid2
    *          iternal id of second player
-   * @returns {Boolean} true if they would form a valid game, false otherwise
+   * @return {Boolean} true if they would form a valid game, false otherwise
    */
   function canPlay (pid1, pid2) {
     // DEBUG START
@@ -986,7 +986,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    *          array of faulty points
    * @param newpoints
    *          array of corrected points
-   * @returns {Swisstournament} undefined on failure, this otherwise
+   * @return {Swisstournament} undefined on failure, this otherwise
    */
   // TODO test
   Swisstournament.prototype.correct = function (game, oldpoints, newpoints) {
@@ -1013,7 +1013,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
    * build a list of corrections which are consistent in format with the
    * correct() function
    * 
-   * @returns a list of correction objects
+   * @return a list of correction objects
    */
   // TODO test
   Swisstournament.prototype.getCorrections = function () {
@@ -1037,7 +1037,7 @@ define([ './tournament', './map', './finebuchholzranking', './game',
   /**
    * stores the current state in a blob, mostly using JSON (
    * 
-   * @returns the blob
+   * @return the blob
    */
   Swisstournament.prototype.toBlob = function () {
     var ob;

@@ -19,7 +19,7 @@ define(function () {
   /**
    * simply return the stored size
    * 
-   * @returns the size
+   * @return the size
    */
   Netto.prototype.size = function () {
     return this.netto.length;
@@ -30,7 +30,7 @@ define(function () {
    * 
    * @param size
    *          new size
-   * @returns {Netto} this
+   * @return {Netto} this
    */
   Netto.prototype.resize = function (size) {
     var length = this.size();
@@ -53,7 +53,7 @@ define(function () {
   /**
    * return an object with ranking-specific data.
    * 
-   * @returns {Object} the return object
+   * @return {Object} the return object
    */
   Netto.prototype.get = function () {
     var rank, i, n, w;
@@ -84,7 +84,7 @@ define(function () {
    * 
    * @param result
    *          the result
-   * @returns {Netto} this
+   * @return {Netto} this
    */
   Netto.prototype.add = function (result) {
     var netto, n, w;
@@ -114,7 +114,7 @@ define(function () {
    * 
    * @param result
    *          the result
-   * @returns {Netto} this
+   * @return {Netto} this
    */
   Netto.prototype.remove = function (result) {
     var netto, n, w;
@@ -144,7 +144,7 @@ define(function () {
    * 
    * @param correction
    *          the correction
-   * @returns {Netto} this
+   * @return {Netto} this
    */
   Netto.prototype.correct = function (correction) {
     if (this.added(correction.pre.getGame())) {
@@ -206,7 +206,7 @@ define(function () {
   /**
    * get a copy of the applied corrections
    * 
-   * @returns copy of the array of corrections
+   * @return copy of the array of corrections
    */
   Netto.prototype.getCorrections = function () {
     return this.corrections.map(function (corr) {
@@ -219,7 +219,7 @@ define(function () {
    * 
    * @param game
    *          the game in question
-   * @returns {Boolean} true if the game is likely to have been added, false
+   * @return {Boolean} true if the game is likely to have been added, false
    *          otherwise
    */
   Netto.prototype.added = function (game) {
@@ -261,7 +261,7 @@ define(function () {
   /**
    * stores the current state in a blob
    * 
-   * @returns the blob
+   * @return the blob
    */
   Netto.prototype.toBlob = function () {
     var ob;

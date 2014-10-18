@@ -157,7 +157,7 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
    * performs an inefficient left-traversal of the tournament tree and returns
    * the ranking order (left-right-parent)
    * 
-   * @returns an array with tournament ids, sorted by their logical global
+   * @return an array with tournament ids, sorted by their logical global
    *          ranking order
    */
   Tournaments.getRankingOrder = function () {
@@ -257,7 +257,7 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
    * ends a tournament and removes its instance from this object
    * 
    * @param id
-   * @returns true on success, undefined otherwise
+   * @return true on success, undefined otherwise
    */
   Tournaments.endTournament = function (id) {
     // set the tournament to undefined, and it will be garbage collected.

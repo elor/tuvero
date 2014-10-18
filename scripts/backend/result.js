@@ -10,7 +10,7 @@
  *          {Integer} Points of the first team
  * @param points2
  *          {Integer} Points of the second team
- * @returns the newly constructed Result object
+ * @return the newly constructed Result object
  */
 define([ './game' ], function (Game) {
   var Result = function (team1, team2, points1, points2) {
@@ -34,7 +34,7 @@ define([ './game' ], function (Game) {
    * 
    * @param number
    *          {Integer} team number (1 or 2)
-   * @returns {[Integer]} list of player ids or undefined if invalid number
+   * @return {[Integer]} list of player ids or undefined if invalid number
    */
   Result.prototype.getTeam = function (number) {
     switch (number) {
@@ -52,7 +52,7 @@ define([ './game' ], function (Game) {
    * 
    * @param teamnumber
    *          {Integer} team number (1 or 2)
-   * @returns {Integer} points of the given team or undefined if invalid team
+   * @return {Integer} points of the given team or undefined if invalid team
    *          number
    */
   Result.prototype.getPoints = function (teamnumber) {
@@ -73,7 +73,7 @@ define([ './game' ], function (Game) {
    *          1 or 2
    * @param points
    *          points
-   * @returns {Result} undefined on failure, this otherwise
+   * @return {Result} undefined on failure, this otherwise
    */
   Result.prototype.setPoints = function (teamnumber, points) {
     switch (teamnumber) {
@@ -92,7 +92,7 @@ define([ './game' ], function (Game) {
   /**
    * getNetto() returns the difference between the team's points
    * 
-   * @returns {Number} gained netto points for first team
+   * @return {Number} gained netto points for first team
    */
   Result.prototype.getNetto = function () {
     return this.points1 - this.points2;
@@ -101,7 +101,7 @@ define([ './game' ], function (Game) {
   /**
    * copies this
    * 
-   * @returns the copy
+   * @return the copy
    */
   Result.prototype.copy = function () {
     return new Result(this.team1, this.team2, this.points1, this.points2);
@@ -110,7 +110,7 @@ define([ './game' ], function (Game) {
   /**
    * Creates a Game instance from the teams
    * 
-   * @returns {Game} the game that lead to this result, excluding the correct
+   * @return {Game} the game that lead to this result, excluding the correct
    *          start time.
    */
   Result.prototype.getGame = function () {
@@ -133,7 +133,7 @@ define([ './game' ], function (Game) {
    * @param res
    *          raw Result object, not necessarily with appropriate prototype and
    *          functions. Fields are sufficient.
-   * @returns the copy
+   * @return the copy
    */
   Result.copy = function (res) {
     return new Result(res.team1, res.team2, res.points1, res.points2);

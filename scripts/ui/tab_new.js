@@ -18,7 +18,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
    * 
    * @param Tournament
    *          the swiss object
-   * @returns {Object} a votes object of the current round
+   * @return {Object} a votes object of the current round
    */
   function getRoundVotes (Tournament) {
     // FIXME duplicate within tab_games.js

@@ -494,7 +494,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
    * every round, with its result and
    * 
    * @param tournamentid
-   * @returns the progress mapping
+   * @return the progress mapping
    */
   function getProgressMapping (tournamentid) {
     var teamgames, numteams, roundno, tournament;

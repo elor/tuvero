@@ -9,7 +9,7 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
       /**
        * Reset to an empty state, usually the initial state
        * 
-       * @returns {boolean} true on success, false on error
+       * @return {boolean} true on success, false on error
        */
       reset : function () {
         return true;
@@ -17,7 +17,7 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
       /**
        * Update everything to the current overall state
        * 
-       * @returns {boolean} true on success, false on error
+       * @return {boolean} true on success, false on error
        */
       update : function () {
         return true;

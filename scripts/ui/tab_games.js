@@ -233,7 +233,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
    * 
    * @param game
    *          the game in question
-   * @returns true on success, undefined otherwise
+   * @return true on success, undefined otherwise
    */
   function removeGame (tournamentid, index) {
     var index;
@@ -417,7 +417,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
    * 
    * TODO rewrite this file to replace this function
    * 
-   * @returns {Object} a votes object of the current round
+   * @return {Object} a votes object of the current round
    */
   function getRoundVotes (Tournament) {
     // FIXME duplicate within tab_new.js
