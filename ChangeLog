@@ -13,6 +13,7 @@
 	extracting functions of a script file
 	JavaDoc-style comments of functions are parsed and displayed
 	not discarding any more errors from the error page
+	not using potentially-empty regex parens
 
 	* Makefile: rebuilding scripts before building docs
 	release -> dist
@@ -34,6 +35,7 @@
 
 	* build-scripts/write-scripts.sh: function comment added to common.js
 	test.js uses define() instead of require() for improved reference parsing
+
 
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

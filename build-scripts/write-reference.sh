@@ -119,7 +119,7 @@ EOF
 }
 
 formatfunctions(){
-    sed -e '/\/\*\*/d' -e 's/.*\*\/.*/\n---\n/' -e 's/^\s*\*\s*//' -e '/function\s*\S*\s*(/ {s/^/### /;s/\s*{\s*$//}' -e 's/@return\s*/\n**Returns:** /' -e 's/@param\s\s*\(\S\S*\)\s*/**Argument:** **\1**\n/'
+    sed -e '/\/\*\*/d' -e 's/.*\*\/.*/\n---\n/' -e 's/^\s*\*\s*//' -e '/function\s*\(\S\S*\s*\)\?(/ {s/^/### /;s/\s*{\s*$//}' -e 's/@return\s*/\n**Returns:** /' -e 's/@param\s\s*\(\S\S*\)\s*/**Argument:** **\1**\n/'
 }
 
 parsefunctions(){
@@ -129,7 +129,7 @@ parsefunctions(){
 
     functions=$(
         comment=""
-        sed -r '0,/\*\//d' $script | grep -P '(?<!\()(?<![\(,]\s)(?<!return\s)function\s*(\S*\s*)?\(|define\s*\(|^\s*/?\*' | while IFS= read line; do
+        sed -r '0,/\*\//d' $script | grep -P '(?<!\()(?<![\(,]\s)(?<!return\s)function\s*(\S+\s*)?\(|define\s*\(|^\s*/?\*' | while IFS= read line; do
 
             # state transitions
             case $state in
@@ -138,10 +138,10 @@ parsefunctions(){
                         state=comment
                     elif grep -q 'define\s*(' <<< "$line"; then
                         state=define
-                        if grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                        if grep -Pq 'function\s*(\S+\s*)?\(' <<< "$line"; then
                             state=idle
                         fi
-                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                    elif grep -Pq 'function\s*(\S+\s*)?\(' <<< "$line"; then
                         warning "$script: function before define("
                         state=func
                     fi
@@ -149,17 +149,17 @@ parsefunctions(){
                 define)
                     if grep -q '^\s*/\*\*' <<< "$line"; then
                         state=comment
-                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                    elif grep -Pq 'function\s*(\S+\s*)?\(' <<< "$line"; then
                         state=func
                     fi
                     ;;
                 comment) 
                     if grep -q 'define\s*(' <<< "$line"; then
                         state=define 
-                        if grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                        if grep -Pq 'function\s*(\S+\s*)?\(' <<< "$line"; then
                             state=idle
                         fi
-                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                    elif grep -Pq 'function\s*(\S+\s*)?\(' <<< "$line"; then
                         state=func
                     elif grep -q '^\s*/\*\*' <<< "$line"; then
                         comment=""
@@ -168,7 +168,7 @@ parsefunctions(){
                 idle)
                     if grep -q '^\s*/\*\*' <<< "$line"; then
                         state=comment
-                    elif grep -Pq 'function\s*(\S*\s*)?\(' <<< "$line"; then
+                    elif grep -Pq 'function\s*(\S+\s*)?\(' <<< "$line"; then
                         state=func
                     fi
                     ;;
@@ -183,7 +183,7 @@ parsefunctions(){
                     if [ -z "$comment" ]; then
                         comment="/**
 */"
-                        warning "$script: undocumented: '`grep -Po '(\S*\s*[=:])?\s*function(\s*[^ \t(]+)?' <<< $line`'"
+                        warning "$script: undocumented: '`grep -Po '(\S+\s*[=:])?\s*function(\s*[^ \t(]+)?' <<< $line`'"
                     fi
                     cat <<EOF
 $line
