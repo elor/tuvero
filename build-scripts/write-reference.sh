@@ -6,11 +6,26 @@
 refdir=doc/reference
 
 listuserscripts(){
-    find scripts -type f -name '*.js' -not -path 'scripts/lib/*' -not -path 'scripts/lib/*/*'
+    listusersubscripts scripts
+}
+
+listusersubscripts(){
+    dir=$1
+    options=$2
+    find $dir $options -type f -name '*.js' -not -path $dir/'lib/*' -not -path $dir/'lib/*/*' | sort
+}
+
+listscriptdirs(){
+    listscriptsubdirs scripts
+}
+
+listscriptsubdirs(){
+    dir=$1
+    find $1 -type d -not -path $dir/lib -not -path $dir/'lib/*' | sort
 }
 
 listlibscripts(){
-    find scripts/lib -type f -name '*.js'
+    find scripts/lib -type f -name '*.js' | sort
 }
 
 warning(){
@@ -67,8 +82,6 @@ fakeglobalcomment(){
 parsedependencies(){
     script=$1
 
-    echo "## Dependencies"
-    echo
     dependencies=$(sed -n '/define(/,/function/p' $script | tr "'" " " | xargs | grep -Po '\[[^\]]*\]' | grep -Po '(\.+/)*\w*(/\w*)*' | sort -h)
     dependencies=$(for dep in $dependencies; do
         if [[ "$dep" == lib/* ]]; then
@@ -78,35 +91,56 @@ parsedependencies(){
         fi
         done
     )
-    [ -n "$dependencies" ] && echo -e "$dependencies" || echo "No Dependencies"
-    echo
+    grep -q '\$(' $script && dependencies="$dependencies
+* JQuery
+"
+
+    [ -z "$dependencies" ] && dependencies="No Dependencies"
+
+    cat <<EOF
+## Dependencies
+
+$dependencies
+
+EOF
 }
 
 parsefunctions(){
     script=$1
 
-    echo "## Functions"
-    echo
-    grep -Pho '(\S*\s*=\s*function|function\s*\S+)\s*\([^)]*\)?' $script
-    echo
+    cat <<EOF
+## Functions
+
+Not yet implemented
+
+EOF
 }
 
-parsereturnvalues(){
+printscriptmetrics(){
     script=$1
-    
-    echo "## Return Values"
-    echo
-    grep -Pho 'return\s+.*;' $script | sed 's/.*/* `&` /'
-    echo
+
+    lines=`cat $script | wc -l`
+    size=`cat $script | wc -c`
+    threshold=400
+
+    (( lines > threshold )) && warning "$script: > $threshold lines: $lines"
+
+    cat <<EOF
+## Metrics
+
+* $lines Lines
+* $size Bytes
+
+EOF
 }
 
 convertMD2HTML(){
     script=$1
     docfile=`getdocfile $script`
+    docfiledir=`dirname $docfile`
+    htmlfile=$docfiledir/`basename $docfile .md`.html
 
-    (
-        cd `dirname $docfile`
-        cat <<EOF > `basename $docfile .md`.html
+    cat <<EOF > $htmlfile
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -114,16 +148,20 @@ convertMD2HTML(){
 <title>$script Reference</title>
 </head>
 <body>
-<a href="`getrelhref index $script`">back to index</a>
-$(stmd `basename $docfile`)
+<a href="`getrelhref index $docfiledir`">back to index</a>
+<a href="index.html">Overview page</a>
+$(stmd $docfile)
 </body>
 </html>
 EOF
-    )
 }
 
 createoverviewpage(){
-    cat <<EOF > $refdir/index.html
+   scriptdir=$1
+   docfile=`getdocfile $scriptdir/index`
+   docfiledir=`dirname $docfile`
+   docfile=$docfiledir/`basename $docfile .md`.html
+    cat <<EOF > $docfile
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -131,16 +169,24 @@ createoverviewpage(){
 <title>$script Reference</title>
 </head>
 <body>
+<a href="`getrelhref scripts/index $docfiledir`">back to index</a>
 <a href="todo.html">TODO page</a>
-<h1>Reference Overview</h1>
-$(for script in `listuserscripts|sort`;do echo '<a href="'`getrelhref $script $refdir`'">'$script'</a><br>' ; done)
+<h1>$scriptdir/ Overview</h1>
+<h2>Scripts</h2>
+$(for script in `listusersubscripts $scriptdir "-maxdepth 1"`;do echo '<a href="'`getrelhref $script $docfiledir`'">'$script'</a><br>' ; done)
+<h2>Subdirectories</h2>
+$(for subdir in `listscriptsubdirs $scriptdir`; do echo '<a href="'`getrelhref $subdir/index $docfiledir`'">'$subdir/'</a><br>'; done)
 </body>
 </html>
 EOF
 }
 
 createtodopage(){
-    cat <<EOF > $refdir/todo.html
+    scriptdir=$1
+    docfile=`getdocfile $scriptdir/todo`
+    docfiledir=`dirname $docfile`
+    docfile=$docfiledir/`basename $docfile .md`.html
+    cat <<EOF > $docfile
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -148,9 +194,10 @@ createtodopage(){
 <title>$script Reference</title>
 </head>
 <body>
-<a href="index.html">back to index</a>
-<h1>TODO Comments</h1>
-$(grep -Pn 'TODO|FIXME|XXX' `listuserscripts|sort|xargs` | sed 's/^/* /' | stmd)
+<a href="`getrelhref scripts/index $docfiledir`">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>$scriptdir TODO Comments</h1>
+$(grep -Pn 'TODO|FIXME|XXX' `listusersubscripts $scriptdir|xargs` | sed 's/^/* /' | stmd)
 </body>
 </html>
 EOF
@@ -164,20 +211,24 @@ processscript(){
         parseglobalcomment $script
         parsedependencies $script
         parsefunctions $script
-        parsereturnvalues $script
+        printscriptmetrics $script
     } >> $docfile
     convertMD2HTML $script
 }
 
 mkdir $refdir
 
+echo "generating script references"
 for script in `listuserscripts`; do
     processscript $script
 done
 
-createoverviewpage
+echo "generating overview pages"
+for dir in `listscriptdirs`; do
+    createoverviewpage $dir
+done
 
-createtodopage
-
-echo
-echo "done"
+echo "generating todo pages"
+for dir in `listscriptdirs`; do
+    createtodopage $dir
+done

@@ -4,8 +4,13 @@
 
 	* build-scripts/write-reference.sh: linkes dependencies
 	todo page
+	TODO and Overview for script subdirectories
+	listing JQuery as a dependency
+	script metrics section added
+	warning about long scripts
 
 	* Makefile: rebuilding scripts before building docs
+
 
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
