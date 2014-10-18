@@ -17,6 +17,7 @@
 
 
 	* build-scripts/Makefile.in: removing favicon.png, not games.png
+	optimizing favicon
 
 	* build-scripts/write-sprite.sh: ignoring favicon.png
 
