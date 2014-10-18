@@ -9,6 +9,7 @@
 	script metrics section added
 	warning about long scripts
 	warning about too many dependencies
+	writing 'make doc' warnings and errors to errors.html
 
 	* Makefile: rebuilding scripts before building docs
 	release -> dist
@@ -24,6 +25,10 @@
 	* images/favicon.png: new dedicated favicon, copied from games.png
 
 	* index.html: using favicon.png
+
+	* doc/reference/errors.html: contains doc errors and warnings
+
+	* doc/reference/index.html: link to errors.html instead of itself
 
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

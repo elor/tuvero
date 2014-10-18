@@ -5,6 +5,8 @@
 
 refdir=doc/reference
 
+errors=""
+
 listuserscripts(){
     listusersubscripts scripts
 }
@@ -30,10 +32,14 @@ listlibscripts(){
 
 warning(){
     echo "Warning: $@" >&2
+    errors="$errors
+Warning: $@"
 }
 
 error(){
     echo "ERROR: $@" >&2
+    errors="$errors
+ERROR: $@"
 }
 
 getdocfile(){
@@ -173,7 +179,13 @@ createoverviewpage(){
 <title>$script Reference</title>
 </head>
 <body>
-<a href="`getrelhref scripts/index $docfiledir`">back to index</a>
+$(
+    if [ "`readlink -f $docfiledir`" == "`readlink -f $refdir`" ]; then
+        echo "<a href=\"errors.html\">Errors</a>"
+    else
+        echo "<a href=\"`getrelhref scripts/index $docfiledir`\">back to index</a>"
+    fi
+)
 <a href="todo.html">TODO page</a>
 <h1>$scriptdir/ Overview</h1>
 <h2>Scripts</h2>
@@ -202,6 +214,26 @@ createtodopage(){
 <a href="index.html">Overview page</a>
 <h1>$scriptdir TODO Comments</h1>
 $(grep -Pn 'TODO|FIXME|XXX' `listusersubscripts $scriptdir|xargs` | sed 's/^/* /' | stmd)
+</body>
+</html>
+EOF
+}
+
+createrrorpage(){
+    docfile=$refdir/errors.html
+    cat <<EOF > $docfile
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Errors</title>
+</head>
+<body>
+<a href="index.html">back to index</a>
+<h1>Script Warnings and Errors</h1>
+<pre>
+$errors
+</pre>
 </body>
 </html>
 EOF
@@ -236,3 +268,6 @@ echo "generating todo pages"
 for dir in `listscriptdirs`; do
     createtodopage $dir
 done
+
+echo "generating error page"
+createrrorpage
