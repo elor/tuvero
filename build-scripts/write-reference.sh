@@ -69,7 +69,16 @@ parsedependencies(){
 
     echo "## Dependencies"
     echo
-    sed -n '/define(/,/function/p' $script | grep -Po '\[[^\]]*\]' | grep -Po '(\.+/)*\w*(/\w*)*' | sed 's/^/* /' | sort -h | grep '' || echo "No Dependencies"
+    dependencies=$(sed -n '/define(/,/function/p' $script | tr "'" " " | xargs | grep -Po '\[[^\]]*\]' | grep -Po '(\.+/)*\w*(/\w*)*' | sort -h)
+    dependencies=$(for dep in $dependencies; do
+        if [[ "$dep" == lib/* ]]; then
+            echo "* $dep"
+        else
+            echo "* <a href=\"$dep.html\">$dep</a>"
+        fi
+        done
+    )
+    [ -n "$dependencies" ] && echo -e "$dependencies" || echo "No Dependencies"
     echo
 }
 
@@ -105,6 +114,7 @@ convertMD2HTML(){
 <title>$script Reference</title>
 </head>
 <body>
+<a href="`getrelhref index $script`">back to index</a>
 $(stmd `basename $docfile`)
 </body>
 </html>
@@ -121,7 +131,26 @@ createoverviewpage(){
 <title>$script Reference</title>
 </head>
 <body>
+<a href="todo.html">TODO page</a>
+<h1>Reference Overview</h1>
 $(for script in `listuserscripts|sort`;do echo '<a href="'`getrelhref $script $refdir`'">'$script'</a><br>' ; done)
+</body>
+</html>
+EOF
+}
+
+createtodopage(){
+    cat <<EOF > $refdir/todo.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>$script Reference</title>
+</head>
+<body>
+<a href="index.html">back to index</a>
+<h1>TODO Comments</h1>
+$(grep -Pn 'TODO|FIXME|XXX' `listuserscripts|sort|xargs` | sed 's/^/* /' | stmd)
 </body>
 </html>
 EOF
@@ -147,6 +176,8 @@ for script in `listuserscripts`; do
 done
 
 createoverviewpage
+
+createtodopage
 
 echo
 echo "done"

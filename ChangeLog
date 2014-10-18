@@ -1,3 +1,12 @@
+2014-10-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* build-scripts/update-headers.sh: automatically inserting author and license information
+
+	* build-scripts/write-reference.sh: linkes dependencies
+	todo page
+
+	* Makefile: rebuilding scripts before building docs
+
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: Makefile added for easier building and updating
