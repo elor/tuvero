@@ -8,9 +8,11 @@
 	listing JQuery as a dependency
 	script metrics section added
 	warning about long scripts
+	warning about too many dependencies
 
 	* Makefile: rebuilding scripts before building docs
-
+	release -> dist
+	description updated
 
 2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -29,7 +29,7 @@ listlibscripts(){
 }
 
 warning(){
-    echo "WARNING: $@" >&2
+    echo "Warning: $@" >&2
 }
 
 error(){
@@ -94,6 +94,10 @@ parsedependencies(){
     grep -q '\$(' $script && dependencies="$dependencies
 * JQuery
 "
+
+    threshold=5
+    numdeps=`wc -l <<< "$dependencies"`
+    (( numdeps > threshold )) && warning "$script: > $threshold dependencies: $numdeps"
 
     [ -z "$dependencies" ] && dependencies="No Dependencies"
 
