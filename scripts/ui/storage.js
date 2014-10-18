@@ -1,5 +1,8 @@
 /**
  * Storage API for persistent state
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, Modernizr) {
   var Storage, keys, savespending;

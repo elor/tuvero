@@ -1,6 +1,9 @@
 /**
  * Tournaments is a list of _running_ tournaments, with null entries for
  * finished tournaments, but still keeping name and type information
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ '../backend/swisstournament', '../backend/kotournament', './team', './shared' ], function (Swisstournament, KOTournament, Team, Shared) {
   var Tournaments, tournaments, globalranking;

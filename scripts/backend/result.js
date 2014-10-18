@@ -11,6 +11,9 @@
  * @param points2
  *          {Integer} Points of the second team
  * @return the newly constructed Result object
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './game' ], function (Game) {
   var Result = function (team1, team2, points1, points2) {

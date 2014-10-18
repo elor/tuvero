@@ -1,6 +1,9 @@
 /**
  * Matrix variable contains functions and interfaces for matrix/vector
  * operations.
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define({
   /**

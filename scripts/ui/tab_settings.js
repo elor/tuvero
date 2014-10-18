@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     './team', './history', './ranking', './state', './storage', './options',
     './players', './tabshandle', './shared' ], function (Tab, saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Storage, Options, Players, Tabshandle, Shared) {

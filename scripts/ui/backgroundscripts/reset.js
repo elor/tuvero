@@ -1,6 +1,9 @@
 /**
  * checks for the hash '#reset' and resets the localStorage, if it is ever
  * visited
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ '../toast', '../strings' ], function (Toast, Strings) {
 

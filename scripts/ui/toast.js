@@ -2,6 +2,9 @@
  * A Toast is a small text which shows for a short period of time before
  * disappearing. You can supply a jquery object handle as str if you want to
  * insert an html node instead of text
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define(function () {
   var Toast, fadein, fadeout, pending, toastfn, nextid, fadeoutfn;

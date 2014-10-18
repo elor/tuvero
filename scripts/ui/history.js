@@ -2,6 +2,9 @@
  * History of results, keyed by round and index.
  * 
  * @return History
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 /**

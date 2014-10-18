@@ -1,5 +1,8 @@
 /**
  * Maintain a sorted list of player names
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 define(['./shared'], function (Shared) {

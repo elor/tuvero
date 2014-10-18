@@ -3,6 +3,9 @@
  * assumption is about the player ids: They're required to be close-packed
  * integer values starting at 0.
  * 
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './blobber' ], function (Blobber) {
   return {

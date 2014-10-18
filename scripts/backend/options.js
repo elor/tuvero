@@ -2,6 +2,9 @@
  * define, store, read and write options of arbitrary type
  * 
  * Undefined behavior (most likely infinite loops) on nesting loops
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([], function () {
   var Interface, Options;

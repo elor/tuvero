@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define(function () {
   /**
    * RLEBlobber: A blobber for multi-dimensional sparse non-circular arrays,

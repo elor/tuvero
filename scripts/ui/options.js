@@ -1,6 +1,9 @@
 /**
  * returns an object with options, such as number of players, tournament name,
  * ...
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 define(function () {

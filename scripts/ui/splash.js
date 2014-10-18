@@ -1,5 +1,8 @@
 /**
  * removes the splash screen after pageload
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 define(function () {

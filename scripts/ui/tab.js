@@ -1,5 +1,8 @@
 /**
  * Tab Interface
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {

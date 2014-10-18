@@ -2,6 +2,9 @@
  * Tournament is an interface for generalized management of tournaments. It
  * assumes unique player ids for every tournament, so the use of global ids is
  * encouraged.
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './map', './ranking', './game', './blobber', './options' ], function (Map, Ranking, Game, Blobber, Options) {
   return {

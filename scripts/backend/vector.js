@@ -1,6 +1,9 @@
 /**
  * Vector variable to contain all vector operations and definitions where a
  * vector is represented as a javascript array
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define(function () {
   var Vector;

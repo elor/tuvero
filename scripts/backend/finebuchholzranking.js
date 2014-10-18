@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define([ './vector', './matrix', './halfmatrix', './result', './correction',
     './rleblobber' ], function (Vector, Matrix, HalfMatrix, Result, Correction, RLEBlobber) {
   /**

@@ -2,6 +2,9 @@
  * KO tournament
  * 
  * Complies to Tournament and Blobber interfaces
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 define([ './tournament', './map', './random', './game', './options' ], function (Tournament, Map, Random, Game, Options) {

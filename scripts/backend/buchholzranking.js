@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, HalfMatrix) {
   /**
    * BuchholzRanking: A ranking variant which sorts players by wins, buchholz

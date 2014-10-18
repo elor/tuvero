@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define([ './tournaments', './team', './toast', './strings', './options',
     './tabshandle', './tab', './history', './shared' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History, Shared) {
   var Tab_Ranking, template, $tab, updatepending;

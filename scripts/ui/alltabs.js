@@ -1,5 +1,8 @@
 /**
  * Load and manage all tabs centrally
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 define([ './shared', './tab_history', './tab_ranking', './tab_new', './tab_teams',

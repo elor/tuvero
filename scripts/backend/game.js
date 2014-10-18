@@ -1,6 +1,9 @@
 /**
  * Game is an object which represents a running game, thereby storing the teams
  * and the time at which the game started.
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define(function () {
   /**

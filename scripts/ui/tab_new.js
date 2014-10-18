@@ -1,5 +1,8 @@
 /**
  * Tab_New handler
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 
 define([ './tab', './options', './tabshandle', './toast', './team',

@@ -1,6 +1,9 @@
 /**
  * interface for creating a singular blob for data necessary to continue the
  * state in a different user session.
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './options', './tabshandle', './team', './history', './tournaments',
     './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function (Options, Tabshandle, Team, History, Tournaments, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New, Shared) {

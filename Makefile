@@ -53,6 +53,7 @@ build: images scripts remove-debug-code
 ##############################################
 scripts: FORCE
 	./build-scripts/write-scripts.sh
+	./build-scripts/update-headers.sh
 
 ######################
 # convenience target #

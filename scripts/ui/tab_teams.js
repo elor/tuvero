@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define([ './team', './toast', './strings', './tab_ranking', './storage',
     './autocomplete', './options', './tab', './tabshandle', './shared' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab, Tabshandle, Shared) {
 

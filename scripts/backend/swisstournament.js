@@ -2,6 +2,9 @@
  * Implementation of the swiss tournament system where there's only one player.
  * If you need teams, first consider to enter a team as a single player before
  * rewriting for multi-player teams, which are only useful for random teams.
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './tournament', './map', './finebuchholzranking', './game',
     './result', './random', './correction', './options', './rleblobber' ], function (Tournament, Map, Finebuchholzranking, Game, Result, Random, Correction, Options, RLEBlobber) {

@@ -1,5 +1,8 @@
 /**
  * Manage autocomplete using typeahead.js
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './players', './shared', 'lib/typeahead' ], function (Players, Shared, undefined) {
   var Autocomplete, $fields;

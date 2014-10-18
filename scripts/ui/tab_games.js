@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     './history', './tab_history', './storage', './options', './tab',
     './tabshandle', './tournaments', './shared' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Tab, Tabshandle, Tournaments, Shared) {

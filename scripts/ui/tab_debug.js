@@ -1,3 +1,11 @@
+/**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
 define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     './strings', './debug', './tournaments', './team', './history', './shared' ], function (Tabshandle, Tab, Toast, Random, Options, Strings, Debug, Tournaments, Team, History, Shared) {
   var Tab_Debug, $tab, form, letters, Letters, rng;

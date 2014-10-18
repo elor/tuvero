@@ -4,6 +4,9 @@
  * tournament.
  * 
  * If two players are equally ranked, the lowest ID is first.
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './tournaments', './team', './shared'], function (Tournaments, Team, Shared) {
   var GlobalRanking, teamobjects, teamsset;

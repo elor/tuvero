@@ -1,5 +1,8 @@
 /**
  * modernizr and own feature detections
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ 'lib/modernizr', '../strings', '../toast' ], function (Modernizr, Strings, Toast) {
   var FeatureDetect;

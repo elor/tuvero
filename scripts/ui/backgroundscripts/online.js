@@ -1,5 +1,8 @@
 /**
  * Am I online or offline?
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 // FIXME modernizr
 define([ '../strings', '../update' ], function (Strings, Update) {

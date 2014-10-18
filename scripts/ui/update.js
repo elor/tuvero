@@ -1,5 +1,8 @@
 /**
  * detect updates to the manifest, if available
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 // FIXME start this script as early as possible!
 define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {

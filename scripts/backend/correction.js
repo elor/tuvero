@@ -2,6 +2,9 @@
  * A correction ties a wrong game result to a new game result. This structure is
  * intended for secure storage only, hence the copying efforts. Since
  * corrections should be sparse, the copying shouldn't matter.
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define([ './result' ], function (Result) {
   var Correction;

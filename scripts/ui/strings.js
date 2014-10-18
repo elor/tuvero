@@ -1,5 +1,8 @@
 /**
  * a list of teams with some accessor functions
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
  */
 define(function () {
   var Strings, key;
