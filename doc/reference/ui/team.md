@@ -1,7 +1,11 @@
 # scripts/ui/team.js
 
 
-a list of teams with some accessor functions
+Managed list of registered teams
+
+* Exports: Team
+* Implements: ./csver
+* Implements: ../backend/blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -101,6 +105,6 @@ resets the teams
 
 ## Metrics
 
-* 144 Lines
-* 2736 Bytes
+* 148 Lines
+* 2802 Bytes
 

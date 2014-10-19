@@ -1,7 +1,10 @@
 # scripts/main.js
 
 
-No Description
+First file to load.
+
+Starts loading all other files, initializes everything and manages the splash
+screen and load errors
 
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
@@ -26,6 +29,6 @@ No Description
 
 ## Metrics
 
-* 86 Lines
-* 2051 Bytes
+* 89 Lines
+* 2166 Bytes
 

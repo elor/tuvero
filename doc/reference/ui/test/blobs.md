@@ -1,7 +1,7 @@
 # scripts/ui/test/blobs.js
 
 
-No Description
+Unit tests for the Blobber interface
 
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
@@ -18,6 +18,6 @@ No exported functions
 
 ## Metrics
 
-* 36 Lines
-* 1092 Bytes
+* 32 Lines
+* 1094 Bytes
 

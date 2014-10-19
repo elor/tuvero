@@ -1,8 +1,11 @@
 # scripts/ui/tournaments.js
 
 
-Tournaments is a list of _running_ tournaments, with null entries for
-finished tournaments, but still keeping name and type information
+A list of all subtournaments, their teams, types, ids, rankings, and
+relationships after splitting or merging
+
+* Exports: Tournaments 
+* Implements: ../backend/blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -113,6 +116,6 @@ ends a tournament and removes its instance from this object
 
 ## Metrics
 
-* 337 Lines
-* 8288 Bytes
+* 340 Lines
+* 8325 Bytes
 

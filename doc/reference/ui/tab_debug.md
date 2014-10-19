@@ -1,8 +1,9 @@
 # scripts/ui/tab_debug.js
 
 
-No Description
+Model, View and Controller of the debugging tab.
 
+* Exports: Tab_Debug
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -91,6 +92,6 @@ reset an original state.
 
 ## Metrics
 
-* 445 Lines
-* 10856 Bytes
+* 446 Lines
+* 10912 Bytes
 

@@ -1,8 +1,11 @@
 # scripts/ui/tabs.js
 
 
-No Description
+Logic for viewing/hiding tabs.
 
+Tabs are automatically read from the DOM during object construction.
+
+* Exports: Tabs
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -60,6 +63,6 @@ show/hide all references to a certain
 
 ## Metrics
 
-* 239 Lines
-* 5726 Bytes
+* 243 Lines
+* 5837 Bytes
 

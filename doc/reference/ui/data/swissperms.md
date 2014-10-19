@@ -1,8 +1,9 @@
 # scripts/ui/data/swissperms.js
 
 
-No Description
+A data object which contains vote permission presets for swiss tournaments
 
+* Exports: SwissPerms
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -18,6 +19,6 @@ No exported functions
 
 ## Metrics
 
-* 115 Lines
-* 1865 Bytes
+* 119 Lines
+* 1982 Bytes
 

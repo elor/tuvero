@@ -1,7 +1,8 @@
 # scripts/ui/backgroundscripts/save.js
 
 
-manages box click events, i.e. if you click the header, the box is collapsed
+Save button logic which initiates a file download of the current state for later loading
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -23,6 +24,6 @@ No exported functions
 
 ## Metrics
 
-* 34 Lines
-* 884 Bytes
+* 35 Lines
+* 900 Bytes
 

@@ -1,5 +1,9 @@
 /**
- * manages box click events, i.e. if you click the header, the box is collapsed
+ * Collapse boxes when their header is clicked.
+ * 
+ * Also disallows tabbing into collapsed boxes and manages neat slide effects.
+ * 
+ * @exports Box
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

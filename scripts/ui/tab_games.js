@@ -1,6 +1,11 @@
 /**
- * No Description
+ * Model, View and Controller for the games tab.
  *
+ * This tab views the games, allows input of game results and submits them to
+ * the respective tournaments
+ *
+ * @exports Tab_Games
+ * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

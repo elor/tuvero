@@ -1,13 +1,14 @@
 /**
- * No Description
- *
+ * A data object which contains vote permission presets for swiss tournaments
+ * 
+ * @exports SwissPerms
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
 define(function () {
-  return {
+  var SwissPerms = {
     strict : {
       up : {
         up : false,
@@ -113,4 +114,6 @@ define(function () {
     // indicate that we don't want to change anything
     custom : undefined
   };
+
+  return SwissPerms;
 });

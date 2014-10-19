@@ -1,7 +1,9 @@
 # scripts/ui/debug.js
 
 
-some debugging functions
+some debugging functions, such as stack trace and whether it's a dev version
+
+* Exports: Debug
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -22,6 +24,6 @@ some debugging functions
 
 ## Metrics
 
-* 29 Lines
-* 714 Bytes
+* 31 Lines
+* 788 Bytes
 

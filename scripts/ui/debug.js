@@ -1,5 +1,7 @@
 /**
- * some debugging functions
+ * some debugging functions, such as stack trace and whether it's a dev version
+ * 
+ * @exports Debug
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

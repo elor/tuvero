@@ -1,7 +1,13 @@
 # scripts/ui/tab_new.js
 
 
-Tab_New handler
+Model, View and Controller of the "new" tab, which manages the tournaments.
+
+This tab allows allocating teams to (sub)tournaments, setting their rules
+and starting/closing them
+
+* Exports: Tab_New
+* Implements: ./tab
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -198,6 +204,6 @@ prepare a swiss tournament management box
 
 ## Metrics
 
-* 782 Lines
-* 20551 Bytes
+* 788 Lines
+* 20766 Bytes
 

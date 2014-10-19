@@ -1,6 +1,10 @@
 /**
- * No Description
+ * Model, View and Controller of the settings tab
  *
+ * This tab allows viewing and changing various settings of the program.
+ *
+ * @exports Tab_Settings
+ * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

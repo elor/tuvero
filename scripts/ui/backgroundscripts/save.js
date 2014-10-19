@@ -1,5 +1,6 @@
 /**
- * manages box click events, i.e. if you click the header, the box is collapsed
+ * Save button logic which initiates a file download of the current state for later loading
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

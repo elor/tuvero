@@ -1,8 +1,9 @@
 # scripts/ui/options.js
 
 
-returns an object with options, such as number of players, tournament name,
-...
+Options object, which contains options such as database keys, points, etc.
+
+* Exports: Options
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -28,6 +29,6 @@ No Dependencies
 
 ## Metrics
 
-* 61 Lines
-* 1250 Bytes
+* 62 Lines
+* 1266 Bytes
 

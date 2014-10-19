@@ -1,5 +1,9 @@
 /**
- * a list of teams with some accessor functions
+ * Managed list of registered teams
+ * 
+ * @exports Team
+ * @implements ./csver
+ * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

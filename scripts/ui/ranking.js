@@ -1,5 +1,8 @@
 /**
- * wrapper around the tournament ranking
+ * CSV export of tournament rankings
+ * 
+ * @exports Ranking
+ * @implements ./csver
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

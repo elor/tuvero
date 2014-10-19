@@ -1,6 +1,9 @@
 /**
- * No Description
- *
+ * Logic for viewing/hiding tabs.
+ * 
+ * Tabs are automatically read from the DOM during object construction.
+ * 
+ * @exports Tabs
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

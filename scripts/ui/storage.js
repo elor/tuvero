@@ -1,5 +1,7 @@
 /**
- * Storage API for persistent state
+ * Storage object, which binds storage keys to actual objects for storage and
+ * retrieval from a local storage
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

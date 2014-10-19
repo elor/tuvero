@@ -1,7 +1,8 @@
 # scripts/ui/backgroundscripts/print.js
 
 
-manages box click events, i.e. if you click the header, the box is collapsed
+Print button logic, which triggers printing the current tab to paper.
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -19,6 +20,6 @@ No exported functions
 
 ## Metrics
 
-* 15 Lines
-* 338 Bytes
+* 16 Lines
+* 335 Bytes
 

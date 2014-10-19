@@ -1,6 +1,11 @@
 /**
- * No Description
+ * Model, View and Controller of the ranking tab
+ * 
+ * This tab shows all results in tabulated form and is supposed to provide
+ * some kind of sorting functionality
  *
+ * @exports Tab_Ranking
+ * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

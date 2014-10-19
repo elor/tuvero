@@ -1,9 +1,10 @@
 # scripts/ui/history.js
 
 
-History of results, keyed by round and index.
+History of game results and votes for all tournaments.
 
-@return History
+* Implements: ../backend/blobber
+* Exports: History
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -237,6 +238,6 @@ a string represention with which to replace the current data
 
 ## Metrics
 
-* 508 Lines
-* 13668 Bytes
+* 509 Lines
+* 13712 Bytes
 

@@ -1,7 +1,8 @@
 /**
- * History of results, keyed by round and index.
+ * History of game results and votes for all tournaments.
  * 
- * @return History
+ * @implements ../backend/blobber
+ * @exports History
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

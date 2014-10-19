@@ -1,6 +1,9 @@
 /**
- * Tournaments is a list of _running_ tournaments, with null entries for
- * finished tournaments, but still keeping name and type information
+ * A list of all subtournaments, their teams, types, ids, rankings, and
+ * relationships after splitting or merging
+ * 
+ * @exports Tournaments 
+ * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

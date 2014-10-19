@@ -1,7 +1,12 @@
 # scripts/ui/update.js
 
 
-detect updates to the manifest, if available
+Manage the application cache and notify about available and finished updates
+
+The exported Update() function allows manually triggering an update check.
+Updates are automatically checked for on every pageload.
+
+@export Update
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -37,6 +42,6 @@ detect updates to the manifest, if available
 
 ## Metrics
 
-* 92 Lines
-* 2557 Bytes
+* 97 Lines
+* 2752 Bytes
 

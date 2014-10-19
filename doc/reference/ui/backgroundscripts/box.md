@@ -1,7 +1,11 @@
 # scripts/ui/backgroundscripts/box.js
 
 
-manages box click events, i.e. if you click the header, the box is collapsed
+Collapse boxes when their header is clicked.
+
+Also disallows tabbing into collapsed boxes and manages neat slide effects.
+
+* Exports: Box
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -25,6 +29,6 @@ manages box click events, i.e. if you click the header, the box is collapsed
 
 ## Metrics
 
-* 78 Lines
-* 1969 Bytes
+* 82 Lines
+* 2040 Bytes
 

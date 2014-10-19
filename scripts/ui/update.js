@@ -1,5 +1,10 @@
 /**
- * detect updates to the manifest, if available
+ * Manage the application cache and notify about available and finished updates
+ *
+ * The exported Update() function allows manually triggering an update check.
+ * Updates are automatically checked for on every pageload.
+ * 
+ * @export Update
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

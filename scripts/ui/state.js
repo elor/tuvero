@@ -1,6 +1,9 @@
 /**
- * interface for creating a singular blob for data necessary to continue the
- * state in a different user session.
+ * A singular object which represents the whole tournament state for the purpose
+ * of being read from and written to storage.
+ * 
+ * @exports State
+ * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

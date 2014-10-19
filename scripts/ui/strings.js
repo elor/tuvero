@@ -1,5 +1,9 @@
 /**
- * a list of teams with some accessor functions
+ * Strings for Toasts, headers, default contents and whatever you can think of.
+ * 
+ * TODO (in the reference:) show where and how each string is used
+ * 
+ * @exports Strings
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

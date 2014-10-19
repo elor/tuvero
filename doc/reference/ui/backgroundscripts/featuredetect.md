@@ -1,7 +1,9 @@
 # scripts/ui/backgroundscripts/featuredetect.js
 
 
-modernizr and own feature detections
+detect features and warn users when they're leaving the page if data will be lost
+
+* Exports: FeatureDetect
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -27,6 +29,6 @@ modernizr and own feature detections
 
 ## Metrics
 
-* 45 Lines
-* 1014 Bytes
+* 47 Lines
+* 1089 Bytes
 

@@ -1,9 +1,10 @@
 /**
  * GlobalRanking, an object to determine the global ranking for every player by
- * its current tournament id (lower has a higher rank) and its rank within the
- * tournament.
+ * its current tournament id and its rank within the tournament.
  * 
  * If two players are equally ranked, the lowest ID is first.
+ * 
+ * @exports GlobalRanking
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

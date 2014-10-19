@@ -1,7 +1,8 @@
 # scripts/ui/tabshandle.js
 
 
-a handle to all tabs for update purposes
+Initializes and returns the Tabs singleton, which manages the tab logic.
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -17,6 +18,6 @@ No exported functions
 
 ## Metrics
 
-* 10 Lines
-* 234 Bytes
+* 11 Lines
+* 270 Bytes
 

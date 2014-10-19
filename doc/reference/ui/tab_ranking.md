@@ -1,8 +1,13 @@
 # scripts/ui/tab_ranking.js
 
 
-No Description
+Model, View and Controller of the ranking tab
 
+This tab shows all results in tabulated form and is supposed to provide
+some kind of sorting functionality
+
+* Exports: Tab_Ranking
+* Implements: ./tab
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -85,6 +90,6 @@ retrieves the corrections and displays them in the correction table
 
 ## Metrics
 
-* 282 Lines
-* 7140 Bytes
+* 287 Lines
+* 7333 Bytes
 

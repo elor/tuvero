@@ -1,8 +1,11 @@
 # scripts/ui/state.js
 
 
-interface for creating a singular blob for data necessary to continue the
-state in a different user session.
+A singular object which represents the whole tournament state for the purpose
+of being read from and written to storage.
+
+* Exports: State
+* Implements: ../backend/blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -50,6 +53,6 @@ resets everything managed by Blob
 
 ## Metrics
 
-* 76 Lines
-* 1866 Bytes
+* 79 Lines
+* 1934 Bytes
 

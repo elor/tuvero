@@ -1,7 +1,9 @@
 # scripts/ui/storage.js
 
 
-Storage API for persistent state
+Storage object, which binds storage keys to actual objects for storage and
+retrieval from a local storage
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -65,6 +67,6 @@ this function indicates a change in the tournament state
 
 ## Metrics
 
-* 157 Lines
-* 3068 Bytes
+* 159 Lines
+* 3148 Bytes
 

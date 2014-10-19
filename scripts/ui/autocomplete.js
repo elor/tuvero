@@ -1,5 +1,7 @@
 /**
- * Manage autocomplete using typeahead.js
+ * Autocomplete playernames using typeahead.js
+ * 
+ * @exports Autocomplete
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

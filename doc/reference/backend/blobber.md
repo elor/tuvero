@@ -1,7 +1,8 @@
 # scripts/backend/blobber.js
 
 
-Interface for reading and writing to a blob
+Interface for reading and writing to a blob (arbitrary string representation)
+
 * Exports: Blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
@@ -24,6 +25,6 @@ No Dependencies
 
 ## Metrics
 
-* 19 Lines
-* 335 Bytes
+* 20 Lines
+* 373 Bytes
 

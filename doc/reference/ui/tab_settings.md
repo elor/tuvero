@@ -1,8 +1,12 @@
 # scripts/ui/tab_settings.js
 
 
-No Description
+Model, View and Controller of the settings tab
 
+This tab allows viewing and changing various settings of the program.
+
+* Exports: Tab_Settings
+* Implements: ./tab
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -114,6 +118,6 @@ reset an initial state
 
 ## Metrics
 
-* 354 Lines
-* 8363 Bytes
+* 358 Lines
+* 8517 Bytes
 

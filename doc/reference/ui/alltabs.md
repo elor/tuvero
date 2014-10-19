@@ -1,7 +1,10 @@
 # scripts/ui/alltabs.js
 
 
-Load and manage all tabs centrally
+Wrap all tabs into a single object for centralized updates
+
+* Exports: Alltabs
+* Implements: ./tab
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -38,6 +41,6 @@ Load and manage all tabs centrally
 
 ## Metrics
 
-* 45 Lines
-* 968 Bytes
+* 48 Lines
+* 1037 Bytes
 

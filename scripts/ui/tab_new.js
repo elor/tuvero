@@ -1,5 +1,11 @@
 /**
- * Tab_New handler
+ * Model, View and Controller of the "new" tab, which manages the tournaments.
+ * 
+ * This tab allows allocating teams to (sub)tournaments, setting their rules
+ * and starting/closing them
+ * 
+ * @exports Tab_New
+ * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

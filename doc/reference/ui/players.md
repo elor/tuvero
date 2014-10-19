@@ -1,7 +1,10 @@
 # scripts/ui/players.js
 
 
-Maintain a sorted list of player names
+Maintain a sorted list of possible player names for autocompletion
+
+* Exports: Players
+* Implements: ../backend/blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -56,6 +59,6 @@ Maintain a sorted list of player names
 
 ## Metrics
 
-* 118 Lines
-* 2346 Bytes
+* 121 Lines
+* 2432 Bytes
 

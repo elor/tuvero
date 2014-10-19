@@ -1,7 +1,10 @@
 # scripts/ui/ranking.js
 
 
-wrapper around the tournament ranking
+CSV export of tournament rankings
+
+* Exports: Ranking
+* Implements: ./csver
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -32,6 +35,6 @@ converts ranking and correction information to a csv string
 
 ## Metrics
 
-* 116 Lines
-* 3264 Bytes
+* 120 Lines
+* 3308 Bytes
 

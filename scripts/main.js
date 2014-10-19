@@ -1,5 +1,8 @@
 /**
- * No Description
+ * First file to load.
+ *
+ * Starts loading all other files, initializes everything and manages the splash
+ * screen and load errors
  *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

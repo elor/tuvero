@@ -1,6 +1,10 @@
 /**
- * checks for the hash '#reset' and resets the localStorage, if it is ever
- * visited
+ * Clears all stored data when the user visits the '#reset' target.
+ * 
+ * This is intended as a fallback solution when loading fails or old saves are
+ * no longer compatible. Do not use this for clearing the storage, because the
+ * page will be reloaded unnecessarily.
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

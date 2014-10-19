@@ -1,5 +1,6 @@
 /**
- * manages box click events, i.e. if you click the header, the box is collapsed
+ * Print button logic, which triggers printing the current tab to paper.
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

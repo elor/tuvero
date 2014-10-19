@@ -1,7 +1,11 @@
 # scripts/ui/strings.js
 
 
-a list of teams with some accessor functions
+Strings for Toasts, headers, default contents and whatever you can think of.
+
+TODO (in the reference:) show where and how each string is used
+
+* Exports: Strings
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -17,6 +21,6 @@ No exported functions
 
 ## Metrics
 
-* 104 Lines
-* 4841 Bytes
+* 108 Lines
+* 4968 Bytes
 

@@ -1,5 +1,8 @@
 /**
- * Maintain a sorted list of player names
+ * Maintain a sorted list of possible player names for autocompletion
+ * 
+ * @exports Players
+ * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

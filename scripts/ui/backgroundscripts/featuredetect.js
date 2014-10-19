@@ -1,5 +1,7 @@
 /**
- * modernizr and own feature detections
+ * detect features and warn users when they're leaving the page if data will be lost
+ * 
+ * @exports FeatureDetect
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

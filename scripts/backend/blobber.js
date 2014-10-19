@@ -1,5 +1,6 @@
 /**
- * Interface for reading and writing to a blob
+ * Interface for reading and writing to a blob (arbitrary string representation)
+ * 
  * @exports Blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

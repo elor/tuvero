@@ -122,7 +122,7 @@ Warning: scripts/ui/history.js: undocumented: 'getCorrections : function'
 Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 19
-Warning: scripts/ui/history.js: > 400 lines: 508
+Warning: scripts/ui/history.js: > 400 lines: 509
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
@@ -163,7 +163,7 @@ Warning: scripts/ui/tab_debug.js: undocumented: 'function updateForms'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function initDevContents'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function init'
 Warning: scripts/ui/tab_debug.js: > 10 functions: 15
-Warning: scripts/ui/tab_debug.js: > 400 lines: 445
+Warning: scripts/ui/tab_debug.js: > 400 lines: 446
 Warning: scripts/ui/tab_games.js: > 5 dependencies: 15
 Warning: scripts/ui/tab_games.js: undocumented: 'function isInt'
 Warning: scripts/ui/tab_games.js: undocumented: 'function initGameTemplate'
@@ -177,7 +177,7 @@ Warning: scripts/ui/tab_games.js: undocumented: 'function maxwidthtest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function shownamestest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function init'
 Warning: scripts/ui/tab_games.js: > 10 functions: 24
-Warning: scripts/ui/tab_games.js: > 400 lines: 592
+Warning: scripts/ui/tab_games.js: > 400 lines: 597
 Warning: scripts/ui/tab_history.js: > 5 dependencies: 15
 Warning: scripts/ui/tab_history.js: undocumented: 'function formatNamesHTML'
 Warning: scripts/ui/tab_history.js: undocumented: 'function isInt'
@@ -252,7 +252,7 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
 Warning: scripts/ui/tab_new.js: > 10 functions: 39
-Warning: scripts/ui/tab_new.js: > 400 lines: 782
+Warning: scripts/ui/tab_new.js: > 400 lines: 788
 Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 11
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
@@ -323,7 +323,7 @@ Warning: scripts/ui/tab_teams.js: undocumented: 'function updateAfterTeamAdd'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateActiveState'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function update'
 Warning: scripts/ui/tab_teams.js: > 10 functions: 37
-Warning: scripts/ui/tab_teams.js: > 400 lines: 699
+Warning: scripts/ui/tab_teams.js: > 400 lines: 704
 Warning: scripts/ui/test/tab.js: undocumented: 'clear : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'update : function'

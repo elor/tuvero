@@ -1,6 +1,7 @@
 /**
- * returns an object with options, such as number of players, tournament name,
- * ...
+ * Options object, which contains options such as database keys, points, etc.
+ * 
+ * @exports Options
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

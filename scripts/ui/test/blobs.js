@@ -1,13 +1,9 @@
 /**
- * No Description
+ * Unit tests for the Blobber interface
  *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
- */
-
-/*
- * Tab Test
  */
 define(function () {
   return function (QUnit, getModule) {

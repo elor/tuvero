@@ -1,6 +1,11 @@
 /**
- * No Description
+ * Model, View and Controller of the teams tab
+ * 
+ * This tab allows registration, deletion, renaming and printing of teams or
+ * individual players
  *
+ * @exports Tab_Teams
+ * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

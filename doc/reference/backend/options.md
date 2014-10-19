@@ -1,9 +1,13 @@
 # scripts/backend/options.js
 
 
-define, store, read and write options of arbitrary type
+Provide functions to define, store, read and write options objects of
+arbitrary type. Can be used by other code to maintain their internal set of
+options
 
 Undefined behavior (most likely infinite loops) on nesting loops
+
+* Exports: Options
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -90,6 +94,6 @@ the blob
 
 ## Metrics
 
-* 134 Lines
-* 2808 Bytes
+* 138 Lines
+* 2936 Bytes
 

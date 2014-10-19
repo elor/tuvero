@@ -1,5 +1,8 @@
 /**
- * Load and manage all tabs centrally
+ * Wrap all tabs into a single object for centralized updates
+ * 
+ * @exports Alltabs
+ * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

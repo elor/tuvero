@@ -1,9 +1,16 @@
 # scripts/ui/toast.js
 
 
-A Toast is a small text which shows for a short period of time before
-disappearing. You can supply a jquery object handle as str if you want to
-insert an html node instead of text
+A Toast is a small text which is visible for a short period of time before
+disappearing.
+
+You can supply a jquery object handle as str if you want to
+insert an html node instead of text.
+
+Toast duration can be set at Toast construction or controlled via a close()
+function
+
+* Exports: Toast
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -55,6 +62,6 @@ insert an html node instead of text
 
 ## Metrics
 
-* 187 Lines
-* 4673 Bytes
+* 194 Lines
+* 4803 Bytes
 

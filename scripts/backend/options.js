@@ -1,7 +1,11 @@
 /**
- * define, store, read and write options of arbitrary type
+ * Provide functions to define, store, read and write options objects of
+ * arbitrary type. Can be used by other code to maintain their internal set of
+ * options
  * 
  * Undefined behavior (most likely infinite loops) on nesting loops
+ * 
+ * @exports Options
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

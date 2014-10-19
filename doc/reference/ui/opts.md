@@ -1,7 +1,12 @@
 # scripts/ui/opts.js
 
 
-provides getOptions and setOptions functions
+wrapper around the backend options interface, to minimize confusion between
+them and the ./options object.
+
+TODO rename to further reduce naming confusion
+
+* Exports: Opts
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -17,6 +22,6 @@ No exported functions
 
 ## Metrics
 
-* 9 Lines
-* 224 Bytes
+* 16 Lines
+* 391 Bytes
 

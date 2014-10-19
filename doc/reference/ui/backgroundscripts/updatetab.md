@@ -1,7 +1,8 @@
 # scripts/ui/backgroundscripts/updatetab.js
 
 
-manages box click events, i.e. if you click the header, the box is collapsed
+Logic of the reload button, which forces an update of the tab it's in
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -21,6 +22,6 @@ manages box click events, i.e. if you click the header, the box is collapsed
 
 ## Metrics
 
-* 31 Lines
-* 719 Bytes
+* 32 Lines
+* 716 Bytes
 

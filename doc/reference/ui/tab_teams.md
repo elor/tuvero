@@ -1,8 +1,13 @@
 # scripts/ui/tab_teams.js
 
 
-No Description
+Model, View and Controller of the teams tab
 
+This tab allows registration, deletion, renaming and printing of teams or
+individual players
+
+* Exports: Tab_Teams
+* Implements: ./tab
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -193,6 +198,6 @@ init, clear and reset all in one
 
 ## Metrics
 
-* 699 Lines
-* 15799 Bytes
+* 704 Lines
+* 15974 Bytes
 

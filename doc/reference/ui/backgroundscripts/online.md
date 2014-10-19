@@ -1,7 +1,12 @@
 # scripts/ui/backgroundscripts/online.js
 
 
-Am I online or offline?
+Supports Online(), which returns true if the browser is online.
+
+Also notifies if the user wants to leave the page while offline, but cannot
+re-open it because it's not in the cache
+
+* Exports: Online
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -23,6 +28,6 @@ Am I online or offline?
 
 ## Metrics
 
-* 48 Lines
-* 1022 Bytes
+* 53 Lines
+* 1212 Bytes
 

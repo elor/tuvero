@@ -1,7 +1,9 @@
 # scripts/ui/splash.js
 
 
-removes the splash screen after pageload
+Manage the state and visibility of the splash screen
+
+* Exports: Splash
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -45,6 +47,6 @@ removes the splash screen after pageload
 
 ## Metrics
 
-* 58 Lines
-* 1067 Bytes
+* 60 Lines
+* 1102 Bytes
 

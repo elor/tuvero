@@ -1,7 +1,9 @@
 # scripts/ui/autocomplete.js
 
 
-Manage autocomplete using typeahead.js
+Autocomplete playernames using typeahead.js
+
+* Exports: Autocomplete
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -31,6 +33,6 @@ Manage autocomplete using typeahead.js
 
 ## Metrics
 
-* 55 Lines
-* 1212 Bytes
+* 57 Lines
+* 1246 Bytes
 

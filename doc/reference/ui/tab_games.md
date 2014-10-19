@@ -1,8 +1,13 @@
 # scripts/ui/tab_games.js
 
 
-No Description
+Model, View and Controller for the games tab.
 
+This tab views the games, allows input of game results and submits them to
+the respective tournaments
+
+* Exports: Tab_Games
+* Implements: ./tab
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -144,6 +149,6 @@ reset an original game state, respecting the current state of Swiss
 
 ## Metrics
 
-* 592 Lines
-* 14199 Bytes
+* 597 Lines
+* 14384 Bytes
 
