@@ -1,11 +1,10 @@
 # scripts/ui/backgroundscripts/box.js
 
 
-Collapse boxes when their header is clicked.
+create BoxViews for every div.box
 
-Also disallows tabbing into collapsed boxes and manages neat slide effects.
+TODO remove this file in favor of subviewed boxes
 
-* Exports: Box
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -13,22 +12,16 @@ Also disallows tabbing into collapsed boxes and manages neat slide effects.
 
 ## Dependencies
 
-
+* <a href="../boxview.html">../boxview</a>
 * JQuery
 
 
 ## Functions
 
-###     reset : function ()
-
----
-
-###     function setTabbing ($box)
-
----
+No exported functions
 
 ## Metrics
 
-* 82 Lines
-* 2040 Bytes
+* 20 Lines
+* 430 Bytes
 

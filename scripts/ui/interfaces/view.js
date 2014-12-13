@@ -15,8 +15,8 @@ define(function () {
    *          A jQuery object which is represented by this view
    */
   function View (model, $view) {
-    this.$view = $view;
     this.model = model;
+    this.$view = $view;
 
     this.model.registerListener(this);
   }
@@ -48,24 +48,19 @@ define(function () {
   };
 
   /**
-   * detach the whole view before removing it
+   * Detach the whole view from its container before removing it
    */
   View.prototype.detach = function () {
     this.$view.detach();
   };
 
   /**
-   * attach the whole view to the end of the container
+   * get the jQuery object (this.$view)
    * 
-   * @param $container
-   *          a jQuery object to which the view is attached
+   * @returns this.$view
    */
-  View.prototype.attach = function ($container) {
-    $container.append(this.$view);
-  };
-
-  View.prototype.onupdate = function () {
-    this.update;
+  View.prototype.getElem = function () {
+    return this.$view;
   };
 
   return View;

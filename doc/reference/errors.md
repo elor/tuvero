@@ -86,7 +86,7 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 64
+Warning: scripts/common.js: > 5 dependencies: 67
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
@@ -100,8 +100,6 @@ Warning: scripts/ui/alltabs.js: undocumented: 'setOptions : function'
 Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.clear = function'
 Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.reset = function'
 Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.update = function'
-Warning: scripts/ui/backgroundscripts/box.js: undocumented: 'reset : function'
-Warning: scripts/ui/backgroundscripts/box.js: undocumented: 'function setTabbing'
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'function confirmLeave'
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'window.onbeforeunload = function'
 Warning: scripts/ui/backgroundscripts/reset.js: undocumented: 'function hashcheck'
@@ -123,12 +121,6 @@ Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 19
 Warning: scripts/ui/history.js: > 400 lines: 509
-Warning: scripts/ui/interfaces/emitter.js: undocumented: 'function Emitter'
-Warning: scripts/ui/interfaces/test/emitter.js: undocumented: 'onundefined : function'
-Warning: scripts/ui/interfaces/test/emitter.js: undocumented: 'onreset : function'
-Warning: scripts/ui/interfaces/test/emitter.js: undocumented: 'onevent : function'
-Warning: scripts/ui/interfaces/test/emitter.js: undocumented: 'onevent : function'
-Warning: scripts/ui/interfaces/view.js: undocumented: 'View.prototype.onupdate = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'

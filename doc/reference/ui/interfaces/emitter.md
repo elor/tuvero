@@ -15,8 +15,10 @@ No Dependencies
 ## Functions
 
 ###   function Emitter ()
+Constructor
 
 ---
+
 
 ###   Emitter.prototype.emit = function (event)
 Emits an event to all registered listeners by calling the callback
@@ -62,6 +64,6 @@ registered
 
 ## Metrics
 
-* 76 Lines
-* 1884 Bytes
+* 79 Lines
+* 1913 Bytes
 

@@ -1,5 +1,5 @@
 /**
- * Event Emitter tests 
+ * Event Emitter tests
  * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -16,15 +16,24 @@ define(function () {
       var emitter, listener, listener2, eventcounter, resetcounter, retval;
 
       eventcounter = resetcounter = 0;
-      
+
       listener = {
+        /**
+         * test function
+         */
         onundefined : function (_emitter, event) {
           this.onreset();
         },
+        /**
+         * test function
+         */
         onreset : function (_emitter, event) {
           eventcounter = 0;
           resetcounter += 1;
         },
+        /**
+         * test function
+         */
         onevent : function (_emitter, event) {
           eventcounter += 1;
           QUnit.equal(this, listener, "onevent(): this equals listener");
@@ -34,6 +43,9 @@ define(function () {
       };
 
       listener2 = {
+        /**
+         * test function
+         */
         onevent : function (_emitter, event) {
           eventcounter += 1;
         }

@@ -52,27 +52,21 @@ show the whole view (after hiding it)
 
 
 ###   View.prototype.detach = function ()
-detach the whole view before removing it
+Detach the whole view from its container before removing it
 
 ---
 
 
-###   View.prototype.attach = function ($container)
-attach the whole view to the end of the container
-
-**Argument:** **$container**
-
-a jQuery object to which the view is attached
-
----
+###   View.prototype.getElem = function ()
+get the jQuery object (this.$view)
 
 
-###   View.prototype.onupdate = function ()
+**Returns:** s this.$view
 
 ---
 
 ## Metrics
 
-* 72 Lines
-* 1359 Bytes
+* 67 Lines
+* 1219 Bytes
 

@@ -10,12 +10,24 @@
 	including model.js
 
 	* scripts/ui/interfaces/control.js: MVC base classes added
+	moved to controller.js
 
 	* scripts/ui/interfaces/model.js: MVC base classes added
 
 	* scripts/ui/interfaces/view.js: MVC base classes added
+	attach() removed, getElem() added
 
 	* scripts/ui/interfaces/test/model.js: model test added
+
+	* scripts/ui/backgroundscripts/box.js: using BoxView for every box
+
+	* scripts/ui/boxcontroller.js: controller for BoxView
+
+	* scripts/ui/boxview.js: View for collapsing and expanding boxes
+
+	* scripts/ui/dummymodel.js: model without special logic code, but emitter capabilities
+
+	* scripts/ui/interfaces/controller.js: moved from control.js
 
 2014-10-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -6,6 +6,9 @@
  * @see LICENSE
  */
 define(function () {
+  /**
+   * Constructor
+   */
   function Emitter () {
     this.listeners = [];
   }
