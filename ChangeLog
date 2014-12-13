@@ -7,6 +7,15 @@
 	* build-scripts/write-scripts.sh: including test directories in the third level
 
 	* scripts/test.js: including emitter.js
+	including model.js
+
+	* scripts/ui/interfaces/control.js: MVC base classes added
+
+	* scripts/ui/interfaces/model.js: MVC base classes added
+
+	* scripts/ui/interfaces/view.js: MVC base classes added
+
+	* scripts/ui/interfaces/test/model.js: model test added
 
 2014-10-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

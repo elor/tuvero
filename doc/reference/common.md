@@ -32,6 +32,7 @@ Do not attempt manual changes
 * <a href="backend/swisstournament.html">backend/swisstournament</a>
 * <a href="backend/tournament.html">backend/tournament</a>
 * <a href="backend/vector.html">backend/vector</a>
+* lib/extend
 * lib/FileSaver
 * lib/implements
 * lib/jsPlumb
@@ -49,6 +50,10 @@ Do not attempt manual changes
 * <a href="ui/debug.html">ui/debug</a>
 * <a href="ui/globalranking.html">ui/globalranking</a>
 * <a href="ui/history.html">ui/history</a>
+* <a href="ui/interfaces/control.html">ui/interfaces/control</a>
+* <a href="ui/interfaces/emitter.html">ui/interfaces/emitter</a>
+* <a href="ui/interfaces/model.html">ui/interfaces/model</a>
+* <a href="ui/interfaces/view.html">ui/interfaces/view</a>
 * <a href="ui/options.html">ui/options</a>
 * <a href="ui/opts.html">ui/opts</a>
 * <a href="ui/players.html">ui/players</a>
@@ -82,6 +87,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 102 Lines
-* 2162 Bytes
+* 107 Lines
+* 2281 Bytes
 

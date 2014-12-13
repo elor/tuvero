@@ -1,7 +1,7 @@
 # scripts/ui/interfaces/test/emitter.js
 
 
-
+Event Emitter tests 
 
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
@@ -33,5 +33,5 @@ No Dependencies
 ## Metrics
 
 * 73 Lines
-* 2403 Bytes
+* 2423 Bytes
 
