@@ -1,3 +1,13 @@
+2014-12-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/interfaces/emitter.js: event emitter class added
+
+	* scripts/ui/interfaces/test/emitter.js: tests for emitter.js
+
+	* build-scripts/write-scripts.sh: including test directories in the third level
+
+	* scripts/test.js: including emitter.js
+
 2014-10-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/update-headers.sh: automatically inserting author and license information

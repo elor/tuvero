@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define([ 'common', 'lib/qunit', './backend/test/gameresultscorrection', './backend/test/kotournament', './backend/test/map', './backend/test/matrix', './backend/test/random', './backend/test/ranking', './backend/test/rleblobber', './backend/test/swisstournament', './backend/test/vector', './ui/test/blobs', './ui/test/csv', './ui/test/tab' ], function(Common, QUnit){
+define([ 'common', 'lib/qunit', './ui/interfaces/test/emitter', './backend/test/gameresultscorrection', './backend/test/kotournament', './backend/test/map', './backend/test/matrix', './backend/test/random', './backend/test/ranking', './backend/test/rleblobber', './backend/test/swisstournament', './backend/test/vector', './ui/test/blobs', './ui/test/csv', './ui/test/tab' ], function(Common, QUnit){
   var i;
   function myrequire (str) {
     return require.s.contexts._.defined[str];

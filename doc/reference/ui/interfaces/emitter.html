@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>scripts/ui/interfaces/emitter.js Reference</title>
+</head>
+<body>
+<a href="../../index.html">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>scripts/ui/interfaces/emitter.js</h1>
+<p>An event emitter class</p>
+<ul>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<p>No Dependencies</p>
+<h2>Functions</h2>
+<h3>function Emitter ()</h3>
+<hr />
+<h3>Emitter.prototype.emit = function (event)</h3>
+<p>Emits an event to all registered listeners by calling the callback
+functions of format 'on'+event, if available</p>
+<p>The callback functions' parameters are the emitter (this) and the event
+string (without 'on'), in this order.</p>
+<p><strong>Argument:</strong> <strong>event</strong></p>
+<p>a string containing the name of the event. Callback functions need
+to have a function name in the format 'on'+event</p>
+<p><strong>Returns:</strong> s true if the some listener received the event, false otherwise</p>
+<hr />
+<h3>Emitter.prototype.registerListener = function (listener)</h3>
+<p>register an event listener</p>
+<p><strong>Argument:</strong> <strong>listener</strong></p>
+<p>an event listener instance, which should define the necessary
+callback functions</p>
+<p><strong>Returns:</strong> s this</p>
+<hr />
+<h3>Emitter.prototype.unregisterListener = function (listener)</h3>
+<p>Makes sure that the event listener is not receiving event callbacks anymore</p>
+<p><strong>Argument:</strong> <strong>listener</strong></p>
+<p>an instance of the View class, which may have already been
+registered</p>
+<p><strong>Returns:</strong> s this</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>76 Lines</li>
+<li>1884 Bytes</li>
+</ul>
+</body>
+</html>

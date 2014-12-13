@@ -22,6 +22,7 @@ This file is automatically created on build. Do not attempt manual changes
 * <a href="./backend/test/vector.html">./backend/test/vector</a>
 * <a href="common.html">common</a>
 * lib/qunit
+* <a href="./ui/interfaces/test/emitter.html">./ui/interfaces/test/emitter</a>
 * <a href="./ui/test/blobs.html">./ui/test/blobs</a>
 * <a href="./ui/test/csv.html">./ui/test/csv</a>
 * <a href="./ui/test/tab.html">./ui/test/tab</a>
@@ -35,5 +36,5 @@ This file is automatically created on build. Do not attempt manual changes
 ## Metrics
 
 * 20 Lines
-* 790 Bytes
+* 822 Bytes
 

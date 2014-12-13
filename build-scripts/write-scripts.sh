@@ -5,7 +5,7 @@
 cd scripts || exit 1
 
 createTestJS(){
-    files=`echo ./*/test/*.js`
+    files=`echo ./*/{*/,}test/*.js`
     files=${files//.js/}
     files=${files// /\', \'}
 
