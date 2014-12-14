@@ -1,3 +1,9 @@
+2014-12-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/splash.js: unnecessary css class removed
+
+	* style/splash.css: transition positioning fixed. Shouldn't stutter anymore
+
 2014-12-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/interfaces/emitter.js: event emitter class added

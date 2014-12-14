@@ -1,9 +1,8 @@
 #splash {
   width: 30em;
   min-height: 15em;
-  margin: 2.5em auto 9.5em auto;
+  margin: 2.5em auto 0em auto;
   padding: 2.5em 4em;
-  clear: both;
   border-radius: 1em 1em 1em 1em;
   background-color: #ffffff;
   text-align: center;
@@ -32,7 +31,7 @@
 
 body:not(.splash) #splash {
   transition: margin-top 1s;
-  margin-top: -25em;
+  margin-top: -20em;
 }
 
 #splash.hidden {

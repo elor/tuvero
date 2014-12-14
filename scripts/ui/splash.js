@@ -47,7 +47,6 @@ define(function () {
 
       setTimeout(function () {
         $splash.addClass('hidden');
-        $splash.removeClass('hiding');
       }, 1000);
     };
 
