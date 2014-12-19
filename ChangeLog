@@ -1,3 +1,13 @@
+2014-12-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* style/boxview.css: trying to use different css files for every major view type
+
+	* style/general.css: .box declarations moved to boxview.css
+
+	* style/mainstyle.css: loading boxview.css
+
+	* test/boxview.html: boxview test page added
+
 2014-12-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/splash.js: unnecessary css class removed
