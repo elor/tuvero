@@ -21,7 +21,7 @@ define([ 'lib/extend', './dummymodel', './interfaces/view', './boxcontroller' ],
 
     enable = !$box.hasClass('collapsed');
 
-    $inputs = $box.find('a, button, input, select');
+    $inputs = $box.find('a, button, input, select, textarea');
 
     for (i = 0; i < $inputs.length; i += 1) {
       $input = $inputs.eq(i);
@@ -100,6 +100,9 @@ define([ 'lib/extend', './dummymodel', './interfaces/view', './boxcontroller' ],
     // reset the transition value
     setTimeout(function () {
       $box.css('transition', '');
+      if (!$box.hasClass('collapsed')) {
+        $box.css('height', '');
+      }
     }, 500);
   };
 

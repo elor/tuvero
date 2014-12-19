@@ -8,6 +8,9 @@
 
 	* test/boxview.html: boxview test page added
 
+	* scripts/ui/boxview.js: collapsed boxes: textarea tabbing disabled
+	using default sizes (content-wrapping) after expanding
+
 2014-12-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/splash.js: unnecessary css class removed
