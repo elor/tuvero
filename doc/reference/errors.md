@@ -86,7 +86,7 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 67
+Warning: scripts/common.js: > 5 dependencies: 69
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
@@ -213,6 +213,7 @@ Warning: scripts/ui/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/tab.js: undocumented: 'update : function'
 Warning: scripts/ui/tab.js: undocumented: 'getOptions : function'
 Warning: scripts/ui/tab.js: undocumented: 'setOptions : function'
+Warning: scripts/ui/tableview.js: undocumented: 'function validateText'
 Warning: scripts/ui/tab_new.js: > 5 dependencies: 18
 Warning: scripts/ui/tab_new.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_new.js: undocumented: 'function initRename'

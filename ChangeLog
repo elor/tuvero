@@ -1,3 +1,13 @@
+2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/common.js: ui/tablemodel and ui/tableview added
+
+	* scripts/ui/tablemodel.js: simple model for tableview testing
+
+	* scripts/ui/tableview.js: TableView class for showing text-based non-interactive tables
+
+	* test/tableview.html: TableView test case
+
 2014-12-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/boxview.css: trying to use different css files for every major view type

@@ -47,6 +47,6 @@ Manage the state and visibility of the splash screen
 
 ## Metrics
 
-* 60 Lines
-* 1102 Bytes
+* 59 Lines
+* 1063 Bytes
 

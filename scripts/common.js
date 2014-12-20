@@ -96,6 +96,8 @@ define([
   "ui/tab_games",
   "ui/tab_history",
   "ui/tab",
+  "ui/tablemodel",
+  "ui/tableview",
   "ui/tab_new",
   "ui/tab_ranking",
   "ui/tab_settings",

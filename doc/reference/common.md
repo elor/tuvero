@@ -70,6 +70,8 @@ Do not attempt manual changes
 * <a href="ui/tab_debug.html">ui/tab_debug</a>
 * <a href="ui/tab_games.html">ui/tab_games</a>
 * <a href="ui/tab_history.html">ui/tab_history</a>
+* <a href="ui/tablemodel.html">ui/tablemodel</a>
+* <a href="ui/tableview.html">ui/tableview</a>
 * <a href="ui/tab_new.html">ui/tab_new</a>
 * <a href="ui/tab_ranking.html">ui/tab_ranking</a>
 * <a href="ui/tabs.html">ui/tabs</a>
@@ -90,6 +92,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 110 Lines
-* 2341 Bytes
+* 112 Lines
+* 2378 Bytes
 
