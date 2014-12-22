@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Test %VERSION%</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="../style/boxview.css" />
+  </head>
+
+  <body>
+
+    <div>
+      You should not see this
+    </div>
+
+  </body>
+  
+  <script src="../scripts/lib/require.js"></script>
+  <script>
+    require.config({
+      baseUrl: '../scripts',
+    });
+    
+    require(['ui/listview', 'ui/listmodel', 'lib/jquery'], function(ListView, ListModel, undefined){
+      var $view, view, model;
+
+      $view = $('div').eq(0);
+      model = new ListModel();
+      view = new ListView($view, model);
+
+      model.emit('update');
+    });
+  </script>
+
+</html>

@@ -8,7 +8,7 @@
  */
 
 define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (extend, View, BoxController) {
-  var TableView, $template;
+  var TableView;
 
   function validateText (text) {
     if (text === undefined) {

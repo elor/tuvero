@@ -1,3 +1,13 @@
+2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/listmodel.js: ListModel added
+
+	* scripts/ui/listview.js: ListView added
+
+	* scripts/ui/tableview.js: TableView: unused $template variable removed
+
+	* test/listview.html: ListView test added
+
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/common.js: ui/tablemodel and ui/tableview added
