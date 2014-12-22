@@ -1,0 +1,20 @@
+#home {
+  text-align: center;
+}
+
+#home > .box {
+  vertical-align: middle;
+  max-width: 50em;
+  display: inline-block;
+}
+
+#home > .box > button,
+#home > .box > a[data-img] {
+  margin: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#home > .firststeps {
+  text-align: left
+}

@@ -21,6 +21,17 @@
 
 	* scripts/ui/tab_teams.js: #41 fixed: trying to create a team with an empty player name focuses the empty text field
 
+	* index.html: content added to home tab
+	showing a WiP message on the lanes tab
+
+	* style/buttons.css: only float buttons which are direct children of a tab
+
+	* style/home.css: home tab stylesheet added
+
+	* style/lanes.css: showing a WiP message on the lanes tab
+
+	* style/mainstyle.css: home.css included
+
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/common.js: ui/tablemodel and ui/tableview added

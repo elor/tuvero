@@ -2,10 +2,12 @@
 #tabs button.save,
 #tabs button.reloadtab
  {
-  float: left;
   padding: 0.25em;
   border-radius: 10px;
   background-color: #d0d0d0;
   cursor: pointer;
 }
 
+#tabs > button {
+  float: left;
+}
