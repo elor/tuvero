@@ -8,6 +8,8 @@
   cursor: pointer;
 }
 
-#tabs > div > button {
+#tabs > div > button.print,
+#tabs > div > button.save,
+#tabs > div > button.reloadtab {
   float: left;
 }
