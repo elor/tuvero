@@ -1,9 +1,9 @@
 /**
  * Model, View and Controller for the games tab.
- *
+ * 
  * This tab views the games, allows input of game results and submits them to
  * the respective tournaments
- *
+ * 
  * @exports Tab_Games
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -13,7 +13,7 @@
 
 define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
     './history', './tab_history', './storage', './options', './tab',
-    './tabshandle', './tournaments', './shared' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Tab, Tabshandle, Tournaments, Shared) {
+    './tabshandle', './tournaments', './shared', './boxview' ], function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History, Tab_History, Storage, Options, Tab, Tabshandle, Tournaments, Shared, BoxView) {
   var Tab_Games, $tab, template, games, $games, $tournaments, updatependng;
 
   updatepending = false;
@@ -183,6 +183,8 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
       template.$boxname.text(Tournaments.getName(tournamentid) + ' - Runde ' + round);
       $box = template.$box.clone();
+
+      new BoxView($box);
 
       notempty = false;
 

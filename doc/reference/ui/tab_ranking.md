@@ -3,8 +3,8 @@
 
 Model, View and Controller of the ranking tab
 
-This tab shows all results in tabulated form and is supposed to provide
-some kind of sorting functionality
+This tab shows all results in tabulated form and is supposed to provide some
+kind of sorting functionality
 
 * Exports: Tab_Ranking
 * Implements: ./tab
@@ -15,6 +15,7 @@ some kind of sorting functionality
 
 ## Dependencies
 
+* <a href="./boxview.html">./boxview</a>
 * <a href="./history.html">./history</a>
 * <a href="./options.html">./options</a>
 * <a href="./shared.html">./shared</a>
@@ -76,10 +77,6 @@ retrieves the corrections and displays them in the correction table
 
 ---
 
-###   function CHEAPHACKcollapseBox($box)
-
----
-
 ###   function updateTournamentRankings ()
 
 ---
@@ -90,6 +87,6 @@ retrieves the corrections and displays them in the correction table
 
 ## Metrics
 
-* 287 Lines
-* 7333 Bytes
+* 281 Lines
+* 7226 Bytes
 

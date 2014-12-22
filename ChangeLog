@@ -23,14 +23,22 @@
 
 	* index.html: content added to home tab
 	showing a WiP message on the lanes tab
+	home tab: tiny text change
 
 	* style/buttons.css: only float buttons which are direct children of a tab
+	invalid CSS selector fixed
 
 	* style/home.css: home tab stylesheet added
 
 	* style/lanes.css: showing a WiP message on the lanes tab
 
 	* style/mainstyle.css: home.css included
+
+	* scripts/ui/tab_games.js: using BoxView for auto-generated boxes
+
+	* scripts/ui/tab_history.js: using BoxView for auto-generated boxes
+
+	* scripts/ui/tab_ranking.js: using BoxView for auto-generated boxes
 
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

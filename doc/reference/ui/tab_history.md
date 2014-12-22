@@ -11,6 +11,7 @@ No Description
 ## Dependencies
 
 * <a href="../backend/game.html">../backend/game</a>
+* <a href="./boxview.html">./boxview</a>
 * <a href="./history.html">./history</a>
 * lib/jsPlumb
 * <a href="./options.html">./options</a>
@@ -109,10 +110,6 @@ id of the team receiving a bye
 
 ---
 
-###   function CHEAPHACKcollapseBox($box)
-
----
-
 ###   function isNumeric (obj)
 borrowed from jQuery
 
@@ -208,6 +205,6 @@ removes and redraws all boxes from History
 
 ## Metrics
 
-* 985 Lines
-* 27018 Bytes
+* 982 Lines
+* 26958 Bytes
 

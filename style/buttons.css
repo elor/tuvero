@@ -8,6 +8,6 @@
   cursor: pointer;
 }
 
-#tabs > button {
+#tabs > div > button {
   float: left;
 }

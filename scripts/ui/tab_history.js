@@ -1,6 +1,6 @@
 /**
  * No Description
- *
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -8,7 +8,7 @@
 
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './tab', './team',
-    './options', './shared', 'lib/jsPlumb' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Tab, Team, Options, Shared, jsPlumb) {
+    './options', './shared', 'lib/jsPlumb', './boxview' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Tab, Team, Options, Shared, jsPlumb, BoxView) {
   var Tab_History, $tab, template, currentround, $button, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;
@@ -475,19 +475,14 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
         $tab.append($box);
         $box.data('tournamentid', tournamentid);
         if (!Tournaments.isRunning(tournamentid)) {
-          CHEAPHACKcollapseBox($box);
+          $box.addClass('collapsed');
         }
+        new BoxView($box);
         hidden = false;
       }
     }
 
     return !hidden;
-  }
-
-  // FIXME: remove this function in favor of BoxView
-  function CHEAPHACKcollapseBox($box){
-    $box.addClass('collapsed');
-    $box.css('height', 0);
   }
 
   /**
@@ -679,8 +674,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     $box.append($table);
     $tab.append($box);
     if (!Tournaments.isRunning(tournamentid)) {
-      CHEAPHACKcollapseBox($box);
+      $box.addClass('collapsed');
     }
+    new BoxView($box);
 
     return maxround > 0;
   }
@@ -872,8 +868,9 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     }
 
     if (!Tournaments.isRunning(tournamentid)) {
-      CHEAPHACKcollapseBox($box);
+      $box.addClass('collapsed');
     }
+    new BoxView($box);
 
     return games.length > 0;
   }

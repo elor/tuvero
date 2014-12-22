@@ -163,7 +163,7 @@ Warning: scripts/ui/tab_debug.js: undocumented: 'function initDevContents'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function init'
 Warning: scripts/ui/tab_debug.js: > 10 functions: 15
 Warning: scripts/ui/tab_debug.js: > 400 lines: 446
-Warning: scripts/ui/tab_games.js: > 5 dependencies: 15
+Warning: scripts/ui/tab_games.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_games.js: undocumented: 'function isInt'
 Warning: scripts/ui/tab_games.js: undocumented: 'function initGameTemplate'
 Warning: scripts/ui/tab_games.js: undocumented: 'function initTemplates'
@@ -176,8 +176,8 @@ Warning: scripts/ui/tab_games.js: undocumented: 'function maxwidthtest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function shownamestest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function init'
 Warning: scripts/ui/tab_games.js: > 10 functions: 24
-Warning: scripts/ui/tab_games.js: > 400 lines: 597
-Warning: scripts/ui/tab_history.js: > 5 dependencies: 15
+Warning: scripts/ui/tab_games.js: > 400 lines: 599
+Warning: scripts/ui/tab_history.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_history.js: undocumented: 'function formatNamesHTML'
 Warning: scripts/ui/tab_history.js: undocumented: 'function isInt'
 Warning: scripts/ui/tab_history.js: undocumented: 'function verify'
@@ -193,7 +193,6 @@ Warning: scripts/ui/tab_history.js: undocumented: 'function initTemplates'
 Warning: scripts/ui/tab_history.js: undocumented: 'function initRounds'
 Warning: scripts/ui/tab_history.js: undocumented: 'function init'
 Warning: scripts/ui/tab_history.js: undocumented: 'function createGamesTable'
-Warning: scripts/ui/tab_history.js: undocumented: 'function CHEAPHACKcollapseBox'
 Warning: scripts/ui/tab_history.js: undocumented: 'function addGame'
 Warning: scripts/ui/tab_history.js: undocumented: 'function getTeamVotes'
 Warning: scripts/ui/tab_history.js: undocumented: 'function getRankingMapping'
@@ -207,8 +206,8 @@ Warning: scripts/ui/tab_history.js: undocumented: 'function createKOTree'
 Warning: scripts/ui/tab_history.js: undocumented: 'function addKOGamesEndpoints'
 Warning: scripts/ui/tab_history.js: undocumented: 'function connectKOGames'
 Warning: scripts/ui/tab_history.js: undocumented: 'function showTournaments'
-Warning: scripts/ui/tab_history.js: > 10 functions: 37
-Warning: scripts/ui/tab_history.js: > 400 lines: 985
+Warning: scripts/ui/tab_history.js: > 10 functions: 36
+Warning: scripts/ui/tab_history.js: > 400 lines: 982
 Warning: scripts/ui/tab.js: undocumented: 'createTab : function'
 Warning: scripts/ui/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/tab.js: undocumented: 'update : function'
@@ -254,12 +253,11 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
 Warning: scripts/ui/tab_new.js: > 10 functions: 40
 Warning: scripts/ui/tab_new.js: > 400 lines: 794
-Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 11
+Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 12
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function init'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function reset'
-Warning: scripts/ui/tab_ranking.js: undocumented: 'function CHEAPHACKcollapseBox'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTournamentRankings'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function update'
 Warning: scripts/ui/tab_settings.js: > 5 dependencies: 16

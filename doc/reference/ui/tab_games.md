@@ -15,6 +15,7 @@ the respective tournaments
 
 ## Dependencies
 
+* <a href="./boxview.html">./boxview</a>
 * <a href="./history.html">./history</a>
 * <a href="./options.html">./options</a>
 * <a href="./shared.html">./shared</a>
@@ -149,6 +150,6 @@ reset an original game state, respecting the current state of Swiss
 
 ## Metrics
 
-* 597 Lines
-* 14384 Bytes
+* 599 Lines
+* 14434 Bytes
 

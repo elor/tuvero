@@ -1,9 +1,9 @@
 /**
  * Model, View and Controller of the ranking tab
  * 
- * This tab shows all results in tabulated form and is supposed to provide
- * some kind of sorting functionality
- *
+ * This tab shows all results in tabulated form and is supposed to provide some
+ * kind of sorting functionality
+ * 
  * @exports Tab_Ranking
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -12,7 +12,7 @@
  */
 
 define([ './tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './tab', './history', './shared' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History, Shared) {
+    './tabshandle', './tab', './history', './shared', './boxview' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History, Shared, BoxView) {
   var Tab_Ranking, template, $tab, updatepending;
 
   updatepending = false;
@@ -229,13 +229,6 @@ define([ './tournaments', './team', './toast', './strings', './options',
     updateTemplate();
   }
 
-  // FIXME: remove this function in favor of BoxView
-  function CHEAPHACKcollapseBox($box){
-    $box.addClass('collapsed');
-    $box.css('height', 0);
-  }
-
-
   function updateTournamentRankings () {
     var hidden, tournamentid, keepbox, $box;
 
@@ -263,8 +256,9 @@ define([ './tournaments', './team', './toast', './strings', './options',
       if (keepbox) {
         $tab.append($box);
         if (!Tournaments.isRunning(tournamentid)) {
-          CHEAPHACKcollapseBox($box);
+          $box.addClass('collapsed');
         }
+        new BoxView($box);
       }
     }
 
