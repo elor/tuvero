@@ -45,15 +45,9 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
    * 
    * @param $box
    *          the .box jQuery object
-   * @param subview
-   *          an optional View instance, which will be appended to the box
    */
-  function BoxView ($box, subview) {
+  function BoxView ($box) {
     BoxView.superconstructor.call(this, undefined, $box);
-
-    if (subview) {
-      this.$view.append(subview.$view);
-    }
 
     if (this.$view.hasClass('collapsed')) {
       // start collapsed, if specified

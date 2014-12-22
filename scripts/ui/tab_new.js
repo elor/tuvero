@@ -573,7 +573,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       var $box;
 
       $box = $(this);
-      new BoxView($box, $box.hasClass('collapsed'));
+      new BoxView($box);
     });
   }
 

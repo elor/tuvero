@@ -11,10 +11,7 @@
 define([ '../boxview' ], function (BoxView) {
   $(function ($) {
     $('#tabs div.box').each(function (e) {
-      var $box, view;
-
-      $box = $(this);
-      view = new BoxView($box, $box.hasClass('collapsed'));
+      new BoxView($(this));
     });
   });
 });
