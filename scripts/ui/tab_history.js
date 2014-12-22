@@ -311,7 +311,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template.chpoints.$chpoints.find('.points').keydown(function (e) {
       if (e.which === 13) {
         // Enter --> submit
-        template.chpoints.$chpoints.find('button.save').click();
+        template.chpoints.$chpoints.find('button.change').click();
         e.preventDefault();
         return false;
       } else if (e.which === 27) {
