@@ -14,7 +14,7 @@
 define([ './tab', './options', './tabshandle', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
     './storage', '../backend/tournament', './tournaments', './globalranking',
-    './shared', './data/swissperms' ], function (Tab, Options, Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared, Swissperms) {
+    './shared', './data/swissperms', './boxview' ], function (Tab, Options, Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared, Swissperms, BoxView) {
   var Tab_New, $tab, updatepending, template;
 
   updatepending = false;
@@ -382,6 +382,8 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       return undefined;
     }
 
+    initBoxes($anchor);
+
     return $anchor;
   }
 
@@ -563,6 +565,15 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       } else {
         new Toast(Strings.roundfailed);
       }
+    });
+  }
+
+  function initBoxes ($container) {
+    $container.find('div.box').each(function () {
+      var $box;
+
+      $box = $(this);
+      new BoxView($box, $box.hasClass('collapsed'));
     });
   }
 

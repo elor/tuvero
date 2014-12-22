@@ -17,6 +17,8 @@
 	* scripts/common.js: dummymodel.js autoremoved
 
 	* scripts/ui/tab_new.js: #42 fixed: clicking the bottom header of a tournament doesn't change the name anymore
+	using BoxView for 'advanced options' boxes
+
 
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
