@@ -3,7 +3,7 @@
  * 
  * This tab allows registration, deletion, renaming and printing of teams or
  * individual players
- *
+ * 
  * @exports Tab_Teams
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -369,7 +369,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
      * input fields if valid
      * 
      * @return array of player names on successful validation, undefined
-     *          otherwise
+     *         otherwise
      */
     function readNewTeamNames () {
       var names, i;
@@ -399,6 +399,17 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       return names;
     }
 
+    function focusEmptyTeamNames () {
+      var names, i;
+
+      for (i = 0; i < Options.teamsize; i += 1) {
+        if (trimName(newteam.$names[i].val()) === '') {
+          newteam.$names[i].focus();
+          break;
+        }
+      }
+    }
+
     function createTeamFromForm () {
       var names, team;
 
@@ -419,6 +430,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
         // save changes
         Storage.changed();
+      } else {
+        focusEmptyTeamNames();
       }
 
       return false;

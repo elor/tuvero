@@ -16,6 +16,7 @@ starting/closing them
 ## Dependencies
 
 * <a href="../backend/tournament.html">../backend/tournament</a>
+* <a href="./boxview.html">./boxview</a>
 * <a href="./data/swissperms.html">./data/swissperms</a>
 * <a href="./globalranking.html">./globalranking</a>
 * <a href="./history.html">./history</a>
@@ -142,6 +143,10 @@ prepare a swiss tournament management box
 ---
 
 
+###   function initBoxes ($container)
+
+---
+
 ###   function setPermissionPreset (preset, $perms)
 
 ---
@@ -204,6 +209,6 @@ prepare a swiss tournament management box
 
 ## Metrics
 
-* 783 Lines
-* 20557 Bytes
+* 794 Lines
+* 20795 Bytes
 

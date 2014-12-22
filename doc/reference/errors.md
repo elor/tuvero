@@ -215,7 +215,7 @@ Warning: scripts/ui/tab.js: undocumented: 'update : function'
 Warning: scripts/ui/tab.js: undocumented: 'getOptions : function'
 Warning: scripts/ui/tab.js: undocumented: 'setOptions : function'
 Warning: scripts/ui/tableview.js: undocumented: 'function validateText'
-Warning: scripts/ui/tab_new.js: > 5 dependencies: 18
+Warning: scripts/ui/tab_new.js: > 5 dependencies: 19
 Warning: scripts/ui/tab_new.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_new.js: undocumented: 'function initRename'
 Warning: scripts/ui/tab_new.js: undocumented: 'function chshow'
@@ -236,6 +236,7 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function setSystemTitle'
 Warning: scripts/ui/tab_new.js: undocumented: 'function updateSystems'
 Warning: scripts/ui/tab_new.js: undocumented: 'function addNewSystem'
 Warning: scripts/ui/tab_new.js: undocumented: 'function numTeams'
+Warning: scripts/ui/tab_new.js: undocumented: 'function initBoxes'
 Warning: scripts/ui/tab_new.js: undocumented: 'function setPermissionPreset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function getPermissions'
 Warning: scripts/ui/tab_new.js: undocumented: 'function setPermissions'
@@ -251,8 +252,8 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function init'
 Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
-Warning: scripts/ui/tab_new.js: > 10 functions: 39
-Warning: scripts/ui/tab_new.js: > 400 lines: 783
+Warning: scripts/ui/tab_new.js: > 10 functions: 40
+Warning: scripts/ui/tab_new.js: > 400 lines: 794
 Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 11
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
@@ -308,6 +309,7 @@ Warning: scripts/ui/tab_teams.js: undocumented: 'function initFileLoad'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateFileLoad'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateTemplate'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function initNewTeam'
+Warning: scripts/ui/tab_teams.js: undocumented: 'function focusEmptyTeamNames'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function createTeamFromForm'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateNewTeam'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function initMaxWidth'
@@ -322,8 +324,8 @@ Warning: scripts/ui/tab_teams.js: undocumented: 'function resetOptions'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateAfterTeamAdd'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function updateActiveState'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function update'
-Warning: scripts/ui/tab_teams.js: > 10 functions: 37
-Warning: scripts/ui/tab_teams.js: > 400 lines: 704
+Warning: scripts/ui/tab_teams.js: > 10 functions: 38
+Warning: scripts/ui/tab_teams.js: > 400 lines: 717
 Warning: scripts/ui/test/tab.js: undocumented: 'clear : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'update : function'

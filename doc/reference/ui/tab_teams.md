@@ -123,6 +123,10 @@ otherwise
 ---
 
 
+###     function focusEmptyTeamNames ()
+
+---
+
 ###     function createTeamFromForm ()
 
 ---
@@ -198,6 +202,6 @@ init, clear and reset all in one
 
 ## Metrics
 
-* 704 Lines
-* 15974 Bytes
+* 717 Lines
+* 16264 Bytes
 

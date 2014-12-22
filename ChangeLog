@@ -19,6 +19,7 @@
 	* scripts/ui/tab_new.js: #42 fixed: clicking the bottom header of a tournament doesn't change the name anymore
 	using BoxView for 'advanced options' boxes
 
+	* scripts/ui/tab_teams.js: #41 fixed: trying to create a team with an empty player name focuses the empty text field
 
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
