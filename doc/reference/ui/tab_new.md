@@ -3,8 +3,8 @@
 
 Model, View and Controller of the "new" tab, which manages the tournaments.
 
-This tab allows allocating teams to (sub)tournaments, setting their rules
-and starting/closing them
+This tab allows allocating teams to (sub)tournaments, setting their rules and
+starting/closing them
 
 * Exports: Tab_New
 * Implements: ./tab
@@ -204,6 +204,6 @@ prepare a swiss tournament management box
 
 ## Metrics
 
-* 788 Lines
-* 20766 Bytes
+* 783 Lines
+* 20557 Bytes
 

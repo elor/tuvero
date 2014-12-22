@@ -1,8 +1,8 @@
 /**
  * Model, View and Controller of the "new" tab, which manages the tournaments.
  * 
- * This tab allows allocating teams to (sub)tournaments, setting their rules
- * and starting/closing them
+ * This tab allows allocating teams to (sub)tournaments, setting their rules and
+ * starting/closing them
  * 
  * @exports Tab_New
  * @implements ./tab
@@ -164,11 +164,6 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     template.$chname.click(function (e) {
       e.preventDefault();
       return false;
-    });
-
-    // you clicked the bottom h3? no problem, just click the other one
-    $tab.on('click', '.system >h3:last-child.editable', function () {
-      $(this).parents('.system').find('>h3:first-child.editable').click().focus();
     });
   }
 
@@ -416,7 +411,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       $anchor.append(template.$removesystem.clone());
       $anchor.find('.name').text(Tournaments.getName(tournamentid));
     }
-    $anchor.append($title.clone());
+    $anchor.append($title.clone().removeClass('editable'));
   }
 
   function updateSystems () {

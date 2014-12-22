@@ -1,9 +1,9 @@
-# scripts/ui/tableview.js
+# scripts/ui/listview.js
 
 
-TableView for viewing information in a tabular representation
+ListView for viewing information in a tabular representation
 
-* Exports: TableView
+* Exports: ListView
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -23,10 +23,10 @@ TableView for viewing information in a tabular representation
 
 ---
 
-###   function TableView ($table, model)
+###   function ListView ($view, model)
 Constructor
 
-**Argument:** **$table**
+**Argument:** **$view**
 
 the jquery table object
 **Argument:** **model**
@@ -36,28 +36,19 @@ the TableModel instance
 ---
 
 
-###   TableView.prototype.reset = function ()
+###   ListView.prototype.reset = function ()
 reset to an empty state
 
 ---
 
 
-###   TableView.prototype.update = function ()
+###   ListView.prototype.update = function ()
 redraw everything
 
 ---
 
 
-###   TableView.prototype.createTitleRow = function ()
-create the title row
-
-
-**Returns:** s a jquery object containing the newly created still detached row
-
----
-
-
-###   TableView.prototype.createRow = function (row)
+###   ListView.prototype.createItem = function (index)
 create a content row
 
 
@@ -66,13 +57,13 @@ create a content row
 ---
 
 
-###   TableView.prototype.onupdate = function ()
+###   ListView.prototype.onupdate = function ()
 event callback function
 
 ---
 
 ## Metrics
 
-* 100 Lines
-* 2077 Bytes
+* 76 Lines
+* 1485 Bytes
 

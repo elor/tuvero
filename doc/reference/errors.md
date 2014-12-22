@@ -86,7 +86,7 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 69
+Warning: scripts/common.js: > 5 dependencies: 70
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
@@ -121,6 +121,7 @@ Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 19
 Warning: scripts/ui/history.js: > 400 lines: 509
+Warning: scripts/ui/listview.js: undocumented: 'function validateText'
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
@@ -251,7 +252,7 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
 Warning: scripts/ui/tab_new.js: > 10 functions: 39
-Warning: scripts/ui/tab_new.js: > 400 lines: 788
+Warning: scripts/ui/tab_new.js: > 400 lines: 783
 Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 11
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'

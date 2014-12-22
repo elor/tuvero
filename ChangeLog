@@ -14,6 +14,10 @@
 
 	* scripts/ui/interfaces/view.js: model undefined -> use a dummy model automatically
 
+	* scripts/common.js: dummymodel.js autoremoved
+
+	* scripts/ui/tab_new.js: #42 fixed: clicking the bottom header of a tournament doesn't change the name anymore
+
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/common.js: ui/tablemodel and ui/tableview added

@@ -10,7 +10,7 @@ An abstract view class
 
 ## Dependencies
 
-No Dependencies
+* <a href="./model.html">./model</a>
 
 ## Functions
 
@@ -68,5 +68,5 @@ get the jQuery object (this.$view)
 ## Metrics
 
 * 67 Lines
-* 1219 Bytes
+* 1254 Bytes
 
