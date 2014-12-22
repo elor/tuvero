@@ -42,6 +42,10 @@
 
 	* scripts/ui/tab_ranking.js: using BoxView for auto-generated boxes
 
+	* images/games.png: replaced the dice with two petanque balls
+
+	* images/svg/games.svg: replaced the dice with two petanque balls
+
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/common.js: ui/tablemodel and ui/tableview added
