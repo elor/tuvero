@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
+define([ './model' ], function (Model) {
   /**
    * Displays a model and updates on changes to it.
    * 
@@ -15,7 +15,7 @@ define(function () {
    *          A jQuery object which is represented by this view
    */
   function View (model, $view) {
-    this.model = model;
+    this.model = model || new Model();
     this.$view = $view;
 
     this.model.registerListener(this);

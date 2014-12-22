@@ -8,6 +8,12 @@
 
 	* test/listview.html: ListView test added
 
+	* scripts/ui/boxview.js: DummyModel removed
+
+	* scripts/ui/dummymodel.js: DummyModel replaced by 'undefined'
+
+	* scripts/ui/interfaces/view.js: model undefined -> use a dummy model automatically
+
 2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/common.js: ui/tablemodel and ui/tableview added

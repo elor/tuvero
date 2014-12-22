@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define([ 'lib/extend', './dummymodel', './interfaces/view', './boxcontroller' ], function (extend, DummyModel, View, BoxController) {
+define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (extend, View, BoxController) {
   var BoxView, $template;
 
   /**
@@ -49,7 +49,7 @@ define([ 'lib/extend', './dummymodel', './interfaces/view', './boxcontroller' ],
    *          an optional View instance, which will be appended to the box
    */
   function BoxView ($box, subview) {
-    BoxView.superconstructor.call(this, new DummyModel, $box);
+    BoxView.superconstructor.call(this, undefined, $box);
 
     if (subview) {
       this.$view.append(subview.$view);
