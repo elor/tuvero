@@ -11,6 +11,8 @@
 
 	* build-scripts/write-reference.sh: using cmark instead of stmd for markdown->html conversion
 
+	* Makefile: 'make' -> 'make build', NOT 'make dist'
+
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listmodel.js: ListModel added
