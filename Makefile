@@ -33,7 +33,6 @@ dist: Version NEWS
 	make manifest.appcache
 	git add -u
 	git commit -m 'release-$(VERSION): project built'
-	make remove-build-scripts
 	make remove-dev-files
 	git add -u
 	git commit -m 'release-$(VERSION): build scripts and dev files removed'

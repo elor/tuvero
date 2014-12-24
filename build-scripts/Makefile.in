@@ -35,12 +35,9 @@ remove-debug-code:
 	sed -i '/<script>/,/<\/script>/d' *.html
 
 # self-explanatory
-remove-build-scripts:
-	rm -rf build-scripts
-
-# self-explanatory
 remove-dev-files:
 	rm -f Makefile TODO BUGS
+	rm -rf build-scripts
 
 # self-explanatory
 remove-reference:
