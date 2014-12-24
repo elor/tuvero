@@ -1,0 +1,27 @@
+CACHE MANIFEST
+# Version: 1.4.4
+# Date: Mi 24. Dez 15:51:11 CET 2014
+
+# the boules program is purely offline
+CACHE:
+boules.html
+index.html
+test.html
+scripts/main.js
+scripts/lib/FileSaver.js
+scripts/lib/require.js
+scripts/lib/jquery.js
+scripts/common.js
+scripts/test.js
+images/favicon.png
+images/sprite.png
+images/smallchange.png
+style/mainstyle.css
+style/qunit.css
+
+# allow player database updates
+NETWORK:
+http://*
+https://*
+*
+
