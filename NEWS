@@ -1,6 +1,10 @@
 Boules %VERSION% (yyyy-mm-dd)
 -------------------------
 
+
+Boules 1.4.4 (2014-12-24)
+-------------------------
+
 FEATURES:
 
   * number of image downloads reduced by using sprites

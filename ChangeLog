@@ -19,9 +19,11 @@
 	* doc/de/index.html: apology added
 
 	* NEWS: updated from ChangeLog
+	Next Version (1.4.5) started
 
 	* build-scripts/Makefile.in: makefile dependency issue fixed
 	not removing smallchange.png, which is currently required to be a separate file
+
 
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
