@@ -25,7 +25,7 @@ build: images scripts remove-debug-code
 # requires an active  "release-VERSION" branch #
 ################################################
 dist: Version NEWS
-	./build-scripts/applyversion.sh
+	./build-scripts/apply-version.sh
 	$(eval VERSION := $(shell cat Version))
 	git add -u
 	git commit -m 'release-$(VERSION): version pushed'
