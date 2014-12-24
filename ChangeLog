@@ -9,8 +9,7 @@
 
 	* images/favicon.png: using the games icon, again
 
-	* scripts/ui/tab_new.js: initiating name change on subtournament creation
-
+	* build-scripts/write-reference.sh: using cmark instead of stmd for markdown->html conversion
 
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

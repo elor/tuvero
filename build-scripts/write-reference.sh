@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # auto-generates a reference from the source code
-# requires "stmd" to be installed for markdown conversion
+# requires "cmark" to be installed for markdown conversion
 
 refdir=doc/reference
 
@@ -248,7 +248,7 @@ convertMD2HTML(){
 <body>
 <a href="`getrelhref index $docfiledir`">back to index</a>
 <a href="index.html">Overview page</a>
-$(stmd $docfile)
+$(cmark $docfile)
 </body>
 </html>
 EOF
@@ -301,7 +301,7 @@ createtodopage(){
 <a href="`getrelhref scripts/index $docfiledir`">back to index</a>
 <a href="index.html">Overview page</a>
 <h1>$scriptdir TODO Comments</h1>
-$(grep -Pn 'TODO|FIXME|XXX' `listusersubscripts $scriptdir|xargs` | sed 's/^/* /' | stmd)
+$(grep -Pn 'TODO|FIXME|XXX' `listusersubscripts $scriptdir|xargs` | sed 's/^/* /' | cmark)
 </body>
 </html>
 EOF
@@ -322,7 +322,7 @@ createrrorpage(){
 <body>
 <a href="index.html">back to index</a>
 <h1>Code Style Warnings and Errors</h1>
-`stmd $refdir/errors.md`
+`cmark $refdir/errors.md`
 </body>
 </html>
 EOF
