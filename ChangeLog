@@ -1,3 +1,9 @@
+2014-12-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: home: "why chrome?" box added
+
+	* style/home.css: floating chrome logo
+
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listmodel.js: ListModel added

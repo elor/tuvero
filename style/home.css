@@ -18,3 +18,7 @@
 #home > .firststeps {
   text-align: left
 }
+
+#home .logo {
+  float: left;
+}
