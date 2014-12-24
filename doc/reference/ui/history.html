@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>scripts/ui/history.js Reference</title>
+</head>
+<body>
+<a href="../index.html">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>scripts/ui/history.js</h1>
+<p>History of game results and votes for all tournaments.</p>
+<ul>
+<li>Implements: ../backend/blobber</li>
+<li>Exports: History</li>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<ul>
+<li><a href="./shared.html">./shared</a></li>
+<li><a href="./tournaments.html">./tournaments</a></li>
+</ul>
+<h2>Functions</h2>
+<h3>function getTournament (id, alloc)</h3>
+<hr />
+<h3>addResult : function (tournamentid, t1, t2, p1, p2, round, id)</h3>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the id of the game's tournament
+<strong>Argument:</strong> <strong>t1</strong></p>
+<p>team 1
+<strong>Argument:</strong> <strong>t2</strong></p>
+<p>team 2
+<strong>Argument:</strong> <strong>p1</strong></p>
+<p>points of team 1
+<strong>Argument:</strong> <strong>p2</strong></p>
+<p>points of team 2
+<strong>Argument:</strong> <strong>round</strong></p>
+<p>(optional) the round within its subtournament
+<strong>Argument:</strong> <strong>id</strong></p>
+<p>(optional) the game id within its round</p>
+<p><strong>Returns:</strong> : true on success, false otherwise</p>
+<hr />
+<h3>addCorrection : function (tournamentid, before, after)</h3>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p><strong>Argument:</strong> <strong>before</strong></p>
+<p>an object containing similar to what you get from getGame
+<strong>Argument:</strong> <strong>after</strong></p>
+<p>an object containing similar to what you get from getGame</p>
+<p><strong>Returns:</strong> true on success, false otherwise</p>
+<hr />
+<h3>addVote : function (tournamentid, type, team, round)</h3>
+<hr />
+<h3>numGames : function (tournamentid)</h3>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id</p>
+<p><strong>Returns:</strong> undefined on failure, number of finished games in this
+tournament otherwise</p>
+<hr />
+<h3>getVotes : function (tournamentid)</h3>
+<p>Return all votes, for the user to search. This is way simpler than some
+artificial restriction</p>
+<p>Do not manipulate!</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id</p>
+<p><strong>Returns:</strong> the raw votes array of this tournament and round</p>
+<hr />
+<h3>numCorrections : function (tournamentid)</h3>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id</p>
+<p><strong>Returns:</strong> undefined on failure, number of corrections in this tournament
+otherwise</p>
+<hr />
+<h3>numRounds : function (tournamentid)</h3>
+<hr />
+<h3>getGame : function (tournamentid, id)</h3>
+<p>returns the raw data of this game for further viewing.</p>
+<p>Do not manipulate! Use corrections instead!</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the id of the tournament
+<strong>Argument:</strong> <strong>id</strong></p>
+<p>the game id</p>
+<p><strong>Returns:</strong> the array containing game information on success, undefined
+otherwise</p>
+<hr />
+<h3>getGames : function (tournamentid)</h3>
+<hr />
+<h3>getRound : function (tournamentid, round)</h3>
+<p>get all games of a specific round.</p>
+<p>Do not manipulate!</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id
+<strong>Argument:</strong> <strong>round</strong></p>
+<p>the round within its tournament</p>
+<p><strong>Returns:</strong></p>
+<hr />
+<h3>findGames : function (tournamentid, t1, t2)</h3>
+<p>get all games of a specific round.</p>
+<p>Do not manipulate!</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id
+<strong>Argument:</strong> <strong>t1</strong></p>
+<p>team id 1
+<strong>Argument:</strong> <strong>t2</strong></p>
+<p>team id 2</p>
+<p><strong>Returns:</strong></p>
+<hr />
+<h3>getCorrection : function (tournamentid, id)</h3>
+<p>returns a raw correction object for further viewing</p>
+<p>Do not manipulate! Use Tournaments.getTournament(tournamentid).correct()
+for that!</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id
+<strong>Argument:</strong> <strong>id</strong></p>
+<p>the correction id</p>
+<p><strong>Returns:</strong> a raw correction array on success, undefined otherwise</p>
+<hr />
+<h3>getCorrections : function (tournamentid)</h3>
+<hr />
+<h3>numTournaments : function ()</h3>
+<hr />
+<h3>reset : function ()</h3>
+<hr />
+<h3>toCSV : function ()</h3>
+<p>CSV exporter</p>
+<p>Tournament Comment Line Format: 'name Round roundno'</p>
+<p>Game Format:
+'No1,No2,Name1_1,Name1_2,Name1_3,Names2_1,Names2_2,Names2_3,Points1,Points2'</p>
+<p>VoteFormat: 'No1,Name1,Name2,Name3,Type'</p>
+<p><strong>Returns:</strong> a comma-separated-values compatible History representation</p>
+<hr />
+<h3>toBlob : function ()</h3>
+<p>Serializer.</p>
+<p><strong>Returns:</strong> a string representation of the data</p>
+<hr />
+<h3>fromBlob : function (blob)</h3>
+<p>Deserializer.</p>
+<p><strong>Argument:</strong> <strong>blob</strong></p>
+<p>a string represention with which to replace the current data</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>509 Lines</li>
+<li>13712 Bytes</li>
+</ul>
+</body>
+</html>

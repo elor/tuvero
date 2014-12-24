@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>scripts/backend/correction.js Reference</title>
+</head>
+<body>
+<a href="../index.html">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>scripts/backend/correction.js</h1>
+<p>A correction ties a wrong game result to a new game result. This structure is
+intended for secure storage only, hence the copying efforts. Since
+corrections should be sparse, the copying shouldn't matter.</p>
+<ul>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<ul>
+<li><a href="./result.html">./result</a></li>
+</ul>
+<h2>Functions</h2>
+<h3>Correction = function (pre, post)</h3>
+<p>constructor</p>
+<p><strong>Argument:</strong> <strong>pre</strong></p>
+<p>previous result (Result instance)
+<strong>Argument:</strong> <strong>post</strong></p>
+<p>corrected result (Result instance)</p>
+<p><strong>Returns:</strong> {Correction} new instance</p>
+<hr />
+<h3>Correction.prototype.copy = function ()</h3>
+<p>copy function that creates a new correction from this</p>
+<p><strong>Returns:</strong> {Correction} copy</p>
+<hr />
+<h3>Correction.copy = function (corr)</h3>
+<p>copies a correction object</p>
+<p><strong>Argument:</strong> <strong>corr</strong></p>
+<p>correction object, which doesn't have to have the same prototype
+and functions. Fields are sufficient</p>
+<p><strong>Returns:</strong> the instance</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>48 Lines</li>
+<li>1252 Bytes</li>
+</ul>
+</body>
+</html>

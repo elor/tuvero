@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>scripts/backend/map.js Reference</title>
+</head>
+<body>
+<a href="../index.html">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>scripts/backend/map.js</h1>
+<p>No Description</p>
+<ul>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<p>No Dependencies</p>
+<h2>Functions</h2>
+<h3>var Map = function ()</h3>
+<p>Map maps integers to close-packed integers in ascending order. It's
+intended to serve as a mapping between global and local player ids, but may
+work for other purposes as well. Actually, it works as a stack with random
+read access, but let's just call it a map</p>
+<p><strong>Returns:</strong> {Map} new Map</p>
+<hr />
+<h3>Map.prototype.insert = function (external)</h3>
+<p>Inserts an element into the map if not already present. Returns the
+internal id in both cases</p>
+<p><strong>Argument:</strong> <strong>external</strong></p>
+<p>{Integer} external id</p>
+<p><strong>Returns:</strong> {Integer} internal id</p>
+<hr />
+<h3>Map.prototype.erase = function (internal)</h3>
+<p>Erases an element from the map and decrements all following internal
+indices. Note that this function invalidates externally stored internal
+ids.</p>
+<p><strong>Argument:</strong> <strong>internal</strong></p>
+<p>{Integer} internal id of the element to erase</p>
+<hr />
+<h3>Map.prototype.remove = function (external)</h3>
+<p>Removes an element from the map and decrements all following internal
+indices. It works similar to erase(), with the main difference of passing
+the external instead of the internal id</p>
+<p><strong>Argument:</strong> <strong>external</strong></p>
+<p>{Integer} external id</p>
+<hr />
+<h3>Map.prototype.clear = function ()</h3>
+<p>Resets the map to an empty state</p>
+<p><strong>Returns:</strong> {Map} this</p>
+<hr />
+<h3>Map.prototype.at = function (internal)</h3>
+<p>Looks up the external id of the given internal id</p>
+<p><strong>Argument:</strong> <strong>internal</strong></p>
+<p>{Integer} internal id</p>
+<p><strong>Returns:</strong> {Integer} external id or undefined</p>
+<hr />
+<h3>Map.prototype.find = function (external)</h3>
+<p>Finds the internal id of the given external id</p>
+<p><strong>Argument:</strong> <strong>external</strong></p>
+<p>{Integer} external id</p>
+<p><strong>Returns:</strong> {Integer} internal id or -1 if not found</p>
+<hr />
+<h3>Map.prototype.size = function ()</h3>
+<p>Returns the number of elements in the map. This equals the internal index
+of the last element plus one.</p>
+<p><strong>Returns:</strong> {Integer} size</p>
+<hr />
+<h3>Map.prototype.toBlob = function ()</h3>
+<p>store the state in a blob object</p>
+<p><strong>Returns:</strong> the blob</p>
+<hr />
+<h3>Map.prototype.fromBlob = function (blob)</h3>
+<p>restore a state from the blob</p>
+<p><strong>Argument:</strong> <strong>blob</strong></p>
+<p>the blob</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>136 Lines</li>
+<li>3027 Bytes</li>
+</ul>
+</body>
+</html>

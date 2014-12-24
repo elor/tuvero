@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
 <html lang="de" manifest="manifest.appcache">
   <head>
     <meta charset="utf-8" />
-    <title>Boules Turnierverwaltung 1.4.3</title>
-    <link rel="shortcut icon" href="images/games.png" type="image/png" />
+    <title>Boules Turnierverwaltung 1.4.4</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="style/mainstyle.css" />
   </head>
 
@@ -12,7 +13,7 @@
 
     <div id="splash" class="loading">
       <h1>Boules Turnierverwaltung</h1>
-      <h2>Version 1.4.3</h2>
+      <h2>Version 1.4.4</h2>
       <span>&copy; Erik E. Lorenz</span>
       <p class="loading">Lade Dateien...</p>
       <p class="starting">Starte Programm...</p>
@@ -34,24 +35,76 @@
 
     <div id="tabs">
 
+      <div id="home" accesskey="s">
+        <h2>Startseite</h2>
+        <div class="box firststeps">
+          <h3>Erste Schritte</h3>
+          Willkommen zur Boules Turnierverwaltung.<br>
+          Um ein Turnier durchzuführen, folge diesen Schritten:
+          <ol>
+            <li>Wähle die Teamgröße und trage die Spieler im <a href="#teams">Anmeldungen-Tab</a> ein</li>
+            <li>Wähle eine Turnierart und starte die erste Runde im <a href="#new">Turniersysteme-Tab</a></li>
+            <li>Trage die Spielergebnisse im <a href="#games">Laufende Spiele-Tab</a> ein</li>
+            <li>Starte die nächste Runde im <a href="#new">Turniersysteme-Tab</a>, oder beende die Turnierphase und starte eine Neue<br>
+              z.B. Vorrunde beenden und ABCD-Turniere starten</li>
+            <li>Sieh die Platzierung im <a href="#ranking">Platzierungen-Tab</a> ein</li>
+            <li>Exportiere die Anmeldung, Platzierungen und Spielergebnisse über das <a href="#settings">Optionen und Einstellungen-Tab</a></li>
+          </ol>
+          Weitere Informationen sind über die Links im <a href="#about">Über...-Tab</a> verfügbar
+        </div>
+        <div class="box">
+          <h3>Warum Chrome?</h3>
+          <a class="logo" data-img="logos/chrome_128x128" href="https://www.google.com/chrome/browser/desktop/index.html"></a>
+          Für die Darstellung dieses Programmes wird der <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome Browser</a> empfohlen.
+          <br>
+          <br>
+          <p>
+          Es werden HTML5-Elemente und CSS3-Selektoren genutzt, die aktuell nur von Chrome standardkonform unterstützt werden.
+          Andere Browser können zu übergroßen Icons, ungewollten Rändern und fehlenden Inhalten führen.
+          Zusätzlich lassen sich die Übersichten unter Verwendung von Firefox, Opera und Safari leider nicht ausdrucken, sondern führen zum Druck von leeren Seiten.
+          Bis Kompatibilität der anderen Browser hergestellt wurde, muss ich leider um die Verwendung des Chrome-Browsers bitten.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Tabs</h3>
+          <a href="#home" data-img="home"> Startseite</a>
+          <a href="#teams" data-img="teams3"> Anmeldungen</a>
+          <a href="#new" data-img="new"> Turniersystem und Unterturniere</a>
+          <a href="#games" data-img="games"> Laufende Spiele</a>
+          <a href="#ranking" data-img="ranking"> Platzierungen</a>
+          <a href="#history" data-img="history"> Turnierverlauf</a>
+          <a href="#lanes" data-img="lanes"> Bahnen</a>
+          <a href="#settings" data-img="settings"> Optionen und Einstellungen</a>
+          <a href="#about" data-img="about"> Über...</a>
+        </div>
+        <div class="box">
+          <h3>Buttons</h3>
+          <button class="print" data-img="print"></button> Tab drucken<br>
+          <button class="save" data-img="save"></button> In Datei speichern<br> 
+          <button class="reloadtab" data-img="reload"></button> Tab neu laden<br>
+        </div>
+        <div class="box">
+          <h3>Hinweis - Klick mich</h3>
+          Diese Kästen können durch einen Klick auf ihre Titelleiste verkleinert und wieder vergrößert werden, um ungewollte Informationen zu verstecken.
+          Einige Kästen sind automatisch verkleinert, bis sie manuell vergrößert werden.
+          <br>
+          Versteckte Kästen werden nicht auf Papier gedruckt.
+        </div>
+      </div>
+
       <div id="teams" data-tabimgopt="teamsize" accesskey="t">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
         <div class="options">
           <input class="maxwidth" type="checkbox" checked="checked" />
           <span class="maxwidthtext">feste Breite</span>
         </div>
-
         <h2><span class="numteams">##</span> Anmeldungen</h2>
 
         <div class="teamsize">
-          <button value="1">
-            <img src="images/teams1.png" alt="tete"/>
-          </button>
-          <button value="2">
-            <img src="images/teams2.png" alt="doublette"/>
-          </button>
-          <button value="3">
-            <img src="images/teams3.png" alt="triplette"/>
-          </button>
+          <button value="1" data-img="teams1"></button>
+          <button value="2" data-img="teams2"></button>
+          <button value="3" data-img="teams3"></button>
         </div>
 
         <br>
@@ -101,6 +154,7 @@
       </div>
 
       <div id="new" accesskey="n">
+        <button class="save" data-img="save"></button>
         <div class="options">
           <input class="maxwidth" type="checkbox" checked="checked" />
           <span>feste Breite</span>
@@ -111,7 +165,7 @@
 
         <table class="playertable">
           <tr>
-            <th colspan="2">Platz</th>
+            <th colspan="2">Rang</th>
             <th>No.</th>
             <th class="names">Spieler</th>
             <th>Turniersystem</th>
@@ -122,7 +176,11 @@
             <td class="teamno">##</td>
             <td class="names">%% %%</td>
             <td class="system">
-              <div class="removesystem">&#x2716;</div>
+              <div class="removesystem preparing finished failure">
+                <br>
+                <h3>Beenden und nächste Turnierphase starten</h3>
+                <button><span class="name">##</span> beenden</button>
+              </div>
             </td>
           </tr>
         </table>
@@ -131,7 +189,7 @@
 
         <div class="box newsystem tpl">
           <h3>Neue Turnierphase<input type="text" class="chname" value="%%"/></h3>
-          <span><input type="number" class="numteams" min="2"> Teams</span>
+          <span>Unterturnier mit den besten <input type="number" class="numteams" min="2"> Teams</span>
           <br>
           <button class="swiss">Schweizer System</button>
           <br>
@@ -139,12 +197,9 @@
         </div>
 
         <div class="box swiss tpl">
-          <h3 class="name">Schweizer System</h3>
+          <h3><span class="name">##</span> - Schweizer System</h3>
           <div class="preparing finished">
             <h3>Runde <span class="nextround">##</span> auslosen</h3>
-            <button>
-              Runde starten
-            </button>
             <div class="box collapsed">
               <h3>Erweiterte Optionen</h3>
               <table>
@@ -196,12 +251,13 @@
                 </tr>
               </table>
             </div>
+            <button>Runde starten</button>
           </div>
           <div class="running">
             <p>
-            Runde <span class="round"></span> wird gespielt
+            Runde <span class="round">#</span> wurde ausgelost.
             </p><p>
-            &rArr; <a href="#games"><img src="images/games.png" alt="#games">Laufende Spiele</a>
+            Siehe <a href="#games" data-img="games">Laufende Spiele</a>
             </p>
           </div>
           <div class="failure">
@@ -210,7 +266,7 @@
         </div>
 
         <div class="box ko tpl">
-          <h3 class="name">KO-System</h3>
+          <h3><span class="name">##</span> - KO-System</h3>
           <div class="finished">
             Turnier beendet
           </div>
@@ -230,9 +286,9 @@
           </div>
           <div class="running">
             <p>
-            KO-Turnier wird gespielt
+            KO-Turnier wird gespielt.
             </p><p>
-            &rArr; <a href="#games"><img src="images/games.png" alt="#games">Laufende Spiele</a>
+            Siehe <a href="#games" data-img="games">Laufende Spiele</a>
             </p>
           </div>
           <div class="failure">
@@ -265,6 +321,8 @@
       </div>
 
       <div id="games" accesskey="g">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
         <div class="options">
           <input class="maxwidth" type="checkbox" checked="checked" />
           <span>feste Breite</span>
@@ -328,12 +386,14 @@
       </div>
 
       <div id="ranking" accesskey="r">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
         <h2>Platzierung</h2>
         <div class="box tpl">
           <h3>## ##</h3>
           <table class="ranking">
             <tr class="head">
-              <th>Platz</th>
+              <th>Rang</th>
               <th>No.</th>
               <th colspan="3">Spieler</th>
               <th>Spiele</th>
@@ -377,6 +437,9 @@
       </div>
 
       <div id="history" accesskey="h">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <button class="reloadtab" data-img="reload"></button>
         <div class="options">
           <input class="maxwidth" type="checkbox" checked="checked"/>
           <span>feste Breite</span>
@@ -424,7 +487,7 @@
                   <input class="points" type="number" min="0" max="15" value="0" />
                   <input class="points" type="number" min="0" max="15" value="0" />
                   <br>
-                  <button class="save" type="submit">speichern</button>
+                  <button class="change" type="submit">speichern</button>
                 </form>
               </td>
             </tr>
@@ -441,7 +504,7 @@
               <th class="result">BH</th>
               <th class="result">FBH</th>
               <th class="result">Netto</th>
-              <th class="result">Platz</th>
+              <th class="result">Rang</th>
             </tr>
             <tr class="team">
               <td class="number">##</td>
@@ -477,9 +540,11 @@
 
       <div id="lanes" accesskey="l">
         <h2>Bahnen</h2>
+        An der Auslosung und Zuweisung von Bahnen wird noch gearbeitet.<br>
+        Ich bitte um etwas Geduld. 
       </div>
 
-      <div id="settings" accesskey="s">
+      <div id="settings" accesskey="o">
         <h2>Optionen und Einstellungen</h2>
 
         <div class="box">
@@ -513,9 +578,7 @@
               zwischengespeichert oder ein aktueller Browser installiert werden.
             </p>
             <br>
-            <button>
-              <img src="images/download.png" alt="download save file" />
-            </button>
+            <button class="save" data-img="save"></button>
           </div>
         </div>
 
@@ -528,9 +591,7 @@
             <p class="nofilereader">
               Dieser Browser kann keine lokalen Dateien laden.
             </p>
-            <button>
-              <img src="images/reload.png" alt="reload autocomplete list" />
-            </button>
+            <button data-img="reload"></button>
             <input class="filereader file" type="file" />
           </div>
         </div>
@@ -546,18 +607,10 @@
             muss sie mit der .csv-Dateiendung gespeichert werden,
             beispielsweise als 'boules.csv'.
           </p>
-          <button class="teams">
-            <img src="images/teams3.png" alt="teams exportieren" />
-          </button>
-          <button class="ranking">
-            <img src="images/ranking.png" alt="ranking exportieren" />
-          </button>
-          <button class="history">
-            <img src="images/history.png" alt="history exportieren" />
-          </button>
-          <button class="teams ranking history">
-            <img src="images/all.png" alt="alles exportieren" />
-          </button>
+          <button class="teams" data-img="teams3"></button>
+          <button class="ranking" data-img="ranking"></button>
+          <button class="history" data-img="history"></button>
+          <button class="teams ranking history" data-img="all"></button>
         </div>
 
         <div class="box nojson">
@@ -595,20 +648,20 @@
         <div class="box">
           <h3>Entwicklerwerkzeuge</h3>
           <div class="devel">
-            <a href="test.html" target="_blank"><img src="images/test.png" alt="unit tests" /><br>Unit Tests</a>
-            <a href="NEWS" target="_blank"><img src="images/file.png" alt="NEWS" /><br>NEWS</a>
-            <a href="ChangeLog" target="_blank"><img src="images/file.png" alt="ChangeLog" /><br>ChangeLog</a>
-            <a href="TODO" target="_blank"><img src="images/file.png" alt="TODO" /><br>TODO</a>
-            <a href="BUGS" target="_blank"><img src="images/file.png" alt="BUGS" /><br>BUGS</a>
-            <a href="manifest.appcache" target="_blank"><img src="images/file.png" alt="manifest" /><br>Manifest</a>
-            <a href="#debug"><img src="images/debug.png" alt="debugging console" /><br>Debug</a>
+            <a href="test.html" target="_blank" data-img="test"><br>Unit Tests</a>
+            <a href="NEWS" target="_blank" data-img="file"><br>NEWS</a>
+            <a href="ChangeLog" target="_blank" data-img="file"><br>ChangeLog</a>
+            <a href="TODO" target="_blank" data-img="file"><br>TODO</a>
+            <a href="BUGS" target="_blank" data-img="file"><br>BUGS</a>
+            <a href="manifest.appcache" target="_blank" data-img="file"><br>Manifest</a>
+            <a href="#debug" data-img="debug"><br>Debug</a>
           </div>
         </div>
 
       </div>
 
       <div id="about" accesskey="?">
-        <h2>Über Boules Turnierverwaltung 1.4.3</h2>
+        <h2>Über Boules Turnierverwaltung 1.4.4</h2>
         <div class="box">
           <h3>Autor &amp; Mitwirkende</h3>
           <p>
@@ -650,7 +703,7 @@
         </div>
         <div class="box">
           <h3>Browserunterstützung </h3>
-          <img class="logo float" alt="HTML5" src="images/HTML5_Logo_128.png">
+          <a data-img="HTML5_Logo_128" class="logo float"></a>
           <p>
             Für diese Software wird auf <a href="http://de.wikipedia.org/wiki/HTML5">freie Webstandards</a> gesetzt.
             Leider werden diese <a href="http://fmbip.com/litmus/">nicht von allen Browsern vollständig</a> unterstützt.
@@ -659,17 +712,14 @@
           </p>
           <p>
             Desktop:
-            <br>
-            <img class="logo supported" alt="Google Chrome" title="Google Chrome" src="images/logos/chrome_128x128.png" />
-            <img class="logo supported" alt="Mozilla Firefox" title="Mozilla Firefox" src="images/logos/firefox_128x128.png" />
-            <img class="logo supported" alt="Opera" title="Opera" src="images/logos/opera_128x128.png" />
-            <!--          <img class="logo unsupported" alt="Safari" title="Safari" src="images/logos/safari_128x128.png"> -->
-            <img class="logo unsupported" alt="Internet Explorer" title="Internet Explorer" src="images/logos/internet-explorer_128x128.png" />
+            <a class="logo supported" title="Google Chrome" data-img="logos/chrome_128x128"></a>
+            <a class="logo supported" data-img="logos/opera_128x128"></a>
+            <a class="logo maywork" title="Mozilla Firefox" data-img="logos/firefox_128x128"></a>
+            <a class="logo unsupported" title="Internet Explorer" data-img="logos/internet-explorer_128x128"></a>
           </p>
           <p>
             Mobil:
-            <br>
-            <img class="logo supported" alt="Google Chrome for Android" title="Google Chrome for Android" src="images/logos/chrome-android_128x128.png">
+            <a class="logo supported" title="Google Chrome for Android" data-img="logos/chrome-android_128x128"></a>
           </p>
           <p class="no-support">
             Dieser Browser unterstützt folgende Funktionen nicht:
@@ -714,14 +764,8 @@
             Wenn sie dem Entwicklerteam dennoch eine Aufmerksamkeit zukommen lassen möchten, können sie das auf diese Arten tun:
           </p>
           <div class="donatebuttons">
-            <form class="donate" action="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R" target="_blank">
-              <input type="image" src="images/ext/amazonwishlist.png" name="submit" alt="Mein Amazon.de Wunschzettel">
-            </form>
-            <form class="donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-              <input type="hidden" name="cmd" value="_s-xclick">
-              <input type="hidden" name="hosted_button_id" value="ZCU4ZVDREECYE">
-              <input type="image" src="images/ext/btn_donateCC_LG.gif" name="submit" alt="Jetzt einfach, schnell und sicher online bezahlen – mit PayPal.">
-            </form>
+            <a data-img="ext/amazonwishlist" href="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R" target="_blank"></a>
+            <a data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
           </div>
         </div>
       </div>
@@ -773,24 +817,19 @@
         <!-- All images get inserted here -->
       </div>
 
+      <div class="box sprite">
+        <h3>Sprite</h3>
+        <img src="images/sprite.png" alt="sprite" title="sprite">
       </div>
+
 
     </div>
 
     <a href="#debug" accesskey="d" tabindex="-1" class="hiddenlink">&nbsp;</a>
     <a href="#reset" accesskey="!" tabindex="-1" class="hiddenlink devonly">&nbsp;</a>
 
-    <script src="scripts/lib/json2.js"></script>
-    <script src="scripts/lib/modernizr.custom.45982.js"></script>
-    <script src="scripts/lib/Blob.js"></script>
-    <script src="scripts/lib/jquery-2.1.1.min.js"></script>
-    <script src="scripts/lib/typeahead.bundle.min.js"></script>
-    <script src="scripts/lib/jquery.jsPlumb-1.6.4-min.js"></script>
-    <script>
-      var require = {
-      };
-    </script>
-    <script data-main="scripts/ui/main" src="scripts/lib/require.js"></script>
+    <script src="scripts/lib/jquery.js"></script>
+    <script data-main="scripts/main" src="scripts/lib/require.js"></script>
 
   </body>
 

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Test 1.4.4</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="../style/boxview.css" />
+  </head>
+
+  <body>
+
+    <div class="box">
+      <h3>Box</h3>
+      Lorem ipsum dolor sit amet
+      <br>
+      <form>
+        <input type="number" placeholder="5"/>
+        <input type="text" placeholder="text input"/>
+        <input type="button" value="button input"/>
+      </form>
+      <textarea placeholder="textarea input"></textarea>
+      <button>Button</button>
+      <a href="#">Text Link</a>
+      <select>
+        <option>Option 1</option>
+        <option>Option A</option>
+        <option>Option Alpha</option>
+      </select>
+    </div>
+    
+    <div class="box collapsed">
+      <h3>Initially Collapsed Box</h3>
+      Lorem ipsum dolor sit amet
+      <br>
+      <form>
+        <input type="number" placeholder="5"/>
+        <input type="text" placeholder="text input"/>
+        <input type="button" value="button input"/>
+      </form>
+      <textarea placeholder="textarea input"></textarea>
+      <button>Button</button>
+      <a href="#">Text Link</a>
+      <select>
+        <option>Option 1</option>
+        <option>Option A</option>
+        <option>Option Alpha</option>
+      </select>
+    </div>
+    
+  </body>
+  
+  <script src="../scripts/lib/require.js"></script>
+  <script>
+    require.config({
+      baseUrl: '../scripts',
+    });
+    
+    require(['ui/boxview', 'lib/jquery'], function(BoxView, undefined){
+      
+      var $box;
+      
+      $('div.box').each(function(){
+        var $box;
+        
+        $box = $(this);
+        
+        new BoxView($box, $box.hasClass('collapsed'));
+      });
+      
+      $box = $('<div>').addClass('box').append($('<h3>').text('Script-Generated Box'));
+      
+      new BoxView($box);
+      
+      window.setInterval(function(){
+        $box.append($('<span>').text((new Date()).toTimeString())).append('<br>');
+      }, 500);
+      
+      $('body').append($box);
+    });
+  </script>
+
+</html>

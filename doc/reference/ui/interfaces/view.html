@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>scripts/ui/interfaces/view.js Reference</title>
+</head>
+<body>
+<a href="../../index.html">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>scripts/ui/interfaces/view.js</h1>
+<p>An abstract view class</p>
+<ul>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<ul>
+<li><a href="./model.html">./model</a></li>
+</ul>
+<h2>Functions</h2>
+<h3>function View (model, $view)</h3>
+<p>Displays a model and updates on changes to it.</p>
+<p><strong>Argument:</strong> <strong>model</strong></p>
+<p>The associated instance of the Model class
+<strong>Argument:</strong> <strong>$view</strong></p>
+<p>A jQuery object which is represented by this view</p>
+<hr />
+<h3>View.prototype.reset = function ()</h3>
+<p>resets the whole view</p>
+<hr />
+<h3>View.prototype.update = function ()</h3>
+<p>update the whole view</p>
+<hr />
+<h3>View.prototype.hide = function ()</h3>
+<p>hide the whole view</p>
+<hr />
+<h3>View.prototype.show = function ()</h3>
+<p>show the whole view (after hiding it)</p>
+<hr />
+<h3>View.prototype.detach = function ()</h3>
+<p>Detach the whole view from its container before removing it</p>
+<hr />
+<h3>View.prototype.getElem = function ()</h3>
+<p>get the jQuery object (this.$view)</p>
+<p><strong>Returns:</strong> s this.$view</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>67 Lines</li>
+<li>1254 Bytes</li>
+</ul>
+</body>
+</html>

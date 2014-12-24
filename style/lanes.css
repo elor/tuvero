@@ -1,7 +1,0 @@
-#tabs div#lanes {
-  display: none;
-}
-
-#tabs a[href="#lanes"] {
-  display: none;
-}
