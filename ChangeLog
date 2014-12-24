@@ -4,6 +4,8 @@
 
 	* style/home.css: floating chrome logo
 
+	* images/favicon.png: using the games icon, again
+
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listmodel.js: ListModel added
