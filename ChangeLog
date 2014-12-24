@@ -21,7 +21,7 @@
 	* NEWS: updated from ChangeLog
 
 	* build-scripts/Makefile.in: makefile dependency issue fixed
-
+	not removing smallchange.png, which is currently required to be a separate file
 
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
