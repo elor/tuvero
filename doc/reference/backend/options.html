@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>scripts/backend/options.js Reference</title>
+</head>
+<body>
+<a href="../index.html">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>scripts/backend/options.js</h1>
+<p>Provide functions to define, store, read and write options objects of
+arbitrary type. Can be used by other code to maintain their internal set of
+options</p>
+<p>Undefined behavior (most likely infinite loops) on nesting loops</p>
+<ul>
+<li>Exports: Options</li>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<p>No Dependencies</p>
+<h2>Functions</h2>
+<h3>getOptions : function ()</h3>
+<p>get an object which contains a copy of all options</p>
+<p><strong>Returns:</strong> an object containing copies of the current options</p>
+<hr />
+<h3>setOptions : function (options)</h3>
+<p>set options</p>
+<p><strong>Argument:</strong> <strong>options</strong></p>
+<p>a modified options object retrieved from getOptions()</p>
+<p><strong>Returns:</strong> true on success, false or undefined otherwise</p>
+<hr />
+<h3>Options = function ()</h3>
+<p>constructor</p>
+<p><strong>Returns:</strong> {Options}</p>
+<hr />
+<h3>Options.prototype.toBlob = function ()</h3>
+<p>stores the current state in a blob, mostly using JSON (</p>
+<p><strong>Returns:</strong> the blob</p>
+<hr />
+<h3>Options.prototype.fromBlob = function (blob)</h3>
+<p>restores a state from the blob</p>
+<p><strong>Argument:</strong> <strong>blob</strong></p>
+<p>the blob</p>
+<hr />
+<h3>function toType (obj)</h3>
+<hr />
+<h3>function copyStaticObject (obj)</h3>
+<hr />
+<h3>Options.prototype.getOptions = function ()</h3>
+<hr />
+<h3>Options.getOptions = function (obj)</h3>
+<hr />
+<h3>Options.prototype.setOptions = function (options)</h3>
+<hr />
+<h3>Options.setOptions = function (obj, opts)</h3>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>138 Lines</li>
+<li>2936 Bytes</li>
+</ul>
+</body>
+</html>

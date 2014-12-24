@@ -1,4 +1,503 @@
-\2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: home: "why chrome?" box added
+	tab_new: reference text changed
+	home tab: box order changed
+
+	* style/home.css: floating chrome logo
+	logo and text alignment changes
+
+	* images/favicon.png: using the games icon, again
+
+	* build-scripts/write-reference.sh: using cmark instead of stmd for markdown->html conversion
+
+	* Makefile: 'make' -> 'make build', NOT 'make dist'
+	applyversion.sh -> apply-version.sh typo fixed
+	makefile dependency issue fixed
+	make dist: auto-adding Version and manifest.appcache to git
+
+	* doc/de/index.html: apology added
+
+	* NEWS: updated from ChangeLog
+
+	* build-scripts/Makefile.in: makefile dependency issue fixed
+	not removing smallchange.png, which is currently required to be a separate file
+
+2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/listmodel.js: ListModel added
+
+	* scripts/ui/listview.js: ListView added
+
+	* scripts/ui/tableview.js: TableView: unused $template variable removed
+
+	* test/listview.html: ListView test added
+
+	* scripts/ui/boxview.js: DummyModel removed
+	subview removed
+
+	* scripts/ui/dummymodel.js: DummyModel replaced by 'undefined'
+
+	* scripts/ui/interfaces/view.js: model undefined -> use a dummy model automatically
+
+	* scripts/common.js: dummymodel.js autoremoved
+
+	* scripts/ui/tab_new.js: #42 fixed: clicking the bottom header of a tournament doesn't change the name anymore
+	using BoxView for 'advanced options' boxes
+	unnecessary 'collapsed'-check removed
+
+	* scripts/ui/tab_teams.js: #41 fixed: trying to create a team with an empty player name focuses the empty text field
+
+	* index.html: content added to home tab
+	showing a WiP message on the lanes tab
+	home tab: tiny text change
+	CSS selector mixup fixed
+
+	* style/buttons.css: only float buttons which are direct children of a tab
+	invalid CSS selector fixed
+
+	* style/home.css: home tab stylesheet added
+
+	* style/lanes.css: showing a WiP message on the lanes tab
+
+	* style/mainstyle.css: home.css included
+
+	* scripts/ui/tab_games.js: using BoxView for auto-generated boxes
+
+	* scripts/ui/tab_history.js: using BoxView for auto-generated boxes
+	CSS selector mixup fixed
+
+	* scripts/ui/tab_ranking.js: using BoxView for auto-generated boxes
+
+	* images/games.png: replaced the dice with two petanque balls
+
+	* images/svg/games.svg: replaced the dice with two petanque balls
+
+	* scripts/ui/backgroundscripts/box.js: unnecessary 'collapsed'-check removed
+
+2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/common.js: ui/tablemodel and ui/tableview added
+
+	* scripts/ui/tablemodel.js: simple model for tableview testing
+
+	* scripts/ui/tableview.js: TableView class for showing text-based non-interactive tables
+
+	* test/tableview.html: TableView test case
+
+2014-12-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* style/boxview.css: trying to use different css files for every major view type
+
+	* style/general.css: .box declarations moved to boxview.css
+
+	* style/mainstyle.css: loading boxview.css
+
+	* test/boxview.html: boxview test page added
+
+	* scripts/ui/boxview.js: collapsed boxes: textarea tabbing disabled
+	using default sizes (content-wrapping) after expanding
+
+2014-12-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/splash.js: unnecessary css class removed
+
+	* style/splash.css: transition positioning fixed. Shouldn't stutter anymore
+
+2014-12-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/interfaces/emitter.js: event emitter class added
+
+	* scripts/ui/interfaces/test/emitter.js: tests for emitter.js
+
+	* build-scripts/write-scripts.sh: including test directories in the third level
+
+	* scripts/test.js: including emitter.js
+	including model.js
+
+	* scripts/ui/interfaces/control.js: MVC base classes added
+	moved to controller.js
+
+	* scripts/ui/interfaces/model.js: MVC base classes added
+
+	* scripts/ui/interfaces/view.js: MVC base classes added
+	attach() removed, getElem() added
+
+	* scripts/ui/interfaces/test/model.js: model test added
+
+	* scripts/ui/backgroundscripts/box.js: using BoxView for every box
+
+	* scripts/ui/boxcontroller.js: controller for BoxView
+
+	* scripts/ui/boxview.js: View for collapsing and expanding boxes
+
+	* scripts/ui/dummymodel.js: model without special logic code, but emitter capabilities
+
+	* scripts/ui/interfaces/controller.js: moved from control.js
+
+2014-10-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* build-scripts/update-headers.sh: automatically inserting author and license information
+
+	* build-scripts/write-reference.sh: linkes dependencies
+	todo page
+	TODO and Overview for script subdirectories
+	listing JQuery as a dependency
+	script metrics section added
+	warning about long scripts
+	warning about too many dependencies
+	writing 'make doc' warnings and errors to errors.html
+	extracting functions of a script file
+	JavaDoc-style comments of functions are parsed and displayed
+	not discarding any more errors from the error page
+	not using potentially-empty regex parens
+
+	* Makefile: rebuilding scripts before building docs
+	release -> dist
+	description updated
+	building doc with every build
+
+	* build-scripts/Makefile.in: removing favicon.png, not games.png
+	optimizing favicon
+
+	* build-scripts/write-sprite.sh: ignoring favicon.png
+
+	* images/favicon.png: new dedicated favicon, copied from games.png
+
+	* index.html: using favicon.png
+
+	* doc/reference/errors.html: contains doc errors and warnings
+
+	* doc/reference/index.html: link to errors.html instead of itself
+
+	* build-scripts/write-scripts.sh: function comment added to common.js
+	test.js uses define() instead of require() for improved reference parsing
+
+
+2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* Makefile: Makefile added for easier building and updating
+
+	* build-scripts/apply-version.sh: moved from pushversion.sh
+	just writes the version from the Version-file to all other files
+
+	* build-scripts/build.sh: moved from optimize.sh
+
+	* build-scripts/Makefile.in: secondary makefile for non-user targets
+
+	* build-scripts/write-manifest.sh: moved from manifest.sh
+
+	* build-scripts/write-scripts.sh: moved from update-scripts.sh
+	hardcoded file names corrected
+
+	* build-scripts/write-sprite.sh: moved from writesprite.sh
+	doesn't optimize anymore (using Makefile for that)
+
+	* build-scripts/write-Version.sh: writes the Version-file
+
+	* build-scripts/write-reference.sh: first html files produced
+
+
+2014-10-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: reload button added to tab_history
+
+	* scripts/ui/backgroundscripts/updatetab.js: reload button logic added
+
+	* style/buttons.css: reload button added
+
+	* scripts/ui/tab_history.js: finished tournaments start collapsed
+
+	* scripts/ui/tab_ranking.js: finished tournaments start collapsed
+
+	* images/reload.png: reduced to button size
+
+	* images/svg/reload.svg: reduced to button size
+
+2014-10-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* writesprite.sh: optimizing sprite.png
+
+	* index.html: showing the system type next to the subtournament name
+	added a save button to every tab
+	access keys changed
+
+	* scripts/ui/tab_new.js: showing the system type next to the subtournament name
+	checking for missing anchors
+	moved the swissperm data object to its own file
+
+	* scripts/ui/tab.js: wrote a general tab factory
+
+	* scripts/ui/tab_debug.js: using the tab factory
+
+	* scripts/ui/tab_games.js: using the tab factory
+
+	* scripts/ui/tab_history.js: using the tab factory
+
+	* scripts/ui/tab_ranking.js: using the tab factory
+
+	* scripts/ui/tab_settings.js: using the tab factory
+	save button is now governed by save.js
+
+	* scripts/ui/tab_teams.js: using the tab factory
+
+	* build-scripts/optimize.sh: generating/updating the scripts
+	automatically creating manifest for boules-build directory
+
+	* build-scripts/updatescripts.sh: moved from scripts/
+
+	* scripts/ui/storage.js: unnecessary variable removed
+
+	* scripts/updatescripts.sh: moved to build-scripts
+
+	* scripts/data/swissperm.js: swissperm object now has its own data file
+
+	* scripts/ui/backgroundscripts/box.js: moved from scripts/ui
+	disallow tabbing inside closed boxes
+
+	* scripts/ui/backgroundscripts/featuredetect.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts.js: removed in favor of auto-loading
+
+	* scripts/ui/backgroundscripts/online.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts/print.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts/reset.js: moved from scripts/ui
+
+	* scripts/ui/backgroundscripts/save.js: moved from scripts/ui
+
+	* scripts/ui/box.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/featuredetect.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/online.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/print.js: moved to scripts/ui/backgroundscripts
+
+	* scripts/ui/reset.js: moved to scripts/ui/backgroundscripts
+
+	* style/buttons.css: separate css file for all floating buttons
+
+	* style/mainstyle.css: loading buttons.css
+
+	* style/tabs.css: moved some content to buttons.css
+
+	* scripts/lib/base64.js: removed in favor of Blob.js
+
+	* scripts/ui/history.js: Shared wasn't loaded
+
+	* scripts/ui/toast.js: toasts can be closed by the calling code
+	'undefined.str' error fixed
+
+	* scripts/ui/update.js: showing a 'downloading...' toast
+
+2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* style/tabs.css: space between tabmenu and tab removed
+	tabs: pre-header space in pixel coordinates
+	simpler sprite invocation
+	print button added
+	tab menu positioning rules simplified
+	tab header positioning bug fixed
+	print button is no longer 'position: absolute'
+
+	* optimize.sh: exit with code 1 on copy failure
+	not trying to `rmdir images/`
+
+	* writesprite.sh: python3-compatibility
+	simpler sprite invocation
+	omitting '.png' extension
+
+	* scripts/ui/tab_new.js: hiding tournamentrank whenever it's unnecessary
+	removesystem button logic
+	first and last line of a tournament use css to style themselves, not jquery
+
+	* scripts/ui/tabs.js: not overwriting '#reset' hash
+	simpler sprite invocation
+
+	* images/home.png: home icon added
+
+	* images/svg/home.svg: home icon added
+
+	* index.html: home tab added
+	simpler sprite invocation
+	home accesskey: 'a'
+	omitting '.png' extensions
+	tab_new .removesystem: button with subtournament name instead of tiny xmark
+
+	* images/print.png: print icon added
+
+	* images/svg/clear.svg: resized to 128px
+
+	* images/svg/print.svg: print icon added
+
+	* style/about.css: simpler sprite invocation
+
+	* scripts/ui/backgroundscripts.js: loading print.js
+
+	* scripts/ui/print.js: print button logic added
+
+	* scripts/ui/tab_debug.js: omitting '.png' extensions
+
+	* scripts/ui/tabshandle.js: omitting '.png' extensions
+
+	* style/new.css: expand only the last row of a tournament, not each row
+
+2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: replaced img tags with data-img attributes
+	donate forms replaced with static links
+
+	* scripts/ui/tabs.js: using data-img attributes for tabs
+
+	* style/about.css: using data-img attributes
+
+	* style/debug.css: using data-img attributes
+
+	* style/general.css: using data-img attributes
+
+	* style/new.css: using data-img attributes
+
+	* style/settings.css: using data-img attributes
+
+	* style/sprite.css: default values added (zoom and display)
+
+	* style/tabs.css: using data-img attributes
+	using px values for tab menu heights and margins (due to collisions with css sprites)
+
+	* style/teams.css: using data-img attributes
+
+	* writesprite.sh: default values added (zoom and display)
+
+	* optimize.sh: removing only sprited images
+
+	* manifest.sh: hiding plain text files for now
+	using 'dev' when there's no current version number
+
+2014-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* images/ext/btn_donateCC_LG.gif: removed
+
+	* images/ext/btn_donateCC_LG.png: converted from the gif file
+
+	* index.html: currently not using a gif file
+	showing the sprite in the debug page
+
+	* images/logos/safari_128x128.png: removed
+
+	* images/qr_github.png: removed
+
+	* images/storage.png: removed
+
+	* optimize.sh: writesprite.sh added
+
+	* writesprite.sh: script to combine all images into one sprite
+	excluding sprite.png
+
+	* scripts/ui/tab_debug.js: showing sprite images, too
+	conversion of paths
+	using sprites instead of img
+	not showing sprite.png again
+
+	* style/debug.css: using sprites for image list
+
+	* style/mainstyle.css: using sprite.css
+
+2014-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: expaining text added to tab_new
+	Platz -> Rang
+	using scripts/main.js
+	moved the requirejs config to common.js
+
+	* scripts/build.js: optimization enabled
+	building and using common.js
+	excluding build.js
+	FileSaver.js is a module on its own
+
+	* scripts/ui/alltabs.js: Shared added
+
+	* scripts/ui/autocomplete.js: Shared added
+
+	* scripts/ui/globalranking.js: fixed issue #2 (global ranking too high)
+	Shared added
+
+	* scripts/ui/history.js: Shared added
+
+	* scripts/ui/players.js: Shared added
+
+	* scripts/ui/state.js: Shared added
+
+	* scripts/ui/storage.js: Shared added
+
+	* scripts/ui/tab_debug.js: Shared added
+
+	* scripts/ui/tab_games.js: Shared added
+
+	* scripts/ui/tab_history.js: Shared added
+
+	* scripts/ui/tab_new.js: Shared added
+
+	* scripts/ui/tab_ranking.js: Shared added
+
+	* scripts/ui/tab_settings.js: Shared added
+
+	* scripts/ui/tab_teams.js: Shared added
+
+	* scripts/ui/team.js: Shared added
+
+	* scripts/ui/tournaments.js: Shared added
+
+	* scripts/ui/shared.js: Shared added
+
+	* scripts/main.js: moved from scripts/ui/main.js
+	require paths prepended with 'ui/' to reflect the relative move
+	loading common.js
+	only loading 'common' directly
+
+	* scripts/ui/main.js: moved to scripts/main.js
+
+	* scripts/common.js: added (autogenerated)
+	using define() instead of require()
+	moved global requirejs config here
+
+	* scripts/createcommon.sh: generating common.js
+
+	* scripts/test.js: loading common.js
+	loading and starting QUnit
+
+	* build.sh: build script added for require optimizations
+
+	* scripts/updatecommon.sh: using define() instead of require()
+	moved to updatescripts.sh
+
+	* createmanifest.sh: moved to manifest.sh
+
+	* manifest.sh: moved from createmanifest.sh
+
+	* optimize.sh: moved from build.sh
+	copying the build results over from the build directory
+
+	* pushversion.sh: calling manifest.sh and optimize.sh instead of performing everything locally
+	manifest is created AFTER optimizations!
+
+	* scripts/lib/qunit-1.14.0.js: moved to qunit.js
+
+	* scripts/lib/qunit.js: moved from qunit-1.14.0.js
+
+	* scripts/updatescripts.sh: merged from updatecommon.sh and updatetests.sh
+
+	* scripts/updatetests.sh: merged into updatescripts.sh
+
+	* style/qunit-1.14.0.css: moved to qunit.css
+
+	* style/qunit.css: moved from qunit-1.14.0.css
+
+	* test.html: using common.js for script loading
+
+
+2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_history.js: 'no tournament' warning disabled
 	calculating KO box size from its content, not using jQuery
