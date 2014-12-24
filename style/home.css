@@ -8,6 +8,10 @@
   display: inline-block;
 }
 
+#home > .box > p {
+  text-align: justify;
+}
+
 #home > .box > button,
 #home > .box > a[data-img] {
   margin: 0.5em;
@@ -16,9 +20,9 @@
 }
 
 #home > .firststeps {
-  text-align: left
+  text-align: left;
 }
 
 #home .logo {
-  float: left;
+  float: right;
 }
