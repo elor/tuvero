@@ -107,6 +107,10 @@ the swiss object
 
 ---
 
+###   function initTournamentNameChange (tournamentid)
+
+---
+
 ###   function createTournamentBox ($anchor, tournamentid)
 
 ---
@@ -209,6 +213,6 @@ prepare a swiss tournament management box
 
 ## Metrics
 
-* 794 Lines
-* 20795 Bytes
+* 806 Lines
+* 21099 Bytes
 

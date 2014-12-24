@@ -229,6 +229,7 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function getAnchors'
 Warning: scripts/ui/tab_new.js: undocumented: 'function getHeight'
 Warning: scripts/ui/tab_new.js: undocumented: 'function createSystemAnchor'
 Warning: scripts/ui/tab_new.js: undocumented: 'function initKO'
+Warning: scripts/ui/tab_new.js: undocumented: 'function initTournamentNameChange'
 Warning: scripts/ui/tab_new.js: undocumented: 'function createTournamentBox'
 Warning: scripts/ui/tab_new.js: undocumented: 'function createSelectionBox'
 Warning: scripts/ui/tab_new.js: undocumented: 'function setSystemTitle'
@@ -251,8 +252,8 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function init'
 Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
-Warning: scripts/ui/tab_new.js: > 10 functions: 40
-Warning: scripts/ui/tab_new.js: > 400 lines: 794
+Warning: scripts/ui/tab_new.js: > 10 functions: 41
+Warning: scripts/ui/tab_new.js: > 400 lines: 806
 Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 12
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'

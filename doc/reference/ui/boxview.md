@@ -27,15 +27,12 @@ the .box jQuery object
 ---
 
 
-###   function BoxView ($box, subview)
+###   function BoxView ($box)
 Constructor, which also creates the BoxController
 
 **Argument:** **$box**
 
 the .box jQuery object
-**Argument:** **subview**
-
-an optional View instance, which will be appended to the box
 
 ---
 
@@ -59,6 +56,6 @@ toggle callback function
 
 ## Metrics
 
-* 118 Lines
-* 2854 Bytes
+* 112 Lines
+* 2684 Bytes
 
