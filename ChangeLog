@@ -15,6 +15,8 @@
 
 	* doc/de/index.html: apology added
 
+	* NEWS: updated from ChangeLog
+
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listmodel.js: ListModel added
