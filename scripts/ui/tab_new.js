@@ -15,10 +15,11 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
     './storage', '../backend/tournament', './tournaments', './globalranking',
     './shared', './data/swissperms', './boxview' ], function (Tab, Options, Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared, Swissperms, BoxView) {
-  var Tab_New, $tab, updatepending, template;
+  var Tab_New, $tab, updatepending, template, nameChangeID;
 
   updatepending = false;
   $tab = undefined;
+  nameChangeID = undefined;
 
   /**
    * translates the Tournament ranking into a traditional votes object
@@ -362,6 +363,10 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     });
   }
 
+  function initTournamentNameChange (tournamentid) {
+    nameChangeID = tournamentid;
+  }
+
   function createTournamentBox ($anchor, tournamentid) {
     var type;
 
@@ -447,6 +452,11 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       }
 
       setSystemTitle($system);
+
+      if (nameChangeID === tournamentid) {
+        $system.find('>h3').click();
+        nameChangeID = undefined;
+      }
     }
 
     // process all teams without tournament
@@ -471,6 +481,8 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
     Storage.store();
     Tab_New.update();
+
+    initTournamentNameChange(tournamentid); // TODO find a better solution
   }
 
   /**

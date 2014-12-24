@@ -1,10 +1,13 @@
 2014-12-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: home: "why chrome?" box added
+	tab_new: reference text changed
 
 	* style/home.css: floating chrome logo
 
 	* images/favicon.png: using the games icon, again
+
+	* scripts/ui/tab_new.js: initiating name change on subtournament creation
 
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
