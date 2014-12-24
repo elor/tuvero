@@ -14,12 +14,14 @@
 	* Makefile: 'make' -> 'make build', NOT 'make dist'
 	applyversion.sh -> apply-version.sh typo fixed
 	makefile dependency issue fixed
+	make dist: auto-adding Version and manifest.appcache to git
 
 	* doc/de/index.html: apology added
 
 	* NEWS: updated from ChangeLog
 
 	* build-scripts/Makefile.in: makefile dependency issue fixed
+
 
 2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

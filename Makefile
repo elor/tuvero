@@ -28,10 +28,12 @@ dist: Version NEWS
 	./build-scripts/apply-version.sh
 	$(eval VERSION := $(shell cat Version))
 	git add -u
+	git add Version
 	git commit -m 'release-$(VERSION): version pushed'
 	make build
 	make manifest.appcache
 	git add -u
+	git add manifest.appcache
 	git commit -m 'release-$(VERSION): project built'
 	make remove-dev-files
 	git add -u
