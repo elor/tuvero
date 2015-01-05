@@ -2,6 +2,8 @@
 
 	* build-scripts/write-sprite.sh: css: 'zoom' replaced with 'background-size' for cross-browser compatibility
 
+	* test/sprite.html: sprite test page added
+
 2014-12-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: http/https confusion fixed

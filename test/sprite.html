@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Test %VERSION%</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="../style/sprite.css" />
+    <style>
+      div,a,button {
+        background-color: magenta;
+        display: inline-block;
+        margin: 5px;
+      }
+      
+      button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Tiny</th>
+        <th>Default</th>
+        <th>Large</th>
+      </tr>
+      <tr>
+        <td>div</td>
+        <td><div class="tiny" data-img="games"></div></td>
+        <td><div data-img="games"></div></td>
+        <td><div class="large" data-img="games"></div></td>
+      </tr>
+      <tr>
+        <td>empty anchor</td>
+        <td><a class="tiny" data-img="games"></a</td>
+        <td><a data-img="games"></a></td>
+        <td><a class="large" data-img="games"></a></td>
+      </tr>
+      <tr>
+        <td>text anchor</td>
+        <td><a class="tiny" data-img="games">lorem</a</td>
+        <td><a data-img="games">ipsum</a></td>
+        <td><a class="large" data-img="games">dolor</a></td>
+      </tr>
+      <tr>
+        <td>linked empty anchor</td>
+        <td><a href="#" class="tiny" data-img="games"></a></td>
+        <td><a href="#" data-img="games"></a></td>
+        <td><a href="#" class="large" data-img="games"></a></td>
+      </tr>
+      <tr>
+        <td>linked text anchor</td>
+        <td><a href="#" class="tiny" data-img="games">dolor</a></td>
+        <td><a href="#" data-img="games">sit</a></td>
+        <td><a href="#" class="large" data-img="games">amet</a></td>
+      </tr>
+      <tr>
+        <td>button</td>
+        <td><button class="tiny" data-img="games"></button></td>
+        <td><button data-img="games"></button></td>
+        <td><button class="large" data-img="games"></button></td>
+      </tr>
+    </table>
+    <br>
+    Whole Sprite:
+    <br>
+    <img src="../images/sprite.png" />
+  </body>
+</html>
