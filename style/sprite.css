@@ -1,5 +1,19 @@
 [data-img="about"]::before {
     background-image: url("../images/sprite.png");
+    background-position: 0px 0px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="about"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="about"]::before {
+    background-image: url("../images/sprite.png");
     background-position: -1px -1px;
     width: 128px;
     height: 128px;
@@ -7,220 +21,648 @@
 
 [data-img="all"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -130px -1px;
+    background-position: -66px 0px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="all"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -33px 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="all"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -132px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="change"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -260px -1px;
+    background-position: -132px 0px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="change"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -66px 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="change"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -264px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="debug"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -390px -1px;
+    background-position: -198px 0px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="debug"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -99px 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="debug"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -396px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="deleteteam"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -520px -1px;
+    background-position: -264px 0px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="deleteteam"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -132px 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="deleteteam"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -528px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="file"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -650px -1px;
+    background-position: -330px 0px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="file"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -165px 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="file"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -660px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="games"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -780px -1px;
+    background-position: -396px 0px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="games"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -198px 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="games"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -792px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="history"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -1px -130px;
+    background-position: 0px -66px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="history"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -33px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="history"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="home"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -129px -130px;
+    background-position: -64px -66px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="home"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -32px -33px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="home"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -129px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="HTML5_Logo_128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -258px -130px;
+    background-position: -130px -66px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="HTML5_Logo_128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -65px -33px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="HTML5_Logo_128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -260px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -388px -130px;
+    background-position: -196px -66px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="lanes"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -98px -33px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="lanes"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -392px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -518px -130px;
+    background-position: -262px -66px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="logos/chrome_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -131px -33px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="logos/chrome_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -524px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/chrome-android_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -648px -130px;
+    background-position: -328px -66px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="logos/chrome-android_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -164px -33px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="logos/chrome-android_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -656px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/firefox_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -778px -130px;
+    background-position: -394px -66px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="logos/firefox_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -197px -33px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="logos/firefox_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -788px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/internet-explorer_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -1px -260px;
+    background-position: 0px -132px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="logos/internet-explorer_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -66px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="logos/internet-explorer_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/opera_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -129px -260px;
+    background-position: -64px -132px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="logos/opera_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -32px -66px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="logos/opera_128x128"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -129px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="new"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -258px -260px;
+    background-position: -130px -132px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="new"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -65px -66px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="new"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -260px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -388px -260px;
+    background-position: -196px -132px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="ranking"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -98px -66px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="ranking"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -392px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="settings"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -518px -260px;
+    background-position: -262px -132px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="settings"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -131px -66px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="settings"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -524px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="smallchange"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -648px -260px;
+    background-position: -328px -132px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="smallchange"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -164px -66px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="smallchange"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -656px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="teams1"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -778px -260px;
+    background-position: -394px -132px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="teams1"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -197px -66px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="teams1"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -788px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="teams2"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -1px -390px;
+    background-position: 0px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="teams2"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="teams2"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -396px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="teams3"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -129px -390px;
+    background-position: -64px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="teams3"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -32px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="teams3"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -129px -396px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="test"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -258px -390px;
+    background-position: -130px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="test"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -65px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="test"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -260px -396px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="upload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -388px -390px;
+    background-position: -196px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="upload"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -98px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="upload"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -392px -396px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -518px -390px;
+    background-position: -262px -198px;
+    width: 48px;
+    height: 48px;
+}
+
+.tiny[data-img="print"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -131px -99px;
+    width: 24px;
+    height: 24px;
+}
+
+.large[data-img="print"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -524px -396px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="reload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -616px -390px;
+    background-position: -312px -198px;
+    width: 48px;
+    height: 48px;
+}
+
+.tiny[data-img="reload"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -156px -99px;
+    width: 24px;
+    height: 24px;
+}
+
+.large[data-img="reload"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -624px -396px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -714px -390px;
+    background-position: -362px -198px;
+    width: 48px;
+    height: 48px;
+}
+
+.tiny[data-img="save"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -181px -99px;
+    width: 24px;
+    height: 24px;
+}
+
+.large[data-img="save"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -724px -396px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="ext/amazonwishlist"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -812px -390px;
+    background-position: -412px -198px;
+    width: 59px;
+    height: 26px;
+}
+
+.tiny[data-img="ext/amazonwishlist"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -206px -99px;
+    width: 29px;
+    height: 13px;
+}
+
+.large[data-img="ext/amazonwishlist"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -824px -396px;
     width: 119px;
     height: 52px;
 }
 
 [data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -1px -520px;
+    background-position: 0px -264px;
+    width: 63px;
+    height: 23px;
+}
+
+.tiny[data-img="ext/btn_donateCC_LG"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -132px;
+    width: 31px;
+    height: 11px;
+}
+
+.large[data-img="ext/btn_donateCC_LG"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -528px;
     width: 126px;
     height: 47px;
 }
 
 [data-img="blank"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -127px -520px;
+    background-position: -63px -264px;
+    width: 0px;
+    height: 0px;
+}
+
+.tiny[data-img="blank"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -31px -132px;
+    width: 0px;
+    height: 0px;
+}
+
+.large[data-img="blank"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -127px -528px;
     width: 1px;
     height: 1px;
 }
 
-button[data-img]::before,
-a[data-img]::before {
-  zoom: 0.5;
-}
-
 [data-img]::before {
+  background-size: 474px 288px;
   display: inline-block;
   content: '';
+}
+
+[data-img]:not(.inline)::before {
+  vertical-align: bottom;
+}
+
+.large[data-img]::before {
+  background-size: 948px 576px;
+}
+
+.tiny[data-img]::before {
+  background-size: 237px 144px;;
 }

@@ -4,6 +4,12 @@
 
 	* test/sprite.html: sprite test page added
 
+	* index.html: image size classes added to #home and #about
+
+	* style/about.css: better alignment of logo highlights
+
+	* style/debug.css: zoom removed
+
 2014-12-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: http/https confusion fixed

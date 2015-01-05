@@ -39,6 +39,7 @@
 
 #about .box [data-img] {
   border-radius: 2em;
+  vertical-align: initial;
 }
 
 #about [data-img].supported {
@@ -67,7 +68,6 @@
 
 #about .donatebuttons {
   text-align: center;
-  zoom: 2;
 }
 
 #about .donate {
