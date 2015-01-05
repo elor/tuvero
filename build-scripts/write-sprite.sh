@@ -77,11 +77,11 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
     x=$nextx
     nextx=$(( x + width + margin ))
-    nextx=$((nextx+nextx%2))
+    nextx=$((nextx+4-nextx%4))
 
     if (( nextx >= canvaswidth )); then
         x=$margin
-        y=$((nexty+nexty%2))
+        y=$((nexty+4-nexty%4))
         nextx=$((width + margin))
     fi
 
@@ -95,6 +95,20 @@ for i in `seq 0 $((${#files[@]}-1))`; do
     cat <<EOF >> $stylesheet
 [data-img="$shortname"]::before {
     background-image: url("../$sprite");
+    background-position: $((-x/2))px $((-y/2))px;
+    width: $((width/2))px;
+    height: $((height/2))px;
+}
+
+.tiny[data-img="$shortname"]::before {
+    background-image: url("../$sprite");
+    background-position: $((-x/4))px $((-y/4))px;
+    width: $((width/4))px;
+    height: $((height/4))px;
+}
+
+.large[data-img="$shortname"]::before {
+    background-image: url("../$sprite");
     background-position: -${x}px -${y}px;
     width: ${width}px;
     height: ${height}px;
@@ -102,24 +116,30 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
 EOF
 
-    #    background-size: ${width}px ${height}px;
-
 done
-
-cat <<EOF >> $stylesheet
-button[data-img]::before,
-a[data-img]::before {
-  zoom: 0.5;
-}
-
-[data-img]::before {
-  display: inline-block;
-  content: '';
-}
-EOF
 
 canvaswidth=$xmax
 canvasheight=$nexty
+
+cat <<EOF >> $stylesheet
+[data-img]::before {
+  background-size: $((canvaswidth/2))px $((canvasheight/2))px;
+  display: inline-block;
+  content: '';
+}
+
+[data-img]:not(.inline)::before {
+  vertical-align: bottom;
+}
+
+.large[data-img]::before {
+  background-size: ${canvaswidth}px ${canvasheight}px;
+}
+
+.tiny[data-img]::before {
+  background-size: $((canvaswidth/4))px $((canvasheight/4))px;;
+}
+EOF
 
 ###############################
 # actually combine the images #
