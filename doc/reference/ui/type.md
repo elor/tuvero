@@ -52,8 +52,27 @@ the object
 
 
 ###   Type.is = function (obj, typestring)
-generic type comparison function. This function is mostly used by
-Type.isNumber(), Type.isBoolean(), Type.isFunction(), Type.isArray(), etc.
+generic type comparison function. Other generic functions include:
+
+Type.isNumber(obj)
+
+Type.isObject(obj)
+
+Type.isString(obj)
+
+Type.isUndefined(obj)
+
+Type.isNull(obj)
+
+Type.isDate(obj)
+
+Type.isArray(obj)
+
+Type.isRegexp(obj)
+
+Type.isBoolean(obj)
+
+Type.isFunction(obj)
 
 **Argument:** **obj**
 
@@ -74,6 +93,6 @@ Type.isSomething() closure
 
 ## Metrics
 
-* 96 Lines
-* 2212 Bytes
+* 95 Lines
+* 2188 Bytes
 

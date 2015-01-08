@@ -46,8 +46,27 @@ define(function () {
   }
 
   /**
-   * generic type comparison function. This function is mostly used by
-   * Type.isNumber(), Type.isBoolean(), Type.isFunction(), Type.isArray(), etc.
+   * generic type comparison function. Other generic functions include:
+   * 
+   * Type.isNumber(obj)
+   * 
+   * Type.isObject(obj)
+   * 
+   * Type.isString(obj)
+   * 
+   * Type.isUndefined(obj)
+   * 
+   * Type.isNull(obj)
+   * 
+   * Type.isDate(obj)
+   * 
+   * Type.isArray(obj)
+   * 
+   * Type.isRegexp(obj)
+   * 
+   * Type.isBoolean(obj)
+   * 
+   * Type.isFunction(obj)
    * 
    * @param obj
    *          the object
@@ -60,27 +79,7 @@ define(function () {
   };
 
   /**
-   * automatically creates the Type.is... functions:
-   * 
-   * Type.isNumber
-   * 
-   * Type.isObject
-   * 
-   * Type.isString
-   * 
-   * Type.isUndefined
-   * 
-   * Type.isNull
-   * 
-   * Type.isDate
-   * 
-   * Type.isArray
-   * 
-   * Type.isRegexp
-   * 
-   * Type.isBoolean
-   * 
-   * Type.isFunction
+   * automatically creates the Type.isSomething functions
    */
   types.map(function (reference) {
     var typestring = Type(reference);
