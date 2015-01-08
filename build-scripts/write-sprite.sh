@@ -83,6 +83,7 @@ for i in `seq 0 $((${#files[@]}-1))`; do
         x=$margin
         y=$((nexty+4-nexty%4))
         nextx=$((width + margin))
+        nextx=$((nextx+4-nextx%4))
     fi
 
     (( y + height + margin > nexty )) && nexty=$((y + height + margin))

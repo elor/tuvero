@@ -9,6 +9,7 @@
 	#about: links updated
 
 	* build-scripts/write-sprite.sh: ignoring 'smallchange.png', which is loaded directly
+	4px-alignment of second image of each row fixed
 
 	* images/change.png: removed (svg still remaining)
 
@@ -23,7 +24,6 @@
 	* images/logos/uc_128x128.png: added
 
 	* style/about.css: unsupported icons are semi-transparent again
-
 
 2015-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
