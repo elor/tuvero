@@ -2,6 +2,8 @@
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)
 
+	* scripts/ui/staticviewloader.js: Functions for automatic recursive assignment of views by the classes of DOM elements
+
 2015-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* LICENSE: copyright notice extended to 2015
