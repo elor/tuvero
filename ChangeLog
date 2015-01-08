@@ -5,6 +5,23 @@
 	* scripts/ui/staticviewloader.js: Functions for automatic recursive assignment of views by the classes of DOM elements
 
 	* index.html: .box -> .boxview
+	#about: browser compatibility images added/updated
+
+	* build-scripts/write-sprite.sh: ignoring 'smallchange.png', which is loaded directly
+
+	* images/change.png: removed (svg still remaining)
+
+	* images/logos/chromium_128x128.png: added
+
+	* images/logos/dolphin_128x128.png: added
+
+	* images/logos/lightning_128x128.png: added
+
+	* images/logos/puffin_128x128.png: added
+
+	* images/logos/uc_128x128.png: added
+
+	* style/about.css: unsupported icons are semi-transparent again
 
 2015-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

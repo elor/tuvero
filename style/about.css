@@ -51,7 +51,8 @@
 }
 
 #about [data-img].unsupported {
-  background-color: #d00000;
+  background-color: #ff0000;
+  opacity: 0.7;
 }
 
 .js #about .no-js, .postmessage #about .no-postmessage, .hashchange #about .no-hashchange, .localstorage #about .no-localstorage, .webworkers #about .no-webworkers, .adownload #about .no-adownload, .filereader #about .no-filereader, .json #about .no-json {

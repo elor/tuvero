@@ -7,7 +7,7 @@
 ######################################################################
 
 listFiles(){
-    find images -type f \( -name '*.png' -or -name '*.jpg' \) -not -name 'favicon.png' | sort
+    find images -type f \( -name '*.png' -or -name '*.jpg' \) -not -name 'favicon.png' -not -name 'smallchange.png' | sort
 }
 
 sprite=images/sprite.png
