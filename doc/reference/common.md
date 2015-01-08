@@ -65,6 +65,7 @@ Do not attempt manual changes
 * <a href="ui/shared.html">ui/shared</a>
 * <a href="ui/splash.html">ui/splash</a>
 * <a href="ui/state.html">ui/state</a>
+* <a href="ui/staticviewloader.html">ui/staticviewloader</a>
 * <a href="ui/storage.html">ui/storage</a>
 * <a href="ui/strings.html">ui/strings</a>
 * <a href="ui/tab.html">ui/tab</a>
@@ -82,6 +83,7 @@ Do not attempt manual changes
 * <a href="ui/team.html">ui/team</a>
 * <a href="ui/toast.html">ui/toast</a>
 * <a href="ui/tournaments.html">ui/tournaments</a>
+* <a href="ui/type.html">ui/type</a>
 * <a href="ui/update.html">ui/update</a>
 
 ## Functions
@@ -93,6 +95,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 113 Lines
-* 2394 Bytes
+* 115 Lines
+* 2432 Bytes
 

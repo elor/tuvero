@@ -13,6 +13,7 @@ TODO remove this file in favor of subviewed boxes
 ## Dependencies
 
 * <a href="../boxview.html">../boxview</a>
+* <a href="../staticviewloader.html">../staticviewloader</a>
 * JQuery
 
 
@@ -22,6 +23,6 @@ No exported functions
 
 ## Metrics
 
-* 17 Lines
-* 353 Bytes
+* 18 Lines
+* 411 Bytes
 

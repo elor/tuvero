@@ -5,10 +5,10 @@
  * Type.isBoolean(), Type.isArray() etc. functions are available, but lack
  * additional documentation.
  * 
+ * @exports Type
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
- * @exports Type
  */
 
 define(function () {
@@ -27,8 +27,11 @@ define(function () {
   }
 
   types = [ 1, , {}, '', undefined, null, new Date(), [], /asd/, true,
-      function () {
-      } ];
+  /**
+   * anonymous reference function
+   */
+  function () {
+  } ];
 
   /**
    * get the type string of an object, while also distinguishing between
@@ -81,6 +84,9 @@ define(function () {
    */
   types.map(function (reference) {
     var typestring = Type(reference);
+    /**
+     * Type.isSomething() closure
+     */
     Type['is' + capitalize(typestring)] = function (obj) {
       return Type.is(obj, typestring);
     };

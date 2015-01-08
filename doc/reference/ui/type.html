@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>scripts/ui/type.js Reference</title>
+</head>
+<body>
+<a href="../index.html">back to index</a>
+<a href="index.html">Overview page</a>
+<h1>scripts/ui/type.js</h1>
+<p>A simple type verification library.</p>
+<p>In addition to the Type() and Type.is() functions, Type.isNumber(),
+Type.isBoolean(), Type.isArray() etc. functions are available, but lack
+additional documentation.</p>
+<ul>
+<li>Exports: Type</li>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<p>No Dependencies</p>
+<h2>Functions</h2>
+<h3>function capitalize (str)</h3>
+<p>helper function to capitalize a string</p>
+<p><strong>Argument:</strong> <strong>str</strong></p>
+<p>an arbitrary string of length &gt; 0</p>
+<p><strong>Returns:</strong> s the same string, with the first letter in upper case and the rest
+in lower case</p>
+<hr />
+<h3>function ()</h3>
+<p>anonymous reference function</p>
+<hr />
+<h3>function Type (obj)</h3>
+<p>get the type string of an object, while also distinguishing between
+objects, arrays, dates etc.</p>
+<p><strong>Argument:</strong> <strong>obj</strong></p>
+<p>the object</p>
+<p><strong>Returns:</strong> s a lower-case single-word type string of the object.</p>
+<hr />
+<h3>Type.is = function (obj, typestring)</h3>
+<p>generic type comparison function. This function is mostly used by
+Type.isNumber(), Type.isBoolean(), Type.isFunction(), Type.isArray(), etc.</p>
+<p><strong>Argument:</strong> <strong>obj</strong></p>
+<p>the object
+<strong>Argument:</strong> <strong>typestring</strong></p>
+<p>the type string, as it may have been returned by Type()</p>
+<p><strong>Returns:</strong> s true if the typestring matches Type(obj), false otherwise</p>
+<hr />
+<h3>Type['is' + capitalize(typestring)] = function (obj)</h3>
+<p>Type.isSomething() closure</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>96 Lines</li>
+<li>2212 Bytes</li>
+</ul>
+</body>
+</html>

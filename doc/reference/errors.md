@@ -86,7 +86,7 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 70
+Warning: scripts/common.js: > 5 dependencies: 72
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'

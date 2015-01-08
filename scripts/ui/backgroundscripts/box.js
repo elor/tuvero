@@ -8,10 +8,11 @@
  * @see LICENSE
  */
 
-define([ '../boxview' ], function (BoxView) {
+define([ '../boxview', '../staticviewloader' ], function (BoxView, StaticViewLoader) {
   $(function ($) {
-    $('#tabs div.box').each(function (e) {
-      new BoxView($(this));
-    });
+
+    StaticViewLoader.registerView('box', BoxView);
+
+    StaticViewLoader.loadViews($('body'));
   });
 });
