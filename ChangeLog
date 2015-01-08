@@ -25,6 +25,8 @@
 
 	* style/about.css: unsupported icons are semi-transparent again
 
+	* build-scripts/Makefile.in: 'make images': also optimizing smallchange.png
+
 2015-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* LICENSE: copyright notice extended to 2015
