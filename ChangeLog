@@ -6,6 +6,7 @@
 
 	* index.html: .box -> .boxview
 	#about: browser compatibility images added/updated
+	#about: links updated
 
 	* build-scripts/write-sprite.sh: ignoring 'smallchange.png', which is loaded directly
 
@@ -22,6 +23,7 @@
 	* images/logos/uc_128x128.png: added
 
 	* style/about.css: unsupported icons are semi-transparent again
+
 
 2015-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
