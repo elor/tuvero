@@ -27,6 +27,20 @@
 
 	* build-scripts/Makefile.in: 'make images': also optimizing smallchange.png
 
+	* scripts/ui/fontsizecontroller.js: FontSizeController added
+
+	* scripts/ui/fontsizemodel.js: FontSizeModel added
+
+	* scripts/ui/fontsizeview.js: FontSizeView added
+
+	* style/fontsize.css: define font sizes and rules
+
+	* style/fontsizeview.css: style of FontSizeView
+
+	* style/mainstyle.css: include fontsize.css and fontsizeview.css
+
+	* test/fontsize.html: test page for font size adjustments
+
 2015-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* LICENSE: copyright notice extended to 2015

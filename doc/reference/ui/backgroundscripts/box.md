@@ -1,7 +1,7 @@
 # scripts/ui/backgroundscripts/box.js
 
 
-create BoxViews for every div.box
+create BoxViews for every div.boxview
 
 TODO remove this file in favor of subviewed boxes
 
@@ -24,5 +24,5 @@ No exported functions
 ## Metrics
 
 * 18 Lines
-* 411 Bytes
+* 419 Bytes
 

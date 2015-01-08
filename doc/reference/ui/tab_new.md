@@ -214,5 +214,5 @@ prepare a swiss tournament management box
 ## Metrics
 
 * 806 Lines
-* 21099 Bytes
+* 21103 Bytes
 

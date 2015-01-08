@@ -86,7 +86,7 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 72
+Warning: scripts/common.js: > 5 dependencies: 75
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
@@ -107,6 +107,7 @@ Warning: scripts/ui/backgroundscripts/save.js: > 5 dependencies: 7
 Warning: scripts/ui/backgroundscripts/updatetab.js: undocumented: 'function getSharedName'
 Warning: scripts/ui/csver.js: undocumented: 'toCSV : function'
 Warning: scripts/ui/debug.js: undocumented: 'stackTrace : function'
+Warning: scripts/ui/fontsizeview.js: > 5 dependencies: 6
 Warning: scripts/ui/globalranking.js: undocumented: 'function mapTeamsToTournamentIDs'
 Warning: scripts/ui/globalranking.js: undocumented: 'function mapTeamsToTournamentRanks'
 Warning: scripts/ui/globalranking.js: undocumented: 'function updateTeamObjects'

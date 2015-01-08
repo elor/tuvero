@@ -1,3 +1,4 @@
+@import url("fontsize.css");
 @import url("general.css");
 @import url("splash.css");
 
@@ -5,6 +6,7 @@
 @import url("tabs.css");
 @import url("buttons.css");
 @import url("boxview.css");
+@import url("fontsizeview.css");
 @import url("home.css");
 @import url("teams.css");
 @import url("new.css");

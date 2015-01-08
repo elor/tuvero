@@ -22,7 +22,7 @@ Set the current tabbing state. This forbids tabbing into a collapsed box.
 
 **Argument:** **$box**
 
-the .box jQuery object
+the .boxview jQuery object
 
 ---
 
@@ -32,7 +32,7 @@ Constructor, which also creates the BoxController
 
 **Argument:** **$box**
 
-the .box jQuery object
+the .boxview jQuery object
 
 ---
 
@@ -57,5 +57,5 @@ toggle callback function
 ## Metrics
 
 * 112 Lines
-* 2684 Bytes
+* 2681 Bytes
 

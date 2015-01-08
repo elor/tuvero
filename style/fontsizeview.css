@@ -1,0 +1,21 @@
+.fontsizeview {
+  display: inline-block;
+}
+
+.fontsizeview > button {
+  vertical-align: middle;
+}
+
+.fontsizesmall .fontsizeview > button.fontsizesmall,
+.fontsizetiny .fontsizeview > button.fontsizetiny,
+.fontsizelarge .fontsizeview > button.fontsizelarge,
+.fontsizehuge .fontsizeview > button.fontsizehuge,
+.fontsizenormal .fontsizeview > button.fontsizenormal {
+  background-color: grey;
+}
+
+@media print {
+  .fontsizeview {
+    display: none;
+  }
+}

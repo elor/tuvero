@@ -50,6 +50,9 @@ Do not attempt manual changes
 * <a href="ui/csver.html">ui/csver</a>
 * <a href="ui/data/swissperms.html">ui/data/swissperms</a>
 * <a href="ui/debug.html">ui/debug</a>
+* <a href="ui/fontsizecontroller.html">ui/fontsizecontroller</a>
+* <a href="ui/fontsizemodel.html">ui/fontsizemodel</a>
+* <a href="ui/fontsizeview.html">ui/fontsizeview</a>
 * <a href="ui/globalranking.html">ui/globalranking</a>
 * <a href="ui/history.html">ui/history</a>
 * <a href="ui/interfaces/controller.html">ui/interfaces/controller</a>
@@ -95,6 +98,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 115 Lines
-* 2432 Bytes
+* 118 Lines
+* 2502 Bytes
 

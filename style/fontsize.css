@@ -1,0 +1,33 @@
+html {
+  font-size: 20px;
+}
+
+button, input {
+  font-size: 65%;
+}
+
+.fontsizetiny {
+  font-size: 60%;
+}
+
+.fontsizesmall {
+  font-size: 80%;
+}
+
+.fontsizenormal {
+  font-size: 100%;
+}
+
+.fontsizelarge {
+  font-size: 125%;
+}
+
+.fontsizehuge {
+  font-size: 160%;
+}
+
+@media print {
+  html {
+    font-size: 10pt;
+  }
+}
