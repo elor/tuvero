@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-#about .box {
+#about .boxview {
   width: 40em;
   margin: 1em auto;
 }
@@ -37,7 +37,7 @@
   background-color: #90EE90;
 }
 
-#about .box [data-img] {
+#about .boxview [data-img] {
   border-radius: 2em;
   vertical-align: initial;
 }

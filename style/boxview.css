@@ -1,4 +1,4 @@
-div.box {
+div.boxview {
   position: relative;
   margin: 1em;
   padding: 1em;
@@ -15,11 +15,11 @@ div.box {
   background-color: #ffffff;
 }
 
-div.box.collapsed {
+div.boxview.collapsed {
   border-radius: 1em 1em 0em 0em;
 }
 
-div.box > h3:first-child {
+div.boxview > h3:first-child {
   position: relative;
   display: block;
   padding: 0.3em 1em 0.2em 1em;
@@ -29,4 +29,23 @@ div.box > h3:first-child {
   background-color: #d0d0d0;
   text-align: center;
   cursor: pointer;
+}
+
+@media print {
+  div.boxview {
+    border:none;
+    overflow:visible;
+    padding: 0em;
+    margin: 0.2em;
+  }
+  
+  div.boxview.collapsed {
+    display:none !important;
+  }
+
+  div.boxview > h3:first-child {
+    border: none;
+    background: none;
+    margin-top: 1em;
+  }
 }

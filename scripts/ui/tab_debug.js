@@ -203,7 +203,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     if (tournamentid === undefined) {
       $box = $('#games');
     } else {
-      $boxes = $('#games .box');
+      $boxes = $('#games .boxview');
       for (i = 0; i < $boxes.length; i += 1) {
         if ($boxes.eq(i).data('tournamentid') === tournamentid) {
           $box = $boxes.eq(i);

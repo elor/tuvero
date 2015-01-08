@@ -104,7 +104,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       return undefined;
     }
 
-    $box = template.chpoints.$chpoints.parents('.box');
+    $box = template.chpoints.$chpoints.parents('.boxview');
     if (!$box.length) {
       console.error('$box not found');
       return undefined;
@@ -342,7 +342,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     template = {};
 
     // round container template
-    template.$container = $tab.find('.box.tpl');
+    template.$container = $tab.find('.boxview.tpl');
     template.$container.detach();
     template.$container.removeClass('tpl');
 
@@ -957,7 +957,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     abortCorrection();
 
     // remove containers
-    $tab.find('.box').remove();
+    $tab.find('.boxview').remove();
 
     // reset the round to 0
     currentround = 0;

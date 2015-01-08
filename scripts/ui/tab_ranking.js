@@ -22,7 +22,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     template = {};
 
-    template.$box = $tab.find('div.box.tpl');
+    template.$box = $tab.find('div.boxview.tpl');
     template.$box.detach();
     template.$box.removeClass('tpl');
 
@@ -223,7 +223,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     }
 
     // delete everything, i.e. the wrapping box
-    $tab.find('.box').remove();
+    $tab.find('.boxview').remove();
 
     // update template to the team size
     updateTemplate();

@@ -114,7 +114,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
 
     template = {};
 
-    template.$box = $tab.find('.box.tpl');
+    template.$box = $tab.find('.boxview.tpl');
     template.$box.detach();
     template.$box.removeClass('tpl');
     template.$boxname = template.$box.find('>h3');
@@ -157,7 +157,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
    * removes all games from the overview
    */
   function clearBoxes () {
-    $tab.find('.box').remove();
+    $tab.find('.boxview').remove();
     $games = [];
     $tournaments = [];
     games = [];
@@ -233,7 +233,7 @@ define([ './team', './toast', './strings', './tab_teams', './tab_ranking',
       return undefined;
     }
 
-    $box = $game.parents('.box');
+    $box = $game.parents('.boxview');
 
     if ($box.length !== 1) {
       console.error('cannot find $box of $game');

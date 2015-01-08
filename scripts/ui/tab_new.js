@@ -581,7 +581,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
   }
 
   function initBoxes ($container) {
-    $container.find('div.box').each(function () {
+    $container.find('div.boxview').each(function () {
       var $box;
 
       $box = $(this);

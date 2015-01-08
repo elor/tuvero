@@ -4,7 +4,7 @@
   border-collapse: separate;
 }
 
-#new > div.box:not(.tpl) {
+#new > div.boxview:not(.tpl) {
   display: inline-block;
 }
 

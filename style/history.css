@@ -1,12 +1,12 @@
-#history .box {
+#history .boxview {
   display: inline-block;
 }
 
-#history.progress .box {
+#history.progress .boxview {
   display: block;
 }
 
-#history .box table {
+#history .boxview table {
   display: inline-block;
   white-space: nowrap;
   border-spacing: 0.1em;

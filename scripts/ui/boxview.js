@@ -14,7 +14,7 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
    * Set the current tabbing state. This forbids tabbing into a collapsed box.
    * 
    * @param $box
-   *          the .box jQuery object
+   *          the .boxview jQuery object
    */
   function setTabbing ($box) {
     var i, $inputs, $input, enable;
@@ -44,7 +44,7 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
    * Constructor, which also creates the BoxController
    * 
    * @param $box
-   *          the .box jQuery object
+   *          the .boxview jQuery object
    */
   function BoxView ($box) {
     BoxView.superconstructor.call(this, undefined, $box);

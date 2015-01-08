@@ -2,18 +2,18 @@
   text-align: center;
 }
 
-#home > .box {
+#home > .boxview {
   vertical-align: middle;
   max-width: 50em;
   display: inline-block;
 }
 
-#home > .box > p {
+#home > .boxview > p {
   text-align: justify;
 }
 
-#home > .box > button,
-#home > .box > a[data-img] {
+#home > .boxview > button,
+#home > .boxview > a[data-img] {
   margin: 0.5em;
   display: inline-block;
   vertical-align: middle;

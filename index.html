@@ -37,7 +37,7 @@
 
       <div id="home" accesskey="s">
         <h2>Startseite</h2>
-        <div class="box firststeps">
+        <div class="boxview firststeps">
           <h3>Erste Schritte</h3>
           Willkommen zur Boules Turnierverwaltung.<br>
           Um ein Turnier durchzuführen, folge diesen Schritten:
@@ -52,7 +52,7 @@
           </ol>
           Weitere Informationen sind über die Links im <a href="#about">Über...-Tab</a> verfügbar
         </div>
-        <div class="box">
+        <div class="boxview">
           <h3>Warum Chrome?</h3>
           <a class="large logo" data-img="logos/chrome_128x128" href="https://www.google.com/chrome/browser/desktop/index.html"></a>
           Für die Darstellung dieses Programmes wird der <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome Browser</a> empfohlen.
@@ -65,7 +65,7 @@
           Bis Kompatibilität der anderen Browser hergestellt wurde, muss ich leider um die Verwendung des Chrome-Browsers bitten.
           </p>
         </div>
-        <div class="box">
+        <div class="boxview">
           <h3>Tabs</h3>
           <a href="#home" data-img="home"> Startseite</a>
           <a href="#teams" data-img="teams3"> Anmeldungen</a>
@@ -77,13 +77,13 @@
           <a href="#settings" data-img="settings"> Optionen und Einstellungen</a>
           <a href="#about" data-img="about"> Über...</a>
         </div>
-        <div class="box">
+        <div class="boxview">
           <h3>Buttons</h3>
           <button class="print" data-img="print"></button> Tab drucken<br>
           <button class="save" data-img="save"></button> In Datei speichern<br> 
           <button class="reloadtab" data-img="reload"></button> Tab neu laden<br>
         </div>
-        <div class="box">
+        <div class="boxview">
           <h3>Hinweis - Klick mich</h3>
           Diese Kästen können durch einen Klick auf ihre Titelleiste verkleinert und wieder vergrößert werden, um ungewollte Informationen zu verstecken.
           Einige Kästen sind automatisch verkleinert, bis sie manuell vergrößert werden.
@@ -187,7 +187,7 @@
 
         <br>
 
-        <div class="box newsystem tpl">
+        <div class="boxview newsystem tpl">
           <h3>Neue Turnierphase<input type="text" class="chname" value="%%"/></h3>
           <span>Unterturnier mit den besten <input type="number" class="numteams" min="2"> Teams</span>
           <br>
@@ -196,11 +196,11 @@
           <button class="ko">KO-System</button>
         </div>
 
-        <div class="box swiss tpl">
+        <div class="boxview swiss tpl">
           <h3><span class="name">##</span> - Schweizer System</h3>
           <div class="preparing finished">
             <h3>Runde <span class="nextround">##</span> auslosen</h3>
-            <div class="box collapsed">
+            <div class="boxview collapsed">
               <h3>Erweiterte Optionen</h3>
               <table>
                 <tr>
@@ -265,7 +265,7 @@
           </div>
         </div>
 
-        <div class="box ko tpl">
+        <div class="boxview ko tpl">
           <h3><span class="name">##</span> - KO-System</h3>
           <div class="finished">
             Turnier beendet
@@ -274,7 +274,7 @@
             <button>
               KO-Turnier starten
             </button>
-            <div class="box collapsed">
+            <div class="boxview collapsed">
               <h3>Erweiterte Optionen</h3>
               <div>Erste Runde</div>
               <select class="mode" size="3">
@@ -296,24 +296,24 @@
           </div>
         </div>
 
-        <div class="box poule">
+        <div class="boxview poule">
           <h3>Poule</h3>
           <p><em>Coming later</em></p>
         </div>
 
-        <div class="box supermelee">
+        <div class="boxview supermelee">
           <h3>Supermelee</h3>
           <p><em>Coming maybe</em></p>
         </div>
         
         <br>
 
-        <div class="box roundtournament">
+        <div class="boxview roundtournament">
           <h3>Rundenturnier</h3>
           <p>Nimm <em>Schweizer System</em> mit Modus <em>Zufall</em> in jeder Runde und ohne Freilos-Dopplung</p>
         </div>
         
-        <div class="box maastricht">
+        <div class="boxview maastricht">
           <h3>Maastrichter System</h3>
           <p>Nimm <em>Schweizer System</em> als Vorrunde, dann <em>KO-System</em> als A/B/C/D-Turniere.</p>
         </div>
@@ -331,7 +331,7 @@
         </div>
         <h2> Laufende Spiele</h2>
 
-        <div class="box tpl">
+        <div class="boxview tpl">
           <h3>Runde <span class="round">##</span></h3>
           <form class="game">
             <div class="top">
@@ -389,7 +389,7 @@
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <h2>Platzierung</h2>
-        <div class="box tpl">
+        <div class="boxview tpl">
           <h3>## ##</h3>
           <table class="ranking">
             <tr class="head">
@@ -450,7 +450,7 @@
         </div>
         <h2>Turnierverlauf</h2>
 
-        <div class="box tpl">
+        <div class="boxview tpl">
           <h3>Runde <span class="roundno">##</span></h3>
           <table class="gamestable">
             <tr>
@@ -547,7 +547,7 @@
       <div id="settings" accesskey="o">
         <h2>Optionen und Einstellungen</h2>
 
-        <div class="box">
+        <div class="boxview">
           <h3>Laden und Speichern</h3>
           <div class="load json">
             <h3>Laden</h3>
@@ -582,7 +582,7 @@
           </div>
         </div>
 
-        <div class="box">
+        <div class="boxview">
           <h3>Import &amp; Export</h3>
           <div class="autocomplete">
             <p>
@@ -596,7 +596,7 @@
           </div>
         </div>
 
-        <div class="box csv">
+        <div class="boxview csv">
           <h3>Tabellen-Export</h3>
           <p>
             Exportierte csv-Dateien lassen sich bequem mit Office-Programmen
@@ -613,14 +613,14 @@
           <button class="teams ranking history" data-img="all"></button>
         </div>
 
-        <div class="box nojson">
+        <div class="boxview nojson">
           ACHTUNG: Dieser Browser unterstützt
           wichtige Standards nicht, die zum Speichern und Laden notwendig
           sind. Beim Schließen des Browserfensters gehen sämtliche Daten
           verloren.
         </div>
 
-        <div class="box">
+        <div class="boxview">
           <h3>Storage</h3>
           <p>
             Dieses Programm und alle Eingaben werden im Browser gespeichert, um
@@ -645,7 +645,7 @@
           </div>
         </div>
 
-        <div class="box">
+        <div class="boxview">
           <h3>Entwicklerwerkzeuge</h3>
           <div class="devel">
             <a href="test.html" target="_blank" data-img="test"><br>Unit Tests</a>
@@ -662,7 +662,7 @@
 
       <div id="about" accesskey="?">
         <h2>Über Boules Turnierverwaltung %VERSION%</h2>
-        <div class="box">
+        <div class="boxview">
           <h3>Autor &amp; Mitwirkende</h3>
           <p>
             © Erik E. Lorenz
@@ -679,7 +679,7 @@
             <li>Fabian Böttcher - Beratung</li>
           </ul>
         </div>
-        <div class="box links">
+        <div class="boxview links">
           <h3>Links</h3>
           <p>
             <a class="manual" href="doc/de/index.html" target="_blank">HTML-Anleitung</a>
@@ -701,7 +701,7 @@
             <a href="http://boules-dev.neon.org/" target="_blank">Entwicklerversion</a> zur Vorschau auf kommende Funktionen
           </p>
         </div>
-        <div class="box">
+        <div class="boxview">
           <h3>Browserunterstützung </h3>
           <a data-img="HTML5_Logo_128" class="logo float"></a>
           <p>
@@ -751,7 +751,7 @@
             Dieser Browser unterstützt alle notwendingen Funktionen.
           </p>
         </div>
-        <div class="box">
+        <div class="boxview">
           <h3>Nutzungsbedingungen</h3>
           <p>
             Die Nutzung dieses Programmes ist kostenlos und uneingeschränkt, wie sie bei jeder Software sein sollte.
@@ -773,7 +773,7 @@
       <div id="debug">
         <h2>Debugging Console</h2>
 
-        <div class="box">
+        <div class="boxview">
           <h3>GUI Shortcuts</h3>
           <form class="register">
             <button type="button" class="delete">
@@ -812,12 +812,12 @@
             </button>
           </form>
       </div>
-      <div class="box allimages">
+      <div class="boxview allimages">
         <h3>Images at Pageload</h3>
         <!-- All images get inserted here -->
       </div>
 
-      <div class="box sprite">
+      <div class="boxview sprite">
         <h3>Sprite</h3>
         <img src="images/sprite.png" alt="sprite" title="sprite">
       </div>

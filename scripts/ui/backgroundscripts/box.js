@@ -1,5 +1,5 @@
 /**
- * create BoxViews for every div.box
+ * create BoxViews for every div.boxview
  * 
  * TODO remove this file in favor of subviewed boxes
  * 
@@ -11,7 +11,7 @@
 define([ '../boxview', '../staticviewloader' ], function (BoxView, StaticViewLoader) {
   $(function ($) {
 
-    StaticViewLoader.registerView('box', BoxView);
+    StaticViewLoader.registerView('boxview', BoxView);
 
     StaticViewLoader.loadViews($('body'));
   });

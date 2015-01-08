@@ -14,7 +14,7 @@
   background-color: #ffffff;
 }
 
-#settings .box > div {
+#settings .boxview > div {
   display: inline-block;
   max-width: 17em;
   vertical-align: top;

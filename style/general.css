@@ -80,21 +80,4 @@ div, button {
   button, input {
     display: none;
   }
-  
-  div.box {
-    border:none;
-    overflow:visible;
-    padding: 0em;
-    margin: 0.2em;
-  }
-  
-  div.box.collapsed {
-    display:none !important;
-  }
-
-  div.box > h3:first-child {
-    border: none;
-    background: none;
-    margin-top: 1em;
-  }
 }

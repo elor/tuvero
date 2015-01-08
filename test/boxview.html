@@ -10,7 +10,7 @@
 
   <body>
 
-    <div class="box">
+    <div class="boxview">
       <h3>Box</h3>
       Lorem ipsum dolor sit amet
       <br>
@@ -29,7 +29,7 @@
       </select>
     </div>
     
-    <div class="box collapsed">
+    <div class="boxview collapsed">
       <h3>Initially Collapsed Box</h3>
       Lorem ipsum dolor sit amet
       <br>
@@ -56,19 +56,14 @@
       baseUrl: '../scripts',
     });
     
-    require(['ui/boxview', 'lib/jquery'], function(BoxView, undefined){
+    require(['ui/staticviewloader', 'ui/boxview', 'lib/jquery'], function(StaticViewLoader, BoxView, undefined){
       
       var $box;
       
-      $('div.box').each(function(){
-        var $box;
-        
-        $box = $(this);
-        
-        new BoxView($box, $box.hasClass('collapsed'));
-      });
+      StaticViewLoader.registerView('boxview', BoxView);
+      StaticViewLoader.loadViews($('body'));
       
-      $box = $('<div>').addClass('box').append($('<h3>').text('Script-Generated Box'));
+      $box = $('<div>').addClass('boxview').append($('<h3>').text('Script-Generated Box'));
       
       new BoxView($box);
       
