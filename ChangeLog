@@ -43,6 +43,10 @@
 	* scripts/ui/listview.js: new ListModel architecture adapted
 	third constructor argument ($template) added
 
+	* scripts/ui/playermodel.js: PlayerModel added (WiP)
+
+	* scripts/ui/teammodel.js: TeamModel added (WiP)
+
 2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)
