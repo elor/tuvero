@@ -1,3 +1,13 @@
+2015-01-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: font size options added
+
+	* scripts/ui/backgroundscripts/box.js: merged into initviews.js
+
+	* scripts/ui/backgroundscripts/initviews.js: loading general views, such as boxes and some options
+
+	* style/fontsizeview.css: button width fixed to 1.2em x 1em
+
 2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)
