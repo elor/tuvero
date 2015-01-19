@@ -61,7 +61,6 @@ define([
   "lib/extend",
   "lib/FileSaver",
   "lib/implements",
-  "lib/jsPlumb",
   "ui/alltabs",
   "ui/autocomplete",
   "ui/backgroundscripts/save",

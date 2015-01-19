@@ -20,6 +20,14 @@
 	* test/koline.html: test for KOLine class added
 	debugging output
 
+	* scripts/common.js: jsPlumb removed
+
+	* scripts/lib/jsPlumb.js: jsPlumb removed
+
+	* scripts/ui/tab_history.js: jsPlumb replaced by hand-written solution
+	KO tree drawing sped up
+	redraw-button no longer required for KO tree drawing
+
 2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)
