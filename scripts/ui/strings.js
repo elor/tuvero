@@ -102,7 +102,8 @@ define(function () {
     tab_settings : 'Optionen und Einstellungen',
     tab_about : 'Über...',
     nodata : 'Keine Daten',
-  };
+    svgns : "http://www.w3.org/2000/svg",
+    };
 
   return Strings;
 });

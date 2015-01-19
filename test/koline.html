@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Test %VERSION%</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <style>
+      div {
+        position: relative;
+        margin: 2em;
+        min-height: 1em;
+        min-width: 1em;
+        background-color: #d0d0d0;
+        overflow: visible;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+    </div>
+  </body>
+  
+  <script src="../scripts/lib/require.js"></script>
+  <script>
+    require.config({
+      baseUrl: '../scripts',
+    });
+    
+    require(['ui/koline', 'lib/jquery'], function(KOLine, undefined){
+      var $box, $svg, maxround, round, game;
+
+      function getX (round) {
+        return 2*(maxround - round);
+      }
+    
+      function getY (round, game) {
+        return 2 * (Math.pow(2, maxround - round - 1) + Math.floor(Math.pow(2, maxround - round) * game));
+      }
+      
+      $box = $('div');
+      
+      maxround=8;
+      round = 0;
+      game = 0;
+      
+      boxwidth = getX(-1);
+      boxheight = getY(maxround, Math.pow(2, maxround));
+      $box.css('width', boxwidth + 'em');
+      $box.css('height', boxheight + 'em');
+      
+      for (round=0; round < maxround; round += 1) {
+        for (game=0;  game < Math.pow(2, round); game += 1) {
+          $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2)], [getX(round), getY(round, game)])).svg);
+          $box.append($svg);
+          $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2+1)], [getX(round), getY(round, game)])).svg)
+          $box.append($svg);
+        }
+      }
+    });
+  </script>
+
+</html>

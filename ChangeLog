@@ -12,6 +12,12 @@
 
 	* TODO: out-of-date disclaimer added
 
+	* scripts/ui/koline.js: KO line drawing replacement for jsPlumb
+
+	* scripts/ui/strings.js: svg namespace string added
+
+	* test/koline.html: test for KOLine class added
+
 2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)
