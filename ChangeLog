@@ -8,6 +8,10 @@
 
 	* style/fontsizeview.css: button width fixed to 1.2em x 1em
 
+	* BUGS: out-of-date disclaimer added
+
+	* TODO: out-of-date disclaimer added
+
 2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)

@@ -1,3 +1,6 @@
+DISCLAIMER: This file is outdated. See https://github.com/elor/boules/issues for
+            milestones and reported bugs
+
 [next]
 * storage.changed -> storage.update() + storage.isEnabled(); remove storage.store() from global interface
 * tab_games: when finishing a game, focus the next game in list
