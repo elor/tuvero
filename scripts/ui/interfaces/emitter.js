@@ -13,6 +13,9 @@ define(function () {
     this.listeners = [];
   }
 
+  // TODO somehow restrict the events that can be emitted. This has to be
+  // visible to the user (i.e. programmers)!
+
   /**
    * Emits an event to all registered listeners by calling the callback
    * functions of format 'on'+event, if available
@@ -23,9 +26,11 @@ define(function () {
    * @param event
    *          a string containing the name of the event. Callback functions need
    *          to have a function name in the format 'on'+event
+   * @param data
+   *          arbitrary additional data. Please keep it simple!
    * @returns true if the some listener received the event, false otherwise
    */
-  Emitter.prototype.emit = function (event) {
+  Emitter.prototype.emit = function (event, data) {
     var index, listener, success;
 
     success = false;
@@ -33,7 +38,7 @@ define(function () {
     for (index in this.listeners) {
       listener = this.listeners[index];
       if (listener['on' + event]) {
-        listener['on' + event].call(listener, this, event);
+        listener['on' + event].call(listener, this, event, data);
         success = true;
       }
     }

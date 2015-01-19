@@ -28,6 +28,16 @@
 	KO tree drawing sped up
 	redraw-button no longer required for KO tree drawing
 
+	* scripts/ui/interfaces/emitter.js: emit() accepts data
+
+	* scripts/ui/listmodel.js: refactored to look somewhat like an event emitting array
+
+	* scripts/ui/test/listmodel.js: ListModel tests added
+
+	* test/listview.html: WiP warning added
+
+	* test/tableview.html: WiP warning added
+
 2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)
