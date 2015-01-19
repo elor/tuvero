@@ -1,6 +1,8 @@
 Boules %VERSION% (yyyy-mm-dd)
 -------------------------
 
+FIXES:
+  * KO tree drawing sped up significantly
 
 Boules 1.4.4 (2014-12-24)
 -------------------------

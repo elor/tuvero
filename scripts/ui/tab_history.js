@@ -8,7 +8,7 @@
 
 define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     '../backend/game', './storage', './tabshandle', './tab', './team',
-    './options', './shared', 'lib/jsPlumb', './boxview' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Tab, Team, Options, Shared, jsPlumb, BoxView) {
+    './options', './shared', './boxview', './koline' ], function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage, Tabshandle, Tab, Team, Options, Shared, BoxView, KOLine) {
   var Tab_History, $tab, template, currentround, $button, updatepending, progresstable, visibleupdatepending;
 
   updatepending = false;
@@ -733,7 +733,7 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     maxlevel = level(maxid);
 
     if (game.t1 === undefined && game.t2 === undefined && level(game.id) === maxlevel) {
-      return;
+      return undefined;
     }
 
     template.kotree.$teamno.eq(0).text(game.t1 === undefined ? '' : game.t1 + 1);
@@ -755,8 +755,32 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     return template.kotree.$game.clone().css('left', x + 'em').css('top', y + 'em');
   }
 
+  function createKOGameToParentConnector (game, maxid) {
+    var x, y, x2, y2, maxlevel;
+
+    maxlevel = level(maxid);
+
+    x = getGameTreeX(game.id, maxlevel);
+    y = getGameTreeY(game.id, maxlevel);
+
+    if (game.id > 0) {
+      x2 = getGameTreeX(parent(game.id), maxlevel);
+      y2 = getGameTreeY(parent(game.id), maxlevel);
+
+      x += 13;
+      y += 1.5;
+
+      x2 += 0;
+      y2 += 1.5;
+
+      return $((new KOLine([ x, y ], [ x2, y2 ])).svg);
+    }
+
+    return undefined;
+  }
+
   function createKOTree (tournamentid) {
-    var games, i, $box, g, $game, parentid, jsPlumbInstance, boxwidth, boxheight;
+    var games, i, $box, g, $game, parentid, boxwidth, boxheight, $connector;
 
     // TODO use a more sophisticated method
     if (window.location.hash !== '#history') {
@@ -835,13 +859,16 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       $game = createGameTreeBox(g, games.length - 1);
       if ($game) {
         g.$box = $game;
+        $connector = createKOGameToParentConnector(g, games.length - 1);
+        if ($connector) {
+          $tree.append($connector);
+        }
         $tree.append($game);
       }
     }
 
     $box.append($tree);
     $tab.append($box);
-    jsPlumbInstance = jsPlumb.getInstance();
 
     // create endpoints and update the leftmost and bottommost points
     for (i = 0; i < games.length; i += 1) {
@@ -849,8 +876,6 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
       if (!$game) {
         continue;
       }
-
-      addKOGamesEndpoints($game, jsPlumbInstance);
     }
 
     boxwidth = getGameTreeX(0, level(games.length - 1)) + 14.5;
@@ -859,56 +884,12 @@ define([ './toast', './strings', './history', './tournaments', './tab_ranking',
     $tree.css('width', boxwidth + 'em');
     $tree.css('height', boxheight + 'em');
 
-    // connect the games
-    for (i = games.length - 1; i >= 0; i -= 1) {
-      parentid = parent(games[i].id);
-      if (parentid >= 0) {
-        connectKOGames(games[i].$box, games[parentid].$box, jsPlumbInstance);
-      }
-    }
-
     if (!Tournaments.isRunning(tournamentid)) {
       $box.addClass('collapsed');
     }
     new BoxView($box);
 
     return games.length > 0;
-  }
-
-  function addKOGamesEndpoints ($game, jsPlumbInstance) {
-    if (!$game) {
-      return;
-    }
-
-    $game.data('rightendpoint', jsPlumbInstance.addEndpoint($game.get(0), {
-      endpoint : "Blank",
-      anchor : "Right",
-      maxConnections : 5,
-    }, undefined));
-
-    $game.data('leftendpoint', jsPlumbInstance.addEndpoint($game.get(0), {
-      endpoint : "Blank",
-      anchor : "Left",
-      maxConnections : 5,
-    }, undefined));
-  }
-
-  function connectKOGames ($left, $right, jsPlumbInstance) {
-    if (!$left || !$right) {
-      return;
-    }
-    jsPlumbInstance.connect({
-      source : $left.data('rightendpoint'),
-      target : $right.data('leftendpoint'),
-      paintStyle : {
-        lineWidth : 2,
-        strokeStyle : 'black'
-      },
-      connector : [ "Flowchart", {
-        curviness : 20,
-        width : 1
-      }, undefined ]
-    }, undefined);
   }
 
   function showTournaments () {
