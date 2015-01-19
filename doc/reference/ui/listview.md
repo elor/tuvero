@@ -1,7 +1,7 @@
 # scripts/ui/listview.js
 
 
-ListView for viewing information in a tabular representation
+ListView for printing raw data in a list
 
 * Exports: ListView
 * Author: Erik E. Lorenz 
@@ -11,7 +11,6 @@ ListView for viewing information in a tabular representation
 
 ## Dependencies
 
-* <a href="./boxcontroller.html">./boxcontroller</a>
 * <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
 * JQuery
@@ -19,11 +18,7 @@ ListView for viewing information in a tabular representation
 
 ## Functions
 
-###   function validateText (text)
-
----
-
-###   function ListView ($view, model)
+###   function ListView ($view, model, $template)
 Constructor
 
 **Argument:** **$view**
@@ -62,8 +57,42 @@ event callback function
 
 ---
 
+
+###   ListView.prototype.oninsert = function (model, event, data)
+Emitter Callback function, called right after a new element has been
+inserted
+
+**Argument:** **model**
+
+the ListModel instance
+**Argument:** **event**
+
+name of the event, i.e. 'insert'
+**Argument:** **data**
+
+data object, containing at least the index within the list
+
+---
+
+
+###   ListView.prototype.onremove = function (model, event, data)
+Emitter Callback function, called right after the removal of an element
+from the list
+
+**Argument:** **model**
+
+the ListModel instance
+**Argument:** **event**
+
+name of the event, i.e. 'remove'
+**Argument:** **data**
+
+data object, containing at least the index within the list
+
+---
+
 ## Metrics
 
-* 76 Lines
-* 1485 Bytes
+* 114 Lines
+* 2528 Bytes
 

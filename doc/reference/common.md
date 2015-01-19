@@ -35,7 +35,6 @@ Do not attempt manual changes
 * lib/extend
 * lib/FileSaver
 * lib/implements
-* lib/jsPlumb
 * <a href="ui/alltabs.html">ui/alltabs</a>
 * <a href="ui/autocomplete.html">ui/autocomplete</a>
 * <a href="ui/backgroundscripts/featuredetect.html">ui/backgroundscripts/featuredetect</a>
@@ -64,6 +63,7 @@ Do not attempt manual changes
 * <a href="ui/listview.html">ui/listview</a>
 * <a href="ui/options.html">ui/options</a>
 * <a href="ui/opts.html">ui/opts</a>
+* <a href="ui/playermodel.html">ui/playermodel</a>
 * <a href="ui/players.html">ui/players</a>
 * <a href="ui/ranking.html">ui/ranking</a>
 * <a href="ui/shared.html">ui/shared</a>
@@ -85,6 +85,7 @@ Do not attempt manual changes
 * <a href="ui/tabshandle.html">ui/tabshandle</a>
 * <a href="ui/tab_teams.html">ui/tab_teams</a>
 * <a href="ui/team.html">ui/team</a>
+* <a href="ui/teammodel.html">ui/teammodel</a>
 * <a href="ui/toast.html">ui/toast</a>
 * <a href="ui/tournaments.html">ui/tournaments</a>
 * <a href="ui/type.html">ui/type</a>
@@ -99,6 +100,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 119 Lines
-* 2523 Bytes
+* 116 Lines
+* 2460 Bytes
 

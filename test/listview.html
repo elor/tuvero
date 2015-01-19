@@ -6,15 +6,38 @@
     <title>Boules Test %VERSION%</title>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="../style/boxview.css" />
+    <style>
+      div > span:not(:last-child):after {
+        content: ",";
+      }
+      
+      div,table {
+        margin-bottom: 1em;
+      }
+    </style>
   </head>
 
   <body>
 
-    THIS PAGE IS A WORK IN PROGRESS. IT MAY NOT WORK AS EXPECTED AT THE MOMENT.    
-
-    <div>
+    unordered list
+    <ul>
       You should not see this
+    </ul>
+
+    ordered list
+    <ol>
+      You should not see this, too
+    </ol>
+
+    div/span
+    <div>
+      And you should not see this.
     </div>
+
+    table row/cell
+    <table>
+      <tr><td>This should not be visible</td></tr>
+    </table>
 
   </body>
   
@@ -25,13 +48,23 @@
     });
     
     require(['ui/listview', 'ui/listmodel', 'lib/jquery'], function(ListView, ListModel, undefined){
-      var $view, view, model;
+      $(function($){
+        var view, view2, model, i;
+  
+        model = new ListModel();
+        view = new ListView($('ul').eq(0), model);
+        view.update();
+        view = new ListView($('ol').eq(0), model);
+        view.update();
+        view = new ListView($('div').eq(0), model, $('<span>'));
+        view.update();
+        view = new ListView($('tr').eq(0), model, $('<td>'));
+        view.update();
 
-      $view = $('div').eq(0);
-      model = new ListModel();
-      view = new ListView($view, model);
-
-      model.emit('update');
+        for (i = 1; i <= 10; i += 1) {
+          model.push(i);
+        }
+      });
     });
   </script>
 

@@ -13,7 +13,7 @@ No Description
 * <a href="../backend/game.html">../backend/game</a>
 * <a href="./boxview.html">./boxview</a>
 * <a href="./history.html">./history</a>
-* lib/jsPlumb
+* <a href="./koline.html">./koline</a>
 * <a href="./options.html">./options</a>
 * <a href="./shared.html">./shared</a>
 * <a href="./storage.html">./storage</a>
@@ -176,15 +176,11 @@ end (Copied from kotournament.js)
 
 ---
 
+###   function createKOGameToParentConnector (game, maxid)
+
+---
+
 ###   function createKOTree (tournamentid)
-
----
-
-###   function addKOGamesEndpoints ($game, jsPlumbInstance)
-
----
-
-###   function connectKOGames ($left, $right, jsPlumbInstance)
 
 ---
 
@@ -205,6 +201,6 @@ removes and redraws all boxes from History
 
 ## Metrics
 
-* 982 Lines
-* 26972 Bytes
+* 963 Lines
+* 26397 Bytes
 

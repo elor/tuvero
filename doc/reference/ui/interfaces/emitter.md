@@ -20,7 +20,7 @@ Constructor
 ---
 
 
-###   Emitter.prototype.emit = function (event)
+###   Emitter.prototype.emit = function (event, data)
 Emits an event to all registered listeners by calling the callback
 functions of format 'on'+event, if available
 
@@ -31,6 +31,9 @@ string (without 'on'), in this order.
 
 a string containing the name of the event. Callback functions need
 to have a function name in the format 'on'+event
+**Argument:** **data**
+
+arbitrary additional data. Please keep it simple!
 
 **Returns:** s true if the some listener received the event, false otherwise
 
@@ -64,6 +67,6 @@ registered
 
 ## Metrics
 
-* 79 Lines
-* 1913 Bytes
+* 84 Lines
+* 2126 Bytes
 

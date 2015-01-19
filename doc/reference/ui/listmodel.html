@@ -8,7 +8,8 @@
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
 <h1>scripts/ui/listmodel.js</h1>
-<p>A model for listed content, which may be extended for practical use cases</p>
+<p>A list object, which contains numerically indexed values for use with other
+MVC classes</p>
 <ul>
 <li>Exports: ListModel</li>
 <li>Author: Erik E. Lorenz</li>
@@ -22,22 +23,72 @@
 </ul>
 <h2>Functions</h2>
 <h3>function ListModel ()</h3>
-<p>Constructor</p>
+<p>Constructor for an empty list</p>
 <hr />
-<h3>ListModel.prototype.getItem = function (index)</h3>
-<p>Get a reference to the object at the given index</p>
+<h3>ListModel.prototype.push = function (object)</h3>
+<p>push() function, which appends an object to the end of the list</p>
+<p><strong>Argument:</strong> <strong>object</strong></p>
+<p>an object which will be appended to the list</p>
+<p><strong>Returns:</strong> s the new length of the array</p>
+<hr />
+<h3>ListModel.prototype.pop = function ()</h3>
+<p>remove the last element of the array and returns it</p>
+<p><strong>Returns:</strong> s the previously last element of the array, which has been removed
+during this function call</p>
+<hr />
+<h3>ListModel.prototype.insert = function (index, object)</h3>
+<p>insert an object at the specified index</p>
 <p><strong>Argument:</strong> <strong>index</strong></p>
-<p>Index of the element</p>
-<p><strong>Returns:</strong> s an object representing the item at the given index</p>
+<p>the index at which to insert the object
+<strong>Argument:</strong> <strong>object</strong></p>
+<p>the object, which will take the specified index after insertion</p>
 <hr />
-<h3>ListModel.prototype.numItems = function ()</h3>
-<p>get the number of items</p>
-<p><strong>Returns:</strong> s the number of Items. Less or equal 0 indicates an empty list</p>
+<h3>ListModel.prototype.remove = function (index)</h3>
+<p>removes the object at the specified index from the list</p>
+<p><strong>Argument:</strong> <strong>index</strong></p>
+<p>the index from which to remove from the list</p>
+<p><strong>Returns:</strong> s the removed object</p>
+<hr />
+<h3>ListModel.prototype.clear = function ()</h3>
+<p>removes everything in the array.</p>
+<hr />
+<h3>ListModel.prototype.indexOf = function (object)</h3>
+<p>finds the index of an object, if available.</p>
+<p><strong>Argument:</strong> <strong>object</strong></p>
+<p>the object to look for</p>
+<p><strong>Returns:</strong> s the index of the object in the array, or -1 otherwise</p>
+<hr />
+<h3>ListModel.prototype.get = function (index)</h3>
+<p>access the element at the specified index</p>
+<p><strong>Argument:</strong> <strong>index</strong></p>
+<p>the index within the list</p>
+<p><strong>Returns:</strong> s the object at the specified index</p>
+<hr />
+<h3>ListModel.prototype.set = function (index, object)</h3>
+<p>overwrites (i.e. removes and inserts) an object at the specified index</p>
+<p><strong>Argument:</strong> <strong>index</strong></p>
+<p>the index within the list
+<strong>Argument:</strong> <strong>object</strong></p>
+<p>the object with which to overwrite the index</p>
+<p><strong>Returns:</strong> s the inserted object, of undefined on failure</p>
+<hr />
+<h3>ListModel.prototype.asArray = function ()</h3>
+<p>returns the contents of the list as an array</p>
+<p><strong>Returns:</strong> s the contents of the list as an array</p>
+<hr />
+<h3>ListModel.prototype.oninsert = function ()</h3>
+<p>Callback function: called when an 'insert' event is emitted</p>
+<hr />
+<h3>ListModel.prototype.onremove = function ()</h3>
+<p>Callback function: called when a 'remove' event is emitted</p>
+<hr />
+<h3>ListModel.prototype.onreset = function ()</h3>
+<p>Callback function: called when a 'reset' event is emitted</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>42 Lines</li>
-<li>920 Bytes</li>
+<li>187 Lines</li>
+<li>4229 Bytes</li>
 </ul>
 </body>
 </html>

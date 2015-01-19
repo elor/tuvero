@@ -20,14 +20,16 @@
 <h3>function Emitter ()</h3>
 <p>Constructor</p>
 <hr />
-<h3>Emitter.prototype.emit = function (event)</h3>
+<h3>Emitter.prototype.emit = function (event, data)</h3>
 <p>Emits an event to all registered listeners by calling the callback
 functions of format 'on'+event, if available</p>
 <p>The callback functions' parameters are the emitter (this) and the event
 string (without 'on'), in this order.</p>
 <p><strong>Argument:</strong> <strong>event</strong></p>
 <p>a string containing the name of the event. Callback functions need
-to have a function name in the format 'on'+event</p>
+to have a function name in the format 'on'+event
+<strong>Argument:</strong> <strong>data</strong></p>
+<p>arbitrary additional data. Please keep it simple!</p>
 <p><strong>Returns:</strong> s true if the some listener received the event, false otherwise</p>
 <hr />
 <h3>Emitter.prototype.registerListener = function (listener)</h3>
@@ -46,8 +48,8 @@ registered</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>79 Lines</li>
-<li>1913 Bytes</li>
+<li>84 Lines</li>
+<li>2126 Bytes</li>
 </ul>
 </body>
 </html>

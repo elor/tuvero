@@ -8,7 +8,7 @@
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
 <h1>scripts/ui/listview.js</h1>
-<p>ListView for viewing information in a tabular representation</p>
+<p>ListView for printing raw data in a list</p>
 <ul>
 <li>Exports: ListView</li>
 <li>Author: Erik E. Lorenz</li>
@@ -17,15 +17,12 @@
 </ul>
 <h2>Dependencies</h2>
 <ul>
-<li><a href="./boxcontroller.html">./boxcontroller</a></li>
 <li><a href="./interfaces/view.html">./interfaces/view</a></li>
 <li>lib/extend</li>
 <li>JQuery</li>
 </ul>
 <h2>Functions</h2>
-<h3>function validateText (text)</h3>
-<hr />
-<h3>function ListView ($view, model)</h3>
+<h3>function ListView ($view, model, $template)</h3>
 <p>Constructor</p>
 <p><strong>Argument:</strong> <strong>$view</strong></p>
 <p>the jquery table object
@@ -45,10 +42,30 @@
 <h3>ListView.prototype.onupdate = function ()</h3>
 <p>event callback function</p>
 <hr />
+<h3>ListView.prototype.oninsert = function (model, event, data)</h3>
+<p>Emitter Callback function, called right after a new element has been
+inserted</p>
+<p><strong>Argument:</strong> <strong>model</strong></p>
+<p>the ListModel instance
+<strong>Argument:</strong> <strong>event</strong></p>
+<p>name of the event, i.e. 'insert'
+<strong>Argument:</strong> <strong>data</strong></p>
+<p>data object, containing at least the index within the list</p>
+<hr />
+<h3>ListView.prototype.onremove = function (model, event, data)</h3>
+<p>Emitter Callback function, called right after the removal of an element
+from the list</p>
+<p><strong>Argument:</strong> <strong>model</strong></p>
+<p>the ListModel instance
+<strong>Argument:</strong> <strong>event</strong></p>
+<p>name of the event, i.e. 'remove'
+<strong>Argument:</strong> <strong>data</strong></p>
+<p>data object, containing at least the index within the list</p>
+<hr />
 <h2>Metrics</h2>
 <ul>
-<li>76 Lines</li>
-<li>1485 Bytes</li>
+<li>114 Lines</li>
+<li>2528 Bytes</li>
 </ul>
 </body>
 </html>

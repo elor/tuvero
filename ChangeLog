@@ -31,12 +31,17 @@
 	* scripts/ui/interfaces/emitter.js: emit() accepts data
 
 	* scripts/ui/listmodel.js: refactored to look somewhat like an event emitting array
+	comments added
 
 	* scripts/ui/test/listmodel.js: ListModel tests added
 
 	* test/listview.html: WiP warning added
+	testing the new ListView
 
 	* test/tableview.html: WiP warning added
+
+	* scripts/ui/listview.js: new ListModel architecture adapted
+	third constructor argument ($template) added
 
 2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
