@@ -85,6 +85,7 @@ define([
   "ui/interfaces/model",
   "ui/interfaces/controller",
   "ui/interfaces/view",
+  "ui/koline",
   "ui/listmodel",
   "ui/listview",
   "ui/options",

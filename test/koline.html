@@ -14,10 +14,22 @@
         background-color: #d0d0d0;
         overflow: visible;
       }
+      
+      label{
+        display: inline-block;
+        width: 10em;
+      }
     </style>
   </head>
 
   <body>
+    <form>
+      <label>Number of Rounds:</label><input type="number" disabled="disabled" id="rounds">
+      <br>
+      <label>Number of Connectors:</label><input type="number" disabled="disabled" id="numconnectors">
+      <br>
+      <label>Cached Connectors:</label><input type="number" disabled="disabled" id="cachesize">
+    </form>
     <div>
     </div>
   </body>
@@ -29,7 +41,9 @@
     });
     
     require(['ui/koline', 'lib/jquery'], function(KOLine, undefined){
-      var $box, $svg, maxround, round, game;
+      var maxround;
+      
+      maxround=8;
 
       function getX (round) {
         return 2*(maxround - round);
@@ -39,25 +53,37 @@
         return 2 * (Math.pow(2, maxround - round - 1) + Math.floor(Math.pow(2, maxround - round) * game));
       }
       
-      $box = $('div');
-      
-      maxround=8;
-      round = 0;
-      game = 0;
-      
-      boxwidth = getX(-1);
-      boxheight = getY(maxround, Math.pow(2, maxround));
-      $box.css('width', boxwidth + 'em');
-      $box.css('height', boxheight + 'em');
-      
-      for (round=0; round < maxround; round += 1) {
-        for (game=0;  game < Math.pow(2, round); game += 1) {
-          $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2)], [getX(round), getY(round, game)])).svg);
-          $box.append($svg);
-          $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2+1)], [getX(round), getY(round, game)])).svg)
-          $box.append($svg);
+      $(function($){
+        var $box, $svg, round, game, numconnectors;
+        
+        $box = $('div');
+        
+        round = 0;
+        game = 0;
+        numconnectors = 0;
+        
+        boxwidth = getX(-1);
+        boxheight = getY(maxround, Math.pow(2, maxround));
+        $box.css('width', boxwidth + 'em');
+        $box.css('height', boxheight + 'em');
+
+
+        $('#rounds').val(maxround);
+        
+        for (round=0; round < maxround; round += 1) {
+          for (game=0;  game < Math.pow(2, round); game += 1) {
+            $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2)], [getX(round), getY(round, game)])).svg);
+            $box.append($svg);
+            $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2+1)], [getX(round), getY(round, game)])).svg);
+            $box.append($svg);
+            
+            numconnectors += 2;
+          }
         }
-      }
+        
+        $('#cachesize').val(Object.keys(KOLine.pathCache).length);
+        $('#numconnectors').val(numconnectors);
+      });
     });
   </script>
 

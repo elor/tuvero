@@ -1,9 +1,7 @@
-# scripts/ui/backgroundscripts/box.js
+# scripts/ui/backgroundscripts/initviews.js
 
 
-create BoxViews for every div.boxview
-
-TODO remove this file in favor of subviewed boxes
+register and initiate static views, which aren't necessarily subviewed
 
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
@@ -13,6 +11,7 @@ TODO remove this file in favor of subviewed boxes
 ## Dependencies
 
 * <a href="../boxview.html">../boxview</a>
+* <a href="../fontsizeview.html">../fontsizeview</a>
 * <a href="../staticviewloader.html">../staticviewloader</a>
 * JQuery
 
@@ -23,6 +22,6 @@ No exported functions
 
 ## Metrics
 
-* 18 Lines
-* 419 Bytes
+* 15 Lines
+* 491 Bytes
 

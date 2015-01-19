@@ -38,8 +38,8 @@ Do not attempt manual changes
 * lib/jsPlumb
 * <a href="ui/alltabs.html">ui/alltabs</a>
 * <a href="ui/autocomplete.html">ui/autocomplete</a>
-* <a href="ui/backgroundscripts/box.html">ui/backgroundscripts/box</a>
 * <a href="ui/backgroundscripts/featuredetect.html">ui/backgroundscripts/featuredetect</a>
+* <a href="ui/backgroundscripts/initviews.html">ui/backgroundscripts/initviews</a>
 * <a href="ui/backgroundscripts/online.html">ui/backgroundscripts/online</a>
 * <a href="ui/backgroundscripts/print.html">ui/backgroundscripts/print</a>
 * <a href="ui/backgroundscripts/reset.html">ui/backgroundscripts/reset</a>
@@ -59,6 +59,7 @@ Do not attempt manual changes
 * <a href="ui/interfaces/emitter.html">ui/interfaces/emitter</a>
 * <a href="ui/interfaces/model.html">ui/interfaces/model</a>
 * <a href="ui/interfaces/view.html">ui/interfaces/view</a>
+* <a href="ui/koline.html">ui/koline</a>
 * <a href="ui/listmodel.html">ui/listmodel</a>
 * <a href="ui/listview.html">ui/listview</a>
 * <a href="ui/options.html">ui/options</a>
@@ -98,6 +99,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 118 Lines
-* 2502 Bytes
+* 119 Lines
+* 2523 Bytes
 

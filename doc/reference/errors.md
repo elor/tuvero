@@ -86,7 +86,7 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 75
+Warning: scripts/common.js: > 5 dependencies: 76
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
@@ -122,6 +122,7 @@ Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 19
 Warning: scripts/ui/history.js: > 400 lines: 509
+Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
 Warning: scripts/ui/listview.js: undocumented: 'function validateText'
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
