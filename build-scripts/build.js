@@ -34,10 +34,6 @@
       'lib/typeahead' : {
 //      deps: [ 'lib/jquery' ]
     },
-    'lib/jsPlumb' : {
-//      deps: ['lib/jquery'],
-      exports: 'jsPlumb'
-    },
     'lib/qunit' : {
       exports: 'QUnit',
       /**
