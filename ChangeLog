@@ -23,6 +23,7 @@
 	* scripts/ui/teamview.js: unified view for writing team information to a DOM element
 
 	* test/teamlistview.html: simple test of TeamView, ListView, TeamModel and PlayerModel
+	testing different team sizes
 
 2015-01-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

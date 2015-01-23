@@ -12,6 +12,7 @@
       
       .team {
         display: inline-block;
+        vertical-align: middle;
       }
       
       .name {
@@ -56,15 +57,18 @@
         
         players=[];
         players.push(new PlayerModel('Karo Schwarz'));
-        players.push(new PlayerModel('Stefan Weigel'));
-        players.push(new PlayerModel('Antje Müller'));
         teamlist.push(new TeamModel(players));
         
         players=[];
         players.push(new PlayerModel('Petra Hennig'));
         players.push(new PlayerModel('Detlef Schwede'));
-        players.push(new PlayerModel('Marcel Neumann'));
         teamlist.insert(1, new TeamModel(players));
+
+        players=[];
+        players.push(new PlayerModel('Stefan Weigel'));
+        players.push(new PlayerModel('Antje Müller'));
+        players.push(new PlayerModel('Marcel Neumann'));
+        teamlist.insert(3, new TeamModel(players));
       });
     });
   </script>
