@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Test %VERSION%</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="../style/boxview.css" />
+    <style>
+      .container {
+      }
+      
+      .team {
+        display: inline-block;
+      }
+      
+      .name {
+        display: block;
+        width: 10em;
+        height: 1.5em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="team template">
+        <span class="name">%% %%</span>
+        <span class="name">%% %%</span>
+        <span class="name">%% %%</span>
+      </div>
+    </div>
+  </body>
+  
+  <script src="../scripts/lib/require.js"></script>
+  <script>
+    require.config({
+      baseUrl: '../scripts',
+    });
+    
+    require(['ui/playermodel', 'ui/teammodel', 'ui/listmodel', 'ui/teamview', 'ui/listview', 'lib/jquery'], function(PlayerModel, TeamModel, ListModel, TeamView, ListView, undefined){
+      $(function($){
+        var $view, $template, players, teamlist, view;
+        
+        $view = $('#container');
+        $template = $view.find('.template').detach().removeClass('template');
+        teamlist = new ListModel();
+        
+        teamlistview = new ListView($view, teamlist, $template, TeamView);
+        
+        players=[];
+        players.push(new PlayerModel('Erik E. Lorenz'));
+        players.push(new PlayerModel('Fabian Böttcher'));
+        players.push(new PlayerModel('Martin Richter'));
+        teamlist.push(new TeamModel(players));
+        
+        players=[];
+        players.push(new PlayerModel('Karo Schwarz'));
+        players.push(new PlayerModel('Stefan Weigel'));
+        players.push(new PlayerModel('Antje Müller'));
+        teamlist.push(new TeamModel(players));
+        
+        players=[];
+        players.push(new PlayerModel('Petra Hennig'));
+        players.push(new PlayerModel('Detlef Schwede'));
+        players.push(new PlayerModel('Marcel Neumann'));
+        teamlist.insert(1, new TeamModel(players));
+      });
+    });
+  </script>
+
+</html>

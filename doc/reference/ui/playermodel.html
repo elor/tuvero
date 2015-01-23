@@ -8,8 +8,9 @@
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
 <h1>scripts/ui/playermodel.js</h1>
-<p>No Description</p>
+<p>A Model for each single Player</p>
 <ul>
+<li>Exports: PlayerModel</li>
 <li>Author: Erik E. Lorenz</li>
 <li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
 <li>License: MIT License</li>
@@ -20,16 +21,31 @@
 <li>lib/extend</li>
 </ul>
 <h2>Functions</h2>
+<h3>function trimName (name)</h3>
+<p>trim a player name from white spaces</p>
+<p><strong>Argument:</strong> <strong>name</strong></p>
+<p>the name</p>
+<p><strong>Returns:</strong> s a trimmed version of the name</p>
+<hr />
 <h3>function PlayerModel (name)</h3>
+<p>Constructor</p>
+<p><strong>Argument:</strong> <strong>name</strong></p>
+<p>the player name</p>
 <hr />
 <h3>PlayerModel.prototype.getName = function ()</h3>
+<p>retrieve the player name</p>
+<p><strong>Returns:</strong> s the player name</p>
 <hr />
 <h3>PlayerModel.prototype.setName = function (name)</h3>
+<p>change the player name. Invalid player names (empty or whitespace only)
+will be ignored</p>
+<p><strong>Argument:</strong> <strong>name</strong></p>
+<p>the new name</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>26 Lines</li>
-<li>545 Bytes</li>
+<li>61 Lines</li>
+<li>1224 Bytes</li>
 </ul>
 </body>
 </html>

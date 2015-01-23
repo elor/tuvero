@@ -13,6 +13,17 @@
 
 	* test/listview.html: explicitly stating the use if <li>
 
+	* scripts/ui/playermodel.js: names are automatically trimmed
+	empty names are ignored
+	names default to 'noname' until they're properly set
+
+	* scripts/ui/teammodel.js: this.id added
+	forgot to export TeamModel
+
+	* scripts/ui/teamview.js: unified view for writing team information to a DOM element
+
+	* test/teamlistview.html: simple test of TeamView, ListView, TeamModel and PlayerModel
+
 2015-01-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: font size options added

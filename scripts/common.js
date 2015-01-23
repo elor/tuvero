@@ -108,6 +108,8 @@ define([
   "ui/tab_teams",
   "ui/team",
   "ui/teammodel",
+  "ui/teamview",
+  "ui/textview",
   "ui/toast",
   "ui/tournaments",
   "ui/type",

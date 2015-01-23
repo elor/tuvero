@@ -1,7 +1,7 @@
 # scripts/ui/listview.js
 
 
-ListView for printing raw data in a list
+ListView for printing data in a list using arbitrary views
 
 * Exports: ListView
 * Author: Erik E. Lorenz 
@@ -13,12 +13,13 @@ ListView for printing raw data in a list
 
 * <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
+* <a href="./textview.html">./textview</a>
 * JQuery
 
 
 ## Functions
 
-###   function ListView ($view, model, $template)
+###   function ListView ($view, model, $template, SubView)
 Constructor
 
 **Argument:** **$view**
@@ -26,7 +27,15 @@ Constructor
 the jquery table object
 **Argument:** **model**
 
-the TableModel instance
+the ListModel instance
+**Argument:** **$template**
+
+a template jQuery object, into which to insert the text of each
+element. Defaults to a <div>
+**Argument:** **SubView**
+
+an object constructor for a View of the elements of the list.
+Default to TextView
 
 ---
 
@@ -43,11 +52,23 @@ redraw everything
 ---
 
 
-###   ListView.prototype.createItem = function (index)
-create a content row
+###   ListView.prototype.insertItem = function (index)
+inserts an item into the ListView, using the constructor-specified SubView
+
+**Argument:** **index**
+
+the index of the item inside the underlying list
+
+---
 
 
-**Returns:** s a jquery object containing the newly created still detached row
+###   ListView.prototype.removeItem = function (index)
+remove the item from the DOM and remove all local references as well as its
+subview
+
+**Argument:** **index**
+
+the index of the item upon removal
 
 ---
 
@@ -93,6 +114,6 @@ data object, containing at least the index within the list
 
 ## Metrics
 
-* 114 Lines
-* 2528 Bytes
+* 140 Lines
+* 3446 Bytes
 

@@ -39,34 +39,24 @@ update the whole view
 ---
 
 
-###   View.prototype.hide = function ()
-hide the whole view
+###   View.prototype.destroy = function ()
+destroy the whole view by removing its element from the DOM and
+unregistering the default event listener (disconnect from this.model)
 
----
+Ideas:
 
+A View should not be destroyed and re-instantiated in place on the same DOM
+element, that's what reset() is for
 
-###   View.prototype.show = function ()
-show the whole view (after hiding it)
+This function should effectively destroy the view, leaving nothing behind.
+That's intended for deletion from lists etc., where elements are
+permanently removed and replaced with new elements.
 
----
-
-
-###   View.prototype.detach = function ()
-Detach the whole view from its container before removing it
-
----
-
-
-###   View.prototype.getElem = function ()
-get the jQuery object (this.$view)
-
-
-**Returns:** s this.$view
 
 ---
 
 ## Metrics
 
-* 67 Lines
-* 1254 Bytes
+* 56 Lines
+* 1361 Bytes
 
