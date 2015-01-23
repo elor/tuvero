@@ -34,33 +34,22 @@ define([ './model' ], function (Model) {
   };
 
   /**
-   * hide the whole view
-   */
-  View.prototype.hide = function () {
-    this.$view.hide();
-  };
-
-  /**
-   * show the whole view (after hiding it)
-   */
-  View.prototype.show = function () {
-    this.$view.show();
-  };
-
-  /**
-   * Detach the whole view from its container before removing it
-   */
-  View.prototype.detach = function () {
-    this.$view.detach();
-  };
-
-  /**
-   * get the jQuery object (this.$view)
+   * destroy the whole view by removing its element from the DOM and
+   * unregistering the default event listener (disconnect from this.model)
    * 
-   * @returns this.$view
+   * Ideas:
+   * 
+   * A View should not be destroyed and re-instantiated in place on the same DOM
+   * element, that's what reset() is for
+   * 
+   * This function should effectively destroy the view, leaving nothing behind.
+   * That's intended for deletion from lists etc., where elements are
+   * permanently removed and replaced with new elements.
+   * 
    */
-  View.prototype.getElem = function () {
-    return this.$view;
+  View.prototype.destroy = function () {
+    this.$view.remove();
+    this.model.unregisterListener(this);
   };
 
   return View;

@@ -21,22 +21,20 @@
 
     unordered list
     <ul>
-      You should not see this
     </ul>
 
     ordered list
     <ol>
-      You should not see this, too
     </ol>
 
     div/span
     <div>
-      And you should not see this.
     </div>
 
     table row/cell
     <table>
-      <tr><td>This should not be visible</td></tr>
+      <tr>
+      </tr>
     </table>
 
   </body>
@@ -52,9 +50,9 @@
         var view, view2, model, i;
   
         model = new ListModel();
-        view = new ListView($('ul').eq(0), model);
+        view = new ListView($('ul').eq(0), model, $('<li>'));
         view.update();
-        view = new ListView($('ol').eq(0), model);
+        view = new ListView($('ol').eq(0), model, $('<li>'));
         view.update();
         view = new ListView($('div').eq(0), model, $('<span>'));
         view.update();

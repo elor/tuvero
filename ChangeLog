@@ -1,3 +1,18 @@
+2015-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/interfaces/view.js: unnecessary functions removed
+	destroy() added for safe removal of the view from the DOM and the event listener
+
+	* scripts/ui/listview.js: using SubView constructors to enable the display  more complex data
+	Not removing static DOM elements
+	referencing all subviews using an array, thus enabling safer removal
+	using subview.destroy() to remove the elements and enable clean garbage collection
+	defaulting to <div> instead of <li>
+
+	* scripts/ui/textview.js: simple TextView as a SubView default for ListView
+
+	* test/listview.html: explicitly stating the use if <li>
+
 2015-01-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: font size options added

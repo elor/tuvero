@@ -1,5 +1,5 @@
 /**
- * ListView for printing raw data in a list
+ * ListView for printing data in a list using arbitrary views
  * 
  * @exports ListView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define([ 'lib/extend', './interfaces/view' ], function (extend, View) {
+define([ 'lib/extend', './interfaces/view', './textview' ], function (extend, View, TextView) {
   var ListView;
 
   /**
@@ -16,15 +16,20 @@ define([ 'lib/extend', './interfaces/view' ], function (extend, View) {
    * @param $view
    *          the jquery table object
    * @param model
-   *          the TableModel instance
+   *          the ListModel instance
    * @param $template
    *          a template jQuery object, into which to insert the text of each
-   *          element. Defaults to a list item
+   *          element. Defaults to a <div>
+   * @param SubView
+   *          an object constructor for a View of the elements of the list.
+   *          Default to TextView
    */
-  function ListView ($view, model, $template) {
+  function ListView ($view, model, $template, SubView) {
     ListView.superconstructor.call(this, model, $view);
 
-    this.$template = $template || $('<li>');
+    this.$template = $template || $('<div>');
+    this.SubView = SubView || TextView;
+    this.subviews = [];
   }
   extend(ListView, View);
 
@@ -32,7 +37,11 @@ define([ 'lib/extend', './interfaces/view' ], function (extend, View) {
    * reset to an empty state
    */
   ListView.prototype.reset = function () {
-    this.$view.empty();
+    var index;
+
+    for (index in this.subviews) {
+      this.removeItem(index);
+    }
   };
 
   /**
@@ -44,21 +53,50 @@ define([ 'lib/extend', './interfaces/view' ], function (extend, View) {
     this.reset();
 
     for (index = 0; index < this.model.length; index += 1) {
-      this.$view.append(this.createItem(index));
+      this.insertItem(index);
     }
   };
 
   /**
-   * create a content row
+   * inserts an item into the ListView, using the constructor-specified SubView
    * 
-   * @returns a jquery object containing the newly created still detached row
+   * @param index
+   *          the index of the item inside the underlying list
    */
-  ListView.prototype.createItem = function (index) {
-    var $item;
+  ListView.prototype.insertItem = function (index) {
+    var $item, $subview, subview, model, $previousView;
 
-    $item = this.$template.clone().text(this.model.get(index));
+    $subview = this.$template.clone();
+    model = this.model.get(index);
+    subview = new this.SubView(model, $subview);
 
-    return $item;
+    $item = subview.$view; // == $subview, but may have been wrapped by a tag
+
+    if (index === this.subviews.length) {
+      this.$view.append($item);
+    } else {
+      $previousView = this.subviews[index].$view;
+      $previousView.before($item);
+    }
+    this.subviews.splice(index, 0, subview);
+  };
+
+  /**
+   * remove the item from the DOM and remove all local references as well as its
+   * subview
+   * 
+   * @param index
+   *          the index of the item upon removal
+   */
+  ListView.prototype.removeItem = function (index) {
+    var subview;
+
+    subview = this.subviews[index];
+
+    if (subview) {
+      subview.destroy();
+      this.subviews.splice(index, 1);
+    }
   };
 
   /**
@@ -80,18 +118,7 @@ define([ 'lib/extend', './interfaces/view' ], function (extend, View) {
    *          data object, containing at least the index within the list
    */
   ListView.prototype.oninsert = function (model, event, data) {
-    var index, $item;
-
-    index = data.id;
-    $item = this.createItem(index);
-
-    if (index === 0) {
-      this.$view.prepend($item);
-    } else if (index === this.model.length - 1) {
-      this.$view.append($item);
-    } else {
-      this.$view.children('nth-child(' + (index - 1) + ')').after($item);
-    }
+    this.insertItem(data.id);
   };
 
   /**
@@ -106,11 +133,7 @@ define([ 'lib/extend', './interfaces/view' ], function (extend, View) {
    *          data object, containing at least the index within the list
    */
   ListView.prototype.onremove = function (model, event, data) {
-    var index;
-
-    index = data.id;
-
-    this.$view.children().eq(index).remove();
+    this.removeItem(data.id);
   };
 
   return ListView;
