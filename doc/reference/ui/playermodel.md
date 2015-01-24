@@ -17,7 +17,7 @@ A Model for each single Player
 ## Functions
 
 ###   function trimName (name)
-trim a player name from white spaces
+remove extra white spaces from a player name
 
 **Argument:** **name**
 
@@ -39,10 +39,10 @@ the player name
 
 
 ###   PlayerModel.prototype.getName = function ()
-retrieve the player name
+retrieve a copy of the player name
 
 
-**Returns:** s the player name
+**Returns:** s a copy of the player name
 
 ---
 
@@ -59,6 +59,6 @@ the new name
 
 ## Metrics
 
-* 61 Lines
-* 1224 Bytes
+* 62 Lines
+* 1310 Bytes
 

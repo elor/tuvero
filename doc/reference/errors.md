@@ -90,7 +90,7 @@ Warning: scripts/common.js: > 5 dependencies: 79
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
-Warning: scripts/test.js: > 5 dependencies: 17
+Warning: scripts/test.js: > 5 dependencies: 18
 Warning: scripts/test.js: undocumented: 'function myrequire'
 Warning: scripts/ui/alltabs.js: > 5 dependencies: 8
 Warning: scripts/ui/alltabs.js: undocumented: 'reset : function'

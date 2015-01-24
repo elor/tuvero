@@ -1,3 +1,9 @@
+2015-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/playermodel.js: using trim() and slice() for string manipulation/copying
+
+	* scripts/ui/test/playermodel.js: PlayerModel tests added
+
 2015-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/interfaces/view.js: unnecessary functions removed

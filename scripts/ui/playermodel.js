@@ -10,14 +10,14 @@
 define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
 
   /**
-   * trim a player name from white spaces
+   * remove extra white spaces from a player name
    * 
    * @param name
    *          the name
    * @returns a trimmed version of the name
    */
   function trimName (name) {
-    return name.replace(/^\s*|\s*$/g, '').replace(/\s\s*/g, ' ');
+    return name.trim().replace(/\s+/g, ' ');
   }
 
   /**
@@ -28,18 +28,19 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
    */
   function PlayerModel (name) {
     PlayerModel.superconstructor.call(this);
-    this.name = 'noname';
+    this.name = PlayerModel.NONAME;
     this.setName(name);
   }
   extend(PlayerModel, Model);
+  PlayerModel.NONAME = 'noname';
 
   /**
-   * retrieve the player name
+   * retrieve a copy of the player name
    * 
-   * @returns the player name
+   * @returns a copy of the player name
    */
   PlayerModel.prototype.getName = function () {
-    return this.name;
+    return this.name.slice(0);
   };
 
   /**
@@ -50,8 +51,8 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
    *          the new name
    */
   PlayerModel.prototype.setName = function (name) {
-    name = trimName(name);
-    if (name) {
+    name = trimName(name || '');
+    if (name && name != this.name) {
       this.name = name;
       this.emit('update');
     }
