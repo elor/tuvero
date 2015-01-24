@@ -7,15 +7,17 @@
  */
 define(function () {
   return function (QUnit, getModule) {
-    var TeamModel, PlayerModel;
+    var extend, TeamModel, PlayerModel, IndexedModel;
 
+    extend = getModule('lib/extend');
     TeamModel = getModule('ui/teammodel');
+    IndexedModel = getModule('ui/indexedmodel');
     PlayerModel = getModule('ui/playermodel');
-
-    // TODO test the emitted events
 
     QUnit.test("TeamModel tests", function () {
       var team, players, names, listener;
+
+      QUnit.ok(extend.isSubclass(TeamModel, IndexedModel), 'TeamModel is subclass of IndexedModel');
 
       listener = {
         updatecount : 0,
@@ -53,17 +55,6 @@ define(function () {
       QUnit.equal(team.getPlayer(2).getName(), names[2], 'player name 3');
 
       team.registerListener(listener);
-
-      team.setID(8);
-      QUnit.equal(team.getID(), 8, 'setID sets the id');
-      QUnit.equal(listener.updatecount, 1, 'setID emits update');
-
-      listener.reset();
-      team.setID(8);
-      QUnit.equal(listener.updatecount, 0, 'setID does not emit update if the ids are identical');
-
-      team.setID();
-      QUnit.equal(team.getID(), -1, 'empty setID sets the id to -1');
 
       listener.reset();
       players[0].setName('Generic Name');

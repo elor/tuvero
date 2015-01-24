@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define([ 'lib/extend', './interfaces/model', './playermodel' ], function (extend, Model, PlayerModel) {
+define([ 'lib/extend', './indexedmodel', './playermodel' ], function (extend, IndexedModel, PlayerModel) {
 
   /**
    * Constructor
@@ -18,7 +18,7 @@ define([ 'lib/extend', './interfaces/model', './playermodel' ], function (extend
    *          a preferably unique numeric team id
    */
   function TeamModel (players, id) {
-    TeamModel.superconstructor.call(this);
+    TeamModel.superconstructor.call(this, id);
 
     var index;
 
@@ -27,13 +27,12 @@ define([ 'lib/extend', './interfaces/model', './playermodel' ], function (extend
       players.push(new PlayerModel());
     }
     this.length = players.length;
-    this.setID(id);
     this.players = players.slice(0);
     for (index in this.players) {
       this.players[index].registerListener(this);
     }
   }
-  extend(TeamModel, Model);
+  extend(TeamModel, IndexedModel);
 
   /**
    * .length represents the size of the team
@@ -53,29 +52,6 @@ define([ 'lib/extend', './interfaces/model', './playermodel' ], function (extend
       return this.players[id];
     }
     return undefined;
-  };
-
-  /**
-   * retrieve the id of the team
-   * 
-   * @returns the id of the team
-   */
-  TeamModel.prototype.getID = function () {
-    return this.id;
-  };
-
-  /**
-   * change the id of the team, e.g. after removing another team
-   * 
-   * @param id
-   *          a preferably unique numeric team id
-   */
-  TeamModel.prototype.setID = function (id) {
-    id = id || -1;
-    if (id !== this.id) {
-      this.id = id;
-      this.emit('update');
-    }
   };
 
   /**

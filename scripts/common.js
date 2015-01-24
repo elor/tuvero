@@ -76,6 +76,8 @@ define([
   "ui/fontsizeview",
   "ui/globalranking",
   "ui/history",
+  "ui/indexedlistmodel",
+  "ui/indexedmodel",
   "ui/interfaces/emitter",
   "ui/interfaces/model",
   "ui/interfaces/controller",

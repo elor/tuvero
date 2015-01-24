@@ -8,11 +8,17 @@
 	setID is used by constructor (DRY principle strikes again)
 	only emit update if the id is actually different
 	id defaults to -1, instead of 0
+	TeamModel now is a subclass of IndexedModel
 
 	* scripts/ui/test/teammodel.js: TeamModel tests added
 	testing both of the changes to ListModel
+	moved some tests to the IndexModel tests
 
 	* scripts/ui/listmodel.js: referencing updateLength instead of using duplicated code
+
+	* scripts/ui/indexedmodel.js: generic model with setID and getID functionality
+
+	* scripts/ui/test/indexedmodel.js: tests for getID and setID (moved from TeamModel)
 
 2015-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
