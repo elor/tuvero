@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
+define([ 'lib/extend', './interfaces/model', './playermodel' ], function (extend, Model, PlayerModel) {
 
   /**
    * Constructor
@@ -22,8 +22,12 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
 
     var index;
 
+    players = players || [];
+    if (players.length === 0) {
+      players.push(new PlayerModel());
+    }
     this.length = players.length;
-    this.id = id;
+    this.setID(id);
     this.players = players.slice(0);
     for (index in this.players) {
       this.players[index].registerListener(this);
@@ -67,7 +71,7 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
    *          a preferably unique numeric team id
    */
   TeamModel.prototype.setID = function (id) {
-    this.id = id;
+    this.id = id || 0;
     this.emit('update');
   };
 

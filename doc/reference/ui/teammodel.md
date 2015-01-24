@@ -13,6 +13,7 @@ A combination of players is a team. A team should contain at least one player
 
 * <a href="./interfaces/model.html">./interfaces/model</a>
 * lib/extend
+* <a href="./playermodel.html">./playermodel</a>
 
 ## Functions
 
@@ -72,6 +73,6 @@ event emitter.
 
 ## Metrics
 
-* 86 Lines
-* 1868 Bytes
+* 90 Lines
+* 2011 Bytes
 

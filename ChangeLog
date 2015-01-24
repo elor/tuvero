@@ -4,6 +4,11 @@
 
 	* scripts/ui/test/playermodel.js: PlayerModel tests added
 
+	* scripts/ui/teammodel.js: enforcing at least one player
+	setID is used by constructor (DRY principle strikes again)
+
+	* scripts/ui/test/teammodel.js: TeamModel tests added
+
 2015-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/interfaces/view.js: unnecessary functions removed

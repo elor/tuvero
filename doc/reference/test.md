@@ -29,6 +29,7 @@ This file is automatically created on build. Do not attempt manual changes
 * <a href="./ui/test/listmodel.html">./ui/test/listmodel</a>
 * <a href="./ui/test/playermodel.html">./ui/test/playermodel</a>
 * <a href="./ui/test/tab.html">./ui/test/tab</a>
+* <a href="./ui/test/teammodel.html">./ui/test/teammodel</a>
 
 ## Functions
 
@@ -39,5 +40,5 @@ This file is automatically created on build. Do not attempt manual changes
 ## Metrics
 
 * 20 Lines
-* 900 Bytes
+* 923 Bytes
 
