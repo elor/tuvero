@@ -23,6 +23,8 @@
 	* test/teamlistview.html: teamno field added
 	ListModel replaced with IndexedListModel, and suddenly the indices are updated :-D
 
+	* test.html: favicon set
+
 2015-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/interfaces/view.js: unnecessary functions removed
