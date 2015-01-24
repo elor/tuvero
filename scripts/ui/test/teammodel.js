@@ -36,7 +36,7 @@ define(function () {
       team = new TeamModel();
       QUnit.equal(team.length, 1, 'empty initialization generates an empty team player');
       QUnit.equal(team.getPlayer(0).getName(), PlayerModel.NONAME, 'empty initialization generates an default team player name');
-      QUnit.equal(team.getID(), 0, 'empty initialization sets id to 0');
+      QUnit.equal(team.getID(), -1, 'empty initialization sets id to -1');
 
       QUnit.equal(team.getPlayer(-1), undefined, 'getPlayer(-1) returns undefined');
       QUnit.equal(team.getPlayer(5), undefined, 'out of bounds getPlayer returns undefined');
@@ -57,6 +57,13 @@ define(function () {
       team.setID(8);
       QUnit.equal(team.getID(), 8, 'setID sets the id');
       QUnit.equal(listener.updatecount, 1, 'setID emits update');
+
+      listener.reset();
+      team.setID(8);
+      QUnit.equal(listener.updatecount, 0, 'setID does not emit update if the ids are identical');
+
+      team.setID();
+      QUnit.equal(team.getID(), -1, 'empty setID sets the id to -1');
 
       listener.reset();
       players[0].setName('Generic Name');

@@ -163,24 +163,31 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
   };
 
   /**
+   * update the length variable of the list. Used internally.
+   */
+  ListModel.prototype.updateLength = function () {
+    this.length = this.list.length;
+  };
+
+  /**
    * Callback function: called when an 'insert' event is emitted
    */
   ListModel.prototype.oninsert = function () {
-    this.length = this.list.length;
+    this.updateLength();
   };
 
   /**
    * Callback function: called when a 'remove' event is emitted
    */
   ListModel.prototype.onremove = function () {
-    this.length = this.list.length;
+    this.updateLength();
   };
 
   /**
    * Callback function: called when a 'reset' event is emitted
    */
   ListModel.prototype.onreset = function () {
-    this.length = this.list.length;
+    this.updateLength();
   };
 
   return ListModel;

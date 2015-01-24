@@ -6,8 +6,13 @@
 
 	* scripts/ui/teammodel.js: enforcing at least one player
 	setID is used by constructor (DRY principle strikes again)
+	only emit update if the id is actually different
+	id defaults to -1, instead of 0
 
 	* scripts/ui/test/teammodel.js: TeamModel tests added
+	testing both of the changes to ListModel
+
+	* scripts/ui/listmodel.js: referencing updateLength instead of using duplicated code
 
 2015-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

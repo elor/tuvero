@@ -71,8 +71,11 @@ define([ 'lib/extend', './interfaces/model', './playermodel' ], function (extend
    *          a preferably unique numeric team id
    */
   TeamModel.prototype.setID = function (id) {
-    this.id = id || 0;
-    this.emit('update');
+    id = id || -1;
+    if (id !== this.id) {
+      this.id = id;
+      this.emit('update');
+    }
   };
 
   /**
