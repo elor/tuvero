@@ -4,6 +4,10 @@
 
 	* scripts/ui/fontsizecontroller.js: View.getElem() has been removed a few commits ago
 
+	* build-scripts/write-scripts.sh: myrequire() functionality has been moved to Common()
+
+	* test/teamlistview.html: Common() instead of require() enables post-build view testing
+
 2015-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/playermodel.js: using trim() and slice() for string manipulation/copying

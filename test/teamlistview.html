@@ -24,6 +24,10 @@
       .teamno:before {
         content: "Team "
       }
+      
+      .template {
+        display: none;
+      }
     </style>
   </head>
 
@@ -44,7 +48,16 @@
       baseUrl: '../scripts',
     });
     
-    require(['ui/playermodel', 'ui/teammodel', 'ui/indexedlistmodel', 'ui/teamview', 'ui/listview', 'lib/jquery'], function(PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, undefined){
+//    require(['ui/playermodel', 'ui/teammodel', 'ui/indexedlistmodel', 'ui/teamview', 'ui/listview', 'lib/jquery'], function(PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, undefined){
+    require(['common', 'lib/jquery'], function(Common, undefined){
+      var PlayerModel, TeamModel, IndexedListModel, TeamView, ListView;
+      
+      PlayerModel = Common('ui/playermodel');
+      TeamModel = Common( 'ui/teammodel');
+      IndexedListModel = Common('ui/indexedlistmodel');
+      TeamView = Common('ui/teamview');
+      ListView = Common('ui/listview');
+      
       $(function($){
         var $view, $template, players, teamlist, view;
         
@@ -65,7 +78,7 @@
         teamlist.push(new TeamModel(players));
         
         players=[];
-        players.push(new PlayerModel('Petra Hennig'));
+        players.push(new PlayerModel('Petra Henning'));
         players.push(new PlayerModel('Detlef Schwede'));
         teamlist.insert(1, new TeamModel(players));
 

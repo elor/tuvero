@@ -59,13 +59,13 @@ define([
   "lib/implements",
   "ui/alltabs",
   "ui/autocomplete",
+  "ui/backgroundscripts/reset",
+  "ui/backgroundscripts/featuredetect",
+  "ui/backgroundscripts/updatetab",
+  "ui/backgroundscripts/online",
   "ui/backgroundscripts/save",
   "ui/backgroundscripts/print",
-  "ui/backgroundscripts/reset",
-  "ui/backgroundscripts/online",
   "ui/backgroundscripts/initviews",
-  "ui/backgroundscripts/updatetab",
-  "ui/backgroundscripts/featuredetect",
   "ui/boxcontroller",
   "ui/boxview",
   "ui/csver",
@@ -79,9 +79,9 @@ define([
   "ui/indexedlistmodel",
   "ui/indexedmodel",
   "ui/interfaces/emitter",
-  "ui/interfaces/model",
   "ui/interfaces/controller",
   "ui/interfaces/view",
+  "ui/interfaces/model",
   "ui/koline",
   "ui/listmodel",
   "ui/listview",
@@ -116,5 +116,9 @@ define([
   "ui/tournaments",
   "ui/type",
   "ui/update"
-]);
+], function (undefined){
+  return function (str) {
+    return require.s.contexts._.defined[str];
+  };
+});
 

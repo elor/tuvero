@@ -5,9 +5,7 @@
 cd scripts || exit 1
 
 createTestJS(){
-    files=`echo ./*/{*/,}test/*.js`
-    files=${files//.js/}
-    files=${files// /\', \'}
+    files=$(echo ./*/{*/,}test/*.js | xargs -n1 | sed -e "s/^/         '/" -e "s/\.js\$/',/")
 
     cat << EOF
 /**
@@ -16,13 +14,12 @@ createTestJS(){
  * This file is automatically created on build. Do not attempt manual changes
  */
 
-define([ 'common', 'lib/qunit', '$files' ], function(Common, QUnit){
+define([ 'common',
+         'lib/qunit',
+$files ], function(Common, QUnit){
   var i;
-  function myrequire (str) {
-    return require.s.contexts._.defined[str];
-  }
   for (i = 2; i < arguments.length; i += 1) {
-    arguments[i](QUnit, myrequire);
+    arguments[i](QUnit, Common);
   }
   QUnit.load();
   QUnit.start();
@@ -84,7 +81,11 @@ require.config({
   },
 });
 
-define(`formatpatharray`);
+define(`formatpatharray`, function (undefined){
+  return function (str) {
+    return require.s.contexts._.defined[str];
+  };
+});
 
 EOF
 }

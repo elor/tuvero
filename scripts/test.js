@@ -7,13 +7,30 @@
  * @see LICENSE
  */
 
-define([ 'common', 'lib/qunit', './ui/interfaces/test/emitter', './ui/interfaces/test/model', './backend/test/gameresultscorrection', './backend/test/kotournament', './backend/test/map', './backend/test/matrix', './backend/test/random', './backend/test/ranking', './backend/test/rleblobber', './backend/test/swisstournament', './backend/test/vector', './ui/test/blobs', './ui/test/csv', './ui/test/indexedlistmodel', './ui/test/indexedmodel', './ui/test/listmodel', './ui/test/playermodel', './ui/test/tab', './ui/test/teammodel' ], function(Common, QUnit){
+define([ 'common',
+         'lib/qunit',
+         './ui/interfaces/test/emitter',
+         './ui/interfaces/test/model',
+         './backend/test/gameresultscorrection',
+         './backend/test/kotournament',
+         './backend/test/map',
+         './backend/test/matrix',
+         './backend/test/random',
+         './backend/test/ranking',
+         './backend/test/rleblobber',
+         './backend/test/swisstournament',
+         './backend/test/vector',
+         './ui/test/blobs',
+         './ui/test/csv',
+         './ui/test/indexedlistmodel',
+         './ui/test/indexedmodel',
+         './ui/test/listmodel',
+         './ui/test/playermodel',
+         './ui/test/tab',
+         './ui/test/teammodel', ], function(Common, QUnit, undefined){
   var i;
-  function myrequire (str) {
-    return require.s.contexts._.defined[str];
-  }
   for (i = 2; i < arguments.length; i += 1) {
-    arguments[i](QUnit, myrequire);
+    arguments[i](QUnit, Common);
   }
   QUnit.load();
   QUnit.start();
