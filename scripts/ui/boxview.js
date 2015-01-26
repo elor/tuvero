@@ -8,8 +8,6 @@
  */
 
 define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (extend, View, BoxController) {
-  var BoxView;
-
   /**
    * Set the current tabbing state. This forbids tabbing into a collapsed box.
    * 
