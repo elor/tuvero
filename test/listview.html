@@ -44,8 +44,13 @@
     require.config({
       baseUrl: '../scripts',
     });
-    
-    require(['ui/listview', 'ui/listmodel', 'lib/jquery'], function(ListView, ListModel, undefined){
+
+    require(['common', 'lib/jquery'], function(Common, undefined){    
+      var ListView, ListModel;
+        
+      ListView = Common('ui/listview');
+      ListModel = Common('ui/listmodel');
+        
       $(function($){
         var view, view2, model, i;
   

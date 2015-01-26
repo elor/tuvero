@@ -40,8 +40,10 @@
       baseUrl: '../scripts',
     });
     
-    require(['ui/koline', 'lib/jquery'], function(KOLine, undefined){
-      var maxround;
+    require(['common', 'lib/jquery'], function(Common, undefined){
+      var KOLine, maxround;
+      
+      KOLine = Common('ui/koline');
       
       maxround=8;
 

@@ -29,14 +29,21 @@
       baseUrl: '../scripts',
     });
     
-    require(['ui/tableview', 'ui/tablemodel', 'lib/jquery'], function(TableView, TableModel, undefined){
-      var $table, view, model;
-
-      $table = $('table');
-      model = new TableModel();
-      view = new TableView($table, model);
-
-      model.emit('update');
+    require(['common', 'lib/jquery'], function(Common, undefined){
+      var TableView, TableModel;
+      
+      TableView = Common('ui/tableview');
+      TableModel = Common('ui/tablemodel');
+      
+      $(function($){
+        var $table, view, model;
+  
+        $table = $('table');
+        model = new TableModel();
+        view = new TableView($table, model);
+  
+        model.emit('update');
+      });
     });
   </script>
 

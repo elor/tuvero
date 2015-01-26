@@ -8,6 +8,16 @@
 
 	* test/teamlistview.html: Common() instead of require() enables post-build view testing
 
+	* test/boxview.html: Common() instead of require() enables post-build view testing
+
+	* test/fontsize.html: Common() instead of require() enables post-build view testing
+
+	* test/koline.html: Common() instead of require() enables post-build view testing
+
+	* test/listview.html: Common() instead of require() enables post-build view testing
+
+	* test/tableview.html: Common() instead of require() enables post-build view testing
+
 2015-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/playermodel.js: using trim() and slice() for string manipulation/copying

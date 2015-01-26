@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
 <html lang="de">
   <head>
     <meta charset="utf-8" />
@@ -54,24 +53,30 @@
   <script>
     require.config({
       baseUrl: '../scripts',
-    });
+     });
     
-    require(['ui/staticviewloader', 'ui/boxview', 'lib/jquery'], function(StaticViewLoader, BoxView, undefined){
+    require(['common', 'lib/jquery'], function(Common, undefined){
+      var StaticViewLoader, BoxView;
       
-      var $box;
-      
-      StaticViewLoader.registerView('boxview', BoxView);
-      StaticViewLoader.loadViews($('body'));
-      
-      $box = $('<div>').addClass('boxview').append($('<h3>').text('Script-Generated Box'));
-      
-      new BoxView($box);
-      
-      window.setInterval(function(){
-        $box.append($('<span>').text((new Date()).toTimeString())).append('<br>');
-      }, 500);
-      
-      $('body').append($box);
+      StaticViewLoader = Common('ui/staticviewloader');
+      BoxView = Common('ui/boxview');
+
+      $(function($){      
+        var $box;
+        
+        StaticViewLoader.registerView('boxview', BoxView);
+        StaticViewLoader.loadViews($('body'));
+        
+        $box = $('<div>').addClass('boxview').append($('<h3>').text('Script-Generated Box'));
+        
+        new BoxView($box);
+        
+        window.setInterval(function(){
+          $box.append($('<span>').text((new Date()).toTimeString())).append('<br>');
+        }, 864);
+        
+        $('body').append($box);
+      });
     });
   </script>
 

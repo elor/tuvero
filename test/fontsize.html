@@ -47,13 +47,21 @@
     require.config({
       baseUrl: '../scripts',
     });
-    
-    require(['ui/staticviewloader', 'ui/fontsizeview', 'ui/fontsizemodel', 'lib/jquery'], function(StaticViewLoader, FontSizeView, FontSizeModel, undefined){
-      StaticViewLoader.registerView('fontsizeview', FontSizeView);
-      StaticViewLoader.loadViews($('body'));
+
+    require(['common', 'lib/jquery'], function(Common, undefined){
+      var StaticViewLoader, FontSizeView, FontSizeModel;
       
-      $('#manualreset').click(function(){
-        FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
+      StaticViewLoader = Common('ui/staticviewloader');
+      FontSizeView = Common('ui/fontsizeview');
+      FontSizeModel = Common('ui/fontsizemodel');
+      
+      $(function($){
+        StaticViewLoader.registerView('fontsizeview', FontSizeView);
+        StaticViewLoader.loadViews($('body'));
+        
+        $('#manualreset').click(function(){
+          FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
+        });
       });
     });
   </script>
