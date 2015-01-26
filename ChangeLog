@@ -9,14 +9,18 @@
 	* test/teamlistview.html: Common() instead of require() enables post-build view testing
 
 	* test/boxview.html: Common() instead of require() enables post-build view testing
+	StaticViewLoader is called automatically in the background
 
 	* test/fontsize.html: Common() instead of require() enables post-build view testing
+	StaticViewLoader is called automatically in the background
 
 	* test/koline.html: Common() instead of require() enables post-build view testing
 
 	* test/listview.html: Common() instead of require() enables post-build view testing
 
 	* test/tableview.html: Common() instead of require() enables post-build view testing
+
+	* scripts/ui/staticviewloader.js: variable/function order changed
 
 2015-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -58,14 +58,14 @@
     require(['common', 'lib/jquery'], function(Common, undefined){
       var StaticViewLoader, BoxView;
       
-      StaticViewLoader = Common('ui/staticviewloader');
+//      StaticViewLoader = Common('ui/staticviewloader');
       BoxView = Common('ui/boxview');
 
       $(function($){
         var $box;
         
-        StaticViewLoader.registerView('boxview', BoxView);
-        StaticViewLoader.loadViews($('body'));
+//        StaticViewLoader.registerView('boxview', BoxView);
+//        StaticViewLoader.loadViews($('body'));
         
         $box = $('<div>').addClass('boxview').append($('<h3>').text('Script-Generated Box'));
         

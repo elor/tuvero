@@ -16,6 +16,8 @@
 define([ './type' ], function (Type) {
   var StaticViewLoader, views;
 
+  views = {};
+
   /**
    * initiates the actual view
    * 
@@ -52,8 +54,6 @@ define([ './type' ], function (Type) {
       loadViewByClass($elem, classname);
     });
   }
-
-  views = {};
 
   StaticViewLoader = {
     /**
