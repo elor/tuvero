@@ -21,7 +21,7 @@ define([ 'lib/extend', './interfaces/controller' ], function (extend, Controller
 
     model = this.model;
 
-    this.view.getElem().on('click', '> h3:first-child', function () {
+    this.view.$view.on('click', '> h3:first-child', function () {
       model.emit('toggle');
     });
   }

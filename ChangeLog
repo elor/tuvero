@@ -1,3 +1,9 @@
+2015-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/boxcontroller.js: View.getElem() has been removed a few commits ago
+
+	* scripts/ui/fontsizecontroller.js: View.getElem() has been removed a few commits ago
+
 2015-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/playermodel.js: using trim() and slice() for string manipulation/copying

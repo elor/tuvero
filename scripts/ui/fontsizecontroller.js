@@ -25,7 +25,7 @@ define([ 'lib/extend', './interfaces/controller' ], function (extend, Controller
     /**
      * adjust the font size at the click of a button
      */
-    this.view.getElem().on('click', '> button', function () {
+    this.view.$view.on('click', '> button', function () {
       model.setFontSize($(this).attr('class').replace(/.*fontsize([a-z]+).*/, '$1'));
     });
   }
