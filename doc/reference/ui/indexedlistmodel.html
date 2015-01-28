@@ -7,6 +7,50 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-
+<h1>scripts/ui/indexedlistmodel.js</h1>
+<p>A ListModel, which also adjusts the ids using setID</p>
+<ul>
+<li>Exports: IndexedListModel</li>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<ul>
+<li>lib/extend</li>
+<li><a href="./listmodel.html">./listmodel</a></li>
+</ul>
+<h2>Functions</h2>
+<h3>function IndexedListModel ()</h3>
+<p>Constructor for an empty list</p>
+<hr />
+<h3>IndexedListModel.prototype.updateIDs = function (startindex)</h3>
+<p>update the ids, starting at the specified index</p>
+<p><strong>Argument:</strong> <strong>startindex</strong></p>
+<p>the index with which to start. Defaults to 0</p>
+<hr />
+<h3>IndexedListModel.prototype.oninsert = function (emitter, event, data)</h3>
+<p>Callback function</p>
+<p><strong>Argument:</strong> <strong>emitter</strong></p>
+<p>should be equal to this
+<strong>Argument:</strong> <strong>event</strong></p>
+<p>should be equal to 'insert'
+<strong>Argument:</strong> <strong>data</strong></p>
+<p>a data object containing 'id' and 'object' fields</p>
+<hr />
+<h3>IndexedListModel.prototype.onremove = function (emitter, event, data)</h3>
+<p>Callback function</p>
+<p><strong>Argument:</strong> <strong>emitter</strong></p>
+<p>should be equal to this
+<strong>Argument:</strong> <strong>event</strong></p>
+<p>should be equal to 'remove'
+<strong>Argument:</strong> <strong>data</strong></p>
+<p>a data object containing 'id' and 'object' fields</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>66 Lines</li>
+<li>1678 Bytes</li>
+</ul>
 </body>
 </html>

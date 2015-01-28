@@ -7,6 +7,44 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-
+<h1>scripts/ui/teammodel.js</h1>
+<p>A combination of players is a team. A team should contain at least one player</p>
+<ul>
+<li>Exports: TeamModel</li>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<ul>
+<li><a href="./indexedmodel.html">./indexedmodel</a></li>
+<li>lib/extend</li>
+<li><a href="./playermodel.html">./playermodel</a></li>
+</ul>
+<h2>Functions</h2>
+<h3>function TeamModel (players, id)</h3>
+<p>Constructor</p>
+<p><strong>Argument:</strong> <strong>players</strong></p>
+<p>an array of PlayerModel instances
+<strong>Argument:</strong> <strong>id</strong></p>
+<p>a preferably unique numeric team id</p>
+<hr />
+<h3>TeamModel.prototype.getPlayer = function (id)</h3>
+<p>retrieve a single player. For the number of players, see
+TeamModel.prototype.length</p>
+<p><strong>Argument:</strong> <strong>id</strong></p>
+<p>the index of the player inside the team</p>
+<p><strong>Returns:</strong> s a PlayerModel reference</p>
+<hr />
+<h3>TeamModel.prototype.onupdate = function ()</h3>
+<p>Callback listener</p>
+<p>One of the player names was updated. This is passed through to the team
+event emitter.</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>69 Lines</li>
+<li>1603 Bytes</li>
+</ul>
 </body>
 </html>

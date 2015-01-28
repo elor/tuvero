@@ -85,6 +85,8 @@ define([
   "ui/koline",
   "ui/listmodel",
   "ui/listview",
+  "ui/newteamcontroller",
+  "ui/newteamview",
   "ui/options",
   "ui/opts",
   "ui/playermodel",

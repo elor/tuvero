@@ -40,6 +40,6 @@ aborted and the first invalid input field is focused
 
 ## Metrics
 
-* 74 Lines
-* 1775 Bytes
+* 73 Lines
+* 1774 Bytes
 

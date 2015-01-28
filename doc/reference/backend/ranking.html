@@ -7,6 +7,89 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-
+<h1>scripts/backend/ranking.js</h1>
+<p>Ranking is an interface for different ranking methods. The most important
+assumption is about the player ids: They're required to be close-packed
+integer values starting at 0.</p>
+<ul>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<ul>
+<li><a href="./blobber.html">./blobber</a></li>
+</ul>
+<h2>Functions</h2>
+<h3>size : function ()</h3>
+<p>Retrieve the size of the internal data structures. This is required to
+correspond to the number of players, the largest player id + 1 and the
+size of returned arrays. Not that there's no setSize method.</p>
+<p><strong>Returns:</strong> the size of the ranking</p>
+<hr />
+<h3>resize : function (size)</h3>
+<p>Set a certain size. If it shrinks from the current size, older values
+are expected to be discarded.</p>
+<p><strong>Argument:</strong> <strong>size</strong></p>
+<p>the new size</p>
+<p><strong>Returns:</strong> this</p>
+<hr />
+<h3>get : function ()</h3>
+<p>get() calculates the rankings and returns a sorted list of player ids.
+Specific methods to get the values by which the ranking was produced
+may still be implemented. CAUTION: The returned object may (and most
+likely will) contain references to internal data structures, so be
+careful when editing them. Consider them readonly and all's fine</p>
+<p><strong>Returns:</strong> an object containing the ranking as well as and
+implementation-specific data which was used for ranking.</p>
+<hr />
+<h3>add : function (result)</h3>
+<p>add() adds a new game result to the internal storage methods.</p>
+<p><strong>Argument:</strong> <strong>{Result}</strong></p>
+<p>result to add</p>
+<p><strong>Returns:</strong> {Ranking} this</p>
+<hr />
+<h3>remove : function (result)</h3>
+<p>remove() removes a game result from the storage. Optional method, but
+useful in case of misentry.</p>
+<p><strong>Argument:</strong> <strong>{Result}</strong></p>
+<p>result to erase</p>
+<p><strong>Returns:</strong> {Ranking} this</p>
+<hr />
+<h3>correct : function (correction)</h3>
+<p>correct() changes the result of a previously added game to a new state.
+This function should act like erasing the old result and adding the new
+one, but might encourage optimized algorithms. Checks whether the old
+result was submitted before are encouraged for additional safety.</p>
+<p><strong>Argument:</strong> <strong>{Correction}</strong></p>
+<p>correction</p>
+<p><strong>Returns:</strong> {Ranking} undefined on failure, this on success</p>
+<hr />
+<h3>getCorrections : function ()</h3>
+<p>getCorrections() returns a copy of all corrections applied to this.</p>
+<p><strong>Returns:</strong> deep copy of an array of previous corrections</p>
+<hr />
+<h3>added : function (game)</h3>
+<p>verify as good as possible with the stored data whether a particular
+game took place and was added to the ranking.</p>
+<p><strong>Argument:</strong> <strong>game</strong></p>
+<p>the game to verify</p>
+<p><strong>Returns:</strong> true of the game is likely to have been added, false otherwise</p>
+<hr />
+<h3>grantBye : function (playerid)</h3>
+<p>grant a bye to a player</p>
+<p><strong>Argument:</strong> <strong>{Integer}</strong></p>
+<p>playerid the player's index</p>
+<hr />
+<h3>revokeBye : function (playerid)</h3>
+<p>revoke a bye</p>
+<p><strong>Argument:</strong> <strong>{Integer}</strong></p>
+<p>playerid the player's index</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>130 Lines</li>
+<li>3742 Bytes</li>
+</ul>
 </body>
 </html>

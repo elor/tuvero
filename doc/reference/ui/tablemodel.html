@@ -7,6 +7,50 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-
+<h1>scripts/ui/tablemodel.js</h1>
+<p>A model for table content, which may be extended for practical use cases</p>
+<ul>
+<li>Exports: TableModel</li>
+<li>Author: Erik E. Lorenz</li>
+<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
+<li>License: MIT License</li>
+</ul>
+<h2>Dependencies</h2>
+<ul>
+<li><a href="./interfaces/model.html">./interfaces/model</a></li>
+<li>lib/extend</li>
+</ul>
+<h2>Functions</h2>
+<h3>function TableModel ()</h3>
+<p>Constructor</p>
+<hr />
+<h3>TableModel.prototype.getCell = function (row, col)</h3>
+<p>Get the text contents of the cell</p>
+<p><strong>Argument:</strong> <strong>row</strong></p>
+<p>Row of the cell (y-index)
+<strong>Argument:</strong> <strong>col</strong></p>
+<p>Column of the cell (x-index)</p>
+<p><strong>Returns:</strong> s the text to display, or &quot;&quot; or undefined if there's nothing to
+display</p>
+<hr />
+<h3>TableModel.prototype.numRows = function ()</h3>
+<p>get the number of rows</p>
+<p><strong>Returns:</strong> s the number of rows. Less or equal 0 indicates an empty table</p>
+<hr />
+<h3>TableModel.prototype.numCols = function ()</h3>
+<p>get the number of columns</p>
+<p><strong>Returns:</strong> s the number of columns. Less or equal 0 indicates an empty table</p>
+<hr />
+<h3>TableModel.prototype.getColTitle = function (col)</h3>
+<p>Get the title of a column</p>
+<p><strong>Argument:</strong> <strong>col</strong></p>
+<p>the index of the column (0-indexed)</p>
+<p><strong>Returns:</strong> s the title of the given column</p>
+<hr />
+<h2>Metrics</h2>
+<ul>
+<li>63 Lines</li>
+<li>1422 Bytes</li>
+</ul>
 </body>
 </html>
