@@ -108,7 +108,10 @@ define([ './options', './strings', './shared', './state_new', './playermodel',
     var list;
 
     list = teams.asArray().map(function (team, index) {
-      return Team.getNames(index);
+      return {
+        names : Team.getNames(index),
+        id : index
+      };
     });
 
     return JSON.stringify(list);
@@ -127,8 +130,8 @@ define([ './options', './strings', './shared', './state_new', './playermodel',
 
     list = JSON.parse(blob);
     if (list) {
-      list.map(function (names) {
-        Team.create(names);
+      list.map(function (team) {
+        Team.create(team.names);
       });
     }
   };

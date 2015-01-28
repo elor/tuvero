@@ -8,6 +8,7 @@
 	Team is a wrapper around StateModel.teams until the Tab objects have been replaced
 	Team.getNames added for comfort
 	toBlob and fromBlob had to be rewritten
+	save state compatibility restored (when loading boules.json)
 
 	* scripts/ui/history.js: unfortunate reformatting
 	function calls to Team adjusted for TeamModel and PlayerModel
