@@ -8,25 +8,30 @@
  * @license MIT License
  * @see LICENSE
  */
-define([ './options', './strings', './shared'], function (Options, Strings, Shared) {
+define([ './options', './strings', './shared', './state_new', './playermodel',
+    './teammodel' ], function (Options, Strings, Shared, State, PlayerModel,
+    TeamModel) {
   var Team, teams;
 
-  teams = [];
+  teams = State.teams;
 
   Team = {};
 
   /**
    * create a new team;
+   * 
+   * @param names
+   *          an array of the player names
+   * @returns this
    */
   Team.create = function (names) {
-    var team;
+    var team, newplayers;
 
-    team = {};
+    newplayers = names.map(function (name) {
+      return new PlayerModel(name);
+    });
 
-    // copy the names array
-    team.names = names.slice();
-    team.id = teams.length;
-
+    team = new TeamModel(newplayers);
     teams.push(team);
 
     return team;
@@ -40,7 +45,7 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
    * @return a reference to the registered team on success, undefined otherwise
    */
   Team.get = function (index) {
-    return teams[index];
+    return teams.get(index);
   };
 
   /**
@@ -51,24 +56,7 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
    * @return nothing at all
    */
   Team.erase = function (index) {
-    var i;
-    if (typeof (index) === 'number' && index >= 0 && index < teams.length) {
-      // remove the team
-      teams.splice(index, 1);
-      // update all ids
-      for (i in teams) {
-        teams[i].id = Number(i);
-      }
-    }
-  };
-
-  /**
-   * adds all players to the tournament
-   */
-  Team.prepareTournament = function (Tournament) {
-    teams.forEach(function (team, index) {
-      Tournament.addPlayer(index);
-    });
+    teams.remove(index);
   };
 
   /**
@@ -81,38 +69,32 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
   };
 
   /**
-   * fallback for the C++ user in me
-   */
-  Team.size = function () {
-    console.error('use Team.count() instead of Team.size()');
-    return Team.count();
-  };
-
-  /**
    * create ordered CSV strings from team data
    * 
    * @return CSV file content
    */
   Team.toCSV = function () {
-    var lines, i;
+    var lines;
 
     lines = [ Strings['teamhead' + Options.teamsize] ];
 
-    teams.forEach(function (team) {
-      var line, i;
+    teams.asArray().forEach(
+        function (team) {
+          var line, i;
 
-      line = [ team.id + 1 ];
+          line = [ team.getID() + 1 ];
 
-      for (i = 0; i < Options.teamsize; i += 1) {
-        if (team.names[i]) {
-          line.push('"' + team.names[i].replace(/"/g, '""') + '"');
-        } else {
-          line.push('"%% %%"');
-        }
-      }
+          for (i = 0; i < Options.teamsize; i += 1) {
+            if (team.getPlayer(i).getName()) {
+              line.push('"' + team.getPlayer(i).getName().replace(/"/g, '""')
+                  + '"');
+            } else {
+              line.push('"%% %%"');
+            }
+          }
 
-      lines.push(line.join(','));
-    });
+          lines.push(line.join(','));
+        });
 
     return lines.join('\r\n');
   };
@@ -123,7 +105,13 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
    * @return the blob
    */
   Team.toBlob = function () {
-    return JSON.stringify(teams);
+    var list;
+
+    list = teams.asArray().map(function (team, index) {
+      return Team.getNames(index);
+    });
+
+    return JSON.stringify(list);
   };
 
   /**
@@ -133,14 +121,46 @@ define([ './options', './strings', './shared'], function (Options, Strings, Shar
    *          the blob
    */
   Team.fromBlob = function (blob) {
-    teams = JSON.parse(blob);
+    var list;
+
+    Team.reset();
+
+    list = JSON.parse(blob);
+    if (list) {
+      list.map(function (names) {
+        Team.create(names);
+      });
+    }
   };
 
   /**
    * resets the teams
    */
   Team.reset = function () {
-    teams = [];
+    teams.clear();
+  };
+
+  /**
+   * get an array of names of the players in a team
+   * 
+   * @param id
+   *          the id of the team
+   * @returns an array of names
+   */
+  Team.getNames = function (id) {
+    var team, index, names;
+
+    team = teams.get(id);
+    if (team) {
+      names = [];
+      for (index = 0; index < team.length; index += 1) {
+        names.push(team.getPlayer(index).getName());
+      }
+
+      return names;
+    }
+
+    return undefined;
   };
 
   Shared.Team = Team;

@@ -4,6 +4,11 @@
 
 	* scripts/ui/state_new.js: StateModel singleton for coordinated access
 
+	* scripts/ui/team.js: Team.size() removed
+	Team is a wrapper around StateModel.teams until the Tab objects have been replaced
+	Team.getNames added for comfort
+	toBlob and fromBlob had to be rewritten
+
 2015-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/boxcontroller.js: View.getElem() has been removed a few commits ago
