@@ -65,7 +65,7 @@
         $template = $view.find('.template').detach().removeClass('template');
         teamlist = new IndexedListModel();
         
-        teamlistview = new ListView($view, teamlist, $template, TeamView);
+        teamlistview = new ListView(teamlist, $view, $template, TeamView);
         
         players=[];
         players.push(new PlayerModel('Erik E. Lorenz'));

@@ -28,6 +28,12 @@
 
 	* scripts/ui/tab_teams.js: function calls to Team adjusted for TeamModel and PlayerModel
 
+	* scripts/ui/listview.js: constructor: model and $view swapped to better match View
+
+	* test/listview.html: ListView constructor calls adjusted
+
+	* test/teamlistview.html: ListView constructor calls adjusted
+
 2015-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/boxcontroller.js: View.getElem() has been removed a few commits ago

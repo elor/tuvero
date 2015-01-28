@@ -8,8 +8,6 @@
  */
 
 define([ 'lib/extend', './interfaces/view', './textview' ], function (extend, View, TextView) {
-  var ListView;
-
   /**
    * Constructor
    * 
@@ -24,7 +22,7 @@ define([ 'lib/extend', './interfaces/view', './textview' ], function (extend, Vi
    *          an object constructor for a View of the elements of the list.
    *          Default to TextView
    */
-  function ListView ($view, model, $template, SubView) {
+  function ListView (model, $view, $template, SubView) {
     ListView.superconstructor.call(this, model, $view);
 
     this.$template = $template || $('<div>');

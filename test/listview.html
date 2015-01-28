@@ -55,13 +55,13 @@
         var view, view2, model, i;
   
         model = new ListModel();
-        view = new ListView($('ul').eq(0), model, $('<li>'));
+        view = new ListView(model, $('ul').eq(0), $('<li>'));
         view.update();
-        view = new ListView($('ol').eq(0), model, $('<li>'));
+        view = new ListView(model, $('ol').eq(0), $('<li>'));
         view.update();
-        view = new ListView($('div').eq(0), model, $('<span>'));
+        view = new ListView(model, $('div').eq(0), $('<span>'));
         view.update();
-        view = new ListView($('tr').eq(0), model, $('<td>'));
+        view = new ListView(model, $('tr').eq(0), $('<td>'));
         view.update();
 
         for (i = 1; i <= 10; i += 1) {
