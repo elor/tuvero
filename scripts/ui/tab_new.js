@@ -235,7 +235,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       template.team.$rank.text(ranking[i].globalrank + 1);
       template.team.$tournamentrank.text(showsubrank && ranking[i].tournamentrank ? ranking[i].tournamentrank + 1 : '');
       template.team.$teamno.text(ranking[i].teamid + 1);
-      template.team.$names.text(Team.get(ranking[i].teamid).names.join(', '));
+      template.team.$names.text(Team.getNames(ranking[i].teamid).join(', '));
       template.$anchor.append(template.team.$container.clone());
     }
   }

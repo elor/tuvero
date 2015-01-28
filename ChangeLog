@@ -9,6 +9,24 @@
 	Team.getNames added for comfort
 	toBlob and fromBlob had to be rewritten
 
+	* scripts/ui/history.js: unfortunate reformatting
+	function calls to Team adjusted for TeamModel and PlayerModel
+
+	* scripts/ui/ranking.js: unfortunate reformatting
+	function calls to Team adjusted for TeamModel and PlayerModel
+
+	* scripts/ui/tab_games.js: unfortunate reformatting
+	function calls to Team adjusted for TeamModel and PlayerModel
+
+	* scripts/ui/tab_history.js: unfortunate reformatting
+	function calls to Team adjusted for TeamModel and PlayerModel
+
+	* scripts/ui/tab_new.js: function calls to Team adjusted for TeamModel and PlayerModel
+
+	* scripts/ui/tab_ranking.js: function calls to Team adjusted for TeamModel and PlayerModel
+
+	* scripts/ui/tab_teams.js: function calls to Team adjusted for TeamModel and PlayerModel
+
 2015-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/boxcontroller.js: View.getElem() has been removed a few commits ago

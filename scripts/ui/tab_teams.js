@@ -522,10 +522,10 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
         name = trimName($names.eq(i).text());
         if (name) {
           // accept non-empty names
-          team.names[i] = name;
+          team.getPlayer(i).setName(name);
         } else {
           // reset to stored name
-          $names.eq(i).text(team.names[i]);
+          $names.eq(i).text(team.getPlayer(i).getName());
         }
       }
 
@@ -642,9 +642,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     var i;
 
     for (i = 0; i < Options.teamsize; i += 1) {
-      template.$names[i].text(team.names[i]);
+      template.$names[i].text(team.getPlayer(i).getName());
     }
-    template.$teamno.text(team.id + 1);
+    template.$teamno.text(team.getID() + 1);
 
     $anchor.before(template.$tpl.clone());
   }
