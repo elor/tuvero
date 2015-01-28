@@ -93,6 +93,8 @@ define([
   "ui/shared",
   "ui/splash",
   "ui/state",
+  "ui/statemodel",
+  "ui/state_new",
   "ui/staticviewloader",
   "ui/storage",
   "ui/strings",

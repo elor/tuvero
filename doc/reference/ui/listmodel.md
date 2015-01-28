@@ -124,6 +124,12 @@ returns the contents of the list as an array
 ---
 
 
+###   ListModel.prototype.updateLength = function ()
+update the length variable of the list. Used internally.
+
+---
+
+
 ###   ListModel.prototype.oninsert = function ()
 Callback function: called when an 'insert' event is emitted
 
@@ -143,6 +149,6 @@ Callback function: called when a 'reset' event is emitted
 
 ## Metrics
 
-* 187 Lines
-* 4229 Bytes
+* 194 Lines
+* 4363 Bytes
 

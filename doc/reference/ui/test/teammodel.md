@@ -27,6 +27,6 @@ counter reset
 
 ## Metrics
 
-* 68 Lines
-* 2333 Bytes
+* 66 Lines
+* 2364 Bytes
 

@@ -54,6 +54,8 @@ Do not attempt manual changes
 * <a href="ui/fontsizeview.html">ui/fontsizeview</a>
 * <a href="ui/globalranking.html">ui/globalranking</a>
 * <a href="ui/history.html">ui/history</a>
+* <a href="ui/indexedlistmodel.html">ui/indexedlistmodel</a>
+* <a href="ui/indexedmodel.html">ui/indexedmodel</a>
 * <a href="ui/interfaces/controller.html">ui/interfaces/controller</a>
 * <a href="ui/interfaces/emitter.html">ui/interfaces/emitter</a>
 * <a href="ui/interfaces/model.html">ui/interfaces/model</a>
@@ -69,6 +71,8 @@ Do not attempt manual changes
 * <a href="ui/shared.html">ui/shared</a>
 * <a href="ui/splash.html">ui/splash</a>
 * <a href="ui/state.html">ui/state</a>
+* <a href="ui/statemodel.html">ui/statemodel</a>
+* <a href="ui/state_new.html">ui/state_new</a>
 * <a href="ui/staticviewloader.html">ui/staticviewloader</a>
 * <a href="ui/storage.html">ui/storage</a>
 * <a href="ui/strings.html">ui/strings</a>
@@ -102,6 +106,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 118 Lines
-* 2494 Bytes
+* 126 Lines
+* 2679 Bytes
 

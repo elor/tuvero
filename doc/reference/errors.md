@@ -86,12 +86,11 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 79
+Warning: scripts/common.js: > 5 dependencies: 83
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
-Warning: scripts/test.js: > 5 dependencies: 19
-Warning: scripts/test.js: undocumented: 'function myrequire'
+Warning: scripts/test.js: > 5 dependencies: 21
 Warning: scripts/ui/alltabs.js: > 5 dependencies: 8
 Warning: scripts/ui/alltabs.js: undocumented: 'reset : function'
 Warning: scripts/ui/alltabs.js: undocumented: 'update : function'
@@ -123,7 +122,7 @@ Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 19
 Warning: scripts/ui/history.js: > 400 lines: 509
 Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
-Warning: scripts/ui/listmodel.js: > 10 functions: 18
+Warning: scripts/ui/listmodel.js: > 10 functions: 19
 Warning: scripts/ui/listview.js: > 10 functions: 11
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'

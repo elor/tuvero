@@ -11,7 +11,7 @@ A combination of players is a team. A team should contain at least one player
 
 ## Dependencies
 
-* <a href="./interfaces/model.html">./interfaces/model</a>
+* <a href="./indexedmodel.html">./indexedmodel</a>
 * lib/extend
 * <a href="./playermodel.html">./playermodel</a>
 
@@ -43,25 +43,6 @@ the index of the player inside the team
 ---
 
 
-###   TeamModel.prototype.getID = function ()
-retrieve the id of the team
-
-
-**Returns:** s the id of the team
-
----
-
-
-###   TeamModel.prototype.setID = function (id)
-change the id of the team, e.g. after removing another team
-
-**Argument:** **id**
-
-a preferably unique numeric team id
-
----
-
-
 ###   TeamModel.prototype.onupdate = function ()
 Callback listener
 
@@ -73,6 +54,6 @@ event emitter.
 
 ## Metrics
 
-* 90 Lines
-* 2011 Bytes
+* 69 Lines
+* 1603 Bytes
 

@@ -29,5 +29,5 @@ the instance of BoxView which will be controlled
 ## Metrics
 
 * 31 Lines
-* 780 Bytes
+* 776 Bytes
 

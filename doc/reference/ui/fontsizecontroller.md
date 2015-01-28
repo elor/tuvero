@@ -31,5 +31,5 @@ the FontSizeView
 ## Metrics
 
 * 35 Lines
-* 853 Bytes
+* 849 Bytes
 

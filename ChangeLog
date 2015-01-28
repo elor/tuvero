@@ -1,3 +1,9 @@
+2015-01-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/statemodel.js: players and teams added to StateModel
+
+	* scripts/ui/state_new.js: StateModel singleton for coordinated access
+
 2015-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/boxcontroller.js: View.getElem() has been removed a few commits ago

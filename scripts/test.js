@@ -27,7 +27,7 @@ define([ 'common',
          './ui/test/listmodel',
          './ui/test/playermodel',
          './ui/test/tab',
-         './ui/test/teammodel', ], function(Common, QUnit, undefined){
+         './ui/test/teammodel', ], function(Common, QUnit){
   var i;
   for (i = 2; i < arguments.length; i += 1) {
     arguments[i](QUnit, Common);

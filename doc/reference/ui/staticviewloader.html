@@ -7,59 +7,6 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-<h1>scripts/ui/staticviewloader.js</h1>
-<p>Recursively traverse the DOM and initiate all non-template static views by a
-class keyword, which is also used by the stylesheet. The applicable Views
-have to be registered beforehand.</p>
-<p>In theory, a DOM element can have multiple views assigned.</p>
-<p>Templated views have to be initiated programmatically.</p>
-<ul>
-<li>Exports: StaticViewLoader</li>
-<li>Author: Erik E. Lorenz</li>
-<li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
-<li>License: MIT License</li>
-</ul>
-<h2>Dependencies</h2>
-<ul>
-<li><a href="./type.html">./type</a></li>
-<li>JQuery</li>
-</ul>
-<h2>Functions</h2>
-<h3>function loadViewByClass ($elem, classname)</h3>
-<p>initiates the actual view</p>
-<p><strong>Argument:</strong> <strong>$elem</strong></p>
-<p>a jQuery element
-<strong>Argument:</strong> <strong>classname</strong></p>
-<p>the applicable class</p>
-<p><strong>Returns:</strong> s nothing (i.e. undefined)</p>
-<hr />
-<h3>function checkAllClasses ($elem)</h3>
-<p>Matches the classes of a DOM element against the registered views. If an
-applicable view is found, another instantiation function is called.</p>
-<p><strong>Argument:</strong> <strong>$elem</strong></p>
-<p>the jQUery element</p>
-<p><strong>Returns:</strong> s nothing (i.e. undefined)</p>
-<hr />
-<h3>registerView : function (name, constructor)</h3>
-<p>register a view for later auto-assignment by the loadViews() function</p>
-<p><strong>Argument:</strong> <strong>name</strong></p>
-<p>the name of the view
-<strong>Argument:</strong> <strong>constructor</strong></p>
-<p>the constructor of the view, which only requires a jQuery
-element as an argument</p>
-<p><strong>Returns:</strong> s StaticViewLoader</p>
-<hr />
-<h3>loadViews : function ($elem)</h3>
-<p>Recursively assigns Views to DOM elements by their classes. Skips
-elements with the class 'template'</p>
-<p><strong>Argument:</strong> <strong>$elem</strong></p>
-<p>the jQuery container element</p>
-<p><strong>Returns:</strong> s StaticViewLoader</p>
-<hr />
-<h2>Metrics</h2>
-<ul>
-<li>104 Lines</li>
-<li>2497 Bytes</li>
-</ul>
+
 </body>
 </html>
