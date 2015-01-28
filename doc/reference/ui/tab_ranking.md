@@ -88,5 +88,5 @@ retrieves the corrections and displays them in the correction table
 ## Metrics
 
 * 281 Lines
-* 7234 Bytes
+* 7253 Bytes
 

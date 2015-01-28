@@ -19,7 +19,7 @@ ListView for printing data in a list using arbitrary views
 
 ## Functions
 
-###   function ListView ($view, model, $template, SubView)
+###   function ListView (model, $view, $template, SubView)
 Constructor
 
 **Argument:** **$view**
@@ -114,6 +114,6 @@ data object, containing at least the index within the list
 
 ## Metrics
 
-* 140 Lines
-* 3446 Bytes
+* 138 Lines
+* 3429 Bytes
 

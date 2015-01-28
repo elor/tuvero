@@ -203,5 +203,5 @@ init, clear and reset all in one
 ## Metrics
 
 * 717 Lines
-* 16264 Bytes
+* 16308 Bytes
 

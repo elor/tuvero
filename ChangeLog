@@ -34,6 +34,12 @@
 
 	* test/teamlistview.html: ListView constructor calls adjusted
 
+	* scripts/ui/newteamcontroller.js: Controller for team submission
+
+	* scripts/ui/newteamview.js: View for the team submission form
+
+	* test/teamentry.html: test page for team submission
+
 2015-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/boxcontroller.js: View.getElem() has been removed a few commits ago

@@ -29,13 +29,17 @@ No Description
 
 ## Functions
 
-###   function formatNamesHTML (teamid)
+###     function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
 
 ---
 
-###   function createGame (result, $table)
-creates a box for the current result in the current round. Note that the
-correct round isn't verified (both in the result and currentround)
+###       function formatNamesHTML (teamid)
+
+---
+
+###       function createGame (result, $table)
+creates a box for the current result in the current round. Note that
+the correct round isn't verified (both in the result and currentround)
 
 **Argument:** **result**
 
@@ -44,8 +48,9 @@ a result as returned by history.getGame()
 ---
 
 
-###   function createBye (teamid, $table)
-creates a box for a bye within the current round. No round verification.
+###       function createBye (teamid, $table)
+creates a box for a bye within the current round. No round
+verification.
 
 **Argument:** **teamid**
 
@@ -54,71 +59,71 @@ id of the team receiving a bye
 ---
 
 
-###   function isInt (n)
+###       function isInt (n)
 
 ---
 
-###   function verify (p1, p2)
+###       function verify (p1, p2)
 
 ---
 
-###   function showCorrection ()
+###       function showCorrection ()
 
 ---
 
-###   function abortCorrection ()
+###       function abortCorrection ()
 
 ---
 
-###   function saveCorrection ()
+###       function saveCorrection ()
 
 ---
 
-###   function initOptions ()
+###       function initOptions ()
 
 ---
 
-###     function maxwidthtest ()
+###         function maxwidthtest ()
 
 ---
 
-###     function shownamestest ()
+###         function shownamestest ()
 
 ---
 
-###     function progresstest ()
+###         function progresstest ()
 
 ---
 
-###   function initCorrection ()
+###       function initCorrection ()
 
 ---
 
-###   function initTemplates ()
+###       function initTemplates ()
 
 ---
 
-###   function initRounds ()
+###       function initRounds ()
 
 ---
 
-###   function init ()
+###       function init ()
 
 ---
 
-###   function createGamesTable (tournamentid)
+###       function createGamesTable (tournamentid)
 
 ---
 
-###   function isNumeric (obj)
+###       function isNumeric (obj)
 borrowed from jQuery
 
 ---
 
 
-###   function getProgressMapping (tournamentid)
-creates a progress mapping, which, for every player, lists every game in
-every round, with its result and
+###       function getProgressMapping (tournamentid)
+creates a progress mapping, which, for every player, lists every game
+in every round, with its result and
 
 **Argument:** **tournamentid**
 
@@ -128,79 +133,83 @@ every round, with its result and
 ---
 
 
-###     function addGame (round, team, opponent, p1, p2)
+###         function addGame (round, team, opponent, p1, p2)
 
 ---
 
-###   function getTeamVotes (tournamentid)
+###       function getTeamVotes (tournamentid)
 
 ---
 
-###   function getRankingMapping (tournamentid)
+###       function getRankingMapping (tournamentid)
 
 ---
 
-###   function createProgressTable (tournamentid)
+###       function createProgressTable (tournamentid)
 
 ---
 
-###   function level (id)
+###       function level (id)
 Copied from kotournament.js
 
 ---
 
 
-###   function parent (id)
+###       function parent (id)
 
 ---
 
-###   function lowestid (level)
+###       function lowestid (level)
 
 ---
 
-###   function nodesbylevel (level)
+###       function nodesbylevel (level)
 
 ---
 
-###   function getGameTreeX (gameid, maxlevel)
+###       function getGameTreeX (gameid, maxlevel)
 end (Copied from kotournament.js)
 
 ---
 
 
-###   function getGameTreeY (gameid, maxlevel)
+###       function getGameTreeY (gameid, maxlevel)
 
 ---
 
-###   function createGameTreeBox (game, maxid)
+###       function createGameTreeBox (game, maxid)
 
 ---
 
-###   function createKOGameToParentConnector (game, maxid)
+###       function createKOGameToParentConnector (game, maxid)
 
 ---
 
-###   function createKOTree (tournamentid)
+###       function createKOTree (tournamentid)
 
 ---
 
-###   function showTournaments ()
+###               function (game)
 
 ---
 
-###   function reset ()
+###       function showTournaments ()
+
+---
+
+###       function reset ()
 remove all evidence of any games ever (from the overview only)
 
 ---
 
 
-###   function update ()
+###       function update ()
 removes and redraws all boxes from History
 
 ---
 
 ## Metrics
 
-* 963 Lines
-* 26397 Bytes
+* 1000 Lines
+* 29942 Bytes
 

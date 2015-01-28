@@ -86,7 +86,7 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prot
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
 Warning: scripts/backend/tournament.js: > 10 functions: 15
-Warning: scripts/common.js: > 5 dependencies: 83
+Warning: scripts/common.js: > 5 dependencies: 85
 Warning: scripts/main.js: function before define(
 Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
 Warning: scripts/main.js: undocumented: ' function'
@@ -112,6 +112,7 @@ Warning: scripts/ui/globalranking.js: undocumented: 'function mapTeamsToTourname
 Warning: scripts/ui/globalranking.js: undocumented: 'function updateTeamObjects'
 Warning: scripts/ui/globalranking.js: undocumented: 'function sortfunc'
 Warning: scripts/ui/globalranking.js: undocumented: 'function strictsortfunc'
+Warning: scripts/ui/history.js: undocumented: 'function'
 Warning: scripts/ui/history.js: undocumented: 'function getTournament'
 Warning: scripts/ui/history.js: undocumented: 'addVote : function'
 Warning: scripts/ui/history.js: undocumented: 'numRounds : function'
@@ -119,11 +120,12 @@ Warning: scripts/ui/history.js: undocumented: 'getGames : function'
 Warning: scripts/ui/history.js: undocumented: 'getCorrections : function'
 Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
-Warning: scripts/ui/history.js: > 10 functions: 19
-Warning: scripts/ui/history.js: > 400 lines: 509
+Warning: scripts/ui/history.js: > 10 functions: 20
+Warning: scripts/ui/history.js: > 400 lines: 519
 Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
 Warning: scripts/ui/listmodel.js: > 10 functions: 19
 Warning: scripts/ui/listview.js: > 10 functions: 11
+Warning: scripts/ui/newteamcontroller.js: > 5 dependencies: 6
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
@@ -137,6 +139,7 @@ Warning: scripts/ui/players.js: undocumented: 'Players.clear = function'
 Warning: scripts/ui/players.js: undocumented: 'Players.get = function'
 Warning: scripts/ui/players.js: undocumented: 'Players.insert = function'
 Warning: scripts/ui/players.js: undocumented: 'Players.erase = function'
+Warning: scripts/ui/ranking.js: undocumented: 'function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
 Warning: scripts/ui/splash.js: undocumented: 'hide : function'
@@ -166,6 +169,7 @@ Warning: scripts/ui/tab_debug.js: undocumented: 'function init'
 Warning: scripts/ui/tab_debug.js: > 10 functions: 15
 Warning: scripts/ui/tab_debug.js: > 400 lines: 446
 Warning: scripts/ui/tab_games.js: > 5 dependencies: 16
+Warning: scripts/ui/tab_games.js: undocumented: 'function'
 Warning: scripts/ui/tab_games.js: undocumented: 'function isInt'
 Warning: scripts/ui/tab_games.js: undocumented: 'function initGameTemplate'
 Warning: scripts/ui/tab_games.js: undocumented: 'function initTemplates'
@@ -177,9 +181,10 @@ Warning: scripts/ui/tab_games.js: undocumented: 'function initOptions'
 Warning: scripts/ui/tab_games.js: undocumented: 'function maxwidthtest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function shownamestest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function init'
-Warning: scripts/ui/tab_games.js: > 10 functions: 24
-Warning: scripts/ui/tab_games.js: > 400 lines: 599
+Warning: scripts/ui/tab_games.js: > 10 functions: 25
+Warning: scripts/ui/tab_games.js: > 400 lines: 616
 Warning: scripts/ui/tab_history.js: > 5 dependencies: 16
+Warning: scripts/ui/tab_history.js: undocumented: 'function'
 Warning: scripts/ui/tab_history.js: undocumented: 'function formatNamesHTML'
 Warning: scripts/ui/tab_history.js: undocumented: 'function isInt'
 Warning: scripts/ui/tab_history.js: undocumented: 'function verify'
@@ -206,9 +211,10 @@ Warning: scripts/ui/tab_history.js: undocumented: 'function getGameTreeY'
 Warning: scripts/ui/tab_history.js: undocumented: 'function createGameTreeBox'
 Warning: scripts/ui/tab_history.js: undocumented: 'function createKOGameToParentConnector'
 Warning: scripts/ui/tab_history.js: undocumented: 'function createKOTree'
+Warning: scripts/ui/tab_history.js: undocumented: 'function'
 Warning: scripts/ui/tab_history.js: undocumented: 'function showTournaments'
-Warning: scripts/ui/tab_history.js: > 10 functions: 35
-Warning: scripts/ui/tab_history.js: > 400 lines: 963
+Warning: scripts/ui/tab_history.js: > 10 functions: 37
+Warning: scripts/ui/tab_history.js: > 400 lines: 1000
 Warning: scripts/ui/tab.js: undocumented: 'createTab : function'
 Warning: scripts/ui/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/tab.js: undocumented: 'update : function'
@@ -326,6 +332,8 @@ Warning: scripts/ui/tab_teams.js: undocumented: 'function updateActiveState'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function update'
 Warning: scripts/ui/tab_teams.js: > 10 functions: 38
 Warning: scripts/ui/tab_teams.js: > 400 lines: 717
+Warning: scripts/ui/team.js: > 5 dependencies: 6
+Warning: scripts/ui/team.js: undocumented: 'function'
 Warning: scripts/ui/test/tab.js: undocumented: 'clear : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'update : function'

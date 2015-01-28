@@ -14,13 +14,22 @@ Managed list of registered teams
 ## Dependencies
 
 * <a href="./options.html">./options</a>
+* <a href="./playermodel.html">./playermodel</a>
 * <a href="./shared.html">./shared</a>
+* <a href="./state_new.html">./state_new</a>
 * <a href="./strings.html">./strings</a>
+* <a href="./teammodel.html">./teammodel</a>
 
 ## Functions
 
 ###   Team.create = function (names)
 create a new team;
+
+**Argument:** **names**
+
+an array of the player names
+
+**Returns:** s this
 
 ---
 
@@ -49,23 +58,11 @@ index (starting at zero)
 ---
 
 
-###   Team.prepareTournament = function (Tournament)
-adds all players to the tournament
-
----
-
-
 ###   Team.count = function ()
 returns the number of teams
 
 
 **Returns:** the number of teams
-
----
-
-
-###   Team.size = function ()
-fallback for the C++ user in me
 
 ---
 
@@ -78,6 +75,10 @@ create ordered CSV strings from team data
 
 ---
 
+
+###         function (team)
+
+---
 
 ###   Team.toBlob = function ()
 stores the current state in a blob, usually using JSON
@@ -103,8 +104,20 @@ resets the teams
 
 ---
 
+
+###   Team.getNames = function (id)
+get an array of names of the players in a team
+
+**Argument:** **id**
+
+the id of the team
+
+**Returns:** s an array of names
+
+---
+
 ## Metrics
 
-* 148 Lines
-* 2802 Bytes
+* 171 Lines
+* 3296 Bytes
 

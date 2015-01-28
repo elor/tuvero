@@ -34,51 +34,55 @@ the respective tournaments
 
 ## Functions
 
-###   function isInt (n)
+###     function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
 
 ---
 
-###   function initGameTemplate ()
+###       function isInt (n)
 
 ---
 
-###   function initVoteTemplate ()
+###       function initGameTemplate ()
+
+---
+
+###       function initVoteTemplate ()
 disable/enable the submit button if input is valid
 
 ---
 
 
-###   function initTemplates ()
+###       function initTemplates ()
 
 ---
 
-###   function appendGame (game, tournamentid, $box)
+###       function appendGame (game, tournamentid, $box)
 create and show a box displaying a certain game
 
 ---
 
 
-###   function clearBoxes ()
+###       function clearBoxes ()
 removes all games from the overview
 
 ---
 
 
-###   function showRunning ()
+###       function showRunning ()
 clears the overview and appends all open games of the tournament
 
 ---
 
 
-###   function showTab ()
+###       function showTab ()
 
 ---
 
-###   function getTournamentID ($game)
+###       function getTournamentID ($game)
 
 ---
 
-###   function removeGame (tournamentid, index)
+###       function removeGame (tournamentid, index)
 this function removes the game from the local reference arrays
 
 **Argument:** **game**
@@ -90,21 +94,21 @@ the game in question
 ---
 
 
-###   function readResults ($container)
+###       function readResults ($container)
 
 ---
 
-###   function finishGame ()
+###       function finishGame ()
 jQuery callback function. works with "this"
 
 ---
 
 
-###   function createVoteBox (tid)
+###       function createVoteBox (tid)
 
 ---
 
-###   function getRoundVotes (Tournament)
+###       function getRoundVotes (Tournament)
 translates the Swiss ranking into a traditional votes object
 
 TODO rewrite this file to replace this function
@@ -115,41 +119,41 @@ TODO rewrite this file to replace this function
 ---
 
 
-###   function showVotes (Tournament, $box)
+###       function showVotes (Tournament, $box)
 display the votes for the current round
 
 ---
 
 
-###   function initOptions ()
+###       function initOptions ()
 
 ---
 
-###     function maxwidthtest ()
+###         function maxwidthtest ()
 
 ---
 
-###     function shownamestest ()
+###         function shownamestest ()
 
 ---
 
-###   function init ()
+###       function init ()
 
 ---
 
-###   function reset ()
+###       function reset ()
 reset an original state.
 
 ---
 
 
-###   function update ()
+###       function update ()
 reset an original game state, respecting the current state of Swiss
 
 ---
 
 ## Metrics
 
-* 599 Lines
-* 14446 Bytes
+* 616 Lines
+* 16622 Bytes
 

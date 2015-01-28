@@ -63,6 +63,8 @@ Do not attempt manual changes
 * <a href="ui/koline.html">ui/koline</a>
 * <a href="ui/listmodel.html">ui/listmodel</a>
 * <a href="ui/listview.html">ui/listview</a>
+* <a href="ui/newteamcontroller.html">ui/newteamcontroller</a>
+* <a href="ui/newteamview.html">ui/newteamview</a>
 * <a href="ui/options.html">ui/options</a>
 * <a href="ui/opts.html">ui/opts</a>
 * <a href="ui/playermodel.html">ui/playermodel</a>
@@ -106,6 +108,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 126 Lines
-* 2679 Bytes
+* 128 Lines
+* 2725 Bytes
 
