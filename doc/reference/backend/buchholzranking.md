@@ -10,6 +10,7 @@ No Description
 
 ## Dependencies
 
+* <a href="./correction.html">./correction</a>
 * <a href="./halfmatrix.html">./halfmatrix</a>
 * <a href="./matrix.html">./matrix</a>
 * <a href="./vector.html">./vector</a>
@@ -27,7 +28,7 @@ points and netto points, in this order.
 simply return the stored size
 
 
-**Returns:** the size
+**Returns:** s the length of the ranking data structures
 
 ---
 
@@ -49,7 +50,8 @@ return an object containing all points data and a sorted array of pids
 representing the ranking
 
 
-**Returns:** data object
+**Returns:** s an object containing all points data and a sorted array of pids
+representing the ranking
 
 ---
 
@@ -81,14 +83,11 @@ the result
 ###   Buchholz.prototype.correct = function (correction)
 Correct the result of a game.
 
-**Argument:** **oldres**
+**Argument:** **correction**
 
-the old result
-**Argument:** **newres**
+a Correction object
 
-the new (corrected) result
-
-**Returns:** {Buchholz} this
+**Returns:** this
 
 ---
 
@@ -131,7 +130,7 @@ get a copy of the applied corrections
 stores the current state in a blob
 
 
-**Returns:** the blob
+**Returns:** a blob representing the current state
 
 ---
 
@@ -147,5 +146,5 @@ stores the current state in a blob
 ## Metrics
 
 * 337 Lines
-* 6851 Bytes
+* 6980 Bytes
 

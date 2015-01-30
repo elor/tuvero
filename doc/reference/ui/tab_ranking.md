@@ -6,6 +6,8 @@ Model, View and Controller of the ranking tab
 This tab shows all results in tabulated form and is supposed to provide some
 kind of sorting functionality
 
+TODO slay this beast
+
 * Exports: Tab_Ranking
 * Implements: ./tab
 * Author: Erik E. Lorenz 
@@ -61,6 +63,12 @@ a valid votes object
 
 
 ###   function showRanking (tournamentid, $box)
+**Argument:** **tournamentid**
+
+the tournament id
+**Argument:** **$box**
+
+the box to add the ranking to
 
 **Returns:** {boolean} false on failure, true on success
 
@@ -69,6 +77,15 @@ a valid votes object
 
 ###   function showCorrections (tournamentid, $box)
 retrieves the corrections and displays them in the correction table
+
+**Argument:** **tournamentid**
+
+the tournament id
+**Argument:** **$box**
+
+the box to add content to
+
+**Returns:** s true if anything has been added to the DOM, false otherwise
 
 ---
 
@@ -87,6 +104,6 @@ retrieves the corrections and displays them in the correction table
 
 ## Metrics
 
-* 281 Lines
-* 7253 Bytes
+* 304 Lines
+* 7697 Bytes
 

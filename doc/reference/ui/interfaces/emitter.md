@@ -3,6 +3,7 @@
 
 An event emitter class
 
+@returns Emitter
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -68,5 +69,5 @@ registered
 ## Metrics
 
 * 84 Lines
-* 2126 Bytes
+* 2106 Bytes
 

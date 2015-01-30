@@ -3,6 +3,7 @@
 
 Event Emitter tests
 
+@returns a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -14,31 +15,31 @@ No Dependencies
 
 ## Functions
 
-###         onundefined : function (_emitter, event)
+###         onundefined : function ()
 test function
 
 ---
 
 
-###         onreset : function (_emitter, event)
-test function
-
----
-
-
-###         onevent : function (_emitter, event)
+###         onreset : function ()
 test function
 
 ---
 
 
 ###         onevent : function (_emitter, event)
+test function
+
+---
+
+
+###         onevent : function ()
 test function
 
 ---
 
 ## Metrics
 
-* 85 Lines
-* 2612 Bytes
+* 88 Lines
+* 2655 Bytes
 

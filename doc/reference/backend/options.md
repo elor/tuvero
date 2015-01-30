@@ -53,7 +53,7 @@ constructor
 stores the current state in a blob, mostly using JSON (
 
 
-**Returns:** the blob
+**Returns:** a serialization of the object
 
 ---
 
@@ -64,6 +64,8 @@ restores a state from the blob
 **Argument:** **blob**
 
 the blob
+
+**Returns:** s this
 
 ---
 
@@ -94,6 +96,6 @@ the blob
 
 ## Metrics
 
-* 138 Lines
-* 2936 Bytes
+* 139 Lines
+* 2976 Bytes
 

@@ -8,14 +8,17 @@
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
 <h1>scripts/backend/nettoranking.js</h1>
-<p>No Description</p>
+<p>Netto ranking class</p>
+<p>@returns NettoRanking</p>
 <ul>
 <li>Author: Erik E. Lorenz</li>
 <li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
 <li>License: MIT License</li>
 </ul>
 <h2>Dependencies</h2>
-<p>No Dependencies</p>
+<ul>
+<li><a href="./correction.html">./correction</a></li>
+</ul>
 <h2>Functions</h2>
 <h3>var Netto = function (size)</h3>
 <p>NettoRanking: A ranking variant which sorts players by wins and netto
@@ -23,7 +26,7 @@ points, in this order.</p>
 <hr />
 <h3>Netto.prototype.size = function ()</h3>
 <p>simply return the stored size</p>
-<p><strong>Returns:</strong> the size</p>
+<p><strong>Returns:</strong> the size of the ranking</p>
 <hr />
 <h3>Netto.prototype.resize = function (size)</h3>
 <p>resize the internal arrays</p>
@@ -70,7 +73,7 @@ otherwise</p>
 <hr />
 <h3>Netto.prototype.toBlob = function ()</h3>
 <p>stores the current state in a blob</p>
-<p><strong>Returns:</strong> the blob</p>
+<p><strong>Returns:</strong> the blob, i.e. a serialization</p>
 <hr />
 <h3>Netto.prototype.fromBlob = function (blob)</h3>
 <hr />
@@ -78,8 +81,8 @@ otherwise</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>304 Lines</li>
-<li>5913 Bytes</li>
+<li>305 Lines</li>
+<li>6013 Bytes</li>
 </ul>
 </body>
 </html>

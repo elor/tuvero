@@ -1,8 +1,9 @@
 # scripts/backend/test/gameresultscorrection.js
 
 
-No Description
+Game, Results and Correction tests
 
+@returns test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -18,6 +19,6 @@ No exported functions
 
 ## Metrics
 
-* 111 Lines
-* 3093 Bytes
+* 112 Lines
+* 3139 Bytes
 

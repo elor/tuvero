@@ -1,8 +1,10 @@
 # scripts/backend/map.js
 
 
-No Description
+a Mapping object, which maps unique arbitrary data to tightly-packed indices
+and vice versa
 
+@returns Map
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -110,7 +112,7 @@ of the last element plus one.
 store the state in a blob object
 
 
-**Returns:** the blob
+**Returns:** s a serialization of the object
 
 ---
 
@@ -126,6 +128,6 @@ the blob
 
 ## Metrics
 
-* 136 Lines
-* 3027 Bytes
+* 138 Lines
+* 3146 Bytes
 

@@ -1,8 +1,9 @@
 # scripts/backend/test/matrix.js
 
 
-No Description
+Matrix unit tests
 
+@returns a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -14,10 +15,12 @@ No Dependencies
 
 ## Functions
 
-No exported functions
+###             function ()
+
+---
 
 ## Metrics
 
-* 236 Lines
-* 8733 Bytes
+* 270 Lines
+* 9596 Bytes
 

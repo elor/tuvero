@@ -8,6 +8,7 @@ controlled using a static function.
 
 TODO allow for arbitrary font sizes
 
+@returns FontSizeView
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -62,13 +63,14 @@ if not set yet.
 
 **Argument:** **$container**
 
+the container
 
-**Returns:** s
+**Returns:** s the model for the given container
 
 ---
 
 ## Metrics
 
-* 83 Lines
-* 2117 Bytes
+* 86 Lines
+* 2219 Bytes
 

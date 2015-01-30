@@ -3,7 +3,7 @@
 
 Interface for writing a proper CSV file.
 
-No validation included
+@returns an interface object
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -22,5 +22,5 @@ No Dependencies
 ## Metrics
 
 * 18 Lines
-* 298 Bytes
+* 304 Bytes
 

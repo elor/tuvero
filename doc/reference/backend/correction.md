@@ -4,6 +4,7 @@
 A correction ties a wrong game result to a new game result. This structure is
 intended for secure storage only, hence the copying efforts. Since
 corrections should be sparse, the copying shouldn't matter.
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -47,12 +48,12 @@ copies a correction object
 correction object, which doesn't have to have the same prototype
 and functions. Fields are sufficient
 
-**Returns:** the instance
+**Returns:** a copy of the correction instance
 
 ---
 
 ## Metrics
 
-* 48 Lines
-* 1252 Bytes
+* 49 Lines
+* 1277 Bytes
 

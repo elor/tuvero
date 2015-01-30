@@ -41,13 +41,17 @@
 <p>creates a box for the current result in the current round. Note that
 the correct round isn't verified (both in the result and currentround)</p>
 <p><strong>Argument:</strong> <strong>result</strong></p>
-<p>a result as returned by history.getGame()</p>
+<p>a result as returned by history.getGame()
+<strong>Argument:</strong> <strong>$table</strong></p>
+<p>the DOM element to append the game to</p>
 <hr />
 <h3>function createBye (teamid, $table)</h3>
 <p>creates a box for a bye within the current round. No round
 verification.</p>
 <p><strong>Argument:</strong> <strong>teamid</strong></p>
-<p>id of the team receiving a bye</p>
+<p>id of the team receiving a bye
+<strong>Argument:</strong> <strong>$table</strong></p>
+<p>the DOM element to append the Bye to</p>
 <hr />
 <h3>function isInt (n)</h3>
 <hr />
@@ -79,6 +83,9 @@ verification.</p>
 <hr />
 <h3>function isNumeric (obj)</h3>
 <p>borrowed from jQuery</p>
+<p><strong>Argument:</strong> <strong>obj</strong></p>
+<p>the object to verify</p>
+<p><strong>Returns:</strong> s true if obj is a number, false otherwise</p>
 <hr />
 <h3>function getProgressMapping (tournamentid)</h3>
 <p>creates a progress mapping, which, for every player, lists every game
@@ -96,23 +103,50 @@ in every round, with its result and</p>
 <hr />
 <h3>function level (id)</h3>
 <p>Copied from kotournament.js</p>
+<p><strong>Argument:</strong> <strong>id</strong></p>
+<p>the game id</p>
+<p><strong>Returns:</strong> s the level of the game id</p>
 <hr />
 <h3>function parent (id)</h3>
+<p><strong>Argument:</strong> <strong>id</strong></p>
+<p>the game id</p>
+<p><strong>Returns:</strong> s the game id of the parent</p>
 <hr />
 <h3>function lowestid (level)</h3>
+<p><strong>Argument:</strong> <strong>level</strong></p>
+<p>the level</p>
+<p><strong>Returns:</strong> s the lowest game id in the level</p>
 <hr />
 <h3>function nodesbylevel (level)</h3>
+<p><strong>Argument:</strong> <strong>level</strong></p>
+<p>the level</p>
+<p><strong>Returns:</strong> s the number of games in this level</p>
 <hr />
 <h3>function getGameTreeX (gameid, maxlevel)</h3>
-<p>end (Copied from kotournament.js)</p>
+<p>return the x coordinate of a game box</p>
+<p><strong>Argument:</strong> <strong>gameid</strong></p>
+<p>the game id
+<strong>Argument:</strong> <strong>maxlevel</strong></p>
+<p>the highest level</p>
+<p><strong>Returns:</strong> s the x coordinate</p>
 <hr />
 <h3>function getGameTreeY (gameid, maxlevel)</h3>
+<p>return the y coordinate of a game box</p>
+<p><strong>Argument:</strong> <strong>gameid</strong></p>
+<p>the game id
+<strong>Argument:</strong> <strong>maxlevel</strong></p>
+<p>the highest level</p>
+<p><strong>Returns:</strong> s the y coordinate</p>
 <hr />
 <h3>function createGameTreeBox (game, maxid)</h3>
 <hr />
 <h3>function createKOGameToParentConnector (game, maxid)</h3>
 <hr />
 <h3>function createKOTree (tournamentid)</h3>
+<p>create a KO tree box</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the id of the tournament</p>
+<p><strong>Returns:</strong> s true of a game tree tree has been added, false otherwise</p>
 <hr />
 <h3>function (game)</h3>
 <hr />
@@ -126,8 +160,8 @@ in every round, with its result and</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>1000 Lines</li>
-<li>29942 Bytes</li>
+<li>1046 Lines</li>
+<li>30806 Bytes</li>
 </ul>
 </body>
 </html>

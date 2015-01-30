@@ -1,8 +1,9 @@
 # scripts/backend/random.js
 
 
-No Description
+a random number generator
 
+@returns Random
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -37,5 +38,5 @@ No Dependencies
 ## Metrics
 
 * 50 Lines
-* 1032 Bytes
+* 1062 Bytes
 

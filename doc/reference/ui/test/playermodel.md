@@ -3,6 +3,7 @@
 
 Unit tests for PlayerModel
 
+@returns a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -27,6 +28,6 @@ counter reset
 
 ## Metrics
 
-* 90 Lines
-* 2748 Bytes
+* 91 Lines
+* 2776 Bytes
 

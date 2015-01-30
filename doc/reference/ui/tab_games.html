@@ -50,12 +50,19 @@ the respective tournaments</p>
 <hr />
 <h3>function appendGame (game, tournamentid, $box)</h3>
 <p>create and show a box displaying a certain game</p>
+<p><strong>Argument:</strong> <strong>game</strong></p>
+<p>the game object
+<strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id
+<strong>Argument:</strong> <strong>$box</strong></p>
+<p>the DOM object to append this game to</p>
 <hr />
 <h3>function clearBoxes ()</h3>
 <p>removes all games from the overview</p>
 <hr />
 <h3>function showRunning ()</h3>
 <p>clears the overview and appends all open games of the tournament</p>
+<p><strong>Returns:</strong> s true if something has been added to the DOM, false otherwise</p>
 <hr />
 <h3>function showTab ()</h3>
 <hr />
@@ -63,24 +70,34 @@ the respective tournaments</p>
 <hr />
 <h3>function removeGame (tournamentid, index)</h3>
 <p>this function removes the game from the local reference arrays</p>
-<p><strong>Argument:</strong> <strong>game</strong></p>
-<p>the game in question</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id
+<strong>Argument:</strong> <strong>index</strong></p>
+<p>the index of the game</p>
 <p><strong>Returns:</strong> true on success, undefined otherwise</p>
 <hr />
 <h3>function readResults ($container)</h3>
 <hr />
 <h3>function finishGame ()</h3>
 <p>jQuery callback function. works with &quot;this&quot;</p>
+<p><strong>Returns:</strong> s false all the time, although there's no reason to</p>
 <hr />
 <h3>function createVoteBox (tid)</h3>
 <hr />
 <h3>function getRoundVotes (Tournament)</h3>
 <p>translates the Swiss ranking into a traditional votes object</p>
 <p>TODO rewrite this file to replace this function</p>
+<p><strong>Argument:</strong> <strong>Tournament</strong></p>
+<p>the tournament object for which to retrieve the downvotes</p>
 <p><strong>Returns:</strong> {Object} a votes object of the current round</p>
 <hr />
 <h3>function showVotes (Tournament, $box)</h3>
 <p>display the votes for the current round</p>
+<p><strong>Argument:</strong> <strong>Tournament</strong></p>
+<p>the tournament object
+<strong>Argument:</strong> <strong>$box</strong></p>
+<p>the box to add stuff to</p>
+<p><strong>Returns:</strong> s true if something has been added to the box, false otherwise</p>
 <hr />
 <h3>function initOptions ()</h3>
 <hr />
@@ -98,8 +115,8 @@ the respective tournaments</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>616 Lines</li>
-<li>16622 Bytes</li>
+<li>638 Lines</li>
+<li>17358 Bytes</li>
 </ul>
 </body>
 </html>

@@ -6,10 +6,10 @@
  * 
  * TODO allow for arbitrary font sizes
  * 
+ * @returns FontSizeView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
- * @returns FontSizeView
  */
 define([ 'lib/extend', './interfaces/view', './fontsizecontroller',
     './fontsizemodel' ], function (extend, View, FontSizeController,

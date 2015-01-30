@@ -43,5 +43,5 @@ If two players are equally ranked, the lowest ID is first.
 ## Metrics
 
 * 107 Lines
-* 2950 Bytes
+* 2946 Bytes
 

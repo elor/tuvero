@@ -3,6 +3,7 @@
 
 Unit tests for IndexedListModel
 
+@returns a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -18,6 +19,6 @@ No exported functions
 
 ## Metrics
 
-* 48 Lines
-* 1808 Bytes
+* 49 Lines
+* 1831 Bytes
 

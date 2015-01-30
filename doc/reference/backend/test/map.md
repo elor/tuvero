@@ -1,8 +1,9 @@
 # scripts/backend/test/map.js
 
 
-No Description
+unit tests
 
+@returns a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -18,6 +19,6 @@ No exported functions
 
 ## Metrics
 
-* 53 Lines
-* 1464 Bytes
+* 54 Lines
+* 1488 Bytes
 

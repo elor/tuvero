@@ -40,6 +40,8 @@ negated, 0: empty, 1: mirrored</p>
 <hr />
 <h3>HalfMatrix.prototype.clear = function (size)</h3>
 <p>Restores a blank state of the HalfMatrix</p>
+<p><strong>Argument:</strong> <strong>size</strong></p>
+<p>the new size of the matrix</p>
 <p><strong>Returns:</strong> {HalfMatrix} this</p>
 <hr />
 <h3>HalfMatrix.prototype.clone = function ()</h3>
@@ -115,14 +117,17 @@ necessary. Values below the main diagonal are ignored.</p>
 <hr />
 <h3>HalfMatrix.prototype.toBlob = function ()</h3>
 <p>store content in a convenient blob</p>
-<p><strong>Returns:</strong></p>
+<p><strong>Returns:</strong> s a serialization of the matrix</p>
 <hr />
 <h3>HalfMatrix.prototype.fromBlob = function (blob)</h3>
+<p>reset the matrix from a blob</p>
+<p><strong>Argument:</strong> <strong>blob</strong>
+a serialization of the state</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>332 Lines</li>
-<li>7175 Bytes</li>
+<li>339 Lines</li>
+<li>7364 Bytes</li>
 </ul>
 </body>
 </html>

@@ -44,6 +44,9 @@ the correct round isn't verified (both in the result and currentround)
 **Argument:** **result**
 
 a result as returned by history.getGame()
+**Argument:** **$table**
+
+the DOM element to append the game to
 
 ---
 
@@ -55,6 +58,9 @@ verification.
 **Argument:** **teamid**
 
 id of the team receiving a bye
+**Argument:** **$table**
+
+the DOM element to append the Bye to
 
 ---
 
@@ -118,6 +124,12 @@ id of the team receiving a bye
 ###       function isNumeric (obj)
 borrowed from jQuery
 
+**Argument:** **obj**
+
+the object to verify
+
+**Returns:** s true if obj is a number, false otherwise
+
 ---
 
 
@@ -152,30 +164,74 @@ in every round, with its result and
 ###       function level (id)
 Copied from kotournament.js
 
+**Argument:** **id**
+
+the game id
+
+**Returns:** s the level of the game id
+
 ---
 
 
 ###       function parent (id)
+**Argument:** **id**
+
+the game id
+
+**Returns:** s the game id of the parent
 
 ---
+
 
 ###       function lowestid (level)
+**Argument:** **level**
+
+the level
+
+**Returns:** s the lowest game id in the level
 
 ---
+
 
 ###       function nodesbylevel (level)
+**Argument:** **level**
+
+the level
+
+**Returns:** s the number of games in this level
 
 ---
 
+
 ###       function getGameTreeX (gameid, maxlevel)
-end (Copied from kotournament.js)
+return the x coordinate of a game box
+
+**Argument:** **gameid**
+
+the game id
+**Argument:** **maxlevel**
+
+the highest level
+
+**Returns:** s the x coordinate
 
 ---
 
 
 ###       function getGameTreeY (gameid, maxlevel)
+return the y coordinate of a game box
+
+**Argument:** **gameid**
+
+the game id
+**Argument:** **maxlevel**
+
+the highest level
+
+**Returns:** s the y coordinate
 
 ---
+
 
 ###       function createGameTreeBox (game, maxid)
 
@@ -186,8 +242,16 @@ end (Copied from kotournament.js)
 ---
 
 ###       function createKOTree (tournamentid)
+create a KO tree box
+
+**Argument:** **tournamentid**
+
+the id of the tournament
+
+**Returns:** s true of a game tree tree has been added, false otherwise
 
 ---
+
 
 ###               function (game)
 
@@ -210,6 +274,6 @@ removes and redraws all boxes from History
 
 ## Metrics
 
-* 1000 Lines
-* 29942 Bytes
+* 1046 Lines
+* 30806 Bytes
 

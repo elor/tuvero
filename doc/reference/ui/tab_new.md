@@ -134,6 +134,10 @@ the swiss object
 ###   function initNewsystem ($system)
 prepare Newsystem management box, which starts a new tournament round
 
+**Argument:** **$system**
+
+the DOM element which contains the tournament System information
+
 ---
 
 
@@ -144,8 +148,19 @@ prepare Newsystem management box, which starts a new tournament round
 ###   function initSwiss ($swiss, tournamentid)
 prepare a swiss tournament management box
 
+**Argument:** **$swiss**
+
+the DOM object which holds the Swiss System
+**Argument:** **tournamentid**
+
+the tournament id of the swiss tournament
+
 ---
 
+
+###             function ()
+
+---
 
 ###   function initBoxes ($container)
 
@@ -213,6 +228,6 @@ prepare a swiss tournament management box
 
 ## Metrics
 
-* 806 Lines
-* 21102 Bytes
+* 828 Lines
+* 21577 Bytes
 

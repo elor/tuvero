@@ -30,7 +30,7 @@ buchholz points, finebuchholz points and netto points, in this order.</p>
 <hr />
 <h3>Finebuchholz.prototype.size = function ()</h3>
 <p>simply return the stored size</p>
-<p><strong>Returns:</strong> the size</p>
+<p><strong>Returns:</strong> the number of players in the ranking instance</p>
 <hr />
 <h3>Finebuchholz.prototype.resize = function (size)</h3>
 <p>resize the internal structures</p>
@@ -41,7 +41,7 @@ buchholz points, finebuchholz points and netto points, in this order.</p>
 <h3>Finebuchholz.prototype.get = function ()</h3>
 <p>return an object containing all points data and a sorted array of pids
 representing the ranking</p>
-<p><strong>Returns:</strong> data object</p>
+<p><strong>Returns:</strong> a data object containing the ranking information</p>
 <hr />
 <h3>Finebuchholz.prototype.add = function (result)</h3>
 <p>Add the result of a game to the ranking table.</p>
@@ -57,7 +57,7 @@ representing the ranking</p>
 <hr />
 <h3>Finebuchholz.prototype.correct = function (correction)</h3>
 <p>Correct the result of a game.</p>
-<p><strong>Argument:</strong> <strong>oldres</strong></p>
+<p><strong>Argument:</strong> <strong>correction</strong></p>
 <p>the correction</p>
 <p><strong>Returns:</strong> {Finebuchholz} undefined on failure, this otherwise</p>
 <hr />
@@ -80,7 +80,7 @@ otherwise.</p>
 <hr />
 <h3>Finebuchholz.prototype.toBlob = function ()</h3>
 <p>stores the current state in a blob</p>
-<p><strong>Returns:</strong> the blob</p>
+<p><strong>Returns:</strong> a serialization of the ranking state</p>
 <hr />
 <h3>Finebuchholz.prototype.fromBlob = function (blob)</h3>
 <hr />
@@ -88,8 +88,8 @@ otherwise.</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>363 Lines</li>
-<li>7931 Bytes</li>
+<li>362 Lines</li>
+<li>8023 Bytes</li>
 </ul>
 </body>
 </html>

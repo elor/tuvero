@@ -105,5 +105,5 @@ this.svg and is supposed to be jQuery-compatible
 ## Metrics
 
 * 169 Lines
-* 4331 Bytes
+* 4314 Bytes
 

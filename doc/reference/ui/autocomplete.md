@@ -33,6 +33,6 @@ Autocomplete playernames using typeahead.js
 
 ## Metrics
 
-* 57 Lines
-* 1246 Bytes
+* 60 Lines
+* 1269 Bytes
 

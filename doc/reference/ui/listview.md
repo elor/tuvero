@@ -114,6 +114,6 @@ data object, containing at least the index within the list
 
 ## Metrics
 
-* 138 Lines
-* 3429 Bytes
+* 137 Lines
+* 3408 Bytes
 

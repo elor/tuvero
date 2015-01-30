@@ -3,6 +3,7 @@
 
 Unit tests for IndexedModel
 
+@returns a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -27,6 +28,6 @@ counter reset
 
 ## Metrics
 
-* 61 Lines
-* 1621 Bytes
+* 65 Lines
+* 1679 Bytes
 

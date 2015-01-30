@@ -1,8 +1,9 @@
 # scripts/ui/test/csv.js
 
 
-No Description
+CSVer unit tests
 
+@returns a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -18,6 +19,6 @@ No exported functions
 
 ## Metrics
 
-* 30 Lines
-* 804 Bytes
+* 31 Lines
+* 835 Bytes
 

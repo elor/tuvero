@@ -4,6 +4,7 @@
 KO tournament
 
 Complies to Tournament and Blobber interfaces
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -19,57 +20,68 @@ Complies to Tournament and Blobber interfaces
 
 ## Functions
 
-###   function left (id)
+###     function (Tournament, Map, Random, Game, Options)
 
 ---
 
-###   function right (id)
+###       function left (id)
 
 ---
 
-###   function parent (id)
+###       function right (id)
 
 ---
 
-###   function level (id)
+###       function parent (id)
 
 ---
 
-###   function levelbynodes (numnodes)
+###       function level (id)
 
 ---
 
-###   function nodesbylevel (level)
+###       function levelbynodes (numnodes)
 
 ---
 
-###   function numLevels (numnodes)
+###       function nodesbylevel (level)
 
 ---
 
-###   function numRounds (numplayers)
+###       function numLevels (numnodes)
 
 ---
 
-###   function worstplace (level)
+###       function numRounds (numplayers)
 
 ---
 
-###   function lowestid (level)
+###       function worstplace (level)
 
 ---
 
-###   KOTournament = function ()
+###       function lowestid (level)
 
 ---
 
-###   KOTournament.prototype.addPlayer = function (id)
+###       KOTournament = function ()
 
 ---
 
-###   function matchOrder (numPlayers, byeOrder)
-create an array of players where an even-indexed player and the subsequent
-player are supposed to be in a game
+###       KOTournament.prototype.addPlayer = function (id)
+
+---
+
+###       function matchOrder (numPlayers, byeOrder)
+create an array of players where an even-indexed player and the
+subsequent player are supposed to be in a game
+
+**Argument:** **numPlayers**
+
+number of players
+**Argument:** **byeOrder**
+
+the order in which byes are applied
 
 
 **Returns:** an array of internal player ids
@@ -77,21 +89,31 @@ player are supposed to be in a game
 ---
 
 
-###   function matchRandom (numPlayers, byeOrder)
-create a randomized first KO round by manipulating an array returned from
-matchOrder()
+###       function matchRandom (numPlayers, byeOrder)
+create a randomized first KO round by manipulating an array returned
+from matchOrder()
 
+**Argument:** **numPlayers**
+
+number of players
+**Argument:** **byeOrder**
+
+the order in which byes are applied
 
 **Returns:** an array of internal pids
 
 ---
 
 
-###   function createSetOrder (numrounds)
+###       function createSetOrder (numrounds)
 create a set order (map)
 
 This set order is achieved by repeated recursive permutations of a
 previously sorted array of participating team ids
+
+**Argument:** **numrounds**
+
+number of rounds
 
 
 **Returns:** an array of indices for initial order
@@ -99,9 +121,16 @@ previously sorted array of participating team ids
 ---
 
 
-###   function matchSet (numPlayers, byeOrder)
+###       function matchSet (numPlayers, byeOrder)
 create a first round of games of players by permutation of matchOrder()
 results
+
+**Argument:** **numPlayers**
+
+number of players
+**Argument:** **byeOrder**
+
+the order in which byes are applied
 
 
 **Returns:** an array of internal pids
@@ -109,60 +138,60 @@ results
 ---
 
 
-###   KOTournament.prototype.start = function ()
+###       KOTournament.prototype.start = function ()
 
 ---
 
-###   KOTournament.prototype.end = function ()
+###       KOTournament.prototype.end = function ()
 
 ---
 
-###   KOTournament.prototype.finishGame = function (game, points)
+###       KOTournament.prototype.finishGame = function (game, points)
 
 ---
 
-###   function checkforGame (pid, gameid)
+###       function checkforGame (pid, gameid)
 
 ---
 
-###   KOTournament.prototype.getGames = function ()
+###       KOTournament.prototype.getGames = function ()
 
 ---
 
-###   KOTournament.prototype.getRanking = function ()
+###       KOTournament.prototype.getRanking = function ()
 
 ---
 
-###   KOTournament.prototype.rankingChanged = function ()
+###       KOTournament.prototype.rankingChanged = function ()
 
 ---
 
-###   KOTournament.prototype.getState = function ()
+###       KOTournament.prototype.getState = function ()
 
 ---
 
-###   KOTournament.prototype.correct = function ()
+###       KOTournament.prototype.correct = function ()
 
 ---
 
-###   KOTournament.prototype.toBlob = function ()
+###       KOTournament.prototype.toBlob = function ()
 
 ---
 
-###   KOTournament.prototype.fromBlob = function (blob)
+###       KOTournament.prototype.fromBlob = function (blob)
 
 ---
 
-###   KOTournament.prototype.getType = function ()
+###       KOTournament.prototype.getType = function ()
 
 ---
 
-###   KOTournament.prototype.getCorrections = function ()
+###       KOTournament.prototype.getCorrections = function ()
 
 ---
 
 ## Metrics
 
-* 436 Lines
-* 9976 Bytes
+* 461 Lines
+* 11903 Bytes
 

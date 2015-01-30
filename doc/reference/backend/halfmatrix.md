@@ -49,6 +49,9 @@ type id (HalfMatrix.empty/mirrored/negated)
 ###   HalfMatrix.prototype.clear = function (size)
 Restores a blank state of the HalfMatrix
 
+**Argument:** **size**
+
+the new size of the matrix
 
 **Returns:** {HalfMatrix} this
 
@@ -192,17 +195,21 @@ integer value to store in position (row, col)
 store content in a convenient blob
 
 
-**Returns:** 
+**Returns:** s a serialization of the matrix
 
 ---
 
 
 ###   HalfMatrix.prototype.fromBlob = function (blob)
+reset the matrix from a blob 
+
+**Argument:** **blob**
+a serialization of the state
 
 ---
 
 ## Metrics
 
-* 332 Lines
-* 7175 Bytes
+* 339 Lines
+* 7364 Bytes
 

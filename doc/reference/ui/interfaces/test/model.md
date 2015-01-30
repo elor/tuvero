@@ -3,6 +3,7 @@
 
 Model class tests
 
+@returns Model
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -18,6 +19,6 @@ No exported functions
 
 ## Metrics
 
-* 21 Lines
-* 492 Bytes
+* 22 Lines
+* 509 Bytes
 

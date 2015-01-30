@@ -41,6 +41,6 @@ Wrap all tabs into a single object for centralized updates
 
 ## Metrics
 
-* 48 Lines
-* 1037 Bytes
+* 47 Lines
+* 1056 Bytes
 

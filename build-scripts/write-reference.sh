@@ -328,6 +328,12 @@ createrrorpage(){
 EOF
 }
 
+runjshint(){
+    jshint $@ | while IFS= read line; do
+        grep :  &>/dev/null <<< "$line" && warning "$line"
+    done
+}
+
 processscript(){
     script=$1
     initdocfile $script
@@ -337,6 +343,7 @@ processscript(){
         parsedependencies $script
         parsefunctions $script
         printscriptmetrics $script
+        runjshint $script
     } >> $docfile
     convertMD2HTML $script
 }

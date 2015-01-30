@@ -19,9 +19,6 @@ A combination of players is a team. A team should contain at least one player
 ###   function IndexedModel (id)
 Constructor
 
-**Argument:** **players**
-
-an array of PlayerModel instances
 **Argument:** **id**
 
 a preferably unique numeric id
@@ -30,10 +27,10 @@ a preferably unique numeric id
 
 
 ###   IndexedModel.prototype.getID = function ()
-retrieve the id
+retrieve the id of this object within a certain set of objects
 
 
-**Returns:** s the id
+**Returns:** s the id of this object within a certain set of objects
 
 ---
 
@@ -49,6 +46,6 @@ a preferably unique numeric id
 
 ## Metrics
 
-* 53 Lines
-* 1023 Bytes
+* 51 Lines
+* 1049 Bytes
 

@@ -16,6 +16,7 @@
 </ul>
 <h2>Dependencies</h2>
 <ul>
+<li><a href="./correction.html">./correction</a></li>
 <li><a href="./halfmatrix.html">./halfmatrix</a></li>
 <li><a href="./matrix.html">./matrix</a></li>
 <li><a href="./vector.html">./vector</a></li>
@@ -27,7 +28,7 @@ points and netto points, in this order.</p>
 <hr />
 <h3>Buchholz.prototype.size = function ()</h3>
 <p>simply return the stored size</p>
-<p><strong>Returns:</strong> the size</p>
+<p><strong>Returns:</strong> s the length of the ranking data structures</p>
 <hr />
 <h3>Buchholz.prototype.resize = function (size)</h3>
 <p>resize the internal structures</p>
@@ -38,7 +39,8 @@ points and netto points, in this order.</p>
 <h3>Buchholz.prototype.get = function ()</h3>
 <p>return an object containing all points data and a sorted array of pids
 representing the ranking</p>
-<p><strong>Returns:</strong> data object</p>
+<p><strong>Returns:</strong> s an object containing all points data and a sorted array of pids
+representing the ranking</p>
 <hr />
 <h3>Buchholz.prototype.add = function (result)</h3>
 <p>Add the result of a game to the ranking table.</p>
@@ -54,11 +56,9 @@ representing the ranking</p>
 <hr />
 <h3>Buchholz.prototype.correct = function (correction)</h3>
 <p>Correct the result of a game.</p>
-<p><strong>Argument:</strong> <strong>oldres</strong></p>
-<p>the old result
-<strong>Argument:</strong> <strong>newres</strong></p>
-<p>the new (corrected) result</p>
-<p><strong>Returns:</strong> {Buchholz} this</p>
+<p><strong>Argument:</strong> <strong>correction</strong></p>
+<p>a Correction object</p>
+<p><strong>Returns:</strong> this</p>
 <hr />
 <h3>Buchholz.prototype.grantBye = function (team)</h3>
 <hr />
@@ -79,7 +79,7 @@ otherwise.</p>
 <hr />
 <h3>Buchholz.prototype.toBlob = function ()</h3>
 <p>stores the current state in a blob</p>
-<p><strong>Returns:</strong> the blob</p>
+<p><strong>Returns:</strong> a blob representing the current state</p>
 <hr />
 <h3>Buchholz.prototype.fromBlob = function (blob)</h3>
 <hr />
@@ -88,7 +88,7 @@ otherwise.</p>
 <h2>Metrics</h2>
 <ul>
 <li>337 Lines</li>
-<li>6851 Bytes</li>
+<li>6980 Bytes</li>
 </ul>
 </body>
 </html>

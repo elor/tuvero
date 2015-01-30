@@ -59,6 +59,16 @@ disable/enable the submit button if input is valid
 ###       function appendGame (game, tournamentid, $box)
 create and show a box displaying a certain game
 
+**Argument:** **game**
+
+the game object
+**Argument:** **tournamentid**
+
+the tournament id
+**Argument:** **$box**
+
+the DOM object to append this game to
+
 ---
 
 
@@ -70,6 +80,9 @@ removes all games from the overview
 
 ###       function showRunning ()
 clears the overview and appends all open games of the tournament
+
+
+**Returns:** s true if something has been added to the DOM, false otherwise
 
 ---
 
@@ -85,9 +98,12 @@ clears the overview and appends all open games of the tournament
 ###       function removeGame (tournamentid, index)
 this function removes the game from the local reference arrays
 
-**Argument:** **game**
+**Argument:** **tournamentid**
 
-the game in question
+the tournament id
+**Argument:** **index**
+
+the index of the game
 
 **Returns:** true on success, undefined otherwise
 
@@ -101,6 +117,9 @@ the game in question
 ###       function finishGame ()
 jQuery callback function. works with "this"
 
+
+**Returns:** s false all the time, although there's no reason to
+
 ---
 
 
@@ -113,6 +132,9 @@ translates the Swiss ranking into a traditional votes object
 
 TODO rewrite this file to replace this function
 
+**Argument:** **Tournament**
+
+the tournament object for which to retrieve the downvotes
 
 **Returns:** {Object} a votes object of the current round
 
@@ -121,6 +143,15 @@ TODO rewrite this file to replace this function
 
 ###       function showVotes (Tournament, $box)
 display the votes for the current round
+
+**Argument:** **Tournament**
+
+the tournament object
+**Argument:** **$box**
+
+the box to add stuff to
+
+**Returns:** s true if something has been added to the box, false otherwise
 
 ---
 
@@ -154,6 +185,6 @@ reset an original game state, respecting the current state of Swiss
 
 ## Metrics
 
-* 616 Lines
-* 16622 Bytes
+* 638 Lines
+* 17358 Bytes
 

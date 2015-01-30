@@ -3,6 +3,7 @@
 
 An abstract controller class
 
+@returns Controller
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -28,6 +29,6 @@ An associated instance of View
 
 ## Metrics
 
-* 24 Lines
-* 519 Bytes
+* 25 Lines
+* 542 Bytes
 

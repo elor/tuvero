@@ -1,8 +1,9 @@
 # scripts/backend/fullmatrix.js
 
 
-No Description
+a numeric square matrix class without further limitations
 
+@returns FullMatrix
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -30,6 +31,9 @@ Empty entries are specified as undefined array values
 ###   FullMatrix.prototype.clear = function (size)
 Restores a blank state of the FullMatrix
 
+**Argument:** **size**
+
+Optional. the new size of the matrix
 
 **Returns:** {FullMatrix} this
 
@@ -104,6 +108,6 @@ integer value to store in position (row, col)
 
 ## Metrics
 
-* 169 Lines
-* 3484 Bytes
+* 172 Lines
+* 3619 Bytes
 

@@ -30,7 +30,7 @@ buchholz points, finebuchholz points and netto points, in this order.
 simply return the stored size
 
 
-**Returns:** the size
+**Returns:** the number of players in the ranking instance
 
 ---
 
@@ -52,7 +52,7 @@ return an object containing all points data and a sorted array of pids
 representing the ranking
 
 
-**Returns:** data object
+**Returns:** a data object containing the ranking information
 
 ---
 
@@ -84,7 +84,7 @@ the result
 ###   Finebuchholz.prototype.correct = function (correction)
 Correct the result of a game.
 
-**Argument:** **oldres**
+**Argument:** **correction**
 
 the correction
 
@@ -131,7 +131,7 @@ get a copy of the applied corrections
 stores the current state in a blob
 
 
-**Returns:** the blob
+**Returns:** a serialization of the ranking state
 
 ---
 
@@ -146,6 +146,6 @@ stores the current state in a blob
 
 ## Metrics
 
-* 363 Lines
-* 7931 Bytes
+* 362 Lines
+* 8023 Bytes
 

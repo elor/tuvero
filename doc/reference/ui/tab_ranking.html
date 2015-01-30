@@ -11,6 +11,7 @@
 <p>Model, View and Controller of the ranking tab</p>
 <p>This tab shows all results in tabulated form and is supposed to provide some
 kind of sorting functionality</p>
+<p>TODO slay this beast</p>
 <ul>
 <li>Exports: Tab_Ranking</li>
 <li>Implements: ./tab</li>
@@ -50,10 +51,19 @@ kind of sorting functionality</p>
 <p><strong>Returns:</strong> a filled copy of the template</p>
 <hr />
 <h3>function showRanking (tournamentid, $box)</h3>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id
+<strong>Argument:</strong> <strong>$box</strong></p>
+<p>the box to add the ranking to</p>
 <p><strong>Returns:</strong> {boolean} false on failure, true on success</p>
 <hr />
 <h3>function showCorrections (tournamentid, $box)</h3>
 <p>retrieves the corrections and displays them in the correction table</p>
+<p><strong>Argument:</strong> <strong>tournamentid</strong></p>
+<p>the tournament id
+<strong>Argument:</strong> <strong>$box</strong></p>
+<p>the box to add content to</p>
+<p><strong>Returns:</strong> s true if anything has been added to the DOM, false otherwise</p>
 <hr />
 <h3>function reset ()</h3>
 <hr />
@@ -63,8 +73,8 @@ kind of sorting functionality</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>281 Lines</li>
-<li>7253 Bytes</li>
+<li>304 Lines</li>
+<li>7697 Bytes</li>
 </ul>
 </body>
 </html>

@@ -3,7 +3,7 @@
 
 Interface for reading and writing to a blob (arbitrary string representation)
 
-* Exports: Blobber
+@returns Blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License

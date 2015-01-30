@@ -14,9 +14,12 @@ Warning: scripts/backend/finebuchholzranking.js: undocumented: 't1func = functio
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'Finebuchholz.prototype.fromBlob = function'
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'function copyCorrection'
 Warning: scripts/backend/finebuchholzranking.js: > 10 functions: 15
+Warning: scripts/backend/finebuchholzranking.js: line 10, col 32, This function has too many parameters. (6)
+Warning: scripts/backend/fullmatrix.js: line 66, col 24, Blocks are nested too deeply. (4)
 Warning: scripts/backend/game.js: undocumented: 'function copyTeam'
-Warning: scripts/backend/halfmatrix.js: undocumented: 'HalfMatrix.prototype.fromBlob = function'
 Warning: scripts/backend/halfmatrix.js: > 10 functions: 17
+Warning: scripts/backend/halfmatrix.js: line 115, col 24, Blocks are nested too deeply. (4)
+Warning: scripts/backend/kotournament.js: undocumented: 'function'
 Warning: scripts/backend/kotournament.js: undocumented: 'function left'
 Warning: scripts/backend/kotournament.js: undocumented: 'function right'
 Warning: scripts/backend/kotournament.js: undocumented: 'function parent'
@@ -42,8 +45,16 @@ Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.
 Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.fromBlob = function'
 Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.getType = function'
 Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.getCorrections = function'
-Warning: scripts/backend/kotournament.js: > 10 functions: 29
-Warning: scripts/backend/kotournament.js: > 400 lines: 436
+Warning: scripts/backend/kotournament.js: > 10 functions: 30
+Warning: scripts/backend/kotournament.js: > 400 lines: 461
+Warning: scripts/backend/kotournament.js: line 42, col 18, Unexpected use of '<<'.
+Warning: scripts/backend/kotournament.js: line 114, col 26, Unexpected use of '<<'.
+Warning: scripts/backend/kotournament.js: line 177, col 24, Unexpected use of '<<'.
+Warning: scripts/backend/kotournament.js: line 179, col 27, Unexpected use of '>>'.
+Warning: scripts/backend/kotournament.js: line 332, col 15, Bad line breaking before '&&'.
+Warning: scripts/backend/kotournament.js: line 22, col 16, 'right' is defined but never used.
+Warning: scripts/backend/kotournament.js: line 45, col 16, 'numLevels' is defined but never used.
+Warning: scripts/backend/kotournament.js: line 104, col 40, 'byeOrder' is defined but never used.
 Warning: scripts/backend/map.js: > 10 functions: 11
 Warning: scripts/backend/matrix.js: undocumented: 'clone : function'
 Warning: scripts/backend/matrix.js: undocumented: 'erase : function'
@@ -51,6 +62,13 @@ Warning: scripts/backend/matrix.js: undocumented: 'extend : function'
 Warning: scripts/backend/matrix.js: undocumented: 'get : function'
 Warning: scripts/backend/matrix.js: undocumented: 'set : function'
 Warning: scripts/backend/matrix.js: > 10 functions: 17
+Warning: scripts/backend/matrix.js: line 26, col 23, 'index' is defined but never used.
+Warning: scripts/backend/matrix.js: line 30, col 24, 'by' is defined but never used.
+Warning: scripts/backend/matrix.js: line 35, col 26, 'col' is defined but never used.
+Warning: scripts/backend/matrix.js: line 35, col 21, 'row' is defined but never used.
+Warning: scripts/backend/matrix.js: line 39, col 31, 'value' is defined but never used.
+Warning: scripts/backend/matrix.js: line 39, col 26, 'col' is defined but never used.
+Warning: scripts/backend/matrix.js: line 39, col 21, 'row' is defined but never used.
 Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.grantBye = function'
 Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.revokeBye = function'
 Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.fromBlob = function'
@@ -63,16 +81,49 @@ Warning: scripts/backend/options.js: undocumented: 'Options.getOptions = functio
 Warning: scripts/backend/options.js: undocumented: 'Options.prototype.setOptions = function'
 Warning: scripts/backend/options.js: undocumented: 'Options.setOptions = function'
 Warning: scripts/backend/options.js: > 10 functions: 11
+Warning: scripts/backend/options.js: line 34, col 30, 'options' is defined but never used.
 Warning: scripts/backend/random.js: undocumented: 'Random = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.nextInt = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.nextDouble = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.pick = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.pickAndRemove = function'
+Warning: scripts/backend/random.js: line 19, col 31, Unexpected use of '&'.
+Warning: scripts/backend/random.js: line 20, col 32, Unexpected use of '>>'.
+Warning: scripts/backend/random.js: line 20, col 39, Unexpected use of '&'.
+Warning: scripts/backend/random.js: line 32, col 21, Unexpected use of '>>'.
+Warning: scripts/backend/random.js: line 33, col 21, Unexpected use of '&'.
 Warning: scripts/backend/ranking.js: > 10 functions: 11
+Warning: scripts/backend/ranking.js: line 32, col 26, 'size' is defined but never used.
+Warning: scripts/backend/ranking.js: line 59, col 23, 'result' is defined but never used.
+Warning: scripts/backend/ranking.js: line 71, col 26, 'result' is defined but never used.
+Warning: scripts/backend/ranking.js: line 85, col 27, 'correction' is defined but never used.
+Warning: scripts/backend/ranking.js: line 106, col 25, 'game' is defined but never used.
+Warning: scripts/backend/ranking.js: line 116, col 28, 'playerid' is defined but never used.
+Warning: scripts/backend/ranking.js: line 125, col 29, 'playerid' is defined but never used.
 Warning: scripts/backend/result.js: undocumented: 'Result = function'
 Warning: scripts/backend/rleblobber.js: undocumented: 'function isArray'
 Warning: scripts/backend/rleblobber.js: undocumented: 'function isNumber'
 Warning: scripts/backend/rleblobber.js: > 10 functions: 12
+Warning: scripts/backend/rleblobber.js: line 82, col 7, Unreachable 'break' after 'return'.
+Warning: scripts/backend/rleblobber.js: line 93, col 22, Use '!==' to compare with 'null'.
+Warning: scripts/backend/rleblobber.js: line 93, col 38, Use '!==' to compare with '0'.
+Warning: scripts/backend/rleblobber.js: line 97, col 32, Blocks are nested too deeply. (4)
+Warning: scripts/backend/rleblobber.js: line 100, col 18, Blocks are nested too deeply. (4)
+Warning: scripts/backend/rleblobber.js: line 104, col 37, Blocks are nested too deeply. (4)
+Warning: scripts/backend/rleblobber.js: line 106, col 18, Blocks are nested too deeply. (4)
+Warning: scripts/backend/rleblobber.js: line 117, col 15, Use '!==' to compare with '0'.
+Warning: scripts/backend/rleblobber.js: line 155, col 21, Use '===' to compare with '0'.
+Warning: scripts/backend/rleblobber.js: line 165, col 34, Unexpected use of '++'.
+Warning: scripts/backend/rleblobber.js: line 206, col 24, Use '===' to compare with '0'.
+Warning: scripts/backend/rleblobber.js: line 209, col 18, Empty block.
+Warning: scripts/backend/rleblobber.js: line 234, col 26, Use '===' to compare with '0'.
+Warning: scripts/backend/rleblobber.js: line 234, col 32, Empty block.
+Warning: scripts/backend/rleblobber.js: line 239, col 29, Blocks are nested too deeply. (4)
+Warning: scripts/backend/rleblobber.js: line 258, col 44, Use '===' to compare with '0'.
+Warning: scripts/backend/rleblobber.js: line 285, col 12, 'isArray' is defined but never used.
+Warning: scripts/backend/rleblobber.js: line 289, col 12, 'isNumber' is defined but never used.
+Warning: scripts/backend/rleblobber.js: line 73, col 34, 'elemstr' is defined but never used.
+Warning: scripts/backend/rleblobber.js: line 148, col 16, 'innerarray' is defined but never used.
 Warning: scripts/backend/swisstournament.js: > 5 dependencies: 9
 Warning: scripts/backend/swisstournament.js: undocumented: 'function clearRoundvotes'
 Warning: scripts/backend/swisstournament.js: undocumented: 'fillCandidates = function'
@@ -85,11 +136,44 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'function copyStaticO
 Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prototype.getType = function'
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
+Warning: scripts/backend/swisstournament.js: line 10, col 85, This function has too many parameters. (9)
+Warning: scripts/backend/swisstournament.js: line 33, col 10, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/backend/swisstournament.js: line 328, col 23, Use '===' to compare with '0'.
+Warning: scripts/backend/swisstournament.js: line 461, col 23, Use '===' to compare with '0'.
+Warning: scripts/backend/swisstournament.js: line 614, col 18, Empty block.
+Warning: scripts/backend/swisstournament.js: line 798, col 55, Unexpected use of '&'.
+Warning: scripts/backend/swisstournament.js: line 822, col 66, Unexpected use of '&'.
+Warning: scripts/backend/swisstournament.js: line 712, col 5, 'lowest' is not defined.
+Warning: scripts/backend/swisstournament.js: line 1105, col 12, 'copyStaticObject' is defined but never used.
+Warning: scripts/backend/swisstournament.js: line 242, col 34, 'allvotes' is defined but never used.
+Warning: scripts/backend/test/matrix.js: undocumented: 'function'
+Warning: scripts/backend/test/matrix.js: line 76, col 11, Bad line breaking before '&&'.
+Warning: scripts/backend/test/matrix.js: line 77, col 11, Bad line breaking before '&&'.
+Warning: scripts/backend/test/matrix.js: line 139, col 11, Bad line breaking before '&&'.
+Warning: scripts/backend/test/rleblobber.js: line 172, col 7, 'e' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 173, col 7, 'd' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 23, 'd' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 25, 'e' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 27, 'd' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 29, 'e' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 31, 'd' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 33, 'e' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 35, 'd' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 37, 'e' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 39, 'd' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 41, 'e' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 43, 'd' is not defined.
+Warning: scripts/backend/test/rleblobber.js: line 175, col 45, 'e' is not defined.
 Warning: scripts/backend/tournament.js: > 10 functions: 15
+Warning: scripts/backend/tournament.js: line 57, col 36, 'points' is defined but never used.
+Warning: scripts/backend/tournament.js: line 57, col 30, 'game' is defined but never used.
 Warning: scripts/common.js: > 5 dependencies: 85
-Warning: scripts/main.js: function before define(
-Warning: scripts/main.js: undocumented: 'function notifyAboutLoadError'
-Warning: scripts/main.js: undocumented: ' function'
+Warning: scripts/main.js: undocumented: 'function'
+Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/main.js: line 46, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/main.js: line 58, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/main.js: line 70, col 15, Do not use 'new' for side effects.
+Warning: scripts/main.js: line 72, col 15, Do not use 'new' for side effects.
 Warning: scripts/test.js: > 5 dependencies: 21
 Warning: scripts/ui/alltabs.js: > 5 dependencies: 8
 Warning: scripts/ui/alltabs.js: undocumented: 'reset : function'
@@ -101,17 +185,30 @@ Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.reset = functio
 Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.update = function'
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'function confirmLeave'
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'window.onbeforeunload = function'
+Warning: scripts/ui/backgroundscripts/featuredetect.js: line 28, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/featuredetect.js: line 34, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/featuredetect.js: line 41, col 7, Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/reset.js: undocumented: 'function hashcheck'
+Warning: scripts/ui/backgroundscripts/reset.js: line 19, col 7, Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/save.js: > 5 dependencies: 7
+Warning: scripts/ui/backgroundscripts/save.js: line 24, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/save.js: line 29, col 9, Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/updatetab.js: undocumented: 'function getSharedName'
+Warning: scripts/ui/boxview.js: line 82, col 15, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/boxview.js: line 86, col 15, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/boxview.js: line 90, col 13, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/csver.js: undocumented: 'toCSV : function'
 Warning: scripts/ui/debug.js: undocumented: 'stackTrace : function'
+Warning: scripts/ui/debug.js: line 26, col 7, Do not use 'new' for side effects.
 Warning: scripts/ui/fontsizeview.js: > 5 dependencies: 6
 Warning: scripts/ui/globalranking.js: undocumented: 'function mapTeamsToTournamentIDs'
 Warning: scripts/ui/globalranking.js: undocumented: 'function mapTeamsToTournamentRanks'
 Warning: scripts/ui/globalranking.js: undocumented: 'function updateTeamObjects'
 Warning: scripts/ui/globalranking.js: undocumented: 'function sortfunc'
 Warning: scripts/ui/globalranking.js: undocumented: 'function strictsortfunc'
+Warning: scripts/ui/globalranking.js: line 39, col 8, Don't make functions within a loop.
+Warning: scripts/ui/globalranking.js: line 89, col 99, Blocks are nested too deeply. (4)
+Warning: scripts/ui/globalranking.js: line 91, col 18, Blocks are nested too deeply. (4)
 Warning: scripts/ui/history.js: undocumented: 'function'
 Warning: scripts/ui/history.js: undocumented: 'function getTournament'
 Warning: scripts/ui/history.js: undocumented: 'addVote : function'
@@ -122,11 +219,21 @@ Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 20
 Warning: scripts/ui/history.js: > 400 lines: 519
+Warning: scripts/ui/history.js: line 91, col 30, This function has too many parameters. (7)
+Warning: scripts/ui/history.js: line 137, col 17, Bad line breaking before '&&'.
+Warning: scripts/ui/history.js: line 138, col 17, Bad line breaking before '&&'.
+Warning: scripts/ui/history.js: line 139, col 17, Bad line breaking before '&&'.
+Warning: scripts/ui/history.js: line 336, col 17, Bad line breaking before '||'.
+Warning: scripts/ui/history.js: line 414, col 21, Bad line breaking before '+'.
+Warning: scripts/ui/history.js: line 419, col 37, Blocks are nested too deeply. (4)
+Warning: scripts/ui/history.js: line 455, col 42, Blocks are nested too deeply. (4)
+Warning: scripts/ui/history.js: line 459, col 25, Bad line breaking before '+'.
 Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
 Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
 Warning: scripts/ui/listmodel.js: > 10 functions: 23
 Warning: scripts/ui/listview.js: > 10 functions: 11
 Warning: scripts/ui/newteamcontroller.js: > 5 dependencies: 6
+Warning: scripts/ui/newteamview.js: line 24, col 5, Do not use 'new' for side effects.
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
@@ -143,6 +250,12 @@ Warning: scripts/ui/players.js: undocumented: 'Players.erase = function'
 Warning: scripts/ui/ranking.js: undocumented: 'function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
+Warning: scripts/ui/ranking.js: line 28, col 13, Read only.
+Warning: scripts/ui/ranking.js: line 81, col 14, Don't make functions within a loop.
+Warning: scripts/ui/ranking.js: line 93, col 19, Bad line breaking before '+'.
+Warning: scripts/ui/ranking.js: line 118, col 16, Don't make functions within a loop.
+Warning: scripts/ui/ranking.js: line 21, col 62, 'i' is defined but never used.
+Warning: scripts/ui/ranking.js: line 41, col 42, 'i' is defined but never used.
 Warning: scripts/ui/splash.js: undocumented: 'hide : function'
 Warning: scripts/ui/splash.js: undocumented: 'loading : function'
 Warning: scripts/ui/splash.js: undocumented: 'function setState'
@@ -151,8 +264,36 @@ Warning: scripts/ui/splash.js: undocumented: 'Splash.update = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.hide = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.error = function'
 Warning: scripts/ui/state.js: > 5 dependencies: 11
+Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/state.js: line 12, col 104, This function has too many parameters. (11)
+Warning: scripts/ui/state.js: line 56, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/state.js: line 57, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/state.js: line 58, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/state.js: line 59, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/state.js: line 60, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/staticviewloader.js: line 36, col 7, Do not use 'new' for side effects.
 Warning: scripts/ui/storage.js: undocumented: 'function saveKey'
 Warning: scripts/ui/storage.js: undocumented: 'function loadKey'
+Warning: scripts/ui/storage.js: line 91, col 29, Use '===' to compare with 'true'.
+Warning: scripts/ui/storage.js: line 91, col 38, Empty block.
+Warning: scripts/ui/storage.js: line 99, col 10, Don't make functions within a loop.
+Warning: scripts/ui/storage.js: line 153, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/storage.js: line 88, col 14, 'val' is defined but never used.
+Warning: scripts/ui/storage.js: line 88, col 19, 'err' is defined but never used.
+Warning: scripts/ui/storage.js: line 112, col 19, 'blob' is defined but never used.
+Warning: scripts/ui/strings.js: line 96, col 0, Identifier 'tab_teams' is not in camel case.
+Warning: scripts/ui/strings.js: line 97, col 0, Identifier 'tab_new' is not in camel case.
+Warning: scripts/ui/strings.js: line 98, col 0, Identifier 'tab_games' is not in camel case.
+Warning: scripts/ui/strings.js: line 99, col 0, Identifier 'tab_ranking' is not in camel case.
+Warning: scripts/ui/strings.js: line 100, col 0, Identifier 'tab_history' is not in camel case.
+Warning: scripts/ui/strings.js: line 101, col 0, Identifier 'tab_debug' is not in camel case.
+Warning: scripts/ui/strings.js: line 102, col 0, Identifier 'tab_settings' is not in camel case.
+Warning: scripts/ui/strings.js: line 103, col 0, Identifier 'tab_about' is not in camel case.
+Warning: scripts/ui/strings.js: line 12, col 16, 'key' is defined but never used.
 Warning: scripts/ui/tab_debug.js: > 5 dependencies: 13
 Warning: scripts/ui/tab_debug.js: undocumented: 'function showAllImages'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function randomName'
@@ -168,7 +309,45 @@ Warning: scripts/ui/tab_debug.js: undocumented: 'function updateForms'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function initDevContents'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function init'
 Warning: scripts/ui/tab_debug.js: > 10 functions: 15
-Warning: scripts/ui/tab_debug.js: > 400 lines: 446
+Warning: scripts/ui/tab_debug.js: > 400 lines: 444
+Warning: scripts/ui/tab_debug.js: line 11, col 92, This function has too many parameters. (11)
+Warning: scripts/ui/tab_debug.js: line 12, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 74, col 30, Unexpected use of '++'.
+Warning: scripts/ui/tab_debug.js: line 81, col 30, Unexpected use of '++'.
+Warning: scripts/ui/tab_debug.js: line 90, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 115, col 50, Unexpected use of '++'.
+Warning: scripts/ui/tab_debug.js: line 120, col 46, Blocks are nested too deeply. (4)
+Warning: scripts/ui/tab_debug.js: line 129, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 133, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 138, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 138, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 146, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 150, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 152, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 152, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 154, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 155, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 164, col 36, Unexpected use of '++'.
+Warning: scripts/ui/tab_debug.js: line 165, col 52, Unexpected use of '++'.
+Warning: scripts/ui/tab_debug.js: line 173, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 175, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 175, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 188, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 193, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 268, col 88, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_debug.js: line 275, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 290, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 324, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js: line 442, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 443, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/tab_debug.js: line 28, col 5, 'images' is not defined.
+Warning: scripts/ui/tab_debug.js: line 33, col 9, 'images' is not defined.
+Warning: scripts/ui/tab_debug.js: line 40, col 7, 'images' is not defined.
+Warning: scripts/ui/tab_debug.js: line 47, col 9, 'images' is not defined.
+Warning: scripts/ui/tab_debug.js: line 53, col 17, 'images' is not defined.
+Warning: scripts/ui/tab_debug.js: line 258, col 5, 'starttime' is not defined.
+Warning: scripts/ui/tab_debug.js: line 24, col 27, 'imagepaths' is defined but never used.
+Warning: scripts/ui/tab_debug.js: line 172, col 24, 'tournamentid' is defined but never used.
 Warning: scripts/ui/tab_games.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_games.js: undocumented: 'function'
 Warning: scripts/ui/tab_games.js: undocumented: 'function isInt'
@@ -183,7 +362,41 @@ Warning: scripts/ui/tab_games.js: undocumented: 'function maxwidthtest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function shownamestest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function init'
 Warning: scripts/ui/tab_games.js: > 10 functions: 25
-Warning: scripts/ui/tab_games.js: > 400 lines: 616
+Warning: scripts/ui/tab_games.js: > 400 lines: 638
+Warning: scripts/ui/tab_games.js: line 18, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 18, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 19, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 18, col 14, This function has too many parameters. (14)
+Warning: scripts/ui/tab_games.js: line 21, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 23, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 204, col 15, Bad line breaking before '+'.
+Warning: scripts/ui/tab_games.js: line 207, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js: line 215, col 12, Don't make functions within a loop.
+Warning: scripts/ui/tab_games.js: line 217, col 44, Empty block.
+Warning: scripts/ui/tab_games.js: line 313, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 324, col 15, Bad line breaking before '||'.
+Warning: scripts/ui/tab_games.js: line 369, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js: line 385, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 388, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js: line 399, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 402, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js: line 414, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 417, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js: line 430, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js: line 437, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 439, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 443, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 629, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 635, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 636, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 636, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 637, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_games.js: line 26, col 7, 'updatepending' is not defined.
+Warning: scripts/ui/tab_games.js: line 58, col 9, '$anchor' is not defined.
+Warning: scripts/ui/tab_games.js: line 394, col 9, 'round' is not defined.
+Warning: scripts/ui/tab_games.js: line 395, col 9, 'res' is not defined.
+Warning: scripts/ui/tab_games.js: line 398, col 13, 'round' is not defined.
+Warning: scripts/ui/tab_games.js: line 275, col 16, 'removeGame' is defined but never used.
 Warning: scripts/ui/tab_history.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_history.js: undocumented: 'function'
 Warning: scripts/ui/tab_history.js: undocumented: 'function formatNamesHTML'
@@ -205,23 +418,72 @@ Warning: scripts/ui/tab_history.js: undocumented: 'function addGame'
 Warning: scripts/ui/tab_history.js: undocumented: 'function getTeamVotes'
 Warning: scripts/ui/tab_history.js: undocumented: 'function getRankingMapping'
 Warning: scripts/ui/tab_history.js: undocumented: 'function createProgressTable'
-Warning: scripts/ui/tab_history.js: undocumented: 'function parent'
-Warning: scripts/ui/tab_history.js: undocumented: 'function lowestid'
-Warning: scripts/ui/tab_history.js: undocumented: 'function nodesbylevel'
-Warning: scripts/ui/tab_history.js: undocumented: 'function getGameTreeY'
 Warning: scripts/ui/tab_history.js: undocumented: 'function createGameTreeBox'
 Warning: scripts/ui/tab_history.js: undocumented: 'function createKOGameToParentConnector'
-Warning: scripts/ui/tab_history.js: undocumented: 'function createKOTree'
 Warning: scripts/ui/tab_history.js: undocumented: 'function'
 Warning: scripts/ui/tab_history.js: undocumented: 'function showTournaments'
 Warning: scripts/ui/tab_history.js: > 10 functions: 37
-Warning: scripts/ui/tab_history.js: > 400 lines: 1000
+Warning: scripts/ui/tab_history.js: > 400 lines: 1046
+Warning: scripts/ui/tab_history.js: line 13, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 13, col 14, This function has too many parameters. (14)
+Warning: scripts/ui/tab_history.js: line 15, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 19, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 78, col 13, Bad line breaking before '&&'.
+Warning: scripts/ui/tab_history.js: line 107, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 143, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 145, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 168, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 170, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 181, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 183, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 191, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 210, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 212, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 226, col 13, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 230, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 241, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 253, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 255, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 297, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 466, col 64, 'tournamentid' is already defined.
+Warning: scripts/ui/tab_history.js: line 490, col 12, Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js: line 495, col 12, Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js: line 503, col 13, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 573, col 16, Empty block.
+Warning: scripts/ui/tab_history.js: line 660, col 15, Bad line breaking before '+'.
+Warning: scripts/ui/tab_history.js: line 695, col 14, Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js: line 701, col 12, Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js: line 713, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 753, col 18, Unexpected use of '<<'.
+Warning: scripts/ui/tab_history.js: line 795, col 13, Bad line breaking before '*'.
+Warning: scripts/ui/tab_history.js: line 796, col 13, Bad line breaking before '*'.
+Warning: scripts/ui/tab_history.js: line 805, col 13, Bad line breaking before '&&'.
+Warning: scripts/ui/tab_history.js: line 974, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js: line 1034, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 1043, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 1044, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 1044, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 1045, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_history.js: line 158, col 11, '$teams' is not defined.
+Warning: scripts/ui/tab_history.js: line 159, col 23, '$teams' is not defined.
+Warning: scripts/ui/tab_history.js: line 162, col 11, '$teams' is not defined.
+Warning: scripts/ui/tab_history.js: line 163, col 25, '$teams' is not defined.
+Warning: scripts/ui/tab_history.js: line 164, col 25, '$teams' is not defined.
+Warning: scripts/ui/tab_history.js: line 447, col 9, 'currentround' is not defined.
+Warning: scripts/ui/tab_history.js: line 484, col 15, 'bye' is not defined.
+Warning: scripts/ui/tab_history.js: line 485, col 19, 'bye' is not defined.
+Warning: scripts/ui/tab_history.js: line 486, col 27, 'bye' is not defined.
+Warning: scripts/ui/tab_history.js: line 656, col 9, 'teamranks' is not defined.
+Warning: scripts/ui/tab_history.js: line 656, col 9, Too many errors. (62% scanned).
 Warning: scripts/ui/tab.js: undocumented: 'createTab : function'
 Warning: scripts/ui/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/tab.js: undocumented: 'update : function'
 Warning: scripts/ui/tab.js: undocumented: 'getOptions : function'
 Warning: scripts/ui/tab.js: undocumented: 'setOptions : function'
+Warning: scripts/ui/tab.js: line 66, col 17, Do not use 'new' for side effects.
 Warning: scripts/ui/tableview.js: undocumented: 'function validateText'
+Warning: scripts/ui/tableview.js: line 28, col 22, 'TableView' is already defined.
+Warning: scripts/ui/tableview.js: line 10, col 90, 'BoxController' is defined but never used.
 Warning: scripts/ui/tab_new.js: > 5 dependencies: 19
 Warning: scripts/ui/tab_new.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_new.js: undocumented: 'function initRename'
@@ -244,6 +506,7 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function setSystemTitle'
 Warning: scripts/ui/tab_new.js: undocumented: 'function updateSystems'
 Warning: scripts/ui/tab_new.js: undocumented: 'function addNewSystem'
 Warning: scripts/ui/tab_new.js: undocumented: 'function numTeams'
+Warning: scripts/ui/tab_new.js: undocumented: 'function'
 Warning: scripts/ui/tab_new.js: undocumented: 'function initBoxes'
 Warning: scripts/ui/tab_new.js: undocumented: 'function setPermissionPreset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function getPermissions'
@@ -260,8 +523,59 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function init'
 Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
-Warning: scripts/ui/tab_new.js: > 10 functions: 41
-Warning: scripts/ui/tab_new.js: > 400 lines: 806
+Warning: scripts/ui/tab_new.js: > 10 functions: 42
+Warning: scripts/ui/tab_new.js: > 400 lines: 828
+Warning: scripts/ui/tab_new.js: line 18, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 18, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 18, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 17, col 62, This function has too many parameters. (17)
+Warning: scripts/ui/tab_new.js: line 21, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 23, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 124, col 11, Bad line breaking before '||'.
+Warning: scripts/ui/tab_new.js: line 126, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 139, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 140, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 141, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 143, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 187, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 200, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 212, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 214, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 244, col 11, Bad line breaking before '&&'.
+Warning: scripts/ui/tab_new.js: line 255, col 9, Bad line breaking before '&&'.
+Warning: scripts/ui/tab_new.js: line 268, col 41, Expected a 'break' statement before 'default'.
+Warning: scripts/ui/tab_new.js: line 364, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 367, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 368, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 369, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 370, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 372, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 487, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 494, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 592, col 17, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 595, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 596, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 597, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 598, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_new.js: line 600, col 17, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 610, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js: line 627, col 54, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 628, col 58, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 629, col 56, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 630, col 58, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 631, col 62, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 632, col 60, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 633, col 56, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 634, col 60, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 635, col 58, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 645, col 54, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 646, col 58, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 647, col 56, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 648, col 58, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 649, col 62, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 650, col 60, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 651, col 56, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js: line 651, col 56, Too many errors. (78% scanned).
 Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 12
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
@@ -269,6 +583,22 @@ Warning: scripts/ui/tab_ranking.js: undocumented: 'function init'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTournamentRankings'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function update'
+Warning: scripts/ui/tab_ranking.js: line 17, col 79, This function has too many parameters. (10)
+Warning: scripts/ui/tab_ranking.js: line 20, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_ranking.js: line 23, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_ranking.js: line 86, col 13, Bad line breaking before '&&'.
+Warning: scripts/ui/tab_ranking.js: line 86, col 62, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_ranking.js: line 89, col 13, Bad line breaking before '&&'.
+Warning: scripts/ui/tab_ranking.js: line 89, col 66, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_ranking.js: line 141, col 45, Unexpected use of '++'.
+Warning: scripts/ui/tab_ranking.js: line 146, col 47, Unexpected use of '++'.
+Warning: scripts/ui/tab_ranking.js: line 151, col 46, Unexpected use of '++'.
+Warning: scripts/ui/tab_ranking.js: line 284, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_ranking.js: line 296, col 46, Empty block.
+Warning: scripts/ui/tab_ranking.js: line 301, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_ranking.js: line 302, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_ranking.js: line 302, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_ranking.js: line 303, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_settings.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initCSV'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function csvupdate'
@@ -288,6 +618,38 @@ Warning: scripts/ui/tab_settings.js: undocumented: 'function initLocalStorage'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function init'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function update'
 Warning: scripts/ui/tab_settings.js: > 10 functions: 19
+Warning: scripts/ui/tab_settings.js: line 15, col 57, This function has too many parameters. (14)
+Warning: scripts/ui/tab_settings.js: line 16, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_settings.js: line 57, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 68, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 97, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 100, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 105, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 121, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 123, col 14, Empty block.
+Warning: scripts/ui/tab_settings.js: line 127, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 136, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 142, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 148, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 153, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 158, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 166, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 208, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 211, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 216, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 229, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 233, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 274, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 276, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 299, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js: line 355, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_settings.js: line 356, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_settings.js: line 356, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_settings.js: line 357, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/tab_settings.js: line 146, col 73, 'response' is defined but never used.
+Warning: scripts/ui/tab_settings.js: line 146, col 65, 'status' is defined but never used.
+Warning: scripts/ui/tab_settings.js: line 162, col 11, 'content' is defined but never used.
+Warning: scripts/ui/tab_settings.js: line 162, col 20, 'i' is defined but never used.
 Warning: scripts/ui/tabs.js: undocumented: 'Tabs = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.hide = function'
@@ -297,6 +659,9 @@ Warning: scripts/ui/tabs.js: undocumented: 'this.valid = function'
 Warning: scripts/ui/tabs.js: undocumented: 'function openValidTab'
 Warning: scripts/ui/tabs.js: undocumented: 'that.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'that.focus = function'
+Warning: scripts/ui/tabs.js: line 73, col 29, Empty block.
+Warning: scripts/ui/tabs.js: line 107, col 13, '$img' is defined but never used.
+Warning: scripts/ui/tabs.js: line 215, col 13, 'key' is defined but never used.
 Warning: scripts/ui/tab_teams.js: > 5 dependencies: 12
 Warning: scripts/ui/tab_teams.js: undocumented: '_changed : function'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function trimName'
@@ -333,11 +698,80 @@ Warning: scripts/ui/tab_teams.js: undocumented: 'function updateActiveState'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function update'
 Warning: scripts/ui/tab_teams.js: > 10 functions: 38
 Warning: scripts/ui/tab_teams.js: > 400 lines: 717
+Warning: scripts/ui/tab_teams.js: line 15, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 15, col 84, This function has too many parameters. (10)
+Warning: scripts/ui/tab_teams.js: line 18, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 40, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 43, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 52, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 56, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 57, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 59, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 184, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 189, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 242, col 11, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 261, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 288, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 291, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 296, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 308, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 309, col 12, Empty block.
+Warning: scripts/ui/tab_teams.js: line 317, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 417, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 425, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 512, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 533, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 533, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 535, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 536, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 537, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 564, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 566, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js: line 663, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 703, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 714, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 715, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 715, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 716, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/tab_teams.js: line 193, col 5, 'stripregex' is not defined.
+Warning: scripts/ui/tab_teams.js: line 485, col 9, 'e' is not defined.
+Warning: scripts/ui/tab_teams.js: line 575, col 9, 'e' is not defined.
+Warning: scripts/ui/tab_teams.js: line 40, col 17, 'team' is defined but never used.
+Warning: scripts/ui/tab_teams.js: line 40, col 23, '$names' is defined but never used.
+Warning: scripts/ui/tab_teams.js: line 40, col 31, 'Tab_Games' is defined but never used.
+Warning: scripts/ui/tab_teams.js: line 40, col 42, 'i' is defined but never used.
+Warning: scripts/ui/tab_teams.js: line 40, col 45, 'name' is defined but never used.
+Warning: scripts/ui/tab_teams.js: line 181, col 16, 'line' is defined but never used.
+Warning: scripts/ui/tab_teams.js: line 403, col 11, 'names' is defined but never used.
 Warning: scripts/ui/team.js: > 5 dependencies: 6
 Warning: scripts/ui/team.js: undocumented: 'function'
+Warning: scripts/ui/team.js: line 12, col 31, This function has too many parameters. (6)
+Warning: scripts/ui/team.js: line 90, col 19, Bad line breaking before '+'.
 Warning: scripts/ui/test/tab.js: undocumented: 'clear : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'update : function'
+Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 18, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 19, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 20, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 21, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 22, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 23, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 26, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 32, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 33, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 34, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 35, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 36, col 0, Identifier 'Tab_Teams' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 37, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 38, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/textview.js: line 42, col 5, 'setText' is not defined.
 Warning: scripts/ui/toast.js: undocumented: 'function getid'
 Warning: scripts/ui/toast.js: undocumented: 'toastfn = function'
 Warning: scripts/ui/toast.js: undocumented: 'function createCloseFunction'
@@ -347,6 +781,11 @@ Warning: scripts/ui/toast.js: undocumented: 'function getTransitionDuration'
 Warning: scripts/ui/toast.js: undocumented: 'toastfn = function'
 Warning: scripts/ui/toast.js: undocumented: 'toastfn = function'
 Warning: scripts/ui/toast.js: undocumented: 'fadeoutfn = function'
+Warning: scripts/ui/toast.js: line 183, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/toast.js: line 77, col 18, 'transition' is defined but never used.
+Warning: scripts/ui/toast.js: line 77, col 30, 'duration' is defined but never used.
+Warning: scripts/ui/toast.js: line 107, col 32, 'seconds' is defined but never used.
+Warning: scripts/ui/toast.js: line 133, col 28, '$br' is defined but never used.
 Warning: scripts/ui/tournaments.js: undocumented: 'function createTournament'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.getStartRank = function'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.numTeamsLeft = function'
@@ -366,9 +805,28 @@ Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.toBlob = function
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.fromBlob = function'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.reset = function'
 Warning: scripts/ui/tournaments.js: > 10 functions: 20
+Warning: scripts/ui/tournaments.js: line 47, col 22, Use '===' to compare with 'undefined'.
+Warning: scripts/ui/tournaments.js: line 62, col 20, Use '===' to compare with 'undefined'.
+Warning: scripts/ui/tournaments.js: line 181, col 38, Blocks are nested too deeply. (4)
+Warning: scripts/ui/tournaments.js: line 259, col 58, Use '!==' to compare with 'undefined'.
+Warning: scripts/ui/tournaments.js: line 280, col 49, Use '!==' to compare with '0'.
+Warning: scripts/ui/tournaments.js: line 12, col 33, 'globalranking' is defined but never used.
+Warning: scripts/ui/type.js: line 29, col 16, Empty array elements require elision=true.
 Warning: scripts/ui/update.js: undocumented: 'Update = function'
 Warning: scripts/ui/update.js: undocumented: 'function closeDownloadToast'
 Warning: scripts/ui/update.js: undocumented: 'function setCached'
 Warning: scripts/ui/update.js: undocumented: 'function cacheStatus'
 Warning: scripts/ui/update.js: undocumented: 'function cacheError'
+Warning: scripts/ui/update.js: line 46, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/update.js: line 65, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/update.js: line 66, col 59, Expected a 'break' statement before 'case'.
+Warning: scripts/ui/update.js: line 85, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/update.js: line 16, col 3, 'downloadToast' is not defined.
+Warning: scripts/ui/update.js: line 33, col 9, 'downloadToast' is not defined.
+Warning: scripts/ui/update.js: line 34, col 7, 'downloadToast' is not defined.
+Warning: scripts/ui/update.js: line 35, col 7, 'downloadToast' is not defined.
+Warning: scripts/ui/update.js: line 73, col 12, 'downloadToast' is not defined.
+Warning: scripts/ui/update.js: line 74, col 9, 'downloadToast' is not defined.
+Warning: scripts/ui/update.js: line 14, col 25, 'downloadToasts' is defined but never used.
+Warning: scripts/ui/update.js: line 84, col 12, 'cacheError' is defined but never used.
 ```

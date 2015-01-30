@@ -3,6 +3,8 @@
 
 Game is an object which represents a running game, thereby storing the teams
 and the time at which the game started.
+
+@returns Game
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -79,7 +81,7 @@ the proper prototype
 a game object with the typical Game fields, but not necessarily
 with the correct prototype
 
-**Returns:** the newly copied game instance
+**Returns:** s the newly copied game instance
 
 ---
 
@@ -90,6 +92,6 @@ with the correct prototype
 
 ## Metrics
 
-* 146 Lines
-* 3462 Bytes
+* 148 Lines
+* 3484 Bytes
 

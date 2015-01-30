@@ -3,7 +3,7 @@
 
 Model for user-driven and programmatic font size changes
 
-@export FontSizeModel
+@returns FontSizeModel
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -39,6 +39,6 @@ Set the font size. Throws an error if the font size is invalid.
 
 ## Metrics
 
-* 53 Lines
+* 52 Lines
 * 1158 Bytes
 

@@ -1,8 +1,9 @@
 # scripts/backend/nettoranking.js
 
 
-No Description
+Netto ranking class
 
+@returns NettoRanking
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -10,7 +11,7 @@ No Description
 
 ## Dependencies
 
-No Dependencies
+* <a href="./correction.html">./correction</a>
 
 ## Functions
 
@@ -25,7 +26,7 @@ points, in this order.
 simply return the stored size
 
 
-**Returns:** the size
+**Returns:** the size of the ranking
 
 ---
 
@@ -121,7 +122,7 @@ otherwise
 stores the current state in a blob
 
 
-**Returns:** the blob
+**Returns:** the blob, i.e. a serialization
 
 ---
 
@@ -136,6 +137,6 @@ stores the current state in a blob
 
 ## Metrics
 
-* 304 Lines
-* 5913 Bytes
+* 305 Lines
+* 6013 Bytes
 
