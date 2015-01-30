@@ -8,6 +8,8 @@
 
 	* scripts/ui/tab_games.js: code style improved, warnings removed
 
+	* .jshintrc: using JSHint for validation and debugging
+
 2015-01-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/statemodel.js: players and teams added to StateModel

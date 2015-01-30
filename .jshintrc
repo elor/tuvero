@@ -1,0 +1,21 @@
+{
+	"camelcase": true,
+	"curly": true,
+	"freeze": true,
+	"immed": true,
+	"iterator": true,
+	"latedef": true,
+	"maxdepth": 3,
+//	"maxlen": 80,
+	"maxparams": 5,
+	"newcap": true,
+	"noarg": true,
+//	"nocomma": true,
+	"nonbsp": true,
+	"nonew": true,
+	"notypeof": true,
+//	"singleGroups": true,
+	"undef": true,
+	"unused": true,
+	"predef": [ "define", "QUnit", "$", "FileSaver", "Bloodhound", "console" ]
+}
