@@ -37,7 +37,7 @@ define([ 'lib/extend', './interfaces/view', './fontsizecontroller',
 
     this.update();
 
-    new FontSizeController(this);
+    this.controller = new FontSizeController(this);
   }
   extend(FontSizeView, View);
 
@@ -76,7 +76,7 @@ define([ 'lib/extend', './interfaces/view', './fontsizecontroller',
    */
   FontSizeView.getModelOfContainer = function ($container) {
     if (!$container.data('FontSizeModel')) {
-      !$container.data('FontSizeModel', new FontSizeModel());
+      $container.data('FontSizeModel', new FontSizeModel());
     }
 
     return $container.data('FontSizeModel');

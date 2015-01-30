@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 
-define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix,
-    HalfMatrix) {
+define([ './vector', './matrix', './halfmatrix', './correction' ], function (
+    Vector, Matrix, HalfMatrix, Correction) {
   /**
    * BuchholzRanking: A ranking variant which sorts players by wins, buchholz
    * points and netto points, in this order.
@@ -218,7 +218,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix,
   };
 
   Buchholz.prototype.revokeBye = function (team) {
-    var n, w, size;
+    var n, w, b, size;
 
     if (typeof team === 'number') {
       team = [ team ];

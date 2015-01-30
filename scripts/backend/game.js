@@ -1,6 +1,8 @@
 /**
  * Game is an object which represents a running game, thereby storing the teams
  * and the time at which the game started.
+ * 
+ * @returns Game
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -126,7 +128,7 @@ define(function () {
    * @param game
    *          a game object with the typical Game fields, but not necessarily
    *          with the correct prototype
-   * @return the newly copied game instance
+   * @returns the newly copied game instance
    */
   Game.copy = function (game) {
     var g;

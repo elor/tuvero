@@ -1,12 +1,11 @@
 /**
  * Model for user-driven and programmatic font size changes
  * 
- * @export FontSizeModel
+ * @returns FontSizeModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-
 define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
 
   /**

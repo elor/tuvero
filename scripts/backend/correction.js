@@ -2,6 +2,7 @@
  * A correction ties a wrong game result to a new game result. This structure is
  * intended for secure storage only, hence the copying efforts. Since
  * corrections should be sparse, the copying shouldn't matter.
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -38,7 +39,7 @@ define([ './result' ], function (Result) {
    * @param corr
    *          correction object, which doesn't have to have the same prototype
    *          and functions. Fields are sufficient
-   * @return the instance
+   * @return a copy of the correction instance
    */
   Correction.copy = function (corr) {
     return new Correction(Result.copy(corr.pre), Result.copy(corr.post));

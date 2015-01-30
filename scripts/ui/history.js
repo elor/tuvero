@@ -68,6 +68,7 @@ define(
         return history[id];
       }
 
+      History = undefined;
       History = {
         /**
          * 
@@ -226,7 +227,7 @@ define(
         },
 
         numRounds : function (tournamentid) {
-          var tournament, games;
+          var tournament;
 
           tournament = getTournament(tournamentid);
           if (!tournament) {
@@ -320,7 +321,7 @@ define(
          * @return
          */
         findGames : function (tournamentid, t1, t2) {
-          var tournament, round, game, matches;
+          var tournament, game, matches;
 
           tournament = getTournament(tournamentid);
           if (!tournament) {
@@ -395,12 +396,11 @@ define(
          * @return a comma-separated-values compatible History representation
          */
         toCSV : function () {
-          var lines, tournamentid, roundid, numrounds, votes, vote, game, games, line, names, hasvotes, Team, Tournaments, index, player;
+          var lines, tournamentid, roundid, numrounds, votes, vote, game, games, line, names, Team, firstvote;
 
           lines = [];
 
           Team = Shared.Team;
-          Tournaments = Shared.Tournaments;
 
           for (tournamentid = 0; tournamentid < History.numTournaments(); tournamentid += 1) {
             numrounds = History.numRounds(tournamentid);

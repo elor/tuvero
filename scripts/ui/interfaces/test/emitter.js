@@ -1,11 +1,11 @@
 /**
  * Event Emitter tests
- * 
+ *
+ * @returns a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-
 define(function () {
   return function (QUnit, getModule) {
     var Emitter;
@@ -17,17 +17,20 @@ define(function () {
 
       eventcounter = resetcounter = 0;
 
+      emitter = undefined;
+      listener = undefined;
+      
       listener = {
         /**
          * test function
          */
-        onundefined : function (_emitter, event) {
+        onundefined : function () {
           this.onreset();
         },
         /**
          * test function
          */
-        onreset : function (_emitter, event) {
+        onreset : function () {
           eventcounter = 0;
           resetcounter += 1;
         },
@@ -46,7 +49,7 @@ define(function () {
         /**
          * test function
          */
-        onevent : function (_emitter, event) {
+        onevent : function () {
           eventcounter += 1;
         }
       };

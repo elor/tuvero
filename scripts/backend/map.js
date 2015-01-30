@@ -1,6 +1,8 @@
 /**
- * No Description
- *
+ * a Mapping object, which maps unique arbitrary data to tightly-packed indices
+ * and vice versa
+ * 
+ * @returns Map
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -116,7 +118,7 @@ define(function () {
   /**
    * store the state in a blob object
    * 
-   * @return the blob
+   * @returns a serialization of the object
    */
   Map.prototype.toBlob = function () {
     return JSON.stringify(this.map);

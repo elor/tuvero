@@ -1,7 +1,7 @@
 /**
  * Interface for writing a proper CSV file.
  * 
- * No validation included
+ * @returns an interface object
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

@@ -1,6 +1,7 @@
 /**
  * Unit tests for IndexedModel
  * 
+ * @returns a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -16,7 +17,8 @@ define(function () {
     QUnit.test("IndexedModel tests", function () {
       var model, listener;
 
-      QUnit.ok(extend.isSubclass(IndexedModel, Model), 'IndexedModel is subclass of Model');
+      QUnit.ok(extend.isSubclass(IndexedModel, Model),
+          'IndexedModel is subclass of Model');
 
       listener = {
         updatecount : 0,
@@ -38,7 +40,8 @@ define(function () {
       QUnit.equal(model.getID(), -1, 'empty initialization sets id to -1');
 
       model.setID(0);
-      QUnit.equal(model.getID(), 0, 'setID(0) actually sets the id to 0, not -1');
+      QUnit.equal(model.getID(), 0,
+          'setID(0) actually sets the id to 0, not -1');
 
       model = new IndexedModel(5);
 
@@ -52,7 +55,8 @@ define(function () {
 
       listener.reset();
       model.setID(8);
-      QUnit.equal(listener.updatecount, 0, 'setID does not emit update if the ids are identical');
+      QUnit.equal(listener.updatecount, 0,
+          'setID does not emit update if the ids are identical');
 
       model.setID();
       QUnit.equal(model.getID(), -1, 'empty setID sets the id to -1');

@@ -7,7 +7,8 @@
  * @see LICENSE
  */
 
-define([ 'lib/extend', './interfaces/view', './textview' ], function (extend, View, TextView) {
+define([ 'lib/extend', './interfaces/view', './textview' ], function (extend,
+    View, TextView) {
   /**
    * Constructor
    * 
@@ -35,10 +36,8 @@ define([ 'lib/extend', './interfaces/view', './textview' ], function (extend, Vi
    * reset to an empty state
    */
   ListView.prototype.reset = function () {
-    var index;
-
-    for (index in this.subviews) {
-      this.removeItem(index);
+    while (this.length > 0) {
+      this.removeItem(0);
     }
   };
 

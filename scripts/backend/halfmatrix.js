@@ -1,6 +1,6 @@
 /**
  * No Description
- *
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -70,6 +70,8 @@ define([ './rleblobber' ], function (RLEBlobber) {
   /**
    * Restores a blank state of the HalfMatrix
    * 
+   * @param size
+   *          the new size of the matrix
    * @return {HalfMatrix} this
    */
   HalfMatrix.prototype.clear = function (size) {
@@ -303,7 +305,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
   /**
    * store content in a convenient blob
    * 
-   * @return
+   * @returns a serialization of the matrix
    */
   HalfMatrix.prototype.toBlob = function () {
     var ob;
@@ -317,6 +319,11 @@ define([ './rleblobber' ], function (RLEBlobber) {
     return JSON.stringify(ob);
   };
 
+  /**
+   * reset the matrix from a blob 
+   * 
+   * @param blob a serialization of the state
+   */
   HalfMatrix.prototype.fromBlob = function (blob) {
     var ob;
 

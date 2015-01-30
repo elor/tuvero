@@ -31,9 +31,9 @@ define([ './shared', './tab_history', './tab_ranking', './tab_new',
       });
     },
     update : function (force) {
-      for (tab in tabs) {
-        tabs[tab].update(force);
-      }
+      tabs.forEach(function (tab) {
+        tab.update(force);
+      });
     },
     getOptions : function () {
       return {};

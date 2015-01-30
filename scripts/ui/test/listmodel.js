@@ -114,7 +114,7 @@ define(function () {
 
       obj = {
         tmp : true,
-        tmp_long : 'very much so',
+        tmpLong : 'very much so',
       };
 
       list.push(obj);

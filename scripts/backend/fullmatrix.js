@@ -1,6 +1,7 @@
 /**
- * No Description
- *
+ * a numeric square matrix class without further limitations
+ * 
+ * @returns FullMatrix
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -30,6 +31,8 @@ define(function () {
   /**
    * Restores a blank state of the FullMatrix
    * 
+   * @param size
+   *          Optional. the new size of the matrix
    * @return {FullMatrix} this
    */
   FullMatrix.prototype.clear = function (size) {

@@ -12,8 +12,6 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
   /**
    * Constructor
    * 
-   * @param players
-   *          an array of PlayerModel instances
    * @param id
    *          a preferably unique numeric id
    */
@@ -25,9 +23,9 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
   extend(IndexedModel, Model);
 
   /**
-   * retrieve the id
+   * retrieve the id of this object within a certain set of objects
    * 
-   * @returns the id
+   * @returns the id of this object within a certain set of objects
    */
   IndexedModel.prototype.getID = function () {
     return this.id;

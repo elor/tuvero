@@ -31,7 +31,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   /**
    * simply return the stored size
    * 
-   * @return the size
+   * @return the number of players in the ranking instance
    */
   Finebuchholz.prototype.size = function () {
     return this.length;
@@ -74,28 +74,27 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
    * return an object containing all points data and a sorted array of pids
    * representing the ranking
    * 
-   * @return data object
+   * @return a data object containing the ranking information
    */
   Finebuchholz.prototype.get = function () {
-    var rank, i, n, w, bh, fbh, games;
+    var rank, n, w, bh, fbh, games;
 
     n = this.netto;
     w = this.wins;
     games = Matrix.rowSums(this.games);
     // add byes to the number of games
-    for (i in this.byes) {
-      if (this.byes[i]) {
-        games[i] += this.byes[i];
+    this.byes.map(function(bye, i){
+      if (bye) {
+        games[i] += bye;
       }
-    }
+    });
     bh = Matrix.multVec(this.games, w); // calculate the buchholz points
     fbh = Matrix.multVec(this.games, bh); // calculate the finebuchholz
     // points
 
-    rank = [];
-    for (i = 0; i < n.length; i += 1) {
-      rank[i] = i;
-    }
+    rank = n.map(function(undefined, index){
+      return index;
+    });
 
     rank.sort(function (a, b) {
       return /* (games[b] - games[a]) || */(w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a]) || (n[b] - n[a]) || (a - b);
@@ -194,7 +193,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   /**
    * Correct the result of a game.
    * 
-   * @param oldres
+   * @param correction
    *          the correction
    * @return {Finebuchholz} undefined on failure, this otherwise
    */
@@ -235,7 +234,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   };
 
   Finebuchholz.prototype.revokeBye = function (team) {
-    var n, w, size;
+    var b, n, w, size;
 
     if (typeof team === 'number') {
       team = [ team ];
@@ -317,7 +316,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   /**
    * stores the current state in a blob
    * 
-   * @return the blob
+   * @return a serialization of the ranking state
    */
   Finebuchholz.prototype.toBlob = function () {
     var ob;

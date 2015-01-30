@@ -49,7 +49,7 @@ define([], function () {
   /**
    * stores the current state in a blob, mostly using JSON (
    * 
-   * @return the blob
+   * @return a serialization of the object
    */
   Options.prototype.toBlob = function () {
     return JSON.stringify(this.options);
@@ -60,6 +60,7 @@ define([], function () {
    * 
    * @param blob
    *          the blob
+   * @returns this
    */
   Options.prototype.fromBlob = function (blob) {
     var ob = JSON.parse(blob);

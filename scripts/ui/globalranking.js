@@ -10,7 +10,7 @@
  * @see LICENSE
  */
 define([ './tournaments', './team', './shared'], function (Tournaments, Team, Shared) {
-  var GlobalRanking, teamobjects, teamsset;
+  var GlobalRanking;
 
   function mapTeamsToTournamentIDs () {
     var tournamentorder, teams, i, tournamentid;
@@ -43,7 +43,7 @@ define([ './tournaments', './team', './shared'], function (Tournaments, Team, Sh
   }
 
   function mapTeamsToTournamentRanks (teamtournaments) {
-    var i, tournamentid, numtournaments, teamid;
+    var i, tournamentid, numtournaments, teamid, tournamentranking;
 
     numtournaments = Tournaments.numTournaments();
 

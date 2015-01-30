@@ -1,6 +1,6 @@
 /**
  * No Description
- *
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -137,7 +137,7 @@ define([ './strings' ], function (Strings) {
    *          this.svg and is supposed to be jQuery-compatible
    */
   function KOLine (from, to) {
-    var midx, mid1, mid2, width, height, left, right, top, bottom;
+    var width, height, left, right, top, bottom;
 
     left = Math.min(from[0], to[0]);
     right = Math.max(from[0], to[0]);

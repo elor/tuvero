@@ -1,12 +1,13 @@
 /**
- * No Description
- *
+ * Netto ranking class
+ * 
+ * @returns NettoRanking
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define(function () {
+define([ './correction' ], function (Correction) {
   /**
    * NettoRanking: A ranking variant which sorts players by wins and netto
    * points, in this order.
@@ -27,7 +28,7 @@ define(function () {
   /**
    * simply return the stored size
    * 
-   * @return the size
+   * @return the size of the ranking
    */
   Netto.prototype.size = function () {
     return this.netto.length;
@@ -190,7 +191,7 @@ define(function () {
   };
 
   Netto.prototype.revokeBye = function (team) {
-    var n, w, size;
+    var b, n, w, size;
 
     if (typeof team === 'number') {
       team = [ team ];
@@ -228,7 +229,7 @@ define(function () {
    * @param game
    *          the game in question
    * @return {Boolean} true if the game is likely to have been added, false
-   *          otherwise
+   *         otherwise
    */
   Netto.prototype.added = function (game) {
     var valid, failure, len;
@@ -269,7 +270,7 @@ define(function () {
   /**
    * stores the current state in a blob
    * 
-   * @return the blob
+   * @return the blob, i.e. a serialization
    */
   Netto.prototype.toBlob = function () {
     var ob;
