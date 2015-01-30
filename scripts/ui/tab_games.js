@@ -18,8 +18,11 @@ define(
     function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
         Tab_History, Storage, Options, Tab, Tabshandle, Tournaments, Shared,
         BoxView) {
-      var Tab_Games, $tab, template, games, $games, $tournaments, updatependng;
+      var Tab_Games, $tab, template, games, $games, $tournaments;
 
+      Tab_Games = undefined;
+      template = undefined;
+      $tab = undefined;
       updatepending = false;
 
       // references to html elements of the games and tournaments
@@ -33,7 +36,7 @@ define(
       }
 
       function initGameTemplate () {
-        var $form, $names, $teamnos, i, tmp;
+        var $form, $names, $teamnos, tmp;
 
         if (template.game) {
           console.error('tab_games: template.game is already defined:');
@@ -84,7 +87,7 @@ define(
       }
 
       function initVoteTemplate () {
-        var $vote, $container, $names, $teamno, i, tmp;
+        var $vote, $container, $names, $teamno;
 
         if (template.vote) {
           console.error('tab_games: template.vote is already defined:');
@@ -129,9 +132,16 @@ define(
 
       /**
        * create and show a box displaying a certain game
+       * 
+       * @param game
+       *          the game object
+       * @param tournamentid
+       *          the tournament id
+       * @param $box
+       *          the DOM object to append this game to
        */
       function appendGame (game, tournamentid, $box) {
-        var t1, t2, $game, i, t1names, t2names, index, player;
+        var t1, t2, $game, t1names, t2names;
 
         t1 = Team.get(game.teams[0][0]);
         t2 = Team.get(game.teams[1][0]);
@@ -172,6 +182,8 @@ define(
 
       /**
        * clears the overview and appends all open games of the tournament
+       * 
+       * @returns true if something has been added to the DOM, false otherwise
        */
       function showRunning () {
         var tournamentid, tournament, $box, notempty, hidden, round;
@@ -235,7 +247,7 @@ define(
       }
 
       function getTournamentID ($game) {
-        var $box, i, boxdata;
+        var $box;
 
         if (!$game) {
           return undefined;
@@ -254,13 +266,13 @@ define(
       /**
        * this function removes the game from the local reference arrays
        * 
-       * @param game
-       *          the game in question
+       * @param tournamentid
+       *          the tournament id
+       * @param index
+       *          the index of the game
        * @return true on success, undefined otherwise
        */
       function removeGame (tournamentid, index) {
-        var index;
-
         games[tournamentid].splice(index, 1);
         $games[tournamentid][index].remove();
         $games[tournamentid].splice(index, 1);
@@ -269,7 +281,7 @@ define(
       }
 
       function readResults ($container) {
-        var $input, i, ret, round, tournamentid;
+        var $input, i, ret, tournamentid;
 
         ret = {
           index : -1,
@@ -324,9 +336,11 @@ define(
 
       /**
        * jQuery callback function. works with "this"
+       * 
+       * @returns false all the time, although there's no reason to
        */
       function finishGame () {
-        var result, $input, i, res, index, points, tournamentid, tournament, gameid;
+        var result, index, points, tournamentid, tournament, gameid;
 
         // if someone wants to finish a game, do the following:
         // * verify that the game was running
@@ -432,7 +446,7 @@ define(
       }
 
       function createVoteBox (tid) {
-        var team, index, teamnames;
+        var team, teamnames;
 
         team = Team.get(tid);
         teamnames = Team.getNames(tid);
@@ -448,6 +462,8 @@ define(
        * 
        * TODO rewrite this file to replace this function
        * 
+       * @param Tournament
+       *          the tournament object for which to retrieve the downvotes
        * @return {Object} a votes object of the current round
        */
       function getRoundVotes (Tournament) {
@@ -480,9 +496,15 @@ define(
 
       /**
        * display the votes for the current round
+       * 
+       * @param Tournament
+       *          the tournament object
+       * @param $box
+       *          the box to add stuff to
+       * @returns true if something has been added to the box, false otherwise
        */
       function showVotes (Tournament, $box) {
-        var votes, i, $containers, $container, notempty;
+        var votes, $containers, $container, notempty;
 
         notempty = false;
 
