@@ -35,15 +35,15 @@
  */
 // uncommented to avoid auto-format
 // TODO allow more than 1 player per team (Supermelee)
-[ {
-  votes : [ [ 0, 4, 0 ] ],
-  games : [ [ 0, 2, 13, 7, 0, 0 ], [ 3, 1, 13, 12, 0, 1 ] ],
-  corrections : [ [ [ 3, 1, 12, 13, 0, 1 ], [ 3, 1, 13, 12, 0, 1 ] ] ],
-}, undefined, {
-  votes : [],
-  games : [ [ 2, 3, 13, 3, 0, 1 ] ],
-  corrections : [],
-} ];
+//[ {
+//  votes : [ [ 0, 4, 0 ] ],
+//  games : [ [ 0, 2, 13, 7, 0, 0 ], [ 3, 1, 13, 12, 0, 1 ] ],
+//  corrections : [ [ [ 3, 1, 12, 13, 0, 1 ], [ 3, 1, 13, 12, 0, 1 ] ] ],
+//}, undefined, {
+//  votes : [],
+//  games : [ [ 2, 3, 13, 3, 0, 1 ] ],
+//  corrections : [],
+//} ];
 /**
  * Yeah. That way, most of it is easily JSON-compressible, using a number-only
  * format. It can contain empty entries, if a still running tournament doesn't

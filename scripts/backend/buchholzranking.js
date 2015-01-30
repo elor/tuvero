@@ -1,12 +1,13 @@
 /**
  * No Description
- *
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, HalfMatrix) {
+define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix,
+    HalfMatrix) {
   /**
    * BuchholzRanking: A ranking variant which sorts players by wins, buchholz
    * points and netto points, in this order.
@@ -28,7 +29,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
   /**
    * simply return the stored size
    * 
-   * @return the size
+   * @returns the length of the ranking data structures
    */
   Buchholz.prototype.size = function () {
     return this.netto.length;
@@ -68,7 +69,8 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    * return an object containing all points data and a sorted array of pids
    * representing the ranking
    * 
-   * @return data object
+   * @returns an object containing all points data and a sorted array of pids
+   *          representing the ranking
    */
   Buchholz.prototype.get = function () {
     var rank, i, n, w, bh;
@@ -177,11 +179,9 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
   /**
    * Correct the result of a game.
    * 
-   * @param oldres
-   *          the old result
-   * @param newres
-   *          the new (corrected) result
-   * @return {Buchholz} this
+   * @param correction
+   *          a Correction object
+   * @return this
    */
   Buchholz.prototype.correct = function (correction) {
     if (this.added(correction.pre.getGame())) {
@@ -245,7 +245,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
    * @param game
    *          an instance of the game that could have taken place
    * @return true if all data indicates that this game took place, false
-   *          otherwise.
+   *         otherwise.
    */
   Buchholz.prototype.added = function (game) {
     // if a game has taken place, all players of one team have played against
@@ -299,7 +299,7 @@ define([ './vector', './matrix', './halfmatrix' ], function (Vector, Matrix, Hal
   /**
    * stores the current state in a blob
    * 
-   * @return the blob
+   * @return a blob representing the current state
    */
   Buchholz.prototype.toBlob = function () {
     var ob;

@@ -325,8 +325,6 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
   }
 
   function initForms () {
-    var $gameform, $gnames, $gteamnos, $vote, i, tmp;
-
     if (form) {
       console.error('tab_debug: form is already defined:');
       console.error(form);

@@ -12,10 +12,12 @@ define(
         './options', './shared', './boxview', './koline' ],
     function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
         Tabshandle, Tab, Team, Options, Shared, BoxView, KOLine) {
-      var Tab_History, $tab, template, currentround, $button, updatepending, progresstable, visibleupdatepending;
+      var Tab_History, $tab, template, $button, progresstable;
 
-      updatepending = false;
-      visibleupdatepending = false;
+      $button = undefined;
+      $tab = undefined;
+      Tab_History = undefined;
+      template = undefined;
       progresstable = true;
 
       function formatNamesHTML (teamid) {
@@ -36,6 +38,8 @@ define(
        * 
        * @param result
        *          a result as returned by history.getGame()
+       * @param $table
+       *          the DOM element to append the game to
        */
       function createGame (result, $table) {
         // fill the fields
@@ -55,6 +59,8 @@ define(
        * 
        * @param teamid
        *          id of the team receiving a bye
+       * @param $table
+       *          the DOM element to append the Bye to
        */
       function createBye (teamid, $table) {
         template.bye.$teamno.text(teamid + 1);
@@ -297,8 +303,6 @@ define(
         $button = undefined;
 
         $tab.on('click', '.team .correct', function () {
-          var $game;
-
           // abort previous correction attempts
           abortCorrection();
 
@@ -459,10 +463,12 @@ define(
       }
 
       function createGamesTable (tournamentid) {
-        var round, maxround, bye, hidden, empty, votes, tournamentid, $box, $table;
+        var round, maxround, hidden, empty, votes, tournamentid, $box, $table;
 
         votes = History.getVotes(tournamentid);
         maxround = History.numRounds(tournamentid);
+        empty = true;
+        hidden = true;
 
         for (round = 0; round < maxround; round += 1) {
           $box = template.$container.clone();
@@ -471,11 +477,9 @@ define(
           $table = template.$gamescontainer.clone();
           $box.append($table);
 
-          bye = undefined;
           // search the bye for this round
           // TODO preprocessing?
           votes.map(function (vote) {
-            var bye;
             if (vote[0] == History.BYE && vote[2] == round) {
               bye = vote[1];
               if (bye !== undefined) {
@@ -506,6 +510,10 @@ define(
 
       /**
        * borrowed from jQuery
+       * 
+       * @param obj
+       *          the object to verify
+       * @returns true if obj is a number, false otherwise
        */
       function isNumeric (obj) {
         return !jQuery.isArray(obj) && (obj - parseFloat(obj) + 1) >= 0;
@@ -519,7 +527,7 @@ define(
        * @return the progress mapping
        */
       function getProgressMapping (tournamentid) {
-        var teamgames, numteams, roundno, tournament;
+        var teamgames, roundno, tournament;
         teamgames = [];
 
         function addGame (round, team, opponent, p1, p2) {
@@ -599,7 +607,7 @@ define(
       }
 
       function getRankingMapping (tournamentid) {
-        var tournament, ranking, mapping;
+        var ranking, mapping;
         mapping = [];
 
         ranking = Tournaments.getRanking(tournamentid);
@@ -619,7 +627,7 @@ define(
       }
 
       function createProgressTable (tournamentid) {
-        var teamgames, teamid, team, round, maxround, $box, $table, $row, i, $game;
+        var teamgames, teamid, team, maxround, $box, $table, $row, i, $game;
 
         maxround = Math.max(History.numRounds(tournamentid) || 0, Tournaments
             .getRanking(tournamentid).round || 0);
@@ -707,31 +715,55 @@ define(
         return maxround > 0;
       }
 
-      /*************************************************************************
+      /**
        * Copied from kotournament.js
-       ************************************************************************/
+       * 
+       * @param id
+       *          the game id
+       * @returns the level of the game id
+       */
       function level (id) {
         return Math.floor(Math.log(id + 1) / Math.LN2);
       }
 
+      /**
+       * @param id
+       *          the game id
+       * @returns the game id of the parent
+       */
       function parent (id) {
         return Math.floor((id - 1) / 2);
       }
 
+      /**
+       * @param level
+       *          the level
+       * @returns the lowest game id in the level
+       */
       function lowestid (level) {
         return nodesbylevel(level) - 1;
       }
 
+      /**
+       * @param level
+       *          the level
+       * @returns the number of games in this level
+       */
       function nodesbylevel (level) {
         return 1 << level;
       }
 
-      /*************************************************************************
-       * end (Copied from kotournament.js)
-       ************************************************************************/
-
+      /**
+       * return the x coordinate of a game box
+       * 
+       * @param gameid
+       *          the game id
+       * @param maxlevel
+       *          the highest level
+       * @returns the x coordinate
+       */
       function getGameTreeX (gameid, maxlevel) {
-        var maxlevel, gamelevel, x0, width;
+        var gamelevel, x0, width;
 
         x0 = 1;
         width = 15;
@@ -741,8 +773,17 @@ define(
         return x0 + (maxlevel - gamelevel) * width;
       }
 
+      /**
+       * return the y coordinate of a game box
+       * 
+       * @param gameid
+       *          the game id
+       * @param maxlevel
+       *          the highest level
+       * @returns the y coordinate
+       */
       function getGameTreeY (gameid, maxlevel) {
-        var maxlevel, gamelevel, y0, height;
+        var gamelevel, y0, height;
 
         y0 = 1;
         height = 5;
@@ -811,8 +852,15 @@ define(
         return undefined;
       }
 
+      /**
+       * create a KO tree box
+       * 
+       * @param tournamentid
+       *          the id of the tournament
+       * @returns true of a game tree tree has been added, false otherwise
+       */
       function createKOTree (tournamentid) {
-        var games, i, $box, g, $game, parentid, boxwidth, boxheight, $connector;
+        var games, i, $box, g, $game, boxwidth, boxheight, $connector;
 
         // TODO use a more sophisticated method
         if (window.location.hash !== '#history') {
@@ -929,11 +977,9 @@ define(
       }
 
       function showTournaments () {
-        var hidden, tournamentid, displayfunc, PROGRESSTABLE, GAMESTABLE, numtournaments;
+        var hidden, tournamentid, displayfunc, numtournaments;
 
         hidden = true;
-
-        displaytype = progresstable ? PROGRESSTABLE : GAMESTABLE;
 
         numtournaments = Math.max(History.numTournaments() || 0, Tournaments
             .numTournaments() || 0);

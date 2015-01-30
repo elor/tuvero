@@ -14,10 +14,14 @@
 define([ './tab', './options', './tabshandle', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
     './storage', '../backend/tournament', './tournaments', './globalranking',
-    './shared', './data/swissperms', './boxview' ], function (Tab, Options, Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared, Swissperms, BoxView) {
-  var Tab_New, $tab, updatepending, template, nameChangeID;
+    './shared', './data/swissperms', './boxview' ], function (Tab, Options,
+    Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History,
+    History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared,
+    Swissperms, BoxView) {
+  var Tab_New, $tab, template, nameChangeID;
 
-  updatepending = false;
+  Tab_New = undefined;
+  template = undefined;
   $tab = undefined;
   nameChangeID = undefined;
 
@@ -67,7 +71,8 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     template.team.$container.removeClass('tpl');
 
     template.team.$rank = template.team.$container.find('.rank');
-    template.team.$tournamentrank = template.team.$container.find('.tournamentrank');
+    template.team.$tournamentrank = template.team.$container
+        .find('.tournamentrank');
     template.team.$teamno = template.team.$container.find('.teamno');
     template.team.$names = template.team.$container.find('.names');
 
@@ -80,7 +85,8 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     template.system = {};
     template.system.$swiss = $tab.find('.swiss.tpl').detach().find('> *');
     template.system.$ko = $tab.find('.ko.tpl').detach().find('> *');
-    template.system.$newsystem = $tab.find('.newsystem.tpl').detach().find('> *');
+    template.system.$newsystem = $tab.find('.newsystem.tpl').detach().find(
+        '> *');
 
     template.$chname = template.system.$newsystem.find('.chname');
     template.$chname.detach();
@@ -114,7 +120,8 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       newname = template.$chname.val();
       template.$chname.detach();
 
-      if (!newname || /^\s*$/.test(newname) || Tournaments.getName(tournamentid) === newname) {
+      if (!newname || /^\s*$/.test(newname)
+          || Tournaments.getName(tournamentid) === newname) {
         $name.text(Tournaments.getName(tournamentid));
         new Toast(Strings.namechangeaborted);
         return undefined;
@@ -233,7 +240,8 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
     for (i = 0; i < ranking.length; i += 1) {
       template.team.$rank.text(ranking[i].globalrank + 1);
-      template.team.$tournamentrank.text(showsubrank && ranking[i].tournamentrank ? ranking[i].tournamentrank + 1 : '');
+      template.team.$tournamentrank.text(showsubrank
+          && ranking[i].tournamentrank ? ranking[i].tournamentrank + 1 : '');
       template.team.$teamno.text(ranking[i].teamid + 1);
       template.team.$names.text(Team.getNames(ranking[i].teamid).join(', '));
       template.$anchor.append(template.team.$container.clone());
@@ -243,9 +251,11 @@ define([ './tab', './options', './tabshandle', './toast', './team',
   function setSystemState ($system, tournamentid) {
     var stateclass, Tournament;
 
-    Tournament = tournamentid !== undefined && Tournaments.getTournament(tournamentid);
+    Tournament = tournamentid !== undefined
+        && Tournaments.getTournament(tournamentid);
 
-    switch (Tournament ? Tournament.getState() : BackendTournament.STATE.FAILURE) {
+    switch (Tournament ? Tournament.getState()
+        : BackendTournament.STATE.FAILURE) {
     case BackendTournament.STATE.PREPARING:
       stateclass = 'preparing';
       break;
@@ -261,13 +271,15 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       break;
     }
 
-    $system.removeClass('preparing running finished failure').addClass(stateclass);
+    $system.removeClass('preparing running finished failure').addClass(
+        stateclass);
   }
 
   function getAnchors (tournamentid) {
     var startteam, endteam, teams;
 
-    startteam = Tournaments.getStartRank(tournamentid, !Tournaments.isRunning(tournamentid));
+    startteam = Tournaments.getStartRank(tournamentid, !Tournaments
+        .isRunning(tournamentid));
 
     if (startteam >= Team.count()) {
       return undefined;
@@ -321,7 +333,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
   }
 
   function initKO ($ko, tournamentid) {
-    var $komode, round, $perms, KO;
+    var $komode, KO;
 
     if (!Tournaments.isRunning(tournamentid)) {
       // this is finished.
@@ -341,7 +353,6 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
     // submit button
     $ko.find('button').click(function () {
-      var i, bye, team, round;
       if (KO.start()) {
         // add the bye to history
         // at the moment, there's no bye in KO. This might change in the future
@@ -407,7 +418,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
   }
 
   function setSystemTitle ($anchor) {
-    var title, tournamentid;
+    var tournamentid;
 
     tournamentid = $anchor.data('tournamentid');
 
@@ -487,6 +498,9 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
   /**
    * prepare Newsystem management box, which starts a new tournament round
+   * 
+   * @param $system
+   *          the DOM element which contains the tournament System information
    */
   function initNewsystem ($system) {
     var $numteams, maxteams, parentid;
@@ -513,6 +527,11 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
   /**
    * prepare a swiss tournament management box
+   * 
+   * @param $swiss
+   *          the DOM object which holds the Swiss System
+   * @param tournamentid
+   *          the tournament id of the swiss tournament
    */
   function initSwiss ($swiss, tournamentid) {
     var $swissmode, round, $perms, Swiss;
@@ -524,7 +543,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
     if (!Tournaments.isRunning(tournamentid)) {
       // this is finished.
-      return undefined;
+      return;
     }
 
     Swiss = Tournaments.getTournament(tournamentid);
@@ -556,28 +575,31 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     });
 
     // submit button
-    $swiss.find('button').click(function () {
-      var i, bye, team, round;
-      if (Swiss.start()) {
-        round = Tournaments.getRanking(Tournaments.getTournamentID(Swiss)).round;
+    $swiss.find('button')
+        .click(
+            function () {
+              var bye, round;
+              if (Swiss.start()) {
+                round = Tournaments.getRanking(Tournaments
+                    .getTournamentID(Swiss)).round;
 
-        // add the bye to history
-        bye = getRoundVotes(Swiss).bye;
-        while (bye.length > 0) {
-          History.addVote(0, History.BYE, bye.shift(), round - 1);
-        }
+                // add the bye to history
+                bye = getRoundVotes(Swiss).bye;
+                while (bye.length > 0) {
+                  History.addVote(0, History.BYE, bye.shift(), round - 1);
+                }
 
-        new Toast(Strings.roundstarted.replace('%s', round));
-        Storage.store();
+                new Toast(Strings.roundstarted.replace('%s', round));
+                Storage.store();
 
-        Tab_Games.update();
-        Tab_New.update();
-        Tab_History.update();
-        Tab_Ranking.update();
-      } else {
-        new Toast(Strings.roundfailed);
-      }
-    });
+                Tab_Games.update();
+                Tab_New.update();
+                Tab_History.update();
+                Tab_Ranking.update();
+              } else {
+                new Toast(Strings.roundfailed);
+              }
+            });
   }
 
   function initBoxes ($container) {

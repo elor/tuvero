@@ -9,11 +9,12 @@
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
+ * @returns FontSizeView
  */
-
 define([ 'lib/extend', './interfaces/view', './fontsizecontroller',
-    './fontsizemodel' ], function (extend, View, FontSizeController, FontSizeModel) {
-  var FontSizeView, classprefix;
+    './fontsizemodel' ], function (extend, View, FontSizeController,
+    FontSizeModel) {
+  var classprefix;
 
   classprefix = 'fontsize';
 
@@ -29,7 +30,8 @@ define([ 'lib/extend', './interfaces/view', './fontsizecontroller',
   function FontSizeView ($view, $container) {
     $container = $container || $('body');
 
-    FontSizeView.superconstructor.call(this, FontSizeView.getModelOfContainer($container), $view);
+    FontSizeView.superconstructor.call(this, FontSizeView
+        .getModelOfContainer($container), $view);
 
     this.$container = $container;
 
@@ -69,7 +71,8 @@ define([ 'lib/extend', './interfaces/view', './fontsizecontroller',
    * if not set yet.
    * 
    * @param $container
-   * @returns
+   *          the container
+   * @returns the model for the given container
    */
   FontSizeView.getModelOfContainer = function ($container) {
     if (!$container.data('FontSizeModel')) {

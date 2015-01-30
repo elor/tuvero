@@ -4,6 +4,8 @@
  * This tab shows all results in tabulated form and is supposed to provide some
  * kind of sorting functionality
  * 
+ * TODO slay this beast
+ * 
  * @exports Tab_Ranking
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -12,10 +14,14 @@
  */
 
 define([ './tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './tab', './history', './shared', './boxview' ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History, Shared, BoxView) {
-  var Tab_Ranking, template, $tab, updatepending;
+    './tabshandle', './tab', './history', './shared', './boxview' ], function (
+    Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History,
+    Shared, BoxView) {
+  var Tab_Ranking, template, $tab;
 
-  updatepending = false;
+  template = undefined;
+  Tab_Ranking = undefined;
+  $tab = undefined;
 
   function initTemplate () {
     var i, tmp;
@@ -49,7 +55,8 @@ define([ './tournaments', './team', './toast', './strings', './options',
     template.correction.$container = template.$box.find('.corrections');
     template.correction.$container.detach();
 
-    template.correction.$correction = template.correction.$container.find('.corr');
+    template.correction.$correction = template.correction.$container
+        .find('.corr');
     template.correction.$correction.detach();
 
     template.correction.$points = [];
@@ -69,14 +76,17 @@ define([ './tournaments', './team', './toast', './strings', './options',
   function updateTemplate () {
     var i;
     // adjust number of columns to the teamsize
-    template.rank.$table.find('th:nth-child(3)').attr('colspan', Options.teamsize);
+    template.rank.$table.find('th:nth-child(3)').attr('colspan',
+        Options.teamsize);
 
     // hide unimportant columns
     for (i = 0; i < Options.maxteamsize; i += 1) {
       if (i < Options.teamsize) {
-        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', '');
+        template.rank.$fields[i + 2]
+            && template.rank.$fields[i + 2].css('display', '');
       } else {
-        template.rank.$fields[i + 2] && template.rank.$fields[i + 2].css('display', 'none');
+        template.rank.$fields[i + 2]
+            && template.rank.$fields[i + 2].css('display', 'none');
       }
     }
   }
@@ -120,8 +130,10 @@ define([ './tournaments', './team', './toast', './strings', './options',
     template.rank.$fields[5].text(ranking.games ? ranking.games[rank] : '');
 
     template.rank.$fields[6].text(ranking.wins ? ranking.wins[rank] : '');
-    template.rank.$fields[7].text(ranking.buchholz ? ranking.buchholz[rank] : '');
-    template.rank.$fields[8].text(ranking.finebuchholz ? ranking.finebuchholz[rank] : '');
+    template.rank.$fields[7].text(ranking.buchholz ? ranking.buchholz[rank]
+        : '');
+    template.rank.$fields[8]
+        .text(ranking.finebuchholz ? ranking.finebuchholz[rank] : '');
     template.rank.$fields[9].text(ranking.netto ? ranking.netto[rank] : '');
 
     vote = [];
@@ -147,6 +159,10 @@ define([ './tournaments', './team', './toast', './strings', './options',
   }
 
   /**
+   * @param tournamentid
+   *          the tournament id
+   * @param $box
+   *          the box to add the ranking to
    * @return {boolean} false on failure, true on success
    */
   function showRanking (tournamentid, $box) {
@@ -175,6 +191,12 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
   /**
    * retrieves the corrections and displays them in the correction table
+   * 
+   * @param tournamentid
+   *          the tournament id
+   * @param $box
+   *          the box to add content to
+   * @returns true if anything has been added to the DOM, false otherwise
    */
   function showCorrections (tournamentid, $box) {
     var corrections, empty, $container, $table;
@@ -236,7 +258,8 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
     reset();
 
-    for (tournamentid = 0; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
+    tournamentid = 0;
+    for (; tournamentid < Tournaments.numTournaments(); tournamentid += 1) {
 
       keepbox = false;
 

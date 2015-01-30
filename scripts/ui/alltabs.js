@@ -7,29 +7,28 @@
  * @license MIT License
  * @see LICENSE
  */
-
-define([ './shared', './tab_history', './tab_ranking', './tab_new', './tab_teams',
-    './tab_games', './tab_debug', './tab_settings' ], function (Shared) {
-  var tab, tabs, Alltabs;
+define([ './shared', './tab_history', './tab_ranking', './tab_new',
+    './tab_teams', './tab_games', './tab_debug', './tab_settings' ], function (
+    Shared) {
+  var tabid, tabs, Alltabs;
 
   tabs = [];
 
-  for (tab = 1; tab < arguments.length; tab += 1) {
-    if (!arguments[tab]) {
-      console.error('alltabs: argument id ' + tab + ' has invalid value: ');
-      console.error(arguments[tab]);
+  for (tabid = 1; tabid < arguments.length; tabid += 1) {
+    if (!arguments[tabid]) {
+      console.error('alltabids: argument id ' + tabid + ' has invalid value');
+      console.error(arguments[tabid]);
       continue;
     }
 
-    tabs[tab] = arguments[tab];
+    tabs[tabid] = arguments[tabid];
   }
 
   Alltabs = {
     reset : function () {
-      var tab;
-      for (tab in tabs) {
-        tabs[tab].reset();
-      }
+      tabs.forEach(function (tab) {
+        tab.reset();
+      });
     },
     update : function (force) {
       for (tab in tabs) {

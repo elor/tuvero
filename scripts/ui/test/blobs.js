@@ -1,6 +1,7 @@
 /**
  * Unit tests for the Blobber interface
- *
+ * 
+ * @returns a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -23,7 +24,8 @@ define(function () {
 
       QUnit.equal(Implements(Blobber, Players), '', 'Players interface match');
       QUnit.equal(Implements(Blobber, State), '', 'Blob interface match');
-      QUnit.equal(Implements(Blobber, Tournaments), '', 'Tournamentsinterface match');
+      QUnit.equal(Implements(Blobber, Tournaments), '',
+          'Tournamentsinterface match');
       QUnit.equal(Implements(Blobber, Team), '', 'Team interface match');
       QUnit.equal(Implements(Blobber, History), '', 'History interface match');
 
