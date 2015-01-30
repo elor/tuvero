@@ -154,6 +154,29 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
   };
 
   /**
+   * for each element in the list, run the specified function. The return values
+   * of the function are accumulated and returned as an array
+   * 
+   * @param callback
+   *          function(object, index, list)
+   * @param thisArg
+   *          Optional. Value to use as this when executing callback
+   * @returns an array of the functions return values
+   */
+  ListModel.prototype.map = function (callback, thisArg) {
+    var index, ret;
+
+    thisArg = thisArg || undefined;
+    ret = [];
+
+    for (index = 0; index < this.length; index += 1) {
+      ret.push(callback.call(thisArg, this.get(index), index, this));
+    }
+
+    return ret;
+  };
+
+  /**
    * returns the contents of the list as an array
    * 
    * @returns the contents of the list as an array

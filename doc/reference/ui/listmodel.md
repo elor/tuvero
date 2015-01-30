@@ -115,6 +115,17 @@ the object with which to overwrite the index
 ---
 
 
+### function(object, index, list)
+for each element in the list, run the specified function. The return values
+of the function are accumulated and returned as an array
+
+**Argument:** **callback**
+
+
+###   ListModel.prototype.map = function (callback, thisArg)
+
+---
+
 ###   ListModel.prototype.asArray = function ()
 returns the contents of the list as an array
 
@@ -149,6 +160,6 @@ Callback function: called when a 'reset' event is emitted
 
 ## Metrics
 
-* 194 Lines
-* 4363 Bytes
+* 217 Lines
+* 5017 Bytes
 

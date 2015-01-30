@@ -123,7 +123,8 @@ Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 20
 Warning: scripts/ui/history.js: > 400 lines: 519
 Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
-Warning: scripts/ui/listmodel.js: > 10 functions: 19
+Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
+Warning: scripts/ui/listmodel.js: > 10 functions: 23
 Warning: scripts/ui/listview.js: > 10 functions: 11
 Warning: scripts/ui/newteamcontroller.js: > 5 dependencies: 6
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
