@@ -4,6 +4,8 @@
 
 	* scripts/ui/test/listmodel.js: map() test added
 
+	* scripts/ui/interfaces/emitter.js: emit(): listener iteration changed from direct indexing to map() for convenience
+
 2015-01-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/statemodel.js: players and teams added to StateModel

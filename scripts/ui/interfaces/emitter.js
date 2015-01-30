@@ -1,6 +1,7 @@
 /**
  * An event emitter class
  * 
+ * @returns Emitter
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -31,17 +32,16 @@ define(function () {
    * @returns true if the some listener received the event, false otherwise
    */
   Emitter.prototype.emit = function (event, data) {
-    var index, listener, success;
+    var success;
 
     success = false;
 
-    for (index in this.listeners) {
-      listener = this.listeners[index];
+    this.listeners.map(function (listener) {
       if (listener['on' + event]) {
         listener['on' + event].call(listener, this, event, data);
         success = true;
       }
-    }
+    }, this);
 
     return success;
   };
