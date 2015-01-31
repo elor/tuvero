@@ -36,6 +36,8 @@
 
 	* scripts/ui/templateview.js: TemplateView class started. Neither tested nor integrated yet.
 
+	* names.txt: Naming suggestion file added
+
 2015-01-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listmodel.js: map() added (similar to Array.prototype.map)
