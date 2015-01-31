@@ -1,14 +1,14 @@
 /**
  * Wrap all tabs into a single object for centralized updates
- * 
+ *
  * @exports Alltabs
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ './shared', './tab_history', './tab_ranking', './tab_new',
-    './tab_teams', './tab_games', './tab_debug', './tab_settings' ], function (
+define(['./shared', './tab_history', './tab_ranking', './tab_new',
+    './tab_teams', './tab_games', './tab_debug', './tab_settings'], function(
     Shared) {
   var tabid, tabs, Alltabs;
 
@@ -25,21 +25,21 @@ define([ './shared', './tab_history', './tab_ranking', './tab_new',
   }
 
   Alltabs = {
-    reset : function () {
-      tabs.forEach(function (tab) {
+    reset: function() {
+      tabs.forEach(function(tab) {
         tab.reset();
       });
     },
-    update : function (force) {
-      tabs.forEach(function (tab) {
+    update: function(force) {
+      tabs.forEach(function(tab) {
         tab.update(force);
       });
     },
-    getOptions : function () {
+    getOptions: function() {
       return {};
     },
-    setOptions : function () {
-    },
+    setOptions: function() {
+    }
   };
 
   Shared.Alltabs = Alltabs;

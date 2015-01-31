@@ -2,32 +2,32 @@
  * Recursively traverse the DOM and initiate all non-template static views by a
  * class keyword, which is also used by the stylesheet. The applicable Views
  * have to be registered beforehand.
- * 
+ *
  * In theory, a DOM element can have multiple views assigned.
- * 
+ *
  * Templated views have to be initiated programmatically.
- * 
+ *
  * @exports StaticViewLoader
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ './type' ], function (Type) {
+define(['./type'], function(Type) {
   var StaticViewLoader, views;
 
   views = {};
 
   /**
    * initiates the actual view
-   * 
+   *
    * @param $elem
    *          a jQuery element
    * @param classname
    *          the applicable class
-   * @returns nothing (i.e. undefined)
+   * @return nothing (i.e. undefined)
    */
-  function loadViewByClass ($elem, classname) {
+  function loadViewByClass($elem, classname) {
     var View;
 
     View = views[classname];
@@ -40,17 +40,17 @@ define([ './type' ], function (Type) {
   /**
    * Matches the classes of a DOM element against the registered views. If an
    * applicable view is found, another instantiation function is called.
-   * 
+   *
    * @param $elem
    *          the jQUery element
-   * @returns nothing (i.e. undefined)
+   * @return nothing (i.e. undefined)
    */
-  function checkAllClasses ($elem) {
+  function checkAllClasses($elem) {
     var classes;
 
     classes = ($elem.attr('class') || '').split(/\s+/);
 
-    $.each(classes, function (index, classname) {
+    $.each(classes, function(index, classname) {
       loadViewByClass($elem, classname);
     });
   }
@@ -58,15 +58,15 @@ define([ './type' ], function (Type) {
   StaticViewLoader = {
     /**
      * register a view for later auto-assignment by the loadViews() function
-     * 
+     *
      * @param name
      *          the name of the view
      * @param constructor
      *          the constructor of the view, which only requires a jQuery
      *          element as an argument
-     * @returns StaticViewLoader
+     * @return StaticViewLoader
      */
-    registerView : function (name, constructor) {
+    registerView: function(name, constructor) {
       if (!Type.isString(name) || !Type.isFunction(constructor)) {
         throw 'invalid argument types';
       }
@@ -79,12 +79,12 @@ define([ './type' ], function (Type) {
     /**
      * Recursively assigns Views to DOM elements by their classes. Skips
      * elements with the class 'template'
-     * 
+     *
      * @param $elem
      *          the jQuery container element
-     * @returns StaticViewLoader
+     * @return StaticViewLoader
      */
-    loadViews : function ($elem) {
+    loadViews: function($elem) {
 
       if ($elem.hasClass('template')) {
         return;
@@ -92,7 +92,7 @@ define([ './type' ], function (Type) {
 
       checkAllClasses($elem);
 
-      $elem.children().each(function (index, elem) {
+      $elem.children().each(function(index, elem) {
         StaticViewLoader.loadViews($(elem));
       });
 

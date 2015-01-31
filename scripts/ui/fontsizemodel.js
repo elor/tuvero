@@ -1,17 +1,17 @@
 /**
  * Model for user-driven and programmatic font size changes
  * 
- * @returns FontSizeModel
+ * @return FontSizeModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
+define(['lib/extend', './interfaces/model'], function(extend, Model) {
 
   /**
    * FontSizeModel constructor
    */
-  function FontSizeModel () {
+  function FontSizeModel() {
     FontSizeModel.superconstructor.call(this);
 
     this.fontsize = FontSizeModel.DEFAULT;
@@ -21,7 +21,7 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
   /**
    * list of possible font sizes
    */
-  FontSizeModel.SIZES = [ 'tiny', 'small', 'normal', 'large', 'huge' ];
+  FontSizeModel.SIZES = ['tiny', 'small', 'normal', 'large', 'huge'];
 
   /**
    * default font size
@@ -29,9 +29,9 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
   FontSizeModel.DEFAULT = FontSizeModel.SIZES[2];
 
   /**
-   * @returns the current font size
+   * @return the current font size
    */
-  FontSizeModel.prototype.getFontSize = function () {
+  FontSizeModel.prototype.getFontSize = function() {
     return this.fontsize;
   };
 
@@ -40,7 +40,7 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
    * 
    * @param fontsize
    */
-  FontSizeModel.prototype.setFontSize = function (fontsize) {
+  FontSizeModel.prototype.setFontSize = function(fontsize) {
     if (FontSizeModel.SIZES.indexOf(fontsize) === -1) {
       throw 'invalid font size';
     }

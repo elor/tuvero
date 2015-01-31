@@ -1,71 +1,71 @@
 /**
  * KO tournament
- * 
+ *
  * Complies to Tournament and Blobber interfaces
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
 define(
-    [ './tournament', './map', './random', './game', './options' ],
-    function (Tournament, Map, Random, Game, Options) {
+    ['./tournament', './map', './random', './game', './options'],
+    function(Tournament, Map, Random, Game, Options) {
       var KOTournament, rnd, match;
 
       rnd = new Random();
 
-      function left (id) {
+      function left(id) {
         return id * 2 + 1;
       }
 
-      function right (id) {
+      function right(id) {
         return id * 2 + 2;
       }
 
-      function parent (id) {
+      function parent(id) {
         return Math.floor((id - 1) / 2);
       }
 
-      function level (id) {
+      function level(id) {
         return Math.floor(Math.log(id + 1) / Math.LN2);
       }
 
-      function levelbynodes (numnodes) {
+      function levelbynodes(numnodes) {
         if (numnodes > 0) {
           return Math.ceil(Math.log(numnodes) / Math.LN2) + 1;
         }
         return 0;
       }
 
-      function nodesbylevel (level) {
+      function nodesbylevel(level) {
         return 1 << level;
       }
 
-      function numLevels (numnodes) {
+      function numLevels(numnodes) {
         return Math.ceil(Math.log(numnodes + 1) / Math.LN2);
       }
 
-      function numRounds (numplayers) {
+      function numRounds(numplayers) {
         return levelbynodes(numplayers) - 1;
       }
 
-      function worstplace (level) {
+      function worstplace(level) {
         return nodesbylevel(level + 1) - 1;
       }
 
-      function lowestid (level) {
+      function lowestid(level) {
         return nodesbylevel(level) - 1;
       }
 
-      KOTournament = function () {
+      KOTournament = function() {
         this.players = new Map();
         this.games = [];
         this.gameid = []; // the id of the game a player is in, or is *waiting
         // for*
         this.state = Tournament.STATE.PREPARING;
         this.options = {
-          firstround : 'set',
+          firstround: 'set'
         };
       };
 
@@ -74,14 +74,14 @@ define(
         // 'order': order of entry
         // 'set': first vs. last and so on
         // 'random': first matches are random
-        firstround : {
-          order : 'order',
-          set : 'set',
-          random : 'random',
-        },
+        firstround: {
+          order: 'order',
+          set: 'set',
+          random: 'random'
+        }
       };
 
-      KOTournament.prototype.addPlayer = function (id) {
+      KOTournament.prototype.addPlayer = function(id) {
         if (this.state !== Tournament.STATE.PREPARING) {
           return undefined;
         }
@@ -93,15 +93,15 @@ define(
       /**
        * create an array of players where an even-indexed player and the
        * subsequent player are supposed to be in a game
-       * 
+       *
        * @param numPlayers
        *          number of players
        * @param byeOrder
        *          the order in which byes are applied
-       * 
+       *
        * @return an array of internal player ids
        */
-      function matchOrder (numPlayers, byeOrder) {
+      function matchOrder(numPlayers, byeOrder) {
         var numrounds, totalplayers, pids, i, numbyes;
 
         if (numPlayers < 2) {
@@ -134,14 +134,14 @@ define(
       /**
        * create a randomized first KO round by manipulating an array returned
        * from matchOrder()
-       * 
+       *
        * @param numPlayers
        *          number of players
        * @param byeOrder
        *          the order in which byes are applied
        * @return an array of internal pids
        */
-      function matchRandom (numPlayers, byeOrder) {
+      function matchRandom(numPlayers, byeOrder) {
         var pids, availablePids, i;
 
         pids = matchOrder(numPlayers, byeOrder);
@@ -161,16 +161,16 @@ define(
 
       /**
        * create a set order (map)
-       * 
+       *
        * This set order is achieved by repeated recursive permutations of a
        * previously sorted array of participating team ids
-       * 
+       *
        * @param numrounds
        *          number of rounds
-       * 
+       *
        * @return an array of indices for initial order
        */
-      function createSetOrder (numrounds) {
+      function createSetOrder(numrounds) {
         var ret, half, sum, index, numplayers;
 
         ret = [];
@@ -200,15 +200,15 @@ define(
       /**
        * create a first round of games of players by permutation of matchOrder()
        * results
-       * 
+       *
        * @param numPlayers
        *          number of players
        * @param byeOrder
        *          the order in which byes are applied
-       * 
+       *
        * @return an array of internal pids
        */
-      function matchSet (numPlayers, byeOrder) {
+      function matchSet(numPlayers, byeOrder) {
         var pids, order, i;
 
         pids = matchOrder(numPlayers, byeOrder);
@@ -226,7 +226,7 @@ define(
       match[KOTournament.OPTIONS.firstround.set] = matchSet;
       match[KOTournament.OPTIONS.firstround.random] = matchRandom;
 
-      KOTournament.prototype.start = function () {
+      KOTournament.prototype.start = function() {
         var i, pids, p1, p2, rounds, gameid;
 
         if (this.players.size < 2) {
@@ -275,7 +275,7 @@ define(
         return true;
       };
 
-      KOTournament.prototype.end = function () {
+      KOTournament.prototype.end = function() {
         if (this.state !== Tournament.STATE.FINISHED) {
           return undefined;
         }
@@ -285,7 +285,7 @@ define(
         return this.getRanking();
       };
 
-      KOTournament.prototype.finishGame = function (game, points) {
+      KOTournament.prototype.finishGame = function(game, points) {
         var p1, p2, gameid, i, winner;
 
         if (this.state !== Tournament.STATE.RUNNING) {
@@ -344,7 +344,7 @@ define(
         return this;
       };
 
-      function checkforGame (pid, gameid) {
+      function checkforGame(pid, gameid) {
         var isleft, parentid, opponent;
 
         parentid = parent(gameid);
@@ -367,10 +367,10 @@ define(
         }
       }
 
-      KOTournament.prototype.getGames = function () {
+      KOTournament.prototype.getGames = function() {
         var games = [];
 
-        this.games.forEach(function (game, i) {
+        this.games.forEach(function(game, i) {
           games[i] = new Game(this.players.at(game.teams[0][0]), this.players
               .at(game.teams[1][0]), game.id);
         }, this);
@@ -378,7 +378,7 @@ define(
         return games;
       };
 
-      KOTournament.prototype.getRanking = function () {
+      KOTournament.prototype.getRanking = function() {
         var idmap, worstplaces, numplayers;
 
         worstplaces = [];
@@ -389,52 +389,52 @@ define(
           idmap.push(idmap.length);
         }
 
-        idmap.sort(function (a, b) {
+        idmap.sort(function(a, b) {
           return worstplaces[a] - worstplaces[b] || a - b;
         });
 
         numplayers = this.players.size();
 
         return {
-          place : idmap.map(function (id) {
+          place: idmap.map(function(id) {
             return Math.min(numplayers - 1, worstplaces[id]);
           }), // actual place, usually [1, 2, 3, ...]. Necessary.
-          ids : idmap.map(function (id) {
+          ids: idmap.map(function(id) {
             return this.players.at(id);
           }, this), // sorted by place. Necessary
-          round : 1, // always 1.
+          round: 1 // always 1.
         };
       };
 
-      KOTournament.prototype.rankingChanged = function () {
+      KOTournament.prototype.rankingChanged = function() {
         // TODO differentiate
         return true;
       };
 
-      KOTournament.prototype.getState = function () {
+      KOTournament.prototype.getState = function() {
         return this.state;
       };
 
-      KOTournament.prototype.correct = function () {
+      KOTournament.prototype.correct = function() {
         // TODO how to correct a KO tournament?
         return false;
       };
 
-      KOTournament.prototype.toBlob = function () {
+      KOTournament.prototype.toBlob = function() {
         var ob;
 
         ob = {
-          players : this.players.toBlob(),
-          games : this.games,
-          gameid : this.gameid,
-          state : this.state,
-          options : this.getOptions(),
+          players: this.players.toBlob(),
+          games: this.games,
+          gameid: this.gameid,
+          state: this.state,
+          options: this.getOptions()
         };
 
         return JSON.stringify(ob);
       };
 
-      KOTournament.prototype.fromBlob = function (blob) {
+      KOTournament.prototype.fromBlob = function(blob) {
         var ob;
 
         ob = JSON.parse(blob);
@@ -448,11 +448,11 @@ define(
 
       KOTournament.prototype.getOptions = Options.prototype.getOptions;
       KOTournament.prototype.setOptions = Options.prototype.setOptions;
-      KOTournament.prototype.getType = function () {
+      KOTournament.prototype.getType = function() {
         return 'ko';
       };
 
-      KOTournament.prototype.getCorrections = function () {
+      KOTournament.prototype.getCorrections = function() {
         // TODO use and return actual corrections
         return [];
       };

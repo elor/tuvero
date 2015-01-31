@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define([ 'common',
+define(['common',
          'lib/qunit',
          './ui/interfaces/test/emitter',
          './ui/interfaces/test/model',
@@ -27,7 +27,7 @@ define([ 'common',
          './ui/test/listmodel',
          './ui/test/playermodel',
          './ui/test/tab',
-         './ui/test/teammodel', ], function(Common, QUnit){
+         './ui/test/teammodel'], function(Common, QUnit) {
   var i;
   for (i = 2; i < arguments.length; i += 1) {
     arguments[i](QUnit, Common);

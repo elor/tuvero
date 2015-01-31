@@ -1,26 +1,26 @@
 /**
  * A Toast is a small text which is visible for a short period of time before
  * disappearing.
- * 
+ *
  * You can supply a jquery object handle as str if you want to
  * insert an html node instead of text.
- * 
+ *
  * Toast duration can be set at Toast construction or controlled via a close()
  * function
- * 
+ *
  * @exports Toast
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
+define(function() {
   var Toast, fadein, fadeout, pending, toastfn, nextid, fadeoutfn;
 
   // pending toasts which have been issued before jquery was available
   pending = [];
   nextid = 0;
 
-  function getid () {
+  function getid() {
     var id;
     id = nextid;
     nextid += 1;
@@ -30,22 +30,22 @@ define(function () {
   // will become a function once jquery has been initialized
   fadeoutfn = undefined;
 
-  toastfn = function (str, seconds) {
+  toastfn = function(str, seconds) {
     var id;
 
     id = getid();
 
     pending.push({
-      str : str,
-      seconds : seconds,
-      id : id,
+      str: str,
+      seconds: seconds,
+      id: id
     });
 
     return id;
   };
 
-  function createCloseFunction (id) {
-    return function () {
+  function createCloseFunction(id) {
+    return function() {
       var i, $alltoasts, $div;
       if (pending[id]) {
         pending[id] = undefined;
@@ -65,7 +65,7 @@ define(function () {
   }
 
   // temporary toast constructor
-  Toast = function (str, seconds) {
+  Toast = function(str, seconds) {
     var id;
 
     id = toastfn(str, seconds);
@@ -73,16 +73,16 @@ define(function () {
     this.close = createCloseFunction(id);
   };
 
-  Toast.init = function () {
+  Toast.init = function() {
     var $hidden, transition, duration, id;
     // create toast container
     $('body').append('<div id="toasts"><div class="hidden" style="display:none;">ERROR</div></div>');
 
-    function getTransitionDuration () {
+    function getTransitionDuration() {
       var prefix, prefixes, transition;
 
       // TODO remove prefixes from this file
-      prefixes = [ '', '-o-', '-ms-', '-moz-', '-webkit-' ];
+      prefixes = ['', '-o-', '-ms-', '-moz-', '-webkit-'];
       transition = undefined;
 
       for (prefix in prefixes) {
@@ -104,7 +104,7 @@ define(function () {
     // abort if the style is not set
     if ($('#toasts').css('position') !== 'fixed') {
       console.error('Toast: stylesheet not found');
-      toastfn = function (str, seconds) {
+      toastfn = function(str, seconds) {
         console.error('Toast: ' + str);
         return getid();
       };
@@ -129,7 +129,7 @@ define(function () {
       }
 
       // actual Toast constructor
-      toastfn = function (str, seconds) {
+      toastfn = function(str, seconds) {
         var $toasts, $div, $br;
 
         // default to two seconds duration
@@ -150,14 +150,14 @@ define(function () {
         $div.after($('<br>'));
 
         // fadein timeout
-        window.setTimeout(function () {
+        window.setTimeout(function() {
           $div.addClass('toast');
         }, 10);
 
         // remove the toast if it's not infinite
         if (seconds > 0) {
           // fadeout timeout
-          window.setTimeout(function () {
+          window.setTimeout(function() {
             fadeoutfn($div);
           }, 1000 * (seconds + fadein));
         }
@@ -167,10 +167,10 @@ define(function () {
         return id;
       };
 
-      fadeoutfn = function ($div) {
+      fadeoutfn = function($div) {
         // remove timeout
         $div.removeClass('toast');
-        window.setTimeout(function () {
+        window.setTimeout(function() {
           $div.next().remove();
           $div.remove();
         }, 1000 * fadeout);
@@ -178,7 +178,7 @@ define(function () {
     }
 
     // issue any pending toasts
-    pending.forEach(function (toast) {
+    pending.forEach(function(toast) {
       if (toast) {
         new Toast(toast.str, toast.seconds);
       }

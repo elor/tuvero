@@ -1,6 +1,6 @@
 /**
  * Maintain a sorted list of possible player names for autocompletion
- * 
+ *
  * @exports Players
  * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -8,24 +8,24 @@
  * @see LICENSE
  */
 
-define(['./shared'], function (Shared) {
+define(['./shared'], function(Shared) {
   var Players, names, author;
 
-  author = "Erik Lorenz";
+  author = 'Erik Lorenz';
 
-  names = [ author ];
+  names = [author];
 
   Players = {};
 
-  function trimName (name) {
+  function trimName(name) {
     return name.replace(/^\s*|\s*$|\n|\r/g, '').replace(/\s\s*/g, ' ');
   }
 
-  function updateDependencies () {
+  function updateDependencies() {
     Shared.Autocomplete.update();
   }
 
-  Players.fromString = function (string) {
+  Players.fromString = function(string) {
     var lines, name;
 
     lines = string.split('\n');
@@ -55,11 +55,11 @@ define(['./shared'], function (Shared) {
     updateDependencies();
   };
 
-  Players.toString = function () {
+  Players.toString = function() {
     return names.join('\n');
   };
 
-  Players.fromBlob = function (blob) {
+  Players.fromBlob = function(blob) {
     var blobnames = JSON.parse(blob);
     if (!blobnames) {
       return;
@@ -75,23 +75,23 @@ define(['./shared'], function (Shared) {
     updateDependencies();
   };
 
-  Players.toBlob = function () {
+  Players.toBlob = function() {
     return JSON.stringify(names);
   };
 
-  Players.clear = function () {
-    names = [ author ];
+  Players.clear = function() {
+    names = [author];
 
     updateDependencies();
   };
 
   Players.reset = Players.clear;
 
-  Players.get = function () {
+  Players.get = function() {
     return names.slice();
   };
 
-  Players.insert = function (name) {
+  Players.insert = function(name) {
     name = trimName(name);
     if (typeof (name) === 'string' && name.length > 0) {
       if (names.indexOf(name) === -1) {
@@ -104,7 +104,7 @@ define(['./shared'], function (Shared) {
     }
   };
 
-  Players.erase = function (name) {
+  Players.erase = function(name) {
     var index;
     name = trimName(name);
     if (typeof (name) === 'string' && name.length > 0) {

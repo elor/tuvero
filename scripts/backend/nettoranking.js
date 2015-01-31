@@ -1,18 +1,18 @@
 /**
  * Netto ranking class
- * 
- * @returns NettoRanking
+ *
+ * @return NettoRanking
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ './correction' ], function (Correction) {
+define(['./correction'], function(Correction) {
   /**
    * NettoRanking: A ranking variant which sorts players by wins and netto
    * points, in this order.
    */
-  var Netto = function (size) {
+  var Netto = function(size) {
     this.wins = [];
     this.netto = [];
     this.byes = [];
@@ -27,21 +27,21 @@ define([ './correction' ], function (Correction) {
 
   /**
    * simply return the stored size
-   * 
+   *
    * @return the size of the ranking
    */
-  Netto.prototype.size = function () {
+  Netto.prototype.size = function() {
     return this.netto.length;
   };
 
   /**
    * resize the internal arrays
-   * 
+   *
    * @param size
    *          new size
    * @return {Netto} this
    */
-  Netto.prototype.resize = function (size) {
+  Netto.prototype.resize = function(size) {
     var length = this.size();
 
     if (size < length) {
@@ -61,10 +61,10 @@ define([ './correction' ], function (Correction) {
 
   /**
    * return an object with ranking-specific data.
-   * 
+   *
    * @return {Object} the return object
    */
-  Netto.prototype.get = function () {
+  Netto.prototype.get = function() {
     var rank, i, n, w;
 
     n = this.netto;
@@ -75,40 +75,40 @@ define([ './correction' ], function (Correction) {
       rank[i] = i;
     }
 
-    rank.sort(function (a, b) {
+    rank.sort(function(a, b) {
       return (w[b] - w[a]) || (n[b] - n[a]);
     });
 
     return {
-      byes : this.byes,
-      netto : n,
-      ranking : rank,
-      size : n.length,
-      wins : w
+      byes: this.byes,
+      netto: n,
+      ranking: rank,
+      size: n.length,
+      wins: w
     };
   };
 
   /**
    * Add the result of a game to the ranking table.
-   * 
+   *
    * @param result
    *          the result
    * @return {Netto} this
    */
-  Netto.prototype.add = function (result) {
+  Netto.prototype.add = function(result) {
     var netto, n, w;
 
     n = this.netto;
     w = this.wins;
     netto = result.getNetto();
-    result.getTeam(1).map(function (v) {
+    result.getTeam(1).map(function(v) {
       n[v] += netto;
       if (netto > 0) {
         w[v] += 1;
       }
     });
 
-    result.getTeam(2).map(function (v) {
+    result.getTeam(2).map(function(v) {
       n[v] -= netto;
       if (netto < 0) {
         w[v] += 1;
@@ -120,25 +120,25 @@ define([ './correction' ], function (Correction) {
 
   /**
    * remove the result of a game from the ranking table
-   * 
+   *
    * @param result
    *          the result
    * @return {Netto} this
    */
-  Netto.prototype.remove = function (result) {
+  Netto.prototype.remove = function(result) {
     var netto, n, w;
 
     n = this.netto;
     w = this.wins;
     netto = result.getNetto();
-    result.getTeam(1).map(function (v) {
+    result.getTeam(1).map(function(v) {
       n[v] -= netto;
       if (netto > 0) {
         w[v] -= 1;
       }
     });
 
-    result.getTeam(2).map(function (v) {
+    result.getTeam(2).map(function(v) {
       n[v] += netto;
       if (netto < 0) {
         w[v] -= 1;
@@ -150,12 +150,12 @@ define([ './correction' ], function (Correction) {
 
   /**
    * Correct the result of a game.
-   * 
+   *
    * @param correction
    *          the correction
    * @return {Netto} this
    */
-  Netto.prototype.correct = function (correction) {
+  Netto.prototype.correct = function(correction) {
     if (this.added(correction.pre.getGame())) {
       this.remove(correction.pre);
       this.add(correction.post);
@@ -168,11 +168,11 @@ define([ './correction' ], function (Correction) {
     return undefined;
   };
 
-  Netto.prototype.grantBye = function (team) {
+  Netto.prototype.grantBye = function(team) {
     var n, w, b, size;
 
     if (typeof team === 'number') {
-      team = [ team ];
+      team = [team];
     }
 
     n = this.netto;
@@ -181,7 +181,7 @@ define([ './correction' ], function (Correction) {
 
     size = this.size();
 
-    team.forEach(function (pid) {
+    team.forEach(function(pid) {
       if (pid < size) {
         n[pid] += 6; // win 13 to 7
         w[pid] += 1; // win against nobody
@@ -190,11 +190,11 @@ define([ './correction' ], function (Correction) {
     }, this);
   };
 
-  Netto.prototype.revokeBye = function (team) {
+  Netto.prototype.revokeBye = function(team) {
     var b, n, w, size;
 
     if (typeof team === 'number') {
-      team = [ team ];
+      team = [team];
     }
 
     n = this.netto;
@@ -203,7 +203,7 @@ define([ './correction' ], function (Correction) {
 
     size = this.size();
 
-    team.forEach(function (pid) {
+    team.forEach(function(pid) {
       if (pid < size && b[pid] > 0) {
         n[pid] -= 6; // revoke a win of 13 to 7
         w[pid] -= 1; // revoke a win against nobody
@@ -214,24 +214,24 @@ define([ './correction' ], function (Correction) {
 
   /**
    * get a copy of the applied corrections
-   * 
+   *
    * @return copy of the array of corrections
    */
-  Netto.prototype.getCorrections = function () {
-    return this.corrections.map(function (corr) {
+  Netto.prototype.getCorrections = function() {
+    return this.corrections.map(function(corr) {
       return corr.copy();
     }, this);
   };
 
   /**
    * whether the game took place
-   * 
+   *
    * @param game
    *          the game in question
    * @return {Boolean} true if the game is likely to have been added, false
    *         otherwise
    */
-  Netto.prototype.added = function (game) {
+  Netto.prototype.added = function(game) {
     var valid, failure, len;
 
     valid = false;
@@ -241,10 +241,10 @@ define([ './correction' ], function (Correction) {
     // ideas:
     // every player of one team must have won
     // additionally, players without wins must have negative netto score
-    game.teams.forEach(function (team) {
+    game.teams.forEach(function(team) {
       var invalid = false;
       if (!failure) {
-        team.forEach(function (pid) {
+        team.forEach(function(pid) {
           if (pid >= len || pid < 0) {
             failure = true;
             return;
@@ -269,26 +269,26 @@ define([ './correction' ], function (Correction) {
 
   /**
    * stores the current state in a blob
-   * 
+   *
    * @return the blob, i.e. a serialization
    */
-  Netto.prototype.toBlob = function () {
+  Netto.prototype.toBlob = function() {
     var ob;
 
     ob = {
-      byes : this.byes,
-      corrections : this.corrections,
-      netto : this.netto,
-      wins : this.wins
+      byes: this.byes,
+      corrections: this.corrections,
+      netto: this.netto,
+      wins: this.wins
     };
 
     return JSON.stringify(ob);
   };
 
-  Netto.prototype.fromBlob = function (blob) {
+  Netto.prototype.fromBlob = function(blob) {
     var ob;
 
-    function copyCorrection (corr) {
+    function copyCorrection(corr) {
       return Correction.copy(corr);
     }
 

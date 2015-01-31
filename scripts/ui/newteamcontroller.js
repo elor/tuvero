@@ -1,20 +1,20 @@
 /**
  * Controller for adding a new player and handling invalid player names on input
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ 'lib/extend', './interfaces/controller', './playermodel',
-    './teammodel' ], function (extend, Controller, PlayerModel, TeamModel) {
+define(['lib/extend', './interfaces/controller', './playermodel',
+    './teammodel'], function(extend, Controller, PlayerModel, TeamModel) {
   /**
    * Constructor
-   * 
+   *
    * @param view
    *          the associated NewTeamView
    */
-  function NewTeamController (view) {
+  function NewTeamController(view) {
     var controller;
     NewTeamController.superconstructor.call(this, view);
 
@@ -24,11 +24,11 @@ define([ 'lib/extend', './interfaces/controller', './playermodel',
 
     /**
      * add a new team at form submission
-     * 
+     *
      * @param e
      *          jQuery event object
      */
-    this.view.$view.submit(function (e) {
+    this.view.$view.submit(function(e) {
       controller.createNewTeam();
       e.preventDefault();
     });
@@ -38,18 +38,18 @@ define([ 'lib/extend', './interfaces/controller', './playermodel',
   /**
    * Add a new team after reading the names from the registered input fields and
    * push it to this.model, which is supposed to be a ListModel.
-   * 
+   *
    * If a player name is invalid (whitespace-only or empty), team creation is
    * aborted and the first invalid input field is focused
    */
-  NewTeamController.prototype.createNewTeam = function () {
+  NewTeamController.prototype.createNewTeam = function() {
     var names, players;
 
-    names = this.$players.map(function (id, player) {
+    names = this.$players.map(function(id, player) {
       return $(player).val();
     }).get();
 
-    players = names.map(function (name) {
+    players = names.map(function(name) {
       var player;
 
       player = new PlayerModel(name);

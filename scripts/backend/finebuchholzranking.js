@@ -6,13 +6,13 @@
  * @see LICENSE
  */
 
-define([ './vector', './matrix', './halfmatrix', './result', './correction',
-    './rleblobber' ], function (Vector, Matrix, HalfMatrix, Result, Correction, RLEBlobber) {
+define(['./vector', './matrix', './halfmatrix', './result', './correction',
+    './rleblobber'], function(Vector, Matrix, HalfMatrix, Result, Correction, RLEBlobber) {
   /**
    * FinebuchholzRanking: A ranking variant which sorts players by wins,
    * buchholz points, finebuchholz points and netto points, in this order.
    */
-  var Finebuchholz = function (size) {
+  var Finebuchholz = function(size) {
     this.wins = [];
     this.netto = [];
     this.byes = [];
@@ -30,21 +30,21 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
   /**
    * simply return the stored size
-   * 
+   *
    * @return the number of players in the ranking instance
    */
-  Finebuchholz.prototype.size = function () {
+  Finebuchholz.prototype.size = function() {
     return this.length;
   };
 
   /**
    * resize the internal structures
-   * 
+   *
    * @param size
    *          new size
    * @return {Finebuchholz} this
    */
-  Finebuchholz.prototype.resize = function (size) {
+  Finebuchholz.prototype.resize = function(size) {
     var length = this.size();
 
     // FIXME test the length of every array on its own!
@@ -73,17 +73,17 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
   /**
    * return an object containing all points data and a sorted array of pids
    * representing the ranking
-   * 
+   *
    * @return a data object containing the ranking information
    */
-  Finebuchholz.prototype.get = function () {
+  Finebuchholz.prototype.get = function() {
     var rank, n, w, bh, fbh, games;
 
     n = this.netto;
     w = this.wins;
     games = Matrix.rowSums(this.games);
     // add byes to the number of games
-    this.byes.map(function(bye, i){
+    this.byes.map(function(bye, i) {
       if (bye) {
         games[i] += bye;
       }
@@ -92,34 +92,34 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
     fbh = Matrix.multVec(this.games, bh); // calculate the finebuchholz
     // points
 
-    rank = n.map(function(undefined, index){
+    rank = n.map(function(undefined, index) {
       return index;
     });
 
-    rank.sort(function (a, b) {
+    rank.sort(function(a, b) {
       return /* (games[b] - games[a]) || */(w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a]) || (n[b] - n[a]) || (a - b);
     });
 
     return {
-      buchholz : bh,
-      byes : this.byes,
-      finebuchholz : fbh,
-      games : games,
-      netto : n,
-      ranking : rank,
-      size : n.length,
-      wins : w
+      buchholz: bh,
+      byes: this.byes,
+      finebuchholz: fbh,
+      games: games,
+      netto: n,
+      ranking: rank,
+      size: n.length,
+      wins: w
     };
   };
 
   /**
    * Add the result of a game to the ranking table.
-   * 
+   *
    * @param result
    *          the result
    * @return {Finebuchholz} this
    */
-  Finebuchholz.prototype.add = function (result) {
+  Finebuchholz.prototype.add = function(result) {
     var netto, n, w, g, t1, t2;
 
     n = this.netto;
@@ -130,18 +130,18 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
     t1 = result.getTeam(1);
     t2 = result.getTeam(2);
 
-    t1.map(function (v) {
+    t1.map(function(v) {
       n[v] += netto;
       if (netto > 0) {
         w[v] += 1;
       }
 
-      t2.map(function (v2) {
+      t2.map(function(v2) {
         g.set(v, v2, g.get(v, v2) + 1);
       });
     });
 
-    t2.map(function (v) {
+    t2.map(function(v) {
       n[v] -= netto;
       if (netto < 0) {
         w[v] += 1;
@@ -153,12 +153,12 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
   /**
    * remove the result of a game from the ranking table
-   * 
+   *
    * @param result
    *          the result
    * @return {Finebuchholz} this
    */
-  Finebuchholz.prototype.remove = function (result) {
+  Finebuchholz.prototype.remove = function(result) {
     var netto, n, w, g, t1, t2;
 
     n = this.netto;
@@ -169,18 +169,18 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
     t1 = result.getTeam(1);
     t2 = result.getTeam(2);
 
-    t1.forEach(function (v) {
+    t1.forEach(function(v) {
       n[v] -= netto;
       if (netto > 0) {
         w[v] -= 1;
       }
 
-      t2.map(function (v2) {
+      t2.map(function(v2) {
         g.set(v, v2, g.get(v, v2) - 1);
       });
     }, this);
 
-    t2.forEach(function (v) {
+    t2.forEach(function(v) {
       n[v] += netto;
       if (netto < 0) {
         w[v] -= 1;
@@ -192,12 +192,12 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
   /**
    * Correct the result of a game.
-   * 
+   *
    * @param correction
    *          the correction
    * @return {Finebuchholz} undefined on failure, this otherwise
    */
-  Finebuchholz.prototype.correct = function (correction) {
+  Finebuchholz.prototype.correct = function(correction) {
     if (this.added(correction.pre.getGame())) {
       this.remove(correction.pre);
       this.add(correction.post);
@@ -211,11 +211,11 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
     return undefined;
   };
 
-  Finebuchholz.prototype.grantBye = function (team) {
+  Finebuchholz.prototype.grantBye = function(team) {
     var n, w, b, size;
 
     if (typeof team === 'number') {
-      team = [ team ];
+      team = [team];
     }
 
     n = this.netto;
@@ -224,7 +224,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
     size = this.size();
 
-    team.forEach(function (pid) {
+    team.forEach(function(pid) {
       if (pid < size) {
         n[pid] += 6; // win 13 to 7
         w[pid] += 1; // win against nobody
@@ -233,11 +233,11 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
     }, this);
   };
 
-  Finebuchholz.prototype.revokeBye = function (team) {
+  Finebuchholz.prototype.revokeBye = function(team) {
     var b, n, w, size;
 
     if (typeof team === 'number') {
-      team = [ team ];
+      team = [team];
     }
 
     n = this.netto;
@@ -246,7 +246,7 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
     size = this.size();
 
-    team.forEach(function (pid) {
+    team.forEach(function(pid) {
       if (pid < size && b[pid] > 0) {
         n[pid] -= 6; // revoke a win of 13 to 7
         w[pid] -= 1; // revoke a win against nobody
@@ -257,13 +257,13 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
   /**
    * whether a game was played
-   * 
+   *
    * @param game
    *          an instance of the game that could have taken place
    * @return true if all data indicates that this game took place, false
    *          otherwise.
    */
-  Finebuchholz.prototype.added = function (game) {
+  Finebuchholz.prototype.added = function(game) {
     // if a game has taken place, all players of one team have played
     // against
     // all players of another team.
@@ -274,8 +274,8 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
     // avoid jslint false positive. shouldn't impact performance too much
     t2 = undefined;
 
-    t1func = function (p1) {
-      t2.forEach(function (p2) {
+    t1func = function(p1) {
+      t2.forEach(function(p2) {
         if (this.games.get(p1, p2) <= 0) {
           invalid = true;
         }
@@ -304,39 +304,39 @@ define([ './vector', './matrix', './halfmatrix', './result', './correction',
 
   /**
    * get a copy of the applied corrections
-   * 
+   *
    * @return copy of the array of corrections
    */
-  Finebuchholz.prototype.getCorrections = function () {
-    return this.corrections.map(function (corr) {
+  Finebuchholz.prototype.getCorrections = function() {
+    return this.corrections.map(function(corr) {
       return corr.copy();
     }, this);
   };
 
   /**
    * stores the current state in a blob
-   * 
+   *
    * @return a serialization of the ranking state
    */
-  Finebuchholz.prototype.toBlob = function () {
+  Finebuchholz.prototype.toBlob = function() {
     var ob;
 
     ob = {
-      byes : RLEBlobber.toBlob(this.byes),
-      corrections : this.corrections,
-      games : this.games.toBlob(),
-      netto : RLEBlobber.toBlob(this.netto),
-      wins : RLEBlobber.toBlob(this.wins),
-      length : this.length,
+      byes: RLEBlobber.toBlob(this.byes),
+      corrections: this.corrections,
+      games: this.games.toBlob(),
+      netto: RLEBlobber.toBlob(this.netto),
+      wins: RLEBlobber.toBlob(this.wins),
+      length: this.length
     };
 
     return JSON.stringify(ob);
   };
 
-  Finebuchholz.prototype.fromBlob = function (blob) {
+  Finebuchholz.prototype.fromBlob = function(blob) {
     var ob, i;
 
-    function copyCorrection (corr) {
+    function copyCorrection(corr) {
       return Correction.copy(corr);
     }
 

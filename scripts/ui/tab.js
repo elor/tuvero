@@ -1,35 +1,35 @@
 /**
  * Tab Interface
- * 
+ *
  * @expost Tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
+define(['./opts', './toast', './strings'], function(Opts, Toast, Strings) {
 
   return {
-    Interface : {
+    Interface: {
       /**
        * Reset to an empty state, usually the initial state
-       * 
+       *
        * @return {boolean} true on success, false on error
        */
-      reset : function () {
+      reset: function() {
         return true;
       },
       /**
        * Update everything to the current overall state
-       * 
+       *
        * @return {boolean} true on success, false on error
        */
-      update : function () {
+      update: function() {
         return true;
-      },
+      }
     },
 
-    createTab : function (name, reset, update, options) {
+    createTab: function(name, reset, update, options) {
       var tab, updatepending; // , visibleupdatepending;
 
       if (options === undefined) {
@@ -40,7 +40,7 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
       // visibleupdatepending = false;
 
       tab = {
-        reset : function () {
+        reset: function() {
           try {
             reset();
           } catch (err) {
@@ -48,7 +48,7 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
           }
         },
 
-        update : function (force) {
+        update: function(force) {
           if (force) {
             updatepending = false;
             // visibleupdatepending = false;
@@ -56,7 +56,7 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
 
           if (!updatepending) {
             updatepending = true;
-            window.setTimeout(function () {
+            window.setTimeout(function() {
               try {
 
                 update();
@@ -70,15 +70,15 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
           }
         },
 
-        getOptions : function () {
+        getOptions: function() {
           return Opts.getOptions({
-            options : options
+            options: options
           });
         },
 
-        setOptions : function (opts) {
+        setOptions: function(opts) {
           if (Opts.setOptions({
-            options : options
+            options: options
           }, opts)) {
             if (options._changed) {
               options._changed();
@@ -86,7 +86,7 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
             return true;
           }
           return false;
-        },
+        }
       };
 
       // update whenever the tab opens. This is quick and dirty.
@@ -101,6 +101,6 @@ define([ './opts', './toast', './strings' ], function (Opts, Toast, Strings) {
       return tab;
     },
 
-    Extends : [ Opts.Interface ]
+    Extends: [Opts.Interface]
   };
 });

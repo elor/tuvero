@@ -3,19 +3,19 @@
  *
  * The exported Update() function allows manually triggering an update check.
  * Updates are automatically checked for on every pageload.
- * 
+ *
  * @export Update
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 // FIXME start this script as early as possible!
-define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
+define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
   var Update, appCache, downloadToasts;
 
   downloadToast = undefined;
 
-  Update = function () {
+  Update = function() {
     cacheStatus();
     try {
       appCache.update();
@@ -29,14 +29,14 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
 
   appCache = window.applicationCache;
 
-  function closeDownloadToast () {
+  function closeDownloadToast() {
     if (downloadToast) {
       downloadToast.close();
       downloadToast = undefined;
     }
   }
 
-  function setCached (cached) {
+  function setCached(cached) {
     if (cached) {
       Update.isCached = true;
     } else {
@@ -49,7 +49,7 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
     closeDownloadToast();
   }
 
-  function cacheStatus () {
+  function cacheStatus() {
     switch (appCache.status) {
     case appCache.OBSOLETE:
     case appCache.UNCACHED:
@@ -81,7 +81,7 @@ define([ './strings', './toast', './debug' ], function (Strings, Toast, Debug) {
     }
   }
 
-  function cacheError () {
+  function cacheError() {
     new Toast(Strings.updatefailed, Toast.LONG);
     console.error('unexpected applicationCache error. window.applicationCache.status = ' + window.applicationCache.status);
   }

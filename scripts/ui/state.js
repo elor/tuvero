@@ -1,39 +1,39 @@
 /**
  * A singular object which represents the whole tournament state for the purpose
  * of being read from and written to storage.
- * 
+ *
  * @exports State
  * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ './options', './tabshandle', './team', './history', './tournaments',
-    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function (Options, Tabshandle, Team, History, Tournaments, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New, Shared) {
+define(['./options', './tabshandle', './team', './history', './tournaments',
+    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function(Options, Tabshandle, Team, History, Tournaments, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New, Shared) {
   var State;
 
   State = {
     /**
      * store the current program state in a blob
-     * 
+     *
      * @return the blob
      */
-    toBlob : function () {
+    toBlob: function() {
       return JSON.stringify({
-        options : Options.toBlob(),
-        team : Team.toBlob(),
-        history : History.toBlob(),
-        tournaments : Tournaments.toBlob()
+        options: Options.toBlob(),
+        team: Team.toBlob(),
+        history: History.toBlob(),
+        tournaments: Tournaments.toBlob()
       });
     },
 
     /**
      * restore the program state from the blob
-     * 
+     *
      * @param blob
      *          the blob
      */
-    fromBlob : function (blob) {
+    fromBlob: function(blob) {
       var ob;
 
       if (!blob) {
@@ -65,13 +65,13 @@ define([ './options', './tabshandle', './team', './history', './tournaments',
     /**
      * resets everything managed by Blob
      */
-    reset : function () {
+    reset: function() {
       Team.reset();
       History.reset();
       Tournaments.reset();
       Options.reset();
       Tabshandle.updateOpts();
-    },
+    }
   };
 
   Shared.State = State;

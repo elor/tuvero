@@ -9,8 +9,8 @@
 /*
  * KOTournament Test
  */
-define(function () {
-  return function (QUnit, getModule) {
+define(function() {
+  return function(QUnit, getModule) {
     var KOTournament, Game, Tournament, Implements;
 
     KOTournament = getModule('backend/kotournament');
@@ -18,14 +18,14 @@ define(function () {
     Tournament = getModule('backend/tournament');
     Implements = getModule('lib/implements');
 
-    QUnit.test("KOTournament", function () {
+    QUnit.test('KOTournament', function() {
       var i, names, kot, opts;
 
       QUnit.equal(Implements(Tournament), '', 'Tournament interface validation');
       QUnit.equal(Implements(Tournament, KOTournament, 'rfm'), '', 'KOTournament interface match');
 
-      names = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Gert',
-          'Hartmut', 'Inka', 'Jennifer' ];
+      names = ['Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Gert',
+          'Hartmut', 'Inka', 'Jennifer'];
 
       kot = new KOTournament();
       for (i in names) {
@@ -39,7 +39,7 @@ define(function () {
       kot.start();
 
       while (kot.getState() === Tournament.STATE.RUNNING) {
-        kot.finishGame(kot.getGames()[0], [ 13, 0 ]);
+        kot.finishGame(kot.getGames()[0], [13, 0]);
       }
 
       return;

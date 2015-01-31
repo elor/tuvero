@@ -1,19 +1,19 @@
 /**
  * detect features and warn users when they're leaving the page if data will be lost
- * 
+ *
  * @exports FeatureDetect
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ 'lib/modernizr', '../strings', '../toast' ], function (Modernizr, Strings, Toast) {
+define(['lib/modernizr', '../strings', '../toast'], function(Modernizr, Strings, Toast) {
   var FeatureDetect;
 
   FeatureDetect = {};
 
-  $(function ($) {
-    function confirmLeave () {
-      window.onbeforeunload = function () {
+  $(function($) {
+    function confirmLeave() {
+      window.onbeforeunload = function() {
         return Strings.confirmleave;
       };
     }

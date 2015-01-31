@@ -1,9 +1,9 @@
 /**
  * Model, View and Controller for the games tab.
- * 
+ *
  * This tab views the games, allows input of game results and submits them to
  * the respective tournaments
- * 
+ *
  * @exports Tab_Games
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -12,10 +12,10 @@
  */
 
 define(
-    [ './team', './toast', './strings', './tab_teams', './tab_ranking',
+    ['./team', './toast', './strings', './tab_teams', './tab_ranking',
         './history', './tab_history', './storage', './options', './tab',
-        './tabshandle', './tournaments', './shared', './boxview' ],
-    function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
+        './tabshandle', './tournaments', './shared', './boxview'],
+    function(Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
         Tab_History, Storage, Options, Tab, Tabshandle, Tournaments, Shared,
         BoxView) {
       var Tab_Games, $tab, template, games, $games, $tournaments;
@@ -31,11 +31,11 @@ define(
       // local copy of the running games
       games = [];
 
-      function isInt (n) {
+      function isInt(n) {
         return n % 1 === 0;
       }
 
-      function initGameTemplate () {
+      function initGameTemplate() {
         var $form, $names, $teamnos, tmp;
 
         if (template.game) {
@@ -53,14 +53,14 @@ define(
         $names[1] = tmp.eq(1);
 
         tmp = $form.find('.teamno');
-        $teamnos = [ tmp.eq(0), tmp.eq(1) ];
+        $teamnos = [tmp.eq(0), tmp.eq(1)];
 
         $anchor = $tab.find('.votes').eq(0);
 
         /**
          * disable/enable the submit button if input is valid
          */
-        $tab.on('change', '.game input', function () {
+        $tab.on('change', '.game input', function() {
           var $button = $(this).parent().find('button');
 
           if (readResults($(this).parents('.game')) === undefined) {
@@ -73,20 +73,20 @@ define(
 
         });
 
-        $tab.on('submit', '.game', function (event) {
+        $tab.on('submit', '.game', function(event) {
           finishGame.call(this);
           event.preventDefault();
           return false;
         });
 
         template.game = {
-          $form : $form,
-          $names : $names,
-          $teamnos : $teamnos,
+          $form: $form,
+          $names: $names,
+          $teamnos: $teamnos
         };
       }
 
-      function initVoteTemplate () {
+      function initVoteTemplate() {
         var $vote, $container, $names, $teamno;
 
         if (template.vote) {
@@ -105,14 +105,14 @@ define(
         $teamno = $vote.find('.teamno');
 
         template.vote = {
-          $container : $container,
-          $vote : $vote,
-          $names : $names,
-          $teamno : $teamno
+          $container: $container,
+          $vote: $vote,
+          $names: $names,
+          $teamno: $teamno
         };
       }
 
-      function initTemplates () {
+      function initTemplates() {
         if (template) {
           console.error('tab_games: template is already defined:');
           console.error(template);
@@ -132,7 +132,7 @@ define(
 
       /**
        * create and show a box displaying a certain game
-       * 
+       *
        * @param game
        *          the game object
        * @param tournamentid
@@ -140,7 +140,7 @@ define(
        * @param $box
        *          the DOM object to append this game to
        */
-      function appendGame (game, tournamentid, $box) {
+      function appendGame(game, tournamentid, $box) {
         var t1, t2, $game, t1names, t2names;
 
         t1 = Team.get(game.teams[0][0]);
@@ -173,7 +173,7 @@ define(
       /**
        * removes all games from the overview
        */
-      function clearBoxes () {
+      function clearBoxes() {
         $tab.find('.boxview').remove();
         $games = [];
         $tournaments = [];
@@ -182,10 +182,10 @@ define(
 
       /**
        * clears the overview and appends all open games of the tournament
-       * 
-       * @returns true if something has been added to the DOM, false otherwise
+       *
+       * @return true if something has been added to the DOM, false otherwise
        */
-      function showRunning () {
+      function showRunning() {
         var tournamentid, tournament, $box, notempty, hidden, round;
         clearBoxes();
 
@@ -208,7 +208,7 @@ define(
 
           notempty = false;
 
-          tournament.getGames().forEach(function (game) {
+          tournament.getGames().forEach(function(game) {
             appendGame(game, tournamentid, $box);
             hidden = false;
             notempty = true;
@@ -228,7 +228,7 @@ define(
         return !hidden;
       }
 
-      function showTab () {
+      function showTab() {
         var tournamentid, empty;
 
         empty = true;
@@ -246,7 +246,7 @@ define(
         }
       }
 
-      function getTournamentID ($game) {
+      function getTournamentID($game) {
         var $box;
 
         if (!$game) {
@@ -265,14 +265,14 @@ define(
 
       /**
        * this function removes the game from the local reference arrays
-       * 
+       *
        * @param tournamentid
        *          the tournament id
        * @param index
        *          the index of the game
        * @return true on success, undefined otherwise
        */
-      function removeGame (tournamentid, index) {
+      function removeGame(tournamentid, index) {
         games[tournamentid].splice(index, 1);
         $games[tournamentid][index].remove();
         $games[tournamentid].splice(index, 1);
@@ -280,12 +280,12 @@ define(
         return true;
       }
 
-      function readResults ($container) {
+      function readResults($container) {
         var $input, i, ret, tournamentid;
 
         ret = {
-          index : -1,
-          points : []
+          index: -1,
+          points: []
         };
 
         tournamentid = getTournamentID($container);
@@ -336,10 +336,10 @@ define(
 
       /**
        * jQuery callback function. works with "this"
-       * 
-       * @returns false all the time, although there's no reason to
+       *
+       * @return false all the time, although there's no reason to
        */
-      function finishGame () {
+      function finishGame() {
         var result, index, points, tournamentid, tournament, gameid;
 
         // if someone wants to finish a game, do the following:
@@ -445,7 +445,7 @@ define(
         return false;
       }
 
-      function createVoteBox (tid) {
+      function createVoteBox(tid) {
         var team, teamnames;
 
         team = Team.get(tid);
@@ -459,14 +459,14 @@ define(
 
       /**
        * translates the Swiss ranking into a traditional votes object
-       * 
+       *
        * TODO rewrite this file to replace this function
-       * 
+       *
        * @param Tournament
        *          the tournament object for which to retrieve the downvotes
        * @return {Object} a votes object of the current round
        */
-      function getRoundVotes (Tournament) {
+      function getRoundVotes(Tournament) {
         // FIXME duplicate within tab_new.js
         var votes, ranking, i;
 
@@ -474,9 +474,9 @@ define(
             .getTournamentID(Tournament));
 
         votes = {
-          up : [],
-          down : [],
-          bye : [],
+          up: [],
+          down: [],
+          bye: []
         };
 
         for (i = 0; i < ranking.ids.length; i += 1) {
@@ -496,14 +496,14 @@ define(
 
       /**
        * display the votes for the current round
-       * 
+       *
        * @param Tournament
        *          the tournament object
        * @param $box
        *          the box to add stuff to
-       * @returns true if something has been added to the box, false otherwise
+       * @return true if something has been added to the box, false otherwise
        */
-      function showVotes (Tournament, $box) {
+      function showVotes(Tournament, $box) {
         var votes, $containers, $container, notempty;
 
         notempty = false;
@@ -514,15 +514,15 @@ define(
         $container = template.vote.$container.clone();
 
         $containers = {
-          up : $container.find('.up'),
-          down : $container.find('.down'),
-          bye : $container.find('.bye'),
+          up: $container.find('.up'),
+          down: $container.find('.down'),
+          bye: $container.find('.bye')
         };
 
         // apply upvotes
         if (votes.up && votes.up.length !== 0) {
           $containers.up.show();
-          votes.up.forEach(function (tid) {
+          votes.up.forEach(function(tid) {
             if (tid !== undefined) {
               $containers.up.append(createVoteBox(tid));
               notempty = true;
@@ -535,7 +535,7 @@ define(
         // apply down
         if (votes.down && votes.down.length !== 0) {
           $containers.down.show();
-          votes.down.forEach(function (tid) {
+          votes.down.forEach(function(tid) {
             if (tid !== undefined) {
               $containers.down.append(createVoteBox(tid));
               notempty = true;
@@ -548,7 +548,7 @@ define(
         // apply bye
         if (votes.bye && votes.bye.length !== 0) {
           $containers.bye.show();
-          votes.bye.forEach(function (tid) {
+          votes.bye.forEach(function(tid) {
             if (tid !== undefined) {
               $containers.bye.append(createVoteBox(tid));
               notempty = true;
@@ -565,12 +565,12 @@ define(
         return notempty;
       }
 
-      function initOptions () {
+      function initOptions() {
         var $maxwidthbox, $shownamesbox;
 
         // show or hide playernames
         $maxwidthbox = $tab.find('.options .maxwidth');
-        function maxwidthtest () {
+        function maxwidthtest() {
           if ($maxwidthbox.prop('checked')) {
             $tab.addClass('maxwidth');
           } else {
@@ -583,13 +583,13 @@ define(
 
         // show or hide playernames
         $shownamesbox = $tab.find('.options .shownames');
-        function shownamestest () {
+        function shownamestest() {
           if ($shownamesbox.prop('checked')) {
             $tab.removeClass('hidenames');
-            $maxwidthbox.removeAttr("disabled");
+            $maxwidthbox.removeAttr('disabled');
           } else {
             $tab.addClass('hidenames');
-            $maxwidthbox.attr("disabled", "disabled");
+            $maxwidthbox.attr('disabled', 'disabled');
           }
         }
 
@@ -597,7 +597,7 @@ define(
         shownamestest();
       }
 
-      function init () {
+      function init() {
         if ($tab) {
           console.error('tab_games: $tab is already defined:');
           console.error($tab);
@@ -613,7 +613,7 @@ define(
       /**
        * reset an original state.
        */
-      function reset () {
+      function reset() {
         if (!$tab) {
           init();
         }
@@ -625,7 +625,7 @@ define(
       /**
        * reset an original game state, respecting the current state of Swiss
        */
-      function update () {
+      function update() {
         Tab_Games.reset();
 
         showRunning();

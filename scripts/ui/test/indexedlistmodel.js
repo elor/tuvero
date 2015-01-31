@@ -1,13 +1,13 @@
 /**
  * Unit tests for IndexedListModel
- * 
- * @returns a test function
+ *
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
-  return function (QUnit, getModule) {
+define(function() {
+  return function(QUnit, getModule) {
     var extend, IndexedListModel, IndexedModel, ListModel;
 
     extend = getModule('lib/extend');
@@ -15,7 +15,7 @@ define(function () {
     ListModel = getModule('ui/listmodel');
     IndexedModel = getModule('ui/indexedmodel');
 
-    QUnit.test("IndexedListModel tests", function () {
+    QUnit.test('IndexedListModel tests', function() {
       var list;
 
       QUnit.ok(extend.isSubclass(IndexedListModel, ListModel), 'IndexedListModel is subclass of ListModel');

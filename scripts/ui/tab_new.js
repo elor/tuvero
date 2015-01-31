@@ -1,9 +1,9 @@
 /**
  * Model, View and Controller of the "new" tab, which manages the tournaments.
- * 
+ *
  * This tab allows allocating teams to (sub)tournaments, setting their rules and
  * starting/closing them
- * 
+ *
  * @exports Tab_New
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -11,10 +11,10 @@
  * @see LICENSE
  */
 
-define([ './tab', './options', './tabshandle', './toast', './team',
+define(['./tab', './options', './tabshandle', './toast', './team',
     './strings', './tab_games', './tab_ranking', './tab_history', './history',
     './storage', '../backend/tournament', './tournaments', './globalranking',
-    './shared', './data/swissperms', './boxview' ], function (Tab, Options,
+    './shared', './data/swissperms', './boxview'], function(Tab, Options,
     Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History,
     History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared,
     Swissperms, BoxView) {
@@ -27,23 +27,23 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
   /**
    * translates the Tournament ranking into a traditional votes object
-   * 
+   *
    * TODO rewrite this file to replace this function
-   * 
+   *
    * @param Tournament
    *          the swiss object
    * @return {Object} a votes object of the current round
    */
-  function getRoundVotes (Tournament) {
+  function getRoundVotes(Tournament) {
     // FIXME duplicate within tab_games.js
     var votes, ranking, i;
 
     ranking = Tournaments.getRanking(Tournaments.getTournamentID(Tournament));
 
     votes = {
-      up : [],
-      down : [],
-      bye : [],
+      up: [],
+      down: [],
+      bye: []
     };
 
     for (i = 0; i < ranking.ids.length; i += 1) {
@@ -61,9 +61,9 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     return votes;
   }
 
-  function initTemplate () {
+  function initTemplate() {
     template = {
-      team : {}
+      team: {}
     };
     template.team.$container = $tab.find('.team.tpl');
 
@@ -92,18 +92,18 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     template.$chname.detach();
   }
 
-  function initRename () {
+  function initRename() {
     // copied over from tab_teams.js
 
     // ================== FUNCTIONS BEGIN ==================
-    function chshow ($name) {
+    function chshow($name) {
       template.$chname.val($name.text());
       $name.text('');
       $name.append(template.$chname);
       template.$chname.focus();
     }
 
-    function updateName () {
+    function updateName() {
       var $title, $name, $system, tournamentid, newname;
 
       $name = template.$chname.parent('.name');
@@ -143,18 +143,18 @@ define([ './tab', './options', './tabshandle', './toast', './team',
       new Toast(Strings.namechanged.replace('%s', newname));
     }
 
-    function chabort () {
+    function chabort() {
       template.$chname.val('');
       template.$chname.blur();
     }
 
-    $tab.on('click', '.system > h3:first-child.editable', function () {
+    $tab.on('click', '.system > h3:first-child.editable', function() {
       chshow($(this).find('.name'));
     });
 
     template.$chname.blur(updateName);
 
-    template.$chname.keyup(function (e) {
+    template.$chname.keyup(function(e) {
       if (e.which === 13) {
         // automatically calls chhide
         template.$chname.blur();
@@ -169,14 +169,14 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
     // avoid bubbling of the click event towards .name, which would remove
     // chname and cause DOM exceptions
-    template.$chname.click(function (e) {
+    template.$chname.click(function(e) {
       e.preventDefault();
       return false;
     });
   }
 
-  function initRemove () {
-    $tab.on('click', '.system .removesystem button', function () {
+  function initRemove() {
+    $tab.on('click', '.system .removesystem button', function() {
       var $system, tournamentid, tournament, games;
 
       $system = $(this).parents('.system');
@@ -217,15 +217,15 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     });
   }
 
-  function resetTeams () {
+  function resetTeams() {
     $tab.find('.team').remove();
   }
 
-  function resetSystems () {
+  function resetSystems() {
     $tab.find('.system').remove();
   }
 
-  function updateTeams () {
+  function updateTeams() {
     var ranking, i, showsubrank;
 
     showsubrank = false;
@@ -248,7 +248,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     }
   }
 
-  function setSystemState ($system, tournamentid) {
+  function setSystemState($system, tournamentid) {
     var stateclass, Tournament;
 
     Tournament = tournamentid !== undefined
@@ -275,7 +275,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
         stateclass);
   }
 
-  function getAnchors (tournamentid) {
+  function getAnchors(tournamentid) {
     var startteam, endteam, teams;
 
     startteam = Tournaments.getStartRank(tournamentid, !Tournaments
@@ -290,16 +290,16 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     teams = template.$anchor.find('.team');
 
     return {
-      first : teams.eq(startteam),
-      last : teams.eq(endteam)
+      first: teams.eq(startteam),
+      last: teams.eq(endteam)
     };
   }
 
-  function getHeight (tournamentid) {
+  function getHeight(tournamentid) {
     return Tournaments.numTeamsLeft(tournamentid);
   }
 
-  function createSystemAnchor (tournamentid) {
+  function createSystemAnchor(tournamentid) {
     var anchors, $firstrow, $lastrow, height, $anchor;
 
     anchors = getAnchors(tournamentid);
@@ -332,7 +332,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     return $anchor;
   }
 
-  function initKO ($ko, tournamentid) {
+  function initKO($ko, tournamentid) {
     var $komode, KO;
 
     if (!Tournaments.isRunning(tournamentid)) {
@@ -347,12 +347,12 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     $komode = $ko.find('.mode');
     getKOMode($komode, KO);
 
-    $komode.change(function () {
+    $komode.change(function() {
       setKOMode($komode, KO);
     });
 
     // submit button
-    $ko.find('button').click(function () {
+    $ko.find('button').click(function() {
       if (KO.start()) {
         // add the bye to history
         // at the moment, there's no bye in KO. This might change in the future
@@ -374,11 +374,11 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     });
   }
 
-  function initTournamentNameChange (tournamentid) {
+  function initTournamentNameChange(tournamentid) {
     nameChangeID = tournamentid;
   }
 
-  function createTournamentBox ($anchor, tournamentid) {
+  function createTournamentBox($anchor, tournamentid) {
     var type;
 
     type = Tournaments.getTournament(tournamentid).getType();
@@ -403,7 +403,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     return $anchor;
   }
 
-  function createSelectionBox ($anchor) {
+  function createSelectionBox($anchor) {
     if (Number($anchor.attr('rowspan')) < 2) {
       $anchor.css('padding', 0);
       $anchor.text(Strings.notenoughteams);
@@ -417,7 +417,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     return $anchor;
   }
 
-  function setSystemTitle ($anchor) {
+  function setSystemTitle($anchor) {
     var tournamentid;
 
     tournamentid = $anchor.data('tournamentid');
@@ -432,7 +432,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     $anchor.append($title.clone().removeClass('editable'));
   }
 
-  function updateSystems () {
+  function updateSystems() {
     var $system, tournamentid, i, order;
 
     if (Team.count() < 2) {
@@ -478,7 +478,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     }
   }
 
-  function addNewSystem (type, numteams, parentid) {
+  function addNewSystem(type, numteams, parentid) {
     var Tournament, tournamentid;
 
     Tournament = Tournaments.addTournament(type, numteams, parentid);
@@ -498,11 +498,11 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
   /**
    * prepare Newsystem management box, which starts a new tournament round
-   * 
+   *
    * @param $system
    *          the DOM element which contains the tournament System information
    */
-  function initNewsystem ($system) {
+  function initNewsystem($system) {
     var $numteams, maxteams, parentid;
 
     parentid = $system.data('tournamentid');
@@ -512,28 +512,28 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     $numteams.attr('max', maxteams);
     $numteams.val(maxteams);
 
-    function numTeams () {
+    function numTeams() {
       return Number($numteams.val());
     }
 
-    $system.find('button.swiss').click(function () {
+    $system.find('button.swiss').click(function() {
       addNewSystem('swiss', numTeams(), parentid);
     });
 
-    $system.find('button.ko').click(function () {
+    $system.find('button.ko').click(function() {
       addNewSystem('ko', numTeams(), parentid);
     });
   }
 
   /**
    * prepare a swiss tournament management box
-   * 
+   *
    * @param $swiss
    *          the DOM object which holds the Swiss System
    * @param tournamentid
    *          the tournament id of the swiss tournament
    */
-  function initSwiss ($swiss, tournamentid) {
+  function initSwiss($swiss, tournamentid) {
     var $swissmode, round, $perms, Swiss;
 
     // set texts for current round
@@ -552,20 +552,20 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     $swissmode = $swiss.find('.mode');
     getSwissMode($swissmode, Swiss);
 
-    $swissmode.change(function () {
+    $swissmode.change(function() {
       setSwissMode($swissmode, Swiss);
     });
 
     $perms = queryPerms($swiss);
 
-    $perms.preset.change(function () {
+    $perms.preset.change(function() {
       setPermissionPreset($perms.preset.val(), $perms);
       setPermissions($perms, Swiss);
     });
 
     getPermissions($perms, Swiss);
 
-    $perms.all.click(function () {
+    $perms.all.click(function() {
       var $perm;
       $perm = $(this);
 
@@ -577,7 +577,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     // submit button
     $swiss.find('button')
         .click(
-            function () {
+            function() {
               var bye, round;
               if (Swiss.start()) {
                 round = Tournaments.getRanking(Tournaments
@@ -602,8 +602,8 @@ define([ './tab', './options', './tabshandle', './toast', './team',
             });
   }
 
-  function initBoxes ($container) {
-    $container.find('div.boxview').each(function () {
+  function initBoxes($container) {
+    $container.find('div.boxview').each(function() {
       var $box;
 
       $box = $(this);
@@ -611,7 +611,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     });
   }
 
-  function setPermissionPreset (preset, $perms) {
+  function setPermissionPreset(preset, $perms) {
     var perms;
 
     perms = Swissperms[preset];
@@ -635,7 +635,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     !perms.bye.bye && $perms.bye.bye.addClass('forbidden');
   }
 
-  function getPermissions ($perms, Swiss) {
+  function getPermissions($perms, Swiss) {
     var perms;
 
     perms = Swiss.getOptions().permissions;
@@ -653,7 +653,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     !perms.bye.bye && $perms.bye.bye.addClass('forbidden');
   }
 
-  function setPermissions ($perms, Swiss) {
+  function setPermissions($perms, Swiss) {
     var opts, perms;
 
     opts = Swiss.getOptions();
@@ -673,37 +673,37 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     Swiss.setOptions(opts);
   }
 
-  function queryPerms ($swiss) {
+  function queryPerms($swiss) {
     var $grid, $perms;
 
     $grid = $swiss.find('.votepermissions');
 
     $perms = {
-      all : $grid.find('.perm'),
-      up : {
-        up : $grid.find('.up .up'),
-        down : $grid.find('.up .down'),
-        bye : $grid.find('.up .bye'),
+      all: $grid.find('.perm'),
+      up: {
+        up: $grid.find('.up .up'),
+        down: $grid.find('.up .down'),
+        bye: $grid.find('.up .bye')
       },
-      down : {
-        up : $grid.find('.down .up'),
-        down : $grid.find('.down .down'),
-        bye : $grid.find('.down .bye'),
+      down: {
+        up: $grid.find('.down .up'),
+        down: $grid.find('.down .down'),
+        bye: $grid.find('.down .bye')
 
       },
-      bye : {
-        up : $grid.find('.bye .up'),
-        down : $grid.find('.bye .down'),
-        bye : $grid.find('.bye .bye'),
+      bye: {
+        up: $grid.find('.bye .up'),
+        down: $grid.find('.bye .down'),
+        bye: $grid.find('.bye .bye')
 
       },
-      preset : $swiss.find('select.preset'),
+      preset: $swiss.find('select.preset')
     };
 
     return $perms;
   }
 
-  function setSwissMode ($modeselect, Swiss) {
+  function setSwissMode($modeselect, Swiss) {
     var opts, mode;
 
     mode = $modeselect.val();
@@ -714,14 +714,14 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     Swiss.setOptions(opts);
   }
 
-  function getSwissMode ($modeselect, Swiss) {
+  function getSwissMode($modeselect, Swiss) {
     var mode;
 
     mode = Swiss.getOptions().mode;
     $modeselect.val(mode);
   }
 
-  function setKOMode ($modeselect, KO) {
+  function setKOMode($modeselect, KO) {
     var opts, mode;
 
     mode = $modeselect.val();
@@ -732,19 +732,19 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     KO.setOptions(opts);
   }
 
-  function getKOMode ($modeselect, KO) {
+  function getKOMode($modeselect, KO) {
     var mode;
 
     mode = KO.getOptions().firstround;
     $modeselect.val(mode);
   }
 
-  function initOptions () {
+  function initOptions() {
     var $maxwidthbox, $shownamesbox;
 
     // show or hide playernames
     $maxwidthbox = $tab.find('.options .maxwidth');
-    function maxwidthtest () {
+    function maxwidthtest() {
       if ($maxwidthbox.prop('checked')) {
         $tab.addClass('maxwidth');
       } else {
@@ -757,13 +757,13 @@ define([ './tab', './options', './tabshandle', './toast', './team',
 
     // show or hide playernames
     $shownamesbox = $tab.find('.options .shownames');
-    function shownamestest () {
+    function shownamestest() {
       if ($shownamesbox.prop('checked')) {
         $tab.removeClass('hidenames');
-        $maxwidthbox.removeAttr("disabled");
+        $maxwidthbox.removeAttr('disabled');
       } else {
         $tab.addClass('hidenames');
-        $maxwidthbox.attr("disabled", "disabled");
+        $maxwidthbox.attr('disabled', 'disabled');
       }
     }
 
@@ -771,7 +771,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     shownamestest();
   }
 
-  function init () {
+  function init() {
     if ($tab) {
       console.error('tab_new: $tab already exists:');
       console.error($tab);
@@ -786,7 +786,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     initOptions();
   }
 
-  function reset () {
+  function reset() {
     if (!$tab) {
       init();
     }
@@ -795,7 +795,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     resetTeams();
   }
 
-  function closeTeamRegistration () {
+  function closeTeamRegistration() {
     var opts, Tab_Teams;
 
     Tab_Teams = Shared.Tab_Teams;
@@ -805,7 +805,7 @@ define([ './tab', './options', './tabshandle', './toast', './team',
     Tab_Teams.setOptions(opts);
   }
 
-  function update () {
+  function update() {
     reset();
 
     if (Team.count() < 2) {

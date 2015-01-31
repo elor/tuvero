@@ -1,16 +1,16 @@
 /**
  * TableView for viewing information in a tabular representation
- * 
+ *
  * @exports TableView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (extend, View, BoxController) {
+define(['lib/extend', './interfaces/view', './boxcontroller'], function(extend, View, BoxController) {
   var TableView;
 
-  function validateText (text) {
+  function validateText(text) {
     if (text === undefined) {
       return '';
     }
@@ -19,13 +19,13 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
 
   /**
    * Constructor
-   * 
+   *
    * @param $table
    *          the jquery table object
    * @param model
    *          the TableModel instance
    */
-  function TableView ($table, model) {
+  function TableView($table, model) {
     TableView.superconstructor.call(this, model, $table);
   }
   extend(TableView, View);
@@ -33,14 +33,14 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
   /**
    * reset to an empty state
    */
-  TableView.prototype.reset = function () {
+  TableView.prototype.reset = function() {
     this.$view.empty();
   };
 
   /**
    * redraw everything
    */
-  TableView.prototype.update = function () {
+  TableView.prototype.update = function() {
     var $table, row;
 
     $table = this.$view;
@@ -55,10 +55,10 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
 
   /**
    * create the title row
-   * 
-   * @returns a jquery object containing the newly created still detached row
+   *
+   * @return a jquery object containing the newly created still detached row
    */
-  TableView.prototype.createTitleRow = function () {
+  TableView.prototype.createTitleRow = function() {
     var col, $row, $cell;
 
     $row = $('<tr>');
@@ -73,10 +73,10 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
 
   /**
    * create a content row
-   * 
-   * @returns a jquery object containing the newly created still detached row
+   *
+   * @return a jquery object containing the newly created still detached row
    */
-  TableView.prototype.createRow = function (row) {
+  TableView.prototype.createRow = function(row) {
     var col, $row, $cell;
 
     $row = $('<tr>');
@@ -92,7 +92,7 @@ define([ 'lib/extend', './interfaces/view', './boxcontroller' ], function (exten
   /**
    * event callback function
    */
-  TableView.prototype.onupdate = function () {
+  TableView.prototype.onupdate = function() {
     this.update();
   };
 

@@ -1,19 +1,19 @@
 /**
  * No Description
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ './rleblobber' ], function (RLEBlobber) {
+define(['./rleblobber'], function(RLEBlobber) {
   /**
    * HalfMatrix: Half square matrix implementation according to
    * Matrix.Interface. Empty entries are referenced as undefined array values.
    * All values above the main diagonal aren't stored at all. See get/set for
    * details. The implementation may use more arrays than necessary, but they
    * are expected to be populated to a reasonable degree
-   * 
+   *
    * @param size
    *          {Integer} size of the matrix
    * @param type
@@ -21,7 +21,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
    *          negated, 0: empty, 1: mirrored
    * @return {HalfMatrix} this
    */
-  var HalfMatrix = function (type, size) {
+  var HalfMatrix = function(type, size) {
     type = type || 0;
 
     this.setType(type);
@@ -39,12 +39,12 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * sets a type
-   * 
+   *
    * @param type
    *          type id (HalfMatrix.empty/mirrored/negated)
    * @return this on success, undefined otherwise
    */
-  HalfMatrix.prototype.setType = function (type) {
+  HalfMatrix.prototype.setType = function(type) {
     switch (type) {
     case HalfMatrix.empty:
       this.get = this.getEmpty;
@@ -69,12 +69,12 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * Restores a blank state of the HalfMatrix
-   * 
+   *
    * @param size
    *          the new size of the matrix
    * @return {HalfMatrix} this
    */
-  HalfMatrix.prototype.clear = function (size) {
+  HalfMatrix.prototype.clear = function(size) {
     this.array = [];
     this.size = size || 0;
 
@@ -83,10 +83,10 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * copies the matrix. Optimizations in term of memory are attempted
-   * 
+   *
    * @return {HalfMatrix} the copy
    */
-  HalfMatrix.prototype.clone = function () {
+  HalfMatrix.prototype.clone = function() {
     var size, type, retval, a, b, i, j;
 
     switch (this.get) {
@@ -127,12 +127,12 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * erases the rows and cols associated with the index from the matrix
-   * 
+   *
    * @param index
    *          {Integer} index
    * @return {HalfMatrix} this
    */
-  HalfMatrix.prototype.erase = function (index) {
+  HalfMatrix.prototype.erase = function(index) {
     var size, a, i;
 
     if (index >= this.size || index < 0) {
@@ -156,12 +156,12 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * simply increases this.size. array expansions occur in the set function
-   * 
+   *
    * @param by
    *          integer amount by which to extend the array. defaults to 1
    * @return {HalfMatrix} this
    */
-  HalfMatrix.prototype.extend = function (by) {
+  HalfMatrix.prototype.extend = function(by) {
     if (by <= 0) {
       return this;
     }
@@ -173,14 +173,14 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * retrieves the value from the given indices using the empty type
-   * 
+   *
    * @param row
    *          vertical position
    * @param col
    *          horizontal position
    * @return value at (row, col). defaults to 0
    */
-  HalfMatrix.prototype.getEmpty = function (row, col) {
+  HalfMatrix.prototype.getEmpty = function(row, col) {
     if (col > row) {
       return 0;
     }
@@ -193,14 +193,14 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * retrieves the value from the given indices using the mirrored type
-   * 
+   *
    * @param row
    *          vertical position
    * @param col
    *          horizontal position
    * @return value at (row, col). defaults to 0
    */
-  HalfMatrix.prototype.getMirrored = function (row, col) {
+  HalfMatrix.prototype.getMirrored = function(row, col) {
     if (col > row) {
       return this.get(col, row);
     }
@@ -214,14 +214,14 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * retrieves the value from the given indices using the negated type
-   * 
+   *
    * @param row
    *          vertical position
    * @param col
    *          horizontal position
    * @return value at (row, col). defaults to 0
    */
-  HalfMatrix.prototype.getNegated = function (row, col) {
+  HalfMatrix.prototype.getNegated = function(row, col) {
     if (col > row) {
       return -this.get(col, row);
     }
@@ -235,7 +235,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * set() function for mirrored half matrices
-   * 
+   *
    * @param row
    *          row
    * @param col
@@ -244,7 +244,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
    *          value
    * @return this
    */
-  HalfMatrix.prototype.setMirrored = function (row, col, value) {
+  HalfMatrix.prototype.setMirrored = function(row, col, value) {
     if (col > row) {
       return this.set(col, row, value);
     }
@@ -253,7 +253,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * set() function for 'negated' half matrices
-   * 
+   *
    * @param row
    *          row
    * @param col
@@ -262,7 +262,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
    *          value
    * @return this
    */
-  HalfMatrix.prototype.setNegated = function (row, col, value) {
+  HalfMatrix.prototype.setNegated = function(row, col, value) {
     if (col > row) {
       return this.set(col, row, -value);
     }
@@ -272,7 +272,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
   /**
    * sets the value at the given indices and allocates/frees the field if
    * necessary. Values below the main diagonal are ignored.
-   * 
+   *
    * @param row
    *          vertical position
    * @param col
@@ -281,7 +281,7 @@ define([ './rleblobber' ], function (RLEBlobber) {
    *          integer value to store in position (row, col)
    * @return {HalfMatrix} this
    */
-  HalfMatrix.prototype.setEmpty = function (row, col, value) {
+  HalfMatrix.prototype.setEmpty = function(row, col, value) {
     var rowref;
 
     if (col > row) {
@@ -304,27 +304,27 @@ define([ './rleblobber' ], function (RLEBlobber) {
 
   /**
    * store content in a convenient blob
-   * 
-   * @returns a serialization of the matrix
+   *
+   * @return a serialization of the matrix
    */
-  HalfMatrix.prototype.toBlob = function () {
+  HalfMatrix.prototype.toBlob = function() {
     var ob;
 
     ob = {
-      type : this.type,
-      size : this.size,
-      array : RLEBlobber.toBlob(this.array)
+      type: this.type,
+      size: this.size,
+      array: RLEBlobber.toBlob(this.array)
     };
 
     return JSON.stringify(ob);
   };
 
   /**
-   * reset the matrix from a blob 
-   * 
+   * reset the matrix from a blob
+   *
    * @param blob a serialization of the state
    */
-  HalfMatrix.prototype.fromBlob = function (blob) {
+  HalfMatrix.prototype.fromBlob = function(blob) {
     var ob;
 
     ob = JSON.parse(blob);

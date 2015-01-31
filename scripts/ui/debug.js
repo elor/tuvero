@@ -1,26 +1,26 @@
 /**
  * some debugging functions, such as stack trace and whether it's a dev version
- * 
+ *
  * @exports Debug
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ './toast', './strings' ], function (Toast, Strings) {
+define(['./toast', './strings'], function(Toast, Strings) {
   var Debug;
 
   Debug = {
-    stackTrace : function () {
+    stackTrace: function() {
       var e, stack;
 
       e = new Error('dummy');
       stack = e.stack.replace(/^[^\(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@');
       console.log(stack);
     },
-    isDevVersion : undefined,
+    isDevVersion: undefined
   };
 
-  $(function ($) {
+  $(function($) {
     Debug.isDevVersion = /%version%/.test($('head title').text().toLowerCase());
     if (Debug.isDevVersion) {
       new Toast(Strings.dev, Toast.INFINITE);

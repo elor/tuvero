@@ -1,20 +1,20 @@
 /**
  * A list of all subtournaments, their teams, types, ids, rankings, and
  * relationships after splitting or merging
- * 
- * @exports Tournaments 
+ *
+ * @exports Tournaments
  * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ '../backend/swisstournament', '../backend/kotournament', './team', './shared' ], function (Swisstournament, KOTournament, Team, Shared) {
+define(['../backend/swisstournament', '../backend/kotournament', './team', './shared'], function(Swisstournament, KOTournament, Team, Shared) {
   var Tournaments, tournaments, globalranking;
 
   Tournaments = {};
   tournaments = [];
 
-  function createTournament (type, blob) {
+  function createTournament(type, blob) {
     var tournament;
 
     tournament = undefined;
@@ -41,7 +41,7 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return tournament;
   }
 
-  Tournaments.getStartRank = function (tournamentid, countchildren) {
+  Tournaments.getStartRank = function(tournamentid, countchildren) {
     var id, parentid, startteam;
 
     if (tournamentid == undefined) {
@@ -76,7 +76,7 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return startteam;
   };
 
-  Tournaments.numTeamsLeft = function (tournamentid) {
+  Tournaments.numTeamsLeft = function(tournamentid) {
     var numteams, id;
 
     if (tournamentid === undefined) {
@@ -99,7 +99,7 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return numteams;
   };
 
-  Tournaments.addTournament = function (type, numteams, parent) {
+  Tournaments.addTournament = function(type, numteams, parent) {
     var newtournament, i, teams, startteam, globalranking;
 
     teams = [];
@@ -129,18 +129,18 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     // TODO verify parent number type / undefined
 
     tournaments.push({
-      name : type,
-      type : type,
-      tournament : newtournament,
-      teams : teams,
-      parent : parent,
-      finalranking : undefined,
+      name: type,
+      type: type,
+      tournament: newtournament,
+      teams: teams,
+      parent: parent,
+      finalranking: undefined
     });
 
     return newtournament;
   };
 
-  Tournaments.removeTournament = function (tournamentid) {
+  Tournaments.removeTournament = function(tournamentid) {
     var tournament;
 
     tournament = tournaments[tournamentid];
@@ -155,21 +155,21 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return true;
   };
 
-  Tournaments.getParent = function (tournamentid) {
+  Tournaments.getParent = function(tournamentid) {
     return tournaments[tournamentid] && tournaments[tournamentid].parent;
   };
 
   /**
    * performs an inefficient left-traversal of the tournament tree and returns
    * the ranking order (left-right-parent)
-   * 
+   *
    * @return an array with tournament ids, sorted by their logical global
    *          ranking order
    */
-  Tournaments.getRankingOrder = function () {
+  Tournaments.getRankingOrder = function() {
     var queue, order, i, parent, children;
 
-    queue = [ undefined ];
+    queue = [undefined];
 
     while (queue.length) {
       parent = queue.shift();
@@ -203,27 +203,27 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return order;
   };
 
-  Tournaments.numTournaments = function () {
+  Tournaments.numTournaments = function() {
     return tournaments.length;
   };
 
-  Tournaments.setName = function (id, name) {
+  Tournaments.setName = function(id, name) {
     tournaments[id].name = name;
   };
 
-  Tournaments.getName = function (id) {
+  Tournaments.getName = function(id) {
     return tournaments[id] && tournaments[id].name;
   };
 
-  Tournaments.getType = function (id) {
+  Tournaments.getType = function(id) {
     return tournaments[id] && tournaments[id].type;
   };
 
-  Tournaments.getTeams = function (id) {
+  Tournaments.getTeams = function(id) {
     return tournaments[id] && tournaments[id].teams;
   };
 
-  Tournaments.getRanking = function (tournamentid) {
+  Tournaments.getRanking = function(tournamentid) {
     var tournament;
 
     tournament = tournaments[tournamentid];
@@ -236,14 +236,14 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return (tournament.tournament && tournament.tournament.getRanking()) || tournament.finalranking;
   };
 
-  Tournaments.getTournament = function (id) {
+  Tournaments.getTournament = function(id) {
     if (!tournaments[id]) {
       return undefined;
     }
     return tournaments[id].tournament;
   };
 
-  Tournaments.getTournamentID = function (Tournament) {
+  Tournaments.getTournamentID = function(Tournament) {
     var tournamentid;
 
     for (tournamentid = 0; tournamentid < tournaments.length; tournamentid += 1) {
@@ -255,17 +255,17 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return undefined;
   };
 
-  Tournaments.isRunning = function (id) {
+  Tournaments.isRunning = function(id) {
     return tournaments[id] && tournaments[id].tournament != undefined;
   };
 
   /**
    * ends a tournament and removes its instance from this object
-   * 
+   *
    * @param id
    * @return true on success, undefined otherwise
    */
-  Tournaments.endTournament = function (id) {
+  Tournaments.endTournament = function(id) {
     // set the tournament to undefined, and it will be garbage collected.
     // the entry itself will remain
     var tournament, ranking;
@@ -295,21 +295,21 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     return true;
   };
 
-  Tournaments.toBlob = function () {
+  Tournaments.toBlob = function() {
     var ob, id, t;
 
     ob = [];
 
     for (id = 0; id < tournaments.length; id += 1) {
       t = tournaments[id];
-      ob[id] = [ t.type, t.name, t.tournament && t.tournament.toBlob(),
-          t.teams, t.finalranking, t.parent ];
+      ob[id] = [t.type, t.name, t.tournament && t.tournament.toBlob(),
+          t.teams, t.finalranking, t.parent];
     }
 
     return JSON.stringify(ob);
   };
 
-  Tournaments.fromBlob = function (blob) {
+  Tournaments.fromBlob = function(blob) {
     var ob, id, t;
 
     ob = JSON.parse(blob);
@@ -321,17 +321,17 @@ define([ '../backend/swisstournament', '../backend/kotournament', './team', './s
     for (id = 0; id < ob.length; id += 1) {
       t = ob[id];
       tournaments.push({
-        type : t[0],
-        name : t[1],
-        tournament : (t[2] && createTournament(t[0], t[2])),
-        teams : t[3],
-        finalranking : t[4],
-        parent : t[5],
+        type: t[0],
+        name: t[1],
+        tournament: (t[2] && createTournament(t[0], t[2])),
+        teams: t[3],
+        finalranking: t[4],
+        parent: t[5]
       });
     }
   };
 
-  Tournaments.reset = function () {
+  Tournaments.reset = function() {
     tournaments = [];
   };
 

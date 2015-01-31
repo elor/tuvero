@@ -5,13 +5,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define([ './listmodel', './indexedlistmodel' ], function (ListModel,
+define(['./listmodel', './indexedlistmodel'], function(ListModel,
     IndexedListModel) {
 
   /**
    * Constructor. Instantiates the empty object
    */
-  function StateModel () {
+  function StateModel() {
     this.players = new ListModel();
     this.teams = new IndexedListModel();
   }

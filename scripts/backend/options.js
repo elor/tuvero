@@ -2,67 +2,67 @@
  * Provide functions to define, store, read and write options objects of
  * arbitrary type. Can be used by other code to maintain their internal set of
  * options
- * 
+ *
  * Undefined behavior (most likely infinite loops) on nesting loops
- * 
+ *
  * @exports Options
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([], function () {
+define([], function() {
   var Interface, Options;
 
   Interface = {
-    Interface : {
+    Interface: {
       /**
        * get an object which contains a copy of all options
-       * 
+       *
        * @return an object containing copies of the current options
        */
-      getOptions : function () {
+      getOptions: function() {
         return {};
       },
 
       /**
        * set options
-       * 
+       *
        * @param options
        *          a modified options object retrieved from getOptions()
        * @return true on success, false or undefined otherwise
        */
-      setOptions : function (options) {
+      setOptions: function(options) {
         return true;
-      },
-    },
+      }
+    }
   };
 
   /**
    * constructor
-   * 
+   *
    * @return {Options}
    */
-  Options = function () {
+  Options = function() {
     this.options = {};
   };
 
   /**
    * stores the current state in a blob, mostly using JSON (
-   * 
+   *
    * @return a serialization of the object
    */
-  Options.prototype.toBlob = function () {
+  Options.prototype.toBlob = function() {
     return JSON.stringify(this.options);
   };
 
   /**
    * restores a state from the blob
-   * 
+   *
    * @param blob
    *          the blob
-   * @returns this
+   * @return this
    */
-  Options.prototype.fromBlob = function (blob) {
+  Options.prototype.fromBlob = function(blob) {
     var ob = JSON.parse(blob);
 
     this.setOptions(ob);
@@ -70,11 +70,11 @@ define([], function () {
     return this;
   };
 
-  function toType (obj) {
+  function toType(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
   }
 
-  function copyStaticObject (obj) {
+  function copyStaticObject(obj) {
     var key, ret;
 
     switch (toType(obj)) {
@@ -96,14 +96,14 @@ define([], function () {
     return ret;
   }
 
-  Options.prototype.getOptions = function () {
+  Options.prototype.getOptions = function() {
     return copyStaticObject(this.options);
   };
-  Options.getOptions = function (obj) {
+  Options.getOptions = function(obj) {
     return Options.prototype.getOptions.call(obj);
   };
 
-  Options.prototype.setOptions = function (options) {
+  Options.prototype.setOptions = function(options) {
     var key;
 
     if (toType(options) !== 'object') {
@@ -127,7 +127,7 @@ define([], function () {
 
     return true;
   };
-  Options.setOptions = function (obj, opts) {
+  Options.setOptions = function(obj, opts) {
     return Options.prototype.setOptions.call(obj, opts);
   };
 

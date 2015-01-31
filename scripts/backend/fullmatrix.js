@@ -1,22 +1,22 @@
 /**
  * a numeric square matrix class without further limitations
- * 
- * @returns FullMatrix
+ *
+ * @return FullMatrix
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define(function () {
+define(function() {
   /**
    * FullMatrix: Square matrix implementation according to Matrix.Interface
    * Empty entries are specified as undefined array values
-   * 
+   *
    * @param size
    *          {Integer} size of the matrix. defaults to 0
    * @return {FullMatrix} this
    */
-  var FullMatrix = function (size) {
+  var FullMatrix = function(size) {
     this.size = size || 0;
     this.array = [];
 
@@ -30,12 +30,12 @@ define(function () {
 
   /**
    * Restores a blank state of the FullMatrix
-   * 
+   *
    * @param size
    *          Optional. the new size of the matrix
    * @return {FullMatrix} this
    */
-  FullMatrix.prototype.clear = function (size) {
+  FullMatrix.prototype.clear = function(size) {
     this.array = [];
     this.size = size || 0;
 
@@ -44,10 +44,10 @@ define(function () {
 
   /**
    * copies the matrix. Optimizations in term of memory are attempted
-   * 
+   *
    * @return {FullMatrix} the copy
    */
-  FullMatrix.prototype.clone = function () {
+  FullMatrix.prototype.clone = function() {
     var size, retval, a, b, i, j;
 
     size = this.size;
@@ -78,12 +78,12 @@ define(function () {
 
   /**
    * erases the rows and cols associated with the index from the matrix
-   * 
+   *
    * @param index
    *          {Integer} index
    * @return {FullMatrix} this
    */
-  FullMatrix.prototype.erase = function (index) {
+  FullMatrix.prototype.erase = function(index) {
     var a, size, i;
 
     if (index >= this.size || index < 0) {
@@ -107,12 +107,12 @@ define(function () {
 
   /**
    * simply increases this.size. array expansions occur in the set function
-   * 
+   *
    * @param by
    *          integer amount by which to extend the array. defaults to 1
    * @return {FullMatrix} this
    */
-  FullMatrix.prototype.extend = function (by) {
+  FullMatrix.prototype.extend = function(by) {
     if (by <= 0) {
       return this;
     }
@@ -124,14 +124,14 @@ define(function () {
 
   /**
    * retrieves the value from the given indices.
-   * 
+   *
    * @param row
    *          vertical position
    * @param col
    *          horizontal position
    * @return value at (row, col). defaults to 0
    */
-  FullMatrix.prototype.get = function (row, col) {
+  FullMatrix.prototype.get = function(row, col) {
     if (!this.array[row]) {
       return 0;
     }
@@ -142,7 +142,7 @@ define(function () {
   /**
    * sets the value at the given indices and allocates/frees the field if
    * necessary
-   * 
+   *
    * @param row
    *          vertical position
    * @param col
@@ -151,7 +151,7 @@ define(function () {
    *          integer value to store in position (row, col)
    * @return {FullMatrix} this
    */
-  FullMatrix.prototype.set = function (row, col, value) {
+  FullMatrix.prototype.set = function(row, col, value) {
     var rowref;
 
     rowref = this.array[row];

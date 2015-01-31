@@ -1,20 +1,20 @@
 /**
  * Unit tests for ListModel
- * 
- * @returns a test function
+ *
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
-  return function (QUnit, getModule) {
+define(function() {
+  return function(QUnit, getModule) {
     var ListModel;
 
     ListModel = getModule('ui/listmodel');
 
     // TODO test the emitted events
 
-    QUnit.test("ListModel tests", function () {
+    QUnit.test('ListModel tests', function() {
       var list, obj, i, ret, res;
 
       list = new ListModel();
@@ -23,19 +23,19 @@ define(function () {
       QUnit.deepEqual(list.asArray(), [], 'asArray returns empty array');
 
       list.push(2);
-      QUnit.deepEqual(list.asArray(), [ 2 ], 'first push');
+      QUnit.deepEqual(list.asArray(), [2], 'first push');
 
       list.push(4);
-      QUnit.deepEqual(list.asArray(), [ 2, 4 ], 'second push');
+      QUnit.deepEqual(list.asArray(), [2, 4], 'second push');
 
       list.insert(0, 1);
-      QUnit.deepEqual(list.asArray(), [ 1, 2, 4 ], 'insert at front');
+      QUnit.deepEqual(list.asArray(), [1, 2, 4], 'insert at front');
 
       list.insert(3, 5);
-      QUnit.deepEqual(list.asArray(), [ 1, 2, 4, 5 ], 'insert at end');
+      QUnit.deepEqual(list.asArray(), [1, 2, 4, 5], 'insert at end');
 
       list.insert(2, 3);
-      QUnit.deepEqual(list.asArray(), [ 1, 2, 3, 4, 5 ], 'insert inbetween');
+      QUnit.deepEqual(list.asArray(), [1, 2, 3, 4, 5], 'insert inbetween');
 
       QUnit.equal(list.length, 5, 'length after all inserts');
 
@@ -57,30 +57,30 @@ define(function () {
           'indexOf: unavailable element');
 
       QUnit.equal(list.remove(0), 1, 'remove returns the removed object');
-      QUnit.deepEqual(list.asArray(), [ 2, 3, 4, 5 ], 'remove at front');
+      QUnit.deepEqual(list.asArray(), [2, 3, 4, 5], 'remove at front');
       QUnit.equal(list.length, 4, 'length after remove');
 
       QUnit.equal(list.remove(3), 5, 'remove returns the removed object');
-      QUnit.deepEqual(list.asArray(), [ 2, 3, 4 ], 'remove at back');
+      QUnit.deepEqual(list.asArray(), [2, 3, 4], 'remove at back');
       QUnit.equal(list.length, 3, 'length after remove');
 
       QUnit.equal(list.remove(1), 3, 'remove returns the removed object');
-      QUnit.deepEqual(list.asArray(), [ 2, 4 ], 'remove inbetween');
+      QUnit.deepEqual(list.asArray(), [2, 4], 'remove inbetween');
       QUnit.equal(list.length, 2, 'length after remove');
 
       QUnit.equal(list.remove(123), undefined,
           'remove out of bounds does nothing');
-      QUnit.deepEqual(list.asArray(), [ 2, 4 ], 'remove out of bounds');
+      QUnit.deepEqual(list.asArray(), [2, 4], 'remove out of bounds');
       QUnit.equal(list.length, 2, 'length after remove out of bounds');
 
       list.set(1, 123);
       QUnit.equal(list.length, 2, 'set does not change length');
-      QUnit.deepEqual(list.asArray(), [ 2, 123 ],
+      QUnit.deepEqual(list.asArray(), [2, 123],
           'list.set actually sets the value');
 
       QUnit.equal(list.set(123, 321), undefined,
           "set out of bounds doesn't to anything");
-      QUnit.deepEqual(list.asArray(), [ 2, 123 ],
+      QUnit.deepEqual(list.asArray(), [2, 123],
           "set out of bounds really doesn't to anything");
 
       list.clear();
@@ -92,7 +92,7 @@ define(function () {
 
       i = 0;
 
-      ret = list.map(function (num, index, thelist) {
+      ret = list.map(function(num, index, thelist) {
         QUnit.equal(this, 5, 'map(): this === thisArg, ' + index);
         QUnit.equal(index, i, 'map(): iterating in ascending order, ' + index);
         QUnit.equal(num, list.length - index,
@@ -103,7 +103,7 @@ define(function () {
         return num * num;
       }, 5);
 
-      res = [ 16, 9, 4, 1 ];
+      res = [16, 9, 4, 1];
       QUnit.deepEqual(ret, res, 'map(): return value is preserved');
 
       list.clear();
@@ -113,8 +113,8 @@ define(function () {
           'asArray returns empty array after clear');
 
       obj = {
-        tmp : true,
-        tmpLong : 'very much so',
+        tmp: true,
+        tmpLong: 'very much so'
       };
 
       list.push(obj);

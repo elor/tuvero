@@ -1,18 +1,18 @@
 /**
  * No Description
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ './vector', './matrix', './halfmatrix', './correction' ], function (
+define(['./vector', './matrix', './halfmatrix', './correction'], function(
     Vector, Matrix, HalfMatrix, Correction) {
   /**
    * BuchholzRanking: A ranking variant which sorts players by wins, buchholz
    * points and netto points, in this order.
    */
-  var Buchholz = function (size) {
+  var Buchholz = function(size) {
     this.wins = [];
     this.netto = [];
     this.byes = [];
@@ -28,21 +28,21 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
 
   /**
    * simply return the stored size
-   * 
-   * @returns the length of the ranking data structures
+   *
+   * @return the length of the ranking data structures
    */
-  Buchholz.prototype.size = function () {
+  Buchholz.prototype.size = function() {
     return this.netto.length;
   };
 
   /**
    * resize the internal structures
-   * 
+   *
    * @param size
    *          new size
    * @return {Buchholz} this
    */
-  Buchholz.prototype.resize = function (size) {
+  Buchholz.prototype.resize = function(size) {
     var length = this.size();
 
     if (size < length) {
@@ -68,11 +68,11 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
   /**
    * return an object containing all points data and a sorted array of pids
    * representing the ranking
-   * 
-   * @returns an object containing all points data and a sorted array of pids
+   *
+   * @return an object containing all points data and a sorted array of pids
    *          representing the ranking
    */
-  Buchholz.prototype.get = function () {
+  Buchholz.prototype.get = function() {
     var rank, i, n, w, bh;
 
     n = this.netto;
@@ -84,28 +84,28 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
       rank[i] = i;
     }
 
-    rank.sort(function (a, b) {
+    rank.sort(function(a, b) {
       return (w[b] - w[a]) || (bh[b] - bh[a]) || (n[b] - n[a]);
     });
 
     return {
-      buchholz : bh,
-      byes : this.byes,
-      netto : n,
-      ranking : rank,
-      size : n.length,
-      wins : w
+      buchholz: bh,
+      byes: this.byes,
+      netto: n,
+      ranking: rank,
+      size: n.length,
+      wins: w
     };
   };
 
   /**
    * Add the result of a game to the ranking table.
-   * 
+   *
    * @param result
    *          the result
    * @return {Buchholz} this
    */
-  Buchholz.prototype.add = function (result) {
+  Buchholz.prototype.add = function(result) {
     var netto, n, w, g, t1, t2;
 
     n = this.netto;
@@ -116,18 +116,18 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
     t1 = result.getTeam(1);
     t2 = result.getTeam(2);
 
-    t1.map(function (v) {
+    t1.map(function(v) {
       n[v] += netto;
       if (netto > 0) {
         w[v] += 1;
       }
 
-      t2.map(function (v2) {
+      t2.map(function(v2) {
         g.set(v, v2, g.get(v, v2) + 1);
       });
     });
 
-    t2.map(function (v) {
+    t2.map(function(v) {
       n[v] -= netto;
       if (netto < 0) {
         w[v] += 1;
@@ -139,12 +139,12 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
 
   /**
    * remove the result of a game from the ranking table
-   * 
+   *
    * @param result
    *          the result
    * @return {Buchholz} this
    */
-  Buchholz.prototype.remove = function (result) {
+  Buchholz.prototype.remove = function(result) {
     var netto, n, w, g, t1, t2;
 
     n = this.netto;
@@ -155,18 +155,18 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
     t1 = result.getTeam(1);
     t2 = result.getTeam(2);
 
-    t1.map(function (v) {
+    t1.map(function(v) {
       n[v] -= netto;
       if (netto > 0) {
         w[v] -= 1;
       }
 
-      t2.map(function (v2) {
+      t2.map(function(v2) {
         g.set(v, v2, g.get(v, v2) - 1);
       });
     });
 
-    t2.map(function (v) {
+    t2.map(function(v) {
       n[v] += netto;
       if (netto < 0) {
         w[v] -= 1;
@@ -178,12 +178,12 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
 
   /**
    * Correct the result of a game.
-   * 
+   *
    * @param correction
    *          a Correction object
    * @return this
    */
-  Buchholz.prototype.correct = function (correction) {
+  Buchholz.prototype.correct = function(correction) {
     if (this.added(correction.pre.getGame())) {
       this.remove(correction.pre);
       this.add(correction.post);
@@ -195,11 +195,11 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
     return undefined;
   };
 
-  Buchholz.prototype.grantBye = function (team) {
+  Buchholz.prototype.grantBye = function(team) {
     var n, w, b, size;
 
     if (typeof team === 'number') {
-      team = [ team ];
+      team = [team];
     }
 
     n = this.netto;
@@ -208,7 +208,7 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
 
     size = this.size();
 
-    team.forEach(function (pid) {
+    team.forEach(function(pid) {
       if (pid < size) {
         n[pid] += 6; // win 13 to 7
         w[pid] += 1; // win against nobody
@@ -217,11 +217,11 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
     }, this);
   };
 
-  Buchholz.prototype.revokeBye = function (team) {
+  Buchholz.prototype.revokeBye = function(team) {
     var n, w, b, size;
 
     if (typeof team === 'number') {
-      team = [ team ];
+      team = [team];
     }
 
     n = this.netto;
@@ -230,7 +230,7 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
 
     size = this.size();
 
-    team.forEach(function (pid) {
+    team.forEach(function(pid) {
       if (pid < size && b[pid] > 0) {
         n[pid] -= 6; // revoke a win of 13 to 7
         w[pid] -= 1; // revoke a win against nobody
@@ -241,13 +241,13 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
 
   /**
    * whether a game was played
-   * 
+   *
    * @param game
    *          an instance of the game that could have taken place
    * @return true if all data indicates that this game took place, false
    *         otherwise.
    */
-  Buchholz.prototype.added = function (game) {
+  Buchholz.prototype.added = function(game) {
     // if a game has taken place, all players of one team have played against
     // all players of another team.
     var len, i, j, t1, t2, t1func, invalid;
@@ -257,8 +257,8 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
     // avoid jslint false positive. shouldn't impact performance too much
     t2 = undefined;
 
-    t1func = function (p1) {
-      t2.forEach(function (p2) {
+    t1func = function(p1) {
+      t2.forEach(function(p2) {
         if (this.games.get(p1, p2) <= 0) {
           invalid = true;
         }
@@ -287,38 +287,38 @@ define([ './vector', './matrix', './halfmatrix', './correction' ], function (
 
   /**
    * get a copy of the applied corrections
-   * 
+   *
    * @return copy of the array of corrections
    */
-  Buchholz.prototype.getCorrections = function () {
-    return this.corrections.map(function (corr) {
+  Buchholz.prototype.getCorrections = function() {
+    return this.corrections.map(function(corr) {
       return corr.copy();
     }, this);
   };
 
   /**
    * stores the current state in a blob
-   * 
+   *
    * @return a blob representing the current state
    */
-  Buchholz.prototype.toBlob = function () {
+  Buchholz.prototype.toBlob = function() {
     var ob;
 
     ob = {
-      byes : this.byes,
-      corrections : this.corrections,
-      games : this.games.toBlob(),
-      netto : this.netto,
-      wins : this.wins
+      byes: this.byes,
+      corrections: this.corrections,
+      games: this.games.toBlob(),
+      netto: this.netto,
+      wins: this.wins
     };
 
     return JSON.stringify(ob);
   };
 
-  Buchholz.prototype.fromBlob = function (blob) {
+  Buchholz.prototype.fromBlob = function(blob) {
     var ob;
 
-    function copyCorrection (corr) {
+    function copyCorrection(corr) {
       return Correction.copy(corr);
     }
 

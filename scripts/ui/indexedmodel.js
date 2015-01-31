@@ -1,21 +1,21 @@
 /**
  * A combination of players is a team. A team should contain at least one player
- * 
+ *
  * @exports IndexedModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
+define(['lib/extend', './interfaces/model'], function(extend, Model) {
 
   /**
    * Constructor
-   * 
+   *
    * @param id
    *          a preferably unique numeric id
    */
-  function IndexedModel (id) {
+  function IndexedModel(id) {
     IndexedModel.superconstructor.call(this);
 
     this.setID(id);
@@ -24,20 +24,20 @@ define([ 'lib/extend', './interfaces/model' ], function (extend, Model) {
 
   /**
    * retrieve the id of this object within a certain set of objects
-   * 
-   * @returns the id of this object within a certain set of objects
+   *
+   * @return the id of this object within a certain set of objects
    */
-  IndexedModel.prototype.getID = function () {
+  IndexedModel.prototype.getID = function() {
     return this.id;
   };
 
   /**
    * change the id
-   * 
+   *
    * @param id
    *          a preferably unique numeric id
    */
-  IndexedModel.prototype.setID = function (id) {
+  IndexedModel.prototype.setID = function(id) {
     if (id === undefined) {
       id = -1;
     }

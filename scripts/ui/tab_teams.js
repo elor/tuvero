@@ -1,9 +1,9 @@
 /**
  * Model, View and Controller of the teams tab
- * 
+ *
  * This tab allows registration, deletion, renaming and printing of teams or
  * individual players
- * 
+ *
  * @exports Tab_Teams
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -11,8 +11,8 @@
  * @see LICENSE
  */
 
-define([ './team', './toast', './strings', './tab_ranking', './storage',
-    './autocomplete', './options', './tab', './tabshandle', './shared' ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab, Tabshandle, Shared) {
+define(['./team', './toast', './strings', './tab_ranking', './storage',
+    './autocomplete', './options', './tab', './tabshandle', './shared'], function(Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab, Tabshandle, Shared) {
 
   // TODO combine $anchors, $fileload, $delete and $teamsize
   var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
@@ -22,21 +22,21 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   $tab = undefined;
 
   options = {
-    allowRegistrations : true,
-    _changed : function () {
+    allowRegistrations: true,
+    _changed: function() {
       updateActiveState();
     }
   };
 
-  function trimName (name) {
+  function trimName(name) {
     return name.replace(/^\s*|\s*$/g, '').replace(/\s\s*/g, ' ');
   }
 
-  function updateTeamCounts () {
+  function updateTeamCounts() {
     $tab.find('.numteams').text(Team.count());
   }
 
-  function deleteTeam ($team) {
+  function deleteTeam($team) {
     var teamid, team, $names, Tab_Games, i, name;
 
     if (!options.allowRegistrations) {
@@ -59,15 +59,15 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     new Toast(Strings.teamdeleted.replace('%s', (teamid + 1)));
   }
 
-  function initDeletion () {
+  function initDeletion() {
     $delete = $tab.find('button.delete');
-    $delete.on('click', function (e) {
+    $delete.on('click', function(e) {
       $tab.toggleClass('deletion');
       e.preventDefault();
       return false;
     });
 
-    $('body').on('click', '#teams.deletion', function (e) {
+    $('body').on('click', '#teams.deletion', function(e) {
       // delete the team
       var $this;
 
@@ -88,11 +88,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     });
   }
 
-  function deletionPending () {
+  function deletionPending() {
     return $tab.hasClass('deletion');
   }
 
-  function updateDeletion () {
+  function updateDeletion() {
     if (Team.count() === 0) {
       $delete.addClass('hidden');
     } else {
@@ -100,9 +100,9 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
   }
 
-  function initTeamSize () {
+  function initTeamSize() {
     $teamsize = $tab.find('.teamsize');
-    $teamsize.find('button').on('click', function (e) {
+    $teamsize.find('button').on('click', function(e) {
       var teamsize, $button;
 
       if (deletionPending()) {
@@ -130,13 +130,13 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     });
   }
 
-  function updateTeamSize () {
+  function updateTeamSize() {
     $teamsize.find('button').removeClass('selected');
     $teamsize.find('button[value=' + Options.teamsize + ']').addClass('selected');
     $teamsize.show();
   }
 
-  function initTemplate () {
+  function initTemplate() {
     var tmp, $tpl, $teamno, $names, $chname, i;
 
     if (template) {
@@ -162,10 +162,10 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $chname.detach();
 
     template = {
-      $tpl : $tpl,
-      $teamno : $teamno,
-      $names : $names,
-      $chname : $chname,
+      $tpl: $tpl,
+      $teamno: $teamno,
+      $names: $names,
+      $chname: $chname
     };
 
     updateTemplate();
@@ -174,10 +174,10 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   /**
    * reads names from a string and adds the players accordingly. Ignores
    * #-escaped lines
-   * 
+   *
    * @return true on success, undefined or false on failure
    */
-  function createTeamsFromString (str) {
+  function createTeamsFromString(str) {
     var lines, line, name, names, teamsize, team, i;
 
     if (Team.count() !== 0) {
@@ -277,11 +277,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     return true;
   }
 
-  function invalidateFileLoad () {
+  function invalidateFileLoad() {
     $fileload.find('input').val('');
   }
 
-  function loadFileError (evt) {
+  function loadFileError(evt) {
     // file api callback function
     switch (evt.target.error.code) {
     case evt.target.error.NOT_FOUND_ERR:
@@ -299,7 +299,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     invalidateFileLoad();
   }
 
-  function loadFileLoad (evt) {
+  function loadFileLoad(evt) {
     var contents;
 
     contents = evt.target.result;
@@ -313,16 +313,16 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     invalidateFileLoad();
   }
 
-  function loadFileAbort () {
+  function loadFileAbort() {
     new Toast(Strings.fileabort);
 
     invalidateFileLoad();
   }
 
-  function initFileLoad () {
+  function initFileLoad() {
     $fileload = $tab.find('.load');
 
-    $fileload.find('input').change(function (evt) {
+    $fileload.find('input').change(function(evt) {
       var reader = new FileReader();
       reader.onerror = loadFileError;
       reader.onabort = loadFileAbort;
@@ -332,11 +332,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     });
   }
 
-  function updateFileLoad () {
+  function updateFileLoad() {
     $fileload.show();
   }
 
-  function updateTemplate () {
+  function updateTemplate() {
     var i, $names;
 
     Autocomplete.reset();
@@ -354,7 +354,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
   }
 
-  function initNewTeam () {
+  function initNewTeam() {
     var i, tmp, $names, $form;
 
     if (newteam) {
@@ -367,11 +367,11 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     /**
      * Retrieves, validates and returns names of new players, resetting the
      * input fields if valid
-     * 
+     *
      * @return array of player names on successful validation, undefined
      *         otherwise
      */
-    function readNewTeamNames () {
+    function readNewTeamNames() {
       var names, i;
 
       names = [];
@@ -399,7 +399,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       return names;
     }
 
-    function focusEmptyTeamNames () {
+    function focusEmptyTeamNames() {
       var names, i;
 
       for (i = 0; i < Options.teamsize; i += 1) {
@@ -410,7 +410,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       }
     }
 
-    function createTeamFromForm () {
+    function createTeamFromForm() {
       var names, team;
 
       if (!options.allowRegistrations) {
@@ -447,8 +447,8 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
 
     newteam = {
-      $form : $form,
-      $names : $names,
+      $form: $form,
+      $names: $names
     };
 
     // register 'new player' form submission
@@ -457,7 +457,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     updateNewTeam();
   }
 
-  function updateNewTeam () {
+  function updateNewTeam() {
     var i, $names;
 
     $names = newteam.$names;
@@ -473,14 +473,14 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
   }
 
-  function initMaxWidth () {
+  function initMaxWidth() {
     var $box;
 
     // width checkbox
     $box = $tab.find('.options .maxwidth');
 
     // toggle#teams.maxwidth
-    function maxwidthtest () {
+    function maxwidthtest() {
       if (deletionPending()) {
         e.preventDefault();
         return false;
@@ -498,17 +498,17 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     maxwidthtest();
   }
 
-  function initRename () {
+  function initRename() {
 
     // ================== FUNCTIONS BEGIN ==================
-    function chshow ($name) {
+    function chshow($name) {
       template.$chname.val($name.text());
       $name.text('');
       $name.append(template.$chname);
       template.$chname.focus();
     }
 
-    function updateTeam ($team) {
+    function updateTeam($team) {
       var teamid, team, $names, Tab_Games, i, name;
 
       // retrieve team id
@@ -540,12 +540,12 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
       Storage.changed();
     }
 
-    function chabort () {
+    function chabort() {
       template.$chname.val('');
       template.$chname.blur();
     }
 
-    function chhide () {
+    function chhide() {
       var name, $name, $team, $parents;
 
       $parents = template.$chname.parents();
@@ -568,7 +568,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     }
     // ================== FUNCTIONS END ==================
 
-    $tab.on('click', '.team .name', function () {
+    $tab.on('click', '.team .name', function() {
       var $name;
 
       if (deletionPending()) {
@@ -582,7 +582,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     });
 
     template.$chname.blur(chhide);
-    template.$chname.keyup(function (e) {
+    template.$chname.keyup(function(e) {
       if (e.which === 13) {
         // automatically calls chhide
         template.$chname.blur();
@@ -597,7 +597,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
 
     // avoid bubbling of the click event towards .name, which would remove
     // chname and cause DOM exceptions
-    template.$chname.click(function (e) {
+    template.$chname.click(function(e) {
       if (deletionPending()) {
         e.preventDefault();
         return false;
@@ -608,7 +608,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     });
   }
 
-  function init () {
+  function init() {
     // remember that we have initialized this page
     if ($tab) {
       console.error('tab_teams: $tab is already defined:');
@@ -627,18 +627,18 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $anchor = newteam.$form;
   }
 
-  function resetOptions () {
+  function resetOptions() {
     options.allowRegistrations = true;
   }
 
   /**
    * this function adds a new team box to the page
-   * 
+   *
    * @param team
    *          array of team member names. team number is determined from call
    *          order
    */
-  function createBox (team) {
+  function createBox(team) {
     var i;
 
     for (i = 0; i < Options.teamsize; i += 1) {
@@ -649,7 +649,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     $anchor.before(template.$tpl.clone());
   }
 
-  function updateAfterTeamAdd () {
+  function updateAfterTeamAdd() {
     if (Team.count() > 0) {
       // hide file load
       $fileload.hide();
@@ -665,7 +665,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   }
 
   // TODO call after an option update
-  function updateActiveState () {
+  function updateActiveState() {
     if (options.allowRegistrations) {
       $tab.removeClass('noreg');
     } else {
@@ -676,7 +676,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
   /**
    * init, clear and reset all in one
    */
-  function reset () {
+  function reset() {
     if (!$tab) {
       init();
     }
@@ -698,7 +698,7 @@ define([ './team', './toast', './strings', './tab_ranking', './storage',
     Autocomplete.update();
   }
 
-  function update () {
+  function update() {
     var i, l;
     Tab_Teams.reset();
 

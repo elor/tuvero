@@ -1,39 +1,39 @@
 /**
  * Unit tests for IndexedModel
- * 
- * @returns a test function
+ *
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
-  return function (QUnit, getModule) {
+define(function() {
+  return function(QUnit, getModule) {
     var extend, IndexedModel, Model;
 
     extend = getModule('lib/extend');
     Model = getModule('ui/interfaces/model');
     IndexedModel = getModule('ui/indexedmodel');
 
-    QUnit.test("IndexedModel tests", function () {
+    QUnit.test('IndexedModel tests', function() {
       var model, listener;
 
       QUnit.ok(extend.isSubclass(IndexedModel, Model),
           'IndexedModel is subclass of Model');
 
       listener = {
-        updatecount : 0,
+        updatecount: 0,
         /**
          * Callback listener
          */
-        onupdate : function () {
+        onupdate: function() {
           listener.updatecount += 1;
         },
         /**
          * counter reset
          */
-        reset : function () {
+        reset: function() {
           listener.updatecount = 0;
-        },
+        }
       };
 
       model = new IndexedModel();

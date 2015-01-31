@@ -7,20 +7,20 @@
  * @see LICENSE
  */
 
-define([ './tabshandle', './tab', './toast', '../backend/random', './options',
-    './strings', './debug', './tournaments', './team', './history', './shared' ], function (Tabshandle, Tab, Toast, Random, Options, Strings, Debug, Tournaments, Team, History, Shared) {
+define(['./tabshandle', './tab', './toast', '../backend/random', './options',
+    './strings', './debug', './tournaments', './team', './history', './shared'], function(Tabshandle, Tab, Toast, Random, Options, Strings, Debug, Tournaments, Team, History, Shared) {
   var Tab_Debug, $tab, form, letters, Letters, rng;
 
   rng = new Random();
 
-  letters = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+  letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
       'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ä',
-      'ö', 'ü', 'ß' ];
-  Letters = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+      'ö', 'ü', 'ß'];
+  Letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
       'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ä',
-      'Ö', 'Ü' ];
+      'Ö', 'Ü'];
 
-  function showAllImages () {
+  function showAllImages() {
     var $anchor, $images, imagepaths, i, url, sorted;
 
     $anchor = $tab.find('.allimages');
@@ -65,7 +65,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     }
   }
 
-  function randomName () {
+  function randomName() {
     var first, last, length, i;
 
     length = rng.nextInt(6) + 3;
@@ -85,12 +85,12 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     return first + ' ' + last;
   }
 
-  function updateTabs () {
+  function updateTabs() {
     Shared.Alltabs.update(true);
     new Toast(Strings.alltabsreloaded);
   }
 
-  function loadMods () {
+  function loadMods() {
     var key, keyparts, rjsdef, subobject, partid, part, mods;
 
     if (window.mods !== undefined) {
@@ -129,7 +129,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     new Toast(Strings.modsvariableadded);
   }
 
-  function clearEverything () {
+  function clearEverything() {
     var Storage, Alltabs, State, Tab_Settings;
 
     Storage = Shared.Storage;
@@ -146,7 +146,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     new Toast(Strings.newtournament);
   }
 
-  function registerPlayers () {
+  function registerPlayers() {
     var num, Tab_Teams, teamno, $template, $names, playerno;
 
     Tab_Teams = Shared.Tab_Teams;
@@ -169,7 +169,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     }
   }
 
-  function startRound (tournamentid) {
+  function startRound(tournamentid) {
     var $button, Tab_Games;
 
     Tab_Games = Shared.Tab_Games;
@@ -197,7 +197,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     $button.click();
   }
 
-  function finishRound (tournamentid, timeout) {
+  function finishRound(tournamentid, timeout) {
     var $buttons, $points, teamid, p1, p2, endtime, $boxes, $box, i;
 
     if (tournamentid === undefined) {
@@ -246,7 +246,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     }
   }
 
-  function playTournament () {
+  function playTournament() {
     var tournamentid, Tournament;
 
     if (Tournaments.numTournaments() === 0) {
@@ -280,7 +280,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
   /**
    * starts a new sidetournament with a random selection of the players (2 min)
    */
-  function addSideTournament (type) {
+  function addSideTournament(type) {
     var min, max, numplayers, Tournament, players, tournamentid;
 
     min = 2;
@@ -324,7 +324,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     new Toast(Strings.roundstarted.replace('%s', 1));
   }
 
-  function initForms () {
+  function initForms() {
     if (form) {
       console.error('tab_debug: form is already defined:');
       console.error(form);
@@ -333,66 +333,66 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
 
     // get the jquery objects
     form = {
-      register : {
-        $form : $tab.find('.register'),
-        $num : $tab.find('.register .num'),
-        $submit : $tab.find('.register .submit'),
-        $delete : $tab.find('.register .delete'),
+      register: {
+        $form: $tab.find('.register'),
+        $num: $tab.find('.register .num'),
+        $submit: $tab.find('.register .submit'),
+        $delete: $tab.find('.register .delete')
       },
-      games : {
-        $form : $tab.find('.tournament'),
-        $startRound : $tab.find('.tournament .start'),
-        $finishRound : $tab.find('.tournament .round'),
-        $playTournament : $tab.find('.tournament .all'),
+      games: {
+        $form: $tab.find('.tournament'),
+        $startRound: $tab.find('.tournament .start'),
+        $finishRound: $tab.find('.tournament .round'),
+        $playTournament: $tab.find('.tournament .all')
       },
-      phases : {
-        $form : $tab.find('.phases'),
-        $sideTournamentSwiss : $tab.find('.phases .sidetournamentswiss'),
+      phases: {
+        $form: $tab.find('.phases'),
+        $sideTournamentSwiss: $tab.find('.phases .sidetournamentswiss')
       },
-      script : {
-        $form : $tab.find('.script'),
-        $loadmods : $tab.find('.script .loadmods'),
-        $updatetabs : $tab.find('.script .updatetabs'),
+      script: {
+        $form: $tab.find('.script'),
+        $loadmods: $tab.find('.script .loadmods'),
+        $updatetabs: $tab.find('.script .updatetabs')
       }
     };
 
     // register buttons and stuff
-    form.register.$form.submit(function (e) {
+    form.register.$form.submit(function(e) {
       registerPlayers();
       e.preventDefault();
       return false;
     });
-    form.register.$delete.click(function (e) {
+    form.register.$delete.click(function(e) {
       clearEverything();
       e.preventDefault();
       return false;
     });
-    form.games.$startRound.click(function (e) {
+    form.games.$startRound.click(function(e) {
       startRound();
       e.preventDefault();
       return false;
     });
-    form.games.$finishRound.click(function (e) {
+    form.games.$finishRound.click(function(e) {
       finishRound();
       e.preventDefault();
       return false;
     });
-    form.games.$playTournament.click(function (e) {
+    form.games.$playTournament.click(function(e) {
       playTournament();
       e.preventDefault();
       return false;
     });
-    form.phases.$sideTournamentSwiss.click(function (e) {
+    form.phases.$sideTournamentSwiss.click(function(e) {
       addSideTournament('swiss');
       e.preventDefault();
       return false;
     });
-    form.script.$loadmods.click(function (e) {
+    form.script.$loadmods.click(function(e) {
       loadMods();
       e.preventDefault();
       return false;
     });
-    form.script.$updatetabs.click(function (e) {
+    form.script.$updatetabs.click(function(e) {
       updateTabs();
       e.preventDefault();
       return false;
@@ -401,10 +401,10 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     updateForms();
   }
 
-  function updateForms () {
+  function updateForms() {
   }
 
-  function initDevContents () {
+  function initDevContents() {
     if (Debug.isDevVersion) {
       loadMods();
     } else {
@@ -413,7 +413,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
     }
   }
 
-  function init () {
+  function init() {
     if ($tab) {
       console.error('tab_debug: $tab is already defined:');
       console.error($tab);
@@ -430,7 +430,7 @@ define([ './tabshandle', './tab', './toast', '../backend/random', './options',
   /**
    * reset an original state.
    */
-  function reset () {
+  function reset() {
     if (!$tab) {
       init();
     }

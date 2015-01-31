@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(function () {
+define(function() {
   var Options, Default;
 
   Options = {};
@@ -15,24 +15,24 @@ define(function () {
   Default = {
     // installation-specific
     // global : {},
-    playernameurl : 'https://boulesdb.appspot.com/json',
-    maxteamsize : 3,
-    maxpoints : 15,
+    playernameurl: 'https://boulesdb.appspot.com/json',
+    maxteamsize: 3,
+    maxpoints: 15,
     // user-specific
     // local : {},
-    dbname : 'boulestournament',
-    dbplayername : 'players',
-    roundtries : 20,
+    dbname: 'boulestournament',
+    dbplayername: 'players',
+    roundtries: 20,
     // tournament-specific
     // tournament : {},
-    teamsize : 3,
+    teamsize: 3
   };
 
-  Options.toBlob = function () {
+  Options.toBlob = function() {
     return JSON.stringify(Options);
   };
 
-  Options.fromBlob = function (blob) {
+  Options.fromBlob = function(blob) {
     var opts, key;
     opts = JSON.parse(blob);
 
@@ -51,7 +51,7 @@ define(function () {
     }
   };
 
-  Options.reset = function () {
+  Options.reset = function() {
     // just use available functions instead of cloning
     Options.fromBlob(JSON.stringify(Default));
   };

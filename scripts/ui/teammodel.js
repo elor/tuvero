@@ -1,23 +1,23 @@
 /**
  * A combination of players is a team. A team should contain at least one player
- * 
+ *
  * @exports TeamModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ 'lib/extend', './indexedmodel', './playermodel' ], function (extend, IndexedModel, PlayerModel) {
+define(['lib/extend', './indexedmodel', './playermodel'], function(extend, IndexedModel, PlayerModel) {
 
   /**
    * Constructor
-   * 
+   *
    * @param players
    *          an array of PlayerModel instances
    * @param id
    *          a preferably unique numeric team id
    */
-  function TeamModel (players, id) {
+  function TeamModel(players, id) {
     TeamModel.superconstructor.call(this, id);
 
     var index;
@@ -42,12 +42,12 @@ define([ 'lib/extend', './indexedmodel', './playermodel' ], function (extend, In
   /**
    * retrieve a single player. For the number of players, see
    * TeamModel.prototype.length
-   * 
+   *
    * @param id
    *          the index of the player inside the team
-   * @returns a PlayerModel reference
+   * @return a PlayerModel reference
    */
-  TeamModel.prototype.getPlayer = function (id) {
+  TeamModel.prototype.getPlayer = function(id) {
     if (id >= 0 && id < this.length) {
       return this.players[id];
     }
@@ -56,12 +56,12 @@ define([ 'lib/extend', './indexedmodel', './playermodel' ], function (extend, In
 
   /**
    * Callback listener
-   * 
+   *
    * One of the player names was updated. This is passed through to the team
    * event emitter.
-   * 
+   *
    */
-  TeamModel.prototype.onupdate = function () {
+  TeamModel.prototype.onupdate = function() {
     this.emit('update');
   };
 

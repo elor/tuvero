@@ -1,28 +1,28 @@
 /**
  * A ListModel, which also adjusts the ids using setID
- * 
+ *
  * @exports IndexedListModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ 'lib/extend', './listmodel' ], function (extend, ListModel) {
+define(['lib/extend', './listmodel'], function(extend, ListModel) {
   /**
    * Constructor for an empty list
    */
-  function IndexedListModel () {
+  function IndexedListModel() {
     IndexedListModel.superconstructor.call(this);
   }
   extend(IndexedListModel, ListModel);
 
   /**
    * update the ids, starting at the specified index
-   * 
+   *
    * @param startindex
    *          the index with which to start. Defaults to 0
    */
-  IndexedListModel.prototype.updateIDs = function (startindex) {
+  IndexedListModel.prototype.updateIDs = function(startindex) {
     var index;
 
     startindex = startindex || 0;
@@ -34,7 +34,7 @@ define([ 'lib/extend', './listmodel' ], function (extend, ListModel) {
 
   /**
    * Callback function
-   * 
+   *
    * @param emitter
    *          should be equal to this
    * @param event
@@ -42,14 +42,14 @@ define([ 'lib/extend', './listmodel' ], function (extend, ListModel) {
    * @param data
    *          a data object containing 'id' and 'object' fields
    */
-  IndexedListModel.prototype.oninsert = function (emitter, event, data) {
+  IndexedListModel.prototype.oninsert = function(emitter, event, data) {
     ListModel.prototype.oninsert.call(this, emitter, event, data);
     this.updateIDs(data.id);
   };
 
   /**
    * Callback function
-   * 
+   *
    * @param emitter
    *          should be equal to this
    * @param event
@@ -57,7 +57,7 @@ define([ 'lib/extend', './listmodel' ], function (extend, ListModel) {
    * @param data
    *          a data object containing 'id' and 'object' fields
    */
-  IndexedListModel.prototype.onremove = function (emitter, event, data) {
+  IndexedListModel.prototype.onremove = function(emitter, event, data) {
     ListModel.prototype.onremove.call(this, emitter, event, data);
     this.updateIDs(data.id);
   };

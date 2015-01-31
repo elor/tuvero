@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define([ '../backend/options' ], function (Options) {
+define(['../backend/options'], function(Options) {
   var Opts;
   Opts = Options;
   return Opts;

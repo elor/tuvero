@@ -10,21 +10,21 @@
  * @see LICENSE
  */
 
-define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
+define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     './team', './history', './ranking', './state', './storage', './options',
-    './players', './tabshandle', './shared' ], function (Tab, saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Storage, Options, Players, Tabshandle, Shared) {
+    './players', './tabshandle', './shared'], function(Tab, saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Storage, Options, Players, Tabshandle, Shared) {
   var Tab_Settings, $tab, areas, updatepending;
 
   updatepending = false;
 
   areas = {};
 
-  function initCSV () {
+  function initCSV() {
     areas.csv = {};
     areas.csv.$buttons = $tab.find('.csv button');
 
     // set csv selection buttons
-    areas.csv.$buttons.click(function () {
+    areas.csv.$buttons.click(function() {
       var $button = $(this);
 
       // button contains image. Forward accidental clicks.
@@ -36,7 +36,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     });
   }
 
-  function csvupdate ($button) {
+  function csvupdate($button) {
     var csv, blob;
 
     csv = [];
@@ -59,8 +59,8 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     }
 
     try {
-      blob = new Blob([ csv ], {
-        type : 'application/csv'
+      blob = new Blob([csv], {
+        type: 'application/csv'
       });
       saveAs(blob, 'boules.csv');
     } catch (er) {
@@ -69,12 +69,12 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     }
   }
 
-  function initLoad () {
+  function initLoad() {
     areas.load = {};
 
     areas.load.$file = $tab.find('.load input.file');
 
-    areas.load.$file.change(function (evt) {
+    areas.load.$file.change(function(evt) {
       var reader = new FileReader();
       reader.onerror = loadFileError;
       reader.onabort = loadFileAbort;
@@ -84,13 +84,13 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     });
   }
 
-  function invalidateLoad () {
+  function invalidateLoad() {
     $tab.find('.load .selected').removeClass('selected');
 
     areas.load.$file.val('');
   }
 
-  function loadFileError (evt) {
+  function loadFileError(evt) {
     // file api callback function
     switch (evt.target.error.code) {
     case evt.target.error.NOT_FOUND_ERR:
@@ -106,7 +106,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     }
   }
 
-  function loadFileLoad (evt) {
+  function loadFileLoad(evt) {
     var blob, Alltabs;
 
     blob = evt.target.result;
@@ -138,12 +138,12 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     }
   }
 
-  function loadFileAbort () {
+  function loadFileAbort() {
     new Toast(Strings.fileabort);
   }
 
-  function reloadAutocomplete () {
-    $.get(Options.playernameurl, undefined, function (jsontext, status, response) {
+  function reloadAutocomplete() {
+    $.get(Options.playernameurl, undefined, function(jsontext, status, response) {
       if (jsontext.length === 0) {
         new Toast(Strings.fileempty);
       } else {
@@ -158,7 +158,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
           new Toast(Strings.autocompletereloadfailed, Toast.LONG);
         }
       }
-    }, 'text').fail(function () {
+    }, 'text').fail(function() {
       var content, i;
 
       console.error('could not read ' + Options.playernameurl + '. Is this a local installation?');
@@ -167,13 +167,13 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     });
   }
 
-  function initAutocomplete () {
+  function initAutocomplete() {
     areas.autocomplete = {};
 
     areas.autocomplete.$button = $tab.find('.autocomplete button');
     areas.autocomplete.$file = $tab.find('.autocomplete input.file');
 
-    areas.autocomplete.$button.click(function () {
+    areas.autocomplete.$button.click(function() {
       var $button = $(this);
 
       // button contains image. Forward accidental clicks.
@@ -184,7 +184,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
       reloadAutocomplete();
     });
 
-    areas.autocomplete.$file.change(function (evt) {
+    areas.autocomplete.$file.change(function(evt) {
       var reader = new FileReader();
       reader.onerror = autocompleteFileError;
       reader.onabort = autocompleteFileAbort;
@@ -197,11 +197,11 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     window.setTimeout(reloadAutocomplete, 1000);
   }
 
-  function invalidateAutocomplete () {
+  function invalidateAutocomplete() {
     areas.autocomplete.$file.val('');
   }
 
-  function autocompleteFileError (evt) {
+  function autocompleteFileError(evt) {
     // file api callback function
     switch (evt.target.error.code) {
     case evt.target.error.NOT_FOUND_ERR:
@@ -217,7 +217,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     }
   }
 
-  function autocompleteFileLoad (evt) {
+  function autocompleteFileLoad(evt) {
     var string;
 
     string = evt.target.result;
@@ -229,11 +229,11 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     new Toast(Strings.autocompleteloaded);
   }
 
-  function autocompleteFileAbort () {
+  function autocompleteFileAbort() {
     new Toast(Strings.fileabort);
   }
 
-  function updateLocalStorageMeters () {
+  function updateLocalStorageMeters() {
     var dbvalue, usage; // usage in MiB
 
     if (window.localStorage) {
@@ -259,7 +259,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     }
   }
 
-  function initLocalStorage () {
+  function initLocalStorage() {
     areas.local = {};
 
     areas.local.$savebutton = $tab.find('.local button.save');
@@ -267,7 +267,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     areas.local.$playermeter = $tab.find('.local .playerstoragemeter');
     areas.local.$tournamentmeter = $tab.find('.local .tournamentstoragemeter');
 
-    areas.local.$savebutton.click(function (e) {
+    areas.local.$savebutton.click(function(e) {
       Storage.enable();
 
       if (Storage.store()) {
@@ -282,7 +282,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
       return false;
     });
 
-    areas.local.$clearbutton.click(function (e) {
+    areas.local.$clearbutton.click(function(e) {
       var Alltabs;
 
       // TODO don't use confirm()
@@ -309,14 +309,14 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
 
   /**
    * toggles the storage state depending on the current autosave checkbox state.
-   * 
+   *
    * @return {Boolean} true if autosave is enabled, false otherwise
    */
-  function resetStorageState () {
+  function resetStorageState() {
     Storage.enable();
   }
 
-  function init () {
+  function init() {
     if ($tab) {
       console.error('tab_settings: $tab is already defined:');
       console.error($tab);
@@ -334,7 +334,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
   /**
    * reset an initial state
    */
-  function reset () {
+  function reset() {
     if (!$tab) {
       init();
     }
@@ -347,7 +347,7 @@ define([ './tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     updateLocalStorageMeters();
   }
 
-  function update () {
+  function update() {
     reset();
     updateLocalStorageMeters();
   }

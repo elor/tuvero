@@ -1,6 +1,6 @@
 /**
  * Managed list of registered teams
- * 
+ *
  * @exports Team
  * @implements ./csver
  * @implements ../backend/blobber
@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define([ './options', './strings', './shared', './state_new', './playermodel',
-    './teammodel' ], function (Options, Strings, Shared, State, PlayerModel,
+define(['./options', './strings', './shared', './state_new', './playermodel',
+    './teammodel'], function(Options, Strings, Shared, State, PlayerModel,
     TeamModel) {
   var Team, teams;
 
@@ -19,15 +19,15 @@ define([ './options', './strings', './shared', './state_new', './playermodel',
 
   /**
    * create a new team;
-   * 
+   *
    * @param names
    *          an array of the player names
-   * @returns this
+   * @return this
    */
-  Team.create = function (names) {
+  Team.create = function(names) {
     var team, newplayers;
 
-    newplayers = names.map(function (name) {
+    newplayers = names.map(function(name) {
       return new PlayerModel(name);
     });
 
@@ -39,50 +39,50 @@ define([ './options', './strings', './shared', './state_new', './playermodel',
 
   /**
    * get the team by its index
-   * 
+   *
    * @param index
    *          index (starting at zero!)
    * @return a reference to the registered team on success, undefined otherwise
    */
-  Team.get = function (index) {
+  Team.get = function(index) {
     return teams.get(index);
   };
 
   /**
    * erase team at index
-   * 
+   *
    * @param index
    *          index (starting at zero)
    * @return nothing at all
    */
-  Team.erase = function (index) {
+  Team.erase = function(index) {
     teams.remove(index);
   };
 
   /**
    * returns the number of teams
-   * 
+   *
    * @return the number of teams
    */
-  Team.count = function () {
+  Team.count = function() {
     return teams.length;
   };
 
   /**
    * create ordered CSV strings from team data
-   * 
+   *
    * @return CSV file content
    */
-  Team.toCSV = function () {
+  Team.toCSV = function() {
     var lines;
 
-    lines = [ Strings['teamhead' + Options.teamsize] ];
+    lines = [Strings['teamhead' + Options.teamsize]];
 
     teams.asArray().forEach(
-        function (team) {
+        function(team) {
           var line, i;
 
-          line = [ team.getID() + 1 ];
+          line = [team.getID() + 1];
 
           for (i = 0; i < Options.teamsize; i += 1) {
             if (team.getPlayer(i).getName()) {
@@ -101,16 +101,16 @@ define([ './options', './strings', './shared', './state_new', './playermodel',
 
   /**
    * stores the current state in a blob, usually using JSON
-   * 
+   *
    * @return the blob
    */
-  Team.toBlob = function () {
+  Team.toBlob = function() {
     var list;
 
-    list = teams.asArray().map(function (team, index) {
+    list = teams.asArray().map(function(team, index) {
       return {
-        names : Team.getNames(index),
-        id : index
+        names: Team.getNames(index),
+        id: index
       };
     });
 
@@ -119,18 +119,18 @@ define([ './options', './strings', './shared', './state_new', './playermodel',
 
   /**
    * restores the state written by toBlob
-   * 
+   *
    * @param blob
    *          the blob
    */
-  Team.fromBlob = function (blob) {
+  Team.fromBlob = function(blob) {
     var list;
 
     Team.reset();
 
     list = JSON.parse(blob);
     if (list) {
-      list.map(function (team) {
+      list.map(function(team) {
         Team.create(team.names);
       });
     }
@@ -139,18 +139,18 @@ define([ './options', './strings', './shared', './state_new', './playermodel',
   /**
    * resets the teams
    */
-  Team.reset = function () {
+  Team.reset = function() {
     teams.clear();
   };
 
   /**
    * get an array of names of the players in a team
-   * 
+   *
    * @param id
    *          the id of the team
-   * @returns an array of names
+   * @return an array of names
    */
-  Team.getNames = function (id) {
+  Team.getNames = function(id) {
     var team, index, names;
 
     team = teams.get(id);

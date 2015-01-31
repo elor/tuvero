@@ -1,6 +1,6 @@
 /**
  * CSV export of tournament rankings
- * 
+ *
  * @exports Ranking
  * @implements ./csver
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -9,15 +9,15 @@
  */
 
 define(
-    [ './team', './strings', './options', './tournaments' ],
-    function (Team, Strings, Options, Tournaments) {
+    ['./team', './strings', './options', './tournaments'],
+    function(Team, Strings, Options, Tournaments) {
       var Ranking;
 
       Ranking = {
         /**
          * converts ranking and correction information to a csv string
          */
-        toCSV : function () {
+        toCSV: function() {
           var lines, ranking, rank, length, corrs, makeline, i, tournamentid, tournament;
 
           lines = [];
@@ -37,7 +37,7 @@ define(
             lines.push('#' + Tournaments.getName(tournamentid) + ' Ranking,');
             lines.push(Strings['rankhead' + Options.teamsize]);
 
-            makeline = function (rnk) {
+            makeline = function(rnk) {
               var line, tid, team, vote, i, index, player;
 
               line = [];
@@ -93,7 +93,7 @@ define(
                   + ' Korrekturen,');
               lines.push(Strings.correctionhead);
 
-              makeline = function (corr) {
+              makeline = function(corr) {
                 var tid, line;
 
                 line = [];
@@ -113,7 +113,7 @@ define(
                 return line.join(',');
               };
 
-              corrs.forEach(function (corr) {
+              corrs.forEach(function(corr) {
                 lines.push(makeline(corr));
               });
             }

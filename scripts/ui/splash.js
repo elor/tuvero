@@ -1,28 +1,28 @@
 /**
  * Manage the state and visibility of the splash screen
- * 
+ *
  * @exports Splash
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define(function () {
+define(function() {
   var Splash;
 
   Splash = {
-    hide : function () {
+    hide: function() {
       console.error('Splash.hide() called before pageload');
     },
-    loading : function () {
+    loading: function() {
       console.error('Splash.loading() called before pageload');
     }
   };
 
-  $(function ($) {
+  $(function($) {
     var $splash;
 
-    function setState (state) {
+    function setState(state) {
       $splash.removeClass();
       $splash.addClass(state);
     }
@@ -31,26 +31,26 @@ define(function () {
 
     setState('starting');
 
-    Splash.loading = function () {
+    Splash.loading = function() {
       setState('restoring');
     };
 
-    Splash.update = function () {
+    Splash.update = function() {
       setState('update');
       $('#tabs').show();
     };
 
-    Splash.hide = function () {
+    Splash.hide = function() {
       setState('ready');
 
       $('body').removeClass('splash');
 
-      setTimeout(function () {
+      setTimeout(function() {
         $splash.addClass('hidden');
       }, 1000);
     };
 
-    Splash.error = function(){
+    Splash.error = function() {
       setState('error');
     };
   });

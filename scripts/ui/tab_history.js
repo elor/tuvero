@@ -1,16 +1,16 @@
 /**
  * No Description
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
 define(
-    [ './toast', './strings', './history', './tournaments', './tab_ranking',
+    ['./toast', './strings', './history', './tournaments', './tab_ranking',
         '../backend/game', './storage', './tabshandle', './tab', './team',
-        './options', './shared', './boxview', './koline' ],
-    function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
+        './options', './shared', './boxview', './koline'],
+    function(Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
         Tabshandle, Tab, Team, Options, Shared, BoxView, KOLine) {
       var Tab_History, $tab, template, $button, progresstable;
 
@@ -20,7 +20,7 @@ define(
       template = undefined;
       progresstable = true;
 
-      function formatNamesHTML (teamid) {
+      function formatNamesHTML(teamid) {
         var names;
 
         names = Team.getNames(teamid);
@@ -35,13 +35,13 @@ define(
       /**
        * creates a box for the current result in the current round. Note that
        * the correct round isn't verified (both in the result and currentround)
-       * 
+       *
        * @param result
        *          a result as returned by history.getGame()
        * @param $table
        *          the DOM element to append the game to
        */
-      function createGame (result, $table) {
+      function createGame(result, $table) {
         // fill the fields
         template.game.$teamnos[0].text(result[0] + 1);
         template.game.$teamnos[1].text(result[1] + 1);
@@ -56,33 +56,33 @@ define(
       /**
        * creates a box for a bye within the current round. No round
        * verification.
-       * 
+       *
        * @param teamid
        *          id of the team receiving a bye
        * @param $table
        *          the DOM element to append the Bye to
        */
-      function createBye (teamid, $table) {
+      function createBye(teamid, $table) {
         template.bye.$teamno.text(teamid + 1);
         template.bye.$names.html(formatNamesHTML(teamid));
 
         $table.append(template.bye.$bye.clone());
       }
 
-      function isInt (n) {
+      function isInt(n) {
         return n % 1 === 0;
       }
 
-      function verify (p1, p2) {
+      function verify(p1, p2) {
         return isInt(p1) && isInt(p2) && !isNaN(p1) && !isNaN(p2) && p1 !== p2
             && p1 >= 0 && p2 >= 0;
       }
 
-      function showCorrection () {
+      function showCorrection() {
         var points;
 
         // TODO somehow store the actual game id!
-        points = $button.text().split(':').map(function (str) {
+        points = $button.text().split(':').map(function(str) {
           return Number(str);
         });
 
@@ -95,7 +95,7 @@ define(
         template.chpoints.$inputs[0].focus();
       }
 
-      function abortCorrection () {
+      function abortCorrection() {
         if ($button === undefined) {
           return undefined;
         }
@@ -107,7 +107,7 @@ define(
         new Toast(Strings.pointchangeaborted);
       }
 
-      function saveCorrection () {
+      function saveCorrection() {
         // TODO validate everything:
         // * point ranges * a-z * space
         var op1, op2, np1, np2, points, t1, t2, res, game, tmp, correction, $box, tournamentid;
@@ -128,7 +128,7 @@ define(
         }
         // retrieve values
         // TODO find better solution!
-        points = $button.text().split(':').map(function (str) {
+        points = $button.text().split(':').map(function(str) {
           return Number(str);
         });
 
@@ -221,7 +221,7 @@ define(
         // FIXME read the rankings from History OR Tournament, not both
         if (Tournaments.isRunning(tournamentid)) {
           if (!Tournaments.getTournament(tournamentid).correct(game,
-              [ op1, op2 ], [ np1, np2 ])) {
+              [op1, op2], [np1, np2])) {
             console.error('could not apply correction');
             new Toast(Strings.invalidresult);
             return undefined;
@@ -255,12 +255,12 @@ define(
         new Toast(Strings.pointchangeapplied);
       }
 
-      function initOptions () {
+      function initOptions() {
         var $maxwidthbox, $shownamesbox, $progressbox;
 
         // show or hide playernames
         $maxwidthbox = $tab.find('.options .maxwidth');
-        function maxwidthtest () {
+        function maxwidthtest() {
           if ($maxwidthbox.prop('checked')) {
             $tab.addClass('maxwidth');
           } else {
@@ -273,13 +273,13 @@ define(
 
         // show or hide playernames
         $shownamesbox = $tab.find('.options .shownames');
-        function shownamestest () {
+        function shownamestest() {
           if ($shownamesbox.prop('checked')) {
             $tab.removeClass('hidenames');
-            $maxwidthbox.removeAttr("disabled");
+            $maxwidthbox.removeAttr('disabled');
           } else {
             $tab.addClass('hidenames');
-            $maxwidthbox.attr("disabled", "disabled");
+            $maxwidthbox.attr('disabled', 'disabled');
           }
         }
 
@@ -288,21 +288,21 @@ define(
 
         // use progress layout
         $progressbox = $tab.find('.options .progress');
-        function progresstest () {
+        function progresstest() {
           progresstable = $progressbox.prop('checked');
         }
 
-        $progressbox.click(function () {
+        $progressbox.click(function() {
           progresstest();
           Tab_History.update();
         });
         progresstest();
       }
 
-      function initCorrection () {
+      function initCorrection() {
         $button = undefined;
 
-        $tab.on('click', '.team .correct', function () {
+        $tab.on('click', '.team .correct', function() {
           // abort previous correction attempts
           abortCorrection();
 
@@ -314,13 +314,13 @@ define(
           return false;
         });
 
-        template.chpoints.$chpoints.submit(function (e) {
+        template.chpoints.$chpoints.submit(function(e) {
           saveCorrection();
           e.preventDefault();
           return false;
         });
 
-        template.chpoints.$chpoints.find('.points').keydown(function (e) {
+        template.chpoints.$chpoints.find('.points').keydown(function(e) {
           if (e.which === 13) {
             // Enter --> submit
             template.chpoints.$chpoints.find('button.change').click();
@@ -334,7 +334,7 @@ define(
           }
         });
 
-        template.chpoints.$chpoints.find('button.abort').click(function (e) {
+        template.chpoints.$chpoints.find('button.abort').click(function(e) {
           abortCorrection();
 
           e.preventDefault();
@@ -342,7 +342,7 @@ define(
         });
       }
 
-      function initTemplates () {
+      function initTemplates() {
         var i, tmp;
 
         if (template) {
@@ -443,11 +443,11 @@ define(
         template.bye.$names = template.bye.$bye.find('.names');
       }
 
-      function initRounds () {
+      function initRounds() {
         currentround = 0;
       }
 
-      function init () {
+      function init() {
         if ($tab) {
           console.error('tab_history: $tab already exists:');
           console.error($tab);
@@ -462,7 +462,7 @@ define(
         initOptions();
       }
 
-      function createGamesTable (tournamentid) {
+      function createGamesTable(tournamentid) {
         var round, maxround, hidden, empty, votes, tournamentid, $box, $table;
 
         votes = History.getVotes(tournamentid);
@@ -479,7 +479,7 @@ define(
 
           // search the bye for this round
           // TODO preprocessing?
-          votes.map(function (vote) {
+          votes.map(function(vote) {
             if (vote[0] == History.BYE && vote[2] == round) {
               bye = vote[1];
               if (bye !== undefined) {
@@ -489,7 +489,7 @@ define(
             }
           });
 
-          History.getRound(tournamentid, round).map(function (game) {
+          History.getRound(tournamentid, round).map(function(game) {
             createGame(game, $table);
             empty = false;
           });
@@ -510,27 +510,27 @@ define(
 
       /**
        * borrowed from jQuery
-       * 
+       *
        * @param obj
        *          the object to verify
-       * @returns true if obj is a number, false otherwise
+       * @return true if obj is a number, false otherwise
        */
-      function isNumeric (obj) {
+      function isNumeric(obj) {
         return !jQuery.isArray(obj) && (obj - parseFloat(obj) + 1) >= 0;
       }
 
       /**
        * creates a progress mapping, which, for every player, lists every game
        * in every round, with its result and
-       * 
+       *
        * @param tournamentid
        * @return the progress mapping
        */
-      function getProgressMapping (tournamentid) {
+      function getProgressMapping(tournamentid) {
         var teamgames, roundno, tournament;
         teamgames = [];
 
-        function addGame (round, team, opponent, p1, p2) {
+        function addGame(round, team, opponent, p1, p2) {
           if (!teamgames[team]) {
             teamgames[team] = [];
           }
@@ -541,14 +541,14 @@ define(
             opponent += 1;
           }
           teamgames[team][round] = {
-            opponent : opponent,
-            points : p1 + ':' + p2,
-            won : (p1 == p2 ? undefined : p1 > p2),
+            opponent: opponent,
+            points: p1 + ':' + p2,
+            won: (p1 == p2 ? undefined : p1 > p2)
           };
         }
 
         if (History.getVotes(tournamentid)) {
-          History.getVotes(tournamentid).map(function (vote) {
+          History.getVotes(tournamentid).map(function(vote) {
             if (vote[0] === History.BYE) {
               // TODO read '13:7' from the options!
               addGame(vote[2], vote[1], Strings.byevote, 13, 7);
@@ -557,7 +557,7 @@ define(
         }
 
         if (History.getGames(tournamentid)) {
-          History.getGames(tournamentid).map(function (game) {
+          History.getGames(tournamentid).map(function(game) {
             addGame(game[4], game[0], game[1], game[2], game[3]);
             addGame(game[4], game[1], game[0], game[3], game[2]);
           });
@@ -566,7 +566,7 @@ define(
         tournament = Tournaments.getTournament(tournamentid);
         if (tournament) {
           roundno = Tournaments.getRanking(tournamentid).round - 1;
-          tournament.getGames().map(function (game) {
+          tournament.getGames().map(function(game) {
             addGame(roundno, game.teams[0][0], game.teams[1][0], '', '');
             addGame(roundno, game.teams[1][0], game.teams[0][0], '', '');
           });
@@ -578,11 +578,11 @@ define(
         return teamgames;
       }
 
-      function getTeamVotes (tournamentid) {
+      function getTeamVotes(tournamentid) {
         var teamvotes;
         teamvotes = [];
 
-        History.getVotes(tournamentid).map(function (vote) {
+        History.getVotes(tournamentid).map(function(vote) {
           var team;
 
           team = vote[1];
@@ -606,7 +606,7 @@ define(
         return teamvotes;
       }
 
-      function getRankingMapping (tournamentid) {
+      function getRankingMapping(tournamentid) {
         var ranking, mapping;
         mapping = [];
 
@@ -617,16 +617,16 @@ define(
           return undefined;
         }
 
-        ranking.ids.map(function (teamid, index) {
-          mapping[teamid] = [ ranking.wins[index], ranking.buchholz[index],
+        ranking.ids.map(function(teamid, index) {
+          mapping[teamid] = [ranking.wins[index], ranking.buchholz[index],
               ranking.finebuchholz[index], ranking.netto[index],
-              ranking.place[index] + 1 ];
+              ranking.place[index] + 1];
         });
 
         return mapping;
       }
 
-      function createProgressTable (tournamentid) {
+      function createProgressTable(tournamentid) {
         var teamgames, teamid, team, maxround, $box, $table, $row, i, $game;
 
         maxround = Math.max(History.numRounds(tournamentid) || 0, Tournaments
@@ -682,7 +682,7 @@ define(
           $row = template.progresstable.$team.clone();
 
           if (teamgames[teamid]) {
-            teamgames[teamid].map(function (game) {
+            teamgames[teamid].map(function(game) {
               var $game;
               $game = template.progresstable.$game.clone();
               $game.eq(0).text(game.opponent);
@@ -696,7 +696,7 @@ define(
           }
 
           // append ranking
-          teamranks[teamid].map(function (text, id) {
+          teamranks[teamid].map(function(text, id) {
             template.progresstable.$result.eq(id).text(text);
           });
           $row.append(template.progresstable.$result.clone());
@@ -717,52 +717,52 @@ define(
 
       /**
        * Copied from kotournament.js
-       * 
+       *
        * @param id
        *          the game id
-       * @returns the level of the game id
+       * @return the level of the game id
        */
-      function level (id) {
+      function level(id) {
         return Math.floor(Math.log(id + 1) / Math.LN2);
       }
 
       /**
        * @param id
        *          the game id
-       * @returns the game id of the parent
+       * @return the game id of the parent
        */
-      function parent (id) {
+      function parent(id) {
         return Math.floor((id - 1) / 2);
       }
 
       /**
        * @param level
        *          the level
-       * @returns the lowest game id in the level
+       * @return the lowest game id in the level
        */
-      function lowestid (level) {
+      function lowestid(level) {
         return nodesbylevel(level) - 1;
       }
 
       /**
        * @param level
        *          the level
-       * @returns the number of games in this level
+       * @return the number of games in this level
        */
-      function nodesbylevel (level) {
+      function nodesbylevel(level) {
         return 1 << level;
       }
 
       /**
        * return the x coordinate of a game box
-       * 
+       *
        * @param gameid
        *          the game id
        * @param maxlevel
        *          the highest level
-       * @returns the x coordinate
+       * @return the x coordinate
        */
-      function getGameTreeX (gameid, maxlevel) {
+      function getGameTreeX(gameid, maxlevel) {
         var gamelevel, x0, width;
 
         x0 = 1;
@@ -775,14 +775,14 @@ define(
 
       /**
        * return the y coordinate of a game box
-       * 
+       *
        * @param gameid
        *          the game id
        * @param maxlevel
        *          the highest level
-       * @returns the y coordinate
+       * @return the y coordinate
        */
-      function getGameTreeY (gameid, maxlevel) {
+      function getGameTreeY(gameid, maxlevel) {
         var gamelevel, y0, height;
 
         y0 = 1;
@@ -796,7 +796,7 @@ define(
             * (gameid - firstid);
       }
 
-      function createGameTreeBox (game, maxid) {
+      function createGameTreeBox(game, maxid) {
         var x, y, maxlevel;
 
         maxlevel = level(maxid);
@@ -828,7 +828,7 @@ define(
             y + 'em');
       }
 
-      function createKOGameToParentConnector (game, maxid) {
+      function createKOGameToParentConnector(game, maxid) {
         var x, y, x2, y2, maxlevel;
 
         maxlevel = level(maxid);
@@ -846,7 +846,7 @@ define(
           x2 += 0;
           y2 += 1.5;
 
-          return $((new KOLine([ x, y ], [ x2, y2 ])).svg);
+          return $((new KOLine([x, y], [x2, y2])).svg);
         }
 
         return undefined;
@@ -854,12 +854,12 @@ define(
 
       /**
        * create a KO tree box
-       * 
+       *
        * @param tournamentid
        *          the id of the tournament
-       * @returns true of a game tree tree has been added, false otherwise
+       * @return true of a game tree tree has been added, false otherwise
        */
-      function createKOTree (tournamentid) {
+      function createKOTree(tournamentid) {
         var games, i, $box, g, $game, boxwidth, boxheight, $connector;
 
         // TODO use a more sophisticated method
@@ -871,13 +871,13 @@ define(
 
         // add finished games
         if (History.numRounds(tournamentid)) {
-          History.getGames(tournamentid).map(function (game) {
+          History.getGames(tournamentid).map(function(game) {
             games.push({
-              id : game[5],
-              t1 : game[0],
-              t2 : game[1],
-              p1 : game[2],
-              p2 : game[3],
+              id: game[5],
+              t1: game[0],
+              t2: game[1],
+              p1: game[2],
+              p2: game[3]
             });
           });
         }
@@ -885,19 +885,19 @@ define(
         // add running games
         if (Tournaments.isRunning(tournamentid)) {
           Tournaments.getTournament(tournamentid).getGames().map(
-              function (game) {
+              function(game) {
                 games.push({
-                  id : game.id,
-                  t1 : game.teams[0][0],
-                  t2 : game.teams[1][0],
-                  p1 : '',
-                  p2 : '',
+                  id: game.id,
+                  t1: game.teams[0][0],
+                  t2: game.teams[1][0],
+                  p1: '',
+                  p2: ''
                 });
               });
         }
 
         // sort all the games
-        games.sort(function (a, b) {
+        games.sort(function(a, b) {
           return a.id - b.id;
         });
 
@@ -905,11 +905,11 @@ define(
         for (i = 0; i < games.length; i += 1) {
           if (games[i].id > i) {
             games.splice(i, 0, {
-              id : i,
-              t1 : undefined,
-              t2 : undefined,
-              p1 : '',
-              p2 : '',
+              id: i,
+              t1: undefined,
+              t2: undefined,
+              p1: '',
+              p2: ''
             });
 
           }
@@ -917,7 +917,7 @@ define(
 
         // add byevotes through another cheap hack
         if (Tournaments.isRunning(tournamentid)) {
-          Tournaments.getTournament(tournamentid).gameid.map(function (id,
+          Tournaments.getTournament(tournamentid).gameid.map(function(id,
               teamno) {
             if (id >= 0 && games[id].t1 === undefined) {
               games[id].t1 = Tournaments.getTournament(tournamentid).players
@@ -976,7 +976,7 @@ define(
         return games.length > 0;
       }
 
-      function showTournaments () {
+      function showTournaments() {
         var hidden, tournamentid, displayfunc, numtournaments;
 
         hidden = true;
@@ -1013,7 +1013,7 @@ define(
       /**
        * remove all evidence of any games ever (from the overview only)
        */
-      function reset () {
+      function reset() {
         if (!$tab) {
           init();
         }
@@ -1030,7 +1030,7 @@ define(
       /**
        * removes and redraws all boxes from History
        */
-      function update () {
+      function update() {
         Tab_History.reset();
 
         if (showTournaments()) {

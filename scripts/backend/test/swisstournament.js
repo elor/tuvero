@@ -9,8 +9,8 @@
 /*
  * Swisstournament Test
  */
-define(function () {
-  return function (QUnit, getModule) {
+define(function() {
+  return function(QUnit, getModule) {
     var Swisstournament, Game, Tournament, Interface;
 
     Swisstournament = getModule('backend/swisstournament');
@@ -18,7 +18,7 @@ define(function () {
     Tournament = getModule('backend/tournament');
     Interface = getModule('lib/implements');
 
-    QUnit.test("Swisstournament", function () {
+    QUnit.test('Swisstournament', function() {
       var st, corr, count, pid, valid, games1, games2, games3, rnk, res, tmp;
 
       QUnit.equal(Interface(Tournament), '', 'Tournament interface validation');
@@ -29,11 +29,11 @@ define(function () {
 
       QUnit.equal(st.start(), undefined, 'premature start is aborted');
 
-      tmp = [ 'Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Gert',
-          'Hartmut', 'Inka', 'Jennifer' ];
+      tmp = ['Antje', 'Basta', 'Christian', 'David', 'Erik', 'Fabe', 'Gert',
+          'Hartmut', 'Inka', 'Jennifer'];
 
       // only append 9 players
-      tmp.forEach(function (p, playerid) {
+      tmp.forEach(function(p, playerid) {
         if (playerid >= tmp.length - 9) {
           st.addPlayer(playerid);
         }
@@ -52,7 +52,7 @@ define(function () {
 
       count = 0;
       pid = -1;
-      st.byevote.forEach(function (bye, p) {
+      st.byevote.forEach(function(bye, p) {
         if (bye) {
           count += 1;
           pid = p;
@@ -64,7 +64,7 @@ define(function () {
       pid = st.players.at(pid);
 
       valid = true;
-      games1.forEach(function (game) {
+      games1.forEach(function(game) {
         if (game.teams[0][0] === pid || game.teams[1][0] === pid) {
           valid = false;
         }
@@ -74,7 +74,7 @@ define(function () {
 
       count = 0;
       pid = -1;
-      st.downvote.forEach(function (down, p) {
+      st.downvote.forEach(function(down, p) {
         if (down) {
           count += 1;
           pid = p;
@@ -85,7 +85,7 @@ define(function () {
 
       count = 0;
       pid = -1;
-      st.upvote.forEach(function (up, p) {
+      st.upvote.forEach(function(up, p) {
         if (up) {
           count += 1;
           pid = p;
@@ -94,10 +94,10 @@ define(function () {
 
       QUnit.equal(count, 0, 'first round: no upvotes');
 
-      st.finishGame(games1[0], [ 13, 8 ]);
-      st.finishGame(games1[1], [ 5, 13 ]);
-      st.finishGame(games1[2], [ 13, 4 ]);
-      st.finishGame(games1[3], [ 13, 6 ]);
+      st.finishGame(games1[0], [13, 8]);
+      st.finishGame(games1[1], [5, 13]);
+      st.finishGame(games1[2], [13, 4]);
+      st.finishGame(games1[3], [13, 6]);
 
       QUnit.equal(st.getGames().length, 0, 'first round: all games finished');
 
@@ -115,11 +115,11 @@ define(function () {
       QUnit.equal(res, 0, 'ranking: four losses in right order');
 
       // correct a game
-      st.correct(games1[2], [ 13, 4 ], [ 4, 13 ]);
+      st.correct(games1[2], [13, 4], [4, 13]);
       corr = {
-        game : games1[2].copy(),
-        oldpoints : [ 13, 4 ],
-        newpoints : [ 4, 13 ]
+        game: games1[2].copy(),
+        oldpoints: [13, 4],
+        newpoints: [4, 13]
       };
       corr.game.id = 0;
 
@@ -148,39 +148,39 @@ define(function () {
 
       count = 0;
 
-      st.downvote.forEach(function (down) {
+      st.downvote.forEach(function(down) {
         if (down) {
           count += 1;
         }
       }, this);
 
-      QUnit.equal(count, 1, "second round: one downvote");
+      QUnit.equal(count, 1, 'second round: one downvote');
 
       count = 0;
-      st.upvote.forEach(function (up) {
+      st.upvote.forEach(function(up) {
         if (up) {
           count += 1;
         }
       }, this);
 
-      QUnit.equal(count, 1, "second round: one upvote");
+      QUnit.equal(count, 1, 'second round: one upvote');
 
       count = 0;
-      st.byevote.forEach(function (bye) {
+      st.byevote.forEach(function(bye) {
         if (bye) {
           count += 1;
         }
       }, this);
 
-      QUnit.equal(count, 2, "second round: second byevote");
+      QUnit.equal(count, 2, 'second round: second byevote');
 
-      tmp = [ st.players.at(st.downvote.indexOf(true)),
-          st.players.at(st.upvote.indexOf(true)) ];
+      tmp = [st.players.at(st.downvote.indexOf(true)),
+          st.players.at(st.upvote.indexOf(true))];
 
-      tmp = [ new Game(tmp[0], tmp[1]), new Game(tmp[1], tmp[0]) ];
+      tmp = [new Game(tmp[0], tmp[1]), new Game(tmp[1], tmp[0])];
 
       count = 0;
-      games2.forEach(function (game) {
+      games2.forEach(function(game) {
         if (game.equals(tmp[0])) {
           count += 1;
         }
@@ -190,20 +190,20 @@ define(function () {
       }, this);
 
       tmp = [];
-      games1.forEach(function (game) {
+      games1.forEach(function(game) {
         tmp.push(new Game(game.teams[1][0], game.teams[0][0]));
       }, this);
 
       count = 0;
 
-      games2.forEach(function (g2) {
-        games1.forEach(function (g1) {
+      games2.forEach(function(g2) {
+        games1.forEach(function(g1) {
           if (g2.equals(g1)) {
             count += 1;
           }
         }, this);
 
-        tmp.forEach(function (g1) {
+        tmp.forEach(function(g1) {
           if (g2.equals(g1)) {
             count += 1;
           }
@@ -212,20 +212,20 @@ define(function () {
 
       QUnit.equal(count, 0, 'second round: non-repetitive fixtures');
 
-      res = st.finishGame(new Game(0, 0), [ 13, 7 ]);
+      res = st.finishGame(new Game(0, 0), [13, 7]);
 
       QUnit.equal(res, undefined, 'second round: invalid game');
 
-      res = st.finishGame(games2[3], [ 13, 0 ]);
+      res = st.finishGame(games2[3], [13, 0]);
       QUnit.equal(res, st, 'second round: valid game');
 
-      res = st.finishGame(games2[3], [ 10, 13 ]);
+      res = st.finishGame(games2[3], [10, 13]);
       QUnit.equal(res, undefined, 'second round: declining resubmitted result');
 
-      st.finishGame(games2[1], [ 11, 13 ]);
-      st.finishGame(games2[2], [ 13, 8 ]);
+      st.finishGame(games2[1], [11, 13]);
+      st.finishGame(games2[2], [13, 8]);
       // the upvote wins this game to secure a third round
-      st.finishGame(games2[0], [ 5, 13 ]);
+      st.finishGame(games2[0], [5, 13]);
 
       res = st.getGames();
       QUnit.equal(res.length, 0, 'second round: all games closed');
@@ -244,24 +244,24 @@ define(function () {
       QUnit.equal(games3.length, 4, 'third round: four games');
 
       count = 0;
-      st.byevote.forEach(function (bye) {
+      st.byevote.forEach(function(bye) {
         if (bye) {
           count += 1;
         }
       }, this);
 
-      QUnit.equal(count, 3, "third round: third byevote");
+      QUnit.equal(count, 3, 'third round: third byevote');
 
-      st.finishGame(games3[3], [ 5, 13 ]);
-      st.finishGame(games3[2], [ 2, 13 ]);
-      st.finishGame(games3[1], [ 13, 9 ]);
-      st.finishGame(games3[0], [ 13, 12 ]);
+      st.finishGame(games3[3], [5, 13]);
+      st.finishGame(games3[2], [2, 13]);
+      st.finishGame(games3[1], [13, 9]);
+      st.finishGame(games3[0], [13, 12]);
 
       count = st.getGames().length;
 
       QUnit.equal(count, 0, 'third round: finished');
 
-      QUnit.deepEqual(st.getCorrections(), [ corr ], 'getCorrections()');
+      QUnit.deepEqual(st.getCorrections(), [corr], 'getCorrections()');
 
       // // check tournament deadlock with too few players
       // st = new Swisstournament();

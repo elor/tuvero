@@ -1,18 +1,18 @@
 /**
  * GlobalRanking, an object to determine the global ranking for every player by
  * its current tournament id and its rank within the tournament.
- * 
+ *
  * If two players are equally ranked, the lowest ID is first.
- * 
+ *
  * @exports GlobalRanking
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ './tournaments', './team', './shared'], function (Tournaments, Team, Shared) {
+define(['./tournaments', './team', './shared'], function(Tournaments, Team, Shared) {
   var GlobalRanking;
 
-  function mapTeamsToTournamentIDs () {
+  function mapTeamsToTournamentIDs() {
     var tournamentorder, teams, i, tournamentid;
 
     teams = [];
@@ -22,19 +22,19 @@ define([ './tournaments', './team', './shared'], function (Tournaments, Team, Sh
     while (teams.length < Team.count()) {
       i = teams.length;
       teams.push({
-        rankoftournament : Tournaments.numTournaments(),
-        tournamentid : undefined,
-        teamid : i,
+        rankoftournament: Tournaments.numTournaments(),
+        tournamentid: undefined,
+        teamid: i
       });
     }
 
     for (i = tournamentorder.length - 1; i >= 0; i -= 1) {
       tournamentid = tournamentorder[i];
-      Tournaments.getTeams(tournamentid).map(function (teamid) {
+      Tournaments.getTeams(tournamentid).map(function(teamid) {
         teams[teamid] = {
-          rankoftournament : i,
-          tournamentid : tournamentid,
-          teamid : teamid,
+          rankoftournament: i,
+          tournamentid: tournamentid,
+          teamid: teamid
         };
       });
     }
@@ -42,7 +42,7 @@ define([ './tournaments', './team', './shared'], function (Tournaments, Team, Sh
     return teams;
   }
 
-  function mapTeamsToTournamentRanks (teamtournaments) {
+  function mapTeamsToTournamentRanks(teamtournaments) {
     var i, tournamentid, numtournaments, teamid, tournamentranking;
 
     numtournaments = Tournaments.numTournaments();
@@ -62,14 +62,14 @@ define([ './tournaments', './team', './shared'], function (Tournaments, Team, Sh
     return teamtournaments;
   }
 
-  function updateTeamObjects () {
+  function updateTeamObjects() {
     var ranking, i, tournamentid;
 
-    function sortfunc (a, b) {
+    function sortfunc(a, b) {
       return a.rankoftournament - b.rankoftournament || a.tournamentrank - b.tournamentrank;
     }
 
-    function strictsortfunc (a, b) {
+    function strictsortfunc(a, b) {
       return sortfunc(a, b) || a.teamid - b.teamid;
     }
 
@@ -99,7 +99,7 @@ define([ './tournaments', './team', './shared'], function (Tournaments, Team, Sh
   }
 
   GlobalRanking = {
-    get : updateTeamObjects,
+    get: updateTeamObjects
   };
 
   Shared.GlobalRanking = GlobalRanking;

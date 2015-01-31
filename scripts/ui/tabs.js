@@ -1,52 +1,52 @@
 /**
  * Logic for viewing/hiding tabs.
- * 
+ *
  * Tabs are automatically read from the DOM during object construction.
- * 
+ *
  * @exports Tabs
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define([ './options' ], function (Options) {
+define(['./options'], function(Options) {
   var Tabs;
 
-  Tabs = function (tabselector, imgpattern, enforce) {
+  Tabs = function(tabselector, imgpattern, enforce) {
     var that;
 
     that = {
-      tabs : [],
-      keys : [],
-      opts : [],
-      updateOpts : undefined,
-      hide : undefined,
-      show : undefined,
-      valid : undefined,
+      tabs: [],
+      keys: [],
+      opts: [],
+      updateOpts: undefined,
+      hide: undefined,
+      show: undefined,
+      valid: undefined
     };
 
-    this.updateOpts = function () {
+    this.updateOpts = function() {
       that.updateOpts();
     };
 
-    this.hide = function (tabname) {
+    this.hide = function(tabname) {
       that.display(tabname, false);
     };
 
-    this.show = function (tabname) {
+    this.show = function(tabname) {
       that.display(tabname, true);
     };
-    this.focus = function (tabname) {
+    this.focus = function(tabname) {
       that.focus(tabname);
     };
 
-    this.valid = function () {
+    this.valid = function() {
       that.openValidTab();
     };
 
     imgpattern = imgpattern || 'images/%s.png';
 
-    $(function ($) {
+    $(function($) {
       var tabs, keys, opts, $menu, $body, $links, $menus, visible;
 
       tabs = that.tabs;
@@ -56,7 +56,7 @@ define([ './options' ], function (Options) {
       $menus = {};
       visible = [];
 
-      function openValidTab () {
+      function openValidTab() {
         var tabindex, index, currentTab;
 
         // show the first tab of this set if hash doesn't match any of them
@@ -79,7 +79,7 @@ define([ './options' ], function (Options) {
       }
 
       // get tabs
-      $(tabselector).each(function (i, elem) {
+      $(tabselector).each(function(i, elem) {
         var tab, key, opt, $elem;
         $elem = $(elem);
 
@@ -103,7 +103,7 @@ define([ './options' ], function (Options) {
       $menu.addClass('tabs');
 
       // add icons
-      tabs.forEach(function (tabname, i) {
+      tabs.forEach(function(tabname, i) {
         var $img, $tab;
 
         $tab = $('<a>');
@@ -123,7 +123,7 @@ define([ './options' ], function (Options) {
       }, this);
 
       // copy modified version to every page
-      tabs.forEach(function (tabname) {
+      tabs.forEach(function(tabname) {
         var $page, $clone;
         $page = $('#' + tabname);
         $clone = $menu.clone();
@@ -135,7 +135,7 @@ define([ './options' ], function (Options) {
       }, this);
 
       // add event handlers for menu items
-      $('#tabs').on('click', '.tabs a', function (e) {
+      $('#tabs').on('click', '.tabs a', function(e) {
         var hash;
         hash = $(this).attr('href');
         location.hash = hash;
@@ -146,7 +146,7 @@ define([ './options' ], function (Options) {
 
       // create empty invisible links to every tab
       $body = $('body');
-      keys.forEach(function (key, index) {
+      keys.forEach(function(key, index) {
         var $a = $('<a>');
         $a.attr('href', '#' + tabs[index]);
         $a.attr('tabindex', '-1');
@@ -155,7 +155,7 @@ define([ './options' ], function (Options) {
         $links[tabs[index]] = $a;
       });
 
-      $(window).on('hashchange', function () {
+      $(window).on('hashchange', function() {
         if (location.hash !== '#reset') {
           window.scrollTo(0, 0);
           openValidTab();
@@ -164,8 +164,8 @@ define([ './options' ], function (Options) {
         return true;
       });
 
-      that.updateOpts = function () {
-        opts.forEach(function (opt, i) {
+      that.updateOpts = function() {
+        opts.forEach(function(opt, i) {
           var tab;
 
           tab = tabs[i];
@@ -179,7 +179,7 @@ define([ './options' ], function (Options) {
       /**
        * show/hide all references to a certain
        */
-      that.display = function (tabname, val) {
+      that.display = function(tabname, val) {
         var key, index;
 
         if (typeof (val) !== 'boolean') {
@@ -211,7 +211,7 @@ define([ './options' ], function (Options) {
         openValidTab();
       };
 
-      that.focus = function (tabname) {
+      that.focus = function(tabname) {
         var key, index, currentTab;
 
         index = tabs.indexOf(tabname);

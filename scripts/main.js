@@ -11,15 +11,15 @@
 
 /**
  * error callback function
- * 
+ *
  * @param err
  *          an object containing the type and position of the error
- * 
+ *
  */
-function notifyAboutLoadError (err) {
+function notifyAboutLoadError(err) {
   console.log(err);
 
-  $(function ($) {
+  $(function($) {
     var $splash;
 
     // Splash.setState(), but without splash being loaded
@@ -31,8 +31,8 @@ function notifyAboutLoadError (err) {
 }
 
 define(
-    [ 'common' ],
-    function () {
+    ['common'],
+    function() {
       var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug;
 
       Shared = require('./ui/shared');
@@ -47,7 +47,7 @@ define(
 
       // actual initializations are started after any other module has been set
       // up, hence the jquery function.
-      $(function () {
+      $(function() {
 
         // try {
         // NOT actively looking for updates. The events are handled
@@ -64,7 +64,7 @@ define(
         Splash.loading();
 
         // using a timeout to let the browser update the splashtext
-        setTimeout(function () {
+        setTimeout(function() {
           try {
             if (Storage.restore()) {
               new Toast(Strings.loaded);
@@ -76,7 +76,7 @@ define(
 
             Alltabs.update();
 
-            setTimeout(function () {
+            setTimeout(function() {
               try {
                 Toast.init();
                 Splash.hide();

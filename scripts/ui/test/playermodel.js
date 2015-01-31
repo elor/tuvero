@@ -1,36 +1,36 @@
 /**
  * Unit tests for PlayerModel
- * 
- * @returns a test function
+ *
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
-  return function (QUnit, getModule) {
+define(function() {
+  return function(QUnit, getModule) {
     var PlayerModel;
 
     PlayerModel = getModule('ui/playermodel');
 
     // TODO test the emitted events
 
-    QUnit.test("PlayerModel tests", function () {
+    QUnit.test('PlayerModel tests', function() {
       var model, res, ref, listener;
 
       listener = {
-        updatecount : 0,
+        updatecount: 0,
         /**
          * Callback listener
          */
-        onupdate : function () {
+        onupdate: function() {
           listener.updatecount += 1;
         },
         /**
          * counter reset
          */
-        reset : function () {
+        reset: function() {
           listener.updatecount = 0;
-        },
+        }
       };
 
       model = new PlayerModel();

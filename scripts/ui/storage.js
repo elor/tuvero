@@ -1,19 +1,19 @@
 /**
  * Storage object, which binds storage keys to actual objects for storage and
  * retrieval from a local storage
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, Modernizr) {
+define(['./options', './shared', 'lib/modernizr'], function(Options, Shared, Modernizr) {
   var Storage, keys, savespending;
 
   Storage = {};
   keys = {};
   savespending = {};
 
-  function saveKey (key) {
+  function saveKey(key) {
     var val, blob;
 
     // if (!keys.hasOwnProperty(key)) {
@@ -38,7 +38,7 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
     return window.localStorage.getItem(key) !== blob;
   }
 
-  function loadKey (key) {
+  function loadKey(key) {
     var val, blob;
 
     // if (!keys.hasOwnProperty(key)) {
@@ -65,7 +65,7 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
    * remove this and only this key from localStorage to avoid collision with
    * other software under the same domain
    */
-  Storage.clear = function (key) {
+  Storage.clear = function(key) {
 
     if (key === undefined) {
       for (key in keys) {
@@ -84,14 +84,14 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
   /**
    * store everything
    */
-  Storage.store = function () {
+  Storage.store = function() {
     var key, val, err;
 
     for (key in keys) {
       if (savespending[key] == true) {
       } else {
         savespending[key] = true;
-        window.setTimeout(function (mykey) {
+        window.setTimeout(function(mykey) {
           if (saveKey(mykey)) {
             console.error('Error when storing ' + mykey);
           }
@@ -105,10 +105,10 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
 
   /**
    * restore everything
-   * 
+   *
    * @return true on successful load, false otherwise
    */
-  Storage.restore = function () {
+  Storage.restore = function() {
     var key, err, blob;
 
     err = false;
@@ -126,7 +126,7 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
   /**
    * enables localStorage, if possible. Necessary initialization
    */
-  Storage.enable = function () {
+  Storage.enable = function() {
 
     Storage.disable();
 
@@ -140,7 +140,7 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
    * disables the storage. This will inhibit any of the other functions,
    * including clear(). Note that disable() doesn't clear the storage.
    */
-  Storage.disable = function () {
+  Storage.disable = function() {
     keys = {};
   };
 
@@ -148,7 +148,7 @@ define([ './options', './shared', 'lib/modernizr' ], function (Options, Shared, 
    * this function indicates a change in the tournament state
    */
   // TODO move to Blob
-  Storage.changed = function () {
+  Storage.changed = function() {
 
     Shared.Tab_Settings.reset();
     Storage.store();

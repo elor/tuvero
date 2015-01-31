@@ -1,11 +1,11 @@
 /**
  * Model, View and Controller of the ranking tab
- * 
+ *
  * This tab shows all results in tabulated form and is supposed to provide some
  * kind of sorting functionality
- * 
+ *
  * TODO slay this beast
- * 
+ *
  * @exports Tab_Ranking
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -13,8 +13,8 @@
  * @see LICENSE
  */
 
-define([ './tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './tab', './history', './shared', './boxview' ], function (
+define(['./tournaments', './team', './toast', './strings', './options',
+    './tabshandle', './tab', './history', './shared', './boxview'], function(
     Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History,
     Shared, BoxView) {
   var Tab_Ranking, template, $tab;
@@ -23,7 +23,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
   Tab_Ranking = undefined;
   $tab = undefined;
 
-  function initTemplate () {
+  function initTemplate() {
     var i, tmp;
 
     template = {};
@@ -73,7 +73,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     updateTemplate();
   }
 
-  function updateTemplate () {
+  function updateTemplate() {
     var i;
     // adjust number of columns to the teamsize
     template.rank.$table.find('th:nth-child(3)').attr('colspan',
@@ -91,7 +91,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     }
   }
 
-  function init () {
+  function init() {
     if ($tab) {
       console.error('tab_ranking: $tab already exists:');
       console.error($tab);
@@ -105,7 +105,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
   /**
    * fill template and return copy
-   * 
+   *
    * @param rank
    *          rank of the team for which to create the line. starting at 0
    * @param ranking
@@ -114,7 +114,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
    *          a valid votes object
    * @return a filled copy of the template
    */
-  function createRankRow (rank, ranking) {
+  function createRankRow(rank, ranking) {
     var tid, team, vote, i;
 
     tid = ranking.ids[rank];
@@ -165,7 +165,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
    *          the box to add the ranking to
    * @return {boolean} false on failure, true on success
    */
-  function showRanking (tournamentid, $box) {
+  function showRanking(tournamentid, $box) {
     var ranking, rank, $container, notempty;
 
     $container = template.rank.$table.clone();
@@ -191,14 +191,14 @@ define([ './tournaments', './team', './toast', './strings', './options',
 
   /**
    * retrieves the corrections and displays them in the correction table
-   * 
+   *
    * @param tournamentid
    *          the tournament id
    * @param $box
    *          the box to add content to
-   * @returns true if anything has been added to the DOM, false otherwise
+   * @return true if anything has been added to the DOM, false otherwise
    */
-  function showCorrections (tournamentid, $box) {
+  function showCorrections(tournamentid, $box) {
     var corrections, empty, $container, $table;
 
     empty = true;
@@ -212,7 +212,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     $container = template.correction.$container.clone();
     $table = $container.find('.correctionstable');
 
-    corrections.forEach(function (correction) {
+    corrections.forEach(function(correction) {
       var tid;
 
       tid = correction[0][0];
@@ -239,7 +239,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     return !empty;
   }
 
-  function reset () {
+  function reset() {
     if (!$tab) {
       init();
     }
@@ -251,7 +251,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     updateTemplate();
   }
 
-  function updateTournamentRankings () {
+  function updateTournamentRankings() {
     var hidden, tournamentid, keepbox, $box;
 
     hidden = true;
@@ -292,7 +292,7 @@ define([ './tournaments', './team', './toast', './strings', './options',
     }
   }
 
-  function update () {
+  function update() {
     if (updateTournamentRankings() === true) {
       // new Toast(Strings.rankingupdate);
     }

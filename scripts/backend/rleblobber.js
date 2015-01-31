@@ -8,22 +8,22 @@
  * @see LICENSE
  */
 
-define(function () {
+define(function() {
   /**
    * RLEBlobber: A blobber for multi-dimensional sparse non-circular arrays,
    * intended for numerical data. Compression occurs using run-length-encoding
    * of all entries that represent null in some form, e.g. undefined, null and 0
-   * 
+   *
    * Contents of the array can only be numbers at this point
-   * 
+   *
    * This object can work with encapsulated instances or static functions. Use
    * what suits you best, they're calling each other anyway.
-   * 
+   *
    * @param array
    *          a reference to the array
    * @return {RLEBlobber} this
    */
-  var RLEBlobber = function (array) {
+  var RLEBlobber = function(array) {
     this.array = array;
 
     return this;
@@ -31,45 +31,45 @@ define(function () {
 
   /**
    * getter for the contained array
-   * 
+   *
    * @return the contained array
    */
-  RLEBlobber.prototype.getArray = function () {
+  RLEBlobber.prototype.getArray = function() {
     return this.array;
   };
 
   /**
    * creates and returns a string representation of the contained array
-   * 
+   *
    * @return a string representation of the contained array
    */
-  RLEBlobber.prototype.toBlob = function () {
+  RLEBlobber.prototype.toBlob = function() {
     return RLEBlobber.toBlob(this.array);
   };
 
   /**
    * creates a new array object and stores it in this.array
-   * 
+   *
    * @param blob
    *          the string representation
-   * 
+   *
    * @return nothing
    */
-  RLEBlobber.prototype.fromBlob = function (blob) {
+  RLEBlobber.prototype.fromBlob = function(blob) {
     this.array = RLEBlobber.fromBlob(blob);
   };
 
   /**
    * create a blob from the given array using run length encoding
-   * 
+   *
    * Important Note: This function does not detect circular references! In those
    * cases, it will recurse forever!
-   * 
+   *
    * @param array
    *          a sparse multidimensional non-circular array
    * @return a string representation of array
    */
-  RLEBlobber.toBlob = function (array) {
+  RLEBlobber.toBlob = function(array) {
     var i, nullstart, str, elem, elemstr, notnull;
 
     switch (toType(array)) {
@@ -138,13 +138,13 @@ define(function () {
 
   /**
    * parse the blob and return its contents as an array
-   * 
+   *
    * @param blob
    *          the string representation
    * @return an array which has been decoded from the blob, or undefined on
    *          failure
    */
-  RLEBlobber.fromBlob = function (blob) {
+  RLEBlobber.fromBlob = function(blob) {
     var array, innerarray, nesting, i, num, char, isnull, nullsleft, newarray;
 
     if (toType(blob) != 'string') {
@@ -268,25 +268,25 @@ define(function () {
     }
 
     // ERROR: unexpected end of input
-    console.error("unexpected end of input. Unbalanced brackets");
+    console.error('unexpected end of input. Unbalanced brackets');
     return undefined;
   };
 
   /**
    * replacement of the typeof function
-   * 
+   *
    * Source:
    * http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
    */
-  function toType (obj) {
+  function toType(obj) {
     return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
   }
 
-  function isArray (obj) {
+  function isArray(obj) {
     return toType(obj) == 'array';
   }
 
-  function isNumber (obj) {
+  function isNumber(obj) {
     return toType(obj) == 'number';
   }
 

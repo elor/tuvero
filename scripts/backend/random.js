@@ -1,13 +1,13 @@
 /**
  * a random number generator
- * 
- * @returns Random
+ *
+ * @return Random
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
-  var Random = function (x, c) {
+define(function() {
+  var Random = function(x, c) {
     var date;
 
     if (x !== undefined && c !== undefined) {
@@ -23,7 +23,7 @@ define(function () {
 
   Random.prototype.maxInt = 0x10000;
 
-  Random.prototype.nextInt = function (top) {
+  Random.prototype.nextInt = function(top) {
     if (top !== undefined) {
       return Math.floor(this.nextDouble() * top);
     }
@@ -35,15 +35,15 @@ define(function () {
     return this.x;
   };
 
-  Random.prototype.nextDouble = function () {
+  Random.prototype.nextDouble = function() {
     return this.nextInt() / this.maxInt;
   };
 
-  Random.prototype.pick = function (array) {
+  Random.prototype.pick = function(array) {
     return array[this.nextInt(array.length)];
   };
 
-  Random.prototype.pickAndRemove = function (array) {
+  Random.prototype.pickAndRemove = function(array) {
     return array.splice(this.nextInt(array.length), 1)[0];
   };
 

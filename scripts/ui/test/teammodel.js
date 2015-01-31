@@ -1,12 +1,12 @@
 /**
  * Unit tests for TeamModel
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(function () {
-  return function (QUnit, getModule) {
+define(function() {
+  return function(QUnit, getModule) {
     var extend, TeamModel, PlayerModel, IndexedModel;
 
     extend = getModule('lib/extend');
@@ -14,25 +14,25 @@ define(function () {
     IndexedModel = getModule('ui/indexedmodel');
     PlayerModel = getModule('ui/playermodel');
 
-    QUnit.test("TeamModel tests", function () {
+    QUnit.test('TeamModel tests', function() {
       var team, players, names, listener;
 
       QUnit.ok(extend.isSubclass(TeamModel, IndexedModel), 'TeamModel is subclass of IndexedModel');
 
       listener = {
-        updatecount : 0,
+        updatecount: 0,
         /**
          * Callback listener
          */
-        onupdate : function () {
+        onupdate: function() {
           listener.updatecount += 1;
         },
         /**
          * counter reset
          */
-        reset : function () {
+        reset: function() {
           listener.updatecount = 0;
-        },
+        }
       };
 
       team = new TeamModel();
@@ -43,9 +43,9 @@ define(function () {
       QUnit.equal(team.getPlayer(-1), undefined, 'getPlayer(-1) returns undefined');
       QUnit.equal(team.getPlayer(5), undefined, 'out of bounds getPlayer returns undefined');
 
-      names = [ 'Erik E. Lorenz', 'Fabian Böttcher', 'Detlef Schwede' ];
-      players = [ new PlayerModel(names[0]), new PlayerModel(names[1]),
-          new PlayerModel(names[2]) ];
+      names = ['Erik E. Lorenz', 'Fabian Böttcher', 'Detlef Schwede'];
+      players = [new PlayerModel(names[0]), new PlayerModel(names[1]),
+          new PlayerModel(names[2])];
       team = new TeamModel(players, 5);
 
       QUnit.equal(team.length, players.length, 'proper initialization: team length');
