@@ -11,8 +11,8 @@ Generic View for filling a DOM element with text
 
 ## Dependencies
 
-* <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
+* <a href="./view.html">./view</a>
 
 ## Functions
 
@@ -59,5 +59,5 @@ Callback listener
 ## Metrics
 
 * 60 Lines
-* 1139 Bytes
+* 1128 Bytes
 

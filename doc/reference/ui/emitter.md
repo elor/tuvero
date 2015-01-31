@@ -1,4 +1,4 @@
-# scripts/ui/interfaces/emitter.js
+# scripts/ui/emitter.js
 
 
 An event emitter class

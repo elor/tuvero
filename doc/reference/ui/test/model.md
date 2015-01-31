@@ -1,4 +1,4 @@
-# scripts/ui/interfaces/test/model.js
+# scripts/ui/test/model.js
 
 
 Model class tests
@@ -20,5 +20,5 @@ No exported functions
 ## Metrics
 
 * 22 Lines
-* 505 Bytes
+* 483 Bytes
 

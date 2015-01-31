@@ -1,4 +1,4 @@
-# scripts/ui/interfaces/test/emitter.js
+# scripts/ui/test/emitter.js
 
 
 Event Emitter tests
@@ -41,5 +41,5 @@ test function
 ## Metrics
 
 * 88 Lines
-* 2637 Bytes
+* 2626 Bytes
 

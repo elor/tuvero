@@ -12,8 +12,8 @@ BoxView for collapsing boxes on click events
 ## Dependencies
 
 * <a href="./boxcontroller.html">./boxcontroller</a>
-* <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
+* <a href="./view.html">./view</a>
 
 ## Functions
 
@@ -57,5 +57,5 @@ toggle callback function
 ## Metrics
 
 * 113 Lines
-* 2710 Bytes
+* 2699 Bytes
 

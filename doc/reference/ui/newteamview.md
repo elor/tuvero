@@ -12,9 +12,9 @@ team is to be added to the associated ListModel
 
 ## Dependencies
 
-* <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
 * <a href="./newteamcontroller.html">./newteamcontroller</a>
+* <a href="./view.html">./view</a>
 * JQuery
 
 
@@ -56,5 +56,5 @@ containing the teams. Do not fire 'reset' on this model manually!
 ## Metrics
 
 * 59 Lines
-* 1522 Bytes
+* 1511 Bytes
 

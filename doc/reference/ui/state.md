@@ -13,6 +13,7 @@ of being read from and written to storage.
 
 ## Dependencies
 
+* <a href="//.html">//</a>
 * <a href="./history.html">./history</a>
 * <a href="./options.html">./options</a>
 * <a href="./shared.html">./shared</a>
@@ -53,6 +54,6 @@ resets everything managed by Blob
 
 ## Metrics
 
-* 79 Lines
-* 1917 Bytes
+* 82 Lines
+* 1943 Bytes
 

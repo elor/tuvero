@@ -11,8 +11,8 @@ A combination of players is a team. A team should contain at least one player
 
 ## Dependencies
 
-* <a href="./interfaces/model.html">./interfaces/model</a>
 * lib/extend
+* <a href="./model.html">./model</a>
 
 ## Functions
 
@@ -47,5 +47,5 @@ a preferably unique numeric id
 ## Metrics
 
 * 51 Lines
-* 1037 Bytes
+* 1026 Bytes
 

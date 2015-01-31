@@ -12,6 +12,7 @@ Wrap all tabs into a single object for centralized updates
 
 ## Dependencies
 
+* <a href="//.html">//</a>
 * <a href="./shared.html">./shared</a>
 * <a href="./tab_debug.html">./tab_debug</a>
 * <a href="./tab_games.html">./tab_games</a>
@@ -42,5 +43,5 @@ Wrap all tabs into a single object for centralized updates
 ## Metrics
 
 * 47 Lines
-* 1040 Bytes
+* 1034 Bytes
 

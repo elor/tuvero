@@ -10,7 +10,7 @@ Controller for adding a new player and handling invalid player names on input
 
 ## Dependencies
 
-* <a href="./interfaces/controller.html">./interfaces/controller</a>
+* <a href="./controller.html">./controller</a>
 * lib/extend
 * <a href="./playermodel.html">./playermodel</a>
 * <a href="./teammodel.html">./teammodel</a>
@@ -41,5 +41,5 @@ aborted and the first invalid input field is focused
 ## Metrics
 
 * 73 Lines
-* 1762 Bytes
+* 1751 Bytes
 

@@ -1,8 +1,9 @@
 # scripts/ui/test/tab.js
 
 
-No Description
+unit tests
 
+* Exports: a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -28,6 +29,6 @@ No Dependencies
 
 ## Metrics
 
-* 53 Lines
-* 1897 Bytes
+* 54 Lines
+* 1924 Bytes
 

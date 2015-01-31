@@ -12,8 +12,8 @@ TableView for viewing information in a tabular representation
 ## Dependencies
 
 * <a href="./boxcontroller.html">./boxcontroller</a>
-* <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
+* <a href="./view.html">./view</a>
 * JQuery
 
 
@@ -74,5 +74,5 @@ event callback function
 ## Metrics
 
 * 100 Lines
-* 2060 Bytes
+* 2049 Bytes
 

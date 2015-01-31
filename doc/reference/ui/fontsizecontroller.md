@@ -12,7 +12,7 @@ the FontSizeView widget
 
 ## Dependencies
 
-* <a href="./interfaces/controller.html">./interfaces/controller</a>
+* <a href="./controller.html">./controller</a>
 * lib/extend
 * JQuery
 
@@ -31,5 +31,5 @@ the FontSizeView
 ## Metrics
 
 * 35 Lines
-* 841 Bytes
+* 830 Bytes
 

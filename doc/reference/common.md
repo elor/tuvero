@@ -46,9 +46,11 @@ Do not attempt manual changes
 * <a href="ui/backgroundscripts/updatetab.html">ui/backgroundscripts/updatetab</a>
 * <a href="ui/boxcontroller.html">ui/boxcontroller</a>
 * <a href="ui/boxview.html">ui/boxview</a>
+* <a href="ui/controller.html">ui/controller</a>
 * <a href="ui/csver.html">ui/csver</a>
 * <a href="ui/data/swissperms.html">ui/data/swissperms</a>
 * <a href="ui/debug.html">ui/debug</a>
+* <a href="ui/emitter.html">ui/emitter</a>
 * <a href="ui/fontsizecontroller.html">ui/fontsizecontroller</a>
 * <a href="ui/fontsizemodel.html">ui/fontsizemodel</a>
 * <a href="ui/fontsizeview.html">ui/fontsizeview</a>
@@ -56,13 +58,10 @@ Do not attempt manual changes
 * <a href="ui/history.html">ui/history</a>
 * <a href="ui/indexedlistmodel.html">ui/indexedlistmodel</a>
 * <a href="ui/indexedmodel.html">ui/indexedmodel</a>
-* <a href="ui/interfaces/controller.html">ui/interfaces/controller</a>
-* <a href="ui/interfaces/emitter.html">ui/interfaces/emitter</a>
-* <a href="ui/interfaces/model.html">ui/interfaces/model</a>
-* <a href="ui/interfaces/view.html">ui/interfaces/view</a>
 * <a href="ui/koline.html">ui/koline</a>
 * <a href="ui/listmodel.html">ui/listmodel</a>
 * <a href="ui/listview.html">ui/listview</a>
+* <a href="ui/model.html">ui/model</a>
 * <a href="ui/newteamcontroller.html">ui/newteamcontroller</a>
 * <a href="ui/newteamview.html">ui/newteamview</a>
 * <a href="ui/options.html">ui/options</a>
@@ -89,15 +88,17 @@ Do not attempt manual changes
 * <a href="ui/tabs.html">ui/tabs</a>
 * <a href="ui/tab_settings.html">ui/tab_settings</a>
 * <a href="ui/tabshandle.html">ui/tabshandle</a>
-* <a href="ui/tab_teams.html">ui/tab_teams</a>
 * <a href="ui/team.html">ui/team</a>
 * <a href="ui/teammodel.html">ui/teammodel</a>
+* <a href="ui/teamstab.html">ui/teamstab</a>
 * <a href="ui/teamview.html">ui/teamview</a>
+* <a href="ui/templateview.html">ui/templateview</a>
 * <a href="ui/textview.html">ui/textview</a>
 * <a href="ui/toast.html">ui/toast</a>
 * <a href="ui/tournaments.html">ui/tournaments</a>
 * <a href="ui/type.html">ui/type</a>
 * <a href="ui/update.html">ui/update</a>
+* <a href="ui/view.html">ui/view</a>
 
 ## Functions
 
@@ -108,6 +109,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 128 Lines
-* 2720 Bytes
+* 129 Lines
+* 2696 Bytes
 

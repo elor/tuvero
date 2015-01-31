@@ -12,8 +12,8 @@ MVC classes
 
 ## Dependencies
 
-* <a href="./interfaces/model.html">./interfaces/model</a>
 * lib/extend
+* <a href="./model.html">./model</a>
 
 ## Functions
 
@@ -161,5 +161,5 @@ Callback function: called when a 'reset' event is emitted
 ## Metrics
 
 * 217 Lines
-* 4968 Bytes
+* 4957 Bytes
 

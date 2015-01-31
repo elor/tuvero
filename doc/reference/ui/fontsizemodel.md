@@ -11,8 +11,8 @@ Model for user-driven and programmatic font size changes
 
 ## Dependencies
 
-* <a href="./interfaces/model.html">./interfaces/model</a>
 * lib/extend
+* <a href="./model.html">./model</a>
 
 ## Functions
 
@@ -40,5 +40,5 @@ Set the font size. Throws an error if the font size is invalid.
 ## Metrics
 
 * 52 Lines
-* 1146 Bytes
+* 1135 Bytes
 

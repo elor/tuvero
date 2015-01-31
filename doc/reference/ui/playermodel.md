@@ -11,8 +11,8 @@ A Model for each single Player
 
 ## Dependencies
 
-* <a href="./interfaces/model.html">./interfaces/model</a>
 * lib/extend
+* <a href="./model.html">./model</a>
 
 ## Functions
 
@@ -60,5 +60,5 @@ the new name
 ## Metrics
 
 * 62 Lines
-* 1295 Bytes
+* 1284 Bytes
 

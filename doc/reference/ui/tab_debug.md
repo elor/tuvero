@@ -92,6 +92,6 @@ reset an original state.
 
 ## Metrics
 
-* 444 Lines
-* 10809 Bytes
+* 446 Lines
+* 10870 Bytes
 

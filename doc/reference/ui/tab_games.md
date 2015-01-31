@@ -25,7 +25,6 @@ the respective tournaments
 * <a href="./tab_history.html">./tab_history</a>
 * <a href="./tab_ranking.html">./tab_ranking</a>
 * <a href="./tabshandle.html">./tabshandle</a>
-* <a href="./tab_teams.html">./tab_teams</a>
 * <a href="./team.html">./team</a>
 * <a href="./toast.html">./toast</a>
 * <a href="./tournaments.html">./tournaments</a>
@@ -34,7 +33,7 @@ the respective tournaments
 
 ## Functions
 
-###     function(Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
+###     function(Team, Toast, Strings, Tab_Ranking, History, Tab_History, Storage,
 
 ---
 
@@ -185,6 +184,6 @@ reset an original game state, respecting the current state of Swiss
 
 ## Metrics
 
-* 638 Lines
-* 17295 Bytes
+* 637 Lines
+* 17261 Bytes
 

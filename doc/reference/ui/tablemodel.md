@@ -11,8 +11,8 @@ A model for table content, which may be extended for practical use cases
 
 ## Dependencies
 
-* <a href="./interfaces/model.html">./interfaces/model</a>
 * lib/extend
+* <a href="./model.html">./model</a>
 
 ## Functions
 
@@ -70,5 +70,5 @@ the index of the column (0-indexed)
 ## Metrics
 
 * 63 Lines
-* 1404 Bytes
+* 1393 Bytes
 

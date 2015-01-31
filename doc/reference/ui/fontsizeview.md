@@ -18,8 +18,8 @@ TODO allow for arbitrary font sizes
 
 * <a href="./fontsizecontroller.html">./fontsizecontroller</a>
 * <a href="./fontsizemodel.html">./fontsizemodel</a>
-* <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
+* <a href="./view.html">./view</a>
 * JQuery
 
 
@@ -72,5 +72,5 @@ the container
 ## Metrics
 
 * 86 Lines
-* 2203 Bytes
+* 2192 Bytes
 

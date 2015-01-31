@@ -12,8 +12,8 @@ element
 
 ## Dependencies
 
-* <a href="./interfaces/view.html">./interfaces/view</a>
 * lib/extend
+* <a href="./view.html">./view</a>
 
 ## Functions
 
@@ -44,5 +44,5 @@ Callback listener
 ## Metrics
 
 * 59 Lines
-* 1195 Bytes
+* 1184 Bytes
 

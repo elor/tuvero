@@ -1,4 +1,4 @@
-# scripts/ui/interfaces/view.js
+# scripts/ui/view.js
 
 
 An abstract view class

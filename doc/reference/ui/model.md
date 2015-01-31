@@ -1,4 +1,4 @@
-# scripts/ui/interfaces/model.js
+# scripts/ui/model.js
 
 
 An abstract model class

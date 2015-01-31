@@ -11,7 +11,7 @@ Box Controller for catching collapse-by-click events
 
 ## Dependencies
 
-* <a href="./interfaces/controller.html">./interfaces/controller</a>
+* <a href="./controller.html">./controller</a>
 * lib/extend
 
 ## Functions
@@ -29,5 +29,5 @@ the instance of BoxView which will be controlled
 ## Metrics
 
 * 31 Lines
-* 768 Bytes
+* 757 Bytes
 

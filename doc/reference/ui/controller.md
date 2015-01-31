@@ -1,4 +1,4 @@
-# scripts/ui/interfaces/controller.js
+# scripts/ui/controller.js
 
 
 An abstract controller class

@@ -22,13 +22,13 @@ This file is automatically created on build. Do not attempt manual changes
 * <a href="./backend/test/vector.html">./backend/test/vector</a>
 * <a href="common.html">common</a>
 * lib/qunit
-* <a href="./ui/interfaces/test/emitter.html">./ui/interfaces/test/emitter</a>
-* <a href="./ui/interfaces/test/model.html">./ui/interfaces/test/model</a>
 * <a href="./ui/test/blobs.html">./ui/test/blobs</a>
 * <a href="./ui/test/csv.html">./ui/test/csv</a>
+* <a href="./ui/test/emitter.html">./ui/test/emitter</a>
 * <a href="./ui/test/indexedlistmodel.html">./ui/test/indexedlistmodel</a>
 * <a href="./ui/test/indexedmodel.html">./ui/test/indexedmodel</a>
 * <a href="./ui/test/listmodel.html">./ui/test/listmodel</a>
+* <a href="./ui/test/model.html">./ui/test/model</a>
 * <a href="./ui/test/playermodel.html">./ui/test/playermodel</a>
 * <a href="./ui/test/tab.html">./ui/test/tab</a>
 * <a href="./ui/test/teammodel.html">./ui/test/teammodel</a>
@@ -40,5 +40,5 @@ No exported functions
 ## Metrics
 
 * 37 Lines
-* 1075 Bytes
+* 1053 Bytes
 
