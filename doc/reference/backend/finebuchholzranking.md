@@ -19,14 +19,14 @@ No Description
 
 ## Functions
 
-###   var Finebuchholz = function (size)
+###   var Finebuchholz = function(size)
 FinebuchholzRanking: A ranking variant which sorts players by wins,
 buchholz points, finebuchholz points and netto points, in this order.
 
 ---
 
 
-###   Finebuchholz.prototype.size = function ()
+###   Finebuchholz.prototype.size = function()
 simply return the stored size
 
 
@@ -35,7 +35,7 @@ simply return the stored size
 ---
 
 
-###   Finebuchholz.prototype.resize = function (size)
+###   Finebuchholz.prototype.resize = function(size)
 resize the internal structures
 
 **Argument:** **size**
@@ -47,7 +47,7 @@ new size
 ---
 
 
-###   Finebuchholz.prototype.get = function ()
+###   Finebuchholz.prototype.get = function()
 return an object containing all points data and a sorted array of pids
 representing the ranking
 
@@ -57,7 +57,7 @@ representing the ranking
 ---
 
 
-###   Finebuchholz.prototype.add = function (result)
+###   Finebuchholz.prototype.add = function(result)
 Add the result of a game to the ranking table.
 
 **Argument:** **result**
@@ -69,7 +69,7 @@ the result
 ---
 
 
-###   Finebuchholz.prototype.remove = function (result)
+###   Finebuchholz.prototype.remove = function(result)
 remove the result of a game from the ranking table
 
 **Argument:** **result**
@@ -81,7 +81,7 @@ the result
 ---
 
 
-###   Finebuchholz.prototype.correct = function (correction)
+###   Finebuchholz.prototype.correct = function(correction)
 Correct the result of a game.
 
 **Argument:** **correction**
@@ -93,15 +93,15 @@ the correction
 ---
 
 
-###   Finebuchholz.prototype.grantBye = function (team)
+###   Finebuchholz.prototype.grantBye = function(team)
 
 ---
 
-###   Finebuchholz.prototype.revokeBye = function (team)
+###   Finebuchholz.prototype.revokeBye = function(team)
 
 ---
 
-###   Finebuchholz.prototype.added = function (game)
+###   Finebuchholz.prototype.added = function(game)
 whether a game was played
 
 **Argument:** **game**
@@ -114,11 +114,11 @@ otherwise.
 ---
 
 
-###     t1func = function (p1)
+###     t1func = function(p1)
 
 ---
 
-###   Finebuchholz.prototype.getCorrections = function ()
+###   Finebuchholz.prototype.getCorrections = function()
 get a copy of the applied corrections
 
 
@@ -127,7 +127,7 @@ get a copy of the applied corrections
 ---
 
 
-###   Finebuchholz.prototype.toBlob = function ()
+###   Finebuchholz.prototype.toBlob = function()
 stores the current state in a blob
 
 
@@ -136,16 +136,16 @@ stores the current state in a blob
 ---
 
 
-###   Finebuchholz.prototype.fromBlob = function (blob)
+###   Finebuchholz.prototype.fromBlob = function(blob)
 
 ---
 
-###     function copyCorrection (corr)
+###     function copyCorrection(corr)
 
 ---
 
 ## Metrics
 
 * 362 Lines
-* 8023 Bytes
+* 7968 Bytes
 

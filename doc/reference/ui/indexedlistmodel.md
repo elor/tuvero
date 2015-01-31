@@ -16,13 +16,13 @@ A ListModel, which also adjusts the ids using setID
 
 ## Functions
 
-###   function IndexedListModel ()
+###   function IndexedListModel()
 Constructor for an empty list
 
 ---
 
 
-###   IndexedListModel.prototype.updateIDs = function (startindex)
+###   IndexedListModel.prototype.updateIDs = function(startindex)
 update the ids, starting at the specified index
 
 **Argument:** **startindex**
@@ -32,7 +32,7 @@ the index with which to start. Defaults to 0
 ---
 
 
-###   IndexedListModel.prototype.oninsert = function (emitter, event, data)
+###   IndexedListModel.prototype.oninsert = function(emitter, event, data)
 Callback function
 
 **Argument:** **emitter**
@@ -48,7 +48,7 @@ a data object containing 'id' and 'object' fields
 ---
 
 
-###   IndexedListModel.prototype.onremove = function (emitter, event, data)
+###   IndexedListModel.prototype.onremove = function(emitter, event, data)
 Callback function
 
 **Argument:** **emitter**
@@ -66,5 +66,5 @@ a data object containing 'id' and 'object' fields
 ## Metrics
 
 * 66 Lines
-* 1678 Bytes
+* 1666 Bytes
 

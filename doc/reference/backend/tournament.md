@@ -19,7 +19,7 @@ encouraged.
 
 ## Functions
 
-###       addPlayer : function (id)
+###       addPlayer: function(id)
 Add a player to the internal data structures such as maps and arrays.
 the ids have to be unique
 
@@ -32,7 +32,7 @@ unique external player id
 ---
 
 
-###       start : function ()
+###       start: function()
 starts the tournament. This function might block the entry of new
 players and is able to create the first valid list of open games
 
@@ -42,7 +42,7 @@ players and is able to create the first valid list of open games
 ---
 
 
-###       end : function ()
+###       end: function()
 ends the tournament, thereby creating the final result and invalidating
 most functions
 
@@ -52,7 +52,7 @@ most functions
 ---
 
 
-###       finishGame : function (game, points)
+###       finishGame: function(game, points)
 apply the result of a running game. This function may manipulate the
 list of games in any fashion, thereby generally invalidating the result
 of the getGames() function.
@@ -69,7 +69,7 @@ array with points for every team (usually 2)
 ---
 
 
-###       getGames : function ()
+###       getGames: function()
 return an array of open games
 
 
@@ -78,7 +78,7 @@ return an array of open games
 ---
 
 
-###       getRanking : function ()
+###       getRanking: function()
 return sorted ranking object including the global ids, actual place and
 important points and (numeric) annotations in their own arrays
 
@@ -88,7 +88,7 @@ important points and (numeric) annotations in their own arrays
 ---
 
 
-###       rankingChanged : function ()
+###       rankingChanged: function()
 Check for changes in the ranking
 
 
@@ -97,7 +97,7 @@ Check for changes in the ranking
 ---
 
 
-###       getState : function ()
+###       getState: function()
 Return the current state of the tournament
 
 
@@ -106,13 +106,13 @@ Return the current state of the tournament
 ---
 
 
-###       correct : function ()
+###       correct: function()
 Incorporate a correction
 
 ---
 
 
-###       getCorrections : function ()
+###       getCorrections: function()
 return all corrections as [ game, points before, points after ]
 
 The game.id can be 0, regardless of the actual game id
@@ -123,7 +123,7 @@ The game.id can be 0, regardless of the actual game id
 ---
 
 
-###       getType : function ()
+###       getType: function()
 returns a type identifier, e.g. 'swiss' or 'ko'
 
 
@@ -134,5 +134,5 @@ returns a type identifier, e.g. 'swiss' or 'ko'
 ## Metrics
 
 * 144 Lines
-* 3901 Bytes
+* 3849 Bytes
 

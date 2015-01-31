@@ -23,7 +23,7 @@ rewriting for multi-player teams, which are only useful for random teams.
 
 ## Functions
 
-###   Swisstournament = function ()
+###   Swisstournament = function()
 constructor
 
 
@@ -32,7 +32,7 @@ constructor
 ---
 
 
-###   Swisstournament.prototype.addPlayer = function (id)
+###   Swisstournament.prototype.addPlayer = function(id)
 (implemented tournament function)
 
 **Argument:** **id**
@@ -43,7 +43,7 @@ constructor
 ---
 
 
-###   Swisstournament.prototype.start = function ()
+###   Swisstournament.prototype.start = function()
 (implemented tournament function)
 
 
@@ -52,7 +52,7 @@ constructor
 ---
 
 
-###   Swisstournament.prototype.end = function ()
+###   Swisstournament.prototype.end = function()
 (implemented tournament function)
 
 
@@ -61,7 +61,7 @@ constructor
 ---
 
 
-###   Swisstournament.prototype.finishGame = function (game, points)
+###   Swisstournament.prototype.finishGame = function(game, points)
 (implemented tournament function)
 
 **Argument:** **game**
@@ -74,7 +74,7 @@ constructor
 ---
 
 
-###   Swisstournament.prototype.getGames = function ()
+###   Swisstournament.prototype.getGames = function()
 (implemented tournament function)
 
 
@@ -83,7 +83,7 @@ constructor
 ---
 
 
-###   function getRoundVotes ()
+###   function getRoundVotes()
 return the up/down/byevotes of the current round
 
 
@@ -92,7 +92,7 @@ return the up/down/byevotes of the current round
 ---
 
 
-###   Swisstournament.prototype.getRanking = function ()
+###   Swisstournament.prototype.getRanking = function()
 (implemented tournament function)
 
 
@@ -101,7 +101,7 @@ return the up/down/byevotes of the current round
 ---
 
 
-###   function newRoundByRandom ()
+###   function newRoundByRandom()
 Start a new round. This function creates a randomized set of new games,
 disregarding the players' ids and previous games
 
@@ -111,7 +111,7 @@ disregarding the players' ids and previous games
 ---
 
 
-###   function newRoundByHalves ()
+###   function newRoundByHalves()
 Start a new round. This function creates a randomized set of new games,
 maintaining up/down/byevotes.
 
@@ -121,7 +121,7 @@ maintaining up/down/byevotes.
 ---
 
 
-###   function newRoundByWins ()
+###   function newRoundByWins()
 Start a new round. This function creates a randomized set of new games,
 maintaining up/down/byevotes.
 
@@ -131,7 +131,7 @@ maintaining up/down/byevotes.
 ---
 
 
-###   function applyVotes (votes)
+###   function applyVotes(votes)
 **Argument:** **votes**
 
 processed votes structure as returned by preliminaryDownVotes()
@@ -142,7 +142,7 @@ and processed by newRoundByWins()
 ---
 
 
-###   function winGroups ()
+###   function winGroups()
 Build a 2d array of wingroups. Outer key is the number of wins (0+), values
 in inner array are internal player ids
 
@@ -152,11 +152,11 @@ in inner array are internal player ids
 ---
 
 
-###   function clearRoundvotes ()
+###   function clearRoundvotes()
 
 ---
 
-###   function preliminaryDownVotes (wingroups)
+###   function preliminaryDownVotes(wingroups)
 create a list of players to downvote/byevote using the given wingroups
 
 **Argument:** **wingroups**
@@ -170,15 +170,15 @@ player has been voted from.
 ---
 
 
-###     fillCandidates = function (pid)
+###     fillCandidates = function(pid)
 
 ---
 
-###       fillCandidates = function (pid)
+###       fillCandidates = function(pid)
 
 ---
 
-###   function canVote (id, permissions)
+###   function canVote(id, permissions)
 **Argument:** **id**
 
 internal player id
@@ -191,7 +191,7 @@ reference to this.options.permissions.something
 ---
 
 
-###   function canDownVote (id)
+###   function canDownVote(id)
 **Argument:** **id**
 
 internal player id
@@ -201,7 +201,7 @@ internal player id
 ---
 
 
-###   function canUpVote (id)
+###   function canUpVote(id)
 **Argument:** **id**
 
 internal player id
@@ -211,7 +211,7 @@ internal player id
 ---
 
 
-###   function canByeVote (id)
+###   function canByeVote(id)
 **Argument:** **id**
 
 internal player id
@@ -221,7 +221,7 @@ internal player id
 ---
 
 
-###   function downVote (id)
+###   function downVote(id)
 **Argument:** **id**
 
 internal player id to downvote
@@ -231,7 +231,7 @@ internal player id to downvote
 ---
 
 
-###   function upVote (id)
+###   function upVote(id)
 **Argument:** **id**
 
 internal player id to be upvoted
@@ -241,7 +241,7 @@ internal player id to be upvoted
 ---
 
 
-###   function byeVote (id)
+###   function byeVote(id)
 **Argument:** **id**
 
 internal player id to be byevoted
@@ -251,7 +251,7 @@ internal player id to be byevoted
 ---
 
 
-###   function canPlay (pid1, pid2)
+###   function canPlay(pid1, pid2)
 Verify whether two players can play against another
 
 **Argument:** **pid1**
@@ -266,7 +266,7 @@ iternal id of second player
 ---
 
 
-###   Swisstournament.prototype.correct = function (game, oldpoints, newpoints)
+###   Swisstournament.prototype.correct = function(game, oldpoints, newpoints)
 correct the result of a game. Since the games are determined by the
 tournament itself, there's no need to correct the team
 
@@ -285,7 +285,7 @@ array of corrected points
 ---
 
 
-###   Swisstournament.prototype.getCorrections = function ()
+###   Swisstournament.prototype.getCorrections = function()
 build a list of corrections which are consistent in format with the
 correct() function
 
@@ -295,7 +295,7 @@ correct() function
 ---
 
 
-###   Swisstournament.prototype.toBlob = function ()
+###   Swisstournament.prototype.toBlob = function()
 stores the current state in a blob, mostly using JSON (
 
 
@@ -304,7 +304,7 @@ stores the current state in a blob, mostly using JSON (
 ---
 
 
-###   Swisstournament.prototype.fromBlob = function (blob)
+###   Swisstournament.prototype.fromBlob = function(blob)
 restores a state from the blob
 
 **Argument:** **blob**
@@ -314,32 +314,32 @@ the blob
 ---
 
 
-###     function copyGame (game)
+###     function copyGame(game)
 
 ---
 
-###   Swisstournament.prototype.getState = function ()
+###   Swisstournament.prototype.getState = function()
 
 ---
 
-###   Swisstournament.prototype.rankingChanged = function ()
+###   Swisstournament.prototype.rankingChanged = function()
 
 ---
 
-###   function toType (obj)
+###   function toType(obj)
 
 ---
 
-###   function copyStaticObject (obj)
+###   function copyStaticObject(obj)
 
 ---
 
-###   Swisstournament.prototype.getType = function ()
+###   Swisstournament.prototype.getType = function()
 
 ---
 
 ## Metrics
 
 * 1137 Lines
-* 29197 Bytes
+* 29066 Bytes
 

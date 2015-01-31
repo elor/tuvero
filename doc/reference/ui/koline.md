@@ -14,11 +14,11 @@ No Description
 
 ## Functions
 
-###   function generateCacheID (from, midx, to)
+###   function generateCacheID(from, midx, to)
 
 ---
 
-###   function styleToString (style)
+###   function styleToString(style)
 converts a style object to a style attribute string
 
 TODO move to its own tiny CSS library?
@@ -27,12 +27,12 @@ TODO move to its own tiny CSS library?
 
 a style object
 
-**Returns:** s a combined string of the styles, as used by the HTML style attr.
+**Returns:** a combined string of the styles, as used by the HTML style attr.
 
 ---
 
 
-###   function createSVG (width, height, left, top)
+###   function createSVG(width, height, left, top)
 create an empty SVG element
 
 **Argument:** **width**
@@ -48,12 +48,12 @@ the x-position, in em
 
 the y-position, in em
 
-**Returns:** s a newly instantiated svg DOM element
+**Returns:** a newly instantiated svg DOM element
 
 ---
 
 
-###   function createSVGLine (from, to)
+###   function createSVGLine(from, to)
 creates a SVG line
 
 **Argument:** **from**
@@ -63,12 +63,12 @@ the start position, in em
 
 the end position, in em
 
-**Returns:** s the SVG line DOM object
+**Returns:** the SVG line DOM object
 
 ---
 
 
-###   function createSVGPath (from, to)
+###   function createSVGPath(from, to)
 creates a perpendicular connector path out of SVG lines.
 
 Actual SVG paths seem to require pixel coordinates, while this solution
@@ -81,12 +81,12 @@ the start point, in em
 
 the end point, in em
 
-**Returns:** s a SVG object, which correctly represents the path
+**Returns:** a SVG object, which correctly represents the path
 
 ---
 
 
-###   function KOLine (from, to)
+###   function KOLine(from, to)
 KOLine, a representative class of the perpendicular connector path, as used
 in binary KO tournament trees
 
@@ -97,7 +97,7 @@ the start position, in em
 
 the end position, in em
 
-**Returns:** s the path object (this). The SVG DOM element can be accessed as
+**Returns:** the path object (this). The SVG DOM element can be accessed as
 this.svg and is supposed to be jQuery-compatible
 
 ---
@@ -105,5 +105,5 @@ this.svg and is supposed to be jQuery-compatible
 ## Metrics
 
 * 169 Lines
-* 4314 Bytes
+* 4273 Bytes
 

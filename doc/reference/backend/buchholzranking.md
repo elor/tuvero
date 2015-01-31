@@ -17,23 +17,23 @@ No Description
 
 ## Functions
 
-###   var Buchholz = function (size)
+###   var Buchholz = function(size)
 BuchholzRanking: A ranking variant which sorts players by wins, buchholz
 points and netto points, in this order.
 
 ---
 
 
-###   Buchholz.prototype.size = function ()
+###   Buchholz.prototype.size = function()
 simply return the stored size
 
 
-**Returns:** s the length of the ranking data structures
+**Returns:** the length of the ranking data structures
 
 ---
 
 
-###   Buchholz.prototype.resize = function (size)
+###   Buchholz.prototype.resize = function(size)
 resize the internal structures
 
 **Argument:** **size**
@@ -45,18 +45,18 @@ new size
 ---
 
 
-###   Buchholz.prototype.get = function ()
+###   Buchholz.prototype.get = function()
 return an object containing all points data and a sorted array of pids
 representing the ranking
 
 
-**Returns:** s an object containing all points data and a sorted array of pids
+**Returns:** an object containing all points data and a sorted array of pids
 representing the ranking
 
 ---
 
 
-###   Buchholz.prototype.add = function (result)
+###   Buchholz.prototype.add = function(result)
 Add the result of a game to the ranking table.
 
 **Argument:** **result**
@@ -68,7 +68,7 @@ the result
 ---
 
 
-###   Buchholz.prototype.remove = function (result)
+###   Buchholz.prototype.remove = function(result)
 remove the result of a game from the ranking table
 
 **Argument:** **result**
@@ -80,7 +80,7 @@ the result
 ---
 
 
-###   Buchholz.prototype.correct = function (correction)
+###   Buchholz.prototype.correct = function(correction)
 Correct the result of a game.
 
 **Argument:** **correction**
@@ -92,15 +92,15 @@ a Correction object
 ---
 
 
-###   Buchholz.prototype.grantBye = function (team)
+###   Buchholz.prototype.grantBye = function(team)
 
 ---
 
-###   Buchholz.prototype.revokeBye = function (team)
+###   Buchholz.prototype.revokeBye = function(team)
 
 ---
 
-###   Buchholz.prototype.added = function (game)
+###   Buchholz.prototype.added = function(game)
 whether a game was played
 
 **Argument:** **game**
@@ -113,11 +113,11 @@ otherwise.
 ---
 
 
-###     t1func = function (p1)
+###     t1func = function(p1)
 
 ---
 
-###   Buchholz.prototype.getCorrections = function ()
+###   Buchholz.prototype.getCorrections = function()
 get a copy of the applied corrections
 
 
@@ -126,7 +126,7 @@ get a copy of the applied corrections
 ---
 
 
-###   Buchholz.prototype.toBlob = function ()
+###   Buchholz.prototype.toBlob = function()
 stores the current state in a blob
 
 
@@ -135,16 +135,16 @@ stores the current state in a blob
 ---
 
 
-###   Buchholz.prototype.fromBlob = function (blob)
+###   Buchholz.prototype.fromBlob = function(blob)
 
 ---
 
-###     function copyCorrection (corr)
+###     function copyCorrection(corr)
 
 ---
 
 ## Metrics
 
 * 337 Lines
-* 6980 Bytes
+* 6923 Bytes
 

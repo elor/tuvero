@@ -8,7 +8,7 @@
  */
 
 define(['common',
-         'lib/qunit',
+        'lib/qunit',
          './ui/interfaces/test/emitter',
          './ui/interfaces/test/model',
          './backend/test/gameresultscorrection',

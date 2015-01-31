@@ -27,7 +27,7 @@ of being read from and written to storage.
 
 ## Functions
 
-###     toBlob : function ()
+###     toBlob: function()
 store the current program state in a blob
 
 
@@ -36,7 +36,7 @@ store the current program state in a blob
 ---
 
 
-###     fromBlob : function (blob)
+###     fromBlob: function(blob)
 restore the program state from the blob
 
 **Argument:** **blob**
@@ -46,7 +46,7 @@ the blob
 ---
 
 
-###     reset : function ()
+###     reset: function()
 resets everything managed by Blob
 
 ---
@@ -54,5 +54,5 @@ resets everything managed by Blob
 ## Metrics
 
 * 79 Lines
-* 1934 Bytes
+* 1917 Bytes
 

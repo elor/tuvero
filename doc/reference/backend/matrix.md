@@ -14,34 +14,34 @@ No Dependencies
 
 ## Functions
 
-###     clear : function ()
+###     clear: function()
 Square Matrix interface with default size 0. behavior for out-of-bounds
 indices and wrong types is undefined.
 
 ---
 
 
-###     clone : function ()
+###     clone: function()
 
 ---
 
-###     erase : function (index)
+###     erase: function(index)
 
 ---
 
-###     extend : function (by)
+###     extend: function(by)
 
 ---
 
-###     get : function (row, col)
+###     get: function(row, col)
 
 ---
 
-###     set : function (row, col, value)
+###     set: function(row, col, value)
 
 ---
 
-###   equalSize : function (A, B)
+###   equalSize: function(A, B)
 equalSize performs an equality test of the sizes of both matrices
 
 **Argument:** **A**
@@ -56,7 +56,7 @@ equalSize performs an equality test of the sizes of both matrices
 ---
 
 
-###   getRow : function (matrix, row)
+###   getRow: function(matrix, row)
 copies the specified row of the matrix to a populated vector
 
 **Argument:** **matrix**
@@ -71,7 +71,7 @@ copies the specified row of the matrix to a populated vector
 ---
 
 
-###   getCol : function (matrix, col)
+###   getCol: function(matrix, col)
 copies the specified col of the matrix to a populated vector
 
 **Argument:** **matrix**
@@ -86,7 +86,7 @@ copies the specified col of the matrix to a populated vector
 ---
 
 
-###   rowSum : function (matrix, row)
+###   rowSum: function(matrix, row)
 calculates and returns the row sum
 
 **Argument:** **matrix**
@@ -101,7 +101,7 @@ calculates and returns the row sum
 ---
 
 
-###   rowSums : function (matrix)
+###   rowSums: function(matrix)
 Calculates all row sums
 
 **Argument:** **matrix**
@@ -113,7 +113,7 @@ Calculates all row sums
 ---
 
 
-###   mult : function (A, B, C)
+###   mult: function(A, B, C)
 Matrix Multiplication. All arguments are required to implement the Matrix
 interface.
 
@@ -132,7 +132,7 @@ return reference
 ---
 
 
-###   multVec : function (matrix, vector)
+###   multVec: function(matrix, vector)
 Matrix-Vector multiplication. vector is automatically extended or shrinked
 to the size of the matrix.
 
@@ -149,7 +149,7 @@ values
 ---
 
 
-###   colSum : function (matrix, col)
+###   colSum: function(matrix, col)
 calculates and returns the col sum
 
 **Argument:** **matrix**
@@ -164,7 +164,7 @@ calculates and returns the col sum
 ---
 
 
-###   colSums : function (matrix)
+###   colSums: function(matrix)
 Calculates all col sums
 
 **Argument:** **matrix**
@@ -176,7 +176,7 @@ Calculates all col sums
 ---
 
 
-###   transpose : function (matrix)
+###   transpose: function(matrix)
 Transpose the matrix in place
 
 **Argument:** **matrix**
@@ -188,7 +188,7 @@ Transpose the matrix in place
 ---
 
 
-###   vecMult : function (vector, matrix)
+###   vecMult: function(vector, matrix)
 Vector-Matrix multiplication. vector is automatically extended or shrinked
 to the size of the matrix.
 
@@ -207,5 +207,5 @@ values
 ## Metrics
 
 * 302 Lines
-* 6546 Bytes
+* 6499 Bytes
 

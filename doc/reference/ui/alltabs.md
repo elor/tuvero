@@ -23,24 +23,24 @@ Wrap all tabs into a single object for centralized updates
 
 ## Functions
 
-###     reset : function ()
+###     reset: function()
 
 ---
 
-###     update : function (force)
+###     update: function(force)
 
 ---
 
-###     getOptions : function ()
+###     getOptions: function()
 
 ---
 
-###     setOptions : function ()
+###     setOptions: function()
 
 ---
 
 ## Metrics
 
 * 47 Lines
-* 1056 Bytes
+* 1040 Bytes
 

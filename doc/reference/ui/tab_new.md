@@ -37,7 +37,7 @@ starting/closing them
 
 ## Functions
 
-###   function getRoundVotes (Tournament)
+###   function getRoundVotes(Tournament)
 translates the Tournament ranking into a traditional votes object
 
 TODO rewrite this file to replace this function
@@ -51,87 +51,87 @@ the swiss object
 ---
 
 
-###   function initTemplate ()
+###   function initTemplate()
 
 ---
 
-###   function initRename ()
+###   function initRename()
 
 ---
 
-###     function chshow ($name)
+###     function chshow($name)
 
 ---
 
-###     function updateName ()
+###     function updateName()
 
 ---
 
-###     function chabort ()
+###     function chabort()
 
 ---
 
-###   function initRemove ()
+###   function initRemove()
 
 ---
 
-###   function resetTeams ()
+###   function resetTeams()
 
 ---
 
-###   function resetSystems ()
+###   function resetSystems()
 
 ---
 
-###   function updateTeams ()
+###   function updateTeams()
 
 ---
 
-###   function setSystemState ($system, tournamentid)
+###   function setSystemState($system, tournamentid)
 
 ---
 
-###   function getAnchors (tournamentid)
+###   function getAnchors(tournamentid)
 
 ---
 
-###   function getHeight (tournamentid)
+###   function getHeight(tournamentid)
 
 ---
 
-###   function createSystemAnchor (tournamentid)
+###   function createSystemAnchor(tournamentid)
 
 ---
 
-###   function initKO ($ko, tournamentid)
+###   function initKO($ko, tournamentid)
 
 ---
 
-###   function initTournamentNameChange (tournamentid)
+###   function initTournamentNameChange(tournamentid)
 
 ---
 
-###   function createTournamentBox ($anchor, tournamentid)
+###   function createTournamentBox($anchor, tournamentid)
 
 ---
 
-###   function createSelectionBox ($anchor)
+###   function createSelectionBox($anchor)
 
 ---
 
-###   function setSystemTitle ($anchor)
+###   function setSystemTitle($anchor)
 
 ---
 
-###   function updateSystems ()
+###   function updateSystems()
 
 ---
 
-###   function addNewSystem (type, numteams, parentid)
+###   function addNewSystem(type, numteams, parentid)
 
 ---
 
-###   function initNewsystem ($system)
+###   function initNewsystem($system)
 prepare Newsystem management box, which starts a new tournament round
 
 **Argument:** **$system**
@@ -141,11 +141,11 @@ the DOM element which contains the tournament System information
 ---
 
 
-###     function numTeams ()
+###     function numTeams()
 
 ---
 
-###   function initSwiss ($swiss, tournamentid)
+###   function initSwiss($swiss, tournamentid)
 prepare a swiss tournament management box
 
 **Argument:** **$swiss**
@@ -158,76 +158,76 @@ the tournament id of the swiss tournament
 ---
 
 
-###             function ()
+###             function()
 
 ---
 
-###   function initBoxes ($container)
+###   function initBoxes($container)
 
 ---
 
-###   function setPermissionPreset (preset, $perms)
+###   function setPermissionPreset(preset, $perms)
 
 ---
 
-###   function getPermissions ($perms, Swiss)
+###   function getPermissions($perms, Swiss)
 
 ---
 
-###   function setPermissions ($perms, Swiss)
+###   function setPermissions($perms, Swiss)
 
 ---
 
-###   function queryPerms ($swiss)
+###   function queryPerms($swiss)
 
 ---
 
-###   function setSwissMode ($modeselect, Swiss)
+###   function setSwissMode($modeselect, Swiss)
 
 ---
 
-###   function getSwissMode ($modeselect, Swiss)
+###   function getSwissMode($modeselect, Swiss)
 
 ---
 
-###   function setKOMode ($modeselect, KO)
+###   function setKOMode($modeselect, KO)
 
 ---
 
-###   function getKOMode ($modeselect, KO)
+###   function getKOMode($modeselect, KO)
 
 ---
 
-###   function initOptions ()
+###   function initOptions()
 
 ---
 
-###     function maxwidthtest ()
+###     function maxwidthtest()
 
 ---
 
-###     function shownamestest ()
+###     function shownamestest()
 
 ---
 
-###   function init ()
+###   function init()
 
 ---
 
-###   function reset ()
+###   function reset()
 
 ---
 
-###   function closeTeamRegistration ()
+###   function closeTeamRegistration()
 
 ---
 
-###   function update ()
+###   function update()
 
 ---
 
 ## Metrics
 
 * 828 Lines
-* 21577 Bytes
+* 21489 Bytes
 

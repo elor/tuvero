@@ -34,29 +34,29 @@ the respective tournaments
 
 ## Functions
 
-###     function (Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
+###     function(Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
 
 ---
 
-###       function isInt (n)
+###       function isInt(n)
 
 ---
 
-###       function initGameTemplate ()
+###       function initGameTemplate()
 
 ---
 
-###       function initVoteTemplate ()
+###       function initVoteTemplate()
 disable/enable the submit button if input is valid
 
 ---
 
 
-###       function initTemplates ()
+###       function initTemplates()
 
 ---
 
-###       function appendGame (game, tournamentid, $box)
+###       function appendGame(game, tournamentid, $box)
 create and show a box displaying a certain game
 
 **Argument:** **game**
@@ -72,30 +72,30 @@ the DOM object to append this game to
 ---
 
 
-###       function clearBoxes ()
+###       function clearBoxes()
 removes all games from the overview
 
 ---
 
 
-###       function showRunning ()
+###       function showRunning()
 clears the overview and appends all open games of the tournament
 
 
-**Returns:** s true if something has been added to the DOM, false otherwise
+**Returns:** true if something has been added to the DOM, false otherwise
 
 ---
 
 
-###       function showTab ()
+###       function showTab()
 
 ---
 
-###       function getTournamentID ($game)
+###       function getTournamentID($game)
 
 ---
 
-###       function removeGame (tournamentid, index)
+###       function removeGame(tournamentid, index)
 this function removes the game from the local reference arrays
 
 **Argument:** **tournamentid**
@@ -110,24 +110,24 @@ the index of the game
 ---
 
 
-###       function readResults ($container)
+###       function readResults($container)
 
 ---
 
-###       function finishGame ()
+###       function finishGame()
 jQuery callback function. works with "this"
 
 
-**Returns:** s false all the time, although there's no reason to
+**Returns:** false all the time, although there's no reason to
 
 ---
 
 
-###       function createVoteBox (tid)
+###       function createVoteBox(tid)
 
 ---
 
-###       function getRoundVotes (Tournament)
+###       function getRoundVotes(Tournament)
 translates the Swiss ranking into a traditional votes object
 
 TODO rewrite this file to replace this function
@@ -141,7 +141,7 @@ the tournament object for which to retrieve the downvotes
 ---
 
 
-###       function showVotes (Tournament, $box)
+###       function showVotes(Tournament, $box)
 display the votes for the current round
 
 **Argument:** **Tournament**
@@ -151,34 +151,34 @@ the tournament object
 
 the box to add stuff to
 
-**Returns:** s true if something has been added to the box, false otherwise
+**Returns:** true if something has been added to the box, false otherwise
 
 ---
 
 
-###       function initOptions ()
+###       function initOptions()
 
 ---
 
-###         function maxwidthtest ()
+###         function maxwidthtest()
 
 ---
 
-###         function shownamestest ()
+###         function shownamestest()
 
 ---
 
-###       function init ()
+###       function init()
 
 ---
 
-###       function reset ()
+###       function reset()
 reset an original state.
 
 ---
 
 
-###       function update ()
+###       function update()
 reset an original game state, respecting the current state of Swiss
 
 ---
@@ -186,5 +186,5 @@ reset an original game state, respecting the current state of Swiss
 ## Metrics
 
 * 638 Lines
-* 17358 Bytes
+* 17295 Bytes
 

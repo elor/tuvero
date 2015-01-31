@@ -4,7 +4,7 @@
 Game is an object which represents a running game, thereby storing the teams
 and the time at which the game started.
 
-@returns Game
+* Exports: Game
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -16,13 +16,13 @@ No Dependencies
 
 ## Functions
 
-###   var Game = function (p1, p2, id)
+###   var Game = function(p1, p2, id)
 constructor of a Game instance. It simply initiates both variables
 
 ---
 
 
-###   Game.prototype.add = function (team, pid)
+###   Game.prototype.add = function(team, pid)
 add a team member
 
 **Argument:** **team**
@@ -37,7 +37,7 @@ player id
 ---
 
 
-###   Game.prototype.start = function (time)
+###   Game.prototype.start = function(time)
 set the start time to the given argument or the current time
 
 **Argument:** **time**
@@ -48,7 +48,7 @@ used.
 ---
 
 
-###   Game.prototype.equals = function (game)
+###   Game.prototype.equals = function(game)
 deep equal of this and another game.
 
 This function ignores the id
@@ -63,7 +63,7 @@ false otherwise
 ---
 
 
-###   Game.prototype.copy = function ()
+###   Game.prototype.copy = function()
 create a deep copy of the game, including the starttime
 
 
@@ -72,7 +72,7 @@ create a deep copy of the game, including the starttime
 ---
 
 
-###   Game.copy = function (game)
+###   Game.copy = function(game)
 create a fresh copy from another game instance. This function works without
 the proper prototype
 
@@ -81,17 +81,17 @@ the proper prototype
 a game object with the typical Game fields, but not necessarily
 with the correct prototype
 
-**Returns:** s the newly copied game instance
+**Returns:** the newly copied game instance
 
 ---
 
 
-###     function copyTeam (team)
+###     function copyTeam(team)
 
 ---
 
 ## Metrics
 
 * 148 Lines
-* 3484 Bytes
+* 3463 Bytes
 

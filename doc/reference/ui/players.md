@@ -17,48 +17,48 @@ Maintain a sorted list of possible player names for autocompletion
 
 ## Functions
 
-###   function trimName (name)
+###   function trimName(name)
 
 ---
 
-###   function updateDependencies ()
+###   function updateDependencies()
 
 ---
 
-###   Players.fromString = function (string)
+###   Players.fromString = function(string)
 
 ---
 
-###   Players.toString = function ()
+###   Players.toString = function()
 
 ---
 
-###   Players.fromBlob = function (blob)
+###   Players.fromBlob = function(blob)
 
 ---
 
-###   Players.toBlob = function ()
+###   Players.toBlob = function()
 
 ---
 
-###   Players.clear = function ()
+###   Players.clear = function()
 
 ---
 
-###   Players.get = function ()
+###   Players.get = function()
 
 ---
 
-###   Players.insert = function (name)
+###   Players.insert = function(name)
 
 ---
 
-###   Players.erase = function (name)
+###   Players.erase = function(name)
 
 ---
 
 ## Metrics
 
 * 121 Lines
-* 2432 Bytes
+* 2415 Bytes
 

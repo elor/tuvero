@@ -15,7 +15,7 @@ tournaments.
 
 ## Functions
 
-###   function StateModel ()
+###   function StateModel()
 Constructor. Instantiates the empty object
 
 ---
@@ -23,5 +23,5 @@ Constructor. Instantiates the empty object
 ## Metrics
 
 * 20 Lines
-* 485 Bytes
+* 481 Bytes
 

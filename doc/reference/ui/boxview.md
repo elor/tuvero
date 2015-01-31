@@ -17,7 +17,7 @@ BoxView for collapsing boxes on click events
 
 ## Functions
 
-###   function setTabbing ($box)
+###   function setTabbing($box)
 Set the current tabbing state. This forbids tabbing into a collapsed box.
 
 **Argument:** **$box**
@@ -27,7 +27,7 @@ the .boxview jQuery object
 ---
 
 
-###   function BoxView ($box)
+###   function BoxView($box)
 Constructor, which also creates the BoxController
 
 **Argument:** **$box**
@@ -37,19 +37,19 @@ the .boxview jQuery object
 ---
 
 
-###   BoxView.prototype.reset = function ()
+###   BoxView.prototype.reset = function()
 reset to the expanded state
 
 ---
 
 
-###   BoxView.prototype.update = function ()
+###   BoxView.prototype.update = function()
 update the box with a transition, e.g. after toggling its state
 
 ---
 
 
-###   BoxView.prototype.ontoggle = function ()
+###   BoxView.prototype.ontoggle = function()
 toggle callback function
 
 ---
@@ -57,5 +57,5 @@ toggle callback function
 ## Metrics
 
 * 113 Lines
-* 2723 Bytes
+* 2710 Bytes
 

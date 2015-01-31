@@ -3,7 +3,7 @@
 
 unit tests
 
-@returns a test function
+* Exports: a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -20,5 +20,5 @@ No exported functions
 ## Metrics
 
 * 54 Lines
-* 1488 Bytes
+* 1484 Bytes
 

@@ -23,5 +23,5 @@ Logic of the reload button, which forces an update of the tab it's in
 ## Metrics
 
 * 32 Lines
-* 716 Bytes
+* 710 Bytes
 

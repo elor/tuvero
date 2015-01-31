@@ -16,7 +16,7 @@ Box Controller for catching collapse-by-click events
 
 ## Functions
 
-###   function BoxController (view)
+###   function BoxController(view)
 Constructor, in which a click to the header is bound to sending a a toggle
 event over the model.
 
@@ -29,5 +29,5 @@ the instance of BoxView which will be controlled
 ## Metrics
 
 * 31 Lines
-* 776 Bytes
+* 768 Bytes
 

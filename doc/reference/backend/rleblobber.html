@@ -19,7 +19,7 @@
 <h2>Dependencies</h2>
 <p>No Dependencies</p>
 <h2>Functions</h2>
-<h3>var RLEBlobber = function (array)</h3>
+<h3>var RLEBlobber = function(array)</h3>
 <p>RLEBlobber: A blobber for multi-dimensional sparse non-circular arrays,
 intended for numerical data. Compression occurs using run-length-encoding
 of all entries that represent null in some form, e.g. undefined, null and 0</p>
@@ -30,21 +30,21 @@ what suits you best, they're calling each other anyway.</p>
 <p>a reference to the array</p>
 <p><strong>Returns:</strong> {RLEBlobber} this</p>
 <hr />
-<h3>RLEBlobber.prototype.getArray = function ()</h3>
+<h3>RLEBlobber.prototype.getArray = function()</h3>
 <p>getter for the contained array</p>
 <p><strong>Returns:</strong> the contained array</p>
 <hr />
-<h3>RLEBlobber.prototype.toBlob = function ()</h3>
+<h3>RLEBlobber.prototype.toBlob = function()</h3>
 <p>creates and returns a string representation of the contained array</p>
 <p><strong>Returns:</strong> a string representation of the contained array</p>
 <hr />
-<h3>RLEBlobber.prototype.fromBlob = function (blob)</h3>
+<h3>RLEBlobber.prototype.fromBlob = function(blob)</h3>
 <p>creates a new array object and stores it in this.array</p>
 <p><strong>Argument:</strong> <strong>blob</strong></p>
 <p>the string representation</p>
 <p><strong>Returns:</strong> nothing</p>
 <hr />
-<h3>RLEBlobber.toBlob = function (array)</h3>
+<h3>RLEBlobber.toBlob = function(array)</h3>
 <p>create a blob from the given array using run length encoding</p>
 <p>Important Note: This function does not detect circular references! In those
 cases, it will recurse forever!</p>
@@ -52,26 +52,26 @@ cases, it will recurse forever!</p>
 <p>a sparse multidimensional non-circular array</p>
 <p><strong>Returns:</strong> a string representation of array</p>
 <hr />
-<h3>RLEBlobber.fromBlob = function (blob)</h3>
+<h3>RLEBlobber.fromBlob = function(blob)</h3>
 <p>parse the blob and return its contents as an array</p>
 <p><strong>Argument:</strong> <strong>blob</strong></p>
 <p>the string representation</p>
 <p><strong>Returns:</strong> an array which has been decoded from the blob, or undefined on
 failure</p>
 <hr />
-<h3>function toType (obj)</h3>
+<h3>function toType(obj)</h3>
 <p>replacement of the typeof function</p>
 <p>Source:
 http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/</p>
 <hr />
-<h3>function isArray (obj)</h3>
+<h3>function isArray(obj)</h3>
 <hr />
-<h3>function isNumber (obj)</h3>
+<h3>function isNumber(obj)</h3>
 <hr />
 <h2>Metrics</h2>
 <ul>
 <li>294 Lines</li>
-<li>7510 Bytes</li>
+<li>7488 Bytes</li>
 </ul>
 </body>
 </html>

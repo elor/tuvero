@@ -16,7 +16,7 @@ Generic View for filling a DOM element with text
 
 ## Functions
 
-###   function TextView (text, $view)
+###   function TextView(text, $view)
 constructor
 
 **Argument:** **text**
@@ -29,7 +29,7 @@ the containing DOM element
 ---
 
 
-###   TextView.prototype.setText = function (text)
+###   TextView.prototype.setText = function(text)
 change the text of this element
 
 **Argument:** **text**
@@ -39,19 +39,19 @@ the new text
 ---
 
 
-###   TextView.prototype.reset = function ()
+###   TextView.prototype.reset = function()
 reset the text to an empty string
 
 ---
 
 
-###   TextView.prototype.update = function ()
+###   TextView.prototype.update = function()
 write the current text to the DOM element
 
 ---
 
 
-###   TextView.prototype.onupdate = function ()
+###   TextView.prototype.onupdate = function()
 Callback listener
 
 ---
@@ -59,5 +59,5 @@ Callback listener
 ## Metrics
 
 * 60 Lines
-* 1151 Bytes
+* 1139 Bytes
 

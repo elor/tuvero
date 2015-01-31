@@ -1,6 +1,6 @@
 /**
  * Options object, which contains options such as database keys, points, etc.
- * 
+ *
  * @return Options
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

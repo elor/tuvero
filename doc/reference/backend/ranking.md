@@ -16,7 +16,7 @@ integer values starting at 0.
 
 ## Functions
 
-###       size : function ()
+###       size: function()
 Retrieve the size of the internal data structures. This is required to
 correspond to the number of players, the largest player id + 1 and the
 size of returned arrays. Not that there's no setSize method.
@@ -27,7 +27,7 @@ size of returned arrays. Not that there's no setSize method.
 ---
 
 
-###       resize : function (size)
+###       resize: function(size)
 Set a certain size. If it shrinks from the current size, older values
 are expected to be discarded.
 
@@ -40,7 +40,7 @@ the new size
 ---
 
 
-###       get : function ()
+###       get: function()
 get() calculates the rankings and returns a sorted list of player ids.
 Specific methods to get the values by which the ranking was produced
 may still be implemented. CAUTION: The returned object may (and most
@@ -54,7 +54,7 @@ implementation-specific data which was used for ranking.
 ---
 
 
-###       add : function (result)
+###       add: function(result)
 add() adds a new game result to the internal storage methods.
 
 **Argument:** **{Result}**
@@ -66,7 +66,7 @@ result to add
 ---
 
 
-###       remove : function (result)
+###       remove: function(result)
 remove() removes a game result from the storage. Optional method, but
 useful in case of misentry.
 
@@ -79,7 +79,7 @@ result to erase
 ---
 
 
-###       correct : function (correction)
+###       correct: function(correction)
 correct() changes the result of a previously added game to a new state.
 This function should act like erasing the old result and adding the new
 one, but might encourage optimized algorithms. Checks whether the old
@@ -94,7 +94,7 @@ correction
 ---
 
 
-###       getCorrections : function ()
+###       getCorrections: function()
 getCorrections() returns a copy of all corrections applied to this.
 
 
@@ -103,7 +103,7 @@ getCorrections() returns a copy of all corrections applied to this.
 ---
 
 
-###       added : function (game)
+###       added: function(game)
 verify as good as possible with the stored data whether a particular
 game took place and was added to the ranking.
 
@@ -116,7 +116,7 @@ the game to verify
 ---
 
 
-###       grantBye : function (playerid)
+###       grantBye: function(playerid)
 grant a bye to a player
 
 **Argument:** **{Integer}**
@@ -126,7 +126,7 @@ playerid the player's index
 ---
 
 
-###       revokeBye : function (playerid)
+###       revokeBye: function(playerid)
 revoke a bye
 
 **Argument:** **{Integer}**
@@ -138,5 +138,5 @@ playerid the player's index
 ## Metrics
 
 * 130 Lines
-* 3742 Bytes
+* 3703 Bytes
 

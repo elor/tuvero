@@ -21,12 +21,12 @@ page will be reloaded unnecessarily.
 
 ## Functions
 
-###   function hashcheck ()
+###   function hashcheck()
 
 ---
 
 ## Metrics
 
 * 34 Lines
-* 825 Bytes
+* 818 Bytes
 

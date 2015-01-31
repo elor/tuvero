@@ -1,6 +1,6 @@
 /**
  * Model for user-driven and programmatic font size changes
- * 
+ *
  * @return FontSizeModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -37,7 +37,7 @@ define(['lib/extend', './interfaces/model'], function(extend, Model) {
 
   /**
    * Set the font size. Throws an error if the font size is invalid.
-   * 
+   *
    * @param fontsize
    */
   FontSizeModel.prototype.setFontSize = function(fontsize) {

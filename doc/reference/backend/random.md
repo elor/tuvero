@@ -3,7 +3,7 @@
 
 a random number generator
 
-@returns Random
+* Exports: Random
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,28 +15,28 @@ No Dependencies
 
 ## Functions
 
-###   var Random = function (x, c)
+###   var Random = function(x, c)
 
 ---
 
-###   Random.prototype.nextInt = function (top)
+###   Random.prototype.nextInt = function(top)
 
 ---
 
-###   Random.prototype.nextDouble = function ()
+###   Random.prototype.nextDouble = function()
 
 ---
 
-###   Random.prototype.pick = function (array)
+###   Random.prototype.pick = function(array)
 
 ---
 
-###   Random.prototype.pickAndRemove = function (array)
+###   Random.prototype.pickAndRemove = function(array)
 
 ---
 
 ## Metrics
 
-* 50 Lines
-* 1062 Bytes
+* 51 Lines
+* 1055 Bytes
 

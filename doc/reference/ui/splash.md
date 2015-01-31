@@ -17,27 +17,27 @@ Manage the state and visibility of the splash screen
 
 ## Functions
 
-###     hide : function ()
+###     hide: function()
 
 ---
 
-###     loading : function ()
+###     loading: function()
 
 ---
 
-###     function setState (state)
+###     function setState(state)
 
 ---
 
-###     Splash.loading = function ()
+###     Splash.loading = function()
 
 ---
 
-###     Splash.update = function ()
+###     Splash.update = function()
 
 ---
 
-###     Splash.hide = function ()
+###     Splash.hide = function()
 
 ---
 
@@ -48,5 +48,5 @@ Manage the state and visibility of the splash screen
 ## Metrics
 
 * 59 Lines
-* 1063 Bytes
+* 1051 Bytes
 

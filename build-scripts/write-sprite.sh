@@ -6,6 +6,10 @@
 # The idea is not to save disk space, but to reduce http calls       #
 ######################################################################
 
+which file >/dev/null || exit 1
+which optipng >/dev/null || exit 1
+which convert >/dev/null || exit 1
+
 listFiles(){
     find images -type f \( -name '*.png' -or -name '*.jpg' \) -not -name 'favicon.png' -not -name 'smallchange.png' | sort
 }

@@ -22,19 +22,19 @@ Managed list of registered teams
 
 ## Functions
 
-###   Team.create = function (names)
+###   Team.create = function(names)
 create a new team;
 
 **Argument:** **names**
 
 an array of the player names
 
-**Returns:** s this
+**Returns:** this
 
 ---
 
 
-###   Team.get = function (index)
+###   Team.get = function(index)
 get the team by its index
 
 **Argument:** **index**
@@ -46,7 +46,7 @@ index (starting at zero!)
 ---
 
 
-###   Team.erase = function (index)
+###   Team.erase = function(index)
 erase team at index
 
 **Argument:** **index**
@@ -58,7 +58,7 @@ index (starting at zero)
 ---
 
 
-###   Team.count = function ()
+###   Team.count = function()
 returns the number of teams
 
 
@@ -67,7 +67,7 @@ returns the number of teams
 ---
 
 
-###   Team.toCSV = function ()
+###   Team.toCSV = function()
 create ordered CSV strings from team data
 
 
@@ -76,11 +76,11 @@ create ordered CSV strings from team data
 ---
 
 
-###         function (team)
+###         function(team)
 
 ---
 
-###   Team.toBlob = function ()
+###   Team.toBlob = function()
 stores the current state in a blob, usually using JSON
 
 
@@ -89,7 +89,7 @@ stores the current state in a blob, usually using JSON
 ---
 
 
-###   Team.fromBlob = function (blob)
+###   Team.fromBlob = function(blob)
 restores the state written by toBlob
 
 **Argument:** **blob**
@@ -99,25 +99,25 @@ the blob
 ---
 
 
-###   Team.reset = function ()
+###   Team.reset = function()
 resets the teams
 
 ---
 
 
-###   Team.getNames = function (id)
+###   Team.getNames = function(id)
 get an array of names of the players in a team
 
 **Argument:** **id**
 
 the id of the team
 
-**Returns:** s an array of names
+**Returns:** an array of names
 
 ---
 
 ## Metrics
 
 * 171 Lines
-* 3296 Bytes
+* 3262 Bytes
 

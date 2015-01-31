@@ -19,7 +19,7 @@ screen and load errors
 
 ## Functions
 
-### function notifyAboutLoadError (err)
+### function notifyAboutLoadError(err)
 error callback function
 
 **Argument:** **err**
@@ -30,12 +30,12 @@ an object containing the type and position of the error
 ---
 
 
-###     function ()
+###     function()
 
 ---
 
 ## Metrics
 
 * 100 Lines
-* 2480 Bytes
+* 2470 Bytes
 

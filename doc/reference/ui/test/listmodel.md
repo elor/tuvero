@@ -3,7 +3,7 @@
 
 Unit tests for ListModel
 
-@returns a test function
+* Exports: a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -20,5 +20,5 @@ No exported functions
 ## Metrics
 
 * 132 Lines
-* 4360 Bytes
+* 4327 Bytes
 

@@ -27,65 +27,65 @@ Model, View and Controller of the debugging tab.
 
 ## Functions
 
-###   function showAllImages ()
+###   function showAllImages()
 
 ---
 
-###   function randomName ()
+###   function randomName()
 
 ---
 
-###   function updateTabs ()
+###   function updateTabs()
 
 ---
 
-###   function loadMods ()
+###   function loadMods()
 
 ---
 
-###   function clearEverything ()
+###   function clearEverything()
 
 ---
 
-###   function registerPlayers ()
+###   function registerPlayers()
 
 ---
 
-###   function startRound (tournamentid)
+###   function startRound(tournamentid)
 
 ---
 
-###   function finishRound (tournamentid, timeout)
+###   function finishRound(tournamentid, timeout)
 
 ---
 
-###   function playTournament ()
+###   function playTournament()
 
 ---
 
-###   function addSideTournament (type)
+###   function addSideTournament(type)
 starts a new sidetournament with a random selection of the players (2 min)
 
 ---
 
 
-###   function initForms ()
+###   function initForms()
 
 ---
 
-###   function updateForms ()
+###   function updateForms()
 
 ---
 
-###   function initDevContents ()
+###   function initDevContents()
 
 ---
 
-###   function init ()
+###   function init()
 
 ---
 
-###   function reset ()
+###   function reset()
 reset an original state.
 
 ---
@@ -93,5 +93,5 @@ reset an original state.
 ## Metrics
 
 * 444 Lines
-* 10861 Bytes
+* 10809 Bytes
 

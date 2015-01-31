@@ -23,13 +23,13 @@
     findNestedDependencies: true,
     removeCombined: true,
     fileExclusionRegExp: /^\.|\.(svg|xcf|sh)$|^build\.js$/,
-  shim : {
+  shim: {
     'lib/modernizr' : {
       deps: ['lib/Blob'],
       exports: 'Modernizr'
     },
       'lib/Blob' : {
-      exports : 'Blob'
+      exports: 'Blob'
     },
       'lib/typeahead' : {
 //      deps: [ 'lib/jquery' ]
@@ -43,6 +43,6 @@
         QUnit.config.autoload = false;
         QUnit.config.autostart = false;
       }
-    },
-  },
+    }
+  }
 })

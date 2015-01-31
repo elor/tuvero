@@ -16,7 +16,7 @@ No Dependencies
 
 ## Functions
 
-###   var RLEBlobber = function (array)
+###   var RLEBlobber = function(array)
 RLEBlobber: A blobber for multi-dimensional sparse non-circular arrays,
 intended for numerical data. Compression occurs using run-length-encoding
 of all entries that represent null in some form, e.g. undefined, null and 0
@@ -35,7 +35,7 @@ a reference to the array
 ---
 
 
-###   RLEBlobber.prototype.getArray = function ()
+###   RLEBlobber.prototype.getArray = function()
 getter for the contained array
 
 
@@ -44,7 +44,7 @@ getter for the contained array
 ---
 
 
-###   RLEBlobber.prototype.toBlob = function ()
+###   RLEBlobber.prototype.toBlob = function()
 creates and returns a string representation of the contained array
 
 
@@ -53,7 +53,7 @@ creates and returns a string representation of the contained array
 ---
 
 
-###   RLEBlobber.prototype.fromBlob = function (blob)
+###   RLEBlobber.prototype.fromBlob = function(blob)
 creates a new array object and stores it in this.array
 
 **Argument:** **blob**
@@ -66,7 +66,7 @@ the string representation
 ---
 
 
-###   RLEBlobber.toBlob = function (array)
+###   RLEBlobber.toBlob = function(array)
 create a blob from the given array using run length encoding
 
 Important Note: This function does not detect circular references! In those
@@ -81,7 +81,7 @@ a sparse multidimensional non-circular array
 ---
 
 
-###   RLEBlobber.fromBlob = function (blob)
+###   RLEBlobber.fromBlob = function(blob)
 parse the blob and return its contents as an array
 
 **Argument:** **blob**
@@ -94,7 +94,7 @@ failure
 ---
 
 
-###   function toType (obj)
+###   function toType(obj)
 replacement of the typeof function
 
 Source:
@@ -103,16 +103,16 @@ http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-op
 ---
 
 
-###   function isArray (obj)
+###   function isArray(obj)
 
 ---
 
-###   function isNumber (obj)
+###   function isNumber(obj)
 
 ---
 
 ## Metrics
 
 * 294 Lines
-* 7510 Bytes
+* 7488 Bytes
 

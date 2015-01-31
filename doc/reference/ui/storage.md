@@ -17,28 +17,28 @@ retrieval from a local storage
 
 ## Functions
 
-###   function saveKey (key)
+###   function saveKey(key)
 
 ---
 
-###   function loadKey (key)
+###   function loadKey(key)
 
 ---
 
-###   Storage.clear = function (key)
+###   Storage.clear = function(key)
 remove this and only this key from localStorage to avoid collision with
 other software under the same domain
 
 ---
 
 
-###   Storage.store = function ()
+###   Storage.store = function()
 store everything
 
 ---
 
 
-###   Storage.restore = function ()
+###   Storage.restore = function()
 restore everything
 
 
@@ -47,20 +47,20 @@ restore everything
 ---
 
 
-###   Storage.enable = function ()
+###   Storage.enable = function()
 enables localStorage, if possible. Necessary initialization
 
 ---
 
 
-###   Storage.disable = function ()
+###   Storage.disable = function()
 disables the storage. This will inhibit any of the other functions,
 including clear(). Note that disable() doesn't clear the storage.
 
 ---
 
 
-###   Storage.changed = function ()
+###   Storage.changed = function()
 this function indicates a change in the tournament state
 
 ---
@@ -68,5 +68,5 @@ this function indicates a change in the tournament state
 ## Metrics
 
 * 159 Lines
-* 3148 Bytes
+* 3134 Bytes
 

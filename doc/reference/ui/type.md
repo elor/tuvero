@@ -19,26 +19,26 @@ No Dependencies
 
 ## Functions
 
-###   function capitalize (str)
+###   function capitalize(str)
 helper function to capitalize a string
 
 **Argument:** **str**
 
 an arbitrary string of length > 0
 
-**Returns:** s the same string, with the first letter in upper case and the rest
+**Returns:** the same string, with the first letter in upper case and the rest
 in lower case
 
 ---
 
 
-###   function ()
+###   function()
 anonymous reference function
 
 ---
 
 
-###   function Type (obj)
+###   function Type(obj)
 get the type string of an object, while also distinguishing between
 objects, arrays, dates etc.
 
@@ -46,12 +46,12 @@ objects, arrays, dates etc.
 
 the object
 
-**Returns:** s a lower-case single-word type string of the object.
+**Returns:** a lower-case single-word type string of the object.
 
 ---
 
 
-###   Type.is = function (obj, typestring)
+###   Type.is = function(obj, typestring)
 generic type comparison function. Other generic functions include:
 
 Type.isNumber(obj)
@@ -81,12 +81,12 @@ the object
 
 the type string, as it may have been returned by Type()
 
-**Returns:** s true if the typestring matches Type(obj), false otherwise
+**Returns:** true if the typestring matches Type(obj), false otherwise
 
 ---
 
 
-###     Type['is' + capitalize(typestring)] = function (obj)
+###     Type['is' + capitalize(typestring)] = function(obj)
 Type.isSomething() closure
 
 ---
@@ -94,5 +94,5 @@ Type.isSomething() closure
 ## Metrics
 
 * 95 Lines
-* 2188 Bytes
+* 2160 Bytes
 

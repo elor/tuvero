@@ -22,73 +22,73 @@
 <li><a href="./vector.html">./vector</a></li>
 </ul>
 <h2>Functions</h2>
-<h3>var Buchholz = function (size)</h3>
+<h3>var Buchholz = function(size)</h3>
 <p>BuchholzRanking: A ranking variant which sorts players by wins, buchholz
 points and netto points, in this order.</p>
 <hr />
-<h3>Buchholz.prototype.size = function ()</h3>
+<h3>Buchholz.prototype.size = function()</h3>
 <p>simply return the stored size</p>
-<p><strong>Returns:</strong> s the length of the ranking data structures</p>
+<p><strong>Returns:</strong> the length of the ranking data structures</p>
 <hr />
-<h3>Buchholz.prototype.resize = function (size)</h3>
+<h3>Buchholz.prototype.resize = function(size)</h3>
 <p>resize the internal structures</p>
 <p><strong>Argument:</strong> <strong>size</strong></p>
 <p>new size</p>
 <p><strong>Returns:</strong> {Buchholz} this</p>
 <hr />
-<h3>Buchholz.prototype.get = function ()</h3>
+<h3>Buchholz.prototype.get = function()</h3>
 <p>return an object containing all points data and a sorted array of pids
 representing the ranking</p>
-<p><strong>Returns:</strong> s an object containing all points data and a sorted array of pids
+<p><strong>Returns:</strong> an object containing all points data and a sorted array of pids
 representing the ranking</p>
 <hr />
-<h3>Buchholz.prototype.add = function (result)</h3>
+<h3>Buchholz.prototype.add = function(result)</h3>
 <p>Add the result of a game to the ranking table.</p>
 <p><strong>Argument:</strong> <strong>result</strong></p>
 <p>the result</p>
 <p><strong>Returns:</strong> {Buchholz} this</p>
 <hr />
-<h3>Buchholz.prototype.remove = function (result)</h3>
+<h3>Buchholz.prototype.remove = function(result)</h3>
 <p>remove the result of a game from the ranking table</p>
 <p><strong>Argument:</strong> <strong>result</strong></p>
 <p>the result</p>
 <p><strong>Returns:</strong> {Buchholz} this</p>
 <hr />
-<h3>Buchholz.prototype.correct = function (correction)</h3>
+<h3>Buchholz.prototype.correct = function(correction)</h3>
 <p>Correct the result of a game.</p>
 <p><strong>Argument:</strong> <strong>correction</strong></p>
 <p>a Correction object</p>
 <p><strong>Returns:</strong> this</p>
 <hr />
-<h3>Buchholz.prototype.grantBye = function (team)</h3>
+<h3>Buchholz.prototype.grantBye = function(team)</h3>
 <hr />
-<h3>Buchholz.prototype.revokeBye = function (team)</h3>
+<h3>Buchholz.prototype.revokeBye = function(team)</h3>
 <hr />
-<h3>Buchholz.prototype.added = function (game)</h3>
+<h3>Buchholz.prototype.added = function(game)</h3>
 <p>whether a game was played</p>
 <p><strong>Argument:</strong> <strong>game</strong></p>
 <p>an instance of the game that could have taken place</p>
 <p><strong>Returns:</strong> true if all data indicates that this game took place, false
 otherwise.</p>
 <hr />
-<h3>t1func = function (p1)</h3>
+<h3>t1func = function(p1)</h3>
 <hr />
-<h3>Buchholz.prototype.getCorrections = function ()</h3>
+<h3>Buchholz.prototype.getCorrections = function()</h3>
 <p>get a copy of the applied corrections</p>
 <p><strong>Returns:</strong> copy of the array of corrections</p>
 <hr />
-<h3>Buchholz.prototype.toBlob = function ()</h3>
+<h3>Buchholz.prototype.toBlob = function()</h3>
 <p>stores the current state in a blob</p>
 <p><strong>Returns:</strong> a blob representing the current state</p>
 <hr />
-<h3>Buchholz.prototype.fromBlob = function (blob)</h3>
+<h3>Buchholz.prototype.fromBlob = function(blob)</h3>
 <hr />
-<h3>function copyCorrection (corr)</h3>
+<h3>function copyCorrection(corr)</h3>
 <hr />
 <h2>Metrics</h2>
 <ul>
 <li>337 Lines</li>
-<li>6980 Bytes</li>
+<li>6923 Bytes</li>
 </ul>
 </body>
 </html>

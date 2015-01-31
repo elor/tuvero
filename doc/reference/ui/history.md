@@ -17,15 +17,15 @@ History of game results and votes for all tournaments.
 
 ## Functions
 
-###     function (Shared, Tournaments)
+###     function(Shared, Tournaments)
 
 ---
 
-###       function getTournament (id, alloc)
+###       function getTournament(id, alloc)
 
 ---
 
-###         addResult : function (tournamentid, t1, t2, p1, p2, round, id)
+###         addResult: function(tournamentid, t1, t2, p1, p2, round, id)
 
 **Argument:** **tournamentid**
 
@@ -54,7 +54,7 @@ points of team 2
 ---
 
 
-###         addCorrection : function (tournamentid, before, after)
+###         addCorrection: function(tournamentid, before, after)
 
 **Argument:** **tournamentid**
 
@@ -70,11 +70,11 @@ an object containing similar to what you get from getGame
 ---
 
 
-###         addVote : function (tournamentid, type, team, round)
+###         addVote: function(tournamentid, type, team, round)
 
 ---
 
-###         numGames : function (tournamentid)
+###         numGames: function(tournamentid)
 
 **Argument:** **tournamentid**
 
@@ -86,7 +86,7 @@ tournament otherwise
 ---
 
 
-###         getVotes : function (tournamentid)
+###         getVotes: function(tournamentid)
 Return all votes, for the user to search. This is way simpler than
 some artificial restriction
 
@@ -101,7 +101,7 @@ the tournament id
 ---
 
 
-###         numCorrections : function (tournamentid)
+###         numCorrections: function(tournamentid)
 
 **Argument:** **tournamentid**
 
@@ -113,11 +113,11 @@ tournament otherwise
 ---
 
 
-###         numRounds : function (tournamentid)
+###         numRounds: function(tournamentid)
 
 ---
 
-###         getGame : function (tournamentid, id)
+###         getGame: function(tournamentid, id)
 returns the raw data of this game for further viewing.
 
 Do not manipulate! Use corrections instead!
@@ -135,11 +135,11 @@ otherwise
 ---
 
 
-###         getGames : function (tournamentid)
+###         getGames: function(tournamentid)
 
 ---
 
-###         getRound : function (tournamentid, round)
+###         getRound: function(tournamentid, round)
 get all games of a specific round.
 
 Do not manipulate!
@@ -156,7 +156,7 @@ the round within its tournament
 ---
 
 
-###         findGames : function (tournamentid, t1, t2)
+###         findGames: function(tournamentid, t1, t2)
 get all games of a specific round.
 
 Do not manipulate!
@@ -176,7 +176,7 @@ team id 2
 ---
 
 
-###         getCorrection : function (tournamentid, id)
+###         getCorrection: function(tournamentid, id)
 returns a raw correction object for further viewing
 
 Do not manipulate! Use
@@ -194,19 +194,19 @@ the correction id
 ---
 
 
-###         getCorrections : function (tournamentid)
+###         getCorrections: function(tournamentid)
 
 ---
 
-###         numTournaments : function ()
+###         numTournaments: function()
 
 ---
 
-###         reset : function ()
+###         reset: function()
 
 ---
 
-###         toCSV : function ()
+###         toCSV: function()
 CSV exporter
 
 Tournament Comment Line Format: 'name Round roundno'
@@ -222,7 +222,7 @@ VoteFormat: 'No1,Name1,Name2,Name3,Type'
 ---
 
 
-###         toBlob : function ()
+###         toBlob: function()
 Serializer.
 
 
@@ -231,7 +231,7 @@ Serializer.
 ---
 
 
-###         fromBlob : function (blob)
+###         fromBlob: function(blob)
 Deserializer.
 
 **Argument:** **blob**
@@ -243,5 +243,5 @@ a string represention with which to replace the current data
 ## Metrics
 
 * 519 Lines
-* 15354 Bytes
+* 15274 Bytes
 

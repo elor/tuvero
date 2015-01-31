@@ -3,7 +3,7 @@
 
 Unit tests for the Blobber interface
 
-@returns a test function
+* Exports: a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -20,5 +20,5 @@ No exported functions
 ## Metrics
 
 * 34 Lines
-* 1133 Bytes
+* 1128 Bytes
 

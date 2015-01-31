@@ -8,7 +8,7 @@ controlled using a static function.
 
 TODO allow for arbitrary font sizes
 
-@returns FontSizeView
+* Exports: FontSizeView
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -25,7 +25,7 @@ TODO allow for arbitrary font sizes
 
 ## Functions
 
-###   function FontSizeView ($view, $container)
+###   function FontSizeView($view, $container)
 Constructor, which also calls update() for the first time
 
 **Argument:** **$view**
@@ -39,25 +39,25 @@ to <body>
 ---
 
 
-###   FontSizeView.prototype.reset = function ()
+###   FontSizeView.prototype.reset = function()
 removes all font size information
 
 ---
 
 
-###   FontSizeView.prototype.update = function ()
+###   FontSizeView.prototype.update = function()
 sets the current font size, as defined by the model
 
 ---
 
 
-###   FontSizeView.prototype.onupdate = function ()
+###   FontSizeView.prototype.onupdate = function()
 model.emit() callback function
 
 ---
 
 
-###   FontSizeView.getModelOfContainer = function ($container)
+###   FontSizeView.getModelOfContainer = function($container)
 Retrieves the model for the given container. Allocates a new FontSizeModel,
 if not set yet.
 
@@ -65,12 +65,12 @@ if not set yet.
 
 the container
 
-**Returns:** s the model for the given container
+**Returns:** the model for the given container
 
 ---
 
 ## Metrics
 
 * 86 Lines
-* 2219 Bytes
+* 2203 Bytes
 

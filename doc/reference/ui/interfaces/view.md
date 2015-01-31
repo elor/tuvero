@@ -14,7 +14,7 @@ An abstract view class
 
 ## Functions
 
-###   function View (model, $view)
+###   function View(model, $view)
 Displays a model and updates on changes to it.
 
 **Argument:** **model**
@@ -27,19 +27,19 @@ A jQuery object which is represented by this view
 ---
 
 
-###   View.prototype.reset = function ()
+###   View.prototype.reset = function()
 resets the whole view
 
 ---
 
 
-###   View.prototype.update = function ()
+###   View.prototype.update = function()
 update the whole view
 
 ---
 
 
-###   View.prototype.destroy = function ()
+###   View.prototype.destroy = function()
 destroy the whole view by removing its element from the DOM and
 unregistering the default event listener (disconnect from this.model)
 
@@ -58,5 +58,5 @@ permanently removed and replaced with new elements.
 ## Metrics
 
 * 56 Lines
-* 1361 Bytes
+* 1348 Bytes
 

@@ -24,44 +24,44 @@ function
 
 ## Functions
 
-###   function getid ()
+###   function getid()
 
 ---
 
-###   toastfn = function (str, seconds)
+###   toastfn = function(str, seconds)
 
 ---
 
-###   function createCloseFunction (id)
+###   function createCloseFunction(id)
 
 ---
 
-###   Toast = function (str, seconds)
+###   Toast = function(str, seconds)
 
 ---
 
-###   Toast.init = function ()
+###   Toast.init = function()
 
 ---
 
-###     function getTransitionDuration ()
+###     function getTransitionDuration()
 
 ---
 
-###       toastfn = function (str, seconds)
+###       toastfn = function(str, seconds)
 
 ---
 
-###       toastfn = function (str, seconds)
+###       toastfn = function(str, seconds)
 
 ---
 
-###       fadeoutfn = function ($div)
+###       fadeoutfn = function($div)
 
 ---
 
 ## Metrics
 
 * 194 Lines
-* 4803 Bytes
+* 4778 Bytes
 

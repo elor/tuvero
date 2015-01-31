@@ -20,28 +20,28 @@ Updates are automatically checked for on every pageload.
 
 ## Functions
 
-###   Update = function ()
+###   Update = function()
 
 ---
 
-###   function closeDownloadToast ()
+###   function closeDownloadToast()
 
 ---
 
-###   function setCached (cached)
+###   function setCached(cached)
 
 ---
 
-###   function cacheStatus ()
+###   function cacheStatus()
 
 ---
 
-###   function cacheError ()
+###   function cacheError()
 
 ---
 
 ## Metrics
 
 * 97 Lines
-* 2752 Bytes
+* 2743 Bytes
 

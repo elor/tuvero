@@ -3,7 +3,7 @@
 
 Unit tests for IndexedModel
 
-@returns a test function
+* Exports: a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,13 +15,13 @@ No Dependencies
 
 ## Functions
 
-###         onupdate : function ()
+###         onupdate: function()
 Callback listener
 
 ---
 
 
-###         reset : function ()
+###         reset: function()
 counter reset
 
 ---
@@ -29,5 +29,5 @@ counter reset
 ## Metrics
 
 * 65 Lines
-* 1679 Bytes
+* 1668 Bytes
 

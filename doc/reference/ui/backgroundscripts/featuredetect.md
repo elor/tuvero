@@ -19,16 +19,16 @@ detect features and warn users when they're leaving the page if data will be los
 
 ## Functions
 
-###     function confirmLeave ()
+###     function confirmLeave()
 
 ---
 
-###       window.onbeforeunload = function ()
+###       window.onbeforeunload = function()
 
 ---
 
 ## Metrics
 
 * 47 Lines
-* 1089 Bytes
+* 1081 Bytes
 

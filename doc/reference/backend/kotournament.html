@@ -24,33 +24,33 @@
 <li><a href="./tournament.html">./tournament</a></li>
 </ul>
 <h2>Functions</h2>
-<h3>function (Tournament, Map, Random, Game, Options)</h3>
+<h3>function(Tournament, Map, Random, Game, Options)</h3>
 <hr />
-<h3>function left (id)</h3>
+<h3>function left(id)</h3>
 <hr />
-<h3>function right (id)</h3>
+<h3>function right(id)</h3>
 <hr />
-<h3>function parent (id)</h3>
+<h3>function parent(id)</h3>
 <hr />
-<h3>function level (id)</h3>
+<h3>function level(id)</h3>
 <hr />
-<h3>function levelbynodes (numnodes)</h3>
+<h3>function levelbynodes(numnodes)</h3>
 <hr />
-<h3>function nodesbylevel (level)</h3>
+<h3>function nodesbylevel(level)</h3>
 <hr />
-<h3>function numLevels (numnodes)</h3>
+<h3>function numLevels(numnodes)</h3>
 <hr />
-<h3>function numRounds (numplayers)</h3>
+<h3>function numRounds(numplayers)</h3>
 <hr />
-<h3>function worstplace (level)</h3>
+<h3>function worstplace(level)</h3>
 <hr />
-<h3>function lowestid (level)</h3>
+<h3>function lowestid(level)</h3>
 <hr />
-<h3>KOTournament = function ()</h3>
+<h3>KOTournament = function()</h3>
 <hr />
-<h3>KOTournament.prototype.addPlayer = function (id)</h3>
+<h3>KOTournament.prototype.addPlayer = function(id)</h3>
 <hr />
-<h3>function matchOrder (numPlayers, byeOrder)</h3>
+<h3>function matchOrder(numPlayers, byeOrder)</h3>
 <p>create an array of players where an even-indexed player and the
 subsequent player are supposed to be in a game</p>
 <p><strong>Argument:</strong> <strong>numPlayers</strong></p>
@@ -59,7 +59,7 @@ subsequent player are supposed to be in a game</p>
 <p>the order in which byes are applied</p>
 <p><strong>Returns:</strong> an array of internal player ids</p>
 <hr />
-<h3>function matchRandom (numPlayers, byeOrder)</h3>
+<h3>function matchRandom(numPlayers, byeOrder)</h3>
 <p>create a randomized first KO round by manipulating an array returned
 from matchOrder()</p>
 <p><strong>Argument:</strong> <strong>numPlayers</strong></p>
@@ -68,7 +68,7 @@ from matchOrder()</p>
 <p>the order in which byes are applied</p>
 <p><strong>Returns:</strong> an array of internal pids</p>
 <hr />
-<h3>function createSetOrder (numrounds)</h3>
+<h3>function createSetOrder(numrounds)</h3>
 <p>create a set order (map)</p>
 <p>This set order is achieved by repeated recursive permutations of a
 previously sorted array of participating team ids</p>
@@ -76,7 +76,7 @@ previously sorted array of participating team ids</p>
 <p>number of rounds</p>
 <p><strong>Returns:</strong> an array of indices for initial order</p>
 <hr />
-<h3>function matchSet (numPlayers, byeOrder)</h3>
+<h3>function matchSet(numPlayers, byeOrder)</h3>
 <p>create a first round of games of players by permutation of matchOrder()
 results</p>
 <p><strong>Argument:</strong> <strong>numPlayers</strong></p>
@@ -85,36 +85,36 @@ results</p>
 <p>the order in which byes are applied</p>
 <p><strong>Returns:</strong> an array of internal pids</p>
 <hr />
-<h3>KOTournament.prototype.start = function ()</h3>
+<h3>KOTournament.prototype.start = function()</h3>
 <hr />
-<h3>KOTournament.prototype.end = function ()</h3>
+<h3>KOTournament.prototype.end = function()</h3>
 <hr />
-<h3>KOTournament.prototype.finishGame = function (game, points)</h3>
+<h3>KOTournament.prototype.finishGame = function(game, points)</h3>
 <hr />
-<h3>function checkforGame (pid, gameid)</h3>
+<h3>function checkforGame(pid, gameid)</h3>
 <hr />
-<h3>KOTournament.prototype.getGames = function ()</h3>
+<h3>KOTournament.prototype.getGames = function()</h3>
 <hr />
-<h3>KOTournament.prototype.getRanking = function ()</h3>
+<h3>KOTournament.prototype.getRanking = function()</h3>
 <hr />
-<h3>KOTournament.prototype.rankingChanged = function ()</h3>
+<h3>KOTournament.prototype.rankingChanged = function()</h3>
 <hr />
-<h3>KOTournament.prototype.getState = function ()</h3>
+<h3>KOTournament.prototype.getState = function()</h3>
 <hr />
-<h3>KOTournament.prototype.correct = function ()</h3>
+<h3>KOTournament.prototype.correct = function()</h3>
 <hr />
-<h3>KOTournament.prototype.toBlob = function ()</h3>
+<h3>KOTournament.prototype.toBlob = function()</h3>
 <hr />
-<h3>KOTournament.prototype.fromBlob = function (blob)</h3>
+<h3>KOTournament.prototype.fromBlob = function(blob)</h3>
 <hr />
-<h3>KOTournament.prototype.getType = function ()</h3>
+<h3>KOTournament.prototype.getType = function()</h3>
 <hr />
-<h3>KOTournament.prototype.getCorrections = function ()</h3>
+<h3>KOTournament.prototype.getCorrections = function()</h3>
 <hr />
 <h2>Metrics</h2>
 <ul>
 <li>461 Lines</li>
-<li>11903 Bytes</li>
+<li>11839 Bytes</li>
 </ul>
 </body>
 </html>

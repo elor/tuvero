@@ -3,7 +3,7 @@
 
 An abstract controller class
 
-@returns Controller
+* Exports: Controller
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,7 +15,7 @@ No Dependencies
 
 ## Functions
 
-###   function Controller (view)
+###   function Controller(view)
 Controls a model, which is referenced by its view.
 
 Please provide additional functions for controlling and event callback,
@@ -30,5 +30,5 @@ An associated instance of View
 ## Metrics
 
 * 25 Lines
-* 542 Bytes
+* 536 Bytes
 

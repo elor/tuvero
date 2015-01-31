@@ -5,7 +5,7 @@
 cd scripts || exit 1
 
 createTestJS(){
-    files=$(echo ./*/{*/,}test/*.js | xargs -n1 | sed -e "s/^/         '/" -e "s/\.js\$/',/")
+    files=$(echo ./*/{*/,}test/*.js | xargs -n1 | sed -e "s/^/         '/" -e "s/\.js\$/',/" | sed '$ s/,$//')
 
     cat << EOF
 /**
@@ -14,9 +14,9 @@ createTestJS(){
  * This file is automatically created on build. Do not attempt manual changes
  */
 
-define([ 'common',
-         'lib/qunit',
-$files ], function(Common, QUnit){
+define(['common',
+        'lib/qunit',
+$files], function(Common, QUnit) {
   var i;
   for (i = 2; i < arguments.length; i += 1) {
     arguments[i](QUnit, Common);
@@ -42,7 +42,7 @@ getrequirepaths(){
 
 formatpatharray(){
     echo "["
-    getrequirepaths | sed -e 's/^\|$/"/g' -e 's/^/  /' -e '$q;s/$/,/'
+    getrequirepaths | sed -e "s/^\|\$/'/g" -e 's/^/  /' -e '$q;s/$/,/'
     echo "]"
 }
 
@@ -57,13 +57,13 @@ createCommonJS(){
  */
 
 require.config({
-  shim : {
+  shim: {
     'lib/modernizr' : {
       deps: ['lib/Blob'],
       exports: 'Modernizr'
     },
       'lib/Blob' : {
-      exports : 'Blob'
+      exports: 'Blob'
     },
       'lib/typeahead' : {
 //      deps: [ 'lib/jquery' ]
@@ -77,12 +77,12 @@ require.config({
         QUnit.config.autoload = false;
         QUnit.config.autostart = false;
       }
-    },
-  },
+    }
+  }
 });
 
-define(`formatpatharray`, function (undefined){
-  return function (str) {
+define(`formatpatharray`, function(undefined) {
+  return function(str) {
     return require.s.contexts._.defined[str];
   };
 });

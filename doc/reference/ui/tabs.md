@@ -19,50 +19,50 @@ Tabs are automatically read from the DOM during object construction.
 
 ## Functions
 
-###   Tabs = function (tabselector, imgpattern, enforce)
+###   Tabs = function(tabselector, imgpattern, enforce)
 
 ---
 
-###     this.updateOpts = function ()
+###     this.updateOpts = function()
 
 ---
 
-###     this.hide = function (tabname)
+###     this.hide = function(tabname)
 
 ---
 
-###     this.show = function (tabname)
+###     this.show = function(tabname)
 
 ---
 
-###     this.focus = function (tabname)
+###     this.focus = function(tabname)
 
 ---
 
-###     this.valid = function ()
+###     this.valid = function()
 
 ---
 
-###       function openValidTab ()
+###       function openValidTab()
 
 ---
 
-###       that.updateOpts = function ()
+###       that.updateOpts = function()
 
 ---
 
-###       that.display = function (tabname, val)
+###       that.display = function(tabname, val)
 show/hide all references to a certain
 
 ---
 
 
-###       that.focus = function (tabname)
+###       that.focus = function(tabname)
 
 ---
 
 ## Metrics
 
 * 243 Lines
-* 5837 Bytes
+* 5805 Bytes
 

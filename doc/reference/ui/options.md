@@ -15,20 +15,20 @@ No Dependencies
 
 ## Functions
 
-###   Options.toBlob = function ()
+###   Options.toBlob = function()
 
 ---
 
-###   Options.fromBlob = function (blob)
+###   Options.fromBlob = function(blob)
 
 ---
 
-###   Options.reset = function ()
+###   Options.reset = function()
 
 ---
 
 ## Metrics
 
 * 62 Lines
-* 1266 Bytes
+* 1252 Bytes
 

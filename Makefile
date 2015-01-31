@@ -70,6 +70,12 @@ sprite: images/sprite.png
 doc: scripts remove-reference
 	./build-scripts/write-reference.sh
 
+#############################
+# enforce the gjslint style #
+#############################
+style: FORCE
+	find scripts -name '*.js' | grep -v 'scripts/lib' | xargs fixjsstyle
+
 ###############################
 # remove auto-generated files #
 ###############################

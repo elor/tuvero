@@ -23,7 +23,7 @@ Templated views have to be initiated programmatically.
 
 ## Functions
 
-###   function loadViewByClass ($elem, classname)
+###   function loadViewByClass($elem, classname)
 initiates the actual view
 
 **Argument:** **$elem**
@@ -33,12 +33,12 @@ a jQuery element
 
 the applicable class
 
-**Returns:** s nothing (i.e. undefined)
+**Returns:** nothing (i.e. undefined)
 
 ---
 
 
-###   function checkAllClasses ($elem)
+###   function checkAllClasses($elem)
 Matches the classes of a DOM element against the registered views. If an
 applicable view is found, another instantiation function is called.
 
@@ -46,12 +46,12 @@ applicable view is found, another instantiation function is called.
 
 the jQUery element
 
-**Returns:** s nothing (i.e. undefined)
+**Returns:** nothing (i.e. undefined)
 
 ---
 
 
-###     registerView : function (name, constructor)
+###     registerView: function(name, constructor)
 register a view for later auto-assignment by the loadViews() function
 
 **Argument:** **name**
@@ -62,12 +62,12 @@ the name of the view
 the constructor of the view, which only requires a jQuery
 element as an argument
 
-**Returns:** s StaticViewLoader
+**Returns:** StaticViewLoader
 
 ---
 
 
-###     loadViews : function ($elem)
+###     loadViews: function($elem)
 Recursively assigns Views to DOM elements by their classes. Skips
 elements with the class 'template'
 
@@ -75,12 +75,12 @@ elements with the class 'template'
 
 the jQuery container element
 
-**Returns:** s StaticViewLoader
+**Returns:** StaticViewLoader
 
 ---
 
 ## Metrics
 
 * 104 Lines
-* 2497 Bytes
+* 2474 Bytes
 

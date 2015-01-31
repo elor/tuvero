@@ -9,8 +9,8 @@
 <a href="index.html">Overview page</a>
 <h1>scripts/ui/interfaces/emitter.js</h1>
 <p>An event emitter class</p>
-<p>@returns Emitter</p>
 <ul>
+<li>Exports: Emitter</li>
 <li>Author: Erik E. Lorenz</li>
 <li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
 <li>License: MIT License</li>
@@ -18,10 +18,10 @@
 <h2>Dependencies</h2>
 <p>No Dependencies</p>
 <h2>Functions</h2>
-<h3>function Emitter ()</h3>
+<h3>function Emitter()</h3>
 <p>Constructor</p>
 <hr />
-<h3>Emitter.prototype.emit = function (event, data)</h3>
+<h3>Emitter.prototype.emit = function(event, data)</h3>
 <p>Emits an event to all registered listeners by calling the callback
 functions of format 'on'+event, if available</p>
 <p>The callback functions' parameters are the emitter (this) and the event
@@ -31,26 +31,26 @@ string (without 'on'), in this order.</p>
 to have a function name in the format 'on'+event
 <strong>Argument:</strong> <strong>data</strong></p>
 <p>arbitrary additional data. Please keep it simple!</p>
-<p><strong>Returns:</strong> s true if the some listener received the event, false otherwise</p>
+<p><strong>Returns:</strong> true if the some listener received the event, false otherwise</p>
 <hr />
-<h3>Emitter.prototype.registerListener = function (listener)</h3>
+<h3>Emitter.prototype.registerListener = function(listener)</h3>
 <p>register an event listener</p>
 <p><strong>Argument:</strong> <strong>listener</strong></p>
 <p>an event listener instance, which should define the necessary
 callback functions</p>
-<p><strong>Returns:</strong> s this</p>
+<p><strong>Returns:</strong> this</p>
 <hr />
-<h3>Emitter.prototype.unregisterListener = function (listener)</h3>
+<h3>Emitter.prototype.unregisterListener = function(listener)</h3>
 <p>Makes sure that the event listener is not receiving event callbacks anymore</p>
 <p><strong>Argument:</strong> <strong>listener</strong></p>
 <p>an instance of the View class, which may have already been
 registered</p>
-<p><strong>Returns:</strong> s this</p>
+<p><strong>Returns:</strong> this</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
 <li>84 Lines</li>
-<li>2106 Bytes</li>
+<li>2091 Bytes</li>
 </ul>
 </body>
 </html>

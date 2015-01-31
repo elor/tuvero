@@ -29,15 +29,15 @@ No Description
 
 ## Functions
 
-###     function (Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
+###     function(Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
 
 ---
 
-###       function formatNamesHTML (teamid)
+###       function formatNamesHTML(teamid)
 
 ---
 
-###       function createGame (result, $table)
+###       function createGame(result, $table)
 creates a box for the current result in the current round. Note that
 the correct round isn't verified (both in the result and currentround)
 
@@ -51,7 +51,7 @@ the DOM element to append the game to
 ---
 
 
-###       function createBye (teamid, $table)
+###       function createBye(teamid, $table)
 creates a box for a bye within the current round. No round
 verification.
 
@@ -65,75 +65,75 @@ the DOM element to append the Bye to
 ---
 
 
-###       function isInt (n)
+###       function isInt(n)
 
 ---
 
-###       function verify (p1, p2)
+###       function verify(p1, p2)
 
 ---
 
-###       function showCorrection ()
+###       function showCorrection()
 
 ---
 
-###       function abortCorrection ()
+###       function abortCorrection()
 
 ---
 
-###       function saveCorrection ()
+###       function saveCorrection()
 
 ---
 
-###       function initOptions ()
+###       function initOptions()
 
 ---
 
-###         function maxwidthtest ()
+###         function maxwidthtest()
 
 ---
 
-###         function shownamestest ()
+###         function shownamestest()
 
 ---
 
-###         function progresstest ()
+###         function progresstest()
 
 ---
 
-###       function initCorrection ()
+###       function initCorrection()
 
 ---
 
-###       function initTemplates ()
+###       function initTemplates()
 
 ---
 
-###       function initRounds ()
+###       function initRounds()
 
 ---
 
-###       function init ()
+###       function init()
 
 ---
 
-###       function createGamesTable (tournamentid)
+###       function createGamesTable(tournamentid)
 
 ---
 
-###       function isNumeric (obj)
+###       function isNumeric(obj)
 borrowed from jQuery
 
 **Argument:** **obj**
 
 the object to verify
 
-**Returns:** s true if obj is a number, false otherwise
+**Returns:** true if obj is a number, false otherwise
 
 ---
 
 
-###       function getProgressMapping (tournamentid)
+###       function getProgressMapping(tournamentid)
 creates a progress mapping, which, for every player, lists every game
 in every round, with its result and
 
@@ -145,65 +145,65 @@ in every round, with its result and
 ---
 
 
-###         function addGame (round, team, opponent, p1, p2)
+###         function addGame(round, team, opponent, p1, p2)
 
 ---
 
-###       function getTeamVotes (tournamentid)
+###       function getTeamVotes(tournamentid)
 
 ---
 
-###       function getRankingMapping (tournamentid)
+###       function getRankingMapping(tournamentid)
 
 ---
 
-###       function createProgressTable (tournamentid)
+###       function createProgressTable(tournamentid)
 
 ---
 
-###       function level (id)
+###       function level(id)
 Copied from kotournament.js
 
 **Argument:** **id**
 
 the game id
 
-**Returns:** s the level of the game id
+**Returns:** the level of the game id
 
 ---
 
 
-###       function parent (id)
+###       function parent(id)
 **Argument:** **id**
 
 the game id
 
-**Returns:** s the game id of the parent
+**Returns:** the game id of the parent
 
 ---
 
 
-###       function lowestid (level)
+###       function lowestid(level)
 **Argument:** **level**
 
 the level
 
-**Returns:** s the lowest game id in the level
+**Returns:** the lowest game id in the level
 
 ---
 
 
-###       function nodesbylevel (level)
+###       function nodesbylevel(level)
 **Argument:** **level**
 
 the level
 
-**Returns:** s the number of games in this level
+**Returns:** the number of games in this level
 
 ---
 
 
-###       function getGameTreeX (gameid, maxlevel)
+###       function getGameTreeX(gameid, maxlevel)
 return the x coordinate of a game box
 
 **Argument:** **gameid**
@@ -213,12 +213,12 @@ the game id
 
 the highest level
 
-**Returns:** s the x coordinate
+**Returns:** the x coordinate
 
 ---
 
 
-###       function getGameTreeY (gameid, maxlevel)
+###       function getGameTreeY(gameid, maxlevel)
 return the y coordinate of a game box
 
 **Argument:** **gameid**
@@ -228,46 +228,46 @@ the game id
 
 the highest level
 
-**Returns:** s the y coordinate
+**Returns:** the y coordinate
 
 ---
 
 
-###       function createGameTreeBox (game, maxid)
+###       function createGameTreeBox(game, maxid)
 
 ---
 
-###       function createKOGameToParentConnector (game, maxid)
+###       function createKOGameToParentConnector(game, maxid)
 
 ---
 
-###       function createKOTree (tournamentid)
+###       function createKOTree(tournamentid)
 create a KO tree box
 
 **Argument:** **tournamentid**
 
 the id of the tournament
 
-**Returns:** s true of a game tree tree has been added, false otherwise
+**Returns:** true of a game tree tree has been added, false otherwise
 
 ---
 
 
-###               function (game)
+###               function(game)
 
 ---
 
-###       function showTournaments ()
+###       function showTournaments()
 
 ---
 
-###       function reset ()
+###       function reset()
 remove all evidence of any games ever (from the overview only)
 
 ---
 
 
-###       function update ()
+###       function update()
 removes and redraws all boxes from History
 
 ---
@@ -275,5 +275,5 @@ removes and redraws all boxes from History
 ## Metrics
 
 * 1046 Lines
-* 30806 Bytes
+* 30699 Bytes
 

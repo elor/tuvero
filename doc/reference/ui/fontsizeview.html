@@ -12,8 +12,8 @@
 <p>The FontSizeModel is unique for every DOM element and can be retrieved and
 controlled using a static function.</p>
 <p>TODO allow for arbitrary font sizes</p>
-<p>@returns FontSizeView</p>
 <ul>
+<li>Exports: FontSizeView</li>
 <li>Author: Erik E. Lorenz</li>
 <li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
 <li>License: MIT License</li>
@@ -27,7 +27,7 @@ controlled using a static function.</p>
 <li>JQuery</li>
 </ul>
 <h2>Functions</h2>
-<h3>function FontSizeView ($view, $container)</h3>
+<h3>function FontSizeView($view, $container)</h3>
 <p>Constructor, which also calls update() for the first time</p>
 <p><strong>Argument:</strong> <strong>$view</strong></p>
 <p>the container of the widget
@@ -35,26 +35,26 @@ controlled using a static function.</p>
 <p>the container of the size-adjusted text. If undefined, it defaults
 to <body></p>
 <hr />
-<h3>FontSizeView.prototype.reset = function ()</h3>
+<h3>FontSizeView.prototype.reset = function()</h3>
 <p>removes all font size information</p>
 <hr />
-<h3>FontSizeView.prototype.update = function ()</h3>
+<h3>FontSizeView.prototype.update = function()</h3>
 <p>sets the current font size, as defined by the model</p>
 <hr />
-<h3>FontSizeView.prototype.onupdate = function ()</h3>
+<h3>FontSizeView.prototype.onupdate = function()</h3>
 <p>model.emit() callback function</p>
 <hr />
-<h3>FontSizeView.getModelOfContainer = function ($container)</h3>
+<h3>FontSizeView.getModelOfContainer = function($container)</h3>
 <p>Retrieves the model for the given container. Allocates a new FontSizeModel,
 if not set yet.</p>
 <p><strong>Argument:</strong> <strong>$container</strong></p>
 <p>the container</p>
-<p><strong>Returns:</strong> s the model for the given container</p>
+<p><strong>Returns:</strong> the model for the given container</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
 <li>86 Lines</li>
-<li>2219 Bytes</li>
+<li>2203 Bytes</li>
 </ul>
 </body>
 </html>

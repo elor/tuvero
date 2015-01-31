@@ -3,7 +3,7 @@
 
 Print button logic, which triggers printing the current tab to paper.
 
-@returns undefined
+* Exports: undefined
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -22,5 +22,5 @@ No exported functions
 ## Metrics
 
 * 17 Lines
-* 356 Bytes
+* 352 Bytes
 

@@ -11,6 +11,7 @@
 <p>Represents a form with input elements and submit method, with which a new
 team is to be added to the associated ListModel</p>
 <ul>
+<li>Exports: NewTeamView</li>
 <li>Author: Erik E. Lorenz</li>
 <li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
 <li>License: MIT License</li>
@@ -23,28 +24,28 @@ team is to be added to the associated ListModel</p>
 <li>JQuery</li>
 </ul>
 <h2>Functions</h2>
-<h3>function NewTeamView (model, $view)</h3>
+<h3>function NewTeamView(model, $view)</h3>
 <p>Constructor</p>
 <p><strong>Argument:</strong> <strong>model</strong></p>
 <p>a ListModel for containing the teams
 <strong>Argument:</strong> <strong>$view</strong></p>
 <p>a form which contains two input elements and a submit button</p>
 <hr />
-<h3>NewTeamView.prototype.resetNames = function ()</h3>
+<h3>NewTeamView.prototype.resetNames = function()</h3>
 <p>clear the name input fields</p>
 <hr />
-<h3>NewTeamView.prototype.focusEmpty = function ()</h3>
+<h3>NewTeamView.prototype.focusEmpty = function()</h3>
 <p>focus the first empty or whitespace-only name input field</p>
 <hr />
-<h3>NewTeamView.prototype.onreset = function ()</h3>
+<h3>NewTeamView.prototype.onreset = function()</h3>
 <p>Callback function, after resetting the teams</p>
 <p>Note to self: the 'reset' event is fired by the model, which is a ListView
 containing the teams. Do not fire 'reset' on this model manually!</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>58 Lines</li>
-<li>1492 Bytes</li>
+<li>59 Lines</li>
+<li>1522 Bytes</li>
 </ul>
 </body>
 </html>

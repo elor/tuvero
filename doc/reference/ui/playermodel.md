@@ -16,19 +16,19 @@ A Model for each single Player
 
 ## Functions
 
-###   function trimName (name)
+###   function trimName(name)
 remove extra white spaces from a player name
 
 **Argument:** **name**
 
 the name
 
-**Returns:** s a trimmed version of the name
+**Returns:** a trimmed version of the name
 
 ---
 
 
-###   function PlayerModel (name)
+###   function PlayerModel(name)
 Constructor
 
 **Argument:** **name**
@@ -38,16 +38,16 @@ the player name
 ---
 
 
-###   PlayerModel.prototype.getName = function ()
+###   PlayerModel.prototype.getName = function()
 retrieve a copy of the player name
 
 
-**Returns:** s a copy of the player name
+**Returns:** a copy of the player name
 
 ---
 
 
-###   PlayerModel.prototype.setName = function (name)
+###   PlayerModel.prototype.setName = function(name)
 change the player name. Invalid player names (empty or whitespace only)
 will be ignored
 
@@ -60,5 +60,5 @@ the new name
 ## Metrics
 
 * 62 Lines
-* 1310 Bytes
+* 1295 Bytes
 

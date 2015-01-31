@@ -70,7 +70,7 @@ define(['./vector', './matrix', './halfmatrix', './correction'], function(
    * representing the ranking
    *
    * @return an object containing all points data and a sorted array of pids
-   *          representing the ranking
+   *         representing the ranking
    */
   Buchholz.prototype.get = function() {
     var rank, i, n, w, bh;

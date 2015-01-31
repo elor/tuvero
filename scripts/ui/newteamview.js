@@ -2,10 +2,10 @@
  * Represents a form with input elements and submit method, with which a new
  * team is to be added to the associated ListModel
  *
+ * @return NewTeamView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
- * @returns NewTeamView
  */
 define(['lib/extend', './interfaces/view', './newteamcontroller'], function(
     extend, View, NewTeamController) {

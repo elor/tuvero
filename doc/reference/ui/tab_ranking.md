@@ -32,19 +32,19 @@ TODO slay this beast
 
 ## Functions
 
-###   function initTemplate ()
+###   function initTemplate()
 
 ---
 
-###   function updateTemplate ()
+###   function updateTemplate()
 
 ---
 
-###   function init ()
+###   function init()
 
 ---
 
-###   function createRankRow (rank, ranking)
+###   function createRankRow(rank, ranking)
 fill template and return copy
 
 **Argument:** **rank**
@@ -62,7 +62,7 @@ a valid votes object
 ---
 
 
-###   function showRanking (tournamentid, $box)
+###   function showRanking(tournamentid, $box)
 **Argument:** **tournamentid**
 
 the tournament id
@@ -75,7 +75,7 @@ the box to add the ranking to
 ---
 
 
-###   function showCorrections (tournamentid, $box)
+###   function showCorrections(tournamentid, $box)
 retrieves the corrections and displays them in the correction table
 
 **Argument:** **tournamentid**
@@ -85,25 +85,25 @@ the tournament id
 
 the box to add content to
 
-**Returns:** s true if anything has been added to the DOM, false otherwise
+**Returns:** true if anything has been added to the DOM, false otherwise
 
 ---
 
 
-###   function reset ()
+###   function reset()
 
 ---
 
-###   function updateTournamentRankings ()
+###   function updateTournamentRankings()
 
 ---
 
-###   function update ()
+###   function update()
 
 ---
 
 ## Metrics
 
 * 304 Lines
-* 7697 Bytes
+* 7677 Bytes
 

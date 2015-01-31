@@ -3,7 +3,7 @@
 
 Netto ranking class
 
-@returns NettoRanking
+* Exports: NettoRanking
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,14 +15,14 @@ Netto ranking class
 
 ## Functions
 
-###   var Netto = function (size)
+###   var Netto = function(size)
 NettoRanking: A ranking variant which sorts players by wins and netto
 points, in this order.
 
 ---
 
 
-###   Netto.prototype.size = function ()
+###   Netto.prototype.size = function()
 simply return the stored size
 
 
@@ -31,7 +31,7 @@ simply return the stored size
 ---
 
 
-###   Netto.prototype.resize = function (size)
+###   Netto.prototype.resize = function(size)
 resize the internal arrays
 
 **Argument:** **size**
@@ -43,7 +43,7 @@ new size
 ---
 
 
-###   Netto.prototype.get = function ()
+###   Netto.prototype.get = function()
 return an object with ranking-specific data.
 
 
@@ -52,7 +52,7 @@ return an object with ranking-specific data.
 ---
 
 
-###   Netto.prototype.add = function (result)
+###   Netto.prototype.add = function(result)
 Add the result of a game to the ranking table.
 
 **Argument:** **result**
@@ -64,7 +64,7 @@ the result
 ---
 
 
-###   Netto.prototype.remove = function (result)
+###   Netto.prototype.remove = function(result)
 remove the result of a game from the ranking table
 
 **Argument:** **result**
@@ -76,7 +76,7 @@ the result
 ---
 
 
-###   Netto.prototype.correct = function (correction)
+###   Netto.prototype.correct = function(correction)
 Correct the result of a game.
 
 **Argument:** **correction**
@@ -88,15 +88,15 @@ the correction
 ---
 
 
-###   Netto.prototype.grantBye = function (team)
+###   Netto.prototype.grantBye = function(team)
 
 ---
 
-###   Netto.prototype.revokeBye = function (team)
+###   Netto.prototype.revokeBye = function(team)
 
 ---
 
-###   Netto.prototype.getCorrections = function ()
+###   Netto.prototype.getCorrections = function()
 get a copy of the applied corrections
 
 
@@ -105,7 +105,7 @@ get a copy of the applied corrections
 ---
 
 
-###   Netto.prototype.added = function (game)
+###   Netto.prototype.added = function(game)
 whether the game took place
 
 **Argument:** **game**
@@ -118,7 +118,7 @@ otherwise
 ---
 
 
-###   Netto.prototype.toBlob = function ()
+###   Netto.prototype.toBlob = function()
 stores the current state in a blob
 
 
@@ -127,16 +127,16 @@ stores the current state in a blob
 ---
 
 
-###   Netto.prototype.fromBlob = function (blob)
+###   Netto.prototype.fromBlob = function(blob)
 
 ---
 
-###     function copyCorrection (corr)
+###     function copyCorrection(corr)
 
 ---
 
 ## Metrics
 
 * 305 Lines
-* 6013 Bytes
+* 5962 Bytes
 

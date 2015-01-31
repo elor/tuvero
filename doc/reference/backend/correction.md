@@ -16,7 +16,7 @@ corrections should be sparse, the copying shouldn't matter.
 
 ## Functions
 
-###   Correction = function (pre, post)
+###   Correction = function(pre, post)
 constructor
 
 **Argument:** **pre**
@@ -31,7 +31,7 @@ corrected result (Result instance)
 ---
 
 
-###   Correction.prototype.copy = function ()
+###   Correction.prototype.copy = function()
 copy function that creates a new correction from this
 
 
@@ -40,7 +40,7 @@ copy function that creates a new correction from this
 ---
 
 
-###   Correction.copy = function (corr)
+###   Correction.copy = function(corr)
 copies a correction object
 
 **Argument:** **corr**
@@ -55,5 +55,5 @@ and functions. Fields are sufficient
 ## Metrics
 
 * 49 Lines
-* 1277 Bytes
+* 1267 Bytes
 

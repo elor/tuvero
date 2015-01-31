@@ -19,20 +19,20 @@ Autocomplete playernames using typeahead.js
 
 ## Functions
 
-###     Autocomplete.clear = function ()
+###     Autocomplete.clear = function()
 
 ---
 
-###     Autocomplete.reset = function ()
+###     Autocomplete.reset = function()
 
 ---
 
-###     Autocomplete.update = function ()
+###     Autocomplete.update = function()
 
 ---
 
 ## Metrics
 
 * 60 Lines
-* 1269 Bytes
+* 1250 Bytes
 

@@ -19,11 +19,11 @@ TableView for viewing information in a tabular representation
 
 ## Functions
 
-###   function validateText (text)
+###   function validateText(text)
 
 ---
 
-###   function TableView ($table, model)
+###   function TableView($table, model)
 Constructor
 
 **Argument:** **$table**
@@ -36,37 +36,37 @@ the TableModel instance
 ---
 
 
-###   TableView.prototype.reset = function ()
+###   TableView.prototype.reset = function()
 reset to an empty state
 
 ---
 
 
-###   TableView.prototype.update = function ()
+###   TableView.prototype.update = function()
 redraw everything
 
 ---
 
 
-###   TableView.prototype.createTitleRow = function ()
+###   TableView.prototype.createTitleRow = function()
 create the title row
 
 
-**Returns:** s a jquery object containing the newly created still detached row
+**Returns:** a jquery object containing the newly created still detached row
 
 ---
 
 
-###   TableView.prototype.createRow = function (row)
+###   TableView.prototype.createRow = function(row)
 create a content row
 
 
-**Returns:** s a jquery object containing the newly created still detached row
+**Returns:** a jquery object containing the newly created still detached row
 
 ---
 
 
-###   TableView.prototype.onupdate = function ()
+###   TableView.prototype.onupdate = function()
 event callback function
 
 ---
@@ -74,5 +74,5 @@ event callback function
 ## Metrics
 
 * 100 Lines
-* 2077 Bytes
+* 2060 Bytes
 

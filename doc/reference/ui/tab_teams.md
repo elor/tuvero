@@ -30,47 +30,47 @@ individual players
 
 ## Functions
 
-###     _changed : function ()
+###     _changed: function()
 
 ---
 
-###   function trimName (name)
+###   function trimName(name)
 
 ---
 
-###   function updateTeamCounts ()
+###   function updateTeamCounts()
 
 ---
 
-###   function deleteTeam ($team)
+###   function deleteTeam($team)
 
 ---
 
-###   function initDeletion ()
+###   function initDeletion()
 
 ---
 
-###   function deletionPending ()
+###   function deletionPending()
 
 ---
 
-###   function updateDeletion ()
+###   function updateDeletion()
 
 ---
 
-###   function initTeamSize ()
+###   function initTeamSize()
 
 ---
 
-###   function updateTeamSize ()
+###   function updateTeamSize()
 
 ---
 
-###   function initTemplate ()
+###   function initTemplate()
 
 ---
 
-###   function createTeamsFromString (str)
+###   function createTeamsFromString(str)
 reads names from a string and adds the players accordingly. Ignores
 #-escaped lines
 
@@ -80,39 +80,39 @@ reads names from a string and adds the players accordingly. Ignores
 ---
 
 
-###   function invalidateFileLoad ()
+###   function invalidateFileLoad()
 
 ---
 
-###   function loadFileError (evt)
+###   function loadFileError(evt)
 
 ---
 
-###   function loadFileLoad (evt)
+###   function loadFileLoad(evt)
 
 ---
 
-###   function loadFileAbort ()
+###   function loadFileAbort()
 
 ---
 
-###   function initFileLoad ()
+###   function initFileLoad()
 
 ---
 
-###   function updateFileLoad ()
+###   function updateFileLoad()
 
 ---
 
-###   function updateTemplate ()
+###   function updateTemplate()
 
 ---
 
-###   function initNewTeam ()
+###   function initNewTeam()
 
 ---
 
-###     function readNewTeamNames ()
+###     function readNewTeamNames()
 Retrieves, validates and returns names of new players, resetting the
 input fields if valid
 
@@ -123,55 +123,55 @@ otherwise
 ---
 
 
-###     function focusEmptyTeamNames ()
+###     function focusEmptyTeamNames()
 
 ---
 
-###     function createTeamFromForm ()
+###     function createTeamFromForm()
 
 ---
 
-###   function updateNewTeam ()
+###   function updateNewTeam()
 
 ---
 
-###   function initMaxWidth ()
+###   function initMaxWidth()
 
 ---
 
-###     function maxwidthtest ()
+###     function maxwidthtest()
 
 ---
 
-###   function initRename ()
+###   function initRename()
 
 ---
 
-###     function chshow ($name)
+###     function chshow($name)
 
 ---
 
-###     function updateTeam ($team)
+###     function updateTeam($team)
 
 ---
 
-###     function chabort ()
+###     function chabort()
 
 ---
 
-###     function chhide ()
+###     function chhide()
 
 ---
 
-###   function init ()
+###   function init()
 
 ---
 
-###   function resetOptions ()
+###   function resetOptions()
 
 ---
 
-###   function createBox (team)
+###   function createBox(team)
 this function adds a new team box to the page
 
 **Argument:** **team**
@@ -182,26 +182,26 @@ order
 ---
 
 
-###   function updateAfterTeamAdd ()
+###   function updateAfterTeamAdd()
 
 ---
 
-###   function updateActiveState ()
+###   function updateActiveState()
 
 ---
 
-###   function reset ()
+###   function reset()
 init, clear and reset all in one
 
 ---
 
 
-###   function update ()
+###   function update()
 
 ---
 
 ## Metrics
 
 * 717 Lines
-* 16308 Bytes
+* 16245 Bytes
 

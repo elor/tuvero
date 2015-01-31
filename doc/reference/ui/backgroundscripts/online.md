@@ -21,7 +21,7 @@ re-open it because it's not in the cache
 
 ## Functions
 
-###   Online = function ()
+###   Online = function()
 
 
 ---
@@ -29,5 +29,5 @@ re-open it because it's not in the cache
 ## Metrics
 
 * 53 Lines
-* 1212 Bytes
+* 1203 Bytes
 

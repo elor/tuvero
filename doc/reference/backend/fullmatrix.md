@@ -3,7 +3,7 @@
 
 a numeric square matrix class without further limitations
 
-@returns FullMatrix
+* Exports: FullMatrix
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,7 +15,7 @@ No Dependencies
 
 ## Functions
 
-###   var FullMatrix = function (size)
+###   var FullMatrix = function(size)
 FullMatrix: Square matrix implementation according to Matrix.Interface
 Empty entries are specified as undefined array values
 
@@ -28,7 +28,7 @@ Empty entries are specified as undefined array values
 ---
 
 
-###   FullMatrix.prototype.clear = function (size)
+###   FullMatrix.prototype.clear = function(size)
 Restores a blank state of the FullMatrix
 
 **Argument:** **size**
@@ -40,7 +40,7 @@ Optional. the new size of the matrix
 ---
 
 
-###   FullMatrix.prototype.clone = function ()
+###   FullMatrix.prototype.clone = function()
 copies the matrix. Optimizations in term of memory are attempted
 
 
@@ -49,7 +49,7 @@ copies the matrix. Optimizations in term of memory are attempted
 ---
 
 
-###   FullMatrix.prototype.erase = function (index)
+###   FullMatrix.prototype.erase = function(index)
 erases the rows and cols associated with the index from the matrix
 
 **Argument:** **index**
@@ -61,7 +61,7 @@ erases the rows and cols associated with the index from the matrix
 ---
 
 
-###   FullMatrix.prototype.extend = function (by)
+###   FullMatrix.prototype.extend = function(by)
 simply increases this.size. array expansions occur in the set function
 
 **Argument:** **by**
@@ -73,7 +73,7 @@ integer amount by which to extend the array. defaults to 1
 ---
 
 
-###   FullMatrix.prototype.get = function (row, col)
+###   FullMatrix.prototype.get = function(row, col)
 retrieves the value from the given indices.
 
 **Argument:** **row**
@@ -88,7 +88,7 @@ horizontal position
 ---
 
 
-###   FullMatrix.prototype.set = function (row, col, value)
+###   FullMatrix.prototype.set = function(row, col, value)
 sets the value at the given indices and allocates/frees the field if
 necessary
 
@@ -109,5 +109,5 @@ integer value to store in position (row, col)
 ## Metrics
 
 * 172 Lines
-* 3619 Bytes
+* 3602 Bytes
 

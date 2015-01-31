@@ -33,67 +33,67 @@ This tab allows viewing and changing various settings of the program.
 
 ## Functions
 
-###   function initCSV ()
+###   function initCSV()
 
 ---
 
-###   function csvupdate ($button)
+###   function csvupdate($button)
 
 ---
 
-###   function initLoad ()
+###   function initLoad()
 
 ---
 
-###   function invalidateLoad ()
+###   function invalidateLoad()
 
 ---
 
-###   function loadFileError (evt)
+###   function loadFileError(evt)
 
 ---
 
-###   function loadFileLoad (evt)
+###   function loadFileLoad(evt)
 
 ---
 
-###   function loadFileAbort ()
+###   function loadFileAbort()
 
 ---
 
-###   function reloadAutocomplete ()
+###   function reloadAutocomplete()
 
 ---
 
-###   function initAutocomplete ()
+###   function initAutocomplete()
 
 ---
 
-###   function invalidateAutocomplete ()
+###   function invalidateAutocomplete()
 
 ---
 
-###   function autocompleteFileError (evt)
+###   function autocompleteFileError(evt)
 
 ---
 
-###   function autocompleteFileLoad (evt)
+###   function autocompleteFileLoad(evt)
 
 ---
 
-###   function autocompleteFileAbort ()
+###   function autocompleteFileAbort()
 
 ---
 
-###   function updateLocalStorageMeters ()
+###   function updateLocalStorageMeters()
 
 ---
 
-###   function initLocalStorage ()
+###   function initLocalStorage()
 
 ---
 
-###   function resetStorageState ()
+###   function resetStorageState()
 toggles the storage state depending on the current autosave checkbox state.
 
 
@@ -102,22 +102,22 @@ toggles the storage state depending on the current autosave checkbox state.
 ---
 
 
-###   function init ()
+###   function init()
 
 ---
 
-###   function reset ()
+###   function reset()
 reset an initial state
 
 ---
 
 
-###   function update ()
+###   function update()
 
 ---
 
 ## Metrics
 
 * 358 Lines
-* 8517 Bytes
+* 8482 Bytes
 

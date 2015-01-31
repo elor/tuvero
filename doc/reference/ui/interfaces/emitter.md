@@ -3,7 +3,7 @@
 
 An event emitter class
 
-@returns Emitter
+* Exports: Emitter
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,13 +15,13 @@ No Dependencies
 
 ## Functions
 
-###   function Emitter ()
+###   function Emitter()
 Constructor
 
 ---
 
 
-###   Emitter.prototype.emit = function (event, data)
+###   Emitter.prototype.emit = function(event, data)
 Emits an event to all registered listeners by calling the callback
 functions of format 'on'+event, if available
 
@@ -36,12 +36,12 @@ to have a function name in the format 'on'+event
 
 arbitrary additional data. Please keep it simple!
 
-**Returns:** s true if the some listener received the event, false otherwise
+**Returns:** true if the some listener received the event, false otherwise
 
 ---
 
 
-###   Emitter.prototype.registerListener = function (listener)
+###   Emitter.prototype.registerListener = function(listener)
 register an event listener
 
 **Argument:** **listener**
@@ -49,12 +49,12 @@ register an event listener
 an event listener instance, which should define the necessary
 callback functions
 
-**Returns:** s this
+**Returns:** this
 
 ---
 
 
-###   Emitter.prototype.unregisterListener = function (listener)
+###   Emitter.prototype.unregisterListener = function(listener)
 Makes sure that the event listener is not receiving event callbacks anymore
 
 **Argument:** **listener**
@@ -62,12 +62,12 @@ Makes sure that the event listener is not receiving event callbacks anymore
 an instance of the View class, which may have already been
 registered
 
-**Returns:** s this
+**Returns:** this
 
 ---
 
 ## Metrics
 
 * 84 Lines
-* 2106 Bytes
+* 2091 Bytes
 

@@ -14,20 +14,20 @@ No Dependencies
 
 ## Functions
 
-###           clear : function ()
+###           clear: function()
 
 ---
 
-###           reset : function ()
+###           reset: function()
 
 ---
 
-###           update : function ()
+###           update: function()
 
 ---
 
 ## Metrics
 
 * 53 Lines
-* 1907 Bytes
+* 1897 Bytes
 

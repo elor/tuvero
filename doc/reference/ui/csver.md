@@ -3,7 +3,7 @@
 
 Interface for writing a proper CSV file.
 
-@returns an interface object
+* Exports: an interface object
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,12 +15,12 @@ No Dependencies
 
 ## Functions
 
-###       toCSV : function ()
+###       toCSV: function()
 
 ---
 
 ## Metrics
 
 * 18 Lines
-* 304 Bytes
+* 297 Bytes
 

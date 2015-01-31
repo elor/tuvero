@@ -17,7 +17,7 @@ A combination of players is a team. A team should contain at least one player
 
 ## Functions
 
-###   function TeamModel (players, id)
+###   function TeamModel(players, id)
 Constructor
 
 **Argument:** **players**
@@ -30,7 +30,7 @@ a preferably unique numeric team id
 ---
 
 
-###   TeamModel.prototype.getPlayer = function (id)
+###   TeamModel.prototype.getPlayer = function(id)
 retrieve a single player. For the number of players, see
 TeamModel.prototype.length
 
@@ -38,12 +38,12 @@ TeamModel.prototype.length
 
 the index of the player inside the team
 
-**Returns:** s a PlayerModel reference
+**Returns:** a PlayerModel reference
 
 ---
 
 
-###   TeamModel.prototype.onupdate = function ()
+###   TeamModel.prototype.onupdate = function()
 Callback listener
 
 One of the player names was updated. This is passed through to the team
@@ -55,5 +55,5 @@ event emitter.
 ## Metrics
 
 * 69 Lines
-* 1603 Bytes
+* 1590 Bytes
 

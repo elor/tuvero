@@ -20,28 +20,28 @@ If two players are equally ranked, the lowest ID is first.
 
 ## Functions
 
-###   function mapTeamsToTournamentIDs ()
+###   function mapTeamsToTournamentIDs()
 
 ---
 
-###   function mapTeamsToTournamentRanks (teamtournaments)
+###   function mapTeamsToTournamentRanks(teamtournaments)
 
 ---
 
-###   function updateTeamObjects ()
+###   function updateTeamObjects()
 
 ---
 
-###     function sortfunc (a, b)
+###     function sortfunc(a, b)
 
 ---
 
-###     function strictsortfunc (a, b)
+###     function strictsortfunc(a, b)
 
 ---
 
 ## Metrics
 
 * 107 Lines
-* 2946 Bytes
+* 2925 Bytes
 

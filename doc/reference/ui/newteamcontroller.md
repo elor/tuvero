@@ -19,7 +19,7 @@ Controller for adding a new player and handling invalid player names on input
 
 ## Functions
 
-###   function NewTeamController (view)
+###   function NewTeamController(view)
 Constructor
 
 **Argument:** **view**
@@ -29,7 +29,7 @@ the associated NewTeamView
 ---
 
 
-###   NewTeamController.prototype.createNewTeam = function ()
+###   NewTeamController.prototype.createNewTeam = function()
 Add a new team after reading the names from the registered input fields and
 push it to this.model, which is supposed to be a ListModel.
 
@@ -41,5 +41,5 @@ aborted and the first invalid input field is focused
 ## Metrics
 
 * 73 Lines
-* 1774 Bytes
+* 1762 Bytes
 

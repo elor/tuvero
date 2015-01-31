@@ -17,7 +17,7 @@ element
 
 ## Functions
 
-###   function TeamView (model, $view)
+###   function TeamView(model, $view)
 Constructor
 
 **Argument:** **model**
@@ -30,13 +30,13 @@ the associated DOM element
 ---
 
 
-###   TeamView.prototype.update = function ()
+###   TeamView.prototype.update = function()
 write the playernames and teamnumber to the DOM
 
 ---
 
 
-###   TeamView.prototype.onupdate = function ()
+###   TeamView.prototype.onupdate = function()
 Callback listener
 
 ---
@@ -44,5 +44,5 @@ Callback listener
 ## Metrics
 
 * 59 Lines
-* 1204 Bytes
+* 1195 Bytes
 

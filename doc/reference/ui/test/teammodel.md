@@ -14,13 +14,13 @@ No Dependencies
 
 ## Functions
 
-###         onupdate : function ()
+###         onupdate: function()
 Callback listener
 
 ---
 
 
-###         reset : function ()
+###         reset: function()
 counter reset
 
 ---
@@ -28,5 +28,5 @@ counter reset
 ## Metrics
 
 * 66 Lines
-* 2364 Bytes
+* 2350 Bytes
 

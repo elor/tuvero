@@ -17,7 +17,7 @@ Tab Interface
 
 ## Functions
 
-###       reset : function ()
+###       reset: function()
 Reset to an empty state, usually the initial state
 
 
@@ -26,7 +26,7 @@ Reset to an empty state, usually the initial state
 ---
 
 
-###       update : function ()
+###       update: function()
 Update everything to the current overall state
 
 
@@ -35,28 +35,28 @@ Update everything to the current overall state
 ---
 
 
-###     createTab : function (name, reset, update, options)
+###     createTab: function(name, reset, update, options)
 
 ---
 
-###         reset : function ()
+###         reset: function()
 
 ---
 
-###         update : function (force)
+###         update: function(force)
 
 ---
 
-###         getOptions : function ()
+###         getOptions: function()
 
 ---
 
-###         setOptions : function (opts)
+###         setOptions: function(opts)
 
 ---
 
 ## Metrics
 
 * 106 Lines
-* 2487 Bytes
+* 2458 Bytes
 

@@ -19,7 +19,7 @@ ListView for printing data in a list using arbitrary views
 
 ## Functions
 
-###   function ListView (model, $view, $template, SubView)
+###   function ListView(model, $view, $template, SubView)
 Constructor
 
 **Argument:** **$view**
@@ -40,19 +40,19 @@ Default to TextView
 ---
 
 
-###   ListView.prototype.reset = function ()
+###   ListView.prototype.reset = function()
 reset to an empty state
 
 ---
 
 
-###   ListView.prototype.update = function ()
+###   ListView.prototype.update = function()
 redraw everything
 
 ---
 
 
-###   ListView.prototype.insertItem = function (index)
+###   ListView.prototype.insertItem = function(index)
 inserts an item into the ListView, using the constructor-specified SubView
 
 **Argument:** **index**
@@ -62,7 +62,7 @@ the index of the item inside the underlying list
 ---
 
 
-###   ListView.prototype.removeItem = function (index)
+###   ListView.prototype.removeItem = function(index)
 remove the item from the DOM and remove all local references as well as its
 subview
 
@@ -73,13 +73,13 @@ the index of the item upon removal
 ---
 
 
-###   ListView.prototype.onupdate = function ()
+###   ListView.prototype.onupdate = function()
 event callback function
 
 ---
 
 
-###   ListView.prototype.oninsert = function (model, event, data)
+###   ListView.prototype.oninsert = function(model, event, data)
 Emitter Callback function, called right after a new element has been
 inserted
 
@@ -96,7 +96,7 @@ data object, containing at least the index within the list
 ---
 
 
-###   ListView.prototype.onremove = function (model, event, data)
+###   ListView.prototype.onremove = function(model, event, data)
 Emitter Callback function, called right after the removal of an element
 from the list
 
@@ -115,5 +115,5 @@ data object, containing at least the index within the list
 ## Metrics
 
 * 137 Lines
-* 3408 Bytes
+* 3390 Bytes
 

@@ -19,7 +19,7 @@ the FontSizeView widget
 
 ## Functions
 
-###   function FontSizeController (view)
+###   function FontSizeController(view)
 Constructor
 
 **Argument:** **view**
@@ -31,5 +31,5 @@ the FontSizeView
 ## Metrics
 
 * 35 Lines
-* 849 Bytes
+* 841 Bytes
 

@@ -15,7 +15,7 @@ An abstract model class
 
 ## Functions
 
-###   function Model ()
+###   function Model()
 Constructor for setting an initial state.
 
 Please provide additional functions in order to allow state modifications.
@@ -26,5 +26,5 @@ Use this.emit() to signal state changes to registered views
 ## Metrics
 
 * 21 Lines
-* 520 Bytes
+* 514 Bytes
 

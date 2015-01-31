@@ -14,7 +14,7 @@ No Description
 
 ## Functions
 
-###   var HalfMatrix = function (type, size)
+###   var HalfMatrix = function(type, size)
 HalfMatrix: Half square matrix implementation according to
 Matrix.Interface. Empty entries are referenced as undefined array values.
 All values above the main diagonal aren't stored at all. See get/set for
@@ -34,7 +34,7 @@ negated, 0: empty, 1: mirrored
 ---
 
 
-###   HalfMatrix.prototype.setType = function (type)
+###   HalfMatrix.prototype.setType = function(type)
 sets a type
 
 **Argument:** **type**
@@ -46,7 +46,7 @@ type id (HalfMatrix.empty/mirrored/negated)
 ---
 
 
-###   HalfMatrix.prototype.clear = function (size)
+###   HalfMatrix.prototype.clear = function(size)
 Restores a blank state of the HalfMatrix
 
 **Argument:** **size**
@@ -58,7 +58,7 @@ the new size of the matrix
 ---
 
 
-###   HalfMatrix.prototype.clone = function ()
+###   HalfMatrix.prototype.clone = function()
 copies the matrix. Optimizations in term of memory are attempted
 
 
@@ -67,7 +67,7 @@ copies the matrix. Optimizations in term of memory are attempted
 ---
 
 
-###   HalfMatrix.prototype.erase = function (index)
+###   HalfMatrix.prototype.erase = function(index)
 erases the rows and cols associated with the index from the matrix
 
 **Argument:** **index**
@@ -79,7 +79,7 @@ erases the rows and cols associated with the index from the matrix
 ---
 
 
-###   HalfMatrix.prototype.extend = function (by)
+###   HalfMatrix.prototype.extend = function(by)
 simply increases this.size. array expansions occur in the set function
 
 **Argument:** **by**
@@ -91,7 +91,7 @@ integer amount by which to extend the array. defaults to 1
 ---
 
 
-###   HalfMatrix.prototype.getEmpty = function (row, col)
+###   HalfMatrix.prototype.getEmpty = function(row, col)
 retrieves the value from the given indices using the empty type
 
 **Argument:** **row**
@@ -106,7 +106,7 @@ horizontal position
 ---
 
 
-###   HalfMatrix.prototype.getMirrored = function (row, col)
+###   HalfMatrix.prototype.getMirrored = function(row, col)
 retrieves the value from the given indices using the mirrored type
 
 **Argument:** **row**
@@ -121,7 +121,7 @@ horizontal position
 ---
 
 
-###   HalfMatrix.prototype.getNegated = function (row, col)
+###   HalfMatrix.prototype.getNegated = function(row, col)
 retrieves the value from the given indices using the negated type
 
 **Argument:** **row**
@@ -136,7 +136,7 @@ horizontal position
 ---
 
 
-###   HalfMatrix.prototype.setMirrored = function (row, col, value)
+###   HalfMatrix.prototype.setMirrored = function(row, col, value)
 set() function for mirrored half matrices
 
 **Argument:** **row**
@@ -154,7 +154,7 @@ value
 ---
 
 
-###   HalfMatrix.prototype.setNegated = function (row, col, value)
+###   HalfMatrix.prototype.setNegated = function(row, col, value)
 set() function for 'negated' half matrices
 
 **Argument:** **row**
@@ -172,7 +172,7 @@ value
 ---
 
 
-###   HalfMatrix.prototype.setEmpty = function (row, col, value)
+###   HalfMatrix.prototype.setEmpty = function(row, col, value)
 sets the value at the given indices and allocates/frees the field if
 necessary. Values below the main diagonal are ignored.
 
@@ -191,17 +191,17 @@ integer value to store in position (row, col)
 ---
 
 
-###   HalfMatrix.prototype.toBlob = function ()
+###   HalfMatrix.prototype.toBlob = function()
 store content in a convenient blob
 
 
-**Returns:** s a serialization of the matrix
+**Returns:** a serialization of the matrix
 
 ---
 
 
-###   HalfMatrix.prototype.fromBlob = function (blob)
-reset the matrix from a blob 
+###   HalfMatrix.prototype.fromBlob = function(blob)
+reset the matrix from a blob
 
 **Argument:** **blob**
 a serialization of the state
@@ -211,5 +211,5 @@ a serialization of the state
 ## Metrics
 
 * 339 Lines
-* 7364 Bytes
+* 7327 Bytes
 

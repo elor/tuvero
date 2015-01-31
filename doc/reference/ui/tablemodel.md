@@ -16,13 +16,13 @@ A model for table content, which may be extended for practical use cases
 
 ## Functions
 
-###   function TableModel ()
+###   function TableModel()
 Constructor
 
 ---
 
 
-###   TableModel.prototype.getCell = function (row, col)
+###   TableModel.prototype.getCell = function(row, col)
 Get the text contents of the cell
 
 **Argument:** **row**
@@ -32,43 +32,43 @@ Row of the cell (y-index)
 
 Column of the cell (x-index)
 
-**Returns:** s the text to display, or "" or undefined if there's nothing to
+**Returns:** the text to display, or "" or undefined if there's nothing to
 display
 
 ---
 
 
-###   TableModel.prototype.numRows = function ()
+###   TableModel.prototype.numRows = function()
 get the number of rows
 
 
-**Returns:** s the number of rows. Less or equal 0 indicates an empty table
+**Returns:** the number of rows. Less or equal 0 indicates an empty table
 
 ---
 
 
-###   TableModel.prototype.numCols = function ()
+###   TableModel.prototype.numCols = function()
 get the number of columns
 
 
-**Returns:** s the number of columns. Less or equal 0 indicates an empty table
+**Returns:** the number of columns. Less or equal 0 indicates an empty table
 
 ---
 
 
-###   TableModel.prototype.getColTitle = function (col)
+###   TableModel.prototype.getColTitle = function(col)
 Get the title of a column
 
 **Argument:** **col**
 
 the index of the column (0-indexed)
 
-**Returns:** s the title of the given column
+**Returns:** the title of the given column
 
 ---
 
 ## Metrics
 
 * 63 Lines
-* 1422 Bytes
+* 1404 Bytes
 

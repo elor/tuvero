@@ -109,5 +109,5 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 ## Metrics
 
 * 128 Lines
-* 2725 Bytes
+* 2720 Bytes
 

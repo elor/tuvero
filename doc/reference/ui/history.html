@@ -22,11 +22,11 @@
 <li><a href="./tournaments.html">./tournaments</a></li>
 </ul>
 <h2>Functions</h2>
-<h3>function (Shared, Tournaments)</h3>
+<h3>function(Shared, Tournaments)</h3>
 <hr />
-<h3>function getTournament (id, alloc)</h3>
+<h3>function getTournament(id, alloc)</h3>
 <hr />
-<h3>addResult : function (tournamentid, t1, t2, p1, p2, round, id)</h3>
+<h3>addResult: function(tournamentid, t1, t2, p1, p2, round, id)</h3>
 <p><strong>Argument:</strong> <strong>tournamentid</strong></p>
 <p>the id of the game's tournament
 <strong>Argument:</strong> <strong>t1</strong></p>
@@ -43,7 +43,7 @@
 <p>(optional) the game id within its round</p>
 <p><strong>Returns:</strong> : true on success, false otherwise</p>
 <hr />
-<h3>addCorrection : function (tournamentid, before, after)</h3>
+<h3>addCorrection: function(tournamentid, before, after)</h3>
 <p><strong>Argument:</strong> <strong>tournamentid</strong></p>
 <p><strong>Argument:</strong> <strong>before</strong></p>
 <p>an object containing similar to what you get from getGame
@@ -51,15 +51,15 @@
 <p>an object containing similar to what you get from getGame</p>
 <p><strong>Returns:</strong> true on success, false otherwise</p>
 <hr />
-<h3>addVote : function (tournamentid, type, team, round)</h3>
+<h3>addVote: function(tournamentid, type, team, round)</h3>
 <hr />
-<h3>numGames : function (tournamentid)</h3>
+<h3>numGames: function(tournamentid)</h3>
 <p><strong>Argument:</strong> <strong>tournamentid</strong></p>
 <p>the tournament id</p>
 <p><strong>Returns:</strong> undefined on failure, number of finished games in this
 tournament otherwise</p>
 <hr />
-<h3>getVotes : function (tournamentid)</h3>
+<h3>getVotes: function(tournamentid)</h3>
 <p>Return all votes, for the user to search. This is way simpler than
 some artificial restriction</p>
 <p>Do not manipulate!</p>
@@ -67,15 +67,15 @@ some artificial restriction</p>
 <p>the tournament id</p>
 <p><strong>Returns:</strong> the raw votes array of this tournament and round</p>
 <hr />
-<h3>numCorrections : function (tournamentid)</h3>
+<h3>numCorrections: function(tournamentid)</h3>
 <p><strong>Argument:</strong> <strong>tournamentid</strong></p>
 <p>the tournament id</p>
 <p><strong>Returns:</strong> undefined on failure, number of corrections in this
 tournament otherwise</p>
 <hr />
-<h3>numRounds : function (tournamentid)</h3>
+<h3>numRounds: function(tournamentid)</h3>
 <hr />
-<h3>getGame : function (tournamentid, id)</h3>
+<h3>getGame: function(tournamentid, id)</h3>
 <p>returns the raw data of this game for further viewing.</p>
 <p>Do not manipulate! Use corrections instead!</p>
 <p><strong>Argument:</strong> <strong>tournamentid</strong></p>
@@ -85,9 +85,9 @@ tournament otherwise</p>
 <p><strong>Returns:</strong> the array containing game information on success, undefined
 otherwise</p>
 <hr />
-<h3>getGames : function (tournamentid)</h3>
+<h3>getGames: function(tournamentid)</h3>
 <hr />
-<h3>getRound : function (tournamentid, round)</h3>
+<h3>getRound: function(tournamentid, round)</h3>
 <p>get all games of a specific round.</p>
 <p>Do not manipulate!</p>
 <p><strong>Argument:</strong> <strong>tournamentid</strong></p>
@@ -96,7 +96,7 @@ otherwise</p>
 <p>the round within its tournament</p>
 <p><strong>Returns:</strong></p>
 <hr />
-<h3>findGames : function (tournamentid, t1, t2)</h3>
+<h3>findGames: function(tournamentid, t1, t2)</h3>
 <p>get all games of a specific round.</p>
 <p>Do not manipulate!</p>
 <p><strong>Argument:</strong> <strong>tournamentid</strong></p>
@@ -107,7 +107,7 @@ otherwise</p>
 <p>team id 2</p>
 <p><strong>Returns:</strong></p>
 <hr />
-<h3>getCorrection : function (tournamentid, id)</h3>
+<h3>getCorrection: function(tournamentid, id)</h3>
 <p>returns a raw correction object for further viewing</p>
 <p>Do not manipulate! Use
 Tournaments.getTournament(tournamentid).correct() for that!</p>
@@ -117,13 +117,13 @@ Tournaments.getTournament(tournamentid).correct() for that!</p>
 <p>the correction id</p>
 <p><strong>Returns:</strong> a raw correction array on success, undefined otherwise</p>
 <hr />
-<h3>getCorrections : function (tournamentid)</h3>
+<h3>getCorrections: function(tournamentid)</h3>
 <hr />
-<h3>numTournaments : function ()</h3>
+<h3>numTournaments: function()</h3>
 <hr />
-<h3>reset : function ()</h3>
+<h3>reset: function()</h3>
 <hr />
-<h3>toCSV : function ()</h3>
+<h3>toCSV: function()</h3>
 <p>CSV exporter</p>
 <p>Tournament Comment Line Format: 'name Round roundno'</p>
 <p>Game Format:
@@ -131,11 +131,11 @@ Tournaments.getTournament(tournamentid).correct() for that!</p>
 <p>VoteFormat: 'No1,Name1,Name2,Name3,Type'</p>
 <p><strong>Returns:</strong> a comma-separated-values compatible History representation</p>
 <hr />
-<h3>toBlob : function ()</h3>
+<h3>toBlob: function()</h3>
 <p>Serializer.</p>
 <p><strong>Returns:</strong> a string representation of the data</p>
 <hr />
-<h3>fromBlob : function (blob)</h3>
+<h3>fromBlob: function(blob)</h3>
 <p>Deserializer.</p>
 <p><strong>Argument:</strong> <strong>blob</strong></p>
 <p>a string represention with which to replace the current data</p>
@@ -143,7 +143,7 @@ Tournaments.getTournament(tournamentid).correct() for that!</p>
 <h2>Metrics</h2>
 <ul>
 <li>519 Lines</li>
-<li>15354 Bytes</li>
+<li>15274 Bytes</li>
 </ul>
 </body>
 </html>

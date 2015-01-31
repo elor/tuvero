@@ -3,7 +3,7 @@
 
 Interface for reading and writing to a blob (arbitrary string representation)
 
-@returns Blobber
+* Exports: Blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,16 +15,16 @@ No Dependencies
 
 ## Functions
 
-###       toBlob : function ()
+###       toBlob: function()
 
 ---
 
-###       fromBlob : function ()
+###       fromBlob: function()
 
 ---
 
 ## Metrics
 
 * 20 Lines
-* 373 Bytes
+* 365 Bytes
 

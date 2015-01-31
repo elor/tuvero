@@ -25,5 +25,5 @@ No exported functions
 ## Metrics
 
 * 35 Lines
-* 900 Bytes
+* 891 Bytes
 

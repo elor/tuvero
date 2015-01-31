@@ -14,7 +14,7 @@ No Dependencies
 
 ## Functions
 
-###     copy : function (vector)
+###     copy: function(vector)
 Copies the the vector into a new sparse array
 
 **Argument:** **vector**
@@ -26,7 +26,7 @@ Copies the the vector into a new sparse array
 ---
 
 
-###     dot : function (a, b, size)
+###     dot: function(a, b, size)
 dot product of two vectors
 
 **Argument:** **a**
@@ -45,7 +45,7 @@ max(a.length, b.length))
 ---
 
 
-###     fill : function (vector)
+###     fill: function(vector)
 Fills undefined elements of the vector with 0
 
 **Argument:** **vector**
@@ -57,7 +57,7 @@ Fills undefined elements of the vector with 0
 ---
 
 
-###     scale : function (vector, factor)
+###     scale: function(vector, factor)
 scales the vector by the factor
 
 **Argument:** **vector**
@@ -72,7 +72,7 @@ scales the vector by the factor
 ---
 
 
-###     sum : function (vector)
+###     sum: function(vector)
 Sum calculates the sum of all elements of the vector
 
 **Argument:** **vector**
@@ -86,5 +86,5 @@ Sum calculates the sum of all elements of the vector
 ## Metrics
 
 * 121 Lines
-* 2478 Bytes
+* 2462 Bytes
 

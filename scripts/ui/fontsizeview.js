@@ -1,11 +1,11 @@
 /**
  * Font Size View: A widget for controlling the font size.
- * 
+ *
  * The FontSizeModel is unique for every DOM element and can be retrieved and
  * controlled using a static function.
- * 
+ *
  * TODO allow for arbitrary font sizes
- * 
+ *
  * @return FontSizeView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -20,7 +20,7 @@ define(['lib/extend', './interfaces/view', './fontsizecontroller',
 
   /**
    * Constructor, which also calls update() for the first time
-   * 
+   *
    * @param $view
    *          the container of the widget
    * @param $container
@@ -69,7 +69,7 @@ define(['lib/extend', './interfaces/view', './fontsizecontroller',
   /**
    * Retrieves the model for the given container. Allocates a new FontSizeModel,
    * if not set yet.
-   * 
+   *
    * @param $container
    *          the container
    * @return the model for the given container

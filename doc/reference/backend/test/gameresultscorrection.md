@@ -3,7 +3,7 @@
 
 Game, Results and Correction tests
 
-@returns test function
+* Exports: test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -20,5 +20,5 @@ No exported functions
 ## Metrics
 
 * 112 Lines
-* 3139 Bytes
+* 3118 Bytes
 

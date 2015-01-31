@@ -4,7 +4,7 @@
 a Mapping object, which maps unique arbitrary data to tightly-packed indices
 and vice versa
 
-@returns Map
+* Exports: Map
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -16,7 +16,7 @@ No Dependencies
 
 ## Functions
 
-###   var Map = function ()
+###   var Map = function()
 Map maps integers to close-packed integers in ascending order. It's
 intended to serve as a mapping between global and local player ids, but may
 work for other purposes as well. Actually, it works as a stack with random
@@ -28,7 +28,7 @@ read access, but let's just call it a map
 ---
 
 
-###   Map.prototype.insert = function (external)
+###   Map.prototype.insert = function(external)
 Inserts an element into the map if not already present. Returns the
 internal id in both cases
 
@@ -41,7 +41,7 @@ internal id in both cases
 ---
 
 
-###   Map.prototype.erase = function (internal)
+###   Map.prototype.erase = function(internal)
 Erases an element from the map and decrements all following internal
 indices. Note that this function invalidates externally stored internal
 ids.
@@ -53,7 +53,7 @@ ids.
 ---
 
 
-###   Map.prototype.remove = function (external)
+###   Map.prototype.remove = function(external)
 Removes an element from the map and decrements all following internal
 indices. It works similar to erase(), with the main difference of passing
 the external instead of the internal id
@@ -65,7 +65,7 @@ the external instead of the internal id
 ---
 
 
-###   Map.prototype.clear = function ()
+###   Map.prototype.clear = function()
 Resets the map to an empty state
 
 
@@ -74,7 +74,7 @@ Resets the map to an empty state
 ---
 
 
-###   Map.prototype.at = function (internal)
+###   Map.prototype.at = function(internal)
 Looks up the external id of the given internal id
 
 **Argument:** **internal**
@@ -86,7 +86,7 @@ Looks up the external id of the given internal id
 ---
 
 
-###   Map.prototype.find = function (external)
+###   Map.prototype.find = function(external)
 Finds the internal id of the given external id
 
 **Argument:** **external**
@@ -98,7 +98,7 @@ Finds the internal id of the given external id
 ---
 
 
-###   Map.prototype.size = function ()
+###   Map.prototype.size = function()
 Returns the number of elements in the map. This equals the internal index
 of the last element plus one.
 
@@ -108,16 +108,16 @@ of the last element plus one.
 ---
 
 
-###   Map.prototype.toBlob = function ()
+###   Map.prototype.toBlob = function()
 store the state in a blob object
 
 
-**Returns:** s a serialization of the object
+**Returns:** a serialization of the object
 
 ---
 
 
-###   Map.prototype.fromBlob = function (blob)
+###   Map.prototype.fromBlob = function(blob)
 restore a state from the blob
 
 **Argument:** **blob**
@@ -129,5 +129,5 @@ the blob
 ## Metrics
 
 * 138 Lines
-* 3146 Bytes
+* 3122 Bytes
 

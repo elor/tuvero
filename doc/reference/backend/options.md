@@ -19,7 +19,7 @@ No Dependencies
 
 ## Functions
 
-###       getOptions : function ()
+###       getOptions: function()
 get an object which contains a copy of all options
 
 
@@ -28,7 +28,7 @@ get an object which contains a copy of all options
 ---
 
 
-###       setOptions : function (options)
+###       setOptions: function(options)
 set options
 
 **Argument:** **options**
@@ -40,7 +40,7 @@ a modified options object retrieved from getOptions()
 ---
 
 
-###   Options = function ()
+###   Options = function()
 constructor
 
 
@@ -49,7 +49,7 @@ constructor
 ---
 
 
-###   Options.prototype.toBlob = function ()
+###   Options.prototype.toBlob = function()
 stores the current state in a blob, mostly using JSON (
 
 
@@ -58,44 +58,44 @@ stores the current state in a blob, mostly using JSON (
 ---
 
 
-###   Options.prototype.fromBlob = function (blob)
+###   Options.prototype.fromBlob = function(blob)
 restores a state from the blob
 
 **Argument:** **blob**
 
 the blob
 
-**Returns:** s this
+**Returns:** this
 
 ---
 
 
-###   function toType (obj)
+###   function toType(obj)
 
 ---
 
-###   function copyStaticObject (obj)
+###   function copyStaticObject(obj)
 
 ---
 
-###   Options.prototype.getOptions = function ()
+###   Options.prototype.getOptions = function()
 
 ---
 
-###   Options.getOptions = function (obj)
+###   Options.getOptions = function(obj)
 
 ---
 
-###   Options.prototype.setOptions = function (options)
+###   Options.prototype.setOptions = function(options)
 
 ---
 
-###   Options.setOptions = function (obj, opts)
+###   Options.setOptions = function(obj, opts)
 
 ---
 
 ## Metrics
 
 * 139 Lines
-* 2976 Bytes
+* 2950 Bytes
 

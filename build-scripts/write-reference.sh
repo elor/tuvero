@@ -3,6 +3,11 @@
 # auto-generates a reference from the source code
 # requires "cmark" to be installed for markdown conversion
 
+which cmark >/dev/null || exit 1
+which jslint >/dev/null || exit 1
+which jshint >/dev/null || exit 1
+which gjslint >/dev/null || exit 1
+
 refdir=doc/reference
 
 listuserscripts(){
@@ -270,6 +275,7 @@ createoverviewpage(){
 $(
     if [ "`readlink -f $docfiledir`" == "`readlink -f $refdir`" ]; then
         echo "<a href=\"errors.html\">Errors</a>"
+        echo "<a href=\"errorstats.html\">Error Stats</a>"
     else
         echo "<a href=\"`getrelhref scripts/index $docfiledir`\">back to index</a>"
     fi
@@ -321,6 +327,7 @@ createrrorpage(){
 </head>
 <body>
 <a href="index.html">back to index</a>
+<a href="errorstats.html">to error stats</a>
 <h1>Code Style Warnings and Errors</h1>
 `cmark $refdir/errors.md`
 </body>
@@ -362,6 +369,44 @@ processscript(){
     convertMD2HTML $script
 }
 
+formaterrorstatlines(){
+    nl | sed -r 's/^\s*([0-9]+)\s+([0-9]+)\s+(\S+)\s*$/\1. `\3` (\2)/'
+}
+
+errorstats(){
+    cat > $refdir/errorstats.md <<EOF
+# Error stats:
+
+$(cut -d: -f2 $refdir/errors.md | grep '\.js$' | xargs -n1 | uniq -c | sort -nr | formaterrorstatlines )
+
+EOF
+}
+
+createerrorstatspage(){
+    scriptdir=$1
+    docfile=`getdocfile $scriptdir/errorstats`
+    docfiledir=`dirname $docfile`
+    htmlfile=$docfiledir/`basename $docfile .md`.html
+    cat <<EOF > $htmlfile
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>$script Reference</title>
+</head>
+<body>
+<a href="index.html">back to index</a>
+<a href="errors.html">to errors</a>
+$(cmark $docfile)
+</body>
+</html>
+EOF
+}
+
+errorpositions(){
+    sed -r -n 's/^\S+\s+(\S+):.*line\s+([0-9]+)\s*,?\s*(pos|col)\s*([0-9]+).*$/\1 \2,\4/ip' $refdir/errors.md
+}
+
 mkdir $refdir
 initerrors
 
@@ -380,5 +425,7 @@ for dir in `listscriptdirs`; do
     createtodopage $dir
 done
 
-echo "generating error page"
+echo "generating error pages"
 createrrorpage
+errorstats
+createerrorstatspage

@@ -18,12 +18,12 @@ some debugging functions, such as stack trace and whether it's a dev version
 
 ## Functions
 
-###     stackTrace : function ()
+###     stackTrace: function()
 
 ---
 
 ## Metrics
 
 * 31 Lines
-* 788 Bytes
+* 778 Bytes
 

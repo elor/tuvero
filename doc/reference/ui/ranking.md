@@ -19,26 +19,26 @@ CSV export of tournament rankings
 
 ## Functions
 
-###     function (Team, Strings, Options, Tournaments)
+###     function(Team, Strings, Options, Tournaments)
 
 ---
 
-###         toCSV : function ()
+###         toCSV: function()
 converts ranking and correction information to a csv string
 
 ---
 
 
-###             makeline = function (rnk)
+###             makeline = function(rnk)
 
 ---
 
-###               makeline = function (corr)
+###               makeline = function(corr)
 
 ---
 
 ## Metrics
 
 * 126 Lines
-* 3736 Bytes
+* 3726 Bytes
 

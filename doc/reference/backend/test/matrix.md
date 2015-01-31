@@ -3,7 +3,7 @@
 
 Matrix unit tests
 
-@returns a test function
+* Exports: a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,12 +15,12 @@ No Dependencies
 
 ## Functions
 
-###             function ()
+###             function()
 
 ---
 
 ## Metrics
 
 * 270 Lines
-* 9596 Bytes
+* 9495 Bytes
 

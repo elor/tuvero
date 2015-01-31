@@ -12,7 +12,7 @@ one to three players.
          {Integer} Points of the first team
 @param points2
          {Integer} Points of the second team
-@return the newly constructed Result object
+* Exports: the newly constructed Result object
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -24,11 +24,11 @@ one to three players.
 
 ## Functions
 
-###   var Result = function (team1, team2, points1, points2)
+###   var Result = function(team1, team2, points1, points2)
 
 ---
 
-###   Result.prototype.getTeam = function (number)
+###   Result.prototype.getTeam = function(number)
 getTeam() returns the team array
 
 **Argument:** **number**
@@ -40,7 +40,7 @@ getTeam() returns the team array
 ---
 
 
-###   Result.prototype.getPoints = function (teamnumber)
+###   Result.prototype.getPoints = function(teamnumber)
 getPoints() returns the points for the given team
 
 **Argument:** **teamnumber**
@@ -53,7 +53,7 @@ number
 ---
 
 
-###   Result.prototype.setPoints = function (teamnumber, points)
+###   Result.prototype.setPoints = function(teamnumber, points)
 point setter
 
 **Argument:** **teamnumber**
@@ -68,7 +68,7 @@ points
 ---
 
 
-###   Result.prototype.getNetto = function ()
+###   Result.prototype.getNetto = function()
 getNetto() returns the difference between the team's points
 
 
@@ -77,7 +77,7 @@ getNetto() returns the difference between the team's points
 ---
 
 
-###   Result.prototype.copy = function ()
+###   Result.prototype.copy = function()
 copies this
 
 
@@ -86,7 +86,7 @@ copies this
 ---
 
 
-###   Result.prototype.getGame = function ()
+###   Result.prototype.getGame = function()
 Creates a Game instance from the teams
 
 
@@ -96,7 +96,7 @@ start time.
 ---
 
 
-###   Result.copy = function (res)
+###   Result.copy = function(res)
 creates an identical copy of a Result instance
 
 **Argument:** **res**
@@ -111,5 +111,5 @@ functions. Fields are sufficient.
 ## Metrics
 
 * 146 Lines
-* 3456 Bytes
+* 3431 Bytes
 

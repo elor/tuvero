@@ -4,7 +4,7 @@
 A list of all subtournaments, their teams, types, ids, rankings, and
 relationships after splitting or merging
 
-* Exports: Tournaments 
+* Exports: Tournaments
 * Implements: ../backend/blobber
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
@@ -20,31 +20,31 @@ relationships after splitting or merging
 
 ## Functions
 
-###   function createTournament (type, blob)
+###   function createTournament(type, blob)
 
 ---
 
-###   Tournaments.getStartRank = function (tournamentid, countchildren)
+###   Tournaments.getStartRank = function(tournamentid, countchildren)
 
 ---
 
-###   Tournaments.numTeamsLeft = function (tournamentid)
+###   Tournaments.numTeamsLeft = function(tournamentid)
 
 ---
 
-###   Tournaments.addTournament = function (type, numteams, parent)
+###   Tournaments.addTournament = function(type, numteams, parent)
 
 ---
 
-###   Tournaments.removeTournament = function (tournamentid)
+###   Tournaments.removeTournament = function(tournamentid)
 
 ---
 
-###   Tournaments.getParent = function (tournamentid)
+###   Tournaments.getParent = function(tournamentid)
 
 ---
 
-###   Tournaments.getRankingOrder = function ()
+###   Tournaments.getRankingOrder = function()
 performs an inefficient left-traversal of the tournament tree and returns
 the ranking order (left-right-parent)
 
@@ -55,43 +55,43 @@ ranking order
 ---
 
 
-###   Tournaments.numTournaments = function ()
+###   Tournaments.numTournaments = function()
 
 ---
 
-###   Tournaments.setName = function (id, name)
+###   Tournaments.setName = function(id, name)
 
 ---
 
-###   Tournaments.getName = function (id)
+###   Tournaments.getName = function(id)
 
 ---
 
-###   Tournaments.getType = function (id)
+###   Tournaments.getType = function(id)
 
 ---
 
-###   Tournaments.getTeams = function (id)
+###   Tournaments.getTeams = function(id)
 
 ---
 
-###   Tournaments.getRanking = function (tournamentid)
+###   Tournaments.getRanking = function(tournamentid)
 
 ---
 
-###   Tournaments.getTournament = function (id)
+###   Tournaments.getTournament = function(id)
 
 ---
 
-###   Tournaments.getTournamentID = function (Tournament)
+###   Tournaments.getTournamentID = function(Tournament)
 
 ---
 
-###   Tournaments.isRunning = function (id)
+###   Tournaments.isRunning = function(id)
 
 ---
 
-###   Tournaments.endTournament = function (id)
+###   Tournaments.endTournament = function(id)
 ends a tournament and removes its instance from this object
 
 **Argument:** **id**
@@ -102,20 +102,20 @@ ends a tournament and removes its instance from this object
 ---
 
 
-###   Tournaments.toBlob = function ()
+###   Tournaments.toBlob = function()
 
 ---
 
-###   Tournaments.fromBlob = function (blob)
+###   Tournaments.fromBlob = function(blob)
 
 ---
 
-###   Tournaments.reset = function ()
+###   Tournaments.reset = function()
 
 ---
 
 ## Metrics
 
 * 340 Lines
-* 8325 Bytes
+* 8279 Bytes
 

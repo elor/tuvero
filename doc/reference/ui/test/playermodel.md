@@ -3,7 +3,7 @@
 
 Unit tests for PlayerModel
 
-@returns a test function
+* Exports: a test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -15,13 +15,13 @@ No Dependencies
 
 ## Functions
 
-###         onupdate : function ()
+###         onupdate: function()
 Callback listener
 
 ---
 
 
-###         reset : function ()
+###         reset: function()
 counter reset
 
 ---
@@ -29,5 +29,5 @@ counter reset
 ## Metrics
 
 * 91 Lines
-* 2776 Bytes
+* 2765 Bytes
 
