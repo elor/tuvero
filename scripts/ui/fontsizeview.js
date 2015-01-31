@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './interfaces/view', './fontsizecontroller',
+define(['lib/extend', './view', './fontsizecontroller',
     './fontsizemodel'], function(extend, View, FontSizeController,
     FontSizeModel) {
   var classprefix;

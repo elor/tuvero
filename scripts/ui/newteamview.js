@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './interfaces/view', './newteamcontroller'], function(
+define(['lib/extend', './view', './newteamcontroller'], function(
     extend, View, NewTeamController) {
   /**
    * Constructor

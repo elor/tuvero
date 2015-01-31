@@ -11,13 +11,13 @@
  * @see LICENSE
  */
 
-define(['./tab', './options', './tabshandle', './toast', './team',
-    './strings', './tab_games', './tab_ranking', './tab_history', './history',
-    './storage', '../backend/tournament', './tournaments', './globalranking',
-    './shared', './data/swissperms', './boxview'], function(Tab, Options,
-    Tabshandle, Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History,
-    History, Storage, BackendTournament, Tournaments, GlobalRanking, Shared,
-    Swissperms, BoxView) {
+define(['./tab', './options', './tabshandle', './toast', './team', './strings',
+    './tab_games', './tab_ranking', './tab_history', './history', './storage',
+    '../backend/tournament', './tournaments', './globalranking', './shared',
+    './data/swissperms', './boxview'], function(Tab, Options, Tabshandle,
+    Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History,
+    Storage, BackendTournament, Tournaments, GlobalRanking, Shared, Swissperms,
+    BoxView) {
   var Tab_New, $tab, template, nameChangeID;
 
   Tab_New = undefined;
@@ -798,11 +798,13 @@ define(['./tab', './options', './tabshandle', './toast', './team',
   function closeTeamRegistration() {
     var opts, Tab_Teams;
 
-    Tab_Teams = Shared.Tab_Teams;
+    Tab_Teams = Shared.Tab_Teams || undefined;
 
-    opts = Tab_Teams.getOptions();
-    opts.allowRegistrations = false;
-    Tab_Teams.setOptions(opts);
+    if (Tab_Teams) {
+      opts = Tab_Teams.getOptions();
+      opts.allowRegistrations = false;
+      Tab_Teams.setOptions(opts);
+    }
   }
 
   function update() {

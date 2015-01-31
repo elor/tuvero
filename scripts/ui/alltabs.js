@@ -8,8 +8,8 @@
  * @see LICENSE
  */
 define(['./shared', './tab_history', './tab_ranking', './tab_new',
-    './tab_teams', './tab_games', './tab_debug', './tab_settings'], function(
-    Shared) {
+// './tab_teams',
+'./tab_games', './tab_debug', './tab_settings'], function(Shared) {
   var tabid, tabs, Alltabs;
 
   tabs = [];

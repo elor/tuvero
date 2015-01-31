@@ -10,7 +10,7 @@ define(function() {
   return function(QUnit, getModule) {
     var Emitter;
 
-    Emitter = getModule('ui/interfaces/emitter');
+    Emitter = getModule('ui/emitter');
 
     QUnit.test('Event Emitter', function() {
       var emitter, listener, listener2, eventcounter, resetcounter, retval;

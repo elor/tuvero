@@ -11,8 +11,8 @@ define(function() {
   return function(QUnit, getModule) {
     var Model, Emitter, extend;
 
-    Model = getModule('ui/interfaces/model');
-    Emitter = getModule('ui/interfaces/emitter');
+    Model = getModule('ui/model');
+    Emitter = getModule('ui/emitter');
     extend = getModule('lib/extend');
 
     QUnit.test('Model', function() {

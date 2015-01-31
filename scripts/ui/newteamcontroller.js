@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './interfaces/controller', './playermodel',
+define(['lib/extend', './controller', './playermodel',
     './teammodel'], function(extend, Controller, PlayerModel, TeamModel) {
   /**
    * Constructor

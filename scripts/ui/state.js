@@ -9,7 +9,10 @@
  * @see LICENSE
  */
 define(['./options', './tabshandle', './team', './history', './tournaments',
-    './tab_teams', './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function(Options, Tabshandle, Team, History, Tournaments, Tab_Teams, Tab_Games, Tab_Ranking, Tab_History, Tab_New, Shared) {
+//    './tab_teams',
+    './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function(Options, Tabshandle, Team, History, Tournaments,
+//        Tab_Teams,
+        Tab_Games, Tab_Ranking, Tab_History, Tab_New, Shared) {
   var State;
 
   State = {
@@ -53,7 +56,7 @@ define(['./options', './tabshandle', './team', './history', './tournaments',
       Tournaments.fromBlob(ob.tournaments);
 
       // update all tabs
-      Tab_Teams.update();
+//      Tab_Teams.update();
       Tab_New.update();
       Tab_Games.update();
       Tab_History.update();

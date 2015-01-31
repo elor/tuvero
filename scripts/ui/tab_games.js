@@ -12,12 +12,11 @@
  */
 
 define(
-    ['./team', './toast', './strings', './tab_teams', './tab_ranking',
-        './history', './tab_history', './storage', './options', './tab',
-        './tabshandle', './tournaments', './shared', './boxview'],
-    function(Team, Toast, Strings, Tab_Teams, Tab_Ranking, History,
-        Tab_History, Storage, Options, Tab, Tabshandle, Tournaments, Shared,
-        BoxView) {
+    ['./team', './toast', './strings', './tab_ranking', './history',
+        './tab_history', './storage', './options', './tab', './tabshandle',
+        './tournaments', './shared', './boxview'],
+    function(Team, Toast, Strings, Tab_Ranking, History, Tab_History, Storage,
+        Options, Tab, Tabshandle, Tournaments, Shared, BoxView) {
       var Tab_Games, $tab, template, games, $games, $tournaments;
 
       Tab_Games = undefined;

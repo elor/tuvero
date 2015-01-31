@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './interfaces/controller'], function(extend, Controller) {
+define(['lib/extend', './controller'], function(extend, Controller) {
   /**
    * Constructor, in which a click to the header is bound to sending a a toggle
    * event over the model.

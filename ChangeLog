@@ -7,6 +7,34 @@
 
 	* Makefile: 'make style' added; uses fixjsstyle to format the js files
 
+	* index.html: teams tab: complete rewrite started
+
+	* scripts/ui/controller.js: moved from interface/
+
+	* scripts/ui/emitter.js: moved from interface/
+
+	* scripts/ui/interfaces/: removed; contents moved to ..
+
+	* scripts/ui/tab_debug.js: tab_teams references removed
+
+	* scripts/ui/tab_games.js: tab_teams references removed
+
+	* scripts/ui/tab_new.js: tab_teams references removed
+
+	* scripts/ui/tab_teams.js: Removed. Rewriting as teamstab.js
+
+	* scripts/ui/test/emitter.js: moved from interfaces/test
+
+	* scripts/ui/test/indexedmodel.js: moved from interfaces/test
+
+	* scripts/ui/test/model.js: moved from interfaces/test
+
+	* scripts/ui/test/tab.js: moved from interfaces/test
+
+	* scripts/ui/view.js: moved from interfaces
+
+	* scripts/ui/templateview.js: TemplateView class started. Neither tested nor integrated yet.
+
 2015-01-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listmodel.js: map() added (similar to Array.prototype.map)

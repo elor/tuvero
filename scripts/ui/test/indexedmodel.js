@@ -11,7 +11,7 @@ define(function() {
     var extend, IndexedModel, Model;
 
     extend = getModule('lib/extend');
-    Model = getModule('ui/interfaces/model');
+    Model = getModule('ui/model');
     IndexedModel = getModule('ui/indexedmodel');
 
     QUnit.test('IndexedModel tests', function() {

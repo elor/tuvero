@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './interfaces/view'], function(extend, View) {
+define(['lib/extend', './view'], function(extend, View) {
 
   /**
    * Constructor

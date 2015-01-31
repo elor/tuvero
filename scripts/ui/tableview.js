@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './interfaces/view', './boxcontroller'], function(extend, View, BoxController) {
+define(['lib/extend', './view', './boxcontroller'], function(extend, View, BoxController) {
   var TableView;
 
   function validateText(text) {
