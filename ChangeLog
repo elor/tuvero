@@ -4,6 +4,7 @@
 	using @return instead of @exports
 
 	* build-scripts/write-scripts.sh: gjslint-compatible formatting of auto-generated script
+	scripts/ui/interfaces/test folder doesn't exist anymore; Now gnoring it.
 
 	* Makefile: 'make style' added; uses fixjsstyle to format the js files
 

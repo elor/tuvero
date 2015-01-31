@@ -9,7 +9,6 @@
 
 define(['common',
         'lib/qunit',
-         './*/*/test/*',
          './backend/test/gameresultscorrection',
          './backend/test/kotournament',
          './backend/test/map',

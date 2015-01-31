@@ -5,7 +5,7 @@
 cd scripts || exit 1
 
 createTestJS(){
-    files=$(echo ./*/{*/,}test/*.js | xargs -n1 | sed -e "s/^/         '/" -e "s/\.js\$/',/" | sed '$ s/,$//')
+    files=$(echo ./*/test/*.js | xargs -n1 | sed -e "s/^/         '/" -e "s/\.js\$/',/" | sed '$ s/,$//')
 
     cat << EOF
 /**
