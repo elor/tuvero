@@ -4,7 +4,7 @@
  * Also notifies if the user wants to leave the page while offline, but cannot
  * re-open it because it's not in the cache
  *
- * @exports Online
+ * @return Online
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

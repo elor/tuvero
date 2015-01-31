@@ -4,7 +4,7 @@
  * 
  * TODO rename to further reduce naming confusion
  * 
- * @exports Opts
+ * @return Opts
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

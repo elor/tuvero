@@ -2,7 +2,7 @@
  * A list of all subtournaments, their teams, types, ids, rankings, and
  * relationships after splitting or merging
  *
- * @exports Tournaments
+ * @return Tournaments
  * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

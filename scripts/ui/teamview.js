@@ -2,7 +2,7 @@
  * A teamView, which sets the .teamno and .name elements of the associated DOM
  * element
  *
- * @exports TeamView
+ * @return TeamView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

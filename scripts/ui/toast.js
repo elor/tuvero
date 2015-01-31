@@ -8,7 +8,7 @@
  * Toast duration can be set at Toast construction or controlled via a close()
  * function
  *
- * @exports Toast
+ * @return Toast
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

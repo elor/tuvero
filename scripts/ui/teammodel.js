@@ -1,7 +1,7 @@
 /**
  * A combination of players is a team. A team should contain at least one player
  *
- * @exports TeamModel
+ * @return TeamModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

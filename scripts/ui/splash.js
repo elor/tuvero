@@ -1,7 +1,7 @@
 /**
  * Manage the state and visibility of the splash screen
  *
- * @exports Splash
+ * @return Splash
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

@@ -2,7 +2,7 @@
  * A list object, which contains numerically indexed values for use with other
  * MVC classes
  *
- * @exports ListModel
+ * @return ListModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

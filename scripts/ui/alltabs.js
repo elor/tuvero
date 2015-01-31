@@ -1,7 +1,7 @@
 /**
  * Wrap all tabs into a single object for centralized updates
  *
- * @exports Alltabs
+ * @return Alltabs
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

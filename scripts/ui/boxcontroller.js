@@ -1,7 +1,7 @@
 /**
  * Box Controller for catching collapse-by-click events
  *
- * @exports BoxController
+ * @return BoxController
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

@@ -6,7 +6,7 @@
  *
  * TODO slay this beast
  *
- * @exports Tab_Ranking
+ * @return Tab_Ranking
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

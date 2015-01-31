@@ -1,7 +1,7 @@
 /**
  * Managed list of registered teams
  *
- * @exports Team
+ * @return Team
  * @implements ./csver
  * @implements ../backend/blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>

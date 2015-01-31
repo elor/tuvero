@@ -1,7 +1,7 @@
 /**
  * TableView for viewing information in a tabular representation
  *
- * @exports TableView
+ * @return TableView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

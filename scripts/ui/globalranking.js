@@ -4,7 +4,7 @@
  *
  * If two players are equally ranked, the lowest ID is first.
  *
- * @exports GlobalRanking
+ * @return GlobalRanking
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

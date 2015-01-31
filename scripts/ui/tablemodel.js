@@ -1,7 +1,7 @@
 /**
  * A model for table content, which may be extended for practical use cases
  *
- * @exports TableModel
+ * @return TableModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

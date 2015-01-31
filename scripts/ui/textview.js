@@ -1,7 +1,7 @@
 /**
  * Generic View for filling a DOM element with text
  *
- * @exports TextView
+ * @return TextView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

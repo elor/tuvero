@@ -1,6 +1,7 @@
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-reference.sh: error page shows jshint, jslint and gjslint output
+	using @return instead of @exports
 
 2015-01-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

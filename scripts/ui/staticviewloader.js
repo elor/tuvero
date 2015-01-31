@@ -7,7 +7,7 @@
  *
  * Templated views have to be initiated programmatically.
  *
- * @exports StaticViewLoader
+ * @return StaticViewLoader
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

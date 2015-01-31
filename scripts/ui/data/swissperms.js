@@ -1,7 +1,7 @@
 /**
  * A data object which contains vote permission presets for swiss tournaments
  *
- * @exports SwissPerms
+ * @return SwissPerms
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

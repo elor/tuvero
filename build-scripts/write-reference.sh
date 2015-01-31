@@ -76,7 +76,7 @@ parseglobalcomment(){
         sed -n '1,/\*\//p' $script | stripcommentchars | {
             sed -r -e 's/@author\s*([^<]+)\s*(<([^>]+)>)/* Author: \1\
 * Mail: <\3>/' -e 's/@license\s*(.*)/* License: \1/' -e '/@see/d' \
-                -e 's/@exports\s*(.*)/* Exports: \1/' -e 's/@implements\s*(.*)/* Implements: \1/'
+                -e 's/@return\s*(.*)/* Exports: \1/' -e 's/@implements\s*(.*)/* Implements: \1/'
         }
     fi
     echo

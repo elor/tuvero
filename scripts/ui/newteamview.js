@@ -5,6 +5,7 @@
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
+ * @returns NewTeamView
  */
 define(['lib/extend', './interfaces/view', './newteamcontroller'], function(
     extend, View, NewTeamController) {

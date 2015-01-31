@@ -1,7 +1,7 @@
 /**
  * A Model for each single Player
  *
- * @exports PlayerModel
+ * @return PlayerModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

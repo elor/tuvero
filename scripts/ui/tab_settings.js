@@ -3,7 +3,7 @@
  *
  * This tab allows viewing and changing various settings of the program.
  *
- * @exports Tab_Settings
+ * @return Tab_Settings
  * @implements ./tab
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

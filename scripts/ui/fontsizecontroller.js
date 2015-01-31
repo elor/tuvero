@@ -2,7 +2,7 @@
  * Font Size Controller for adjusting the font size according to user input on
  * the FontSizeView widget
  *
- * @exports FontSizeController
+ * @return FontSizeController
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

@@ -5,7 +5,7 @@
  * Type.isBoolean(), Type.isArray() etc. functions are available, but lack
  * additional documentation.
  *
- * @exports Type
+ * @return Type
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

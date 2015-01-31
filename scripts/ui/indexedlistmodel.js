@@ -1,7 +1,7 @@
 /**
  * A ListModel, which also adjusts the ids using setID
  *
- * @exports IndexedListModel
+ * @return IndexedListModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

@@ -2,7 +2,7 @@
  * History of game results and votes for all tournaments.
  *
  * @implements ../backend/blobber
- * @exports History
+ * @return History
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

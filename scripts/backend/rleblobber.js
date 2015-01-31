@@ -1,7 +1,7 @@
 /**
  * No Description
  *
- * @exports RLEBlobber
+ * @return RLEBlobber
  * @implements Blobber
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

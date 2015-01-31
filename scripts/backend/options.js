@@ -5,7 +5,7 @@
  *
  * Undefined behavior (most likely infinite loops) on nesting loops
  *
- * @exports Options
+ * @return Options
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
