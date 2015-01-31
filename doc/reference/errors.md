@@ -1,12 +1,27 @@
 ```
 Warning: scripts/backend/blobber.js: undocumented: 'toBlob : function'
 Warning: scripts/backend/blobber.js: undocumented: 'fromBlob : function'
+Warning: scripts/backend/blobber.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/blobber.js:  #1 Empty block.
+Warning: scripts/backend/blobber.js:     toBlob : function () { // Line 12, Pos 28
+Warning: scripts/backend/blobber.js:  #2 Empty block.
+Warning: scripts/backend/blobber.js:     fromBlob : function () { // Line 14, Pos 30
 Warning: scripts/backend/buchholzranking.js: undocumented: 'Buchholz.prototype.grantBye = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 'Buchholz.prototype.revokeBye = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 't1func = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 'Buchholz.prototype.fromBlob = function'
 Warning: scripts/backend/buchholzranking.js: undocumented: 'function copyCorrection'
 Warning: scripts/backend/buchholzranking.js: > 10 functions: 15
+Warning: scripts/backend/buchholzranking.js: Line 32, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/buchholzranking.js: Line 72, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/buchholzranking.js:  #1 Expected ';' and instead saw 'length'.
+Warning: scripts/backend/buchholzranking.js:     for (; length < size; length += 1) { // Line 58, Pos 14
+Warning: scripts/backend/buchholzranking.js:  #2 Expected ')' and instead saw '<'.
+Warning: scripts/backend/buchholzranking.js:     for (; length < size; length += 1) { // Line 58, Pos 21
+Warning: scripts/backend/buchholzranking.js:  #3 Expected '{' and instead saw 'size'.
+Warning: scripts/backend/buchholzranking.js:     for (; length < size; length += 1) { // Line 58, Pos 23
+Warning: scripts/backend/buchholzranking.js:  #4 Stopping. (17% scanned).
+Warning: scripts/backend/buchholzranking.js:      // Line 58, Pos 23
 Warning: scripts/backend/finebuchholzranking.js: > 5 dependencies: 6
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'Finebuchholz.prototype.grantBye = function'
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'Finebuchholz.prototype.revokeBye = function'
@@ -14,10 +29,27 @@ Warning: scripts/backend/finebuchholzranking.js: undocumented: 't1func = functio
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'Finebuchholz.prototype.fromBlob = function'
 Warning: scripts/backend/finebuchholzranking.js: undocumented: 'function copyCorrection'
 Warning: scripts/backend/finebuchholzranking.js: > 10 functions: 15
+Warning: scripts/backend/finebuchholzranking.js: Line 10, E:0110: Line too long (93 characters).
+Warning: scripts/backend/finebuchholzranking.js: Line 100, E:0110: Line too long (125 characters).
+Warning: scripts/backend/finebuchholzranking.js: Line 330, E:0121: Illegal comma at end of object literal
 Warning: scripts/backend/finebuchholzranking.js: line 10, col 32, This function has too many parameters. (6)
+Warning: scripts/backend/finebuchholzranking.js:  #1 Expected ';' and instead saw 'length'.
+Warning: scripts/backend/finebuchholzranking.js:     for (; length < size; length += 1) { // Line 61, Pos 14
+Warning: scripts/backend/finebuchholzranking.js:  #2 Expected ')' and instead saw '<'.
+Warning: scripts/backend/finebuchholzranking.js:     for (; length < size; length += 1) { // Line 61, Pos 21
+Warning: scripts/backend/finebuchholzranking.js:  #3 Expected '{' and instead saw 'size'.
+Warning: scripts/backend/finebuchholzranking.js:     for (; length < size; length += 1) { // Line 61, Pos 23
+Warning: scripts/backend/finebuchholzranking.js:  #4 Stopping. (16% scanned).
+Warning: scripts/backend/finebuchholzranking.js:      // Line 61, Pos 23
+Warning: scripts/backend/fullmatrix.js: Line 4, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/backend/fullmatrix.js: line 66, col 24, Blocks are nested too deeply. (4)
 Warning: scripts/backend/game.js: undocumented: 'function copyTeam'
+Warning: scripts/backend/game.js: Line 5, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/game.js: Line 21, E:0110: Line too long (99 characters).
+Warning: scripts/backend/game.js: Line 88, E:0110: Line too long (95 characters).
+Warning: scripts/backend/game.js: Line 131, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/backend/halfmatrix.js: > 10 functions: 17
+Warning: scripts/backend/halfmatrix.js: Line 308, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/backend/halfmatrix.js: line 115, col 24, Blocks are nested too deeply. (4)
 Warning: scripts/backend/kotournament.js: undocumented: 'function'
 Warning: scripts/backend/kotournament.js: undocumented: 'function left'
@@ -47,6 +79,13 @@ Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.
 Warning: scripts/backend/kotournament.js: undocumented: 'KOTournament.prototype.getCorrections = function'
 Warning: scripts/backend/kotournament.js: > 10 functions: 30
 Warning: scripts/backend/kotournament.js: > 400 lines: 461
+Warning: scripts/backend/kotournament.js: Line 68, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/kotournament.js: Line 80, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/kotournament.js: Line 81, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/kotournament.js: Line 332, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/backend/kotournament.js: Line 388, E:0110: Line too long (83 characters).
+Warning: scripts/backend/kotournament.js: Line 405, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/kotournament.js: Line 431, E:0121: Illegal comma at end of object literal
 Warning: scripts/backend/kotournament.js: line 42, col 18, Unexpected use of '<<'.
 Warning: scripts/backend/kotournament.js: line 114, col 26, Unexpected use of '<<'.
 Warning: scripts/backend/kotournament.js: line 177, col 24, Unexpected use of '<<'.
@@ -55,7 +94,17 @@ Warning: scripts/backend/kotournament.js: line 332, col 15, Bad line breaking be
 Warning: scripts/backend/kotournament.js: line 22, col 16, 'right' is defined but never used.
 Warning: scripts/backend/kotournament.js: line 45, col 16, 'numLevels' is defined but never used.
 Warning: scripts/backend/kotournament.js: line 104, col 40, 'byeOrder' is defined but never used.
+Warning: scripts/backend/kotournament.js:  #1 Unexpected '<<'.
+Warning: scripts/backend/kotournament.js:     return 1 << level; // Line 42, Pos 18
+Warning: scripts/backend/kotournament.js:  #2 Unexpected '<<'.
+Warning: scripts/backend/kotournament.js:     totalplayers = 1 << numrounds; // Line 114, Pos 26
+Warning: scripts/backend/kotournament.js:  #3 Unexpected ')'.
+Warning: scripts/backend/kotournament.js:     for (i = 0; i < numPlayers;) { // Line 119, Pos 36
+Warning: scripts/backend/kotournament.js:  #4 Stopping. (25% scanned).
+Warning: scripts/backend/kotournament.js:      // Line 119, Pos 38
 Warning: scripts/backend/map.js: > 10 functions: 11
+Warning: scripts/backend/map.js: Line 5, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/map.js: Line 121, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/backend/matrix.js: undocumented: 'clone : function'
 Warning: scripts/backend/matrix.js: undocumented: 'erase : function'
 Warning: scripts/backend/matrix.js: undocumented: 'extend : function'
@@ -74,6 +123,15 @@ Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.revokeB
 Warning: scripts/backend/nettoranking.js: undocumented: 'Netto.prototype.fromBlob = function'
 Warning: scripts/backend/nettoranking.js: undocumented: 'function copyCorrection'
 Warning: scripts/backend/nettoranking.js: > 10 functions: 14
+Warning: scripts/backend/nettoranking.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/nettoranking.js:  #1 Expected ';' and instead saw 'length'.
+Warning: scripts/backend/nettoranking.js:     for (; length < size; length += 1) { // Line 52, Pos 14
+Warning: scripts/backend/nettoranking.js:  #2 Expected ')' and instead saw '<'.
+Warning: scripts/backend/nettoranking.js:     for (; length < size; length += 1) { // Line 52, Pos 21
+Warning: scripts/backend/nettoranking.js:  #3 Expected '{' and instead saw 'size'.
+Warning: scripts/backend/nettoranking.js:     for (; length < size; length += 1) { // Line 52, Pos 23
+Warning: scripts/backend/nettoranking.js:  #4 Stopping. (16% scanned).
+Warning: scripts/backend/nettoranking.js:      // Line 52, Pos 23
 Warning: scripts/backend/options.js: undocumented: 'function toType'
 Warning: scripts/backend/options.js: undocumented: 'function copyStaticObject'
 Warning: scripts/backend/options.js: undocumented: 'Options.prototype.getOptions = function'
@@ -81,17 +139,45 @@ Warning: scripts/backend/options.js: undocumented: 'Options.getOptions = functio
 Warning: scripts/backend/options.js: undocumented: 'Options.prototype.setOptions = function'
 Warning: scripts/backend/options.js: undocumented: 'Options.setOptions = function'
 Warning: scripts/backend/options.js: > 10 functions: 11
+Warning: scripts/backend/options.js: Line 8, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/backend/options.js: Line 36, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/options.js: Line 37, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/options.js: Line 63, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/backend/options.js: line 34, col 30, 'options' is defined but never used.
+Warning: scripts/backend/options.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/backend/options.js:     for (key in obj) { // Line 92, Pos 5
+Warning: scripts/backend/options.js:  #2 Expected a string and instead saw 'undefined'.
+Warning: scripts/backend/options.js:     if (typeof (this.options[key]) === undefined) { // Line 116, Pos 42
+Warning: scripts/backend/options.js:  #3 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/backend/options.js:     for (key in options) { // Line 114, Pos 5
+Warning: scripts/backend/options.js:  #4 Unexpected TODO comment.
+Warning: scripts/backend/options.js:     // TODO at least compare the type // Line 124, Pos 9
+Warning: scripts/backend/options.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/backend/options.js:     for (key in options) { // Line 123, Pos 5
+Warning: scripts/backend/options.js:  #6 Unexpected TODO comment.
+Warning: scripts/backend/options.js:     // TODO test and incorporate // Line 139, Pos 3
 Warning: scripts/backend/random.js: undocumented: 'Random = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.nextInt = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.nextDouble = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.pick = function'
 Warning: scripts/backend/random.js: undocumented: 'Random.prototype.pickAndRemove = function'
+Warning: scripts/backend/random.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/random.js: Line 51, E:0300: File does not end with new line.  (});)
 Warning: scripts/backend/random.js: line 19, col 31, Unexpected use of '&'.
 Warning: scripts/backend/random.js: line 20, col 32, Unexpected use of '>>'.
 Warning: scripts/backend/random.js: line 20, col 39, Unexpected use of '&'.
 Warning: scripts/backend/random.js: line 32, col 21, Unexpected use of '>>'.
 Warning: scripts/backend/random.js: line 33, col 21, Unexpected use of '&'.
+Warning: scripts/backend/random.js:  #1 Unexpected '&'.
+Warning: scripts/backend/random.js:     this.x = date.getTime() & 0xFFFF; // Line 19, Pos 31
+Warning: scripts/backend/random.js:  #2 Unexpected '>>'.
+Warning: scripts/backend/random.js:     this.c = (date.getTime() >> 16) & 0xFFFF; // Line 20, Pos 32
+Warning: scripts/backend/random.js:  #3 Unexpected '&'.
+Warning: scripts/backend/random.js:     this.c = (date.getTime() >> 16) & 0xFFFF; // Line 20, Pos 39
+Warning: scripts/backend/random.js:  #4 Unexpected '>>'.
+Warning: scripts/backend/random.js:     this.c = this.x >> 16; // Line 32, Pos 21
+Warning: scripts/backend/random.js:  #5 Unexpected '&'.
+Warning: scripts/backend/random.js:     this.x = this.x & 0xFFFF; // Line 33, Pos 21
 Warning: scripts/backend/ranking.js: > 10 functions: 11
 Warning: scripts/backend/ranking.js: line 32, col 26, 'size' is defined but never used.
 Warning: scripts/backend/ranking.js: line 59, col 23, 'result' is defined but never used.
@@ -100,10 +186,25 @@ Warning: scripts/backend/ranking.js: line 85, col 27, 'correction' is defined bu
 Warning: scripts/backend/ranking.js: line 106, col 25, 'game' is defined but never used.
 Warning: scripts/backend/ranking.js: line 116, col 28, 'playerid' is defined but never used.
 Warning: scripts/backend/ranking.js: line 125, col 29, 'playerid' is defined but never used.
+Warning: scripts/backend/ranking.js:  #1 Empty block.
+Warning: scripts/backend/ranking.js:     grantBye : function (playerid) { // Line 116, Pos 38
+Warning: scripts/backend/ranking.js:  #2 Empty block.
+Warning: scripts/backend/ranking.js:     revokeBye : function (playerid) { // Line 125, Pos 39
 Warning: scripts/backend/result.js: undocumented: 'Result = function'
+Warning: scripts/backend/result.js:  #1 Unexpected '('.
+Warning: scripts/backend/result.js:     if (typeof (team1) === 'number') { // Line 20, Pos 16
+Warning: scripts/backend/result.js:  #2 Unexpected '('.
+Warning: scripts/backend/result.js:     if (typeof (team2) === 'number') { // Line 23, Pos 16
 Warning: scripts/backend/rleblobber.js: undocumented: 'function isArray'
 Warning: scripts/backend/rleblobber.js: undocumented: 'function isNumber'
 Warning: scripts/backend/rleblobber.js: > 10 functions: 12
+Warning: scripts/backend/rleblobber.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/backend/rleblobber.js: Line 151, E:0110: Line too long (99 characters).
+Warning: scripts/backend/rleblobber.js: Line 189, E:0110: Line too long (103 characters).
+Warning: scripts/backend/rleblobber.js: Line 218, E:0110: Line too long (95 characters).
+Warning: scripts/backend/rleblobber.js: Line 240, E:0110: Line too long (97 characters).
+Warning: scripts/backend/rleblobber.js: Line 265, E:0110: Line too long (103 characters).
+Warning: scripts/backend/rleblobber.js: Line 271, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/backend/rleblobber.js: line 82, col 7, Unreachable 'break' after 'return'.
 Warning: scripts/backend/rleblobber.js: line 93, col 22, Use '!==' to compare with 'null'.
 Warning: scripts/backend/rleblobber.js: line 93, col 38, Use '!==' to compare with '0'.
@@ -124,6 +225,30 @@ Warning: scripts/backend/rleblobber.js: line 285, col 12, 'isArray' is defined b
 Warning: scripts/backend/rleblobber.js: line 289, col 12, 'isNumber' is defined but never used.
 Warning: scripts/backend/rleblobber.js: line 73, col 34, 'elemstr' is defined but never used.
 Warning: scripts/backend/rleblobber.js: line 148, col 16, 'innerarray' is defined but never used.
+Warning: scripts/backend/rleblobber.js:  #1 'toType' was used before it was defined.
+Warning: scripts/backend/rleblobber.js:     switch (toType(array)) { // Line 75, Pos 13
+Warning: scripts/backend/rleblobber.js:  #2 Unreachable 'break' after 'return'.
+Warning: scripts/backend/rleblobber.js:     break; // Line 82, Pos 7
+Warning: scripts/backend/rleblobber.js:  #3 'toType' was used before it was defined.
+Warning: scripts/backend/rleblobber.js:     console.error('cannot parse content of type ' + toType(array)); // Line 84, Pos 55
+Warning: scripts/backend/rleblobber.js:  #4 Unused 'elemstr'.
+Warning: scripts/backend/rleblobber.js:     var i, nullstart, str, elem, elemstr, notnull; // Line 73, Pos 34
+Warning: scripts/backend/rleblobber.js:  #5 'toType' was used before it was defined.
+Warning: scripts/backend/rleblobber.js:     if (toType(blob) != 'string') { // Line 150, Pos 9
+Warning: scripts/backend/rleblobber.js:  #6 'toType' was used before it was defined.
+Warning: scripts/backend/rleblobber.js:     console.error('RLEBlobber.fromBlob: input is no string, but of type "' + toType(blob) + "'"); // Line 151, Pos 80
+Warning: scripts/backend/rleblobber.js:  #7 Unexpected '++'.
+Warning: scripts/backend/rleblobber.js:     for (i = 0; i < blob.length; ++i) { // Line 165, Pos 34
+Warning: scripts/backend/rleblobber.js:  #8 Empty block.
+Warning: scripts/backend/rleblobber.js:     } else { // Line 209, Pos 18
+Warning: scripts/backend/rleblobber.js:  #9 Empty block.
+Warning: scripts/backend/rleblobber.js:     if (num.length == 0) { // Line 234, Pos 32
+Warning: scripts/backend/rleblobber.js: #10 Unused 'innerarray'.
+Warning: scripts/backend/rleblobber.js:     var array, innerarray, nesting, i, num, char, isnull, nullsleft, newarray; // Line 148, Pos 16
+Warning: scripts/backend/rleblobber.js: #11 Unused 'isArray'.
+Warning: scripts/backend/rleblobber.js:     function isArray (obj) { // Line 285, Pos 12
+Warning: scripts/backend/rleblobber.js: #12 Unused 'isNumber'.
+Warning: scripts/backend/rleblobber.js:     function isNumber (obj) { // Line 289, Pos 12
 Warning: scripts/backend/swisstournament.js: > 5 dependencies: 9
 Warning: scripts/backend/swisstournament.js: undocumented: 'function clearRoundvotes'
 Warning: scripts/backend/swisstournament.js: undocumented: 'fillCandidates = function'
@@ -136,6 +261,34 @@ Warning: scripts/backend/swisstournament.js: undocumented: 'function copyStaticO
 Warning: scripts/backend/swisstournament.js: undocumented: 'Swisstournament.prototype.getType = function'
 Warning: scripts/backend/swisstournament.js: > 10 functions: 45
 Warning: scripts/backend/swisstournament.js: > 400 lines: 1137
+Warning: scripts/backend/swisstournament.js: Line 10, E:0110: Line too long (179 characters).
+Warning: scripts/backend/swisstournament.js: Line 47, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/swisstournament.js: Line 52, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/swisstournament.js: Line 57, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/swisstournament.js: Line 163, E:0110: Line too long (103 characters).
+Warning: scripts/backend/swisstournament.js: Line 187, E:0110: Line too long (85 characters).
+Warning: scripts/backend/swisstournament.js: Line 202, E:0110: Line too long (105 characters).
+Warning: scripts/backend/swisstournament.js: Line 259, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/swisstournament.js: Line 302, E:0110: Line too long (89 characters).
+Warning: scripts/backend/swisstournament.js: Line 329, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/swisstournament.js: Line 377, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/swisstournament.js: Line 400, E:0110: Line too long (82 characters).
+Warning: scripts/backend/swisstournament.js: Line 417, E:0110: Line too long (88 characters).
+Warning: scripts/backend/swisstournament.js: Line 462, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/swisstournament.js: Line 488, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/swisstournament.js: Line 554, E:0110: Line too long (86 characters).
+Warning: scripts/backend/swisstournament.js: Line 555, E:0110: Line too long (94 characters).
+Warning: scripts/backend/swisstournament.js: Line 561, E:0110: Line too long (86 characters).
+Warning: scripts/backend/swisstournament.js: Line 620, E:0110: Line too long (99 characters).
+Warning: scripts/backend/swisstournament.js: Line 749, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/swisstournament.js: Line 766, E:0110: Line too long (85 characters).
+Warning: scripts/backend/swisstournament.js: Line 774, E:0110: Line too long (86 characters).
+Warning: scripts/backend/swisstournament.js: Line 775, E:0110: Line too long (94 characters).
+Warning: scripts/backend/swisstournament.js: Line 781, E:0110: Line too long (88 characters).
+Warning: scripts/backend/swisstournament.js: Line 979, E:0110: Line too long (139 characters).
+Warning: scripts/backend/swisstournament.js: Line 999, E:0110: Line too long (103 characters).
+Warning: scripts/backend/swisstournament.js: Line 1027, E:0110: Line too long (85 characters).
+Warning: scripts/backend/swisstournament.js: Line 1057, E:0121: Illegal comma at end of object literal
 Warning: scripts/backend/swisstournament.js: line 10, col 85, This function has too many parameters. (9)
 Warning: scripts/backend/swisstournament.js: line 33, col 10, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/backend/swisstournament.js: line 328, col 23, Use '===' to compare with '0'.
@@ -146,10 +299,326 @@ Warning: scripts/backend/swisstournament.js: line 822, col 66, Unexpected use of
 Warning: scripts/backend/swisstournament.js: line 712, col 5, 'lowest' is not defined.
 Warning: scripts/backend/swisstournament.js: line 1105, col 12, 'copyStaticObject' is defined but never used.
 Warning: scripts/backend/swisstournament.js: line 242, col 34, 'allvotes' is defined but never used.
+Warning: scripts/backend/swisstournament.js:  #1 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/backend/swisstournament.js:     this.rnkbuffer; // Line 33, Pos 5
+Warning: scripts/backend/swisstournament.js:  #2 'newRoundByWins' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     valid = (newRoundByWins.call(this) === this); // Line 101, Pos 16
+Warning: scripts/backend/swisstournament.js:  #3 'newRoundByRandom' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     valid = (newRoundByRandom.call(this) === this); // Line 104, Pos 16
+Warning: scripts/backend/swisstournament.js:  #4 'newRoundByHalves' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     valid = (newRoundByHalves.call(this) === this); // Line 107, Pos 16
+Warning: scripts/backend/swisstournament.js:  #5 Unused 'allvotes'.
+Warning: scripts/backend/swisstournament.js:     var result, ret, roundvotes, allvotes; // Line 242, Pos 34
+Warning: scripts/backend/swisstournament.js:  #6 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO test // Line 301, Pos 7
+Warning: scripts/backend/swisstournament.js:  #7 'canByeVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canByeVote.call(this, id)) { // Line 323, Pos 13
+Warning: scripts/backend/swisstournament.js:  #8 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO add backtracking // Line 352, Pos 9
+Warning: scripts/backend/swisstournament.js:  #9 'canPlay' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canPlay.call(this, p1, p2)) { // Line 357, Pos 13
+Warning: scripts/backend/swisstournament.js: #10 'clearRoundvotes' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     clearRoundvotes.call(this); // Line 381, Pos 5
+Warning: scripts/backend/swisstournament.js: #11 'byeVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     byeVote.call(this, bye); // Line 385, Pos 7
+Warning: scripts/backend/swisstournament.js: #12 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO test // Line 399, Pos 7
+Warning: scripts/backend/swisstournament.js: #13 'canByeVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canByeVote.call(this, id)) { // Line 456, Pos 13
+Warning: scripts/backend/swisstournament.js: #14 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/backend/swisstournament.js:     for (id in lower) { // Line 454, Pos 7
+Warning: scripts/backend/swisstournament.js: #15 'canPlay' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canPlay.call(this, p1, p2)) { // Line 479, Pos 11
+Warning: scripts/backend/swisstournament.js: #16 'clearRoundvotes' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     clearRoundvotes.call(this); // Line 494, Pos 5
+Warning: scripts/backend/swisstournament.js: #17 'byeVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     byeVote.call(this, bye); // Line 497, Pos 7
+Warning: scripts/backend/swisstournament.js: #18 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO add backtracking // Line 512, Pos 7
+Warning: scripts/backend/swisstournament.js: #19 'winGroups' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     wingroups = winGroups.call(this); // Line 525, Pos 17
+Warning: scripts/backend/swisstournament.js: #20 'preliminaryDownVotes' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     votes = preliminaryDownVotes.call(this, wingroups); // Line 534, Pos 13
+Warning: scripts/backend/swisstournament.js: #21 'canUpVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canUpVote.call(this, pid2) && canPlay.call(this, p1, pid2)) { // Line 590, Pos 15
+Warning: scripts/backend/swisstournament.js: #22 'canPlay' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canUpVote.call(this, pid2) && canPlay.call(this, p1, pid2)) { // Line 590, Pos 45
+Warning: scripts/backend/swisstournament.js: #23 'canPlay' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canPlay.call(this, p1, p2)) { // Line 609, Pos 15
+Warning: scripts/backend/swisstournament.js: #24 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO keep track of previous matchings and avoid them // Line 615, Pos 15
+Warning: scripts/backend/swisstournament.js: #25 Empty block.
+Warning: scripts/backend/swisstournament.js:     } else { // Line 614, Pos 18
+Warning: scripts/backend/swisstournament.js: #26 'applyVotes' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (applyVotes.call(this, votes) === undefined) { // Line 632, Pos 9
+Warning: scripts/backend/swisstournament.js: #27 'canDownVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (!canDownVote.call(this, down)) { // Line 658, Pos 12
+Warning: scripts/backend/swisstournament.js: #28 'canUpVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (!canUpVote.call(this, up)) { // Line 669, Pos 12
+Warning: scripts/backend/swisstournament.js: #29 'canByeVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (votes.byevote !== undefined && !canByeVote.call(this, votes.byevote)) { // Line 679, Pos 41
+Warning: scripts/backend/swisstournament.js: #30 'byeVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     byeVote.call(this, votes.byevote); // Line 684, Pos 5
+Warning: scripts/backend/swisstournament.js: #31 'downVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     downVote.call(this, down); // Line 688, Pos 7
+Warning: scripts/backend/swisstournament.js: #32 'upVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     upVote.call(this, up); // Line 692, Pos 7
+Warning: scripts/backend/swisstournament.js: #33 'lowest' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     lowest = -1; // Line 712, Pos 5
+Warning: scripts/backend/swisstournament.js: #34 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO don't reset the roundvotes, but only apply them from a temp. object // Line 744, Pos 5
+Warning: scripts/backend/swisstournament.js: #35 'canDownVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canDownVote.call(this, pid)) { // Line 787, Pos 11
+Warning: scripts/backend/swisstournament.js: #36 Unexpected '&'.
+Warning: scripts/backend/swisstournament.js:     if ((wingroups[w].length + (downvoted ? 1 : 0)) & 0x1) { // Line 798, Pos 55
+Warning: scripts/backend/swisstournament.js: #37 Unexpected '&'.
+Warning: scripts/backend/swisstournament.js:     if ((wingroups[lowestWinGroup].length + (downvoted ? 1 : 0)) & 0x1) { // Line 822, Pos 66
+Warning: scripts/backend/swisstournament.js: #38 'canByeVote' was used before it was defined.
+Warning: scripts/backend/swisstournament.js:     if (canByeVote.call(this, pid)) { // Line 826, Pos 13
+Warning: scripts/backend/swisstournament.js: #39 Unexpected '('.
+Warning: scripts/backend/swisstournament.js:     if (typeof (id) !== 'number') { // Line 858, Pos 16
+Warning: scripts/backend/swisstournament.js: #40 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO test // Line 994, Pos 5
+Warning: scripts/backend/swisstournament.js: #41 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO test // Line 1021, Pos 5
+Warning: scripts/backend/swisstournament.js: #42 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/backend/swisstournament.js:     for (key in obj) { // Line 1120, Pos 5
+Warning: scripts/backend/swisstournament.js: #43 Unexpected TODO comment.
+Warning: scripts/backend/swisstournament.js:     // TODO add 'interlaced' swiss mode // Line 1133, Pos 5
+Warning: scripts/backend/swisstournament.js: #44 Unused 'newRoundByRandom'.
+Warning: scripts/backend/swisstournament.js:     function newRoundByRandom () { // Line 300, Pos 12
+Warning: scripts/backend/swisstournament.js: #45 Unused 'newRoundByHalves'.
+Warning: scripts/backend/swisstournament.js:     function newRoundByHalves () { // Line 398, Pos 12
+Warning: scripts/backend/swisstournament.js: #46 Unused 'newRoundByWins'.
+Warning: scripts/backend/swisstournament.js:     function newRoundByWins () { // Line 510, Pos 12
+Warning: scripts/backend/swisstournament.js: #47 Unused 'applyVotes'.
+Warning: scripts/backend/swisstournament.js:     function applyVotes (votes) { // Line 649, Pos 12
+Warning: scripts/backend/swisstournament.js: #48 Unused 'winGroups'.
+Warning: scripts/backend/swisstournament.js:     function winGroups () { // Line 706, Pos 12
+Warning: scripts/backend/swisstournament.js: #49 Unused 'clearRoundvotes'.
+Warning: scripts/backend/swisstournament.js:     function clearRoundvotes () { // Line 745, Pos 12
+Warning: scripts/backend/swisstournament.js: #50 Unused 'preliminaryDownVotes'.
+Warning: scripts/backend/swisstournament.js:     function preliminaryDownVotes (wingroups) { // Line 762, Pos 12
+Warning: scripts/backend/swisstournament.js: #51 Too many errors. (66% scanned).
+Warning: scripts/backend/swisstournament.js:      // Line 762, Pos 12
+Warning: scripts/backend/test/gameresultscorrection.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/test/gameresultscorrection.js: Line 35, E:0110: Line too long (95 characters).
+Warning: scripts/backend/test/gameresultscorrection.js: Line 42, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 53, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 66, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 67, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 68, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 69, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 71, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 72, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 75, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 76, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 78, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 79, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 81, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/gameresultscorrection.js: Line 99, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/kotournament.js: Line 21, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/kotournament.js: Line 24, E:0110: Line too long (81 characters).
+Warning: scripts/backend/test/kotournament.js: Line 25, E:0110: Line too long (99 characters).
+Warning: scripts/backend/test/kotournament.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/backend/test/kotournament.js:     for (i in names) { // Line 31, Pos 7
+Warning: scripts/backend/test/kotournament.js:  #2 Unused 'Game'.
+Warning: scripts/backend/test/kotournament.js:     var KOTournament, Game, Tournament, Implements; // Line 14, Pos 23
+Warning: scripts/backend/test/map.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/test/map.js: Line 19, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 23, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 29, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 30, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 32, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 33, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 34, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 35, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 36, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 37, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 38, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 41, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 42, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 43, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 44, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 47, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 48, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/map.js: Line 51, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/backend/test/matrix.js: undocumented: 'function'
+Warning: scripts/backend/test/matrix.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/backend/test/matrix.js: Line 25, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 34, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 35, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 38, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 44, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 48, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 51, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 54, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 57, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 65, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 69, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 73, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 76, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/backend/test/matrix.js: Line 77, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/backend/test/matrix.js: Line 77, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 85, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 87, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 88, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 94, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 99, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 100, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 103, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 104, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 109, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 113, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 116, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 119, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 122, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 128, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 132, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 136, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 139, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/backend/test/matrix.js: Line 140, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 148, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 150, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 151, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 157, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 161, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 166, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 170, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 175, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 179, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 187, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 200, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 206, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 208, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 213, E:0110: Line too long (82 characters).
+Warning: scripts/backend/test/matrix.js: Line 215, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 220, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 222, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 224, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 226, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 228, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 230, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 234, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 237, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 240, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 244, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 246, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 248, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 251, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 252, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 253, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 256, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 257, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 258, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 261, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 263, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 265, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/matrix.js: Line 267, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/backend/test/matrix.js: line 76, col 11, Bad line breaking before '&&'.
 Warning: scripts/backend/test/matrix.js: line 77, col 11, Bad line breaking before '&&'.
 Warning: scripts/backend/test/matrix.js: line 139, col 11, Bad line breaking before '&&'.
+Warning: scripts/backend/test/random.js: Line 18, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js: Line 40, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js: Line 41, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js: Line 42, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js: Line 43, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js: Line 44, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js: Line 59, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js: Line 60, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/random.js:  #1 Unexpected TODO comment.
+Warning: scripts/backend/test/random.js:     // TODO test pick() and pickAndRemove() // Line 62, Pos 9
+Warning: scripts/backend/test/ranking.js: Line 10, E:0110: Line too long (85 characters).
+Warning: scripts/backend/test/ranking.js: Line 24, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 28, E:0110: Line too long (89 characters).
+Warning: scripts/backend/test/ranking.js: Line 31, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 44, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 58, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 75, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 88, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 100, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 104, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 116, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 124, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 128, E:0110: Line too long (95 characters).
+Warning: scripts/backend/test/ranking.js: Line 131, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 147, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 163, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 182, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 196, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 209, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 213, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 226, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 234, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 238, E:0110: Line too long (103 characters).
+Warning: scripts/backend/test/ranking.js: Line 241, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 262, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 277, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 298, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 314, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 329, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 332, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/ranking.js: Line 347, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/rleblobber.js: Line 20, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/rleblobber.js: Line 26, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/rleblobber.js: Line 26, E:0110: Line too long (88 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 31, E:0110: Line too long (97 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 32, E:0110: Line too long (87 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 33, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/rleblobber.js: Line 33, E:0110: Line too long (83 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 34, E:0110: Line too long (83 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 35, E:0110: Line too long (85 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/rleblobber.js: Line 39, E:0110: Line too long (95 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 40, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/rleblobber.js: Line 40, E:0110: Line too long (85 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 47, E:0110: Line too long (89 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 48, E:0110: Line too long (93 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 51, E:0110: Line too long (100 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 53, E:0110: Line too long (82 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 54, E:0110: Line too long (88 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 55, E:0110: Line too long (93 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 56, E:0110: Line too long (95 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 57, E:0110: Line too long (112 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 58, E:0110: Line too long (121 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 59, E:0110: Line too long (126 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 68, E:0110: Line too long (108 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 70, E:0110: Line too long (106 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 76, E:0110: Line too long (86 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 84, E:0110: Line too long (88 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 90, E:0110: Line too long (97 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 92, E:0110: Line too long (99 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 93, E:0110: Line too long (103 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 94, E:0110: Line too long (121 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 95, E:0110: Line too long (122 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 98, E:0110: Line too long (109 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 99, E:0110: Line too long (111 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 100, E:0110: Line too long (110 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 101, E:0110: Line too long (125 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 104, E:0110: Line too long (96 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 105, E:0110: Line too long (96 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 106, E:0110: Line too long (103 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 107, E:0110: Line too long (113 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 110, E:0110: Line too long (98 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 111, E:0110: Line too long (98 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 112, E:0110: Line too long (98 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 113, E:0110: Line too long (102 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 119, E:0110: Line too long (134 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 123, E:0110: Line too long (113 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 129, E:0110: Line too long (101 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 130, E:0110: Line too long (91 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 131, E:0110: Line too long (87 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 132, E:0110: Line too long (89 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 141, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/rleblobber.js: Line 141, E:0110: Line too long (89 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 142, E:0110: Line too long (93 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 143, E:0110: Line too long (91 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 144, E:0110: Line too long (101 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 145, E:0110: Line too long (105 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 158, E:0110: Line too long (81 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 166, E:0110: Line too long (90 characters).
+Warning: scripts/backend/test/rleblobber.js: Line 175, E:0110: Line too long (100 characters).
 Warning: scripts/backend/test/rleblobber.js: line 172, col 7, 'e' is not defined.
 Warning: scripts/backend/test/rleblobber.js: line 173, col 7, 'd' is not defined.
 Warning: scripts/backend/test/rleblobber.js: line 175, col 23, 'd' is not defined.
@@ -164,51 +633,297 @@ Warning: scripts/backend/test/rleblobber.js: line 175, col 39, 'd' is not define
 Warning: scripts/backend/test/rleblobber.js: line 175, col 41, 'e' is not defined.
 Warning: scripts/backend/test/rleblobber.js: line 175, col 43, 'd' is not defined.
 Warning: scripts/backend/test/rleblobber.js: line 175, col 45, 'e' is not defined.
+Warning: scripts/backend/test/rleblobber.js:  #1 'e' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     e = RLEBlobber.toBlob; // Line 172, Pos 7
+Warning: scripts/backend/test/rleblobber.js:  #2 'd' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     d = RLEBlobber.fromBlob; // Line 173, Pos 7
+Warning: scripts/backend/test/rleblobber.js:  #3 'd' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 23
+Warning: scripts/backend/test/rleblobber.js:  #4 'e' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 25
+Warning: scripts/backend/test/rleblobber.js:  #5 'd' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 27
+Warning: scripts/backend/test/rleblobber.js:  #6 'e' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 29
+Warning: scripts/backend/test/rleblobber.js:  #7 'd' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 31
+Warning: scripts/backend/test/rleblobber.js:  #8 'e' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 33
+Warning: scripts/backend/test/rleblobber.js:  #9 'd' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 35
+Warning: scripts/backend/test/rleblobber.js: #10 'e' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 37
+Warning: scripts/backend/test/rleblobber.js: #11 'd' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 39
+Warning: scripts/backend/test/rleblobber.js: #12 'e' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 41
+Warning: scripts/backend/test/rleblobber.js: #13 'd' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 43
+Warning: scripts/backend/test/rleblobber.js: #14 'e' was used before it was defined.
+Warning: scripts/backend/test/rleblobber.js:     QUnit.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp, 'RLEBlobber re-encoding chain'); // Line 175, Pos 45
+Warning: scripts/backend/test/swisstournament.js: Line 21, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/swisstournament.js: Line 25, E:0110: Line too long (104 characters).
+Warning: scripts/backend/test/swisstournament.js: Line 28, E:0110: Line too long (90 characters).
+Warning: scripts/backend/test/swisstournament.js: Line 46, E:0110: Line too long (86 characters).
+Warning: scripts/backend/test/swisstournament.js: Line 47, E:0110: Line too long (86 characters).
+Warning: scripts/backend/test/swisstournament.js: Line 157, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/swisstournament.js: Line 166, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/swisstournament.js: Line 175, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/swisstournament.js: Line 253, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 15, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 18, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 21, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 25, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 27, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 28, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 29, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 30, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 30, E:0110: Line too long (86 characters).
+Warning: scripts/backend/test/vector.js: Line 36, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 37, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 42, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 46, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 47, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 47, E:0110: Line too long (92 characters).
+Warning: scripts/backend/test/vector.js: Line 48, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 48, E:0110: Line too long (109 characters).
+Warning: scripts/backend/test/vector.js: Line 50, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 51, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/backend/test/vector.js: Line 56, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/backend/tournament.js: > 10 functions: 15
+Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (118 characters).
+Warning: scripts/backend/tournament.js: Line 82, E:0121: Illegal comma at end of object literal
+Warning: scripts/backend/tournament.js: Line 129, E:0121: Illegal comma at end of object literal
 Warning: scripts/backend/tournament.js: line 57, col 36, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 30, 'game' is defined but never used.
 Warning: scripts/common.js: > 5 dependencies: 85
+Warning: scripts/common.js: Line 33, E:0121: Illegal comma at end of object literal
+Warning: scripts/common.js: Line 34, E:0121: Illegal comma at end of object literal
+Warning: scripts/common.js: Line 38, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 40, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 41, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 42, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 43, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 44, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 45, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 46, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 47, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 48, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 49, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 50, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 51, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 52, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 53, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 54, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 55, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 56, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 57, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 58, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 59, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 60, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 61, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 62, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 63, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 64, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 65, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 66, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 67, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 68, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 69, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 70, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 71, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 72, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 73, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 74, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 75, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 76, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 77, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 78, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 79, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 80, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 81, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 82, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 83, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 84, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 85, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 86, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 87, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 88, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 89, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 90, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 91, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 92, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 93, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 94, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 95, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 96, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 97, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 98, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 99, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 100, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 101, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 102, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 103, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 104, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 105, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 106, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 107, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 108, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 109, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 110, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 111, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 112, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 113, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 114, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 115, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 116, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 117, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 118, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 119, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 120, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 121, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js: Line 122, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 125, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
+Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
 Warning: scripts/main.js: line 46, col 0, Identifier 'Tab_Debug' is not in camel case.
 Warning: scripts/main.js: line 58, col 0, Identifier 'Tab_Debug' is not in camel case.
 Warning: scripts/main.js: line 70, col 15, Do not use 'new' for side effects.
 Warning: scripts/main.js: line 72, col 15, Do not use 'new' for side effects.
+Warning: scripts/main.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/main.js:     new Toast(Strings.loaded); // Line 70, Pos 40
+Warning: scripts/main.js:  #2 Do not use 'new' for side effects.
+Warning: scripts/main.js:     new Toast(Strings.newtournament); // Line 72, Pos 47
+Warning: scripts/main.js:  #3 Unused 'Update'.
+Warning: scripts/main.js:     var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug; // Line 36, Pos 19
 Warning: scripts/test.js: > 5 dependencies: 21
+Warning: scripts/test.js: Line 30, E:0121: Illegal comma at end of array literal
 Warning: scripts/ui/alltabs.js: > 5 dependencies: 8
 Warning: scripts/ui/alltabs.js: undocumented: 'reset : function'
 Warning: scripts/ui/alltabs.js: undocumented: 'update : function'
 Warning: scripts/ui/alltabs.js: undocumented: 'getOptions : function'
 Warning: scripts/ui/alltabs.js: undocumented: 'setOptions : function'
+Warning: scripts/ui/alltabs.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/alltabs.js: Line 42, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/alltabs.js:  #1 Empty block.
+Warning: scripts/ui/alltabs.js:     setOptions : function () { // Line 41, Pos 30
 Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.clear = function'
 Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.reset = function'
 Warning: scripts/ui/autocomplete.js: undocumented: 'Autocomplete.update = function'
+Warning: scripts/ui/autocomplete.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/autocomplete.js:  #1 Combine this with the previous 'var' statement.
+Warning: scripts/ui/autocomplete.js:     var states = new Bloodhound({ // Line 38, Pos 11
+Warning: scripts/ui/autocomplete.js:  #2 'Bloodhound' was used before it was defined.
+Warning: scripts/ui/autocomplete.js:     var states = new Bloodhound({ // Line 38, Pos 24
+Warning: scripts/ui/autocomplete.js:  #3 'Bloodhound' was used before it was defined.
+Warning: scripts/ui/autocomplete.js:     datumTokenizer : Bloodhound.tokenizers.obj.whitespace('val'), // Line 39, Pos 26
+Warning: scripts/ui/autocomplete.js:  #4 'Bloodhound' was used before it was defined.
+Warning: scripts/ui/autocomplete.js:     queryTokenizer : Bloodhound.tokenizers.whitespace, // Line 40, Pos 26
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'function confirmLeave'
 Warning: scripts/ui/backgroundscripts/featuredetect.js: undocumented: 'window.onbeforeunload = function'
+Warning: scripts/ui/backgroundscripts/featuredetect.js: Line 2, E:0110: Line too long (84 characters).
+Warning: scripts/ui/backgroundscripts/featuredetect.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/backgroundscripts/featuredetect.js: Line 9, E:0110: Line too long (92 characters).
 Warning: scripts/ui/backgroundscripts/featuredetect.js: line 28, col 7, Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/featuredetect.js: line 34, col 7, Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/featuredetect.js: line 41, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/featuredetect.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/featuredetect.js:     new Toast(Strings.nofilereader, Toast.LONG); // Line 28, Pos 50
+Warning: scripts/ui/backgroundscripts/featuredetect.js:  #2 Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/featuredetect.js:     new Toast(Strings.nojson, Toast.LONG); // Line 34, Pos 44
+Warning: scripts/ui/backgroundscripts/featuredetect.js:  #3 Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/featuredetect.js:     new Toast(Strings.nostorage, Toast.LONG); // Line 41, Pos 47
+Warning: scripts/ui/backgroundscripts/initviews.js: Line 9, E:0110: Line too long (119 characters).
+Warning: scripts/ui/backgroundscripts/online.js: Line 7, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/backgroundscripts/online.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/backgroundscripts/online.js:     // TODO add Storage.enabled() warning // Line 28, Pos 7
+Warning: scripts/ui/backgroundscripts/print.js: Line 4, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/backgroundscripts/reset.js: undocumented: 'function hashcheck'
 Warning: scripts/ui/backgroundscripts/reset.js: line 19, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/reset.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/reset.js:     new Toast(Strings.reset, Toast.LONG); // Line 19, Pos 43
 Warning: scripts/ui/backgroundscripts/save.js: > 5 dependencies: 7
+Warning: scripts/ui/backgroundscripts/save.js: Line 2, E:0110: Line too long (91 characters).
+Warning: scripts/ui/backgroundscripts/save.js: Line 8, E:0110: Line too long (126 characters).
 Warning: scripts/ui/backgroundscripts/save.js: line 24, col 11, Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/save.js: line 29, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/save.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/save.js:     new Toast(Strings.savefailed); // Line 24, Pos 40
+Warning: scripts/ui/backgroundscripts/save.js:  #2 Do not use 'new' for side effects.
+Warning: scripts/ui/backgroundscripts/save.js:     new Toast(Strings.savefailed); // Line 29, Pos 38
 Warning: scripts/ui/backgroundscripts/updatetab.js: undocumented: 'function getSharedName'
+Warning: scripts/ui/boxcontroller.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/boxcontroller.js: Line 10, E:0110: Line too long (83 characters).
+Warning: scripts/ui/boxview.js: Line 4, E:0200: Invalid JsDoc tag: exports
 Warning: scripts/ui/boxview.js: line 82, col 15, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/boxview.js: line 86, col 15, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/boxview.js: line 90, col 13, Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/boxview.js:  #1 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/boxview.js:     $box[0].offsetHeight; // Line 82, Pos 7
+Warning: scripts/ui/boxview.js:  #2 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/boxview.js:     $box[0].offsetHeight; // Line 86, Pos 7
+Warning: scripts/ui/boxview.js:  #3 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/boxview.js:     $box[0].offsetHeight; // Line 90, Pos 5
 Warning: scripts/ui/csver.js: undocumented: 'toCSV : function'
+Warning: scripts/ui/csver.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/csver.js: Line 13, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/csver.js:  #1 Empty block.
+Warning: scripts/ui/csver.js:     toCSV : function () { // Line 12, Pos 27
+Warning: scripts/ui/data/swissperms.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/data/swissperms.js: Line 27, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/data/swissperms.js: Line 44, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/data/swissperms.js: Line 61, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/data/swissperms.js: Line 78, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/data/swissperms.js: Line 95, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/data/swissperms.js: Line 112, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/debug.js: undocumented: 'stackTrace : function'
+Warning: scripts/ui/debug.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/debug.js: Line 17, E:0110: Line too long (136 characters).
+Warning: scripts/ui/debug.js: Line 20, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/debug.js: line 26, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/debug.js:  #1 Insecure '^'.
+Warning: scripts/ui/debug.js:     stack = e.stack.replace(/^[^(]+?[n$]/gm, '').replace(/^s+ats+/gm, '').replace(/^Object.<anonymous>s*(/gm, '{anonymous}()@'); // Line 17, Pos 34
+Warning: scripts/ui/debug.js:  #2 Insecure '.'.
+Warning: scripts/ui/debug.js:     stack = e.stack.replace(/^[^(]+?[n$]/gm, '').replace(/^s+ats+/gm, '').replace(/^Object.<anonymous>s*(/gm, '{anonymous}()@'); // Line 17, Pos 97
+Warning: scripts/ui/debug.js:  #3 Do not use 'new' for side effects.
+Warning: scripts/ui/debug.js:     new Toast(Strings.dev, Toast.INFINITE); // Line 26, Pos 45
+Warning: scripts/ui/fontsizecontroller.js: Line 5, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/fontsizecontroller.js: Line 11, E:0110: Line too long (83 characters).
+Warning: scripts/ui/fontsizecontroller.js: Line 29, E:0110: Line too long (85 characters).
+Warning: scripts/ui/fontsizecontroller.js:  #1 Insecure '.'.
+Warning: scripts/ui/fontsizecontroller.js:     model.setFontSize($(this).attr('class').replace(/.*fontsize([a-z]+).*/, '$1')); // Line 29, Pos 56
+Warning: scripts/ui/fontsizecontroller.js:  #2 Insecure '.'.
+Warning: scripts/ui/fontsizecontroller.js:     model.setFontSize($(this).attr('class').replace(/.*fontsize([a-z]+).*/, '$1')); // Line 29, Pos 74
+Warning: scripts/ui/fontsizemodel.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/fontsizemodel.js: Line 32, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/fontsizeview.js: > 5 dependencies: 6
+Warning: scripts/ui/fontsizeview.js: Line 9, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/fontsizeview.js: Line 75, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/fontsizeview.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/fontsizeview.js:     * TODO allow for arbitrary font sizes // Line 7, Pos 38
 Warning: scripts/ui/globalranking.js: undocumented: 'function mapTeamsToTournamentIDs'
 Warning: scripts/ui/globalranking.js: undocumented: 'function mapTeamsToTournamentRanks'
 Warning: scripts/ui/globalranking.js: undocumented: 'function updateTeamObjects'
 Warning: scripts/ui/globalranking.js: undocumented: 'function sortfunc'
 Warning: scripts/ui/globalranking.js: undocumented: 'function strictsortfunc'
+Warning: scripts/ui/globalranking.js: Line 7, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/globalranking.js: Line 12, E:0110: Line too long (87 characters).
+Warning: scripts/ui/globalranking.js: Line 27, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/globalranking.js: Line 37, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/globalranking.js: Line 69, E:0110: Line too long (92 characters).
+Warning: scripts/ui/globalranking.js: Line 85, E:0110: Line too long (96 characters).
+Warning: scripts/ui/globalranking.js: Line 89, E:0110: Line too long (99 characters).
+Warning: scripts/ui/globalranking.js: Line 102, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/globalranking.js: line 39, col 8, Don't make functions within a loop.
 Warning: scripts/ui/globalranking.js: line 89, col 99, Blocks are nested too deeply. (4)
 Warning: scripts/ui/globalranking.js: line 91, col 18, Blocks are nested too deeply. (4)
+Warning: scripts/ui/globalranking.js:  #1 Don't make functions within a loop.
+Warning: scripts/ui/globalranking.js:     Tournaments.getTeams(tournamentid).map(function (teamid) { // Line 33, Pos 46
 Warning: scripts/ui/history.js: undocumented: 'function'
 Warning: scripts/ui/history.js: undocumented: 'function getTournament'
 Warning: scripts/ui/history.js: undocumented: 'addVote : function'
@@ -219,6 +934,17 @@ Warning: scripts/ui/history.js: undocumented: 'numTournaments : function'
 Warning: scripts/ui/history.js: undocumented: 'reset : function'
 Warning: scripts/ui/history.js: > 10 functions: 20
 Warning: scripts/ui/history.js: > 400 lines: 519
+Warning: scripts/ui/history.js: Line 5, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/history.js: Line 65, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/history.js: Line 137, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/history.js: Line 138, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/history.js: Line 139, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/history.js: Line 336, E:0120: Binary operator should go on previous line "||"
+Warning: scripts/ui/history.js: Line 399, E:0110: Line too long (110 characters).
+Warning: scripts/ui/history.js: Line 405, E:0110: Line too long (94 characters).
+Warning: scripts/ui/history.js: Line 414, E:0120: Binary operator should go on previous line "+"
+Warning: scripts/ui/history.js: Line 459, E:0120: Binary operator should go on previous line "+"
+Warning: scripts/ui/history.js: Line 511, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/history.js: line 91, col 30, This function has too many parameters. (7)
 Warning: scripts/ui/history.js: line 137, col 17, Bad line breaking before '&&'.
 Warning: scripts/ui/history.js: line 138, col 17, Bad line breaking before '&&'.
@@ -228,15 +954,121 @@ Warning: scripts/ui/history.js: line 414, col 21, Bad line breaking before '+'.
 Warning: scripts/ui/history.js: line 419, col 37, Blocks are nested too deeply. (4)
 Warning: scripts/ui/history.js: line 455, col 42, Blocks are nested too deeply. (4)
 Warning: scripts/ui/history.js: line 459, col 25, Bad line breaking before '+'.
+Warning: scripts/ui/history.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/history.js:     // TODO allow more than 1 player per team (Supermelee) // Line 37, Pos 3
+Warning: scripts/ui/history.js:  #2 Unexpected TODO comment.
+Warning: scripts/ui/history.js:     // TODO validate data types and results // Line 97, Pos 13
+Warning: scripts/ui/history.js:  #3 Unexpected TODO comment.
+Warning: scripts/ui/history.js:     // TODO validate data types and values // Line 123, Pos 13
+Warning: scripts/ui/history.js:  #4 Unexpected TODO comment.
+Warning: scripts/ui/history.js:     // TODO check whether the result really existed // Line 124, Pos 13
+Warning: scripts/ui/history.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/history.js:     for (game in tournament.games) { // Line 133, Pos 11
+Warning: scripts/ui/history.js:  #6 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/history.js:     for (game in tournament.games) { // Line 300, Pos 11
+Warning: scripts/ui/history.js:  #7 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/history.js:     for (game in tournament.games) { // Line 333, Pos 11
+Warning: scripts/ui/history.js:  #8 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/history.js:     for (game in games) { // Line 419, Pos 17
+Warning: scripts/ui/history.js:  #9 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/history.js:     for (vote in votes) { // Line 452, Pos 15
+Warning: scripts/ui/history.js: #10 Unexpected TODO comment.
+Warning: scripts/ui/history.js:     // TODO verify // Line 510, Pos 13
+Warning: scripts/ui/indexedlistmodel.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/indexedmodel.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/indexedmodel.js: Line 28, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/controller.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/emitter.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/emitter.js: Line 32, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/emitter.js: Line 55, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/emitter.js: Line 70, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/emitter.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/interfaces/emitter.js:     // TODO somehow restrict the events that can be emitted. This has to be // Line 17, Pos 5
+Warning: scripts/ui/interfaces/emitter.js:  #2 Unexpected 'call'.
+Warning: scripts/ui/interfaces/emitter.js:     listener['on' + event].call(listener, this, event, data); // Line 41, Pos 32
+Warning: scripts/ui/interfaces/test/emitter.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/test/emitter.js: Line 42, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 43, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 43, E:0110: Line too long (86 characters).
+Warning: scripts/ui/interfaces/test/emitter.js: Line 44, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 44, E:0110: Line too long (88 characters).
+Warning: scripts/ui/interfaces/test/emitter.js: Line 61, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 61, E:0110: Line too long (86 characters).
+Warning: scripts/ui/interfaces/test/emitter.js: Line 64, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 64, E:0110: Line too long (110 characters).
+Warning: scripts/ui/interfaces/test/emitter.js: Line 68, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 68, E:0110: Line too long (82 characters).
+Warning: scripts/ui/interfaces/test/emitter.js: Line 72, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 76, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 80, E:0110: Line too long (81 characters).
+Warning: scripts/ui/interfaces/test/emitter.js: Line 81, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 81, E:0110: Line too long (82 characters).
+Warning: scripts/ui/interfaces/test/emitter.js: Line 85, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/emitter.js: Line 85, E:0110: Line too long (109 characters).
+Warning: scripts/ui/interfaces/test/emitter.js:  #1 Unexpected dangling '_' in '_emitter'.
+Warning: scripts/ui/interfaces/test/emitter.js:     onevent : function (_emitter, event) { // Line 40, Pos 29
+Warning: scripts/ui/interfaces/test/emitter.js:  #2 Unexpected dangling '_' in '_emitter'.
+Warning: scripts/ui/interfaces/test/emitter.js:     QUnit.equal(_emitter, emitter, "onevent(): first argument equals emitter "); // Line 43, Pos 23
+Warning: scripts/ui/interfaces/test/model.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/interfaces/test/model.js: Line 19, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/interfaces/test/model.js: Line 19, E:0110: Line too long (82 characters).
+Warning: scripts/ui/interfaces/view.js:  #1 Empty block.
+Warning: scripts/ui/interfaces/view.js:     View.prototype.reset = function () { // Line 27, Pos 38
+Warning: scripts/ui/interfaces/view.js:  #2 Empty block.
+Warning: scripts/ui/interfaces/view.js:     View.prototype.update = function () { // Line 33, Pos 39
 Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
+Warning: scripts/ui/koline.js: Line 21, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/koline.js: Line 48, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/koline.js: Line 59, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/koline.js: Line 75, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/koline.js: Line 99, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/koline.js: Line 136, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/koline.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/koline.js:     * TODO move to its own tiny CSS library? // Line 17, Pos 43
+Warning: scripts/ui/koline.js:  #2 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     svg = document.createElementNS(KOLine.SVGNS, 'svg'); // Line 62, Pos 36
+Warning: scripts/ui/koline.js:  #3 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     line = document.createElementNS(KOLine.SVGNS, 'line'); // Line 80, Pos 37
+Warning: scripts/ui/koline.js:  #4 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     if (KOLine.pathCache[pathid]) { // Line 108, Pos 9
+Warning: scripts/ui/koline.js:  #5 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     group = KOLine.pathCache[pathid].cloneNode(true); // Line 109, Pos 15
+Warning: scripts/ui/koline.js:  #6 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     group = document.createElementNS(KOLine.SVGNS, 'g'); // Line 114, Pos 40
+Warning: scripts/ui/koline.js:  #7 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     KOLine.pathCache[pathid] = group.cloneNode(true); // Line 122, Pos 7
 Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
 Warning: scripts/ui/listmodel.js: > 10 functions: 23
+Warning: scripts/ui/listmodel.js: Line 5, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/listmodel.js: Line 30, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/listmodel.js: Line 39, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/listmodel.js: Line 48, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/listmodel.js: Line 58, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/listmodel.js: Line 78, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/listmodel.js: Line 88, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/listmodel.js: Line 98, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/listmodel.js: Line 120, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/listmodel.js: Line 131, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/listmodel.js: Line 144, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/listmodel.js: Line 164, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/listmodel.js: Line 182, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/listview.js: > 10 functions: 11
+Warning: scripts/ui/listview.js: Line 4, E:0200: Invalid JsDoc tag: exports
 Warning: scripts/ui/newteamcontroller.js: > 5 dependencies: 6
 Warning: scripts/ui/newteamview.js: line 24, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/newteamview.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/ui/newteamview.js:     new NewTeamController(this); // Line 24, Pos 32
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
+Warning: scripts/ui/options.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/options.js: Line 28, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/opts.js: Line 7, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/opts.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/opts.js:     * TODO rename to further reduce naming confusion // Line 5, Pos 49
+Warning: scripts/ui/playermodel.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/playermodel.js: Line 17, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/playermodel.js: Line 40, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/players.js: undocumented: 'function trimName'
 Warning: scripts/ui/players.js: undocumented: 'function updateDependencies'
 Warning: scripts/ui/players.js: undocumented: 'Players.fromString = function'
@@ -247,15 +1079,44 @@ Warning: scripts/ui/players.js: undocumented: 'Players.clear = function'
 Warning: scripts/ui/players.js: undocumented: 'Players.get = function'
 Warning: scripts/ui/players.js: undocumented: 'Players.insert = function'
 Warning: scripts/ui/players.js: undocumented: 'Players.erase = function'
+Warning: scripts/ui/players.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/players.js: Line 14, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/players.js:  #1 Insecure '.'.
+Warning: scripts/ui/players.js:     lines[name] = trimName(lines[name]).replace(/^#.*/, ''); // Line 36, Pos 54
+Warning: scripts/ui/players.js:  #2 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/players.js:     for (name in lines) { // Line 35, Pos 5
+Warning: scripts/ui/players.js:  #3 Unexpected TODO comment.
+Warning: scripts/ui/players.js:     // TODO verify array of strings // Line 68, Pos 7
+Warning: scripts/ui/players.js:  #4 Unexpected '('.
+Warning: scripts/ui/players.js:     if (typeof (name) === 'string' && name.length > 0) { // Line 96, Pos 16
+Warning: scripts/ui/players.js:  #5 Unexpected '('.
+Warning: scripts/ui/players.js:     if (typeof (name) === 'string' && name.length > 0) { // Line 110, Pos 16
 Warning: scripts/ui/ranking.js: undocumented: 'function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
+Warning: scripts/ui/ranking.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/ranking.js: Line 21, E:0110: Line too long (89 characters).
+Warning: scripts/ui/ranking.js: Line 25, E:0110: Line too long (98 characters).
+Warning: scripts/ui/ranking.js: Line 64, E:0110: Line too long (81 characters).
+Warning: scripts/ui/ranking.js: Line 93, E:0120: Binary operator should go on previous line "+"
 Warning: scripts/ui/ranking.js: line 28, col 13, Read only.
 Warning: scripts/ui/ranking.js: line 81, col 14, Don't make functions within a loop.
 Warning: scripts/ui/ranking.js: line 93, col 19, Bad line breaking before '+'.
 Warning: scripts/ui/ranking.js: line 118, col 16, Don't make functions within a loop.
 Warning: scripts/ui/ranking.js: line 21, col 62, 'i' is defined but never used.
 Warning: scripts/ui/ranking.js: line 41, col 42, 'i' is defined but never used.
+Warning: scripts/ui/ranking.js:  #1 Read only.
+Warning: scripts/ui/ranking.js:     name = Tournaments.getName(tournamentid); // Line 28, Pos 13
+Warning: scripts/ui/ranking.js:  #2 Redefinition of 'i' from line 21.
+Warning: scripts/ui/ranking.js:     var line, tid, team, vote, i, index, player; // Line 41, Pos 42
+Warning: scripts/ui/ranking.js:  #3 Don't make functions within a loop.
+Warning: scripts/ui/ranking.js:     makeline = function (rnk) { // Line 40, Pos 24
+Warning: scripts/ui/ranking.js:  #4 Don't make functions within a loop.
+Warning: scripts/ui/ranking.js:     makeline = function (corr) { // Line 96, Pos 26
+Warning: scripts/ui/ranking.js:  #5 Don't make functions within a loop.
+Warning: scripts/ui/ranking.js:     corrs.forEach(function (corr) { // Line 116, Pos 29
+Warning: scripts/ui/ranking.js:  #6 Unused 'i'.
+Warning: scripts/ui/ranking.js:     var lines, ranking, rank, length, corrs, makeline, i, tournamentid, tournament; // Line 21, Pos 62
 Warning: scripts/ui/splash.js: undocumented: 'hide : function'
 Warning: scripts/ui/splash.js: undocumented: 'loading : function'
 Warning: scripts/ui/splash.js: undocumented: 'function setState'
@@ -263,7 +1124,11 @@ Warning: scripts/ui/splash.js: undocumented: 'Splash.loading = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.update = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.hide = function'
 Warning: scripts/ui/splash.js: undocumented: 'Splash.error = function'
+Warning: scripts/ui/splash.js: Line 4, E:0200: Invalid JsDoc tag: exports
 Warning: scripts/ui/state.js: > 5 dependencies: 11
+Warning: scripts/ui/state.js: Line 5, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/state.js: Line 12, E:0110: Line too long (219 characters).
+Warning: scripts/ui/state.js: Line 74, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_Teams' is not in camel case.
 Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_Games' is not in camel case.
 Warning: scripts/ui/state.js: line 12, col 0, Identifier 'Tab_Ranking' is not in camel case.
@@ -275,9 +1140,18 @@ Warning: scripts/ui/state.js: line 57, col 0, Identifier 'Tab_New' is not in cam
 Warning: scripts/ui/state.js: line 58, col 0, Identifier 'Tab_Games' is not in camel case.
 Warning: scripts/ui/state.js: line 59, col 0, Identifier 'Tab_History' is not in camel case.
 Warning: scripts/ui/state.js: line 60, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/staticviewloader.js: Line 10, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/staticviewloader.js: Line 28, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/staticviewloader.js: Line 46, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/staticviewloader.js: Line 67, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/staticviewloader.js: Line 85, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/staticviewloader.js: line 36, col 7, Do not use 'new' for side effects.
+Warning: scripts/ui/staticviewloader.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/ui/staticviewloader.js:     new View($elem); // Line 36, Pos 22
 Warning: scripts/ui/storage.js: undocumented: 'function saveKey'
 Warning: scripts/ui/storage.js: undocumented: 'function loadKey'
+Warning: scripts/ui/storage.js: Line 9, E:0110: Line too long (92 characters).
+Warning: scripts/ui/storage.js: Line 119, E:0110: Line too long (81 characters).
 Warning: scripts/ui/storage.js: line 91, col 29, Use '===' to compare with 'true'.
 Warning: scripts/ui/storage.js: line 91, col 38, Empty block.
 Warning: scripts/ui/storage.js: line 99, col 10, Don't make functions within a loop.
@@ -285,6 +1159,37 @@ Warning: scripts/ui/storage.js: line 153, col 0, Identifier 'Tab_Settings' is no
 Warning: scripts/ui/storage.js: line 88, col 14, 'val' is defined but never used.
 Warning: scripts/ui/storage.js: line 88, col 19, 'err' is defined but never used.
 Warning: scripts/ui/storage.js: line 112, col 19, 'blob' is defined but never used.
+Warning: scripts/ui/storage.js:  #1 Bad for in variable 'key'.
+Warning: scripts/ui/storage.js:     for (key in keys) { // Line 71, Pos 12
+Warning: scripts/ui/storage.js:  #2 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/storage.js:     for (key in keys) { // Line 71, Pos 7
+Warning: scripts/ui/storage.js:  #3 Empty block.
+Warning: scripts/ui/storage.js:     if (savespending[key] == true) { // Line 91, Pos 38
+Warning: scripts/ui/storage.js:  #4 Don't make functions within a loop.
+Warning: scripts/ui/storage.js:     window.setTimeout(function (mykey) { // Line 94, Pos 27
+Warning: scripts/ui/storage.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/storage.js:     for (key in keys) { // Line 90, Pos 5
+Warning: scripts/ui/storage.js:  #6 Unused 'val'.
+Warning: scripts/ui/storage.js:     var key, val, err; // Line 88, Pos 14
+Warning: scripts/ui/storage.js:  #7 Unused 'err'.
+Warning: scripts/ui/storage.js:     var key, val, err; // Line 88, Pos 19
+Warning: scripts/ui/storage.js:  #8 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/storage.js:     for (key in keys) { // Line 116, Pos 5
+Warning: scripts/ui/storage.js:  #9 Unused 'blob'.
+Warning: scripts/ui/storage.js:     var key, err, blob; // Line 112, Pos 19
+Warning: scripts/ui/storage.js: #10 Unexpected TODO comment.
+Warning: scripts/ui/storage.js:     // TODO move to Blob // Line 150, Pos 5
+Warning: scripts/ui/strings.js: Line 6, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/strings.js: Line 19, E:0110: Line too long (102 characters).
+Warning: scripts/ui/strings.js: Line 20, E:0110: Line too long (93 characters).
+Warning: scripts/ui/strings.js: Line 37, E:0110: Line too long (106 characters).
+Warning: scripts/ui/strings.js: Line 55, E:0110: Line too long (88 characters).
+Warning: scripts/ui/strings.js: Line 56, E:0110: Line too long (91 characters).
+Warning: scripts/ui/strings.js: Line 58, E:0110: Line too long (102 characters).
+Warning: scripts/ui/strings.js: Line 59, E:0110: Line too long (126 characters).
+Warning: scripts/ui/strings.js: Line 87, E:0110: Line too long (223 characters).
+Warning: scripts/ui/strings.js: Line 105, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/strings.js: Line 105, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/strings.js: line 96, col 0, Identifier 'tab_teams' is not in camel case.
 Warning: scripts/ui/strings.js: line 97, col 0, Identifier 'tab_new' is not in camel case.
 Warning: scripts/ui/strings.js: line 98, col 0, Identifier 'tab_games' is not in camel case.
@@ -294,6 +1199,10 @@ Warning: scripts/ui/strings.js: line 101, col 0, Identifier 'tab_debug' is not i
 Warning: scripts/ui/strings.js: line 102, col 0, Identifier 'tab_settings' is not in camel case.
 Warning: scripts/ui/strings.js: line 103, col 0, Identifier 'tab_about' is not in camel case.
 Warning: scripts/ui/strings.js: line 12, col 16, 'key' is defined but never used.
+Warning: scripts/ui/strings.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/strings.js:     * TODO (in the reference:) show where and how each string is used // Line 4, Pos 66
+Warning: scripts/ui/strings.js:  #2 Unused 'key'.
+Warning: scripts/ui/strings.js:     var Strings, key; // Line 12, Pos 16
 Warning: scripts/ui/tab_debug.js: > 5 dependencies: 13
 Warning: scripts/ui/tab_debug.js: undocumented: 'function showAllImages'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function randomName'
@@ -310,6 +1219,17 @@ Warning: scripts/ui/tab_debug.js: undocumented: 'function initDevContents'
 Warning: scripts/ui/tab_debug.js: undocumented: 'function init'
 Warning: scripts/ui/tab_debug.js: > 10 functions: 15
 Warning: scripts/ui/tab_debug.js: > 400 lines: 444
+Warning: scripts/ui/tab_debug.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tab_debug.js: Line 11, E:0110: Line too long (186 characters).
+Warning: scripts/ui/tab_debug.js: Line 64, E:0110: Line too long (102 characters).
+Warning: scripts/ui/tab_debug.js: Line 259, E:0110: Line too long (92 characters).
+Warning: scripts/ui/tab_debug.js: Line 268, E:0110: Line too long (89 characters).
+Warning: scripts/ui/tab_debug.js: Line 304, E:0110: Line too long (82 characters).
+Warning: scripts/ui/tab_debug.js: Line 319, E:0110: Line too long (87 characters).
+Warning: scripts/ui/tab_debug.js: Line 340, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_debug.js: Line 346, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_debug.js: Line 350, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_debug.js: Line 355, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/tab_debug.js: line 11, col 92, This function has too many parameters. (11)
 Warning: scripts/ui/tab_debug.js: line 12, col 0, Identifier 'Tab_Debug' is not in camel case.
 Warning: scripts/ui/tab_debug.js: line 74, col 30, Unexpected use of '++'.
@@ -348,6 +1268,70 @@ Warning: scripts/ui/tab_debug.js: line 53, col 17, 'images' is not defined.
 Warning: scripts/ui/tab_debug.js: line 258, col 5, 'starttime' is not defined.
 Warning: scripts/ui/tab_debug.js: line 24, col 27, 'imagepaths' is defined but never used.
 Warning: scripts/ui/tab_debug.js: line 172, col 24, 'tournamentid' is defined but never used.
+Warning: scripts/ui/tab_debug.js:  #1 'images' was used before it was defined.
+Warning: scripts/ui/tab_debug.js:     images = {}; // Line 28, Pos 5
+Warning: scripts/ui/tab_debug.js:  #2 'images' was used before it was defined.
+Warning: scripts/ui/tab_debug.js:     images[url] = true; // Line 33, Pos 9
+Warning: scripts/ui/tab_debug.js:  #3 'images' was used before it was defined.
+Warning: scripts/ui/tab_debug.js:     images['images/' + url] = true; // Line 40, Pos 7
+Warning: scripts/ui/tab_debug.js:  #4 'images' was used before it was defined.
+Warning: scripts/ui/tab_debug.js:     images[url] = true; // Line 47, Pos 9
+Warning: scripts/ui/tab_debug.js:  #5 'images' was used before it was defined.
+Warning: scripts/ui/tab_debug.js:     for (url in images) { // Line 53, Pos 17
+Warning: scripts/ui/tab_debug.js:  #6 Insecure '.'.
+Warning: scripts/ui/tab_debug.js:     if (/^(images/)?sprite(.png)?$/.test(url)) { // Line 54, Pos 31
+Warning: scripts/ui/tab_debug.js:  #7 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tab_debug.js:     for (url in images) { // Line 53, Pos 5
+Warning: scripts/ui/tab_debug.js:  #8 Unused 'imagepaths'.
+Warning: scripts/ui/tab_debug.js:     var $anchor, $images, imagepaths, i, url, sorted; // Line 24, Pos 27
+Warning: scripts/ui/tab_debug.js:  #9 Unexpected '++'.
+Warning: scripts/ui/tab_debug.js:     for (i = 0; i < length; i++) { // Line 74, Pos 30
+Warning: scripts/ui/tab_debug.js: #10 Unexpected '++'.
+Warning: scripts/ui/tab_debug.js:     for (i = 0; i < length; i++) { // Line 81, Pos 30
+Warning: scripts/ui/tab_debug.js: #11 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.alltabsreloaded); // Line 90, Pos 39
+Warning: scripts/ui/tab_debug.js: #12 Unexpected dangling '_' in '_'.
+Warning: scripts/ui/tab_debug.js:     rjsdef = require.s.contexts._.defined; // Line 100, Pos 33
+Warning: scripts/ui/tab_debug.js: #13 Unexpected '++'.
+Warning: scripts/ui/tab_debug.js:     for (partid = 0; partid < keyparts.length; ++partid) { // Line 115, Pos 50
+Warning: scripts/ui/tab_debug.js: #14 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tab_debug.js:     for (key in rjsdef) { // Line 109, Pos 5
+Warning: scripts/ui/tab_debug.js: #15 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.modsvariableadded); // Line 129, Pos 41
+Warning: scripts/ui/tab_debug.js: #16 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.newtournament); // Line 146, Pos 37
+Warning: scripts/ui/tab_debug.js: #17 Unused 'Tab_Settings'.
+Warning: scripts/ui/tab_debug.js:     var Storage, Alltabs, State, Tab_Settings; // Line 133, Pos 34
+Warning: scripts/ui/tab_debug.js: #18 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.registrationclosed); // Line 155, Pos 44
+Warning: scripts/ui/tab_debug.js: #19 Unexpected '++'.
+Warning: scripts/ui/tab_debug.js:     for (teamno = 0; teamno < num; ++teamno) { // Line 164, Pos 36
+Warning: scripts/ui/tab_debug.js: #20 Unexpected '++'.
+Warning: scripts/ui/tab_debug.js:     for (playerno = 0; playerno < $names.length; ++playerno) { // Line 165, Pos 52
+Warning: scripts/ui/tab_debug.js: #21 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.notenoughteams + '?'); // Line 188, Pos 46
+Warning: scripts/ui/tab_debug.js: #22 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.roundrunning.replace(/%s/g, '')); // Line 193, Pos 57
+Warning: scripts/ui/tab_debug.js: #23 Unused 'Tab_Games'.
+Warning: scripts/ui/tab_debug.js:     var $button, Tab_Games; // Line 173, Pos 18
+Warning: scripts/ui/tab_debug.js: #24 'starttime' was used before it was defined.
+Warning: scripts/ui/tab_debug.js:     starttime = new Date(); // Line 258, Pos 5
+Warning: scripts/ui/tab_debug.js: #25 Weird condition.
+Warning: scripts/ui/tab_debug.js:     startRound(tournamentid) || startRound(tournamentid) || startRound(tournamentid); // Line 268, Pos 34
+Warning: scripts/ui/tab_debug.js: #26 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_debug.js:     startRound(tournamentid) || startRound(tournamentid) || startRound(tournamentid); // Line 268, Pos 9
+Warning: scripts/ui/tab_debug.js: #27 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.tournamentfinished, Toast.LONG); // Line 275, Pos 58
+Warning: scripts/ui/tab_debug.js: #28 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.notenoughteams); // Line 290, Pos 40
+Warning: scripts/ui/tab_debug.js: #29 Unexpected assignment expression.
+Warning: scripts/ui/tab_debug.js:     while ((numplayers -= 1) >= 0) { // Line 312, Pos 24
+Warning: scripts/ui/tab_debug.js: #30 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_debug.js:     new Toast(Strings.roundstarted.replace('%s', 1)); // Line 324, Pos 53
+Warning: scripts/ui/tab_debug.js: #31 'updateForms' was used before it was defined.
+Warning: scripts/ui/tab_debug.js:     updateForms(); // Line 401, Pos 5
+Warning: scripts/ui/tab_debug.js: #32 Empty block.
+Warning: scripts/ui/tab_debug.js:     function updateForms () { // Line 404, Pos 27
 Warning: scripts/ui/tab_games.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_games.js: undocumented: 'function'
 Warning: scripts/ui/tab_games.js: undocumented: 'function isInt'
@@ -363,6 +1347,21 @@ Warning: scripts/ui/tab_games.js: undocumented: 'function shownamestest'
 Warning: scripts/ui/tab_games.js: undocumented: 'function init'
 Warning: scripts/ui/tab_games.js: > 10 functions: 25
 Warning: scripts/ui/tab_games.js: > 400 lines: 638
+Warning: scripts/ui/tab_games.js: Line 7, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tab_games.js: Line 85, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_games.js: Line 186, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_games.js: Line 194, E:0110: Line too long (96 characters).
+Warning: scripts/ui/tab_games.js: Line 204, E:0120: Binary operator should go on previous line "+"
+Warning: scripts/ui/tab_games.js: Line 324, E:0120: Binary operator should go on previous line "||"
+Warning: scripts/ui/tab_games.js: Line 340, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_games.js: Line 360, E:0110: Line too long (92 characters).
+Warning: scripts/ui/tab_games.js: Line 379, E:0110: Line too long (86 characters).
+Warning: scripts/ui/tab_games.js: Line 479, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_games.js: Line 504, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_games.js: Line 519, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_games.js: Line 589, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tab_games.js: Line 592, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tab_games.js: Line 592, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/ui/tab_games.js: line 18, col 0, Identifier 'Tab_Teams' is not in camel case.
 Warning: scripts/ui/tab_games.js: line 18, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_games.js: line 19, col 0, Identifier 'Tab_History' is not in camel case.
@@ -397,6 +1396,48 @@ Warning: scripts/ui/tab_games.js: line 394, col 9, 'round' is not defined.
 Warning: scripts/ui/tab_games.js: line 395, col 9, 'res' is not defined.
 Warning: scripts/ui/tab_games.js: line 398, col 13, 'round' is not defined.
 Warning: scripts/ui/tab_games.js: line 275, col 16, 'removeGame' is defined but never used.
+Warning: scripts/ui/tab_games.js:  #1 'updatepending' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     updatepending = false; // Line 26, Pos 7
+Warning: scripts/ui/tab_games.js:  #2 '$anchor' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     $anchor = $tab.find('.votes').eq(0); // Line 58, Pos 9
+Warning: scripts/ui/tab_games.js:  #3 'readResults' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     if (readResults($(this).parents('.game')) === undefined) { // Line 66, Pos 15
+Warning: scripts/ui/tab_games.js:  #4 'finishGame' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     finishGame.call(this); // Line 77, Pos 11
+Warning: scripts/ui/tab_games.js:  #5 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js:     new BoxView($box); // Line 207, Pos 28
+Warning: scripts/ui/tab_games.js:  #6 Don't make functions within a loop.
+Warning: scripts/ui/tab_games.js:     tournament.getGames().forEach(function (game) { // Line 211, Pos 41
+Warning: scripts/ui/tab_games.js:  #7 'showVotes' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     if (showVotes(tournament, $box)) { // Line 217, Pos 15
+Warning: scripts/ui/tab_games.js:  #8 Empty block.
+Warning: scripts/ui/tab_games.js:     if (showVotes(tournament, $box)) { // Line 217, Pos 44
+Warning: scripts/ui/tab_games.js:  #9 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js:     new Toast(Strings.invalidresult, Toast.LONG); // Line 369, Pos 55
+Warning: scripts/ui/tab_games.js: #10 Unexpected TODO comment.
+Warning: scripts/ui/tab_games.js:     // TODO extract everything to a new function! // Line 373, Pos 11
+Warning: scripts/ui/tab_games.js: #11 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js:     new Toast(Strings.invalidresult, Toast.LONG); // Line 388, Pos 55
+Warning: scripts/ui/tab_games.js: #12 'round' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     round = Tournaments.getRanking(tournamentid).round; // Line 394, Pos 9
+Warning: scripts/ui/tab_games.js: #13 'res' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     res = History.addResult(tournamentid, // Line 395, Pos 9
+Warning: scripts/ui/tab_games.js: #14 'round' was used before it was defined.
+Warning: scripts/ui/tab_games.js:     round - 1, gameid); // Line 398, Pos 13
+Warning: scripts/ui/tab_games.js: #15 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js:     new Toast(Strings.gamefinished); // Line 402, Pos 42
+Warning: scripts/ui/tab_games.js: #16 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js:     new Toast(Strings.invalidresult, Toast.LONG); // Line 417, Pos 55
+Warning: scripts/ui/tab_games.js: #17 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_games.js:     .getRanking(tournamentid).round)); // Line 431, Pos 48
+Warning: scripts/ui/tab_games.js: #18 Unexpected TODO comment.
+Warning: scripts/ui/tab_games.js:     * TODO rewrite this file to replace this function // Line 463, Pos 56
+Warning: scripts/ui/tab_games.js: #19 Unused 'removeGame'.
+Warning: scripts/ui/tab_games.js:     function removeGame (tournamentid, index) { // Line 275, Pos 16
+Warning: scripts/ui/tab_games.js: #20 Unused 'finishGame'.
+Warning: scripts/ui/tab_games.js:     function finishGame () { // Line 342, Pos 16
+Warning: scripts/ui/tab_games.js: #21 Unused 'showVotes'.
+Warning: scripts/ui/tab_games.js:     function showVotes (Tournament, $box) { // Line 506, Pos 16
 Warning: scripts/ui/tab_history.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_history.js: undocumented: 'function'
 Warning: scripts/ui/tab_history.js: undocumented: 'function formatNamesHTML'
@@ -424,6 +1465,28 @@ Warning: scripts/ui/tab_history.js: undocumented: 'function'
 Warning: scripts/ui/tab_history.js: undocumented: 'function showTournaments'
 Warning: scripts/ui/tab_history.js: > 10 functions: 37
 Warning: scripts/ui/tab_history.js: > 400 lines: 1046
+Warning: scripts/ui/tab_history.js: Line 78, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/tab_history.js: Line 113, E:0110: Line too long (95 characters).
+Warning: scripts/ui/tab_history.js: Line 279, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tab_history.js: Line 282, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tab_history.js: Line 282, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tab_history.js: Line 516, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 546, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_history.js: Line 660, E:0120: Binary operator should go on previous line "+"
+Warning: scripts/ui/tab_history.js: Line 723, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 732, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 741, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 750, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 763, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 783, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 795, E:0120: Binary operator should go on previous line "*"
+Warning: scripts/ui/tab_history.js: Line 796, E:0120: Binary operator should go on previous line "*"
+Warning: scripts/ui/tab_history.js: Line 805, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/tab_history.js: Line 860, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tab_history.js: Line 880, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_history.js: Line 894, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_history.js: Line 912, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_history.js: Line 987, E:0110: Line too long (82 characters).
 Warning: scripts/ui/tab_history.js: line 13, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_history.js: line 13, col 14, This function has too many parameters. (14)
 Warning: scripts/ui/tab_history.js: line 15, col 0, Identifier 'Tab_History' is not in camel case.
@@ -475,15 +1538,140 @@ Warning: scripts/ui/tab_history.js: line 485, col 19, 'bye' is not defined.
 Warning: scripts/ui/tab_history.js: line 486, col 27, 'bye' is not defined.
 Warning: scripts/ui/tab_history.js: line 656, col 9, 'teamranks' is not defined.
 Warning: scripts/ui/tab_history.js: line 656, col 9, Too many errors. (62% scanned).
+Warning: scripts/ui/tab_history.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/tab_history.js:     // TODO somehow store the actual game id! // Line 84, Pos 11
+Warning: scripts/ui/tab_history.js:  #2 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.pointchangeaborted); // Line 107, Pos 46
+Warning: scripts/ui/tab_history.js:  #3 Unexpected TODO comment.
+Warning: scripts/ui/tab_history.js:     // TODO validate everything: // Line 111, Pos 11
+Warning: scripts/ui/tab_history.js:  #4 Unexpected TODO comment.
+Warning: scripts/ui/tab_history.js:     // TODO find better solution! // Line 130, Pos 11
+Warning: scripts/ui/tab_history.js:  #5 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.invalidresult); // Line 143, Pos 43
+Warning: scripts/ui/tab_history.js:  #6 Unexpected TODO comment.
+Warning: scripts/ui/tab_history.js:     // TODO find better solution! // Line 156, Pos 11
+Warning: scripts/ui/tab_history.js:  #7 '$teams' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     $teams = template.chpoints.$chpoints.parents('.team').find('.number'); // Line 158, Pos 11
+Warning: scripts/ui/tab_history.js:  #8 '$teams' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     t1 = Number($teams.text()); // Line 159, Pos 23
+Warning: scripts/ui/tab_history.js:  #9 '$teams' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     $teams = template.chpoints.$chpoints.parents('.game').find('.number'); // Line 162, Pos 11
+Warning: scripts/ui/tab_history.js: #10 '$teams' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     t1 = Number($($teams[0]).text()); // Line 163, Pos 25
+Warning: scripts/ui/tab_history.js: #11 '$teams' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     t2 = Number($($teams[1]).text()); // Line 164, Pos 25
+Warning: scripts/ui/tab_history.js: #12 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.invalidresult); // Line 168, Pos 43
+Warning: scripts/ui/tab_history.js: #13 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.invalidresult); // Line 181, Pos 43
+Warning: scripts/ui/tab_history.js: #14 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.invalidresult); // Line 210, Pos 43
+Warning: scripts/ui/tab_history.js: #15 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.invalidresult); // Line 226, Pos 45
+Warning: scripts/ui/tab_history.js: #16 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.toolatetournamentfinished, Toast.LONG); // Line 230, Pos 67
+Warning: scripts/ui/tab_history.js: #17 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new Toast(Strings.pointchangeapplied); // Line 255, Pos 46
+Warning: scripts/ui/tab_history.js: #18 Unnecessary 'else' after disruption.
+Warning: scripts/ui/tab_history.js:     } else if (e.which === 27) { // Line 329, Pos 13
+Warning: scripts/ui/tab_history.js: #19 'currentround' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     currentround = 0; // Line 447, Pos 9
+Warning: scripts/ui/tab_history.js: #20 'tournamentid' is already defined.
+Warning: scripts/ui/tab_history.js:     var round, maxround, hidden, empty, votes, tournamentid, $box, $table; // Line 466, Pos 52
+Warning: scripts/ui/tab_history.js: #21 Unexpected TODO comment.
+Warning: scripts/ui/tab_history.js:     // TODO preprocessing? // Line 481, Pos 13
+Warning: scripts/ui/tab_history.js: #22 'bye' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     bye = vote[1]; // Line 484, Pos 15
+Warning: scripts/ui/tab_history.js: #23 'bye' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     if (bye !== undefined) { // Line 485, Pos 19
+Warning: scripts/ui/tab_history.js: #24 'bye' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     createBye(bye, $table); // Line 486, Pos 27
+Warning: scripts/ui/tab_history.js: #25 Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js:     votes.map(function (vote) { // Line 482, Pos 21
+Warning: scripts/ui/tab_history.js: #26 Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js:     History.getRound(tournamentid, round).map(function (game) { // Line 492, Pos 53
+Warning: scripts/ui/tab_history.js: #27 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new BoxView($box); // Line 503, Pos 30
+Warning: scripts/ui/tab_history.js: #28 'jQuery' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     return !jQuery.isArray(obj) && (obj - parseFloat(obj) + 1) >= 0; // Line 519, Pos 17
+Warning: scripts/ui/tab_history.js: #29 Unexpected TODO comment.
+Warning: scripts/ui/tab_history.js:     // TODO read '13:7' from the options! // Line 553, Pos 17
+Warning: scripts/ui/tab_history.js: #30 Empty block.
+Warning: scripts/ui/tab_history.js:     } else { // Line 573, Pos 16
+Warning: scripts/ui/tab_history.js: #31 'teamranks' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     teamranks = getRankingMapping(tournamentid); // Line 656, Pos 9
+Warning: scripts/ui/tab_history.js: #32 'teamranks' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     if (teamgames.length != teamranks.length) { // Line 658, Pos 33
+Warning: scripts/ui/tab_history.js: #33 'teamranks' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     + teamgames.length + '!=' + teamranks.length); // Line 660, Pos 43
+Warning: scripts/ui/tab_history.js: #34 Redefinition of '$game' from line 630.
+Warning: scripts/ui/tab_history.js:     var $game; // Line 686, Pos 19
+Warning: scripts/ui/tab_history.js: #35 Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js:     teamgames[teamid].map(function (game) { // Line 685, Pos 35
+Warning: scripts/ui/tab_history.js: #36 'teamranks' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     teamranks[teamid].map(function (text, id) { // Line 699, Pos 11
+Warning: scripts/ui/tab_history.js: #37 Don't make functions within a loop.
+Warning: scripts/ui/tab_history.js:     teamranks[teamid].map(function (text, id) { // Line 699, Pos 33
+Warning: scripts/ui/tab_history.js: #38 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_history.js:     new BoxView($box); // Line 713, Pos 26
+Warning: scripts/ui/tab_history.js: #39 Unused '$game'.
+Warning: scripts/ui/tab_history.js:     var teamgames, teamid, team, maxround, $box, $table, $row, i, $game; // Line 630, Pos 71
+Warning: scripts/ui/tab_history.js: #40 'nodesbylevel' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     return nodesbylevel(level) - 1; // Line 744, Pos 16
+Warning: scripts/ui/tab_history.js: #41 Unexpected '<<'.
+Warning: scripts/ui/tab_history.js:     return 1 << level; // Line 753, Pos 18
+Warning: scripts/ui/tab_history.js: #42 'firstid' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     firstid = lowestid(gamelevel); // Line 792, Pos 9
+Warning: scripts/ui/tab_history.js: #43 'firstid' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     * (gameid - firstid); // Line 796, Pos 25
+Warning: scripts/ui/tab_history.js: #44 Unexpected TODO comment.
+Warning: scripts/ui/tab_history.js:     // TODO use a more sophisticated method // Line 865, Pos 11
+Warning: scripts/ui/tab_history.js: #45 'visibleupdatepending' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     visibleupdatepending = true; // Line 867, Pos 11
+Warning: scripts/ui/tab_history.js: #46 '$tree' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     $tree = template.kotree.$container.clone(); // Line 939, Pos 9
+Warning: scripts/ui/tab_history.js: #47 '$tree' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     $tree.append($connector); // Line 948, Pos 15
+Warning: scripts/ui/tab_history.js: #48 '$tree' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     $tree.append($game); // Line 950, Pos 13
+Warning: scripts/ui/tab_history.js: #49 '$tree' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     $box.append($tree); // Line 954, Pos 21
+Warning: scripts/ui/tab_history.js: #50 '$tree' was used before it was defined.
+Warning: scripts/ui/tab_history.js:     $tree.css('width', boxwidth + 'em'); // Line 968, Pos 9
+Warning: scripts/ui/tab_history.js: #51 Too many errors. (92% scanned).
+Warning: scripts/ui/tab_history.js:      // Line 968, Pos 9
 Warning: scripts/ui/tab.js: undocumented: 'createTab : function'
 Warning: scripts/ui/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/tab.js: undocumented: 'update : function'
 Warning: scripts/ui/tab.js: undocumented: 'getOptions : function'
 Warning: scripts/ui/tab.js: undocumented: 'setOptions : function'
+Warning: scripts/ui/tab.js: Line 4, E:0200: Invalid JsDoc tag: expost
+Warning: scripts/ui/tab.js: Line 29, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab.js: Line 66, E:0110: Line too long (88 characters).
+Warning: scripts/ui/tab.js: Line 89, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/tab.js: line 66, col 17, Do not use 'new' for side effects.
+Warning: scripts/ui/tab.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/ui/tab.js:     new Toast(Strings.tabupdateerror.replace('%s', Strings['tab_' + name])); // Line 66, Pos 88
+Warning: scripts/ui/tab.js:  #2 Unexpected dangling '_' in '_changed'.
+Warning: scripts/ui/tab.js:     if (options._changed) { // Line 83, Pos 25
+Warning: scripts/ui/tab.js:  #3 Unexpected dangling '_' in '_changed'.
+Warning: scripts/ui/tab.js:     options._changed(); // Line 84, Pos 23
+Warning: scripts/ui/tablemodel.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tablemodel.js: Line 26, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tablemodel.js: Line 30, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tablemodel.js: Line 36, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tablemodel.js: Line 45, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tablemodel.js: Line 56, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tablemodel.js: Line 59, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/ui/tableview.js: undocumented: 'function validateText'
+Warning: scripts/ui/tableview.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tableview.js: Line 10, E:0110: Line too long (105 characters).
+Warning: scripts/ui/tableview.js: Line 59, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/tableview.js: Line 77, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/tableview.js: line 28, col 22, 'TableView' is already defined.
 Warning: scripts/ui/tableview.js: line 10, col 90, 'BoxController' is defined but never used.
+Warning: scripts/ui/tableview.js:  #1 'TableView' is already defined.
+Warning: scripts/ui/tableview.js:     function TableView ($table, model) { // Line 28, Pos 12
 Warning: scripts/ui/tab_new.js: > 5 dependencies: 19
 Warning: scripts/ui/tab_new.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_new.js: undocumented: 'function initRename'
@@ -525,6 +1713,19 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
 Warning: scripts/ui/tab_new.js: > 10 functions: 42
 Warning: scripts/ui/tab_new.js: > 400 lines: 828
+Warning: scripts/ui/tab_new.js: Line 7, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tab_new.js: Line 46, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_new.js: Line 124, E:0120: Binary operator should go on previous line "||"
+Warning: scripts/ui/tab_new.js: Line 244, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/tab_new.js: Line 255, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/tab_new.js: Line 258, E:0120: Binary operator should go on previous line ":"
+Warning: scripts/ui/tab_new.js: Line 686, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_new.js: Line 691, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_new.js: Line 697, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_new.js: Line 700, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_new.js: Line 763, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tab_new.js: Line 766, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/tab_new.js: Line 766, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/ui/tab_new.js: line 18, col 0, Identifier 'Tab_Games' is not in camel case.
 Warning: scripts/ui/tab_new.js: line 18, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_new.js: line 18, col 0, Identifier 'Tab_History' is not in camel case.
@@ -576,6 +1777,108 @@ Warning: scripts/ui/tab_new.js: line 649, col 62, Expected an assignment or func
 Warning: scripts/ui/tab_new.js: line 650, col 60, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/tab_new.js: line 651, col 56, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/tab_new.js: line 651, col 56, Too many errors. (78% scanned).
+Warning: scripts/ui/tab_new.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/tab_new.js:     * TODO rewrite this file to replace this function // Line 31, Pos 52
+Warning: scripts/ui/tab_new.js:  #2 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.namechangeaborted); // Line 126, Pos 45
+Warning: scripts/ui/tab_new.js:  #3 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.namechanged.replace('%s', newname)); // Line 143, Pos 60
+Warning: scripts/ui/tab_new.js:  #4 Unnecessary 'else' after disruption.
+Warning: scripts/ui/tab_new.js:     } else if (e.which === 27) { // Line 163, Pos 9
+Warning: scripts/ui/tab_new.js:  #5 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.tournamentalreadyfinished); // Line 187, Pos 53
+Warning: scripts/ui/tab_new.js:  #6 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.gamesstillrunning); // Line 200, Pos 45
+Warning: scripts/ui/tab_new.js:  #7 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.tournamentfinished); // Line 214, Pos 44
+Warning: scripts/ui/tab_new.js:  #8 Weird condition.
+Warning: scripts/ui/tab_new.js:     switch (Tournament ? Tournament.getState() // Line 257, Pos 24
+Warning: scripts/ui/tab_new.js:  #9 Empty case.
+Warning: scripts/ui/tab_new.js:     default: // Line 269, Pos 5
+Warning: scripts/ui/tab_new.js: #10 'getHeight' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     endteam = startteam + getHeight(tournamentid) - 1; // Line 288, Pos 27
+Warning: scripts/ui/tab_new.js: #11 'getKOMode' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     getKOMode($komode, KO); // Line 348, Pos 5
+Warning: scripts/ui/tab_new.js: #12 'setKOMode' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     setKOMode($komode, KO); // Line 351, Pos 7
+Warning: scripts/ui/tab_new.js: #13 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.tournamentstarted); // Line 364, Pos 45
+Warning: scripts/ui/tab_new.js: #14 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.roundfailed); // Line 372, Pos 39
+Warning: scripts/ui/tab_new.js: #15 'initSwiss' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     initSwiss($anchor, tournamentid); // Line 391, Pos 7
+Warning: scripts/ui/tab_new.js: #16 'initBoxes' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     initBoxes($anchor); // Line 401, Pos 5
+Warning: scripts/ui/tab_new.js: #17 'initNewsystem' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     initNewsystem($anchor); // Line 415, Pos 5
+Warning: scripts/ui/tab_new.js: #18 '$title' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     $title = $anchor.find('>h3'); // Line 425, Pos 5
+Warning: scripts/ui/tab_new.js: #19 '$title' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     $title.addClass('editable'); // Line 428, Pos 7
+Warning: scripts/ui/tab_new.js: #20 '$title' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     $anchor.append($title.clone().removeClass('editable')); // Line 432, Pos 20
+Warning: scripts/ui/tab_new.js: #21 Unexpected TODO comment.
+Warning: scripts/ui/tab_new.js:     initTournamentNameChange(tournamentid); // TODO find a better solution // Line 496, Pos 47
+Warning: scripts/ui/tab_new.js: #22 'getSwissMode' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     getSwissMode($swissmode, Swiss); // Line 553, Pos 5
+Warning: scripts/ui/tab_new.js: #23 'setSwissMode' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     setSwissMode($swissmode, Swiss); // Line 556, Pos 7
+Warning: scripts/ui/tab_new.js: #24 'queryPerms' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     $perms = queryPerms($swiss); // Line 559, Pos 14
+Warning: scripts/ui/tab_new.js: #25 'setPermissionPreset' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     setPermissionPreset($perms.preset.val(), $perms); // Line 562, Pos 7
+Warning: scripts/ui/tab_new.js: #26 'setPermissions' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     setPermissions($perms, Swiss); // Line 563, Pos 7
+Warning: scripts/ui/tab_new.js: #27 'getPermissions' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     getPermissions($perms, Swiss); // Line 566, Pos 5
+Warning: scripts/ui/tab_new.js: #28 'setPermissions' was used before it was defined.
+Warning: scripts/ui/tab_new.js:     setPermissions($perms, Swiss); // Line 574, Pos 7
+Warning: scripts/ui/tab_new.js: #29 Redefinition of 'round' from line 537.
+Warning: scripts/ui/tab_new.js:     var bye, round; // Line 581, Pos 24
+Warning: scripts/ui/tab_new.js: #30 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.roundstarted.replace('%s', round)); // Line 592, Pos 69
+Warning: scripts/ui/tab_new.js: #31 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new Toast(Strings.roundfailed); // Line 600, Pos 47
+Warning: scripts/ui/tab_new.js: #32 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_new.js:     new BoxView($box); // Line 610, Pos 24
+Warning: scripts/ui/tab_new.js: #33 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.up.up && $perms.up.up.addClass('forbidden'); // Line 627, Pos 5
+Warning: scripts/ui/tab_new.js: #34 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.up.down && $perms.up.down.addClass('forbidden'); // Line 628, Pos 5
+Warning: scripts/ui/tab_new.js: #35 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.up.bye && $perms.up.bye.addClass('forbidden'); // Line 629, Pos 5
+Warning: scripts/ui/tab_new.js: #36 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.down.up && $perms.down.up.addClass('forbidden'); // Line 630, Pos 5
+Warning: scripts/ui/tab_new.js: #37 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.down.down && $perms.down.down.addClass('forbidden'); // Line 631, Pos 5
+Warning: scripts/ui/tab_new.js: #38 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.down.bye && $perms.down.bye.addClass('forbidden'); // Line 632, Pos 5
+Warning: scripts/ui/tab_new.js: #39 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.bye.up && $perms.bye.up.addClass('forbidden'); // Line 633, Pos 5
+Warning: scripts/ui/tab_new.js: #40 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.bye.down && $perms.bye.down.addClass('forbidden'); // Line 634, Pos 5
+Warning: scripts/ui/tab_new.js: #41 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.bye.bye && $perms.bye.bye.addClass('forbidden'); // Line 635, Pos 5
+Warning: scripts/ui/tab_new.js: #42 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.up.up && $perms.up.up.addClass('forbidden'); // Line 645, Pos 5
+Warning: scripts/ui/tab_new.js: #43 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.up.down && $perms.down.up.addClass('forbidden'); // Line 646, Pos 5
+Warning: scripts/ui/tab_new.js: #44 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.up.bye && $perms.bye.up.addClass('forbidden'); // Line 647, Pos 5
+Warning: scripts/ui/tab_new.js: #45 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.down.up && $perms.up.down.addClass('forbidden'); // Line 648, Pos 5
+Warning: scripts/ui/tab_new.js: #46 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.down.down && $perms.down.down.addClass('forbidden'); // Line 649, Pos 5
+Warning: scripts/ui/tab_new.js: #47 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.down.bye && $perms.bye.down.addClass('forbidden'); // Line 650, Pos 5
+Warning: scripts/ui/tab_new.js: #48 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.bye.up && $perms.up.bye.addClass('forbidden'); // Line 651, Pos 5
+Warning: scripts/ui/tab_new.js: #49 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.bye.down && $perms.down.bye.addClass('forbidden'); // Line 652, Pos 5
+Warning: scripts/ui/tab_new.js: #50 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_new.js:     !perms.bye.bye && $perms.bye.bye.addClass('forbidden'); // Line 653, Pos 5
+Warning: scripts/ui/tab_new.js: #51 Too many errors. (78% scanned).
+Warning: scripts/ui/tab_new.js:      // Line 653, Pos 5
 Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 12
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
@@ -583,6 +1886,11 @@ Warning: scripts/ui/tab_ranking.js: undocumented: 'function init'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTournamentRankings'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function update'
+Warning: scripts/ui/tab_ranking.js: Line 9, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tab_ranking.js: Line 86, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/tab_ranking.js: Line 89, E:0120: Binary operator should go on previous line "&&"
+Warning: scripts/ui/tab_ranking.js: Line 134, E:0120: Binary operator should go on previous line ":"
+Warning: scripts/ui/tab_ranking.js: Line 199, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/tab_ranking.js: line 17, col 79, This function has too many parameters. (10)
 Warning: scripts/ui/tab_ranking.js: line 20, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_ranking.js: line 23, col 0, Identifier 'Tab_Ranking' is not in camel case.
@@ -599,6 +1907,28 @@ Warning: scripts/ui/tab_ranking.js: line 301, col 0, Identifier 'Tab_Ranking' is
 Warning: scripts/ui/tab_ranking.js: line 302, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_ranking.js: line 302, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_ranking.js: line 303, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/tab_ranking.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/tab_ranking.js:     * TODO slay this beast // Line 7, Pos 23
+Warning: scripts/ui/tab_ranking.js:  #2 'updateTemplate' was used before it was defined.
+Warning: scripts/ui/tab_ranking.js:     updateTemplate(); // Line 73, Pos 5
+Warning: scripts/ui/tab_ranking.js:  #3 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_ranking.js:     template.rank.$fields[i + 2] // Line 85, Pos 9
+Warning: scripts/ui/tab_ranking.js:  #4 Expected an assignment or function call and instead saw an expression.
+Warning: scripts/ui/tab_ranking.js:     template.rank.$fields[i + 2] // Line 88, Pos 9
+Warning: scripts/ui/tab_ranking.js:  #5 Unexpected '++'.
+Warning: scripts/ui/tab_ranking.js:     for (i = 0; i < ranking.upvote[rank]; ++i) { // Line 141, Pos 45
+Warning: scripts/ui/tab_ranking.js:  #6 Unexpected '++'.
+Warning: scripts/ui/tab_ranking.js:     for (i = 0; i < ranking.downvote[rank]; ++i) { // Line 146, Pos 47
+Warning: scripts/ui/tab_ranking.js:  #7 Unexpected '++'.
+Warning: scripts/ui/tab_ranking.js:     for (i = 0; i < ranking.byevote[rank]; ++i) { // Line 151, Pos 46
+Warning: scripts/ui/tab_ranking.js:  #8 Expected ';' and instead saw 'tournamentid'.
+Warning: scripts/ui/tab_ranking.js:     for (; tournamentid < Tournaments.numTournaments(); tournamentid += 1) { // Line 262, Pos 12
+Warning: scripts/ui/tab_ranking.js:  #9 Expected ')' and instead saw '<'.
+Warning: scripts/ui/tab_ranking.js:     for (; tournamentid < Tournaments.numTournaments(); tournamentid += 1) { // Line 262, Pos 25
+Warning: scripts/ui/tab_ranking.js: #10 Expected '{' and instead saw 'Tournaments'.
+Warning: scripts/ui/tab_ranking.js:     for (; tournamentid < Tournaments.numTournaments(); tournamentid += 1) { // Line 262, Pos 27
+Warning: scripts/ui/tab_ranking.js: #11 Stopping. (85% scanned).
+Warning: scripts/ui/tab_ranking.js:      // Line 262, Pos 27
 Warning: scripts/ui/tab_settings.js: > 5 dependencies: 16
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initCSV'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function csvupdate'
@@ -618,6 +1948,10 @@ Warning: scripts/ui/tab_settings.js: undocumented: 'function initLocalStorage'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function init'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function update'
 Warning: scripts/ui/tab_settings.js: > 10 functions: 19
+Warning: scripts/ui/tab_settings.js: Line 6, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tab_settings.js: Line 15, E:0110: Line too long (171 characters).
+Warning: scripts/ui/tab_settings.js: Line 146, E:0110: Line too long (83 characters).
+Warning: scripts/ui/tab_settings.js: Line 164, E:0110: Line too long (99 characters).
 Warning: scripts/ui/tab_settings.js: line 15, col 57, This function has too many parameters. (14)
 Warning: scripts/ui/tab_settings.js: line 16, col 0, Identifier 'Tab_Settings' is not in camel case.
 Warning: scripts/ui/tab_settings.js: line 57, col 7, Do not use 'new' for side effects.
@@ -650,6 +1984,100 @@ Warning: scripts/ui/tab_settings.js: line 146, col 73, 'response' is defined but
 Warning: scripts/ui/tab_settings.js: line 146, col 65, 'status' is defined but never used.
 Warning: scripts/ui/tab_settings.js: line 162, col 11, 'content' is defined but never used.
 Warning: scripts/ui/tab_settings.js: line 162, col 20, 'i' is defined but never used.
+Warning: scripts/ui/tab_settings.js:  #1 'csvupdate' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     csvupdate($button); // Line 35, Pos 7
+Warning: scripts/ui/tab_settings.js:  #2 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.nodata); // Line 57, Pos 32
+Warning: scripts/ui/tab_settings.js:  #3 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.savefailed); // Line 68, Pos 36
+Warning: scripts/ui/tab_settings.js:  #4 'FileReader' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     var reader = new FileReader(); // Line 78, Pos 24
+Warning: scripts/ui/tab_settings.js:  #5 'loadFileError' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     reader.onerror = loadFileError; // Line 79, Pos 24
+Warning: scripts/ui/tab_settings.js:  #6 'loadFileAbort' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     reader.onabort = loadFileAbort; // Line 80, Pos 24
+Warning: scripts/ui/tab_settings.js:  #7 'loadFileLoad' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     reader.onload = loadFileLoad; // Line 81, Pos 23
+Warning: scripts/ui/tab_settings.js:  #8 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.filenotfound); // Line 97, Pos 38
+Warning: scripts/ui/tab_settings.js:  #9 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.filenotreadable); // Line 100, Pos 41
+Warning: scripts/ui/tab_settings.js: #10 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.fileerror, Toast.LONG); // Line 105, Pos 47
+Warning: scripts/ui/tab_settings.js: #11 'resetStorageState' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     resetStorageState(); // Line 120, Pos 9
+Warning: scripts/ui/tab_settings.js: #12 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.loaded); // Line 121, Pos 34
+Warning: scripts/ui/tab_settings.js: #13 Unexpected TODO comment.
+Warning: scripts/ui/tab_settings.js:     // TODO what if something invalid has been returned? // Line 124, Pos 11
+Warning: scripts/ui/tab_settings.js: #14 Empty block.
+Warning: scripts/ui/tab_settings.js:     } else { // Line 123, Pos 14
+Warning: scripts/ui/tab_settings.js: #15 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.loadfailed, Toast.LONG); // Line 127, Pos 48
+Warning: scripts/ui/tab_settings.js: #16 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.newtournament); // Line 136, Pos 39
+Warning: scripts/ui/tab_settings.js: #17 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.fileabort); // Line 142, Pos 33
+Warning: scripts/ui/tab_settings.js: #18 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.fileempty); // Line 148, Pos 37
+Warning: scripts/ui/tab_settings.js: #19 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.autocompleteloaded); // Line 153, Pos 48
+Warning: scripts/ui/tab_settings.js: #20 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.autocompletereloadfailed, Toast.LONG); // Line 158, Pos 66
+Warning: scripts/ui/tab_settings.js: #21 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.autocompletereloadfailed, Toast.LONG); // Line 166, Pos 62
+Warning: scripts/ui/tab_settings.js: #22 Unused 'content'.
+Warning: scripts/ui/tab_settings.js:     var content, i; // Line 162, Pos 11
+Warning: scripts/ui/tab_settings.js: #23 Unused 'i'.
+Warning: scripts/ui/tab_settings.js:     var content, i; // Line 162, Pos 20
+Warning: scripts/ui/tab_settings.js: #24 'FileReader' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     var reader = new FileReader(); // Line 188, Pos 24
+Warning: scripts/ui/tab_settings.js: #25 'autocompleteFileError' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     reader.onerror = autocompleteFileError; // Line 189, Pos 24
+Warning: scripts/ui/tab_settings.js: #26 'autocompleteFileAbort' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     reader.onabort = autocompleteFileAbort; // Line 190, Pos 24
+Warning: scripts/ui/tab_settings.js: #27 'autocompleteFileLoad' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     reader.onload = autocompleteFileLoad; // Line 191, Pos 23
+Warning: scripts/ui/tab_settings.js: #28 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.filenotfound); // Line 208, Pos 38
+Warning: scripts/ui/tab_settings.js: #29 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.filenotreadable); // Line 211, Pos 41
+Warning: scripts/ui/tab_settings.js: #30 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.fileerror); // Line 216, Pos 35
+Warning: scripts/ui/tab_settings.js: #31 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.autocompleteloaded); // Line 229, Pos 42
+Warning: scripts/ui/tab_settings.js: #32 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.fileabort); // Line 233, Pos 33
+Warning: scripts/ui/tab_settings.js: #33 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.saved); // Line 274, Pos 33
+Warning: scripts/ui/tab_settings.js: #34 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.savefailed); // Line 276, Pos 38
+Warning: scripts/ui/tab_settings.js: #35 'resetStorageState' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     resetStorageState(); // Line 279, Pos 7
+Warning: scripts/ui/tab_settings.js: #36 Unexpected TODO comment.
+Warning: scripts/ui/tab_settings.js:     // TODO don't use confirm() // Line 288, Pos 9
+Warning: scripts/ui/tab_settings.js: #37 'confirm' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     if (confirm(Strings.clearstorage)) { // Line 289, Pos 11
+Warning: scripts/ui/tab_settings.js: #38 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_settings.js:     new Toast(Strings.newtournament); // Line 299, Pos 41
+Warning: scripts/ui/tab_settings.js: #39 'resetStorageState' was used before it was defined.
+Warning: scripts/ui/tab_settings.js:     resetStorageState(); // Line 302, Pos 9
+Warning: scripts/ui/tab_settings.js: #40 Unused 'updatepending'.
+Warning: scripts/ui/tab_settings.js:     var Tab_Settings, $tab, areas, updatepending; // Line 16, Pos 34
+Warning: scripts/ui/tab_settings.js: #41 Unused 'csvupdate'.
+Warning: scripts/ui/tab_settings.js:     function csvupdate ($button) { // Line 39, Pos 12
+Warning: scripts/ui/tab_settings.js: #42 Unused 'loadFileError'.
+Warning: scripts/ui/tab_settings.js:     function loadFileError (evt) { // Line 93, Pos 12
+Warning: scripts/ui/tab_settings.js: #43 Unused 'loadFileLoad'.
+Warning: scripts/ui/tab_settings.js:     function loadFileLoad (evt) { // Line 109, Pos 12
+Warning: scripts/ui/tab_settings.js: #44 Unused 'loadFileAbort'.
+Warning: scripts/ui/tab_settings.js:     function loadFileAbort () { // Line 141, Pos 12
+Warning: scripts/ui/tab_settings.js: #45 Unused 'autocompleteFileError'.
+Warning: scripts/ui/tab_settings.js:     function autocompleteFileError (evt) { // Line 204, Pos 12
+Warning: scripts/ui/tab_settings.js: #46 Unused 'autocompleteFileLoad'.
+Warning: scripts/ui/tab_settings.js:     function autocompleteFileLoad (evt) { // Line 220, Pos 12
+Warning: scripts/ui/tab_settings.js: #47 Unused 'autocompleteFileAbort'.
+Warning: scripts/ui/tab_settings.js:     function autocompleteFileAbort () { // Line 232, Pos 12
 Warning: scripts/ui/tabs.js: undocumented: 'Tabs = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.hide = function'
@@ -659,9 +2087,26 @@ Warning: scripts/ui/tabs.js: undocumented: 'this.valid = function'
 Warning: scripts/ui/tabs.js: undocumented: 'function openValidTab'
 Warning: scripts/ui/tabs.js: undocumented: 'that.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'that.focus = function'
+Warning: scripts/ui/tabs.js: Line 6, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tabs.js: Line 25, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tabs.js: Line 117, E:0110: Line too long (86 characters).
+Warning: scripts/ui/tabs.js: Line 174, E:0110: Line too long (117 characters).
+Warning: scripts/ui/tabs.js: Line 198, E:0110: Line too long (91 characters).
 Warning: scripts/ui/tabs.js: line 73, col 29, Empty block.
 Warning: scripts/ui/tabs.js: line 107, col 13, '$img' is defined but never used.
 Warning: scripts/ui/tabs.js: line 215, col 13, 'key' is defined but never used.
+Warning: scripts/ui/tabs.js:  #1 The '&&' subexpression should be wrapped in parens.
+Warning: scripts/ui/tabs.js:     if (enforce && tabindex === -1 || !visible[tabindex]) { // Line 71, Pos 21
+Warning: scripts/ui/tabs.js:  #2 Empty block.
+Warning: scripts/ui/tabs.js:     if (index === -1) { // Line 73, Pos 29
+Warning: scripts/ui/tabs.js:  #3 Unused '$img'.
+Warning: scripts/ui/tabs.js:     var $img, $tab; // Line 107, Pos 13
+Warning: scripts/ui/tabs.js:  #4 Unexpected '('.
+Warning: scripts/ui/tabs.js:     if (typeof (val) !== 'boolean') { // Line 185, Pos 20
+Warning: scripts/ui/tabs.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tabs.js:     for (key in $menus) { // Line 197, Pos 9
+Warning: scripts/ui/tabs.js:  #6 Unused 'key'.
+Warning: scripts/ui/tabs.js:     var key, index, currentTab; // Line 215, Pos 13
 Warning: scripts/ui/tab_teams.js: > 5 dependencies: 12
 Warning: scripts/ui/tab_teams.js: undocumented: '_changed : function'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function trimName'
@@ -698,6 +2143,13 @@ Warning: scripts/ui/tab_teams.js: undocumented: 'function updateActiveState'
 Warning: scripts/ui/tab_teams.js: undocumented: 'function update'
 Warning: scripts/ui/tab_teams.js: > 10 functions: 38
 Warning: scripts/ui/tab_teams.js: > 400 lines: 717
+Warning: scripts/ui/tab_teams.js: Line 7, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tab_teams.js: Line 15, E:0110: Line too long (177 characters).
+Warning: scripts/ui/tab_teams.js: Line 18, E:0110: Line too long (105 characters).
+Warning: scripts/ui/tab_teams.js: Line 135, E:0110: Line too long (82 characters).
+Warning: scripts/ui/tab_teams.js: Line 168, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tab_teams.js: Line 209, E:0110: Line too long (91 characters).
+Warning: scripts/ui/tab_teams.js: Line 451, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/tab_teams.js: line 15, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_teams.js: line 15, col 84, This function has too many parameters. (10)
 Warning: scripts/ui/tab_teams.js: line 18, col 0, Identifier 'Tab_Teams' is not in camel case.
@@ -743,13 +2195,183 @@ Warning: scripts/ui/tab_teams.js: line 40, col 42, 'i' is defined but never used
 Warning: scripts/ui/tab_teams.js: line 40, col 45, 'name' is defined but never used.
 Warning: scripts/ui/tab_teams.js: line 181, col 16, 'line' is defined but never used.
 Warning: scripts/ui/tab_teams.js: line 403, col 11, 'names' is defined but never used.
+Warning: scripts/ui/tab_teams.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/tab_teams.js:     // TODO combine $anchors, $fileload, $delete and $teamsize // Line 17, Pos 5
+Warning: scripts/ui/tab_teams.js:  #2 Unexpected dangling '_' in '_changed'.
+Warning: scripts/ui/tab_teams.js:     _changed : function () { // Line 26, Pos 5
+Warning: scripts/ui/tab_teams.js:  #3 'updateActiveState' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     updateActiveState(); // Line 27, Pos 7
+Warning: scripts/ui/tab_teams.js:  #4 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.registrationclosed); // Line 43, Pos 44
+Warning: scripts/ui/tab_teams.js:  #5 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.teamdeleted.replace('%s', (teamid + 1))); // Line 59, Pos 63
+Warning: scripts/ui/tab_teams.js:  #6 Unused 'team'.
+Warning: scripts/ui/tab_teams.js:     var teamid, team, $names, Tab_Games, i, name; // Line 40, Pos 17
+Warning: scripts/ui/tab_teams.js:  #7 Unused '$names'.
+Warning: scripts/ui/tab_teams.js:     var teamid, team, $names, Tab_Games, i, name; // Line 40, Pos 23
+Warning: scripts/ui/tab_teams.js:  #8 Unused 'Tab_Games'.
+Warning: scripts/ui/tab_teams.js:     var teamid, team, $names, Tab_Games, i, name; // Line 40, Pos 31
+Warning: scripts/ui/tab_teams.js:  #9 Unused 'i'.
+Warning: scripts/ui/tab_teams.js:     var teamid, team, $names, Tab_Games, i, name; // Line 40, Pos 42
+Warning: scripts/ui/tab_teams.js: #10 Unused 'name'.
+Warning: scripts/ui/tab_teams.js:     var teamid, team, $names, Tab_Games, i, name; // Line 40, Pos 45
+Warning: scripts/ui/tab_teams.js: #11 'updateTemplate' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     updateTemplate(); // Line 171, Pos 5
+Warning: scripts/ui/tab_teams.js: #12 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.teamsnotempty); // Line 184, Pos 39
+Warning: scripts/ui/tab_teams.js: #13 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.registrationclosed); // Line 189, Pos 44
+Warning: scripts/ui/tab_teams.js: #14 'stripregex' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     stripregex = /(^s+|s+$)/g; // Line 193, Pos 5
+Warning: scripts/ui/tab_teams.js: #15 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/(, ?"([^,"])*)""/g, '$1%DBQUOTE%'); // Line 204, Pos 43
+Warning: scripts/ui/tab_teams.js: #16 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/(, ?"([^,"])*),/g, '$1%COMMA%'); // Line 205, Pos 43
+Warning: scripts/ui/tab_teams.js: #17 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)","([^"]*)"$/, '$2,$3,$4'); // Line 209, Pos 50
+Warning: scripts/ui/tab_teams.js: #18 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)","([^"]*)"$/, '$2,$3,$4'); // Line 209, Pos 60
+Warning: scripts/ui/tab_teams.js: #19 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)","([^"]*)"$/, '$2,$3,$4'); // Line 209, Pos 70
+Warning: scripts/ui/tab_teams.js: #20 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)"$/, '$2,$3'); // Line 210, Pos 50
+Warning: scripts/ui/tab_teams.js: #21 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)"$/, '$2,$3'); // Line 210, Pos 60
+Warning: scripts/ui/tab_teams.js: #22 Insecure '^'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)"$/, '$2'); // Line 211, Pos 50
+Warning: scripts/ui/tab_teams.js: #23 Insecure '.'.
+Warning: scripts/ui/tab_teams.js:     lines[i] = lines[i].replace(/^#.*/, ''); // Line 214, Pos 38
+Warning: scripts/ui/tab_teams.js: #24 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tab_teams.js:     for (name in names) { // Line 229, Pos 7
+Warning: scripts/ui/tab_teams.js: #25 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.differentteamsizes); // Line 242, Pos 48
+Warning: scripts/ui/tab_teams.js: #26 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tab_teams.js:     for (names in lines) { // Line 225, Pos 5
+Warning: scripts/ui/tab_teams.js: #27 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.invalidteamsize); // Line 261, Pos 41
+Warning: scripts/ui/tab_teams.js: #28 'createBox' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     createBox(team); // Line 270, Pos 7
+Warning: scripts/ui/tab_teams.js: #29 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tab_teams.js:     for (names in lines) { // Line 266, Pos 5
+Warning: scripts/ui/tab_teams.js: #30 'updateAfterTeamAdd' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     updateAfterTeamAdd(); // Line 272, Pos 5
+Warning: scripts/ui/tab_teams.js: #31 Unused 'line'.
+Warning: scripts/ui/tab_teams.js:     var lines, line, name, names, teamsize, team, i; // Line 181, Pos 16
+Warning: scripts/ui/tab_teams.js: #32 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.filenotfound); // Line 288, Pos 38
+Warning: scripts/ui/tab_teams.js: #33 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.filenotreadable); // Line 291, Pos 41
+Warning: scripts/ui/tab_teams.js: #34 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.fileerror); // Line 296, Pos 35
+Warning: scripts/ui/tab_teams.js: #35 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.loaded); // Line 308, Pos 32
+Warning: scripts/ui/tab_teams.js: #36 Empty block.
+Warning: scripts/ui/tab_teams.js:     } else { // Line 309, Pos 12
+Warning: scripts/ui/tab_teams.js: #37 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.fileabort); // Line 317, Pos 33
+Warning: scripts/ui/tab_teams.js: #38 'FileReader' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     var reader = new FileReader(); // Line 326, Pos 24
+Warning: scripts/ui/tab_teams.js: #39 Redefinition of 'i' from line 358.
+Warning: scripts/ui/tab_teams.js:     var names, i; // Line 375, Pos 18
+Warning: scripts/ui/tab_teams.js: #40 Redefinition of 'i' from line 358.
+Warning: scripts/ui/tab_teams.js:     var names, i; // Line 403, Pos 18
+Warning: scripts/ui/tab_teams.js: #41 Unused 'names'.
+Warning: scripts/ui/tab_teams.js:     var names, i; // Line 403, Pos 11
+Warning: scripts/ui/tab_teams.js: #42 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.registrationclosed); // Line 417, Pos 46
+Warning: scripts/ui/tab_teams.js: #43 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.teamadded.replace('%s', team.id + 1)); // Line 425, Pos 64
+Warning: scripts/ui/tab_teams.js: #44 'createBox' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     createBox(team); // Line 426, Pos 9
+Warning: scripts/ui/tab_teams.js: #45 'updateAfterTeamAdd' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     updateAfterTeamAdd(); // Line 427, Pos 9
+Warning: scripts/ui/tab_teams.js: #46 'updateNewTeam' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     updateNewTeam(); // Line 457, Pos 5
+Warning: scripts/ui/tab_teams.js: #47 'e' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     e.preventDefault(); // Line 485, Pos 9
+Warning: scripts/ui/tab_teams.js: #48 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.namechangeaborted); // Line 564, Pos 45
+Warning: scripts/ui/tab_teams.js: #49 Do not use 'new' for side effects.
+Warning: scripts/ui/tab_teams.js:     new Toast(Strings.namechanged.replace('%s', name)); // Line 566, Pos 59
+Warning: scripts/ui/tab_teams.js: #50 'e' was used before it was defined.
+Warning: scripts/ui/tab_teams.js:     e.preventDefault(); // Line 575, Pos 9
+Warning: scripts/ui/tab_teams.js: #51 Too many errors. (80% scanned).
+Warning: scripts/ui/tab_teams.js:      // Line 575, Pos 9
 Warning: scripts/ui/team.js: > 5 dependencies: 6
 Warning: scripts/ui/team.js: undocumented: 'function'
+Warning: scripts/ui/team.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/team.js: Line 25, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/team.js: Line 90, E:0120: Binary operator should go on previous line "+"
+Warning: scripts/ui/team.js: Line 151, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/team.js: line 12, col 31, This function has too many parameters. (6)
 Warning: scripts/ui/team.js: line 90, col 19, Bad line breaking before '+'.
+Warning: scripts/ui/teammodel.js: Line 4, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/teammodel.js: Line 10, E:0110: Line too long (106 characters).
+Warning: scripts/ui/teammodel.js: Line 48, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/teammodel.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/teammodel.js:     for (index in this.players) { // Line 31, Pos 5
+Warning: scripts/ui/teamview.js: Line 5, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/test/blobs.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/test/blobs.js: Line 21, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/blobs.js: Line 23, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/csv.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/test/csv.js: Line 23, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/csv.js: Line 24, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/indexedlistmodel.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/test/indexedlistmodel.js: Line 18, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/indexedlistmodel.js: Line 21, E:0110: Line too long (108 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 28, E:0110: Line too long (93 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 29, E:0110: Line too long (93 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 30, E:0110: Line too long (93 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 40, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 41, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 42, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 45, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/indexedlistmodel.js: Line 46, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/indexedmodel.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/test/indexedmodel.js: Line 17, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/indexedmodel.js: Line 36, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/test/listmodel.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/test/listmodel.js: Line 17, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/listmodel.js: Line 117, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/test/listmodel.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/test/listmodel.js:     // TODO test the emitted events // Line 15, Pos 7
+Warning: scripts/ui/test/playermodel.js: Line 4, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/test/playermodel.js: Line 17, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/playermodel.js: Line 33, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/test/playermodel.js: Line 47, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/playermodel.js: Line 53, E:0110: Line too long (83 characters).
+Warning: scripts/ui/test/playermodel.js: Line 59, E:0110: Line too long (83 characters).
+Warning: scripts/ui/test/playermodel.js: Line 60, E:0110: Line too long (87 characters).
+Warning: scripts/ui/test/playermodel.js: Line 64, E:0110: Line too long (116 characters).
+Warning: scripts/ui/test/playermodel.js: Line 70, E:0110: Line too long (91 characters).
+Warning: scripts/ui/test/playermodel.js: Line 71, E:0110: Line too long (96 characters).
+Warning: scripts/ui/test/playermodel.js: Line 88, E:0110: Line too long (82 characters).
+Warning: scripts/ui/test/playermodel.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/test/playermodel.js:     // TODO test the emitted events // Line 15, Pos 7
 Warning: scripts/ui/test/tab.js: undocumented: 'clear : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'reset : function'
 Warning: scripts/ui/test/tab.js: undocumented: 'update : function'
+Warning: scripts/ui/test/tab.js: Line 14, E:0110: Line too long (129 characters).
+Warning: scripts/ui/test/tab.js: Line 28, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 30, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 32, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 32, E:0110: Line too long (86 characters).
+Warning: scripts/ui/test/tab.js: Line 33, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 33, E:0110: Line too long (90 characters).
+Warning: scripts/ui/test/tab.js: Line 34, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 34, E:0110: Line too long (90 characters).
+Warning: scripts/ui/test/tab.js: Line 35, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 35, E:0110: Line too long (92 characters).
+Warning: scripts/ui/test/tab.js: Line 36, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 36, E:0110: Line too long (86 characters).
+Warning: scripts/ui/test/tab.js: Line 37, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 37, E:0110: Line too long (82 characters).
+Warning: scripts/ui/test/tab.js: Line 38, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 38, E:0110: Line too long (86 characters).
+Warning: scripts/ui/test/tab.js: Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/tab.js: Line 39, E:0110: Line too long (82 characters).
+Warning: scripts/ui/test/tab.js: Line 50, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_Games' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_History' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 14, col 0, Identifier 'Tab_Ranking' is not in camel case.
@@ -771,7 +2393,25 @@ Warning: scripts/ui/test/tab.js: line 35, col 0, Identifier 'Tab_Settings' is no
 Warning: scripts/ui/test/tab.js: line 36, col 0, Identifier 'Tab_Teams' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 37, col 0, Identifier 'Tab_New' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 38, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/test/tab.js:  #1 Empty block.
+Warning: scripts/ui/test/tab.js:     clear : function () { // Line 43, Pos 31
+Warning: scripts/ui/test/tab.js:  #2 Empty block.
+Warning: scripts/ui/test/tab.js:     reset : function () { // Line 45, Pos 31
+Warning: scripts/ui/test/tab.js:  #3 Empty block.
+Warning: scripts/ui/test/tab.js:     update : function () { // Line 47, Pos 32
+Warning: scripts/ui/test/teammodel.js: Line 17, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/teammodel.js: Line 20, E:0110: Line too long (100 characters).
+Warning: scripts/ui/test/teammodel.js: Line 35, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/test/teammodel.js: Line 39, E:0110: Line too long (89 characters).
+Warning: scripts/ui/test/teammodel.js: Line 40, E:0110: Line too long (129 characters).
+Warning: scripts/ui/test/teammodel.js: Line 43, E:0110: Line too long (84 characters).
+Warning: scripts/ui/test/teammodel.js: Line 44, E:0110: Line too long (93 characters).
+Warning: scripts/ui/test/teammodel.js: Line 51, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/teammodel.js: Line 63, E:0110: Line too long (97 characters).
+Warning: scripts/ui/textview.js: Line 4, E:0200: Invalid JsDoc tag: exports
 Warning: scripts/ui/textview.js: line 42, col 5, 'setText' is not defined.
+Warning: scripts/ui/textview.js:  #1 'setText' was used before it was defined.
+Warning: scripts/ui/textview.js:     setText(''); // Line 42, Pos 5
 Warning: scripts/ui/toast.js: undocumented: 'function getid'
 Warning: scripts/ui/toast.js: undocumented: 'toastfn = function'
 Warning: scripts/ui/toast.js: undocumented: 'function createCloseFunction'
@@ -781,11 +2421,33 @@ Warning: scripts/ui/toast.js: undocumented: 'function getTransitionDuration'
 Warning: scripts/ui/toast.js: undocumented: 'toastfn = function'
 Warning: scripts/ui/toast.js: undocumented: 'toastfn = function'
 Warning: scripts/ui/toast.js: undocumented: 'fadeoutfn = function'
+Warning: scripts/ui/toast.js: Line 11, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/toast.js: Line 41, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/toast.js: Line 79, E:0110: Line too long (101 characters).
+Warning: scripts/ui/toast.js: Line 96, E:0110: Line too long (85 characters).
 Warning: scripts/ui/toast.js: line 183, col 9, Do not use 'new' for side effects.
 Warning: scripts/ui/toast.js: line 77, col 18, 'transition' is defined but never used.
 Warning: scripts/ui/toast.js: line 77, col 30, 'duration' is defined but never used.
 Warning: scripts/ui/toast.js: line 107, col 32, 'seconds' is defined but never used.
 Warning: scripts/ui/toast.js: line 133, col 28, '$br' is defined but never used.
+Warning: scripts/ui/toast.js:  #1 Redefinition of 'transition' from line 77.
+Warning: scripts/ui/toast.js:     var prefix, prefixes, transition; // Line 82, Pos 29
+Warning: scripts/ui/toast.js:  #2 Unexpected TODO comment.
+Warning: scripts/ui/toast.js:     // TODO remove prefixes from this file // Line 84, Pos 9
+Warning: scripts/ui/toast.js:  #3 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/toast.js:     for (prefix in prefixes) { // Line 88, Pos 7
+Warning: scripts/ui/toast.js:  #4 Insecure '^'.
+Warning: scripts/ui/toast.js:     return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, '$1')); // Line 101, Pos 43
+Warning: scripts/ui/toast.js:  #5 Insecure '.'.
+Warning: scripts/ui/toast.js:     return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, '$1')); // Line 101, Pos 59
+Warning: scripts/ui/toast.js:  #6 Unused '$br'.
+Warning: scripts/ui/toast.js:     var $toasts, $div, $br; // Line 133, Pos 28
+Warning: scripts/ui/toast.js:  #7 Do not use 'new' for side effects.
+Warning: scripts/ui/toast.js:     new Toast(toast.str, toast.seconds); // Line 183, Pos 44
+Warning: scripts/ui/toast.js:  #8 Unused 'transition'.
+Warning: scripts/ui/toast.js:     var $hidden, transition, duration, id; // Line 77, Pos 18
+Warning: scripts/ui/toast.js:  #9 Unused 'duration'.
+Warning: scripts/ui/toast.js:     var $hidden, transition, duration, id; // Line 77, Pos 30
 Warning: scripts/ui/tournaments.js: undocumented: 'function createTournament'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.getStartRank = function'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.numTeamsLeft = function'
@@ -805,18 +2467,47 @@ Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.toBlob = function
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.fromBlob = function'
 Warning: scripts/ui/tournaments.js: undocumented: 'Tournaments.reset = function'
 Warning: scripts/ui/tournaments.js: > 10 functions: 20
+Warning: scripts/ui/tournaments.js: Line 5, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/tournaments.js: Line 11, E:0110: Line too long (146 characters).
+Warning: scripts/ui/tournaments.js: Line 71, E:0110: Line too long (117 characters).
+Warning: scripts/ui/tournaments.js: Line 137, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/tournaments.js: Line 236, E:0110: Line too long (100 characters).
+Warning: scripts/ui/tournaments.js: Line 249, E:0110: Line too long (82 characters).
+Warning: scripts/ui/tournaments.js: Line 250, E:0110: Line too long (103 characters).
+Warning: scripts/ui/tournaments.js: Line 281, E:0110: Line too long (88 characters).
+Warning: scripts/ui/tournaments.js: Line 288, E:0110: Line too long (89 characters).
+Warning: scripts/ui/tournaments.js: Line 329, E:0121: Illegal comma at end of object literal
 Warning: scripts/ui/tournaments.js: line 47, col 22, Use '===' to compare with 'undefined'.
 Warning: scripts/ui/tournaments.js: line 62, col 20, Use '===' to compare with 'undefined'.
 Warning: scripts/ui/tournaments.js: line 181, col 38, Blocks are nested too deeply. (4)
 Warning: scripts/ui/tournaments.js: line 259, col 58, Use '!==' to compare with 'undefined'.
 Warning: scripts/ui/tournaments.js: line 280, col 49, Use '!==' to compare with '0'.
 Warning: scripts/ui/tournaments.js: line 12, col 33, 'globalranking' is defined but never used.
+Warning: scripts/ui/tournaments.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tournaments.js:     for (id in tournaments) { // Line 70, Pos 5
+Warning: scripts/ui/tournaments.js:  #2 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tournaments.js:     for (id in tournaments) { // Line 93, Pos 5
+Warning: scripts/ui/tournaments.js:  #3 Redefinition of 'globalranking' from line 12.
+Warning: scripts/ui/tournaments.js:     var newtournament, i, teams, startteam, globalranking; // Line 103, Pos 45
+Warning: scripts/ui/tournaments.js:  #4 Unexpected TODO comment.
+Warning: scripts/ui/tournaments.js:     // TODO verify parent number type / undefined // Line 129, Pos 7
+Warning: scripts/ui/tournaments.js:  #5 Unused 'globalranking'.
+Warning: scripts/ui/tournaments.js:     var Tournaments, tournaments, globalranking; // Line 12, Pos 33
+Warning: scripts/ui/type.js: Line 8, E:0200: Invalid JsDoc tag: exports
+Warning: scripts/ui/type.js: Line 22, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/type.js: Line 42, E:0200: Invalid JsDoc tag: returns
+Warning: scripts/ui/type.js: Line 75, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/type.js: line 29, col 16, Empty array elements require elision=true.
+Warning: scripts/ui/type.js:  #1 Unexpected ','.
+Warning: scripts/ui/type.js:     types = [ 1, , {}, '', undefined, null, new Date(), [], /asd/, true, // Line 29, Pos 16
+Warning: scripts/ui/type.js:  #2 Empty block.
+Warning: scripts/ui/type.js:     function () { // Line 33, Pos 15
 Warning: scripts/ui/update.js: undocumented: 'Update = function'
 Warning: scripts/ui/update.js: undocumented: 'function closeDownloadToast'
 Warning: scripts/ui/update.js: undocumented: 'function setCached'
 Warning: scripts/ui/update.js: undocumented: 'function cacheStatus'
 Warning: scripts/ui/update.js: undocumented: 'function cacheError'
+Warning: scripts/ui/update.js: Line 86, E:0110: Line too long (123 characters).
 Warning: scripts/ui/update.js: line 46, col 9, Do not use 'new' for side effects.
 Warning: scripts/ui/update.js: line 65, col 7, Do not use 'new' for side effects.
 Warning: scripts/ui/update.js: line 66, col 59, Expected a 'break' statement before 'case'.
@@ -829,4 +2520,30 @@ Warning: scripts/ui/update.js: line 73, col 12, 'downloadToast' is not defined.
 Warning: scripts/ui/update.js: line 74, col 9, 'downloadToast' is not defined.
 Warning: scripts/ui/update.js: line 14, col 25, 'downloadToasts' is defined but never used.
 Warning: scripts/ui/update.js: line 84, col 12, 'cacheError' is defined but never used.
+Warning: scripts/ui/update.js:  #1 'downloadToast' was used before it was defined.
+Warning: scripts/ui/update.js:     downloadToast = undefined; // Line 16, Pos 3
+Warning: scripts/ui/update.js:  #2 'cacheStatus' was used before it was defined.
+Warning: scripts/ui/update.js:     cacheStatus(); // Line 19, Pos 5
+Warning: scripts/ui/update.js:  #3 'downloadToast' was used before it was defined.
+Warning: scripts/ui/update.js:     if (downloadToast) { // Line 33, Pos 9
+Warning: scripts/ui/update.js:  #4 'downloadToast' was used before it was defined.
+Warning: scripts/ui/update.js:     downloadToast.close(); // Line 34, Pos 7
+Warning: scripts/ui/update.js:  #5 'downloadToast' was used before it was defined.
+Warning: scripts/ui/update.js:     downloadToast = undefined; // Line 35, Pos 7
+Warning: scripts/ui/update.js:  #6 Do not use 'new' for side effects.
+Warning: scripts/ui/update.js:     new Toast(Strings.nomanifest, Toast.INFINITE); // Line 46, Pos 54
+Warning: scripts/ui/update.js:  #7 Do not use 'new' for side effects.
+Warning: scripts/ui/update.js:     new Toast(Strings.updateavailable, Toast.INFINITE); // Line 65, Pos 57
+Warning: scripts/ui/update.js:  #8 Missing 'break' after 'case'.
+Warning: scripts/ui/update.js:     case appCache.IDLE: // Line 67, Pos 5
+Warning: scripts/ui/update.js:  #9 'downloadToast' was used before it was defined.
+Warning: scripts/ui/update.js:     if (!downloadToast) { // Line 73, Pos 12
+Warning: scripts/ui/update.js: #10 'downloadToast' was used before it was defined.
+Warning: scripts/ui/update.js:     downloadToast = new Toast(Strings.updatedownloading, Toast.INFINITE); // Line 74, Pos 9
+Warning: scripts/ui/update.js: #11 Do not use 'new' for side effects.
+Warning: scripts/ui/update.js:     new Toast(Strings.updatefailed, Toast.LONG); // Line 85, Pos 48
+Warning: scripts/ui/update.js: #12 Unused 'downloadToasts'.
+Warning: scripts/ui/update.js:     var Update, appCache, downloadToasts; // Line 14, Pos 25
+Warning: scripts/ui/update.js: #13 Unused 'cacheError'.
+Warning: scripts/ui/update.js:     function cacheError () { // Line 84, Pos 12
 ```

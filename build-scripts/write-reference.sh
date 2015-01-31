@@ -328,9 +328,21 @@ createrrorpage(){
 EOF
 }
 
+rungjslint(){
+    gjslint "$1" | grep 'E:' | grep -v 'E:000[0-9]' | grep -v 'E:0213' | grep -v 'E:0216' | while IFS= read line; do
+        warning "$1: $line"
+    done
+}
+
 runjshint(){
-    jshint $@ | while IFS= read line; do
-        grep :  &>/dev/null <<< "$line" && warning "$line"
+    jshint --config=.jshintrc "$1" | grep : | while IFS= read line; do
+        warning "$line"
+    done
+}
+
+runjslint(){
+    jslint --config=.jslintrc "$1" | grep -v '^\s*$' | grep -v "$1" | while IFS= read line; do
+        warning "$1: $line"
     done
 }
 
@@ -343,7 +355,9 @@ processscript(){
         parsedependencies $script
         parsefunctions $script
         printscriptmetrics $script
+        rungjslint $script
         runjshint $script
+        runjslint $script
     } >> $docfile
     convertMD2HTML $script
 }
