@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Test %VERSION%</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <style>
+    </style>
+  </head>
+
+  <body>
+    <form>
+      <input class="checkbox" type="checkbox" checked="checked"/>
+      Checkbox
+    </form>
+
+    Value: <span class="checkboxvalue"></span>
+
+    <br>
+
+    <button class="false">
+      false
+    </button>
+    <button class="true">
+      true
+    </button>
+  </body>
+
+  <script src="../scripts/lib/require.js"></script>
+  <script>
+    require.config({
+      baseUrl : '../scripts',
+    });
+
+    require(['common', 'lib/jquery'], function(Common, undefined) {
+      var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
+
+      ValueModel = Common('ui/valuemodel');
+      ValueView = Common('ui/valueview');
+      CheckboxView = Common('ui/checkboxview');
+
+      $(function($) {
+        var value, $view;
+
+        value = new ValueModel();
+        $view = $('input.checkbox');
+        new CheckboxView(value, $view);
+
+        $view = $('.checkboxvalue');
+        new ValueView(value, $view);
+
+        $('button.false').click(function() {
+          value.set(false);
+        });
+
+        $('button.true').click(function() {
+          value.set(true);
+        });
+
+      });
+    });
+  </script>
+
+</html>

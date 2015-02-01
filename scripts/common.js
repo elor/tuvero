@@ -68,6 +68,8 @@ define([
   'ui/backgroundscripts/initviews',
   'ui/boxcontroller',
   'ui/boxview',
+  'ui/checkboxcontroller',
+  'ui/checkboxview',
   'ui/controller',
   'ui/csver',
   'ui/data/swissperms',

@@ -492,9 +492,9 @@ Warning: scripts/backend/tournament.js: > 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: > 5 dependencies: 94
+Warning: scripts/common.js: > 5 dependencies: 96
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 134, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 136, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -566,6 +566,7 @@ Warning: scripts/ui/boxview.js:  #2 Expected an assignment or function call and 
 Warning: scripts/ui/boxview.js:     $box[0].offsetHeight; // Line 86, Pos 7
 Warning: scripts/ui/boxview.js:  #3 Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/boxview.js:     $box[0].offsetHeight; // Line 90, Pos 5
+Warning: scripts/ui/checkboxview.js: undocumented: 'function'
 Warning: scripts/ui/csver.js: undocumented: 'toCSV: function'
 Warning: scripts/ui/csver.js:  #1 Empty block.
 Warning: scripts/ui/csver.js:     toCSV: function() { // Line 12, Pos 25

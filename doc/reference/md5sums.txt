@@ -26,7 +26,7 @@ ebcd319ca6c64012f0a0bb9efadd05cd  scripts/backend/swisstournament.js
 57d624f7d25de9724295b7269b30dcb4  scripts/backend/test/vector.js
 23b03020584f8f421305ae08a46c7c40  scripts/backend/tournament.js
 958cb8dcb33ce44f649f2b5e2d6a2943  scripts/backend/vector.js
-56231431746ad61115d7095cf3d62ec9  scripts/common.js
+34ffc0aa61e857c3fad7f542d5cd2713  scripts/common.js
 177e37dad10e86398d2e3eecd12d6435  scripts/main.js
 61edf4ea062b8d66bdd21c437eca9976  scripts/test.js
 8a41e9c926ae3b1d04ee57d0b617faae  scripts/ui/alltabs.js
@@ -40,6 +40,8 @@ f6807709f3fef390538c7adefdd030b7  scripts/ui/backgroundscripts/reset.js
 366b705a09b5d6ebc82f832aae28c787  scripts/ui/backgroundscripts/updatetab.js
 3846c4a4ba870e1246e1ed49b3c96a41  scripts/ui/boxcontroller.js
 2ad7fa9e7fb2aa9d33fd1cf1f6f51f07  scripts/ui/boxview.js
+01fb7ceadc8432015d744b963f086dcb  scripts/ui/checkboxcontroller.js
+54266721c979b611c84a88337d7e986a  scripts/ui/checkboxview.js
 176450c4be8d70c2d56951a68e1431a7  scripts/ui/controller.js
 52e4ac370816bd0caf8f67379d1b0b3b  scripts/ui/csver.js
 b7b2f26aaa1d756a59e6d8d59fecf4b1  scripts/ui/data/swissperms.js

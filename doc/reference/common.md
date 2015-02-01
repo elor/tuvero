@@ -46,6 +46,8 @@ Do not attempt manual changes
 * <a href="ui/backgroundscripts/updatetab.html">ui/backgroundscripts/updatetab</a>
 * <a href="ui/boxcontroller.html">ui/boxcontroller</a>
 * <a href="ui/boxview.html">ui/boxview</a>
+* <a href="ui/checkboxcontroller.html">ui/checkboxcontroller</a>
+* <a href="ui/checkboxview.html">ui/checkboxview</a>
 * <a href="ui/controller.html">ui/controller</a>
 * <a href="ui/csver.html">ui/csver</a>
 * <a href="ui/data/swissperms.html">ui/data/swissperms</a>
@@ -117,6 +119,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 137 Lines
-* 2860 Bytes
+* 139 Lines
+* 2908 Bytes
 
