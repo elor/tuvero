@@ -70,6 +70,7 @@ Do not attempt manual changes
 * <a href="ui/opts.html">ui/opts</a>
 * <a href="ui/playermodel.html">ui/playermodel</a>
 * <a href="ui/players.html">ui/players</a>
+* <a href="ui/preregcloserview.html">ui/preregcloserview</a>
 * <a href="ui/ranking.html">ui/ranking</a>
 * <a href="ui/savestate.html">ui/savestate</a>
 * <a href="ui/shared.html">ui/shared</a>
@@ -116,6 +117,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 136 Lines
-* 2835 Bytes
+* 137 Lines
+* 2860 Bytes
 

@@ -41,6 +41,9 @@ define(
        */
       NewTeamView.prototype.resetNames = function() {
         this.$players.val('');
+        if (this.$players.typeahead) {
+          this.$players.typeahead('val', '');
+        }
       };
 
       /**

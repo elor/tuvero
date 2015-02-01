@@ -492,9 +492,9 @@ Warning: scripts/backend/tournament.js: > 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: > 5 dependencies: 93
+Warning: scripts/common.js: > 5 dependencies: 94
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 133, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 134, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -677,7 +677,7 @@ Warning: scripts/ui/newteamcontroller.js: undocumented: 'function'
 Warning: scripts/ui/newteamcontroller.js:  #1 Unnecessary 'else' after disruption.
 Warning: scripts/ui/newteamcontroller.js:     } else { // Line 52, Pos 13
 Warning: scripts/ui/newteamview.js: undocumented: 'function'
-Warning: scripts/ui/newteamview.js: Line 70, E:0110: Line too long (89 characters).
+Warning: scripts/ui/newteamview.js: Line 73, E:0110: Line too long (89 characters).
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
@@ -703,6 +703,9 @@ Warning: scripts/ui/players.js:  #4 Unexpected '('.
 Warning: scripts/ui/players.js:     if (typeof (name) === 'string' && name.length > 0) { // Line 96, Pos 16
 Warning: scripts/ui/players.js:  #5 Unexpected '('.
 Warning: scripts/ui/players.js:     if (typeof (name) === 'string' && name.length > 0) { // Line 110, Pos 16
+Warning: scripts/ui/preregcloserview.js: undocumented: 'function PreregCloserView'
+Warning: scripts/ui/preregcloserview.js: undocumented: 'PreregCloserView.prototype.updateStatus = function'
+Warning: scripts/ui/preregcloserview.js: undocumented: 'PreregCloserView.prototype.onresize = function'
 Warning: scripts/ui/ranking.js: undocumented: 'function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
 Warning: scripts/ui/ranking.js: undocumented: 'makeline = function'
@@ -1663,18 +1666,19 @@ Warning: scripts/ui/team.js: line 90, col 19, Bad line breaking before '+'.
 Warning: scripts/ui/teammodel.js: Line 10, E:0110: Line too long (103 characters).
 Warning: scripts/ui/teammodel.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
 Warning: scripts/ui/teammodel.js:     for (index in this.players) { // Line 31, Pos 5
-Warning: scripts/ui/teamstab.js: > 5 dependencies: 10
-Warning: scripts/ui/teamstab.js: Line 8, E:0110: Line too long (88 characters).
-Warning: scripts/ui/teamstab.js: line 8, col 65, This function has too many parameters. (8)
-Warning: scripts/ui/teamstab.js: line 61, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/teamstab.js: > 5 dependencies: 11
+Warning: scripts/ui/teamstab.js: undocumented: 'function'
+Warning: scripts/ui/teamstab.js: Line 9, E:0110: Line too long (81 characters).
+Warning: scripts/ui/teamstab.js: line 10, col 13, This function has too many parameters. (9)
+Warning: scripts/ui/teamstab.js: line 67, col 9, Do not use 'new' for side effects.
 Warning: scripts/ui/teamstab.js:  #1 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 13, Pos 58
+Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 15, Pos 62
 Warning: scripts/ui/teamstab.js:  #2 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 15, Pos 45
+Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 17, Pos 49
 Warning: scripts/ui/teamstab.js:  #3 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 30, Pos 62
+Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 32, Pos 66
 Warning: scripts/ui/teamstab.js:  #4 Do not use 'new' for side effects.
-Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 61, Pos 23
+Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 67, Pos 27
 Warning: scripts/ui/test/emitter.js: undocumented: 'function'
 Warning: scripts/ui/test/emitter.js: Line 19, E:0110: Line too long (83 characters).
 Warning: scripts/ui/test/emitter.js: Line 111, E:0110: Line too long (96 characters).

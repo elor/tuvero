@@ -13,6 +13,7 @@
 * lib/extend
 * <a href="./listview.html">./listview</a>
 * <a href="./newteamview.html">./newteamview</a>
+* <a href="./preregcloserview.html">./preregcloserview</a>
 * <a href="./state_new.html">./state_new</a>
 * <a href="./teamsizeview.html">./teamsizeview</a>
 * <a href="./teamview.html">./teamview</a>
@@ -22,7 +23,11 @@
 
 ## Functions
 
-###   function TeamsTab($tab)
+###     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
+
+---
+
+###       function TeamsTab($tab)
 represents a whole team tab
 
 TODO write a TabView superclass with common functions
@@ -36,7 +41,7 @@ the tab DOM element
 ---
 
 
-###   TeamsTab.prototype.init = function()
+###       TeamsTab.prototype.init = function()
 initialize the tab functionality
 
 TODO maybe split it into multiple autodetected functions?
@@ -45,6 +50,6 @@ TODO maybe split it into multiple autodetected functions?
 
 ## Metrics
 
-* 65 Lines
-* 1693 Bytes
+* 71 Lines
+* 2101 Bytes
 

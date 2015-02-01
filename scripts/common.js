@@ -92,6 +92,7 @@ define([
   'ui/opts',
   'ui/playermodel',
   'ui/players',
+  'ui/preregcloserview',
   'ui/ranking',
   'ui/savestate',
   'ui/shared',

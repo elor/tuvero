@@ -37,12 +37,11 @@
 
 	* scripts/ui/teamstab.js: using LengthView to show number of registrations
 	using TeamSizeView to change the team size
+	using PreregCloserView added to disable team size changes
 
 	* test/teamentry.html: testing LengthView for number of registrations
 
 	* scripts/ui/savestate.js: saving the state when a team has been added or removed
-
-	* scripts/ui/statemodel.js: teamsize field added
 
 	* scripts/ui/teamsizecontroller.js: TeamSizeController for processing teamsize button clicks
 
@@ -83,6 +82,9 @@
 	properly ignoring disabled input fields
 
 	* scripts/ui/newteamview.js: enabling/disabling input fields according to team size
+	twitter-typeahead reset logic added
+
+	* scripts/ui/preregcloserview.js: PreregCloserView added to disable preregistration DOM elements
 
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

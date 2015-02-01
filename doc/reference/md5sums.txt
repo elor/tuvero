@@ -26,7 +26,7 @@ ebcd319ca6c64012f0a0bb9efadd05cd  scripts/backend/swisstournament.js
 57d624f7d25de9724295b7269b30dcb4  scripts/backend/test/vector.js
 23b03020584f8f421305ae08a46c7c40  scripts/backend/tournament.js
 958cb8dcb33ce44f649f2b5e2d6a2943  scripts/backend/vector.js
-6dc95964c655049a20f0b0025763b368  scripts/common.js
+56231431746ad61115d7095cf3d62ec9  scripts/common.js
 177e37dad10e86398d2e3eecd12d6435  scripts/main.js
 61edf4ea062b8d66bdd21c437eca9976  scripts/test.js
 8a41e9c926ae3b1d04ee57d0b617faae  scripts/ui/alltabs.js
@@ -59,11 +59,12 @@ cae6f6a271ad2a4a6547c5e5bac5e629  scripts/ui/history.js
 e0c052603748bee09f5187f444711772  scripts/ui/listview.js
 f003b0ef7253e6c4fb59f0414156d7e7  scripts/ui/model.js
 3931e701dc893981d1baf44868ae1fab  scripts/ui/newteamcontroller.js
-517f114b9781c628668258ef4028a7c7  scripts/ui/newteamview.js
+4455ff99045d30ed78d5dc7840cb0981  scripts/ui/newteamview.js
 1ec22de4269596aa62c75af6dfe8a6ab  scripts/ui/options.js
 993dff13c59b2dee9345cf87f11900c1  scripts/ui/opts.js
 c8ae5c7d764fe3d7c6cfdcb8fea4550f  scripts/ui/playermodel.js
 7ddddb3fb3a19843748306ab8c0ac52e  scripts/ui/players.js
+3ae731a6e341d82fbb0fdf3f49e049c9  scripts/ui/preregcloserview.js
 9315a81e64e781f52ae0af7238fb352c  scripts/ui/ranking.js
 e59697092d934e99835e54be56672686  scripts/ui/savestate.js
 b266cc50457f527d29f67931ad198285  scripts/ui/shared.js
@@ -89,7 +90,7 @@ c2cd971613c6b6df4b351b2ec04f0ca6  scripts/ui/tabs.js
 91de784d8410090fe34aed0c5e2358df  scripts/ui/teammodel.js
 87ac5ac51a9bb2e28e0e776bbe785580  scripts/ui/teamsizecontroller.js
 a4f6e308e88368734c3143e3f12c6b6b  scripts/ui/teamsizeview.js
-1c998442b616bc40d3a42453c0576cd2  scripts/ui/teamstab.js
+e2cd40f1f08a62a609b34d270dbef2a4  scripts/ui/teamstab.js
 5fb5398f927bd01847a315557e754672  scripts/ui/teamview.js
 f10706d77dacad451266b94571910f86  scripts/ui/templateview.js
 a5446a2ee57cf5ec59a652e65e2a2eeb  scripts/ui/test/blobs.js
