@@ -60,7 +60,7 @@ cae6f6a271ad2a4a6547c5e5bac5e629  scripts/ui/history.js
 f003b0ef7253e6c4fb59f0414156d7e7  scripts/ui/model.js
 3931e701dc893981d1baf44868ae1fab  scripts/ui/newteamcontroller.js
 1de1250b8170c9dd42b862281e7df58e  scripts/ui/newteamview.js
-1ec22de4269596aa62c75af6dfe8a6ab  scripts/ui/options.js
+32f6013694a60358fa6a1cd861bbbdb7  scripts/ui/options.js
 993dff13c59b2dee9345cf87f11900c1  scripts/ui/opts.js
 c8ae5c7d764fe3d7c6cfdcb8fea4550f  scripts/ui/playermodel.js
 7ddddb3fb3a19843748306ab8c0ac52e  scripts/ui/players.js

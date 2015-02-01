@@ -1,13 +1,15 @@
 /**
  * Options object, which contains options such as database keys, points, etc.
  *
+ * @deprecated will be replaced with a new OptionsModel class or something
+ *
  * @return Options
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define(function() {
+define(['./state_new'], function(State) {
   var Options, Default;
 
   Options = {};
@@ -22,13 +24,13 @@ define(function() {
     // local : {},
     dbname: 'boulestournament',
     dbplayername: 'players',
-    roundtries: 20,
-    // tournament-specific
-    // tournament : {},
-    teamsize: 3
+    roundtries: 20
+  // tournament-specific
+  // tournament : {},
   };
 
   Options.toBlob = function() {
+    Options.teamsize = State.teamsize.get();
     return JSON.stringify(Options);
   };
 
@@ -45,10 +47,11 @@ define(function() {
 
     // reset everything
     for (key in opts) {
-      if (typeof (opts[key]) !== 'function') {
-        Options[key] = opts[key];
-      }
+      Options[key] = opts[key];
     }
+
+    State.teamsize.set(Options.teamsize);
+    delete Options.teamsize;
   };
 
   Options.reset = function() {

@@ -681,6 +681,8 @@ Warning: scripts/ui/newteamview.js: Line 74, E:0110: Line too long (89 character
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.fromBlob = function'
 Warning: scripts/ui/options.js: undocumented: 'Options.reset = function'
+Warning: scripts/ui/options.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/options.js:     for (key in opts) { // Line 49, Pos 5
 Warning: scripts/ui/opts.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/opts.js:     * TODO rename to further reduce naming confusion // Line 5, Pos 49
 Warning: scripts/ui/players.js: undocumented: 'function trimName'
