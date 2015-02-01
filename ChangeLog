@@ -3,6 +3,7 @@
 	* names.txt: Paraboule added
 
 	* scripts/ui/listview.js: now a subclass of TemplateView
+	onreset/reset logic bug fixed
 
 	* scripts/ui/templateview.js: TemplateView integrated
 

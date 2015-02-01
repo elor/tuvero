@@ -35,7 +35,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    * reset to an empty state
    */
   ListView.prototype.reset = function() {
-    while (this.length > 0) {
+    while (this.subviews.length > 0) {
       this.removeItem(0);
     }
   };
@@ -130,6 +130,13 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    */
   ListView.prototype.onremove = function(model, event, data) {
     this.removeItem(data.id);
+  };
+
+  /**
+   * Callback function, event emitted by list.clear()
+   */
+  ListView.prototype.onreset = function() {
+    this.reset();
   };
 
   return ListView;
