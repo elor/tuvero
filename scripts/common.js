@@ -93,6 +93,7 @@ define([
   'ui/playermodel',
   'ui/players',
   'ui/ranking',
+  'ui/savestate',
   'ui/shared',
   'ui/splash',
   'ui/state',
