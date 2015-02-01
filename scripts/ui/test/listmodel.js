@@ -15,21 +15,49 @@ define(function() {
     // TODO test the emitted events
 
     QUnit.test('ListModel tests', function() {
-      var list, obj, i, ret, res;
+      var list, obj, i, ret, res, listener;
+
+      listener = {
+        reset: function() {
+          listener.length = 0;
+          listener.insertions = 0;
+          listener.removals = 0;
+        },
+        onresize: function(emitter) {
+          listener.length = emitter.length;
+        },
+        oninsert: function() {
+          listener.insertions += 1;
+        },
+        onremove: function() {
+          listener.removals += 1;
+        },
+        emitters: []
+      };
+      listener.reset();
 
       list = new ListModel();
+      list.registerListener(listener);
 
       QUnit.equal(list.length, 0, 'initial size is 0');
       QUnit.deepEqual(list.asArray(), [], 'asArray returns empty array');
 
       list.push(2);
       QUnit.deepEqual(list.asArray(), [2], 'first push');
+      QUnit.equal(list.length, 1, 'size after first push is 1');
+      QUnit.equal(listener.length, 1, 'resize event fired on push');
+      QUnit.equal(listener.insertions, 1, 'insert event fired on push');
 
       list.push(4);
       QUnit.deepEqual(list.asArray(), [2, 4], 'second push');
+      QUnit.equal(list.length, 2, 'size after second push is 2');
+      QUnit.equal(listener.length, 2, 'resize event fired on push');
 
       list.insert(0, 1);
       QUnit.deepEqual(list.asArray(), [1, 2, 4], 'insert at front');
+      QUnit.equal(list.length, 3, 'size after insert is 3');
+      QUnit.equal(listener.length, 3, 'resize event fired on insert');
+      QUnit.equal(listener.insertions, 3, 'insert event fired on insert');
 
       list.insert(3, 5);
       QUnit.deepEqual(list.asArray(), [1, 2, 4, 5], 'insert at end');
@@ -38,6 +66,8 @@ define(function() {
       QUnit.deepEqual(list.asArray(), [1, 2, 3, 4, 5], 'insert inbetween');
 
       QUnit.equal(list.length, 5, 'length after all inserts');
+      QUnit.equal(listener.insertions, 5,
+          'number of fired insert events matches number of insertions');
 
       QUnit.equal(list.get(0), 1, 'get 1');
       QUnit.equal(list.get(1), 2, 'get 2');
@@ -59,10 +89,13 @@ define(function() {
       QUnit.equal(list.remove(0), 1, 'remove returns the removed object');
       QUnit.deepEqual(list.asArray(), [2, 3, 4, 5], 'remove at front');
       QUnit.equal(list.length, 4, 'length after remove');
+      QUnit.equal(listener.length, 4, 'resize event fired on remove');
+      QUnit.equal(listener.removals, 1, 'remove event fired on remove');
 
-      QUnit.equal(list.remove(3), 5, 'remove returns the removed object');
-      QUnit.deepEqual(list.asArray(), [2, 3, 4], 'remove at back');
+      QUnit.equal(list.pop(3), 5, 'pop returns the removed object');
+      QUnit.deepEqual(list.asArray(), [2, 3, 4], 'pop (remove at back)');
       QUnit.equal(list.length, 3, 'length after remove');
+      QUnit.equal(listener.removals, 2, 'remove event fired on pop');
 
       QUnit.equal(list.remove(1), 3, 'remove returns the removed object');
       QUnit.deepEqual(list.asArray(), [2, 4], 'remove inbetween');
@@ -77,13 +110,24 @@ define(function() {
       QUnit.equal(list.length, 2, 'set does not change length');
       QUnit.deepEqual(list.asArray(), [2, 123],
           'list.set actually sets the value');
+      QUnit.equal(listener.length, 2,
+          'resize event balanced on set() (may have been fired twice)');
+
+      listener.reset();
 
       QUnit.equal(list.set(123, 321), undefined,
           "set out of bounds doesn't to anything");
       QUnit.deepEqual(list.asArray(), [2, 123],
           "set out of bounds really doesn't to anything");
+      QUnit.equal(listener.insertions, 0,
+          "set out of bounds doesn't fire insert event");
+      QUnit.equal(listener.removals, 0,
+          "set out of bounds doesn't fire remove event");
 
       list.clear();
+      QUnit.equal(list.length, 0, 'list length is 0 after clear');
+      QUnit.equal(listener.length, 0, 'resize event fired on clear)');
+      QUnit.equal(listener.removals, 0, "clear doesn't fire remove events");
 
       list.push(4);
       list.push(3);
@@ -121,7 +165,7 @@ define(function() {
 
       QUnit.equal(list.get(0), obj,
           'objects are directly referenced, not copied');
-      QUnit.equal(list.pop(), obj, 'pop returns the popped object');
+      QUnit.equal(list.pop(), obj, 'pop returns the popped object directly');
 
       QUnit.equal(list.length, 0, 'popped size is 0');
       QUnit.deepEqual(list.asArray(), [],

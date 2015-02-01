@@ -15,6 +15,10 @@ define(['lib/extend', './listener'], function(extend, Listener) {
     this.listeners = [];
   }
   extend(Emitter, Listener);
+  Emitter.prototype.EVENTS = {
+    'update': true,
+    'reset': true
+  }; // Default Events
 
   // TODO somehow restrict the events that can be emitted. This has to be
   // visible to the user (i.e. programmers)!
@@ -23,8 +27,8 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    * Emits an event to all registered listeners by calling the callback
    * functions of format 'on'+event, if available
    *
-   * The callback functions' parameters are the emitter (this) and the event
-   * string (without 'on'), in this order.
+   * The callback functions' parameters are the emitter (this), the event string
+   * (without 'on') and an optional data object, in this order.
    *
    * @param event
    *          a string containing the name of the event. Callback functions need
@@ -38,6 +42,11 @@ define(['lib/extend', './listener'], function(extend, Listener) {
 
     success = false;
 
+    if (!this.validEvent(event)) {
+      console.error('Emitter: unspecified event type: ' + event);
+      return false;
+    }
+
     this.listeners.map(function(listener) {
       if (listener['on' + event]) {
         listener['on' + event].call(listener, this, event, data);
@@ -46,6 +55,17 @@ define(['lib/extend', './listener'], function(extend, Listener) {
     }, this);
 
     return success;
+  };
+
+  /**
+   * validate the event type
+   *
+   * @param event
+   *          an event string, e.g. 'update'
+   * @returns true if the event type is defined, false otherwise
+   */
+  Emitter.prototype.validEvent = function(event) {
+    return this.EVENTS && !!this.EVENTS[event];
   };
 
   /**

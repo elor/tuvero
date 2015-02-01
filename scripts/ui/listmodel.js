@@ -21,6 +21,12 @@ define(['lib/extend', './model'], function(extend, Model) {
     this.registerListener(this);
   }
   extend(ListModel, Model);
+  ListModel.prototype.EVENTS = {
+    'reset': true,
+    'insert': true,
+    'remove': true,
+    'resize': true
+  };
 
   /**
    * push() function, which appends an object to the end of the list
@@ -46,7 +52,7 @@ define(['lib/extend', './model'], function(extend, Model) {
    * remove the last element of the array and returns it
    *
    * @return the previously last element of the array, which has been removed
-   *          during this function call
+   *         during this function call
    */
   ListModel.prototype.pop = function() {
     var object;
@@ -190,6 +196,7 @@ define(['lib/extend', './model'], function(extend, Model) {
    */
   ListModel.prototype.updateLength = function() {
     this.length = this.list.length;
+    this.emit('resize');
   };
 
   /**

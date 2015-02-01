@@ -7,11 +7,14 @@
 	* scripts/ui/templateview.js: TemplateView integrated
 
 	* scripts/ui/emitter.js: Emitter is subclass of Listener
+	prototype.EVENTS added: an object with allowed event types
+	callback function arguments: documentation updated to include the data argument
 
 	* scripts/ui/listener.js: Listener added: emitters[] field contains all registered emitters
 	Listener.prototype.destroy() handles coordinated dereferencing
 
 	* scripts/ui/test/emitter.js: listener.emitters added
+	prototype.EVENTS: shallow event validation test added
 
 	* scripts/ui/test/indexedmodel.js: listener.emitter added
 
@@ -20,6 +23,14 @@
 	* scripts/ui/test/teammodel.js: listener.emitter added
 
 	* scripts/ui/view.js: View is a subclass of Listener
+
+	* scripts/ui/indexedlistmodel.js: using superclass reference instead of direct function access
+
+	* scripts/ui/listmodel.js: prototype.EVENTS object and resize event added
+
+	* scripts/ui/test/listmodel.js: testing resize event
+	testing insert event
+	testing remove event
 
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -63,6 +63,11 @@ define(function() {
               };
 
               emitter = new Emitter();
+              emitter.EVENTS = {
+                'asd': true,
+                'event': true,
+                'reset': true,
+              };
 
               retval = emitter.emit('asd');
 
@@ -90,15 +95,19 @@ define(function() {
 
               retval = emitter.emit('event');
               retval = emitter.emit();
-              QUnit.equal(resetcounter, 2,
-                  "default event ('undefined') was  processed");
-              QUnit.equal(eventcounter, 0,
-                  'onundefined callback function was processed');
+              QUnit.equal(resetcounter, 1,
+                  "default event (undefined) was not processed");
+              QUnit.equal(eventcounter, 2,
+                  'onundefined callback function was not processed');
+
+              emitter.emit('thisEventIsInvalid');
+              QUnit.equal(eventcounter, 2,
+                  'unspecified events are not processed');
 
               emitter.unregisterListener(listener);
               retval = emitter.emit('event');
               QUnit
-                  .equal(eventcounter, 1,
+                  .equal(eventcounter, 3,
                       'only one listener received the event after unregistering the other one');
             });
   };

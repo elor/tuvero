@@ -43,7 +43,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
    *          a data object containing 'id' and 'object' fields
    */
   IndexedListModel.prototype.oninsert = function(emitter, event, data) {
-    ListModel.prototype.oninsert.call(this, emitter, event, data);
+    IndexedListModel.superclass.oninsert.call(this, emitter, event, data);
     this.updateIDs(data.id);
   };
 
@@ -58,7 +58,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
    *          a data object containing 'id' and 'object' fields
    */
   IndexedListModel.prototype.onremove = function(emitter, event, data) {
-    ListModel.prototype.onremove.call(this, emitter, event, data);
+    IndexedListModel.superclass.onremove.call(this, emitter, event, data);
     this.updateIDs(data.id);
   };
 
