@@ -501,9 +501,9 @@ Warning: scripts/backend/tournament.js: &gt; 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: &gt; 5 dependencies: 96
+Warning: scripts/common.js: &gt; 5 dependencies: 98
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 136, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 138, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -1444,6 +1444,7 @@ Warning: scripts/ui/tab_new.js: #50 Expected an assignment or function call and 
 Warning: scripts/ui/tab_new.js:     !perms.bye.bye &amp;&amp; $perms.bye.bye.addClass('forbidden'); // Line 653, Pos 5
 Warning: scripts/ui/tab_new.js: #51 Too many errors. (78% scanned).
 Warning: scripts/ui/tab_new.js:      // Line 653, Pos 5
+Warning: scripts/ui/taboptslistener.js: undocumented: 'function'
 Warning: scripts/ui/tab_ranking.js: &gt; 5 dependencies: 13
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
@@ -1502,12 +1503,11 @@ Warning: scripts/ui/tabs.js: undocumented: 'this.valid = function'
 Warning: scripts/ui/tabs.js: undocumented: 'function openValidTab'
 Warning: scripts/ui/tabs.js: undocumented: 'that.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'that.focus = function'
-Warning: scripts/ui/tabs.js: Line 117, E:0110: Line too long (86 characters).
-Warning: scripts/ui/tabs.js: Line 174, E:0110: Line too long (117 characters).
-Warning: scripts/ui/tabs.js: Line 198, E:0110: Line too long (91 characters).
+Warning: scripts/ui/tabs.js: Line 118, E:0120: Binary operator should go on previous line &quot;+&quot;
 Warning: scripts/ui/tabs.js: line 73, col 29, Empty block.
+Warning: scripts/ui/tabs.js: line 118, col 15, Bad line breaking before '+'.
 Warning: scripts/ui/tabs.js: line 107, col 13, '$img' is defined but never used.
-Warning: scripts/ui/tabs.js: line 215, col 13, 'key' is defined but never used.
+Warning: scripts/ui/tabs.js: line 218, col 13, 'key' is defined but never used.
 Warning: scripts/ui/tabs.js:  #1 The '&amp;&amp;' subexpression should be wrapped in parens.
 Warning: scripts/ui/tabs.js:     if (enforce &amp;&amp; tabindex === -1 || !visible[tabindex]) { // Line 71, Pos 21
 Warning: scripts/ui/tabs.js:  #2 Empty block.
@@ -1515,11 +1515,11 @@ Warning: scripts/ui/tabs.js:     if (index === -1) { // Line 73, Pos 29
 Warning: scripts/ui/tabs.js:  #3 Unused '$img'.
 Warning: scripts/ui/tabs.js:     var $img, $tab; // Line 107, Pos 13
 Warning: scripts/ui/tabs.js:  #4 Unexpected '('.
-Warning: scripts/ui/tabs.js:     if (typeof (val) !== 'boolean') { // Line 185, Pos 20
+Warning: scripts/ui/tabs.js:     if (typeof (val) !== 'boolean') { // Line 187, Pos 20
 Warning: scripts/ui/tabs.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
-Warning: scripts/ui/tabs.js:     for (key in $menus) { // Line 197, Pos 9
+Warning: scripts/ui/tabs.js:     for (key in $menus) { // Line 199, Pos 9
 Warning: scripts/ui/tabs.js:  #6 Unused 'key'.
-Warning: scripts/ui/tabs.js:     var key, index, currentTab; // Line 215, Pos 13
+Warning: scripts/ui/tabs.js:     var key, index, currentTab; // Line 218, Pos 13
 Warning: scripts/ui/tab_settings.js: &gt; 5 dependencies: 16
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initCSV'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function csvupdate'
@@ -1674,19 +1674,15 @@ Warning: scripts/ui/team.js: line 90, col 19, Bad line breaking before '+'.
 Warning: scripts/ui/teammodel.js: Line 10, E:0110: Line too long (103 characters).
 Warning: scripts/ui/teammodel.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
 Warning: scripts/ui/teammodel.js:     for (index in this.players) { // Line 31, Pos 5
-Warning: scripts/ui/teamstab.js: &gt; 5 dependencies: 11
+Warning: scripts/ui/teamstab.js: &gt; 5 dependencies: 15
 Warning: scripts/ui/teamstab.js: undocumented: 'function'
-Warning: scripts/ui/teamstab.js: Line 9, E:0110: Line too long (81 characters).
-Warning: scripts/ui/teamstab.js: line 10, col 13, This function has too many parameters. (9)
-Warning: scripts/ui/teamstab.js: line 68, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/teamstab.js: line 12, col 13, This function has too many parameters. (13)
 Warning: scripts/ui/teamstab.js:  #1 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 15, Pos 62
+Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 18, Pos 62
 Warning: scripts/ui/teamstab.js:  #2 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 17, Pos 49
+Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 20, Pos 49
 Warning: scripts/ui/teamstab.js:  #3 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 32, Pos 66
-Warning: scripts/ui/teamstab.js:  #4 Do not use 'new' for side effects.
-Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 68, Pos 27
+Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 35, Pos 66
 Warning: scripts/ui/test/emitter.js: undocumented: 'function'
 Warning: scripts/ui/test/emitter.js: Line 19, E:0110: Line too long (83 characters).
 Warning: scripts/ui/test/emitter.js: Line 111, E:0110: Line too long (96 characters).

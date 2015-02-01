@@ -41,6 +41,7 @@
 	using TeamSizeView to change the team size
 	using PreregCloserView added to disable team size changes
 	PreregCloserView applied to the $tab itself
+	maxwidth checkbox logic added by combining CheckboxView and ClassView
 
 	* test/teamentry.html: testing LengthView for number of registrations
 
@@ -111,12 +112,19 @@
 	* scripts/ui/tab_ranking.js: Options.teamsize -> State.teamsize.get()
 
 	* scripts/ui/options.js: cheap hack: storing and State.teamsize in place of Options.teamsize
+	teamsize: 'undefined'-bug fixed
 
 	* scripts/ui/checkboxcontroller.js: CheckboxController added for checkbox state control
 
 	* scripts/ui/checkboxview.js: CheckboxView added for boolean state visualization
 
 	* test/checkboxview.html: CheckboxView and CheckboxController test
+
+	* scripts/ui/classview.js: ClassView: toggle html classes according to ValueMap instance
+
+	* scripts/ui/taboptslistener.js: listen for ValueMap changes and toggle a tabopts update
+
+	* scripts/ui/tabs.js: using State instead of Options for tabopts
 
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

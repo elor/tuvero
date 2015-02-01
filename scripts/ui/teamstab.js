@@ -6,9 +6,12 @@
  */
 define(
     ['lib/extend', './view', './listview', './teamview', './state_new',
-        './newteamview', './lengthview', './teamsizeview', './preregcloserview'],
+        './newteamview', './lengthview', './teamsizeview',
+        './preregcloserview', './valuemodel', './checkboxview', './classview',
+        './taboptslistener'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
-        TeamSizeView, PreregCloserView) {
+        TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
+        TabOptsListener) {
       /**
        * represents a whole team tab
        *
@@ -32,7 +35,7 @@ define(
        * TODO maybe split it into multiple autodetected functions?
        */
       TeamsTab.prototype.init = function() {
-        var $template, $container;
+        var $template, $container, value;
 
         // teams
         $container = this.$view.find('>.teamlist');
@@ -57,6 +60,16 @@ define(
 
         // hide team size buttons when a team has been registered
         this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view);
+
+        // name maxwidth checkbox
+        value = new ValueModel();
+        $container = this.$view.find('>.options>input.maxwidth');
+        this.maxwidthCheckboxView = new CheckboxView(value, $container);
+        this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
+            'nomaxwidth');
+
+        // update the tab when the team size changes
+        this.tabOptsListener = new TabOptsListener(State.teamsize);
       };
 
       // FIXME CHEAP HACK AHEAD
@@ -64,8 +77,7 @@ define(
         var $tab;
 
         $tab = $('#teams');
-
-        new TeamsTab($tab);
+        return new TeamsTab($tab);
       });
 
       return TeamsTab;

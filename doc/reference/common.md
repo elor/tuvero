@@ -48,6 +48,7 @@ Do not attempt manual changes
 * <a href="ui/boxview.html">ui/boxview</a>
 * <a href="ui/checkboxcontroller.html">ui/checkboxcontroller</a>
 * <a href="ui/checkboxview.html">ui/checkboxview</a>
+* <a href="ui/classview.html">ui/classview</a>
 * <a href="ui/controller.html">ui/controller</a>
 * <a href="ui/csver.html">ui/csver</a>
 * <a href="ui/data/swissperms.html">ui/data/swissperms</a>
@@ -90,6 +91,7 @@ Do not attempt manual changes
 * <a href="ui/tablemodel.html">ui/tablemodel</a>
 * <a href="ui/tableview.html">ui/tableview</a>
 * <a href="ui/tab_new.html">ui/tab_new</a>
+* <a href="ui/taboptslistener.html">ui/taboptslistener</a>
 * <a href="ui/tab_ranking.html">ui/tab_ranking</a>
 * <a href="ui/tabs.html">ui/tabs</a>
 * <a href="ui/tab_settings.html">ui/tab_settings</a>
@@ -119,6 +121,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 139 Lines
-* 2908 Bytes
+* 141 Lines
+* 2950 Bytes
 

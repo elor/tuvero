@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 
-define(['./options'], function(Options) {
+define(['./state_new'], function(State) {
   var Tabs;
 
   Tabs = function(tabselector, imgpattern, enforce) {
@@ -114,7 +114,8 @@ define(['./options'], function(Options) {
         // }
 
         if (opts[i]) {
-          $tab.attr('data-img', imgpattern.replace('%s', tabname + Options[opts[i]]));
+          $tab.attr('data-img', imgpattern.replace('%s', tabname
+              + State[opts[i]].get()));
         } else {
           $tab.attr('data-img', imgpattern.replace('%s', tabname));
         }
@@ -171,7 +172,8 @@ define(['./options'], function(Options) {
           tab = tabs[i];
 
           if (opt) {
-            $('.tabs a[href=#' + tab + '][data-img]').attr('data-img', imgpattern.replace('%s', tab + Options[opt]));
+            $('.tabs a[href=#' + tab + '][data-img]').attr('data-img',
+                imgpattern.replace('%s', tab + State[opt].get()));
           }
         });
       };
@@ -195,7 +197,8 @@ define(['./options'], function(Options) {
 
         // hide tabs in all menus
         for (key in $menus) {
-          $menus[key].find('a[href=#' + tabname + ']').css('display', (val ? '' : 'none'));
+          $menus[key].find('a[href=#' + tabname + ']').css('display',
+              (val ? '' : 'none'));
         }
 
         // hide hidden hotkey links

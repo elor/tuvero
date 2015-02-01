@@ -50,8 +50,10 @@ define(['./state_new'], function(State) {
       Options[key] = opts[key];
     }
 
-    State.teamsize.set(Options.teamsize);
-    delete Options.teamsize;
+    if (Options.teamsize) {
+      State.teamsize.set(Options.teamsize);
+      delete Options.teamsize;
+    }
   };
 
   Options.reset = function() {

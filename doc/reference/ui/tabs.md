@@ -13,7 +13,7 @@ Tabs are automatically read from the DOM during object construction.
 
 ## Dependencies
 
-* <a href="./options.html">./options</a>
+* <a href="./state_new.html">./state_new</a>
 * JQuery
 
 
@@ -63,6 +63,6 @@ show/hide all references to a certain
 
 ## Metrics
 
-* 243 Lines
-* 5805 Bytes
+* 246 Lines
+* 5857 Bytes
 

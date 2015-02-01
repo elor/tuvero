@@ -31,6 +31,6 @@ Options object, which contains options such as database keys, points, etc.
 
 ## Metrics
 
-* 65 Lines
-* 1391 Bytes
+* 67 Lines
+* 1429 Bytes
 

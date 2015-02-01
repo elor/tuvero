@@ -9,14 +9,18 @@
 
 ## Dependencies
 
+* <a href="./checkboxview.html">./checkboxview</a>
+* <a href="./classview.html">./classview</a>
 * <a href="./lengthview.html">./lengthview</a>
 * lib/extend
 * <a href="./listview.html">./listview</a>
 * <a href="./newteamview.html">./newteamview</a>
 * <a href="./preregcloserview.html">./preregcloserview</a>
 * <a href="./state_new.html">./state_new</a>
+* <a href="./taboptslistener.html">./taboptslistener</a>
 * <a href="./teamsizeview.html">./teamsizeview</a>
 * <a href="./teamview.html">./teamview</a>
+* <a href="./valuemodel.html">./valuemodel</a>
 * <a href="./view.html">./view</a>
 * JQuery
 
@@ -50,6 +54,6 @@ TODO maybe split it into multiple autodetected functions?
 
 ## Metrics
 
-* 72 Lines
-* 2105 Bytes
+* 84 Lines
+* 2701 Bytes
 
