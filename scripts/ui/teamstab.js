@@ -5,8 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './view', './listview', './teamview', './state_new',
-    './newteamview', './lengthview'], function(extend, View, ListView,
-    TeamView, State, NewTeamView, LengthView) {
+    './newteamview', './lengthview', './teamsizeview'], function(extend, View, ListView,
+    TeamView, State, NewTeamView, LengthView, TeamSizeView) {
   /**
    * represents a whole team tab
    *
@@ -41,11 +41,15 @@ define(['lib/extend', './view', './listview', './teamview', './state_new',
 
     // registration
     $container = this.$view.find('>form#newteam');
-    this.newTeamView = new NewTeamView(State.teams, $container);
+    this.newTeamView = new NewTeamView(State.teams, $container, State.teamsize);
 
     // number of teams
     $container = this.$view.find('> > .numteams');
     this.lengthView = new LengthView(State.teams, $container);
+
+    // change team size
+    $container = this.$view.find('> .teamsizeview');
+    this.teamSizeView = new TeamSizeView(State.teamsize, $container);
   };
 
   // FIXME CHEAP HACK AHEAD

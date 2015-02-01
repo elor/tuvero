@@ -24,21 +24,27 @@
 <li>JQuery</li>
 </ul>
 <h2>Functions</h2>
+<h3>function(extend, Controller, PlayerModel, TeamModel)</h3>
+<hr />
 <h3>function NewTeamController(view)</h3>
 <p>Constructor</p>
 <p><strong>Argument:</strong> <strong>view</strong></p>
 <p>the associated NewTeamView</p>
 <hr />
+<h3>NewTeamController.prototype.readPlayerNames = function()</h3>
+<p>reads the playernames from the newteam form</p>
+<p><strong>Returns:</strong> an array of player names</p>
+<hr />
 <h3>NewTeamController.prototype.createNewTeam = function()</h3>
-<p>Add a new team after reading the names from the registered input fields and
-push it to this.model, which is supposed to be a ListModel.</p>
-<p>If a player name is invalid (whitespace-only or empty), team creation is
-aborted and the first invalid input field is focused</p>
+<p>Add a new team after reading the names from the registered input fields
+and push it to this.model, which is supposed to be a ListModel.</p>
+<p>If a player name is invalid (whitespace-only or empty), team creation
+is aborted and the first invalid input field is focused</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>73 Lines</li>
-<li>1751 Bytes</li>
+<li>102 Lines</li>
+<li>2642 Bytes</li>
 </ul>
 </body>
 </html>

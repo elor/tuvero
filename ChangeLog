@@ -36,6 +36,7 @@
 	* scripts/ui/lengthview.js: LengthView: ListView.length to DOM text
 
 	* scripts/ui/teamstab.js: using LengthView to show number of registrations
+	using TeamSizeView to change the team size
 
 	* test/teamentry.html: testing LengthView for number of registrations
 
@@ -57,10 +58,13 @@
 	* style/teamsizeview.css: TeamSizeView style sheet
 
 	* test/teamsizeview.html: TeamSizeView test page
+	button values removed
+	submit button re-added
 
 	* boules.html: autoformatting
 
 	* index.html: using the teamsizeview class
+	teamsizeview: button values removed
 
 	* scripts/ui/team.js: better return value description
 
@@ -74,6 +78,11 @@
 	faster doc build system, which ignores unchanged files
 
 	* Makefile: adjusted for the altered doc build logic
+
+	* scripts/ui/newteamcontroller.js: readPlayerNames extracted from createNewTeam
+	properly ignoring disabled input fields
+
+	* scripts/ui/newteamview.js: enabling/disabling input fields according to team size
 
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

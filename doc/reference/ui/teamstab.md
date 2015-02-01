@@ -14,6 +14,7 @@
 * <a href="./listview.html">./listview</a>
 * <a href="./newteamview.html">./newteamview</a>
 * <a href="./state_new.html">./state_new</a>
+* <a href="./teamsizeview.html">./teamsizeview</a>
 * <a href="./teamview.html">./teamview</a>
 * <a href="./view.html">./view</a>
 * JQuery
@@ -44,6 +45,6 @@ TODO maybe split it into multiple autodetected functions?
 
 ## Metrics
 
-* 61 Lines
-* 1497 Bytes
+* 65 Lines
+* 1693 Bytes
 

@@ -1,6 +1,7 @@
-Warning: scripts/ui/teamstab.js: > 5 dependencies: 9
-Warning: scripts/ui/teamstab.js: line 8, col 47, This function has too many parameters. (7)
-Warning: scripts/ui/teamstab.js: line 57, col 5, Do not use 'new' for side effects.
+Warning: scripts/ui/teamstab.js: > 5 dependencies: 10
+Warning: scripts/ui/teamstab.js: Line 8, E:0110: Line too long (88 characters).
+Warning: scripts/ui/teamstab.js: line 8, col 65, This function has too many parameters. (8)
+Warning: scripts/ui/teamstab.js: line 61, col 5, Do not use 'new' for side effects.
 Warning: scripts/ui/teamstab.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 13, Pos 58
 Warning: scripts/ui/teamstab.js:  #2 Unexpected TODO comment.
@@ -8,4 +9,4 @@ Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function 
 Warning: scripts/ui/teamstab.js:  #3 Unexpected TODO comment.
 Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 30, Pos 62
 Warning: scripts/ui/teamstab.js:  #4 Do not use 'new' for side effects.
-Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 57, Pos 23
+Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 61, Pos 23
