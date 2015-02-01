@@ -115,6 +115,8 @@ define([
   'ui/tabs',
   'ui/team',
   'ui/teammodel',
+  'ui/teamsizecontroller',
+  'ui/teamsizeview',
   'ui/teamstab',
   'ui/teamview',
   'ui/templateview',
@@ -123,6 +125,8 @@ define([
   'ui/tournaments',
   'ui/type',
   'ui/update',
+  'ui/valuemodel',
+  'ui/valueview',
   'ui/view'
 ], function(undefined) {
   return function(str) {

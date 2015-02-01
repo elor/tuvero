@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boules Test %VERSION%</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="../style/teamsizeview.css" />
+    <link rel="stylesheet" href="../style/sprite.css" />
+    <link rel="stylesheet" href="../style/boxview.css" />
+    <style>
+    </style>
+  </head>
+
+  <body>
+    <h2><span class="teamsize">##</span> players per team </h2>
+
+    <form class="newteam">
+      <input class="playername" type="text" placeholder="Spieler 1" />
+      <input class="playername" type="text" placeholder="Spieler 2" />
+      <input class="playername" type="text" placeholder="Spieler 3" />
+    </form>
+
+    <br>
+
+    <div class="teamsizeview">
+      <button value="1" data-img="teams1"></button>
+      <button value="2" data-img="teams2"></button>
+      <button value="3" data-img="teams3"></button>
+    </div>
+
+  </body>
+
+  <script src="../scripts/lib/require.js"></script>
+  <script>
+    require.config({
+      baseUrl : '../scripts',
+    });
+
+    require(['common', 'lib/jquery'], function(Common, undefined) {
+      var TeamSizeModel, TeamSizeView, LengthView;
+
+      ValueModel = Common('ui/valuemodel');
+      TeamSizeView = Common('ui/teamsizeview');
+      ValueView = Common('ui/valueview');
+
+      $(function($) {
+        var teamsize, $view;
+
+        teamsize = new ValueModel(3);
+        $view = $('.teamsizeview');
+        new TeamSizeView(teamsize, $view);
+
+        $view = $('.teamsize');
+        new ValueView(teamsize, $view);
+
+      });
+    });
+  </script>
+
+</html>

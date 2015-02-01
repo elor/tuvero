@@ -1,0 +1,15 @@
+.teamsizeview {
+  text-align: center;
+}
+
+.teamsizeview button {
+  background-color: #d0d0d0;
+  border-radius: 1em;
+  padding: 0.5em;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.teamsizeview button.selected {
+  background-color: #ffffff;
+}

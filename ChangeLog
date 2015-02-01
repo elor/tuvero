@@ -40,6 +40,22 @@
 
 	* scripts/ui/savestate.js: saving the state when a team has been added or removed
 
+	* scripts/ui/statemodel.js: teamsize field added
+
+	* scripts/ui/teamsizecontroller.js: TeamSizeController for processing teamsize button clicks
+
+	* scripts/ui/teamsizeview.js: TeamSizeView for selecting and highlighting team size buttons
+
+	* scripts/ui/test/valuemodel.js: ValueModel tests added
+
+	* scripts/ui/valuemodel.js: ValueModel: a getter/setter with update events for arbitrary values
+
+	* scripts/ui/valueview.js: ValueView: show textual ValueModel data in the DOM
+
+	* style/teamsizeview.css: TeamSizeView style sheet
+
+	* test/teamsizeview.html: TeamSizeView test page
+
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-reference.sh: error page shows jshint, jslint and gjslint output
