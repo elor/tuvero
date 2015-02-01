@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './view', './textview'], function(extend,
-    View, TextView) {
+define(['lib/extend', './templateview', './textview'], function(extend,
+    TemplateView, TextView) {
   /**
    * Constructor
    *
@@ -24,13 +24,12 @@ define(['lib/extend', './view', './textview'], function(extend,
    *          Default to TextView
    */
   function ListView(model, $view, $template, SubView) {
-    ListView.superconstructor.call(this, model, $view);
+    ListView.superconstructor.call(this, model, $view, $template);
 
-    this.$template = $template || $('<div>');
     this.SubView = SubView || TextView;
     this.subviews = [];
   }
-  extend(ListView, View);
+  extend(ListView, TemplateView);
 
   /**
    * reset to an empty state
