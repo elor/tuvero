@@ -15,31 +15,35 @@ No Dependencies
 
 ## Functions
 
-###         onundefined: function()
+###             function()
+
+---
+
+###                 onundefined: function()
 test function
 
 ---
 
 
-###         onreset: function()
+###                 onreset: function()
 test function
 
 ---
 
 
-###         onevent: function(_emitter, event)
+###                 onevent: function(_emitter, event)
 test function
 
 ---
 
 
-###         onevent: function()
+###                 onevent: function()
 test function
 
 ---
 
 ## Metrics
 
-* 88 Lines
-* 2626 Bytes
+* 114 Lines
+* 3717 Bytes
 

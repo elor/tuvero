@@ -3,10 +3,10 @@
  * duplication through a subclass, e.g. ListView. Templating is not meant to be
  * handled by the user.
  *
+ * @return TemplateView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
- * @return TemplateView
  */
 define(['lib/extend', './view'], function(extend, View) {
 

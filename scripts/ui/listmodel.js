@@ -195,8 +195,15 @@ define(['lib/extend', './model'], function(extend, Model) {
    * update the length variable of the list. Used internally.
    */
   ListModel.prototype.updateLength = function() {
+    var resize;
+
+    resize = (this.length !== this.list.length);
+
     this.length = this.list.length;
-    this.emit('resize');
+
+    if (resize) {
+      this.emit('resize');
+    }
   };
 
   /**

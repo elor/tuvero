@@ -16,7 +16,10 @@
 <li>License: MIT License</li>
 </ul>
 <h2>Dependencies</h2>
-<p>No Dependencies</p>
+<ul>
+<li>lib/extend</li>
+<li><a href="./listener.html">./listener</a></li>
+</ul>
 <h2>Functions</h2>
 <h3>function Emitter()</h3>
 <p>Constructor</p>
@@ -24,14 +27,20 @@
 <h3>Emitter.prototype.emit = function(event, data)</h3>
 <p>Emits an event to all registered listeners by calling the callback
 functions of format 'on'+event, if available</p>
-<p>The callback functions' parameters are the emitter (this) and the event
-string (without 'on'), in this order.</p>
+<p>The callback functions' parameters are the emitter (this), the event string
+(without 'on') and an optional data object, in this order.</p>
 <p><strong>Argument:</strong> <strong>event</strong></p>
 <p>a string containing the name of the event. Callback functions need
 to have a function name in the format 'on'+event
 <strong>Argument:</strong> <strong>data</strong></p>
 <p>arbitrary additional data. Please keep it simple!</p>
 <p><strong>Returns:</strong> true if the some listener received the event, false otherwise</p>
+<hr />
+<h3>Emitter.prototype.validEvent = function(event)</h3>
+<p>validate the event type</p>
+<p><strong>Argument:</strong> <strong>event</strong></p>
+<p>an event string, e.g. 'update'</p>
+<p><strong>Returns:</strong> s true if the event type is defined, false otherwise</p>
 <hr />
 <h3>Emitter.prototype.registerListener = function(listener)</h3>
 <p>register an event listener</p>
@@ -47,10 +56,13 @@ callback functions</p>
 registered</p>
 <p><strong>Returns:</strong> this</p>
 <hr />
+<h3>Emitter.prototype.destroy = function()</h3>
+<p>unregister all related listeners</p>
+<hr />
 <h2>Metrics</h2>
 <ul>
-<li>84 Lines</li>
-<li>2091 Bytes</li>
+<li>118 Lines</li>
+<li>3022 Bytes</li>
 </ul>
 </body>
 </html>

@@ -492,9 +492,9 @@ Warning: scripts/backend/tournament.js: > 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: > 5 dependencies: 86
+Warning: scripts/common.js: > 5 dependencies: 88
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 126, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 128, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -578,10 +578,13 @@ Warning: scripts/ui/debug.js:  #2 Insecure '.'.
 Warning: scripts/ui/debug.js:     stack = e.stack.replace(/^[^(]+?[n$]/gm, '').replace(/^s+ats+/gm, '').replace(/^Object.<anonymous>s*(/gm, '{anonymous}()@'); // Line 17, Pos 97
 Warning: scripts/ui/debug.js:  #3 Do not use 'new' for side effects.
 Warning: scripts/ui/debug.js:     new Toast(Strings.dev, Toast.INFINITE); // Line 26, Pos 45
+Warning: scripts/ui/emitter.js: > 10 functions: 11
+Warning: scripts/ui/emitter.js: Line 18, E:0100: Member Emitter.prototype.EVENTS cannot have a non-primitive value
+Warning: scripts/ui/emitter.js: Line 65, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/emitter.js:  #1 Unexpected TODO comment.
-Warning: scripts/ui/emitter.js:     // TODO somehow restrict the events that can be emitted. This has to be // Line 17, Pos 5
+Warning: scripts/ui/emitter.js:     // TODO somehow restrict the events that can be emitted. This has to be // Line 23, Pos 5
 Warning: scripts/ui/emitter.js:  #2 Unexpected 'call'.
-Warning: scripts/ui/emitter.js:     listener['on' + event].call(listener, this, event, data); // Line 41, Pos 32
+Warning: scripts/ui/emitter.js:     listener['on' + event].call(listener, this, event, data); // Line 52, Pos 32
 Warning: scripts/ui/fontsizecontroller.js: Line 29, E:0110: Line too long (85 characters).
 Warning: scripts/ui/fontsizecontroller.js:  #1 Insecure '.'.
 Warning: scripts/ui/fontsizecontroller.js:     model.setFontSize($(this).attr('class').replace(/.*fontsize([a-z]+).*/, '$1')); // Line 29, Pos 56
@@ -668,6 +671,7 @@ Warning: scripts/ui/koline.js:  #7 'KOLine' was used before it was defined.
 Warning: scripts/ui/koline.js:     KOLine.pathCache[pathid] = group.cloneNode(true); // Line 122, Pos 7
 Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
 Warning: scripts/ui/listmodel.js: > 10 functions: 23
+Warning: scripts/ui/listmodel.js: Line 24, E:0100: Member ListModel.prototype.EVENTS cannot have a non-primitive value
 Warning: scripts/ui/listview.js: > 10 functions: 11
 Warning: scripts/ui/newteamcontroller.js: > 5 dependencies: 6
 Warning: scripts/ui/options.js: undocumented: 'Options.toBlob = function'
@@ -1648,35 +1652,26 @@ Warning: scripts/ui/team.js: line 90, col 19, Bad line breaking before '+'.
 Warning: scripts/ui/teammodel.js: Line 10, E:0110: Line too long (103 characters).
 Warning: scripts/ui/teammodel.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
 Warning: scripts/ui/teammodel.js:     for (index in this.players) { // Line 31, Pos 5
-Warning: scripts/ui/teamstab.js: > 5 dependencies: 8
-Warning: scripts/ui/teamstab.js: undocumented: 'function'
-Warning: scripts/ui/teamstab.js: Line 8, E:0110: Line too long (89 characters).
-Warning: scripts/ui/teamstab.js: line 9, col 13, This function has too many parameters. (6)
-Warning: scripts/ui/teamstab.js: line 54, col 9, Do not use 'new' for side effects.
+Warning: scripts/ui/teamstab.js: > 5 dependencies: 9
+Warning: scripts/ui/teamstab.js: line 8, col 47, This function has too many parameters. (7)
+Warning: scripts/ui/teamstab.js: line 57, col 5, Do not use 'new' for side effects.
 Warning: scripts/ui/teamstab.js:  #1 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 13, Pos 62
+Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 13, Pos 58
 Warning: scripts/ui/teamstab.js:  #2 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 15, Pos 49
+Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 15, Pos 45
 Warning: scripts/ui/teamstab.js:  #3 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 30, Pos 66
+Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 30, Pos 62
 Warning: scripts/ui/teamstab.js:  #4 Do not use 'new' for side effects.
-Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 54, Pos 27
-Warning: scripts/ui/templateview.js: undocumented: 'function TemplateView'
-Warning: scripts/ui/templateview.js: line 8, col 10, 'TemplateView' is defined but never used.
-Warning: scripts/ui/templateview.js:  #1 Unused 'TemplateView'.
-Warning: scripts/ui/templateview.js:     function TemplateView(model, $view, $template){ // Line 8, Pos 10
-Warning: scripts/ui/test/emitter.js: Line 43, E:0110: Line too long (86 characters).
-Warning: scripts/ui/test/emitter.js: Line 44, E:0110: Line too long (88 characters).
-Warning: scripts/ui/test/emitter.js: Line 61, E:0110: Line too long (86 characters).
-Warning: scripts/ui/test/emitter.js: Line 64, E:0110: Line too long (110 characters).
-Warning: scripts/ui/test/emitter.js: Line 68, E:0110: Line too long (82 characters).
-Warning: scripts/ui/test/emitter.js: Line 80, E:0110: Line too long (81 characters).
-Warning: scripts/ui/test/emitter.js: Line 81, E:0110: Line too long (82 characters).
-Warning: scripts/ui/test/emitter.js: Line 85, E:0110: Line too long (109 characters).
+Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 57, Pos 23
+Warning: scripts/ui/test/emitter.js: undocumented: 'function'
+Warning: scripts/ui/test/emitter.js: Line 19, E:0110: Line too long (83 characters).
+Warning: scripts/ui/test/emitter.js: Line 69, E:0121: Illegal comma at end of object literal
+Warning: scripts/ui/test/emitter.js: Line 99, E:0131: Single-quoted string preferred over double-quoted string.
+Warning: scripts/ui/test/emitter.js: Line 111, E:0110: Line too long (96 characters).
 Warning: scripts/ui/test/emitter.js:  #1 Unexpected dangling '_' in '_emitter'.
-Warning: scripts/ui/test/emitter.js:     onevent: function(_emitter, event) { // Line 40, Pos 27
+Warning: scripts/ui/test/emitter.js:     onevent: function(_emitter, event) { // Line 43, Pos 35
 Warning: scripts/ui/test/emitter.js:  #2 Unexpected dangling '_' in '_emitter'.
-Warning: scripts/ui/test/emitter.js:     QUnit.equal(_emitter, emitter, 'onevent(): first argument equals emitter '); // Line 43, Pos 23
+Warning: scripts/ui/test/emitter.js:     QUnit.equal(_emitter, emitter, // Line 47, Pos 31
 Warning: scripts/ui/test/indexedlistmodel.js: Line 21, E:0110: Line too long (108 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 28, E:0110: Line too long (93 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 29, E:0110: Line too long (93 characters).
@@ -1686,17 +1681,21 @@ Warning: scripts/ui/test/indexedlistmodel.js: Line 41, E:0110: Line too long (85
 Warning: scripts/ui/test/indexedlistmodel.js: Line 42, E:0110: Line too long (85 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 45, E:0110: Line too long (85 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 46, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/listmodel.js: undocumented: 'reset: function'
+Warning: scripts/ui/test/listmodel.js: undocumented: 'onresize: function'
+Warning: scripts/ui/test/listmodel.js: undocumented: 'oninsert: function'
+Warning: scripts/ui/test/listmodel.js: undocumented: 'onremove: function'
 Warning: scripts/ui/test/listmodel.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/test/listmodel.js:     // TODO test the emitted events // Line 15, Pos 7
 Warning: scripts/ui/test/model.js: Line 19, E:0110: Line too long (82 characters).
-Warning: scripts/ui/test/playermodel.js: Line 47, E:0110: Line too long (85 characters).
-Warning: scripts/ui/test/playermodel.js: Line 53, E:0110: Line too long (83 characters).
-Warning: scripts/ui/test/playermodel.js: Line 59, E:0110: Line too long (83 characters).
-Warning: scripts/ui/test/playermodel.js: Line 60, E:0110: Line too long (87 characters).
-Warning: scripts/ui/test/playermodel.js: Line 64, E:0110: Line too long (116 characters).
-Warning: scripts/ui/test/playermodel.js: Line 70, E:0110: Line too long (91 characters).
-Warning: scripts/ui/test/playermodel.js: Line 71, E:0110: Line too long (96 characters).
-Warning: scripts/ui/test/playermodel.js: Line 88, E:0110: Line too long (82 characters).
+Warning: scripts/ui/test/playermodel.js: Line 48, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/playermodel.js: Line 54, E:0110: Line too long (83 characters).
+Warning: scripts/ui/test/playermodel.js: Line 60, E:0110: Line too long (83 characters).
+Warning: scripts/ui/test/playermodel.js: Line 61, E:0110: Line too long (87 characters).
+Warning: scripts/ui/test/playermodel.js: Line 65, E:0110: Line too long (116 characters).
+Warning: scripts/ui/test/playermodel.js: Line 71, E:0110: Line too long (91 characters).
+Warning: scripts/ui/test/playermodel.js: Line 72, E:0110: Line too long (96 characters).
+Warning: scripts/ui/test/playermodel.js: Line 89, E:0110: Line too long (82 characters).
 Warning: scripts/ui/test/playermodel.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/test/playermodel.js:     // TODO test the emitted events // Line 15, Pos 7
 Warning: scripts/ui/test/tab.js: undocumented: 'clear: function'
@@ -1739,13 +1738,6 @@ Warning: scripts/ui/test/tab.js:  #3 Empty block.
 Warning: scripts/ui/test/tab.js:     update: function() { // Line 48, Pos 30
 Warning: scripts/ui/test/tab.js:  #4 Unused 'Tab_Teams'.
 Warning: scripts/ui/test/tab.js:     var Implements, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Settings, Tab_Teams, Tab_New, Autocomplete, Alltabs, Tab_Debug; // Line 15, Pos 77
-Warning: scripts/ui/test/teammodel.js: Line 20, E:0110: Line too long (100 characters).
-Warning: scripts/ui/test/teammodel.js: Line 39, E:0110: Line too long (89 characters).
-Warning: scripts/ui/test/teammodel.js: Line 40, E:0110: Line too long (129 characters).
-Warning: scripts/ui/test/teammodel.js: Line 43, E:0110: Line too long (84 characters).
-Warning: scripts/ui/test/teammodel.js: Line 44, E:0110: Line too long (93 characters).
-Warning: scripts/ui/test/teammodel.js: Line 51, E:0110: Line too long (85 characters).
-Warning: scripts/ui/test/teammodel.js: Line 63, E:0110: Line too long (97 characters).
 Warning: scripts/ui/textview.js: line 42, col 5, 'setText' is not defined.
 Warning: scripts/ui/textview.js:  #1 'setText' was used before it was defined.
 Warning: scripts/ui/textview.js:     setText(''); // Line 42, Pos 5
@@ -1875,7 +1867,7 @@ Warning: scripts/ui/update.js:     var Update, appCache, downloadToasts; // Line
 Warning: scripts/ui/update.js: #13 Unused 'cacheError'.
 Warning: scripts/ui/update.js:     function cacheError() { // Line 84, Pos 12
 Warning: scripts/ui/view.js:  #1 Empty block.
-Warning: scripts/ui/view.js:     View.prototype.reset = function() { // Line 27, Pos 37
+Warning: scripts/ui/view.js:     View.prototype.reset = function() { // Line 29, Pos 37
 Warning: scripts/ui/view.js:  #2 Empty block.
-Warning: scripts/ui/view.js:     View.prototype.update = function() { // Line 33, Pos 38
+Warning: scripts/ui/view.js:     View.prototype.update = function() { // Line 35, Pos 38
 ```

@@ -1,10 +1,10 @@
 /**
  * Unit tests for TeamModel
  *
+ * @return test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
- * @return test function
  */
 define(function() {
   return function(QUnit, getModule) {

@@ -38,6 +38,7 @@
   </head>
 
   <body>
+    <h2><span class="numteams">##</span> Teams</h2>
     <form class="newteam">
       <input class="playername" type="text" placeholder="Spieler 1" />
       <input class="playername" type="text" placeholder="Spieler 2" />
@@ -87,13 +88,14 @@
     
 //    require(['ui/playermodel', 'ui/teammodel', 'ui/indexedlistmodel', 'ui/teamview', 'ui/listview', 'lib/jquery'], function(PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, undefined){
     require(['common', 'lib/jquery'], function(Common, undefined){
-      var PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, NewTeamView;
+      var PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, NewTeamView, LengthView;
       
       PlayerModel = Common('ui/playermodel');
       TeamModel = Common( 'ui/teammodel');
       IndexedListModel = Common('ui/indexedlistmodel');
       TeamView = Common('ui/teamview');
       ListView = Common('ui/listview');
+      LengthView = Common('ui/lengthview');
       NewTeamView = Common('ui/newteamview');
       
       $(function($){
@@ -109,6 +111,9 @@
         $template = $('#templates').find('tr.template').detach().removeClass('template');
         new ListView(teamlist, $view, $template, TeamView);
         
+        $view = $('.numteams');
+        new LengthView(teamlist, $view);
+
         $view = $('.newteam');
         (new NewTeamView(teamlist, $view)).focusEmpty();
       });

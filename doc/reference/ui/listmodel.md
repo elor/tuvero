@@ -160,6 +160,6 @@ Callback function: called when a 'reset' event is emitted
 
 ## Metrics
 
-* 217 Lines
-* 4957 Bytes
+* 224 Lines
+* 5097 Bytes
 

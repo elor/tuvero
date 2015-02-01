@@ -32,6 +32,12 @@
 	testing insert event
 	testing remove event
 
+	* scripts/ui/lengthview.js: LengthView: ListView.length to DOM text
+
+	* scripts/ui/teamstab.js: using LengthView to show number of registrations
+
+	* test/teamentry.html: testing LengthView for number of registrations
+
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-reference.sh: error page shows jshint, jslint and gjslint output

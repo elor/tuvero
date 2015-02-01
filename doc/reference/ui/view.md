@@ -10,6 +10,8 @@ An abstract view class
 
 ## Dependencies
 
+* lib/extend
+* <a href="./listener.html">./listener</a>
 * <a href="./model.html">./model</a>
 
 ## Functions
@@ -57,6 +59,6 @@ permanently removed and replaced with new elements.
 
 ## Metrics
 
-* 56 Lines
-* 1348 Bytes
+* 58 Lines
+* 1429 Bytes
 

@@ -59,6 +59,8 @@ Do not attempt manual changes
 * <a href="ui/indexedlistmodel.html">ui/indexedlistmodel</a>
 * <a href="ui/indexedmodel.html">ui/indexedmodel</a>
 * <a href="ui/koline.html">ui/koline</a>
+* <a href="ui/lengthview.html">ui/lengthview</a>
+* <a href="ui/listener.html">ui/listener</a>
 * <a href="ui/listmodel.html">ui/listmodel</a>
 * <a href="ui/listview.html">ui/listview</a>
 * <a href="ui/model.html">ui/model</a>
@@ -109,6 +111,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 129 Lines
-* 2696 Bytes
+* 131 Lines
+* 2732 Bytes
 

@@ -15,10 +15,24 @@ No Dependencies
 
 ## Functions
 
-No exported functions
+###         reset: function()
+
+---
+
+###         onresize: function(emitter)
+
+---
+
+###         oninsert: function()
+
+---
+
+###         onremove: function()
+
+---
 
 ## Metrics
 
-* 132 Lines
-* 4327 Bytes
+* 176 Lines
+* 6271 Bytes
 

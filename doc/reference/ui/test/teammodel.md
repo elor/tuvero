@@ -3,6 +3,7 @@
 
 Unit tests for TeamModel
 
+* Exports: test function
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -27,6 +28,6 @@ counter reset
 
 ## Metrics
 
-* 66 Lines
-* 2350 Bytes
+* 75 Lines
+* 2467 Bytes
 

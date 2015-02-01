@@ -12,10 +12,8 @@ ListView for printing data in a list using arbitrary views
 ## Dependencies
 
 * lib/extend
+* <a href="./templateview.html">./templateview</a>
 * <a href="./textview.html">./textview</a>
-* <a href="./view.html">./view</a>
-* JQuery
-
 
 ## Functions
 
@@ -114,6 +112,6 @@ data object, containing at least the index within the list
 
 ## Metrics
 
-* 137 Lines
-* 3379 Bytes
+* 136 Lines
+* 3368 Bytes
 

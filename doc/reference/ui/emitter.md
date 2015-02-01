@@ -11,7 +11,8 @@ An event emitter class
 
 ## Dependencies
 
-No Dependencies
+* lib/extend
+* <a href="./listener.html">./listener</a>
 
 ## Functions
 
@@ -25,8 +26,8 @@ Constructor
 Emits an event to all registered listeners by calling the callback
 functions of format 'on'+event, if available
 
-The callback functions' parameters are the emitter (this) and the event
-string (without 'on'), in this order.
+The callback functions' parameters are the emitter (this), the event string
+(without 'on') and an optional data object, in this order.
 
 **Argument:** **event**
 
@@ -37,6 +38,18 @@ to have a function name in the format 'on'+event
 arbitrary additional data. Please keep it simple!
 
 **Returns:** true if the some listener received the event, false otherwise
+
+---
+
+
+###   Emitter.prototype.validEvent = function(event)
+validate the event type
+
+**Argument:** **event**
+
+an event string, e.g. 'update'
+
+**Returns:** s true if the event type is defined, false otherwise
 
 ---
 
@@ -66,8 +79,14 @@ registered
 
 ---
 
+
+###   Emitter.prototype.destroy = function()
+unregister all related listeners
+
+---
+
 ## Metrics
 
-* 84 Lines
-* 2091 Bytes
+* 118 Lines
+* 3022 Bytes
 
