@@ -11,7 +11,7 @@
 define(['./shared'], function(Shared) {
   var Players, names, author;
 
-  author = 'Erik Lorenz';
+  author = 'Erik E. Lorenz';
 
   names = [author];
 
