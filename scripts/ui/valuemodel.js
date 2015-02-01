@@ -28,7 +28,7 @@ define(['lib/extend', './model'], function(extend, Model) {
    *          the new value
    */
   ValueModel.prototype.set = function(value) {
-    if (this.value != value) {
+    if (this.value !== value) {
       this.value = value;
       this.emit('update', value);
     }

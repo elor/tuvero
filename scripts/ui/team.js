@@ -102,7 +102,7 @@ define(['./options', './strings', './shared', './state_new', './playermodel',
   /**
    * stores the current state in a blob, usually using JSON
    *
-   * @return the blob
+   * @return a serialization of the teams
    */
   Team.toBlob = function() {
     var list;

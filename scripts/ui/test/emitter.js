@@ -66,7 +66,7 @@ define(function() {
               emitter.EVENTS = {
                 'asd': true,
                 'event': true,
-                'reset': true,
+                'reset': true
               };
 
               retval = emitter.emit('asd');
@@ -96,7 +96,7 @@ define(function() {
               retval = emitter.emit('event');
               retval = emitter.emit();
               QUnit.equal(resetcounter, 1,
-                  "default event (undefined) was not processed");
+                  'default event (undefined) was not processed');
               QUnit.equal(eventcounter, 2,
                   'onundefined callback function was not processed');
 

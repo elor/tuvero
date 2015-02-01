@@ -1,0 +1,7 @@
+Warning: scripts/ui/splash.js: undocumented: 'hide: function'
+Warning: scripts/ui/splash.js: undocumented: 'loading: function'
+Warning: scripts/ui/splash.js: undocumented: 'function setState'
+Warning: scripts/ui/splash.js: undocumented: 'Splash.loading = function'
+Warning: scripts/ui/splash.js: undocumented: 'Splash.update = function'
+Warning: scripts/ui/splash.js: undocumented: 'Splash.hide = function'
+Warning: scripts/ui/splash.js: undocumented: 'Splash.error = function'

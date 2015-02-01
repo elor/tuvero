@@ -27,6 +27,7 @@
 	* scripts/ui/indexedlistmodel.js: using superclass reference instead of direct function access
 
 	* scripts/ui/listmodel.js: prototype.EVENTS object and resize event added
+	sometimes I'm an idiot. I forgot about if(){}.
 
 	* scripts/ui/test/listmodel.js: testing resize event
 	testing insert event
@@ -49,12 +50,30 @@
 	* scripts/ui/test/valuemodel.js: ValueModel tests added
 
 	* scripts/ui/valuemodel.js: ValueModel: a getter/setter with update events for arbitrary values
+	set(): stricter comparison for value differences
 
 	* scripts/ui/valueview.js: ValueView: show textual ValueModel data in the DOM
 
 	* style/teamsizeview.css: TeamSizeView style sheet
 
 	* test/teamsizeview.html: TeamSizeView test page
+
+	* boules.html: autoformatting
+
+	* index.html: using the teamsizeview class
+
+	* scripts/ui/team.js: better return value description
+
+	* scripts/ui/test/tab.js: all references to Tab_Teams removed
+
+	* style/mainstyle.css: importing teamsizeview.css
+
+	* style/teams.css: teamsize styles removed in favor of teamsizeview.css
+
+	* build-scripts/write-reference.sh: error pages for each script
+	faster doc build system, which ignores unchanged files
+
+	* Makefile: adjusted for the altered doc build logic
 
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

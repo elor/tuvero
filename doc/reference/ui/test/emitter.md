@@ -45,5 +45,5 @@ test function
 ## Metrics
 
 * 114 Lines
-* 3717 Bytes
+* 3716 Bytes
 

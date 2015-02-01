@@ -84,7 +84,7 @@ create ordered CSV strings from team data
 stores the current state in a blob, usually using JSON
 
 
-**Returns:** the blob
+**Returns:** a serialization of the teams
 
 ---
 
@@ -119,5 +119,5 @@ the id of the team
 ## Metrics
 
 * 171 Lines
-* 3262 Bytes
+* 3282 Bytes
 

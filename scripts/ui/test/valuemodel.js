@@ -45,7 +45,7 @@ define(function() {
           'set() does not update if values match');
 
       model.set('12345');
-      QUnit.equal(model.get(), "12345", 'set() updates on type mismatch');
+      QUnit.equal(model.get(), '12345', 'set() updates on type mismatch');
       QUnit.equal(listener.updatecount, 2, 'set() type mismatch: fire update');
 
       obj = {};

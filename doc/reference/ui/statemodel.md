@@ -3,6 +3,7 @@
 
 A class for collecting all necessary state information of one or more running
 tournaments.
+
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
 * License: MIT License
@@ -12,16 +13,17 @@ tournaments.
 
 * <a href="./indexedlistmodel.html">./indexedlistmodel</a>
 * <a href="./listmodel.html">./listmodel</a>
+* <a href="./valuemodel.html">./valuemodel</a>
 
 ## Functions
 
 ###   function StateModel()
-Constructor. Instantiates the empty object
+Constructor
 
 ---
 
 ## Metrics
 
-* 20 Lines
-* 481 Bytes
+* 22 Lines
+* 521 Bytes
 

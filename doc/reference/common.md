@@ -71,6 +71,7 @@ Do not attempt manual changes
 * <a href="ui/playermodel.html">ui/playermodel</a>
 * <a href="ui/players.html">ui/players</a>
 * <a href="ui/ranking.html">ui/ranking</a>
+* <a href="ui/savestate.html">ui/savestate</a>
 * <a href="ui/shared.html">ui/shared</a>
 * <a href="ui/splash.html">ui/splash</a>
 * <a href="ui/state.html">ui/state</a>
@@ -92,6 +93,8 @@ Do not attempt manual changes
 * <a href="ui/tabshandle.html">ui/tabshandle</a>
 * <a href="ui/team.html">ui/team</a>
 * <a href="ui/teammodel.html">ui/teammodel</a>
+* <a href="ui/teamsizecontroller.html">ui/teamsizecontroller</a>
+* <a href="ui/teamsizeview.html">ui/teamsizeview</a>
 * <a href="ui/teamstab.html">ui/teamstab</a>
 * <a href="ui/teamview.html">ui/teamview</a>
 * <a href="ui/templateview.html">ui/templateview</a>
@@ -100,6 +103,8 @@ Do not attempt manual changes
 * <a href="ui/tournaments.html">ui/tournaments</a>
 * <a href="ui/type.html">ui/type</a>
 * <a href="ui/update.html">ui/update</a>
+* <a href="ui/valuemodel.html">ui/valuemodel</a>
+* <a href="ui/valueview.html">ui/valueview</a>
 * <a href="ui/view.html">ui/view</a>
 
 ## Functions
@@ -111,6 +116,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 131 Lines
-* 2732 Bytes
+* 136 Lines
+* 2835 Bytes
 

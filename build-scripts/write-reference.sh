@@ -9,6 +9,24 @@ which jshint >/dev/null || exit 1
 which gjslint >/dev/null || exit 1
 
 refdir=doc/reference
+bakdir=$refdir/bak
+errfile=$refdir/init_err.md
+globalerrfile=$refdir/errors.md
+
+backup(){
+    rm -rf $bakdir
+    mkdir $bakdir
+    mv $refdir/* $bakdir 2>&1 >/dev/null | grep -v 'subdirectory of itself' >&2
+}
+
+haschanged(){
+    local md5=$(md5sum $1)
+    local oldmd5=$(grep $1 $bakdir/md5sums.txt)
+
+    echo "$md5" >> $refdir/md5sums.txt
+
+    [ "$md5" != "$oldmd5" ]
+}
 
 listuserscripts(){
     listusersubscripts scripts
@@ -34,24 +52,37 @@ listlibscripts(){
 }
 
 initerrors(){
-    echo '```' > $refdir/errors.md
+    echo 'Warning: reference build did not complete' > $refdir/errors.md
 }
 
 closeerrors(){
-    echo '```' >> $refdir/errors.md
+    cat > $globalerrfile <<EOF
+\`\`\`
+$(find -name '*_err.md' | sort | xargs cat)
+\`\`\`
+EOF
+}
+
+seterrfile(){
+    local script=${1##scripts/}
+    errfile=$refdir/`dirname $script`/`basename $script .js`_err.md
 }
 
 warning(){
-    echo "Warning: $@" | tee -a $refdir/errors.md >&2
+    echo "Warning: $@" | tee -a $errfile >&2
 }
 
 error(){
-    echo "ERROR: $@" | tee -a $refdir/errors.md >&2
+    echo "ERROR: $@" | tee -a $errfile >&2
 }
 
 getdocfile(){
     script=${1##scripts/}
     echo $refdir/`dirname $script`/`basename $script .js`.md
+}
+
+getbakfile(){
+     echo $bakdir/${1##$refdir/}
 }
 
 getrelhref(){
@@ -240,8 +271,10 @@ EOF
 convertMD2HTML(){
     script=$1
     docfile=`getdocfile $script`
+    local errors=${docfile%.md}_err.md
     docfiledir=`dirname $docfile`
     htmlfile=$docfiledir/`basename $docfile .md`.html
+    local errordocfile=$(basename ${errors%.md}.html)
 
     cat <<EOF > $htmlfile
 <!DOCTYPE html>
@@ -253,6 +286,7 @@ convertMD2HTML(){
 <body>
 <a href="`getrelhref index $docfiledir`">back to index</a>
 <a href="index.html">Overview page</a>
+$([ -s $errors ] && echo '<a href="'$errordocfile'">errors</a>')
 $(cmark $docfile)
 </body>
 </html>
@@ -313,10 +347,12 @@ $(grep -Pn 'TODO|FIXME|XXX' `listusersubscripts $scriptdir|xargs` | sed 's/^/* /
 EOF
 }
 
-createrrorpage(){
-    docfile=$refdir/errors.html
-
-    closeerrors
+createsuberrorpage(){
+    local errfile=$1
+    docfile=`dirname $errfile`/`basename $errfile .md`.html
+    scriptdocfile=${docfile%_err.html}.html
+    basedocfile=`basename $scriptdocfile`
+    basescriptfile=${basedocfile%.html}.js
 
     cat <<EOF > $docfile
 <!DOCTYPE html>
@@ -326,14 +362,14 @@ createrrorpage(){
 <title>Errors</title>
 </head>
 <body>
-<a href="index.html">back to index</a>
-<a href="errorstats.html">to error stats</a>
-<h1>Code Style Warnings and Errors</h1>
-`cmark $refdir/errors.md`
+<a href="$basedocfile">back to $basedocfile</a>
+<h1>Code Style Warnings and Errors for $basescriptfile</h1>
+$(sed 's/^/    /' $errfile | cmark)
 </body>
 </html>
 EOF
 }
+
 
 rungjslint(){
     gjslint "$1" | grep 'E:' | grep -v 'E:000[0-9]' | grep -v 'E:0213' | grep -v 'E:0216' | while IFS= read line; do
@@ -357,16 +393,24 @@ processscript(){
     script=$1
     initdocfile $script
     docfile=`getdocfile $script`
-    {
-        parseglobalcomment $script
-        parsedependencies $script
-        parsefunctions $script
-        printscriptmetrics $script
-        rungjslint $script
-        runjshint $script
-        runjslint $script
-    } >> $docfile
-    convertMD2HTML $script
+    bakfile=`getbakfile $docfile`
+    seterrfile $script
+    if haschanged $script; then
+        {
+            parseglobalcomment $script
+            parsedependencies $script
+            parsefunctions $script
+            printscriptmetrics $script
+            rungjslint $script
+            runjshint $script
+            runjslint $script
+        } >> $docfile
+    else
+        cp `getbakfile $docfile` $docfile
+        cp `getbakfile $errfile` $errfile 2>/dev/null
+    fi
+    convertMD2HTML $script &
+    [ -s $errfile ] && createsuberrorpage $errfile &
 }
 
 formaterrorstatlines(){
@@ -377,8 +421,29 @@ errorstats(){
     cat > $refdir/errorstats.md <<EOF
 # Error stats:
 
-$(cut -d: -f2 $refdir/errors.md | grep '\.js$' | xargs -n1 | uniq -c | sort -nr | formaterrorstatlines )
+$(cut -d: -f2 $refdir/errors.md | grep '\.js$' | sed 's/\s//g' | uniq -c | sort -nr | formaterrorstatlines )
 
+EOF
+}
+
+
+createerrorpage(){
+    docfile=$refdir/errors.html
+    closeerrors
+    cat <<EOF > $docfile
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Errors</title>
+</head>
+<body>
+<a href="index.html">back to index</a>
+<a href="errorstats.html">to error stats</a>
+<h1>Code Style Warnings and Errors</h1>
+$(cmark $globalerrfile)
+</body>
+</html>
 EOF
 }
 
@@ -404,10 +469,11 @@ EOF
 }
 
 errorpositions(){
-    sed -r -n 's/^\S+\s+(\S+):.*line\s+([0-9]+)\s*,?\s*(pos|col)\s*([0-9]+).*$/\1 \2,\4/ip' $refdir/errors.md
+    sed -r -n 's/^\S+\s+(\S+):.*line\s+([0-9]+)\s*,?\s*(pos|col)\s*([0-9]+).*$/\1 \2,\4/ip' $globalerrfile
 }
 
-mkdir $refdir
+mkdir -p $refdir
+backup
 initerrors
 
 echo "generating script references"
@@ -417,15 +483,19 @@ done
 
 echo "generating overview pages"
 for dir in `listscriptdirs`; do
-    createoverviewpage $dir
+    createoverviewpage $dir &
 done
 
 echo "generating todo pages"
 for dir in `listscriptdirs`; do
-    createtodopage $dir
+    createtodopage $dir &
 done
 
+wait
+
+rm -rf $bakdir
+
 echo "generating error pages"
-createrrorpage
+createerrorpage
 errorstats
 createerrorstatspage

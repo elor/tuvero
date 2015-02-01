@@ -49,7 +49,7 @@ validate the event type
 
 an event string, e.g. 'update'
 
-**Returns:** s true if the event type is defined, false otherwise
+**Returns:** true if the event type is defined, false otherwise
 
 ---
 
@@ -88,5 +88,5 @@ unregister all related listeners
 ## Metrics
 
 * 118 Lines
-* 3022 Bytes
+* 3021 Bytes
 

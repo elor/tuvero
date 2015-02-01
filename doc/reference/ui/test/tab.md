@@ -29,6 +29,6 @@ No Dependencies
 
 ## Metrics
 
-* 54 Lines
-* 1924 Bytes
+* 52 Lines
+* 1779 Bytes
 

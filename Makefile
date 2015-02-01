@@ -67,7 +67,7 @@ sprite: images/sprite.png
 ######################################
 # update documentation and reference #
 ######################################
-doc: scripts remove-reference
+doc: scripts
 	./build-scripts/write-reference.sh
 
 #############################

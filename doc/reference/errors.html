@@ -501,9 +501,9 @@ Warning: scripts/backend/tournament.js: &gt; 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: &gt; 5 dependencies: 88
+Warning: scripts/common.js: &gt; 5 dependencies: 93
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 128, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 133, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -517,7 +517,7 @@ Warning: scripts/main.js:  #2 Do not use 'new' for side effects.
 Warning: scripts/main.js:     new Toast(Strings.newtournament); // Line 72, Pos 47
 Warning: scripts/main.js:  #3 Unused 'Update'.
 Warning: scripts/main.js:     var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug; // Line 36, Pos 19
-Warning: scripts/test.js: &gt; 5 dependencies: 21
+Warning: scripts/test.js: &gt; 5 dependencies: 22
 Warning: scripts/ui/alltabs.js: &gt; 5 dependencies: 9
 Warning: scripts/ui/alltabs.js: undocumented: 'reset: function'
 Warning: scripts/ui/alltabs.js: undocumented: 'update: function'
@@ -589,7 +589,6 @@ Warning: scripts/ui/debug.js:  #3 Do not use 'new' for side effects.
 Warning: scripts/ui/debug.js:     new Toast(Strings.dev, Toast.INFINITE); // Line 26, Pos 45
 Warning: scripts/ui/emitter.js: &gt; 10 functions: 11
 Warning: scripts/ui/emitter.js: Line 18, E:0100: Member Emitter.prototype.EVENTS cannot have a non-primitive value
-Warning: scripts/ui/emitter.js: Line 65, E:0200: Invalid JsDoc tag: returns
 Warning: scripts/ui/emitter.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/emitter.js:     // TODO somehow restrict the events that can be emitted. This has to be // Line 23, Pos 5
 Warning: scripts/ui/emitter.js:  #2 Unexpected 'call'.
@@ -733,6 +732,13 @@ Warning: scripts/ui/ranking.js:  #5 Don't make functions within a loop.
 Warning: scripts/ui/ranking.js:     corrs.forEach(function(corr) { // Line 116, Pos 29
 Warning: scripts/ui/ranking.js:  #6 Unused 'i'.
 Warning: scripts/ui/ranking.js:     var lines, ranking, rank, length, corrs, makeline, i, tournamentid, tournament; // Line 21, Pos 62
+Warning: scripts/ui/savestate.js: undocumented: 'function SaveState'
+Warning: scripts/ui/savestate.js: undocumented: 'SaveState.prototype.save = function'
+Warning: scripts/ui/savestate.js: undocumented: 'SaveState.prototype.oninsert = function'
+Warning: scripts/ui/savestate.js: undocumented: 'SaveState.prototype.onremove = function'
+Warning: scripts/ui/savestate.js: undocumented: 'SaveState.prototype.onreset = function'
+Warning: scripts/ui/savestate.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/savestate.js:     // TODO StateModel could remap all events to its own emitter, which then // Line 36, Pos 5
 Warning: scripts/ui/splash.js: undocumented: 'hide: function'
 Warning: scripts/ui/splash.js: undocumented: 'loading: function'
 Warning: scripts/ui/splash.js: undocumented: 'function setState'
@@ -930,6 +936,20 @@ Warning: scripts/ui/tab_debug.js: #31 'updateForms' was used before it was defin
 Warning: scripts/ui/tab_debug.js:     updateForms(); // Line 403, Pos 5
 Warning: scripts/ui/tab_debug.js: #32 Empty block.
 Warning: scripts/ui/tab_debug.js:     function updateForms() { // Line 406, Pos 26
+Warning: scripts/ui/tab.js: undocumented: 'createTab: function'
+Warning: scripts/ui/tab.js: undocumented: 'reset: function'
+Warning: scripts/ui/tab.js: undocumented: 'update: function'
+Warning: scripts/ui/tab.js: undocumented: 'getOptions: function'
+Warning: scripts/ui/tab.js: undocumented: 'setOptions: function'
+Warning: scripts/ui/tab.js: Line 4, E:0200: Invalid JsDoc tag: expost
+Warning: scripts/ui/tab.js: Line 66, E:0110: Line too long (88 characters).
+Warning: scripts/ui/tab.js: line 66, col 17, Do not use 'new' for side effects.
+Warning: scripts/ui/tab.js:  #1 Do not use 'new' for side effects.
+Warning: scripts/ui/tab.js:     new Toast(Strings.tabupdateerror.replace('%s', Strings['tab_' + name])); // Line 66, Pos 88
+Warning: scripts/ui/tab.js:  #2 Unexpected dangling '_' in '_changed'.
+Warning: scripts/ui/tab.js:     if (options._changed) { // Line 83, Pos 25
+Warning: scripts/ui/tab.js:  #3 Unexpected dangling '_' in '_changed'.
+Warning: scripts/ui/tab.js:     options._changed(); // Line 84, Pos 23
 Warning: scripts/ui/tab_games.js: &gt; 5 dependencies: 15
 Warning: scripts/ui/tab_games.js: undocumented: 'function'
 Warning: scripts/ui/tab_games.js: undocumented: 'function isInt'
@@ -1212,20 +1232,6 @@ Warning: scripts/ui/tab_history.js: #50 '$tree' was used before it was defined.
 Warning: scripts/ui/tab_history.js:     $tree.css('width', boxwidth + 'em'); // Line 968, Pos 9
 Warning: scripts/ui/tab_history.js: #51 Too many errors. (92% scanned).
 Warning: scripts/ui/tab_history.js:      // Line 968, Pos 9
-Warning: scripts/ui/tab.js: undocumented: 'createTab: function'
-Warning: scripts/ui/tab.js: undocumented: 'reset: function'
-Warning: scripts/ui/tab.js: undocumented: 'update: function'
-Warning: scripts/ui/tab.js: undocumented: 'getOptions: function'
-Warning: scripts/ui/tab.js: undocumented: 'setOptions: function'
-Warning: scripts/ui/tab.js: Line 4, E:0200: Invalid JsDoc tag: expost
-Warning: scripts/ui/tab.js: Line 66, E:0110: Line too long (88 characters).
-Warning: scripts/ui/tab.js: line 66, col 17, Do not use 'new' for side effects.
-Warning: scripts/ui/tab.js:  #1 Do not use 'new' for side effects.
-Warning: scripts/ui/tab.js:     new Toast(Strings.tabupdateerror.replace('%s', Strings['tab_' + name])); // Line 66, Pos 88
-Warning: scripts/ui/tab.js:  #2 Unexpected dangling '_' in '_changed'.
-Warning: scripts/ui/tab.js:     if (options._changed) { // Line 83, Pos 25
-Warning: scripts/ui/tab.js:  #3 Unexpected dangling '_' in '_changed'.
-Warning: scripts/ui/tab.js:     options._changed(); // Line 84, Pos 23
 Warning: scripts/ui/tableview.js: undocumented: 'function validateText'
 Warning: scripts/ui/tableview.js: Line 10, E:0110: Line too long (91 characters).
 Warning: scripts/ui/tableview.js: line 28, col 21, 'TableView' is already defined.
@@ -1478,6 +1484,33 @@ Warning: scripts/ui/tab_ranking.js: #10 Expected '{' and instead saw 'Tournament
 Warning: scripts/ui/tab_ranking.js:     for (; tournamentid &lt; Tournaments.numTournaments(); tournamentid += 1) { // Line 262, Pos 27
 Warning: scripts/ui/tab_ranking.js: #11 Stopping. (85% scanned).
 Warning: scripts/ui/tab_ranking.js:      // Line 262, Pos 27
+Warning: scripts/ui/tabs.js: undocumented: 'Tabs = function'
+Warning: scripts/ui/tabs.js: undocumented: 'this.updateOpts = function'
+Warning: scripts/ui/tabs.js: undocumented: 'this.hide = function'
+Warning: scripts/ui/tabs.js: undocumented: 'this.show = function'
+Warning: scripts/ui/tabs.js: undocumented: 'this.focus = function'
+Warning: scripts/ui/tabs.js: undocumented: 'this.valid = function'
+Warning: scripts/ui/tabs.js: undocumented: 'function openValidTab'
+Warning: scripts/ui/tabs.js: undocumented: 'that.updateOpts = function'
+Warning: scripts/ui/tabs.js: undocumented: 'that.focus = function'
+Warning: scripts/ui/tabs.js: Line 117, E:0110: Line too long (86 characters).
+Warning: scripts/ui/tabs.js: Line 174, E:0110: Line too long (117 characters).
+Warning: scripts/ui/tabs.js: Line 198, E:0110: Line too long (91 characters).
+Warning: scripts/ui/tabs.js: line 73, col 29, Empty block.
+Warning: scripts/ui/tabs.js: line 107, col 13, '$img' is defined but never used.
+Warning: scripts/ui/tabs.js: line 215, col 13, 'key' is defined but never used.
+Warning: scripts/ui/tabs.js:  #1 The '&amp;&amp;' subexpression should be wrapped in parens.
+Warning: scripts/ui/tabs.js:     if (enforce &amp;&amp; tabindex === -1 || !visible[tabindex]) { // Line 71, Pos 21
+Warning: scripts/ui/tabs.js:  #2 Empty block.
+Warning: scripts/ui/tabs.js:     if (index === -1) { // Line 73, Pos 29
+Warning: scripts/ui/tabs.js:  #3 Unused '$img'.
+Warning: scripts/ui/tabs.js:     var $img, $tab; // Line 107, Pos 13
+Warning: scripts/ui/tabs.js:  #4 Unexpected '('.
+Warning: scripts/ui/tabs.js:     if (typeof (val) !== 'boolean') { // Line 185, Pos 20
+Warning: scripts/ui/tabs.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tabs.js:     for (key in $menus) { // Line 197, Pos 9
+Warning: scripts/ui/tabs.js:  #6 Unused 'key'.
+Warning: scripts/ui/tabs.js:     var key, index, currentTab; // Line 215, Pos 13
 Warning: scripts/ui/tab_settings.js: &gt; 5 dependencies: 16
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initCSV'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function csvupdate'
@@ -1626,33 +1659,6 @@ Warning: scripts/ui/tab_settings.js: #46 Unused 'autocompleteFileLoad'.
 Warning: scripts/ui/tab_settings.js:     function autocompleteFileLoad(evt) { // Line 220, Pos 12
 Warning: scripts/ui/tab_settings.js: #47 Unused 'autocompleteFileAbort'.
 Warning: scripts/ui/tab_settings.js:     function autocompleteFileAbort() { // Line 232, Pos 12
-Warning: scripts/ui/tabs.js: undocumented: 'Tabs = function'
-Warning: scripts/ui/tabs.js: undocumented: 'this.updateOpts = function'
-Warning: scripts/ui/tabs.js: undocumented: 'this.hide = function'
-Warning: scripts/ui/tabs.js: undocumented: 'this.show = function'
-Warning: scripts/ui/tabs.js: undocumented: 'this.focus = function'
-Warning: scripts/ui/tabs.js: undocumented: 'this.valid = function'
-Warning: scripts/ui/tabs.js: undocumented: 'function openValidTab'
-Warning: scripts/ui/tabs.js: undocumented: 'that.updateOpts = function'
-Warning: scripts/ui/tabs.js: undocumented: 'that.focus = function'
-Warning: scripts/ui/tabs.js: Line 117, E:0110: Line too long (86 characters).
-Warning: scripts/ui/tabs.js: Line 174, E:0110: Line too long (117 characters).
-Warning: scripts/ui/tabs.js: Line 198, E:0110: Line too long (91 characters).
-Warning: scripts/ui/tabs.js: line 73, col 29, Empty block.
-Warning: scripts/ui/tabs.js: line 107, col 13, '$img' is defined but never used.
-Warning: scripts/ui/tabs.js: line 215, col 13, 'key' is defined but never used.
-Warning: scripts/ui/tabs.js:  #1 The '&amp;&amp;' subexpression should be wrapped in parens.
-Warning: scripts/ui/tabs.js:     if (enforce &amp;&amp; tabindex === -1 || !visible[tabindex]) { // Line 71, Pos 21
-Warning: scripts/ui/tabs.js:  #2 Empty block.
-Warning: scripts/ui/tabs.js:     if (index === -1) { // Line 73, Pos 29
-Warning: scripts/ui/tabs.js:  #3 Unused '$img'.
-Warning: scripts/ui/tabs.js:     var $img, $tab; // Line 107, Pos 13
-Warning: scripts/ui/tabs.js:  #4 Unexpected '('.
-Warning: scripts/ui/tabs.js:     if (typeof (val) !== 'boolean') { // Line 185, Pos 20
-Warning: scripts/ui/tabs.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
-Warning: scripts/ui/tabs.js:     for (key in $menus) { // Line 197, Pos 9
-Warning: scripts/ui/tabs.js:  #6 Unused 'key'.
-Warning: scripts/ui/tabs.js:     var key, index, currentTab; // Line 215, Pos 13
 Warning: scripts/ui/team.js: &gt; 5 dependencies: 6
 Warning: scripts/ui/team.js: undocumented: 'function'
 Warning: scripts/ui/team.js: Line 90, E:0120: Binary operator should go on previous line &quot;+&quot;
@@ -1674,8 +1680,6 @@ Warning: scripts/ui/teamstab.js:  #4 Do not use 'new' for side effects.
 Warning: scripts/ui/teamstab.js:     new TeamsTab($tab); // Line 57, Pos 23
 Warning: scripts/ui/test/emitter.js: undocumented: 'function'
 Warning: scripts/ui/test/emitter.js: Line 19, E:0110: Line too long (83 characters).
-Warning: scripts/ui/test/emitter.js: Line 69, E:0121: Illegal comma at end of object literal
-Warning: scripts/ui/test/emitter.js: Line 99, E:0131: Single-quoted string preferred over double-quoted string.
 Warning: scripts/ui/test/emitter.js: Line 111, E:0110: Line too long (96 characters).
 Warning: scripts/ui/test/emitter.js:  #1 Unexpected dangling '_' in '_emitter'.
 Warning: scripts/ui/test/emitter.js:     onevent: function(_emitter, event) { // Line 43, Pos 35
@@ -1710,43 +1714,39 @@ Warning: scripts/ui/test/playermodel.js:     // TODO test the emitted events // 
 Warning: scripts/ui/test/tab.js: undocumented: 'clear: function'
 Warning: scripts/ui/test/tab.js: undocumented: 'reset: function'
 Warning: scripts/ui/test/tab.js: undocumented: 'update: function'
-Warning: scripts/ui/test/tab.js: Line 15, E:0110: Line too long (129 characters).
-Warning: scripts/ui/test/tab.js: Line 33, E:0110: Line too long (86 characters).
+Warning: scripts/ui/test/tab.js: Line 15, E:0110: Line too long (118 characters).
+Warning: scripts/ui/test/tab.js: Line 32, E:0110: Line too long (86 characters).
+Warning: scripts/ui/test/tab.js: Line 33, E:0110: Line too long (90 characters).
 Warning: scripts/ui/test/tab.js: Line 34, E:0110: Line too long (90 characters).
-Warning: scripts/ui/test/tab.js: Line 35, E:0110: Line too long (90 characters).
-Warning: scripts/ui/test/tab.js: Line 36, E:0110: Line too long (92 characters).
-Warning: scripts/ui/test/tab.js: Line 37, E:0110: Line too long (88 characters).
+Warning: scripts/ui/test/tab.js: Line 35, E:0110: Line too long (92 characters).
+Warning: scripts/ui/test/tab.js: Line 36, E:0110: Line too long (82 characters).
+Warning: scripts/ui/test/tab.js: Line 37, E:0110: Line too long (86 characters).
 Warning: scripts/ui/test/tab.js: Line 38, E:0110: Line too long (82 characters).
-Warning: scripts/ui/test/tab.js: Line 39, E:0110: Line too long (86 characters).
-Warning: scripts/ui/test/tab.js: Line 40, E:0110: Line too long (82 characters).
 Warning: scripts/ui/test/tab.js: line 15, col 0, Identifier 'Tab_Games' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 15, col 0, Identifier 'Tab_History' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 15, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 15, col 0, Identifier 'Tab_Settings' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 15, col 0, Identifier 'Tab_Teams' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 15, col 0, Identifier 'Tab_New' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 15, col 0, Identifier 'Tab_Debug' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 19, col 0, Identifier 'Tab_Games' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 20, col 0, Identifier 'Tab_History' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 21, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/test/tab.js: line 22, col 0, Identifier 'Tab_Settings' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 24, col 0, Identifier 'Tab_New' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 27, col 0, Identifier 'Tab_Debug' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 33, col 0, Identifier 'Tab_Games' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 34, col 0, Identifier 'Tab_History' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 35, col 0, Identifier 'Tab_Ranking' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 36, col 0, Identifier 'Tab_Settings' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 38, col 0, Identifier 'Tab_New' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 39, col 0, Identifier 'Tab_Debug' is not in camel case.
-Warning: scripts/ui/test/tab.js: line 15, col 77, 'Tab_Teams' is defined but never used.
+Warning: scripts/ui/test/tab.js: line 23, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 26, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 32, col 0, Identifier 'Tab_Games' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 33, col 0, Identifier 'Tab_History' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 34, col 0, Identifier 'Tab_Ranking' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 35, col 0, Identifier 'Tab_Settings' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 36, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/test/tab.js: line 37, col 0, Identifier 'Tab_Debug' is not in camel case.
 Warning: scripts/ui/test/tab.js:  #1 Empty block.
-Warning: scripts/ui/test/tab.js:     clear: function() { // Line 44, Pos 29
+Warning: scripts/ui/test/tab.js:     clear: function() { // Line 42, Pos 29
 Warning: scripts/ui/test/tab.js:  #2 Empty block.
-Warning: scripts/ui/test/tab.js:     reset: function() { // Line 46, Pos 29
+Warning: scripts/ui/test/tab.js:     reset: function() { // Line 44, Pos 29
 Warning: scripts/ui/test/tab.js:  #3 Empty block.
-Warning: scripts/ui/test/tab.js:     update: function() { // Line 48, Pos 30
-Warning: scripts/ui/test/tab.js:  #4 Unused 'Tab_Teams'.
-Warning: scripts/ui/test/tab.js:     var Implements, Tab, Tab_Games, Tab_History, Tab_Ranking, Tab_Settings, Tab_Teams, Tab_New, Autocomplete, Alltabs, Tab_Debug; // Line 15, Pos 77
+Warning: scripts/ui/test/tab.js:     update: function() { // Line 46, Pos 30
+Warning: scripts/ui/test/valuemodel.js: undocumented: 'onupdate: function'
 Warning: scripts/ui/textview.js: line 42, col 5, 'setText' is not defined.
 Warning: scripts/ui/textview.js:  #1 'setText' was used before it was defined.
 Warning: scripts/ui/textview.js:     setText(''); // Line 42, Pos 5

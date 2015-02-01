@@ -62,7 +62,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    *
    * @param event
    *          an event string, e.g. 'update'
-   * @returns true if the event type is defined, false otherwise
+   * @return true if the event type is defined, false otherwise
    */
   Emitter.prototype.validEvent = function(event) {
     return this.EVENTS && !!this.EVENTS[event];
