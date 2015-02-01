@@ -1,6 +1,7 @@
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* names.txt: Paraboule added
+	Paraboule is way too absurd
 
 	* scripts/ui/listview.js: now a subclass of TemplateView
 	onreset/reset logic bug fixed
@@ -65,14 +66,17 @@
 
 	* index.html: using the teamsizeview class
 	teamsizeview: button values removed
+	newteamview: additional div container added for each input, because of typeahead style override
 
 	* scripts/ui/team.js: better return value description
 
 	* scripts/ui/test/tab.js: all references to Tab_Teams removed
 
 	* style/mainstyle.css: importing teamsizeview.css
+	importing newteamview.css
 
 	* style/teams.css: teamsize styles removed in favor of teamsizeview.css
+	newteam-specific styles exported to newteamview.css
 
 	* build-scripts/write-reference.sh: error pages for each script
 	faster doc build system, which ignores unchanged files
@@ -84,8 +88,13 @@
 
 	* scripts/ui/newteamview.js: enabling/disabling input fields according to team size
 	twitter-typeahead reset logic added
+	in addition to disabling the inputs, they're actively hidden
 
 	* scripts/ui/preregcloserview.js: PreregCloserView added to disable preregistration DOM elements
+
+	* scripts/lib/typeahead.js: typeahead library updated
+
+	* style/newteamview.css: #newteamview stylesheet added
 
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

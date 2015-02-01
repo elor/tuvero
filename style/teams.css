@@ -1,127 +1,97 @@
 div#teams {
-    text-align: left;
+	text-align: left;
 }
 
-#teams .team, #newteam, #teams .load, #teams .delete {
-  display: inline-table;
-  height: 5em;
-  border-radius: 0.5em;
-  border-spacing: 0px;
-  background-color: #d0d0d0;
-  margin: 0.5em;
-  padding: 0em 0.5em;
-  text-align: left;
-  vertical-align: top;
-  white-space: nowrap;
+#teams .team, #newteamview, #teams .load, #teams .delete {
+	display: inline-table;
+	height: 5em;
+	border-radius: 0.5em;
+	border-spacing: 0px;
+	background-color: #d0d0d0;
+	margin: 0.5em;
+	padding: 0em 0.5em;
+	text-align: left;
+	vertical-align: top;
+	white-space: nowrap;
 }
 
 #teams .load {
-  text-align: center;
+	text-align: center;
 }
 
 #teams .teamno {
-  display: table-cell;
-  background: none;
+	display: table-cell;
+	background: none;
 }
 
 #teams .team .names {
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
+	display: table-cell;
+	text-align: left;
+	vertical-align: middle;
 }
 
 #teams .team .name {
-  display: inline-block;
-  line-height: 1.2em;
+	display: inline-block;
+	line-height: 1.2em;
 }
 
 #teams .team .name:hover {
-  cursor: text;
-  text-decoration: underline;
+	cursor: text;
+	text-decoration: underline;
 }
 
 #teams .team .name {
-  font-weight: bold;
-  white-space: nowrap;
+	font-weight: bold;
+	white-space: nowrap;
 }
 
 #teams.maxwidth .team .name {
-  width: 10em;
-  min-width: 10em;
-  max-width: 10em;
-  transition: max-width 0.5s;
-  overflow-x: hidden;
-  /* Cannot do make y visible due to inconsistent standard behavior: */
-  /* 'visible' becomes 'auto' if used with 'hidden' as overflow-x */
-  /*  overflow-y: visible; */
-  overflow-y: hidden;
-  text-overflow: ellipsis;
+	width: 10em;
+	min-width: 10em;
+	max-width: 10em;
+	transition: max-width 0.5s;
+	overflow-x: hidden;
+	/* Cannot do make y visible due to inconsistent standard behavior: */
+	/* 'visible' becomes 'auto' if used with 'hidden' as overflow-x */
+	/*  overflow-y: visible; */
+	overflow-y: hidden;
+	text-overflow: ellipsis;
 }
 
 #teams.maxwidth .team:hover .name {
-  width: auto;
-  max-width: 50em;
-  transition: max-width 0.5s;
+	width: auto;
+	max-width: 50em;
+	transition: max-width 0.5s;
 }
 
-#newteam {
-  background-color: #90ee90;
-}
-
-#newteam .teamno button {
-  background-color: #d3d3d3;
-  width: inherit;
-  height: inherit;
-  font-size: 100%;
-  border-radius: 0.2em;
-  border: none;
-  box-shadow: 1px 1px 0px #808080;
-}
-
-#newteam .names {
-  padding-left: 0.5em;
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
-  line-height: 1.4em;
-}
-
-#newteam .playername {
-  background-color: #ffffff;
-  border: none;
-  width: 100%;
-  box-shadow: 1px 1px 0px #808080;
-  margin: 0em;
-}
-
-#teams.noreg #newteam {
-  display: none;
+#teams.noreg #newteamview {
+	display: none;
 }
 
 #teams.noreg button.delete {
-  display: none;
+	display: none;
 }
 
 #teams.noreg .filereader {
-  display: none;
+	display: none;
 }
 
 #teams button.delete.hidden {
-  display: none;
+	display: none;
 }
 
 #teams button.delete {
-  background-color: #d3d3d3;
-  height: 3em;
-  font-size: 100%;
-  border-radius: 0.2em;
-  border: none;
-  box-shadow: 1px 1px 0px #808080;
-  cursor: crosshair;
+	background-color: #d3d3d3;
+	height: 3em;
+	font-size: 100%;
+	border-radius: 0.2em;
+	border: none;
+	box-shadow: 1px 1px 0px #808080;
+	cursor: crosshair;
 }
 
 #teams.deletion button.delete {
-  background-color: red;
+	background-color: red;
 }
 
 /*
@@ -129,29 +99,27 @@ div#teams {
  * 0121 -> highest specificity
  */
 #teams.deletion:hover, #teams.deletion .team .name:hover {
-  cursor: not-allowed;
-  text-decoration: none;
+	cursor: not-allowed;
+	text-decoration: none;
 }
 
 #teams.deletion .team:hover, #teams.deletion .team .name:hover {
-  cursor: crosshair;
+	cursor: crosshair;
 }
 
 #teams.deletion {
-  background-color: #969696;
+	background-color: #969696;
 }
 
-#teams.deletion .load, #teams.deletion #newteam {
-  display: none;
+#teams.deletion .load, #teams.deletion #newteamview {
+	display: none;
 }
 
 @media print {
-  #newteam, #teams button.delete, #teams .filereader {
-    display: none;
-  }
-
-  #teams .team {
-    margin: 0em;
-  }
+	#newteamview, #teams button.delete, #teams .filereader {
+		display: none;
+	}
+	#teams .team {
+		margin: 0em;
+	}
 }
-

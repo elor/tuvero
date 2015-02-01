@@ -24,7 +24,8 @@ define(
       function NewTeamView(model, $view, teamsize) {
         NewTeamView.superconstructor.call(this, model, $view);
 
-        this.$players = $view.find('input.playername');
+        this.$players = this.$view.find('input.playername');
+        this.$lines = this.$view.find('>.names>');
 
         if (teamsize) {
           this.teamsize = teamsize;
@@ -81,6 +82,14 @@ define(
             $(this).prop('disabled', false);
           } else {
             $(this).prop('disabled', true);
+          }
+        });
+
+        this.$lines.each(function(index) {
+          if (index < teamsize) {
+            $(this).show();
+          } else {
+            $(this).hide();
           }
         });
       };
