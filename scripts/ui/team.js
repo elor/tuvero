@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./options', './strings', './shared', './state_new', './playermodel',
-    './teammodel'], function(Options, Strings, Shared, State, PlayerModel,
+define(['./strings', './shared', './state_new', './playermodel',
+    './teammodel'], function(Strings, Shared, State, PlayerModel,
     TeamModel) {
   var Team, teams;
 
@@ -76,7 +76,7 @@ define(['./options', './strings', './shared', './state_new', './playermodel',
   Team.toCSV = function() {
     var lines;
 
-    lines = [Strings['teamhead' + Options.teamsize]];
+    lines = [Strings['teamhead' + State.teamsize.get()]];
 
     teams.asArray().forEach(
         function(team) {
@@ -84,7 +84,7 @@ define(['./options', './strings', './shared', './state_new', './playermodel',
 
           line = [team.getID() + 1];
 
-          for (i = 0; i < Options.teamsize; i += 1) {
+          for (i = 0; i < State.teamsize.get(); i += 1) {
             if (team.getPlayer(i).getName()) {
               line.push('"' + team.getPlayer(i).getName().replace(/"/g, '""')
                   + '"');

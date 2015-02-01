@@ -1,14 +1,15 @@
-Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 12
+Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 13
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function initTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTemplate'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function init'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function updateTournamentRankings'
 Warning: scripts/ui/tab_ranking.js: undocumented: 'function update'
+Warning: scripts/ui/tab_ranking.js: Line 17, E:0110: Line too long (92 characters).
 Warning: scripts/ui/tab_ranking.js: Line 86, E:0120: Binary operator should go on previous line "&&"
 Warning: scripts/ui/tab_ranking.js: Line 89, E:0120: Binary operator should go on previous line "&&"
 Warning: scripts/ui/tab_ranking.js: Line 134, E:0120: Binary operator should go on previous line ":"
-Warning: scripts/ui/tab_ranking.js: line 17, col 77, This function has too many parameters. (10)
+Warning: scripts/ui/tab_ranking.js: line 17, col 92, This function has too many parameters. (11)
 Warning: scripts/ui/tab_ranking.js: line 20, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_ranking.js: line 23, col 0, Identifier 'Tab_Ranking' is not in camel case.
 Warning: scripts/ui/tab_ranking.js: line 86, col 13, Bad line breaking before '&&'.

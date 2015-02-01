@@ -21,6 +21,7 @@ TODO slay this beast
 * <a href="./history.html">./history</a>
 * <a href="./options.html">./options</a>
 * <a href="./shared.html">./shared</a>
+* <a href="./state_new.html">./state_new</a>
 * <a href="./strings.html">./strings</a>
 * <a href="./tab.html">./tab</a>
 * <a href="./tabshandle.html">./tabshandle</a>
@@ -105,5 +106,5 @@ the box to add content to
 ## Metrics
 
 * 304 Lines
-* 7677 Bytes
+* 7711 Bytes
 

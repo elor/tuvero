@@ -40,6 +40,7 @@
 	* scripts/ui/teamstab.js: using LengthView to show number of registrations
 	using TeamSizeView to change the team size
 	using PreregCloserView added to disable team size changes
+	PreregCloserView applied to the $tab itself
 
 	* test/teamentry.html: testing LengthView for number of registrations
 
@@ -57,6 +58,7 @@
 	* scripts/ui/valueview.js: ValueView: show textual ValueModel data in the DOM
 
 	* style/teamsizeview.css: TeamSizeView style sheet
+	hiding teamsizeview after registration started and during printing
 
 	* test/teamsizeview.html: TeamSizeView test page
 	button values removed
@@ -67,8 +69,11 @@
 	* index.html: using the teamsizeview class
 	teamsizeview: button values removed
 	newteamview: additional div container added for each input, because of typeahead style override
+	#newteamview -> .newteamview
+	player names: using divs instead of span-br-pairs
 
 	* scripts/ui/team.js: better return value description
+	Options.teamsize -> State.teamsize.get()
 
 	* scripts/ui/test/tab.js: all references to Tab_Teams removed
 
@@ -77,11 +82,13 @@
 
 	* style/teams.css: teamsize styles removed in favor of teamsizeview.css
 	newteam-specific styles exported to newteamview.css
+	#newteamview -> .newteamview
 
 	* build-scripts/write-reference.sh: error pages for each script
 	faster doc build system, which ignores unchanged files
 
 	* Makefile: adjusted for the altered doc build logic
+	'make style' forces 'make scripts'
 
 	* scripts/ui/newteamcontroller.js: readPlayerNames extracted from createNewTeam
 	properly ignoring disabled input fields
@@ -91,10 +98,17 @@
 	in addition to disabling the inputs, they're actively hidden
 
 	* scripts/ui/preregcloserview.js: PreregCloserView added to disable preregistration DOM elements
+	comments added
 
 	* scripts/lib/typeahead.js: typeahead library updated
 
 	* style/newteamview.css: #newteamview stylesheet added
+
+	* scripts/ui/ranking.js: Options.teamsize -> State.teamsize.get()
+
+	* scripts/ui/tab_history.js: Options.teamsize -> State.teamsize.get()
+
+	* scripts/ui/tab_ranking.js: Options.teamsize -> State.teamsize.get()
 
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

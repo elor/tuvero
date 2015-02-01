@@ -1,1 +1,1 @@
-Warning: scripts/ui/listview.js: > 10 functions: 11
+Warning: scripts/ui/listview.js: > 10 functions: 13

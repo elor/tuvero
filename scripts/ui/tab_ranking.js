@@ -14,9 +14,9 @@
  */
 
 define(['./tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './tab', './history', './shared', './boxview'], function(
+    './tabshandle', './tab', './history', './shared', './boxview', './state_new'], function(
     Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History,
-    Shared, BoxView) {
+    Shared, BoxView, State) {
   var Tab_Ranking, template, $tab;
 
   template = undefined;
@@ -77,11 +77,11 @@ define(['./tournaments', './team', './toast', './strings', './options',
     var i;
     // adjust number of columns to the teamsize
     template.rank.$table.find('th:nth-child(3)').attr('colspan',
-        Options.teamsize);
+        State.teamsize.get());
 
     // hide unimportant columns
     for (i = 0; i < Options.maxteamsize; i += 1) {
-      if (i < Options.teamsize) {
+      if (i < State.teamsize.get()) {
         template.rank.$fields[i + 2]
             && template.rank.$fields[i + 2].css('display', '');
       } else {
@@ -123,7 +123,7 @@ define(['./tournaments', './team', './toast', './strings', './options',
     template.rank.$fields[0].text(ranking.place[rank] + 1);
 
     template.rank.$fields[1].text(team.getID() + 1);
-    for (i = 0; i < Options.teamsize; i += 1) {
+    for (i = 0; i < State.teamsize.get(); i += 1) {
       template.rank.$fields[i + 2].text(team.getPlayer(i).getName());
     }
 

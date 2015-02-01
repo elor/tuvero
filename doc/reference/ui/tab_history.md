@@ -14,8 +14,8 @@ No Description
 * <a href="./boxview.html">./boxview</a>
 * <a href="./history.html">./history</a>
 * <a href="./koline.html">./koline</a>
-* <a href="./options.html">./options</a>
 * <a href="./shared.html">./shared</a>
+* <a href="./state_new.html">./state_new</a>
 * <a href="./storage.html">./storage</a>
 * <a href="./strings.html">./strings</a>
 * <a href="./tab.html">./tab</a>
@@ -275,5 +275,5 @@ removes and redraws all boxes from History
 ## Metrics
 
 * 1046 Lines
-* 30699 Bytes
+* 30703 Bytes
 

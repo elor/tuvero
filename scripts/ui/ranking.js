@@ -9,8 +9,8 @@
  */
 
 define(
-    ['./team', './strings', './options', './tournaments'],
-    function(Team, Strings, Options, Tournaments) {
+    ['./team', './strings', './state_new', './tournaments'],
+    function(Team, Strings, State, Tournaments) {
       var Ranking;
 
       Ranking = {
@@ -35,7 +35,7 @@ define(
             }
 
             lines.push('#' + Tournaments.getName(tournamentid) + ' Ranking,');
-            lines.push(Strings['rankhead' + Options.teamsize]);
+            lines.push(Strings['rankhead' + State.teamsize.get()]);
 
             makeline = function(rnk) {
               var line, tid, team, vote, i, index, player;

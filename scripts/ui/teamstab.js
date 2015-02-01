@@ -43,19 +43,20 @@ define(
             TeamView);
 
         // registration
-        $container = this.$view.find('>form#newteam');
+        $container = this.$view.find('>.newteamview');
         this.newTeamView = new NewTeamView(State.teams, $container,
             State.teamsize);
 
         // number of teams
-        $container = this.$view.find('> > .numteams');
+        $container = this.$view.find('> h2 > .numteams');
         this.lengthView = new LengthView(State.teams, $container);
 
         // change team size
         $container = this.$view.find('> .teamsizeview');
         this.teamSizeView = new TeamSizeView(State.teamsize, $container);
+
         // hide team size buttons when a team has been registered
-        this.teamSizeCloserView = new PreregCloserView(State.teams, $container);
+        this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view);
       };
 
       // FIXME CHEAP HACK AHEAD

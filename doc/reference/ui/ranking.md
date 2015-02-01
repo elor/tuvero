@@ -12,14 +12,14 @@ CSV export of tournament rankings
 
 ## Dependencies
 
-* <a href="./options.html">./options</a>
+* <a href="./state_new.html">./state_new</a>
 * <a href="./strings.html">./strings</a>
 * <a href="./team.html">./team</a>
 * <a href="./tournaments.html">./tournaments</a>
 
 ## Functions
 
-###     function(Team, Strings, Options, Tournaments)
+###     function(Team, Strings, State, Tournaments)
 
 ---
 
@@ -40,5 +40,5 @@ converts ranking and correction information to a csv string
 ## Metrics
 
 * 126 Lines
-* 3726 Bytes
+* 3730 Bytes
 

@@ -9,9 +9,9 @@
 define(
     ['./toast', './strings', './history', './tournaments', './tab_ranking',
         '../backend/game', './storage', './tabshandle', './tab', './team',
-        './options', './shared', './boxview', './koline'],
+        './state_new', './shared', './boxview', './koline'],
     function(Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
-        Tabshandle, Tab, Team, Options, Shared, BoxView, KOLine) {
+        Tabshandle, Tab, Team, State, Shared, BoxView, KOLine) {
       var Tab_History, $tab, template, $button, progresstable;
 
       $button = undefined;
@@ -634,7 +634,7 @@ define(
 
         // prepare table headers
         template.progresstable.$nameheader.removeClass('hidden');
-        for (i = Options.teamsize; i < 3; i += 1) {
+        for (i = State.teamsize.get(); i < 3; i += 1) {
           template.progresstable.$nameheader.eq(i).addClass('hidden');
         }
 

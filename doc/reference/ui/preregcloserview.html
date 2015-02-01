@@ -7,9 +7,9 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-<a href="preregcloserview_err.html">errors</a>
+
 <h1>scripts/ui/preregcloserview.js</h1>
-<p>hide a preregistration element as soon as the first team has been registered</p>
+<p>hide preregistration elements as soon as the first team has been registered</p>
 <ul>
 <li>Exports: PreregCloserView</li>
 <li>Author: Erik E. Lorenz</li>
@@ -23,15 +23,22 @@
 </ul>
 <h2>Functions</h2>
 <h3>function PreregCloserView(model, $view)</h3>
+<p>Constructor</p>
+<p><strong>Argument:</strong> <strong>model</strong></p>
+<p>a ListModel of the teams
+<strong>Argument:</strong> <strong>$view</strong></p>
+<p>a container for all affected DOM elements</p>
 <hr />
 <h3>PreregCloserView.prototype.updateStatus = function()</h3>
+<p>update the preregistration status</p>
 <hr />
 <h3>PreregCloserView.prototype.onresize = function()</h3>
+<p>Callback function</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>32 Lines</li>
-<li>726 Bytes</li>
+<li>46 Lines</li>
+<li>1007 Bytes</li>
 </ul>
 </body>
 </html>

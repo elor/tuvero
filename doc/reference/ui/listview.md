@@ -110,8 +110,14 @@ data object, containing at least the index within the list
 
 ---
 
+
+###   ListView.prototype.onreset = function()
+Callback function, event emitted by list.clear()
+
+---
+
 ## Metrics
 
-* 136 Lines
-* 3368 Bytes
+* 143 Lines
+* 3511 Bytes
 

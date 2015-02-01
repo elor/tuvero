@@ -73,7 +73,7 @@ doc: scripts
 #############################
 # enforce the gjslint style #
 #############################
-style: FORCE
+style: scripts
 	find scripts -name '*.js' | grep -v 'scripts/lib' | xargs fixjsstyle
 
 ###############################

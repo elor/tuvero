@@ -1,7 +1,7 @@
 # scripts/ui/preregcloserview.js
 
 
-hide a preregistration element as soon as the first team has been registered
+hide preregistration elements as soon as the first team has been registered
 
 * Exports: PreregCloserView
 * Author: Erik E. Lorenz 
@@ -17,19 +17,31 @@ hide a preregistration element as soon as the first team has been registered
 ## Functions
 
 ###   function PreregCloserView(model, $view)
+Constructor
+
+**Argument:** **model**
+
+a ListModel of the teams
+**Argument:** **$view**
+
+a container for all affected DOM elements
 
 ---
+
 
 ###   PreregCloserView.prototype.updateStatus = function()
+update the preregistration status
 
 ---
 
+
 ###   PreregCloserView.prototype.onresize = function()
+Callback function
 
 ---
 
 ## Metrics
 
-* 32 Lines
-* 726 Bytes
+* 46 Lines
+* 1007 Bytes
 

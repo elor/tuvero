@@ -13,3 +13,13 @@
 .teamsizeview button.selected {
   background-color: #ffffff;
 }
+
+.noprereg>.teamsizeview {
+  display: none;
+}
+
+@media print {
+  .teamsizeview {
+    display: none;
+  }
+}

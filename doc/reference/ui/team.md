@@ -13,7 +13,6 @@ Managed list of registered teams
 
 ## Dependencies
 
-* <a href="./options.html">./options</a>
 * <a href="./playermodel.html">./playermodel</a>
 * <a href="./shared.html">./shared</a>
 * <a href="./state_new.html">./state_new</a>
@@ -119,5 +118,5 @@ the id of the team
 ## Metrics
 
 * 171 Lines
-* 3282 Bytes
+* 3268 Bytes
 
