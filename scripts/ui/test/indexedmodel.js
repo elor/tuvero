@@ -33,7 +33,8 @@ define(function() {
          */
         reset: function() {
           listener.updatecount = 0;
-        }
+        },
+        emitters: []
       };
 
       model = new IndexedModel();

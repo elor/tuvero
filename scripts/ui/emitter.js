@@ -6,13 +6,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define(['lib/extend', './listener'], function(extend, Listener) {
   /**
    * Constructor
    */
   function Emitter() {
+    Emitter.superconstructor.call(this, undefined);
     this.listeners = [];
   }
+  extend(Emitter, Listener);
 
   // TODO somehow restrict the events that can be emitted. This has to be
   // visible to the user (i.e. programmers)!
@@ -57,6 +59,7 @@ define(function() {
   Emitter.prototype.registerListener = function(listener) {
     this.unregisterListener(listener);
     this.listeners.push(listener);
+    listener.emitters.push(this);
 
     return this;
   };
@@ -78,6 +81,17 @@ define(function() {
     }
 
     return this;
+  };
+
+  /**
+   * unregister all related listeners
+   */
+  Emitter.prototype.destroy = function() {
+    Emitter.superclass.destroy.call(this);
+
+    this.listeners.forEach(function(listener) {
+      this.unregisterListener(listener);
+    }, this);
   };
 
   return Emitter;

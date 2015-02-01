@@ -2,7 +2,7 @@
  * A TemplateView holds a template element from the DOM, which it prepares for
  * duplication through a subclass, e.g. ListView. Templating is not meant to be
  * handled by the user.
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE

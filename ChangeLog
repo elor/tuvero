@@ -6,6 +6,21 @@
 
 	* scripts/ui/templateview.js: TemplateView integrated
 
+	* scripts/ui/emitter.js: Emitter is subclass of Listener
+
+	* scripts/ui/listener.js: Listener added: emitters[] field contains all registered emitters
+	Listener.prototype.destroy() handles coordinated dereferencing
+
+	* scripts/ui/test/emitter.js: listener.emitters added
+
+	* scripts/ui/test/indexedmodel.js: listener.emitter added
+
+	* scripts/ui/test/playermodel.js: listener.emitter added
+
+	* scripts/ui/test/teammodel.js: listener.emitter added
+
+	* scripts/ui/view.js: View is a subclass of Listener
+
 2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-reference.sh: error page shows jshint, jslint and gjslint output

@@ -5,7 +5,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./model'], function(Model) {
+define(['lib/extend', './listener', './model'], function(extend, Listener,
+    Model) {
   /**
    * Displays a model and updates on changes to it.
    *
@@ -15,11 +16,12 @@ define(['./model'], function(Model) {
    *          A jQuery object which is represented by this view
    */
   function View(model, $view) {
+    View.superconstructor.call(this, model);
+
     this.model = model || new Model();
     this.$view = $view;
-
-    this.model.registerListener(this);
   }
+  extend(View, Listener);
 
   /**
    * resets the whole view
@@ -48,8 +50,8 @@ define(['./model'], function(Model) {
    *
    */
   View.prototype.destroy = function() {
+    View.superclass.destroy.call(this);
     this.$view.remove();
-    this.model.unregisterListener(this);
   };
 
   return View;
