@@ -1,6 +1,8 @@
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant
+	getSubview() added
+	extra variable declaration removed
 
 	* scripts/ui/textview.js: typo fixed
 
@@ -32,6 +34,7 @@
 	actual removal: mousedown instead of click, because it's fired before blur
 
 	* scripts/ui/teamstab.js: using TeamRemoveController for individual team deletions
+	using TeamNameController for initiating and completing player name changes
 
 	* scripts/ui/test/listmodel.js: clear() now emits remove events
 
@@ -40,8 +43,12 @@
 	* scripts/ui/koline.js: using round line caps, because I'm awesome
 
 	* scripts/ui/teamnamecontroller.js: first auto-generated class file
+	inserting an input field in place of a player name on click
+	on blur, enter or escape keypress, the input field is removed again
 
 	* style/teams.css: only showing the removal button during registration
+
+	* test/teamlistview.html: testing TeamNameController
 
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

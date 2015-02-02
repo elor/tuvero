@@ -18,6 +18,7 @@
 * <a href="./preregcloserview.html">./preregcloserview</a>
 * <a href="./state_new.html">./state_new</a>
 * <a href="./taboptslistener.html">./taboptslistener</a>
+* <a href="./teamnamecontroller.html">./teamnamecontroller</a>
 * <a href="./teamremovecontroller.html">./teamremovecontroller</a>
 * <a href="./teamsizeview.html">./teamsizeview</a>
 * <a href="./teamview.html">./teamview</a>
@@ -55,6 +56,6 @@ TODO maybe split it into multiple autodetected functions?
 
 ## Metrics
 
-* 88 Lines
-* 2953 Bytes
+* 91 Lines
+* 3102 Bytes
 

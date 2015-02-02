@@ -7,9 +7,10 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-
+<a href="teamnamecontroller_err.html">errors</a>
 <h1>scripts/ui/teamnamecontroller.js</h1>
-<p>TeamNameController</p>
+<p>TeamNameController: Let the user change player names, when she clicks a
+player name</p>
 <ul>
 <li>Exports: TeamNameController</li>
 <li>Author: Erik E. Lorenz</li>
@@ -20,15 +21,60 @@
 <ul>
 <li><a href="./controller.html">./controller</a></li>
 <li>lib/extend</li>
+<li>JQuery</li>
 </ul>
 <h2>Functions</h2>
-<h3>function TeamNameController(view)</h3>
+<h3>function TeamNameController(view, $input)</h3>
 <p>Constructor</p>
+<p><strong>Argument:</strong> <strong>view</strong></p>
+<p>a ListView instance with TeamView instances</p>
+<hr />
+<h3>TeamNameController.prototype.getPlayer = function($name)</h3>
+<p>Retrieve the Player instance, which is associated with the $name element</p>
+<p>This requires working knowledge of the TeamView structure. So be it.</p>
+<p><strong>Argument:</strong> <strong>$name</strong></p>
+<p>the DOM element which displays the player name</p>
+<p><strong>Returns:</strong> the associated PlayerModel instance</p>
+<hr />
+<h3>TeamNameController.prototype.showInputField = function($name)</h3>
+<p>show the input field in place of a player name</p>
+<p><strong>Argument:</strong> <strong>$name</strong></p>
+<p>the DOM element which displays the player name</p>
+<hr />
+<h3>TeamNameController.prototype.hideInputField = function(abort)</h3>
+<p>detach the input field from the DOM and change/reset the player name</p>
+<p><strong>Argument:</strong> <strong>abort</strong></p>
+<p>if true, the new player name will be discarded</p>
+<hr />
+<h3>TeamNameController.prototype.attachInputListeners = function()</h3>
+<p>attach blur and keydown listeners. This is required to avoid double-blurs,
+where the browser sends a second blur event, if an element is detached
+within a blur event. Keydown should be fine, but we'll do it anyways.</p>
+<hr />
+<h3>TeamNameController.prototype.detachInputListeners = function()</h3>
+<p>detach blur and keydown listeners. This is required to avoid double-blurs,
+where the browser sends a second blur event, if an element is detached
+within a blur event. Keydown should be fine, but we'll do it anyways.</p>
+<hr />
+<h3>TeamNameController.onNameClicked = function(e)</h3>
+<p>.name click callback function</p>
+<p><strong>Argument:</strong> <strong>e</strong></p>
+<p>jQuery Event object</p>
+<hr />
+<h3>TeamNameController.onInputBlur = function(e)</h3>
+<p>input blur event: keep the new name</p>
+<p><strong>Argument:</strong> <strong>e</strong></p>
+<p>jQuery Event object</p>
+<hr />
+<h3>TeamNameController.onInputKeydown = function(e)</h3>
+<p>escape or enter key: discard or keep name, respectively</p>
+<p><strong>Argument:</strong> <strong>e</strong></p>
+<p>jQuery Event object</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>19 Lines</li>
-<li>430 Bytes</li>
+<li>160 Lines</li>
+<li>4147 Bytes</li>
 </ul>
 </body>
 </html>

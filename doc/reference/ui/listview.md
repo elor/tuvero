@@ -72,6 +72,18 @@ the DOM element for which to look
 ---
 
 
+###   ListView.prototype.getSubview = function(index)
+retrieve a subview
+
+**Argument:** **index**
+
+the index of the subview
+
+**Returns:** undefined on failure, a subview reference on success
+
+---
+
+
 ###   ListView.prototype.removeItem = function(index)
 remove the item from the DOM and remove all local references as well as its
 subview
@@ -130,6 +142,6 @@ Callback function, event emitted by list.clear()
 
 ## Metrics
 
-* 192 Lines
-* 4902 Bytes
+* 203 Lines
+* 5138 Bytes
 

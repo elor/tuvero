@@ -8,10 +8,10 @@ define(
     ['lib/extend', './view', './listview', './teamview', './state_new',
         './newteamview', './lengthview', './teamsizeview',
         './preregcloserview', './valuemodel', './checkboxview', './classview',
-        './taboptslistener', './teamremovecontroller'],
+        './taboptslistener', './teamremovecontroller', './teamnamecontroller'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
         TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
-        TabOptsListener, TeamRemoveController) {
+        TabOptsListener, TeamRemoveController, TeamNameController) {
       /**
        * represents a whole team tab
        *
@@ -74,6 +74,9 @@ define(
         $container = this.$view.find('>button.delete');
         this.teamRemoveController = new TeamRemoveController(this.teamView,
             $container, this.$view);
+
+        // player name changes
+        this.teamNameController = new TeamNameController(this.teamView);
       };
 
       // FIXME CHEAP HACK AHEAD

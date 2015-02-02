@@ -86,7 +86,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    * @return the index of the DOM element inside the underlying list
    */
   ListView.prototype.indexOf = function($view) {
-    var $parents, parentindex, index, success;
+    var $parents, parentindex, index;
 
     // verify the descendance and ascend to the subview level of the DOM
     $parents = $view.parents();
@@ -108,7 +108,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
      * get the actual index
      */
     index = undefined;
-    success = this.subviews.some(function(subview, subviewid) {
+    this.subviews.some(function(subview, subviewid) {
       // Note to self: cannot compare separate jQuery objects directly, but
       // their data() object is unique for each DOM element
       if (subview.$view.data() === $view.data()) {
@@ -122,6 +122,17 @@ define(['lib/extend', './templateview', './textview'], function(extend,
       return -1;
     }
     return index;
+  };
+
+  /**
+   * retrieve a subview
+   *
+   * @param index
+   *          the index of the subview
+   * @return undefined on failure, a subview reference on success
+   */
+  ListView.prototype.getSubview = function(index) {
+    return this.subviews[index];
   };
 
   /**
