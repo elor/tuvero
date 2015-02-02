@@ -20,7 +20,19 @@
 <li><a href="./strings.html">./strings</a></li>
 </ul>
 <h2>Functions</h2>
+<h3>function KOLine(from, to)</h3>
+<p>KOLine, a representative class of the perpendicular connector path, as used
+in binary KO tournament trees</p>
+<p><strong>Argument:</strong> <strong>from</strong></p>
+<p>the start position, in em
+<strong>Argument:</strong> <strong>to</strong></p>
+<p>the end position, in em</p>
+<p><strong>Returns:</strong> the path object (this). The SVG DOM element can be accessed as
+this.svg and is supposed to be jQuery-compatible</p>
+<hr />
 <h3>function generateCacheID(from, midx, to)</h3>
+<p>an object cache, which will be used for similar paths instead of creating
+them over and over again. May not be necessary, but won't hurt, either</p>
 <hr />
 <h3>function styleToString(style)</h3>
 <p>converts a style object to a style attribute string</p>
@@ -59,20 +71,10 @@ enables the use of font-relative sizes (em)</p>
 <p>the end point, in em</p>
 <p><strong>Returns:</strong> a SVG object, which correctly represents the path</p>
 <hr />
-<h3>function KOLine(from, to)</h3>
-<p>KOLine, a representative class of the perpendicular connector path, as used
-in binary KO tournament trees</p>
-<p><strong>Argument:</strong> <strong>from</strong></p>
-<p>the start position, in em
-<strong>Argument:</strong> <strong>to</strong></p>
-<p>the end position, in em</p>
-<p><strong>Returns:</strong> the path object (this). The SVG DOM element can be accessed as
-this.svg and is supposed to be jQuery-compatible</p>
-<hr />
 <h2>Metrics</h2>
 <ul>
-<li>169 Lines</li>
-<li>4273 Bytes</li>
+<li>170 Lines</li>
+<li>4333 Bytes</li>
 </ul>
 </body>
 </html>

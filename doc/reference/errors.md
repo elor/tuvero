@@ -492,9 +492,9 @@ Warning: scripts/backend/tournament.js: > 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: > 5 dependencies: 101
+Warning: scripts/common.js: > 5 dependencies: 102
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 141, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 142, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -654,21 +654,16 @@ Warning: scripts/ui/history.js:  #9 The body of a for in should be wrapped in an
 Warning: scripts/ui/history.js:     for (vote in votes) { // Line 452, Pos 15
 Warning: scripts/ui/history.js: #10 Unexpected TODO comment.
 Warning: scripts/ui/history.js:     // TODO verify // Line 510, Pos 13
-Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
-Warning: scripts/ui/koline.js:  #1 Unexpected TODO comment.
-Warning: scripts/ui/koline.js:     * TODO move to its own tiny CSS library? // Line 17, Pos 43
-Warning: scripts/ui/koline.js:  #2 'KOLine' was used before it was defined.
-Warning: scripts/ui/koline.js:     svg = document.createElementNS(KOLine.SVGNS, 'svg'); // Line 62, Pos 36
-Warning: scripts/ui/koline.js:  #3 'KOLine' was used before it was defined.
-Warning: scripts/ui/koline.js:     line = document.createElementNS(KOLine.SVGNS, 'line'); // Line 80, Pos 37
-Warning: scripts/ui/koline.js:  #4 'KOLine' was used before it was defined.
-Warning: scripts/ui/koline.js:     if (KOLine.pathCache[pathid]) { // Line 108, Pos 9
-Warning: scripts/ui/koline.js:  #5 'KOLine' was used before it was defined.
-Warning: scripts/ui/koline.js:     group = KOLine.pathCache[pathid].cloneNode(true); // Line 109, Pos 15
-Warning: scripts/ui/koline.js:  #6 'KOLine' was used before it was defined.
-Warning: scripts/ui/koline.js:     group = document.createElementNS(KOLine.SVGNS, 'g'); // Line 114, Pos 40
-Warning: scripts/ui/koline.js:  #7 'KOLine' was used before it was defined.
-Warning: scripts/ui/koline.js:     KOLine.pathCache[pathid] = group.cloneNode(true); // Line 122, Pos 7
+Warning: scripts/ui/koline.js:  #1 'createSVG' was used before it was defined.
+Warning: scripts/ui/koline.js:     this.svg = createSVG(width, height, left, top); // Line 35, Pos 16
+Warning: scripts/ui/koline.js:  #2 'createSVGPath' was used before it was defined.
+Warning: scripts/ui/koline.js:     this.svg.appendChild(createSVGPath(from, to)); // Line 36, Pos 26
+Warning: scripts/ui/koline.js:  #3 Unexpected TODO comment.
+Warning: scripts/ui/koline.js:     * TODO move to its own tiny CSS library? // Line 57, Pos 43
+Warning: scripts/ui/koline.js:  #4 Unused 'createSVG'.
+Warning: scripts/ui/koline.js:     function createSVG(width, height, left, top) { // Line 90, Pos 12
+Warning: scripts/ui/koline.js:  #5 Unused 'createSVGPath'.
+Warning: scripts/ui/koline.js:     function createSVGPath(from, to) { // Line 141, Pos 12
 Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
 Warning: scripts/ui/listmodel.js: > 10 functions: 23
 Warning: scripts/ui/listmodel.js: Line 24, E:0100: Member ListModel.prototype.EVENTS cannot have a non-primitive value

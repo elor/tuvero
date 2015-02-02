@@ -31,6 +31,12 @@
 
 	* scripts/ui/test/listmodel.js: clear() now emits remove events
 
+	* build-scripts/create-ui-class.sh: script for prefilling class files
+
+	* scripts/ui/koline.js: using round line caps, because I'm awesome
+
+	* scripts/ui/teamnamecontroller.js: first auto-generated class file
+
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* names.txt: Paraboule added

@@ -122,6 +122,7 @@ define([
   'ui/tabs',
   'ui/team',
   'ui/teammodel',
+  'ui/teamnamecontroller',
   'ui/teamremovecontroller',
   'ui/teamsizecontroller',
   'ui/teamsizeview',

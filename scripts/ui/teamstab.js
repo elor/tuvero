@@ -41,7 +41,6 @@ define(
         $container = this.$view.find('>.teamlist');
         $template = $container.find('>.team.template').detach().removeClass(
             'template');
-
         this.teamView = new ListView(State.teams, $container, $template,
             TeamView);
 

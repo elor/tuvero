@@ -114,6 +114,7 @@ define(['./strings'], function(Strings) {
       group = document.createElementNS(KOLine.SVGNS, 'g');
       group.setAttributeNS(null, 'stroke', 'black');
       group.setAttributeNS(null, 'stroke-width', '2');
+      group.setAttributeNS(null, 'stroke-linecap', 'round');
 
       group.appendChild(createSVGLine(from, mid1));
       group.appendChild(createSVGLine(mid1, mid2));
