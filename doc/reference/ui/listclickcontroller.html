@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>scripts/ui/listclickremovecontroller.js Reference</title>
+<title>scripts/ui/listclickcontroller.js Reference</title>
 </head>
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
 
-<h1>scripts/ui/listclickremovecontroller.js</h1>
+<h1>scripts/ui/listclickcontroller.js</h1>
+<p>on a list element click, runs the callback function</p>
 <ul>
 <li>Author: Erik E. Lorenz</li>
 <li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
@@ -22,21 +23,24 @@
 <li>JQuery</li>
 </ul>
 <h2>Functions</h2>
-<h3>function ListClickRemoveController(view, selector, active)</h3>
+<h3>function ListClickController(view, callback, cbthis, selector, active)</h3>
 <p>Constructor</p>
 <p><strong>Argument:</strong> <strong>view</strong></p>
 <p>a ListView instance
+<strong>Argument:</strong> <strong>callback</strong></p>
+<p>the callback function: callback(model, index)
+<strong>Argument:</strong> <strong>cbthis</strong></p>
+<p>Optional. passed as &quot;this&quot; to the callback function
 <strong>Argument:</strong> <strong>selector</strong></p>
 <p>Optional. A CSS selector, relative to view.$view. Defaults to '&gt;',
-i.e. the list elements
-<strong>Argument:</strong> <strong>active</strong></p>
+i.e. the list elements   * <strong>Argument:</strong> <strong>active</strong></p>
 <p>Optional. A ValueModel instance, which indicates whether removals
 are allowed at the moment. Defaults to true</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>49 Lines</li>
-<li>1288 Bytes</li>
+<li>56 Lines</li>
+<li>1585 Bytes</li>
 </ul>
 </body>
 </html>

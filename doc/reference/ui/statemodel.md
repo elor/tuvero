@@ -12,6 +12,7 @@ tournaments.
 ## Dependencies
 
 * <a href="./indexedlistmodel.html">./indexedlistmodel</a>
+* <a href="./listcleanuplistener.html">./listcleanuplistener</a>
 * <a href="./listmodel.html">./listmodel</a>
 * <a href="./valuemodel.html">./valuemodel</a>
 
@@ -24,6 +25,6 @@ Constructor
 
 ## Metrics
 
-* 22 Lines
-* 521 Bytes
+* 23 Lines
+* 603 Bytes
 

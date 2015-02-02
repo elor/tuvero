@@ -8,10 +8,10 @@ define(
     ['lib/extend', './view', './listview', './teamview', './state_new',
         './newteamview', './lengthview', './teamsizeview',
         './preregcloserview', './valuemodel', './checkboxview', './classview',
-        './taboptslistener'],
+        './taboptslistener', './teamremovecontroller'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
         TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
-        TabOptsListener) {
+        TabOptsListener, TeamRemoveController) {
       /**
        * represents a whole team tab
        *
@@ -70,6 +70,11 @@ define(
 
         // update the tab when the team size changes
         this.tabOptsListener = new TabOptsListener(State.teamsize);
+
+        // team removal controller
+        $container = this.$view.find('>button.delete');
+        this.teamRemoveController = new TeamRemoveController(this.teamView,
+            $container, this.$view);
       };
 
       // FIXME CHEAP HACK AHEAD

@@ -10,12 +10,26 @@
 	testing ListClickRemoveController
 
 	* scripts/ui/listclickremovecontroller.js: remove an object from a ListView via mouse click
+	renamed to listclickcontroller.js
 
 	* scripts/ui/listcleanuplistener.js: automatically destroy() the elements of a ListModel instance
 
 	* scripts/ui/listmodel.js: clear(): successively pop() each object, so remove events are emitted
 
 	* scripts/ui/statemodel.js: using a ListCleanupListener for State.teams to avoid memory leaks
+
+	* scripts/ui/listclickcontroller.js: renamed from listclickcontroller.js
+	callback and cbthis arguments added to the constructor
+
+	* scripts/ui/newteamcontroller.js: preventing event default and event propagation
+
+	* scripts/ui/teamremovecontroller.js: activating deletion mode when clicking the button
+	deactivating deletion mode when clicking anywhere, changing the tab or pressing enter, escape or space
+	when in deletion mode, clicking a team listing removes the team and exits deletion mode
+
+	* scripts/ui/teamstab.js: using TeamRemoveController for individual team deletions
+
+	* scripts/ui/test/listmodel.js: clear() now emits remove events
 
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

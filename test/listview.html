@@ -40,8 +40,8 @@ td {
 		</tr>
 	</table>
 
-	Hover ID: <span id="hoverid"></span>
-	(hover or click at the table directly above)
+	Hover ID:
+	<span id="hoverid"></span> (hover or click at the table directly above)
 
 </body>
 
@@ -56,7 +56,7 @@ td {
         
       ListView = Common('ui/listview');
       ListModel = Common('ui/listmodel');
-      ListClickRemoveController = Common('ui/listclickremovecontroller');
+      ListClickController = Common('ui/listclickcontroller');
         
       $(function($){
         var view, view2, model, i;
@@ -79,7 +79,9 @@ td {
           $('#hoverid').text(view.indexOf($(this)));
         });
         
-        new ListClickRemoveController(view);
+        new ListClickController(view, function(model, index){
+          model.remove(index);
+        });
       });
     });
   </script>

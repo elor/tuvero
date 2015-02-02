@@ -63,7 +63,8 @@ Do not attempt manual changes
 * <a href="ui/indexedmodel.html">ui/indexedmodel</a>
 * <a href="ui/koline.html">ui/koline</a>
 * <a href="ui/lengthview.html">ui/lengthview</a>
-* <a href="ui/listclickremovecontroller.html">ui/listclickremovecontroller</a>
+* <a href="ui/listcleanuplistener.html">ui/listcleanuplistener</a>
+* <a href="ui/listclickcontroller.html">ui/listclickcontroller</a>
 * <a href="ui/listener.html">ui/listener</a>
 * <a href="ui/listmodel.html">ui/listmodel</a>
 * <a href="ui/listview.html">ui/listview</a>
@@ -99,6 +100,7 @@ Do not attempt manual changes
 * <a href="ui/tabshandle.html">ui/tabshandle</a>
 * <a href="ui/team.html">ui/team</a>
 * <a href="ui/teammodel.html">ui/teammodel</a>
+* <a href="ui/teamremovecontroller.html">ui/teamremovecontroller</a>
 * <a href="ui/teamsizecontroller.html">ui/teamsizecontroller</a>
 * <a href="ui/teamsizeview.html">ui/teamsizeview</a>
 * <a href="ui/teamstab.html">ui/teamstab</a>
@@ -122,6 +124,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 142 Lines
-* 2984 Bytes
+* 144 Lines
+* 3035 Bytes
 

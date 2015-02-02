@@ -86,7 +86,7 @@ define([
   'ui/koline',
   'ui/lengthview',
   'ui/listcleanuplistener',
-  'ui/listclickremovecontroller',
+  'ui/listclickcontroller',
   'ui/listener',
   'ui/listmodel',
   'ui/listview',

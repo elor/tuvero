@@ -31,6 +31,7 @@ define(['lib/extend', './controller', './playermodel', './teammodel'],
         this.view.$view.submit(function(e) {
           controller.createNewTeam();
           e.preventDefault();
+          return false;
         });
       }
       extend(NewTeamController, Controller);

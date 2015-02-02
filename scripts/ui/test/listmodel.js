@@ -127,7 +127,7 @@ define(function() {
       list.clear();
       QUnit.equal(list.length, 0, 'list length is 0 after clear');
       QUnit.equal(listener.length, 0, 'resize event fired on clear)');
-      QUnit.equal(listener.removals, 0, "clear doesn't fire remove events");
+      QUnit.equal(listener.removals, 2, 'clear fires remove events');
 
       list.push(4);
       list.push(3);
