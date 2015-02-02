@@ -60,5 +60,5 @@ Maintain a sorted list of possible player names for autocompletion
 ## Metrics
 
 * 121 Lines
-* 2415 Bytes
+* 2419 Bytes
 

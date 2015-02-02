@@ -39,7 +39,7 @@ define(['lib/extend', './view'], function(extend, View) {
    * reset the text to an empty string
    */
   TextView.prototype.reset = function() {
-    setText('');
+    this.setText('');
   };
 
   /**

@@ -16,9 +16,10 @@ define(['lib/extend', './listener', './model'], function(extend, Listener,
    *          A jQuery object which is represented by this view
    */
   function View(model, $view) {
+    model = model || new Model();
     View.superconstructor.call(this, model);
 
-    this.model = model || new Model();
+    this.model = model;
     this.$view = $view;
   }
   extend(View, Listener);

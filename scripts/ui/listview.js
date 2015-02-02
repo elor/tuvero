@@ -66,7 +66,8 @@ define(['lib/extend', './templateview', './textview'], function(extend,
     model = this.model.get(index);
     subview = new this.SubView(model, $subview);
 
-    $item = subview.$view; // == $subview, but may have been wrapped by a tag
+    $item = subview.$view; // == $subview, but may have been wrapped by a
+    // tag
 
     if (index === this.subviews.length) {
       this.$view.append($item);
@@ -75,6 +76,52 @@ define(['lib/extend', './templateview', './textview'], function(extend,
       $previousView.before($item);
     }
     this.subviews.splice(index, 0, subview);
+  };
+
+  /**
+   * return the index of the DOM element, or -1
+   *
+   * @param $view
+   *          the DOM element for which to look
+   * @return the index of the DOM element inside the underlying list
+   */
+  ListView.prototype.indexOf = function($view) {
+    var $parents, parentindex, index, success;
+
+    // verify the descendance and ascend to the subview level of the DOM
+    $parents = $view.parents();
+    parentindex = $parents.index(this.$view);
+    switch (parentindex) {
+    case -1:
+      console.warn('listview.indexOf: '
+          + '$view is not a descendant of this.$view');
+      return -1;
+    case 0:
+      // $view is a direct descendant of this.$view, i.e. child
+      break;
+    default:
+      $view = $parents.eq(parentindex - 1);
+      break;
+    }
+
+    /**
+     * get the actual index
+     */
+    index = undefined;
+    success = this.subviews.some(function(subview, subviewid) {
+      // Note to self: cannot compare separate jQuery objects directly, but
+      // their data() object is unique for each DOM element
+      if (subview.$view.data() === $view.data()) {
+        index = subviewid;
+        return true;
+      }
+      return false;
+    });
+
+    if (index === undefined) {
+      return -1;
+    }
+    return index;
   };
 
   /**

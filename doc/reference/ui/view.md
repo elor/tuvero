@@ -59,6 +59,6 @@ permanently removed and replaced with new elements.
 
 ## Metrics
 
-* 58 Lines
-* 1429 Bytes
+* 59 Lines
+* 1448 Bytes
 

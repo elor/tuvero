@@ -1,3 +1,13 @@
+2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant
+
+	* scripts/ui/textview.js: typo fixed
+
+	* scripts/ui/view.js: model defaulting bug fixed
+
+	* test/listview.html: testing ListView.indexOf()
+
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* names.txt: Paraboule added

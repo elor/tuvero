@@ -1,46 +1,47 @@
 <!DOCTYPE html>
 <!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
 <html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <title>Boules Test %VERSION%</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="../style/boxview.css" />
-    <style>
-      div > span:not(:last-child):after {
-        content: ",";
-      }
-      
-      div,table {
-        margin-bottom: 1em;
-      }
-    </style>
-  </head>
+<head>
+<meta charset="utf-8" />
+<title>Boules Test %VERSION%</title>
+<link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="../style/boxview.css" />
+<style>
+div>span:not (:last-child ):after {
+  content: ",";
+}
 
-  <body>
+div, table {
+  margin-bottom: 1em;
+}
+</style>
+</head>
 
-    unordered list
-    <ul>
-    </ul>
+<body>
 
-    ordered list
-    <ol>
-    </ol>
+	unordered list
+	<ul>
+	</ul>
 
-    div/span
-    <div>
-    </div>
+	ordered list
+	<ol>
+	</ol>
 
-    table row/cell
-    <table>
-      <tr>
-      </tr>
-    </table>
+	div/span
+	<div></div>
 
-  </body>
-  
-  <script src="../scripts/lib/require.js"></script>
-  <script>
+	table row/cell
+	<table>
+		<tr>
+		</tr>
+	</table>
+
+	<span id="hoverid"></span>
+
+</body>
+
+<script src="../scripts/lib/require.js"></script>
+<script>
     require.config({
       baseUrl: '../scripts',
     });
@@ -67,6 +68,10 @@
         for (i = 1; i <= 10; i += 1) {
           model.push(i);
         }
+        
+        $('body').on('mouseenter', 'td,span,li', function(e){
+          $('#hoverid').text(view.indexOf($(this)));
+        });
       });
     });
   </script>

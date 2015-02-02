@@ -116,6 +116,6 @@ define(['./shared'], function(Shared) {
     }
   };
 
-	Shared.Players = Players;
+  Shared.Players = Players;
   return Players;
 });

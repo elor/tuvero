@@ -672,7 +672,11 @@ Warning: scripts/ui/koline.js:     KOLine.pathCache[pathid] = group.cloneNode(tr
 Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
 Warning: scripts/ui/listmodel.js: > 10 functions: 23
 Warning: scripts/ui/listmodel.js: Line 24, E:0100: Member ListModel.prototype.EVENTS cannot have a non-primitive value
-Warning: scripts/ui/listview.js: > 10 functions: 13
+Warning: scripts/ui/listview.js: > 10 functions: 14
+Warning: scripts/ui/listview.js: Line 97, E:0120: Binary operator should go on previous line "+"
+Warning: scripts/ui/listview.js: line 97, col 11, Bad line breaking before '+'.
+Warning: scripts/ui/listview.js:  #1 Unused 'success'.
+Warning: scripts/ui/listview.js:     var $parents, parentindex, index, success; // Line 89, Pos 39
 Warning: scripts/ui/newteamcontroller.js: > 5 dependencies: 6
 Warning: scripts/ui/newteamcontroller.js: undocumented: 'function'
 Warning: scripts/ui/newteamcontroller.js:  #1 Unnecessary 'else' after disruption.
@@ -1743,9 +1747,6 @@ Warning: scripts/ui/test/tab.js:     reset: function() { // Line 44, Pos 29
 Warning: scripts/ui/test/tab.js:  #3 Empty block.
 Warning: scripts/ui/test/tab.js:     update: function() { // Line 46, Pos 30
 Warning: scripts/ui/test/valuemodel.js: undocumented: 'onupdate: function'
-Warning: scripts/ui/textview.js: line 42, col 5, 'setText' is not defined.
-Warning: scripts/ui/textview.js:  #1 'setText' was used before it was defined.
-Warning: scripts/ui/textview.js:     setText(''); // Line 42, Pos 5
 Warning: scripts/ui/toast.js: undocumented: 'function getid'
 Warning: scripts/ui/toast.js: undocumented: 'toastfn = function'
 Warning: scripts/ui/toast.js: undocumented: 'function createCloseFunction'
@@ -1872,7 +1873,7 @@ Warning: scripts/ui/update.js:     var Update, appCache, downloadToasts; // Line
 Warning: scripts/ui/update.js: #13 Unused 'cacheError'.
 Warning: scripts/ui/update.js:     function cacheError() { // Line 84, Pos 12
 Warning: scripts/ui/view.js:  #1 Empty block.
-Warning: scripts/ui/view.js:     View.prototype.reset = function() { // Line 29, Pos 37
+Warning: scripts/ui/view.js:     View.prototype.reset = function() { // Line 30, Pos 37
 Warning: scripts/ui/view.js:  #2 Empty block.
-Warning: scripts/ui/view.js:     View.prototype.update = function() { // Line 35, Pos 38
+Warning: scripts/ui/view.js:     View.prototype.update = function() { // Line 36, Pos 38
 ```

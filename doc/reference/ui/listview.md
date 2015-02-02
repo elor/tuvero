@@ -60,6 +60,18 @@ the index of the item inside the underlying list
 ---
 
 
+###   ListView.prototype.indexOf = function($view)
+return the index of the DOM element, or -1
+
+**Argument:** **$view**
+
+the DOM element for which to look
+
+**Returns:** the index of the DOM element inside the underlying list
+
+---
+
+
 ###   ListView.prototype.removeItem = function(index)
 remove the item from the DOM and remove all local references as well as its
 subview
@@ -118,6 +130,6 @@ Callback function, event emitted by list.clear()
 
 ## Metrics
 
-* 143 Lines
-* 3511 Bytes
+* 190 Lines
+* 4766 Bytes
 
