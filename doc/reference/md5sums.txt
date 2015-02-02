@@ -26,7 +26,7 @@ ebcd319ca6c64012f0a0bb9efadd05cd  scripts/backend/swisstournament.js
 57d624f7d25de9724295b7269b30dcb4  scripts/backend/test/vector.js
 23b03020584f8f421305ae08a46c7c40  scripts/backend/tournament.js
 958cb8dcb33ce44f649f2b5e2d6a2943  scripts/backend/vector.js
-44e1532092e3e860575233b09b71d381  scripts/common.js
+808320a8c0b9e8a9932afcb216858e07  scripts/common.js
 177e37dad10e86398d2e3eecd12d6435  scripts/main.js
 61edf4ea062b8d66bdd21c437eca9976  scripts/test.js
 8a41e9c926ae3b1d04ee57d0b617faae  scripts/ui/alltabs.js
@@ -57,6 +57,7 @@ cae6f6a271ad2a4a6547c5e5bac5e629  scripts/ui/history.js
 7e7c6c945d46ccbdb174b999aaff4299  scripts/ui/indexedmodel.js
 7a57350fec693fb3b6bb78e71d2d9e6b  scripts/ui/koline.js
 839dbd566f405d0aa62db195a3d4e18b  scripts/ui/lengthview.js
+24f15f2091b780c94b22773c27be3b04  scripts/ui/listclickremovecontroller.js
 05e05bd34076994bd5b4ab92da88133d  scripts/ui/listener.js
 034f3f3f822ca5cc6a3f14944e1e7c6f  scripts/ui/listmodel.js
 8146d7c60cd277f62baa86d46cc1cc62  scripts/ui/listview.js

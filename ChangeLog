@@ -7,6 +7,9 @@
 	* scripts/ui/view.js: model defaulting bug fixed
 
 	* test/listview.html: testing ListView.indexOf()
+	testing ListClickRemoveController
+
+	* scripts/ui/listclickremovecontroller.js: remove an object from a ListView via mouse click
 
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

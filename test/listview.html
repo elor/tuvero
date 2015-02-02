@@ -14,6 +14,10 @@ div>span:not (:last-child ):after {
 div, table {
   margin-bottom: 1em;
 }
+
+td {
+  cursor: pointer;
+}
 </style>
 </head>
 
@@ -36,7 +40,8 @@ div, table {
 		</tr>
 	</table>
 
-	<span id="hoverid"></span>
+	Hover ID: <span id="hoverid"></span>
+	(hover or click at the table directly above)
 
 </body>
 
@@ -51,6 +56,7 @@ div, table {
         
       ListView = Common('ui/listview');
       ListModel = Common('ui/listmodel');
+      ListClickRemoveController = Common('ui/listclickremovecontroller');
         
       $(function($){
         var view, view2, model, i;
@@ -72,6 +78,8 @@ div, table {
         $('body').on('mouseenter', 'td,span,li', function(e){
           $('#hoverid').text(view.indexOf($(this)));
         });
+        
+        new ListClickRemoveController(view);
       });
     });
   </script>

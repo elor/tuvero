@@ -85,6 +85,7 @@ define([
   'ui/indexedmodel',
   'ui/koline',
   'ui/lengthview',
+  'ui/listclickremovecontroller',
   'ui/listener',
   'ui/listmodel',
   'ui/listview',

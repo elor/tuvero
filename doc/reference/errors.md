@@ -492,9 +492,9 @@ Warning: scripts/backend/tournament.js: > 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: > 5 dependencies: 98
+Warning: scripts/common.js: > 5 dependencies: 99
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 138, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 139, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
