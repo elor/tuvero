@@ -32,6 +32,6 @@ Constructor
 
 ## Metrics
 
-* 61 Lines
-* 1465 Bytes
+* 58 Lines
+* 1432 Bytes
 

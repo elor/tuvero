@@ -20,12 +20,16 @@
 
 	* scripts/ui/listclickcontroller.js: renamed from listclickcontroller.js
 	callback and cbthis arguments added to the constructor
+	using an 'options' argument instead of many optional ones
+	options.event: allowing for different event types (mouseover, mousedown, focus)
 
 	* scripts/ui/newteamcontroller.js: preventing event default and event propagation
 
 	* scripts/ui/teamremovecontroller.js: activating deletion mode when clicking the button
 	deactivating deletion mode when clicking anywhere, changing the tab or pressing enter, escape or space
 	when in deletion mode, clicking a team listing removes the team and exits deletion mode
+	using blur events ensures better stability with less overhead
+	actual removal: mousedown instead of click, because it's fired before blur
 
 	* scripts/ui/teamstab.js: using TeamRemoveController for individual team deletions
 
@@ -36,6 +40,8 @@
 	* scripts/ui/koline.js: using round line caps, because I'm awesome
 
 	* scripts/ui/teamnamecontroller.js: first auto-generated class file
+
+	* style/teams.css: only showing the removal button during registration
 
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -654,16 +654,21 @@ Warning: scripts/ui/history.js:  #9 The body of a for in should be wrapped in an
 Warning: scripts/ui/history.js:     for (vote in votes) { // Line 452, Pos 15
 Warning: scripts/ui/history.js: #10 Unexpected TODO comment.
 Warning: scripts/ui/history.js:     // TODO verify // Line 510, Pos 13
-Warning: scripts/ui/koline.js:  #1 'createSVG' was used before it was defined.
-Warning: scripts/ui/koline.js:     this.svg = createSVG(width, height, left, top); // Line 35, Pos 16
-Warning: scripts/ui/koline.js:  #2 'createSVGPath' was used before it was defined.
-Warning: scripts/ui/koline.js:     this.svg.appendChild(createSVGPath(from, to)); // Line 36, Pos 26
-Warning: scripts/ui/koline.js:  #3 Unexpected TODO comment.
-Warning: scripts/ui/koline.js:     * TODO move to its own tiny CSS library? // Line 57, Pos 43
-Warning: scripts/ui/koline.js:  #4 Unused 'createSVG'.
-Warning: scripts/ui/koline.js:     function createSVG(width, height, left, top) { // Line 90, Pos 12
-Warning: scripts/ui/koline.js:  #5 Unused 'createSVGPath'.
-Warning: scripts/ui/koline.js:     function createSVGPath(from, to) { // Line 141, Pos 12
+Warning: scripts/ui/koline.js: undocumented: 'function generateCacheID'
+Warning: scripts/ui/koline.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/koline.js:     * TODO move to its own tiny CSS library? // Line 17, Pos 43
+Warning: scripts/ui/koline.js:  #2 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     svg = document.createElementNS(KOLine.SVGNS, 'svg'); // Line 62, Pos 36
+Warning: scripts/ui/koline.js:  #3 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     line = document.createElementNS(KOLine.SVGNS, 'line'); // Line 80, Pos 37
+Warning: scripts/ui/koline.js:  #4 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     if (KOLine.pathCache[pathid]) { // Line 108, Pos 9
+Warning: scripts/ui/koline.js:  #5 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     group = KOLine.pathCache[pathid].cloneNode(true); // Line 109, Pos 15
+Warning: scripts/ui/koline.js:  #6 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     group = document.createElementNS(KOLine.SVGNS, 'g'); // Line 114, Pos 40
+Warning: scripts/ui/koline.js:  #7 'KOLine' was used before it was defined.
+Warning: scripts/ui/koline.js:     KOLine.pathCache[pathid] = group.cloneNode(true); // Line 123, Pos 7
 Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
 Warning: scripts/ui/listmodel.js: > 10 functions: 23
 Warning: scripts/ui/listmodel.js: Line 24, E:0100: Member ListModel.prototype.EVENTS cannot have a non-primitive value
@@ -1667,9 +1672,9 @@ Warning: scripts/ui/teammodel.js:     for (index in this.players) { // Line 31, 
 Warning: scripts/ui/teamremovecontroller.js: > 5 dependencies: 7
 Warning: scripts/ui/teamremovecontroller.js: undocumented: 'TeamRemoveController.removalCallback = function'
 Warning: scripts/ui/teamremovecontroller.js:  #1 Unused 'removecontroller'.
-Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview; // Line 16, Pos 17
+Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview, options; // Line 16, Pos 17
 Warning: scripts/ui/teamremovecontroller.js:  #2 Unused 'classview'.
-Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview; // Line 16, Pos 35
+Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview, options; // Line 16, Pos 35
 Warning: scripts/ui/teamstab.js: > 5 dependencies: 16
 Warning: scripts/ui/teamstab.js: undocumented: 'function'
 Warning: scripts/ui/teamstab.js: line 12, col 13, This function has too many parameters. (14)

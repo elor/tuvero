@@ -1,5 +1,6 @@
 /**
- * on a list element click, runs the callback function
+ * on a list element click, runs the callback function. Can handle other events
+ * as well
  *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -10,25 +11,35 @@ define(['lib/extend', './controller', './valuemodel'], function(extend,
   /**
    * Constructor
    *
+   * The optional argument, options, can contain multiple options:
+   *
+   *
+   * options.active: a ValueModel instance. When it's false, events are ignored
+   *
+   * options.callbackthis: use as the "this" for the callback function
+   *
+   * options.event: use this event instead of 'click', e.g. 'mousedown'
+   *
+   * options.selector: use this selector instead of '>' to select specific or
+   * deeper nested DOM elements
+   *
+   *
    * @param view
    *          a ListView instance
    * @param callback
    *          the callback function: callback(model, index)
-   * @param cbthis
-   *          Optional. passed as "this" to the callback function
-   * @param selector
-   *          Optional. A CSS selector, relative to view.$view. Defaults to '>',
-   *          i.e. the list elements\
-   * @param active
-   *          Optional. A ValueModel instance, which indicates whether removals
-   *          are allowed at the moment. Defaults to true
+   * @param options
+   *          Optional. An option object. See above
    */
-  function ListClickController(view, callback, cbthis, selector, active) {
+  function ListClickController(view, callback, options) {
     var listview, listmodel;
     ListClickController.superconstructor.call(this, view);
 
-    selector = selector || '>';
-    active = active || new ValueModel(true);
+    options = options || {};
+    options.active = options.active || new ValueModel(true);
+    options.callbackthis = options.callbackthis || window;
+    options.event = options.event || 'click';
+    options.selector = options.selector || '>';
 
     listview = this.view;
     listmodel = this.model;
@@ -36,14 +47,14 @@ define(['lib/extend', './controller', './valuemodel'], function(extend,
     /**
      * handle the click action
      */
-    this.view.$view.on('click', selector, function(e) {
+    this.view.$view.on(options.event, options.selector, function(e) {
       var $subview, index;
 
-      if (active.get()) {
+      if (options.active.get()) {
         $subview = $(this);
         index = listview.indexOf($subview);
         if (index !== -1) {
-          callback.call(cbthis || window, listmodel, index);
+          callback.call(options.callbackthis, listmodel, index);
           e.preventDefault();
           return false;
         }

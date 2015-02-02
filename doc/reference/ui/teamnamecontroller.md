@@ -16,7 +16,7 @@ TeamNameController
 
 ## Functions
 
-###   function TeamNameController()
+###   function TeamNameController(view)
 Constructor
 
 ---
@@ -24,5 +24,5 @@ Constructor
 ## Metrics
 
 * 19 Lines
-* 420 Bytes
+* 430 Bytes
 

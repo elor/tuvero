@@ -1,7 +1,8 @@
 # scripts/ui/listclickcontroller.js
 
 
-on a list element click, runs the callback function
+on a list element click, runs the callback function. Can handle other events
+as well
 
 * Author: Erik E. Lorenz 
 * Mail: <erik.e.lorenz@gmail.com>
@@ -18,8 +19,21 @@ on a list element click, runs the callback function
 
 ## Functions
 
-###   function ListClickController(view, callback, cbthis, selector, active)
+###   function ListClickController(view, callback, options)
 Constructor
+
+The optional argument, options, can contain multiple options:
+
+
+options.active: a ValueModel instance. When it's false, events are ignored
+
+options.callbackthis: use as the "this" for the callback function
+
+options.event: use this event instead of 'click', e.g. 'mousedown'
+
+options.selector: use this selector instead of '>' to select specific or
+deeper nested DOM elements
+
 
 **Argument:** **view**
 
@@ -27,21 +41,14 @@ a ListView instance
 **Argument:** **callback**
 
 the callback function: callback(model, index)
-**Argument:** **cbthis**
+**Argument:** **options**
 
-Optional. passed as "this" to the callback function
-**Argument:** **selector**
-
-Optional. A CSS selector, relative to view.$view. Defaults to '>',
-i.e. the list elements   * **Argument:** **active**
-
-Optional. A ValueModel instance, which indicates whether removals
-are allowed at the moment. Defaults to true
+Optional. An option object. See above
 
 ---
 
 ## Metrics
 
-* 56 Lines
-* 1585 Bytes
+* 67 Lines
+* 1921 Bytes
 

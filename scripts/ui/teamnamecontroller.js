@@ -10,8 +10,8 @@ define(['lib/extend', './controller'], function(extend, Controller) {
   /**
    * Constructor
    */
-  function TeamNameController() {
-    TeamNameController.superconstructor.call(this);
+  function TeamNameController(view) {
+    TeamNameController.superconstructor.call(this, view);
   }
   extend(TeamNameController, Controller);
 

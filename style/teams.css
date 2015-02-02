@@ -63,19 +63,13 @@ div#teams {
   transition: max-width 0.5s;
 }
 
-#teams.noreg button.delete {
-  display: none;
-}
-
 #teams.noprereg .filereader {
   display: none;
 }
 
-#teams button.delete.hidden {
-  display: none;
-}
 
 #teams button.delete {
+  display: none;
   background-color: #d3d3d3;
   height: 3em;
   font-size: 100%;
@@ -83,6 +77,10 @@ div#teams {
   border: none;
   box-shadow: 1px 1px 0px #808080;
   cursor: crosshair;
+}
+
+#teams.noprereg button.delete {
+  display: initial;
 }
 
 #teams.deletion button.delete {

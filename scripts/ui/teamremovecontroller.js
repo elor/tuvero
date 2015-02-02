@@ -13,36 +13,33 @@ define(['lib/extend', './controller', './valuemodel', './listclickcontroller',
    * Constructor
    */
   function TeamRemoveController(view, $activatebutton, $tab) {
-    var active, removecontroller, classview;
+    var active, removecontroller, classview, options;
     TeamRemoveController.superconstructor.call(this, view);
 
     active = new ValueModel(false);
 
+    options = {
+      active: active,
+      event: 'mousedown',
+      callbackthis: active
+    };
+
     removecontroller = new ListClickController(this.view,
-        TeamRemoveController.removalCallback, active, undefined, active);
+        TeamRemoveController.removalCallback, options);
 
     classview = new ClassView(active, $tab, 'deletion');
 
     $activatebutton.click(function(e) {
+      // activate/deactivate when clicking the button
       active.set(!active.get());
       e.preventDefault();
       return false;
-    });
-
-    $(window).on('hashchange', function() {
+    }).blur(function() {
       active.set(false);
     });
 
     $(document).keydown(function(e) {
       if (active.get() && e.which === 27) {
-        active.set(false);
-        e.preventDefault();
-        return false;
-      }
-    });
-
-    $tab.click(function(e) {
-      if (active.get()) {
         active.set(false);
         e.preventDefault();
         return false;

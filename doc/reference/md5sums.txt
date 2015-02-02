@@ -55,10 +55,10 @@ f5202b2088fcbe0dcf3ff44b7c091927  scripts/ui/globalranking.js
 cae6f6a271ad2a4a6547c5e5bac5e629  scripts/ui/history.js
 7cc929f57cf3c392ddb7ea3cf6056e5b  scripts/ui/indexedlistmodel.js
 7e7c6c945d46ccbdb174b999aaff4299  scripts/ui/indexedmodel.js
-961fd2064be9a391b57aee71363582db  scripts/ui/koline.js
+119d350c087da4a8587816024b2c6c45  scripts/ui/koline.js
 839dbd566f405d0aa62db195a3d4e18b  scripts/ui/lengthview.js
 1ba4046d599d23f9c47c480213305219  scripts/ui/listcleanuplistener.js
-a3d3791d4f8715adba00ef97cd686689  scripts/ui/listclickcontroller.js
+247d9cb29e7b1708714e010ecf6be293  scripts/ui/listclickcontroller.js
 05e05bd34076994bd5b4ab92da88133d  scripts/ui/listener.js
 40b91a6e9478a048ae2be0592423e757  scripts/ui/listmodel.js
 3465049e4b3396a10123abcdf4929e7c  scripts/ui/listview.js
@@ -94,8 +94,8 @@ b15aa5d2b8e55ad73c2bbc5b821d3b23  scripts/ui/tabshandle.js
 4379e2fe6a16734ad5663ad445ab2d05  scripts/ui/tabs.js
 4852a74f0b0c4871ecc7ecf897064761  scripts/ui/team.js
 91de784d8410090fe34aed0c5e2358df  scripts/ui/teammodel.js
-b4ec83b150c06830ef48390127aacd4c  scripts/ui/teamnamecontroller.js
-82f070bd62fcecbbc468e8ffe34905f7  scripts/ui/teamremovecontroller.js
+c601f0777505af89b43f8bcd916be72f  scripts/ui/teamnamecontroller.js
+22cfab6e173067f446e9b681f02c5969  scripts/ui/teamremovecontroller.js
 87ac5ac51a9bb2e28e0e776bbe785580  scripts/ui/teamsizecontroller.js
 a4f6e308e88368734c3143e3f12c6b6b  scripts/ui/teamsizeview.js
 4b1322b72e377848938e3847e558f717  scripts/ui/teamstab.js

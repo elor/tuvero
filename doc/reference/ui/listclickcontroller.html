@@ -9,7 +9,8 @@
 <a href="index.html">Overview page</a>
 
 <h1>scripts/ui/listclickcontroller.js</h1>
-<p>on a list element click, runs the callback function</p>
+<p>on a list element click, runs the callback function. Can handle other events
+as well</p>
 <ul>
 <li>Author: Erik E. Lorenz</li>
 <li>Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a></li>
@@ -23,24 +24,25 @@
 <li>JQuery</li>
 </ul>
 <h2>Functions</h2>
-<h3>function ListClickController(view, callback, cbthis, selector, active)</h3>
+<h3>function ListClickController(view, callback, options)</h3>
 <p>Constructor</p>
+<p>The optional argument, options, can contain multiple options:</p>
+<p>options.active: a ValueModel instance. When it's false, events are ignored</p>
+<p>options.callbackthis: use as the &quot;this&quot; for the callback function</p>
+<p>options.event: use this event instead of 'click', e.g. 'mousedown'</p>
+<p>options.selector: use this selector instead of '&gt;' to select specific or
+deeper nested DOM elements</p>
 <p><strong>Argument:</strong> <strong>view</strong></p>
 <p>a ListView instance
 <strong>Argument:</strong> <strong>callback</strong></p>
 <p>the callback function: callback(model, index)
-<strong>Argument:</strong> <strong>cbthis</strong></p>
-<p>Optional. passed as &quot;this&quot; to the callback function
-<strong>Argument:</strong> <strong>selector</strong></p>
-<p>Optional. A CSS selector, relative to view.$view. Defaults to '&gt;',
-i.e. the list elements   * <strong>Argument:</strong> <strong>active</strong></p>
-<p>Optional. A ValueModel instance, which indicates whether removals
-are allowed at the moment. Defaults to true</p>
+<strong>Argument:</strong> <strong>options</strong></p>
+<p>Optional. An option object. See above</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>56 Lines</li>
-<li>1585 Bytes</li>
+<li>67 Lines</li>
+<li>1921 Bytes</li>
 </ul>
 </body>
 </html>

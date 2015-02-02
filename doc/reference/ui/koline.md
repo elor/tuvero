@@ -14,29 +14,9 @@ No Description
 
 ## Functions
 
-###   function KOLine(from, to)
-KOLine, a representative class of the perpendicular connector path, as used
-in binary KO tournament trees
-
-**Argument:** **from**
-
-the start position, in em
-**Argument:** **to**
-
-the end position, in em
-
-**Returns:** the path object (this). The SVG DOM element can be accessed as
-this.svg and is supposed to be jQuery-compatible
-
----
-
-
 ###   function generateCacheID(from, midx, to)
-an object cache, which will be used for similar paths instead of creating
-them over and over again. May not be necessary, but won't hurt, either
 
 ---
-
 
 ###   function styleToString(style)
 converts a style object to a style attribute string
@@ -105,8 +85,25 @@ the end point, in em
 
 ---
 
+
+###   function KOLine(from, to)
+KOLine, a representative class of the perpendicular connector path, as used
+in binary KO tournament trees
+
+**Argument:** **from**
+
+the start position, in em
+**Argument:** **to**
+
+the end position, in em
+
+**Returns:** the path object (this). The SVG DOM element can be accessed as
+this.svg and is supposed to be jQuery-compatible
+
+---
+
 ## Metrics
 
 * 170 Lines
-* 4333 Bytes
+* 4334 Bytes
 
