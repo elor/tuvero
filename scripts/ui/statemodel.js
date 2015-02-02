@@ -6,15 +6,16 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./listmodel', './indexedlistmodel', './valuemodel'], function(
-    ListModel, IndexedListModel, ValueModel) {
+define(['./listmodel', './indexedlistmodel', './valuemodel',
+    './listcleanuplistener'], function(ListModel, IndexedListModel, ValueModel,
+    ListCleanupListener) {
 
   /**
    * Constructor
    */
   function StateModel() {
-    this.players = new ListModel();
     this.teams = new IndexedListModel();
+    this.teamscleanuplistener = new ListCleanupListener(this.teams);
     this.teamsize = new ValueModel(3);
   }
 

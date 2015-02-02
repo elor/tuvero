@@ -1,4 +1,5 @@
 /**
+ * remove a list element on click
  *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

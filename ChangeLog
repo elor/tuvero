@@ -11,6 +11,12 @@
 
 	* scripts/ui/listclickremovecontroller.js: remove an object from a ListView via mouse click
 
+	* scripts/ui/listcleanuplistener.js: automatically destroy() the elements of a ListModel instance
+
+	* scripts/ui/listmodel.js: clear(): successively pop() each object, so remove events are emitted
+
+	* scripts/ui/statemodel.js: using a ListCleanupListener for State.teams to avoid memory leaks
+
 2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* names.txt: Paraboule added

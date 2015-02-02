@@ -183,6 +183,8 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    * Callback function, event emitted by list.clear()
    */
   ListView.prototype.onreset = function() {
+    // Note to self: there should have been 'remove' events. This is just for
+    // safety, in case I break the code in a strange way.
     this.reset();
   };
 

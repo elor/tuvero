@@ -114,7 +114,9 @@ define(['lib/extend', './model'], function(extend, Model) {
    * removes everything in the array.
    */
   ListModel.prototype.clear = function() {
-    this.list = [];
+    while (this.length) {
+      this.pop();
+    }
     this.emit('reset');
   };
 
