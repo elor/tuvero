@@ -60,7 +60,7 @@ define(['lib/extend', './view', './boxcontroller'], function(extend, View,
 
   BoxView.EVENTS = {
     toggle: true
-  }
+  };
 
   /**
    * reset to the expanded state

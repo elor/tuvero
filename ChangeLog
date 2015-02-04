@@ -30,6 +30,8 @@
 
 	* scripts/ui/boxview.js: event restriction system blocked the 'toggle' event. Fixed that.
 
+	* scripts/ui/tab_ranking.js: hiding empty rankings (no games, every team is in first place)
+
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant

@@ -6,6 +6,7 @@ FEATURES:
 
 FIXES:
   * KO tree drawing sped up significantly
+  * Ranking: hiding empty rankings (e.g. no finished games)
 
 Boules 1.4.4 (2014-12-24)
 -------------------------

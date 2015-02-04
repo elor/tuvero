@@ -56,6 +56,6 @@ toggle callback function
 
 ## Metrics
 
-* 113 Lines
-* 2699 Bytes
+* 118 Lines
+* 2782 Bytes
 

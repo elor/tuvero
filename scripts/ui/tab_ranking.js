@@ -14,9 +14,9 @@
  */
 
 define(['./tournaments', './team', './toast', './strings', './options',
-    './tabshandle', './tab', './history', './shared', './boxview', './state_new'], function(
-    Tournaments, Team, Toast, Strings, Options, Tabshandle, Tab, History,
-    Shared, BoxView, State) {
+    './tabshandle', './tab', './history', './shared', './boxview',
+    './state_new'], function(Tournaments, Team, Toast, Strings, Options,
+    Tabshandle, Tab, History, Shared, BoxView, State) {
   var Tab_Ranking, template, $tab;
 
   template = undefined;
@@ -173,6 +173,13 @@ define(['./tournaments', './team', './toast', './strings', './options',
     ranking = Tournaments.getRanking(tournamentid);
 
     if (ranking.round <= 0) {
+      return false;
+    }
+
+    if (ranking.place.every(function(place) {
+      return place === 0;
+    })) {
+      // all players are in the first place, i.e. there's no real ranking
       return false;
     }
 

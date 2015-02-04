@@ -39,7 +39,7 @@ f6807709f3fef390538c7adefdd030b7  scripts/ui/backgroundscripts/reset.js
 08736c6ce4a83e0715b06e16ab78f874  scripts/ui/backgroundscripts/save.js
 366b705a09b5d6ebc82f832aae28c787  scripts/ui/backgroundscripts/updatetab.js
 3846c4a4ba870e1246e1ed49b3c96a41  scripts/ui/boxcontroller.js
-2ad7fa9e7fb2aa9d33fd1cf1f6f51f07  scripts/ui/boxview.js
+3cee971c7a9ccd9871e6988f2be6a1ab  scripts/ui/boxview.js
 01fb7ceadc8432015d744b963f086dcb  scripts/ui/checkboxcontroller.js
 54266721c979b611c84a88337d7e986a  scripts/ui/checkboxview.js
 408977a0b28e0a7237e92e9300df5171  scripts/ui/classview.js
@@ -88,7 +88,7 @@ b264a6646576c60f847b68bbdf49530b  scripts/ui/tablemodel.js
 abd7341e58c7dba295e70638522d646d  scripts/ui/tableview.js
 d7d52a38dd9ac88a1e4eff835e0512a7  scripts/ui/tab_new.js
 8558a4845003c00f686908b736d22a9e  scripts/ui/taboptslistener.js
-131aec140ea8479a21b2f1ed7d81518a  scripts/ui/tab_ranking.js
+8990e079ce6643323aab2fb33990e704  scripts/ui/tab_ranking.js
 bd5aad9e7eb7046662122a3ad27747dc  scripts/ui/tab_settings.js
 b15aa5d2b8e55ad73c2bbc5b821d3b23  scripts/ui/tabshandle.js
 4379e2fe6a16734ad5663ad445ab2d05  scripts/ui/tabs.js

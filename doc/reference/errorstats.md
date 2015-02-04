@@ -8,7 +8,7 @@
 6. `scripts/ui/tab_games.js` (95)
 7. `scripts/backend/test/rleblobber.js` (94)
 8. `scripts/backend/rleblobber.js` (52)
-9. `scripts/ui/tab_ranking.js` (49)
+9. `scripts/ui/tab_ranking.js` (48)
 10. `scripts/ui/history.js` (47)
 11. `scripts/backend/kotournament.js` (46)
 12. `scripts/ui/tournaments.js` (42)
