@@ -100,6 +100,13 @@ define(['lib/extend', './listener'], function(extend, Listener) {
       this.listeners.splice(index, 1);
     }
 
+    if (listener.emitters) {
+      index = listener.emitters.indexOf(this);
+      if (index !== -1) {
+        listener.emitters.splice(index, 1);
+      }
+    }
+
     return this;
   };
 

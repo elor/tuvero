@@ -492,9 +492,9 @@ Warning: scripts/backend/tournament.js: > 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: > 5 dependencies: 103
+Warning: scripts/common.js: > 5 dependencies: 105
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 143, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 145, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -508,7 +508,7 @@ Warning: scripts/main.js:  #2 Do not use 'new' for side effects.
 Warning: scripts/main.js:     new Toast(Strings.newtournament); // Line 72, Pos 47
 Warning: scripts/main.js:  #3 Unused 'Update'.
 Warning: scripts/main.js:     var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug; // Line 36, Pos 19
-Warning: scripts/test.js: > 5 dependencies: 22
+Warning: scripts/test.js: > 5 dependencies: 23
 Warning: scripts/ui/alltabs.js: > 5 dependencies: 9
 Warning: scripts/ui/alltabs.js: undocumented: 'reset: function'
 Warning: scripts/ui/alltabs.js: undocumented: 'update: function'
@@ -556,6 +556,7 @@ Warning: scripts/ui/backgroundscripts/save.js:  #1 Do not use 'new' for side eff
 Warning: scripts/ui/backgroundscripts/save.js:     new Toast(Strings.savefailed); // Line 24, Pos 40
 Warning: scripts/ui/backgroundscripts/save.js:  #2 Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/save.js:     new Toast(Strings.savefailed); // Line 29, Pos 38
+Warning: scripts/ui/backgroundscripts/saveOnPlayerNameChange.js: undocumented: 'function'
 Warning: scripts/ui/backgroundscripts/updatetab.js: undocumented: 'function getSharedName'
 Warning: scripts/ui/boxview.js: line 87, col 15, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/boxview.js: line 91, col 15, Expected an assignment or function call and instead saw an expression.
@@ -669,6 +670,8 @@ Warning: scripts/ui/koline.js:  #6 'KOLine' was used before it was defined.
 Warning: scripts/ui/koline.js:     group = document.createElementNS(KOLine.SVGNS, 'g'); // Line 114, Pos 40
 Warning: scripts/ui/koline.js:  #7 'KOLine' was used before it was defined.
 Warning: scripts/ui/koline.js:     KOLine.pathCache[pathid] = group.cloneNode(true); // Line 123, Pos 7
+Warning: scripts/ui/listcollectormodel.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/listcollectormodel.js:     for (event in ContentModel.prototype.EVENTS) { // Line 71, Pos 5
 Warning: scripts/ui/listmodel.js: undocumented: 'ListModel.prototype.map = function'
 Warning: scripts/ui/listmodel.js: > 10 functions: 23
 Warning: scripts/ui/listmodel.js: Line 24, E:0100: Member ListModel.prototype.EVENTS cannot have a non-primitive value
@@ -1686,13 +1689,10 @@ Warning: scripts/ui/teamtableview.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/teamtableview.js:     * TODO extract the teamsize logic to a ClassView+IsEmptyModel (or something) // Line 4, Pos 77
 Warning: scripts/ui/teamtableview.js:  #2 Unexpected TODO comment.
 Warning: scripts/ui/teamtableview.js:     * TODO make this a general TableView, which inherits from ListView and hides as // Line 6, Pos 80
-Warning: scripts/ui/test/emitter.js: undocumented: 'function'
-Warning: scripts/ui/test/emitter.js: Line 19, E:0110: Line too long (83 characters).
-Warning: scripts/ui/test/emitter.js: Line 111, E:0110: Line too long (96 characters).
 Warning: scripts/ui/test/emitter.js:  #1 Unexpected dangling '_' in '_emitter'.
-Warning: scripts/ui/test/emitter.js:     onevent: function(_emitter, event) { // Line 43, Pos 35
+Warning: scripts/ui/test/emitter.js:     onevent: function(_emitter, event) { // Line 40, Pos 27
 Warning: scripts/ui/test/emitter.js:  #2 Unexpected dangling '_' in '_emitter'.
-Warning: scripts/ui/test/emitter.js:     QUnit.equal(_emitter, emitter, // Line 47, Pos 31
+Warning: scripts/ui/test/emitter.js:     QUnit.equal(_emitter, emitter, // Line 43, Pos 23
 Warning: scripts/ui/test/indexedlistmodel.js: Line 21, E:0110: Line too long (108 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 28, E:0110: Line too long (93 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 29, E:0110: Line too long (93 characters).
@@ -1702,6 +1702,10 @@ Warning: scripts/ui/test/indexedlistmodel.js: Line 41, E:0110: Line too long (85
 Warning: scripts/ui/test/indexedlistmodel.js: Line 42, E:0110: Line too long (85 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 45, E:0110: Line too long (85 characters).
 Warning: scripts/ui/test/indexedlistmodel.js: Line 46, E:0110: Line too long (85 characters).
+Warning: scripts/ui/test/listcollectormodel.js: undocumented: 'onupdate: function'
+Warning: scripts/ui/test/listcollectormodel.js: line 48, col 7, Unreachable 'listener' after 'return'.
+Warning: scripts/ui/test/listcollectormodel.js:  #1 Unreachable 'listener' after 'return'.
+Warning: scripts/ui/test/listcollectormodel.js:     listener.updatecount = 0; // Line 48, Pos 7
 Warning: scripts/ui/test/listmodel.js: undocumented: 'reset: function'
 Warning: scripts/ui/test/listmodel.js: undocumented: 'onresize: function'
 Warning: scripts/ui/test/listmodel.js: undocumented: 'oninsert: function'

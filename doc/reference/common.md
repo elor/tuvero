@@ -43,6 +43,7 @@ Do not attempt manual changes
 * <a href="ui/backgroundscripts/print.html">ui/backgroundscripts/print</a>
 * <a href="ui/backgroundscripts/reset.html">ui/backgroundscripts/reset</a>
 * <a href="ui/backgroundscripts/save.html">ui/backgroundscripts/save</a>
+* <a href="ui/backgroundscripts/saveOnPlayerNameChange.html">ui/backgroundscripts/saveOnPlayerNameChange</a>
 * <a href="ui/backgroundscripts/updatetab.html">ui/backgroundscripts/updatetab</a>
 * <a href="ui/boxcontroller.html">ui/boxcontroller</a>
 * <a href="ui/boxview.html">ui/boxview</a>
@@ -65,6 +66,7 @@ Do not attempt manual changes
 * <a href="ui/lengthview.html">ui/lengthview</a>
 * <a href="ui/listcleanuplistener.html">ui/listcleanuplistener</a>
 * <a href="ui/listclickcontroller.html">ui/listclickcontroller</a>
+* <a href="ui/listcollectormodel.html">ui/listcollectormodel</a>
 * <a href="ui/listener.html">ui/listener</a>
 * <a href="ui/listmodel.html">ui/listmodel</a>
 * <a href="ui/listview.html">ui/listview</a>
@@ -126,6 +128,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 146 Lines
-* 3084 Bytes
+* 148 Lines
+* 3160 Bytes
 

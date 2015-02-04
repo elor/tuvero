@@ -27,6 +27,7 @@ This file is automatically created on build. Do not attempt manual changes
 * <a href="./ui/test/emitter.html">./ui/test/emitter</a>
 * <a href="./ui/test/indexedlistmodel.html">./ui/test/indexedlistmodel</a>
 * <a href="./ui/test/indexedmodel.html">./ui/test/indexedmodel</a>
+* <a href="./ui/test/listcollectormodel.html">./ui/test/listcollectormodel</a>
 * <a href="./ui/test/listmodel.html">./ui/test/listmodel</a>
 * <a href="./ui/test/model.html">./ui/test/model</a>
 * <a href="./ui/test/playermodel.html">./ui/test/playermodel</a>
@@ -40,6 +41,6 @@ No exported functions
 
 ## Metrics
 
-* 38 Lines
-* 1086 Bytes
+* 39 Lines
+* 1127 Bytes
 

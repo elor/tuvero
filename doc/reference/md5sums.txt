@@ -26,9 +26,9 @@ ebcd319ca6c64012f0a0bb9efadd05cd  scripts/backend/swisstournament.js
 57d624f7d25de9724295b7269b30dcb4  scripts/backend/test/vector.js
 23b03020584f8f421305ae08a46c7c40  scripts/backend/tournament.js
 958cb8dcb33ce44f649f2b5e2d6a2943  scripts/backend/vector.js
-ebfe61ed2d50dcb98d3490aa37e7a399  scripts/common.js
+f04135c63af2b8f6bd28f0a54bb715e2  scripts/common.js
 177e37dad10e86398d2e3eecd12d6435  scripts/main.js
-61edf4ea062b8d66bdd21c437eca9976  scripts/test.js
+ce4c894a88dc8fb2740e3c7ab33135b4  scripts/test.js
 8a41e9c926ae3b1d04ee57d0b617faae  scripts/ui/alltabs.js
 b2ba1379b0024c4ce11e30397bdf53c2  scripts/ui/autocomplete.js
 917842114e35d53957cc2ddb054409ff  scripts/ui/backgroundscripts/featuredetect.js
@@ -37,6 +37,7 @@ b2ba1379b0024c4ce11e30397bdf53c2  scripts/ui/autocomplete.js
 476d43bf560d2ee63735ac7440f3b926  scripts/ui/backgroundscripts/print.js
 f6807709f3fef390538c7adefdd030b7  scripts/ui/backgroundscripts/reset.js
 08736c6ce4a83e0715b06e16ab78f874  scripts/ui/backgroundscripts/save.js
+2b7be17721dd732e0ad651716864be9f  scripts/ui/backgroundscripts/saveOnPlayerNameChange.js
 366b705a09b5d6ebc82f832aae28c787  scripts/ui/backgroundscripts/updatetab.js
 3846c4a4ba870e1246e1ed49b3c96a41  scripts/ui/boxcontroller.js
 3cee971c7a9ccd9871e6988f2be6a1ab  scripts/ui/boxview.js
@@ -47,7 +48,7 @@ f6807709f3fef390538c7adefdd030b7  scripts/ui/backgroundscripts/reset.js
 52e4ac370816bd0caf8f67379d1b0b3b  scripts/ui/csver.js
 b7b2f26aaa1d756a59e6d8d59fecf4b1  scripts/ui/data/swissperms.js
 365027a3b8ecffe9122ec818ed906da1  scripts/ui/debug.js
-5a46df50412bce9d7627f7d69abe634f  scripts/ui/emitter.js
+4e18fbb166377e77a90907986abee5a5  scripts/ui/emitter.js
 c1b677413c2079436afcec0735d2b64e  scripts/ui/fontsizecontroller.js
 c5cb5bfe6767e0eab4f73fd4385f6ec5  scripts/ui/fontsizemodel.js
 5a2698b9b642e09eb368881da254b96a  scripts/ui/fontsizeview.js
@@ -59,6 +60,7 @@ cae6f6a271ad2a4a6547c5e5bac5e629  scripts/ui/history.js
 839dbd566f405d0aa62db195a3d4e18b  scripts/ui/lengthview.js
 1ba4046d599d23f9c47c480213305219  scripts/ui/listcleanuplistener.js
 5370a71d7a62622647800f2e23843e5d  scripts/ui/listclickcontroller.js
+c0928450d5ac4de20ec1dea773066697  scripts/ui/listcollectormodel.js
 05e05bd34076994bd5b4ab92da88133d  scripts/ui/listener.js
 40b91a6e9478a048ae2be0592423e757  scripts/ui/listmodel.js
 52ed03f880967b114ec3ed94be35f53c  scripts/ui/listview.js
@@ -104,9 +106,10 @@ b1a95da18750b4e2f622f9d470d67239  scripts/ui/teamtableview.js
 f10706d77dacad451266b94571910f86  scripts/ui/templateview.js
 a5446a2ee57cf5ec59a652e65e2a2eeb  scripts/ui/test/blobs.js
 6a5267f9eb3afc5df3bcc169a5268a27  scripts/ui/test/csv.js
-7111c7411700d7a4338e652ca32e35c6  scripts/ui/test/emitter.js
+92b02a3911c234b6b6263edf13173a41  scripts/ui/test/emitter.js
 6460a5867019e4817d2c3feb0148ff29  scripts/ui/test/indexedlistmodel.js
 fbfeef3a1f30ecd7d8ef1247df4e0671  scripts/ui/test/indexedmodel.js
+5cecf66191789d6d60030287c08e018c  scripts/ui/test/listcollectormodel.js
 e326c669bd83346f04448713e54c5348  scripts/ui/test/listmodel.js
 6bd1aafcadb2a34300f14ea267aa090a  scripts/ui/test/model.js
 912b5b1747fba29b38d21a0924a4d374  scripts/ui/test/playermodel.js

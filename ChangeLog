@@ -33,6 +33,16 @@
 
 	* scripts/ui/tab_ranking.js: hiding empty rankings (no games, every team is in first place)
 
+	* scripts/ui/backgroundscripts/saveOnPlayerNameChange.js: automatically store the state when a player name (or team index) has changed
+
+	* scripts/ui/emitter.js: remove this from listener.emitters when unregistering a listener
+
+	* scripts/ui/listcollectormodel.js: collect all emitted events from any element of a list and re-emit it from a single object
+
+	* scripts/ui/test/emitter.js: test listener.emitters removal
+
+	* scripts/ui/test/listcollectormodel.js: test ListCollectorModel
+
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant
