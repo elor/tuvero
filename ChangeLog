@@ -19,6 +19,7 @@
 
 	* style/general.css: .tpl removed, .hidden added
 	.teamno -> div.teamno, to avoid th.teamno styling
+	hidden elements are !important
 
 	* style/teams.css: many changes related to table vs. div styling
 	showtable triggers the visibility of .teamtable and .teamlist
