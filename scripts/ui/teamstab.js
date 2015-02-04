@@ -9,11 +9,11 @@ define(
         './newteamview', './lengthview', './teamsizeview',
         './preregcloserview', './valuemodel', './checkboxview', './classview',
         './taboptslistener', './teamremovecontroller', './teamnamecontroller',
-        './teamtableview'],
+        './teamtableview', './inputview', './teamsfileloadcontroller'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
         TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
         TabOptsListener, TeamRemoveController, TeamNameController,
-        TeamTableView) {
+        TeamTableView, InputView, TeamsFileLoadController) {
       /**
        * represents a whole team tab
        *
@@ -69,14 +69,14 @@ define(
 
         // name maxwidth checkbox
         value = new ValueModel();
-        $container = this.$view.find('>.options>input.maxwidth');
+        $container = this.$view.find('>.options input.maxwidth');
         this.maxwidthCheckboxView = new CheckboxView(value, $container);
         this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
             'nomaxwidth');
 
         // list/table selection checkbox
         value = new ValueModel();
-        $container = this.$view.find('>.options>input.showtable');
+        $container = this.$view.find('>.options input.showtable');
         this.showtableCheckboxView = new CheckboxView(value, $container);
         this.showtableClassView = new ClassView(value, this.$view, 'showtable');
 
@@ -94,6 +94,10 @@ define(
 
         // hide teamTable content depending on state
         this.teamTableView = new TeamTableView(this.teamTable, State.teamsize);
+
+        $container = this.$view.find('>.filereader input');
+        this.teamsFileLoadController = new TeamsFileLoadController(
+            new InputView($container));
       };
 
       // FIXME CHEAP HACK AHEAD

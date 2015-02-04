@@ -22,6 +22,7 @@ div#teams {
 #teams .teamtable {
   margin-bottom: 1em;
   display: none;
+  white-space: nowrap;
 }
 
 #teams.showtable .teamtable {
@@ -43,6 +44,10 @@ div#teams {
 #teams div.teamno {
   display: table-cell;
   background: none;
+}
+
+#teams .teamtable .teamno {
+  max-width: 3em;
 }
 
 #teams div.team .names {

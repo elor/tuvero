@@ -3,6 +3,7 @@
 	* index.html: testing teamlist <table>, before offering both variants
 	simultaneously using teamlist and teamtable
 	showtable checkbox added
+	tab options are wrapped in their associated span for click delegation
 
 	* scripts/ui/listclickcontroller.js: stepping over tbody when handling a <table>
 
@@ -14,6 +15,8 @@
 	selectors adjusted to support table.teamlist
 	teamlist and teamtable are used simultaneously
 	showtable triggers the visibility of .teamtable and .teamlist
+	tab options are wrapped in their associated span for click delegation
+	using TeamsFileLoadController for loading player names from files (cheap hack)
 
 	* scripts/ui/teamtableview.js: show/hide rows/cols of a team table
 
@@ -23,6 +26,7 @@
 
 	* style/teams.css: many changes related to table vs. div styling
 	showtable triggers the visibility of .teamtable and .teamlist
+	.teamtable rows are 'nowrap'
 
 	* scripts/ui/teamremovecontroller.js: accepting multiple ListView instances
 
@@ -49,6 +53,12 @@
 	* scripts/ui/storage.js: variable cleanup
 
 	* scripts/ui/tab_new.js: Tabshandle logic moved to TabNewCheapHackListener for now
+
+	* scripts/ui/backgroundscripts/taboptionclick.js: auto-delegating clicks on taboption spans to the checkbox
+
+	* scripts/ui/inputview.js: View for easily resetting an input element
+
+	* scripts/ui/teamsfileloadcontroller.js: load teams and player names from an input file
 
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
