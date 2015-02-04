@@ -1681,15 +1681,10 @@ Warning: scripts/ui/teammodel.js:  #1 Unused 'index'.
 Warning: scripts/ui/teammodel.js:     var index; // Line 24, Pos 9
 Warning: scripts/ui/teamnamecontroller.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/teamnamecontroller.js:     // TODO show a Toast on success and failure // Line 86, Pos 11
-Warning: scripts/ui/teamremovecontroller.js: &gt; 5 dependencies: 7
-Warning: scripts/ui/teamremovecontroller.js: undocumented: 'TeamRemoveController.removalCallback = function'
-Warning: scripts/ui/teamremovecontroller.js:  #1 Unused 'removecontroller'.
-Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview, options; // Line 16, Pos 17
-Warning: scripts/ui/teamremovecontroller.js:  #2 Unused 'classview'.
-Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview, options; // Line 16, Pos 35
+Warning: scripts/ui/teamremovecontroller.js: &gt; 5 dependencies: 8
+Warning: scripts/ui/teamremovecontroller.js: line 9, col 39, This function has too many parameters. (6)
 Warning: scripts/ui/teamstab.js: &gt; 5 dependencies: 18
 Warning: scripts/ui/teamstab.js: undocumented: 'function'
-Warning: scripts/ui/teamstab.js: Line 83, E:0110: Line too long (81 characters).
 Warning: scripts/ui/teamstab.js: line 13, col 13, This function has too many parameters. (16)
 Warning: scripts/ui/teamstab.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 20, Pos 62
@@ -1697,6 +1692,10 @@ Warning: scripts/ui/teamstab.js:  #2 Unexpected TODO comment.
 Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 22, Pos 49
 Warning: scripts/ui/teamstab.js:  #3 Unexpected TODO comment.
 Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 37, Pos 66
+Warning: scripts/ui/teamtableview.js:  #1 Unexpected TODO comment.
+Warning: scripts/ui/teamtableview.js:     * TODO extract the teamsize logic to a ClassView+IsEmptyModel (or something) // Line 4, Pos 77
+Warning: scripts/ui/teamtableview.js:  #2 Unexpected TODO comment.
+Warning: scripts/ui/teamtableview.js:     * TODO make this a general TableView, which inherits from ListView and hides as // Line 6, Pos 80
 Warning: scripts/ui/test/emitter.js: undocumented: 'function'
 Warning: scripts/ui/test/emitter.js: Line 19, E:0110: Line too long (83 characters).
 Warning: scripts/ui/test/emitter.js: Line 111, E:0110: Line too long (96 characters).
@@ -1851,46 +1850,15 @@ Warning: scripts/ui/update.js: undocumented: 'Update = function'
 Warning: scripts/ui/update.js: undocumented: 'function closeDownloadToast'
 Warning: scripts/ui/update.js: undocumented: 'function setCached'
 Warning: scripts/ui/update.js: undocumented: 'function cacheStatus'
-Warning: scripts/ui/update.js: undocumented: 'function cacheError'
-Warning: scripts/ui/update.js: Line 86, E:0110: Line too long (123 characters).
+Warning: scripts/ui/update.js: undocumented: ' function cacheError'
 Warning: scripts/ui/update.js: line 46, col 9, Do not use 'new' for side effects.
 Warning: scripts/ui/update.js: line 65, col 7, Do not use 'new' for side effects.
-Warning: scripts/ui/update.js: line 66, col 59, Expected a 'break' statement before 'case'.
-Warning: scripts/ui/update.js: line 85, col 5, Do not use 'new' for side effects.
-Warning: scripts/ui/update.js: line 16, col 3, 'downloadToast' is not defined.
-Warning: scripts/ui/update.js: line 33, col 9, 'downloadToast' is not defined.
-Warning: scripts/ui/update.js: line 34, col 7, 'downloadToast' is not defined.
-Warning: scripts/ui/update.js: line 35, col 7, 'downloadToast' is not defined.
-Warning: scripts/ui/update.js: line 73, col 12, 'downloadToast' is not defined.
-Warning: scripts/ui/update.js: line 74, col 9, 'downloadToast' is not defined.
-Warning: scripts/ui/update.js: line 14, col 25, 'downloadToasts' is defined but never used.
-Warning: scripts/ui/update.js: line 84, col 12, 'cacheError' is defined but never used.
-Warning: scripts/ui/update.js:  #1 'downloadToast' was used before it was defined.
-Warning: scripts/ui/update.js:     downloadToast = undefined; // Line 16, Pos 3
-Warning: scripts/ui/update.js:  #2 'cacheStatus' was used before it was defined.
+Warning: scripts/ui/update.js:  #1 'cacheStatus' was used before it was defined.
 Warning: scripts/ui/update.js:     cacheStatus(); // Line 19, Pos 5
-Warning: scripts/ui/update.js:  #3 'downloadToast' was used before it was defined.
-Warning: scripts/ui/update.js:     if (downloadToast) { // Line 33, Pos 9
-Warning: scripts/ui/update.js:  #4 'downloadToast' was used before it was defined.
-Warning: scripts/ui/update.js:     downloadToast.close(); // Line 34, Pos 7
-Warning: scripts/ui/update.js:  #5 'downloadToast' was used before it was defined.
-Warning: scripts/ui/update.js:     downloadToast = undefined; // Line 35, Pos 7
-Warning: scripts/ui/update.js:  #6 Do not use 'new' for side effects.
+Warning: scripts/ui/update.js:  #2 Do not use 'new' for side effects.
 Warning: scripts/ui/update.js:     new Toast(Strings.nomanifest, Toast.INFINITE); // Line 46, Pos 54
-Warning: scripts/ui/update.js:  #7 Do not use 'new' for side effects.
+Warning: scripts/ui/update.js:  #3 Do not use 'new' for side effects.
 Warning: scripts/ui/update.js:     new Toast(Strings.updateavailable, Toast.INFINITE); // Line 65, Pos 57
-Warning: scripts/ui/update.js:  #8 Missing 'break' after 'case'.
-Warning: scripts/ui/update.js:     case appCache.IDLE: // Line 67, Pos 5
-Warning: scripts/ui/update.js:  #9 'downloadToast' was used before it was defined.
-Warning: scripts/ui/update.js:     if (!downloadToast) { // Line 73, Pos 12
-Warning: scripts/ui/update.js: #10 'downloadToast' was used before it was defined.
-Warning: scripts/ui/update.js:     downloadToast = new Toast(Strings.updatedownloading, Toast.INFINITE); // Line 74, Pos 9
-Warning: scripts/ui/update.js: #11 Do not use 'new' for side effects.
-Warning: scripts/ui/update.js:     new Toast(Strings.updatefailed, Toast.LONG); // Line 85, Pos 48
-Warning: scripts/ui/update.js: #12 Unused 'downloadToasts'.
-Warning: scripts/ui/update.js:     var Update, appCache, downloadToasts; // Line 14, Pos 25
-Warning: scripts/ui/update.js: #13 Unused 'cacheError'.
-Warning: scripts/ui/update.js:     function cacheError() { // Line 84, Pos 12
 Warning: scripts/ui/view.js:  #1 Empty block.
 Warning: scripts/ui/view.js:     View.prototype.reset = function() { // Line 30, Pos 37
 Warning: scripts/ui/view.js:  #2 Empty block.

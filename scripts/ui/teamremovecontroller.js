@@ -13,7 +13,7 @@ define(['lib/extend', './controller', './valuemodel', './listclickcontroller',
    * Constructor
    */
   function TeamRemoveController(views, $activatebutton, $tab) {
-    var classview, active;
+    var active;
     TeamRemoveController.superconstructor.call(this, new View(undefined,
         $activatebutton));
 
@@ -33,7 +33,7 @@ define(['lib/extend', './controller', './valuemodel', './listclickcontroller',
           TeamRemoveController.removalCallback, options);
     });
 
-    classview = new ClassView(active, $tab, 'deletion');
+    this.classview = new ClassView(active, $tab, 'deletion');
 
     $activatebutton.click(function(e) {
       // activate/deactivate when clicking the button
@@ -55,6 +55,14 @@ define(['lib/extend', './controller', './valuemodel', './listclickcontroller',
 
   extend(TeamRemoveController, Controller);
 
+  /**
+   * remove a team from the list of teams
+   *
+   * @param model
+   *          a ListModel instance
+   * @param index
+   *          the index to remove from model
+   */
   TeamRemoveController.removalCallback = function(model, index) {
     model.remove(index);
     this.set(false);

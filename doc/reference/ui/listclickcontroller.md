@@ -50,5 +50,5 @@ Optional. An option object. See above
 ## Metrics
 
 * 71 Lines
-* 2050 Bytes
+* 2055 Bytes
 

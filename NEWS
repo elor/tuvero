@@ -1,6 +1,9 @@
 Boules %VERSION% (yyyy-mm-dd)
 -------------------------
 
+FEATURES:
+  * users can choose between table and list views of the registered teams
+
 FIXES:
   * KO tree drawing sped up significantly
 

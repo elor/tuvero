@@ -7,9 +7,12 @@
 <body>
 <a href="../index.html">back to index</a>
 <a href="index.html">Overview page</a>
-
+<a href="teamtableview_err.html">errors</a>
 <h1>scripts/ui/teamtableview.js</h1>
 <p>TeamTableView</p>
+<p>TODO extract the teamsize logic to a ClassView+IsEmptyModel (or something)</p>
+<p>TODO make this a general TableView, which inherits from ListView and hides as
+soon as the list is empty</p>
 <ul>
 <li>Exports: TeamTableView</li>
 <li>Author: Erik E. Lorenz</li>
@@ -25,19 +28,28 @@
 <h2>Functions</h2>
 <h3>function TeamTableView(teamview, teamsize)</h3>
 <p>Constructor</p>
+<p><strong>Argument:</strong> <strong>teamview</strong></p>
+<p>a ListView of the table
+<strong>Argument:</strong> <strong>teamsize</strong></p>
+<p>a ValueModel instance of the team size</p>
 <hr />
 <h3>TeamTableView.prototype.updatePlayerColumns = function()</h3>
+<p>show one column for each player in a team (teamsize)</p>
 <hr />
 <h3>TeamTableView.prototype.updateVisibility = function()</h3>
+<p>hide the whole table if there's no player; show it as soon as a player has
+been registered</p>
 <hr />
 <h3>TeamTableView.prototype.onupdate = function()</h3>
+<p>the team size changed. check player column visibility</p>
 <hr />
 <h3>TeamTableView.prototype.onresize = function()</h3>
+<p>the number of teams changed. update the visibility</p>
 <hr />
 <h2>Metrics</h2>
 <ul>
-<li>73 Lines</li>
-<li>1390 Bytes</li>
+<li>84 Lines</li>
+<li>1976 Bytes</li>
 </ul>
 </body>
 </html>

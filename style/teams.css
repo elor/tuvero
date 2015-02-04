@@ -19,8 +19,25 @@ div#teams {
   text-align: center;
 }
 
-#teams table.teamlist {
+#teams .teamtable {
   margin-bottom: 1em;
+  display: none;
+}
+
+#teams.showtable .teamtable {
+  display: table;
+}
+
+#teams.showtable .teamlist {
+  display: none;
+}
+
+#teams .teamtable th {
+  padding-right: 0.5em;
+}
+
+#teams .teamtable .teamno {
+  text-align: center;
 }
 
 #teams div.teamno {

@@ -58,7 +58,7 @@ cae6f6a271ad2a4a6547c5e5bac5e629  scripts/ui/history.js
 119d350c087da4a8587816024b2c6c45  scripts/ui/koline.js
 839dbd566f405d0aa62db195a3d4e18b  scripts/ui/lengthview.js
 1ba4046d599d23f9c47c480213305219  scripts/ui/listcleanuplistener.js
-4be45819c5c3805b88d033f50b6ebf17  scripts/ui/listclickcontroller.js
+5370a71d7a62622647800f2e23843e5d  scripts/ui/listclickcontroller.js
 05e05bd34076994bd5b4ab92da88133d  scripts/ui/listener.js
 40b91a6e9478a048ae2be0592423e757  scripts/ui/listmodel.js
 52ed03f880967b114ec3ed94be35f53c  scripts/ui/listview.js
@@ -95,11 +95,11 @@ b15aa5d2b8e55ad73c2bbc5b821d3b23  scripts/ui/tabshandle.js
 4852a74f0b0c4871ecc7ecf897064761  scripts/ui/team.js
 dccc776fa400d1b9cb4fff663aa178fc  scripts/ui/teammodel.js
 b91b99a19b59fd958e06f1cd39f7fedd  scripts/ui/teamnamecontroller.js
-22cfab6e173067f446e9b681f02c5969  scripts/ui/teamremovecontroller.js
+11d24d8d241b0b283628d6f1e07d46b6  scripts/ui/teamremovecontroller.js
 87ac5ac51a9bb2e28e0e776bbe785580  scripts/ui/teamsizecontroller.js
 a4f6e308e88368734c3143e3f12c6b6b  scripts/ui/teamsizeview.js
-f23932dce3a42bb01cca86e775de910f  scripts/ui/teamstab.js
-0b7c8caf9d95a629e99ce02f11605638  scripts/ui/teamtableview.js
+9a141ef5de676ecba821e36ddf343a5e  scripts/ui/teamstab.js
+b1a95da18750b4e2f622f9d470d67239  scripts/ui/teamtableview.js
 5fb5398f927bd01847a315557e754672  scripts/ui/teamview.js
 f10706d77dacad451266b94571910f86  scripts/ui/templateview.js
 a5446a2ee57cf5ec59a652e65e2a2eeb  scripts/ui/test/blobs.js
@@ -117,7 +117,7 @@ febb3c8fee278766484b75fa9775250b  scripts/ui/test/valuemodel.js
 944fbed164f066104511da7f59fd110e  scripts/ui/toast.js
 b99e80a29fceae0cdf5887a9f0c9f77d  scripts/ui/tournaments.js
 b3fe88138cfe24945f87c088501d318a  scripts/ui/type.js
-f9168c27c5697e70125f039af19059d3  scripts/ui/update.js
+ebcff86f77c2f58ff8f269610f07beb9  scripts/ui/update.js
 c235485fecbeaec4bb02f01873387ba7  scripts/ui/valuemodel.js
 a7fa187e0d0de867dc1e338dd0220d44  scripts/ui/valueview.js
 3bce400a0c5e350e92f8ad997ddc9b1a  scripts/ui/view.js

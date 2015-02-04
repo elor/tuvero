@@ -11,7 +11,7 @@
  */
 // FIXME start this script as early as possible!
 define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
-  var Update, appCache, downloadToasts;
+  var Update, appCache, downloadToast;
 
   downloadToast = undefined;
 
@@ -64,6 +64,7 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
       setCached(true);
       new Toast(Strings.updateavailable, Toast.INFINITE);
       console.warn('boulesprog application cache updated');
+      break;
     case appCache.IDLE:
       setCached(true);
       break;
@@ -81,10 +82,13 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
     }
   }
 
-  function cacheError() {
-    new Toast(Strings.updatefailed, Toast.LONG);
-    console.error('unexpected applicationCache error. window.applicationCache.status = ' + window.applicationCache.status);
-  }
+  // function cacheError() {
+  // new Toast(Strings.updatefailed, Toast.LONG);
+  // console
+  // .error('unexpected applicationCache error. window.applicationCache.status =
+  // '
+  // + window.applicationCache.status);
+  // }
 
   appCache.addEventListener('error', cacheStatus);
   appCache.addEventListener('downloading', cacheStatus);

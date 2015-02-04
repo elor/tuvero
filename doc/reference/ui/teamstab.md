@@ -57,6 +57,6 @@ TODO maybe split it into multiple autodetected functions?
 
 ## Metrics
 
-* 96 Lines
-* 3265 Bytes
+* 108 Lines
+* 3860 Bytes
 

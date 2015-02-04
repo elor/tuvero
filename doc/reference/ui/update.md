@@ -36,12 +36,12 @@ Updates are automatically checked for on every pageload.
 
 ---
 
-###   function cacheError()
+###   // function cacheError()
 
 ---
 
 ## Metrics
 
-* 97 Lines
-* 2743 Bytes
+* 101 Lines
+* 2779 Bytes
 

@@ -2,6 +2,7 @@
 
 	* index.html: testing teamlist <table>, before offering both variants
 	simultaneously using teamlist and teamtable
+	showtable checkbox added
 
 	* scripts/ui/listclickcontroller.js: stepping over tbody when handling a <table>
 
@@ -12,6 +13,7 @@
 	* scripts/ui/teamstab.js: using TeamTableView to show/hide table.teamlist rows/cols
 	selectors adjusted to support table.teamlist
 	teamlist and teamtable are used simultaneously
+	showtable triggers the visibility of .teamtable and .teamlist
 
 	* scripts/ui/teamtableview.js: show/hide rows/cols of a team table
 
@@ -19,8 +21,12 @@
 	.teamno -> div.teamno, to avoid th.teamno styling
 
 	* style/teams.css: many changes related to table vs. div styling
+	showtable triggers the visibility of .teamtable and .teamlist
 
 	* scripts/ui/teamremovecontroller.js: accepting multiple ListView instances
+
+	* scripts/ui/update.js: cacheError commented out
+	downloadToasts-typo fixed
 
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

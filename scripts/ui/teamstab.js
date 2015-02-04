@@ -74,6 +74,12 @@ define(
         this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
             'nomaxwidth');
 
+        // list/table selection checkbox
+        value = new ValueModel();
+        $container = this.$view.find('>.options>input.showtable');
+        this.showtableCheckboxView = new CheckboxView(value, $container);
+        this.showtableClassView = new ClassView(value, this.$view, 'showtable');
+
         // update the tab when the team size changes
         this.tabOptsListener = new TabOptsListener(State.teamsize);
 
