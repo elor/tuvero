@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './view', './boxcontroller'], function(
-    extend, View, BoxController) {
+define(['lib/extend', './view', './boxcontroller'], function(extend, View,
+    BoxController) {
   /**
    * Set the current tabbing state. This forbids tabbing into a collapsed box.
    *
@@ -47,6 +47,7 @@ define(['lib/extend', './view', './boxcontroller'], function(
    */
   function BoxView($box) {
     BoxView.superconstructor.call(this, undefined, $box);
+    this.model.EVENTS = BoxView.EVENTS;
 
     if (this.$view.hasClass('collapsed')) {
       // start collapsed, if specified
@@ -56,6 +57,10 @@ define(['lib/extend', './view', './boxcontroller'], function(
     this.controller = new BoxController(this);
   }
   extend(BoxView, View);
+
+  BoxView.EVENTS = {
+    toggle: true
+  }
 
   /**
    * reset to the expanded state

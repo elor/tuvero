@@ -28,6 +28,8 @@
 	* scripts/ui/update.js: cacheError commented out
 	downloadToasts-typo fixed
 
+	* scripts/ui/boxview.js: event restriction system blocked the 'toggle' event. Fixed that.
+
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant
