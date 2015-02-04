@@ -6,26 +6,32 @@
  * @see LICENSE
  */
 define(['lib/extend', './controller', './valuemodel', './listclickcontroller',
-    './classview'], function(extend, Controller, ValueModel,
-    ListClickController, ClassView) {
+    './classview', './view'], function(extend, Controller, ValueModel,
+    ListClickController, ClassView, View) {
 
   /**
    * Constructor
    */
-  function TeamRemoveController(view, $activatebutton, $tab) {
-    var active, removecontroller, classview, options;
-    TeamRemoveController.superconstructor.call(this, view);
+  function TeamRemoveController(views, $activatebutton, $tab) {
+    var classview, active;
+    TeamRemoveController.superconstructor.call(this, new View(undefined,
+        $activatebutton));
 
+    this.views = views;
     active = new ValueModel(false);
 
-    options = {
-      active: active,
-      event: 'mousedown',
-      callbackthis: active
-    };
+    this.clickControllers = this.views.map(function(view) {
+      var options;
 
-    removecontroller = new ListClickController(this.view,
-        TeamRemoveController.removalCallback, options);
+      options = {
+        active: active,
+        event: 'mousedown',
+        callbackthis: active
+      };
+
+      return new ListClickController(view,
+          TeamRemoveController.removalCallback, options);
+    });
 
     classview = new ClassView(active, $tab, 'deletion');
 

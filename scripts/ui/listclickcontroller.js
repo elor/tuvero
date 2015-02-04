@@ -39,7 +39,7 @@ define(['lib/extend', './controller', './valuemodel'], function(extend,
     options.active = options.active || new ValueModel(true);
     options.callbackthis = options.callbackthis || window;
     options.event = options.event || 'click';
-    if (view.$view.prop('tagName') === 'TABLE') {
+    if (this.view.$view.prop('tagName') === 'TABLE') {
       options.selector = options.selector || '> tbody >';
     } else {
       options.selector = options.selector || '>';

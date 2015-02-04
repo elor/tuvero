@@ -39,10 +39,16 @@ define(
       TeamsTab.prototype.init = function() {
         var $template, $container, value;
 
-        // teams
+        // teamlist
         $container = this.$view.find('>.teamlist');
         $template = $container.find('.team.template');
-        this.teamsView = new ListView(State.teams, $container, $template,
+        this.teamList = new ListView(State.teams, $container, $template,
+            TeamView);
+
+        // teamtable
+        $container = this.$view.find('>.teamtable');
+        $template = $container.find('.team.template');
+        this.teamTable = new ListView(State.teams, $container, $template,
             TeamView);
 
         // registration
@@ -71,17 +77,17 @@ define(
         // update the tab when the team size changes
         this.tabOptsListener = new TabOptsListener(State.teamsize);
 
-        // team removal controller
+        // team removal controllers
         $container = this.$view.find('>button.delete');
-        this.teamRemoveController = new TeamRemoveController(this.teamsView,
-            $container, this.$view);
+        this.teamRemoveController = new TeamRemoveController([this.teamList,
+            this.teamTable], $container, this.$view);
 
         // player name changes
-        this.teamNameController = new TeamNameController(this.teamsView);
+        this.teamNameController = new TeamNameController(this.teamList);
+        this.teamNameController = new TeamNameController(this.teamTable);
 
-        if (this.teamsView.$view.prop('tagName') === 'TABLE') {
-          this.teamTableView = new TeamTableView(this.teamsView, State.teamsize);
-        }
+        // hide teamTable content depending on state
+        this.teamTableView = new TeamTableView(this.teamTable, State.teamsize);
       };
 
       // FIXME CHEAP HACK AHEAD

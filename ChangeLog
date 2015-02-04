@@ -1,6 +1,7 @@
 2015-02-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: testing teamlist <table>, before offering both variants
+	simultaneously using teamlist and teamtable
 
 	* scripts/ui/listclickcontroller.js: stepping over tbody when handling a <table>
 
@@ -10,6 +11,7 @@
 
 	* scripts/ui/teamstab.js: using TeamTableView to show/hide table.teamlist rows/cols
 	selectors adjusted to support table.teamlist
+	teamlist and teamtable are used simultaneously
 
 	* scripts/ui/teamtableview.js: show/hide rows/cols of a team table
 
@@ -17,6 +19,8 @@
 	.teamno -> div.teamno, to avoid th.teamno styling
 
 	* style/teams.css: many changes related to table vs. div styling
+
+	* scripts/ui/teamremovecontroller.js: accepting multiple ListView instances
 
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
