@@ -44,6 +44,7 @@ Do not attempt manual changes
 * <a href="ui/backgroundscripts/reset.html">ui/backgroundscripts/reset</a>
 * <a href="ui/backgroundscripts/save.html">ui/backgroundscripts/save</a>
 * <a href="ui/backgroundscripts/saveOnPlayerNameChange.html">ui/backgroundscripts/saveOnPlayerNameChange</a>
+* <a href="ui/backgroundscripts/tabnewcheaphacklistener.html">ui/backgroundscripts/tabnewcheaphacklistener</a>
 * <a href="ui/backgroundscripts/updatetab.html">ui/backgroundscripts/updatetab</a>
 * <a href="ui/boxcontroller.html">ui/boxcontroller</a>
 * <a href="ui/boxview.html">ui/boxview</a>
@@ -128,6 +129,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 148 Lines
-* 3160 Bytes
+* 149 Lines
+* 3210 Bytes
 

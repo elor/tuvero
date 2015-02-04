@@ -228,6 +228,6 @@ the tournament id of the swiss tournament
 
 ## Metrics
 
-* 830 Lines
-* 21535 Bytes
+* 824 Lines
+* 21421 Bytes
 

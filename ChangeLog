@@ -43,6 +43,13 @@
 
 	* scripts/ui/test/listcollectormodel.js: test ListCollectorModel
 
+	* scripts/ui/backgroundscripts/tabnewcheaphacklistener.js: Listening for State.teams events
+	Set the Tab_New visibility and call Tab_New.update if necessary
+
+	* scripts/ui/storage.js: variable cleanup
+
+	* scripts/ui/tab_new.js: Tabshandle logic moved to TabNewCheapHackListener for now
+
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant

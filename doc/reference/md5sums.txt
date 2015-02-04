@@ -26,7 +26,7 @@ ebcd319ca6c64012f0a0bb9efadd05cd  scripts/backend/swisstournament.js
 57d624f7d25de9724295b7269b30dcb4  scripts/backend/test/vector.js
 23b03020584f8f421305ae08a46c7c40  scripts/backend/tournament.js
 958cb8dcb33ce44f649f2b5e2d6a2943  scripts/backend/vector.js
-f04135c63af2b8f6bd28f0a54bb715e2  scripts/common.js
+e6d973ed94bf106146479ccd9a619b78  scripts/common.js
 177e37dad10e86398d2e3eecd12d6435  scripts/main.js
 ce4c894a88dc8fb2740e3c7ab33135b4  scripts/test.js
 8a41e9c926ae3b1d04ee57d0b617faae  scripts/ui/alltabs.js
@@ -38,6 +38,7 @@ b2ba1379b0024c4ce11e30397bdf53c2  scripts/ui/autocomplete.js
 f6807709f3fef390538c7adefdd030b7  scripts/ui/backgroundscripts/reset.js
 08736c6ce4a83e0715b06e16ab78f874  scripts/ui/backgroundscripts/save.js
 2b7be17721dd732e0ad651716864be9f  scripts/ui/backgroundscripts/saveOnPlayerNameChange.js
+b3773d79a4d0b25e721ac9cda88540b9  scripts/ui/backgroundscripts/tabnewcheaphacklistener.js
 366b705a09b5d6ebc82f832aae28c787  scripts/ui/backgroundscripts/updatetab.js
 3846c4a4ba870e1246e1ed49b3c96a41  scripts/ui/boxcontroller.js
 3cee971c7a9ccd9871e6988f2be6a1ab  scripts/ui/boxview.js
@@ -80,7 +81,7 @@ fcba9f32137b557f6240dfeb57e561a4  scripts/ui/state.js
 b3721708e0be70494aadf75a83fd6925  scripts/ui/statemodel.js
 7e1c9df8a00bcdee9de8504e903408e7  scripts/ui/state_new.js
 72b0a05914ca8eea6faa84f9c00fd238  scripts/ui/staticviewloader.js
-3151fce02d262cb23d9f0474330b8cae  scripts/ui/storage.js
+c21fa58303388547f474c3abc10b0474  scripts/ui/storage.js
 550d295838622309d89d3eb7812b7569  scripts/ui/strings.js
 1d9383e61430e306e4a8ae70191c36bd  scripts/ui/tab_debug.js
 d7ab592b063480b2a7280cdb0f97bf24  scripts/ui/tab_games.js
@@ -88,7 +89,7 @@ f35a3ca32badd1b48d6ca76b7f947798  scripts/ui/tab_history.js
 548721d908d0d2352f87b94cc5ff28cb  scripts/ui/tab.js
 b264a6646576c60f847b68bbdf49530b  scripts/ui/tablemodel.js
 abd7341e58c7dba295e70638522d646d  scripts/ui/tableview.js
-d7d52a38dd9ac88a1e4eff835e0512a7  scripts/ui/tab_new.js
+dd0853708b6d7cecae968113c4303432  scripts/ui/tab_new.js
 8558a4845003c00f686908b736d22a9e  scripts/ui/taboptslistener.js
 8990e079ce6643323aab2fb33990e704  scripts/ui/tab_ranking.js
 bd5aad9e7eb7046662122a3ad27747dc  scripts/ui/tab_settings.js

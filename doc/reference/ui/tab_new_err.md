@@ -38,7 +38,7 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
 Warning: scripts/ui/tab_new.js: > 10 functions: 42
-Warning: scripts/ui/tab_new.js: > 400 lines: 830
+Warning: scripts/ui/tab_new.js: > 400 lines: 824
 Warning: scripts/ui/tab_new.js: Line 124, E:0120: Binary operator should go on previous line "||"
 Warning: scripts/ui/tab_new.js: Line 244, E:0120: Binary operator should go on previous line "&&"
 Warning: scripts/ui/tab_new.js: Line 255, E:0120: Binary operator should go on previous line "&&"
@@ -194,5 +194,5 @@ Warning: scripts/ui/tab_new.js: #49 Expected an assignment or function call and 
 Warning: scripts/ui/tab_new.js:     !perms.bye.down && $perms.down.bye.addClass('forbidden'); // Line 652, Pos 5
 Warning: scripts/ui/tab_new.js: #50 Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/tab_new.js:     !perms.bye.bye && $perms.bye.bye.addClass('forbidden'); // Line 653, Pos 5
-Warning: scripts/ui/tab_new.js: #51 Too many errors. (78% scanned).
+Warning: scripts/ui/tab_new.js: #51 Too many errors. (79% scanned).
 Warning: scripts/ui/tab_new.js:      // Line 653, Pos 5

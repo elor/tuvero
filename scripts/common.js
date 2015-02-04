@@ -62,6 +62,7 @@ define([
   'ui/backgroundscripts/reset',
   'ui/backgroundscripts/featuredetect',
   'ui/backgroundscripts/updatetab',
+  'ui/backgroundscripts/tabnewcheaphacklistener',
   'ui/backgroundscripts/online',
   'ui/backgroundscripts/save',
   'ui/backgroundscripts/saveOnPlayerNameChange',

@@ -492,9 +492,9 @@ Warning: scripts/backend/tournament.js: > 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: > 5 dependencies: 105
+Warning: scripts/common.js: > 5 dependencies: 106
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 145, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 146, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -557,6 +557,8 @@ Warning: scripts/ui/backgroundscripts/save.js:     new Toast(Strings.savefailed)
 Warning: scripts/ui/backgroundscripts/save.js:  #2 Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/save.js:     new Toast(Strings.savefailed); // Line 29, Pos 38
 Warning: scripts/ui/backgroundscripts/saveOnPlayerNameChange.js: undocumented: 'function'
+Warning: scripts/ui/backgroundscripts/tabnewcheaphacklistener.js: line 11, col 0, Identifier 'Tab_New' is not in camel case.
+Warning: scripts/ui/backgroundscripts/tabnewcheaphacklistener.js: line 32, col 0, Identifier 'Tab_New' is not in camel case.
 Warning: scripts/ui/backgroundscripts/updatetab.js: undocumented: 'function getSharedName'
 Warning: scripts/ui/boxview.js: line 87, col 15, Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/boxview.js: line 91, col 15, Expected an assignment or function call and instead saw an expression.
@@ -768,34 +770,19 @@ Warning: scripts/ui/staticviewloader.js:  #1 Do not use 'new' for side effects.
 Warning: scripts/ui/staticviewloader.js:     new View($elem); // Line 36, Pos 22
 Warning: scripts/ui/storage.js: undocumented: 'function saveKey'
 Warning: scripts/ui/storage.js: undocumented: 'function loadKey'
-Warning: scripts/ui/storage.js: Line 9, E:0110: Line too long (89 characters).
-Warning: scripts/ui/storage.js: Line 119, E:0110: Line too long (81 characters).
-Warning: scripts/ui/storage.js: line 91, col 29, Use '===' to compare with 'true'.
-Warning: scripts/ui/storage.js: line 91, col 38, Empty block.
 Warning: scripts/ui/storage.js: line 99, col 10, Don't make functions within a loop.
 Warning: scripts/ui/storage.js: line 153, col 0, Identifier 'Tab_Settings' is not in camel case.
-Warning: scripts/ui/storage.js: line 88, col 14, 'val' is defined but never used.
-Warning: scripts/ui/storage.js: line 88, col 19, 'err' is defined but never used.
-Warning: scripts/ui/storage.js: line 112, col 19, 'blob' is defined but never used.
 Warning: scripts/ui/storage.js:  #1 Bad for in variable 'key'.
-Warning: scripts/ui/storage.js:     for (key in keys) { // Line 71, Pos 12
+Warning: scripts/ui/storage.js:     for (key in keys) { // Line 72, Pos 12
 Warning: scripts/ui/storage.js:  #2 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
-Warning: scripts/ui/storage.js:     for (key in keys) { // Line 71, Pos 7
-Warning: scripts/ui/storage.js:  #3 Empty block.
-Warning: scripts/ui/storage.js:     if (savespending[key] == true) { // Line 91, Pos 38
-Warning: scripts/ui/storage.js:  #4 Don't make functions within a loop.
+Warning: scripts/ui/storage.js:     for (key in keys) { // Line 72, Pos 7
+Warning: scripts/ui/storage.js:  #3 Don't make functions within a loop.
 Warning: scripts/ui/storage.js:     window.setTimeout(function(mykey) { // Line 94, Pos 27
+Warning: scripts/ui/storage.js:  #4 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/storage.js:     for (key in keys) { // Line 91, Pos 5
 Warning: scripts/ui/storage.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
-Warning: scripts/ui/storage.js:     for (key in keys) { // Line 90, Pos 5
-Warning: scripts/ui/storage.js:  #6 Unused 'val'.
-Warning: scripts/ui/storage.js:     var key, val, err; // Line 88, Pos 14
-Warning: scripts/ui/storage.js:  #7 Unused 'err'.
-Warning: scripts/ui/storage.js:     var key, val, err; // Line 88, Pos 19
-Warning: scripts/ui/storage.js:  #8 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
 Warning: scripts/ui/storage.js:     for (key in keys) { // Line 116, Pos 5
-Warning: scripts/ui/storage.js:  #9 Unused 'blob'.
-Warning: scripts/ui/storage.js:     var key, err, blob; // Line 112, Pos 19
-Warning: scripts/ui/storage.js: #10 Unexpected TODO comment.
+Warning: scripts/ui/storage.js:  #6 Unexpected TODO comment.
 Warning: scripts/ui/storage.js:     // TODO move to Blob // Line 150, Pos 5
 Warning: scripts/ui/strings.js: Line 19, E:0110: Line too long (101 characters).
 Warning: scripts/ui/strings.js: Line 20, E:0110: Line too long (92 characters).
@@ -1284,7 +1271,7 @@ Warning: scripts/ui/tab_new.js: undocumented: 'function reset'
 Warning: scripts/ui/tab_new.js: undocumented: 'function closeTeamRegistration'
 Warning: scripts/ui/tab_new.js: undocumented: 'function update'
 Warning: scripts/ui/tab_new.js: > 10 functions: 42
-Warning: scripts/ui/tab_new.js: > 400 lines: 830
+Warning: scripts/ui/tab_new.js: > 400 lines: 824
 Warning: scripts/ui/tab_new.js: Line 124, E:0120: Binary operator should go on previous line "||"
 Warning: scripts/ui/tab_new.js: Line 244, E:0120: Binary operator should go on previous line "&&"
 Warning: scripts/ui/tab_new.js: Line 255, E:0120: Binary operator should go on previous line "&&"
@@ -1440,7 +1427,7 @@ Warning: scripts/ui/tab_new.js: #49 Expected an assignment or function call and 
 Warning: scripts/ui/tab_new.js:     !perms.bye.down && $perms.down.bye.addClass('forbidden'); // Line 652, Pos 5
 Warning: scripts/ui/tab_new.js: #50 Expected an assignment or function call and instead saw an expression.
 Warning: scripts/ui/tab_new.js:     !perms.bye.bye && $perms.bye.bye.addClass('forbidden'); // Line 653, Pos 5
-Warning: scripts/ui/tab_new.js: #51 Too many errors. (78% scanned).
+Warning: scripts/ui/tab_new.js: #51 Too many errors. (79% scanned).
 Warning: scripts/ui/tab_new.js:      // Line 653, Pos 5
 Warning: scripts/ui/taboptslistener.js: undocumented: 'function'
 Warning: scripts/ui/tab_ranking.js: > 5 dependencies: 13

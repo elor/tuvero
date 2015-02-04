@@ -68,5 +68,5 @@ this function indicates a change in the tournament state
 ## Metrics
 
 * 159 Lines
-* 3134 Bytes
+* 3109 Bytes
 

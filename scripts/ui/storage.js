@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./options', './shared', 'lib/modernizr'], function(Options, Shared, Modernizr) {
+define(['./options', './shared', 'lib/modernizr'], function(Options, Shared,
+    Modernizr) {
   var Storage, keys, savespending;
 
   Storage = {};
@@ -26,7 +27,7 @@ define(['./options', './shared', 'lib/modernizr'], function(Options, Shared, Mod
       return true;
     }
 
-    console.log('blobbing ' + key);
+    // console.log('blobbing ' + key);
     blob = val.toBlob();
     if (!blob) {
       return true;
@@ -85,11 +86,10 @@ define(['./options', './shared', 'lib/modernizr'], function(Options, Shared, Mod
    * store everything
    */
   Storage.store = function() {
-    var key, val, err;
+    var key;
 
     for (key in keys) {
-      if (savespending[key] == true) {
-      } else {
+      if (savespending[key] !== true) {
         savespending[key] = true;
         window.setTimeout(function(mykey) {
           if (saveKey(mykey)) {
@@ -109,14 +109,14 @@ define(['./options', './shared', 'lib/modernizr'], function(Options, Shared, Mod
    * @return true on successful load, false otherwise
    */
   Storage.restore = function() {
-    var key, err, blob;
+    var key, err;
 
     err = false;
 
     for (key in keys) {
       if (loadKey(key)) {
         err = true;
-        console.warn("Could not read key '" + key + "' from localStorage (yet)");
+        console.warn("Could not read key '" + key + "' from localStorage yet");
       }
     }
 
