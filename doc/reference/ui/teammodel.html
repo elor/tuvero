@@ -9,7 +9,7 @@
 <a href="index.html">Overview page</a>
 <a href="teammodel_err.html">errors</a>
 <h1>scripts/ui/teammodel.js</h1>
-<p>A combination of players is a team. A team should contain at least one player</p>
+<p>A combination of players is a team. A team should contain at least one player *</p>
 <ul>
 <li>Exports: TeamModel</li>
 <li>Author: Erik E. Lorenz</li>
@@ -25,6 +25,9 @@
 <h2>Functions</h2>
 <h3>function TeamModel(players, id)</h3>
 <p>Constructor</p>
+<ul>
+<li></li>
+</ul>
 <p><strong>Argument:</strong> <strong>players</strong></p>
 <p>an array of PlayerModel instances
 <strong>Argument:</strong> <strong>id</strong></p>
@@ -33,19 +36,24 @@
 <h3>TeamModel.prototype.getPlayer = function(id)</h3>
 <p>retrieve a single player. For the number of players, see
 TeamModel.prototype.length</p>
+<ul>
+<li></li>
+</ul>
 <p><strong>Argument:</strong> <strong>id</strong></p>
 <p>the index of the player inside the team</p>
 <p><strong>Returns:</strong> a PlayerModel reference</p>
 <hr />
 <h3>TeamModel.prototype.onupdate = function()</h3>
 <p>Callback listener</p>
-<p>One of the player names was updated. This is passed through to the team
-event emitter.</p>
+<ul>
+<li>One of the player names was updated. This is passed through to the team
+event emitter.</li>
+</ul>
 <hr />
 <h2>Metrics</h2>
 <ul>
 <li>69 Lines</li>
-<li>1590 Bytes</li>
+<li>1605 Bytes</li>
 </ul>
 </body>
 </html>

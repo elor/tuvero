@@ -1,5 +1,5 @@
 /**
- * A combination of players is a team. A team should contain at least one player
+ * A combination of players is a team. A team should contain at least one player *
  *
  * @return TeamModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -7,11 +7,12 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './indexedmodel', './playermodel'], function(extend, IndexedModel, PlayerModel) {
+define(['lib/extend', './indexedmodel', './playermodel'], function(extend,
+    IndexedModel, PlayerModel) {
 
   /**
    * Constructor
-   *
+   *  *
    * @param players
    *          an array of PlayerModel instances
    * @param id
@@ -28,9 +29,9 @@ define(['lib/extend', './indexedmodel', './playermodel'], function(extend, Index
     }
     this.length = players.length;
     this.players = players.slice(0);
-    for (index in this.players) {
-      this.players[index].registerListener(this);
-    }
+    this.players.forEach(function(player) {
+      player.registerListener(this);
+    }, this);
   }
   extend(TeamModel, IndexedModel);
 
@@ -42,7 +43,7 @@ define(['lib/extend', './indexedmodel', './playermodel'], function(extend, Index
   /**
    * retrieve a single player. For the number of players, see
    * TeamModel.prototype.length
-   *
+   *  *
    * @param id
    *          the index of the player inside the team
    * @return a PlayerModel reference
@@ -56,8 +57,7 @@ define(['lib/extend', './indexedmodel', './playermodel'], function(extend, Index
 
   /**
    * Callback listener
-   *
-   * One of the player names was updated. This is passed through to the team
+   *  * One of the player names was updated. This is passed through to the team
    * event emitter.
    *
    */

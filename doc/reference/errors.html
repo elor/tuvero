@@ -501,9 +501,9 @@ Warning: scripts/backend/tournament.js: &gt; 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: &gt; 5 dependencies: 102
+Warning: scripts/common.js: &gt; 5 dependencies: 103
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 142, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 143, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
 Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
 Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
@@ -683,7 +683,9 @@ Warning: scripts/ui/listmodel.js: &gt; 10 functions: 23
 Warning: scripts/ui/listmodel.js: Line 24, E:0100: Member ListModel.prototype.EVENTS cannot have a non-primitive value
 Warning: scripts/ui/listview.js: &gt; 10 functions: 15
 Warning: scripts/ui/listview.js: Line 97, E:0120: Binary operator should go on previous line &quot;+&quot;
+Warning: scripts/ui/listview.js: Line 104, E:0120: Binary operator should go on previous line &quot;&amp;&amp;&quot;
 Warning: scripts/ui/listview.js: line 97, col 11, Bad line breaking before '+'.
+Warning: scripts/ui/listview.js: line 104, col 11, Bad line breaking before '&amp;&amp;'.
 Warning: scripts/ui/newteamcontroller.js: &gt; 5 dependencies: 6
 Warning: scripts/ui/newteamcontroller.js: undocumented: 'function'
 Warning: scripts/ui/newteamcontroller.js:  #1 Unnecessary 'else' after disruption.
@@ -1673,9 +1675,10 @@ Warning: scripts/ui/tab_settings.js:     function autocompleteFileAbort() { // L
 Warning: scripts/ui/team.js: undocumented: 'function'
 Warning: scripts/ui/team.js: Line 90, E:0120: Binary operator should go on previous line &quot;+&quot;
 Warning: scripts/ui/team.js: line 90, col 19, Bad line breaking before '+'.
-Warning: scripts/ui/teammodel.js: Line 10, E:0110: Line too long (103 characters).
-Warning: scripts/ui/teammodel.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
-Warning: scripts/ui/teammodel.js:     for (index in this.players) { // Line 31, Pos 5
+Warning: scripts/ui/teammodel.js: Line 2, E:0110: Line too long (82 characters).
+Warning: scripts/ui/teammodel.js: line 24, col 9, 'index' is defined but never used.
+Warning: scripts/ui/teammodel.js:  #1 Unused 'index'.
+Warning: scripts/ui/teammodel.js:     var index; // Line 24, Pos 9
 Warning: scripts/ui/teamnamecontroller.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/teamnamecontroller.js:     // TODO show a Toast on success and failure // Line 86, Pos 11
 Warning: scripts/ui/teamremovecontroller.js: &gt; 5 dependencies: 7
@@ -1684,15 +1687,16 @@ Warning: scripts/ui/teamremovecontroller.js:  #1 Unused 'removecontroller'.
 Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview, options; // Line 16, Pos 17
 Warning: scripts/ui/teamremovecontroller.js:  #2 Unused 'classview'.
 Warning: scripts/ui/teamremovecontroller.js:     var active, removecontroller, classview, options; // Line 16, Pos 35
-Warning: scripts/ui/teamstab.js: &gt; 5 dependencies: 17
+Warning: scripts/ui/teamstab.js: &gt; 5 dependencies: 18
 Warning: scripts/ui/teamstab.js: undocumented: 'function'
-Warning: scripts/ui/teamstab.js: line 12, col 13, This function has too many parameters. (15)
+Warning: scripts/ui/teamstab.js: Line 83, E:0110: Line too long (81 characters).
+Warning: scripts/ui/teamstab.js: line 13, col 13, This function has too many parameters. (16)
 Warning: scripts/ui/teamstab.js:  #1 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 18, Pos 62
+Warning: scripts/ui/teamstab.js:     * TODO write a TabView superclass with common functions // Line 20, Pos 62
 Warning: scripts/ui/teamstab.js:  #2 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 20, Pos 49
+Warning: scripts/ui/teamstab.js:     * TODO isolate common tab-related function // Line 22, Pos 49
 Warning: scripts/ui/teamstab.js:  #3 Unexpected TODO comment.
-Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 35, Pos 66
+Warning: scripts/ui/teamstab.js:     * TODO maybe split it into multiple autodetected functions? // Line 37, Pos 66
 Warning: scripts/ui/test/emitter.js: undocumented: 'function'
 Warning: scripts/ui/test/emitter.js: Line 19, E:0110: Line too long (83 characters).
 Warning: scripts/ui/test/emitter.js: Line 111, E:0110: Line too long (96 characters).

@@ -1,3 +1,4 @@
-Warning: scripts/ui/teammodel.js: Line 10, E:0110: Line too long (103 characters).
-Warning: scripts/ui/teammodel.js:  #1 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
-Warning: scripts/ui/teammodel.js:     for (index in this.players) { // Line 31, Pos 5
+Warning: scripts/ui/teammodel.js: Line 2, E:0110: Line too long (82 characters).
+Warning: scripts/ui/teammodel.js: line 24, col 9, 'index' is defined but never used.
+Warning: scripts/ui/teammodel.js:  #1 Unused 'index'.
+Warning: scripts/ui/teammodel.js:     var index; // Line 24, Pos 9

@@ -39,7 +39,7 @@ div, button {
   padding: 0px;
 }
 
-.tpl {
+.hidden {
   display: none;
 }
 
@@ -51,7 +51,7 @@ div, button {
   display: none;
 }
 
-#teams .teamno, #games .teamno, #history .teamno {
+#teams div.teamno, #games .teamno, #history .teamno {
   width: 1.5em;
   height: 1.5em;
   font-size: 200%;
@@ -70,13 +70,11 @@ div, button {
   background-size: 0.8em;
 }
 
-
 @media print {
   body {
     background-color: #ffffff;
     color: #000000;
   }
-  
   button, input {
     display: none;
   }

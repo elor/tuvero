@@ -127,6 +127,7 @@ define([
   'ui/teamsizecontroller',
   'ui/teamsizeview',
   'ui/teamstab',
+  'ui/teamtableview',
   'ui/teamview',
   'ui/templateview',
   'ui/textview',

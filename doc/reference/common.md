@@ -105,6 +105,7 @@ Do not attempt manual changes
 * <a href="ui/teamsizecontroller.html">ui/teamsizecontroller</a>
 * <a href="ui/teamsizeview.html">ui/teamsizeview</a>
 * <a href="ui/teamstab.html">ui/teamstab</a>
+* <a href="ui/teamtableview.html">ui/teamtableview</a>
 * <a href="ui/teamview.html">ui/teamview</a>
 * <a href="ui/templateview.html">ui/templateview</a>
 * <a href="ui/textview.html">ui/textview</a>
@@ -125,6 +126,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 145 Lines
-* 3062 Bytes
+* 146 Lines
+* 3084 Bytes
 

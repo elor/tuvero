@@ -8,10 +8,12 @@ define(
     ['lib/extend', './view', './listview', './teamview', './state_new',
         './newteamview', './lengthview', './teamsizeview',
         './preregcloserview', './valuemodel', './checkboxview', './classview',
-        './taboptslistener', './teamremovecontroller', './teamnamecontroller'],
+        './taboptslistener', './teamremovecontroller', './teamnamecontroller',
+        './teamtableview'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
         TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
-        TabOptsListener, TeamRemoveController, TeamNameController) {
+        TabOptsListener, TeamRemoveController, TeamNameController,
+        TeamTableView) {
       /**
        * represents a whole team tab
        *
@@ -39,9 +41,8 @@ define(
 
         // teams
         $container = this.$view.find('>.teamlist');
-        $template = $container.find('>.team.template').detach().removeClass(
-            'template');
-        this.teamView = new ListView(State.teams, $container, $template,
+        $template = $container.find('.team.template');
+        this.teamsView = new ListView(State.teams, $container, $template,
             TeamView);
 
         // registration
@@ -72,11 +73,15 @@ define(
 
         // team removal controller
         $container = this.$view.find('>button.delete');
-        this.teamRemoveController = new TeamRemoveController(this.teamView,
+        this.teamRemoveController = new TeamRemoveController(this.teamsView,
             $container, this.$view);
 
         // player name changes
-        this.teamNameController = new TeamNameController(this.teamView);
+        this.teamNameController = new TeamNameController(this.teamsView);
+
+        if (this.teamsView.$view.prop('tagName') === 'TABLE') {
+          this.teamTableView = new TeamTableView(this.teamsView, State.teamsize);
+        }
       };
 
       // FIXME CHEAP HACK AHEAD

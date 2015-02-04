@@ -100,6 +100,16 @@ define(['lib/extend', './templateview', './textview'], function(extend,
       // $view is a direct descendant of this.$view, i.e. child
       break;
     default:
+      if (this.$template.prop('tagName') !== 'TBODY'
+          && $parents.eq(parentindex - 1).prop('tagName') === 'TBODY') {
+        // adjust parentindex if we have to step over an automatically inserted
+        // tbody element. This is against the standard, but more intuitive
+        parentindex -= 1;
+        if (parentindex === 0) {
+          // NOW, the parentindex is 0
+          break;
+        }
+      }
       $view = $parents.eq(parentindex - 1);
       break;
     }

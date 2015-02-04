@@ -142,6 +142,6 @@ Callback function, event emitted by list.clear()
 
 ## Metrics
 
-* 203 Lines
-* 5138 Bytes
+* 213 Lines
+* 5552 Bytes
 

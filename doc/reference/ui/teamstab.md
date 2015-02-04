@@ -21,6 +21,7 @@
 * <a href="./teamnamecontroller.html">./teamnamecontroller</a>
 * <a href="./teamremovecontroller.html">./teamremovecontroller</a>
 * <a href="./teamsizeview.html">./teamsizeview</a>
+* <a href="./teamtableview.html">./teamtableview</a>
 * <a href="./teamview.html">./teamview</a>
 * <a href="./valuemodel.html">./valuemodel</a>
 * <a href="./view.html">./view</a>
@@ -56,6 +57,6 @@ TODO maybe split it into multiple autodetected functions?
 
 ## Metrics
 
-* 91 Lines
-* 3102 Bytes
+* 96 Lines
+* 3265 Bytes
 

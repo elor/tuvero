@@ -1,3 +1,23 @@
+2015-02-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: testing teamlist <table>, before offering both variants
+
+	* scripts/ui/listclickcontroller.js: stepping over tbody when handling a <table>
+
+	* scripts/ui/listview.js: ignoring auto-inserted tbody elements
+
+	* scripts/ui/teammodel.js: using players.forEach instead of for in
+
+	* scripts/ui/teamstab.js: using TeamTableView to show/hide table.teamlist rows/cols
+	selectors adjusted to support table.teamlist
+
+	* scripts/ui/teamtableview.js: show/hide rows/cols of a team table
+
+	* style/general.css: .tpl removed, .hidden added
+	.teamno -> div.teamno, to avoid th.teamno styling
+
+	* style/teams.css: many changes related to table vs. div styling
+
 2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant
