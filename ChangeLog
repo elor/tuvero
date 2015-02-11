@@ -8,6 +8,7 @@
 
 	* build-scripts/write-scripts.sh: jquery paths added
 	jquery shim added
+	unnecessary shims removed
 
 	* scripts/ui: 'lib/jquery' -> 'jquery'
 	avoiding the global $ function in favor of the require-provided one

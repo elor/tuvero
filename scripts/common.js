@@ -18,12 +18,6 @@ require.config({
       'lib/Blob' : {
       exports: 'Blob'
     },
-      'lib/typeahead' : {
-//      deps: [ 'lib/jquery' ]
-    },
-      'lib/jquery' : {
-       exports: '$'
-    },
     'lib/qunit' : {
       exports: 'QUnit',
       /**
