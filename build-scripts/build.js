@@ -2,14 +2,13 @@
     appDir: "..",
     baseUrl: "scripts",
     dir: "../../boules-build",
-//    optimize: "uglify2",
-    optimize: "none",
+    optimize: "uglify2",
     modules: [
         {
             name: 'common'
         },
         {
-            name: "config",
+            name: "main",
             exclude: ['common']
         },
         {

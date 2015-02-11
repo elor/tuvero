@@ -7,33 +7,8 @@
  * @see LICENSE
  */
 
-require.config({
-  shim: {
-    'lib/modernizr' : {
-      deps: ['lib/Blob'],
-      exports: 'Modernizr'
-    },
-      'lib/Blob' : {
-      exports: 'Blob'
-    },
-    'lib/qunit' : {
-      exports: 'QUnit',
-      /**
-      * disable QUnit autoload/autostart for requirejs optimizer compatibility
-      */
-      init: function() {
-        QUnit.config.autoload = false;
-        QUnit.config.autostart = false;
-      }
-    }
-  },
-  paths: {
-    'jquery': 'lib/jquery',
-    'filesaver': 'lib/FileSaver'
-  }
-});
-
-define(['common',
+require(['config'], function(){
+require(['common',
         'lib/qunit',
          './backend/test/gameresultscorrection',
          './backend/test/kotournament',
@@ -62,4 +37,5 @@ define(['common',
   }
   QUnit.load();
   QUnit.start();
+});
 });

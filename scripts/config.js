@@ -34,5 +34,3 @@ require.config({
     'filesaver': 'lib/FileSaver'
   }
 });
-
-requirejs(['main']);

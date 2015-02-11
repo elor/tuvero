@@ -6,6 +6,7 @@
 	missing closing div tag added
 	global jquery invocation removed
 	using config.js instead of main.js
+	aaand using main.js again
 
 	* build-scripts/write-scripts.sh: jquery paths added
 	jquery shim added
@@ -22,19 +23,25 @@
 	* build-scripts/build.js: FileSaver bugs fixed
 	removing licensing comments
 	using config.js for paths and shims
+	optimizing main.js instead of config.js
 
 	* scripts/common.js: config extracted to config.js
 
 	* scripts/config.js: paths and shims
 	loads 'main'
+	doesn't load 'main' anymore, but gets loaded by 'main' and 'test'
 
 	* scripts/lib/FileSaver.js: update
 
 	* scripts/lib/require.js: update
 
 	* scripts/test.js: contains copy of config.js (for now)
+	copy of config.js content removed
+	loading config.js before loading common.js
 
 	* scripts/ui/tabs.js: handling premature hide()/show() calls
+
+	* scripts/main.js: loading config.js before loading common.js
 
 2015-02-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
