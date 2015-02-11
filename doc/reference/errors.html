@@ -501,23 +501,22 @@ Warning: scripts/backend/tournament.js: &gt; 10 functions: 15
 Warning: scripts/backend/tournament.js: Line 9, E:0110: Line too long (115 characters).
 Warning: scripts/backend/tournament.js: line 57, col 34, 'points' is defined but never used.
 Warning: scripts/backend/tournament.js: line 57, col 28, 'game' is defined but never used.
-Warning: scripts/common.js: &gt; 5 dependencies: 109
+Warning: scripts/common.js: &gt; 5 dependencies: 110
 Warning: scripts/common.js:  #1 Unexpected dangling '_' in '_'.
-Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 149, Pos 31
+Warning: scripts/common.js:     return require.s.contexts._.defined[str]; // Line 125, Pos 31
 Warning: scripts/main.js: undocumented: 'function'
-Warning: scripts/main.js: Line 36, E:0110: Line too long (90 characters).
-Warning: scripts/main.js: line 36, col 0, Identifier 'Tab_Debug' is not in camel case.
-Warning: scripts/main.js: line 46, col 0, Identifier 'Tab_Debug' is not in camel case.
-Warning: scripts/main.js: line 58, col 0, Identifier 'Tab_Debug' is not in camel case.
-Warning: scripts/main.js: line 70, col 15, Do not use 'new' for side effects.
-Warning: scripts/main.js: line 72, col 15, Do not use 'new' for side effects.
+Warning: scripts/main.js: Line 37, E:0110: Line too long (90 characters).
+Warning: scripts/main.js: line 37, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/main.js: line 47, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/main.js: line 59, col 0, Identifier 'Tab_Debug' is not in camel case.
+Warning: scripts/main.js: line 71, col 15, Do not use 'new' for side effects.
+Warning: scripts/main.js: line 73, col 15, Do not use 'new' for side effects.
 Warning: scripts/main.js:  #1 Do not use 'new' for side effects.
-Warning: scripts/main.js:     new Toast(Strings.loaded); // Line 70, Pos 40
+Warning: scripts/main.js:     new Toast(Strings.loaded); // Line 71, Pos 40
 Warning: scripts/main.js:  #2 Do not use 'new' for side effects.
-Warning: scripts/main.js:     new Toast(Strings.newtournament); // Line 72, Pos 47
+Warning: scripts/main.js:     new Toast(Strings.newtournament); // Line 73, Pos 47
 Warning: scripts/main.js:  #3 Unused 'Update'.
-Warning: scripts/main.js:     var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug; // Line 36, Pos 19
-Warning: scripts/test.js: &gt; 5 dependencies: 23
+Warning: scripts/main.js:     var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug; // Line 37, Pos 19
 Warning: scripts/ui/alltabs.js: &gt; 5 dependencies: 9
 Warning: scripts/ui/alltabs.js: undocumented: 'reset: function'
 Warning: scripts/ui/alltabs.js: undocumented: 'update: function'
@@ -549,7 +548,8 @@ Warning: scripts/ui/backgroundscripts/featuredetect.js:  #2 Do not use 'new' for
 Warning: scripts/ui/backgroundscripts/featuredetect.js:     new Toast(Strings.nojson, Toast.LONG); // Line 34, Pos 44
 Warning: scripts/ui/backgroundscripts/featuredetect.js:  #3 Do not use 'new' for side effects.
 Warning: scripts/ui/backgroundscripts/featuredetect.js:     new Toast(Strings.nostorage, Toast.LONG); // Line 41, Pos 47
-Warning: scripts/ui/backgroundscripts/initviews.js: Line 9, E:0110: Line too long (116 characters).
+Warning: scripts/ui/backgroundscripts/initviews.js: &gt; 5 dependencies: 6
+Warning: scripts/ui/backgroundscripts/initviews.js: Line 9, E:0110: Line too long (129 characters).
 Warning: scripts/ui/backgroundscripts/online.js:  #1 Unexpected TODO comment.
 Warning: scripts/ui/backgroundscripts/online.js:     // TODO add Storage.enabled() warning // Line 28, Pos 7
 Warning: scripts/ui/backgroundscripts/reset.js: undocumented: 'function hashcheck'
@@ -1494,6 +1494,10 @@ Warning: scripts/ui/tab_ranking.js:     for (; tournamentid &lt; Tournaments.num
 Warning: scripts/ui/tab_ranking.js: #11 Stopping. (86% scanned).
 Warning: scripts/ui/tab_ranking.js:      // Line 269, Pos 27
 Warning: scripts/ui/tabs.js: undocumented: 'Tabs = function'
+Warning: scripts/ui/tabs.js: undocumented: 'display: function'
+Warning: scripts/ui/tabs.js: undocumented: 'focus: function'
+Warning: scripts/ui/tabs.js: undocumented: 'openValidTab: function'
+Warning: scripts/ui/tabs.js: undocumented: 'updateOpts: function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.hide = function'
 Warning: scripts/ui/tabs.js: undocumented: 'this.show = function'
@@ -1502,23 +1506,34 @@ Warning: scripts/ui/tabs.js: undocumented: 'this.valid = function'
 Warning: scripts/ui/tabs.js: undocumented: 'function openValidTab'
 Warning: scripts/ui/tabs.js: undocumented: 'that.updateOpts = function'
 Warning: scripts/ui/tabs.js: undocumented: 'that.focus = function'
-Warning: scripts/ui/tabs.js: Line 118, E:0120: Binary operator should go on previous line &quot;+&quot;
-Warning: scripts/ui/tabs.js: line 73, col 29, Empty block.
-Warning: scripts/ui/tabs.js: line 118, col 15, Bad line breaking before '+'.
-Warning: scripts/ui/tabs.js: line 107, col 13, '$img' is defined but never used.
-Warning: scripts/ui/tabs.js: line 218, col 13, 'key' is defined but never used.
-Warning: scripts/ui/tabs.js:  #1 The '&amp;&amp;' subexpression should be wrapped in parens.
-Warning: scripts/ui/tabs.js:     if (enforce &amp;&amp; tabindex === -1 || !visible[tabindex]) { // Line 71, Pos 21
-Warning: scripts/ui/tabs.js:  #2 Empty block.
-Warning: scripts/ui/tabs.js:     if (index === -1) { // Line 73, Pos 29
-Warning: scripts/ui/tabs.js:  #3 Unused '$img'.
-Warning: scripts/ui/tabs.js:     var $img, $tab; // Line 107, Pos 13
-Warning: scripts/ui/tabs.js:  #4 Unexpected '('.
-Warning: scripts/ui/tabs.js:     if (typeof (val) !== 'boolean') { // Line 187, Pos 20
-Warning: scripts/ui/tabs.js:  #5 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
-Warning: scripts/ui/tabs.js:     for (key in $menus) { // Line 199, Pos 9
-Warning: scripts/ui/tabs.js:  #6 Unused 'key'.
-Warning: scripts/ui/tabs.js:     var key, index, currentTab; // Line 218, Pos 13
+Warning: scripts/ui/tabs.js: &gt; 10 functions: 14
+Warning: scripts/ui/tabs.js: Line 27, E:0010: Missing semicolon at end of line
+Warning: scripts/ui/tabs.js: Line 30, E:0110: Line too long (82 characters).
+Warning: scripts/ui/tabs.js: Line 33, E:0110: Line too long (89 characters).
+Warning: scripts/ui/tabs.js: Line 36, E:0110: Line too long (87 characters).
+Warning: scripts/ui/tabs.js: Line 130, E:0120: Binary operator should go on previous line &quot;+&quot;
+Warning: scripts/ui/tabs.js: line 27, col 75, Missing semicolon.
+Warning: scripts/ui/tabs.js: line 35, col 17, Duplicate key 'updateOpts'.
+Warning: scripts/ui/tabs.js: line 85, col 29, Empty block.
+Warning: scripts/ui/tabs.js: line 130, col 15, Bad line breaking before '+'.
+Warning: scripts/ui/tabs.js: line 119, col 13, '$img' is defined but never used.
+Warning: scripts/ui/tabs.js: line 230, col 13, 'key' is defined but never used.
+Warning: scripts/ui/tabs.js:  #1 Expected ';' and instead saw '}'.
+Warning: scripts/ui/tabs.js:     window.setTimeout(function(){that.display(tabname, state);}, 10) // Line 27, Pos 75
+Warning: scripts/ui/tabs.js:  #2 Duplicate 'updateOpts'.
+Warning: scripts/ui/tabs.js:     }; // Line 38, Pos 5
+Warning: scripts/ui/tabs.js:  #3 The '&amp;&amp;' subexpression should be wrapped in parens.
+Warning: scripts/ui/tabs.js:     if (enforce &amp;&amp; tabindex === -1 || !visible[tabindex]) { // Line 83, Pos 21
+Warning: scripts/ui/tabs.js:  #4 Empty block.
+Warning: scripts/ui/tabs.js:     if (index === -1) { // Line 85, Pos 29
+Warning: scripts/ui/tabs.js:  #5 Unused '$img'.
+Warning: scripts/ui/tabs.js:     var $img, $tab; // Line 119, Pos 13
+Warning: scripts/ui/tabs.js:  #6 Unexpected '('.
+Warning: scripts/ui/tabs.js:     if (typeof (val) !== 'boolean') { // Line 199, Pos 20
+Warning: scripts/ui/tabs.js:  #7 The body of a for in should be wrapped in an if statement to filter unwanted properties from the prototype.
+Warning: scripts/ui/tabs.js:     for (key in $menus) { // Line 211, Pos 9
+Warning: scripts/ui/tabs.js:  #8 Unused 'key'.
+Warning: scripts/ui/tabs.js:     var key, index, currentTab; // Line 230, Pos 13
 Warning: scripts/ui/tab_settings.js: &gt; 5 dependencies: 16
 Warning: scripts/ui/tab_settings.js: undocumented: 'function initCSV'
 Warning: scripts/ui/tab_settings.js: undocumented: 'function csvupdate'

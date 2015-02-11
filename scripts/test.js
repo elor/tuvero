@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-
-define(['common',
-        'lib/qunit',
-         './backend/test/gameresultscorrection',
+require(['config'], function(){
+  require(['common',
+          'lib/qunit',
+           './backend/test/gameresultscorrection',
          './backend/test/kotournament',
          './backend/test/map',
          './backend/test/matrix',
@@ -30,10 +30,11 @@ define(['common',
          './ui/test/tab',
          './ui/test/teammodel',
          './ui/test/valuemodel'], function(Common, QUnit) {
-  var i;
-  for (i = 2; i < arguments.length; i += 1) {
-    arguments[i](QUnit, Common);
-  }
-  QUnit.load();
-  QUnit.start();
+    var i;
+    for (i = 2; i < arguments.length; i += 1) {
+      arguments[i](QUnit, Common);
+    }
+    QUnit.load();
+    QUnit.start();
+  });
 });

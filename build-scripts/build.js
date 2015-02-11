@@ -1,48 +1,24 @@
-({
+{
     appDir: "..",
     baseUrl: "scripts",
     dir: "../../boules-build",
     optimize: "uglify2",
     modules: [
         {
-            name: 'lib/FileSaver',
-        },
-        {
-            name: 'common',
-            exclipde: ['lib/FileSaver']
+            name: 'common'
         },
         {
             name: "main",
-            exclude: ['common'],
+            exclude: ['common']
         },
         {
             name: "test",
-            exclude: ['common'],
+            exclude: ['common']
         },
     ],
     findNestedDependencies: true,
     removeCombined: true,
+    preserveLicenseComments: false,
     fileExclusionRegExp: /^\.|\.(svg|xcf|sh)$|^build\.js$/,
-  shim: {
-    'lib/modernizr' : {
-      deps: ['lib/Blob'],
-      exports: 'Modernizr'
-    },
-      'lib/Blob' : {
-      exports: 'Blob'
-    },
-      'lib/typeahead' : {
-//      deps: [ 'lib/jquery' ]
-    },
-    'lib/qunit' : {
-      exports: 'QUnit',
-      /**
-      * disable QUnit autoload/autostart for requirejs optimizer compatibility
-      */
-      init: function() {
-        QUnit.config.autoload = false;
-        QUnit.config.autostart = false;
-      }
-    }
-  }
-})
+    mainConfigFile: "../scripts/config.js",
+}

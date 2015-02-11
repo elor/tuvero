@@ -13,7 +13,7 @@ screen and load errors
 
 ## Dependencies
 
-* <a href="common.html">common</a>
+
 * JQuery
 
 
@@ -36,6 +36,6 @@ an object containing the type and position of the error
 
 ## Metrics
 
-* 100 Lines
-* 2470 Bytes
+* 102 Lines
+* 2507 Bytes
 

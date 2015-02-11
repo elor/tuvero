@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define(['jquery'], function($) {
   $(function($) {
     $('#tabs').on('click', 'button.print', function() {
       window.print();

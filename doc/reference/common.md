@@ -35,6 +35,7 @@ Do not attempt manual changes
 * lib/extend
 * lib/FileSaver
 * lib/implements
+* lib/jquery
 * <a href="ui/alltabs.html">ui/alltabs</a>
 * <a href="ui/autocomplete.html">ui/autocomplete</a>
 * <a href="ui/backgroundscripts/featuredetect.html">ui/backgroundscripts/featuredetect</a>
@@ -125,13 +126,10 @@ Do not attempt manual changes
 
 ## Functions
 
-###       init: function()
-disable QUnit autoload/autostart for requirejs optimizer compatibility
-
----
+No exported functions
 
 ## Metrics
 
-* 152 Lines
-* 3301 Bytes
+* 128 Lines
+* 2823 Bytes
 

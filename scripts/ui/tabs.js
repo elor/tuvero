@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 
-define(['./state_new'], function(State) {
+define(['./state_new', 'jquery'], function(State, $) {
   var Tabs;
 
   Tabs = function(tabselector, imgpattern, enforce) {
@@ -22,7 +22,19 @@ define(['./state_new'], function(State) {
       updateOpts: undefined,
       hide: undefined,
       show: undefined,
-      valid: undefined
+      valid: undefined,
+      display: function(tabname, state){
+          window.setTimeout(function(){that.display(tabname, state);}, 10)
+      },
+      focus: function(){
+          console.error('focus called before the focus function has been linked');
+      },
+      openValidTab: function(){
+          console.error('openValidTab called before the focus function has been linked');
+      },
+      updateOpts: function(){
+          console.error('updateOpts called before the focus function has been linked');
+      }
     };
 
     this.updateOpts = function() {

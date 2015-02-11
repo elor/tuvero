@@ -11,7 +11,7 @@ input element
 
 ## Dependencies
 
-
+* <a href="jquery.html">jquery</a>
 * JQuery
 
 
@@ -22,5 +22,5 @@ No exported functions
 ## Metrics
 
 * 20 Lines
-* 450 Bytes
+* 463 Bytes
 

@@ -9,31 +9,6 @@
  * @see LICENSE
  */
 
-require.config({
-  shim: {
-    'lib/modernizr' : {
-      deps: ['lib/Blob'],
-      exports: 'Modernizr'
-    },
-      'lib/Blob' : {
-      exports: 'Blob'
-    },
-      'lib/typeahead' : {
-//      deps: [ 'lib/jquery' ]
-    },
-    'lib/qunit' : {
-      exports: 'QUnit',
-      /**
-      * disable QUnit autoload/autostart for requirejs optimizer compatibility
-      */
-      init: function() {
-        QUnit.config.autoload = false;
-        QUnit.config.autostart = false;
-      }
-    }
-  }
-});
-
 define([
   'backend/blobber',
   'backend/buchholzranking',
@@ -57,6 +32,7 @@ define([
   'lib/extend',
   'lib/FileSaver',
   'lib/implements',
+  'lib/jquery',
   'ui/alltabs',
   'ui/autocomplete',
   'ui/backgroundscripts/reset',

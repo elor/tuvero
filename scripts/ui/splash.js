@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(function() {
+define(['jquery'], function($) {
   var Splash;
 
   Splash = {

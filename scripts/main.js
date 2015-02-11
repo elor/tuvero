@@ -9,6 +9,7 @@
  * @see LICENSE
  */
 
+require(['config'], function(){
 /**
  * error callback function
  *
@@ -30,7 +31,7 @@ function notifyAboutLoadError(err) {
   });
 }
 
-define(
+require(
     ['common'],
     function() {
       var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug;
@@ -98,3 +99,4 @@ define(
     });
 
 // requirejs.onError = notifyAboutLoadError;
+});

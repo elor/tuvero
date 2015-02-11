@@ -13,23 +13,24 @@ createTestJS(){
  *
  * This file is automatically created on build. Do not attempt manual changes
  */
-
-define(['common',
-        'lib/qunit',
-$files], function(Common, QUnit) {
-  var i;
-  for (i = 2; i < arguments.length; i += 1) {
-    arguments[i](QUnit, Common);
-  }
-  QUnit.load();
-  QUnit.start();
+require(['config'], function(){
+  require(['common',
+          'lib/qunit',
+  $files], function(Common, QUnit) {
+    var i;
+    for (i = 2; i < arguments.length; i += 1) {
+      arguments[i](QUnit, Common);
+    }
+    QUnit.load();
+    QUnit.start();
+  });
 });
 EOF
 }
 
 
 getallfiles(){
-    find */* -name '*.js' -not -path 'lib/require.js' -not -path '*/test/*.js' | grep -v 'jquery'
+    find */* -name '*.js' -not -path 'lib/require.js' -not -path '*/test/*.js'
 }
 
 getrequirefiles(){
@@ -56,31 +57,6 @@ createCommonJS(){
  * Do not attempt manual changes
  */
 
-require.config({
-  shim: {
-    'lib/modernizr' : {
-      deps: ['lib/Blob'],
-      exports: 'Modernizr'
-    },
-      'lib/Blob' : {
-      exports: 'Blob'
-    },
-      'lib/typeahead' : {
-//      deps: [ 'lib/jquery' ]
-    },
-    'lib/qunit' : {
-      exports: 'QUnit',
-      /**
-      * disable QUnit autoload/autostart for requirejs optimizer compatibility
-      */
-      init: function() {
-        QUnit.config.autoload = false;
-        QUnit.config.autostart = false;
-      }
-    }
-  }
-});
-
 define(`formatpatharray`, function(undefined) {
   return function(str) {
     return require.s.contexts._.defined[str];
@@ -90,21 +66,7 @@ define(`formatpatharray`, function(undefined) {
 EOF
 }
 
-getShim(){
-    sed -n '/^\s*shim\s*:/,/})/p' common.js | sed '$s/;$//'
-}
-
-updateBuildJS(){
-    newbuild=`sed -e '/^\s*shim\s*:/,$ d' ../build-scripts/build.js`
-    cat <<EOF > ../build-scripts/build.js
-$newbuild
-`getShim`
-EOF
-}
-
 createCommonJS > common.js
 echo "common.js written"
 createTestJS > test.js
 echo "test.js written"
-updateBuildJS
-echo "build.js updated"

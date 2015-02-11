@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['../toast', '../strings'], function(Toast, Strings) {
+define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
 
   function hashcheck() {
     if (location.hash === '#reset') {

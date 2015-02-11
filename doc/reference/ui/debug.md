@@ -11,6 +11,7 @@ some debugging functions, such as stack trace and whether it's a dev version
 
 ## Dependencies
 
+* <a href="jquery.html">jquery</a>
 * <a href="./strings.html">./strings</a>
 * <a href="./toast.html">./toast</a>
 * JQuery
@@ -25,5 +26,5 @@ some debugging functions, such as stack trace and whether it's a dev version
 ## Metrics
 
 * 31 Lines
-* 778 Bytes
+* 791 Bytes
 
