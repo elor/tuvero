@@ -5,6 +5,7 @@
 	* index.html: using data-img="sprite" to display the sprite
 	missing closing div tag added
 	global jquery invocation removed
+	using config.js instead of main.js
 
 	* build-scripts/write-scripts.sh: jquery paths added
 	jquery shim added
@@ -17,6 +18,23 @@
 
 	* test/: 'lib/jquery' -> 'jquery'
 	avoiding the global $ function in favor of the require-provided one
+
+	* build-scripts/build.js: FileSaver bugs fixed
+	removing licensing comments
+	using config.js for paths and shims
+
+	* scripts/common.js: config extracted to config.js
+
+	* scripts/config.js: paths and shims
+	loads 'main'
+
+	* scripts/lib/FileSaver.js: update
+
+	* scripts/lib/require.js: update
+
+	* scripts/test.js: contains copy of config.js (for now)
+
+	* scripts/ui/tabs.js: handling premature hide()/show() calls
 
 2015-02-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
