@@ -26,7 +26,7 @@ ebcd319ca6c64012f0a0bb9efadd05cd  scripts/backend/swisstournament.js
 57d624f7d25de9724295b7269b30dcb4  scripts/backend/test/vector.js
 23b03020584f8f421305ae08a46c7c40  scripts/backend/tournament.js
 958cb8dcb33ce44f649f2b5e2d6a2943  scripts/backend/vector.js
-e6d973ed94bf106146479ccd9a619b78  scripts/common.js
+5ff936f79f20810ce0b4afca574be884  scripts/common.js
 177e37dad10e86398d2e3eecd12d6435  scripts/main.js
 ce4c894a88dc8fb2740e3c7ab33135b4  scripts/test.js
 8a41e9c926ae3b1d04ee57d0b617faae  scripts/ui/alltabs.js
@@ -39,6 +39,7 @@ f6807709f3fef390538c7adefdd030b7  scripts/ui/backgroundscripts/reset.js
 08736c6ce4a83e0715b06e16ab78f874  scripts/ui/backgroundscripts/save.js
 2b7be17721dd732e0ad651716864be9f  scripts/ui/backgroundscripts/saveOnPlayerNameChange.js
 b3773d79a4d0b25e721ac9cda88540b9  scripts/ui/backgroundscripts/tabnewcheaphacklistener.js
+df8796288f03c10067439ab2fd1e5409  scripts/ui/backgroundscripts/taboptionclick.js
 366b705a09b5d6ebc82f832aae28c787  scripts/ui/backgroundscripts/updatetab.js
 3846c4a4ba870e1246e1ed49b3c96a41  scripts/ui/boxcontroller.js
 3cee971c7a9ccd9871e6988f2be6a1ab  scripts/ui/boxview.js
@@ -57,6 +58,7 @@ f5202b2088fcbe0dcf3ff44b7c091927  scripts/ui/globalranking.js
 cae6f6a271ad2a4a6547c5e5bac5e629  scripts/ui/history.js
 7cc929f57cf3c392ddb7ea3cf6056e5b  scripts/ui/indexedlistmodel.js
 7e7c6c945d46ccbdb174b999aaff4299  scripts/ui/indexedmodel.js
+96f85deb3bf817122a6e904053ff3439  scripts/ui/inputview.js
 119d350c087da4a8587816024b2c6c45  scripts/ui/koline.js
 839dbd566f405d0aa62db195a3d4e18b  scripts/ui/lengthview.js
 1ba4046d599d23f9c47c480213305219  scripts/ui/listcleanuplistener.js
@@ -89,7 +91,7 @@ f35a3ca32badd1b48d6ca76b7f947798  scripts/ui/tab_history.js
 548721d908d0d2352f87b94cc5ff28cb  scripts/ui/tab.js
 b264a6646576c60f847b68bbdf49530b  scripts/ui/tablemodel.js
 abd7341e58c7dba295e70638522d646d  scripts/ui/tableview.js
-dd0853708b6d7cecae968113c4303432  scripts/ui/tab_new.js
+73b0e8348e3132d76ffa615a828ee5a2  scripts/ui/tab_new.js
 8558a4845003c00f686908b736d22a9e  scripts/ui/taboptslistener.js
 8990e079ce6643323aab2fb33990e704  scripts/ui/tab_ranking.js
 bd5aad9e7eb7046662122a3ad27747dc  scripts/ui/tab_settings.js
@@ -99,9 +101,10 @@ b15aa5d2b8e55ad73c2bbc5b821d3b23  scripts/ui/tabshandle.js
 dccc776fa400d1b9cb4fff663aa178fc  scripts/ui/teammodel.js
 b91b99a19b59fd958e06f1cd39f7fedd  scripts/ui/teamnamecontroller.js
 11d24d8d241b0b283628d6f1e07d46b6  scripts/ui/teamremovecontroller.js
+786d82eeb56bd880b7131c63fe9839bf  scripts/ui/teamsfileloadcontroller.js
 87ac5ac51a9bb2e28e0e776bbe785580  scripts/ui/teamsizecontroller.js
 a4f6e308e88368734c3143e3f12c6b6b  scripts/ui/teamsizeview.js
-9a141ef5de676ecba821e36ddf343a5e  scripts/ui/teamstab.js
+06f9eeda2f3bc20dd373ee104e397e95  scripts/ui/teamstab.js
 b1a95da18750b4e2f622f9d470d67239  scripts/ui/teamtableview.js
 5fb5398f927bd01847a315557e754672  scripts/ui/teamview.js
 f10706d77dacad451266b94571910f86  scripts/ui/templateview.js

@@ -11,6 +11,7 @@
 
 * <a href="./checkboxview.html">./checkboxview</a>
 * <a href="./classview.html">./classview</a>
+* <a href="./inputview.html">./inputview</a>
 * <a href="./lengthview.html">./lengthview</a>
 * lib/extend
 * <a href="./listview.html">./listview</a>
@@ -20,6 +21,7 @@
 * <a href="./taboptslistener.html">./taboptslistener</a>
 * <a href="./teamnamecontroller.html">./teamnamecontroller</a>
 * <a href="./teamremovecontroller.html">./teamremovecontroller</a>
+* <a href="./teamsfileloadcontroller.html">./teamsfileloadcontroller</a>
 * <a href="./teamsizeview.html">./teamsizeview</a>
 * <a href="./teamtableview.html">./teamtableview</a>
 * <a href="./teamview.html">./teamview</a>
@@ -57,6 +59,6 @@ TODO maybe split it into multiple autodetected functions?
 
 ## Metrics
 
-* 108 Lines
-* 3860 Bytes
+* 112 Lines
+* 4109 Bytes
 

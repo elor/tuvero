@@ -28,7 +28,6 @@ starting/closing them
 * <a href="./tab_games.html">./tab_games</a>
 * <a href="./tab_history.html">./tab_history</a>
 * <a href="./tab_ranking.html">./tab_ranking</a>
-* <a href="./tabshandle.html">./tabshandle</a>
 * <a href="./team.html">./team</a>
 * <a href="./toast.html">./toast</a>
 * <a href="./tournaments.html">./tournaments</a>
@@ -37,7 +36,11 @@ starting/closing them
 
 ## Functions
 
-###   function getRoundVotes(Tournament)
+###     function(Tab, Options, Toast, Team, Strings, Tab_Games, Tab_Ranking,
+
+---
+
+###       function getRoundVotes(Tournament)
 translates the Tournament ranking into a traditional votes object
 
 TODO rewrite this file to replace this function
@@ -51,101 +54,106 @@ the swiss object
 ---
 
 
-###   function initTemplate()
+###       function initTemplate()
 
 ---
 
-###   function initRename()
+###       function initRename()
 
 ---
 
-###     function chshow($name)
+###         function chshow($name)
 
 ---
 
-###     function updateName()
+###         function updateName()
 
 ---
 
-###     function chabort()
+###         function chabort()
 
 ---
 
-###   function initRemove()
+###       function initRemove()
 
 ---
 
-###   function resetTeams()
+###                 function()
 
 ---
 
-###   function resetSystems()
+###       function resetTeams()
 
 ---
 
-###   function updateTeams()
+###       function resetSystems()
 
 ---
 
-###   function setSystemState($system, tournamentid)
+###       function updateTeams()
 
 ---
 
-###   function getAnchors(tournamentid)
+###       function setSystemState($system, tournamentid)
 
 ---
 
-###   function getHeight(tournamentid)
+###       function getAnchors(tournamentid)
 
 ---
 
-###   function createSystemAnchor(tournamentid)
+###       function getHeight(tournamentid)
 
 ---
 
-###   function initKO($ko, tournamentid)
+###       function createSystemAnchor(tournamentid)
 
 ---
 
-###   function initTournamentNameChange(tournamentid)
+###       function initKO($ko, tournamentid)
 
 ---
 
-###   function createTournamentBox($anchor, tournamentid)
+###       function initTournamentNameChange(tournamentid)
 
 ---
 
-###   function createSelectionBox($anchor)
+###       function createTournamentBox($anchor, tournamentid)
 
 ---
 
-###   function setSystemTitle($anchor)
+###       function createSelectionBox($anchor)
 
 ---
 
-###   function updateSystems()
+###       function setSystemTitle($anchor)
 
 ---
 
-###   function addNewSystem(type, numteams, parentid)
+###       function updateSystems()
 
 ---
 
-###   function initNewsystem($system)
+###       function addNewSystem(type, numteams, parentid)
+
+---
+
+###       function initNewsystem($system)
 prepare Newsystem management box, which starts a new tournament round
 
 **Argument:** **$system**
 
-the DOM element which contains the tournament System information
+the DOM element which contains the tournament System
+information
 
 ---
 
 
-###     function numTeams()
+###         function numTeams()
 
 ---
 
-###   function initSwiss($swiss, tournamentid)
+###       function initSwiss($swiss, tournamentid)
 prepare a swiss tournament management box
 
 **Argument:** **$swiss**
@@ -162,72 +170,72 @@ the tournament id of the swiss tournament
 
 ---
 
-###   function initBoxes($container)
+###       function initBoxes($container)
 
 ---
 
-###   function setPermissionPreset(preset, $perms)
+###       function setPermissionPreset(preset, $perms)
 
 ---
 
-###   function getPermissions($perms, Swiss)
+###       function getPermissions($perms, Swiss)
 
 ---
 
-###   function setPermissions($perms, Swiss)
+###       function setPermissions($perms, Swiss)
 
 ---
 
-###   function queryPerms($swiss)
+###       function queryPerms($swiss)
 
 ---
 
-###   function setSwissMode($modeselect, Swiss)
+###       function setSwissMode($modeselect, Swiss)
 
 ---
 
-###   function getSwissMode($modeselect, Swiss)
+###       function getSwissMode($modeselect, Swiss)
 
 ---
 
-###   function setKOMode($modeselect, KO)
+###       function setKOMode($modeselect, KO)
 
 ---
 
-###   function getKOMode($modeselect, KO)
+###       function getKOMode($modeselect, KO)
 
 ---
 
-###   function initOptions()
+###       function initOptions()
 
 ---
 
-###     function maxwidthtest()
+###         function maxwidthtest()
 
 ---
 
-###     function shownamestest()
+###         function shownamestest()
 
 ---
 
-###   function init()
+###       function init()
 
 ---
 
-###   function reset()
+###       function reset()
 
 ---
 
-###   function closeTeamRegistration()
+###       function closeTeamRegistration()
 
 ---
 
-###   function update()
+###       function update()
 
 ---
 
 ## Metrics
 
-* 824 Lines
-* 21421 Bytes
+* 835 Lines
+* 24273 Bytes
 

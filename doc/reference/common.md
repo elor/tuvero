@@ -45,6 +45,7 @@ Do not attempt manual changes
 * <a href="ui/backgroundscripts/save.html">ui/backgroundscripts/save</a>
 * <a href="ui/backgroundscripts/saveOnPlayerNameChange.html">ui/backgroundscripts/saveOnPlayerNameChange</a>
 * <a href="ui/backgroundscripts/tabnewcheaphacklistener.html">ui/backgroundscripts/tabnewcheaphacklistener</a>
+* <a href="ui/backgroundscripts/taboptionclick.html">ui/backgroundscripts/taboptionclick</a>
 * <a href="ui/backgroundscripts/updatetab.html">ui/backgroundscripts/updatetab</a>
 * <a href="ui/boxcontroller.html">ui/boxcontroller</a>
 * <a href="ui/boxview.html">ui/boxview</a>
@@ -63,6 +64,7 @@ Do not attempt manual changes
 * <a href="ui/history.html">ui/history</a>
 * <a href="ui/indexedlistmodel.html">ui/indexedlistmodel</a>
 * <a href="ui/indexedmodel.html">ui/indexedmodel</a>
+* <a href="ui/inputview.html">ui/inputview</a>
 * <a href="ui/koline.html">ui/koline</a>
 * <a href="ui/lengthview.html">ui/lengthview</a>
 * <a href="ui/listcleanuplistener.html">ui/listcleanuplistener</a>
@@ -105,6 +107,7 @@ Do not attempt manual changes
 * <a href="ui/teammodel.html">ui/teammodel</a>
 * <a href="ui/teamnamecontroller.html">ui/teamnamecontroller</a>
 * <a href="ui/teamremovecontroller.html">ui/teamremovecontroller</a>
+* <a href="ui/teamsfileloadcontroller.html">ui/teamsfileloadcontroller</a>
 * <a href="ui/teamsizecontroller.html">ui/teamsizecontroller</a>
 * <a href="ui/teamsizeview.html">ui/teamsizeview</a>
 * <a href="ui/teamstab.html">ui/teamstab</a>
@@ -129,6 +132,6 @@ disable QUnit autoload/autostart for requirejs optimizer compatibility
 
 ## Metrics
 
-* 149 Lines
-* 3210 Bytes
+* 152 Lines
+* 3301 Bytes
 
