@@ -13,6 +13,7 @@ Tabs are automatically read from the DOM during object construction.
 
 ## Dependencies
 
+* <a href="jquery.html">jquery</a>
 * <a href="./state_new.html">./state_new</a>
 * JQuery
 
@@ -20,6 +21,22 @@ Tabs are automatically read from the DOM during object construction.
 ## Functions
 
 ###   Tabs = function(tabselector, imgpattern, enforce)
+
+---
+
+###       display: function(tabname, state)
+
+---
+
+###       focus: function()
+
+---
+
+###       openValidTab: function()
+
+---
+
+###       updateOpts: function()
 
 ---
 
@@ -63,6 +80,6 @@ show/hide all references to a certain
 
 ## Metrics
 
-* 246 Lines
-* 5857 Bytes
+* 258 Lines
+* 6370 Bytes
 

@@ -11,6 +11,8 @@
 	* build-scripts/write-scripts.sh: jquery paths added
 	jquery shim added
 	unnecessary shims removed
+	not updating build.js
+	wrapping test.js inside a require(['config']) call
 
 	* scripts/ui: 'lib/jquery' -> 'jquery'
 	avoiding the global $ function in favor of the require-provided one

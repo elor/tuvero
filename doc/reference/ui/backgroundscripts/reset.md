@@ -14,6 +14,7 @@ page will be reloaded unnecessarily.
 
 ## Dependencies
 
+* <a href="jquery.html">jquery</a>
 * <a href="../strings.html">../strings</a>
 * <a href="../toast.html">../toast</a>
 * JQuery
@@ -28,5 +29,5 @@ page will be reloaded unnecessarily.
 ## Metrics
 
 * 34 Lines
-* 818 Bytes
+* 831 Bytes
 

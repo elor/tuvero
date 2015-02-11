@@ -11,29 +11,7 @@ This file is automatically created on build. Do not attempt manual changes
 
 ## Dependencies
 
-* <a href="./backend/test/gameresultscorrection.html">./backend/test/gameresultscorrection</a>
-* <a href="./backend/test/kotournament.html">./backend/test/kotournament</a>
-* <a href="./backend/test/map.html">./backend/test/map</a>
-* <a href="./backend/test/matrix.html">./backend/test/matrix</a>
-* <a href="./backend/test/random.html">./backend/test/random</a>
-* <a href="./backend/test/ranking.html">./backend/test/ranking</a>
-* <a href="./backend/test/rleblobber.html">./backend/test/rleblobber</a>
-* <a href="./backend/test/swisstournament.html">./backend/test/swisstournament</a>
-* <a href="./backend/test/vector.html">./backend/test/vector</a>
-* <a href="common.html">common</a>
-* lib/qunit
-* <a href="./ui/test/blobs.html">./ui/test/blobs</a>
-* <a href="./ui/test/csv.html">./ui/test/csv</a>
-* <a href="./ui/test/emitter.html">./ui/test/emitter</a>
-* <a href="./ui/test/indexedlistmodel.html">./ui/test/indexedlistmodel</a>
-* <a href="./ui/test/indexedmodel.html">./ui/test/indexedmodel</a>
-* <a href="./ui/test/listcollectormodel.html">./ui/test/listcollectormodel</a>
-* <a href="./ui/test/listmodel.html">./ui/test/listmodel</a>
-* <a href="./ui/test/model.html">./ui/test/model</a>
-* <a href="./ui/test/playermodel.html">./ui/test/playermodel</a>
-* <a href="./ui/test/tab.html">./ui/test/tab</a>
-* <a href="./ui/test/teammodel.html">./ui/test/teammodel</a>
-* <a href="./ui/test/valuemodel.html">./ui/test/valuemodel</a>
+No Dependencies
 
 ## Functions
 
@@ -41,6 +19,6 @@ No exported functions
 
 ## Metrics
 
-* 39 Lines
-* 1127 Bytes
+* 40 Lines
+* 1183 Bytes
 

@@ -11,7 +11,7 @@ Manage the state and visibility of the splash screen
 
 ## Dependencies
 
-
+* <a href="jquery.html">jquery</a>
 * JQuery
 
 
@@ -48,5 +48,5 @@ Manage the state and visibility of the splash screen
 ## Metrics
 
 * 59 Lines
-* 1051 Bytes
+* 1064 Bytes
 

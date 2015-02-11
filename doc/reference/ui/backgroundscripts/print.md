@@ -11,7 +11,7 @@ Print button logic, which triggers printing the current tab to paper.
 
 ## Dependencies
 
-
+* <a href="jquery.html">jquery</a>
 * JQuery
 
 
@@ -22,5 +22,5 @@ No exported functions
 ## Metrics
 
 * 17 Lines
-* 352 Bytes
+* 365 Bytes
 

@@ -12,6 +12,7 @@ register and initiate static views, which aren't necessarily subviewed
 
 * <a href="../boxview.html">../boxview</a>
 * <a href="../fontsizeview.html">../fontsizeview</a>
+* <a href="jquery.html">jquery</a>
 * <a href="../staticviewloader.html">../staticviewloader</a>
 * JQuery
 
@@ -23,5 +24,5 @@ No exported functions
 ## Metrics
 
 * 15 Lines
-* 486 Bytes
+* 499 Bytes
 

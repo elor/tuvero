@@ -10,6 +10,7 @@ Logic of the reload button, which forces an update of the tab it's in
 
 ## Dependencies
 
+* <a href="jquery.html">jquery</a>
 * <a href="../shared.html">../shared</a>
 * JQuery
 
@@ -23,5 +24,5 @@ Logic of the reload button, which forces an update of the tab it's in
 ## Metrics
 
 * 32 Lines
-* 710 Bytes
+* 723 Bytes
 
