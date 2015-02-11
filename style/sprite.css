@@ -712,6 +712,25 @@
     height: 1px;
 }
 
+
+[data-img="sprite"]::before {
+    background-image: url("../images/sprite.png");
+    width: 462px;
+    height: 312px;
+}
+
+.tiny[data-img="sprite"]::before {
+    background-image: url("../images/sprite.png");
+    width: 231px;
+    height: 156px;
+}
+
+.large[data-img="sprite"]::before {
+    background-image: url("../images/sprite.png");
+    width: 924px;
+    height: 625px;
+}
+
 [data-img]::before {
   background-size: 462px 312px;
   display: inline-block;

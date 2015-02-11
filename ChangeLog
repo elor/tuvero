@@ -1,3 +1,9 @@
+2015-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* build-scripts/write-sprite.sh: [data-img="sprite"] to show the sprite path-independently
+
+	* index.html: using data-img="sprite" to display the sprite
+
 2015-02-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: testing teamlist <table>, before offering both variants
