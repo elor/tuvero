@@ -34,6 +34,9 @@
       'lib/typeahead' : {
 //      deps: [ 'lib/jquery' ]
     },
+      'lib/jquery' : {
+       exports: '$'
+    },
     'lib/qunit' : {
       exports: 'QUnit',
       /**
@@ -44,5 +47,8 @@
         QUnit.config.autostart = false;
       }
     }
+  },
+  paths: {
+    'jquery': 'lib/jquery'
   }
 })

@@ -4,6 +4,18 @@
 
 	* index.html: using data-img="sprite" to display the sprite
 	missing closing div tag added
+	global jquery invocation removed
+
+	* build-scripts/write-scripts.sh: jquery paths added
+	jquery shim added
+
+	* scripts/ui: 'lib/jquery' -> 'jquery'
+	avoiding the global $ function in favor of the require-provided one
+
+	* test.html: global jquery invocation removed
+
+	* test/: 'lib/jquery' -> 'jquery'
+	avoiding the global $ function in favor of the require-provided one
 
 2015-02-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

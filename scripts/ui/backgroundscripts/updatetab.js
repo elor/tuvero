@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['../shared'], function(Shared) {
+define(['../shared', 'jquery'], function(Shared, $) {
 
   function getSharedName(tabname)
   {

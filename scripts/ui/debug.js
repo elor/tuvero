@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./toast', './strings'], function(Toast, Strings) {
+define(['./toast', './strings', 'jquery'], function(Toast, Strings, $) {
   var Debug;
 
   Debug = {

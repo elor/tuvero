@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define(['jquery'], function($) {
 
   $(function($) {
     $('#tabs').on('click', '> div > div.options span', function(e) {

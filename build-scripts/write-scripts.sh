@@ -29,7 +29,7 @@ EOF
 
 
 getallfiles(){
-    find */* -name '*.js' -not -path 'lib/require.js' -not -path '*/test/*.js' | grep -v 'jquery'
+    find */* -name '*.js' -not -path 'lib/require.js' -not -path '*/test/*.js'
 }
 
 getrequirefiles(){
@@ -68,6 +68,9 @@ require.config({
       'lib/typeahead' : {
 //      deps: [ 'lib/jquery' ]
     },
+      'lib/jquery' : {
+       exports: '$'
+    },
     'lib/qunit' : {
       exports: 'QUnit',
       /**
@@ -78,6 +81,9 @@ require.config({
         QUnit.config.autostart = false;
       }
     }
+  },
+  paths: {
+    'jquery': 'lib/jquery'
   }
 });
 

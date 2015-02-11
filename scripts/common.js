@@ -21,6 +21,9 @@ require.config({
       'lib/typeahead' : {
 //      deps: [ 'lib/jquery' ]
     },
+      'lib/jquery' : {
+       exports: '$'
+    },
     'lib/qunit' : {
       exports: 'QUnit',
       /**
@@ -31,6 +34,9 @@ require.config({
         QUnit.config.autostart = false;
       }
     }
+  },
+  paths: {
+    'jquery': 'lib/jquery'
   }
 });
 
@@ -57,6 +63,7 @@ define([
   'lib/extend',
   'lib/FileSaver',
   'lib/implements',
+  'lib/jquery',
   'ui/alltabs',
   'ui/autocomplete',
   'ui/backgroundscripts/reset',

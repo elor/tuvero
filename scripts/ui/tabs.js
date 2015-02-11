@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 
-define(['./state_new'], function(State) {
+define(['./state_new', 'jquery'], function(State, $) {
   var Tabs;
 
   Tabs = function(tabselector, imgpattern, enforce) {
