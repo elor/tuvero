@@ -1,3 +1,17 @@
+#!/bin/bash
+#
+# creates the common.js and test.js files
+
+coredir=core/scripts
+uidir=legacy/scripts/ui
+backenddir=legacy/scripts/backend
+libdir=lib
+
+printrefs(){
+    ( cd $2 && find * -type f -name '*.js' | grep -P '(^|/)test\/' | sed -e 's/^/  '"'"$1'\//' -e 's/.js$/'"'"',/' )
+}
+
+cat <<EOF > test/scripts/test.js
 /**
  * Run every available test
  * 
@@ -10,29 +24,10 @@
 require(['config'], function() {
   require(['core/config'], function() {
     require(['core/common', 'qunit',
-
-  'backend/test/matrix',
-  'backend/test/ranking',
-  'backend/test/map',
-  'backend/test/rleblobber',
-  'backend/test/swisstournament',
-  'backend/test/gameresultscorrection',
-  'backend/test/vector',
-  'backend/test/kotournament',
-  'backend/test/random',
-
-  'ui/test/emitter',
-  'ui/test/indexedmodel',
-  'ui/test/tab',
-  'ui/test/teammodel',
-  'ui/test/blobs',
-  'ui/test/listmodel',
-  'ui/test/indexedlistmodel',
-  'ui/test/listcollectormodel',
-  'ui/test/valuemodel',
-  'ui/test/playermodel',
-  'ui/test/csv',
-  'ui/test/model',
+$(printrefs core $coredir)
+$(printrefs backend $backenddir)
+$(printrefs lib $libdir)
+$(printrefs ui $uidir)
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {
@@ -43,3 +38,4 @@ require(['config'], function() {
         });
   });
 });
+EOF

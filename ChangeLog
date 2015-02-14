@@ -19,6 +19,20 @@
 
 	* index.html: redirect to boule/index.html (for now)
 
+	* *.html: ../lib/require.js -> scripts/require.js
+
+	* */scripts/require.js: copied from lib/require.js
+
+	* lib/require.js: removed. Every target has its own require.js file
+
+	* build-scripts/create-commonjs.sh: new script to build core/common.js
+
+	* build-scripts/create-testjs.sh: new script to build test/scripts/test.js
+
+	* build-scripts/write-scripts.sh: removed in favor of create-*js.sh
+
+	* lib/qunit.js: moved to test/scripts/qunit.js
+
 2015-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-sprite.sh: [data-img="sprite"] to show the sprite path-independently
