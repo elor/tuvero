@@ -1,3 +1,9 @@
+2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* names.txt: tuvero. It is decided.
+
+	* scripts/ui/backgroundscripts/featuredetect.js: warning if modernizr cannot be loaded
+
 2015-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-sprite.sh: [data-img="sprite"] to show the sprite path-independently

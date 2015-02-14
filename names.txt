@@ -1,6 +1,0 @@
-Boules Turnierverwaltung - Aktuell
-Pro Boule(s)             - vll ein bisschen rechts
-Paraboule                - "gegen Kugeln"... Naja...
-PeVer                    - Petanque Verwaltung
-PeTuVer                  - Petangue Turnier Verwaltung
-Petanque X               - :-)
