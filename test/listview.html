@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8" />
 <title>Boules Test %VERSION%</title>
-<link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
-<link rel="stylesheet" href="../style/boxview.css" />
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="style/testenv.css" />
 <style>
 div>span:not (:last-child ):after {
   content: ",";
@@ -45,44 +45,48 @@ td {
 
 </body>
 
-<script src="../scripts/lib/require.js"></script>
+<script src="scripts/require.js"></script>
 <script>
     require.config({
-      baseUrl: '../scripts',
+      baseUrl: 'scripts',
+      paths: {
+        'core': '../../core/scripts/',
+      }
     });
-
-    require(['common', 'lib/jquery'], function(Common, $){    
-      var ListView, ListModel;
-        
-      ListView = Common('ui/listview');
-      ListModel = Common('ui/listmodel');
-      ListClickController = Common('ui/listclickcontroller');
-        
-      $(function($){
-        var view, view2, model, i;
-  
-        model = new ListModel();
-        view = new ListView(model, $('ul').eq(0), $('<li>'));
-        view.update();
-        view = new ListView(model, $('ol').eq(0), $('<li>'));
-        view.update();
-        view = new ListView(model, $('div').eq(0), $('<span>'));
-        view.update();
-        view = new ListView(model, $('tr').eq(0), $('<td>'));
-        view.update();
-
-        for (i = 1; i <= 10; i += 1) {
-          model.push(i);
-        }
-        
-        $('body').on('mouseenter', 'td,span,li', function(e){
-          $('#hoverid').text(view.indexOf($(this)));
-        });
-        
-        new ListClickController(view, function(model, index){
-          model.remove(index);
-        });
-      });
+    require(['testenv'], function(TestEnv){
+      TestEnv(function(Common, $){
+	      var ListView, ListModel;
+	        
+	      ListView = Common('ui/listview');
+	      ListModel = Common('ui/listmodel');
+	      ListClickController = Common('ui/listclickcontroller');
+	        
+	      $(function($){
+	        var view, view2, model, i;
+	  
+	        model = new ListModel();
+	        view = new ListView(model, $('ul').eq(0), $('<li>'));
+	        view.update();
+	        view = new ListView(model, $('ol').eq(0), $('<li>'));
+	        view.update();
+	        view = new ListView(model, $('div').eq(0), $('<span>'));
+	        view.update();
+	        view = new ListView(model, $('tr').eq(0), $('<td>'));
+	        view.update();
+	
+	        for (i = 1; i <= 10; i += 1) {
+	          model.push(i);
+	        }
+	        
+	        $('body').on('mouseenter', 'td,span,li', function(e){
+	          $('#hoverid').text(view.indexOf($(this)));
+	        });
+	        
+	        new ListClickController(view, function(model, index){
+	          model.remove(index);
+	        });
+	      });
+	    });
     });
   </script>
 

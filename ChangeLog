@@ -4,6 +4,93 @@
 
 	* scripts/ui/backgroundscripts/featuredetect.js: warning if modernizr cannot be loaded
 
+	* boule/: contains Boule-specific contents
+
+	* tac/: contains TAC-specific contents
+
+	* core/: contains shared code and assets
+
+	* legacy/: contains old code from the old scripts/ directory
+	supposed to be replaced with "core code"
+
+	* lib/: contains external libraries (formerly found in 'scripts/lib')
+
+	* test/: contains test environments, not the tests themselves (yet)
+
+	* index.html: redirect to boule/index.html (for now)
+
+	* *.html: ../lib/require.js -> scripts/require.js
+
+	* */scripts/require.js: copied from lib/require.js
+
+	* lib/require.js: removed. Every target has its own require.js file
+
+	* build-scripts/create-commonjs.sh: new script to build core/common.js
+	moved to build-tools
+
+	* build-scripts/create-testjs.sh: new script to build test/scripts/test.js
+	moved to build-tools
+
+	* build-scripts/write-scripts.sh: removed in favor of create-*js.sh
+
+	* lib/qunit.js: moved to test/scripts/qunit.js
+
+	* boule/scripts/build.js: dedicated boule build configuration
+
+	* boule/style/main.css: moved from mainstyle.css
+
+	* boule/style/mainstyle.css: moved to main.css
+
+	* build-scripts/build.js: removed
+
+	* build-scripts/build.sh: moved to build-tools
+
+	* build-tools/build.sh: moved from build-scripts
+	builds the target in a build directory within the project (e.g. boule-build)
+	removes unnecessary files from the build directory
+	a separate css optimization is performed (independent from the script optimizing r.js run)
+
+	* core/style/general.css: body -> #app
+
+	* tac/index.html: body -> #app
+
+	* tac/scripts/build.js: dedicated tac build configuration
+
+	* tac/style/main.css: moved from mainstyle.css
+
+	* tac/style/mainstyle.css: moved to main.css
+
+	* build-scripts/apply-version.sh: moved to build-tools
+
+	* build-scripts/istarget.sh: added for later reference
+
+	* build-scripts/Makefile: moved here for later reference
+
+	* build-scripts/write-manifest.sh: moved to build-tools
+
+	* build-scripts/write-sprite.sh: moved to build-tools
+
+	* build-tools/apply-version.sh: moved from build-scripts
+
+	* build-tools/create-commonjs.sh: moved from build-scripts
+
+	* build-tools/create-testjs.sh: moved from build-scripts
+
+	* build-tools/Makefile: `make build`, `make images`, `make codestyle` and `make sprite` retained
+
+	* build-tools/write-manifest.sh: moved from build-scripts
+
+	* build-tools/write-sprite.sh: moved from build-scripts
+
+	* .gitignore: build directories added
+
+	* Makefile: `make boule`, `make tac`, `make all` enabled
+	`make clean` enabled
+
+	* BUGS: removed (see https://github.com/elor/tuvero/issues for bug reports)
+
+	* TODO: removed (see https://boulesprog.wordpress.com)
+
 2015-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-sprite.sh: [data-img="sprite"] to show the sprite path-independently

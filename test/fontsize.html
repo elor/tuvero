@@ -4,9 +4,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Boules Test %VERSION%</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="../style/fontsize.css" />
-    <link rel="stylesheet" href="../style/fontsizeview.css" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style/testenv.css" />
   </head>
 
   <body>
@@ -28,7 +27,7 @@
     
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-    <img src="../images/smallchange.png" alt="reference image" /> reference image
+    <img src="images/favicon.png" alt="reference image" /> reference image
     
     <form target="#">
       <button>Button</button>
@@ -42,27 +41,31 @@
 
   </body>
   
-  <script src="../scripts/lib/require.js"></script>
+  <script src="scripts/require.js"></script>
   <script>
     require.config({
-      baseUrl: '../scripts',
+      baseUrl: 'scripts',
+      paths: {
+        'core': '../../core/scripts/',
+      }
     });
-
-    require(['common', 'lib/jquery'], function(Common, $){
-      var StaticViewLoader, FontSizeView, FontSizeModel;
-      
-//      StaticViewLoader = Common('ui/staticviewloader');
-      FontSizeView = Common('ui/fontsizeview');
-      FontSizeModel = Common('ui/fontsizemodel');
-      
-      $(function($){
-//        StaticViewLoader.registerView('fontsizeview', FontSizeView);
-//        StaticViewLoader.loadViews($('body'));
-        
-        $('#manualreset').click(function(){
-          FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
-        });
-      });
+    require(['testenv'], function(TestEnv){
+      TestEnv(function(Common, $){
+	      var StaticViewLoader, FontSizeView, FontSizeModel;
+	      
+	//      StaticViewLoader = Common('ui/staticviewloader');
+	      FontSizeView = Common('ui/fontsizeview');
+	      FontSizeModel = Common('ui/fontsizemodel');
+	      
+	      $(function($){
+	//        StaticViewLoader.registerView('fontsizeview', FontSizeView);
+	//        StaticViewLoader.loadViews($('body'));
+	        
+	        $('#manualreset').click(function(){
+	          FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
+	        });
+	      });
+	    });
     });
   </script>
 
