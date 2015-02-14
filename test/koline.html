@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Boules Test %VERSION%</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <style>
       div {
         position: relative;
@@ -34,57 +34,61 @@
     </div>
   </body>
   
-  <script src="../scripts/lib/require.js"></script>
+  <script src="../lib/require.js"></script>
   <script>
     require.config({
-      baseUrl: '../scripts',
+      baseUrl: 'scripts',
+      paths: {
+        'core': '../../core/scripts/',
+      }
     });
-    
-    require(['common', 'lib/jquery'], function(Common, $){
-      var KOLine, maxround;
-      
-      KOLine = Common('ui/koline');
-      
-      maxround=8;
-
-      function getX (round) {
-        return 2*(maxround - round);
-      }
-    
-      function getY (round, game) {
-        return 2 * (Math.pow(2, maxround - round - 1) + Math.floor(Math.pow(2, maxround - round) * game));
-      }
-      
-      $(function($){
-        var $box, $svg, round, game, numconnectors;
-        
-        $box = $('div');
-        
-        round = 0;
-        game = 0;
-        numconnectors = 0;
-        
-        boxwidth = getX(-1);
-        boxheight = getY(maxround, Math.pow(2, maxround));
-        $box.css('width', boxwidth + 'em');
-        $box.css('height', boxheight + 'em');
-
-
-        $('#rounds').val(maxround);
-        
-        for (round=0; round < maxround; round += 1) {
-          for (game=0;  game < Math.pow(2, round); game += 1) {
-            $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2)], [getX(round), getY(round, game)])).svg);
-            $box.append($svg);
-            $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2+1)], [getX(round), getY(round, game)])).svg);
-            $box.append($svg);
-            
-            numconnectors += 2;
-          }
-        }
-        
-        $('#cachesize').val(Object.keys(KOLine.pathCache).length);
-        $('#numconnectors').val(numconnectors);
+    require(['testenv'], function(TestEnv){
+      TestEnv(function(Common, $){
+	      var KOLine, maxround;
+	      
+	      KOLine = Common('ui/koline');
+	      
+	      maxround=8;
+	
+	      function getX (round) {
+	        return 2*(maxround - round);
+	      }
+	    
+	      function getY (round, game) {
+	        return 2 * (Math.pow(2, maxround - round - 1) + Math.floor(Math.pow(2, maxround - round) * game));
+	      }
+	      
+	      $(function($){
+	        var $box, $svg, round, game, numconnectors;
+	        
+	        $box = $('div');
+	        
+	        round = 0;
+	        game = 0;
+	        numconnectors = 0;
+	        
+	        boxwidth = getX(-1);
+	        boxheight = getY(maxround, Math.pow(2, maxround));
+	        $box.css('width', boxwidth + 'em');
+	        $box.css('height', boxheight + 'em');
+	
+	
+	        $('#rounds').val(maxround);
+	        
+	        for (round=0; round < maxround; round += 1) {
+	          for (game=0;  game < Math.pow(2, round); game += 1) {
+	            $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2)], [getX(round), getY(round, game)])).svg);
+	            $box.append($svg);
+	            $svg = $((new KOLine([getX(round+1)+0.5, getY(round+1, game*2+1)], [getX(round), getY(round, game)])).svg);
+	            $box.append($svg);
+	            
+	            numconnectors += 2;
+	          }
+	        }
+	        
+	        $('#cachesize').val(Object.keys(KOLine.pathCache).length);
+	        $('#numconnectors').val(numconnectors);
+	      });
       });
     });
   </script>

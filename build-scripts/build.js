@@ -1,4 +1,4 @@
-{
+({
     appDir: "..",
     baseUrl: "scripts",
     dir: "../../boules-build",
@@ -21,4 +21,4 @@
     preserveLicenseComments: false,
     fileExclusionRegExp: /^\.|\.(svg|xcf|sh)$|^build\.js$/,
     mainConfigFile: "../scripts/config.js",
-}
+})

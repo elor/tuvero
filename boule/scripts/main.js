@@ -10,6 +10,7 @@
  */
 
 require(['config'], function(){
+  require(['core/config'], function(){
 /**
  * error callback function
  *
@@ -32,7 +33,7 @@ function notifyAboutLoadError(err) {
 }
 
 require(
-    ['common'],
+    ['core/common'],
     function() {
       var Shared, Update, Splash, Toast, Strings, Storage, Tabshandle, Alltabs, Tab_Debug;
 
@@ -99,4 +100,5 @@ require(
     });
 
 // requirejs.onError = notifyAboutLoadError;
+});
 });

@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Boules Test %VERSION%</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="../style/boxview.css" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style/testenv.css" />
     <style>
       div.team {
         display: inline-block;
@@ -80,43 +80,46 @@
     </div>
   </body>
   
-  <script src="../scripts/lib/require.js"></script>
+  <script src="../lib/require.js"></script>
   <script>
     require.config({
-      baseUrl: '../scripts',
+      baseUrl: 'scripts',
+      paths: {
+        'core': '../../core/scripts/',
+      }
     });
-    
-//    require(['ui/playermodel', 'ui/teammodel', 'ui/indexedlistmodel', 'ui/teamview', 'ui/listview', 'lib/jquery'], function(PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, undefined){
-    require(['common', 'lib/jquery'], function(Common, $){
-      var PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, NewTeamView, LengthView;
-      
-      PlayerModel = Common('ui/playermodel');
-      TeamModel = Common( 'ui/teammodel');
-      IndexedListModel = Common('ui/indexedlistmodel');
-      TeamView = Common('ui/teamview');
-      ListView = Common('ui/listview');
-      LengthView = Common('ui/lengthview');
-      NewTeamView = Common('ui/newteamview');
-      
-      $(function($){
-        var $view, $template, players, teamlist, view;
-        
-        teamlist = new IndexedListModel();
-        
-        $view = $('#tiles');
-        $template = $('#templates').find('div.template').detach().removeClass('template');
-        new ListView(teamlist, $view, $template, TeamView);
-        
-        $view = $('#table');
-        $template = $('#templates').find('tr.template').detach().removeClass('template');
-        new ListView(teamlist, $view, $template, TeamView);
-        
-        $view = $('.numteams');
-        new LengthView(teamlist, $view);
-
-        $view = $('.newteam');
-        (new NewTeamView(teamlist, $view)).focusEmpty();
-      });
+    require(['testenv'], function(TestEnv){
+      TestEnv(function(Common, $){
+	      var PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, NewTeamView, LengthView;
+	      
+	      PlayerModel = Common('ui/playermodel');
+	      TeamModel = Common( 'ui/teammodel');
+	      IndexedListModel = Common('ui/indexedlistmodel');
+	      TeamView = Common('ui/teamview');
+	      ListView = Common('ui/listview');
+	      LengthView = Common('ui/lengthview');
+	      NewTeamView = Common('ui/newteamview');
+	      
+	      $(function($){
+	        var $view, $template, players, teamlist, view;
+	        
+	        teamlist = new IndexedListModel();
+	        
+	        $view = $('#tiles');
+	        $template = $('#templates').find('div.template').detach().removeClass('template');
+	        new ListView(teamlist, $view, $template, TeamView);
+	        
+	        $view = $('#table');
+	        $template = $('#templates').find('tr.template').detach().removeClass('template');
+	        new ListView(teamlist, $view, $template, TeamView);
+	        
+	        $view = $('.numteams');
+	        new LengthView(teamlist, $view);
+	
+	        $view = $('.newteam');
+	        (new NewTeamView(teamlist, $view)).focusEmpty();
+	      });
+	    });
     });
   </script>
 

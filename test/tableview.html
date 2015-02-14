@@ -4,8 +4,8 @@
   <head>
     <meta charset="utf-8" />
     <title>Boules Test %VERSION%</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="../style/boxview.css" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style/testenv.css" />
   </head>
 
   <body>
@@ -23,27 +23,31 @@
 
   </body>
   
-  <script src="../scripts/lib/require.js"></script>
+  <script src="../lib/require.js"></script>
   <script>
     require.config({
-      baseUrl: '../scripts',
+      baseUrl: 'scripts',
+      paths: {
+        'core': '../../core/scripts/',
+      }
     });
-    
-    require(['common', 'lib/jquery'], function(Common, $){
-      var TableView, TableModel;
-      
-      TableView = Common('ui/tableview');
-      TableModel = Common('ui/tablemodel');
-      
-      $(function($){
-        var $table, view, model;
-  
-        $table = $('table');
-        model = new TableModel();
-        view = new TableView($table, model);
-  
-        model.emit('update');
-      });
+    require(['testenv'], function(TestEnv){
+      TestEnv(function(Common, $){
+	      var TableView, TableModel;
+	      
+	      TableView = Common('ui/tableview');
+	      TableModel = Common('ui/tablemodel');
+	      
+	      $(function($){
+	        var $table, view, model;
+	  
+	        $table = $('table');
+	        model = new TableModel();
+	        view = new TableView($table, model);
+	  
+	        model.emit('update');
+	      });
+	    });
     });
   </script>
 

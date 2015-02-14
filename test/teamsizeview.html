@@ -3,10 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <title>Boules Test %VERSION%</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="../style/teamsizeview.css" />
-    <link rel="stylesheet" href="../style/sprite.css" />
-    <link rel="stylesheet" href="../style/boxview.css" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style/testenv.css" />
+    <link rel="stylesheet" href="style/sprite.css" />
     <style>
     </style>
   </head>
@@ -35,34 +34,38 @@
 
   </body>
 
-  <script src="../scripts/lib/require.js"></script>
+  <script src="../lib/require.js"></script>
   <script>
     require.config({
-      baseUrl : '../scripts',
+      baseUrl: 'scripts',
+      paths: {
+        'core': '../../core/scripts/',
+      }
     });
-
-    require(['common', 'lib/jquery'], function(Common, $) {
-      var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
-
-      ValueModel = Common('ui/valuemodel');
-      TeamSizeView = Common('ui/teamsizeview');
-      ValueView = Common('ui/valueview');
-      ListModel = Common('ui/listmodel');
-      NewTeamView = Common('ui/newteamview');
-
-      $(function($) {
-        var teamsize, $view;
-
-        teamsize = new ValueModel(3);
-        $view = $('.teamsizeview');
-        new TeamSizeView(teamsize, $view);
-
-        $view = $('.teamsize');
-        new ValueView(teamsize, $view);
-
-        $view = $('.newteam');
-        new NewTeamView(new ListModel(), $view, teamsize);
-      });
+    require(['testenv'], function(TestEnv){
+      TestEnv(function(Common, $){
+	      var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
+	
+	      ValueModel = Common('ui/valuemodel');
+	      TeamSizeView = Common('ui/teamsizeview');
+	      ValueView = Common('ui/valueview');
+	      ListModel = Common('ui/listmodel');
+	      NewTeamView = Common('ui/newteamview');
+	
+	      $(function($) {
+	        var teamsize, $view;
+	
+	        teamsize = new ValueModel(3);
+	        $view = $('.teamsizeview');
+	        new TeamSizeView(teamsize, $view);
+	
+	        $view = $('.teamsize');
+	        new ValueView(teamsize, $view);
+	
+	        $view = $('.newteam');
+	        new NewTeamView(new ListModel(), $view, teamsize);
+	      });
+	    });
     });
   </script>
 

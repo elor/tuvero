@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>Boules Test %VERSION%</title>
-    <link rel="shortcut icon" href="../images/favicon.png" type="image/png" />
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <style>
     </style>
   </head>
@@ -26,38 +26,42 @@
     </button>
   </body>
 
-  <script src="../scripts/lib/require.js"></script>
+  <script src="../lib/require.js"></script>
   <script>
     require.config({
-      baseUrl : '../scripts',
+      baseUrl: 'scripts',
+      paths: {
+        'core': '../../core/scripts/',
+      }
     });
-
-    require(['common', 'lib/jquery'], function(Common, $) {
-      var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
-
-      ValueModel = Common('ui/valuemodel');
-      ValueView = Common('ui/valueview');
-      CheckboxView = Common('ui/checkboxview');
-
-      $(function($) {
-        var value, $view;
-
-        value = new ValueModel();
-        $view = $('input.checkbox');
-        new CheckboxView(value, $view);
-
-        $view = $('.checkboxvalue');
-        new ValueView(value, $view);
-
-        $('button.false').click(function() {
-          value.set(false);
-        });
-
-        $('button.true').click(function() {
-          value.set(true);
-        });
-
-      });
+    require(['testenv'], function(TestEnv){
+      TestEnv(function(Common, $){
+	      var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
+	
+	      ValueModel = Common('ui/valuemodel');
+	      ValueView = Common('ui/valueview');
+	      CheckboxView = Common('ui/checkboxview');
+	
+	      $(function($) {
+	        var value, $view;
+	
+	        value = new ValueModel();
+	        $view = $('input.checkbox');
+	        new CheckboxView(value, $view);
+	
+	        $view = $('.checkboxvalue');
+	        new ValueView(value, $view);
+	
+	        $('button.false').click(function() {
+	          value.set(false);
+	        });
+	
+	        $('button.true').click(function() {
+	          value.set(true);
+	        });
+	
+	      });
+	    });
     });
   </script>
 

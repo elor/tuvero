@@ -4,6 +4,21 @@
 
 	* scripts/ui/backgroundscripts/featuredetect.js: warning if modernizr cannot be loaded
 
+	* boule/: contains Boule-specific contents
+
+	* tac/: contains TAC-specific contents
+
+	* core/: contains shared code and assets
+
+	* legacy/: contains old code from the old scripts/ directory
+	supposed to be replaced with "core code"
+
+	* lib/: contains external libraries (formerly found in 'scripts/lib')
+
+	* test/: contains test environments, not the tests themselves (yet)
+
+	* index.html: redirect to boule/index.html (for now)
+
 2015-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-sprite.sh: [data-img="sprite"] to show the sprite path-independently
