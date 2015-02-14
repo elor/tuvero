@@ -12,6 +12,9 @@ require.config({
       deps: ['lib/Blob'],
       exports: 'Modernizr'
     },
+    'lib/typeahead': {
+      deps: ['jquery'],
+    },
     'lib/Blob': {
       exports: 'Blob'
     }
