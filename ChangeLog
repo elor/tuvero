@@ -26,8 +26,10 @@
 	* lib/require.js: removed. Every target has its own require.js file
 
 	* build-scripts/create-commonjs.sh: new script to build core/common.js
+	moved to build-tools
 
 	* build-scripts/create-testjs.sh: new script to build test/scripts/test.js
+	moved to build-tools
 
 	* build-scripts/write-scripts.sh: removed in favor of create-*js.sh
 
@@ -57,6 +59,37 @@
 	* tac/style/main.css: moved from mainstyle.css
 
 	* tac/style/mainstyle.css: moved to main.css
+
+	* build-scripts/apply-version.sh: moved to build-tools
+
+	* build-scripts/istarget.sh: added for later reference
+
+	* build-scripts/Makefile: moved here for later reference
+
+	* build-scripts/write-manifest.sh: moved to build-tools
+
+	* build-scripts/write-sprite.sh: moved to build-tools
+
+	* build-tools/apply-version.sh: moved from build-scripts
+
+	* build-tools/create-commonjs.sh: moved from build-scripts
+
+	* build-tools/create-testjs.sh: moved from build-scripts
+
+	* build-tools/Makefile: `make build`, `make images`, `make codestyle` and `make sprite` retained
+
+	* build-tools/write-manifest.sh: moved from build-scripts
+
+	* build-tools/write-sprite.sh: moved from build-scripts
+
+	* .gitignore: build directories added
+
+	* Makefile: `make boule`, `make tac`, `make all` enabled
+	`make clean` enabled
+
+	* BUGS: removed (see https://github.com/elor/tuvero/issues for bug reports)
+
+	* TODO: removed (see https://boulesprog.wordpress.com)
 
 2015-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
