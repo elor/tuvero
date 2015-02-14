@@ -1,4 +1,4 @@
-body {
+#app {
   background-color: #808080;
   padding: 0;
   border-width: 0;
@@ -71,7 +71,7 @@ div, button {
 }
 
 @media print {
-  body {
+  #app {
     background-color: #ffffff;
     color: #000000;
   }
