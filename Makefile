@@ -30,8 +30,22 @@ scripts: FORCE
 codestyle: FORCE
 	./build-tools/codestyle.sh
 
+# secondary global targets
+
 Version: FORCE
 	./build-tools/write-Version.sh
+
+NEWS: FORCE
+	sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
+
+clean-build-tools:
+	rm -rf Makefile build-tools/ build-scripts/
+
+release: Version NEWS
+	./build-tools/prepare-release.sh
+
+merge-master: FORCE
+	./build-tools/merge-master.sh
 
 # makefile-related secondary targets
 

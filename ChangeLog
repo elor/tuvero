@@ -1,3 +1,12 @@
+2015-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* build-tools/merge-master.sh: merge a release branch with master
+
+	* build-tools/prepare-release.sh: from a newly created release branch: prepare the release
+
+	* Makefile: `make release` and `make merge-master` added
+	`make NEWS` added
+
 2015-02-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/controller.js: moved from legacy/scripts/
