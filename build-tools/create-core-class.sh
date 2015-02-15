@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# creates a ui class
+# creates a core class
 
 ##########
 # syntax #
@@ -12,7 +12,7 @@ Syntax: $0 ClassName
 
 DESCRIPTION:
 
-        Create a new class file inside scripts/ui/, according to the ClassName.
+        Create a new class file inside core/scripts/, according to the ClassName.
         The ClassName is required to be in alpha-only upper camel case
 EOF
     exit 1
@@ -24,7 +24,7 @@ EOF
 
 class=$1
 filename=`tr '[:upper:]' '[:lower:]' <<< $class`.js
-dir=scripts/ui
+dir=core/scripts
 fullpath=$dir/$filename
 super=`grep -Po '[A-Z][a-z]+$' <<< $class`
 superref=./`tr '[:upper:]' '[:lower:]' <<< $super`

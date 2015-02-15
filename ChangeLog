@@ -24,6 +24,11 @@
 
 	* build-tools/update-headers.sh: moved from build-scripts
 
+	* build-scripts/create-ui-class.sh: moved to build-tools/create-core-class.sh
+
+	* build-tools/create-core-class.sh: moved from build-scripts/create-ui-class.sh
+	now creates a new core class
+
 2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* names.txt: tuvero. It is decided.
