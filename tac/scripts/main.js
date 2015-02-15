@@ -1,5 +1,5 @@
 /**
- * First file to load.
+ * First file to load. Contains the non-core config
  *
  * Starts loading all other files, initializes everything and manages the splash
  * screen and load errors
@@ -9,8 +9,18 @@
  * @see LICENSE
  */
 
-require(['config'], function(){
-  require(['core/config'], function(){
+/**
+ * All non-core configuration is required to be included in main.js before the
+ * first call to require(), which starts the actual program.
+ */
+require.config({
+  baseUrl: 'scripts',
+  paths: {
+    'core': '../../core/scripts/',
+  }
+});
+
+require(['core/config'], function(){
 /**
  * error callback function
  *
@@ -100,5 +110,4 @@ require(
     });
 
 // requirejs.onError = notifyAboutLoadError;
-});
 });

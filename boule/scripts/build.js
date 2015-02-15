@@ -11,5 +11,5 @@
   removeCombined: true,
   preserveLicenseComments: false,
   fileExclusionRegExp: /^\.|\.(svg|xcf|sh)$|^build\.js$/,
-  mainConfigFile: ["config.js", "../../core/scripts/config.js"]
+  mainConfigFile: ["main.js", "../../core/scripts/config.js"]
 })

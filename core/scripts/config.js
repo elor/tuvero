@@ -20,8 +20,14 @@ require.config({
     }
   },
   paths: {
-    // All paths are relative to the baseUrl, not this config file, hence the
-    // '../../'
+    /**
+     * All paths are relative to the baseUrl, not this config file, hence the
+     * '../../'
+     * 
+     * Unfortunately, they cannot be auto-generated within the script due to its
+     * use as r.js config file. Since this is a shared file, the target/build
+     * folders need to share the same parent directory, i.e. the project root.
+     */
     'lib': '../../lib',
     'ui': '../../legacy/scripts/ui',
     'backend': '../../legacy/scripts/backend',

@@ -30,6 +30,22 @@
 	* build-tools/create-core-class.sh: moved from build-scripts/create-ui-class.sh
 	now creates a new core class
 
+	* boule/index.html: direct reference to main.js to avoid caching errors
+
+	* boule/scripts/build.js: config.js contents have been moved to main.js
+
+	* boule/scripts/config.js: config.js contents have been moved to main.js
+
+	* boule/scripts/main.js: config.js contents have been moved to main.js
+
+	* tac/index.html: direct reference to main.js to avoid caching errors
+
+	* tac/scripts/build.js: config.js contents have been moved to main.js
+
+	* tac/scripts/config.js: config.js contents have been moved to main.js
+
+	* tac/scripts/main.js: config.js contents have been moved to main.js
+
 2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* names.txt: tuvero. It is decided.
