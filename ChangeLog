@@ -18,6 +18,11 @@
 	emitter, listener, model, view and controller and their tests moved to core/scripts
 
 	* Makefile: `make scripts` added
+	also updating the script header comments
+
+	* build-scripts/update-headers.sh: moved to build-tools
+
+	* build-tools/update-headers.sh: moved from build-scripts
 
 2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -21,6 +21,7 @@ clean: FORCE
 scripts: FORCE
 	./build-tools/create-commonjs.sh
 	./build-tools/create-testjs.sh
+	./build-tools/update-headers.sh
 
 # makefile-related secondary targets
 

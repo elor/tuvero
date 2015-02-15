@@ -4,7 +4,7 @@
 ###########################################################
 
 listuserscripts(){
-    find scripts -type f -name '*.js' -not -path 'scripts/lib/*' -not -path 'scripts/lib/*/*'
+    find */scripts/ -type f -name '*.js' -not -name 'require.js' -not -name 'build.js' -not -name 'qunit.js'
 }
 
 for script in `listuserscripts`; do
