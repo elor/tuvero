@@ -41,6 +41,9 @@ NEWS: FORCE
 clean-build-tools:
 	rm -rf Makefile build-tools/ build-scripts/
 
+clean-shared-code:
+	rm -rf lib core legacy
+
 release: Version NEWS
 	./build-tools/prepare-release.sh
 

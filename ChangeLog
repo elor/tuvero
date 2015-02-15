@@ -1,11 +1,15 @@
 2015-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/merge-master.sh: merge a release branch with master
+	removing unused files when done
+	explanatory output added
 
 	* build-tools/prepare-release.sh: from a newly created release branch: prepare the release
+	enabling './merge-master.sh' when done
 
 	* Makefile: `make release` and `make merge-master` added
 	`make NEWS` added
+	`make clean-shared-code` added to clean up after a full release build
 
 2015-02-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

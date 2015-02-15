@@ -22,8 +22,17 @@ git mv tac-build tac
 git mv test-build test
 git commit -m "release-$VERSION: source directories replaced with build directories"
 
-make remove-dev-files
+cp build-tools/merge-master.sh .
+make clean-shared-code clean-build-tools
 git add -u
 git commit -m "release-$VERSION: build scripts and dev files removed"
 
-echo "Release Build finished. See 'git log' for automatic commits"
+cat <<EOF
+Release Build of version $VERSION finished.
+
+Run 'git log' to see the auto-generated commits.
+
+After validating the usability of the software, run './merge-master.sh' to merge this branch into the master branch prior to releasing it using 'git push' and 'git push --tags'
+
+EOF
+
