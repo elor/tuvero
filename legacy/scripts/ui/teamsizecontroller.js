@@ -4,7 +4,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './controller'], function(extend, Controller) {
+define(['lib/extend', 'core/controller'], function(extend, Controller) {
   /**
    * Constructor
    *

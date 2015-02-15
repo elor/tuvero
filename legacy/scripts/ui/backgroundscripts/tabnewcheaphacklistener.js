@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', '../listener', '../tab_new', '../state_new',
+define(['lib/extend', 'core/listener', '../tab_new', '../state_new',
     '../tabshandle'], function(extend, Listener, Tab_New, State, Tabshandle) {
   /**
    * Constructor

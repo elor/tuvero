@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './controller', './team', './toast', './strings',
+define(['lib/extend', 'core/controller', './team', './toast', './strings',
     './state_new'], function(extend, Controller, Team, Toast, Strings, State) {
   /**
    * Constructor

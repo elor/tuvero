@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listener', './model'], function(extend, Listener,
+define(['lib/extend', 'core/listener', 'core/model'], function(extend, Listener,
     Model) {
   /**
    * Displays a model and updates on changes to it.

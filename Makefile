@@ -3,7 +3,7 @@
 # For more options, run `make ...` in the individual directories #
 ##################################################################
 
-# primary targets
+# primary build targets
 
 all: boule tac #test
 
@@ -15,6 +15,12 @@ test: test/index.html
 
 clean: FORCE
 	rm -rf *-build/
+
+# primary global targets
+
+scripts: FORCE
+	./build-tools/create-commonjs.sh
+	./build-tools/create-testjs.sh
 
 # makefile-related secondary targets
 

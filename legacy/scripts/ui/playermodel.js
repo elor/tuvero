@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './model'], function(extend, Model) {
+define(['lib/extend', 'core/model'], function(extend, Model) {
 
   /**
    * remove extra white spaces from a player name

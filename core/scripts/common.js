@@ -11,6 +11,11 @@
  */
 
 define([
+  'core/controller',
+  'core/emitter',
+  'core/listener',
+  'core/model',
+  'core/view',
   'backend/blobber',
   'backend/buchholzranking',
   'backend/correction',
@@ -54,11 +59,9 @@ define([
   'ui/checkboxcontroller',
   'ui/checkboxview',
   'ui/classview',
-  'ui/controller',
   'ui/csver',
   'ui/data/swissperms',
   'ui/debug',
-  'ui/emitter',
   'ui/fontsizecontroller',
   'ui/fontsizemodel',
   'ui/fontsizeview',
@@ -72,10 +75,8 @@ define([
   'ui/listcleanuplistener',
   'ui/listclickcontroller',
   'ui/listcollectormodel',
-  'ui/listener',
   'ui/listmodel',
   'ui/listview',
-  'ui/model',
   'ui/newteamcontroller',
   'ui/newteamview',
   'ui/options',
@@ -123,7 +124,6 @@ define([
   'ui/update',
   'ui/valuemodel',
   'ui/valueview',
-  'ui/view',
 ], function(undefined) {
   return function(str) {
     return require.s.contexts._.defined[str];

@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './view'], function(extend, View) {
+define(['lib/extend', 'core/view'], function(extend, View) {
   /**
    * Constructor
    *

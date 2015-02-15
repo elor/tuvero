@@ -10,7 +10,8 @@
 require(['config'], function() {
   require(['core/config'], function() {
     require(['core/common', 'qunit',
-
+  'core/test/emitter',
+  'core/test/model',
   'backend/test/matrix',
   'backend/test/ranking',
   'backend/test/map',
@@ -21,7 +22,6 @@ require(['config'], function() {
   'backend/test/kotournament',
   'backend/test/random',
 
-  'ui/test/emitter',
   'ui/test/indexedmodel',
   'ui/test/tab',
   'ui/test/teammodel',
@@ -32,7 +32,6 @@ require(['config'], function() {
   'ui/test/valuemodel',
   'ui/test/playermodel',
   'ui/test/csv',
-  'ui/test/model',
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {

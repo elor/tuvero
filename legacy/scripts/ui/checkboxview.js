@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './view', './valuemodel', './checkboxcontroller'],
+define(['lib/extend', 'core/view', './valuemodel', './checkboxcontroller'],
     function(extend, View, ValueModel, CheckboxController) {
 
       /**

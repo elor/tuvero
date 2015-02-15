@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './view', './teamsizecontroller'], function(extend, View,
+define(['lib/extend', 'core/view', './teamsizecontroller'], function(extend, View,
     TeamSizeController) {
 
   /**

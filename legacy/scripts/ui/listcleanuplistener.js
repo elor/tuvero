@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listener'], function(extend, Listener) {
+define(['lib/extend', 'core/listener'], function(extend, Listener) {
 
   /**
    * Constructor

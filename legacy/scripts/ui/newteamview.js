@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 define(
-    ['lib/extend', './view', './newteamcontroller'],
+    ['lib/extend', 'core/view', './newteamcontroller'],
     function(extend, View, NewTeamController) {
       /**
        * Constructor

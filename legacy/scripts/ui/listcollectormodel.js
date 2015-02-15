@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model', './listener'], function(extend, Model,
+define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
     Listener) {
   /**
    * Constructor

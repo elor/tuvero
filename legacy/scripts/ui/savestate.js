@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './listener', './state_new', './storage'], function(
+define(['lib/extend', 'core/listener', './state_new', './storage'], function(
     extend, Listener, State, Storage) {
 
   function SaveState(emitter) {

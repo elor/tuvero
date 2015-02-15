@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './emitter'], function(extend, Emitter) {
+define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
   /**
    * Constructor for setting an initial state.
    *

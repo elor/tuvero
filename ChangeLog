@@ -1,3 +1,24 @@
+2015-02-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/controller.js: moved from legacy/scripts/
+
+	* core/scripts/emitter.js: moved from legacy/scripts/
+
+	* core/scripts/listener.js: moved from legacy/scripts/
+
+	* core/scripts/model.js: moved from legacy/scripts/
+
+	* core/scripts/test/emitter.js: moved from legacy/scripts/test
+
+	* core/scripts/test/model.js: moved from legacy/scripts/test
+
+	* core/scripts/view.js: moved from legacy/scripts
+
+	* legacy/scripts: references to emitter, listener, model, view and controller changed to core/*
+	emitter, listener, model, view and controller and their tests moved to core/scripts
+
+	* Makefile: `make scripts` added
+
 2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* names.txt: tuvero. It is decided.
