@@ -5,7 +5,11 @@
 
 # primary build targets
 
-all: boule tac #test
+all: scripts
+#	make test
+	make boule
+	make tac
+
 
 tac: tac/index.html
 

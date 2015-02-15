@@ -19,6 +19,7 @@
 
 	* Makefile: `make scripts` added
 	also updating the script header comments
+	`make all`: `make scripts` dependency added
 
 	* build-scripts/update-headers.sh: moved to build-tools
 
