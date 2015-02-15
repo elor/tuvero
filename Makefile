@@ -18,7 +18,7 @@ boule: boule/index.html
 test: test/index.html
 
 clean: FORCE
-	rm -rf *-build/
+	rm -rf *-build/ Version
 
 # primary global targets
 
@@ -29,6 +29,9 @@ scripts: FORCE
 
 codestyle: FORCE
 	./build-tools/codestyle.sh
+
+Version: FORCE
+	./build-tools/write-Version.sh
 
 # makefile-related secondary targets
 

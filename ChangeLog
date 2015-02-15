@@ -21,6 +21,7 @@
 	also updating the script header comments
 	`make all`: `make scripts` dependency added
 	`make codestyle` added
+	`make Version` added
 
 	* build-scripts/update-headers.sh: moved to build-tools
 
@@ -58,6 +59,11 @@
 	* build-tools/create-commonjs.sh: using the correct code style
 
 	* build-tools/create-testjs.sh: using the correct code style
+
+	* build-scripts/write-Version.sh: moved to build-tools/
+
+	* build-tools/write-Version.sh: moved from build-scripts/
+	also echoing the current version and write actions
 
 2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

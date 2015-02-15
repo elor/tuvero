@@ -30,16 +30,4 @@ merge-master: FORCE
 	git tag -a -m 'Release $(VERSION)' $(VERSION)
 	echo "Finished merging branch release-$(VERSION) into branch master."
 
-#############################
-# enforce the gjslint style #
-#############################
-style: scripts
-	find scripts -name '*.js' | grep -v 'scripts/lib' | xargs fixjsstyle
-
-###############################
-# remove auto-generated files #
-###############################
-clean:
-	rm -f Version manifest.appcache
-
 include build-scripts/Makefile.in

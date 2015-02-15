@@ -3,18 +3,6 @@
 # contains some logic targets #
 ###############################
 
-# compresses the whole images directory
-images: images/sprite.png
-	optipng -o3 images/sprite.png images/favicon.png images/smallchange.png
-
-# creates the sprite
-images/sprite.png: FORCE
-	./build-scripts/write-sprite.sh
-
-# create the manifest and update all links in the top-level HTML files
-manifest.appcache: Version FORCE
-	./build-scripts/write-manifest.sh
-
 Version: FORCE
 	./build-scripts/write-Version.sh
 
@@ -25,19 +13,10 @@ NEWS: FORCE
 # dummy target for forcing a rebuild of existing files
 FORCE:
 
-# removes all unnecessary images after building the images
-remove-images: 
-	find images -type f -not -name '*.gif' -not -name 'sprite.png' -not -name 'favicon.png' -not -name 'smallchange.png' -print0 | xargs -0 -n1 rm
-	find images -type d -not -path images -print0 | xargs -0 -n1 rmdir
-
-# self-explanatory
-remove-debug-code:
-	sed -i '/<script>/,/<\/script>/d' *.html
-
 # self-explanatory
 remove-dev-files:
-	rm -f Makefile TODO BUGS
-	rm -rf build-scripts
+	rm -f Makefile
+	rm -rf build-tools build-scripts
 
 # self-explanatory
 remove-reference:
