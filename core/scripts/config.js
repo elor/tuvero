@@ -1,6 +1,6 @@
 /**
  * config.js: sets up the shared configuration of the projects
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -13,7 +13,7 @@ require.config({
       exports: 'Modernizr'
     },
     'lib/typeahead': {
-      deps: ['jquery'],
+      deps: ['jquery']
     },
     'lib/Blob': {
       exports: 'Blob'
@@ -23,7 +23,7 @@ require.config({
     /**
      * All paths are relative to the baseUrl, not this config file, hence the
      * '../../'
-     * 
+     *
      * Unfortunately, they cannot be auto-generated within the script due to its
      * use as r.js config file. Since this is a shared file, the target/build
      * folders need to share the same parent directory, i.e. the project root.
@@ -32,6 +32,6 @@ require.config({
     'ui': '../../legacy/scripts/ui',
     'backend': '../../legacy/scripts/backend',
     'jquery': '../../lib/jquery',
-    'filesaver': '../../lib/FileSaver',
+    'filesaver': '../../lib/FileSaver'
   }
 });

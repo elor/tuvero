@@ -23,6 +23,6 @@ require.config({
     }
   },
   paths: {
-    'core': '../../core/scripts/',
+    'core': '../../core/scripts/'
   }
 });

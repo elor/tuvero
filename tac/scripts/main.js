@@ -16,11 +16,11 @@
 require.config({
   baseUrl: 'scripts',
   paths: {
-    'core': '../../core/scripts/',
+    'core': '../../core/scripts/'
   }
 });
 
-require(['core/config'], function(){
+require(['core/config'], function() {
 /**
  * error callback function
  *

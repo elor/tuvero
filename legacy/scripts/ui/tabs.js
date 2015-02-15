@@ -23,16 +23,16 @@ define(['./state_new', 'jquery'], function(State, $) {
       hide: undefined,
       show: undefined,
       valid: undefined,
-      display: function(tabname, state){
-          window.setTimeout(function(){that.display(tabname, state);}, 10)
+      display: function(tabname, state) {
+          window.setTimeout(function() {that.display(tabname, state);}, 10);
       },
-      focus: function(){
+      focus: function() {
           console.error('focus called before the focus function has been linked');
       },
-      openValidTab: function(){
+      openValidTab: function() {
           console.error('openValidTab called before the focus function has been linked');
       },
-      updateOpts: function(){
+      updateOpts: function() {
           console.error('updateOpts called before the focus function has been linked');
       }
     };

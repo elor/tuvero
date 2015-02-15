@@ -27,12 +27,12 @@ scripts: FORCE
 	./build-tools/create-testjs.sh
 	./build-tools/update-headers.sh
 
+codestyle: FORCE
+	./build-tools/codestyle.sh
+
 # makefile-related secondary targets
 
 %: %/index.html FORCE
-	[ -d $@ ]
-	cp build-tools/Makefile $@/
-	cd $@ && make build
-	rm $@/Makefile
+	cd $@ && make -f ../build-tools/Makefile build
 
 FORCE:

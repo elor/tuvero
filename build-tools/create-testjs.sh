@@ -14,9 +14,9 @@ printrefs(){
 cat <<EOF > test/scripts/test.js
 /**
  * Run every available test
- * 
+ *
  * This file is automatically created on build. Do not attempt manual changes
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -27,7 +27,7 @@ require(['config'], function() {
 $(printrefs core $coredir)
 $(printrefs backend $backenddir)
 $(printrefs lib $libdir)
-$(printrefs ui $uidir)
+$(printrefs ui $uidir | sed '$s/,$//')
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {

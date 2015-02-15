@@ -3,6 +3,8 @@
 # creates the appcache manifest under the assumption that there are no
 # unnecessary files
 
+set -e -u
+
 listScripts(){
     find script* -name '*.js'
 }
@@ -13,7 +15,6 @@ listImages(){
 }
 
 listHTMLs(){
-#    find * -name '*.html'
     ls *.html
 }
 

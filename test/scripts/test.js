@@ -1,8 +1,8 @@
 /**
  * Run every available test
- * 
+ *
  * This file is automatically created on build. Do not attempt manual changes
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -31,7 +31,7 @@ require(['config'], function() {
   'ui/test/listcollectormodel',
   'ui/test/valuemodel',
   'ui/test/playermodel',
-  'ui/test/csv',
+  'ui/test/csv'
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {

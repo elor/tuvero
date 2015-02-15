@@ -20,6 +20,7 @@
 	* Makefile: `make scripts` added
 	also updating the script header comments
 	`make all`: `make scripts` dependency added
+	`make codestyle` added
 
 	* build-scripts/update-headers.sh: moved to build-tools
 
@@ -45,6 +46,18 @@
 	* tac/scripts/config.js: config.js contents have been moved to main.js
 
 	* tac/scripts/main.js: config.js contents have been moved to main.js
+
+	* build-scripts/istarget.sh: removed; functionality has been moved into build.sh
+
+	* build-scripts/Makefile: `make codestyle` moved to Makefile at project root
+
+	* build-tools/codestyle.sh: fixing the code style of most .js files
+	excludes lib and build dirs
+	excludes build.js files
+
+	* build-tools/create-commonjs.sh: using the correct code style
+
+	* build-tools/create-testjs.sh: using the correct code style
 
 2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

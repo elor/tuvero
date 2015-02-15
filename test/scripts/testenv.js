@@ -1,6 +1,6 @@
 /**
  * builds a test environment
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -19,7 +19,7 @@ define(['core/config'], function() {
 
     TestEnv = function(func) {
       func(Common, $);
-    }
+    };
   });
 
   return TestEnv;
