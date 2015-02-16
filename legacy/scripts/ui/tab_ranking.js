@@ -81,7 +81,7 @@ define(['./tournaments', './team', './toast', './strings', 'options',
     // adjust number of columns to the teamsize
     template.rank.$table.find('th:nth-child(3)').attr('colspan',
         State.teamsize.get());
-    
+
     // hide unimportant columns
     for (i = 0; i < Options.maxteamsize; i += 1) {
       if (i < State.teamsize.get()) {
