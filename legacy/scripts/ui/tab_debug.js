@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['./tabshandle', './tab', './toast', '../backend/random', './options',
+define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
     './strings', './debug', './tournaments', './team', './history', './shared'], function(Tabshandle, Tab, Toast, Random, Options, Strings, Debug, Tournaments, Team, History, Shared) {
   var Tab_Debug, $tab, form, letters, Letters, rng;
 

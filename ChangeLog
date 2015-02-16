@@ -11,6 +11,25 @@
 	`make NEWS` added
 	`make clean-shared-code` added to clean up after a full release build
 
+	* boule/index.html: Netto -> Saldo
+
+	* boule/scripts/options.js: target-specific options moved to {target}/scripts
+
+	* build-tools/build.sh: smallchange.png removed from build since it can't be accessed by the css
+
+	* core/style/general.css: .editable: hovering shows an exclamation mark instead of smallchange.png
+
+	* legacy/scripts/ui/options.js: removed in favor of target-specific options
+
+	* legacy/scripts/ui/strings.js: Netto -> Saldo
+
+	* tac/index.html: Netto -> Saldo
+	.teamsizeview removed (fixed team size)
+	max points reduced to 8, since there's only 8 balls per team
+	bye: *visible* points changed to 8:6
+
+	* tac/scripts/options.js: target-specific options moved to {target}/scripts
+
 2015-02-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/controller.js: moved from legacy/scripts/

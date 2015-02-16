@@ -12,7 +12,7 @@
  */
 
 define(
-    ['./tab', './options', './toast', './team', './strings', './tab_games',
+    ['./tab', 'options', './toast', './team', './strings', './tab_games',
         './tab_ranking', './tab_history', './history', './storage',
         '../backend/tournament', './tournaments', './globalranking',
         './shared', './data/swissperms', './boxview'],

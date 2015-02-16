@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./options', './tabshandle', './team', './history', './tournaments',
+define(['options', './tabshandle', './team', './history', './tournaments',
 //    './tab_teams',
     './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function(Options, Tabshandle, Team, History, Tournaments,
 //        Tab_Teams,

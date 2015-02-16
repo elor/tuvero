@@ -13,7 +13,7 @@
 
 define(
     ['./team', './toast', './strings', './tab_ranking', './history',
-        './tab_history', './storage', './options', './tab', './tabshandle',
+        './tab_history', './storage', 'options', './tab', './tabshandle',
         './tournaments', './shared', './boxview'],
     function(Team, Toast, Strings, Tab_Ranking, History, Tab_History, Storage,
         Options, Tab, Tabshandle, Tournaments, Shared, BoxView) {

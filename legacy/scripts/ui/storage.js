@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./options', './shared', 'lib/modernizr'], function(Options, Shared,
+define(['options', './shared', 'lib/modernizr'], function(Options, Shared,
     Modernizr) {
   var Storage, keys, savespending;
 

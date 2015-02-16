@@ -11,7 +11,7 @@
  */
 
 define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
-    './team', './history', './ranking', './state', './storage', './options',
+    './team', './history', './ranking', './state', './storage', 'options',
     './players', './tabshandle', './shared'], function(Tab, saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Storage, Options, Players, Tabshandle, Shared) {
   var Tab_Settings, $tab, areas, updatepending;
 
@@ -143,6 +143,11 @@ define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
   }
 
   function reloadAutocomplete() {
+    if (!Options.playernameurl) {
+      console.warn('Options.playernameurl not specified. No player name autocompletion available');
+      Players.reset();
+      return;
+    }
     $.get(Options.playernameurl, undefined, function(jsontext, status, response) {
       if (jsontext.length === 0) {
         new Toast(Strings.fileempty);

@@ -45,7 +45,8 @@ sed -i '/<script>/,/<\/script>/d' $builddir/*.html
 # remove unused images #
 ########################
 
-find $builddir/images -type f -not -name sprite.png -not -name favicon.png -not -name smallchange.png -print0 | xargs -0 -n1 rm -v || exit 1
+find $builddir/images -type f -not -name sprite.png -not -name favicon.png  -print0 | xargs -0 -n1 rm -v || exit 1
+# -not -name smallchange.png -> removed. Using a simple exclamation mark for now
 find $builddir/images -type d -not -path $builddir/images -print0 | xargs -0 -n1 rmdir -v || exit 1
 
 ##############################################################

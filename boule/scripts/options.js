@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 
-define(['./state_new'], function(State) {
+define(['ui/state_new'], function(State) {
   var Options, Default;
 
   Options = {};
@@ -23,7 +23,7 @@ define(['./state_new'], function(State) {
     // user-specific
     // local : {},
     dbname: 'boulestournament',
-    dbplayername: 'players',
+    dbplayername: 'bouleplayers',
     roundtries: 20
   // tournament-specific
   // tournament : {},

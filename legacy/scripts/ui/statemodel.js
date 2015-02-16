@@ -16,7 +16,7 @@ define(['./listmodel', './indexedlistmodel', './valuemodel',
   function StateModel() {
     this.teams = new IndexedListModel();
     this.teamscleanuplistener = new ListCleanupListener(this.teams);
-    this.teamsize = new ValueModel(3);
+    this.teamsize = new ValueModel(2);
   }
 
   return StateModel;
