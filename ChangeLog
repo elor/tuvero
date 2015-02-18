@@ -22,6 +22,8 @@
 
 	* tac/index.html: all team icons use two instead of three players
 
+	* index.html: welcome page added
+
 2015-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/merge-master.sh: merge a release branch with master
