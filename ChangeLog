@@ -16,6 +16,12 @@
 
 	* tac/images/teams3.png: TAC always has two players
 
+	* tac/images/all.png: team sub-icon has two instead of three players
+
+	* tac/images/svg/all.svg: team sub-icon has two instead of three players
+
+	* tac/index.html: all team icons use two instead of three players
+
 2015-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/merge-master.sh: merge a release branch with master
