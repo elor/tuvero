@@ -1,3 +1,21 @@
+2015-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* tac/images/favicon.png: TAC favicon added
+
+	* tac/images/games.png: pure black TAC games added (like favicon)
+
+	* tac/images/svg/games_black.svg: black TAC icon
+
+	* tac/images/svg/games.svg: colored TAC icon
+
+	* tac/images/svg/teams1.svg: TAC always has two players
+
+	* tac/images/svg/teams3.svg: TAC always has two players
+
+	* tac/images/teams1.png: TAC always has two players
+
+	* tac/images/teams3.png: TAC always has two players
+
 2015-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/merge-master.sh: merge a release branch with master
