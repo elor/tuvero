@@ -1,3 +1,19 @@
+2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* *.html: version updated to 1.4.5-dev
+
+	* build-tools/apply-version.sh: support for $VERSION$ dropped
+
+	* build-tools/prepare-release.sh: calling reset-version.sh
+
+	* build-tools/reset-version.sh: script to reset the version information to %VERSION%
+
+	* NEWS: version updated to 1.4.5-dev
+
+	* README.md: version updated to 1.4.5-dev
+
+	* Version: version updated to 1.4.5-dev
+
 2015-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tac/images/favicon.png: TAC favicon added

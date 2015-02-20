@@ -3,6 +3,8 @@
 # apply the current version to all files #
 ##########################################
 
-version=`cat ../Version || echo "dev"`
+set -e -u
+
+version=`cat Version || echo "dev"`
 echo "pushing version $version"
-sed -r -i 's/($|%)VERSION($|%)/'$version'/g' *.html */*.html README* legacy/scripts/ui/debug.js NEWS
+sed -r -i 's/%VERSION%/'$version'/g' *.html */*.html README* legacy/scripts/ui/debug.js NEWS
