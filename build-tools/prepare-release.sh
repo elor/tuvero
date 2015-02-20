@@ -6,6 +6,7 @@ set -e -u
 
 VERSION=$(cat Version)
 
+./build-tools/reset-version.sh
 ./build-tools/apply-version.sh
 git add -u
 git add Version
