@@ -14,6 +14,25 @@
 
 	* Version: version updated to 1.4.5-dev
 
+	* build-tools/create-core-class.sh: optional second argument: base class
+
+	* core/scripts/gamesrankingcomponent.js: RankingComponent: number of games
+
+	* core/scripts/idrankingcomponent.js: RankingComponent: player id
+
+	* core/scripts/pointsrankingcomponent.js: RankingComponent: won points
+
+	* core/scripts/rankingcomponentindex.js: an index of all RankingComponents
+
+	* core/scripts/rankingcomponent.js: RankingComponent base class
+	RankingComponents contain compare() and value() functions and form chains for sorting
+
+	* core/scripts/rankingmodel.js: RankingModel, the new general ranking class
+
+	* core/scripts/saldorankingcomponent.js: RankingComponent: point difference
+
+	* core/scripts/winsrankingcomponent.js: RankingComponent: won games
+
 2015-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tac/images/favicon.png: TAC favicon added

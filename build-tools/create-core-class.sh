@@ -26,7 +26,8 @@ class=$1
 filename=`tr '[:upper:]' '[:lower:]' <<< $class`.js
 dir=core/scripts
 fullpath=$dir/$filename
-super=`grep -Po '[A-Z][a-z]+$' <<< $class`
+super=$2
+[ -z "$super" ] && super=`grep -Po '[A-Z][a-z]+$' <<< $class`
 superref=./`tr '[:upper:]' '[:lower:]' <<< $super`
 superpath=$dir/`basename $superref.js`
 
