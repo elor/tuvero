@@ -66,7 +66,21 @@ define(function() {
       QUnit.equal(a.remove(2), a, 'remove returns this');
       QUnit.equal(a.length, 4, 'remove reduces the size of the matrix');
       QUnit.equal(a.get(1, 2), 0,
-          'get(1,2) after remove() now points to another element; returns 0')
+          'get(1,2) after remove() now points to another element; returns 0');
+
+      a.resize(3)
+      a.set(0, 0, -1);
+      a.set(0, 1, 0);
+      a.set(0, 2, 1);
+
+      QUnit.equal(a.getAbs(0, 0), 1,
+          'getAbs: returns the absolute of a negative value');
+      QUnit.equal(a.getAbs(0, 1), 0,
+          'getAbs: returns the absolute of a zero value');
+      QUnit.equal(a.getAbs(0, 2), 1,
+          'getAbs: returns the absolute of a positive value');
+      QUnit.equal(a.getAbs(0, 3), undefined,
+          'getAbs: returns undefined of an out-of-bounds value');
     });
   };
 });

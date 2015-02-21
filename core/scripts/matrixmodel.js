@@ -101,6 +101,25 @@ define(['lib/extend', './model'], function(extend, Model) {
   };
 
   /**
+   * retrieves the absolute value from the given indices.
+   *
+   * @param row
+   *          vertical position
+   * @param col
+   *          horizontal position
+   * @return abs(get(row, col))
+   */
+  MatrixModel.prototype.getAbs = function(row, col) {
+    var value;
+
+    value = this.get(row, col);
+    if (value < 0) {
+      return -value;
+    }
+    return value;
+  };
+
+  /**
    * sets the value at the given indices and allocates/frees the cell/row if
    * possible
    *

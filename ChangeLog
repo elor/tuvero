@@ -78,8 +78,10 @@
 
 	* core/scripts/matrixmodel.js: full square matrix class
 	provides resize(),remove(),length,get() and set()
+	getAbs() added
 
 	* core/scripts/test/matrixmodel.js: MatrixModel new/resize/get/set/remove tests
+	getAbs() test added
 
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
