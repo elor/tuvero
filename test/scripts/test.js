@@ -11,6 +11,7 @@ require(['config'], function() {
   require(['core/config'], function() {
     require(['core/common', 'qunit',
   'core/test/emitter',
+  'core/test/listmodel',
   'core/test/model',
   'backend/test/matrix',
   'backend/test/ranking',
@@ -26,7 +27,6 @@ require(['config'], function() {
   'ui/test/tab',
   'ui/test/teammodel',
   'ui/test/blobs',
-  'ui/test/listmodel',
   'ui/test/indexedlistmodel',
   'ui/test/listcollectormodel',
   'ui/test/valuemodel',

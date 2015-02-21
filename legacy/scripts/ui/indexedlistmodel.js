@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './listmodel'], function(extend, ListModel) {
+define(['lib/extend', 'core/listmodel'], function(extend, ListModel) {
   /**
    * Constructor for an empty list
    */

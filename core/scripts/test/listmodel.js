@@ -10,7 +10,7 @@ define(function() {
   return function(QUnit, getModule) {
     var ListModel;
 
-    ListModel = getModule('ui/listmodel');
+    ListModel = getModule('core/listmodel');
 
     // TODO test the emitted events
 

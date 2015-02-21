@@ -1,3 +1,27 @@
+2015-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/listmodel.js: ListModel moved to core
+
+	* core/scripts/test/listmodel.js: ListModel moved to core
+
+	* legacy/scripts/ui/indexedlistmodel.js: ListModel references updated
+
+	* legacy/scripts/ui/listmodel.js: ListModel moved to core
+
+	* legacy/scripts/ui/statemodel.js: ListModel references updated
+
+	* legacy/scripts/ui/test/indexedlistmodel.js: ListModel references updated
+
+	* legacy/scripts/ui/test/listcollectormodel.js: ListModel references updated
+
+	* legacy/scripts/ui/test/listmodel.js: ListModel moved to core
+
+	* test/listview.html: ListModel references updated
+
+	* test/scripts/test.js: ListModel references updated
+
+	* test/teamsizeview.html: ListModel references updated
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev

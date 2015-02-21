@@ -11,7 +11,7 @@ define(function() {
     var ListModel, ListCollectorModel, ValueModel;
 
     ValueModel = getModule('ui/valuemodel');
-    ListModel = getModule('ui/listmodel');
+    ListModel = getModule('core/listmodel');
     ListCollectorModel = getModule('ui/listcollectormodel');
 
     QUnit.test('ListCollectorModel', function() {
