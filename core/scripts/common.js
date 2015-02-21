@@ -23,6 +23,7 @@ define([
   'core/rankingcomponent',
   'core/rankingmodel',
   'core/saldorankingcomponent',
+  'core/valuemodel',
   'core/view',
   'core/winsrankingcomponent',
   'backend/blobber',
@@ -129,7 +130,6 @@ define([
   'ui/tournaments',
   'ui/type',
   'ui/update',
-  'ui/valuemodel',
   'ui/valueview'
 ], function(undefined) {
   return function(str) {

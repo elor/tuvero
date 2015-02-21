@@ -10,7 +10,7 @@ define(function() {
   return function(QUnit, getModule) {
     var ValueModel;
 
-    ValueModel = getModule('ui/valuemodel');
+    ValueModel = getModule('core/valuemodel');
 
     QUnit.test('ValueModel', function() {
       var model, listener, obj;

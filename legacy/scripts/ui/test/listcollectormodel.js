@@ -10,7 +10,7 @@ define(function() {
   return function(QUnit, getModule) {
     var ListModel, ListCollectorModel, ValueModel;
 
-    ValueModel = getModule('ui/valuemodel');
+    ValueModel = getModule('core/valuemodel');
     ListModel = getModule('core/listmodel');
     ListCollectorModel = getModule('ui/listcollectormodel');
 

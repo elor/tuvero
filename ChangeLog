@@ -9,10 +9,12 @@
 	* legacy/scripts/ui/listmodel.js: ListModel moved to core
 
 	* legacy/scripts/ui/statemodel.js: ListModel references updated
+	ValueModel references updated
 
 	* legacy/scripts/ui/test/indexedlistmodel.js: ListModel references updated
 
 	* legacy/scripts/ui/test/listcollectormodel.js: ListModel references updated
+	ValueModel references updated
 
 	* legacy/scripts/ui/test/listmodel.js: ListModel moved to core
 
@@ -30,6 +32,22 @@
 	nextcomponent is undefined -> use DUMMYCOMPONENT as the next component
 
 	* core/scripts/rankingmodel.js: throwing an error if the component chain could not be created
+
+	* core/scripts/test/valuemodel.js: ValueModel moved to core
+
+	* core/scripts/valuemodel.js: ValueModel moved to core
+
+	* legacy/scripts/ui/checkboxview.js: ValueModel references updated
+
+	* legacy/scripts/ui/listclickcontroller.js: ValueModel references updated
+
+	* legacy/scripts/ui/teamremovecontroller.js: ValueModel references updated
+
+	* legacy/scripts/ui/teamstab.js: ValueModel references updated
+
+	* legacy/scripts/ui/test/valuemodel.js: ValueModel moved to core
+
+	* legacy/scripts/ui/valuemodel.js: ValueModel moved to core
 
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

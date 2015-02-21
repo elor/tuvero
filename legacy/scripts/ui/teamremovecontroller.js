@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './valuemodel', './listclickcontroller',
+define(['lib/extend', 'core/controller', 'core/valuemodel', './listclickcontroller',
     './classview', 'core/view'], function(extend, Controller, ValueModel,
     ListClickController, ClassView, View) {
 

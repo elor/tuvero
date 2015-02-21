@@ -12,6 +12,7 @@ require(['config'], function() {
     require(['core/common', 'qunit',
   'core/test/emitter',
   'core/test/listmodel',
+  'core/test/valuemodel',
   'core/test/model',
   'backend/test/matrix',
   'backend/test/ranking',
@@ -29,7 +30,6 @@ require(['config'], function() {
   'ui/test/blobs',
   'ui/test/indexedlistmodel',
   'ui/test/listcollectormodel',
-  'ui/test/valuemodel',
   'ui/test/playermodel',
   'ui/test/csv'
 ], function(Common, QUnit) {
