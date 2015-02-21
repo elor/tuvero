@@ -11,6 +11,7 @@
  */
 
 define([
+  'core/antisymmetricmatrixmodel',
   'core/controller',
   'core/emitter',
   'core/gamesrankingcomponent',

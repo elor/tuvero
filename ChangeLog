@@ -107,6 +107,10 @@
 
 	* core/scripts/test/symmetricmatrixmodel.js: testing whether the matrix really is symmetric. It is.
 
+	* core/scripts/antisymmetricmatrixmodel.js: antisymmetric matrix
+
+	* core/scripts/test/antisymmetricmatrixmodel.js: testing the antisymmetric matrix
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev

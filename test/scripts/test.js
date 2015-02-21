@@ -19,6 +19,7 @@ require(['config'], function() {
   'core/test/indexedlistmodel',
   'core/test/vectormodel',
   'core/test/valuemodel',
+  'core/test/antisymmetricmatrixmodel',
   'core/test/model',
   'backend/test/matrix',
   'backend/test/ranking',
