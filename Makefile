@@ -18,7 +18,7 @@ boule: boule/index.html
 test: test/index.html
 
 clean: FORCE
-	rm -rf *-build/ Version
+	rm -rf *-build/
 
 # primary global targets
 
@@ -32,9 +32,6 @@ codestyle: FORCE
 
 # secondary global targets
 
-Version: FORCE
-	./build-tools/write-Version.sh
-
 NEWS: FORCE
 	sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
 
@@ -44,7 +41,7 @@ clean-build-tools:
 clean-shared-code:
 	rm -rf lib core legacy
 
-release: Version NEWS
+release: NEWS
 	./build-tools/prepare-release.sh
 
 merge-master: FORCE

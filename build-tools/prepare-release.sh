@@ -4,20 +4,34 @@
 
 set -e -u
 
+getreleaseversion(){
+    local branch_name="$(git symbolic-ref HEAD 2>/dev/null | xargs basename)"
+    if [ "$branch_name" ]; then
+        echo "error: cannot prepare a release on a detached head. Need a release-### branch" >&2
+        exit 1
+    fi
+
+    local version=${branch_name##release-}
+    if [ "$version" == "$branch_name" ]; then
+        echo "error: current branch is not a release branch: '$branch_name'" >&2
+        exit 1
+    fi
+
+    echo $version
+}
+
 VERSION=$(cat Version)
 
-./build-tools/reset-version.sh
-./build-tools/apply-version.sh
+./build-tools/apply-version.sh "$VERSION"
 git add -u
-git add Version
 git commit -m "release-$VERSION: version pushed"
 
 make all
 git add -u
-git add manifest.appcache
+git add *-build/manifest.appcache
 git commit -m "release-$VERSION: targets built"
 
-git rm boule tac test
+git rm -r boule tac test
 git mv boule-build boule
 git mv tac-build tac
 git mv test-build test

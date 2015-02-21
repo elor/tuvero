@@ -83,6 +83,16 @@
 	* core/scripts/test/matrixmodel.js: MatrixModel new/resize/get/set/remove tests
 	getAbs() test added
 
+	* build-tools/apply-version.sh: syntax changed to apply-version.sh <version>
+
+	* build-tools/prepare-release.sh: using the new apply-version.sh syntax
+	git-adding the correct manifest files
+	recursively removing the source directories
+
+	* build-tools/reset-version.sh: merged into apply-version.sh
+
+	* Makefile: `make Version` removed
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev
