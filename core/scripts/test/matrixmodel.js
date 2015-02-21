@@ -1,6 +1,6 @@
 /**
  * unit tests
- * 
+ *
  * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -68,7 +68,7 @@ define(function() {
       QUnit.equal(a.get(1, 2), 0,
           'get(1,2) after remove() now points to another element; returns 0');
 
-      a.resize(3)
+      a.resize(3);
       a.set(0, 0, -1);
       a.set(0, 1, 0);
       a.set(0, 2, 1);
