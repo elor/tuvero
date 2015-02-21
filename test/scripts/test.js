@@ -15,6 +15,7 @@ require(['config'], function() {
   'core/test/indexedmodel',
   'core/test/matrixmodel',
   'core/test/listmodel',
+  'core/test/symmetricmatrixmodel',
   'core/test/indexedlistmodel',
   'core/test/vectormodel',
   'core/test/valuemodel',

@@ -102,6 +102,11 @@
 
 	* core/scripts/trianglematrixmodel.js: Lower Triangle Matrix, which aborts when reading/writing above the main diagonal
 
+	* core/scripts/symmetricmatrixmodel.js: Symmetric Matrix, which works like TriangleMatrixModel
+	read/write calls above the main diagonal are mapped to the lower triangular portion, enforcing symmetry
+
+	* core/scripts/test/symmetricmatrixmodel.js: testing whether the matrix really is symmetric. It is.
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev
