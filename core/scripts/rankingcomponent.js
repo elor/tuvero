@@ -1,5 +1,10 @@
 /**
- * RankingComponent
+ * RankingComponent: The base class for every ranking component. Chaining them
+ * (singly-linked list using this.nextcomponent) allows for any ranking
+ * priorities, including nonsensical ones.
+ *
+ * Every RankingComponent has access to the ranking object, and references the
+ * next component in the chain. The
  *
  * @return RankingComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -17,8 +22,15 @@ define(function() {
    */
   function RankingComponent(ranking, nextcomponent) {
     this.ranking = ranking;
-    this.nextcomponent = nextcomponent;
-    this.dependencies = {};
+
+    if (nextcomponent) {
+      this.nextcomponent = nextcomponent;
+      this.dependencies = this.nextcomponent.dependencies;
+    } else {
+      this.nextcomponent = RankingComponent.DUMMYCOMPONENT;
+      this.dependencies = {};
+
+    }
   }
 
   /**
@@ -26,6 +38,25 @@ define(function() {
    * be declared by every child class.
    */
   RankingComponent.NAME = 'undefined';
+
+  /**
+   * DUMMYCOMPONENT is the default "nextcomponent", so the sort function does
+   * not fail. It makes sure that players with equal points are assigned the
+   * same place
+   */
+  RankingComponent.DUMMYCOMPONENT = {
+    /**
+     * @param i
+     *          a player index
+     * @param k
+     *          another player index
+     * @return 0. After this step, every player is equal, so multiple first
+     *         places can happen.
+     */
+    compare: function(i, k) {
+      return 0;
+    }
+  };
 
   /**
    * if the values for comparison are independent (points, as opposed to direct
@@ -55,7 +86,7 @@ define(function() {
    * @param k
    *          index of another player
    * @return {Number} see Array.prototype.sort() for an explanation of compare
-   *          functions
+   *         functions
    */
   RankingComponent.prototype.compare = function(i, k) {
     return this.value(k) - this.value(i) || this.nextcomponent.compare(i, k);

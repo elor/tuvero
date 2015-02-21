@@ -40,6 +40,11 @@ define(['lib/extend', './model', './rankingcomponentindex'], function(extend,
 
     this.componentchain = RankingComponentIndex.createComponentChain(this,
         components);
+    if (!this.componentchain) {
+      // FIXME can we NOT use THROW?
+      throw new Error('Cannot create RankingComponent chain.'
+          + 'There should be an error message explaining what is missing.');
+    }
   }
   extend(RankingModel, Model);
 

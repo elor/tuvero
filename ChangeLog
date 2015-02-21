@@ -24,6 +24,13 @@
 
 	* test/scripts/options.js: options.js added for the unit tests
 
+	* core/scripts/rankingcomponentindex.js: a chain ends with undefined, not IDRankingComponent
+
+	* core/scripts/rankingcomponent.js: DUMMYCOMPONENT added to allow for equal ranks
+	nextcomponent is undefined -> use DUMMYCOMPONENT as the next component
+
+	* core/scripts/rankingmodel.js: throwing an error if the component chain could not be created
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev

@@ -32,14 +32,16 @@ define(['./idrankingcomponent', './pointsrankingcomponent',
   RankingComponentIndex.createComponentChain = function(ranking, components) {
     var chainfront, retval;
 
-    chainfront = new RankingComponentIndex['id'](ranking);
+    chainfront = undefined;
 
+    // iterate over the components and chain them in order.
+    // Abort if a component is not defined.
     if (!components.every(function(component) {
       component = component.toLowerCase();
       var constructor = RankingComponentIndex[component];
       if (constructor === undefined) {
         console.error('RankingComponentIndex.createComponentChain error: '
-            + 'unknown component name: ' + component);
+            + 'undefined component name: ' + component);
         return false;
       }
 
@@ -47,7 +49,7 @@ define(['./idrankingcomponent', './pointsrankingcomponent',
 
       return true;
     })) {
-      // some component could not be created
+      // some component could not be created. Abort.
       return undefined;
     }
 
