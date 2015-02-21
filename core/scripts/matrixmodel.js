@@ -151,5 +151,24 @@ define(['lib/extend', './model'], function(extend, Model) {
     return this;
   };
 
+  /**
+   * write the main diagonal elements to a vector
+   *
+   * @param vector
+   *          a VectorModel instance to write the results to
+   * @return vector on success, undefined otherwise
+   */
+  MatrixModel.prototype.diagonal = function(vector) {
+    var index;
+
+    vector.resize(this.length);
+
+    for (index = 0; index < vector.length; index += 1) {
+      vector.set(index, this.get(index, index));
+    }
+
+    return vector;
+  };
+
   return MatrixModel;
 });

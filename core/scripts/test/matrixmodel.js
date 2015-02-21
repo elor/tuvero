@@ -1,6 +1,6 @@
 /**
  * unit tests
- *
+ * 
  * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -15,10 +15,11 @@ define(function() {
     var MatrixModel;
 
     MatrixModel = getModule('core/matrixmodel');
+    VectorModel = getModule('core/vectormodel');
 
     QUnit.test('MatrixModel', function() {
       // constructor validation
-      var a;
+      var a, v, ref;
 
       a = new MatrixModel();
       QUnit.equal(a.length, 0, 'empty size initialization');
@@ -81,6 +82,20 @@ define(function() {
           'getAbs: returns the absolute of a positive value');
       QUnit.equal(a.getAbs(0, 3), undefined,
           'getAbs: returns undefined of an out-of-bounds value');
+
+      a = new MatrixModel(5);
+      [0, 1, 2, 3, 4].map(function(row) {
+        [0, 1, 2, 3, 4].map(function(col) {
+          a.set(row, col, row * a.length + col);
+        });
+      });
+
+      v = new VectorModel();
+      ref = [0, 6, 12, 18, 24];
+
+      QUnit.equal(a.diagonal(v), v, 'diagonal() returns the vector');
+      QUnit.equal(v.length, 5, 'diagonal() resizes the vector');
+      QUnit.deepEqual(v.asArray(), ref, 'diagonal has really been extracted');
     });
   };
 });
