@@ -31,6 +31,7 @@ git add -u
 git add *-build/manifest.appcache
 git commit -m "release-$VERSION: targets built"
 
+git rm -r core legacy lib
 git rm -r boule tac test
 git mv boule-build boule
 git mv tac-build tac

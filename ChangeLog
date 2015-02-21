@@ -88,6 +88,7 @@
 	* build-tools/prepare-release.sh: using the new apply-version.sh syntax
 	git-adding the correct manifest files
 	recursively removing the source directories
+	recursively removing core, legacy and lib directories, too
 
 	* build-tools/reset-version.sh: merged into apply-version.sh
 
