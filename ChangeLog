@@ -68,6 +68,8 @@
 
 	* legacy/scripts/ui/test/teammodel.js: IndexedModel/IndexedListModel references updated
 
+	* legacy/scripts/ui/debug.js: "dev version" checking restored. Matching /-dev$/ now
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev

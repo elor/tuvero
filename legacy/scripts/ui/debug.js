@@ -21,7 +21,7 @@ define(['./toast', './strings', 'jquery'], function(Toast, Strings, $) {
   };
 
   $(function($) {
-    Debug.isDevVersion = /%version%/.test($('head title').text().toLowerCase());
+    Debug.isDevVersion = /-dev$/.test($('head title').text().toLowerCase());
     if (Debug.isDevVersion) {
       new Toast(Strings.dev, Toast.INFINITE);
     }
