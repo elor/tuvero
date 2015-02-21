@@ -26,6 +26,7 @@ define([
   'core/rankingcomponent',
   'core/rankingmodel',
   'core/saldorankingcomponent',
+  'core/trianglematrixmodel',
   'core/valuemodel',
   'core/vectormodel',
   'core/view',

@@ -5,6 +5,8 @@
  * representations, but this class is supposed to handle extremely sparse
  * matrices. So, we're defining and maintaining our own arrays.
  *
+ * TODO emit events, e.g. for auto-resizing of dependent classes
+ *
  * @return MatrixModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -13,23 +15,19 @@
 define(['lib/extend', './model'], function(extend, Model) {
   /**
    * Constructor
-   */
-  /**
-   * Constructor
    *
    * @param size
-   *          {Integer} size of the matrix. defaults to 0
-   * @return {MatrixModel} this
+   *          size of the matrix. defaults to 0
    */
-  var MatrixModel = function(size) {
+  function MatrixModel(size) {
     MatrixModel.superconstructor.call(this);
 
-    this.array = [];
+    this.data = [];
     this.length = 0;
     this.resize(size || 0);
 
     return this;
-  };
+  }
   extend(MatrixModel, Model);
 
   /**
@@ -44,8 +42,8 @@ define(['lib/extend', './model'], function(extend, Model) {
       return this;
     }
 
-    this.array.splice(index, 1);
-    this.array.forEach(function(b) {
+    this.data.splice(index, 1);
+    this.data.forEach(function(b) {
       b.splice(index, 1);
     });
 
@@ -93,11 +91,11 @@ define(['lib/extend', './model'], function(extend, Model) {
       console.warn('MatrixModel.get(): out of bounds');
       return undefined;
     }
-    if (!this.array[row]) {
+    if (!this.data[row]) {
       return 0;
     }
 
-    return this.array[row][col] || 0;
+    return this.data[row][col] || 0;
   };
 
   /**
@@ -139,11 +137,11 @@ define(['lib/extend', './model'], function(extend, Model) {
       return undefined;
     }
 
-    rowref = this.array[row];
+    rowref = this.data[row];
 
     if (value) {
       if (!rowref) {
-        rowref = this.array[row] = [];
+        rowref = this.data[row] = [];
       }
       rowref[col] = value;
     } else if (rowref) {

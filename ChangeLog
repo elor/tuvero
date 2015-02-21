@@ -24,8 +24,6 @@
 
 	* test/listview.html: ListModel references updated
 
-	* test/scripts/test.js: ListModel references updated
-
 	* test/teamsizeview.html: ListModel references updated
 
 	* test/scripts/options.js: options.js added for the unit tests
@@ -79,9 +77,13 @@
 	* core/scripts/matrixmodel.js: full square matrix class
 	provides resize(),remove(),length,get() and set()
 	getAbs() added
+	Constructor changed to a named function, not a var of an anonymous function
+	TODO added
+	this.array -> this.data
 
 	* core/scripts/test/matrixmodel.js: MatrixModel new/resize/get/set/remove tests
 	getAbs() test added
+	unnecessary variable removed
 
 	* build-tools/apply-version.sh: syntax changed to apply-version.sh <version>
 
@@ -95,6 +97,10 @@
 	* Makefile: `make Version` removed
 
 	* build-tools/create-core-class.sh: writing author and license information to the header comment
+
+	* core/scripts/test/trianglematrixmodel.js: testing whether the "correct" get/set calls fail
+
+	* core/scripts/trianglematrixmodel.js: Lower Triangle Matrix, which aborts when reading/writing above the main diagonal
 
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

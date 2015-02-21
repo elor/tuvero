@@ -18,7 +18,7 @@ define(function() {
 
     QUnit.test('MatrixModel', function() {
       // constructor validation
-      var a, b;
+      var a;
 
       a = new MatrixModel();
       QUnit.equal(a.length, 0, 'empty size initialization');

@@ -11,6 +11,7 @@ require(['config'], function() {
   require(['core/config'], function() {
     require(['core/common', 'qunit',
   'core/test/emitter',
+  'core/test/trianglematrixmodel',
   'core/test/indexedmodel',
   'core/test/matrixmodel',
   'core/test/listmodel',
