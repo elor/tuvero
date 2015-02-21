@@ -68,6 +68,7 @@
 	* legacy/scripts/ui/test/teammodel.js: IndexedModel/IndexedListModel references updated
 
 	* legacy/scripts/ui/debug.js: "dev version" checking restored. Matching /-dev$/ now
+	"dev version" checking fixed again. Matching a sequence number-dot version strings
 
 	* core/scripts/test/vectormodel.js: VectorModel tests added
 
@@ -118,6 +119,7 @@
 	comments added
 
 	* core/scripts/test/antisymmetricmatrixmodel.js: testing the antisymmetric matrix
+	* .#ChangeLog: 
 
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

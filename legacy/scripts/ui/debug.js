@@ -14,14 +14,16 @@ define(['./toast', './strings', 'jquery'], function(Toast, Strings, $) {
       var e, stack;
 
       e = new Error('dummy');
-      stack = e.stack.replace(/^[^\(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '').replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@');
+      stack = e.stack.replace(/^[^\(]+?[\n$]/gm, '').replace(/^\s+at\s+/gm, '')
+          .replace(/^Object.<anonymous>\s*\(/gm, '{anonymous}()@');
       console.log(stack);
     },
     isDevVersion: undefined
   };
 
   $(function($) {
-    Debug.isDevVersion = /-dev$/.test($('head title').text().toLowerCase());
+    Debug.isDevVersion = !/^[0-9]+(\.[0-9]+)+$/.test($('head title').text()
+        .toLowerCase());
     if (Debug.isDevVersion) {
       new Toast(Strings.dev, Toast.INFINITE);
     }
