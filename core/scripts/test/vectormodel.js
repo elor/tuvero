@@ -1,6 +1,6 @@
 /**
  * Unit tests
- * 
+ *
  * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

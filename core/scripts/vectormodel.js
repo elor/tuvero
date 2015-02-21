@@ -26,7 +26,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
    * @param size
    */
   VectorModel.prototype.resize = function(size) {
-    if (!size || size < 0) {
+    if (size === undefined || size < 0) {
       size = 0;
     }
 

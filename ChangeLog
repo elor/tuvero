@@ -74,6 +74,7 @@
 	* core/scripts/test/vectormodel.js: VectorModel tests added
 
 	* core/scripts/vectormodel.js: resize(), sum(), setproduct() and dot() added
+	explicit comparison with undefined
 
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
