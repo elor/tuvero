@@ -19,6 +19,7 @@ define([
   'core/indexedmodel',
   'core/listener',
   'core/listmodel',
+  'core/matrixmodel',
   'core/model',
   'core/pointsrankingcomponent',
   'core/rankingcomponentindex',

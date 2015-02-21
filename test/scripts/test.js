@@ -12,7 +12,7 @@ require(['config'], function() {
     require(['core/common', 'qunit',
   'core/test/emitter',
   'core/test/indexedmodel',
-  'core/test/vector',
+  'core/test/matrixmodel',
   'core/test/listmodel',
   'core/test/indexedlistmodel',
   'core/test/vectormodel',
