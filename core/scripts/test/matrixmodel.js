@@ -1,6 +1,6 @@
 /**
  * unit tests
- * 
+ *
  * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -19,7 +19,7 @@ define(function() {
 
     QUnit.test('MatrixModel', function() {
       // constructor validation
-      var a, v, ref;
+      var a, v, v2, ref;
 
       a = new MatrixModel();
       QUnit.equal(a.length, 0, 'empty size initialization');
@@ -96,6 +96,27 @@ define(function() {
       QUnit.equal(a.diagonal(v), v, 'diagonal() returns the vector');
       QUnit.equal(v.length, 5, 'diagonal() resizes the vector');
       QUnit.deepEqual(v.asArray(), ref, 'diagonal has really been extracted');
+
+      v2 = new VectorModel();
+      v2.push(1);
+      v2.push(2);
+      v2.push(3);
+      v2.push(4);
+      v2.push(5);
+
+      v.resize(0);
+      ref = [40, 115, 190, 265, 340];
+
+      QUnit.equal(a.multVector(v, v2), v, 'multVector() finished properly');
+      QUnit.equal(v.length, 5, 'multVector resizes the output vector');
+      QUnit.deepEqual(v.asArray(), ref, 'multVector performs flawlessly');
+
+      v.resize(0);
+      ref = [200, 215, 230, 245, 260];
+
+      QUnit.equal(a.vectorMult(v, v2), v, 'vectorMult() finished properly');
+      QUnit.equal(v.length, 5, 'vectorMult resizes the output vector');
+      QUnit.deepEqual(v.asArray(), ref, 'vectorMult performs flawlessly');
     });
   };
 });

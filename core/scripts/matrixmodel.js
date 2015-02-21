@@ -170,5 +170,73 @@ define(['lib/extend', './model'], function(extend, Model) {
     return vector;
   };
 
+  /**
+   * perform a Matrix*Vector multiplication and store the results in the
+   * provided output vector
+   *
+   * @param outVec
+   *          the output vector
+   * @param vec
+   *          the input vector
+   * @return outVec on success, containing this*vec. undefined otherwise.
+   */
+  MatrixModel.prototype.multVector = function(outVec, vec) {
+    var row, col, sum;
+
+    if (vec.length !== this.length) {
+      console.warn('MatrixModel.multVector: different input lengths: '
+          + this.length + '<>' + vec.length);
+      return undefined;
+    }
+
+    outVec.resize(vec.length);
+
+    for (row = 0; row < outVec.length; row += 1) {
+      sum = 0;
+
+      for (col = 0; col < outVec.length; col += 1) {
+        sum += this.get(row, col) * vec.get(col);
+      }
+
+      outVec.set(row, sum);
+    }
+
+    return outVec;
+  };
+
+  /**
+   * perform a Vector*Matrix multiplication and store the results in the
+   * provided output vector
+   *
+   * @param outVec
+   *          the output vector
+   * @param vec
+   *          the input vector
+   * @return outVec on success, containing this*vec. undefined otherwise.
+   */
+  MatrixModel.prototype.vectorMult = function(outVec, vec) {
+    var row, col, sum;
+
+    if (vec.length !== this.length) {
+      console.warn('MatrixModel.multVector: different input lengths: '
+          + this.length + '<>' + vec.length);
+      return undefined;
+    }
+
+    outVec.resize(vec.length);
+
+    for (col = 0; col < outVec.length; col += 1) {
+      sum = 0;
+
+      for (row = 0; row < outVec.length; row += 1) {
+        sum += this.get(row, col) * vec.get(row);
+      }
+
+      outVec.set(col, sum);
+    }
+
+    return outVec;
+  };
+
   return MatrixModel;
 });

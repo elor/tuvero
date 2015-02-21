@@ -81,11 +81,13 @@
 	TODO added
 	this.array -> this.data
 	diagonal() added for main diagonal extraction
+	multVector() and vectorMult() added for matrix-vector multiplications
 
 	* core/scripts/test/matrixmodel.js: MatrixModel new/resize/get/set/remove tests
 	getAbs() test added
 	unnecessary variable removed
 	testing diagonal()
+	testing multVector and vectorMult
 
 	* build-tools/apply-version.sh: syntax changed to apply-version.sh <version>
 
