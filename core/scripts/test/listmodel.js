@@ -12,8 +12,6 @@ define(function() {
 
     ListModel = getModule('core/listmodel');
 
-    // TODO test the emitted events
-
     QUnit.test('ListModel tests', function() {
       var list, obj, i, ret, res, listener;
 

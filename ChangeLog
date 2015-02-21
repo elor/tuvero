@@ -3,6 +3,7 @@
 	* core/scripts/listmodel.js: ListModel moved to core
 
 	* core/scripts/test/listmodel.js: ListModel moved to core
+	TODO comment removed
 
 	* legacy/scripts/ui/indexedlistmodel.js: ListModel references updated
 	IndexedListModel moved to core
@@ -69,6 +70,10 @@
 	* legacy/scripts/ui/test/teammodel.js: IndexedModel/IndexedListModel references updated
 
 	* legacy/scripts/ui/debug.js: "dev version" checking restored. Matching /-dev$/ now
+
+	* core/scripts/test/vectormodel.js: VectorModel tests added
+
+	* core/scripts/vectormodel.js: resize(), sum(), setproduct() and dot() added
 
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
