@@ -6,7 +6,9 @@
 # syntax #
 ##########
 
-( [ -z "$1" ] || [ "$1" == "--help" ] || [ "$1" == "-help" ] || [ "$1" == "-h" ] ) && {
+set -e -u
+
+( (( ${#@} == 0 )) || [ -z "$1" ] || [ "$1" == "--help" ] || [ "$1" == "-help" ] || [ "$1" == "-h" ] ) && {
     cat >&2 <<EOF
 Syntax: $0 ClassName
 
@@ -30,6 +32,11 @@ super=$2
 [ -z "$super" ] && super=`grep -Po '[A-Z][a-z]+$' <<< $class`
 superref=./`tr '[:upper:]' '[:lower:]' <<< $super`
 superpath=$dir/`basename $superref.js`
+gitauthor="$(git config user.name)"
+gitemail="$(git config user.email)"
+
+[ -z "$gitauthor" ] && { echo "error: git config: user.name missing">&2; exit 1; }
+[ -z "$gitemail" ] && { echo "error: git config: user.email missing">&2; exit 1; }
 
 #########################
 # output for validation #
@@ -42,6 +49,8 @@ path name: $dir
 file name: $filename
 superclass: $super
 superref: $superref
+author: $gitauthor
+email: $gitemail
 
 EOF
 
@@ -51,7 +60,7 @@ EOF
 
 grep -P '([A-Z][a-z]+){2,}' &>/dev/null <<< $class || { echo "'$class' is not in CamelCase with two or more words" >&2; exit 1; }
 
-[ -s $fullpath ] && {  echo "$fullpath exists already">&2; exit 1;}
+[ -s $fullpath ] && {  echo "$fullpath already exists">&2; exit 1;}
 [ -f $superpath ] || { echo "superclass file does not exist: $superpath">&2; exit 1; }
 
 ####################
@@ -63,6 +72,9 @@ cat > $fullpath <<EOF
  * $class
  * 
  * @return $class
+ * @author $gitauthor <$gitemail>
+ * @license MIT License
+ * @see LICENSE
  */
 define(['lib/extend', '$superref'], function(extend, $super){
   /**
@@ -77,4 +89,7 @@ define(['lib/extend', '$superref'], function(extend, $super){
 });
 EOF
 
-echo "$fullpath created"
+echo "$fullpath created:"
+echo
+
+cat "$fullpath"

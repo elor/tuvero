@@ -93,6 +93,8 @@
 
 	* Makefile: `make Version` removed
 
+	* build-tools/create-core-class.sh: writing author and license information to the header comment
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev
