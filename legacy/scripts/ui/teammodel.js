@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './indexedmodel', './playermodel'], function(extend,
+define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
     IndexedModel, PlayerModel) {
 
   /**

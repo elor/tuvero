@@ -12,7 +12,7 @@ define(function() {
 
     extend = getModule('lib/extend');
     TeamModel = getModule('ui/teammodel');
-    IndexedModel = getModule('ui/indexedmodel');
+    IndexedModel = getModule('core/indexedmodel');
     PlayerModel = getModule('ui/playermodel');
 
     QUnit.test('TeamModel tests', function() {

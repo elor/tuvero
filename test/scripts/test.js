@@ -11,7 +11,9 @@ require(['config'], function() {
   require(['core/config'], function() {
     require(['core/common', 'qunit',
   'core/test/emitter',
+  'core/test/indexedmodel',
   'core/test/listmodel',
+  'core/test/indexedlistmodel',
   'core/test/valuemodel',
   'core/test/model',
   'backend/test/matrix',
@@ -24,11 +26,9 @@ require(['config'], function() {
   'backend/test/kotournament',
   'backend/test/random',
 
-  'ui/test/indexedmodel',
   'ui/test/tab',
   'ui/test/teammodel',
   'ui/test/blobs',
-  'ui/test/indexedlistmodel',
   'ui/test/listcollectormodel',
   'ui/test/playermodel',
   'ui/test/csv'

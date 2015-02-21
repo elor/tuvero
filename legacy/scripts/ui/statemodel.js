@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['core/listmodel', './indexedlistmodel', 'core/valuemodel',
+define(['core/listmodel', 'core/indexedlistmodel', 'core/valuemodel',
     './listcleanuplistener'], function(ListModel, IndexedListModel, ValueModel,
     ListCleanupListener) {
 

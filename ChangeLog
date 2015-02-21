@@ -5,13 +5,16 @@
 	* core/scripts/test/listmodel.js: ListModel moved to core
 
 	* legacy/scripts/ui/indexedlistmodel.js: ListModel references updated
+	IndexedListModel moved to core
 
 	* legacy/scripts/ui/listmodel.js: ListModel moved to core
 
 	* legacy/scripts/ui/statemodel.js: ListModel references updated
 	ValueModel references updated
+	IndexedModel/IndexedListModel references updated
 
 	* legacy/scripts/ui/test/indexedlistmodel.js: ListModel references updated
+	IndexedListModel moved to core
 
 	* legacy/scripts/ui/test/listcollectormodel.js: ListModel references updated
 	ValueModel references updated
@@ -48,6 +51,22 @@
 	* legacy/scripts/ui/test/valuemodel.js: ValueModel moved to core
 
 	* legacy/scripts/ui/valuemodel.js: ValueModel moved to core
+
+	* core/scripts/indexedlistmodel.js: IndexedListModel moved to core
+
+	* core/scripts/indexedmodel.js: IndexedModel moved to core
+
+	* core/scripts/test/indexedlistmodel.js: IndexedListModel moved to core
+
+	* core/scripts/test/indexedmodel.js: IndexedModel moved to core
+
+	* legacy/scripts/ui/indexedmodel.js: IndexedModel moved to core
+
+	* legacy/scripts/ui/teammodel.js: IndexedModel/IndexedListModel references updated
+
+	* legacy/scripts/ui/test/indexedmodel.js: IndexedModel moved to core
+
+	* legacy/scripts/ui/test/teammodel.js: IndexedModel/IndexedListModel references updated
 
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
