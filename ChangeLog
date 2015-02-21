@@ -22,6 +22,8 @@
 
 	* test/teamsizeview.html: ListModel references updated
 
+	* test/scripts/options.js: options.js added for the unit tests
+
 2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev
