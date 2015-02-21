@@ -95,19 +95,23 @@
 	* build-tools/reset-version.sh: merged into apply-version.sh
 
 	* Makefile: `make Version` removed
+	`make codestyle` now depends on `make scripts`
 
 	* build-tools/create-core-class.sh: writing author and license information to the header comment
 
 	* core/scripts/test/trianglematrixmodel.js: testing whether the "correct" get/set calls fail
 
 	* core/scripts/trianglematrixmodel.js: Lower Triangle Matrix, which aborts when reading/writing above the main diagonal
+	comments added
 
 	* core/scripts/symmetricmatrixmodel.js: Symmetric Matrix, which works like TriangleMatrixModel
 	read/write calls above the main diagonal are mapped to the lower triangular portion, enforcing symmetry
+	comments added
 
 	* core/scripts/test/symmetricmatrixmodel.js: testing whether the matrix really is symmetric. It is.
 
 	* core/scripts/antisymmetricmatrixmodel.js: antisymmetric matrix
+	comments added
 
 	* core/scripts/test/antisymmetricmatrixmodel.js: testing the antisymmetric matrix
 

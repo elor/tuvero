@@ -27,7 +27,7 @@ scripts: FORCE
 	./build-tools/create-testjs.sh
 	./build-tools/update-headers.sh
 
-codestyle: FORCE
+codestyle: scripts
 	./build-tools/codestyle.sh
 
 # secondary global targets
