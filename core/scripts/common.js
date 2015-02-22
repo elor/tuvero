@@ -29,6 +29,7 @@ define([
   'core/rankinglostpointslistener',
   'core/rankingmodel',
   'core/rankingnumgamescomponent',
+  'core/rankingnumgameslistener',
   'core/rankingpointscomponent',
   'core/rankingpointslistener',
   'core/rankingsaldocomponent',

@@ -58,6 +58,8 @@
 
 	* core/scripts/test/rankingcomponentindex.js: RankingComponentIndex tests: chaining and  invalid names
 
+	* core/scripts/rankingnumgameslistener.js: RankingNumGamesListener added
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core
