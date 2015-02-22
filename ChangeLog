@@ -32,10 +32,12 @@
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 	cyclic inheritance fixed
 	events: insert -> result
+	result.player -> result.players
 
 	* core/scripts/rankingwinslistener.js: updates ranking.wins
 	cyclic inheritance fixed
 	events: insert -> result
+	result.player -> result.players
 
 	* core/scripts/gamesrankingcomponent.js: using VectorModel.get()
 
@@ -49,6 +51,7 @@
 	typo fixed: It accidentally ADDED the points, instead of subtracting
 	cyclic inheritance fixed
 	events: insert -> result
+	result.player -> result.players
 
 	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
 	cyclic inheritance fixed
@@ -80,17 +83,21 @@
 
 	* core/scripts/rankingnumgameslistener.js: RankingNumGamesListener added
 	events: insert -> result
+	result.player -> result.players
 
 	* core/scripts/test/rankingdatalistenerindex.js: test for RankingDataListenerIndex added
 	registerDataListeners(): swapping argument order
 	ranking.size -> ranking.length
 	events: insert -> result
+	using GameResult class
 
 	* build-tools/create-commonjs.sh: throwing an error if the module is undefined
 
 	* build-tools/create-testjs.sh: parsing and displaying load errors in the console and QUnit
 
 	* core/scripts/test/rankingmodel.js: RankingModel tests added: construction exceptions
+
+	* core/scripts/gameresult.js: simple GameResult class added
 
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 

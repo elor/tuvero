@@ -14,6 +14,7 @@ define([
   'core/antisymmetricmatrixmodel',
   'core/controller',
   'core/emitter',
+  'core/gameresult',
   'core/indexedlistmodel',
   'core/indexedmodel',
   'core/listener',

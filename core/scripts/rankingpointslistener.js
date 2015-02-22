@@ -34,7 +34,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    *          a game result
    */
   RankingPointsListener.prototype.onresult = function(r, e, result) {
-    result.player.forEach(function(player, index) {
+    result.players.forEach(function(player, index) {
       this.points.set(player, this.points.get(player) + result.points[index]);
     }, this);
   };

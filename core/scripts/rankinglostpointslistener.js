@@ -38,8 +38,8 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    *          a game result
    */
   RankingLostPointsListener.prototype.onresult = function(r, e, result) {
-    result.player.forEach(function(opponent, index) {
-      result.player.forEach(function(player) {
+    result.players.forEach(function(opponent, index) {
+      result.players.forEach(function(player) {
         if (player !== opponent) {
           this.lostpoints.set(player, this.lostpoints.get(player)
               - result.points[index]);

@@ -39,7 +39,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'],
         winner = undefined;
         maxpoints = undefined;
 
-        result.player.forEach(function(player, index) {
+        result.players.forEach(function(player, index) {
           var points;
           points = result.points[player];
           if (maxpoints === undefined || points > maxpoints) {

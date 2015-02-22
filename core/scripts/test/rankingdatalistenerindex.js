@@ -9,9 +9,10 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingDataListenerIndex, Emitter, extend;
+    var RankingDataListenerIndex, Emitter, GameResult;
 
     RankingDataListenerIndex = getModule('core/rankingdatalistenerindex');
+    GameResult = getModule('core/gameresult');
     Emitter = getModule('core/emitter');
 
     QUnit.test('RankingDataListenerIndex', function() {
@@ -40,25 +41,16 @@ define(function() {
       QUnit.equal(dummyRanking.points, listeners[0].points,
           'dummyRanking and listener share the reference');
 
-      result = {
-        player: [1, 4],
-        points: [13, 7]
-      };
+      result = new GameResult([1, 4], [13, 7]);
       dummyRanking.emit('result', result);
 
       ref = [0, 13, 0, 0, 7];
       QUnit.deepEqual(dummyRanking.points.asArray(), ref,
           'single result accepted');
 
-      result = {
-        player: [0, 1],
-        points: [5, 11]
-      };
+      result = new GameResult([0, 1], [5, 11]);
       dummyRanking.emit('result', result);
-      result = {
-        player: [3, 2],
-        points: [13, 0]
-      };
+      result = new GameResult([3, 2], [13, 0]);
       dummyRanking.emit('result', result);
 
       ref = [5, 24, 0, 13, 7];
