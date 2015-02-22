@@ -75,13 +75,12 @@ define(['lib/extend', './model', './rankingcomponentindex',
    * the different events
    */
   RankingModel.prototype.EVENTS = {
-    'insert': true, // insert a new game
+    'result': true, // insert a new game
     'correct': true, // correct a game
     'recalc': true, // force a recalculation
     'update': true, // there has been an update
     'reset': true, // everything has to be reset
-    'resize': true
-  // add players to the end, or truncate them
+    'resize': true // the size of the ranking has been changed
   };
 
   // TODO finishGame(), correctGame(), get(), emit('update'), emit('reset'),

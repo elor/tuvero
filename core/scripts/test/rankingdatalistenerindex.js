@@ -44,7 +44,7 @@ define(function() {
         player: [1, 4],
         points: [13, 7]
       };
-      dummyRanking.emit('insert', result);
+      dummyRanking.emit('result', result);
 
       ref = [0, 13, 0, 0, 7];
       QUnit.deepEqual(dummyRanking.points.asArray(), ref,
@@ -54,12 +54,12 @@ define(function() {
         player: [0, 1],
         points: [5, 11]
       };
-      dummyRanking.emit('insert', result);
+      dummyRanking.emit('result', result);
       result = {
         player: [3, 2],
         points: [13, 0]
       };
-      dummyRanking.emit('insert', result);
+      dummyRanking.emit('result', result);
 
       ref = [5, 24, 0, 13, 7];
       QUnit.deepEqual(dummyRanking.points.asArray(), ref,

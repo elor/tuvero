@@ -14,6 +14,8 @@
 	In the AntisymmetricMatrixModel, the superdiagonal elements are inverted
 
 	* core/scripts/rankingdatalistener.js: Base class for ranking data fields
+	ranking.size -> ranking.length
+	events: insert -> result
 
 	* core/scripts/rankingmodel.js: RankingDataListeners will be event-based
 	Additional dependencies on construction (e.g. for 'have they played before'-type questions)
@@ -23,12 +25,15 @@
 	processing the additional dependencies
 	size -> length
 	keeping componentnames
+	events: insert -> result
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 	cyclic inheritance fixed
+	events: insert -> result
 
 	* core/scripts/rankingwinslistener.js: updates ranking.wins
 	cyclic inheritance fixed
+	events: insert -> result
 
 	* core/scripts/gamesrankingcomponent.js: using VectorModel.get()
 
@@ -41,6 +46,7 @@
 	* core/scripts/rankinglostpointslistener.js: subtracting the opponent's points to lostpoints
 	typo fixed: It accidentally ADDED the points, instead of subtracting
 	cyclic inheritance fixed
+	events: insert -> result
 
 	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
 	cyclic inheritance fixed
@@ -71,10 +77,12 @@
 	* core/scripts/test/rankingcomponentindex.js: RankingComponentIndex tests: chaining and  invalid names
 
 	* core/scripts/rankingnumgameslistener.js: RankingNumGamesListener added
+	events: insert -> result
 
 	* core/scripts/test/rankingdatalistenerindex.js: test for RankingDataListenerIndex added
 	registerDataListeners(): swapping argument order
 	ranking.size -> ranking.length
+	events: insert -> result
 
 	* build-tools/create-commonjs.sh: throwing an error if the module is undefined
 

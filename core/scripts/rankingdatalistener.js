@@ -30,7 +30,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
     Const = this.constructor;
 
     // map the ranking field
-    fieldobject.resize(ranking.size);
+    fieldobject.resize(ranking.length);
     ranking[Const.NAME] = fieldobject;
     this[Const.NAME] = fieldobject;
 
@@ -68,7 +68,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    * @param game
    *          a game result
    */
-  RankingDataListener.prototype.oninsert = function(r, e, game) {
+  RankingDataListener.prototype.onresult = function(r, e, game) {
     // do something to this.field
   };
 
@@ -103,7 +103,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    * @param ranking
    */
   RankingDataListener.prototype.onresize = function(ranking) {
-    this[this.constructor.NAME].resize(ranking.size);
+    this[this.constructor.NAME].resize(ranking.length);
   };
 
   return RankingDataListener;

@@ -33,7 +33,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    * @param result
    *          a game result
    */
-  RankingNumGamesListener.prototype.oninsert = function(r, e, result) {
+  RankingNumGamesListener.prototype.onresult = function(r, e, result) {
     result.player.forEach(function(player) {
       this.numgames.set(player, this.numgames.get(player) + 1);
     }, this);

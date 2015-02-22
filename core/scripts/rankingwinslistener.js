@@ -33,7 +33,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'],
        * @param result
        *          a game result
        */
-      RankingWinsListener.prototype.oninsert = function(r, e, result) {
+      RankingWinsListener.prototype.onresult = function(r, e, result) {
         var winner, maxpoints;
 
         winner = undefined;
