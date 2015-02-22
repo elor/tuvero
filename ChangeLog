@@ -18,6 +18,14 @@
 
 	* core/scripts/rankingwinslistener.js: updates ranking.wins
 
+	* core/scripts/gamesrankingcomponent.js: using VectorModel.get()
+
+	* core/scripts/pointsrankingcomponent.js: using VectorModel.get()
+
+	* core/scripts/saldorankingcomponent.js: using VectorModel.get()
+
+	* core/scripts/winsrankingcomponent.js: using VectorModel.get()
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core

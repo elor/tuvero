@@ -30,7 +30,7 @@ define(['lib/extend', './rankingcomponent'],
        * @return the number of won games
        */
       WinsRankingComponent.prototype.value = function(i) {
-        return this.ranking.wins[i];
+        return this.ranking.wins.get(i);
       };
 
       return WinsRankingComponent;

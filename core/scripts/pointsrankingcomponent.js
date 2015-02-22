@@ -30,7 +30,7 @@ define(['lib/extend', './rankingcomponent'],
        * @return the small points: won points, without subtracting lost points
        */
       PointsRankingComponent.prototype.value = function(i) {
-        return this.ranking.wonpoints[i];
+        return this.ranking.points.get(i);
       };
 
       return PointsRankingComponent;

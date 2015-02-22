@@ -30,7 +30,7 @@ define(['lib/extend', './rankingcomponent'],
        * @return the point difference, aka. saldo points
        */
       SaldoRankingComponent.prototype.value = function(i) {
-        return this.ranking.saldo[i];
+        return this.ranking.saldo.get(i);
       };
 
       return SaldoRankingComponent;
