@@ -16,17 +16,19 @@ define(['lib/extend', './model', './rankingcomponentindex'], function(extend,
    *
    * @param components
    *          an array with sorting strings
+   * @param size
+   *          the number of teams/players
+   * @param dependencies
+   *          an object of additional dependencies, e.g. a games matrix for
    */
-  function RankingModel(components, size) {
+  function RankingModel(components, size, dependencies) {
     RankingModel.superconstructor.call(this);
 
     this.size = size;
     // TODO dependency system with the following components:
     //
     // TODO fullmatrix this.games (i beat k -> [i][k] += 1)
-    // TODO vector this.wins (+1 for every win, can be calc'd from this.games)
     // TODO vector this.numgames (+1 for every finished game)
-    // TODO vector this.ownpoints (+1 for every own point)
     // TODO vector this.lostpoints (+1 for every opponent's point)
     // TODO vector this.saldopoints (calculated from ownpoints-lostpoints)
     // TODO array this.corrections (entry of every correction, for bookkeeping)
@@ -47,6 +49,18 @@ define(['lib/extend', './model', './rankingcomponentindex'], function(extend,
     }
   }
   extend(RankingModel, Model);
+
+  /**
+   * the different events
+   */
+  RankingModel.prototype.EVENTS = {
+    'insert': true, // insert a new game
+    'correct': true, // correct a game
+    'recalc': true, // force a recalculation
+    'update': true, // there has been an update
+    'reset': true, // everything has to be reset
+    'resize': true // add players to the end, or truncate them
+  };
 
   // TODO finishGame(), correctGame(), get(), emit('update'), emit('reset'),
   // reset()

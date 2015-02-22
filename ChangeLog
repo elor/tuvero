@@ -9,6 +9,11 @@
 	* core/scripts/test/matrixmodel.js: fill() added: fill whole array with one value
 	In the AntisymmetricMatrixModel, the superdiagonal elements are inverted
 
+	* core/scripts/rankingdatalistener.js: Base class for ranking data fields
+
+	* core/scripts/rankingmodel.js: RankingDataListeners will be event-based
+	Additional dependencies on construction (e.g. for 'have they played before'-type questions)
+
 2015-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: ListModel moved to core
