@@ -34,6 +34,12 @@
 
 	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
 
+	* core/scripts/rankinggamescomponent.js: fixed a wrong NAME (copy&paste error)
+
+	* core/scripts/rankingidcomponent.js: added an empty DEPENDENCIES array to avoid the implicit 'id' dependency
+
+	* core/scripts/rankingwinscomponent.js: fixed a wrong NAME (copy&paste error)
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core

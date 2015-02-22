@@ -22,7 +22,7 @@ define(['lib/extend', './rankingcomponent'],
       }
       extend(RankingWinsComponent, RankingComponent);
 
-      RankingWinsComponent.NAME = 'id';
+      RankingWinsComponent.NAME = 'wins';
 
       /**
        * @param i
