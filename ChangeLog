@@ -67,6 +67,10 @@
 
 	* core/scripts/test/rankingdatalistenerindex.js: test for RankingDataListenerIndex added
 
+	* build-tools/create-commonjs.sh: throwing an error if the module is undefined
+
+	* build-tools/create-testjs.sh: parsing and displaying load errors in the console and QUnit
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core

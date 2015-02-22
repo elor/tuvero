@@ -31,7 +31,12 @@ $(printrefs lib $libdir)
 $(printrefs ui $uidir | sed '$s/,$//')
 ], function(undefined) {
   return function(str) {
-    return require.s.contexts._.defined[str];
+    var module = require.s.contexts._.defined[str];
+    if (!module) {
+      throw new Error('module "' + str +
+        '" is undefined, not loaded or equals 0 in some way => ' + module);
+    }
+    return module;
   };
 });
 EOF

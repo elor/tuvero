@@ -31,7 +31,19 @@ $(printrefs ui $uidir | sed '$s/,$//')
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {
-            arguments[i](QUnit, Common);
+            try {
+              arguments[i](QUnit, Common);
+            } catch (e) {
+              QUnit.test('Loading Error', function() {
+                var source = e.stack.split('\n')[2].replace(/^ *at */, '')
+                  .replace(/\?bust=[0-9]*/, '');
+                console.error(e.message);
+                console.error(source);
+                QUnit.ok(false, 'cannot load module ' +
+                  e.message.match(/"[^"]+"/) + '. Possible typo?\n' +
+                  source);
+              });
+            }
           }
           QUnit.load();
           QUnit.start();
