@@ -88,6 +88,8 @@
 
 	* build-tools/create-testjs.sh: parsing and displaying load errors in the console and QUnit
 
+	* core/scripts/test/rankingmodel.js: RankingModel tests added: construction exceptions
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core
