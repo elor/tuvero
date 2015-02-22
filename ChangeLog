@@ -14,97 +14,101 @@
 	* core/scripts/rankingmodel.js: RankingDataListeners will be event-based
 	Additional dependencies on construction (e.g. for 'have they played before'-type questions)
 
-2015-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+	* core/scripts/rankingpointslistener.js: updates ranking.points
 
-	* core/scripts/listmodel.js: ListModel moved to core
+	* core/scripts/rankingwinslistener.js: updates ranking.wins
 
-	* core/scripts/test/listmodel.js: ListModel moved to core
-	TODO comment removed
+2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* legacy/scripts/ui/indexedlistmodel.js: ListModel references updated
-	IndexedListModel moved to core
+	* core/scripts/listmodel.js: listmodel moved to core
 
-	* legacy/scripts/ui/listmodel.js: ListModel moved to core
+	* core/scripts/test/listmodel.js: listmodel moved to core
+	todo comment removed
 
-	* legacy/scripts/ui/statemodel.js: ListModel references updated
-	ValueModel references updated
-	IndexedModel/IndexedListModel references updated
+	* legacy/scripts/ui/indexedlistmodel.js: listmodel references updated
+	indexedlistmodel moved to core
 
-	* legacy/scripts/ui/test/indexedlistmodel.js: ListModel references updated
-	IndexedListModel moved to core
+	* legacy/scripts/ui/listmodel.js: listmodel moved to core
 
-	* legacy/scripts/ui/test/listcollectormodel.js: ListModel references updated
-	ValueModel references updated
+	* legacy/scripts/ui/statemodel.js: listmodel references updated
+	valuemodel references updated
+	indexedmodel/indexedlistmodel references updated
 
-	* legacy/scripts/ui/test/listmodel.js: ListModel moved to core
+	* legacy/scripts/ui/test/indexedlistmodel.js: listmodel references updated
+	indexedlistmodel moved to core
 
-	* test/listview.html: ListModel references updated
+	* legacy/scripts/ui/test/listcollectormodel.js: listmodel references updated
+	valuemodel references updated
 
-	* test/teamsizeview.html: ListModel references updated
+	* legacy/scripts/ui/test/listmodel.js: listmodel moved to core
+
+	* test/listview.html: listmodel references updated
+
+	* test/teamsizeview.html: listmodel references updated
 
 	* test/scripts/options.js: options.js added for the unit tests
 
-	* core/scripts/rankingcomponentindex.js: a chain ends with undefined, not IDRankingComponent
+	* core/scripts/rankingcomponentindex.js: a chain ends with undefined, not idrankingcomponent
 
-	* core/scripts/rankingcomponent.js: DUMMYCOMPONENT added to allow for equal ranks
-	nextcomponent is undefined -> use DUMMYCOMPONENT as the next component
+	* core/scripts/rankingcomponent.js: dummycomponent added to allow for equal ranks
+	nextcomponent is undefined -> use dummycomponent as the next component
 
 	* core/scripts/rankingmodel.js: throwing an error if the component chain could not be created
 
-	* core/scripts/test/valuemodel.js: ValueModel moved to core
+	* core/scripts/test/valuemodel.js: valuemodel moved to core
 
-	* core/scripts/valuemodel.js: ValueModel moved to core
+	* core/scripts/valuemodel.js: valuemodel moved to core
 
-	* legacy/scripts/ui/checkboxview.js: ValueModel references updated
+	* legacy/scripts/ui/checkboxview.js: valuemodel references updated
 
-	* legacy/scripts/ui/listclickcontroller.js: ValueModel references updated
+	* legacy/scripts/ui/listclickcontroller.js: valuemodel references updated
 
-	* legacy/scripts/ui/teamremovecontroller.js: ValueModel references updated
+	* legacy/scripts/ui/teamremovecontroller.js: valuemodel references updated
 
-	* legacy/scripts/ui/teamstab.js: ValueModel references updated
+	* legacy/scripts/ui/teamstab.js: valuemodel references updated
 
-	* legacy/scripts/ui/test/valuemodel.js: ValueModel moved to core
+	* legacy/scripts/ui/test/valuemodel.js: valuemodel moved to core
 
-	* legacy/scripts/ui/valuemodel.js: ValueModel moved to core
+	* legacy/scripts/ui/valuemodel.js: valuemodel moved to core
 
-	* core/scripts/indexedlistmodel.js: IndexedListModel moved to core
+	* core/scripts/indexedlistmodel.js: indexedlistmodel moved to core
 
-	* core/scripts/indexedmodel.js: IndexedModel moved to core
+	* core/scripts/indexedmodel.js: indexedmodel moved to core
 
-	* core/scripts/test/indexedlistmodel.js: IndexedListModel moved to core
+	* core/scripts/test/indexedlistmodel.js: indexedlistmodel moved to core
 
-	* core/scripts/test/indexedmodel.js: IndexedModel moved to core
+	* core/scripts/test/indexedmodel.js: indexedmodel moved to core
 
-	* legacy/scripts/ui/indexedmodel.js: IndexedModel moved to core
+	* legacy/scripts/ui/indexedmodel.js: indexedmodel moved to core
 
-	* legacy/scripts/ui/teammodel.js: IndexedModel/IndexedListModel references updated
+	* legacy/scripts/ui/teammodel.js: indexedmodel/indexedlistmodel references updated
 
-	* legacy/scripts/ui/test/indexedmodel.js: IndexedModel moved to core
+	* legacy/scripts/ui/test/indexedmodel.js: indexedmodel moved to core
 
-	* legacy/scripts/ui/test/teammodel.js: IndexedModel/IndexedListModel references updated
+	* legacy/scripts/ui/test/teammodel.js: indexedmodel/indexedlistmodel references updated
 
-	* legacy/scripts/ui/debug.js: "dev version" checking restored. Matching /-dev$/ now
-	"dev version" checking fixed again. Matching a sequence number-dot version strings
+	* legacy/scripts/ui/debug.js: "dev version" checking restored. matching /-dev$/ now
+	"dev version" checking fixed again. matching a sequence number-dot version strings
 
-	* core/scripts/test/vectormodel.js: VectorModel tests added
+	* core/scripts/test/vectormodel.js: vectormodel tests added
 
 	* core/scripts/vectormodel.js: resize(), sum(), setproduct() and dot() added
 	explicit comparison with undefined
 
 	* core/scripts/matrixmodel.js: full square matrix class
 	provides resize(),remove(),length,get() and set()
-	getAbs() added
-	Constructor changed to a named function, not a var of an anonymous function
-	TODO added
+	getabs() added
+	constructor changed to a named function, not a var of an anonymous function
+	todo added
 	this.array -> this.data
 	diagonal() added for main diagonal extraction
-	multVector() and vectorMult() added for matrix-vector multiplications
+	multvector() and vectormult() added for matrix-vector multiplications
 
-	* core/scripts/test/matrixmodel.js: MatrixModel new/resize/get/set/remove tests
-	getAbs() test added
+	* core/scripts/test/matrixmodel.js: matrixmodel new/resize/get/set/remove tests
+	getabs() test added
 	unnecessary variable removed
 	testing diagonal()
-	testing multVector and vectorMult
+	testing multvector and vectormult
 
 	* build-tools/apply-version.sh: syntax changed to apply-version.sh <version>
 
@@ -115,81 +119,81 @@
 
 	* build-tools/reset-version.sh: merged into apply-version.sh
 
-	* Makefile: `make Version` removed
+	* makefile: `make version` removed
 	`make codestyle` now depends on `make scripts`
 
 	* build-tools/create-core-class.sh: writing author and license information to the header comment
 
 	* core/scripts/test/trianglematrixmodel.js: testing whether the "correct" get/set calls fail
 
-	* core/scripts/trianglematrixmodel.js: Lower Triangle Matrix, which aborts when reading/writing above the main diagonal
+	* core/scripts/trianglematrixmodel.js: lower triangle matrix, which aborts when reading/writing above the main diagonal
 	comments added
 
-	* core/scripts/symmetricmatrixmodel.js: Symmetric Matrix, which works like TriangleMatrixModel
+	* core/scripts/symmetricmatrixmodel.js: symmetric matrix, which works like trianglematrixmodel
 	read/write calls above the main diagonal are mapped to the lower triangular portion, enforcing symmetry
 	comments added
 
-	* core/scripts/test/symmetricmatrixmodel.js: testing whether the matrix really is symmetric. It is.
+	* core/scripts/test/symmetricmatrixmodel.js: testing whether the matrix really is symmetric. it is.
 
 	* core/scripts/antisymmetricmatrixmodel.js: antisymmetric matrix
 	comments added
 
 	* core/scripts/test/antisymmetricmatrixmodel.js: testing the antisymmetric matrix
-	* .#ChangeLog: 
+	* .#changelog: 
 
-2015-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-20	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* *.html: version updated to 1.4.5-dev
 
-	* build-tools/apply-version.sh: support for $VERSION$ dropped
+	* build-tools/apply-version.sh: support for $version$ dropped
 
 	* build-tools/prepare-release.sh: calling reset-version.sh
 
-	* build-tools/reset-version.sh: script to reset the version information to %VERSION%
+	* build-tools/reset-version.sh: script to reset the version information to %version%
 
-	* NEWS: version updated to 1.4.5-dev
+	* news: version updated to 1.4.5-dev
 
-	* README.md: version updated to 1.4.5-dev
+	* readme.md: version updated to 1.4.5-dev
 
-	* Version: version updated to 1.4.5-dev
+	* version: version updated to 1.4.5-dev
 
 	* build-tools/create-core-class.sh: optional second argument: base class
 
-	* core/scripts/gamesrankingcomponent.js: RankingComponent: number of games
+	* core/scripts/gamesrankingcomponent.js: rankingcomponent: number of games
 
-	* core/scripts/idrankingcomponent.js: RankingComponent: player id
+	* core/scripts/idrankingcomponent.js: rankingcomponent: player id
 
-	* core/scripts/pointsrankingcomponent.js: RankingComponent: won points
+	* core/scripts/pointsrankingcomponent.js: rankingcomponent: won points
 
-	* core/scripts/rankingcomponentindex.js: an index of all RankingComponents
+	* core/scripts/rankingcomponentindex.js: an index of all rankingcomponents
 
-	* core/scripts/rankingcomponent.js: RankingComponent base class
-	RankingComponents contain compare() and value() functions and form chains for sorting
+	* core/scripts/rankingcomponent.js: rankingcomponent base class
+	rankingcomponents contain compare() and value() functions and form chains for sorting
 
-	* core/scripts/rankingmodel.js: RankingModel, the new general ranking class
+	* core/scripts/rankingmodel.js: rankingmodel, the new general ranking class
 
-	* core/scripts/saldorankingcomponent.js: RankingComponent: point difference
+	* core/scripts/saldorankingcomponent.js: rankingcomponent: point difference
 
-	* core/scripts/winsrankingcomponent.js: RankingComponent: won games
+	* core/scripts/winsrankingcomponent.js: rankingcomponent: won games
 
-2015-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-18	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* tac/images/favicon.png: TAC favicon added
+	* tac/images/favicon.png: tac favicon added
 
-	* tac/images/games.png: pure black TAC games added (like favicon)
+	* tac/images/games.png: pure black tac games added (like favicon)
 	using the colored tac icon for now
 
-	* tac/images/svg/games_black.svg: black TAC icon
+	* tac/images/svg/games_black.svg: black tac icon
 
-	* tac/images/svg/games.svg: colored TAC icon
+	* tac/images/svg/games.svg: colored tac icon
 
-	* tac/images/svg/teams1.svg: TAC always has two players
+	* tac/images/svg/teams1.svg: tac always has two players
 
-	* tac/images/svg/teams3.svg: TAC always has two players
+	* tac/images/svg/teams3.svg: tac always has two players
 
-	* tac/images/teams1.png: TAC always has two players
+	* tac/images/teams1.png: tac always has two players
 
-	* tac/images/teams3.png: TAC always has two players
+	* tac/images/teams3.png: tac always has two players
 
 	* tac/images/all.png: team sub-icon has two instead of three players
 
@@ -199,7 +203,7 @@
 
 	* index.html: welcome page added
 
-2015-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-16	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/merge-master.sh: merge a release branch with master
 	removing unused files when done
@@ -208,11 +212,11 @@
 	* build-tools/prepare-release.sh: from a newly created release branch: prepare the release
 	enabling './merge-master.sh' when done
 
-	* Makefile: `make release` and `make merge-master` added
-	`make NEWS` added
+	* makefile: `make release` and `make merge-master` added
+	`make news` added
 	`make clean-shared-code` added to clean up after a full release build
 
-	* boule/index.html: Netto -> Saldo
+	* boule/index.html: netto -> saldo
 
 	* boule/scripts/options.js: target-specific options moved to {target}/scripts
 
@@ -222,16 +226,16 @@
 
 	* legacy/scripts/ui/options.js: removed in favor of target-specific options
 
-	* legacy/scripts/ui/strings.js: Netto -> Saldo
+	* legacy/scripts/ui/strings.js: netto -> saldo
 
-	* tac/index.html: Netto -> Saldo
+	* tac/index.html: netto -> saldo
 	.teamsizeview removed (fixed team size)
 	max points reduced to 8, since there's only 8 balls per team
 	bye: *visible* points changed to 8:6
 
 	* tac/scripts/options.js: target-specific options moved to {target}/scripts
 
-2015-02-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-15	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/controller.js: moved from legacy/scripts/
 
@@ -250,11 +254,11 @@
 	* legacy/scripts: references to emitter, listener, model, view and controller changed to core/*
 	emitter, listener, model, view and controller and their tests moved to core/scripts
 
-	* Makefile: `make scripts` added
+	* makefile: `make scripts` added
 	also updating the script header comments
 	`make all`: `make scripts` dependency added
 	`make codestyle` added
-	`make Version` added
+	`make version` added
 
 	* build-scripts/update-headers.sh: moved to build-tools
 
@@ -283,7 +287,7 @@
 
 	* build-scripts/istarget.sh: removed; functionality has been moved into build.sh
 
-	* build-scripts/Makefile: `make codestyle` moved to Makefile at project root
+	* build-scripts/makefile: `make codestyle` moved to makefile at project root
 
 	* build-tools/codestyle.sh: fixing the code style of most .js files
 	excludes lib and build dirs
@@ -293,20 +297,20 @@
 
 	* build-tools/create-testjs.sh: using the correct code style
 
-	* build-scripts/write-Version.sh: moved to build-tools/
+	* build-scripts/write-version.sh: moved to build-tools/
 
-	* build-tools/write-Version.sh: moved from build-scripts/
+	* build-tools/write-version.sh: moved from build-scripts/
 	also echoing the current version and write actions
 
-2015-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-14	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* names.txt: tuvero. It is decided.
+	* names.txt: tuvero. it is decided.
 
 	* scripts/ui/backgroundscripts/featuredetect.js: warning if modernizr cannot be loaded
 
-	* boule/: contains Boule-specific contents
+	* boule/: contains boule-specific contents
 
-	* tac/: contains TAC-specific contents
+	* tac/: contains tac-specific contents
 
 	* core/: contains shared code and assets
 
@@ -323,7 +327,7 @@
 
 	* */scripts/require.js: copied from lib/require.js
 
-	* lib/require.js: removed. Every target has its own require.js file
+	* lib/require.js: removed. every target has its own require.js file
 
 	* build-scripts/create-commonjs.sh: new script to build core/common.js
 	moved to build-tools
@@ -364,7 +368,7 @@
 
 	* build-scripts/istarget.sh: added for later reference
 
-	* build-scripts/Makefile: moved here for later reference
+	* build-scripts/makefile: moved here for later reference
 
 	* build-scripts/write-manifest.sh: moved to build-tools
 
@@ -376,7 +380,7 @@
 
 	* build-tools/create-testjs.sh: moved from build-scripts
 
-	* build-tools/Makefile: `make build`, `make images`, `make codestyle` and `make sprite` retained
+	* build-tools/makefile: `make build`, `make images`, `make codestyle` and `make sprite` retained
 
 	* build-tools/write-manifest.sh: moved from build-scripts
 
@@ -384,14 +388,14 @@
 
 	* .gitignore: build directories added
 
-	* Makefile: `make boule`, `make tac`, `make all` enabled
+	* makefile: `make boule`, `make tac`, `make all` enabled
 	`make clean` enabled
 
-	* BUGS: removed (see https://github.com/elor/tuvero/issues for bug reports)
+	* bugs: removed (see https://github.com/elor/tuvero/issues for bug reports)
 
-	* TODO: removed (see https://boulesprog.wordpress.com)
+	* todo: removed (see https://boulesprog.wordpress.com)
 
-2015-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-11	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-sprite.sh: [data-img="sprite"] to show the sprite path-independently
 
@@ -415,7 +419,7 @@
 	* test/: 'lib/jquery' -> 'jquery'
 	avoiding the global $ function in favor of the require-provided one
 
-	* build-scripts/build.js: FileSaver bugs fixed
+	* build-scripts/build.js: filesaver bugs fixed
 	removing licensing comments
 	using config.js for paths and shims
 	optimizing main.js instead of config.js
@@ -426,7 +430,7 @@
 	loads 'main'
 	doesn't load 'main' anymore, but gets loaded by 'main' and 'test'
 
-	* scripts/lib/FileSaver.js: update
+	* scripts/lib/filesaver.js: update
 
 	* scripts/lib/require.js: update
 
@@ -438,7 +442,7 @@
 
 	* scripts/main.js: loading config.js before loading common.js
 
-2015-02-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: testing teamlist <table>, before offering both variants
 	simultaneously using teamlist and teamtable
@@ -449,14 +453,14 @@
 
 	* scripts/ui/listview.js: ignoring auto-inserted tbody elements
 
-	* scripts/ui/teammodel.js: using players.forEach instead of for in
+	* scripts/ui/teammodel.js: using players.foreach instead of for in
 
-	* scripts/ui/teamstab.js: using TeamTableView to show/hide table.teamlist rows/cols
+	* scripts/ui/teamstab.js: using teamtableview to show/hide table.teamlist rows/cols
 	selectors adjusted to support table.teamlist
 	teamlist and teamtable are used simultaneously
 	showtable triggers the visibility of .teamtable and .teamlist
 	tab options are wrapped in their associated span for click delegation
-	using TeamsFileLoadController for loading player names from files (cheap hack)
+	using teamsfileloadcontroller for loading player names from files (cheap hack)
 
 	* scripts/ui/teamtableview.js: show/hide rows/cols of a team table
 
@@ -468,16 +472,16 @@
 	showtable triggers the visibility of .teamtable and .teamlist
 	.teamtable rows are 'nowrap'
 
-	* scripts/ui/teamremovecontroller.js: accepting multiple ListView instances
+	* scripts/ui/teamremovecontroller.js: accepting multiple listview instances
 
-	* scripts/ui/update.js: cacheError commented out
-	downloadToasts-typo fixed
+	* scripts/ui/update.js: cacheerror commented out
+	downloadtoasts-typo fixed
 
-	* scripts/ui/boxview.js: event restriction system blocked the 'toggle' event. Fixed that.
+	* scripts/ui/boxview.js: event restriction system blocked the 'toggle' event. fixed that.
 
 	* scripts/ui/tab_ranking.js: hiding empty rankings (no games, every team is in first place)
 
-	* scripts/ui/backgroundscripts/saveOnPlayerNameChange.js: automatically store the state when a player name (or team index) has changed
+	* scripts/ui/backgroundscripts/saveonplayernamechange.js: automatically store the state when a player name (or team index) has changed
 
 	* scripts/ui/emitter.js: remove this from listener.emitters when unregistering a listener
 
@@ -485,42 +489,42 @@
 
 	* scripts/ui/test/emitter.js: test listener.emitters removal
 
-	* scripts/ui/test/listcollectormodel.js: test ListCollectorModel
+	* scripts/ui/test/listcollectormodel.js: test listcollectormodel
 
-	* scripts/ui/backgroundscripts/tabnewcheaphacklistener.js: Listening for State.teams events
-	Set the Tab_New visibility and call Tab_New.update if necessary
+	* scripts/ui/backgroundscripts/tabnewcheaphacklistener.js: listening for state.teams events
+	set the tab_new visibility and call tab_new.update if necessary
 
 	* scripts/ui/storage.js: variable cleanup
 
-	* scripts/ui/tab_new.js: Tabshandle logic moved to TabNewCheapHackListener for now
+	* scripts/ui/tab_new.js: tabshandle logic moved to tabnewcheaphacklistener for now
 
 	* scripts/ui/backgroundscripts/taboptionclick.js: auto-delegating clicks on taboption spans to the checkbox
 
-	* scripts/ui/inputview.js: View for easily resetting an input element
+	* scripts/ui/inputview.js: view for easily resetting an input element
 
 	* scripts/ui/teamsfileloadcontroller.js: load teams and player names from an input file
 
-2015-02-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-02	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/listview.js: indexOf() added: retrieve the subview index of any descendant
-	getSubview() added
+	* scripts/ui/listview.js: indexof() added: retrieve the subview index of any descendant
+	getsubview() added
 	extra variable declaration removed
 
 	* scripts/ui/textview.js: typo fixed
 
 	* scripts/ui/view.js: model defaulting bug fixed
 
-	* test/listview.html: testing ListView.indexOf()
-	testing ListClickRemoveController
+	* test/listview.html: testing listview.indexof()
+	testing listclickremovecontroller
 
-	* scripts/ui/listclickremovecontroller.js: remove an object from a ListView via mouse click
+	* scripts/ui/listclickremovecontroller.js: remove an object from a listview via mouse click
 	renamed to listclickcontroller.js
 
-	* scripts/ui/listcleanuplistener.js: automatically destroy() the elements of a ListModel instance
+	* scripts/ui/listcleanuplistener.js: automatically destroy() the elements of a listmodel instance
 
 	* scripts/ui/listmodel.js: clear(): successively pop() each object, so remove events are emitted
 
-	* scripts/ui/statemodel.js: using a ListCleanupListener for State.teams to avoid memory leaks
+	* scripts/ui/statemodel.js: using a listcleanuplistener for state.teams to avoid memory leaks
 
 	* scripts/ui/listclickcontroller.js: renamed from listclickcontroller.js
 	callback and cbthis arguments added to the constructor
@@ -535,14 +539,14 @@
 	using blur events ensures better stability with less overhead
 	actual removal: mousedown instead of click, because it's fired before blur
 
-	* scripts/ui/teamstab.js: using TeamRemoveController for individual team deletions
-	using TeamNameController for initiating and completing player name changes
+	* scripts/ui/teamstab.js: using teamremovecontroller for individual team deletions
+	using teamnamecontroller for initiating and completing player name changes
 
 	* scripts/ui/test/listmodel.js: clear() now emits remove events
 
 	* build-scripts/create-ui-class.sh: script for prefilling class files
 
-	* scripts/ui/koline.js: using round line caps, because I'm awesome
+	* scripts/ui/koline.js: using round line caps, because i'm awesome
 
 	* scripts/ui/teamnamecontroller.js: first auto-generated class file
 	inserting an input field in place of a player name on click
@@ -550,27 +554,27 @@
 
 	* style/teams.css: only showing the removal button during registration
 
-	* test/teamlistview.html: testing TeamNameController
+	* test/teamlistview.html: testing teamnamecontroller
 
-2015-02-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-01	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* names.txt: Paraboule added
-	Paraboule is way too absurd
+	* names.txt: paraboule added
+	paraboule is way too absurd
 
-	* scripts/ui/listview.js: now a subclass of TemplateView
+	* scripts/ui/listview.js: now a subclass of templateview
 	onreset/reset logic bug fixed
 
-	* scripts/ui/templateview.js: TemplateView integrated
+	* scripts/ui/templateview.js: templateview integrated
 
-	* scripts/ui/emitter.js: Emitter is subclass of Listener
-	prototype.EVENTS added: an object with allowed event types
+	* scripts/ui/emitter.js: emitter is subclass of listener
+	prototype.events added: an object with allowed event types
 	callback function arguments: documentation updated to include the data argument
 
-	* scripts/ui/listener.js: Listener added: emitters[] field contains all registered emitters
-	Listener.prototype.destroy() handles coordinated dereferencing
+	* scripts/ui/listener.js: listener added: emitters[] field contains all registered emitters
+	listener.prototype.destroy() handles coordinated dereferencing
 
 	* scripts/ui/test/emitter.js: listener.emitters added
-	prototype.EVENTS: shallow event validation test added
+	prototype.events: shallow event validation test added
 
 	* scripts/ui/test/indexedmodel.js: listener.emitter added
 
@@ -578,44 +582,44 @@
 
 	* scripts/ui/test/teammodel.js: listener.emitter added
 
-	* scripts/ui/view.js: View is a subclass of Listener
+	* scripts/ui/view.js: view is a subclass of listener
 
 	* scripts/ui/indexedlistmodel.js: using superclass reference instead of direct function access
 
-	* scripts/ui/listmodel.js: prototype.EVENTS object and resize event added
-	sometimes I'm an idiot. I forgot about if(){}.
+	* scripts/ui/listmodel.js: prototype.events object and resize event added
+	sometimes i'm an idiot. i forgot about if(){}.
 
 	* scripts/ui/test/listmodel.js: testing resize event
 	testing insert event
 	testing remove event
 
-	* scripts/ui/lengthview.js: LengthView: ListView.length to DOM text
+	* scripts/ui/lengthview.js: lengthview: listview.length to dom text
 
-	* scripts/ui/teamstab.js: using LengthView to show number of registrations
-	using TeamSizeView to change the team size
-	using PreregCloserView added to disable team size changes
-	PreregCloserView applied to the $tab itself
-	maxwidth checkbox logic added by combining CheckboxView and ClassView
+	* scripts/ui/teamstab.js: using lengthview to show number of registrations
+	using teamsizeview to change the team size
+	using preregcloserview added to disable team size changes
+	preregcloserview applied to the $tab itself
+	maxwidth checkbox logic added by combining checkboxview and classview
 
-	* test/teamentry.html: testing LengthView for number of registrations
+	* test/teamentry.html: testing lengthview for number of registrations
 
 	* scripts/ui/savestate.js: saving the state when a team has been added or removed
 
-	* scripts/ui/teamsizecontroller.js: TeamSizeController for processing teamsize button clicks
+	* scripts/ui/teamsizecontroller.js: teamsizecontroller for processing teamsize button clicks
 
-	* scripts/ui/teamsizeview.js: TeamSizeView for selecting and highlighting team size buttons
+	* scripts/ui/teamsizeview.js: teamsizeview for selecting and highlighting team size buttons
 
-	* scripts/ui/test/valuemodel.js: ValueModel tests added
+	* scripts/ui/test/valuemodel.js: valuemodel tests added
 
-	* scripts/ui/valuemodel.js: ValueModel: a getter/setter with update events for arbitrary values
+	* scripts/ui/valuemodel.js: valuemodel: a getter/setter with update events for arbitrary values
 	set(): stricter comparison for value differences
 
-	* scripts/ui/valueview.js: ValueView: show textual ValueModel data in the DOM
+	* scripts/ui/valueview.js: valueview: show textual valuemodel data in the dom
 
-	* style/teamsizeview.css: TeamSizeView style sheet
+	* style/teamsizeview.css: teamsizeview style sheet
 	hiding teamsizeview after registration started and during printing
 
-	* test/teamsizeview.html: TeamSizeView test page
+	* test/teamsizeview.html: teamsizeview test page
 	button values removed
 	submit button re-added
 
@@ -628,9 +632,9 @@
 	player names: using divs instead of span-br-pairs
 
 	* scripts/ui/team.js: better return value description
-	Options.teamsize -> State.teamsize.get()
+	options.teamsize -> state.teamsize.get()
 
-	* scripts/ui/test/tab.js: all references to Tab_Teams removed
+	* scripts/ui/test/tab.js: all references to tab_teams removed
 
 	* style/mainstyle.css: importing teamsizeview.css
 	importing newteamview.css
@@ -642,53 +646,53 @@
 	* build-scripts/write-reference.sh: error pages for each script
 	faster doc build system, which ignores unchanged files
 
-	* Makefile: adjusted for the altered doc build logic
+	* makefile: adjusted for the altered doc build logic
 	'make style' forces 'make scripts'
 
-	* scripts/ui/newteamcontroller.js: readPlayerNames extracted from createNewTeam
+	* scripts/ui/newteamcontroller.js: readplayernames extracted from createnewteam
 	properly ignoring disabled input fields
 
 	* scripts/ui/newteamview.js: enabling/disabling input fields according to team size
 	twitter-typeahead reset logic added
 	in addition to disabling the inputs, they're actively hidden
 
-	* scripts/ui/preregcloserview.js: PreregCloserView added to disable preregistration DOM elements
+	* scripts/ui/preregcloserview.js: preregcloserview added to disable preregistration dom elements
 	comments added
 
 	* scripts/lib/typeahead.js: typeahead library updated
 
 	* style/newteamview.css: #newteamview stylesheet added
 
-	* scripts/ui/ranking.js: Options.teamsize -> State.teamsize.get()
+	* scripts/ui/ranking.js: options.teamsize -> state.teamsize.get()
 
-	* scripts/ui/tab_history.js: Options.teamsize -> State.teamsize.get()
+	* scripts/ui/tab_history.js: options.teamsize -> state.teamsize.get()
 
-	* scripts/ui/tab_ranking.js: Options.teamsize -> State.teamsize.get()
+	* scripts/ui/tab_ranking.js: options.teamsize -> state.teamsize.get()
 
-	* scripts/ui/options.js: cheap hack: storing and State.teamsize in place of Options.teamsize
+	* scripts/ui/options.js: cheap hack: storing and state.teamsize in place of options.teamsize
 	teamsize: 'undefined'-bug fixed
 
-	* scripts/ui/checkboxcontroller.js: CheckboxController added for checkbox state control
+	* scripts/ui/checkboxcontroller.js: checkboxcontroller added for checkbox state control
 
-	* scripts/ui/checkboxview.js: CheckboxView added for boolean state visualization
+	* scripts/ui/checkboxview.js: checkboxview added for boolean state visualization
 
-	* test/checkboxview.html: CheckboxView and CheckboxController test
+	* test/checkboxview.html: checkboxview and checkboxcontroller test
 
-	* scripts/ui/classview.js: ClassView: toggle html classes according to ValueMap instance
+	* scripts/ui/classview.js: classview: toggle html classes according to valuemap instance
 
-	* scripts/ui/taboptslistener.js: listen for ValueMap changes and toggle a tabopts update
+	* scripts/ui/taboptslistener.js: listen for valuemap changes and toggle a tabopts update
 
-	* scripts/ui/tabs.js: using State instead of Options for tabopts
+	* scripts/ui/tabs.js: using state instead of options for tabopts
 
-2015-01-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-31	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-reference.sh: error page shows jshint, jslint and gjslint output
 	using @return instead of @exports
 
 	* build-scripts/write-scripts.sh: gjslint-compatible formatting of auto-generated script
-	scripts/ui/interfaces/test folder doesn't exist anymore; Now gnoring it.
+	scripts/ui/interfaces/test folder doesn't exist anymore; now gnoring it.
 
-	* Makefile: 'make style' added; uses fixjsstyle to format the js files
+	* makefile: 'make style' added; uses fixjsstyle to format the js files
 
 	* index.html: teams tab: complete rewrite started
 
@@ -704,7 +708,7 @@
 
 	* scripts/ui/tab_new.js: tab_teams references removed
 
-	* scripts/ui/tab_teams.js: Removed. Rewriting as teamstab.js
+	* scripts/ui/tab_teams.js: removed. rewriting as teamstab.js
 
 	* scripts/ui/test/emitter.js: moved from interfaces/test
 
@@ -716,13 +720,13 @@
 
 	* scripts/ui/view.js: moved from interfaces
 
-	* scripts/ui/templateview.js: TemplateView class started. Neither tested nor integrated yet.
+	* scripts/ui/templateview.js: templateview class started. neither tested nor integrated yet.
 
-	* names.txt: Naming suggestion file added
+	* names.txt: naming suggestion file added
 
-2015-01-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-30	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/listmodel.js: map() added (similar to Array.prototype.map)
+	* scripts/ui/listmodel.js: map() added (similar to array.prototype.map)
 
 	* scripts/ui/test/listmodel.js: map() test added
 
@@ -730,113 +734,113 @@
 
 	* scripts/ui/tab_games.js: code style improved, warnings removed
 
-	* .jshintrc: using JSHint for validation and debugging
+	* .jshintrc: using jshint for validation and debugging
 
-2015-01-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-28	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/statemodel.js: players and teams added to StateModel
+	* scripts/ui/statemodel.js: players and teams added to statemodel
 
-	* scripts/ui/state_new.js: StateModel singleton for coordinated access
+	* scripts/ui/state_new.js: statemodel singleton for coordinated access
 
-	* scripts/ui/team.js: Team.size() removed
-	Team is a wrapper around StateModel.teams until the Tab objects have been replaced
-	Team.getNames added for comfort
-	toBlob and fromBlob had to be rewritten
+	* scripts/ui/team.js: team.size() removed
+	team is a wrapper around statemodel.teams until the tab objects have been replaced
+	team.getnames added for comfort
+	toblob and fromblob had to be rewritten
 	save state compatibility restored (when loading boules.json)
 
 	* scripts/ui/history.js: unfortunate reformatting
-	function calls to Team adjusted for TeamModel and PlayerModel
+	function calls to team adjusted for teammodel and playermodel
 
 	* scripts/ui/ranking.js: unfortunate reformatting
-	function calls to Team adjusted for TeamModel and PlayerModel
+	function calls to team adjusted for teammodel and playermodel
 
 	* scripts/ui/tab_games.js: unfortunate reformatting
-	function calls to Team adjusted for TeamModel and PlayerModel
+	function calls to team adjusted for teammodel and playermodel
 
 	* scripts/ui/tab_history.js: unfortunate reformatting
-	function calls to Team adjusted for TeamModel and PlayerModel
+	function calls to team adjusted for teammodel and playermodel
 
-	* scripts/ui/tab_new.js: function calls to Team adjusted for TeamModel and PlayerModel
+	* scripts/ui/tab_new.js: function calls to team adjusted for teammodel and playermodel
 
-	* scripts/ui/tab_ranking.js: function calls to Team adjusted for TeamModel and PlayerModel
+	* scripts/ui/tab_ranking.js: function calls to team adjusted for teammodel and playermodel
 
-	* scripts/ui/tab_teams.js: function calls to Team adjusted for TeamModel and PlayerModel
+	* scripts/ui/tab_teams.js: function calls to team adjusted for teammodel and playermodel
 
-	* scripts/ui/listview.js: constructor: model and $view swapped to better match View
+	* scripts/ui/listview.js: constructor: model and $view swapped to better match view
 
-	* test/listview.html: ListView constructor calls adjusted
+	* test/listview.html: listview constructor calls adjusted
 
-	* test/teamlistview.html: ListView constructor calls adjusted
+	* test/teamlistview.html: listview constructor calls adjusted
 
-	* scripts/ui/newteamcontroller.js: Controller for team submission
+	* scripts/ui/newteamcontroller.js: controller for team submission
 
-	* scripts/ui/newteamview.js: View for the team submission form
+	* scripts/ui/newteamview.js: view for the team submission form
 
 	* test/teamentry.html: test page for team submission
 
-2015-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-26	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/boxcontroller.js: View.getElem() has been removed a few commits ago
+	* scripts/ui/boxcontroller.js: view.getelem() has been removed a few commits ago
 
-	* scripts/ui/fontsizecontroller.js: View.getElem() has been removed a few commits ago
+	* scripts/ui/fontsizecontroller.js: view.getelem() has been removed a few commits ago
 
-	* build-scripts/write-scripts.sh: myrequire() functionality has been moved to Common()
+	* build-scripts/write-scripts.sh: myrequire() functionality has been moved to common()
 
-	* test/teamlistview.html: Common() instead of require() enables post-build view testing
+	* test/teamlistview.html: common() instead of require() enables post-build view testing
 
-	* test/boxview.html: Common() instead of require() enables post-build view testing
-	StaticViewLoader is called automatically in the background
+	* test/boxview.html: common() instead of require() enables post-build view testing
+	staticviewloader is called automatically in the background
 
-	* test/fontsize.html: Common() instead of require() enables post-build view testing
-	StaticViewLoader is called automatically in the background
+	* test/fontsize.html: common() instead of require() enables post-build view testing
+	staticviewloader is called automatically in the background
 
-	* test/koline.html: Common() instead of require() enables post-build view testing
+	* test/koline.html: common() instead of require() enables post-build view testing
 
-	* test/listview.html: Common() instead of require() enables post-build view testing
+	* test/listview.html: common() instead of require() enables post-build view testing
 
-	* test/tableview.html: Common() instead of require() enables post-build view testing
+	* test/tableview.html: common() instead of require() enables post-build view testing
 
 	* scripts/ui/staticviewloader.js: variable/function order changed
 
-2015-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-24	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/playermodel.js: using trim() and slice() for string manipulation/copying
 
-	* scripts/ui/test/playermodel.js: PlayerModel tests added
+	* scripts/ui/test/playermodel.js: playermodel tests added
 
 	* scripts/ui/teammodel.js: enforcing at least one player
-	setID is used by constructor (DRY principle strikes again)
+	setid is used by constructor (dry principle strikes again)
 	only emit update if the id is actually different
 	id defaults to -1, instead of 0
-	TeamModel now is a subclass of IndexedModel
+	teammodel now is a subclass of indexedmodel
 
-	* scripts/ui/test/teammodel.js: TeamModel tests added
-	testing both of the changes to ListModel
-	moved some tests to the IndexModel tests
+	* scripts/ui/test/teammodel.js: teammodel tests added
+	testing both of the changes to listmodel
+	moved some tests to the indexmodel tests
 
-	* scripts/ui/listmodel.js: referencing updateLength instead of using duplicated code
+	* scripts/ui/listmodel.js: referencing updatelength instead of using duplicated code
 
-	* scripts/ui/indexedmodel.js: generic model with setID and getID functionality
+	* scripts/ui/indexedmodel.js: generic model with setid and getid functionality
 
-	* scripts/ui/test/indexedmodel.js: tests for getID and setID (moved from TeamModel)
+	* scripts/ui/test/indexedmodel.js: tests for getid and setid (moved from teammodel)
 
 	* test/teamlistview.html: teamno field added
-	ListModel replaced with IndexedListModel, and suddenly the indices are updated :-D
+	listmodel replaced with indexedlistmodel, and suddenly the indices are updated :-d
 
 	* test.html: favicon set
 
-2015-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-23	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/interfaces/view.js: unnecessary functions removed
-	destroy() added for safe removal of the view from the DOM and the event listener
+	destroy() added for safe removal of the view from the dom and the event listener
 
-	* scripts/ui/listview.js: using SubView constructors to enable the display  more complex data
-	Not removing static DOM elements
+	* scripts/ui/listview.js: using subview constructors to enable the display  more complex data
+	not removing static dom elements
 	referencing all subviews using an array, thus enabling safer removal
 	using subview.destroy() to remove the elements and enable clean garbage collection
 	defaulting to <div> instead of <li>
 
-	* scripts/ui/textview.js: simple TextView as a SubView default for ListView
+	* scripts/ui/textview.js: simple textview as a subview default for listview
 
 	* test/listview.html: explicitly stating the use if <li>
 
@@ -845,14 +849,14 @@
 	names default to 'noname' until they're properly set
 
 	* scripts/ui/teammodel.js: this.id added
-	forgot to export TeamModel
+	forgot to export teammodel
 
-	* scripts/ui/teamview.js: unified view for writing team information to a DOM element
+	* scripts/ui/teamview.js: unified view for writing team information to a dom element
 
-	* test/teamlistview.html: simple test of TeamView, ListView, TeamModel and PlayerModel
+	* test/teamlistview.html: simple test of teamview, listview, teammodel and playermodel
 	testing different team sizes
 
-2015-01-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-19	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: font size options added
 
@@ -862,50 +866,50 @@
 
 	* style/fontsizeview.css: button width fixed to 1.2em x 1em
 
-	* BUGS: out-of-date disclaimer added
+	* bugs: out-of-date disclaimer added
 
-	* TODO: out-of-date disclaimer added
+	* todo: out-of-date disclaimer added
 
-	* scripts/ui/koline.js: KO line drawing replacement for jsPlumb
+	* scripts/ui/koline.js: ko line drawing replacement for jsplumb
 	comments and code style
 
 	* scripts/ui/strings.js: svg namespace string added
 
-	* test/koline.html: test for KOLine class added
+	* test/koline.html: test for koline class added
 	debugging output
 
-	* scripts/common.js: jsPlumb removed
+	* scripts/common.js: jsplumb removed
 
-	* scripts/lib/jsPlumb.js: jsPlumb removed
+	* scripts/lib/jsplumb.js: jsplumb removed
 
-	* scripts/ui/tab_history.js: jsPlumb replaced by hand-written solution
-	KO tree drawing sped up
-	redraw-button no longer required for KO tree drawing
+	* scripts/ui/tab_history.js: jsplumb replaced by hand-written solution
+	ko tree drawing sped up
+	redraw-button no longer required for ko tree drawing
 
 	* scripts/ui/interfaces/emitter.js: emit() accepts data
 
 	* scripts/ui/listmodel.js: refactored to look somewhat like an event emitting array
 	comments added
 
-	* scripts/ui/test/listmodel.js: ListModel tests added
+	* scripts/ui/test/listmodel.js: listmodel tests added
 
-	* test/listview.html: WiP warning added
-	testing the new ListView
+	* test/listview.html: wip warning added
+	testing the new listview
 
-	* test/tableview.html: WiP warning added
+	* test/tableview.html: wip warning added
 
-	* scripts/ui/listview.js: new ListModel architecture adapted
+	* scripts/ui/listview.js: new listmodel architecture adapted
 	third constructor argument ($template) added
 
-	* scripts/ui/playermodel.js: PlayerModel added (WiP)
+	* scripts/ui/playermodel.js: playermodel added (wip)
 
-	* scripts/ui/teammodel.js: TeamModel added (WiP)
+	* scripts/ui/teammodel.js: teammodel added (wip)
 
-2015-01-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-08	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/type.js: type verification capabilities added (in the ui directory for now)
 
-	* scripts/ui/staticviewloader.js: Functions for automatic recursive assignment of views by the classes of DOM elements
+	* scripts/ui/staticviewloader.js: functions for automatic recursive assignment of views by the classes of dom elements
 
 	* index.html: .box -> .boxview
 	#about: browser compatibility images added/updated
@@ -928,17 +932,17 @@
 
 	* style/about.css: unsupported icons are semi-transparent again
 
-	* build-scripts/Makefile.in: 'make images': also optimizing smallchange.png
+	* build-scripts/makefile.in: 'make images': also optimizing smallchange.png
 
-	* scripts/ui/fontsizecontroller.js: FontSizeController added
+	* scripts/ui/fontsizecontroller.js: fontsizecontroller added
 
-	* scripts/ui/fontsizemodel.js: FontSizeModel added
+	* scripts/ui/fontsizemodel.js: fontsizemodel added
 
-	* scripts/ui/fontsizeview.js: FontSizeView added
+	* scripts/ui/fontsizeview.js: fontsizeview added
 
 	* style/fontsize.css: define font sizes and rules
 
-	* style/fontsizeview.css: style of FontSizeView
+	* style/fontsizeview.css: style of fontsizeview
 
 	* style/mainstyle.css: include fontsize.css and fontsizeview.css
 
@@ -946,11 +950,11 @@
 
 	* scripts/ui/boxview.js: unnecessary variable removed
 
-2015-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-06	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* LICENSE: copyright notice extended to 2015
+	* license: copyright notice extended to 2015
 
-2015-01-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-01-05	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/write-sprite.sh: css: 'zoom' replaced with 'background-size' for cross-browser compatibility
 
@@ -962,11 +966,11 @@
 
 	* style/debug.css: zoom removed
 
-2014-12-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-28	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: http/https confusion fixed
 
-2014-12-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-24	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: home: "why chrome?" box added
 	tab_new: reference text changed
@@ -979,65 +983,65 @@
 
 	* build-scripts/write-reference.sh: using cmark instead of stmd for markdown->html conversion
 
-	* Makefile: 'make' -> 'make build', NOT 'make dist'
+	* makefile: 'make' -> 'make build', not 'make dist'
 	applyversion.sh -> apply-version.sh typo fixed
 	makefile dependency issue fixed
-	make dist: auto-adding Version and manifest.appcache to git
+	make dist: auto-adding version and manifest.appcache to git
 
 	* doc/de/index.html: apology added
 
-	* NEWS: updated from ChangeLog
-	Next Version (1.4.5) started
+	* news: updated from changelog
+	next version (1.4.5) started
 
-	* build-scripts/Makefile.in: makefile dependency issue fixed
+	* build-scripts/makefile.in: makefile dependency issue fixed
 	not removing smallchange.png, which is currently required to be a separate file
 
 
-2014-12-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-22	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/listmodel.js: ListModel added
+	* scripts/ui/listmodel.js: listmodel added
 
-	* scripts/ui/listview.js: ListView added
+	* scripts/ui/listview.js: listview added
 
-	* scripts/ui/tableview.js: TableView: unused $template variable removed
+	* scripts/ui/tableview.js: tableview: unused $template variable removed
 
-	* test/listview.html: ListView test added
+	* test/listview.html: listview test added
 
-	* scripts/ui/boxview.js: DummyModel removed
+	* scripts/ui/boxview.js: dummymodel removed
 	subview removed
 
-	* scripts/ui/dummymodel.js: DummyModel replaced by 'undefined'
+	* scripts/ui/dummymodel.js: dummymodel replaced by 'undefined'
 
 	* scripts/ui/interfaces/view.js: model undefined -> use a dummy model automatically
 
 	* scripts/common.js: dummymodel.js autoremoved
 
 	* scripts/ui/tab_new.js: #42 fixed: clicking the bottom header of a tournament doesn't change the name anymore
-	using BoxView for 'advanced options' boxes
+	using boxview for 'advanced options' boxes
 	unnecessary 'collapsed'-check removed
 
 	* scripts/ui/tab_teams.js: #41 fixed: trying to create a team with an empty player name focuses the empty text field
 
 	* index.html: content added to home tab
-	showing a WiP message on the lanes tab
+	showing a wip message on the lanes tab
 	home tab: tiny text change
-	CSS selector mixup fixed
+	css selector mixup fixed
 
 	* style/buttons.css: only float buttons which are direct children of a tab
-	invalid CSS selector fixed
+	invalid css selector fixed
 
 	* style/home.css: home tab stylesheet added
 
-	* style/lanes.css: showing a WiP message on the lanes tab
+	* style/lanes.css: showing a wip message on the lanes tab
 
 	* style/mainstyle.css: home.css included
 
-	* scripts/ui/tab_games.js: using BoxView for auto-generated boxes
+	* scripts/ui/tab_games.js: using boxview for auto-generated boxes
 
-	* scripts/ui/tab_history.js: using BoxView for auto-generated boxes
-	CSS selector mixup fixed
+	* scripts/ui/tab_history.js: using boxview for auto-generated boxes
+	css selector mixup fixed
 
-	* scripts/ui/tab_ranking.js: using BoxView for auto-generated boxes
+	* scripts/ui/tab_ranking.js: using boxview for auto-generated boxes
 
 	* images/games.png: replaced the dice with two petanque balls
 
@@ -1045,17 +1049,17 @@
 
 	* scripts/ui/backgroundscripts/box.js: unnecessary 'collapsed'-check removed
 
-2014-12-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-20	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/common.js: ui/tablemodel and ui/tableview added
 
 	* scripts/ui/tablemodel.js: simple model for tableview testing
 
-	* scripts/ui/tableview.js: TableView class for showing text-based non-interactive tables
+	* scripts/ui/tableview.js: tableview class for showing text-based non-interactive tables
 
-	* test/tableview.html: TableView test case
+	* test/tableview.html: tableview test case
 
-2014-12-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-19	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/boxview.css: trying to use different css files for every major view type
 
@@ -1068,13 +1072,13 @@
 	* scripts/ui/boxview.js: collapsed boxes: textarea tabbing disabled
 	using default sizes (content-wrapping) after expanding
 
-2014-12-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-14	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/splash.js: unnecessary css class removed
 
-	* style/splash.css: transition positioning fixed. Shouldn't stutter anymore
+	* style/splash.css: transition positioning fixed. shouldn't stutter anymore
 
-2014-12-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-12-13	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/interfaces/emitter.js: event emitter class added
 
@@ -1085,49 +1089,49 @@
 	* scripts/test.js: including emitter.js
 	including model.js
 
-	* scripts/ui/interfaces/control.js: MVC base classes added
+	* scripts/ui/interfaces/control.js: mvc base classes added
 	moved to controller.js
 
-	* scripts/ui/interfaces/model.js: MVC base classes added
+	* scripts/ui/interfaces/model.js: mvc base classes added
 
-	* scripts/ui/interfaces/view.js: MVC base classes added
-	attach() removed, getElem() added
+	* scripts/ui/interfaces/view.js: mvc base classes added
+	attach() removed, getelem() added
 
 	* scripts/ui/interfaces/test/model.js: model test added
 
-	* scripts/ui/backgroundscripts/box.js: using BoxView for every box
+	* scripts/ui/backgroundscripts/box.js: using boxview for every box
 
-	* scripts/ui/boxcontroller.js: controller for BoxView
+	* scripts/ui/boxcontroller.js: controller for boxview
 
-	* scripts/ui/boxview.js: View for collapsing and expanding boxes
+	* scripts/ui/boxview.js: view for collapsing and expanding boxes
 
 	* scripts/ui/dummymodel.js: model without special logic code, but emitter capabilities
 
 	* scripts/ui/interfaces/controller.js: moved from control.js
 
-2014-10-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-10-18	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-scripts/update-headers.sh: automatically inserting author and license information
 
 	* build-scripts/write-reference.sh: linkes dependencies
 	todo page
-	TODO and Overview for script subdirectories
-	listing JQuery as a dependency
+	todo and overview for script subdirectories
+	listing jquery as a dependency
 	script metrics section added
 	warning about long scripts
 	warning about too many dependencies
 	writing 'make doc' warnings and errors to errors.html
 	extracting functions of a script file
-	JavaDoc-style comments of functions are parsed and displayed
+	javadoc-style comments of functions are parsed and displayed
 	not discarding any more errors from the error page
 	not using potentially-empty regex parens
 
-	* Makefile: rebuilding scripts before building docs
+	* makefile: rebuilding scripts before building docs
 	release -> dist
 	description updated
 	building doc with every build
 
-	* build-scripts/Makefile.in: removing favicon.png, not games.png
+	* build-scripts/makefile.in: removing favicon.png, not games.png
 	optimizing favicon
 
 	* build-scripts/write-sprite.sh: ignoring favicon.png
@@ -1144,16 +1148,16 @@
 	test.js uses define() instead of require() for improved reference parsing
 
 
-2014-10-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-10-17	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* Makefile: Makefile added for easier building and updating
+	* makefile: makefile added for easier building and updating
 
 	* build-scripts/apply-version.sh: moved from pushversion.sh
-	just writes the version from the Version-file to all other files
+	just writes the version from the version-file to all other files
 
 	* build-scripts/build.sh: moved from optimize.sh
 
-	* build-scripts/Makefile.in: secondary makefile for non-user targets
+	* build-scripts/makefile.in: secondary makefile for non-user targets
 
 	* build-scripts/write-manifest.sh: moved from manifest.sh
 
@@ -1161,14 +1165,14 @@
 	hardcoded file names corrected
 
 	* build-scripts/write-sprite.sh: moved from writesprite.sh
-	doesn't optimize anymore (using Makefile for that)
+	doesn't optimize anymore (using makefile for that)
 
-	* build-scripts/write-Version.sh: writes the Version-file
+	* build-scripts/write-version.sh: writes the version-file
 
 	* build-scripts/write-reference.sh: first html files produced
 
 
-2014-10-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-10-13	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: reload button added to tab_history
 
@@ -1184,7 +1188,7 @@
 
 	* images/svg/reload.svg: reduced to button size
 
-2014-10-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-10-12	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* writesprite.sh: optimizing sprite.png
 
@@ -1253,16 +1257,16 @@
 
 	* style/tabs.css: moved some content to buttons.css
 
-	* scripts/lib/base64.js: removed in favor of Blob.js
+	* scripts/lib/base64.js: removed in favor of blob.js
 
-	* scripts/ui/history.js: Shared wasn't loaded
+	* scripts/ui/history.js: shared wasn't loaded
 
 	* scripts/ui/toast.js: toasts can be closed by the calling code
 	'undefined.str' error fixed
 
 	* scripts/ui/update.js: showing a 'downloading...' toast
 
-2014-10-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-10-05	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* style/tabs.css: space between tabmenu and tab removed
 	tabs: pre-header space in pixel coordinates
@@ -1314,7 +1318,7 @@
 
 	* style/new.css: expand only the last row of a tournament, not each row
 
-2014-10-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-10-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: replaced img tags with data-img attributes
 	donate forms replaced with static links
@@ -1345,11 +1349,11 @@
 	* manifest.sh: hiding plain text files for now
 	using 'dev' when there's no current version number
 
-2014-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-10-03	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* images/ext/btn_donateCC_LG.gif: removed
+	* images/ext/btn_donatecc_lg.gif: removed
 
-	* images/ext/btn_donateCC_LG.png: converted from the gif file
+	* images/ext/btn_donatecc_lg.png: converted from the gif file
 
 	* index.html: currently not using a gif file
 	showing the sprite in the debug page
@@ -1374,52 +1378,52 @@
 
 	* style/mainstyle.css: using sprite.css
 
-2014-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-28	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: expaining text added to tab_new
-	Platz -> Rang
+	platz -> rang
 	using scripts/main.js
 	moved the requirejs config to common.js
 
 	* scripts/build.js: optimization enabled
 	building and using common.js
 	excluding build.js
-	FileSaver.js is a module on its own
+	filesaver.js is a module on its own
 
-	* scripts/ui/alltabs.js: Shared added
+	* scripts/ui/alltabs.js: shared added
 
-	* scripts/ui/autocomplete.js: Shared added
+	* scripts/ui/autocomplete.js: shared added
 
 	* scripts/ui/globalranking.js: fixed issue #2 (global ranking too high)
-	Shared added
+	shared added
 
-	* scripts/ui/history.js: Shared added
+	* scripts/ui/history.js: shared added
 
-	* scripts/ui/players.js: Shared added
+	* scripts/ui/players.js: shared added
 
-	* scripts/ui/state.js: Shared added
+	* scripts/ui/state.js: shared added
 
-	* scripts/ui/storage.js: Shared added
+	* scripts/ui/storage.js: shared added
 
-	* scripts/ui/tab_debug.js: Shared added
+	* scripts/ui/tab_debug.js: shared added
 
-	* scripts/ui/tab_games.js: Shared added
+	* scripts/ui/tab_games.js: shared added
 
-	* scripts/ui/tab_history.js: Shared added
+	* scripts/ui/tab_history.js: shared added
 
-	* scripts/ui/tab_new.js: Shared added
+	* scripts/ui/tab_new.js: shared added
 
-	* scripts/ui/tab_ranking.js: Shared added
+	* scripts/ui/tab_ranking.js: shared added
 
-	* scripts/ui/tab_settings.js: Shared added
+	* scripts/ui/tab_settings.js: shared added
 
-	* scripts/ui/tab_teams.js: Shared added
+	* scripts/ui/tab_teams.js: shared added
 
-	* scripts/ui/team.js: Shared added
+	* scripts/ui/team.js: shared added
 
-	* scripts/ui/tournaments.js: Shared added
+	* scripts/ui/tournaments.js: shared added
 
-	* scripts/ui/shared.js: Shared added
+	* scripts/ui/shared.js: shared added
 
 	* scripts/main.js: moved from scripts/ui/main.js
 	require paths prepended with 'ui/' to reflect the relative move
@@ -1435,7 +1439,7 @@
 	* scripts/createcommon.sh: generating common.js
 
 	* scripts/test.js: loading common.js
-	loading and starting QUnit
+	loading and starting qunit
 
 	* build.sh: build script added for require optimizations
 
@@ -1450,7 +1454,7 @@
 	copying the build results over from the build directory
 
 	* pushversion.sh: calling manifest.sh and optimize.sh instead of performing everything locally
-	manifest is created AFTER optimizations!
+	manifest is created after optimizations!
 
 	* scripts/lib/qunit-1.14.0.js: moved to qunit.js
 
@@ -1467,16 +1471,16 @@
 	* test.html: using common.js for script loading
 
 
-2014-09-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_history.js: 'no tournament' warning disabled
-	calculating KO box size from its content, not using jQuery
-	mapping KO players with byes correctly
+	calculating ko box size from its content, not using jquery
+	mapping ko players with byes correctly
 	warning about non-applicable corrections
 	update after corrections (to update the other teams' points)
-	automatic redraw if it becomes visible and there's a KO tournament
+	automatic redraw if it becomes visible and there's a ko tournament
 
-	* pushversion.sh: setting the NEWS date
+	* pushversion.sh: setting the news date
 
 	* scripts/ui/tab_ranking.js: useless code fragment removed
 	typo fixed
@@ -1488,16 +1492,16 @@
 	number of tries doubled
 
 	* scripts/ui/tab_settings.js: properly loading from utf-8 files (incl. umlauts)
-	using fileSaver instead of handrwitten file download soluton
+	using filesaver instead of handrwitten file download soluton
 	loading playernames every time the program is opened
 
-	* index.html: download links removed in favor of FileSaver
+	* index.html: download links removed in favor of filesaver
 
-	* scripts/lib/Blob.js: bringing "new Blob" to old browsers
+	* scripts/lib/blob.js: bringing "new blob" to old browsers
 
-	* scripts/lib/FileSaver.min.js: allow for easy file downloads/saves
+	* scripts/lib/filesaver.min.js: allow for easy file downloads/saves
 
-	* scripts/ui/history.js: toCSV don't store anything if there's no history
+	* scripts/ui/history.js: tocsv don't store anything if there's no history
 
 	* scripts/ui/strings.js: several file download strings added
 
@@ -1507,10 +1511,10 @@
 
 	* scripts/ui/tab_teams.js: typo fixed
 
-	* scripts/ui/ranking.js: csv export works properly, even for KO systems and multiple tournaments
+	* scripts/ui/ranking.js: csv export works properly, even for ko systems and multiple tournaments
 
 
-2014-09-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-16	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_debug.js: names with umlaut characters added
 
@@ -1521,21 +1525,21 @@
 	* scripts/ui/tab_history.js: drawing the tree without byevotes (for now)
 	also drawing an "expecting" player in the topmost game
 
-2014-09-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-15	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* createmanifest.sh: NETWORK section added for interaction with the database
+	* createmanifest.sh: network section added for interaction with the database
 
-2014-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-14	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* boules.html: KO tournament renderer added
+	* boules.html: ko tournament renderer added
 
-	* scripts/lib/jquery.jsPlumb-1.6.4-min.js: library for block connectors
+	* scripts/lib/jquery.jsplumb-1.6.4-min.js: library for block connectors
 
-	* scripts/ui/tab_history.js: drawing KOTournaments as trees by default
+	* scripts/ui/tab_history.js: drawing kotournaments as trees by default
 
 	* style/history.css: ko tree
 
-2014-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-13	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: got rid of the strange span system for corrections
 	tournamentrank column added in tab_new
@@ -1543,27 +1547,27 @@
 	unicode entity added for tournament removal "button"
 	added a teamsize input for new tournaments
 	pre-collapsed advanced options box for swisstournament
-	Mail and Phone swapped
-	KO-system button added
-	KO mode selection added
+	mail and phone swapped
+	ko-system button added
+	ko mode selection added
 
-	* scripts/ui/history.js: addCorrection() takes input of the same format you get from its other functions
-	addCorrection() also rewrites the matching game
-	stupid error fixed where I didn't copy arrays first
-	another stupid error in the same function where I forgot to create arrays
-	getCorrections() added
+	* scripts/ui/history.js: addcorrection() takes input of the same format you get from its other functions
+	addcorrection() also rewrites the matching game
+	stupid error fixed where i didn't copy arrays first
+	another stupid error in the same function where i forgot to create arrays
+	getcorrections() added
 
 	* scripts/ui/tab_history.js: taking old point for corrections from colon-sep'd text
 	extra jquery calls removed
 	can now correct within progress lists
 	it's forbidden to change byes
-	using Tournaments.getRanking()
+	using tournaments.getranking()
 	update(force) added
-	showing KOTournaments with the simple interface
+	showing kotournaments with the simple interface
 
 	* style/history.css: name hide override
 
-	* scripts/ui/debug.js: Debug.isDevVersion added
+	* scripts/ui/debug.js: debug.isdevversion added
 	determining dev status by parsing the page title for "%version%"
 
 	* scripts/ui/strings.js: nomanifest added
@@ -1571,32 +1575,32 @@
 	tournament removal strings added
 	tournamentstarted added
 
-	* scripts/ui/tab_debug.js: using Debug.isDevVersion
-	using updating teams for the Tournaments array
-	using Tournaments.getRanking()
+	* scripts/ui/tab_debug.js: using debug.isdevversion
+	using updating teams for the tournaments array
+	using tournaments.getranking()
 	update(force) added (not for itself)
 
-	* scripts/ui/update.js: Update.isDevVersion removed
-	if no dev version and manifest is missing: print warning Toast
+	* scripts/ui/update.js: update.isdevversion removed
+	if no dev version and manifest is missing: print warning toast
 	eclipse warning suppressed with another cheap hack
 
 	* scripts/ui/tab_new.js: tournamentrank column used
-	GlobalRanking used
-	players are added by Tournaments.addTournament from global ranking
-	using Tournaments.getRanking()
+	globalranking used
+	players are added by tournaments.addtournament from global ranking
+	using tournaments.getranking()
 	tournament namechange logic added
 	stub for multiple parallel tournaments added
 	chabort function simplified
-	not passing Tournament objects around
+	not passing tournament objects around
 	showing an error if a tournament isn't running, but wants to be displayed
 	adding removal button to every system block
 	adding 'editable' class only to actual tournaments
 	tournament removal enabled
 	new global ranking format used
 	preparing the use of parentid and multiple tournaments
-	major updateSystems() cleanup!
+	major updatesystems() cleanup!
 	supporting the display of multiple tournaments
-	startRank bugfix
+	startrank bugfix
 	using the tournament order for displaying running systems
 	avoiding stupid startteam indices (e.g. >numplayers)
 	avoiding stupid team sizes
@@ -1605,45 +1609,45 @@
 	specifically asking for the place of the next child
 	ko tournaments enabled
 	update(force) added
-	initKO() added
+	initko() added
 
-	* scripts/ui/globalranking.js: GlobalRanking.get() added
-	using Tournaments.getRanking()
-	Tournaments.getRankingOrder() is used to determine tournament dependencies
+	* scripts/ui/globalranking.js: globalranking.get() added
+	using tournaments.getranking()
+	tournaments.getrankingorder() is used to determine tournament dependencies
 
-	* scripts/ui/tournaments.js: addTournament adds players according to global ranking
-	removeTournament added
-	getRanking added to get the last ranking transparently
+	* scripts/ui/tournaments.js: addtournament adds players according to global ranking
+	removetournament added
+	getranking added to get the last ranking transparently
 	blob functions updated to the new format
 	using parent referencing to build an ordered tree for global rankings
-	numTeamsLeft() and getStartRank() added
-	addTournament uses the correct start rank
+	numteamsleft() and getstartrank() added
+	addtournament uses the correct start rank
 	number of teams verification during tournament start
-	numTeams() prints the correct number, even for (undefined)
+	numteams() prints the correct number, even for (undefined)
 	some minor bugfixes
-	getStartRank bugfixing
+	getstartrank bugfixing
 	null vs undefined!
-	don't recurse all the way to undefined in getStartRank
+	don't recurse all the way to undefined in getstartrank
 	flipped comparison
-	allowing to count all children during getStartRank. That way...
+	allowing to count all children during getstartrank. that way...
 	...the user can specify that he wants the position of the next child
 	ko tournaments enabled
-	getType() added
+	gettype() added
 
-	* scripts/ui/ranking.js: using Tournaments.getRanking()
+	* scripts/ui/ranking.js: using tournaments.getranking()
 
-	* scripts/ui/tab_games.js: using Tournaments.getRanking()
+	* scripts/ui/tab_games.js: using tournaments.getranking()
 	using and storing game ids
 	update(force) added
 	update everything once a game has finished, because it's going to be updated anyway
 
-	* scripts/ui/tab_ranking.js: using Tournaments.getRanking()
-	not passing around Tournament objects
-	reading corrections from History, not Tournaments
+	* scripts/ui/tab_ranking.js: using tournaments.getranking()
+	not passing around tournament objects
+	reading corrections from history, not tournaments
 	update(force) added
 
 	* scripts/ui/tab_teams.js: escape rename abort added
-	namechangeaborted Toast added
+	namechangeaborted toast added
 	update(force) added
 
 	* scripts/backend/game.js: game id added
@@ -1651,21 +1655,21 @@
 	* scripts/backend/kotournament.js: game id added
 	options adjusted
 	blob functions written
-	numRounds corrected
+	numrounds corrected
 	default mode: 'set'
-	byeOrder removed
+	byeorder removed
 	minmatchround removed
 	some logging removed
-	start() and finishGame() rewritten to get rid of KOTournament
+	start() and finishgame() rewritten to get rid of kotournament
 	starting new games as soon as they become available
 	indexing bugs fixed
-	getRanking() written
+	getranking() written
 
 	* scripts/backend/swisstournament.js: game id added and passed through most functions
 
-	* scripts/backend/tournament.js: getCorrections() doesn't set a game id
+	* scripts/backend/tournament.js: getcorrections() doesn't set a game id
 
-	* scripts/backend/test/swisstournament.js: getCorrections() doesn't set a game id
+	* scripts/backend/test/swisstournament.js: getcorrections() doesn't set a game id
 
 	* style/general.css: collapsed boxes aren't printed
 	box headers adjusted in size in printing mode
@@ -1677,7 +1681,7 @@
 	* scripts/ui/tab_settings.js: update(force) added
 
 
-2014-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-12	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: progresstable checkbox active by default
 	progresstable template added
@@ -1687,7 +1691,7 @@
 	correct button replaced by a text span
 	corrections in progresstable enabled
 
-	* scripts/ui/history.js: getGames added for easy iteration
+	* scripts/ui/history.js: getgames added for easy iteration
 
 	* scripts/ui/strings.js: winstatus* strings added
 
@@ -1733,7 +1737,7 @@
 
 	* scripts/ui/tab_new.js: 'editable' class added
 
-2014-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-11	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash loaderror added
 
@@ -1743,7 +1747,7 @@
 
 	* scripts/ui/tabs.js: another try at disabling hashchange jumps
 
-2014-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-10	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/online.js: callback function: event verification
 	callback function: dev output temporarily added
@@ -1755,17 +1759,17 @@
 
 	* scripts/ui/splash.js: error display added
 
-	* scripts/ui/storage.js: try..catch block removed. Didn't work anyway
+	* scripts/ui/storage.js: try..catch block removed. didn't work anyway
 
-	* style/splash.css: highlighting links boldly ;-D
+	* style/splash.css: highlighting links boldly ;-d
 	error text added to the display/hide rules
 
 	* scripts/ui/tab_debug.js: showing debugging tab in dev versions
 
-2014-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-09	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/tab_new.js: Bye of the first team was not added
-	addNewSystem() for unified tournament creation added
+	* scripts/ui/tab_new.js: bye of the first team was not added
+	addnewsystem() for unified tournament creation added
 	setting the name of new tournaments
 	showing system footer
 	showing the tournament name, if available
@@ -1789,13 +1793,13 @@
 
 	* scripts/ui/tab_settings.js: don't reload the page if a file load fails
 
-	* scripts/ui/csver.js: toCSV interface added
+	* scripts/ui/csver.js: tocsv interface added
 
-	* scripts/ui/test/csv.js: CSVer interface tests added
+	* scripts/ui/test/csv.js: csver interface tests added
 
-	* scripts/ui/history.js: toCSV() added, implemented and tested
+	* scripts/ui/history.js: tocsv() added, implemented and tested
 
-	* scripts/ui/ranking.js: toCSV fixed (showing corrections + using nice headers)
+	* scripts/ui/ranking.js: tocsv fixed (showing corrections + using nice headers)
 
 	* scripts/ui/main.js: online.js reference added
 	using backgroundscripts.js
@@ -1803,19 +1807,19 @@
 	* scripts/ui/online.js: online/offline detection added
 	if offline and not cached, ask before exiting
 
-	* scripts/ui/update.js: Update.isCached added
+	* scripts/ui/update.js: update.iscached added
 
 	* scripts/ui/debug.js: stacktrace not divided into multiple files
 
 	* scripts/ui/backgroundscripts.js: loader for a collection of background scripts
 
 
-2014-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-08	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/tab_games.js: Game result submissions work again
-	got rid of DOM injection of tournament ids
+	* scripts/ui/tab_games.js: game result submissions work again
+	got rid of dom injection of tournament ids
 	and now we're using jquery for unique identifiers
-	adding game with the correct tournamentid to History
+	adding game with the correct tournamentid to history
 
 	* boules.html: .corr.tpl -> .corr
 	history gamestable class added
@@ -1824,47 +1828,47 @@
 	trailing whitespaces stripped
 
 	* scripts/ui/tab_ranking.js: template.correction.$teamnos not found -> fixed
-	.correctiontable -> .correctionstable. Stupid typo.
+	.correctiontable -> .correctionstable. stupid typo.
 	some idiot (me) hid a detached container and wondered when it didn't show
 
-	* scripts/ui/history.js: History.numTournaments() added to avoid calling Tournaments.size()
-	Tournaments.size() != History.numTournaments() in some cases
+	* scripts/ui/history.js: history.numtournaments() added to avoid calling tournaments.size()
+	tournaments.size() != history.numtournaments() in some cases
 
-	* scripts/ui/tab_history.js: setRound() removed
-	createBox() -> createGame()
+	* scripts/ui/tab_history.js: setround() removed
+	createbox() -> creategame()
 	template updated
-	showTournaments() added for drawing all past and present tournaments
+	showtournaments() added for drawing all past and present tournaments
 	update(): code length reduced
 	getting tournamentid from previourly stored jquery data
 	using the correct tournament id for corrections
 
 	* scripts/ui/strings.js: toolatetournamentfinished added
 
-	* scripts/ui/tab_debug.js: playTournament() and finishRound() work with multiple tournaments
-	startRound adapted to new multi-system layout
-	playTournament can cold-start without manually calling startRound first
+	* scripts/ui/tab_debug.js: playtournament() and finishround() work with multiple tournaments
+	startround adapted to new multi-system layout
+	playtournament can cold-start without manually calling startround first
 
-	* scripts/ui/tab_new.js: supporting Tournament states
-	Swiss -> Tournament for all general variable names
-	always showing the New tab (which is likely to be renamed in the future)
+	* scripts/ui/tab_new.js: supporting tournament states
+	swiss -> tournament for all general variable names
+	always showing the new tab (which is likely to be renamed in the future)
 	.newsystem added for tournament system selection
-	getRanking() handles empty tournaments
+	getranking() handles empty tournaments
 
 	* style/new.css: only show current tournament state
 	header x-padding added
 	accidentally prevented templates from hiding
 
-	* scripts/ui/tournaments.js: Tournaments.size() deprecated
-	Tournaments.numTournaments() added
-	Tournaments.getTournamentID added (for inverse association of a Tournament to its id)
-	getTournament() checks whether the tournament exists, first
-	Swiss stub removed. We're live now!
+	* scripts/ui/tournaments.js: tournaments.size() deprecated
+	tournaments.numtournaments() added
+	tournaments.gettournamentid added (for inverse association of a tournament to its id)
+	gettournament() checks whether the tournament exists, first
+	swiss stub removed. we're live now!
 
 	* scripts/ui/tab_teams.js: seemingly ancient bug: teamsize was hidden
 
-	* scripts/backend/swisstournament.js: Do not reset the swiss mode without the user expecting it
+	* scripts/backend/swisstournament.js: do not reset the swiss mode without the user expecting it
 
-2014-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-07	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #new tab drastically rearranged
 	#reset accesskey added
@@ -1879,8 +1883,8 @@
 	games templates updated for simultaneous tournaments
 
 	* scripts/ui/main.js: adding window.mods if this is a dev version
-	calling Splash.update()
-	Box reference added for requirejs
+	calling splash.update()
+	box reference added for requirejs
 
 	* scripts/ui/options.js: restructuring started
 	tournament key changed to 'boulestournament'
@@ -1894,19 +1898,19 @@
 	not overwriting existing window.mods variables
 	showing all <img>s at pageload in .allimages box
 	allimages: title added for hover text
-	removed Swiss references, but I have to redo the whole GUI shortcut system
+	removed swiss references, but i have to redo the whole gui shortcut system
 
 	* scripts/ui/tab_new.js: complete rewrite
 	create table layout to enable multiple parallel tournaments
 	first step towards tournament encapsulation
-	getRoundVotes() copied over from tab_games
-	using new History format
-	all operations use the last Tournaments entry, but it's capable of multiple ones
+	getroundvotes() copied over from tab_games
+	using new history format
+	all operations use the last tournaments entry, but it's capable of multiple ones
 
-	* scripts/ui/team.js: Team.size() added for faster development
+	* scripts/ui/team.js: team.size() added for faster development
 
 	* scripts/ui/update.js: autoformat
-	Update.isDevVersion added (only in dev versions)
+	update.isdevversion added (only in dev versions)
 	error -> warn
 
 	* style/general.css: tables don't have border-spacing
@@ -1914,7 +1918,7 @@
 	collapsed box style added
 
 	* style/new.css: restyled
-	'TODO' boxes are vertically aligned
+	'todo' boxes are vertically aligned
 
 	* style/tabs.css: page content fades in after pageload
 	tab menu has fixed height (quadratic images)
@@ -1942,68 +1946,68 @@
 	nagging debug text added (for now)
 	'key doesnt exist' error is now just a warning
 
-	* scripts/ui/tab_games.js: removed Tab_History.createBox() dependency
+	* scripts/ui/tab_games.js: removed tab_history.createbox() dependency
 	using new history format
 	$.delegate replaced by $.on
-	Swiss removed from includes, but I'm still working on it
+	swiss removed from includes, but i'm still working on it
 	now displaying multiple tournaments simultaneously
 	functions cleaned up while we're at it
 
-	* scripts/ui/tab_history.js: nextRound() removed
-	moved createBox() and createBye() into local block
+	* scripts/ui/tab_history.js: nextround() removed
+	moved createbox() and createbye() into local block
 	using new history format
 	missing variable added
-	corrections fixed again (They now work with the new History format)
+	corrections fixed again (they now work with the new history format)
 	progresstable checkbox logic changed
-	Swiss removed. The History tab uses only the first Tournament so far
+	swiss removed. the history tab uses only the first tournament so far
 
-	* scripts/ui/tab_teams.js: reduced the number of cross-Tab update calls:
-	createBox() doesn't call other Tabs anymore
-	updateAfterTeamAdd() added
+	* scripts/ui/tab_teams.js: reduced the number of cross-tab update calls:
+	createbox() doesn't call other tabs anymore
+	updateafterteamadd() added
 	$.delegate replaced by $.on
 
-	* scripts/backend/kotournament.js: getType() added
+	* scripts/backend/kotournament.js: gettype() added
 
-	* scripts/backend/swisstournament.js: getType() added
+	* scripts/backend/swisstournament.js: gettype() added
 
-	* scripts/backend/tournament.js: getType() added to interface
+	* scripts/backend/tournament.js: gettype() added to interface
 
 	* scripts/ui/swiss.js: only referencing tournaments.js anymore
 	tournaments key changed from 'swiss' to 'tournaments'
-	removed in favor of the Tournaments system
+	removed in favor of the tournaments system
 
-	* scripts/ui/state.js: swapped Swiss with Tournaments
+	* scripts/ui/state.js: swapped swiss with tournaments
 
-	* scripts/ui/test/blobs.js: testing whether Tournaments implements Blobber
+	* scripts/ui/test/blobs.js: testing whether tournaments implements blobber
 
 	* scripts/ui/box.js: box collapse mechanism added
-	I managed to let it transition BACK to height:auto! Yeah!
+	i managed to let it transition back to height:auto! yeah!
 
 	* style/splash.css: not using transition prefixes anymore
 
 	* style/toasts.css: not using transition prefixes anymore
 
-	* scripts/ui/history.js: Complete rewrite for the following reasons:
+	* scripts/ui/history.js: complete rewrite for the following reasons:
 	accomodate for multiple tournaments
 	reduce storage space
-	History.findGames() added to find games by participating teams
+	history.findgames() added to find games by participating teams
 
 
 	* scripts/ui/tournaments.js: new, more efficient internal format
 	fixed tournament ids
-	getType() function added
-	Tournament now works with the same tournamentids as History
+	gettype() function added
+	tournament now works with the same tournamentids as history
 
 	* style/history.css: progresslist logic flipped
 
-	* scripts/ui/ranking.js: CSV export of multiple tournaments (not yet tested)
+	* scripts/ui/ranking.js: csv export of multiple tournaments (not yet tested)
 
-	* scripts/ui/tab_ranking.js: swiss removed from the header, but I'm still working on it
+	* scripts/ui/tab_ranking.js: swiss removed from the header, but i'm still working on it
 	process all running tournaments
 	template functions updated
 
 
-2014-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-06	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: #about is now using the .box class
 	simplified the name fields in the games tab
@@ -2014,7 +2018,7 @@
 	wrapped the ranking table inside a box
 
 	* style/about.css: restyling
-	no tab should have a max-width. Centered its boxes instead
+	no tab should have a max-width. centered its boxes instead
 
 	* style/general.css: .box contents are usually centered
 	box header selector disambituated
@@ -2022,7 +2026,7 @@
 	h2 is always centered
 	boxes are wrapping their contents
 
-	* scripts/ui/tab_games.js: names entry simplified (well, not for JQuery :-D )
+	* scripts/ui/tab_games.js: names entry simplified (well, not for jquery :-d )
 	using .votes as an anchor
 	combining multiple updates into one
 
@@ -2031,11 +2035,11 @@
 
 	* style/teams.css: floats were changed to inline-blocks
 
-	* scripts/backend/rleblobber.js: Run length blobber for sparse nested numerical arrays written
+	* scripts/backend/rleblobber.js: run length blobber for sparse nested numerical arrays written
 
-	* scripts/backend/test/rleblobber.js: Exhaustive RLEBlobber tests written
+	* scripts/backend/test/rleblobber.js: exhaustive rleblobber tests written
 
-	* scripts/test.js: RLEBlobber tests linked in
+	* scripts/test.js: rleblobber tests linked in
 
 	* scripts/backend/finebuchholzranking.js: using rleblobber
 	critical typo fixed: didn't repopulate the sparse array with 0s
@@ -2055,10 +2059,10 @@
 	* scripts/ui/tab_teams.js: combining multiple updates into one
 
 	* scripts/ui/main.js: reset.js enabled
-	calling Tabs.valid() instead of letting it call on pageload
+	calling tabs.valid() instead of letting it call on pageload
 	using yet another timeout for smoother transitions
 
-	* scripts/ui/reset.js: #reset: reset localStorage to factory settings
+	* scripts/ui/reset.js: #reset: reset localstorage to factory settings
 
 	* scripts/ui/strings.js: reset string added
 
@@ -2069,10 +2073,10 @@
 	names width typo fixed
 
 	* style/tabs.css: tabs are now contained in their container, not absolute-floating
-	adjusting min-width according to content width (CSS extensions needed)
+	adjusting min-width according to content width (css extensions needed)
 
 
-2014-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-05	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: splash screen added
 	scripts relocated to bottom of the body
@@ -2081,7 +2085,7 @@
 
 	* scripts/ui/main.js: hiding the splash screen
 	using several splash stages
-	starting Toasts separately, or the timing would mess things up
+	starting toasts separately, or the timing would mess things up
 	showing the tabs only after the tournament has been loaded
 
 	* scripts/ui/splash.js: changing and hiding the splash screen
@@ -2094,7 +2098,7 @@
 	using the new staging approach
 
 	* scripts/ui/toast.js: using an init() function to avoid bad timing due to long hangs
-	Toast timing bug fixed (don't redefine a module-loaded constructor!)
+	toast timing bug fixed (don't redefine a module-loaded constructor!)
 
 	* style/tabs.css: showing the tabs only after the tournament has been loaded
 
@@ -2112,7 +2116,7 @@
 
 	* style/settings.css: .block classes removed in favour of .box classes
 
-2014-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: donate button added
 	amazon wishlist link added
@@ -2131,7 +2135,7 @@
 
 	* images/svg/lane.svg: lane icon added
 
-2014-09-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-02	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: list view in history tab
 
@@ -2146,11 +2150,11 @@
 
 	* style/ranking.css: using full width again
 
-2014-09-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-09-01	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* boules.html: TODO, BUGS, ChangeLog added to developer settings
+	* boules.html: todo, bugs, changelog added to developer settings
 	"shownames" button added in games tab
-	localStorage usage meters added
+	localstorage usage meters added
 	history tab restructured
 
 	* style/settings.css: unnecessary divs removed
@@ -2159,7 +2163,7 @@
 
 	* images/svg/file.svg: added
 
-	* scripts/ui/tab_debug.js: playTournament(): let the browser render every second
+	* scripts/ui/tab_debug.js: playtournament(): let the browser render every second
 
 	* style/toasts.css: toast border added
 
@@ -2167,13 +2171,13 @@
 
 	* style/games.css: "shownames" button added in games tab
 
-	* scripts/ui/tab_settings.js: localStorage usage meters added
+	* scripts/ui/tab_settings.js: localstorage usage meters added
 
 	* scripts/ui/tab_history.js: history tab restructured
 
 	* style/history.css: history tab restructured
 
-2014-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-27	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* doc/de/glossary.html: updated automatically
 
@@ -2186,7 +2190,7 @@
 
 	* style/settings.css: settings tab: look improved
 
-2014-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-26	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: storage -> settings
 
@@ -2218,15 +2222,15 @@
 
 	* scripts/updatetests.sh: executable permissions added
 
-2014-08-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-25	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* doc/de/glossary.html: automatic update
 
-	* doc/de/glossary.txt: Fabe and I edited some stuff
+	* doc/de/glossary.txt: fabe and i edited some stuff
 
 	* doc/writeglossary.sh: support for more link formats added
 
-	* boules.html: feature notifications added. Note to self: Don't forget to add new features
+	* boules.html: feature notifications added. note to self: don't forget to add new features
 	icon paths updated
 
 	* style/about.css: showing and hiding feature notifications as needed
@@ -2235,7 +2239,7 @@
 
 	* images/svg/*.svg: new icons created
 
-2014-08-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-24	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* players.txt: removed in favor of external solution
 
@@ -2243,15 +2247,15 @@
 
 	* scripts/ui/tab_storage.js: ajax mess cleaned up: using json and boulesdb now
 
-2014-08-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-19	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* doc/de/glossary.*: german glossary started
 
-	* doc/writeglossary.sh: Automatic script to update glossary.html from glossary.txt
+	* doc/writeglossary.sh: automatic script to update glossary.html from glossary.txt
 
 	* readme.html: moved to doc/de/index.html
 
-2014-08-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-18	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/logos/: browser logos added
 
@@ -2271,14 +2275,14 @@
 
 	* scripts/update.js: "dev version" toast is now infinite
 
-2014-08-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-11	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/update.sh: less error messages
 
 
-2014-08-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-08-10	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/toast.js: Toast length constants added
+	* scripts/ui/toast.js: toast length constants added
 	added infinite toasts (intended for update notifications)
 
 	* scripts/ui/main.js: checking for updates once
@@ -2288,35 +2292,35 @@
 
 	* .gitignore: ignoring temporary files of various editors
 
-2014-06-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-06-01	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/tab_storage.js: Download under specific file name (using Blob and window.URI, where available)
+	* scripts/ui/tab_storage.js: download under specific file name (using blob and window.uri, where available)
 
 	* scripts/ui/state.js: moved from blob.js
 
-2014-05-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-31	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_storage.js: focus tab_teams on file load
-	autosave option removed. Serialization proved fast enough
+	autosave option removed. serialization proved fast enough
 	save newly loaded player names
 	filereader/nofilereader fallbacks updated
 
-	* scripts/ui/tab_ranking.js: Auto-update option removed. The calculations proved fast enough
+	* scripts/ui/tab_ranking.js: auto-update option removed. the calculations proved fast enough
 
-	* style/*.css: print mode added. Printing looks nice now
+	* style/*.css: print mode added. printing looks nice now
 
 	* scripts/ui/toast.js: parsing different transition formats (opera)
 
-	* scripts/ui/tab_new.js: error fixed where the registration wasn't closed after Blob.fromBlob()
+	* scripts/ui/tab_new.js: error fixed where the registration wasn't closed after blob.fromblob()
 
-2014-05-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-30	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: moved tab_new after tab_teams
 	moved team size selection to tab_teams
 	"fixed" a clear:both bug
 
 	* scripts/ui/tab_teams.js: csv import correctly interprets double quotes
-	Deletion button and logic added
+	deletion button and logic added
 	registration and deletion forms/buttons now show and hide correctly
 
 	* scripts/ui/tab_new.js: moved 'new round' form from tab_games to tab_new
@@ -2327,7 +2331,7 @@
 
 	* scripts/ui/tabs.js: focus() added
 
-	* scripts/ui/players.js: toString and fromString added
+	* scripts/ui/players.js: tostring and fromstring added
 
 	* scripts/ui/tab_storage.js: automatically loading players from players.txt
 
@@ -2339,37 +2343,37 @@
 
 	* scripts/backend/finebuchholzranking.js: critical bug fixed where the number of games was calculated incorrectly
 
-2014-05-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-29	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_teams.js: reading teams from a file
 
-	* scripts/ui/tab_debug.js: using Strings object for Toasts
+	* scripts/ui/tab_debug.js: using strings object for toasts
 
 	* scripts/ui/toast.js: fading behavior improved
 
 	* scripts/ui/tab_games.js: first and subsequent rounds started from the same page
 
-2014-05-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-28	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: favicon added (games.png)
 	increased max points to 15
 
-	* scripts/ui/tab_storage.js: toggleStorage function hidden
+	* scripts/ui/tab_storage.js: togglestorage function hidden
 
 	* scripts/ui/toast.js: reading fading times from css
-	Toast: use console.error without a style sheet
+	toast: use console.error without a style sheet
 
 	* scripts/ui/tab_debug.js: finishtournament implemented
 
 	* scripts/ui/tab_games.js: preset 'nice' added
-	using Options.maxpoints
+	using options.maxpoints
 
 	* scripts/ui/tab_ranking.js: using $autoupdate.change() instead of .click()
 	showing the number of votes
 
 	* scripts/backend/swisstournament.js: storing the number of votes
 	critical bug with the permissions matrix fixed
-	If a wingroup is empty, one player can be downvoted multiple times
+	if a wingroup is empty, one player can be downvoted multiple times
 
 	* scripts/ui/strings.js: vote strings: using the respective unicode characters
 
@@ -2379,7 +2383,7 @@
 
 	* scripts/backend/test/swisstournament.js: tests "fixed"
 
-2014-05-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-27	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boules.html: debug values changed
 
@@ -2390,17 +2394,17 @@
 
 	* scripts/ui/tab_debug: don't reload on storage clear
 
-	* scripts/ui/tab_games.js: Don't reload on tournament start
+	* scripts/ui/tab_games.js: don't reload on tournament start
 	permission selection added
 
-	* scripts/ui/tab_storage.js: Don't reload no storage clear
+	* scripts/ui/tab_storage.js: don't reload no storage clear
 
 	* scripts/ui/test/tab.js: tab_debug and alltabs (technically a tab) added
 
 	* style/teams.css: name height extended to a reasonable value
 
 
-2014-05-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-26	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* scripts/ui/tab_games.js: tiny variable cleanup (var i removed)
 
@@ -2423,24 +2427,24 @@
 
 	* scripts/backend/finebuchholzranking.js: games[] added
 
-	* scripts/backend/swisstournament.js: getRanking().games[] added
-	newRoundByHalves uses ranking order
-	newRoundBy* fixed
+	* scripts/backend/swisstournament.js: getranking().games[] added
+	newroundbyhalves uses ranking order
+	newroundby* fixed
 
 	* scripts/ui/tab_ranking.js: number of games
 
 	* scripts/ui/tab_storage: developer tools added
 	textareas and localstorage-checkbox removed
 
-2014-05-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-19	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/qr_github.png: added
 
-2014-05-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2014-05-18	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* scripts/ui/tab_storage: Fixed buttons not resetting on update()
+	* scripts/ui/tab_storage: fixed buttons not resetting on update()
 
-	* style/teams.css: Made overflow-x/y inconsistency note
+	* style/teams.css: made overflow-x/y inconsistency note
 
 	* style/games.css: added margin to .vote containers
 
@@ -2448,12 +2452,12 @@
 
 	* scripts/backend/swisstournament.js: options extended and option functions generalized
 	enabled vote permissions
-	fromBlob: missing this.rkch=true added to notify about updates to this.ranking
+	fromblob: missing this.rkch=true added to notify about updates to this.ranking
 	'random' and 'halves' modes added
 	undefined-byevote-bug fixed
 
-	* scripts/ui/strings.js: CSV headers: multiword strings grouped with quotes
+	* scripts/ui/strings.js: csv headers: multiword strings grouped with quotes
 
-	* scripts/ui/tab_games: using Options (Opts) to allow registrations
+	* scripts/ui/tab_games: using options (opts) to allow registrations
 
-	* ChangeLog: changelog started. For previous changes, see git history
+	* changelog: changelog started. for previous changes, see git history
