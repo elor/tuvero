@@ -33,10 +33,12 @@
 	* core/scripts/winsrankingcomponent.js: using VectorModel.get()
 
 	* core/scripts/rankinglostpointslistener.js: subtracting the opponent's points to lostpoints
+	typo fixed: It accidentally ADDED the points, instead of subtracting
 
 	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
 
 	* core/scripts/rankinggamescomponent.js: fixed a wrong NAME (copy&paste error)
+	moved to rankingnumgamescomponent.js
 
 	* core/scripts/rankingidcomponent.js: added an empty DEPENDENCIES array to avoid the implicit 'id' dependency
 	DEPENDENCIED -> DEPENDENCIES typo fixed. We need a test for this.
@@ -47,6 +49,14 @@
 
 	* core/scripts/rankingdatalistenerindex.js: DataListener Index, similar to RankingComponentIndex
 	helper functions for flattening, ordering and compressing the dependencies
+
+	* core/scripts/rankingcomponentindex.js: reversing the components to the correct order
+
+	* core/scripts/rankinglostpointscomponent.js: 'lostpoints' component added (negative numbers)
+
+	* core/scripts/rankingnumgamescomponent.js: moved from rankinggamescomponent.js
+
+	* core/scripts/test/rankingcomponentindex.js: RankingComponentIndex tests: chaining and  invalid names
 
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 

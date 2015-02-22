@@ -42,7 +42,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
       result.player.forEach(function(player) {
         if (player !== opponent) {
           this.lostpoints.set(player, this.lostpoints.get(player)
-              + result.points[index]);
+              - result.points[index]);
         }
       });
     }, this);

@@ -8,7 +8,8 @@
  * @see LICENSE
  */
 define(['./rankingidcomponent', './rankingpointscomponent',
-    './rankingsaldocomponent', './rankingwinscomponent'], function() {
+    './rankinglostpointscomponent', './rankingsaldocomponent',
+    './rankingwinscomponent', './rankingnumgamescomponent'], function() {
   var RankingComponentIndex, index, Component;
 
   // build the index from the XXXRankingComponent.NAME fields
@@ -33,6 +34,10 @@ define(['./rankingidcomponent', './rankingpointscomponent',
     var chainfront, retval;
 
     chainfront = undefined;
+
+    // copy the array and revert it: we'll construct the chain from its end
+    components = components.slice(0);
+    components.reverse();
 
     // iterate over the components and chain them in order.
     // Abort if a component is not defined.
