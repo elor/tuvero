@@ -148,6 +148,10 @@
 
 	* test/teamsizeview.html: module paths updated
 
+	* build-tools/write-testindex.sh: automatically writing test/index.html
+
+	* test/index.html: a page which links to the unit test page and the individual view tests
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core
