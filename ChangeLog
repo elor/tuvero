@@ -30,6 +30,10 @@
 
 	* core/scripts/winsrankingcomponent.js: using VectorModel.get()
 
+	* core/scripts/rankinglostpointslistener.js: subtracting the opponent's points to lostpoints
+
+	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core
