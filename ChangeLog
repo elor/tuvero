@@ -17,6 +17,8 @@
 
 	* core/scripts/rankingmodel.js: RankingDataListeners will be event-based
 	Additional dependencies on construction (e.g. for 'have they played before'-type questions)
+	storing the dependencies of the componentchain for building DataListeners
+	using RankingDataListenerIndex for registering all required DataListeners
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 
@@ -42,6 +44,9 @@
 	* core/scripts/rankingwinscomponent.js: fixed a wrong NAME (copy&paste error)
 
 	* core/scripts/rankingcomponent.js: using the DEPENDENCIES array to form a dependency chain
+
+	* core/scripts/rankingdatalistenerindex.js: DataListener Index, similar to RankingComponentIndex
+	helper functions for flattening, ordering and compressing the dependencies
 
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 

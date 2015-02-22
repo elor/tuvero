@@ -9,8 +9,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model', './rankingcomponentindex'], function(extend,
-    Model, RankingComponentIndex) {
+define(['lib/extend', './model', './rankingcomponentindex',
+    './rankingdatalistenerindex'], function(extend, Model,
+    RankingComponentIndex, RankingDataListenerIndex) {
   /**
    * Constructor
    *
@@ -29,10 +30,7 @@ define(['lib/extend', './model', './rankingcomponentindex'], function(extend,
     //
     // TODO fullmatrix this.games (i beat k -> [i][k] += 1)
     // TODO vector this.numgames (+1 for every finished game)
-    // TODO vector this.lostpoints (+1 for every opponent's point)
-    // TODO vector this.saldopoints (calculated from ownpoints-lostpoints)
     // TODO array this.corrections (entry of every correction, for bookkeeping)
-    // TODO vector? this.cointosses (method to account for coin tosses)
     //
     // TODO auto-update the following references:
     // TODO array this.buchholz (abs(this.games) * this.wins)
@@ -42,11 +40,16 @@ define(['lib/extend', './model', './rankingcomponentindex'], function(extend,
 
     this.componentchain = RankingComponentIndex.createComponentChain(this,
         components);
+
     if (!this.componentchain) {
-      // FIXME can we NOT use THROW?
+      // FIXME CAN we NOT use THROW?
       throw new Error('Cannot create RankingComponent chain.'
           + 'There should be an error message explaining what is missing.');
     }
+
+    this.dependencies = this.componentchain.dependencies;
+    this.dataListeners = RankingDataListenerIndex
+        .registerDataListeners(this.dependencies);
   }
   extend(RankingModel, Model);
 
