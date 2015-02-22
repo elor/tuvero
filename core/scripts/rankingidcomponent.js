@@ -20,7 +20,7 @@ define(['lib/extend', './rankingcomponent'],
       extend(RankingIDComponent, RankingComponent);
 
       RankingIDComponent.NAME = 'id';
-      RankingIDComponent.DEPENDENCIED = [];
+      RankingIDComponent.DEPENDENCIES = [];
 
       /**
        * simply return the id. This always leads to a non-equal comparison.

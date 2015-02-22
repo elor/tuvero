@@ -37,8 +37,11 @@
 	* core/scripts/rankinggamescomponent.js: fixed a wrong NAME (copy&paste error)
 
 	* core/scripts/rankingidcomponent.js: added an empty DEPENDENCIES array to avoid the implicit 'id' dependency
+	DEPENDENCIED -> DEPENDENCIES typo fixed. We need a test for this.
 
 	* core/scripts/rankingwinscomponent.js: fixed a wrong NAME (copy&paste error)
+
+	* core/scripts/rankingcomponent.js: using the DEPENDENCIES array to form a dependency chain
 
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 

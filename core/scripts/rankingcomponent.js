@@ -28,16 +28,34 @@ define(function() {
       this.dependencies = this.nextcomponent.dependencies;
     } else {
       this.nextcomponent = RankingComponent.DUMMYCOMPONENT;
-      this.dependencies = {};
+      this.dependencies = [];
+    }
 
+    // add dependencies to the dependencies list
+    if (this.constructor.DEPENDENCIES === undefined) {
+      this.dependencies.push(this.constructor.NAME);
+    } else {
+      this.constructor.DEPENDENCIES.forEach(function(DEP) {
+        this.dependencies.push(DEP);
+      }, this);
     }
   }
 
   /**
    * the unique name for a ranking component, e.g. 'wins', 'saldo', 'coin'. To
    * be declared by every child class.
+   *
+   * This also is an implicit dependency, unless DEPENDENCIES is defined. If
+   * there are no dependencies, set DEPENDENCIES to an empty array.
    */
   RankingComponent.NAME = 'undefined';
+
+  /**
+   * a list of dependencies, i.e. names, as in ranking.name.
+   *
+   * If this is undefined, the NAME is an implicit dependency.
+   */
+  RankingComponent.DEPENDENCIES = [];
 
   /**
    * DUMMYCOMPONENT is the default "nextcomponent", so the sort function does

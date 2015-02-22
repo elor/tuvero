@@ -1,6 +1,6 @@
 /**
  * RankingLostPointsListener
- * 
+ *
  * @return RankingLostPointsListener
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -10,7 +10,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
-   * 
+   *
    * @param ranking
    *          a RankingModel instance
    */
@@ -25,11 +25,11 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
 
   /**
    * insert the results of a game into the ranking.
-   * 
+   *
    * We cannot make the assumption that there's only one opponent. That's why we
    * iterate over every player as a possible opponent and apply his points to
    * every other player's lostpoints vector.
-   * 
+   *
    * @param r
    *          the emitting RankingModel instance. Please ignore.
    * @param e
@@ -44,14 +44,14 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
           this.lostpoints.set(player, this.lostpoints.get(player)
               + result.points[index]);
         }
-      })
+      });
     }, this);
   };
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
    * TournamentModel has to take care of that
-   * 
+   *
    * @param correction
    *          a game correction
    */
