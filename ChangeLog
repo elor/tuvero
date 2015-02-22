@@ -140,6 +140,14 @@
 
 	* tac/images/: only favicon.png, games.png, svg/games.svg and svg/games_black.svg retained
 
+	* test/checkboxview.html: module paths updated
+
+	* test/teamentry.html: module paths updated
+
+	* test/teamlistview.html: module paths updated
+
+	* test/teamsizeview.html: module paths updated
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core
