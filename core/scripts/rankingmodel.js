@@ -75,12 +75,13 @@ define(['lib/extend', './model', './rankingcomponentindex',
    * the different events
    */
   RankingModel.prototype.EVENTS = {
-    'result': true, // insert a new game
+    'result': true, // insert a new game result
     'correct': true, // correct a game
     'recalc': true, // force a recalculation
     'update': true, // there has been an update
     'reset': true, // everything has to be reset
-    'resize': true // the size of the ranking has been changed
+    'resize': true
+  // the size of the ranking has been changed
   };
 
   /**
@@ -99,7 +100,7 @@ define(['lib/extend', './model', './rankingcomponentindex',
    */
   RankingModel.prototype.result = function(result) {
     // TODO result verification?
-    this.emit('insert', result);
+    this.emit('result', result);
     this.invalidate();
   };
 

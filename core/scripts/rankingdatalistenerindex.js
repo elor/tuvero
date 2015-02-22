@@ -14,7 +14,8 @@
  * @see LICENSE
  */
 define(['./rankinglostpointslistener', './rankingpointslistener',
-    './rankingsaldolistener', './rankingwinslistener'], function() {
+    './rankingsaldolistener', './rankingwinslistener',
+    './rankingnumgameslistener'], function() {
   var RankingDataListenerIndex;
 
   /**
@@ -228,8 +229,8 @@ define(['./rankinglostpointslistener', './rankingpointslistener',
     });
 
     if (DataListeners.indexOf(undefined) >= 0) {
-      console.error('A data listener is undefined. See "names" array');
       extractUndefinedNames(names);
+      console.error('data listener is undefined: ' + names.join(', '));
       return undefined;
     }
 

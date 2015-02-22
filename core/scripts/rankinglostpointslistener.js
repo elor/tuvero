@@ -44,7 +44,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
           this.lostpoints.set(player, this.lostpoints.get(player)
               - result.points[index]);
         }
-      });
+      }, this);
     }, this);
   };
 

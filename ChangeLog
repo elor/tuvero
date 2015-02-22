@@ -28,6 +28,7 @@
 	events: insert -> result
 	reset(), result(), invalidate(), get() and resize() functions added
 	correct() function STUB added
+	accidentally fired an 'insert' event. Should have been a 'result' event
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 	cyclic inheritance fixed
@@ -38,6 +39,7 @@
 	cyclic inheritance fixed
 	events: insert -> result
 	result.player -> result.players
+	index vs. player confusion fixed
 
 	* core/scripts/gamesrankingcomponent.js: using VectorModel.get()
 
@@ -52,6 +54,7 @@
 	cyclic inheritance fixed
 	events: insert -> result
 	result.player -> result.players
+	forgot a 'this'
 
 	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
 	cyclic inheritance fixed
@@ -72,6 +75,8 @@
 	when a DataListener is undefined, return its name in the names array
 	registerDataListeners(): swapping argument order
 	no names -> abort
+	RankingNumGamesListener added to index
+	"undefined"-error message improved by printing the missing name directly
 
 	* core/scripts/rankingcomponentindex.js: reversing the components to the correct order
 
