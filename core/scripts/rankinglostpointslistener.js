@@ -18,7 +18,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     RankingLostPointsListener.superconstructor.call(this, ranking,
         new VectorModel());
   }
-  extend(RankingLostPointsListener, RankingLostPointsListener);
+  extend(RankingLostPointsListener, RankingDataListener);
 
   RankingLostPointsListener.NAME = 'lostpoints';
   RankingLostPointsListener.DEPENDENCIES = undefined;

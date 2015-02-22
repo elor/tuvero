@@ -18,7 +18,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     RankingSaldoListener.superconstructor
         .call(this, ranking, new VectorModel());
   }
-  extend(RankingSaldoListener, RankingSaldoListener);
+  extend(RankingSaldoListener, RankingDataListener);
 
   RankingSaldoListener.NAME = 'saldo';
   RankingSaldoListener.DEPENDENCIES = ['points', 'lostpoints'];

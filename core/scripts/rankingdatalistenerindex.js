@@ -44,7 +44,7 @@ define(['./rankinglostpointslistener', './rankingpointslistener',
    * @return a DataListener subclass (constructor)
    */
   function getDataListener(name) {
-    return RankingDataListenerIndex[dependencies];
+    return RankingDataListenerIndex[name];
   }
 
   /**
@@ -187,11 +187,26 @@ define(['./rankinglostpointslistener', './rankingpointslistener',
   }
 
   /**
+   * remove all defined names and leave only the undefined names in the array
+   */
+  function extractUndefinedNames(names) {
+    var index;
+
+    for (index = names.length - 1; index >= 0; index -= 1) {
+      if (getDataListener(names[index]) !== undefined) {
+        names.splice(index, 1);
+      }
+    }
+  }
+
+  /**
    * order the names by their dependencies and register every DataListener, if
    * available. Aborts otherwise
    *
    * @param names
-   *          an array of DataListener names (see RankingDataListener.NAME)
+   *          an array of DataListener names (see RankingDataListener.NAME).
+   *          Will contain the names, which correspond to the returned
+   *          listeners. On error, undefined names are written here.
    * @param ranking
    *          the RankingModel instance to register the listeners to
    * @return A ordered array of DataListener instances on success, undefined
@@ -209,7 +224,8 @@ define(['./rankinglostpointslistener', './rankingpointslistener',
     });
 
     if (DataListeners.indexOf(undefined) >= 0) {
-      console.error('A data listener is undefined');
+      console.error('A data listener is undefined. See "names" array');
+      extractUndefinedNames(names);
       return undefined;
     }
 

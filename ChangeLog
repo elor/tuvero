@@ -21,8 +21,10 @@
 	using RankingDataListenerIndex for registering all required DataListeners
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
+	cyclic inheritance fixed
 
 	* core/scripts/rankingwinslistener.js: updates ranking.wins
+	cyclic inheritance fixed
 
 	* core/scripts/gamesrankingcomponent.js: using VectorModel.get()
 
@@ -34,8 +36,10 @@
 
 	* core/scripts/rankinglostpointslistener.js: subtracting the opponent's points to lostpoints
 	typo fixed: It accidentally ADDED the points, instead of subtracting
+	cyclic inheritance fixed
 
 	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
+	cyclic inheritance fixed
 
 	* core/scripts/rankinggamescomponent.js: fixed a wrong NAME (copy&paste error)
 	moved to rankingnumgamescomponent.js
@@ -49,6 +53,7 @@
 
 	* core/scripts/rankingdatalistenerindex.js: DataListener Index, similar to RankingComponentIndex
 	helper functions for flattening, ordering and compressing the dependencies
+	when a DataListener is undefined, return its name in the names array
 
 	* core/scripts/rankingcomponentindex.js: reversing the components to the correct order
 
@@ -59,6 +64,8 @@
 	* core/scripts/test/rankingcomponentindex.js: RankingComponentIndex tests: chaining and  invalid names
 
 	* core/scripts/rankingnumgameslistener.js: RankingNumGamesListener added
+
+	* core/scripts/test/rankingdatalistenerindex.js: test for RankingDataListenerIndex added
 
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 

@@ -18,7 +18,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'],
         RankingWinsListener.superconstructor.call(this, ranking,
             new VectorModel());
       }
-      extend(RankingWinsListener, RankingWinsListener);
+      extend(RankingWinsListener, RankingDataListener);
 
       RankingWinsListener.NAME = 'wins';
       RankingWinsListener.DEPENDENCIES = undefined;
