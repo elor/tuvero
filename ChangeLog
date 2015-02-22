@@ -1,3 +1,9 @@
+2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/vectormodel.js: fill() tested
+
+	* core/scripts/vectormodel.js: fill() added: fill whole vector with one value
+
 2015-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: ListModel moved to core

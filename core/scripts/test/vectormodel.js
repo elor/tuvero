@@ -69,6 +69,14 @@ define(function() {
           'setProduct calculates the vector product');
 
       QUnit.equal(vec.dot(vec2), 528, 'dot() calculates the dot product');
+
+      retvec.fill();
+      ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      QUnit.deepEqual(retvec.asArray(), ref, 'fill() resets the contents');
+
+      retvec.fill(5);
+      ref = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+      QUnit.deepEqual(retvec.asArray(), ref, 'fill(5) sets the contents');
     });
   };
 });

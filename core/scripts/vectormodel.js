@@ -39,6 +39,22 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   };
 
   /**
+   * set the whole vector to one value
+   *
+   * @param value
+   *          Optional. The value. Defaults to 0.
+   */
+  VectorModel.prototype.fill = function(value) {
+    var index;
+
+    value = value || 0;
+
+    for (index = 0; index < this.length; index += 1) {
+      this.set(index, value);
+    }
+  };
+
+  /**
    * calculate and return the vector sum
    *
    * @return the vector sum
