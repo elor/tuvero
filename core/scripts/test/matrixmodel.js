@@ -117,6 +117,24 @@ define(function() {
       QUnit.equal(a.vectorMult(v, v2), v, 'vectorMult() finished properly');
       QUnit.equal(v.length, 5, 'vectorMult resizes the output vector');
       QUnit.deepEqual(v.asArray(), ref, 'vectorMult performs flawlessly');
+
+      a = new MatrixModel(2);
+      a.set(0, 0, 1);
+      a.set(0, 1, 2);
+      a.set(1, 0, 3);
+      a.set(1, 1, 4);
+
+      a.fill();
+      QUnit.equal(a.get(0, 0), 0, 'fill() sets to 0');
+      QUnit.equal(a.get(0, 1), 0, 'fill() sets to 0');
+      QUnit.equal(a.get(1, 0), 0, 'fill() sets to 0');
+      QUnit.equal(a.get(1, 1), 0, 'fill() sets to 0');
+
+      a.fill(5);
+      QUnit.equal(a.get(0, 0), 5, 'fill(5) sets to 5');
+      QUnit.equal(a.get(0, 1), 5, 'fill(5) sets to 5');
+      QUnit.equal(a.get(1, 0), 5, 'fill(5) sets to 5');
+      QUnit.equal(a.get(1, 1), 5, 'fill(5) sets to 5');
     });
   };
 });

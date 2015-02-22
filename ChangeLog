@@ -4,6 +4,11 @@
 
 	* core/scripts/vectormodel.js: fill() added: fill whole vector with one value
 
+	* core/scripts/matrixmodel.js: fill() tested
+
+	* core/scripts/test/matrixmodel.js: fill() added: fill whole array with one value
+	In the AntisymmetricMatrixModel, the superdiagonal elements are inverted
+
 2015-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: ListModel moved to core

@@ -238,5 +238,34 @@ define(['lib/extend', './model'], function(extend, Model) {
     return outVec;
   };
 
+  /**
+   * set all elements in the matrix to the same value.
+   *
+   * In AntisymmetricMatrixModel, the superdiagonal elements will be inverted,
+   * while the diagonal elements will equal the value.
+   *
+   * @param value
+   *          Optional. The value. Defaults to 0.
+   */
+  MatrixModel.prototype.fill = function(value) {
+    var row, col;
+    value = value || 0;
+
+    if (value === 0) {
+      // discard all data, since get() defaults to 0.
+      this.data.splice(0);
+    } else {
+      /*
+       * Since we don't know about the data mapping, we cannot simply copy data
+       * across this.data. Instead, we just iterate over this.set().
+       */
+      for (row = 0; row < this.length; row += 1) {
+        for (col = 0; col < this.length; col += 1) {
+          this.set(row, col, value);
+        }
+      }
+    }
+  };
+
   return MatrixModel;
 });
