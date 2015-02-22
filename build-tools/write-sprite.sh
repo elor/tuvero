@@ -6,12 +6,14 @@
 # The idea is not to save disk space, but to reduce http calls       #
 ######################################################################
 
+set -e -u
+
 which file >/dev/null || exit 1
 which optipng >/dev/null || exit 1
 which convert >/dev/null || exit 1
 
 listFiles(){
-    find images -type f \( -name '*.png' -or -name '*.jpg' \) -not -name 'favicon.png' -not -name 'smallchange.png' | sort
+    grep -Po 'data-img="[^"]+"' *.html | sort | uniq | sed -r -e 's#^data-img="#images/#' -e 's#"$#.png#'
 }
 
 sprite=images/sprite.png

@@ -124,6 +124,8 @@
 
 	* legacy/scripts/ui/test/listcollectormodel.js: unnecessary logging output removed
 
+	* build-tools/write-sprite.sh: reading required images from the html file, not the filesystem
+
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: listmodel moved to core
