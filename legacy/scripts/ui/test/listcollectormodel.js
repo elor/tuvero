@@ -40,7 +40,6 @@ define(function() {
           'recieving update events from inside the list');
 
       obj = list.pop();
-      console.log(model.emitters);
       QUnit.equal(model.emitters.length, 0,
           'unregistering from emitters when they are removed from the list');
       return;
