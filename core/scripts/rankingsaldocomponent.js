@@ -1,7 +1,7 @@
 /**
- * SaldoRankingComponent: rank by player id
+ * RankingSaldoComponent: rank by player id
  *
- * @return SaldoRankingComponent
+ * @return RankingSaldoComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -16,22 +16,22 @@ define(['lib/extend', './rankingcomponent'],
        * @param nextcomponent
        *          the next component in the chain
        */
-      function SaldoRankingComponent(ranking, nextcomponent) {
-        SaldoRankingComponent.superconstructor
-            .call(this, ranking, nextcomponent);
+      function RankingSaldoComponent(ranking, nextcomponent) {
+        RankingSaldoComponent.superconstructor.call(this, ranking,
+            nextcomponent);
       }
-      extend(SaldoRankingComponent, RankingComponent);
+      extend(RankingSaldoComponent, RankingComponent);
 
-      SaldoRankingComponent.NAME = 'saldo';
+      RankingSaldoComponent.NAME = 'saldo';
 
       /**
        * @param i
        *          a player index
        * @return the point difference, aka. saldo points
        */
-      SaldoRankingComponent.prototype.value = function(i) {
+      RankingSaldoComponent.prototype.value = function(i) {
         return this.ranking.saldo.get(i);
       };
 
-      return SaldoRankingComponent;
+      return RankingSaldoComponent;
     });

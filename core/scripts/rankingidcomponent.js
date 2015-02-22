@@ -1,7 +1,7 @@
 /**
- * IDRankingComponent: rank by player id
+ * RankingIDComponent: rank by player id
  *
- * @return IDRankingComponent
+ * @return RankingIDComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -14,12 +14,12 @@ define(['lib/extend', './rankingcomponent'],
        * @param ranking
        *          a RankingModel instance
        */
-      function IDRankingComponent(ranking) {
-        IDRankingComponent.superconstructor.call(this, ranking, undefined);
+      function RankingIDComponent(ranking) {
+        RankingIDComponent.superconstructor.call(this, ranking, undefined);
       }
-      extend(IDRankingComponent, RankingComponent);
+      extend(RankingIDComponent, RankingComponent);
 
-      IDRankingComponent.NAME = 'id';
+      RankingIDComponent.NAME = 'id';
 
       /**
        * simply return the id. This always leads to a non-equal comparison.
@@ -28,9 +28,9 @@ define(['lib/extend', './rankingcomponent'],
        *          a player index
        * @return the player index, for sorting
        */
-      IDRankingComponent.prototype.value = function(i) {
+      RankingIDComponent.prototype.value = function(i) {
         return i;
       };
 
-      return IDRankingComponent;
+      return RankingIDComponent;
     });

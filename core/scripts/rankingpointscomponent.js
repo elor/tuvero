@@ -1,7 +1,7 @@
 /**
- * PointsRankingComponent
+ * RankingPointsComponent
  *
- * @return PointsRankingComponent
+ * @return RankingPointsComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -16,22 +16,22 @@ define(['lib/extend', './rankingcomponent'],
        * @param nextcomponent
        *          the next component in the chain
        */
-      function PointsRankingComponent(ranking, nextcomponent) {
-        PointsRankingComponent.superconstructor.call(this, ranking,
+      function RankingPointsComponent(ranking, nextcomponent) {
+        RankingPointsComponent.superconstructor.call(this, ranking,
             nextcomponent);
       }
-      extend(PointsRankingComponent, RankingComponent);
+      extend(RankingPointsComponent, RankingComponent);
 
-      PointsRankingComponent.NAME = 'points';
+      RankingPointsComponent.NAME = 'points';
 
       /**
        * @param i
        *          a player index
        * @return the small points: won points, without subtracting lost points
        */
-      PointsRankingComponent.prototype.value = function(i) {
+      RankingPointsComponent.prototype.value = function(i) {
         return this.ranking.points.get(i);
       };
 
-      return PointsRankingComponent;
+      return RankingPointsComponent;
     });

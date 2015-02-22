@@ -1,7 +1,7 @@
 /**
- * WinsRankingComponent: rank by player id
+ * RankingGamesComponent: rank by player id
  *
- * @return WinsRankingComponent
+ * @return RankingGamesComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -16,22 +16,22 @@ define(['lib/extend', './rankingcomponent'],
        * @param nextcomponent
        *          the next component in the chain
        */
-      function WinsRankingComponent(ranking, nextcomponent) {
-        WinsRankingComponent.superconstructor
-            .call(this, ranking, nextcomponent);
+      function RankingGamesComponent(ranking, nextcomponent) {
+        RankingGamesComponent.superconstructor.call(this, ranking,
+            nextcomponent);
       }
-      extend(WinsRankingComponent, RankingComponent);
+      extend(RankingGamesComponent, RankingComponent);
 
-      WinsRankingComponent.NAME = 'id';
+      RankingGamesComponent.NAME = 'id';
 
       /**
        * @param i
        *          a player index
        * @return the number of won games
        */
-      WinsRankingComponent.prototype.value = function(i) {
-        return this.ranking.wins.get(i);
+      RankingGamesComponent.prototype.value = function(i) {
+        return this.ranking.numgames.get(i);
       };
 
-      return WinsRankingComponent;
+      return RankingGamesComponent;
     });

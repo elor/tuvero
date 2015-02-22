@@ -59,7 +59,8 @@ define(['lib/extend', './model', './rankingcomponentindex'], function(extend,
     'recalc': true, // force a recalculation
     'update': true, // there has been an update
     'reset': true, // everything has to be reset
-    'resize': true // add players to the end, or truncate them
+    'resize': true
+  // add players to the end, or truncate them
   };
 
   // TODO finishGame(), correctGame(), get(), emit('update'), emit('reset'),

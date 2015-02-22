@@ -7,8 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./idrankingcomponent', './pointsrankingcomponent',
-    './saldorankingcomponent', './winsrankingcomponent'], function() {
+define(['./rankingidcomponent', './rankingpointscomponent',
+    './rankingsaldocomponent', './rankingwinscomponent'], function() {
   var RankingComponentIndex, index, Component;
 
   // build the index from the XXXRankingComponent.NAME fields
