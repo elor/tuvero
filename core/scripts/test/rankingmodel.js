@@ -121,6 +121,28 @@ define(function() {
       QUnit.deepEqual(rankingobject, ref, 'second ranking is correct');
       QUnit.equal(listener.updated, 1, 'result(): update event fired');
 
+      ref = {
+        'components': ['wins', 'buchholz', 'finebuchholz', 'points'],
+        'displayOrder': [2, 4, 3, 0, 1],
+        'ranks': [3, 4, 0, 2, 1],
+        'wins': [0, 0, 2, 1, 1],
+        'buchholz': [2, 2, 1, 0, 2],
+        'finebuchholz': [2, 1, 4, 2, 3],
+        'points': [3, 5, 26, 13, 24]
+      };
+
+      ranking = new RankingModel(
+          ['wins', 'buchholz', 'finebuchholz', 'points'], 5);
+      ranking.result(new GameResult([0, 4], [3, 13]));
+      ranking.result(new GameResult([1, 2], [5, 13]));
+      ranking.result(new GameResult([3, 0], [13, 0]));
+      ranking.result(new GameResult([4, 2], [11, 13]));
+
+      rankingobject = ranking.get();
+
+      QUnit.deepEqual(rankingobject, ref, 'finebuchholz ranking is correct');
+
+      // TODO bye()
       // TODO correct()
       // TODO reset()
       // TODO resize()

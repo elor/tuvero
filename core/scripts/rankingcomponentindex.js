@@ -9,6 +9,7 @@
  */
 define(['./rankingidcomponent', './rankingpointscomponent',
     './rankinglostpointscomponent', './rankingsaldocomponent',
+    './rankingbuchholzcomponent', './rankingfinebuchholzcomponent',
     './rankingwinscomponent', './rankingnumgamescomponent'], function() {
   var RankingComponentIndex, index, Component;
 

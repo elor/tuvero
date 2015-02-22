@@ -80,8 +80,10 @@
 	no names -> abort
 	RankingNumGamesListener added to index
 	"undefined"-error message improved by printing the missing name directly
+	GameMatrix, Buchholz and Finebuchholz added
 
 	* core/scripts/rankingcomponentindex.js: reversing the components to the correct order
+	Buchholz and Finebuchholz added
 
 	* core/scripts/rankinglostpointscomponent.js: 'lostpoints' component added (negative numbers)
 
@@ -106,8 +108,19 @@
 	* core/scripts/test/rankingmodel.js: RankingModel tests added: construction exceptions
 	testing the fired 'update' events
 	testing get(), invalidate() and result()
+	testing Finebuchholz ranking
 
 	* core/scripts/gameresult.js: simple GameResult class added
+
+	* core/scripts/rankingbuchholzcomponent.js: RankingBuchholzComponent added
+
+	* core/scripts/rankingbuchholzlistener.js: RankingBuchholzListener added
+
+	* core/scripts/rankingfinebuchholzcomponent.js: RankingFinebuchholzComponent added
+
+	* core/scripts/rankingfinebuchholzlistener.js: RankingFinebuchholzListener added
+
+	* core/scripts/rankinggamematrixlistener.js: RankingGameMatrixListener added
 
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
