@@ -26,6 +26,8 @@
 	size -> length
 	keeping componentnames
 	events: insert -> result
+	reset(), result(), invalidate(), get() and resize() functions added
+	correct() function STUB added
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 	cyclic inheritance fixed

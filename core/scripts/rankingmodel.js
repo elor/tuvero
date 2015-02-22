@@ -83,8 +83,88 @@ define(['lib/extend', './model', './rankingcomponentindex',
     'resize': true // the size of the ranking has been changed
   };
 
-  // TODO finishGame(), correctGame(), get(), emit('update'), emit('reset'),
-  // reset()
+  /**
+   * reset the ranking without resizing anything or removing
+   */
+  RankingModel.prototype.reset = function() {
+    this.emit('reset');
+    this.invalidate();
+  };
+
+  /**
+   * process a game result
+   *
+   * @param result
+   *          a GameResult instance
+   */
+  RankingModel.prototype.result = function(result) {
+    // TODO result verification?
+    this.emit('insert', result);
+    this.invalidate();
+  };
+
+  RankingModel.prototype.correct = function(correction) {
+    throw new Error('not implemented yet');
+  };
+
+  /**
+   * force a full recalculation of the ranking from the data fields. This will
+   * not replay the tournament from history, just update dependent data fields.
+   */
+  RankingModel.prototype.invalidate = function() {
+    this.ranking = undefined;
+    this.emit('update');
+  };
+
+  /**
+   * Returns the current ranking as a ranking object. Recalculates as necessary.
+   * This function can take up to several seconds for huge tournaments (> 2000)
+   *
+   * The returned ranking object contains the following fields:
+   *
+   * ranks: an array of ranks. Equal ranks are allowed
+   *
+   * order: an array of player/team indices, which is pre-sorted by rank. The
+   * index in this array does reflect the rank ONLY if each rank is unique.
+   *
+   * components: an ordered array of RankingComponent names.
+   *
+   * For each component with not-undefined values, there's an equally-named
+   * field, which contains the values.
+   *
+   * @return the current ranking, as a ranking object
+   */
+  RankingModel.prototype.get = function() {
+    if (this.ranking === undefined) {
+      this.updateRanking();
+    }
+
+    return this.ranking;
+  };
+
+  /**
+   * Resizes the ranking data structures
+   *
+   * WARNING: This operation can delete data when reducing the size. Be careful
+   *
+   * @param size
+   *          the new size
+   * @return true on success, false otherwise
+   */
+  RankingModel.prototype.resize = function(size) {
+    if (size === this.length) {
+      return true;
+    }
+    if (size >= 0) {
+      this.length = size;
+      this.emit('resize');
+      this.invalidate();
+      return true;
+    } else {
+      console.error('RankingModel.resize: invalid size: ' + size);
+      return false;
+    }
+  };
 
   return RankingModel;
 });
