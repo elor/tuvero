@@ -1,8 +1,12 @@
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
+	testing mult(a,b) and mult(a)
+	testing add(a,b) and add(a)
 
 	* core/scripts/vectormodel.js: fill() added: fill whole vector with one value
+	setProduct(a,b) -> mult(a,b); where b now defaults to this
+	add(a,b) added; where b defaults to this
 
 	* core/scripts/matrixmodel.js: fill() tested
 

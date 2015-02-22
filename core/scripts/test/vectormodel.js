@@ -61,21 +61,42 @@ define(function() {
         vec2.set(index, index);
       });
 
-      QUnit.equal(retvec.setProduct(vec, vec2), retvec,
-          'setProduct does not fail');
-      QUnit.equal(retvec.length, vec.length, 'setProduct resizes target');
+      QUnit.equal(retvec.mult(vec, vec2), retvec, 'mult does not fail');
+      QUnit.equal(retvec.length, 18, 'mult resizes target');
       ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 22, 36, 52, 70, 90, 112, 136];
       QUnit.deepEqual(retvec.asArray(), ref,
-          'setProduct calculates the vector product');
+          'mult calculates the vector product');
+
+      QUnit.equal(retvec.mult(vec), retvec, 'mult with one argument');
+      ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 44, 108, 208, 350, 540, 784,
+          1088];
+      QUnit.deepEqual(retvec.asArray(), ref,
+          'mult calculates the vector product');
 
       QUnit.equal(vec.dot(vec2), 528, 'dot() calculates the dot product');
 
+      retvec.resize(0);
+      QUnit.equal(retvec.add(vec, vec2), retvec, 'add() returns the vector');
+      QUnit.equal(retvec.length, 18, 'add() resizes the target vector');
+      ref = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19, 21, 23, 25];
+      QUnit.deepEqual(retvec.asArray(), ref, 'add calculates the element sum');
+
+      // resize, so ref does not exceed the line length. This is pretty
+      // stupid,
+      // but this is not a stress test anyhow.
+      vec2.resize(15);
+      retvec.resize(15);
+
+      QUnit.equal(retvec.add(vec2), retvec, 'add() returns the vector');
+      ref = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 21, 24, 27, 30, 33];
+      QUnit.deepEqual(retvec.asArray(), ref, 'add calculates element sum');
+
       retvec.fill();
-      ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       QUnit.deepEqual(retvec.asArray(), ref, 'fill() resets the contents');
 
       retvec.fill(5);
-      ref = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
+      ref = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
       QUnit.deepEqual(retvec.asArray(), ref, 'fill(5) sets the contents');
     });
   };

@@ -71,11 +71,13 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
    * @param vecA
    *          Vector A
    * @param vecB
-   *          Vector B
+   *          Optional. Vector B. defaults to this.
    * @return this
    */
-  VectorModel.prototype.setProduct = function(vecA, vecB) {
+  VectorModel.prototype.mult = function(vecA, vecB) {
     var index;
+
+    vecB = vecB || this;
 
     if (vecA.length !== vecB.length) {
       console.error('VectorModel.setProduct: different input lengths: '
@@ -114,6 +116,36 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     }
 
     return sum;
+  };
+
+  /**
+   * Adds two vectors and stores the results in this. If the second vector is
+   * undefined, vector 1 is added to this.
+   *
+   * @param vec1
+   *          vector 1
+   * @param vec2
+   *          Optional. vector 2. Defaults to this.
+   * @return this on success, undefined otherwise
+   */
+  VectorModel.prototype.add = function(vec1, vec2) {
+    var index;
+
+    vec2 = vec2 || this;
+
+    if (vec1.length !== vec2.length) {
+      console.error('VectorModel.prototype.add: different input lengths: '
+          + +vec1.length + '<>' + vec2.length);
+      return undefined;
+    }
+
+    this.resize(vec1.length);
+
+    for (index = 0; index < this.length; index += 1) {
+      this.set(index, vec1.get(index) + vec2.get(index));
+    }
+
+    return this;
   };
 
   return VectorModel;
