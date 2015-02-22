@@ -19,6 +19,10 @@
 	Additional dependencies on construction (e.g. for 'have they played before'-type questions)
 	storing the dependencies of the componentchain for building DataListeners
 	using RankingDataListenerIndex for registering all required DataListeners
+	constructor argument validation
+	processing the additional dependencies
+	size -> length
+	keeping componentnames
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 	cyclic inheritance fixed
@@ -50,10 +54,13 @@
 	* core/scripts/rankingwinscomponent.js: fixed a wrong NAME (copy&paste error)
 
 	* core/scripts/rankingcomponent.js: using the DEPENDENCIES array to form a dependency chain
+	value default: undefined (to filter out unnecessary values in the final ranking object)
 
 	* core/scripts/rankingdatalistenerindex.js: DataListener Index, similar to RankingComponentIndex
 	helper functions for flattening, ordering and compressing the dependencies
 	when a DataListener is undefined, return its name in the names array
+	registerDataListeners(): swapping argument order
+	no names -> abort
 
 	* core/scripts/rankingcomponentindex.js: reversing the components to the correct order
 
@@ -66,6 +73,8 @@
 	* core/scripts/rankingnumgameslistener.js: RankingNumGamesListener added
 
 	* core/scripts/test/rankingdatalistenerindex.js: test for RankingDataListenerIndex added
+	registerDataListeners(): swapping argument order
+	ranking.size -> ranking.length
 
 	* build-tools/create-commonjs.sh: throwing an error if the module is undefined
 

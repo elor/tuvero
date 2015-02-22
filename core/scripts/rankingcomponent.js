@@ -89,7 +89,7 @@ define(function() {
    * @return a point value (or whatever) for this player
    */
   RankingComponent.prototype.value = function(i) {
-    return i;
+    return undefined;
   };
 
   /**

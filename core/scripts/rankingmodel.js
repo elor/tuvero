@@ -20,12 +20,24 @@ define(['lib/extend', './model', './rankingcomponentindex',
    * @param size
    *          the number of teams/players
    * @param dependencies
-   *          an object of additional dependencies, e.g. a games matrix for
+   *          Optional. an array of additional dependencies, e.g. a games matrix
+   *          for "have they played"-type questions
    */
   function RankingModel(components, size, dependencies) {
     RankingModel.superconstructor.call(this);
 
-    this.size = size;
+    if (!components || components.length === 0) {
+      // FIXME CAN we NOT use THROW?
+      throw new Error('RankingModel: no components provided');
+    }
+
+    if (size === undefined) {
+      throw new Error('RankingModel: no size provided');
+    }
+
+    this.length = size;
+    this.ranking = undefined;
+
     // TODO dependency system with the following components:
     //
     // TODO fullmatrix this.games (i beat k -> [i][k] += 1)
@@ -38,6 +50,7 @@ define(['lib/extend', './model', './rankingcomponentindex',
     // TODO array this.ranks (for every player id, the respective rank)
     // TODO array this.ranking (player ids, in the order of ranking. Pre-sorted)
 
+    this.componentnames = components.slice(0);
     this.componentchain = RankingComponentIndex.createComponentChain(this,
         components);
 
@@ -48,8 +61,13 @@ define(['lib/extend', './model', './rankingcomponentindex',
     }
 
     this.dependencies = this.componentchain.dependencies;
-    this.dataListeners = RankingDataListenerIndex
-        .registerDataListeners(this.dependencies);
+    if (dependencies) {
+      dependencies.forEach(function(dependency) {
+        this.dependencies.push(dependency);
+      }, this);
+    }
+    this.dataListeners = RankingDataListenerIndex.registerDataListeners(this,
+        this.dependencies);
   }
   extend(RankingModel, Model);
 

@@ -18,24 +18,24 @@ define(function() {
       var names, listeners, dummyRanking, result;
 
       dummyRanking = new Emitter();
-      dummyRanking.size = 5;
+      dummyRanking.length = 5;
       dummyRanking.EVENTS = {
-        'insert': true
+        'result': true
       };
 
       names = [];
-      listeners = RankingDataListenerIndex.registerDataListeners(names,
-          dummyRanking);
+      listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
+          names);
       QUnit.deepEqual(names, [], 'empty names: still valid input');
       QUnit.deepEqual(listeners, [], 'empty names: no listeners');
 
       names = ['points'];
-      listeners = RankingDataListenerIndex.registerDataListeners(names,
-          dummyRanking);
+      listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
+          names);
       QUnit.deepEqual(names, ['points'], 'flat dependencies: valid names out');
       QUnit.deepEqual(listeners.length, 1, 'flat dependencies: one listener');
       QUnit.ok(dummyRanking.points, 'listener creates points field');
-      QUnit.equal(dummyRanking.points.length, dummyRanking.size,
+      QUnit.equal(dummyRanking.points.length, dummyRanking.length,
           'listener initializes points field size');
       QUnit.equal(dummyRanking.points, listeners[0].points,
           'dummyRanking and listener share the reference');
@@ -71,10 +71,10 @@ define(function() {
        */
 
       dummyRanking = new Emitter();
-      dummyRanking.size = 5;
+      dummyRanking.length = 5;
       names = ['saldo'];
-      listeners = RankingDataListenerIndex.registerDataListeners(names,
-          dummyRanking);
+      listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
+          names);
       QUnit.deepEqual(names, ['points', 'lostpoints', 'saldo'],
           'hidden dependencies: valid names and name order');
       QUnit.deepEqual(listeners.length, 3,
@@ -84,20 +84,20 @@ define(function() {
       QUnit.ok(dummyRanking.saldo, 'listener creates saldo field');
 
       dummyRanking = new Emitter();
-      dummyRanking.size = 5;
+      dummyRanking.length = 5;
       names = ['points', 'lostpoints', 'points'];
-      listeners = RankingDataListenerIndex.registerDataListeners(names,
-          dummyRanking);
+      listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
+          names);
       QUnit.deepEqual(names, ['points', 'lostpoints'],
           'duplicate dependencies: removing duplicates');
       QUnit.deepEqual(listeners.length, 2,
           'hidden dependencies: additional listeners');
 
       dummyRanking = new Emitter();
-      dummyRanking.size = 5;
+      dummyRanking.length = 5;
       names = ['points', 'wtfisthis', 'saldo'];
-      listeners = RankingDataListenerIndex.registerDataListeners(names,
-          dummyRanking);
+      listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
+          names);
       QUnit.equal(listeners, undefined, 'undefined name -> abort');
       QUnit.deepEqual(names, ['wtfisthis'],
           'undefined name -> names array contains undefined entries');

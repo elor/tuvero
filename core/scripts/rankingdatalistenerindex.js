@@ -212,8 +212,12 @@ define(['./rankinglostpointslistener', './rankingpointslistener',
    * @return A ordered array of DataListener instances on success, undefined
    *         otherwise
    */
-  RankingDataListenerIndex.registerDataListeners = function(names, ranking) {
+  RankingDataListenerIndex.registerDataListeners = function(ranking, names) {
     var DataListeners;
+
+    if (!names) {
+      return undefined;
+    }
 
     if (!orderDependencies(names)) {
       return undefined;
