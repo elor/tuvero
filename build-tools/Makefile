@@ -27,7 +27,7 @@ codestyle: FORCE
 
 # compresses the whole images directory
 images: sprite
-	optipng -o3 images/sprite.png images/favicon.png images/smallchange.png
+	optipng -o3 images/sprite.png images/favicon.png
 
 # creates the sprite
 sprite: FORCE

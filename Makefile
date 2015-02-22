@@ -18,7 +18,7 @@ boule: boule/index.html
 test: test/index.html
 
 clean: FORCE
-	rm -rf *-build/
+	rm -rfv *-build/
 
 # primary global targets
 

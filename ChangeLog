@@ -125,6 +125,20 @@
 	* legacy/scripts/ui/test/listcollectormodel.js: unnecessary logging output removed
 
 	* build-tools/write-sprite.sh: reading required images from the html file, not the filesystem
+	reading shared images from core/images
+
+	* boule/images/: shared images moved to core/images
+	favicon.png and games.png retained, as well as svg/games.svg
+
+	* build-tools/build.sh: rmdir command is allowed to fail when there's nothing to remove
+
+	* build-tools/Makefile: smallchange.png doesn't need optimization
+
+	* core/images/: central image folder
+
+	* Makefile: `make clean` is more verbose
+
+	* tac/images/: only favicon.png, games.png, svg/games.svg and svg/games_black.svg retained
 
 2015-02-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
 

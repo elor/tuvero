@@ -16,6 +16,7 @@ listFiles(){
     grep -Po 'data-img="[^"]+"' *.html | sort | uniq | sed -r -e 's#^data-img="#images/#' -e 's#"$#.png#'
 }
 
+coredir=../core/
 sprite=images/sprite.png
 rm -f $sprite
 
@@ -23,6 +24,17 @@ getSizes(){
     while IFS= read file; do
 
         [ "$file" == "$sprite" ] && continue;
+
+        if ! [ -f "$file" ]; then
+            if [ -f "$coredir$file" ]; then
+                file="$coredir$file"
+            else
+                echo "cannot find $file under any of the following directories: ">&2
+                echo "./$(dirname "$file")">&2
+                echo "$coredir$(dirname "$file")">&2
+                exit 1
+            fi
+        fi
 
         case $file in
             *.png)
@@ -97,7 +109,7 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
     compositecommand="$compositecommand $file -geometry ${width}x${height}+${x}+${y} -composite"
 
-    shortname=`sed -r 's:images/(.*).png:\1:' <<< "$file"`
+    shortname=`sed -r 's:.*images/(.*).png:\1:' <<< "$file"`
 
     cat <<EOF >> $stylesheet
 [data-img="$shortname"]::before {
