@@ -29,6 +29,8 @@
 	reset(), result(), invalidate(), get() and resize() functions added
 	correct() function STUB added
 	accidentally fired an 'insert' event. Should have been a 'result' event
+	private helper functions added: getRankingOrder() and getRanks()
+	updateRanking(): private function to extract the ranks, displayOrder and separate components
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 	cyclic inheritance fixed
@@ -69,6 +71,7 @@
 
 	* core/scripts/rankingcomponent.js: using the DEPENDENCIES array to form a dependency chain
 	value default: undefined (to filter out unnecessary values in the final ranking object)
+	getValues(): function to recursively extract all values along the component chain into a 2d array
 
 	* core/scripts/rankingdatalistenerindex.js: DataListener Index, similar to RankingComponentIndex
 	helper functions for flattening, ordering and compressing the dependencies
@@ -101,6 +104,8 @@
 	* build-tools/create-testjs.sh: parsing and displaying load errors in the console and QUnit
 
 	* core/scripts/test/rankingmodel.js: RankingModel tests added: construction exceptions
+	testing the fired 'update' events
+	testing get(), invalidate() and result()
 
 	* core/scripts/gameresult.js: simple GameResult class added
 

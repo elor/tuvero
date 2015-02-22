@@ -125,8 +125,8 @@ define(['lib/extend', './model', './rankingcomponentindex',
    *
    * ranks: an array of ranks. Equal ranks are allowed
    *
-   * order: an array of player/team indices, which is pre-sorted by rank. The
-   * index in this array does reflect the rank ONLY if each rank is unique.
+   * displayOrder: an array of player/team indices, which is pre-sorted by rank.
+   * The index in this array does reflect the rank ONLY if each rank is unique.
    *
    * components: an ordered array of RankingComponent names.
    *
@@ -137,7 +137,7 @@ define(['lib/extend', './model', './rankingcomponentindex',
    */
   RankingModel.prototype.get = function() {
     if (this.ranking === undefined) {
-      this.updateRanking();
+      updateRanking.call(this);
     }
 
     return this.ranking;
@@ -166,6 +166,85 @@ define(['lib/extend', './model', './rankingcomponentindex',
       return false;
     }
   };
+
+  /**
+   * order player ids by their ranking
+   *
+   * @return an array of ids, sorted by rank
+   */
+  function getRankingOrder() {
+    var ids, chain;
+
+    ids = [];
+    while (ids.length < this.length) {
+      ids.push(ids.length);
+    }
+
+    chain = this.componentchain;
+    ids.sort(function(a, b) {
+      return chain.compare(a, b) || (a - b);
+    }, this);
+
+    return ids;
+  }
+
+  /**
+   * read the ranks of each player from their array position in the ordered
+   * array and their relation to the previous player.
+   *
+   * @param ids
+   *          the return value of getRankingOrder().
+   *
+   * @return an array of ranks, as retrieved from the ids
+   */
+  function getRanks(ids) {
+    var ranks;
+
+    ranks = new Array(this.length);
+
+    ids.forEach(function(player, index) {
+      if (index === 0) {
+        ranks[player] = 0;
+      } else {
+        ranks[player] = ranks[ids[index - 1]];
+        if (this.componentchain.compare(ids[index - 1], player) < 0) {
+          ranks[player] += 1;
+        }
+      }
+    }, this);
+
+    return ranks;
+  }
+
+  /**
+   * Update the ranking from its data fields. See get() for a description of the
+   * ranking object.
+   *
+   * Private RankingModel function.
+   */
+  function updateRanking() {
+    var ranking, components;
+
+    this.emit('recalc');
+
+    ranking = {
+      components: this.componentnames
+    };
+
+    ranking.displayOrder = getRankingOrder.call(this);
+    ranking.ranks = getRanks.call(this, ranking.displayOrder);
+
+    components = this.componentchain.getValues();
+    components.forEach(function(component, index) {
+      var name;
+      if (component !== undefined) {
+        name = this.componentnames[index];
+        ranking[name] = component;
+      }
+    }, this);
+
+    this.ranking = ranking;
+  }
 
   return RankingModel;
 });

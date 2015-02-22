@@ -73,7 +73,46 @@ define(function() {
      */
     compare: function(i, k) {
       return 0;
+    },
+    /**
+     * do nothing, just return the output array
+     */
+    getValues: function(outArray) {
+      return outArray;
     }
+  };
+
+  /**
+   * Recursively output all values to a two-dimensional array. Ignore fully
+   * undefined components (e.g. comparison-based components)
+   *
+   * @param outArray
+   *          Optional. the output array. Will be created if undefined
+   * @return outArray, an array of value arrays for every chain level. If a
+   *          level does not have any values, its entry will be set to undefined
+   */
+  RankingComponent.prototype.getValues = function(outArray) {
+    var values, index;
+
+    if (outArray === undefined) {
+      outArray = [];
+    }
+
+    values = [];
+
+    for (index = 0; index < this.ranking.length; index += 1) {
+      values[index] = this.value(index);
+    }
+
+    if (values.every(function(value) {
+      return value === undefined;
+    })) {
+      value = undefined;
+    }
+
+    outArray.push(values);
+
+    return this.nextcomponent.getValues(outArray);
   };
 
   /**
