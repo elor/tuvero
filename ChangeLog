@@ -3,6 +3,7 @@
 	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed
 
 	* Makefile: explicit `make test/index.html` added for auto-update
+	`make all` includes `make test`
 
 	* test/*.html: testenv pattern changed to a TestMain function pattern, which also works after the optimization
 	stylesheet changed to main.css

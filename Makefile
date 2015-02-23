@@ -6,10 +6,9 @@
 # primary build targets
 
 all: scripts
-#	make test
 	make boule
 	make tac
-
+	make test
 
 tac: tac/index.html
 
