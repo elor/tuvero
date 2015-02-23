@@ -49,6 +49,15 @@
 
 	* core/scripts/transposesummatrix.js: sum of a matrix and its transpose
 
+	* core/scripts/rankingdatalistenerindex.js: RankingWinsMatrixListener added
+
+	* core/scripts/rankingdatalistener.js: resize new fields only if the sizes differ
+
+	* core/scripts/rankinggamematrixlistener.js: gamematrix equals TransposeSumMatrix(RankingWinsMatrixListener)
+
+	* core/scripts/rankingwinsmatrixlistener.js: RankingWinsMatrixListener: win score for every opponent.
+	Side note: the line sum vector of this matrix is the number of wins (and draws/2, if there's a draw)
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested

@@ -30,7 +30,9 @@ define(['lib/extend', './listener'], function(extend, Listener) {
     Const = this.constructor;
 
     // map the ranking field
-    fieldobject.resize(ranking.length);
+    if (fieldobject.length !== ranking.length) {
+      fieldobject.resize(ranking.length);
+    }
     ranking[Const.NAME] = fieldobject;
     this[Const.NAME] = fieldobject;
 
