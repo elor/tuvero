@@ -19,6 +19,7 @@ require(['config'], function() {
   'core/test/symmetricmatrixmodel',
   'core/test/indexedlistmodel',
   'core/test/vectormodel',
+  'core/test/delegatematrix',
   'core/test/valuemodel',
   'core/test/antisymmetricmatrixmodel',
   'core/test/rankingdatalistenerindex',

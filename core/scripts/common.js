@@ -13,6 +13,7 @@
 define([
   'core/antisymmetricmatrixmodel',
   'core/controller',
+  'core/delegatematrix',
   'core/emitter',
   'core/gameresult',
   'core/indexedlistmodel',

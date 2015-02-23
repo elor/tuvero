@@ -32,6 +32,11 @@
 
 	* core/scripts/test/matrixmodel.js: getAbs() tests removed
 
+	* core/scripts/delegatematrix.js: DelegateMatrix, which is a read-only reference to an actual matrix
+	get() can modify the returned value and uses the superget() function, which links to matrix.get()
+
+	* core/scripts/test/delegatematrix.js: test construction, disabled write functions and get()
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
