@@ -23,21 +23,26 @@ define(['lib/extend', './model'], function(extend, Model) {
     MatrixModel.superconstructor.call(this);
 
     this.data = [];
-    this.length = 0;
-    this.resize(size || 0);
+    this.length = Math.max(0, size || 0);
 
     return this;
   }
   extend(MatrixModel, Model);
+
+  MatrixModel.prototype.EVENTS = {
+    'resize': true
+  };
 
   /**
    * removes the rows and cols associated with the index from the matrix
    *
    * @param index
    *          {Integer} index
+   * @param noemit
+   *          Reserved. Do not use.
    * @return {MatrixModel} this
    */
-  MatrixModel.prototype.remove = function(index) {
+  MatrixModel.prototype.remove = function(index, noemit) {
     if (index >= this.length || index < 0) {
       return this;
     }
@@ -48,6 +53,10 @@ define(['lib/extend', './model'], function(extend, Model) {
     });
 
     this.length -= 1;
+
+    if (!noemit) {
+      this.emit('resize');
+    }
 
     return this;
   };
@@ -68,11 +77,13 @@ define(['lib/extend', './model'], function(extend, Model) {
     }
 
     while (this.length > size) {
-      this.remove(this.length - 1);
+      this.remove(this.length - 1, true);
     }
     if (this.length < size) {
       this.length = size;
     }
+
+    this.emit('resize');
 
     return this;
   };

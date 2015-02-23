@@ -25,6 +25,10 @@
 
 	* tac/index.html: Options: Development Tools section cleaned up
 
+	* core/scripts/matrixmodel.js: emitting 'resize'
+	internal remove() argument
+	not calling resize() from the constructor to enable readonly-matrices
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
