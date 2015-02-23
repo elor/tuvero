@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel'], function(extend, ListModel) {
+define(['lib/extend', './listmodel', 'ui/type'], function(extend, ListModel,
+    Type) {
   /**
    * Constructor
    *
@@ -77,18 +78,33 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   VectorModel.prototype.mult = function(vecA, vecB) {
     var index;
 
-    vecB = vecB || this;
-
-    if (vecA.length !== vecB.length) {
-      console.error('VectorModel.setProduct: different input lengths: '
-          + vecA.length + '<>' + vecB.length);
-      return undefined;
+    if (Type.isNumber(vecB)) {
+      throw new Error('VectorModel.prototype.mult: '
+          + 'second argument must be undefined or a VectorModel instance: '
+          + vecB);
     }
 
-    this.resize(vecA.length);
+    vecB = vecB || this;
 
-    for (index = 0; index < this.length; index += 1) {
-      this.set(index, vecA.get(index) * vecB.get(index));
+    if (Type.isNumber(vecA)) {
+      // numerical multiplication
+      this.resize(vecB.length);
+      for (index = 0; index < this.length; index += 1) {
+        this.set(index, vecB.get(index) * vecA);
+      }
+    } else {
+      // element-wise multiplication
+      if (vecA.length !== vecB.length) {
+        console.error('VectorModel.setProduct: different input lengths: '
+            + vecA.length + '<>' + vecB.length);
+        return undefined;
+      }
+
+      this.resize(vecB.length);
+
+      for (index = 0; index < this.length; index += 1) {
+        this.set(index, vecA.get(index) * vecB.get(index));
+      }
     }
 
     return this;

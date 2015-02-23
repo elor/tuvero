@@ -14,8 +14,8 @@ define(function() {
     ListModel = getModule('core/listmodel');
     VectorModel = getModule('core/vectormodel');
 
-    QUnit.test('VectorModel tests', function() {
-      var vec, vec2, retvec, ref;
+    QUnit.test('VectorModel', function() {
+      var vec, vec2, retvec, ref, success;
 
       QUnit.ok(extend.isSubclass(VectorModel, ListModel),
           'VectorModel is subclass of ListModel');
@@ -98,6 +98,42 @@ define(function() {
       retvec.fill(5);
       ref = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5];
       QUnit.deepEqual(retvec.asArray(), ref, 'fill(5) sets the contents');
+
+      vec = new VectorModel(5);
+      vec.set(0, 5);
+      vec.set(1, 4);
+      vec.set(2, 3);
+      vec.set(3, 2);
+      vec.set(4, 1);
+
+      success = false;
+      try {
+        vec2.mult(vec, 5);
+      } catch (e) {
+        success = true;
+      }
+      QUnit.ok(success, 'mult(VectorModel, Number) aborts as intended');
+
+      success = true;
+      try {
+        vec2.mult(5, vec);
+      } catch (e) {
+        success = false;
+      }
+      QUnit.ok(success, 'mult(Number, VectorModel) aborts as intended');
+      ref = [25, 20, 15, 10, 5];
+      QUnit.deepEqual(vec2.asArray(), ref, 'mult(Number) works properly');
+
+      success = true;
+      try {
+        vec.mult(5);
+      } catch (e) {
+        success = false;
+      }
+      QUnit.ok(success, 'mult(Number, VectorModel) aborts as intended');
+      ref = [25, 20, 15, 10, 5];
+      QUnit.deepEqual(vec.asArray(), ref, 'mult(Number) works properly');
+
     });
   };
 });

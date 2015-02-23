@@ -71,6 +71,11 @@
 
 	* core/scripts/test/rankingmodel.js: duplicate ranks test added
 
+	* core/scripts/test/vectormodel.js: testing mult(Number)
+
+	* core/scripts/vectormodel.js: mult() overloaded: mult(Vector) and mult(Number)
+	mult(Number) and mult(Number, Vector) do what you'd expect
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
