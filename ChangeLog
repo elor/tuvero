@@ -67,6 +67,10 @@
 
 	* core/scripts/test/rankingsonneborn.js: testing the Sonneborn score calculations
 
+	* core/scripts/rankingmodel.js: didn't skip duplicate ranks
+
+	* core/scripts/test/rankingmodel.js: duplicate ranks test added
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested

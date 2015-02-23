@@ -142,6 +142,19 @@ define(function() {
 
       QUnit.deepEqual(rankingobject, ref, 'finebuchholz ranking is correct');
 
+      ranking = new RankingModel(['numgames', 'wins'], 5);
+      ranking.result(new GameResult([1, 3], [13, 0]));
+      ranking.result(new GameResult([2, 4], [0, 13]));
+      ref = {
+        components: ['numgames', 'wins'],
+        ranks: [4, 0, 2, 2, 0],
+        displayOrder: [1, 4, 2, 3, 0],
+        numgames: [0, 1, 1, 1, 1],
+        wins: [0, 1, 0, 0, 1]
+      };
+      rankingobject = ranking.get();
+      QUnit.deepEqual(rankingobject, ref, 'ranks order is correct');
+
       // TODO bye()
       // TODO correct()
       // TODO reset()

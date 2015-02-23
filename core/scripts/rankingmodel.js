@@ -206,9 +206,10 @@ define(['lib/extend', './model', './rankingcomponentindex',
       if (index === 0) {
         ranks[player] = 0;
       } else {
-        ranks[player] = ranks[ids[index - 1]];
         if (this.componentchain.compare(ids[index - 1], player) < 0) {
-          ranks[player] += 1;
+          ranks[player] = index;
+        } else {
+          ranks[player] = ranks[ids[index - 1]];
         }
       }
     }, this);
