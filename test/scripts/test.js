@@ -19,6 +19,7 @@ require(['config'], function() {
   'core/test/matrixmodel',
   'core/test/listmodel',
   'core/test/symmetricmatrixmodel',
+  'core/test/transposedifferencematrix',
   'core/test/indexedlistmodel',
   'core/test/absolutematrix',
   'core/test/vectormodel',

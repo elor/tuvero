@@ -84,6 +84,10 @@
 
 	* core/scripts/test/rankingtac.js: testing TAC ranking calculations
 
+	* core/scripts/test/transposedifferencematrix.js: Like TransposeSumMatrix, but with a difference
+
+	* core/scripts/transposedifferencematrix.js: Like TransposeSumMatrix, but with a difference
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
