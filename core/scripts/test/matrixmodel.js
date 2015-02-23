@@ -69,20 +69,6 @@ define(function() {
       QUnit.equal(a.get(1, 2), 0,
           'get(1,2) after remove() now points to another element; returns 0');
 
-      a.resize(3);
-      a.set(0, 0, -1);
-      a.set(0, 1, 0);
-      a.set(0, 2, 1);
-
-      QUnit.equal(a.getAbs(0, 0), 1,
-          'getAbs: returns the absolute of a negative value');
-      QUnit.equal(a.getAbs(0, 1), 0,
-          'getAbs: returns the absolute of a zero value');
-      QUnit.equal(a.getAbs(0, 2), 1,
-          'getAbs: returns the absolute of a positive value');
-      QUnit.equal(a.getAbs(0, 3), undefined,
-          'getAbs: returns undefined of an out-of-bounds value');
-
       a = new MatrixModel(5);
       [0, 1, 2, 3, 4].map(function(row) {
         [0, 1, 2, 3, 4].map(function(col) {

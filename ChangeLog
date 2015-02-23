@@ -28,6 +28,9 @@
 	* core/scripts/matrixmodel.js: emitting 'resize'
 	internal remove() argument
 	not calling resize() from the constructor to enable readonly-matrices
+	getAbs() removed in favor of delegated matrices
+
+	* core/scripts/test/matrixmodel.js: getAbs() tests removed
 
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
