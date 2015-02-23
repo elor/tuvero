@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <title>Boules Test 1.4.5-dev</title>
 <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
-<link rel="stylesheet" href="style/testenv.css" />
+<link rel="stylesheet" href="style/main.css" />
 </head>
 
 <body>
@@ -45,40 +45,35 @@
 
 </body>
 
-<script src="scripts/require.js"></script>
-<script>
+<script id="testmain">
+function TestMain(Common, $) {
+  var StaticViewLoader, BoxView;
 
-    require.config({
-      baseUrl: 'scripts',
-      paths: {
-        'core': '../../core/scripts/',
-      }
-    });
-    require(['testenv'], function(TestEnv){
-      TestEnv(function(Common, $){
-	      var StaticViewLoader, BoxView;
-	      
-	//      StaticViewLoader = Common('ui/staticviewloader');
-	      BoxView = Common('ui/boxview');
-	
-	      $(function($){
-	        var $box;
-	        
-	//        StaticViewLoader.registerView('boxview', BoxView);
-	//        StaticViewLoader.loadViews($('body'));
+  // backendscripts takes care of that for us
+  // StaticViewLoader = Common('ui/staticviewloader');
+  BoxView = Common('ui/boxview');
 
-	        $box = $('<div>').addClass('boxview').append($('<h3>').text('Script-Generated Box'));
-	        
-	        new BoxView($box);
-	        
-	        window.setInterval(function(){
-	          $box.append($('<span>').text((new Date()).toTimeString())).append('<br>');
-	        }, 864);
-	        
-	        $('body').append($box);
-	      });
-	    });
-    });
-  </script>
+  $(function($) {
+    var $box;
+
+    // StaticViewLoader.registerView('boxview', BoxView);
+    // StaticViewLoader.loadViews($('body'));
+
+    $box = $('<div>').addClass('boxview').append(
+        $('<h3>').text('Script-Generated Box'));
+
+    new BoxView($box);
+
+    window.setInterval(
+        function() {
+          $box.append($('<span>').text((new Date()).toTimeString())).append(
+              '<br>');
+        }, 864);
+
+    $('body').append($box);
+  });
+}
+</script>
+<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
 
 </html>

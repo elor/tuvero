@@ -1,3 +1,25 @@
+2015-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed
+
+	* Makefile: explicit `make test/index.html` added for auto-update
+
+	* test/*.html: testenv pattern changed to a TestMain function pattern, which also works after the optimization
+	stylesheet changed to main.css
+
+	* test/scripts/build.js: build options added
+
+	* test/scripts/testenv.js: moved to testmain.js
+
+	* test/scripts/testmain.js: moved from testmain.js
+	after config and module loading, TestFunc is called directly
+
+	* test/style/main.css: single main stylesheet for all tests (unit and view)
+
+	* test/style/testenv.css: removed
+
+	* test/unittest.html: stylesheet changed to style.css
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested

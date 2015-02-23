@@ -13,7 +13,7 @@ which optipng >/dev/null || exit 1
 which convert >/dev/null || exit 1
 
 listFiles(){
-    grep -Po 'data-img="[^"]+"' *.html | sort | uniq | sed -r -e 's#^data-img="#images/#' -e 's#"$#.png#'
+    grep -Poh 'data-img="[^"]+"' *.html | sort | uniq | sed -r -e 's#^data-img="#images/#' -e 's#"$#.png#' | grep -v '^sprite$'
 }
 
 coredir=../core/

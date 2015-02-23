@@ -47,6 +47,9 @@ release: NEWS
 merge-master: FORCE
 	./build-tools/merge-master.sh
 
+test/index.html: FORCE
+	./build-tools/write-testindex.sh
+
 # makefile-related secondary targets
 
 %: %/index.html FORCE
