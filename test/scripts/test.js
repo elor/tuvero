@@ -28,6 +28,7 @@ require(['config'], function() {
   'core/test/antisymmetricmatrixmodel',
   'core/test/rankingdatalistenerindex',
   'core/test/rankingcomponentindex',
+  'core/test/rankingtac',
   'core/test/model',
   'backend/test/matrix',
   'backend/test/ranking',
