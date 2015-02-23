@@ -45,6 +45,10 @@
 
 	* core/scripts/test/positivematrix.js: test PositiveMatrix.get()
 
+	* core/scripts/test/transposesummatrix.js: TransposeSumMatrix.get() test
+
+	* core/scripts/transposesummatrix.js: sum of a matrix and its transpose
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
