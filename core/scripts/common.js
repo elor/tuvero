@@ -43,6 +43,8 @@ define([
   'core/rankingpointslistener',
   'core/rankingsaldocomponent',
   'core/rankingsaldolistener',
+  'core/rankingsonneborncomponent',
+  'core/rankingsonnebornlistener',
   'core/rankingwinscomponent',
   'core/rankingwinslistener',
   'core/rankingwinsmatrixlistener',

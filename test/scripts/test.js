@@ -22,6 +22,7 @@ require(['config'], function() {
   'core/test/indexedlistmodel',
   'core/test/absolutematrix',
   'core/test/vectormodel',
+  'core/test/rankingsonneborn',
   'core/test/delegatematrix',
   'core/test/valuemodel',
   'core/test/antisymmetricmatrixmodel',

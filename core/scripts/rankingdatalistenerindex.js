@@ -17,7 +17,7 @@ define(['./rankinglostpointslistener', './rankingpointslistener',
     './rankingsaldolistener', './rankingwinslistener',
     './rankinggamematrixlistener', './rankingbuchholzlistener',
     './rankingfinebuchholzlistener', './rankingwinsmatrixlistener',
-    './rankingnumgameslistener'], function() {
+    './rankingsonnebornlistener', './rankingnumgameslistener'], function() {
   var RankingDataListenerIndex;
 
   /**
