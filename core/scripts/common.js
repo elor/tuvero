@@ -33,6 +33,8 @@ define([
   'core/rankingfinebuchholzcomponent',
   'core/rankingfinebuchholzlistener',
   'core/rankinggamematrixlistener',
+  'core/rankingheadtoheadcomponent',
+  'core/rankingheadtoheadmatrixlistener',
   'core/rankingidcomponent',
   'core/rankinglostpointscomponent',
   'core/rankinglostpointslistener',

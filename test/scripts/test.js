@@ -13,6 +13,7 @@ require(['config'], function() {
   'core/test/emitter',
   'core/test/trianglematrixmodel',
   'core/test/indexedmodel',
+  'core/test/rankingheadtohead',
   'core/test/transposesummatrix',
   'core/test/positivematrix',
   'core/test/rankingmodel',

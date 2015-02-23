@@ -107,7 +107,7 @@ define(function() {
     if (values.every(function(value) {
       return value === undefined;
     })) {
-      value = undefined;
+      values = undefined;
     }
 
     outArray.push(values);

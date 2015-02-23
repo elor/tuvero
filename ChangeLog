@@ -52,6 +52,7 @@
 	* core/scripts/rankingdatalistenerindex.js: RankingWinsMatrixListener added
 	Sonneborn added
 	TAC added
+	HeadToHeadMatrix added
 
 	* core/scripts/rankingdatalistener.js: resize new fields only if the sizes differ
 
@@ -62,6 +63,7 @@
 
 	* core/scripts/rankingcomponentindex.js: Sonneborn added
 	TAC added
+	HeadToHead added
 
 	* core/scripts/rankingsonneborncomponent.js: sort by Sonneborn-Berger score
 
@@ -87,6 +89,15 @@
 	* core/scripts/test/transposedifferencematrix.js: Like TransposeSumMatrix, but with a difference
 
 	* core/scripts/transposedifferencematrix.js: Like TransposeSumMatrix, but with a difference
+
+	* core/scripts/rankingcomponent.js: getValues(): typo in the 'undefined'-removal function fixed
+
+	* core/scripts/rankingheadtoheadcomponent.js: HeadToHead comparison added
+
+	* core/scripts/rankingheadtoheadmatrixlistener.js: HeadToHeadMatrix added for comparison
+
+	* core/scripts/test/rankingheadtohead.js: simpe HeadToHead test
+	test of cyclic HeadToHead sorting
 
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
