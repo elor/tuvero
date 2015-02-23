@@ -21,6 +21,10 @@
 
 	* test/unittest.html: stylesheet changed to style.css
 
+	* boule/index.html: Options: Development Tools section cleaned up
+
+	* tac/index.html: Options: Development Tools section cleaned up
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
