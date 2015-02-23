@@ -37,6 +37,14 @@
 
 	* core/scripts/test/delegatematrix.js: test construction, disabled write functions and get()
 
+	* core/scripts/absolutematrix.js: a DelegateMatrix subclass which always returns the absolute value
+
+	* core/scripts/positivematrix.js: a DelegateMatrix subclass which only returns positive values
+
+	* core/scripts/test/absolutematrix.js: test AbsoluteMatrix.get()
+
+	* core/scripts/test/positivematrix.js: test PositiveMatrix.get()
+
 2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested

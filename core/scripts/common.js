@@ -11,6 +11,7 @@
  */
 
 define([
+  'core/absolutematrix',
   'core/antisymmetricmatrixmodel',
   'core/controller',
   'core/delegatematrix',
@@ -22,6 +23,7 @@ define([
   'core/listmodel',
   'core/matrixmodel',
   'core/model',
+  'core/positivematrix',
   'core/rankingbuchholzcomponent',
   'core/rankingbuchholzlistener',
   'core/rankingcomponentindex',
