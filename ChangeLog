@@ -6,6 +6,10 @@
 
 	* legacy/scripts/ui/backgroundscripts/redrawOnPlayerChange.js: update tabs on player name change
 
+	* tac/images/teams.png: replacement of the teams2 icon, which can no longer be displayed
+
+	* tac/index.html: using the teams icon instead of teams2 due to differences in entry size vs. number of players
+
 2015-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed

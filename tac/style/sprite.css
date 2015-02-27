@@ -61,548 +61,527 @@
     height: 128px;
 }
 
-[data-img="file"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -198px 0px;
-    width: 64px;
-    height: 64px;
-}
-
-.tiny[data-img="file"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -99px 0px;
-    width: 32px;
-    height: 32px;
-}
-
-.large[data-img="file"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -396px -1px;
-    width: 128px;
-    height: 128px;
-}
-
 [data-img="history"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -264px 0px;
+    background-position: -198px 0px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="history"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px 0px;
+    background-position: -99px 0px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="history"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -528px -1px;
+    background-position: -396px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="home"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -330px 0px;
+    background-position: -264px 0px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="home"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -165px 0px;
+    background-position: -132px 0px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="home"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -660px -1px;
+    background-position: -528px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="HTML5_Logo_128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -396px 0px;
+    background-position: -330px 0px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="HTML5_Logo_128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -198px 0px;
+    background-position: -165px 0px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="HTML5_Logo_128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -792px -1px;
+    background-position: -660px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
-    background-position: 0px -66px;
+    background-position: -396px 0px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
-    background-position: 0px -33px;
+    background-position: -198px 0px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -1px -132px;
+    background-position: -792px -1px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -66px -66px;
+    background-position: 0px -66px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -33px -33px;
+    background-position: 0px -33px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -132px;
+    background-position: -1px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/chrome-android_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -66px;
+    background-position: -66px -66px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/chrome-android_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -66px -33px;
+    background-position: -33px -33px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/chrome-android_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -264px -132px;
+    background-position: -132px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/chromium_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -198px -66px;
+    background-position: -132px -66px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/chromium_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -99px -33px;
+    background-position: -66px -33px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/chromium_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -396px -132px;
+    background-position: -264px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/dolphin_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -264px -66px;
+    background-position: -198px -66px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/dolphin_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -33px;
+    background-position: -99px -33px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/dolphin_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -528px -132px;
+    background-position: -396px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/firefox_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -330px -66px;
+    background-position: -264px -66px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/firefox_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -165px -33px;
+    background-position: -132px -33px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/firefox_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -660px -132px;
+    background-position: -528px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/internet-explorer_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -396px -66px;
+    background-position: -330px -66px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/internet-explorer_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -198px -33px;
+    background-position: -165px -33px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/internet-explorer_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -792px -132px;
+    background-position: -660px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/lightning_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: 0px -132px;
+    background-position: -396px -66px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/lightning_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: 0px -66px;
+    background-position: -198px -33px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/lightning_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -1px -264px;
+    background-position: -792px -132px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/opera_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -66px -132px;
+    background-position: 0px -132px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/opera_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -33px -66px;
+    background-position: 0px -66px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/opera_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -264px;
+    background-position: -1px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/puffin_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -132px;
+    background-position: -66px -132px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/puffin_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -66px -66px;
+    background-position: -33px -66px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/puffin_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -264px -264px;
+    background-position: -132px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="logos/uc_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -198px -132px;
+    background-position: -132px -132px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="logos/uc_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -99px -66px;
+    background-position: -66px -66px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="logos/uc_128x128"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -396px -264px;
+    background-position: -264px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="new"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -264px -132px;
+    background-position: -198px -132px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="new"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -66px;
+    background-position: -99px -66px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="new"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -528px -264px;
+    background-position: -396px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -330px -132px;
+    background-position: -264px -132px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -165px -66px;
+    background-position: -132px -66px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -660px -264px;
+    background-position: -528px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="settings"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -396px -132px;
+    background-position: -330px -132px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="settings"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -198px -66px;
+    background-position: -165px -66px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="settings"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -792px -264px;
-    width: 128px;
-    height: 128px;
-}
-
-[data-img="teams2"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: 0px -198px;
-    width: 64px;
-    height: 64px;
-}
-
-.tiny[data-img="teams2"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: 0px -99px;
-    width: 32px;
-    height: 32px;
-}
-
-.large[data-img="teams2"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -1px -396px;
+    background-position: -660px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="test"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -66px -198px;
+    background-position: -396px -132px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="test"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -33px -99px;
+    background-position: -198px -66px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="test"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -396px;
+    background-position: -792px -264px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="games"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -132px -198px;
+    background-position: 0px -198px;
     width: 64px;
     height: 64px;
 }
 
 .tiny[data-img="games"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -66px -99px;
+    background-position: 0px -99px;
     width: 32px;
     height: 32px;
 }
 
 .large[data-img="games"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -264px -396px;
+    background-position: -1px -396px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="teams"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -66px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="teams"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -33px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="teams"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -132px -396px;
     width: 128px;
     height: 128px;
 }
 
 [data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -198px -198px;
+    background-position: -132px -198px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -99px -99px;
+    background-position: -66px -99px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -396px -396px;
+    background-position: -264px -396px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="reload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -248px -198px;
+    background-position: -182px -198px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="reload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -124px -99px;
+    background-position: -91px -99px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="reload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -496px -396px;
+    background-position: -364px -396px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -298px -198px;
+    background-position: -232px -198px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -149px -99px;
+    background-position: -116px -99px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -596px -396px;
+    background-position: -464px -396px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="ext/amazonwishlist"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -348px -198px;
+    background-position: -282px -198px;
     width: 59px;
     height: 26px;
 }
 
 .tiny[data-img="ext/amazonwishlist"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -174px -99px;
+    background-position: -141px -99px;
     width: 29px;
     height: 13px;
 }
 
 .large[data-img="ext/amazonwishlist"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -696px -396px;
+    background-position: -564px -396px;
     width: 119px;
     height: 52px;
 }
 
 [data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -410px -198px;
+    background-position: -344px -198px;
     width: 63px;
     height: 23px;
 }
 
 .tiny[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -205px -99px;
+    background-position: -172px -99px;
     width: 31px;
     height: 11px;
 }
 
 .large[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -820px -396px;
+    background-position: -688px -396px;
     width: 126px;
     height: 47px;
 }
@@ -610,24 +589,24 @@
 
 [data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 474px;
+    width: 462px;
     height: 262px;
 }
 
 .tiny[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 237px;
+    width: 231px;
     height: 131px;
 }
 
 .large[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 948px;
+    width: 924px;
     height: 525px;
 }
 
 [data-img]::before {
-  background-size: 474px 262px;
+  background-size: 462px 262px;
   display: inline-block;
   content: '';
 }
@@ -637,9 +616,9 @@
 }
 
 .large[data-img]::before {
-  background-size: 948px 525px;
+  background-size: 924px 525px;
 }
 
 .tiny[data-img]::before {
-  background-size: 237px 131px;;
+  background-size: 231px 131px;;
 }
