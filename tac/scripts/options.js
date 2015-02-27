@@ -18,8 +18,8 @@ define(['ui/state_new'], function(State) {
     // installation-specific
     // global : {},
     playernameurl: '',
-    minteamsize: 2,
-    maxteamsize: 2,
+    minteamsize: 1,
+    maxteamsize: 1,
     maxpoints: 8,
     // user-specific
     // local : {},

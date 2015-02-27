@@ -7,13 +7,14 @@
 define(
     ['lib/extend', 'core/view', './listview', './teamview', './state_new',
         './newteamview', './lengthview', './teamsizeview',
-        './preregcloserview', 'core/valuemodel', './checkboxview', './classview',
-        './taboptslistener', './teamremovecontroller', './teamnamecontroller',
-        './teamtableview', './inputview', './teamsfileloadcontroller'],
+        './preregcloserview', 'core/valuemodel', './checkboxview',
+        './classview', './taboptslistener', './teamremovecontroller',
+        './teamnamecontroller', './teamtableview', './inputview',
+        './teamsfileloadcontroller', 'options'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
         TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
         TabOptsListener, TeamRemoveController, TeamNameController,
-        TeamTableView, InputView, TeamsFileLoadController) {
+        TeamTableView, InputView, TeamsFileLoadController, Options) {
       /**
        * represents a whole team tab
        *
@@ -38,6 +39,14 @@ define(
        */
       TeamsTab.prototype.init = function() {
         var $template, $container, value;
+
+        // teamsize bugfix
+        if (State.teamsize.get() < Options.minteamsize) {
+          State.teamsize.set(Options.minteamsize);
+        }
+        if (State.teamsize.get() > Options.maxteamsize) {
+          State.teamsize.set(Options.maxteamsize);
+        }
 
         // teamlist
         $container = this.$view.find('>.teamlist');

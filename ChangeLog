@@ -10,6 +10,12 @@
 
 	* tac/index.html: using the teams icon instead of teams2 due to differences in entry size vs. number of players
 
+	* legacy/scripts/ui/statemodel.js: using three players per team as the default again
+
+	* legacy/scripts/ui/teamstab.js: limiting the number of players per team to the options.js-provided values (CHEAPHACK)
+
+	* tac/scripts/options.js: changing the number of names per team to 1 instead of 2
+
 2015-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed
