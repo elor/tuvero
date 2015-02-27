@@ -16,6 +16,8 @@
 
 	* tac/scripts/options.js: changing the number of names per team to 1 instead of 2
 
+	* legacy/scripts/ui/players.js: player autocompletion: author name removed
+
 2015-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed

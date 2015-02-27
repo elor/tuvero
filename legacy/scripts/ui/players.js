@@ -9,11 +9,9 @@
  */
 
 define(['./shared'], function(Shared) {
-  var Players, names, author;
+  var Players, names;
 
-  author = 'Erik E. Lorenz';
-
-  names = [author];
+  names = [];
 
   Players = {};
 
@@ -49,8 +47,6 @@ define(['./shared'], function(Shared) {
     // set names
     names = lines;
 
-    Players.insert(author);
-
     // update
     updateDependencies();
   };
@@ -70,8 +66,6 @@ define(['./shared'], function(Shared) {
     blobnames.sort();
     names = blobnames;
 
-    Players.insert(author);
-
     updateDependencies();
   };
 
@@ -80,7 +74,7 @@ define(['./shared'], function(Shared) {
   };
 
   Players.clear = function() {
-    names = [author];
+    names.slice(0);
 
     updateDependencies();
   };
@@ -109,7 +103,7 @@ define(['./shared'], function(Shared) {
     name = trimName(name);
     if (typeof (name) === 'string' && name.length > 0) {
       index = names.indexOf(name);
-      if (index !== -1 && name !== author) {
+      if (index !== -1) {
         names.splice(index, 1);
         updateDependencies();
       }
