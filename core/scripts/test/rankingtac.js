@@ -35,7 +35,7 @@ define(function() {
         displayOrder: [1, 3, 0, 2, 4],
         wins: [0, 1, 0, 0, 0],
         points: [0, 8, 0, 7, 0],
-        tac: [0, 20, 0, 7, 0]
+        tac: [0, 13, 0, 7, 0]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'first ranking is correct');
@@ -44,11 +44,11 @@ define(function() {
       ret = ranking.get();
       ref = {
         components: ['tac', 'wins', 'points'],
-        ranks: [3, 0, 3, 2, 0],
-        displayOrder: [1, 4, 3, 0, 2],
+        ranks: [3, 1, 3, 2, 0],
+        displayOrder: [4, 1, 3, 0, 2],
         wins: [0, 1, 0, 0, 1],
         points: [0, 8, 0, 7, 8],
-        tac: [0, 20, 0, 7, 20]
+        tac: [0, 13, 0, 7, 20]
       };
       QUnit.deepEqual(ret, ref, 'second ranking is correct');
 
@@ -59,7 +59,7 @@ define(function() {
         displayOrder: [1, 4, 3, 0, 2],
         wins: [0, 2, 0, 0, 1],
         points: [0, 16, 0, 7, 13],
-        tac: [0, 40, 0, 7, 25]
+        tac: [0, 28, 0, 7, 25]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'third ranking is correct');
@@ -73,7 +73,7 @@ define(function() {
         displayOrder: [4, 1, 3, 2, 0],
         wins: [0, 2, 1, 1, 2],
         points: [0, 19, 14, 15, 21],
-        tac: [0, 43, 26, 27, 45]
+        tac: [0, 31, 23, 27, 39]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'final ranking is correct');

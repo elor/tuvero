@@ -1,3 +1,9 @@
+2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo
+
+	* core/scripts/test/rankingtac.js: testing corrected TAC ranking
+
 2015-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed
