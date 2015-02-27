@@ -4,6 +4,8 @@
 
 	* core/scripts/test/rankingtac.js: testing corrected TAC ranking
 
+	* legacy/scripts/ui/backgroundscripts/redrawOnPlayerChange.js: update tabs on player name change
+
 2015-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed
