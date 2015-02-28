@@ -154,6 +154,7 @@ define([
   'ui/teamsizeview',
   'ui/teamstab',
   'ui/teamtableview',
+  'ui/teamtoastslistener',
   'ui/teamview',
   'ui/templateview',
   'ui/textview',

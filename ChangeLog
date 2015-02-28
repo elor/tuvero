@@ -16,6 +16,8 @@
 
 	* legacy/scripts/ui/teammodel.js: onupdate: forwarding the id of the updated player
 
+	* legacy/scripts/ui/teamtoastslistener.js: emit toast when adding, removing or renaming a team
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo
