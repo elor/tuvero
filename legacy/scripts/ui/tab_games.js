@@ -403,7 +403,7 @@ define(
 
         // verify for safety. Doesn't cost much
         if (games.length !== $games.length) {
-          // game was somehow invalid. Someone tempered with the system.
+          // game was somehow invalid. Someone tampered with the system.
 
           console.error('games != $games');
 
@@ -418,16 +418,21 @@ define(
           return false;
         }
 
-        // no games left? clean up and go to stage 2.
-        if (games[tournamentid].length === 0) {
-          clearBoxes();
+        // force an update of games and $games
+        showRunning();
 
+        // no games left? clean up and go to stage 2.
+        if (games.every(function(tournamentgames) {
+          return tournamentgames.length === 0;
+        })) {
+          clearBoxes();
           // hide this tab
           showTab();
           // open tab_new
 
           new Toast(Strings.roundfinished.replace('%s', Tournaments
               .getRanking(tournamentid).round));
+          Tabshandle.focus('new');
         }
 
         // save changes
@@ -436,9 +441,7 @@ define(
         Tab_Ranking.update();
         // due to circular dependency, we must load Tab_New separately
         Shared.Tab_New.update();
-        if (games.length === 0) {
-          Tabshandle.focus('new');
-        }
+
         Tab_Games.update();
 
         return false;
