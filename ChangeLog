@@ -7,6 +7,10 @@
 	* legacy/scripts/ui/savestate.js: saving on player name change
 	onupdate added
 
+	* boule/index.html: numbering typo fixed
+
+	* tac/index.html: numbering typo fixed
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo
