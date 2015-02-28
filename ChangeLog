@@ -26,6 +26,8 @@
 
 	* tac/scripts/main.js: only load core/main
 
+	* core/style/teams.css: @print: hiding buttons with !important keyword
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo

@@ -135,7 +135,7 @@ div#teams {
 
 @media print {
   #teams button.delete, #teams .filereader {
-    display: none;
+    display: none !important;
   }
   #teams .team {
     margin: 0em;
