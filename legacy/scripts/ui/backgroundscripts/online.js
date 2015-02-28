@@ -55,7 +55,13 @@ define(['jquery', '../strings', '../update'], function($, Strings, Update) {
       if (Online()) {
         $(e.target).addClass('online').text('online');
       } else {
-        $(e.target).removeClass('online').text('offline');
+        $(e.target).removeClass('online').text('OFFLINE');
+      }
+
+      if (Update.isCached) {
+        $(e.target).text($(e.target).text() + ' cached');
+      } else {
+        $(e.target).text($(e.target).text() + ' NOT CACHED');
       }
     }).click();
   });

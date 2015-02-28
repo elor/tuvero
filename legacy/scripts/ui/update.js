@@ -26,6 +26,7 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
   // Note: Update() is NOT A CLASS
   // This is just a cheap hack to keep type mismatch warnings suppressed
   Update.prototype = {};
+  Update.isCached = false;
 
   appCache = window.applicationCache;
 
@@ -96,6 +97,8 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
   appCache.addEventListener('cached', cacheStatus);
   appCache.addEventListener('noupdate', cacheStatus);
   appCache.addEventListener('updateready', cacheStatus);
+
+  cacheStatus();
 
   return Update;
 });

@@ -41,6 +41,10 @@
 
 	* legacy/scripts/ui/backgroundscripts/online.js: managing onlinecheck button
 	directly requiring jquery
+	displaying cache-status in onlinecheck button
+
+	* legacy/scripts/ui/update.js: checking the current status before the first event fired
+	This should also display missed events
 
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
