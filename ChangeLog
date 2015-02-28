@@ -48,6 +48,8 @@
 
 	* build-tools/create-commonjs.sh: excluding core/main from common.js to avoid circular dependencies
 
+	* test/unittest.html: offline capability restored
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo
