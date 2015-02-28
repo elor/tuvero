@@ -2,7 +2,8 @@
   text-align: justify;
 }
 
-#settings .csv button, #settings .save button, #settings .autocomplete button {
+#settings .csv button, #settings .save button, #settings .autocomplete button,
+#settings .devel button {
   background-color: #d0d0d0;
   border-radius: 1em;
   padding: 0.5em;
@@ -31,7 +32,8 @@
   font-size: 120%;
 }
 
-#settings .local button {
+#settings .local button,
+#settings .devel button {
   font-size: 1em;
   padding: 0.5em;
   border-radius: 0.3em;
@@ -39,7 +41,7 @@
 
 #settings .devel a {
   display: inline-block;
-  margin: 0em 1em;
+  margin: 1em 1em;
 }
 
 #settings .storage .clear:hover, #settings .storage .clear:focus {

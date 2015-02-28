@@ -8,8 +8,10 @@
 	onupdate added
 
 	* boule/index.html: numbering typo fixed
+	onlinecheck button added
 
 	* tac/index.html: numbering typo fixed
+	onlinecheck button added
 
 	* legacy/scripts/ui/tab_debug.js: variable scopes corrected
 	player auto-registration re-enabled
@@ -32,6 +34,13 @@
 	uses an explicit full redraw, which is bad
 
 	* legacy/scripts/ui/tournaments.js: debugging output removed
+
+	* core/style/onlinecheck.css: onlinecheck button styled
+
+	* core/style/settings.css: devel button style added
+
+	* legacy/scripts/ui/backgroundscripts/online.js: managing onlinecheck button
+	directly requiring jquery
 
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
