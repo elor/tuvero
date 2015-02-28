@@ -10,14 +10,16 @@ set -e -u
 
 which file >/dev/null || exit 1
 which optipng >/dev/null || exit 1
+which compare >/dev/null || exit 1
 which convert >/dev/null || exit 1
 
 listFiles(){
-    grep -Poh 'data-img="[^"]+"' *.html | sort | uniq | sed -r -e 's#^data-img="#images/#' -e 's#"$#.png#' | grep -v '^sprite$'
+    grep -Poh 'data-img="[^"]+"' *.html | sort | uniq | sed -r -e 's#^data-img="#images/#' -e 's#"$#.png#' | grep -v $finalsprite
 }
 
 coredir=../core/
-sprite=images/sprite.png
+sprite=images/sprite_new.png
+finalsprite=images/sprite.png
 rm -f $sprite
 
 getSizes(){
@@ -52,6 +54,27 @@ getSizes(){
                 ;;
         esac
     done
+}
+
+comparesprites(){
+
+    # does the old sprite still exist?
+    [ -f "$finalsprite" ] || return 1
+
+    # file size and encoding comparison
+    local oldinfo=$(file $finalsprite | cut -d: -f2-)
+    local newinfo=$(file $sprite | cut -d: -f2-)
+    echo "comparing file information"
+    [ "$oldinfo" != "$newinfo" ] && return 1
+
+    # pixel comparison (imagemagick compare with absolute error metric)
+    local cmpresult=$(compare -metric ae $finalsprite $sprite /dev/null 2>&1 )
+    echo "comparing imagemagick return value"
+    [ $? != 0 ] && return 1
+    echo "comparing pixel errors"
+    [ "$cmpresult" != 0 ] && return 1
+
+    return 0
 }
 
 files="`listFiles | getSizes | sort -k3,3rn`"
@@ -113,21 +136,21 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
     cat <<EOF >> $stylesheet
 [data-img="$shortname"]::before {
-    background-image: url("../$sprite");
+    background-image: url("../$finalsprite");
     background-position: $((-x/2))px $((-y/2))px;
     width: $((width/2))px;
     height: $((height/2))px;
 }
 
 .tiny[data-img="$shortname"]::before {
-    background-image: url("../$sprite");
+    background-image: url("../$finalsprite");
     background-position: $((-x/4))px $((-y/4))px;
     width: $((width/4))px;
     height: $((height/4))px;
 }
 
 .large[data-img="$shortname"]::before {
-    background-image: url("../$sprite");
+    background-image: url("../$finalsprite");
     background-position: -${x}px -${y}px;
     width: ${width}px;
     height: ${height}px;
@@ -143,19 +166,19 @@ canvasheight=$nexty
 cat <<EOF >> $stylesheet
 
 [data-img="sprite"]::before {
-    background-image: url("../$sprite");
+    background-image: url("../$finalsprite");
     width: $((canvaswidth/2))px;
     height: $((canvasheight/2))px;
 }
 
 .tiny[data-img="sprite"]::before {
-    background-image: url("../$sprite");
+    background-image: url("../$finalsprite");
     width: $((canvaswidth/4))px;
     height: $((canvasheight/4))px;
 }
 
 .large[data-img="sprite"]::before {
-    background-image: url("../$sprite");
+    background-image: url("../$finalsprite");
     width: ${canvaswidth}px;
     height: ${canvasheight}px;
 }
@@ -185,11 +208,29 @@ EOF
 
 convert -quality 100 -size ${canvaswidth}x${canvasheight} xc:transparent $compositecommand $sprite || exit 1
 
+######################
+# compressing sprite #
+######################
+optipng -o3 $sprite
+
+##################################################
+# compare the sprites and overwrite if necessary #
+##################################################
+if comparesprites; then
+    # equal
+    echo "no changes between old and new sprite"
+    rm -v $sprite
+else
+    # different
+    echo "change found. Replacing old sprite"
+    mv -v $sprite $finalsprite
+fi
+
 cat <<EOF
 
-output: `getSizes <<< $sprite`
+output: `getSizes <<< $finalsprite`
 number of images: ${#files[@]}
 input size: `cat ${files[@]} | wc -c` bytes
-output size: `cat $sprite | wc -c` bytes
+output size: `cat $finalsprite | wc -c` bytes
 
 EOF

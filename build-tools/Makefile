@@ -15,7 +15,8 @@
 # builds (packs, optimizes and compresses) the whole project for test distribution #
 ####################################################################################
 #build: images doc
-build: images
+#build: images
+build: FORCE
 	../build-tools/build.sh
 	echo "Build finished."
 
@@ -25,7 +26,7 @@ build: images
 codestyle: FORCE
 	find scripts -name '*.js' | xargs fixjsstyle
 
-# compresses the whole images directory
+# compresses the whole images directory (shouldn't change anything)
 images: sprite
 	optipng -o3 images/sprite.png images/favicon.png
 
