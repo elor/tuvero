@@ -22,7 +22,7 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
       'Ö', 'Ü'];
 
   function showAllImages() {
-    var $anchor, $images, imagepaths, i, url, sorted;
+    var $anchor, $images, imagepaths, i, url, sorted, images;
 
     $anchor = $tab.find('.allimages');
     $images = $('img');
@@ -148,19 +148,12 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
   }
 
   function registerPlayers() {
-    var num, Tab_Teams, teamno, $template, $names, playerno;
+    var num, teamno, $template, $names, playerno;
 
-//    Tab_Teams = Shared.Tab_Teams;
-    Tab_Teams = undefined;
-
-    if (!Tab_Teams || !Tab_Teams.getOptions().allowRegistrations) {
-      new Toast(Strings.registrationclosed);
-      return;
-    }
 
     num = Number(form.register.$num.val());
 
-    $template = $('#newteam');
+    $template = $('#teams .newteamview');
     $names = $template.find('.playername');
 
     for (teamno = 0; teamno < num; ++teamno) {
@@ -249,7 +242,7 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
   }
 
   function playTournament() {
-    var tournamentid, Tournament;
+    var tournamentid, Tournament, starttime;
 
     if (Tournaments.numTournaments() === 0) {
       startRound();

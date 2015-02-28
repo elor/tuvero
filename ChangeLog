@@ -11,6 +11,9 @@
 
 	* tac/index.html: numbering typo fixed
 
+	* legacy/scripts/ui/tab_debug.js: variable scopes corrected
+	player auto-registration re-enabled
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo
