@@ -26,6 +26,11 @@ scripts: FORCE
 	./build-tools/create-testjs.sh
 	./build-tools/update-headers.sh
 
+sprites: FORCE
+	make -C boule -f ../build-tools/Makefile sprite
+	make -C tac -f ../build-tools/Makefile sprite
+	make -C test -f ../build-tools/Makefile sprite
+
 codestyle: scripts
 	./build-tools/codestyle.sh
 

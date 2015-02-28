@@ -218,15 +218,15 @@ optipng -o3 $sprite
 ##################################################
 if comparesprites; then
     # equal
-    echo "no changes between old and new sprite"
     rm -v $sprite
+    cat <<EOF
+
+No changes found.
+EOF
 else
     # different
-    echo "change found. Replacing old sprite"
     mv -v $sprite $finalsprite
-fi
-
-cat <<EOF
+    cat <<EOF
 
 output: `getSizes <<< $finalsprite`
 number of images: ${#files[@]}
@@ -234,3 +234,4 @@ input size: `cat ${files[@]} | wc -c` bytes
 output size: `cat $finalsprite | wc -c` bytes
 
 EOF
+fi

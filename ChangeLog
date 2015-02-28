@@ -55,6 +55,10 @@
 
 	* build-tools/write-sprite.sh: optimizing the newly written sprite
 	pixel-comparing the old and the new sprite, replacing only when there's a change
+	final output improved
+
+	* Makefile: a build does not write and optimize the sprites anymore
+	`make sprites` added
 
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
