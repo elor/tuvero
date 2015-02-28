@@ -2,6 +2,11 @@
 
 	* index.html: #home added to the links to avoid history-mangling
 
+	* legacy/scripts/ui/backgroundscripts/saveOnPlayerNameChange.js: functionality moved to savestate.js
+
+	* legacy/scripts/ui/savestate.js: saving on player name change
+	onupdate added
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo

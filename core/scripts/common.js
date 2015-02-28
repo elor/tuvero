@@ -94,7 +94,6 @@ define([
   'ui/backgroundscripts/online',
   'ui/backgroundscripts/save',
   'ui/backgroundscripts/redrawOnPlayerChange',
-  'ui/backgroundscripts/saveOnPlayerNameChange',
   'ui/backgroundscripts/print',
   'ui/backgroundscripts/taboptionclick',
   'ui/backgroundscripts/initviews',
