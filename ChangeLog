@@ -18,6 +18,14 @@
 
 	* legacy/scripts/ui/teamtoastslistener.js: emit toast when adding, removing or renaming a team
 
+	* boule/scripts/main.js: only load core/main
+
+	* core/scripts/main.js: shared main script
+	contains contents of the {target}/scripts/main.js scripts
+	loads core/config and core/common
+
+	* tac/scripts/main.js: only load core/main
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo
