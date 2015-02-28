@@ -119,8 +119,6 @@ define(['../backend/swisstournament', '../backend/kotournament', './team', './sh
 
     globalranking = Shared.GlobalRanking.get();
 
-    console.log(startteam);
-
     for (i = 0; i < numteams; i += 1) {
       teams.push(globalranking[i + startteam].teamid);
       newtournament.addPlayer(globalranking[i + startteam].teamid);

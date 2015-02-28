@@ -24,12 +24,14 @@
 	contains contents of the {target}/scripts/main.js scripts
 	loads core/config and core/common
 
-	* tac/scripts/main.js: only load core/main
+	* tac/scripts/main.js: only load core/core
 
-	* core/style/teams.css: @print: hiding buttons with !important keyword
+	* main/style/teams.css: @print: hiding buttons with !important keyword
 
 	* legacy/scripts/ui/tab_games.js: cheap hack: focussing #new and showing toast when last game has been removed
 	uses an explicit full redraw, which is bad
+
+	* legacy/scripts/ui/tournaments.js: debugging output removed
 
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
