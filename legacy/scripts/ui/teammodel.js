@@ -12,7 +12,7 @@ define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
 
   /**
    * Constructor
-   *  *
+   *
    * @param players
    *          an array of PlayerModel instances
    * @param id
@@ -43,7 +43,7 @@ define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
   /**
    * retrieve a single player. For the number of players, see
    * TeamModel.prototype.length
-   *  *
+   *
    * @param id
    *          the index of the player inside the team
    * @return a PlayerModel reference
@@ -57,12 +57,17 @@ define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
 
   /**
    * Callback listener
-   *  * One of the player names was updated. This is passed through to the team
+   *
+   * One of the player names was updated. This is passed through to the team
    * event emitter.
    *
    */
-  TeamModel.prototype.onupdate = function() {
-    this.emit('update');
+  TeamModel.prototype.onupdate = function(emitter, event) {
+    var data;
+    data = {
+      id: this.players.indexOf(emitter)
+    };
+    this.emit('update', data);
   };
 
   return TeamModel;
