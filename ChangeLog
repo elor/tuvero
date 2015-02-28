@@ -46,6 +46,8 @@
 	* legacy/scripts/ui/update.js: checking the current status before the first event fired
 	This should also display missed events
 
+	* build-tools/create-commonjs.sh: excluding core/main from common.js to avoid circular dependencies
+
 2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo

@@ -21,7 +21,6 @@ define([
   'core/indexedmodel',
   'core/listener',
   'core/listmodel',
-  'core/main',
   'core/matrixmodel',
   'core/model',
   'core/positivematrix',
