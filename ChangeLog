@@ -42,6 +42,8 @@
 
 	* core/style/fontsize.css: smoother fontsize changes through css transition
 
+	* tac/index.html: manual merge of the boule/index.html changes. We need a templating system...
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
