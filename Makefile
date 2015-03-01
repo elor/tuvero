@@ -10,6 +10,8 @@ all: scripts
 	make tac
 	make test
 
+build: all
+
 tac: tac/index.html
 
 boule: boule/index.html
@@ -30,6 +32,9 @@ sprites: FORCE
 	make -C boule -f ../build-tools/Makefile sprite
 	make -C tac -f ../build-tools/Makefile sprite
 	make -C test -f ../build-tools/Makefile sprite
+
+style: FORCE
+	./build-tools/write-mainstyle.sh
 
 codestyle: scripts
 	./build-tools/codestyle.sh

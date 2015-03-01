@@ -9,6 +9,10 @@
 
 	* core/style/table.css: central table style file
 
+	* build-tools/write-mainstyle.sh: auto-create the main shared style file core/style/mainstyle.css
+
+	* Makefile: `make style` added to auto-create style files
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
