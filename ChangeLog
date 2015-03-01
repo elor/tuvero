@@ -34,6 +34,8 @@
 
 	* legacy/style/games.css: thinner borders
 
+	* core/style/newteamview.css: force hiding the newtab elements when printing
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling

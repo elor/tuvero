@@ -36,6 +36,6 @@
 
 @media print {
   .newteamview {
-    display: none;
+    display: none !important;
   }
 }
