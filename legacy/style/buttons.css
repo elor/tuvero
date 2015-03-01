@@ -1,15 +1,10 @@
-#tabs button.print,
-#tabs button.save,
-#tabs button.reloadtab
- {
+#tabs button[data-img] {
   padding: 0.25em;
   border-radius: 10px;
   background-color: #d0d0d0;
   cursor: pointer;
 }
 
-#tabs > div > button.print,
-#tabs > div > button.save,
-#tabs > div > button.reloadtab {
+#tabs > div > button[data-img] {
   float: left;
 }

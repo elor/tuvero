@@ -69,6 +69,8 @@
 
 	* test/sprite.html: upload.png -> load.png
 
+	* legacy/style/buttons.css: styling all data-img buttons
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
