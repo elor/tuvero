@@ -70,6 +70,7 @@
 
 	* legacy/style/settings.css: 1px*1px file loader input (cheaphack)
 	hiding any file inputs
+	hidden input elements are absolute-positioned, not right-floating, to avoid scrollbar bug
 
 	* build-tools/write-sprite.sh: aborting if a file does not exist
 

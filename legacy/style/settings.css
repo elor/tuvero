@@ -33,7 +33,7 @@
   visibility: hidden;
   width: 1px;
   height: 1px;
-  float: right;
+  position: absolute;
 }
 
 #settings .nojson {
