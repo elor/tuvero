@@ -32,6 +32,8 @@
 
 	* legacy/style/teams.css: general table properties moved to table.css
 
+	* legacy/style/games.css: thinner borders
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
