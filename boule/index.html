@@ -78,6 +78,17 @@
           Weitere Informationen sind über die Links im <a href="#about">Über...-Tab</a> verfügbar
         </div>
         <div class="boxview">
+        <h3>Turnierstand</h3>
+          <button class="load" data-img="load"></button>
+          Turnierstand laden
+          <br>
+          <button class="save" data-img="save"></button>
+          Turnierstand speichern
+          <br>
+          <button class="reset" data-img="clear"></button>
+          Neues Turnier
+        </div>
+        <div class="boxview">
           <h3>Warum Chrome?</h3>
           <a class="large logo" data-img="logos/chrome_128x128" href="https://www.google.com/chrome/browser/desktop/index.html"></a>
           Für die Darstellung dieses Programmes wird der <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome Browser</a> empfohlen.
@@ -635,40 +646,18 @@
           </div>
         </div>
 
-        <div class="boxview">
-          <h3>Laden und Speichern</h3>
-          <div class="load json">
-            <h3>Laden</h3>
-            <p>
-              Das Turnier wird aus einer Datei neu geladen. Eventuell laufende
-              Turniere werden überschrieben.
-            </p>
-            <p class="nofilereader">
-              Dieser Browser kann keine lokalen Dateien laden.
-              Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
-              moderneren Browser.
-              Manche Hersteller stellen keine Updates für
-              ihre Browser unter einigen Betriebssystemen zur Verfügung
-              (z.B. Apple mit Safari für Windows).
-            </p>
-            <input class="filereader file" type="file" />
-          </div>
-
-          <div class="save json">
-            <h3>Turnier speichern</h3>
-            <p>
-              Speichert das aktuelle Turnier in einer Datei. Diese kann später
-              wieder geladen werden, um das Turnier wieder herzustellen.
-            </p>
-            <p class="nostorage">
-              Um das Turnier nach Schließen des Browsers
-              fortzusetzen, muss der Zustand manuell in einer Datei
-              zwischengespeichert oder ein aktueller Browser installiert werden.
-            </p>
-            <br>
-            <button class="save" data-img="save"></button>
-          </div>
+        <div class="load json">
+          <input class="filereader file" type="file" />
         </div>
+        
+        <p class="nofilereader">
+          Dieser Browser kann keine lokalen Dateien laden.
+          Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
+          moderneren Browser.
+          Manche Hersteller stellen keine Updates für
+          ihre Browser unter einigen Betriebssystemen zur Verfügung
+          (z.B. Apple mit Safari für Windows).
+        </p>
 
         <div class="boxview">
           <h3>Import &amp; Export</h3>

@@ -9,13 +9,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="128"
-   height="128"
+   width="96"
+   height="96"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="upload.svg"
-   inkscape:export-filename="/home/elor/code/boules/images/upload.png"
+   sodipodi:docname="load.svg"
+   inkscape:export-filename="/home/elor/code/tuvero/core/images/load.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -557,6 +557,20 @@
          id="path4693-0"
          inkscape:connector-curvature="0" />
     </marker>
+    <marker
+       style="overflow:visible"
+       id="TriangleOutS-5-6"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="TriangleOutS">
+      <path
+         transform="scale(0.2,0.2)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt"
+         d="m 5.77,0 -8.65,5 0,-10 8.65,5 z"
+         id="path4666-5-3"
+         inkscape:connector-curvature="0" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -566,8 +580,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="-4.6878794"
-     inkscape:cy="54.03497"
+     inkscape:cx="-75.271159"
+     inkscape:cy="-36.082917"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -594,21 +608,21 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-924.3622)">
+     transform="translate(0,-956.3622)">
     <g
-       id="g3059"
-       transform="matrix(2.6826013,0,0,2.6826013,-0.38243133,-1770.3237)">
+       id="use3063"
+       transform="matrix(2.011951,0,0,2.011951,-0.2868242,-1064.6523)">
       <path
-         sodipodi:nodetypes="ccccccccc"
+         style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+         d="m 30.179543,1006.9959 -22.3590858,0 0,42.7327 32.3590858,0 0,-32.7327 -10,-10 m 0,0 0,10 10,0"
+         id="path3067"
          inkscape:connector-curvature="0"
-         id="rect8859"
-         d="m 30.179543,1006.9959 -22.3590859,0 0,42.7327 32.3590859,0 0,-32.7327 -10,-10 m 0,0 0,10 10,0"
-         style="fill:none;stroke:#000000;stroke-width:2;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1" />
+         sodipodi:nodetypes="ccccccccc" />
       <path
-         inkscape:connector-curvature="0"
-         id="path4157"
+         style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutS-5)"
          d="m 24,1040.1312 0,-19.643"
-         style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-end:url(#TriangleOutS-5)" />
+         id="path3069"
+         inkscape:connector-curvature="0" />
     </g>
   </g>
 </svg>

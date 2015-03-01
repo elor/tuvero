@@ -23,6 +23,9 @@
 
 	* boule/index.html: additional table classes added
 	links updated (boules -> tuvero)
+	#home: load/save/reset box added
+	#settings: load/save box removed
+	#settings: hidden 1px*1px filereader for file loading (cheap hack)
 
 	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
 	Improves player table borders significantly
@@ -44,6 +47,23 @@
 
 	* tac/index.html: manual merge of the boule/index.html changes. We need a templating system...
 	http://spiel-tac.de: TAC homepage added to the links
+	#home: load/save/reset box added
+	#settings: load/save box removed
+	#settings: hidden 1px*1px filereader for file loading (cheap hack)
+
+	* core/images/clear.png: red crossmark icon instead of blank (see blank.png for that)
+
+	* core/images/load.png: moved from upload.png and downscaled to 96px*96px
+
+	* core/images/svg/clear.svg: red crossmark icon instead of blank (see blank.png for that)
+
+	* core/images/svg/load.svg: moved from upload.svg and downscaled to 96px*96px
+
+	* core/images/svg/upload.svg: moved to load.svg
+
+	* core/images/upload.png: moved to load.png
+
+	* legacy/style/settings.css: 1px*1px file loader input (cheaphack)
 
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

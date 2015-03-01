@@ -9,12 +9,15 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="128"
-   height="128"
+   width="96"
+   height="96"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="clear.svg">
+   sodipodi:docname="clear.svg"
+   inkscape:export-filename="/home/elor/code/tuvero/core/images/clear.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <marker
@@ -562,9 +565,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="-94.086379"
-     inkscape:cy="40.397911"
+     inkscape:zoom="5.3143494"
+     inkscape:cx="7.270678"
+     inkscape:cy="56.257067"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -583,7 +586,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -591,5 +594,30 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-924.3622)" />
+     transform="translate(0,-956.3622)">
+    <g
+       id="g3082"
+       transform="matrix(1.3457173,0,0,1.3457173,-38.125938,-325.69392)">
+      <rect
+         transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,0,0)"
+         ry="10.948083"
+         rx="10.948083"
+         y="609.83038"
+         x="733.18445"
+         height="87.584663"
+         width="21.896166"
+         id="rect3002"
+         style="fill:#ff0000;fill-opacity:1;stroke:none" />
+      <rect
+         transform="matrix(-0.70710678,0.70710678,-0.70710678,-0.70710678,0,0)"
+         ry="10.948083"
+         rx="10.948083"
+         y="-787.92474"
+         x="642.67474"
+         height="87.584663"
+         width="21.896166"
+         id="rect3002-1"
+         style="fill:#ff0000;fill-opacity:1;stroke:none" />
+    </g>
+  </g>
 </svg>

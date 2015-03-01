@@ -355,128 +355,107 @@
     height: 128px;
 }
 
-[data-img="upload"]::before {
+[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -198px -132px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="upload"]::before {
+.tiny[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -99px -66px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="upload"]::before {
+.large[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -396px -264px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="games"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -264px -132px;
-    width: 64px;
-    height: 64px;
-}
-
-.tiny[data-img="games"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -132px -66px;
-    width: 32px;
-    height: 32px;
-}
-
-.large[data-img="games"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -528px -264px;
-    width: 128px;
-    height: 128px;
-}
-
 [data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -330px -132px;
+    background-position: -264px -132px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -165px -66px;
+    background-position: -132px -66px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -660px -264px;
+    background-position: -528px -264px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="reload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -380px -132px;
+    background-position: -314px -132px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="reload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -190px -66px;
+    background-position: -157px -66px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="reload"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -760px -264px;
+    background-position: -628px -264px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -430px -132px;
+    background-position: -364px -132px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -215px -66px;
+    background-position: -182px -66px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -860px -264px;
+    background-position: -728px -264px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="blank"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -480px -132px;
+    background-position: -414px -132px;
     width: 0px;
     height: 0px;
 }
 
 .tiny[data-img="blank"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -240px -66px;
+    background-position: -207px -66px;
     width: 0px;
     height: 0px;
 }
 
 .large[data-img="blank"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -960px -264px;
+    background-position: -828px -264px;
     width: 1px;
     height: 1px;
 }
@@ -484,24 +463,24 @@
 
 [data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 482px;
+    width: 462px;
     height: 196px;
 }
 
 .tiny[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 241px;
+    width: 231px;
     height: 98px;
 }
 
 .large[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 964px;
+    width: 924px;
     height: 393px;
 }
 
 [data-img]::before {
-  background-size: 482px 196px;
+  background-size: 462px 196px;
   display: inline-block;
   content: '';
 }
@@ -511,9 +490,9 @@
 }
 
 .large[data-img]::before {
-  background-size: 964px 393px;
+  background-size: 924px 393px;
 }
 
 .tiny[data-img]::before {
-  background-size: 241px 98px;;
+  background-size: 231px 98px;;
 }

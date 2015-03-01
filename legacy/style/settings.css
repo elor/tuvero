@@ -22,8 +22,11 @@
   padding: 1em;
 }
 
-#settings .load input.file {
-  margin-bottom: 1em;
+#settings .load {
+  visibility: hidden;
+  width: 1px;
+  height: 1px;
+  float: right;
 }
 
 #settings .nojson {
