@@ -11,6 +11,7 @@
 	additional table classes added
 	header font style improved: bigger and more dominant
 	borders added (content rows only)
+	hiding borders when printing
 
 	* build-tools/write-mainstyle.sh: auto-create the main shared style file core/style/mainstyle.css
 

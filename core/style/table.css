@@ -35,3 +35,9 @@
 #app table th, #app table tr:last-child {
   border-bottom: solid 1px black;
 }
+
+@media print {
+  table, tr, td, th {
+  border: none !important;
+  }
+}
