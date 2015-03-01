@@ -16,6 +16,7 @@
 	* build-tools/write-mainstyle.sh: auto-create the main shared style file core/style/mainstyle.css
 
 	* Makefile: `make style` added to auto-create style files
+	`make manifest` added for top-level index.html manifest creation
 
 	* core/style/: most files moved to legacy/style/
 
@@ -89,6 +90,9 @@
 	* legacy/scripts/ui/tab_settings.js: autocomplete reload button removed
 	autocomplete load button delegates clicks to the hidden file input
 	jquery selectors corrected
+
+	* build-tools/write-manifest.sh: using more restrictive paths
+	not failing when there's no script, stylesheet or image to load
 
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

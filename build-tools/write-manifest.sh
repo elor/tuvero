@@ -6,12 +6,12 @@
 set -e -u
 
 listScripts(){
-    find script* -name '*.js'
+    find  scripts -name '*.js' || true
 }
 
 listImages(){
-    find images -name '*.png'
-    find images -name '*.gif'
+    find images -name '*.png' || find * -name 'favicon.png'
+    find images -name '*.gif' || true
 }
 
 listHTMLs(){
@@ -19,7 +19,7 @@ listHTMLs(){
 }
 
 listStylesheets(){
-    find style* -name '*.css'
+    find style -name '*.css' || true
 }
 
 createManifest(){
@@ -28,7 +28,7 @@ CACHE MANIFEST
 # Version: `[ -s Version ] && cat Version || echo dev`
 # Date: `date`
 
-# the boules program is purely offline
+# tuvero is purely offline
 CACHE:
 `listHTMLs`
 `listScripts`

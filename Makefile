@@ -5,7 +5,7 @@
 
 # primary build targets
 
-all: scripts
+all: scripts manifest
 	make boule
 	make tac
 	make test
@@ -35,6 +35,9 @@ sprites: FORCE
 
 style: FORCE
 	./build-tools/write-mainstyle.sh
+
+manifest: FORCE
+	./build-tools/write-manifest.sh
 
 codestyle: scripts
 	./build-tools/codestyle.sh
