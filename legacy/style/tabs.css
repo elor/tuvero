@@ -16,27 +16,17 @@ body.splash #tabs {
 .tabs {
   position: relative;
   z-index: -1;
-  margin: -112px 0.5em 0em -0.5em;
+  margin: -112px 10px 0em -0.5em;
   white-space: nowrap;
   text-align: left;
-}
-
-@media print {
-  .tabs {
-    display: none;
-  }
-
-  #tabs > div {
-    margin-top: 0em;
-  }
 }
 
 .tabs > a {
   display: inline-block;
   background-color: #d0d0d0;
   padding: 16px;
-  margin-right: 0.5em;
-  border-radius: 1em 1em 0em 0em;
+  margin-right: 10px;
+  border-radius: 20px 20px 0em 0em;
 }
 
 .tabs .open {
@@ -58,19 +48,25 @@ body.splash #tabs {
   min-width: min-content;
 }
 
-@media print {
-  #tabs > div {
-    margin: 0em;
-    padding: 0em;
-  }
-}
-
 #tabs > div .options {
   white-space: nowrap;
   float: right;
 }
 
 @media print {
+  .tabs {
+    display: none;
+  }
+
+  #tabs > div {
+    margin-top: 0em;
+  }
+
+  #tabs > div {
+    margin: 0em;
+    padding: 0em;
+  }
+
   #tabs > div .options {
     display: none;
   }

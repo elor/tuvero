@@ -38,6 +38,8 @@
 
 	* core/style/newteamview.css: force hiding the newtab elements when printing
 
+	* legacy/style/tabs.css: inter-tabmenu margins, paddings and borders are now fontsize-independent
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
