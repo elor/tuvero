@@ -30,6 +30,7 @@
 	#home tab cleaned up
 	#settings tab cleaned up
 	Boules -> Tuvero
+	reload button removed
 
 	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
 	Improves player table borders significantly
@@ -57,6 +58,7 @@
 	#home tab cleaned up
 	#settings tab cleaned up
 	Boules -> Tuvero
+	reload button removed
 
 	* core/images/clear.png: red crossmark icon instead of blank (see blank.png for that)
 
