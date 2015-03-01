@@ -47,6 +47,7 @@
 	* core/style/newteamview.css: force hiding the newtab elements when printing
 
 	* legacy/style/tabs.css: inter-tabmenu margins, paddings and borders are now fontsize-independent
+	page margins fixed to px values, not fontsize-dependent units
 
 	* core/style/fontsize.css: smoother fontsize changes through css transition
 
