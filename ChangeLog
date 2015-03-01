@@ -21,6 +21,7 @@
 	* legacy/style/new.css: special CSS rules required for the systems table
 
 	* boule/index.html: additional table classes added
+	links updated (boules -> tuvero)
 
 	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
 	Improves player table borders significantly
