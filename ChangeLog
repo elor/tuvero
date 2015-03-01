@@ -29,6 +29,7 @@
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
 	#home tab cleaned up
 	#settings tab cleaned up
+	Boules -> Tuvero
 
 	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
 	Improves player table borders significantly
@@ -55,6 +56,7 @@
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
 	#home tab cleaned up
 	#settings tab cleaned up
+	Boules -> Tuvero
 
 	* core/images/clear.png: red crossmark icon instead of blank (see blank.png for that)
 
@@ -91,9 +93,18 @@
 	* legacy/scripts/ui/tab_settings.js: autocomplete reload button removed
 	autocomplete load button delegates clicks to the hidden file input
 	jquery selectors corrected
+	boules.csv -> Options.csvfile
 
 	* build-tools/write-manifest.sh: using more restrictive paths
 	not failing when there's no script, stylesheet or image to load
+
+	* boule/scripts/options.js: savefile and csvfile fields added
+
+	* legacy/scripts/ui/backgroundscripts/save.js: boules.json -> Options.savefile
+
+	* legacy/style/home.css: prettier vertical-align
+
+	* tac/scripts/options.js: savefile and csvfile fields added
 
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

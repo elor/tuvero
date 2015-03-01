@@ -24,7 +24,9 @@ define(['ui/state_new'], function(State) {
     // local : {},
     dbname: 'boulestournament',
     dbplayername: 'bouleplayers',
-    roundtries: 20
+    roundtries: 20,
+    savefile: 'boule.json',
+    csvfile: 'boule.csv'
   // tournament-specific
   // tournament : {},
   };

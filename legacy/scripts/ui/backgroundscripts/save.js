@@ -1,11 +1,13 @@
 /**
- * Save button logic which initiates a file download of the current state for later loading
+ * Save button logic which initiates a file download of the current state for
+ * later loading
  *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/Blob', '../state', '../toast', '../strings', 'lib/FileSaver'], function(Blob, State, Toast, Strings, saveAs) {
+define(['lib/Blob', '../state', '../toast', '../strings', 'lib/FileSaver',
+    'options'], function(Blob, State, Toast, Strings, saveAs, Options) {
 
   $(function($) {
     $('#tabs').on('click', 'button.save', function() {
@@ -18,7 +20,7 @@ define(['lib/Blob', '../state', '../toast', '../strings', 'lib/FileSaver'], func
           blob = new Blob([save], {
             type: 'application/json'
           });
-          saveAs(blob, 'boules.json');
+          saveAs(blob, Options.savefile);
         } catch (er) {
           console.error(er);
           new Toast(Strings.savefailed);

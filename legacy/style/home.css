@@ -16,6 +16,9 @@
 #home > .boxview > a[data-img] {
   margin: 0.5em;
   display: inline-block;
+}
+
+#home > .boxview > button {
   vertical-align: middle;
 }
 
