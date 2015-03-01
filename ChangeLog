@@ -71,6 +71,8 @@
 
 	* legacy/style/buttons.css: styling all data-img buttons
 
+	* legacy/scripts/ui/backgroundscripts/load.js: delegating load-button clicks to the hidden file input
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
