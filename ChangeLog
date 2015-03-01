@@ -43,6 +43,7 @@
 	* core/style/fontsize.css: smoother fontsize changes through css transition
 
 	* tac/index.html: manual merge of the boule/index.html changes. We need a templating system...
+	http://spiel-tac.de: TAC homepage added to the links
 
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
