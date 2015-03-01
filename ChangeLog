@@ -4,6 +4,7 @@
 	isDevVersion regex corrected: The title does contain more than just a version number
 
 	* legacy/scripts/ui/update.js: only complaining about a missing manifest if the document is local
+	calling swapCache()
 
 	* core/style/general.css: table style moved to tableview.css
 
@@ -108,6 +109,8 @@
 	* legacy/style/home.css: prettier vertical-align
 
 	* tac/scripts/options.js: savefile and csvfile fields added
+
+	* index.html: swapping and auto-reloading on cache update
 
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

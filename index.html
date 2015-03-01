@@ -51,4 +51,14 @@
       </p>
     </div>
   </body>
+  <script>
+    function updateCache(){
+      if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+        window.applicationCache.swapCache();
+        document.location.reload();
+      }
+    }
+    window.applicationCache.onupdateready = updateCache;
+    updateCache();
+  </script>
 </html>

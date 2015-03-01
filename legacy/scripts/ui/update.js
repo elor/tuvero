@@ -71,6 +71,7 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
       setCached(true);
       new Toast(Strings.updateavailable, Toast.INFINITE);
       console.warn('boulesprog application cache updated');
+      window.applicationCache.swapCache();
       break;
     case appCache.IDLE:
       setCached(true);
