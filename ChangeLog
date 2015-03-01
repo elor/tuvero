@@ -65,6 +65,10 @@
 
 	* legacy/style/settings.css: 1px*1px file loader input (cheaphack)
 
+	* build-tools/write-sprite.sh: aborting if a file does not exist
+
+	* test/sprite.html: upload.png -> load.png
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling

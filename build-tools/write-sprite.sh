@@ -31,7 +31,7 @@ getSizes(){
             if [ -f "$coredir$file" ]; then
                 file="$coredir$file"
             else
-                echo "cannot find $file under any of the following directories: ">&2
+                echo "cannot find $(basename "$file") under any of the following directories: ">&2
                 echo "./$(dirname "$file")">&2
                 echo "$coredir$(dirname "$file")">&2
                 exit 1
@@ -77,7 +77,8 @@ comparesprites(){
     return 0
 }
 
-files="`listFiles | getSizes | sort -k3,3rn`"
+files="`listFiles | getSizes`"
+files="`sort -k3,3rn <<< "$files"`"
 heights=(`cut -d ' ' -f 3 <<< "$files"`)
 widths=(`cut -d ' ' -f 2 <<< "$files"`)
 files=(`cut -d ' ' -f 1 <<< "$files"`)
