@@ -8,12 +8,28 @@
 	* core/style/general.css: table style moved to tableview.css
 
 	* core/style/table.css: central table style file
+	additional table classes added
+	header font style improved: bigger and more dominant
+	borders added (content rows only)
 
 	* build-tools/write-mainstyle.sh: auto-create the main shared style file core/style/mainstyle.css
 
 	* Makefile: `make style` added to auto-create style files
 
 	* core/style/: most files moved to legacy/style/
+
+	* legacy/style/new.css: special CSS rules required for the systems table
+
+	* boule/index.html: additional table classes added
+
+	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
+	Improves player table borders significantly
+
+	* legacy/style/history.css: general table properties moved to table.css
+
+	* legacy/style/ranking.css: general table properties moved to table.css
+
+	* legacy/style/teams.css: general table properties moved to table.css
 
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

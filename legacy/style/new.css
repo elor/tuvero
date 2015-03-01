@@ -2,6 +2,7 @@
   display: inline-block;
   text-align: center;
   border-collapse: separate;
+  border-spacing: 0em;
 }
 
 #new > div.boxview:not(.tpl) {
@@ -11,6 +12,10 @@
 #new .playertable td,
 #new .playertable th {
   padding-right: 1em;
+}
+
+#new .playertable th {
+  border-bottom: none;
 }
 
 #new .playertable td:first-child {
@@ -33,6 +38,7 @@
 #new .names {
   white-space: nowrap;
   text-align: left;
+  border-right: none !important;
 }
 
 #new.hidenames .names {
@@ -57,6 +63,7 @@
   min-width: -o-min-content;
   min-width: min-content;
   vertical-align: top;
+  background-color: #ffffff;
 }
 
 #new .playertable .system > h3:first-child {
@@ -111,7 +118,8 @@
   display: inline-block;
 }
 
-#new .playertable .swiss table tr td {
+#new .playertable .swiss table tr td, 
+#new .playertable .swiss table tr {
   vertical-align: top;
   border: none;
 }

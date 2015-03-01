@@ -6,21 +6,8 @@
   display: block;
 }
 
-#history .boxview table {
-  display: inline-block;
-  white-space: nowrap;
-  border-spacing: 0.1em;
-}
-
-#history .gamestable {
-  border-collapse: separate;
-}
-
 #history .gamestable .team {
   text-align: left;
-  background-color: #d0d0d0;
-  border-radius: 0.5em;
-  padding: 0em;
 }
 
 #history .gamestable .team .number {
@@ -42,7 +29,11 @@
   text-overflow: ellipsis;
 }
 
-#history.hidenames .names  {
+#history .gamestable td {
+  vertical-align: middle;
+}
+
+#history.hidenames .names {
   display: none !important;
 }
 
@@ -50,15 +41,7 @@
   display: none !important;
 }
 
-#history .progresstable {
-  border: solid 1px;
-}
-
-#history .progresstable th {
-  border-bottom: solid 1px;
-}
-
-#history .progresstable .vsep {
+#history .progresstable td.vsep {
   border-left: solid 1px;
 }
 
@@ -66,8 +49,7 @@
   text-align: left;
 }
 
-#history .progresstable .game, 
-#history .progresstable .result {
+#history .progresstable .game, #history .progresstable .result {
   padding: 0em 0.2em;
 }
 

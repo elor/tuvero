@@ -1,5 +1,4 @@
 #app table {
-  display: inline-table;
   border-spacing: 0.3em 0em;
   border-collapse: collapse;
   white-space: nowrap;
@@ -8,13 +7,31 @@
 }
 
 #app table th {
+  font-size: 1.2em;
+  white-space: nowrap;
   font-weight: bold;
 }
 
-#app table tr:nth-child(even) {
+#app table.inline {
+  display: inline-table;
+}
+
+#app table.background > tbody > tr:nth-child(even) {
   background-color: #d3d3d3;
 }
 
 #app table td {
   vertical-align: top;
+}
+
+#app table tr>td:first-child {
+  border-left: solid 1px black;
+}
+
+#app table tr>td:last-child {
+  border-right: solid 1px black;
+}
+
+#app table th, #app table tr:last-child {
+  border-bottom: solid 1px black;
 }

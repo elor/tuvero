@@ -36,6 +36,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
 
     $names = this.$view.find('.name');
 
+    // FIXME read maxteamsize from options or something
     for (i = 0; i < 3; i += 1) {
       $name = $names.eq(i);
       player = this.model.getPlayer(i);
@@ -43,7 +44,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
       if (player) {
         $name.text(player.getName());
       } else {
-        $name.hide();
+        $name.remove();
       }
     }
   };
