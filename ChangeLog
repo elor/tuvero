@@ -33,7 +33,8 @@
 
 	* legacy/style/teams.css: general table properties moved to table.css
 
-	* legacy/style/games.css: thinner borders
+	* legacy/style/games.css: thinner borders for game boxes
+	thinner borders for vote boxes
 
 	* core/style/newteamview.css: force hiding the newtab elements when printing
 

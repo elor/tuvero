@@ -82,9 +82,7 @@
 #games .votes .vote {
   display: inline-table;
   border-radius: 0.5em;
-  border-style: solid;
-  border-width: 0.2em;
-  border-color: #808080;
+  border: solid 1px #000000;
   background-color: #d3d3d3;
   margin: 0.5em;
   white-space: nowrap;
