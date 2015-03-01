@@ -70,6 +70,7 @@
 	* test/sprite.html: upload.png -> load.png
 
 	* legacy/style/buttons.css: styling all data-img buttons
+	button style specificity reduced
 
 	* legacy/scripts/ui/backgroundscripts/load.js: delegating load-button clicks to the hidden file input
 

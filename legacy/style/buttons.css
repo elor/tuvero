@@ -1,4 +1,4 @@
-#tabs button[data-img] {
+button[data-img] {
   padding: 0.25em;
   border-radius: 10px;
   background-color: #d0d0d0;
