@@ -2,6 +2,13 @@
   text-align: justify;
 }
 
+#settings > .boxview {
+  display: inline-box;
+  vertical-align: middle;
+  max-width: 20em;
+  display: inline-block;
+}
+
 #settings .csv button, #settings .save button, #settings .autocomplete button,
 #settings .devel button {
   background-color: #d0d0d0;
@@ -22,7 +29,7 @@
   padding: 1em;
 }
 
-#settings .load {
+#settings input[type="file"], #settings button.clear {
   visibility: hidden;
   width: 1px;
   height: 1px;
@@ -45,8 +52,4 @@
 #settings .devel a {
   display: inline-block;
   margin: 1em 1em;
-}
-
-#settings .storage .clear:hover, #settings .storage .clear:focus {
-  background-color: #ee0000;
 }

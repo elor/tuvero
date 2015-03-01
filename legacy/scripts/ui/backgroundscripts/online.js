@@ -58,10 +58,14 @@ define(['jquery', '../strings', '../update'], function($, Strings, Update) {
         $(e.target).removeClass('online').text('OFFLINE');
       }
 
+      $(e.target).text($(e.target).text() + ', ');
+
       if (Update.isCached) {
-        $(e.target).text($(e.target).text() + ' cached');
+        $(e.target).text($(e.target).text() + 'cached');
+      } else if (document.location.protocol === 'file:') {
+        $(e.target).text($(e.target).text() + 'local file');
       } else {
-        $(e.target).text($(e.target).text() + ' NOT CACHED');
+        $(e.target).text($(e.target).text() + 'NOT CACHED');
       }
     }).click();
   });

@@ -72,7 +72,7 @@ define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
   function initLoad() {
     areas.load = {};
 
-    areas.load.$file = $tab.find('.load input.file');
+    areas.load.$file = $tab.find('input.load.file');
 
     areas.load.$file.change(function(evt) {
       var reader = new FileReader();
@@ -178,15 +178,19 @@ define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     areas.autocomplete.$button = $tab.find('.autocomplete button');
     areas.autocomplete.$file = $tab.find('.autocomplete input.file');
 
+//    areas.autocomplete.$button.click(function() {
+//      var $button = $(this);
+//
+//      // button contains image. Forward accidental clicks.
+//      if ($button.prop('tagName') !== 'BUTTON') {
+//        $button = $button.parents('button');
+//      }
+//
+//      reloadAutocomplete();
+//    });
+
     areas.autocomplete.$button.click(function() {
-      var $button = $(this);
-
-      // button contains image. Forward accidental clicks.
-      if ($button.prop('tagName') !== 'BUTTON') {
-        $button = $button.parents('button');
-      }
-
-      reloadAutocomplete();
+      areas.autocomplete.$file.click();
     });
 
     areas.autocomplete.$file.change(function(evt) {

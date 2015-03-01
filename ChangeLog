@@ -27,6 +27,7 @@
 	#settings: load/save box removed
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
 	#home tab cleaned up
+	#settings tab cleaned up
 
 	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
 	Improves player table borders significantly
@@ -52,6 +53,7 @@
 	#settings: load/save box removed
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
 	#home tab cleaned up
+	#settings tab cleaned up
 
 	* core/images/clear.png: red crossmark icon instead of blank (see blank.png for that)
 
@@ -66,6 +68,7 @@
 	* core/images/upload.png: moved to load.png
 
 	* legacy/style/settings.css: 1px*1px file loader input (cheaphack)
+	hiding any file inputs
 
 	* build-tools/write-sprite.sh: aborting if a file does not exist
 
@@ -75,10 +78,17 @@
 	button style specificity reduced
 
 	* legacy/scripts/ui/backgroundscripts/load.js: delegating load-button clicks to the hidden file input
+	.load input.file selector corrected
 
 	* legacy/scripts/ui/backgroundscripts/reset.js: delegating reset button click
 
 	* legacy/style/teamsizeview.css: redundant style rules simplified
+
+	* legacy/scripts/ui/backgroundscripts/online.js: distinguishing between remote and local installations
+
+	* legacy/scripts/ui/tab_settings.js: autocomplete reload button removed
+	autocomplete load button delegates clicks to the hidden file input
+	jquery selectors corrected
 
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

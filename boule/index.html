@@ -612,6 +612,9 @@
 
         <div class="boxview">
           <h3>Schriftgröße</h3>
+          <p>
+            Legt auch die Schriftgröße beim Drucken fest.
+          </p>
           <div class="fontsizeview">
             <button class="fontsizetiny">
               T
@@ -631,9 +634,7 @@
           </div>
         </div>
 
-        <div class="load json">
-          <input class="filereader file" type="file" />
-        </div>
+         <input class="load filereader file" type="file" />
         
         <p class="nofilereader">
           Dieser Browser kann keine lokalen Dateien laden.
@@ -644,25 +645,10 @@
           (z.B. Apple mit Safari für Windows).
         </p>
 
-        <div class="boxview">
-          <h3>Import &amp; Export</h3>
-          <div class="autocomplete">
-            <p>
-              Spielernamen für Autovervollständigung aus dem Internet laden.
-            </p>
-            <p class="nofilereader">
-              Dieser Browser kann keine lokalen Dateien laden.
-            </p>
-            <button data-img="reload"></button>
-            <input class="filereader file" type="file" />
-          </div>
-        </div>
-
         <div class="boxview csv">
           <h3>Tabellen-Export</h3>
           <p>
-            Exportierte csv-Dateien lassen sich bequem mit Office-Programmen
-            wie Excel, LibreOffice und Google Docs öffnen.
+            Excel-kompatible .csv-Dateien exportieren
           </p>
           <p class="noadownload">
             Damit die Datei geöffnet werden kann,
@@ -675,20 +661,30 @@
           <button class="teams ranking history" data-img="all"></button>
         </div>
 
-        <div class="boxview nojson">
+        <p class="nojson">
           ACHTUNG: Dieser Browser unterstützt
           wichtige Standards nicht, die zum Speichern und Laden notwendig
           sind. Beim Schließen des Browserfensters gehen sämtliche Daten
           verloren.
+        </p>
+
+        <div class="boxview autocomplete">
+          <h3>Autovervollständigung</h3>
+          <p>
+            Namen für Vervollständigung aus Datei laden.
+          </p>
+          <p class="nofilereader">
+            Dieser Browser kann keine lokalen Dateien laden.
+          </p>
+          <input class="filereader file" type="file" />
+          <button data-img="load"></button>
         </div>
 
         <div class="boxview">
           <h3>Storage</h3>
           <p>
-            Dieses Programm und alle Eingaben werden im Browser gespeichert, um
-            auch offline und nach Beenden des Browsers fortfahren zu können.
-            Dazu werden aktuelle Turnierstände nach jeder Änderung
-            <b>automatisch gespeichert</b>.
+            Der Turnierstand wird <b>automatisch gespeichert</b> und wird nach
+            dem Schließen und Öffnen des Browsers wieder hergestellt.
           </p>
           <div class="local">
             <button class="save">
@@ -697,23 +693,23 @@
             <button class="clear" tabindex="-1">
               Turnier löschen
             </button>
-            <div>
-              <meter class="playerstoragemeter" min="0" max="5.0" value="0.0"></meter>
-              <span>Spielerdatenbank</span>
-              <br>
-              <meter class="tournamentstoragemeter" min="0" max="5.0" value="0.0"></meter>
-              <span>Turnierdatenbank</span>
-            </div>
-          </div>
+            <br>
+            <br>
+            Speicherverbrauch:
+            <br>
+            <meter class="playerstoragemeter" min="0" max="5.0" value="0.0"></meter>
+            <span>Spielerdatenbank</span>
+            <br>
+            <meter class="tournamentstoragemeter" min="0" max="5.0" value="0.0"></meter>
+            <span>Turnierdatenbank</span>          </div>
+
         </div>
 
         <div class="boxview">
           <h3>Entwicklerwerkzeuge</h3>
           <div class="devel">
             <a href="../test/index.html" target="_blank" data-img="test"><br>Tuvero Test</a>
-            <a href="#debug" data-img="debug"><br>Debugging Console</a>
-            <br>
-            <button id="onlinecheck">Onlinecheck failed</button>
+            <a href="#debug" data-img="debug"><br>Dev Console</a>
           </div>
         </div>
 
@@ -879,6 +875,7 @@
               Alle Tabs neu laden
             </button>
           </form>
+          <button id="onlinecheck">Onlinecheck failed</button>
         </div>
         <div class="boxview allimages">
           <h3>Images at Pageload</h3>
