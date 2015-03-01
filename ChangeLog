@@ -73,6 +73,8 @@
 
 	* legacy/scripts/ui/backgroundscripts/load.js: delegating load-button clicks to the hidden file input
 
+	* legacy/scripts/ui/backgroundscripts/reset.js: delegating reset button click
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
