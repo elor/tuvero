@@ -5,6 +5,10 @@
 
 	* legacy/scripts/ui/update.js: only complaining about a missing manifest if the document is local
 
+	* core/style/general.css: table style moved to tableview.css
+
+	* core/style/table.css: central table style file
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling

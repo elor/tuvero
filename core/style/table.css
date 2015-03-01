@@ -1,0 +1,20 @@
+#app table {
+  display: inline-table;
+  border-spacing: 0.3em 0em;
+  border-collapse: collapse;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#app table th {
+  font-weight: bold;
+}
+
+#app table tr:nth-child(even) {
+  background-color: #d3d3d3;
+}
+
+#app table td {
+  vertical-align: top;
+}
