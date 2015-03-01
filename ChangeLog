@@ -13,6 +13,8 @@
 
 	* Makefile: `make style` added to auto-create style files
 
+	* core/style/: most files moved to legacy/style/
+
 2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
