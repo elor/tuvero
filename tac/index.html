@@ -32,7 +32,7 @@
       <p class="error">
         Unerwarteter Fehler beim Laden.
         Typische Ursache sind fehlerhafte oder inkompatible Spielstände, die von alten Versionen erstellt wurden.
-        Siehe dazu auch <a href="https://boulesprog.wordpress.com/">https://boulesprog.wordpress.com/</a> für Informationen über die letzten Updates.
+        Siehe dazu auch <a href="https://tuveroblog.wordpress.com/">https://boulesprog.wordpress.com/</a> für Informationen über die letzten Updates.
         Um die gespeicherten Spielstände zu löschen, kann man <a href="#reset">#reset</a> öffnen.
         Sollte der Fehler dann immer noch bestehen, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
       </p>
@@ -47,35 +47,28 @@
     <div id="tabs">
 
       <div id="home" accesskey="s">
-        <h2>Startseite</h2>
+        <h2>Willkommen zu Tuvero TAC 1.4.5-dev</h2>
         <div class="boxview firststeps">
           <h3>Erste Schritte</h3>
-          Willkommen zur Boules Turnierverwaltung.
-          <br>
           Um ein Turnier durchzuführen, folge diesen Schritten:
           <ol>
             <li>
-              Wähle die Teamgröße und trage die Spieler im <a href="#teams">Anmeldungen-Tab</a> ein
+              Trage die Spieler im <a href="#teams" class="tiny" data-img="teams"> Anmeldungen-Tab</a> ein
             </li>
             <li>
-              Wähle eine Turnierart und starte die erste Runde im <a href="#new">Turniersysteme-Tab</a>
+              Wähle und starte ein Turniersystem im <a href="#new" class="tiny" data-img="new"> Turniersysteme-Tab</a>
             </li>
             <li>
-              Trage die Spielergebnisse im <a href="#games">Laufende Spiele-Tab</a> ein
+              Trage die Spielergebnisse im <a href="#games" class="tiny" data-img="games"> Laufende Spiele-Tab</a> ein
             </li>
             <li>
-              Starte die nächste Runde im <a href="#new">Turniersysteme-Tab</a>, oder beende die Turnierphase und starte eine Neue
-              <br>
-              z.B. Vorrunde beenden und ABCD-Turniere starten
+              Sieh die Platzierung im <a href="#ranking" class="tiny" data-img="ranking"> Platzierungen-Tab</a> ein
             </li>
             <li>
-              Sieh die Platzierung im <a href="#ranking">Platzierungen-Tab</a> ein
-            </li>
-            <li>
-              Exportiere die Anmeldung, Platzierungen und Spielergebnisse über das <a href="#settings">Optionen und Einstellungen-Tab</a>
+              Exportiere die Turnierergebnisse über das <a href="#settings" class="tiny" data-img="settings"> Optionen-Tab</a>
             </li>
           </ol>
-          Weitere Informationen sind über die Links im <a href="#about">Über...-Tab</a> verfügbar
+          Hilfe und Links:<a href="#about" class="tiny" data-img="about"> Über...-Tab</a>
         </div>
         <div class="boxview">
         <h3>Turnierstand</h3>
@@ -90,47 +83,39 @@
         </div>
         <div class="boxview">
           <h3>Warum Chrome?</h3>
-          <a class="large logo" data-img="logos/chrome_128x128" href="https://www.google.com/chrome/browser/desktop/index.html"></a>
-          Für die Darstellung dieses Programmes wird der <a href="https://www.google.com/chrome/browser/desktop/index.html">Chrome Browser</a> empfohlen.
-          <br>
-          <br>
           <p>
-            Es werden HTML5-Elemente und CSS3-Selektoren genutzt, die aktuell nur von Chrome standardkonform unterstützt werden.
-            Andere Browser können zu übergroßen Icons, ungewollten Rändern und fehlenden Inhalten führen.
-            Zusätzlich lassen sich die Übersichten unter Verwendung von Firefox, Opera und Safari leider nicht ausdrucken, sondern führen zum Druck von leeren Seiten.
-            Bis Kompatibilität der anderen Browser hergestellt wurde, muss ich leider um die Verwendung des Chrome-Browsers bitten.
+            Zur Nutzung von Tuvero wird der <a href="https://www.google.com/chrome/browser/desktop/index.html" class="tiny" data-img="logos/chrome_128x128"> Chrome Browser</a> empfohlen.
+          </p>
+          <p>
+            Aktuell unterstützt lediglich der Chrome Browser die Druck-Funktion,
+            also das Ausdrucken der Listen und Übersichten, und das Tab-Layout.
+            Ich arbeite aber daran, Tuvero auch für andere Browser verfügbar zu
+            machen.
+          </p>
+          <p>
+            Für eine unverbindliche Übersicht der kompatiblen Browser, siehe
+            <a href="#about" class="tiny" data-img="about">Über...-Tab</a>
           </p>
         </div>
         <div class="boxview">
           <h3>Tabs</h3>
-          <a href="#home" data-img="home"> Startseite</a>
-          <a href="#teams" data-img="teams"> Anmeldungen</a>
-          <a href="#new" data-img="new"> Turniersystem und Unterturniere</a>
-          <a href="#games" data-img="games"> Laufende Spiele</a>
-          <a href="#ranking" data-img="ranking"> Platzierungen</a>
-          <a href="#history" data-img="history"> Turnierverlauf</a>
-          <a href="#lanes" data-img="lanes"> Bahnen</a>
-          <a href="#settings" data-img="settings"> Optionen und Einstellungen</a>
-          <a href="#about" data-img="about"> Über...</a>
-        </div>
-        <div class="boxview">
-          <h3>Buttons</h3>
-          <button class="print" data-img="print"></button>
-          Tab drucken
-          <br>
-          <button class="save" data-img="save"></button>
-          In Datei speichern
-          <br>
-          <button class="reloadtab" data-img="reload"></button>
-          Tab neu laden
-          <br>
+          <a href="#home" class="tiny" data-img="home"> Startseite</a>
+          <a href="#teams" class="tiny" data-img="teams"> Anmeldungen</a>
+          <a href="#new" class="tiny" data-img="new"> Turniersystem und Unterturniere</a>
+          <a href="#games" class="tiny" data-img="games"> Laufende Spiele</a>
+          <a href="#ranking" class="tiny" data-img="ranking"> Platzierungen</a>
+          <a href="#history" class="tiny" data-img="history"> Turnierverlauf</a>
+          <a href="#lanes" class="tiny" data-img="lanes"> Bahnen</a>
+          <a href="#settings" class="tiny" data-img="settings"> Optionen und Einstellungen</a>
+          <a href="#about" class="tiny" data-img="about"> Über...</a>
         </div>
         <div class="boxview">
           <h3>Hinweis - Klick mich</h3>
-          Diese Kästen können durch einen Klick auf ihre Titelleiste verkleinert und wieder vergrößert werden, um ungewollte Informationen zu verstecken.
-          Einige Kästen sind automatisch verkleinert, bis sie manuell vergrößert werden.
+          Diese Kästen können durch einen Klick auf ihre Titelleiste versteckt und wiederhergestellt werden.
           <br>
-          Versteckte Kästen werden nicht auf Papier gedruckt.
+          Versteckte Kästen werden nicht gedruckt.
+          <br>
+          Die Schriftgröße beim Drucken kann im <a href="#settings" class="tiny" data-img="settings"> Optionen-Tab</a> eingestellt werden.
         </div>
       </div>
 

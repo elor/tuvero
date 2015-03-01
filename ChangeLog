@@ -26,6 +26,7 @@
 	#home: load/save/reset box added
 	#settings: load/save box removed
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
+	#home tab cleaned up
 
 	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
 	Improves player table borders significantly
@@ -50,6 +51,7 @@
 	#home: load/save/reset box added
 	#settings: load/save box removed
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
+	#home tab cleaned up
 
 	* core/images/clear.png: red crossmark icon instead of blank (see blank.png for that)
 
