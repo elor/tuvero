@@ -37,14 +37,20 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
     }
   }
 
+  function isLocal() {
+    return document.location.protocol === 'file:';
+  }
+
   function setCached(cached) {
     if (cached) {
       Update.isCached = true;
     } else {
       Update.isCached = false;
       if (!Debug.isDevVersion) {
-        console.error('no cache manifest found!');
-        new Toast(Strings.nomanifest, Toast.INFINITE);
+        if (!isLocal()) {
+          console.error('no cache manifest found');
+          new Toast(Strings.nomanifest, Toast.INFINITE);
+        }
       }
     }
     closeDownloadToast();
