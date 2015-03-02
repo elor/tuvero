@@ -39,7 +39,7 @@ git mv test-build test
 git commit -m "release-$VERSION: source directories replaced with build directories"
 
 cp build-tools/merge-master.sh .
-make clean-shared-code clean-build-tools
+make clean-build-tools
 git add -u
 git commit -m "release-$VERSION: build scripts and dev files removed"
 

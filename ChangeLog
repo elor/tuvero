@@ -66,6 +66,7 @@
 	force-add the build directories after build
 	reading release version from branch name
 	branch name validation logic was reversed
+	`make clean-shared-code` was redundant
 
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
