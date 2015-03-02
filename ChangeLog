@@ -64,6 +64,7 @@
 
 	* build-tools/prepare-release.sh: exec flag set
 	force-add the build directories after build
+	reading release version from branch name
 
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

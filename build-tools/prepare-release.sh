@@ -20,7 +20,7 @@ getreleaseversion(){
     echo $version
 }
 
-VERSION=$(cat Version)
+VERSION=$(getreleaseversion)
 
 ./build-tools/apply-version.sh "$VERSION"
 git add -u
