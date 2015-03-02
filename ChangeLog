@@ -2,6 +2,18 @@
 
 	* index.html: favicon bug fixed, it actually displays now
 
+	* boule/index.html: Contributors updated
+	LICENSE points to github
+	compatible browsers updated
+	"all functions supported" message removed - it was wrong in unsupported browsers
+	donation text updated (webserver, domain, ...)
+
+	* tac/index.html: Contributors updated
+	LICENSE points to github
+	compatible browsers updated
+	"all functions supported" message removed - it was wrong in unsupported browsers
+	donation text updated (webserver, domain, ...)
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
