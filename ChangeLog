@@ -1,3 +1,7 @@
+2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: favicon bug fixed, it actually displays now
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
