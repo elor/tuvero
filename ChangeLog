@@ -9,6 +9,7 @@
 	donation text updated (webserver, domain, ...)
 	progresstable checkbox replaced with gamestable checkbox
 	kotree: borderless
+	splash icon added
 
 	* tac/index.html: Contributors updated
 	LICENSE points to github
@@ -17,6 +18,7 @@
 	donation text updated (webserver, domain, ...)
 	progresstable checkbox replaced with gamestable checkbox
 	kotree: borderless
+	splash icon added
 
 	* legacy/scripts/ui/tab_history.js: gamestable button logic adjusted
 	unnecessary functions and variables removed (currentround)
@@ -30,6 +32,8 @@
 
 	* legacy/style/general.css: hiding the tab header during printing
 	Have you seen how much space it takes?
+
+	* legacy/style/splash.css: splash icon added with fixed height
 
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

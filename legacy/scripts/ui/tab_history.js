@@ -786,7 +786,7 @@ define(
         var gamelevel, y0, height;
 
         height = 5;
-        y0 = 3-height;
+        y0 = 3 - height;
 
         gamelevel = level(gameid);
         firstid = lowestid(gamelevel);

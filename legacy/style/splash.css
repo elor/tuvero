@@ -18,6 +18,10 @@
   font-weight: bold;
 }
 
+#splash > img {
+  height: 5em;
+}
+
 #splash.loading .loading,
 #splash.starting .starting,
 #splash.restoring .restoring,
