@@ -8,6 +8,7 @@
 	"all functions supported" message removed - it was wrong in unsupported browsers
 	donation text updated (webserver, domain, ...)
 	progresstable checkbox replaced with gamestable checkbox
+	kotree: borderless
 
 	* tac/index.html: Contributors updated
 	LICENSE points to github
@@ -15,8 +16,16 @@
 	"all functions supported" message removed - it was wrong in unsupported browsers
 	donation text updated (webserver, domain, ...)
 	progresstable checkbox replaced with gamestable checkbox
+	kotree: borderless
 
 	* legacy/scripts/ui/tab_history.js: gamestable button logic adjusted
+
+	* core/style/table.css: borderless class added to table
+
+	* legacy/style/history.css: kotree game results vertically aligned
+
+	* legacy/style/general.css: hiding the tab header during printing
+	Have you seen how much space it takes?
 
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

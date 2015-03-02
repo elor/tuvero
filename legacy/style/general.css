@@ -68,7 +68,7 @@ div, button {
     background-color: #ffffff;
     color: #000000;
   }
-  button, input {
-    display: none;
+  button, input, h1, h2 {
+    display: none !important;
   }
 }

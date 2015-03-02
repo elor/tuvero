@@ -36,8 +36,12 @@
   border-bottom: solid 1px black;
 }
 
-@media print {
-  table, tr, td, th {
+#app table.borderless th, #app table.borderless td, #app table.borderless tr {
   border: none !important;
+}
+
+@media print {
+  tr, td, th {
+    border: none !important;
   }
 }

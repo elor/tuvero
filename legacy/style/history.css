@@ -82,6 +82,7 @@
 
 #history .kotree .game .points {
   min-width: 3em;
+  vertical-align: middle;
 }
 
 @media print {
