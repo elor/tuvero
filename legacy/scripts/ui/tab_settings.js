@@ -39,18 +39,27 @@ define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
   }
 
   function csvupdate($button) {
-    var csv, blob;
+    var csv, blob, string;
 
     csv = [];
 
     if ($button.hasClass('teams')) {
-      csv.push(Team.toCSV());
+      string = Team.toCSV();
+      if (string) {
+        csv.push(string);
+      }
     }
     if ($button.hasClass('ranking')) {
-      csv.push(Ranking.toCSV());
+      string = Ranking.toCSV();
+      if (string) {
+        csv.push(string);
+      }
     }
     if ($button.hasClass('history')) {
-      csv.push(History.toCSV());
+      string = History.toCSV();
+      if (string) {
+        csv.push(string);
+      }
     }
 
     csv = csv.join('\r\n""\r\n');

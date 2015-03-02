@@ -76,6 +76,10 @@ define(['./strings', './shared', './state_new', './playermodel',
   Team.toCSV = function() {
     var lines;
 
+    if (Team.count() === 0) {
+      return '';
+    }
+
     lines = [Strings['teamhead' + State.teamsize.get()]];
 
     teams.asArray().forEach(

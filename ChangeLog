@@ -37,6 +37,10 @@
 
 	* Makefile: `make update` updates all intermediate files
 
+	* legacy/scripts/ui/tab_settings.js: csv export: ignoring empty strings
+
+	* legacy/scripts/ui/team.js: toCSV(): not exporting if there's no team
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
