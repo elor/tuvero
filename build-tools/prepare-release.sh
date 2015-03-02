@@ -6,7 +6,7 @@ set -e -u
 
 getreleaseversion(){
     local branch_name="$(git symbolic-ref HEAD 2>/dev/null | xargs basename)"
-    if [ "$branch_name" ]; then
+    if [ -z "$branch_name" ]; then
         echo "error: cannot prepare a release on a detached head. Need a release-### branch" >&2
         exit 1
     fi
