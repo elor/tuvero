@@ -9,15 +9,6 @@
   display: inline-block;
 }
 
-#settings .csv button, #settings .save button, #settings .autocomplete button,
-#settings .devel button {
-  background-color: #d0d0d0;
-  border-radius: 1em;
-  padding: 0.5em;
-  cursor: pointer;
-  margin-bottom: 1em;
-}
-
 #settings button.selected {
   background-color: #ffffff;
 }

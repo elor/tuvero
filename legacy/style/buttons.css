@@ -1,5 +1,5 @@
 button[data-img] {
-  padding: 0.25em;
+  padding: 5px;
   border-radius: 10px;
   background-color: #d0d0d0;
   cursor: pointer;
@@ -7,4 +7,5 @@ button[data-img] {
 
 #tabs > div > button[data-img] {
   float: left;
+  margin-right: 2px;
 }

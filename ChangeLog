@@ -41,6 +41,10 @@
 
 	* legacy/scripts/ui/team.js: toCSV(): not exporting if there's no team
 
+	* legacy/style/buttons.css: fontsize-independent button styles
+
+	* legacy/style/settings.css: redundant button styles removed
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
