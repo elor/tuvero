@@ -1,6 +1,6 @@
 /**
  * No Description
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -33,9 +33,8 @@ define(
       }
 
       /**
-       * creates a box for the current result in the current round. Note that
-       * the correct round isn't verified (both in the result and currentround)
-       * 
+       * creates a box for a game result
+       *
        * @param result
        *          a result as returned by history.getGame()
        * @param $table
@@ -56,7 +55,7 @@ define(
       /**
        * creates a box for a bye within the current round. No round
        * verification.
-       * 
+       *
        * @param teamid
        *          id of the team receiving a bye
        * @param $table
@@ -281,6 +280,9 @@ define(
             $tab.addClass('hidenames');
             $maxwidthbox.attr('disabled', 'disabled');
           }
+
+          // CHEAPHACK this is entirely unnecessary...
+          Tab_History.update();
         }
 
         $shownamesbox.click(shownamestest);
@@ -443,10 +445,6 @@ define(
         template.bye.$names = template.bye.$bye.find('.names');
       }
 
-      function initRounds() {
-        currentround = 0;
-      }
-
       function init() {
         if ($tab) {
           console.error('tab_history: $tab already exists:');
@@ -456,7 +454,6 @@ define(
 
         $tab = $('#history');
 
-        initRounds();
         initTemplates();
         initCorrection();
         initOptions();
@@ -510,7 +507,7 @@ define(
 
       /**
        * borrowed from jQuery
-       * 
+       *
        * @param obj
        *          the object to verify
        * @return true if obj is a number, false otherwise
@@ -522,7 +519,7 @@ define(
       /**
        * creates a progress mapping, which, for every player, lists every game
        * in every round, with its result and
-       * 
+       *
        * @param tournamentid
        * @return the progress mapping
        */
@@ -717,7 +714,7 @@ define(
 
       /**
        * Copied from kotournament.js
-       * 
+       *
        * @param id
        *          the game id
        * @return the level of the game id
@@ -755,7 +752,7 @@ define(
 
       /**
        * return the x coordinate of a game box
-       * 
+       *
        * @param gameid
        *          the game id
        * @param maxlevel
@@ -775,7 +772,7 @@ define(
 
       /**
        * return the y coordinate of a game box
-       * 
+       *
        * @param gameid
        *          the game id
        * @param maxlevel
@@ -854,7 +851,7 @@ define(
 
       /**
        * create a KO tree box
-       * 
+       *
        * @param tournamentid
        *          the id of the tournament
        * @return true of a game tree tree has been added, false otherwise
@@ -938,7 +935,7 @@ define(
 
         $tree = template.kotree.$container.clone();
 
-        for (i = 0; i < games.length; i += 1) {
+        for (i = games.length - 1; i >= 0; i -= 1) {
           g = games[i];
           $game = createGameTreeBox(g, games.length - 1);
           if ($game) {
@@ -1022,9 +1019,6 @@ define(
 
         // remove containers
         $tab.find('.boxview').remove();
-
-        // reset the round to 0
-        currentround = 0;
       }
 
       /**

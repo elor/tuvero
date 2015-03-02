@@ -19,6 +19,7 @@
 	kotree: borderless
 
 	* legacy/scripts/ui/tab_history.js: gamestable button logic adjusted
+	unnecessary functions and variables removed (currentround)
 
 	* core/style/table.css: borderless class added to table
 
