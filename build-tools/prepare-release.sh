@@ -28,7 +28,7 @@ git commit -m "release-$VERSION: version pushed"
 
 make all
 git add -u
-git add *-build/manifest.appcache
+git add -f *-build
 git commit -m "release-$VERSION: targets built"
 
 git rm -r core legacy lib

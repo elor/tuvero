@@ -63,6 +63,7 @@
 	* build-tools/merge-master.sh: exec flag set
 
 	* build-tools/prepare-release.sh: exec flag set
+	force-add the build directories after build
 
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
