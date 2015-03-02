@@ -1,6 +1,7 @@
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: favicon bug fixed, it actually displays now
+	"dev-release" message replaced with links
 
 	* boule/index.html: Contributors updated
 	LICENSE points to github
@@ -10,6 +11,7 @@
 	progresstable checkbox replaced with gamestable checkbox
 	kotree: borderless
 	splash icon added
+	tuvero.de link text changed
 
 	* tac/index.html: Contributors updated
 	LICENSE points to github
@@ -19,6 +21,7 @@
 	progresstable checkbox replaced with gamestable checkbox
 	kotree: borderless
 	splash icon added
+	tuvero.de link text changed
 
 	* legacy/scripts/ui/tab_history.js: gamestable button logic adjusted
 	unnecessary functions and variables removed (currentround)
