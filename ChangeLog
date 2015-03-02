@@ -20,10 +20,13 @@
 
 	* legacy/scripts/ui/tab_history.js: gamestable button logic adjusted
 	unnecessary functions and variables removed (currentround)
+	kotree: width respects hidden player names
+	kotree pseudo-margin-top reduced
 
 	* core/style/table.css: borderless class added to table
 
 	* legacy/style/history.css: kotree game results vertically aligned
+	kotree box height adjusted
 
 	* legacy/style/general.css: hiding the tab header during printing
 	Have you seen how much space it takes?

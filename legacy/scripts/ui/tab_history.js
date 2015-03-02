@@ -764,6 +764,9 @@ define(
 
         x0 = 1;
         width = 15;
+        if ($tab.hasClass('hidenames')) {
+          width -= 8;
+        }
 
         gamelevel = level(gameid);
 
@@ -782,8 +785,8 @@ define(
       function getGameTreeY(gameid, maxlevel) {
         var gamelevel, y0, height;
 
-        y0 = 1;
         height = 5;
+        y0 = 3-height;
 
         gamelevel = level(gameid);
         firstid = lowestid(gamelevel);
@@ -838,6 +841,9 @@ define(
           y2 = getGameTreeY(parent(game.id), maxlevel);
 
           x += 13;
+          if ($tab.hasClass('hidenames')) {
+            x -= 8;
+          }
           y += 1.5;
 
           x2 += 0;
@@ -960,6 +966,9 @@ define(
         }
 
         boxwidth = getGameTreeX(0, level(games.length - 1)) + 14.5;
+        if ($tab.hasClass('hidenames')) {
+          boxwidth -= 8;
+        }
         boxheight = getGameTreeY(games.length - 1, level(games.length - 1)) + 4;
 
         $tree.css('width', boxwidth + 'em');
