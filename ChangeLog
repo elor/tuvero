@@ -52,6 +52,10 @@
 
 	* core/scripts/test/rankingtac.js: testing tac ranking adjustments
 
+	* README_en.md: short readme added
+
+	* README.md: Kurzanleitung hinzugefügt
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
