@@ -60,6 +60,10 @@
 
 	* README.md: Kurzanleitung hinzugefügt
 
+	* build-tools/merge-master.sh: exec flag set
+
+	* build-tools/prepare-release.sh: exec flag set
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
