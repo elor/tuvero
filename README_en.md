@@ -4,6 +4,11 @@
 
 Tuvero is a browser-based tournament management software, which supports offline-usage. It's directly accessible at <https://tuvero.de>.
 
+There's different variants of Tuvero for different games:
+
+* [Tuvero Boule](https://tuvero.de/boule) for Petanque tournaments (<http://petanque-ost.de>)
+* [Tuvero TAC](https://tuvero.de/tac) for TAC tournaments (<http://spiel-tac.de>)
+
 ## Usage
 
 ### Without Installation
