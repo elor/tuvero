@@ -1,6 +1,6 @@
 /**
  * No Description
- *
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -12,13 +12,13 @@ define(
         './state_new', './shared', './boxview', './koline'],
     function(Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
         Tabshandle, Tab, Team, State, Shared, BoxView, KOLine) {
-      var Tab_History, $tab, template, $button, progresstable;
+      var Tab_History, $tab, template, $button, gamestable;
 
       $button = undefined;
       $tab = undefined;
       Tab_History = undefined;
       template = undefined;
-      progresstable = true;
+      gamestable = true;
 
       function formatNamesHTML(teamid) {
         var names;
@@ -35,7 +35,7 @@ define(
       /**
        * creates a box for the current result in the current round. Note that
        * the correct round isn't verified (both in the result and currentround)
-       *
+       * 
        * @param result
        *          a result as returned by history.getGame()
        * @param $table
@@ -56,7 +56,7 @@ define(
       /**
        * creates a box for a bye within the current round. No round
        * verification.
-       *
+       * 
        * @param teamid
        *          id of the team receiving a bye
        * @param $table
@@ -110,7 +110,7 @@ define(
       function saveCorrection() {
         // TODO validate everything:
         // * point ranges * a-z * space
-        var op1, op2, np1, np2, points, t1, t2, res, game, tmp, correction, $box, tournamentid;
+        var op1, op2, np1, np2, points, t1, t2, res, game, tmp, correction, $box, tournamentid, $teams;
 
         if ($button === undefined) {
           return undefined;
@@ -154,7 +154,7 @@ define(
 
         // retrieve team ids from displayed team number
         // TODO find better solution!
-        if (progresstable) {
+        if (gamestable) {
           $teams = template.chpoints.$chpoints.parents('.team').find('.number');
           t1 = Number($teams.text());
           t2 = Number(template.chpoints.$chpoints.prev().text());
@@ -256,7 +256,7 @@ define(
       }
 
       function initOptions() {
-        var $maxwidthbox, $shownamesbox, $progressbox;
+        var $maxwidthbox, $shownamesbox, $gamelistsbox;
 
         // show or hide playernames
         $maxwidthbox = $tab.find('.options .maxwidth');
@@ -287,16 +287,16 @@ define(
         shownamestest();
 
         // use progress layout
-        $progressbox = $tab.find('.options .progress');
-        function progresstest() {
-          progresstable = $progressbox.prop('checked');
+        $gamelistsbox = $tab.find('.options .gamelists');
+        function gameliststest() {
+          gamestable = $gamelistsbox.prop('checked');
         }
 
-        $progressbox.click(function() {
-          progresstest();
+        $gamelistsbox.click(function() {
+          gameliststest();
           Tab_History.update();
         });
-        progresstest();
+        gameliststest();
       }
 
       function initCorrection() {
@@ -510,7 +510,7 @@ define(
 
       /**
        * borrowed from jQuery
-       *
+       * 
        * @param obj
        *          the object to verify
        * @return true if obj is a number, false otherwise
@@ -522,7 +522,7 @@ define(
       /**
        * creates a progress mapping, which, for every player, lists every game
        * in every round, with its result and
-       *
+       * 
        * @param tournamentid
        * @return the progress mapping
        */
@@ -717,7 +717,7 @@ define(
 
       /**
        * Copied from kotournament.js
-       *
+       * 
        * @param id
        *          the game id
        * @return the level of the game id
@@ -755,7 +755,7 @@ define(
 
       /**
        * return the x coordinate of a game box
-       *
+       * 
        * @param gameid
        *          the game id
        * @param maxlevel
@@ -775,7 +775,7 @@ define(
 
       /**
        * return the y coordinate of a game box
-       *
+       * 
        * @param gameid
        *          the game id
        * @param maxlevel
@@ -854,7 +854,7 @@ define(
 
       /**
        * create a KO tree box
-       *
+       * 
        * @param tournamentid
        *          the id of the tournament
        * @return true of a game tree tree has been added, false otherwise
@@ -998,7 +998,7 @@ define(
             break;
           }
 
-          if (!progresstable) {
+          if (gamestable) {
             displayfunc = createGamesTable;
           }
 

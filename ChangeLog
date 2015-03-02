@@ -7,12 +7,16 @@
 	compatible browsers updated
 	"all functions supported" message removed - it was wrong in unsupported browsers
 	donation text updated (webserver, domain, ...)
+	progresstable checkbox replaced with gamestable checkbox
 
 	* tac/index.html: Contributors updated
 	LICENSE points to github
 	compatible browsers updated
 	"all functions supported" message removed - it was wrong in unsupported browsers
 	donation text updated (webserver, domain, ...)
+	progresstable checkbox replaced with gamestable checkbox
+
+	* legacy/scripts/ui/tab_history.js: gamestable button logic adjusted
 
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
