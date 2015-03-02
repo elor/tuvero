@@ -43,18 +43,37 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
       loser = 1;
       break;
     case 0:
+      winner = 0;
+      loser = 0;
+      break;
     default:
       console.error('TAC ranking does not accept draws');
       return undefined;
     }
 
-    // winner
-    points = this.tac.get(result.players[winner]) + 12 + diff;
-    this.tac.set(result.players[winner], points);
+    // FIXME extract "8" to the config
+    if (result.points[winner] >= 8 && winner !== loser) {
+      // everything went to completion
 
-    // loser
-    points = this.tac.get(result.players[loser]) + result.points[loser];
-    this.tac.set(result.players[loser], points);
+      // winner
+      points = this.tac.get(result.players[winner]) + 12 + diff;
+      this.tac.set(result.players[winner], points);
+
+      // loser
+      points = this.tac.get(result.players[loser]) + result.points[loser];
+      if (result.points[loser] === 0) {
+        points += 1;
+      }
+      this.tac.set(result.players[loser], points);
+    } else {
+      // game had to be aborted. Timeout situation: teams keep their own points
+
+      points = this.tac.get(result.players[0]) + result.points[0];
+      this.tac.set(result.players[0], points);
+
+      points = this.tac.get(result.players[1]) + result.points[1];
+      this.tac.set(result.players[1], points);
+    }
   };
 
   return RankingTacListener;

@@ -44,22 +44,22 @@ define(function() {
       ret = ranking.get();
       ref = {
         components: ['tac', 'wins', 'points'],
-        ranks: [3, 1, 3, 2, 0],
+        ranks: [3, 1, 4, 2, 0],
         displayOrder: [4, 1, 3, 0, 2],
         wins: [0, 1, 0, 0, 1],
         points: [0, 8, 0, 7, 8],
-        tac: [0, 13, 0, 7, 20]
+        tac: [1, 13, 0, 7, 20]
       };
-      QUnit.deepEqual(ret, ref, 'second ranking is correct');
+      QUnit.deepEqual(ret, ref, 'second ranking is correct (0 -> 1)');
 
       ranking.result(new GameResult([1, 4], [8, 5]));
       ref = {
         components: ['tac', 'wins', 'points'],
-        ranks: [3, 0, 3, 2, 1],
+        ranks: [3, 0, 4, 2, 1],
         displayOrder: [1, 4, 3, 0, 2],
         wins: [0, 2, 0, 0, 1],
         points: [0, 16, 0, 7, 13],
-        tac: [0, 28, 0, 7, 25]
+        tac: [1, 28, 0, 7, 25]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'third ranking is correct');
@@ -73,10 +73,34 @@ define(function() {
         displayOrder: [4, 1, 3, 2, 0],
         wins: [0, 2, 1, 1, 2],
         points: [0, 19, 14, 15, 21],
-        tac: [0, 31, 23, 27, 39]
+        tac: [2, 31, 23, 27, 39]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'final ranking is correct');
+
+      ranking.result(new GameResult([0, 2], [7, 6]));
+      ref = {
+        components: ['tac', 'wins', 'points'],
+        ranks: [4, 1, 2, 3, 0],
+        displayOrder: [4, 1, 2, 3, 0],
+        wins: [1, 2, 1, 1, 2],
+        points: [7, 19, 20, 15, 21],
+        tac: [9, 31, 29, 27, 39]
+      };
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'aborted game points are saldo only');
+
+      ranking.result(new GameResult([1, 3], [5, 5]));
+      ref = {
+          components: ['tac', 'wins', 'points'],
+          ranks: [4, 1, 3, 2, 0],
+          displayOrder: [4, 1, 3, 2, 0],
+          wins: [1, 2, 1, 1, 2],
+          points: [7, 24, 20, 20, 21],
+          tac: [9, 36, 29, 32, 39]
+      };
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'aborted game points, equal');
 
       // TODO correct
     });

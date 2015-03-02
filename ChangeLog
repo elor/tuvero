@@ -45,6 +45,13 @@
 
 	* legacy/style/settings.css: redundant button styles removed
 
+	* core/scripts/rankingtaclistener.js: special case handling:
+	loser has 0 points -> give him 1 point
+	winner has less than 8 points? -> don't give him 12 points
+	points are equal? -> handled by "winner has less than 8 points"
+
+	* core/scripts/test/rankingtac.js: testing tac ranking adjustments
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
