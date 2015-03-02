@@ -35,6 +35,8 @@
 
 	* legacy/style/splash.css: splash icon added with fixed height
 
+	* Makefile: `make update` updates all intermediate files
+
 2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load

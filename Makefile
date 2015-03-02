@@ -23,6 +23,8 @@ clean: FORCE
 
 # primary global targets
 
+update: style codestyle sprites
+
 scripts: FORCE
 	./build-tools/create-commonjs.sh
 	./build-tools/create-testjs.sh
