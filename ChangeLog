@@ -7,6 +7,8 @@
 
 	* Makefile: build-tools/ references changed to tools/
 
+	* build-scripts/write-reference.sh: moved to tools/archive/
+
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: favicon bug fixed, it actually displays now
