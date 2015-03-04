@@ -43,6 +43,12 @@
 	changing the NEWS date after everything is finished
 	changing the NEWS date after the build finished, but before the source files are removed
 
+	* boule/index.html: manual links disabled until we actually have a manual
+
+	* NEWS: updated from commit messages
+
+	* tac/index.html: manual links disabled until we actually have a manual
+
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: favicon bug fixed, it actually displays now
