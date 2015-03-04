@@ -32,9 +32,9 @@ scripts: FORCE
 	./tools/update-headers.sh
 
 sprites: FORCE
-	make -C boule -f ../tools/Makefile sprite
-	make -C tac -f ../tools/Makefile sprite
-	make -C test -f ../tools/Makefile sprite
+	./tools/write-sprite.sh boule
+	./tools/write-sprite.sh tac
+	./tools/write-sprite.sh test
 
 style: FORCE
 	./tools/write-mainstyle.sh

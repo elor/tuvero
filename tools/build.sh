@@ -6,27 +6,38 @@
 
 set -e -u
 
+if (( ${#@} != 1 )); then
+    echo "Syntax: $(basename $0) <target>" >&2
+    exit 1
+fi
+
 istarget(){
-    local relpath=`git ls-tree --name-only --full-name HEAD index.html` || return 1
-    relpath=${relpath%/index.html}
-    [[ $relpath =~ ^[a-z]+$ ]]
+    local dir="$1"
+    [[ "$dir" =~ ^[a-z]+$ ]] || return 1
+    [ -d $dir ] || return 1
+    [ -f $dir/index.html ] || return 1
+    [ -f $dir/scripts/build.js ] || return 1
+    [ -f $dir/style/main.css ] || return 1
+    return 0
 }
 
-if ! istarget; then
+sourcedir="$1"
+
+if ! istarget "$sourcedir"; then
     echo "This script has to be run from inside a target directory, e.g. 'boule/'">&2
     exit 1
 fi
 
-target=$(basename $PWD)
-builddir=../build/$target
+target=$sourcedir
+builddir=build/$target
+[ -d build ]
 
 ###########################
 # JavaScript optimization #
 ###########################
 
-mkdir -p $(dirname $builddir)
 rm -rfv $builddir || exit 1
-r.js -o scripts/build.js || exit 1
+r.js -o $sourcedir/scripts/build.js || exit 1
 rm -f $builddir/build.txt $builddir/Makefile
 
 #############################
@@ -34,7 +45,7 @@ rm -f $builddir/build.txt $builddir/Makefile
 #############################
 
 rm $builddir/style/*.css || exit 1
-r.js -o cssIn=style/main.css out=$builddir/style/main.css || exit 1
+r.js -o cssIn=$sourcedir/style/main.css out=$builddir/style/main.css || exit 1
 
 #############################################################
 # remove debug code from index.html and any other html file #
@@ -48,9 +59,12 @@ sed -i '/<script>/,/<\/script>/d' $builddir/*.html
 
 find $builddir/images -type f -not -name sprite.png -not -name favicon.png  -print0 | xargs -0 -n1 rm -v || exit 1
 # -not -name smallchange.png -> removed. Using a simple exclamation mark for now
-find $builddir/images -type d -not -path $builddir/images -print0 | xargs -0 -n1 rmdir -v || :
+find $builddir/images -type d -not -path $builddir/images -print0 | xargs -0 -n1 rmdir -v || echo "rmdir: tolerating missing operand"
 
 ##############################################################
 # createmanifest inside the build directory, for convenience #
 ##############################################################
-../tools/write-manifest.sh $builddir
+echo "creating manifest"
+./tools/write-manifest.sh $builddir
+
+echo "Done: $builddir"

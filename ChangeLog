@@ -10,6 +10,7 @@
 	`make build` copies the index file (Welcome page)
 	`make clean` removed the new build/ directory
 	`make manifest` removed in favor of `make all`, in which it is used
+	./tools/Makefile functions invoked directly
 
 	* build-scripts/write-reference.sh: moved to tools/archive/
 
@@ -22,8 +23,15 @@
 	* test/scripts/build.js: build directory changed to build/test/
 
 	* tools/build.sh: build directory changed to build/
+	using the first argument as the source directory
+	is supposed to be run inside the root directory
+	"rmdir: missing operand" warning: non-issue notification and "Done" message added
 
 	* tools/write-manifest.sh: first argument is the target directory
+
+	* tools/Makefile: removed
+
+	* tools/write-sprite.sh: first argument is the target directory
 
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

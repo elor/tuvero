@@ -8,6 +8,19 @@
 
 set -e -u
 
+if (( ${#@} != 1 )); then
+    echo "Syntax: $(basename $0) <target>"
+    exit 1
+fi
+
+# validation
+[[ "$1" =~ ^[a-z]+$ ]]
+[ -d $1 ]
+[ -d $1/images ]
+[ -d $1/style ]
+
+cd $1
+
 which file >/dev/null || exit 1
 which optipng >/dev/null || exit 1
 which compare >/dev/null || exit 1
