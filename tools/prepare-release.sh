@@ -22,29 +22,45 @@ getreleaseversion(){
 
 VERSION=$(getreleaseversion)
 
+#######################
+# set the new version #
+#######################
 ./tools/apply-version.sh "$VERSION"
 git add -u
 git commit -m "release-$VERSION: version pushed"
 
-make all
+######################
+# build every target #
+######################
+make build
 git add -u
-git add -f *-build
+git add -f build
 git commit -m "release-$VERSION: targets built"
 
+###################################
+# remove the original source code #
+###################################
 git rm -r core legacy lib
-git rm -r boule tac test
+git rm -r boule tac test *.html
 git commit -m "release-$VERSION: source directories removed"
 
-git mv boule-build boule
-git mv tac-build tac
-git mv test-build test
+############################################################
+# replace the now-deleted source code with the built files #
+############################################################
+git mv build/* .
 git commit -m "release-$VERSION: source directories replaced with build directories"
 
+####################
+# remove dev tools #
+####################
 cp tools/merge-master.sh .
-make clean-build-tools
+make clean-tools
 git add -u
 git commit -m "release-$VERSION: build scripts and dev files removed"
 
+########
+# done #
+########
 cat <<EOF
 Release Build of version $VERSION finished.
 

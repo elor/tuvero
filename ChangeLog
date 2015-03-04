@@ -38,6 +38,8 @@
 
 	* tools/codestyle.sh: build path adjusted (for ignoring already-built scripts)
 
+	* tools/prepare-release.sh: build dirs and make targets updated
+
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: favicon bug fixed, it actually displays now
