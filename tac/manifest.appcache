@@ -1,15 +1,15 @@
 CACHE MANIFEST
 # Version: dev
-# Date: Wed Mar  4 17:51:52 CET 2015
+# Date: Wed Mar  4 17:51:30 CET 2015
 
 # tuvero is purely offline
 CACHE:
 index.html
-
-boule/images/favicon.png
-tac/images/favicon.png
-test/images/favicon.png
-
+scripts/require.js
+scripts/main.js
+images/favicon.png
+images/sprite.png
+style/main.css
 
 # allow player database updates
 NETWORK:

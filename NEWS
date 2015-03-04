@@ -1,3 +1,49 @@
+Boules 1.4.5-dev (2015-03-04)
+-------------------------
+
+FEATURES:
+
+  * Project renamed to Tuvero
+  * Team: table view of the registered teams added
+  * Event emitters added for greater code flexibility
+  * MVC-rewrite for better stability, maintainability and performance started
+  * Tuvero TAC added (see <http://spiel-tac.de> for TAC)
+  * Dynamic build system for better performance and smaller files
+  * Font size option added
+  * Complete rewrite of the teams tab
+  * index page: select which Tuvero variant you want to use
+  * test pages for individual Views
+  * automatically enforcing a consistent JavaScript code style
+  * target-specific options (options.js)
+  * number of deployed files per target minimized
+  * proper development and commit versioning (e.g. 1.4.5-dev-e5a2dc9)
+  * Online Check button added for debugging and online/cached/local information
+  * more consistent styling
+  * good-looking file load buttons
+  * Splash icons
+
+FIXES:
+
+  * Home and Settings tabs cleaned up
+  * KO tree drawing sped up significantly
+  * KO trees hide player names properly
+  * sprite-compatibility with most browsers
+  * ranking: hiding empty rankings (e.g. no finished games)
+  * testing more mobile browsers
+  * links updated (tuvero.de, tuveroblog, https)
+  * favicons added
+  * "uncaught update" fixed
+  * autocompletion style bugs fixed
+  * hiding empty tournaments in ranking view
+  * hiding all unprintable elements (including the headers)
+  * built scripts: static loading, not using require.js (reduces load time, avoids some caching problems)
+  * author's name removed from autocompletion :-(
+  * more modest manifest, offline and devversion warnings
+  * README updated
+  * renames: new name appears in the progress table (#history)
+  * "netto" was renamed to "saldo"
+  * focussing #new-tab after closing the last game
+
 Boules 1.4.4 (2014-12-24)
 -------------------------
 

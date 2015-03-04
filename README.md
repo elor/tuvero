@@ -1,32 +1,45 @@
-# Boules 1.4.4
+# Tuvero 1.4.5
 
-## Description
-A browser-based boule tournament management software.
+## Beschreibung
 
-## Installation
+Tuvero ist eine browserbasierte Turnierverwaltungssoftware, die auch offline genutzt werden kann. Sie direkt ist über <https://tuvero.de> verfügbar.
 
-### Offline
+Für Tuvero gibt es verschiedene Varianten, die für unterschiedliche Spiele ausgelegt sind:
 
-Visit one of the following web addresses with a modern browser if your choice:
+* [Tuvero Boule](https://tuvero.de/boule) für Petanque-Turniere (<http://petanque-ost.de>)
+* [Tuvero TAC](https://tuvero.de/tac) für TAC-Turniere (<http://spiel-tac.de>)
 
-* [https://elor.github.io/boules](https://elor.github.io/boules)
-* [http://elor.neon.org/boules](http://elor.neon.org/boules)
+## Benutzung
 
-The page will be automatically stored within your browser for offline use.
+### Ohne Installation
 
-### Portable
+Grundsätzlich ist für Tuvero keine Installation notwendig. Nach einem Besuch <https://tuvero.de> und dem Öffnen der gewünschten Variante ist <https://tuvero.de> auch offline im Browser verfügbar.
 
-Download latest version from [https://github.com/elor/boules/releases](https://github.com/elor/boules/releases) and open it with a modern browser of your choice.
-Depending on your browser and operating system, you may not be able to use in-browser storage if loading the program from the local hard drive.
+### Lokale Installation
 
-## Usage
+Lade ein Installationspaket von <https://github.com/elor/tuvero> herunter, entpacke es und öffne index.html mit dem Browser.
 
-Open `index.html` in a web browser, register players and teams and start your tournament.
+### Installation auf einem anderen Webserver
 
-## Autocomplete
+Am liebsten ist mir als Autor, wenn die offizielle Version auf <https://tuvero.de> genutzt wird.
 
-Add names.txt to the installation and manually reload via via the storage tab or load the file directly
+Tuvero kann aber auch auf einem anderen Webserver und unter einer anderen Domain installiert werden.
+In diesem Fall bitte ich darum, bei Veränderungen an der Software die Versionsnummer so anzupassen, dass eine Verwechslung mit einer offiziellen Version ausgeschlossen ist.
+Der Entwicklungsversion liegt dazu `apply-version.sh` bei.
+Siehe auch Abschnitt Build-Prozess.
+Außerdem würde ich mich über schnelle Updates freuen, um den Nutzern immer die stabilste Version anbieten zu können.
 
-## Testing
+## Build-Prozess
 
-Open `test.html` in a web browser
+Tuvero kann ohne Kompilierung direkt benutzt werden, besteht aber aus mehreren hundert Dateien, die die Software verlangsamen.
+Um Tuvero aus dem Quellcode zu kompilieren, müssen folgende Schritte ausgeführt werden:
+
+    ./build-tools/apply-version.sh {myversion}
+    make update    # erzeuge alle automatisch generierten Dateien. Notwendig nach Änderungen an Bildern, Code oder Templates
+    make all       # Komprimiert die Software zu ~6 Dateien (von mehreren Hundert!)
+
+Die kompilierten Dateien finden sich dann in den build-Verzeichnissen (z.B. `boule-build/`), `index.html` und `manifest.appcache`.
+
+## Tests
+
+Öffne `test/index.html` oder `test-build/index.html` im Browser für eine Liste von manuellen und automatischen Tests von Tuvero.
