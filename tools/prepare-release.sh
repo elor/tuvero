@@ -58,6 +58,11 @@ make clean-tools
 git add -u
 git commit -m "release-$VERSION: build scripts and dev files removed"
 
+########################
+# update the NEWS date #
+########################
+sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
+
 ########
 # done #
 ########

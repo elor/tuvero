@@ -14,6 +14,7 @@
 	creating build directory where necessary
 	`make clean-shared-code` removed
 	`make clean-build-tools` -> `make clean-tools`
+	`make NEWS` moved into prepare-release.sh
 
 	* build-scripts/write-reference.sh: moved to tools/archive/
 
@@ -39,6 +40,7 @@
 	* tools/codestyle.sh: build path adjusted (for ignoring already-built scripts)
 
 	* tools/prepare-release.sh: build dirs and make targets updated
+	changing the NEWS date after everything is finished
 
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -44,13 +44,10 @@ codestyle: scripts
 
 # secondary global targets
 
-NEWS: FORCE
-	sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
-
 clean-tools:
 	rm -rf Makefile tools/
 
-release: NEWS
+release: FORCE
 	./tools/prepare-release.sh
 
 merge-master: FORCE
