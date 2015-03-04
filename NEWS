@@ -40,6 +40,9 @@ FIXES:
   * author's name removed from autocompletion :-(
   * more modest manifest, offline and devversion warnings
   * README updated
+  * renames: new name appears in the progress table (#history)
+  * "netto" was renamed to "saldo"
+  * focussing #new-tab after closing the last game
 
 Boules 1.4.4 (2014-12-24)
 -------------------------
