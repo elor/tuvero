@@ -47,11 +47,8 @@ codestyle: scripts
 NEWS: FORCE
 	sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
 
-clean-build-tools:
-	rm -rf Makefile tools/ build-scripts/
-
-clean-shared-code:
-	rm -rf lib core legacy
+clean-tools:
+	rm -rf Makefile tools/
 
 release: NEWS
 	./tools/prepare-release.sh

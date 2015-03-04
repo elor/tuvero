@@ -12,6 +12,8 @@
 	`make manifest` removed in favor of `make all`, in which it is used
 	./tools/Makefile functions invoked directly
 	creating build directory where necessary
+	`make clean-shared-code` removed
+	`make clean-build-tools` -> `make clean-tools`
 
 	* build-scripts/write-reference.sh: moved to tools/archive/
 
@@ -678,7 +680,6 @@
 	comments added
 
 	* core/scripts/test/antisymmetricmatrixmodel.js: testing the antisymmetric matrix
-	* .#changelog: 
 
 2015-02-20	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
