@@ -64,7 +64,10 @@ test/index.html: FORCE
 
 # makefile-related secondary targets
 
-%: %/index.html FORCE
-	cd $@ && make -f ../tools/Makefile build
+%: %/index.html build-dir
+	./tools/build.sh $@
+
+build-dir: FORCE
+	mkdir -p build
 
 FORCE:

@@ -11,6 +11,7 @@
 	`make clean` removed the new build/ directory
 	`make manifest` removed in favor of `make all`, in which it is used
 	./tools/Makefile functions invoked directly
+	creating build directory where necessary
 
 	* build-scripts/write-reference.sh: moved to tools/archive/
 
