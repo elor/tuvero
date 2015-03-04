@@ -47,7 +47,7 @@ git commit -m "release-$VERSION: source directories removed"
 ############################################################
 # replace the now-deleted source code with the built files #
 ############################################################
-git mv build/* .
+git mv -f build/* .
 git commit -m "release-$VERSION: source directories replaced with build directories"
 
 ####################
