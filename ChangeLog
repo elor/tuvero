@@ -50,6 +50,8 @@
 
 	* tac/index.html: manual links disabled until we actually have a manual
 
+	* doc/: removed for now. Please rewrite the documentation whenever possible
+
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: favicon bug fixed, it actually displays now
