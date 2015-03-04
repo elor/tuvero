@@ -22,7 +22,7 @@ getreleaseversion(){
 
 VERSION=$(getreleaseversion)
 
-./build-tools/apply-version.sh "$VERSION"
+./tools/apply-version.sh "$VERSION"
 git add -u
 git commit -m "release-$VERSION: version pushed"
 
@@ -40,7 +40,7 @@ git mv tac-build tac
 git mv test-build test
 git commit -m "release-$VERSION: source directories replaced with build directories"
 
-cp build-tools/merge-master.sh .
+cp tools/merge-master.sh .
 make clean-build-tools
 git add -u
 git commit -m "release-$VERSION: build scripts and dev files removed"

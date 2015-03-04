@@ -52,8 +52,8 @@ find $builddir/images -type d -not -path $builddir/images -print0 | xargs -0 -n1
 ##############################################################
 # createmanifest inside the build directory, for convenience #
 ##############################################################
-manifestscript=`readlink -f ../build-tools/write-manifest.sh`
+manifestscript=`readlink -f ../tools/write-manifest.sh`
 (
     cd $builddir || exit 1
-    ../build-tools/write-manifest.sh
+    ../tools/write-manifest.sh
 )

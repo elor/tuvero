@@ -17,7 +17,7 @@
 #build: images doc
 #build: images
 build: FORCE
-	../build-tools/build.sh
+	../tools/build.sh
 	echo "Build finished."
 
 #############################
@@ -32,7 +32,7 @@ images: sprite
 
 # creates the sprite
 sprite: FORCE
-	../build-tools/write-sprite.sh
+	../tools/write-sprite.sh
 
 # dummy target for forcing a rebuild of existing files
 FORCE:

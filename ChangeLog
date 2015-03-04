@@ -2,6 +2,11 @@
 
 	* legacy/style/new.css: only styling the system buttons, not the floating buttons
 
+	* build-tools/: moved to tools/
+	build-tools/ references changed to tools/
+
+	* Makefile: build-tools/ references changed to tools/
+
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: favicon bug fixed, it actually displays now

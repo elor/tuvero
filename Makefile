@@ -26,23 +26,23 @@ clean: FORCE
 update: style codestyle sprites
 
 scripts: FORCE
-	./build-tools/create-commonjs.sh
-	./build-tools/create-testjs.sh
-	./build-tools/update-headers.sh
+	./tools/create-commonjs.sh
+	./tools/create-testjs.sh
+	./tools/update-headers.sh
 
 sprites: FORCE
-	make -C boule -f ../build-tools/Makefile sprite
-	make -C tac -f ../build-tools/Makefile sprite
-	make -C test -f ../build-tools/Makefile sprite
+	make -C boule -f ../tools/Makefile sprite
+	make -C tac -f ../tools/Makefile sprite
+	make -C test -f ../tools/Makefile sprite
 
 style: FORCE
-	./build-tools/write-mainstyle.sh
+	./tools/write-mainstyle.sh
 
 manifest: FORCE
-	./build-tools/write-manifest.sh
+	./tools/write-manifest.sh
 
 codestyle: scripts
-	./build-tools/codestyle.sh
+	./tools/codestyle.sh
 
 # secondary global targets
 
@@ -50,23 +50,23 @@ NEWS: FORCE
 	sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
 
 clean-build-tools:
-	rm -rf Makefile build-tools/ build-scripts/
+	rm -rf Makefile tools/ build-scripts/
 
 clean-shared-code:
 	rm -rf lib core legacy
 
 release: NEWS
-	./build-tools/prepare-release.sh
+	./tools/prepare-release.sh
 
 merge-master: FORCE
-	./build-tools/merge-master.sh
+	./tools/merge-master.sh
 
 test/index.html: FORCE
-	./build-tools/write-testindex.sh
+	./tools/write-testindex.sh
 
 # makefile-related secondary targets
 
 %: %/index.html FORCE
-	cd $@ && make -f ../build-tools/Makefile build
+	cd $@ && make -f ../tools/Makefile build
 
 FORCE:
