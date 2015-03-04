@@ -1,7 +1,7 @@
 ({
   appDir: "..",
   baseUrl: "scripts",
-  dir: "../../tac-build",
+  dir: "../../build/tac",
   optimize: "uglify2",
   modules: [{
     name: "main"

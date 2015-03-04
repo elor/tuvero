@@ -5,12 +5,13 @@
 
 # primary build targets
 
-all: scripts manifest
+build: scripts
 	make boule
 	make tac
 	make test
-
-build: all
+	cp *.html build/
+	./tools/write-manifest.sh build/
+	cp Version build/
 
 tac: tac/index.html
 
@@ -19,7 +20,7 @@ boule: boule/index.html
 test: test/index.html
 
 clean: FORCE
-	rm -rfv *-build/
+	rm -rfv build/
 
 # primary global targets
 
@@ -37,9 +38,6 @@ sprites: FORCE
 
 style: FORCE
 	./tools/write-mainstyle.sh
-
-manifest: FORCE
-	./tools/write-manifest.sh
 
 codestyle: scripts
 	./tools/codestyle.sh

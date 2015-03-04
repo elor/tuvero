@@ -5,6 +5,14 @@
 
 set -e -u
 
+if (( ${#@} != 1 )); then
+    echo "Syntax: $(basename $0) <target directory>" >&2
+    exit 1
+fi
+
+cd "$1"
+
+
 listScripts(){
     find  scripts -name '*.js' || true
 }
@@ -59,4 +67,3 @@ for file in `listHTMLs`; do
     sed -i '/<html/ s:manifest="[^"]*"::g' $file
     sed -i "/<html/ s:\s*>: manifest=\"$relativepath$manifest\">:" $file
 done
-

@@ -1,7 +1,7 @@
 ({
   appDir: "..",
   baseUrl: "scripts",
-  dir: "../../boule-build",
+  dir: "../../build/boule",
   optimize: "uglify2",
   modules: [{
     name: "main"

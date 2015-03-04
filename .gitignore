@@ -7,4 +7,4 @@ thumbs.db
 .*.swp
 *~
 #*#
-*-build/
+build/

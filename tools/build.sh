@@ -18,12 +18,13 @@ if ! istarget; then
 fi
 
 target=$(basename $PWD)
-builddir=../$target-build
+builddir=../build/$target
 
 ###########################
 # JavaScript optimization #
 ###########################
 
+mkdir -p $(dirname $builddir)
 rm -rfv $builddir || exit 1
 r.js -o scripts/build.js || exit 1
 rm -f $builddir/build.txt $builddir/Makefile
@@ -52,8 +53,4 @@ find $builddir/images -type d -not -path $builddir/images -print0 | xargs -0 -n1
 ##############################################################
 # createmanifest inside the build directory, for convenience #
 ##############################################################
-manifestscript=`readlink -f ../tools/write-manifest.sh`
-(
-    cd $builddir || exit 1
-    ../tools/write-manifest.sh
-)
+../tools/write-manifest.sh $builddir

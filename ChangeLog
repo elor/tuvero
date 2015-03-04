@@ -6,8 +6,24 @@
 	build-tools/ references changed to tools/
 
 	* Makefile: build-tools/ references changed to tools/
+	`make all` removed (misleading)
+	`make build` copies the index file (Welcome page)
+	`make clean` removed the new build/ directory
+	`make manifest` removed in favor of `make all`, in which it is used
 
 	* build-scripts/write-reference.sh: moved to tools/archive/
+
+	* boule/scripts/build.js: build directory changed to build/boule/
+
+	* .gitignore: build directory changed to build/
+
+	* tac/scripts/build.js: build directory changed to build/tac/
+
+	* test/scripts/build.js: build directory changed to build/test/
+
+	* tools/build.sh: build directory changed to build/
+
+	* tools/write-manifest.sh: first argument is the target directory
 
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

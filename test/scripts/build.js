@@ -1,7 +1,7 @@
 ({
   appDir: "..",
   baseUrl: "scripts",
-  dir: "../../test-build",
+  dir: "../../build/test",
   optimize: "uglify2",
   modules: [{
     name: "test"
