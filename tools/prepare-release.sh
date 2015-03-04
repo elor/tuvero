@@ -29,10 +29,12 @@ VERSION=$(getreleaseversion)
 git add -u
 git commit -m "release-$VERSION: version pushed"
 
-######################
-# build every target #
-######################
+##########################
+# build every target and #
+# update the NEWS date   #
+##########################
 make build
+sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
 git add -u
 git add -f build
 git commit -m "release-$VERSION: targets built"
@@ -57,11 +59,6 @@ cp tools/merge-master.sh .
 make clean-tools
 git add -u
 git commit -m "release-$VERSION: build scripts and dev files removed"
-
-########################
-# update the NEWS date #
-########################
-sed -i "1s/yyyy-mm-dd/`date +%F`/" NEWS
 
 ########
 # done #

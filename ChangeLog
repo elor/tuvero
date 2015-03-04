@@ -41,6 +41,7 @@
 
 	* tools/prepare-release.sh: build dirs and make targets updated
 	changing the NEWS date after everything is finished
+	changing the NEWS date after the build finished, but before the source files are removed
 
 2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
