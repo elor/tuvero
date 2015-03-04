@@ -33,6 +33,8 @@ git commit -m "release-$VERSION: targets built"
 
 git rm -r core legacy lib
 git rm -r boule tac test
+git commit -m "release-$VERSION: source directories removed"
+
 git mv boule-build boule
 git mv tac-build tac
 git mv test-build test
