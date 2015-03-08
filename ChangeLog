@@ -45,6 +45,7 @@
 
 	* legacy/scripts/ui/tabshandle.js: disabled
 	rewritten to be a wrapper for the TabMenuView
+	aborting when this is a test page ($(#testmain).length !== 0)
 
 	* legacy/style/tabs.css: removed, replaced by tabmenuview.css and tabview.css
 

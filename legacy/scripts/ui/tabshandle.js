@@ -13,6 +13,20 @@
 define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
   var tabmenu, TabsHandle;
 
+  if ($('#testmain').length !== 0) {
+    // TODO remove this extremely cheap hack
+    function dummy() {
+
+    }
+
+    return {
+      hide: dummy,
+      show: dummy,
+      focus: dummy,
+      bindTabOpts: dummy
+    };
+  }
+
   tabmenu = new TabMenuView($('#tabs'));
 
   TabsHandle = {
