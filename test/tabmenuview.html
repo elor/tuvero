@@ -149,62 +149,62 @@
       <h2>Debug</h2>
     </div>
   </div>
-</body>
-
-<script data-tab="testmain">
-function TestMain(Common, $) {
-  var TabMenuView;
-
-  TabMenuView = Common('core/tabmenuview');
-
-  $(function($) {
-    var $view, tabmenu, model;
-
-    $view = $('#tabs');
-    tabmenu = new TabMenuView($view);
-
-    // imgParam test
-    model = tabmenu.getTabModel('teams');
-    model.imgParam.set(3);
-    
-    // visibility test
-    model = tabmenu.getTabModel('debug');
-    model.visibility.set(false);
-    window.setInterval(function(){
-      var model = tabmenu.getTabModel('teams').imgParam;
-      if (model.get() === 3) {
-        model.set(1);
-      } else {
-        model.set(model.get()+1);
-      }
-    }, 1234);
-    
-    // accessibility only test
-    model = tabmenu.getTabModel('deleteteam');
-    model.accessibility.set(false);
-    
-    // accessibility+visibility test
-    model = tabmenu.getTabModel('HTML5_Logo_128');
-    window.setInterval(function(model){
-      model.visibility.set(!model.visibility.get());
-      model.accessibility.set(model.visibility.get());
-    }, 2345, model);
-    
-    // goto form
-    $view=$('#goto');
-    $view.submit(function(e){
-      var $form, $text, target;
-      $form = $(this);
-      $text = $form.find('input[type="text"]');
-      target = $text.val();
-      tabmenu.focus(target);
+  
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var TabMenuView;
+  
+    TabMenuView = Common('core/tabmenuview');
+  
+    $(function($) {
+      var $view, tabmenu, model;
+  
+      $view = $('#tabs');
+      tabmenu = new TabMenuView($view);
+  
+      // imgParam test
+      model = tabmenu.getTabModel('teams');
+      model.imgParam.set(3);
       
-      e.preventDefault();
-      return false;
+      // visibility test
+      model = tabmenu.getTabModel('debug');
+      model.visibility.set(false);
+      window.setInterval(function(){
+        var model = tabmenu.getTabModel('teams').imgParam;
+        if (model.get() === 3) {
+          model.set(1);
+        } else {
+          model.set(model.get()+1);
+        }
+      }, 1234);
+      
+      // accessibility only test
+      model = tabmenu.getTabModel('deleteteam');
+      model.accessibility.set(false);
+      
+      // accessibility+visibility test
+      model = tabmenu.getTabModel('HTML5_Logo_128');
+      window.setInterval(function(model){
+        model.visibility.set(!model.visibility.get());
+        model.accessibility.set(model.visibility.get());
+      }, 2345, model);
+      
+      // goto form
+      $view=$('#goto');
+      $view.submit(function(e){
+        var $form, $text, target;
+        $form = $(this);
+        $text = $form.find('input[type="text"]');
+        target = $text.val();
+        tabmenu.focus(target);
+        
+        e.preventDefault();
+        return false;
+      });
     });
-  });
-}
-</script>
-<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+  }
+  </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+</body>
 
 </html>

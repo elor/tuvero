@@ -452,7 +452,7 @@ define(
           return;
         }
 
-        $tab = $('#history');
+        $tab = $('#tabs > [data-tab="history"]');
 
         initTemplates();
         initCorrection();
@@ -864,11 +864,6 @@ define(
        */
       function createKOTree(tournamentid) {
         var games, i, $box, g, $game, boxwidth, boxheight, $connector;
-
-        // TODO use a more sophisticated method
-        if (window.location.hash !== '#history') {
-          visibleupdatepending = true;
-        }
 
         games = [];
 

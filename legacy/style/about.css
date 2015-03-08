@@ -1,31 +1,31 @@
-#about {
+#tabs > [data-tab="about"] {
   text-align: center;
 }
 
-#about .boxview {
+#tabs > [data-tab="about"] .boxview {
   width: 40em;
   margin: 1em auto;
 }
 
-#about p {
+#tabs > [data-tab="about"] p {
   text-align: justify;
 }
 
-#about .float {
+#tabs > [data-tab="about"] .float {
   float: right;
 }
 
-#about h4 {
+#tabs > [data-tab="about"] h4 {
   text-align: left;
 }
 
-#about ul {
+#tabs > [data-tab="about"] ul {
   list-style-type: none;
   text-align: left;
 }
 
 
-#about .links a[href] {
+#tabs > [data-tab="about"] .links a[href] {
   display: inline-block;
   /* background-color: #d3d3d3; */
   padding: 0.2em;
@@ -33,44 +33,44 @@
   font-weight: bold;
 }
 
-#about .links a.manual {
+#tabs > [data-tab="about"] .links a.manual {
   background-color: #90EE90;
 }
 
-#about .boxview [data-img] {
+#tabs > [data-tab="about"] .boxview [data-img] {
   border-radius: 2em;
   vertical-align: initial;
 }
 
-#about [data-img].supported {
+#tabs > [data-tab="about"] [data-img].supported {
   background-color: #90ee90;
 }
 
-#about [data-img].maywork {
+#tabs > [data-tab="about"] [data-img].maywork {
   background-color: #eed048;
 }
 
-#about [data-img].unsupported {
+#tabs > [data-tab="about"] [data-img].unsupported {
   background-color: #ff0000;
   opacity: 0.7;
 }
 
-.js #about .no-js, .postmessage #about .no-postmessage, .hashchange #about .no-hashchange, .localstorage #about .no-localstorage, .webworkers #about .no-webworkers, .adownload #about .no-adownload, .filereader #about .no-filereader, .json #about .no-json {
+.js #tabs > [data-tab="about"] .no-js, .postmessage #tabs > [data-tab="about"] .no-postmessage, .hashchange #tabs > [data-tab="about"] .no-hashchange, .localstorage #tabs > [data-tab="about"] .no-localstorage, .webworkers #tabs > [data-tab="about"] .no-webworkers, .adownload #tabs > [data-tab="about"] .no-adownload, .filereader #tabs > [data-tab="about"] .no-filereader, .json #tabs > [data-tab="about"] .no-json {
   display: none;
 }
 
-.js.postmessage.hashchange.localstorage.webworkers.adownload.filereader.json #about .no-support {
+.js.postmessage.hashchange.localstorage.webworkers.adownload.filereader.json #tabs > [data-tab="about"] .no-support {
   display: none;
 }
 
-.no-js #about .support, .no-postmessage #about .support, .no-hashchange #about .support, .no-localstorage #about .support, .no-webworkers #about .support, .no-adownload #about .support, .no-filereader #about .support, .no-json #about .support {
+.no-js #tabs > [data-tab="about"] .support, .no-postmessage #tabs > [data-tab="about"] .support, .no-hashchange #tabs > [data-tab="about"] .support, .no-localstorage #tabs > [data-tab="about"] .support, .no-webworkers #tabs > [data-tab="about"] .support, .no-adownload #tabs > [data-tab="about"] .support, .no-filereader #tabs > [data-tab="about"] .support, .no-json #tabs > [data-tab="about"] .support {
   display: none;
 }
 
-#about .donatebuttons {
+#tabs > [data-tab="about"] .donatebuttons {
   text-align: center;
 }
 
-#about .donate {
+#tabs > [data-tab="about"] .donate {
   display: inline-block;
 }

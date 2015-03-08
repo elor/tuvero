@@ -606,7 +606,7 @@ define(
           return;
         }
 
-        $tab = $('#games');
+        $tab = $('#tabs > [data-tab="games"]');
 
         initTemplates();
         initOptions();

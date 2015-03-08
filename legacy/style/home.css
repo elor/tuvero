@@ -1,31 +1,31 @@
-#home {
+#tabs > [data-tab="home"] {
   text-align: center;
 }
 
-#home > .boxview {
+#tabs > [data-tab="home"] > .boxview {
   vertical-align: middle;
   max-width: 50em;
   display: inline-block;
 }
 
-#home > .boxview > p {
+#tabs > [data-tab="home"] > .boxview > p {
   text-align: justify;
 }
 
-#home > .boxview > button,
-#home > .boxview > a[data-img] {
+#tabs > [data-tab="home"] > .boxview > button,
+#tabs > [data-tab="home"] > .boxview > a[data-img] {
   margin: 0.5em;
   display: inline-block;
 }
 
-#home > .boxview > button {
+#tabs > [data-tab="home"] > .boxview > button {
   vertical-align: middle;
 }
 
-#home > .firststeps {
+#tabs > [data-tab="home"] > .firststeps {
   text-align: left;
 }
 
-#home .logo {
+#tabs > [data-tab="home"] .logo {
   float: right;
 }

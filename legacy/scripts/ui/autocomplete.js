@@ -13,7 +13,7 @@ define(['./players', './shared', 'lib/typeahead'], function(Players, Shared,
   Autocomplete = {};
 
   $(function($) {
-    $fields = $('#teams input.playername');
+    $fields = $('#tabs > [data-tab="teams"] input.playername');
 
     Autocomplete.clear = function() {
       $fields.typeahead('val', '');

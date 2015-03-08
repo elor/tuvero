@@ -789,7 +789,7 @@ define(
           return;
         }
 
-        $tab = $('#new');
+        $tab = $('#tabs > [data-tab="new"]');
 
         initTemplate();
         initRename();

@@ -1,57 +1,57 @@
-#new .playertable {
+#tabs > [data-tab="new"] .playertable {
   display: inline-block;
   text-align: center;
   border-collapse: separate;
   border-spacing: 0em;
 }
 
-#new > div.boxview:not(.tpl) {
+#tabs > [data-tab="new"] > div.boxview:not(.tpl) {
   display: inline-block;
 }
 
-#new .playertable td,
-#new .playertable th {
+#tabs > [data-tab="new"] .playertable td,
+#tabs > [data-tab="new"] .playertable th {
   padding-right: 1em;
 }
 
-#new .playertable th {
+#tabs > [data-tab="new"] .playertable th {
   border-bottom: none;
 }
 
-#new .playertable td:first-child {
+#tabs > [data-tab="new"] .playertable td:first-child {
   border-left: solid 1px;
 }
 
-#new .playertable tr:last-child td {
+#tabs > [data-tab="new"] .playertable tr:last-child td {
   border-bottom: solid 1px;
 }
 
-#new .playertable tr.firstrow td {
+#tabs > [data-tab="new"] .playertable tr.firstrow td {
   border-top: solid 1px black;
 }
 
-#new .playertable tr.lastrow td {
+#tabs > [data-tab="new"] .playertable tr.lastrow td {
   height: 100%;
   vertical-align: top;
 }
 
-#new .names {
+#tabs > [data-tab="new"] .names {
   white-space: nowrap;
   text-align: left;
   border-right: none !important;
 }
 
-#new.hidenames .names {
+#tabs > [data-tab="new"].hidenames .names {
   display: none;
 }
 
-#new.maxwidth .names {
+#tabs > [data-tab="new"].maxwidth .names {
   max-width: 10em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#new .playertable .system {
+#tabs > [data-tab="new"] .playertable .system {
   position: relative;
   padding: 1em 1em 3em 1em;
   border: solid 1px;
@@ -66,7 +66,7 @@
   background-color: #ffffff;
 }
 
-#new .playertable .system > h3:first-child {
+#tabs > [data-tab="new"] .playertable .system > h3:first-child {
   position: relative;
   display: block;
   padding: 0.3em 1em 0.2em 1em;
@@ -77,7 +77,7 @@
   text-align: center;
 }
 
-#new .playertable .system > h3:last-child {
+#tabs > [data-tab="new"] .playertable .system > h3:last-child {
   position: absolute;
   display: block;
   width: 100%;
@@ -90,78 +90,78 @@
   text-align: center;
 }
 
-#new .playertable .system [data-img] {
+#tabs > [data-tab="new"] .playertable .system [data-img] {
   vertical-align: middle;
 }
 
-#new .playertable .system > .preparing,
-#new .playertable .system > .running,
-#new .playertable .system > .finished,
-#new .playertable .system > .failure {
+#tabs > [data-tab="new"] .playertable .system > .preparing,
+#tabs > [data-tab="new"] .playertable .system > .running,
+#tabs > [data-tab="new"] .playertable .system > .finished,
+#tabs > [data-tab="new"] .playertable .system > .failure {
   display: none;
 }
 
-#new .playertable .system.preparing > .preparing,
-#new .playertable .system.running > .running,
-#new .playertable .system.finished > .finished,
-#new .playertable .system.failure > .failure {
+#tabs > [data-tab="new"] .playertable .system.preparing > .preparing,
+#tabs > [data-tab="new"] .playertable .system.running > .running,
+#tabs > [data-tab="new"] .playertable .system.finished > .finished,
+#tabs > [data-tab="new"] .playertable .system.failure > .failure {
   display: block;
 }
 
-#new .newsystem input[type="number"] {
+#tabs > [data-tab="new"] .newsystem input[type="number"] {
   width: 3em;
   text-align: center;
 }
 
-#new .swiss table {
+#tabs > [data-tab="new"] .swiss table {
   text-align: center;
   display: inline-block;
 }
 
-#new .playertable .swiss table tr td, 
-#new .playertable .swiss table tr {
+#tabs > [data-tab="new"] .playertable .swiss table tr td, 
+#tabs > [data-tab="new"] .playertable .swiss table tr {
   vertical-align: top;
   border: none;
 }
 
-#new .swiss select {
+#tabs > [data-tab="new"] .swiss select {
   overflow-y: hidden;
   margin-bottom: 1em;
   font-size: 1em;
 }
 
-#new .system button {
+#tabs > [data-tab="new"] .system button {
   font-size: 1em;
   padding: 0.5em;
   border-radius: 0.3em;
   display: inline-block;
 }
 
-#new .votepermissions {
+#tabs > [data-tab="new"] .votepermissions {
   display: inline-block;
   font-size: 1.5em;
 }
 
-#new .votepermissions .perm {
+#tabs > [data-tab="new"] .votepermissions .perm {
   cursor: pointer;
 }
 
-#new .votepermissions .perm {
+#tabs > [data-tab="new"] .votepermissions .perm {
   color: #000000;
 }
 
-#new .votepermissions .forbidden {
+#tabs > [data-tab="new"] .votepermissions .forbidden {
   color: #d3d3d3;
 }
 
-#new .votepermissions .perm:hover:not(:active) {
+#tabs > [data-tab="new"] .votepermissions .perm:hover:not(:active) {
 color: #969696;
 }
 
-#new .votepermissions .perm:hover:active {
+#tabs > [data-tab="new"] .votepermissions .perm:hover:active {
   color: #d3d3d3;
 }
 
-#new .votepermissions .perm.forbidden:hover:active {
+#tabs > [data-tab="new"] .votepermissions .perm.forbidden:hover:active {
   color: #000000;
 }

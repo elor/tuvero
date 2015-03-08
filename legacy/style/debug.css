@@ -1,12 +1,12 @@
-#debug {
+#tabs > [data-tab="debug"] {
   display: none;
 }
 
-#debug:target {
+#tabs > [data-tab="debug"]:target {
   display: block;
 }
 
-#debug button {
+#tabs > [data-tab="debug"] button {
   background-color: #d0d0d0;
   border-radius: 0.5em;
   padding: 0.5em;
@@ -14,16 +14,16 @@
   margin-bottom: 1em;
 }
 
-#debug button.selected {
+#tabs > [data-tab="debug"] button.selected {
   background-color: #ffffff;
 }
 
-#debug .allimages [data-img] {
+#tabs > [data-tab="debug"] .allimages [data-img] {
   display: inline-block;
   margin: 0.2em;
   background-color: #d3d3d3;
 }
 
-#debug .sprite img {
+#tabs > [data-tab="debug"] .sprite img {
   background-color: #d3d3d3;
 }

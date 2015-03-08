@@ -62,12 +62,15 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @param valueModel
    *          the other value model
+   * @return true on success, false otherwise
    */
   ValueModel.prototype.bind = function(valueModel) {
-    if (this.onupdate === ValueModel.onupdate) {
+    if (this.onupdate === ValueModel.prototype.onupdate) {
       valueModel.registerListener(this);
       this.onupdate(valueModel);
+      return true;
     }
+    return false;
   };
 
   /**

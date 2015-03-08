@@ -153,7 +153,7 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
 
     num = Number(form.register.$num.val());
 
-    $template = $('#teams .newteamview');
+    $template = $('#tabs > [data-tab="teams"] .newteamview');
     $names = $template.find('.playername');
 
     for (teamno = 0; teamno < num; ++teamno) {
@@ -169,7 +169,7 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
 
     Tab_Games = Shared.Tab_Games;
 
-    $button = $('#new .newsystem button.swiss').eq(0);
+    $button = $('#tabs > [data-tab="new"] .newsystem button.swiss').eq(0);
     if ($button.length === 1) {
       $button.click();
       // let it render
@@ -177,7 +177,7 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
       return false;
     }
 
-    $button = $('#new .swiss button').eq(0);
+    $button = $('#tabs > [data-tab="new"] .swiss button').eq(0);
 
     if ($button.length !== 1) {
       new Toast(Strings.notenoughteams + '?');
@@ -196,9 +196,9 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
     var $buttons, $points, teamid, p1, p2, endtime, $boxes, $box, i;
 
     if (tournamentid === undefined) {
-      $box = $('#games');
+      $box = $('#tabs > [data-tab="games"]');
     } else {
-      $boxes = $('#games .boxview');
+      $boxes = $('#tabs > [data-tab="games"] .boxview');
       for (i = 0; i < $boxes.length; i += 1) {
         if ($boxes.eq(i).data('tournamentid') === tournamentid) {
           $box = $boxes.eq(i);
@@ -403,7 +403,7 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
     if (Debug.isDevVersion) {
       loadMods();
     } else {
-      Tabshandle.hide('debug');
+      Tabshandle.direct.getTabModel('debug').visibility.set(false);
       $('.devonly').remove();
     }
   }
@@ -415,7 +415,7 @@ define(['./tabshandle', './tab', './toast', '../backend/random', 'options',
       return;
     }
 
-    $tab = $('#debug');
+    $tab = $('#tabs > [data-tab="debug"]');
 
     initForms();
     showAllImages();

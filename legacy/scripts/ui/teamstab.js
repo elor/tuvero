@@ -8,13 +8,13 @@ define(
     ['lib/extend', 'core/view', './listview', './teamview', './state_new',
         './newteamview', './lengthview', './teamsizeview',
         './preregcloserview', 'core/valuemodel', './checkboxview',
-        'core/classview', './taboptslistener', './teamremovecontroller',
+        'core/classview', './tabshandle', './teamremovecontroller',
         './teamnamecontroller', './teamtableview', './inputview',
         './teamsfileloadcontroller', 'options'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
         TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
-        TabOptsListener, TeamRemoveController, TeamNameController,
-        TeamTableView, InputView, TeamsFileLoadController, Options) {
+        TabsHandle, TeamRemoveController, TeamNameController, TeamTableView,
+        InputView, TeamsFileLoadController, Options) {
       /**
        * represents a whole team tab
        *
@@ -90,7 +90,7 @@ define(
         this.showtableClassView = new ClassView(value, this.$view, 'showtable');
 
         // update the tab when the team size changes
-        this.tabOptsListener = new TabOptsListener(State.teamsize);
+        TabsHandle.bindTabOpts('teams', State.teamsize);
 
         // team removal controllers
         $container = this.$view.find('>button.delete');
@@ -113,7 +113,7 @@ define(
       $(function($) {
         var $tab;
 
-        $tab = $('#teams');
+        $tab = $('#tabs > [data-tab="teams"]');
         return new TeamsTab($tab);
       });
 

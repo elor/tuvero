@@ -1,67 +1,67 @@
-#history .boxview {
+#tabs > [data-tab="history"] .boxview {
   display: inline-block;
 }
 
-#history.progress .boxview {
+#tabs > [data-tab="history"].progress .boxview {
   display: block;
 }
 
-#history .gamestable .team {
+#tabs > [data-tab="history"] .gamestable .team {
   text-align: left;
 }
 
-#history .gamestable .team .number {
+#tabs > [data-tab="history"] .gamestable .team .number {
   min-width: 1.5em;
   font-size: 200%;
   text-align: center;
 }
 
-#history .gamestable .team span {
+#tabs > [data-tab="history"] .gamestable .team span {
   display: inline-block;
   vertical-align: middle;
   padding: 0em;
 }
 
-#history.maxwidth .names {
+#tabs > [data-tab="history"].maxwidth .names {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#history .gamestable td {
+#tabs > [data-tab="history"] .gamestable td {
   vertical-align: middle;
 }
 
-#history.hidenames .names {
+#tabs > [data-tab="history"].hidenames .names {
   display: none !important;
 }
 
-#history .names.hidden {
+#tabs > [data-tab="history"] .names.hidden {
   display: none !important;
 }
 
-#history .progresstable td.vsep {
+#tabs > [data-tab="history"] .progresstable td.vsep {
   border-left: solid 1px;
 }
 
-#history .progresstable .names {
+#tabs > [data-tab="history"] .progresstable .names {
   text-align: left;
 }
 
-#history .progresstable .game, #history .progresstable .result {
+#tabs > [data-tab="history"] .progresstable .game, #tabs > [data-tab="history"] .progresstable .result {
   padding: 0em 0.2em;
 }
 
-#history .progresstable tr:nth-child(even) {
+#tabs > [data-tab="history"] .progresstable tr:nth-child(even) {
   background-color: #d3d3d3;
 }
 
-#history .kotree {
+#tabs > [data-tab="history"] .kotree {
   position: relative;
 }
 
-#history .kotree .game {
+#tabs > [data-tab="history"] .kotree .game {
   display: block;
   position: absolute;
   background-color: #d0d0d0;
@@ -70,26 +70,26 @@
   border: solid 1px;
 }
 
-#history .kotree .game .names {
+#tabs > [data-tab="history"] .kotree .game .names {
   display: inline-block;
   min-height: 1em;
   min-width: 8em;
 }
 
-#history .kotree .game .number {
+#tabs > [data-tab="history"] .kotree .game .number {
   display: inline-block;
   min-width: 1.5em;
   min-height: 1em;
   font-weight: bold;
 }
 
-#history .kotree .game .points {
+#tabs > [data-tab="history"] .kotree .game .points {
   min-width: 3em;
   vertical-align: middle;
 }
 
 @media print {
-  #history .progresstable tr:nth-child(even) {
+  #tabs > [data-tab="history"] .progresstable tr:nth-child(even) {
     background: none;
   }
 }
