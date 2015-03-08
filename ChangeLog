@@ -17,6 +17,7 @@
 	following location.hash, nothing more. No button magic or anything
 	follow location.hash on startup
 	follow location.hash when it becomes accessible
+	focus() added. It just performs an automated hashchange
 
 	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
 	update/validation logic written: only open valid tabs
@@ -32,6 +33,7 @@
 	instantiating a TabModel for each tab, which can be retrieved using getTabModel()
 	using TabModel to listen for tab availability changes and image parameters
 	using TabImageView to set the data-img attribute
+	focus() added. It delegates to the controller.
 
 	* core/style/mainstyle.css: tab.css removed; tab*view.css added
 
@@ -51,6 +53,7 @@
 	disabling the debug tab visibility
 	disabling the deleteteam tab accessibility
 	descriptive text added
+	focus() test added (goto form on the #home page)
 
 	* Makefile: `make update` also updates the test index
 

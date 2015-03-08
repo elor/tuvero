@@ -176,5 +176,15 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
     this.update();
   };
 
+  /**
+   * Delegate the focus request all the way to the controller
+   *
+   * @param tabname
+   *          the tab to focus
+   */
+  TabMenuView.prototype.focus = function(tabname) {
+    this.controller.focus(tabname);
+  };
+
   return TabMenuView;
 });

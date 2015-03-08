@@ -37,5 +37,15 @@ define(['lib/extend', './controller', './listener'], function(extend,
   }
   extend(TabMenuController, Controller);
 
+  /**
+   * focus a tab using the hard way: location change.
+   *
+   * @param tabname
+   *          the tab to focus
+   */
+  TabMenuController.prototype.focus = function(tabname) {
+    window.location.hash = '#' + tabname;
+  };
+
   return TabMenuController;
 });

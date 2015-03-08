@@ -19,13 +19,18 @@
         dem man per Tastatur zwischen ihnen wechseln kann. Chrome: Alt+g für
         #games</p>
       <p>
-        Siehe auch <a data-img="debug" class="tiny" href="#debug">#debug</a> - das versteckte Tab.
+        Siehe auch <a data-img="debug" class="tiny" href="#debug">#debug</a> -
+        das versteckte Tab.
       </p>
       <p>
         Das <a href="#deleteteam" data-img="deleteteam" class="tiny">#deleteteam-Tab</a>
         SOLL nicht zugänglich sein. Das ist kein Fehler, sondern ein Grenzfall,
         den ich mit der Software abdecken möchte. Ist auch praktisch zum Testen.
       </p>
+      <form id="goto">
+        <input type="text" placeholder="hier tab-Name eingeben (ohne #)"
+          value="games" /> <input type="submit" value="gehe zu" />
+      </form>
     </div>
     <div data-tab="teams" accesskey="t">
       <h2>Teams</h2>
@@ -184,6 +189,19 @@ function TestMain(Common, $) {
       model.visibility.set(!model.visibility.get());
       model.accessibility.set(model.visibility.get());
     }, 2345, model);
+    
+    // goto form
+    $view=$('#goto');
+    $view.submit(function(e){
+      var $form, $text, target;
+      $form = $(this);
+      $text = $form.find('input[type="text"]');
+      target = $text.val();
+      tabmenu.focus(target);
+      
+      e.preventDefault();
+      return false;
+    });
   });
 }
 </script>
