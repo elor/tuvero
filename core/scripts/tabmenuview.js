@@ -1,7 +1,7 @@
 /**
- * TabMenuView: manage the visibility of tabs and show a tab menu. Also
- * re-assigns the tab ids. Due to the use of the location hash, there cannot be
- * more than one Tabmenu. This is a deliberate design decision.
+ * TabMenuView: manage the visibility of tabs and show a tab menu. This class
+ * does not work with ids and targets directly, so multiple instances are
+ * possible, but still discouraged.
  *
  * This class is supposed to avoid the css :target attribute for a multitude of
  * reasons. First, :target is not as cross-browser-compatible as required: Most
@@ -52,7 +52,7 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
   };
 
   /**
-   * read the ids of the tabs, remove them and store them in the tabnames array
+   * read the data-tab of the tabs, remove them and store them in tabnames
    */
   TabMenuView.prototype.extractTabNames = function() {
     var tabnames, $tabs;
@@ -60,11 +60,11 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
     tabnames = this.tabnames;
     $tabs = this.$tabs;
 
-    this.$view.find('> [id]').each(function(index) {
+    console.log(this.$view.find('> div').length);
+    this.$view.find('> div').each(function(index) {
       var $this, tabname;
       $this = $(this);
-      tabname = $this.attr('id');
-      $this.removeAttr('id');
+      tabname = $this.attr('data-tab');
       $tabs[tabname] = $this;
       tabnames.push(tabname);
     });
@@ -82,7 +82,6 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
 
     this.tabnames.map(function(tabname) {
       var $tab = $('<a>').attr('tabindex', -1);
-      $tab.attr('id', tabname);
       $tab.attr('href', '#' + tabname);
       $tab.attr('data-img', tabname);
       this.$tabicons[tabname] = $tab;
