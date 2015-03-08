@@ -14,6 +14,7 @@
 	* core/scripts/valuemodel.js: constructor: calling its own set() function
 
 	* core/scripts/tabmenucontroller.js: empty TabMenuController added
+	following location.hash, nothing more. No button magic or anything
 
 	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
 	update/validation logic written: only open valid tabs
@@ -21,6 +22,7 @@
 	SelectionValueModel pre-filters whether a tab should be visible
 	$tabs and $tabicons are objects for keyed access, as opposed to indexed access
 	class construction implicitly and deliberately calls onupdate() to show the first tab
+	forgot to remove the 'open' class from previously open menu icons
 
 	* core/style/mainstyle.css: tab.css removed; tab*view.css added
 

@@ -35,6 +35,7 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
 
     this.$tabs = {};
     this.$tabicons = {};
+    this.$menu = undefined;
 
     this.initTabs();
 
@@ -76,9 +77,8 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
    * create and add the menu to the DOM
    */
   TabMenuView.prototype.addMenu = function() {
-    var $menu;
 
-    $menu = $('<span>').addClass('tabmenu');
+    this.$menu = $('<span>').addClass('tabmenu');
 
     this.tabnames.map(function(tabname) {
       var $tab = $('<a>').attr('tabindex', -1);
@@ -86,10 +86,10 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
       $tab.attr('href', '#' + tabname);
       $tab.attr('data-img', tabname);
       this.$tabicons[tabname] = $tab;
-      $menu.append($tab);
+      this.$menu.append($tab);
     }, this);
 
-    this.$view.before($menu);
+    this.$view.before(this.$menu);
   };
 
   /**
@@ -102,6 +102,7 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
     tabname = this.model.get();
 
     this.$view.find('>.open').removeClass('open');
+    this.$menu.find('>.open').removeClass('open');
     this.$tabs[tabname].addClass('open');
     this.$tabicons[tabname].addClass('open');
   };
