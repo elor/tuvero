@@ -82,7 +82,7 @@ require(['core/config', 'core/common'], function() {
             try {
               Toast.init();
               Splash.hide();
-              Tabshandle.valid();
+//              Tabshandle.valid();
             } catch (er) {
               notifyAboutLoadError(er);
             }

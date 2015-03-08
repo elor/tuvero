@@ -1,8 +1,8 @@
-div#teams {
+div#tabs > [data-tab="teams"] {
   text-align: left;
 }
 
-#teams div.team, .newteamview, #teams .load, #teams .delete {
+#tabs > [data-tab="teams"] div.team, .newteamview, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete {
   display: inline-table;
   height: 5em;
   border-radius: 0.5em;
@@ -14,66 +14,66 @@ div#teams {
   white-space: nowrap;
 }
 
-#teams div.team, #teams .load, #teams .delete {
+#tabs > [data-tab="teams"] div.team, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete {
   background-color: #d0d0d0;
 }
 
-#teams .load {
+#tabs > [data-tab="teams"] .load {
   text-align: center;
 }
 
-#teams .teamtable {
+#tabs > [data-tab="teams"] .teamtable {
   margin-bottom: 1em;
   display: none;
   white-space: nowrap;
 }
 
-#teams.showtable .teamtable {
+#tabs > [data-tab="teams"].showtable .teamtable {
   display: table;
 }
 
-#teams.showtable .teamlist {
+#tabs > [data-tab="teams"].showtable .teamlist {
   display: none;
 }
 
-#teams .teamtable th {
+#tabs > [data-tab="teams"] .teamtable th {
   padding-right: 0.5em;
 }
 
-#teams .teamtable .teamno {
+#tabs > [data-tab="teams"] .teamtable .teamno {
   text-align: center;
 }
 
-#teams div.teamno {
+#tabs > [data-tab="teams"] div.teamno {
   display: table-cell;
   background: none;
 }
 
-#teams .teamtable .teamno {
+#tabs > [data-tab="teams"] .teamtable .teamno {
   max-width: 3em;
 }
 
-#teams div.team .names {
+#tabs > [data-tab="teams"] div.team .names {
   display: table-cell;
   text-align: left;
   vertical-align: middle;
 }
 
-#teams div.team .name {
+#tabs > [data-tab="teams"] div.team .name {
   margin: 0.2em;
 }
 
-#teams .team .name:hover {
+#tabs > [data-tab="teams"] .team .name:hover {
   cursor: text;
   text-decoration: underline;
 }
 
-#teams div.team .name {
+#tabs > [data-tab="teams"] div.team .name {
   font-weight: bold;
   white-space: nowrap;
 }
 
-#teams.maxwidth .team .name {
+#tabs > [data-tab="teams"].maxwidth .team .name {
   width: 10em;
   min-width: 10em;
   max-width: 10em;
@@ -86,17 +86,17 @@ div#teams {
   text-overflow: ellipsis;
 }
 
-#teams.maxwidth .team:hover .name {
+#tabs > [data-tab="teams"].maxwidth .team:hover .name {
   width: auto;
   max-width: 50em;
   transition: max-width 0.5s;
 }
 
-#teams.noprereg .filereader {
+#tabs > [data-tab="teams"].noprereg .filereader {
   display: none;
 }
 
-#teams button.delete {
+#tabs > [data-tab="teams"] button.delete {
   display: none;
   background-color: #d3d3d3;
   height: 3em;
@@ -107,11 +107,11 @@ div#teams {
   cursor: crosshair;
 }
 
-#teams.noprereg button.delete {
+#tabs > [data-tab="teams"].noprereg button.delete {
   display: initial;
 }
 
-#teams.deletion button.delete {
+#tabs > [data-tab="teams"].deletion button.delete {
   background-color: red;
 }
 
@@ -119,28 +119,28 @@ div#teams {
  * as many attributes as possible so specificity jumps up and overwrites everything
  * 0121 -> highest specificity
  */
-#teams.deletion:hover, #teams.deletion .team .name:hover {
+#tabs > [data-tab="teams"].deletion:hover, #tabs > [data-tab="teams"].deletion .team .name:hover {
   cursor: not-allowed;
   text-decoration: none;
 }
 
-#teams.deletion .team:hover, #teams.deletion .team .name:hover {
+#tabs > [data-tab="teams"].deletion .team:hover, #tabs > [data-tab="teams"].deletion .team .name:hover {
   cursor: crosshair;
 }
 
-#teams.deletion {
+#tabs > [data-tab="teams"].deletion {
   background-color: #969696;
 }
 
-#teams.deletion .load, #teams.deletion .newteamview {
+#tabs > [data-tab="teams"].deletion .load, #tabs > [data-tab="teams"].deletion .newteamview {
   display: none;
 }
 
 @media print {
-  #teams button.delete, #teams .filereader {
+  #tabs > [data-tab="teams"] button.delete, #tabs > [data-tab="teams"] .filereader {
     display: none !important;
   }
-  #teams .team {
+  #tabs > [data-tab="teams"] .team {
     margin: 0em;
   }
 }

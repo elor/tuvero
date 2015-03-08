@@ -13,6 +13,125 @@
 
 	* core/scripts/valuemodel.js: constructor: calling its own set() function
 	bind() added to mirror another ValueModel instances value
+	bind(): reference fixed (forgot a prototype reference)
+
+	* core/scripts/tabmenucontroller.js: empty TabMenuController added
+	following location.hash, nothing more. No button magic or anything
+	follow location.hash on startup
+	follow location.hash when it becomes accessible
+	focus() added. It just performs an automated hashchange
+
+	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
+	update/validation logic written: only open valid tabs
+	using SelectionValueModel for a list of available (visible) tabs
+	SelectionValueModel pre-filters whether a tab should be visible
+	$tabs and $tabicons are objects for keyed access, as opposed to indexed access
+	class construction implicitly and deliberately calls onupdate() to show the first tab
+	forgot to remove the 'open' class from previously open menu icons
+	TabMenuView does not work with ids anymore, but uses data-id instead to avoid auto-scrolling
+	accesskey support added
+	not using a timeout for the update, because it was a dumb idea
+	hiding specially marked tabs (.hiddentab)
+	instantiating a TabModel for each tab, which can be retrieved using getTabModel()
+	using TabModel to listen for tab availability changes and image parameters
+	using TabImageView to set the data-img attribute
+	focus() added. It delegates to the controller.
+
+	* core/style/mainstyle.css: tab.css removed; tab*view.css added
+
+	* core/style/tabmenuview.css: style of the tab menu, without tabs
+
+	* core/style/tabview.css: style of the tabs themselves
+
+	* legacy/scripts/ui/tabshandle.js: disabled
+	rewritten to be a wrapper for the TabMenuView
+
+	* legacy/style/tabs.css: removed, replaced by tabmenuview.css and tabview.css
+
+	* test/tabmenuview.html: tab test page
+	using data-id instead of id to avoid auto-scrolling
+	some accesskeys added
+	cycling through the teams imgParam
+	alternating the HTML5_Logo_128 visibility/accessibility
+	disabling the debug tab visibility
+	disabling the deleteteam tab accessibility
+	descriptive text added
+	focus() test added (goto form on the #home page)
+	scripts tags moved inside the body (for IE)
+
+	* Makefile: `make update` also updates the test index
+
+	* core/scripts/classview.js: moved from legacy to core
+
+	* core/scripts/listexclusionlistener.js: TODO: rename
+	When the trigger (a ValueModel) is true, the value added to the list
+	When the trigger is false, the value is removed from the list
+
+	* core/scripts/tabimageview.js: listen for imgParam changes and set the tab icon image
+
+	* core/scripts/tabmodel.js: a struct which defines the tab state
+
+	* legacy/scripts/ui/classview.js: ClassView moved to core
+
+	* legacy/scripts/ui/teamremovecontroller.js: ClassView moved to core
+
+	* legacy/scripts/ui/teamstab.js: ClassView moved to core
+
+	* boule/index.html: new tabmenu structure adapted (id -> data-tab)
+
+	* core/scripts/main.js: Tabshandle.valid() disabled (unnecessary)
+
+	* legacy/scripts/ui/autocomplete.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/backgroundscripts/load.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/state.js: Tabshandle.updateOpts() disabled
+	$('id') -> data-tab
+
+	* legacy/scripts/ui/tab_debug.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tab_games.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tab_history.js: $('id') -> data-tab
+	"visualupdate" KOTree rendering became unnecessary a long time ago
+
+	* legacy/scripts/ui/tab_new.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/taboptslistener.js: removed in favor of TabModel
+
+	* legacy/scripts/ui/tab_ranking.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tab_settings.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tabs.js: removed in favor of TabMenuView
+
+	* legacy/style/about.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/debug.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/games.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/general.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/history.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/home.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/lanes.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/new.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/ranking.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/settings.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/splash.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/teams.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/toasts.css: new tabmenu structure adapted (id -> data-tab)
+
+	* tac/index.html: new tabmenu structure adapted (id -> data-tab)
 
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

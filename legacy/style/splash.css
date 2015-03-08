@@ -41,3 +41,13 @@ body:not(.splash) #splash {
 #splash.hidden {
   display: none;
 }
+
+.splash #tabs, .splash .tabmenu {
+  opacity: 0;
+  transition: opacity 0s;
+}
+
+#tabs, .tabmenu {
+  transition: opacity 1s ease-in;
+  opacity: 1;
+}

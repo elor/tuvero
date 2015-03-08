@@ -12,7 +12,7 @@ define(['jquery'], function() {
 
   $(function($) {
     $('#tabs').on('click', 'button.load', function(e) {
-      $('#settings input.file.load').click();
+      $('#tabs > [data-tab="settings"] input.file.load').click();
     });
   });
 

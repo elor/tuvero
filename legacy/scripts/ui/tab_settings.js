@@ -12,8 +12,8 @@
 
 define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
     './team', './history', './ranking', './state', './storage', 'options',
-    './players', './tabshandle', './shared', 'options'], function(Tab, saveAs, 
-        Blob, Toast, Strings, Team, History, Ranking, State, Storage, Options, 
+    './players', './tabshandle', './shared', 'options'], function(Tab, saveAs,
+        Blob, Toast, Strings, Team, History, Ranking, State, Storage, Options,
         Players, Tabshandle, Shared, Options) {
   var Tab_Settings, $tab, areas, updatepending;
 
@@ -343,7 +343,7 @@ define(['./tab', 'lib/FileSaver', 'lib/Blob', './toast', './strings',
       return;
     }
 
-    $tab = $('#settings');
+    $tab = $('#tabs > [data-tab="settings"]');
 
     initCSV();
     initLoad();

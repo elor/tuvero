@@ -101,7 +101,7 @@ define(['./tournaments', './team', './toast', './strings', 'options',
       return;
     }
 
-    $tab = $('#ranking');
+    $tab = $('#tabs > [data-tab="ranking"]');
 
     initTemplate();
   }

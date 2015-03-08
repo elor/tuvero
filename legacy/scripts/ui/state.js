@@ -48,7 +48,7 @@ define(['options', './tabshandle', './team', './history', './tournaments',
       // fall back to default options when loading saves from before 1.2
       if (ob.options) {
         Options.fromBlob(ob.options);
-        Tabshandle.updateOpts();
+//        Tabshandle.updateOpts();
       }
 
       Team.fromBlob(ob.team);
@@ -73,7 +73,7 @@ define(['options', './tabshandle', './team', './history', './tournaments',
       History.reset();
       Tournaments.reset();
       Options.reset();
-      Tabshandle.updateOpts();
+//      Tabshandle.updateOpts();
     }
   };
 

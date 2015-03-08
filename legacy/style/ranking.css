@@ -1,13 +1,13 @@
-#ranking {
+#tabs > [data-tab="ranking"] {
   text-align: center;
 }
 
-#ranking td {
+#tabs > [data-tab="ranking"] td {
   width: 3em;
   white-space: nowrap;
 }
 
-#ranking .name {
+#tabs > [data-tab="ranking"] .name {
   text-align: left;
   min-width: 10em;
   width: 10em;
@@ -16,12 +16,12 @@
   text-overflow: ellipsis;
 }
 
-#ranking .corrections h2 {
+#tabs > [data-tab="ranking"] .corrections h2 {
   text-align: left;
   margin-left: 1em;
 }
 
-#ranking .corrections td {
+#tabs > [data-tab="ranking"] .corrections td {
   padding-left: 0.5em;
   padding-right: 0.5em;
 }

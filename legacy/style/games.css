@@ -1,4 +1,4 @@
-#games .game, #games .votes .vote {
+#tabs > [data-tab="games"] .game, #tabs > [data-tab="games"] .votes .vote {
   display: inline-table;
   margin: 0.5em;
   border-radius: 0.5em;
@@ -9,29 +9,29 @@
   vertical-align: top;
 }
 
-#games .game > div {
+#tabs > [data-tab="games"] .game > div {
   display: table;
   margin: 0.0em;
   padding: 0.0em;
   width: 100%;
 }
 
-#games .game .finish {
+#tabs > [data-tab="games"] .game .finish {
   display: table-cell;
   text-align: center;
 }
 
-#games .game .teamno {
+#tabs > [data-tab="games"] .game .teamno {
   display: table-cell;
   background: none;
 }
 
-#games .game input {
+#tabs > [data-tab="games"] .game input {
   width: 3em;
   text-align: center;
 }
 
-#games .game button {
+#tabs > [data-tab="games"] .game button {
   width: 6.5em;
   border: none;
   box-shadow: inset 0px 0px 1px #000000;
@@ -41,45 +41,45 @@
 }
 
 /* this is awesome! */
-#games .game button:not([disabled]):hover {
+#tabs > [data-tab="games"] .game button:not([disabled]):hover {
   cursor: pointer;
 }
 
-#games .names {
+#tabs > [data-tab="games"] .names {
   display: table-cell;
   padding: 0em 0.3em;
   font-weight: bold;
   vertical-align: middle;
 }
 
-#games.maxwidth .names {
+#tabs > [data-tab="games"].maxwidth .names {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#games.hidenames .names {
+#tabs > [data-tab="games"].hidenames .names {
   display: none;
 }
 
-#games .names.left {
+#tabs > [data-tab="games"] .names.left {
   text-align: left;
 }
 
-#games .names.right {
+#tabs > [data-tab="games"] .names.right {
   text-align: right;
 }
 
-#games .votes > div {
+#tabs > [data-tab="games"] .votes > div {
   overflow: auto;
 }
 
-#games .votes .team {
+#tabs > [data-tab="games"] .votes .team {
   margin: 0.0em;
 }
 
-#games .votes .vote {
+#tabs > [data-tab="games"] .votes .vote {
   display: inline-table;
   border-radius: 0.5em;
   border: solid 1px #000000;
@@ -88,10 +88,10 @@
   white-space: nowrap;
 }
 
-#games .votes .vote .teamno {
+#tabs > [data-tab="games"] .votes .vote .teamno {
   display: table-cell;
 }
 
-#games:not(.hidenames) .votes .vote .names {
+#tabs > [data-tab="games"]:not(.hidenames) .votes .vote .names {
   display: table-cell;
 }

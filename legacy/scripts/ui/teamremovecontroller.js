@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'core/valuemodel', './listclickcontroller',
-    './classview', 'core/view'], function(extend, Controller, ValueModel,
+    'core/classview', 'core/view'], function(extend, Controller, ValueModel,
     ListClickController, ClassView, View) {
 
   /**

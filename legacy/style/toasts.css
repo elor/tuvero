@@ -5,6 +5,7 @@
   max-width: 20em;
   text-align: right;
   margin: 0.3em 0.3em 0em 0em;
+  z-index: 256;
 }
 
 @media print {

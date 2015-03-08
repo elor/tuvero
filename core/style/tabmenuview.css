@@ -1,0 +1,23 @@
+.tabmenu {
+  display: block;
+  margin: 16px 10px -16px 10px;
+  white-space: nowrap;
+}
+
+.tabmenu > a {
+  display: inline-block;
+  background-color: #d0d0d0;
+  padding: 16px;
+  margin-right: 10px;
+  border-radius: 20px 20px 0em 0em;
+}
+
+.tabmenu .open {
+  background-color: #ffffff;
+}
+
+@media print {
+  .tabmenu {
+    display: none !important;
+  }
+}
