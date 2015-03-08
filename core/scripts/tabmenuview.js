@@ -19,17 +19,22 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './view', './tabmenucontroller'], function(extend, View,
-    TabMenuController) {
+define(['lib/extend', './view', './tabmenucontroller', './listmodel',
+    './selectionvaluemodel'], function(extend, View, TabMenuController,
+    ListModel, SelectionValueModel) {
   /**
    * Constructor
+   *
+   * @param $view
+   *          associated DOM element
    */
   function TabMenuView($view) {
-    TabMenuView.superconstructor.call(this, undefined, $view);
+    this.tabnames = new ListModel();
+    TabMenuView.superconstructor.call(this, new SelectionValueModel(undefined,
+        this.tabnames), $view);
 
-    this.tabnames = [];
-    this.$tabs = [];
-    this.$tabicons = [];
+    this.$tabs = {};
+    this.$tabicons = {};
 
     this.initTabs();
 
@@ -43,7 +48,6 @@ define(['lib/extend', './view', './tabmenucontroller'], function(extend, View,
   TabMenuView.prototype.initTabs = function() {
     this.extractTabNames();
     this.addMenu();
-    this.openValidTab();
   };
 
   /**
@@ -55,12 +59,17 @@ define(['lib/extend', './view', './tabmenucontroller'], function(extend, View,
     tabnames = this.tabnames;
     $tabs = this.$tabs;
 
-    this.$view.find('> [id]').each(function() {
-      var $this = $(this);
-      tabnames.push($this.attr('id'));
+    this.$view.find('> [id]').each(function(index) {
+      var $this, tabname;
+      $this = $(this);
+      tabname = $this.attr('id');
       $this.removeAttr('id');
-      $tabs.push($this);
+      $tabs[tabname] = $this;
+      tabnames.push(tabname);
     });
+
+    // This implicitly calls onupdate(), which is why there's a setTimeout call
+    this.model.setDefault(tabnames.get(0));
   };
 
   /**
@@ -71,12 +80,12 @@ define(['lib/extend', './view', './tabmenucontroller'], function(extend, View,
 
     $menu = $('<span>').addClass('tabmenu');
 
-    this.tabnames.forEach(function(name) {
-      var $tab = $('<a>');
-      $tab.attr('id', name);
-      $tab.attr('href', '#' + name);
-      $tab.attr('data-img', name);
-      this.$tabicons.push($tab);
+    this.tabnames.map(function(tabname) {
+      var $tab = $('<a>').attr('tabindex', -1);
+      $tab.attr('id', tabname);
+      $tab.attr('href', '#' + tabname);
+      $tab.attr('data-img', tabname);
+      this.$tabicons[tabname] = $tab;
       $menu.append($tab);
     }, this);
 
@@ -84,12 +93,35 @@ define(['lib/extend', './view', './tabmenucontroller'], function(extend, View,
   };
 
   /**
-   * opens a valid tab, i.e. it has to be registered and visible
+   * shows the currently active tab
    */
-  TabMenuView.prototype.openValidTab = function() {
+  TabMenuView.prototype.update = function() {
+    var tabname;
+
+    // guaranteed to be a valid index, because of SelectionValueModel
+    tabname = this.model.get();
+
     this.$view.find('>.open').removeClass('open');
-    this.$tabs[0].addClass('open');
-    this.$tabicons[0].addClass('open');
+    this.$tabs[tabname].addClass('open');
+    this.$tabicons[tabname].addClass('open');
+  };
+
+  /**
+   * Callback Listener for SelectionValueModel changes
+   */
+  TabMenuView.prototype.onupdate = function() {
+    /*
+     * We're using a timeout to avoid race conditions during construction:
+     * $tabicons and $tabs need to be initialized before the first update()
+     * call. Due to the single-threaded nature of JavaScript, there should be no
+     * conceivable difference in speed and visibility.
+     *
+     * Note that pre-IE10-browsers won't support the additional parameters, so
+     * there's an additional problem. They're not the target browsers, anyhow
+     */
+    window.setTimeout(function(view) {
+      view.update();
+    }, 0, this);
   };
 
   return TabMenuView;

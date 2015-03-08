@@ -16,6 +16,11 @@
 	* core/scripts/tabmenucontroller.js: empty TabMenuController added
 
 	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
+	update/validation logic written: only open valid tabs
+	using SelectionValueModel for a list of available (visible) tabs
+	SelectionValueModel pre-filters whether a tab should be visible
+	$tabs and $tabicons are objects for keyed access, as opposed to indexed access
+	class construction implicitly and deliberately calls onupdate() to show the first tab
 
 	* core/style/mainstyle.css: tab.css removed; tab*view.css added
 
