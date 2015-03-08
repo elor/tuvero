@@ -12,6 +12,7 @@
 	* core/scripts/test/selectionvaluemodel.js: testing SelectionValueModel
 
 	* core/scripts/valuemodel.js: constructor: calling its own set() function
+	bind() added to mirror another ValueModel instances value
 
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
