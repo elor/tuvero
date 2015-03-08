@@ -33,6 +33,7 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
     TabMenuView.superconstructor.call(this, new SelectionValueModel(undefined,
         this.tabnames), $view);
 
+    this.keys = {};
     this.$tabs = {};
     this.$tabicons = {};
     this.$menu = undefined;
@@ -55,16 +56,21 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
    * read the data-tab of the tabs, remove them and store them in tabnames
    */
   TabMenuView.prototype.extractTabNames = function() {
-    var tabnames, $tabs;
+    var tabnames, $tabs, keys;
 
     tabnames = this.tabnames;
     $tabs = this.$tabs;
+    keys = this.keys;
 
     console.log(this.$view.find('> div').length);
     this.$view.find('> div').each(function(index) {
       var $this, tabname;
       $this = $(this);
       tabname = $this.attr('data-tab');
+
+      keys[tabname] = $this.attr('accesskey');
+      $this.removeAttr('accesskey');
+
       $tabs[tabname] = $this;
       tabnames.push(tabname);
     });
@@ -84,6 +90,9 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
       var $tab = $('<a>').attr('tabindex', -1);
       $tab.attr('href', '#' + tabname);
       $tab.attr('data-img', tabname);
+      if (this.keys[tabname]) {
+        $tab.attr('accesskey', this.keys[tabname]);
+      }
       this.$tabicons[tabname] = $tab;
       this.$menu.append($tab);
     }, this);
