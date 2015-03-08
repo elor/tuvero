@@ -7,5 +7,9 @@
  */
 
 define(['./tabs'], function(Tabs) {
-  return new Tabs('#tabs > div', '%s', true);
+  /*
+   * FIXME disabled until the new tabs have been written. Everything will be
+   * evented from then on
+   */
+  return new Tabs('#tabsFIXME > div', '%s', true);
 });

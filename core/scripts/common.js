@@ -54,6 +54,8 @@ define([
   'core/rankingwinsmatrixlistener',
   'core/selectionvaluemodel',
   'core/symmetricmatrixmodel',
+  'core/tabmenucontroller',
+  'core/tabmenuview',
   'core/transposedifferencematrix',
   'core/transposesummatrix',
   'core/trianglematrixmodel',

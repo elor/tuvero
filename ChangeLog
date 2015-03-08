@@ -13,6 +13,22 @@
 
 	* core/scripts/valuemodel.js: constructor: calling its own set() function
 
+	* core/scripts/tabmenucontroller.js: empty TabMenuController added
+
+	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
+
+	* core/style/mainstyle.css: tab.css removed; tab*view.css added
+
+	* core/style/tabmenuview.css: style of the tab menu, without tabs
+
+	* core/style/tabview.css: style of the tabs themselves
+
+	* legacy/scripts/ui/tabshandle.js: disabled
+
+	* legacy/style/tabs.css: removed, replaced by tabmenuview.css and tabview.css
+
+	* test/tabmenuview.html: tab test page
+
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/new.css: only styling the system buttons, not the floating buttons

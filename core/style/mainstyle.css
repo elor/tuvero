@@ -4,6 +4,8 @@
 @import url("newteamview.css");
 @import url("onlinecheck.css");
 @import url("table.css");
+@import url("tabmenuview.css");
+@import url("tabview.css");
 @import url("../../legacy/style/about.css");
 @import url("../../legacy/style/autocomplete.css");
 @import url("../../legacy/style/buttons.css");
@@ -17,7 +19,6 @@
 @import url("../../legacy/style/ranking.css");
 @import url("../../legacy/style/settings.css");
 @import url("../../legacy/style/splash.css");
-@import url("../../legacy/style/tabs.css");
 @import url("../../legacy/style/teams.css");
 @import url("../../legacy/style/teamsizeview.css");
 @import url("../../legacy/style/toasts.css");
