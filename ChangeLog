@@ -25,6 +25,7 @@
 	forgot to remove the 'open' class from previously open menu icons
 	TabMenuView does not work with ids anymore, but uses data-id instead to avoid auto-scrolling
 	accesskey support added
+	not using a timeout for the update, because it was a dumb idea
 
 	* core/style/mainstyle.css: tab.css removed; tab*view.css added
 

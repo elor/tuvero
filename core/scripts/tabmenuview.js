@@ -50,6 +50,8 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
   TabMenuView.prototype.initTabs = function() {
     this.extractTabNames();
     this.addMenu();
+    // This implicitly calls onupdate()
+    this.model.setDefault(this.tabnames.get(0));
   };
 
   /**
@@ -62,7 +64,6 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
     $tabs = this.$tabs;
     keys = this.keys;
 
-    console.log(this.$view.find('> div').length);
     this.$view.find('> div').each(function(index) {
       var $this, tabname;
       $this = $(this);
@@ -74,9 +75,6 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
       $tabs[tabname] = $this;
       tabnames.push(tabname);
     });
-
-    // This implicitly calls onupdate(), which is why there's a setTimeout call
-    this.model.setDefault(tabnames.get(0));
   };
 
   /**
@@ -119,18 +117,7 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
    * Callback Listener for SelectionValueModel changes
    */
   TabMenuView.prototype.onupdate = function() {
-    /*
-     * We're using a timeout to avoid race conditions during construction:
-     * $tabicons and $tabs need to be initialized before the first update()
-     * call. Due to the single-threaded nature of JavaScript, there should be no
-     * conceivable difference in speed and visibility.
-     *
-     * Note that pre-IE10-browsers won't support the additional parameters, so
-     * there's an additional problem. They're not the target browsers, anyhow
-     */
-    window.setTimeout(function(view) {
-      view.update();
-    }, 0, this);
+    this.update();
   };
 
   return TabMenuView;
