@@ -26,6 +26,7 @@
 	TabMenuView does not work with ids anymore, but uses data-id instead to avoid auto-scrolling
 	accesskey support added
 	not using a timeout for the update, because it was a dumb idea
+	hiding specially marked tabs (.hiddentab)
 
 	* core/style/mainstyle.css: tab.css removed; tab*view.css added
 
@@ -40,6 +41,7 @@
 	* test/tabmenuview.html: tab test page
 	using data-id instead of id to avoid auto-scrolling
 	some accesskeys added
+	debug tab is a .hiddentab
 
 	* Makefile: `make update` also updates the test index
 

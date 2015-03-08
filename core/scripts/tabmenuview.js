@@ -91,6 +91,9 @@ define(['lib/extend', './view', './tabmenucontroller', './listmodel',
       if (this.keys[tabname]) {
         $tab.attr('accesskey', this.keys[tabname]);
       }
+      if (this.$tabs[tabname].hasClass('hiddentab')) {
+        $tab.addClass('hidden');
+      }
       this.$tabicons[tabname] = $tab;
       this.$menu.append($tab);
     }, this);
