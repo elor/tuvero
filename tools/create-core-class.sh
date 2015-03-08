@@ -64,6 +64,24 @@ grep -P '([A-Z][a-z]+){2,}' &>/dev/null <<< $class || { echo "'$class' is not in
 [ -s $fullpath ] && {  echo "$fullpath already exists">&2; exit 1;}
 [ -f $superpath ] || { echo "superclass file does not exist: $superpath">&2; exit 1; }
 
+#####################################################
+# read the constructor arguments of the super class #
+#####################################################
+
+superconstructor=$(grep '^\s*function\s'$super'\s*(' $superpath)
+
+[ -z "$superconstructor" ] && { echo "superconstructor not found in file $superpath">&2; echo "This can also happen if it's malformed or spans across multiple lines">&2; exit 1; }
+
+superarguments=$(sed -r -n 's ^\s*function\s'$super'\s*(\([^)]*\))\s*\{?\s*$ \1 p' <<< "$superconstructor")
+
+[ -z "$superarguments" ] && { echo "cannot read superconstructor arguments. Are they malformed?">&2; exit 1; }
+
+supercomma=', '
+[ "$superarguments" == "()" ] && supercomma=''
+superarguments=$(sed -n 's/^(\(.*\))$/\1/p' <<< "$superarguments")
+
+[ -z "$superarguments" ] && [ -n "$supercomma" ] && { echo "unexpected error with superarguments. Please debug manually">&2; exit 1; }
+
 ####################
 # writing the file #
 ####################
@@ -81,8 +99,8 @@ define(['lib/extend', '$superref'], function(extend, $super){
   /**
    * Constructor
    */
-  function $class() {
-    $class.superconstructor.call(this);
+  function $class($superarguments) {
+    $class.superconstructor.call(this$supercomma$superarguments);
   }
   extend($class, $super);
 

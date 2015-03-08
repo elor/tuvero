@@ -5,6 +5,7 @@
 	* NEWS: Starting work on 1.4.6
 
 	* tools/create-core-class.sh: unbounded variable bug ($2 with <2 arguments) fixed
+	reading constructor arguments from superconstructor
 
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
