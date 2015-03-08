@@ -24,7 +24,7 @@ clean: FORCE
 
 # primary global targets
 
-update: style codestyle sprites
+update: style test/index.html codestyle sprites
 
 scripts: FORCE
 	./tools/create-commonjs.sh

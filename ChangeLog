@@ -38,6 +38,8 @@
 	* test/tabmenuview.html: tab test page
 	using data-id instead of id to avoid auto-scrolling
 
+	* Makefile: `make update` also updates the test index
+
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/new.css: only styling the system buttons, not the floating buttons
