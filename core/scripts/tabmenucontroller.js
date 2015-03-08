@@ -6,24 +6,34 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './controller'], function(extend, Controller) {
+define(['lib/extend', './controller', './listener'], function(extend,
+    Controller, Listener) {
   /**
    * Constructor
+   *
+   * @param view
+   *          the associated TabMenuView
    */
   function TabMenuController(view) {
-    var model;
+    var model, listener;
+
     TabMenuController.superconstructor.call(this, view);
+
+    model = this.model;
 
     function followHash() {
       model.set(window.location.hash.replace(/^#/, ''));
     }
 
-    model = this.model;
-
     // move to current location, if available
-    followHash();
-
     $(window).on('hashchange', followHash);
+
+    // follow the hash if the tab accessibility has changed in our favor
+    listener = new Listener(this.view.tabnames);
+    listener.oninsert = followHash;
+
+    // follow the hash now
+    followHash();
   }
   extend(TabMenuController, Controller);
 

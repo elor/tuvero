@@ -8,7 +8,7 @@ define(
     ['lib/extend', 'core/view', './listview', './teamview', './state_new',
         './newteamview', './lengthview', './teamsizeview',
         './preregcloserview', 'core/valuemodel', './checkboxview',
-        './classview', './taboptslistener', './teamremovecontroller',
+        'core/classview', './taboptslistener', './teamremovecontroller',
         './teamnamecontroller', './teamtableview', './inputview',
         './teamsfileloadcontroller', 'options'],
     function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,

@@ -15,6 +15,8 @@
 
 	* core/scripts/tabmenucontroller.js: empty TabMenuController added
 	following location.hash, nothing more. No button magic or anything
+	follow location.hash on startup
+	follow location.hash when it becomes accessible
 
 	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
 	update/validation logic written: only open valid tabs
@@ -27,6 +29,9 @@
 	accesskey support added
 	not using a timeout for the update, because it was a dumb idea
 	hiding specially marked tabs (.hiddentab)
+	instantiating a TabModel for each tab, which can be retrieved using getTabModel()
+	using TabModel to listen for tab availability changes and image parameters
+	using TabImageView to set the data-img attribute
 
 	* core/style/mainstyle.css: tab.css removed; tab*view.css added
 
@@ -41,9 +46,29 @@
 	* test/tabmenuview.html: tab test page
 	using data-id instead of id to avoid auto-scrolling
 	some accesskeys added
-	debug tab is a .hiddentab
+	cycling through the teams imgParam
+	alternating the HTML5_Logo_128 visibility/accessibility
+	disabling the debug tab visibility
+	disabling the deleteteam tab accessibility
+	descriptive text added
 
 	* Makefile: `make update` also updates the test index
+
+	* core/scripts/classview.js: moved from legacy to core
+
+	* core/scripts/listexclusionlistener.js: TODO: rename
+	When the trigger (a ValueModel) is true, the value added to the list
+	When the trigger is false, the value is removed from the list
+
+	* core/scripts/tabimageview.js: listen for imgParam changes and set the tab icon image
+
+	* core/scripts/tabmodel.js: a struct which defines the tab state
+
+	* legacy/scripts/ui/classview.js: ClassView moved to core
+
+	* legacy/scripts/ui/teamremovecontroller.js: ClassView moved to core
+
+	* legacy/scripts/ui/teamstab.js: ClassView moved to core
 
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
