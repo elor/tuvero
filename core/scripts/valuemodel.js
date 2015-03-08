@@ -1,4 +1,13 @@
 /**
+ * No Description
+ *
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+
+
+/**
  * A model, which stores a value and emits update events when it's changed
  *
  * @return ValueModel
@@ -17,7 +26,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   function ValueModel(value) {
     ValueModel.superconstructor.call(this);
 
-    this.set(value);
+    ValueModel.prototype.set.call(this, value);
   }
   extend(ValueModel, Model);
 

@@ -7,6 +7,12 @@
 	* tools/create-core-class.sh: unbounded variable bug ($2 with <2 arguments) fixed
 	reading constructor arguments from superconstructor
 
+	* core/scripts/selectionvaluemodel.js: ValueModel, which is restricted to a list of allowed values
+
+	* core/scripts/test/selectionvaluemodel.js: testing SelectionValueModel
+
+	* core/scripts/valuemodel.js: constructor: calling its own set() function
+
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/new.css: only styling the system buttons, not the floating buttons

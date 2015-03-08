@@ -52,6 +52,7 @@ define([
   'core/rankingwinscomponent',
   'core/rankingwinslistener',
   'core/rankingwinsmatrixlistener',
+  'core/selectionvaluemodel',
   'core/symmetricmatrixmodel',
   'core/transposedifferencematrix',
   'core/transposesummatrix',
