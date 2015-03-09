@@ -76,6 +76,9 @@
     updateCache();
     // periodically check for updates
     window.setInterval(function(){
+      if (navigator.onLine === false){
+        return;
+      }
       switch (window.applicationCache.status) {
       case window.applicationCache.IDLE:
       case window.applicationCache.OBSOLETE:

@@ -18,6 +18,7 @@
 	* legacy/scripts/ui/tab_new.js: every swiss bye vote was part of the FIRST TOURNAMENT!!!
 
 	* index.html: periodically check for updates of the main page
+	not checking for updates if the browser is offline
 
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
