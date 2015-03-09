@@ -13,7 +13,7 @@
 define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
   var tabmenu, TabsHandle;
 
-  if ($('#testmain').length !== 0) {
+  if ($('#testmain').length !== 0 || $('#app').length === 0) {
     // TODO remove this extremely cheap hack
     function dummy() {
 
