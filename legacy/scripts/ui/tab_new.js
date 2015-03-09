@@ -587,30 +587,28 @@ define(
         });
 
         // submit button
-        $swiss.find('button').click(
-            function() {
-              var bye, round;
-              if (Swiss.start()) {
-                round = Tournaments.getRanking(Tournaments
-                    .getTournamentID(Swiss)).round;
+        $swiss.find('button').click(function() {
+          var round, tournamentid;
+          if (Swiss.start()) {
+            tournamentid = Tournaments.getTournamentID(Swiss);
+            round = Tournaments.getRanking(tournamentid).round;
 
-                // add the bye to history
-                bye = getRoundVotes(Swiss).bye;
-                while (bye.length > 0) {
-                  History.addVote(0, History.BYE, bye.shift(), round - 1);
-                }
-
-                new Toast(Strings.roundstarted.replace('%s', round));
-                Storage.store();
-
-                Tab_Games.update();
-                Tab_New.update();
-                Tab_History.update();
-                Tab_Ranking.update();
-              } else {
-                new Toast(Strings.roundfailed);
-              }
+            // add the bye to history
+            getRoundVotes(Swiss).bye.forEach(function(bye) {
+              History.addVote(tournamentid, History.BYE, bye, round - 1);
             });
+
+            new Toast(Strings.roundstarted.replace('%s', round));
+            Storage.store();
+
+            Tab_Games.update();
+            Tab_New.update();
+            Tab_History.update();
+            Tab_Ranking.update();
+          } else {
+            new Toast(Strings.roundfailed);
+          }
+        });
       }
 
       function initBoxes($container) {
