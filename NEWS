@@ -1,5 +1,17 @@
-Boules 1.4.6-dev (yyyy-mm-dd)
+Boules 1.4.6 (yyyy-mm-dd)
 -------------------------
+
+FEATURES:
+
+  * Options.teamsizeicon option added
+
+FIXES:
+
+  * new Tab system (css-class based), which provides some of the following:
+  * printable tabs (Firefox, Opera)
+  * Internet Explorer-Compatibility
+  * hash is retained during tab-redirects (better back-navigation)
+  * much improved scroll behavior during hashchange events and page reloads
 
 Boules 1.4.5 (2015-03-04)
 -------------------------
