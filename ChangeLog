@@ -20,6 +20,7 @@
 
 	* index.html: periodically check for updates of the main page
 	not checking for updates if the browser is offline
+	checking every 5 minutes
 
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
