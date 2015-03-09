@@ -2,6 +2,10 @@
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html
 
+	* core/scripts/test/valuemodel.js: testing bind()
+
+	* core/scripts/valuemodel.js: bind(): construction-time validation of bind-compatible ValueModel
+
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Version: Starting work on 1.4.6

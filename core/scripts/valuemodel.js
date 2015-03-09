@@ -25,6 +25,11 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   function ValueModel(value) {
     ValueModel.superconstructor.call(this);
 
+    if (this.onupdate !== ValueModel.prototype.onupdate
+        && this.bind === ValueModel.prototype.bind) {
+      this.bind = undefined;
+    }
+
     ValueModel.prototype.set.call(this, value);
   }
   extend(ValueModel, Model);
@@ -62,15 +67,10 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @param valueModel
    *          the other value model
-   * @return true on success, false otherwise
    */
   ValueModel.prototype.bind = function(valueModel) {
-    if (this.onupdate === ValueModel.prototype.onupdate) {
-      valueModel.registerListener(this);
-      this.onupdate(valueModel);
-      return true;
-    }
-    return false;
+    valueModel.registerListener(this);
+    this.onupdate(valueModel);
   };
 
   /**

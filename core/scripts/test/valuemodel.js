@@ -13,7 +13,7 @@ define(function() {
     ValueModel = getModule('core/valuemodel');
 
     QUnit.test('ValueModel', function() {
-      var model, listener, obj;
+      var model, listener, obj, model2;
 
       listener = {
         lastdata: undefined,
@@ -51,6 +51,22 @@ define(function() {
       obj = {};
       model.set(obj);
       QUnit.equal(model.get(), obj, 'set(): objects are referenced directly');
+
+      model2 = new ValueModel();
+      model = new ValueModel();
+      model.bind(model2);
+
+      model2.set(5);
+      QUnit.equal(model.get(), 5, 'bind(): works with numbers');
+
+      obj = {};
+      model2.set(obj);
+      QUnit.equal(model.get(), obj, 'bind(): works with object references');
+
+      model2.bind(model);
+      model.set(11);
+      QUnit.equal(model.get(), 11, 'cyclic bind(): model A');
+      QUnit.equal(model2.get(), 11, 'cyclic bind(): model B');
     });
   };
 });
