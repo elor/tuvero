@@ -5,8 +5,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener', 'core/model'], function(extend, Listener,
-    Model) {
+define(['lib/extend', 'core/listener', 'core/model'], function(extend,
+    Listener, Model) {
   /**
    * Displays a model and updates on changes to it.
    *
@@ -18,6 +18,10 @@ define(['lib/extend', 'core/listener', 'core/model'], function(extend, Listener,
   function View(model, $view) {
     model = model || new Model();
     View.superconstructor.call(this, model);
+
+    if (!$view || !$view.length) {
+      throw new Error('View: $view is empty or undefined');
+    }
 
     this.model = model;
     this.$view = $view;

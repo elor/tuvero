@@ -6,6 +6,8 @@
 
 	* core/scripts/valuemodel.js: bind(): construction-time validation of bind-compatible ValueModel
 
+	* core/scripts/view.js: throwing an error if $view is not defined/unavailable
+
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Version: Starting work on 1.4.6
