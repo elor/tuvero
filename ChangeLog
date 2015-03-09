@@ -32,6 +32,8 @@
 	playTournament() abort if there's not enough players
 	general cleanup of the file (autoformatter and stuff)
 
+	* doc/doc_de/*.md: basic code documentation added
+
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Version: Starting work on 1.4.6
