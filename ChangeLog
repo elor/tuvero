@@ -9,6 +9,7 @@
 
 	* core/scripts/view.js: throwing an error if $view is not defined/unavailable
 	also printing the selector when throwing the error
+	and not throwing anymore, but printing soft errors
 
 	* legacy/scripts/ui/teamstab.js: only load on full pages, not in the tests
 
