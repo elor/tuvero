@@ -659,10 +659,7 @@ define(
 
         template.progresstable.$names.removeClass('hidden');
 
-        for (teamid = 0; teamid < teamgames.length; teamid += 1) {
-          if (teamid === undefined) {
-            continue;
-          }
+        teamranks.forEach(function(something, teamid) {
           team = Team.get(teamid);
 
           // add team-specific content
@@ -699,8 +696,7 @@ define(
           $row.append(template.progresstable.$result.clone());
 
           $table.append($row);
-        }
-
+        });
         $box.data('tournamentid', tournamentid);
         $box.append($table);
         $tab.append($box);

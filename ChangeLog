@@ -11,6 +11,8 @@
 
 	* legacy/scripts/ui/teamstab.js: only load on full pages, not in the tests
 
+	* legacy/scripts/ui/tab_history.js: fixed a bug where a swiss starting with not-first player breaks the tab by iterating over the correct array
+
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Version: Starting work on 1.4.6
