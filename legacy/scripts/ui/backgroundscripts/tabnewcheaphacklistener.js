@@ -9,6 +9,7 @@
  */
 define(['lib/extend', 'core/listener', '../tab_new', '../state_new',
     '../tabshandle'], function(extend, Listener, Tab_New, State, Tabshandle) {
+
   /**
    * Constructor
    */

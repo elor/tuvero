@@ -13,31 +13,33 @@
 define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
   var tabmenu, TabsHandle;
 
-  if ($('#testmain').length !== 0 || $('#app').length === 0) {
-    // TODO remove this extremely cheap hack
-    function dummy() {
-
-    }
-
-    return {
-      hide: dummy,
-      show: dummy,
-      focus: dummy,
-      bindTabOpts: dummy
+  if ($('#tabs').length === 1 && $('#testmain').length === 0) {
+    tabmenu = new TabMenuView($('#tabs'));
+  } else {
+    tabmenu = {
+      getTabModel: function() {
+        return undefined;
+      }
     };
   }
-
-  tabmenu = new TabMenuView($('#tabs'));
 
   TabsHandle = {
     hide: function(tabname) {
       var tab = tabmenu.getTabModel(tabname);
+
+      if (!tab) {
+        return;
+      }
 
       tab.visibility.set(false);
       tab.accessibility.set(false);
     },
     show: function(tabname) {
       var tab = tabmenu.getTabModel(tabname);
+
+      if (!tab) {
+        return;
+      }
 
       tab.visibility.set(true);
       tab.accessibility.set(true);
@@ -54,7 +56,9 @@ define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
   };
 
   // hide the lanes tab
-  TabsHandle.direct.getTabModel('lanes').visibility.set(false);
+  if (TabsHandle.direct.getTabModel('lanes')) {
+    TabsHandle.direct.getTabModel('lanes').visibility.set(false);
+  }
 
   return TabsHandle;
 });

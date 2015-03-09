@@ -114,7 +114,9 @@ define(
         var $tab;
 
         $tab = $('#tabs > [data-tab="teams"]');
-        return new TeamsTab($tab);
+        if ($tab.length && $('#testmain').length === 0) {
+          return new TeamsTab($tab);
+        }
       });
 
       return TeamsTab;

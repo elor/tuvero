@@ -1,12 +1,15 @@
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html
+	dummy functions reduced to throw more errors where appropriate
 
 	* core/scripts/test/valuemodel.js: testing bind()
 
 	* core/scripts/valuemodel.js: bind(): construction-time validation of bind-compatible ValueModel
 
 	* core/scripts/view.js: throwing an error if $view is not defined/unavailable
+
+	* legacy/scripts/ui/teamstab.js: only load on full pages, not in the tests
 
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
