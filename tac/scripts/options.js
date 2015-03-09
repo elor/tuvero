@@ -27,7 +27,8 @@ define(['ui/state_new'], function(State) {
     dbplayername: 'tacplayers',
     roundtries: 20,
     savefile: 'tac.json',
-    csvfile: 'tac.csv'
+    csvfile: 'tac.csv',
+    teamsizeicon: false
   // tournament-specific
   // tournament : {},
   };

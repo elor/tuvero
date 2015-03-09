@@ -13,6 +13,7 @@
 	variable typo fixed
 
 	* legacy/scripts/ui/teamstab.js: only load on full pages, not in the tests
+	teamsize icon is option-controlled (see options.js)
 
 	* legacy/scripts/ui/tab_history.js: fixed a bug where a swiss starting with not-first player breaks the tab by iterating over the correct array
 
@@ -21,6 +22,10 @@
 	* index.html: periodically check for updates of the main page
 	not checking for updates if the browser is offline
 	checking every 5 minutes
+
+	* boule/scripts/options.js: teamsizeicon option enabled
+
+	* tac/scripts/options.js: teamsizeicon option disabled
 
 2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

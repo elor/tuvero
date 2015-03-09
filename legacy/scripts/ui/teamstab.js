@@ -90,7 +90,9 @@ define(
         this.showtableClassView = new ClassView(value, this.$view, 'showtable');
 
         // update the tab when the team size changes
-        TabsHandle.bindTabOpts('teams', State.teamsize);
+        if (Options.teamsizeicon) {
+          TabsHandle.bindTabOpts('teams', State.teamsize);
+        }
 
         // team removal controllers
         $container = this.$view.find('>button.delete');

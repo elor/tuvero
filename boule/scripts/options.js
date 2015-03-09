@@ -18,6 +18,7 @@ define(['ui/state_new'], function(State) {
     // installation-specific
     // global : {},
     playernameurl: 'https://boulesdb.appspot.com/json',
+    minteamsize: 1,
     maxteamsize: 3,
     maxpoints: 15,
     // user-specific
@@ -26,7 +27,8 @@ define(['ui/state_new'], function(State) {
     dbplayername: 'bouleplayers',
     roundtries: 20,
     savefile: 'boule.json',
-    csvfile: 'boule.csv'
+    csvfile: 'boule.csv',
+    teamsizeicon: true
   // tournament-specific
   // tournament : {},
   };
