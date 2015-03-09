@@ -21,7 +21,7 @@ define(['lib/extend', 'core/listener', 'core/model'], function(extend,
 
     if (!$view || !$view.length) {
       console.error('View: $view is empty or undefined:');
-      console.error(view);
+      console.error($view);
       if ($view && $view.selector) {
         console.error($view ? 'selector: ' + $view.selector : '');
       }
