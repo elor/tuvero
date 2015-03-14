@@ -38,18 +38,6 @@ define(['lib/extend', './model', './rankingcomponentindex',
     this.length = size;
     this.ranking = undefined;
 
-    // TODO dependency system with the following components:
-    //
-    // TODO fullmatrix this.games (i beat k -> [i][k] += 1)
-    // TODO vector this.numgames (+1 for every finished game)
-    // TODO array this.corrections (entry of every correction, for bookkeeping)
-    //
-    // TODO auto-update the following references:
-    // TODO array this.buchholz (abs(this.games) * this.wins)
-    // TODO array this.finebuchholz (abs(this.games) * this.buchholz)
-    // TODO array this.ranks (for every player id, the respective rank)
-    // TODO array this.ranking (player ids, in the order of ranking. Pre-sorted)
-
     this.componentnames = components.slice(0);
     this.componentchain = RankingComponentIndex.createComponentChain(this,
         components);
@@ -168,7 +156,7 @@ define(['lib/extend', './model', './rankingcomponentindex',
   };
 
   /**
-   * order player ids by their ranking
+   * order team ids by their ranking
    *
    * @return an array of ids, sorted by rank
    */
@@ -189,8 +177,8 @@ define(['lib/extend', './model', './rankingcomponentindex',
   }
 
   /**
-   * read the ranks of each player from their array position in the ordered
-   * array and their relation to the previous player.
+   * read the ranks of each team from their array position in the ordered array
+   * and their relation to the previous team.
    *
    * @param ids
    *          the return value of getRankingOrder().
@@ -202,14 +190,14 @@ define(['lib/extend', './model', './rankingcomponentindex',
 
     ranks = new Array(this.length);
 
-    ids.forEach(function(player, index) {
+    ids.forEach(function(teamid, index) {
       if (index === 0) {
-        ranks[player] = 0;
+        ranks[teamid] = 0;
       } else {
-        if (this.componentchain.compare(ids[index - 1], player) < 0) {
-          ranks[player] = index;
+        if (this.componentchain.compare(ids[index - 1], teamid) < 0) {
+          ranks[teamid] = index;
         } else {
-          ranks[player] = ranks[ids[index - 1]];
+          ranks[teamid] = ranks[ids[index - 1]];
         }
       }
     }, this);

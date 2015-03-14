@@ -11,9 +11,10 @@ define(function() {
     var GameModel;
 
     GameModel = getModule('core/gamemodel');
+    GameResult = getModule('core/gameresult');
 
     QUnit.test('GameModel', function() {
-      var game, success, array;
+      var game, success, array, ref, listener;
 
       game = undefined;
 
@@ -65,6 +66,26 @@ define(function() {
       game = new GameModel(array, 2, 3);
       array[3] = 321;
       QUnit.equal(game.getTeamID(3), 4, 'GameModel() copies the team array');
+
+      game = new GameModel([1, 2], 0, 0);
+      ref = new GameResult([1, 2], [13, 7]);
+
+      listener = {
+        finished: false,
+        onfinish: function() {
+          this.finished = true;
+        },
+        emitters: []
+      };
+      game.registerListener(listener);
+
+      QUnit.deepEqual(game.finish(), undefined, 'game.finish() fails');
+      QUnit.deepEqual(game.finish([]), undefined, 'game.finish([]) fails');
+      QUnit.deepEqual(game.finish([3, 2, 1]), undefined,
+          'game.finish([3,2,1]) fails');
+      QUnit.equal(listener.finished, false, 'no "finish" event sent yet');
+      QUnit.deepEqual(game.finish([13, 7]), ref, 'game.finish([13,7]) works');
+      QUnit.equal(listener.finished, true, '"finish" event sent yet');
     });
   };
 });

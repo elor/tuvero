@@ -26,7 +26,7 @@ define(
 
       /**
        * @param i
-       *          a player index
+       *          a team index
        * @return the point difference, aka. tac points
        */
       RankingTacComponent.prototype.value = function(i) {

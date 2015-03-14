@@ -11,12 +11,21 @@
 	remote: noemit-argument removed. was required by resize()
 
 	* core/scripts/gamemodel.js: representation of a game added, both internal and external
+	finish() and emit("finish") added
 
 	* core/scripts/test/gamemodel.js: GameModel tests added
+	testing finish(0 and the "finish" event
 
 	* core/scripts/gamereferencemodel.js: game reference with team id mapping
 
 	* core/scripts/test/gamereferencemodel.js: testing GameReferenceModel
+
+	* core/scripts/gameresult.js: players -> teams
+	points -> score
+
+	* core/scripts/ranking*.js: GameResult variables updated
+
+	* core/scripts/rankingmodel.js: long-closed TODOs removed
 
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

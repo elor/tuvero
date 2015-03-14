@@ -59,16 +59,16 @@ define(function() {
 
   /**
    * DUMMYCOMPONENT is the default "nextcomponent", so the sort function does
-   * not fail. It makes sure that players with equal points are assigned the
+   * not fail. It makes sure that teams with equal points are assigned the
    * same place
    */
   RankingComponent.DUMMYCOMPONENT = {
     /**
      * @param i
-     *          a player index
+     *          a team index
      * @param k
-     *          another player index
-     * @return 0. After this step, every player is equal, so multiple first
+     *          another team index
+     * @return 0. After this step, every team is equal, so multiple first
      *         places can happen.
      */
     compare: function(i, k) {
@@ -124,8 +124,8 @@ define(function() {
    * If possible, please overload this function instead of overloading compare.
    *
    * @param i
-   *          a player index
-   * @return a point value (or whatever) for this player
+   *          a team index
+   * @return a point value (or whatever) for this team
    */
   RankingComponent.prototype.value = function(i) {
     return undefined;
@@ -139,9 +139,9 @@ define(function() {
    * Wins > Buchholz > Saldo > Whatever. That's reflected by a component chain.
    *
    * @param i
-   *          index of a player
+   *          index of a team
    * @param k
-   *          index of another player
+   *          index of another team
    * @return {Number} see Array.prototype.sort() for an explanation of compare
    *         functions
    */

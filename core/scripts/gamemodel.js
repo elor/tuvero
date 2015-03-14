@@ -1,12 +1,13 @@
 /**
- * GameModel, a
+ * GameModel, a representation of a single match between teams
  *
  * @return GameModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model'], function(extend, Model) {
+define(['lib/extend', './model', './gameresult'], function(extend, Model,
+    GameResult) {
   /**
    * Constructor
    *
@@ -43,6 +44,10 @@ define(['lib/extend', './model'], function(extend, Model) {
   }
   extend(GameModel, Model);
 
+  GameModel.prototype.EVENTS = {
+    'finish': true
+  };
+
   /**
    *
    * @param pos
@@ -75,6 +80,29 @@ define(['lib/extend', './model'], function(extend, Model) {
    */
   GameModel.prototype.getID = function() {
     return this.id;
+  };
+
+  /**
+   * finishes a match with a certain result
+   *
+   * @param points
+   *          An array of scored points for each team. Lengths have to match
+   * @return a GameResult instance representing the accepted result. undefined
+   *          otherwise
+   */
+  GameModel.prototype.finish = function(points) {
+    var result;
+
+    if (!points || points.length !== this.length) {
+      console.error("GameModel.finish(): lengths don't match");
+      return undefined;
+    }
+
+    result = new GameResult(this.teams, points);
+
+    this.emit('finish', result);
+
+    return result;
   };
 
   return GameModel;

@@ -1,5 +1,5 @@
 /**
- * RankingNumGamesComponent: rank by player id
+ * RankingNumGamesComponent
  *
  * @return RankingNumGamesComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -26,7 +26,7 @@ define(['lib/extend', './rankingcomponent'],
 
       /**
        * @param i
-       *          a player index
+       *          a team index
        * @return the number of won games
        */
       RankingNumGamesComponent.prototype.value = function(i) {

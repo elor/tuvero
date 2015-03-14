@@ -1,5 +1,5 @@
 /**
- * RankingSaldoComponent: rank by player id
+ * RankingSaldoComponent
  *
  * @return RankingSaldoComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -26,7 +26,7 @@ define(['lib/extend', './rankingcomponent'],
 
       /**
        * @param i
-       *          a player index
+       *          a team index
        * @return the point difference, aka. saldo points
        */
       RankingSaldoComponent.prototype.value = function(i) {

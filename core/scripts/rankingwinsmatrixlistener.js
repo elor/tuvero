@@ -44,7 +44,7 @@ define(['lib/extend', './rankingdatalistener', './matrixmodel'], function(
 
     // get the max points, remember if there's a draw
     maxpoints = undefined;
-    result.points.forEach(function(points) {
+    result.score.forEach(function(points) {
       if (points > maxpoints || maxpoints === undefined) {
         maxpoints = points;
         draw = false;
@@ -58,15 +58,15 @@ define(['lib/extend', './rankingdatalistener', './matrixmodel'], function(
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
-    result.points.forEach(function(points, index) {
-      var player;
+    result.score.forEach(function(points, index) {
+      var teamid;
       if (points === maxpoints) {
-        player = result.players[index];
-        result.players.forEach(function(opponent, index) {
+        teamid = result.teams[index];
+        result.teams.forEach(function(opponent, index) {
           var value;
-          if (player !== opponent) {
-            value = this.winsmatrix.get(player, opponent) + score;
-            this.winsmatrix.set(player, opponent, value);
+          if (teamid !== opponent) {
+            value = this.winsmatrix.get(teamid, opponent) + score;
+            this.winsmatrix.set(teamid, opponent, value);
           }
         }, this);
       }

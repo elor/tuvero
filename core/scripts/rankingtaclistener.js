@@ -27,11 +27,11 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     // FIXME extract "12" to the config.
     winscore = 12;
 
-    if (result.players.length !== 2) {
+    if (result.teams.length !== 2) {
       throw new Error('TAC ranking requires exactly two teams in a result');
     }
 
-    diff = result.points[0] - result.points[1];
+    diff = result.score[0] - result.score[1];
     switch (Math.sign(diff)) {
     case -1:
       winner = 1;
@@ -52,27 +52,27 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     }
 
     // FIXME extract "8" to the config
-    if (result.points[winner] >= 8 && winner !== loser) {
+    if (result.score[winner] >= 8 && winner !== loser) {
       // everything went to completion
 
       // winner
-      points = this.tac.get(result.players[winner]) + 12 + diff;
-      this.tac.set(result.players[winner], points);
+      points = this.tac.get(result.teams[winner]) + 12 + diff;
+      this.tac.set(result.teams[winner], points);
 
       // loser
-      points = this.tac.get(result.players[loser]) + result.points[loser];
-      if (result.points[loser] === 0) {
+      points = this.tac.get(result.teams[loser]) + result.score[loser];
+      if (result.score[loser] === 0) {
         points += 1;
       }
-      this.tac.set(result.players[loser], points);
+      this.tac.set(result.teams[loser], points);
     } else {
       // game had to be aborted. Timeout situation: teams keep their own points
 
-      points = this.tac.get(result.players[0]) + result.points[0];
-      this.tac.set(result.players[0], points);
+      points = this.tac.get(result.teams[0]) + result.score[0];
+      this.tac.set(result.teams[0], points);
 
-      points = this.tac.get(result.players[1]) + result.points[1];
-      this.tac.set(result.players[1], points);
+      points = this.tac.get(result.teams[1]) + result.score[1];
+      this.tac.set(result.teams[1], points);
     }
   };
 

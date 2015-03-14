@@ -26,7 +26,7 @@ define(['lib/extend', './rankingcomponent'],
 
       /**
        * @param i
-       *          a player index
+       *          a team index
        * @return the small points: won points, without subtracting lost points
        */
       RankingLostPointsComponent.prototype.value = function(i) {

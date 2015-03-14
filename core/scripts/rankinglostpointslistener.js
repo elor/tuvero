@@ -27,8 +27,8 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    * insert the results of a game into the ranking.
    *
    * We cannot make the assumption that there's only one opponent. That's why we
-   * iterate over every player as a possible opponent and apply his points to
-   * every other player's lostpoints vector.
+   * iterate over every team as a possible opponent and apply his points to
+   * every other team's lostpoints vector.
    *
    * @param r
    *          the emitting RankingModel instance. Please ignore.
@@ -38,11 +38,11 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    *          a game result
    */
   RankingLostPointsListener.prototype.onresult = function(r, e, result) {
-    result.players.forEach(function(opponent, index) {
-      result.players.forEach(function(player) {
-        if (player !== opponent) {
-          this.lostpoints.set(player, this.lostpoints.get(player)
-              - result.points[index]);
+    result.teams.forEach(function(opponent, index) {
+      result.teams.forEach(function(team) {
+        if (team !== opponent) {
+          this.lostpoints.set(team, this.lostpoints.get(team)
+              - result.score[index]);
         }
       }, this);
     }, this);

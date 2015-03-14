@@ -1,5 +1,5 @@
 /**
- * RankingBuchholzComponent: rank by player id
+ * RankingBuchholzComponent
  *
  * @return RankingBuchholzComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -26,7 +26,7 @@ define(['lib/extend', './rankingcomponent'],
 
       /**
        * @param i
-       *          a player index
+       *          a team index
        * @return the number of won games
        */
       RankingBuchholzComponent.prototype.value = function(i) {

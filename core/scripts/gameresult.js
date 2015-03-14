@@ -10,18 +10,18 @@ define(function() {
   /**
    * Constructor
    *
-   * @param players
-   *          an array of player or team ids
-   * @param points
-   *          an array of scoredpoints
+   * @param teams
+   *          an array of team or team ids
+   * @param score
+   *          an array of scored points
    */
-  function GameResult(players, points) {
-    if (players.length !== points.length) {
-      throw new Error('GameResult(): array lengths differ: ' + players.length
-          + '<>' + points.length);
+  function GameResult(teams, score) {
+    if (teams.length !== score.length) {
+      throw new Error('GameResult(): array lengths differ: ' + teams.length
+          + '<>' + score.length);
     }
-    this.players = players.slice(0);
-    this.points = points.slice(0);
+    this.teams = teams.slice(0);
+    this.score = score.slice(0);
   }
 
   return GameResult;

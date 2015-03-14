@@ -1,5 +1,5 @@
 /**
- * RankingHeadToHeadComponent: rank by player id
+ * RankingHeadToHeadComponent
  *
  * @return RankingHeadToHeadComponent
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
