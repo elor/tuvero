@@ -1,3 +1,7 @@
+2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/fontsize.css: using the pre-defined font size as the base font size
+
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html
