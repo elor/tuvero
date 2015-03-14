@@ -17,6 +17,7 @@ define([
   'core/controller',
   'core/delegatematrix',
   'core/emitter',
+  'core/gamemodel',
   'core/gameresult',
   'core/indexedlistmodel',
   'core/indexedmodel',

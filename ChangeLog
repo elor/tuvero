@@ -10,7 +10,9 @@
 	* core/scripts/matrixmodel.js: faster resize function
 	remote: noemit-argument removed. was required by resize()
 
-	* core/scripts/view.js: 
+	* core/scripts/gamemodel.js: representation of a game added, both internal and external
+
+	* core/scripts/test/gamemodel.js: GameModel tests added
 
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
