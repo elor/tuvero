@@ -11,7 +11,7 @@ define(function() {
     var RankingModel, GameResult;
 
     RankingModel = getModule('core/rankingmodel');
-    GameResult = getModule('core/gameresult');
+    GameResult = getModule('core/matchresult');
 
     QUnit.test('TAC Ranking', function() {
       var ranking, result, ret, ref;

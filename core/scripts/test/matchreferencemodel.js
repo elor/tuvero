@@ -8,10 +8,10 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var GameModel, GameReferenceModel, ListModel;
+    var MatchModel, GameReferenceModel, ListModel;
 
-    GameModel = getModule('core/gamemodel');
-    GameReferenceModel = getModule('core/gamereferencemodel');
+    MatchModel = getModule('core/matchmodel');
+    GameReferenceModel = getModule('core/matchreferencemodel');
     ListModel = getModule('core/listmodel');
 
     QUnit.test('GameReferenceModel', function() {
@@ -23,11 +23,11 @@ define(function() {
       teamlist.push(3);
       teamlist.push(9);
 
-      game = new GameModel([3, 2, 1, 0], 2, 5);
-      QUnit.equal(game.getTeamID(0), 3, 'GameModel: internal value');
-      QUnit.equal(game.getTeamID(1), 2, 'GameModel: internal value');
-      QUnit.equal(game.getTeamID(2), 1, 'GameModel: internal value');
-      QUnit.equal(game.getTeamID(3), 0, 'GameModel: internal value');
+      game = new MatchModel([3, 2, 1, 0], 2, 5);
+      QUnit.equal(game.getTeamID(0), 3, 'MatchModel: internal value');
+      QUnit.equal(game.getTeamID(1), 2, 'MatchModel: internal value');
+      QUnit.equal(game.getTeamID(2), 1, 'MatchModel: internal value');
+      QUnit.equal(game.getTeamID(3), 0, 'MatchModel: internal value');
 
       gameref = new GameReferenceModel(game, teamlist);
 
@@ -58,21 +58,21 @@ define(function() {
         emitters: []
       };
 
-      game = new GameModel([1, 2], 0, 2);
+      game = new MatchModel([1, 2], 0, 2);
       gameref = new GameReferenceModel(game, teamlist);
       gameref.registerListener(listener);
       game.finish([3, 4]);
       QUnit.equal(listener.finished, true, '"finish" event cascades through');
 
       listener.finished = false;
-      game = new GameModel([1, 2], 0, 2);
+      game = new MatchModel([1, 2], 0, 2);
       gameref = new GameReferenceModel(game, teamlist);
       game.registerListener(listener);
       gameref.finish([3, 4]);
       QUnit.equal(listener.finished, true, 'finish() is forwarded properly');
 
       listener.finished = false;
-      game = new GameModel([1, 2], 0, 2);
+      game = new MatchModel([1, 2], 0, 2);
       gameref = new GameReferenceModel(game, teamlist);
       gameref.registerListener(listener);
       gameref.finish([3, 4]);

@@ -12,7 +12,7 @@ define(function() {
     var RankingModel, Model, extend, GameResult, Listener;
 
     RankingModel = getModule('core/rankingmodel');
-    GameResult = getModule('core/gameresult');
+    GameResult = getModule('core/matchresult');
     Listener = getModule('core/listener');
     Model = getModule('core/model');
     extend = getModule('lib/extend');

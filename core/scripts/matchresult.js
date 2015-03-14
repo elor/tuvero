@@ -1,7 +1,7 @@
 /**
- * GameResult, a simple game results class
+ * MatchResult, a simple game results class
  *
- * @return GameResult
+ * @return MatchResult
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -15,14 +15,14 @@ define(function() {
    * @param score
    *          an array of scored points
    */
-  function GameResult(teams, score) {
+  function MatchResult(teams, score) {
     if (teams.length !== score.length) {
-      throw new Error('GameResult(): array lengths differ: ' + teams.length
+      throw new Error('MatchResult(): array lengths differ: ' + teams.length
           + '<>' + score.length);
     }
     this.teams = teams.slice(0);
     this.score = score.slice(0);
   }
 
-  return GameResult;
+  return MatchResult;
 });

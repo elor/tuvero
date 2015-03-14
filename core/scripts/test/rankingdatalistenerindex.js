@@ -12,7 +12,7 @@ define(function() {
     var RankingDataListenerIndex, Emitter, GameResult;
 
     RankingDataListenerIndex = getModule('core/rankingdatalistenerindex');
-    GameResult = getModule('core/gameresult');
+    GameResult = getModule('core/matchresult');
     Emitter = getModule('core/emitter');
 
     QUnit.test('RankingDataListenerIndex', function() {

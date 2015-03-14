@@ -1,12 +1,12 @@
 /**
- * GameModel, a representation of a single match between teams
+ * MatchModel, a representation of a single match between teams
  *
- * @return GameModel
+ * @return MatchModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model', './gameresult'], function(extend, Model,
+define(['lib/extend', './model', './matchresult'], function(extend, Model,
     GameResult) {
   /**
    * Constructor
@@ -14,27 +14,27 @@ define(['lib/extend', './model', './gameresult'], function(extend, Model,
    * @param teams
    *          an array of team ids
    * @param id
-   *          unique id of the game within its group
+   *          unique id of the match within its group
    * @param group
    *          identifier of the round, phase, pool, ...
    */
-  function GameModel(teams, id, group) {
-    GameModel.superconstructor.call(this);
+  function MatchModel(teams, id, group) {
+    MatchModel.superconstructor.call(this);
 
     if (!teams || !teams.length) {
-      console.error('GameModel() no empty teams initialization allowed:');
+      console.error('MatchModel() no empty teams initialization allowed:');
       console.error(teams);
-      throw Error('GameModel: no empty initialization allowed!');
+      throw Error('MatchModel: no empty initialization allowed!');
     }
 
     if (id === undefined) {
-      console.warn('new GameModel(): unique id within the group is required');
-      throw Error('new GameModel(): unique id within the group is required');
+      console.warn('new MatchModel(): unique id within the group is required');
+      throw Error('new MatchModel(): unique id within the group is required');
     }
 
     if (group === undefined) {
-      console.warn('new GameModel(): group is required');
-      throw Error('new GameModel(): group is required');
+      console.warn('new MatchModel(): group is required');
+      throw Error('new MatchModel(): group is required');
     }
 
     this.teams = teams.slice();
@@ -42,19 +42,19 @@ define(['lib/extend', './model', './gameresult'], function(extend, Model,
     this.id = id;
     this.group = group;
   }
-  extend(GameModel, Model);
+  extend(MatchModel, Model);
 
-  GameModel.prototype.EVENTS = {
+  MatchModel.prototype.EVENTS = {
     'finish': true
   };
 
   /**
    *
    * @param pos
-   *          the teams position within the game
+   *          the teams position within the match
    * @return the team at position pos
    */
-  GameModel.prototype.getTeamID = function(pos) {
+  MatchModel.prototype.getTeamID = function(pos) {
     /*
      * no additional check necessary. The array will return 'undefined' for us
      */
@@ -65,20 +65,20 @@ define(['lib/extend', './model', './gameresult'], function(extend, Model,
   };
 
   /**
-   * return the group of the game within the tournament
+   * return the group of the match within the tournament
    *
-   * @return the group of the game within the tournament
+   * @return the group of the match within the tournament
    */
-  GameModel.prototype.getGroup = function() {
+  MatchModel.prototype.getGroup = function() {
     return this.group;
   };
 
   /**
-   * return the game id within its group
+   * return the match id within its group
    *
-   * @return the game id within its group
+   * @return the match id within its group
    */
-  GameModel.prototype.getID = function() {
+  MatchModel.prototype.getID = function() {
     return this.id;
   };
 
@@ -90,11 +90,11 @@ define(['lib/extend', './model', './gameresult'], function(extend, Model,
    * @return a GameResult instance representing the accepted result. undefined
    *         otherwise
    */
-  GameModel.prototype.finish = function(points) {
+  MatchModel.prototype.finish = function(points) {
     var result;
 
     if (!points || points.length !== this.length) {
-      console.error("GameModel.finish(): lengths don't match");
+      console.error("MatchModel.finish(): lengths don't match");
       return undefined;
     }
     if (this.finished) {
@@ -110,5 +110,5 @@ define(['lib/extend', './model', './gameresult'], function(extend, Model,
     return result;
   };
 
-  return GameModel;
+  return MatchModel;
 });

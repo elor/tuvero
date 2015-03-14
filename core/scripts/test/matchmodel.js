@@ -10,8 +10,8 @@ define(function() {
   return function(QUnit, getModule) {
     var GameModel;
 
-    GameModel = getModule('core/gamemodel');
-    GameResult = getModule('core/gameresult');
+    GameModel = getModule('core/matchmodel');
+    GameResult = getModule('core/matchresult');
 
     QUnit.test('GameModel', function() {
       var game, success, array, ref, listener;
