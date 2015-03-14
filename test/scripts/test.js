@@ -25,6 +25,7 @@ require(['config'], function() {
   'core/test/selectionvaluemodel',
   'core/test/absolutematrix',
   'core/test/gamemodel',
+  'core/test/gamereferencemodel',
   'core/test/vectormodel',
   'core/test/rankingsonneborn',
   'core/test/delegatematrix',

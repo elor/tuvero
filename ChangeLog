@@ -14,6 +14,10 @@
 
 	* core/scripts/test/gamemodel.js: GameModel tests added
 
+	* core/scripts/gamereferencemodel.js: game reference with team id mapping
+
+	* core/scripts/test/gamereferencemodel.js: testing GameReferenceModel
+
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html
