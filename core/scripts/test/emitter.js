@@ -106,6 +106,38 @@ define(function() {
       QUnit.equal(retval, -1, 'listeners are removed from emitter.listeners');
       retval = listener.emitters.indexOf(emitter);
       QUnit.equal(retval, -1, 'emitters are removed from listener.emitters');
+
+      /*
+       * emit+unregister test
+       *
+       * When unregistering a listener from a currently emitting emitter, the
+       * listeners array is manipulated, possibly causing listeners to be
+       * skipped. This is an error, which should be fixed
+       */
+
+      emitter = new Emitter();
+      emitter.EVENTS = {
+        'evt': true
+      };
+      listener2 = {
+        success: false,
+        onevt: function() {
+          this.success = true;
+        },
+        emitters: []
+      };
+      listener = {
+        onevt: function() {
+          emitter.unregisterListener(this);
+        },
+        emitters: []
+      };
+      emitter.registerListener(listener);
+      emitter.registerListener(listener2);
+      emitter.emit('evt');
+      QUnit.equal(listener2.success, true,
+          'unregister during emit should not cause listeners to be skipped');
+
     });
   };
 });

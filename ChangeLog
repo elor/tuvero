@@ -27,6 +27,11 @@
 
 	* core/scripts/rankingmodel.js: long-closed TODOs removed
 
+	* core/scripts/emitter.js: emit+unregisterListener bug fixed:
+	calling unregisterListener from an event callback caused listeners to be skipped
+
+	* core/scripts/test/emitter.js: test case for emit+unregisterListener bug
+
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html

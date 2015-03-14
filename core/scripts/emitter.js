@@ -47,7 +47,12 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
       return false;
     }
 
-    this.listeners.map(function(listener) {
+    /*
+     * Iterate over every listener in order. We call slice() to copy the array,
+     * so that unregisterListener()-calls don't cause other listeners to be
+     * skipped. Have a look at the corresponding unit test.
+     */
+    this.listeners.slice().forEach(function(listener) {
       if (listener['on' + event]) {
         listener['on' + event].call(listener, this, event, data);
         success = true;
