@@ -28,6 +28,7 @@ define([
   'core/matrixmodel',
   'core/model',
   'core/positivematrix',
+  'core/propertymodel',
   'core/rankingbuchholzcomponent',
   'core/rankingbuchholzlistener',
   'core/rankingcomponentindex',

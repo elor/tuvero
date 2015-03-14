@@ -37,6 +37,11 @@
 
 	* core/scripts/test/emitter.js: test case for emit+unregisterListener bug
 
+	* core/scripts/propertymodel.js: PropertyModel added: store/retrieve values from keys
+	emits update events when a value is changed or set
+
+	* core/scripts/test/propertymodel.js: PropertyModel unit test
+
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html

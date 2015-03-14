@@ -17,6 +17,7 @@ require(['config'], function() {
   'core/test/transposesummatrix',
   'core/test/positivematrix',
   'core/test/rankingmodel',
+  'core/test/propertymodel',
   'core/test/matrixmodel',
   'core/test/listmodel',
   'core/test/symmetricmatrixmodel',
