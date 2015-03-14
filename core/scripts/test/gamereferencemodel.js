@@ -15,7 +15,7 @@ define(function() {
     ListModel = getModule('core/listmodel');
 
     QUnit.test('GameReferenceModel', function() {
-      var game, gameref, teamlist;
+      var game, gameref, teamlist, ref;
 
       teamlist = new ListModel();
       teamlist.push(5);
@@ -49,6 +49,34 @@ define(function() {
       QUnit.equal(gameref.getTeamID(1), 3, 'teamlist changes have no impact');
       QUnit.equal(gameref.getTeamID(2), 7, 'teamlist changes have no impact');
       QUnit.equal(gameref.getTeamID(3), 5, 'teamlist changes have no impact');
+
+      listener = {
+        finished: false,
+        onfinish: function() {
+          this.finished = true;
+        },
+        emitters: []
+      };
+
+      game = new GameModel([1, 2], 0, 2);
+      gameref = new GameReferenceModel(game, teamlist);
+      gameref.registerListener(listener);
+      game.finish([3, 4]);
+      QUnit.equal(listener.finished, true, '"finish" event cascades through');
+
+      listener.finished = false;
+      game = new GameModel([1, 2], 0, 2);
+      gameref = new GameReferenceModel(game, teamlist);
+      game.registerListener(listener);
+      gameref.finish([3, 4]);
+      QUnit.equal(listener.finished, true, 'finish() is forwarded properly');
+
+      listener.finished = false;
+      game = new GameModel([1, 2], 0, 2);
+      gameref = new GameReferenceModel(game, teamlist);
+      gameref.registerListener(listener);
+      gameref.finish([3, 4]);
+      QUnit.equal(listener.finished, true, 'finish() -> onfinish roundtrip');
     });
   };
 });

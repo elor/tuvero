@@ -79,13 +79,16 @@ define(function() {
       };
       game.registerListener(listener);
 
-      QUnit.deepEqual(game.finish(), undefined, 'game.finish() fails');
-      QUnit.deepEqual(game.finish([]), undefined, 'game.finish([]) fails');
-      QUnit.deepEqual(game.finish([3, 2, 1]), undefined,
+      QUnit.equal(game.finish(), undefined, 'game.finish() fails');
+      QUnit.equal(game.finish([]), undefined, 'game.finish([]) fails');
+      QUnit.equal(game.finish([3, 2, 1]), undefined,
           'game.finish([3,2,1]) fails');
       QUnit.equal(listener.finished, false, 'no "finish" event sent yet');
       QUnit.deepEqual(game.finish([13, 7]), ref, 'game.finish([13,7]) works');
       QUnit.equal(listener.finished, true, '"finish" event sent yet');
+
+      QUnit.equal(game.finish([13, 7]), undefined,
+          'second game.finish([something]) fails');
     });
   };
 });

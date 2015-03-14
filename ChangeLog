@@ -12,13 +12,18 @@
 
 	* core/scripts/gamemodel.js: representation of a game added, both internal and external
 	finish() and emit("finish") added
+	cannot finish a game twice
 
 	* core/scripts/test/gamemodel.js: GameModel tests added
 	testing finish(0 and the "finish" event
+	testing whether a game really cannot be finished twice
 
 	* core/scripts/gamereferencemodel.js: game reference with team id mapping
+	forwarding finish() and onfinish()
+	unregistering during onfinish(). The current API disallows any event after 'finish'
 
 	* core/scripts/test/gamereferencemodel.js: testing GameReferenceModel
+	testing finish() and the 'finish' events
 
 	* core/scripts/gameresult.js: players -> teams
 	points -> score
