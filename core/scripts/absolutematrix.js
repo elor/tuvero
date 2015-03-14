@@ -9,6 +9,9 @@
 define(['lib/extend', './delegatematrix'], function(extend, DelegateMatrix) {
   /**
    * Constructor
+   *
+   * @param matrix
+   *          the matrix to bind itself to
    */
   function AbsoluteMatrix(matrix) {
     AbsoluteMatrix.superconstructor.call(this, matrix);

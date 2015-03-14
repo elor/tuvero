@@ -9,6 +9,7 @@
 define(['lib/extend', './delegatematrix'], function(extend, DelegateMatrix) {
   /**
    * Constructor
+   * @param matrix the matrix to bind itself to
    */
   function PositiveMatrix(matrix) {
     PositiveMatrix.superconstructor.call(this, matrix);

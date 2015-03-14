@@ -37,9 +37,9 @@ define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
   TriangleMatrixModel.prototype.get = function(row, col) {
     if (row < col) {
       return 0;
-    } else {
-      return TriangleMatrixModel.superclass.get.call(this, row, col);
     }
+
+    return TriangleMatrixModel.superclass.get.call(this, row, col);
   };
 
   /**
@@ -56,9 +56,9 @@ define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
   TriangleMatrixModel.prototype.set = function(row, col, value) {
     if (row < col) {
       return undefined;
-    } else {
-      return TriangleMatrixModel.superclass.set.call(this, row, col, value);
     }
+
+    return TriangleMatrixModel.superclass.set.call(this, row, col, value);
   };
 
   return TriangleMatrixModel;

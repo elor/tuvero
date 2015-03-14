@@ -4,6 +4,14 @@
 
 	* index.html: "offline"-hint added
 
+	* core/scripts/*matrix.js: missing comments and jsdoc tags added
+	return paths adjusted
+
+	* core/scripts/matrixmodel.js: faster resize function
+	remote: noemit-argument removed. was required by resize()
+
+	* core/scripts/view.js: 
+
 2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html

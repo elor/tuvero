@@ -15,6 +15,9 @@
 define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
   /**
    * Constructor
+   *
+   * @param matrix
+   *          the matrix to bind itself to
    */
   function DelegateMatrix(matrix) {
     // call constructor for safety. We're going to overwrite all fields
@@ -41,7 +44,7 @@ define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
    *          the row
    * @param col
    *          the column
-   * @return
+   * @return the value at the given matrix position
    */
   DelegateMatrix.prototype.get = function(row, col) {
     return this.superget(row, col);

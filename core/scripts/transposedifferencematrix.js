@@ -12,6 +12,9 @@
 define(['lib/extend', './delegatematrix'], function(extend, DelegateMatrix) {
   /**
    * Constructor
+   *
+   * @param matrix
+   *          the matrix to bind itself to
    */
   function TransposeDifferenceMatrix(matrix) {
     TransposeDifferenceMatrix.superconstructor.call(this, matrix);

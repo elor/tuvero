@@ -36,9 +36,9 @@ define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
   SymmetricMatrixModel.prototype.get = function(row, col) {
     if (row < col) {
       return SymmetricMatrixModel.superclass.get.call(this, col, row);
-    } else {
-      return SymmetricMatrixModel.superclass.get.call(this, row, col);
     }
+
+    return SymmetricMatrixModel.superclass.get.call(this, row, col);
   };
 
   /**
@@ -56,9 +56,9 @@ define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
   SymmetricMatrixModel.prototype.set = function(row, col, value) {
     if (row < col) {
       return SymmetricMatrixModel.superclass.set.call(this, col, row, value);
-    } else {
-      return SymmetricMatrixModel.superclass.set.call(this, row, col, value);
     }
+
+    return SymmetricMatrixModel.superclass.set.call(this, row, col, value);
   };
 
   return SymmetricMatrixModel;

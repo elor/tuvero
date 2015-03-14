@@ -5,8 +5,6 @@
  * representations, but this class is supposed to handle extremely sparse
  * matrices. So, we're defining and maintaining our own arrays.
  *
- * TODO emit events, e.g. for auto-resizing of dependent classes
- *
  * @return MatrixModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -38,11 +36,9 @@ define(['lib/extend', './model'], function(extend, Model) {
    *
    * @param index
    *          {Integer} index
-   * @param noemit
-   *          Reserved. Do not use.
    * @return {MatrixModel} this
    */
-  MatrixModel.prototype.remove = function(index, noemit) {
+  MatrixModel.prototype.remove = function(index) {
     if (index >= this.length || index < 0) {
       return this;
     }
@@ -54,9 +50,7 @@ define(['lib/extend', './model'], function(extend, Model) {
 
     this.length -= 1;
 
-    if (!noemit) {
-      this.emit('resize');
-    }
+    this.emit('resize');
 
     return this;
   };
@@ -64,9 +58,9 @@ define(['lib/extend', './model'], function(extend, Model) {
   /**
    * resizes the matrix while taking care of
    *
-   * @param by
-   *          integer amount by which to extend the array. defaults to 1
-   * @return {MatrixModel} this
+   * @param size
+   *          the new size
+   * @return this on success, undefined otherwise
    */
   MatrixModel.prototype.resize = function(size) {
     if (size === undefined) {
@@ -76,12 +70,15 @@ define(['lib/extend', './model'], function(extend, Model) {
       size = 0;
     }
 
-    while (this.length > size) {
-      this.remove(this.length - 1, true);
+    if (this.length > size) {
+      this.data.splice(size);
+
+      this.data.forEach(function(row) {
+        row.splice(size);
+      });
     }
-    if (this.length < size) {
-      this.length = size;
-    }
+
+    this.length = size;
 
     this.emit('resize');
 

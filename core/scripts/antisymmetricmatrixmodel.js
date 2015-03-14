@@ -41,9 +41,9 @@ define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
   AntisymmetricMatrixModel.prototype.get = function(row, col) {
     if (row < col) {
       return -AntisymmetricMatrixModel.superclass.get.call(this, col, row);
-    } else {
-      return AntisymmetricMatrixModel.superclass.get.call(this, row, col);
     }
+
+    return AntisymmetricMatrixModel.superclass.get.call(this, row, col);
   };
 
   /**
@@ -62,10 +62,9 @@ define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
     if (row < col) {
       return AntisymmetricMatrixModel.superclass.set.call(this, col, row,
           -value);
-    } else {
-      return AntisymmetricMatrixModel.superclass.set
-          .call(this, row, col, value);
     }
+
+    return AntisymmetricMatrixModel.superclass.set.call(this, row, col, value);
   };
 
   return AntisymmetricMatrixModel;
