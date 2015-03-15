@@ -23,13 +23,14 @@ define(function() {
       model = new SelectionValueModel(defaultvalue, allowed);
       QUnit.equal(model.get(), defaultvalue, 'defaultvalue respected');
 
-      model.set(321);
-      model.set(5);
-      model.set('asd');
+      QUnit.equal(model.set(321), false, 'unallowed value');
+      QUnit.equal(model.set(5), false, 'unallowed value');
+      QUnit.equal(model.set('asd'), false, 'unallowed value');
       QUnit.equal(model.get(), defaultvalue, 'empty allowed-list');
 
       allowed.push(5);
-      model.set(5);
+      QUnit.equal(model.set(5), true, 'allowed value');
+      QUnit.equal(model.set(5), true, 'allowed value, again');
       QUnit.equal(model.get(), 5, 'setting allowed value');
 
       allowed.push(4);
@@ -41,11 +42,11 @@ define(function() {
 
       QUnit.equal(model.get(), 5, 'retaining value on allowedlist-extension');
 
-      model.set(10);
+      QUnit.equal(model.set(10), true, 'allowed value');
       QUnit.equal(model.get(), 10, 'changing allowed value');
 
       allowed.remove(allowed.indexOf(10));
-      QUnit.equal(model.get(), defaultvalue, 'value not allowed anymore');
+      QUnit.equal(model.get(), defaultvalue, 'value reverts to defaultValue');
 
       model.setDefault(321);
       QUnit.equal(model.get(), 321, 'default value changed, was not allowed');

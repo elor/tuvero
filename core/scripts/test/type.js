@@ -36,8 +36,8 @@ define(function() {
         return '3.1415';
       });
 
-      ref = ["number", "object", "string", "undefined", "null", "date",
-          "array", "regexp", "boolean", "function"];
+      ref = ['number', 'object', 'string', 'undefined', 'null', 'date',
+          'array', 'regexp', 'boolean', 'function'];
 
       /*
        * Type()

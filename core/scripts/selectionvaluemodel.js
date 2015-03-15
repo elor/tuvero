@@ -41,11 +41,14 @@ define(['lib/extend', './valuemodel'], function(extend, ValueModel) {
    *
    * @param value
    *          the value
+   * @return true on success, false otherwise
    */
   SelectionValueModel.prototype.set = function(value) {
     if (this.isValid(value)) {
       SelectionValueModel.superclass.set.call(this, value);
+      return true;
     }
+    return false;
   };
 
   /**

@@ -23,6 +23,10 @@
 
 	* legacy/scripts/ui/type.js: moved to core
 
+	* core/scripts/selectionvaluemodel.js: set() returns success
+
+	* core/scripts/test/selectionvaluemodel.js: set() return value tests
+
 2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/fontsize.css: using the pre-defined font size as the base font size
