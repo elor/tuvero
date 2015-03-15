@@ -57,6 +57,7 @@ define([
   'core/rankingwinscomponent',
   'core/rankingwinslistener',
   'core/rankingwinsmatrixlistener',
+  'core/readonlylistmodel',
   'core/selectionvaluemodel',
   'core/statevaluemodel',
   'core/symmetricmatrixmodel',
