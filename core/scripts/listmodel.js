@@ -74,7 +74,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *          the index at which to insert the object
    * @param object
    *          the object, which will take the specified index after insertion
-   * @return undefined on failure, true otherwise
+   * @return undefined on failure, the inserted object
    */
   ListModel.prototype.insert = function(index, object) {
     if (index >= 0 && index <= this.list.length) {
@@ -84,7 +84,8 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
         id: index,
         object: object
       });
-      return true;
+
+      return object;
     }
     return undefined;
   };
@@ -152,7 +153,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *          the index within the list
    * @param object
    *          the object with which to overwrite the index
-   * @return the inserted object, of undefined on failure
+   * @return the inserted object, or undefined on failure
    */
   ListModel.prototype.set = function(index, object) {
     if (index >= 0 && index < this.list.length) {

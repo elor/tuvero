@@ -32,6 +32,7 @@ require(['config'], function() {
   'core/test/matchmodel',
   'core/test/antisymmetricmatrixmodel',
   'core/test/matchreferencemodel',
+  'core/test/uniquelistmodel',
   'core/test/rankingdatalistenerindex',
   'core/test/rankingcomponentindex',
   'core/test/rankingtac',

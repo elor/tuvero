@@ -3,8 +3,13 @@
 	* core/scripts/listmodel.js: erase() added
 	return value for insert() added (undefined on failure)
 	return value comments updated to allow undefined on failure
+	insert() returns the inserted object
 
 	* core/scripts/test/listmodel.js: testing erase()
+
+	* core/scripts/test/uniquelistmodel.js: testing UniqueListModel
+
+	* core/scripts/uniquelistmodel.js: UniqueListModel, in which every object can only be contained once
 
 2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

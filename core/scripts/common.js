@@ -66,6 +66,7 @@ define([
   'core/transposedifferencematrix',
   'core/transposesummatrix',
   'core/trianglematrixmodel',
+  'core/uniquelistmodel',
   'core/valuemodel',
   'core/vectormodel',
   'core/view',
