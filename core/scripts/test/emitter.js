@@ -138,6 +138,21 @@ define(function() {
       QUnit.equal(listener2.success, true,
           'unregister during emit should not cause listeners to be skipped');
 
+      /*
+       * Mixin tests: when instantiating the emitter multiple times, the
+       * 'listeners' array should not be overwritten!
+       */
+
+      emitter = new Emitter();
+      emitter.EVENTS = {
+        'evt': true
+      };
+      listener2.success = false;
+      emitter.registerListener(listener2);
+      Emitter.call(emitter); // mix-in
+      emitter.emit('evt');
+      QUnit.equal(listener2.success, true,
+          'Mixin-initialization of an emitter preserves the listeners');
     });
   };
 });

@@ -11,6 +11,12 @@
 
 	* core/scripts/uniquelistmodel.js: UniqueListModel, in which every object can only be contained once
 
+	* core/scripts/emitter.js: mixin pattern construction enabled
+
+	* core/scripts/listener.js: mixin pattern construction enabled
+
+	* core/scripts/test/emitter.js: testing mixin pattern construction validity
+
 2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/fontsize.css: using the pre-defined font size as the base font size

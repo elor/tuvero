@@ -12,7 +12,9 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    */
   function Emitter() {
     Emitter.superconstructor.call(this, undefined);
-    this.listeners = [];
+    if (this.listeners === undefined) {
+      this.listeners = [];
+    }
   }
   extend(Emitter, Listener);
   Emitter.prototype.EVENTS = {

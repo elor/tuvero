@@ -13,7 +13,9 @@ define(function() {
    * @param emitter
    */
   function Listener(emitter) {
-    this.emitters = [];
+    if (!this.emitters) {
+      this.emitters = [];
+    }
 
     if (emitter) {
       emitter.registerListener(this);
