@@ -58,6 +58,7 @@ define([
   'core/rankingwinslistener',
   'core/rankingwinsmatrixlistener',
   'core/selectionvaluemodel',
+  'core/statevaluemodel',
   'core/symmetricmatrixmodel',
   'core/tabimageview',
   'core/tabmenucontroller',

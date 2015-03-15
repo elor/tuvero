@@ -27,6 +27,10 @@
 
 	* core/scripts/test/selectionvaluemodel.js: set() return value tests
 
+	* core/scripts/statevaluemodel.js: Model for states and state transitions
+
+	* core/scripts/test/statevaluemodel.js: Model for states and state transitions
+
 2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/fontsize.css: using the pre-defined font size as the base font size
