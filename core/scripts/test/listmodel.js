@@ -169,6 +169,19 @@ define(function() {
       QUnit.deepEqual(list.asArray(), [],
           'asArray returns empty array after pop');
 
+      list = new ListModel();
+      list.push(3);
+      list.push(2);
+      list.push(3);
+      list.push(4);
+      list.push(3);
+      list.push('3');
+
+      QUnit.equal(list.erase(3), 3, 'erase() returns number of removals');
+      QUnit.equal(list.indexOf(3), -1, 'erase removes all instances');
+      QUnit.equal(list.length, 3, 'erase resizes the list');
+
+      QUnit.equal(list.erase('notfound'), 0, 'erase() returns 0 if not found');
     });
   };
 });

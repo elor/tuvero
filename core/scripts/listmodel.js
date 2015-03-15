@@ -33,7 +33,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @param object
    *          an object which will be appended to the list
-   * @return the new length of the array
+   * @return the new length of the array. undefined on failure
    */
   ListModel.prototype.push = function(object) {
     var retval;
@@ -74,6 +74,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *          the index at which to insert the object
    * @param object
    *          the object, which will take the specified index after insertion
+   * @return undefined on failure, true otherwise
    */
   ListModel.prototype.insert = function(index, object) {
     if (index >= 0 && index <= this.list.length) {
@@ -83,7 +84,9 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
         id: index,
         object: object
       });
+      return true;
     }
+    return undefined;
   };
 
   /**
@@ -159,6 +162,27 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     }
 
     return undefined;
+  };
+
+  /**
+   * erase every instance of an object from the list
+   *
+   * @param object
+   *          the object to erase from the list
+   * @return the number of removed objects. 0 if none found, undefined on
+   *         failure
+   */
+  ListModel.prototype.erase = function(object) {
+    var num, index;
+    num = 0;
+
+    while ((index = this.indexOf(object)) >= 0) {
+      if (this.remove(index) === object) {
+        num += 1;
+      }
+    }
+
+    return num;
   };
 
   /**

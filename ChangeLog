@@ -1,3 +1,11 @@
+2015-03-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/listmodel.js: erase() added
+	return value for insert() added (undefined on failure)
+	return value comments updated to allow undefined on failure
+
+	* core/scripts/test/listmodel.js: testing erase()
+
 2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/fontsize.css: using the pre-defined font size as the base font size
