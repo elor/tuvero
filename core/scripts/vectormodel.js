@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel', 'ui/type'], function(extend, ListModel,
+define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
     Type) {
   /**
    * Constructor

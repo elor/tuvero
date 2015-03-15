@@ -33,6 +33,7 @@ require(['config'], function() {
   'core/test/antisymmetricmatrixmodel',
   'core/test/matchreferencemodel',
   'core/test/uniquelistmodel',
+  'core/test/type',
   'core/test/rankingdatalistenerindex',
   'core/test/rankingcomponentindex',
   'core/test/rankingtac',

@@ -9,10 +9,10 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingComponentIndex, Emitter, extend;
+    var RankingComponentIndex;
 
     RankingComponentIndex = getModule('core/rankingcomponentindex');
-    Type = getModule('ui/type');
+    Type = getModule('core/type');
 
     QUnit.test('RankingComponentIndex', function() {
       var chain, ranking, components, chainlength;

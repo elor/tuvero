@@ -3,7 +3,7 @@
  *
  * In addition to the Type() and Type.is() functions, Type.isNumber(),
  * Type.isBoolean(), Type.isArray() etc. functions are available, but lack
- * additional documentation.
+ * additional documentation. They just match the type and return true or false
  *
  * @return Type
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -20,7 +20,7 @@ define(function() {
    * @param str
    *          an arbitrary string of length > 0
    * @return the same string, with the first letter in upper case and the rest
-   *          in lower case
+   *         in lower case
    */
   function capitalize(str) {
     return str[0].toUpperCase() + str.slice(1).toLowerCase();
@@ -80,6 +80,9 @@ define(function() {
 
   /**
    * automatically creates the Type.isSomething functions
+   *
+   * @param reference
+   *          a reference object
    */
   types.map(function(reference) {
     var typestring = Type(reference);

@@ -66,6 +66,7 @@ define([
   'core/transposedifferencematrix',
   'core/transposesummatrix',
   'core/trianglematrixmodel',
+  'core/type',
   'core/uniquelistmodel',
   'core/valuemodel',
   'core/vectormodel',
@@ -169,7 +170,6 @@ define([
   'ui/textview',
   'ui/toast',
   'ui/tournaments',
-  'ui/type',
   'ui/update',
   'ui/valueview'
 ], function(undefined) {

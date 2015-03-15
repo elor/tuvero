@@ -17,6 +17,12 @@
 
 	* core/scripts/test/emitter.js: testing mixin pattern construction validity
 
+	* core/scripts/test/test.js: testing Type, Type.is and Type.isType
+
+	* core/scripts/type.js: moved from legacy
+
+	* legacy/scripts/ui/type.js: moved to core
+
 2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/fontsize.css: using the pre-defined font size as the base font size

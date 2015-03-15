@@ -13,7 +13,7 @@
  * @see LICENSE
  */
 
-define(['./type'], function(Type) {
+define(['core/type'], function(Type) {
   var StaticViewLoader, views;
 
   views = {};
