@@ -1,3 +1,10 @@
+2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boule/index.html: tournament mode preview shortened
+
+	* tac/index.html: tournament mode preview shortened
+	forgotten accesskey for debug-tab added
+
 2015-03-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: erase() added
