@@ -5,6 +5,8 @@
 	* tac/index.html: tournament mode preview shortened
 	forgotten accesskey for debug-tab added
 
+	* index.html: tuvero archive link added
+
 2015-03-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: erase() added
