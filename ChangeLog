@@ -13,6 +13,9 @@
 
 	* legacy/style/teams.css: .noreg logic
 
+	* core/scripts/rankingtaclistener.js: using our own sign() function
+	Math.sign() is an experimental feature of ECMAScript 6. Tuvero is based on ECMAScript 5.
+
 2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: tournament mode preview shortened

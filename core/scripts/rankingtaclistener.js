@@ -8,6 +8,20 @@
  */
 define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     extend, RankingDataListener, VectorModel) {
+
+  function sign(num) {
+    if (num < 0) {
+      return -1;
+    }
+    if (num > 0) {
+      return 1;
+    }
+    if (num === 0) {
+      return 0;
+    }
+    return NaN;
+  }
+
   /**
    * Constructor
    *
@@ -32,7 +46,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     }
 
     diff = result.score[0] - result.score[1];
-    switch (Math.sign(diff)) {
+    switch (sign(diff)) {
     case -1:
       winner = 1;
       loser = 0;
