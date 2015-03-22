@@ -70,6 +70,16 @@
   border: solid 1px;
 }
 
+#tabs > [data-tab="history"] .kotree .label {
+  display: block;
+  position: absolute;
+  top: -1.5em;
+}
+
+#tabs > [data-tab="history"] .kotree .label th {
+  font-weight: normal;
+}
+
 #tabs > [data-tab="history"] .kotree .game .names {
   display: inline-block;
   min-height: 1em;

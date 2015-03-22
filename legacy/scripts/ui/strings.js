@@ -102,8 +102,10 @@ define(function() {
     tab_settings: 'Optionen und Einstellungen',
     tab_about: 'Über...',
     nodata: 'Keine Daten',
-    svgns: 'http://www.w3.org/2000/svg'
-    };
+    svgns: 'http://www.w3.org/2000/svg',
+    firstplace: '1. Platz',
+    thirdplace: '3. Platz'
+  };
 
   return Strings;
 });

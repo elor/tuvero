@@ -367,6 +367,9 @@ define(
 
         template.kotree.$game = template.kotree.$container.find('.game');
         template.kotree.$game.detach();
+        template.kotree.$label = template.kotree.$game.find('.label');
+        template.kotree.$label.detach();
+        template.kotree.$labeltext = template.kotree.$label.find('>');
         template.kotree.$names = template.kotree.$game.find('.names');
         template.kotree.$teamno = template.kotree.$game.find('.number');
         template.kotree.$points = template.kotree.$game.find('.points');
@@ -793,7 +796,7 @@ define(
       }
 
       function createGameTreeBox(game, maxid, thirdplace) {
-        var x, y, maxlevel;
+        var x, y, maxlevel, $game;
 
         maxlevel = level(maxid);
 
@@ -820,8 +823,16 @@ define(
         x = getGameTreeX(game.id, maxlevel);
         y = getGameTreeY(game.id, maxlevel, thirdplace);
 
-        return template.kotree.$game.clone().css('left', x + 'em').css('top',
+        $game = template.kotree.$game.clone().css('left', x + 'em').css('top',
             y + 'em');
+
+        if (game.id === 0) {
+          template.kotree.$labeltext.text(thirdplace ? Strings.thirdplace
+              : Strings.firstplace);
+          $game.prepend(template.kotree.$label.clone());
+        }
+
+        return $game;
       }
 
       function createKOGameToParentConnector(game, maxid) {
