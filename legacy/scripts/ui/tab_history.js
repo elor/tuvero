@@ -865,7 +865,7 @@ define(
 
         // add finished games
         if (History.numRounds(tournamentid)) {
-          History.getGames(tournamentid).map(function(game) {
+          History.getGames(tournamentid).forEach(function(game) {
             games.push({
               id: game[5],
               t1: game[0],
@@ -878,15 +878,18 @@ define(
 
         // add running games
         if (Tournaments.isRunning(tournamentid)) {
-          Tournaments.getTournament(tournamentid).getGames().map(
+          Tournaments.getTournament(tournamentid).getGames().forEach(
               function(game) {
-                games.push({
-                  id: game.id,
-                  t1: game.teams[0][0],
-                  t2: game.teams[1][0],
-                  p1: '',
-                  p2: ''
-                });
+                console.log(game.roundid);
+                if (game.roundid === 0) {
+                  games.push({
+                    id: game.id,
+                    t1: game.teams[0][0],
+                    t2: game.teams[1][0],
+                    p1: '',
+                    p2: ''
+                  });
+                }
               });
         }
 

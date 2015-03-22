@@ -54,18 +54,28 @@ define(
         return nodesbylevel(level + 1) - 1;
       }
 
+      function bestplace(roundid) {
+        return 2 * roundid;
+      }
+
       function lowestid(level) {
         return nodesbylevel(level) - 1;
+      }
+
+      function loserRoundOffset(gameid) {
+        return 1 << level(gameid);
       }
 
       KOTournament = function() {
         this.players = new Map();
         this.games = [];
         this.gameid = []; // the id of the game a player is in, or is *waiting
+        this.roundids = []; // id of the "round", i.e. third, fifth, etc. place
         // for*
         this.state = Tournament.STATE.PREPARING;
         this.options = {
-          firstround: 'set'
+          firstround: 'set',
+          maxroundid: 1
         };
       };
 
@@ -227,7 +237,7 @@ define(
       match[KOTournament.OPTIONS.firstround.random] = matchRandom;
 
       KOTournament.prototype.start = function() {
-        var i, pids, p1, p2, rounds, gameid;
+        var i, pids, p1, p2, rounds, gameid, newgame;
 
         if (this.players.size < 2) {
           return undefined;
@@ -243,6 +253,10 @@ define(
 
         gameid = lowestid(rounds - 1);
 
+        for (i = 0; i < pids.length; i += 1) {
+          this.roundids[i] = 0;
+        }
+
         // create the games
         for (i = 0; i < pids.length; i += 2, gameid += 1) {
           p1 = pids[i];
@@ -251,6 +265,7 @@ define(
           if (p1 === undefined && p2 === undefined) {
             this.gameid = [];
             this.games = [];
+            this.roundids = [];
             console.error('cannot have a game where both players are byevotes');
             return undefined;
           }
@@ -264,7 +279,9 @@ define(
             continue;
           }
 
-          this.games.push(new Game(p1, p2, gameid));
+          newgame = new Game(p1, p2, gameid);
+          newgame.roundid = 0;
+          this.games.push(newgame);
           this.gameid[p1] = this.gameid[p2] = gameid;
         }
 
@@ -286,7 +303,7 @@ define(
       };
 
       KOTournament.prototype.finishGame = function(game, points) {
-        var p1, p2, gameid, i, winner;
+        var p1, p2, gameid, i, winner, loser;
 
         if (this.state !== Tournament.STATE.RUNNING) {
           return undefined;
@@ -315,8 +332,10 @@ define(
 
         if (points[0] > points[1]) {
           winner = p1;
+          loser = p2;
         } else if (points[0] < points[1]) {
           winner = p2;
+          loser = p1;
         } else {
           // points are equal
           return undefined;
@@ -337,6 +356,9 @@ define(
 
         checkforGame.call(this, winner, gameid);
 
+        this.roundids[loser] += loserRoundOffset(parent(gameid));
+        checkforGame.call(this, loser, gameid);
+
         if (this.games.length === 0) {
           this.state = Tournament.STATE.FINISHED;
         }
@@ -345,7 +367,13 @@ define(
       };
 
       function checkforGame(pid, gameid) {
-        var isleft, parentid, opponent;
+        var isleft, parentid, opponent, newgame;
+
+        if (this.roundids[pid] > this.options.maxroundid) {
+          console.log('exceeding KOTournament maxroundid: '
+              + this.roundids[pid]);
+          return;
+        }
 
         parentid = parent(gameid);
         this.gameid[pid] = parentid;
@@ -356,14 +384,26 @@ define(
 
         isleft = left(parentid) === gameid;
 
-        opponent = this.gameid.indexOf(parentid);
-        if (opponent === pid) {
-          opponent = this.gameid.indexOf(parentid, pid + 1);
-        }
+        opponent = -1;
+        console.log(this.gameid);
+        console.log(this.roundids);
+        console.log(pid);
+        this.gameid.forEach(function(gameid, opponentid) {
+          if (gameid === parentid && opponentid !== pid
+              && this.roundids[pid] === this.roundids[opponentid]) {
+            opponent = opponentid;
+          }
+        }, this);
 
-        if (opponent > -1) {
-          this.games.push(new Game((isleft ? pid : opponent),
-              (isleft ? opponent : pid), parentid));
+        if (opponent >= 0) {
+          console.log('creating new KO game with players ' + pid + ' and '
+              + opponent);
+          newgame = new Game((isleft ? pid : opponent), (isleft ? opponent
+              : pid), parentid);
+          newgame.roundid = this.roundids[pid];
+          this.games.push(newgame);
+        } else {
+          console.log('no opponent found for team' + pid);
         }
       }
 
@@ -373,6 +413,7 @@ define(
         this.games.forEach(function(game, i) {
           games[i] = new Game(this.players.at(game.teams[0][0]), this.players
               .at(game.teams[1][0]), game.id);
+          games[i].roundid = game.roundid;
         }, this);
 
         return games;
@@ -402,7 +443,8 @@ define(
           ids: idmap.map(function(id) {
             return this.players.at(id);
           }, this), // sorted by place. Necessary
-          round: 1 // always 1.
+          round: 1
+        // always 1.
         };
       };
 
@@ -428,6 +470,7 @@ define(
           games: this.games,
           gameid: this.gameid,
           state: this.state,
+          roundids: this.roundids,
           options: this.getOptions()
         };
 
@@ -443,7 +486,7 @@ define(
         this.games = ob.games;
         this.gameid = ob.gameid;
         this.state = ob.state;
-        this.setOptions(ob.options);
+        roundids: this.roundids, this.setOptions(ob.options);
       };
 
       KOTournament.prototype.getOptions = Options.prototype.getOptions;
