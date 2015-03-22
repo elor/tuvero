@@ -33,7 +33,7 @@ define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
   // also bind the reset button by delegating its click to a Tab_Storage element
   $(function($) {
     $('#tabs').on('click', 'button.reset', function(e) {
-      $('#settings .local button.clear').click();
+      $('#tabs > [data-tab="settings"] .local button.clear').click();
     });
   });
 

@@ -40,6 +40,8 @@
 
 	* tac/index.html: kotree gamebox label added
 
+	* legacy/scripts/ui/backgroundscripts/reset.js: "Reset"-button references the correct tab again
+
 2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: tournament mode preview shortened
