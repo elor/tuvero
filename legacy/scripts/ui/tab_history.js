@@ -866,13 +866,16 @@ define(
         // add finished games
         if (History.numRounds(tournamentid)) {
           History.getGames(tournamentid).forEach(function(game) {
-            games.push({
-              id: game[5],
-              t1: game[0],
-              t2: game[1],
-              p1: game[2],
-              p2: game[3]
-            });
+            console.log(game);
+            if (game[4] === 0) {
+              games.push({
+                id: game[5],
+                t1: game[0],
+                t2: game[1],
+                p1: game[2],
+                p2: game[3]
+              });
+            }
           });
         }
 
@@ -913,13 +916,15 @@ define(
 
         // add byevotes through another cheap hack
         if (Tournaments.isRunning(tournamentid)) {
-          Tournaments.getTournament(tournamentid).gameid.map(function(id,
-              teamno) {
-            if (id >= 0 && games[id].t1 === undefined) {
-              games[id].t1 = Tournaments.getTournament(tournamentid).players
-                  .at(teamno);
-            }
-          });
+          Tournaments.getTournament(tournamentid).gameid
+              .map(function(id, teamno) {
+                if (Tournaments.getTournament(tournamentid).roundids[teamno] === 0) {
+                  if (id >= 0 && games[id].t1 === undefined) {
+                    games[id].t1 = Tournaments.getTournament(tournamentid).players
+                        .at(teamno);
+                  }
+                }
+              });
         }
 
         if (!games.length) {
