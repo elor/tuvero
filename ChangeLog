@@ -1,3 +1,9 @@
+2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/players.js: accepting an empty blob as valid input
+
+	* legacy/scripts/ui/storage.js: calling fromBlob() with an empty blob to force e.g. visibility updates
+
 2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: tournament mode preview shortened

@@ -56,6 +56,7 @@ define(['options', './shared', 'lib/modernizr'], function(Options, Shared,
     blob = window.localStorage.getItem(key);
 
     if (!blob) {
+      val.fromBlob('');
       return true;
     }
 

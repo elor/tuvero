@@ -56,6 +56,9 @@ define(['./shared'], function(Shared) {
   };
 
   Players.fromBlob = function(blob) {
+    if (!blob) {
+      blob = '[]';
+    }
     var blobnames = JSON.parse(blob);
     if (!blobnames) {
       return;
