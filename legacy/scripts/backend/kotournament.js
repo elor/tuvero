@@ -253,8 +253,11 @@ define(
 
         gameid = lowestid(rounds - 1);
 
+        console.log(pids);
         for (i = 0; i < pids.length; i += 1) {
-          this.roundids[i] = 0;
+          if (pids[i] !== undefined) {
+            this.roundids.push(0);
+          }
         }
 
         // create the games
@@ -356,8 +359,10 @@ define(
 
         checkforGame.call(this, winner, gameid);
 
-        this.roundids[loser] += loserRoundOffset(parent(gameid));
-        checkforGame.call(this, loser, gameid);
+        if (gameid > 0) {
+          this.roundids[loser] += loserRoundOffset(parent(gameid));
+          checkforGame.call(this, loser, gameid);
+        }
 
         if (this.games.length === 0) {
           this.state = Tournament.STATE.FINISHED;
@@ -370,8 +375,8 @@ define(
         var isleft, parentid, opponent, newgame;
 
         if (this.roundids[pid] > this.options.maxroundid) {
-          console.log('exceeding KOTournament maxroundid: '
-              + this.roundids[pid]);
+          console.warn('Currently, only the third place will'
+              + 'be played off in a KO tournament.');
           return;
         }
 
@@ -385,25 +390,18 @@ define(
         isleft = left(parentid) === gameid;
 
         opponent = -1;
-        console.log(this.gameid);
-        console.log(this.roundids);
-        console.log(pid);
-        this.gameid.forEach(function(gameid, opponentid) {
-          if (gameid === parentid && opponentid !== pid
+        this.gameid.forEach(function(gameid2, opponentid) {
+          if (gameid2 === parentid && opponentid !== pid
               && this.roundids[pid] === this.roundids[opponentid]) {
             opponent = opponentid;
           }
         }, this);
 
         if (opponent >= 0) {
-          console.log('creating new KO game with players ' + pid + ' and '
-              + opponent);
           newgame = new Game((isleft ? pid : opponent), (isleft ? opponent
               : pid), parentid);
           newgame.roundid = this.roundids[pid];
           this.games.push(newgame);
-        } else {
-          console.log('no opponent found for team' + pid);
         }
       }
 
@@ -420,25 +418,36 @@ define(
       };
 
       KOTournament.prototype.getRanking = function() {
-        var idmap, worstplaces, numplayers;
+        var idmap, bestplaces, numplayers;
 
-        worstplaces = [];
-        idmap = [];
-
-        while (idmap.length < this.players.size()) {
-          worstplaces[idmap.length] = worstplace(level(this.gameid[idmap.length]));
-          idmap.push(idmap.length);
-        }
+        bestplaces = this.roundids.map(bestplace);
+        bestplaces.forEach(function(bestplace, pid) {
+          if (this.gameid[pid] === -1) {
+            // We have a winner. Find the second place and adjust his place by 1
+            // There are no running games in this subtree stage anymore
+            var loserid;
+            loserid = this.roundids.indexOf(this.roundids[pid]);
+            if (loserid === pid) {
+              loserid = this.roundids.indexOf(this.roundids[pid], pid + 1);
+            }
+            if (loserid !== -1) {
+              bestplaces[loserid] += 1;
+            } // else: something is really wrong!
+          }
+        }, this);
+        idmap = this.roundids.map(function(roundid, pid) {
+          return pid;
+        });
 
         idmap.sort(function(a, b) {
-          return worstplaces[a] - worstplaces[b] || a - b;
+          return bestplaces[a] - bestplaces[b] || a - b;
         });
 
         numplayers = this.players.size();
 
         return {
           place: idmap.map(function(id) {
-            return Math.min(numplayers - 1, worstplaces[id]);
+            return Math.min(numplayers - 1, bestplaces[id]);
           }), // actual place, usually [1, 2, 3, ...]. Necessary.
           ids: idmap.map(function(id) {
             return this.players.at(id);
@@ -486,7 +495,8 @@ define(
         this.games = ob.games;
         this.gameid = ob.gameid;
         this.state = ob.state;
-        roundids: this.roundids, this.setOptions(ob.options);
+        this.roundids = ob.roundids;
+        this.setOptions(ob.options);
       };
 
       KOTournament.prototype.getOptions = Options.prototype.getOptions;

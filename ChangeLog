@@ -21,6 +21,9 @@
 	a lot of annoying debugging output added
 	games for loser rounds are added
 	copying the roundid into every new Game(). This is a hack.
+	some of the annoying debugging output removed
+	getRanking() shows the best possible places for each player (github issue #3)
+	second places are handled properly
 
 	* legacy/scripts/ui/tab_history.js: only showing the winner round (roundid == 0)
 

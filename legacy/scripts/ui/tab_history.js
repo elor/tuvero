@@ -880,7 +880,6 @@ define(
         if (Tournaments.isRunning(tournamentid)) {
           Tournaments.getTournament(tournamentid).getGames().forEach(
               function(game) {
-                console.log(game.roundid);
                 if (game.roundid === 0) {
                   games.push({
                     id: game.id,
