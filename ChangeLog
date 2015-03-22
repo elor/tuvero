@@ -4,6 +4,8 @@
 
 	* legacy/scripts/ui/storage.js: calling fromBlob() with an empty blob to force e.g. visibility updates
 
+	* core/scripts/tournamentmodel.js: first version of TournamentModel committed
+
 2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: tournament mode preview shortened
