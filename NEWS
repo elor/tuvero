@@ -4,6 +4,7 @@ Boules 1.4.6 (yyyy-mm-dd)
 FEATURES:
 
   * Options.teamsizeicon option added
+  * KO tournaments automatically add the match for the third place
 
 FIXES:
 
@@ -12,6 +13,8 @@ FIXES:
   * Internet Explorer-Compatibility
   * hash is retained during tab-redirects (better back-navigation)
   * much improved scroll behavior during hashchange events and page reloads
+  * KO ranking order improved: showing the best possible rank instead of the worst possible rank
+  * player registration properly closes after the tournament has been started
 
 Boules 1.4.5 (2015-03-04)
 -------------------------
