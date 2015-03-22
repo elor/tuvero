@@ -4,6 +4,15 @@
 
 	* legacy/scripts/ui/storage.js: calling fromBlob() with an empty blob to force e.g. visibility updates
 
+	* legacy/scripts/ui/statemodel.js: State.numTournaments added as a temporary measure
+
+	* legacy/scripts/ui/tab_new.js: updating State.numTournaments from Tournaments.numTournaments
+	Explanation: This enables us to hide player registration fields after the first tournament started
+
+	* legacy/scripts/ui/teamstab.js: ClassView for the 'noreg' class, which hides player registration and removal fields
+
+	* legacy/style/teams.css: .noreg logic
+
 2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: tournament mode preview shortened

@@ -17,6 +17,12 @@ define(['core/listmodel', 'core/indexedlistmodel', 'core/valuemodel',
     this.teams = new IndexedListModel();
     this.teamscleanuplistener = new ListCleanupListener(this.teams);
     this.teamsize = new ValueModel(3);
+
+    /*
+     * TODO temporary hacks ahead. Please, for the love of code, keep them
+     * temporary!
+     */
+    this.numTournaments = new ValueModel(0);
   }
 
   return StateModel;

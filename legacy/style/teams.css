@@ -136,6 +136,10 @@ div#tabs > [data-tab="teams"] {
   display: none;
 }
 
+#tabs > [data-tab="teams"].noreg button.delete, #tabs > [data-tab="teams"].noreg .newteamview {
+  display: none;
+}
+
 @media print {
   #tabs > [data-tab="teams"] button.delete, #tabs > [data-tab="teams"] .filereader {
     display: none !important;

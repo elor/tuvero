@@ -76,6 +76,10 @@ define(
         // hide team size buttons when a team has been registered
         this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view);
 
+        // hide registration and removal buttons after the first tournament
+        this.regVisibilityView = new ClassView(State.numTournaments,
+            this.$view, 'noreg');
+
         // name maxwidth checkbox
         value = new ValueModel();
         $container = this.$view.find('>.options input.maxwidth');
