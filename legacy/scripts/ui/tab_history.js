@@ -778,7 +778,7 @@ define(
        *          the highest level
        * @return the y coordinate
        */
-      function getGameTreeY(gameid, maxlevel) {
+      function getGameTreeY(gameid, maxlevel, thirdplace) {
         var gamelevel, y0, height;
 
         height = 5;
@@ -789,10 +789,10 @@ define(
 
         return y0 + height * Math.pow(2, maxlevel - gamelevel - 1) + height
             * Math.floor(Math.pow(2, maxlevel - gamelevel + 1) * 0.5)
-            * (gameid - firstid);
+            * (gameid - firstid) + (thirdplace ? height : 0);
       }
 
-      function createGameTreeBox(game, maxid) {
+      function createGameTreeBox(game, maxid, thirdplace) {
         var x, y, maxlevel;
 
         maxlevel = level(maxid);
@@ -818,7 +818,7 @@ define(
         template.kotree.$points.text(game.p1 + ':' + game.p2);
 
         x = getGameTreeX(game.id, maxlevel);
-        y = getGameTreeY(game.id, maxlevel);
+        y = getGameTreeY(game.id, maxlevel, thirdplace);
 
         return template.kotree.$game.clone().css('left', x + 'em').css('top',
             y + 'em');
@@ -859,14 +859,14 @@ define(
        * @return true of a game tree tree has been added, false otherwise
        */
       function createKOTree(tournamentid) {
-        var games, i, $box, g, $game, boxwidth, boxheight, $connector;
+        var games, i, $box, g, $game, boxwidth, boxheight, $connector, thirdplacegame;
 
+        thirdplacegame = undefined;
         games = [];
 
         // add finished games
         if (History.numRounds(tournamentid)) {
           History.getGames(tournamentid).forEach(function(game) {
-            console.log(game);
             if (game[4] === 0) {
               games.push({
                 id: game[5],
@@ -875,6 +875,14 @@ define(
                 p1: game[2],
                 p2: game[3]
               });
+            } else if (game[4] === 1) {
+              thirdplacegame = {
+                id: game[5],
+                t1: game[0],
+                t2: game[1],
+                p1: game[2],
+                p2: game[3]
+              };
             }
           });
         }
@@ -891,6 +899,14 @@ define(
                     p1: '',
                     p2: ''
                   });
+                } else if (game.roundid === 1) {
+                  thirdplacegame = {
+                    id: game.id,
+                    t1: game.teams[0][0],
+                    t2: game.teams[1][0],
+                    p1: '',
+                    p2: ''
+                  };
                 }
               });
         }
@@ -927,6 +943,36 @@ define(
               });
         }
 
+        // bye for the third place
+        if (!thirdplacegame && Tournaments.isRunning(tournamentid)) {
+          Tournaments.getTournament(tournamentid).gameid
+              .forEach(function(id, teamno) {
+                if (Tournaments.getTournament(tournamentid).roundids[teamno] === 1) {
+                  if (id >= 0) {
+                    thirdplacegame = {
+                      id: 0,
+                      t1: Tournaments.getTournament(tournamentid).players
+                          .at(teamno),
+                      t2: undefined,
+                      p1: '',
+                      p2: ''
+                    };
+                  }
+                }
+              });
+        }
+
+        //
+        if (!thirdplacegame) {
+          thirdplacegame = {
+            id: 0,
+            t1: undefined,
+            t2: undefined,
+            p1: '',
+            p2: ''
+          };
+        }
+
         if (!games.length) {
           return false;
         }
@@ -952,22 +998,17 @@ define(
           }
         }
 
-        $box.append($tree);
-        $tab.append($box);
-
-        // create endpoints and update the leftmost and bottommost points
-        for (i = 0; i < games.length; i += 1) {
-          $game = games[i].$box;
-          if (!$game) {
-            continue;
-          }
-        }
+        // render the third place
+        $game = createGameTreeBox(thirdplacegame, games.length - 1, true);
+        $tree.append($game);
 
         boxwidth = getGameTreeX(0, level(games.length - 1)) + 14.5;
         if ($tab.hasClass('hidenames')) {
           boxwidth -= 8;
         }
-        boxheight = getGameTreeY(games.length - 1, level(games.length - 1)) + 4;
+        boxheight = Math.max(getGameTreeY(games.length - 1,
+            level(games.length - 1)), getGameTreeY(0, level(games.length - 1),
+            true)) + 4;
 
         $tree.css('width', boxwidth + 'em');
         $tree.css('height', boxheight + 'em');
@@ -976,6 +1017,9 @@ define(
           $box.addClass('collapsed');
         }
         new BoxView($box);
+
+        $box.append($tree);
+        $tab.append($box);
 
         return games.length > 0;
       }

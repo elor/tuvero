@@ -253,7 +253,6 @@ define(
 
         gameid = lowestid(rounds - 1);
 
-        console.log(pids);
         for (i = 0; i < pids.length; i += 1) {
           if (pids[i] !== undefined) {
             this.roundids.push(0);
