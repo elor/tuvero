@@ -16,6 +16,21 @@
 	* core/scripts/rankingtaclistener.js: using our own sign() function
 	Math.sign() is an experimental feature of ECMAScript 6. Tuvero is based on ECMAScript 5.
 
+	* legacy/scripts/backend/kotournament.js: roundids added to show which "loser round" a player belongs to
+	round = bestplace/2, as played in separate ko trees (currently not rendered)
+	a lot of annoying debugging output added
+	games for loser rounds are added
+	copying the roundid into every new Game(). This is a hack.
+	some of the annoying debugging output removed
+	getRanking() shows the best possible places for each player (github issue #3)
+	second places are handled properly
+
+	* legacy/scripts/ui/tab_history.js: only showing the winner round (roundid == 0)
+	kotree: only showing round-0-games from History (fixes width issues)
+	showing the game for third place (currently without label) in all possible states
+
+	* legacy/scripts/ui/tab_games.js: history: applying game-specific roundid, if available
+
 2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: tournament mode preview shortened

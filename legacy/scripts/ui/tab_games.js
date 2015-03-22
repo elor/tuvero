@@ -390,11 +390,14 @@ define(
         }
 
         // the game was accepted, store it in history
-        round = Tournaments.getRanking(tournamentid).round;
+        round = games[tournamentid][index].roundid;
+        if (round === undefined) {
+          round = Tournaments.getRanking(tournamentid).round - 1;
+        }
         res = History.addResult(tournamentid,
             games[tournamentid][index].teams[0][0],
             games[tournamentid][index].teams[1][0], points[0], points[1],
-            round - 1, gameid);
+            round, gameid);
         Tab_History.update();
 
         if (points[0] > points[1]) {
