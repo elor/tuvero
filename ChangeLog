@@ -12,6 +12,15 @@
 
 	* tac/index.html: tac brought up-to-date with boule
 
+	* core/style/tabmenuview.css: margins moved to #app
+
+	* core/style/tabview.css: margins moved to #app
+
+	* legacy/style/general.css: #app defines the previous margins as padding
+
+	* legacy/style/splash.css: less resource-intensive splash transitions
+	splash screen slides to the left, tabs fade in from behind
+
 2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/players.js: accepting an empty blob as valid input

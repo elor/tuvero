@@ -1,7 +1,9 @@
 #splash {
+  position: absolute;
+  left: 50%;
+  margin-top: 96px;
+  margin-left: -20em;
   width: 30em;
-  min-height: 15em;
-  margin: 2.5em auto 0em auto;
   padding: 2.5em 4em;
   border-radius: 1em 1em 1em 1em;
   background-color: #ffffff;
@@ -34,8 +36,8 @@
 }
 
 body:not(.splash) #splash {
-  transition: margin-top 1s;
-  margin-top: -20em;
+  transition: left 1s;
+  left: -20em;
 }
 
 #splash.hidden {
@@ -48,6 +50,6 @@ body:not(.splash) #splash {
 }
 
 #tabs, .tabmenu {
-  transition: opacity 1s ease-in;
   opacity: 1;
+  transition: opacity 1s ease-in;
 }
