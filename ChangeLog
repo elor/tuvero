@@ -3,8 +3,12 @@
 	* legacy/scripts/ui/tab_history.js: correction logic: gamestable check was inverted by accident
 	additional error output when unable to find the to be corrected game
 	correction for games table re-enabled
+	storing the tournamentid of kotree tournaments
+	determining the tournament system from the DOM. This is bad, but until the MVC rewrite, it works
+	This bad code enables corrections from the KO tree
 
 	* boule/index.html: kotree correction class (.correct) added
+	kotree: showing hover indicator .editable
 
 2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

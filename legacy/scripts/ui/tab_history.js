@@ -153,14 +153,21 @@ define(
 
         // retrieve team ids from displayed team number
         // TODO find better solution!
-        if (gamestable) {
+        if (template.chpoints.$chpoints.parents('.gamestable').length === 1
+            || template.chpoints.$chpoints.parents('.kotree').length === 1) {
           $teams = template.chpoints.$chpoints.parents('.game').find('.number');
           t1 = Number($($teams[0]).text());
           t2 = Number($($teams[1]).text());
-        } else {
+        } else if (template.chpoints.$chpoints.parents('.progresstable').length === 1) {
           $teams = template.chpoints.$chpoints.parents('.team').find('.number');
           t1 = Number($teams.text());
           t2 = Number(template.chpoints.$chpoints.prev().text());
+        } else {
+          console.log('unknown tournament system for corrections');
+          new Toast(Strings.invalidresult);
+          abortCorrection();
+          Tab_History.update();
+          return undefined;
         }
 
         if (!isInt(t1) || !isInt(t2) || isNaN(t1) || isNaN(t2)) {
@@ -1029,6 +1036,8 @@ define(
           $box.addClass('collapsed');
         }
         new BoxView($box);
+
+        $box.data('tournamentid', tournamentid);
 
         $box.append($tree);
         $tab.append($box);

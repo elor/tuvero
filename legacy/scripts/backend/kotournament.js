@@ -467,7 +467,8 @@ define(
 
       KOTournament.prototype.correct = function() {
         // TODO how to correct a KO tournament?
-        return false;
+        // We will not fail, but we won't change the course of history, either
+        return true;
       };
 
       KOTournament.prototype.toBlob = function() {
