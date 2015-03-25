@@ -3,7 +3,7 @@
 <html lang="de" manifest="manifest.appcache">
   <head>
     <meta charset="utf-8" />
-    <title>Tuvero TAC 1.4.5</title>
+    <title>Tuvero TAC 1.4.6</title>
     <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="style/main.css" />
   </head>
@@ -13,7 +13,7 @@
     <div id="splash" class="loading">
       <img src="images/favicon.png" title="Icon"/>
       <h1>Tuvero TAC</h1>
-      <h2>Version 1.4.5</h2>
+      <h2>Version 1.4.6</h2>
       <span>&copy; Erik E. Lorenz</span>
       <p class="loading">
         Lade Dateien...
@@ -47,8 +47,8 @@
 
     <div id="tabs">
 
-      <div id="home" accesskey="s">
-        <h2>Willkommen zu Tuvero TAC 1.4.5</h2>
+      <div data-tab="home" accesskey="s">
+        <h2>Willkommen zu Tuvero TAC 1.4.6</h2>
         <div class="boxview firststeps">
           <h3>Erste Schritte</h3>
           Um ein Turnier durchzuführen, folge diesen Schritten:
@@ -120,7 +120,7 @@
         </div>
       </div>
 
-      <div id="teams" accesskey="t">
+      <div data-tab="teams" accesskey="t">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
@@ -198,7 +198,7 @@
 
       </div>
 
-      <div id="new" accesskey="n">
+      <div data-tab="new" accesskey="n">
         <button class="save" data-img="save"></button>
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
@@ -353,30 +353,7 @@
             Unerwarteter Fehler bei der Turnierberechnung.
           </div>
         </div>
-
-        <div class="boxview poule">
-          <h3>Poule</h3>
-          <p>
-            <em>Coming later</em>
-          </p>
-        </div>
-
-        <div class="boxview supermelee">
-          <h3>Supermelee</h3>
-          <p>
-            <em>Coming maybe</em>
-          </p>
-        </div>
-
-        <br>
-
-        <div class="boxview roundtournament">
-          <h3>Rundenturnier</h3>
-          <p>
-            Nimm <em>Schweizer System</em> mit Modus <em>Zufall</em> in jeder Runde und ohne Freilos-Dopplung
-          </p>
-        </div>
-
+        
         <div class="boxview maastricht">
           <h3>Maastrichter System</h3>
           <p>
@@ -384,9 +361,17 @@
           </p>
         </div>
 
+        <div class="boxview">
+          <h3>In Arbeit</h3>
+          Klassisches Schweizer System<br>
+          TAC-Punkte<br>
+          Team-TAC<br>
+          ...
+        </div>
+
       </div>
 
-      <div id="games" accesskey="g">
+      <div data-tab="games" accesskey="g">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
@@ -449,7 +434,7 @@
         </div>
       </div>
 
-      <div id="ranking" accesskey="r">
+      <div data-tab="ranking" accesskey="r">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <h2>Platzierung</h2>
@@ -500,7 +485,7 @@
         </div>
       </div>
 
-      <div id="history" accesskey="h">
+      <div data-tab="history" accesskey="h">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
@@ -580,10 +565,11 @@
 
           <div class="kotree">
             <table class="game borderless">
+              <tr class="label"><th colspan="2">Lorem Ipsum</th><tr>
               <tr>
                 <td class="number">##</td>
                 <td class="names">%%</td>
-                <td rowspan="2" class="points">%%</td>
+                <td rowspan="2" class="points correct editable">%%</td>
               </tr>
               <tr>
                 <td class="number">##</td>
@@ -594,14 +580,14 @@
         </div>
       </div>
 
-      <div id="lanes" accesskey="l">
+      <div data-tab="lanes" accesskey="l">
         <h2>Bahnen</h2>
         An der Auslosung und Zuweisung von Bahnen wird noch gearbeitet.
         <br>
         Ich bitte um etwas Geduld.
       </div>
 
-      <div id="settings" accesskey="o">
+      <div data-tab="settings" accesskey="o">
         <h2>Optionen und Einstellungen</h2>
 
         <div class="boxview">
@@ -709,8 +695,8 @@
 
       </div>
 
-      <div id="about" accesskey="?">
-        <h2>Über Tuvero TAC 1.4.5</h2>
+      <div data-tab="about" accesskey="?">
+        <h2>Über Tuvero TAC 1.4.6</h2>
         <div class="boxview">
           <h3>Autor &amp; Mitwirkende</h3>
           <p>
@@ -831,7 +817,7 @@
         </div>
       </div>
 
-      <div id="debug">
+      <div data-tab="debug" accesskey="d">
         <h2>Debugging Console</h2>
 
         <div class="boxview">
@@ -886,7 +872,6 @@
 
       </div>
 
-      <a href="#debug" accesskey="d" tabindex="-1" class="hiddenlink">&nbsp;</a>
       <a href="#reset" accesskey="!" tabindex="-1" class="hiddenlink devonly">&nbsp;</a>
 
       <script src="scripts/require.js"></script>

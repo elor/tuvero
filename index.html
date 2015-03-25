@@ -42,7 +42,7 @@
   </head>
   <body>
     <div>
-      <h1>Tuvero Turnierverwaltung 1.4.5</h1>
+      <h1>Tuvero Turnierverwaltung 1.4.6</h1>
 
       <p>
         Willkommen auf <b>tuvero.de</b>
@@ -53,6 +53,9 @@
       <a href="boule/index.html#home" class="app"><img src="boule/images/favicon.png" title="Boule" /><br>Tuvero Boule</a>
       <a href="tac/index.html#home" class="app"><img src="tac/images/favicon.png" title="TAC" /><br>Tuvero TAC</a>
       <p>
+        Die Varianten sind auch offline über diese Seite verfügbar, sobald sie geöffnet wurden.
+      </p>
+      <p>
         <br>
         <b>Weitere Links:</b>
       </p>
@@ -62,6 +65,7 @@
 	      <a href="https://boulesdb.appspot.com/issue" class="app">Fehler melden</a><br>
 	      <a href="https://tuvero.de/dev/index.html" class="app">Vorschauversion</a><br>
 	      <a href="test/index.html" class="app">Test-Suite</a><br>
+        <a href="https://tuvero.de/archive.html" class="app">Tuvero Archiv</a><br>
       </p>
     </div>
   </body>
@@ -74,5 +78,16 @@
     }
     window.applicationCache.onupdateready = updateCache;
     updateCache();
+    // periodically check for updates
+    window.setInterval(function(){
+      if (navigator.onLine === false){
+        return;
+      }
+      switch (window.applicationCache.status) {
+      case window.applicationCache.IDLE:
+      case window.applicationCache.OBSOLETE:
+        window.applicationCache.update();
+      }
+    }, 321000);
   </script>
 </html>
