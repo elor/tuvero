@@ -154,13 +154,13 @@ define(
         // retrieve team ids from displayed team number
         // TODO find better solution!
         if (gamestable) {
-          $teams = template.chpoints.$chpoints.parents('.team').find('.number');
-          t1 = Number($teams.text());
-          t2 = Number(template.chpoints.$chpoints.prev().text());
-        } else {
           $teams = template.chpoints.$chpoints.parents('.game').find('.number');
           t1 = Number($($teams[0]).text());
           t2 = Number($($teams[1]).text());
+        } else {
+          $teams = template.chpoints.$chpoints.parents('.team').find('.number');
+          t1 = Number($teams.text());
+          t2 = Number(template.chpoints.$chpoints.prev().text());
         }
 
         if (!isInt(t1) || !isInt(t2) || isNaN(t1) || isNaN(t2)) {
@@ -177,6 +177,7 @@ define(
         res = History.findGames(tournamentid, t1, t2);
 
         if (res === undefined || res.length === 0) {
+          console.error('History.findGames(): Game not found');
           new Toast(Strings.invalidresult);
           abortCorrection();
           Tab_History.update();
