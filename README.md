@@ -1,4 +1,4 @@
-# Tuvero 1.4.7-dev
+# Tuvero 1.4.7
 
 ## Beschreibung
 
