@@ -2,6 +2,9 @@
 
 	* legacy/scripts/ui/tab_history.js: correction logic: gamestable check was inverted by accident
 	additional error output when unable to find the to be corrected game
+	correction for games table re-enabled
+
+	* boule/index.html: kotree correction class (.correct) added
 
 2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

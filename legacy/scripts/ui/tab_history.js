@@ -305,7 +305,7 @@ define(
       function initCorrection() {
         $button = undefined;
 
-        $tab.on('click', '.team .correct', function() {
+        $tab.on('click', '.correct', function() {
           // abort previous correction attempts
           abortCorrection();
 
