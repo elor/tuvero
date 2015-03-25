@@ -1,3 +1,332 @@
+2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/tab_history.js: correction logic: gamestable check was inverted by accident
+	additional error output when unable to find the to be corrected game
+	correction for games table re-enabled
+	storing the tournamentid of kotree tournaments
+	determining the tournament system from the DOM. This is bad, but until the MVC rewrite, it works
+	This bad code enables corrections from the KO tree
+
+	* boule/index.html: kotree correction class (.correct) added
+	kotree: showing hover indicator .editable
+
+	* tac/index.html: tac brought up-to-date with boule
+
+	* core/style/tabmenuview.css: margins moved to #app
+
+	* core/style/tabview.css: margins moved to #app
+
+	* legacy/style/general.css: #app defines the previous margins as padding
+
+	* legacy/style/splash.css: less resource-intensive splash transitions
+	splash screen slides to the left, tabs fade in from behind
+
+2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/players.js: accepting an empty blob as valid input
+
+	* legacy/scripts/ui/storage.js: calling fromBlob() with an empty blob to force e.g. visibility updates
+
+	* legacy/scripts/ui/statemodel.js: State.numTournaments added as a temporary measure
+
+	* legacy/scripts/ui/tab_new.js: updating State.numTournaments from Tournaments.numTournaments
+	Explanation: This enables us to hide player registration fields after the first tournament started
+
+	* legacy/scripts/ui/teamstab.js: ClassView for the 'noreg' class, which hides player registration and removal fields
+
+	* legacy/style/teams.css: .noreg logic
+
+	* core/scripts/rankingtaclistener.js: using our own sign() function
+	Math.sign() is an experimental feature of ECMAScript 6. Tuvero is based on ECMAScript 5.
+
+	* legacy/scripts/backend/kotournament.js: roundids added to show which "loser round" a player belongs to
+	round = bestplace/2, as played in separate ko trees (currently not rendered)
+	a lot of annoying debugging output added
+	games for loser rounds are added
+	copying the roundid into every new Game(). This is a hack.
+	some of the annoying debugging output removed
+	getRanking() shows the best possible places for each player (github issue #3)
+	second places are handled properly
+
+	* legacy/scripts/ui/tab_history.js: only showing the winner round (roundid == 0)
+	kotree: only showing round-0-games from History (fixes width issues)
+	showing the game for third place (currently without label) in all possible states
+	showing gamebox label for games for first and third places
+
+	* legacy/scripts/ui/tab_games.js: history: applying game-specific roundid, if available
+
+	* boule/index.html: kotree gamebox label added
+
+	* legacy/scripts/ui/strings.js: firstplace and thirdplace added
+
+	* legacy/style/history.css: showing kotree box labels above the box
+
+	* tac/index.html: kotree gamebox label added
+
+	* legacy/scripts/ui/backgroundscripts/reset.js: "Reset"-button references the correct tab again
+
+2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boule/index.html: tournament mode preview shortened
+
+	* tac/index.html: tournament mode preview shortened
+	forgotten accesskey for debug-tab added
+
+	* index.html: tuvero archive link added
+
+2015-03-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/listmodel.js: erase() added
+	return value for insert() added (undefined on failure)
+	return value comments updated to allow undefined on failure
+	insert() returns the inserted object
+
+	* core/scripts/test/listmodel.js: testing erase()
+
+	* core/scripts/test/uniquelistmodel.js: testing UniqueListModel
+
+	* core/scripts/uniquelistmodel.js: UniqueListModel, in which every object can only be contained once
+
+	* core/scripts/emitter.js: mixin pattern construction enabled
+
+	* core/scripts/listener.js: mixin pattern construction enabled
+
+	* core/scripts/test/emitter.js: testing mixin pattern construction validity
+
+	* core/scripts/test/test.js: testing Type, Type.is and Type.isType
+
+	* core/scripts/type.js: moved from legacy
+
+	* legacy/scripts/ui/type.js: moved to core
+
+	* core/scripts/selectionvaluemodel.js: set() returns success
+
+	* core/scripts/test/selectionvaluemodel.js: set() return value tests
+
+	* core/scripts/statevaluemodel.js: Model for states and state transitions
+
+	* core/scripts/test/statevaluemodel.js: Model for states and state transitions
+
+	* core/scripts/readonlylistmodel.js: bind to an existing list and provide the read-only API functions and events
+
+	* core/scripts/test/readonlylistmodel.js: testing ReadonlyListModel
+
+2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/fontsize.css: using the pre-defined font size as the base font size
+
+	* index.html: "offline"-hint added
+
+	* core/scripts/*matrix.js: missing comments and jsdoc tags added
+	return paths adjusted
+
+	* core/scripts/matrixmodel.js: faster resize function
+	remote: noemit-argument removed. was required by resize()
+
+	* core/scripts/gamemodel.js: representation of a game added, both internal and external
+	finish() and emit("finish") added
+	cannot finish a game twice
+
+	* core/scripts/test/gamemodel.js: GameModel tests added
+	testing finish(0 and the "finish" event
+	testing whether a game really cannot be finished twice
+
+	* core/scripts/gamereferencemodel.js: game reference with team id mapping
+	forwarding finish() and onfinish()
+	unregistering during onfinish(). The current API disallows any event after 'finish'
+
+	* core/scripts/test/gamereferencemodel.js: testing GameReferenceModel
+	testing finish() and the 'finish' events
+
+	* core/scripts/gameresult.js: players -> teams
+	points -> score
+
+	* core/scripts/ranking*.js: GameResult variables updated
+
+	* core/scripts/rankingmodel.js: long-closed TODOs removed
+
+	* core/scripts/emitter.js: emit+unregisterListener bug fixed:
+	calling unregisterListener from an event callback caused listeners to be skipped
+
+	* core/scripts/test/emitter.js: test case for emit+unregisterListener bug
+
+	* core/scripts/propertymodel.js: PropertyModel added: store/retrieve values from keys
+	emits update events when a value is changed or set
+
+	* core/scripts/test/propertymodel.js: PropertyModel unit test
+
+2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html
+	dummy functions reduced to throw more errors where appropriate
+
+	* core/scripts/test/valuemodel.js: testing bind()
+
+	* core/scripts/valuemodel.js: bind(): construction-time validation of bind-compatible ValueModel
+
+	* core/scripts/view.js: throwing an error if $view is not defined/unavailable
+	also printing the selector when throwing the error
+	and not throwing anymore, but printing soft errors
+	variable typo fixed
+
+	* legacy/scripts/ui/teamstab.js: only load on full pages, not in the tests
+	teamsize icon is option-controlled (see options.js)
+
+	* legacy/scripts/ui/tab_history.js: fixed a bug where a swiss starting with not-first player breaks the tab by iterating over the correct array
+
+	* legacy/scripts/ui/tab_new.js: every swiss bye vote was part of the FIRST TOURNAMENT!!!
+
+	* index.html: periodically check for updates of the main page
+	not checking for updates if the browser is offline
+	checking every 5 minutes
+
+	* boule/scripts/options.js: teamsizeicon option enabled
+
+	* tac/scripts/options.js: teamsizeicon option disabled
+
+	* legacy/scripts/ui/tab_debug.js: Devtools back online:
+	finishRound() finally finished more than one game
+	playTournament() abort if there's not enough players
+	general cleanup of the file (autoformatter and stuff)
+
+	* doc/doc_de/*.md: basic code documentation added
+
+2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* Version: Starting work on 1.4.6
+
+	* NEWS: Starting work on 1.4.6
+
+	* tools/create-core-class.sh: unbounded variable bug ($2 with <2 arguments) fixed
+	reading constructor arguments from superconstructor
+
+	* core/scripts/selectionvaluemodel.js: ValueModel, which is restricted to a list of allowed values
+
+	* core/scripts/test/selectionvaluemodel.js: testing SelectionValueModel
+
+	* core/scripts/valuemodel.js: constructor: calling its own set() function
+	bind() added to mirror another ValueModel instances value
+	bind(): reference fixed (forgot a prototype reference)
+
+	* core/scripts/tabmenucontroller.js: empty TabMenuController added
+	following location.hash, nothing more. No button magic or anything
+	follow location.hash on startup
+	follow location.hash when it becomes accessible
+	focus() added. It just performs an automated hashchange
+
+	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
+	update/validation logic written: only open valid tabs
+	using SelectionValueModel for a list of available (visible) tabs
+	SelectionValueModel pre-filters whether a tab should be visible
+	$tabs and $tabicons are objects for keyed access, as opposed to indexed access
+	class construction implicitly and deliberately calls onupdate() to show the first tab
+	forgot to remove the 'open' class from previously open menu icons
+	TabMenuView does not work with ids anymore, but uses data-id instead to avoid auto-scrolling
+	accesskey support added
+	not using a timeout for the update, because it was a dumb idea
+	hiding specially marked tabs (.hiddentab)
+	instantiating a TabModel for each tab, which can be retrieved using getTabModel()
+	using TabModel to listen for tab availability changes and image parameters
+	using TabImageView to set the data-img attribute
+	focus() added. It delegates to the controller.
+
+	* core/style/mainstyle.css: tab.css removed; tab*view.css added
+
+	* core/style/tabmenuview.css: style of the tab menu, without tabs
+
+	* core/style/tabview.css: style of the tabs themselves
+
+	* legacy/scripts/ui/tabshandle.js: disabled
+	rewritten to be a wrapper for the TabMenuView
+	aborting when this is a test page ($(#testmain).length !== 0)
+
+	* legacy/style/tabs.css: removed, replaced by tabmenuview.css and tabview.css
+
+	* test/tabmenuview.html: tab test page
+	using data-id instead of id to avoid auto-scrolling
+	some accesskeys added
+	cycling through the teams imgParam
+	alternating the HTML5_Logo_128 visibility/accessibility
+	disabling the debug tab visibility
+	disabling the deleteteam tab accessibility
+	descriptive text added
+	focus() test added (goto form on the #home page)
+	scripts tags moved inside the body (for IE)
+
+	* Makefile: `make update` also updates the test index
+
+	* core/scripts/classview.js: moved from legacy to core
+
+	* core/scripts/listexclusionlistener.js: TODO: rename
+	When the trigger (a ValueModel) is true, the value added to the list
+	When the trigger is false, the value is removed from the list
+
+	* core/scripts/tabimageview.js: listen for imgParam changes and set the tab icon image
+
+	* core/scripts/tabmodel.js: a struct which defines the tab state
+
+	* legacy/scripts/ui/classview.js: ClassView moved to core
+
+	* legacy/scripts/ui/teamremovecontroller.js: ClassView moved to core
+
+	* legacy/scripts/ui/teamstab.js: ClassView moved to core
+
+	* boule/index.html: new tabmenu structure adapted (id -> data-tab)
+
+	* core/scripts/main.js: Tabshandle.valid() disabled (unnecessary)
+
+	* legacy/scripts/ui/autocomplete.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/backgroundscripts/load.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/state.js: Tabshandle.updateOpts() disabled
+	$('id') -> data-tab
+
+	* legacy/scripts/ui/tab_debug.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tab_games.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tab_history.js: $('id') -> data-tab
+	"visualupdate" KOTree rendering became unnecessary a long time ago
+
+	* legacy/scripts/ui/tab_new.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/taboptslistener.js: removed in favor of TabModel
+
+	* legacy/scripts/ui/tab_ranking.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tab_settings.js: $('id') -> data-tab
+
+	* legacy/scripts/ui/tabs.js: removed in favor of TabMenuView
+
+	* legacy/style/about.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/debug.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/games.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/general.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/history.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/home.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/lanes.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/new.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/ranking.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/settings.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/splash.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/teams.css: new tabmenu structure adapted (id -> data-tab)
+
+	* legacy/style/toasts.css: new tabmenu structure adapted (id -> data-tab)
+
+	* tac/index.html: new tabmenu structure adapted (id -> data-tab)
+
 2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/new.css: only styling the system buttons, not the floating buttons

@@ -1,6 +1,6 @@
 CACHE MANIFEST
 # Version: dev
-# Date: Wed Mar  4 17:51:52 CET 2015
+# Date: Wed Mar 25 21:44:20 CET 2015
 
 # tuvero is purely offline
 CACHE:
@@ -12,6 +12,7 @@ koline.html
 listview.html
 sprite.html
 tableview.html
+tabmenuview.html
 teamentry.html
 teamlistview.html
 teamsizeview.html

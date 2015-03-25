@@ -1,4 +1,23 @@
-Boules 1.4.5-dev (2015-03-04)
+Boules 1.4.6 (2015-03-25)
+-------------------------
+
+FEATURES:
+
+  * Options.teamsizeicon option added
+  * KO tournaments automatically add the match for the third place
+
+FIXES:
+
+  * new Tab system (css-class based), which provides some of the following:
+  * printable tabs (Firefox, Opera)
+  * Internet Explorer-Compatibility
+  * hash is retained during tab-redirects (better back-navigation)
+  * much improved scroll behavior during hashchange events and page reloads
+  * KO ranking order improved: showing the best possible rank instead of the worst possible rank
+  * player registration properly closes after the tournament has been started
+  * corrections of already finished games work as expected
+
+Boules 1.4.5 (2015-03-04)
 -------------------------
 
 FEATURES:
