@@ -1,4 +1,11 @@
-Boules 1.4.6 (yyyy-mm-dd)
+Boules 1.4.7 (2015-03-24)
+-------------------------
+
+FIX:
+
+  * restoring savestate compatibility (file and localstorage)
+
+Boules 1.4.6 (2015-03-24)
 -------------------------
 
 FEATURES:
