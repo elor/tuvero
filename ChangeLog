@@ -10,6 +10,8 @@
 	* boule/index.html: kotree correction class (.correct) added
 	kotree: showing hover indicator .editable
 
+	* tac/index.html: tac brought up-to-date with boule
+
 2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/players.js: accepting an empty blob as valid input
