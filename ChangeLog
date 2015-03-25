@@ -21,6 +21,9 @@
 	* legacy/style/splash.css: less resource-intensive splash transitions
 	splash screen slides to the left, tabs fade in from behind
 
+	* legacy/scripts/backend/kotournament.js: restoring savestate compatibility for KOTournament
+	This fixes the critical issue #99
+
 2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/players.js: accepting an empty blob as valid input

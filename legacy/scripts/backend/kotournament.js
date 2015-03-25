@@ -497,6 +497,13 @@ define(
         this.state = ob.state;
         this.roundids = ob.roundids;
         this.setOptions(ob.options);
+
+        // preserve compatibility with pre-1.4.6
+        if (this.roundids === undefined) {
+          this.roundids = this.gameid.map(function() {
+            return 0;
+          });
+        }
       };
 
       KOTournament.prototype.getOptions = Options.prototype.getOptions;
