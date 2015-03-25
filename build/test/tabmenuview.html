@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de" manifest="manifest.appcache">
+<head>
+<meta charset="utf-8" />
+<title>Boules Test 1.4.7</title>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="style/main.css" />
+</head>
+
+<body id="app">
+  <div id="tabs">
+    <div data-tab="home" accesskey="s">
+      <h2>Willkommen zu Tuvero Test 1.4.7</h2>
+      <p>Dies ist eine Tab-Testseite. Bitte klickt euch wie wild durch alle
+        Tabs, ändert die hash-targets direkt in der Adressleiste und tobt euch
+        generell aus. Meldet mir die Fehler und eure Browser-Version.</p>
+      <p>Vergesst nicht: Die meisten Tabs haben ein accesskey-Attribut, mit
+        dem man per Tastatur zwischen ihnen wechseln kann. Chrome: Alt+g für
+        #games</p>
+      <p>
+        Siehe auch <a data-img="debug" class="tiny" href="#debug">#debug</a> -
+        das versteckte Tab.
+      </p>
+      <p>
+        Das <a href="#deleteteam" data-img="deleteteam" class="tiny">#deleteteam-Tab</a>
+        SOLL nicht zugänglich sein. Das ist kein Fehler, sondern ein Grenzfall,
+        den ich mit der Software abdecken möchte. Ist auch praktisch zum Testen.
+      </p>
+      <form id="goto">
+        <input type="text" placeholder="hier tab-Name eingeben (ohne #)"
+          value="games" /> <input type="submit" value="gehe zu" />
+      </form>
+    </div>
+    <div data-tab="teams" accesskey="t">
+      <h2>Teams</h2>
+    </div>
+    <div data-tab="games" accesskey="g">
+      <h2>Games</h2>
+      <p>
+        Pellentesque dapibus suscipit ligula. Donec posuere augue in quam. Etiam
+        vel tortor sodales tellus ultricies commodo. Suspendisse potenti. Aenean
+        in sem ac leo mollis blandit. Donec neque quam, dignissim in, mollis
+        nec, sagittis eu, wisi. Phasellus lacus. Etiam laoreet quam sed arcu.
+        Phasellus at dui in ligula mollis ultricies. Integer placerat tristique
+        nisl. Praesent augue. Fusce commodo. Vestibulum convallis, lorem a
+        tempus semper, dui dui euismod elit, vitae placerat urna tortor vitae
+        lacus. Nullam libero mauris, consequat quis, varius et, dictum id, arcu.
+        Mauris mollis tincidunt felis. Aliquam feugiat tellus ut neque. Nulla
+        facilisis, risus a rhoncus fermentum, tellus tellus lacinia purus, et
+        dictum nunc justo sit amet elit.<br> <br> Nullam eu ante vel
+        est convallis dignissim. Fusce suscipit, wisi nec facilisis facilisis,
+        est dui fermentum leo, quis tempor ligula erat quis odio. Nunc porta
+        vulputate tellus. Nunc rutrum turpis sed pede. Sed bibendum. Aliquam
+        posuere. Nunc aliquet, augue nec adipiscing interdum, lacus tellus
+        malesuada massa, quis varius mi purus non odio. Pellentesque
+        condimentum, magna ut suscipit hendrerit, ipsum augue ornare nulla, non
+        luctus diam neque sit amet urna. Curabitur vulputate vestibulum lorem.
+        Fusce sagittis, libero non molestie mollis, magna orci ultrices dolor,
+        at vulputate neque nulla lacinia eros. Sed id ligula quis est convallis
+        tempor. Curabitur lacinia pulvinar nibh. Nam a sapien.<br> <br>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+        hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam nisl,
+        tincidunt et, mattis eget, convallis nec, purus. Cum sociis natoque
+        penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla
+        posuere. Donec vitae dolor. Nullam tristique diam non turpis. Cras
+        placerat accumsan nulla. Nullam rutrum. Nam vestibulum accumsan nisl.<br>
+        <br> Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        Donec hendrerit tempor tellus. Donec pretium posuere tellus. Proin quam
+        nisl, tincidunt et, mattis eget, convallis nec, purus. Cum sociis
+        natoque penatibus et magnis dis parturient montes, nascetur ridiculus
+        mus. Nulla posuere. Donec vitae dolor. Nullam tristique diam non turpis.
+        Cras placerat accumsan nulla. Nullam rutrum. Nam vestibulum accumsan
+        nisl.<br> <br> Lorem ipsum dolor sit amet, consectetuer
+        adipiscing elit. Donec hendrerit tempor tellus. Donec pretium posuere
+        tellus. Proin quam nisl, tincidunt et, mattis eget, convallis nec,
+        purus. Cum sociis natoque penatibus et magnis dis parturient montes,
+        nascetur ridiculus mus. Nulla posuere. Donec vitae dolor. Nullam
+        tristique diam non turpis. Cras placerat accumsan nulla. Nullam rutrum.
+        Nam vestibulum accumsan nisl.<br> <br> Pellentesque dapibus
+        suscipit ligula. Donec posuere augue in quam. Etiam vel tortor sodales
+        tellus ultricies commodo. Suspendisse potenti. Aenean in sem ac leo
+        mollis blandit. Donec neque quam, dignissim in, mollis nec, sagittis eu,
+        wisi. Phasellus lacus. Etiam laoreet quam sed arcu. Phasellus at dui in
+        ligula mollis ultricies. Integer placerat tristique nisl. Praesent
+        augue. Fusce commodo. Vestibulum convallis, lorem a tempus semper, dui
+        dui euismod elit, vitae placerat urna tortor vitae lacus. Nullam libero
+        mauris, consequat quis, varius et, dictum id, arcu. Mauris mollis
+        tincidunt felis. Aliquam feugiat tellus ut neque. Nulla facilisis, risus
+        a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
+        sit amet elit.<br> <br> Nullam eu ante vel est convallis
+        dignissim. Fusce suscipit, wisi nec facilisis facilisis, est dui
+        fermentum leo, quis tempor ligula erat quis odio. Nunc porta vulputate
+        tellus. Nunc rutrum turpis sed pede. Sed bibendum. Aliquam posuere. Nunc
+        aliquet, augue nec adipiscing interdum, lacus tellus malesuada massa,
+        quis varius mi purus non odio. Pellentesque condimentum, magna ut
+        suscipit hendrerit, ipsum augue ornare nulla, non luctus diam neque sit
+        amet urna. Curabitur vulputate vestibulum lorem. Fusce sagittis, libero
+        non molestie mollis, magna orci ultrices dolor, at vulputate neque nulla
+        lacinia eros. Sed id ligula quis est convallis tempor. Curabitur lacinia
+        pulvinar nibh. Nam a sapien.<br> <br> Pellentesque dapibus
+        suscipit ligula. Donec posuere augue in quam. Etiam vel tortor sodales
+        tellus ultricies commodo. Suspendisse potenti. Aenean in sem ac leo
+        mollis blandit. Donec neque quam, dignissim in, mollis nec, sagittis eu,
+        wisi. Phasellus lacus. Etiam laoreet quam sed arcu. Phasellus at dui in
+        ligula mollis ultricies. Integer placerat tristique nisl. Praesent
+        augue. Fusce commodo. Vestibulum convallis, lorem a tempus semper, dui
+        dui euismod elit, vitae placerat urna tortor vitae lacus. Nullam libero
+        mauris, consequat quis, varius et, dictum id, arcu. Mauris mollis
+        tincidunt felis. Aliquam feugiat tellus ut neque. Nulla facilisis, risus
+        a rhoncus fermentum, tellus tellus lacinia purus, et dictum nunc justo
+        sit amet elit.<br> <br> Aliquam erat volutpat. Nunc eleifend
+        leo vitae magna. In id erat non orci commodo lobortis. Proin neque
+        massa, cursus ut, gravida ut, lobortis eget, lacus. Sed diam. Praesent
+        fermentum tempor tellus. Nullam tempus. Mauris ac felis vel velit
+        tristique imperdiet. Donec at pede. Etiam vel neque nec dui dignissim
+        bibendum. Vivamus id enim. Phasellus neque orci, porta a, aliquet quis,
+        semper a, massa. Phasellus purus. Pellentesque tristique imperdiet
+        tortor. Nam euismod tellus id erat.<br> <br> Lorem ipsum dolor
+        sit amet, consectetuer adipiscing elit. Donec hendrerit tempor tellus.
+        Donec pretium posuere tellus. Proin quam nisl, tincidunt et, mattis
+        eget, convallis nec, purus. Cum sociis natoque penatibus et magnis dis
+        parturient montes, nascetur ridiculus mus. Nulla posuere. Donec vitae
+        dolor. Nullam tristique diam non turpis. Cras placerat accumsan nulla.
+        Nullam rutrum. Nam vestibulum accumsan nisl.<br> <br>
+      </p>
+    </div>
+    <div data-tab="settings">
+      <h2>Settings</h2>
+      Dieses Tab hat kein accesskey-Attribut.
+    </div>
+    <div data-tab="deleteteam">
+      <h2>Settings</h2>
+      Dieses Tab hat kein accesskey-Attribut.
+    </div>
+    <div data-tab="HTML5_Logo_128" accesskey="r">
+      <h2>HTML5 Rocks!</h2>
+      <p>Dieses Tab wird geöffnet und geschlossen. Wenn das Tab geschlossen,
+        sich aber nach kurzer Zeit wieder öffnet, wird es automatisch
+        fokussiert, sofern noch kein anderes Tab aktiv fokussiert wurde. Das ist
+        gewolltes Verhalten und entspricht der Vorschrift, nur auf
+        Nutzerverhalten zu reagieren, anstatt den Fokus aktiv zu verändern.</p>
+      <p>Ein positiver Nebeneffekt ist eine erhöhte Resistenz gegenüber dem
+        Laden eines Speicherstandes: Dabei werden die meisten Tabs unzugänglich,
+        um aber nach dem wieder Ladevorgang wieder verfügbar zu sein. Mit dieser
+        Lösung wird das Tab einfach wieder geöffnet.</p>
+    </div>
+    <div data-tab="debug" accesskey="d">
+      <h2>Debug</h2>
+    </div>
+  </div>
+  
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var TabMenuView;
+  
+    TabMenuView = Common('core/tabmenuview');
+  
+    $(function($) {
+      var $view, tabmenu, model;
+  
+      $view = $('#tabs');
+      tabmenu = new TabMenuView($view);
+  
+      // imgParam test
+      model = tabmenu.getTabModel('teams');
+      model.imgParam.set(3);
+      
+      // visibility test
+      model = tabmenu.getTabModel('debug');
+      model.visibility.set(false);
+      window.setInterval(function(){
+        var model = tabmenu.getTabModel('teams').imgParam;
+        if (model.get() === 3) {
+          model.set(1);
+        } else {
+          model.set(model.get()+1);
+        }
+      }, 1234);
+      
+      // accessibility only test
+      model = tabmenu.getTabModel('deleteteam');
+      model.accessibility.set(false);
+      
+      // accessibility+visibility test
+      model = tabmenu.getTabModel('HTML5_Logo_128');
+      window.setInterval(function(model){
+        model.visibility.set(!model.visibility.get());
+        model.accessibility.set(model.visibility.get());
+      }, 2345, model);
+      
+      // goto form
+      $view=$('#goto');
+      $view.submit(function(e){
+        var $form, $text, target;
+        $form = $(this);
+        $text = $form.find('input[type="text"]');
+        target = $text.val();
+        tabmenu.focus(target);
+        
+        e.preventDefault();
+        return false;
+      });
+    });
+  }
+  </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+</body>
+
+</html>

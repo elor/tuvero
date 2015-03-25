@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de" manifest="manifest.appcache">
+<head>
+<meta charset="utf-8" />
+<title>Boules Test 1.4.7</title>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="style/main.css" />
+</head>
+
+<body>
+
+	<div class="boxview">
+		<h3>Box</h3>
+		Lorem ipsum dolor sit amet <br>
+		<form>
+			<input type="number" placeholder="5" /> <input type="text"
+				placeholder="text input" /> <input type="button"
+				value="button input" />
+		</form>
+		<textarea placeholder="textarea input"></textarea>
+		<button>Button</button>
+		<a href="#">Text Link</a> <select>
+			<option>Option 1</option>
+			<option>Option A</option>
+			<option>Option Alpha</option>
+		</select>
+	</div>
+
+	<div class="boxview collapsed">
+		<h3>Initially Collapsed Box</h3>
+		Lorem ipsum dolor sit amet <br>
+		<form>
+			<input type="number" placeholder="5" /> <input type="text"
+				placeholder="text input" /> <input type="button"
+				value="button input" />
+		</form>
+		<textarea placeholder="textarea input"></textarea>
+		<button>Button</button>
+		<a href="#">Text Link</a> <select>
+			<option>Option 1</option>
+			<option>Option A</option>
+			<option>Option Alpha</option>
+		</select>
+	</div>
+
+</body>
+
+<script id="testmain">
+function TestMain(Common, $) {
+  var StaticViewLoader, BoxView;
+
+  // backendscripts takes care of that for us
+  // StaticViewLoader = Common('ui/staticviewloader');
+  BoxView = Common('ui/boxview');
+
+  $(function($) {
+    var $box;
+
+    // StaticViewLoader.registerView('boxview', BoxView);
+    // StaticViewLoader.loadViews($('body'));
+
+    $box = $('<div>').addClass('boxview').append(
+        $('<h3>').text('Script-Generated Box'));
+
+    new BoxView($box);
+
+    window.setInterval(
+        function() {
+          $box.append($('<span>').text((new Date()).toTimeString())).append(
+              '<br>');
+        }, 864);
+
+    $('body').append($box);
+  });
+}
+</script>
+<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+
+</html>

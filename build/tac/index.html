@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de" manifest="manifest.appcache">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tuvero TAC 1.4.7</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style/main.css" />
+  </head>
+
+  <body class="splash" id="app">
+
+    <div id="splash" class="loading">
+      <img src="images/favicon.png" title="Icon"/>
+      <h1>Tuvero TAC</h1>
+      <h2>Version 1.4.7</h2>
+      <span>&copy; Erik E. Lorenz</span>
+      <p class="loading">
+        Lade Dateien...
+      </p>
+      <p class="starting">
+        Starte Programm...
+      </p>
+      <p class="restoring">
+        Lade letzten Turnierstand...
+      </p>
+      <p class="update">
+        Starte Darstellung
+      </p>
+      <p class="ready">
+        Schönes Spiel!
+      </p>
+      <p class="error">
+        Unerwarteter Fehler beim Laden.
+        Typische Ursache sind fehlerhafte oder inkompatible Spielstände, die von alten Versionen erstellt wurden.
+        Siehe dazu auch <a href="https://tuveroblog.wordpress.com/">https://boulesprog.wordpress.com/</a> für Informationen über die letzten Updates.
+        Um die gespeicherten Spielstände zu löschen, kann man <a href="#reset">#reset</a> öffnen.
+        Sollte der Fehler dann immer noch bestehen, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
+      </p>
+      <p class="loaderror">
+        Konnte eine Skriptdatei nicht laden.
+        Das kann passieren, wenn die Internetverbindung beim Laden der Seite verloren geht und sollte in einer Release-Version nicht vorkommen.
+        Alternativ kann ein Serverausfall dieses Problem verursacht haben.
+        Sollte der Fehler bestehen bleiben, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
+      </p>
+    </div>
+
+    <div id="tabs">
+
+      <div data-tab="home" accesskey="s">
+        <h2>Willkommen zu Tuvero TAC 1.4.7</h2>
+        <div class="boxview firststeps">
+          <h3>Erste Schritte</h3>
+          Um ein Turnier durchzuführen, folge diesen Schritten:
+          <ol>
+            <li>
+              Trage die Spieler im <a href="#teams" class="tiny" data-img="teams"> Anmeldungen-Tab</a> ein
+            </li>
+            <li>
+              Wähle und starte ein Turniersystem im <a href="#new" class="tiny" data-img="new"> Turniersysteme-Tab</a>
+            </li>
+            <li>
+              Trage die Spielergebnisse im <a href="#games" class="tiny" data-img="games"> Laufende Spiele-Tab</a> ein
+            </li>
+            <li>
+              Sieh die Platzierung im <a href="#ranking" class="tiny" data-img="ranking"> Platzierungen-Tab</a> ein
+            </li>
+            <li>
+              Exportiere die Turnierergebnisse über das <a href="#settings" class="tiny" data-img="settings"> Optionen-Tab</a>
+            </li>
+          </ol>
+          Hilfe und Links:<a href="#about" class="tiny" data-img="about"> Über...-Tab</a>
+        </div>
+        <div class="boxview">
+        <h3>Turnierstand</h3>
+          <button class="load" data-img="load"></button>
+          Turnierstand laden
+          <br>
+          <button class="save" data-img="save"></button>
+          Turnierstand speichern
+          <br>
+          <button class="reset" data-img="clear"></button>
+          Neues Turnier
+        </div>
+        <div class="boxview">
+          <h3>Warum Chrome?</h3>
+          <p>
+            Zur Nutzung von Tuvero wird der <a href="https://www.google.com/chrome/browser/desktop/index.html" class="tiny" data-img="logos/chrome_128x128"> Chrome Browser</a> empfohlen.
+          </p>
+          <p>
+            Aktuell unterstützt lediglich der Chrome Browser die Druck-Funktion,
+            also das Ausdrucken der Listen und Übersichten, und das Tab-Layout.
+            Ich arbeite aber daran, Tuvero auch für andere Browser verfügbar zu
+            machen.
+          </p>
+          <p>
+            Für eine unverbindliche Übersicht der kompatiblen Browser, siehe
+            <a href="#about" class="tiny" data-img="about">Über...-Tab</a>
+          </p>
+        </div>
+        <div class="boxview">
+          <h3>Tabs</h3>
+          <a href="#home" class="tiny" data-img="home"> Startseite</a>
+          <a href="#teams" class="tiny" data-img="teams"> Anmeldungen</a>
+          <a href="#new" class="tiny" data-img="new"> Turniersystem und Unterturniere</a>
+          <a href="#games" class="tiny" data-img="games"> Laufende Spiele</a>
+          <a href="#ranking" class="tiny" data-img="ranking"> Platzierungen</a>
+          <a href="#history" class="tiny" data-img="history"> Turnierverlauf</a>
+          <a href="#lanes" class="tiny" data-img="lanes"> Bahnen</a>
+          <a href="#settings" class="tiny" data-img="settings"> Optionen und Einstellungen</a>
+          <a href="#about" class="tiny" data-img="about"> Über...</a>
+        </div>
+        <div class="boxview">
+          <h3>Hinweis - Klick mich</h3>
+          Diese Kästen können durch einen Klick auf ihre Titelleiste versteckt und wiederhergestellt werden.
+          <br>
+          Versteckte Kästen werden nicht gedruckt.
+          <br>
+          Die Schriftgröße beim Drucken kann im <a href="#settings" class="tiny" data-img="settings"> Optionen-Tab</a> eingestellt werden.
+        </div>
+      </div>
+
+      <div data-tab="teams" accesskey="t">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
+          <span><input class="showtable" type="checkbox" checked="checked" />Tabelle</span>
+        </div>
+        <h2><span class="numteams">##</span> Anmeldungen</h2>
+
+        <br>
+
+        <div class="teamlist">
+          <div class="team template">
+            <div class="teamno">
+              ##
+            </div>
+            <div class="names">
+              <div class="name editable">
+                %% %%
+              </div>
+              <div class="name editable">
+                %% %%
+              </div>
+              <div class="name editable">
+                %% %%
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <table class="teamtable background">
+          <tr>
+            <th class="teamnocol">No.</th>
+            <th class="playercol">Spieler 1</th>
+            <th class="playercol">Spieler 2</th>
+            <th class="playercol">Spieler 3</th>
+          </tr>
+          <tr class="team template">
+            <td class="teamno">##</td>
+            <td class="name editable">%% %%</td>
+            <td class="name editable">%% %%</td>
+            <td class="name editable">%% %%</td>
+          </tr>
+        </table>
+
+        <form class="newteamview">
+          <div class="teamno">
+            <button>
+              +
+            </button>
+          </div>
+          <div class="names">
+            <div>
+              <input class="playername" type="text" placeholder="Spieler 1" />
+            </div>
+            <div>
+              <input class="playername" type="text" placeholder="Spieler 2" />
+            </div>
+            <div>
+              <input class="playername" type="text" placeholder="Spieler 3" />
+            </div>
+          </div>
+        </form>
+
+        <div class="load filereader">
+          <p>
+            Spieler aus Datei laden
+            <br>
+            <input type="file" />
+          </p>
+        </div>
+
+        <button class="delete" tabindex="-1">
+          Anmeldung Löschen
+        </button>
+
+      </div>
+
+      <div data-tab="new" accesskey="n">
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
+          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
+        </div>
+        <h2>Turniersystem</h2>
+
+        <table class="playertable background">
+          <tr>
+            <th colspan="2">Rang</th>
+            <th>No.</th>
+            <th class="names">Spieler</th>
+            <th>Turniersystem</th>
+          </tr>
+          <tr class="team tpl">
+            <td class="rank">##</td>
+            <td class="tournamentrank">##</td>
+            <td class="teamno">##</td>
+            <td class="names">%% %%</td>
+            <td class="system">
+            <div class="removesystem preparing finished failure">
+              <br>
+              <h3>Beenden und nächste Turnierphase starten</h3>
+              <button>
+                <span class="name">##</span> beenden
+              </button>
+            </div></td>
+          </tr>
+        </table>
+
+        <br>
+
+        <div class="boxview newsystem tpl">
+          <h3>Neue Turnierphase
+          <input type="text" class="chname" value="%%"/>
+          </h3>
+          <span>Unterturnier mit den besten
+            <input type="number" class="numteams" min="2">
+            Teams</span>
+          <br>
+          <button class="swiss">
+            Schweizer System
+          </button>
+          <br>
+          <button class="ko">
+            KO-System
+          </button>
+        </div>
+
+        <div class="boxview swiss tpl">
+          <h3><span class="name">##</span> - Schweizer System</h3>
+          <div class="preparing finished">
+            <h3>Runde <span class="nextround">##</span> auslosen</h3>
+            <div class="boxview collapsed">
+              <h3>Erweiterte Optionen</h3>
+              <table>
+                <tr>
+                  <td>Modus</td><td>
+                  <select class="mode" size="3">
+                    <option value="wins">Schweizer</option>
+                    <option value="halves" selected="selected">2 Lostöpfe</option>
+                    <option value="random">Zufall</option>
+                  </select></td>
+                </tr>
+                <tr>
+                  <td>Los-
+                  <br>
+                  beding-
+                  <br>
+                  ungen</td>
+                  <td>
+                  <select class="preset" size="5">
+                    <!-- <option value="strict">streng</option> -->
+                    <!-- <option value="updown" selected="selected">hoch/runter</option> -->
+                    <option value="custom">manuell</option>
+                    <option value="nice">straf-arm</option>
+                    <option value="pvo" selected="selected">Standard</option>
+                    <option value="relaxed">locker</option>
+                    <option value="none">unbegrenzt</option>
+                  </select>
+                  <br>
+                  <table class="votepermissions">
+                    <tr class="up">
+                      <td>&#x25b2;&rArr;</td>
+                      <td class="perm up">&#x25b2;</td>
+                      <td class="perm down">&#x25bc;</td>
+                      <td class="perm bye">&#x2205;</td>
+                    </tr>
+                    <tr class="down">
+                      <td>&#x25bc;&rArr;</td>
+                      <td class="perm up">&#x25b2;</td>
+                      <td class="perm down">&#x25bc;</td>
+                      <td class="perm bye">&#x2205;</td>
+                    </tr>
+                    <tr class="bye">
+                      <td>&#x2205;&rArr;</td>
+                      <td class="perm up">&#x25b2;</td>
+                      <td class="perm down">&#x25bc;</td>
+                      <td class="perm bye">&#x2205;</td>
+                    </tr>
+                  </table></td>
+                </tr>
+              </table>
+            </div>
+            <button>
+              Runde starten
+            </button>
+          </div>
+          <div class="running">
+            <p>
+              Runde <span class="round">#</span> wurde ausgelost.
+            </p>
+            <p>
+              Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+            </p>
+          </div>
+          <div class="failure">
+            Unerwarteter Fehler bei der Turnierberechnung.
+          </div>
+        </div>
+
+        <div class="boxview ko tpl">
+          <h3><span class="name">##</span> - KO-System</h3>
+          <div class="finished">
+            Turnier beendet
+          </div>
+          <div class="preparing">
+            <button>
+              KO-Turnier starten
+            </button>
+            <div class="boxview collapsed">
+              <h3>Erweiterte Optionen</h3>
+              <div>
+                Erste Runde
+              </div>
+              <select class="mode" size="3">
+                <option value="order">Reihenfolge</option>
+                <option value="set" selected="selected">Setzen</option>
+                <option value="random">Zufall</option>
+              </select>
+            </div>
+          </div>
+          <div class="running">
+            <p>
+              KO-Turnier wird gespielt.
+            </p>
+            <p>
+              Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+            </p>
+          </div>
+          <div class="failure">
+            Unerwarteter Fehler bei der Turnierberechnung.
+          </div>
+        </div>
+        
+        <div class="boxview maastricht">
+          <h3>Maastrichter System</h3>
+          <p>
+            Nimm <em>Schweizer System</em> als Vorrunde, dann <em>KO-System</em> als A/B/C/D-Turniere.
+          </p>
+        </div>
+
+        <div class="boxview">
+          <h3>In Arbeit</h3>
+          Klassisches Schweizer System<br>
+          TAC-Punkte<br>
+          Team-TAC<br>
+          ...
+        </div>
+
+      </div>
+
+      <div data-tab="games" accesskey="g">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
+          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
+        </div>
+        <h2> Laufende Spiele</h2>
+
+        <div class="boxview tpl">
+          <h3>Runde <span class="round">##</span></h3>
+          <form class="game">
+            <div class="top">
+              <div class="teamno left">
+                ##
+              </div>
+              <div class="finish">
+                <button type="submit" tabindex="-1" disabled="disabled">
+                  Beenden
+                </button>
+                <br>
+                <input class="points" type="number" min="0" max="8" value="0" />
+                <input class="points" type="number" min="0" max="8" value="0" />
+              </div>
+              <div class="teamno right">
+                ##
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="names left">
+                %% %%
+              </div>
+              <div class="names right">
+                %% %%
+              </div>
+            </div>
+          </form>
+
+          <div class="votes">
+            <div class="bye">
+              <h3>&#x2205; Freilos</h3>
+            </div>
+
+            <div class="up">
+              <h3>&#x25b2; Hochlos</h3>
+            </div>
+
+            <div class="down">
+              <h3>&#x25bc; Runterlos</h3>
+            </div>
+
+            <div class="vote">
+              <div class="teamno">
+                ##
+              </div>
+              <div class="names">
+                %% %%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-tab="ranking" accesskey="r">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <h2>Platzierung</h2>
+        <div class="boxview tpl">
+          <h3>## ##</h3>
+          <table class="ranking background">
+            <tr class="head">
+              <th>Rang</th>
+              <th>No.</th>
+              <th colspan="3">Spieler</th>
+              <th>Spiele</th>
+              <th>Siege</th>
+              <th>BH</th>
+              <th>FBH</th>
+              <th>Saldo</th>
+              <th>Lose</th>
+            </tr>
+            <tr class="line">
+              <td>##</td>
+              <td>##</td>
+              <td class="name">%%%</td>
+              <td class="name">%%%</td>
+              <td class="name">%%%</td>
+              <td>##</td>
+              <td>##</td>
+              <td>##</td>
+              <td>##</td>
+              <td>##</td>
+              <td>##</td>
+            </tr>
+          </table>
+
+          <br>
+
+          <div class="corrections">
+            <h3>Korrekturen</h3>
+            <table class="correctionstable background">
+              <tr>
+                <th>Spiel</th>
+                <th>Korrektur</th>
+              </tr>
+              <tr class="corr">
+                <td><span class="teamno">##</span> gg. <span class="teamno">##</span></td>
+                <td class="points"><span>##</span> : <span>##</span> &rarr; <span>##</span> : <span>##</span></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div data-tab="history" accesskey="h">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
+          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
+          <span><input class="gamelists" type="checkbox" />Spiele-Listen</span>
+        </div>
+        <h2>Turnierverlauf</h2>
+
+        <div class="boxview tpl">
+          <h3>Runde <span class="roundno">##</span></h3>
+          <table class="gamestable background">
+            <tr>
+              <th>Team 1</th>
+              <th>Team 2</th>
+              <th>Punktzahl</th>
+            </tr>
+            <tr class="bye tpl">
+              <td class="team"><span class="number">##</span><span class="names">### ###
+                <br>
+                ### ###</span></td>
+              <td> Freilos </td>
+              <td class="points"> 8:6 </td>
+            </tr>
+            <tr class="game tpl">
+              <td class="team"><span class="number">##</span><span class="names">### ###
+                <br>
+                ### ###</span></td>
+              <td class="team"><span class="number">##</span><span class="names">### ###
+                <br>
+                ### ###</span></td>
+              <td class="correct editable">##:##</td>
+              <td class="chpoints">
+              <form class="middle">
+                <button class="abort">
+                  abbrechen
+                </button>
+                <br>
+                <input class="points" type="number" min="0" max="8" value="0" />
+                <input class="points" type="number" min="0" max="8" value="0" />
+                <br>
+                <button class="change" type="submit">
+                  speichern
+                </button>
+              </form></td>
+            </tr>
+          </table>
+
+          <table class="progresstable background">
+            <tr>
+              <th>No.</th>
+              <th class="names">Spieler</th>
+              <th class="names">Spieler</th>
+              <th class="names">Spieler</th>
+              <th class="game vsep" colspan="3">Runde <span class="roundno">##</span></th>
+              <th class="result vsep">Siege</th>
+              <th class="result">BH</th>
+              <th class="result">FBH</th>
+              <th class="result">Saldo</th>
+              <th class="result">Rang</th>
+            </tr>
+            <tr class="team">
+              <td class="number">##</td>
+              <td class="names">%% %%</td>
+              <td class="names">%% %%</td>
+              <td class="names">%% %%</td>
+              <td class="game vsep">##</td>
+              <td class="game correct editable">%%</td>
+              <td class="game">%%</td>
+              <td class="result vsep">##</td>
+              <td class="result">##</td>
+              <td class="result">##</td>
+              <td class="result">##</td>
+              <td class="result">##</td>
+            </tr>
+          </table>
+
+          <div class="kotree">
+            <table class="game borderless">
+              <tr class="label"><th colspan="2">Lorem Ipsum</th><tr>
+              <tr>
+                <td class="number">##</td>
+                <td class="names">%%</td>
+                <td rowspan="2" class="points correct editable">%%</td>
+              </tr>
+              <tr>
+                <td class="number">##</td>
+                <td class="names">%%</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div data-tab="lanes" accesskey="l">
+        <h2>Bahnen</h2>
+        An der Auslosung und Zuweisung von Bahnen wird noch gearbeitet.
+        <br>
+        Ich bitte um etwas Geduld.
+      </div>
+
+      <div data-tab="settings" accesskey="o">
+        <h2>Optionen und Einstellungen</h2>
+
+        <div class="boxview">
+          <h3>Schriftgröße</h3>
+          <p>
+            Legt auch die Schriftgröße beim Drucken fest.
+          </p>
+          <div class="fontsizeview">
+            <button class="fontsizetiny">
+              T
+            </button>
+            <button class="fontsizesmall">
+              T
+            </button>
+            <button class="fontsizenormal">
+              T
+            </button>
+            <button class="fontsizelarge">
+              T
+            </button>
+            <button class="fontsizehuge">
+              T
+            </button>
+          </div>
+        </div>
+
+         <input class="load filereader file" type="file" />
+        
+        <p class="nofilereader">
+          Dieser Browser kann keine lokalen Dateien laden.
+          Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
+          moderneren Browser.
+          Manche Hersteller stellen keine Updates für
+          ihre Browser unter einigen Betriebssystemen zur Verfügung
+          (z.B. Apple mit Safari für Windows).
+        </p>
+
+        <div class="boxview csv">
+          <h3>Tabellen-Export</h3>
+          <p>
+            Excel-kompatible .csv-Dateien exportieren
+          </p>
+          <p class="noadownload">
+            Damit die Datei geöffnet werden kann,
+            muss sie mit der .csv-Dateiendung gespeichert werden,
+            beispielsweise als 'tuvero.csv'.
+          </p>
+          <button class="teams" data-img="teams"></button>
+          <button class="ranking" data-img="ranking"></button>
+          <button class="history" data-img="history"></button>
+          <button class="teams ranking history" data-img="all"></button>
+        </div>
+
+        <p class="nojson">
+          ACHTUNG: Dieser Browser unterstützt
+          wichtige Standards nicht, die zum Speichern und Laden notwendig
+          sind. Beim Schließen des Browserfensters gehen sämtliche Daten
+          verloren.
+        </p>
+
+        <div class="boxview autocomplete">
+          <h3>Autovervollständigung</h3>
+          <p>
+            Namen für Vervollständigung aus Datei laden.
+          </p>
+          <p class="nofilereader">
+            Dieser Browser kann keine lokalen Dateien laden.
+          </p>
+          <input class="filereader file" type="file" />
+          <button data-img="load"></button>
+        </div>
+
+        <div class="boxview">
+          <h3>Storage</h3>
+          <p>
+            Der Turnierstand wird <b>automatisch gespeichert</b> und wird nach
+            dem Schließen und Öffnen des Browsers wieder hergestellt.
+          </p>
+          <div class="local">
+            <button class="save">
+              Manuell Speichern
+            </button>
+            <button class="clear" tabindex="-1">
+              Turnier löschen
+            </button>
+            <br>
+            <br>
+            Speicherverbrauch:
+            <br>
+            <meter class="playerstoragemeter" min="0" max="5.0" value="0.0"></meter>
+            <span>Spielerdatenbank</span>
+            <br>
+            <meter class="tournamentstoragemeter" min="0" max="5.0" value="0.0"></meter>
+            <span>Turnierdatenbank</span>          </div>
+
+        </div>
+
+        <div class="boxview">
+          <h3>Entwicklerwerkzeuge</h3>
+          <div class="devel">
+            <a href="../test/index.html" target="_blank" data-img="test"><br>Tuvero Test</a>
+            <a href="#debug" data-img="debug"><br>Dev Console</a>
+          </div>
+        </div>
+
+      </div>
+
+      <div data-tab="about" accesskey="?">
+        <h2>Über Tuvero TAC 1.4.7</h2>
+        <div class="boxview">
+          <h3>Autor &amp; Mitwirkende</h3>
+          <p>
+            © Erik E. Lorenz
+            <br>
+            Tel: 0175 8404964
+            <br>
+            Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>
+          </p>
+          <p>
+            Bei Fragen und Problemen stehe ich gern zur Verfügung.
+          </p>
+          <h4>Mitwirkende</h4>
+          <ul>
+            <li>
+              Fabian Böttcher - Beratung (Boule, Design), Öffentlichkeitsarbeit
+            </li>
+            <li>
+              Kai Angne - Beratung (TAC)
+            </li>
+          </ul>
+        </div>
+        <div class="boxview links">
+          <h3>Links</h3>
+          <p>
+            <strike>HTML-Anleitung</strike>
+            zum Einlesen und Nachschlagen. (In Arbeit)
+            <br>
+            <br>
+            <a href="https://tuvero.de" target="_blank">Tuvero.de</a> zur kostenlosen Nutzung ohne Installation
+            <br>
+            <br>
+            <a href="http://spiel-tac.de/" target="_blank">Spiel TAC</a> die TAC-Homepage
+            <br>
+            <br>
+            <a href="https://github.com/elor/tuvero/" target="_blank">Quellcode</a> auf Github.com
+            <br>
+            <br>
+            <a href="https://tuveroblog.wordpress.com/" target="_blank">Update-Blog</a> für Infos über neue Versionen
+            <br>
+            <br>
+            <a href="https://boulesdb.appspot.com/issue" target="_blank">Fehler melden</a> auf <a href="https://github.com/elor/tuvero/issues" target="_blank">Github.com</a>
+            <br>
+            <br>
+            <a href="http://boules-dev.appspot.org/" target="_blank">Entwicklerversion</a> zur Vorschau auf kommende Funktionen
+          </p>
+        </div>
+        <div class="boxview">
+          <h3>Browserunterstützung </h3>
+          <a data-img="HTML5_Logo_128" class="logo float"></a>
+          <p>
+            Für diese Software wird auf <a href="http://de.wikipedia.org/wiki/HTML5">freie Webstandards</a> gesetzt.
+            Leider werden diese <a href="http://fmbip.com/litmus/">nicht von allen Browsern vollständig</a> unterstützt.
+            Deshalb kann es vorkommen, dass einzelne Funktionen mit einigen Browsern nicht zur Verfügung stehen.
+            Um das nach Möglichkeit zu vermeiden, wird das Programm mit diesen Browsern getestet:
+          </p>
+          <p>
+            Desktop:
+            <a class="inline logo supported" title="Google Chrome" data-img="logos/chrome_128x128"></a>
+            <a class="inline logo supported" title="Chromium" data-img="logos/chromium_128x128"></a>
+            <a class="inline logo maywork" title="Opera" data-img="logos/opera_128x128"></a>
+            <a class="inline logo maywork" title="Mozilla Firefox" data-img="logos/firefox_128x128"></a>
+            <a class="inline logo unsupported" title="Internet Explorer" data-img="logos/internet-explorer_128x128"></a>
+          </p>
+          <p>
+            Mobil:
+            <a class="inline logo supported" title="Google Chrome for Android" data-img="logos/chrome-android_128x128"></a>
+            <a class="inline logo supported" title="Opera" data-img="logos/opera_128x128"></a>
+            <a class="inline logo supported" title="Mozilla Firefox" data-img="logos/firefox_128x128"></a>
+            <a class="inline logo supported" title="Lightning" data-img="logos/lightning_128x128"></a>
+            <a class="inline logo supported" title="Dolphin Browser" data-img="logos/dolphin_128x128"></a>
+            <a class="inline logo unsupported" title="UC Browser" data-img="logos/uc_128x128"></a>
+            <a class="inline logo unsupported" title="Puffin" data-img="logos/puffin_128x128"></a>
+          </p>
+          <p class="no-support">
+            Dieser Browser unterstützt folgende Funktionen nicht:
+            <ul>
+              <li class="no-js">
+                JavaScript
+              </li>
+              <li class="no-hashchange">
+                HashChange
+              </li>
+              <li class="no-localstorage">
+                LocalStorage
+              </li>
+              <li class="no-webworkers">
+                WebWorkers
+              </li>
+              <li class="no-adownload">
+                Download Attribute
+              </li>
+              <li class="no-filereader">
+                FileReader
+              </li>
+              <li class="no-json">
+                JSON
+              </li>
+            </ul>
+          </p>
+        </div>
+        <div class="boxview">
+          <h3>Nutzungsbedingungen</h3>
+          <p>
+            Die Nutzung dieses Programmes ist kostenlos und uneingeschränkt, wie sie bei jeder Software sein sollte.
+            <a href="https://github.com/elor/tuvero/blob/master/LICENSE">Lizenz auf Github</a>
+          </p>
+          <p>
+            Die laufenden Kosten bestehen hauptsächlich aus Ausgaben für
+            Webserver, SSL-Zertifikate und Domain-Registrierungen. Wenn sie
+            einen Beitrag zu diesen Kosten leisten oder die Entwickler moralisch
+            unterstützen möchten, können sie das auf folgende Weise tun:
+          </p>
+          <div class="donatebuttons">
+            <a class="large" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
+            <a class="large" data-img="ext/amazonwishlist" href="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R" target="_blank"></a>
+          </div>
+        </div>
+      </div>
+
+      <div data-tab="debug" accesskey="d">
+        <h2>Debugging Console</h2>
+
+        <div class="boxview">
+          <h3>GUI Shortcuts</h3>
+          <form class="register">
+            <button type="button" class="delete">
+              Alles löschen
+            </button>
+            <input class="num" type="number" min="0" max="9999" value="33" placeholder="Spielerzahl" />
+            <button type="submit" class="submit">
+              Teams anmelden
+            </button>
+          </form>
+
+          <form class="tournament">
+            <button class="all">
+              Turnier durchspielen
+            </button>
+            <button class="start">
+              Runde starten
+            </button>
+            <button class="round">
+              Runde ausspielen
+            </button>
+          </form>
+
+          <form class="phases">
+            <button class="sidetournamentswiss">
+              Nebenturnier starten (swiss)
+            </button>
+          </form>
+
+          <form class="script">
+            <button class="loadmods">
+              RequireJS -> var mods (global)
+            </button>
+            <button class="updatetabs">
+              Alle Tabs neu laden
+            </button>
+          </form>
+          <button id="onlinecheck">Onlinecheck failed</button>
+        </div>
+        <div class="boxview allimages">
+          <h3>Images at Pageload</h3>
+          <!-- All images get inserted here -->
+        </div>
+
+        <div class="boxview sprite">
+          <h3>Sprite</h3>
+          <div class="large" data-img="sprite"></div>
+        </div>
+
+      </div>
+
+      <a href="#reset" accesskey="!" tabindex="-1" class="hiddenlink devonly">&nbsp;</a>
+
+      <script src="scripts/require.js"></script>
+      <script src="scripts/main.js"></script>
+      
+    </div>
+
+  </body>
+
+</html>
