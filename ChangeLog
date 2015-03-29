@@ -12,6 +12,7 @@
 	* boule/index.html: unnecessary line break removed in #ranking
 	start page rearranged
 	"Why Chrome?"-text updated
+	"delete tournament" button renamed
 
 	* core/style/boxview.css: print: header margins removed
 
@@ -21,6 +22,7 @@
 
 	* tac/index.html: start page rearranged
 	"Why Chrome?"-text updated
+	"delete tournament" button renamed
 
 2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
