@@ -10,12 +10,15 @@
 	print: colors removed (= white)
 
 	* boule/index.html: unnecessary line break removed in #ranking
+	start page rearranged
 
 	* core/style/boxview.css: print: header margins removed
 
 	* legacy/style/general.css: print: page paddings removed
 
 	* legacy/scripts/ui/backgroundscripts/online.js: "Offline!"-confirmation removed when using local files while offline
+
+	* tac/index.html: start page rearranged
 
 2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
