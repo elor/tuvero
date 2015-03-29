@@ -42,7 +42,7 @@ div.boxview > h3:first-child {
   div.boxview > h3:first-child {
     border: none;
     background: none;
-    margin-top: 1em;
+    margin: 0em;
   }
 }
 html {
@@ -169,6 +169,12 @@ button, input {
 @media print {
   tr, td, th {
     border: none !important;
+  }
+  tr {
+    background-color: transparent !important;
+  }
+  tr:nth-child(4n+1) td {
+    padding-bottom: 0.5em;
   }
 }
 .tabmenu {
@@ -481,9 +487,13 @@ div, button {
   #app {
     background-color: #ffffff;
     color: #000000;
+    padding: 0em;
   }
   button, input, h1, h2 {
     display: none !important;
+  }
+  .editable:hover:after {
+    display: none;
   }
 }
 #tabs > [data-tab="history"] .boxview {
@@ -962,6 +972,10 @@ div#tabs > [data-tab="teams"] {
   }
   #tabs > [data-tab="teams"] .team {
     margin: 0em;
+  }
+  #tabs > [data-tab="teams"] .team .name:hover {
+   cursor: inherit;
+   text-decoration: inherit;
   }
 }
 .teamsizeview {

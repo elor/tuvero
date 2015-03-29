@@ -1,3 +1,33 @@
+2015-03-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/backend/kotournament.js: critical matchSet cadrage error fixed
+	initial (pre-shuffle) order was matchOrder, not linear, leaving single holes in the ranking
+
+	* legacy/scripts/ui/tab_history.js: KOTree boxheight bug fixed:
+	when the last game was a bye, the box wasn't high enough
+
+	* core/style/table.css: printing spaces every 4 entries (instead of alternating grey background)
+	print: colors removed (= white)
+	print: NOT using white anymore, but "transparent"
+
+	* boule/index.html: unnecessary line break removed in #ranking
+	start page rearranged
+	"Why Chrome?"-text updated
+	"delete tournament" button renamed
+
+	* core/style/boxview.css: print: header margins removed
+
+	* legacy/style/general.css: print: page paddings removed
+	print: hiding editable-indicator during hover
+
+	* legacy/scripts/ui/backgroundscripts/online.js: "Offline!"-confirmation removed when using local files while offline
+
+	* tac/index.html: start page rearranged
+	"Why Chrome?"-text updated
+	"delete tournament" button renamed
+
+	* legacy/style/teams.css: hiding hover-cursor during printing
+
 2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tab_history.js: correction logic: gamestable check was inverted by accident
