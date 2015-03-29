@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="de" manifest="manifest.appcache">
+<head>
+<meta charset="utf-8" />
+<title>Boules Test 1.4.8</title>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="style/main.css" />
+<link rel="stylesheet" href="style/sprite.css" />
+<style>
+</style>
+</head>
+
+<body>
+	<h2>
+		<span class="teamsize">##</span> players per team
+	</h2>
+
+	<form class="newteam">
+		<span class="names"> <input class="playername" type="text"
+			placeholder="Spieler 1" /> <input class="playername" type="text"
+			placeholder="Spieler 2" /> <input class="playername" type="text"
+			placeholder="Spieler 3" />
+		</span>
+		<button>submit</button>
+	</form>
+
+	<br>
+
+	<div class="teamsizeview">
+		<button data-img="teams1"></button>
+		<button data-img="teams2"></button>
+		<button data-img="teams3"></button>
+	</div>
+
+</body>
+
+<script id="testmain">
+function TestMain(Common, $) {
+  var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
+
+  ValueModel = Common('core/valuemodel');
+  TeamSizeView = Common('ui/teamsizeview');
+  ValueView = Common('ui/valueview');
+  ListModel = Common('core/listmodel');
+  NewTeamView = Common('ui/newteamview');
+
+  $(function($) {
+    var teamsize, $view;
+
+    teamsize = new ValueModel(3);
+    $view = $('.teamsizeview');
+    new TeamSizeView(teamsize, $view);
+
+    $view = $('.teamsize');
+    new ValueView(teamsize, $view);
+
+    $view = $('.newteam');
+    new NewTeamView(new ListModel(), $view, teamsize);
+  });
+}
+</script>
+<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+
+</html>
