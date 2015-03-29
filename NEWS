@@ -1,3 +1,19 @@
+Boules 1.4.8 (2015-03-29)
+
+FEATURES:
+
+* Added spaces to printed tables
+
+FIXES:
+
+* Cadrage bug in incomplete KO tournaments fixed
+* print page margins removed
+* KOTree cropping bug fixed (could crop a post-bye game)
+* removed row color of printed tables
+* "Offline!"-message removed for local installations
+* start page: rearrangement and text update
+* hiding hover indicators for editable fields when printing
+
 Boules 1.4.7 (2015-03-24)
 -------------------------
 
