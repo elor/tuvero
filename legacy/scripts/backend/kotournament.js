@@ -100,6 +100,23 @@ define(
         return this;
       };
 
+      function linearOrder(numPlayers) {
+        var i, ret, totalplayers;
+
+        ret = [];
+        for (i = 0; i < numPlayers; i += 1) {
+          ret[i] = i;
+        }
+
+        totalplayers = 1 << numRounds(numPlayers);
+
+        for (i = ret.length; i < totalplayers; i += 1) {
+          ret[i] = undefined;
+        }
+
+        return ret;
+      }
+
       /**
        * create an array of players where an even-indexed player and the
        * subsequent player are supposed to be in a game
@@ -221,7 +238,7 @@ define(
       function matchSet(numPlayers, byeOrder) {
         var pids, order, i;
 
-        pids = matchOrder(numPlayers, byeOrder);
+        pids = linearOrder(numPlayers);
         order = createSetOrder(numRounds(pids.length));
 
         for (i = 0; i < order.length; i += 1) {
