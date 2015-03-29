@@ -7,6 +7,13 @@
 	when the last game was a bye, the box wasn't high enough
 
 	* core/style/table.css: printing spaces every 4 entries (instead of alternating grey background)
+	print: colors removed (= white)
+
+	* boule/index.html: unnecessary line break removed in #ranking
+
+	* core/style/boxview.css: print: header margins removed
+
+	* legacy/style/general.css: print: page paddings removed
 
 2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

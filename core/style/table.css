@@ -45,6 +45,10 @@
     border: none !important;
   }
 
+  tr {
+    background-color: white !important;
+  }
+
   tr:nth-child(4n+1) td {
     padding-bottom: 0.5em;
   }
