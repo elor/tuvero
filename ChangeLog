@@ -15,6 +15,8 @@
 
 	* legacy/style/general.css: print: page paddings removed
 
+	* legacy/scripts/ui/backgroundscripts/online.js: "Offline!"-confirmation removed when using local files while offline
+
 2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tab_history.js: correction logic: gamestable check was inverted by accident

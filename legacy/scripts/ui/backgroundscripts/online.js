@@ -14,7 +14,10 @@ define(['jquery', '../strings', '../update'], function($, Strings, Update) {
   var Online;
 
   /**
+   * Check for an internet connection. Does not check for an active connection
+   * to tuvero.de
    *
+   * @return true if there's an active internet connection, false otherwise.
    */
   Online = function() {
     return navigator.onLine;
@@ -27,7 +30,8 @@ define(['jquery', '../strings', '../update'], function($, Strings, Update) {
       var message = Strings.offlineconfirmexit;
 
       // TODO add Storage.enabled() warning
-      if (!Online() && !Update.isCached) {
+      if (!Online() && !Update.isCached &&
+          document.location.protocol !== 'file:') {
         if (e) {
           e.returnValue = message;
         }
