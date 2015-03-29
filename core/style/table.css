@@ -46,7 +46,7 @@
   }
 
   tr {
-    background-color: white !important;
+    background-color: transparent !important;
   }
 
   tr:nth-child(4n+1) td {

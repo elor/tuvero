@@ -147,4 +147,9 @@ div#tabs > [data-tab="teams"] {
   #tabs > [data-tab="teams"] .team {
     margin: 0em;
   }
+
+  #tabs > [data-tab="teams"] .team .name:hover {
+   cursor: inherit;
+   text-decoration: inherit;
+  }
 }
