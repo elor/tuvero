@@ -1025,8 +1025,12 @@ define(
         if ($tab.hasClass('hidenames')) {
           boxwidth -= 8;
         }
-        boxheight = Math.max(getGameTreeY(games.length - 1,
-            level(games.length - 1)), getGameTreeY(0, level(games.length - 1),
+
+        boxheight = getGameTreeY(games.length - 1,
+            level(games.length - 1));
+        boxheight = Math.max(boxheight, getGameTreeY((games.length>>1) - 1,
+            level(games.length - 1)));
+        boxheight = Math.max(boxheight, getGameTreeY(0, level(games.length - 1),
             true)) + 4;
 
         $tree.css('width', boxwidth + 'em');

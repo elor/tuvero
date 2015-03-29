@@ -3,6 +3,9 @@
 	* legacy/scripts/backend/kotournament.js: critical matchSet cadrage error fixed
 	initial (pre-shuffle) order was matchOrder, not linear, leaving single holes in the ranking
 
+	* legacy/scripts/ui/tab_history.js: KOTree boxheight bug fixed:
+	when the last game was a bye, the box wasn't high enough
+
 2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tab_history.js: correction logic: gamestable check was inverted by accident
