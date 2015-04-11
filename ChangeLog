@@ -14,6 +14,7 @@
 	* legacy/scripts/ui/tab_debug.js: reading max points from options
 
 	* legacy/scripts/ui/tab_history.js: reading bye points from options
+	reading kotree box height from the game positions, not from dubious calculations
 
 	* boule/scripts/options.js: logic moved to ui/options
 

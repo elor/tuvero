@@ -1005,6 +1005,8 @@ define(
 
         $tree = template.kotree.$container.clone();
 
+        boxheight = 0;
+
         for (i = games.length - 1; i >= 0; i -= 1) {
           g = games[i];
           $game = createGameTreeBox(g, games.length - 1);
@@ -1015,8 +1017,13 @@ define(
               $tree.append($connector);
             }
             $tree.append($game);
+
+            boxheight = Math.max(getGameTreeY(g.id, level(games.length - 1),
+                false), boxheight);
           }
         }
+
+        boxheight += 4;
 
         // render the third place
         $game = createGameTreeBox(thirdplacegame, games.length - 1, true);
@@ -1026,12 +1033,6 @@ define(
         if ($tab.hasClass('hidenames')) {
           boxwidth -= 8;
         }
-
-        boxheight = getGameTreeY(games.length - 1, level(games.length - 1));
-        boxheight = Math.max(boxheight, getGameTreeY((games.length >> 1) - 1,
-            level(games.length - 1)));
-        boxheight = Math.max(boxheight, getGameTreeY(0,
-            level(games.length - 1), true)) + 4;
 
         $tree.css('width', boxwidth + 'em');
         $tree.css('height', boxheight + 'em');
