@@ -1,3 +1,9 @@
+2015-04-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boule/index.html: noscript messages added to splash screen
+
+	* tac/index.html: noscript messages added to splash screen
+
 2015-03-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/backend/kotournament.js: critical matchSet cadrage error fixed
