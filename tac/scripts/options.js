@@ -20,7 +20,7 @@ define(['ui/options'], function(Options) {
     maxteamsize: 1,
     maxpoints: 8,
     byepointswon: 8,
-    byepointslost: 2,
+    byepointslost: 6,
     // user-specific
     // local : {},
     dbname: 'tactournament',

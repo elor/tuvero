@@ -22,6 +22,7 @@
 	This Options object does not remove unused keys when reading from blob to allow for the insertion of new keys
 
 	* tac/scripts/options.js: logic moved to ui/options
+	bye is counted as 8:6
 
 	* test/scripts/options.js: logic moved to ui/options
 
