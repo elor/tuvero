@@ -3,6 +3,7 @@
 	* boule/index.html: noscript messages added to splash screen
 
 	* tac/index.html: noscript messages added to splash screen
+	forgotten </noscript>-tag added
 
 2015-03-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
