@@ -5,6 +5,16 @@
 	* tac/index.html: noscript messages added to splash screen
 	forgotten </noscript>-tag added
 
+	* legacy/scripts/backend/buchholzranking.js: reading bye points from options
+
+	* legacy/scripts/backend/finebuchholzranking.js: reading bye points from options
+
+	* legacy/scripts/backend/nettoranking.js: reading bye points from options
+
+	* legacy/scripts/ui/tab_debug.js: reading max points from options
+
+	* legacy/scripts/ui/tab_history.js: reading bye points from options
+
 2015-03-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/backend/kotournament.js: critical matchSet cadrage error fixed

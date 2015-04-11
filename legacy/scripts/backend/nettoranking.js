@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['./correction'], function(Correction) {
+define(['./correction', 'options'], function(Correction, Options) {
   /**
    * NettoRanking: A ranking variant which sorts players by wins and netto
    * points, in this order.
@@ -183,7 +183,7 @@ define(['./correction'], function(Correction) {
 
     team.forEach(function(pid) {
       if (pid < size) {
-        n[pid] += 6; // win 13 to 7
+        n[pid] += Options.byepointswon - Options.byepointslost;
         w[pid] += 1; // win against nobody
         b[pid] += 1; // keep track of the byes
       }
@@ -205,7 +205,7 @@ define(['./correction'], function(Correction) {
 
     team.forEach(function(pid) {
       if (pid < size && b[pid] > 0) {
-        n[pid] -= 6; // revoke a win of 13 to 7
+        n[pid] -= Options.byepointswon - Options.byepointslost;
         w[pid] -= 1; // revoke a win against nobody
         b[pid] -= 1; // keep track of byes
       }

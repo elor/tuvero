@@ -8,9 +8,9 @@
  */
 
 define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
-    './debug', './tournaments', './team', './history', './shared'], function(
+    './debug', './tournaments', './team', './history', './shared', 'options'], function(
     Tabshandle, Toast, Random, Tab, Strings, Debug, Tournaments, Team, History,
-    Shared) {
+    Shared, Options) {
   var Tab_Debug, $tab, form, letters, Letters, rng;
 
   rng = new Random();
@@ -203,10 +203,10 @@ define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
       }
 
       if (rng.nextInt(2)) {
-        p1 = 13 - rng.nextInt(2);
+        p1 = Options.maxpoints - rng.nextInt(2);
         p2 = rng.nextInt(p1);
       } else {
-        p2 = 13 - rng.nextInt(2);
+        p2 = Options.maxpoints - rng.nextInt(2);
         p1 = rng.nextInt(p2);
       }
 

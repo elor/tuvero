@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 
-define(['./vector', './matrix', './halfmatrix', './correction'], function(
-    Vector, Matrix, HalfMatrix, Correction) {
+define(['./vector', './matrix', './halfmatrix', './correction', 'options'],
+    function(Vector, Matrix, HalfMatrix, Correction, Options) {
   /**
    * BuchholzRanking: A ranking variant which sorts players by wins, buchholz
    * points and netto points, in this order.
@@ -210,7 +210,7 @@ define(['./vector', './matrix', './halfmatrix', './correction'], function(
 
     team.forEach(function(pid) {
       if (pid < size) {
-        n[pid] += 6; // win 13 to 7
+        n[pid] += Options.byepointswon - Options.byepointslost;
         w[pid] += 1; // win against nobody
         b[pid] += 1; // keep track of the byes
       }
@@ -232,7 +232,7 @@ define(['./vector', './matrix', './halfmatrix', './correction'], function(
 
     team.forEach(function(pid) {
       if (pid < size && b[pid] > 0) {
-        n[pid] -= 6; // revoke a win of 13 to 7
+        n[pid] -= Options.byepointswon - Options.byepointslost;
         w[pid] -= 1; // revoke a win against nobody
         b[pid] -= 1; // keep track of byes
       }

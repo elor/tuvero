@@ -9,9 +9,9 @@
 define(
     ['./toast', './strings', './history', './tournaments', './tab_ranking',
         '../backend/game', './storage', './tabshandle', './tab', './team',
-        './state_new', './shared', './boxview', './koline'],
+        './state_new', './shared', './boxview', './koline', 'options'],
     function(Toast, Strings, History, Tournaments, Tab_Ranking, Game, Storage,
-        Tabshandle, Tab, Team, State, Shared, BoxView, KOLine) {
+        Tabshandle, Tab, Team, State, Shared, BoxView, KOLine, Options) {
       var Tab_History, $tab, template, $button, gamestable;
 
       $button = undefined;
@@ -556,12 +556,13 @@ define(
         }
 
         if (History.getVotes(tournamentid)) {
-          History.getVotes(tournamentid).map(function(vote) {
-            if (vote[0] === History.BYE) {
-              // TODO read '13:7' from the options!
-              addGame(vote[2], vote[1], Strings.byevote, 13, 7);
-            }
-          });
+          History.getVotes(tournamentid).map(
+              function(vote) {
+                if (vote[0] === History.BYE) {
+                  addGame(vote[2], vote[1], Strings.byevote,
+                      Options.byepointswon, Options.byepointslost);
+                }
+              });
         }
 
         if (History.getGames(tournamentid)) {
@@ -1026,12 +1027,11 @@ define(
           boxwidth -= 8;
         }
 
-        boxheight = getGameTreeY(games.length - 1,
-            level(games.length - 1));
-        boxheight = Math.max(boxheight, getGameTreeY((games.length>>1) - 1,
+        boxheight = getGameTreeY(games.length - 1, level(games.length - 1));
+        boxheight = Math.max(boxheight, getGameTreeY((games.length >> 1) - 1,
             level(games.length - 1)));
-        boxheight = Math.max(boxheight, getGameTreeY(0, level(games.length - 1),
-            true)) + 4;
+        boxheight = Math.max(boxheight, getGameTreeY(0,
+            level(games.length - 1), true)) + 4;
 
         $tree.css('width', boxwidth + 'em');
         $tree.css('height', boxheight + 'em');

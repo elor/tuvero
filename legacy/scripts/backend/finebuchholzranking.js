@@ -7,7 +7,8 @@
  */
 
 define(['./vector', './matrix', './halfmatrix', './result', './correction',
-    './rleblobber'], function(Vector, Matrix, HalfMatrix, Result, Correction, RLEBlobber) {
+    './rleblobber', 'options'], function(Vector, Matrix, HalfMatrix, Result,
+    Correction, RLEBlobber, Options) {
   /**
    * FinebuchholzRanking: A ranking variant which sorts players by wins,
    * buchholz points, finebuchholz points and netto points, in this order.
@@ -97,7 +98,8 @@ define(['./vector', './matrix', './halfmatrix', './result', './correction',
     });
 
     rank.sort(function(a, b) {
-      return /* (games[b] - games[a]) || */(w[b] - w[a]) || (bh[b] - bh[a]) || (fbh[b] - fbh[a]) || (n[b] - n[a]) || (a - b);
+      return /* (games[b] - games[a]) || */(w[b] - w[a]) || (bh[b] - bh[a])
+          || (fbh[b] - fbh[a]) || (n[b] - n[a]) || (a - b);
     });
 
     return {
@@ -226,7 +228,7 @@ define(['./vector', './matrix', './halfmatrix', './result', './correction',
 
     team.forEach(function(pid) {
       if (pid < size) {
-        n[pid] += 6; // win 13 to 7
+        n[pid] += Options.byepointswon - Options.byepointslost;
         w[pid] += 1; // win against nobody
         b[pid] += 1; // keep track of the byes
       }
@@ -248,7 +250,7 @@ define(['./vector', './matrix', './halfmatrix', './result', './correction',
 
     team.forEach(function(pid) {
       if (pid < size && b[pid] > 0) {
-        n[pid] -= 6; // revoke a win of 13 to 7
+        n[pid] -= Options.byepointswon - Options.byepointslost;
         w[pid] -= 1; // revoke a win against nobody
         b[pid] -= 1; // keep track of byes
       }
@@ -261,7 +263,7 @@ define(['./vector', './matrix', './halfmatrix', './result', './correction',
    * @param game
    *          an instance of the game that could have taken place
    * @return true if all data indicates that this game took place, false
-   *          otherwise.
+   *         otherwise.
    */
   Finebuchholz.prototype.added = function(game) {
     // if a game has taken place, all players of one team have played
