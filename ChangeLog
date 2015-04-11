@@ -15,6 +15,16 @@
 
 	* legacy/scripts/ui/tab_history.js: reading bye points from options
 
+	* boule/scripts/options.js: logic moved to ui/options
+
+	* legacy/scripts/ui/options.js: central Options object. (don't repeat yourself!)
+	Don't require 'ui/options', load 'options' instead.
+	This Options object does not remove unused keys when reading from blob to allow for the insertion of new keys
+
+	* tac/scripts/options.js: logic moved to ui/options
+
+	* test/scripts/options.js: logic moved to ui/options
+
 2015-03-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/backend/kotournament.js: critical matchSet cadrage error fixed

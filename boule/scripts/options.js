@@ -9,10 +9,8 @@
  * @see LICENSE
  */
 
-define(['ui/state_new'], function(State) {
-  var Options, Default;
-
-  Options = {};
+define(['ui/options'], function(Options) {
+  var Default;
 
   Default = {
     // installation-specific
@@ -21,6 +19,8 @@ define(['ui/state_new'], function(State) {
     minteamsize: 1,
     maxteamsize: 3,
     maxpoints: 15,
+    byepointswon: 13,
+    byepointslost: 7,
     // user-specific
     // local : {},
     dbname: 'boulestournament',
@@ -33,38 +33,7 @@ define(['ui/state_new'], function(State) {
   // tournament : {},
   };
 
-  Options.toBlob = function() {
-    Options.teamsize = State.teamsize.get();
-    return JSON.stringify(Options);
-  };
-
-  Options.fromBlob = function(blob) {
-    var opts, key;
-    opts = JSON.parse(blob);
-
-    // delete everything
-    for (key in Options) {
-      if (typeof (Options[key]) !== 'function') {
-        delete Options[key];
-      }
-    }
-
-    // reset everything
-    for (key in opts) {
-      Options[key] = opts[key];
-    }
-
-    if (Options.teamsize) {
-      State.teamsize.set(Options.teamsize);
-      delete Options.teamsize;
-    }
-  };
-
-  Options.reset = function() {
-    // just use available functions instead of cloning
-    Options.fromBlob(JSON.stringify(Default));
-  };
-
+  Options.setDefault(Default);
   Options.reset();
 
   return Options;
