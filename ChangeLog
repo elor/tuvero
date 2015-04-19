@@ -27,6 +27,9 @@
 	deleted input field restored
 
 	* Makefile: `make boule/index.html` auto-builds from template
+	`make tac/index.html` added
+	`make update` also runs `make template`
+	`make template`: `make boule/index.html` + `make tac/index.html
 
 	* tools/index-from-template.sh: renamed from rebuild-from-template.sh
 	* core/templates/hometab.html: using %teamsicon%
@@ -36,7 +39,6 @@
 	* tac/scripts/strings.js: teamsicon added
 
 	* core/templates/teamstab.html: 'tabimgopts' removed - we're explicitly assigning now
-
 
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
