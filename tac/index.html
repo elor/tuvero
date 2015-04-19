@@ -23,11 +23,11 @@
         Bitte geh sicher, dass JavaScript unterstützt wird.
       </p>
       <noscript>
-      <p class="loading">
-        JavaScript wird von diesem Browser blockiert oder nicht unterstützt.
-        Für die Ausführung von Tuvero wird JavaScript vorausgesetzt.
-        Bitte aktiviere JavaScript oder nutze einen JavaScript-kompatiblen Browser.
-      </p>
+        <p class="loading">
+          JavaScript wird von diesem Browser blockiert oder nicht unterstützt.
+          Für die Ausführung von Tuvero wird JavaScript vorausgesetzt.
+          Bitte aktiviere JavaScript oder nutze einen JavaScript-kompatiblen Browser.
+        </p>
       </noscript>
       <p class="starting">
         Starte Programm...
@@ -112,14 +112,13 @@
           </p>
           <p>
             Der Chrome Browser bietet eine Druckvorschau, mit der sich
-            Seitenränder etc. anpassen lassen. 
+            Seitenränder etc. anpassen lassen.
           </p>
           <p>
             Für eine unverbindliche Übersicht aller unterstützten Browser, siehe
             <a href="#about" class="tiny" data-img="about">Über...-Tab</a>
           </p>
         </div>
-        
         <div class="boxview">
           <h3>Hinweis - Klick mich</h3>
           Diese Kästen können durch einen Klick auf ihre Titelleiste versteckt und wiederhergestellt werden.
@@ -138,6 +137,8 @@
           <span><input class="showtable" type="checkbox" checked="checked" />Tabelle</span>
         </div>
         <h2><span class="numteams">##</span> Anmeldungen</h2>
+
+        <!-- TeamSizeView is disabled in Tuvero TAC -->
 
         <br>
 
@@ -229,13 +230,14 @@
             <td class="teamno">##</td>
             <td class="names">%% %%</td>
             <td class="system">
-            <div class="removesystem preparing finished failure">
-              <br>
-              <h3>Beenden und nächste Turnierphase starten</h3>
-              <button>
-                <span class="name">##</span> beenden
-              </button>
-            </div></td>
+              <div class="removesystem preparing finished failure">
+                <br>
+                <h3>Beenden und nächste Turnierphase starten</h3>
+                <button>
+                  <span class="name">##</span> beenden
+                </button>
+              </div>
+            </td>
           </tr>
         </table>
 
@@ -243,7 +245,7 @@
 
         <div class="boxview newsystem tpl">
           <h3>Neue Turnierphase
-          <input type="text" class="chname" value="%%"/>
+            <input type="text" class="chname" value="%%"/>
           </h3>
           <span>Unterturnier mit den besten
             <input type="number" class="numteams" min="2">
@@ -266,50 +268,53 @@
               <h3>Erweiterte Optionen</h3>
               <table>
                 <tr>
-                  <td>Modus</td><td>
-                  <select class="mode" size="3">
-                    <option value="wins">Schweizer</option>
-                    <option value="halves" selected="selected">2 Lostöpfe</option>
-                    <option value="random">Zufall</option>
-                  </select></td>
+                  <td>Modus</td>
+                  <td>
+                    <select class="mode" size="3">
+                      <option value="wins">Schweizer</option>
+                      <option value="halves" selected="selected">2 Lostöpfe</option>
+                      <option value="random">Zufall</option>
+                    </select>
+                  </td>
                 </tr>
                 <tr>
                   <td>Los-
-                  <br>
-                  beding-
-                  <br>
-                  ungen</td>
+                    <br>
+                    beding-
+                    <br>
+                    ungen</td>
                   <td>
-                  <select class="preset" size="5">
-                    <!-- <option value="strict">streng</option> -->
-                    <!-- <option value="updown" selected="selected">hoch/runter</option> -->
-                    <option value="custom">manuell</option>
-                    <option value="nice">straf-arm</option>
-                    <option value="pvo" selected="selected">Standard</option>
-                    <option value="relaxed">locker</option>
-                    <option value="none">unbegrenzt</option>
-                  </select>
-                  <br>
-                  <table class="votepermissions">
-                    <tr class="up">
-                      <td>&#x25b2;&rArr;</td>
-                      <td class="perm up">&#x25b2;</td>
-                      <td class="perm down">&#x25bc;</td>
-                      <td class="perm bye">&#x2205;</td>
-                    </tr>
-                    <tr class="down">
-                      <td>&#x25bc;&rArr;</td>
-                      <td class="perm up">&#x25b2;</td>
-                      <td class="perm down">&#x25bc;</td>
-                      <td class="perm bye">&#x2205;</td>
-                    </tr>
-                    <tr class="bye">
-                      <td>&#x2205;&rArr;</td>
-                      <td class="perm up">&#x25b2;</td>
-                      <td class="perm down">&#x25bc;</td>
-                      <td class="perm bye">&#x2205;</td>
-                    </tr>
-                  </table></td>
+                    <select class="preset" size="5">
+                      <!-- <option value="strict">streng</option> -->
+                      <!-- <option value="updown" selected="selected">hoch/runter</option> -->
+                      <option value="custom">manuell</option>
+                      <option value="nice">straf-arm</option>
+                      <option value="pvo" selected="selected">Standard</option>
+                      <option value="relaxed">locker</option>
+                      <option value="none">unbegrenzt</option>
+                    </select>
+                    <br>
+                    <table class="votepermissions">
+                      <tr class="up">
+                        <td>&#x25b2;&rArr;</td>
+                        <td class="perm up">&#x25b2;</td>
+                        <td class="perm down">&#x25bc;</td>
+                        <td class="perm bye">&#x2205;</td>
+                      </tr>
+                      <tr class="down">
+                        <td>&#x25bc;&rArr;</td>
+                        <td class="perm up">&#x25b2;</td>
+                        <td class="perm down">&#x25bc;</td>
+                        <td class="perm bye">&#x2205;</td>
+                      </tr>
+                      <tr class="bye">
+                        <td>&#x2205;&rArr;</td>
+                        <td class="perm up">&#x25b2;</td>
+                        <td class="perm down">&#x25bc;</td>
+                        <td class="perm bye">&#x2205;</td>
+                      </tr>
+                    </table>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -363,7 +368,7 @@
             Unerwarteter Fehler bei der Turnierberechnung.
           </div>
         </div>
-        
+
         <div class="boxview maastricht">
           <h3>Maastrichter System</h3>
           <p>
@@ -402,8 +407,8 @@
                   Beenden
                 </button>
                 <br>
-                <input class="points" type="number" min="0" max="8" value="0" />
-                <input class="points" type="number" min="0" max="8" value="0" />
+                <input class="points" type="number" value="0" />
+                <input class="points" type="number" value="0" />
               </div>
               <div class="teamno right">
                 ##
@@ -477,8 +482,6 @@
             </tr>
           </table>
 
-          <br>
-
           <div class="corrections">
             <h3>Korrekturen</h3>
             <table class="correctionstable background">
@@ -515,32 +518,33 @@
             </tr>
             <tr class="bye tpl">
               <td class="team"><span class="number">##</span><span class="names">### ###
-                <br>
-                ### ###</span></td>
+                  <br>
+                  ### ###</span></td>
               <td> Freilos </td>
-              <td class="points"> 8:6 </td>
+              <td class="points"> %%:%% </td>
             </tr>
             <tr class="game tpl">
               <td class="team"><span class="number">##</span><span class="names">### ###
-                <br>
-                ### ###</span></td>
+                  <br>
+                  ### ###</span></td>
               <td class="team"><span class="number">##</span><span class="names">### ###
-                <br>
-                ### ###</span></td>
+                  <br>
+                  ### ###</span></td>
               <td class="correct editable">##:##</td>
               <td class="chpoints">
-              <form class="middle">
-                <button class="abort">
-                  abbrechen
-                </button>
-                <br>
-                <input class="points" type="number" min="0" max="8" value="0" />
-                <input class="points" type="number" min="0" max="8" value="0" />
-                <br>
-                <button class="change" type="submit">
-                  speichern
-                </button>
-              </form></td>
+                <form class="middle">
+                  <button class="abort">
+                    abbrechen
+                  </button>
+                  <br>
+                  <input class="points" type="number" value="0" />
+                  <input class="points" type="number" value="0" />
+                  <br>
+                  <button class="change" type="submit">
+                    speichern
+                  </button>
+                </form>
+              </td>
             </tr>
           </table>
 
@@ -624,8 +628,8 @@
           </div>
         </div>
 
-         <input class="load filereader file" type="file" />
-        
+        <input class="load filereader file" type="file" />
+
         <p class="nofilereader">
           Dieser Browser kann keine lokalen Dateien laden.
           Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
@@ -739,9 +743,6 @@
             <a href="https://tuvero.de" target="_blank">Tuvero.de</a> zur kostenlosen Nutzung ohne Installation
             <br>
             <br>
-            <a href="http://spiel-tac.de/" target="_blank">Spiel TAC</a> die TAC-Homepage
-            <br>
-            <br>
             <a href="https://github.com/elor/tuvero/" target="_blank">Quellcode</a> auf Github.com
             <br>
             <br>
@@ -752,6 +753,9 @@
             <br>
             <br>
             <a href="http://boules-dev.appspot.org/" target="_blank">Entwicklerversion</a> zur Vorschau auf kommende Funktionen
+            <br>
+            <br>
+            <a href="http://spiel-tac.de/" target="_blank">Spiel TAC</a> - Die TAC-Homepage
           </p>
         </div>
         <div class="boxview">
@@ -882,17 +886,18 @@
 
       </div>
 
-      <a href="#reset" accesskey="!" tabindex="-1" class="hiddenlink devonly">&nbsp;</a>
-
-      <script>
-        require = {
-          urlArgs : "bust=" + (new Date()).getTime()
-        };
-      </script>
-      <script src="scripts/require.js"></script>
-      <script src="scripts/main.js"></script>
-      
     </div>
+
+
+    <a href="#reset" accesskey="!" tabindex="-1" class="hiddenlink devonly">&nbsp;</a>
+
+    <script>
+      require = {
+      urlArgs : "bust=" + (new Date()).getTime()
+      };
+    </script>
+    <script src="scripts/require.js"></script>
+    <script src="scripts/main.js"></script>
 
   </body>
 

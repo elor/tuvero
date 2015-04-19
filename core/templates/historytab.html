@@ -1,0 +1,95 @@
+<div data-tab="history" accesskey="h">
+  <button class="print" data-img="print"></button>
+  <button class="save" data-img="save"></button>
+  <div class="options">
+    <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
+    <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
+    <span><input class="gamelists" type="checkbox" />Spiele-Listen</span>
+  </div>
+  <h2>Turnierverlauf</h2>
+
+  <div class="boxview tpl">
+    <h3>Runde <span class="roundno">##</span></h3>
+    <table class="gamestable background">
+      <tr>
+        <th>Team 1</th>
+        <th>Team 2</th>
+        <th>Punktzahl</th>
+      </tr>
+      <tr class="bye tpl">
+        <td class="team"><span class="number">##</span><span class="names">### ###
+            <br>
+            ### ###</span></td>
+        <td> Freilos </td>
+        <td class="points"> %%:%% </td>
+      </tr>
+      <tr class="game tpl">
+        <td class="team"><span class="number">##</span><span class="names">### ###
+            <br>
+            ### ###</span></td>
+        <td class="team"><span class="number">##</span><span class="names">### ###
+            <br>
+            ### ###</span></td>
+        <td class="correct editable">##:##</td>
+        <td class="chpoints">
+          <form class="middle">
+            <button class="abort">
+              abbrechen
+            </button>
+            <br>
+            <input class="points" type="number" value="0" />
+            <input class="points" type="number" value="0" />
+            <br>
+            <button class="change" type="submit">
+              speichern
+            </button>
+          </form>
+        </td>
+      </tr>
+    </table>
+
+    <table class="progresstable background">
+      <tr>
+        <th>No.</th>
+        <th class="names">Spieler</th>
+        <th class="names">Spieler</th>
+        <th class="names">Spieler</th>
+        <th class="game vsep" colspan="3">Runde <span class="roundno">##</span></th>
+        <th class="result vsep">Siege</th>
+        <th class="result">BH</th>
+        <th class="result">FBH</th>
+        <th class="result">Saldo</th>
+        <th class="result">Rang</th>
+      </tr>
+      <tr class="team">
+        <td class="number">##</td>
+        <td class="names">%% %%</td>
+        <td class="names">%% %%</td>
+        <td class="names">%% %%</td>
+        <td class="game vsep">##</td>
+        <td class="game correct editable">%%</td>
+        <td class="game">%%</td>
+        <td class="result vsep">##</td>
+        <td class="result">##</td>
+        <td class="result">##</td>
+        <td class="result">##</td>
+        <td class="result">##</td>
+      </tr>
+    </table>
+
+    <div class="kotree">
+      <table class="game borderless">
+        <tr class="label"><th colspan="2">Lorem Ipsum</th><tr>
+        <tr>
+          <td class="number">##</td>
+          <td class="names">%%</td>
+          <td rowspan="2" class="points correct editable">%%</td>
+        </tr>
+        <tr>
+          <td class="number">##</td>
+          <td class="names">%%</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

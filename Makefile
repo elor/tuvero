@@ -24,7 +24,9 @@ clean: FORCE
 
 # primary global targets
 
-update: style test/index.html codestyle sprites
+update: style templates test/index.html codestyle sprites
+
+templates: boule/index.html tac/index.html
 
 scripts: FORCE
 	./tools/create-commonjs.sh
@@ -55,6 +57,12 @@ merge-master: FORCE
 
 test/index.html: FORCE
 	./tools/write-testindex.sh
+
+boule/index.html: FORCE
+	cd boule && ../tools/index-from-template.sh
+
+tac/index.html: FORCE
+	cd tac && ../tools/index-from-template.sh
 
 # makefile-related secondary targets
 

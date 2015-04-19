@@ -441,6 +441,8 @@ define(
         template.chpoints.$chpoints.detach();
         template.chpoints.$inputs = [];
         tmp = template.chpoints.$chpoints.find('input');
+        tmp.attr('max', Options.maxpoints).attr('min', 0);
+        tmp.val(0);
         for (i = 0; i < tmp.length; i += 1) {
           template.chpoints.$inputs[i] = tmp.eq(i);
         }
@@ -452,6 +454,8 @@ define(
         template.bye.$bye = template.$gamescontainer.find('.bye.tpl');
         template.bye.$bye.detach();
         template.bye.$bye.removeClass('tpl');
+        template.bye.$bye.find('.points').text(
+            Options.byepointswon + ':' + Options.byepointslost);
         template.bye.$teamno = template.bye.$bye.find('.number');
         template.bye.$names = template.bye.$bye.find('.names');
       }

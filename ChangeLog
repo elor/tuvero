@@ -2,6 +2,67 @@
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: Debug Logging removed
 
+	* core/templates: templates added
+
+	* boule/scripts/strings.js: variant-specific strings file
+	version removed (DRY principle)
+	teamsicon added
+
+	* tools/rebuild-from-template.sh: template resolving script added
+	stripping whitespaces from end the of a line
+	%version% is read from the Version file
+	renamed to index-from-template.sh
+
+	* boule/index.html: rebuilt from template
+	rebuilt from template, again
+	'tabimgopts' removed - we're explicitly assigning now
+
+	* legacy/scripts/ui/tab_games.js: reading min/max input values from Options
+
+	* legacy/scripts/ui/tab_history.js: reading min/max input values from Options
+
+	* core/templates/gamestab.html: DOM: min/max attributes removed in favor of Options
+
+	* core/templates/historytab.html: DOM: min/max attributes removed in favor of Options
+	deleted input field restored
+	html formatting
+
+	* Makefile: `make boule/index.html` auto-builds from template
+	`make tac/index.html` added
+	`make update` also runs `make template`
+	`make template`: `make boule/index.html` + `make tac/index.html
+
+	* tools/index-from-template.sh: renamed from rebuild-from-template.sh
+	reading the target's templatedir before reading the core templatedir
+	this allows the overriding of templates
+
+	* core/templates/hometab.html: using %teamsicon%
+
+	* core/templates/settingstab.html: using %teamsicon%
+
+	* tac/scripts/strings.js: teamsicon added
+
+	* core/templates/teamstab.html: 'tabimgopts' removed - we're explicitly assigning now
+	importing {{teamsizeview}}
+
+	* core/templates/abouttab.html: importing {{extralinks}}
+
+	* core/templates/extralinks.html: empty. Supposed to contain extra links for the about tab
+
+	* core/templates/newtab.html: importing {{newtabtodo}}
+	html formatting
+
+	* core/templates/newtabtodo.html: list of todo items, which are displayed in Tab_New
+
+	* core/templates/teamsizeview.html: separate teamsizeview.
+	can be overridden to disable teamsizeview. Not ideal, but it works. Must use options instead
+
+	* tac/templates/: TAC-specific templates
+
+	* tac/index.html: auto-built from templates
+
+	* tac/templates/teamsizeview.html: small note added to signify change in default behaviour
+
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings
