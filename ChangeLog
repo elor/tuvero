@@ -55,6 +55,8 @@
 	* core/templates/teamsizeview.html: separate teamsizeview.
 	can be overridden to disable teamsizeview. Not ideal, but it works. Must use options instead
 
+	* tac/templates/: TAC-specific templates
+
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings
