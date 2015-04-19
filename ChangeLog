@@ -7,6 +7,7 @@
 	* boule/scripts/strings.js: variant-specific strings file
 
 	* tools/rebuild-from-template.sh: template resolving script added
+	stripping whitespaces from end the of a line
 
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

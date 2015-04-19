@@ -82,4 +82,10 @@ inserttemplate(){
     done
 }
 
-inserttemplate index | replacestrings > index.html
+stripspaces(){
+    sed 's/\s*$//'
+}
+
+inserttemplate index | replacestrings | stripspaces > index.html
+
+exit 0
