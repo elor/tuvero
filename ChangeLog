@@ -11,6 +11,10 @@
 
 	* boule/index.html: rebuilt from template
 
+	* legacy/scripts/ui/tab_games.js: reading min/max input values from Options
+
+	* legacy/scripts/ui/tab_history.js: reading min/max input values from Options
+
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings

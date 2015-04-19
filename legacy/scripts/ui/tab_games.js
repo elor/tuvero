@@ -57,6 +57,12 @@ define(
         $anchor = $tab.find('.votes').eq(0);
 
         /**
+         * set min/max points
+         */
+        $form.find('.points').attr('min', 0).attr('max', Options.maxpoints);
+        $form.find('.points').val(0);
+
+        /**
          * disable/enable the submit button if input is valid
          */
         $tab.on('change', '.game input', function() {
