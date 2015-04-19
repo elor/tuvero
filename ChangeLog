@@ -5,9 +5,11 @@
 	* core/templates: templates added
 
 	* boule/scripts/strings.js: variant-specific strings file
+	version removed (DRY principle)
 
 	* tools/rebuild-from-template.sh: template resolving script added
 	stripping whitespaces from end the of a line
+	%version% is read from the Version file
 
 	* boule/index.html: rebuilt from template
 	rebuilt from template, again

@@ -25,8 +25,15 @@ getstring(){
     local key
     local value
     key="$1"
-    value=$(sed -r -n "s/\s*$1\s*:\s*('[^']+'|\"[^\"]+\")\s*,?\s*/\1/p" "$stringfile")
-    value=$(sed -r "s/^['\"]\s*|\s*['\"]$//g" <<< "$value")
+    case "$key" in
+        version)
+            value=$(cat ../Version)
+            ;;
+        *)
+            value=$(sed -r -n "s/\s*$1\s*:\s*('[^']+'|\"[^\"]+\")\s*,?\s*/\1/p" "$stringfile")
+            value=$(sed -r "s/^['\"]\s*|\s*['\"]$//g" <<< "$value")
+            ;;
+    esac
 
     (( $(wc -l <<< "$value") > 1 )) && echo "$stringfile: multiple entries of '$key'" >&2
 
