@@ -15,6 +15,7 @@
 
 	* boule/index.html: rebuilt from template
 	rebuilt from template, again
+	'tabimgopts' removed - we're explicitly assigning now
 
 	* legacy/scripts/ui/tab_games.js: reading min/max input values from Options
 
@@ -33,6 +34,9 @@
 	* core/templates/settingstab.html: using %teamsicon%
 
 	* tac/scripts/strings.js: teamsicon added
+
+	* core/templates/teamstab.html: 'tabimgopts' removed - we're explicitly assigning now
+
 
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
