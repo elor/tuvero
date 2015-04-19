@@ -1,8 +1,8 @@
 /**
  * Options object, which contains options such as database keys, points, etc.
- * 
+ *
  * @deprecated will be replaced with a new OptionsModel class or something
- * 
+ *
  * @return Options
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
