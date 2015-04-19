@@ -4,6 +4,10 @@
 
 	* core/templates: templates added
 
+	* boule/scripts/strings.js: variant-specific strings file
+
+	* tools/rebuild-from-template.sh: template resolving script added
+
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings
