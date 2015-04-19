@@ -6,6 +6,7 @@
 
 	* boule/scripts/strings.js: variant-specific strings file
 	version removed (DRY principle)
+	teamsicon added
 
 	* tools/rebuild-from-template.sh: template resolving script added
 	stripping whitespaces from end the of a line
@@ -22,10 +23,16 @@
 	* core/templates/gamestab.html: DOM: min/max attributes removed in favor of Options
 
 	* core/templates/historytab.html: DOM: min/max attributes removed in favor of Options
+	deleted input field restored
 
 	* Makefile: `make boule/index.html` auto-builds from template
 
 	* tools/index-from-template.sh: renamed from rebuild-from-template.sh
+	* core/templates/hometab.html: using %teamsicon%
+
+	* core/templates/settingstab.html: using %teamsicon%
+
+	* tac/scripts/strings.js: teamsicon added
 
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

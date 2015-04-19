@@ -8,6 +8,7 @@
 
 define(function() {
     return {
+        teamsicon: 'teams3',
         variant: 'Boule'
     };
 });

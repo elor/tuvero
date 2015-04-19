@@ -8,6 +8,7 @@
 
 define(function() {
     return {
-        variant: 'TAC'
+        variant: 'TAC',
+        teamsicon: 'teams'
     };
 });
