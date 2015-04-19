@@ -38,7 +38,8 @@ builddir=build/$target
 
 rm -rfv $builddir || exit 1
 r.js -o $sourcedir/scripts/build.js || exit 1
-rm -f $builddir/build.txt $builddir/Makefile
+rm -rf $builddir/templates/ || :
+rm -f $builddir/build.txt $builddir/Makefile $builddir/scripts/strings.js
 
 #############################
 # separate CSS optimization #

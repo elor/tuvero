@@ -63,6 +63,8 @@
 
 	* tac/templates/teamsizeview.html: small note added to signify change in default behaviour
 
+	* tools/build.sh: removing template folder and strings file
+
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings
