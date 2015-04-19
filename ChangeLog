@@ -25,6 +25,7 @@
 
 	* core/templates/historytab.html: DOM: min/max attributes removed in favor of Options
 	deleted input field restored
+	html formatting
 
 	* Makefile: `make boule/index.html` auto-builds from template
 	`make tac/index.html` added
@@ -49,6 +50,7 @@
 	* core/templates/extralinks.html: empty. Supposed to contain extra links for the about tab
 
 	* core/templates/newtab.html: importing {{newtabtodo}}
+	html formatting
 
 	* core/templates/newtabtodo.html: list of todo items, which are displayed in Tab_New
 
