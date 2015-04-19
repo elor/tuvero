@@ -10,6 +10,7 @@
 	stripping whitespaces from end the of a line
 
 	* boule/index.html: rebuilt from template
+	rebuilt from template, again
 
 	* legacy/scripts/ui/tab_games.js: reading min/max input values from Options
 
