@@ -32,6 +32,9 @@
 	`make template`: `make boule/index.html` + `make tac/index.html
 
 	* tools/index-from-template.sh: renamed from rebuild-from-template.sh
+	reading the target's templatedir before reading the core templatedir
+	this allows the overriding of templates
+
 	* core/templates/hometab.html: using %teamsicon%
 
 	* core/templates/settingstab.html: using %teamsicon%

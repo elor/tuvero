@@ -5,15 +5,12 @@
 
 set -e -u
 
-templatedir="../core/templates/"
+targettemplatedir="templates"
+coretemplatedir="../core/templates"
 stringfile="scripts/strings.js"
 
-if [ -d "$templatedir" ] && [ -f "$stringfile" ]; then
+if [ -d "$coretemplatedir" ] && [ -f "$stringfile" ]; then
     :
-#     cat <<EOF
-# templatedir: $templatedir
-# stringfile: $stringfile
-# EOF
 else
     cat <<EOF
 This file has to be run from inside a build target directory, e.g. boule/ or tac/
@@ -60,8 +57,19 @@ replacestrings(){
     cat <<< "$string"
 }
 
+findtemplatefile(){
+    local file
+
+    file="$targettemplatedir/$1.html"
+    [ -f "$file" ] && { echo "$file"; return; }
+
+    file="$coretemplatedir/$1.html"
+    [ -f "$file" ] && { echo "$file"; return; }
+
+}
+
 inserttemplate(){
-    local file="$templatedir/$1.html"
+    local file=$(findtemplatefile "$1")
     local lineprefix
     if (( ${#@} > 1 )); then
         lineprefix="$2"
