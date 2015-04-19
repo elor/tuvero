@@ -39,6 +39,18 @@
 	* tac/scripts/strings.js: teamsicon added
 
 	* core/templates/teamstab.html: 'tabimgopts' removed - we're explicitly assigning now
+	importing {{teamsizeview}}
+
+	* core/templates/abouttab.html: importing {{extralinks}}
+
+	* core/templates/extralinks.html: empty. Supposed to contain extra links for the about tab
+
+	* core/templates/newtab.html: importing {{newtabtodo}}
+
+	* core/templates/newtabtodo.html: list of todo items, which are displayed in Tab_New
+
+	* core/templates/teamsizeview.html: separate teamsizeview.
+	can be overridden to disable teamsizeview. Not ideal, but it works. Must use options instead
 
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
