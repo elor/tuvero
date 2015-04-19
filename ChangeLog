@@ -1,3 +1,7 @@
+2015-04-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: Debug Logging removed
+
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings

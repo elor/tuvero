@@ -93,8 +93,6 @@ define(['lib/extend', 'core/controller', './team', './toast', './strings',
       return characters[0];
     }
 
-    console.log(symbol);
-
     for (byteindex = 1; byteindex < bytes; byteindex += 1) {
       symbol = symbol << 6;
       symbol += characters[byteindex].charCodeAt() ^ 0x80;
