@@ -59,6 +59,10 @@
 
 	* tac/templates/: TAC-specific templates
 
+	* tac/index.html: auto-built from templates
+
+	* tac/templates/teamsizeview.html: small note added to signify change in default behaviour
+
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings
