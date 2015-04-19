@@ -10,6 +10,7 @@
 	* tools/rebuild-from-template.sh: template resolving script added
 	stripping whitespaces from end the of a line
 	%version% is read from the Version file
+	renamed to index-from-template.sh
 
 	* boule/index.html: rebuilt from template
 	rebuilt from template, again
@@ -21,6 +22,10 @@
 	* core/templates/gamestab.html: DOM: min/max attributes removed in favor of Options
 
 	* core/templates/historytab.html: DOM: min/max attributes removed in favor of Options
+
+	* Makefile: `make boule/index.html` auto-builds from template
+
+	* tools/index-from-template.sh: renamed from rebuild-from-template.sh
 
 2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
