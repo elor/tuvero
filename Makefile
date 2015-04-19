@@ -47,7 +47,7 @@ codestyle: scripts
 # secondary global targets
 
 clean-tools:
-	rm -rf Makefile tools/
+	rm -rf Makefile tools/ .jslintrc .jshintrc
 
 release: FORCE
 	./tools/prepare-release.sh

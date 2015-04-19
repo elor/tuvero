@@ -31,6 +31,7 @@
 	`make tac/index.html` added
 	`make update` also runs `make template`
 	`make template`: `make boule/index.html` + `make tac/index.html
+	`make clean-tools` removes .jslintrc/.jshintrc, too
 
 	* tools/index-from-template.sh: renamed from rebuild-from-template.sh
 	reading the target's templatedir before reading the core templatedir
