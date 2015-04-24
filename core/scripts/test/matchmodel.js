@@ -68,7 +68,7 @@ define(function() {
       QUnit.equal(game.getTeamID(3), 4, 'MatchModel() copies the team array');
 
       game = new MatchModel([1, 2], 0, 0);
-      ref = new MatchResult([1, 2], [13, 7]);
+      ref = new MatchResult(game, [13, 7]);
 
       listener = {
         finished: false,

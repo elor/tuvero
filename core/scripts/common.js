@@ -65,6 +65,7 @@ define([
   'core/tabmenucontroller',
   'core/tabmenuview',
   'core/tabmodel',
+  'core/tournamentmodel',
   'core/transposedifferencematrix',
   'core/transposesummatrix',
   'core/trianglematrixmodel',

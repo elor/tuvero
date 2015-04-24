@@ -3,6 +3,10 @@
 	* core/scripts/tournamentmodel.js: getGames jsdoc comment added
 	Tournament.votes + Tournament.history added
 	TODO added
+	using ListCollectorModel to retrieve all results during match.finish() calls
+	getGames -> getMatches
+	validateMatchResult added
+	postprocessMatch added
 
 	* core/scripts/matchmodel.js: GameResult -> MatchResult
 	this.finished removed. This is for the tournament to decide. It should have been a ValueModel instance anyway
@@ -12,6 +16,7 @@
 
 	* core/scripts/test/matchmodel.js: GameModel -> MatchModel
 	A game can be finished multiple times, if necessary
+	reference value updated to contain the this.match reference
 
 	* core/scripts/test/matchresult.js: MatchResult tests added
 
