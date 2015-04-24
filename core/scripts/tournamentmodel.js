@@ -49,7 +49,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.teams = new UniqueListModel();
     this.games = new ListModel();
     this.ranking = undefined; // best to create it here from some arguments?
-    // this.history = new ListModel(); ?????
+    // this.votes = new VotesModel();
+    // this.history = new HistoryModel();
   }
   extend(TournamentModel, PropertyModel);
 
@@ -72,12 +73,15 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
-   * @return a ListModel of the registered teams. DO NOT MANIPULATE!
+   * @return a ListModel of the registered teams.
    */
   TournamentModel.prototype.getTeams = function() {
     return new ReadonlyListModel(this.teams);
   };
 
+  /**
+   * @return ListModel of the running games
+   */
   TournamentModel.prototype.getGames = function() {
     return new ReadonlyListModel(this.games);
   };

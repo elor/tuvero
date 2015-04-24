@@ -1,3 +1,8 @@
+2015-04-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: getGames jsdoc comment added
+	Tournament.votes + Tournament.history added
+
 2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/players.js: accepting an empty blob as valid input
