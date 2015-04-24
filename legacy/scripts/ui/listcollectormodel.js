@@ -98,6 +98,7 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
     if (!data) {
       data = {};
     }
+    // TODO get rid of "source" field
     if (!data.source) {
       data.source = emitter;
     }

@@ -26,7 +26,7 @@ define(function() {
       } catch (e) {
         success = false;
       }
-      QUnit.ok(success, 'passing match as first argument')
+      QUnit.ok(success, 'passing match as first argument');
       QUnit.equal(result.match, match, 'result.match contains original match');
       QUnit.deepEqual(result.teams, match.teams, 'match teams match');
       QUnit.ok(result.teams !== match.teams, 'match teams are only copies');
@@ -41,7 +41,7 @@ define(function() {
       } catch (e) {
         success = false;
       }
-      QUnit.ok(success, 'passing team array as first argument')
+      QUnit.ok(success, 'passing team array as first argument');
       QUnit.equal(result.match, undefined, 'result.match is undefined');
       QUnit.deepEqual(result.teams, teams, 'teams match');
       QUnit.ok(result.teams !== teams, 'match teams are copies');

@@ -149,10 +149,10 @@ define(['lib/extend', './model', './rankingcomponentindex',
       this.emit('resize');
       this.invalidate();
       return true;
-    } else {
-      console.error('RankingModel.resize: invalid size: ' + size);
-      return false;
     }
+
+    console.error('RankingModel.resize: invalid size: ' + size);
+    return false;
   };
 
   /**

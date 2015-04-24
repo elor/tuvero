@@ -76,6 +76,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * @return a ListModel of the registered teams.
    */
   TournamentModel.prototype.getTeams = function() {
+    // TODO use IndexTranslationList or something
     return new ReadonlyListModel(this.teams);
   };
 
