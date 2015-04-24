@@ -3,6 +3,17 @@
 	* core/scripts/tournamentmodel.js: getGames jsdoc comment added
 	Tournament.votes + Tournament.history added
 
+	* core/scripts/matchmodel.js: GameResult -> MatchResult
+	this.finished removed. This is for the tournament to decide. It should have been a ValueModel instance anyway
+
+	* core/scripts/matchresult.js: MatchResult() accepts a MatchModel instance instead of a team list, too
+	this.match is a reference to the match, if available
+
+	* core/scripts/test/matchmodel.js: GameModel -> MatchModel
+	A game can be finished multiple times, if necessary
+
+	* core/scripts/test/matchresult.js: MatchResult tests added
+
 2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/players.js: accepting an empty blob as valid input

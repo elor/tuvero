@@ -39,6 +39,7 @@ require(['config'], function() {
   'core/test/rankingdatalistenerindex',
   'core/test/rankingcomponentindex',
   'core/test/rankingtac',
+  'core/test/matchresult',
   'core/test/model',
   'backend/test/matrix',
   'backend/test/ranking',

@@ -8,18 +8,18 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var GameModel;
+    var MatchModel;
 
-    GameModel = getModule('core/matchmodel');
-    GameResult = getModule('core/matchresult');
+    MatchModel = getModule('core/matchmodel');
+    MatchResult = getModule('core/matchresult');
 
-    QUnit.test('GameModel', function() {
+    QUnit.test('MatchModel', function() {
       var game, success, array, ref, listener;
 
       game = undefined;
 
       try {
-        game = new GameModel();
+        game = new MatchModel();
         success = false;
       } catch (e) {
         success = true;
@@ -28,7 +28,7 @@ define(function() {
 
       game = undefined;
       try {
-        game = new GameModel([15]);
+        game = new MatchModel([15]);
         success = false;
       } catch (e) {
         success = true;
@@ -37,7 +37,7 @@ define(function() {
 
       game = undefined;
       try {
-        game = new GameModel([15], 0);
+        game = new MatchModel([15], 0);
         success = false;
       } catch (e) {
         success = true;
@@ -46,14 +46,14 @@ define(function() {
 
       game = undefined;
       try {
-        game = new GameModel([], 0, 0);
+        game = new MatchModel([], 0, 0);
         success = false;
       } catch (e) {
         success = true;
       }
       QUnit.ok(success, 'empty teams array should throw an error');
 
-      game = new GameModel([15], 51, 5);
+      game = new MatchModel([15], 51, 5);
 
       QUnit.equal(game.getID(), 51, 'default id is 0');
       QUnit.equal(game.getGroup(), 5, 'default group is 0');
@@ -63,12 +63,12 @@ define(function() {
       QUnit.equal(game.getTeamID(0), 15, 'getTeamID inside range');
 
       array = [1, 2, 3, 4, 5];
-      game = new GameModel(array, 2, 3);
+      game = new MatchModel(array, 2, 3);
       array[3] = 321;
-      QUnit.equal(game.getTeamID(3), 4, 'GameModel() copies the team array');
+      QUnit.equal(game.getTeamID(3), 4, 'MatchModel() copies the team array');
 
-      game = new GameModel([1, 2], 0, 0);
-      ref = new GameResult([1, 2], [13, 7]);
+      game = new MatchModel([1, 2], 0, 0);
+      ref = new MatchResult([1, 2], [13, 7]);
 
       listener = {
         finished: false,
@@ -86,9 +86,6 @@ define(function() {
       QUnit.equal(listener.finished, false, 'no "finish" event sent yet');
       QUnit.deepEqual(game.finish([13, 7]), ref, 'game.finish([13,7]) works');
       QUnit.equal(listener.finished, true, '"finish" event sent yet');
-
-      QUnit.equal(game.finish([13, 7]), undefined,
-          'second game.finish([something]) fails');
     });
   };
 });
