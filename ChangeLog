@@ -1,3 +1,9 @@
+2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: initializing RankingModel on construction
+	resizing RankingModel during addTeam()
+	addTeam(): respecting 'addteamrunning' and 'addteamidle' properties
+
 2015-04-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: getGames jsdoc comment added

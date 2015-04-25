@@ -9,9 +9,10 @@
  * @see LICENSE
  */
 define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
-    './statevaluemodel', './matchmodel', 'ui/listcollectormodel'], function(
-    extend, PropertyModel, ListModel, UniqueListModel, StateValueModel,
-    MatchModel, ListCollectorModel) {
+    './statevaluemodel', './matchmodel', 'ui/listcollectormodel',
+    './rankingmodel'], function(extend, PropertyModel, ListModel,
+    UniqueListModel, StateValueModel, MatchModel, ListCollectorModel,
+    RankingModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -42,18 +43,28 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
 
   /**
    * Constructor
+   *
+   * @param rankingorder
+   *          an array of ranking orders, e.g. ['wins', 'buchholz']
    */
-  function TournamentModel() {
+  function TournamentModel(rankingorder) {
     var collector;
-
     TournamentModel.superconstructor.call(this);
+    // TODO initialize with properties
+
+    // rankingorder default: sort by entry order
+    rankingorder = rankingorder || ['id'];
 
     this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS);
     this.teams = new UniqueListModel();
     this.matches = new ListModel();
-    this.ranking = undefined;
+    this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
     // this.votes = new VotesModel();
     // this.history = new HistoryModel();
+
+    // initial properties
+    this.setProperty('addteamrunning', false);
+    this.setProperty('addteamidle', false);
 
     // listen to the matches
     collector = new ListCollectorModel(this.matches, MatchModel);
@@ -74,16 +85,55 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     'error': true
   };
 
+  /**
+   * Array of additional ranking dependencies, e.g. ['matchmatrix']
+   */
+  TournamentModel.prototype.RANKINGDEPENDENCIES = [];
+
+  /**
+   * add a team id to the tournament. Teams can only be entered once.
+   *
+   * Undefined behaviour if the tournament has already started.
+   *
+   * TODO use some configuration object to determine
+   *
+   * @param teamid
+   *          the external id of a team
+   * @returns true on success, false if the team already exists. undefined if
+   *          the team cannot be added in the current state
+   */
   TournamentModel.prototype.addTeam = function(teamid) {
     // TODO isNumber() check
-    return this.teams.insert(teamid) !== undefined;
+    switch (this.state.get()) {
+    case 'initial':
+      break;
+    case 'running':
+      if (!this.getProperty('addteamrunning')) {
+        return undefined;
+      }
+      break;
+    case 'idle':
+      if (!this.getProperty('addteamidle')) {
+        return undefined;
+      }
+      break;
+    case 'finished':
+      console.error('cannot enter add a team to a finished tournament');
+      return undefined;
+    }
+
+    if (this.teams.insert(teamid) !== undefined) {
+      this.ranking.resize(this.teams.length);
+      return true;
+    }
+
+    return false;
   };
 
   /**
    * @return a ListModel of the registered teams.
    */
   TournamentModel.prototype.getTeams = function() {
-    // TODO use IndexTranslationList or something
     return new ReadonlyListModel(this.teams);
   };
 
