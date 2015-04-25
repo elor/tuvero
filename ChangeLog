@@ -4,6 +4,10 @@
 	resizing RankingModel during addTeam()
 	addTeam(): respecting 'addteamrunning' and 'addteamidle' properties
 
+	* core/scripts/listmodel.js: makeReadonly() function added
+
+	* core/scripts/test/listmodel.js: testing makeReadonly()
+
 2015-04-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: getGames jsdoc comment added

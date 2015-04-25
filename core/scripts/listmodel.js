@@ -249,5 +249,17 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.updateLength();
   };
 
+  /**
+   * makes this instance of ListModel readonly
+   */
+  ListModel.prototype.makeReadonly = function() {
+    this.push = undefined;
+    this.pop = undefined;
+    this.insert = undefined;
+    this.remove = undefined;
+    this.clear = undefined;
+    this.erase = undefined;
+  };
+
   return ListModel;
 });
