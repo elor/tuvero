@@ -28,6 +28,7 @@ require(['config'], function() {
   'core/test/absolutematrix',
   'core/test/vectormodel',
   'core/test/readonlylistmodel',
+  'core/test/listupdatelistener',
   'core/test/rankingsonneborn',
   'core/test/delegatematrix',
   'core/test/valuemodel',

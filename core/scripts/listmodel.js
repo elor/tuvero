@@ -8,7 +8,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(['lib/extend', './model', './listupdatelistener'], function(extend,
+    Model, ListUpdateListener) {
 
   /**
    * Constructor for an empty list
@@ -18,7 +19,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.length = 0;
     this.list = [];
 
-    this.registerListener(this);
+    ListUpdateListener.bind(this, this.updateLength);
   }
   extend(ListModel, Model);
   ListModel.prototype.EVENTS = {
@@ -226,27 +227,6 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
       this.length = this.list.length;
       this.emit('resize');
     }
-  };
-
-  /**
-   * Callback function: called when an 'insert' event is emitted
-   */
-  ListModel.prototype.oninsert = function() {
-    this.updateLength();
-  };
-
-  /**
-   * Callback function: called when a 'remove' event is emitted
-   */
-  ListModel.prototype.onremove = function() {
-    this.updateLength();
-  };
-
-  /**
-   * Callback function: called when a 'reset' event is emitted
-   */
-  ListModel.prototype.onreset = function() {
-    this.updateLength();
   };
 
   /**

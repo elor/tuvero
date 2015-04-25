@@ -99,7 +99,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    *
    * @param teamid
    *          the external id of a team
-   * @returns true on success, false if the team already exists. undefined if
+   * @return true on success, false if the team already exists. undefined if
    *          the team cannot be added in the current state
    */
   TournamentModel.prototype.addTeam = function(teamid) {

@@ -7,59 +7,32 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/listmodel'], function(extend, ListModel) {
+define(['lib/extend', './listmodel', './listupdatelistener'], function(extend,
+    ListModel, ListUpdateListener) {
   /**
    * Constructor for an empty list
    */
   function IndexedListModel() {
     IndexedListModel.superconstructor.call(this);
+
+    ListUpdateListener.bind(this, this.updateIDs);
   }
   extend(IndexedListModel, ListModel);
 
   /**
    * update the ids, starting at the specified index
    *
-   * @param startindex
-   *          the index with which to start. Defaults to 0
+   * @param data
+   *          event callback data
    */
-  IndexedListModel.prototype.updateIDs = function(startindex) {
-    var index;
+  IndexedListModel.prototype.updateIDs = function(data) {
+    var index, startindex;
 
-    startindex = startindex || 0;
+    startindex = data.id || 0;
 
     for (index = startindex; index < this.length; index += 1) {
       this.get(index).setID(index);
     }
-  };
-
-  /**
-   * Callback function
-   *
-   * @param emitter
-   *          should be equal to this
-   * @param event
-   *          should be equal to 'insert'
-   * @param data
-   *          a data object containing 'id' and 'object' fields
-   */
-  IndexedListModel.prototype.oninsert = function(emitter, event, data) {
-    IndexedListModel.superclass.oninsert.call(this, emitter, event, data);
-    this.updateIDs(data.id);
-  };
-
-  /**
-   * Callback function
-   *
-   * @param emitter
-   *          should be equal to this
-   * @param event
-   *          should be equal to 'remove'
-   * @param data
-   *          a data object containing 'id' and 'object' fields
-   */
-  IndexedListModel.prototype.onremove = function(emitter, event, data) {
-    IndexedListModel.superclass.onremove.call(this, emitter, event, data);
-    this.updateIDs(data.id);
   };
 
   return IndexedListModel;

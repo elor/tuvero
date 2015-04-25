@@ -1,3 +1,13 @@
+2015-04-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/indexedlistmodel.js: using ListUpdateListener instead of self-listening emitters
+
+	* core/scripts/listmodel.js: using ListUpdateListener instead of self-listening emitters
+
+	* core/scripts/listupdatelistener.js: perform a function whenever a list element is inserted/removed
+
+	* core/scripts/test/listupdatelistener.js: placeholder for when I'm awake again
+
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: initializing RankingModel on construction
