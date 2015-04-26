@@ -28,7 +28,7 @@ define(function() {
   Listener.prototype.destroy = function() {
     this.emitters.forEach(function(emitter) {
       emitter.unregisterListener(this);
-    });
+    }, this);
   };
   return Listener;
 });

@@ -7,6 +7,12 @@
 	* core/scripts/listupdatelistener.js: perform a function whenever a list element is inserted/removed
 
 	* core/scripts/test/listupdatelistener.js: placeholder for when I'm awake again
+	I'm awake again. Tests have been added
+
+	* core/scripts/listener.js: missing 'this' added to a forEach-call
+	this fixes a critical memory leak
+
+	* core/scripts/test/listener.js: testing listener.destroy()
 
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
