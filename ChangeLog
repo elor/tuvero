@@ -23,6 +23,8 @@
 	* core/scripts/test/matchreferencelistmodel.js: testing MatchReferenceListModel
 
 	* core/scripts/tournamentmodel.js: using MatchReferenceListModel for getMatches()
+	getState() function added
+	no matches and still 'running' -> transition to 'idle' state
 
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

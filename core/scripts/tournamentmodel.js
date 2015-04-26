@@ -131,6 +131,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
+   * @return the current state of the tournament
+   */
+  TournamentModel.prototype.getState = function() {
+    return this.state.get();
+  };
+
+  /**
    * @return a ListModel of the registered teams.
    */
   TournamentModel.prototype.getTeams = function() {
@@ -203,6 +210,10 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.ranking.result(matchresult);
 
     this.postprocessMatch(matchresult);
+
+    if (this.state === 'running' && this.matches.length === 0) {
+      this.state.set('idle');
+    }
   };
 
   return TournamentModel;
