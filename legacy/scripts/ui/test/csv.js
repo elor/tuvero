@@ -20,7 +20,7 @@ define(function() {
     History = getModule('ui/history');
     Ranking = getModule('ui/ranking');
 
-    QUnit.test('UI CSV tests', function() {
+    QUnit.test('UI CSV', function() {
       QUnit.equal(Implements(CSVer), '', 'CSVer is an interface');
 
       QUnit.equal(Implements(CSVer, Team), '', 'Team interface match');

@@ -18,7 +18,7 @@ define(function() {
     Team = getModule('ui/team');
     History = getModule('ui/history');
 
-    QUnit.test('UI Blob tests', function() {
+    QUnit.test('UI Blob', function() {
 
       QUnit.equal(Implements(Blobber), '', 'Blobber is an interface');
 

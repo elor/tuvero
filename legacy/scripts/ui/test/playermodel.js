@@ -14,7 +14,7 @@ define(function() {
 
     // TODO test the emitted events
 
-    QUnit.test('PlayerModel tests', function() {
+    QUnit.test('PlayerModel', function() {
       var model, res, ref, listener;
 
       listener = {

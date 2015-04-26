@@ -15,7 +15,7 @@ define(function() {
     ListModel = getModule('core/listmodel');
     IndexedModel = getModule('core/indexedmodel');
 
-    QUnit.test('IndexedListModel tests', function() {
+    QUnit.test('IndexedListModel', function() {
       var list;
 
       QUnit.ok(extend.isSubclass(IndexedListModel, ListModel), 'IndexedListModel is subclass of ListModel');

@@ -14,7 +14,7 @@ define(function() {
     UniqueListModel = getModule('core/uniquelistmodel');
     extend = getModule('lib/extend');
 
-    QUnit.test('UniqueListModel tests', function() {
+    QUnit.test('UniqueListModel', function() {
       var list;
 
       QUnit.ok(extend.isSubclass(UniqueListModel, ListModel),

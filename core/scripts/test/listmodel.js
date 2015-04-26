@@ -12,7 +12,7 @@ define(function() {
 
     ListModel = getModule('core/listmodel');
 
-    QUnit.test('ListModel tests', function() {
+    QUnit.test('ListModel', function() {
       var list, obj, i, ret, res, listener;
 
       listener = {
