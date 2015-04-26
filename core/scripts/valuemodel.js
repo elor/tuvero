@@ -30,6 +30,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
       this.bind = undefined;
     }
 
+    // don't call this.set, because set() can be overridden by a subclass
     ValueModel.prototype.set.call(this, value);
   }
   extend(ValueModel, Model);
