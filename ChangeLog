@@ -14,6 +14,10 @@
 
 	* core/scripts/test/listener.js: testing listener.destroy()
 
+	* test/scripts/test.js: test modules are now in alphabetic order
+
+	* tools/create-testjs.sh: sorting test modules by alphabetic order
+
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: initializing RankingModel on construction
