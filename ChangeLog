@@ -20,7 +20,9 @@
 
 	* core/scripts/matchreferencelistmodel.js: list, which re-maps team ids of a match
 
-	* core/scripts/test/matchreferencelistmodel.js: testing MatchReferenceModel
+	* core/scripts/test/matchreferencelistmodel.js: testing MatchReferenceListModel
+
+	* core/scripts/tournamentmodel.js: using MatchReferenceListModel for getMatches()
 
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

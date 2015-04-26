@@ -10,9 +10,9 @@
  */
 define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './statevaluemodel', './matchmodel', 'ui/listcollectormodel',
-    './rankingmodel'], function(extend, PropertyModel, ListModel,
-    UniqueListModel, StateValueModel, MatchModel, ListCollectorModel,
-    RankingModel) {
+    './rankingmodel', './matchreferencelistmodel'], function(extend,
+    PropertyModel, ListModel, UniqueListModel, StateValueModel, MatchModel,
+    ListCollectorModel, RankingModel, MatchReferenceListModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -99,8 +99,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    *
    * @param teamid
    *          the external id of a team
-   * @return true on success, false if the team already exists. undefined if
-   *          the team cannot be added in the current state
+   * @return true on success, false if the team already exists. undefined if the
+   *         team cannot be added in the current state
    */
   TournamentModel.prototype.addTeam = function(teamid) {
     // TODO isNumber() check
@@ -134,15 +134,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * @return a ListModel of the registered teams.
    */
   TournamentModel.prototype.getTeams = function() {
+    // TODO use a singleton
     return new ReadonlyListModel(this.teams);
   };
 
   /**
-   * @return ListModel of the running matches
+   * @return ListModel of the running matches, with global team ids
    */
   TournamentModel.prototype.getMatches = function() {
-    // TODO use MatchTranslationList or something
-    return new ReadonlyListModel(this.matches);
+    // TODO use a singleton
+    return new MatchReferenceListModel(this.matches, this.teams);
   };
 
   /**
