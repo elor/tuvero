@@ -20,6 +20,7 @@ define(['ui/state_new'], function(State) {
     playernameurl: 'https://boulesdb.appspot.com/json',
     minteamsize: 1,
     maxteamsize: 3,
+    minpoints: 0,
     maxpoints: 15,
     // user-specific
     // local : {},

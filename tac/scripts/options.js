@@ -20,6 +20,7 @@ define(['ui/state_new'], function(State) {
     playernameurl: '',
     minteamsize: 1,
     maxteamsize: 1,
+    minpoints: 0,
     maxpoints: 8,
     // user-specific
     // local : {},

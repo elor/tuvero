@@ -46,6 +46,12 @@
 
 	* core/scripts/rankingmodel.js: bye() function added
 
+	* boule/scripts/options.js: minpoints added
+
+	* tac/scripts/options.js: minpoints added
+
+	* test/scripts/options.js: minpoints added
+
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: initializing RankingModel on construction
