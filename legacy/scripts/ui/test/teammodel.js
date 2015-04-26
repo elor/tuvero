@@ -15,7 +15,7 @@ define(function() {
     IndexedModel = getModule('core/indexedmodel');
     PlayerModel = getModule('ui/playermodel');
 
-    QUnit.test('TeamModel tests', function() {
+    QUnit.test('TeamModel', function() {
       var team, players, names, listener;
 
       QUnit.ok(extend.isSubclass(TeamModel, IndexedModel),

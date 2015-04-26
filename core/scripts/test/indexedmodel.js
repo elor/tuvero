@@ -14,7 +14,7 @@ define(function() {
     Model = getModule('core/model');
     IndexedModel = getModule('core/indexedmodel');
 
-    QUnit.test('IndexedModel tests', function() {
+    QUnit.test('IndexedModel', function() {
       var model, listener;
 
       QUnit.ok(extend.isSubclass(IndexedModel, Model),

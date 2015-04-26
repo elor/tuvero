@@ -3,8 +3,11 @@ Tuvero 1.5.0 (yyyy-mm-dd)
 
 FEATURES:
 
+  * dynamic TournamentModel for generic tournaments
+
 FIXES:
 
+  * memory leak in Listener.destroy() fixed
 
 Tuvero 1.4.9 (2015-04-19)
 -------------------------
@@ -45,8 +48,7 @@ FIX:
 
   * restoring savestate compatibility (file and localstorage)
 
-Boules 1.4.6 (2015-03-24)
--------------------------
+Tuvero 1.4.6 (yyyy-mm-dd)
 
 FEATURES:
 

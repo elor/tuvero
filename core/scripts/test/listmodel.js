@@ -12,7 +12,7 @@ define(function() {
 
     ListModel = getModule('core/listmodel');
 
-    QUnit.test('ListModel tests', function() {
+    QUnit.test('ListModel', function() {
       var list, obj, i, ret, res, listener;
 
       listener = {
@@ -182,6 +182,15 @@ define(function() {
       QUnit.equal(list.length, 3, 'erase resizes the list');
 
       QUnit.equal(list.erase('notfound'), 0, 'erase() returns 0 if not found');
+
+      list = new ListModel();
+      list.makeReadonly();
+      QUnit.equal(list.insert, undefined, 'makereadonly: insert() disabled');
+      QUnit.equal(list.remove, undefined, 'makereadonly: remove() disabled');
+      QUnit.equal(list.push, undefined, 'makereadonly: push() disabled');
+      QUnit.equal(list.pop, undefined, 'makereadonly: pop() disabled');
+      QUnit.equal(list.clear, undefined, 'makereadonly: clear() disabled');
+      QUnit.equal(list.erase, undefined, 'makereadonly: erase() disabled');
     });
   };
 });

@@ -28,6 +28,7 @@ class=$1
 filename=`tr '[:upper:]' '[:lower:]' <<< $class`.js
 dir=core/scripts
 fullpath=$dir/$filename
+testpath=$dir/test/$filename
 super=''
 (( ${#@} > 1 )) && super=$2
 [ -z "$super" ] && super=`grep -Po '[A-Z][a-z]+$' <<< $class`
@@ -83,6 +84,43 @@ superarguments=$(sed -n 's/^(\(.*\))$/\1/p' <<< "$superarguments")
 [ -z "$superarguments" ] && [ -n "$supercomma" ] && { echo "unexpected error with superarguments. Please debug manually">&2; exit 1; }
 
 ####################
+# writing the test #
+####################
+
+cat > $testpath <<EOF
+/**
+ * Unit tests
+ *
+ * @return a test function
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+define(function() {
+  return function(QUnit, getModule) {
+    var extend, $class, $super;
+
+    extend = getModule('lib/extend');
+    $class = getModule('core/${class,,}');
+    $super = getModule('core/${super,,}');
+
+    QUnit.test('$class', function() {
+      QUnit.ok(extend.isSubclass($class, $super), '$class is subclass of $super');
+
+      // TODO write tests for $class
+      QUnit.ok(false, 'TODO: write tests for $class');
+    });
+  };
+});
+EOF
+
+echo
+echo "$testpath created:"
+echo
+
+cat $testpath
+
+####################
 # writing the file #
 ####################
 
@@ -108,7 +146,10 @@ define(['lib/extend', '$superref'], function(extend, $super){
 });
 EOF
 
+echo
 echo "$fullpath created:"
 echo
 
 cat "$fullpath"
+
+make scripts

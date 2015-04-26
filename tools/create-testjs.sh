@@ -8,7 +8,7 @@ backenddir=legacy/scripts/backend
 libdir=lib
 
 printrefs(){
-    ( cd $2 && find * -type f -name '*.js' | grep -P '(^|/)test\/' | sed -e 's/^/  '"'"$1'\//' -e 's/.js$/'"'"',/' )
+    ( cd $2 && find * -type f -name '*.js' | grep -P '(^|/)test\/' | sort | sed -e 's/^/  '"'"$1'\//' -e 's/.js$/'"'"',/' )
 }
 
 cat <<EOF > test/scripts/test.js

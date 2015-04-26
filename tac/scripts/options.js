@@ -18,6 +18,7 @@ define(['ui/options'], function(Options) {
     playernameurl: '',
     minteamsize: 1,
     maxteamsize: 1,
+    minpoints: 0,
     maxpoints: 8,
     byepointswon: 8,
     byepointslost: 6,

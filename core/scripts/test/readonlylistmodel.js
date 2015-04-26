@@ -13,7 +13,7 @@ define(function() {
     ListModel = getModule('core/listmodel');
     ReadonlyListModel = getModule('core/readonlylistmodel');
 
-    QUnit.test('ReadonlyListModel tests', function() {
+    QUnit.test('ReadonlyListModel', function() {
       var list, obj, i, ret, res, listener;
 
       listener = {

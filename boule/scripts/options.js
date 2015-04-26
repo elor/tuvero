@@ -18,6 +18,7 @@ define(['ui/options'], function(Options) {
     playernameurl: 'https://boulesdb.appspot.com/json',
     minteamsize: 1,
     maxteamsize: 3,
+    minpoints: 0,
     maxpoints: 15,
     byepointswon: 13,
     byepointslost: 7,

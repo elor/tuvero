@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', './model', './matchresult'], function(extend, Model,
-    GameResult) {
+    MatchResult) {
   /**
    * Constructor
    *
@@ -87,7 +87,7 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
    *
    * @param points
    *          An array of scored points for each team. Lengths have to match
-   * @return a GameResult instance representing the accepted result. undefined
+   * @return a MatchResult instance representing the accepted result. undefined
    *         otherwise
    */
   MatchModel.prototype.finish = function(points) {
@@ -97,13 +97,8 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
       console.error("MatchModel.finish(): lengths don't match");
       return undefined;
     }
-    if (this.finished) {
-      console.error('the match has already been finished');
-      return undefined;
-    }
 
-    result = new GameResult(this.teams, points);
-    this.finished = true;
+    result = new MatchResult(this, points);
 
     this.emit('finish', result);
 

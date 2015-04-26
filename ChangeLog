@@ -1,3 +1,102 @@
+2015-04-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/indexedlistmodel.js: using ListUpdateListener instead of self-listening emitters
+
+	* core/scripts/listmodel.js: using ListUpdateListener instead of self-listening emitters
+
+	* core/scripts/listupdatelistener.js: perform a function whenever a list element is inserted/removed
+
+	* core/scripts/test/listupdatelistener.js: placeholder for when I'm awake again
+	I'm awake again. Tests have been added
+
+	* core/scripts/listener.js: missing 'this' added to a forEach-call
+	this fixes a critical memory leak
+	Listener.bind() added
+
+	* core/scripts/test/listener.js: testing listener.destroy()
+	testing Listener.bind()
+
+	* test/scripts/test.js: test modules are now in alphabetic order
+
+	* tools/create-testjs.sh: sorting test modules by alphabetic order
+
+	* core/scripts/matchreferencelistmodel.js: list, which re-maps team ids of a match
+	redundant function parameter removed
+
+	* core/scripts/test/matchreferencelistmodel.js: testing MatchReferenceListModel
+
+	* core/scripts/tournamentmodel.js: using MatchReferenceListModel for getMatches()
+	getState() function added
+	no matches and still 'running' -> transition to 'idle' state
+	Votes added
+	VOTETYPES -> VOTES
+	getState() returns a bound ValueModel instance
+	abstract functions added
+	initByeListener added for convenience
+	run() and finish() added as public API functions
+	dummy functionality for initialMatches() and idleMatches() to allow for testing
+	missing modules and module order fixed
+	'update' event re-added (required by PropertyModel)
+	state.get() and state.set() mess fixed
+	this.teams.insert(teamid) corrected to this.teams.push(teamid)
+	using correct matchresult fields
+	initialMatches: confirming the number of teams
+	idleMatches: different teams than initialMatches
+
+	* core/scripts/maplistmodel.js: map indices to list elements
+
+	* core/scripts/test/maplistmodel.js: testing MapListModel
+
+	* tools/create-core-class.sh: creating test script, too
+
+	* core/scripts/rankingdatalistener.js: onbye() function added
+
+	* core/scripts/rankingmodel.js: bye() function added
+
+	* boule/scripts/options.js: minpoints added
+
+	* tac/scripts/options.js: minpoints added
+
+	* test/scripts/options.js: minpoints added
+
+	* core/scripts/test/tournamentmodel.js: TournamentModel tests added
+
+	* legacy/scripts/ui/listcollectormodel.js: comments added
+
+2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: initializing RankingModel on construction
+	resizing RankingModel during addTeam()
+	addTeam(): respecting 'addteamrunning' and 'addteamidle' properties
+
+	* core/scripts/listmodel.js: makeReadonly() function added
+
+	* core/scripts/test/listmodel.js: testing makeReadonly()
+
+2015-04-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: getGames jsdoc comment added
+	Tournament.votes + Tournament.history added
+	TODO added
+	using ListCollectorModel to retrieve all results during match.finish() calls
+	getGames -> getMatches
+	validateMatchResult added
+	postprocessMatch added
+
+	* core/scripts/matchmodel.js: GameResult -> MatchResult
+	this.finished removed. This is for the tournament to decide. It should have been a ValueModel instance anyway
+
+	* core/scripts/matchresult.js: MatchResult() accepts a MatchModel instance instead of a team list, too
+	this.match is a reference to the match, if available
+
+	* core/scripts/test/matchmodel.js: GameModel -> MatchModel
+	A game can be finished multiple times, if necessary
+	reference value updated to contain the this.match reference
+
+	* core/scripts/test/matchresult.js: MatchResult tests added
+
+	* legacy/scripts/ui/listcollectormodel.js: source field TODO added
+
 2015-04-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: Debug Logging removed
@@ -198,6 +297,8 @@
 	* tac/index.html: kotree gamebox label added
 
 	* legacy/scripts/ui/backgroundscripts/reset.js: "Reset"-button references the correct tab again
+
+	* core/scripts/tournamentmodel.js: first version of TournamentModel committed
 
 2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

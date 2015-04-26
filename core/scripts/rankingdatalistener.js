@@ -75,9 +75,27 @@ define(['lib/extend', './listener'], function(extend, Listener) {
   };
 
   /**
+   * inserts a bye into the ranking
+   *
+   * @param r
+   *          the emitting RankingModel instance. Please ignore.
+   * @param e
+   *          the name of the emitted event
+   * @param teams
+   *          array of teams which receive a bye
+   */
+  RankingDataListener.prototype.onbye = function(r, e, teams) {
+    // do something to this.field
+  };
+
+  /**
    * correct a ranking entry. Do not check whether it's valid. The
    * TournamentModel has to take care of that
    *
+   * @param r
+   *          the emitting RankingModel instance. Please ignore.
+   * @param e
+   *          the name of the emitted event
    * @param correction
    *          a game correction
    */

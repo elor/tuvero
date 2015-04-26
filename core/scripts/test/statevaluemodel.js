@@ -12,7 +12,7 @@ define(function() {
 
     StateValueModel = getModule('core/statevaluemodel');
 
-    QUnit.test('StateValueModel tests', function() {
+    QUnit.test('StateValueModel', function() {
       var state, transitions;
 
       transitions = {
