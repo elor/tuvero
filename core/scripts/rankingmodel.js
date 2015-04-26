@@ -9,9 +9,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model', './rankingcomponentindex',
+define(['lib/extend', './model', './rankingcomponentindex', './type',
     './rankingdatalistenerindex'], function(extend, Model,
-    RankingComponentIndex, RankingDataListenerIndex) {
+    RankingComponentIndex, Type, RankingDataListenerIndex) {
   /**
    * Constructor
    *
@@ -64,6 +64,7 @@ define(['lib/extend', './model', './rankingcomponentindex',
    */
   RankingModel.prototype.EVENTS = {
     'result': true, // insert a new game result
+    'bye': true, // insert a new bye
     'correct': true, // correct a game
     'recalc': true, // force a recalculation
     'update': true, // there has been an update
@@ -89,6 +90,20 @@ define(['lib/extend', './model', './rankingcomponentindex',
   RankingModel.prototype.result = function(result) {
     // TODO result verification?
     this.emit('result', result);
+    this.invalidate();
+  };
+
+  /**
+   * process a bye
+   *
+   * @param teams
+   *          an array of affected teams
+   */
+  RankingModel.prototype.bye = function(teams) {
+    if (Type.isNumber(teams)) {
+      teams = [teams];
+    }
+    this.emit('bye', teams);
     this.invalidate();
   };
 

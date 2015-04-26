@@ -36,6 +36,10 @@
 
 	* tools/create-core-class.sh: creating test script, too
 
+	* core/scripts/rankingdatalistener.js: onbye() function added
+
+	* core/scripts/rankingmodel.js: bye() function added
+
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: initializing RankingModel on construction
