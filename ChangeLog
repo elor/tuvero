@@ -29,6 +29,9 @@
 	getState() function added
 	no matches and still 'running' -> transition to 'idle' state
 	Votes added
+	VOTETYPES -> VOTES
+	getState() returns a bound ValueModel instance
+	abstract functions added
 
 	* core/scripts/maplistmodel.js: map indices to list elements
 

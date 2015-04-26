@@ -9,36 +9,37 @@
  * @see LICENSE
  */
 define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
-    './statevaluemodel', './matchmodel', 'ui/listcollectormodel',
+    './statevaluemodel', './matchmodel', 'ui/listcollectormodel', './listener',
     './rankingmodel', './matchreferencelistmodel', './maplistmodel'], function(
     extend, PropertyModel, ListModel, UniqueListModel, StateValueModel,
-    MatchModel, ListCollectorModel, RankingModel, MatchReferenceListModel,
-    MapListModel) {
+    MatchModel, Listener, ListCollectorModel, RankingModel,
+    MatchReferenceListModel, MapListModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
    * STATES lists the possible states.The following states are possible:
    *
    * 'initial': for player/team registration before the first match. Can be
-   * followed by 'running' and 'final'. Initial state. In some tournament
+   * followed by 'running' and 'finished'. Initial state. In some tournament
    * systems, registration is only possible during 'initial' state.
    *
    * 'running': there are open matches. Preceded by 'initial' or 'idle', can be
-   * followed by 'idle' and 'final'
+   * followed by 'idle' and 'finished'
    *
-   * 'idle': all previous matches have been final, but new matches can still be
-   * generated. Preceded by 'running', followed by 'running' or 'final'.
+   * 'idle': all previous matches have been finished, but new matches can still
+   * be generated. Preceded by 'running', followed by 'running' or 'finished'.
    * Interaction required for state transition.
    *
-   * all matches are final, no matches can be created anymore. No registration
-   * possible. Preceded by 'running' or 'idle'. Final and constant state.
+   * 'finished': all matches are finished, no matches can be created anymore. No
+   * registration possible. Preceded by 'running' or 'idle'. Final and constant
+   * state.
    *
    */
   STATETRANSITIONS = {
     'initial': ['running'],
     'running': ['idle', 'finished'],
     'idle': ['running', 'finished'],
-    'final': []
+    'finished': []
   };
   INITIALSTATE = 'initial';
 
@@ -60,7 +61,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.teams = new UniqueListModel();
     this.matches = new ListModel();
     this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
-    this.votes = TournamentModel.initVoteLists(this.VOTETYPES);
+    this.votes = TournamentModel.initVoteLists(this.VOTES);
     // this.history = new HistoryModel();
 
     // initial properties
@@ -72,6 +73,29 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     collector.registerListener(this);
   }
   extend(TournamentModel, PropertyModel);
+
+  /**
+   * a unique name for the tournament mode, e.g. 'ko' or 'tacteam'
+   */
+  TournamentModel.prototype.SYSTEM = 'undefined';
+
+  /**
+   * send event on state change
+   */
+  TournamentModel.prototype.EVENTS = {
+    'state': true,
+    'error': true
+  };
+
+  /**
+   * Array of additional ranking dependencies, e.g. ['matchmatrix']
+   */
+  TournamentModel.prototype.RANKINGDEPENDENCIES = [];
+
+  /**
+   * an array of required vote lists
+   */
+  TournamentModel.prototype.VOTES = ['bye'];
 
   /**
    * @param types
@@ -104,14 +128,23 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
-   * Array of additional ranking dependencies, e.g. ['matchmatrix']
+   * automatically check if the tournament is supposed to be in an idle state
+   * and transition to the idle state if necessary
    */
-  TournamentModel.prototype.RANKINGDEPENDENCIES = [];
+  TournamentModel.prototype.checkIdleState = function() {
+    if (this.state === 'running' && this.matches.length === 0) {
 
-  /**
-   * an array of required vote lists
-   */
-  TournamentModel.prototype.VOTETYPES = ['bye'];
+      // TODO add votes to history
+
+      // clear votes
+      Object.keys(this.votes).forEach(function(key) {
+        this.votes[key].clear();
+      }, this);
+
+      // apply idle state
+      this.state.set('idle');
+    }
+  };
 
   /**
    * add a team id to the tournament. Teams can only be entered once.
@@ -154,10 +187,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
-   * @return the current state of the tournament
+   * Retrieve the state of the tournament as a ValueModel instance, which emits
+   * update events and provides a get() function for the state
+   *
+   * @returns a readonly ValueModel instance of the state. use the get()
+   *          function to retrieve the current value of the state
    */
   TournamentModel.prototype.getState = function() {
-    return this.state.get();
+    var value = new ValueModel(this.state.get());
+    value.bind(this.state);
+    return value;
   };
 
   /**
@@ -181,7 +220,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    *
    * @param type
    *          the vote type, i.e. 'bye', 'up', 'down', ...
-   * @return a readonly listmodel of team ids which received the specified
+   * @return a readonly listmodel of team ids which received the specified, or
+   *         undefined if the vote type doesn't exist
    */
   TournamentModel.prototype.getVotes = function(type) {
     if (!type || this.votes[type] === undefined) {
@@ -257,23 +297,60 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.checkIdleState();
   };
 
+  /*****************************************************************************
+   * ABSTRACT FUNCTIONS
+   ****************************************************************************/
+
   /**
-   * check if the tournament is in an idle state and transition to idle if
-   * necessary
+   * Validate a match result before accepting it. If validation fails, the
+   * result is discarded and the match is supposed to stay open.
+   *
+   * @param matchresult
+   *          a MatchResult instance
+   * @return true if the result is valid, false otherwise
    */
-  TournamentModel.prototype.checkIdleState = function() {
-    if (this.state === 'running' && this.matches.length === 0) {
+  TournamentModel.prototype.validateMatchResult = function(matchresult) {
+    var valid;
 
-      // TODO add votes to history
+    valid = matchresult.score.every(function(score) {
+      return score >= Options.minpoints && score <= Options.maxpoints;
+    });
 
-      // clear votes
-      Object.keys(this.votes).forEach(function(key) {
-        this.votes[key].clear();
-      }, this);
+    return valid;
+  };
 
-      // apply idle state
-      this.state.set('idle');
-    }
+  /**
+   * perform additional functions after a match has been finished and its result
+   * has been written to history and ranking. Can be used to start new matches
+   * or adjust the tournament state to 'finished'.
+   *
+   * @param matchresult
+   *          a valid and accepted match result
+   */
+  TournamentModel.prototype.postprocessMatch = function(matchresult) {
+    // Default: Do nothing.
+  };
+
+  /**
+   * create matches from an initial state (first round)
+   *
+   * @returns true on success (i.e. valid matches have been created), false or
+   *          undefined otherwise
+   */
+  TournamentModel.prototype.initialMatches = function() {
+    // create matches here
+    return true;
+  };
+
+  /**
+   * create matches from an idle state (subsequent rounds)
+   *
+   * @returns true on success (i.e. valid matches have been created), false or
+   *          undefined otherwise
+   */
+  TournamentModel.prototype.idleMatches = function() {
+    // create matches here
+    return true;
   };
 
   return TournamentModel;
