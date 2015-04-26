@@ -10,9 +10,10 @@
  */
 define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './statevaluemodel', './matchmodel', 'ui/listcollectormodel',
-    './rankingmodel', './matchreferencelistmodel'], function(extend,
-    PropertyModel, ListModel, UniqueListModel, StateValueModel, MatchModel,
-    ListCollectorModel, RankingModel, MatchReferenceListModel) {
+    './rankingmodel', './matchreferencelistmodel', './maplistmodel'], function(
+    extend, PropertyModel, ListModel, UniqueListModel, StateValueModel,
+    MatchModel, ListCollectorModel, RankingModel, MatchReferenceListModel,
+    MapListModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -59,7 +60,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.teams = new UniqueListModel();
     this.matches = new ListModel();
     this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
-    // this.votes = new VotesModel();
+    this.votes = TournamentModel.initVoteLists(this.VOTETYPES);
     // this.history = new HistoryModel();
 
     // initial properties
@@ -73,9 +74,26 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   extend(TournamentModel, PropertyModel);
 
   /**
+   * @param types
+   *          an array of vote types
+   * @return a dictionary of vote lists
+   */
+  TournamentModel.initVoteLists = function(types) {
+    var votes;
+
+    votes = {};
+
+    types.forEach(function(type) {
+      votes[type] = new ListModel();
+    });
+
+    return votes;
+  };
+
+  /**
    * a unique name for the tournament mode, e.g. 'ko' or 'tacteam'
    */
-  TournamentModel.prototype.NAME = 'undefined';
+  TournamentModel.prototype.SYSTEM = 'undefined';
 
   /**
    * send event on state change
@@ -89,6 +107,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * Array of additional ranking dependencies, e.g. ['matchmatrix']
    */
   TournamentModel.prototype.RANKINGDEPENDENCIES = [];
+
+  /**
+   * an array of required vote lists
+   */
+  TournamentModel.prototype.VOTETYPES = ['bye'];
 
   /**
    * add a team id to the tournament. Teams can only be entered once.
@@ -154,6 +177,24 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
+   * retrieve vote lists for the current 'running' state (i.e. current round)
+   *
+   * @param type
+   *          the vote type, i.e. 'bye', 'up', 'down', ...
+   * @return a readonly listmodel of team ids which received the specified
+   */
+  TournamentModel.prototype.getVotes = function(type) {
+    if (!type || this.votes[type] === undefined) {
+      console.error('vote type "' + type
+          + '" does not exist for this tournament type');
+      return undefined;
+    }
+
+    // TODO use a singleton
+    return new MapListModel(this.votes[type], this.teams);
+  };
+
+  /**
    * Validate a match result before accepting it. If validation fails, the
    * result is discarded and the match is supposed to stay open.
    *
@@ -206,12 +247,31 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     }
 
     this.matches.erase(matchresult);
+
     // TODO add result to history
+
     this.ranking.result(matchresult);
 
     this.postprocessMatch(matchresult);
 
+    this.checkIdleState();
+  };
+
+  /**
+   * check if the tournament is in an idle state and transition to idle if
+   * necessary
+   */
+  TournamentModel.prototype.checkIdleState = function() {
     if (this.state === 'running' && this.matches.length === 0) {
+
+      // TODO add votes to history
+
+      // clear votes
+      Object.keys(this.votes).forEach(function(key) {
+        this.votes[key].clear();
+      }, this);
+
+      // apply idle state
       this.state.set('idle');
     }
   };

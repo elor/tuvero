@@ -26,6 +26,7 @@
 	* core/scripts/tournamentmodel.js: using MatchReferenceListModel for getMatches()
 	getState() function added
 	no matches and still 'running' -> transition to 'idle' state
+	Votes added
 
 	* core/scripts/maplistmodel.js: map indices to list elements
 
