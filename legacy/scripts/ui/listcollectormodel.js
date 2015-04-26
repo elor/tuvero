@@ -12,6 +12,11 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
     Listener) {
   /**
    * Constructor
+   *
+   * @param list
+   *          a list of elements to listen to
+   * @param ContentModel
+   *          the constructor of all contained elements
    */
   function ListCollectorModel(list, ContentModel) {
     ListCollectorModel.superconstructor.call(this);
@@ -21,7 +26,6 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
     this.createListListener();
     this.createEventCallbacks(ContentModel);
     this.registerExistingElements();
-
   }
   extend(ListCollectorModel, Model);
 
