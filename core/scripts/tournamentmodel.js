@@ -115,16 +115,18 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
-   * a unique name for the tournament mode, e.g. 'ko' or 'tacteam'
+   * Whenever a bye is added to the this.votes.bye ListModel instance, it's
+   * automatically submitted to the results
+   *
+   * @param tournament
    */
-  TournamentModel.prototype.SYSTEM = 'undefined';
-
-  /**
-   * send event on state change
-   */
-  TournamentModel.prototype.EVENTS = {
-    'state': true,
-    'error': true
+  TournamentModel.initByeListener = function(tournament) {
+    if (tournament.votes.bye) {
+      Listener.bind(tournament.votes.bye, 'insert', function(emitter, event,
+          data) {
+        this.ranking.bye(data.object);
+      }, tournament);
+    }
   };
 
   /**
@@ -235,32 +237,62 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
-   * Validate a match result before accepting it. If validation fails, the
-   * result is discarded and the match is supposed to stay open.
+   * runs the tournament by creating matches and transitioning into 'running'
+   * state, if possible.
    *
-   * @param matchresult
-   *          a MatchResult instance
-   * @return true if the result is valid, false otherwise
+   * @return true on success, undefined otherwise
    */
-  TournamentModel.prototype.validateMatchResult = function(matchresult) {
-    var valid;
+  TournamentModel.prototype.run = function() {
+    switch (this.state.get()) {
+    case 'initial':
+      if (this.initialMatches()) {
+        break;
+      }
+      console.error('initialMatches() failed');
+      return undefined;
+    case 'idle':
+      if (this.idleMatches()) {
+        break;
+      }
+      console.error('idleMatches() failed');
+      return undefined;
+    case 'running':
+      console.error('tournament is already running');
+      return undefined;
+    case 'finished':
+      console.error('tournament is already finished');
+      return undefined;
+    }
 
-    valid = matchresult.score.every(function(score) {
-      return score >= Options.minpoints && score <= Options.maxpoints;
-    });
-
-    return valid;
+    if (this.matches.length > 0) {
+      this.setState('running');
+    } else {
+      throw new Error('tournament is running, but no games have been created');
+    }
+    return true;
   };
 
   /**
-   * perform additional functions, e.g. adding new matches, after a match has
-   * been finished and its result has been written to history and ranking
+   * manually finish a tournament, which is in 'idle' state (or 'initial' state)
    *
-   * @param matchresult
-   *          a valid and accepted match result
+   * @returns true on success, false otherwise
    */
-  TournamentModel.prototype.postprocessMatch = function(matchresult) {
-    // Default: Do nothing.
+  TournamentModel.prototype.finish = function() {
+    switch (this.state.get()) {
+    case 'idle':
+      this.setState('finished');
+      return true;
+    case 'finished':
+      return true;
+    case 'initial':
+      this.setState('finished');
+      return true;
+    case 'running':
+      console.error('cannot finish a running tournament');
+      break;
+    }
+
+    return false;
   };
 
   /**

@@ -32,6 +32,8 @@
 	VOTETYPES -> VOTES
 	getState() returns a bound ValueModel instance
 	abstract functions added
+	initByeListener added for convenience
+	run() and finish() added as public API functions
 
 	* core/scripts/maplistmodel.js: map indices to list elements
 
