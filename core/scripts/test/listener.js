@@ -14,7 +14,7 @@ define(function() {
     Listener = getModule('core/listener');
 
     QUnit.test('Listener', function() {
-      var emitter, emitter2, listener;
+      var emitter, emitter2, listener, ref;
 
       emitter = new Emitter();
       emitter2 = new Emitter();
@@ -60,6 +60,44 @@ define(function() {
           'listener.destroy() unregisters all emitters');
       QUnit.equal(emitter2.numListeners(), 0,
           'listener.destroy() unregisters the listener from all emitters');
+
+      /*
+       * Listener.bind
+       */
+      emitter = new Emitter();
+      ref = 0;
+      Listener.bind(emitter, 'update', function() {
+        ref += 1;
+      });
+
+      emitter.emit('update');
+      emitter.emit('reset');
+      QUnit.ok(emitter, 'bind-created listener works');
+
+      emitter.destroy();
+      emitter = new Emitter();
+      ref = 0;
+      Listener.bind(emitter, 'update,reset', function(e, evt, data) {
+        ref += (data || 1);
+      });
+
+      emitter.emit('reset');
+      emitter.emit('update', 123);
+
+      QUnit.equal(ref, 124, 'bind-listening for multiple event types '
+          + 'with data object');
+
+      emitter.destroy();
+      emitter = new Emitter();
+
+      ref = undefined;
+      Listener.bind(emitter, 'reset', function() {
+        ref = this;
+      }, emitter);
+
+      emitter.emit('reset');
+
+      QUnit.equal(ref, emitter, 'bind(): thisArg works');
     });
   };
 });

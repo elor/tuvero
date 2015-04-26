@@ -11,8 +11,10 @@
 
 	* core/scripts/listener.js: missing 'this' added to a forEach-call
 	this fixes a critical memory leak
+	Listener.bind() added
 
 	* core/scripts/test/listener.js: testing listener.destroy()
+	testing Listener.bind()
 
 	* test/scripts/test.js: test modules are now in alphabetic order
 
