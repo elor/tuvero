@@ -38,6 +38,7 @@ require(['config'], function() {
   'core/test/selectionvaluemodel',
   'core/test/statevaluemodel',
   'core/test/symmetricmatrixmodel',
+  'core/test/tournamentmodel',
   'core/test/transposedifferencematrix',
   'core/test/transposesummatrix',
   'core/test/trianglematrixmodel',
