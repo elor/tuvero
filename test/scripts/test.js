@@ -19,6 +19,7 @@ require(['config'], function() {
   'core/test/listener',
   'core/test/listmodel',
   'core/test/listupdatelistener',
+  'core/test/maplistmodel',
   'core/test/matchmodel',
   'core/test/matchreferencelistmodel',
   'core/test/matchreferencemodel',

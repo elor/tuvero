@@ -19,12 +19,17 @@
 	* tools/create-testjs.sh: sorting test modules by alphabetic order
 
 	* core/scripts/matchreferencelistmodel.js: list, which re-maps team ids of a match
+	redundant function parameter removed
 
 	* core/scripts/test/matchreferencelistmodel.js: testing MatchReferenceListModel
 
 	* core/scripts/tournamentmodel.js: using MatchReferenceListModel for getMatches()
 	getState() function added
 	no matches and still 'running' -> transition to 'idle' state
+
+	* core/scripts/maplistmodel.js: map indices to list elements
+
+	* core/scripts/test/maplistmodel.js: testing MapListModel
 
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

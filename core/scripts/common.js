@@ -23,6 +23,7 @@ define([
   'core/listexclusionlistener',
   'core/listmodel',
   'core/listupdatelistener',
+  'core/maplistmodel',
   'core/matchmodel',
   'core/matchreferencelistmodel',
   'core/matchreferencemodel',

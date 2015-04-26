@@ -28,7 +28,7 @@ define(['lib/extend', './listmodel', './matchreferencemodel'], function(extend,
     this.teams = teamlist;
 
     this.matches.map(function(match, id) {
-      MatchReferenceListModel.insertMatch(this, id, match);
+      MatchReferenceListModel.insertMatch(this, id);
     }, this);
 
     this.matches.registerListener(this);
