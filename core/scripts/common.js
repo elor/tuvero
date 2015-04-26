@@ -24,6 +24,7 @@ define([
   'core/listmodel',
   'core/listupdatelistener',
   'core/matchmodel',
+  'core/matchreferencelistmodel',
   'core/matchreferencemodel',
   'core/matchresult',
   'core/matrixmodel',

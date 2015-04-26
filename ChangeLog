@@ -18,6 +18,10 @@
 
 	* tools/create-testjs.sh: sorting test modules by alphabetic order
 
+	* core/scripts/matchreferencelistmodel.js: list, which re-maps team ids of a match
+
+	* core/scripts/test/matchreferencelistmodel.js: testing MatchReferenceModel
+
 2015-04-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: initializing RankingModel on construction

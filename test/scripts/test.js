@@ -20,6 +20,7 @@ require(['config'], function() {
   'core/test/listmodel',
   'core/test/listupdatelistener',
   'core/test/matchmodel',
+  'core/test/matchreferencelistmodel',
   'core/test/matchreferencemodel',
   'core/test/matchresult',
   'core/test/matrixmodel',
