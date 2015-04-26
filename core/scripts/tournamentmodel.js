@@ -10,10 +10,11 @@
  */
 define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './statevaluemodel', './matchmodel', 'ui/listcollectormodel', './listener',
-    './rankingmodel', './matchreferencelistmodel', './maplistmodel'], function(
-    extend, PropertyModel, ListModel, UniqueListModel, StateValueModel,
-    MatchModel, Listener, ListCollectorModel, RankingModel,
-    MatchReferenceListModel, MapListModel) {
+    './rankingmodel', './matchreferencelistmodel', './maplistmodel',
+    './valuemodel', './readonlylistmodel', 'options'], function(extend,
+    PropertyModel, ListModel, UniqueListModel, StateValueModel, MatchModel,
+    ListCollectorModel, Listener, RankingModel, MatchReferenceListModel,
+    MapListModel, ValueModel, ReadonlyListModel, Options) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -84,7 +85,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   TournamentModel.prototype.EVENTS = {
     'state': true,
-    'error': true
+    'error': true,
+    'update': true
   };
 
   /**
@@ -134,7 +136,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * and transition to the idle state if necessary
    */
   TournamentModel.prototype.checkIdleState = function() {
-    if (this.state === 'running' && this.matches.length === 0) {
+    if (this.state.get() === 'running' && this.matches.length === 0) {
 
       // TODO add votes to history
 
@@ -180,7 +182,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return undefined;
     }
 
-    if (this.teams.insert(teamid) !== undefined) {
+    if (this.teams.push(teamid) !== undefined) {
       this.ranking.resize(this.teams.length);
       return true;
     }
@@ -192,8 +194,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * Retrieve the state of the tournament as a ValueModel instance, which emits
    * update events and provides a get() function for the state
    *
-   * @return a readonly ValueModel instance of the state. use the get()
-   *          function to retrieve the current value of the state
+   * @return a readonly ValueModel instance of the state. use the get() function
+   *         to retrieve the current value of the state
    */
   TournamentModel.prototype.getState = function() {
     var value = new ValueModel(this.state.get());
@@ -265,7 +267,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     }
 
     if (this.matches.length > 0) {
-      this.setState('running');
+      this.state.set('running');
     } else {
       throw new Error('tournament is running, but no games have been created');
     }
@@ -280,12 +282,12 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   TournamentModel.prototype.finish = function() {
     switch (this.state.get()) {
     case 'idle':
-      this.setState('finished');
+      this.state.set('finished');
       return true;
     case 'finished':
       return true;
     case 'initial':
-      this.setState('finished');
+      this.state.set('finished');
       return true;
     case 'running':
       console.error('cannot finish a running tournament');
@@ -318,7 +320,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return;
     }
 
-    this.matches.erase(matchresult);
+    this.matches.erase(matchresult.match);
 
     // TODO add result to history
 
@@ -367,12 +369,17 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * create matches from an initial state (first round)
    *
    * @return true on success (i.e. valid matches have been created), false or
-   *          undefined otherwise
+   *         undefined otherwise
    */
   TournamentModel.prototype.initialMatches = function() {
     // create matches here
 
+    if (this.teams.length < 3) {
+      return false;
+    }
+
     this.matches.push(new MatchModel([0, 1], 1, 0));
+    this.votes.bye.push(2);
 
     return true;
   };
@@ -381,12 +388,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * create matches from an idle state (subsequent rounds)
    *
    * @return true on success (i.e. valid matches have been created), false or
-   *          undefined otherwise
+   *         undefined otherwise
    */
   TournamentModel.prototype.idleMatches = function() {
     // create matches here
 
-    this.matches.push(new MatchModel([0, 1], 1, 0));
+    this.matches.push(new MatchModel([1, 2], 1, 0));
+    this.votes.bye.push(0);
 
     return true;
   };

@@ -35,6 +35,13 @@
 	initByeListener added for convenience
 	run() and finish() added as public API functions
 	dummy functionality for initialMatches() and idleMatches() to allow for testing
+	missing modules and module order fixed
+	'update' event re-added (required by PropertyModel)
+	state.get() and state.set() mess fixed
+	this.teams.insert(teamid) corrected to this.teams.push(teamid)
+	using correct matchresult fields
+	initialMatches: confirming the number of teams
+	idleMatches: different teams than initialMatches
 
 	* core/scripts/maplistmodel.js: map indices to list elements
 
