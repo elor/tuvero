@@ -87,7 +87,6 @@ define(['lib/extend', './model'], function(extend, Model) {
    */
   RankingMapper.prototype.invalidate = function() {
     this.cache = undefined;
-    this.emit('update');
   };
 
   /**
@@ -95,6 +94,7 @@ define(['lib/extend', './model'], function(extend, Model) {
    */
   RankingMapper.prototype.onupdate = function() {
     this.invalidate();
+    this.emit('update');
   };
 
   return RankingMapper;
