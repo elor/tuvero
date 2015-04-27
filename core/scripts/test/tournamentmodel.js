@@ -15,7 +15,7 @@ define(function() {
     PropertyModel = getModule('core/propertymodel');
 
     QUnit.test('TournamentModel', function() {
-      var tournament, state, teams, matches, byes, match;
+      var tournament, state, teams, matches, byes, match, ranking, ref;
 
       QUnit.ok(extend.isSubclass(TournamentModel, PropertyModel),
           'TournamentModel is subclass of PropertyModel');
@@ -27,6 +27,7 @@ define(function() {
       teams = tournament.getTeams();
       matches = tournament.getMatches();
       byes = tournament.getVotes('bye');
+      ranking = tournament.getRanking();
 
       QUnit.ok(state, 'getState() returns');
       QUnit.ok(teams, 'getTeams() returns');
@@ -96,7 +97,14 @@ define(function() {
       QUnit.equal(byes.length, 0,
           'votes are cleared before transition to idle state');
 
-      QUnit.ok(false, 'TODO validate ranking');
+      ref = {
+        components: ['wins', 'saldo'],
+        ranks: [0, 4, 1, 1, 1],
+        displayOrder: [5, 3, 2, 1, 4],
+        wins: [1, 0, 0, 0, 0],
+        saldo: [6, -6, 0, 0, 0]
+      };
+      QUnit.deepEqual(ranking.get(), ref, 'ranking validation');
 
       /*************************************************************************
        * second round
@@ -127,14 +135,21 @@ define(function() {
       QUnit.equal(byes.length, 0,
           'votes are cleared before transition to idle state');
 
-      QUnit.ok(false, 'TODO validate ranking');
+      ref = {
+        components: ['wins', 'saldo'],
+        ranks: [0, 1, 4, 2, 2],
+        displayOrder: [5, 4, 2, 1, 3],
+        wins: [1, 1, 0, 0, 0],
+        saldo: [6, 0, -6, 0, 0]
+      };
+      QUnit.deepEqual(ranking.get(), ref, 'ranking validation');
 
       QUnit.equal(tournament.finish(), true, 'tournament is finished');
 
       QUnit.equal(tournament.run(), undefined,
           'tournament cannot be un-finished');
 
-      QUnit.ok(false, 'TODO validate ranking');
+      QUnit.deepEqual(ranking.get(), ref, 'ranking validation');
     });
   };
 });
