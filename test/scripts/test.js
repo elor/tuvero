@@ -31,6 +31,7 @@ require(['config'], function() {
   'core/test/rankingcomponentindex',
   'core/test/rankingdatalistenerindex',
   'core/test/rankingheadtohead',
+  'core/test/rankingmapper',
   'core/test/rankingmodel',
   'core/test/rankingsonneborn',
   'core/test/rankingtac',

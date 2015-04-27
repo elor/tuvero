@@ -239,6 +239,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
+   * retrieve a dynamic ranking object from which the ranking can be read with
+   * global ids
+   *
+   * @return a RankingMapper instance, which emits 'update' and provides get()
+   */
+  TournamentModel.prototype.getRanking = function() {
+    return new RankingMapper(this.ranking, this.teams);
+  };
+
+  /**
    * runs the tournament by creating matches and transitioning into 'running'
    * state, if possible.
    *

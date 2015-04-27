@@ -46,6 +46,7 @@ define([
   'core/rankingidcomponent',
   'core/rankinglostpointscomponent',
   'core/rankinglostpointslistener',
+  'core/rankingmapper',
   'core/rankingmodel',
   'core/rankingnumgamescomponent',
   'core/rankingnumgameslistener',

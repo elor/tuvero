@@ -1,3 +1,12 @@
+2015-04-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingmapper.js: mapping the results of RankingModel.get() according to a list of team ids
+
+	* core/scripts/test/rankingmapper.js: testing RankingMapper
+
+	* core/scripts/tournamentmodel.js: getRanking() added
+	using RankingMapper for getRanking()
+
 2015-04-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/indexedlistmodel.js: using ListUpdateListener instead of self-listening emitters
