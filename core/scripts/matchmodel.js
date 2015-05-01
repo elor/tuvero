@@ -105,5 +105,50 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
     return result;
   };
 
+  /**
+   * save the state into a data object
+   *
+   * @returns a data object
+   */
+  MatchModel.prototype.save = function() {
+    var data = MatchModel.superclass.save.call(this);
+
+    data.i = this.id;
+    data.g = this.group;
+    data.t = this.teams.map(function(team) {
+      return team.getID ? team.getID() : team;
+    });
+
+    return data;
+  };
+
+  /**
+   * restore from a saved state. Copies teams as Team IDs.
+   *
+   * @param data
+   *          a saved state
+   * @return true on success, false otherwise
+   */
+  MatchModel.prototype.restore = function(data) {
+    if (!MatchModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    if (!data || !data.t || !data.i || !data.t) {
+      return false;
+    }
+
+    this.id = data.i;
+    this.group = data.g;
+
+    this.teams.splice(0);
+    data.t.forEach(function(t) {
+      this.teams.push(t);
+    }, this);
+    this.length = this.teams.length;
+
+    return true;
+  };
+
   return MatchModel;
 });

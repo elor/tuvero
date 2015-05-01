@@ -14,7 +14,7 @@ define(function() {
     MatchResult = getModule('core/matchresult');
 
     QUnit.test('MatchModel', function() {
-      var game, success, array, ref, listener;
+      var game, success, array, ref, listener, data;
 
       game = undefined;
 
@@ -86,6 +86,19 @@ define(function() {
       QUnit.equal(listener.finished, false, 'no "finish" event sent yet');
       QUnit.deepEqual(game.finish([13, 7]), ref, 'game.finish([13,7]) works');
       QUnit.equal(listener.finished, true, '"finish" event sent yet');
+
+      game = new MatchModel([4, 1, 2], 2, 3);
+      data = game.save();
+      QUnit.ok(data, 'save() returns something');
+      game = new MatchModel([0, 1], 0, 0);
+      QUnit.equal(game.restore(data), true, 'restore() works');
+      QUnit.equal(game.length, 3, 'restore(): correct length');
+      QUnit.equal(game.getID(), 2, 'restore(): correct id');
+      QUnit.equal(game.getGroup(), 3, 'restore(): correct group');
+      QUnit.equal(game.getTeamID(0), 4, 'restore(): correct team id 0');
+      QUnit.equal(game.getTeamID(1), 1, 'restore(): correct team id 1');
+      QUnit.equal(game.getTeamID(2), 2, 'restore(): correct team id 2');
+
     });
   };
 });
