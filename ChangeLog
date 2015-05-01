@@ -1,3 +1,9 @@
+2015-05-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/model.js: save() and restore() added
+
+	* core/scripts/test/model.js: testing save() and restore()
+
 2015-04-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingmapper.js: mapping the results of RankingModel.get() according to a list of team ids
