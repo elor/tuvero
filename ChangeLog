@@ -4,6 +4,10 @@
 
 	* core/scripts/test/model.js: testing save() and restore()
 
+	* core/scripts/indexedmodel.js: save() and restore() added
+
+	* core/scripts/test/indexedmodel.js: save() and restore() tested
+
 2015-04-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingmapper.js: mapping the results of RankingModel.get() according to a list of team ids

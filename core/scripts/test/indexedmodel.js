@@ -15,7 +15,7 @@ define(function() {
     IndexedModel = getModule('core/indexedmodel');
 
     QUnit.test('IndexedModel', function() {
-      var model, listener;
+      var model, listener, data;
 
       QUnit.ok(extend.isSubclass(IndexedModel, Model),
           'IndexedModel is subclass of Model');
@@ -61,6 +61,14 @@ define(function() {
 
       model.setID();
       QUnit.equal(model.getID(), -1, 'empty setID sets the id to -1');
+
+      model.setID(5);
+      data = model.save();
+      QUnit.ok(data, 'Model.save() returns something');
+      model = new IndexedModel(3);
+      QUnit.equal(model.restore(data), true, 'restore() works');
+      QUnit.equal(model.getID(), 5, 'save() and restore() work');
+
     });
   };
 });

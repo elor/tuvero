@@ -1,5 +1,5 @@
 /**
- * A combination of players is a team. A team should contain at least one player
+ * A model which has an index, e.g. inside an indexed list
  *
  * @return IndexedModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -45,6 +45,40 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
       this.id = id;
       this.emit('update');
     }
+  };
+
+  /**
+   * save the current state to an object
+   *
+   * @return the current state, as a data object
+   */
+  IndexedModel.prototype.save = function() {
+    var data = IndexedModel.superclass.save.call(this);
+
+    data.id = this.id;
+
+    return data;
+  };
+
+  /**
+   * restore the current state from an object
+   *
+   * @param data
+   *          a stored state
+   * @return true on success, false otherwise
+   */
+  IndexedModel.prototype.restore = function(data) {
+    if (!IndexedModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    if (!data || data.id === undefined) {
+      return false;
+    }
+
+    this.id = data.id;
+
+    return true;
   };
 
   return IndexedModel;

@@ -29,12 +29,15 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
   };
 
   /**
-   *
+   * restore the state from a saved state, as written by save(); Subclasses are
+   * supposed to call superclass.save() before restoring their own state.
    *
    * @param data
    *          a data object as written by save()
+   * @return true on success, false or undefined otherwise
    */
   Model.prototype.restore = function(data) {
+    return true;
   };
 
   return Model;

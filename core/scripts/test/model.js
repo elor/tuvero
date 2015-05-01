@@ -25,7 +25,8 @@ define(function() {
       QUnit.deepEqual(model.save(), {}, 'Model.save() returns empty object');
 
       try {
-        model.restore({});
+        QUnit.equal(model.restore({}), true,
+            'Model.restore() returns true on success');
         success = true;
       } catch (e) {
         success = false;
