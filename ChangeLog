@@ -1,3 +1,7 @@
+2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/options.js: Critical error fixed where new options are overwritten during updates
+
 2015-04-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: Debug Logging removed
