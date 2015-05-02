@@ -4,6 +4,8 @@
 
 	* core/scripts/test/matchmodel.js: save() and restore() tested
 
+	* legacy/scripts/ui/options.js: Critical error fixed where new options are overwritten during updates
+
 2015-05-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/model.js: save() and restore() added

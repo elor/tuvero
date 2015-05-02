@@ -33,6 +33,11 @@ define(['ui/state_new'], function(State) {
       }
     }
 
+    // apply default options
+    for (key in Default) {
+      Options[key] = Default[key];
+    }
+
     // reset everything
     for (key in opts) {
       Options[key] = opts[key];

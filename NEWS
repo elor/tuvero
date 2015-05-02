@@ -5,9 +5,17 @@ FEATURES:
 
   * dynamic TournamentModel for generic tournaments
 
+
 FIXES:
 
   * memory leak in Listener.destroy() fixed
+
+Tuvero 1.4.10 (2015-05-02)
+--------------------------
+
+FIXES:
+
+* Critical bug fixed where important options have been overwritten
 
 Tuvero 1.4.9 (2015-04-19)
 -------------------------
