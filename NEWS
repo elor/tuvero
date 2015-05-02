@@ -1,5 +1,24 @@
-Tuvero 1.4.9 (yyyy-mm-dd)
+Tuvero 1.4.10 (2015-05-02)
+--------------------------
+
+FIXES:
+
+* Critical bug fixed where important options have been overwritten
+
+Tuvero 1.4.9 (2015-04-19)
 -------------------------
+
+FEATURES:
+
+* Template system
+* NoScript warnings
+
+FIXES:
+
+* team input file encoding can be either of latin-1 and utf-8
+* central options logic
+* min-/max-/bye-points are read from options
+* kotree: reading height from the contained game boxes
 
 Tuvero 1.4.8 (2015-03-29)
 -------------------------
