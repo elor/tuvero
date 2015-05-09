@@ -19,7 +19,7 @@ define(function() {
 
     QUnit.test('MatrixModel', function() {
       // constructor validation
-      var a, v, v2, ref;
+      var a, v, v2, ref, savedata;
 
       a = new MatrixModel();
       QUnit.equal(a.length, 0, 'empty size initialization');
@@ -121,6 +121,20 @@ define(function() {
       QUnit.equal(a.get(0, 1), 5, 'fill(5) sets to 5');
       QUnit.equal(a.get(1, 0), 5, 'fill(5) sets to 5');
       QUnit.equal(a.get(1, 1), 5, 'fill(5) sets to 5');
+
+      a = new MatrixModel(5);
+      a.set(1, 2, 3);
+      a.set(0, 0, 5);
+      a.set(0, 4, -1);
+      a.set(4, 1, 3);
+      a.set(4, 4, 123);
+
+      savedata = a.save();
+      console.log(JSON.stringify(savedata));
+      QUnit.ok(savedata, 'save() works');
+
+      a = new MatrixModel(12345);
+      a.restore(savedata);
     });
   };
 });

@@ -18,6 +18,10 @@
 
 	* core/scripts/model.js: restore() type validation: multidimensional arrays enabled
 
+	* core/scripts/matrixmodel.js: unoptimized save()/restore() added
+
+	* core/scripts/test/matrixmodel.js: testing save()/restore()
+
 2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: save() and restore() added

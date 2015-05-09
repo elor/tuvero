@@ -256,5 +256,45 @@ define(['lib/extend', './model'], function(extend, Model) {
     }
   };
 
+  /**
+   * prepare a readonly, nonreferencing, serializable data object, representing
+   * the matrix
+   *
+   * @return a serializable data object
+   */
+  MatrixModel.prototype.save = function() {
+    var data = MatrixModel.superclass.save.call(this);
+
+    data.mat = this.data.map(function(row) {
+      return row.map(function(cell) {
+        return cell || 0;
+      });
+    }, this);
+    data.l = this.length;
+
+    return data;
+  };
+
+  MatrixModel.prototype.restore = function(data) {
+    if (MatrixModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.resize(0);
+    this.mat.splice(0);
+
+    this.resize(data.l);
+    data.mat.forEach(function(row, rowindex) {
+      this.data[rowindex] = row.slice();
+    }, this);
+
+    return true;
+  };
+
+  MatrixModel.prototype.SAVEFORMAT = Object
+      .create(MatrixModel.superclass.SAVEFORMAT);
+  MatrixModel.prototype.SAVEFORMAT.mat = [[Number]];
+  MatrixModel.prototype.SAVEFORMAT.l = Number;
+
   return MatrixModel;
 });
