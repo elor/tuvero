@@ -1,15 +1,14 @@
 /**
  * Model class tests
  *
- * @return Model
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-
 define(function() {
   return function(QUnit, getModule) {
-    var Model, Emitter, extend;
+    var PropertyModel;
 
     PropertyModel = getModule('core/propertymodel');
 
@@ -56,12 +55,8 @@ define(function() {
         asd: 'dsa',
         i: 5
       };
-      QUnit.equal(prop.setProperty('object', ref), true, 'can store objects');
-      QUnit.equal(prop.getProperty('object'), ref,
-          'stores objects as references');
-
-      QUnit.equal(prop.setProperty('object', undefined), true,
-          'can store undefined (i.e. reset key)');
+      QUnit.equal(prop.setProperty('object', ref), false,
+          'cannot store objects');
       QUnit.equal(prop.getProperty('object'), undefined,
           'undefined objects are undefined');
     });

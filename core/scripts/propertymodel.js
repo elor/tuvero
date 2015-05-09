@@ -2,29 +2,29 @@
  * PropertyModel: Store values as keys and emit events upon update.
  *
  * Basically, this is an Emitter wrapped around a native Hash Object, so please
- * use string keys.
+ * use string keys and primary data types (Strings, Numbers, Boolean)
  *
  * @return PropertyModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model'], function(extend, Model) {
+define(['lib/extend', './model', './type'], function(extend, Model, Type) {
   /**
    * Constructor
    *
-   * @param init
+   * @param defaultProperties
    *          Optional. Native object from which to copy the initial properties
    */
-  function PropertyModel(init) {
+  function PropertyModel(defaultProperties) {
     PropertyModel.superconstructor.call(this);
 
     this.props = {};
 
     // initialize with the init object, if available
-    if (init) {
-      Object.keys(init).forEach(function(key) {
-        this.set(key, init[key]);
+    if (defaultProperties) {
+      Object.keys(defaultProperties).forEach(function(key) {
+        this.set(key, defaultProperties[key]);
       }, this);
     }
   }
@@ -57,13 +57,19 @@ define(['lib/extend', './model'], function(extend, Model) {
    */
   PropertyModel.prototype.setProperty = function(key, value) {
     if (this.getProperty(key) !== value) {
-      this.props[key] = value;
-      if (this.getProperty(key) === value) {
-        this.emit('update', {
-          key: key,
-          value: value
-        });
-        return true;
+      if (Type.isString(value) || Type.isNumber(value)
+          || Type.is(value, Boolean)) {
+        this.props[key] = value;
+        if (this.getProperty(key) === value) {
+          this.emit('update', {
+            key: key,
+            value: value
+          });
+          return true;
+        }
+      } else {
+        console.error("setProperty(): unsupported property type: "
+            + Type(value));
       }
     }
 

@@ -10,6 +10,10 @@
 
 	* core/scripts/valuemodel.js: comment against save()/restore() added
 
+	* core/scripts/propertymodel.js: restricting the valid data types of values
+
+	* core/scripts/test/propertymodel.js: testing the new type restrictions
+
 2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: save() and restore() added
