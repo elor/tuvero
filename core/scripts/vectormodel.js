@@ -164,5 +164,37 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
     return this;
   };
 
+  VectorModel.prototype.save = function() {
+    var data = VectorModel.superclass.save.call(this);
+
+    // TODO use run length encoding
+    data.v = this.asArray().map(function(value) {
+      if (Type.isNumber(value)) {
+        return value;
+      }
+      return 0;
+    });
+
+    return data;
+  };
+
+  VectorModel.prototype.restore = function(data) {
+    if (!VectorModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.clear();
+    // TODO use run length decoding
+    data.v.forEach(function(value, index) {
+      this.insert(index, value);
+    }, this);
+
+    return true;
+  };
+
+  VectorModel.prototype.SAVEFORMAT = Object
+      .create(VectorModel.superclass.SAVEFORMAT);
+  VectorModel.prototype.SAVEFORMAT.v = [Number];
+
   return VectorModel;
 });

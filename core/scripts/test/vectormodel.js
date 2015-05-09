@@ -15,7 +15,7 @@ define(function() {
     VectorModel = getModule('core/vectormodel');
 
     QUnit.test('VectorModel', function() {
-      var vec, vec2, retvec, ref, success;
+      var vec, vec2, retvec, ref, success, data;
 
       QUnit.ok(extend.isSubclass(VectorModel, ListModel),
           'VectorModel is subclass of ListModel');
@@ -133,6 +133,23 @@ define(function() {
       QUnit.ok(success, 'mult(Number, VectorModel) aborts as intended');
       ref = [25, 20, 15, 10, 5];
       QUnit.deepEqual(vec.asArray(), ref, 'mult(Number) works properly');
+
+      /*
+       * save()/restore()
+       */
+
+      vec = new VectorModel();
+      vec2 = new VectorModel(15);
+      vec.push(5);
+      vec.push(3);
+      vec.push(4);
+      vec.push(1);
+      vec.push(2);
+      data = vec.save();
+      QUnit.ok(data, "save() does seem to work");
+      QUnit.equal(vec2.restore(data), true, "restore() works");
+      QUnit.deepEqual(vec2.asArray(), [5, 3, 4, 1, 2],
+          "restored values are correct");
 
     });
   };

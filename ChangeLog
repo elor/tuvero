@@ -4,6 +4,10 @@
 
 	* core/scripts/type.js: Type.is() accepts Array, Date, Function etc. as second argument, not only strings
 
+	* core/scripts/test/vectormodel.js: testing save() and restore()
+
+	* core/scripts/vectormodel.js: save() and restore() added
+
 2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: save() and restore() added
