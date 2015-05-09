@@ -12,6 +12,41 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
   }
 
   /**
+   * match the type of data against referenceType. Also allows to match
+   * equal-depth multidimensional arrays with a single contained data type
+   *
+   * @param data
+   * @param referenceType
+   * @return true if the types match, false otherwise
+   */
+  function verifyType(data, referenceType) {
+    if (Type.isArray(referenceType)) {
+      if (Type.isArray(data)) {
+        if (referenceType.length === 1) {
+          return data.every(function(dataElement) {
+            if (verifyType(dataElement, referenceType[0])) {
+              return true;
+            }
+
+            console.error("restore(): Array element does not match type");
+            return false;
+          });
+        }
+        console.error("SAVEFORMAT array does not contain exactly 1 Type!");
+      }
+      return false;
+    }
+
+    if (Type.is(data, referenceType)) {
+      return true;
+    }
+
+    console.error(getClassName(this) + ".restore(): missing Key of type "
+        + referenceType);
+    return false;
+  }
+
+  /**
    * Constructor for setting an initial state.
    *
    * Please provide additional functions in order to allow state modifications.
@@ -50,34 +85,10 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
     }
 
     return Object.keys(this.SAVEFORMAT).every(function(key) {
-      var subdata, referenceType;
-
-      referenceType = this.SAVEFORMAT[key];
-      subdata = data[key];
-
-      if (Type.isArray(referenceType)) {
-        if (Type.isArray(subdata)) {
-          if (referenceType.length === 1) {
-            referenceType = referenceType[0];
-            return subdata.every(function(subdataElement) {
-              if (Type.is(subdataElement, referenceType)) {
-                return true;
-              }
-
-              console.error("restore(): Array element does not match type");
-              return false;
-            });
-          }
-          console.error("SAVEFORMAT array does not contain exactly 1 Type!");
-        }
-        return false;
-      }
-
-      if (Type.is(subdata, referenceType)) {
+      if (verifyType(data[key], this.SAVEFORMAT[key])) {
         return true;
       }
-
-      console.error(getClassName(this) + ".restore(): missing Key: " + key);
+      console.error('Missing key: ' + key);
       return false;
     }, this);
   };

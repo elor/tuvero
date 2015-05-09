@@ -16,6 +16,8 @@
 	* core/scripts/test/propertymodel.js: testing the new type restrictions
 	save() and restore() tested
 
+	* core/scripts/model.js: restore() type validation: multidimensional arrays enabled
+
 2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: save() and restore() added
