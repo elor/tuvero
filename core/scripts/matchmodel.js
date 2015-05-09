@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model', './matchresult'], function(extend, Model,
-    MatchResult) {
+define(['lib/extend', './indexedmodel', './matchresult'], function(extend,
+    IndexedModel, MatchResult) {
   /**
    * Constructor
    *
@@ -19,7 +19,7 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
    *          identifier of the round, phase, pool, ...
    */
   function MatchModel(teams, id, group) {
-    MatchModel.superconstructor.call(this);
+    MatchModel.superconstructor.call(this, id);
 
     if (!teams || !teams.length) {
       console.error('MatchModel() no empty teams initialization allowed:');
@@ -42,7 +42,7 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
     this.id = id;
     this.group = group;
   }
-  extend(MatchModel, Model);
+  extend(MatchModel, IndexedModel);
 
   MatchModel.prototype.EVENTS = {
     'finish': true
@@ -74,13 +74,9 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
   };
 
   /**
-   * return the match id within its group
-   *
-   * @return the match id within its group
+   * disable setID() functionality
    */
-  MatchModel.prototype.getID = function() {
-    return this.id;
-  };
+  MatchModel.prototype.setID = undefined;
 
   /**
    * finishes a match with a certain result
@@ -113,7 +109,6 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
   MatchModel.prototype.save = function() {
     var data = MatchModel.superclass.save.call(this);
 
-    data.i = this.id;
     data.g = this.group;
     data.t = this.teams.map(function(team) {
       return team.getID ? team.getID() : team;
@@ -134,11 +129,6 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
       return false;
     }
 
-    if (!data || !data.t || !data.i || !data.t) {
-      return false;
-    }
-
-    this.id = data.i;
     this.group = data.g;
 
     this.teams.splice(0);
@@ -149,6 +139,11 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
 
     return true;
   };
+
+  MatchModel.prototype.SAVEFORMAT = Object
+      .create(MatchModel.superclass.SAVEFORMAT);
+  MatchModel.prototype.SAVEFORMAT.g = Number;
+  MatchModel.prototype.SAVEFORMAT.t = [Number];
 
   return MatchModel;
 });

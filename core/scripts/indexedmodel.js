@@ -18,7 +18,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   function IndexedModel(id) {
     IndexedModel.superconstructor.call(this);
 
-    this.setID(id);
+    IndexedModel.prototype.setID.call(this, id);
   }
   extend(IndexedModel, Model);
 
@@ -72,14 +72,14 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
       return false;
     }
 
-    if (!data || data.id === undefined) {
-      return false;
-    }
-
     this.id = data.id;
 
     return true;
   };
+
+  IndexedModel.prototype.SAVEFORMAT = Object
+      .create(IndexedModel.superclass.SAVEFORMAT);
+  IndexedModel.prototype.SAVEFORMAT.id = Number;
 
   return IndexedModel;
 });

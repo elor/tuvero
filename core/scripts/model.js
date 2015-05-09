@@ -6,6 +6,11 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
+  function getClassName(instance) {
+    return instance.constructor.toString().replace(
+        /^function (\S+)\((.+|\s+)*$/g, "$1");
+  }
+
   /**
    * Constructor for setting an initial state.
    *
@@ -25,6 +30,7 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
    * @return a data object
    */
   Model.prototype.save = function() {
+    // TODO auto-verify the format
     return {};
   };
 
@@ -37,8 +43,46 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
    * @return true on success, false or undefined otherwise
    */
   Model.prototype.restore = function(data) {
-    return true;
+    // TODO warn about additional keys
+    // TODO allow for the verification of sub-Models
+    if (!Type.isObject(data) || !Type.isObject(this.SAVEFORMAT)) {
+      return false;
+    }
+
+    return Object.keys(this.SAVEFORMAT).every(function(key) {
+      var subdata, referenceType;
+
+      referenceType = this.SAVEFORMAT[key];
+      subdata = data[key];
+
+      if (Type.isArray(referenceType)) {
+        if (Type.isArray(subdata)) {
+          if (referenceType.length === 1) {
+            referenceType = referenceType[0];
+            return subdata.every(function(subdataElement) {
+              if (Type.is(subdataElement, referenceType)) {
+                return true;
+              }
+
+              console.error("restore(): Array element does not match type");
+              return false;
+            });
+          }
+          console.error("SAVEFORMAT array does not contain exactly 1 Type!");
+        }
+        return false;
+      }
+
+      if (Type.is(subdata, referenceType)) {
+        return true;
+      }
+
+      console.error(getClassName(this) + ".restore(): missing Key: " + key);
+      return false;
+    }, this);
   };
+
+  Model.prototype.SAVEFORMAT = {};
 
   return Model;
 });
