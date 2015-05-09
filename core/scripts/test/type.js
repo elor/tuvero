@@ -13,7 +13,7 @@ define(function() {
     Type = getModule('core/type');
 
     QUnit.test('Type', function() {
-      var types, ref, functionnames;
+      var types, ref, functionnames, constructors;
 
       /*
        * Preparation
@@ -38,6 +38,9 @@ define(function() {
 
       ref = ['number', 'object', 'string', 'undefined', 'null', 'date',
           'array', 'regexp', 'boolean', 'function'];
+
+      constructors = [Number, Object, String, undefined, null, Date, Array,
+          RegExp, Boolean, Function];
 
       /*
        * Type()
@@ -83,8 +86,16 @@ define(function() {
       types.forEach(function(type, typeindex) {
         ref.forEach(function(refname, functionindex) {
           var expected = functionindex === typeindex;
-          QUnit.equal(Type.is(type, refname), expected, 'Type.is(obj, '
-              + refname + ') on a ' + Type(type) + ' is ' + expected);
+          QUnit.equal(Type.is(type, refname), expected, 'Type.is(obj, "'
+              + refname + '") on a ' + Type(type) + ' is ' + expected);
+        });
+      });
+
+      types.forEach(function(type, typeindex) {
+        constructors.forEach(function(constructor, functionindex) {
+          var expected = functionindex === typeindex;
+          QUnit.equal(Type.is(type, constructor), expected, 'Type.is(obj, '
+              + constructor + ') on a ' + Type(type) + ' is ' + expected);
         });
       });
 

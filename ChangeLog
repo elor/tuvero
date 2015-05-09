@@ -1,3 +1,9 @@
+2015-05-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/type.js: testing new Type.is() capabilities
+
+	* core/scripts/type.js: Type.is() accepts Array, Date, Function etc. as second argument, not only strings
+
 2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: save() and restore() added
