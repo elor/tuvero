@@ -83,5 +83,13 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.set(emitter.get());
   };
 
+  /*
+   * ValueModel does not implement save()/restore(), because it is an abstract
+   * class which can store generic data types that is used primarily for
+   * communicating value changes, not storing them efficiently.
+   *
+   * Please use a SuperModel instead, e.g. StateModel or PropertyModel.
+   */
+
   return ValueModel;
 });

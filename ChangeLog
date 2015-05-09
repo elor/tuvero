@@ -8,6 +8,8 @@
 
 	* core/scripts/vectormodel.js: save() and restore() added
 
+	* core/scripts/valuemodel.js: comment against save()/restore() added
+
 2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: save() and restore() added
