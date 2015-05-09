@@ -13,7 +13,7 @@ define(function() {
     PropertyModel = getModule('core/propertymodel');
 
     QUnit.test('PropertyModel', function() {
-      var prop, listener, ref;
+      var prop, listener, ref, savedata;
 
       prop = new PropertyModel();
       QUnit.ok(prop !== undefined, 'empty initialization is allowed');
@@ -58,7 +58,48 @@ define(function() {
       QUnit.equal(prop.setProperty('object', ref), false,
           'cannot store objects');
       QUnit.equal(prop.getProperty('object'), undefined,
-          'undefined objects are undefined');
+          'object references are not stored');
+
+      QUnit.equal(prop.setProperty('array', [1, 2, 3]), false,
+          'cannot store arrays');
+      QUnit.equal(prop.getProperty('array'), undefined,
+          'array object references are not stored');
+
+      ref = function() {
+      };
+
+      QUnit.equal(prop.setProperty('function', ref), false,
+          'cannot store functions');
+      QUnit.equal(prop.getProperty('function'), undefined,
+          'function references are not stored');
+
+      QUnit.equal(prop.setProperty('date', new Date()), false,
+          'cannot store dates');
+      QUnit.equal(prop.getProperty('date'), undefined, 'dates are not stored');
+
+      QUnit.equal(prop.setProperty('regex', /dsa/), false,
+          'cannot store regular expressions');
+      QUnit.equal(prop.getProperty('regex'), undefined,
+          'regular expressions are not stored');
+
+      /*
+       * save()/restore()
+       */
+      prop = new PropertyModel();
+      prop.setProperty('string', 'somevalue');
+      prop.setProperty('int', 53241);
+      prop.setProperty('float', 53.241);
+      prop.setProperty('boolean', true);
+
+      savedata = prop.save();
+      QUnit.ok(savedata, 'save() works');
+
+      prop = new PropertyModel();
+      QUnit.equal(prop.restore(savedata), true, 'restore() works!');
+      QUnit.equal(prop.getProperty('string'), 'somevalue', 'string restored');
+      QUnit.equal(prop.getProperty('int'), 53241, 'int restored');
+      QUnit.equal(prop.getProperty('float'), 53.241, 'float restored');
+      QUnit.equal(prop.getProperty('boolean'), true, 'boolean restored');
     });
   };
 });

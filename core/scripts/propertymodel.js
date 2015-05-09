@@ -76,5 +76,55 @@ define(['lib/extend', './model', './type'], function(extend, Model, Type) {
     return false;
   };
 
+  /**
+   * retrieve the keys of this property
+   *
+   * @returns an array of key names, i.e. an array of strings
+   */
+  PropertyModel.prototype.getPropertyKeys = function() {
+    return Object.keys(this.props).sort();
+  };
+
+  /**
+   * produce a readonly, functionless, unreferencing, serializable data object
+   * that stores represents
+   *
+   * @returns a data object
+   */
+  PropertyModel.prototype.save = function() {
+    var data = PropertyModel.superclass.save.call(this);
+
+    data.props = {};
+
+    this.getPropertyKeys().forEach(function(key) {
+      data.props[key] = this.getProperty(key);
+    }, this);
+
+    return data;
+  };
+
+  /**
+   * restore the state from a data object. Keeps keys that aren't in data.
+   *
+   * @param data
+   * @return true on success, false otherwise
+   */
+  PropertyModel.prototype.restore = function(data) {
+    if (!PropertyModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    Object.keys(data.props).forEach(function(key) {
+      var val = data.props[key];
+      this.setProperty(key, val);
+    }, this);
+
+    return true;
+  };
+
+  PropertyModel.prototype.SAVEFORMAT = Object
+      .create(PropertyModel.superclass.SAVEFORMAT);
+  PropertyModel.prototype.SAVEFORMAT.props = Object;
+
   return PropertyModel;
 });
