@@ -28,7 +28,7 @@ define(
        *
        * @param DataListeners
        *          the arguments object of the outer function. NOT an array!
-       * @return
+       * @return a RankingDataListenerIndex object (no class)
        */
       RankingDataListenerIndex = (function(DataListeners) {
         var RDLI, index, DataListener;
@@ -74,6 +74,11 @@ define(
        * Check whether all dependencies are fulfilled, i.e. the required
        * dependencies are part of the provided dependency
        *
+       * @param required
+       *          an array of required dependencies
+       * @param provided
+       *          an array of the provided dependencies
+       *
        * @return true when the dependencies are fulfilled, false otherwise
        */
       function dependenciesFulfilled(required, provided) {
@@ -98,7 +103,7 @@ define(
        *          read from
        */
       function addMissingDependencies(dependencies) {
-        var index, DataListener;
+        var index, dataDependencies;
 
         for (index = 0; index < dependencies.length; index += 1) {
           dataDependencies = getDataDependencies(dependencies[index]);
@@ -114,6 +119,9 @@ define(
 
       /**
        * removes multiple entries in dependencies
+       *
+       * @param dependencies
+       *          an array of dependency names
        *
        * @return dependencies an array of all dependencies, in any order
        */
@@ -178,8 +186,8 @@ define(
         removeMultipleDependencies(input);
 
         // keep adding names until there's none left
-        while (orderDependenciesOnce(input, names))
-;
+        while (orderDependenciesOnce(input, names)) {
+        }
 
         // check for unresolvable dependencies
         if (input.length > 0) {
@@ -195,6 +203,9 @@ define(
       /**
        * remove all defined names and leave only the undefined names in the
        * array
+       *
+       * @param names
+       *          an array of dependency names
        */
       function extractUndefinedNames(names) {
         var index;

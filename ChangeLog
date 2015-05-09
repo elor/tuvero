@@ -22,6 +22,14 @@
 
 	* core/scripts/test/matrixmodel.js: testing save()/restore()
 
+	* core/scripts/rankingdatalistenerindex.js: comments added
+
+	* core/scripts/rankingheadtoheadcomponent.js: debug logs removed
+
+	* core/scripts/rankingmodel.js: function order changed
+	remembering the dataListeners as an object
+	SAVEFORMAT added
+
 2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: save() and restore() added

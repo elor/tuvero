@@ -24,7 +24,6 @@ define(['lib/extend', './rankingcomponent'],
       RankingHeadToHeadComponent.DEPENDENCIES = ['headtoheadmatrix'];
 
       RankingHeadToHeadComponent.prototype.compare = function(i, k) {
-        console.log(this.ranking.headtoheadmatrix.get(i, k));
         return this.ranking.headtoheadmatrix.get(k, i)
             || this.nextcomponent.compare(i, k);
       };

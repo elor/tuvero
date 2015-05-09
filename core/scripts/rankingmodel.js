@@ -13,17 +13,98 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     './rankingdatalistenerindex'], function(extend, Model,
     RankingComponentIndex, Type, RankingDataListenerIndex) {
   /**
+   * order team ids by their ranking
+   *
+   * @return an array of ids, sorted by rank
+   */
+  function getRankingOrder() {
+    var ids, chain;
+
+    ids = [];
+    while (ids.length < this.length) {
+      ids.push(ids.length);
+    }
+
+    chain = this.componentchain;
+    ids.sort(function(a, b) {
+      return chain.compare(a, b) || (a - b);
+    }, this);
+
+    return ids;
+  }
+
+  /**
+   * read the ranks of each team from their array position in the ordered array
+   * and their relation to the previous team.
+   *
+   * @param ids
+   *          the return value of getRankingOrder().
+   *
+   * @return an array of ranks, as retrieved from the ids
+   */
+  function getRanks(ids) {
+    var ranks;
+
+    ranks = new Array(this.length);
+
+    ids.forEach(function(teamid, index) {
+      if (index === 0) {
+        ranks[teamid] = 0;
+      } else {
+        if (this.componentchain.compare(ids[index - 1], teamid) < 0) {
+          ranks[teamid] = index;
+        } else {
+          ranks[teamid] = ranks[ids[index - 1]];
+        }
+      }
+    }, this);
+
+    return ranks;
+  }
+
+  /**
+   * Update the ranking from its data fields. See get() for a description of the
+   * ranking object.
+   *
+   * Private RankingModel function.
+   */
+  function updateRanking() {
+    var ranking, components;
+
+    this.emit('recalc');
+
+    ranking = {
+      components: this.componentnames
+    };
+
+    ranking.displayOrder = getRankingOrder.call(this);
+    ranking.ranks = getRanks.call(this, ranking.displayOrder);
+
+    components = this.componentchain.getValues();
+    components.forEach(function(component, index) {
+      var name;
+      if (component !== undefined) {
+        name = this.componentnames[index];
+        ranking[name] = component;
+      }
+    }, this);
+
+    this.ranking = ranking;
+  }
+
+  /**
    * Constructor
    *
    * @param components
    *          an array with sorting strings
    * @param size
    *          the number of teams/players
-   * @param dependencies
+   * @param externalDependencies
    *          Optional. an array of additional dependencies, e.g. a games matrix
    *          for "have they played"-type questions
    */
-  function RankingModel(components, size, dependencies) {
+  function RankingModel(components, size, externalDependencies) {
+    var dependencies, dataListenerArray;
     RankingModel.superconstructor.call(this);
 
     if (!components || components.length === 0) {
@@ -38,7 +119,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     this.length = size;
     this.ranking = undefined;
 
-    this.componentnames = components.slice(0);
+    this.componentnames = components.slice(0) || [];
     this.componentchain = RankingComponentIndex.createComponentChain(this,
         components);
 
@@ -48,14 +129,18 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
           + 'There should be an error message explaining what is missing.');
     }
 
-    this.dependencies = this.componentchain.dependencies;
-    if (dependencies) {
-      dependencies.forEach(function(dependency) {
-        this.dependencies.push(dependency);
+    dependencies = this.componentchain.dependencies;
+    if (externalDependencies) {
+      externalDependencies.forEach(function(dependency) {
+        dependencies.push(dependency);
       }, this);
     }
-    this.dataListeners = RankingDataListenerIndex.registerDataListeners(this,
-        this.dependencies);
+    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
+        dependencies);
+    this.dataListeners = {};
+    dataListenerArray.forEach(function(dataListener, index) {
+      this.dataListeners[dependencies[index]] = dataListener;
+    }, this);
   }
   extend(RankingModel, Model);
 
@@ -170,85 +255,11 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     return false;
   };
 
-  /**
-   * order team ids by their ranking
-   *
-   * @return an array of ids, sorted by rank
-   */
-  function getRankingOrder() {
-    var ids, chain;
-
-    ids = [];
-    while (ids.length < this.length) {
-      ids.push(ids.length);
-    }
-
-    chain = this.componentchain;
-    ids.sort(function(a, b) {
-      return chain.compare(a, b) || (a - b);
-    }, this);
-
-    return ids;
-  }
-
-  /**
-   * read the ranks of each team from their array position in the ordered array
-   * and their relation to the previous team.
-   *
-   * @param ids
-   *          the return value of getRankingOrder().
-   *
-   * @return an array of ranks, as retrieved from the ids
-   */
-  function getRanks(ids) {
-    var ranks;
-
-    ranks = new Array(this.length);
-
-    ids.forEach(function(teamid, index) {
-      if (index === 0) {
-        ranks[teamid] = 0;
-      } else {
-        if (this.componentchain.compare(ids[index - 1], teamid) < 0) {
-          ranks[teamid] = index;
-        } else {
-          ranks[teamid] = ranks[ids[index - 1]];
-        }
-      }
-    }, this);
-
-    return ranks;
-  }
-
-  /**
-   * Update the ranking from its data fields. See get() for a description of the
-   * ranking object.
-   *
-   * Private RankingModel function.
-   */
-  function updateRanking() {
-    var ranking, components;
-
-    this.emit('recalc');
-
-    ranking = {
-      components: this.componentnames
-    };
-
-    ranking.displayOrder = getRankingOrder.call(this);
-    ranking.ranks = getRanks.call(this, ranking.displayOrder);
-
-    components = this.componentchain.getValues();
-    components.forEach(function(component, index) {
-      var name;
-      if (component !== undefined) {
-        name = this.componentnames[index];
-        ranking[name] = component;
-      }
-    }, this);
-
-    this.ranking = ranking;
-  }
+  RankingModel.prototype.SAVEFORMAT = Object
+      .create(RankingModel.superclass.SAVEFORMAT);
+  RankingModel.prototype.SAVEFORMAT.len = Number;
+  RankingModel.prototype.SAVEFORMAT.comps = [String];
+  RankingModel.prototype.SAVEFORMAT.deps = Object;
 
   return RankingModel;
 });

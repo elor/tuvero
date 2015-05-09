@@ -16,7 +16,7 @@ define(function() {
     Emitter = getModule('core/emitter');
 
     QUnit.test('RankingDataListenerIndex', function() {
-      var names, listeners, dummyRanking, result;
+      var names, listeners, dummyRanking, result, ref;
 
       dummyRanking = new Emitter();
       dummyRanking.length = 5;
