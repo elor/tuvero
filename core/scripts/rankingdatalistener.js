@@ -134,7 +134,10 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    * @param ranking
    */
   RankingDataListener.prototype.onresize = function(ranking) {
-    this[this.constructor.NAME].resize(ranking.length);
+    var dataobject = this[this.constructor.NAME];
+    if (dataobject && dataobject.resize) {
+      this[this.constructor.NAME].resize(ranking.length);
+    }
   };
 
   return RankingDataListener;

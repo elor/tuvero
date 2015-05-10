@@ -2,6 +2,7 @@
 
 	* core/scripts/rankingdatalistener.js: isPrimary() added
 	isPrimary detects whether a dataListener is supposed to be serialized for storage
+	onresize: verify that we're not dealing with a readonly object, e.g. a reference matrix
 
 	* core/scripts/test/matrixmodel.js: debugging output removed
 
