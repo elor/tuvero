@@ -1,6 +1,7 @@
 /**
  * Unit Tests
  *
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -17,6 +18,10 @@ define(function() {
       var ranking, result, ret, ref;
 
       ranking = new RankingModel(['tac', 'wins', 'points'], 5);
+
+      QUnit.equal(ranking.dataListeners.tac.isPrimary(), true,
+          'tac is a primary dataListener');
+
       ref = {
         components: ['tac', 'wins', 'points'],
         ranks: [0, 0, 0, 0, 0],
@@ -92,16 +97,17 @@ define(function() {
 
       ranking.result(new GameResult([1, 3], [5, 5]));
       ref = {
-          components: ['tac', 'wins', 'points'],
-          ranks: [4, 1, 3, 2, 0],
-          displayOrder: [4, 1, 3, 2, 0],
-          wins: [1, 2, 1, 1, 2],
-          points: [7, 24, 20, 20, 21],
-          tac: [9, 36, 29, 32, 39]
+        components: ['tac', 'wins', 'points'],
+        ranks: [4, 1, 3, 2, 0],
+        displayOrder: [4, 1, 3, 2, 0],
+        wins: [1, 2, 1, 1, 2],
+        points: [7, 24, 20, 20, 21],
+        tac: [9, 36, 29, 32, 39]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'aborted game points, equal');
 
+      // TODO bye
       // TODO correct
     });
   };

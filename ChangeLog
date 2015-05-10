@@ -1,3 +1,16 @@
+2015-05-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingdatalistener.js: isPrimary() added
+	isPrimary detects whether a dataListener is supposed to be serialized for storage
+
+	* core/scripts/test/matrixmodel.js: debugging output removed
+
+	* core/scripts/test/rankingheadtohead.js: isPrimary test (is not even a data listener)
+
+	* core/scripts/test/rankingmodel.js: isPrimary tests
+
+	* core/scripts/test/rankingtac.js: isPrimary test
+
 2015-05-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/type.js: testing new Type.is() capabilities

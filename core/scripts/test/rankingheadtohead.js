@@ -1,6 +1,7 @@
 /**
  * RankingModel class tests
  *
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -17,6 +18,9 @@ define(function() {
       var ranking, result, ret, ref;
 
       ranking = new RankingModel(['wins', 'headtohead'], 5);
+      QUnit.equal(ranking.dataListeners.headtohead, undefined,
+          'headtohead is not a data listener');
+
       ref = {
         components: ['wins', 'headtohead'],
         ranks: [0, 0, 0, 0, 0],

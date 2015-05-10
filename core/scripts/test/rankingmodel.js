@@ -68,6 +68,17 @@ define(function() {
       listener.reset();
       ranking.registerListener(listener);
 
+      QUnit.equal(ranking.dataListeners.numgames.isPrimary(), true,
+          'numgames is primary');
+      QUnit.equal(ranking.dataListeners.wins.isPrimary(), true,
+          'wins is primary');
+      QUnit.equal(ranking.dataListeners.saldo.isPrimary(), false,
+          'saldo is secondary');
+      QUnit.equal(ranking.dataListeners.points.isPrimary(), true,
+          'points is primary');
+      QUnit.equal(ranking.dataListeners.lostpoints.isPrimary(), true,
+          'lostpoints is primary');
+
       ref = {
         components: ['numgames', 'wins', 'saldo', 'points'],
         ranks: [0, 0, 0, 0, 0],
@@ -133,6 +144,20 @@ define(function() {
 
       ranking = new RankingModel(
           ['wins', 'buchholz', 'finebuchholz', 'points'], 5);
+
+      QUnit.equal(ranking.dataListeners.buchholz.isPrimary(), false,
+          'buchholz is secondary');
+      QUnit.equal(ranking.dataListeners.finebuchholz.isPrimary(), false,
+          'finebuchholz is secondary');
+      QUnit.equal(ranking.dataListeners.gamematrix.isPrimary(), false,
+          'gamematrix is secondary');
+      QUnit.equal(ranking.dataListeners.points.isPrimary(), true,
+          'points is primary');
+      QUnit.equal(ranking.dataListeners.wins.isPrimary(), true,
+          'wins is primary');
+      QUnit.equal(ranking.dataListeners.winsmatrix.isPrimary(), true,
+          'winsmatrix is primary');
+
       ranking.result(new GameResult([0, 4], [3, 13]));
       ranking.result(new GameResult([1, 2], [5, 13]));
       ranking.result(new GameResult([3, 0], [13, 0]));
@@ -155,6 +180,7 @@ define(function() {
       rankingobject = ranking.get();
       QUnit.deepEqual(rankingobject, ref, 'ranks order is correct');
 
+      // TODO extraDependencies
       // TODO bye()
       // TODO correct()
       // TODO reset()

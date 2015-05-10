@@ -130,7 +130,6 @@ define(function() {
       a.set(4, 4, 123);
 
       savedata = a.save();
-      console.log(JSON.stringify(savedata));
       QUnit.ok(savedata, 'save() works');
 
       a = new MatrixModel(12345);

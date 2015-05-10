@@ -51,6 +51,17 @@ define(['lib/extend', './listener'], function(extend, Listener) {
   extend(RankingDataListener, Listener);
 
   /**
+   * detect whether this specific instance is a primary data listener, or is
+   * only processing recalc events, i.e. processing data of other data listeners
+   *
+   * @returns true if this listener contains primary data, false otherwise
+   */
+  RankingDataListener.prototype.isPrimary = function() {
+    return this.onbye !== RankingDataListener.prototype.onbye
+        || this.onresult !== RankingDataListener.prototype.onresult;
+  };
+
+  /**
    * the name of the field, which is handled by this class, e.g. 'wins'
    */
   RankingDataListener.NAME = 'undefined';
