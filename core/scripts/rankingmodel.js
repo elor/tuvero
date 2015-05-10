@@ -69,27 +69,29 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
    * Private RankingModel function.
    */
   function updateRanking() {
-    var ranking, components;
+    var newRanking, components;
 
     this.emit('recalc');
 
-    ranking = {
+    newRanking = {
       components: this.componentnames
     };
 
-    ranking.displayOrder = getRankingOrder.call(this);
-    ranking.ranks = getRanks.call(this, ranking.displayOrder);
+    newRanking.displayOrder = getRankingOrder.call(this);
+    newRanking.ranks = getRanks.call(this, newRanking.displayOrder);
 
-    components = this.componentchain.getValues();
-    components.forEach(function(component, index) {
-      var name;
-      if (component !== undefined) {
-        name = this.componentnames[index];
-        ranking[name] = component;
-      }
-    }, this);
+    if (this.componentchain !== undefined) {
+      components = this.componentchain.getValues();
+      components.forEach(function(component, index) {
+        var name;
+        if (component !== undefined) {
+          name = this.componentnames[index];
+          newRanking[name] = component;
+        }
+      }, this);
+    }
 
-    this.ranking = ranking;
+    this.ranking = newRanking;
   }
 
   /**
@@ -118,26 +120,25 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     this.extDeps = [];
     this.dataListeners = {};
 
-    if (!this.componentchain) {
-      // this is a dummy object. Ignore all dependencies and stuff
-      return;
+    if (this.componentchain) {
+      dependencies = this.componentchain.dependencies;
+    } else {
+      dependencies = [];
     }
 
-    this.length = size || 0;
-
-    dependencies = this.componentchain.dependencies;
     if (externalDependencies) {
-      externalDependencies.forEach(function(dependency) {
-        dependencies.push(dependency);
-      }, this);
-      this.extDeps.push.apply(externalDependencies);
+      this.extDeps.push.apply(this.extDeps, externalDependencies);
+      dependencies.push.apply(dependencies, this.extDeps);
     }
 
     dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
         dependencies);
-    dataListenerArray.forEach(function(dataListener, index) {
-      this.dataListeners[dependencies[index]] = dataListener;
-    }, this);
+    if (dataListenerArray && dataListenerArray.length > 0) {
+      dataListenerArray.forEach(function(dataListener, index) {
+        this.dataListeners[dependencies[index]] = dataListener;
+      }, this);
+      this.resize(size);
+    }
   }
   extend(RankingModel, Model);
 

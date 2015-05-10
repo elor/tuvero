@@ -46,6 +46,12 @@ define(function() {
       QUnit.ok(ranking, 'empty components produce empty ranking');
       QUnit.equal(ranking.length, 0, 'empty ranking has no length');
 
+      ranking = new RankingModel([], 5, ['wins', 'points']);
+      QUnit.deepEqual(ranking.extDeps, ['wins', 'points'],
+          'empty ranking does not ignore extra dependencies');
+      QUnit.ok(ranking.points, 'extradeps: wins are created and listening');
+      QUnit.ok(ranking.wins, 'extradeps: points are created and listening');
+
       ranking = new RankingModel(['points'], 5);
       QUnit.ok(ranking, 'valid initializtion');
       QUnit.equal(ranking.length, 5, 'valid ranking size');
@@ -55,9 +61,6 @@ define(function() {
       QUnit.equal(ranking.length, 0, 'ranking size defaults to 0');
 
       ranking = new RankingModel(['numgames', 'wins', 'saldo', 'points'], 5);
-      listener.reset();
-      ranking.registerListener(listener);
-
       QUnit.equal(ranking.dataListeners.numgames.isPrimary(), true,
           'numgames is primary');
       QUnit.equal(ranking.dataListeners.wins.isPrimary(), true,
@@ -68,6 +71,18 @@ define(function() {
           'points is primary');
       QUnit.equal(ranking.dataListeners.lostpoints.isPrimary(), true,
           'lostpoints is primary');
+
+      ranking = new RankingModel(['numgames', 'wins'], 5, ['saldo']);
+      QUnit.equal(ranking.dataListeners.saldo.isPrimary(), false,
+          'extraDependency: saldo is secondary');
+      QUnit.equal(ranking.dataListeners.points.isPrimary(), true,
+          'extraDependency: points is primary');
+      QUnit.equal(ranking.dataListeners.lostpoints.isPrimary(), true,
+          'extraDependency: lostpoints is primary');
+
+      ranking = new RankingModel(['numgames', 'wins', 'saldo', 'points'], 5);
+      listener.reset();
+      ranking.registerListener(listener);
 
       ref = {
         components: ['numgames', 'wins', 'saldo', 'points'],

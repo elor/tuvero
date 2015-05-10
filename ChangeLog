@@ -10,11 +10,13 @@
 
 	* core/scripts/test/rankingmodel.js: isPrimary tests
 	RankingModel() empty constructor tests adjusted
+	testing empty constructors and extra dependencies
 
 	* core/scripts/test/rankingtac.js: isPrimary test
 
 	* core/scripts/rankingmodel.js: empty calls to RankingModel() are now allowed
 	They allow for the deserialization into an empty RankingModel instance
+	get(): return empty ranking data for an empty RankingModel instance
 
 2015-05-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
