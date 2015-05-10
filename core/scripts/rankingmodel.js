@@ -253,11 +253,48 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     return false;
   };
 
+  /**
+   * stores the necessary scores and points in a data object for serialization.
+   * Only primary data containers are stored, as the other ones can be
+   * recalculated.
+   *
+   * @return a serializable data object
+   */
+  RankingModel.prototype.save = function() {
+    var data = RankingModel.superclass.save.call(this);
+
+    data.len = this.length;
+    data.comps = this.componentnames.slice(0);
+    data.edep = this.extDeps.slice(0);
+    data.vals = {};
+
+    // only store primary dataListeners. Abort on error
+    if (!Object.keys(this.dataListeners).every(function(name) {
+      var listener;
+      listener = this.dataListeners[name];
+
+      if (listener.isPrimary(listener)) {
+        if (this[name] && Type.isFunction(this[name].save)) {
+          data.vals[name] = this[name].save();
+        } else {
+          console.error("datalistener cannot be saved: " + name);
+          return false;
+        }
+      }
+      return true;
+    }, this)) {
+      return undefined;
+    }
+
+    return data;
+  };
+
   RankingModel.prototype.SAVEFORMAT = Object
       .create(RankingModel.superclass.SAVEFORMAT);
   RankingModel.prototype.SAVEFORMAT.len = Number;
   RankingModel.prototype.SAVEFORMAT.comps = [String];
-  RankingModel.prototype.SAVEFORMAT.deps = Object;
+  RankingModel.prototype.SAVEFORMAT.edep = [String];
+  RankingModel.prototype.SAVEFORMAT.vals = Object;
 
   return RankingModel;
 });

@@ -18,7 +18,7 @@ define(function() {
     extend = getModule('lib/extend');
 
     QUnit.test('RankingModel', function() {
-      var ranking, result, rankingobject, ref, listener;
+      var ranking, result, rankingobject, ref, listener, savedata;
 
       listener = new Listener();
       listener.reset = function() {
@@ -185,11 +185,15 @@ define(function() {
       rankingobject = ranking.get();
       QUnit.deepEqual(rankingobject, ref, 'ranks order is correct');
 
-      // TODO extraDependencies
       // TODO bye()
       // TODO correct()
       // TODO reset()
       // TODO resize()
+
+      savedata = ranking.save();
+      QUnit.ok(savedata, 'save() works');
+      // TODO restore
+      // TODO new RankingModel() should be allowed to succeed, but be "empty"
     });
   };
 });
