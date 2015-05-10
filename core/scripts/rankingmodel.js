@@ -107,37 +107,34 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     var dependencies, dataListenerArray;
     RankingModel.superconstructor.call(this);
 
-    if (!components || components.length === 0) {
-      // FIXME CAN we NOT use THROW?
-      throw new Error('RankingModel: no components provided');
-    }
+    components = components || [];
+    size = size || 0;
 
-    if (size === undefined) {
-      throw new Error('RankingModel: no size provided');
-    }
-
-    this.length = size;
     this.ranking = undefined;
-
     this.componentnames = components.slice(0) || [];
     this.componentchain = RankingComponentIndex.createComponentChain(this,
         components);
+    this.length = 0;
+    this.extDeps = [];
+    this.dataListeners = {};
 
     if (!this.componentchain) {
-      // FIXME CAN we NOT use THROW?
-      throw new Error('Cannot create RankingComponent chain.'
-          + 'There should be an error message explaining what is missing.');
+      // this is a dummy object. Ignore all dependencies and stuff
+      return;
     }
+
+    this.length = size || 0;
 
     dependencies = this.componentchain.dependencies;
     if (externalDependencies) {
       externalDependencies.forEach(function(dependency) {
         dependencies.push(dependency);
       }, this);
+      this.extDeps.push.apply(externalDependencies);
     }
+
     dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
         dependencies);
-    this.dataListeners = {};
     dataListenerArray.forEach(function(dataListener, index) {
       this.dataListeners[dependencies[index]] = dataListener;
     }, this);

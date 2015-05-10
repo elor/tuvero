@@ -39,30 +39,20 @@ define(function() {
       QUnit.ok(extend.isSubclass(RankingModel, Model),
           'RankingModel is a subclass of Model and, hence, Emitter');
 
-      try {
-        ranking = new RankingModel();
-      } catch (e) {
-        ranking = undefined;
-      }
-      QUnit.equal(ranking, undefined, 'empty initialization abort');
+      ranking = new RankingModel();
+      QUnit.ok(ranking, 'empty initialization produces an empty ranking');
 
-      try {
-        ranking = new RankingModel([], 5);
-      } catch (e) {
-        ranking = undefined;
-      }
-      QUnit.equal(ranking, undefined, 'empty components abort');
+      ranking = new RankingModel([], 5);
+      QUnit.ok(ranking, 'empty components produce empty ranking');
+      QUnit.equal(ranking.length, 0, 'empty ranking has no length');
 
       ranking = new RankingModel(['points'], 5);
       QUnit.ok(ranking, 'valid initializtion');
       QUnit.equal(ranking.length, 5, 'valid ranking size');
 
-      try {
-        ranking = new RankingModel(['points']);
-      } catch (e) {
-        ranking = undefined;
-      }
-      QUnit.equal(ranking, undefined, 'no size abort');
+      ranking = new RankingModel(['points']);
+      QUnit.ok(ranking, 'sizeless ranking can be created');
+      QUnit.equal(ranking.length, 0, 'ranking size defaults to 0');
 
       ranking = new RankingModel(['numgames', 'wins', 'saldo', 'points'], 5);
       listener.reset();

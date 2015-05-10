@@ -8,8 +8,12 @@
 	* core/scripts/test/rankingheadtohead.js: isPrimary test (is not even a data listener)
 
 	* core/scripts/test/rankingmodel.js: isPrimary tests
+	RankingModel() empty constructor tests adjusted
 
 	* core/scripts/test/rankingtac.js: isPrimary test
+
+	* core/scripts/rankingmodel.js: empty calls to RankingModel() are now allowed
+	They allow for the deserialization into an empty RankingModel instance
 
 2015-05-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
