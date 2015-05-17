@@ -111,32 +111,13 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     size = size || 0;
 
     this.ranking = undefined;
-    this.componentnames = components.slice(0) || [];
-    this.componentchain = RankingComponentIndex.createComponentChain(this,
-        components);
+    this.componentnames = [];
+    this.componentchain = undefined;
     this.length = 0;
     this.extDeps = [];
     this.dataListeners = {};
 
-    if (this.componentchain) {
-      dependencies = this.componentchain.dependencies;
-    } else {
-      dependencies = [];
-    }
-
-    if (externalDependencies) {
-      this.extDeps.push.apply(this.extDeps, externalDependencies);
-      dependencies.push.apply(dependencies, this.extDeps);
-    }
-
-    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
-        dependencies);
-    if (dataListenerArray && dataListenerArray.length > 0) {
-      dataListenerArray.forEach(function(dataListener, index) {
-        this.dataListeners[dependencies[index]] = dataListener;
-      }, this);
-      this.resize(size);
-    }
+    this.init(components, size, externalDependencies);
   }
   extend(RankingModel, Model);
 
@@ -152,6 +133,47 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     'reset': true, // everything has to be reset
     'resize': true
   // the size of the ranking has been changed
+  };
+
+  /**
+   * initializes the ranking object
+   *
+   * @param components
+   * @param size
+   * @param extDependencies
+   * @return true on success, false otherwise
+   */
+  RankingModel.prototype.init = function(components, size, extDependencies) {
+    // abort if the ranking object has not been reset
+    if (this.componentchain || this.componentnames.length !== 0
+        || Object.keys(this.dataListeners).length !== 0) {
+      return false;
+    }
+
+    this.componentnames = components.slice(0);
+    this.componentchain = RankingComponentIndex.createComponentChain(this,
+        components);
+    if (this.componentchain) {
+      dependencies = this.componentchain.dependencies;
+    } else {
+      dependencies = [];
+    }
+
+    if (extDependencies) {
+      this.extDeps.push.apply(this.extDeps, extDependencies);
+      dependencies.push.apply(dependencies, this.extDeps);
+    }
+
+    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
+        dependencies);
+    if (dataListenerArray && dataListenerArray.length > 0) {
+      dataListenerArray.forEach(function(dataListener, index) {
+        this.dataListeners[dependencies[index]] = dataListener;
+      }, this);
+      this.resize(size);
+    }
+
+    return true;
   };
 
   /**
