@@ -8,6 +8,18 @@
 
 	* core/scripts/rankingmodel.js: reset() resets everything to a blank state
 
+	* core/scripts/rankinglostpointslistener.js: onbye() added
+
+	* core/scripts/rankingnumgameslistener.js: onbye() added
+
+	* core/scripts/rankingpointslistener.js: onbye() added
+
+	* core/scripts/rankingwinslistener.js: onbye() added
+
+	* core/scripts/rankingwinsmatrixlistener.js: comments updated
+
+	* core/scripts/test/rankingmodel.js: testing bye(), resize() and reset()
+
 2015-05-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingdatalistener.js: isPrimary() added

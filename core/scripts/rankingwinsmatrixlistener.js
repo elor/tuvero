@@ -1,5 +1,6 @@
 /**
- * RankingWinsMatrixListener
+ * RankingWinsMatrixListener, a matrix that represents how often a team has won
+ * against another team. Does not represent byes
  *
  * @return RankingWinsMatrixListener
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -62,7 +63,7 @@ define(['lib/extend', './rankingdatalistener', './matrixmodel'], function(
       var teamid;
       if (points === maxpoints) {
         teamid = result.teams[index];
-        result.teams.forEach(function(opponent, index) {
+        result.teams.forEach(function(opponent) {
           var value;
           if (teamid !== opponent) {
             value = this.winsmatrix.get(teamid, opponent) + score;
@@ -77,6 +78,10 @@ define(['lib/extend', './rankingdatalistener', './matrixmodel'], function(
    * correct a ranking entry. Do not check whether it's valid. The
    * TournamentModel has to take care of that
    *
+   * @param r
+   *          the emitter, i.e. a RankingModel instance
+   * @param e
+   *          the event, i.e. "correct"
    * @param correction
    *          a game correction
    */

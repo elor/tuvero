@@ -9,16 +9,22 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingModel, Model, extend, GameResult, Listener;
+    var RankingModel, Model, extend, MatchResult, Listener, Options;
 
     RankingModel = getModule('core/rankingmodel');
-    GameResult = getModule('core/matchresult');
+    MatchResult = getModule('core/matchresult');
     Listener = getModule('core/listener');
     Model = getModule('core/model');
+    Options = getModule('options');
     extend = getModule('lib/extend');
 
     QUnit.test('RankingModel', function() {
       var ranking, result, rankingobject, ref, listener, savedata;
+
+      QUnit.equal(Options.byepointswon, 13,
+          'Options.byepointswon is set properly');
+      QUnit.equal(Options.byepointslost, 7,
+          'Options.byepointslost is set properly');
 
       listener = new Listener();
       listener.reset = function() {
@@ -40,7 +46,14 @@ define(function() {
           'RankingModel is a subclass of Model and, hence, Emitter');
 
       ranking = new RankingModel();
-      QUnit.ok(ranking, 'empty initialization produces an empty ranking');
+      QUnit.ok(ranking, 'empty initialization produces a valid ranking');
+      ref = {
+        components: [],
+        displayOrder: [],
+        ranks: []
+      };
+      QUnit.deepEqual(ranking.get(), ref,
+          'empty initialization produces a valid ranking');
 
       ranking = new RankingModel([], 5);
       QUnit.ok(ranking, 'empty components produce empty ranking');
@@ -53,7 +66,7 @@ define(function() {
       QUnit.ok(ranking.wins, 'extradeps: points are created and listening');
 
       ranking = new RankingModel(['points'], 5);
-      QUnit.ok(ranking, 'valid initializtion');
+      QUnit.ok(ranking, 'valid initialization');
       QUnit.equal(ranking.length, 5, 'valid ranking size');
 
       ranking = new RankingModel(['points']);
@@ -97,7 +110,7 @@ define(function() {
       QUnit.ok(rankingobject, 'ranking.get works');
       QUnit.deepEqual(rankingobject, ref, 'empty ranking is not empty');
 
-      ranking.result(new GameResult([1, 3], [13, 7]));
+      ranking.result(new MatchResult([1, 3], [13, 7]));
       ref = {
         components: ['numgames', 'wins', 'saldo', 'points'],
         ranks: [2, 0, 2, 1, 2],
@@ -122,7 +135,7 @@ define(function() {
       QUnit.equal(listener.updated, 1, 'invalidate(): update event fired');
 
       listener.reset();
-      ranking.result(new GameResult([0, 4], [0, 11]));
+      ranking.result(new MatchResult([0, 4], [0, 11]));
       rankingobject = ranking.get();
 
       ref = {
@@ -163,18 +176,18 @@ define(function() {
       QUnit.equal(ranking.dataListeners.winsmatrix.isPrimary(), true,
           'winsmatrix is primary');
 
-      ranking.result(new GameResult([0, 4], [3, 13]));
-      ranking.result(new GameResult([1, 2], [5, 13]));
-      ranking.result(new GameResult([3, 0], [13, 0]));
-      ranking.result(new GameResult([4, 2], [11, 13]));
+      ranking.result(new MatchResult([0, 4], [3, 13]));
+      ranking.result(new MatchResult([1, 2], [5, 13]));
+      ranking.result(new MatchResult([3, 0], [13, 0]));
+      ranking.result(new MatchResult([4, 2], [11, 13]));
 
       rankingobject = ranking.get();
 
       QUnit.deepEqual(rankingobject, ref, 'finebuchholz ranking is correct');
 
       ranking = new RankingModel(['numgames', 'wins'], 5);
-      ranking.result(new GameResult([1, 3], [13, 0]));
-      ranking.result(new GameResult([2, 4], [0, 13]));
+      ranking.result(new MatchResult([1, 3], [13, 0]));
+      ranking.result(new MatchResult([2, 4], [0, 13]));
       ref = {
         components: ['numgames', 'wins'],
         ranks: [4, 0, 2, 2, 0],
@@ -185,15 +198,124 @@ define(function() {
       rankingobject = ranking.get();
       QUnit.deepEqual(rankingobject, ref, 'ranks order is correct');
 
-      // TODO bye()
-      // TODO correct()
-      // TODO reset()
-      // TODO resize()
+      /*
+       * bye()
+       */
+      ranking = new RankingModel(['numgames', 'wins', 'points', 'lostpoints',
+          'saldo', 'buchholz', 'finebuchholz'], 5);
+      ranking.bye(2);
+      ref = {
+        components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
+            'buchholz', 'finebuchholz'],
+        ranks: [1, 1, 0, 1, 1],
+        displayOrder: [2, 0, 1, 3, 4],
+        numgames: [0, 0, 1, 0, 0],
+        wins: [0, 0, 1, 0, 0],
+        points: [0, 0, 13, 0, 0],
+        lostpoints: [0, 0, -7, 0, 0],
+        saldo: [0, 0, 6, 0, 0],
+        buchholz: [0, 0, 0, 0, 0],
+        finebuchholz: [0, 0, 0, 0, 0]
+      };
+      rankingobject = ranking.get();
+      QUnit.deepEqual(rankingobject, ref,
+          'bye() is applied properly to all basic components');
+
+      ranking.bye([0, 1, 3]);
+      ref = {
+        components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
+            'buchholz', 'finebuchholz'],
+        ranks: [0, 0, 0, 0, 4],
+        displayOrder: [0, 1, 2, 3, 4],
+        numgames: [1, 1, 1, 1, 0],
+        wins: [1, 1, 1, 1, 0],
+        points: [13, 13, 13, 13, 0],
+        lostpoints: [-7, -7, -7, -7, 0],
+        saldo: [6, 6, 6, 6, 0],
+        buchholz: [0, 0, 0, 0, 0],
+        finebuchholz: [0, 0, 0, 0, 0]
+      };
+      rankingobject = ranking.get();
+      QUnit.deepEqual(rankingobject, ref,
+          "bye() with multiple teams works (all teams receive bye)");
+
+      ranking.result(new MatchResult([3, 1], [13, 7]));
+      ref = {
+        components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
+            'buchholz', 'finebuchholz'],
+        ranks: [2, 1, 2, 0, 4],
+        displayOrder: [3, 1, 0, 2, 4],
+        numgames: [1, 2, 1, 2, 0],
+        wins: [1, 1, 1, 2, 0],
+        points: [13, 20, 13, 26, 0],
+        lostpoints: [-7, -20, -7, -14, 0],
+        saldo: [6, 0, 6, 12, 0],
+        buchholz: [0, 2, 0, 1, 0],
+        finebuchholz: [0, 1, 0, 2, 0]
+      };
+      rankingobject = ranking.get();
+      QUnit.deepEqual(rankingobject, ref,
+          'buchholz and finebuchholz include bye-induced wins');
+
+      /*
+       * resize()
+       */
+      ranking.resize(6);
+      ref = {
+        components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
+            'buchholz', 'finebuchholz'],
+        ranks: [2, 1, 2, 0, 4, 4],
+        displayOrder: [3, 1, 0, 2, 4, 5],
+        numgames: [1, 2, 1, 2, 0, 0],
+        wins: [1, 1, 1, 2, 0, 0],
+        points: [13, 20, 13, 26, 0, 0],
+        lostpoints: [-7, -20, -7, -14, 0, 0],
+        saldo: [6, 0, 6, 12, 0, 0],
+        buchholz: [0, 2, 0, 1, 0, 0],
+        finebuchholz: [0, 1, 0, 2, 0, 0]
+      };
+      rankingobject = ranking.get();
+      QUnit.deepEqual(rankingobject, ref,
+          'resize() is able to append a team to the ranking');
+
+      ranking.resize(3);
+      ref = {
+        components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
+            'buchholz', 'finebuchholz'],
+        ranks: [1, 0, 1],
+        displayOrder: [1, 0, 2],
+        numgames: [1, 2, 1],
+        wins: [1, 1, 1],
+        points: [13, 20, 13],
+        lostpoints: [-7, -20, -7],
+        saldo: [6, 0, 6],
+        buchholz: [0, 0, 0],
+        finebuchholz: [0, 0, 0]
+      };
+      rankingobject = ranking.get();
+      QUnit.deepEqual(rankingobject, ref,
+          'resize() shrinks without changing the actual values');
+
+      /*
+       * reset()
+       */
+      ranking.reset();
+      ref = {
+        components: [],
+        displayOrder: [],
+        ranks: []
+      };
+      rankingobject = ranking.get();
+      QUnit.deepEqual(rankingobject, ref,
+          "reset() restores to an empty ranking");
+      QUnit.deepEqual(ranking.length, 0, "reset() resizes to 0");
 
       savedata = ranking.save();
       QUnit.ok(savedata, 'save() works');
+
       // TODO restore
-      // TODO new RankingModel() should be allowed to succeed, but be "empty"
+
+      // TODO correct()
     });
   };
 });

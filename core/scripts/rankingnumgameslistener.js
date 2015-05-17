@@ -40,9 +40,27 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
   };
 
   /**
+   * @param r
+   *          the emitting RankingModel instance. Please ignore.
+   * @param e
+   *          the name of the emitted event
+   * @param teams
+   *          an array of team ids
+   */
+  RankingNumGamesListener.prototype.onbye = function(r, e, teams) {
+    teams.forEach(function(teamid) {
+      this.numgames.set(teamid, this.numgames.get(teamid) + 1);
+    }, this);
+  };
+
+  /**
    * correct a ranking entry. Do not check whether it's valid. The
    * TournamentModel has to take care of that
    *
+   * @param r
+   *          the Emitter, i.e. a RankingModel instance
+   * @param e
+   *          the event type, i.e. "correct"
    * @param correction
    *          a game correction
    */

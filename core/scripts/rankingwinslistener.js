@@ -56,6 +56,22 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'],
       };
 
       /**
+       * add bye-related "wins"
+       *
+       * @param r
+       *          the Emitter, i.e. a RankingModel instance
+       * @param e
+       *          the event type, i.e. "bye"
+       * @param teams
+       *          an array of team ids
+       */
+      RankingWinsListener.prototype.onbye = function(r, e, teams) {
+        teams.forEach(function(teamid) {
+          this.wins.set(teamid, this.wins.get(teamid) + 1);
+        }, this);
+      };
+
+      /**
        * correct a ranking entry. Do not check whether it's valid. The
        * TournamentModel has to take care of that
        *
