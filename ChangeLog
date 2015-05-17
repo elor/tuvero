@@ -4,6 +4,10 @@
 
 	* core/scripts/test/rankingtac.js: testing bye()
 
+	* core/scripts/rankingdatalistener.js: destroy() deletes ranking containers (e.g. ranking.points)
+
+	* core/scripts/rankingmodel.js: reset() resets everything to a blank state
+
 2015-05-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingdatalistener.js: isPrimary() added

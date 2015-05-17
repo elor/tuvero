@@ -2,8 +2,6 @@
  * RankingModel: A general ranking model, which can bind different
  * RankingComponents in order and sort using their compare function
  *
- * TODO cached update
- *
  * @return RankingModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -157,10 +155,19 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
   };
 
   /**
-   * reset the ranking without resizing anything or removing
+   * restore everything to an initial state, as provided by an empty
+   * RankingModel construction
    */
   RankingModel.prototype.reset = function() {
+    Object.keys(this.dataListeners).forEach(function(key) {
+      this.dataListeners[key].destroy();
+    }, this);
+
+    // just let the constructor reset everything for us.
+    RankingModel.call(this);
     this.emit('reset');
+
+    // trigger an 'update' event
     this.invalidate();
   };
 

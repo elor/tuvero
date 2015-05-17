@@ -29,9 +29,14 @@ define(['lib/extend', './listener'], function(extend, Listener) {
      */
     Const = this.constructor;
 
-    // map the ranking field
+    this.ranking = ranking;
+
+    // resize and map the ranking field
     if (fieldobject.length !== ranking.length) {
       fieldobject.resize(ranking.length);
+    }
+    if (ranking[Const.NAME] !== undefined) {
+      throw new Error("ranking field already exists: " + Const.NAME);
     }
     ranking[Const.NAME] = fieldobject;
     this[Const.NAME] = fieldobject;
@@ -71,6 +76,12 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    */
   RankingDataListener.DEPENDENCIES = [];
 
+  RankingDataListener.prototype.destroy = function() {
+    RankingDataListener.superclass.destroy.call(this);
+
+    delete this.ranking[this.constructor.NAME];
+  };
+
   /**
    * insert the results of a game into the ranking.
    *
@@ -82,7 +93,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    *          a game result
    */
   RankingDataListener.prototype.onresult = function(r, e, game) {
-    // do something to this.field
+    // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
   /**
@@ -96,7 +107,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    *          array of teams which receive a bye
    */
   RankingDataListener.prototype.onbye = function(r, e, teams) {
-    // do something to this.field
+    // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
   /**
@@ -111,14 +122,14 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    *          a game correction
    */
   RankingDataListener.prototype.oncorrect = function(r, e, correction) {
-    // do something to this.field
+    // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
   /**
    * calculate the field
    */
   RankingDataListener.prototype.onrecalc = function() {
-    // do something to this.field
+    // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
   /**
