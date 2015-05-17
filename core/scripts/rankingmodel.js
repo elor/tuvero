@@ -318,6 +318,41 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     return data;
   };
 
+  /**
+   * restores the ranking from a previously saved data object
+   *
+   * @param data
+   *          a deserialized data object
+   * @returns true on success, false otherwise
+   */
+  RankingModel.prototype.restore = function(data) {
+    if (!RankingModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.reset();
+    if (!this.init(data.comps, data.len, data.edep)) {
+      this.reset();
+      return false;
+    }
+
+    if (!Object.keys(data.vals).every(function(name) {
+      if (this[name] && this[name].restore) {
+        if (this[name].restore(data.vals[name])) {
+          return true;
+        }
+      }
+      console.error("RankingModel.restore(): cannot restore listener" + name);
+      return false;
+    }, this)) {
+      this.reset();
+      return false;
+    }
+    this.invalidate();
+
+    return true;
+  };
+
   RankingModel.prototype.SAVEFORMAT = Object
       .create(RankingModel.superclass.SAVEFORMAT);
   RankingModel.prototype.SAVEFORMAT.len = Number;

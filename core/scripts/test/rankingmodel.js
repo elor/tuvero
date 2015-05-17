@@ -310,10 +310,27 @@ define(function() {
           "reset() restores to an empty ranking");
       QUnit.deepEqual(ranking.length, 0, "reset() resizes to 0");
 
+      ranking = new RankingModel(['wins', 'saldo'], 5);
+      ranking.bye(3);
+      ranking.result(new MatchResult([2, 0], [13, 8]));
+      ranking.result(new MatchResult([1, 4], [11, 9]));
       savedata = ranking.save();
       QUnit.ok(savedata, 'save() works');
 
-      // TODO restore
+      /*
+       * restore
+       */
+      ranking = new RankingModel();
+      QUnit.equal(ranking.restore(savedata), true, 'restore() succeeds');
+      ret = ranking.get();
+      ref = {
+        components: ['wins', 'saldo'],
+        ranks: [4, 2, 1, 0, 3],
+        displayOrder: [3, 2, 1, 4, 0],
+        wins: [0, 1, 1, 1, 0],
+        saldo: [-5, 2, 5, 6, -2]
+      };
+      QUnit.deepEqual(ret, ref, 'restore restores the proper stuff');
 
       // TODO correct()
     });

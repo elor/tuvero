@@ -8,6 +8,7 @@
 
 	* core/scripts/rankingmodel.js: reset() resets everything to a blank state
 	component and listener creation extracted into init()
+	restore() now works properly
 
 	* core/scripts/rankinglostpointslistener.js: onbye() added
 
@@ -20,6 +21,7 @@
 	* core/scripts/rankingwinsmatrixlistener.js: comments updated
 
 	* core/scripts/test/rankingmodel.js: testing bye(), resize() and reset()
+	testing restore()
 
 2015-05-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
