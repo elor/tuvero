@@ -9,13 +9,26 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingModel, GameResult;
+    var RankingModel, GameResult, Options;
 
     RankingModel = getModule('core/rankingmodel');
     GameResult = getModule('core/matchresult');
+    Options = getModule('options');
 
     QUnit.test('TAC Ranking', function() {
-      var ranking, result, ret, ref;
+      var ranking, result, ret, ref, optionbak;
+
+      /*
+       * adjust options to fit typical TAC options
+       */
+      optionbak = {
+        byepointswon: Options.byepointswon,
+        byepointslost: Options.byepointslost,
+        maxpoints: Options.maxpoints
+      };
+      Options.byepointswon = 8;
+      Options.byepointslost = 6;
+      Options.maxpoints = 8;
 
       ranking = new RankingModel(['tac', 'wins', 'points'], 5);
 
@@ -107,8 +120,33 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'aborted game points, equal');
 
-      // TODO bye
+      /*
+       * bye
+       */
+      ranking = new RankingModel(['tac'], 2);
+      ranking.bye(1);
+      ref = {
+        components: ['tac'],
+        ranks: [1, 0],
+        displayOrder: [1, 0],
+        tac: [0, Options.byepointswon - Options.byepointslost]
+      };
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'tac accepts byes');
+
+      ranking.bye(1);
+      ref.tac[1] *= 2;
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'tac accepts multiple byes');
+
       // TODO correct
+
+      /*
+       * restore original options
+       */
+      Options.byepointswon = optionbak.byepointswon;
+      Options.byepointslost = optionbak.byepointslost;
+      Options.maxpoints = optionbak.maxpoints;
     });
   };
 });

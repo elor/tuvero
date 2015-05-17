@@ -1,3 +1,9 @@
+2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingtaclistener.js: accepting byes
+
+	* core/scripts/test/rankingtac.js: testing bye()
+
 2015-05-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingdatalistener.js: isPrimary() added
