@@ -1,6 +1,9 @@
 2015-05-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/vectormodel.js: using RLE encoding/decoding for save()/restore()
+	testing leading and trailing undefined values
+
+	* core/scripts/listmodel.js: compensating for undefined values
 
 2015-05-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

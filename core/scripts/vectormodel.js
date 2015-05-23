@@ -173,7 +173,6 @@ define(['lib/extend', './listmodel', './type', './rle'], function(extend,
     var data = VectorModel.superclass.save.call(this);
 
     data = RLE.encode(data);
-    // TODO use run length encoding
 
     return data;
   };

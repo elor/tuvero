@@ -295,11 +295,14 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
     // TODO type checking (Type.isConstructor?)
     if (ElementModel) {
       // path for constructor/Model types
-      return data.every(function(element) {
+      return data.every(function(element, index) {
         try {
           var instance = new ElementModel();
           if (!instance.restore(element)) {
             return false;
+          }
+          while (this.length < index) {
+            this.push(undefined);
           }
           this.push(instance);
           return true;
@@ -313,7 +316,10 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
     }
 
     // path for raw types
-    data.forEach(function(element) {
+    data.forEach(function(element, index) {
+      while (this.length < index) {
+        this.push(undefined);
+      }
       this.push(element);
     }, this);
     return true;

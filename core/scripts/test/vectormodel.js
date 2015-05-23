@@ -117,7 +117,7 @@ define(function() {
       success = true;
       try {
         vec2.mult(5, vec);
-      } catch (e) {
+      } catch (e2) {
         success = false;
       }
       QUnit.ok(success, 'mult(Number, VectorModel) aborts as intended');
@@ -151,6 +151,17 @@ define(function() {
       QUnit.deepEqual(vec2.asArray(), [5, 3, 4, 1, 2],
           "restored values are correct");
 
+      vec = new VectorModel();
+      vec.push(0);
+      vec.push(0);
+      vec.push(1);
+      vec.push(0);
+      vec.push(0);
+      data = vec.save();
+      vec = new VectorModel();
+      vec.restore(data);
+      QUnit.deepEqual(vec.asArray(), [0, 0, 1, 0, 0],
+          'no undefined values in the array');
     });
   };
 });
