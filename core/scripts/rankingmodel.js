@@ -104,7 +104,6 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
    *          for "have they played"-type questions
    */
   function RankingModel(components, size, externalDependencies) {
-    var dependencies, dataListenerArray;
     RankingModel.superconstructor.call(this);
 
     components = components || [];
@@ -144,6 +143,8 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
    * @return true on success, false otherwise
    */
   RankingModel.prototype.init = function(components, size, extDependencies) {
+    var dependencies, dataListenerArray;
+
     // abort if the ranking object has not been reset
     if (this.componentchain || this.componentnames.length !== 0
         || Object.keys(this.dataListeners).length !== 0) {
