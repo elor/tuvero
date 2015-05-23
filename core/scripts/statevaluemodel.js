@@ -66,6 +66,21 @@ define(['lib/extend', './selectionvaluemodel', './uniquelistmodel'],
       };
 
       /**
+       * like this.set(), but it enforces a state change
+       *
+       * @param newState
+       * @return true on success, false otherwise
+       */
+      StateValueModel.prototype.forceState = function(newState) {
+        if (this.transitions[newState]) {
+          this.allowedValues.push(newState);
+          this.set(newState);
+          return true;
+        }
+        return false;
+      };
+
+      /**
        * Callback function to update the list of allowed states after a state
        * change
        */

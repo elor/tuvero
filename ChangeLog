@@ -12,6 +12,10 @@
 	missing variables added
 	testing empty constructions
 
+	* core/scripts/statevaluemodel.js: forceState() added
+
+	* core/scripts/test/statevaluemodel.js: forceState() tested
+
 2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: accepting byes

@@ -31,10 +31,20 @@ define(function() {
 
       QUnit.equal(state.set('d'), false, 'unallowed transition ("d")');
       QUnit.equal(state.set('b'), true, 'valid state transition ("b")');
+      QUnit.equal(state.get(), 'b', 'state actually transitioned');
       QUnit.equal(state.set('b'), true, 'transition to current state');
       QUnit.equal(state.set('c'), false, 'unallowed transition ("d")');
       QUnit.equal(state.set('a'), true, 'valid state transition ("a")');
       QUnit.equal(state.set('c'), true, 'valid state transition ("a")');
+
+      QUnit.equal(state.forceState('invalidstate'), false,
+          'forceState() cannot force a nonexistant state');
+      QUnit.equal(state.get(), 'c', 'state is at "c"');
+      QUnit.equal(state.set('a'), false, 'transition to state "a" is invalid');
+      QUnit.equal(state.forceState('a'), true,
+          'transition to state "a" can be enforced');
+      QUnit.equal(state.get(), 'a', 'state was forced to be "a"');
+
     });
   };
 });
