@@ -36,8 +36,8 @@ define(['./type'], function(Type) {
       // just return the string representation of the number. Fallback for
       return array.toString();
     default:
-      console.error('cannot parse content of type ' + Type(array));
-      return undefined;
+      throw new Error('RLE encoding failed: cannot parse content of type '
+          + Type(array));
     }
 
     str = '';
@@ -77,7 +77,12 @@ define(['./type'], function(Type) {
           str += '[';
         }
 
-        str += RLE.encode(elem);
+        try {
+          str += RLE.encode(elem);
+        } catch (e) {
+          console.error(e);
+          str += undefined;
+        }
         nullstart = -1;
       } else {
         nullstart = i;

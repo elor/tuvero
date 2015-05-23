@@ -13,23 +13,70 @@ define(function() {
     RLE = getModule('core/rle');
 
     QUnit.test('RLE', function() {
-      var data, rle, exp;
+      var success, data, exp;
 
       /*
        * encoding tests: static function
        */
-      QUnit.equal(RLE.encode(undefined), undefined,
-          'RLE.encode() with undefined');
-      QUnit.equal(RLE.encode(null), undefined, 'RLE.encode() with null');
-      QUnit.equal(RLE.encode(''), undefined, 'RLE.encode() with ""');
-      QUnit.equal(RLE.encode({}), undefined, 'RLE.encode() with {}');
-      QUnit.equal(RLE.encode(/5/), undefined, 'RLE.encode() with /5/');
-      QUnit.equal(RLE.encode({
-        a: 4
-      }), undefined, 'RLE.encode() with {a:4}');
-      QUnit.equal(RLE.encode('loremipsum'), undefined,
-          'RLE.encode() with "loremipsum"');
-      QUnit.equal(RLE.encode('5'), undefined, 'RLE.encode() with "5"');
+      success = true;
+      try {
+        RLE.encode(undefined);
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with undefined');
+      success = true;
+      try {
+        RLE.encode(null);
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with null');
+      success = true;
+      try {
+        RLE.encode("");
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with ""');
+      success = true;
+      try {
+        RLE.encode({});
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with {}');
+      success = true;
+      try {
+        RLE.encode(/5/);
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with /5/');
+      success = true;
+      try {
+        RLE.encode({
+          a: 4
+        });
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with {a:4}');
+      success = true;
+      try {
+        RLE.encode('loremipsum');
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with "loremipsum"');
+
+      success = true;
+      try {
+        RLE.encode('5');
+        success = false;
+      } catch (e) {
+      }
+      QUnit.ok(success, 'RLE.encode() with "5"');
 
       QUnit.equal(RLE.encode([]), '', 'RLE.encode() with []');
       QUnit.equal(RLE.encode(0), '0', 'RLE.encode() with 0');
