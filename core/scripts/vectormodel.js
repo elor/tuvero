@@ -168,12 +168,6 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
     var data = VectorModel.superclass.save.call(this);
 
     // TODO use run length encoding
-    data.v = this.asArray().map(function(value) {
-      if (Type.isNumber(value)) {
-        return value;
-      }
-      return 0;
-    });
 
     return data;
   };
@@ -183,11 +177,7 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
       return false;
     }
 
-    this.clear();
-    // TODO use run length decoding
-    data.v.forEach(function(value, index) {
-      this.insert(index, value);
-    }, this);
+    // TODO use run length encoding
 
     return true;
   };
