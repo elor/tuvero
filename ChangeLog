@@ -22,6 +22,10 @@
 	* core/scripts/tournamentmodel.js: save() tested
 	restore() tested
 
+	* core/scripts/listmodel.js: save()/restore() added
+
+	* core/scripts/test/listmodel.js: save()/restore() added
+
 2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: accepting byes

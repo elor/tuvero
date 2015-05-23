@@ -8,8 +8,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './model', './listupdatelistener'], function(extend,
-    Model, ListUpdateListener) {
+define(['lib/extend', './model', './listupdatelistener', './type'], function(
+    extend, Model, ListUpdateListener, Type) {
 
   /**
    * Constructor for an empty list
@@ -239,6 +239,84 @@ define(['lib/extend', './model', './listupdatelistener'], function(extend,
     this.remove = undefined;
     this.clear = undefined;
     this.erase = undefined;
+  };
+
+  /**
+   * save the current state to a data object for serialization. The data object
+   * is supposed to be compact, i.e. a native list
+   *
+   * @return a list that can be used to restore the current list state
+   */
+  ListModel.prototype.save = function() {
+    var data;
+    /*
+     * Note to self: ListModel ignores the default data object format in favor
+     * of a list representation. Types aren't checked, so in the worst case,
+     * restore() will fail dramatically
+     */
+
+    if (this.list.every(function(element) {
+      return Type.isFunction(element.save);
+    })) {
+      // everything is serializable
+      data = this.list.map(function(element) {
+        try {
+          return element.save();
+        } catch (e) {
+          console.error('ListModel.save() failed with error: ');
+          console.error(e);
+          return undefined;
+        }
+      });
+    } else {
+      // just return the objects themselves, since they're not serializable.
+      // I don't see an elegant way to enable structs and atomic types to use
+      // this feature.
+      data = this.asArray();
+    }
+
+    return data;
+  };
+
+  /**
+   * restore the list state from a previously saved data object (see save())
+   *
+   * @param data
+   * @param ElementModel
+   * @return true on success, false otherwise
+   */
+  ListModel.prototype.restore = function(data, ElementModel) {
+    if (!data || !Type.isArray(data)) {
+      return false;
+    }
+
+    this.clear();
+
+    // TODO type checking (Type.isConstructor?)
+    if (ElementModel) {
+      // path for constructor/Model types
+      return data.every(function(element) {
+        try {
+          var instance = new ElementModel();
+          if (!instance.restore(element)) {
+            return false;
+          }
+          this.push(instance);
+          return true;
+        } catch (e) {
+          console.error('ListModel.restore() failed for an element:');
+          console.error(element);
+          console.error(e);
+          return false;
+        }
+      }, this);
+    }
+
+    // path for raw types
+    data.forEach(function(element) {
+      this.push(element);
+    }, this);
+    return true;
   };
 
   return ListModel;

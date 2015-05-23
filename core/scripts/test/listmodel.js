@@ -8,12 +8,31 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var ListModel;
+    var ListModel, DummyModel;
 
     ListModel = getModule('core/listmodel');
 
+    /*
+     * dummy Model, which can be saved/restored for testing
+     */
+    DummyModel = function(optional) {
+      if (optional) {
+        this.data = "asd" + optional;
+      }
+
+      this.save = function() {
+        return {
+          d: this.data.replace(/^asd/, '')
+        };
+      };
+      this.restore = function(data) {
+        this.data = "asd" + data.d;
+        return true;
+      };
+    };
+
     QUnit.test('ListModel', function() {
-      var list, obj, i, ret, res, listener;
+      var list, obj, i, ret, res, listener, data;
 
       listener = {
         reset: function() {
@@ -191,6 +210,51 @@ define(function() {
       QUnit.equal(list.pop, undefined, 'makereadonly: pop() disabled');
       QUnit.equal(list.clear, undefined, 'makereadonly: clear() disabled');
       QUnit.equal(list.erase, undefined, 'makereadonly: erase() disabled');
+
+      list = new ListModel();
+      list.push(5);
+      list.push(3);
+      list.push(4);
+      list.push(2);
+      list.push(3);
+      list.push(1);
+      data = list.save();
+      QUnit.ok(data, 'save() returns');
+      QUnit.deepEqual(data, [5, 3, 4, 2, 3, 1],
+          'save() uses a list representation for raw types');
+      list = new ListModel();
+      QUnit.ok(list.restore(data), 'restore() returns');
+      QUnit.deepEqual(list.asArray(), [5, 3, 4, 2, 3, 1],
+          'restore() restores the whole list');
+
+      list.clear();
+      list.push("Tuvero");
+      list.push("is");
+      list.push("awesome");
+      data = list.save();
+      QUnit.deepEqual(data, ["Tuvero", "is", "awesome"]);
+
+      list.clear();
+      list.push(new DummyModel(5));
+      list.push(new DummyModel(3));
+      list.push(new DummyModel(4));
+      list.push(new DummyModel(2));
+      list.push(new DummyModel(3));
+      list.push(new DummyModel(1));
+      data = list.save();
+      QUnit.ok(data, 'save() calls save() recursively');
+      QUnit.ok(data[0].d, 'save() really calls save() recursively');
+      QUnit.ok(!data[0].save, 'save() really really calls save() recursively');
+
+      list = new ListModel();
+      QUnit.ok(list.restore(data, DummyModel), 'restore() returns');
+      QUnit.equal(list.length, data.length, 'restore() restores the length');
+      QUnit.equal(list.get(0).data, 'asd5', 'restore() constructs the object');
+      QUnit.equal(list.get(1).data, 'asd3', 'restore() constructs the object');
+      QUnit.equal(list.get(2).data, 'asd4', 'restore() constructs the object');
+      QUnit.equal(list.get(3).data, 'asd2', 'restore() constructs the object');
+      QUnit.equal(list.get(4).data, 'asd3', 'restore() constructs the object');
+      QUnit.equal(list.get(5).data, 'asd1', 'restore() constructs the object');
     });
   };
 });
