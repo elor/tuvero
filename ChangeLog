@@ -2,6 +2,9 @@
 
 	* core/scripts/rankingmodel.js: forgot to move variable allocation to extracted init() function
 
+	* core/scripts/model.js: "this" output error fixed:
+	Forgot to set "this" properly, so it always showed "Window"
+
 2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: accepting byes

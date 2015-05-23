@@ -85,7 +85,7 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
     }
 
     return Object.keys(this.SAVEFORMAT).every(function(key) {
-      if (verifyType(data[key], this.SAVEFORMAT[key])) {
+      if (verifyType.call(this, data[key], this.SAVEFORMAT[key])) {
         return true;
       }
       console.error('Missing key: ' + key);
