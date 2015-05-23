@@ -15,7 +15,7 @@ define(function() {
     PropertyModel = getModule('core/propertymodel');
 
     QUnit.test('TournamentModel', function() {
-      var tournament, state, teams, matches, byes, match, ranking, ref;
+      var tournament, state, teams, matches, byes, match, ranking, ref, data;
 
       QUnit.ok(extend.isSubclass(TournamentModel, PropertyModel),
           'TournamentModel is subclass of PropertyModel');
@@ -150,6 +150,41 @@ define(function() {
           'tournament cannot be un-finished');
 
       QUnit.deepEqual(ranking.get(), ref, 'ranking validation');
+
+      tournament = new TournamentModel(['wins', 'saldo']);
+      tournament.addTeam(5);
+      tournament.addTeam(3);
+      tournament.addTeam(4);
+      tournament.addTeam(2);
+      tournament.addTeam(1);
+
+      tournament.run();
+      tournament.getMatches().get(0).finish([8, 13]);
+      tournament.run();
+
+      data = tournament.save();
+      QUnit.ok(data, 'save() finishes');
+      ref = tournament;
+      tournament = new TournamentModel();
+      QUnit.ok(tournament.restore(data), 'restore() finishes');
+
+      state = tournament.getState();
+      teams = tournament.getTeams();
+      matches = tournament.getMatches();
+      byes = tournament.getVotes('bye');
+      ranking = tournament.getRanking();
+
+      QUnit.deepEqual(teams.asArray(), ref.getTeams().asArray(),
+          'restore() restored the teams');
+      QUnit.equal(state.get(), "running",
+          'restore() restored the "running" state');
+      QUnit.equal(matches.length, 1, 'restore() restored matches.length');
+      match = matches.get(0);
+      QUnit.equal(match.getTeamID(0), 3, 'restore(): team id in match');
+      QUnit.equal(match.getTeamID(1), 4, 'restore(): team id in match');
+      QUnit.deepEqual(byes.asArray(), [5], 'restore() restored the byes');
+      QUnit.deepEqual(ranking.get(), ref.getRanking().get(),
+          'restore() restored the whole ranking');
     });
   };
 });

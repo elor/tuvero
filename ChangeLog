@@ -16,6 +16,12 @@
 
 	* core/scripts/test/statevaluemodel.js: forceState() tested
 
+	* core/scripts/test/tournamentmodel.js: save() added
+	restore() added
+
+	* core/scripts/tournamentmodel.js: save() tested
+	restore() tested
+
 2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: accepting byes

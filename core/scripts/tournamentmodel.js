@@ -410,5 +410,88 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     return true;
   };
 
+  TournamentModel.prototype.save = function() {
+    var data = TournamentModel.superclass.save.call(this);
+
+    data.sys = this.SYSTEM;
+    data.state = this.state.get();
+    data.teams = this.teams.asArray();
+    data.matches = this.matches.map(function(match) {
+      return match.save();
+    });
+    data.ranking = this.ranking.save();
+    data.votes = {};
+    this.VOTES.forEach(function(votetype) {
+      data.votes[votetype] = this.votes[votetype].map(function(vote) {
+        return vote;
+      });
+    }, this);
+
+    return data;
+  };
+
+  TournamentModel.prototype.restore = function(data) {
+    if (this.SYSTEM !== data.sys) {
+      console.error('TournamentModel.restore() error: System mismatch');
+      return false;
+    }
+
+    if (!TournamentModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    if (!this.state.forceState(data.state)) {
+      console.error('TournamentModel.restore(): invalid tournament state');
+      return false;
+    }
+
+    this.teams.clear();
+    data.teams.forEach(function(team) {
+      this.teams.push(team);
+    }, this);
+
+    this.matches.clear();
+    if (!data.matches.every(function(matchdata) {
+      var match = new MatchModel();
+      if (!match.restore(matchdata)) {
+        return false;
+      }
+      this.matches.push(match);
+      return true;
+    }, this)) {
+      console.error('TournamentModel.restore(): cannot restore match');
+      return false;
+    }
+
+    if (!this.ranking.restore(data.ranking)) {
+      console.error('TournamentModel.restore(): cannot restore ranking');
+      return false;
+    }
+
+    if (!this.VOTES.every(function(votetype) {
+      this.votes[votetype].clear();
+      if (data.votes[votetype]) {
+        data.votes[votetype].forEach(function(vote) {
+          this.votes[votetype].push(vote);
+        }, this);
+      }
+      return true;
+    }, this)) {
+      console.error('TournamentModel.restore(): cannot restore votes');
+      return false;
+    }
+
+    return true;
+  };
+
+  TournamentModel.prototype.SAVEFORMAT = Object
+      .create(TournamentModel.superclass.SAVEFORMAT);
+  TournamentModel.prototype.SAVEFORMAT.sys = String;
+  TournamentModel.prototype.SAVEFORMAT.state = String;
+  TournamentModel.prototype.SAVEFORMAT.teams = [Number];
+  TournamentModel.prototype.SAVEFORMAT.matches = [Object];
+  TournamentModel.prototype.SAVEFORMAT.ranking = Object;
+  TournamentModel.prototype.SAVEFORMAT.votes = Object;
+
   return TournamentModel;
 });
