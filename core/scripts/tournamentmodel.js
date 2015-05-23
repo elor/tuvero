@@ -416,15 +416,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     data.sys = this.SYSTEM;
     data.state = this.state.get();
     data.teams = this.teams.asArray();
-    data.matches = this.matches.map(function(match) {
-      return match.save();
-    });
+    data.matches = this.matches.save();
     data.ranking = this.ranking.save();
     data.votes = {};
     this.VOTES.forEach(function(votetype) {
-      data.votes[votetype] = this.votes[votetype].map(function(vote) {
-        return vote;
-      });
+      data.votes[votetype] = this.votes[votetype].save();
     }, this);
 
     return data;
@@ -445,21 +441,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return false;
     }
 
-    this.teams.clear();
-    data.teams.forEach(function(team) {
-      this.teams.push(team);
-    }, this);
+    if (!this.teams.restore(data.teams)) {
+      console.error('TournamentModel.restore(): cannot restore teams');
+      return false;
+    }
 
-    this.matches.clear();
-    if (!data.matches.every(function(matchdata) {
-      var match = new MatchModel();
-      if (!match.restore(matchdata)) {
-        return false;
-      }
-      this.matches.push(match);
-      return true;
-    }, this)) {
-      console.error('TournamentModel.restore(): cannot restore match');
+    if (!this.matches.restore(data.matches, MatchModel)) {
+      console.error('TournamentModel.restore(): cannot restore matches');
       return false;
     }
 
@@ -471,9 +459,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     if (!this.VOTES.every(function(votetype) {
       this.votes[votetype].clear();
       if (data.votes[votetype]) {
-        data.votes[votetype].forEach(function(vote) {
-          this.votes[votetype].push(vote);
-        }, this);
+        this.votes[votetype].restore(data.votes[votetype]);
       }
       return true;
     }, this)) {

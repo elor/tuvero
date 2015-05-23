@@ -319,5 +319,7 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
     return true;
   };
 
+  ListModel.prototype.SAVEFORMAT = [/* anything */];
+
   return ListModel;
 });
