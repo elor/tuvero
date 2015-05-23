@@ -89,6 +89,15 @@ define(['./type'], function(Type) {
       }
     }
 
+    if (nullstart !== -1) {
+      if (str.length === 0) {
+        str = '[';
+      } else {
+        str += ',';
+      }
+      str += 'n' + (i - nullstart);
+    }
+
     if (str.length) {
       str += ']';
     }
@@ -207,6 +216,13 @@ define(['./type'], function(Type) {
             array[array.length + nullsleft] = num;
             nullsleft = 0;
           }
+        } else {
+          num = Number(num);
+          nullsleft += num;
+          if (nullsleft > 0) {
+            array[array.length + nullsleft - 1] = undefined;
+          }
+          nullsleft = 0;
         }
         // ends a nested subarray
         if (nesting.length == 1) {

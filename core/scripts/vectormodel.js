@@ -185,6 +185,8 @@ define(['lib/extend', './listmodel', './type', './rle'], function(extend,
    * @returns true on success, false otherwise
    */
   VectorModel.prototype.restore = function(data) {
+    var index;
+
     try {
       data = RLE.decode(data);
     } catch (e) {
@@ -196,6 +198,9 @@ define(['lib/extend', './listmodel', './type', './rle'], function(extend,
       return false;
     }
 
+    while ((index = this.indexOf(undefined)) !== -1) {
+      this.set(index, 0);
+    }
     return true;
   };
 

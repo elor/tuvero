@@ -2,8 +2,12 @@
 
 	* core/scripts/vectormodel.js: using RLE encoding/decoding for save()/restore()
 	testing leading and trailing undefined values
+	setting undefined to 0 for calculations and output
 
 	* core/scripts/listmodel.js: compensating for undefined values
+	* core/scripts/rle.js: forcing the insertion of undefined values
+
+	* core/scripts/test/rle.js: testing undefined values
 
 2015-05-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
