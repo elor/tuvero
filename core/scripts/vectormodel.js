@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
-    Type) {
+define(['lib/extend', './listmodel', './type', './rle'], function(extend,
+    ListModel, Type, RLE) {
   /**
    * Constructor
    *
@@ -164,20 +164,38 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
     return this;
   };
 
+  /**
+   * prepare a compact serializable representation of the vector
+   *
+   * @return a data object
+   */
   VectorModel.prototype.save = function() {
     var data = VectorModel.superclass.save.call(this);
 
+    data = RLE.encode(data);
     // TODO use run length encoding
 
     return data;
   };
 
+  /**
+   * restore the vector from a previously saved data object
+   *
+   * @param data
+   *          the data object
+   * @returns true on success, false otherwise
+   */
   VectorModel.prototype.restore = function(data) {
-    if (!VectorModel.superclass.restore.call(this, data)) {
+    try {
+      data = RLE.decode(data);
+    } catch (e) {
+      console.error(e);
       return false;
     }
 
-    // TODO use run length encoding
+    if (!VectorModel.superclass.restore.call(this, data)) {
+      return false;
+    }
 
     return true;
   };

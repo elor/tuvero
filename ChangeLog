@@ -1,3 +1,7 @@
+2015-05-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/vectormodel.js: using RLE encoding/decoding for save()/restore()
+
 2015-05-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingmodel.js: forgot to move variable allocation to extracted init() function
