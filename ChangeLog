@@ -31,6 +31,10 @@
 
 	* legacy/scripts/ui/listcollectormodel.js: comments added
 
+	* core/scripts/rle.js: run length encoding/decoding of one- or multidimensional arrays
+
+	* core/scripts/test/rle.js: testing run length encoding/decoding
+
 2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: accepting byes

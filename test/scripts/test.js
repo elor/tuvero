@@ -36,6 +36,7 @@ require(['config'], function() {
   'core/test/rankingsonneborn',
   'core/test/rankingtac',
   'core/test/readonlylistmodel',
+  'core/test/rle',
   'core/test/selectionvaluemodel',
   'core/test/statevaluemodel',
   'core/test/symmetricmatrixmodel',
