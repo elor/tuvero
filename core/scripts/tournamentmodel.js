@@ -410,6 +410,12 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     return true;
   };
 
+  /**
+   * prepares a serializable data object, which can later be used for restoring
+   * the current state using the restore() function
+   *
+   * @return a serializable data object, which can be used for restoring
+   */
   TournamentModel.prototype.save = function() {
     var data = TournamentModel.superclass.save.call(this);
 
@@ -426,6 +432,12 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     return data;
   };
 
+  /**
+   * restore a previously saved state from a serializable data object
+   *
+   * @param data a data object, that was previously written by save()
+   * @return true on success, false otherwise
+   */
   TournamentModel.prototype.restore = function(data) {
     if (this.SYSTEM !== data.sys) {
       console.error('TournamentModel.restore() error: System mismatch');

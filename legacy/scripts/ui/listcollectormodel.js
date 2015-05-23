@@ -97,6 +97,13 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
    * exists, in which case it is assumed that there's a chain of collectors.
    * Hence, the direct of this event emitter will be discarded in favor of the
    * original emitter.
+   *
+   * @param emitter
+   *          the original emitter, i.e. the ListModel instance
+   * @param event
+   *          the event type, e.g. "update" or "reset"
+   * @param data
+   *          an optional data object
    */
   ListCollectorModel.PROXYCALLBACK = function(emitter, event, data) {
     if (!data) {

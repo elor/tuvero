@@ -22,11 +22,14 @@
 	* core/scripts/tournamentmodel.js: save() tested
 	restore() tested
 	using ListModel.save/restore()
+	comments added
 
 	* core/scripts/listmodel.js: save()/restore() added
 	SAVEFORMAT added
 
 	* core/scripts/test/listmodel.js: save()/restore() added
+
+	* legacy/scripts/ui/listcollectormodel.js: comments added
 
 2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
