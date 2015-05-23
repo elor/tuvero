@@ -470,6 +470,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     return true;
   };
 
+  // TODO use constructor references (MatchModel.SAVEFORMAT) instead of "Object"
   TournamentModel.prototype.SAVEFORMAT = Object
       .create(TournamentModel.superclass.SAVEFORMAT);
   TournamentModel.prototype.SAVEFORMAT.sys = String;
