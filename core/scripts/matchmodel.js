@@ -21,30 +21,21 @@ define(['lib/extend', './indexedmodel', './matchresult'], function(extend,
   function MatchModel(teams, id, group) {
     MatchModel.superconstructor.call(this, id);
 
-    if (!teams || !teams.length) {
-      console.error('MatchModel() no empty teams initialization allowed:');
-      console.error(teams);
-      throw Error('MatchModel: no empty initialization allowed!');
+    if (teams === undefined) {
+      teams = [];
     }
-
-    if (id === undefined) {
-      console.warn('new MatchModel(): unique id within the group is required');
-      throw Error('new MatchModel(): unique id within the group is required');
-    }
-
     if (group === undefined) {
-      console.warn('new MatchModel(): group is required');
-      throw Error('new MatchModel(): group is required');
+      group = -1;
     }
 
     this.teams = teams.slice();
     this.length = this.teams.length;
-    this.id = id;
     this.group = group;
   }
   extend(MatchModel, IndexedModel);
 
   MatchModel.prototype.EVENTS = {
+    'update': true,
     'finish': true
   };
 

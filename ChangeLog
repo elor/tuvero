@@ -5,6 +5,13 @@
 	* core/scripts/model.js: "this" output error fixed:
 	Forgot to set "this" properly, so it always showed "Window"
 
+	* core/scripts/matchmodel.js: allowing empty constructions
+	'update' event was disabled by mistake. Is only thrown on construction
+
+	* core/scripts/test/matchmodel.js: tests use proper Listeners
+	missing variables added
+	testing empty constructions
+
 2015-05-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingtaclistener.js: accepting byes
