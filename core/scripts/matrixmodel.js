@@ -10,7 +10,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model'], function(extend, Model) {
+define(['lib/extend', './model', './rle'], function(extend, Model, RLE) {
   /**
    * Constructor
    *
@@ -263,30 +263,36 @@ define(['lib/extend', './model'], function(extend, Model) {
    * @return a serializable data object
    */
   MatrixModel.prototype.save = function() {
-    var data = MatrixModel.superclass.save.call(this);
+    var data, mat;
 
-    data.mat = this.data.map(function(row) {
+    data = MatrixModel.superclass.save.call(this);
+
+    mat = this.data.map(function(row) {
       return row.map(function(cell) {
         return cell || 0;
       });
     }, this);
-    data.l = this.length;
+
+    data.mat = RLE.encode(mat);
+    console.log(data.mat);
 
     return data;
   };
 
   MatrixModel.prototype.restore = function(data) {
+    var mat;
     if (MatrixModel.superclass.restore.call(this, data)) {
       return false;
     }
 
     this.resize(0);
-    this.mat.splice(0);
 
-    this.resize(data.l);
-    data.mat.forEach(function(row, rowindex) {
+    mat = RLE.decode(data.mat);
+
+    mat.forEach(function(row, rowindex) {
       this.data[rowindex] = row.slice();
     }, this);
+    this.resize(this.data.length);
 
     return true;
   };
