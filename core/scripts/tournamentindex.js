@@ -8,15 +8,15 @@
  * @see LICENSE
  */
 define(['./tournamentmodel'], function() {
-  var TournamentIndex, tournamentSystems, i;
+  var TournamentIndex, tournamentSystems, i, sys;
 
   tournamentSystems = {};
   for (i = 0; i < arguments.length; i += 1) {
-    if (tournamentSystems[arguments[i].SYSTEM]) {
-      console.error("ERROR: duplicate tournament system: "
-          + arguments[i].SYSTEM);
+    sys = arguments[i].prototype.SYSTEM;
+    if (tournamentSystems[sys]) {
+      console.error("ERROR: duplicate tournament sys: " + sys);
     }
-    tournamentSystems[arguments[i].SYSTEM] = arguments[i];
+    tournamentSystems[sys] = arguments[i];
   }
 
   TournamentIndex = {
