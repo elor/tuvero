@@ -68,7 +68,7 @@ define(['lib/extend', './model', './type'], function(extend, Model, Type) {
           return true;
         }
       } else {
-        console.error("setProperty(): unsupported property type: "
+        console.error('setProperty(): unsupported property type: '
             + Type(value));
       }
     }
@@ -79,7 +79,7 @@ define(['lib/extend', './model', './type'], function(extend, Model, Type) {
   /**
    * retrieve the keys of this property
    *
-   * @returns an array of key names, i.e. an array of strings
+   * @return an array of key names, i.e. an array of strings
    */
   PropertyModel.prototype.getPropertyKeys = function() {
     return Object.keys(this.props).sort();
@@ -89,7 +89,7 @@ define(['lib/extend', './model', './type'], function(extend, Model, Type) {
    * produce a readonly, functionless, unreferencing, serializable data object
    * that stores represents
    *
-   * @returns a data object
+   * @return a data object
    */
   PropertyModel.prototype.save = function() {
     var data = PropertyModel.superclass.save.call(this);

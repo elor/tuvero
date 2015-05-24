@@ -17,7 +17,7 @@ define(function() {
      */
     DummyModel = function(optional) {
       if (optional) {
-        this.data = "asd" + optional;
+        this.data = 'asd' + optional;
       }
 
       this.save = function() {
@@ -26,7 +26,7 @@ define(function() {
         };
       };
       this.restore = function(data) {
-        this.data = "asd" + data.d;
+        this.data = 'asd' + data.d;
         return true;
       };
     };
@@ -228,11 +228,11 @@ define(function() {
           'restore() restores the whole list');
 
       list.clear();
-      list.push("Tuvero");
-      list.push("is");
-      list.push("awesome");
+      list.push('Tuvero');
+      list.push('is');
+      list.push('awesome');
       data = list.save();
-      QUnit.deepEqual(data, ["Tuvero", "is", "awesome"]);
+      QUnit.deepEqual(data, ['Tuvero', 'is', 'awesome']);
 
       list.clear();
       list.push(new DummyModel(5));

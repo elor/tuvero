@@ -237,7 +237,7 @@ define(function() {
       };
       rankingobject = ranking.get();
       QUnit.deepEqual(rankingobject, ref,
-          "bye() with multiple teams works (all teams receive bye)");
+          'bye() with multiple teams works (all teams receive bye)');
 
       ranking.result(new MatchResult([3, 1], [13, 7]));
       ref = {
@@ -307,8 +307,8 @@ define(function() {
       };
       rankingobject = ranking.get();
       QUnit.deepEqual(rankingobject, ref,
-          "reset() restores to an empty ranking");
-      QUnit.deepEqual(ranking.length, 0, "reset() resizes to 0");
+          'reset() restores to an empty ranking');
+      QUnit.deepEqual(ranking.length, 0, 'reset() resizes to 0');
 
       ranking = new RankingModel(['wins', 'saldo'], 5);
       ranking.bye(3);

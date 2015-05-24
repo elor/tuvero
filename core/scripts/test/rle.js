@@ -34,7 +34,7 @@ define(function() {
       QUnit.ok(success, 'RLE.encode() with null');
       success = true;
       try {
-        RLE.encode("");
+        RLE.encode('');
         success = false;
       } catch (e) {
       }

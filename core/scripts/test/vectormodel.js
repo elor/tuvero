@@ -146,10 +146,10 @@ define(function() {
       vec.push(1);
       vec.push(2);
       data = vec.save();
-      QUnit.ok(data, "save() does seem to work");
-      QUnit.equal(vec2.restore(data), true, "restore() works");
+      QUnit.ok(data, 'save() does seem to work');
+      QUnit.equal(vec2.restore(data), true, 'restore() works');
       QUnit.deepEqual(vec2.asArray(), [5, 3, 4, 1, 2],
-          "restored values are correct");
+          'restored values are correct');
 
       vec = new VectorModel();
       vec.push(0);

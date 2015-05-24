@@ -76,15 +76,15 @@ define(function() {
    */
   Type.is = function(obj, typestring) {
     switch (Type(typestring)) {
-    case "string":
+    case 'string':
       return Type(obj) === typestring;
-    case "function":
+    case 'function':
       return Type(obj) === typestring.toString().match(/\s([a-zA-Z]+)/)[1]
           .toLowerCase();
-    case "undefined":
-      return Type(obj) === "undefined";
-    case "null":
-      return Type(obj) === "null";
+    case 'undefined':
+      return Type(obj) === 'undefined';
+    case 'null':
+      return Type(obj) === 'null';
     default:
       return false;
     }

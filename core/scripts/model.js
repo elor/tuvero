@@ -8,7 +8,7 @@
 define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
   function getClassName(instance) {
     return instance.constructor.toString().replace(
-        /^function (\S+)\((.+|\s+)*$/g, "$1");
+        /^function (\S+)\((.+|\s+)*$/g, '$1');
   }
 
   /**
@@ -28,11 +28,11 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
               return true;
             }
 
-            console.error("restore(): Array element does not match type");
+            console.error('restore(): Array element does not match type');
             return false;
           });
         }
-        console.error("SAVEFORMAT array does not contain exactly 1 Type!");
+        console.error('SAVEFORMAT array does not contain exactly 1 Type!');
       }
       return false;
     }
@@ -41,7 +41,7 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
       return true;
     }
 
-    console.error(getClassName(this) + ".restore(): missing Key of type "
+    console.error(getClassName(this) + '.restore(): missing Key of type '
         + referenceType);
     return false;
   }

@@ -182,7 +182,7 @@ define(['lib/extend', './listmodel', './type', './rle'], function(extend,
    *
    * @param data
    *          the data object
-   * @returns true on success, false otherwise
+   * @return true on success, false otherwise
    */
   VectorModel.prototype.restore = function(data) {
     var index;

@@ -95,7 +95,7 @@ define(['lib/extend', './indexedmodel', './matchresult'], function(extend,
   /**
    * save the state into a data object
    *
-   * @returns a data object
+   * @return a data object
    */
   MatchModel.prototype.save = function() {
     var data = MatchModel.superclass.save.call(this);

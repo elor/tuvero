@@ -307,7 +307,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
         if (this[name] && Type.isFunction(this[name].save)) {
           data.vals[name] = this[name].save();
         } else {
-          console.error("datalistener cannot be saved: " + name);
+          console.error('datalistener cannot be saved: ' + name);
           return false;
         }
       }
@@ -324,7 +324,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
    *
    * @param data
    *          a deserialized data object
-   * @returns true on success, false otherwise
+   * @return true on success, false otherwise
    */
   RankingModel.prototype.restore = function(data) {
     if (!RankingModel.superclass.restore.call(this, data)) {
@@ -343,7 +343,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
           return true;
         }
       }
-      console.error("RankingModel.restore(): cannot restore listener" + name);
+      console.error('RankingModel.restore(): cannot restore listener' + name);
       return false;
     }, this)) {
       this.reset();

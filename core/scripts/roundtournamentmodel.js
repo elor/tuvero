@@ -26,7 +26,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
   /**
    * create all matches during the initial->running transition
    *
-   * @returns true on success, false otherwise
+   * @return true on success, false otherwise
    */
   RoundTournamentModel.prototype.initialMatches = function() {
     this.round = 0;
@@ -43,7 +43,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
   /**
    * create all matches during the idle->running transition
    *
-   * @returns true on success, false otherwise
+   * @return true on success, false otherwise
    */
   RoundTournamentModel.prototype.idleMatches = function() {
     this.round += 1;
@@ -99,7 +99,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
   /**
    * write the round to the data object
    *
-   * @returns a serializable data object
+   * @return a serializable data object
    */
   RoundTournamentModel.prototype.save = function() {
     var data = RoundTournamentModel.superclass.save.call(this);
@@ -112,7 +112,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
    *
    * @param data
    *          a deserialized data object
-   * @returns true on success, false otherwise
+   * @return true on success, false otherwise
    */
   RoundTournamentModel.prototype.restore = function(data) {
     if (!RoundTournamentModel.superclass.restore.call(this, data)) {

@@ -176,7 +176,7 @@ define(function() {
 
       QUnit.deepEqual(teams.asArray(), ref.getTeams().asArray(),
           'restore() restored the teams');
-      QUnit.equal(state.get(), "running",
+      QUnit.equal(state.get(), 'running',
           'restore() restored the "running" state');
       QUnit.equal(matches.length, 1, 'restore() restored matches.length');
       match = matches.get(0);

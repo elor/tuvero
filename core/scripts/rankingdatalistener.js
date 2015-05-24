@@ -36,7 +36,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
       fieldobject.resize(ranking.length);
     }
     if (ranking[Const.NAME] !== undefined) {
-      throw new Error("ranking field already exists: " + Const.NAME);
+      throw new Error('ranking field already exists: ' + Const.NAME);
     }
     ranking[Const.NAME] = fieldobject;
     this[Const.NAME] = fieldobject;
@@ -59,7 +59,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    * detect whether this specific instance is a primary data listener, or is
    * only processing recalc events, i.e. processing data of other data listeners
    *
-   * @returns true if this listener contains primary data, false otherwise
+   * @return true if this listener contains primary data, false otherwise
    */
   RankingDataListener.prototype.isPrimary = function() {
     return this.onbye !== RankingDataListener.prototype.onbye

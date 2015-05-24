@@ -14,7 +14,7 @@ define(['./tournamentmodel'], function() {
   for (i = 0; i < arguments.length; i += 1) {
     sys = arguments[i].prototype.SYSTEM;
     if (tournamentSystems[sys]) {
-      console.error("ERROR: duplicate tournament sys: " + sys);
+      console.error('ERROR: duplicate tournament sys: ' + sys);
     }
     tournamentSystems[sys] = arguments[i];
   }
@@ -25,7 +25,7 @@ define(['./tournamentmodel'], function() {
         return new TournamentModel(rankingorder);
       }
 
-      console.error("TournamentIndex: system not found: " + system);
+      console.error('TournamentIndex: system not found: ' + system);
       return undefined;
     }
   };
