@@ -9,6 +9,8 @@
 
 	* core/scripts/test/rle.js: testing undefined values
 
+	* core/scripts/tournamentindex.js: TournamentIndex object added
+
 2015-05-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingmodel.js: forgot to move variable allocation to extracted init() function
