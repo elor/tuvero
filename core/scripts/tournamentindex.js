@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./tournamentmodel'], function() {
+define(['./roundtournamentmodel'], function() {
   var TournamentIndex, tournamentSystems, i, sys;
 
   tournamentSystems = {};
@@ -22,7 +22,7 @@ define(['./tournamentmodel'], function() {
   TournamentIndex = {
     createTournament: function(system, rankingorder) {
       if (tournamentSystems[system]) {
-        return new TournamentModel(rankingorder);
+        return new tournamentSystems[system](rankingorder);
       }
 
       console.error('TournamentIndex: system not found: ' + system);

@@ -11,6 +11,8 @@
 	* core/scripts/test/rle.js: testing undefined values
 
 	* core/scripts/tournamentindex.js: TournamentIndex object added
+	TournamentModel removed (unnecessary)
+	RoundTournamentModel added
 
 	* core/scripts/matrixmodel.js: restore() and SAVEFORMAT bugs fixed
 
@@ -20,6 +22,8 @@
 	It uses the slide system
 
 	* core/scripts/test/roundtournamentmodel.js: testing RoundTournamentModel
+
+	* core/scripts/test/tournamentindex.js: testing TournamentIndex for defined systems
 
 2015-05-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
