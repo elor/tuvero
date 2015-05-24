@@ -88,7 +88,7 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
       if (verifyType.call(this, data[key], this.SAVEFORMAT[key])) {
         return true;
       }
-      console.error('Missing key: ' + key);
+      console.error('Missing key or wrong format: ' + key);
       return false;
     }, this);
   };

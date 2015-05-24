@@ -133,7 +133,12 @@ define(function() {
       QUnit.ok(savedata, 'save() works');
 
       a = new MatrixModel(12345);
-      a.restore(savedata);
+      QUnit.ok(a.restore(savedata), 'restore() works');
+      QUnit.equal(a.get(1, 2), 3, 'restore() restored individual numbers');
+      QUnit.equal(a.get(0, 0), 5, 'restore() restored individual numbers');
+      QUnit.equal(a.get(0, 4), -1, 'restore() restored individual numbers');
+      QUnit.equal(a.get(4, 1), 3, 'restore() restored individual numbers');
+      QUnit.equal(a.get(4, 4), 123, 'restore() restored individual numbers');
     });
   };
 });

@@ -274,14 +274,13 @@ define(['lib/extend', './model', './rle'], function(extend, Model, RLE) {
     }, this);
 
     data.mat = RLE.encode(mat);
-    console.log(data.mat);
 
     return data;
   };
 
   MatrixModel.prototype.restore = function(data) {
     var mat;
-    if (MatrixModel.superclass.restore.call(this, data)) {
+    if (!MatrixModel.superclass.restore.call(this, data)) {
       return false;
     }
 
@@ -299,8 +298,7 @@ define(['lib/extend', './model', './rle'], function(extend, Model, RLE) {
 
   MatrixModel.prototype.SAVEFORMAT = Object
       .create(MatrixModel.superclass.SAVEFORMAT);
-  MatrixModel.prototype.SAVEFORMAT.mat = [[Number]];
-  MatrixModel.prototype.SAVEFORMAT.l = Number;
+  MatrixModel.prototype.SAVEFORMAT.mat = String;
 
   return MatrixModel;
 });

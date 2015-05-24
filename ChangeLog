@@ -5,11 +5,21 @@
 	setting undefined to 0 for calculations and output
 
 	* core/scripts/listmodel.js: compensating for undefined values
+
 	* core/scripts/rle.js: forcing the insertion of undefined values
 
 	* core/scripts/test/rle.js: testing undefined values
 
 	* core/scripts/tournamentindex.js: TournamentIndex object added
+
+	* core/scripts/matrixmodel.js: restore() and SAVEFORMAT bugs fixed
+
+	* core/scripts/model.js: error output improved
+
+	* core/scripts/roundtournamentmodel.js: RoundTournamentModel added for round tournaments
+	It uses the slide system
+
+	* core/scripts/test/roundtournamentmodel.js: testing RoundTournamentModel
 
 2015-05-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

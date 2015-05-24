@@ -37,6 +37,7 @@ require(['config'], function() {
   'core/test/rankingtac',
   'core/test/readonlylistmodel',
   'core/test/rle',
+  'core/test/roundtournamentmodel',
   'core/test/selectionvaluemodel',
   'core/test/statevaluemodel',
   'core/test/symmetricmatrixmodel',
