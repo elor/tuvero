@@ -147,6 +147,7 @@ define([
   'ui/players',
   'ui/preregcloserview',
   'ui/ranking',
+  'ui/rankingview',
   'ui/savestate',
   'ui/shared',
   'ui/splash',

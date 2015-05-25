@@ -7,6 +7,10 @@
 
 	* test/*.html: Header: Boules -> Tuvero
 
+	* legacy/scripts/ui/rankingview.js: RankingView added
+
+	* test/rankingview.html: RankingView test added
+
 2015-05-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/vectormodel.js: using RLE encoding/decoding for save()/restore()
