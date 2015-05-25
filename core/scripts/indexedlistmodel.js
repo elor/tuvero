@@ -28,6 +28,11 @@ define(['lib/extend', './listmodel', './listupdatelistener'], function(extend,
   IndexedListModel.prototype.updateIDs = function(data) {
     var index, startindex;
 
+    if (data === undefined) {
+      // 'reset' event, where no data is sent
+      return;
+    }
+
     startindex = data.id || 0;
 
     for (index = startindex; index < this.length; index += 1) {

@@ -18,16 +18,20 @@ define(function() {
     QUnit.test('IndexedListModel', function() {
       var list;
 
-      QUnit.ok(extend.isSubclass(IndexedListModel, ListModel), 'IndexedListModel is subclass of ListModel');
+      QUnit.ok(extend.isSubclass(IndexedListModel, ListModel),
+          'IndexedListModel is subclass of ListModel');
 
       list = new IndexedListModel();
 
       list.push(new IndexedModel());
       list.push(new IndexedModel());
       list.push(new IndexedModel());
-      QUnit.equal(list.get(0).getID(), 0, 'push into empty indexed list sets the proper id');
-      QUnit.equal(list.get(1).getID(), 1, 'push into empty indexed list sets the proper id');
-      QUnit.equal(list.get(2).getID(), 2, 'push into empty indexed list sets the proper id');
+      QUnit.equal(list.get(0).getID(), 0,
+          'push into empty indexed list sets the proper id');
+      QUnit.equal(list.get(1).getID(), 1,
+          'push into empty indexed list sets the proper id');
+      QUnit.equal(list.get(2).getID(), 2,
+          'push into empty indexed list sets the proper id');
 
       list.pop();
       QUnit.equal(list.get(0).getID(), 0, 'pop does not affect any indices');
@@ -37,13 +41,25 @@ define(function() {
       list.push(new IndexedModel());
 
       list.remove(0);
-      QUnit.equal(list.get(0).getID(), 0, 'remove(0) adjusts all following indices');
-      QUnit.equal(list.get(1).getID(), 1, 'remove(0) adjusts all following indices');
-      QUnit.equal(list.get(2).getID(), 2, 'remove(0) adjusts all following indices');
+      QUnit.equal(list.get(0).getID(), 0,
+          'remove(0) adjusts all following indices');
+      QUnit.equal(list.get(1).getID(), 1,
+          'remove(0) adjusts all following indices');
+      QUnit.equal(list.get(2).getID(), 2,
+          'remove(0) adjusts all following indices');
 
       list.remove(1);
-      QUnit.equal(list.get(0).getID(), 0, 'remove(1) adjusts all following indices');
-      QUnit.equal(list.get(1).getID(), 1, 'remove(2) adjusts all following indices');
+      QUnit.equal(list.get(0).getID(), 0,
+          'remove(1) adjusts all following indices');
+      QUnit.equal(list.get(1).getID(), 1,
+          'remove(2) adjusts all following indices');
+
+      list.clear();
+      QUnit.equal(list.length, 0, 'clearing a non-empty list does not throw');
+
+      list = new IndexedListModel();
+      list.clear();
+      QUnit.equal(list.length, 0, 'clearing an empty list does not throw');
     });
   };
 });

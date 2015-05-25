@@ -1,3 +1,10 @@
+2015-05-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/indexedlistmodel.js: clear() triggered a TypeError exception
+	Avoiding this exception by checking the input values
+
+	* core/scripts/test/indexedlistmodel.js: testing list.clear() to avoid TypeError exceptions
+
 2015-05-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/vectormodel.js: using RLE encoding/decoding for save()/restore()
