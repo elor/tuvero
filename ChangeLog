@@ -5,6 +5,8 @@
 
 	* core/scripts/test/indexedlistmodel.js: testing list.clear() to avoid TypeError exceptions
 
+	* test/*.html: Header: Boules -> Tuvero
+
 2015-05-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/vectormodel.js: using RLE encoding/decoding for save()/restore()
