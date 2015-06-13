@@ -15,11 +15,19 @@ define(['lib/extend', 'core/view', 'ui/teamview'], function(extend, View,
    *          a RankingModel instance
    * @param $view
    *          a jQuery object representing a MatchView table
+   * @param teamlist
+   *          Optional. A ListModel of TeamModels, from which the teams will be
+   *          read for visualization. See MatchView.bindTeamList(), too.
    */
-  function MatchView(model, $view) {
+  function MatchView(model, $view, teamlist) {
     MatchView.superconstructor.call(this, model, $view);
 
     this.teamviews = [];
+    if (teamlist) {
+      this.teamlist = teamlist;
+    } else if (!this.teamlist) {
+      this.teamlist = undefined;
+    }
 
     this.update();
   }
@@ -52,8 +60,8 @@ define(['lib/extend', 'core/view', 'ui/teamview'], function(extend, View,
       $team = $teams.eq(i);
       teamid = this.model.getTeamID(i);
 
-      if (teamid !== undefined && this.teamList) {
-        this.teamviews.push(new TeamView(this.teamList.get(), $team));
+      if (teamid !== undefined && this.teamlist) {
+        this.teamviews.push(new TeamView(this.teamlist.get(teamid), $team));
       } else {
         $team.text(teamid);
       }
@@ -78,17 +86,17 @@ define(['lib/extend', 'core/view', 'ui/teamview'], function(extend, View,
   /**
    * bind a whole MatchView subclass to a list of teams for better display.
    *
-   * @param teamList
+   * @param teamlist
    *          a ListModel of TeamModel instances
    * @return a new MatchView constructor, which has this.teamList set
    */
-  MatchView.bindTeamList = function(teamList) {
+  MatchView.bindTeamList = function(teamlist) {
     function MyMatchView() {
       MyMatchView.superconstructor.apply(this, arguments);
     }
-    extend(MatchView, View);
+    extend(MyMatchView, MatchView);
 
-    MyMatchView.prototype.teamlist = teamList;
+    MyMatchView.prototype.teamlist = teamlist;
 
     return MyMatchView;
   };

@@ -1,6 +1,7 @@
 2015-06-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchview.js: MatchView first draft added
+	teamlist support extended and debugged
 
 	* legacy/scripts/ui/listview.js: initializing ListView with existing values
 
