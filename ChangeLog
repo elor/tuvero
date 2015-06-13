@@ -2,6 +2,8 @@
 
 	* legacy/scripts/ui/matchview.js: MatchView first draft added
 
+	* legacy/scripts/ui/listview.js: initializing ListView with existing values
+
 2015-05-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/indexedlistmodel.js: clear() triggered a TypeError exception

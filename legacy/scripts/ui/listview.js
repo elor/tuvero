@@ -28,6 +28,8 @@ define(['lib/extend', './templateview', './textview'], function(extend,
 
     this.SubView = SubView || TextView;
     this.subviews = [];
+
+    this.update();
   }
   extend(ListView, TemplateView);
 
