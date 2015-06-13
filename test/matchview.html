@@ -32,13 +32,16 @@
       <div class="matchview template">
         <div class="team">
           <span class="teamno">##</span> <span class="name">%% %%</span> <span
-            class="name">%% %%</span> <span class="name">%% %%</span>
+            class="name">%% %%</span> <span class="name">%% %%</span> <input
+            class="points" type="number" value="0">
         </div>
         <div class="team">
           <span class="teamno">##</span> <span class="name">%% %%</span> <span
-            class="name">%% %%</span> <span class="name">%% %%</span>
+            class="name">%% %%</span> <span class="name">%% %%</span> <input
+            class="points" type="number" value="0">
         </div>
-        <br>
+        <button class="finish">finish</button>
+        <br> <br>
       </div>
     </div>
   </div>
@@ -47,7 +50,7 @@
 <script id="testmain">
 function TestMain(Common, $) {
   var MatchModel, MatchView, IndexedListModel, TeamModel, PlayerModel,
-      ListModel, ListView;
+      ListModel, ListView, Listener;
   
   IndexedListModel = Common('core/indexedlistmodel');
   ListModel = Common('core/listmodel');
@@ -56,6 +59,7 @@ function TestMain(Common, $) {
   TeamModel = Common('ui/teammodel');
   PlayerModel = Common('ui/playermodel');
   ListView = Common('ui/listview');
+  Listener = Common('core/listener');
 
   $(function($) {
     var $view, matchview, teamlist, matchlist, matchlistview;
@@ -76,7 +80,11 @@ function TestMain(Common, $) {
     
     matchlist = new ListModel();
     do {
-      matchlist.push(new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0));
+      match = new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0);
+      matchlist.push(match);
+      Listener.bind(match, 'finish', function(match){
+        matchlist.erase(match);
+      });
     } while (Math.random() < 0.5);
     
     $view = $('.matchlist');
@@ -85,7 +93,11 @@ function TestMain(Common, $) {
         MatchView.bindTeamList(teamlist));
         
     do {
-      matchlist.push(new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0));
+      match = new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0);
+      matchlist.push(match);
+      Listener.bind(match, 'finish', function(match){
+        matchlist.erase(match);
+      });
     } while (Math.random() < 0.7);
   });
 }

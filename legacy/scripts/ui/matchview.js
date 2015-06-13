@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/teamview'], function(extend, View,
-    TeamView) {
+define(['lib/extend', 'core/view', 'ui/teamview', // autoformat interrupt
+'ui/matchcontroller'], function(extend, View, TeamView, MatchController) {
   /**
    * Constructor
    *
@@ -28,6 +28,8 @@ define(['lib/extend', 'core/view', 'ui/teamview'], function(extend, View,
     } else if (!this.teamlist) {
       this.teamlist = undefined;
     }
+
+    this.controller = new MatchController(this);
 
     this.update();
   }
