@@ -1,3 +1,7 @@
+2015-06-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/matchview.js: MatchView first draft added
+
 2015-05-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/indexedlistmodel.js: clear() triggered a TypeError exception
