@@ -7,8 +7,10 @@
 
 	* core/scripts/matchresult.js: default constructor ("empty constructor") added
 	save/restore added
+	equals() added for result comparison
 
 	* core/scripts/test/matchresult.js: testing save/restore and the default constructor
+	testing the equals() function
 
 2015-06-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

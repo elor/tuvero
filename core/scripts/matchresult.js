@@ -46,6 +46,36 @@ define(['./type', './model'], function(Type, Model) {
     this.score = score.slice(0);
   }
 
+  MatchResult.prototype.equals = function(result) {
+    if (!Type.isObject(result)) {
+      return false;
+    }
+
+    if (!Type.isArray(result.teams)
+        || this.teams.length !== result.teams.length) {
+      return false;
+    }
+
+    if (!Type.isArray(result.score)
+        || this.score.length !== result.score.length) {
+      return false;
+    }
+
+    if (!this.teams.every(function(value, index) {
+      return value === result.teams[index];
+    })) {
+      return false;
+    }
+
+    if (!this.score.every(function(value, index) {
+      return value === result.score[index];
+    })) {
+      return false;
+    }
+
+    return true;
+  };
+
   /**
    * crude save function as if it was ripped right out of the Model class.
    *

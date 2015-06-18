@@ -15,7 +15,7 @@ define(function() {
     MatchResult = getModule('core/matchresult');
 
     QUnit.test('MatchResult', function() {
-      var match, result, score, success, teams, data;
+      var match, result, score, success, teams, data, ref;
 
       match = new MatchModel([1, 2], 0, 0);
       result = undefined;
@@ -60,6 +60,38 @@ define(function() {
       QUnit.ok(result.teams !== teams, 'match teams are copies');
       QUnit.deepEqual(result.score, score, 'scores match');
       QUnit.ok(result.score !== score, 'scores are only copies of another');
+
+      /*
+       * equals()
+       */
+
+      ref = result;
+      QUnit.equal(result.equals(ref), true, "equals(): identity");
+      QUnit.equal(ref.equals(result), true, "equals(): symmetric");
+
+      ref = new MatchResult();
+      QUnit.equal(result.equals(ref), false, "equals(): default-constructed");
+      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
+
+      ref = new MatchResult([5, 1], [5, 11]);
+      QUnit.equal(result.equals(ref), true, "equals(): same values");
+      QUnit.equal(ref.equals(result), true, "equals(): symmetric");
+
+      ref = new MatchResult([1, 5], [11, 5]);
+      QUnit.equal(result.equals(ref), false, "equals(): flipped values");
+      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
+
+      ref = new MatchResult([3], [10]);
+      QUnit.equal(result.equals(ref), false, "equals(): wrong array lengths");
+      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
+
+      ref = new MatchResult([7, 6], [13, 2]);
+      QUnit.equal(result.equals(ref), false, "equals(): flipped values");
+      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
+
+      /*
+       * save/restore
+       */
 
       data = result.save();
       QUnit.ok(data, 'save() finishes');
