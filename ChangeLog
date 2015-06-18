@@ -5,6 +5,11 @@
 
 	* core/scripts/tournamentmodel.js: TournamentModel implements the IndexedModel interface (hardcore)
 
+	* core/scripts/matchresult.js: default constructor ("empty constructor") added
+	save/restore added
+
+	* core/scripts/test/matchresult.js: testing save/restore and the default constructor
+
 2015-06-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchview.js: MatchView first draft added

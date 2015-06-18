@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./type'], function(Type) {
+define(['./type', './model'], function(Type, Model) {
   /**
    * Constructor
    *
@@ -16,6 +16,14 @@ define(['./type'], function(Type) {
    *          an array of scored points
    */
   function MatchResult(teams, score) {
+    // empty default constructor for list-based construction
+    if (teams === undefined && score === undefined) {
+      this.match = undefined;
+      this.teams = [];
+      this.score = [];
+      return;
+    }
+
     if (Type.isObject(teams) && Type.isArray(teams.teams)) {
       // teams is a match object. Keep the reference.
       this.match = teams;
@@ -37,6 +45,41 @@ define(['./type'], function(Type) {
     this.teams = teams.slice(0);
     this.score = score.slice(0);
   }
+
+  /**
+   * crude save function as if it was ripped right out of the Model class.
+   *
+   * @return a serializable data object on success, undefined otherwise
+   */
+  MatchResult.prototype.save = function() {
+    return {
+      t: this.teams,
+      s: this.score
+    };
+  };
+
+  /**
+   * restore from a serialized data object
+   *
+   * @param data
+   *          the data object
+   * @return true on success, false otherwise
+   */
+  MatchResult.prototype.restore = function(data) {
+    if (!Model.prototype.restore.call(this, data)) {
+      return false;
+    }
+
+    this.match = undefined;
+    this.teams = data.t;
+    this.score = data.s;
+
+    return true;
+  };
+
+  MatchResult.prototype.SAVEFORMAT = {};
+  MatchResult.prototype.SAVEFORMAT.t = [Number];
+  MatchResult.prototype.SAVEFORMAT.s = [Number];
 
   return MatchResult;
 });

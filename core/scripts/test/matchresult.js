@@ -1,7 +1,7 @@
 /**
- * Model class tests
+ * MatchResult tests
  *
- * @return Model
+ * @return a test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -15,9 +15,22 @@ define(function() {
     MatchResult = getModule('core/matchresult');
 
     QUnit.test('MatchResult', function() {
-      var match, result, score, success, teams;
+      var match, result, score, success, teams, data;
 
       match = new MatchModel([1, 2], 0, 0);
+      result = undefined;
+
+      try {
+        result = new MatchResult();
+        success = true;
+      } catch (e) {
+        success = false;
+      }
+
+      QUnit.ok(success, 'empty construction works');
+      QUnit.equal(result.match, undefined, 'empty construction -> no match');
+      QUnit.deepEqual(result.teams, [], 'empty construction -> empty teams');
+      QUnit.deepEqual(result.score, [], 'empty construction -> empty score');
 
       score = [13, 7];
       try {
@@ -48,6 +61,14 @@ define(function() {
       QUnit.deepEqual(result.score, score, 'scores match');
       QUnit.ok(result.score !== score, 'scores are only copies of another');
 
+      data = result.save();
+      QUnit.ok(data, 'save() finishes');
+
+      result = new MatchResult();
+      QUnit.ok(result.restore(data), 'restore() finishes');
+      QUnit.equal(result.match, undefined, 'restore(): match not restored');
+      QUnit.deepEqual(result.teams, teams, 'restore(): teams restored');
+      QUnit.deepEqual(result.score, score, 'restore(): scores restored');
     });
   };
 });
