@@ -4,6 +4,7 @@
 	testing save/restore of the id
 
 	* core/scripts/tournamentmodel.js: TournamentModel implements the IndexedModel interface (hardcore)
+	first steps toward a general correct() function
 
 	* core/scripts/matchresult.js: default constructor ("empty constructor") added
 	save/restore added

@@ -418,6 +418,42 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
+   * Query whether a match result is in the history
+   *
+   * @param matchResult
+   *          a MatchResult instance
+   * @returns true if the result is in the history, false otherwise
+   */
+  TournamentModel.prototype.isInHistory = function(matchResult) {
+    var i;
+
+    for (i = 0; i < this.history.length; i += 1) {
+      if (this.history.get(i).equals(matchResult)) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  /**
+   *
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.correct = function(oldResult, newResult) {
+    if (!this.isInHistory(matchResult)) {
+      return false;
+    }
+
+    this.ranking.correct(oldResult, newResult);
+    // TODO update all subsequent games
+    // TODO update history
+    // TODO emit appropriate events
+
+    return true;
+  };
+
+  /**
    * prepares a serializable data object, which can later be used for restoring
    * the current state using the restore() function
    *
