@@ -62,6 +62,10 @@ define(function() {
       QUnit.equal(teams.length, 5, 'teams: length gets updated');
       QUnit.equal(tournament.teams.length, 5, 'teams: length gets updated');
 
+      QUnit.equal(tournament.getID(), -1, 'initial id is -1');
+      tournament.setID(5);
+      QUnit.equal(tournament.getID(), 5, 'id can be changed with setID()');
+
       /*************************************************************************
        * first round
        ************************************************************************/
@@ -162,6 +166,8 @@ define(function() {
       tournament.getMatches().get(0).finish([8, 13]);
       tournament.run();
 
+      tournament.setID(3);
+
       data = tournament.save();
       QUnit.ok(data, 'save() finishes');
       ref = tournament;
@@ -174,6 +180,7 @@ define(function() {
       byes = tournament.getVotes('bye');
       ranking = tournament.getRanking();
 
+      QUnit.equal(tournament.getID(), 3, "restore() restored the id");
       QUnit.deepEqual(teams.asArray(), ref.getTeams().asArray(),
           'restore() restored the teams');
       QUnit.equal(state.get(), 'running',

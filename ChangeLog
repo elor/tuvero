@@ -1,3 +1,10 @@
+2015-06-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/tournamentmodel.js: testing getID and setID
+	testing save/restore of the id
+
+	* core/scripts/tournamentmodel.js: TournamentModel implements the IndexedModel interface (hardcore)
+
 2015-06-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchview.js: MatchView first draft added

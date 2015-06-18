@@ -3,6 +3,9 @@
  * functions, such as ranking, team lists, invalidation, caching and a reference
  * name.
  *
+ * TournamentModel implements the IndexedModel interface, although it's no
+ * direct descendant. This is to ensure the encapsulation in IndexedListModels.
+ *
  * @return TournamentModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -12,10 +15,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './rankingmapper', './statevaluemodel', './matchmodel',
     'ui/listcollectormodel', './listener', './rankingmodel',
     './matchreferencelistmodel', './maplistmodel', './valuemodel',
-    './readonlylistmodel', 'options'], function(extend, PropertyModel,
-    ListModel, UniqueListModel, RankingMapper, StateValueModel, MatchModel,
-    ListCollectorModel, Listener, RankingModel, MatchReferenceListModel,
-    MapListModel, ValueModel, ReadonlyListModel, Options) {
+    './readonlylistmodel', 'options', './indexedmodel'], function(extend,
+    PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
+    MatchModel, ListCollectorModel, Listener, RankingModel,
+    MatchReferenceListModel, MapListModel, ValueModel, ReadonlyListModel,
+    Options, IndexedModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -53,7 +57,10 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   function TournamentModel(rankingorder) {
     var collector;
+
     TournamentModel.superconstructor.call(this);
+    IndexedModel.call(this);
+
     // TODO initialize with properties
 
     // rankingorder default: sort by entry order
@@ -419,6 +426,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   TournamentModel.prototype.save = function() {
     var data = TournamentModel.superclass.save.call(this);
 
+    data.id = this.id;
     data.sys = this.SYSTEM;
     data.state = this.state.get();
     data.teams = this.teams.asArray();
@@ -435,7 +443,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   /**
    * restore a previously saved state from a serializable data object
    *
-   * @param data a data object, that was previously written by save()
+   * @param data
+   *          a data object, that was previously written by save()
    * @return true on success, false otherwise
    */
   TournamentModel.prototype.restore = function(data) {
@@ -447,6 +456,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     if (!TournamentModel.superclass.restore.call(this, data)) {
       return false;
     }
+
+    this.id = data.id;
 
     if (!this.state.forceState(data.state)) {
       console.error('TournamentModel.restore(): invalid tournament state');
@@ -482,9 +493,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     return true;
   };
 
+  TournamentModel.prototype.getID = IndexedModel.prototype.getID;
+  TournamentModel.prototype.setID = IndexedModel.prototype.setID;
+
   // TODO use constructor references (MatchModel.SAVEFORMAT) instead of "Object"
   TournamentModel.prototype.SAVEFORMAT = Object
       .create(TournamentModel.superclass.SAVEFORMAT);
+  TournamentModel.prototype.SAVEFORMAT.id = Number;
   TournamentModel.prototype.SAVEFORMAT.sys = String;
   TournamentModel.prototype.SAVEFORMAT.state = String;
   TournamentModel.prototype.SAVEFORMAT.teams = [Number];
