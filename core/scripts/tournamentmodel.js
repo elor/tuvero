@@ -71,7 +71,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.matches = new ListModel();
     this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
     this.votes = TournamentModel.initVoteLists(this.VOTES);
-    // this.history = new HistoryModel();
+    this.history = new ListModel();
 
     // initial properties
     this.setProperty('addteamrunning', false);
@@ -340,7 +340,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
 
     this.matches.erase(matchresult.match);
 
-    // TODO add result to history
+    this.history.push(matchresult);
 
     this.ranking.result(matchresult);
 
@@ -431,6 +431,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     data.state = this.state.get();
     data.teams = this.teams.asArray();
     data.matches = this.matches.save();
+    data.history = this.history.save();
     data.ranking = this.ranking.save();
     data.votes = {};
     this.VOTES.forEach(function(votetype) {
@@ -474,6 +475,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return false;
     }
 
+    if (!this.history.restore(data.history, MatchResult)) {
+      console.error('TournamentModel.restore(): cannot restore history');
+      return false;
+    }
+
     if (!this.ranking.restore(data.ranking)) {
       console.error('TournamentModel.restore(): cannot restore ranking');
       return false;
@@ -504,6 +510,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   TournamentModel.prototype.SAVEFORMAT.state = String;
   TournamentModel.prototype.SAVEFORMAT.teams = [Number];
   TournamentModel.prototype.SAVEFORMAT.matches = [Object];
+  TournamentModel.prototype.SAVEFORMAT.history = [Object];
   TournamentModel.prototype.SAVEFORMAT.ranking = Object;
   TournamentModel.prototype.SAVEFORMAT.votes = Object;
 

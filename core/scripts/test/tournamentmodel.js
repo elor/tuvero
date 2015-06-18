@@ -192,6 +192,8 @@ define(function() {
       QUnit.deepEqual(byes.asArray(), [5], 'restore() restored the byes');
       QUnit.deepEqual(ranking.get(), ref.getRanking().get(),
           'restore() restored the whole ranking');
+
+      // FIXME test history (default, after some tournaments, after restore)
     });
   };
 });
