@@ -4,6 +4,7 @@
 
 	* core/scripts/matchresult.js: re-implemented as a MatchModel subclass
 	This avoids code duplication between MatchModel and MatchResult
+	default constructor threw PropertyErrors
 
 	* core/scripts/tournamentmodel.js: onfinish(): reading MatchModel instance from the event emitter
 	instead of using a secondary reference

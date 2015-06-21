@@ -17,8 +17,8 @@ define(['lib/extend', './type', './matchmodel'], function(extend, Type,
    *          an array of scored points
    */
   function MatchResult(match, score) {
-    MatchResult.superconstructor.call(this, match.teams,// autocomplete comment
-    match.id, match.group);
+    MatchResult.superconstructor.call(this, match && match.teams, match
+        && match.id, match && match.group);
 
     // empty default constructor for list-based construction
     if (score === undefined) {
