@@ -12,12 +12,12 @@
  * @see LICENSE
  */
 define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
-    './rankingmapper', './statevaluemodel', './matchmodel',
+    './rankingmapper', './statevaluemodel', './matchmodel', './matchresult',
     'ui/listcollectormodel', './listener', './rankingmodel',
     './matchreferencelistmodel', './maplistmodel', './valuemodel',
     './readonlylistmodel', 'options', './indexedmodel'], function(extend,
     PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
-    MatchModel, ListCollectorModel, Listener, RankingModel,
+    MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
     MatchReferenceListModel, MapListModel, ValueModel, ReadonlyListModel,
     Options, IndexedModel) {
   var STATETRANSITIONS, INITIALSTATE;
