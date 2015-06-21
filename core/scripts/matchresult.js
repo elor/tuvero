@@ -1,80 +1,44 @@
 /**
- * MatchResult, a simple game results class
+ * MatchResult, a simple match results class
  *
  * @return MatchResult
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['./type', './model'], function(Type, Model) {
+define(['lib/extend', './type', './matchmodel'], function(extend, Type,
+    MatchModel) {
   /**
    * Constructor
    *
-   * @param teams
-   *          an array of team or team ids OR a MatchModel object
+   * @param match
+   *          a MatchModel instance of which the result is to be kept
    * @param score
    *          an array of scored points
    */
-  function MatchResult(teams, score) {
+  function MatchResult(match, score) {
+    MatchResult.superconstructor.call(this, match.teams,// autocomplete comment
+    match.id, match.group);
+
     // empty default constructor for list-based construction
-    if (teams === undefined && score === undefined) {
-      this.match = undefined;
-      this.teams = [];
+    if (score === undefined) {
       this.score = [];
       return;
     }
 
-    if (Type.isObject(teams) && Type.isArray(teams.teams)) {
-      // teams is a match object. Keep the reference.
-      this.match = teams;
-      teams = teams.teams;
-    } else {
-      this.match = undefined;
-    }
-
-    if (!Type.isArray(teams)) {
-      throw new Error('MatchResult():'
-          + 'teams is neither an array nor a MatchModel instance');
-    }
-
-    if (teams.length !== score.length) {
+    if (this.teams.length !== score.length) {
       throw new Error('MatchResult(): array lengths differ: ' + teams.length
           + '<>' + score.length);
     }
 
-    this.teams = teams.slice(0);
     this.score = score.slice(0);
   }
+  extend(MatchResult, MatchModel);
 
-  MatchResult.prototype.equals = function(result) {
-    if (!Type.isObject(result)) {
-      return false;
-    }
-
-    if (!Type.isArray(result.teams)
-        || this.teams.length !== result.teams.length) {
-      return false;
-    }
-
-    if (!Type.isArray(result.score)
-        || this.score.length !== result.score.length) {
-      return false;
-    }
-
-    if (!this.teams.every(function(value, index) {
-      return value === result.teams[index];
-    })) {
-      return false;
-    }
-
-    if (!this.score.every(function(value, index) {
-      return value === result.score[index];
-    })) {
-      return false;
-    }
-
-    return true;
-  };
+  /**
+   * Disable the finish() function
+   */
+  MatchResult.prototype.finish = undefined;
 
   /**
    * crude save function as if it was ripped right out of the Model class.
@@ -82,10 +46,11 @@ define(['./type', './model'], function(Type, Model) {
    * @return a serializable data object on success, undefined otherwise
    */
   MatchResult.prototype.save = function() {
-    return {
-      t: this.teams,
-      s: this.score
-    };
+    var data = MatchResult.superclass.save.call(this);
+
+    data.s = this.score;
+
+    return data;
   };
 
   /**
@@ -96,19 +61,17 @@ define(['./type', './model'], function(Type, Model) {
    * @return true on success, false otherwise
    */
   MatchResult.prototype.restore = function(data) {
-    if (!Model.prototype.restore.call(this, data)) {
+    if (!MatchResult.superclass.restore.call(this, data)) {
       return false;
     }
 
-    this.match = undefined;
-    this.teams = data.t;
     this.score = data.s;
 
     return true;
   };
 
-  MatchResult.prototype.SAVEFORMAT = {};
-  MatchResult.prototype.SAVEFORMAT.t = [Number];
+  MatchResult.prototype.SAVEFORMAT = Object
+      .create(MatchModel.superclass.SAVEFORMAT);
   MatchResult.prototype.SAVEFORMAT.s = [Number];
 
   return MatchResult;
