@@ -9,7 +9,7 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var Model, Emitter, extend;
+    var MatchModel, MatchResult;
 
     MatchModel = getModule('core/matchmodel');
     MatchResult = getModule('core/matchresult');
@@ -17,7 +17,7 @@ define(function() {
     QUnit.test('MatchResult', function() {
       var match, result, score, success, teams, data, ref;
 
-      match = new MatchModel([1, 2], 0, 0);
+      match = new MatchModel([1, 2], 2, 5);
       result = undefined;
 
       try {
@@ -31,6 +31,9 @@ define(function() {
       QUnit.equal(result.match, undefined, 'empty construction -> no match');
       QUnit.deepEqual(result.teams, [], 'empty construction -> empty teams');
       QUnit.deepEqual(result.score, [], 'empty construction -> empty score');
+      QUnit.deepEqual(result.getID(), -1, 'empty construction -> id == -1');
+      QUnit.deepEqual(result.getGroup(), -1,
+          'empty construction -> group == -1');
 
       score = [13, 7];
       try {
@@ -40,67 +43,43 @@ define(function() {
         success = false;
       }
       QUnit.ok(success, 'passing match as first argument');
-      QUnit.equal(result.match, match, 'result.match contains original match');
+      QUnit.equal(result.match, undefined,
+          'result.match got kicked out of the API');
       QUnit.deepEqual(result.teams, match.teams, 'match teams match');
       QUnit.ok(result.teams !== match.teams, 'match teams are only copies');
       QUnit.deepEqual(result.score, score, 'scores match');
       QUnit.ok(result.score !== score, 'scores are only copies of another');
+      QUnit.deepEqual(result.getID(), 2, 'keeping the id');
+      QUnit.deepEqual(result.getGroup(), 5, 'keeping the group id');
 
       teams = [5, 1];
       score = [5, 11];
       try {
         result = new MatchResult(teams, score);
-        success = true;
-      } catch (e) {
         success = false;
+      } catch (e) {
+        success = true;
       }
-      QUnit.ok(success, 'passing team array as first argument');
-      QUnit.equal(result.match, undefined, 'result.match is undefined');
-      QUnit.deepEqual(result.teams, teams, 'teams match');
-      QUnit.ok(result.teams !== teams, 'match teams are copies');
-      QUnit.deepEqual(result.score, score, 'scores match');
-      QUnit.ok(result.score !== score, 'scores are only copies of another');
-
-      /*
-       * equals()
-       */
-
-      ref = result;
-      QUnit.equal(result.equals(ref), true, "equals(): identity");
-      QUnit.equal(ref.equals(result), true, "equals(): symmetric");
-
-      ref = new MatchResult();
-      QUnit.equal(result.equals(ref), false, "equals(): default-constructed");
-      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
-
-      ref = new MatchResult([5, 1], [5, 11]);
-      QUnit.equal(result.equals(ref), true, "equals(): same values");
-      QUnit.equal(ref.equals(result), true, "equals(): symmetric");
-
-      ref = new MatchResult([1, 5], [11, 5]);
-      QUnit.equal(result.equals(ref), false, "equals(): flipped values");
-      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
-
-      ref = new MatchResult([3], [10]);
-      QUnit.equal(result.equals(ref), false, "equals(): wrong array lengths");
-      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
-
-      ref = new MatchResult([7, 6], [13, 2]);
-      QUnit.equal(result.equals(ref), false, "equals(): flipped values");
-      QUnit.equal(ref.equals(result), false, "equals(): symmetric");
+      QUnit.ok(success,
+          'construction with a team array does not work anymore (API change)');
 
       /*
        * save/restore
        */
 
+      result = new MatchResult(new MatchModel([5, 3], 8, 1), [13, 7]);
       data = result.save();
       QUnit.ok(data, 'save() finishes');
 
+      teams = [5, 3];
+      score = [13, 7];
       result = new MatchResult();
       QUnit.ok(result.restore(data), 'restore() finishes');
       QUnit.equal(result.match, undefined, 'restore(): match not restored');
       QUnit.deepEqual(result.teams, teams, 'restore(): teams restored');
       QUnit.deepEqual(result.score, score, 'restore(): scores restored');
+      QUnit.deepEqual(result.getID(), 8, 'restore(): id restored');
+      QUnit.deepEqual(result.getGroup(), 1, 'restore(): group id restored');
     });
   };
 });
