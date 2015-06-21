@@ -9,10 +9,11 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingDataListenerIndex, Emitter, GameResult;
+    var RankingDataListenerIndex, Emitter, MatchResult, MatchModel;
 
     RankingDataListenerIndex = getModule('core/rankingdatalistenerindex');
-    GameResult = getModule('core/matchresult');
+    MatchResult = getModule('core/matchresult');
+    MatchModel = getModule('core/matchmodel');
     Emitter = getModule('core/emitter');
 
     QUnit.test('RankingDataListenerIndex', function() {
@@ -41,16 +42,16 @@ define(function() {
       QUnit.equal(dummyRanking.points, listeners[0].points,
           'dummyRanking and listener share the reference');
 
-      result = new GameResult([1, 4], [13, 7]);
+      result = new MatchResult(new MatchModel([1, 4], 0, 0), [13, 7]);
       dummyRanking.emit('result', result);
 
       ref = [0, 13, 0, 0, 7];
       QUnit.deepEqual(dummyRanking.points.asArray(), ref,
           'single result accepted');
 
-      result = new GameResult([0, 1], [5, 11]);
+      result = new MatchResult(new MatchModel([0, 1], 0, 0), [5, 11]);
       dummyRanking.emit('result', result);
-      result = new GameResult([3, 2], [13, 0]);
+      result = new MatchResult(new MatchModel([3, 2], 0, 0), [13, 0]);
       dummyRanking.emit('result', result);
 
       ref = [5, 24, 0, 13, 7];

@@ -9,10 +9,11 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingModel, GameResult, Options;
+    var RankingModel, MatchResult, MatchModel, Options;
 
     RankingModel = getModule('core/rankingmodel');
-    GameResult = getModule('core/matchresult');
+    MatchResult = getModule('core/matchresult');
+    MatchModel = getModule('core/matchmodel');
     Options = getModule('options');
 
     QUnit.test('TAC Ranking', function() {
@@ -46,7 +47,7 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'empty ranking: correct TAC score');
 
-      ranking.result(new GameResult([1, 3], [8, 7]));
+      ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [8, 7]));
       ref = {
         components: ['tac', 'wins', 'points'],
         ranks: [2, 0, 2, 1, 2],
@@ -58,7 +59,7 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'first ranking is correct');
 
-      ranking.result(new GameResult([0, 4], [0, 8]));
+      ranking.result(new MatchResult(new MatchModel([0, 4], 0, 0), [0, 8]));
       ret = ranking.get();
       ref = {
         components: ['tac', 'wins', 'points'],
@@ -70,7 +71,7 @@ define(function() {
       };
       QUnit.deepEqual(ret, ref, 'second ranking is correct (0 -> 1)');
 
-      ranking.result(new GameResult([1, 4], [8, 5]));
+      ranking.result(new MatchResult(new MatchModel([1, 4], 0, 0), [8, 5]));
       ref = {
         components: ['tac', 'wins', 'points'],
         ranks: [3, 0, 4, 2, 1],
@@ -82,9 +83,9 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'third ranking is correct');
 
-      ranking.result(new GameResult([1, 2], [3, 8]));
-      ranking.result(new GameResult([3, 0], [8, 0]));
-      ranking.result(new GameResult([4, 2], [8, 6]));
+      ranking.result(new MatchResult(new MatchModel([1, 2], 0, 0), [3, 8]));
+      ranking.result(new MatchResult(new MatchModel([3, 0], 0, 0), [8, 0]));
+      ranking.result(new MatchResult(new MatchModel([4, 2], 0, 0), [8, 6]));
       ref = {
         components: ['tac', 'wins', 'points'],
         ranks: [4, 1, 3, 2, 0],
@@ -96,7 +97,7 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'final ranking is correct');
 
-      ranking.result(new GameResult([0, 2], [7, 6]));
+      ranking.result(new MatchResult(new MatchModel([0, 2], 0, 0), [7, 6]));
       ref = {
         components: ['tac', 'wins', 'points'],
         ranks: [4, 1, 2, 3, 0],
@@ -108,7 +109,7 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'aborted game points are saldo only');
 
-      ranking.result(new GameResult([1, 3], [5, 5]));
+      ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [5, 5]));
       ref = {
         components: ['tac', 'wins', 'points'],
         ranks: [4, 1, 3, 2, 0],

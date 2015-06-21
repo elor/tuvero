@@ -9,10 +9,11 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingModel, GameResult;
+    var RankingModel, MatchResult, MatchModel;
 
     RankingModel = getModule('core/rankingmodel');
-    GameResult = getModule('core/matchresult');
+    MatchResult = getModule('core/matchresult');
+    MatchModel= getModule('core/matchmodel');
 
     QUnit.test('Head-to-Head Ranking', function() {
       var ranking, result, ret, ref;
@@ -30,8 +31,8 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'empty ranking: correct SB-score');
 
-      ranking.result(new GameResult([1, 3], [7, 13]));
-      ranking.result(new GameResult([1, 0], [13, 9]));
+      ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [7, 13]));
+      ranking.result(new MatchResult(new MatchModel([1, 0], 0, 0), [13, 9]));
       ref = {
         components: ['wins', 'headtohead'],
         ranks: [2, 1, 2, 0, 2],
@@ -41,7 +42,7 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'first ranking is correct');
 
-      ranking.result(new GameResult([0, 3], [13, 11]));
+      ranking.result(new MatchResult(new MatchModel([0, 3], 0, 0), [13, 11]));
       ref = {
         components: ['wins', 'headtohead'],
         ranks: [1, 0, 3, 2, 3],

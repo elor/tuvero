@@ -8,13 +8,14 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, RankingMapper, Model, RankingModel, MatchResult, ListModel, Listener;
+    var extend, RankingMapper, Model, RankingModel, MatchResult, MatchModel, ListModel, Listener;
 
     extend = getModule('lib/extend');
     ListModel = getModule('core/listmodel');
     RankingModel = getModule('core/rankingmodel');
     RankingMapper = getModule('core/rankingmapper');
     MatchResult = getModule('core/matchresult');
+    MatchModel= getModule('core/matchmodel');
     Model = getModule('core/model');
     Listener = getModule('core/listener');
 
@@ -44,7 +45,7 @@ define(function() {
       QUnit.deepEqual(ranking.get(), ref,
           'external displayOrder before first result');
 
-      internal.result(new MatchResult([1, 2], [13, 7]));
+      internal.result(new MatchResult(new MatchModel([1, 2], 0, 0), [13, 7]));
 
       ref = {
         components: ['wins', 'saldo'],
@@ -76,7 +77,7 @@ define(function() {
 
       };
 
-      internal.result(new MatchResult([2, 4], [13, 1]));
+      internal.result(new MatchResult(new MatchModel([2, 4], 0, 0), [13, 1]));
 
       QUnit.ok(listener.success, 'RankingMapper emits update events');
 

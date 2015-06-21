@@ -11,6 +11,18 @@
 
 	* core/scripts/test/matchresult.js: MatchResult tests adjusted
 
+	* core/scripts/test/rankingdatalistenerindex.js: MatchResult constructor calls updated
+
+	* core/scripts/test/rankingheadtohead.js: MatchResult constructor calls updated
+
+	* core/scripts/test/rankingmapper.js: MatchResult constructor calls updated
+
+	* core/scripts/test/rankingmodel.js: MatchResult constructor calls updated
+
+	* core/scripts/test/rankingsonneborn.js: MatchResult constructor calls updated
+
+	* core/scripts/test/rankingtac.js: MatchResult constructor calls updated
+
 2015-06-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/tournamentmodel.js: testing getID and setID
