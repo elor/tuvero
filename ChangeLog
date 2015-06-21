@@ -8,6 +8,7 @@
 
 	* core/scripts/tournamentmodel.js: onfinish(): reading MatchModel instance from the event emitter
 	instead of using a secondary reference
+	onfinish(): emitter != match. The match can be read from the collector source
 
 	* core/scripts/test/matchresult.js: MatchResult tests adjusted
 

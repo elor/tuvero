@@ -318,7 +318,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   /**
    * validate and process a match result
    *
-   * @param match
+   * @param emitter
    *          the emitter, i.e. the collector. no use.
    * @param event
    *          the event, i.e. 'finish'. no use.
@@ -327,7 +327,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    *          attribute, which is a reference to the original MatchModel
    *          instance
    */
-  TournamentModel.prototype.onfinish = function(match, event, matchresult) {
+  TournamentModel.prototype.onfinish = function(emitter, event, matchresult) {
+    var match;
+
+    match = matchresult.source;
+
     if (this.matches.indexOf(match) === -1) {
       console.error('onfinish: match is not open anymore or does not exist');
       return;
