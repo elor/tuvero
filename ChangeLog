@@ -5,6 +5,9 @@
 	* core/scripts/matchresult.js: re-implemented as a MatchModel subclass
 	This avoids code duplication between MatchModel and MatchResult
 
+	* core/scripts/tournamentmodel.js: onfinish(): reading MatchModel instance from the event emitter
+	instead of using a secondary reference
+
 2015-06-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/tournamentmodel.js: testing getID and setID
