@@ -6,8 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './indexedmodel', './matchresult'], function(extend,
-    IndexedModel, MatchResult) {
+define(['lib/extend', './indexedmodel'], function(extend, IndexedModel) {
   /**
    * Constructor
    *
@@ -78,13 +77,15 @@ define(['lib/extend', './indexedmodel', './matchresult'], function(extend,
    *         otherwise
    */
   MatchModel.prototype.finish = function(points) {
-    var result;
+    var result, MatchResult;
 
     if (!points || points.length !== this.length) {
       console.error("MatchModel.finish(): lengths don't match");
       return undefined;
     }
 
+    // Circular dependency. Require MatchResult directly
+    MatchResult = require('core/matchresult');
     result = new MatchResult(this, points);
 
     this.emit('finish', result);
