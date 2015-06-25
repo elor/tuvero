@@ -52,6 +52,26 @@ define(function() {
       QUnit.deepEqual(result.getID(), 2, 'keeping the id');
       QUnit.deepEqual(result.getGroup(), 5, 'keeping the group id');
 
+      /*
+       * create MatchResult from another MatchResult
+       */
+
+      score = [8, 12];
+      result = new MatchResult(result, score);
+      QUnit.ok(success, 'passing match as first argument');
+      QUnit.equal(result.match, undefined,
+          'result.match got kicked out of the API');
+      QUnit.deepEqual(result.teams, match.teams, 'match teams match');
+      QUnit.ok(result.teams !== match.teams, 'match teams are only copies');
+      QUnit.deepEqual(result.score, score, 'scores match');
+      QUnit.ok(result.score !== score, 'scores are only copies of another');
+      QUnit.deepEqual(result.getID(), 2, 'keeping the id');
+      QUnit.deepEqual(result.getGroup(), 5, 'keeping the group id');
+
+      /*
+       * incompatible API changes
+       */
+
       teams = [5, 1];
       score = [5, 11];
       try {
