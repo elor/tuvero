@@ -140,6 +140,7 @@ define([
   'ui/listclickcontroller',
   'ui/listcollectormodel',
   'ui/listview',
+  'ui/matchcontroller',
   'ui/matchview',
   'ui/newteamcontroller',
   'ui/newteamview',
