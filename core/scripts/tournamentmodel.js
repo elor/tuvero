@@ -388,6 +388,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
+   * perform additional functions after a result has been corrected. This may
+   * include reverting to a previous state and re-rolling the entire tournament
+   * from this point on, or doing nothing since most cases are already handled
+   * by the ranking
+   */
+  TournamentModel.prototype.postprocessCorrection = function() {
+    // Default: Do nothing.
+  };
+
+  /**
    * create matches from an initial state (first round)
    *
    * @return true on success (i.e. valid matches have been created), false or
@@ -422,37 +432,29 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
-   * Query whether a match result is in the history
+   * correct a
    *
-   * @param matchResult
-   *          a MatchResult instance
-   * @returns true if the result is in the history, false otherwise
-   */
-  TournamentModel.prototype.isInHistory = function(matchResult) {
-    var i;
-
-    for (i = 0; i < this.history.length; i += 1) {
-      if (this.history.get(i).equals(matchResult)) {
-        return true;
-      }
-    }
-
-    return false;
-  };
-
-  /**
-   *
+   * @param oldResult
+   *          the current result, as a MatchResult instance. Has to be passed by
+   *          reference, i.e. newly created similar objects won't work.
+   * @param newResult
+   *          the corrected result, as a newly created MatchResult reference.
+   *          Can be created from the existing result, i.e. from another
+   *          MatchResult, if only the points differ.
    * @return true on success, false otherwise
    */
   TournamentModel.prototype.correct = function(oldResult, newResult) {
-    if (!this.isInHistory(matchResult)) {
+    var index;
+
+    index = this.history.indexOf(oldResult)
+    if (index !== -1) {
       return false;
     }
 
     this.ranking.correct(oldResult, newResult);
-    // TODO update all subsequent games
-    // TODO update history
-    // TODO emit appropriate events
+    this.postcorrect(oldResult, newResult);
+    this.history.set(index, newResult);
+    // TODO this.corrections.push(new CorrectionModel(oldResult, newResult));
 
     return true;
   };
