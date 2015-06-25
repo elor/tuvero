@@ -15,6 +15,7 @@ define([
   'core/antisymmetricmatrixmodel',
   'core/classview',
   'core/controller',
+  'core/correctionmodel',
   'core/delegatematrix',
   'core/emitter',
   'core/indexedlistmodel',

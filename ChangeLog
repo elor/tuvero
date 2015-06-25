@@ -6,6 +6,9 @@
 
 	* core/scripts/correctionmodel.js: CorrectionModel added
 
+	* core/scripts/test/correctionmodel.js: testing the CorrectionModel
+
+
 2015-06-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: MatchResult has to be loaded on demand to avoid circular dependencies between MatchModel and MatchResult

@@ -20,8 +20,21 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
   function CorrectionModel(oldResult, newResult) {
     CorrectionModel.superconstructor.call(this);
 
-    this.before = oldResult || new MatchResult();
-    this.after = newResult || new MatchResult();
+    if (oldResult === undefined) {
+      this.before = new MatchResult();
+    } else if (oldResult instanceof MatchResult) {
+      this.before = oldResult;
+    } else {
+      throw new Error("CorrectionModel: oldResult is not a MatchResult!");
+    }
+
+    if (newResult === undefined) {
+      this.after = new MatchResult();
+    } else if (newResult instanceof MatchResult) {
+      this.after = newResult;
+    } else {
+      throw new Error("CorrectionModel: newResult is not a MatchResult!");
+    }
   }
   extend(CorrectionModel, Model);
 
@@ -66,6 +79,11 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
 
     return true;
   };
+
+  CorrectionModel.prototype.SAVEFORMAT = Object
+      .create(CorrectionModel.superclass.SAVEFORMAT);
+  CorrectionModel.prototype.SAVEFORMAT.a = Object;
+  CorrectionModel.prototype.SAVEFORMAT.b = Object;
 
   return CorrectionModel;
 });

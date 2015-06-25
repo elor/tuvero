@@ -12,6 +12,7 @@ require(['config'], function() {
     require(['core/common', 'qunit',
   'core/test/absolutematrix',
   'core/test/antisymmetricmatrixmodel',
+  'core/test/correctionmodel',
   'core/test/delegatematrix',
   'core/test/emitter',
   'core/test/indexedlistmodel',
