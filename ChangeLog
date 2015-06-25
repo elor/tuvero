@@ -3,11 +3,14 @@
 	* core/scripts/test/matchresult.js: testing MatchResult instantiation from another MatchResult
 
 	* core/scripts/tournamentmodel.js: correct() function finished so far. Only a list of corrections is missing.
+	TournamentModel.corrections added
+	save/restore corrections
+	push new corrections to correction list
+	correction-related function profiles changed to use CorrectionModel instances
 
 	* core/scripts/correctionmodel.js: CorrectionModel added
 
 	* core/scripts/test/correctionmodel.js: testing the CorrectionModel
-
 
 2015-06-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

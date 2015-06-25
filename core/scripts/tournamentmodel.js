@@ -15,11 +15,12 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './rankingmapper', './statevaluemodel', './matchmodel', './matchresult',
     'ui/listcollectormodel', './listener', './rankingmodel',
     './matchreferencelistmodel', './maplistmodel', './valuemodel',
-    './readonlylistmodel', 'options', './indexedmodel'], function(extend,
-    PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
-    MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
-    MatchReferenceListModel, MapListModel, ValueModel, ReadonlyListModel,
-    Options, IndexedModel) {
+    './readonlylistmodel', 'options', './indexedmodel',//
+    './correctionmodel'], function(extend, PropertyModel, ListModel,
+    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
+    ListCollectorModel, Listener, RankingModel, MatchReferenceListModel,
+    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
+    CorrectionModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -72,6 +73,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
     this.votes = TournamentModel.initVoteLists(this.VOTES);
     this.history = new ListModel();
+    this.corrections = new ListModel();
 
     // initial properties
     this.setProperty('addteamrunning', false);
@@ -376,6 +378,18 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
+   * Validate a result before accepting it. If the validation fails, the
+   * correction is discarded and the result remains the way it was.
+   *
+   * @param correction
+   *          a CorrectionModel instance
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.validateCorrection = function(correction) {
+    return true;
+  };
+
+  /**
    * perform additional functions after a match has been finished and its result
    * has been written to history and ranking. Can be used to start new matches
    * or adjust the tournament state to 'finished'.
@@ -432,29 +446,31 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
-   * correct a
+   * correct a previous result by replacing it with a new result and updating
+   * all of the necessary data.
    *
-   * @param oldResult
-   *          the current result, as a MatchResult instance. Has to be passed by
-   *          reference, i.e. newly created similar objects won't work.
-   * @param newResult
-   *          the corrected result, as a newly created MatchResult reference.
-   *          Can be created from the existing result, i.e. from another
-   *          MatchResult, if only the points differ.
+   * @param correction
+   *          a CorrectionModel instance, which contains a reference to an
+   *          existing MatchResult as the first argument ('before')
    * @return true on success, false otherwise
    */
-  TournamentModel.prototype.correct = function(oldResult, newResult) {
+  TournamentModel.prototype.correct = function(correction) {
     var index;
 
-    index = this.history.indexOf(oldResult)
-    if (index !== -1) {
+    index = this.history.indexOf(correction.before);
+    if (index === -1) {
       return false;
     }
 
-    this.ranking.correct(oldResult, newResult);
-    this.postcorrect(oldResult, newResult);
-    this.history.set(index, newResult);
-    // TODO this.corrections.push(new CorrectionModel(oldResult, newResult));
+    if (!this.validateCorrection(correction)) {
+      return false;
+    }
+
+    this.corrections.push(correction);
+    this.history.set(index, correction.after);
+    this.ranking.correct(correction);
+
+    this.postcorrect(correction);
 
     return true;
   };
@@ -474,6 +490,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     data.teams = this.teams.asArray();
     data.matches = this.matches.save();
     data.history = this.history.save();
+    data.corrections = this.corrections.save();
     data.ranking = this.ranking.save();
     data.votes = {};
     this.VOTES.forEach(function(votetype) {
@@ -522,6 +539,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return false;
     }
 
+    if (!this.corrections.restore(data.corrections, CorrectionModel)) {
+      console.error('TournamentModel.restore(): cannot restore corrections');
+      return false;
+    }
+
     if (!this.ranking.restore(data.ranking)) {
       console.error('TournamentModel.restore(): cannot restore ranking');
       return false;
@@ -541,10 +563,14 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     return true;
   };
 
+  /**
+   * mimic an IndexedModel
+   */
   TournamentModel.prototype.getID = IndexedModel.prototype.getID;
   TournamentModel.prototype.setID = IndexedModel.prototype.setID;
 
-  // TODO use constructor references (MatchModel.SAVEFORMAT) instead of "Object"
+  // TODO use constructor references (MatchModel.SAVEFORMAT) instead of
+  // "Object"
   TournamentModel.prototype.SAVEFORMAT = Object
       .create(TournamentModel.superclass.SAVEFORMAT);
   TournamentModel.prototype.SAVEFORMAT.id = Number;
@@ -553,6 +579,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   TournamentModel.prototype.SAVEFORMAT.teams = [Number];
   TournamentModel.prototype.SAVEFORMAT.matches = [Object];
   TournamentModel.prototype.SAVEFORMAT.history = [Object];
+  TournamentModel.prototype.SAVEFORMAT.corrections = [Object];
   TournamentModel.prototype.SAVEFORMAT.ranking = Object;
   TournamentModel.prototype.SAVEFORMAT.votes = Object;
 
