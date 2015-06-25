@@ -37,6 +37,7 @@ require(['config'], function() {
   'core/test/rankingsonneborn',
   'core/test/rankingtac',
   'core/test/readonlylistmodel',
+  'core/test/resultreferencemodel',
   'core/test/rle',
   'core/test/roundtournamentmodel',
   'core/test/selectionvaluemodel',

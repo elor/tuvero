@@ -63,6 +63,7 @@ define([
   'core/rankingwinslistener',
   'core/rankingwinsmatrixlistener',
   'core/readonlylistmodel',
+  'core/resultreferencemodel',
   'core/rle',
   'core/roundtournamentmodel',
   'core/selectionvaluemodel',
