@@ -8,15 +8,16 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var ListModel, MatchModel, MatchReferenceListModel, Listener;
+    var ListModel, MatchModel, ReferenceListModel, MatchReferenceModel, Listener;
 
     Listener = getModule('core/listener');
     ListModel = getModule('core/listmodel');
     MatchModel = getModule('core/matchmodel');
-    MatchReferenceListModel = getModule('core/matchreferencelistmodel');
+    MatchReferenceModel = getModule('core/matchreferencemodel');
+    ReferenceListModel = getModule('core/referencelistmodel');
 
-    QUnit.test('MatchReferenceListModel', function() {
-      var teams, matches, refs, listener, listener2, matchref;
+    QUnit.test('ReferenceListModel', function() {
+      var teams, matches, refs, listener, matchref;
 
       teams = new ListModel();
       teams.push('5');
@@ -30,7 +31,7 @@ define(function() {
       matches.push(new MatchModel([1, 2], 0, 0));
       matches.push(new MatchModel([0, 5], 1, 0));
 
-      refs = new MatchReferenceListModel(matches, teams);
+      refs = new ReferenceListModel(matches, teams, MatchReferenceModel);
 
       QUnit.equal(refs.length, matches.length,
           'number of teams match after initialization');

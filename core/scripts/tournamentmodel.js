@@ -14,13 +14,14 @@
 define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './rankingmapper', './statevaluemodel', './matchmodel', './matchresult',
     'ui/listcollectormodel', './listener', './rankingmodel',
-    './matchreferencelistmodel', './maplistmodel', './valuemodel',
-    './readonlylistmodel', 'options', './indexedmodel',//
-    './correctionmodel'], function(extend, PropertyModel, ListModel,
-    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
-    ListCollectorModel, Listener, RankingModel, MatchReferenceListModel,
-    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
-    CorrectionModel) {
+    './referencelistmodel', './maplistmodel', './valuemodel',
+    './readonlylistmodel', 'options', './indexedmodel', './correctionmodel',
+    './matchreferencemodel', './resultreferencemodel'], function(extend,
+    PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
+    MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
+    MatchReferenceListModel, MapListModel, ValueModel, ReadonlyListModel,
+    Options, IndexedModel, CorrectionModel, MatchReferenceModel,
+    ResultReferenceModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -226,7 +227,18 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   TournamentModel.prototype.getMatches = function() {
     // TODO use a singleton
-    return new MatchReferenceListModel(this.matches, this.teams);
+    // TODO use generic ReferenceListModel
+    return new MatchReferenceListModel(this.matches, this.teams,
+        MatchReferenceModel);
+  };
+
+  /**
+   * @return ListModel of the running matches, with global team ids
+   */
+  TournamentModel.prototype.getHistory = function() {
+    // TODO use generic ReferenceListModel
+    return new ReferenceListModel(this.history, this.teams,
+        ResultReferenceModel);
   };
 
   /**

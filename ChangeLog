@@ -1,3 +1,16 @@
+2015-06-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/matchreferencelistmodel.js: using a ReferenceModel parameter to become a general ReferenceListModel
+	moved to referencelistmodel.js
+
+	* core/scripts/test/matchreferencelistmodel.js: testing the ReferenceModel parameter
+
+	* core/scripts/referencelistmodel.js: moved from matchreferencelistmodel.js
+
+	* core/scripts/test/referencelistmodel.js: testing ReferenceListModel, using MatchReferenceModel for convenience
+
+	* core/scripts/tournamentmodel.js: using ReferenceListModel for getMatches, getHistory and getCorrections
+
 2015-06-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/matchresult.js: testing MatchResult instantiation from another MatchResult

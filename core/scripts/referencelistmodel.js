@@ -1,15 +1,14 @@
 /**
- * MatchReferenceListModel: for every match in the matchlist, provide read-only
+ * ReferenceListModel: for every match in the matchlist, provide read-only
  * access to the matches, while translating the team indices to external team
  * numbers (e.g. global team ids)
  *
- * @return MatchReferenceListModel
+ * @return ReferenceListModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel', './matchreferencemodel'], function(extend,
-    ListModel, MatchReferenceModel) {
+define(['lib/extend', './listmodel'], function(extend, ListModel) {
 
   /**
    * Constructor
@@ -18,46 +17,51 @@ define(['lib/extend', './listmodel', './matchreferencemodel'], function(extend,
    *          a ListModel instance comprising of MatchModel instances
    * @param teamlist
    *          a ListModel instance comprising of team numbers
+   * @param ReferenceModel
+   *          a reference model, which takes an actual model and a team list as
+   *          the constructor arguments, and creates a reference to the model
    */
-  function MatchReferenceListModel(matchlist, teamlist) {
-    MatchReferenceListModel.superconstructor.call(this);
+  function ReferenceListModel(matchlist, teamlist, ReferenceModel) {
+    ReferenceListModel.superconstructor.call(this);
 
     this.makeReadonly();
 
     this.matches = matchlist;
     this.teams = teamlist;
+    this.ReferenceModel = ReferenceModel;
 
     this.matches.map(function(match, id) {
-      MatchReferenceListModel.insertMatch(this, id);
+      ReferenceListModel.insertMatch(this, id);
     }, this);
 
     this.matches.registerListener(this);
   }
-  extend(MatchReferenceListModel, ListModel);
+  extend(ReferenceListModel, ListModel);
 
   /**
    * Helper function for dealing with readonly list: Do not call directly
    *
-   * @param list
-   *          a MatchReferenceListModel instance
+   * @param referenceList
+   *          a ReferenceListModel instance
    * @param id
    *          the id to insert at
    */
-  MatchReferenceListModel.insertMatch = function(list, id) {
+  ReferenceListModel.insertMatch = function(referenceList, id) {
     var ref;
-    ref = new MatchReferenceModel(list.matches.get(id), list.teams);
-    ListModel.prototype.insert.call(list, id, ref);
+    ref = new referenceList.ReferenceModel(referenceList.matches.get(id),
+        referenceList.teams);
+    ListModel.prototype.insert.call(referenceList, id, ref);
   };
 
   /**
    * Helper function for dealing with readonly list: Do not call directly
    *
    * @param list
-   *          a MatchReferenceListModel instance
+   *          a ReferenceListModel instance
    * @param id
    *          the id to remove
    */
-  MatchReferenceListModel.removeMatch = function(list, id) {
+  ReferenceListModel.removeMatch = function(list, id) {
     ListModel.prototype.remove.call(list, id);
   };
 
@@ -68,9 +72,9 @@ define(['lib/extend', './listmodel', './matchreferencemodel'], function(extend,
    * @param event
    * @param data
    */
-  MatchReferenceListModel.prototype.oninsert = function(emitter, event, data) {
+  ReferenceListModel.prototype.oninsert = function(emitter, event, data) {
     if (emitter === this.matches) {
-      MatchReferenceListModel.insertMatch(this, data.id);
+      ReferenceListModel.insertMatch(this, data.id);
       this.emit(event, data);
     }
   };
@@ -82,9 +86,9 @@ define(['lib/extend', './listmodel', './matchreferencemodel'], function(extend,
    * @param event
    * @param data
    */
-  MatchReferenceListModel.prototype.onremove = function(emitter, event, data) {
+  ReferenceListModel.prototype.onremove = function(emitter, event, data) {
     if (emitter === this.matches) {
-      MatchReferenceListModel.removeMatch(this, data.id);
+      ReferenceListModel.removeMatch(this, data.id);
       this.emit(event, data);
     }
   };
@@ -96,7 +100,7 @@ define(['lib/extend', './listmodel', './matchreferencemodel'], function(extend,
    * @param event
    * @param data
    */
-  MatchReferenceListModel.prototype.onreset = function(emitter, event, data) {
+  ReferenceListModel.prototype.onreset = function(emitter, event, data) {
     if (emitter === this.matches) {
       this.emit(event, data);
     }
@@ -109,5 +113,5 @@ define(['lib/extend', './listmodel', './matchreferencemodel'], function(extend,
    * functions automatically emit resize events.
    */
 
-  return MatchReferenceListModel;
+  return ReferenceListModel;
 });
