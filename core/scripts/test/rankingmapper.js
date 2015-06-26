@@ -15,7 +15,7 @@ define(function() {
     RankingModel = getModule('core/rankingmodel');
     RankingMapper = getModule('core/rankingmapper');
     MatchResult = getModule('core/matchresult');
-    MatchModel= getModule('core/matchmodel');
+    MatchModel = getModule('core/matchmodel');
     Model = getModule('core/model');
     Listener = getModule('core/listener');
 

@@ -37,18 +37,18 @@ define(function() {
 
       reference = new CorrectionReferenceModel(correction, teams);
       QUnit.equal(reference.before.result, result,
-          "before result reference is set");
+          'before result reference is set');
       QUnit.equal(reference.after.result, result2,
-          "after result reference is set");
+          'after result reference is set');
 
       QUnit.deepEqual(reference.before.teams, [0, 1],
-          "before teams correctly referenced");
+          'before teams correctly referenced');
       QUnit.deepEqual(reference.after.teams, [6, 13],
-          "after teams correctly referenced");
+          'after teams correctly referenced');
       QUnit.deepEqual(reference.before.score, result.score,
-          "before score is correct");
+          'before score is correct');
       QUnit.deepEqual(reference.after.score, result2.score,
-          "after score is correct");
+          'after score is correct');
 
       QUnit.equal(reference.before.getID(), 1, 'before id matches');
       QUnit.equal(reference.after.getID(), 2, 'after id matches');

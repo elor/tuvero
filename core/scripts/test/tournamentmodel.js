@@ -107,8 +107,8 @@ define(function() {
 
       result = history.get(0);
       QUnit.equal(result.length, 2, 'history: length of match matches');
-      QUnit.equal(result.getTeamID(0), 5, "history: global team id in match");
-      QUnit.equal(result.getTeamID(1), 4, "history: global team id in match");
+      QUnit.equal(result.getTeamID(0), 5, 'history: global team id in match');
+      QUnit.equal(result.getTeamID(1), 4, 'history: global team id in match');
 
       QUnit.equal(state.get(), 'idle',
           'auto-transition to idle state after last match');
@@ -197,7 +197,7 @@ define(function() {
       byes = tournament.getVotes('bye');
       ranking = tournament.getRanking();
 
-      QUnit.equal(tournament.getID(), 3, "restore() restored the id");
+      QUnit.equal(tournament.getID(), 3, 'restore() restored the id');
       QUnit.deepEqual(teams.asArray(), ref.getTeams().asArray(),
           'restore() restored the teams');
       QUnit.equal(state.get(), 'running',
@@ -213,8 +213,8 @@ define(function() {
       QUnit.equal(history.length, 1, 'restore(): history size');
       QUnit.equal(result.length, 2,
           'restore(): restored number of teams in history result');
-      QUnit.equal(result.getTeamID(0), 5, "restore() history team id 1");
-      QUnit.equal(result.getTeamID(1), 3, "restore() history team id 2");
+      QUnit.equal(result.getTeamID(0), 5, 'restore() history team id 1');
+      QUnit.equal(result.getTeamID(1), 3, 'restore() history team id 2');
 
       // FIXME test corrections
       // FIXME test history (default, after some tournaments, after

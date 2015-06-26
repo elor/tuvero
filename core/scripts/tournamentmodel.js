@@ -484,20 +484,20 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
 
     index = this.history.indexOf(result.result);
     if (index === -1) {
-      console.error("correct(): result does not exist in history");
+      console.error('correct(): result does not exist in history');
       return false;
     }
 
     newResult = new MatchResult(result, newScore);
     if (!validateMatchResult(newResult)) {
-      console.error("correction has invalid score");
+      console.error('correction has invalid score');
       return false;
     }
 
     correction = new Correction(result, newResult);
 
     if (!this.validateCorrection(correction)) {
-      console.error("correction is invalid, although the score is fine");
+      console.error('correction is invalid, although the score is fine');
       return false;
     }
 

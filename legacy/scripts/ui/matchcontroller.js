@@ -46,7 +46,7 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
       } else {
         $this.addClass('invalid');
       }
-    }).attr("min", Options.minpoints).attr("max", Options.maxpoints);
+    }).attr('min', Options.minpoints).attr('max', Options.maxpoints);
   };
 
   MatchController.prototype.initFinishButton = function() {

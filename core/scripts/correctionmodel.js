@@ -25,7 +25,7 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
     } else if (oldResult instanceof MatchResult) {
       this.before = oldResult;
     } else {
-      throw new Error("CorrectionModel: oldResult is not a MatchResult!");
+      throw new Error('CorrectionModel: oldResult is not a MatchResult!');
     }
 
     if (newResult === undefined) {
@@ -33,7 +33,7 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
     } else if (newResult instanceof MatchResult) {
       this.after = newResult;
     } else {
-      throw new Error("CorrectionModel: newResult is not a MatchResult!");
+      throw new Error('CorrectionModel: newResult is not a MatchResult!');
     }
   }
   extend(CorrectionModel, Model);
@@ -62,7 +62,7 @@ define(['lib/extend', './model', './matchresult'], function(extend, Model,
    *
    * @param data
    *          a deserialized data object
-   * @returns true on success, false otherwise
+   * @return true on success, false otherwise
    */
   CorrectionModel.prototype.restore = function(data) {
     if (!CorrectionModel.superclass.restore.call(this, data)) {

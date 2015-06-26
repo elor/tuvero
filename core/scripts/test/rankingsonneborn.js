@@ -13,7 +13,7 @@ define(function() {
 
     RankingModel = getModule('core/rankingmodel');
     MatchResult = getModule('core/matchresult');
-    MatchModel= getModule('core/matchmodel');
+    MatchModel = getModule('core/matchmodel');
 
     QUnit.test('Sonneborn-Berger Ranking', function() {
       var ranking, result, ret, ref;

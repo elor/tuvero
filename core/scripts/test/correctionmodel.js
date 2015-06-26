@@ -35,7 +35,7 @@ define(function() {
        * erronuous construction -> throw
        */
       try {
-        correction = new CorrectionModel("asd", {
+        correction = new CorrectionModel('asd', {
           pi: 3
         });
         success = false;
@@ -43,14 +43,14 @@ define(function() {
         success = true;
       }
 
-      QUnit.ok(success, "the constructor throws on invalid values");
+      QUnit.ok(success, 'the constructor throws on invalid values');
 
       /*
        * default construction
        */
 
       correction = new CorrectionModel();
-      QUnit.ok(correction, "default construction works");
+      QUnit.ok(correction, 'default construction works');
       QUnit.deepEqual(correction.before, new MatchResult(),
           'default construction of pre-correction result');
       QUnit.deepEqual(correction.after, new MatchResult(),
@@ -61,14 +61,14 @@ define(function() {
        */
       correction = new CorrectionModel(result, result2);
       data = correction.save();
-      QUnit.ok(data, "save() returns");
+      QUnit.ok(data, 'save() returns');
 
       correction = new CorrectionModel();
-      QUnit.ok(correction.restore(data), "restore() returns");
+      QUnit.ok(correction.restore(data), 'restore() returns');
       QUnit.deepEqual(correction.before, result,
-          "restore() restores the pre-correction result");
+          'restore() restores the pre-correction result');
       QUnit.deepEqual(correction.after, result2,
-          "restore() restores the post-correction result");
+          'restore() restores the post-correction result');
     });
   };
 });
