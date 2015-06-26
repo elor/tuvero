@@ -8,6 +8,10 @@
  */
 define(['lib/extend', './rankingdatalistener', './vectormodel', //
 'options'], function(extend, RankingDataListener, VectorModel, Options) {
+  var winscore;
+
+  // FIXME extract "12" to the config.in
+  winscore = 12;
 
   function sign(num) {
     if (num < 0) {
@@ -36,10 +40,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
   RankingTacListener.NAME = 'tac';
 
   RankingTacListener.prototype.onresult = function(r, e, result) {
-    var winscore, winner, loser, diff, points;
-
-    // FIXME extract "12" to the config.
-    winscore = 12;
+    var winner, loser, diff, points;
 
     if (result.teams.length !== 2) {
       throw new Error('TAC ranking requires exactly two teams in a result');
@@ -65,7 +66,6 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
       return undefined;
     }
 
-    // FIXME extract "8" to the config
     if (result.score[winner] >= Options.maxpoints && winner !== loser) {
       // everything went to completion
 
@@ -110,10 +110,9 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
   };
 
   RankingTacListener.prototype.oncorrect = function(r, e, correction) {
-    var winscore, winner, loser, diff, points;
-
-    // FIXME extract "12" to the config.
-    winscore = 12;
+    // TODO DRY - Don't Repeat Yourself!
+    // TODO extract a method for use by onresult and oncorrect
+    var winner, loser, diff, points;
 
     if (correction.before.teams.length !== 2) {
       throw new Error('TAC ranking requires exactly two teams in a result');
@@ -139,7 +138,6 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
       return undefined;
     }
 
-    // FIXME extract "8" to the config
     if (correction.before.score[winner] >= Options.maxpoints
         && winner !== loser) {
       // everything went to completion
