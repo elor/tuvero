@@ -15,24 +15,30 @@ define(function() {
     PropertyModel = getModule('core/propertymodel');
 
     QUnit.test('TournamentModel', function() {
-      var tournament, state, teams, matches, byes, match, ranking, ref, data;
+      var tournament, state, teams, matches, byes, match, ranking, ref, data, //
+      history, corrections, result;
 
       QUnit.ok(extend.isSubclass(TournamentModel, PropertyModel),
           'TournamentModel is subclass of PropertyModel');
 
       tournament = new TournamentModel(['wins', 'saldo']);
-      QUnit.ok('construction works');
+      QUnit.ok(tournament, 'construction works');
 
       state = tournament.getState();
       teams = tournament.getTeams();
       matches = tournament.getMatches();
+      history = tournament.getHistory();
+      corrections = tournament.getCorrections();
       byes = tournament.getVotes('bye');
       ranking = tournament.getRanking();
 
       QUnit.ok(state, 'getState() returns');
       QUnit.ok(teams, 'getTeams() returns');
       QUnit.ok(matches, 'getMatches() returns');
+      QUnit.ok(history, 'getHistory() returns');
+      QUnit.ok(corrections, 'getCorrections() returns');
       QUnit.ok(byes, 'getTeams() returns');
+      QUnit.ok(ranking, 'getRanking() returns');
 
       QUnit.equal(state.get(), 'initial',
           'tournament is constructed in initial state');
@@ -88,12 +94,21 @@ define(function() {
 
       QUnit.equal(matches.length, 1, 'match has not been finished');
 
+      QUnit.equal(history.length, 0, 'match has not been pushed to history');
+
       QUnit.equal(tournament.finish(), false,
           'tournament cannot be finished when there are open matches');
 
       QUnit.ok(match.finish([13, 7]), 'match.finish() with proper scores');
 
       QUnit.equal(matches.length, 0, 'match has been finished');
+
+      QUnit.equal(history.length, 1, 'match has been pushed to history');
+
+      result = history.get(0);
+      QUnit.equal(result.length, 2, 'history: length of match matches');
+      QUnit.equal(result.getTeamID(0), 5, "history: global team id in match");
+      QUnit.equal(result.getTeamID(1), 4, "history: global team id in match");
 
       QUnit.equal(state.get(), 'idle',
           'auto-transition to idle state after last match');
@@ -177,6 +192,8 @@ define(function() {
       state = tournament.getState();
       teams = tournament.getTeams();
       matches = tournament.getMatches();
+      history = tournament.getHistory();
+      corrections = tournament.getCorrections();
       byes = tournament.getVotes('bye');
       ranking = tournament.getRanking();
 
@@ -192,8 +209,16 @@ define(function() {
       QUnit.deepEqual(byes.asArray(), [5], 'restore() restored the byes');
       QUnit.deepEqual(ranking.get(), ref.getRanking().get(),
           'restore() restored the whole ranking');
+      result = history.get(0);
+      QUnit.equal(history.length, 1, 'restore(): history size');
+      QUnit.equal(result.length, 2,
+          'restore(): restored number of teams in history result');
+      QUnit.equal(result.getTeamID(0), 5, "restore() history team id 1");
+      QUnit.equal(result.getTeamID(1), 3, "restore() history team id 2");
 
-      // FIXME test history (default, after some tournaments, after restore)
+      // FIXME test corrections
+      // FIXME test history (default, after some tournaments, after
+      // restore)
     });
   };
 });

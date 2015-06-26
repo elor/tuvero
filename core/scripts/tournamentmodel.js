@@ -228,7 +228,6 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   TournamentModel.prototype.getMatches = function() {
     // TODO use a singleton
-    // TODO use generic ReferenceListModel
     return new ReferenceListModel(this.matches, this.teams, // autoformatter :-(
     MatchReferenceModel);
   };
@@ -237,9 +236,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * @return ListModel of the running matches, with global team ids
    */
   TournamentModel.prototype.getHistory = function() {
-    // TODO use generic ReferenceListModel
     return new ReferenceListModel(this.history, this.teams,
         ResultReferenceModel);
+  };
+
+  /**
+   * @return ListModel of the running matches, with global team ids
+   */
+  TournamentModel.prototype.getCorrections = function() {
+    return new ReferenceListModel(this.corrections, this.teams,
+        CorrectionReferenceModel);
   };
 
   /**
