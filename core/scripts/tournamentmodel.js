@@ -16,12 +16,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     'ui/listcollectormodel', './listener', './rankingmodel',
     './referencelistmodel', './maplistmodel', './valuemodel',
     './readonlylistmodel', 'options', './indexedmodel', './correctionmodel',
-    './matchreferencemodel', './resultreferencemodel'], function(extend,
-    PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
-    MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
-    MatchReferenceListModel, MapListModel, ValueModel, ReadonlyListModel,
-    Options, IndexedModel, CorrectionModel, MatchReferenceModel,
-    ResultReferenceModel) {
+    './matchreferencemodel', './resultreferencemodel',
+    './correctionreferencemodel'], function(extend, PropertyModel, ListModel,
+    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
+    ListCollectorModel, Listener, RankingModel, ReferenceListModel,
+    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
+    CorrectionModel, MatchReferenceModel, ResultReferenceModel,
+    CorrectionReferenceModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -228,8 +229,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   TournamentModel.prototype.getMatches = function() {
     // TODO use a singleton
     // TODO use generic ReferenceListModel
-    return new MatchReferenceListModel(this.matches, this.teams,
-        MatchReferenceModel);
+    return new ReferenceListModel(this.matches, this.teams, // autoformatter :-(
+    MatchReferenceModel);
   };
 
   /**
