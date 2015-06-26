@@ -221,7 +221,8 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
   };
 
   RankingModel.prototype.correct = function(correction) {
-    throw new Error('not implemented yet');
+    this.emit('correct', result);
+    this.invalidate();
   };
 
   /**

@@ -119,7 +119,7 @@ define(['lib/extend', './listener'], function(extend, Listener) {
    * @param e
    *          the name of the emitted event
    * @param correction
-   *          a game correction
+   *          a game correction (CorrectionModel instance)
    */
   RankingDataListener.prototype.oncorrect = function(r, e, correction) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
