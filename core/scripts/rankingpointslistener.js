@@ -68,7 +68,8 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
    */
   RankingPointsListener.prototype.oncorrect = function(r, e, correction) {
     correction.before.teams.forEach(function(teamid, index) {
-      this.points.set(teamid, this.points.get(teamid) + result.score[index]);
+      this.points.set(teamid, this.points.get(teamid)
+          - correction.before.score[index]);
     }, this);
 
     this.onresult(r, e, correction.after);

@@ -221,7 +221,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
   };
 
   RankingModel.prototype.correct = function(correction) {
-    this.emit('correct', result);
+    this.emit('correct', correction);
     this.invalidate();
   };
 

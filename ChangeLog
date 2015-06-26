@@ -21,6 +21,14 @@
 
 	* core/scripts/test/tournamentmodel.js: testing tournament history
 
+	* core/scripts/rankinglostpointslistener.js: accidentally applied the corrected result twice or more
+
+	* core/scripts/rankingmodel.js: typo corrected (result -> correction)
+
+	* core/scripts/rankingpointslistener.js: correction was applied inversely
+
+	* core/scripts/rankingwinslistener.js: JDoc comments added
+
 2015-06-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/matchresult.js: testing MatchResult instantiation from another MatchResult

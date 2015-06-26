@@ -88,6 +88,10 @@ define(['lib/extend', './rankingdatalistener', //
    * correct a ranking entry. Do not check whether it's valid. The
    * TournamentModel has to take care of that
    *
+   * @param r
+   *          the Emitter, i.e. a RankingModel instance
+   * @param e
+   *          the event type, i.e. "correct"
    * @param correction
    *          a game correction
    */

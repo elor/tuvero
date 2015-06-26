@@ -85,8 +85,9 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
         }
       }, this);
 
-      this.onresult(r, e, correction.after);
     }, this);
+
+    this.onresult(r, e, correction.after);
   };
 
   return RankingLostPointsListener;
