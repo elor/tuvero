@@ -9,7 +9,7 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingModel, Model, extend, MatchResult, MatchModel, Listener, Options;
+    var RankingModel, Model, extend, MatchResult, MatchModel, Listener, Options, CorrectionModel;
 
     RankingModel = getModule('core/rankingmodel');
     MatchResult = getModule('core/matchresult');
@@ -18,6 +18,7 @@ define(function() {
     Model = getModule('core/model');
     Options = getModule('options');
     extend = getModule('lib/extend');
+    CorrectionModel = getModule('core/correctionmodel');
 
     QUnit.test('RankingModel', function() {
       var ranking, result, rankingobject, ref, listener, savedata;
@@ -333,7 +334,22 @@ define(function() {
       };
       QUnit.deepEqual(ret, ref, 'restore restores the proper stuff');
 
-      // TODO correct()
+      /**
+       * correct
+       */
+      ranking.correct(new CorrectionModel(//
+      new MatchResult(new MatchModel([2, 0], 0, 0), [13, 8]),//
+      new MatchResult(new MatchModel([2, 0], 0, 0), [8, 13]))//
+      );
+      ref = {
+        components: ['wins', 'saldo'],
+        ranks: [1, 2, 4, 0, 3],
+        displayOrder: [3, 0, 1, 4, 2],
+        wins: [1, 1, 0, 1, 0],
+        saldo: [5, 2, -5, 6, -2]
+      };
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'restore restores the proper stuff');
     });
   };
 });
