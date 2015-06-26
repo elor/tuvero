@@ -418,8 +418,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * include reverting to a previous state and re-rolling the entire tournament
    * from this point on, or doing nothing since most cases are already handled
    * by the ranking
+   *
+   * @param correction
+   *          the applied correction
    */
-  TournamentModel.prototype.postprocessCorrection = function() {
+  TournamentModel.prototype.postprocessCorrection = function(correction) {
     // Default: Do nothing.
   };
 
@@ -461,20 +464,33 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * correct a previous result by replacing it with a new result and updating
    * all of the necessary data.
    *
-   * @param correction
-   *          a CorrectionModel instance, which contains a reference to an
-   *          existing MatchResult as the first argument ('before')
+   * @param result
+   *          the external result, as read from the getHistory() list
+   * @param newScore
+   *          the new score. Right now, only scores can be changed. This might
+   *          change with the support for more complicated tournament systems
+   *
    * @return true on success, false otherwise
    */
-  TournamentModel.prototype.correct = function(correction) {
-    var index;
+  TournamentModel.prototype.correct = function(result, newScore) {
+    var index, correction, newResult;
 
-    index = this.history.indexOf(correction.before);
+    index = this.history.indexOf(result.result);
     if (index === -1) {
+      console.error("correct(): result does not exist in history");
       return false;
     }
 
+    newResult = new MatchResult(result, newScore);
+    if (!validateMatchResult(newResult)) {
+      console.error("correction has invalid score");
+      return false;
+    }
+
+    correction = new Correction(result, newResult);
+
     if (!this.validateCorrection(correction)) {
+      console.error("correction is invalid, although the score is fine");
       return false;
     }
 
@@ -482,7 +498,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.history.set(index, correction.after);
     this.ranking.correct(correction);
 
-    this.postcorrect(correction);
+    this.postprocessCorrection(correction);
 
     return true;
   };

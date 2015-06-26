@@ -10,6 +10,7 @@
 	* core/scripts/test/referencelistmodel.js: testing ReferenceListModel, using MatchReferenceModel for convenience
 
 	* core/scripts/tournamentmodel.js: using ReferenceListModel for getMatches, getHistory and getCorrections
+	correct() takes ResultReferenceModel
 
 2015-06-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
