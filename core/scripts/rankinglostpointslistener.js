@@ -77,7 +77,16 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
    *          a game correction
    */
   RankingLostPointsListener.prototype.oncorrect = function(r, e, correction) {
-    console.error('RankingLostPointsListener.oncorrect() not implemented yet');
+    correction.before.teams.forEach(function(opponent, index) {
+      correction.before.teams.forEach(function(team) {
+        if (team !== opponent) {
+          this.lostpoints.set(team, this.lostpoints.get(team)
+              + correction.before.score[index]);
+        }
+      }, this);
+
+      this.onresult(r, e, correction.after);
+    }, this);
   };
 
   return RankingLostPointsListener;

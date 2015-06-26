@@ -65,7 +65,11 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    *          a game correction
    */
   RankingNumGamesListener.prototype.oncorrect = function(r, e, correction) {
-    console.error('RankingNumGamesListener.oncorrect() not implemented yet');
+    correction.before.teams.forEach(function(teamid) {
+      this.numgames.set(teamid, this.numgames.get(teamid) - 1);
+    }, this);
+
+    this.onresult(r, e, correction.after);
   };
 
   return RankingNumGamesListener;

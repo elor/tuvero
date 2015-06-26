@@ -8,6 +8,33 @@
  */
 define(['lib/extend', './rankingdatalistener', //
 './vectormodel'], function(extend, RankingDataListener, VectorModel) {
+
+  /**
+   * @param result
+   *          a MatchResult instance
+   * @return the index of the winner (for result.getTeamID(index)), or undefined
+   *         if no unique winner exists
+   */
+  function getWinner(result) {
+    var winner, maxpoints;
+
+    winner = undefined;
+    maxpoints = undefined;
+
+    result.teams.forEach(function(teamid, index) {
+      var points;
+      points = result.score[index];
+      if (maxpoints === undefined || points > maxpoints) {
+        winner = teamid;
+        maxpoints = points;
+      } else if (points === maxpoints) {
+        winner = undefined;
+      }
+    }, this);
+
+    return winner;
+  }
+
   /**
    * Constructor
    *
@@ -34,21 +61,7 @@ define(['lib/extend', './rankingdatalistener', //
    *          a game result
    */
   RankingWinsListener.prototype.onresult = function(r, e, result) {
-    var winner, maxpoints;
-
-    winner = undefined;
-    maxpoints = undefined;
-
-    result.teams.forEach(function(teamid, index) {
-      var points;
-      points = result.score[index];
-      if (maxpoints === undefined || points > maxpoints) {
-        winner = teamid;
-        maxpoints = points;
-      } else if (points === maxpoints) {
-        winner = undefined;
-      }
-    }, this);
+    var winner = getWinner(result);
 
     if (winner !== undefined) {
       this.wins.set(winner, this.wins.get(winner) + 1);
@@ -79,7 +92,13 @@ define(['lib/extend', './rankingdatalistener', //
    *          a game correction
    */
   RankingWinsListener.prototype.oncorrect = function(r, e, correction) {
-    console.error('RankingWinsListener.oncorrect() not implemented yet');
+    var winner = getWinner(correction.before);
+
+    if (winner !== undefined) {
+      this.wins.set(winner, this.wins.get(winner) - 1);
+    }
+
+    this.onresult(r, e, correction.after);
   };
 
   return RankingWinsListener;

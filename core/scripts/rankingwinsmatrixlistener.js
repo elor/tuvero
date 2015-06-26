@@ -45,6 +45,7 @@ define(['lib/extend', './rankingdatalistener', './matrixmodel'], function(
 
     // get the max points, remember if there's a draw
     maxpoints = undefined;
+    draw = false;
     result.score.forEach(function(points) {
       if (points > maxpoints || maxpoints === undefined) {
         maxpoints = points;
@@ -86,7 +87,42 @@ define(['lib/extend', './rankingdatalistener', './matrixmodel'], function(
    *          a game correction
    */
   RankingWinsMatrixListener.prototype.oncorrect = function(r, e, correction) {
-    console.error('RankingWinsMatrixListener.oncorrect() not implemented yet');
+    // TODO DRY - Don't Repeat Yourself!
+    // TODO extract a method for use by onresult and oncorrect
+    var maxpoints, draw, score;
+
+    // get the max points, remember if there's a draw
+    maxpoints = undefined;
+    draw = false;
+    correction.before.score.forEach(function(points) {
+      if (points > maxpoints || maxpoints === undefined) {
+        maxpoints = points;
+        draw = false;
+      } else if (points === maxpoints) {
+        draw = true;
+      }
+    }, this);
+
+    // only give half the score for a draw
+    score = draw ? 0.5 : 1;
+
+    // find every winner and apply the score over his opponents (i.e. everyone
+    // else)
+    correction.before.score.forEach(function(points, index) {
+      var teamid;
+      if (points === maxpoints) {
+        teamid = correction.before.teams[index];
+        correction.before.teams.forEach(function(opponent) {
+          var value;
+          if (teamid !== opponent) {
+            value = this.winsmatrix.get(teamid, opponent) - score;
+            this.winsmatrix.set(teamid, opponent, value);
+          }
+        }, this);
+      }
+    }, this);
+
+    this.onresult(r, e, correction.after);
   };
 
   return RankingWinsMatrixListener;
