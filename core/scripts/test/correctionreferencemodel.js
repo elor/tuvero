@@ -18,7 +18,7 @@ define(function() {
     ListModel = getModule('core/listmodel');
 
     QUnit.test('CorrectionReferenceModel', function() {
-      var match, match2, result, result2, correction, reference, teams;
+      var result, result2, correction, reference, teams;
       QUnit.ok(extend.isSubclass(CorrectionReferenceModel, CorrectionModel),
           'CorrectionReferenceModel is subclass of CorrectionModel');
 
@@ -30,16 +30,30 @@ define(function() {
       teams.push(13);
       teams.push(0);
 
-      match = new MatchModel([5, 3], 1, 2);
-      result = new MatchResult(match, [13, 7]);
-      match2 = new MatchModel([2, 4], 2, 1);
-      result2 = new MatchResult(match2, [8, 9]);
+      result = new MatchResult(new MatchModel([5, 3], 1, 2), [13, 7]);
+      result2 = new MatchResult(new MatchModel([2, 4], 2, 1), [8, 9]);
 
       correction = new CorrectionModel(result, result2);
 
       reference = new CorrectionReferenceModel(correction, teams);
-      QUnit.equal(reference.before.result, result);
-      QUnit.equal(reference.after.result, result2);
+      QUnit.equal(reference.before.result, result,
+          "before result reference is set");
+      QUnit.equal(reference.after.result, result2,
+          "after result reference is set");
+
+      QUnit.deepEqual(reference.before.teams, [0, 1],
+          "before teams correctly referenced");
+      QUnit.deepEqual(reference.after.teams, [6, 13],
+          "after teams correctly referenced");
+      QUnit.deepEqual(reference.before.score, result.score,
+          "before score is correct");
+      QUnit.deepEqual(reference.after.score, result2.score,
+          "after score is correct");
+
+      QUnit.equal(reference.before.getID(), 1, 'before id matches');
+      QUnit.equal(reference.after.getID(), 2, 'after id matches');
+      QUnit.equal(reference.before.getGroup(), 2, 'before group matches');
+      QUnit.equal(reference.after.getGroup(), 1, 'after group matches');
     });
   };
 });
