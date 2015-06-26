@@ -16,6 +16,7 @@ define([
   'core/classview',
   'core/controller',
   'core/correctionmodel',
+  'core/correctionreferencemodel',
   'core/delegatematrix',
   'core/emitter',
   'core/indexedlistmodel',

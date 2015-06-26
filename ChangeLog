@@ -12,6 +12,10 @@
 	* core/scripts/tournamentmodel.js: using ReferenceListModel for getMatches, getHistory and getCorrections
 	correct() takes ResultReferenceModel
 
+	* core/scripts/correctionreferencemodel.js: a "ReferenceModel" for CorrectionModel instances
+
+	* core/scripts/test/correctionreferencemodel.js: testing CorrectionReferenceModel construction
+
 2015-06-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/matchresult.js: testing MatchResult instantiation from another MatchResult

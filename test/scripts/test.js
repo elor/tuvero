@@ -13,6 +13,7 @@ require(['config'], function() {
   'core/test/absolutematrix',
   'core/test/antisymmetricmatrixmodel',
   'core/test/correctionmodel',
+  'core/test/correctionreferencemodel',
   'core/test/delegatematrix',
   'core/test/emitter',
   'core/test/indexedlistmodel',
