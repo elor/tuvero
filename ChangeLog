@@ -31,6 +31,10 @@
 
 	* core/scripts/test/rankingmodel.js: rudimentary correct() test added. It works. Yeah.
 
+	* core/scripts/test/rankingheadtohead.js: TODO comment added
+
+	* core/scripts/test/rankingsonneborn.js: testing correct() function
+
 2015-06-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/matchresult.js: testing MatchResult instantiation from another MatchResult

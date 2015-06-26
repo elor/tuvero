@@ -9,11 +9,12 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingModel, MatchResult, MatchModel;
+    var RankingModel, MatchResult, MatchModel, CorrectionModel;
 
     RankingModel = getModule('core/rankingmodel');
     MatchResult = getModule('core/matchresult');
     MatchModel = getModule('core/matchmodel');
+    CorrectionModel = getModule('core/correctionmodel');
 
     QUnit.test('Sonneborn-Berger Ranking', function() {
       var ranking, result, ret, ref;
@@ -75,7 +76,22 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'final ranking is correct');
 
-      // TODO correct
+      /*
+       * correct
+       */
+      ranking.correct(new CorrectionModel(//
+      new MatchResult(new MatchModel([3, 0], 0, 0), [13, 0]), //
+      new MatchResult(new MatchModel([3, 0], 0, 0), [0, 13]))//
+      );
+      ref = {
+        components: ['wins', 'sonneborn'],
+        ranks: [3, 1, 0, 4, 2],
+        displayOrder: [2, 1, 4, 0, 3],
+        sonneborn: [0, 1, 3, 0, 1],
+        wins: [1, 2, 2, 0, 1]
+      };
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'correction is correct');
     });
   };
 });

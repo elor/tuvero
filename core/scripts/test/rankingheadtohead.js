@@ -51,6 +51,7 @@ define(function() {
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'cyclic ranking finishes');
+      // TODO implement correct head-to-head algorithm
 
       // TODO correct
     });
