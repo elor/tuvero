@@ -9,11 +9,12 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingModel, MatchResult, MatchModel, Options;
+    var RankingModel, MatchResult, MatchModel, Options, CorrectionModel;
 
     RankingModel = getModule('core/rankingmodel');
     MatchResult = getModule('core/matchresult');
     MatchModel = getModule('core/matchmodel');
+    CorrectionModel = getModule('core/correctionmodel');
     Options = getModule('options');
 
     QUnit.test('TAC Ranking', function() {
@@ -122,6 +123,24 @@ define(function() {
       QUnit.deepEqual(ret, ref, 'aborted game points, equal');
 
       /*
+       * correct()
+       */
+      ranking.correct(new CorrectionModel(//
+      new MatchResult(new MatchModel([0, 2], 0, 0), [7, 6]),//
+      new MatchResult(new MatchModel([0, 2], 0, 0), [5, 8])//
+      ));
+      ref = {
+        components: ['tac', 'wins', 'points'],
+        ranks: [4, 2, 1, 3, 0],
+        displayOrder: [4, 2, 1, 3, 0],
+        wins: [0, 2, 2, 1, 2],
+        points: [5, 24, 22, 20, 21],
+        tac: [7, 36, 38, 32, 39]
+      };
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'correct() works correctly with TAC');
+
+      /*
        * bye
        */
       ranking = new RankingModel(['tac'], 2);
@@ -139,8 +158,6 @@ define(function() {
       ref.tac[1] *= 2;
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'tac accepts multiple byes');
-
-      // TODO correct
 
       /*
        * restore original options

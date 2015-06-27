@@ -1,3 +1,7 @@
+2015-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/rankingtac.js: TAC ranking: correct() test
+
 2015-06-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchreferencelistmodel.js: using a ReferenceModel parameter to become a general ReferenceListModel
