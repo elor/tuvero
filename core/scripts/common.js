@@ -123,6 +123,7 @@ define([
   'ui/backgroundscripts/print',
   'ui/backgroundscripts/taboptionclick',
   'ui/backgroundscripts/initviews',
+  'ui/binarytreenode',
   'ui/boxcontroller',
   'ui/boxview',
   'ui/checkboxcontroller',

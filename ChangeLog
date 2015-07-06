@@ -4,6 +4,8 @@
 
 	* legacy/scripts/ui/treenode.js: Generic TreeNode implemented
 
+	* legacy/scripts/ui/binarytreenode.js: Binary Tree Nodes added
+
 2015-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/rankingtac.js: TAC ranking: correct() test
