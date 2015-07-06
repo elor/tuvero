@@ -68,7 +68,8 @@ require(['config'], function() {
   'ui/test/listcollectormodel',
   'ui/test/playermodel',
   'ui/test/tab',
-  'ui/test/teammodel'
+  'ui/test/teammodel',
+  'ui/test/treenode'
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {

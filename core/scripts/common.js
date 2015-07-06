@@ -187,6 +187,7 @@ define([
   'ui/textview',
   'ui/toast',
   'ui/tournaments',
+  'ui/treenode',
   'ui/update',
   'ui/valueview'
 ], function(undefined) {

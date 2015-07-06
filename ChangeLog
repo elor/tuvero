@@ -1,3 +1,9 @@
+2015-07-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/test/treenode.js: TreeNode tests added
+
+	* legacy/scripts/ui/treenode.js: Generic TreeNode implemented
+
 2015-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/rankingtac.js: TAC ranking: correct() test
