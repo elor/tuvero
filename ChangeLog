@@ -5,6 +5,11 @@
 	* legacy/scripts/ui/treenode.js: Generic TreeNode implemented
 
 	* legacy/scripts/ui/binarytreenode.js: Binary Tree Nodes added
+	BinaryTreeNode is an IndexedModel subclass (Rename Imminent!)
+	createChildren() removed
+	special cases for root and subroot added
+
+	* legacy/scripts/ui/test/binarytreenode.js: testing BinaryTreeNode
 
 2015-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
