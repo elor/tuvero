@@ -63,7 +63,7 @@ require(['config'], function() {
   'backend/test/swisstournament',
   'backend/test/vector',
 
-  'ui/test/binarytreenode',
+  'ui/test/binarytreemodel',
   'ui/test/blobs',
   'ui/test/csv',
   'ui/test/listcollectormodel',

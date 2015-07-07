@@ -1,3 +1,13 @@
+2015-07-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/binarytreemodel.js: moved from binarytreenode.js
+
+	* legacy/scripts/ui/binarytreenode.js: moved to binarytreemodel.js
+
+	* legacy/scripts/ui/test/binarytreemodel.js: moved from binarytreenode.js
+
+	* legacy/scripts/ui/test/binarytreenode.js: moved to binarytreemodel.js
+
 2015-07-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/test/treenode.js: TreeNode tests added
