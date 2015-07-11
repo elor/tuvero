@@ -36,6 +36,22 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
     this.view.$view.find("button.move-up").click(function() {
       controller.moveup();
     });
+
+    this.view.$selectedList.keyup(function(e) {
+      if (e.keyCode === 46 || e.keyCode === 8 || e.keyCode === 127) {
+        controller.moveright();
+        controller.setSelectedIndex(0);
+      }
+    });
+
+    this.view.$availableList.keyup(function(e) {
+      var value;
+      if (e.keyCode === 13) {
+        value = controller.getAvailableValues();
+        controller.moveleft();
+        controller.resetAvailableSelection(value[0]);
+      }
+    });
   }
   extend(RankingOrderController, Controller);
 
