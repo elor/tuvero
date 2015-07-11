@@ -14,8 +14,8 @@
   <h1>RankingOrderView Test</h1>
   <h3>Input:</h3>
   <div class="rankingorderview">
-    <select size="8" multiple="multiple">
-      <option value="%% %%" selected="selected" class="template">%% %%</option>
+    <select size="8">
+      <option value="%% %%" class="template">%% %%</option>
     </select>
 
     <div style="display: inline-block">
@@ -35,16 +35,16 @@
 
 <script id="testmain">
 function TestMain(Common, $) {
-  var ListModel, RankingOrderView, ListView;
+  var UniqueListModel, RankingOrderView, ListView;
 
-  ListModel = Common('core/listmodel');
+  UniqueListModel = Common('core/uniquelistmodel');
   RankingOrderView = Common('ui/rankingorderview');
   ListView = Common('ui/listview');
 
   $(function($) {
     var allcomponents, rankingorder, view, $view;
 
-    allcomponents = new ListModel();
+    allcomponents = new UniqueListModel();
     allcomponents.push("wins");
     allcomponents.push("points");
     allcomponents.push("saldo");
@@ -52,7 +52,7 @@ function TestMain(Common, $) {
     allcomponents.push("tac");
     allcomponents.push("id");
     
-    rankingorder = new ListModel();
+    rankingorder = new UniqueListModel();
     rankingorder.push("id");
 
     $view = $('#outputlistview');

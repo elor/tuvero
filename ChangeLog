@@ -4,6 +4,7 @@
 
 	* test/rankingorderview.html: RankingOrderView test page added
 	RankingOrderView initialization uncommented
+	using UniqueListModels to enforce unique selections
 
 	* legacy/style/rankingorderview.css: RankingOrderView style added
 	min-width for component lists set to 10em
