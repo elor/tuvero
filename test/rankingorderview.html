@@ -26,7 +26,6 @@
     </div>
 
     <select size="8" multiple="multiple">
-      <option value="%% %%" selected="selected" class="template">%% %%</option>
     </select>
   </div>
 
@@ -39,7 +38,7 @@ function TestMain(Common, $) {
   var ListModel, RankingOrderView, ListView;
 
   ListModel = Common('core/listmodel');
-//  RankingOrderView = Common('ui/rankingorderview');
+  RankingOrderView = Common('ui/rankingorderview');
   ListView = Common('ui/listview');
 
   $(function($) {
@@ -56,12 +55,11 @@ function TestMain(Common, $) {
     rankingorder = new ListModel();
     rankingorder.push("id");
 
-    $view = $('.rankingorder');
-//    new RankingOrderView(rankingorder, $view, allcomponents);
-    
     $view = $('#outputlistview');
     new ListView(rankingorder, $view, $('<li>'));
     
+    $view = $('.rankingorderview');
+    new RankingOrderView(rankingorder, $view, allcomponents);
   });
 }
 </script>

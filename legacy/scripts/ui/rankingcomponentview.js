@@ -1,0 +1,36 @@
+/**
+ * RankingComponentView
+ *
+ * @return RankingComponentView
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+define(['lib/extend', 'ui/textview', 'ui/strings'], function(extend, TextView,
+    Strings) {
+
+  function getString(text) {
+    return Strings['ranking_' + text] || text;
+  }
+
+  /**
+   * Constructor
+   *
+   * @param name
+   *          the name of the RankingComponent, e.g. "wins"
+   * @param $view
+   *          a JQuery object into which the component information is to be
+   *          written
+   */
+  function RankingComponentView(name, $view) {
+    RankingComponentView.superconstructor.call(this, name, $view);
+  }
+  extend(RankingComponentView, TextView);
+
+  RankingComponentView.prototype.update = function() {
+    this.$view.val(this.model.text);
+    this.$view.text(getString(this.model.text));
+  };
+
+  return RankingComponentView;
+});

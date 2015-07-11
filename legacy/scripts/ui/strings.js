@@ -104,7 +104,18 @@ define(function() {
     nodata: 'Keine Daten',
     svgns: 'http://www.w3.org/2000/svg',
     firstplace: '1. Platz',
-    thirdplace: '3. Platz'
+    thirdplace: '3. Platz',
+    ranking_matches: 'Spiele',
+    ranking_wins: 'Siege',
+    ranking_points: 'kleine Punkte',
+    ranking_lostpoints: 'Gegnerpunkte',
+    ranking_saldo: 'Saldo-Punkte',
+    ranking_buchholz: 'Buchholz-Punkte',
+    ranking_finebuchholz: 'Feinbuchholz-Punkte',
+    ranking_sonneborn: 'Sonneborn-Berger-Zahl',
+    ranking_id: 'No.',
+    ranking_headtohead: 'direkter Vergleich',
+    ranking_tac: 'TAC-Punkte'
   };
 
   return Strings;

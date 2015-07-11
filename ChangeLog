@@ -3,10 +3,20 @@
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
 
 	* test/rankingorderview.html: RankingOrderView test page added
+	RankingOrderView initialization uncommented
 
 	* legacy/style/rankingorderview.css: RankingOrderView style added
 
 	* tools/create-ui-class.sh: Script to create a new UI class, which excludes test scripts for now
+
+	* legacy/scripts/ui/rankingcomponentview.js: a view that displays information about a single ranking component selection element
+	The $view is required to be an 'option' HTMl element.
+
+	* legacy/scripts/ui/rankingordercontroller.js: placeholder class added
+
+	* legacy/scripts/ui/rankingorderview.js: currently fills both lists with information.
+
+	* legacy/scripts/ui/strings.js: readable ranking names added
 
 2015-07-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
