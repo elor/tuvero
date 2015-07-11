@@ -6,6 +6,7 @@
 	RankingOrderView initialization uncommented
 
 	* legacy/style/rankingorderview.css: RankingOrderView style added
+	min-width for component lists set to 10em
 
 	* tools/create-ui-class.sh: Script to create a new UI class, which excludes test scripts for now
 
@@ -13,8 +14,10 @@
 	The $view is required to be an 'option' HTMl element.
 
 	* legacy/scripts/ui/rankingordercontroller.js: placeholder class added
+	RankingOrderController implemented to support appending/removing components and manually sorting them
 
 	* legacy/scripts/ui/rankingorderview.js: currently fills both lists with information.
+	the $somethingList fields are used by the controller, so I made them into fields for direct access.
 
 	* legacy/scripts/ui/strings.js: readable ranking names added
 

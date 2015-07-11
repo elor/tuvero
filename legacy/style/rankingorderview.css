@@ -7,6 +7,10 @@
   vertical-align: middle;
 }
 
+.rankingorderview>select {
+  min-width: 10em;
+}
+
 .rankingorderview button {
   display: block;
   font-size: 100%;
