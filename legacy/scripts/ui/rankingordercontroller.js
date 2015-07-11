@@ -100,6 +100,7 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
   RankingOrderController.prototype.moveleft = function() {
     this.getAvailableValues().forEach(function(availableComponent) {
       this.model.push(availableComponent);
+      this.setSelectedIndex(this.model.length - 1);
       this.resetAvailableSelection();
     }, this);
   };
