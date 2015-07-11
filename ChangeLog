@@ -1,3 +1,11 @@
+2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/rankingorderview.html: RankingOrderView HTML code added
+
+	* test/rankingorderview.html: RankingOrderView test page added
+
+	* legacy/style/rankingorderview.css: RankingOrderView style added
+
 2015-07-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/binarytreemodel.js: moved from binarytreenode.js

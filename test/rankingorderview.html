@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Tuvero Test 1.5.0-dev</title>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="style/main.css" />
+<link rel="stylesheet" href="style/sprite.css" />
+<style>
+</style>
+</head>
+
+<body>
+  <h1>RankingOrderView Test</h1>
+  <h3>Input:</h3>
+  <div class="rankingorderview">
+    <select size="8" multiple="multiple">
+      <option value="%% %%" selected="selected" class="template">%% %%</option>
+    </select>
+
+    <div style="display: inline-block">
+      <button class="move-up">&#x21d1;</button>
+      <button class="move-left">&#x21d0;</button>
+      <button class="move-right">&#x21d2;</button>
+      <button class="move-down">&#x21d3;</button>
+    </div>
+
+    <select size="8" multiple="multiple">
+      <option value="%% %%" selected="selected" class="template">%% %%</option>
+    </select>
+  </div>
+
+  <h3>Result:</h3>
+  <ol id="outputlistview"></ol>
+</body>
+
+<script id="testmain">
+function TestMain(Common, $) {
+  var ListModel, RankingOrderView, ListView;
+
+  ListModel = Common('core/listmodel');
+//  RankingOrderView = Common('ui/rankingorderview');
+  ListView = Common('ui/listview');
+
+  $(function($) {
+    var allcomponents, rankingorder, view, $view;
+
+    allcomponents = new ListModel();
+    allcomponents.push("wins");
+    allcomponents.push("points");
+    allcomponents.push("saldo");
+    allcomponents.push("sonneborn");
+    allcomponents.push("tac");
+    allcomponents.push("id");
+    
+    rankingorder = new ListModel();
+    rankingorder.push("id");
+
+    $view = $('.rankingorder');
+//    new RankingOrderView(rankingorder, $view, allcomponents);
+    
+    $view = $('#outputlistview');
+    new ListView(rankingorder, $view, $('<li>'));
+    
+  });
+}
+</script>
+<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+
+</html>
