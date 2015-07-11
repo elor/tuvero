@@ -6,6 +6,8 @@
 
 	* legacy/style/rankingorderview.css: RankingOrderView style added
 
+	* tools/create-ui-class.sh: Script to create a new UI class, which excludes test scripts for now
+
 2015-07-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/binarytreemodel.js: moved from binarytreenode.js
