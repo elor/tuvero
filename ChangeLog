@@ -17,6 +17,7 @@
 
 	* legacy/scripts/ui/rankingordercontroller.js: placeholder class added
 	RankingOrderController implemented to support appending/removing components and manually sorting them
+	selecting the availableList contents on moveright
 
 	* legacy/scripts/ui/rankingorderview.js: currently fills both lists with information.
 	the $somethingList fields are used by the controller, so I made them into fields for direct access.

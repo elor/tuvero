@@ -56,8 +56,12 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
     return this.view.$selectedList[0].selectedIndex;
   };
 
-  RankingOrderController.prototype.resetAvailableSelection = function() {
-    this.view.$availableList[0].selectedIndex = -1;
+  RankingOrderController.prototype.resetAvailableSelection = function(value) {
+    if (value) {
+      this.view.$availableList.val(value);
+    } else {
+      this.view.$availableList[0].selectedIndex = -1;
+    }
   };
 
   RankingOrderController.prototype.setSelectedIndex = function(index) {
@@ -87,6 +91,7 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
   RankingOrderController.prototype.moveright = function() {
     this.getSelectedValues().forEach(function(selectedComponent) {
       this.model.erase(selectedComponent);
+      this.resetAvailableSelection(selectedComponent);
     }, this);
   };
 
