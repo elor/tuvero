@@ -32,5 +32,25 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
   }
   extend(RankingOrderView, TemplateView);
 
+  RankingOrderView.prototype.update = function() {
+    var model = this.model;
+    this.$availableList.find('option').each(function(index) {
+      var $option = $(this);
+      if (model.indexOf($option.val()) === -1) {
+        $option.show();
+      } else {
+        $option.hide();
+      }
+    });
+  };
+
+  RankingOrderView.prototype.oninsert = function() {
+    this.update();
+  };
+
+  RankingOrderView.prototype.onremove = function() {
+    this.update();
+  };
+
   return RankingOrderView;
 });
