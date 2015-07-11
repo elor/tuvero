@@ -105,7 +105,7 @@ define(function() {
     svgns: 'http://www.w3.org/2000/svg',
     firstplace: '1. Platz',
     thirdplace: '3. Platz',
-    ranking_matches: 'Spiele',
+    ranking_numgames: 'Spiele',
     ranking_wins: 'Siege',
     ranking_points: 'kleine Punkte',
     ranking_lostpoints: 'Gegnerpunkte',

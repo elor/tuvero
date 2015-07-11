@@ -5,6 +5,7 @@
 	* test/rankingorderview.html: RankingOrderView test page added
 	RankingOrderView initialization uncommented
 	using UniqueListModels to enforce unique selections
+	list of available components extended
 
 	* legacy/style/rankingorderview.css: RankingOrderView style added
 	min-width for component lists set to 10em
@@ -21,6 +22,7 @@
 	the $somethingList fields are used by the controller, so I made them into fields for direct access.
 
 	* legacy/scripts/ui/strings.js: readable ranking names added
+	ranking_matches -> ranking_numgames
 
 2015-07-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -45,13 +45,17 @@ function TestMain(Common, $) {
     var allcomponents, rankingorder, view, $view;
 
     allcomponents = new UniqueListModel();
+    allcomponents.push("numgames");
     allcomponents.push("wins");
     allcomponents.push("points");
     allcomponents.push("saldo");
-    allcomponents.push("sonneborn");
     allcomponents.push("tac");
-    allcomponents.push("id");
-    
+    allcomponents.push("buchholz");
+    allcomponents.push("finebuchholz");
+    allcomponents.push("sonneborn");
+    allcomponents.push("headtohead");
+    allcomponents.push("lostpoints");
+
     rankingorder = new UniqueListModel();
     rankingorder.push("id");
 
