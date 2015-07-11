@@ -18,7 +18,7 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
    */
   function RankingOrderView(selectedComponents, $view, allComponents) {
     RankingOrderView.superconstructor.call(this, selectedComponents, $view,
-        $view.find('option'));
+        $view.find('option.template'));
 
     this.$selectedList = this.$view.find('>select').eq(0);
     this.$availableList = this.$view.find('>select').eq(1);

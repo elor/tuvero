@@ -23,6 +23,7 @@
 	* legacy/scripts/ui/rankingorderview.js: currently fills both lists with information.
 	the $somethingList fields are used by the controller, so I made them into fields for direct access.
 	hiding already selected components from the "available"-list
+	more restrictive selection of the $template, using the .template-class
 
 	* legacy/scripts/ui/strings.js: readable ranking names added
 	ranking_matches -> ranking_numgames
