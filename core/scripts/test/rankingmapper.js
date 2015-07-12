@@ -37,6 +37,7 @@ define(function() {
 
       ref = {
         components: ['wins', 'saldo'],
+        ids: [5, 4, 3, 2, 1],
         ranks: [0, 0, 0, 0, 0],
         displayOrder: [5, 4, 3, 2, 1],
         wins: [0, 0, 0, 0, 0],
@@ -49,6 +50,7 @@ define(function() {
 
       ref = {
         components: ['wins', 'saldo'],
+        ids: [5, 4, 3, 2, 1],
         ranks: [1, 0, 4, 1, 1],
         displayOrder: [4, 5, 2, 1, 3],
         wins: [0, 1, 0, 0, 0],
@@ -65,6 +67,7 @@ define(function() {
 
         reference = {
           components: ['wins', 'saldo'],
+          ids: [5, 4, 3, 2, 1],
           ranks: [2, 0, 0, 2, 4],
           displayOrder: [4, 3, 5, 2, 1],
           wins: [0, 1, 1, 0, 0],
@@ -83,6 +86,7 @@ define(function() {
 
       ref = {
         components: ['wins', 'saldo'],
+        ids: [5, 4, 3, 2, 1],
         ranks: [2, 0, 0, 2, 4],
         displayOrder: [4, 3, 5, 2, 1],
         wins: [0, 1, 1, 0, 0],

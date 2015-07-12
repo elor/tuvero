@@ -51,6 +51,7 @@ define(function() {
       QUnit.ok(ranking, 'empty initialization produces a valid ranking');
       ref = {
         components: [],
+        ids: [],
         displayOrder: [],
         ranks: []
       };
@@ -101,6 +102,7 @@ define(function() {
 
       ref = {
         components: ['numgames', 'wins', 'saldo', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [0, 0, 0, 0, 0],
         displayOrder: [0, 1, 2, 3, 4],
         numgames: [0, 0, 0, 0, 0],
@@ -115,6 +117,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [13, 7]));
       ref = {
         components: ['numgames', 'wins', 'saldo', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [2, 0, 2, 1, 2],
         displayOrder: [1, 3, 0, 2, 4],
         numgames: [0, 1, 0, 1, 0],
@@ -142,6 +145,7 @@ define(function() {
 
       ref = {
         components: ['numgames', 'wins', 'saldo', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [3, 1, 4, 2, 0],
         displayOrder: [4, 1, 3, 0, 2],
         numgames: [1, 1, 0, 1, 1],
@@ -153,13 +157,14 @@ define(function() {
       QUnit.equal(listener.updated, 1, 'result(): update event fired');
 
       ref = {
-        'components': ['wins', 'buchholz', 'finebuchholz', 'points'],
-        'displayOrder': [2, 4, 3, 0, 1],
-        'ranks': [3, 4, 0, 2, 1],
-        'wins': [0, 0, 2, 1, 1],
-        'buchholz': [2, 2, 1, 0, 2],
-        'finebuchholz': [2, 1, 4, 2, 3],
-        'points': [3, 5, 26, 13, 24]
+        components: ['wins', 'buchholz', 'finebuchholz', 'points'],
+        ids: [0, 1, 2, 3, 4],
+        displayOrder: [2, 4, 3, 0, 1],
+        ranks: [3, 4, 0, 2, 1],
+        wins: [0, 0, 2, 1, 1],
+        buchholz: [2, 2, 1, 0, 2],
+        finebuchholz: [2, 1, 4, 2, 3],
+        points: [3, 5, 26, 13, 24]
       };
 
       ranking = new RankingModel(
@@ -192,6 +197,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([2, 4], 0, 0), [0, 13]));
       ref = {
         components: ['numgames', 'wins'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [4, 0, 2, 2, 0],
         displayOrder: [1, 4, 2, 3, 0],
         numgames: [0, 1, 1, 1, 1],
@@ -209,6 +215,7 @@ define(function() {
       ref = {
         components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
             'buchholz', 'finebuchholz'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [1, 1, 0, 1, 1],
         displayOrder: [2, 0, 1, 3, 4],
         numgames: [0, 0, 1, 0, 0],
@@ -227,6 +234,7 @@ define(function() {
       ref = {
         components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
             'buchholz', 'finebuchholz'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [0, 0, 0, 0, 4],
         displayOrder: [0, 1, 2, 3, 4],
         numgames: [1, 1, 1, 1, 0],
@@ -245,6 +253,7 @@ define(function() {
       ref = {
         components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
             'buchholz', 'finebuchholz'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [2, 1, 2, 0, 4],
         displayOrder: [3, 1, 0, 2, 4],
         numgames: [1, 2, 1, 2, 0],
@@ -266,6 +275,7 @@ define(function() {
       ref = {
         components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
             'buchholz', 'finebuchholz'],
+        ids: [0, 1, 2, 3, 4, 5],
         ranks: [2, 1, 2, 0, 4, 4],
         displayOrder: [3, 1, 0, 2, 4, 5],
         numgames: [1, 2, 1, 2, 0, 0],
@@ -284,6 +294,7 @@ define(function() {
       ref = {
         components: ['numgames', 'wins', 'points', 'lostpoints', 'saldo',
             'buchholz', 'finebuchholz'],
+        ids: [0, 1, 2],
         ranks: [1, 0, 1],
         displayOrder: [1, 0, 2],
         numgames: [1, 2, 1],
@@ -304,6 +315,7 @@ define(function() {
       ranking.reset();
       ref = {
         components: [],
+        ids: [],
         displayOrder: [],
         ranks: []
       };
@@ -327,6 +339,7 @@ define(function() {
       ret = ranking.get();
       ref = {
         components: ['wins', 'saldo'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [4, 2, 1, 0, 3],
         displayOrder: [3, 2, 1, 4, 0],
         wins: [0, 1, 1, 1, 0],
@@ -343,6 +356,7 @@ define(function() {
       );
       ref = {
         components: ['wins', 'saldo'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [1, 2, 4, 0, 3],
         displayOrder: [3, 0, 1, 4, 2],
         wins: [1, 1, 0, 1, 0],

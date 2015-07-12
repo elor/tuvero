@@ -24,6 +24,7 @@ define(function() {
 
       ref = {
         components: ['wins', 'headtohead'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [0, 0, 0, 0, 0],
         displayOrder: [0, 1, 2, 3, 4],
         wins: [0, 0, 0, 0, 0]
@@ -35,6 +36,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([1, 0], 0, 0), [13, 9]));
       ref = {
         components: ['wins', 'headtohead'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [2, 1, 2, 0, 2],
         displayOrder: [3, 1, 0, 2, 4],
         wins: [0, 1, 0, 1, 0]
@@ -45,6 +47,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([0, 3], 0, 0), [13, 11]));
       ref = {
         components: ['wins', 'headtohead'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [1, 0, 3, 2, 3],
         displayOrder: [1, 0, 3, 2, 4],
         wins: [1, 1, 0, 1, 0]

@@ -23,6 +23,15 @@
 	* core/scripts/tournamentindex.js: createTournament can be passed savedata, from which the system is then read
 	This enables the direct use of ListModel.restore() for restoring a list of tournaments
 
+	* core/scripts/rankingmapper.js: mapping the ids, too
+
+	* core/scripts/rankingmodel.js: added a field of ids to the output data for later teamID mapping
+
+	* core/scripts/test/ranking*.js: ids field added to reference values
+
+	* core/scripts/test/*tournamentmodel.js: Ranking: ids field added to reference values
+
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added

@@ -39,6 +39,7 @@ define(function() {
 
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [0, 0, 0, 0, 0],
         displayOrder: [0, 1, 2, 3, 4],
         wins: [0, 0, 0, 0, 0],
@@ -51,6 +52,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [8, 7]));
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [2, 0, 2, 1, 2],
         displayOrder: [1, 3, 0, 2, 4],
         wins: [0, 1, 0, 0, 0],
@@ -64,6 +66,7 @@ define(function() {
       ret = ranking.get();
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [3, 1, 4, 2, 0],
         displayOrder: [4, 1, 3, 0, 2],
         wins: [0, 1, 0, 0, 1],
@@ -75,6 +78,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([1, 4], 0, 0), [8, 5]));
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [3, 0, 4, 2, 1],
         displayOrder: [1, 4, 3, 0, 2],
         wins: [0, 2, 0, 0, 1],
@@ -89,6 +93,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([4, 2], 0, 0), [8, 6]));
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [4, 1, 3, 2, 0],
         displayOrder: [4, 1, 3, 2, 0],
         wins: [0, 2, 1, 1, 2],
@@ -101,6 +106,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([0, 2], 0, 0), [7, 6]));
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [4, 1, 2, 3, 0],
         displayOrder: [4, 1, 2, 3, 0],
         wins: [1, 2, 1, 1, 2],
@@ -113,6 +119,7 @@ define(function() {
       ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [5, 5]));
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [4, 1, 3, 2, 0],
         displayOrder: [4, 1, 3, 2, 0],
         wins: [1, 2, 1, 1, 2],
@@ -131,6 +138,7 @@ define(function() {
       ));
       ref = {
         components: ['tac', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
         ranks: [4, 2, 1, 3, 0],
         displayOrder: [4, 2, 1, 3, 0],
         wins: [0, 2, 2, 1, 2],
@@ -147,6 +155,7 @@ define(function() {
       ranking.bye(1);
       ref = {
         components: ['tac'],
+        ids: [0, 1],
         ranks: [1, 0],
         displayOrder: [1, 0],
         tac: [0, Options.byepointswon - Options.byepointslost]

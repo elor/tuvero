@@ -172,6 +172,7 @@ define(function() {
       ret = tournament.getRanking().get();
       ref = {
         components: ['wins', 'sonneborn', 'saldo'],
+        ids: [1, 2, 3, 4, 5],
         displayOrder: [1, 2, 5, 4, 3],
         ranks: [0, 1, 4, 3, 2],
         saldo: [21, 3, -24, 11, -11],

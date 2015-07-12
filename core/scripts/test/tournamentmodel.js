@@ -118,6 +118,7 @@ define(function() {
 
       ref = {
         components: ['wins', 'saldo'],
+        ids: [5, 4, 3, 2, 1],
         ranks: [0, 4, 1, 1, 1],
         displayOrder: [5, 3, 2, 1, 4],
         wins: [1, 0, 0, 0, 0],
@@ -156,6 +157,7 @@ define(function() {
 
       ref = {
         components: ['wins', 'saldo'],
+        ids: [5, 4, 3, 2, 1],
         ranks: [0, 1, 4, 2, 2],
         displayOrder: [5, 4, 2, 1, 3],
         wins: [1, 1, 0, 0, 0],

@@ -10,25 +10,41 @@
 define(['lib/extend', './model', './rankingcomponentindex', './type',
     './rankingdatalistenerindex'], function(extend, Model,
     RankingComponentIndex, Type, RankingDataListenerIndex) {
+
   /**
-   * order team ids by their ranking
+   * create a list of IDs for reference
    *
-   * @return an array of ids, sorted by rank
+   * @return an array of ids, where the index matches the value
    */
-  function getRankingOrder() {
-    var ids, chain;
+  function getIDs() {
+    var ids;
 
     ids = [];
     while (ids.length < this.length) {
       ids.push(ids.length);
     }
 
+    return ids;
+  }
+
+  /**
+   * order team ids by their ranking
+   *
+   * @param ids
+   *          an array of ids
+   * @return an array of ids, sorted by rank
+   */
+  function getRankingOrder(ids) {
+    var order, chain;
+
+    order = ids.slice(0);
+
     chain = this.componentchain;
-    ids.sort(function(a, b) {
+    order.sort(function(a, b) {
       return chain.compare(a, b) || (a - b);
     }, this);
 
-    return ids;
+    return order;
   }
 
   /**
@@ -75,7 +91,8 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
       components: this.componentnames
     };
 
-    newRanking.displayOrder = getRankingOrder.call(this);
+    newRanking.ids = getIDs.call(this);
+    newRanking.displayOrder = getRankingOrder.call(this, newRanking.ids);
     newRanking.ranks = getRanks.call(this, newRanking.displayOrder);
 
     if (this.componentchain !== undefined) {

@@ -57,7 +57,7 @@ define(['lib/extend', './model'], function(extend, Model) {
     Object.keys(ranks).forEach(function(key) {
       var values;
 
-      if (key === 'displayOrder') {
+      if (key === 'displayOrder' || key === 'ids') {
         values = RankingMapper.translateIDs(ranks[key], this.teams);
       } else {
         values = ranks[key].slice(0);
