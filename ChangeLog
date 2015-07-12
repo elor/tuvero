@@ -46,6 +46,8 @@
 
 	* core/scripts/rankingidcomponent.js: values are correct, but the comparison is reversed as compared to typical points
 
+	* core/scripts/rankingdatalistenerindex.js: autoformat: re-indented
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
