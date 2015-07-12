@@ -16,7 +16,7 @@ define(function() {
     IndexedListModel = getModule('core/indexedlistmodel');
 
     QUnit.test('TournamentListModel', function() {
-      var tournament, list, ref;
+      var tournament, list, ref, savedata;
       QUnit.ok(extend.isSubclass(TournamentListModel, IndexedListModel),
           'TournamentListModel is subclass of IndexedListModel');
 
@@ -55,6 +55,14 @@ define(function() {
       ref = [undefined, 1, undefined, 1, undefined, 1];
       QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'ids of finished tournaments are ignored (undefined)');
+
+      savedata = list.save();
+      QUnit.ok(savedata, 'save() returns properly');
+
+      list = new TournamentListModel();
+      QUnit.ok(list.restore(savedata), 'restore() returns true');
+      QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
+          'restore() restores the ids for all players');
     });
   };
 });

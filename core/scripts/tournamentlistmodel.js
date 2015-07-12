@@ -7,13 +7,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './indexedlistmodel'//
-], function(extend, IndexedListModel) {
+define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
+    extend, IndexedListModel, TournamentIndex) {
   /**
    * Constructor
-   *
-   * @param teams
-   *          a ListModel of TeamModel instances
    */
   function TournamentListModel() {
     TournamentListModel.superconstructor.call(this);
@@ -42,6 +39,25 @@ define(['lib/extend', './indexedlistmodel'//
   TournamentListModel.prototype.getGlobalRanking = function() {
     // TODO do something
   };
+
+  // TournamentListModel.prototype.save is directly inherited from ListModel
+
+  /**
+   * restores tournaments from savedata objects. This function is used to
+   * enforce the usage of TournamentIndex.createTournament as a factory. The
+   * other logic is embedded into ListModel, which in turn constructs
+   * TournamentModel instances.
+   *
+   * @param data
+   *          a data object, as returned from this.save();
+   * @return true on success, false otherwise
+   */
+  TournamentListModel.prototype.restore = function(data) {
+    return TournamentListModel.superclass.restore.call(this, data,
+        TournamentIndex.createTournament);
+  };
+
+  TournamentListModel.prototype.SAVEFORMAT = [Object];
 
   return TournamentListModel;
 });
