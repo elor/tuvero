@@ -11,14 +11,14 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state_new'], function(State) {
+define([], function() {
   var Options, Default;
 
   Default = {};
   Options = {};
 
   Options.toBlob = function() {
-    Options.teamsize = State.teamsize.get();
+    Options.teamsize = require('ui/state_new').teamsize.get();
     return JSON.stringify(Options);
   };
 

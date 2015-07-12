@@ -83,6 +83,8 @@
 
 	* legacy/scripts/ui/systemlistview.js: SystemListView: a single view for the subtournament system list
 
+	* legacy/scripts/ui/options.js: circular dependency between TournamentModel and StateModel fixed
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
