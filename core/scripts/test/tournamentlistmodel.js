@@ -14,6 +14,7 @@ define(function() {
     TournamentListModel = getModule('core/tournamentlistmodel');
     TournamentIndex = getModule('core/tournamentindex');
     IndexedListModel = getModule('core/indexedlistmodel');
+    ListModel = getModule('core/listmodel');
 
     QUnit.test('TournamentListModel', function() {
       var tournament, list, ref, savedata;
@@ -27,7 +28,8 @@ define(function() {
       QUnit.deepEqual(list.tournamentIDsForEachTeam(), [],
           'no tournament ids yet');
 
-      tournament = TournamentIndex.createTournament('round');
+      tournament = TournamentIndex.createTournament('round',
+          ['sonneborn', 'id']);
       tournament.addTeam(0);
       tournament.addTeam(1);
       tournament.addTeam(2);
@@ -39,7 +41,8 @@ define(function() {
       QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'tournament ids for single tournament are correct');
 
-      tournament = TournamentIndex.createTournament('round');
+      tournament = TournamentIndex.createTournament('round',
+          ['sonneborn', 'id']);
       tournament.addTeam(1);
       tournament.addTeam(3);
       tournament.addTeam(5);
@@ -63,6 +66,23 @@ define(function() {
       QUnit.ok(list.restore(savedata), 'restore() returns true');
       QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'restore() restores the ids for all players');
+
+      // HACK! DO NOT ACCESS DIRECTLY!
+      list.get(0).state.forceState("idle");
+      ref = {
+        displayOrder: [0, 2, 1, 4, 3, 5],
+        globalRanks: [0, 2, 1, 4, 2, 5],
+        tournamentIDs: [0, 1, 0, 1, 0, 1],
+        tournamentRanks: [0, 0, 2, 1, 3, 2],
+      };
+      teams = new ListModel();
+      teams.push(0);
+      teams.push(1);
+      teams.push(2);
+      teams.push(3);
+      teams.push(4);
+      teams.push(5);
+      QUnit.deepEqual(list.getGlobalRanking(teams), ref, 'global Ranks');
     });
   };
 });

@@ -36,8 +36,61 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
     return ids;
   };
 
-  TournamentListModel.prototype.getGlobalRanking = function() {
-    // TODO do something
+  /**
+   *
+   * @param teams
+   * @return a pseudo-ranking object
+   */
+  TournamentListModel.prototype.getGlobalRanking = function(teams) {
+    var ranks, tournamentSizes, tournamentOffsets;
+
+    if (teams === undefined) {
+      console.error('teams parameter has not been passed');
+      return undefined;
+    }
+
+    ranks = {
+      displayOrder: [],
+      globalRanks: [],
+      tournamentRanks: [],
+      tournamentIDs: this.tournamentIDsForEachTeam()
+    };
+
+    tournamentSizes = [];
+    ranks.tournamentIDs.forEach(function(tournamentID) {
+      if (tournamentSizes[tournamentID] === undefined) {
+        tournamentSizes[tournamentID] = 0;
+      }
+      tournamentSizes[tournamentID] += 1;
+    });
+
+    tournamentOffsets = [];
+    this.map(function(tournament, tournamentID) {
+      tournamentOffsets[tournamentID] = 0;
+      tournamentSizes.forEach(function(size, id) {
+        if (id < tournamentID) {
+          tournamentOffsets[tournamentID] += size;
+        }
+      });
+    });
+
+    teams.map(function(team, teamID) {
+      var ranking, tournamentID;
+
+      tournamentID = ranks.tournamentIDs[teamID];
+      if (tournamentID !== undefined) {
+        ranking = this.get(tournamentID).getRanking().get();
+
+        ranks.tournamentRanks[teamID] = ranking.ranks[ranking.ids
+            .indexOf(teamID)];
+      } else {
+        ranks.tournamentRanks[teamID] = 0;
+      }
+      ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
+          + tournamentOffsets[tournamentID];
+    }, this);
+
+    return ranks;
   };
 
   // TournamentListModel.prototype.save is directly inherited from ListModel

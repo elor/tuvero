@@ -9,10 +9,12 @@
 
 	* core/scripts/test/tournamentlistmodel.js: testing TournamentListModel
 	testing save/restore functionality
+	testing getGlobalRanking
 
 	* core/scripts/tournamentlistmodel.js: collect TournamentModel instances in a single list
 	functions for retrieval of tournament IDs for every team from non-finished tournaments
 	save()/restore() functions added
+	getGlobalRanking(): rudimentary working version implemented
 
 	* core/scripts/listmodel.js: restore() can also take a factory function instead of a constructor
 
