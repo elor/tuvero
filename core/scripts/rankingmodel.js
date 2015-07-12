@@ -184,7 +184,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
 
     dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
         dependencies);
-    if (dataListenerArray && dataListenerArray.length > 0) {
+    if (dataListenerArray && components && components.length > 0) {
       dataListenerArray.forEach(function(dataListener, index) {
         this.dataListeners[dependencies[index]] = dataListener;
       }, this);

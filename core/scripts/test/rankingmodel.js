@@ -364,6 +364,16 @@ define(function() {
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'restore restores the proper stuff');
+
+      /**
+       * restore with a id-only ranking
+       */
+      ranking = new RankingModel(['id'], 5);
+      savedata = ranking.save();
+      ranking = new RankingModel();
+      ranking.restore(savedata);
+      QUnit.equal(ranking.length, 5,
+          'restore() of an id-only ranking also restores the length');
     });
   };
 });

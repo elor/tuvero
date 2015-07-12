@@ -28,6 +28,7 @@
 	mapping ONLY the ids, not the displayOrder
 
 	* core/scripts/rankingmodel.js: added a field of ids to the output data for later teamID mapping
+	length is set even for datalistener-less rankings (e.g. id-only), as long as there's a component
 
 	* core/scripts/test/ranking*.js: ids field added to reference values
 	ONLY the ids field is mapped to external team Ids, not the displayOrder field
@@ -39,6 +40,8 @@
 	* test/rankingview.html: Forgot to update to the new MatchResult constructor
 
 	* core/scripts/matchresult.js: forgot a "this", which lead to thrown exceptions
+
+	* core/scripts/test/rankingmodel.js: testing save-restore of id-only rankings
 
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
