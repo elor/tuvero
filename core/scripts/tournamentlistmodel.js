@@ -26,7 +26,7 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
     var ids = [];
 
     this.map(function(tournament) {
-      if (tournament.getState().get() != "finished") {
+      if (tournament.getState().get() != 'finished') {
         tournament.getTeams().map(function(team) {
           ids[team] = tournament.getID();
         });

@@ -23,8 +23,8 @@ define(function() {
 
       list = new TournamentListModel();
 
-      QUnit.ok(list, "TournamentListModel construction works");
-      QUnit.equal(list.length, 0, "no initial entries");
+      QUnit.ok(list, 'TournamentListModel construction works');
+      QUnit.equal(list.length, 0, 'no initial entries');
       QUnit.deepEqual(list.tournamentIDsForEachTeam(), [],
           'no tournament ids yet');
 
@@ -54,7 +54,7 @@ define(function() {
           'tournament ids for two tournaments are correct');
 
       // HACK! DO NOT ACCESS DIRECTLY!
-      list.get(0).state.forceState("finished");
+      list.get(0).state.forceState('finished');
       ref = [undefined, 1, undefined, 1, undefined, 1];
       QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'ids of finished tournaments are ignored (undefined)');
@@ -68,12 +68,12 @@ define(function() {
           'restore() restores the ids for all players');
 
       // HACK! DO NOT ACCESS DIRECTLY!
-      list.get(0).state.forceState("idle");
+      list.get(0).state.forceState('idle');
       ref = {
         displayOrder: [0, 2, 4, 1, 3, 5],
         globalRanks: [0, 3, 1, 4, 2, 5],
         tournamentIDs: [0, 1, 0, 1, 0, 1],
-        tournamentRanks: [0, 0, 2, 1, 3, 2],
+        tournamentRanks: [0, 0, 2, 1, 3, 2]
       };
       teams = new ListModel();
       teams.push(0);
