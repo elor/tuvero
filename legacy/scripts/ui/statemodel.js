@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['core/listmodel', 'core/indexedlistmodel', 'core/valuemodel',
-    './listcleanuplistener'], function(ListModel, IndexedListModel, ValueModel,
-    ListCleanupListener) {
+    './listcleanuplistener', 'core/tournamentlistmodel'], function(ListModel,
+    IndexedListModel, ValueModel, ListCleanupListener, TournamentListModel) {
 
   /**
    * Constructor
@@ -17,6 +17,7 @@ define(['core/listmodel', 'core/indexedlistmodel', 'core/valuemodel',
     this.teams = new IndexedListModel();
     this.teamscleanuplistener = new ListCleanupListener(this.teams);
     this.teamsize = new ValueModel(3);
+    this.tournaments = new TournamentListModel();
 
     /*
      * TODO temporary hacks ahead. Please, for the love of code, keep them
