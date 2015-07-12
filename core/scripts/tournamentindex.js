@@ -11,6 +11,7 @@ define(['./type', './roundtournamentmodel'], function(Type) {
   var TournamentIndex, tournamentSystems, i, sys;
 
   tournamentSystems = {};
+  // i starts at 1 to ignore the "Type" object
   for (i = 1; i < arguments.length; i += 1) {
     sys = arguments[i].prototype.SYSTEM;
     if (tournamentSystems[sys]) {
@@ -33,7 +34,8 @@ define(['./type', './roundtournamentmodel'], function(Type) {
 
       console.error('TournamentIndex: system not found: ' + system);
       return undefined;
-    }
+    },
+    systems: Object.keys(tournamentSystems).sort()
   };
 
   return TournamentIndex;

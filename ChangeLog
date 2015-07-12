@@ -22,6 +22,7 @@
 
 	* core/scripts/tournamentindex.js: createTournament can be passed savedata, from which the system is then read
 	This enables the direct use of ListModel.restore() for restoring a list of tournaments
+	TournamentIndex.systems is an array of all registered tournament systems
 
 	* core/scripts/rankingmapper.js: mapping the ids, too
 	mapping ONLY the ids, not the displayOrder
