@@ -169,6 +169,7 @@ define([
   'ui/staticviewloader',
   'ui/storage',
   'ui/strings',
+  'ui/systemlistview',
   'ui/tab_debug',
   'ui/tab_games',
   'ui/tab_history',
