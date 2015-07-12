@@ -9,10 +9,9 @@
  * @see LICENSE
  */
 define(['options', './tabshandle', './team', './history', './tournaments',
-//    './tab_teams',
-    './tab_games', './tab_ranking', './tab_history', './tab_new', './shared'], function(Options, Tabshandle, Team, History, Tournaments,
-//        Tab_Teams,
-        Tab_Games, Tab_Ranking, Tab_History, Tab_New, Shared) {
+    './tab_games', './tab_ranking', './tab_history', './shared'], function(
+    Options, Tabshandle, Team, History, Tournaments, Tab_Games, Tab_Ranking,
+    Tab_History, Shared) {
   var State;
 
   State = {
@@ -48,7 +47,7 @@ define(['options', './tabshandle', './team', './history', './tournaments',
       // fall back to default options when loading saves from before 1.2
       if (ob.options) {
         Options.fromBlob(ob.options);
-//        Tabshandle.updateOpts();
+        // Tabshandle.updateOpts();
       }
 
       Team.fromBlob(ob.team);
@@ -56,8 +55,8 @@ define(['options', './tabshandle', './team', './history', './tournaments',
       Tournaments.fromBlob(ob.tournaments);
 
       // update all tabs
-//      Tab_Teams.update();
-      Tab_New.update();
+      // Tab_Teams.update();
+      // Tab_New.update();
       Tab_Games.update();
       Tab_History.update();
       Tab_Ranking.update(); // attempt ranking update
@@ -73,7 +72,7 @@ define(['options', './tabshandle', './team', './history', './tournaments',
       History.reset();
       Tournaments.reset();
       Options.reset();
-//      Tabshandle.updateOpts();
+      // Tabshandle.updateOpts();
     }
   };
 

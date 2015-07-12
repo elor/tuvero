@@ -6,23 +6,21 @@
  * @see LICENSE
  */
 define(['../state_new', '../listcollectormodel', '../teammodel',
-    '../tab_games', '../tab_new', '../tab_ranking', '../tab_history'],
-    function(State, ListCollectorModel, TeamModel, Tab_Games, Tab_New,
-        Tab_Ranking, Tab_History) {
-      var teamCollector;
+    '../tab_games', '../tab_ranking', '../tab_history'], function(State,
+    ListCollectorModel, TeamModel, Tab_Games, Tab_Ranking, Tab_History) {
+  var teamCollector;
 
-      // save on player name change
-      teamCollector = new ListCollectorModel(State.teams, TeamModel);
-      /**
-       * overwrite the update listener: save whenever a team has been updated.
-       *
-       * Note to self: this also catches setID-fired events. Storage.store
-       * should buffer multiple store() requests anyhow
-       */
-      teamCollector.onupdate = function() {
-        Tab_New.update();
-        Tab_Games.update();
-        Tab_Ranking.update();
-        Tab_History.update();
-      };
-    });
+  // save on player name change
+  teamCollector = new ListCollectorModel(State.teams, TeamModel);
+  /**
+   * overwrite the update listener: save whenever a team has been updated.
+   *
+   * Note to self: this also catches setID-fired events. Storage.store should
+   * buffer multiple store() requests anyhow
+   */
+  teamCollector.onupdate = function() {
+    Tab_Games.update();
+    Tab_Ranking.update();
+    Tab_History.update();
+  };
+});

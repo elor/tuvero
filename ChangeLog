@@ -53,6 +53,18 @@
 
 	* core/scripts/rankingdatalistenerindex.js: autoformat: re-indented
 
+	* legacy/scripts/ui/alltabs.js: Tab_New removed
+
+	* legacy/scripts/ui/backgroundscripts/redrawOnPlayerChange.js: Tab_New removed
+
+	* legacy/scripts/ui/backgroundscripts/tabnewcheaphacklistener.js: Tab_New removed
+
+	* legacy/scripts/ui/state.js: Tab_New removed
+
+	* legacy/scripts/ui/tab_games.js: Tab_New removed
+
+	* legacy/scripts/ui/test/tab.js: Tab_New removed
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
