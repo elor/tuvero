@@ -69,6 +69,7 @@
 
 	* core/scripts/orderlistmodel.js: OrderListModel can convert a displayOrder into a ListModel instance
 	This is useful for Views, which don't want to redraw everything
+	enforceOrder(): order of operation changed to reflect the order itself. This is a compromise, We still need to investigate further.
 
 	* core/scripts/test/orderlistmodel.js: testing OrderListModel
 

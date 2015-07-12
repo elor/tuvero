@@ -56,16 +56,17 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     }
 
     // move/insert values as required, starting at the bottom
-    invertKeyValueArray(order).forEach(function(value, index) {
+    order.forEach(function(value, index) {
       var currentIndex;
 
       currentIndex = this.indexOf(value);
+
       if (currentIndex !== index) {
         if (currentIndex !== -1) {
           // no erase() required since no-one can write unwanted values
           OrderListModel.superclass.remove.call(this, currentIndex);
         }
-        ListModel.prototype.insert.call(this, index, value);
+        OrderListModel.superclass.insert.call(this, index, value);
       }
     }, this);
   };
