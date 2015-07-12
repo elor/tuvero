@@ -18,10 +18,10 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
       }
     });
 
-    Listener.bind(list, 'insert', function(emitter, event, data) {
+    Listener.bind(list, 'remove', function(emitter, event, data) {
       if (emitter === list) {
-        data.object.getRanking().registerListener(list);
-        data.object.getState().registerListener(list);
+        data.object.getRanking().unregisterListener(list);
+        data.object.getState().unregisterListener(list);
         list.emit('update');
       }
     });

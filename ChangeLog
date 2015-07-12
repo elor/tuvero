@@ -20,6 +20,7 @@
 	This ensures tightly-packed ranks and correct indices, although half-finished tournaments will need further adjustments
 	insert/remove events are forwarded as update events
 	tournament.ranking-'update' events are forwarded as update events, too
+	accidentally used 'registerListener' twice and forgot 'unregisterListener'
 
 	* core/scripts/listmodel.js: restore() can also take a factory function instead of a constructor
 
