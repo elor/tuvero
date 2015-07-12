@@ -38,18 +38,29 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
     });
 
     this.view.$selectedList.keyup(function(e) {
-      if (e.keyCode === 46 || e.keyCode === 8 || e.keyCode === 127) {
+      switch (e.keyCode) {
+      case 46: // Delete
+      case 8: // Backspace
+      case 127: // Delete (fallback)
         controller.moveright();
         controller.setSelectedIndex(0);
+        break;
+      case 39: // Right arrow
+        controller.view.$availableList.focus();
+        break;
       }
     });
 
     this.view.$availableList.keyup(function(e) {
       var value;
-      if (e.keyCode === 13) {
+      switch(e.keyCode) {
+      case 13: // Return
         value = controller.getAvailableValues();
         controller.moveleft();
         controller.resetAvailableSelection(value[0]);
+        break;
+      case 37: // Left Arrow
+        controller.view.$selectedList.focus();
       }
     });
   }
