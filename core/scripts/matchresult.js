@@ -27,8 +27,8 @@ define(['lib/extend', './type', './matchmodel'], function(extend, Type,
     }
 
     if (this.teams.length !== score.length) {
-      throw new Error('MatchResult(): array lengths differ: ' + teams.length
-          + '<>' + score.length);
+      throw new Error('MatchResult(): array lengths differ: '
+          + this.teams.length + '<>' + score.length);
     }
 
     this.score = score.slice(0);

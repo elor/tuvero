@@ -37,6 +37,8 @@
 
 	* test/rankingview.html: Forgot to update to the new MatchResult constructor
 
+	* core/scripts/matchresult.js: forgot a "this", which lead to thrown exceptions
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added

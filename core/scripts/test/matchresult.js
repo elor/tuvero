@@ -15,7 +15,7 @@ define(function() {
     MatchResult = getModule('core/matchresult');
 
     QUnit.test('MatchResult', function() {
-      var match, result, score, success, teams, data, ref;
+      var match, result, score, success, teams, data;
 
       match = new MatchModel([1, 2], 2, 5);
       result = undefined;
