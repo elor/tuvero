@@ -24,13 +24,18 @@
 	This enables the direct use of ListModel.restore() for restoring a list of tournaments
 
 	* core/scripts/rankingmapper.js: mapping the ids, too
+	mapping ONLY the ids, not the displayOrder
 
 	* core/scripts/rankingmodel.js: added a field of ids to the output data for later teamID mapping
 
 	* core/scripts/test/ranking*.js: ids field added to reference values
+	ONLY the ids field is mapped to external team Ids, not the displayOrder field
 
 	* core/scripts/test/*tournamentmodel.js: Ranking: ids field added to reference values
 
+	* legacy/scripts/ui/rankingview.js: correctly using the ids field, not just the displayOrder field, for teamID gathering
+
+	* test/rankingview.html: Forgot to update to the new MatchResult constructor
 
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

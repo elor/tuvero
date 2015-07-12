@@ -72,11 +72,12 @@ define(['lib/extend', 'ui/templateview'],
         ranks.displayOrder.forEach(function(teamIndex, rank) {
           var i, $row, team, player, $nametemplate;
 
+          team = this.teamList.get(ranks.ids[teamIndex]);
+
           $row = this.$template.clone();
           $row.find('.rank').text(rank + 1);
-          $row.find('.teamno').text(teamIndex + 1);
+          $row.find('.teamno').text(team.getID() + 1);
 
-          team = this.teamList.get(teamIndex);
           for (i = 0; i < teamsize; i += 1) {
             player = team && team.getPlayer(i);
             $nametemplate = this.$nametemplate.clone();

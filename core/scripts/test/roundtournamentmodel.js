@@ -173,7 +173,7 @@ define(function() {
       ref = {
         components: ['wins', 'sonneborn', 'saldo'],
         ids: [1, 2, 3, 4, 5],
-        displayOrder: [1, 2, 5, 4, 3],
+        displayOrder: [0, 1, 4, 3, 2],
         ranks: [0, 1, 4, 3, 2],
         saldo: [21, 3, -24, 11, -11],
         sonneborn: [5, 4, 2, 3, 4],

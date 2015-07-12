@@ -39,6 +39,7 @@ function TestMain(Common, $) {
   TeamModel = Common('ui/teammodel');
   PlayerModel = Common('ui/playermodel');
   ListModel = Common('core/listmodel');
+  MatchModel = Common('core/matchmodel');
   MatchResult = Common('core/matchresult');
 
   $(function($) {
@@ -76,7 +77,7 @@ function TestMain(Common, $) {
             q += 1;
           }
         }
-        ranking.result(new MatchResult([a,b], [p,q]));
+        ranking.result(new MatchResult(new MatchModel([a,b]), [p,q]));
       }, 12*i);
     }
   });

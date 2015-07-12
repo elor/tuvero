@@ -39,12 +39,12 @@ define(function() {
         components: ['wins', 'saldo'],
         ids: [5, 4, 3, 2, 1],
         ranks: [0, 0, 0, 0, 0],
-        displayOrder: [5, 4, 3, 2, 1],
+        displayOrder: [0, 1, 2, 3, 4],
         wins: [0, 0, 0, 0, 0],
         saldo: [0, 0, 0, 0, 0]
       };
       QUnit.deepEqual(ranking.get(), ref,
-          'external displayOrder before first result');
+          'only the ids get re-mapped to external ids, not the displayOrder');
 
       internal.result(new MatchResult(new MatchModel([1, 2], 0, 0), [13, 7]));
 
@@ -52,12 +52,11 @@ define(function() {
         components: ['wins', 'saldo'],
         ids: [5, 4, 3, 2, 1],
         ranks: [1, 0, 4, 1, 1],
-        displayOrder: [4, 5, 2, 1, 3],
+        displayOrder: [1, 0, 3, 4, 2],
         wins: [0, 1, 0, 0, 0],
         saldo: [0, 6, -6, 0, 0]
       };
-      QUnit.deepEqual(ranking.get(), ref,
-          'external displayOrder after first result');
+      QUnit.deepEqual(ranking.get(), ref, 'ids remapped after first result');
 
       listener = new Listener(ranking);
       listener.onupdate = function(emitter) {
@@ -69,15 +68,14 @@ define(function() {
           components: ['wins', 'saldo'],
           ids: [5, 4, 3, 2, 1],
           ranks: [2, 0, 0, 2, 4],
-          displayOrder: [4, 3, 5, 2, 1],
+          displayOrder: [1, 2, 0, 3, 4],
           wins: [0, 1, 1, 0, 0],
           saldo: [0, 6, 6, 0, -12]
         };
         QUnit.equal(emitter, ranking,
             'callback: emitter is ranking (safety check)');
         QUnit.deepEqual(emitter.get(), reference,
-            'external displayOrder after second result, inside callback');
-
+            'ids remapped after second result, inside callback');
       };
 
       internal.result(new MatchResult(new MatchModel([2, 4], 0, 0), [13, 1]));
@@ -88,12 +86,12 @@ define(function() {
         components: ['wins', 'saldo'],
         ids: [5, 4, 3, 2, 1],
         ranks: [2, 0, 0, 2, 4],
-        displayOrder: [4, 3, 5, 2, 1],
+        displayOrder: [1, 2, 0, 3, 4],
         wins: [0, 1, 1, 0, 0],
         saldo: [0, 6, 6, 0, -12]
       };
       QUnit.deepEqual(ranking.get(), ref,
-          'external displayOrder after second result, outside of callback');
+          'ids remapped after second result, outside of callback');
 
     });
   };
