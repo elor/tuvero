@@ -7,6 +7,11 @@
 
 	* legacy/scripts/ui/rankingorderview.js: Comments added
 
+	* core/scripts/test/tournamentlistmodel.js: testing TournamentListModel
+
+	* core/scripts/tournamentlistmodel.js: collect TournamentModel instances in a single list
+	functions for retrieval of tournament IDs for every team from non-finished tournaments
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
