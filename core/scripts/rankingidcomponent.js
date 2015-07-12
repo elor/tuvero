@@ -33,5 +33,9 @@ define(['lib/extend', './rankingcomponent'],
         return i;
       };
 
+      RankingIDComponent.prototype.compare = function(i, k) {
+        return -RankingIDComponent.superclass.compare.call(this, i, k);
+      };
+
       return RankingIDComponent;
     });

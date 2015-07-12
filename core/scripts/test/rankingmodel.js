@@ -374,6 +374,16 @@ define(function() {
       ranking.restore(savedata);
       QUnit.equal(ranking.length, 5,
           'restore() of an id-only ranking also restores the length');
+
+      ref = {
+        components: ['id'],
+        ids: [0, 1, 2, 3, 4],
+        ranks: [0, 1, 2, 3, 4],
+        displayOrder: [0, 1, 2, 3, 4],
+        id: [0, 1, 2, 3, 4]
+      };
+      QUnit.deepEqual(ranking.get(), ref, 'id ranking is in correct order');
+
     });
   };
 });

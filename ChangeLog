@@ -42,6 +42,9 @@
 	* core/scripts/matchresult.js: forgot a "this", which lead to thrown exceptions
 
 	* core/scripts/test/rankingmodel.js: testing save-restore of id-only rankings
+	testing the 'id' component
+
+	* core/scripts/rankingidcomponent.js: values are correct, but the comparison is reversed as compared to typical points
 
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
