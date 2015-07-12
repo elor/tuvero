@@ -12,6 +12,10 @@
 	* core/scripts/tournamentlistmodel.js: collect TournamentModel instances in a single list
 	functions for retrieval of tournament IDs for every team from non-finished tournaments
 
+	* core/scripts/listmodel.js: restore() can also take a factory function instead of a constructor
+
+	* core/scripts/test/listmodel.js: testing restore() with factory function
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added

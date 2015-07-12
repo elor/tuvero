@@ -283,6 +283,10 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
    *
    * @param data
    * @param ElementModel
+   *          a constructor for the element, which has to be a subclass of
+   *          Model, or a factory function, which takes the restore data and
+   *          returns a new SomethingModel() instance, but doesn't call
+   *          restore() itself.
    * @return true on success, false otherwise
    */
   ListModel.prototype.restore = function(data, ElementModel) {
@@ -292,12 +296,16 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
 
     this.clear();
 
-    // TODO type checking (Type.isConstructor?)
-    if (ElementModel) {
+    if (Type.isFunction(ElementModel)) {
       // path for constructor/Model types
       return data.every(function(element, index) {
+        var instance;
         try {
-          var instance = new ElementModel();
+          if (extend.isSubclass(ElementModel, Model)) {
+            instance = new ElementModel();
+          } else {
+            instance = ElementModel(element);
+          }
           if (!instance.restore(element)) {
             return false;
           }

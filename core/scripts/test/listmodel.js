@@ -11,6 +11,7 @@ define(function() {
     var ListModel, DummyModel;
 
     ListModel = getModule('core/listmodel');
+    Model = getModule('core/model');
 
     /*
      * dummy Model, which can be saved/restored for testing
@@ -30,6 +31,14 @@ define(function() {
         return true;
       };
     };
+    extend(DummyModel, Model);
+
+    function DummyModelFactory(data) {
+      if (data.d) {
+        return new DummyModel();
+      }
+      return undefined;
+    }
 
     QUnit.test('ListModel', function() {
       var list, obj, i, ret, res, listener, data;
@@ -232,7 +241,8 @@ define(function() {
       list.push('is');
       list.push('awesome');
       data = list.save();
-      QUnit.deepEqual(data, ['Tuvero', 'is', 'awesome']);
+      QUnit.deepEqual(data, ['Tuvero', 'is', 'awesome'],
+          'saved data object is just an array of strings');
 
       list.clear();
       list.push(new DummyModel(5));
@@ -247,7 +257,18 @@ define(function() {
       QUnit.ok(!data[0].save, 'save() really really calls save() recursively');
 
       list = new ListModel();
-      QUnit.ok(list.restore(data, DummyModel), 'restore() returns');
+      QUnit.ok(list.restore(data, DummyModel),
+          'restore() with Model Constructor returns');
+      QUnit.equal(list.length, data.length, 'restore() restores the length');
+      QUnit.equal(list.get(0).data, 'asd5', 'restore() constructs the object');
+      QUnit.equal(list.get(1).data, 'asd3', 'restore() constructs the object');
+      QUnit.equal(list.get(2).data, 'asd4', 'restore() constructs the object');
+      QUnit.equal(list.get(3).data, 'asd2', 'restore() constructs the object');
+      QUnit.equal(list.get(4).data, 'asd3', 'restore() constructs the object');
+      QUnit.equal(list.get(5).data, 'asd1', 'restore() constructs the object');
+
+      QUnit.ok(list.restore(data, DummyModel),
+          'restore() with Model Factory returns');
       QUnit.equal(list.length, data.length, 'restore() restores the length');
       QUnit.equal(list.get(0).data, 'asd5', 'restore() constructs the object');
       QUnit.equal(list.get(1).data, 'asd3', 'restore() constructs the object');
