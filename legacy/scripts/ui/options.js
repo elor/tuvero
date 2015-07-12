@@ -12,13 +12,18 @@
  * @see LICENSE
  */
 define([], function() {
-  var Options, Default;
+  var Options, Default, State;
 
+  State = undefined;
   Default = {};
   Options = {};
 
+  function getState() {
+    return State || (State = require('ui/state_new'));
+  }
+
   Options.toBlob = function() {
-    Options.teamsize = require('ui/state_new').teamsize.get();
+    Options.teamsize = getState().teamsize.get();
     return JSON.stringify(Options);
   };
 
@@ -44,7 +49,7 @@ define([], function() {
     }
 
     if (Options.teamsize) {
-      State.teamsize.set(Options.teamsize);
+      getState().teamsize.set(Options.teamsize);
       delete Options.teamsize;
     }
   };
