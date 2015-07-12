@@ -102,11 +102,13 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
 
         ranks.tournamentRanks[teamID] = ranking.ranks[ranking.ids
             .indexOf(teamID)];
+        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
+            + tournamentOffsets[tournamentID];
       } else {
         ranks.tournamentRanks[teamID] = 0;
+        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
+            + tournamentOffsets[tournamentOffsets.length - 1];
       }
-      ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
-          + tournamentOffsets[tournamentID];
     }, this);
 
     // correct ranking order
