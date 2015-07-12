@@ -31,6 +31,7 @@ define([
   'core/matchresult',
   'core/matrixmodel',
   'core/model',
+  'core/orderlistmodel',
   'core/positivematrix',
   'core/propertymodel',
   'core/rankingbuchholzcomponent',

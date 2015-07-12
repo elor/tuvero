@@ -65,6 +65,11 @@
 
 	* legacy/scripts/ui/test/tab.js: Tab_New removed
 
+	* core/scripts/orderlistmodel.js: OrderListModel can convert a displayOrder into a ListModel instance
+	This is useful for Views, which don't want to redraw everything
+
+	* core/scripts/test/orderlistmodel.js: testing OrderListModel
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
