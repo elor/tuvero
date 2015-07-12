@@ -18,6 +18,8 @@
 	getGlobalRanking(): rudimentary working version implemented
 	globalRank is reduced by the number of skipped teams in another post-process step
 	This ensures tightly-packed ranks and correct indices, although half-finished tournaments will need further adjustments
+	insert/remove events are forwarded as update events
+	tournament.ranking-'update' events are forwarded as update events, too
 
 	* core/scripts/listmodel.js: restore() can also take a factory function instead of a constructor
 

@@ -7,15 +7,43 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
-    extend, IndexedListModel, TournamentIndex) {
+define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
+], function(extend, IndexedListModel, TournamentIndex, Listener) {
+  function setListeners(list) {
+    Listener.bind(list, 'insert', function(emitter, event, data) {
+      if (emitter === list) {
+        data.object.getRanking().registerListener(list);
+        data.object.getState().registerListener(list);
+        list.emit('update');
+      }
+    });
+
+    Listener.bind(list, 'insert', function(emitter, event, data) {
+      if (emitter === list) {
+        data.object.getRanking().registerListener(list);
+        data.object.getState().registerListener(list);
+        list.emit('update');
+      }
+    });
+  }
+
   /**
    * Constructor
    */
   function TournamentListModel() {
     TournamentListModel.superconstructor.call(this);
+
+    setListeners(this);
   }
   extend(TournamentListModel, IndexedListModel);
+
+  TournamentListModel.prototype.EVENTS = {
+    'update': true,
+    'reset': true,
+    'insert': true,
+    'remove': true,
+    'resize': true
+  };
 
   /**
    * TODO should use the event system. Benchmark first!
@@ -90,7 +118,8 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
       return ranks.globalRanks[a] - ranks.globalRanks[b] || a - b;
     });
 
-    // adjust the global ranks to account for ignored teams, which are already
+    // adjust the global ranks to account for ignored teams, which are
+    // already
     // playing in another subtournament
     lastrank = -1;
     lastid = -1;
@@ -106,6 +135,20 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
     });
 
     return ranks;
+  };
+
+  /**
+   * forward ranking updates to external listeners
+   *
+   * @param emitter
+   *          the emitter
+   * @param event
+   *          the event name
+   * @param data
+   *          an optional data object
+   */
+  TournamentListModel.prototype.onupdate = function(emitter, event, data) {
+    this.emit('update');
   };
 
   // TournamentListModel.prototype.save is directly inherited from ListModel
