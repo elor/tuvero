@@ -27,6 +27,7 @@ require(['config'], function() {
   'core/test/matchresult',
   'core/test/matrixmodel',
   'core/test/model',
+  'core/test/orderlistmodel',
   'core/test/positivematrix',
   'core/test/propertymodel',
   'core/test/rankingcomponentindex',

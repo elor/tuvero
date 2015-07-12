@@ -70,6 +70,8 @@
 
 	* core/scripts/test/orderlistmodel.js: testing OrderListModel
 
+	* core/templates/newtab.html: classes adapted to match that of a team table
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
