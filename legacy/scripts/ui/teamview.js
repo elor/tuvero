@@ -56,5 +56,14 @@ define(['lib/extend', 'core/view'], function(extend, View) {
     this.update();
   };
 
+  TeamView.bindTeamList = function(teamlist) {
+    function IndexTeamView(teamID, $view) {
+      IndexTeamView.superconstructor.call(this, teamlist.get(teamID), $view);
+    }
+    extend(IndexTeamView, TeamView);
+
+    return IndexTeamView;
+  };
+
   return TeamView;
 });
