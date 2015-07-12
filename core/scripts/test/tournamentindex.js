@@ -20,6 +20,16 @@ define(function() {
       QUnit.ok(TournamentIndex.createTournament('round'), 'round');
       QUnit.equal(TournamentIndex.createTournament('swiss'), undefined,
           'swiss fails');
+
+      QUnit.equal(TournamentIndex.createTournament({}), undefined,
+          'savedata-passing without "sys" property fails');
+      QUnit.ok(TournamentIndex.createTournament({
+        sys: 'round'
+      }), 'round-tournament with savedata');
+      QUnit.equal(TournamentIndex.createTournament({
+        sys: 'swiss'
+      }), undefined, 'swiss-tournament with savedata fails');
+
     });
   };
 });

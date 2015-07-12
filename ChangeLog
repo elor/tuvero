@@ -16,6 +16,11 @@
 
 	* core/scripts/test/listmodel.js: testing restore() with factory function
 
+	* core/scripts/test/tournamentindex.js: testing createTournament with savedata
+
+	* core/scripts/tournamentindex.js: createTournament can be passed savedata, from which the system is then read
+	This enables the direct use of ListModel.restore() for restoring a list of tournaments
+
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/rankingorderview.html: RankingOrderView HTML code added
