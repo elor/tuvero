@@ -70,8 +70,8 @@ define(function() {
       // HACK! DO NOT ACCESS DIRECTLY!
       list.get(0).state.forceState("idle");
       ref = {
-        displayOrder: [0, 2, 1, 4, 3, 5],
-        globalRanks: [0, 2, 1, 4, 2, 5],
+        displayOrder: [0, 2, 4, 1, 3, 5],
+        globalRanks: [0, 3, 1, 4, 2, 5],
         tournamentIDs: [0, 1, 0, 1, 0, 1],
         tournamentRanks: [0, 0, 2, 1, 3, 2],
       };

@@ -42,13 +42,14 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
    * @return a pseudo-ranking object
    */
   TournamentListModel.prototype.getGlobalRanking = function(teams) {
-    var ranks, tournamentSizes, tournamentOffsets;
+    var ranks, tournamentOffsets, lastrank;
 
     if (teams === undefined) {
       console.error('teams parameter has not been passed');
       return undefined;
     }
 
+    // initialize empty object
     ranks = {
       displayOrder: [],
       globalRanks: [],
@@ -56,24 +57,14 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
       tournamentIDs: this.tournamentIDsForEachTeam()
     };
 
-    tournamentSizes = [];
-    ranks.tournamentIDs.forEach(function(tournamentID) {
-      if (tournamentSizes[tournamentID] === undefined) {
-        tournamentSizes[tournamentID] = 0;
-      }
-      tournamentSizes[tournamentID] += 1;
-    });
-
-    tournamentOffsets = [];
+    // calculate Offsets for globalRanks
+    tournamentOffsets = [0];
     this.map(function(tournament, tournamentID) {
-      tournamentOffsets[tournamentID] = 0;
-      tournamentSizes.forEach(function(size, id) {
-        if (id < tournamentID) {
-          tournamentOffsets[tournamentID] += size;
-        }
-      });
+      tournamentOffsets[tournamentID + 1] = tournamentOffsets[tournamentID]
+          + tournament.getTeams().length;
     });
 
+    // write tournamentRanks and globalRanks
     teams.map(function(team, teamID) {
       var ranking, tournamentID;
 
@@ -89,6 +80,30 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex'], function(
       ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
           + tournamentOffsets[tournamentID];
     }, this);
+
+    // correct ranking order
+    lastrank = -1;
+    while (ranks.displayOrder.length < teams.length) {
+      ranks.displayOrder.push(ranks.displayOrder.length);
+    }
+    ranks.displayOrder.sort(function(a, b) {
+      return ranks.globalRanks[a] - ranks.globalRanks[b] || a - b;
+    });
+
+    // adjust the global ranks to account for ignored teams, which are already
+    // playing in another subtournament
+    lastrank = -1;
+    lastid = -1;
+    ranks.displayOrder.forEach(function(id, displayID) {
+      var rank = ranks.globalRanks[id];
+      if (rank > lastrank) {
+        ranks.globalRanks[id] = displayID;
+        lastid = id;
+        lastrank = rank;
+      } else {
+        ranks.globalRanks[id] = ranks.globalRanks[lastid];
+      }
+    });
 
     return ranks;
   };
