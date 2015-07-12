@@ -1,6 +1,11 @@
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows
+	Comments added
+
+	* legacy/scripts/ui/rankingcomponentview.js: Comments added
+
+	* legacy/scripts/ui/rankingorderview.js: Comments added
 
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

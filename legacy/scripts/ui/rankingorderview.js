@@ -32,6 +32,10 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
   }
   extend(RankingOrderView, TemplateView);
 
+  /**
+   * automatically show/hide already selected values from the list of available
+   * items
+   */
   RankingOrderView.prototype.update = function() {
     var model = this.model;
     this.$availableList.find('option').each(function(index) {
@@ -44,10 +48,16 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
     });
   };
 
+  /**
+   * an item has been inserted into the left list. Update the right list.
+   */
   RankingOrderView.prototype.oninsert = function() {
     this.update();
   };
 
+  /**
+   * an item has been removed from the left list. Update the right list.
+   */
   RankingOrderView.prototype.onremove = function() {
     this.update();
   };
