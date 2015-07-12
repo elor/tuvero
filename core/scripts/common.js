@@ -170,6 +170,7 @@ define([
   'ui/storage',
   'ui/strings',
   'ui/systemlistview',
+  'ui/systemtablerowview',
   'ui/tab_debug',
   'ui/tab_games',
   'ui/tab_history',

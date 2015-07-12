@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listview', './teamview', './teamtableview',
-    'core/orderlistmodel', 'core/listener'], function(extend, ListView,
-    TeamView, TeamTableView, OrderListModel, Listener) {
+define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
+    'core/listener', './systemtablerowview'], function(extend, ListView,
+    TeamTableView, OrderListModel, Listener, SystemTableRowView) {
   /**
    * Constructor
    *
@@ -19,28 +19,33 @@ define(['lib/extend', './listview', './teamview', './teamtableview',
    */
   function SystemListView(teams, $view, tournaments, teamsize) {
     var view, $systemTemplate, orderList;
+
     $systemTemplate = $view.find('.system.tpl').detach();
     orderList = new OrderListModel();
     SystemListView.superconstructor.call(this, orderList, $view, $view
-        .find('.team.tpl'), TeamView.bindTeamList(teams));
+        .find('.team.tpl'), SystemTableRowView.bindLists(teams, tournaments));
 
-    orderList.enforceOrder(tournaments.getGlobalRanking(teams).displayOrder);
+    this.teams = teams;
+    this.tournaments = tournaments;
 
     Listener.bind(tournaments, 'update', function() {
-      orderList.enforceOrder(tournaments.getGlobalRanking(teams).displayOrder);
-    });
+      this.updateOrder();
+    }, this);
 
-    Listener.bind(teams, 'insert', function() {
-      orderList.enforceOrder(tournaments.getGlobalRanking(teams).displayOrder);
-    });
+    Listener.bind(teams, 'insert,remove', function() {
+      this.updateOrder();
+    }, this);
 
-    Listener.bind(teams, 'remove', function() {
-      orderList.enforceOrder(tournaments.getGlobalRanking(teams).displayOrder);
-    });
+    this.updateOrder();
 
     view = new TeamTableView(this, teamsize);
   }
   extend(SystemListView, ListView);
+
+  SystemListView.prototype.updateOrder = function() {
+    var order = this.tournaments.getGlobalRanking(this.teams).displayOrder;
+    this.model.enforceOrder(order);
+  };
 
   return SystemListView;
 });

@@ -82,8 +82,11 @@
 	* legacy/scripts/ui/newtab.js: using SystemListView
 
 	* legacy/scripts/ui/systemlistview.js: SystemListView: a single view for the subtournament system list
+	using SystemTableRowView instead of the more generic TeamView to display single Team rows
 
 	* legacy/scripts/ui/options.js: circular dependency between TournamentModel and StateModel fixed
+
+	* legacy/scripts/ui/systemtablerowview.js: display a row inside the system table
 
 2015-07-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
