@@ -146,6 +146,7 @@ define([
   'ui/listview',
   'ui/matchcontroller',
   'ui/matchview',
+  'ui/newtab',
   'ui/newteamcontroller',
   'ui/newteamview',
   'ui/options',
