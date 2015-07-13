@@ -43,8 +43,10 @@
 	tournamentIDs for tournament-less teams are set to undefined
 	using a cache to avoid massive recalculations of the global ranking
 	getGlobalRanking takes the number of teams, not the list of teams anymore
+	variables/fields moved within getGlobalRanking()
 
 	* legacy/scripts/ui/systemtablerowview.js: caching the rank and only updating if it differs
+	using the tournament offsets to insert the tournament columns
 
 	* legacy/scripts/ui/systemlistview.js: passing the number of teams instead of the list of teams
 

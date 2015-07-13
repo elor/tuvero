@@ -107,7 +107,8 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
       displayOrder: [],
       globalRanks: [],
       tournamentRanks: [],
-      tournamentIDs: this.tournamentIDsForEachTeam()
+      tournamentIDs: this.tournamentIDsForEachTeam(),
+      tournamentOffsets: {}
     };
 
     // calculate Offsets for globalRanks
@@ -165,18 +166,15 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
     lastid = -1;
     // don't use arrays.
     // arrays cannot be as sparse and don't support 'undefined' as a key
-    tournamentOffsets = {};
     ranks.displayOrder.forEach(function(id, displayID) {
       var tournamentID;
 
       tournamentID = ranks.tournamentIDs[id];
       if (tournamentID != lastid) {
-        tournamentOffsets[tournamentID] = displayID;
+        ranks.tournamentOffsets[tournamentID] = displayID;
         lastid = tournamentID;
       }
     });
-
-    ranks.tournamentOffsets = tournamentOffsets;
 
     this.rankingCache = ranks;
 
