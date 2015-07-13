@@ -24,6 +24,8 @@
 
 	* lib/LICENSE_diffjs.txt: diff.js license added
 
+	* core/scripts/rankingcomponentindex.js: .components property lists the names of all components
+
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows

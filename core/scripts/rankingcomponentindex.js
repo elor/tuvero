@@ -13,13 +13,14 @@ define(['./rankingidcomponent', './rankingpointscomponent',
     './rankingsonneborncomponent', './rankingwinscomponent',
     './rankingheadtoheadcomponent', './rankingtaccomponent',
     './rankingnumgamescomponent'], function() {
-  var RankingComponentIndex, index, Component;
+  var RankingComponentIndex, index, Component, allComponents;
 
   // build the index from the XXXRankingComponent.NAME fields
   RankingComponentIndex = {};
+  allComponents = {};
   for (index = 0; index < arguments.length; index += 1) {
     Component = arguments[index];
-    RankingComponentIndex[Component.NAME.toLowerCase()] = Component;
+    allComponents[Component.NAME.toLowerCase()] = Component;
   }
 
   /**
@@ -46,7 +47,7 @@ define(['./rankingidcomponent', './rankingpointscomponent',
     // Abort if a component is not defined.
     if (!components.every(function(component) {
       component = component.toLowerCase();
-      var constructor = RankingComponentIndex[component];
+      var constructor = allComponents[component];
       if (constructor === undefined) {
         console.error('RankingComponentIndex.createComponentChain error: '
             + 'undefined component name: ' + component);
@@ -63,6 +64,8 @@ define(['./rankingidcomponent', './rankingpointscomponent',
 
     return chainfront;
   };
+
+  RankingComponentIndex.components = Object.keys(allComponents).sort();
 
   return RankingComponentIndex;
 });
