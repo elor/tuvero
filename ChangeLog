@@ -50,6 +50,7 @@
 	using the tournament offsets to insert the tournament columns
 	CSS class typo fixed: I accidentally typed the dot in jquery
 	testing TournamentView
+	using GenericTournamentView instead of TournamentView
 
 	* legacy/scripts/ui/systemlistview.js: passing the number of teams instead of the list of teams
 	.tpl -> .template
@@ -67,6 +68,8 @@
 	* legacy/scripts/ui/stateclassview.js: set CSS class to a ValueModel value
 
 	* legacy/scripts/ui/tournamentview.js: TournamentView: for the system table (NewTab)
+
+	* legacy/scripts/ui/generictournamentview.js: a proxy class to automatically construct the right TournamentView subclass
 
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

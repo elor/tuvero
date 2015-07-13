@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './teamview', './tournamentview'], function(
-    extend, View, TeamView, TournamentView) {
+define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
+], function(extend, View, TeamView, GenericTournamentView) {
   /**
    * Constructor
    *
@@ -88,12 +88,9 @@ define(['lib/extend', 'core/view', './teamview', './tournamentview'], function(
       rowspan -= offset;
 
       this.$system = $('<td>').addClass('system');
-      this.$system.text('Tournament ' + tournamentID);
       this.$system.attr('rowspan', rowspan);
 
-      if (tournamentID !== undefined) {
-        new TournamentView(this.tournaments.get(tournamentID), this.$system);
-      }
+      new GenericTournamentView(tournamentID, this.$system, this.tournaments);
 
       this.$view.append(this.$system);
       this.$view.addClass('firstrow');

@@ -137,6 +137,7 @@ define([
   'ui/fontsizecontroller',
   'ui/fontsizemodel',
   'ui/fontsizeview',
+  'ui/generictournamentview',
   'ui/globalranking',
   'ui/history',
   'ui/inputview',
