@@ -23,20 +23,22 @@ define(function() {
       QUnit.equal(list.length, 0, 'initial length is 0');
       QUnit.deepEqual(list.asArray(), [], 'initial list is empty');
 
-      list.enforceOrder([4, 3, 1, 0, 2]);
-
+      ref = [4, 3, 1, 0, 2];
+      list.enforceOrder(ref);
       QUnit.equal(list.length, 5, 'length gets adjusted automatically');
-      QUnit.deepEqual(list.asArray(), [3, 2, 4, 1, 0],
+      QUnit.deepEqual(list.asArray(), ref,
           'elements get ordered properly');
 
-      list.enforceOrder([6, 3, 1, 5, 7, 2, 0, 4]);
+      ref = [6, 3, 1, 5, 7, 2, 0, 4];
+      list.enforceOrder(ref);
       QUnit.equal(list.length, 8, 'length gets adjusted automatically');
-      QUnit.deepEqual(list.asArray(), [6, 2, 5, 1, 7, 3, 0, 4],
+      QUnit.deepEqual(list.asArray(), ref,
           'elements get ordered properly');
 
-      list.enforceOrder([]);
+      ref = [];
+      list.enforceOrder(ref);
       QUnit.equal(list.length, 0, 'length gets reduced automatically');
-      QUnit.deepEqual(list.asArray(), [], 'elements get removed properly');
+      QUnit.deepEqual(list.asArray(), ref, 'elements get removed properly');
 
     });
   };

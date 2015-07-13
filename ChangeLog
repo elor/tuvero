@@ -16,6 +16,14 @@
 
 	* README.md: Travis badge added to README
 
+	* core/scripts/orderlistmodel.js: using a diff to determine the lowest number of insert/remove operations prior to moving the elements
+
+	* core/scripts/test/orderlistmodel.js: reference orders corrected
+
+	* lib/diff.js: the diff.js diff library is provided by kpdecker on github: https://github.com/kpdecker/jsdiff
+
+	* lib/LICENSE_diffjs.txt: diff.js license added
+
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows
