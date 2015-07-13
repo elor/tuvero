@@ -41,6 +41,8 @@
 	* core/scripts/tournamentlistmodel.js: getGlobalRanking also returns tournamentOffsets
 	tournamentIDs for tournament-less teams are set to undefined
 
+	* legacy/scripts/ui/systemtablerowview.js: caching the rank and only updating if it differs
+
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows

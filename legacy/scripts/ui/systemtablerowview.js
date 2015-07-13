@@ -24,6 +24,9 @@ define(['lib/extend', 'core/view', './teamview'], function(extend, View,
     this.tournaments = tournaments;
     this.teamView = new TeamView(teams.get(index), this.$view);
 
+    this.tournamentRank = -1;
+    this.globalRank = -1;
+
     this.$tournamentrank = this.$view.find('.tournamentrank');
     this.$globalrank = this.$view.find('.rank');
 
@@ -34,10 +37,21 @@ define(['lib/extend', 'core/view', './teamview'], function(extend, View,
   extend(SystemTableRowView, View);
 
   SystemTableRowView.prototype.updateRankTexts = function() {
-    ranking = this.tournaments.getGlobalRanking(this.teams);
+    var globalRank, tournamentRank;
 
-    this.$tournamentrank.text(ranking.tournamentRanks[this.index] + 1);
-    this.$globalrank.text(ranking.globalRanks[this.index] + 1);
+    ranking = this.tournaments.getGlobalRanking(this.teams);
+    globalRank = ranking.globalRanks[this.index];
+    tournamentRank = ranking.tournamentRanks[this.index];
+
+    if (this.globalRank !== globalRank) {
+      this.$globalrank.text(globalRank + 1);
+      this.globalRank = globalRank;
+    }
+
+    if (this.tournamentRank !== tournamentRank) {
+      this.$tournamentrank.text(tournamentRank + 1);
+      this.tournamentRank = tournamentRank;
+    }
   };
 
   SystemTableRowView.prototype.onupdate = function(emitter, event, data) {
