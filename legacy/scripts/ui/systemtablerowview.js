@@ -74,7 +74,7 @@ define(['lib/extend', 'core/view', './teamview'], function(extend, View,
     if (this.$system) {
       this.$system.remove();
       this.$system = undefined;
-      this.$view.removeClass('.firstrow');
+      this.$view.removeClass('firstrow');
     }
 
     if (offset === ranking.tournamentOffsets[tournamentID]) {

@@ -47,6 +47,7 @@
 
 	* legacy/scripts/ui/systemtablerowview.js: caching the rank and only updating if it differs
 	using the tournament offsets to insert the tournament columns
+	CSS class typo fixed: I accidentally typed the dot in jquery
 
 	* legacy/scripts/ui/systemlistview.js: passing the number of teams instead of the list of teams
 	.tpl -> .template
