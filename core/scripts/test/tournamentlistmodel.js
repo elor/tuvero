@@ -14,7 +14,6 @@ define(function() {
     TournamentListModel = getModule('core/tournamentlistmodel');
     TournamentIndex = getModule('core/tournamentindex');
     IndexedListModel = getModule('core/indexedlistmodel');
-    ListModel = getModule('core/listmodel');
 
     QUnit.test('TournamentListModel', function() {
       var tournament, list, ref, savedata;
@@ -80,15 +79,7 @@ define(function() {
           undefined: 6
         }
       };
-      teams = new ListModel();
-      teams.push(0);
-      teams.push(1);
-      teams.push(2);
-      teams.push(3);
-      teams.push(4);
-      teams.push(5);
-      teams.push(6);
-      QUnit.deepEqual(list.getGlobalRanking(teams), ref, 'global Ranks');
+      QUnit.deepEqual(list.getGlobalRanking(7), ref, 'global Ranks');
     });
   };
 });

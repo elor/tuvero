@@ -39,7 +39,7 @@ define(['lib/extend', 'core/view', './teamview'], function(extend, View,
   SystemTableRowView.prototype.updateRankTexts = function() {
     var globalRank, tournamentRank;
 
-    ranking = this.tournaments.getGlobalRanking(this.teams);
+    ranking = this.tournaments.getGlobalRanking(this.teams.length);
     globalRank = ranking.globalRanks[this.index];
     tournamentRank = ranking.tournamentRanks[this.index];
 

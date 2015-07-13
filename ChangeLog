@@ -37,11 +37,16 @@
 	* core/templates/rankingorderview.html: cleanup
 
 	* core/scripts/test/tournamentlistmodel.js: testing new getGlobalRanking features
+	getGlobalRanking: passing the number of teams, not a list of teams
 
 	* core/scripts/tournamentlistmodel.js: getGlobalRanking also returns tournamentOffsets
 	tournamentIDs for tournament-less teams are set to undefined
+	using a cache to avoid massive recalculations of the global ranking
+	getGlobalRanking takes the number of teams, not the list of teams anymore
 
 	* legacy/scripts/ui/systemtablerowview.js: caching the rank and only updating if it differs
+
+	* legacy/scripts/ui/systemlistview.js: passing the number of teams instead of the list of teams
 
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

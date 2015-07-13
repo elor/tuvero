@@ -43,7 +43,11 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
   extend(SystemListView, ListView);
 
   SystemListView.prototype.updateOrder = function() {
-    var order = this.tournaments.getGlobalRanking(this.teams).displayOrder;
+    var ranking, order;
+
+    ranking = this.tournaments.getGlobalRanking(this.teams.length);
+    order = ranking.displayOrder;
+
     this.model.enforceOrder(order);
   };
 

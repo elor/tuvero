@@ -9,12 +9,18 @@
  */
 define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
 ], function(extend, IndexedListModel, TournamentIndex, Listener) {
+  /**
+   * helper function to set all anonymous Listeners
+   *
+   * @param list
+   *          a TournamentListModel instance
+   */
   function setListeners(list) {
     Listener.bind(list, 'insert', function(emitter, event, data) {
       if (emitter === list) {
         data.object.getRanking().registerListener(list);
         data.object.getState().registerListener(list);
-        list.emit('update');
+        list.invalidateGlobalRanking();
       }
     });
 
@@ -22,7 +28,7 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
       if (emitter === list) {
         data.object.getRanking().unregisterListener(list);
         data.object.getState().unregisterListener(list);
-        list.emit('update');
+        list.invalidateGlobalRanking();
       }
     });
   }
@@ -32,6 +38,8 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
    */
   function TournamentListModel() {
     TournamentListModel.superconstructor.call(this);
+
+    this.rankingCache = undefined;
 
     setListeners(this);
   }
@@ -64,18 +72,35 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
     return ids;
   };
 
+  TournamentListModel.prototype.invalidateGlobalRanking = function() {
+    this.rankingCache = undefined;
+    this.emit('update');
+  };
+
   /**
    *
-   * @param teams
+   * @param numTeams
+   *          the number of teams
    * @return a pseudo-ranking object
    */
-  TournamentListModel.prototype.getGlobalRanking = function(teams) {
-    var ranks, tournamentOffsets, lastrank;
+  TournamentListModel.prototype.getGlobalRanking = function(numTeams) {
+    var ranks, tournamentOffsets, lastrank, teams;
 
-    if (teams === undefined) {
-      console.error('teams parameter has not been passed');
+    if (numTeams === undefined || numTeams < 0) {
+      console.error('invalid numTeams parameter');
       return undefined;
     }
+
+
+    if (this.rankingCache && this.rankingCache.displayOrder
+        && this.rankingCache.displayOrder.length === numTeams) {
+      return this.rankingCache;
+    }
+
+      teams = [];
+      while (teams.length < numTeams) {
+        teams.push(teams.length);
+      }
 
     // initialize empty object
     ranks = {
@@ -153,7 +178,9 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
 
     ranks.tournamentOffsets = tournamentOffsets;
 
-    return ranks;
+    this.rankingCache = ranks;
+
+    return this.rankingCache;
   };
 
   /**
@@ -167,7 +194,7 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
    *          an optional data object
    */
   TournamentListModel.prototype.onupdate = function(emitter, event, data) {
-    this.emit('update');
+    this.invalidateGlobalRanking();
   };
 
   // TournamentListModel.prototype.save is directly inherited from ListModel
