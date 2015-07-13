@@ -106,6 +106,7 @@ define([
   'backend/tournament',
   'backend/vector',
   'lib/Blob',
+  'lib/diff',
   'lib/extend',
   'lib/FileSaver',
   'lib/implements',

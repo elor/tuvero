@@ -17,6 +17,7 @@
 	* README.md: Travis badge added to README
 
 	* core/scripts/orderlistmodel.js: using a diff to determine the lowest number of insert/remove operations prior to moving the elements
+	autoformatted due to using emacs instead of eclipse
 
 	* core/scripts/test/orderlistmodel.js: reference orders corrected
 
