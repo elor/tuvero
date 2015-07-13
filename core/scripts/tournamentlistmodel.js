@@ -105,6 +105,7 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
         ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
             + tournamentOffsets[tournamentID];
       } else {
+        ranks.tournamentIDs[teamID] = undefined;
         ranks.tournamentRanks[teamID] = 0;
         ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
             + tournamentOffsets[tournamentOffsets.length - 1];
@@ -135,6 +136,22 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
         ranks.globalRanks[id] = ranks.globalRanks[lastid];
       }
     });
+
+    lastid = -1;
+    // don't use arrays.
+    // arrays cannot be as sparse and don't support 'undefined' as a key
+    tournamentOffsets = {};
+    ranks.displayOrder.forEach(function(id, displayID) {
+      var tournamentID;
+
+      tournamentID = ranks.tournamentIDs[id];
+      if (tournamentID != lastid) {
+        tournamentOffsets[tournamentID] = displayID;
+        lastid = tournamentID;
+      }
+    });
+
+    ranks.tournamentOffsets = tournamentOffsets;
 
     return ranks;
   };

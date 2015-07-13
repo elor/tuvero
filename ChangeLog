@@ -36,6 +36,11 @@
 
 	* core/templates/rankingorderview.html: cleanup
 
+	* core/scripts/test/tournamentlistmodel.js: testing new getGlobalRanking features
+
+	* core/scripts/tournamentlistmodel.js: getGlobalRanking also returns tournamentOffsets
+	tournamentIDs for tournament-less teams are set to undefined
+
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows

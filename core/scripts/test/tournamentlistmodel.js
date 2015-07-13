@@ -70,10 +70,15 @@ define(function() {
       // HACK! DO NOT ACCESS DIRECTLY!
       list.get(0).state.forceState('idle');
       ref = {
-        displayOrder: [0, 2, 4, 1, 3, 5],
-        globalRanks: [0, 3, 1, 4, 2, 5],
-        tournamentIDs: [0, 1, 0, 1, 0, 1],
-        tournamentRanks: [0, 0, 2, 1, 3, 2]
+        displayOrder: [0, 2, 4, 1, 3, 5, 6],
+        globalRanks: [0, 3, 1, 4, 2, 5, 6],
+        tournamentIDs: [0, 1, 0, 1, 0, 1, undefined],
+        tournamentRanks: [0, 0, 2, 1, 3, 2 ,0],
+        tournamentOffsets: {
+          0: 0,
+          1: 3,
+          undefined: 6
+        }
       };
       teams = new ListModel();
       teams.push(0);
@@ -82,6 +87,7 @@ define(function() {
       teams.push(3);
       teams.push(4);
       teams.push(5);
+      teams.push(6);
       QUnit.deepEqual(list.getGlobalRanking(teams), ref, 'global Ranks');
     });
   };
