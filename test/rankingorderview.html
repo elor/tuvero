@@ -35,26 +35,20 @@
 
 <script id="testmain">
 function TestMain(Common, $) {
-  var UniqueListModel, RankingOrderView, ListView;
+  var UniqueListModel, RankingOrderView, ListView, RankingComponentIndex;
 
   UniqueListModel = Common('core/uniquelistmodel');
   RankingOrderView = Common('ui/rankingorderview');
+  RankingComponentIndex = Common('core/rankingcomponentindex');
   ListView = Common('ui/listview');
 
   $(function($) {
     var allcomponents, rankingorder, view, $view;
 
     allcomponents = new UniqueListModel();
-    allcomponents.push("numgames");
-    allcomponents.push("wins");
-    allcomponents.push("points");
-    allcomponents.push("saldo");
-    allcomponents.push("tac");
-    allcomponents.push("buchholz");
-    allcomponents.push("finebuchholz");
-    allcomponents.push("sonneborn");
-    allcomponents.push("headtohead");
-    allcomponents.push("lostpoints");
+    RankingComponentIndex.components.forEach(function(component){
+      allcomponents.push(component);
+    });
 
     rankingorder = new UniqueListModel();
 
