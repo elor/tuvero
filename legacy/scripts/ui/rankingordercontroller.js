@@ -49,10 +49,10 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
       case 46: // Delete
       case 8: // Backspace
       case 127: // Delete (fallback)
-        controller.moveright();
+        controller.moveleft();
         controller.setSelectedIndex(0);
         break;
-      case 39: // Right arrow
+      case 37: // Left arrow
         controller.view.$availableList.focus();
         break;
       }
@@ -66,10 +66,10 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
       switch (e.keyCode) {
       case 13: // Return
         value = controller.getAvailableValues();
-        controller.moveleft();
+        controller.moveright();
         controller.resetAvailableSelection(value[0]);
         break;
-      case 37: // Left Arrow
+      case 39: // Right Arrow
         controller.view.$selectedList.focus();
       }
     });
@@ -151,10 +151,9 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
    * move the selected items from the right list into the left list
    */
   RankingOrderController.prototype.moveleft = function() {
-    this.getAvailableValues().forEach(function(availableComponent) {
-      this.model.push(availableComponent);
-      this.setSelectedIndex(this.model.length - 1);
-      this.resetAvailableSelection();
+    this.getSelectedValues().forEach(function(selectedComponent) {
+      this.model.erase(selectedComponent);
+      this.resetAvailableSelection(selectedComponent);
     }, this);
   };
 
@@ -162,9 +161,10 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
    * move the selected item from the left list into the right list
    */
   RankingOrderController.prototype.moveright = function() {
-    this.getSelectedValues().forEach(function(selectedComponent) {
-      this.model.erase(selectedComponent);
-      this.resetAvailableSelection(selectedComponent);
+    this.getAvailableValues().forEach(function(availableComponent) {
+      this.model.push(availableComponent);
+      this.setSelectedIndex(this.model.length - 1);
+      this.resetAvailableSelection();
     }, this);
   };
 

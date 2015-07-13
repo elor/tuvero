@@ -27,6 +27,13 @@
 	* core/scripts/rankingcomponentindex.js: .components property lists the names of all components
 
 	* test/rankingorderview.html: getting names of components from RankingComponentIndex.components
+	order of selected/available lists switched
+
+	* legacy/scripts/ui/rankingordercontroller.js: left/right list switched
+
+	* legacy/scripts/ui/rankingorderview.js: left/right list switched
+
+	* core/templates/rankingorderview.html: cleanup
 
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
