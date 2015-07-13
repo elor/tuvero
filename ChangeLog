@@ -49,8 +49,10 @@
 	using the tournament offsets to insert the tournament columns
 
 	* legacy/scripts/ui/systemlistview.js: passing the number of teams instead of the list of teams
+	.tpl -> .template
 
 	* core/templates/newtab.html: .teamtable -> .systemtable
+	.tpl -> .template
 
 	* legacy/scripts/ui/newtab.js: .teamtable -> .systemtable
 
