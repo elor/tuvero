@@ -164,6 +164,7 @@ define([
   'ui/savestate',
   'ui/shared',
   'ui/splash',
+  'ui/stateclassview',
   'ui/state',
   'ui/statemodel',
   'ui/state_new',
