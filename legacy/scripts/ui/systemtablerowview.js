@@ -102,13 +102,13 @@ define(['lib/extend', 'core/view', './teamview'], function(extend, View,
     }
   };
 
-  SystemTableRowView.prototype.oninsert = function(emitter, event, data){
+  SystemTableRowView.prototype.oninsert = function(emitter, event, data) {
     if (emitter === this.teams) {
       this.updateSystem();
     }
   };
 
-  SystemTableRowView.prototype.onremove = function(emitter, event, data){
+  SystemTableRowView.prototype.onremove = function(emitter, event, data) {
     if (emitter === this.teams) {
       this.updateSystem();
     }

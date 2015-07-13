@@ -55,6 +55,7 @@
 
 	* core/templates/newtab.html: .teamtable -> .systemtable
 	.tpl -> .template
+	.preparing -> .initial
 
 	* legacy/scripts/ui/newtab.js: .teamtable -> .systemtable
 	.tpl -> .template
