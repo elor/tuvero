@@ -5,6 +5,8 @@
 	trying to move to the container architecture of travis
 	`make update` is no part of the build process
 
+	* tools/build.sh: searching for r.js in the local path, too
+
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows

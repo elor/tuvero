@@ -6,6 +6,14 @@
 
 set -e -u
 
+rjs=r.js
+if ! which $rjs > /dev/null; then
+    rjs=node_modules/r.js/r.js
+    if [ -e $rjs ]; then
+        which r.js
+    fi
+fi
+
 if (( ${#@} != 1 )); then
     echo "Syntax: $(basename $0) <target>" >&2
     exit 1
@@ -37,7 +45,7 @@ builddir=build/$target
 ###########################
 
 rm -rfv $builddir || exit 1
-r.js -o $sourcedir/scripts/build.js || exit 1
+$rjs -o $sourcedir/scripts/build.js || exit 1
 rm -rf $builddir/templates/ || :
 rm -f $builddir/build.txt $builddir/Makefile $builddir/scripts/strings.js
 
@@ -46,7 +54,7 @@ rm -f $builddir/build.txt $builddir/Makefile $builddir/scripts/strings.js
 #############################
 
 rm $builddir/style/*.css || exit 1
-r.js -o cssIn=$sourcedir/style/main.css out=$builddir/style/main.css || exit 1
+$rjs -o cssIn=$sourcedir/style/main.css out=$builddir/style/main.css || exit 1
 
 #############################################################
 # remove debug code from index.html and any other html file #
