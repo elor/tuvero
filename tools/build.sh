@@ -4,7 +4,7 @@
 # This incorporates r.js, a great requireJS optimizer        #
 ##############################################################
 
-set -e -u
+set -x -e -u
 
 rjs=r.js
 if ! which $rjs > /dev/null; then
