@@ -26,11 +26,11 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
     controller = this;
 
     this.view.$view.find('button.move-left').click(function() {
-      controller.moveleft();
+      controller.unselect();
     });
 
     this.view.$view.find('button.move-right').click(function() {
-      controller.moveright();
+      controller.select();
     });
 
     this.view.$view.find('button.move-down').click(function() {
@@ -49,7 +49,7 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
       case 46: // Delete
       case 8: // Backspace
       case 127: // Delete (fallback)
-        controller.moveleft();
+        controller.unselect();
         controller.setSelectedIndex(0);
         break;
       case 37: // Left arrow
@@ -66,7 +66,7 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
       switch (e.keyCode) {
       case 13: // Return
         value = controller.getAvailableValues();
-        controller.moveright();
+        controller.select();
         controller.resetAvailableSelection(value[0]);
         break;
       case 39: // Right Arrow
@@ -150,7 +150,7 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
   /**
    * move the selected items from the right list into the left list
    */
-  RankingOrderController.prototype.moveleft = function() {
+  RankingOrderController.prototype.unselect = function() {
     this.getSelectedValues().forEach(function(selectedComponent) {
       this.model.erase(selectedComponent);
       this.resetAvailableSelection(selectedComponent);
@@ -160,7 +160,7 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
   /**
    * move the selected item from the left list into the right list
    */
-  RankingOrderController.prototype.moveright = function() {
+  RankingOrderController.prototype.select = function() {
     this.getAvailableValues().forEach(function(availableComponent) {
       this.model.push(availableComponent);
       this.setSelectedIndex(this.model.length - 1);
