@@ -1,0 +1,7 @@
+install:
+ - sudo apt-get install sed grep find optipng imagemagick python make
+ - npm install r.js
+ - pip install https://closure-linter.googlecode.com/svn/trunk
+
+script:
+ - make update build
