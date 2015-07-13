@@ -48,6 +48,13 @@
 
 	* legacy/scripts/ui/systemlistview.js: passing the number of teams instead of the list of teams
 
+	* core/templates/newtab.html: .teamtable -> .systemtable
+
+	* legacy/scripts/ui/newtab.js: .teamtable -> .systemtable
+
+	* legacy/style/new.css: .teamtable -> .systemtable
+	some additional table border styling rules added
+
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows

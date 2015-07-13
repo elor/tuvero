@@ -31,7 +31,7 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview'//
   NewTab.prototype.init = function() {
     var $view, view;
 
-    $view = this.$view.find('.teamtable');
+    $view = this.$view.find('.systemtable');
     view = new SystemListView(State.teams, $view, State.tournaments,
         State.teamsize);
 

@@ -1,4 +1,4 @@
-#tabs > [data-tab="new"] .playertable {
+#tabs > [data-tab="new"] .systemtable {
   display: inline-block;
   text-align: center;
   border-collapse: separate;
@@ -9,28 +9,36 @@
   display: inline-block;
 }
 
-#tabs > [data-tab="new"] .playertable td,
-#tabs > [data-tab="new"] .playertable th {
+#tabs > [data-tab="new"] .systemtable td,
+#tabs > [data-tab="new"] .systemtable th {
   padding-right: 1em;
 }
 
-#tabs > [data-tab="new"] .playertable th {
+#tabs > [data-tab="new"] .systemtable th {
   border-bottom: none;
 }
 
-#tabs > [data-tab="new"] .playertable td:first-child {
+#tabs > [data-tab="new"] .systemtable td:first-child {
   border-left: solid 1px;
 }
 
-#tabs > [data-tab="new"] .playertable tr:last-child td {
+#tabs > [data-tab="new"] .systemtable td:last-child {
+  border-right: none;
+}
+
+#tabs > [data-tab="new"] .systemtable tr:nth-child(2) td {
+  border-top: solid 1px;
+}
+
+#tabs > [data-tab="new"] .systemtable tr:last-child td {
   border-bottom: solid 1px;
 }
 
-#tabs > [data-tab="new"] .playertable tr.firstrow td {
+#tabs > [data-tab="new"] .systemtable tr.firstrow td {
   border-top: solid 1px black;
 }
 
-#tabs > [data-tab="new"] .playertable tr.lastrow td {
+#tabs > [data-tab="new"] .systemtable tr.lastrow td {
   height: 100%;
   vertical-align: top;
 }
@@ -51,7 +59,7 @@
   text-overflow: ellipsis;
 }
 
-#tabs > [data-tab="new"] .playertable .system {
+#tabs > [data-tab="new"] .systemtable td.system {
   position: relative;
   padding: 1em 1em 3em 1em;
   border: solid 1px;
@@ -66,7 +74,7 @@
   background-color: #ffffff;
 }
 
-#tabs > [data-tab="new"] .playertable .system > h3:first-child {
+#tabs > [data-tab="new"] .systemtable .system > h3:first-child {
   position: relative;
   display: block;
   padding: 0.3em 1em 0.2em 1em;
@@ -77,7 +85,7 @@
   text-align: center;
 }
 
-#tabs > [data-tab="new"] .playertable .system > h3:last-child {
+#tabs > [data-tab="new"] .systemtable .system > h3:last-child {
   position: absolute;
   display: block;
   width: 100%;
@@ -90,21 +98,21 @@
   text-align: center;
 }
 
-#tabs > [data-tab="new"] .playertable .system [data-img] {
+#tabs > [data-tab="new"] .systemtable .system [data-img] {
   vertical-align: middle;
 }
 
-#tabs > [data-tab="new"] .playertable .system > .preparing,
-#tabs > [data-tab="new"] .playertable .system > .running,
-#tabs > [data-tab="new"] .playertable .system > .finished,
-#tabs > [data-tab="new"] .playertable .system > .failure {
+#tabs > [data-tab="new"] .systemtable .system > .preparing,
+#tabs > [data-tab="new"] .systemtable .system > .running,
+#tabs > [data-tab="new"] .systemtable .system > .finished,
+#tabs > [data-tab="new"] .systemtable .system > .failure {
   display: none;
 }
 
-#tabs > [data-tab="new"] .playertable .system.preparing > .preparing,
-#tabs > [data-tab="new"] .playertable .system.running > .running,
-#tabs > [data-tab="new"] .playertable .system.finished > .finished,
-#tabs > [data-tab="new"] .playertable .system.failure > .failure {
+#tabs > [data-tab="new"] .systemtable .system.preparing > .preparing,
+#tabs > [data-tab="new"] .systemtable .system.running > .running,
+#tabs > [data-tab="new"] .systemtable .system.finished > .finished,
+#tabs > [data-tab="new"] .systemtable .system.failure > .failure {
   display: block;
 }
 
@@ -118,8 +126,8 @@
   display: inline-block;
 }
 
-#tabs > [data-tab="new"] .playertable .swiss table tr td, 
-#tabs > [data-tab="new"] .playertable .swiss table tr {
+#tabs > [data-tab="new"] .systemtable .swiss table tr td, 
+#tabs > [data-tab="new"] .systemtable .swiss table tr {
   vertical-align: top;
   border: none;
 }
