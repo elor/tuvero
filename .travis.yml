@@ -1,7 +1,18 @@
+sudo: false
+
+addons:
+  apt:
+    packages:
+    - sed
+    - grep
+    - findutils
+    - optipng
+    - imagemagick
+    - python
+    - make
+
 install:
- - sudo apt-get install sed grep findutils optipng imagemagick python make
- - npm install r.js
- - pip install https://closure-linter.googlecode.com/svn/trunk
+- npm install r.js
 
 script:
- - make update build
+- make update build

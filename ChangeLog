@@ -2,6 +2,7 @@
 
 	* .travis.yml: Travis CI YAML file added
 	apt: find -> findutils
+	trying to move to the container architecture of travis
 
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
