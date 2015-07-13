@@ -10,6 +10,7 @@
 	* tools/build.sh: searching for r.js in the local path, too
 	npm: using local r.js path. granting write access, if necessary
 	build: using nodejs/node executable directly
+	node is used implicitly again, to enable direct 'r.js' calls
 
 	* .gitignore: node_modules added
 

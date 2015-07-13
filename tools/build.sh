@@ -4,7 +4,7 @@
 # This incorporates r.js, a great requireJS optimizer        #
 ##############################################################
 
-set -x -e -u
+set -e -u
 
 rjs=r.js
 if ! which $rjs > /dev/null; then
@@ -16,14 +16,6 @@ if ! which $rjs > /dev/null; then
         chmod +x $rjs
     fi
 fi
-
-node=nodejs
-if ! which $node > /dev/null; then
-    node=node
-    which $node >/dev/null
-fi
-
-rjs="$node $rjs"
 
 if (( ${#@} != 1 )); then
     echo "Syntax: $(basename $0) <target>" >&2
