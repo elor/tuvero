@@ -5,6 +5,7 @@
 	trying to move to the container architecture of travis
 	`make update` is no part of the build process
 	language: bash
+	npm install requirejs, not r.js
 
 	* tools/build.sh: searching for r.js in the local path, too
 	npm: using local r.js path. granting write access, if necessary
