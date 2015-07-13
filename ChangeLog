@@ -65,6 +65,8 @@
 
 	* legacy/scripts/ui/stateclassview.js: set CSS class to a ValueModel value
 
+	* legacy/scripts/ui/tournamentview.js: TournamentView: for the system table (NewTab)
+
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingordercontroller.js: Can move between both lists with left/right arrows

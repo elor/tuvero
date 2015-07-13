@@ -198,6 +198,7 @@ define([
   'ui/textview',
   'ui/toast',
   'ui/tournaments',
+  'ui/tournamentview',
   'ui/treenode',
   'ui/update',
   'ui/valueview'
