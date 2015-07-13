@@ -56,6 +56,7 @@
 	.tpl -> .template
 
 	* legacy/scripts/ui/newtab.js: .teamtable -> .systemtable
+	.tpl -> .template
 
 	* legacy/style/new.css: .teamtable -> .systemtable
 	some additional table border styling rules added

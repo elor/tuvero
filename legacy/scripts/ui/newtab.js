@@ -35,7 +35,7 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview'//
     view = new SystemListView(State.teams, $view, State.tournaments,
         State.teamsize);
 
-    this.$view.find('.boxview.tpl').detach();
+    this.$view.find('.boxview.template').detach();
   };
 
   // FIXME CHEAP HACK AHEAD
