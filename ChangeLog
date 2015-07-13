@@ -6,6 +6,9 @@
 	`make update` is no part of the build process
 
 	* tools/build.sh: searching for r.js in the local path, too
+	npm: using local r.js path. granting write access, if necessary
+
+	* .gitignore: node_modules added
 
 2015-07-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

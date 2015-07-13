@@ -9,3 +9,4 @@ thumbs.db
 #*#
 build/
 sprite_new.png
+node_modules/

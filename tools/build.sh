@@ -4,13 +4,16 @@
 # This incorporates r.js, a great requireJS optimizer        #
 ##############################################################
 
-set -e -u
+set -x -e -u
 
 rjs=r.js
 if ! which $rjs > /dev/null; then
-    rjs=node_modules/r.js/r.js
-    if [ -e $rjs ]; then
+    rjs=./node_modules/r.js/r.js
+    if ! [ -e $rjs ]; then
         which r.js
+    fi
+    if ! [ -x $rjs ]; then
+        chmod +x $rjs
     fi
 fi
 
