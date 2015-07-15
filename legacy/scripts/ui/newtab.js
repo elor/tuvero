@@ -4,8 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview'//
-], function(extend, $, View, State, SystemListView) {
+define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview',
+    './generictournamentviewfactory'], function(extend, $, View, State,
+    SystemListView, GenericTournamentViewFactory) {
   /**
    * represents a whole team tab
    *
@@ -29,11 +30,13 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview'//
    * TODO maybe split it into multiple autodetected functions?
    */
   NewTab.prototype.init = function() {
-    var $view, view;
+    var $view, view, factory, $templates;
 
+    $templates = this.$view.find('.template[data-system]').detach();
+    factory = new GenericTournamentViewFactory($templates);
     $view = this.$view.find('.systemtable');
     view = new SystemListView(State.teams, $view, State.tournaments,
-        State.teamsize);
+        State.teamsize, factory);
 
     this.$view.find('.boxview.template').detach();
   };

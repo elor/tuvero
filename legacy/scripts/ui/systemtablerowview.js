@@ -15,8 +15,10 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
    * @param $view
    * @param teams
    * @param tournaments
+   * @param tournamentViewFactory
    */
-  function SystemTableRowView(index, $view, teams, tournaments) {
+  function SystemTableRowView(index, $view, teams, tournaments,
+      tournamentViewFactory) {
     SystemTableRowView.superconstructor.call(this, undefined, $view);
 
     this.index = index;
@@ -29,7 +31,8 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
 
     this.$tournamentrank = this.$view.find('.tournamentrank');
     this.$globalrank = this.$view.find('.rank');
-    this.$system = undefined;
+    this.tournamentView = undefined;
+    this.tournamentViewFactory = tournamentViewFactory;
 
     this.tournaments.registerListener(this);
 
@@ -59,7 +62,7 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
   };
 
   SystemTableRowView.prototype.updateSystem = function() {
-    var ranking, offset, tournamentID, rowspan;
+    var ranking, offset, tournamentID, rowspan, $view;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     tournamentID = ranking.tournamentIDs[this.index];
@@ -71,9 +74,11 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
       offset = undefined;
     }
 
-    if (this.$system) {
-      this.$system.remove();
-      this.$system = undefined;
+    // TODO check if the IDs match and only update the rowspan.
+    if (this.tournamentView) {
+      this.tournamentView.$view.remove();
+      this.tournamentView.destroy();
+      this.tournamentView = undefined;
       this.$view.removeClass('firstrow');
     }
 
@@ -87,13 +92,15 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
       }
       rowspan -= offset;
 
-      this.$system = $('<td>').addClass('system');
-      this.$system.attr('rowspan', rowspan);
+      $view = $('<td>').addClass('system');
+      $view.attr('rowspan', rowspan);
 
-      new GenericTournamentView(tournamentID, this.$system, this.tournaments);
-
-      this.$view.append(this.$system);
-      this.$view.addClass('firstrow');
+      this.tournamentView = this.tournamentViewFactory.create(this.tournaments
+          .get(tournamentID), $view);
+      if (this.tournamentView) {
+        this.$view.append($view);
+        this.$view.addClass('firstrow');
+      }
     }
   };
 
@@ -116,10 +123,18 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
     }
   };
 
-  SystemTableRowView.bindLists = function(teams, tournaments) {
+  /**
+   *
+   * @param teams
+   * @param tournaments
+   * @param tournamentViewFactory
+   * @returns {Function}
+   */
+  SystemTableRowView.bindLists = function(teams, tournaments,
+      tournamentViewFactory) {
     function BoundSystemTableRowView(index, $view) {
       BoundSystemTableRowView.superconstructor.call(this, index, $view, teams,
-          tournaments);
+          tournaments, tournamentViewFactory);
     }
     extend(BoundSystemTableRowView, SystemTableRowView);
 

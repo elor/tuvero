@@ -17,13 +17,15 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
    * @param teams
    * @param teamsize
    */
-  function SystemListView(teams, $view, tournaments, teamsize) {
+  function SystemListView(teams, $view, tournaments, teamsize,
+      tournamentViewFactory) {
     var view, $systemTemplate, orderList;
 
     $systemTemplate = $view.find('.system.template').detach();
     orderList = new OrderListModel();
     SystemListView.superconstructor.call(this, orderList, $view, $view
-        .find('.team.template'), SystemTableRowView.bindLists(teams, tournaments));
+        .find('.team.template'), SystemTableRowView.bindLists(teams,
+        tournaments, tournamentViewFactory));
 
     this.teams = teams;
     this.tournaments = tournaments;
