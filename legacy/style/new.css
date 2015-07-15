@@ -49,11 +49,12 @@
   border-right: none !important;
 }
 
-#tabs > [data-tab="new"].hidenames .names {
+#tabs > [data-tab="new"].hidenames .name,
+#tabs > [data-tab="new"].hidenames .playercol {
   display: none;
 }
 
-#tabs > [data-tab="new"].maxwidth .names {
+#tabs > [data-tab="new"].maxwidth .name {
   max-width: 10em;
   overflow: hidden;
   text-overflow: ellipsis;

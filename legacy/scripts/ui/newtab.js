@@ -5,8 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview',
-    './tournamentviewpopulator'], function(extend, $, View, State,
-    SystemListView, TournamentViewPopulator) {
+    './tournamentviewpopulator', 'core/valuemodel', './checkboxview',
+    'core/classview'], function(extend, $, View, State, SystemListView,
+    TournamentViewPopulator, ValueModel, CheckboxView, ClassView) {
   /**
    * represents a whole team tab
    *
@@ -30,13 +31,27 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview',
    * TODO maybe split it into multiple autodetected functions?
    */
   NewTab.prototype.init = function() {
-    var $view, view, factory, $templates;
+    var $view, view, factory, $templates, value;
 
     $templates = this.$view.find('.template[data-system]').detach();
     factory = new TournamentViewPopulator($templates);
     $view = this.$view.find('.systemtable');
     view = new SystemListView(State.teams, $view, State.tournaments,
         State.teamsize, factory);
+
+    // name maxwidth checkbox
+    value = new ValueModel();
+    $view = this.$view.find('>.options input.maxwidth');
+    this.maxwidthCheckboxView = new CheckboxView(value, $view);
+    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
+        'nomaxwidth');
+
+    // player names checkbox
+    value = new ValueModel();
+    $view = this.$view.find('>.options input.shownames');
+    this.maxwidthCheckboxView = new CheckboxView(value, $view);
+    this.maxwidthClassView = new ClassView(value, this.$view, undefined,
+        'hidenames');
 
     this.$view.find('.boxview.template').detach();
   };

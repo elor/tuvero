@@ -17,6 +17,8 @@
 
 	* legacy/scripts/ui/newtab.js: instantiating GenericTournamentViewFactory
 	TournamentViewPopulator renaming
+	names maxwidth checkbox functionality added
+	hidenames checkbox functionality added
 
 	* legacy/scripts/ui/systemlistview.js: passing GenericTournamentViewFactory through
 
@@ -38,6 +40,8 @@
 	doesn't create TournamentViews anymore, only populates the $views
 
 	* legacy/style/new.css: .preparing -> .initial
+	hidenames rules revisited (.playercol added)
+	maxwidth rules revisited
 
 	* legacy/scripts/ui/tournamentcontroller.js: '.runtournament'-button-click --> create new tournament
 
