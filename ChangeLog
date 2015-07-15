@@ -7,6 +7,7 @@
 	.system .name -> .tournamentname (tournament name class is unique)
 
 	* legacy/scripts/ui/generictournamentview.js: constructor takes a tournament instance now
+	create RoundTournamentView for 'round'-tournaments
 
 	* legacy/scripts/ui/generictournamentviewfactory.js: factory for GenericTournamentViews
 	holds some persistent data so it doesn't have to be passed one-by-one
@@ -41,6 +42,10 @@
 	* legacy/scripts/ui/tournamentcontroller.js: '.runtournament'-button-click --> create new tournament
 
 	* legacy/scripts/ui/tournamentview.js: show the tournament name (its system for now)
+
+	* core/scripts/roundtournamentmodel.js: getRound() added
+
+	* legacy/scripts/ui/roundtournamentview.js: showing the current and next round
 
 2015-07-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './tournamentview'], function(extend, View,
-    TournamentView) {
+define(['lib/extend', 'core/view', './tournamentview', './roundtournamentview'//
+], function(extend, View, TournamentView, RoundTournamentView) {
   /**
    * Constructor
    */
@@ -19,7 +19,14 @@ define(['lib/extend', 'core/view', './tournamentview'], function(extend, View,
 
     this.tournament = tournament;
     if (tournament) {
-      this.view = new TournamentView(tournament, $view);
+      switch (tournament.SYSTEM) {
+      case 'round':
+        this.view = new RoundTournamentView(tournament, $view);
+        break;
+      default:
+        this.view = new TournamentView(tournament, $view);
+        break;
+      }
     } else {
       this.view = new View();
     }

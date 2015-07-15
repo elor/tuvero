@@ -16,7 +16,6 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
    */
   function RoundTournamentModel(rankingorder) {
     RoundTournamentModel.superconstructor.call(this, rankingorder);
-
     this.round = -1;
   }
   extend(RoundTournamentModel, TournamentModel);
@@ -95,6 +94,14 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
       }
     }
   };
+
+  /**
+   * @returns the current or recently finished round. returns -1 if the
+   *          tournament hasn't been started yet
+   */
+  RoundTournamentModel.prototype.getRound = function() {
+    return this.round;
+  }
 
   /**
    * write the round to the data object
