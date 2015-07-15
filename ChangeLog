@@ -4,6 +4,7 @@
 	newtournament buttons: data-system attributes added
 	newtournament buttons re-arranged
 	"best N players" input box removed. Re-introduce when needed
+	.system .name -> .tournamentname (tournament name class is unique)
 
 	* legacy/scripts/ui/generictournamentview.js: constructor takes a tournament instance now
 
