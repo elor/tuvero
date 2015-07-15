@@ -1,8 +1,9 @@
 <div data-tab="new" accesskey="n">
   <button class="save" data-img="save"></button>
   <div class="options">
-    <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-    <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
+    <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+      Breite</span> <span><input class="shownames" type="checkbox"
+      checked="checked" />Spielernamen</span>
   </div>
   <h2>Turniersystem</h2>
 
@@ -36,48 +37,44 @@
 
   <br>
 
-  <div class="boxview newsystem template">
-    <h3>Neue Turnierphase
-      <input type="text" class="chname" value="%%"/>
-    </h3>
-    <span>Unterturnier mit den besten
-      <input type="number" class="numteams" min="2">
-      Teams</span>
+  <div class="boxview newsystem template" data-system="undefined">
+    <h3>Neue Turnierphase</h3>
+    <span>Unterturnier mit den besten <input type="number"
+      class="numteams" min="2"> Teams
+    </span> <br>
+    <button class="swiss">Schweizer System</button>
     <br>
-    <button class="swiss">
-      Schweizer System
-    </button>
+    <button class="ko">KO-System</button>
     <br>
-    <button class="ko">
-      KO-System
-    </button>
+    <button class="round">Rundenturnier</button>
+    <h3>Neue Turnierphase</h3>
   </div>
 
-  <div class="boxview swiss template">
-    <h3><span class="name">##</span> - Schweizer System</h3>
+  <input type="text" class="chname" value="%%" />
+
+  <div class="boxview swiss template" data-system="swiss">
+    <h3>
+      <span class="name">##</span> - Schweizer System
+    </h3>
     <div class="initial finished">
-      <h3>Runde <span class="nextround">##</span> auslosen</h3>
+      <h3>
+        Runde <span class="nextround">##</span> auslosen
+      </h3>
       <div class="boxview collapsed">
         <h3>Erweiterte Optionen</h3>
         <table>
           <tr>
             <td>Modus</td>
-            <td>
-              <select class="mode" size="3">
+            <td><select class="mode" size="3">
                 <option value="wins">Schweizer</option>
                 <option value="halves" selected="selected">2 Lostöpfe</option>
                 <option value="random">Zufall</option>
-              </select>
-            </td>
+            </select></td>
           </tr>
           <tr>
-            <td>Los-
-              <br>
-              beding-
-              <br>
-              ungen</td>
-            <td>
-              <select class="preset" size="5">
+            <td>Los- <br> beding- <br> ungen
+            </td>
+            <td><select class="preset" size="5">
                 <!-- <option value="strict">streng</option> -->
                 <!-- <option value="updown" selected="selected">hoch/runter</option> -->
                 <option value="custom">manuell</option>
@@ -85,8 +82,7 @@
                 <option value="pvo" selected="selected">Standard</option>
                 <option value="relaxed">locker</option>
                 <option value="none">unbegrenzt</option>
-              </select>
-              <br>
+            </select> <br>
               <table class="votepermissions">
                 <tr class="up">
                   <td>&#x25b2;&rArr;</td>
@@ -106,14 +102,11 @@
                   <td class="perm down">&#x25bc;</td>
                   <td class="perm bye">&#x2205;</td>
                 </tr>
-              </table>
-            </td>
+              </table></td>
           </tr>
         </table>
       </div>
-      <button>
-        Runde starten
-      </button>
+      <button>Runde starten</button>
     </div>
     <div class="running">
       <p>
@@ -123,25 +116,40 @@
         Siehe <a href="#games" data-img="games">Laufende Spiele</a>
       </p>
     </div>
-    <div class="failure">
-      Unerwarteter Fehler bei der Turnierberechnung.
-    </div>
+    <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
   </div>
 
-  <div class="boxview ko template">
-    <h3><span class="name">##</span> - KO-System</h3>
-    <div class="finished">
-      Turnier beendet
+  <div class="boxview round template" data-system="round">
+    <h3>
+      <span class="name">##</span> - Rundenturnier
+    </h3>
+    <div class="initial finished">
+      <h3>
+        Runde <span class="nextround">##</span> auslosen
+      </h3>
+      <button>Runde starten</button>
     </div>
+    <div class="running">
+      <p>
+        Runde <span class="round">#</span> wurde ausgelost.
+      </p>
+      <p>
+        Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+      </p>
+    </div>
+    <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
+  </div>
+
+  <div class="boxview ko template" data-system="ko">
+    <h3>
+      <span class="name">##</span> - KO-System
+    </h3>
+    <div class="finished">Turnier beendet</div>
     <div class="initial">
-      <button>
-        KO-Turnier starten
-      </button>
+      <button>KO-Turnier starten</button>
       <div class="boxview collapsed">
         <h3>Erweiterte Optionen</h3>
-        <div>
-          Erste Runde
-        </div>
+        <div>Erste Runde</div>
         <select class="mode" size="3">
           <option value="order">Reihenfolge</option>
           <option value="set" selected="selected">Setzen</option>
@@ -150,22 +158,19 @@
       </div>
     </div>
     <div class="running">
-      <p>
-        KO-Turnier wird gespielt.
-      </p>
+      <p>KO-Turnier wird gespielt.</p>
       <p>
         Siehe <a href="#games" data-img="games">Laufende Spiele</a>
       </p>
     </div>
-    <div class="failure">
-      Unerwarteter Fehler bei der Turnierberechnung.
-    </div>
+    <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
   </div>
-  
+
   <div class="boxview maastricht">
     <h3>Maastrichter System</h3>
     <p>
-      Nimm <em>Schweizer System</em> als Vorrunde, dann <em>KO-System</em> als A/B/C/D-Turniere.
+      Nimm <em>Schweizer System</em> als Vorrunde, dann <em>KO-System</em> als
+      A/B/C/D-Turniere.
     </p>
   </div>
 
