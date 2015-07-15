@@ -102,14 +102,14 @@
   vertical-align: middle;
 }
 
-#tabs > [data-tab="new"] .systemtable .system > .preparing,
+#tabs > [data-tab="new"] .systemtable .system > .initial,
 #tabs > [data-tab="new"] .systemtable .system > .running,
 #tabs > [data-tab="new"] .systemtable .system > .finished,
 #tabs > [data-tab="new"] .systemtable .system > .failure {
   display: none;
 }
 
-#tabs > [data-tab="new"] .systemtable .system.preparing > .preparing,
+#tabs > [data-tab="new"] .systemtable .system.initial > .initial,
 #tabs > [data-tab="new"] .systemtable .system.running > .running,
 #tabs > [data-tab="new"] .systemtable .system.finished > .finished,
 #tabs > [data-tab="new"] .systemtable .system.failure > .failure {
