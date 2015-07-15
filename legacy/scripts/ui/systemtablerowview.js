@@ -12,10 +12,16 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
    * Constructor
    *
    * @param index
+   *          the team index for this line
    * @param $view
+   *          the DOM element of a single table row
    * @param teams
+   *          a ListModel of TeamModels
    * @param tournaments
+   *          a ListModel of TournamentModels
    * @param tournamentViewFactory
+   *          a GenericTournamentViewFactory instance for creation of the
+   *          ".system" cells
    */
   function SystemTableRowView(index, $view, teams, tournaments,
       tournamentViewFactory) {
@@ -95,8 +101,8 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
       $view = $('<td>').addClass('system');
       $view.attr('rowspan', rowspan);
 
-      this.tournamentView = this.tournamentViewFactory.create(this.tournaments
-          .get(tournamentID), $view);
+      this.tournamentView = this.tournamentViewFactory.create(this.tournaments,
+          tournamentID, $view);
       if (this.tournamentView) {
         this.$view.append($view);
         this.$view.addClass('firstrow');

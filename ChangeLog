@@ -6,12 +6,17 @@
 
 	* legacy/scripts/ui/generictournamentviewfactory.js: factory for GenericTournamentViews
 	holds some persistent data so it doesn't have to be passed one-by-one
+	loading a NewTournamentView if the tournament doesn't exist
+	create() function signature changed to use the list of tournaments again (NewTournamentView needs it)
 
 	* legacy/scripts/ui/newtab.js: instantiating GenericTournamentViewFactory
 
 	* legacy/scripts/ui/systemlistview.js: passing GenericTournamentViewFactory through
 
 	* legacy/scripts/ui/systemtablerowview.js: using GenericTournamentViewFactory
+	using NewTournamentView when a tournament doesn't exist
+
+	* legacy/scripts/ui/newtournamentview.js: empty constructor added. Rest will follow
 
 2015-07-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
