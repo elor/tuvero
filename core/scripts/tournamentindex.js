@@ -21,6 +21,16 @@ define(['./type', './roundtournamentmodel'], function(Type) {
   }
 
   TournamentIndex = {
+    /**
+     * creates a tournament
+     *
+     * @param system
+     *          a string which corresponds to a TournamentModel.SYSTEM string
+     * @param rankingorder
+     *          a ranking order
+     * @return a TournamentModel instance on success, or undefined on failure
+     *         (e.g. if the system doesn't exist)
+     */
     createTournament: function(system, rankingorder) {
       if (Type.isString(system)) {
         // default instantiation by name

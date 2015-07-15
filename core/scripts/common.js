@@ -137,7 +137,6 @@ define([
   'ui/fontsizecontroller',
   'ui/fontsizemodel',
   'ui/fontsizeview',
-  'ui/generictournamentviewfactory',
   'ui/generictournamentview',
   'ui/globalranking',
   'ui/history',
@@ -153,6 +152,7 @@ define([
   'ui/newtab',
   'ui/newteamcontroller',
   'ui/newteamview',
+  'ui/newtournamentcontroller',
   'ui/newtournamentview',
   'ui/options',
   'ui/opts',
@@ -202,6 +202,7 @@ define([
   'ui/toast',
   'ui/tournaments',
   'ui/tournamentview',
+  'ui/tournamentviewpopulator',
   'ui/treenode',
   'ui/update',
   'ui/valueview'

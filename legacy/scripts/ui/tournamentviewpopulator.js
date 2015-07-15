@@ -15,7 +15,7 @@ define(['lib/extend', 'core/view', './generictournamentview',
    * @param $templatesArray
    *          a list of DOM elements which are templates
    */
-  function GenericTournamentViewFactory($templatesArray) {
+  function TournamentViewPopulator($templatesArray) {
     var $templates = {};
 
     $templatesArray.each(function() {
@@ -31,36 +31,27 @@ define(['lib/extend', 'core/view', './generictournamentview',
   extend(GenericTournamentView, View);
 
   /**
-   * create a GenericTournamentView after inserting the correct
+   * populate a GenericTournamentView container with content, depending on the
+   * tournament type. If the tournament is undefined, the "undefined" system
+   * will be populated, i.e. the NewTournamentView container for starting new
+   * tournaments.
    *
-   * @param tournaments
-   *          a IndexedListModel of tournaments
-   * @param tournamentID
-   *          index of the tournament
+   * @param tournament
+   *          a TournamentModel instance
    * @param $view
    *          an empty container for the actual view
-   * @return a GenericTournamentView instance on success, undefined otherwise
    */
-  GenericTournamentViewFactory.prototype.create = function(tournaments,
-      tournamentID, $view) {
-    var type, tournament;
+  TournamentViewPopulator.prototype.populate = function(tournament, $view) {
+    var type;
 
-    tournament = tournaments.get(tournamentID);
     type = tournament && tournament.SYSTEM;
 
     if (this.$templates[type] === undefined) {
       console.error('system template has not been loaded: ' + type);
-      return undefined;
+    } else {
+      $view.append(this.$templates[type].children().clone());
     }
-
-    $view.append(this.$templates[type].children().clone());
-
-    if (!tournament) {
-      return new NewTournamentView(tournaments, $view);
-    }
-
-    return new GenericTournamentView(tournament, $view);
   };
 
-  return GenericTournamentViewFactory;
+  return TournamentViewPopulator;
 });

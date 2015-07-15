@@ -5,8 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview',
-    './generictournamentviewfactory'], function(extend, $, View, State,
-    SystemListView, GenericTournamentViewFactory) {
+    './tournamentviewpopulator'], function(extend, $, View, State,
+    SystemListView, TournamentViewPopulator) {
   /**
    * represents a whole team tab
    *
@@ -33,7 +33,7 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview',
     var $view, view, factory, $templates;
 
     $templates = this.$view.find('.template[data-system]').detach();
-    factory = new GenericTournamentViewFactory($templates);
+    factory = new TournamentViewPopulator($templates);
     $view = this.$view.find('.systemtable');
     view = new SystemListView(State.teams, $view, State.tournaments,
         State.teamsize, factory);

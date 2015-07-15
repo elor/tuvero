@@ -6,12 +6,27 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(['lib/extend', 'core/view', './newtournamentcontroller'], function(
+    extend, View, NewTournamentController) {
   /**
    * Constructor
+   *
+   * @param firstID
+   * @param lastID
+   * @param $view
+   * @param tournaments
+   * @param teams
    */
-  function NewTournamentView(model, $view) {
-    NewTournamentView.superconstructor.call(this, model, $view);
+  function NewTournamentView(firstTeamID, numTeams, $view, tournaments, teams) {
+    NewTournamentView.superconstructor.call(this, undefined, $view);
+
+    // anonymous model
+    this.model.firstID = firstTeamID;
+    this.model.numTeams = numTeams;
+    this.model.tournaments = tournaments;
+    this.model.teams = teams;
+
+    this.controller = new NewTournamentController(this);
   }
   extend(NewTournamentView, View);
 

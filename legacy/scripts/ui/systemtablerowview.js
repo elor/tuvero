@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
-], function(extend, View, TeamView, GenericTournamentView) {
+define(['lib/extend', 'core/view', './teamview', './newtournamentview',
+    './generictournamentview'], function(extend, View, TeamView,
+    NewTournamentView, GenericTournamentView) {
   /**
    * Constructor
    *
@@ -19,12 +20,12 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
    *          a ListModel of TeamModels
    * @param tournaments
    *          a ListModel of TournamentModels
-   * @param tournamentViewFactory
-   *          a GenericTournamentViewFactory instance for creation of the
-   *          ".system" cells
+   * @param viewPopulator
+   *          a TournamentViewPopulator instance for creation of the ".system"
+   *          cells
    */
-  function SystemTableRowView(index, $view, teams, tournaments,
-      tournamentViewFactory) {
+  function SystemTableRowView(index, $view, teams, tournaments, viewPopulator,
+      $newTournamentTemplate) {
     SystemTableRowView.superconstructor.call(this, undefined, $view);
 
     this.index = index;
@@ -38,7 +39,7 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
     this.$tournamentrank = this.$view.find('.tournamentrank');
     this.$globalrank = this.$view.find('.rank');
     this.tournamentView = undefined;
-    this.tournamentViewFactory = tournamentViewFactory;
+    this.viewPopulator = viewPopulator;
 
     this.tournaments.registerListener(this);
 
@@ -68,7 +69,7 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
   };
 
   SystemTableRowView.prototype.updateSystem = function() {
-    var ranking, offset, tournamentID, rowspan, $view;
+    var ranking, offset, tournamentID, rowspan, $view, tournament;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     tournamentID = ranking.tournamentIDs[this.index];
@@ -101,12 +102,18 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
       $view = $('<td>').addClass('system');
       $view.attr('rowspan', rowspan);
 
-      this.tournamentView = this.tournamentViewFactory.create(this.tournaments,
-          tournamentID, $view);
-      if (this.tournamentView) {
-        this.$view.append($view);
-        this.$view.addClass('firstrow');
+      tournament = this.tournaments.get(tournamentID);
+      this.viewPopulator.populate(tournament, $view);
+
+      if (tournament) {
+        this.tournamentView = new GenericTournamentView(tournament, $view);
+      } else {
+        this.tournamentView = new NewTournamentView(offset, rowspan, $view,
+            this.tournaments, this.teams);
       }
+
+      this.$view.append($view);
+      this.$view.addClass('firstrow');
     }
   };
 
@@ -133,14 +140,13 @@ define(['lib/extend', 'core/view', './teamview', './generictournamentview'//
    *
    * @param teams
    * @param tournaments
-   * @param tournamentViewFactory
+   * @param viewPopulator
    * @returns {Function}
    */
-  SystemTableRowView.bindLists = function(teams, tournaments,
-      tournamentViewFactory) {
+  SystemTableRowView.bindLists = function(teams, tournaments, viewPopulator) {
     function BoundSystemTableRowView(index, $view) {
       BoundSystemTableRowView.superconstructor.call(this, index, $view, teams,
-          tournaments, tournamentViewFactory);
+          tournaments, viewPopulator);
     }
     extend(BoundSystemTableRowView, SystemTableRowView);
 

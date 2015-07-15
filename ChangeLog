@@ -1,6 +1,7 @@
 2015-07-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: "system" templates use a data-system attribute to denote their respective tournament system
+	newtournament buttons: data-system attributes added
 
 	* legacy/scripts/ui/generictournamentview.js: constructor takes a tournament instance now
 
@@ -8,15 +9,25 @@
 	holds some persistent data so it doesn't have to be passed one-by-one
 	loading a NewTournamentView if the tournament doesn't exist
 	create() function signature changed to use the list of tournaments again (NewTournamentView needs it)
+	renamed to TournamentViewPopulator. Doesn't instantiate the tournaments anymore
 
 	* legacy/scripts/ui/newtab.js: instantiating GenericTournamentViewFactory
+	TournamentViewPopulator renaming
 
 	* legacy/scripts/ui/systemlistview.js: passing GenericTournamentViewFactory through
 
 	* legacy/scripts/ui/systemtablerowview.js: using GenericTournamentViewFactory
 	using NewTournamentView when a tournament doesn't exist
+	using TournamentViewPopulator before instantiating any TournamentView
 
 	* legacy/scripts/ui/newtournamentview.js: empty constructor added. Rest will follow
+
+	* core/scripts/tournamentindex.js: JSDoc for createTournament() added
+
+	* legacy/scripts/ui/newtournamentcontroller.js: Controller for button-clicking
+
+	* legacy/scripts/ui/tournamentviewpopulator.js: renamed from GenericTournamentViewFactory
+	doesn't create TournamentViews anymore, only populates the $views
 
 2015-07-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
