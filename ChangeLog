@@ -4,6 +4,9 @@
 
 	* legacy/scripts/ui/generictournamentview.js: constructor takes a tournament instance now
 
+	* legacy/scripts/ui/generictournamentviewfactory.js: factory for GenericTournamentViews
+	holds some persistent data so it doesn't have to be passed one-by-one
+
 2015-07-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* .travis.yml: Travis CI YAML file added
