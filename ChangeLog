@@ -19,12 +19,16 @@
 	* legacy/scripts/ui/systemtablerowview.js: using GenericTournamentViewFactory
 	using NewTournamentView when a tournament doesn't exist
 	using TournamentViewPopulator before instantiating any TournamentView
+	rowspan calculations were incorrect (NaN) for only one tournament with all players. fixed it.
 
 	* legacy/scripts/ui/newtournamentview.js: empty constructor added. Rest will follow
+	firstID -> firstTeamID
 
 	* core/scripts/tournamentindex.js: JSDoc for createTournament() added
 
 	* legacy/scripts/ui/newtournamentcontroller.js: Controller for button-clicking
+	typo fixed
+	creating tournaments and filling them with teams. Works good enough for now.
 
 	* legacy/scripts/ui/tournamentviewpopulator.js: renamed from GenericTournamentViewFactory
 	doesn't create TournamentViews anymore, only populates the $views

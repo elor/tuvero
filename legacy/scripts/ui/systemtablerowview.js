@@ -91,9 +91,13 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
 
     if (offset === ranking.tournamentOffsets[tournamentID]) {
       if (tournamentID === undefined) {
-        rowspan = this.teams.length;
+        rowspan = this.teams.length - offset;
       } else if (ranking.tournamentOffsets[tournamentID + 1] === undefined) {
-        rowspan = ranking.tournamentOffsets[undefined];
+        if (ranking.tournamentOffsets[undefined] == undefined) {
+          rowspan = this.teams.length - offset;
+        } else {
+          rowspan = ranking.tournamentOffsets[undefined];
+        }
       } else {
         rowspan = ranking.tournamentOffsets[tournamentID + 1];
       }
