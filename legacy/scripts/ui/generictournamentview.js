@@ -11,21 +11,25 @@ define(['lib/extend', 'core/view', './tournamentview'], function(extend, View,
   /**
    * Constructor
    */
-  function GenericTournamentView(index, $view, tournaments) {
+  function GenericTournamentView(tournament, $view) {
+    var tournamentID;
     GenericTournamentView.superconstructor.call(this, undefined, $view);
 
-    this.$view.append($('<h3>').text("Tournament " + index));
-    this.$view.append($('<h3>').text("Tournament " + index));
+    tournamentID = tournament && tournament.getID();
 
-    if (index === undefined) {
-      // TODO show generic tournament starter stuff
-    } else {
-      this.tournament = tournaments.get(index);
-
+    this.tournament = tournament;
+    if (tournament) {
       this.view = new TournamentView(tournament, $view);
+    } else {
+      this.view = new View();
     }
   }
   extend(GenericTournamentView, View);
+
+  GenericTournamentView.prototype.destroy = function() {
+    this.view.destroy();
+    GenericTournamentView.superclass.destroy.call(this);
+  }
 
   return GenericTournamentView;
 });
