@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 define(function() {
-  var Strings, key;
+  var Strings;
 
   Strings = {
     autosaveoff: 'Automatisches  Speichern aus',
@@ -95,7 +95,7 @@ define(function() {
     tabupdateerror: 'Fehler bei Aktualisierung vom %s-Tab',
     tab_teams: 'Mannschaften',
     tab_new: 'Turniersysteme',
-    tab_games: 'Offene Spiele',
+    tab_games: 'Laufende Spiele',
     tab_ranking: 'Platzierungen',
     tab_history: 'Spielverlauf',
     tab_debug: 'Debugging Console',
