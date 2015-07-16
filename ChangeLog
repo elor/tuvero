@@ -13,6 +13,8 @@
 
 	* legacy/scripts/ui/teamstab.js: TeamsTab file reformatted
 
+	* legacy/scripts/ui/gamestab.js: GamesTab added
+
 2015-07-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: "system" templates use a data-system attribute to denote their respective tournament system
