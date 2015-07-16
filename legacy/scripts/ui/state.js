@@ -9,9 +9,8 @@
  * @see LICENSE
  */
 define(['options', './tabshandle', './team', './history', './tournaments',
-    './tab_games', './tab_ranking', './tab_history', './shared'], function(
-    Options, Tabshandle, Team, History, Tournaments, Tab_Games, Tab_Ranking,
-    Tab_History, Shared) {
+    './tab_ranking', './tab_history', './shared'], function(Options,
+    Tabshandle, Team, History, Tournaments, Tab_Ranking, Tab_History, Shared) {
   var State;
 
   State = {
@@ -57,7 +56,7 @@ define(['options', './tabshandle', './team', './history', './tournaments',
       // update all tabs
       // Tab_Teams.update();
       // Tab_New.update();
-      Tab_Games.update();
+      // Tab_Games.update();
       Tab_History.update();
       Tab_Ranking.update(); // attempt ranking update
 

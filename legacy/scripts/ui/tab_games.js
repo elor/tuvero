@@ -449,7 +449,7 @@ define(
 
         Tab_Ranking.update();
         // due to circular dependency, we must load Tab_New separately
-//        Shared.Tab_New.update();
+        // Shared.Tab_New.update();
 
         Tab_Games.update();
 
