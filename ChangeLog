@@ -15,6 +15,8 @@
 
 	* legacy/scripts/ui/gamestab.js: GamesTab added
 
+	* legacy/scripts/ui/backgroundscripts/tabgamescheaphacklistener.js: show/hide #games when no tournament is running
+
 2015-07-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: "system" templates use a data-system attribute to denote their respective tournament system
