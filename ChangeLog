@@ -1,6 +1,7 @@
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
+	bottom-title (second h3) added to 'round'
 
 	* legacy/style/new.css: .idle class added
 
