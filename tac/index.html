@@ -401,39 +401,41 @@
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+            Breite</span> <span><input class="shownames" type="checkbox"
+            checked="checked" />Spielernamen</span> <span><input class="showtable"
+            type="checkbox" checked="checked" />Tabelle</span>
         </div>
-        <h2> Laufende Spiele</h2>
+        <h2>Laufende Spiele</h2>
 
-        <div class="boxview tpl">
-          <h3>Runde <span class="round">##</span></h3>
-          <form class="game">
-            <div class="top">
-              <div class="teamno left">
-                ##
+        <div class="boxview tournament template">
+          <h3 class="tournamentname"></h3>
+
+          <div class="matchlist">
+            <form class="matchview template">
+              <div class="top">
+                <div class="teamno left">##</div>
+                <div class="finish">
+                  <button type="submit" tabindex="-1" disabled="disabled">Beenden</button>
+                  <br> <input class="points" type="number" value="0" /> <input
+                    class="points" type="number" value="0" />
+                </div>
+                <div class="teamno right">##</div>
               </div>
-              <div class="finish">
-                <button type="submit" tabindex="-1" disabled="disabled">
-                  Beenden
-                </button>
-                <br>
-                <input class="points" type="number" value="0" />
-                <input class="points" type="number" value="0" />
+              <div class="bottom">
+                <div class="names left">
+                  <div class="name">%% %%</div>
+                  <div class="name">%% %%</div>
+                  <div class="name">%% %%</div>
+                </div>
+                <div class="names right">
+                  <div class="name">%% %%</div>
+                  <div class="name">%% %%</div>
+                  <div class="name">%% %%</div>
+                </div>
               </div>
-              <div class="teamno right">
-                ##
-              </div>
-            </div>
-            <div class="bottom">
-              <div class="names left">
-                %% %%
-              </div>
-              <div class="names right">
-                %% %%
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
 
           <div class="votes">
             <div class="bye">
@@ -448,13 +450,9 @@
               <h3>&#x25bc; Runterlos</h3>
             </div>
 
-            <div class="vote">
-              <div class="teamno">
-                ##
-              </div>
-              <div class="names">
-                %% %%
-              </div>
+            <div class="voteview template">
+              <div class="teamno">##</div>
+              <div class="names">%% %%</div>
             </div>
           </div>
         </div>

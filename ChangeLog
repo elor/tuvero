@@ -9,6 +9,8 @@
 
 	* legacy/scripts/ui/strings.js: tab_games string changed to "Laufende Spiele"
 
+	* core/templates/gamestab.html: gamestab classes changed
+
 2015-07-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: "system" templates use a data-system attribute to denote their respective tournament system
