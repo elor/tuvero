@@ -1,3 +1,9 @@
+2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/newtab.html: .idle class added
+
+	* legacy/style/new.css: .idle class added
+
 2015-07-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: "system" templates use a data-system attribute to denote their respective tournament system

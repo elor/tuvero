@@ -106,6 +106,7 @@
 #tabs > [data-tab="new"] .systemtable .system > .initial,
 #tabs > [data-tab="new"] .systemtable .system > .running,
 #tabs > [data-tab="new"] .systemtable .system > .finished,
+#tabs > [data-tab="new"] .systemtable .system > .idle,
 #tabs > [data-tab="new"] .systemtable .system > .failure {
   display: none;
 }
@@ -113,6 +114,7 @@
 #tabs > [data-tab="new"] .systemtable .system.initial > .initial,
 #tabs > [data-tab="new"] .systemtable .system.running > .running,
 #tabs > [data-tab="new"] .systemtable .system.finished > .finished,
+#tabs > [data-tab="new"] .systemtable .system.idle > .idle,
 #tabs > [data-tab="new"] .systemtable .system.failure > .failure {
   display: block;
 }
