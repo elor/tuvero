@@ -6,16 +6,18 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './matchview', './listview'], function(
-    extend, TemplateView, MatchView, ListView) {
+define(['lib/extend', './templateview', './matchview', './listview',
+    './teamtableview'], function(extend, TemplateView, MatchView, ListView,
+    TeamTableView) {
   /**
    * Constructor
    *
    * @param model
    * @param $view
    * @param teamlist
+   * @param teamsize
    */
-  function TournamentMatchesView(model, $view, teamlist) {
+  function TournamentMatchesView(model, $view, teamlist, teamsize) {
     TournamentMatchesView.superconstructor.call(this, model, $view, //
     $view.find('.matchview.template, .matchrow.template'));
 
@@ -28,6 +30,8 @@ define(['lib/extend', './templateview', './matchview', './listview'], function(
     this.$matchtable = this.$view.find('.matchtable');
     this.matchtable = new ListView(this.model.getMatches(), this.$matchtable,
         this.$template.filter('.matchrow'), MatchView, teamlist);
+
+    this.$teamtableview = new TeamTableView(this, teamsize);
 
     this.updateName();
   }

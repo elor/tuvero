@@ -38,7 +38,7 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
     $container = this.$view.find('.tournamentlist');
     $template = $container.find('.tournament.template');
     this.teamList = new ListView(State.tournaments, $container, $template,
-        TournamentMatchesView, State.teams);
+        TournamentMatchesView, State.teams, State.teamsize);
 
     // name maxwidth checkbox
     value = new ValueModel();
