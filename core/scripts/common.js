@@ -204,6 +204,7 @@ define([
   'ui/textview',
   'ui/toast',
   'ui/tournamentcontroller',
+  'ui/tournamentmatchesview',
   'ui/tournaments',
   'ui/tournamentview',
   'ui/tournamentviewpopulator',

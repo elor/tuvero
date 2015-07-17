@@ -4,6 +4,8 @@
 
 	* legacy/scripts/ui/listview.js: optData argument added to constructor, which will be passed through to the SubView constructor
 
+	* legacy/scripts/ui/tournamentmatchesview.js: represents a box inside the games tab, which contains match lists
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
