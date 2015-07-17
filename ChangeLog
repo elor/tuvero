@@ -3,6 +3,7 @@
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
 	MatchView style restored
 	div/form order changed for better MatchController $view definitions
+	matchtable added
 
 	* legacy/scripts/ui/listview.js: optData argument added to constructor, which will be passed through to the SubView constructor
 	ListModel doesn't usually send update events. This has lead to errors with TournamentListModel, which does, but for different reasons
@@ -22,6 +23,7 @@
 	* core/templates/newtab.html: input element removed to improve tabbing
 
 	* legacy/style/games.css: MatchView style restored
+	styling matchtable
 
 	* legacy/scripts/ui/matchview.js: more input elements than teams? Use the teams twice. As long as they're interlaced, we're fine
 

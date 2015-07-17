@@ -1,4 +1,4 @@
-#tabs>[data-tab="games"] .matchview, #tabs>[data-tab="games"] .votes .vote {
+#tabs>[data-tab="games"] div.matchview, #tabs>[data-tab="games"] .votes .vote {
   display: inline-table;
   margin: 0.5em;
   border-radius: 0.5em;
@@ -59,11 +59,25 @@
 }
 
 #tabs>[data-tab="games"].maxwidth .name {
+  width: 8em;
+  max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#tabs>[data-tab="games"].hidenames .bottom .team {
+#tabs > [data-tab="games"] .matchtable {
+  display: none;
+}
+
+#tabs>[data-tab="games"].hidenames .name {
+  display: none;
+}
+
+#tabs > [data-tab="games"].showtable .matchtable {
+  display: table;
+}
+
+#tabs > [data-tab="games"].showtable .matchlist {
   display: none;
 }
 
