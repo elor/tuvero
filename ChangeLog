@@ -1,3 +1,7 @@
+2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added

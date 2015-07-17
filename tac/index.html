@@ -408,51 +408,54 @@
         </div>
         <h2>Laufende Spiele</h2>
 
-        <div class="boxview tournament template">
-          <h3 class="tournamentname"></h3>
+        <div class="tournamentlist">
+          <div class="boxview tournament template">
+            <h3 class="tournamentname"></h3>
 
-          <div class="matchlist">
-            <form class="matchview template">
-              <div class="top">
-                <div class="teamno left">##</div>
-                <div class="finish">
-                  <button type="submit" tabindex="-1" disabled="disabled">Beenden</button>
-                  <br> <input class="points" type="number" value="0" /> <input
-                    class="points" type="number" value="0" />
+
+            <div class="matchlist">
+              <form class="matchview template">
+                <div class="top">
+                  <div class="teamno left">##</div>
+                  <div class="finish">
+                    <button type="submit" tabindex="-1" disabled="disabled">Beenden</button>
+                    <br> <input class="points" type="number" value="0" /> <input
+                      class="points" type="number" value="0" />
+                  </div>
+                  <div class="teamno right">##</div>
                 </div>
-                <div class="teamno right">##</div>
+                <div class="bottom">
+                  <div class="team left">
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                  </div>
+                  <div class="team right">
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="votes">
+              <div class="bye">
+                <h3>&#x2205; Freilos</h3>
               </div>
-              <div class="bottom">
-                <div class="names left">
-                  <div class="name">%% %%</div>
-                  <div class="name">%% %%</div>
-                  <div class="name">%% %%</div>
-                </div>
-                <div class="names right">
-                  <div class="name">%% %%</div>
-                  <div class="name">%% %%</div>
-                  <div class="name">%% %%</div>
-                </div>
+
+              <div class="up">
+                <h3>&#x25b2; Hochlos</h3>
               </div>
-            </form>
-          </div>
 
-          <div class="votes">
-            <div class="bye">
-              <h3>&#x2205; Freilos</h3>
-            </div>
+              <div class="down">
+                <h3>&#x25bc; Runterlos</h3>
+              </div>
 
-            <div class="up">
-              <h3>&#x25b2; Hochlos</h3>
-            </div>
-
-            <div class="down">
-              <h3>&#x25bc; Runterlos</h3>
-            </div>
-
-            <div class="voteview template">
-              <div class="teamno">##</div>
-              <div class="names">%% %%</div>
+              <div class="voteview template">
+                <div class="teamno">##</div>
+                <div class="names">%% %%</div>
+              </div>
             </div>
           </div>
         </div>
