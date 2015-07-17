@@ -85,6 +85,8 @@
 
 	* legacy/style/history.css: copy of games.css. To be adjusted
 
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing the history tab only if there's any tournament with a history
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added

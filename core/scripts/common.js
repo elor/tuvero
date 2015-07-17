@@ -121,6 +121,7 @@ define([
   'ui/backgroundscripts/tabnewcheaphacklistener',
   'ui/backgroundscripts/online',
   'ui/backgroundscripts/save',
+  'ui/backgroundscripts/tabhistorycheaphacklistener',
   'ui/backgroundscripts/redrawOnPlayerChange',
   'ui/backgroundscripts/load',
   'ui/backgroundscripts/print',
