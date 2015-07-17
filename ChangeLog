@@ -46,6 +46,7 @@
 	* legacy/scripts/ui/teamview.js: support for jquery elements without a common parent tag added (multiple teams in one <tr>)
 
 	* legacy/style/general.css: teamno style doesn't apply to table cells
+	matchlist: team number style restored
 
 	* boule/scripts/options.js: Options.defaultscore = 0
 
