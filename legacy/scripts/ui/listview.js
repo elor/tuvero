@@ -169,13 +169,6 @@ define(['lib/extend', './templateview', './textview'], function(extend,
   };
 
   /**
-   * event callback function
-   */
-  ListView.prototype.onupdate = function() {
-    this.update();
-  };
-
-  /**
    * Emitter Callback function, called right after a new element has been
    * inserted
    *
