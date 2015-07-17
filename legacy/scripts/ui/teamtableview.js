@@ -1,5 +1,10 @@
 /**
- * TeamTableView
+ * TeamTableView: hides th.playercol tags in consecutive occurences, when their
+ * index inside the consecutive occurence is greater or equal to the number of
+ * teams. This allows for the occurence of multiple teams inside a single row,
+ * e.g. for match tables
+ *
+ * Also hides the whole table if there's no entry in the table.
  *
  * TODO extract the teamsize logic to a ClassView+IsEmptyModel (or something)
  *
@@ -26,7 +31,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
     this.teamlist = teamview.model;
     this.teamlist.registerListener(this);
 
-    this.$names = this.$view.find('tr>th.playercol');
+    this.$names = this.$view.find('tr>th');
 
     this.updateVisibility();
     this.updatePlayerColumns();
@@ -37,19 +42,25 @@ define(['lib/extend', 'core/view'], function(extend, View) {
    * show one column for each player in a team (teamsize)
    */
   TeamTableView.prototype.updatePlayerColumns = function() {
-    var teamsize;
+    var teamsize, teamindex;
 
     teamsize = this.model.get();
+    teamindex = 0;
 
     this.$names.each(function(index, elem) {
       var $elem;
 
       $elem = $(elem);
 
-      if (index < teamsize) {
-        $elem.removeClass('hidden');
+      if ($elem.hasClass('playercol')) {
+        if (teamindex < teamsize) {
+          $elem.removeClass('hidden');
+        } else {
+          $elem.addClass('hidden');
+        }
+        teamindex += 1;
       } else {
-        $elem.addClass('hidden');
+        teamindex = 0;
       }
     });
   };
