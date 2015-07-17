@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './matchview', './listview',
-    './teamtableview'], function(extend, TemplateView, MatchView, ListView,
-    TeamTableView) {
+    './teamtableview', './boxview'], function(extend, TemplateView, MatchView,
+    ListView, TeamTableView, BoxView) {
   /**
    * Constructor
    *
@@ -20,6 +20,8 @@ define(['lib/extend', './templateview', './matchview', './listview',
   function TournamentMatchesView(model, $view, teamlist, teamsize) {
     TournamentMatchesView.superconstructor.call(this, model, $view, //
     $view.find('.matchview.template, .matchrow.template'));
+
+    this.boxview = new BoxView(this.$view);
 
     this.$name = this.$view.find('.tournamentname');
 
