@@ -410,7 +410,6 @@
           <div class="boxview tournament template">
             <h3 class="tournamentname"></h3>
 
-
             <div class="matchlist">
               <div class="matchview template">
                 <div class="top">
@@ -549,94 +548,98 @@
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
-          <span><input class="gamelists" type="checkbox" />Spiele-Listen</span>
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+            Breite</span> <span><input class="shownames" type="checkbox"
+            checked="checked" />Spielernamen</span> <span><input class="showtable"
+            type="checkbox" checked="checked" />Tabelle</span>
         </div>
         <h2>Turnierverlauf</h2>
 
-        <div class="boxview tpl">
-          <h3>Runde <span class="roundno">##</span></h3>
-          <table class="gamestable background">
-            <tr>
-              <th>Team 1</th>
-              <th>Team 2</th>
-              <th>Punktzahl</th>
-            </tr>
-            <tr class="bye tpl">
-              <td class="team"><span class="number">##</span><span class="names">### ###
-                  <br>
-                  ### ###</span></td>
-              <td> Freilos </td>
-              <td class="points"> %%:%% </td>
-            </tr>
-            <tr class="game tpl">
-              <td class="team"><span class="number">##</span><span class="names">### ###
-                  <br>
-                  ### ###</span></td>
-              <td class="team"><span class="number">##</span><span class="names">### ###
-                  <br>
-                  ### ###</span></td>
-              <td class="correct editable">##:##</td>
-              <td class="chpoints">
-                <form class="middle">
-                  <button class="abort">
-                    abbrechen
-                  </button>
-                  <br>
-                  <input class="points" type="number" value="0" />
-                  <input class="points" type="number" value="0" />
-                  <br>
-                  <button class="change" type="submit">
-                    speichern
-                  </button>
-                </form>
-              </td>
-            </tr>
-          </table>
+        <div class="tournamentlist">
+          <div class="boxview tournament template">
+            <h3 class="tournamentname"></h3>
 
-          <table class="progresstable background">
-            <tr>
-              <th>No.</th>
-              <th class="names">Spieler</th>
-              <th class="names">Spieler</th>
-              <th class="names">Spieler</th>
-              <th class="game vsep" colspan="3">Runde <span class="roundno">##</span></th>
-              <th class="result vsep">Siege</th>
-              <th class="result">BH</th>
-              <th class="result">FBH</th>
-              <th class="result">Saldo</th>
-              <th class="result">Rang</th>
-            </tr>
-            <tr class="team">
-              <td class="number">##</td>
-              <td class="names">%% %%</td>
-              <td class="names">%% %%</td>
-              <td class="names">%% %%</td>
-              <td class="game vsep">##</td>
-              <td class="game correct editable">%%</td>
-              <td class="game">%%</td>
-              <td class="result vsep">##</td>
-              <td class="result">##</td>
-              <td class="result">##</td>
-              <td class="result">##</td>
-              <td class="result">##</td>
-            </tr>
-          </table>
+            <div class="matchlist">
+              <div class="matchview template">
+                <div class="top">
+                  <div class="team left">
+                    <span class="teamno">##</span>
+                  </div>
+                  <form class="finish">
+                    <button type="submit" tabindex="-1">Beenden</button>
+                    <br> <input class="points" type="number" value="0" /> <input
+                      class="points" type="number" value="0" />
+                  </form>
+                  <div class="team left">
+                    <span class="teamno">##</span>
+                  </div>
+                </div>
+                <div class="bottom">
+                  <div class="team left">
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                  </div>
+                  <div class="team right">
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                    <div class="name">%% %%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-          <div class="kotree">
-            <table class="game borderless">
-              <tr class="label"><th colspan="2">Lorem Ipsum</th><tr>
+            <table class="matchtable background">
               <tr>
-                <td class="number">##</td>
-                <td class="names">%%</td>
-                <td rowspan="2" class="points correct editable">%%</td>
+                <th>No.</th>
+                <th class="playercol">Spieler</th>
+                <th class="playercol">Spieler</th>
+                <th class="playercol">Spieler</th>
+                <th>No.</th>
+                <th class="playercol">Spieler</th>
+                <th class="playercol">Spieler</th>
+                <th class="playercol">Spieler</th>
+                <th class="noprint">Ergebnis</th>
               </tr>
-              <tr>
-                <td class="number">##</td>
-                <td class="names">%%</td>
+              <tr class="matchrow template">
+                <td class="teamno"></td>
+                <td class="name"></td>
+                <td class="name"></td>
+                <td class="name"></td>
+                <td class="teamno"></td>
+                <td class="name"></td>
+                <td class="name"></td>
+                <td class="name"></td>
+                <td class="noprint">
+                  <form class="finish">
+                    <input class="points" type="number" /> : <input class="points"
+                      type="number" />
+                    <button type="submit" tapindex="-1">Beenden</button>
+                  </form>
+                </td>
               </tr>
             </table>
+
+            <div class="votelist bye">
+              <h3>&#x2205; Freilos</h3>
+            </div>
+
+            <div class="votelist up">
+              <h3>&#x25b2; Hochlos</h3>
+            </div>
+
+            <div class="votelist down">
+              <h3>&#x25bc; Runterlos</h3>
+            </div>
+
+            <div class="teamview voteview template">
+              <div class="teamno">##</div>
+              <div class="names">
+                <div class="name">%% %%</div>
+                <div class="name">%% %%</div>
+                <div class="name">%% %%</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

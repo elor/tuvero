@@ -80,6 +80,8 @@
 
 	* legacy/scripts/ui/historytab.js: HistoryTab added to show the tournament history
 
+	* core/templates/historytab.html: format of gamestab adapted
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
