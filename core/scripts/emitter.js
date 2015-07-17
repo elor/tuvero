@@ -7,6 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/listener'], function(extend, Listener) {
+  var depth;
+
+  depth = 0;
+
   /**
    * Constructor
    */
@@ -40,7 +44,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * @return true if the some listener received the event, false otherwise
    */
   Emitter.prototype.emit = function(event, data) {
-    var success;
+    var success, indentation;
 
     success = false;
 
@@ -54,12 +58,27 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
      * so that unregisterListener()-calls don't cause other listeners to be
      * skipped. Have a look at the corresponding unit test.
      */
+    depth += 1;
+
+    if (Emitter.debug) {
+      indentation = '>';
+      while (indentation.length < depth - 1) {
+        indentation += ' ';
+      }
+      console.log(indentation
+          + this.constructor.toString().split('\n')[0].replace(
+              /function (\S+)\(.*/, '$1') + '.emit(' + event + ') with '
+          + this.listeners.length + ' listeners');
+    }
+
     this.listeners.slice().forEach(function(listener) {
       if (listener['on' + event]) {
         listener['on' + event].call(listener, this, event, data);
         success = true;
       }
     }, this);
+
+    depth -= 1;
 
     return success;
   };
@@ -127,6 +146,11 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
       this.unregisterListener(listener);
     }, this);
   };
+
+  /**
+   * enable/disable debugging log
+   */
+  Emitter.debug = false;
 
   return Emitter;
 });
