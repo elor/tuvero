@@ -1,48 +1,33 @@
 <div data-tab="ranking" accesskey="r">
   <button class="print" data-img="print"></button>
   <button class="save" data-img="save"></button>
-  <h2>Platzierung</h2>
-  <div class="boxview tpl">
-    <h3>## ##</h3>
-    <table class="ranking background">
-      <tr class="head">
-        <th>Rang</th>
-        <th>No.</th>
-        <th colspan="3">Spieler</th>
-        <th>Spiele</th>
-        <th>Siege</th>
-        <th>BH</th>
-        <th>FBH</th>
-        <th>Saldo</th>
-        <th>Lose</th>
-      </tr>
-      <tr class="line">
-        <td>##</td>
-        <td>##</td>
-        <td class="name">%%%</td>
-        <td class="name">%%%</td>
-        <td class="name">%%%</td>
-        <td>##</td>
-        <td>##</td>
-        <td>##</td>
-        <td>##</td>
-        <td>##</td>
-        <td>##</td>
-      </tr>
-    </table>
+  <div class="options">
+    <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+      Breite</span> <span><input class="shownames" type="checkbox"
+      checked="checked" />Spielernamen</span> <span><input class="showtable"
+      type="checkbox" checked="checked" />Tabelle</span>
+  </div>
+  <h2>Platzierungen</h2>
 
-    <div class="corrections">
-      <h3>Korrekturen</h3>
-      <table class="correctionstable background">
-        <tr>
-          <th>Spiel</th>
-          <th>Korrektur</th>
+  <div class="tournamentlist">
+    <div class="boxview tournament template">
+      <h3 class="tournamentname"></h3>
+
+      <table class="rankingview background">
+        <tr class="rankingheader">
+          <th>Rank</th>
+          <th>No.</th>
+          <th class="playername">Spieler</th>
+          <th class="component">%% %%</th>
         </tr>
-        <tr class="corr">
-          <td><span class="teamno">##</span> gg. <span class="teamno">##</span></td>
-          <td class="points"><span>##</span> : <span>##</span> &rarr; <span>##</span> : <span>##</span></td>
+        <tr class="rankingrow template">
+          <td class="rank">##</td>
+          <td class="teamno">##</td>
+          <td class="playername"></td>
+          <td class="component">##</td>
         </tr>
       </table>
+
     </div>
   </div>
 </div>
