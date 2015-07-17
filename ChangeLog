@@ -48,6 +48,7 @@
 	* core/scripts/test/referencelistmodel.js: testing how often an event is emitted.
 
 	* legacy/scripts/ui/teamview.js: support for jquery elements without a common parent tag added (multiple teams in one <tr>)
+	support for referencing a TeamList with an index added (to avoid an individual VoteView for now)
 
 	* legacy/style/general.css: teamno style doesn't apply to table cells
 	matchlist: team number style restored
@@ -68,9 +69,6 @@
 	* core/scripts/maplistmodel.js: don't emit insert/remove twice
 
 	* core/scripts/test/maplistmodel.js: testing whether insert/remove is re-emitted exactly once
-	* boule/index.html: 
-
-	* tac/index.html: 
 
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
