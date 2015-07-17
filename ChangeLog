@@ -6,6 +6,9 @@
 
 	* legacy/scripts/ui/tournamentmatchesview.js: represents a box inside the games tab, which contains match lists
 
+	* legacy/scripts/ui/gamestab.js: List of running tournament games (ListView of TournamentMatchesView) added
+	some minor autoformatting of comments
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added

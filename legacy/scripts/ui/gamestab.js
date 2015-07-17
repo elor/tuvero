@@ -4,10 +4,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './listview', './state_new',
-    'core/valuemodel', './checkboxview', 'core/classview', './inputview',
-    'options'], function(extend, View, ListView, State, ValueModel,
-    CheckboxView, ClassView, Options) {
+define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
+    'core/valuemodel', './checkboxview', 'core/classview', 'options',
+    './tournamentmatchesview'],//
+function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
+    Options, TournamentMatchesView) {
   /**
    * represents a whole team tab
    *
@@ -34,10 +35,10 @@ define(['lib/extend', 'core/view', './listview', './state_new',
     var $template, $container, value;
 
     // tournamentlist
-    // $container = this.$view.find('>.teamlist');
-    // $template = $container.find('.team.template');
-    // this.teamList = new ListView(State.teams, $container, $template,
-    // TeamView);
+    $container = this.$view.find('.tournamentlist');
+    $template = $container.find('.tournament.template');
+    this.teamList = new ListView(State.tournaments, $container, $template,
+        TournamentMatchesView, State.teams);
 
     // name maxwidth checkbox
     value = new ValueModel();
@@ -60,10 +61,12 @@ define(['lib/extend', 'core/view', './listview', './state_new',
     this.showtableClassView = new ClassView(value, this.$view, 'showtable');
 
     // hide teamTable content depending on state
-    // this.teamTableView = new TeamTableView(this.teamTable, State.teamsize);
+    // this.teamTableView = new TeamTableView(this.teamTable,
+    // State.teamsize);
 
     // $container = this.$view.find('>.filereader input');
-    // this.teamsFileLoadController = new TeamsFileLoadController(new InputView(
+    // this.teamsFileLoadController = new TeamsFileLoadController(new
+    // InputView(
     // $container));
   };
 
