@@ -1,6 +1,6 @@
 /**
  * TournamentHistoryView
- * 
+ *
  * @return TournamentHistoryView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -12,7 +12,7 @@ define(['lib/extend', './templateview', './matchview', './listview',
     TeamView, Listener) {
   /**
    * Constructor
-   * 
+   *
    * @param model
    *          a TournamentModel from which all matches are read
    * @param $view
