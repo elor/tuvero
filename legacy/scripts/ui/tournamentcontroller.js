@@ -9,6 +9,9 @@
 define(['lib/extend', 'core/controller'], function(extend, Controller) {
   /**
    * Constructor
+   *
+   * @param view
+   *          a TournamentView instance
    */
   function TournamentController(view) {
     var tournament;
@@ -17,7 +20,9 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
 
     tournament = this.model;
 
-    this.view.$view.find('button.runtournament').click(function() {
+    this.$runbutton = this.view.$view.find('button.runtournament');
+
+    this.$runbutton.click(function() {
       tournament.run();
     });
   }

@@ -15,6 +15,8 @@
 
 	* core/scripts/tournamentmodel.js: using singletons for the getters to avoid listeners-bloat
 
+	* legacy/scripts/ui/tournamentcontroller.js: comment + field added (makes eclipse realize it's a class, not just a function)
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
