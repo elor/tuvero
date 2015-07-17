@@ -25,6 +25,8 @@
 
 	* legacy/scripts/ui/matchview.js: more input elements than teams? Use the teams twice. As long as they're interlaced, we're fine
 
+	* legacy/scripts/ui/matchcontroller.js: enable/disable submit button depending on values and ties
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
