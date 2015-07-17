@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 define(['../state_new', '../listcollectormodel', '../teammodel',
-    '../tab_ranking', '../tab_history'], function(State, ListCollectorModel,
-    TeamModel, Tab_Ranking, Tab_History) {
+    '../tab_ranking'], function(State, ListCollectorModel,
+    TeamModel, Tab_Ranking) {
   var teamCollector;
 
   // save on player name change
@@ -20,6 +20,6 @@ define(['../state_new', '../listcollectormodel', '../teammodel',
    */
   teamCollector.onupdate = function() {
     Tab_Ranking.update();
-    Tab_History.update();
+    // Tab_History.update();
   };
 });
