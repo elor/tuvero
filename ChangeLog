@@ -22,6 +22,8 @@
 
 	* legacy/style/games.css: MatchView style restored
 
+	* legacy/scripts/ui/matchview.js: more input elements than teams? Use the teams twice. As long as they're interlaced, we're fine
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added

@@ -60,7 +60,7 @@ define(['lib/extend', 'core/view', 'ui/teamview', // autoformat interrupt
     // FIXME support for a varying number of teams required
     for (i = 0; i < $teams.length; i += 1) {
       $team = $teams.eq(i);
-      teamid = this.model.getTeamID(i);
+      teamid = this.model.getTeamID(i % this.model.length);
 
       if (teamid !== undefined && this.teamlist) {
         this.teamviews.push(new TeamView(this.teamlist.get(teamid), $team));
