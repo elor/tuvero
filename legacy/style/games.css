@@ -28,11 +28,6 @@
   background: none;
 }
 
-#tabs>[data-tab="games"] .matchview  input {
-  width: 3em;
-  text-align: center;
-}
-
 #tabs>[data-tab="games"] .matchview  button {
   width: 6.5em;
   border: none;
@@ -82,8 +77,10 @@
   text-overflow: ellipsis;
 }
 
-#tabs>[data-tab="games"] .finish input[type="number"] {
-  width: 4em;
+#tabs>[data-tab="games"] .finish input {
+  width: 3em;
+  max-width: 3em;
+  text-align: center;
 }
 
 #tabs>[data-tab="games"].hidenames .name, #tabs>[data-tab="games"].hidenames .playercol

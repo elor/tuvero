@@ -27,6 +27,7 @@
 	* legacy/style/games.css: MatchView style restored
 	styling matchtable
 	table and input style adjusted. It looks great now
+	input elements styled with one games-specific rule
 
 	* legacy/scripts/ui/matchview.js: more input elements than teams? Use the teams twice. As long as they're interlaced, we're fine
 	support for teams without a common parent tag added (for matchtable rows, because <td>s can't be nested)
