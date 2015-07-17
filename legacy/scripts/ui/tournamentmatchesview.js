@@ -17,13 +17,17 @@ define(['lib/extend', './templateview', './matchview', './listview'], function(
    */
   function TournamentMatchesView(model, $view, teamlist) {
     TournamentMatchesView.superconstructor.call(this, model, $view, //
-    $view.find('.matchview.template'));
+    $view.find('.matchview.template, .matchrow.template'));
 
     this.$name = this.$view.find('.tournamentname');
 
     this.$matchlist = this.$view.find('.matchlist');
     this.matchlist = new ListView(this.model.getMatches(), this.$matchlist,
-        this.$template, MatchView, teamlist);
+        this.$template.filter('.matchview'), MatchView, teamlist);
+
+    this.$matchtable = this.$view.find('.matchtable');
+    this.matchtable = new ListView(this.model.getMatches(), this.$matchtable,
+        this.$template.filter('.matchrow'), MatchView, teamlist);
 
     this.updateName();
   }

@@ -12,6 +12,7 @@
 
 	* legacy/scripts/ui/gamestab.js: List of running tournament games (ListView of TournamentMatchesView) added
 	some minor autoformatting of comments
+	matchtable initialization added
 
 	* core/scripts/emitter.js: debugging output added (shows emit() recursion)
 	warning about 'update' ambiguity added
