@@ -40,6 +40,7 @@
 	table and input style adjusted. It looks great now
 	input elements styled with one games-specific rule
 	not printing .noprint elements
+	voteview style adjusted to match that of matchview
 
 	* legacy/scripts/ui/matchview.js: more input elements than teams? Use the teams twice. As long as they're interlaced, we're fine
 	support for teams without a common parent tag added (for matchtable rows, because <td>s can't be nested)
@@ -56,6 +57,7 @@
 
 	* legacy/style/general.css: teamno style doesn't apply to table cells
 	matchlist: team number style restored
+	autoformatting
 
 	* boule/scripts/options.js: Options.defaultscore = 0
 
