@@ -27,6 +27,10 @@
 
 	* legacy/scripts/ui/matchcontroller.js: enable/disable submit button depending on values and ties
 
+	* core/scripts/referencelistmodel.js: don't re-emit an event, the superclass already emits it.
+
+	* core/scripts/test/referencelistmodel.js: testing how often an event is emitted.
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added

@@ -37,13 +37,17 @@ define(function() {
           'number of teams match after initialization');
 
       listener = new Listener(refs);
+      listener.success = false;
+      listener.callcount = 0;
       listener.oninsert = function() {
         this.success = true;
+        this.callcount += 1;
       };
 
       matches.push(new MatchModel([4, 3], 2, 0));
 
       QUnit.ok(listener.success, '"insert" event is re-emitted');
+      QUnit.equal(listener.callcount, 1, '"insert" is emitted exactly once');
       QUnit.equal(refs.length, 3, 'new team gets added to the matches list');
       listener.destroy();
 
@@ -71,13 +75,17 @@ define(function() {
 
       listener.destroy();
       listener = new Listener(refs);
+      listener.success = false;
+      listener.callcount = 0;
       listener.onremove = function() {
         this.success = true;
+        this.callcount += 1;
       };
       matches.remove(2);
       QUnit.equal(matches.length, 2, 'match has been removed from matches');
       QUnit.equal(refs.length, 2, 'match has been removed from refs');
       QUnit.ok(listener.success, '"remove" event propagates to the matchref');
+      QUnit.equal(listener.callcount, 1, '"remove" is emitted exactly once');
     });
   };
 });

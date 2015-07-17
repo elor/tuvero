@@ -75,7 +75,6 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   ReferenceListModel.prototype.oninsert = function(emitter, event, data) {
     if (emitter === this.matches) {
       ReferenceListModel.insertMatch(this, data.id);
-      this.emit(event, data);
     }
   };
 
@@ -89,7 +88,6 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   ReferenceListModel.prototype.onremove = function(emitter, event, data) {
     if (emitter === this.matches) {
       ReferenceListModel.removeMatch(this, data.id);
-      this.emit(event, data);
     }
   };
 
