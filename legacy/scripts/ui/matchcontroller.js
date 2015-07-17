@@ -66,8 +66,6 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
 
     this.$form.submit(function(e) {
 
-      debugger;
-
       e.preventDefault();
       controller.finish();
       return false;
