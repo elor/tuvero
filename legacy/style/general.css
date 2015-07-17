@@ -46,9 +46,7 @@ div, button {
   display: none;
 }
 
-#tabs>[data-tab="teams"] div.teamno, #tabs>[data-tab="games"] .matchview .teamno,
-  #tabs>[data-tab="games"] .voteview .teamno, #tabs>[data-tab="history"] .teamno
-  {
+#tabs>[data-tab="teams"] div.teamno, .matchview .teamno, .voteview .teamno {
   width: 1.5em;
   height: 1.5em;
   font-size: 200%;
@@ -74,7 +72,6 @@ div, button {
   button, input, h1, h2 {
     display: none !important;
   }
-
   .editable:hover:after {
     display: none;
   }

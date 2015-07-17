@@ -58,6 +58,7 @@
 	* legacy/style/general.css: teamno style doesn't apply to table cells
 	matchlist: team number style restored
 	autoformatting
+	using the same style for "games" and "history"
 
 	* boule/scripts/options.js: Options.defaultscore = 0
 
@@ -81,6 +82,8 @@
 	* legacy/scripts/ui/historytab.js: HistoryTab added to show the tournament history
 
 	* core/templates/historytab.html: format of gamestab adapted
+
+	* legacy/style/history.css: copy of games.css. To be adjusted
 
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

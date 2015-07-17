@@ -1,105 +1,134 @@
-#tabs > [data-tab="history"] .boxview {
-  display: inline-block;
+#tabs>[data-tab="history"] .matchview, #tabs>[data-tab="history"] .voteview {
+  display: inline-table;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  border: solid 1px #000000;
+  background-color: #d3d3d3;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: top;
 }
 
-#tabs > [data-tab="history"].progress .boxview {
-  display: block;
+#tabs>[data-tab="history"] .matchview>div {
+  display: table;
+  margin: 0.0em;
+  padding: 0.0em;
+  width: 100%;
 }
 
-#tabs > [data-tab="history"] .gamestable .team {
+#tabs>[data-tab="history"] .matchview  .finish {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  '
+}
+
+#tabs>[data-tab="history"] .matchview  .teamno {
+  display: table-cell;
+  background: none;
+}
+
+#tabs>[data-tab="history"] .matchview  button {
+  width: 6.5em;
+  border: none;
+  box-shadow: inset 0px 0px 1px #000000;
+  border-radius: 5px;
+  background-color: #d3d3d3;
+  transition: color 0.2s;
+}
+
+/* this is awesome! */
+#tabs>[data-tab="history"] .matchview  button:not ([disabled] ):hover {
+  cursor: pointer;
+}
+
+#tabs>[data-tab="history"] .matchrow .teamno {
+  font-weight: bold;
+}
+
+#tabs>[data-tab="history"] .matchrow .name {
+  text-align: left
+}
+
+#tabs>[data-tab="history"] .matchview .left {
   text-align: left;
 }
 
-#tabs > [data-tab="history"] .gamestable .team .number {
-  min-width: 1.5em;
-  font-size: 200%;
-  text-align: center;
+#tabs>[data-tab="history"] .matchview .right .name {
+  text-align: right;
 }
 
-#tabs > [data-tab="history"] .gamestable .team span {
-  display: inline-block;
+#tabs>[data-tab="history"] .matchview .bottom .team {
+  display: table-cell;
+  padding: 0em 0.3em;
   vertical-align: middle;
-  padding: 0em;
 }
 
-#tabs > [data-tab="history"].maxwidth .names {
+#tabs>[data-tab="history"].maxwidth .bottom .team {
+  width: 8em;
+  max-width: 8em;
+}
+
+#tabs>[data-tab="history"].maxwidth .name {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#tabs > [data-tab="history"] .gamestable td {
-  vertical-align: middle;
+#tabs>[data-tab="history"] .finish input {
+  width: 3em;
+  max-width: 3em;
+  text-align: center;
 }
 
-#tabs > [data-tab="history"].hidenames .names {
-  display: none !important;
+#tabs>[data-tab="history"].hidenames .name, #tabs>[data-tab="history"].hidenames .playercol
+  {
+  display: none;
 }
 
-#tabs > [data-tab="history"] .names.hidden {
-  display: none !important;
+#tabs>[data-tab="history"] .matchtable {
+  display: none;
 }
 
-#tabs > [data-tab="history"] .progresstable td.vsep {
-  border-left: solid 1px;
+#tabs>[data-tab="history"].showtable .matchtable {
+  display: table;
 }
 
-#tabs > [data-tab="history"] .progresstable .names {
-  text-align: left;
+#tabs>[data-tab="history"].showtable .matchlist {
+  display: none;
 }
 
-#tabs > [data-tab="history"] .progresstable .game, #tabs > [data-tab="history"] .progresstable .result {
-  padding: 0em 0.2em;
-}
-
-#tabs > [data-tab="history"] .progresstable tr:nth-child(even) {
-  background-color: #d3d3d3;
-}
-
-#tabs > [data-tab="history"] .kotree {
-  position: relative;
-}
-
-#tabs > [data-tab="history"] .kotree .game {
-  display: block;
-  position: absolute;
-  background-color: #d0d0d0;
+#tabs>[data-tab="history"] .voteview {
+  display: inline-table;
   border-radius: 0.5em;
-  padding: 0.2em;
-  border: solid 1px;
+  border: solid 1px #000000;
+  background-color: #d3d3d3;
+  margin: 0.5em;
+  white-space: nowrap;
 }
 
-#tabs > [data-tab="history"] .kotree .label {
-  display: block;
-  position: absolute;
-  top: -1.5em;
+#tabs>[data-tab="history"] div.teamno {
+  display: table-cell;
+  background: none;
 }
 
-#tabs > [data-tab="history"] .kotree .label th {
-  font-weight: normal;
-}
-
-#tabs > [data-tab="history"] .kotree .game .names {
-  display: inline-block;
-  min-height: 1em;
-  min-width: 8em;
-}
-
-#tabs > [data-tab="history"] .kotree .game .number {
-  display: inline-block;
-  min-width: 1.5em;
-  min-height: 1em;
-  font-weight: bold;
-}
-
-#tabs > [data-tab="history"] .kotree .game .points {
-  min-width: 3em;
+#tabs>[data-tab="history"] div.voteview.names {
+  display: table-cell;
+  text-align: left;
   vertical-align: middle;
+}
+
+#tabs>[data-tab="history"] div.voteview.name {
+  margin: 0.2em;
+}
+
+#tabs>[data-tab="history"]:not (.hidenames ) .votes .vote .names {
+  display: table-cell;
 }
 
 @media print {
-  #tabs > [data-tab="history"] .progresstable tr:nth-child(even) {
-    background: none;
+  .noprint {
+    display: none !important;
   }
 }
