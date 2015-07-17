@@ -32,9 +32,15 @@ define(['lib/extend', 'core/view'], function(extend, View) {
     var $names, i, $name, $teamno, player;
 
     $teamno = this.$view.find('.teamno');
+    if ($teamno.length === 0) {
+      $teamno = this.$view.filter('.teamno');
+    }
     $teamno.text(this.model.getID() + 1);
 
     $names = this.$view.find('.name');
+    if ($names.length === 0) {
+      $names = this.$view.filter('.name');
+    }
 
     // FIXME read maxteamsize from options or something
     for (i = 0; i < 3; i += 1) {

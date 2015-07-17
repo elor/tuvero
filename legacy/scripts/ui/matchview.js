@@ -6,8 +6,35 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/teamview', // autoformat interrupt
-'ui/matchcontroller'], function(extend, View, TeamView, MatchController) {
+define(['lib/extend', 'jquery', 'core/view', 'ui/teamview', //
+'ui/matchcontroller'], function(extend, $, View, TeamView, MatchController) {
+
+  function $createTeamsLists($elements) {
+    var team, teams, i, $element;
+
+    team = undefined;
+    teams = [];
+
+    for (i = 0; i <= $elements.length; i += 1) {
+      $element = $elements.eq(i);
+      if (i === $elements.length || $element.hasClass('teamno')) {
+        if (team) {
+          teams.push($(team));
+        }
+        team = undefined;
+      }
+
+      if ($element) {
+        if (!team) {
+          team = [];
+        }
+        team.push($element[0]);
+      }
+    }
+
+    return teams;
+  }
+
   /**
    * Constructor
    *
@@ -54,12 +81,15 @@ define(['lib/extend', 'core/view', 'ui/teamview', // autoformat interrupt
     var $teams, i, $team, teamid;
 
     $teams = this.$view.find('.team');
+    if ($teams.length === 0) {
+      $teams = $createTeamsLists(this.$view.find('>.teamno , >.name'));
+    }
 
     this.destroyTeamViews();
 
     // FIXME support for a varying number of teams required
     for (i = 0; i < $teams.length; i += 1) {
-      $team = $teams.eq(i);
+      $team = $($teams[i]);
       teamid = this.model.getTeamID(i % this.model.length);
 
       if (teamid !== undefined && this.teamlist) {

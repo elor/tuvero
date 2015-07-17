@@ -26,12 +26,15 @@
 	styling matchtable
 
 	* legacy/scripts/ui/matchview.js: more input elements than teams? Use the teams twice. As long as they're interlaced, we're fine
+	support for teams without a common parent tag added (for matchtable rows, because <td>s can't be nested)
 
 	* legacy/scripts/ui/matchcontroller.js: enable/disable submit button depending on values and ties
 
 	* core/scripts/referencelistmodel.js: don't re-emit an event, the superclass already emits it.
 
 	* core/scripts/test/referencelistmodel.js: testing how often an event is emitted.
+
+	* legacy/scripts/ui/teamview.js: support for jquery elements without a common parent tag added (multiple teams in one <tr>)
 
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
