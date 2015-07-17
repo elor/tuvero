@@ -22,15 +22,21 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    * @param SubView
    *          an object constructor for a View of the elements of the list.
    *          Default to TextView
-   * @param optData
-   *          optional Data for the third argument of the constructor of SubView
+   * @param ...
+   *          arbitrary number of additional arguments, which are passed to the
+   *          SubView constructor
    */
-  function ListView(model, $view, $template, SubView, optData) {
+  function ListView(model, $view, $template, SubView) {
+    var i;
     ListView.superconstructor.call(this, model, $view, $template);
 
     this.SubView = SubView || TextView;
-    this.optData = optData; // defaults to undefined
+    this.optArgs = [];
     this.subviews = [];
+
+    for (i = 4; i < arguments.length; i += 1) {
+      this.optArgs.push(arguments[i]);
+    }
 
     this.update();
   }
@@ -65,11 +71,17 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    *          the index of the item inside the underlying list
    */
   ListView.prototype.insertItem = function(index) {
-    var $item, $subview, subview, model, $previousView;
+    var $item, $subview, subview, model, $previousView, args;
 
     $subview = this.$template.clone();
     model = this.model.get(index);
-    subview = new this.SubView(model, $subview, this.optData);
+    args = this.optArgs.slice(0);
+    args.splice(0, 0, null, model, $subview);
+    /*
+     * Magic: this replaces 'new SubView(model, $subview, optArgs), but enables
+     * the use of an arbitrary number of optional arguments
+     */
+    subview = (Function.prototype.bind.apply(this.SubView, args));
 
     $item = subview.$view; // == $subview, but may have been wrapped by a
     // tag
