@@ -91,6 +91,10 @@
 
 	* core/templates/rankingtab.html: using rankingview to display the ranking
 
+	* legacy/scripts/ui/rankingtab.js: Ranking Tab logic initializer added
+
+	* legacy/scripts/ui/tournamentrankingview.js: collection of RankingView and a CorrectionView-containing ListView
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
