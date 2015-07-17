@@ -16,10 +16,11 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
    * @param $view
    * @param teams
    * @param teamsize
+   * @param tournamentViewFactory
    */
   function SystemListView(teams, $view, tournaments, teamsize,
       tournamentViewFactory) {
-    var view, $systemTemplate, orderList;
+    var view, $systemTemplate, orderList, updatePending;
 
     $systemTemplate = $view.find('.system.template').detach();
     orderList = new OrderListModel();
@@ -30,12 +31,26 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
     this.teams = teams;
     this.tournaments = tournaments;
 
+    updateTimeout = undefined;
+
     Listener.bind(tournaments, 'update', function() {
-      this.updateOrder();
+      var list = this;
+      if (updateTimeout === undefined) {
+        window.setTimeout(function() {
+          list.updateOrder();
+          updateTimeout = undefined;
+        }, 1);
+      }
     }, this);
 
     Listener.bind(teams, 'insert,remove', function() {
-      this.updateOrder();
+      var list = this;
+      if (updateTimeout === undefined) {
+        window.setTimeout(function() {
+          list.updateOrder();
+          updateTimeout = undefined;
+        }, 1);
+      }
     }, this);
 
     this.updateOrder();
