@@ -124,3 +124,9 @@
 #tabs>[data-tab="games"]:not (.hidenames ) .votes .vote .names {
   display: table-cell;
 }
+
+@media print {
+  .noprint {
+    display: none !important;
+  }
+}
