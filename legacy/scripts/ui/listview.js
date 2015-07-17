@@ -22,11 +22,14 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    * @param SubView
    *          an object constructor for a View of the elements of the list.
    *          Default to TextView
+   * @param optData
+   *          optional Data for the third argument of the constructor of SubView
    */
-  function ListView(model, $view, $template, SubView) {
+  function ListView(model, $view, $template, SubView, optData) {
     ListView.superconstructor.call(this, model, $view, $template);
 
     this.SubView = SubView || TextView;
+    this.optData = optData; // defaults to undefined
     this.subviews = [];
 
     this.update();
@@ -66,7 +69,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
 
     $subview = this.$template.clone();
     model = this.model.get(index);
-    subview = new this.SubView(model, $subview);
+    subview = new this.SubView(model, $subview, this.optData);
 
     $item = subview.$view; // == $subview, but may have been wrapped by a
     // tag

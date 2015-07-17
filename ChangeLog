@@ -2,6 +2,8 @@
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
 
+	* legacy/scripts/ui/listview.js: optData argument added to constructor, which will be passed through to the SubView constructor
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
