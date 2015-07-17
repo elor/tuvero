@@ -81,7 +81,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
      * Magic: this replaces 'new SubView(model, $subview, optArgs), but enables
      * the use of an arbitrary number of optional arguments
      */
-    subview = (Function.prototype.bind.apply(this.SubView, args));
+    subview = new (Function.prototype.bind.apply(this.SubView, args));
 
     $item = subview.$view; // == $subview, but may have been wrapped by a
     // tag
