@@ -96,12 +96,12 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
   };
 
   /**
-   * @returns the current or recently finished round. returns -1 if the
+   * @return the current or recently finished round. returns -1 if the
    *          tournament hasn't been started yet
    */
   RoundTournamentModel.prototype.getRound = function() {
     return this.round;
-  }
+  };
 
   /**
    * write the round to the data object

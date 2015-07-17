@@ -75,7 +75,7 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
    * @param event
    * @param data
    */
-  TabGamesCheapHackListener.prototype.onremove = function(emitter, event,//
+  TabGamesCheapHackListener.prototype.onremove = function(emitter, event, //
   data) {
     data.object.getState().unregisterListener(this);
     this.update();

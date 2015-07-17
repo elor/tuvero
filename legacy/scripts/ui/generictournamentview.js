@@ -36,7 +36,7 @@ define(['lib/extend', 'core/view', './tournamentview', './roundtournamentview'//
   GenericTournamentView.prototype.destroy = function() {
     this.view.destroy();
     GenericTournamentView.superclass.destroy.call(this);
-  }
+  };
 
   return GenericTournamentView;
 });

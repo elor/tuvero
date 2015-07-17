@@ -145,7 +145,7 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
    * @param teams
    * @param tournaments
    * @param viewPopulator
-   * @returns {Function}
+   * @return {Function}
    */
   SystemTableRowView.bindLists = function(teams, tournaments, viewPopulator) {
     function BoundSystemTableRowView(index, $view) {

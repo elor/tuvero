@@ -47,7 +47,7 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex'], function(
     for (i = this.model.firstTeamID; i < imax; i += 1) {
       tournament.addTeam(ranking.displayOrder[i]);
     }
-  }
+  };
 
   return NewTournamentController;
 });

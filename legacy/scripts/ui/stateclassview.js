@@ -44,7 +44,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
    */
   StateClassView.prototype.onupdate = function() {
     this.update();
-  }
+  };
 
   return StateClassView;
 });

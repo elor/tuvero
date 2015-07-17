@@ -21,7 +21,7 @@ define(['lib/extend', './listmodel', 'lib/diff'], function(extend, ListModel,
    *          the first array of integers
    * @param b
    *          the second array of integers
-   * @returns a diff array, where each element contains a value, removed and
+   * @return a diff array, where each element contains a value, removed and
    *          added property. The value property is an array of numbers, while
    *          the removed/added properties are true if the values need to be
    *          removed/added
@@ -30,11 +30,11 @@ define(['lib/extend', './listmodel', 'lib/diff'], function(extend, ListModel,
     var diff;
     a = a.join('\n');
     if (a.length > 0) {
-      a += '\n'
+      a += '\n';
     }
     b = b.join('\n');
     if (b.length > 0) {
-      b += '\n'
+      b += '\n';
     }
     diff = Diff.diffLines(a, b);
     diff.forEach(function(lines) {
