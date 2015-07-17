@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './matchview', './listview',
-    './teamtableview', './boxview', './teamview'], function(extend,
-    TemplateView, MatchView, ListView, TeamTableView, BoxView, TeamView) {
+    './teamtableview', './boxview', './teamview', 'core/listener'//
+], function(extend, TemplateView, MatchView, ListView, TeamTableView, BoxView,
+    TeamView, Listener) {
   /**
    * Constructor
    *
@@ -24,7 +25,7 @@ define(['lib/extend', './templateview', './matchview', './listview',
    */
   function TournamentMatchesView(model, $view, teamlist, teamsize) {
     TournamentMatchesView.superconstructor.call(this, model, $view, //
-    $view.find('.matchview.template, .matchrow.template'));
+    $view.find('.template'));
 
     this.boxview = new BoxView(this.$view);
 
@@ -59,20 +60,38 @@ define(['lib/extend', './templateview', './matchview', './listview',
    * initialize all vote lists and tables
    */
   TournamentMatchesView.prototype.initVotes = function() {
-    var $template;
+    var $votetemplate;
 
-    $template = this.$view.find('.voteview.template').detach();
+    this.$view.find('.votelist').hide();
+
+    $votetemplate = this.$template.filter('.voteview');
 
     this.votelistmodels = this.model.VOTES.map(function(votetype) {
-      var $votes;
+      var $votes, votelist;
 
-      $votes = this.$view.find('.votes .' + votetype);
+      $votes = this.$view.find('.votelist.' + votetype);
       if ($votes.length === 0) {
         return undefined;
       }
 
-      return new ListView(this.model.getVotes(votetype), $votes, $template,
-          TeamView, this.teamlist);
+      votelist = this.model.getVotes(votetype);
+
+      // TODO use some shared View, e.g. ListEmptyView, to hide the whole
+      // view when the list is empty
+      Listener.bind(votelist, 'resize', function(emitter, event, data) {
+        if (emitter.length === 0) {
+          $votes.hide();
+        } else {
+          $votes.show();
+        }
+      });
+
+      if (votelist.length !== 0) {
+        $votes.show();
+      }
+
+      return new ListView(votelist, $votes, $votetemplate, TeamView,//
+      this.teamlist);
     }, this);
   };
 
