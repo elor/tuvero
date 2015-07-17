@@ -16,6 +16,8 @@
 	* legacy/scripts/ui/tournamentmatchesview.js: represents a box inside the games tab, which contains match lists
 	Using TeamTableView to hide unused teams columns
 	using BoxView for the TournamentMatchesView
+	initMatches() method introduced to keep constructor clean
+	initVotes() creates the vote lists
 
 	* legacy/scripts/ui/gamestab.js: List of running tournament games (ListView of TournamentMatchesView) added
 	some minor autoformatting of comments
