@@ -10,6 +10,7 @@
 	some minor autoformatting of comments
 
 	* core/scripts/emitter.js: debugging output added (shows emit() recursion)
+	warning about 'update' ambiguity added
 
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -11,13 +11,25 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
 
   depth = 0;
 
+  function getClassName(instance) {
+    return instance.constructor.toString().split('\n')[0].replace(
+        /function (\S+)\(.*/, '$1');
+  }
+
   /**
    * Constructor
    */
   function Emitter() {
     Emitter.superconstructor.call(this, undefined);
+
     if (this.listeners === undefined) {
       this.listeners = [];
+    }
+
+    if (Emitter.debug && this.EVENTS.update) {
+      console.warn(getClassName(this)
+          + ": The use of the 'update' event is discouraged.");
+      console.warn("   Cause: The meaning of 'update' is ambiguous");
     }
   }
   extend(Emitter, Listener);
@@ -65,10 +77,8 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
       while (indentation.length < depth - 1) {
         indentation += ' ';
       }
-      console.log(indentation
-          + this.constructor.toString().split('\n')[0].replace(
-              /function (\S+)\(.*/, '$1') + '.emit(' + event + ') with '
-          + this.listeners.length + ' listeners');
+      console.log(indentation + getClassName(this) + '.emit(' + event
+          + ') with ' + this.listeners.length + ' listeners');
     }
 
     this.listeners.slice().forEach(function(listener) {
