@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'ui/teamview', //
-'ui/matchcontroller'], function(extend, $, View, TeamView, MatchController) {
+define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
+    'ui/matchcontroller', 'options'], function(extend, $, View, TeamView,
+    MatchController, Options) {
 
   function $createTeamsLists($elements) {
     var team, teams, i, $element;
@@ -55,6 +56,8 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview', //
     } else if (!this.teamlist) {
       this.teamlist = undefined;
     }
+
+    this.$view.find('.finish .points').val(Options.defaultscore || 0);
 
     this.controller = new MatchController(this);
 
