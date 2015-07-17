@@ -12,11 +12,10 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var Implements, Tab, Tab_Ranking, Tab_Settings, Autocomplete, Alltabs, Tab_Debug;
+    var Implements, Tab, Tab_Settings, Autocomplete, Alltabs, Tab_Debug;
 
     Implements = getModule('lib/implements');
     Tab = getModule('ui/tab');
-    Tab_Ranking = getModule('ui/tab_ranking');
     Tab_Settings = getModule('ui/tab_settings');
     Autocomplete = getModule('ui/autocomplete');
     Alltabs = getModule('ui/alltabs');
@@ -26,8 +25,6 @@ define(function() {
 
       QUnit.equal(Implements(Tab), '', 'Tab is an interface');
 
-      QUnit.equal(Implements(Tab, Tab_Ranking, 'frm'), '',
-          'Tab_Ranking interface match');
       QUnit.equal(Implements(Tab, Tab_Settings, 'frm'), '',
           'Tab_Settings interface match');
       QUnit.equal(Implements(Tab, Tab_Debug, 'frm'), '',

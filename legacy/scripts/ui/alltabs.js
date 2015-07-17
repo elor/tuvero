@@ -7,8 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./shared', './tab_ranking', './tab_debug',
-    './tab_settings'], function(Shared) {
+define(['./shared', './tab_debug', './tab_settings'], function(Shared) {
   var tabid, tabs, Alltabs;
 
   tabs = [];

@@ -5,9 +5,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['../state_new', '../listcollectormodel', '../teammodel',
-    '../tab_ranking'], function(State, ListCollectorModel,
-    TeamModel, Tab_Ranking) {
+define(['../state_new', '../listcollectormodel', '../teammodel'], function(
+    State, ListCollectorModel, TeamModel) {
   var teamCollector;
 
   // save on player name change
@@ -19,7 +18,7 @@ define(['../state_new', '../listcollectormodel', '../teammodel',
    * buffer multiple store() requests anyhow
    */
   teamCollector.onupdate = function() {
-    Tab_Ranking.update();
+    // Tab_Ranking.update();
     // Tab_History.update();
   };
 });
