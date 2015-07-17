@@ -71,7 +71,6 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   MapListModel.prototype.oninsert = function(emitter, event, data) {
     if (emitter === this.indices) {
       MapListModel.insertID(this, data.id);
-      this.emit(event, data);
     }
   };
 
@@ -85,7 +84,6 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   MapListModel.prototype.onremove = function(emitter, event, data) {
     if (emitter === this.indices) {
       MapListModel.removeID(this, data.id);
-      this.emit(event, data);
     }
   };
 

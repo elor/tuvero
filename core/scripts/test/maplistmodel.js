@@ -37,27 +37,36 @@ define(function() {
       QUnit.deepEqual(refs.asArray(), [4, 2, 0], 'ids get translated');
 
       listener = new Listener(refs);
+      listener = new Listener(refs);
+      listener.success = false;
+      listener.callcount = 0;
       listener.oninsert = function() {
         this.success = true;
+        this.callcount += 1;
       };
 
       indices.push(2);
 
       QUnit.ok(listener.success, '"insert" event is re-emitted');
+      QUnit.equal(listener.callcount, 1, '"insert" is emitted exactly once');
       QUnit.equal(refs.length, 4, 'new team gets added to the indices list');
       listener.destroy();
 
       QUnit.deepEqual(refs.asArray(), [4, 2, 0, 3], 'ids get translated');
 
       listener = new Listener(refs);
+      listener.success = false;
+      listener.callcount = 0;
       listener.onremove = function() {
         this.success = true;
+        this.callcount += 1;
       };
 
       indices.remove(2);
       QUnit.equal(indices.length, 3, 'match has been removed from indices');
       QUnit.equal(refs.length, 3, 'match has been removed from refs');
       QUnit.ok(listener.success, '"remove" event propagates to the matchref');
+      QUnit.equal(listener.callcount, 1, '"remove" is emitted exactly once');
       QUnit.deepEqual(refs.asArray(), [4, 2, 3], 'ids get translated');
     });
   };

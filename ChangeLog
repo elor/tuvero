@@ -63,9 +63,10 @@
 
 	* legacy/scripts/ui/teamtableview.js: Support for multiple teams in a single table row added
 	It counts the consecutive occurences of th.playercol
-	* boule/index.html: 
 
-	* tac/index.html: 
+	* core/scripts/maplistmodel.js: don't emit insert/remove twice
+
+	* core/scripts/test/maplistmodel.js: testing whether insert/remove is re-emitted exactly once
 
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
