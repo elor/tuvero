@@ -77,6 +77,9 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.history = new ListModel();
     this.corrections = new ListModel();
 
+    // singletons for the getters(), in order to not bloat the listener arrays
+    this.singletons = {};
+
     // initial properties
     this.setProperty('addteamrunning', false);
     this.setProperty('addteamidle', false);
@@ -210,42 +213,54 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    *         to retrieve the current value of the state
    */
   TournamentModel.prototype.getState = function() {
-    var value = new ValueModel(this.state.get());
-    value.bind(this.state);
-    return value;
+    if (this.singletons.state === undefined) {
+      this.singletons.state = new ValueModel(this.state.get());
+      this.singletons.state.bind(this.state);
+    }
+    return this.singletons.state;
   };
 
   /**
    * @return a ListModel of the registered teams.
    */
   TournamentModel.prototype.getTeams = function() {
-    // TODO use a singleton
-    return new ReadonlyListModel(this.teams);
+    if (this.singletons.teams === undefined) {
+      this.singletons.teams = new ReadonlyListModel(this.teams);
+    }
+    return this.singletons.teams;
   };
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
   TournamentModel.prototype.getMatches = function() {
-    // TODO use a singleton
-    return new ReferenceListModel(this.matches, this.teams, // autoformatter :-(
-    MatchReferenceModel);
+    if (this.singletons.matches === undefined) {
+      this.singletons.matches = new ReferenceListModel(this.matches,
+          this.teams, MatchReferenceModel);
+    }
+    return this.singletons.matches;
   };
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
   TournamentModel.prototype.getHistory = function() {
-    return new ReferenceListModel(this.history, this.teams,
-        ResultReferenceModel);
+    if (this.singletons.history === undefined) {
+      this.singletons.history = new ReferenceListModel(this.history,
+          this.teams, ResultReferenceModel);
+    }
+    return this.singletons.history;
   };
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
   TournamentModel.prototype.getCorrections = function() {
-    return new ReferenceListModel(this.corrections, this.teams,
-        CorrectionReferenceModel);
+    if (this.singletons.corrections === undefined) {
+      this.singletons.corrections = new ReferenceListModel(this.corrections,
+          this.teams, CorrectionReferenceModel);
+    }
+    return this.singletons.corrections;
   };
 
   /**
@@ -263,8 +278,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return undefined;
     }
 
-    // TODO use a singleton
-    return new MapListModel(this.votes[type], this.teams);
+    if (this.singletons.votes === undefined) {
+      this.singletons.votes = {};
+    }
+
+    if (this.singletons.votes[type] === undefined) {
+      this.singletons.votes[type] = new MapListModel(this.votes[type],
+          this.teams);
+    }
+
+    return this.singletons.votes[type];
   };
 
   /**
@@ -274,7 +297,10 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * @return a RankingMapper instance, which emits 'update' and provides get()
    */
   TournamentModel.prototype.getRanking = function() {
-    return new RankingMapper(this.ranking, this.teams);
+    if (this.singletons.ranking === undefined) {
+      this.singletons.ranking = new RankingMapper(this.ranking, this.teams);
+    }
+    return this.singletons.ranking;
   };
 
   /**

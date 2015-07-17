@@ -13,6 +13,8 @@
 	* core/scripts/emitter.js: debugging output added (shows emit() recursion)
 	warning about 'update' ambiguity added
 
+	* core/scripts/tournamentmodel.js: using singletons for the getters to avoid listeners-bloat
+
 2015-07-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/newtab.html: .idle class added
