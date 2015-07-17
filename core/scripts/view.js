@@ -20,7 +20,7 @@ define(['lib/extend', 'core/listener', 'core/model'], function(extend,
     model = model || new Model();
     View.superconstructor.call(this, model);
 
-    if (!$view || !$view.length) {
+    if ($view === undefined || $view.length === 0) {
       console.error('View: $view is empty or undefined:');
       console.error($view);
       if ($view && $view.selector) {
