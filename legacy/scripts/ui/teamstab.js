@@ -68,7 +68,9 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
 
     // change team size
     $container = this.$view.find('> .teamsizeview');
-    this.teamSizeView = new TeamSizeView(State.teamsize, $container);
+    if ($container.length !== 0) {
+      this.teamSizeView = new TeamSizeView(State.teamsize, $container);
+    }
 
     // hide team size buttons when a team has been registered
     this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view);
