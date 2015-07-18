@@ -116,7 +116,8 @@ define(function() {
     ranking_id: 'No.',
     ranking_headtohead: 'Direkter Vergleich',
     ranking_tac: 'TAC-Punkte',
-    tournamenterrorprefix: 'Turnierfehler'
+    tournamenterrorprefix: 'Turnierfehler',
+    oldsaveformat: 'Inkompatibles Format. Nur Versionen 1.5 und neuer unterstützt'
   };
 
   return Strings;

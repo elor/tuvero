@@ -16,12 +16,33 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
    * Constructor
    */
   function StateModel() {
+    // actual state
     this.teams = new IndexedListModel();
-    this.teamscleanuplistener = new ListCleanupListener(this.teams);
     this.teamsize = new ValueModel(3);
     this.tournaments = new TournamentListModel();
+
+    this.initCleanupListeners();
   }
   extend(StateModel, Model);
+
+  /**
+   * whenever an element is removed from those central and elemental lists, call
+   * its destroy() function
+   */
+  StateModel.prototype.initCleanupListeners = function() {
+    this.teamscleanuplistener = new ListCleanupListener(this.teams);
+    this.tournamentscleanuplistener = new ListCleanupListener(//
+    this.tournaments);
+  };
+
+  /**
+   * reset the state of everything
+   */
+  StateModel.prototype.clear = function() {
+    this.tournaments.clear();
+    this.teams.clear();
+    // this.teamsize.set(3); // TODO read default team size from options
+  };
 
   StateModel.prototype.SAVEFORMAT = Object
       .create(StateModel.superclass.SAVEFORMAT);
@@ -67,8 +88,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
 
     // TODO perform a version check
 
-    this.tournaments.clear();
-    this.teams.clear();
+    this.clear();
 
     this.teamsize.set(data.teamsize);
     this.teams.restore(data.teams, TeamModel);

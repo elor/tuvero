@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/Blob', '../state', '../toast', '../strings', 'lib/FileSaver',
-    'options'], function(Blob, State, Toast, Strings, saveAs, Options) {
+define(['lib/Blob', 'jquery', '../state', '../toast', '../strings',
+    'lib/FileSaver', 'options'], function(Blob, $, State, Toast, Strings,
+    saveAs, Options) {
 
   $(function($) {
     $('#tabs').on('click', 'button.save', function() {

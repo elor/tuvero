@@ -8,8 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['options', './tabshandle', './team', './history', './tournaments',
-    './shared'], function(Options, Tabshandle, Team, History, Tournaments,
+define(['options', './state_new', './shared'], function(Options, State_New,
     Shared) {
   var State;
 
@@ -20,12 +19,7 @@ define(['options', './tabshandle', './team', './history', './tournaments',
      * @return the blob
      */
     toBlob: function() {
-      return JSON.stringify({
-        options: Options.toBlob(),
-        team: Team.toBlob(),
-        history: History.toBlob(),
-        tournaments: Tournaments.toBlob()
-      });
+      return JSON.stringify(State_New.save());
     },
 
     /**
@@ -35,30 +29,27 @@ define(['options', './tabshandle', './team', './history', './tournaments',
      *          the blob
      */
     fromBlob: function(blob) {
-      var ob;
+      var object;
+
+      State_New.clear();
 
       if (!blob) {
-        return undefined;
+        return false;
       }
 
-      ob = JSON.parse(blob);
+      object = JSON.parse(blob);
 
-      // fall back to default options when loading saves from before 1.2
-      if (ob.options) {
-        Options.fromBlob(ob.options);
-        // Tabshandle.updateOpts();
+      if (!object.version) {
+        console.error('Saved data is older than 1.5.0. '
+            + 'It cannot be loaded by newer versions yet. '
+            + 'An automatic converter is being worked on.');
+        new Toast(Strings.oldsaveformat, Toast.LONG);
+        return false;
       }
 
-      Team.fromBlob(ob.team);
-      History.fromBlob(ob.history);
-      Tournaments.fromBlob(ob.tournaments);
-
-      // update all tabs
-      // Tab_Teams.update();
-      // Tab_New.update();
-      // Tab_Games.update();
-      // Tab_History.update();
-      // Tab_Ranking.update(); // attempt ranking update
+      if (!State_New.restore(object)) {
+        return false;
+      }
 
       return true;
     },
@@ -67,11 +58,7 @@ define(['options', './tabshandle', './team', './history', './tournaments',
      * resets everything managed by Blob
      */
     reset: function() {
-      Team.reset();
-      History.reset();
-      Tournaments.reset();
-      Options.reset();
-      // Tabshandle.updateOpts();
+      State_New.clear();
     }
   };
 

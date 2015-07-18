@@ -80,6 +80,8 @@
 	StateModel.SAVEFORMAT also uses a version identifier
 	SAVEFORMAT contains the target ('tac', 'boule', ...)
 	restore(): forgotten ListModel.restore() content constructor added (TeamModel)
+	actual data and cleanuplisteners separated
+	clear() function added
 
 	* core/scripts/model.js: didn't load the Type module properly
 	more precise restore() error messages
@@ -88,6 +90,10 @@
 	forgotten "this" added
 
 	* legacy/scripts/ui/teammodel.js: save() and restore() added
+
+	* legacy/scripts/ui/backgroundscripts/save.js: explicit jquery import added
+
+	* legacy/scripts/ui/state.js: exclusively using State_New
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
