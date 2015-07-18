@@ -18,6 +18,8 @@
 
 	* core/scripts/uniquelistmodel.js: support for construction with an array of elements added
 
+	* legacy/scripts/ui/rankingordercontroller.js: preventing left-right-scrolling when switching between lists
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes

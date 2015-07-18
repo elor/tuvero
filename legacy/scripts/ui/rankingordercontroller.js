@@ -44,33 +44,38 @@ define(['lib/extend', 'core/controller', 'core/type'], function(extend,
     /*
      * Handle key presses on the left list
      */
-    this.view.$selectedList.keyup(function(e) {
+    this.view.$selectedList.keydown(function(e) {
       switch (e.keyCode) {
       case 46: // Delete
       case 8: // Backspace
       case 127: // Delete (fallback)
         controller.unselect();
         controller.setSelectedIndex(0);
-        break;
+        e.preventDefault();
+        return false;
       case 37: // Left arrow
         controller.view.$availableList.focus();
-        break;
+        e.preventDefault();
+        return false;
       }
     });
 
     /*
      * Handle key presses on the right list
      */
-    this.view.$availableList.keyup(function(e) {
+    this.view.$availableList.keydown(function(e) {
       var value;
       switch (e.keyCode) {
       case 13: // Return
         value = controller.getAvailableValues();
         controller.select();
         controller.resetAvailableSelection(value[0]);
-        break;
+        e.preventDefault();
+        return false;
       case 39: // Right Arrow
         controller.view.$selectedList.focus();
+        e.preventDefault();
+        return false;
       }
     });
   }
