@@ -68,8 +68,6 @@ require(['config'], function() {
   'backend/test/vector',
 
   'ui/test/binarytreemodel',
-  'ui/test/blobs',
-  'ui/test/csv',
   'ui/test/listcollectormodel',
   'ui/test/playermodel',
   'ui/test/tab',
