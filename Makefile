@@ -26,7 +26,8 @@ clean: FORCE
 
 update: style templates test/index.html codestyle sprites
 
-templates: boule/index.html tac/index.html
+templates: FORCE
+	make boule/index.html tac/index.html -j
 
 scripts: FORCE
 	./tools/create-commonjs.sh
