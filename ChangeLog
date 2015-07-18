@@ -6,6 +6,12 @@
 
 	* legacy/scripts/ui/systemtablerowview.js: rendering defered until all changes are accumulated
 
+	* legacy/scripts/ui/gamestab.js: $view -> $container (variable was leaking into global object)
+
+	* legacy/scripts/ui/historytab.js: $view -> $container (variable was leaking into global object)
+
+	* legacy/scripts/ui/rankingtab.js: $view -> $container (variable was leaking into global object)
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes

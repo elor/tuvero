@@ -32,6 +32,8 @@ define(['lib/extend', 'ui/templateview'],
         this.$componenttemplate = this.$template.find('.component').detach();
 
         this.teamList = teamList;
+
+        this.updateTimeout = undefined;
       }
       extend(RankingView, TemplateView);
 

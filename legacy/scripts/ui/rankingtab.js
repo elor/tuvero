@@ -48,8 +48,8 @@ define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
 
     // player names checkbox
     value = new ValueModel();
-    $view = this.$view.find('>.options input.shownames');
-    this.maxwidthCheckboxView = new CheckboxView(value, $view);
+    $container = this.$view.find('>.options input.shownames');
+    this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         'hidenames');
 
