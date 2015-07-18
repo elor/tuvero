@@ -22,6 +22,7 @@
 
 	* core/templates/newtab.html: rankingorderview added to swiss
 	RankingOrderView put outside of the tournamentoptions box
+	DOM elements are back in order. I messed something up.
 
 	* core/templates/rankingorderview.html: changes from the test suite integrated
 
@@ -59,6 +60,12 @@
 	* legacy/scripts/ui/tournamentcontroller.js: setting ranking order prior to starting the tournament
 
 	* legacy/scripts/ui/tournamentview.js: sharing common code between all subclasses, e.g. RoundTournamentView and SwissTournamentView
+
+	* core/templates/rankingtab.html: rankingview has been encapsulated into rankingview.html
+
+	* core/templates/rankingview.html: encapsulated rankingview file
+
+	* test/rankingview.html: Rank -> Platz
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
