@@ -67,6 +67,10 @@
 
 	* test/rankingview.html: Rank -> Platz
 
+	* core/scripts/lengthmodel.js: LengthModel added to passively mirror the length of a list
+
+	* core/scripts/test/lengthmodel.js: testing LengthModel
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes

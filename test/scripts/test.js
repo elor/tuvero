@@ -18,6 +18,7 @@ require(['config'], function() {
   'core/test/emitter',
   'core/test/indexedlistmodel',
   'core/test/indexedmodel',
+  'core/test/lengthmodel',
   'core/test/listener',
   'core/test/listmodel',
   'core/test/listupdatelistener',

@@ -21,6 +21,7 @@ define([
   'core/emitter',
   'core/indexedlistmodel',
   'core/indexedmodel',
+  'core/lengthmodel',
   'core/listener',
   'core/listexclusionlistener',
   'core/listmodel',
