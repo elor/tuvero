@@ -117,7 +117,11 @@ define(function() {
     ranking_headtohead: 'Direkter Vergleich',
     ranking_tac: 'TAC-Punkte',
     tournamenterrorprefix: 'Turnierfehler',
-    oldsaveformat: 'Inkompatibles Format. Nur Versionen 1.5 und neuer unterstützt'
+    oldsaveformat: 'Inkompatibles Format. Nur Versionen 1.5 und neuer unterstützt',
+    tournament_initial: 'Unterturnier erstellt',
+    tournament_running: 'Runde gestartet',
+    tournament_idle: 'Runde beendet',
+    tournament_finished: 'Unterturnier beendet'
   };
 
   return Strings;

@@ -51,6 +51,7 @@
 	setRankingOrder() added for redefining the ranking order as long as the tournament is in 'initial' state
 
 	* legacy/scripts/ui/backgroundscripts/tournamentErrorToasts.js: showing toasts on any internal tournament error
+	moved to tournamenterrortoasts.js
 
 	* legacy/scripts/ui/newtournamentcontroller.js: default ranking set to wins
 
@@ -105,6 +106,10 @@
 	* legacy/scripts/ui/savestate.js: removed and superseded by autosave.js
 
 	* legacy/scripts/ui/options.js: no need to save/restore the teamsize within the options anymore
+
+	* legacy/scripts/ui/backgroundscripts/matchtoasts.js: sending toasts for finishing matches and changing tournament states
+
+	* legacy/scripts/ui/strings.js: tournament state strings added
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
