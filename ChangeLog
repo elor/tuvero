@@ -97,6 +97,12 @@
 
 	* legacy/scripts/ui/state.js: exclusively using State_New
 
+	* legacy/scripts/ui/backgroundscripts/autosave.js: managing every autosave scenario
+
+	* legacy/scripts/ui/backgroundscripts/redrawOnPlayerChange.js: moved to autosave.js
+
+	* legacy/scripts/ui/savestate.js: removed and superseded by autosave.js
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
