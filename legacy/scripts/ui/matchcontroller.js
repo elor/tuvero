@@ -33,22 +33,30 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
   MatchController.prototype.initNumberValidation = function() {
     var controller = this;
 
-    this.$points.change(function() {
+    // We're using keyup to check the values as the user types, not only when
+    // the focus is lost or the value is changed incrementally
+    this.$points.on('change keyup', function() {
       var $this, value, valid;
 
       valid = true;
 
       $this = $(this);
-      value = Number($this.val());
+      value = Number();
 
-      if (isNaN(value)) {
+      value = $this.val();
+
+      if (value.length === 0) {
         valid = false;
-      }
-      if (value < Options.minpoints) {
-        valid = false;
-      }
-      if (value > Options.maxpoints) {
-        valid = false;
+      } else {
+        value = Number(value);
+
+        if (isNaN(value)) {
+          valid = false;
+        } else if (value < Options.minpoints) {
+          valid = false;
+        } else if (value > Options.maxpoints) {
+          valid = false;
+        }
       }
 
       if (valid) {

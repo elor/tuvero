@@ -12,6 +12,8 @@
 
 	* legacy/scripts/ui/rankingtab.js: $view -> $container (variable was leaking into global object)
 
+	* legacy/scripts/ui/matchcontroller.js: Button enabled on keyup, not only on change, to visualize as you type
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
