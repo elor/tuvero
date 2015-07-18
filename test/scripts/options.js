@@ -22,6 +22,7 @@ define(['ui/options'], function(Options) {
     byepointswon: 13,
     byepointslost: 7,
     defaultscore: 0,
+    target: 'test',
     // user-specific
     // local : {},
     dbname: 'boulestournament',

@@ -23,6 +23,7 @@ define(['ui/options'], function(Options) {
     byepointswon: 8,
     byepointslost: 6,
     defaultscore: 8,
+    target: 'tac',
     // user-specific
     // local : {},
     dbname: 'tactournament',
