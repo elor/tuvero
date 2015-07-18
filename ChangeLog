@@ -75,6 +75,10 @@
 
 	* legacy/scripts/ui/teamstab.js: 'State.numTournaments' has been replaced with 'new LengthModel(State.tournaments)'
 
+	* legacy/scripts/ui/statemodel.js: StateModel is subclass of Model
+	StateModel.save() and StateModel.restore() added
+	StateModel.SAVEFORMAT also uses a version identifier
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
