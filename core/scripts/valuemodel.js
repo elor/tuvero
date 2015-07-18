@@ -77,10 +77,14 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   /**
    * Callback function
    *
+   * TODO use 'value' event or something, not 'update', which is ambiguous
+   *
    * @param emitter
    */
   ValueModel.prototype.onupdate = function(emitter) {
-    this.set(emitter.get());
+    if (this.set) {
+      this.set(emitter.get());
+    }
   };
 
   /*

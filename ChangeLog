@@ -71,6 +71,10 @@
 
 	* core/scripts/test/lengthmodel.js: testing LengthModel
 
+	* core/scripts/valuemodel.js: onupdate() conflict with TournamentListModel+LengthModel circumvented
+
+	* legacy/scripts/ui/teamstab.js: 'State.numTournaments' has been replaced with 'new LengthModel(State.tournaments)'
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
