@@ -107,14 +107,14 @@ define(function() {
     thirdplace: '3. Platz',
     ranking_numgames: 'Spiele',
     ranking_wins: 'Siege',
-    ranking_points: 'kleine Punkte',
+    ranking_points: 'Kleine Punkte',
     ranking_lostpoints: 'Gegnerpunkte',
     ranking_saldo: 'Saldo-Punkte',
     ranking_buchholz: 'Buchholz-Punkte',
     ranking_finebuchholz: 'Feinbuchholz-Punkte',
     ranking_sonneborn: 'Sonneborn-Berger-Zahl',
     ranking_id: 'No.',
-    ranking_headtohead: 'direkter Vergleich',
+    ranking_headtohead: 'Direkter Vergleich',
     ranking_tac: 'TAC-Punkte'
   };
 
