@@ -33,7 +33,7 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex'], function(
   NewTournamentController.prototype.createTournament = function(type) {
     var tournament, ranking, i, imax;
 
-    tournament = TournamentIndex.createTournament(type, ['tac']);
+    tournament = TournamentIndex.createTournament(type, ['wins']);
 
     ranking = this.model.tournaments.getGlobalRanking(this.model.teams.length);
 

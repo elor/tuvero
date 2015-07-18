@@ -49,6 +49,8 @@
 
 	* legacy/scripts/ui/backgroundscripts/tournamentErrorToasts.js: showing toasts on any internal tournament error
 
+	* legacy/scripts/ui/newtournamentcontroller.js: default ranking set to wins
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
