@@ -44,6 +44,7 @@ require(['config'], function() {
   'core/test/roundtournamentmodel',
   'core/test/selectionvaluemodel',
   'core/test/statevaluemodel',
+  'core/test/swisstournamentmodel',
   'core/test/symmetricmatrixmodel',
   'core/test/tournamentindex',
   'core/test/tournamentlistmodel',

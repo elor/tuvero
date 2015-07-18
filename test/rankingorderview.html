@@ -35,21 +35,23 @@
 
 <script id="testmain">
 function TestMain(Common, $) {
-  var UniqueListModel, RankingOrderView, ListView, RankingComponentIndex;
+  var UniqueListModel, RankingOrderView, ListView, RankingComponentIndex, Strings;
 
   UniqueListModel = Common('core/uniquelistmodel');
   RankingOrderView = Common('ui/rankingorderview');
   RankingComponentIndex = Common('core/rankingcomponentindex');
   ListView = Common('ui/listview');
+  Strings = Common('ui/strings');
 
   $(function($) {
     var allcomponents, rankingorder, view, $view;
 
-    allcomponents = new UniqueListModel();
-    RankingComponentIndex.components.forEach(function(component){
-      allcomponents.push(component);
-    });
-
+    allcomponents = new UniqueListModel(RankingComponentIndex.components
+      .slice().sort(function(a,b){
+        a = Strings['ranking_' + a] || a;
+        b = Strings['ranking_' + b] || b;
+        return a.localeCompare(b);
+    }));
     rankingorder = new UniqueListModel();
 
     $view = $('#outputlistview');
