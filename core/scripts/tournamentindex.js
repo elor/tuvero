@@ -7,7 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./type', './roundtournamentmodel'], function(Type) {
+define(['./type', './roundtournamentmodel', './swisstournamentmodel'],//
+function(Type) {
   var TournamentIndex, tournamentSystems, i, sys;
 
   tournamentSystems = {};

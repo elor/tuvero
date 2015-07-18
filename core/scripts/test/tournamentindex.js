@@ -18,8 +18,11 @@ define(function() {
       QUnit.equal(TournamentIndex.createTournament('undefined'), undefined,
           'undefined fails');
       QUnit.ok(TournamentIndex.createTournament('round'), 'round');
-      QUnit.equal(TournamentIndex.createTournament('swiss'), undefined,
-          'swiss fails');
+      QUnit.ok(TournamentIndex.createTournament('swiss'), 'swiss');
+      QUnit.equal(TournamentIndex.createTournament('ko'), undefined,//
+      'ko fails');
+      QUnit.equal(TournamentIndex.createTournament('poule'), undefined,
+          'poule fails');
 
       QUnit.equal(TournamentIndex.createTournament({}), undefined,
           'savedata-passing without "sys" property fails');
@@ -27,8 +30,8 @@ define(function() {
         sys: 'round'
       }), 'round-tournament with savedata');
       QUnit.equal(TournamentIndex.createTournament({
-        sys: 'swiss'
-      }), undefined, 'swiss-tournament with savedata fails');
+        sys: 'poule'
+      }), undefined, 'poule-tournament with savedata fails');
 
     });
   };

@@ -24,6 +24,14 @@
 
 	* core/templates/rankingorderview.html: changes from the test suite integrated
 
+	* core/scripts/swisstournamentmodel.js: SwissTournamentModel added
+
+	* core/scripts/test/swisstournamentmodel.js: rudimentary SwissTournamentModel test added
+
+	* core/scripts/test/tournamentindex.js: tests now also account for 'swiss', 'ko' and 'poule'
+
+	* core/scripts/tournamentindex.js: SwissTournamentModel added
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
