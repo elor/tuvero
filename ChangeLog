@@ -14,6 +14,10 @@
 
 	* legacy/scripts/ui/matchcontroller.js: Button enabled on keyup, not only on change, to visualize as you type
 
+	* core/scripts/listmodel.js: support for construction with an array of elements added
+
+	* core/scripts/uniquelistmodel.js: support for construction with an array of elements added
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes

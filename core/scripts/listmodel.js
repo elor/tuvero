@@ -13,13 +13,22 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
 
   /**
    * Constructor for an empty list
+   *
+   * @param array
+   *          Optional. An array of elements which to fill the list with
    */
-  function ListModel() {
+  function ListModel(array) {
     ListModel.superconstructor.call(this);
     this.length = 0;
     this.list = [];
 
     ListUpdateListener.bind(this, this.updateLength);
+
+    if (Type.isArray(array)) {
+      array.forEach(function(elem) {
+        this.push(elem);
+      }, this);
+    }
   }
   extend(ListModel, Model);
   ListModel.prototype.EVENTS = {

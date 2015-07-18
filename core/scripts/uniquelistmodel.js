@@ -10,9 +10,12 @@
 define(['lib/extend', './listmodel'], function(extend, ListModel) {
   /**
    * Constructor
+   *
+   * @param array
+   *          Optional. An array with elements which to fill the list with
    */
-  function UniqueListModel() {
-    UniqueListModel.superconstructor.call(this);
+  function UniqueListModel(array) {
+    UniqueListModel.superconstructor.call(this, array);
   }
   extend(UniqueListModel, ListModel);
 
