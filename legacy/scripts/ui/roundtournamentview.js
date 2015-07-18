@@ -18,21 +18,11 @@ define(['lib/extend', './tournamentview'], function(extend, TournamentView) {
   function RoundTournamentView(model, $view) {
     RoundTournamentView.superconstructor.call(this, model, $view);
 
-    this.$round = this.$view.find('.round');
-    this.$nextround = this.$view.find('.nextround');
+    this.subcontroller = undefined;
 
     this.updateRound();
   }
   extend(RoundTournamentView, TournamentView);
-
-  RoundTournamentView.prototype.updateRound = function() {
-    this.$round.text(this.model.getRound() + 1);
-    this.$nextround.text(this.model.getRound() + 2);
-  };
-
-  RoundTournamentView.prototype.onstate = function() {
-    this.updateRound();
-  };
 
   return RoundTournamentView;
 });

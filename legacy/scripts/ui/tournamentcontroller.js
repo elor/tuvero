@@ -14,15 +14,25 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
    *          a TournamentView instance
    */
   function TournamentController(view) {
-    var tournament;
+    var tournament, rankingOrder;
 
     TournamentController.superconstructor.call(this, view);
 
-    tournament = this.model;
+    tournament = this.model.tournament;
+    rankingOrder = this.model.rankingOrder;
 
     this.$runbutton = this.view.$view.find('button.runtournament');
 
     this.$runbutton.click(function() {
+      if (tournament.getState().get() === 'initial') {
+        if (rankingOrder.length < 1) {
+          tournament.emit('error', 'not enough ranking components');
+          return;
+        }
+        if (!tournament.setRankingOrder(rankingOrder.asArray())) {
+          return;
+        }
+      }
       tournament.run();
     });
   }

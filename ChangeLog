@@ -43,6 +43,7 @@
 	* legacy/scripts/ui/swisstournamentcontroller.js: SwissTournamentController added
 
 	* legacy/scripts/ui/swisstournamentview.js: SwissTournamentView added
+	common code transfered to TournamentView
 
 	* core/scripts/tournamentmodel.js: signalling internal failures by emitting 'error' with a message as data
 	setRankingOrder() added for redefining the ranking order as long as the tournament is in 'initial' state
@@ -52,6 +53,12 @@
 	* legacy/scripts/ui/newtournamentcontroller.js: default ranking set to wins
 
 	* legacy/scripts/ui/rankingorderview.js: hiding pre-selected options on construction
+
+	* legacy/scripts/ui/roundtournamentview.js: common code transfered to TournamentView
+
+	* legacy/scripts/ui/tournamentcontroller.js: setting ranking order prior to starting the tournament
+
+	* legacy/scripts/ui/tournamentview.js: sharing common code between all subclasses, e.g. RoundTournamentView and SwissTournamentView
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
