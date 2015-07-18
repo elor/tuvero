@@ -21,17 +21,7 @@ define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
   function TeamModel(players, id) {
     TeamModel.superconstructor.call(this, id);
 
-    var index;
-
-    players = players || [];
-    if (players.length === 0) {
-      players.push(new PlayerModel());
-    }
-    this.length = players.length;
-    this.players = players.slice(0);
-    this.players.forEach(function(player) {
-      player.registerListener(this);
-    }, this);
+    this.setPlayers(players);
   }
   extend(TeamModel, IndexedModel);
 
@@ -56,10 +46,33 @@ define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
   };
 
   /**
+   * DO NOT USE DIRECTLY (why not?)
+   *
+   * @param players
+   *          an array of PlayerModel instances
+   */
+  TeamModel.prototype.setPlayers = function(players) {
+    players = players || [];
+    if (players.length === 0) {
+      players.push(new PlayerModel());
+    }
+    this.length = players.length;
+    this.players = players.slice(0);
+    this.players.forEach(function(player) {
+      player.registerListener(this);
+    }, this);
+  };
+
+  /**
    * Callback listener
    *
    * One of the player names was updated. This is passed through to the team
    * event emitter.
+   *
+   * @param emitter
+   *          a PlayerModel instance
+   * @param event
+   *          the event type
    *
    */
   TeamModel.prototype.onupdate = function(emitter, event) {
@@ -68,6 +81,47 @@ define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
       id: this.players.indexOf(emitter)
     };
     this.emit('update', data);
+  };
+
+  TeamModel.prototype.SAVEFORMAT = Object
+      .create(TeamModel.superclass.SAVEFORMAT);
+  TeamModel.prototype.SAVEFORMAT.p = [Object];
+
+  /**
+   * prepares a serializable data object, which can later be used for restoring
+   * the current state using the restore() function
+   *
+   * @return a serializable data object, which can be used for restoring
+   */
+  TeamModel.prototype.save = function() {
+    var data = TeamModel.superclass.save.call(this);
+
+    data.p = this.players.map(function(player) {
+      return player.save();
+    });
+
+    return data;
+  };
+
+  /**
+   * restore a previously saved state from a serializable data object
+   *
+   * @param data
+   *          a data object, that was previously written by save()
+   * @return true on success, false otherwise
+   */
+  TeamModel.prototype.restore = function(data) {
+    if (!TeamModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.setPlayers(data.p.map(function(player) {
+      var p = new PlayerModel();
+      p.restore(player);
+      return p;
+    }));
+
+    return true;
   };
 
   return TeamModel;

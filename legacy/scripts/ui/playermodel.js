@@ -58,5 +58,40 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     }
   };
 
+  PlayerModel.prototype.SAVEFORMAT = Object
+      .create(PlayerModel.superclass.SAVEFORMAT);
+  PlayerModel.prototype.SAVEFORMAT.n = String;
+
+  /**
+   * prepares a serializable data object, which can later be used for restoring
+   * the current state using the restore() function
+   *
+   * @return a serializable data object, which can be used for restoring
+   */
+  PlayerModel.prototype.save = function() {
+    var data = PlayerModel.superclass.save.call(this);
+
+    data.n = name;
+
+    return data;
+  };
+
+  /**
+   * restore a previously saved state from a serializable data object
+   *
+   * @param data
+   *          a data object, that was previously written by save()
+   * @return true on success, false otherwise
+   */
+  PlayerModel.prototype.restore = function(data) {
+    if (!PlayerModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.setName(data.n);
+
+    return true;
+  };
+
   return PlayerModel;
 });

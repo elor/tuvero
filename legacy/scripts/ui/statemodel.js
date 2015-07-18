@@ -74,7 +74,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     this.tournaments.clear(data.tournaments);
 
     return true;
-  }
+  };
 
   return StateModel;
 });
