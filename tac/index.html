@@ -266,25 +266,27 @@
             <h3>
               Runde <span class="nextround">##</span> auslosen
             </h3>
-            <div class="boxview collapsed tournamentoptions">
-              <h3>Erweiterte Optionen</h3>
 
-              <div class="rankingorderview">
-                <select size="8" multiple="multiple">
-                  <option value="%% %%" class="template">%% %%</option>
-                </select>
+            <h3>Wertungsreihenfolge</h3>
 
-                <div>
-                  <button class="move-up">&#x21d1;</button>
-                  <button class="move-left">&#x21d0;</button>
-                  <button class="move-right">&#x21d2;</button>
-                  <button class="move-down">&#x21d3;</button>
-                </div>
+            <div class="rankingorderview">
+              <select size="8" multiple="multiple">
+                <option value="%% %%" class="template">%% %%</option>
+              </select>
 
-                <select size="8">
-                </select>
+              <div>
+                <button class="move-up">&#x21d1;</button>
+                <button class="move-left">&#x21d0;</button>
+                <button class="move-right">&#x21d2;</button>
+                <button class="move-down">&#x21d3;</button>
               </div>
 
+              <select size="8">
+              </select>
+            </div>
+
+            <div class="boxview collapsed tournamentoptions">
+              <h3>Erweiterte Optionen</h3>
               <table>
                 <tr>
                   <td>Modus</td>
@@ -329,7 +331,7 @@
                 </tr>
               </table>
             </div>
-            <button>Runde starten</button>
+            <button class="runtournament">Runde starten</button>
           </div>
           <div class="running">
             <p>
@@ -349,7 +351,30 @@
           <h3>
             <span class="tournamentname">##</span> - Rundenturnier
           </h3>
-          <div class="initial idle">
+          <div class="initial">
+
+            <h3>Wertungsreihenfolge</h3>
+
+            <div class="rankingorderview">
+              <select size="8" multiple="multiple">
+                <option value="%% %%" class="template">%% %%</option>
+              </select>
+
+              <div>
+                <button class="move-up">&#x21d1;</button>
+                <button class="move-left">&#x21d0;</button>
+                <button class="move-right">&#x21d2;</button>
+                <button class="move-down">&#x21d3;</button>
+              </div>
+
+              <select size="8">
+              </select>
+            </div>
+
+            <div class="boxview collapsed tournamentoptions">
+              <h3>Erweiterte Optionen</h3>
+            </div>
+
             <h3>
               Runde <span class="nextround">##</span> auslosen
             </h3>
@@ -362,6 +387,12 @@
             <p>
               Siehe <a href="#games" data-img="games">Laufende Spiele</a>
             </p>
+          </div>
+          <div class="idle">
+            <h3>
+              Runde <span class="nextround">##</span> auslosen
+            </h3>
+            <button class="runtournament">Runde starten</button>
           </div>
           <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
           <h3>

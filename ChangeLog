@@ -21,6 +21,7 @@
 	* legacy/scripts/ui/rankingordercontroller.js: preventing left-right-scrolling when switching between lists
 
 	* core/templates/newtab.html: rankingorderview added to swiss
+	RankingOrderView put outside of the tournamentoptions box
 
 	* core/templates/rankingorderview.html: changes from the test suite integrated
 
