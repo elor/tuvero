@@ -92,7 +92,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
 
     this.teamsize.set(data.teamsize);
     this.teams.restore(data.teams, TeamModel);
-    this.tournaments.clear(data.tournaments);
+    this.tournaments.restore(data.tournaments);
 
     return true;
   };

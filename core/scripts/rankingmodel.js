@@ -367,6 +367,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
       this.reset();
       return false;
     }
+
     this.invalidate();
 
     return true;

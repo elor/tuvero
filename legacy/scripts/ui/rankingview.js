@@ -34,6 +34,9 @@ define(['lib/extend', 'ui/templateview'],
         this.teamList = teamList;
 
         this.updateTimeout = undefined;
+
+        // TODO use some standardized defer-statement
+        this.onupdate(this.model, 'update');
       }
       extend(RankingView, TemplateView);
 

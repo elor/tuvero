@@ -1,6 +1,7 @@
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated
+	initial update during construction (defered)
 
 	* legacy/scripts/ui/systemlistview.js: rendering defered until all changes are accumulated
 
@@ -82,6 +83,7 @@
 	restore(): forgotten ListModel.restore() content constructor added (TeamModel)
 	actual data and cleanuplisteners separated
 	clear() function added
+	tournaments restore() bug fixed
 
 	* core/scripts/model.js: didn't load the Type module properly
 	more precise restore() error messages
