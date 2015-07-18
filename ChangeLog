@@ -25,6 +25,7 @@
 	* core/templates/rankingorderview.html: changes from the test suite integrated
 
 	* core/scripts/swisstournamentmodel.js: SwissTournamentModel added
+	emitting 'error' on round-start errors
 
 	* core/scripts/test/swisstournamentmodel.js: rudimentary SwissTournamentModel test added
 
@@ -41,6 +42,8 @@
 	* legacy/scripts/ui/swisstournamentcontroller.js: SwissTournamentController added
 
 	* legacy/scripts/ui/swisstournamentview.js: SwissTournamentView added
+
+	* core/scripts/tournamentmodel.js: signalling internal failures by emitting 'error' with a message as data
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

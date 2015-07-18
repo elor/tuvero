@@ -115,7 +115,8 @@ define(function() {
     ranking_sonneborn: 'Sonneborn-Berger-Zahl',
     ranking_id: 'No.',
     ranking_headtohead: 'Direkter Vergleich',
-    ranking_tac: 'TAC-Punkte'
+    ranking_tac: 'TAC-Punkte',
+    tournamenterrorprefix: 'Turnierfehler'
   };
 
   return Strings;

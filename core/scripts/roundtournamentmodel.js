@@ -97,7 +97,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
 
   /**
    * @return the current or recently finished round. returns -1 if the
-   *          tournament hasn't been started yet
+   *         tournament hasn't been started yet
    */
   RoundTournamentModel.prototype.getRound = function() {
     return this.round;

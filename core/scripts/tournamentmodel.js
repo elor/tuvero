@@ -87,6 +87,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     // listen to the matches
     collector = new ListCollectorModel(this.matches, MatchModel);
     collector.registerListener(this);
+
+    // print error messages to the output
+    Listener.bind(this, 'error', function(emitter, event, message) {
+      console.error(message);
+    });
   }
   extend(TournamentModel, PropertyModel);
 
@@ -193,7 +198,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       }
       break;
     case 'finished':
-      console.error('cannot enter add a team to a finished tournament');
+      this.emit('error', 'cannot enter add a team to a finished tournament');
       return undefined;
     }
 
@@ -273,7 +278,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   TournamentModel.prototype.getVotes = function(type) {
     if (!type || this.votes[type] === undefined) {
-      console.error('vote type "' + type
+      this.emit('error', 'vote type "' + type
           + '" does not exist for this tournament type');
       return undefined;
     }
@@ -315,19 +320,19 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       if (this.initialMatches()) {
         break;
       }
-      console.error('initialMatches() failed');
+      this.emit('error', 'initialMatches() failed');
       return undefined;
     case 'idle':
       if (this.idleMatches()) {
         break;
       }
-      console.error('idleMatches() failed');
+      this.emit('error', 'idleMatches() failed');
       return undefined;
     case 'running':
-      console.error('tournament is already running');
+      this.emit('error', 'tournament is already running');
       return undefined;
     case 'finished':
-      console.error('tournament is already finished');
+      this.emit('error', 'tournament is already finished');
       return undefined;
     }
 
@@ -355,7 +360,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       this.state.set('finished');
       return true;
     case 'running':
-      console.error('cannot finish a running tournament');
+      this.emit('error', 'cannot finish a running tournament');
       break;
     }
 
@@ -380,12 +385,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     match = matchresult.source;
 
     if (this.matches.indexOf(match) === -1) {
-      console.error('onfinish: match is not open anymore or does not exist');
+      this.emit('error',
+          'onfinish: match is not open anymore or does not exist');
       return;
     }
 
     if (!this.validateMatchResult(matchresult)) {
-      console.error('onfinish: match result fails validation test');
+      this.emit('error', 'onfinish: match result fails validation test');
       return;
     }
 
@@ -510,20 +516,20 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
 
     index = this.history.indexOf(result.result);
     if (index === -1) {
-      console.error('correct(): result does not exist in history');
+      this.emit('error', 'correct(): result does not exist in history');
       return false;
     }
 
     newResult = new MatchResult(result, newScore);
     if (!validateMatchResult(newResult)) {
-      console.error('correction has invalid score');
+      this.emit('error', 'correction has invalid score');
       return false;
     }
 
     correction = new Correction(result, newResult);
 
     if (!this.validateCorrection(correction)) {
-      console.error('correction is invalid, although the score is fine');
+      this.emit('error', 'correction is invalid, although the score is fine');
       return false;
     }
 
@@ -570,7 +576,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   TournamentModel.prototype.restore = function(data) {
     if (this.SYSTEM !== data.sys) {
-      console.error('TournamentModel.restore() error: System mismatch');
+      this.emit('error', 'TournamentModel.restore() error: System mismatch');
       return false;
     }
 
@@ -581,32 +587,35 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.id = data.id;
 
     if (!this.state.forceState(data.state)) {
-      console.error('TournamentModel.restore(): invalid tournament state');
+      this.emit('error',//
+      'TournamentModel.restore(): invalid tournament state');
       return false;
     }
 
     if (!this.teams.restore(data.teams)) {
-      console.error('TournamentModel.restore(): cannot restore teams');
+      this.emit('error',//
+      'TournamentModel.restore(): cannot restore teams');
       return false;
     }
 
     if (!this.matches.restore(data.matches, MatchModel)) {
-      console.error('TournamentModel.restore(): cannot restore matches');
+      this.emit('error', 'TournamentModel.restore(): cannot restore matches');
       return false;
     }
 
     if (!this.history.restore(data.history, MatchResult)) {
-      console.error('TournamentModel.restore(): cannot restore history');
+      this.emit('error', 'TournamentModel.restore(): cannot restore history');
       return false;
     }
 
     if (!this.corrections.restore(data.corrections, CorrectionModel)) {
-      console.error('TournamentModel.restore(): cannot restore corrections');
+      this.emit('error',
+          'TournamentModel.restore(): cannot restore corrections');
       return false;
     }
 
     if (!this.ranking.restore(data.ranking)) {
-      console.error('TournamentModel.restore(): cannot restore ranking');
+      this.emit('error', 'TournamentModel.restore(): cannot restore ranking');
       return false;
     }
 
@@ -617,7 +626,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       }
       return true;
     }, this)) {
-      console.error('TournamentModel.restore(): cannot restore votes');
+      this.emit('error', 'TournamentModel.restore(): cannot restore votes');
       return false;
     }
 

@@ -32,6 +32,10 @@ define(['lib/extend', './roundtournamentmodel'], function(extend,
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.idleMatches = function() {
+    if (this.getProperty('initialorder') === 'wingroups') {
+      this.emit('error', 'cannot use wingroups at the moments');
+      return false;
+    }
   };
 
   /**
@@ -40,6 +44,7 @@ define(['lib/extend', './roundtournamentmodel'], function(extend,
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.initialMatches = function() {
+    return this.idleMatches();
   };
 
   return SwissTournamentModel;
