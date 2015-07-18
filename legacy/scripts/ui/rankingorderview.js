@@ -29,6 +29,8 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
         this.$template, RankingComponentView);
 
     this.controller = new RankingOrderController(this);
+
+    this.update();
   }
   extend(RankingOrderView, TemplateView);
 
