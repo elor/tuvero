@@ -45,6 +45,8 @@
 
 	* core/scripts/tournamentmodel.js: signalling internal failures by emitting 'error' with a message as data
 
+	* legacy/scripts/ui/backgroundscripts/tournamentErrorToasts.js: showing toasts on any internal tournament error
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes
