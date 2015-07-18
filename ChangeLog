@@ -36,6 +36,12 @@
 
 	* test/rankingorderview.html: instantiating the available ranking types directly
 
+	* legacy/scripts/ui/generictournamentview.js: SwissTournamentView added
+
+	* legacy/scripts/ui/swisstournamentcontroller.js: SwissTournamentController added
+
+	* legacy/scripts/ui/swisstournamentview.js: SwissTournamentView added
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes

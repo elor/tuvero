@@ -6,29 +6,33 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './tournamentview', './roundtournamentview'//
-], function(extend, View, TournamentView, RoundTournamentView) {
+define(['lib/extend', 'core/view', './tournamentview', './roundtournamentview',
+    './swisstournamentview'], function(extend, View, TournamentView,
+    RoundTournamentView, SwissTournamentView) {
+  var constructors, defaultConstructor;
+
+  constructors = {
+    swiss: SwissTournamentView,
+    round: RoundTournamentView
+  };
+
+  defaultConstructor = TournamentView;
+
   /**
    * Constructor
    */
   function GenericTournamentView(tournament, $view) {
-    var tournamentID;
+    var tournamentID, Constructor;
     GenericTournamentView.superconstructor.call(this, undefined, $view);
 
     tournamentID = tournament && tournament.getID();
 
     this.tournament = tournament;
     if (tournament) {
-      switch (tournament.SYSTEM) {
-      case 'round':
-        this.view = new RoundTournamentView(tournament, $view);
-        break;
-      default:
-        this.view = new TournamentView(tournament, $view);
-        break;
-      }
+      Constructor = constructors[tournament.SYSTEM] || defaultConstructor;
+      new Constructor(tournament, $view);
     } else {
-      this.view = new View();
+      this.view = new View(undefined, $view);
     }
   }
   extend(GenericTournamentView, View);
