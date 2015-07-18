@@ -20,7 +20,7 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
    */
   function SystemListView(teams, $view, tournaments, teamsize,
       tournamentViewFactory) {
-    var view, $systemTemplate, orderList, updatePending;
+    var view, $systemTemplate, orderList, updateTimeout;
 
     $systemTemplate = $view.find('.system.template').detach();
     orderList = new OrderListModel();

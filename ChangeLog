@@ -1,3 +1,11 @@
+2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated
+
+	* legacy/scripts/ui/systemlistview.js: rendering defered until all changes are accumulated
+
+	* legacy/scripts/ui/systemtablerowview.js: rendering defered until all changes are accumulated
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes

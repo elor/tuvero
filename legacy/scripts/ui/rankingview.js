@@ -96,8 +96,14 @@ define(['lib/extend', 'ui/templateview'],
       };
 
       RankingView.prototype.onupdate = function(emitter, event, data) {
+        var rankingview = this;
         if (emitter == this.model) {
-          this.update();
+          if (this.updateTimeout === undefined) {
+            this.updateTimeout = window.setTimeout(function() {
+              rankingview.update();
+              rankingview.updateTimeout = undefined;
+            }, 1);
+          }
         }
       };
 

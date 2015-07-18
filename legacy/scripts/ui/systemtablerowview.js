@@ -36,6 +36,8 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     this.tournamentRank = -1;
     this.globalRank = -1;
 
+    this.updatepending = undefined;
+
     this.$tournamentrank = this.$view.find('.tournamentrank');
     this.$globalrank = this.$view.find('.rank');
     this.tournamentView = undefined;
@@ -122,9 +124,16 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
   };
 
   SystemTableRowView.prototype.onupdate = function(emitter, event, data) {
+    var rowview = this;
     if (emitter === this.tournaments) {
-      this.updateRankTexts();
-      this.updateSystem();
+      if (this.updatepending === undefined) {
+        this.updatepending = true;
+        window.setTimeout(function() {
+          rowview.updateRankTexts();
+          rowview.updateSystem();
+          rowview.updatepending = undefined;
+        }, 1);
+      }
     }
   };
 

@@ -74,7 +74,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
 
     if (Emitter.debug) {
       indentation = '>';
-      while (indentation.length < depth - 1) {
+      while (indentation.length <= depth) {
         indentation += ' ';
       }
       console.log(indentation + getClassName(this) + '.emit(' + event
