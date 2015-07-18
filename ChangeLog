@@ -110,8 +110,13 @@
 	* legacy/scripts/ui/backgroundscripts/matchtoasts.js: sending toasts for finishing matches and changing tournament states
 
 	* legacy/scripts/ui/strings.js: tournament state strings added
+	team csv texts revised
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: dependency on team.js removed
+
+	* legacy/scripts/ui/backgroundscripts/tournamenterrortoasts.js: `make codestyle`
+
+	* legacy/scripts/ui/team.js: all code removed, except for the toCSV code
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

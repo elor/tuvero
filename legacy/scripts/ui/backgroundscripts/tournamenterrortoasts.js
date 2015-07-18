@@ -23,5 +23,5 @@ define(['../state_new', '../listcollectormodel', 'core/tournamentmodel',
     Toast.LONG);
   };
 
-  return errorListener
+  return errorListener;
 });
