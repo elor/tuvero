@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
+define(['lib/extend', './emitter', './type'], function(extend, Emitter, Type) {
   function getClassName(instance) {
     return instance.constructor.toString().replace(
         /^function (\S+)\((.+|\s+)*$/g, '$1');
@@ -80,7 +80,13 @@ define(['lib/extend', 'core/emitter'], function(extend, Emitter) {
   Model.prototype.restore = function(data) {
     // TODO warn about additional keys
     // TODO allow for the verification of sub-Models
-    if (!Type.isObject(data) || !Type.isObject(this.SAVEFORMAT)) {
+    if (!Type.isObject(data)) {
+      console.error('restore(): data is not an object');
+      return false;
+    }
+
+    if (!Type.isObject(this.SAVEFORMAT)) {
+      console.error('restore(): SAVEFORMAT is not an object');
       return false;
     }
 

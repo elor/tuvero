@@ -78,6 +78,10 @@
 	* legacy/scripts/ui/statemodel.js: StateModel is subclass of Model
 	StateModel.save() and StateModel.restore() added
 	StateModel.SAVEFORMAT also uses a version identifier
+	SAVEFORMAT contains the target ('tac', 'boule', ...)
+
+	* core/scripts/model.js: didn't load the Type module properly
+	more precise restore() error messages
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

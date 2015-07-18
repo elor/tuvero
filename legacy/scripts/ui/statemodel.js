@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
-    'core/valuemodel', './listcleanuplistener', 'core/tournamentlistmodel'],//
-function(extend, Model, ListModel, IndexedListModel, ValueModel,
-    ListCleanupListener, TournamentListModel) {
+    'core/valuemodel', './listcleanuplistener', 'core/tournamentlistmodel',
+    'options'], function(extend, Model, ListModel, IndexedListModel,
+    ValueModel, ListCleanupListener, TournamentListModel, Options) {
 
   /**
    * Constructor
@@ -27,7 +27,8 @@ function(extend, Model, ListModel, IndexedListModel, ValueModel,
   StateModel.prototype.SAVEFORMAT.teams = [Object];
   StateModel.prototype.SAVEFORMAT.teamsize = Number;
   StateModel.prototype.SAVEFORMAT.tournaments = [Object];
-  StateModel.prototype.SAVEFORMAT.version = String;
+  StateModel.prototype.SAVEFORMAT.target = String; // e.g. 'tac', 'boule', ...
+  StateModel.prototype.SAVEFORMAT.version = String; // e.g. '1.5.0'
 
   /**
    * prepares a serializable data object, which can later be used for restoring
@@ -44,6 +45,9 @@ function(extend, Model, ListModel, IndexedListModel, ValueModel,
 
     // TODO read from DOM or something
     data.version = '1.5.0-dev';
+
+    // TODO read from DOM or something
+    data.target = Options.target;
 
     return data;
   };
@@ -68,6 +72,8 @@ function(extend, Model, ListModel, IndexedListModel, ValueModel,
     this.teamsize.set(data.teamsize);
     this.teams.restore(data.teams);
     this.tournaments.clear(data.tournaments);
+
+    return true;
   }
 
   return StateModel;
