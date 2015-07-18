@@ -251,11 +251,9 @@
         <div class="boxview newsystem template" data-system="undefined">
           <h3>Neue Turnierphase</h3>
           <button data-system="swiss">Schweizer System</button>
-          <br>
-          <br>
+          <br> <br>
           <button data-system="round">Rundenturnier</button>
-          <br>
-          <br>
+          <br> <br>
           <button data-system="ko">KO-System</button>
           <h3>Neue Turnierphase</h3>
         </div>
@@ -268,8 +266,25 @@
             <h3>
               Runde <span class="nextround">##</span> auslosen
             </h3>
-            <div class="boxview collapsed">
+            <div class="boxview collapsed tournamentoptions">
               <h3>Erweiterte Optionen</h3>
+
+              <div class="rankingorderview">
+                <select size="8" multiple="multiple">
+                  <option value="%% %%" class="template">%% %%</option>
+                </select>
+
+                <div>
+                  <button class="move-up">&#x21d1;</button>
+                  <button class="move-left">&#x21d0;</button>
+                  <button class="move-right">&#x21d2;</button>
+                  <button class="move-down">&#x21d3;</button>
+                </div>
+
+                <select size="8">
+                </select>
+              </div>
+
               <table>
                 <tr>
                   <td>Modus</td>
@@ -325,6 +340,9 @@
             </p>
           </div>
           <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
+          <h3>
+            <span class="tournamentname">##</span> - Schweizer System
+          </h3>
         </div>
 
         <div class="boxview round template" data-system="round">
