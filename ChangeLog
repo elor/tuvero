@@ -111,6 +111,8 @@
 
 	* legacy/scripts/ui/strings.js: tournament state strings added
 
+	* legacy/scripts/ui/teamsfileloadcontroller.js: dependency on team.js removed
+
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/gamestab.html: classes and lists adjusted to match MVC classes

@@ -16,8 +16,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './team', './toast', './strings',
-    './state_new'], function(extend, Controller, Team, Toast, Strings, State) {
+define(['lib/extend', 'core/controller', './toast', './strings', './state_new',
+    './playermodel', './teammodel'], function(extend, Controller, Toast,
+    Strings, State, PlayerModel, TeamModel) {
 
   function numutfbytes(character) {
     var code;
@@ -144,7 +145,7 @@ define(['lib/extend', 'core/controller', './team', './toast', './strings',
   TeamsFileLoadController.createTeamsFromString = function(str) {
     var lines, name, names, teamsize, team, i;
 
-    if (Team.count() !== 0) {
+    if (State.teams.length !== 0) {
       new Toast(Strings.teamsnotempty);
       return undefined;
     }
@@ -218,11 +219,13 @@ define(['lib/extend', 'core/controller', './team', './toast', './strings',
     }
 
     // enter new teams
-    for (names in lines) {
-      names = lines[names];
+    lines.forEach(function(names) {
+      var players = names.map(function(name) {
+        return new PlayerModel(name);
+      });
 
-      team = Team.create(names);
-    }
+      State.teams.push(new TeamModel(players));
+    });
 
     return true;
   };
