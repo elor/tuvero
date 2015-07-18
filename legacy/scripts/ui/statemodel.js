@@ -8,8 +8,9 @@
  */
 define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     'core/valuemodel', './listcleanuplistener', 'core/tournamentlistmodel',
-    'options'], function(extend, Model, ListModel, IndexedListModel,
-    ValueModel, ListCleanupListener, TournamentListModel, Options) {
+    'options', './teammodel'], function(extend, Model, ListModel,
+    IndexedListModel, ValueModel, ListCleanupListener, TournamentListModel,
+    Options, TeamModel) {
 
   /**
    * Constructor
@@ -70,7 +71,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     this.teams.clear();
 
     this.teamsize.set(data.teamsize);
-    this.teams.restore(data.teams);
+    this.teams.restore(data.teams, TeamModel);
     this.tournaments.clear(data.tournaments);
 
     return true;

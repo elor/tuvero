@@ -79,11 +79,13 @@
 	StateModel.save() and StateModel.restore() added
 	StateModel.SAVEFORMAT also uses a version identifier
 	SAVEFORMAT contains the target ('tac', 'boule', ...)
+	restore(): forgotten ListModel.restore() content constructor added (TeamModel)
 
 	* core/scripts/model.js: didn't load the Type module properly
 	more precise restore() error messages
 
 	* legacy/scripts/ui/playermodel.js: save() and restore() added
+	forgotten "this" added
 
 	* legacy/scripts/ui/teammodel.js: save() and restore() added
 

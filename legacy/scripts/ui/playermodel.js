@@ -71,7 +71,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   PlayerModel.prototype.save = function() {
     var data = PlayerModel.superclass.save.call(this);
 
-    data.n = name;
+    data.n = this.name;
 
     return data;
   };
