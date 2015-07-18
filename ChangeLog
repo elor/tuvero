@@ -45,6 +45,7 @@
 	* legacy/scripts/ui/swisstournamentview.js: SwissTournamentView added
 
 	* core/scripts/tournamentmodel.js: signalling internal failures by emitting 'error' with a message as data
+	setRankingOrder() added for redefining the ranking order as long as the tournament is in 'initial' state
 
 	* legacy/scripts/ui/backgroundscripts/tournamentErrorToasts.js: showing toasts on any internal tournament error
 

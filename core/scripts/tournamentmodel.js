@@ -171,6 +171,27 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   };
 
   /**
+   * change the ranking order after tournament creation
+   *
+   * TODO write unit test
+   *
+   * @param rankingorder
+   *          an array of ranking order component names
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.setRankingOrder = function(rankingorder) {
+    if (this.state.get() !== 'initial') {
+      this.emit('error',
+          'cannot change ranking order after starting a tournament');
+      return undefined;
+    }
+
+    this.ranking.reset();
+    return this.ranking.init(rankingorder || ['id'], this.teams.length,
+        this.ranking.extDeps);
+  };
+
+  /**
    * add a team id to the tournament. Teams can only be entered once.
    *
    * Undefined behaviour if the tournament has already started.
