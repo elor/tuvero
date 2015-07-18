@@ -84,6 +84,7 @@
 	actual data and cleanuplisteners separated
 	clear() function added
 	tournaments restore() bug fixed
+	also saving/restoring the Options
 
 	* core/scripts/model.js: didn't load the Type module properly
 	more precise restore() error messages
@@ -102,6 +103,8 @@
 	* legacy/scripts/ui/backgroundscripts/redrawOnPlayerChange.js: moved to autosave.js
 
 	* legacy/scripts/ui/savestate.js: removed and superseded by autosave.js
+
+	* legacy/scripts/ui/options.js: no need to save/restore the teamsize within the options anymore
 
 2015-07-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

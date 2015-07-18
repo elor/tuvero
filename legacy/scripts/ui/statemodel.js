@@ -41,11 +41,13 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
   StateModel.prototype.clear = function() {
     this.tournaments.clear();
     this.teams.clear();
+    Options.reset();
     // this.teamsize.set(3); // TODO read default team size from options
   };
 
   StateModel.prototype.SAVEFORMAT = Object
       .create(StateModel.superclass.SAVEFORMAT);
+  StateModel.prototype.SAVEFORMAT.options = Object;
   StateModel.prototype.SAVEFORMAT.teams = [Object];
   StateModel.prototype.SAVEFORMAT.teamsize = Number;
   StateModel.prototype.SAVEFORMAT.tournaments = [Object];
@@ -64,6 +66,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     data.teams = this.teams.save();
     data.teamsize = this.teamsize.get();
     data.tournaments = this.tournaments.save();
+    data.options = JSON.parse(Options.toBlob());
 
     // TODO read from DOM or something
     data.version = '1.5.0-dev';
@@ -90,6 +93,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
 
     this.clear();
 
+    Options.fromBlob(JSON.stringify(data.options));
     this.teamsize.set(data.teamsize);
     this.teams.restore(data.teams, TeamModel);
     this.tournaments.restore(data.tournaments);

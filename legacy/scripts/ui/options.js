@@ -23,7 +23,6 @@ define([], function() {
   }
 
   Options.toBlob = function() {
-    Options.teamsize = getState().teamsize.get();
     return JSON.stringify(Options);
   };
 
@@ -46,11 +45,6 @@ define([], function() {
     // reset everything
     for (key in opts) {
       Options[key] = opts[key];
-    }
-
-    if (Options.teamsize) {
-      getState().teamsize.set(Options.teamsize);
-      delete Options.teamsize;
     }
   };
 
