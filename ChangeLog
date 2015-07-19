@@ -43,6 +43,8 @@
 
 	* legacy/scripts/ui/tournamenthistoryview.js: using MatchResultView
 
+	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated

@@ -33,6 +33,11 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
   MatchController.prototype.initNumberValidation = function() {
     var controller = this;
 
+    // select the whole input field on focus. make id DAU-safe.
+    this.$points.on('click', function() {
+      this.select && this.select();
+    });
+
     // We're using keyup to check the values as the user types, not only when
     // the focus is lost or the value is changed incrementally
     this.$points.on('change keyup', function() {
