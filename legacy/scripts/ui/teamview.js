@@ -34,13 +34,17 @@ define(['lib/extend', 'core/view', 'core/type'], function(extend, View, Type) {
    * write the playernames and teamnumber to the DOM
    */
   TeamView.prototype.update = function() {
-    var $names, i, $name, $teamno, player;
+    var $names, i, $name, $teamno, player, teamid;
 
     $teamno = this.$view.find('.teamno');
     if ($teamno.length === 0) {
       $teamno = this.$view.filter('.teamno');
     }
-    $teamno.text(this.model.getID() + 1);
+    teamid = this.model.getID();
+    if (Type.isNumber(teamid)) {
+      teamid += 1;
+    }
+    $teamno.text(teamid);
 
     $names = this.$view.find('.name');
     if ($names.length === 0) {

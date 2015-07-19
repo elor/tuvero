@@ -21,6 +21,8 @@ define(function() {
     upvote: '▲',
     downvote: '▼',
     byevote: '∅',
+    byename: 'Freilos',
+    byeid: 'F',
     fileabort: 'Lesen abgebrochen',
     fileerror: 'Lesefehler',
     filenotfound: 'Datei wurde nicht gefunden',

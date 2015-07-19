@@ -7,8 +7,33 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
-    'ui/matchcontroller', 'options'], function(extend, $, View, TeamView,
-    MatchController, Options) {
+    'ui/matchcontroller', 'options', './playermodel', './teammodel',
+    './strings'], function(extend, $, View, TeamView, MatchController, Options,
+    PlayerModel, TeamModel, Strings) {
+  var byePlayer;
+
+  // player name for bye votes
+  byePlayer = new PlayerModel(Strings.byename);
+
+  /**
+   * create a team with exactly the wanted number of bye players.
+   *
+   * @return a TeamModel instance which is not part of the teams list, has only
+   *         bye players and a (textual) team id which represents a bye vote
+   */
+  function createByeTeam(length) {
+    var players, team;
+
+    players = [];
+
+    while (players.length < length) {
+      players.push(byePlayer);
+    }
+
+    team = new TeamModel(players);
+    team.setID(Strings.byeid);
+    return team;
+  }
 
   function $createTeamsLists($elements) {
     var team, teams, i, $element;
@@ -81,7 +106,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
    * update all the values
    */
   MatchView.prototype.update = function() {
-    var $teams, i, $team, teamid;
+    var $teams, i, $team, teamid, isBye, team;
 
     $teams = this.$view.find('.team');
     if ($teams.length === 0) {
@@ -90,15 +115,26 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
 
     this.destroyTeamViews();
 
+    isBye = this.model.isBye && this.model.isBye();
+
     // FIXME support for a varying number of teams required
     for (i = 0; i < $teams.length; i += 1) {
       $team = $($teams[i]);
       teamid = this.model.getTeamID(i % this.model.length);
 
       if (teamid !== undefined && this.teamlist) {
-        this.teamviews.push(new TeamView(this.teamlist.get(teamid), $team));
+        team = this.teamlist.get(teamid);
+        if (isBye && i % 2) {
+          team = createByeTeam(team.length);
+        }
+        this.teamviews.push(new TeamView(team, $team));
       } else {
-        $team.text(teamid);
+        if (isBye) {
+          team = Strings.byename;
+        } else {
+          team = teamid;
+        }
+        $team.text(team);
       }
     }
   };
