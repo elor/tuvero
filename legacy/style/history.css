@@ -85,15 +85,15 @@
   text-overflow: ellipsis;
 }
 
+#tabs>[data-tab="history"].hidenames .name, #tabs>[data-tab="history"].hidenames .playercol
+  {
+  display: none;
+}
+
 #tabs>[data-tab="history"] .finish input {
   width: 3em;
   max-width: 3em;
   text-align: center;
-}
-
-#tabs>[data-tab="history"].hidenames .name, #tabs>[data-tab="history"].hidenames .playercol
-  {
-  display: none;
 }
 
 #tabs>[data-tab="history"] .matchtable {

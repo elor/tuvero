@@ -41,6 +41,7 @@
 	* core/templates/historytab.html: placeholders for match results added
 	correction fields added
 	separate vote-lists removed
+	unwanted noprint classes removed (we WANT to print!)
 
 	* legacy/scripts/ui/matchresultview.js: displaying a match result with its score
 
@@ -92,6 +93,11 @@
 	* legacy/style/history.css: style of hidden match results added
 
 	* legacy/scripts/ui/correctioncontroller.js: CorrectionController for dynamically attaching/detaching a correction input field added
+
+	* core/templates/rankingtab.html: correctiontable added
+
+	* legacy/style/ranking.css: maxwidth and hidenames rules added
+	* core/templates/correctiontable.html: correctiontable added
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

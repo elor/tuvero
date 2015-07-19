@@ -1,13 +1,24 @@
-#tabs > [data-tab="ranking"] {
+#tabs>[data-tab="ranking"] {
   text-align: center;
 }
 
-#tabs > [data-tab="ranking"] td {
+#tabs>[data-tab="ranking"] td {
   width: 3em;
   white-space: nowrap;
 }
 
-#tabs > [data-tab="ranking"] .name {
+#tabs>[data-tab="ranking"].maxwidth .name {
+  width: 8em;
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#tabs>[data-tab="ranking"].hidenames .playername {
+  display: none;
+}
+
+#tabs>[data-tab="ranking"] .name {
   text-align: left;
   min-width: 10em;
   width: 10em;
@@ -16,12 +27,12 @@
   text-overflow: ellipsis;
 }
 
-#tabs > [data-tab="ranking"] .corrections h2 {
+#tabs>[data-tab="ranking"] .corrections h2 {
   text-align: left;
   margin-left: 1em;
 }
 
-#tabs > [data-tab="ranking"] .corrections td {
+#tabs>[data-tab="ranking"] .corrections td {
   padding-left: 0.5em;
   padding-right: 0.5em;
 }
