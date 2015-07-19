@@ -76,6 +76,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.votes = TournamentModel.initVoteLists(this.VOTES);
     this.history = new ListModel();
     this.corrections = new ListModel();
+    this.name = new ValueModel(this.SYSTEM);
 
     // singletons for the getters(), in order to not bloat the listener arrays
     this.singletons = {};
@@ -314,6 +315,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     }
 
     return this.singletons.votes[type];
+  };
+
+  TournamentModel.prototype.getName = function() {
+    if (this.singletons.name === undefined) {
+      this.singletons.name = new ValueModel();
+      this.singletons.name.bind(this.name);
+      this.name.bind(this.singletons.name);
+    }
+
+    return this.singletons.name;
   };
 
   /**
@@ -572,8 +583,9 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   TournamentModel.prototype.save = function() {
     var data = TournamentModel.superclass.save.call(this);
 
-    data.id = this.id;
     data.sys = this.SYSTEM;
+    data.id = this.id;
+    data.name = this.name.get();
     data.state = this.state.get();
     data.teams = this.teams.asArray();
     data.matches = this.matches.save();
@@ -606,6 +618,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     }
 
     this.id = data.id;
+
+    this.name.set(data.name || this.SYSTEM);
 
     if (!this.state.forceState(data.state)) {
       this.emit('error',//
@@ -664,8 +678,9 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
   // "Object"
   TournamentModel.prototype.SAVEFORMAT = Object
       .create(TournamentModel.superclass.SAVEFORMAT);
-  TournamentModel.prototype.SAVEFORMAT.id = Number;
   TournamentModel.prototype.SAVEFORMAT.sys = String;
+  TournamentModel.prototype.SAVEFORMAT.id = Number;
+  TournamentModel.prototype.SAVEFORMAT.name = String;
   TournamentModel.prototype.SAVEFORMAT.state = String;
   TournamentModel.prototype.SAVEFORMAT.teams = [Number];
   TournamentModel.prototype.SAVEFORMAT.matches = [Object];

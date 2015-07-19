@@ -77,6 +77,7 @@
 
 	* core/scripts/tournamentmodel.js: reading the external ranking dependencies from RANKINGDEPENDENCIES
 	correct() bug fixed (undefined values, forgotten "this")
+	name and getName() added to remember the name of the tournament
 
 	* legacy/scripts/ui/backgroundscripts/taboptionclick.js: replaced by CheckBoxController
 
