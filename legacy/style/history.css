@@ -9,6 +9,15 @@
   vertical-align: top;
 }
 
+#tabs>[data-tab="history"] .hideresult .result {
+  display: none;
+}
+
+#tabs>[data-tab="history"] input[type="number"] {
+  width: 3em;
+  max-width: 3em;
+}
+
 #tabs>[data-tab="history"] .matchview>div {
   display: table;
   margin: 0.0em;

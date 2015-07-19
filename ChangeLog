@@ -38,6 +38,7 @@
 	* legacy/scripts/ui/teamview.js: handling textual ids properly (e.g. for byes: 'F' instead of a team number)
 
 	* core/templates/historytab.html: placeholders for match results added
+	correction fields added
 
 	* legacy/scripts/ui/matchresultview.js: displaying a match result with its score
 
@@ -76,6 +77,10 @@
 
 	* legacy/style/new.css: .votepermission removed
 	.options margin added
+
+	* core/templates/gamestab.html: tabindex=-1 removed from the finish-buttons
+
+	* legacy/style/history.css: style of hidden match results added
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
