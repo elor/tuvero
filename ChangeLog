@@ -14,6 +14,10 @@
 	* core/scripts/roundtournamentmodel.js: adding ByeResult to history
 	bye has not been added to ranking
 
+	* core/scripts/rankingsonnebornlistener.js: does sonneborn include a bye-related win of the opponent?
+
+	* core/scripts/test/roundtournamentmodel.js: byes are included in the result. Take sonneborn with a grain of salt
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated

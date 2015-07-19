@@ -175,9 +175,9 @@ define(function() {
         ids: [1, 2, 3, 4, 5],
         displayOrder: [0, 1, 4, 3, 2],
         ranks: [0, 1, 4, 3, 2],
-        saldo: [21, 3, -24, 11, -11],
-        sonneborn: [5, 4, 2, 3, 4],
-        wins: [3, 2, 1, 2, 2]
+        saldo: [27, 9, -18, 17, -5],
+        sonneborn: [8, 6, 3, 5, 6],
+        wins: [4, 3, 2, 3, 3]
       };
       QUnit.deepEqual(ret, ref, 'final ranking is correct');
 

@@ -24,6 +24,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
   RankingSonnebornListener.DEPENDENCIES = ['winsmatrix', 'wins'];
 
   RankingSonnebornListener.prototype.onrecalc = function() {
+    // TODO exclude bye from sonneborn points?
     this.winsmatrix.multVector(this.sonneborn, this.wins);
   };
 
