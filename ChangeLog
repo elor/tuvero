@@ -1,6 +1,7 @@
 2015-07-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/statemodel.js: showing error when the wrong target is loaded
+	error when the wrong format is loaded
 
 	* legacy/scripts/ui/backgroundscripts/stateerrortoasts.js: showing a toast on StateModel errors
 

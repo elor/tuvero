@@ -95,6 +95,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
    */
   StateModel.prototype.restore = function(data) {
     if (!StateModel.superclass.restore.call(this, data)) {
+      this.emit('Wrong data format');
       return false;
     }
 
