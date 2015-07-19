@@ -8,22 +8,31 @@
  */
 define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     'core/valuemodel', './listcleanuplistener', 'core/tournamentlistmodel',
-    'options', './teammodel'], function(extend, Model, ListModel,
-    IndexedListModel, ValueModel, ListCleanupListener, TournamentListModel,
-    Options, TeamModel) {
+    'options', './teammodel', 'core/listener'], function(extend, Model,
+    ListModel, IndexedListModel, ValueModel, ListCleanupListener,
+    TournamentListModel, Options, TeamModel, Listener) {
 
   /**
    * Constructor
    */
   function StateModel() {
+    StateModel.superconstructor.call(this);
     // actual state
     this.teams = new IndexedListModel();
     this.teamsize = new ValueModel(3);
     this.tournaments = new TournamentListModel();
 
     this.initCleanupListeners();
+
+    Listener.bind(this, 'error', function(emitter, event, message) {
+      console.error(message);
+    });
   }
   extend(StateModel, Model);
+
+  StateModel.prototype.EVENTS = {
+    error: true
+  };
 
   /**
    * whenever an element is removed from those central and elemental lists, call
@@ -86,6 +95,13 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
    */
   StateModel.prototype.restore = function(data) {
     if (!StateModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    if (Options.target !== data.target) {
+      // TODO somehow send a toast
+      this.emit('error', 'Wrong target: ' + data.target + ', expected: '
+          + Options.target);
       return false;
     }
 
