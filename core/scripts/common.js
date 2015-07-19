@@ -132,7 +132,6 @@ define([
   'ui/backgroundscripts/autosave',
   'ui/backgroundscripts/load',
   'ui/backgroundscripts/print',
-  'ui/backgroundscripts/taboptionclick',
   'ui/backgroundscripts/tabrankingcheaphacklistener',
   'ui/backgroundscripts/tabgamescheaphacklistener',
   'ui/backgroundscripts/initviews',

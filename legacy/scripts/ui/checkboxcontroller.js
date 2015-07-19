@@ -14,11 +14,18 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
    *          a CheckboxView instance
    */
   function CheckboxController(view) {
-    var model, $checkbox;
+    var model, $checkbox, $parent;
     CheckboxController.superconstructor.call(this, view);
 
     model = this.model;
     $checkbox = this.view.$view;
+    $parent = $checkbox.parent().filter('span');
+
+    $parent.click(function(e) {
+      if ($(e.target).prop('tagName') === 'SPAN') {
+        $checkbox.click();
+      }
+    });
 
     /**
      * apply checkbox state to model state
