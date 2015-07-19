@@ -44,6 +44,13 @@
 	* legacy/scripts/ui/tournamenthistoryview.js: using MatchResultView
 
 	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
+	ties can be allowed (optionally)
+
+	* boule/scripts/options.js: tiesforbidden added
+
+	* tac/scripts/options.js: tiesforbidden added
+
+	* test/scripts/options.js: tiesforbidden added
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

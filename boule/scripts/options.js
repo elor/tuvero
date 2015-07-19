@@ -23,6 +23,7 @@ define(['ui/options'], function(Options) {
     byepointswon: 13,
     byepointslost: 7,
     defaultscore: 0,
+    tiesforbidden: true,
     target: 'boule',
     // user-specific
     // local : {},

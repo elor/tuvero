@@ -90,7 +90,7 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
 
     valid = this.$points.filter('.invalid').length === 0;
 
-    if (valid) {
+    if (valid && Options.tiesforbidden) {
       tie = true;
       firstpoints = undefined;
 
