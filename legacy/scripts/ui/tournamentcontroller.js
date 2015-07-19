@@ -22,7 +22,7 @@ function(extend, jquery, Controller, Toast, Strings) {
     rankingOrder = this.model.rankingOrder;
 
     this.$runbutton = this.view.$view.find('button.runtournament');
-    this.$toptitle = this.view.$view.find('h3:first-child');
+    this.$toptitle = this.view.$view.find('>h3:first-child');
     this.$nameinput = this.$toptitle.find('input');
 
     this.$nameinput.blur(this.closeNameInput.bind(this));

@@ -119,6 +119,7 @@
 	* legacy/scripts/ui/backgroundscripts/autosave.js: saving on tournament name change
 
 	* legacy/scripts/ui/tournamentcontroller.js: tournament title click -> tournament name change
+	namechange: only the top title works as a trigger
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
