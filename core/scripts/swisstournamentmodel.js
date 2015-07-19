@@ -12,6 +12,31 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   var rng = new Random();
 
   /**
+   * transposes the groups: takes one element from each group and places them
+   * into a new group, in order.
+   *
+   * shuffle first, if you need to.
+   *
+   * @param groups
+   *          2d groups array
+   * @returns a 2d groups array where the groups are transposed
+   */
+  function transposeGroups(groups) {
+    var transposed = [];
+
+    groups.forEach(function(group) {
+      group.forEach(function(teamid, index) {
+        if (transposed[index] === undefined) {
+          transposed[index] = [];
+        }
+        transposed[index].push(teamid);
+      });
+    });
+
+    return transposed;
+  }
+
+  /**
    * @param ranking
    *          a RankingModel instance
    * @param mode
@@ -222,7 +247,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     SwissTournamentModel.superconstructor.call(this, rankingorder);
 
     this.setProperty('swissmode', SwissTournamentModel.MODES.ranks);
-    this.setProperty('swissshuffled', true);
+    this.setProperty('swissshuffle', true);
+    this.setProperty('swisstranspose', false);
   }
   extend(SwissTournamentModel, RoundTournamentModel);
 
@@ -263,8 +289,15 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     /*
      * shuffle if wanted
      */
-    if (this.getProperty('swissshuffled') === true) {
+    if (this.getProperty('swissshuffle') === true) {
       rankGroups = shuffleGroupTeams(rankGroups);
+    }
+
+    /*
+     * transpose if wanted
+     */
+    if (this.getProperty('swisstranspose') === true) {
+      rankGroups = transposeGroups(rankGroups);
     }
 
     /*
