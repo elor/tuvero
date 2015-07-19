@@ -5,6 +5,12 @@
 
 	* legacy/scripts/ui/backgroundscripts/stateerrortoasts.js: showing a toast on StateModel errors
 
+	* core/scripts/byeresult.js: ByeResult added for easy bye calculations
+
+	* core/scripts/test/byeresult.js: testing ByeResult
+
+	* test/scripts/test.js: testing construction and save/restore of ByeResult
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated

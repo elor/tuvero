@@ -13,6 +13,7 @@
 define([
   'core/absolutematrix',
   'core/antisymmetricmatrixmodel',
+  'core/byeresult',
   'core/classview',
   'core/controller',
   'core/correctionmodel',
