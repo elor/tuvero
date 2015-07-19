@@ -114,9 +114,8 @@
 	* legacy/scripts/ui/tournamentmatchesview.js: updating tournament name
 
 	* legacy/scripts/ui/tournamentview.js: updating tournament name
-	* boule/index.html: 
 
-	* tac/index.html: 
+	* legacy/scripts/ui/backgroundscripts/autosave.js: saving on tournament name change
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
