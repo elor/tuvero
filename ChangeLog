@@ -66,6 +66,7 @@
 	* core/scripts/rankingdatalistenerindex.js: RankingByeListener added to index
 
 	* core/scripts/tournamentmodel.js: reading the external ranking dependencies from RANKINGDEPENDENCIES
+	correct() bug fixed (undefined values, forgotten "this")
 
 	* legacy/scripts/ui/backgroundscripts/taboptionclick.js: replaced by CheckBoxController
 

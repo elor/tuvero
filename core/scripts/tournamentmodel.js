@@ -542,12 +542,12 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     }
 
     newResult = new MatchResult(result, newScore);
-    if (!validateMatchResult(newResult)) {
+    if (!this.validateMatchResult(newResult)) {
       this.emit('error', 'correction has invalid score');
       return false;
     }
 
-    correction = new Correction(result, newResult);
+    correction = new CorrectionModel(result, newResult);
 
     if (!this.validateCorrection(correction)) {
       this.emit('error', 'correction is invalid, although the score is fine');
