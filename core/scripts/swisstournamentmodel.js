@@ -14,40 +14,77 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   /**
    * @param ranking
    *          a RankingModel instance
+   * @param mode
+   *          one of the SwissTournamentModel.MODES
    * @return an array of arrays, where the inner array contains team ids which
    *         have the same rank, and outer array is ordered from best to worst
    *         rank
    */
-  function getRankGroups(ranking) {
-    var rankGroups, sameRanks, lastrank;
+  function getSwissGroups(ranking, mode) {
+    var allGroups, currentGroup, lastID, getID;
 
-    sameRanks = [];
-    rankGroups = [sameRanks];
-    lastrank = undefined;
+    /*
+     * build different getIDs for different models
+     */
+    getID = undefined;
+    switch (mode) {
+    case SwissTournamentModel.MODES.all:
+      getID = function(rankingid) {
+        return 0;
+      };
+      break;
+    case SwissTournamentModel.MODES.halves:
+      getID = function(rankingid) {
+        return rankingid < (ranking.displayOrder.length >> 1);
+      };
+      break;
+    case SwissTournamentModel.MODES.wins:
+      getID = function(rankingid) {
+        return ranking.wins[rankingid];
+      };
+      break;
+    case SwissTournamentModel.MODES.ranks:
+      getID = function(rankingid) {
+        return ranking.ranks[rankingid];
+      };
+      break;
+    case SwissTournamentModel.MODES.individual:
+      getID = function(rankingid) {
+        return rankingid;
+      };
+      break;
+    default:
+      console.error('invalid mode');
+      return undefined;
+    }
 
-    ranking.displayOrder.forEach(function(teamid) {
-      var rank = ranking.ranks[teamid];
-      if (rank !== lastrank) {
-        lastrank = rank;
-        if (sameRanks && sameRanks.length) {
-          sameRanks = [];
-          rankGroups.push(sameRanks);
+    currentGroup = [];
+    allGroups = [currentGroup];
+    lastID = undefined;
+
+    ranking.displayOrder.forEach(function(teamid, rankingid) {
+      var id = getID(rankingid);
+      if (id !== lastID) {
+        lastID = id;
+        if (currentGroup && currentGroup.length) {
+          currentGroup = [];
+          allGroups.push(currentGroup);
         }
       }
-      sameRanks.push(teamid);
+      currentGroup.push(teamid);
     });
 
-    return rankGroups;
+    return allGroups;
   }
 
   /**
    * in every rank group, randomize the team order
    *
    * @param rankGroups
-   *          a getRankGroups() result
+   *          a getSwissGroups() result
    * @return a rankGroup 2d array where the order of the inner arrays is random
    */
-  function randomizeRankGroups(rankGroups) {
+  function shuffleGroupTeams(rankGroups) {
     return rankGroups.map(function(group) {
       var newgroup;
       newgroup = [];
@@ -102,10 +139,10 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * counts the number of teams remaining in the rank groups
    *
    * @param rankGroups
-   *          a rankGroups object, as returned by getRankGroups
+   *          a rankGroups object, as returned by getSwissGroups
    * @return the number of teams in the rank group
    */
-  function getRankGroupsTeamCount(rankGroups) {
+  function getSwissGroupsTeamCount(rankGroups) {
     var sum = 0;
 
     rankGroups.forEach(function(group) {
@@ -124,7 +161,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   function traverseAndBacktrack(outMatches, rankGroups, gamematrix) {
     var currentGroup, secondGroup, teamA, teamB, teamBindex;
 
-    // console.log(getRankGroupsTeamCount(rankGroups));
+    // console.log(getSwissGroupsTeamCount(rankGroups));
     // console.log(JSON.stringify(rankGroups));
 
     currentGroup = undefined;
@@ -163,7 +200,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     secondGroup.splice(teamBindex, 1);
 
     if (traverseAndBacktrack(outMatches, rankGroups, gamematrix)) {
-      // don't use push, because the best-ranked team should be listed in the
+      // don't use push, because the best-ranked team should be listed in
+      // the
       // first match
       outMatches.unshift([teamA, teamB]);
       return true;
@@ -183,8 +221,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   function SwissTournamentModel(rankingorder) {
     SwissTournamentModel.superconstructor.call(this, rankingorder);
 
-    this.setProperty('initialorder', 'random');
-    this.setProperty('idleorder', 'order');
+    this.setProperty('swissmode', SwissTournamentModel.MODES.ranks);
+    this.setProperty('swissshuffled', true);
   }
   extend(SwissTournamentModel, RoundTournamentModel);
 
@@ -192,8 +230,15 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
   SwissTournamentModel.prototype.RANKINGDEPENDENCIES = ['byes', 'gamematrix'];
 
-  SwissTournamentModel.prototype.ORDERS = ['order', 'halves', 'wingroups',
-      'random'];
+  SwissTournamentModel.MODES = {
+    all: 'all',
+    halves: 'halves',
+    ranks: 'ranks',
+    wins: 'wins',
+    individual: 'individual',
+    // TODO enable the use of global team ids (rangliste, elo, ...)
+    globalteamid: undefined
+  };
 
   /**
    * creates new matches depending on the current ranking within the tournament
@@ -201,16 +246,30 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.idleMatches = function() {
-    var rankGroups, matches, byes;
+    var rankGroups, matches, byes, mode;
 
-    if (this.getProperty('initialorder') === 'wingroups') {
-      this.emit('error', 'cannot use wingroups at the moments');
+    /*
+     * validate swiss mode
+     */
+    mode = this.getProperty('swissmode');
+
+    if (SwissTournamentModel.MODES[mode] === undefined) {
+      this.emit('error', 'invalid mode: ' + mode);
       return false;
     }
 
-    rankGroups = getRankGroups(this.ranking.get());
-    rankGroups = randomizeRankGroups(rankGroups);
+    rankGroups = getSwissGroups(this.ranking.get(), mode);
 
+    /*
+     * shuffle if wanted
+     */
+    if (this.getProperty('swissshuffled') === true) {
+      rankGroups = shuffleGroupTeams(rankGroups);
+    }
+
+    /*
+     * use awesome algorithm to find an allowed solution
+     */
     matches = [];
     byes = [];
     if (!traverseByes(matches, byes, rankGroups, this.ranking.gamematrix,
@@ -219,8 +278,9 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       return false;
     }
 
-    this.round += 1;
-
+    /*
+     * add the byes and matches to the current tournament
+     */
     byes.forEach(function(byeTeamID, byeIndex) {
       // TODO extract method
       this.votes.bye.push(byeTeamID);
@@ -232,6 +292,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     matches.forEach(function(matchTeams, matchid) {
       this.matches.push(new MatchModel(matchTeams, matchid, this.round));
     }, this);
+
+    this.round += 1;
 
     return true;
   };

@@ -55,6 +55,7 @@
 	* core/scripts/swisstournamentmodel.js: creating groups with the same rank when starting a new round
 	randomizing the rankGroups
 	using new backtracking algorithm to generate matches
+	different modes added (not tested yet)
 
 	* core/scripts/rankingbyelistener.js: number of byes: ranking.byelistener added (for swisstournament)
 
