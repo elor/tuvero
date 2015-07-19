@@ -65,7 +65,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
    * Constructor
    *
    * @param model
-   *          a RankingModel instance
+   *          a MatchModel instance
    * @param $view
    *          a jQuery object representing a MatchView table
    * @param teamlist

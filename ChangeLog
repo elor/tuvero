@@ -32,6 +32,7 @@
 	* core/scripts/test/rle.js: additional tests added during debugging
 
 	* legacy/scripts/ui/matchview.js: handling ByeResults, too
+	JSDoc comment updated
 
 	* legacy/scripts/ui/strings.js: byename and byeid added
 
@@ -43,6 +44,7 @@
 	* legacy/scripts/ui/matchresultview.js: displaying a match result with its score
 
 	* legacy/scripts/ui/tournamenthistoryview.js: using MatchResultView
+	initializing corrections
 
 	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
 	ties can be allowed (optionally)
@@ -82,6 +84,8 @@
 	* core/templates/gamestab.html: tabindex=-1 removed from the finish-buttons
 
 	* legacy/style/history.css: style of hidden match results added
+
+	* legacy/scripts/ui/correctioncontroller.js: CorrectionController for dynamically attaching/detaching a correction input field added
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

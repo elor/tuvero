@@ -7,9 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './matchresultview', './listview',
-    './teamtableview', './boxview', './teamview', 'core/listener'//
-], function(extend, TemplateView, MatchResultView, ListView, TeamTableView, BoxView,
-    TeamView, Listener) {
+    './teamtableview', './boxview', './teamview', 'core/listener',
+    './correctioncontroller'],//
+function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
+    BoxView, TeamView, Listener, CorrectionController) {
   /**
    * Constructor
    *
@@ -34,7 +35,7 @@ define(['lib/extend', './templateview', './matchresultview', './listview',
     this.teamsize = teamsize;
 
     this.initMatches();
-
+    this.initCorrections();
     this.initVotes();
 
     this.updateName();
@@ -54,6 +55,17 @@ define(['lib/extend', './templateview', './matchresultview', './listview',
         this.$template.filter('.matchrow'), MatchResultView, this.teamlist);
 
     this.$teamtableview = new TeamTableView(this, this.teamsize);
+  };
+
+  /**
+   * initialize correction fields and click-listeners
+   */
+  TournamentHistoryView.prototype.initCorrections = function() {
+    this.listCorrectionController = new CorrectionController(this.matchlist,
+        this.$template.filter('.correct').clone(), this.model);
+
+    this.tableCorrectionController = new CorrectionController(this.matchtable,
+        this.$template.filter('.correct').clone(), this.model);
   };
 
   /**
