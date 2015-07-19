@@ -30,6 +30,7 @@ define(function() {
       QUnit.equal(bye.getTeamID(0), 5, 'first team matches the argument');
       QUnit.equal(bye.getTeamID(1), 5, 'second team matches the argument');
       QUnit.deepEqual(bye.score, [13, 7], 'score matches the argument');
+      QUnit.equal(bye.isBye(), true, 'bye.isBye() is true');
 
       /*
        * save/restore
@@ -46,6 +47,7 @@ define(function() {
       QUnit.equal(bye.getTeamID(0), 5, 'first team matches the argument');
       QUnit.equal(bye.getTeamID(1), 5, 'second team matches the argument');
       QUnit.deepEqual(bye.score, [13, 7], 'score matches the argument');
+      QUnit.equal(bye.isBye(), true, 'bye.isBye() is true');
 
     });
   };

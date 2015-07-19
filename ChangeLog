@@ -8,6 +8,7 @@
 	* core/scripts/byeresult.js: ByeResult added for easy bye calculations
 
 	* core/scripts/test/byeresult.js: testing ByeResult
+	testing isBye()
 
 	* test/scripts/test.js: testing construction and save/restore of ByeResult
 
@@ -17,6 +18,10 @@
 	* core/scripts/rankingsonnebornlistener.js: does sonneborn include a bye-related win of the opponent?
 
 	* core/scripts/test/roundtournamentmodel.js: byes are included in the result. Take sonneborn with a grain of salt
+
+	* core/scripts/matchresult.js: isBye() added
+
+	* core/scripts/test/matchresult.js: testing isBye()
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

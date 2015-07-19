@@ -51,6 +51,7 @@ define(function() {
       QUnit.ok(result.score !== score, 'scores are only copies of another');
       QUnit.deepEqual(result.getID(), 2, 'keeping the id');
       QUnit.deepEqual(result.getGroup(), 5, 'keeping the group id');
+      QUnit.equal(result.isBye(), false, 'result is not a bye');
 
       /*
        * create MatchResult from another MatchResult
@@ -67,6 +68,7 @@ define(function() {
       QUnit.ok(result.score !== score, 'scores are only copies of another');
       QUnit.deepEqual(result.getID(), 2, 'keeping the id');
       QUnit.deepEqual(result.getGroup(), 5, 'keeping the group id');
+      QUnit.equal(result.isBye(), false, 'result is not a bye');
 
       /*
        * incompatible API changes
@@ -100,6 +102,7 @@ define(function() {
       QUnit.deepEqual(result.score, score, 'restore(): scores restored');
       QUnit.deepEqual(result.getID(), 8, 'restore(): id restored');
       QUnit.deepEqual(result.getGroup(), 1, 'restore(): group id restored');
+      QUnit.equal(result.isBye(), false, 'result is not a bye');
     });
   };
 });

@@ -41,6 +41,13 @@ define(['lib/extend', './type', './matchmodel'], function(extend, Type,
   MatchResult.prototype.finish = undefined;
 
   /**
+   * @return true if this result is a bye, false otherwise
+   */
+  MatchResult.prototype.isBye = function() {
+    return this.length === 2 && this.getTeamID(0) === this.getTeamID(1);
+  };
+
+  /**
    * crude save function as if it was ripped right out of the Model class.
    *
    * @return a serializable data object on success, undefined otherwise
