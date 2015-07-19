@@ -52,6 +52,9 @@
 
 	* test/scripts/options.js: tiesforbidden added
 
+	* core/scripts/swisstournamentmodel.js: creating groups with the same rank when starting a new round
+	randomizing the rankGroups
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated
