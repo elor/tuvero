@@ -134,11 +134,19 @@ define(function() {
 
       a = new MatrixModel(12345);
       QUnit.ok(a.restore(savedata), 'restore() works');
+      QUnit.equal(a.length, 5, 'restore() restored the length');
       QUnit.equal(a.get(1, 2), 3, 'restore() restored individual numbers');
       QUnit.equal(a.get(0, 0), 5, 'restore() restored individual numbers');
       QUnit.equal(a.get(0, 4), -1, 'restore() restored individual numbers');
       QUnit.equal(a.get(4, 1), 3, 'restore() restored individual numbers');
       QUnit.equal(a.get(4, 4), 123, 'restore() restored individual numbers');
+
+      a = new MatrixModel(3);
+      savedata = a.save();
+      QUnit.ok(savedata, 'save() with empty matrix');
+      a = new MatrixModel(7);
+      QUnit.ok(a.restore(savedata), 'restore() of an empty matrix');
+      QUnit.equal(a.length, 3, 'restore(0 restored the length');
     });
   };
 });

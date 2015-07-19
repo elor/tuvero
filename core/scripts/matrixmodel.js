@@ -274,6 +274,7 @@ define(['lib/extend', './model', './rle'], function(extend, Model, RLE) {
     }, this);
 
     data.mat = RLE.encode(mat);
+    data.len = this.length;
 
     return data;
   };
@@ -291,7 +292,8 @@ define(['lib/extend', './model', './rle'], function(extend, Model, RLE) {
     mat.forEach(function(row, rowindex) {
       this.data[rowindex] = row.slice();
     }, this);
-    this.resize(this.data.length);
+
+    this.resize(data.len);
 
     return true;
   };
@@ -299,6 +301,7 @@ define(['lib/extend', './model', './rle'], function(extend, Model, RLE) {
   MatrixModel.prototype.SAVEFORMAT = Object
       .create(MatrixModel.superclass.SAVEFORMAT);
   MatrixModel.prototype.SAVEFORMAT.mat = String;
+  MatrixModel.prototype.SAVEFORMAT.len = Number;
 
   return MatrixModel;
 });

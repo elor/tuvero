@@ -151,6 +151,15 @@ define(function() {
       QUnit.deepEqual(RLE.decode('[-1.23e+4]'), [-12300],
           'RLE decode test with [-1.23e+4]');
 
+      QUnit.deepEqual(RLE.decode('[5,n2]'), [5, undefined, undefined],
+          'RLE decode with trailing null values');
+
+      QUnit.deepEqual(RLE.decode('[5,n2]').length, 3,
+          'RLE decode with trailing null values');
+
+      QUnit.deepEqual(RLE.decode('[n12]').length, 12,
+          'RLE decode with only null values');
+
       // invalid numbers
       QUnit.deepEqual(RLE.decode('[.]'), undefined,
           'RLE decode test with [.] as input');
@@ -197,10 +206,10 @@ define(function() {
           'RLE.decode() with "{asd:5}"');
       QUnit.equal(RLE.decode('[{asd:5}]'), undefined,
           'RLE.decode() with "[{asd:5}]"');
+
       /*
        * Self-Consistency and Stability tests
        */
-
       e = RLE.encode;
       d = RLE.decode;
       exp[123] = -123.433e-43;

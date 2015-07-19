@@ -23,6 +23,14 @@
 
 	* core/scripts/test/matchresult.js: testing isBye()
 
+	* core/scripts/matrixmodel.js: storing the length separately, because MatrixModel.data is compact and omits empty rows
+
+	* core/scripts/rankingwinscomponent.js: reformatting
+
+	* core/scripts/test/matrixmodel.js: testing length after restore()
+
+	* core/scripts/test/rle.js: additional tests added during debugging
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated
