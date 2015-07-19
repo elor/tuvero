@@ -34,8 +34,8 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
     var controller = this;
 
     // select the whole input field on focus. make id DAU-safe.
-    this.$points.on('click', function() {
-      this.select && this.select();
+    this.$points.click(function() {
+      $(this).select();
     });
 
     // We're using keyup to check the values as the user types, not only when

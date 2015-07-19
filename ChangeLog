@@ -55,6 +55,7 @@
 	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
 	ties can be allowed (optionally)
 	ties with max points can optionally be forbidden
+	using jquery select() instead of the browser-supported version
 
 	* boule/scripts/options.js: tiesforbidden added
 	maxpointtiesforbidden added
@@ -116,6 +117,8 @@
 	* legacy/scripts/ui/tournamentview.js: updating tournament name
 
 	* legacy/scripts/ui/backgroundscripts/autosave.js: saving on tournament name change
+
+	* legacy/scripts/ui/tournamentcontroller.js: tournament title click -> tournament name change
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

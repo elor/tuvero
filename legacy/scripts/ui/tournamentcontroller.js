@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller'], function(extend, Controller) {
+define(['lib/extend', 'jquery', 'core/controller', './toast', './strings'], //
+function(extend, jquery, Controller, Toast, Strings) {
   /**
    * Constructor
    *
@@ -15,13 +16,31 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
    */
   function TournamentController(view) {
     var tournament, rankingOrder;
-
     TournamentController.superconstructor.call(this, view);
 
     tournament = this.model.tournament;
     rankingOrder = this.model.rankingOrder;
 
     this.$runbutton = this.view.$view.find('button.runtournament');
+    this.$toptitle = this.view.$view.find('h3:first-child');
+    this.$nameinput = this.$toptitle.find('input');
+
+    this.$nameinput.blur(this.closeNameInput.bind(this));
+    this.$nameinput.keydown(function(e) {
+      switch (e.which) {
+      case 13: // enter
+        $(this).blur();
+        break;
+      case 27: // escape
+        $(this).val(tournament.getName().get());
+        $(this).blur();
+        break;
+      default:
+        return true;
+      }
+      e.preventDefault();
+      return false;
+    });
 
     this.$runbutton.click(function() {
       if (tournament.getState().get() === 'initial') {
@@ -35,8 +54,32 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
       }
       tournament.run();
     });
+
+    this.$toptitle.click(this.showNameInput.bind(this));
   }
   extend(TournamentController, Controller);
+
+  TournamentController.prototype.showNameInput = function() {
+    this.$nameinput.val(this.model.tournament.getName().get());
+    this.$toptitle.addClass('rename');
+    this.$nameinput.focus();
+    this.$nameinput.select();
+  };
+
+  TournamentController.prototype.closeNameInput = function() {
+    var name;
+    name = this.$nameinput.val();
+    name = name.replace(/^\s+|\s+$/, '');
+    if (name) {
+      this.model.tournament.getName().set(name);
+      // TODO move into separate listener class/object (own file or something)
+      new Toast(Strings.namechanged.replace('%s', this.model.tournament
+          .getName().get()));
+    } else {
+      new Toast(Strings.namechangeaborted);
+    }
+    this.$toptitle.removeClass('rename');
+  };
 
   return TournamentController;
 });
