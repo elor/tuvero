@@ -86,11 +86,11 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
   };
 
   MatchController.prototype.updateSubmitButtonStatus = function() {
-    var valid, tie, firstpoints;
+    var valid, tie, firstpoints, maxpoints;
 
     valid = this.$points.filter('.invalid').length === 0;
 
-    if (valid && Options.tiesforbidden) {
+    if (valid && (Options.tiesforbidden || Options.maxpointtiesforbidden)) {
       tie = true;
       firstpoints = undefined;
 
@@ -104,7 +104,12 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
         }
       });
 
-      if (tie) {
+      if (tie && Options.tiesforbidden) {
+        valid = false;
+      }
+
+      maxpoints = (Number(this.$points.eq(0).val()) == Options.maxpoints);
+      if (tie && maxpoints && Options.maxpointtiesforbidden) {
         valid = false;
       }
     }

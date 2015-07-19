@@ -24,6 +24,7 @@ define(['ui/options'], function(Options) {
     byepointslost: 6,
     defaultscore: 8,
     tiesforbidden: false,
+    maxpointtiesforbidden: true,
     target: 'tac',
     // user-specific
     // local : {},

@@ -23,6 +23,7 @@ define(['ui/options'], function(Options) {
     byepointslost: 7,
     defaultscore: 0,
     tiesforbidden: false,
+    maxpointtiesforbidden: true,
     target: 'test',
     // user-specific
     // local : {},

@@ -48,12 +48,16 @@
 
 	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
 	ties can be allowed (optionally)
+	ties with max points can optionally be forbidden
 
 	* boule/scripts/options.js: tiesforbidden added
+	maxpointtiesforbidden added
 
 	* tac/scripts/options.js: tiesforbidden added
+	maxpointtiesforbidden added
 
 	* test/scripts/options.js: tiesforbidden added
+	maxpointtiesforbidden added
 
 	* core/scripts/swisstournamentmodel.js: creating groups with the same rank when starting a new round
 	randomizing the rankGroups
