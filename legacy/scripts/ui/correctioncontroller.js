@@ -189,7 +189,7 @@ define(['lib/extend', 'core/controller', './matchview', 'core/matchmodel',
     if (this.originalresult) {
       this.tournament.correct(this.originalresult, result.score);
     }
-  }
+  };
 
   return CorrectionController;
 });

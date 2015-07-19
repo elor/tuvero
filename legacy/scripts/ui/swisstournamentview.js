@@ -28,7 +28,7 @@ define(['lib/extend', './tournamentview', './swisstournamentcontroller',
       initial: new CheckBoxView(this.model.noshuffle, this.$view
           .find('.initial .tournamentoptions .option input.noshuffle')),
       idle: new CheckBoxView(this.model.noshuffle, this.$view
-          .find('.idle .tournamentoptions .option input.noshuffle')),
+          .find('.idle .tournamentoptions .option input.noshuffle'))
     };
 
     // read the swiss mode

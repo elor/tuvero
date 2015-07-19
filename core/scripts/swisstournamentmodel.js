@@ -19,7 +19,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    *
    * @param groups
    *          2d groups array
-   * @returns a 2d groups array where the groups are transposed
+   * @return a 2d groups array where the groups are transposed
    */
   function transposeGroups(groups) {
     var transposed = [];
