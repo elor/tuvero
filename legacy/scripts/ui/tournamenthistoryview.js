@@ -36,7 +36,6 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
 
     this.initMatches();
     this.initCorrections();
-    this.initVotes();
 
     this.updateName();
   }
@@ -66,45 +65,6 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
 
     this.tableCorrectionController = new CorrectionController(this.matchtable,
         this.$template.filter('.correct').clone(), this.model);
-  };
-
-  /**
-   * initialize all vote lists and tables
-   */
-  TournamentHistoryView.prototype.initVotes = function() {
-    var $votetemplate;
-
-    this.$view.find('.votelist').hide();
-
-    $votetemplate = this.$template.filter('.voteview');
-
-    this.votelistmodels = this.model.VOTES.map(function(votetype) {
-      var $votes, votelist;
-
-      $votes = this.$view.find('.votelist.' + votetype);
-      if ($votes.length === 0) {
-        return undefined;
-      }
-
-      votelist = this.model.getVotes(votetype);
-
-      // TODO use some shared View, e.g. ListEmptyView, to hide the whole
-      // view when the list is empty
-      Listener.bind(votelist, 'resize', function(emitter, event, data) {
-        if (emitter.length === 0) {
-          $votes.hide();
-        } else {
-          $votes.show();
-        }
-      });
-
-      if (votelist.length !== 0) {
-        $votes.show();
-      }
-
-      return new ListView(votelist, $votes, $votetemplate, TeamView,//
-      this.teamlist);
-    }, this);
   };
 
   TournamentHistoryView.prototype.updateName = function() {

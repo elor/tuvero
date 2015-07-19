@@ -40,11 +40,13 @@
 
 	* core/templates/historytab.html: placeholders for match results added
 	correction fields added
+	separate vote-lists removed
 
 	* legacy/scripts/ui/matchresultview.js: displaying a match result with its score
 
 	* legacy/scripts/ui/tournamenthistoryview.js: using MatchResultView
 	initializing corrections
+	separate vote-lists removed
 
 	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
 	ties can be allowed (optionally)
