@@ -67,6 +67,13 @@
 
 	* legacy/scripts/ui/checkboxcontroller.js: clicking a parent span delegates the click to the checkbox
 
+	* core/templates/newtab.html: using {{swissoptions}} to share between idle and initial state
+
+	* core/templates/swissoptions.html: swisstournament options exported here
+
+	* legacy/style/new.css: .votepermission removed
+	.options margin added
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated
