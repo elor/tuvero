@@ -58,6 +58,7 @@
 	different modes added (not tested yet)
 	swisstranspose-option and code added
 	property: swissshuffled -> swissshuffle
+	bye traversal starts in the last team in the last group
 
 	* core/scripts/rankingbyelistener.js: number of byes: ranking.byelistener added (for swisstournament)
 

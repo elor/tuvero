@@ -139,11 +139,13 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       reverseRankGroups = rankGroups.slice(0).reverse();
 
       reverseRankGroups.some(function(group) {
-        return group.some(function(teamid, index) {
+        return group.slice(0).reverse().some(function(teamid) {
+          var index;
           if (byes.get(teamid)) {
             return false;
           }
 
+          index = group.indexOf(teamid);
           group.splice(index, 1);
           if (traverseAndBacktrack(outMatches, rankGroups, gamematrix)) {
             outByes.push(teamid);
