@@ -121,6 +121,7 @@ define([
   'ui/backgroundscripts/featuredetect',
   'ui/backgroundscripts/updatetab',
   'ui/backgroundscripts/tabnewcheaphacklistener',
+  'ui/backgroundscripts/stateerrortoasts',
   'ui/backgroundscripts/matchtoasts',
   'ui/backgroundscripts/tournamenterrortoasts',
   'ui/backgroundscripts/online',
