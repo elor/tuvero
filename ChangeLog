@@ -11,6 +11,9 @@
 
 	* test/scripts/test.js: testing construction and save/restore of ByeResult
 
+	* core/scripts/roundtournamentmodel.js: adding ByeResult to history
+	bye has not been added to ranking
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated

@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
-    TournamentModel, MatchModel) {
+define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
+    'options'], function(extend, TournamentModel, MatchModel, ByeResult,
+    Options) {
   /**
    * Constructor
    *
@@ -64,6 +65,10 @@ define(['lib/extend', './tournamentmodel', './matchmodel'], function(extend,
 
     if (numTeams % 2) {
       this.votes.bye.push(numTeams - this.round - 1);
+      this.history.push(new ByeResult(numTeams - this.round - 1, [
+          Options.byepointswon, Options.byepointslost], numTeams >> 1,
+          this.round));
+      this.ranking.bye(numTeams - this.round - 1);
     }
 
     list1 = [];
