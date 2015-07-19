@@ -55,6 +55,10 @@
 	* core/scripts/swisstournamentmodel.js: creating groups with the same rank when starting a new round
 	randomizing the rankGroups
 
+	* core/scripts/rankingbyelistener.js: number of byes: ranking.byelistener added (for swisstournament)
+
+	* core/scripts/rankingdatalistenerindex.js: RankingByeListener added to index
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated

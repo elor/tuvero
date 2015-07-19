@@ -38,6 +38,7 @@ define([
   'core/propertymodel',
   'core/rankingbuchholzcomponent',
   'core/rankingbuchholzlistener',
+  'core/rankingbyelistener',
   'core/rankingcomponentindex',
   'core/rankingcomponent',
   'core/rankingdatalistenerindex',
