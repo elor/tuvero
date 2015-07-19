@@ -188,7 +188,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
 
     this.ranking.reset();
     return this.ranking.init(rankingorder || ['id'], this.teams.length,
-        this.ranking.extDeps);
+        this.RANKINGDEPENDENCIES);
   };
 
   /**
