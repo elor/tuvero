@@ -33,6 +33,7 @@
 
 	* legacy/scripts/ui/matchview.js: handling ByeResults, too
 	JSDoc comment updated
+	correctionview + correctioncontroller added
 
 	* legacy/scripts/ui/strings.js: byename and byeid added
 
@@ -98,6 +99,10 @@
 
 	* legacy/style/ranking.css: maxwidth and hidenames rules added
 	* core/templates/correctiontable.html: correctiontable added
+
+	* legacy/scripts/ui/correctionview.js: CorrectionView added for displaying a single correctiontable row
+
+	* legacy/scripts/ui/tournamentrankingview.js: initializing correctiontable view
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

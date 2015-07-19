@@ -140,6 +140,8 @@ define([
   'ui/boxview',
   'ui/checkboxcontroller',
   'ui/checkboxview',
+  'ui/correctioncontroller',
+  'ui/correctionview',
   'ui/csver',
   'ui/data/swissperms',
   'ui/debug',

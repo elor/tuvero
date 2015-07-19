@@ -112,6 +112,9 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
     if ($teams.length === 0) {
       $teams = $createTeamsLists(this.$view.find('>.teamno , >.name'));
     }
+    if ($teams.length === 0) {
+      $teams = $createTeamsLists(this.$view.filter('.teamno,.name'));
+    }
 
     this.destroyTeamViews();
 

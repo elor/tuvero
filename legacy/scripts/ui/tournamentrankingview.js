@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './rankingview'], function(extend, View,
-    RankingView) {
+define(['lib/extend', 'core/view', './rankingview', './listview',
+    './correctionview', './teamtableview', 'core/valuemodel'], function(extend,
+    View, RankingView, ListView, CorrectionView, TeamTableView, ValueModel) {
   /**
    * Constructor
    *
@@ -25,6 +26,14 @@ define(['lib/extend', 'core/view', './rankingview'], function(extend, View,
     this.$ranking = this.$view.find('.rankingview');
     this.rankingview = new RankingView(this.model.getRanking(), this.$ranking,
         teams);
+
+    this.$corrections = this.$view.find('.correctiontable');
+    this.$correctionrow = this.$corrections.find('.correctionrow.template')
+        .detach();
+    this.corrections = new ListView(this.model.getCorrections(),
+        this.$corrections, this.$correctionrow, CorrectionView);
+    this.correctionTeamHideListener = new TeamTableView(this.corrections,
+        new ValueModel(3));
 
     this.$names = this.$view.find('.tournamentname');
 
