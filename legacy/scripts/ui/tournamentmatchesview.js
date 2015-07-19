@@ -29,7 +29,7 @@ define(['lib/extend', './templateview', './matchview', './listview',
 
     this.boxview = new BoxView(this.$view);
 
-    this.$name = this.$view.find('.tournamentname');
+    this.$names = this.$view.find('.tournamentname');
     this.teamlist = teamlist;
     this.teamsize = teamsize;
 
@@ -37,7 +37,9 @@ define(['lib/extend', './templateview', './matchview', './listview',
 
     this.initVotes();
 
-    this.updateName();
+    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
+
+    this.updateNames();
   }
   extend(TournamentMatchesView, TemplateView);
 
@@ -95,8 +97,8 @@ define(['lib/extend', './templateview', './matchview', './listview',
     }, this);
   };
 
-  TournamentMatchesView.prototype.updateName = function() {
-    this.$name.text(this.model.SYSTEM);
+  TournamentMatchesView.prototype.updateNames = function() {
+    this.$names.text(this.model.getName().get());
   };
 
   return TournamentMatchesView;

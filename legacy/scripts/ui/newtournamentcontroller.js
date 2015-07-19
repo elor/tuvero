@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'core/tournamentindex'], function(
-    extend, Controller, TournamentIndex) {
+define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings'], //
+function(extend, Controller, TournamentIndex, Strings) {
   /**
    * Constructor
    */
@@ -34,6 +34,8 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex'], function(
     var tournament, ranking, i, imax;
 
     tournament = TournamentIndex.createTournament(type, ['wins']);
+
+    tournament.getName().set(Strings['defaultname' + tournament.SYSTEM]);
 
     ranking = this.model.tournaments.getGlobalRanking(this.model.teams.length);
 

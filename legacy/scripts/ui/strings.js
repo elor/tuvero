@@ -84,7 +84,7 @@ define(function() {
     defaultnameswiss: 'Schweizer System',
     defaultnameko: 'KO-Turnier',
     defaultnamepoule: 'Poule-System',
-    defaultnameroundtournament: 'Rundenturnier',
+    defaultnameround: 'Rundenturnier',
     defaultnamesupermelee: 'Supermelee',
     offlineconfirmexit: 'Der Browser hat keine Internetverbindung und die Seite liegt nicht im Cache. Wenn sie die Seite jetzt schließen, kann das Programm nur mit bestehender Internetverbindung wieder gestartet werden.',
     winstatustrue: 'S',

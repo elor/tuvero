@@ -36,6 +36,7 @@
 	correctionview + correctioncontroller added
 
 	* legacy/scripts/ui/strings.js: byename and byeid added
+	defaultnameroundtournament -> defaultnameround
 
 	* legacy/scripts/ui/teamview.js: handling textual ids properly (e.g. for byes: 'F' instead of a team number)
 
@@ -49,6 +50,7 @@
 	* legacy/scripts/ui/tournamenthistoryview.js: using MatchResultView
 	initializing corrections
 	separate vote-lists removed
+	auto-updating the tournament name
 
 	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
 	ties can be allowed (optionally)
@@ -104,6 +106,12 @@
 	* legacy/scripts/ui/correctionview.js: CorrectionView added for displaying a single correctiontable row
 
 	* legacy/scripts/ui/tournamentrankingview.js: initializing correctiontable view
+
+	* legacy/scripts/ui/newtournamentcontroller.js: tournament name is set to Strings.defaultnameXXX
+
+	* legacy/scripts/ui/tournamentmatchesview.js: updating tournament name
+
+	* legacy/scripts/ui/tournamentview.js: updating tournament name
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

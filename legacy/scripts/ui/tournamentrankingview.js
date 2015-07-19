@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', './rankingview', './listview',
-    './correctionview', './teamtableview', 'core/valuemodel'], function(extend,
-    View, RankingView, ListView, CorrectionView, TeamTableView, ValueModel) {
+    './correctionview', './teamtableview', 'core/valuemodel', 'core/listener'],//
+function(extend, View, RankingView, ListView, CorrectionView, TeamTableView,
+    ValueModel, Listener) {
   /**
    * Constructor
    *
@@ -21,6 +22,7 @@ define(['lib/extend', 'core/view', './rankingview', './listview',
    *          TournamentModel.getRanking()
    */
   function TournamentRankingView(model, $view, teams) {
+    var view;
     TournamentRankingView.superconstructor.call(this, model, $view);
 
     this.$ranking = this.$view.find('.rankingview');
@@ -37,12 +39,14 @@ define(['lib/extend', 'core/view', './rankingview', './listview',
 
     this.$names = this.$view.find('.tournamentname');
 
+    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
+
     this.updateNames();
   }
   extend(TournamentRankingView, View);
 
   TournamentRankingView.prototype.updateNames = function() {
-    this.$names.text(this.model.SYSTEM);
+    this.$names.text(this.model.getName().get());
   };
 
   return TournamentRankingView;

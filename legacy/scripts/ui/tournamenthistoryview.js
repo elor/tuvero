@@ -8,9 +8,9 @@
  */
 define(['lib/extend', './templateview', './matchresultview', './listview',
     './teamtableview', './boxview', './teamview', 'core/listener',
-    './correctioncontroller'],//
-function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
-    BoxView, TeamView, Listener, CorrectionController) {
+    './correctioncontroller', 'core/listener'], function(extend, TemplateView,
+    MatchResultView, ListView, TeamTableView, BoxView, TeamView, Listener,
+    CorrectionController, Listener) {
   /**
    * Constructor
    *
@@ -30,14 +30,16 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
 
     this.boxview = new BoxView(this.$view);
 
-    this.$name = this.$view.find('.tournamentname');
+    this.$names = this.$view.find('.tournamentname');
     this.teamlist = teamlist;
     this.teamsize = teamsize;
 
     this.initMatches();
     this.initCorrections();
 
-    this.updateName();
+    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
+
+    this.updateNames();
   }
   extend(TournamentHistoryView, TemplateView);
 
@@ -67,8 +69,8 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
         this.$template.filter('.correct').clone(), this.model);
   };
 
-  TournamentHistoryView.prototype.updateName = function() {
-    this.$name.text(this.model.SYSTEM);
+  TournamentHistoryView.prototype.updateNames = function() {
+    this.$names.text(this.model.getName().get());
   };
 
   return TournamentHistoryView;

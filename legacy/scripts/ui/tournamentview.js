@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './stateclassview',
+define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
     './tournamentcontroller', 'core/listmodel', './boxview',
     './rankingorderview', 'core/rankingcomponentindex', './strings'], function(
-    extend, View, StateClassView, TournamentController, ListModel, BoxView,
-    RankingOrderView, RankingComponentIndex, Strings) {
+    extend, View, StateClassView, Listener, TournamentController, ListModel,
+    BoxView, RankingOrderView, RankingComponentIndex, Strings) {
   /**
    * Constructor
    *
@@ -55,15 +55,18 @@ define(['lib/extend', 'core/view', './stateclassview',
     this.$idle = this.$view.find('.idle');
     this.$finished = this.$view.find('.finished');
 
-    this.updateName();
+    Listener.bind(this.model.tournament.getName(), 'update', this.updateNames
+        .bind(this));
+
+    this.updateNames();
     this.updateRound();
 
     this.controller = new TournamentController(this);
   }
   extend(TournamentView, View);
 
-  TournamentView.prototype.updateName = function() {
-    this.$name.text(this.model.tournament.SYSTEM);
+  TournamentView.prototype.updateNames = function() {
+    this.$name.text(this.model.tournament.getName().get());
   };
 
   TournamentView.prototype.updateRound = function() {
