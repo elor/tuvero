@@ -81,6 +81,19 @@
   text-align: center;
 }
 
+#tabs>[data-tab="new"] .systemtable .system>h3:first-child input {
+  display: none;
+}
+
+#tabs>[data-tab="new"] .systemtable .system>h3:first-child.rename input {
+  display: inline-block;
+}
+
+#tabs>[data-tab="new"] .systemtable .system>h3:first-child.rename .tournamentname
+  {
+  display: none;
+}
+
 #tabs>[data-tab="new"] .systemtable .system>h3:last-child {
   position: absolute;
   display: block;

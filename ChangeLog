@@ -86,11 +86,13 @@
 	* legacy/scripts/ui/checkboxcontroller.js: clicking a parent span delegates the click to the checkbox
 
 	* core/templates/newtab.html: using {{swissoptions}} to share between idle and initial state
+	tournament name change input field added
 
 	* core/templates/swissoptions.html: swisstournament options exported here
 
 	* legacy/style/new.css: .votepermission removed
 	.options margin added
+	namechange input field styles added
 
 	* core/templates/gamestab.html: tabindex=-1 removed from the finish-buttons
 
@@ -112,6 +114,9 @@
 	* legacy/scripts/ui/tournamentmatchesview.js: updating tournament name
 
 	* legacy/scripts/ui/tournamentview.js: updating tournament name
+	* boule/index.html: 
+
+	* tac/index.html: 
 
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
