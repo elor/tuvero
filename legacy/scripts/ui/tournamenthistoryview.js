@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './matchview', './listview',
+define(['lib/extend', './templateview', './matchresultview', './listview',
     './teamtableview', './boxview', './teamview', 'core/listener'//
-], function(extend, TemplateView, MatchView, ListView, TeamTableView, BoxView,
+], function(extend, TemplateView, MatchResultView, ListView, TeamTableView, BoxView,
     TeamView, Listener) {
   /**
    * Constructor
@@ -47,11 +47,11 @@ define(['lib/extend', './templateview', './matchview', './listview',
   TournamentHistoryView.prototype.initMatches = function() {
     this.$matchlist = this.$view.find('.matchlist');
     this.matchlist = new ListView(this.model.getHistory(), this.$matchlist,
-        this.$template.filter('.matchview'), MatchView, this.teamlist);
+        this.$template.filter('.matchview'), MatchResultView, this.teamlist);
 
     this.$matchtable = this.$view.find('.matchtable');
     this.matchtable = new ListView(this.model.getHistory(), this.$matchtable,
-        this.$template.filter('.matchrow'), MatchView, this.teamlist);
+        this.$template.filter('.matchrow'), MatchResultView, this.teamlist);
 
     this.$teamtableview = new TeamTableView(this, this.teamsize);
   };

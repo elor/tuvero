@@ -37,6 +37,12 @@
 
 	* legacy/scripts/ui/teamview.js: handling textual ids properly (e.g. for byes: 'F' instead of a team number)
 
+	* core/templates/historytab.html: placeholders for match results added
+
+	* legacy/scripts/ui/matchresultview.js: displaying a match result with its score
+
+	* legacy/scripts/ui/tournamenthistoryview.js: using MatchResultView
+
 2015-07-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated
