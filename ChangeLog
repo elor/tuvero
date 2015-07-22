@@ -1,3 +1,10 @@
+2015-07-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/abouttab.html: https://boules-dev.appspot.org -> https://tuvero.dev/dev/
+	https://boulesdb.appspot.com/issues -> http://fehler.tuvero.de
+
+	* index.html: https://boulesdb.appspot.com/issues -> http://fehler.tuvero.de
+
 2015-07-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/statemodel.js: showing error when the wrong target is loaded
