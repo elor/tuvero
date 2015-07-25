@@ -56,7 +56,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       return false;
     }
 
-    rankGroups = SwissTournamentModel.getSwissGroups(this.ranking.get(), mode);
+    rankGroups = SwissTournamentModel.getGroups(this.ranking.get(), mode);
 
     /*
      * shuffle if wanted
@@ -77,8 +77,9 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
      */
     matches = [];
     byes = [];
-    if (!SwissTournamentModel.traverseByes(matches, byes, rankGroups,
-        this.ranking.gamematrix, this.ranking.byes, this.teams.length)) {
+    if (!SwissTournamentModel.findSwissByesAndMatches(matches, byes,
+        rankGroups, this.ranking.gamematrix, this.ranking.byes,
+        this.teams.length)) {
       return false;
     }
 
@@ -149,7 +150,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    *         have the same rank, and outer array is ordered from best to worst
    *         rank
    */
-  SwissTournamentModel.getSwissGroups = function(ranking, mode) {
+  SwissTournamentModel.getGroups = function(ranking, mode) {
     var allGroups, currentGroup, lastID, getID;
 
     /*
@@ -212,7 +213,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * in every rank group, randomize the team order
    *
    * @param rankGroups
-   *          a getSwissGroups() result
+   *          a getGroups() result
    * @return a rankGroup 2d array where the order of the inner arrays is random
    */
   SwissTournamentModel.shuffleGroupTeams = function(rankGroups) {
@@ -231,7 +232,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   /**
    * Internal Function.
    *
-   *
+   * Find a valid bye if necessary, and a valid match for every team in the
+   * rankGroups list
    *
    * @param outMatches
    * @param outByes
@@ -241,8 +243,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @param numTeams
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.traverseByes = function(outMatches, outByes, rankGroups,
-      gamematrix, byes, numTeams) {
+  SwissTournamentModel.findSwissByesAndMatches = function(outMatches, outByes,
+      rankGroups, gamematrix, byes, numTeams) {
     var reverseRankGroups;
 
     if (numTeams % 2) {
@@ -258,8 +260,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
               index = group.indexOf(teamid);
               group.splice(index, 1);
-              if (SwissTournamentModel.traverseAndBacktrack(outMatches,
-                  rankGroups, gamematrix)) {
+              if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
+                  gamematrix)) {
                 outByes.push(teamid);
                 return true;
               }
@@ -274,7 +276,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       }
     }
 
-    if (SwissTournamentModel.traverseAndBacktrack(outMatches, rankGroups,
+    if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
         gamematrix)) {
       return true;
     }
@@ -287,10 +289,10 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * counts the number of teams remaining in the rank groups
    *
    * @param rankGroups
-   *          a rankGroups object, as returned by getSwissGroups
+   *          a rankGroups object, as returned by getGroups
    * @return the number of teams in the rank group
    */
-  SwissTournamentModel.getSwissGroupsTeamCount = function(rankGroups) {
+  SwissTournamentModel.getGroupsTeamCount = function(rankGroups) {
     var sum = 0;
 
     rankGroups.forEach(function(group) {
@@ -306,11 +308,11 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @param gamematrix
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.traverseAndBacktrack = function(outMatches, rankGroups,
+  SwissTournamentModel.findSwissMatches = function(outMatches, rankGroups,
       gamematrix) {
     var currentGroup, secondGroup, teamA, teamB, teamBindex;
 
-    // console.log(getSwissGroupsTeamCount(rankGroups));
+    // console.log(getGroupsTeamCount(rankGroups));
     // console.log(JSON.stringify(rankGroups));
 
     currentGroup = undefined;
@@ -348,7 +350,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
     secondGroup.splice(teamBindex, 1);
 
-    if (SwissTournamentModel.traverseAndBacktrack(outMatches, rankGroups,
+    if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
         gamematrix)) {
       // don't use push, because the best-ranked team should be listed in
       // the first match
