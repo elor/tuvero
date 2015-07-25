@@ -3,6 +3,9 @@
 	* core/scripts/swisstournamentmodel.js: local functions made into static methods (for testing)
 	error output differentiates between bye- and bye-less backtracks
 	backtracking functions renamed
+	errors are emitted from the class instance again.
+
+	* core/scripts/test/swisstournamentmodel.js: testing some internal functions
 
 2015-07-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

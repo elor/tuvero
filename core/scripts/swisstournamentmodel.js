@@ -78,8 +78,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     matches = [];
     byes = [];
     if (!SwissTournamentModel.findSwissByesAndMatches(matches, byes,
-        rankGroups, this.ranking.gamematrix, this.ranking.byes,
-        this.teams.length)) {
+        rankGroups, this.ranking.gamematrix, this.ranking.byes)) {
+      this.emit('error', 'cannot find unique byes and matches');
       return false;
     }
 
@@ -236,18 +236,22 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * rankGroups list
    *
    * @param outMatches
+   *          an array into which the matches are written (int[][2])
    * @param outByes
+   *          an array into which the bye is written (int[]);
    * @param rankGroups
+   *          a 2d groups array
    * @param gamematrix
+   *          a matrixmodel instance with the previous matches (gamematrix)
    * @param byes
-   * @param numTeams
+   *          a vector with the number of byes for every team
    * @return true on success, false otherwise
    */
   SwissTournamentModel.findSwissByesAndMatches = function(outMatches, outByes,
-      rankGroups, gamematrix, byes, numTeams) {
+      rankGroups, gamematrix, byes) {
     var reverseRankGroups;
 
-    if (numTeams % 2) {
+    if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {
       reverseRankGroups = rankGroups.slice(0).reverse();
 
       if (!reverseRankGroups.some(function(group) {
@@ -271,7 +275,6 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
               return false;
             });
       })) {
-        this.emit('error', 'Cannot find a valid bye');
         return false;
       }
     }
@@ -281,7 +284,6 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       return true;
     }
 
-    this.emit('error', 'Cannot find a valid match for every team');
     return false;
   };
 
