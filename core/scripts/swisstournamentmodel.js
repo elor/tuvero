@@ -335,32 +335,31 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     teamB = undefined;
 
     // try to find a match in the current group or the one after
-    if (!rankGroups.some(function(group) {
+    if (rankGroups.some(function(group) {
       return group.some(function(team, index) {
         if (gamematrix.get(teamA, team) === 0) {
           secondGroup = group;
           teamB = team;
           teamBindex = index;
-          return true;
+
+          secondGroup.splice(teamBindex, 1);
+
+          if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
+              gamematrix)) {
+            return true;
+          }
+
+          secondGroup.splice(teamBindex, 0, teamB);
         }
         return false;
       });
     })) {
-      currentGroup.unshift(teamA);
-      return false;
-    }
-
-    secondGroup.splice(teamBindex, 1);
-
-    if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
-        gamematrix)) {
       // don't use push, because the best-ranked team should be listed in
       // the first match
       outMatches.unshift([teamA, teamB]);
       return true;
     }
 
-    currentGroup.splice(teamBindex, 0, teamB);
     currentGroup.unshift(teamA);
 
     return false;

@@ -4,6 +4,7 @@
 	error output differentiates between bye- and bye-less backtracks
 	backtracking functions renamed
 	errors are emitted from the class instance again.
+	backtracking algorithm cornercase fixed: last two teams have already played
 
 	* core/scripts/test/swisstournamentmodel.js: testing some internal functions
 
