@@ -8,12 +8,12 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, SwissTournamentModel, TournamentModel, TriangleMatrixModel;
+    var extend, SwissTournamentModel, TournamentModel, SymmetricMatrixModel;
 
     extend = getModule('lib/extend');
     SwissTournamentModel = getModule('core/swisstournamentmodel');
     TournamentModel = getModule('core/tournamentmodel');
-    TriangleMatrixModel = getModule('core/trianglematrixmodel');
+    SymmetricMatrixModel = getModule('core/symmetricmatrixmodel');
     VectorModel = getModule('core/vectormodel');
 
     QUnit.test('SwissTournamentModel', function() {
@@ -25,7 +25,7 @@ define(function() {
       groups = [];
       byes = [];
       matches = [];
-      gamematrix = new TriangleMatrixModel(0);
+      gamematrix = new SymmetricMatrixModel(0);
       byevector = new VectorModel(0);
 
       result = SwissTournamentModel.findSwissByesAndMatches(matches, byes,
@@ -40,10 +40,22 @@ define(function() {
 
       groups = [[1, 2, 3, 4]];
       byes = [];
+      gamematrix = new SymmetricMatrixModel(5);
+
       result = SwissTournamentModel.findSwissByesAndMatches(matches, byes,
           groups, gamematrix, byevector);
       QUnit.ok(result, 'findSwissByesAndMatches: four teams');
       QUnit.deepEqual(matches, [[1, 2], [3, 4]], 'four teams: matches');
+
+      groups = [[0, 1, 2, 3]];
+      byes = [];
+      matches = [];
+      gamematrix = new SymmetricMatrixModel(4);
+      gamematrix.set(2, 3, 1);
+      result = SwissTournamentModel.findSwissByesAndMatches(matches, byes,
+          groups, gamematrix, byevector);
+      QUnit.ok(result, 'findSwissByesAndMatches: already played');
+      QUnit.deepEqual(matches, [[0, 2], [1, 3]], 'already played: matches');
     });
   };
 });
