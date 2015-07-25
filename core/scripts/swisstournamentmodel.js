@@ -79,8 +79,6 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     byes = [];
     if (!SwissTournamentModel.traverseByes(matches, byes, rankGroups,
         this.ranking.gamematrix, this.ranking.byes, this.teams.length)) {
-      this.emit('error',
-          'Teams have already met or all teams already have a bye');
       return false;
     }
 
@@ -233,6 +231,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   /**
    * Internal Function.
    *
+   *
+   *
    * @param outMatches
    * @param outByes
    * @param rankGroups
@@ -248,7 +248,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     if (numTeams % 2) {
       reverseRankGroups = rankGroups.slice(0).reverse();
 
-      reverseRankGroups.some(function(group) {
+      if (!reverseRankGroups.some(function(group) {
         return group.slice(0).reverse().some(
             function(teamid) {
               var index;
@@ -268,11 +268,19 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
               return false;
             });
-      });
+      })) {
+        this.emit('error', 'Cannot find a valid bye');
+        return false;
+      }
     }
 
-    return SwissTournamentModel.traverseAndBacktrack(outMatches, rankGroups,
-        gamematrix);
+    if (SwissTournamentModel.traverseAndBacktrack(outMatches, rankGroups,
+        gamematrix)) {
+      return true;
+    }
+
+    this.emit('error', 'Cannot find a valid match for every team');
+    return false;
   };
 
   /**

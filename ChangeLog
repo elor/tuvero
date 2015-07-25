@@ -1,6 +1,7 @@
 2015-07-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: local functions made into static methods (for testing)
+	error output differentiates between bye- and bye-less backtracks
 
 2015-07-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
