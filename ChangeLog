@@ -9,6 +9,8 @@
 	* core/scripts/test/swisstournamentmodel.js: testing some internal functions
 	tests extended to test wm2015-tac-bug
 
+	* legacy/scripts/ui/tab_debug.js: debugging-tab: startround and finishround buttons work again
+
 2015-07-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: https://boules-dev.appspot.org -> https://tuvero.dev/dev/

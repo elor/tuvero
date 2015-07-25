@@ -8,9 +8,9 @@
  */
 
 define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
-    './debug', './tournaments', './team', './history', './shared', 'options'], function(
-    Tabshandle, Toast, Random, Tab, Strings, Debug, Tournaments, Team, History,
-    Shared, Options) {
+    './debug', './tournaments', './team', './history', './shared', 'options',
+    './state_new'], function(Tabshandle, Toast, Random, Tab, Strings, Debug,
+    Tournaments, Team, History, Shared, Options, State) {
   var Tab_Debug, $tab, form, letters, Letters, rng;
 
   rng = new Random();
@@ -149,7 +149,7 @@ define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
   function startRound(tournamentid) {
     var $button;
 
-    $button = $('#tabs > [data-tab="new"] .newsystem button.swiss').eq(0);
+    $button = $('#tabs > [data-tab="new"] button[data-system="swiss"]').eq(0);
     if ($button.length === 1) {
       $button.click();
       // let it render
@@ -157,7 +157,8 @@ define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
       return false;
     }
 
-    $button = $('#tabs > [data-tab="new"] .swiss button').eq(0);
+    $button = $('#tabs > [data-tab="new"] td.system button.runtournament')
+        .eq(0);
 
     if ($button.length !== 1) {
       new Toast(Strings.notenoughteams + '?');
@@ -181,9 +182,7 @@ define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
     } else {
       $boxes = $('#tabs > [data-tab="games"] .boxview');
       for (i = 0; i < $boxes.length; i += 1) {
-        if ($boxes.eq(i).data('tournamentid') === tournamentid) {
-          $box = $boxes.eq(i);
-        }
+        $box = $boxes.eq(0);
       }
     }
 
@@ -192,29 +191,30 @@ define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
     }
 
     interval = window.setInterval(function() {
-      var $points, $buttons, p1, p2;
-      $points = $box.find('.game:not(.template) .finish .points');
-      $buttons = $box.find('.game .finish button');
-
-      if ($box.parent().length === 0 || $points.length === 0
-          || $buttons.length === 0) {
+      var $finish, $points;
+      $finish = $box.find('.matchrow .finish').eq(0);
+      if (!$finish || $finish.length === 0) {
         window.clearInterval(interval);
         return;
       }
 
-      if (rng.nextInt(2)) {
-        p1 = Options.maxpoints - rng.nextInt(2);
-        p2 = rng.nextInt(p1);
-      } else {
-        p2 = Options.maxpoints - rng.nextInt(2);
-        p1 = rng.nextInt(p2);
+      p1 = 0;
+      p2 = 0;
+
+      while (p1 === p2) {
+        if (rng.nextInt(2)) {
+          p1 = Options.maxpoints - rng.nextInt(2);
+          p2 = rng.nextInt(p1);
+        } else {
+          p2 = Options.maxpoints - rng.nextInt(2);
+          p1 = rng.nextInt(p2);
+        }
       }
 
+      $points = $finish.find('.points');
       $points.eq(0).val(p1);
       $points.eq(1).val(p2);
-      console.log($points.eq(0).length);
-      console.log($buttons.eq(0).length);
-      $buttons.eq(0).removeAttr('disabled').click();
+      $finish.submit();
 
     }, 1);
   }
@@ -222,29 +222,28 @@ define(['./tabshandle', './toast', '../backend/random', './tab', './strings',
   function playTournament() {
     var tournamentid, Tournament, maxid;
 
-    if (Tournaments.numTournaments() === 0) {
+    if (State.tournaments.length === 0) {
       startRound();
-      if (Tournaments.numTournaments() > 0) {
+      if (State.tournaments.length > 0) {
         setTimeout(playTournament, 1);
       }
       return undefined;
     }
 
-    maxid = Tournaments.numTournaments();
+    maxid = State.tournaments.length;
     for (tournamentid = 0; tournamentid < maxid; tournamentid += 1) {
 
-      if (!Tournaments.isRunning(tournamentid)) {
+      if (!State.tournaments.get(tournamentid).getState().get() === 'running') {
         continue;
       }
 
-      Tournament = Tournaments.getTournament(tournamentid);
+      Tournament = State.tournaments.get(tournamentid);
 
-      if (Tournament.getState() != 1) {
-        startRound(tournamentid) || startRound(tournamentid)
-            || startRound(tournamentid);
+      if (Tournament.getState().get() !== 'running') {
+        startRound(tournamentid);
       }
 
-      if (Tournament.getState() == 1) {
+      if (Tournament.getState().get() == 'running') {
         finishRound(tournamentid);
         window.setTimeout(playTournament, 100);
       } else {
