@@ -5,7 +5,7 @@
 
 # primary build targets
 
-build: scripts
+build: lib scripts
 	make boule
 	make tac
 	make test
@@ -24,10 +24,13 @@ clean: FORCE
 
 # primary global targets
 
-update: style templates test/index.html codestyle sprites
+update: style templates test/index.html codestyle sprites lib
 
 templates: FORCE
 	make boule/index.html tac/index.html -j
+
+lib: FORCE
+	./tools/install-libs.sh
 
 scripts: FORCE
 	./tools/create-commonjs.sh

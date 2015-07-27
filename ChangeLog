@@ -1,3 +1,9 @@
+2015-07-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* Makefile: `make lib` added
+
+	* tools/install-libs.sh: installing libraries using bower
+
 2015-07-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: local functions made into static methods (for testing)
