@@ -4,6 +4,9 @@
 
 	* tools/install-libs.sh: installing libraries using bower
 	output improved
+	looking for local bower installation
+
+	* .travis.yml: installing bower prior to build process
 
 2015-07-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

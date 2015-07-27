@@ -14,7 +14,7 @@ addons:
     - make
 
 install:
-- npm install requirejs
+- npm install requirejs bower
 
 script:
 - make build

@@ -4,7 +4,16 @@
 
 set -e -u
 
-which bower >/dev/null
+bower=bower
+if ! which $bower > /dev/null; then
+    bower=./node_modules/bower/bin/bower
+    if ! [ -e $bower ]; then
+        which bower
+    fi
+    if ! [ -x $bower ]; then
+        chmod +x $bower
+    fi
+fi
 
 [ -d lib/ ] || { echo "cannot find lib/ folder">&2; exit 1; }
 
@@ -14,7 +23,7 @@ echo
 echo "Downloading libraries..."
 echo
 
-bower install $libs
+$bower install $libs
 
 [ -d "bower_components" ] || { echo "bower didn't create bower_components folder">&2; exit 1; }
 
