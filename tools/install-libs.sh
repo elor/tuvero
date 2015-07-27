@@ -8,11 +8,20 @@ which bower >/dev/null
 
 [ -d lib/ ] || { echo "cannot find lib/ folder">&2; exit 1; }
 
-libs="Blob extend FileSaver jquery jsdiff modernizr typeahead.js"
+libs="Blob extend FileSaver jquery jsdiff modernizr typeahead.js elor/implements.js"
+
+echo
+echo "Downloading libraries..."
+echo
 
 bower install $libs
 
 [ -d "bower_components" ] || { echo "bower didn't create bower_components folder">&2; exit 1; }
+
+echo
+echo "Libraries downloaded. Locating library files..."
+echo
+
 
 libfiles=$(for f in bower_components/*; do
 	libname=${f#bower_components/}
@@ -23,17 +32,19 @@ libfiles=$(for f in bower_components/*; do
 	echo $path
 done)
 
-[ -n "$libfiles" ] || echo 
+[ -n "$libfiles" ] || { echo "cannot find library files">&2; exit 1; }
 
 for filename in $libfiles; do
 	target=$(basename $filename)
 	target=${target/.min./.}
-	cp -v $filename lib/$target
+	mv -v $filename lib/$target
 done
 
-echo "removing bower_components"
+# TODO: also copy the license files
+
+echo
+echo "Removing download directory..."
 rm -rf bower_components/
 
 echo
-echo "libraries installed successfully"
-
+echo "Libraries have been successfully installed"

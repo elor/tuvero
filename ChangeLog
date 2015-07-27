@@ -3,6 +3,7 @@
 	* Makefile: `make lib` added
 
 	* tools/install-libs.sh: installing libraries using bower
+	output improved
 
 2015-07-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
