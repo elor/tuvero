@@ -24,13 +24,16 @@ clean: FORCE
 
 # primary global targets
 
-update: style templates test/index.html codestyle sprites lib
+update: style templates test/index.html codestyle sprites lib links
 
 templates: FORCE
 	make boule/index.html tac/index.html -j
 
 lib: FORCE
 	./tools/install-libs.sh
+
+links: FORCE
+	./tools/verify-links.sh
 
 scripts: FORCE
 	./tools/create-commonjs.sh

@@ -1,12 +1,15 @@
 2015-07-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: `make lib` added
+	`make links` added
 
 	* tools/install-libs.sh: installing libraries using bower
 	output improved
 	looking for local bower installation
 
 	* .travis.yml: installing bower prior to build process
+
+	* tools/verify-links.sh: find all links in html files and see if they're still online
 
 2015-07-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
