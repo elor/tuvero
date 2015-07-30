@@ -1,3 +1,19 @@
+2015-07-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* test/selenium-tests/common/runtest.js: testrunner nodejs source file for selenium tests
+
+	* test/selenium-tests/common/testtools.js: additional set of tools for selenium tests
+
+	* test/selenium-tests/.gitignore: ignoring temporary files
+
+	* test/selenium-tests/runtest.sh: testrunner script for selenium tests
+
+	* test/selenium-tests/tests/openboule.js: test where Tuvero Boule is opened
+
+	* test/selenium-tests/tests/opentac.js: test where Tuvero TAC is opened
+
+	* test/selenium-tests/tests/openindex.js: test where the Tuvero index is opened
+
 2015-07-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: `make lib` added
