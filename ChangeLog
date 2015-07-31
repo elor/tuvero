@@ -11,6 +11,10 @@
 
 	* test/selenium-tests/java/: java-based browser tests
 
+	* test/selenium-tests/java/update-selenium.sh: downloading and installing chromedriver
+
+	* test/selenium-tests/java/Makefile: adding the library to PATH just before execution
+
 2015-07-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/common/runtest.js: testrunner nodejs source file for selenium tests

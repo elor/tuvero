@@ -6,7 +6,7 @@ build: clean lib
 	javac -d class/ -classpath lib/selenium-server-standalone.jar src/*.java
 
 test: build
-	java -classpath class:lib/selenium-server-standalone.jar TuveroUnitTests
+	PATH=${PATH}:lib java -classpath class:lib/selenium-server-standalone.jar TuveroUnitTests
 
 lib: clean
 	./update-selenium.sh
