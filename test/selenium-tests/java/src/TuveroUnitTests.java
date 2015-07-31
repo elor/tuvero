@@ -16,8 +16,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TuveroUnitTests {
   public static void main(String[] args) {
-    System.setProperty("webdriver.chrome.driver", "lib/chromedriver");
-    unitTestTuvero(new ChromeDriver(), "chrome");
+    try {
+      System.setProperty("webdriver.chrome.driver", "lib/chromedriver.exe");
+      unitTestTuvero(new ChromeDriver(), "chrome");
+    } catch (IllegalStateException e) {
+      System.setProperty("webdriver.chrome.driver", "lib/chromedriver");
+      unitTestTuvero(new ChromeDriver(), "chrome");
+    }
     unitTestTuvero(new FirefoxDriver(), "firefox");
   }
 

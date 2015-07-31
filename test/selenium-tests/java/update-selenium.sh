@@ -39,8 +39,6 @@ target=chromedriver
 repo=http://chromedriver.storage.googleapis.com/
 version=$(curl -s "$repo"LATEST_RELEASE)
 
-
-
 for sys in win32 linux64; do
 
     latest="$repo$version/$target"_$sys.zip

@@ -14,6 +14,9 @@
 	* test/selenium-tests/java/update-selenium.sh: downloading and installing chromedriver
 
 	* test/selenium-tests/java/Makefile: adding the library to PATH just before execution
+	no need for PATH variable anymore. That's handled by the java code.
+
+	* test/selenium-tests/java/src/TuveroUnitTests.java: handling the PATH-equivalent of the chromedriver executable
 
 2015-07-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
