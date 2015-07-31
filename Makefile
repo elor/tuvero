@@ -71,6 +71,9 @@ boule/index.html: FORCE
 tac/index.html: FORCE
 	cd tac && ../tools/index-from-template.sh
 
+run-selenium-tests: FORCE
+	cd test/selenium-tests && ./runtest.sh
+
 # makefile-related secondary targets
 
 %: %/index.html build-dir

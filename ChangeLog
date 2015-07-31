@@ -1,3 +1,11 @@
+2015-07-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* Makefile: `make run-selenium-tests` added
+
+	* test/selenium-tests/tests/openboule.js: wrong parentheses fixed
+
+	* test/selenium-tests/tests/opentac.js: wrong parentheses fixed
+
 2015-07-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/common/runtest.js: testrunner nodejs source file for selenium tests
