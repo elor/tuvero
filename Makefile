@@ -72,7 +72,7 @@ tac/index.html: FORCE
 	cd tac && ../tools/index-from-template.sh
 
 run-selenium-tests: FORCE
-	cd test/selenium-tests && ./runtest.sh
+	make -C test/selenium-tests/java
 
 # makefile-related secondary targets
 

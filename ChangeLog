@@ -1,6 +1,7 @@
 2015-07-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: `make run-selenium-tests` added
+	using java version of selenium-tests
 
 	* test/selenium-tests/tests/openboule.js: wrong parentheses fixed
 
