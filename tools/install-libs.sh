@@ -17,7 +17,7 @@ fi
 
 [ -d lib/ ] || { echo "cannot find lib/ folder">&2; exit 1; }
 
-libs="Blob extend FileSaver jquery jsdiff elor/implements.js"
+libs="Blob extend FileSaver jquery jsdiff"
 #libs="$libs modernizr typeahead.js" # modernizr and typeahead have some strange version conflicts. Need to investigate
 
 echo

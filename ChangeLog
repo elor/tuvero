@@ -19,6 +19,8 @@
 
 	* test/selenium-tests/java/src/TuveroUnitTests.java: handling the PATH-equivalent of the chromedriver executable
 
+	* legacy/scripts/*: requirement on most legacy UI/Tabbing code removed
+
 2015-07-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/common/runtest.js: testrunner nodejs source file for selenium tests

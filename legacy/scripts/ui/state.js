@@ -8,8 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['options', './state_new', './shared'], function(Options, State_New,
-    Shared) {
+define(['options', './state_new'], function(Options, State_New) {
   var State;
 
   State = {
@@ -62,6 +61,5 @@ define(['options', './state_new', './shared'], function(Options, State_New,
     }
   };
 
-  Shared.State = State;
   return State;
 });

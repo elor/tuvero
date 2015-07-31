@@ -58,20 +58,11 @@ require(['config'], function() {
   'core/test/uniquelistmodel',
   'core/test/valuemodel',
   'core/test/vectormodel',
-  'backend/test/gameresultscorrection',
-  'backend/test/kotournament',
-  'backend/test/map',
-  'backend/test/matrix',
   'backend/test/random',
-  'backend/test/ranking',
-  'backend/test/rleblobber',
-  'backend/test/swisstournament',
-  'backend/test/vector',
 
   'ui/test/binarytreemodel',
   'ui/test/listcollectormodel',
   'ui/test/playermodel',
-  'ui/test/tab',
   'ui/test/teammodel',
   'ui/test/treenode'
 ], function(Common, QUnit) {

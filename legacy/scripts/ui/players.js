@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['./shared'], function(Shared) {
+define(function() {
   var Players, names;
 
   names = [];
@@ -20,7 +20,7 @@ define(['./shared'], function(Shared) {
   }
 
   function updateDependencies() {
-    Shared.Autocomplete.update();
+    require('ui/autocomplete').update();
   }
 
   Players.fromString = function(string) {
@@ -113,6 +113,5 @@ define(['./shared'], function(Shared) {
     }
   };
 
-  Shared.Players = Players;
   return Players;
 });

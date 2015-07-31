@@ -6,8 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./players', './shared', 'lib/typeahead'], function(Players, Shared,
-    undefined) {
+define(['./players', 'lib/typeahead'], function(Players, undefined) {
   var Autocomplete, $fields;
 
   Autocomplete = {};
@@ -55,6 +54,5 @@ define(['./players', './shared', 'lib/typeahead'], function(Players, Shared,
 
   });
 
-  Shared.Autocomplete = Autocomplete;
   return Autocomplete;
 });

@@ -6,8 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['options', './shared', 'lib/modernizr'], function(Options, Shared,
-    Modernizr) {
+define(['options', 'lib/modernizr'], function(Options, Modernizr) {
   var Storage, keys, savespending;
 
   Storage = {};
@@ -132,8 +131,8 @@ define(['options', './shared', 'lib/modernizr'], function(Options, Shared,
     Storage.disable();
 
     if (Modernizr.localstorage) {
-      keys[Options.dbname] = Shared.State;
-      keys[Options.dbplayername] = Shared.Players;
+      keys[Options.dbname] = require('ui/state');
+      keys[Options.dbplayername] = require('ui/players');
     }
   };
 
@@ -151,10 +150,8 @@ define(['options', './shared', 'lib/modernizr'], function(Options, Shared,
   // TODO move to Blob
   Storage.changed = function() {
 
-    Shared.Tab_Settings.reset();
     Storage.store();
   };
 
-  Shared.Storage = Storage;
   return Storage;
 });

@@ -1,6 +1,7 @@
 /**
  * Shared main file. loads the shared config and modules and manages the program
  * startup and splash screen. A complete rewrite is necessary.
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -30,18 +31,14 @@ require(['core/config', 'core/common'], function() {
 
   function Main() {
     // FIXME reduce to one var statement. This function is too long anyhow
-    var Shared, Update, Splash, Toast, Strings, Storage;
-    var Tabshandle, Alltabs, Tab_Debug, TeamToastsListener;
+    var Update, Splash, Toast, Strings, Storage;
+    var TeamToastsListener;
 
-    Shared = require('./ui/shared');
     Update = require('ui/update');
     Splash = require('ui/splash');
     Toast = require('ui/toast');
     Strings = require('ui/strings');
-    Storage = Shared.Storage;
-    Tabshandle = require('ui/tabshandle');
-    Alltabs = Shared.Alltabs;
-    Tab_Debug = require('ui/tab_debug');
+    Storage = require('ui/storage');
     TeamToastsListener = require('ui/teamtoastslistener');
 
     // actual initializations are started after any other module has
@@ -53,11 +50,6 @@ require(['core/config', 'core/common'], function() {
       // NOT actively looking for updates. The events are handled
       // automatically
       // Update();
-
-      // update Tab_Debug for dev version notifications
-      Tab_Debug.update();
-
-      Alltabs.reset();
 
       Storage.enable();
 
@@ -76,13 +68,10 @@ require(['core/config', 'core/common'], function() {
 
           Splash.update();
 
-          Alltabs.update();
-
           setTimeout(function() {
             try {
               Toast.init();
               Splash.hide();
-//              Tabshandle.valid();
             } catch (er) {
               notifyAboutLoadError(er);
             }
