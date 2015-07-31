@@ -6,6 +6,11 @@
 
 	* test/selenium-tests/tests/opentac.js: wrong parentheses fixed
 
+	* test/selenium-tests/*: moved to test/selenium-tests/node/
+	nodejs-based browser tests
+
+	* test/selenium-tests/java/: java-based browser tests
+
 2015-07-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/common/runtest.js: testrunner nodejs source file for selenium tests
