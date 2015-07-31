@@ -1,3 +1,19 @@
+2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* test/selenium-tests/java/Makefile: paths adjusted
+
+	* test/selenium-tests/java/makeTuveroTestList.sh: paths adjusted
+
+	* test/selenium-tests/java/src/TuveroTest.java: interface for tuvero tests
+
+	* test/selenium-tests/java/src/TuveroTestList.java: auto-generated list of selenium-driven tests
+
+	* test/selenium-tests/java/src/TuveroTestRunner.java: main test runner and test-helper class
+
+	* test/selenium-tests/java/src/TuveroUnitTests.java: old selenium test removed
+
+	* test/selenium-tests/java/src/UnitTests.java: First actual selenium test
+
 2015-07-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: `make run-selenium-tests` added
