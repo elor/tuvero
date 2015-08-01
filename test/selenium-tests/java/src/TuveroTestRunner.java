@@ -50,13 +50,9 @@ public class TuveroTestRunner {
         runner.finish();
 
         System.out.println("");
-        if (runner.errors == 0) {
-          statusLine = "all " + browser + " tests successful";
-        } else {
-          statusLine = runner.errors + " of "
-              + (runner.errors + runner.successes) + " " + browser
-              + " tests failed";
-        }
+        int total = runner.errors + runner.successes;
+        statusLine = runner.successes + " of " + total + " " + browser
+            + " assertions passed, " + runner.errors + " failed.";
 
         errors += runner.errors;
         successes += runner.successes;
@@ -75,12 +71,11 @@ public class TuveroTestRunner {
     for (String status : statusLines) {
       System.out.println(status);
     }
-    if (errors == 0) {
-      System.out.println("all tests successful");
-    } else {
-      System.out.println(errors + " of " + (errors + successes)
-          + " total tests failed");
-    }
+
+    int total = errors + successes;
+    System.out.println("");
+    System.out.println(successes + " of " + total
+        + " assertions passed, " + errors + " failed.");
 
     if (errors > 0) {
       System.exit(1);

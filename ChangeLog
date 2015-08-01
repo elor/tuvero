@@ -12,6 +12,7 @@
 	output and test error handling improved
 	getURL() added to create a local URL
 	navigate() automatically waits for pageload
+	error/success output matches that of QUnit.
 
 	* test/selenium-tests/java/src/TuveroUnitTests.java: old selenium test removed
 
