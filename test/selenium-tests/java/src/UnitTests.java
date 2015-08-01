@@ -28,7 +28,7 @@ class UnitTests implements TuveroTest {
     wait.until(ExpectedConditions.presenceOfElementLocated(By
         .className("hidepass")));
 
-    runner.ok(runner.takeScreenshot(prefix + "-qunit.png"), prefix
+    runner.ok(runner.screenshot(prefix + "-qunit.png"), prefix
         + "-qunit.png screenshot");
   }
 }

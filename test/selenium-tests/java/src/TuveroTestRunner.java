@@ -3,12 +3,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Vector;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.google.common.base.Function;
 
 /**
  * @author Erik E. Lorenz
@@ -23,16 +30,20 @@ public class TuveroTestRunner {
     int errors = 0;
     int successes = 0;
 
+    Vector<String> statusLines = new Vector<String>();
+
     for (String browser : browsers) {
       System.out.println("");
       System.out.println("Browser: " + browser);
+
+      String statusLine;
 
       try {
         TuveroTestRunner runner = new TuveroTestRunner(browser);
         try {
           runner.runTests();
         } catch (Throwable t) {
-          System.out.println("ERROR while running TestRunner for " + browser);
+          System.out.println("ERROR while using TestRunner for " + browser);
           runner.errors++;
         }
 
@@ -40,23 +51,30 @@ public class TuveroTestRunner {
 
         System.out.println("");
         if (runner.errors == 0) {
-          System.out.println("all " + browser + " tests successful");
+          statusLine = "all " + browser + " tests successful";
         } else {
-          System.out.println(runner.errors + " of "
+          statusLine = runner.errors + " of "
               + (runner.errors + runner.successes) + " " + browser
-              + " tests failed");
+              + " tests failed";
         }
 
         errors += runner.errors;
         successes += runner.successes;
       } catch (Throwable t) {
-        System.out.println("ERROR with TestRunner for " + browser);
+        statusLine = "ERROR with TestRunner for " + browser;
         t.printStackTrace(System.out);
         errors++;
       }
+      System.out.println(statusLine);
+      statusLines.add(statusLine);
     }
 
     System.out.println("");
+    System.out.println("Test Summmary");
+    System.out.println("-------------");
+    for (String status : statusLines) {
+      System.out.println(status);
+    }
     if (errors == 0) {
       System.out.println("all tests successful");
     } else {
@@ -114,7 +132,12 @@ public class TuveroTestRunner {
     System.out.println("Test: " + testName);
 
     driver.get("about:blank");
-    test.run(this, prefix);
+    try {
+      test.run(this, prefix);
+    } catch (WebDriverException we) {
+      System.out.println("  ERROR: " + we.getClass().getSimpleName());
+      errors++;
+    }
     driver.get("about:blank");
   }
 
@@ -130,12 +153,25 @@ public class TuveroTestRunner {
 
     driver.get("file://" + absolutePath);
 
+    WebDriverWait wait = new WebDriverWait(driver, 1);
+    wait.until(new Function<WebDriver, WebDriver>() {
+      @Override
+      public WebDriver apply(WebDriver driver) {
+        JavascriptExecutor jsExec = (JavascriptExecutor) driver;
+        if (jsExec.executeScript("return document.readyState").equals(
+            "complete")) {
+          return driver;
+        }
+        return null;
+      }
+    });
+
     return driver;
   }
 
   private void runTests() {
     if (TuveroTestList.tests.length == 0) {
-      System.err.println("ERROR: no tests available");
+      System.out.println("ERROR: no tests available");
       errors++;
     }
 
@@ -191,15 +227,12 @@ public class TuveroTestRunner {
     }
   }
 
-  boolean takeScreenshot(String outputFilename) {
-    try {
-      Thread.sleep(100);
-    } catch (InterruptedException e1) {
-    }
-
+  boolean screenshot(String outputFilename) {
     File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     FileInputStream inputStream;
     FileOutputStream outputStream;
+
+    System.out.print(" screenshot " + outputFilename + " ... ");
     try {
       inputStream = new FileInputStream(scrFile);
       outputStream = new FileOutputStream(new File(outputFilename));
@@ -213,9 +246,12 @@ public class TuveroTestRunner {
 
       outputStream.close();
       inputStream.close();
+      System.out.println("Done.");
     } catch (FileNotFoundException e) {
+      System.out.println("ERROR. File not found.");
       return false;
     } catch (IOException e) {
+      System.out.println("ERROR. IOException");
       return false;
     }
 

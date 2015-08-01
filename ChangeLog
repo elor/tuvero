@@ -9,10 +9,17 @@
 	* test/selenium-tests/java/src/TuveroTestList.java: auto-generated list of selenium-driven tests
 
 	* test/selenium-tests/java/src/TuveroTestRunner.java: main test runner and test-helper class
+	output and test error handling improved
 
 	* test/selenium-tests/java/src/TuveroUnitTests.java: old selenium test removed
 
 	* test/selenium-tests/java/src/UnitTests.java: First actual selenium test
+
+	* test/selenium-tests/java/src/BouleIndex.java: open boule index and see if the main script loads (hides the splash screen)
+
+	* test/selenium-tests/java/src/Index.java: load index. No further checks yet.
+
+	* test/selenium-tests/java/src/TACIndex.java: open tac index and see if the main script loads (hides the splash screen)
 
 2015-07-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
