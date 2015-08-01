@@ -10,6 +10,8 @@
 
 	* test/selenium-tests/java/src/TuveroTestRunner.java: main test runner and test-helper class
 	output and test error handling improved
+	getURL() added to create a local URL
+	navigate() automatically waits for pageload
 
 	* test/selenium-tests/java/src/TuveroUnitTests.java: old selenium test removed
 
@@ -18,6 +20,7 @@
 	* test/selenium-tests/java/src/BouleIndex.java: open boule index and see if the main script loads (hides the splash screen)
 
 	* test/selenium-tests/java/src/Index.java: load index. No further checks yet.
+	Further checks: verifying that all links are present
 
 	* test/selenium-tests/java/src/TACIndex.java: open tac index and see if the main script loads (hides the splash screen)
 

@@ -142,16 +142,8 @@ public class TuveroTestRunner {
   }
 
   WebDriver navigate(String relativeUrl) {
-    String workdir = System.getProperty("user.dir");
-    File url = new File(workdir + "../../../../" + relativeUrl);
-    String absolutePath;
-    try {
-      absolutePath = url.getCanonicalPath();
-    } catch (IOException e) {
-      absolutePath = url.getAbsolutePath();
-    }
-
-    driver.get("file://" + absolutePath);
+    String fileURL = getURL(relativeUrl);
+    driver.get(fileURL);
 
     WebDriverWait wait = new WebDriverWait(driver, 1);
     wait.until(new Function<WebDriver, WebDriver>() {
@@ -167,6 +159,20 @@ public class TuveroTestRunner {
     });
 
     return driver;
+  }
+
+  String getURL(String relativeUrl) {
+    String workdir = System.getProperty("user.dir");
+    File url = new File(workdir + "../../../../" + relativeUrl);
+    String absolutePath;
+    try {
+      absolutePath = url.getCanonicalPath();
+    } catch (IOException e) {
+      absolutePath = url.getAbsolutePath();
+    }
+
+    String fileURL = "file://" + absolutePath;
+    return fileURL;
   }
 
   private void runTests() {
