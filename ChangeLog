@@ -23,6 +23,16 @@
 
 	* test/selenium-tests/java/makeTuveroTestList.sh: don't show the output. It's proven to work.
 
+	* Makefile: run-selenium-tests -> selenium-tests
+
+	* tests/selenium-tests/java/: moved to selenium-tests/
+
+	* selenium-tests/: moved from tests/selenium-tests/java/
+
+	* selenium-tests/src/TuveroTestRunner.java: relative path to root directory adjusted
+
+	* test/selenium-tests/node/: removed in favor of the java version
+
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/java/Makefile: paths adjusted

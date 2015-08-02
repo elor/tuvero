@@ -173,7 +173,7 @@ public class TuveroTestRunner {
 
   String getURL(String relativeUrl) {
     String workdir = System.getProperty("user.dir");
-    File url = new File(workdir + "../../../../" + relativeUrl);
+    File url = new File(workdir + "/../" + relativeUrl);
     String absolutePath;
     try {
       absolutePath = url.getCanonicalPath();
