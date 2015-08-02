@@ -17,7 +17,7 @@ class BouleIndex implements TuveroTest {
           .invisibilityOfElementLocated(By.id("splash")));
     } catch (TimeoutException t) {
     }
-    runner.ok(splashInvisible, "Pageload successful");
+    runner.ok(splashInvisible, "Pageload");
 
     // TODO perform other tests?
 

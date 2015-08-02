@@ -10,14 +10,14 @@ class TACIndex implements TuveroTest {
   public void run(TuveroTestRunner runner, String prefix) {
     WebDriver driver = runner.navigate("tac/index.html");
 
-    WebDriverWait wait = new WebDriverWait(driver, 2);
+    WebDriverWait wait = new WebDriverWait(driver, 3);
     boolean splashInvisible = false;
     try {
       splashInvisible = wait.until(ExpectedConditions
           .invisibilityOfElementLocated(By.id("splash")));
     } catch (TimeoutException t) {
     }
-    runner.ok(splashInvisible, "Pageload successful");
+    runner.ok(splashInvisible, "Pageload");
 
     // TODO perform other tests?
 

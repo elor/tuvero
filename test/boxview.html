@@ -9,39 +9,37 @@
 
 <body>
 
-	<div class="boxview">
-		<h3>Box</h3>
-		Lorem ipsum dolor sit amet <br>
-		<form>
-			<input type="number" placeholder="5" /> <input type="text"
-				placeholder="text input" /> <input type="button"
-				value="button input" />
-		</form>
-		<textarea placeholder="textarea input"></textarea>
-		<button>Button</button>
-		<a href="#">Text Link</a> <select>
-			<option>Option 1</option>
-			<option>Option A</option>
-			<option>Option Alpha</option>
-		</select>
-	</div>
+  <div class="boxview">
+    <h3>Box</h3>
+    Lorem ipsum dolor sit amet <br>
+    <form>
+      <input type="number" placeholder="5" /> <input type="text"
+        placeholder="text input" /> <input type="button" value="button input" />
+    </form>
+    <textarea placeholder="textarea input"></textarea>
+    <button>Button</button>
+    <a href="#">Text Link</a> <select>
+      <option>Option 1</option>
+      <option>Option A</option>
+      <option>Option Alpha</option>
+    </select>
+  </div>
 
-	<div class="boxview collapsed">
-		<h3>Initially Collapsed Box</h3>
-		Lorem ipsum dolor sit amet <br>
-		<form>
-			<input type="number" placeholder="5" /> <input type="text"
-				placeholder="text input" /> <input type="button"
-				value="button input" />
-		</form>
-		<textarea placeholder="textarea input"></textarea>
-		<button>Button</button>
-		<a href="#">Text Link</a> <select>
-			<option>Option 1</option>
-			<option>Option A</option>
-			<option>Option Alpha</option>
-		</select>
-	</div>
+  <div class="boxview collapsed">
+    <h3>Initially Collapsed Box</h3>
+    Lorem ipsum dolor sit amet <br>
+    <form>
+      <input type="number" placeholder="5" /> <input type="text"
+        placeholder="text input" /> <input type="button" value="button input" />
+    </form>
+    <textarea placeholder="textarea input"></textarea>
+    <button>Button</button>
+    <a href="#">Text Link</a> <select>
+      <option>Option 1</option>
+      <option>Option A</option>
+      <option>Option Alpha</option>
+    </select>
+  </div>
 
 </body>
 
@@ -58,8 +56,8 @@ function TestMain(Common, $) {
 
     // StaticViewLoader.registerView('boxview', BoxView);
     // StaticViewLoader.loadViews($('body'));
-
-    $box = $('<div>').addClass('boxview').append(
+    
+    $box = $('<div>').addClass('boxview').addClass('generated').append(
         $('<h3>').text('Script-Generated Box'));
 
     new BoxView($box);

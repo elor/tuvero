@@ -74,8 +74,8 @@ public class TuveroTestRunner {
 
     int total = errors + successes;
     System.out.println("");
-    System.out.println(successes + " of " + total
-        + " assertions passed, " + errors + " failed.");
+    System.out.println(successes + " of " + total + " assertions passed, "
+        + errors + " failed.");
 
     if (errors > 0) {
       System.exit(1);

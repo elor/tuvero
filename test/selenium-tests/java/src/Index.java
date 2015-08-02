@@ -12,7 +12,7 @@ class Index implements TuveroTest {
   public void run(TuveroTestRunner runner, String prefix) {
     WebDriver driver = runner.navigate("index.html");
 
-    runner.ok(true, "Pageload successful");
+    runner.ok(true, "Pageload");
 
     /*
      * create a list of all app links for later query
