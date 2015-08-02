@@ -10,8 +10,11 @@
 	* test/selenium-tests/java/src/UnitTests.java: comparing integer values of the unit test successes
 
 	* test/selenium-tests/java/src/BoxView.java: testing the BoxView test page
+	test: focus-loss on collapsing
 
 	* test/selenium-tests/java/src/TestIndex.java: checking the availability of links to other test pages
+
+	* test/selenium-tests/java/src/BouleIndex.java: also waiting up to 3 seconds for consistency
 
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

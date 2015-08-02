@@ -106,5 +106,25 @@ class BoxView implements TuveroTest {
         "tab-focus doesn't enter collapsed element");
     runner.ok(secondBoxDescendants.contains(focused),
         "tab-focus enter first non-collapsed element");
+
+    /*
+     * click second box
+     */
+    secondBox.findElement(By.tagName("h3")).click();
+    try {
+      wait.until(new Function<WebDriver, Boolean>() {
+        @Override
+        public Boolean apply(WebDriver driver) {
+          return secondBox.getSize().height < collapsedHeight;
+        }
+      });
+    } catch (TimeoutException t) {
+    }
+    runner.ok(secondBox.getSize().height < collapsedHeight,
+        "second box decollapses on click");
+    focused = driver.switchTo().activeElement();
+    runner.equal(focused, body,
+        "focus of contained input elements is lost on collapsing");
+
   }
 }
