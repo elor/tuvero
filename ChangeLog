@@ -39,6 +39,8 @@
 
 	* test/checkboxview.html: the checkbox is inside a span element, for consistency with the tuvero taboptions
 
+	* selenium-tests/src/ListView.java: testing the ListView test page
+
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/java/Makefile: paths adjusted

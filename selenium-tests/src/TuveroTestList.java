@@ -4,6 +4,7 @@ public class TuveroTestList {
 new BoxView(),
 new CheckBoxView(),
 new Index(),
+new ListView(),
 new TACIndex(),
 new TestIndex(),
 new UnitTests()
