@@ -9,6 +9,10 @@
 
 	* test/selenium-tests/java/src/UnitTests.java: comparing integer values of the unit test successes
 
+	* test/selenium-tests/java/src/BoxView.java: testing the BoxView test page
+
+	* test/selenium-tests/java/src/TestIndex.java: checking the availability of links to other test pages
+
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/java/Makefile: paths adjusted
