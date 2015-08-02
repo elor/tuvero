@@ -6,6 +6,7 @@
 
 	* test/selenium-tests/java/src/TuveroTestRunner.java: equal() and notEqual() use generic types
 	This ensures the same behaviour for String and integer comparison
+	If the comma-separated TESTS environment variable is set, tests not in this list are skipped
 
 	* test/selenium-tests/java/src/UnitTests.java: comparing integer values of the unit test successes
 
@@ -17,6 +18,10 @@
 	* test/selenium-tests/java/src/TestIndex.java: checking the availability of links to other test pages
 
 	* test/selenium-tests/java/src/BouleIndex.java: also waiting up to 3 seconds for consistency
+
+	* test/selenium-tests/java/Makefile: force-removing all classes and pngs
+
+	* test/selenium-tests/java/makeTuveroTestList.sh: don't show the output. It's proven to work.
 
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

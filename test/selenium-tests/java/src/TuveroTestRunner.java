@@ -3,6 +3,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Vector;
 
 import org.openqa.selenium.JavascriptExecutor;
@@ -43,7 +46,8 @@ public class TuveroTestRunner {
         try {
           runner.runTests();
         } catch (Throwable t) {
-          System.out.println("ERROR while using TestRunner for " + browser);
+          System.out.println("ERROR while using TestRunner for " + browser
+              + ": " + t.getClass().getSimpleName());
           runner.errors++;
         }
 
@@ -57,7 +61,8 @@ public class TuveroTestRunner {
         errors += runner.errors;
         successes += runner.successes;
       } catch (Throwable t) {
-        statusLine = "ERROR with TestRunner for " + browser;
+        statusLine = "ERROR with TestRunner for " + browser + ": "
+            + t.getClass().getSimpleName();
         t.printStackTrace(System.out);
         errors++;
       }
@@ -124,16 +129,26 @@ public class TuveroTestRunner {
     String testName = test.getClass().getSimpleName();
     String prefix = browser + "_" + testName;
 
-    System.out.println("Test: " + testName);
-
-    driver.get("about:blank");
-    try {
-      test.run(this, prefix);
-    } catch (WebDriverException we) {
-      System.out.println("  ERROR: " + we.getClass().getSimpleName());
-      errors++;
+    String testsEnvVar = System.getenv().get("TESTS");
+    List<String> tests = null;
+    if (testsEnvVar != null) {
+      tests = new ArrayList<>(Arrays.asList(testsEnvVar.split("[;,]")));
     }
-    driver.get("about:blank");
+
+    if (tests == null || tests.contains(testName)) {
+      System.out.println("Test: " + testName);
+
+      driver.get("about:blank");
+      try {
+        test.run(this, prefix);
+      } catch (WebDriverException we) {
+        System.out.println("  ERROR: " + we.getClass().getSimpleName());
+        errors++;
+      }
+      driver.get("about:blank");
+    } else {
+      System.out.println("SKIP " + testName);
+    }
   }
 
   WebDriver navigate(String relativeUrl) {
@@ -233,7 +248,7 @@ public class TuveroTestRunner {
     FileInputStream inputStream;
     FileOutputStream outputStream;
 
-    System.out.print(" screenshot " + outputFilename + " ... ");
+    System.out.print(" SCREENSHOT: " + outputFilename + " ... ");
     try {
       inputStream = new FileInputStream(scrFile);
       outputStream = new FileOutputStream(new File(outputFilename));

@@ -17,4 +17,4 @@ src/TuveroTestList.java: FORCE
 FORCE:
 
 clean:
-	-rm *.png class/
+	-rm -rf *.png class/
