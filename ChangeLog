@@ -11,6 +11,8 @@
 
 	* test/selenium-tests/java/src/BoxView.java: testing the BoxView test page
 	test: focus-loss on collapsing
+	testing auto-growth of boxviews
+	major cleanup of the test
 
 	* test/selenium-tests/java/src/TestIndex.java: checking the availability of links to other test pages
 
