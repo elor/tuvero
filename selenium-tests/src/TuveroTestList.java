@@ -7,6 +7,7 @@ new Index(),
 new ListView(),
 new RankingOrderView(),
 new RankingView(),
+new TabMenuView(),
 new TACIndex(),
 new TestIndex(),
 new UnitTests()

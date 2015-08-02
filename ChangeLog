@@ -49,6 +49,10 @@
 
 	* selenium-tests/src/RankingView.java: testing RankingView
 
+	* selenium-tests/src/TabMenuView.java: testing TabMenuView
+
+	* test/tabmenuview.html: frequency of the periodically forbidden tab increased for faster UI tests
+
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/java/Makefile: paths adjusted
