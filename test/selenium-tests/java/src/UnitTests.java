@@ -19,8 +19,9 @@ class UnitTests implements TuveroTest {
     String numtotal = testresultElement.findElement(By.className("total"))
         .getText();
 
-    runner.equal(numfailed, "0", "all unit tests succeeded");
-    runner.notEqual(numtotal, "0", numtotal + " unit tests have been run");
+    runner.equal(Integer.decode(numfailed), 0, "all unit tests succeeded");
+    runner.notEqual(Integer.decode(numtotal), 0, numtotal
+        + " unit tests have been run");
 
     WebElement checkbox = driver.findElement(By.id("qunit-filter-pass"));
     checkbox.click();

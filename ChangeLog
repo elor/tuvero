@@ -4,6 +4,11 @@
 
 	* test/selenium-tests/java/src/TACIndex.java: chrome need to wait three seconds for the tac index for some reason
 
+	* test/selenium-tests/java/src/TuveroTestRunner.java: equal() and notEqual() use generic types
+	This ensures the same behaviour for String and integer comparison
+
+	* test/selenium-tests/java/src/UnitTests.java: comparing integer values of the unit test successes
+
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/java/Makefile: paths adjusted
