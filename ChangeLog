@@ -42,6 +42,8 @@
 
 	* selenium-tests/src/ListView.java: testing the ListView test page
 
+	* selenium-tests/src/RankingOrderView.java: testing the RankingOrderView
+
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/selenium-tests/java/Makefile: paths adjusted

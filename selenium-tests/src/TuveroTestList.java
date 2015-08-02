@@ -5,6 +5,7 @@ new BoxView(),
 new CheckBoxView(),
 new Index(),
 new ListView(),
+new RankingOrderView(),
 new TACIndex(),
 new TestIndex(),
 new UnitTests()
