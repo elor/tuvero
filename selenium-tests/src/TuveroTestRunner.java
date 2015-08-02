@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
@@ -16,6 +17,8 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.base.Function;
@@ -273,4 +276,29 @@ public class TuveroTestRunner {
 
     return true;
   }
+
+  /**
+   * sleep for an amount of time, in milliseconds, using Selenium Wait
+   * functionality. Maybe a Thread.sleep would have been faster, but it was fun
+   * writing it, and that's why I do it. Doesn't need to outperform other code
+   * anyway.
+   * 
+   * @param milliseconds
+   *          the amout of sleep, in milliseconds
+   */
+  public void sleepMilliSeconds(int milliseconds) {
+    Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(
+        100 + milliseconds * 2, TimeUnit.MILLISECONDS).pollingEvery(
+        milliseconds, TimeUnit.MILLISECONDS);
+    wait.until(new Function<WebDriver, Boolean>() {
+      private boolean val = true;
+
+      @Override
+      public Boolean apply(WebDriver driver) {
+        val = !val;
+        return val;
+      }
+    });
+  }
+
 }

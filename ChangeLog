@@ -30,8 +30,13 @@
 	* selenium-tests/: moved from tests/selenium-tests/java/
 
 	* selenium-tests/src/TuveroTestRunner.java: relative path to root directory adjusted
+	sleepMilliSeconds() function added
 
 	* test/selenium-tests/node/: removed in favor of the java version
+
+	* selenium-tests/src/CheckBoxView.java: CheckBoxView test added
+
+	* test/checkboxview.html: the checkbox is inside a span element, for consistency with the tuvero taboptions
 
 2015-08-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
