@@ -31,6 +31,7 @@
 
 	* selenium-tests/src/TuveroTestRunner.java: relative path to root directory adjusted
 	sleepMilliSeconds() function added
+	equal() and notEqual() can now handle null arguments
 
 	* test/selenium-tests/node/: removed in favor of the java version
 

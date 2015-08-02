@@ -224,7 +224,7 @@ public class TuveroTestRunner {
   }
 
   public <T> void equal(T result, T expectation, String message) {
-    if (result.equals(expectation)) {
+    if (result == null ? expectation == null : result.equals(expectation)) {
       System.out.println(" OK: " + message);
       successes++;
     } else {
@@ -236,7 +236,7 @@ public class TuveroTestRunner {
   }
 
   public <T> void notEqual(T result, T expectation, String message) {
-    if (result.equals(expectation)) {
+    if (result == null ? expectation == null : result.equals(expectation)) {
       System.out.println(" FAIL: " + message);
       System.out.println("  result (not expected): " + expectation);
       errors++;
