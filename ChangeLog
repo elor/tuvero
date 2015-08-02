@@ -35,6 +35,7 @@
 	* test/selenium-tests/node/: removed in favor of the java version
 
 	* selenium-tests/src/CheckBoxView.java: CheckBoxView test added
+	also testing clicks on the text right next to the checkbox
 
 	* test/checkboxview.html: the checkbox is inside a span element, for consistency with the tuvero taboptions
 
