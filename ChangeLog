@@ -32,6 +32,9 @@
 	* selenium-tests/src/TuveroTestRunner.java: relative path to root directory adjusted
 	sleepMilliSeconds() function added
 	equal() and notEqual() can now handle null arguments
+	navigate() works with hashes: it changes only the hash
+	navigate() prints the pageload status
+	navigate() detects timeouts and unwanted reloads
 
 	* test/selenium-tests/node/: removed in favor of the java version
 

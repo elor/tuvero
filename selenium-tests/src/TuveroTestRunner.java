@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -154,22 +155,46 @@ public class TuveroTestRunner {
     }
   }
 
-  WebDriver navigate(String relativeUrl) {
-    String fileURL = getURL(relativeUrl);
-    driver.get(fileURL);
+  WebDriver navigate(String relativeURL) {
+    String absoluteURL;
+    boolean reloadExpected = true;
 
-    WebDriverWait wait = new WebDriverWait(driver, 1);
-    wait.until(new Function<WebDriver, WebDriver>() {
-      @Override
-      public WebDriver apply(WebDriver driver) {
-        JavascriptExecutor jsExec = (JavascriptExecutor) driver;
-        if (jsExec.executeScript("return document.readyState").equals(
-            "complete")) {
-          return driver;
-        }
+    if (relativeURL.subSequence(0, 1).equals("#")) {
+      absoluteURL = driver.getCurrentUrl().replaceFirst("(#.*)?$", relativeURL);
+      reloadExpected = false;
+    } else {
+      absoluteURL = getURL(relativeURL);
+    }
+    driver.get(absoluteURL);
+
+    if (reloadExpected) {
+      WebDriverWait wait = new WebDriverWait(driver, 1);
+      try {
+        wait.until(new Function<WebDriver, WebDriver>() {
+          @Override
+          public WebDriver apply(WebDriver driver) {
+            JavascriptExecutor jsExec = (JavascriptExecutor) driver;
+            if (jsExec.executeScript("return document.readyState").equals(
+                "complete")) {
+              return driver;
+            }
+            return null;
+          }
+        });
+      } catch (TimeoutException t) {
+        ok(false, "pageload timed out for " + relativeURL);
         return null;
       }
-    });
+    } else {
+      JavascriptExecutor jsExec = (JavascriptExecutor) driver;
+      if (!jsExec.executeScript("return document.readyState")
+          .equals("complete")) {
+        ok(false, "hash-change caused an unexpected reload for " + relativeURL);
+        return null;
+      }
+    }
+
+    ok(true, "navigation successful: " + relativeURL);
 
     return driver;
   }
