@@ -6,7 +6,7 @@
 # primary build targets
 
 VERSION=$(shell cat Version)
-GITHEAD=$(shell git show-ref HEAD |sed -r -n 's/^([0-9a-f]{8}).*/\1/p')
+GITHEAD=$(shell git rev-parse HEAD | head -c8)
 
 build: clean
 	make templates scripts
