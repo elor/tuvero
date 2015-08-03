@@ -5,13 +5,17 @@
 
 # primary build targets
 
-build: lib scripts
-	make boule
-	make tac
-	make test
-	cp *.html build/
+VERSION=$(shell cat Version)
+GITHEAD=$(shell git show-ref HEAD |sed -r -n 's/^([0-9a-f]{8}).*/\1/p')
+
+build: clean
+	make templates scripts
+	make boule tac test build/index.html
 	./tools/write-manifest.sh build/
-	cp Version build/
+	cp -v Version build/
+
+build/index.html:
+	cp -v index.html build/
 
 tac: tac/index.html
 
@@ -20,7 +24,7 @@ boule: boule/index.html
 test: test/index.html
 
 clean: FORCE
-	rm -rfv build/
+	rm -rfv build/ dev/
 
 # primary global targets
 
@@ -58,6 +62,12 @@ clean-tools:
 
 release: FORCE
 	./tools/prepare-release.sh
+
+dev: clean
+	./tools/apply-version.sh $(VERSION)-$(GITHEAD)
+	make build
+	mv build dev
+	./tools/apply-version.sh $(VERSION)
 
 merge-master: FORCE
 	./tools/merge-master.sh

@@ -1,3 +1,9 @@
+2015-08-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* .gitignore: ignoring dev/
+
+	* Makefile: `make dev` added for dev-builds
+
 2015-08-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* test/boxview.html: adding '.generated' class to the generated boxview for easier debugging

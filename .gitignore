@@ -8,5 +8,6 @@ thumbs.db
 *~
 #*#
 build/
+dev/
 sprite_new.png
 node_modules/
