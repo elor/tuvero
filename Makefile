@@ -24,6 +24,7 @@ boule: boule/index.html
 test: test/index.html
 
 clean: FORCE
+	make -C selenium-tests/ clean
 	rm -rfv build/ dev/
 
 # primary global targets

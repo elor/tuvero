@@ -4,6 +4,9 @@
 
 	* Makefile: `make dev` added for dev-builds
 	using `git rev-parse` since `git show-ref` doesn't always work
+	`make clean` includes dev/ and selenium-tests (via make invocation)
+
+	* selenium-tests/Makefile: `make clean` removes lib/
 
 2015-08-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
