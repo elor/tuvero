@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,7 +33,7 @@ public class TuveroTestRunner {
    *          command line arguments
    */
   public static void main(String[] args) {
-    String browsers[] = { "firefox", "chrome" };
+    String browsers[] = { "firefox", "chrome", "internetexplorer" };
     int errors = 0;
     int successes = 0;
 
@@ -114,6 +115,9 @@ public class TuveroTestRunner {
         driver = new ChromeDriver();
       }
       break;
+    case "internetexplorer":
+      System.setProperty("webdriver.ie.driver", "lib/IEDriverServer.exe");
+      driver = new InternetExplorerDriver();
     case "firefox":
       driver = new FirefoxDriver();
       break;

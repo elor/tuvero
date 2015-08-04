@@ -10,6 +10,12 @@
 
 2015-08-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
+	* test/selenium-tests/update-selenium.sh: works with msysgit, i.e. under Windows (tested with Win7)
+
+	* test/selenium-tests/src/TuveroTestRunner.java: allowing the use of internet explorer
+
+2015-08-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
 	* test/boxview.html: adding '.generated' class to the generated boxview for easier debugging
 
 	* test/selenium-tests/java/src/TACIndex.java: chrome need to wait three seconds for the tac index for some reason
