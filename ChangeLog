@@ -1,3 +1,7 @@
+2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* selenium-tests/Makefile: auto-downloading libraries if necessary
+
 2015-08-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* .gitignore: ignoring dev/

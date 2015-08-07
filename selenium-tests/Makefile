@@ -2,6 +2,7 @@ all:
 	make test
 
 build: clean src/TuveroTestList.java
+	[ -f lib/selenium-server-standalone.jar ] || make lib
 	mkdir -p class/
 	javac -d class/ -classpath lib/selenium-server-standalone.jar src/*.java
 
