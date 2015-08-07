@@ -17,15 +17,14 @@ echo
 target=selenium-server-standalone
 repo=http://selenium-release.storage.googleapis.com/
 
-latest=$(curl -s "$repo" | grep -Po '[^>]*/'$target'-([0-9]+\.?)+\.jar' | tail -1)
+latest=$(curl -s "$repo" | sed -r -n 's/.*<Key>([^>]*\/'$target'-([0-9]+\.?)+\.jar)<\/Key>.*/\1/p' | tail -1)
 [ -n "$latest" ] || { echo "cannot read versions from repository">&2; exit 1; }
-version=$( grep -Po '^[^/]+' <<< "$latest")
 
-echo "downloading version $version from $repo"
+echo "downloading $repo$latest"
 
-wget -q $repo$latest
+curl -q $repo$latest -o $(basename "$latest")
 
-ln -s $target*.jar $target.jar
+mv -v $target*.jar $target.jar
 
 echo
 echo "$target download successful"
@@ -42,10 +41,10 @@ version=$(curl -s "$repo"LATEST_RELEASE)
 for sys in win32 linux64; do
 
     latest="$repo$version/$target"_$sys.zip
-    echo "downloading from $latest"
-    wget -q "$latest"
-
     file=$(basename "$latest")
+    echo "downloading from $latest"
+    curl -q "$latest" -o "$file"
+
     echo "extracting $file"
     unzip $file
 done
