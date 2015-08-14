@@ -117,6 +117,7 @@ define([
   'ui/binarytreemodel',
   'ui/boxcontroller',
   'ui/boxview',
+  'ui/browserinfoview',
   'ui/browser',
   'ui/checkboxcontroller',
   'ui/checkboxview',
