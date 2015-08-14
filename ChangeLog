@@ -23,6 +23,8 @@
 
 	* lib/object-create-polyfill.js: polyfill for Object.create
 
+	* legacy/scripts/ui/browser.js: Browser identification capabilities added
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary
