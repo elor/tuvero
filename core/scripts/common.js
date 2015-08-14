@@ -18,6 +18,7 @@ define([
   'lib/FileSaver',
   'lib/jquery',
   'lib/modernizr',
+  'lib/object-create-polyfill',
   'lib/typeahead',
   'core/absolutematrix',
   'core/antisymmetricmatrixmodel',

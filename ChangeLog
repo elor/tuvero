@@ -21,6 +21,8 @@
 
 	* lib/jquery.js: reverted to version 1
 
+	* lib/object-create-polyfill.js: polyfill for Object.create
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary
