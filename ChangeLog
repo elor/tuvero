@@ -33,6 +33,7 @@
 	typo fixed: IE -> MSIE
 
 	* core/templates/splash.html: oldinternetexplorer text added
+	Splash screen texts condensed
 
 	* legacy/scripts/ui/splash.js: oldIE() function added to show oldinternetexplorer text
 
