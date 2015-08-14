@@ -14,6 +14,8 @@
 
 	* tools/install-libs.sh: auto-updating es5-shim
 
+	* legacy/scripts/ui/debugtab.js: replacement for Tab_Debug started
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary
