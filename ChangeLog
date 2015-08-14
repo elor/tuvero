@@ -8,6 +8,8 @@
 
 	* tools/write-mainstyle.sh: loading files from the lib/ directory, too
 
+	* tools/create-commonjs.sh: libraries are loaded first
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary

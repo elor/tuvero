@@ -8,7 +8,7 @@ backenddir=legacy/scripts/backend
 libdir=lib
 
 printrefs(){
-    ( cd $2 && find * -type f -name '*.js' | sed -e 's/^/  '"'"$1'\//' -e 's/.js$/'"'"',/' | sed -e '/core\/common/d' -e '/core\/config/d' -e '/core\/main/d' -e '/\/test\//d' )
+    ( cd $2 && find * -type f -name '*.js' | sort | sed -e 's/^/  '"'"$1'\//' -e 's/.js$/'"'"',/' | sed -e '/core\/common/d' -e '/core\/config/d' -e '/core\/main/d' -e '/\/test\//d' )
 }
 
 cat <<EOF > core/scripts/common.js
@@ -25,9 +25,9 @@ cat <<EOF > core/scripts/common.js
  */
 
 define([
+$(printrefs lib $libdir)
 $(printrefs core $coredir)
 $(printrefs backend $backenddir)
-$(printrefs lib $libdir)
 $(printrefs ui $uidir | sed '$s/,$//')
 ], function(undefined) {
   return function(str) {
