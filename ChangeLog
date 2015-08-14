@@ -28,6 +28,7 @@
 	* legacy/scripts/ui/browser.js: Browser identification capabilities added
 
 	* core/scripts/main.js: aborting on old internet explorer
+	typo fixed: IE -> MSIE
 
 	* core/templates/splash.html: oldinternetexplorer text added
 

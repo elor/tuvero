@@ -48,7 +48,7 @@ require([ 'core/config', 'core/common' ], function() {
     $(function() {
 
       // TODO move to another function
-      if (Browser.name === "IE" && Browser.version < 9) {
+      if (Browser.name === "MSIE" && Browser.version < 9) {
         Splash.oldIE();
         return;
       }
