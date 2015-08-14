@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define([ 'jquery' ], function($) {
+define([ 'jquery', 'ui/browser' ], function($, Browser) {
   var Splash;
 
   Splash = {
@@ -28,6 +28,12 @@ define([ 'jquery' ], function($) {
     }
 
     $splash = $('#splash');
+
+    // TODO move to another function
+    if (Browser.name == "MSIE" && Browser.version < 9) {
+      Splash.oldIE();
+      return;
+    }
 
     setState('starting');
 
