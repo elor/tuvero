@@ -24,14 +24,8 @@
   height: 5em;
 }
 
-#splash.loading .loading,
-#splash.starting .starting,
-#splash.restoring .restoring,
-#splash.update .update,
-#splash.ready .ready,
-#splash.error .error,
-#splash.loaderror .loaderror {
-	white-space: normal;
+#splash.loading .loading, #splash.starting .starting, #splash.restoring .restoring, #splash.update .update, #splash.ready .ready, #splash.error .error, #splash.oldinternetexplorer .oldinternetexplorer, #splash.loaderror .loaderror {
+  white-space: normal;
   display: block;
 }
 

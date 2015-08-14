@@ -1,20 +1,20 @@
 /**
  * Manage the state and visibility of the splash screen
- *
+ * 
  * @return Splash
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-define(['jquery'], function($) {
+define([ 'jquery' ], function($) {
   var Splash;
 
   Splash = {
-    hide: function() {
+    hide : function() {
       console.error('Splash.hide() called before pageload');
     },
-    loading: function() {
+    loading : function() {
       console.error('Splash.loading() called before pageload');
     }
   };
@@ -53,6 +53,10 @@ define(['jquery'], function($) {
     Splash.error = function() {
       setState('error');
     };
+
+    Splash.oldIE = function() {
+      setState('oldinternetexplorer');
+    }
   });
 
   return Splash;

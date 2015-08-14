@@ -27,6 +27,14 @@
 
 	* legacy/scripts/ui/browser.js: Browser identification capabilities added
 
+	* core/scripts/main.js: aborting on old internet explorer
+
+	* core/templates/splash.html: oldinternetexplorer text added
+
+	* legacy/scripts/ui/splash.js: oldIE() function added to show oldinternetexplorer text
+
+	* legacy/style/splash.css: oldinternetexplorer rules added
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary

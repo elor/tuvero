@@ -1,19 +1,19 @@
 /**
  * Shared main file. loads the shared config and modules and manages the program
  * startup and splash screen. A complete rewrite is necessary.
- *
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-require(['core/config', 'core/common'], function() {
+require([ 'core/config', 'core/common' ], function() {
   /**
    * error callback function
-   *
+   * 
    * @param err
    *          an object containing the type and position of the error
-   *
+   * 
    */
   function notifyAboutLoadError(err) {
     console.log(err);
@@ -31,11 +31,12 @@ require(['core/config', 'core/common'], function() {
 
   function Main() {
     // FIXME reduce to one var statement. This function is too long anyhow
-    var Update, Splash, Toast, Strings, Storage;
+    var Update, Splash, Toast, Strings, Storage, Browser;
     var TeamToastsListener;
 
-    Update = require('ui/update');
+    Browser = require('ui/browser');
     Splash = require('ui/splash');
+    Update = require('ui/update');
     Toast = require('ui/toast');
     Strings = require('ui/strings');
     Storage = require('ui/storage');
@@ -45,6 +46,12 @@ require(['core/config', 'core/common'], function() {
     // been set
     // up, hence the jquery function.
     $(function() {
+
+      // TODO move to another function
+      if (Browser.name === "IE" && Browser.version < 9) {
+        Splash.oldIE();
+        return;
+      }
 
       // try {
       // NOT actively looking for updates. The events are handled
