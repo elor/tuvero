@@ -13,10 +13,13 @@
 	* lib/es5-shim.js: ECMAScript 5 polyfill, mainly for for IE8
 
 	* tools/install-libs.sh: auto-updating es5-shim
+	explicitly using version 1 of jquery (IE-compatible)
 
 	* legacy/scripts/ui/debugtab.js: replacement for Tab_Debug started
 
 	* Makefile: `make dev` doesn't reset the dev-index to the original version
+
+	* lib/jquery.js: reverted to version 1
 
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
