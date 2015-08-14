@@ -9,4 +9,12 @@ output=mainstyle.css
 
 cd $dir
 
-find * ../../legacy/style/* -not -path $output | sed -e 's/^/@import url("/' -e 's/$/");/' > $output
+findcss(){
+    find $@ -not -path ./$output -not -path $output -name '*.css' | sort
+}
+
+{
+    findcss ../../lib/
+    findcss *
+    findcss ../../legacy/style/
+} | sed -e 's_^./__' -e 's/^/@import url("/' -e 's/$/");/' > $output
