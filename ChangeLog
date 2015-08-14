@@ -19,6 +19,7 @@
 	* legacy/scripts/ui/debugtab.js: replacement for Tab_Debug started
 	showing browser name and version
 	clear all-button works
+	showing all loaded images
 
 	* Makefile: `make dev` doesn't reset the dev-index to the original version
 
@@ -39,6 +40,8 @@
 	* legacy/scripts/ui/splash.js: oldIE() function added to show oldinternetexplorer text
 
 	* legacy/style/splash.css: oldinternetexplorer rules added
+
+	* legacy/scripts/ui/loadedimagesview.js: a View which locates and displays all images
 
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
