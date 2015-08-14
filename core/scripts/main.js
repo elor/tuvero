@@ -48,7 +48,13 @@ require([ 'core/config', 'core/common' ], function() {
     $(function() {
 
       // TODO move to another function
-      if (Browser.name === "MSIE" && Browser.version < 9) {
+      console.log('Opening Tuvero with "' + Browser.name + '", version "'
+          + Browser.version + '"');
+      console.log('name === "MSIE" : ' + (Browser.name == "MSIE"));
+      console.log('version < 9 : ' + (Browser.version < 9));
+
+      // TODO move to another function
+      if (Browser.name == "MSIE" && Browser.version < 9) {
         Splash.oldIE();
         return;
       }
