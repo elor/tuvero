@@ -7,47 +7,64 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
-  var Browser, sayswho
-
-  /**
-   * original code copied from:
-   * http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
-   */
-  sayswho = (function() {
-    var ua = navigator.userAgent, tem, M = ua
-        .match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i)
-        || [];
-    if (/trident/i.test(M[1])) {
-      tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-      return 'IE ' + (tem[1] || '');
-    }
-    if (M[1] === 'Chrome') {
-      tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
-      if (tem != null)
-        return tem.slice(1).join(' ').replace('OPR', 'Opera');
-    }
-    M = M[2] ? [ M[1], M[2] ]
-        : [ navigator.appName, navigator.appVersion, '-?' ];
-    if ((tem = ua.match(/version\/(\d+)/i)) != null)
-      M.splice(1, 1, tem[1]);
-    return M.join(' ');
-  })();
+define([ './backgroundscripts/online', './update' ], function(Online, Update) {
+  var Browser;
 
   Browser = {
-    name : sayswho.match(/^\S+/)[0],
-    version : sayswho.match(/\S+$/)[0]
+    name : undefined,
+    version : undefined,
+    online : undefined,
+    cached : undefined,
+    local : undefined
   };
 
-  if (Browser.name === 'undefined') {
-    Browser.name = undefined;
-  }
+  Browser.update = function() {
+    /**
+     * original code copied from:
+     * http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
+     */
+    sayswho = (function() {
+      var ua, tem, M, regex;
 
-  if (Browser.version === 'undefined') {
-    Browser.version = undefined;
-  } else {
-    Browser.version = Number(Browser.version);
-  }
+      ua = navigator.userAgent;
+      regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i;
+      M = ua.match(regex) || [];
+      if (/trident/i.test(M[1])) {
+        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE ' + (tem[1] || '');
+      }
+      if (M[1] === 'Chrome') {
+        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if (tem != null)
+          return tem.slice(1).join(' ').replace('OPR', 'Opera');
+      }
+      M = M[2] ? [ M[1], M[2] ] : [ navigator.appName, navigator.appVersion,
+          '-?' ];
+      if ((tem = ua.match(/version\/(\d+)/i)) != null)
+        M.splice(1, 1, tem[1]);
+      return M.join(' ');
+    })();
 
-  return Browser
+    Browser.name = sayswho.match(/^\S+/)[0];
+    if (Browser.name === 'undefined') {
+      Browser.name = undefined;
+    }
+
+    Browser.version = sayswho.match(/\S+$/)[0];
+    if (Browser.version === 'undefined') {
+      Browser.version = undefined;
+    } else {
+      Browser.version = Number(Browser.version);
+    }
+
+    Browser.online = Online();
+
+    Browser.cached = Update.isCached;
+
+    Browser.local = document.location.protocol === 'file:';
+
+    return Browser;
+  };
+
+  return Browser.update();
 });

@@ -30,6 +30,8 @@
 	* legacy/scripts/ui/browser.js: Browser identification capabilities added
 	regex typo fixed
 	debugging output: browser name and version
+	update() function added
+	also collects the online, local and cached information
 
 	* core/scripts/main.js: aborting on old internet explorer
 	typo fixed: IE -> MSIE
@@ -42,6 +44,8 @@
 	* legacy/style/splash.css: oldinternetexplorer rules added
 
 	* legacy/scripts/ui/loadedimagesview.js: a View which locates and displays all images
+
+	* legacy/scripts/ui/backgroundscripts/online.js: don't manage the update button anymore
 
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -54,24 +54,6 @@ define(['jquery', '../strings', '../update'], function($, Strings, Update) {
       // let it reload
       return undefined;
     });
-
-    $('#onlinecheck').click(function(e) {
-      if (Online()) {
-        $(e.target).addClass('online').text('online');
-      } else {
-        $(e.target).removeClass('online').text('OFFLINE');
-      }
-
-      $(e.target).text($(e.target).text() + ', ');
-
-      if (Update.isCached) {
-        $(e.target).text($(e.target).text() + 'cached');
-      } else if (document.location.protocol === 'file:') {
-        $(e.target).text($(e.target).text() + 'local file');
-      } else {
-        $(e.target).text($(e.target).text() + 'NOT CACHED');
-      }
-    }).click();
   });
 
   return Online;
