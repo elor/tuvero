@@ -31,7 +31,7 @@ define([ 'jquery', 'ui/browser' ], function($, Browser) {
 
     // TODO move to another function
     if (Browser.name == "MSIE" && Browser.version < 9) {
-      Splash.oldIE();
+      setState('oldinternetexplorer');
       return;
     }
 
@@ -59,10 +59,6 @@ define([ 'jquery', 'ui/browser' ], function($, Browser) {
     Splash.error = function() {
       setState('error');
     };
-
-    Splash.oldIE = function() {
-      setState('oldinternetexplorer');
-    }
   });
 
   return Splash;
