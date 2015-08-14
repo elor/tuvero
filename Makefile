@@ -59,7 +59,7 @@ codestyle: scripts
 # secondary global targets
 
 clean-tools:
-	rm -rf Makefile tools/ .jslintrc .jshintrc
+	rm -rf Makefile tools/ .jslintrc .jshintrc .travis.yml
 
 release: FORCE
 	./tools/prepare-release.sh

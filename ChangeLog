@@ -25,6 +25,7 @@
 	using BrowserInfoView for browser information
 
 	* Makefile: `make dev` doesn't reset the dev-index to the original version
+	removing the travis config file for releases
 
 	* lib/jquery.js: reverted to version 1
 
