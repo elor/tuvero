@@ -10,6 +10,10 @@
 
 	* tools/create-commonjs.sh: libraries are loaded first
 
+	* lib/es5-shim.js: ECMAScript 5 polyfill, mainly for for IE8
+
+	* tools/install-libs.sh: auto-updating es5-shim
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary

@@ -17,7 +17,7 @@ fi
 
 [ -d lib/ ] || { echo "cannot find lib/ folder">&2; exit 1; }
 
-libs="Blob extend FileSaver jquery jsdiff"
+libs="Blob extend FileSaver jquery jsdiff normalize.css es5-shim"
 #libs="$libs modernizr typeahead.js" # modernizr and typeahead have some strange version conflicts. Need to investigate
 
 echo
@@ -34,20 +34,22 @@ echo
 
 
 libfiles=$(for f in bower_components/*; do
-	libname=${f#bower_components/}
-	libname=${libname%.js}
-	libname=${libname#js}
-	path=$(find $f -type f -name $libname.min.js)
-	[ -z "$path" ] && path=$(find $f -type f -name $libname.js)
-	echo $path
-done)
+	  libname=${f#bower_components/}
+	  libname=${libname%.js}
+	  libname=${libname%.css}
+	  libname=${libname#js}
+	  path=$(find $f -type f -name $libname.min.js)
+	  [ -z "$path" ] && path=$(find $f -type f -name $libname.js)
+    [ -z "$path" ] && path=$(find $f -type f -name $libname.css)
+	  echo $path
+    done)
 
 [ -n "$libfiles" ] || { echo "cannot find library files">&2; exit 1; }
 
 for filename in $libfiles; do
-	target=$(basename $filename)
-	target=${target/.min./.}
-	mv -v $filename lib/$target
+	  target=$(basename $filename)
+	  target=${target/.min./.}
+	  mv -v $filename lib/$target
 done
 
 # TODO: also copy the license files
