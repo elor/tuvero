@@ -68,7 +68,9 @@ dev: clean
 	./tools/apply-version.sh $(VERSION)-$(GITHEAD)
 	make build
 	mv build dev
+	mv dev/index.html dev/index.html.bak
 	./tools/apply-version.sh $(VERSION)
+	mv dev/index.html.bak dev/index.html
 
 merge-master: FORCE
 	./tools/merge-master.sh

@@ -16,6 +16,8 @@
 
 	* legacy/scripts/ui/debugtab.js: replacement for Tab_Debug started
 
+	* Makefile: `make dev` doesn't reset the dev-index to the original version
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary
