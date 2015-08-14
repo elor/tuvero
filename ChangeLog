@@ -18,6 +18,7 @@
 
 	* legacy/scripts/ui/debugtab.js: replacement for Tab_Debug started
 	showing browser name and version
+	clear all-button works
 
 	* Makefile: `make dev` doesn't reset the dev-index to the original version
 
