@@ -51,6 +51,11 @@ require([ 'core/config', 'core/common' ], function() {
       // NOT actively looking for updates. The events are handled
       // automatically
       // Update();
+      
+      if (!Splash.valid) {
+        console.error('Splash screen indicates browser incompatibilities');
+        return;
+      } 
 
       Storage.enable();
 

@@ -36,6 +36,8 @@ define([ 'jquery', 'ui/browser' ], function($, Browser) {
     }
 
     setState('starting');
+    
+    Splash.valid = true;
 
     Splash.loading = function() {
       setState('restoring');
