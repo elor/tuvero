@@ -1,20 +1,19 @@
 /**
- *
+ * 
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
-		'core/valuemodel', './checkboxview', 'core/classview', 'options',
-		'./tournamentrankingview'], function(extend, $, View, ListView, State,
-		ValueModel, ClassView, Options, TournamentRankingView) {
+define([ 'lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
+		'./browser' //
+], function(extend, $, View, ValueModel, ValueView, Browser) {
 	/**
 	 * represents a whole team tab
-	 *
+	 * 
 	 * TODO write a TabView superclass with common functions
-	 *
+	 * 
 	 * TODO isolate common tab-related function
-	 *
+	 * 
 	 * @param $tab
 	 *            the tab DOM element
 	 */
@@ -27,11 +26,25 @@ define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
 
 	/**
 	 * initialize the tab functionality
-	 *
+	 * 
 	 * TODO maybe split it into multiple autodetected functions?
 	 */
 	DebugTab.prototype.init = function() {
 		var $container, value;
+
+		/*
+		 * show browser name
+		 */
+		value = new ValueModel(Browser.name);
+		$container = this.$view.find('.browser .name');
+		this.browserNameView = new ValueView(value, $container);
+
+		/*
+		 * show browser version
+		 */
+		value = new ValueModel(Browser.version);
+		$container = this.$view.find('.browser .version');
+		this.browserVersionView = new ValueView(value, $container);
 
 		// TODO clear all
 

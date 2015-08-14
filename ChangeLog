@@ -17,6 +17,7 @@
 	explicitly using version 1 of jquery (IE-compatible)
 
 	* legacy/scripts/ui/debugtab.js: replacement for Tab_Debug started
+	showing browser name and version
 
 	* Makefile: `make dev` doesn't reset the dev-index to the original version
 
