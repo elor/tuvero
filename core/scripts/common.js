@@ -13,10 +13,8 @@
 define([
   'lib/Blob',
   'lib/diff',
-  'lib/es5-shim',
   'lib/extend',
   'lib/FileSaver',
-  'lib/ie8-polyfills',
   'lib/jquery',
   'lib/modernizr',
   'lib/typeahead',

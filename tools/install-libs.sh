@@ -4,6 +4,9 @@
 
 set -e -u
 
+libs="Blob extend FileSaver jquery#1 jsdiff normalize.css"
+#libs="$libs modernizr typeahead.js" # modernizr and typeahead have some strange version conflicts. Need to investigate
+
 bower=bower
 if ! which $bower > /dev/null; then
     bower=./node_modules/bower/bin/bower
@@ -16,9 +19,6 @@ if ! which $bower > /dev/null; then
 fi
 
 [ -d lib/ ] || { echo "cannot find lib/ folder">&2; exit 1; }
-
-libs="Blob extend FileSaver jquery#1 jsdiff normalize.css es5-shim"
-#libs="$libs modernizr typeahead.js" # modernizr and typeahead have some strange version conflicts. Need to investigate
 
 echo
 echo "Downloading libraries..."
