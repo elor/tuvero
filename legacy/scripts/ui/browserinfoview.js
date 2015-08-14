@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define([ 'lib/extend', 'core/view', './browser' ], function(extend, View,
-    Browser) {
+define([ 'lib/extend', 'core/view', './browser', './toast',
+    './browserinfocontroller' ], function(extend, View, Browser, Toast,
+    BrowserInfoController) {
   /**
    * Constructor
    */
@@ -19,6 +20,8 @@ define([ 'lib/extend', 'core/view', './browser' ], function(extend, View,
     this.$online = this.$view.find('.online');
     this.$local = this.$view.find('.local');
     this.$cached = this.$view.find('.cached');
+
+    this.controller = new BrowserInfoController(this);
 
     this.update();
   }
@@ -33,6 +36,11 @@ define([ 'lib/extend', 'core/view', './browser' ], function(extend, View,
     this.$local.text(Browser.local);
     this.$cached.text(Browser.cached);
   };
+
+  BrowserInfoView.prototype.onupdate = function() {
+    this.update();
+    new Toast('update');
+  }
 
   return BrowserInfoView;
 });

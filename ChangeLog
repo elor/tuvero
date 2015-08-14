@@ -5,6 +5,7 @@
 	* core/templates/debugtab.html: number of buttons reduced. not all of them make sense anymore
 	browser information box added
 	table with browser information
+	browserinfo update button: #update -> .update
 
 	* lib/normalize.css: library for style normalization across browsers
 
@@ -50,8 +51,11 @@
 	* legacy/scripts/ui/backgroundscripts/online.js: don't manage the update button anymore
 
 	* legacy/scripts/ui/browserinfoview.js: display browser identification and status
+	using the BrowserInfoController
 
 	* tools/create-ui-class.sh: using the correct core directory
+
+	* legacy/scripts/ui/browserinfocontroller.js: browser info update button works
 
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
