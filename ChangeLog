@@ -3,6 +3,7 @@
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
 
 	* core/templates/debugtab.html: number of buttons reduced. not all of them make sense anymore
+	browser information box added
 
 	* lib/normalize.css: library for style normalization across browsers
 
