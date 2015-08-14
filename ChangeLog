@@ -26,6 +26,8 @@
 	* lib/object-create-polyfill.js: polyfill for Object.create
 
 	* legacy/scripts/ui/browser.js: Browser identification capabilities added
+	regex typo fixed
+	debugging output: browser name and version
 
 	* core/scripts/main.js: aborting on old internet explorer
 	typo fixed: IE -> MSIE

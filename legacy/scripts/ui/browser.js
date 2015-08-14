@@ -49,5 +49,7 @@ define(function() {
     Browser.version = Number(Browser.version);
   }
 
+  console.log('Opening Tuvero with ' + Browser.name + ' , version '
+      + Browser.version);
   return Browser
 });
