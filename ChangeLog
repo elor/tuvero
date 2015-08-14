@@ -2,6 +2,8 @@
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
 
+	* core/templates/debugtab.html: number of buttons reduced. not all of them make sense anymore
+
 2015-08-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* selenium-tests/Makefile: auto-downloading libraries if necessary
