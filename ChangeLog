@@ -10,6 +10,8 @@
 
 	* legacy/style/teams.css: showing deletion prompt only in deletion mode
 
+	* legacy/scripts/ui/teamremovecontroller.js: showing deletion toast in deletion mode (secondary deletion prompt)
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment

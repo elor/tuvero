@@ -5,9 +5,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'core/valuemodel', './listclickcontroller',
-    'core/classview', 'core/view'], function(extend, Controller, ValueModel,
-    ListClickController, ClassView, View) {
+define([ 'lib/extend', 'core/controller', 'core/valuemodel',
+    './listclickcontroller', 'core/classview', 'core/view', './toast',
+    './strings', 'core/listener' ], function(extend, Controller, ValueModel,
+    ListClickController, ClassView, View, Toast, Strings, Listener) {
 
   /**
    * Constructor
@@ -19,6 +20,9 @@ define(['lib/extend', 'core/controller', 'core/valuemodel', './listclickcontroll
 
     this.views = views;
     active = new ValueModel(false);
+
+    this.toast = undefined;
+    this.initToast(active);
 
     this.clickControllers = this.views.map(function(view) {
       var options;
@@ -54,6 +58,22 @@ define(['lib/extend', 'core/controller', 'core/valuemodel', './listclickcontroll
   }
 
   extend(TeamRemoveController, Controller);
+
+  TeamRemoveController.prototype.initToast = function(active) {
+    Listener.bind(active, 'update', function() {
+      if (active.get()) {
+        if (this.toast === undefined) {
+          this.toast = new Toast(Strings.teamdeleteprompt, Toast.INFINITE);
+        } else {
+          this.toast.display();
+        }
+      } else {
+        if (this.toast) {
+          this.toast.close();
+        }
+      }
+    }, this);
+  };
 
   /**
    * remove a team from the list of teams
