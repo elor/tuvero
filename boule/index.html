@@ -774,9 +774,14 @@
             dem Schließen und Öffnen des Browsers wieder hergestellt.
           </p>
           <div class="local">
-            <button class="save">
+            <button class="savestate">
               Manuell Speichern
             </button>
+            <p>
+              Zuletzt gespeichert:
+              <br>
+              <span class="savedate">%% %%</span>
+            </p>
             <button class="clear" tabindex="-1">
               Turnier löschen
             </button>
@@ -788,15 +793,20 @@
             <span>Spielerdatenbank</span>
             <br>
             <meter class="tournamentstoragemeter" min="0" max="5.0" value="0.0"></meter>
-            <span>Turnierdatenbank</span>          </div>
+            <span>Turnierdatenbank</span>
+          </div>
 
         </div>
 
         <div class="boxview">
           <h3>Entwicklerwerkzeuge</h3>
           <div class="devel">
-            <a href="../test/index.html" target="_blank" data-img="test"><br>Tuvero Test</a>
-            <a href="#debug" data-img="debug"><br>Dev Console</a>
+            <a href="../test/index.html" target="_blank" data-img="test">
+            <br>
+            Tuvero Test</a>
+            <a href="#debug" data-img="debug">
+            <br>
+            Dev Console</a>
           </div>
         </div>
 

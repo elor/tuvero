@@ -89,7 +89,7 @@ define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
    * store everything
    */
   Storage.store = function() {
-    var key;
+    var key, date, datestring;
 
     for (key in keys) {
       if (savespending[key] !== true) {
@@ -103,7 +103,13 @@ define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
       }
     }
 
-    Storage.lastSaved.set(new Date());
+    date = new Date();
+    datestring = date.getFullYear() + "-" + (date.getMonth() + 1).toString().replace(/^(.)$/, "0$1") + "-"
+        + date.getDate().toString().replace(/^(.)$/, "0$1");
+    datestring += " ";
+    datestring += date.getHours() + ":" + date.getMinutes() + ":"
+        + date.getSeconds();
+    Storage.lastSaved.set(datestring);
 
     return true;
   };

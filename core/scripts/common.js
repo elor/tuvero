@@ -160,6 +160,7 @@ define([
   'ui/rankingtab',
   'ui/rankingview',
   'ui/roundtournamentview',
+  'ui/settingstab',
   'ui/splash',
   'ui/stateclassview',
   'ui/state',
