@@ -104,11 +104,18 @@ define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
     }
 
     date = new Date();
-    datestring = date.getFullYear() + "-" + (date.getMonth() + 1).toString().replace(/^(.)$/, "0$1") + "-"
-        + date.getDate().toString().replace(/^(.)$/, "0$1");
+    datestring = "";
+    datestring += date.getFullYear();
+    datestring += "-";
+    datestring += (date.getMonth() + 1).toString().replace(/^(.)$/, "0$1");
+    datestring += "-";
+    datestring += date.getDate().toString().replace(/^(.)$/, "0$1");
     datestring += " ";
-    datestring += date.getHours() + ":" + date.getMinutes() + ":"
-        + date.getSeconds();
+    datestring += date.getHours().toString().replace(/^(.)$/, "0$1");
+    datestring += ":";
+    datestring += date.getMinutes().toString().replace(/^(.)$/, "0$1");
+    datestring += ":";
+    datestring += date.getSeconds().toString().replace(/^(.)$/, "0$1");
     Storage.lastSaved.set(datestring);
 
     return true;

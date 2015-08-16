@@ -42,6 +42,7 @@
 	Show when the state was last saved to storage
 
 	* legacy/scripts/ui/storage.js: formatting savedate
+	date format includes leading zeroes for the hours, minutes and seconds
 
 	* core/templates/swissoptions.html: "Begegnungen setzen": Checkbox is on the left of the text
 
