@@ -27,6 +27,8 @@
 
 	* tac/templates/newtabtodo.html: removed
 
+	* legacy/scripts/ui/tournamentcontroller.js: showing namechange info toast when changing subtournament name
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment

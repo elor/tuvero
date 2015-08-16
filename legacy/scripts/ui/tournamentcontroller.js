@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/controller', './toast', './strings'], //
+define([ 'lib/extend', 'jquery', 'core/controller', './toast', './strings' ], //
 function(extend, jquery, Controller, Toast, Strings) {
   /**
    * Constructor
@@ -20,6 +20,8 @@ function(extend, jquery, Controller, Toast, Strings) {
 
     tournament = this.model.tournament;
     rankingOrder = this.model.rankingOrder;
+
+    this.toast = undefined;
 
     this.$runbutton = this.view.$view.find('button.runtournament');
     this.$toptitle = this.view.$view.find('>h3:first-child');
@@ -64,6 +66,12 @@ function(extend, jquery, Controller, Toast, Strings) {
     this.$toptitle.addClass('rename');
     this.$nameinput.focus();
     this.$nameinput.select();
+
+    if (this.toast) {
+      this.toast.display();
+    } else {
+      this.toast = new Toast(Strings.namechangeprompt, Toast.INFINITE);
+    }
   };
 
   TournamentController.prototype.closeNameInput = function() {
@@ -79,6 +87,8 @@ function(extend, jquery, Controller, Toast, Strings) {
       new Toast(Strings.namechangeaborted);
     }
     this.$toptitle.removeClass('rename');
+
+    this.toast.close();
   };
 
   return TournamentController;
