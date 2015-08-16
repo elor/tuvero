@@ -7,7 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller'], function(extend, Controller) {
+define([ 'lib/extend', 'core/controller', './toast', './strings' ], function(
+    extend, Controller, Toast, Strings) {
   /**
    * Constructor
    *
@@ -21,6 +22,8 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
 
     this.view.$view
         .on('click', '.name', this, TeamNameController.onNameClicked);
+
+    this.toast = undefined;
 
     this.hideInputField();
   }
@@ -62,6 +65,12 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
     this.$input.val(player.getName());
     $name.text('').append(this.$input);
     this.$input.focus();
+
+    if (this.toast) {
+      this.toast.display();
+    } else {
+      this.toast = new Toast(Strings.namechangeprompt, Toast.INFINITE);
+    }
   };
 
   /**
@@ -85,6 +94,10 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
         }
         // TODO show a Toast on success and failure
       }
+    }
+
+    if (this.toast) {
+      this.toast.close();
     }
   };
 

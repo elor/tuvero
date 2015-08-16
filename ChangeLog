@@ -16,6 +16,8 @@
 
 	* legacy/style/general.css: removed all padding around input elements
 
+	* legacy/scripts/ui/teamnamecontroller.js: namechange prompt toast added while namechange mode is active
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
