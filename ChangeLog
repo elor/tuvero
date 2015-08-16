@@ -18,6 +18,14 @@
 
 	* legacy/scripts/ui/teamnamecontroller.js: namechange prompt toast added while namechange mode is active
 
+	* core/templates/newtab.html: missing input elements added
+	todo box removed
+	maastricht box removed
+
+	* core/templates/newtabtodo.html: removed
+
+	* tac/templates/newtabtodo.html: removed
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
