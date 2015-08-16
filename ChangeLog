@@ -36,6 +36,7 @@
 	storage meters removed
 	"load autocompletion file" dialog removed. Wasn't useful anyway
 	"nojson" removed. There's a polyfill for that, and we don't support such old browsers anyway.
+	link to the unit tests removed. Use the main index to reach them.
 
 	* legacy/scripts/ui/settingstab.js: SettingsTab
 	Show when the state was last saved to storage
