@@ -1,3 +1,7 @@
+2015-08-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/toast.js: Toast rewritten to ensure correct close() behaviour
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
