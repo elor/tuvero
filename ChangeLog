@@ -34,6 +34,7 @@
 
 	* core/templates/settingstab.html: savedate information added
 	storage meters removed
+	"load autocompletion file" dialog removed. Wasn't useful anyway
 
 	* legacy/scripts/ui/settingstab.js: SettingsTab
 	Show when the state was last saved to storage
