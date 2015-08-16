@@ -12,6 +12,10 @@
 
 	* legacy/scripts/ui/teamremovecontroller.js: showing deletion toast in deletion mode (secondary deletion prompt)
 
+	* core/style/fontsize.css: input element font size has been increased by ~50%
+
+	* legacy/style/general.css: removed all padding around input elements
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment

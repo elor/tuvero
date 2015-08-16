@@ -46,7 +46,7 @@ div, button {
   display: none;
 }
 
-#tabs>[data-tab="teams"] div.teamno, .matchview .teamno, .voteview .teamno {
+#tabs > [data-tab="teams"] div.teamno, .matchview .teamno, .voteview .teamno {
   width: 1.5em;
   height: 1.5em;
   font-size: 200%;
@@ -61,6 +61,10 @@ div, button {
   font-size: 80%;
   vertical-align: top;
   content: '!';
+}
+
+input {
+  padding: 0px;
 }
 
 @media print {
