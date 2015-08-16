@@ -1,6 +1,6 @@
 /**
  * Manage the state and visibility of the splash screen
- * 
+ *
  * @return Splash
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -36,7 +36,7 @@ define([ 'jquery', 'ui/browser' ], function($, Browser) {
     }
 
     setState('starting');
-    
+
     Splash.valid = true;
 
     Splash.loading = function() {

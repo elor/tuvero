@@ -1,19 +1,19 @@
 /**
  * Shared main file. loads the shared config and modules and manages the program
  * startup and splash screen. A complete rewrite is necessary.
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
 
-require([ 'core/config', 'core/common' ], function() {
+require(['core/config', 'core/common'], function() {
   /**
    * error callback function
-   * 
+   *
    * @param err
    *          an object containing the type and position of the error
-   * 
+   *
    */
   function notifyAboutLoadError(err) {
     console.log(err);
@@ -26,6 +26,7 @@ require([ 'core/config', 'core/common' ], function() {
       $splash = $('#splash');
       $splash.removeClass();
       $splash.addClass('loaderror');
+      $('#tabs').hide();
     });
   }
 
@@ -51,11 +52,11 @@ require([ 'core/config', 'core/common' ], function() {
       // NOT actively looking for updates. The events are handled
       // automatically
       // Update();
-      
+
       if (!Splash.valid) {
         console.error('Splash screen indicates browser incompatibilities');
         return;
-      } 
+      }
 
       Storage.enable();
 

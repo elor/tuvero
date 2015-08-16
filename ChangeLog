@@ -45,6 +45,10 @@
 
 	* core/templates/swissoptions.html: "Begegnungen setzen": Checkbox is on the left of the text
 
+	* core/scripts/main.js: hiding the tabs on load error
+
+	* legacy/style/splash.css: using z-index to display splash on top of the still invisible tabs
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
