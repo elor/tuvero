@@ -8,6 +8,7 @@ set -e -u
 targettemplatedir="templates"
 coretemplatedir="../core/templates"
 stringfile="scripts/strings.js"
+sharedstringfile="../legacy/scripts/ui/strings.js"
 
 if [ -d "$coretemplatedir" ] && [ -f "$stringfile" ]; then
     :
@@ -27,7 +28,7 @@ getstring(){
             value=$(cat ../Version)
             ;;
         *)
-            value=$(sed -r -n "s/\s*$1\s*:\s*('[^']+'|\"[^\"]+\")\s*,?\s*/\1/p" "$stringfile")
+            value=$(sed -r -n "s/\s*$1\s*:\s*('[^']+'|\"[^\"]+\")\s*,?\s*/\1/p" "$stringfile" "$sharedstringfile" | head -1)
             value=$(sed -r "s/^['\"]\s*|\s*['\"]$//g" <<< "$value")
             ;;
     esac

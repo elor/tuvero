@@ -2,6 +2,8 @@
 
 	* legacy/scripts/ui/toast.js: Toast rewritten to ensure correct close() behaviour
 
+	* tools/index-from-template.sh: template parser reads from the shared strings file, too
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
