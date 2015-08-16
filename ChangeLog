@@ -5,6 +5,7 @@
 	* tools/index-from-template.sh: template parser reads from the shared strings file, too
 
 	* core/templates/teamstab.html: deletion prompt added as a small helper
+	Spieler laden -> Anmeldungen laden
 
 	* legacy/scripts/ui/strings.js: deletion prompt texts added
 
