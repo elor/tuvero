@@ -4,6 +4,12 @@
 
 	* tools/index-from-template.sh: template parser reads from the shared strings file, too
 
+	* core/templates/teamstab.html: deletion prompt added as a small helper
+
+	* legacy/scripts/ui/strings.js: deletion prompt texts added
+
+	* legacy/style/teams.css: showing deletion prompt only in deletion mode
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment

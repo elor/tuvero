@@ -123,7 +123,9 @@ define(function() {
     tournament_initial: 'Unterturnier erstellt',
     tournament_running: 'Runde gestartet',
     tournament_idle: 'Runde beendet',
-    tournament_finished: 'Unterturnier beendet'
+    tournament_finished: 'Unterturnier beendet',
+    namechangeprompt: 'Neuen Namen eingeben',
+    teamdeleteprompt: 'Zum Löschen Team anklicken'
   };
 
   return Strings;

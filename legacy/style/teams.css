@@ -107,6 +107,20 @@ div#tabs > [data-tab="teams"] {
   cursor: crosshair;
 }
 
+#tabs > [data-tab="teams"] .deletionprompt {
+  display: none;
+  margin-bottom: 0.2em;
+  background-color: #d0d0d0;
+  border-radius: 0.5em;
+  border-style: solid;
+  border-width: 1px;
+  padding: 0.5em;
+}
+
+#tabs > [data-tab="teams"].deletion .deletionprompt {
+  display: inline-block;
+}
+
 #tabs > [data-tab="teams"].noprereg button.delete {
   display: initial;
 }
@@ -149,7 +163,7 @@ div#tabs > [data-tab="teams"] {
   }
 
   #tabs > [data-tab="teams"] .team .name:hover {
-   cursor: inherit;
-   text-decoration: inherit;
+    cursor: inherit;
+    text-decoration: inherit;
   }
 }
