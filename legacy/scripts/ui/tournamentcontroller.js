@@ -6,8 +6,12 @@
  * @license MIT License
  * @see LICENSE
  */
-define([ 'lib/extend', 'jquery', 'core/controller', './toast', './strings' ], //
+define(['lib/extend', 'jquery', 'core/controller', './toast', './strings'], //
 function(extend, jquery, Controller, Toast, Strings) {
+  var pendingNameChange;
+
+  pendingNameChange = undefined;
+
   /**
    * Constructor
    *
@@ -58,12 +62,19 @@ function(extend, jquery, Controller, Toast, Strings) {
     });
 
     this.$toptitle.click(this.showNameInput.bind(this));
+
+    if (pendingNameChange === this.model.tournament) {
+      this.showNameInput();
+      window.setTimeout(this.$nameinput.focus.bind(this.$nameinput), 1);
+      window.setTimeout(this.$nameinput.select.bind(this.$nameinput), 1);
+    }
   }
   extend(TournamentController, Controller);
 
   TournamentController.prototype.showNameInput = function() {
     this.$nameinput.val(this.model.tournament.getName().get());
     this.$toptitle.addClass('rename');
+
     this.$nameinput.focus();
     this.$nameinput.select();
 
@@ -89,6 +100,16 @@ function(extend, jquery, Controller, Toast, Strings) {
     this.$toptitle.removeClass('rename');
 
     this.toast.close();
+
+    pendingNameChange = undefined;
+  };
+
+  /**
+   * @param tournament
+   *          a TournamentModel instance
+   */
+  TournamentController.initiateNameChange = function(tournament) {
+    pendingNameChange = tournament;
   };
 
   return TournamentController;

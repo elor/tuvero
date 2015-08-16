@@ -28,6 +28,9 @@
 	* tac/templates/newtabtodo.html: removed
 
 	* legacy/scripts/ui/tournamentcontroller.js: showing namechange info toast when changing subtournament name
+	applying name change for newly created tournaments
+
+	* legacy/scripts/ui/newtournamentcontroller.js: trigger name change for newly created tournaments
 
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

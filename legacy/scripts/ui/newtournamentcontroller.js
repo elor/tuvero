@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings'], //
-function(extend, Controller, TournamentIndex, Strings) {
+define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
+    './tournamentcontroller'], function(extend, Controller, TournamentIndex,
+    Strings, TournamentController) {
   /**
    * Constructor
    */
@@ -49,6 +50,8 @@ function(extend, Controller, TournamentIndex, Strings) {
     for (i = this.model.firstTeamID; i < imax; i += 1) {
       tournament.addTeam(ranking.displayOrder[i]);
     }
+
+    TournamentController.initiateNameChange(tournament);
   };
 
   return NewTournamentController;
