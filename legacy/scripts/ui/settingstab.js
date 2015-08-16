@@ -5,8 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
-    './browser', './storage'], function(extend, $, View, ValueModel, ValueView,
-    Browser, Storage) {
+    './browser', './storage', './storagesavecontroller'], function(extend, $,
+    View, ValueModel, ValueView, Browser, Storage, StorageSaveController) {
   /**
    * represents a whole team tab
    *
@@ -30,13 +30,17 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
    * TODO maybe split it into multiple autodetected functions?
    */
   SettingsTab.prototype.init = function() {
-    var $container, value;
+    var $container, value, $button;
 
     /*
      * show browser info
      */
     $container = this.$view.find('.savedate');
     this.saveDate = new ValueView(Storage.lastSaved, $container);
+
+    $button = this.$view.find('button.savestate');
+    this.storageSaveController = new StorageSaveController(new View(undefined,
+        $button));
   };
 
   // FIXME CHEAP HACK AHEAD

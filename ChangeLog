@@ -40,6 +40,7 @@
 
 	* legacy/scripts/ui/settingstab.js: SettingsTab
 	Show when the state was last saved to storage
+	binding the save storage-button
 
 	* legacy/scripts/ui/storage.js: formatting savedate
 	date format includes leading zeroes for the hours, minutes and seconds
@@ -49,6 +50,8 @@
 	* core/scripts/main.js: hiding the tabs on load error
 
 	* legacy/style/splash.css: using z-index to display splash on top of the still invisible tabs
+
+	* legacy/scripts/ui/storagesavecontroller.js: manually save the state to LocalStorage and raise a toast about it
 
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

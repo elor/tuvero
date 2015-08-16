@@ -168,6 +168,7 @@ define([
   'ui/state_new',
   'ui/staticviewloader',
   'ui/storage',
+  'ui/storagesavecontroller',
   'ui/strings',
   'ui/swisstournamentcontroller',
   'ui/swisstournamentview',
