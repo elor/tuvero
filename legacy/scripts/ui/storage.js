@@ -6,12 +6,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['options', 'lib/modernizr'], function(Options, Modernizr) {
+define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
+    Modernizr, ValueModel) {
   var Storage, keys, savespending;
 
   Storage = {};
   keys = {};
   savespending = {};
+
+  Storage.lastSaved = new ValueModel(undefined);
 
   function saveKey(key) {
     var val, blob;
@@ -99,6 +102,8 @@ define(['options', 'lib/modernizr'], function(Options, Modernizr) {
         }, 1, key);
       }
     }
+
+    Storage.lastSaved.set(new Date());
 
     return true;
   };
