@@ -43,6 +43,8 @@
 
 	* legacy/scripts/ui/storage.js: formatting savedate
 
+	* core/templates/swissoptions.html: "Begegnungen setzen": Checkbox is on the left of the text
+
 2015-08-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/abouttab.html: list of mobile browsers removed: Cannot test them at the moment
