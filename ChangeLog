@@ -33,6 +33,7 @@
 	* legacy/scripts/ui/newtournamentcontroller.js: trigger name change for newly created tournaments
 
 	* core/templates/settingstab.html: savedate information added
+	storage meters removed
 
 	* legacy/scripts/ui/settingstab.js: SettingsTab
 	Show when the state was last saved to storage
