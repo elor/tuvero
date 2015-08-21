@@ -1,3 +1,7 @@
+2015-08-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/matchview.js: teamid of anonymous teams is increased by 1 to get the team number
+
 2015-08-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/toast.js: Toast rewritten to ensure correct close() behaviour
