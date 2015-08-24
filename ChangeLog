@@ -21,6 +21,8 @@
 	* legacy/style/history.css: dynamic visibility of .result and .correct
 	.result is always printed!
 
+	* core/templates/abouttab.html: amazon wishlist removed
+
 2015-08-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchview.js: teamid of anonymous teams is increased by 1 to get the team number
