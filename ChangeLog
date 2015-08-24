@@ -38,6 +38,12 @@
 
 	* legacy/scripts/ui/statemodel.js: emitting 'clear' at the end of a clear() call
 
+	* core/templates/debugtab.html: 'register teams' classes changed to more meaningful names than 'submit'
+
+	* legacy/scripts/ui/debugtab.js: 'register teams' button logic enabled
+
+	* legacy/scripts/ui/registerteamscontroller.js: 'register teams' button enabled
+
 2015-08-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchview.js: teamid of anonymous teams is increased by 1 to get the team number

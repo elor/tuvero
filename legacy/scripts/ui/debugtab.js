@@ -6,8 +6,9 @@
  */
 define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     './browser', './storage', './strings', './toast', './loadedimagesview',
-    './browserinfoview'], function(extend, $, View, ValueModel, ValueView,
-    Browser, Storage, Strings, Toast, LoadedImagesView, BrowserInfoView) {
+    './browserinfoview', './registerteamscontroller'], function(extend, $,
+    View, ValueModel, ValueView, Browser, Storage, Strings, Toast,
+    LoadedImagesView, BrowserInfoView, RegisterTeamsController) {
   /**
    * represents a whole team tab
    *
@@ -31,7 +32,7 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
    * TODO maybe split it into multiple autodetected functions?
    */
   DebugTab.prototype.init = function() {
-    var $container, value;
+    var $container, $button, value;
 
     /*
      * show browser info
@@ -45,7 +46,6 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     $container = this.$view.find('.register .delete');
     $container.click(function() {
       Storage.clear();
-      Storage.store();
       new Toast(Strings.reset);
     });
 
@@ -55,7 +55,15 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     $container = this.$view.find('.allimages');
     this.allImages = new LoadedImagesView($container);
 
-    // TODO register teams
+    $container
+
+    /*
+     * button: register teams
+     */
+    $button = this.$view.find('button.registerteams');
+    $container = this.$view.find('input.numteams');
+    this.registerTeamsController = new RegisterTeamsController($button,
+        $container);
   };
 
   // FIXME CHEAP HACK AHEAD
