@@ -27,6 +27,16 @@
 
 	* legacy/scripts/ui/hometab.js: HomeTab added
 	'clear tournaments'-button added
+	state-clear toast moved to statetoasts.js
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: auto-saving on state clear
+
+	* legacy/scripts/ui/backgroundscripts/stateerrortoasts.js: moved to statetoasts.js
+
+	* legacy/scripts/ui/backgroundscripts/statetoasts.js: moved from stateerrortoasts.js
+	showing 'clear'-toasts after the state has been cleared
+
+	* legacy/scripts/ui/statemodel.js: emitting 'clear' at the end of a clear() call
 
 2015-08-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

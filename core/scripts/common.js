@@ -108,7 +108,7 @@ define([
   'ui/backgroundscripts/print',
   'ui/backgroundscripts/reset',
   'ui/backgroundscripts/save',
-  'ui/backgroundscripts/stateerrortoasts',
+  'ui/backgroundscripts/statetoasts',
   'ui/backgroundscripts/tabgamescheaphacklistener',
   'ui/backgroundscripts/tabhistorycheaphacklistener',
   'ui/backgroundscripts/tabnewcheaphacklistener',

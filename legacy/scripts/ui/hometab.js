@@ -36,7 +36,6 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './strings',
     $button.click(function() {
       if (confirm(Strings.clearstorage)) {
         State.clear();
-        new Toast(Strings.newtournament, Toast.LONG);
       }
     });
   };

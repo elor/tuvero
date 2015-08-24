@@ -31,7 +31,8 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
   extend(StateModel, Model);
 
   StateModel.prototype.EVENTS = {
-    error: true
+    error: true,
+    clear: true
   };
 
   /**
@@ -51,6 +52,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     this.tournaments.clear();
     this.teams.clear();
     Options.reset();
+    this.emit('clear');
     // this.teamsize.set(3); // TODO read default team size from options
   };
 
