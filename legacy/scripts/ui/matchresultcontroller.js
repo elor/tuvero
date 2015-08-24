@@ -76,12 +76,12 @@ function(extend, Controller, Strings, Toast, Options) {
 
   MatchResultController.prototype.disableCorrection = function() {
     this.$match.removeClass('correcting');
-  }
+  };
 
   MatchResultController.prototype.cancel = function() {
     new Toast(Strings.pointchangeaborted);
     this.disableCorrection();
-  }
+  };
 
   MatchResultController.prototype.submit = function() {
     var score;
@@ -102,7 +102,7 @@ function(extend, Controller, Strings, Toast, Options) {
 
     new Toast(Strings.pointchangeapplied);
     this.disableCorrection();
-  }
+  };
 
   return MatchResultController;
 });

@@ -1,21 +1,21 @@
 /**
  * prepares a Browser object, which contains the name and version of the
  * browser, for most major browsers
- * 
+ *
  * @export Browser
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ './backgroundscripts/online', './update' ], function(Online, Update) {
+define(['./backgroundscripts/online', './update'], function(Online, Update) {
   var Browser;
 
   Browser = {
-    name : undefined,
-    version : undefined,
-    online : undefined,
-    cached : undefined,
-    local : undefined
+    name: undefined,
+    version: undefined,
+    online: undefined,
+    cached: undefined,
+    local: undefined
   };
 
   Browser.update = function() {
@@ -38,8 +38,8 @@ define([ './backgroundscripts/online', './update' ], function(Online, Update) {
         if (tem != null)
           return tem.slice(1).join(' ').replace('OPR', 'Opera');
       }
-      M = M[2] ? [ M[1], M[2] ] : [ navigator.appName, navigator.appVersion,
-          '-?' ];
+      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion,
+          '-?'];
       if ((tem = ua.match(/version\/(\d+)/i)) != null)
         M.splice(1, 1, tem[1]);
       return M.join(' ');

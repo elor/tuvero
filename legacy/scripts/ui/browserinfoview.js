@@ -1,13 +1,13 @@
 /**
  * BrowserInfoView: display browser information
- * 
+ *
  * @return BrowserInfoView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ 'lib/extend', 'core/view', './browser', './toast',
-    './browserinfocontroller' ], function(extend, View, Browser, Toast,
+define(['lib/extend', 'core/view', './browser', './toast',
+    './browserinfocontroller'], function(extend, View, Browser, Toast,
     BrowserInfoController) {
   /**
    * Constructor
@@ -40,7 +40,7 @@ define([ 'lib/extend', 'core/view', './browser', './toast',
   BrowserInfoView.prototype.onupdate = function() {
     this.update();
     new Toast('update');
-  }
+  };
 
   return BrowserInfoView;
 });

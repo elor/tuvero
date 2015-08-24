@@ -1,19 +1,19 @@
 /**
  * A Toast is a small text which is visible for a short period of time before
  * disappearing.
- * 
+ *
  * You can supply a jquery object handle as str if you want to insert an html
  * node instead of text.
- * 
+ *
  * Toast duration can be set at Toast construction or controlled via a close()
  * function
- * 
+ *
  * @return Toast
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ 'jquery', 'core/type' ], function($, Type) {
+define(['jquery', 'core/type'], function($, Type) {
   var initialized, pending;
 
   // pending toasts which have been issued before jquery was available
@@ -29,7 +29,7 @@ define([ 'jquery', 'core/type' ], function($, Type) {
     transition = Toast.$template.css('transition');
 
     if (transition === undefined) {
-      console.error("could not read any transition lengths. "
+      console.error('could not read any transition lengths. '
           + "What's your browser?");
       return 0.2;
     }
@@ -40,7 +40,7 @@ define([ 'jquery', 'core/type' ], function($, Type) {
 
   /**
    * toast constructor
-   * 
+   *
    * @param str
    *          the string of the toast
    * @param seconds
@@ -109,7 +109,7 @@ define([ 'jquery', 'core/type' ], function($, Type) {
 
   /**
    * create a function which closes the toast
-   * 
+   *
    * @param id
    *          the toast id
    * @return a close function

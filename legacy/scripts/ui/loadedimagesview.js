@@ -1,12 +1,12 @@
 /**
  * LoadedImagesView
- * 
+ *
  * @return LoadedImagesView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ 'lib/extend', 'core/view', 'jquery' ], function(extend, View, $) {
+define(['lib/extend', 'core/view', 'jquery'], function(extend, View, $) {
   /**
    * Constructor
    */
@@ -19,7 +19,7 @@ define([ 'lib/extend', 'core/view', 'jquery' ], function(extend, View, $) {
 
   /**
    * reads all sprite images from the page and returns them as a list
-   * 
+   *
    * @param $container
    *          a jquery element for which all images should be retrieved
    * @return an array of image names, e.g. 'new', 'boule'. For use with the
@@ -39,11 +39,11 @@ define([ 'lib/extend', 'core/view', 'jquery' ], function(extend, View, $) {
     delete images.sprite;
 
     return Object.keys(images).sort();
-  }
+  };
 
   /**
    * finds and appends all images from the container
-   * 
+   *
    * @param $container
    */
   LoadedImagesView.prototype.appendImages = function($container) {
@@ -55,7 +55,7 @@ define([ 'lib/extend', 'core/view', 'jquery' ], function(extend, View, $) {
       var $image = $('<div>').attr('data-img', image);
       this.$view.append($image);
     }, this);
-  }
+  };
 
   return LoadedImagesView;
 });

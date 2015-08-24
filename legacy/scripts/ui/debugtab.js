@@ -1,20 +1,20 @@
 /**
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define([ 'lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
+define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     './browser', './storage', './strings', './toast', './loadedimagesview',
-    './browserinfoview' ], function(extend, $, View, ValueModel, ValueView,
+    './browserinfoview'], function(extend, $, View, ValueModel, ValueView,
     Browser, Storage, Strings, Toast, LoadedImagesView, BrowserInfoView) {
   /**
    * represents a whole team tab
-   * 
+   *
    * TODO write a TabView superclass with common functions
-   * 
+   *
    * TODO isolate common tab-related function
-   * 
+   *
    * @param $tab
    *          the tab DOM element
    */
@@ -27,7 +27,7 @@ define([ 'lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
 
   /**
    * initialize the tab functionality
-   * 
+   *
    * TODO maybe split it into multiple autodetected functions?
    */
   DebugTab.prototype.init = function() {
