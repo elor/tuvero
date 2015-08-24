@@ -25,6 +25,9 @@
 
 	* tools/codestyle.sh: dev/ excluded from codestyle-corrections
 
+	* legacy/scripts/ui/hometab.js: HomeTab added
+	'clear tournaments'-button added
+
 2015-08-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchview.js: teamid of anonymous teams is increased by 1 to get the team number

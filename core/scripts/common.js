@@ -133,6 +133,7 @@ define([
   'ui/gamestab',
   'ui/generictournamentview',
   'ui/historytab',
+  'ui/hometab',
   'ui/inputview',
   'ui/koline',
   'ui/lengthview',
