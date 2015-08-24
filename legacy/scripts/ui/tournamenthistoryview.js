@@ -8,9 +8,8 @@
  */
 define(['lib/extend', './templateview', './matchresultview', './listview',
     './teamtableview', './boxview', './teamview', 'core/listener',
-    './correctioncontroller', 'core/listener'], function(extend, TemplateView,
-    MatchResultView, ListView, TeamTableView, BoxView, TeamView, Listener,
-    CorrectionController, Listener) {
+    'core/listener'], function(extend, TemplateView, MatchResultView, ListView,
+    TeamTableView, BoxView, TeamView, Listener, Listener) {
   /**
    * Constructor
    *
@@ -35,7 +34,6 @@ define(['lib/extend', './templateview', './matchresultview', './listview',
     this.teamsize = teamsize;
 
     this.initMatches();
-    this.initCorrections();
 
     Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
 
@@ -49,24 +47,15 @@ define(['lib/extend', './templateview', './matchresultview', './listview',
   TournamentHistoryView.prototype.initMatches = function() {
     this.$matchlist = this.$view.find('.matchlist');
     this.matchlist = new ListView(this.model.getHistory(), this.$matchlist,
-        this.$template.filter('.matchview'), MatchResultView, this.teamlist);
+        this.$template.filter('.matchview'), MatchResultView, this.teamlist,
+        this.$template.filter('.correct'), this.model);
 
     this.$matchtable = this.$view.find('.matchtable');
     this.matchtable = new ListView(this.model.getHistory(), this.$matchtable,
-        this.$template.filter('.matchrow'), MatchResultView, this.teamlist);
+        this.$template.filter('.matchrow'), MatchResultView, this.teamlist,
+        this.$template.filter('.correct'), this.model);
 
     this.$teamtableview = new TeamTableView(this, this.teamsize);
-  };
-
-  /**
-   * initialize correction fields and click-listeners
-   */
-  TournamentHistoryView.prototype.initCorrections = function() {
-    this.listCorrectionController = new CorrectionController(this.matchlist,
-        this.$template.filter('.correct').clone(), this.model);
-
-    this.tableCorrectionController = new CorrectionController(this.matchtable,
-        this.$template.filter('.correct').clone(), this.model);
   };
 
   TournamentHistoryView.prototype.updateNames = function() {

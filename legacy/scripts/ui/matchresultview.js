@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './matchview'], function(extend, MatchView) {
+define(['lib/extend', './matchview', './matchresultcontroller'], function(
+    extend, MatchView, MatchResultController) {
   /**
    * Constructor
    *
@@ -17,13 +18,19 @@ define(['lib/extend', './matchview'], function(extend, MatchView) {
    * @param teamlist
    *          a ListModel of TeamModel instances
    */
-  function MatchResultView(model, $view, teamlist) {
+  function MatchResultView(model, $view, teamlist, $correctionForm, //
+  tournament) {
     MatchResultView.superconstructor.call(this, model, $view, teamlist);
 
     this.$results = this.$view.find('.result');
     this.$scores = this.$results.find('.score');
 
     this.updateScore();
+
+    if ($correctionForm && tournament) {
+      this.controller = new MatchResultController(this,
+          $correctionForm.clone(), tournament);
+    }
   }
   extend(MatchResultView, MatchView);
 

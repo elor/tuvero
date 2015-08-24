@@ -46,8 +46,6 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
       valid = true;
 
       $this = $(this);
-      value = Number();
-
       value = $this.val();
 
       if (value.length === 0) {

@@ -160,10 +160,10 @@ define([ 'lib/extend', 'core/controller', './toast', './strings' ], function(
     controller = e.data;
 
     switch (e.which) {
-    case 13:
+    case 13: // enter
       controller.hideInputField();
       break;
-    case 27:
+    case 27: // escape
       controller.hideInputField(true);
       break;
     }

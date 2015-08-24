@@ -1,3 +1,26 @@
+2015-08-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/historytab.html: correction form replaced with div
+	correction: .points -> .score
+
+	* legacy/scripts/ui/correctioncontroller.js: replaced with MatchResultController
+
+	* legacy/scripts/ui/matchcontroller.js: unused assignment removed
+
+	* legacy/scripts/ui/matchresultcontroller.js: Replacement for CorrectionController
+	handles correction of the match
+
+	* legacy/scripts/ui/matchresultview.js: initiates MatchResultController
+	MatchResultController requires a lot of variables
+
+	* legacy/scripts/ui/teamnamecontroller.js: enter/escape comments added for later reference
+
+	* legacy/scripts/ui/tournamenthistoryview.js: passing additional parameters to MatchResultView
+	not using CorrectionController anymore
+
+	* legacy/style/history.css: dynamic visibility of .result and .correct
+	.result is always printed!
+
 2015-08-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchview.js: teamid of anonymous teams is increased by 1 to get the team number
