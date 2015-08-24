@@ -6,9 +6,10 @@
  */
 define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     './browser', './storage', './strings', './toast', './loadedimagesview',
-    './browserinfoview', './registerteamscontroller'], function(extend, $,
-    View, ValueModel, ValueView, Browser, Storage, Strings, Toast,
-    LoadedImagesView, BrowserInfoView, RegisterTeamsController) {
+    './browserinfoview', './registerteamscontroller', './requiremodsshortcut'],//
+function(extend, $, View, ValueModel, ValueView, Browser, Storage, Strings,
+    Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
+    RequireModsShortcut) {
   /**
    * represents a whole team tab
    *
@@ -64,6 +65,8 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     $container = this.$view.find('input.numteams');
     this.registerTeamsController = new RegisterTeamsController($button,
         $container);
+
+    this.mods = new RequireModsShortcut();
   };
 
   // FIXME CHEAP HACK AHEAD

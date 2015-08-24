@@ -161,6 +161,7 @@ define([
   'ui/rankingtab',
   'ui/rankingview',
   'ui/registerteamscontroller',
+  'ui/requiremodsshortcut',
   'ui/roundtournamentview',
   'ui/settingstab',
   'ui/splash',

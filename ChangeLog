@@ -41,8 +41,12 @@
 	* core/templates/debugtab.html: 'register teams' classes changed to more meaningful names than 'submit'
 
 	* legacy/scripts/ui/debugtab.js: 'register teams' button logic enabled
+	initializing the 'mods' variable
 
 	* legacy/scripts/ui/registerteamscontroller.js: 'register teams' button enabled
+
+	* legacy/scripts/ui/requiremodsshortcut.js: Class for initialization of the global 'mods' variable.
+	Not disabled during production to ease live debugging
 
 2015-08-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
