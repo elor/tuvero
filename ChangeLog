@@ -1,3 +1,11 @@
+2015-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/debugtab.html: .round -> .finishround
+
+	* legacy/scripts/ui/debugtab.js: invoking FinishRoundController
+
+	* legacy/scripts/ui/finishroundcontroller.js: finishing a round with the maximum number of points
+
 2015-08-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/historytab.html: correction form replaced with div

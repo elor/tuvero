@@ -6,10 +6,11 @@
  */
 define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     './browser', './storage', './strings', './toast', './loadedimagesview',
-    './browserinfoview', './registerteamscontroller', './requiremodsshortcut'],//
-function(extend, $, View, ValueModel, ValueView, Browser, Storage, Strings,
-    Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
-    RequireModsShortcut) {
+    './browserinfoview', './registerteamscontroller', './requiremodsshortcut',
+    './finishroundcontroller'], function(extend, $, View, ValueModel,
+    ValueView, Browser, Storage, Strings, Toast, LoadedImagesView,
+    BrowserInfoView, RegisterTeamsController, RequireModsShortcut,
+    FinishRoundController) {
   /**
    * represents a whole team tab
    *
@@ -67,6 +68,12 @@ function(extend, $, View, ValueModel, ValueView, Browser, Storage, Strings,
         $container);
 
     this.mods = new RequireModsShortcut();
+
+    /*
+     * button: finish matches
+     */
+    $button = this.$view.find('button.finishround');
+    this.finishRound = new FinishRoundController($button);
   };
 
   // FIXME CHEAP HACK AHEAD
