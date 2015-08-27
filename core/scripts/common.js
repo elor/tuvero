@@ -20,6 +20,7 @@ define([
   'lib/typeahead',
   'core/absolutematrix',
   'core/antisymmetricmatrixmodel',
+  'core/binningreferencelistmodel',
   'core/byeresult',
   'core/classview',
   'core/controller',

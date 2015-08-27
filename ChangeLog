@@ -8,6 +8,11 @@
 
 	* core/scripts/test/roundtournamentmodel.js: testing the sort order of concurrently running matches
 
+	* core/scripts/binningreferencelistmodel.js: A binning model, which allows the grouping of similar items from another list
+	the items are stored in sublists, so the list yields a 2D structure
+
+	* core/scripts/test/binningreferencelistmodel.js: testing BinningReferenceListModel
+
 2015-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/debugtab.html: .round -> .finishround
