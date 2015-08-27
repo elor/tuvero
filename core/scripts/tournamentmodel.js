@@ -17,12 +17,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './referencelistmodel', './maplistmodel', './valuemodel',
     './readonlylistmodel', 'options', './indexedmodel', './correctionmodel',
     './matchreferencemodel', './resultreferencemodel',
-    './correctionreferencemodel'], function(extend, PropertyModel, ListModel,
-    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
-    ListCollectorModel, Listener, RankingModel, ReferenceListModel,
-    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
-    CorrectionModel, MatchReferenceModel, ResultReferenceModel,
-    CorrectionReferenceModel) {
+    './correctionreferencemodel', './sortedreferencelistmodel'], function(
+    extend, PropertyModel, ListModel, UniqueListModel, RankingMapper,
+    StateValueModel, MatchModel, MatchResult, ListCollectorModel, Listener,
+    RankingModel, ReferenceListModel, MapListModel, ValueModel,
+    ReadonlyListModel, Options, IndexedModel, CorrectionModel,
+    MatchReferenceModel, ResultReferenceModel, CorrectionReferenceModel,
+    SortedReferenceListModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -262,10 +263,24 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   TournamentModel.prototype.getMatches = function() {
     if (this.singletons.matches === undefined) {
-      this.singletons.matches = new ReferenceListModel(this.matches,
-          this.teams, MatchReferenceModel);
+      this.singletons.matches = new ReferenceListModel(
+          new SortedReferenceListModel(this.matches,
+              TournamentModel.matchCompare), this.teams, MatchReferenceModel);
     }
     return this.singletons.matches;
+  };
+
+  /**
+   * compare the groups and ids of two matches
+   *
+   * @param a
+   *          the first match
+   * @param b
+   *          the second match
+   * @return the order relation: 0, >0 or <0
+   */
+  TournamentModel.matchCompare = function(a, b) {
+    return (a.getGroup() - b.getGroup()) || (a.getID() - b.getID());
   };
 
   /**
@@ -273,8 +288,9 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    */
   TournamentModel.prototype.getHistory = function() {
     if (this.singletons.history === undefined) {
-      this.singletons.history = new ReferenceListModel(this.history,
-          this.teams, ResultReferenceModel);
+      this.singletons.history = new ReferenceListModel(
+          new SortedReferenceListModel(this.history,
+              TournamentModel.matchCompare), this.teams, ResultReferenceModel);
     }
     return this.singletons.history;
   };

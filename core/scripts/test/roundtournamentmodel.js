@@ -36,6 +36,9 @@ define(function() {
       QUnit.ok(tournament.run(), 'five teams work');
       QUnit.equal(matches.length, 2, 'two games for 5 teams');
 
+      QUnit.ok(matches.get(0).getID() < matches.get(1).getID(),
+          'match ids are sorted');
+
       ret = matches.map(function(match) {
         return {
           t: match.teams,

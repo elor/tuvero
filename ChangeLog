@@ -4,6 +4,10 @@
 
 	* core/scripts/test/sortedreferencelistmodel.js: testing SortedReferenceListModel
 
+	* core/scripts/tournamentmodel.js: using SortedReferenceListModel to sort getHistory() and getMatches()
+
+	* core/scripts/test/roundtournamentmodel.js: testing the sort order of concurrently running matches
+
 2015-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/debugtab.html: .round -> .finishround
