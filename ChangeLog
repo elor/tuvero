@@ -1,3 +1,9 @@
+2015-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/sortedreferencelistmodel.js: An auto-sorting ListModel which draws its elements dynamically from another ListModel
+
+	* core/scripts/test/sortedreferencelistmodel.js: testing SortedReferenceListModel
+
 2015-08-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/debugtab.html: .round -> .finishround

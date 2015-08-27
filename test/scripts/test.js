@@ -45,6 +45,7 @@ require(['config'], function() {
   'core/test/rle',
   'core/test/roundtournamentmodel',
   'core/test/selectionvaluemodel',
+  'core/test/sortedreferencelistmodel',
   'core/test/statevaluemodel',
   'core/test/swisstournamentmodel',
   'core/test/symmetricmatrixmodel',

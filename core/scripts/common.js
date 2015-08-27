@@ -79,6 +79,7 @@ define([
   'core/rle',
   'core/roundtournamentmodel',
   'core/selectionvaluemodel',
+  'core/sortedreferencelistmodel',
   'core/statevaluemodel',
   'core/swisstournamentmodel',
   'core/symmetricmatrixmodel',
