@@ -42,25 +42,22 @@ lastentrydate=$(getlastentry)
 [ -z $lastentrydate ] && { echo "cannot read last entry date">&2; exit 1; }
 
 for commit in $commits; do
+    commitdate=$(git show -s --format=%ct $commit)
+    (( "$lastentrydate" => "$commitdate" )) && continue
+
     git checkout -q $commit
 
     jshint=""
     [ -f .jshintrc ] && jshint='-l .jshintrc'
 
     scripts=$(find * -name '*.js' | grep -v 'lib/' | grep -v 'test/')
-    commitdate=$(git show -s --format=%ct $commit)
+    [ -z "$scripts" ] && continue
 
-    echo "this: $commitdate"
-
-    (( "$lastentrydate" > "$commitdate" )) && continue
-
-    echo "analyzing..."
+    echo "analyzing $commit"
 
     continue
-
-    [ -z "$scripts" ] && continue
 
     $plato -d $outdir -t Tuvero -D $commitdate -x 'qunit.*.js|require.*.js|build.js|jquery.*.js' $scripts
 done
 
-echo "Done. Please check the results and upload with `git -C $outdir push"
+echo "Done. Please check the results and upload with 'git -C $outdir push'"
