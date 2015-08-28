@@ -43,7 +43,7 @@ lastentrydate=$(getlastentry)
 
 for commit in $commits; do
     commitdate=$(git show -s --format=%ct $commit)
-    (( "$lastentrydate" => "$commitdate" )) && continue
+    (( "$commitdate" > "$lastentrydate" )) || continue
 
     git checkout -q $commit
 

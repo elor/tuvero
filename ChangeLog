@@ -7,6 +7,7 @@
 	* tools/analyze.sh: appending to existing plato repository (currently in debug mode)
 	epoch / human-readable date confusion fixed
 	EOF error and too verbose output fixed
+	comparison typo fixed
 
 2015-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
