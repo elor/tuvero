@@ -51,7 +51,7 @@ for commit in $commits; do
     commitdate=$(git show -s --format=%ct $commit)
 
     echo "last: $lastentrydate"
-    echo "this: $comitdate"
+    echo "this: $commitdate"
 
     [ "$lastentrydate" > "$commitdate" ] && continue
 
