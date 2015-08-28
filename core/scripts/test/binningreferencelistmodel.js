@@ -78,10 +78,12 @@ define(function() {
       QUnit.equal(binlist.length, 3,
           "only 3 bins after the removal of a unique number");
 
-      list = new ListModel([4, 1, 2, 3, 6, 5, 8, 9, 0, 7]);
+      list = new ListModel([4, 1, 2, 53, 16, 5, 8, 9, 0, 7]);
       binlist = new BinningReferenceListModel(list, binningFunction);
       QUnit.equal(binlist.length, 10,
           'auto-initialization from existing values');
+      QUnit.equal(binlist.getBin(3).get(0), 53,
+          'binlist contains actual values, not indices');
 
     });
   };

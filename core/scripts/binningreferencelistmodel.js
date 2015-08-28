@@ -34,8 +34,8 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     this.bins = [];
     this.refList = list;
 
-    this.refList.map(function(element) {
-      BinningReferenceListModel.insertElement(this, element);
+    this.refList.map(function(element, index) {
+      BinningReferenceListModel.insertElement(this, index);
     }, this);
 
     this.refList.registerListener(this);
