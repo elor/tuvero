@@ -4,6 +4,8 @@
 
 	* core/scripts/test/binningreferencelistmodel.js: testing the element-index bug scenario
 
+	* tools/analyze.sh: appending to existing plato repository (currently in debug mode)
+
 2015-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/sortedreferencelistmodel.js: An auto-sorting ListModel which draws its elements dynamically from another ListModel
