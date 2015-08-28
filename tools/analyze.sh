@@ -19,7 +19,7 @@ downloadrepo(){
 }
 
 getcommits(){
-    local commit=HEAD
+    local commit=develop
 
     while true; do
         echo $commit
@@ -59,5 +59,7 @@ for commit in $commits; do
 
     $plato -d $outdir -t Tuvero -D $commitdate -x 'qunit.*.js|require.*.js|build.js|jquery.*.js' $scripts
 done
+
+git checkout -q develop
 
 echo "Done. Please check the results and upload with 'git -C $outdir push'"
