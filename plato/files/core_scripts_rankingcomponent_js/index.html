@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/rankingcomponent.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/rankingcomponent.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.27</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">140</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">37.52</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.43</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * RankingComponent: The base class for every ranking component. Chaining them
+ * (singly-linked list using this.nextcomponent) allows for any ranking
+ * priorities, including nonsensical ones.
+ *
+ * Every RankingComponent has access to the ranking object, and references the
+ * next component in the chain. The
+ *
+ * @return RankingComponent
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define(function() {
+  /**
+   * Constructor
+   *
+   * @param ranking
+   *          a Ranking instance for value referencing
+   * @param nextcomponent
+   *          the next RankingComponent in the chain
+   */
+  function RankingComponent(ranking, nextcomponent) {
+    this.ranking = ranking;
+
+    if (nextcomponent) {
+      this.nextcomponent = nextcomponent;
+      this.dependencies = this.nextcomponent.dependencies;
+    } else {
+      this.nextcomponent = RankingComponent.DUMMYCOMPONENT;
+      this.dependencies = [];
+    }
+
+    // add dependencies to the dependencies list
+    if (this.constructor.DEPENDENCIES === undefined) {
+      this.dependencies.push(this.constructor.NAME);
+    } else {
+      this.constructor.DEPENDENCIES.forEach(function(DEP) {
+        this.dependencies.push(DEP);
+      }, this);
+    }
+  }
+
+  /**
+   * the unique name for a ranking component, e.g. &#039;wins&#039;, &#039;saldo&#039;, &#039;coin&#039;. To
+   * be declared by every child class.
+   *
+   * This also is an implicit dependency, unless DEPENDENCIES is defined. If
+   * there are no dependencies, set DEPENDENCIES to an empty array.
+   */
+  RankingComponent.NAME = &#039;undefined&#039;;
+
+  /**
+   * a list of dependencies, i.e. names, as in ranking.name.
+   *
+   * If this is undefined, the NAME is an implicit dependency.
+   */
+  RankingComponent.DEPENDENCIES = [];
+
+  /**
+   * DUMMYCOMPONENT is the default &quot;nextcomponent&quot;, so the sort function does
+   * not fail. It makes sure that teams with equal points are assigned the
+   * same place
+   */
+  RankingComponent.DUMMYCOMPONENT = {
+    /**
+     * @param i
+     *          a team index
+     * @param k
+     *          another team index
+     * @return 0. After this step, every team is equal, so multiple first
+     *         places can happen.
+     */
+    compare: function(i, k) {
+      return 0;
+    },
+    /**
+     * do nothing, just return the output array
+     */
+    getValues: function(outArray) {
+      return outArray;
+    }
+  };
+
+  /**
+   * Recursively output all values to a two-dimensional array. Ignore fully
+   * undefined components (e.g. comparison-based components)
+   *
+   * @param outArray
+   *          Optional. the output array. Will be created if undefined
+   * @return outArray, an array of value arrays for every chain level. If a
+   *          level does not have any values, its entry will be set to undefined
+   */
+  RankingComponent.prototype.getValues = function(outArray) {
+    var values, index;
+
+    if (outArray === undefined) {
+      outArray = [];
+    }
+
+    values = [];
+
+    for (index = 0; index &lt; this.ranking.length; index += 1) {
+      values[index] = this.value(index);
+    }
+
+    if (values.every(function(value) {
+      return value === undefined;
+    })) {
+      values = undefined;
+    }
+
+    outArray.push(values);
+
+    return this.nextcomponent.getValues(outArray);
+  };
+
+  /**
+   * if the values for comparison are independent (points, as opposed to direct
+   * comparison or coin tosses), retrieve and return the value. This can be the
+   * number of wins, small points, saldo points, or whatever. It just has to be
+   * bound to a single player/team
+   *
+   * If possible, please overload this function instead of overloading compare.
+   *
+   * @param i
+   *          a team index
+   * @return a point value (or whatever) for this team
+   */
+  RankingComponent.prototype.value = function(i) {
+    return undefined;
+  };
+
+  /**
+   * compare function for sort(). Is chained to the next component. Think before
+   * overloading.
+   *
+   * The idea is to have an implicit sort order by chaining the sort functions.
+   * Wins &gt; Buchholz &gt; Saldo &gt; Whatever. That&#039;s reflected by a component chain.
+   *
+   * @param i
+   *          index of a team
+   * @param k
+   *          index of another team
+   * @return {Number} see Array.prototype.sort() for an explanation of compare
+   *         functions
+   */
+  RankingComponent.prototype.compare = function(i, k) {
+    return this.value(k) - this.value(i) || this.nextcomponent.compare(i, k);
+  };
+
+  return RankingComponent;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

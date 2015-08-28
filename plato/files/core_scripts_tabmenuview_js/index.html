@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/tabmenuview.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/tabmenuview.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.85</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">169</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">21.11</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.05</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * TabMenuView: manage the visibility of tabs and show a tab menu. This class
+ * does not work with ids and targets directly, so multiple instances are
+ * possible, but still discouraged.
+ *
+ * This class is supposed to avoid the css :target attribute for a multitude of
+ * reasons. First, :target is not as cross-browser-compatible as required: Most
+ * browsers cannot print :target-displayed elements. :target-displayed elements
+ * will force the scroll position on reload, which &quot;hides&quot; the tabmenu. Also,
+ * using the history (back/forward feature) of the browser, it&#039;s possible to
+ * move to an already closed or non-existant tab. Worst of all, the tabmenu has
+ * to be hidden behind its containing tab by using a lower z-index, which
+ * renders the tabmenu unclickable in Internet Explorer.
+ *
+ * By using CSS classes to show/hide tabs, all of the above errors are avoided.
+ *
+ * @return TabMenuView
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./view&#039;, &#039;./tabmenucontroller&#039;, &#039;./listmodel&#039;,
+    &#039;./selectionvaluemodel&#039;, &#039;./tabmodel&#039;, &#039;./classview&#039;, &#039;./tabimageview&#039;,
+    &#039;./listexclusionlistener&#039;], function(extend, View, TabMenuController,
+    ListModel, SelectionValueModel, TabModel, ClassView, TabImageView,
+    ListExclusionListener) {
+  /**
+   * Constructor
+   *
+   * @param $view
+   *          associated DOM element
+   */
+  function TabMenuView($view) {
+    this.tabnames = new ListModel();
+    TabMenuView.superconstructor.call(this, new SelectionValueModel(undefined,
+        this.tabnames), $view);
+
+    this.keys = {};
+    this.$tabs = {};
+    this.$tabicons = {};
+    this.tabmodels = {};
+    this.$menu = undefined;
+    this.tabmodels = {};
+
+    this.initTabs();
+
+    this.controller = new TabMenuController(this);
+  }
+  extend(TabMenuView, View);
+
+  /**
+   * Perform all initializations
+   */
+  TabMenuView.prototype.initTabs = function() {
+    this.extractTabNames();
+    this.createTabMenu();
+    this.createTabModels();
+    this.readDefaultTab();
+  };
+
+  /**
+   * read the data-tab of the tabs, remove them and store them in tabnames
+   */
+  TabMenuView.prototype.extractTabNames = function() {
+    var tabnames, $tabs, keys;
+
+    tabnames = this.tabnames;
+    $tabs = this.$tabs;
+    keys = this.keys;
+
+    this.$view.find(&#039;&gt; div&#039;).each(function(index) {
+      var $this, tabname;
+      $this = $(this);
+      tabname = $this.attr(&#039;data-tab&#039;);
+
+      keys[tabname] = $this.attr(&#039;accesskey&#039;);
+      $this.removeAttr(&#039;accesskey&#039;);
+
+      $tabs[tabname] = $this;
+      tabnames.push(tabname);
+    });
+  };
+
+  /**
+   * For every extracted tabname, create and bind a TabModel which controls the
+   * visibility, accessibility and image parameter
+   */
+  TabMenuView.prototype.createTabModels = function() {
+    this.tabnames.map(function(tabname) {
+      /*
+       * Using a throwaway tmp variable to avoid unjustified Lint warnings, but
+       * keep them active for other parts of the code. This is bad coding, but I
+       * don&#039;t want another reference outside of emitters and listeners.
+       */
+      var tmp, model;
+
+      model = new TabModel();
+      this.tabmodels[tabname] = model;
+
+      tmp = new ClassView(model.visibility, this.$tabicons[tabname], undefined,
+          &#039;hidden&#039;);
+      tmp = new TabImageView(tabname, model.imgParam, this.$tabicons[tabname]);
+      tmp = new ListExclusionListener(model.accessibility, this.tabnames,
+          tabname);
+
+      return tmp;
+    }, this);
+  };
+
+  /**
+   * use the first tab as the default tab.
+   *
+   * Side note: The &quot;first tab&quot; is the first tab in the list, not the first tab
+   * on the page. Right after starting the software, they coincide, but this can
+   * change when the first tab is made unaccessible. Though this is unwanted
+   * behaviour,it&#039;s good enough for Tuvero. Just don&#039;t hide the start page.
+   *
+   * If you do, I urge you to adjust the code somehow. Hook into the events of
+   * this.tabnames or this.model to get a new default tab.
+   */
+  TabMenuView.prototype.readDefaultTab = function() {
+    // This implicitly calls onupdate()
+    this.model.setDefault(this.tabnames.get(0));
+  };
+
+  /**
+   * Retrieve the controlling TabModel instances
+   *
+   * @param tabname
+   *          the tab name
+   * @return undefined on failure, the associated tab model otherwise
+   */
+  TabMenuView.prototype.getTabModel = function(tabname) {
+    return this.tabmodels[tabname];
+  };
+
+  /**
+   * create and add the menu to the DOM
+   */
+  TabMenuView.prototype.createTabMenu = function() {
+
+    this.$menu = $(&#039;&lt;span&gt;&#039;).addClass(&#039;tabmenu&#039;);
+
+    this.tabnames.map(function(tabname) {
+      var $tab = $(&#039;&lt;a&gt;&#039;).attr(&#039;tabindex&#039;, -1);
+      $tab.attr(&#039;href&#039;, &#039;#&#039; + tabname);
+      if (this.keys[tabname]) {
+        $tab.attr(&#039;accesskey&#039;, this.keys[tabname]);
+      }
+      this.$tabicons[tabname] = $tab;
+      this.$menu.append($tab);
+    }, this);
+
+    this.$view.before(this.$menu);
+  };
+
+  /**
+   * shows the currently active tab
+   */
+  TabMenuView.prototype.update = function() {
+    var tabname;
+
+    // guaranteed to be a valid index, because of SelectionValueModel
+    tabname = this.model.get();
+
+    this.$view.find(&#039;&gt;.open&#039;).removeClass(&#039;open&#039;);
+    this.$menu.find(&#039;&gt;.open&#039;).removeClass(&#039;open&#039;);
+    this.$tabs[tabname].addClass(&#039;open&#039;);
+    this.$tabicons[tabname].addClass(&#039;open&#039;);
+  };
+
+  /**
+   * Callback Listener for SelectionValueModel changes
+   */
+  TabMenuView.prototype.onupdate = function() {
+    this.update();
+  };
+
+  /**
+   * Delegate the focus request all the way to the controller
+   *
+   * @param tabname
+   *          the tab to focus
+   */
+  TabMenuView.prototype.focus = function(tabname) {
+    this.controller.focus(tabname);
+  };
+
+  return TabMenuView;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

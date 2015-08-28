@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/tournamentlistmodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/tournamentlistmodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.92</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">209</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">47.67</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.42</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * TournamentListModel: A list of tournaments, which can be used to determine
+ * the current tournament and global rank for each player.
+ *
+ * @return TournamentListModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./indexedlistmodel&#039;, &#039;./tournamentindex&#039;, &#039;./listener&#039;//
+], function(extend, IndexedListModel, TournamentIndex, Listener) {
+  /**
+   * helper function to set all anonymous Listeners
+   *
+   * @param list
+   *          a TournamentListModel instance
+   */
+  function setListeners(list) {
+    Listener.bind(list, &#039;insert&#039;, function(emitter, event, data) {
+      if (emitter === list) {
+        data.object.getRanking().registerListener(list);
+        data.object.getState().registerListener(list);
+        list.invalidateGlobalRanking();
+      }
+    });
+
+    Listener.bind(list, &#039;remove&#039;, function(emitter, event, data) {
+      if (emitter === list) {
+        data.object.getRanking().unregisterListener(list);
+        data.object.getState().unregisterListener(list);
+        list.invalidateGlobalRanking();
+      }
+    });
+  }
+
+  /**
+   * Constructor
+   */
+  function TournamentListModel() {
+    TournamentListModel.superconstructor.call(this);
+
+    this.rankingCache = undefined;
+
+    setListeners(this);
+  }
+  extend(TournamentListModel, IndexedListModel);
+
+  TournamentListModel.prototype.EVENTS = {
+    &#039;update&#039;: true,
+    &#039;reset&#039;: true,
+    &#039;insert&#039;: true,
+    &#039;remove&#039;: true,
+    &#039;resize&#039;: true
+  };
+
+  /**
+   * TODO should use the event system. Benchmark first!
+   *
+   * @return an array of tournament IDs for every team in a tournament
+   */
+  TournamentListModel.prototype.tournamentIDsForEachTeam = function() {
+    var ids = [];
+
+    this.map(function(tournament) {
+      if (tournament.getState().get() != &#039;finished&#039;) {
+        tournament.getTeams().map(function(team) {
+          ids[team] = tournament.getID();
+        });
+      }
+    });
+
+    return ids;
+  };
+
+  TournamentListModel.prototype.invalidateGlobalRanking = function() {
+    this.rankingCache = undefined;
+    this.emit(&#039;update&#039;);
+  };
+
+  /**
+   *
+   * @param numTeams
+   *          the number of teams
+   * @return a pseudo-ranking object
+   */
+  TournamentListModel.prototype.getGlobalRanking = function(numTeams) {
+    var ranks, tournamentOffsets, lastrank, teams;
+
+    if (numTeams === undefined || numTeams &lt; 0) {
+      console.error(&#039;invalid numTeams parameter&#039;);
+      return undefined;
+    }
+
+
+    if (this.rankingCache &amp;&amp; this.rankingCache.displayOrder
+        &amp;&amp; this.rankingCache.displayOrder.length === numTeams) {
+      return this.rankingCache;
+    }
+
+      teams = [];
+      while (teams.length &lt; numTeams) {
+        teams.push(teams.length);
+      }
+
+    // initialize empty object
+    ranks = {
+      displayOrder: [],
+      globalRanks: [],
+      tournamentRanks: [],
+      tournamentIDs: this.tournamentIDsForEachTeam(),
+      tournamentOffsets: {}
+    };
+
+    // calculate Offsets for globalRanks
+    tournamentOffsets = [0];
+    this.map(function(tournament, tournamentID) {
+      tournamentOffsets[tournamentID + 1] = tournamentOffsets[tournamentID]
+          + tournament.getTeams().length;
+    });
+
+    // write tournamentRanks and globalRanks
+    teams.map(function(team, teamID) {
+      var ranking, tournamentID;
+
+      tournamentID = ranks.tournamentIDs[teamID];
+      if (tournamentID !== undefined) {
+        ranking = this.get(tournamentID).getRanking().get();
+
+        ranks.tournamentRanks[teamID] = ranking.ranks[ranking.ids
+            .indexOf(teamID)];
+        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
+            + tournamentOffsets[tournamentID];
+      } else {
+        ranks.tournamentIDs[teamID] = undefined;
+        ranks.tournamentRanks[teamID] = 0;
+        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
+            + tournamentOffsets[tournamentOffsets.length - 1];
+      }
+    }, this);
+
+    // correct ranking order
+    lastrank = -1;
+    while (ranks.displayOrder.length &lt; teams.length) {
+      ranks.displayOrder.push(ranks.displayOrder.length);
+    }
+    ranks.displayOrder.sort(function(a, b) {
+      return ranks.globalRanks[a] - ranks.globalRanks[b] || a - b;
+    });
+
+    // adjust the global ranks to account for ignored teams, which are
+    // already
+    // playing in another subtournament
+    lastrank = -1;
+    lastid = -1;
+    ranks.displayOrder.forEach(function(id, displayID) {
+      var rank = ranks.globalRanks[id];
+      if (rank &gt; lastrank) {
+        ranks.globalRanks[id] = displayID;
+        lastid = id;
+        lastrank = rank;
+      } else {
+        ranks.globalRanks[id] = ranks.globalRanks[lastid];
+      }
+    });
+
+    lastid = -1;
+    // don&#039;t use arrays.
+    // arrays cannot be as sparse and don&#039;t support &#039;undefined&#039; as a key
+    ranks.displayOrder.forEach(function(id, displayID) {
+      var tournamentID;
+
+      tournamentID = ranks.tournamentIDs[id];
+      if (tournamentID != lastid) {
+        ranks.tournamentOffsets[tournamentID] = displayID;
+        lastid = tournamentID;
+      }
+    });
+
+    this.rankingCache = ranks;
+
+    return this.rankingCache;
+  };
+
+  /**
+   * forward ranking updates to external listeners
+   *
+   * @param emitter
+   *          the emitter
+   * @param event
+   *          the event name
+   * @param data
+   *          an optional data object
+   */
+  TournamentListModel.prototype.onupdate = function(emitter, event, data) {
+    this.invalidateGlobalRanking();
+  };
+
+  // TournamentListModel.prototype.save is directly inherited from ListModel
+
+  /**
+   * restores tournaments from savedata objects. This function is used to
+   * enforce the usage of TournamentIndex.createTournament as a factory. The
+   * other logic is embedded into ListModel, which in turn constructs
+   * TournamentModel instances.
+   *
+   * @param data
+   *          a data object, as returned from this.save();
+   * @return true on success, false otherwise
+   */
+  TournamentListModel.prototype.restore = function(data) {
+    return TournamentListModel.superclass.restore.call(this, data,
+        TournamentIndex.createTournament);
+  };
+
+  TournamentListModel.prototype.SAVEFORMAT = [Object];
+
+  return TournamentListModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

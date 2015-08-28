@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - scripts/ui/listview.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>scripts/ui/listview.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.74</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">204</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">52.23</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.91</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * ListView for printing data in a list using arbitrary views
+ *
+ * @return ListView
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./textview&#039;], function(extend,
+    TemplateView, TextView) {
+  /**
+   * Constructor
+   *
+   * @param $view
+   *          the jquery table object
+   * @param model
+   *          the ListModel instance
+   * @param $template
+   *          a template jQuery object, into which to insert the text of each
+   *          element. Defaults to a &lt;div&gt;
+   * @param SubView
+   *          an object constructor for a View of the elements of the list.
+   *          Default to TextView
+   */
+  function ListView(model, $view, $template, SubView) {
+    ListView.superconstructor.call(this, model, $view, $template);
+
+    this.SubView = SubView || TextView;
+    this.subviews = [];
+  }
+  extend(ListView, TemplateView);
+
+  /**
+   * reset to an empty state
+   */
+  ListView.prototype.reset = function() {
+    while (this.subviews.length &gt; 0) {
+      this.removeItem(0);
+    }
+  };
+
+  /**
+   * redraw everything
+   */
+  ListView.prototype.update = function() {
+    var index;
+
+    this.reset();
+
+    for (index = 0; index &lt; this.model.length; index += 1) {
+      this.insertItem(index);
+    }
+  };
+
+  /**
+   * inserts an item into the ListView, using the constructor-specified SubView
+   *
+   * @param index
+   *          the index of the item inside the underlying list
+   */
+  ListView.prototype.insertItem = function(index) {
+    var $item, $subview, subview, model, $previousView;
+
+    $subview = this.$template.clone();
+    model = this.model.get(index);
+    subview = new this.SubView(model, $subview);
+
+    $item = subview.$view; // == $subview, but may have been wrapped by a
+    // tag
+
+    if (index === this.subviews.length) {
+      this.$view.append($item);
+    } else {
+      $previousView = this.subviews[index].$view;
+      $previousView.before($item);
+    }
+    this.subviews.splice(index, 0, subview);
+  };
+
+  /**
+   * return the index of the DOM element, or -1
+   *
+   * @param $view
+   *          the DOM element for which to look
+   * @return the index of the DOM element inside the underlying list
+   */
+  ListView.prototype.indexOf = function($view) {
+    var $parents, parentindex, index;
+
+    // verify the descendance and ascend to the subview level of the DOM
+    $parents = $view.parents();
+    parentindex = $parents.index(this.$view);
+    switch (parentindex) {
+    case -1:
+      console.warn(&#039;listview.indexOf: &#039;
+          + &#039;$view is not a descendant of this.$view&#039;);
+      return -1;
+    case 0:
+      // $view is a direct descendant of this.$view, i.e. child
+      break;
+    default:
+      if (this.$template.prop(&#039;tagName&#039;) !== &#039;TBODY&#039;
+          &amp;&amp; $parents.eq(parentindex - 1).prop(&#039;tagName&#039;) === &#039;TBODY&#039;) {
+        // adjust parentindex if we have to step over an automatically inserted
+        // tbody element. This is against the standard, but more intuitive
+        parentindex -= 1;
+        if (parentindex === 0) {
+          // NOW, the parentindex is 0
+          break;
+        }
+      }
+      $view = $parents.eq(parentindex - 1);
+      break;
+    }
+
+    /**
+     * get the actual index
+     */
+    index = undefined;
+    this.subviews.some(function(subview, subviewid) {
+      // Note to self: cannot compare separate jQuery objects directly, but
+      // their data() object is unique for each DOM element
+      if (subview.$view.data() === $view.data()) {
+        index = subviewid;
+        return true;
+      }
+      return false;
+    });
+
+    if (index === undefined) {
+      return -1;
+    }
+    return index;
+  };
+
+  /**
+   * retrieve a subview
+   *
+   * @param index
+   *          the index of the subview
+   * @return undefined on failure, a subview reference on success
+   */
+  ListView.prototype.getSubview = function(index) {
+    return this.subviews[index];
+  };
+
+  /**
+   * remove the item from the DOM and remove all local references as well as its
+   * subview
+   *
+   * @param index
+   *          the index of the item upon removal
+   */
+  ListView.prototype.removeItem = function(index) {
+    var subview;
+
+    subview = this.subviews[index];
+
+    if (subview) {
+      subview.destroy();
+      this.subviews.splice(index, 1);
+    }
+  };
+
+  /**
+   * event callback function
+   */
+  ListView.prototype.onupdate = function() {
+    this.update();
+  };
+
+  /**
+   * Emitter Callback function, called right after a new element has been
+   * inserted
+   *
+   * @param model
+   *          the ListModel instance
+   * @param event
+   *          name of the event, i.e. &#039;insert&#039;
+   * @param data
+   *          data object, containing at least the index within the list
+   */
+  ListView.prototype.oninsert = function(model, event, data) {
+    this.insertItem(data.id);
+  };
+
+  /**
+   * Emitter Callback function, called right after the removal of an element
+   * from the list
+   *
+   * @param model
+   *          the ListModel instance
+   * @param event
+   *          name of the event, i.e. &#039;remove&#039;
+   * @param data
+   *          data object, containing at least the index within the list
+   */
+  ListView.prototype.onremove = function(model, event, data) {
+    this.removeItem(data.id);
+  };
+
+  /**
+   * Callback function, event emitted by list.clear()
+   */
+  ListView.prototype.onreset = function() {
+    // Note to self: there should have been &#039;remove&#039; events. This is just for
+    // safety, in case I break the code in a strange way.
+    this.reset();
+  };
+
+  return ListView;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

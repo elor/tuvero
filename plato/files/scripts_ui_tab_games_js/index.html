@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - scripts/ui/tab_games.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>scripts/ui/tab_games.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">59.38</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">624</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">65.02</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">4.69</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Model, View and Controller for the games tab.
+ *
+ * This tab views the games, allows input of game results and submits them to
+ * the respective tournaments
+ *
+ * @return Tab_Games
+ * @implements ./tab
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define(
+    [&#039;./team&#039;, &#039;./toast&#039;, &#039;./strings&#039;, &#039;./tab_ranking&#039;, &#039;./history&#039;,
+        &#039;./tab_history&#039;, &#039;./storage&#039;, &#039;./options&#039;, &#039;./tab&#039;, &#039;./tabshandle&#039;,
+        &#039;./tournaments&#039;, &#039;./shared&#039;, &#039;./boxview&#039;],
+    function(Team, Toast, Strings, Tab_Ranking, History, Tab_History, Storage,
+        Options, Tab, Tabshandle, Tournaments, Shared, BoxView) {
+      var Tab_Games, $tab, template, games, $games, $tournaments;
+
+      Tab_Games = undefined;
+      template = undefined;
+      $tab = undefined;
+      updatepending = false;
+
+      // references to html elements of the games and tournaments
+      $games = [];
+      $tournaments = [];
+      // local copy of the running games
+      games = [];
+
+      function isInt(n) {
+        return n % 1 === 0;
+      }
+
+      function initGameTemplate() {
+        var $form, $names, $teamnos, tmp;
+
+        if (template.game) {
+          console.error(&#039;tab_games: template.game is already defined:&#039;);
+          console.error(template.game);
+          return;
+        }
+
+        $form = template.$box.find(&#039;.game&#039;);
+        $form.detach();
+
+        $names = [];
+        tmp = $form.find(&#039;.names&#039;);
+        $names[0] = tmp.eq(0);
+        $names[1] = tmp.eq(1);
+
+        tmp = $form.find(&#039;.teamno&#039;);
+        $teamnos = [tmp.eq(0), tmp.eq(1)];
+
+        $anchor = $tab.find(&#039;.votes&#039;).eq(0);
+
+        /**
+         * disable/enable the submit button if input is valid
+         */
+        $tab.on(&#039;change&#039;, &#039;.game input&#039;, function() {
+          var $button = $(this).parent().find(&#039;button&#039;);
+
+          if (readResults($(this).parents(&#039;.game&#039;)) === undefined) {
+            $button.attr(&#039;disabled&#039;, &#039;disabled&#039;);
+            $button.attr(&#039;tabindex&#039;, &#039;-1&#039;);
+          } else {
+            $button.removeAttr(&#039;disabled&#039;);
+            $button.removeAttr(&#039;tabindex&#039;);
+          }
+
+        });
+
+        $tab.on(&#039;submit&#039;, &#039;.game&#039;, function(event) {
+          finishGame.call(this);
+          event.preventDefault();
+          return false;
+        });
+
+        template.game = {
+          $form: $form,
+          $names: $names,
+          $teamnos: $teamnos
+        };
+      }
+
+      function initVoteTemplate() {
+        var $vote, $container, $names, $teamno;
+
+        if (template.vote) {
+          console.error(&#039;tab_games: template.vote is already defined:&#039;);
+          console.error(template.vote);
+          return;
+        }
+
+        $container = template.$box.find(&#039;.votes&#039;);
+        $container.detach();
+
+        $vote = $container.find(&#039;.vote&#039;);
+        $vote.detach();
+
+        $names = $vote.find(&#039;.names&#039;);
+        $teamno = $vote.find(&#039;.teamno&#039;);
+
+        template.vote = {
+          $container: $container,
+          $vote: $vote,
+          $names: $names,
+          $teamno: $teamno
+        };
+      }
+
+      function initTemplates() {
+        if (template) {
+          console.error(&#039;tab_games: template is already defined:&#039;);
+          console.error(template);
+          return;
+        }
+
+        template = {};
+
+        template.$box = $tab.find(&#039;.boxview.tpl&#039;);
+        template.$box.detach();
+        template.$box.removeClass(&#039;tpl&#039;);
+        template.$boxname = template.$box.find(&#039;&gt;h3&#039;);
+
+        initGameTemplate();
+        initVoteTemplate();
+      }
+
+      /**
+       * create and show a box displaying a certain game
+       *
+       * @param game
+       *          the game object
+       * @param tournamentid
+       *          the tournament id
+       * @param $box
+       *          the DOM object to append this game to
+       */
+      function appendGame(game, tournamentid, $box) {
+        var t1, t2, $game, t1names, t2names;
+
+        t1 = Team.get(game.teams[0][0]);
+        t2 = Team.get(game.teams[1][0]);
+
+        t1names = Team.getNames(game.teams[0][0]);
+        t2names = Team.getNames(game.teams[1][0]);
+
+        template.game.$names[0].html(t1names.join(&#039;&lt;br&gt;&#039;));
+        template.game.$names[1].html(t2names.join(&#039;&lt;br&gt;&#039;));
+
+        template.game.$teamnos[0].text(t1.getID() + 1);
+        template.game.$teamnos[1].text(t2.getID() + 1);
+
+        $game = template.game.$form.clone();
+        $box.append($game);
+
+        // insert data and representation into the reference containers
+        if (!$games[tournamentid]) {
+          $games[tournamentid] = [];
+        }
+        $games[tournamentid].push($game);
+
+        if (!games[tournamentid]) {
+          games[tournamentid] = [];
+        }
+        games[tournamentid].push(game);
+      }
+
+      /**
+       * removes all games from the overview
+       */
+      function clearBoxes() {
+        $tab.find(&#039;.boxview&#039;).remove();
+        $games = [];
+        $tournaments = [];
+        games = [];
+      }
+
+      /**
+       * clears the overview and appends all open games of the tournament
+       *
+       * @return true if something has been added to the DOM, false otherwise
+       */
+      function showRunning() {
+        var tournamentid, tournament, $box, notempty, hidden, round;
+        clearBoxes();
+
+        hidden = true; // the tab is hidden
+
+        for (tournamentid = 0; tournamentid &lt; Tournaments.numTournaments(); tournamentid += 1) {
+
+          if (!Tournaments.isRunning(tournamentid)) {
+            continue;
+          }
+
+          tournament = Tournaments.getTournament(tournamentid);
+          round = Tournaments.getRanking(tournamentid).round;
+
+          template.$boxname.text(Tournaments.getName(tournamentid)
+              + &#039; - Runde &#039; + round);
+          $box = template.$box.clone();
+
+          new BoxView($box);
+
+          notempty = false;
+
+          tournament.getGames().forEach(function(game) {
+            appendGame(game, tournamentid, $box);
+            hidden = false;
+            notempty = true;
+          });
+
+          if (showVotes(tournament, $box)) {
+            // nothing, because the information is in the history tab, too
+          }
+
+          if (notempty) {
+            $box.data(&#039;tournamentid&#039;, tournamentid);
+            $tab.append($box);
+            $tournaments[tournamentid] = $box;
+          }
+        }
+
+        return !hidden;
+      }
+
+      function showTab() {
+        var tournamentid, empty;
+
+        empty = true;
+        for (tournamentid = 0; tournamentid &lt; games.length; tournamentid += 1) {
+          if (games[tournamentid] &amp;&amp; games[tournamentid].length &gt; 0) {
+            empty = false;
+            break;
+          }
+        }
+
+        if (empty) {
+          Tabshandle.hide(&#039;games&#039;);
+        } else {
+          Tabshandle.show(&#039;games&#039;);
+        }
+      }
+
+      function getTournamentID($game) {
+        var $box;
+
+        if (!$game) {
+          return undefined;
+        }
+
+        $box = $game.parents(&#039;.boxview&#039;);
+
+        if ($box.length !== 1) {
+          console.error(&#039;cannot find $box of $game&#039;);
+          return undefined;
+        }
+
+        return $box.data(&#039;tournamentid&#039;);
+      }
+
+      /**
+       * this function removes the game from the local reference arrays
+       *
+       * @param tournamentid
+       *          the tournament id
+       * @param index
+       *          the index of the game
+       * @return true on success, undefined otherwise
+       */
+      function removeGame(tournamentid, index) {
+        games[tournamentid].splice(index, 1);
+        $games[tournamentid][index].remove();
+        $games[tournamentid].splice(index, 1);
+
+        return true;
+      }
+
+      function readResults($container) {
+        var $input, i, ret, tournamentid;
+
+        ret = {
+          index: -1,
+          points: []
+        };
+
+        tournamentid = getTournamentID($container);
+        if (tournamentid === undefined) {
+          return undefined;
+        }
+
+        for (i = 0; i &lt; $games[tournamentid].length; i += 1) {
+          // find the container in the array of containers
+          // Compare TWO empty objects?
+          // This works because they&#039;re an EXACT match, i.e. the same object.
+          // They&#039;re still just empty objects without identifiers!
+          if ($games[tournamentid][i].data() === $container.data()) {
+            ret.index = i;
+            break;
+          }
+        }
+
+        $input = $container.find(&#039;.points&#039;);
+
+        // game is invalid. Someone tampered with the system.
+        if (ret.index === -1) {
+          // redraw all games
+          showRunning();
+          Tab_Ranking.update();
+          return undefined;
+        }
+
+        // read and validate
+        for (i = 0; i &lt; 2; i += 1) {
+          // read and convert to number
+          ret.points[i] = Number($($input[i]).val());
+
+          // validate whether number and &gt;= 0
+          if (isNaN(ret.points[i]) || !isInt(ret.points[i])
+              || ret.points[i] &lt; 0 || ret.points[i] &gt; Options.maxpoints) {
+            return undefined;
+          }
+        }
+
+        // there has to be a winner
+        if (ret.points[0] === ret.points[1]) {
+          return undefined;
+        }
+
+        return ret;
+      }
+
+      /**
+       * jQuery callback function. works with &quot;this&quot;
+       *
+       * @return false all the time, although there&#039;s no reason to
+       */
+      function finishGame() {
+        var result, index, points, tournamentid, tournament, gameid;
+
+        // if someone wants to finish a game, do the following:
+        // * verify that the game was running
+        // * get and verify the points
+        // * submit the result
+        // * remove the game
+        // * drink a toast to the game
+
+        tournamentid = getTournamentID($(this));
+
+        if (tournamentid === undefined) {
+          return false;
+        }
+
+        if (!Tournaments.isRunning(tournamentid)) {
+          console
+              .error(&quot;tournament isn&#039;t running anymore, but player wants to finish a game&quot;);
+          return false;
+        }
+
+        tournament = Tournaments.getTournament(tournamentid);
+
+        result = readResults($(this));
+
+        if (result === undefined) {
+          new Toast(Strings.invalidresult, Toast.LONG);
+          return false;
+        }
+
+        // TODO extract everything to a new function!
+
+        index = result.index;
+        points = result.points;
+        gameid = games[tournamentid][index].id;
+
+        if (tournament.finishGame(games[tournamentid][index], points) === undefined) {
+          // game was somehow invalid. Someone tampered with the system.
+
+          // redraw all games
+          showRunning();
+
+          Tab_Ranking.update();
+
+          // notify the user of this failure
+          new Toast(Strings.invalidresult, Toast.LONG);
+
+          return false;
+        }
+
+        // the game was accepted, store it in history
+        round = Tournaments.getRanking(tournamentid).round;
+        res = History.addResult(tournamentid,
+            games[tournamentid][index].teams[0][0],
+            games[tournamentid][index].teams[1][0], points[0], points[1],
+            round - 1, gameid);
+        Tab_History.update();
+
+        if (points[0] &gt; points[1]) {
+          new Toast(Strings.gamefinished);
+        }
+
+        // verify for safety. Doesn&#039;t cost much
+        if (games.length !== $games.length) {
+          // game was somehow invalid. Someone tempered with the system.
+
+          console.error(&#039;games != $games&#039;);
+
+          // redraw all games
+          showRunning();
+
+          Tab_Ranking.update();
+
+          // notify the user of this failure
+          new Toast(Strings.invalidresult, Toast.LONG);
+
+          return false;
+        }
+
+        // no games left? clean up and go to stage 2.
+        if (games[tournamentid].length === 0) {
+          clearBoxes();
+
+          // hide this tab
+          showTab();
+          // open tab_new
+
+          new Toast(Strings.roundfinished.replace(&#039;%s&#039;, Tournaments
+              .getRanking(tournamentid).round));
+        }
+
+        // save changes
+        Storage.changed();
+
+        Tab_Ranking.update();
+        // due to circular dependency, we must load Tab_New separately
+        Shared.Tab_New.update();
+        if (games.length === 0) {
+          Tabshandle.focus(&#039;new&#039;);
+        }
+        Tab_Games.update();
+
+        return false;
+      }
+
+      function createVoteBox(tid) {
+        var team, teamnames;
+
+        team = Team.get(tid);
+        teamnames = Team.getNames(tid);
+
+        template.vote.$teamno.text(team.getID() + 1);
+        template.vote.$names.html(teamnames.join(&#039;&lt;br&gt;&#039;));
+
+        return template.vote.$vote.clone();
+      }
+
+      /**
+       * translates the Swiss ranking into a traditional votes object
+       *
+       * TODO rewrite this file to replace this function
+       *
+       * @param Tournament
+       *          the tournament object for which to retrieve the downvotes
+       * @return {Object} a votes object of the current round
+       */
+      function getRoundVotes(Tournament) {
+        // FIXME duplicate within tab_new.js
+        var votes, ranking, i;
+
+        ranking = Tournaments.getRanking(Tournaments
+            .getTournamentID(Tournament));
+
+        votes = {
+          up: [],
+          down: [],
+          bye: []
+        };
+
+        for (i = 0; i &lt; ranking.ids.length; i += 1) {
+          if (ranking.roundupvote &amp;&amp; ranking.roundupvote[i]) {
+            votes.up.push(ranking.ids[i]);
+          }
+          if (ranking.rounddownvote &amp;&amp; ranking.rounddownvote[i]) {
+            votes.down.push(ranking.ids[i]);
+          }
+          if (ranking.roundbyevote &amp;&amp; ranking.roundbyevote[i]) {
+            votes.bye.push(ranking.ids[i]);
+          }
+        }
+
+        return votes;
+      }
+
+      /**
+       * display the votes for the current round
+       *
+       * @param Tournament
+       *          the tournament object
+       * @param $box
+       *          the box to add stuff to
+       * @return true if something has been added to the box, false otherwise
+       */
+      function showVotes(Tournament, $box) {
+        var votes, $containers, $container, notempty;
+
+        notempty = false;
+
+        // get votes
+        votes = getRoundVotes(Tournament);
+
+        $container = template.vote.$container.clone();
+
+        $containers = {
+          up: $container.find(&#039;.up&#039;),
+          down: $container.find(&#039;.down&#039;),
+          bye: $container.find(&#039;.bye&#039;)
+        };
+
+        // apply upvotes
+        if (votes.up &amp;&amp; votes.up.length !== 0) {
+          $containers.up.show();
+          votes.up.forEach(function(tid) {
+            if (tid !== undefined) {
+              $containers.up.append(createVoteBox(tid));
+              notempty = true;
+            }
+          });
+        } else {
+          $containers.up.hide();
+        }
+
+        // apply down
+        if (votes.down &amp;&amp; votes.down.length !== 0) {
+          $containers.down.show();
+          votes.down.forEach(function(tid) {
+            if (tid !== undefined) {
+              $containers.down.append(createVoteBox(tid));
+              notempty = true;
+            }
+          });
+        } else {
+          $containers.down.hide();
+        }
+
+        // apply bye
+        if (votes.bye &amp;&amp; votes.bye.length !== 0) {
+          $containers.bye.show();
+          votes.bye.forEach(function(tid) {
+            if (tid !== undefined) {
+              $containers.bye.append(createVoteBox(tid));
+              notempty = true;
+            }
+          });
+        } else {
+          $containers.bye.hide();
+        }
+
+        if (notempty) {
+          $box.append($container);
+        }
+
+        return notempty;
+      }
+
+      function initOptions() {
+        var $maxwidthbox, $shownamesbox;
+
+        // show or hide playernames
+        $maxwidthbox = $tab.find(&#039;.options .maxwidth&#039;);
+        function maxwidthtest() {
+          if ($maxwidthbox.prop(&#039;checked&#039;)) {
+            $tab.addClass(&#039;maxwidth&#039;);
+          } else {
+            $tab.removeClass(&#039;maxwidth&#039;);
+          }
+        }
+
+        $maxwidthbox.click(maxwidthtest);
+        maxwidthtest();
+
+        // show or hide playernames
+        $shownamesbox = $tab.find(&#039;.options .shownames&#039;);
+        function shownamestest() {
+          if ($shownamesbox.prop(&#039;checked&#039;)) {
+            $tab.removeClass(&#039;hidenames&#039;);
+            $maxwidthbox.removeAttr(&#039;disabled&#039;);
+          } else {
+            $tab.addClass(&#039;hidenames&#039;);
+            $maxwidthbox.attr(&#039;disabled&#039;, &#039;disabled&#039;);
+          }
+        }
+
+        $shownamesbox.click(shownamestest);
+        shownamestest();
+      }
+
+      function init() {
+        if ($tab) {
+          console.error(&#039;tab_games: $tab is already defined:&#039;);
+          console.error($tab);
+          return;
+        }
+
+        $tab = $(&#039;#games&#039;);
+
+        initTemplates();
+        initOptions();
+      }
+
+      /**
+       * reset an original state.
+       */
+      function reset() {
+        if (!$tab) {
+          init();
+        }
+
+        // delete everything
+        clearBoxes();
+      }
+
+      /**
+       * reset an original game state, respecting the current state of Swiss
+       */
+      function update() {
+        Tab_Games.reset();
+
+        showRunning();
+        showTab();
+      }
+
+      Tab_Games = Tab.createTab(&#039;games&#039;, reset, update);
+      Shared.Tab_Games = Tab_Games;
+      return Tab_Games;
+    });</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

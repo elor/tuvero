@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - backend/test.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>backend/test.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">53.57</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1246</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">122.59</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">17.86</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/*
+ * Interface Test
+ */
+
+require([ &quot;../lib/interface&quot; ], function (Interface) {
+  QUnit.test(&quot;Interface&quot;, function () {
+    var intf;
+
+    intf = {};
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;empty interface&quot;);
+
+    intf = {
+      Interface : {}
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, &quot;minimal interface&quot;);
+
+    intf = {
+      Interface : {
+        asd : function () {
+        },
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, &quot;interface with function&quot;);
+
+    intf = {
+      Interface : {
+        otherinterface : intf,
+        funky : function () {
+        }
+      }
+    };
+    intf = {
+      Interface : {
+        otherinterface : intf,
+        funky : function () {
+        }
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, &quot;nested Interfaces&quot;);
+
+    intf = {
+      Interface : {
+        asd : 0
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;Interface with number&quot;);
+
+    intf = {
+      Interface : {
+        asd : undefined
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;Interface undefined&quot;);
+
+    intf = {
+      Interface : {
+        asd : &quot;asd&quot;
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;Interface with string&quot;);
+
+    intf = {
+      Interface : {
+        asd : /asd/g
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;Interface with regexp&quot;);
+
+    intf = {
+      Interface : {
+        asd : true
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;Interface with bool&quot;);
+
+    intf = {
+      Interface : {
+        asd : [ 4, 8, 15, 16, 23, 42 ]
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;Interface with array&quot;);
+
+    intf = {
+      Interface : {
+        asd : {}
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;invalid nesting&quot;);
+
+    intf = {
+      Interface : {
+        intf : intf
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;invalid nesting 2&quot;);
+
+    intf = {
+      Interface : {},
+      ASD : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, &quot;number constant&quot;);
+
+    intf = {
+      Interface : {},
+      ASd : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;constant not all caps 1&quot;);
+
+    intf = {
+      Interface : {},
+      asd : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;constant not all caps 2&quot;);
+
+    intf = {
+      Interface : {},
+      AS_D : 0
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;constant not all caps 3&quot;);
+
+    intf = {
+      Interface : {},
+      A : &quot;ASD&quot;,
+      B : true,
+      C : [ 0, &quot;dux&quot;, {
+        F : 5
+      } ],
+      D : undefined,
+      E : /imaregex/
+    };
+
+    QUnit.equal(Interface.isInterface(intf), true, &quot;valid constants&quot;);
+
+    intf = {
+      Interface : {},
+      A : function () {
+      }
+    };
+
+    QUnit.equal(Interface.isInterface(intf), false, &quot;function as constant&quot;);
+  });
+});
+
+/*
+ * Vector Tests
+ */
+require([ &quot;vector&quot; ], function (Vector) {
+  QUnit.test(&quot;Vector&quot;, function () {
+    var vec, ret, i;
+
+    QUnit.deepEqual(Vector.copy([]), [], &quot;copy empty vector&quot;);
+
+    vec = [ 1, 2, 3, 4, 5 ];
+    QUnit.deepEqual(Vector.copy(vec), vec, &quot;copy populated vector&quot;);
+
+    vec = [ 1 ];
+    vec[4] = 5;
+    QUnit.deepEqual(Vector.copy(vec), vec, &quot;copy sparse vector&quot;);
+
+    QUnit.equal(Vector.dot([], []), 0, &quot;dow with both operands empty&quot;);
+    QUnit.equal(Vector.dot([ 1, 2, 3, 4, 5 ], []), 0, &quot;dot operand a empty&quot;);
+    QUnit.equal(Vector.dot([], [ 1, 2, 3, 4, 5 ]), 0, &quot;dow operand b empty&quot;);
+    QUnit.equal(Vector.dot([ 1, 2, 3 ], [ 3, 2, 1 ]), 10,
+        &quot;dot return value check&quot;);
+
+    vec = [];
+    vec[5] = 0;
+    ret = Vector.fill(vec);
+
+    QUnit.equal(ret, vec, &quot;fill return value provided&quot;);
+    QUnit.equal(vec.length, 6, &quot;fill vector size retained&quot;);
+    for (i = 0; i &lt; 5; i += 1) {
+      QUnit.equal(vec[i], 0, &quot;fill element &quot; + i + &quot; successfully filled&quot;);
+    }
+
+    QUnit.equal(vec[5], 0, &quot;fill preset element retained&quot;);
+
+    vec = [ 1, 2, 3 ];
+    ret = Vector.scale(vec, 1);
+    QUnit.deepEqual(ret, vec, &quot;scale identity&quot;);
+    QUnit.deepEqual(Vector.scale([ 1, 2, 3 ], 0), [ 0, 0, 0 ],
+        &quot;scale by 0 retains size&quot;);
+    QUnit.deepEqual(Vector.scale([ 1, 2, 0 ], -0.3), [ -0.3, 2 * -0.3, 0 ],
+        &quot;scale negative float factor&quot;);
+
+    QUnit.equal(Vector.sum([]), 0, &quot;sum empty vector&quot;);
+    QUnit.equal(Vector.sum([ 1, 2, 3, 4 ]), 10, &quot;sum populated vector&quot;);
+
+    vec = [];
+    vec[3] = 5;
+    vec[6] = 3;
+    QUnit.equal(Vector.sum(vec), 8, &quot;sum sparse vector&quot;);
+  });
+});
+
+/*
+ * FullMatrix Tests
+ */
+require([ &quot;fullmatrix&quot; ], function (FullMatrix) {
+  QUnit.test(&quot;FullMatrix&quot;, function () {
+    // constructor validation
+    var a, b;
+
+    a = new FullMatrix();
+    QUnit.equal(a.size, 0, &quot;empty size initialization&quot;);
+    QUnit.deepEqual(a.array, [], &quot;empty array initialization&quot;);
+
+    a = new FullMatrix(5);
+    QUnit.equal(a.size, 5, &quot;prefixed size initialization&quot;);
+    QUnit.deepEqual(a.array, [], &quot;prefixed array initialization&quot;);
+
+    // clear
+    b = new FullMatrix(8);
+    b.clear(5);
+    QUnit.deepEqual(b, a, &quot;clear validation&quot;);
+
+    // extend
+    b = (new FullMatrix(4)).extend();
+    QUnit.deepEqual(b, a, &quot;extend() validation&quot;);
+
+    b = (new FullMatrix(4)).extend(1);
+    QUnit.deepEqual(b, a, &quot;extend(1) validation&quot;);
+
+    b = (new FullMatrix(5)).extend(0);
+    QUnit.deepEqual(b, a, &quot;extend(0) validation&quot;);
+
+    b = (new FullMatrix(0)).extend(5);
+    QUnit.deepEqual(b, a, &quot;extend(0) validation&quot;);
+
+    // clone, get and set
+    a.clear(3);
+    a.array[0] = [ 1, 2, 3 ];
+    a.array[1] = [];
+    a.array[1][2] = 4;
+
+    QUnit.deepEqual(a.clone(), a, &quot;clone&quot;);
+
+    b.clear(3);
+    b.set(0, 0, 1).set(0, 1, 2).set(0, 2, 3).set(1, 2, 4);
+    QUnit.deepEqual(b, a, &quot;chained set() commands&quot;);
+
+    delete a.array[1][2];
+    b.set(1, 2, 0);
+    QUnit.deepEqual(b, a, &quot;set(0) undefines the element&quot;);
+
+    QUnit.equal(b.get(0, 0) === 1 &amp;&amp; b.get(0, 1) === 2 &amp;&amp; b.get(0, 2) === 3
+        &amp;&amp; b.get(0, 4) === 0 &amp;&amp; b.get(1, 0) === 0 &amp;&amp; b.get(1, 2) === 0
+        &amp;&amp; b.get(2, 3) === 0 &amp;&amp; b.get(4, 4) === 0, true, &quot;get QUnit.test&quot;);
+
+    // erase
+    a = new FullMatrix(3);
+    a.array = [ [ 1, 2, 3 ], [ 4, 5 ], [ undefined, undefined, 7 ] ];
+    b = new FullMatrix(2);
+    b.array = [ [ 1, 3 ], [ undefined, 7 ] ];
+    QUnit.deepEqual((new FullMatrix()).erase(0), new FullMatrix(),
+        &quot;erase row from matrix of size 0&quot;);
+    QUnit.deepEqual((new FullMatrix(3)).erase(0), new FullMatrix(2),
+        &quot;erase row from empty matrix&quot;);
+    QUnit.deepEqual(a.erase(1), b, &quot;erase row from sparse matrix&quot;);
+  });
+});
+
+/*
+ * HalfMatrix Tests
+ */
+require([ &quot;halfmatrix&quot; ], function (HalfMatrix) {
+  QUnit.test(&quot;HalfMatrix&quot;, function () {
+    var a, b;
+
+    // constructor validation
+    a = new HalfMatrix();
+    QUnit.equal(a.size, 0, &quot;empty size initialization&quot;);
+    QUnit.deepEqual(a.array, [], &quot;empty array initialization&quot;);
+
+    a = new HalfMatrix(0, 5);
+    QUnit.equal(a.size, 5, &quot;prefixed size initialization&quot;);
+    QUnit.deepEqual(a.array, [], &quot;prefixed array initialization&quot;);
+
+    // clear
+    b = new HalfMatrix(0, 8);
+    b.clear(5);
+    QUnit.deepEqual(b, a, &quot;clear validation&quot;);
+
+    // extend
+    b = (new HalfMatrix(0, 4)).extend();
+    QUnit.deepEqual(b, a, &quot;extend() validation&quot;);
+
+    b = (new HalfMatrix(0, 4)).extend(1);
+    QUnit.deepEqual(b, a, &quot;extend(1) validation&quot;);
+
+    b = (new HalfMatrix(0, 5)).extend(0);
+    QUnit.deepEqual(b, a, &quot;extend(0) validation&quot;);
+
+    b = (new HalfMatrix(0, 0)).extend(5);
+    QUnit.deepEqual(b, a, &quot;extend(0) validation&quot;);
+
+    // clone, get and set
+    a.clear(3);
+    a.array = [ [ 1 ], [ undefined, 2 ], [ 3, 4 ] ];
+
+    QUnit.deepEqual(a.clone(), a, &quot;clone&quot;);
+
+    b.clear(3);
+    b.set(0, 0, 1).set(0, 2, 5).set(1, 1, 2).set(2, 0, 3).set(2, 1, 4);
+    QUnit.deepEqual(b, a, &quot;chained set() commands (top half ignored)&quot;);
+
+    delete a.array[1][2];
+    b.set(1, 2, 0);
+    QUnit.deepEqual(b, a, &quot;set(0) undefines the element&quot;);
+
+    QUnit.ok(b.get(0, 0) === 1 &amp;&amp; b.get(1, 0) === 0 &amp;&amp; b.get(1, 1) === 2
+        &amp;&amp; b.get(2, 0) === 3 &amp;&amp; b.get(2, 1) === 4 &amp;&amp; b.get(2, 2) === 0,
+        &quot;get QUnit.test&quot;);
+
+    // erase
+    a = new HalfMatrix(0, 3);
+    a.array = [ [ 1, 2, 3 ], [ 4, 5 ], [ undefined, undefined, 7 ] ];
+    b = new HalfMatrix(0, 2);
+    b.array = [ [ 1, 3 ], [ undefined, 7 ] ];
+    QUnit.deepEqual((new HalfMatrix()).erase(0), new HalfMatrix(),
+        &quot;erase row from matrix of size 0&quot;);
+    QUnit.deepEqual((new HalfMatrix(3)).erase(0), new HalfMatrix(2),
+        &quot;erase row from empty matrix&quot;);
+    QUnit.deepEqual(a.erase(1), b, &quot;erase row from sparse matrix&quot;);
+
+    // HalfMatrix.type QUnit.tests
+    // empty
+    a = new HalfMatrix(HalfMatrix.empty);
+    b = new HalfMatrix(0);
+    QUnit.deepEqual(b, a, &quot;HalfMatrix.empty constant&quot;);
+
+    a.extend(5).set(2, 2, 1).set(0, 2, 2).set(2, 0, 3);
+    QUnit.ok(a.get(2, 2) === 1 &amp;&amp; a.get(0, 2) === 0 &amp;&amp; a.get(2, 0) === 3,
+        &quot;empty get()&quot;);
+
+    // mirrored
+    a = new HalfMatrix(HalfMatrix.mirrored);
+    b = new HalfMatrix(1);
+    QUnit.deepEqual(b, a, &quot;HalfMatrix.mirrored constant&quot;);
+
+    a.extend(5).set(2, 2, 1).set(0, 2, 2).set(2, 0, 3);
+    QUnit.ok(a.get(2, 2) === 1 &amp;&amp; a.get(0, 2) === 3 &amp;&amp; a.get(2, 0) === 3,
+        &quot;mirrored get()&quot;);
+
+    // negated
+    a = new HalfMatrix(HalfMatrix.negated);
+    b = new HalfMatrix(-1);
+    QUnit.deepEqual(b, a, &quot;HalfMatrix.negated constant&quot;);
+
+    a.extend(5).set(2, 2, 1).set(0, 2, 2).set(2, 0, 3);
+    QUnit.ok(a.get(2, 2) === 1 &amp;&amp; a.get(0, 2) === -3 &amp;&amp; a.get(2, 0) === 3,
+        &quot;negated get()&quot;);
+  });
+});
+
+/*
+ * Matrix Tests
+ */
+require([ &quot;matrix&quot;, &quot;fullmatrix&quot;, &quot;vector&quot; ], function (Matrix, FullMatrix,
+    Vector) {
+  QUnit.test(&quot;Matrix&quot;, function () {
+    var a, b, vec, out, transpose, expected;
+
+    // using FullMatrix implementation due to
+    // generality
+    a = new FullMatrix(3);
+    a.array = [ [ 1, 2, 3 ], [ 4, 5, 6 ], [ 7, 8, 9 ] ];
+    out = new FullMatrix(5);
+
+    transpose = new FullMatrix(3);
+    transpose.array = [ [ 1, 4, 7 ], [ 2, 5, 8 ], [ 3, 6, 9 ] ];
+    QUnit.deepEqual(Matrix.transpose(a.clone()), transpose,
+        &quot;transpose: return value validation&quot;);
+
+    out = new FullMatrix(5);
+
+    b = new FullMatrix(2);
+    QUnit.deepEqual(Matrix.mult(a, b, out), undefined,
+        &quot;Matrix.mult: abort on different sizes Matrix&quot;);
+    QUnit.deepEqual(out, new FullMatrix(),
+        &quot;Matrix.mult: output matrix cleared on abort&quot;);
+
+    b.extend();
+    b.array = [ undefined, [ 7, 9, 5 ], [ undefined, 3, undefined ] ];
+    expected = new FullMatrix(3);
+    expected.array = [ [ 14, 27, 10 ], [ 35, 63, 25 ], [ 56, 99, 40 ] ];
+    QUnit.deepEqual(Matrix.mult(a, b, out), expected, &quot;Matrix multiplication&quot;);
+
+    vec = [ 1, 2, 3 ];
+    a = new FullMatrix();
+    QUnit.deepEqual(Matrix.multVec(b, []), [ 0, 0, 0 ],
+        &quot;multVec with empty vector&quot;);
+    QUnit.deepEqual(Matrix.vecMult([], b), [ 0, 0, 0 ],
+        &quot;vecMult with empty vector&quot;);
+    QUnit.deepEqual(Matrix.multVec(a, vec), [], &quot;multVec with empty matrix&quot;);
+    QUnit.deepEqual(Matrix.vecMult(vec, a), [], &quot;vecMult with empty matrix&quot;);
+    QUnit.deepEqual(Matrix.multVec(b, vec), [ 0, 40, 6 ], &quot;multVec check&quot;);
+    QUnit.deepEqual(Matrix.vecMult(vec, b), [ 14, 27, 10 ], &quot;vecMult check&quot;);
+
+    // getRow und getCol
+    QUnit.deepEqual(Matrix.getRow(b, 1), [ 7, 9, 5 ],
+        &quot;getRow with populated row&quot;);
+
+    vec = Matrix.getRow(b, 2);
+    QUnit.deepEqual(vec, [ 0, 3, 0 ], &quot;getRow with sparse row&quot;);
+
+    QUnit.deepEqual(Matrix.getRow(b, 0), [ 0, 0, 0 ], &quot;getRow with empty row&quot;);
+
+    out = Matrix.transpose(b.clone());
+    QUnit.deepEqual(Matrix.getCol(out, 1), [ 7, 9, 5 ],
+        &quot;getCol with populated col&quot;);
+    QUnit.deepEqual(Matrix.getCol(out, 2), [ 0, 3, 0 ],
+        &quot;getCol with sparse col&quot;);
+    vec = Matrix.getCol(out, 0);
+    QUnit.deepEqual(vec, [ 0, 0, 0 ], &quot;getCol with empty col&quot;);
+
+    // sums
+    QUnit.deepEqual(Matrix.rowSum(b, 1), 21, &quot;rowSum populated row&quot;);
+    QUnit.deepEqual(Matrix.rowSum(b, 2), 3, &quot;rowSum sparse row&quot;);
+    QUnit.deepEqual(Matrix.rowSum(b, 0), 0, &quot;rowSum empty row&quot;);
+
+    QUnit.deepEqual(Matrix.colSum(out, 1), 21, &quot;colSum populated row&quot;);
+    QUnit.deepEqual(Matrix.colSum(out, 2), 3, &quot;colSum sparse row&quot;);
+    QUnit.deepEqual(Matrix.colSum(out, 0), 0, &quot;colSum empty row&quot;);
+
+    QUnit.deepEqual(Matrix.rowSums(a), [], &quot;rowSums with matrix of size 0&quot;);
+    QUnit.deepEqual(Matrix.rowSums(b), [ 0, 21, 3 ],
+        &quot;rowSums with sparse matrix&quot;);
+    QUnit.deepEqual(Matrix.colSums(a), [], &quot;colSums with matrix of size 0&quot;);
+    QUnit.deepEqual(Matrix.colSums(out), [ 0, 21, 3 ],
+        &quot;colSums with sparse matrix&quot;);
+  });
+});
+
+/*
+ * Map Tests
+ */
+require([ &quot;map&quot; ], function (Map) {
+  QUnit.test(&quot;Map&quot;, function () {
+    var map, a, b, c;
+
+    map = new Map();
+    QUnit.equal(map.size(), 0, &quot;empty map size&quot;);
+
+    a = map.insert(5);
+    b = map.insert(4);
+    c = map.insert(3);
+
+    QUnit.equal(map.size(), 3, &quot;full map size (absolute)&quot;);
+    QUnit.equal(map.size(), c + 1, &quot;full map size (relative)&quot;);
+
+    QUnit.equal(map.find(1), -1, &quot;correct failure on missing element&quot;);
+    QUnit.equal(map.find(5), a, &quot;first index&quot;);
+    QUnit.equal(map.find(4), b, &quot;second index&quot;);
+    QUnit.equal(map.find(3), c, &quot;third index&quot;);
+    QUnit.equal(map.at(a), 5, &quot;first value&quot;);
+    QUnit.equal(map.at(b), 4, &quot;second value&quot;);
+    QUnit.equal(map.at(c), 3, &quot;third value&quot;);
+
+    map.erase(1);
+    QUnit.equal(map.size(), 2, &quot;reduced map size&quot;);
+    QUnit.equal(map.at(a), 5, &quot;first reduced value&quot;);
+    QUnit.equal(map.at(b), 3, &quot;third reduced value&quot;);
+    QUnit.equal(map.find(3), b, &quot;third reduced index&quot;);
+
+    map.remove(5);
+    QUnit.equal(map.size(), 1, &quot;further reduced map size&quot;);
+    QUnit.equal(map.find(3), 0, &quot;third further reduced index&quot;);
+
+    map.remove(3);
+    QUnit.equal(map.size(), 0, &quot;completely reduced map size&quot;);
+  });
+});
+
+/*
+ * Game Tests
+ */
+
+require([ &#039;game&#039; ], function (Game) {
+  QUnit.test(&#039;Game&#039;, function () {
+    var game, res;
+    game = new Game();
+
+    QUnit.equal(game.teams.length, 0, &#039;no teams after construction&#039;);
+    QUnit.equal(game.starttime, 0, &#039;no starttime&#039;);
+
+    game.add(0, 1);
+    game.add(1, 2);
+    game.add(1, 5);
+
+    QUnit.equal(game.teams.length, 2, &#039;two teams after three add() calls&#039;);
+    QUnit.deepEqual([ game.teams[0], game.teams[1] ], [ [ 1 ], [ 2, 5 ] ],
+        &#039;teams verified&#039;);
+
+    game.start();
+    QUnit.ok(game.starttime !== 0, &#039;start() seems to work&#039;);
+
+    QUnit.ok(game !== game.copy(), &#039;copy() does in fact copy&#039;);
+    res = game.copy();
+    QUnit.deepEqual(res, game, &quot;copy() works&quot;);
+
+    res.starttime = 0;
+    QUnit.ok(game.equals(res), &#039;equals works if equal&#039;);
+    res.add(0, 3);
+    QUnit.ok(!game.equals(res), &#039;equals works if different&#039;);
+  });
+});
+
+/*
+ * Result Tests
+ */
+require([ &quot;result&quot;, &#039;game&#039; ], function (Result, Game) {
+  QUnit.test(&quot;Result&quot;, function () {
+    var a, b, c, pa, pb, res;
+
+    a = 1;
+    b = [ 2, 3 ];
+    c = [ 2, 3 ];
+
+    pa = 5;
+    pb = 13;
+
+    res = new Result(a, b, pa, pb);
+
+    // team tests
+    QUnit.equal(res.getTeam(), undefined, &quot;undefined team request&quot;);
+    QUnit.equal(res.getTeam(0), undefined, &quot;0 team request&quot;);
+    QUnit.equal(res.getTeam(b), undefined, &quot;array team request&quot;);
+    QUnit.deepEqual(res.getTeam(2), b, &quot;team constructed by array&quot;);
+    b[1] = 5;
+    QUnit.deepEqual(res.getTeam(2), c, &quot;team copied in constructor&quot;);
+    QUnit.deepEqual(res.getTeam(1), [ a ], &quot;team constructed by integer&quot;);
+
+    // points tests
+    QUnit.equal(res.getPoints(), undefined, &quot;undefined points request&quot;);
+    QUnit.equal(res.getPoints(0), undefined, &quot;0 points request&quot;);
+
+    QUnit.equal(res.getPoints(1), pa, &quot;points of first team&quot;);
+    QUnit.equal(res.getPoints(1), pa, &quot;points of second team&quot;);
+
+    QUnit.equal(res.getNetto(), pa - pb, &quot;netto points&quot;);
+
+    QUnit.deepEqual(res.copy(), res, &#039;copy()&#039;);
+    QUnit.ok(res.copy() !== res, &quot;copy() doesn&#039;t return this&quot;);
+
+    b = new Game();
+
+    b.add(0, a);
+    c.forEach(function (i) {
+      b.add(1, i);
+    });
+
+    QUnit.deepEqual(res.getGame(), b, &#039;result getGame()&#039;);
+  });
+});
+
+/*
+ * Correction Tests
+ */
+require([ &quot;result&quot;, &#039;correction&#039; ], function (Result, Correction) {
+  QUnit.test(&quot;Correction&quot;, function () {
+    var res1, res2, corr;
+    res1 = new Result(1, 2, 3, 4);
+    res2 = new Result(4, 3, 2, 1);
+    corr = new Correction(res1, res2);
+
+    QUnit.deepEqual(corr.pre, res1, &#039;pre field&#039;);
+    QUnit.deepEqual(corr.post, res2, &#039;post field&#039;);
+
+    QUnit.deepEqual(corr.copy(), corr, &#039;copy copies&#039;);
+    QUnit.ok(corr.copy() !== corr, &quot;copy doesn&#039;t just reference&quot;);
+  });
+});
+
+/*
+ * NettoRanking test
+ */
+require([ &#039;result&#039;, &#039;nettoranking&#039;, &#039;game&#039;, &#039;correction&#039; ], function (Result,
+    Netto, Game, Correction) {
+  QUnit.test(&quot;NettoRanking&quot;, function () {
+    var resa, resb, ranking, tmp, corr;
+
+    ranking = new Netto(5);
+    QUnit.equal(ranking.size(), 5, &quot;size test&quot;);
+
+    resa = new Result(1, 3, 5, 13);
+    resb = new Result([ 0, 1 ], [ 2, 4 ], 11, 0);
+    ranking.add(resa).add(resb);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 11, 3, -11, 8, -11 ],
+      ranking : [ 0, 3, 1, 2, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 1, 0 ]
+    };
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after add()&quot;);
+
+    QUnit.ok(ranking.added(new Game(3, 1)), &#039;valid added()&#039;);
+    QUnit.ok(!ranking.added(new Game(2, 4)), &#039;invalid added()&#039;);
+
+    ranking.remove(resa);
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 11, 11, -11, 0, -11 ],
+      size : 5,
+      ranking : [ 0, 1, 3, 2, 4 ],
+      wins : [ 1, 1, 0, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after remove()&quot;);
+
+    resb = new Result(2, 3, 13, 5);
+    ranking.add(resa);
+    corr = new Correction(resa, resb);
+    tmp = ranking.correct(corr);
+
+    QUnit.equal(tmp, ranking, &#039;correct() was successful&#039;);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 11, 11, -3, -8, -11 ],
+      ranking : [ 0, 1, 2, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 1, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after correct()&quot;);
+
+    ranking.resize(2);
+    ranking.resize(5);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 11, 11, 0, 0, 0 ],
+      ranking : [ 0, 1, 2, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after resize()&quot;);
+
+    ranking.grantBye(3);
+
+    tmp = {
+      byes : [ 0, 0, 0, 1, 0 ],
+      netto : [ 11, 11, 0, 6, 0 ],
+      ranking : [ 0, 1, 3, 2, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 1, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after grantBye()&quot;);
+
+    ranking.revokeBye(1);
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after invalid revokeBye()&quot;);
+
+    ranking.revokeBye(3);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 11, 11, 0, 0, 0 ],
+      ranking : [ 0, 1, 2, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 0, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after revokeBye()&quot;);
+
+    QUnit.deepEqual(ranking.getCorrections(), [ corr ], &#039;getCorrections()&#039;);
+  });
+});
+
+/*
+ * BuchholzRanking test
+ */
+require([ &#039;result&#039;, &#039;buchholzranking&#039;, &#039;correction&#039;, &#039;game&#039; ], function (
+    Result, Buchholz, Correction, Game) {
+  QUnit.test(&quot;BuchholzRanking&quot;, function () {
+    var resa, resb, resc, ranking, tmp, corr;
+
+    ranking = new Buchholz(5);
+    QUnit.equal(ranking.size(), 5, &quot;size test&quot;);
+
+    resa = new Result(1, 2, 0, 13);
+    resb = new Result(2, 3, 13, 3);
+    resc = new Result(1, 4, 13, 10);
+    ranking.add(resa).add(resb).add(resc);
+
+    tmp = {
+      buchholz : [ 0, 2, 1, 2, 1 ],
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 0, -10, 23, -10, -3 ],
+      ranking : [ 2, 1, 3, 4, 0 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after add()&quot;);
+
+    QUnit.ok(ranking.added(new Game(3, 2)), &#039;valid added()&#039;);
+    QUnit.ok(!ranking.added(new Game(2, 4)), &#039;invalid added()&#039;);
+
+    ranking.remove(resb);
+
+    tmp = {
+      buchholz : [ 0, 1, 1, 0, 1 ],
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ 0, -10, 13, 0, -3 ],
+      ranking : [ 2, 1, 4, 0, 3 ],
+      size : 5,
+      wins : [ 0, 1, 1, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after remove()&quot;);
+
+    resb = new Result(2, 0, 5, 13);
+    ranking.add(resb);
+    tmp = new Result(2, 0, 13, 5);
+    corr = new Correction(resb, tmp);
+    tmp = ranking.correct(corr);
+
+    QUnit.equal(tmp, ranking, &#039;correct() was successful&#039;);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 1 ],
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ -8, -10, 21, 0, -3 ],
+      ranking : [ 2, 1, 0, 4, 3 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after correct()&quot;);
+
+    ranking.resize(3);
+    ranking.resize(5);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after resize()&quot;);
+
+    ranking.grantBye(1);
+
+    tmp = {
+      buchholz : [ 2, 2, 2, 0, 0 ],
+      byes : [ 0, 1, 0, 0, 0 ],
+      netto : [ -8, -4, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 2, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after grantBye()&quot;);
+
+    ranking.revokeBye(0);
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after invalid revokeBye()&quot;);
+
+    ranking.revokeBye(1);
+
+    tmp = {
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      byes : [ 0, 0, 0, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after revokeBye()&quot;);
+
+    QUnit.deepEqual(ranking.getCorrections(), [ corr ], &#039;getCorrections()&#039;);
+  });
+});
+
+/*
+ * Finebuchholz test
+ */
+require([ &#039;result&#039;, &#039;finebuchholzranking&#039;, &#039;correction&#039;, &#039;game&#039; ], function (
+    Result, Finebuchholz, Correction, Game) {
+  QUnit.test(&quot;Finebuchholz&quot;, function () {
+    var resa, resb, resc, ranking, tmp, corr;
+
+    ranking = new Finebuchholz(5);
+    QUnit.equal(ranking.size(), 5, &quot;size test&quot;);
+
+    resa = new Result(1, 2, 0, 13);
+    resb = new Result(2, 3, 13, 3);
+    resc = new Result(1, 4, 13, 10);
+    ranking.add(resa).add(resb).add(resc);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      buchholz : [ 0, 2, 1, 2, 1 ],
+      finebuchholz : [ 0, 2, 4, 1, 2 ],
+      netto : [ 0, -10, 23, -10, -3 ],
+      ranking : [ 2, 1, 3, 4, 0 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.ok(ranking.added(new Game(3, 2)), &#039;valid added()&#039;);
+    QUnit.ok(!ranking.added(new Game(2, 4)), &#039;invalid added()&#039;);
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after add()&quot;);
+
+    ranking.remove(resb);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      buchholz : [ 0, 1, 1, 0, 1 ],
+      finebuchholz : [ 0, 2, 1, 0, 1 ],
+      netto : [ 0, -10, 13, 0, -3 ],
+      ranking : [ 1, 2, 4, 0, 3 ],
+      size : 5,
+      wins : [ 0, 1, 1, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after remove()&quot;);
+
+    resb = new Result(2, 0, 5, 13);
+    ranking.add(resb);
+    tmp = new Result(2, 0, 13, 5);
+    corr = new Correction(resb, tmp);
+    tmp = ranking.correct(corr);
+
+    QUnit.equal(tmp, ranking, &#039;correct() successful&#039;);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      buchholz : [ 2, 2, 1, 0, 1 ],
+      finebuchholz : [ 1, 2, 4, 0, 2 ],
+      netto : [ -8, -10, 21, 0, -3 ],
+      ranking : [ 2, 1, 0, 4, 3 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after correct()&quot;);
+
+    ranking.resize(3);
+    ranking.resize(5);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      finebuchholz : [ 1, 1, 4, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after resize()&quot;);
+
+    ranking.grantBye(0);
+
+    tmp = {
+      byes : [ 1, 0, 0, 0, 0 ],
+      buchholz : [ 2, 2, 2, 0, 0 ],
+      finebuchholz : [ 2, 2, 4, 0, 0 ],
+      netto : [ -2, -10, 21, 0, 0 ],
+      ranking : [ 2, 0, 1, 3, 4 ],
+      size : 5,
+      wins : [ 1, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after grantBye()&quot;);
+
+    ranking.revokeBye(1);
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after invalid revokeBye()&quot;);
+
+    ranking.revokeBye(0);
+
+    tmp = {
+      byes : [ 0, 0, 0, 0, 0 ],
+      buchholz : [ 2, 2, 1, 0, 0 ],
+      finebuchholz : [ 1, 1, 4, 0, 0 ],
+      netto : [ -8, -10, 21, 0, 0 ],
+      ranking : [ 2, 1, 0, 3, 4 ],
+      size : 5,
+      wins : [ 0, 1, 2, 0, 0 ]
+    };
+
+    QUnit.deepEqual(ranking.get(), tmp, &quot;get() after revokeBye()&quot;);
+
+    QUnit.deepEqual(ranking.getCorrections(), [ corr ], &#039;getCorrections()&#039;);
+  });
+});
+
+/*
+ * Random Test
+ */
+require([ &#039;random&#039; ], function (Random) {
+  QUnit.test(&quot;Random&quot;, function () {
+    var min, max, r, x, i, sum;
+
+    r = new Random();
+
+    min = max = r.nextDouble();
+    sum = 0.0;
+
+    for (i = 0; i &lt; 10000; i += 1) {
+      x = r.nextDouble();
+
+      if (x &lt; min) {
+        min = x;
+      }
+      if (x &gt; max) {
+        max = x;
+      }
+
+      sum += x;
+    }
+
+    // approximate testing
+    QUnit.equal(Math.abs(sum - 5000) &lt; 100, true, &quot;double mean&quot;);
+    QUnit.equal(min &lt; 0.01, true, &quot;double min top&quot;);
+    QUnit.equal(min &gt;= 0.0, true, &quot;double min bottom&quot;);
+    QUnit.equal(max &gt; 0.99, true, &quot;double max top&quot;);
+    QUnit.equal(max &lt; 1.0, true, &quot;double max bottom&quot;);
+
+    max = min = r.nextInt(64);
+
+    for (i = 0; i &lt; 10000; i += 1) {
+      x = r.nextInt(64);
+
+      if (x &lt; min) {
+        min = x;
+      }
+      if (x &gt; max) {
+        max = x;
+      }
+    }
+
+    QUnit.equal(min, 0, &quot;int min&quot;);
+    QUnit.equal(max, 63, &quot;int max&quot;);
+  });
+});
+
+/*
+ * Swisstournament Test
+ */
+require([ &quot;swisstournament&quot;, &quot;game&quot; ], function (Swisstournament, Game) {
+  QUnit.test(&quot;Swisstournament&quot;, function () {
+    var st, corr, count, pid, valid, games1, games2, games3, rnk, res, tmp;
+
+    st = new Swisstournament();
+    QUnit.equal(st.state, Swisstournament.state.preparing || 0,
+        &#039;initial state is 0 (preparing)&#039;);
+
+    QUnit.equal(st.start(), undefined, &#039;premature start is aborted&#039;);
+
+    tmp = [ &#039;Antje&#039;, &#039;Basta&#039;, &#039;Christian&#039;, &#039;David&#039;, &#039;Erik&#039;, &#039;Fabe&#039;, &#039;Hartmut&#039;,
+        &#039;Inka&#039;, &#039;Karo&#039;, &#039;Mario&#039;, &#039;Peter&#039;, &#039;Stefan&#039;, &#039;Thomas&#039; ];
+
+    // only append 9 players
+    tmp.forEach(function (p, pid) {
+      if (pid &gt;= tmp.length - 9) {
+        st.addPlayer(pid);
+      }
+    });
+
+    QUnit.equal(st.players.size(), 9, &#039;player map size&#039;);
+
+    QUnit.equal(st.getRound(), 0, &#039;round is 0 before starting&#039;);
+    QUnit.equal(st.start(), st, &#039;start() retval&#039;);
+    QUnit.equal(st.state, Swisstournament.state.running || 1,
+        &#039;running state is 1 (running)&#039;);
+    QUnit.equal(st.getRound(), 1, &#039;round  is 1 after starting (autostart)&#039;);
+
+    games1 = st.openGames();
+
+    QUnit.equal(games1.length, 4, &#039;first round: correct number of games&#039;);
+
+    count = 0;
+    pid = -1;
+    st.byevote.forEach(function (bye, p) {
+      if (bye === true) {
+        count += 1;
+        pid = p;
+      }
+    });
+
+    QUnit.equal(count, 1, &#039;first round: one byevote&#039;);
+
+    pid = st.players.at(pid);
+
+    valid = true;
+    games1.forEach(function (game) {
+      if (game.teams[0][0] === pid || game.teams[1][0] === pid) {
+        valid = false;
+      }
+    });
+
+    QUnit.equal(valid, true, &#039;first round: byevote didn\&#039;t play&#039;);
+
+    count = 0;
+    pid = -1;
+    st.downvote.forEach(function (down, p) {
+      if (down === true) {
+        count += 1;
+        pid = p;
+      }
+    });
+
+    QUnit.equal(count, 0, &#039;first round: no downvotes&#039;);
+
+    count = 0;
+    pid = -1;
+    st.upvote.forEach(function (up, p) {
+      if (up === true) {
+        count += 1;
+        pid = p;
+      }
+    });
+
+    QUnit.equal(count, 0, &#039;first round: no upvotes&#039;);
+
+    st.finishGame(games1[0], [ 13, 8 ]);
+    st.finishGame(games1[1], [ 5, 13 ]);
+    st.finishGame(games1[2], [ 13, 4 ]);
+    st.finishGame(games1[3], [ 13, 6 ]);
+
+    QUnit.equal(st.openGames().length, 0, &#039;first round: all games finished&#039;);
+
+    rnk = st.getRanking();
+
+    QUnit.equal(rnk.wins.length, 9, &#039;ranking: correct length (wins)&#039;);
+    QUnit.equal(rnk.ids.length, 9, &#039;ranking: correct length (ids)&#039;);
+
+    res = rnk.wins[0] + rnk.wins[1] + rnk.wins[2] + rnk.wins[3] + rnk.wins[4];
+
+    QUnit.equal(res, 5, &#039;ranking: five wins in right order&#039;);
+
+    res = rnk.wins[5] + rnk.wins[6] + rnk.wins[7] + rnk.wins[8];
+
+    QUnit.equal(res, 0, &#039;ranking: four losses in right order&#039;);
+
+    // correct a game
+    st.correct(games1[2], [ 13, 4 ], [ 4, 13 ]);
+    corr = {
+      game : games1[2].copy(),
+      oldpoints : [ 13, 4 ],
+      newpoints : [ 4, 13 ]
+    };
+
+    // recheck the results
+    rnk = st.getRanking();
+
+    QUnit.equal(rnk.wins.length, 9, &#039;ranking: correct length (wins)&#039;);
+    QUnit.equal(rnk.ids.length, 9, &#039;ranking: correct length (ids)&#039;);
+
+    res = rnk.wins[0] + rnk.wins[1] + rnk.wins[2] + rnk.wins[3] + rnk.wins[4];
+
+    QUnit.equal(res, 5, &#039;ranking: five wins in right order&#039;);
+
+    res = rnk.wins[5] + rnk.wins[6] + rnk.wins[7] + rnk.wins[8];
+
+    QUnit.equal(res, 0, &#039;ranking: four losses in right order&#039;);
+
+    // consider second round
+    res = st.newRound();
+
+    QUnit.equal(res, st, &#039;second round: generation successful&#039;);
+
+    games2 = st.openGames();
+
+    QUnit.equal(games2.length, 4, &#039;second round: 4 games&#039;);
+
+    count = 0;
+
+    st.downvote.forEach(function (down) {
+      if (down) {
+        count += 1;
+      }
+    }, this);
+
+    QUnit.equal(count, 1, &quot;second round: one downvote&quot;);
+
+    count = 0;
+    st.upvote.forEach(function (up) {
+      if (up) {
+        count += 1;
+      }
+    }, this);
+
+    QUnit.equal(count, 1, &quot;second round: one upvote&quot;);
+
+    count = 0;
+    st.byevote.forEach(function (bye) {
+      if (bye) {
+        count += 1;
+      }
+    }, this);
+
+    QUnit.equal(count, 2, &quot;second round: second byevote&quot;);
+
+    tmp = [ st.players.at(st.downvote.indexOf(true)),
+        st.players.at(st.upvote.indexOf(true)) ];
+
+    tmp = [ new Game(tmp[0], tmp[1]), new Game(tmp[1], tmp[0]) ];
+
+    count = 0;
+    games2.forEach(function (game) {
+      if (game.equals(tmp[0])) {
+        count += 1;
+      }
+      if (game.equals(tmp[1])) {
+        count += 1;
+      }
+    }, this);
+
+    QUnit.equal(count, 1, &#039;second round: downvote vs. upvote&#039;);
+
+    tmp = [];
+    games1.forEach(function (game) {
+      tmp.push(new Game(game.teams[1][0], game.teams[0][0]));
+    }, this);
+
+    count = 0;
+
+    games2.forEach(function (g2) {
+      games1.forEach(function (g1) {
+        if (g2.equals(g1)) {
+          count += 1;
+        }
+      }, this);
+
+      tmp.forEach(function (g1) {
+        if (g2.equals(g1)) {
+          count += 1;
+        }
+      }, this);
+    }, this);
+
+    QUnit.equal(count, 0, &#039;second round: non-repetitive fixtures&#039;);
+
+    res = st.finishGame(new Game(0, 0), [ 13, 7 ]);
+
+    QUnit.equal(res, undefined, &#039;second round: invalid game&#039;);
+
+    res = st.finishGame(games2[3], [ 13, 0 ]);
+    QUnit.equal(res, st, &#039;second round: valid game&#039;);
+
+    res = st.finishGame(games2[3], [ 10, 13 ]);
+    QUnit.equal(res, undefined, &#039;second round: declining resubmitted result&#039;);
+
+    st.finishGame(games2[1], [ 11, 13 ]);
+    st.finishGame(games2[2], [ 13, 8 ]);
+    // the upvote wins this game to secure a third round
+    st.finishGame(games2[0], [ 5, 13 ]);
+
+    res = st.openGames();
+    QUnit.equal(res.length, 0, &#039;second round: all games closed&#039;);
+
+    // consider third round. Shuffling can fail with too few players as in this
+    // test, so shuffle multiple times and it should work in 99.999% of cases
+    for (tmp = 0; tmp &lt; 10; tmp += 1) {
+      res = st.newRound();
+      if (res !== undefined) {
+        break;
+      }
+    }
+    games3 = st.openGames();
+    QUnit.equal(res, st, &#039;third round: valid randomization&#039;);
+    QUnit.equal(games3.length, 4, &#039;third round: four games&#039;);
+
+    count = 0;
+    st.byevote.forEach(function (bye) {
+      if (bye) {
+        count += 1;
+      }
+    }, this);
+
+    QUnit.equal(count, 3, &quot;third round: third byevote&quot;);
+
+    st.finishGame(games3[3], [ 5, 13 ]);
+    st.finishGame(games3[2], [ 2, 13 ]);
+    st.finishGame(games3[1], [ 13, 9 ]);
+    st.finishGame(games3[0], [ 13, 12 ]);
+
+    count = st.openGames().length;
+
+    QUnit.equal(count, 0, &#039;third round: finished&#039;);
+
+    QUnit.deepEqual(st.getCorrections(), [ corr ], &#039;getCorrections()&#039;);
+
+    // // check tournament deadlock with too few players
+    // st = new Swisstournament();
+    // tmp = [ &#039;Antje&#039;, &#039;Basta&#039;, &#039;Christian&#039;, &#039;David&#039;, &#039;Erik&#039;, &#039;Fabe&#039;,
+    // &#039;Hartmut&#039;,
+    // &#039;Inka&#039;, &#039;Karo&#039;, &#039;Mario&#039;, &#039;Peter&#039;, &#039;Stefan&#039;, &#039;Thomas&#039; ];
+    //
+    // // only append 9 players
+    // tmp.forEach(function (p, pid) {
+    // if (pid &gt;= tmp.length - 9) {
+    // st.addPlayer(pid);
+    // }
+    // });
+    //
+    // st.start();
+    // games1 = st.openGames();
+    // st.finishGame(games1[0], [ 13, 8 ]);
+    // st.finishGame(games1[1], [ 5, 13 ]);
+    // st.finishGame(games1[2], [ 4, 13 ]);
+    // st.finishGame(games1[3], [ 13, 6 ]);
+    // st.newRound();
+    // games2 = st.openGames();
+    // st.finishGame(games2[3], [ 13, 0 ]);
+    // st.finishGame(games2[1], [ 11, 13 ]);
+    // st.finishGame(games2[2], [ 13, 8 ]);
+    // // this time, the downvote wins to inhibit a third round
+    // st.finishGame(games2[0], [ 13, 5 ]);
+    //
+    // // third round is impossible
+    // for (tmp = 0; tmp &lt; 100; tmp += 1) {
+    // res = st.newRound();
+    // if (res !== undefined) {
+    // break;
+    // }
+    // }
+    // QUnit.equal(res, undefined, &#039;tournament deadlock verified&#039;);
+  });
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

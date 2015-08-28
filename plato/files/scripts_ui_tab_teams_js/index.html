@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - scripts/ui/tab_teams.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>scripts/ui/tab_teams.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">62.84</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">704</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">63.95</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">5.40</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Model, View and Controller of the teams tab
+ * 
+ * This tab allows registration, deletion, renaming and printing of teams or
+ * individual players
+ * 
+ * @exports Tab_Teams
+ * @implements ./tab
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define([ &#039;./team&#039;, &#039;./toast&#039;, &#039;./strings&#039;, &#039;./tab_ranking&#039;, &#039;./storage&#039;,
+    &#039;./autocomplete&#039;, &#039;./options&#039;, &#039;./tab&#039;, &#039;./tabshandle&#039;, &#039;./shared&#039; ], function (Team, Toast, Strings, Tab_Ranking, Storage, Autocomplete, Options, Tab, Tabshandle, Shared) {
+
+  // TODO combine $anchors, $fileload, $delete and $teamsize
+  var Tab_Teams, $tab, template, newteam, $anchor, options, $fileload, $teamsize, $delete, updatepending;
+
+  updatepending = false;
+
+  $tab = undefined;
+
+  options = {
+    allowRegistrations : true,
+    _changed : function () {
+      updateActiveState();
+    }
+  };
+
+  function trimName (name) {
+    return name.replace(/^\s*|\s*$/g, &#039;&#039;).replace(/\s\s*/g, &#039; &#039;);
+  }
+
+  function updateTeamCounts () {
+    $tab.find(&#039;.numteams&#039;).text(Team.count());
+  }
+
+  function deleteTeam ($team) {
+    var teamid, team, $names, Tab_Games, i, name;
+
+    if (!options.allowRegistrations) {
+      new Toast(Strings.registrationclosed);
+      return undefined;
+    }
+
+    // retrieve team id
+    teamid = $team.prevAll(&#039;.team&#039;).length;
+
+    Team.erase(teamid);
+
+    Shared.Tab_New.update();
+
+    Storage.changed();
+
+    Tab_Teams.reset();
+    Tab_Teams.update();
+
+    new Toast(Strings.teamdeleted.replace(&#039;%s&#039;, (teamid + 1)));
+  }
+
+  function initDeletion () {
+    $delete = $tab.find(&#039;button.delete&#039;);
+    $delete.on(&#039;click&#039;, function (e) {
+      $tab.toggleClass(&#039;deletion&#039;);
+      e.preventDefault();
+      return false;
+    });
+
+    $(&#039;body&#039;).on(&#039;click&#039;, &#039;#teams.deletion&#039;, function (e) {
+      // delete the team
+      var $this;
+
+      $this = $(e.target);
+
+      if (!$this.hasClass(&#039;team&#039;)) {
+        $this = $this.parents(&#039;.team&#039;);
+      }
+
+      if ($this.hasClass(&#039;team&#039;)) {
+        deleteTeam($this);
+      }
+
+      $tab.removeClass(&#039;deletion&#039;);
+
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function deletionPending () {
+    return $tab.hasClass(&#039;deletion&#039;);
+  }
+
+  function updateDeletion () {
+    if (Team.count() === 0) {
+      $delete.addClass(&#039;hidden&#039;);
+    } else {
+      $delete.removeClass(&#039;hidden&#039;);
+    }
+  }
+
+  function initTeamSize () {
+    $teamsize = $tab.find(&#039;.teamsize&#039;);
+    $teamsize.find(&#039;button&#039;).on(&#039;click&#039;, function (e) {
+      var teamsize, $button;
+
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+
+      }
+
+      $button = $(this);
+
+      if ($button.prop(&#039;tagName&#039;) !== &#039;BUTTON&#039;) {
+        $button = $button.parents(&#039;button&#039;);
+      }
+
+      teamsize = Number($button.val());
+
+      Options.teamsize = teamsize;
+
+      Tabshandle.updateOpts();
+      Shared.Alltabs.reset();
+      Shared.Alltabs.update();
+
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function updateTeamSize () {
+    $teamsize.find(&#039;button&#039;).removeClass(&#039;selected&#039;);
+    $teamsize.find(&#039;button[value=&#039; + Options.teamsize + &#039;]&#039;).addClass(&#039;selected&#039;);
+    $teamsize.show();
+  }
+
+  function initTemplate () {
+    var tmp, $tpl, $teamno, $names, $chname, i;
+
+    if (template) {
+      console.error(&#039;tab_teams: template already exists: &#039;);
+      console.error(template);
+      return;
+    }
+
+    $tpl = $tab.find(&#039;.team.tpl&#039;);
+
+    $tpl.detach();
+    $tpl.removeClass(&#039;tpl&#039;);
+
+    $names = [];
+    tmp = $tpl.find(&#039;.name&#039;);
+    for (i = 0; i &lt; Options.maxteamsize; i += 1) {
+      $names[i] = tmp.eq(i);
+    }
+
+    $teamno = $tpl.find(&#039;.teamno&#039;);
+
+    $chname = $tpl.find(&#039;.chname&#039;);
+    $chname.detach();
+
+    template = {
+      $tpl : $tpl,
+      $teamno : $teamno,
+      $names : $names,
+      $chname : $chname,
+    };
+
+    updateTemplate();
+  }
+
+  /**
+   * reads names from a string and adds the players accordingly. Ignores
+   * #-escaped lines
+   * 
+   * @return true on success, undefined or false on failure
+   */
+  function createTeamsFromString (str) {
+    var lines, line, name, names, teamsize, team, i;
+
+    if (Team.count() !== 0) {
+      new Toast(Strings.teamsnotempty);
+      return undefined;
+    }
+
+    if (!options.allowRegistrations) {
+      new Toast(Strings.registrationclosed);
+      return undefined;
+    }
+
+    stripregex = /(^\s+|\s+$)/g;
+
+    lines = str.split(&#039;\n&#039;);
+
+    // strip unnecessary lines and characters
+    for (i = lines.length - 1; i &gt;= 0; i -= 1) {
+      // strip white spaces
+      lines[i] = trimName(lines[i]);
+
+      // convert CSV format to plain text
+      // first, replace all commas and double quotes inside quotes
+      lines[i] = lines[i].replace(/(, ?&quot;([^,&quot;])*)&quot;&quot;/g, &#039;$1%DBQUOTE%&#039;);
+      lines[i] = lines[i].replace(/(, ?&quot;([^,&quot;])*),/g, &#039;$1%COMMA%&#039;);
+      // second, remove spaces around commas
+      lines[i] = lines[i].replace(/ *, */g, &#039;,&#039;);
+      // second, convert the actual content
+      lines[i] = lines[i].replace(/^([0-9]+,)?&quot;([^&quot;]*)&quot;,&quot;([^&quot;]*)&quot;,&quot;([^&quot;]*)&quot;$/, &#039;$2,$3,$4&#039;);
+      lines[i] = lines[i].replace(/^([0-9]+,)?&quot;([^&quot;]*)&quot;,&quot;([^&quot;]*)&quot;$/, &#039;$2,$3&#039;);
+      lines[i] = lines[i].replace(/^([0-9]+,)?&quot;([^&quot;]*)&quot;$/, &#039;$2&#039;);
+
+      // remove all comments
+      lines[i] = lines[i].replace(/^#.*/, &#039;&#039;);
+      // remove empty lines (and the aforementioned comments)
+      if (lines[i].length === 0) {
+        lines.splice(i, 1);
+      }
+    }
+
+    teamsize = -1;
+
+    // split and strip the individual player names and store them in the lines
+    // variable
+    for (names in lines) {
+      lines[names] = lines[names].split(&#039;,&#039;);
+      names = lines[names];
+
+      for (name in names) {
+        names[name] = trimName(names[name]).replace(&#039;%COMMA%&#039;, &#039;,&#039;);
+        names[name] = trimName(names[name]).replace(&#039;%DBQUOTE%&#039;, &#039;&quot;&#039;);
+        if (names[name].length === 0) {
+          names[name] = Strings.emptyname;
+        }
+      }
+
+      // verify that all teams have the same number of playuers
+      if (teamsize !== names.length) {
+        if (teamsize === -1) {
+          teamsize = names.length;
+        } else {
+          new Toast(Strings.differentteamsizes);
+          return undefined;
+        }
+      }
+    }
+
+    // validate team size
+    switch (teamsize) {
+    case 1:
+    case 2:
+    case 3:
+      // set the team size
+      Options.teamsize = teamsize;
+      // update tabs to the new teamsize
+      Tabshandle.updateOpts();
+      Shared.Alltabs.reset();
+      Shared.Alltabs.update();
+      break;
+    default:
+      new Toast(Strings.invalidteamsize);
+      return undefined;
+    }
+
+    // enter new teams
+    for (names in lines) {
+      names = lines[names];
+
+      team = Team.create(names);
+      createBox(team);
+    }
+    updateAfterTeamAdd();
+
+    // save changes
+    Storage.changed();
+
+    return true;
+  }
+
+  function invalidateFileLoad () {
+    $fileload.find(&#039;input&#039;).val(&#039;&#039;);
+  }
+
+  function loadFileError (evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ERR:
+      break;
+    default:
+      new Toast(Strings.fileerror);
+    }
+
+    invalidateFileLoad();
+  }
+
+  function loadFileLoad (evt) {
+    var contents;
+
+    contents = evt.target.result;
+
+    if (createTeamsFromString(contents)) {
+      new Toast(Strings.loaded);
+    } else {
+      // toast already sent by createTeamsFromString
+    }
+
+    invalidateFileLoad();
+  }
+
+  function loadFileAbort () {
+    new Toast(Strings.fileabort);
+
+    invalidateFileLoad();
+  }
+
+  function initFileLoad () {
+    $fileload = $tab.find(&#039;.load&#039;);
+
+    $fileload.find(&#039;input&#039;).change(function (evt) {
+      var reader = new FileReader();
+      reader.onerror = loadFileError;
+      reader.onabort = loadFileAbort;
+      reader.onload = loadFileLoad;
+
+      reader.readAsBinaryString(evt.target.files[0]);
+    });
+  }
+
+  function updateFileLoad () {
+    $fileload.show();
+  }
+
+  function updateTemplate () {
+    var i, $names;
+
+    Autocomplete.reset();
+
+    $names = template.$names;
+
+    for (i = 0; i &lt; Options.maxteamsize; i += 1) {
+      if (i &lt; Options.teamsize) {
+        $names[i].prev(&#039;br&#039;).css(&#039;display&#039;, &#039;&#039;);
+        $names[i].css(&#039;display&#039;, &#039;&#039;);
+      } else {
+        $names[i].prev(&#039;br&#039;).css(&#039;display&#039;, &#039;none&#039;);
+        $names[i].css(&#039;display&#039;, &#039;none&#039;);
+      }
+    }
+  }
+
+  function initNewTeam () {
+    var i, tmp, $names, $form;
+
+    if (newteam) {
+      console.error(&#039;tab_teams: newteam is already defined:&#039;);
+      console.error(newteam);
+      return;
+    }
+
+    // ================== FUNCTIONS BEGIN ==================
+    /**
+     * Retrieves, validates and returns names of new players, resetting the
+     * input fields if valid
+     * 
+     * @return array of player names on successful validation, undefined
+     *         otherwise
+     */
+    function readNewTeamNames () {
+      var names, i;
+
+      names = [];
+
+      // get and trim names
+      for (i = 0; i &lt; Options.teamsize; i += 1) {
+        names.push(trimName(newteam.$names[i].val()));
+      }
+
+      // abort on empty names
+      for (i = 0; i &lt; Options.teamsize; i += 1) {
+        if (names[i] === &#039;&#039;) {
+          return undefined;
+        }
+      }
+
+      // reset input fields
+      for (i = 0; i &lt; Options.teamsize; i += 1) {
+        newteam.$names[i].val(&#039;&#039;);
+      }
+
+      // clear autocomplete entries
+      Autocomplete.clear();
+
+      return names;
+    }
+
+    function focusEmptyTeamNames () {
+      var names, i;
+
+      for (i = 0; i &lt; Options.teamsize; i += 1) {
+        if (trimName(newteam.$names[i].val()) === &#039;&#039;) {
+          newteam.$names[i].focus();
+          break;
+        }
+      }
+    }
+
+    function createTeamFromForm () {
+      var names, team;
+
+      if (!options.allowRegistrations) {
+        new Toast(Strings.registrationclosed);
+        return undefined;
+      }
+
+      names = readNewTeamNames();
+
+      if (names !== undefined) {
+        team = Team.create(names);
+        new Toast(Strings.teamadded.replace(&#039;%s&#039;, team.id + 1));
+        createBox(team);
+        updateAfterTeamAdd();
+
+        newteam.$names[0].focus();
+
+        // save changes
+        Storage.changed();
+      } else {
+        focusEmptyTeamNames();
+      }
+
+      return false;
+    }
+    // ================== FUNCTIONS END ==================
+
+    $form = $tab.find(&#039;#newteam&#039;);
+
+    tmp = $form.find(&#039;input.playername&#039;);
+    $names = [];
+    for (i = 0; i &lt; Options.maxteamsize; i += 1) {
+      $names[i] = tmp.eq(i);
+    }
+
+    newteam = {
+      $form : $form,
+      $names : $names,
+    };
+
+    // register &#039;new player&#039; form submission
+    $form.submit(createTeamFromForm);
+
+    updateNewTeam();
+  }
+
+  function updateNewTeam () {
+    var i, $names;
+
+    $names = newteam.$names;
+
+    for (i = 0; i &lt; Options.maxteamsize; i += 1) {
+      if (i &lt; Options.teamsize) {
+        $names[i].prev(&#039;br&#039;).css(&#039;display&#039;, &#039;&#039;);
+        $names[i].css(&#039;display&#039;, &#039;&#039;);
+      } else {
+        $names[i].prev(&#039;br&#039;).css(&#039;display&#039;, &#039;none&#039;);
+        $names[i].css(&#039;display&#039;, &#039;none&#039;);
+      }
+    }
+  }
+
+  function initMaxWidth () {
+    var $box;
+
+    // width checkbox
+    $box = $tab.find(&#039;.options .maxwidth&#039;);
+
+    // toggle#teams.maxwidth
+    function maxwidthtest () {
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+      }
+
+      if (!!$box.prop(&#039;checked&#039;)) {
+        $tab.addClass(&#039;maxwidth&#039;);
+      } else {
+        $tab.removeClass(&#039;maxwidth&#039;);
+      }
+    }
+
+    $box.click(maxwidthtest);
+
+    maxwidthtest();
+  }
+
+  function initRename () {
+
+    // ================== FUNCTIONS BEGIN ==================
+    function chshow ($name) {
+      template.$chname.val($name.text());
+      $name.text(&#039;&#039;);
+      $name.append(template.$chname);
+      template.$chname.focus();
+    }
+
+    function updateTeam ($team) {
+      var teamid, team, $names, Tab_Games, i, name;
+
+      // retrieve team id
+      teamid = $team.prevAll(&#039;.team&#039;).length;
+
+      team = Team.get(teamid);
+
+      $names = $team.find(&#039;.name&#039;);
+
+      for (i = 0; i &lt; Options.teamsize; i += 1) {
+        name = trimName($names.eq(i).text());
+        if (name) {
+          // accept non-empty names
+          team.getPlayer(i).setName(name);
+        } else {
+          // reset to stored name
+          $names.eq(i).text(team.getPlayer(i).getName());
+        }
+      }
+
+      // avoid circular dependency
+      Tab_Games = Shared.Tab_Games;
+      // refresh all tabs
+      Shared.Tab_New.update();
+      Tab_Games.update();
+      Tab_Ranking.update();
+
+      // save change
+      Storage.changed();
+    }
+
+    function chabort () {
+      template.$chname.val(&#039;&#039;);
+      template.$chname.blur();
+    }
+
+    function chhide () {
+      var name, $name, $team, $parents;
+
+      $parents = template.$chname.parents();
+      $name = $parents.eq(0);
+
+      template.$chname.detach();
+      // trim the string
+      name = trimName(template.$chname.val());
+      $name.text(name);
+
+      $team = $parents.eq(2);
+
+      updateTeam($team);
+
+      if (/^\s*$/.test(template.$chname.val())) {
+        new Toast(Strings.namechangeaborted);
+      } else {
+        new Toast(Strings.namechanged.replace(&#039;%s&#039;, name));
+      }
+    }
+    // ================== FUNCTIONS END ==================
+
+    $tab.on(&#039;click&#039;, &#039;.team .name&#039;, function () {
+      var $name;
+
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+      }
+
+      $name = $(this);
+
+      chshow($name);
+    });
+
+    template.$chname.blur(chhide);
+    template.$chname.keyup(function (e) {
+      if (e.which === 13) {
+        // automatically calls chhide
+        template.$chname.blur();
+        e.preventDefault();
+        return false;
+      } else if (e.which === 27) {
+        chabort();
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // avoid bubbling of the click event towards .name, which would remove
+    // chname and cause DOM exceptions
+    template.$chname.click(function (e) {
+      if (deletionPending()) {
+        e.preventDefault();
+        return false;
+      }
+
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function init () {
+    // remember that we have initialized this page
+    if ($tab) {
+      console.error(&#039;tab_teams: $tab is already defined:&#039;);
+      console.error($tab);
+      return;
+    }
+
+    $tab = $(&#039;#teams&#039;);
+    initTemplate();
+    initNewTeam();
+    initMaxWidth();
+    initRename();
+    initFileLoad();
+    initTeamSize();
+    initDeletion();
+    $anchor = newteam.$form;
+  }
+
+  function resetOptions () {
+    options.allowRegistrations = true;
+  }
+
+  /**
+   * this function adds a new team box to the page
+   * 
+   * @param team
+   *          array of team member names. team number is determined from call
+   *          order
+   */
+  function createBox (team) {
+    var i;
+
+    for (i = 0; i &lt; Options.teamsize; i += 1) {
+      template.$names[i].text(team.getPlayer(i).getName());
+    }
+    template.$teamno.text(team.getID() + 1);
+
+    $anchor.before(template.$tpl.clone());
+  }
+
+  function updateAfterTeamAdd () {
+    if (Team.count() &gt; 0) {
+      // hide file load
+      $fileload.hide();
+      // hide teamsize selection
+      $teamsize.hide();
+      // show deletion button
+      updateDeletion();
+      // show the number of teams
+      updateTeamCounts();
+
+      Shared.Tab_New.update();
+    }
+  }
+
+  // TODO call after an option update
+  function updateActiveState () {
+    if (options.allowRegistrations) {
+      $tab.removeClass(&#039;noreg&#039;);
+    } else {
+      $tab.addClass(&#039;noreg&#039;);
+    }
+  }
+
+  /**
+   * init, clear and reset all in one
+   */
+  function reset () {
+    if (!$tab) {
+      init();
+    }
+
+    // delete everything
+    $tab.find(&#039;.team&#039;).remove();
+    Autocomplete.reset();
+
+    resetOptions();
+    updateActiveState();
+
+    // reset everything
+    updateDeletion();
+    updateTeamSize();
+    updateTemplate();
+    updateNewTeam();
+    updateFileLoad();
+    updateTeamCounts();
+    Autocomplete.update();
+  }
+
+  function update () {
+    var i, l;
+    Tab_Teams.reset();
+
+    l = Team.count();
+
+    for (i = 0; i &lt; l; i += 1) {
+      createBox(Team.get(i));
+    }
+
+    updateAfterTeamAdd();
+  }
+
+  Tab_Teams = Tab.createTab(&#039;teams&#039;, reset, update, options);
+  Shared.Tab_Teams = Tab_Teams;
+  return Tab_Teams;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

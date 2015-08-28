@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - swiss.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>swiss.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">58.21</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">1616</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">176.33</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">17.94</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">window.addEventListener(&#039;load&#039;, function () {
+    
+    &#039;use strict&#039;;
+
+    var strings = {
+        keys: {
+            player: &#039;player&#039;,
+        },
+        
+        state: {
+            object: {
+                rapid: 0,
+                avail: 1,
+                pass: 2,
+                playing: 3,
+                inactive: 4
+            },
+            arr: [&#039;rapid&#039;, &#039;avail&#039;, &#039;pass&#039;, &#039;playing&#039;, &#039;inactive&#039;],
+            rapid: &#039;rapid&#039;,
+            avail: &#039;avail&#039;,
+            pass: &#039;pass&#039;,
+            playing: &#039;playing&#039;,
+            inactive: &#039;inactive&#039;
+        },
+        
+        game: {
+            running: &#039;running&#039;,
+            finished: &#039;finished&#039;,
+            invalid: &#039;invalid&#039;
+        },
+        
+        err: {
+            pid: &#039;pid error!&#039;,
+            nostorage: &#039;Dein Browser nutzt keinen HTML5 Storage. Du musst manuell speichern.&#039;
+        },
+        
+        abortgame: &#039;Dieses Spiel für ungültig erklären?&#039;,
+        invalidresult: &#039;Ein Spiel darf nicht mit Gleichstand beendet werden.&#039;,
+        
+        timedefault: &#039;0:00:00&#039;,
+        stillopengames: &#039;Es gibt noch offene Spiele!&#039;,
+        pastehere: &#039;Füge gespeicherten Text hier ein und drücke den Knopf. Dabei werden alle momentan gespeicherten Daten überschrieben.&#039;,
+        copythis: &#039;Kopiere den Inhalt dieses Feldes in eine Datei, um das Turnier zu speichern.&#039;,
+        clearall: &#039;Sollen alle gespeicherten Daten entfernt werden?&#039;,
+        alllost: &#039;Wenn du die Seite schliesst, gehen alle Daten verloren!&#039;,
+        allsaved: &#039;Keine Sorge: Die Spieldaten werden gespeichert.&#039;,
+        endgame: &#039;Spiel &quot;%A% gegen %B%&quot; mit Stand %S1%:%S2% beenden?&#039;,
+        notenoughplayers: &#039;Zu wenige Spieler&#039;,
+        nogamepossible: &#039;Kein neues Spiel moeglich&#039;,
+        createplayer: &#039;Soll &quot;%NAME&quot; angemeldet werden?&#039;
+    };
+
+    var warning = document.getElementById(&#039;javascript&#039;);
+    var templates = {
+        oldplayer : document.getElementsByClassName(&#039;oldplayer&#039;)[0],
+        game : document.getElementsByClassName(&#039;running&#039;)[0]
+    };
+    
+    var timelimitbox = document.getElementById(&#039;timelimit&#039;);
+    var mingamesbox = document.getElementById(&#039;mingames&#039;);
+    var maxgamesbox = document.getElementById(&#039;maxgames&#039;);
+    
+    var gamelist = document.getElementById(&#039;gamelist&#039;);
+    var gamebutton = document.getElementById(&#039;newgame&#039;);
+    var allgamesbutton = document.getElementById(&#039;allgames&#039;);
+
+    // &#039;new player&#039; elements:
+    var newplayer = {
+        self : document.getElementById(&#039;newplayer&#039;),
+        button : document.getElementById(&#039;playerbutton&#039;),
+        name : document.getElementById(&#039;playername&#039;)
+    };
+    
+    var storage = false;
+    var savebutton = document.getElementById(&#039;save&#039;);
+    var loadbutton = document.getElementById(&#039;load&#039;);
+
+// Game constructor
+    function Game(A, B, gid) {
+        A = A || 0;
+        B = B || 0;
+        gid = gid || Game.games.length;
+        
+        this.gid = gid;
+
+        this.A = A;    //  integer
+        this.B = B;    //  integer
+
+        this.scoreA = 0;    //  integer
+        this.scoreB = 0;    //  integer
+
+        this.time = 0;    //  Date (either begin or total)
+
+        // running or finished
+        this.state = strings.game.running;
+    }
+    Game.games = [];
+    Game.constellations = [];
+    Game.timelimit = 75;
+    
+// Player constructor
+    function Player(name, pid) {
+        name = name || &#039;&#039;;
+        pid = pid || Player.players.length;
+        
+        this.pid = pid; // integer
+        this.name = name;   // string
+        this.state = strings.state.object.avail; // integer
+
+        this.games = 0;
+        this.siege = 0;
+        this.buchholz = 0;
+        this.feinbuchholz = 0;
+        this.netto = 0;
+        
+        this.rank = 1;
+        
+        this.time = 0;
+        this.blink = undefined; // interval for blinking
+    }
+
+    Player.players = [];
+    Player.mingames = 0;
+    Player.maxgames = 3;
+    
+    Player.checkGameLimits = function () {
+        var i = Player.players.length;
+        var p;
+        
+        while (i) {
+            --i;
+            p = Player.players[i];
+            if (p.state === strings.state.object.inactive ||
+                    p.state === strings.state.object.avail) {
+                if (p.siege &gt; Player.maxgames || p.siege &lt; Player.mingames) {
+                    p.setStatus(strings.state.inactive);
+                } else if (p.state === strings.state.object.inactive) {
+                    p.setStatus(strings.state.avail);
+                }
+            }
+        }
+        
+        Player.sort();
+    };
+    
+    Player.updateMinMax = function () {
+        mingamesbox.value = Number(Player.mingames);
+        maxgamesbox.value = Number(Player.maxgames);
+        
+        Player.checkGameLimits();
+    };
+    
+    Player.prototype.resetPoints = function () {
+        this.games = 0;
+        this.siege = 0;
+        this.buchholz = 0;
+        this.feinbuchholz = 0;
+        this.netto = 0;
+        this.rank = 1;
+        this.time = 0;
+    };
+
+    Player.prototype.toString = function () {
+        return [this.pid, this.state, this.name].join(&#039; &#039;);
+    };
+
+    Player.prototype.pointsToString = function () {
+        return [this.games, this.siege, this.buchholz, this.feinbuchholz,
+                this.netto].join(&#039;, &#039;);
+    };
+
+    Player.prototype.fromString = function (str) {
+        var arr = str.split(&#039; &#039;);
+
+        arr.shift();// remove pid
+        this.state = Number(arr.shift());
+        this.name = arr.join(&#039; &#039;);
+        
+        return this;
+    };
+    
+    Player.prototype.setStatus = function (status) {
+        var element = document.getElementById(strings.keys.player + this.pid);
+        if (!element) {
+            alert(strings.err.pid);
+        }
+
+        var select = element.getElementsByTagName(&#039;select&#039;)[0];
+        this.state = Player.stringToSid(status);
+
+        element.className = &#039;oldplayer &#039; + status;
+        select.selectedIndex = this.state;
+        var opts = select.getElementsByTagName(&#039;option&#039;);
+
+        if (status === strings.state.playing || status === strings.state.inactive) {
+            opts[0].disabled = true;
+            opts[1].disabled = true;
+            opts[2].disabled = true;
+        } else {
+            opts[0].disabled = false;
+            opts[1].disabled = false;
+            opts[2].disabled = false;
+        }
+
+        if (storage) {
+            saveAll();
+        }
+    };
+
+    Player.prototype.getKey = function () {
+        return strings.keys.player + this.pid;
+    };
+
+    Player.calcRank = function () {
+        
+        function sortrank(a, b) {
+            if (a.siege !== b.siege) {
+                return b.siege - a.siege;
+            }
+            
+            if (a.buchholz !== b.buchholz) {
+                return b.buchholz - a.buchholz;
+            }
+            
+            if (a.feinbuchholz !== b.feinbuchholz) {
+                return b.feinbuchholz - a.feinbuchholz;
+            }
+            
+            return b.netto - a.netto;
+        }
+        
+        var tmparr = [];
+        var i = Player.players.length;
+        
+        while (i) {
+            --i;
+            tmparr[i] = Player.players[i];
+        }
+        
+        function samerank(i) {
+            return tmparr[i].siege === tmparr[i + 1].siege &amp;&amp;
+                tmparr[i].buchholz === tmparr[i + 1].buchholz &amp;&amp;
+                tmparr[i].feinbuchholz === tmparr[i + 1].feinbuchholz &amp;&amp;
+                tmparr[i].netto === tmparr[i + 1].netto;
+        }
+        
+        tmparr.sort(sortrank);
+        
+        var imax = tmparr.length;
+        var rank = 1;
+        for (i = 0; i &lt; imax; ++i) {
+            
+            tmparr[i].rank = rank;
+            
+            if (i !== imax - 1 &amp;&amp; !samerank(i)) {
+                rank = i + 2;
+            }
+        }
+    };
+    
+    Player.sort = function () {
+        
+        var tmparr = [];
+        var p = Player.players;
+        var i = p.length;
+        var j = i;
+        var max = 0;
+        var d;  // tmpvar
+        
+        function sortfunc(a, b) {
+            if (a.state !== b.state) {
+                return b.state - a.state;
+            }
+
+            if (!!a.blink !== !!b.blink) {
+                return (a.blink ? 1 : 0) - (b.blink ? 1 : 0);
+            }
+            
+            if (b.rank !== a.rank) {
+                return b.rank - a.rank;
+            }
+            
+            return b.pid - a.pid;
+        }
+        
+        while (i) {
+            --i;
+            if (p[i].games &gt; max) {
+                max = p[i].games;
+            }
+        }
+
+        i = p.length;
+        while (i) {
+            --i;
+            if (p[i].games &lt; max - 1 &amp;&amp; p[i].state === strings.state.object.avail) {
+                if (!p[i].blink) {
+                    (function () {
+                        var id = i;
+                        p[id].blink = setInterval(function () {
+                            var d = document.getElementById(&#039;player&#039; + id);
+                            if (/blink/.test(d.className)) {
+                                d.className = d.className.replace(&#039; blink&#039;, &#039;&#039;);
+                            } else {
+                                d.className += &#039; blink&#039;;
+                            }
+                        }, 666);
+                    }());
+                }
+            } else if (p[i].blink) {
+                clearInterval(p[i].blink);
+                p[i].blink = undefined;
+                d = document.getElementById(&#039;player&#039; + i);
+                d.className = d.className.replace(&#039; blink&#039;, &#039;&#039;);
+            }
+        }
+
+        i = p.length;
+        while (i) {
+            --i;
+            
+            tmparr[i] = p[i];
+        }
+        
+        tmparr.sort(sortfunc);
+        
+        Player.clearDOM();
+        
+        while (j) {
+            --j;
+            tmparr[j].appendToDOM();
+        }
+
+    };
+
+    Player.clearDOM = function () {
+        var classes = document.getElementsByClassName(&#039;oldplayer&#039;);
+        var i = classes.length;
+        
+        while (i) {
+            --i;
+            classes[i].parentNode.removeChild(classes[i]);
+        }
+
+    };
+
+    Player.get = function (pid) {
+        return Player.players[pid];
+    };
+
+    Player.getName = function (pid) {
+        return Player.players[pid].name;
+    };
+
+    Player.sidToString = function (sid) {
+        return strings.state.arr[sid];
+    };
+
+    Player.stringToSid = function (string) {
+        return strings.state.object[string];
+    };
+
+    Player.calcPoints = function () {
+        var p = Player.players;
+        var i = p.length;
+
+        while (i) {
+            i--;
+            p[i].resetPoints();
+        }
+
+        i = Game.games.length;
+        var g;
+        var diff;
+
+        while (i) {
+            i--;
+
+            g = Game.games[i];
+            if (g.state !== strings.game.finished) {
+                continue;
+            }
+
+            diff = g.scoreA - g.scoreB;
+
+            p[g.A].time += g.time;
+            p[g.B].time += g.time;
+            
+            p[g.A].games++;
+            p[g.B].games++;
+            
+            p[g.A].netto += diff;
+            p[g.B].netto -= diff;
+
+            if (g.scoreA &gt; g.scoreB) {
+                p[g.A].siege++;
+            } else if (g.scoreB &gt; g.scoreA) {
+                p[g.B].siege++;
+            }
+        }
+
+        i = Game.games.length;
+        while (i) {
+            i--;
+
+            g = Game.games[i];
+            if (g.state !== strings.game.finished) {
+                continue;
+            }
+
+            p[g.A].buchholz += p[g.B].siege;
+
+            p[g.B].buchholz += p[g.A].siege;
+
+        }
+
+        i = Game.games.length;
+        while (i) {
+            i--;
+
+            g = Game.games[i];
+            if (g.state !== strings.game.finished) {
+                continue;
+            }
+
+            p[g.A].feinbuchholz += p[g.B].buchholz;
+
+            p[g.B].feinbuchholz += p[g.A].buchholz;
+        }
+        
+        Player.calcRank();
+    };
+    
+    Player.prototype.appendToDOM = function () {
+        // add according elements to DOM
+
+        var element = document.createElement(&#039;div&#039;);
+        element.innerHTML = templates.oldplayer.innerHTML.replace(&#039;%NAME&#039;,
+                this.name);
+        element.id = &#039;player&#039; + this.pid;
+        newplayer.self.parentNode.appendChild(element);
+
+        this.updateInfo();
+
+        var that = this;
+        
+        var select = element.getElementsByTagName(&#039;select&#039;)[0];
+        select.addEventListener(&#039;change&#039;, function () {
+            that.setStatus(Player.sidToString(select.selectedIndex));
+            Player.sort();
+            Game.checkConstellations();
+        }, false);
+
+        this.setStatus(Player.sidToString(this.state));
+    };
+    
+    Player.prototype.updateInfo = function () {
+        var element = document.getElementById(&#039;player&#039; + this.pid);
+        var span = element.getElementsByClassName(&#039;points&#039;)[0];
+        
+        var d = new Date();
+        d.setTime(this.time);
+        
+        var min = d.getUTCMinutes();
+        min = (min &lt; 10 ? &#039;0&#039; : &#039;&#039;) + min;
+
+        var str = [d.getUTCHours(), min].join(&#039;:&#039;);
+
+        span.innerHTML = [&#039;&lt;b&gt;&#039;, this.rank, &#039;&lt;/b&gt; (&#039;, this.pointsToString(),
+                &#039;) &#039;, str].join(&#039;&#039;);
+    };
+    
+    Player.updateInfos = function () {
+        var i = Player.players.length;
+        while (i) {
+            i--;
+
+            Player.players[i].updateInfo();
+        }
+    };
+    
+    Player.removeFromDOM = function () {
+        var e = document.getElementById(&#039;player&#039; + this.pid);
+
+        e.parentNode.removeChild(e);
+    };
+   
+// function for adding new players to the list and array
+    Player.add = function () {
+        // create new Player
+        var name = newplayer.name.value;
+        newplayer.name.value = &#039;&#039;;
+
+        if (!name || !confirm(strings.createplayer.replace(&#039;%NAME&#039;, name))) {
+            return;
+        }
+
+        var pid = Player.players.length;
+        var player = new Player(name, pid);
+
+        Player.players[pid] = player;
+        
+        Player.sort();
+        
+        Game.checkConstellations();
+    };
+    
+    function randpick(arr) {
+        if (!arr || !arr.length) {
+            return undefined;
+        }
+        
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+    
+    function invalidGames() {
+        var g = Game.games;
+        var i;
+        var out = [];   // two-dimensional array of players
+        //  indexing: out[A.pid][g1.B, g2.B, g3.B, ...]
+        
+        i = Player.players.length;
+        
+        while (i) {
+            --i;
+            
+            out[i] = [];
+        }
+        
+        i = g.length;
+        while (i) {
+            --i;
+            
+            if (g[i].state !== strings.game.finished) {
+                continue;
+            }
+            
+            out[g[i].A].push(g[i].B);
+            out[g[i].B].push(g[i].A);
+        }
+        
+        return out;
+    }
+    
+    // This function builds a list of possible team constellations
+    // It is intended to be used to calculate game weights and random pick
+    // one constellation automagically
+    // This function doesn&#039;t use the Player class internally. PIDs are used.
+    function possibleConstellations() {
+        var available = []; // pids of available players
+        var out = [];   // possible constellations
+        var invalids = [];
+        var rapids = [];
+        var forcerapid = false;
+        var tmp;
+        
+        var a, b; // players of one team
+        var i = Player.players.length;
+        
+        // build list of available players
+        while (i) {
+            --i;
+            
+            if (Player.players[i].state === strings.state.object.avail) {
+                available.push({pid: i, rnd: Math.random()});
+            } else if (Player.players[i].state === strings.state.object.rapid) {
+                available.push({pid: i, rnd: Math.random()});
+                rapids.push({pid: i, rnd: Math.random()});
+            }
+        }
+        
+        if (rapids.length &gt;= 2) {
+            available = rapids;
+        } else if (rapids.length) {
+            forcerapid = true;
+        }
+        
+        // a game requires four players
+        if (available.length &lt; 2) {
+            return undefined;
+        }
+        
+        invalids = invalidGames();
+
+        available.sort(function (a, b) {
+            return a.rnd - b.rnd;
+        });
+
+        // build all possible constellations
+        a = available.length;
+        while (a) {
+            --a;
+            
+            b = a;
+            while (b) {
+                --b;
+                
+                if (invalids[available[a].pid].indexOf(available[b].pid) !== -1) {
+                    continue;
+                }
+                
+                if (forcerapid) {
+                    i = rapids.length;
+                    tmp = false;
+                    // all rapids have to be included
+                    while (i) {
+                        --i;
+                        if (available[a].pid != rapids[i].pid &amp;&amp;
+                                available[b].pid != rapids[i].pid) {
+                            tmp = true;
+                            break;
+                        }
+
+                    }
+
+                    if (tmp) {
+                        continue;
+                    }
+                }
+
+                out.push([available[a].pid, available[b].pid]);
+                if (out.length === 500000) {
+                    a = 0;
+                    b = 0;
+                }
+            }
+        }
+        
+        if (out.length === 0 &amp;&amp; rapids === available) {
+            return [[rapids[0].pid, rapids[1].pid]];
+        }
+        
+        return out;
+    }
+    
+//  function for creating a new game and assigning teams
+    function newgame() {
+        
+        gamebutton.disabled = true;
+        allgamesbutton.disabled = true;
+        
+        var c;
+        
+        if (Game.constellations === undefined) {
+            alert(strings.notenoughplayers);
+            return;
+        }
+        
+        if (Game.constellations.length === 0) {
+            alert(strings.nogamepossible);
+            return;
+        }
+        
+        c = randpick(Game.constellations);
+        
+        Game.add(c[0], c[1]);
+    }
+    
+    Game.checkConstellations = function () {
+        Game.constellations = possibleConstellations();
+        
+//        if (Game.constellations) {
+//            console.log(&#039;# possible constellations: &#039; + Game.constellations.length);
+//        }
+//        else {
+//            console.log(&#039;no games possible&#039;)
+//        }
+        
+        if (!Game.constellations || Game.constellations.length === 0) {
+            gamebutton.disabled = true;
+            allgamesbutton.disabled = true;
+        } else {
+            gamebutton.disabled = false;
+            allgamesbutton.disabled = false;
+        }
+    };
+        
+    Game.prototype.toString = function () {
+        return [this.A, this.B, this.scoreA,
+                this.scoreB, this.time, this.state].join(&#039; &#039;);
+    };
+
+    Game.prototype.fromString = function (str) {
+        var arr = str.split(&#039; &#039;);
+        this.A = Number(arr[0]);
+        this.B = Number(arr[1]);
+        
+        this.scoreA = Number(arr[2]);
+        this.scoreB = Number(arr[3]);
+
+        this.time = Number(arr[4]);
+
+        this.state = arr[5];
+
+        return this;
+    };
+
+    Game.clearDOM = function () {
+        var classes = document.getElementsByClassName(&#039;game&#039;);
+        var i = classes.length;
+
+        while (i) {
+            --i;
+            classes[i].parentNode.removeChild(classes[i]);
+        }
+    };
+
+    Game.prototype.appendToDOM = function () {
+        if (this.state !== strings.game.running) {
+            return;
+        }
+        
+        // bind player status
+        Player.get(this.A).setStatus(strings.state.playing);
+        Player.get(this.B).setStatus(strings.state.playing);
+        
+        Player.sort();
+
+        var that = this;
+        var element;
+        var begin;
+        var interval;
+
+        // add function to control state
+        function endgame(scorea, scoreb, isinvalid) {
+            that.scoreA = Number(scorea);
+            that.scoreB = Number(scoreb);
+            
+            isinvalid = !!isinvalid;
+            
+            var d = new Date();
+            d.setTime(d.getTime() - begin.getTime());
+
+            that.time = d.getTime();
+            that.state = isinvalid ? strings.game.invalid : strings.game.finished;
+
+            clearInterval(interval);
+            
+            element.parentNode.removeChild(element);
+
+            Player.get(that.A).setStatus(strings.state.avail);
+            Player.get(that.B).setStatus(strings.state.avail);
+
+            if (storage) {
+                saveAll();
+            }
+            
+            Player.calcPoints();
+            Player.checkGameLimits();
+            Player.updateInfos();
+            
+            Game.checkConstellations();
+        }
+
+        // bind to DOM
+        element = document.createElement(&#039;div&#039;);
+        element.innerHTML = templates.game.innerHTML.
+            replace(&#039;%A&#039;, Player.getName(this.A)).
+            replace(&#039;%B&#039;, Player.getName(this.B)).
+            replace(&#039;%GAME&#039;, this.gid);
+        element.className = templates.game.className;
+        element.id = templates.game.id + this.gid;
+
+        // add timer
+        var timer = element.getElementsByTagName(&#039;span&#039;)[0];
+        timer.innerHTML = strings.timedefault;
+        begin = new Date();
+
+        if (this.time !== 0) {
+            begin.setTime(this.time);
+        } else {
+            this.time = begin.getTime();
+        }
+        
+        function checkTimeLimit(milliseconds) {
+            if (milliseconds &gt;= Game.timelimit * 60000 &amp;&amp; !/abovetimelimit/.test(element.className)) {
+                element.className += &#039; abovetimelimit&#039;;
+            } else if (/abovetimelimit/.test(element.className)) {
+                element.className = element.className.split(&#039; &#039;).slice(0, 2).join(&#039; &#039;);
+            }
+            
+            return milliseconds;
+        }
+        
+        // set timer
+        interval = setInterval(function () {
+            var d = new Date();
+            d.setTime(checkTimeLimit(d.getTime() - begin.getTime()));
+            var min = d.getUTCMinutes();
+            var sec = d.getUTCSeconds();
+            min = (min &lt; 10 ? &#039;0&#039; : &#039;&#039;) + min;
+            sec = (sec &lt; 10 ? &#039;0&#039; : &#039;&#039;) + sec;
+
+            timer.innerHTML = [d.getUTCHours(), min, sec].join(&#039;:&#039;);
+        }, 1000);
+
+        // finally add to DOM
+        gamelist.insertBefore(element, gamelist.firstChild.nextChild);
+
+        // bind endbutton
+        var endbutton = element.getElementsByClassName(&#039;endbutton&#039;)[0];
+        endbutton.addEventListener(&#039;click&#039;, function () {
+            var scorea = element.getElementsByClassName(&#039;left&#039;)[0].
+                    getElementsByClassName(&#039;score&#039;)[0].value;
+            var scoreb = element.getElementsByClassName(&#039;right&#039;)[0].
+                    getElementsByClassName(&#039;score&#039;)[0].value;
+                
+            var isinvalid = false;
+
+            if (scorea === scoreb) {
+                if (scorea == 0 &amp;&amp; confirm(strings.abortgame)) {
+                    isinvalid = true;
+                } else {
+                    alert(strings.invalidresult);
+                    return;
+                }
+            }
+            
+            if (!isinvalid) {
+                var str = strings.endgame;
+                str = str.replace(&#039;%A%&#039;, Player.players[that.A].name);
+                str = str.replace(&#039;%B%&#039;, Player.players[that.B].name);
+                str = str.replace(&#039;%S1%&#039;, Number(scorea));
+                str = str.replace(&#039;%S2%&#039;, Number(scoreb));
+            }
+            
+            if (isinvalid || confirm(str)) {
+                endgame(scorea, scoreb, isinvalid);
+            }
+        }, false);
+    };
+
+//  function for adding a game to the game list
+    Game.add = function (A, B) {
+        // init Game
+        var gid = Game.games.length;
+        var game;
+        
+        if (typeof A === &#039;number&#039;) {
+            A = Player.players[A];
+        }
+        if (typeof B === &#039;number&#039;) {
+            B = Player.players[B];
+        }
+        
+        game = new Game(A.pid, B.pid, gid);
+        Game.games[gid] = game;
+
+        game.appendToDOM();
+
+        saveAll();
+// 55555        localStorage.setItem(strings.keys.numgames, Game.games.length);
+        
+        Game.checkConstellations();
+        
+        alert([A.name, &#039;gg.&#039;, B.name].join(&#039;\n&#039;));
+    };
+    
+    function parseFileContent(txt) {
+        if (!txt) {
+            return;
+        }
+        
+        var numplayers;
+        var numgames;
+        var lines;
+        var i;
+        var tmp;
+        
+// reset everything
+        localStorage.clear();
+        
+        Player.clearDOM();
+        Player.players = [];
+        Game.clearDOM();
+        Game.games = [];
+        
+        lines = txt.split(&#039;\n&#039;);
+        tmp = lines.shift().split(&#039; &#039;);
+        numplayers = Number(tmp[0]);
+        Game.timelimit = Number(tmp[1]);
+        timelimitbox.value = Game.timelimit;
+        i = numplayers;
+        
+        while (i) {
+            --i;
+            tmp = new Player();
+            tmp.fromString(lines.shift());
+            Player.players.push(tmp);
+        }
+        
+        tmp = lines.shift().split(&#039; &#039;);
+        numgames = Number(tmp[0]);
+        Player.mingames = Number(tmp[1]);
+        Player.maxgames = Number(tmp[2]);
+
+        while (numgames) {
+            --numgames;
+
+            tmp = new Game();
+            tmp.fromString(lines.shift());
+            Game.games.push(tmp);
+        }
+
+        // don&#039;t trust file data: recalculate the points
+        Player.calcPoints();
+
+        // skip the &quot;result lines&quot;
+        i = numplayers;
+        while (i) {
+            --i;
+            lines.shift();
+        }
+
+        Player.sort();
+        
+        Player.updateMinMax();
+        
+        numgames = Game.games.length;
+        for (i = 0; i &lt; numgames; ++i) {
+            Game.games[i].appendToDOM();
+        }
+        
+        Game.checkConstellations();
+        
+        if (storage) {
+            saveAll();
+        }
+    }
+    
+    function createFileContent() {
+        var lines = [];
+        var i = 0;
+        var max = 0;
+        var p;
+        
+        // write number of players to first line:
+        lines.push([Player.players.length, Game.timelimit].join(&#039; &#039;));
+        
+        // add players to string
+        max = Player.players.length;
+        for (i = 0; i &lt; max; ++i) {
+            lines.push(Player.players[i].toString());
+        }
+        
+        // add games to string
+        max = Game.games.length;
+        lines.push([max, Player.mingames, Player.maxgames].join(&#039; &#039;));
+        for (i = 0; i &lt; max; ++i) {
+            lines.push(Game.games[i].toString());
+        }
+        
+        // add results
+        max = Player.players.length;
+        for (i = 0; i &lt; max; ++i) {
+            p = Player.players[i];
+            lines.push([i, p.games, p.siege, p.buchholz, p.feinbuchholz, 
+                    p.netto].join(&#039; &#039;));
+        }
+        
+        // return complete string
+        return lines.join(&#039;\n&#039;);
+    }
+    
+    function supports_html5_storage() {
+        try {
+            if (!window.localStorage) {
+                return false;
+            }
+            
+            localStorage.setItem(&#039;testkey&#039;, 5);
+            
+            if (Number(localStorage.getItem(&#039;testkey&#039;)) !== 5) {
+                return false;
+            }
+            
+            if (/irefox/.test(navigator.userAgent) &amp;&amp;
+                    /file/.test(location.href)) {
+                return false;
+            }
+            
+            return true;
+            
+        } catch (e) {
+            return false;
+        }
+    }
+    
+    function beforeunload() {
+        window.onbeforeunload = null;
+        
+        if (!storage) {
+            return strings.alllost;
+        } else {
+            return strings.allsaved;
+        }
+        
+    }
+
+    storage = supports_html5_storage();
+
+    document.getElementById(&#039;confirmdatabase&#039;).addEventListener(&#039;change&#039;,
+        function () {
+            var cdb = document.getElementById(&#039;cleardatabase&#039;);
+            cdb.disabled = !document.getElementById(&#039;confirmdatabase&#039;).checked;
+            
+        }, false);
+
+    document.getElementById(&#039;cleardatabase&#039;).addEventListener(&#039;click&#039;,
+        function () {
+            if (confirm(strings.clearall)) {
+                localStorage.clear();
+                window.onbeforeunload = null;
+                location.reload();
+            }
+        }, false);
+
+// remove warning
+    if (storage) {
+        warning.parentNode.removeChild(warning);
+    } else {
+        warning.innerHTML = strings.err.nostorage;
+        warning.setAttribute(&#039;style&#039;, &#039;font-size: 100%&#039;);
+    }
+
+// remove template elements
+    templates.oldplayer.parentNode.removeChild(templates.oldplayer);
+    templates.game.parentNode.removeChild(templates.game);
+//    gamebutton.parentNode.removeChild(gamebutton);
+
+// add event listeners for new player
+    newplayer.button.addEventListener(&#039;click&#039;, Player.add, false);
+    newplayer.name.addEventListener(&#039;keyup&#039;, function (event) {
+        if (event.keyCode === 13) {
+            newplayer.button.click();
+        }
+    }, false);
+
+    gamebutton.addEventListener(&#039;click&#039;, newgame, false);
+
+    allgamesbutton.addEventListener(&#039;click&#039;, function () {
+        while (Game.constellations &amp;&amp; Game.constellations.length) {
+            newgame();
+        }
+    }, false);
+
+    window.onbeforeunload = beforeunload;
+
+    savebutton.addEventListener(&#039;click&#039;, function () {
+        
+        if (storage) {
+            saveAll();
+        }
+        
+        var win = window.open();
+        var area = win.document.createElement(&#039;textarea&#039;);
+        var p = win.document.createElement(&#039;p&#039;);
+        p.appendChild(win.document.createTextNode(strings.copythis));
+        area.setAttribute(&#039;style&#039;, &#039;width: 90%; height: 90%&#039;);
+        area.value = createFileContent();
+        win.document.body.appendChild(p);
+        win.document.body.appendChild(area);
+        
+    }, false);
+
+    loadbutton.addEventListener(&#039;click&#039;, function () {
+        
+        var win = window.open();
+        var area = win.document.createElement(&#039;textarea&#039;);
+        area.setAttribute(&#039;style&#039;, &#039;height: 90%; width: 90%&#039;);
+        var p = win.document.createElement(&#039;p&#039;);
+        p.appendChild(win.document.createTextNode(strings.pastehere));
+        var button = win.document.createElement(&#039;input&#039;);
+        button.setAttribute(&#039;type&#039;, &#039;button&#039;);
+        button.setAttribute(&#039;value&#039;, &#039;Laden&#039;);
+        
+        button.addEventListener(&#039;click&#039;, function () {
+            parseFileContent(area.value);
+            win.close();
+        }, false);
+        
+        p.appendChild(button);
+        win.document.body.appendChild(p);
+        win.document.body.appendChild(area);
+        
+    }, false);
+    
+    function copyArray(orig, testfunc) {
+        var arr = [];
+        var imax = orig.length;
+        var i;
+        for (i = 0; i &lt; imax; ++i) {
+            if (testfunc &amp;&amp; testfunc(orig[i])) {
+                arr.push(orig[i]);
+            }
+        }
+
+        return arr;
+    }
+    
+    function rd(x) {
+        return Math.round(x * 10) / 10;
+    }
+    
+    function percent(x) {
+        return Math.round(x * 100);
+    }
+    
+    function calcResults() {
+        var out = [];   // array of &#039;result objects&#039;
+        var days = [];  // array of all days, holding their results
+        var p = Player.players; // reference
+
+        var r;  // results of a specific day and player; tmpvar
+        var n;  // number of games on a day
+
+        var j;  // counter variable
+        var i = p.length;   // another counter variable
+
+        while (i) {
+            --i;
+            out[i] = {name: p[i].name,
+                    pid: i,
+                    days: []
+                };
+            
+            days = out[i].days;
+
+            // add current day
+            n = p[i].games;
+            days[0] = {
+                n: p[i].games,
+
+                s: p[i].siege,
+                bh: p[i].buchholz,
+                fbh: p[i].feinbuchholz,
+                net: p[i].netto,
+
+                rs: p[i].siege / n,
+                rbh: p[i].buchholz / n,
+                rfbh: p[i].feinbuchholz / n,
+                rnet: p[i].netto / n,
+
+                counts: (n &gt;= Player.mingames),
+
+                toString: function () {
+                    return [percent(this.rs), &#039;%, &#039;, [rd(this.rbh),
+                            rd(this.rfbh), rd(this.rnet)].join(&#039;, &#039;), &#039; (&#039;,
+                            this.n, &#039;)&#039;].join(&#039;&#039;);
+                }
+            };
+
+            out[i].bestDays = days; // no sort necessary
+        }
+
+        return out;
+    }
+
+    function listPlayers(results) {
+        var out = [];
+        
+        var i;
+        var imax = results.length;
+
+        for (i = 0; i &lt; imax; ++i) {
+            out.push([results[i].name, undefined]);
+        }
+
+        return out;
+    }
+
+    function bestDays(results, numdays) {
+        numdays = numdays || 1;
+        
+        var arr = [];
+        var out = [];
+        var i = Player.players.length;
+        var o;  // temporary object
+        var j;  // day counter
+        while (i) {
+            --i;
+            if (results[i].bestDays.length &lt; numdays) {
+                continue;
+            }
+
+            o = {
+                rs: 0,
+                rbh: 0,
+                rfbh: 0,
+                rnet: 0,
+                n: 0,
+
+                toString: function () {
+                    return [percent(this.rs), &#039;%, &#039;, [rd(this.rbh),
+                            rd(this.rfbh), rd(this.rnet)].join(&#039;, &#039;), &#039; (&#039;,
+                            this.n, &#039;)&#039;].join(&#039;&#039;);
+                },
+
+                append: function (o) {
+                    this.rs += o.rs;
+                    this.rbh += o.rbh;
+                    this.rfbh += o.rfbh;
+                    this.rnet += o.rnet;
+
+                    this.n += Number(o.n);
+                },
+
+                finish: function () {
+                    this.rs /= numdays;
+                    this.rbh /= numdays;
+                    this.rfbh /= numdays;
+                    this.rnet /= numdays;
+                }
+            };
+
+            for (j = 0; j &lt; numdays; ++j) {
+                o.append(results[i].bestDays[j]);
+            }
+
+            o.finish();
+
+            arr.push({pid: i, day: o});
+
+        }
+
+        arr.sort(function (a, b) {
+            if (a.day.rs !== b.day.rs) {
+                return a.day.rs - b.day.rs;
+            }
+            if (a.day.rbh !== b.day.rbh) {
+                return a.day.rbh - b.day.rbh;
+            }
+            if (a.day.rfbh !== b.day.rfbh) {
+                return a.day.rfbh - b.day.rfbh;
+            }
+            return a.day.rnet - b.day.rnet;
+        });
+        
+        i = arr.length;
+        while (i) {
+            --i;
+            out.push([Player.players[arr[i].pid].name, arr[i].day.toString()]);
+        }
+
+        return out;
+    }
+
+    function listDay(results, j) {
+        var out = [];   // return array with name and values
+        var arr = [];   // array of special object (pid and results)
+
+        var i = Player.players.length;
+
+        function sortfunc(a, b) {
+            if (a.day.rs !== b.day.rs) {
+                return a.day.rs - b.day.rs;
+            }
+            if (a.day.rbh !== b.day.rbh) {
+                return a.day.rbh - b.day.rbh;
+            }
+            if (a.day.rfbh !== b.day.rfbh) {
+                return a.day.rfbh - b.day.rfbh;
+            }
+            return a.day.rnet - b.day.rnet;
+        }
+        
+        while (i) {
+            --i;
+            if (results[i].days[j].counts) {
+                arr.push({pid: i,
+                        day: results[i].days[j]
+                    });
+            }
+        }
+
+        arr.sort(sortfunc);
+        i = arr.length;
+        while (i) {
+            --i;
+            out.push([Player.players[arr[i].pid].name, arr[i].day.toString()]);
+        }
+
+        return out;
+    }
+
+    function updateGameLimits() {
+        Player.mingames = Number(mingamesbox.value);
+        Player.maxgames = Number(maxgamesbox.value);
+
+        Player.checkGameLimits();
+
+        Game.checkConstellations();
+
+        saveAll();
+    }
+
+    function updateTimeLimit() {
+        Game.timelimit = Number(timelimitbox.value);
+        saveAll();
+    }
+
+    function getGamesArray() {
+        
+        return [Game.games];
+    }
+    
+    function getPlayTimeOverview(games) {
+        var out = [];   // return array with name and values
+        var arr = [];   // array of special object (time and numgames)
+        var g;  // tmparr of games of one day
+        var o;  // tmp object
+
+        var i = Player.players.length;
+        var j;
+        
+        // fill arr with objects capable of getting sorted
+        // (i.e. holding time and numgames
+        while (i) {
+            --i;
+            
+            arr[i] = {pid: i, n: 0, t: 0,
+                toString: function () {
+                    var d = new Date(this.t);
+                    var h = d.getUTCHours();
+                    var min = d.getUTCMinutes();
+                    var sec = d.getUTCSeconds();
+                    if (min &lt; 10) {
+                        min = &#039;0&#039; + min;
+                    }
+                    if (sec &lt; 10) {
+                        sec = &#039;0&#039; + sec;
+                    }
+                    return [h, &#039;:&#039;, min, &#039;:&#039;, sec, &#039; (&#039;, this.n, &#039;)&#039;].join(&#039;&#039;);
+                }
+            };
+        }
+        
+        // iterate over all games
+        i = games.length;
+        while (i) {
+            --i;
+            g = games[i];
+            j = g.length;
+            
+            while (j) {
+                --j;
+                o = g[j];
+                if (o.state === strings.game.finished) {
+                    arr[o.A].t += o.time;
+                    arr[o.B].t += o.time;
+
+                    arr[o.A].n += 1;
+                    arr[o.B].n += 1;
+                }
+            }
+        }
+        
+        // calc playtime per game
+        
+        i = arr.length;
+        while (i) {
+            --i;
+            if (arr[i].n) {
+                arr[i].t /= arr[i].n;
+            }
+        }
+
+        // sort by relative playtime
+        
+        arr.sort(function (a, b) {
+            return a.t - b.t;
+        });
+        
+        i = arr.length;
+        while (i) {
+            --i;
+            if (arr[i].n) {
+                out.push([Player.players[arr[i].pid].name, arr[i].toString()]);
+            }
+        }
+
+        return out;
+    }
+
+    Game.prototype.toOverviewString = function () {
+        var p = Player.players;
+        var timestr = &#039;&#039;;
+        var d = new Date(this.time);
+        var h;
+        var min;
+
+        if (this.state === strings.game.finished) {
+            h = d.getUTCHours();
+            min = d.getUTCMinutes();
+            if (min &lt; 10) {
+                min = &#039;0&#039; + min;
+            }
+
+            timestr = [&#039; (&#039;, h, &#039;:&#039;, min, &#039;)&#039;].join(&#039;&#039;);
+        }
+
+        return [&#039;&lt;p&gt;&lt;b&gt;&#039;, p[this.A].name, &#039; : &#039;,
+                p[this.B].name, &#039;&lt;/b&gt;&lt;br&gt;&#039;,
+                this.scoreA, &#039; : &#039;, this.scoreB, timestr, &#039;&lt;/p&gt;&#039;].join(&#039;&#039;);
+    };
+    
+    document.getElementById(&#039;overview&#039;).addEventListener(&#039;click&#039;, function () {
+        
+        var win = window.open();    // the popup window to show the overview in
+        var doc = win.document; // its document
+        var body = doc.body;    // its body
+
+        var i;  // counter variable 1
+        var imax;   // its maximum
+        var j;  // counter variable 2
+        var jmax;   // its maximum
+        
+        var table = doc.createElement(&#039;table&#039;); // the table of results
+        var tr; // the row to be filled and appended
+        var td; // current cell
+        var ul; // list within the cell
+        var li; // one of its elements
+        var a;  // sub-array (containing data for current column)
+        var array = [];  // four-dimensional array for the data. Format:
+        var games = getGamesArray();
+        var style;
+
+        var cnt;    // counter variable
+        // [[Name, [[Player, Points], ...]], ...]
+
+        var results = calcResults();
+
+        // filling array
+        array.push([&quot;Teilnehmer&quot;, listPlayers(results)]);
+
+        array.push([&quot;Spielzeit (pro Spiel)&quot;, getPlayTimeOverview(games)])
+        
+        imax = 1;
+        for (i = 1; i &lt;= imax; ++i) {
+            array.push([i !== 1 ? [&#039;Beste&#039;, i, &#039;Tage&#039;].join(&#039; &#039;) : &#039;Bester Tag&#039;,
+                    bestDays(results, i)]);
+        }
+
+//        for (i = 0; i &lt; imax; ++i) {
+//            array.push([&quot;Tag &quot; + (i + 1), listDay(results, i)]);
+//        }
+
+        // create row of headers
+        tr = doc.createElement(&#039;tr&#039;);
+
+        // fill headers with descriptions from the array
+        imax = array.length;
+        for (cnt = 0, i = 0; i &lt; imax; ++i) {
+            if (array[i][1].length) {
+                td = doc.createElement(&#039;th&#039;);
+                style = &#039;min-width: 200 px; &#039;;
+
+                if (cnt++ % 2) {
+                    style += &#039;background-color: lightgrey; &#039;;
+                }
+                
+                td.setAttribute(&#039;style&#039;, style);
+
+                td.appendChild(doc.createTextNode(array[i][0]));
+                tr.appendChild(td);
+            }
+        }
+        
+        table.appendChild(tr);
+        
+        // create content row (there&#039;s just one, internals are lists!)
+        tr = doc.createElement(&#039;tr&#039;);
+        tr.setAttribute(&quot;valign&quot;, &quot;top&quot;);   // cheap hack
+
+        imax = array.length;
+        for (cnt = 0, i = 0; i &lt; imax; ++i) {
+            td = doc.createElement(&#039;td&#039;);
+            style = &#039;min-width: 200 px; &#039;;
+            
+            ul = doc.createElement(&#039;ol&#039;);
+
+            a = array[i][1];
+            jmax = a.length;
+            if (!jmax) {
+                continue;
+            }
+
+            if (cnt++ % 2) {
+                style += &#039;background-color: lightgrey; &#039;;
+            }
+
+            td.setAttribute(&#039;style&#039;, style);
+
+            for (j = 0; j &lt; jmax; ++j) {
+                li = doc.createElement(&#039;li&#039;);
+
+                // cheap hack ahead
+                if (a[j][1] !== undefined) {
+                    li.innerHTML = &#039;&lt;b&gt;&#039; + a[j][0] + &#039;&lt;/b&gt;&lt;br /&gt;&#039; + a[j][1];
+                } else {
+                    li.innerHTML = &#039;&lt;b&gt;&#039; + a[j][0] + &#039;&lt;/b&gt;&#039;;
+                }
+
+                ul.appendChild(li);
+            }
+            
+            td.appendChild(ul);
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
+        body.appendChild(table);
+
+        ////////
+        // create games overview
+        ////////
+
+        table = doc.createElement(&#039;table&#039;);
+
+        // create row of headers
+        tr = doc.createElement(&#039;tr&#039;);
+
+        // fill headers with descriptions from the games array
+        imax = games.length;
+        for (i = 0; i &lt; imax; ++i) {
+            td = doc.createElement(&#039;th&#039;);
+            style = &#039;min-width: 350 px; &#039;;
+
+            if (i % 2) {
+                style += &#039;background-color: lightgrey; &#039;;
+            }
+
+            td.setAttribute(&#039;style&#039;, style);
+
+            td.appendChild(doc.createTextNode(&#039;Tag &#039; + (i + 1)));
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
+        // create content row (there&#039;s just one, internals are lists!)
+        tr = doc.createElement(&#039;tr&#039;);
+        tr.setAttribute(&quot;valign&quot;, &quot;top&quot;);   // cheap hack
+
+        for (i = 0; i &lt; imax; ++i) {
+            td = doc.createElement(&#039;td&#039;);
+            style = &#039;min-width: 350 px; text-align: center; &#039;;
+
+            ul = doc.createElement(&#039;ol&#039;);
+
+            a = games[i];
+            jmax = a.length;
+            if (!jmax) {
+                continue;
+            }
+
+            if (i % 2) {
+                style += &#039;background-color: lightgrey; &#039;;
+            }
+
+            td.setAttribute(&#039;style&#039;, style);
+
+            for (j = 0; j &lt; jmax; ++j) {
+	        if (a[j].state === strings.game.invalid) {
+		    continue;
+		}
+
+                li = doc.createElement(&#039;li&#039;);
+
+                // cheap hack ahead
+                li.innerHTML = a[j].toOverviewString();
+                
+                ul.appendChild(li);
+            }
+
+            td.appendChild(ul);
+            tr.appendChild(td);
+        }
+
+        table.appendChild(tr);
+
+        body.appendChild(table);
+        
+    }, false);
+    
+    document.getElementById(&#039;ok&#039;).addEventListener(&#039;click&#039;, function () {
+        updateTimeLimit();
+        updateGameLimits();
+    }, false);
+    
+//    timelimitbox.addEventListener(&#039;change&#039;, updateTimeLimit, false);
+    timelimitbox.addEventListener(&#039;blur&#039;, updateTimeLimit, false);
+    mingamesbox.addEventListener(&#039;blur&#039;, updateGameLimits, false);
+    maxgamesbox.addEventListener(&#039;blur&#039;, updateGameLimits, false);
+
+    function saveAll() {
+        localStorage.setItem(&#039;swiss&#039;, createFileContent());
+    }
+
+    function restoreAll() {
+        var txt = localStorage.getItem(&#039;swiss&#039;);
+        if (txt) {
+            parseFileContent(txt);
+        }
+    }
+
+    if (storage) {
+
+        restoreAll();
+
+        Player.calcPoints();
+        Player.checkGameLimits();
+    }
+    
+}, false);</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

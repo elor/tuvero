@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - square.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>square.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">55.94</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">365</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">191.71</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.84</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">function Square(size) {
+  size = size || 0;
+  this.matrix = [];
+
+  while (size--) {
+    this.matrix.push([]);
+  }
+}
+
+Square.prototype.toString = function() {
+  var lines = [];
+  var i;
+  var j;
+  var line;
+  var ptr;
+  var allnull;
+  var size = this.matrix.length;
+
+  if (!size) {
+    return &#039;&#039;;
+  }
+
+  for (i = 0; i &lt; size; ++i) {
+    line = [];
+    ptr = this.matrix[i];
+
+    allnull = true;
+    
+    for (j = 0; j &lt; ptr.length; ++j) {
+      if (ptr[j]) {
+        line.push(ptr[j]);
+        allnull = false;
+      } else {
+        line.push(&#039;&#039;);
+      }
+    }
+
+    for (j = line.length - 1; j &gt;= 0; --j) {
+      if (line[j]) {
+        line.length = j + 1;
+        break;
+      }
+    }
+    
+    lines.push(line.join(&#039; &#039;));
+  }
+
+  return lines.join(&#039;\n&#039;) + &#039;\n&#039;;
+};
+
+Square.prototype.toTriString = function() {
+  var lines = [];
+  var i;
+  var j;
+  var line;
+  var ptr;
+  var allnull;
+  var size = this.matrix.length;
+
+  if (!size) {
+    return &#039;&#039;;
+  }
+
+  for (i = 0; i &lt; size; ++i) {
+    line = [];
+    ptr = this.matrix[i];
+
+    allnull = true;
+    
+    for (j = 0; j &lt; i; ++j) {
+      if (ptr[j]) {
+        line.push(ptr[j]);
+        allnull = false;
+      } else {
+        line.push(&#039;&#039;);
+      }
+    }
+
+    for (j = line.length - 1; j &gt;= 0; --j) {
+      if (line[j]) {
+        line.length = j + 1;
+        break;
+      }
+    }
+    
+    lines.push(line.join(&#039; &#039;));
+  }
+
+  return lines.join(&#039;\n&#039;) + &#039;\n&#039;;
+}
+
+Square.prototype.fromString = function(string) {
+  var lines = string.split(&#039;\n&#039;) || [];
+  var numbers;
+  var size = lines.length - 1;
+  var i;
+  var j;
+  var ptr;
+
+  this.matrix = [];
+
+  for (i = 0; i &lt; size; ++i) {
+    ptr = [];
+
+    numbers = lines[i].split(&#039; &#039;);
+    for (j = 0; j &lt; size; ++j) {
+      if (numbers[j]) {
+        ptr[j] = Number(numbers[j]);
+      }
+    }
+
+    this.matrix.push(ptr);
+  }
+
+  return this;
+};
+
+Square.prototype.fromTriString = function(string) {
+  var lines = string.split(&#039;\n&#039;) || [];
+  var numbers;
+  var size = lines.length - 1;
+  var i, j;
+  var val;
+
+  this.matrix = [];
+
+  for (i = 0; i &lt; size; ++i) {
+    this.matrix[i] = [];
+  }
+
+  for (i = 0; i &lt; size; ++i) {
+    numbers = lines[i].split(&#039; &#039;);
+    for (j = 0; j &lt; i; ++j) {
+      if (numbers[j]) {
+        val = Number(numbers[j])
+        this.matrix[i][j] = val;
+        this.matrix[j][i] = val;
+      }
+    }
+  }
+
+  return this;
+};
+
+// by:  either to - this.matrix.length
+//      OR 1 if to === undefined
+//      OR 0 if this.matrix.length &gt;= to
+Square.prototype.extend = function(to) {
+  var by = 1;
+  switch (true) {
+  case to === undefined:
+    by = 1
+    break;
+  case to &lt;= this.matrix.length:
+    by = 0;
+    break;
+  case typeof to === &#039;number&#039;:
+    by = to - this.matrix.length;
+    break;
+  default:
+    console.error(&#039;Square.extend: wrong input&#039;);
+  }
+
+  while (by--) {
+    this.matrix.push([]);
+  }
+
+  return this;
+};
+
+Square.prototype.vecmult = function(vec) {
+  var ret = [];
+  var i, j;
+  var size = this.matrix.length;
+  var val;
+
+  if (size != vec.length) {
+    return;
+  }
+
+  for (i = 0; i &lt; size; ++i) {
+    val = 0;
+    for (j = 0; j &lt; size; ++j) {
+      val += vec[j] * (this.matrix[j][i] || 0);
+    }
+
+    ret[i] = val;
+  }
+
+  return ret;
+};
+
+Square.prototype.multvec = function(vec) {
+  var ret = [];
+  var i, j;
+  var size = this.matrix.length;
+  var val;
+
+  for (i = 0; i &lt; size; ++i) {
+    val = 0;
+    for (j = 0; j &lt; size; ++j) {
+      val += (this.matrix[i][j] || 0) * (vec[j] || 0);
+    }
+
+    ret[i] = val;
+  }
+
+  return ret;
+};
+
+Square.prototype.mult = function(sq2) {
+  var i, j, k;
+  var size = this.matrix.length;
+  var val;
+  var ret;
+
+  if (size != sq2.matrix.length) {
+    return;
+  }
+
+  ret = new Square(size);
+
+  for (i = 0; i &lt; size; ++i) {
+    for (j = 0; j &lt; size; ++j) {
+      val = 0;
+      for (k = 0; k &lt; size; ++k) {
+        val += (this.matrix[j][k] || 0) * (sq2.matrix[k][i] || 0);
+      }
+
+      if (val) {
+        ret.matrix[j][i] = val;
+      }
+    }
+  }
+
+  return ret;
+};
+
+Square.prototype.sumWithTranspose = function() {
+  var size = this.matrix.length;
+  var ret = new Square(size);
+  var i, j;
+  var mat = this.matrix;
+  var tam = ret.matrix;
+  var val;
+    
+  for (i = 0; i &lt; size; ++i) {
+    for (j = 0; j &lt; i; ++j) {
+      val = (mat[i][j] || 0) + (mat[j][i] || 0);
+      if (val) {
+        tam[i][j] = val;
+        tam[j][i] = val;
+      }
+    }
+  }
+
+  return ret;
+};
+
+Square.prototype.clone = function() {
+  var size = this.matrix.length;
+  var ret = new Square(size);
+  var i, j;
+  var mat = this.matrix;
+  var tam = ret.matrix;
+    
+  for (i = 0; i &lt; size; ++i) {
+    for (j = 0; j &lt; size; ++j) {
+      if (mat[i][j]) {
+        tam[i][j] = mat[i][j];
+      }
+    }
+  }
+
+  return ret;
+};
+
+Square.sum = function(sq, sq2) {
+  var size = sq.matrix.length;
+  var ret;
+  var i, j;
+  var mat, m1, m2;
+  var val;
+
+  if (size != sq2.matrix.length) {
+    return;
+  }
+  
+  ret = new Square(size);
+  mat = ret.matrix;
+  m1 = sq.matrix;
+  m2 = sq2.matrix;
+
+  for (i = 0; i &lt; size; ++i) {
+    for (j = 0; j &lt; size; ++j) {
+      val = (m1[i][j] || 0) + (m2[i][j] || 0);
+      if (val) {
+        mat[i][j] = val;
+      }
+    }
+  }
+};
+
+Square.diff = function(sq, sq2) {
+  var size = sq.matrix.length;
+  var ret;
+  var i, j;
+  var mat, m1, m2;
+
+  if (size != sq2.matrix.length) {
+    return;
+  }
+  
+  ret = new Square(size);
+  mat = ret.matrix;
+  m1 = sq.matrix;
+  m2 = sq2.matrix;
+
+  for (i = 0; i &lt; size; ++i) {
+    for (j = 0; j &lt; size; ++j) {
+      val = (m1[i][j] || 0) - (m2[i][j] || 0);
+      if (val) {
+        mat[i][j] = val;
+      }
+    }
+  }
+};
+
+Square.prototype.linesum = function() {
+  var ret = [];
+  var size = this.matrix.length;
+  var i, j;
+  var val;
+  var mat = this.matrix;
+
+  for (i = 0; i &lt; size; ++i) {
+    val = 0;
+    for (j = 0; j &lt; size; ++j) {
+      val += (mat[i][j] || 0);
+    }
+
+    ret[i] = val;
+  }
+
+  return ret;
+};
+
+Square.prototype.rowsum = function() {
+  var ret = [];
+  var size = this.matrix.length;
+  var i, j;
+  var val;
+  var mat = this.matrix;
+
+  for (i = 0; i &lt; size; ++i) {
+    val = 0;
+    for (j = 0; j &lt; size; ++j) {
+      val += (mat[j][i] || 0);
+    }
+
+    ret[i] = val;
+  }
+
+  return ret;
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

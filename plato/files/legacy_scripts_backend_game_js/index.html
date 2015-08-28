@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/backend/game.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/backend/game.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.01</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">139</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">47.26</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.73</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Game is an object which represents a running game, thereby storing the teams
+ * and the time at which the game started.
+ *
+ * @return Game
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define(function() {
+  /**
+   * constructor of a Game instance. It simply initiates both variables
+   */
+  var Game = function(p1, p2, id) {
+    this.teams = []; // team array
+    this.starttime = 0; // start time in unix epoch milliseconds
+    this.id = id || 0; // additional internal id of the game
+
+    // default behaviour: two teams, one player per team (tournaments are
+    // expected to treat teams as players)
+    if (p1 !== undefined &amp;&amp; p2 !== undefined &amp;&amp; typeof p1 === &#039;number&#039; &amp;&amp; typeof p2 === &#039;number&#039;) {
+      this.add(0, p1);
+      this.add(1, p2);
+    }
+  };
+
+  /**
+   * add a team member
+   *
+   * @param team
+   *          id of the team, starting with 0
+   * @param pid
+   *          player id
+   * @return this
+   */
+  Game.prototype.add = function(team, pid) {
+    if (typeof team !== &#039;number&#039; || typeof pid !== &#039;number&#039;) {
+      return undefined;
+    }
+
+    if (this.teams[team] === undefined) {
+      this.teams[team] = [pid];
+    } else {
+      if (this.teams[team].indexOf(pid) === -1) {
+        this.teams[team].push(pid);
+      }
+    }
+
+    return this;
+  };
+
+  /**
+   * set the start time to the given argument or the current time
+   *
+   * @param time
+   *          (optional) the time to set to. If undefined, the current time is
+   *          used.
+   */
+  Game.prototype.start = function(time) {
+    this.starttime = time || (new Date()).getTime();
+  };
+
+  /**
+   * deep equal of this and another game.
+   *
+   * This function ignores the id
+   *
+   * @param game
+   *          another game
+   * @return {Boolean} true if the games are equivalent (save for starttime),
+   *          false otherwise
+   */
+  Game.prototype.equals = function(game) {
+    var i, j, t1, t2;
+
+    if (game === undefined || game.prototype !== this.prototype) {
+      return false;
+    }
+
+    if (this.teams.length !== game.teams.length &amp;&amp; this.teams.length !== 0) {
+      return false;
+    }
+
+    for (i = 0; i &lt; this.teams.length; i += 1) {
+      t1 = this.teams[i];
+      t2 = game.teams[i];
+
+      if (t1 === undefined || t2 === undefined || t1.length !== t2.length || t1.length === 0) {
+        return false;
+      }
+
+      for (j = 0; j &lt; t1.length; j += 1) {
+        if (t2.indexOf(t1[j]) === -1) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  };
+
+  /**
+   * create a deep copy of the game, including the starttime
+   *
+   * @return copy
+   */
+  Game.prototype.copy = function() {
+    var ret;
+
+    ret = new Game();
+
+    this.teams.forEach(function(team, tid) {
+      team.forEach(function(pid) {
+        ret.add(tid, pid);
+      }, this);
+    }, this);
+
+    ret.starttime = this.starttime;
+    ret.id = this.id;
+
+    return ret;
+  };
+
+  /**
+   * create a fresh copy from another game instance. This function works without
+   * the proper prototype
+   *
+   * @param game
+   *          a game object with the typical Game fields, but not necessarily
+   *          with the correct prototype
+   * @return the newly copied game instance
+   */
+  Game.copy = function(game) {
+    var g;
+
+    function copyTeam(team) {
+      return team.slice();
+    }
+
+    g = new Game();
+    g.teams = game.teams.map(copyTeam);
+    g.starttime = game.starttime;
+
+    return g;
+  };
+
+  return Game;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

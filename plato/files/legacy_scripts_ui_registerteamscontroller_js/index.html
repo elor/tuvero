@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/ui/registerteamscontroller.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/ui/registerteamscontroller.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">64.98</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">81</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">16.54</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.78</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * RegisterTeamsController
+ *
+ * @return RegisterTeamsController
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;core/view&#039;, &#039;./state_new&#039;,
+    &#039;./teammodel&#039;, &#039;./playermodel&#039;, &#039;backend/random&#039;], function(extend,
+    Controller, View, State, TeamModel, PlayerModel, Random) {
+  var rng;
+
+  rng = new Random();
+
+  /**
+   * Constructor
+   */
+  function RegisterTeamsController($button, $numteams) {
+    RegisterTeamsController.superconstructor.call(this, new View(undefined,
+        $button));
+
+    this.$button = $button;
+    this.$numteams = $numteams;
+
+    $button.click(this.registerTeams.bind(this));
+    this.$numteams.keydown((function(e) {
+      if (e.which == 13) {
+        this.registerTeams();
+      }
+    }).bind(this));
+  }
+  extend(RegisterTeamsController, Controller);
+
+  RegisterTeamsController.prototype.registerTeams = function() {
+    var numTeams;
+
+    numTeams = Number(this.$numteams.val());
+    if (isNaN(numTeams)) {
+      return;
+    }
+
+    for (; numTeams &gt; 0; numTeams -= 1) {
+      State.teams.push(RegisterTeamsController.createTeam());
+    }
+  };
+
+  RegisterTeamsController.createTeam = function() {
+    var players, team;
+
+    players = [];
+    while (players.length &lt; State.teamsize.get()) {
+      players.push(new PlayerModel(RegisterTeamsController.randomName()));
+    }
+
+    team = new TeamModel(players);
+
+    return team;
+  };
+
+  RegisterTeamsController.randomName = function() {
+    var first, last, length, i, letters, Letters;
+
+    letters = [&#039;a&#039;, &#039;b&#039;, &#039;c&#039;, &#039;d&#039;, &#039;e&#039;, &#039;f&#039;, &#039;g&#039;, &#039;h&#039;, &#039;i&#039;, &#039;j&#039;, &#039;k&#039;, &#039;l&#039;, &#039;m&#039;,
+        &#039;n&#039;, &#039;o&#039;, &#039;p&#039;, &#039;q&#039;, &#039;r&#039;, &#039;s&#039;, &#039;t&#039;, &#039;u&#039;, &#039;v&#039;, &#039;w&#039;, &#039;x&#039;, &#039;y&#039;, &#039;z&#039;, &#039;ä&#039;,
+        &#039;ö&#039;, &#039;ü&#039;, &#039;ß&#039;];
+    Letters = [&#039;A&#039;, &#039;B&#039;, &#039;C&#039;, &#039;D&#039;, &#039;E&#039;, &#039;F&#039;, &#039;G&#039;, &#039;H&#039;, &#039;I&#039;, &#039;J&#039;, &#039;K&#039;, &#039;L&#039;, &#039;M&#039;,
+        &#039;N&#039;, &#039;O&#039;, &#039;P&#039;, &#039;Q&#039;, &#039;R&#039;, &#039;S&#039;, &#039;T&#039;, &#039;U&#039;, &#039;V&#039;, &#039;W&#039;, &#039;X&#039;, &#039;Y&#039;, &#039;Z&#039;, &#039;Ä&#039;,
+        &#039;Ö&#039;, &#039;Ü&#039;];
+
+    length = rng.nextInt(6) + 3;
+    first = &#039;&#039;;
+    first += rng.pick(Letters);
+    for (i = 0; i &lt; length; i++) {
+      first += rng.pick(letters);
+    }
+
+    length = rng.nextInt(6) + 3;
+    last = &#039;&#039;;
+    last += rng.pick(Letters);
+    for (i = 0; i &lt; length; i++) {
+      last += rng.pick(letters);
+    }
+
+    return first + &#039; &#039; + last;
+  }
+
+  return RegisterTeamsController;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/ui/tab_new.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/ui/tab_new.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">63.38</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">800</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">70.77</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">7.95</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Model, View and Controller of the &quot;new&quot; tab, which manages the tournaments.
+ *
+ * This tab allows allocating teams to (sub)tournaments, setting their rules and
+ * starting/closing them
+ *
+ * @return Tab_New
+ * @implements ./tab
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define([&#039;./tab&#039;, &#039;options&#039;, &#039;./toast&#039;, &#039;./team&#039;, &#039;./strings&#039;, &#039;./tab_games&#039;,
+    &#039;./tab_ranking&#039;, &#039;./tab_history&#039;, &#039;./history&#039;, &#039;./storage&#039;,
+    &#039;../backend/tournament&#039;, &#039;./tournaments&#039;, &#039;./globalranking&#039;, &#039;./shared&#039;,
+    &#039;./data/swissperms&#039;, &#039;./boxview&#039;, &#039;./state_new&#039;], function(Tab, Options,
+    Toast, Team, Strings, Tab_Games, Tab_Ranking, Tab_History, History,
+    Storage, BackendTournament, Tournaments, GlobalRanking, Shared, Swissperms,
+    BoxView, State) {
+  var Tab_New, $tab, template, nameChangeID;
+
+  Tab_New = undefined;
+  template = undefined;
+  $tab = undefined;
+  nameChangeID = undefined;
+
+  /**
+   * translates the Tournament ranking into a traditional votes object
+   *
+   * TODO rewrite this file to replace this function
+   *
+   * @param Tournament
+   *          the swiss object
+   * @return {Object} a votes object of the current round
+   */
+  function getRoundVotes(Tournament) {
+    // FIXME duplicate within tab_games.js
+    var votes, ranking, i;
+
+    ranking = Tournaments.getRanking(Tournaments.getTournamentID(Tournament));
+
+    votes = {
+      up: [],
+      down: [],
+      bye: []
+    };
+
+    for (i = 0; i &lt; ranking.ids.length; i += 1) {
+      if (ranking.roundupvote[i]) {
+        votes.up.push(ranking.ids[i]);
+      }
+      if (ranking.rounddownvote[i]) {
+        votes.down.push(ranking.ids[i]);
+      }
+      if (ranking.roundbyevote[i]) {
+        votes.bye.push(ranking.ids[i]);
+      }
+    }
+
+    return votes;
+  }
+
+  function initTemplate() {
+    template = {
+      team: {}
+    };
+    template.team.$container = $tab.find(&#039;.team.tpl&#039;);
+
+    template.team.$container.detach();
+    template.team.$container.removeClass(&#039;tpl&#039;);
+
+    template.team.$rank = template.team.$container.find(&#039;.rank&#039;);
+    template.team.$tournamentrank = template.team.$container
+        .find(&#039;.tournamentrank&#039;);
+    template.team.$teamno = template.team.$container.find(&#039;.teamno&#039;);
+    template.team.$names = template.team.$container.find(&#039;.names&#039;);
+
+    template.$system = template.team.$container.find(&#039;.system&#039;);
+    template.$system.detach();
+    template.$removesystem = template.$system.find(&#039;.removesystem&#039;);
+    template.$removesystem.detach();
+    template.$anchor = $tab.find(&#039;table.playertable&#039;);
+
+    template.system = {};
+    template.system.$swiss = $tab.find(&#039;.swiss.tpl&#039;).detach().find(&#039;&gt; *&#039;);
+    template.system.$ko = $tab.find(&#039;.ko.tpl&#039;).detach().find(&#039;&gt; *&#039;);
+    template.system.$newsystem = $tab.find(&#039;.newsystem.tpl&#039;).detach().find(
+        &#039;&gt; *&#039;);
+
+    template.$chname = template.system.$newsystem.find(&#039;.chname&#039;);
+    template.$chname.detach();
+  }
+
+  function initRename() {
+    // copied over from tab_teams.js
+
+    // ================== FUNCTIONS BEGIN ==================
+    function chshow($name) {
+      template.$chname.val($name.text());
+      $name.text(&#039;&#039;);
+      $name.append(template.$chname);
+      template.$chname.focus();
+    }
+
+    function updateName() {
+      var $title, $name, $system, tournamentid, newname;
+
+      $name = template.$chname.parent(&#039;.name&#039;);
+      $title = $name.parent(&#039;h3&#039;);
+      $system = $title.parent(&#039;.system&#039;);
+
+      if ($name.length === 0 || $title.length === 0 || $system.length === 0) {
+        console.error(&#039;cannot find required DOM elements&#039;);
+        return undefined;
+      }
+
+      // retrieve tournament id
+      tournamentid = $system.data(&#039;tournamentid&#039;);
+      newname = template.$chname.val();
+      template.$chname.detach();
+
+      if (!newname || /^\s*$/.test(newname)
+          || Tournaments.getName(tournamentid) === newname) {
+        $name.text(Tournaments.getName(tournamentid));
+        new Toast(Strings.namechangeaborted);
+        return undefined;
+      }
+
+      $system.find(&#039;.name&#039;).text(newname);
+
+      Tournaments.setName(tournamentid, newname);
+
+      // save change
+      Storage.changed();
+
+      // refresh all tabs
+      // Tab_New.update(); // not necessary
+      Shared.Tab_Games.update();
+      Shared.Tab_Ranking.update();
+      Shared.Tab_History.update();
+
+      new Toast(Strings.namechanged.replace(&#039;%s&#039;, newname));
+    }
+
+    function chabort() {
+      template.$chname.val(&#039;&#039;);
+      template.$chname.blur();
+    }
+
+    $tab.on(&#039;click&#039;, &#039;.system &gt; h3:first-child.editable&#039;, function() {
+      chshow($(this).find(&#039;.name&#039;));
+    });
+
+    template.$chname.blur(updateName);
+
+    template.$chname.keyup(function(e) {
+      if (e.which === 13) {
+        // automatically calls chhide
+        template.$chname.blur();
+        e.preventDefault();
+        return false;
+      } else if (e.which === 27) {
+        chabort();
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // avoid bubbling of the click event towards .name, which would remove
+    // chname and cause DOM exceptions
+    template.$chname.click(function(e) {
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  function initRemove() {
+    $tab.on(&#039;click&#039;, &#039;.system .removesystem button&#039;, function() {
+      var $system, tournamentid, tournament, games;
+
+      $system = $(this).parents(&#039;.system&#039;);
+
+      tournamentid = $system.data(&#039;tournamentid&#039;);
+
+      if (!Tournaments.isRunning(tournamentid)) {
+        new Toast(Strings.tournamentalreadyfinished);
+        return undefined;
+      }
+
+      tournament = Tournaments.getTournament(tournamentid);
+      if (!tournament) {
+        console.error(&quot;tournament running, but there&#039;s no tournament object!&quot;);
+        return undefined;
+      }
+
+      games = tournament.getGames();
+
+      if (games &amp;&amp; games.length) {
+        new Toast(Strings.gamesstillrunning);
+        return undefined;
+      }
+
+      if (!Tournaments.removeTournament(tournamentid)) {
+        // failure
+        console.error(&quot;something&#039;s wrong&quot;);
+        return undefined;
+      }
+
+      // the other tabs don&#039;t need to update, since nothing should
+      // have changed
+      // for them (yet)
+      Tab_New.update();
+      Storage.changed();
+      new Toast(Strings.tournamentfinished);
+
+      return true;
+    });
+  }
+
+  function resetTeams() {
+    $tab.find(&#039;.team&#039;).remove();
+  }
+
+  function resetSystems() {
+    $tab.find(&#039;.system&#039;).remove();
+  }
+
+  function updateTeams() {
+    var ranking, i, showsubrank;
+
+    showsubrank = false;
+    ranking = GlobalRanking.get();
+
+    for (i = 0; i &lt; ranking.length; i += 1) {
+      if (ranking[i].globalrank !== ranking[i].tournamentrank) {
+        showsubrank = true;
+        break;
+      }
+    }
+
+    for (i = 0; i &lt; ranking.length; i += 1) {
+      template.team.$rank.text(ranking[i].globalrank + 1);
+      template.team.$tournamentrank.text(showsubrank
+          &amp;&amp; ranking[i].tournamentrank ? ranking[i].tournamentrank + 1 : &#039;&#039;);
+      template.team.$teamno.text(ranking[i].teamid + 1);
+      template.team.$names.text(Team.getNames(ranking[i].teamid).join(&#039;, &#039;));
+      template.$anchor.append(template.team.$container.clone());
+    }
+  }
+
+  function setSystemState($system, tournamentid) {
+    var stateclass, Tournament;
+
+    Tournament = tournamentid !== undefined
+        &amp;&amp; Tournaments.getTournament(tournamentid);
+
+    switch (Tournament ? Tournament.getState()
+        : BackendTournament.STATE.FAILURE) {
+    case BackendTournament.STATE.PREPARING:
+      stateclass = &#039;preparing&#039;;
+      break;
+    case BackendTournament.STATE.RUNNING:
+      stateclass = &#039;running&#039;;
+      break;
+    case BackendTournament.STATE.FINISHED:
+      stateclass = &#039;finished&#039;;
+      break;
+    case BackendTournament.STATE.FAILURE:
+    default:
+      stateclass = &#039;failure&#039;;
+      break;
+    }
+
+    $system.removeClass(&#039;preparing running finished failure&#039;).addClass(
+        stateclass);
+  }
+
+  function getAnchors(tournamentid) {
+    var startteam, endteam, teams;
+
+    startteam = Tournaments.getStartRank(tournamentid, !Tournaments
+        .isRunning(tournamentid));
+
+    if (startteam &gt;= Team.count()) {
+      return undefined;
+    }
+
+    endteam = startteam + getHeight(tournamentid) - 1;
+
+    teams = template.$anchor.find(&#039;.team&#039;);
+
+    return {
+      first: teams.eq(startteam),
+      last: teams.eq(endteam)
+    };
+  }
+
+  function getHeight(tournamentid) {
+    return Tournaments.numTeamsLeft(tournamentid);
+  }
+
+  function createSystemAnchor(tournamentid) {
+    var anchors, $firstrow, $lastrow, height, $anchor;
+
+    anchors = getAnchors(tournamentid);
+    if (!anchors) {
+      return undefined;
+    }
+    $firstrow = anchors.first;
+    if ($firstrow === undefined) {
+      return undefined;
+    }
+    height = getHeight(tournamentid);
+    $lastrow = anchors.last;
+
+    if ($firstrow.length !== 1) {
+      console.error(&#039;cannot find anchor for tournament id &#039; + tournamentid);
+      return undefined;
+    }
+
+    if (!height) {
+      return undefined;
+    }
+
+    $anchor = template.$system.clone();
+    $anchor.attr(&#039;rowspan&#039;, height);
+
+    $firstrow.append($anchor);
+    $firstrow.addClass(&#039;firstrow&#039;);
+    $lastrow.addClass(&#039;lastrow&#039;);
+
+    return $anchor;
+  }
+
+  function initKO($ko, tournamentid) {
+    var $komode, KO;
+
+    if (!Tournaments.isRunning(tournamentid)) {
+      // this is finished.
+      console.error(&#039;system box for a finished KO tournament&#039;);
+      return undefined;
+    }
+
+    KO = Tournaments.getTournament(tournamentid);
+
+    // komode select field
+    $komode = $ko.find(&#039;.mode&#039;);
+    getKOMode($komode, KO);
+
+    $komode.change(function() {
+      setKOMode($komode, KO);
+    });
+
+    // submit button
+    $ko.find(&#039;button&#039;).click(function() {
+      if (KO.start()) {
+        // add the bye to history
+        // at the moment, there&#039;s no bye in KO. This might change in the
+        // future
+        // bye = getRoundVotes(KO).bye;
+        // while (bye.length &gt; 0) {
+        // History.addVote(0, History.BYE, bye.shift(), round - 1);
+        // }
+
+        new Toast(Strings.tournamentstarted);
+        Storage.store();
+
+        Tab_Games.update();
+        Tab_New.update();
+        Tab_History.update();
+        Tab_Ranking.update();
+      } else {
+        new Toast(Strings.roundfailed);
+      }
+    });
+  }
+
+  function initTournamentNameChange(tournamentid) {
+    nameChangeID = tournamentid;
+  }
+
+  function createTournamentBox($anchor, tournamentid) {
+    var type;
+
+    type = Tournaments.getTournament(tournamentid).getType();
+
+    $anchor.append(template.system[&#039;$&#039; + type].clone());
+    $anchor.addClass(type);
+
+    switch (type) {
+    case &#039;swiss&#039;:
+      initSwiss($anchor, tournamentid);
+      break;
+    case &#039;ko&#039;:
+      initKO($anchor, tournamentid);
+      break;
+    default:
+      console.error(&#039;unsupported tournament type: &#039; + type);
+      return undefined;
+    }
+
+    initBoxes($anchor);
+
+    return $anchor;
+  }
+
+  function createSelectionBox($anchor) {
+    if (Number($anchor.attr(&#039;rowspan&#039;)) &lt; 2) {
+      $anchor.css(&#039;padding&#039;, 0);
+      $anchor.text(Strings.notenoughteams);
+      return undefined;
+    }
+    $anchor.append(template.system.$newsystem.clone());
+    $anchor.addClass(&#039;newsystem&#039;);
+
+    initNewsystem($anchor);
+
+    return $anchor;
+  }
+
+  function setSystemTitle($anchor) {
+    var tournamentid;
+
+    tournamentid = $anchor.data(&#039;tournamentid&#039;);
+
+    $title = $anchor.find(&#039;&gt;h3&#039;);
+
+    if (tournamentid !== undefined) {
+      $title.addClass(&#039;editable&#039;);
+      $anchor.append(template.$removesystem.clone());
+      $anchor.find(&#039;.name&#039;).text(Tournaments.getName(tournamentid));
+    }
+    $anchor.append($title.clone().removeClass(&#039;editable&#039;));
+  }
+
+  function updateSystems() {
+    var $system, tournamentid, i, order;
+
+    if (Team.count() &lt; 2) {
+      return undefined;
+    }
+
+    // we have to print this in globalranking order
+    order = Tournaments.getRankingOrder();
+
+    for (i = 0; i &lt; order.length; i += 1) {
+      tournamentid = order[i];
+
+      $system = createSystemAnchor(tournamentid);
+      if (!$system) {
+        continue;
+      }
+
+      $system.data(&#039;tournamentid&#039;, tournamentid);
+
+      if (Tournaments.isRunning(tournamentid)) {
+        createTournamentBox($system, tournamentid);
+
+        setSystemState($system, tournamentid);
+
+      } else {
+        // there&#039;s still at least one player who needs a tournament
+        createSelectionBox($system);
+      }
+
+      setSystemTitle($system);
+
+      if (nameChangeID === tournamentid) {
+        $system.find(&#039;&gt;h3&#039;).click();
+        nameChangeID = undefined;
+      }
+    }
+
+    // process all teams without tournament
+    $system = createSystemAnchor(undefined);
+    if ($system) {
+      createSelectionBox($system);
+      setSystemTitle($system);
+    }
+  }
+
+  function addNewSystem(type, numteams, parentid) {
+    var Tournament, tournamentid;
+
+    Tournament = Tournaments.addTournament(type, numteams, parentid);
+    if (!Tournament) {
+      console.error(&#039;cannot create tournament of type &#039; + type);
+      Tab_New.update();
+      return undefined;
+    }
+    tournamentid = Tournaments.getTournamentID(Tournament);
+    Tournaments.setName(tournamentid, Strings[&#039;defaultname&#039; + type]);
+
+    Storage.store();
+    Tab_New.update();
+
+    initTournamentNameChange(tournamentid); // TODO find a better solution
+  }
+
+  /**
+   * prepare Newsystem management box, which starts a new tournament round
+   *
+   * @param $system
+   *          the DOM element which contains the tournament System information
+   */
+  function initNewsystem($system) {
+    var $numteams, maxteams, parentid;
+
+    parentid = $system.data(&#039;tournamentid&#039;);
+
+    $numteams = $system.find(&#039;input.numteams&#039;);
+    maxteams = $system.attr(&#039;rowspan&#039;);
+    $numteams.attr(&#039;max&#039;, maxteams);
+    $numteams.val(maxteams);
+
+    function numTeams() {
+      return Number($numteams.val());
+    }
+
+    $system.find(&#039;button.swiss&#039;).click(function() {
+      addNewSystem(&#039;swiss&#039;, numTeams(), parentid);
+    });
+
+    $system.find(&#039;button.ko&#039;).click(function() {
+      addNewSystem(&#039;ko&#039;, numTeams(), parentid);
+    });
+  }
+
+  /**
+   * prepare a swiss tournament management box
+   *
+   * @param $swiss
+   *          the DOM object which holds the Swiss System
+   * @param tournamentid
+   *          the tournament id of the swiss tournament
+   */
+  function initSwiss($swiss, tournamentid) {
+    var $swissmode, round, $perms, Swiss;
+
+    // set texts for current round
+    round = Tournaments.getRanking(tournamentid).round;
+    $swiss.find(&#039;.round&#039;).text(round);
+    $swiss.find(&#039;.nextround&#039;).text(round + 1);
+
+    if (!Tournaments.isRunning(tournamentid)) {
+      // this is finished.
+      return;
+    }
+
+    Swiss = Tournaments.getTournament(tournamentid);
+
+    // swissmode select field
+    $swissmode = $swiss.find(&#039;.mode&#039;);
+    getSwissMode($swissmode, Swiss);
+
+    $swissmode.change(function() {
+      setSwissMode($swissmode, Swiss);
+    });
+
+    $perms = queryPerms($swiss);
+
+    $perms.preset.change(function() {
+      setPermissionPreset($perms.preset.val(), $perms);
+      setPermissions($perms, Swiss);
+    });
+
+    getPermissions($perms, Swiss);
+
+    $perms.all.click(function() {
+      var $perm;
+      $perm = $(this);
+
+      $perm.toggleClass(&#039;forbidden&#039;);
+      $perms.preset.val(&#039;custom&#039;);
+      setPermissions($perms, Swiss);
+    });
+
+    // submit button
+    $swiss.find(&#039;button&#039;).click(function() {
+      var round, tournamentid;
+      if (Swiss.start()) {
+        tournamentid = Tournaments.getTournamentID(Swiss);
+        round = Tournaments.getRanking(tournamentid).round;
+
+        // add the bye to history
+        getRoundVotes(Swiss).bye.forEach(function(bye) {
+          History.addVote(tournamentid, History.BYE, bye, round - 1);
+        });
+
+        new Toast(Strings.roundstarted.replace(&#039;%s&#039;, round));
+        Storage.store();
+
+        Tab_Games.update();
+        Tab_New.update();
+        Tab_History.update();
+        Tab_Ranking.update();
+      } else {
+        new Toast(Strings.roundfailed);
+      }
+    });
+  }
+
+  function initBoxes($container) {
+    $container.find(&#039;div.boxview&#039;).each(function() {
+      var $box;
+
+      $box = $(this);
+      new BoxView($box);
+    });
+  }
+
+  function setPermissionPreset(preset, $perms) {
+    var perms;
+
+    perms = Swissperms[preset];
+
+    if (perms === undefined) {
+      // not available. most likely &#039;custom&#039;
+      return;
+    }
+
+    $perms.all.removeClass(&#039;forbidden&#039;);
+
+    // just copy the values over to the grid
+    !perms.up.up &amp;&amp; $perms.up.up.addClass(&#039;forbidden&#039;);
+    !perms.up.down &amp;&amp; $perms.up.down.addClass(&#039;forbidden&#039;);
+    !perms.up.bye &amp;&amp; $perms.up.bye.addClass(&#039;forbidden&#039;);
+    !perms.down.up &amp;&amp; $perms.down.up.addClass(&#039;forbidden&#039;);
+    !perms.down.down &amp;&amp; $perms.down.down.addClass(&#039;forbidden&#039;);
+    !perms.down.bye &amp;&amp; $perms.down.bye.addClass(&#039;forbidden&#039;);
+    !perms.bye.up &amp;&amp; $perms.bye.up.addClass(&#039;forbidden&#039;);
+    !perms.bye.down &amp;&amp; $perms.bye.down.addClass(&#039;forbidden&#039;);
+    !perms.bye.bye &amp;&amp; $perms.bye.bye.addClass(&#039;forbidden&#039;);
+  }
+
+  function getPermissions($perms, Swiss) {
+    var perms;
+
+    perms = Swiss.getOptions().permissions;
+
+    $perms.all.removeClass(&#039;forbidden&#039;);
+
+    !perms.up.up &amp;&amp; $perms.up.up.addClass(&#039;forbidden&#039;);
+    !perms.up.down &amp;&amp; $perms.down.up.addClass(&#039;forbidden&#039;);
+    !perms.up.bye &amp;&amp; $perms.bye.up.addClass(&#039;forbidden&#039;);
+    !perms.down.up &amp;&amp; $perms.up.down.addClass(&#039;forbidden&#039;);
+    !perms.down.down &amp;&amp; $perms.down.down.addClass(&#039;forbidden&#039;);
+    !perms.down.bye &amp;&amp; $perms.bye.down.addClass(&#039;forbidden&#039;);
+    !perms.bye.up &amp;&amp; $perms.up.bye.addClass(&#039;forbidden&#039;);
+    !perms.bye.down &amp;&amp; $perms.down.bye.addClass(&#039;forbidden&#039;);
+    !perms.bye.bye &amp;&amp; $perms.bye.bye.addClass(&#039;forbidden&#039;);
+  }
+
+  function setPermissions($perms, Swiss) {
+    var opts, perms;
+
+    opts = Swiss.getOptions();
+    perms = opts.permissions;
+
+    perms.up.up = !$perms.up.up.hasClass(&#039;forbidden&#039;);
+    perms.up.down = !$perms.down.up.hasClass(&#039;forbidden&#039;);
+    perms.up.bye = !$perms.bye.up.hasClass(&#039;forbidden&#039;);
+    perms.down.up = !$perms.up.down.hasClass(&#039;forbidden&#039;);
+    perms.down.down = !$perms.down.down.hasClass(&#039;forbidden&#039;);
+    perms.down.bye = !$perms.bye.down.hasClass(&#039;forbidden&#039;);
+    perms.bye.up = !$perms.up.bye.hasClass(&#039;forbidden&#039;);
+    perms.bye.down = !$perms.down.bye.hasClass(&#039;forbidden&#039;);
+    perms.bye.bye = !$perms.bye.bye.hasClass(&#039;forbidden&#039;);
+
+    opts.permissions = perms;
+    Swiss.setOptions(opts);
+  }
+
+  function queryPerms($swiss) {
+    var $grid, $perms;
+
+    $grid = $swiss.find(&#039;.votepermissions&#039;);
+
+    $perms = {
+      all: $grid.find(&#039;.perm&#039;),
+      up: {
+        up: $grid.find(&#039;.up .up&#039;),
+        down: $grid.find(&#039;.up .down&#039;),
+        bye: $grid.find(&#039;.up .bye&#039;)
+      },
+      down: {
+        up: $grid.find(&#039;.down .up&#039;),
+        down: $grid.find(&#039;.down .down&#039;),
+        bye: $grid.find(&#039;.down .bye&#039;)
+
+      },
+      bye: {
+        up: $grid.find(&#039;.bye .up&#039;),
+        down: $grid.find(&#039;.bye .down&#039;),
+        bye: $grid.find(&#039;.bye .bye&#039;)
+
+      },
+      preset: $swiss.find(&#039;select.preset&#039;)
+    };
+
+    return $perms;
+  }
+
+  function setSwissMode($modeselect, Swiss) {
+    var opts, mode;
+
+    mode = $modeselect.val();
+
+    opts = Swiss.getOptions();
+    opts.mode = mode;
+
+    Swiss.setOptions(opts);
+  }
+
+  function getSwissMode($modeselect, Swiss) {
+    var mode;
+
+    mode = Swiss.getOptions().mode;
+    $modeselect.val(mode);
+  }
+
+  function setKOMode($modeselect, KO) {
+    var opts, mode;
+
+    mode = $modeselect.val();
+
+    opts = KO.getOptions();
+    opts.firstround = mode;
+
+    KO.setOptions(opts);
+  }
+
+  function getKOMode($modeselect, KO) {
+    var mode;
+
+    mode = KO.getOptions().firstround;
+    $modeselect.val(mode);
+  }
+
+  function initOptions() {
+    var $maxwidthbox, $shownamesbox;
+
+    // show or hide playernames
+    $maxwidthbox = $tab.find(&#039;.options .maxwidth&#039;);
+    function maxwidthtest() {
+      if ($maxwidthbox.prop(&#039;checked&#039;)) {
+        $tab.addClass(&#039;maxwidth&#039;);
+      } else {
+        $tab.removeClass(&#039;maxwidth&#039;);
+      }
+    }
+
+    $maxwidthbox.click(maxwidthtest);
+    maxwidthtest();
+
+    // show or hide playernames
+    $shownamesbox = $tab.find(&#039;.options .shownames&#039;);
+    function shownamestest() {
+      if ($shownamesbox.prop(&#039;checked&#039;)) {
+        $tab.removeClass(&#039;hidenames&#039;);
+        $maxwidthbox.removeAttr(&#039;disabled&#039;);
+      } else {
+        $tab.addClass(&#039;hidenames&#039;);
+        $maxwidthbox.attr(&#039;disabled&#039;, &#039;disabled&#039;);
+      }
+    }
+
+    $shownamesbox.click(shownamestest);
+    shownamestest();
+  }
+
+  function init() {
+    if ($tab) {
+      console.error(&#039;tab_new: $tab already exists:&#039;);
+      console.error($tab);
+      return;
+    }
+
+    $tab = $(&#039;#tabs &gt; [data-tab=&quot;new&quot;]&#039;);
+
+    initTemplate();
+    initRename();
+    initRemove();
+    initOptions();
+  }
+
+  function reset() {
+    if (!$tab) {
+      init();
+    }
+
+    resetSystems();
+    resetTeams();
+  }
+
+  function updateTeamRegistration() {
+    State.numTournaments.set(Tournaments.numTournaments());
+  }
+
+  function update() {
+    reset();
+
+    updateTeamRegistration();
+
+    updateTeams();
+    updateSystems();
+  }
+
+  Tab_New = Tab.createTab(&#039;new&#039;, reset, update);
+  Shared.Tab_New = Tab_New;
+  return Tab_New;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

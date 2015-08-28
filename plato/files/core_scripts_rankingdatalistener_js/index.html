@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/rankingdatalistener.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/rankingdatalistener.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">75.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">145</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">27.83</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.57</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * RankingDataListener: Strange name, but it is registered through the
+ * dependency system to a RankingModel, from where it catches recalc events,
+ * which it uses to update a single field of data, e.g. wins, points, saldo, ...
+ *
+ * @return RankingDataListener
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./listener&#039;], function(extend, Listener) {
+  /**
+   * Constructor.
+   *
+   * Subclasses are required to create &quot;ranking.{NAME}&quot; in the constructor
+   *
+   * @param ranking
+   *          a RankingModel instance
+   * @param fieldobject
+   *          the object for the field this class is calculating
+   */
+  function RankingDataListener(ranking, fieldobject) {
+    var Const;
+    RankingDataListener.superconstructor.call(this);
+
+    /**
+     * This.constructor, on inherited classes, is NOT RankingDataListener, but
+     * the constructor that was invoked by &#039;new&#039;
+     */
+    Const = this.constructor;
+
+    this.ranking = ranking;
+
+    // resize and map the ranking field
+    if (fieldobject.length !== ranking.length) {
+      fieldobject.resize(ranking.length);
+    }
+    if (ranking[Const.NAME] !== undefined) {
+      throw new Error(&#039;ranking field already exists: &#039; + Const.NAME);
+    }
+    ranking[Const.NAME] = fieldobject;
+    this[Const.NAME] = fieldobject;
+
+    // create dependency links
+    if (Const.DEPENDENCIES) {
+      Const.DEPENDENCIES.forEach(function(DEPNAME) {
+        this[DEPNAME] = ranking[DEPNAME];
+        if (this[DEPNAME] === undefined) {
+          console.warn(&#039;ranking dependency not found: &#039; + DEPNAME);
+        }
+      }, this);
+    }
+
+    ranking.registerListener(this);
+  }
+  extend(RankingDataListener, Listener);
+
+  /**
+   * detect whether this specific instance is a primary data listener, or is
+   * only processing recalc events, i.e. processing data of other data listeners
+   *
+   * @return true if this listener contains primary data, false otherwise
+   */
+  RankingDataListener.prototype.isPrimary = function() {
+    return this.onbye !== RankingDataListener.prototype.onbye
+        || this.onresult !== RankingDataListener.prototype.onresult;
+  };
+
+  /**
+   * the name of the field, which is handled by this class, e.g. &#039;wins&#039;
+   */
+  RankingDataListener.NAME = &#039;undefined&#039;;
+
+  /**
+   * an array of dependencies, e.g. [ &#039;buchholz&#039;, &#039;games&#039;] for finebuchholz
+   */
+  RankingDataListener.DEPENDENCIES = [];
+
+  RankingDataListener.prototype.destroy = function() {
+    RankingDataListener.superclass.destroy.call(this);
+
+    delete this.ranking[this.constructor.NAME];
+  };
+
+  /**
+   * insert the results of a game into the ranking.
+   *
+   * @param r
+   *          the emitting RankingModel instance. Please ignore.
+   * @param e
+   *          the name of the emitted event
+   * @param game
+   *          a game result
+   */
+  RankingDataListener.prototype.onresult = function(r, e, game) {
+    // do something to this.NAME, where NAME is the value of constructor.NAME
+  };
+
+  /**
+   * inserts a bye into the ranking
+   *
+   * @param r
+   *          the emitting RankingModel instance. Please ignore.
+   * @param e
+   *          the name of the emitted event
+   * @param teams
+   *          array of teams which receive a bye
+   */
+  RankingDataListener.prototype.onbye = function(r, e, teams) {
+    // do something to this.NAME, where NAME is the value of constructor.NAME
+  };
+
+  /**
+   * correct a ranking entry. Do not check whether it&#039;s valid. The
+   * TournamentModel has to take care of that
+   *
+   * @param r
+   *          the emitting RankingModel instance. Please ignore.
+   * @param e
+   *          the name of the emitted event
+   * @param correction
+   *          a game correction (CorrectionModel instance)
+   */
+  RankingDataListener.prototype.oncorrect = function(r, e, correction) {
+    // do something to this.NAME, where NAME is the value of constructor.NAME
+  };
+
+  /**
+   * calculate the field
+   */
+  RankingDataListener.prototype.onrecalc = function() {
+    // do something to this.NAME, where NAME is the value of constructor.NAME
+  };
+
+  /**
+   * reset the field
+   */
+  RankingDataListener.prototype.onreset = function() {
+    this[this.constructor.NAME].fill(0);
+  };
+
+  /**
+   * resize the contents
+   *
+   * @param ranking
+   */
+  RankingDataListener.prototype.onresize = function(ranking) {
+    var dataobject = this[this.constructor.NAME];
+    if (dataobject &amp;&amp; dataobject.resize) {
+      this[this.constructor.NAME].resize(ranking.length);
+    }
+  };
+
+  return RankingDataListener;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

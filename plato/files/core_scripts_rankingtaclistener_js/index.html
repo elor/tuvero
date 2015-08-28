@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/rankingtaclistener.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/rankingtaclistener.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">55.50</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">165</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">76.56</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.31</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * RankingTacListener
+ *
+ * @return RankingTacListener
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./rankingdatalistener&#039;, &#039;./vectormodel&#039;, //
+&#039;options&#039;], function(extend, RankingDataListener, VectorModel, Options) {
+  var winscore;
+
+  // FIXME extract &quot;12&quot; to the config.in
+  winscore = 12;
+
+  function sign(num) {
+    if (num &lt; 0) {
+      return -1;
+    }
+    if (num &gt; 0) {
+      return 1;
+    }
+    if (num === 0) {
+      return 0;
+    }
+    return NaN;
+  }
+
+  /**
+   * Constructor
+   *
+   * @param ranking
+   *          a RankingModel instance
+   */
+  function RankingTacListener(ranking) {
+    RankingTacListener.superconstructor.call(this, ranking, new VectorModel());
+  }
+  extend(RankingTacListener, RankingDataListener);
+
+  RankingTacListener.NAME = &#039;tac&#039;;
+
+  RankingTacListener.prototype.onresult = function(r, e, result) {
+    var winner, loser, diff, points;
+
+    if (result.teams.length !== 2) {
+      throw new Error(&#039;TAC ranking requires exactly two teams in a result&#039;);
+    }
+
+    diff = result.score[0] - result.score[1];
+    switch (sign(diff)) {
+    case -1:
+      winner = 1;
+      loser = 0;
+      diff = -diff;
+      break;
+    case 1:
+      winner = 0;
+      loser = 1;
+      break;
+    case 0:
+      winner = 0;
+      loser = 0;
+      break;
+    default:
+      console.error(&#039;TAC ranking does not accept draws&#039;);
+      return undefined;
+    }
+
+    if (result.score[winner] &gt;= Options.maxpoints &amp;&amp; winner !== loser) {
+      // everything went to completion
+
+      // winner
+      points = this.tac.get(result.teams[winner]) + winscore + diff;
+      this.tac.set(result.teams[winner], points);
+
+      // loser
+      points = this.tac.get(result.teams[loser]) + result.score[loser];
+      if (result.score[loser] === 0) {
+        points += 1;
+      }
+      this.tac.set(result.teams[loser], points);
+    } else {
+      // game had to be aborted. Timeout situation: teams keep their own
+      // points
+
+      points = this.tac.get(result.teams[0]) + result.score[0];
+      this.tac.set(result.teams[0], points);
+
+      points = this.tac.get(result.teams[1]) + result.score[1];
+      this.tac.set(result.teams[1], points);
+    }
+  };
+
+  /**
+   * bye listener
+   *
+   * @param r
+   *          the Emitter, i.e. a RankingModel instance
+   * @param e
+   *          the event, i.e. &#039;bye&#039;
+   * @param teams
+   *          an array of teams, as prepared and provided by RankingModel.bye()
+   */
+  RankingTacListener.prototype.onbye = function(r, e, teams) {
+    teams.forEach(function(team) {
+      var points = this.tac.get(team) + Options.byepointswon
+          - Options.byepointslost;
+      this.tac.set(team, points);
+    }, this);
+  };
+
+  RankingTacListener.prototype.oncorrect = function(r, e, correction) {
+    // TODO DRY - Don&#039;t Repeat Yourself!
+    // TODO extract a method for use by onresult and oncorrect
+    var winner, loser, diff, points;
+
+    if (correction.before.teams.length !== 2) {
+      throw new Error(&#039;TAC ranking requires exactly two teams in a result&#039;);
+    }
+
+    diff = correction.before.score[0] - correction.before.score[1];
+    switch (sign(diff)) {
+    case -1:
+      winner = 1;
+      loser = 0;
+      diff = -diff;
+      break;
+    case 1:
+      winner = 0;
+      loser = 1;
+      break;
+    case 0:
+      winner = 0;
+      loser = 0;
+      break;
+    default:
+      console.error(&#039;TAC ranking does not accept draws&#039;);
+      return undefined;
+    }
+
+    if (correction.before.score[winner] &gt;= Options.maxpoints
+        &amp;&amp; winner !== loser) {
+      // everything went to completion
+
+      // winner
+      points = this.tac.get(correction.before.teams[winner]) - winscore - diff;
+      this.tac.set(correction.before.teams[winner], points);
+
+      // loser
+      points = this.tac.get(correction.before.teams[loser])
+          - correction.before.score[loser];
+      if (correction.before.score[loser] === 0) {
+        points += 1;
+      }
+      this.tac.set(correction.before.teams[loser], points);
+    } else {
+      // game had to be aborted. Timeout situation: teams keep their own
+      // points
+
+      points = this.tac.get(correction.before.teams[0])
+          - correction.before.score[0];
+      this.tac.set(correction.before.teams[0], points);
+
+      points = this.tac.get(correction.before.teams[1])
+          - correction.before.score[1];
+      this.tac.set(correction.before.teams[1], points);
+    }
+
+    this.onresult(r, e, correction.after);
+  };
+
+  return RankingTacListener;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

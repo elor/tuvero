@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/backend/halfmatrix.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/backend/halfmatrix.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">63.17</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">331</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">105.24</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.45</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * No Description
+ *
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define([&#039;./rleblobber&#039;], function(RLEBlobber) {
+  /**
+   * HalfMatrix: Half square matrix implementation according to
+   * Matrix.Interface. Empty entries are referenced as undefined array values.
+   * All values above the main diagonal aren&#039;t stored at all. See get/set for
+   * details. The implementation may use more arrays than necessary, but they
+   * are expected to be populated to a reasonable degree
+   *
+   * @param size
+   *          {Integer} size of the matrix
+   * @param type
+   *          {Integer} an integer identifying the type of the half matrix: -1:
+   *          negated, 0: empty, 1: mirrored
+   * @return {HalfMatrix} this
+   */
+  var HalfMatrix = function(type, size) {
+    type = type || 0;
+
+    this.setType(type);
+
+    this.size = size || 0;
+    this.array = [];
+
+    return this;
+  };
+
+  // What to do with values above the main diagonal:
+  HalfMatrix.empty = 0; // return 0
+  HalfMatrix.mirrored = 1; // return the mirrored value
+  HalfMatrix.negated = -1; // return the negative mirrored value
+
+  /**
+   * sets a type
+   *
+   * @param type
+   *          type id (HalfMatrix.empty/mirrored/negated)
+   * @return this on success, undefined otherwise
+   */
+  HalfMatrix.prototype.setType = function(type) {
+    switch (type) {
+    case HalfMatrix.empty:
+      this.get = this.getEmpty;
+      this.set = this.setEmpty;
+      break;
+    case HalfMatrix.mirrored:
+      this.get = this.getMirrored;
+      this.set = this.setMirrored;
+      break;
+    case HalfMatrix.negated:
+      this.get = this.getNegated;
+      this.set = this.setNegated;
+      break;
+    default:
+      return undefined;
+    }
+
+    this.type = type;
+
+    return this;
+  };
+
+  /**
+   * Restores a blank state of the HalfMatrix
+   *
+   * @param size
+   *          the new size of the matrix
+   * @return {HalfMatrix} this
+   */
+  HalfMatrix.prototype.clear = function(size) {
+    this.array = [];
+    this.size = size || 0;
+
+    return this;
+  };
+
+  /**
+   * copies the matrix. Optimizations in term of memory are attempted
+   *
+   * @return {HalfMatrix} the copy
+   */
+  HalfMatrix.prototype.clone = function() {
+    var size, type, retval, a, b, i, j;
+
+    switch (this.get) {
+    case HalfMatrix.prototype.getMirrored:
+      type = 1;
+      break;
+    case HalfMatrix.prototype.getNegated:
+      type = -1;
+      break;
+    default:
+      type = 0;
+      break;
+    }
+
+    size = this.size;
+    retval = new HalfMatrix(type, size);
+    a = this.array;
+    b = retval.array;
+
+    // loop over the rows, skipping empty rows
+    // loop over every col within the rows and copy only non-null values
+    // create row-arrays (first index of b) as needed
+    for (i = 0; i &lt; size; i += 1) {
+      if (a[i]) {
+        for (j = 0; j &lt;= i; j += 1) {
+          if (a[i][j]) {
+            if (!b[i]) {
+              b[i] = [];
+            }
+            b[i][j] = a[i][j];
+          }
+        }
+      }
+    }
+
+    return retval;
+  };
+
+  /**
+   * erases the rows and cols associated with the index from the matrix
+   *
+   * @param index
+   *          {Integer} index
+   * @return {HalfMatrix} this
+   */
+  HalfMatrix.prototype.erase = function(index) {
+    var size, a, i;
+
+    if (index &gt;= this.size || index &lt; 0) {
+      return this;
+    }
+
+    a = this.array;
+    size = a.length;
+
+    a.splice(index, 1);
+    for (i = 0; i &lt; size; i += 1) {
+      if (a[i]) {
+        a[i].splice(index, 1);
+      }
+    }
+
+    this.size -= 1;
+
+    return this;
+  };
+
+  /**
+   * simply increases this.size. array expansions occur in the set function
+   *
+   * @param by
+   *          integer amount by which to extend the array. defaults to 1
+   * @return {HalfMatrix} this
+   */
+  HalfMatrix.prototype.extend = function(by) {
+    if (by &lt;= 0) {
+      return this;
+    }
+    by = by || 1;
+    this.size += by;
+
+    return this;
+  };
+
+  /**
+   * retrieves the value from the given indices using the empty type
+   *
+   * @param row
+   *          vertical position
+   * @param col
+   *          horizontal position
+   * @return value at (row, col). defaults to 0
+   */
+  HalfMatrix.prototype.getEmpty = function(row, col) {
+    if (col &gt; row) {
+      return 0;
+    }
+    if (!this.array[row]) {
+      return 0;
+    }
+
+    return this.array[row][col] || 0;
+  };
+
+  /**
+   * retrieves the value from the given indices using the mirrored type
+   *
+   * @param row
+   *          vertical position
+   * @param col
+   *          horizontal position
+   * @return value at (row, col). defaults to 0
+   */
+  HalfMatrix.prototype.getMirrored = function(row, col) {
+    if (col &gt; row) {
+      return this.get(col, row);
+    }
+
+    if (!this.array[row]) {
+      return 0;
+    }
+
+    return this.array[row][col] || 0;
+  };
+
+  /**
+   * retrieves the value from the given indices using the negated type
+   *
+   * @param row
+   *          vertical position
+   * @param col
+   *          horizontal position
+   * @return value at (row, col). defaults to 0
+   */
+  HalfMatrix.prototype.getNegated = function(row, col) {
+    if (col &gt; row) {
+      return -this.get(col, row);
+    }
+
+    if (!this.array[row]) {
+      return 0;
+    }
+
+    return this.array[row][col] || 0;
+  };
+
+  /**
+   * set() function for mirrored half matrices
+   *
+   * @param row
+   *          row
+   * @param col
+   *          column
+   * @param value
+   *          value
+   * @return this
+   */
+  HalfMatrix.prototype.setMirrored = function(row, col, value) {
+    if (col &gt; row) {
+      return this.set(col, row, value);
+    }
+    return this.setEmpty(row, col, value);
+  };
+
+  /**
+   * set() function for &#039;negated&#039; half matrices
+   *
+   * @param row
+   *          row
+   * @param col
+   *          column
+   * @param value
+   *          value
+   * @return this
+   */
+  HalfMatrix.prototype.setNegated = function(row, col, value) {
+    if (col &gt; row) {
+      return this.set(col, row, -value);
+    }
+    return this.setEmpty(row, col, value);
+  };
+
+  /**
+   * sets the value at the given indices and allocates/frees the field if
+   * necessary. Values below the main diagonal are ignored.
+   *
+   * @param row
+   *          vertical position
+   * @param col
+   *          horizontal position
+   * @param value
+   *          integer value to store in position (row, col)
+   * @return {HalfMatrix} this
+   */
+  HalfMatrix.prototype.setEmpty = function(row, col, value) {
+    var rowref;
+
+    if (col &gt; row) {
+      return this;
+    }
+
+    rowref = this.array[row];
+
+    if (value) {
+      if (!rowref) {
+        rowref = this.array[row] = [];
+      }
+      rowref[col] = value;
+    } else if (rowref) {
+      delete rowref[col];
+    }
+
+    return this;
+  };
+
+  /**
+   * store content in a convenient blob
+   *
+   * @return a serialization of the matrix
+   */
+  HalfMatrix.prototype.toBlob = function() {
+    var ob;
+
+    ob = {
+      type: this.type,
+      size: this.size,
+      array: RLEBlobber.toBlob(this.array)
+    };
+
+    return JSON.stringify(ob);
+  };
+
+  /**
+   * reset the matrix from a blob
+   *
+   * @param blob a serialization of the state
+   */
+  HalfMatrix.prototype.fromBlob = function(blob) {
+    var ob;
+
+    ob = JSON.parse(blob);
+
+    this.size = ob.size;
+    this.array = RLEBlobber.fromBlob(ob.array);
+
+    this.setType(ob.type);
+  };
+
+  return HalfMatrix;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

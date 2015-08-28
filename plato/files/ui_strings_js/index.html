@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - ui/strings.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>ui/strings.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">39.80</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">98</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">3.56</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.71</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * a list of teams with some accessor functions
+ */
+define(function () {
+  var Strings, key;
+
+  Strings = {
+    autosaveoff : &#039;Automatisches  Speichern aus&#039;,
+    autosaveon : &#039;Automatisches Speichern an&#039;,
+    autoupdateoff : &#039;Automatische Aktualisierung aus&#039;,
+    autoupdateon : &#039;Automatische Aktualisierung an&#039;,
+    clearstorage : &#039;Lokal gespeicherte Daten löschen? Sämtliche Turnierdaten gehen damit verloren!&#039;,
+    confirmleave : &#039;Das Turnier kann nicht gespeichert werden. Fenster trotzdem schließen?&#039;,
+    upvote : &#039;▲&#039;,
+    downvote : &#039;▼&#039;,
+    byevote : &#039;∅&#039;,
+    fileabort : &#039;Lesen abgebrochen&#039;,
+    fileerror : &#039;Lesefehler&#039;,
+    filenotfound : &#039;Datei wurde nicht gefunden&#039;,
+    filenotreadable : &#039;Datei ist nicht lesbar&#039;,
+    gamefinished : &#039;Spiel beendet&#039;,
+    invalidresult : &#039;Ungültiges Ergebnis&#039;,
+    loaded : &#039;Turnier geladen&#039;,
+    loadfailed : &#039;Ladevorgang fehlgeschlagen. Lade neu...&#039;,
+    newtournament : &#039;Neues Turnier begonnen&#039;,
+    notimplemented : &#039;Funktion noch nicht verfügbar&#039;,
+    pageload : &#039;Seite geladen&#039;,
+    pointchangeaborted : &#039;Änderung verworfen&#039;,
+    pointchangeapplied : &#039;Änderung gespeichert&#039;,
+    toolatetournamentfinished : &#039;Turnier ist schon beendet. Korrektur hat keinen Einfluss auf Rangfolge.&#039;,
+    rankingupdate : &#039;Ranking wurde berechnet&#039;,
+    roundfailed : &#039;Auslosung fehlgeschlagen&#039;,
+    roundfinished : &#039;%s. Runde abgeschlossen&#039;,
+    roundstarted : &#039;%s. Runde ausgelost&#039;,
+    roundrunning : &#039;Runde %s läuft&#039;,
+    registrationclosed : &#039;Registrierung geschlossen&#039;,
+    saved : &#039;gespeichert&#039;,
+    savefailed : &#039;Speichern fehlgeschlagen&#039;,
+    startfailed : &#039;Auslosung fehlgeschlagen. Zu wenige Teams?&#039;,
+    teamadded : &#039;Team %s registriert&#039;,
+    notenoughteams : &#039;Zu wenige Teams&#039;,
+    player : &#039;Spieler&#039;,
+    teamhead1 : &#039;#,Spieler&#039;,
+    teamhead2 : &#039;#,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;&#039;,
+    teamhead3 : &#039;#,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;&#039;,
+    rankhead1 : &#039;Rang,Team,Spieler,Siege,BH,FBH,Netto,Lose&#039;,
+    rankhead2 : &#039;Rang,Team,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,Siege,BH,FBH,Netto,Lose&#039;,
+    rankhead3 : &#039;Rang,Team,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;,Siege,BH,FBH,Netto,Lose&#039;,
+    correctionhead : &#039;&quot;Team 1&quot;,&quot;Team 2&quot;,&quot;P1 vorher&quot;,&quot;P2 vorher&quot;,&quot;P1 nachher&quot;,&quot;P2 nachher&quot;&#039;,
+    histhead1 : &#039;Runde,&quot;Teamno. 1&quot;,&quot;Spieler 1&quot;,&quot;Teamno. 2&quot;,&quot;Spieler 1&quot;,P1,P2&#039;,
+    histhead2 : &#039;Runde,&quot;Teamno. 1&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Teamno. 2&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,P1,P2&#039;,
+    histhead3 : &#039;Runde,&quot;Teamno. 1&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;,&quot;Teamno. 2&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;,P1,P2&#039;,
+    namechanged : &#039;Umbenannt: %s&#039;,
+    namechangeaborted : &#039;Name verworfen&#039;,
+    teamsnotempty : &#039;Spieler wurden schon eingetragen&#039;,
+    emptyname : &#039;N.N.&#039;,
+    differentteamsizes : &#039;Teams haben unterschiedliche Größe&#039;,
+    invalidteamsize : &#039;Unzulässige Spielerzahl pro Team&#039;,
+    alltabsreloaded : &#039;Alle Tabs neu geladen&#039;,
+    modsvariableadded : &#039;window.mods erstellt&#039;,
+    tournamentfinished : &#039;Turnier beendet&#039;,
+    autocompleteloaded : &#039;Spielernamen geladen&#039;,
+    autocompletereloadfailed : &#039;Konnte Spielernamen nicht laden&#039;,
+    fileempty : &#039;Datei ist leer&#039;,
+    teamdeleted : &#039;Anmeldung %s gelöscht&#039;,
+    nofilereader : &#039;Dieser Browser kann keine Speicherstände laden!&#039;,
+    nojson : &#039;Dieser Browser kann keine Speicherstände erstellen!&#039;,
+    nostorage : &#039;Dieser Browser kann keine Spielstände speichern!&#039;,
+    updatedownloading : &#039;Neue Version wird heruntergeladen...&#039;,
+    updatefailed : &#039;Fehler beim Download der neuen Version&#039;,
+    updateavailable : &#039;Neu laden für neue Version&#039;,
+    dev : &#039;Entwicklerversion&#039;,
+    rc : &#039;Versionsvorschau&#039;,
+    reset : &#039;Gespeicherte Daten gelöscht&#039;,
+    defaultnameswiss : &#039;Schweizer System&#039;,
+    defaultnameko : &#039;KO-Turnier&#039;,
+    defaultnamepoule : &#039;Poule-System&#039;,
+    defaultnameroundtournament : &#039;Rundenturnier&#039;,
+    defaultnamesupermelee : &#039;Supermelee&#039;,
+    offlineconfirmexit : &#039;Der Browser hat keine Internetverbindung und die Seite liegt nicht im Cache. Wenn sie die Seite jetzt schließen, kann das Programm nur mit bestehender Internetverbindung wieder gestartet werden.&#039;,
+    winstatustrue : &#039;S&#039;,
+    winstatusfalse : &#039;N&#039;,
+    winstatusundefined : &#039;&#039;,
+    nomanifest : &#039;Offline-Modus deaktiviert: Kein Manifest&#039;,
+    tournamentalreadyfinished : &#039;Turnier ist schon beendet&#039;,
+    gamesstillrunning : &#039;Es gibt noch offene Spiele&#039;,
+    tournamentstarted : &#039;Turnier gestartet&#039;,
+    tabupdateerror : &#039;Fehler bei Aktualisierung vom %s-Tab&#039;,
+    tab_teams : &#039;Mannschaften&#039;,
+    tab_new : &#039;Turniersysteme&#039;,
+    tab_games : &#039;Offene Spiele&#039;,
+    tab_ranking : &#039;Platzierungen&#039;,
+    tab_history : &#039;Spielverlauf&#039;,
+    tab_debug : &#039;Debugging Console&#039;,
+    tab_settings : &#039;Optionen und Einstellungen&#039;,
+    tab_about : &#039;Über...&#039;,
+    nodata : &#039;Keine Daten&#039;,
+  };
+
+  return Strings;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

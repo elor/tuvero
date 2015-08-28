@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - scripts/backend/rleblobber.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>scripts/backend/rleblobber.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">54.81</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">284</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">59.32</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.34</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * No Description
+ *
+ * @return RLEBlobber
+ * @implements Blobber
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define(function() {
+  /**
+   * RLEBlobber: A blobber for multi-dimensional sparse non-circular arrays,
+   * intended for numerical data. Compression occurs using run-length-encoding
+   * of all entries that represent null in some form, e.g. undefined, null and 0
+   *
+   * Contents of the array can only be numbers at this point
+   *
+   * This object can work with encapsulated instances or static functions. Use
+   * what suits you best, they&#039;re calling each other anyway.
+   *
+   * @param array
+   *          a reference to the array
+   * @return {RLEBlobber} this
+   */
+  var RLEBlobber = function(array) {
+    this.array = array;
+
+    return this;
+  };
+
+  /**
+   * getter for the contained array
+   *
+   * @return the contained array
+   */
+  RLEBlobber.prototype.getArray = function() {
+    return this.array;
+  };
+
+  /**
+   * creates and returns a string representation of the contained array
+   *
+   * @return a string representation of the contained array
+   */
+  RLEBlobber.prototype.toBlob = function() {
+    return RLEBlobber.toBlob(this.array);
+  };
+
+  /**
+   * creates a new array object and stores it in this.array
+   *
+   * @param blob
+   *          the string representation
+   *
+   * @return nothing
+   */
+  RLEBlobber.prototype.fromBlob = function(blob) {
+    this.array = RLEBlobber.fromBlob(blob);
+  };
+
+  /**
+   * create a blob from the given array using run length encoding
+   *
+   * Important Note: This function does not detect circular references! In those
+   * cases, it will recurse forever!
+   *
+   * @param array
+   *          a sparse multidimensional non-circular array
+   * @return a string representation of array
+   */
+  RLEBlobber.toBlob = function(array) {
+    var i, nullstart, str, elem, elemstr, notnull;
+
+    switch (toType(array)) {
+    case &#039;array&#039;:
+      // use the code below
+      break;
+    case &#039;number&#039;:
+      // just return the string
+      return array.toString();
+      break;
+    default:
+      console.error(&#039;cannot parse content of type &#039; + toType(array));
+      return undefined;
+    }
+
+    str = &#039;&#039;;
+    nullstart = -1;
+    for (i = 0; i &lt; array.length; i += 1) {
+      elem = array[i];
+
+      notnull = elem != null &amp;&amp; elem != 0;
+
+      if (nullstart &gt; -1) {
+        if (notnull) {
+          if (nullstart === 0) {
+            // begin a new string
+            str = &#039;[&#039;;
+          } else {
+            // continue an old string
+            str += &#039;,&#039;;
+          }
+          if ((i - nullstart) == 1) {
+            str += &#039;n&#039;;
+          } else {
+            str += &#039;n&#039; + (i - nullstart);
+          }
+          nullstart = -1;
+        } else {
+          // just continue the null run
+          continue;
+        }
+      }
+
+      if (notnull) {
+        if (i != 0) {
+          // continue string
+          str += &#039;,&#039;;
+        } else {
+          // start new string
+          str += &#039;[&#039;;
+        }
+
+        str += RLEBlobber.toBlob(elem);
+        nullstart = -1;
+      } else {
+        nullstart = i;
+      }
+    }
+
+    if (str.length) {
+      str += &#039;]&#039;;
+    }
+
+    return str;
+  };
+
+  /**
+   * parse the blob and return its contents as an array
+   *
+   * @param blob
+   *          the string representation
+   * @return an array which has been decoded from the blob, or undefined on
+   *          failure
+   */
+  RLEBlobber.fromBlob = function(blob) {
+    var array, innerarray, nesting, i, num, char, isnull, nullsleft, newarray;
+
+    if (toType(blob) != &#039;string&#039;) {
+      console.error(&#039;RLEBlobber.fromBlob: input is no string, but of type &quot;&#039; + toType(blob) + &quot;&#039;&quot;);
+      return undefined;
+    }
+
+    if (blob.length == 0) {
+      return [];
+    }
+
+    nesting = [];
+    num = &#039;&#039;;
+    array = undefined;
+    isnull = false;
+    nullsleft = 0;
+
+    for (i = 0; i &lt; blob.length; ++i) {
+      char = blob[i];
+
+      switch (char) {
+      case &#039;0&#039;:
+      case &#039;1&#039;:
+      case &#039;2&#039;:
+      case &#039;3&#039;:
+      case &#039;4&#039;:
+      case &#039;5&#039;:
+      case &#039;6&#039;:
+      case &#039;7&#039;:
+      case &#039;8&#039;:
+      case &#039;9&#039;:
+      case &#039;+&#039;:
+      case &#039;-&#039;:
+      case &#039;e&#039;:
+      case &#039;.&#039;:
+        // is part of a number: add to number OR a skip number
+        num += char;
+        break;
+      case &#039;n&#039;:
+        // is indicative of a null run
+        if (isnull) {
+          console.error(&#039;unexpected sequence of multiple &quot;n&quot; characters in RLEBlobber.fromBlob input&#039;);
+          return undefined;
+        }
+        isnull = true;
+        break;
+      case &#039;[&#039;:
+        // starts a new nested subarray
+        newarray = [];
+        // write all nulls up to this point
+        if (nesting.length &gt; 0) {
+          array[array.length + nullsleft] = newarray;
+        }
+        nullsleft = 0;
+        nesting.push(newarray);
+        array = nesting[nesting.length - 1];
+        break;
+      case &#039;,&#039;:
+        if (num.length == 0) {
+          if (isnull) {
+            nullsleft += 1;
+          } else {
+            // Note to self: &#039;,,&#039; does nothing (compromise)
+            // Note to self: &#039;],&#039; is allowed this way, so KEEP IT THAT WAY!
+            // console.error(&#039;empty array element in fromBlob input&#039;);
+            // return undefined;
+          }
+        } else {
+          num = Number(num);
+          if (isNaN(num)) {
+            console.error(&#039;invalid number or character sequence in RLEBlobber.fromBlob input&#039;);
+            return undefined;
+          }
+          if (isnull) {
+            nullsleft += num;
+          } else {
+            array[array.length + nullsleft] = num;
+            nullsleft = 0;
+          }
+        }
+        isnull = false;
+        num = &#039;&#039;;
+        break;
+      case &#039;]&#039;:
+        // first, write the last number, if any
+        if (!isnull) {
+          if (num.length == 0) {
+            // console.error(&#039;empty field in RLEBlobber.fromBlob input.
+            // Discarding end of this array&#039;);
+          } else {
+            num = Number(num);
+            if (isNaN(num)) {
+              console.error(&#039;invalid number or character sequence in RLEBlobber.fromBlob input&#039;);
+              return undefined;
+            }
+            array[array.length + nullsleft] = num;
+            nullsleft = 0;
+          }
+        }
+        // ends a nested subarray
+        if (nesting.length == 1) {
+          if (i == blob.length - 1) {
+            // end of input reached
+            return array;
+          }
+          console.error(&#039;unbalanced closing &quot;]&quot; in RLEBlobber input&#039;);
+          return undefined;
+        }
+        nesting.pop();
+        array = nesting[nesting.length - 1];
+        if (array[array.length - 1].length == 0) {
+          array[array.length - 1] = undefined;
+        }
+        num = &#039;&#039;;
+        isnull = false;
+        break;
+      default:
+        console.error(&#039;RLEBlobber fromBlob: unexpected character &quot;&#039; + char + &#039;&quot; in sparse array blob&#039;);
+        return undefined;
+      }
+    }
+
+    // ERROR: unexpected end of input
+    console.error(&#039;unexpected end of input. Unbalanced brackets&#039;);
+    return undefined;
+  };
+
+  /**
+   * replacement of the typeof function
+   *
+   * Source:
+   * http://javascriptweblog.wordpress.com/2011/08/08/fixing-the-javascript-typeof-operator/
+   */
+  function toType(obj) {
+    return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
+  }
+
+  function isArray(obj) {
+    return toType(obj) == &#039;array&#039;;
+  }
+
+  function isNumber(obj) {
+    return toType(obj) == &#039;number&#039;;
+  }
+
+  return RLEBlobber;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

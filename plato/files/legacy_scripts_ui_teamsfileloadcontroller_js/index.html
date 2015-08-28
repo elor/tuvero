@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/ui/teamsfileloadcontroller.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/ui/teamsfileloadcontroller.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">60.68</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">277</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">50.70</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.10</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * TeamsFileLoadController: loads a whole file and adds its lines as teams
+ *
+ * Inner workings: An HTML5 FileReader reads all contents as ANSI (ISO-8859-1).
+ * It then converts possible UTF-8 byte into utf-8 code points, leaving all
+ * other characters in place. This enables the use of both latin-1 and utf-8 as
+ * input file encoding.
+ *
+ * All other encodings are discouraged. DOS-style line endings are filtered by
+ * &quot;new TeamModel()&quot;. MAC-style line endings can still be a problem.
+ *
+ * TODO rewrite the whole thing and extract a lot of methods
+ *
+ * @return TeamsFileLoadController
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./toast&#039;, &#039;./strings&#039;, &#039;./state_new&#039;,
+    &#039;./playermodel&#039;, &#039;./teammodel&#039;], function(extend, Controller, Toast,
+    Strings, State, PlayerModel, TeamModel) {
+
+  function numutfbytes(character) {
+    var code;
+
+    code = character.charCodeAt();
+
+    switch (true) {
+    case code &lt; 0xC0:
+      return 1;
+    case code &gt;= 0xC0 &amp;&amp; code &lt; 0xE0:
+      return 2;
+    case code &gt;= 0xE0 &amp;&amp; code &lt; 0xF0:
+      return 3;
+    case code &gt;= 0xF0 &amp;&amp; code &lt; 0xF8:
+      return 4;
+    case code &gt;= 0xF8 &amp;&amp; code &lt; 0xFC:
+      return 5;
+    case code &gt;= 0xFC &amp;&amp; code &lt; 0xFE:
+      return 6;
+    }
+  }
+
+  function isutf8byte(character) {
+    var code;
+
+    code = character.charCodeAt();
+
+    return code &gt;= 0x80 &amp;&amp; code &lt; 0xC0;
+  }
+
+  function isutf8codepoint(string) {
+    var bytes, byteindex;
+
+    bytes = numutfbytes(string[0]);
+    if (bytes &lt;= 1) {
+      return false;
+    }
+
+    for (byteindex = 1; byteindex &lt; bytes; byteindex += 1) {
+      if (!isutf8byte(string[byteindex])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function latin2utf8symbol(characters) {
+    var bytes, symbol, byteindex;
+
+    bytes = numutfbytes(characters[0]);
+
+    symbol = characters[0].charCodeAt();
+    switch (bytes) {
+    case 1:
+      return characters[0];
+    case 2:
+      symbol = symbol ^ 0xC0;
+      break;
+    case 3:
+      symbol = symbol ^ 0xE0;
+      break;
+    case 4:
+      symbol = symbol ^ 0xF0;
+      break;
+    case 5:
+      symbol = symbol ^ 0xF8;
+      break;
+    case 6:
+      symbol = symbol ^ 0xFC;
+      break;
+    default:
+      return characters[0];
+    }
+
+    for (byteindex = 1; byteindex &lt; bytes; byteindex += 1) {
+      symbol = symbol &lt;&lt; 6;
+      symbol += characters[byteindex].charCodeAt() ^ 0x80;
+    }
+
+    return String.fromCharCode(symbol);
+  }
+
+  function latin2utf8(string) {
+    var symbolindex, ret, symbol;
+    ret = [];
+
+    for (symbolindex = 0; symbolindex &lt; string.length; symbolindex += 1) {
+
+      symbol = string.substr(symbolindex, 6);
+      if (isutf8codepoint(symbol)) {
+        // skip utf8 bytes
+        symbolindex += numutfbytes(symbol) - 1;
+        // add utf-8 codepoint instead of its ansi representation
+        ret.push(latin2utf8symbol(symbol));
+      } else {
+        // just display the ansi symbol
+        ret.push(string[symbolindex]);
+      }
+    }
+
+    return ret.join(&#039;&#039;);
+  }
+
+  /**
+   * Constructor
+   *
+   * @param view
+   *          an InputView instance of a filereader input
+   */
+  function TeamsFileLoadController(view) {
+    TeamsFileLoadController.superconstructor.call(this, view);
+
+    this.init();
+  }
+  extend(TeamsFileLoadController, Controller);
+
+  /**
+   * reads names from a string and adds the players accordingly. Ignores
+   * #-escaped lines
+   *
+   * @return true on success, undefined or false on failure
+   */
+  TeamsFileLoadController.createTeamsFromString = function(str) {
+    var lines, name, names, teamsize, team, i;
+
+    if (State.teams.length !== 0) {
+      new Toast(Strings.teamsnotempty);
+      return undefined;
+    }
+
+    lines = str.split(&#039;\n&#039;);
+
+    // strip unnecessary lines and characters
+    for (i = lines.length - 1; i &gt;= 0; i -= 1) {
+      // strip white spaces
+      lines[i] = lines[i].trim();
+
+      // convert CSV format to plain text
+      // first, replace all commas and double quotes inside quotes
+      lines[i] = lines[i].replace(/(, ?&quot;([^,&quot;])*)&quot;&quot;/g, &#039;$1%DBQUOTE%&#039;);
+      lines[i] = lines[i].replace(/(, ?&quot;([^,&quot;])*),/g, &#039;$1%COMMA%&#039;);
+      // second, remove spaces around commas
+      lines[i] = lines[i].replace(/ *, */g, &#039;,&#039;);
+      // second, convert the actual content
+      lines[i] = lines[i].replace(/^([0-9]+,)?&quot;([^&quot;]*)&quot;,&quot;([^&quot;]*)&quot;,&quot;([^&quot;]*)&quot;$/,
+          &#039;$2,$3,$4&#039;);
+      lines[i] = lines[i].replace(/^([0-9]+,)?&quot;([^&quot;]*)&quot;,&quot;([^&quot;]*)&quot;$/, &#039;$2,$3&#039;);
+      lines[i] = lines[i].replace(/^([0-9]+,)?&quot;([^&quot;]*)&quot;$/, &#039;$2&#039;);
+
+      // remove all comments
+      lines[i] = lines[i].replace(/^#.*/, &#039;&#039;);
+      // remove empty lines (and the aforementioned comments)
+      if (lines[i].length === 0) {
+        lines.splice(i, 1);
+      }
+    }
+
+    teamsize = -1;
+
+    // split and strip the individual player names and store them in the
+    // lines
+    // variable
+    for (names in lines) {
+      lines[names] = lines[names].split(&#039;,&#039;);
+      names = lines[names];
+
+      for (name in names) {
+        names[name] = names[name].trim().replace(&#039;%COMMA%&#039;, &#039;,&#039;);
+        names[name] = names[name].trim().replace(&#039;%DBQUOTE%&#039;, &#039;&quot;&#039;);
+        if (names[name].length === 0) {
+          names[name] = Strings.emptyname;
+        }
+      }
+
+      // verify that all teams have the same number of playuers
+      if (teamsize !== names.length) {
+        if (teamsize === -1) {
+          teamsize = names.length;
+        } else {
+          new Toast(Strings.differentteamsizes);
+          return undefined;
+        }
+      }
+    }
+
+    // validate team size
+    switch (teamsize) {
+    case 1:
+    case 2:
+    case 3:
+      // set the team size
+      State.teamsize.set(teamsize);
+      break;
+    default:
+      new Toast(Strings.invalidteamsize);
+      return undefined;
+    }
+
+    // enter new teams
+    lines.forEach(function(names) {
+      var players = names.map(function(name) {
+        return new PlayerModel(name);
+      });
+
+      State.teams.push(new TeamModel(players));
+    });
+
+    return true;
+  };
+
+  TeamsFileLoadController.prototype.reset = function() {
+    this.model.emit(&#039;reset&#039;);
+  };
+
+  TeamsFileLoadController.loadFileError = function(evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ERR:
+      break;
+    default:
+      new Toast(Strings.fileerror);
+    }
+
+    this.teamsfileloadcontroller.reset();
+  };
+
+  TeamsFileLoadController.loadFileLoad = function(evt) {
+    var contents;
+
+    contents = evt.target.result;
+
+    contents = latin2utf8(contents);
+
+    filereadercontents = contents;
+
+    if (TeamsFileLoadController.createTeamsFromString(contents)) {
+      new Toast(Strings.loaded);
+    }
+
+    this.teamsfileloadcontroller.reset();
+  };
+
+  TeamsFileLoadController.loadFileAbort = function() {
+    new Toast(Strings.fileabort);
+
+    this.teamsfileloadcontroller.reset();
+  };
+
+  TeamsFileLoadController.prototype.init = function() {
+    var controller = this;
+
+    this.view.$view.data(&#039;controller&#039;, this).change(function(evt) {
+      var reader = new FileReader();
+
+      reader.onerror = TeamsFileLoadController.loadFileError;
+      reader.onabort = TeamsFileLoadController.loadFileAbort;
+      reader.onload = TeamsFileLoadController.loadFileLoad;
+
+      reader.teamsfileloadcontroller = controller;
+
+      // TODO try different encodings and select the best one
+      reader.readAsText(evt.target.files[0], &#039;ISO-8859-1&#039;);
+    });
+  };
+
+  return TeamsFileLoadController;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/rankingmodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/rankingmodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.71</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">375</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">58.91</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.28</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * RankingModel: A general ranking model, which can bind different
+ * RankingComponents in order and sort using their compare function
+ *
+ * @return RankingModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./model&#039;, &#039;./rankingcomponentindex&#039;, &#039;./type&#039;,
+    &#039;./rankingdatalistenerindex&#039;], function(extend, Model,
+    RankingComponentIndex, Type, RankingDataListenerIndex) {
+
+  /**
+   * create a list of IDs for reference
+   *
+   * @return an array of ids, where the index matches the value
+   */
+  function getIDs() {
+    var ids;
+
+    ids = [];
+    while (ids.length &lt; this.length) {
+      ids.push(ids.length);
+    }
+
+    return ids;
+  }
+
+  /**
+   * order team ids by their ranking
+   *
+   * @param ids
+   *          an array of ids
+   * @return an array of ids, sorted by rank
+   */
+  function getRankingOrder(ids) {
+    var order, chain;
+
+    order = ids.slice(0);
+
+    chain = this.componentchain;
+    order.sort(function(a, b) {
+      return chain.compare(a, b) || (a - b);
+    }, this);
+
+    return order;
+  }
+
+  /**
+   * read the ranks of each team from their array position in the ordered array
+   * and their relation to the previous team.
+   *
+   * @param ids
+   *          the return value of getRankingOrder().
+   *
+   * @return an array of ranks, as retrieved from the ids
+   */
+  function getRanks(ids) {
+    var ranks;
+
+    ranks = new Array(this.length);
+
+    ids.forEach(function(teamid, index) {
+      if (index === 0) {
+        ranks[teamid] = 0;
+      } else {
+        if (this.componentchain.compare(ids[index - 1], teamid) &lt; 0) {
+          ranks[teamid] = index;
+        } else {
+          ranks[teamid] = ranks[ids[index - 1]];
+        }
+      }
+    }, this);
+
+    return ranks;
+  }
+
+  /**
+   * Update the ranking from its data fields. See get() for a description of the
+   * ranking object.
+   *
+   * Private RankingModel function.
+   */
+  function updateRanking() {
+    var newRanking, components;
+
+    this.emit(&#039;recalc&#039;);
+
+    newRanking = {
+      components: this.componentnames
+    };
+
+    newRanking.ids = getIDs.call(this);
+    newRanking.displayOrder = getRankingOrder.call(this, newRanking.ids);
+    newRanking.ranks = getRanks.call(this, newRanking.displayOrder);
+
+    if (this.componentchain !== undefined) {
+      components = this.componentchain.getValues();
+      components.forEach(function(component, index) {
+        var name;
+        if (component !== undefined) {
+          name = this.componentnames[index];
+          newRanking[name] = component;
+        }
+      }, this);
+    }
+
+    this.ranking = newRanking;
+  }
+
+  /**
+   * Constructor
+   *
+   * @param components
+   *          an array with sorting strings
+   * @param size
+   *          the number of teams/players
+   * @param externalDependencies
+   *          Optional. an array of additional dependencies, e.g. a games matrix
+   *          for &quot;have they played&quot;-type questions
+   */
+  function RankingModel(components, size, externalDependencies) {
+    RankingModel.superconstructor.call(this);
+
+    components = components || [];
+    size = size || 0;
+
+    this.ranking = undefined;
+    this.componentnames = [];
+    this.componentchain = undefined;
+    this.length = 0;
+    this.extDeps = [];
+    this.dataListeners = {};
+
+    this.init(components, size, externalDependencies);
+  }
+  extend(RankingModel, Model);
+
+  /**
+   * the different events
+   */
+  RankingModel.prototype.EVENTS = {
+    &#039;result&#039;: true, // insert a new game result
+    &#039;bye&#039;: true, // insert a new bye
+    &#039;correct&#039;: true, // correct a game
+    &#039;recalc&#039;: true, // force a recalculation
+    &#039;update&#039;: true, // there has been an update
+    &#039;reset&#039;: true, // everything has to be reset
+    &#039;resize&#039;: true
+  // the size of the ranking has been changed
+  };
+
+  /**
+   * initializes the ranking object
+   *
+   * @param components
+   * @param size
+   * @param extDependencies
+   * @return true on success, false otherwise
+   */
+  RankingModel.prototype.init = function(components, size, extDependencies) {
+    var dependencies, dataListenerArray;
+
+    // abort if the ranking object has not been reset
+    if (this.componentchain || this.componentnames.length !== 0
+        || Object.keys(this.dataListeners).length !== 0) {
+      return false;
+    }
+
+    this.componentnames = components.slice(0);
+    this.componentchain = RankingComponentIndex.createComponentChain(this,
+        components);
+    if (this.componentchain) {
+      dependencies = this.componentchain.dependencies;
+    } else {
+      dependencies = [];
+    }
+
+    if (extDependencies) {
+      this.extDeps.push.apply(this.extDeps, extDependencies);
+      dependencies.push.apply(dependencies, this.extDeps);
+    }
+
+    dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
+        dependencies);
+    if (dataListenerArray &amp;&amp; components &amp;&amp; components.length &gt; 0) {
+      dataListenerArray.forEach(function(dataListener, index) {
+        this.dataListeners[dependencies[index]] = dataListener;
+      }, this);
+      this.resize(size);
+    }
+
+    return true;
+  };
+
+  /**
+   * restore everything to an initial state, as provided by an empty
+   * RankingModel construction
+   */
+  RankingModel.prototype.reset = function() {
+    Object.keys(this.dataListeners).forEach(function(key) {
+      this.dataListeners[key].destroy();
+    }, this);
+
+    // just let the constructor reset everything for us.
+    RankingModel.call(this);
+    this.emit(&#039;reset&#039;);
+
+    // trigger an &#039;update&#039; event
+    this.invalidate();
+  };
+
+  /**
+   * process a game result
+   *
+   * @param result
+   *          a GameResult instance
+   */
+  RankingModel.prototype.result = function(result) {
+    // TODO result verification?
+    this.emit(&#039;result&#039;, result);
+    this.invalidate();
+  };
+
+  /**
+   * process a bye
+   *
+   * @param teams
+   *          an array of affected teams
+   */
+  RankingModel.prototype.bye = function(teams) {
+    if (Type.isNumber(teams)) {
+      teams = [teams];
+    }
+    this.emit(&#039;bye&#039;, teams);
+    this.invalidate();
+  };
+
+  RankingModel.prototype.correct = function(correction) {
+    this.emit(&#039;correct&#039;, correction);
+    this.invalidate();
+  };
+
+  /**
+   * force a full recalculation of the ranking from the data fields. This will
+   * not replay the tournament from history, just update dependent data fields.
+   */
+  RankingModel.prototype.invalidate = function() {
+    this.ranking = undefined;
+    this.emit(&#039;update&#039;);
+  };
+
+  /**
+   * Returns the current ranking as a ranking object. Recalculates as necessary.
+   * This function can take up to several seconds for huge tournaments (&gt; 2000)
+   *
+   * The returned ranking object contains the following fields:
+   *
+   * ranks: an array of ranks. Equal ranks are allowed
+   *
+   * displayOrder: an array of player/team indices, which is pre-sorted by rank.
+   * The index in this array does reflect the rank ONLY if each rank is unique.
+   *
+   * components: an ordered array of RankingComponent names.
+   *
+   * For each component with not-undefined values, there&#039;s an equally-named
+   * field, which contains the values.
+   *
+   * @return the current ranking, as a ranking object
+   */
+  RankingModel.prototype.get = function() {
+    if (this.ranking === undefined) {
+      updateRanking.call(this);
+    }
+
+    return this.ranking;
+  };
+
+  /**
+   * Resizes the ranking data structures
+   *
+   * WARNING: This operation can delete data when reducing the size. Be careful
+   *
+   * @param size
+   *          the new size
+   * @return true on success, false otherwise
+   */
+  RankingModel.prototype.resize = function(size) {
+    if (size === this.length) {
+      return true;
+    }
+    if (size &gt;= 0) {
+      this.length = size;
+      this.emit(&#039;resize&#039;);
+      this.invalidate();
+      return true;
+    }
+
+    console.error(&#039;RankingModel.resize: invalid size: &#039; + size);
+    return false;
+  };
+
+  /**
+   * stores the necessary scores and points in a data object for serialization.
+   * Only primary data containers are stored, as the other ones can be
+   * recalculated.
+   *
+   * @return a serializable data object
+   */
+  RankingModel.prototype.save = function() {
+    var data = RankingModel.superclass.save.call(this);
+
+    data.len = this.length;
+    data.comps = this.componentnames.slice(0);
+    data.edep = this.extDeps.slice(0);
+    data.vals = {};
+
+    // only store primary dataListeners. Abort on error
+    if (!Object.keys(this.dataListeners).every(function(name) {
+      var listener;
+      listener = this.dataListeners[name];
+
+      if (listener.isPrimary(listener)) {
+        if (this[name] &amp;&amp; Type.isFunction(this[name].save)) {
+          data.vals[name] = this[name].save();
+        } else {
+          console.error(&#039;datalistener cannot be saved: &#039; + name);
+          return false;
+        }
+      }
+      return true;
+    }, this)) {
+      return undefined;
+    }
+
+    return data;
+  };
+
+  /**
+   * restores the ranking from a previously saved data object
+   *
+   * @param data
+   *          a deserialized data object
+   * @return true on success, false otherwise
+   */
+  RankingModel.prototype.restore = function(data) {
+    if (!RankingModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.reset();
+    if (!this.init(data.comps, data.len, data.edep)) {
+      this.reset();
+      return false;
+    }
+
+    if (!Object.keys(data.vals).every(function(name) {
+      if (this[name] &amp;&amp; this[name].restore) {
+        if (this[name].restore(data.vals[name])) {
+          return true;
+        }
+      }
+      console.error(&#039;RankingModel.restore(): cannot restore listener&#039; + name);
+      return false;
+    }, this)) {
+      this.reset();
+      return false;
+    }
+
+    this.invalidate();
+
+    return true;
+  };
+
+  RankingModel.prototype.SAVEFORMAT = Object
+      .create(RankingModel.superclass.SAVEFORMAT);
+  RankingModel.prototype.SAVEFORMAT.len = Number;
+  RankingModel.prototype.SAVEFORMAT.comps = [String];
+  RankingModel.prototype.SAVEFORMAT.edep = [String];
+  RankingModel.prototype.SAVEFORMAT.vals = Object;
+
+  return RankingModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

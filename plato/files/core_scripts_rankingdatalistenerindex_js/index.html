@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/rankingdatalistenerindex.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/rankingdatalistenerindex.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">71.69</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">251</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">40.33</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.93</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * RankingDataListenerIndex: An object which indexes the constructors of all
+ * RankingDataListeners. RankingDataListenerIndex.registerDataListeners()
+ * creates an array of listeners from the RankingComponentIndex-provided
+ * dependencies.
+ *
+ * Helper functions resolve the dependencies to provide a correctly ordered
+ * array of DataListener instances, so the recalc events will be fired in the
+ * correct order.
+ *
+ * @return RankingDataListenerIndex
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([//
+&#039;./rankinglostpointslistener&#039;, //
+&#039;./rankingpointslistener&#039;,//
+&#039;./rankingsaldolistener&#039;, //
+&#039;./rankingbyelistener&#039;, //
+&#039;./rankingwinslistener&#039;, //
+&#039;./rankinggamematrixlistener&#039;, //
+&#039;./rankingbuchholzlistener&#039;, //
+&#039;./rankingfinebuchholzlistener&#039;, //
+&#039;./rankingwinsmatrixlistener&#039;, //
+&#039;./rankingtaclistener&#039;, //
+&#039;./rankingsonnebornlistener&#039;, //
+&#039;./rankingheadtoheadmatrixlistener&#039;, //
+&#039;./rankingnumgameslistener&#039;], //
+function() {
+  var RankingDataListenerIndex;
+
+  /**
+   * build the index from the RankingXXXListener.NAME fields
+   *
+   * @param DataListeners
+   *          the arguments object of the outer function. NOT an array!
+   * @return a RankingDataListenerIndex object (no class)
+   */
+  RankingDataListenerIndex = (function(DataListeners) {
+    var RDLI, index, DataListener;
+
+    RDLI = {};
+    for (index = 0; index &lt; DataListeners.length; index += 1) {
+      DataListener = DataListeners[index];
+      RDLI[DataListener.NAME.toLowerCase()] = DataListener;
+    }
+
+    return RDLI;
+  })(arguments);
+
+  /**
+   * return the DataListener as referenced by its name
+   *
+   * @param name
+   *          the registered name of the DataListener
+   * @return a DataListener subclass (constructor)
+   */
+  function getDataListener(name) {
+    return RankingDataListenerIndex[name];
+  }
+
+  /**
+   * return the dependencies array of the DataListener with the given name
+   *
+   * @param name
+   *          the registered name of the DataListener
+   * @return an array of dependency names, or undefined if there are no
+   *         dependencies
+   */
+  function getDataDependencies(name) {
+    var DataListener = getDataListener(name);
+    if (!DataListener) {
+      console.warn(&#039;DataListener is undefined: &#039; + name);
+      return undefined;
+    }
+    return getDataListener(name).DEPENDENCIES;
+  }
+
+  /**
+   * Check whether all dependencies are fulfilled, i.e. the required
+   * dependencies are part of the provided dependency
+   *
+   * @param required
+   *          an array of required dependencies
+   * @param provided
+   *          an array of the provided dependencies
+   *
+   * @return true when the dependencies are fulfilled, false otherwise
+   */
+  function dependenciesFulfilled(required, provided) {
+    if (!required) {
+      return true;
+    }
+    if (!provided) {
+      return false;
+    }
+
+    return required.every(function(dependency) {
+      return provided.indexOf(dependency) !== -1;
+    });
+  }
+
+  /**
+   * Missing dependencies are read from RankingXListener.DEPENDENCIES and
+   * appended as needed. There&#039;s no additional dependency order resolution
+   *
+   * @param dependencies
+   *          Where new dependencies are added to and the dependencies are read
+   *          from
+   */
+  function addMissingDependencies(dependencies) {
+    var index, dataDependencies;
+
+    for (index = 0; index &lt; dependencies.length; index += 1) {
+      dataDependencies = getDataDependencies(dependencies[index]);
+      if (dataDependencies) {
+        dataDependencies.forEach(function(DEP) {
+          if (dependencies.indexOf(DEP) === -1) {
+            dependencies.push(DEP);
+          }
+        });
+      }
+    }
+  }
+
+  /**
+   * removes multiple entries in dependencies
+   *
+   * @param dependencies
+   *          an array of dependency names
+   *
+   * @return dependencies an array of all dependencies, in any order
+   */
+  function removeMultipleDependencies(dependencies) {
+    var index;
+
+    for (index = dependencies.length - 1; index &gt;= 0; index -= 1) {
+      if (dependencies.indexOf(dependencies[index]) &lt; index) {
+        dependencies.splice(index, 1);
+      }
+    }
+  }
+
+  /**
+   * perform a single dependency ordering run.
+   *
+   * @param input
+   *          an input array with names which are not yet part of output
+   * @param output
+   *          an output array which to push the names to, if their dependencies
+   *          are in
+   * @return true of an element has been moved, false otherwise
+   */
+  function orderDependenciesOnce(input, output) {
+    var added;
+
+    added = []; // array of indices
+
+    // transfer every name whose dependencies have been fulfilled
+    input.forEach(function(name, index) {
+      if (dependenciesFulfilled(getDataDependencies(name), output)) {
+
+        added.push(index);
+        output.push(name);
+      }
+    });
+
+    // remove the items beginning with the last one to not corrupt the array
+    added.reverse();
+    added.forEach(function(inputIndex) {
+      input.splice(inputIndex, 1);
+    });
+
+    return added.length &gt; 0;
+  }
+
+  /**
+   * order the names by their dependencies inplace, i.e. without creating a new
+   * array for output
+   *
+   * @param names
+   *          the input array, which contains the names. Also works as the
+   *          output array.
+   * @return false on failure, true on success
+   */
+  function orderDependencies(names) {
+    var input;
+
+    input = names.splice(0);
+
+    addMissingDependencies(input);
+    removeMultipleDependencies(input);
+
+    // keep adding names until there&#039;s none left
+    while (orderDependenciesOnce(input, names)) {
+    }
+
+    // check for unresolvable dependencies
+    if (input.length &gt; 0) {
+      console.error(&#039;dependencies could not be resolved: [&#039; + input.join(&#039;,&#039;)
+          + &#039;]&#039;);
+      names.splice(0);
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * remove all defined names and leave only the undefined names in the array
+   *
+   * @param names
+   *          an array of dependency names
+   */
+  function extractUndefinedNames(names) {
+    var index;
+
+    for (index = names.length - 1; index &gt;= 0; index -= 1) {
+      if (getDataListener(names[index]) !== undefined) {
+        names.splice(index, 1);
+      }
+    }
+  }
+
+  /**
+   * order the names by their dependencies and register every DataListener, if
+   * available. Aborts otherwise
+   *
+   * @param names
+   *          an array of DataListener names (see RankingDataListener.NAME).
+   *          Will contain the names, which correspond to the returned
+   *          listeners. On error, undefined names are written here.
+   * @param ranking
+   *          the RankingModel instance to register the listeners to
+   * @return A ordered array of DataListener instances on success, undefined
+   *         otherwise
+   */
+  RankingDataListenerIndex.registerDataListeners = function(ranking, names) {
+    var DataListeners;
+
+    if (!names) {
+      return undefined;
+    }
+
+    if (!orderDependencies(names)) {
+      return undefined;
+    }
+
+    DataListeners = names.map(function(name) {
+      return getDataListener(name);
+    });
+
+    if (DataListeners.indexOf(undefined) &gt;= 0) {
+      extractUndefinedNames(names);
+      console.error(&#039;data listener is undefined: &#039; + names.join(&#039;, &#039;));
+      return undefined;
+    }
+
+    return DataListeners.map(function(DataListener) {
+      return new DataListener(ranking);
+    });
+  };
+
+  return RankingDataListenerIndex;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

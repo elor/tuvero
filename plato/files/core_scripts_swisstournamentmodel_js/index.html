@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/swisstournamentmodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/swisstournamentmodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.94</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">361</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">54.15</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.99</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * SwissTournamentModel
+ *
+ * @return SwissTournamentModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./roundtournamentmodel&#039;, &#039;backend/random&#039;,
+    &#039;./matchmodel&#039;, &#039;./byeresult&#039;, &#039;options&#039;], function(extend,
+    RoundTournamentModel, Random, MatchModel, ByeResult, Options) {
+  var rng = new Random();
+  /**
+   * Constructor
+   *
+   * @param rankingorder
+   */
+  function SwissTournamentModel(rankingorder) {
+    SwissTournamentModel.superconstructor.call(this, rankingorder);
+
+    this.setProperty(&#039;swissmode&#039;, SwissTournamentModel.MODES.ranks);
+    this.setProperty(&#039;swissshuffle&#039;, true);
+    this.setProperty(&#039;swisstranspose&#039;, false);
+  }
+  extend(SwissTournamentModel, RoundTournamentModel);
+
+  SwissTournamentModel.prototype.SYSTEM = &#039;swiss&#039;;
+
+  SwissTournamentModel.prototype.RANKINGDEPENDENCIES = [&#039;byes&#039;, &#039;gamematrix&#039;];
+
+  SwissTournamentModel.MODES = {
+    all: &#039;all&#039;,
+    halves: &#039;halves&#039;,
+    ranks: &#039;ranks&#039;,
+    wins: &#039;wins&#039;,
+    individual: &#039;individual&#039;,
+    // TODO enable the use of global team ids (rangliste, elo, ...)
+    globalteamid: undefined
+  };
+
+  /**
+   * creates new matches depending on the current ranking within the tournament
+   *
+   * @return true on success, false otherwise
+   */
+  SwissTournamentModel.prototype.idleMatches = function() {
+    var rankGroups, matches, byes, mode;
+
+    /*
+     * validate swiss mode
+     */
+    mode = this.getProperty(&#039;swissmode&#039;);
+
+    if (SwissTournamentModel.MODES[mode] === undefined) {
+      this.emit(&#039;error&#039;, &#039;invalid mode: &#039; + mode);
+      return false;
+    }
+
+    rankGroups = SwissTournamentModel.getGroups(this.ranking.get(), mode);
+
+    /*
+     * shuffle if wanted
+     */
+    if (this.getProperty(&#039;swissshuffle&#039;) === true) {
+      rankGroups = SwissTournamentModel.shuffleGroupTeams(rankGroups);
+    }
+
+    /*
+     * transpose if wanted
+     */
+    if (this.getProperty(&#039;swisstranspose&#039;) === true) {
+      rankGroups = SwissTournamentModel.transposeGroups(rankGroups);
+    }
+
+    /*
+     * use awesome algorithm to find an allowed solution
+     */
+    matches = [];
+    byes = [];
+    if (!SwissTournamentModel.findSwissByesAndMatches(matches, byes,
+        rankGroups, this.ranking.gamematrix, this.ranking.byes)) {
+      this.emit(&#039;error&#039;, &#039;cannot find unique byes and matches&#039;);
+      return false;
+    }
+
+    /*
+     * add the byes and matches to the current tournament
+     */
+    byes.forEach(function(byeTeamID, byeIndex) {
+      // TODO extract method
+      this.votes.bye.push(byeTeamID);
+      this.history.push(new ByeResult(byeTeamID, [Options.byepointswon,
+          Options.byepointslost], matches.length + byeIndex, this.round));
+      this.ranking.bye(byeTeamID);
+    }, this);
+
+    matches.forEach(function(matchTeams, matchid) {
+      this.matches.push(new MatchModel(matchTeams, matchid, this.round));
+    }, this);
+
+    this.round += 1;
+
+    return true;
+  };
+
+  /**
+   * creates new matches depending on the initial within the tournament
+   *
+   * @return true on success, false otherwise
+   */
+  SwissTournamentModel.prototype.initialMatches = function() {
+    return this.idleMatches();
+  };
+
+  /**
+   * Internal function.
+   *
+   * Transposes the groups: takes one element from each group and places them
+   * into a new group, in order.
+   *
+   * shuffle first, if you need to.
+   *
+   * @param groups
+   *          2d groups array
+   * @return a 2d groups array where the groups are transposed
+   */
+  SwissTournamentModel.transposeGroups = function(groups) {
+    var transposed = [];
+
+    groups.forEach(function(group) {
+      group.forEach(function(teamid, index) {
+        if (transposed[index] === undefined) {
+          transposed[index] = [];
+        }
+        transposed[index].push(teamid);
+      });
+    });
+
+    return transposed;
+  };
+
+  /**
+   * Internal Function. creates a 2d array of groups for match creation
+   *
+   * @param ranking
+   *          a RankingModel instance
+   * @param mode
+   *          one of the SwissTournamentModel.MODES
+   * @return an array of arrays, where the inner array contains team ids which
+   *         have the same rank, and outer array is ordered from best to worst
+   *         rank
+   */
+  SwissTournamentModel.getGroups = function(ranking, mode) {
+    var allGroups, currentGroup, lastID, getID;
+
+    /*
+     * build different getIDs for different models
+     */
+    getID = undefined;
+    switch (mode) {
+    case SwissTournamentModel.MODES.all:
+      getID = function(rankingid) {
+        return 0;
+      };
+      break;
+    case SwissTournamentModel.MODES.halves:
+      getID = function(rankingid) {
+        return rankingid &lt; (ranking.displayOrder.length &gt;&gt; 1);
+      };
+      break;
+    case SwissTournamentModel.MODES.wins:
+      getID = function(rankingid) {
+        return ranking.wins[rankingid];
+      };
+      break;
+    case SwissTournamentModel.MODES.ranks:
+      getID = function(rankingid) {
+        return ranking.ranks[rankingid];
+      };
+      break;
+    case SwissTournamentModel.MODES.individual:
+      getID = function(rankingid) {
+        return rankingid;
+      };
+      break;
+    default:
+      console.error(&#039;invalid mode&#039;);
+      return undefined;
+    }
+
+    currentGroup = [];
+    allGroups = [currentGroup];
+    lastID = undefined;
+
+    ranking.displayOrder.forEach(function(teamid, rankingid) {
+      var id = getID(rankingid);
+      if (id !== lastID) {
+        lastID = id;
+        if (currentGroup &amp;&amp; currentGroup.length) {
+          currentGroup = [];
+          allGroups.push(currentGroup);
+        }
+      }
+      currentGroup.push(teamid);
+    });
+
+    return allGroups;
+  };
+
+  /**
+   * Internal Function
+   *
+   * in every rank group, randomize the team order
+   *
+   * @param rankGroups
+   *          a getGroups() result
+   * @return a rankGroup 2d array where the order of the inner arrays is random
+   */
+  SwissTournamentModel.shuffleGroupTeams = function(rankGroups) {
+    return rankGroups.map(function(group) {
+      var newgroup;
+      newgroup = [];
+
+      while (group.length) {
+        newgroup.push(rng.pickAndRemove(group));
+      }
+
+      return newgroup;
+    });
+  };
+
+  /**
+   * Internal Function.
+   *
+   * Find a valid bye if necessary, and a valid match for every team in the
+   * rankGroups list
+   *
+   * @param outMatches
+   *          an array into which the matches are written (int[][2])
+   * @param outByes
+   *          an array into which the bye is written (int[]);
+   * @param rankGroups
+   *          a 2d groups array
+   * @param gamematrix
+   *          a matrixmodel instance with the previous matches (gamematrix)
+   * @param byes
+   *          a vector with the number of byes for every team
+   * @return true on success, false otherwise
+   */
+  SwissTournamentModel.findSwissByesAndMatches = function(outMatches, outByes,
+      rankGroups, gamematrix, byes) {
+    var reverseRankGroups;
+
+    if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {
+      reverseRankGroups = rankGroups.slice(0).reverse();
+
+      if (!reverseRankGroups.some(function(group) {
+        return group.slice(0).reverse().some(
+            function(teamid) {
+              var index;
+              if (byes.get(teamid)) {
+                return false;
+              }
+
+              index = group.indexOf(teamid);
+              group.splice(index, 1);
+              if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
+                  gamematrix)) {
+                outByes.push(teamid);
+                return true;
+              }
+
+              group.splice(index, 0, teamid);
+
+              return false;
+            });
+      })) {
+        return false;
+      }
+    }
+
+    if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
+        gamematrix)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  /**
+   * counts the number of teams remaining in the rank groups
+   *
+   * @param rankGroups
+   *          a rankGroups object, as returned by getGroups
+   * @return the number of teams in the rank group
+   */
+  SwissTournamentModel.getGroupsTeamCount = function(rankGroups) {
+    var sum = 0;
+
+    rankGroups.forEach(function(group) {
+      sum += group.length;
+    });
+
+    return sum;
+  };
+
+  /**
+   * @param outMatches
+   * @param rankGroups
+   * @param gamematrix
+   * @return true on success, false otherwise
+   */
+  SwissTournamentModel.findSwissMatches = function(outMatches, rankGroups,
+      gamematrix) {
+    var currentGroup, secondGroup, teamA, teamB, teamBindex;
+
+    // console.log(getGroupsTeamCount(rankGroups));
+    // console.log(JSON.stringify(rankGroups));
+
+    currentGroup = undefined;
+
+    // get firstGroupIndex by searching for the first non-empty group
+    if (!rankGroups.some(function(group) {
+      currentGroup = group;
+      return group.length &gt; 0;
+    })) {
+      // success! there&#039;s no team left
+      return true;
+    }
+
+    teamA = currentGroup.shift();
+
+    secondGroup = undefined;
+    teamBindex = undefined;
+    teamB = undefined;
+
+    // try to find a match in the current group or the one after
+    if (rankGroups.some(function(group) {
+      return group.some(function(team, index) {
+        if (gamematrix.get(teamA, team) === 0) {
+          secondGroup = group;
+          teamB = team;
+          teamBindex = index;
+
+          secondGroup.splice(teamBindex, 1);
+
+          if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
+              gamematrix)) {
+            return true;
+          }
+
+          secondGroup.splice(teamBindex, 0, teamB);
+        }
+        return false;
+      });
+    })) {
+      // don&#039;t use push, because the best-ranked team should be listed in
+      // the first match
+      outMatches.unshift([teamA, teamB]);
+      return true;
+    }
+
+    currentGroup.unshift(teamA);
+
+    return false;
+  };
+
+  return SwissTournamentModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

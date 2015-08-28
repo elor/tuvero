@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - backend/kotournament.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>backend/kotournament.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">64.35</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">427</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">99.88</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.54</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * KO tournament
+ * 
+ * Complies to Tournament and Blobber interfaces
+ */
+
+define([ &#039;./tournament&#039;, &#039;./map&#039;, &#039;./random&#039;, &#039;./game&#039;, &#039;./options&#039; ], function (Tournament, Map, Random, Game, Options) {
+  var KOTournament, rnd, match;
+
+  rnd = new Random();
+
+  function left (id) {
+    return id * 2 + 1;
+  }
+
+  function right (id) {
+    return id * 2 + 2;
+  }
+
+  function parent (id) {
+    return Math.floor((id - 1) / 2);
+  }
+
+  function level (id) {
+    return Math.floor(Math.log(id + 1) / Math.LN2);
+  }
+
+  function levelbynodes (numnodes) {
+    if (numnodes &gt; 0) {
+      return Math.ceil(Math.log(numnodes) / Math.LN2) + 1;
+    }
+    return 0;
+  }
+
+  function nodesbylevel (level) {
+    return 1 &lt;&lt; level;
+  }
+
+  function numLevels (numnodes) {
+    return Math.ceil(Math.log(numnodes + 1) / Math.LN2);
+  }
+
+  function numRounds (numplayers) {
+    return levelbynodes(numplayers) - 1;
+  }
+
+  function worstplace (level) {
+    return nodesbylevel(level + 1) - 1;
+  }
+
+  function lowestid (level) {
+    return nodesbylevel(level) - 1;
+  }
+
+  KOTournament = function () {
+    this.players = new Map();
+    this.games = [];
+    this.gameid = []; // the id of the game a player is in, or is *waiting for*
+    this.state = Tournament.STATE.PREPARING;
+    this.options = {
+      firstround : &#039;set&#039;,
+    };
+  };
+
+  KOTournament.OPTIONS = {
+    // how the first game is determined
+    // &#039;order&#039;: order of entry
+    // &#039;set&#039;: first vs. last and so on
+    // &#039;random&#039;: first matches are random
+    firstround : {
+      order : &#039;order&#039;,
+      set : &#039;set&#039;,
+      random : &#039;random&#039;,
+    },
+  };
+
+  KOTournament.prototype.addPlayer = function (id) {
+    if (this.state !== Tournament.STATE.PREPARING) {
+      return undefined;
+    }
+
+    this.players.insert(id);
+    return this;
+  };
+
+  /**
+   * create an array of players where an even-indexed player and the subsequent
+   * player are supposed to be in a game
+   * 
+   * @returns an array of internal player ids
+   */
+  function matchOrder (numPlayers, byeOrder) {
+    var numrounds, totalplayers, pids, i, numbyes;
+
+    if (numPlayers &lt; 2) {
+      return undefined;
+    }
+
+    numbyes = 0;
+    numrounds = numRounds(numPlayers);
+
+    totalplayers = 1 &lt;&lt; numrounds;
+
+    pids = [];
+
+    // set as many byes as possible
+    for (i = 0; i &lt; numPlayers;) {
+      pids.push(i);
+      i += 1;
+      if (numPlayers - i &gt; totalplayers - numPlayers - numbyes) {
+        pids.push(i);
+        i += 1;
+      } else {
+        pids.push(undefined);
+        numbyes += 1;
+      }
+    }
+
+    return pids;
+  }
+
+  /**
+   * create a randomized first KO round by manipulating an array returned from
+   * matchOrder()
+   * 
+   * @returns an array of internal pids
+   */
+  function matchRandom (numPlayers, byeOrder) {
+    var pids, availablePids, i;
+
+    pids = matchOrder(numPlayers, byeOrder);
+    availablePids = [];
+    for (i = 0; i &lt; numPlayers; i += 1) {
+      availablePids.push(i);
+    }
+
+    for (i = 0; i &lt; pids.length; i += 1) {
+      if (pids[i]) {
+        pids[i] = rnd.pickAndRemove(availablePids);
+      }
+    }
+
+    return pids;
+  }
+
+  /**
+   * create a set order (map)
+   * 
+   * This set order is achieved by repeated recursive permutations of a
+   * previously sorted array of participating team ids
+   * 
+   * @return an array of indices for initial order
+   */
+  function createSetOrder (numrounds) {
+    var ret, half, sum, index, numplayers;
+
+    ret = [];
+    numplayers = 1 &lt;&lt; numrounds;
+    sum = numplayers - 1;
+    half = numplayers &gt;&gt; 1;
+    index = 0;
+
+    if (numplayers &lt; 4) {
+      for (; index &lt; numplayers; index += 1) {
+        ret.push(index);
+      }
+    } else {
+
+      while (ret.length &lt; numplayers) {
+        ret.push(index);
+        ret.push(sum - index);
+        ret.push(index + half);
+        ret.push(sum - index - half);
+
+        index += 2;
+      }
+    }
+    return ret;
+  }
+
+  /**
+   * create a first round of games of players by permutation of matchOrder()
+   * results
+   * 
+   * @returns an array of internal pids
+   */
+  function matchSet (numPlayers, byeOrder) {
+    var pids, order, i;
+
+    pids = matchOrder(numPlayers, byeOrder);
+    order = createSetOrder(numRounds(pids.length));
+
+    for (i = 0; i &lt; order.length; i += 1) {
+      order[i] = pids[order[i]];
+    }
+
+    return order;
+  }
+
+  match = {};
+  match[KOTournament.OPTIONS.firstround.order] = matchOrder;
+  match[KOTournament.OPTIONS.firstround.set] = matchSet;
+  match[KOTournament.OPTIONS.firstround.random] = matchRandom;
+
+  KOTournament.prototype.start = function () {
+    var i, pids, p1, p2, game, rounds, gameid;
+
+    if (this.players.size &lt; 2) {
+      return undefined;
+    }
+
+    if (this.state !== Tournament.STATE.PREPARING) {
+      return undefined;
+    }
+
+    rounds = numRounds(this.players.size());
+    pids = match[this.options.firstround](this.players.size(), this.options.byeOrder);
+
+    gameid = lowestid(rounds - 1);
+
+    // create the games
+    for (i = 0; i &lt; pids.length; i += 2, gameid += 1) {
+      p1 = pids[i];
+      p2 = pids[i + 1];
+
+      if (p1 === undefined &amp;&amp; p2 === undefined) {
+        this.gameid = [];
+        this.games = [];
+        console.error(&#039;cannot have a game where both players are byevotes&#039;);
+        return undefined;
+      }
+
+      if (p1 === undefined) {
+        checkforGame.call(this, p2, gameid);
+        continue;
+      }
+      if (p2 === undefined) {
+        checkforGame.call(this, p1, gameid);
+        continue;
+      }
+
+      this.games.push(new Game(p1, p2, gameid));
+      this.gameid[p1] = this.gameid[p2] = gameid;
+    }
+
+    // TODO set the byes!
+
+    this.state = Tournament.STATE.RUNNING;
+
+    return true;
+  };
+
+  KOTournament.prototype.end = function () {
+    if (this.state !== Tournament.STATE.FINISHED) {
+      return undefined;
+    }
+
+    // nothing to do here
+
+    return this.getRanking();
+  };
+
+  KOTournament.prototype.finishGame = function (game, points) {
+    var p1, p2, gameid, i, winner;
+
+    if (this.state !== Tournament.STATE.RUNNING) {
+      return undefined;
+    }
+
+    // abort if game has too many players
+    if (game.teams[0].length !== 1 || game.teams[1].length !== 1) {
+      return undefined;
+    }
+
+    // convert to internal pid
+    p1 = this.players.find(game.teams[0][0]);
+    p2 = this.players.find(game.teams[1][0]);
+
+    if (p1 === -1 || p2 === -1) {
+      // players don&#039;t exist in this tournament
+      return undefined;
+    }
+
+    if (this.gameid[p1] !== this.gameid[p2]) {
+      // players are not even in the same game!
+      return undefined;
+    }
+
+    gameid = this.gameid[p1];
+
+    if (points[0] &gt; points[1]) {
+      winner = p1;
+    } else if (points[0] &lt; points[1]) {
+      winner = p2;
+    } else {
+      // points are equal
+      return undefined;
+    }
+
+    for (i = 0; i &lt;= this.games.length; i += 1) {
+      if (i == this.games.length) {
+        // couldn&#039;t find game
+
+        return undefined;
+      }
+      if (this.games[i].teams[0][0] === p1 &amp;&amp; this.games[i].teams[1][0] === p2) {
+        this.games.splice(i, 1);
+        break;
+      }
+    }
+
+    checkforGame.call(this, winner, gameid);
+
+    if (this.games.length === 0) {
+      this.state = Tournament.STATE.FINISHED;
+    }
+
+    return this;
+  };
+
+  function checkforGame (pid, gameid) {
+    var isleft, i, parentid, opponent;
+
+    parentid = parent(gameid);
+    this.gameid[pid] = parentid;
+
+    if (parentid === -1) {
+      return;
+    }
+
+    isleft = left(parentid) === gameid;
+
+    opponent = this.gameid.indexOf(parentid);
+    if (opponent === pid) {
+      opponent = this.gameid.indexOf(parentid, pid + 1);
+    }
+
+    if (opponent &gt; -1) {
+      this.games.push(new Game((isleft ? pid : opponent), (isleft ? opponent : pid), parentid));
+    }
+  }
+
+  KOTournament.prototype.getGames = function () {
+    var games = [];
+
+    this.games.forEach(function (game, i) {
+      games[i] = new Game(this.players.at(game.teams[0][0]), this.players.at(game.teams[1][0]), game.id);
+    }, this);
+
+    return games;
+  };
+
+  KOTournament.prototype.getRanking = function () {
+    var idmap, worstplaces, numplayers;
+
+    worstplaces = [];
+    idmap = [];
+
+    while (idmap.length &lt; this.players.size()) {
+      worstplaces[idmap.length] = worstplace(level(this.gameid[idmap.length]));
+      idmap.push(idmap.length);
+    }
+
+    idmap.sort(function (a, b) {
+      return worstplaces[a] - worstplaces[b] || a - b;
+    });
+
+    numplayers = this.players.size();
+
+    return {
+      place : idmap.map(function (id) {
+        return Math.min(numplayers - 1, worstplaces[id]);
+      }), // actual place, usually [1, 2, 3, ...]. Necessary.
+      ids : idmap.map(function (id) {
+        return this.players.at(id);
+      }, this), // sorted by place. Necessary
+      round : 1, // always 1.
+    };
+  };
+
+  KOTournament.prototype.rankingChanged = function () {
+    // TODO differentiate
+    return true;
+  };
+
+  KOTournament.prototype.getState = function () {
+    return this.state;
+  };
+
+  KOTournament.prototype.correct = function () {
+    // TODO how to correct a KO tournament?
+    return false;
+  };
+
+  KOTournament.prototype.toBlob = function () {
+    var ob;
+
+    ob = {
+      players : this.players.toBlob(),
+      games : this.games,
+      gameid : this.gameid,
+      state : this.state,
+      options : this.getOptions(),
+    };
+
+    return JSON.stringify(ob);
+  };
+
+  KOTournament.prototype.fromBlob = function (blob) {
+    var ob;
+
+    ob = JSON.parse(blob);
+
+    this.players.fromBlob(ob.players);
+    this.games = ob.games;
+    this.gameid = ob.gameid;
+    this.state = ob.state;
+    this.setOptions(ob.options);
+  };
+
+  KOTournament.prototype.getOptions = Options.prototype.getOptions;
+  KOTournament.prototype.setOptions = Options.prototype.setOptions;
+  KOTournament.prototype.getType = function () {
+    return &#039;ko&#039;;
+  };
+
+  KOTournament.prototype.getCorrections = function () {
+    // TODO use and return actual corrections
+    return [];
+  };
+
+  return KOTournament;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

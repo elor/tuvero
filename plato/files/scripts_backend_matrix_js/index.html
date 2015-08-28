@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - scripts/backend/matrix.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>scripts/backend/matrix.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.24</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">295</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">81.97</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.21</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Matrix variable contains functions and interfaces for matrix/vector
+ * operations.
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define({
+  /**
+   * Square Matrix interface with default size 0. behavior for out-of-bounds
+   * indices and wrong types is undefined.
+   */
+  Interface: {
+    size: 0, // indicator of the current size of the matrix in both dimensions
+
+    clear: function() {
+      // reset the Matrix to a blank state with default size
+      // implementations in the form of clear(newsize) are encouraged
+      return this;
+    },
+    clone: function() {
+      var copy = null;
+      // create a deep copy of the matrix
+      return copy;
+    },
+    erase: function(index) {
+      // erase an index (cols and rows) from the matrix
+      return this;
+    },
+    extend: function(by) {
+      // safely extend the size of the matrix by &quot;by&quot; with 1 as a default value
+      // behaviour with negative &quot;by&quot; value is undefined
+      return this;
+    },
+    get: function(row, col) {
+      // retrieve the value stored at (row, col)
+      return 0;
+    },
+    set: function(row, col, value) {
+      // store value at (row, col)
+      return this;
+    }
+  },
+
+  /**
+   * equalSize performs an equality test of the sizes of both matrices
+   *
+   * @param A
+   *          {Matrix} first matrix
+   * @param B
+   *          {Matrix} second matrix
+   * @return {Boolean} true if sizes are equal, false otherwise
+   */
+  equalSize: function(A, B) {
+    return A.size === B.size &amp;&amp; A.size !== undefined &amp;&amp; A.size !== null;
+  },
+
+  /**
+   * copies the specified row of the matrix to a populated vector
+   *
+   * @param matrix
+   *          {Matrix} matrix
+   * @param row
+   *          {Integer} row number
+   * @return {Array} populated vector representing the row
+   */
+  getRow: function(matrix, row) {
+    var vector, size, i;
+
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      vector[i] = matrix.get(row, i);
+    }
+
+    return vector;
+  },
+
+  /**
+   * copies the specified col of the matrix to a populated vector
+   *
+   * @param matrix
+   *          {Matrix} matrix
+   * @param col
+   *          {Integer} col number
+   * @return {Array} populated vector representing the row
+   */
+  getCol: function(matrix, col) {
+    var vector, size, i;
+
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      vector[i] = matrix.get(i, col);
+    }
+
+    return vector;
+  },
+
+  /**
+   * calculates and returns the row sum
+   *
+   * @param matrix
+   *          {Matrix} matrix
+   * @param row
+   *          {Integer} row number
+   * @return {Number} the row sum
+   */
+  rowSum: function(matrix, row) {
+    var sum, size, i;
+
+    sum = 0;
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      sum += matrix.get(row, i);
+    }
+
+    return sum;
+  },
+
+  /**
+   * Calculates all row sums
+   *
+   * @param matrix
+   *          {Matrix} matrix
+   * @return {Array} vector of row sums
+   */
+  rowSums: function(matrix) {
+    var vector, size, i;
+
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      vector[i] = this.rowSum(matrix, i);
+    }
+
+    return vector;
+  },
+
+  /**
+   * Matrix Multiplication. All arguments are required to implement the Matrix
+   * interface.
+   *
+   * @param A
+   *          first operand
+   * @param B
+   *          second operand
+   * @param C
+   *          return reference
+   * @return C
+   */
+  mult: function(A, B, C) {
+    var size, val, row, col, i;
+
+    size = A.size;
+
+    if (C.size !== 0) {
+      C.clear();
+    }
+    if (!this.equalSize(A, B)) {
+      // console.error(&quot;Matrix.Mult: wrong sizes: &quot;, A.size, &quot; != &quot;, B.size);
+      return undefined;
+    }
+
+    C.extend(size);
+
+    for (row = 0; row &lt; size; row += 1) {
+      for (col = 0; col &lt; size; col += 1) {
+        val = 0;
+        for (i = 0; i &lt; size; i += 1) {
+          val += A.get(row, i) * B.get(i, col);
+        }
+        C.set(row, col, val);
+      }
+    }
+
+    return C;
+  },
+
+  /**
+   * Matrix-Vector multiplication. vector is automatically extended or shrinked
+   * to the size of the matrix.
+   *
+   * @param matrix
+   *          {Matrix} matrix operand
+   * @param vector
+   *          {Array} vector operand
+   * @return {Array} resulting vector, which is fully populated with integer
+   *          values
+   */
+  multVec: function(matrix, vector) {
+    var retvec, size, i, j;
+
+    retvec = [];
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      retvec[i] = 0;
+      for (j = 0; j &lt; size; j += 1) {
+        retvec[i] += matrix.get(i, j) * (vector[j] || 0);
+      }
+    }
+
+    return retvec;
+  },
+
+  /**
+   * calculates and returns the col sum
+   *
+   * @param matrix
+   *          {Matrix} matrix
+   * @param col
+   *          {Integer} col number
+   * @return {Number} the col sum
+   */
+  colSum: function(matrix, col) {
+    var sum, size, i;
+
+    sum = 0;
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      sum += matrix.get(i, col);
+    }
+
+    return sum;
+  },
+
+  /**
+   * Calculates all col sums
+   *
+   * @param matrix
+   *          {Matrix} matrix
+   * @return {Array} vector of col sums
+   */
+  colSums: function(matrix) {
+    var vector, size, i;
+
+    vector = [];
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      vector[i] = this.colSum(matrix, i);
+    }
+
+    return vector;
+  },
+
+  /**
+   * Transpose the matrix in place
+   *
+   * @param matrix
+   *          {Matrix} matrix to transpose
+   * @return {Matrix} a reference to matrix
+   */
+  transpose: function(matrix) {
+    var size, i, j, tmp;
+
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      for (j = 0; j &lt; i; j += 1) {
+        tmp = matrix.get(i, j);
+        matrix.set(i, j, matrix.get(j, i));
+        matrix.set(j, i, tmp);
+      }
+    }
+
+    return matrix;
+  },
+
+  /**
+   * Vector-Matrix multiplication. vector is automatically extended or shrinked
+   * to the size of the matrix.
+   *
+   * @param vector
+   *          {Array} vector operand
+   * @param matrix
+   *          {Matrix} matrix operand
+   * @return {Array} resulting vector, which is fully populated with integer
+   *          values
+   */
+  vecMult: function(vector, matrix) {
+    var retvec, size, i, j;
+
+    retvec = [];
+    size = matrix.size;
+
+    for (i = 0; i &lt; size; i += 1) {
+      retvec[i] = 0;
+      for (j = 0; j &lt; size; j += 1) {
+        retvec[i] += (vector[j] || 0) * matrix.get(j, i);
+      }
+    }
+
+    return retvec;
+  }
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

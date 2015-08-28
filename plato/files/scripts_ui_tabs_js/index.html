@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - scripts/ui/tabs.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>scripts/ui/tabs.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.08</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">247</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">43.26</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.81</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Logic for viewing/hiding tabs.
+ *
+ * Tabs are automatically read from the DOM during object construction.
+ *
+ * @return Tabs
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define([&#039;./state_new&#039;, &#039;jquery&#039;], function(State, $) {
+  var Tabs;
+
+  Tabs = function(tabselector, imgpattern, enforce) {
+    var that;
+
+    that = {
+      tabs: [],
+      keys: [],
+      opts: [],
+      updateOpts: undefined,
+      hide: undefined,
+      show: undefined,
+      valid: undefined,
+      display: function(tabname, state){
+          window.setTimeout(function(){that.display(tabname, state);}, 10)
+      },
+      focus: function(){
+          console.error(&#039;focus called before the focus function has been linked&#039;);
+      },
+      openValidTab: function(){
+          console.error(&#039;openValidTab called before the focus function has been linked&#039;);
+      },
+      updateOpts: function(){
+          console.error(&#039;updateOpts called before the focus function has been linked&#039;);
+      }
+    };
+
+    this.updateOpts = function() {
+      that.updateOpts();
+    };
+
+    this.hide = function(tabname) {
+      that.display(tabname, false);
+    };
+
+    this.show = function(tabname) {
+      that.display(tabname, true);
+    };
+    this.focus = function(tabname) {
+      that.focus(tabname);
+    };
+
+    this.valid = function() {
+      that.openValidTab();
+    };
+
+    imgpattern = imgpattern || &#039;images/%s.png&#039;;
+
+    $(function($) {
+      var tabs, keys, opts, $menu, $body, $links, $menus, visible;
+
+      tabs = that.tabs;
+      keys = that.keys;
+      opts = that.opts;
+      $links = {};
+      $menus = {};
+      visible = [];
+
+      function openValidTab() {
+        var tabindex, index, currentTab;
+
+        // show the first tab of this set if hash doesn&#039;t match any of them
+        currentTab = location.hash.replace(/^#/, &#039;&#039;);
+
+        if (currentTab === &#039;debug&#039;) {
+          // don&#039;t mess with a guy who&#039;s just debugging
+          return;
+        }
+
+        tabindex = tabs.indexOf(currentTab);
+        if (enforce &amp;&amp; tabindex === -1 || !visible[tabindex]) {
+          index = visible.indexOf(true);
+          if (index === -1) {
+            // console.error(&#039;no visible tabs to force open&#039;);
+          } else {
+            location.hash = &#039;#&#039; + tabs[index];
+          }
+        }
+      }
+
+      // get tabs
+      $(tabselector).each(function(i, elem) {
+        var tab, key, opt, $elem;
+        $elem = $(elem);
+
+        tab = $elem.attr(&#039;id&#039;);
+        key = $elem.attr(&#039;accesskey&#039;);
+        opt = $elem.attr(&#039;data-tabimgopt&#039;);
+
+        if (tab) {
+          tabs.push(tab);
+          keys.push(key);
+          if (key) {
+            $elem.removeAttr(&#039;accesskey&#039;);
+          }
+          opts.push(opt);
+          visible.push(true);
+        }
+      });
+
+      // construct empty menu
+      $menu = $(&#039;&lt;div&gt;&lt;/div&gt;&#039;);
+      $menu.addClass(&#039;tabs&#039;);
+
+      // add icons
+      tabs.forEach(function(tabname, i) {
+        var $img, $tab;
+
+        $tab = $(&#039;&lt;a&gt;&#039;);
+        $tab.attr(&#039;href&#039;, &#039;#&#039; + tabname);
+        $tab.attr(&#039;tabindex&#039;, &#039;-1&#039;);
+        // if (keys) {
+        // $tab.attr(&#039;accesskey&#039;, keys[i]);
+        // }
+
+        if (opts[i]) {
+          $tab.attr(&#039;data-img&#039;, imgpattern.replace(&#039;%s&#039;, tabname
+              + State[opts[i]].get()));
+        } else {
+          $tab.attr(&#039;data-img&#039;, imgpattern.replace(&#039;%s&#039;, tabname));
+        }
+
+        $menu.append($tab);
+      }, this);
+
+      // copy modified version to every page
+      tabs.forEach(function(tabname) {
+        var $page, $clone;
+        $page = $(&#039;#&#039; + tabname);
+        $clone = $menu.clone();
+
+        $clone.find(&#039;a[href=#&#039; + tabname + &#039;]&#039;).addClass(&#039;open&#039;);
+
+        $page.prepend($clone);
+        $menus[tabname] = $clone;
+      }, this);
+
+      // add event handlers for menu items
+      $(&#039;#tabs&#039;).on(&#039;click&#039;, &#039;.tabs a&#039;, function(e) {
+        var hash;
+        hash = $(this).attr(&#039;href&#039;);
+        location.hash = hash;
+        window.scrollTo(0, 0);
+        e.preventDefault();
+        return false;
+      });
+
+      // create empty invisible links to every tab
+      $body = $(&#039;body&#039;);
+      keys.forEach(function(key, index) {
+        var $a = $(&#039;&lt;a&gt;&#039;);
+        $a.attr(&#039;href&#039;, &#039;#&#039; + tabs[index]);
+        $a.attr(&#039;tabindex&#039;, &#039;-1&#039;);
+        $a.attr(&#039;accesskey&#039;, key);
+        $body.append($a);
+        $links[tabs[index]] = $a;
+      });
+
+      $(window).on(&#039;hashchange&#039;, function() {
+        if (location.hash !== &#039;#reset&#039;) {
+          window.scrollTo(0, 0);
+          openValidTab();
+        }
+
+        return true;
+      });
+
+      that.updateOpts = function() {
+        opts.forEach(function(opt, i) {
+          var tab;
+
+          tab = tabs[i];
+
+          if (opt) {
+            $(&#039;.tabs a[href=#&#039; + tab + &#039;][data-img]&#039;).attr(&#039;data-img&#039;,
+                imgpattern.replace(&#039;%s&#039;, tab + State[opt].get()));
+          }
+        });
+      };
+
+      /**
+       * show/hide all references to a certain
+       */
+      that.display = function(tabname, val) {
+        var key, index;
+
+        if (typeof (val) !== &#039;boolean&#039;) {
+          // my own mistake
+          return;
+        }
+
+        index = tabs.indexOf(tabname);
+        if (index === -1) {
+          // console.error(&#039;tabname &#039; + tabname + &#039; not found&#039;);
+          return;
+        }
+
+        // hide tabs in all menus
+        for (key in $menus) {
+          $menus[key].find(&#039;a[href=#&#039; + tabname + &#039;]&#039;).css(&#039;display&#039;,
+              (val ? &#039;&#039; : &#039;none&#039;));
+        }
+
+        // hide hidden hotkey links
+        if ($links[tabname]) {
+          if (val) {
+            $links[tabname].attr(&#039;accesskey&#039;, keys[index]);
+          } else {
+            $links[tabname].removeAttr(&#039;accesskey&#039;);
+          }
+        }
+
+        visible[index] = val;
+        openValidTab();
+      };
+
+      that.focus = function(tabname) {
+        var key, index, currentTab;
+
+        index = tabs.indexOf(tabname);
+        if (index === -1) {
+          // console.error(&#039;tabname &#039; + tabname + &#039; not found&#039;);
+          return;
+        }
+
+        currentTab = location.hash.replace(/^#/, &#039;&#039;);
+
+        if (currentTab !== tabname) {
+          if (currentTab !== &#039;debug&#039;) {
+            if (visible[index]) {
+              window.location.hash = &#039;#&#039; + tabname;
+            }
+          }
+        }
+
+        openValidTab();
+      };
+
+      that.openValidTab = openValidTab;
+    });
+
+    return this;
+  };
+
+  return Tabs;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

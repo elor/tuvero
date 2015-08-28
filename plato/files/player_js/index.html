@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - player.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>player.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.98</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">168</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">68.34</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.35</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">function Player(init) {
+  if (init) {
+    switch (typeof init) {
+    case &#039;string&#039;:
+      this.fromString(init);
+      break;
+    case &#039;object&#039;:
+      if (init.name)
+      {
+        this.name = init.name;
+      }
+      if (init.female)
+      {
+        this.female = true;
+      }
+      if (init.year) {
+        this.year = Number(init.year);
+      }
+      if (init.city) {
+        this.setCity(init.city);
+      }
+      if (init.assoc) {
+        this.setAssoc(init.assoc);
+      }
+    }
+  }
+
+  this.id = Player.list.length;
+  Player.list[this.id] = this;
+}
+
+Player.prototype = {
+  name: &#039;noname&#039;,
+  female: false,
+  year: 1900,
+  city: 0,
+  assoc: 0
+};
+
+Player.list = [];
+Player.cities = [&#039;&#039;];
+Player.assocs = [&#039;&#039;];
+
+// list of used strings as well as some handy functions
+Player.consts = {
+  female: &#039;f&#039;,
+  male: &#039;&#039;,
+  separator: &#039;\\&#039;,
+  forbidden: /[\n\\]/g,
+  replacement: &#039;_&#039;,
+  nonum: /(^\D*0|[\.,]\d+|\D)/g,  // I like regex: remove leading 0, all characters and fractions
+  nostr: &#039;&#039;,
+  
+  encode: function(string) {
+    return string.replace(Player.consts.forbidden, Player.consts.replacement);
+  },
+
+  numdecode: function(string) {
+    return string.replace(Player.consts.nonum, Player.consts.nostr);
+  }
+};
+
+// serialize the player. see code or docs for the conversion scheme
+Player.prototype.toString = function() {
+  var year = [this.female ? Player.consts.female : Player.consts.male, this.year].join(&#039;&#039;);
+  return [Player.consts.encode(this.name),
+      year,
+      Player.consts.encode(Player.cities[this.city]),
+      Player.consts.encode(Player.assocs[this.assoc])
+    ].join(Player.consts.separator);
+};
+
+// deserialize. see code or docs for conversion scheme
+Player.prototype.fromString = function(string) {
+  var val = string.split(Player.consts.separator);
+
+  if (val[0]) {
+    this.name = val[0];
+  }
+
+  if (Player.consts.female &amp;&amp; val[1] &amp;&amp; val[1][0] == Player.consts.female) {
+    this.female = true;
+  }
+
+  if (val[1]) {
+    this.year = Number(Player.consts.numdecode(val[1]));
+  }
+
+  if (val[2]) {
+    this.setCity(val[2]);
+  }
+
+  if (val[3]) {
+    this.setAssoc(val[3]);
+  }
+
+  return this;
+};
+
+Player.clear = function() {
+  Player.list = [];
+  Player.cities = [&#039;&#039;];
+  Player.assocs = [&#039;&#039;];
+};
+
+Player.prototype.setCity = function(string) {
+  switch (this.city = Player.cities.indexOf(string)) {
+  case -1:
+    this.city = Player.cities.length;
+    Player.cities.push(string);
+    break;
+  case 0:
+    delete this.city;
+    break;
+  }
+};
+
+Player.prototype.getCity = function() {
+  return Player.cities[this.city];
+};
+
+Player.prototype.setAssoc = function(string) {
+  switch(this.assoc = Player.assocs.indexOf(string)) {
+  case -1:
+    this.assoc = Player.assocs.length;
+    Player.assocs.push(string);
+    break;
+  case 0:
+    delete this.assoc;
+    break;
+  }
+};
+
+Player.prototype.getAssoc = function() {
+  return Player.assocs[this.assoc];
+};
+
+Player.toString = function() {
+  var length = Player.list.length;
+  var lines = new Array;
+  var i;
+
+  if (!length) {
+    return &#039;&#039;;
+  }
+
+  for (i = 0; i &lt; length; ++i) {
+    lines.push(Player.list[i].toString());
+  }
+
+  return lines.join(&#039;\n&#039;);
+};
+
+Player.fromString = function(string) {
+  Player.clear();
+
+  if (!string) {
+    return;
+  }
+
+  var lines = string.split(&#039;\n&#039;);
+  var length = lines.length;
+  var i;
+
+  for (i = 0; i &lt; length; ++i) {
+    new Player(lines[i]);
+  }
+};</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

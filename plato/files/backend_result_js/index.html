@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - backend/result.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>backend/result.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.92</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">129</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">36.13</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.48</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * A Result represents the outcome of a game with two teams, usually including
+ * one to three players.
+ * 
+ * @param team1
+ *          Array of player ids of the first team. Creates an internal copy.
+ * @param team2
+ *          Array of player ids of the second team. Creates an internal copy.
+ * @param points1
+ *          {Integer} Points of the first team
+ * @param points2
+ *          {Integer} Points of the second team
+ * @returns the newly constructed Result object
+ */
+define([ &#039;./game&#039; ], function (Game) {
+  var Result = function (team1, team2, points1, points2) {
+    if (typeof (team1) === &#039;number&#039;) {
+      team1 = [ team1 ];
+    }
+    if (typeof (team2) === &#039;number&#039;) {
+      team2 = [ team2 ];
+    }
+
+    // copy the array using the slice function
+    this.team1 = team1.slice();
+    this.team2 = team2.slice();
+
+    this.points1 = points1;
+    this.points2 = points2;
+  };
+
+  /**
+   * getTeam() returns the team array
+   * 
+   * @param number
+   *          {Integer} team number (1 or 2)
+   * @returns {[Integer]} list of player ids or undefined if invalid number
+   */
+  Result.prototype.getTeam = function (number) {
+    switch (number) {
+    case 1:
+      return this.team1;
+    case 2:
+      return this.team2;
+    default:
+      return undefined;
+    }
+  };
+
+  /**
+   * getPoints() returns the points for the given team
+   * 
+   * @param teamnumber
+   *          {Integer} team number (1 or 2)
+   * @returns {Integer} points of the given team or undefined if invalid team
+   *          number
+   */
+  Result.prototype.getPoints = function (teamnumber) {
+    switch (teamnumber) {
+    case 1:
+      return this.points1;
+    case 2:
+      return this.points2;
+    default:
+      return undefined;
+    }
+  };
+
+  /**
+   * point setter
+   * 
+   * @param teamnumber
+   *          1 or 2
+   * @param points
+   *          points
+   * @returns {Result} undefined on failure, this otherwise
+   */
+  Result.prototype.setPoints = function (teamnumber, points) {
+    switch (teamnumber) {
+    case 1:
+      this.points1 = points;
+      break;
+    case 2:
+      this.points2 = points;
+      break;
+    default:
+      return undefined;
+    }
+    return this;
+  };
+
+  /**
+   * getNetto() returns the difference between the team&#039;s points
+   * 
+   * @returns {Number} gained netto points for first team
+   */
+  Result.prototype.getNetto = function () {
+    return this.points1 - this.points2;
+  };
+
+  /**
+   * copies this
+   * 
+   * @returns the copy
+   */
+  Result.prototype.copy = function () {
+    return new Result(this.team1, this.team2, this.points1, this.points2);
+  };
+
+  /**
+   * Creates a Game instance from the teams
+   * 
+   * @returns {Game} the game that lead to this result, excluding the correct
+   *          start time.
+   */
+  Result.prototype.getGame = function () {
+    var game = new Game();
+
+    this.team1.forEach(function (pid) {
+      game.add(0, pid);
+    }, this);
+
+    this.team2.forEach(function (pid) {
+      game.add(1, pid);
+    }, this);
+
+    return game;
+  };
+
+  /**
+   * creates an identical copy of a Result instance
+   * 
+   * @param res
+   *          raw Result object, not necessarily with appropriate prototype and
+   *          functions. Fields are sufficient.
+   * @returns the copy
+   */
+  Result.copy = function (res) {
+    return new Result(res.team1, res.team2, res.points1, res.points2);
+  };
+
+  return Result;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

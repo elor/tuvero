@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - ui/tab_settings.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>ui/tab_settings.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">67.18</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">403</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">39.23</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.14</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">define([ &#039;lib/FileSaver&#039;, &#039;lib/Blob&#039;, &#039;./toast&#039;, &#039;./strings&#039;, &#039;./team&#039;, &#039;./history&#039;, &#039;./ranking&#039;, &#039;./state&#039;,
+    &#039;../lib/base64&#039;, &#039;./storage&#039;, &#039;./options&#039;, &#039;./opts&#039;, &#039;./players&#039;,
+    &#039;./tabshandle&#039;, &#039;./shared&#039; ], function (saveAs, Blob, Toast, Strings, Team, History, Ranking, State, Base64, Storage, Options, Opts, Players, Tabshandle, Shared) {
+  var Tab_Settings, $tab, areas, options, updatepending;
+
+  updatepending = false;
+
+  Tab_Settings = {};
+  options = {};
+  areas = {};
+
+  function initCSV () {
+    areas.csv = {};
+    areas.csv.$buttons = $tab.find(&#039;.csv button&#039;);
+
+    // set csv selection buttons
+    areas.csv.$buttons.click(function () {
+      var $button = $(this);
+
+      // button contains image. Forward accidental clicks.
+      if ($button.prop(&#039;tagName&#039;) === &#039;IMG&#039;) {
+        $button = $button.parent();
+      }
+
+      csvupdate($button);
+    });
+  }
+
+  function csvupdate ($button) {
+    var csv, blob;
+
+    csv = [];
+
+    if ($button.hasClass(&#039;teams&#039;)) {
+      csv.push(Team.toCSV());
+    }
+    if ($button.hasClass(&#039;ranking&#039;)) {
+      csv.push(Ranking.toCSV());
+    }
+    if ($button.hasClass(&#039;history&#039;)) {
+      csv.push(History.toCSV());
+    }
+
+    csv = csv.join(&#039;\r\n&quot;&quot;\r\n&#039;);
+
+    if (csv.length === 0) {
+      new Toast(Strings.nodata);
+      return;
+    }
+
+    try {
+      blob = new Blob([ csv ], {
+        type : &#039;application/csv&#039;
+      });
+      saveAs(blob, &#039;boules.csv&#039;);
+    } catch (er) {
+      console.error(&#039;Blobbing failed&#039;);
+      new Toast(Strings.savefailed);
+    }
+  }
+
+  function initSave () {
+    areas.save = {};
+    areas.save.$button = $tab.find(&#039;.save button&#039;);
+
+    areas.save.$button.click(saveState);
+  }
+
+  function saveState () {
+    var save, blob;
+
+    save = State.toBlob();
+
+    try {
+      blob = new Blob([ save ], {
+        type : &#039;application/json&#039;
+      });
+      saveAs(blob, &#039;boules.json&#039;);
+    } catch (er) {
+      console.error(er);
+      new Toast(Strings.savefailed);
+    }
+  }
+
+  function initLoad () {
+    areas.load = {};
+
+    areas.load.$file = $tab.find(&#039;.load input.file&#039;);
+
+    areas.load.$file.change(function (evt) {
+      var reader = new FileReader();
+      reader.onerror = loadFileError;
+      reader.onabort = loadFileAbort;
+      reader.onload = loadFileLoad;
+
+      reader.readAsText(evt.target.files[0]);
+    });
+  }
+
+  function invalidateLoad () {
+    $tab.find(&#039;.load .selected&#039;).removeClass(&#039;selected&#039;);
+
+    areas.load.$file.val(&#039;&#039;);
+  }
+
+  function loadFileError (evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ERR:
+      break;
+    default:
+      new Toast(Strings.fileerror, Toast.LONG);
+    }
+  }
+
+  function loadFileLoad (evt) {
+    var blob, Alltabs;
+
+    blob = evt.target.result;
+
+    Storage.enable();
+    Storage.clear(Options.dbname);
+
+    try {
+      if (State.fromBlob(blob)) {
+        Storage.changed();
+        resetStorageState();
+        new Toast(Strings.loaded);
+        Tabshandle.focus(&#039;teams&#039;);
+      } else {
+        // TODO what if something invalid has been returned?
+      }
+    } catch (err) {
+      new Toast(Strings.loadfailed, Toast.LONG);
+      // perform a complete reset of the everything related to the tournament
+      Storage.enable();
+      Storage.clear(Options.dbname);
+      Alltabs = Shared.Alltabs;
+      Alltabs.reset();
+      State.reset();
+      Alltabs.update();
+
+      new Toast(Strings.newtournament);
+      Tabshandle.focus(&#039;teams&#039;);
+    }
+  }
+
+  function loadFileAbort () {
+    new Toast(Strings.fileabort);
+  }
+
+  function reloadAutocomplete () {
+    $.get(Options.playernameurl, undefined, function (jsontext, status, response) {
+      if (jsontext.length === 0) {
+        new Toast(Strings.fileempty);
+      } else {
+        try {
+          Players.fromBlob(jsontext);
+          Storage.store();
+          new Toast(Strings.autocompleteloaded);
+        } catch (err) {
+          console.error(err);
+          Players.reset();
+          Storage.store();
+          new Toast(Strings.autocompletereloadfailed, Toast.LONG);
+        }
+      }
+    }, &#039;text&#039;).fail(function () {
+      var content, i;
+
+      console.error(&#039;could not read &#039; + Options.playernameurl + &#039;. Is this a local installation?&#039;);
+
+      new Toast(Strings.autocompletereloadfailed, Toast.LONG);
+    });
+  }
+
+  function initAutocomplete () {
+    areas.autocomplete = {};
+
+    areas.autocomplete.$button = $tab.find(&#039;.autocomplete button&#039;);
+    areas.autocomplete.$file = $tab.find(&#039;.autocomplete input.file&#039;);
+
+    areas.autocomplete.$button.click(function () {
+      var $button = $(this);
+
+      // button contains image. Forward accidental clicks.
+      if ($button.prop(&#039;tagName&#039;) !== &#039;BUTTON&#039;) {
+        $button = $button.parents(&#039;button&#039;);
+      }
+
+      reloadAutocomplete();
+    });
+
+    areas.autocomplete.$file.change(function (evt) {
+      var reader = new FileReader();
+      reader.onerror = autocompleteFileError;
+      reader.onabort = autocompleteFileAbort;
+      reader.onload = autocompleteFileLoad;
+
+      reader.readAsText(evt.target.files[0]);
+    });
+
+    // always load playernames when the program is opened
+    window.setTimeout(reloadAutocomplete, 1000);
+  }
+
+  function invalidateAutocomplete () {
+    areas.autocomplete.$file.val(&#039;&#039;);
+  }
+
+  function autocompleteFileError (evt) {
+    // file api callback function
+    switch (evt.target.error.code) {
+    case evt.target.error.NOT_FOUND_ERR:
+      new Toast(Strings.filenotfound);
+      break;
+    case evt.target.error.NOT_READABLE_ERR:
+      new Toast(Strings.filenotreadable);
+      break;
+    case evt.target.error.ABORT_ERR:
+      break;
+    default:
+      new Toast(Strings.fileerror);
+    }
+  }
+
+  function autocompleteFileLoad (evt) {
+    var string;
+
+    string = evt.target.result;
+
+    Players.fromString(string);
+
+    Storage.store();
+
+    new Toast(Strings.autocompleteloaded);
+  }
+
+  function autocompleteFileAbort () {
+    new Toast(Strings.fileabort);
+  }
+
+  function updateLocalStorageMeters () {
+    var dbvalue, usage; // usage in MiB
+
+    if (window.localStorage) {
+      // player
+      dbvalue = window.localStorage[Options.dbplayername];
+      if (dbvalue) {
+        usage = dbvalue.length / (1024 * 1024);
+      } else {
+        usage = 0.0;
+      }
+
+      areas.local.$playermeter.val(usage.toString());
+
+      // tournament
+      dbvalue = window.localStorage[Options.dbname];
+      if (dbvalue) {
+        usage = dbvalue.length / (1024 * 1024);
+      } else {
+        usage = 0.0;
+      }
+
+      areas.local.$tournamentmeter.val(usage.toString());
+    }
+  }
+
+  function initLocalStorage () {
+    areas.local = {};
+
+    areas.local.$savebutton = $tab.find(&#039;.local button.save&#039;);
+    areas.local.$clearbutton = $tab.find(&#039;.local button.clear&#039;);
+    areas.local.$playermeter = $tab.find(&#039;.local .playerstoragemeter&#039;);
+    areas.local.$tournamentmeter = $tab.find(&#039;.local .tournamentstoragemeter&#039;);
+
+    areas.local.$savebutton.click(function (e) {
+      Storage.enable();
+
+      if (Storage.store()) {
+        new Toast(Strings.saved);
+      } else {
+        new Toast(Strings.savefailed);
+      }
+
+      resetStorageState();
+
+      e.preventDefault();
+      return false;
+    });
+
+    areas.local.$clearbutton.click(function (e) {
+      var Alltabs;
+
+      // TODO don&#039;t use confirm()
+      if (confirm(Strings.clearstorage)) {
+        Storage.enable();
+        Storage.clear(Options.dbname);
+
+        Alltabs = Shared.Alltabs;
+
+        Alltabs.reset();
+        State.reset();
+        Alltabs.update();
+
+        new Toast(Strings.newtournament);
+        Tabshandle.focus(&#039;teams&#039;);
+
+        resetStorageState();
+      }
+
+      e.preventDefault();
+      return false;
+    });
+  }
+
+  /**
+   * toggles the storage state depending on the current autosave checkbox state.
+   * 
+   * @returns {Boolean} true if autosave is enabled, false otherwise
+   */
+  function resetStorageState () {
+    Storage.enable();
+  }
+
+  function init () {
+    if ($tab) {
+      console.error(&#039;tab_settings: $tab is already defined:&#039;);
+      console.error($tab);
+      return;
+    }
+
+    $tab = $(&#039;#settings&#039;);
+
+    initCSV();
+    initSave();
+    initLoad();
+    initAutocomplete();
+    initLocalStorage();
+  }
+
+  /**
+   * reset an initial state
+   */
+  Tab_Settings.reset = function () {
+    if (!$tab) {
+      init();
+    }
+
+    invalidateLoad();
+    invalidateAutocomplete();
+
+    resetStorageState();
+
+    updateLocalStorageMeters();
+  };
+
+  Tab_Settings.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
+    if (updatepending) {
+      console.log(&#039;updatepending&#039;);
+    } else {
+      updatepending = true;
+      window.setTimeout(function () {
+        try {
+          Tab_Settings.reset();
+          updateLocalStorageMeters();
+
+          console.log(&#039;update&#039;);
+        } catch (er) {
+          console.log(er);
+          new Toast(Strings.tabupdateerror.replace(&#039;%s&#039;, Strings.tab_settings));
+        }
+        updatepending = false;
+      }, 1);
+    }
+  };
+
+  Tab_Settings.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_Settings.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
+  };
+
+  Shared.Tab_Settings = Tab_Settings;
+  return Tab_Settings;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - ui/tab_ranking.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>ui/tab_ranking.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">58.34</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">297</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">57.52</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.91</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">define([ &#039;./tournaments&#039;, &#039;./team&#039;, &#039;./toast&#039;, &#039;./strings&#039;, &#039;./options&#039;,
+    &#039;./tabshandle&#039;, &#039;./opts&#039;, &#039;./history&#039;, &#039;./shared&#039; ], function (Tournaments, Team, Toast, Strings, Options, Tabshandle, Opts, History, Shared) {
+  var Tab_Ranking, template, $tab, options, updatepending;
+
+  updatepending = false;
+
+  Tab_Ranking = {};
+  options = {};
+
+  function initTemplate () {
+    var i, tmp;
+
+    template = {};
+
+    template.$box = $tab.find(&#039;div.box.tpl&#039;);
+    template.$box.detach();
+    template.$box.removeClass(&#039;tpl&#039;);
+
+    template.$boxname = template.$box.find(&#039;&gt;h3&#039;);
+
+    // ranking table
+    template.rank = {};
+
+    template.rank.$table = template.$box.find(&#039;table.ranking&#039;);
+    template.rank.$table.detach();
+
+    template.rank.$row = template.rank.$table.find(&#039;.line&#039;);
+    template.rank.$row.detach();
+
+    tmp = template.rank.$row.find(&#039;td&#039;);
+    template.rank.$fields = [];
+    for (i = 0; i &lt; tmp.length; i += 1) {
+      template.rank.$fields[i] = tmp.eq(i);
+    }
+
+    // corrections
+    template.correction = {};
+
+    template.correction.$container = template.$box.find(&#039;.corrections&#039;);
+    template.correction.$container.detach();
+
+    template.correction.$correction = template.correction.$container.find(&#039;.corr&#039;);
+    template.correction.$correction.detach();
+
+    template.correction.$points = [];
+    tmp = template.correction.$correction.find(&#039;.points span&#039;);
+    for (i = 0; i &lt; tmp.length; i += 1) {
+      template.correction.$points[i] = tmp.eq(i);
+    }
+    template.correction.$teamnos = [];
+    tmp = template.correction.$correction.find(&#039;.teamno&#039;);
+    for (i = 0; i &lt; tmp.length; i += 1) {
+      template.correction.$teamnos[i] = tmp.eq(i);
+    }
+
+    updateTemplate();
+  }
+
+  function updateTemplate () {
+    var i;
+    // adjust number of columns to the teamsize
+    template.rank.$table.find(&#039;th:nth-child(3)&#039;).attr(&#039;colspan&#039;, Options.teamsize);
+
+    // hide unimportant columns
+    for (i = 0; i &lt; Options.maxteamsize; i += 1) {
+      if (i &lt; Options.teamsize) {
+        template.rank.$fields[i + 2] &amp;&amp; template.rank.$fields[i + 2].css(&#039;display&#039;, &#039;&#039;);
+      } else {
+        template.rank.$fields[i + 2] &amp;&amp; template.rank.$fields[i + 2].css(&#039;display&#039;, &#039;none&#039;);
+      }
+    }
+  }
+
+  function init () {
+    if ($tab) {
+      console.error(&#039;tab_ranking: $tab already exists:&#039;);
+      console.error($tab);
+      return;
+    }
+
+    $tab = $(&#039;#ranking&#039;);
+
+    initTemplate();
+  }
+
+  /**
+   * fill template and return copy
+   * 
+   * @param rank
+   *          rank of the team for which to create the line. starting at 0
+   * @param ranking
+   *          a valid ranking object
+   * @param votes
+   *          a valid votes object
+   * @returns a filled copy of the template
+   */
+  function createRankRow (rank, ranking) {
+    var tid, team, vote, i;
+
+    tid = ranking.ids[rank];
+    team = Team.get(tid);
+
+    template.rank.$fields[0].text(ranking.place[rank] + 1);
+
+    template.rank.$fields[1].text(team.id + 1);
+    for (i = 0; i &lt; Options.teamsize; i += 1) {
+      template.rank.$fields[i + 2].text(team.names[i]);
+    }
+
+    template.rank.$fields[5].text(ranking.games ? ranking.games[rank] : &#039;&#039;);
+
+    template.rank.$fields[6].text(ranking.wins ? ranking.wins[rank] : &#039;&#039;);
+    template.rank.$fields[7].text(ranking.buchholz ? ranking.buchholz[rank] : &#039;&#039;);
+    template.rank.$fields[8].text(ranking.finebuchholz ? ranking.finebuchholz[rank] : &#039;&#039;);
+    template.rank.$fields[9].text(ranking.netto ? ranking.netto[rank] : &#039;&#039;);
+
+    vote = [];
+    if (ranking.upvote) {
+      for (i = 0; i &lt; ranking.upvote[rank]; ++i) {
+        vote.push(Strings.upvote);
+      }
+    }
+    if (ranking.downvote) {
+      for (i = 0; i &lt; ranking.downvote[rank]; ++i) {
+        vote.push(Strings.downvote);
+      }
+    }
+    if (ranking.byevote) {
+      for (i = 0; i &lt; ranking.byevote[rank]; ++i) {
+        vote.push(Strings.byevote);
+      }
+    }
+
+    template.rank.$fields[10].text(vote.join(&#039;&#039;));
+
+    return template.rank.$row.clone();
+  }
+
+  /**
+   * @returns {boolean} false on failure, true on success
+   */
+  function showRanking (tournamentid, $box) {
+    var ranking, rank, $container, notempty;
+
+    $container = template.rank.$table.clone();
+
+    ranking = Tournaments.getRanking(tournamentid);
+
+    if (ranking.round &lt;= 0) {
+      return false;
+    }
+
+    for (rank = 0; rank &lt; ranking.ids.length; rank += 1) {
+      $container.append(createRankRow(rank, ranking));
+    }
+
+    notempty = ranking.ids.length &gt; 0;
+
+    if (notempty) {
+      $box.append($container);
+    }
+
+    return notempty;
+  }
+
+  /**
+   * retrieves the corrections and displays them in the correction table
+   */
+  function showCorrections (tournamentid, $box) {
+    var corrections, empty, $container, $table;
+
+    empty = true;
+
+    corrections = History.getCorrections(tournamentid);
+
+    if (corrections === undefined || corrections.length === 0) {
+      return false;
+    }
+
+    $container = template.correction.$container.clone();
+    $table = $container.find(&#039;.correctionstable&#039;);
+
+    corrections.forEach(function (correction) {
+      var tid;
+
+      tid = correction[0][0];
+      template.correction.$teamnos[0].text(tid + 1);
+
+      tid = correction[0][1];
+      template.correction.$teamnos[1].text(tid + 1);
+
+      template.correction.$points[0].text(correction[0][2]);
+      template.correction.$points[1].text(correction[0][3]);
+
+      template.correction.$points[2].text(correction[1][2]);
+      template.correction.$points[3].text(correction[1][3]);
+
+      $table.append(template.correction.$correction.clone());
+
+      empty = false;
+    });
+
+    if (!empty) {
+      $box.append($container);
+    }
+
+    return !empty;
+  }
+
+  Tab_Ranking.reset = function () {
+    if (!$tab) {
+      init();
+    }
+
+    // delete everything, i.e. the wrapping box
+    $tab.find(&#039;.box&#039;).remove();
+
+    // update template to the team size
+    updateTemplate();
+  };
+
+  function updateTournamentRankings () {
+    var hidden, tournamentid, keepbox, $box;
+
+    hidden = true;
+
+    Tab_Ranking.reset();
+
+    for (tournamentid = 0; tournamentid &lt; Tournaments.numTournaments(); tournamentid += 1) {
+
+      keepbox = false;
+
+      template.$boxname.text(Tournaments.getName(tournamentid));
+      $box = template.$box.clone();
+
+      if (showRanking(tournamentid, $box)) {
+        hidden = false;
+        keepbox = true;
+      }
+
+      if (showCorrections(tournamentid, $box)) {
+        hidden = false;
+        keepbox = true;
+      }
+
+      if (keepbox) {
+        $tab.append($box);
+      }
+    }
+
+    if (hidden) {
+      Tabshandle.hide(&#039;ranking&#039;);
+    } else {
+      Tabshandle.show(&#039;ranking&#039;);
+    }
+  }
+
+  Tab_Ranking.update = function (force) {
+
+    if (force) {
+      updatepending = false;
+    }
+
+    if (updatepending) {
+      console.log(&#039;updatepending&#039;);
+    } else {
+      updatepending = true;
+      window.setTimeout(function () {
+        try {
+          if (updateTournamentRankings() === true) {
+            // new Toast(Strings.rankingupdate);
+          }
+          console.log(&#039;update&#039;);
+        } catch (er) {
+          console.log(er);
+          new Toast(Strings.tabupdateerror.replace(&#039;%s&#039;, Strings.tab_ranking));
+        }
+        updatepending = false;
+      }, 1);
+    }
+  };
+
+  Tab_Ranking.getOptions = function () {
+    return Opts.getOptions({
+      options : options
+    });
+  };
+
+  Tab_Ranking.setOptions = function (opts) {
+    return Opts.setOptions({
+      options : options
+    }, opts);
+  };
+
+  Shared.Tab_Ranking = Tab_Ranking;
+  return Tab_Ranking;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

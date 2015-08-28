@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/ui/tab_debug.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/ui/tab_debug.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">63.26</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">414</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">42.02</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">3.95</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * Model, View and Controller of the debugging tab.
+ *
+ * @return Tab_Debug
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+
+define([&#039;./tabshandle&#039;, &#039;./toast&#039;, &#039;../backend/random&#039;, &#039;./tab&#039;, &#039;./strings&#039;,
+    &#039;./debug&#039;, &#039;./tournaments&#039;, &#039;./team&#039;, &#039;./history&#039;, &#039;./shared&#039;, &#039;options&#039;,
+    &#039;./state_new&#039;], function(Tabshandle, Toast, Random, Tab, Strings, Debug,
+    Tournaments, Team, History, Shared, Options, State) {
+  var Tab_Debug, $tab, form, letters, Letters, rng;
+
+  rng = new Random();
+  form = undefined;
+  $tab = undefined;
+
+  letters = [&#039;a&#039;, &#039;b&#039;, &#039;c&#039;, &#039;d&#039;, &#039;e&#039;, &#039;f&#039;, &#039;g&#039;, &#039;h&#039;, &#039;i&#039;, &#039;j&#039;, &#039;k&#039;, &#039;l&#039;, &#039;m&#039;,
+      &#039;n&#039;, &#039;o&#039;, &#039;p&#039;, &#039;q&#039;, &#039;r&#039;, &#039;s&#039;, &#039;t&#039;, &#039;u&#039;, &#039;v&#039;, &#039;w&#039;, &#039;x&#039;, &#039;y&#039;, &#039;z&#039;, &#039;ä&#039;,
+      &#039;ö&#039;, &#039;ü&#039;, &#039;ß&#039;];
+  Letters = [&#039;A&#039;, &#039;B&#039;, &#039;C&#039;, &#039;D&#039;, &#039;E&#039;, &#039;F&#039;, &#039;G&#039;, &#039;H&#039;, &#039;I&#039;, &#039;J&#039;, &#039;K&#039;, &#039;L&#039;, &#039;M&#039;,
+      &#039;N&#039;, &#039;O&#039;, &#039;P&#039;, &#039;Q&#039;, &#039;R&#039;, &#039;S&#039;, &#039;T&#039;, &#039;U&#039;, &#039;V&#039;, &#039;W&#039;, &#039;X&#039;, &#039;Y&#039;, &#039;Z&#039;, &#039;Ä&#039;,
+      &#039;Ö&#039;, &#039;Ü&#039;];
+
+  function showAllImages() {
+    var $anchor, $images, sorted, images;
+
+    $anchor = $tab.find(&#039;.allimages&#039;);
+    images = {};
+
+    $images = $(&#039;[data-img]&#039;);
+    $images.each(function(i) {
+      var url = $images.eq(i).attr(&#039;data-img&#039;);
+      images[&#039;images/&#039; + url] = true;
+    });
+
+    sorted = [];
+
+    Object.keys(images).sort().forEach(function(url) {
+      if (!/^(images\/)?sprite(.png)?$/.test(url)) {
+        sorted.push(url);
+      }
+    });
+
+    sorted.forEach(function(url, index) {
+      $anchor.append($(&#039;&lt;div&gt;&#039;).attr(&#039;data-img&#039;,
+          url.replace(/^images\//, &#039;&#039;).replace(/\.png$/, &#039;&#039;)));
+    });
+  }
+
+  function randomName() {
+    var first, last, length, i;
+
+    length = rng.nextInt(6) + 3;
+    first = &#039;&#039;;
+    first += rng.pick(Letters);
+    for (i = 0; i &lt; length; i++) {
+      first += rng.pick(letters);
+    }
+
+    length = rng.nextInt(6) + 3;
+    last = &#039;&#039;;
+    last += rng.pick(Letters);
+    for (i = 0; i &lt; length; i++) {
+      last += rng.pick(letters);
+    }
+
+    return first + &#039; &#039; + last;
+  }
+
+  function updateTabs() {
+    Shared.Alltabs.update(true);
+    new Toast(Strings.alltabsreloaded);
+  }
+
+  function loadMods() {
+    var rjsdef, mods;
+
+    if (window.mods !== undefined) {
+      return;
+    }
+
+    rjsdef = require.s.contexts._.defined;
+    if (!rjsdef) {
+      console.error(&#039;require.s.contexts._.defined is undefined&#039;);
+      return;
+    }
+
+    mods = window.mods = {};
+
+    // add every key to mods, which is similar to the directory tree
+    Object.keys(rjsdef).forEach(function(key) {
+      var keyparts, subobject;
+
+      keyparts = key.split(&#039;/&#039;);
+      subobject = mods;
+
+      // search the position of the key, add new objects as necessary
+      keyparts.forEach(function(part, partid) {
+        if (partid &gt;= keyparts.length - 1) {
+          subobject[part] = rjsdef[key];
+        } else {
+          if (subobject[part] === undefined) {
+            subobject[part] = {};
+          }
+
+          subobject = subobject[part];
+        }
+      });
+    });
+
+    new Toast(Strings.modsvariableadded);
+  }
+
+  function clearEverything() {
+    var Storage, Alltabs, State;
+
+    Storage = Shared.Storage;
+    Alltabs = Shared.Alltabs;
+    State = Shared.State;
+
+    Storage.enable();
+    Storage.clear();
+    Alltabs.reset();
+    State.reset();
+    Alltabs.update();
+
+    new Toast(Strings.newtournament);
+  }
+
+  function registerPlayers() {
+    var num, teamno, $template, $names, playerno;
+
+    num = Number(form.register.$num.val());
+
+    $template = $(&#039;#tabs &gt; [data-tab=&quot;teams&quot;] .newteamview&#039;);
+    $names = $template.find(&#039;.playername&#039;);
+
+    for (teamno = 0; teamno &lt; num; ++teamno) {
+      for (playerno = 0; playerno &lt; $names.length; ++playerno) {
+        $($names[playerno]).val(randomName());
+      }
+      $template.submit();
+    }
+  }
+
+  function startRound(tournamentid) {
+    var $button;
+
+    $button = $(&#039;#tabs &gt; [data-tab=&quot;new&quot;] button[data-system=&quot;swiss&quot;]&#039;).eq(0);
+    if ($button.length === 1) {
+      $button.click();
+      // let it render
+      window.setTimeout(startRound, 1);
+      return false;
+    }
+
+    $button = $(&#039;#tabs &gt; [data-tab=&quot;new&quot;] td.system button.runtournament&#039;)
+        .eq(0);
+
+    if ($button.length !== 1) {
+      new Toast(Strings.notenoughteams + &#039;?&#039;);
+      return false;
+    }
+
+    if ($button.parents(&#039;.running&#039;).length) {
+      new Toast(Strings.roundrunning.replace(/%s/g, &#039;&#039;));
+      return false;
+    }
+
+    $button.click();
+  }
+
+  function finishRound(tournamentid) {
+    var $boxes, $box, i;
+
+    $box = undefined;
+    if (tournamentid === undefined) {
+      $box = $(&#039;#tabs &gt; [data-tab=&quot;games&quot;]&#039;);
+    } else {
+      $boxes = $(&#039;#tabs &gt; [data-tab=&quot;games&quot;] .boxview&#039;);
+      for (i = 0; i &lt; $boxes.length; i += 1) {
+        $box = $boxes.eq(0);
+      }
+    }
+
+    if (!$box || $box.length === 0) {
+      return undefined;
+    }
+
+    interval = window.setInterval(function() {
+      var $finish, $points;
+      $finish = $box.find(&#039;.matchrow .finish&#039;).eq(0);
+      if (!$finish || $finish.length === 0) {
+        window.clearInterval(interval);
+        return;
+      }
+
+      p1 = 0;
+      p2 = 0;
+
+      while (p1 === p2) {
+        if (rng.nextInt(2)) {
+          p1 = Options.maxpoints - rng.nextInt(2);
+          p2 = rng.nextInt(p1);
+        } else {
+          p2 = Options.maxpoints - rng.nextInt(2);
+          p1 = rng.nextInt(p2);
+        }
+      }
+
+      $points = $finish.find(&#039;.points&#039;);
+      $points.eq(0).val(p1);
+      $points.eq(1).val(p2);
+      $finish.submit();
+
+    }, 1);
+  }
+
+  function playTournament() {
+    var tournamentid, Tournament, maxid;
+
+    if (State.tournaments.length === 0) {
+      startRound();
+      if (State.tournaments.length &gt; 0) {
+        setTimeout(playTournament, 1);
+      }
+      return undefined;
+    }
+
+    maxid = State.tournaments.length;
+    for (tournamentid = 0; tournamentid &lt; maxid; tournamentid += 1) {
+
+      if (!State.tournaments.get(tournamentid).getState().get() === &#039;running&#039;) {
+        continue;
+      }
+
+      Tournament = State.tournaments.get(tournamentid);
+
+      if (Tournament.getState().get() !== &#039;running&#039;) {
+        startRound(tournamentid);
+      }
+
+      if (Tournament.getState().get() == &#039;running&#039;) {
+        finishRound(tournamentid);
+        window.setTimeout(playTournament, 100);
+      } else {
+        new Toast(Strings.tournamentfinished, Toast.LONG);
+      }
+    }
+  }
+
+  /**
+   * starts a new sidetournament with a random selection of the players (2 min)
+   *
+   * @param type
+   *          the type of the tournament (swiss, ko, ...)
+   */
+  function addSideTournament(type) {
+    var min, max, numplayers, Tournament, players, tournamentid;
+    min = 2;
+    max = Team.count();
+
+    if (max &lt; min) {
+      new Toast(Strings.notenoughteams);
+      return;
+    }
+
+    numplayers = rng.nextInt(max - min + 1) + min;
+
+    Tournament = Tournaments.addTournament(type);
+
+    if (!Tournament) {
+      console.error(&#039;tournament type not accepted&#039;);
+      return;
+    }
+
+    tournamentid = Tournaments.getTournamentID(Tournament);
+    Tournaments.setName(tournamentid, type + &#039; Sidetournament ID&#039;
+        + tournamentid);
+
+    players = Tournaments.getTeams(tournamentid);
+
+    while (players.length &lt; Team.count()) {
+      players.push(players.length);
+    }
+
+    while ((numplayers -= 1) &gt;= 0) {
+      Tournament.addPlayer(rng.pickAndRemove(players));
+    }
+
+    Tournament.start();
+
+    if (Tournaments.getRanking(tournamentid).byevote[0]) {
+      History.addVote(tournamentid, 0,
+          Tournaments.getRanking(tournamentid).ids[0], 0);
+    }
+
+    Shared.Storage.store();
+    updateTabs();
+    new Toast(Strings.roundstarted.replace(&#039;%s&#039;, 1));
+  }
+
+  function initForms() {
+    if (form) {
+      console.error(&#039;tab_debug: form is already defined:&#039;);
+      console.error(form);
+      return;
+    }
+
+    // get the jquery objects
+    form = {
+      register: {
+        $form: $tab.find(&#039;.register&#039;),
+        $num: $tab.find(&#039;.register .num&#039;),
+        $submit: $tab.find(&#039;.register .submit&#039;),
+        $delete: $tab.find(&#039;.register .delete&#039;)
+      },
+      games: {
+        $form: $tab.find(&#039;.tournament&#039;),
+        $startRound: $tab.find(&#039;.tournament .start&#039;),
+        $finishRound: $tab.find(&#039;.tournament .round&#039;),
+        $playTournament: $tab.find(&#039;.tournament .all&#039;)
+      },
+      phases: {
+        $form: $tab.find(&#039;.phases&#039;),
+        $sideTournamentSwiss: $tab.find(&#039;.phases .sidetournamentswiss&#039;)
+      },
+      script: {
+        $form: $tab.find(&#039;.script&#039;),
+        $loadmods: $tab.find(&#039;.script .loadmods&#039;),
+        $updatetabs: $tab.find(&#039;.script .updatetabs&#039;)
+      }
+    };
+
+    // register buttons and stuff
+    form.register.$form.submit(function(e) {
+      registerPlayers();
+      e.preventDefault();
+      return false;
+    });
+    form.register.$delete.click(function(e) {
+      clearEverything();
+      e.preventDefault();
+      return false;
+    });
+    form.games.$startRound.click(function(e) {
+      startRound();
+      e.preventDefault();
+      return false;
+    });
+    form.games.$finishRound.click(function(e) {
+      finishRound();
+      e.preventDefault();
+      return false;
+    });
+    form.games.$playTournament.click(function(e) {
+      playTournament();
+      e.preventDefault();
+      return false;
+    });
+    form.phases.$sideTournamentSwiss.click(function(e) {
+      addSideTournament(&#039;swiss&#039;);
+      e.preventDefault();
+      return false;
+    });
+    form.script.$loadmods.click(function(e) {
+      loadMods();
+      e.preventDefault();
+      return false;
+    });
+    form.script.$updatetabs.click(function(e) {
+      updateTabs();
+      e.preventDefault();
+      return false;
+    });
+
+    updateForms();
+  }
+
+  function updateForms() {
+  }
+
+  function initDevContents() {
+    if (Debug.isDevVersion) {
+      loadMods();
+    } else {
+      Tabshandle.direct.getTabModel(&#039;debug&#039;).visibility.set(false);
+      $(&#039;.devonly&#039;).remove();
+    }
+  }
+
+  function init() {
+    if ($tab) {
+      console.error(&#039;tab_debug: $tab is already defined:&#039;);
+      console.error($tab);
+      return;
+    }
+
+    $tab = $(&#039;#tabs &gt; [data-tab=&quot;debug&quot;]&#039;);
+
+    initForms();
+    showAllImages();
+    initDevContents();
+  }
+
+  /**
+   * reset an original state.
+   */
+  function reset() {
+    if (!$tab) {
+      init();
+    }
+
+    // reset everything
+    updateForms();
+  }
+
+  Tab_Debug = Tab.createTab(&#039;debug&#039;, reset, reset);
+  return Tab_Debug;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

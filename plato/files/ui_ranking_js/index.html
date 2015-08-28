@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - ui/ranking.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>ui/ranking.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">55.71</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">110</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">39.17</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.09</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * wrapper around the tournament ranking
+ */
+
+define([ &#039;./team&#039;, &#039;./strings&#039;, &#039;./options&#039;, &#039;./tournaments&#039; ], function (Team, Strings, Options, Tournaments) {
+  var Ranking;
+
+  Ranking = {
+    /**
+     * converts ranking and correction information to a csv string
+     */
+    toCSV : function () {
+      var lines, ranking, rank, length, corrs, makeline, i, tournamentid, tournament;
+
+      lines = [];
+
+      for (tournamentid = 0; tournamentid &lt; Tournaments.numTournaments(); tournamentid += 1) {
+
+        tournament = Tournaments.getTournament(tournamentid);
+        name = Tournaments.getName(tournamentid);
+
+        ranking = Tournaments.getRanking(tournamentid);
+
+        // has it started?
+        if (ranking.round &lt;= 0) {
+          continue;
+        }
+
+        lines.push(&#039;#&#039; + Tournaments.getName(tournamentid) + &#039; Ranking,&#039;);
+        lines.push(Strings[&#039;rankhead&#039; + Options.teamsize]);
+
+        makeline = function (rnk) {
+          var line, tid, team, vote, i;
+
+          line = [];
+
+          tid = ranking.ids[rnk];
+          team = Team.get(tid);
+
+          line.push(ranking.place[rnk] + 1);
+
+          line.push(team.id + 1);
+          for (i = 0; i &lt; Options.teamsize; i += 1) {
+            if (team.names[i]) {
+              line.push(&#039;&quot;&#039; + team.names[i].replace(/&quot;/g, &#039;&quot;&quot;&#039;) + &#039;&quot;&#039;);
+            } else {
+              line.push(&#039;&quot;%% %%&quot;&#039;);
+            }
+          }
+
+          line.push(ranking.wins ? ranking.wins[rnk] : &#039;&quot;&quot;&#039;);
+          line.push(ranking.buchholz ? ranking.buchholz[rnk] : &#039;&quot;&quot;&#039;);
+          line.push(ranking.finebuchholz ? ranking.finebuchholz[rnk] : &#039;&quot;&quot;&#039;);
+          line.push(ranking.netto ? ranking.netto[rnk] : &#039;&quot;&quot;&#039;);
+
+          vote = [];
+          if (ranking.roundupvote &amp;&amp; ranking.roundupvote[rnk]) {
+            vote.push(Strings.upvote);
+          }
+          if (ranking.rounddownvote &amp;&amp; ranking.rounddownvote[rnk]) {
+            vote.push(Strings.downvote);
+          }
+          if (ranking.roundbyevote &amp;&amp; ranking.roundbyevote[rnk]) {
+            vote.push(Strings.byevote);
+          }
+
+          line.push(&#039;&quot;&#039; + vote.join(&#039;,&#039;) + &#039;&quot;&#039;);
+
+          return line.join(&#039;,&#039;);
+        };
+
+        length = ranking.ids.length;
+
+        for (rank = 0; rank &lt; length; rank += 1) {
+          lines.push(makeline(rank));
+        }
+
+        corrs = tournament ? tournament.getCorrections() : undefined;
+
+        if (corrs !== undefined &amp;&amp; corrs.length !== 0) {
+          lines.push(&#039;#&#039; + Tournaments.getName(tournamentid) + &#039; Korrekturen,&#039;);
+          lines.push(Strings.correctionhead);
+
+          makeline = function (corr) {
+            var tid, line;
+
+            line = [];
+
+            tid = corr.game.teams[0][0];
+            line.push(tid + 1);
+
+            tid = corr.game.teams[1][0];
+            line.push(tid + 1);
+
+            line.push(corr.oldpoints[0]);
+            line.push(corr.oldpoints[1]);
+
+            line.push(corr.newpoints[0]);
+            line.push(corr.newpoints[1]);
+
+            return line.join(&#039;,&#039;);
+          };
+
+          corrs.forEach(function (corr) {
+            lines.push(makeline(corr));
+          });
+        }
+      }
+      return lines.join(&#039;\r\n&#039;);
+    }
+  };
+
+  return Ranking;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

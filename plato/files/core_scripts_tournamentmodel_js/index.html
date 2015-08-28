@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/tournamentmodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/tournamentmodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">64.37</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">680</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">71.58</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">4.78</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * TournamentModel: An abstract tournament class which provides the basic
+ * functions, such as ranking, team lists, invalidation, caching and a reference
+ * name.
+ *
+ * TournamentModel implements the IndexedModel interface, although it&#039;s no
+ * direct descendant. This is to ensure the encapsulation in IndexedListModels.
+ *
+ * @return TournamentModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./propertymodel&#039;, &#039;./listmodel&#039;, &#039;./uniquelistmodel&#039;,
+    &#039;./rankingmapper&#039;, &#039;./statevaluemodel&#039;, &#039;./matchmodel&#039;, &#039;./matchresult&#039;,
+    &#039;ui/listcollectormodel&#039;, &#039;./listener&#039;, &#039;./rankingmodel&#039;,
+    &#039;./referencelistmodel&#039;, &#039;./maplistmodel&#039;, &#039;./valuemodel&#039;,
+    &#039;./readonlylistmodel&#039;, &#039;options&#039;, &#039;./indexedmodel&#039;, &#039;./correctionmodel&#039;,
+    &#039;./matchreferencemodel&#039;, &#039;./resultreferencemodel&#039;,
+    &#039;./correctionreferencemodel&#039;], function(extend, PropertyModel, ListModel,
+    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
+    ListCollectorModel, Listener, RankingModel, ReferenceListModel,
+    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
+    CorrectionModel, MatchReferenceModel, ResultReferenceModel,
+    CorrectionReferenceModel) {
+  var STATETRANSITIONS, INITIALSTATE;
+
+  /*
+   * STATES lists the possible states.The following states are possible:
+   *
+   * &#039;initial&#039;: for player/team registration before the first match. Can be
+   * followed by &#039;running&#039; and &#039;finished&#039;. Initial state. In some tournament
+   * systems, registration is only possible during &#039;initial&#039; state.
+   *
+   * &#039;running&#039;: there are open matches. Preceded by &#039;initial&#039; or &#039;idle&#039;, can be
+   * followed by &#039;idle&#039; and &#039;finished&#039;
+   *
+   * &#039;idle&#039;: all previous matches have been finished, but new matches can still
+   * be generated. Preceded by &#039;running&#039;, followed by &#039;running&#039; or &#039;finished&#039;.
+   * Interaction required for state transition.
+   *
+   * &#039;finished&#039;: all matches are finished, no matches can be created anymore. No
+   * registration possible. Preceded by &#039;running&#039; or &#039;idle&#039;. Final and constant
+   * state.
+   *
+   */
+  STATETRANSITIONS = {
+    &#039;initial&#039;: [&#039;running&#039;],
+    &#039;running&#039;: [&#039;idle&#039;, &#039;finished&#039;],
+    &#039;idle&#039;: [&#039;running&#039;, &#039;finished&#039;],
+    &#039;finished&#039;: []
+  };
+  INITIALSTATE = &#039;initial&#039;;
+
+  /**
+   * Constructor
+   *
+   * @param rankingorder
+   *          an array of ranking orders, e.g. [&#039;wins&#039;, &#039;buchholz&#039;]
+   */
+  function TournamentModel(rankingorder) {
+    var collector;
+
+    TournamentModel.superconstructor.call(this);
+    IndexedModel.call(this);
+
+    // TODO initialize with properties
+
+    // rankingorder default: sort by entry order
+    rankingorder = rankingorder || [&#039;id&#039;];
+
+    this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS);
+    this.teams = new UniqueListModel();
+    this.matches = new ListModel();
+    this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
+    this.votes = TournamentModel.initVoteLists(this.VOTES);
+    this.history = new ListModel();
+    this.corrections = new ListModel();
+    this.name = new ValueModel(this.SYSTEM);
+
+    // singletons for the getters(), in order to not bloat the listener arrays
+    this.singletons = {};
+
+    // initial properties
+    this.setProperty(&#039;addteamrunning&#039;, false);
+    this.setProperty(&#039;addteamidle&#039;, false);
+
+    // listen to the matches
+    collector = new ListCollectorModel(this.matches, MatchModel);
+    collector.registerListener(this);
+
+    // print error messages to the output
+    Listener.bind(this, &#039;error&#039;, function(emitter, event, message) {
+      console.error(message);
+    });
+  }
+  extend(TournamentModel, PropertyModel);
+
+  /**
+   * a unique name for the tournament mode, e.g. &#039;ko&#039; or &#039;tacteam&#039;
+   */
+  TournamentModel.prototype.SYSTEM = &#039;undefined&#039;;
+
+  /**
+   * send event on state change
+   */
+  TournamentModel.prototype.EVENTS = {
+    &#039;state&#039;: true,
+    &#039;error&#039;: true,
+    &#039;update&#039;: true
+  };
+
+  /**
+   * Array of additional ranking dependencies, e.g. [&#039;matchmatrix&#039;]
+   */
+  TournamentModel.prototype.RANKINGDEPENDENCIES = [];
+
+  /**
+   * an array of required vote lists
+   */
+  TournamentModel.prototype.VOTES = [&#039;bye&#039;];
+
+  /**
+   * @param types
+   *          an array of vote types
+   * @return a dictionary of vote lists
+   */
+  TournamentModel.initVoteLists = function(types) {
+    var votes;
+
+    votes = {};
+
+    types.forEach(function(type) {
+      votes[type] = new ListModel();
+    });
+
+    return votes;
+  };
+
+  /**
+   * Whenever a bye is added to the this.votes.bye ListModel instance, it&#039;s
+   * automatically submitted to the results
+   *
+   * @param tournament
+   */
+  TournamentModel.initByeListener = function(tournament) {
+    if (tournament.votes.bye) {
+      Listener.bind(tournament.votes.bye, &#039;insert&#039;, function(emitter, event,
+          data) {
+        this.ranking.bye(data.object);
+      }, tournament);
+    }
+  };
+
+  /**
+   * automatically check if the tournament is supposed to be in an idle state
+   * and transition to the idle state if necessary
+   */
+  TournamentModel.prototype.checkIdleState = function() {
+    if (this.state.get() === &#039;running&#039; &amp;&amp; this.matches.length === 0) {
+
+      // TODO add votes to history
+
+      // clear votes
+      Object.keys(this.votes).forEach(function(key) {
+        this.votes[key].clear();
+      }, this);
+
+      // apply idle state
+      this.state.set(&#039;idle&#039;);
+    }
+  };
+
+  /**
+   * change the ranking order after tournament creation
+   *
+   * TODO write unit test
+   *
+   * @param rankingorder
+   *          an array of ranking order component names
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.setRankingOrder = function(rankingorder) {
+    if (this.state.get() !== &#039;initial&#039;) {
+      this.emit(&#039;error&#039;,
+          &#039;cannot change ranking order after starting a tournament&#039;);
+      return undefined;
+    }
+
+    this.ranking.reset();
+    return this.ranking.init(rankingorder || [&#039;id&#039;], this.teams.length,
+        this.RANKINGDEPENDENCIES);
+  };
+
+  /**
+   * add a team id to the tournament. Teams can only be entered once.
+   *
+   * Undefined behaviour if the tournament has already started.
+   *
+   * TODO use some configuration object to determine
+   *
+   * @param teamid
+   *          the external id of a team
+   * @return true on success, false if the team already exists. undefined if the
+   *         team cannot be added in the current state
+   */
+  TournamentModel.prototype.addTeam = function(teamid) {
+    // TODO isNumber() check
+    switch (this.state.get()) {
+    case &#039;initial&#039;:
+      break;
+    case &#039;running&#039;:
+      if (!this.getProperty(&#039;addteamrunning&#039;)) {
+        return undefined;
+      }
+      break;
+    case &#039;idle&#039;:
+      if (!this.getProperty(&#039;addteamidle&#039;)) {
+        return undefined;
+      }
+      break;
+    case &#039;finished&#039;:
+      this.emit(&#039;error&#039;, &#039;cannot enter add a team to a finished tournament&#039;);
+      return undefined;
+    }
+
+    if (this.teams.push(teamid) !== undefined) {
+      this.ranking.resize(this.teams.length);
+      return true;
+    }
+
+    return false;
+  };
+
+  /**
+   * Retrieve the state of the tournament as a ValueModel instance, which emits
+   * update events and provides a get() function for the state
+   *
+   * @return a readonly ValueModel instance of the state. use the get() function
+   *         to retrieve the current value of the state
+   */
+  TournamentModel.prototype.getState = function() {
+    if (this.singletons.state === undefined) {
+      this.singletons.state = new ValueModel(this.state.get());
+      this.singletons.state.bind(this.state);
+    }
+    return this.singletons.state;
+  };
+
+  /**
+   * @return a ListModel of the registered teams.
+   */
+  TournamentModel.prototype.getTeams = function() {
+    if (this.singletons.teams === undefined) {
+      this.singletons.teams = new ReadonlyListModel(this.teams);
+    }
+    return this.singletons.teams;
+  };
+
+  /**
+   * @return ListModel of the running matches, with global team ids
+   */
+  TournamentModel.prototype.getMatches = function() {
+    if (this.singletons.matches === undefined) {
+      this.singletons.matches = new ReferenceListModel(this.matches,
+          this.teams, MatchReferenceModel);
+    }
+    return this.singletons.matches;
+  };
+
+  /**
+   * @return ListModel of the running matches, with global team ids
+   */
+  TournamentModel.prototype.getHistory = function() {
+    if (this.singletons.history === undefined) {
+      this.singletons.history = new ReferenceListModel(this.history,
+          this.teams, ResultReferenceModel);
+    }
+    return this.singletons.history;
+  };
+
+  /**
+   * @return ListModel of the running matches, with global team ids
+   */
+  TournamentModel.prototype.getCorrections = function() {
+    if (this.singletons.corrections === undefined) {
+      this.singletons.corrections = new ReferenceListModel(this.corrections,
+          this.teams, CorrectionReferenceModel);
+    }
+    return this.singletons.corrections;
+  };
+
+  /**
+   * retrieve vote lists for the current &#039;running&#039; state (i.e. current round)
+   *
+   * @param type
+   *          the vote type, i.e. &#039;bye&#039;, &#039;up&#039;, &#039;down&#039;, ...
+   * @return a readonly listmodel of team ids which received the specified, or
+   *         undefined if the vote type doesn&#039;t exist
+   */
+  TournamentModel.prototype.getVotes = function(type) {
+    if (!type || this.votes[type] === undefined) {
+      this.emit(&#039;error&#039;, &#039;vote type &quot;&#039; + type
+          + &#039;&quot; does not exist for this tournament type&#039;);
+      return undefined;
+    }
+
+    if (this.singletons.votes === undefined) {
+      this.singletons.votes = {};
+    }
+
+    if (this.singletons.votes[type] === undefined) {
+      this.singletons.votes[type] = new MapListModel(this.votes[type],
+          this.teams);
+    }
+
+    return this.singletons.votes[type];
+  };
+
+  TournamentModel.prototype.getName = function() {
+    if (this.singletons.name === undefined) {
+      this.singletons.name = new ValueModel();
+      this.singletons.name.bind(this.name);
+      this.name.bind(this.singletons.name);
+    }
+
+    return this.singletons.name;
+  };
+
+  /**
+   * retrieve a dynamic ranking object from which the ranking can be read with
+   * global ids
+   *
+   * @return a RankingMapper instance, which emits &#039;update&#039; and provides get()
+   */
+  TournamentModel.prototype.getRanking = function() {
+    if (this.singletons.ranking === undefined) {
+      this.singletons.ranking = new RankingMapper(this.ranking, this.teams);
+    }
+    return this.singletons.ranking;
+  };
+
+  /**
+   * runs the tournament by creating matches and transitioning into &#039;running&#039;
+   * state, if possible.
+   *
+   * @return true on success, undefined otherwise
+   */
+  TournamentModel.prototype.run = function() {
+    switch (this.state.get()) {
+    case &#039;initial&#039;:
+      if (this.initialMatches()) {
+        break;
+      }
+      this.emit(&#039;error&#039;, &#039;initialMatches() failed&#039;);
+      return undefined;
+    case &#039;idle&#039;:
+      if (this.idleMatches()) {
+        break;
+      }
+      this.emit(&#039;error&#039;, &#039;idleMatches() failed&#039;);
+      return undefined;
+    case &#039;running&#039;:
+      this.emit(&#039;error&#039;, &#039;tournament is already running&#039;);
+      return undefined;
+    case &#039;finished&#039;:
+      this.emit(&#039;error&#039;, &#039;tournament is already finished&#039;);
+      return undefined;
+    }
+
+    if (this.matches.length &gt; 0) {
+      this.state.set(&#039;running&#039;);
+    } else {
+      throw new Error(&#039;tournament is running, but no games have been created&#039;);
+    }
+    return true;
+  };
+
+  /**
+   * manually finish a tournament, which is in &#039;idle&#039; state (or &#039;initial&#039; state)
+   *
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.finish = function() {
+    switch (this.state.get()) {
+    case &#039;idle&#039;:
+      this.state.set(&#039;finished&#039;);
+      return true;
+    case &#039;finished&#039;:
+      return true;
+    case &#039;initial&#039;:
+      this.state.set(&#039;finished&#039;);
+      return true;
+    case &#039;running&#039;:
+      this.emit(&#039;error&#039;, &#039;cannot finish a running tournament&#039;);
+      break;
+    }
+
+    return false;
+  };
+
+  /**
+   * validate and process a match result
+   *
+   * @param emitter
+   *          the emitter, i.e. the collector. no use.
+   * @param event
+   *          the event, i.e. &#039;finish&#039;. no use.
+   * @param matchresult
+   *          a matchresult instance, which has been enhanced with a &#039;source&#039;
+   *          attribute, which is a reference to the original MatchModel
+   *          instance
+   */
+  TournamentModel.prototype.onfinish = function(emitter, event, matchresult) {
+    var match;
+
+    match = matchresult.source;
+
+    if (this.matches.indexOf(match) === -1) {
+      this.emit(&#039;error&#039;,
+          &#039;onfinish: match is not open anymore or does not exist&#039;);
+      return;
+    }
+
+    if (!this.validateMatchResult(matchresult)) {
+      this.emit(&#039;error&#039;, &#039;onfinish: match result fails validation test&#039;);
+      return;
+    }
+
+    this.matches.erase(match);
+
+    this.history.push(matchresult);
+
+    this.ranking.result(matchresult);
+
+    this.postprocessMatch(matchresult);
+
+    this.checkIdleState();
+  };
+
+  /*****************************************************************************
+   * ABSTRACT FUNCTIONS
+   ****************************************************************************/
+
+  /**
+   * Validate a match result before accepting it. If validation fails, the
+   * result is discarded and the match is supposed to stay open.
+   *
+   * @param matchresult
+   *          a MatchResult instance
+   * @return true if the result is valid, false otherwise
+   */
+  TournamentModel.prototype.validateMatchResult = function(matchresult) {
+    var valid;
+
+    valid = matchresult.score.every(function(score) {
+      return score &gt;= Options.minpoints &amp;&amp; score &lt;= Options.maxpoints;
+    });
+
+    return valid;
+  };
+
+  /**
+   * Validate a result before accepting it. If the validation fails, the
+   * correction is discarded and the result remains the way it was.
+   *
+   * @param correction
+   *          a CorrectionModel instance
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.validateCorrection = function(correction) {
+    return true;
+  };
+
+  /**
+   * perform additional functions after a match has been finished and its result
+   * has been written to history and ranking. Can be used to start new matches
+   * or adjust the tournament state to &#039;finished&#039;.
+   *
+   * @param matchresult
+   *          a valid and accepted match result
+   */
+  TournamentModel.prototype.postprocessMatch = function(matchresult) {
+    // Default: Do nothing.
+  };
+
+  /**
+   * perform additional functions after a result has been corrected. This may
+   * include reverting to a previous state and re-rolling the entire tournament
+   * from this point on, or doing nothing since most cases are already handled
+   * by the ranking
+   *
+   * @param correction
+   *          the applied correction
+   */
+  TournamentModel.prototype.postprocessCorrection = function(correction) {
+    // Default: Do nothing.
+  };
+
+  /**
+   * create matches from an initial state (first round)
+   *
+   * @return true on success (i.e. valid matches have been created), false or
+   *         undefined otherwise
+   */
+  TournamentModel.prototype.initialMatches = function() {
+    // create matches here
+
+    if (this.teams.length &lt; 3) {
+      return false;
+    }
+
+    this.matches.push(new MatchModel([0, 1], 1, 0));
+    this.votes.bye.push(2);
+
+    return true;
+  };
+
+  /**
+   * create matches from an idle state (subsequent rounds)
+   *
+   * @return true on success (i.e. valid matches have been created), false or
+   *         undefined otherwise
+   */
+  TournamentModel.prototype.idleMatches = function() {
+    // create matches here
+
+    this.matches.push(new MatchModel([1, 2], 1, 0));
+    this.votes.bye.push(0);
+
+    return true;
+  };
+
+  /**
+   * correct a previous result by replacing it with a new result and updating
+   * all of the necessary data.
+   *
+   * @param result
+   *          the external result, as read from the getHistory() list
+   * @param newScore
+   *          the new score. Right now, only scores can be changed. This might
+   *          change with the support for more complicated tournament systems
+   *
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.correct = function(result, newScore) {
+    var index, correction, newResult;
+
+    index = this.history.indexOf(result.result);
+    if (index === -1) {
+      this.emit(&#039;error&#039;, &#039;correct(): result does not exist in history&#039;);
+      return false;
+    }
+
+    newResult = new MatchResult(result, newScore);
+    if (!this.validateMatchResult(newResult)) {
+      this.emit(&#039;error&#039;, &#039;correction has invalid score&#039;);
+      return false;
+    }
+
+    correction = new CorrectionModel(result, newResult);
+
+    if (!this.validateCorrection(correction)) {
+      this.emit(&#039;error&#039;, &#039;correction is invalid, although the score is fine&#039;);
+      return false;
+    }
+
+    this.corrections.push(correction);
+    this.history.set(index, correction.after);
+    this.ranking.correct(correction);
+
+    this.postprocessCorrection(correction);
+
+    return true;
+  };
+
+  /**
+   * prepares a serializable data object, which can later be used for restoring
+   * the current state using the restore() function
+   *
+   * @return a serializable data object, which can be used for restoring
+   */
+  TournamentModel.prototype.save = function() {
+    var data = TournamentModel.superclass.save.call(this);
+
+    data.sys = this.SYSTEM;
+    data.id = this.id;
+    data.name = this.name.get();
+    data.state = this.state.get();
+    data.teams = this.teams.asArray();
+    data.matches = this.matches.save();
+    data.history = this.history.save();
+    data.corrections = this.corrections.save();
+    data.ranking = this.ranking.save();
+    data.votes = {};
+    this.VOTES.forEach(function(votetype) {
+      data.votes[votetype] = this.votes[votetype].save();
+    }, this);
+
+    return data;
+  };
+
+  /**
+   * restore a previously saved state from a serializable data object
+   *
+   * @param data
+   *          a data object, that was previously written by save()
+   * @return true on success, false otherwise
+   */
+  TournamentModel.prototype.restore = function(data) {
+    if (this.SYSTEM !== data.sys) {
+      this.emit(&#039;error&#039;, &#039;TournamentModel.restore() error: System mismatch&#039;);
+      return false;
+    }
+
+    if (!TournamentModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.id = data.id;
+
+    this.name.set(data.name || this.SYSTEM);
+
+    if (!this.state.forceState(data.state)) {
+      this.emit(&#039;error&#039;,//
+      &#039;TournamentModel.restore(): invalid tournament state&#039;);
+      return false;
+    }
+
+    if (!this.teams.restore(data.teams)) {
+      this.emit(&#039;error&#039;,//
+      &#039;TournamentModel.restore(): cannot restore teams&#039;);
+      return false;
+    }
+
+    if (!this.matches.restore(data.matches, MatchModel)) {
+      this.emit(&#039;error&#039;, &#039;TournamentModel.restore(): cannot restore matches&#039;);
+      return false;
+    }
+
+    if (!this.history.restore(data.history, MatchResult)) {
+      this.emit(&#039;error&#039;, &#039;TournamentModel.restore(): cannot restore history&#039;);
+      return false;
+    }
+
+    if (!this.corrections.restore(data.corrections, CorrectionModel)) {
+      this.emit(&#039;error&#039;,
+          &#039;TournamentModel.restore(): cannot restore corrections&#039;);
+      return false;
+    }
+
+    if (!this.ranking.restore(data.ranking)) {
+      this.emit(&#039;error&#039;, &#039;TournamentModel.restore(): cannot restore ranking&#039;);
+      return false;
+    }
+
+    if (!this.VOTES.every(function(votetype) {
+      this.votes[votetype].clear();
+      if (data.votes[votetype]) {
+        this.votes[votetype].restore(data.votes[votetype]);
+      }
+      return true;
+    }, this)) {
+      this.emit(&#039;error&#039;, &#039;TournamentModel.restore(): cannot restore votes&#039;);
+      return false;
+    }
+
+    return true;
+  };
+
+  /**
+   * mimic an IndexedModel
+   */
+  TournamentModel.prototype.getID = IndexedModel.prototype.getID;
+  TournamentModel.prototype.setID = IndexedModel.prototype.setID;
+
+  // TODO use constructor references (MatchModel.SAVEFORMAT) instead of
+  // &quot;Object&quot;
+  TournamentModel.prototype.SAVEFORMAT = Object
+      .create(TournamentModel.superclass.SAVEFORMAT);
+  TournamentModel.prototype.SAVEFORMAT.sys = String;
+  TournamentModel.prototype.SAVEFORMAT.id = Number;
+  TournamentModel.prototype.SAVEFORMAT.name = String;
+  TournamentModel.prototype.SAVEFORMAT.state = String;
+  TournamentModel.prototype.SAVEFORMAT.teams = [Number];
+  TournamentModel.prototype.SAVEFORMAT.matches = [Object];
+  TournamentModel.prototype.SAVEFORMAT.history = [Object];
+  TournamentModel.prototype.SAVEFORMAT.corrections = [Object];
+  TournamentModel.prototype.SAVEFORMAT.ranking = Object;
+  TournamentModel.prototype.SAVEFORMAT.votes = Object;
+
+  return TournamentModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>
