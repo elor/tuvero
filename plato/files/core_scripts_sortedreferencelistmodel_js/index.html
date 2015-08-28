@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - core/scripts/sortedreferencelistmodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>core/scripts/sortedreferencelistmodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">70.62</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">170</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">37.50</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">0.62</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * SortedReferenceListModel:
+ *
+ * @return SortedReferenceListModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListModel) {
+  /**
+   * @param list
+   *          a ListModel instance
+   * @param sortFunction
+   *          Optional. A sort function to use for sorting the lists
+   */
+  function SortedReferenceListModel(list, sortFunction) {
+    SortedReferenceListModel.superconstructor.call(this);
+
+    this.makeReadonly();
+
+    if (list === undefined) {
+      throw new Error(&quot;SortedReferenceListModel: list argument is missing&quot;);
+    }
+
+    if (sortFunction === undefined) {
+      sortFunction = SortedReferenceListModel.ascending;
+    }
+
+    this.refList = list;
+    this.sortFunction = sortFunction;
+
+    list.map(function(element) {
+      SortedReferenceListModel.insertElement(this, element);
+    }, this);
+
+    list.registerListener(this);
+  }
+  extend(SortedReferenceListModel, ListModel);
+
+  /**
+   * Callback function. Also inserts the inserted element into the sorted list,
+   * at the correct position
+   *
+   * @param emitter
+   *          Should be this.refList
+   * @param event
+   *          &#039;insert&#039;
+   * @param data
+   *          a data object, as emitted by insert() from the original list
+   */
+  SortedReferenceListModel.prototype.oninsert = function(emitter, event, data) {
+    if (emitter === this.refList) {
+      SortedReferenceListModel.insertElement(this, data.object);
+    }
+  };
+
+  /**
+   * Callback function. Also removes the removed element from the sorted list
+   *
+   * @param emitter
+   *          Should be this.refList
+   * @param event
+   *          &#039;remove&#039;
+   * @param data
+   *          a data object, as emitted by remove() from the original list
+   */
+  SortedReferenceListModel.prototype.onremove = function(emitter, event, data) {
+    if (emitter === this.refList) {
+      SortedReferenceListModel.removeElement(this, data.object);
+    }
+  };
+
+  /**
+   * default sort function, for ascending order
+   *
+   * @param a
+   *          the first object
+   * @param b
+   *          the second object
+   * @return the ordering relation between the two, i.e. -1, 0 or +1
+   */
+  SortedReferenceListModel.ascending = function(a, b) {
+    switch (true) {
+    case a &gt; b:
+      return 1;
+    case a &lt; b:
+      return -1;
+    default:
+      return 0;
+    }
+  };
+
+  /**
+   * alternative sort function, for descending order
+   *
+   * @param a
+   *          the first object
+   * @param b
+   *          the second object
+   * @return the ordering relation between the two, i.e. -1, 0 or +1
+   */
+  SortedReferenceListModel.descending = function(a, b) {
+    return -SortedReferenceListModel.ascending(a, b);
+  };
+
+  /**
+   * insert an element into a sorted list
+   *
+   * @param list
+   *          the sorted list into which to insert the element
+   * @param element
+   *          the element to insert into the list
+   */
+  SortedReferenceListModel.insertElement = function(list, element) {
+    var index = SortedReferenceListModel.findPosition(list, element);
+
+    SortedReferenceListModel.superclass.insert.call(list, index, element);
+  };
+
+  /**
+   * Remove an element from a sorted list
+   *
+   * @param list
+   *          the list from which to remove one occurence of the element
+   * @param element
+   *          the element to remove from the list
+   */
+  SortedReferenceListModel.removeElement = function(list, element) {
+    var index = list.indexOf(element);
+    if (index &gt;= 0) {
+      SortedReferenceListModel.superclass.remove.call(list, index);
+    }
+  };
+
+  /**
+   * A simple binary search for the position at which to place the next element.
+   * Since we&#039;re using &gt;=0 in the second code path, similar values are always
+   * appended.
+   *
+   * @param list
+   *          the ListModel instance into which to insert the element. Should be
+   *          &quot;this&quot; when called.
+   * @param element
+   *          the element to insert
+   * @param begin
+   *          Optional. The index at which to begin the search, inclusive.
+   * @param end
+   *          Optional. The index at which to end the search, exclusive.
+   * @return the position at which an element is to be inserted. Can range from
+   *         0 to list.length.
+   */
+  SortedReferenceListModel.findPosition = function(list, element, begin, end) {
+    var relation, mid;
+
+    if (begin === undefined) {
+      begin = 0;
+    }
+    if (end === undefined) {
+      end = list.length;
+    }
+
+    if (begin === end) {
+      return begin;
+    }
+
+    mid = (begin + end) &gt;&gt; 1;
+
+    relation = list.sortFunction(list.get(mid), element);
+
+    if (relation &gt; 0) {
+      return SortedReferenceListModel.findPosition(list, element, begin, mid);
+    }
+
+    return SortedReferenceListModel.findPosition(list, element, mid + 1, end);
+  };
+
+  return SortedReferenceListModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

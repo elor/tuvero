@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">64.37</p>
+      <p class="stat">64.61</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">680</p>
+      <p class="stat">696</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">71.58</p>
+      <p class="stat">73.46</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">4.78</p>
+      <p class="stat">4.91</p>
     </div>
   </div>
 </div>
@@ -108,12 +108,13 @@ define([&#039;lib/extend&#039;, &#039;./propertymodel&#039;, &#039;./listmodel&#
     &#039;./referencelistmodel&#039;, &#039;./maplistmodel&#039;, &#039;./valuemodel&#039;,
     &#039;./readonlylistmodel&#039;, &#039;options&#039;, &#039;./indexedmodel&#039;, &#039;./correctionmodel&#039;,
     &#039;./matchreferencemodel&#039;, &#039;./resultreferencemodel&#039;,
-    &#039;./correctionreferencemodel&#039;], function(extend, PropertyModel, ListModel,
-    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
-    ListCollectorModel, Listener, RankingModel, ReferenceListModel,
-    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
-    CorrectionModel, MatchReferenceModel, ResultReferenceModel,
-    CorrectionReferenceModel) {
+    &#039;./correctionreferencemodel&#039;, &#039;./sortedreferencelistmodel&#039;], function(
+    extend, PropertyModel, ListModel, UniqueListModel, RankingMapper,
+    StateValueModel, MatchModel, MatchResult, ListCollectorModel, Listener,
+    RankingModel, ReferenceListModel, MapListModel, ValueModel,
+    ReadonlyListModel, Options, IndexedModel, CorrectionModel,
+    MatchReferenceModel, ResultReferenceModel, CorrectionReferenceModel,
+    SortedReferenceListModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -353,10 +354,24 @@ define([&#039;lib/extend&#039;, &#039;./propertymodel&#039;, &#039;./listmodel&#
    */
   TournamentModel.prototype.getMatches = function() {
     if (this.singletons.matches === undefined) {
-      this.singletons.matches = new ReferenceListModel(this.matches,
-          this.teams, MatchReferenceModel);
+      this.singletons.matches = new ReferenceListModel(
+          new SortedReferenceListModel(this.matches,
+              TournamentModel.matchCompare), this.teams, MatchReferenceModel);
     }
     return this.singletons.matches;
+  };
+
+  /**
+   * compare the groups and ids of two matches
+   *
+   * @param a
+   *          the first match
+   * @param b
+   *          the second match
+   * @return the order relation: 0, &gt;0 or &lt;0
+   */
+  TournamentModel.matchCompare = function(a, b) {
+    return (a.getGroup() - b.getGroup()) || (a.getID() - b.getID());
   };
 
   /**
@@ -364,8 +379,9 @@ define([&#039;lib/extend&#039;, &#039;./propertymodel&#039;, &#039;./listmodel&#
    */
   TournamentModel.prototype.getHistory = function() {
     if (this.singletons.history === undefined) {
-      this.singletons.history = new ReferenceListModel(this.history,
-          this.teams, ResultReferenceModel);
+      this.singletons.history = new ReferenceListModel(
+          new SortedReferenceListModel(this.history,
+              TournamentModel.matchCompare), this.teams, ResultReferenceModel);
     }
     return this.singletons.history;
   };
