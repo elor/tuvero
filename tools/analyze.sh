@@ -55,8 +55,6 @@ for commit in $commits; do
 
     echo "analyzing $commit"
 
-    continue
-
     $plato -d $outdir -t Tuvero -D $commitdate -x 'qunit.*.js|require.*.js|build.js|jquery.*.js' $scripts
 done
 
