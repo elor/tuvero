@@ -31,7 +31,7 @@ getcommits(){
 }
 
 getlastentry(){
-    grep -o '"date":"[^"]*"' $outdir/report.history.js | tail -n 1 | grep -o '"[0-9].*"' | xargs date +%F -d
+    grep -o '"date":"[^"]*"' $outdir/report.history.js | tail -n 1 | grep -o '"[0-9].*"' | xargs date +%s -d
 }
 
 downloadrepo || { echo "download failed">&2; exit 1; }
@@ -42,7 +42,7 @@ lastentrydate=$(getlastentry)
 [ -z $lastentrydate ] && { echo "cannot read last entry date">&2; exit 1; }
 
 for commit in $commits; do
-    git checkout $commit
+    git checkout -q $commit
 
     jshint=""
     [ -f .jshintrc ] && jshint='-l .jshintrc'
@@ -50,10 +50,9 @@ for commit in $commits; do
     scripts=$(find * -name '*.js' | grep -v 'lib/' | grep -v 'test/')
     commitdate=$(git show -s --format=%ct $commit)
 
-    echo "last: $lastentrydate"
     echo "this: $commitdate"
 
-    [ "$lastentrydate" > "$commitdate" ] && continue
+    (( "$lastentrydate" > "$commitdate" )) && continue
 
     echo "analyzing..."
 

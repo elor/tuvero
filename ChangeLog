@@ -5,6 +5,7 @@
 	* core/scripts/test/binningreferencelistmodel.js: testing the element-index bug scenario
 
 	* tools/analyze.sh: appending to existing plato repository (currently in debug mode)
+	epoch / human-readable date confusion fixed
 
 2015-08-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
