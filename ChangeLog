@@ -30,6 +30,8 @@
 
 	* legacy/scripts/ui/matchresultview.js: check isResult() before showing score or initializing the controller
 
+	* legacy/scripts/ui/rankingview.js: rank multiplicity is possible again.
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

@@ -80,7 +80,7 @@ define(['lib/extend', 'ui/templateview'],
           team = this.teamList.get(ranks.ids[teamIndex]);
 
           $row = this.$template.clone();
-          $row.find('.rank').text(rank + 1);
+          $row.find('.rank').text(ranks.ranks[teamIndex] + 1);
           $row.find('.teamno').text(team.getID() + 1);
 
           for (i = 0; i < teamsize; i += 1) {
