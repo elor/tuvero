@@ -6,6 +6,7 @@
 	* legacy/scripts/ui/listview.js: using the actual $subview, not subview.$view, since the SubView has to take care of DOM bookkeeping.
 
 	* core/templates/historytab.html: matchtable nested in a div, along with a "round" text
+	matchtable moved to its own file
 
 	* legacy/style/general.css: matchview removed
 
@@ -39,6 +40,10 @@
 	* legacy/scripts/ui/settingstab.js: using FileLoadController
 
 	* legacy/scripts/ui/toast.js: Toast.closeTemporaryToasts() added to remove all previous toasts
+
+	* core/templates/matchtable.html: contains matchtable, which was previously embedded into historytab.html
+
+	* core/templates/progresstable.html: simple progress table added for swiss and round
 
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
