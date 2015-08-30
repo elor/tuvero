@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">71.06</p>
+      <p class="stat">74.19</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">58</p>
+      <p class="stat">71</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">9.76</p>
+      <p class="stat">9.16</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.47</p>
+      <p class="stat">0.52</p>
     </div>
   </div>
 </div>
@@ -99,8 +99,11 @@
  */
 define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchresultview&#039;, &#039;./listview&#039;,
     &#039;./teamtableview&#039;, &#039;./boxview&#039;, &#039;./teamview&#039;, &#039;core/listener&#039;,
-    &#039;core/listener&#039;], function(extend, TemplateView, MatchResultView, ListView,
-    TeamTableView, BoxView, TeamView, Listener, Listener) {
+    &#039;core/listener&#039;, &#039;core/binningreferencelistmodel&#039;, &#039;./matchtableview&#039;,
+    &#039;./generictournamenthistoryview&#039;], //
+function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
+    BoxView, TeamView, Listener, Listener, BinningReferenceListModel,
+    MatchTableView, GenericTournamentHistoryView) {
   /**
    * Constructor
    *
@@ -110,7 +113,7 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchresultv
    *          the container
    * @param teamlist
    *          a ListModel of all TeamModels. Is referenced by ID by
-   *          model.getHistory()
+   *          model.getCombinedHistory()
    * @param teamsize
    *          a ValueModel which represents the number of players in a team
    */
@@ -124,7 +127,11 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchresultv
     this.teamlist = teamlist;
     this.teamsize = teamsize;
 
+    this.groups = new BinningReferenceListModel(
+        this.model.getCombinedHistory(), TournamentHistoryView.groupFilter);
+
     this.initMatches();
+    this.initGenericView();
 
     Listener.bind(this.model.getName(), &#039;update&#039;, this.updateNames.bind(this));
 
@@ -132,21 +139,27 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchresultv
   }
   extend(TournamentHistoryView, TemplateView);
 
+  TournamentHistoryView.groupFilter = function(matchresult) {
+    return matchresult.getGroup();
+  };
+
   /**
-   * initializes matchlist and matchtable
+   * initializes matchtable
    */
   TournamentHistoryView.prototype.initMatches = function() {
-    this.$matchlist = this.$view.find(&#039;.matchlist&#039;);
-    this.matchlist = new ListView(this.model.getHistory(), this.$matchlist,
-        this.$template.filter(&#039;.matchview&#039;), MatchResultView, this.teamlist,
-        this.$template.filter(&#039;.correct&#039;), this.model);
-
     this.$matchtable = this.$view.find(&#039;.matchtable&#039;);
-    this.matchtable = new ListView(this.model.getHistory(), this.$matchtable,
-        this.$template.filter(&#039;.matchrow&#039;), MatchResultView, this.teamlist,
-        this.$template.filter(&#039;.correct&#039;), this.model);
+
+    // nested ListViews: BinningReferenceListModel is 2D
+    this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
+        MatchTableView, this.$template.filter(&#039;.matchrow&#039;), MatchResultView,
+        this.teamlist, this.$template.filter(&#039;.correct&#039;), this.model);
 
     this.$teamtableview = new TeamTableView(this, this.teamsize);
+  };
+
+  TournamentHistoryView.prototype.initGenericView = function() {
+    this.genericView = new GenericTournamentHistoryView(this.model, this.$view,
+        this.teamlist, this.teamsize);
   };
 
   TournamentHistoryView.prototype.updateNames = function() {

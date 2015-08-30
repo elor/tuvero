@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">77.21</p>
+      <p class="stat">76.06</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">39</p>
+      <p class="stat">41</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">9.73</p>
+      <p class="stat">10.27</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.19</p>
+      <p class="stat">0.22</p>
     </div>
   </div>
 </div>
@@ -118,7 +118,7 @@ define([&#039;lib/extend&#039;, &#039;./matchview&#039;, &#039;./matchresultcont
 
     this.updateScore();
 
-    if ($correctionForm &amp;&amp; tournament) {
+    if ($correctionForm &amp;&amp; tournament &amp;&amp; this.model.isResult()) {
       this.controller = new MatchResultController(this,
           $correctionForm.clone(), tournament);
     }
@@ -129,9 +129,11 @@ define([&#039;lib/extend&#039;, &#039;./matchview&#039;, &#039;./matchresultcont
    * display the score of the MatchResult
    */
   MatchResultView.prototype.updateScore = function() {
-    this.model.score.forEach(function(score, index) {
-      this.$scores.eq(index).text(score);
-    }, this);
+    if (this.model.isResult()) {
+      this.model.score.forEach(function(score, index) {
+        this.$scores.eq(index).text(score);
+      }, this);
+    }
   };
 
   return MatchResultView;
