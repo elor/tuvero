@@ -83,8 +83,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
      */
     subview = new (Function.prototype.bind.apply(this.SubView, args));
 
-    $item = subview.$view; // == $subview, but may have been wrapped by a
-    // tag
+    $item = $subview;
 
     if (index === this.subviews.length) {
       this.$view.append($item);
