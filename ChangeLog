@@ -4,6 +4,12 @@
 
 	* legacy/scripts/ui/listview.js: using the actual $subview, not subview.$view, since the SubView has to take care of DOM bookkeeping.
 
+	* core/templates/historytab.html: matchtable nested in a div, along with a "round" text
+
+	* legacy/style/general.css: matchview removed
+
+	* legacy/style/history.css: div.matchtable can be aligned on the same line, since they only show a single round
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

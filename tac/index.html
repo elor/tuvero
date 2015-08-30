@@ -602,10 +602,15 @@
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
-            Breite</span> <span><input class="shownames" type="checkbox"
-            checked="checked" />Spielernamen</span> <span><input class="showtable"
-            type="checkbox" checked="checked" />Tabelle</span>
+          <span>
+            <input class="maxwidth" type="checkbox" checked="checked" />
+            feste Breite</span>
+          <span>
+            <input class="shownames" type="checkbox" checked="checked" />
+            Spielernamen</span>
+          <span>
+            <input class="showtable" type="checkbox" />
+            Tabelle</span>
         </div>
         <h2>Turnierverlauf</h2>
 
@@ -613,41 +618,49 @@
           <div class="boxview tournament template">
             <h3 class="tournamentname"></h3>
 
-            <table class="matchtable background">
-              <tr>
-                <th>No.</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th>No.</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th>Ergebnis</th>
-              </tr>
-              <tr class="matchrow template">
-                <td class="teamno"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td class="teamno"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td>
+            <div class="matchtable">
+              <h3>Runde <span class="round">##</span></h3>
+              <table class="background">
+                <tr>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th>Ergebnis</th>
+                </tr>
+                <tr class="matchrow template">
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td>
                   <div class="result">
                     <span class="score">##</span> : <span class="score">##</span>
-                  </div>
-                </td>
-              </tr>
-            </table>
+                  </div></td>
+                </tr>
+              </table>
+            </div>
 
             <div class="correct noprint template">
               <div class="finish">
-                <input class="score" type="number" /> : <input class="score"
-                  type="number" />
-                <button class="cancel">abbrechen</button>
-                <button class="submit">korrigieren</button>
+                <input class="score" type="number" />
+                :
+                <input class="score"
+                type="number" />
+                <button class="cancel">
+                  abbrechen
+                </button>
+                <button class="submit">
+                  korrigieren
+                </button>
               </div>
             </div>
 
