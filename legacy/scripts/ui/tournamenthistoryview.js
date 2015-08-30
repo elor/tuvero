@@ -8,9 +8,10 @@
  */
 define(['lib/extend', './templateview', './matchresultview', './listview',
     './teamtableview', './boxview', './teamview', 'core/listener',
-    'core/listener', 'core/binningreferencelistmodel'], function(extend,
-    TemplateView, MatchResultView, ListView, TeamTableView, BoxView, TeamView,
-    Listener, Listener, BinningReferenceListModel) {
+    'core/listener', 'core/binningreferencelistmodel', './matchtableview'], //
+function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
+    BoxView, TeamView, Listener, Listener, BinningReferenceListModel,
+    MatchTableView) {
   /**
    * Constructor
    *
@@ -54,9 +55,10 @@ define(['lib/extend', './templateview', './matchresultview', './listview',
    */
   TournamentHistoryView.prototype.initMatches = function() {
     this.$matchtable = this.$view.find('.matchtable');
+
     // nested ListViews: BinningReferenceListModel is 2D
     this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
-        ListView, this.$template.filter('.matchrow'), MatchResultView,
+        MatchTableView, this.$template.filter('.matchrow'), MatchResultView,
         this.teamlist, this.$template.filter('.correct'), this.model);
 
     this.$teamtableview = new TeamTableView(this, this.teamsize);

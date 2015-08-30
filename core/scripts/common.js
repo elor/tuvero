@@ -148,6 +148,7 @@ define([
   'ui/matchcontroller',
   'ui/matchresultcontroller',
   'ui/matchresultview',
+  'ui/matchtableview',
   'ui/matchview',
   'ui/newtab',
   'ui/newteamcontroller',
