@@ -64,6 +64,16 @@ define(['lib/extend', './indexedmodel'], function(extend, IndexedModel) {
   };
 
   /**
+   * If isResult() is false, `this.score` does not exist and this.finish() still
+   * works.
+   *
+   * @return true if an inherited object is a MatchResult, false otherwise.
+   */
+  MatchModel.prototype.isResult = function() {
+    return this.score !== undefined || !this.finish;
+  }
+
+  /**
    * disable setID() functionality
    */
   MatchModel.prototype.setID = undefined;

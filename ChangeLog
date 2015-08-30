@@ -20,6 +20,10 @@
 
 	* core/scripts/test/combinedreferencelistmodel.js: Testing CombinedReferenceListModel
 
+	* core/scripts/matchmodel.js: isResult() added to determine whether `this` is a result or a match
+
+	* core/scripts/matchresult.js: isBye() checks isResult()
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices
