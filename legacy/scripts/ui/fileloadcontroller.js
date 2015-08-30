@@ -56,7 +56,8 @@ define(['lib/extend', 'core/controller', './storage', 'options', './toast',
     try {
       if (State.fromBlob(blob)) {
         Storage.changed();
-        new Toast(Strings.loaded);
+        Toast.closeTemporaryToasts();
+        new Toast(Strings.loaded, Toast.LONG);
       } else {
         // TODO what if something invalid has been returned?
       }

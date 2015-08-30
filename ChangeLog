@@ -33,6 +33,7 @@
 	* legacy/scripts/ui/rankingview.js: rank multiplicity is possible again.
 
 	* legacy/scripts/ui/fileloadcontroller.js: Controller for loading from files
+	When loading from a file, all "clear"-toasts will be closed.
 
 	* legacy/scripts/ui/settingstab.js: using FileLoadController
 
