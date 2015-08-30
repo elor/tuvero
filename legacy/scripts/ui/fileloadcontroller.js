@@ -53,6 +53,7 @@ define(['lib/extend', 'core/controller', './storage', 'options', './toast',
     Storage.enable();
     Storage.clear(Options.dbname);
 
+    Toast.closeTemporaryToasts();
     try {
       if (State.fromBlob(blob)) {
         Storage.changed();
@@ -60,20 +61,23 @@ define(['lib/extend', 'core/controller', './storage', 'options', './toast',
         new Toast(Strings.loaded, Toast.LONG);
       } else {
         // TODO what if something invalid has been returned?
+        this.reset();
       }
     } catch (err) {
       new Toast(Strings.loadfailed, Toast.LONG);
       // perform a complete reset of the everything related to the
       // tournament
       Storage.clear(Options.dbname);
-
-      new Toast(Strings.newtournament);
     }
   };
 
   FileLoadController.prototype.abort = function() {
     new Toast(Strings.fileabort);
-  }
+  };
+
+  FileLoadController.prototype.reset = function() {
+    this.view.$view.val('');
+  };
 
   return FileLoadController;
 });

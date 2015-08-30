@@ -34,6 +34,7 @@
 
 	* legacy/scripts/ui/fileloadcontroller.js: Controller for loading from files
 	When loading from a file, all "clear"-toasts will be closed.
+	resetting the input after every action ensures that the same file can be loaded multiple times in a row
 
 	* legacy/scripts/ui/settingstab.js: using FileLoadController
 
