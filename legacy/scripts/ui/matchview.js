@@ -84,7 +84,9 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
 
     this.$view.find('.finish .points').val(Options.defaultscore || 0);
 
-    this.controller = new MatchController(this);
+    if (!this.model.isResult()) {
+      this.controller = new MatchController(this);
+    }
 
     this.update();
   }
