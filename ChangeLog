@@ -63,6 +63,9 @@
 
 	* core/templates/resultscore.html: typical score display
 
+	* legacy/scripts/ui/generictournamentview.js: critical destroy() bug fixed
+	unused variable removed
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

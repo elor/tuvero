@@ -22,15 +22,13 @@ define(['lib/extend', 'core/view', './tournamentview', './roundtournamentview',
    * Constructor
    */
   function GenericTournamentView(tournament, $view) {
-    var tournamentID, Constructor;
+    var Constructor;
     GenericTournamentView.superconstructor.call(this, undefined, $view);
-
-    tournamentID = tournament && tournament.getID();
 
     this.tournament = tournament;
     if (tournament) {
       Constructor = constructors[tournament.SYSTEM] || defaultConstructor;
-      new Constructor(tournament, $view);
+      this.view = new Constructor(tournament, $view);
     } else {
       this.view = new View(undefined, $view);
     }
