@@ -13,6 +13,7 @@
 
 	* legacy/scripts/ui/matchtableview.js: ListView for MatchResult lists, which also displays the group of the first match
 	This should be used in conjunction with grouping by group IDs
+	setting .running for running classes
 
 	* core/scripts/swisstournamentmodel.js: group ID for all matches corrected (was one too low)
 
