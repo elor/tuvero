@@ -84,6 +84,11 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     }
 
     /*
+     * advance the round index
+     */
+    this.round += 1;
+
+    /*
      * add the byes and matches to the current tournament
      */
     byes.forEach(function(byeTeamID, byeIndex) {
@@ -97,8 +102,6 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     matches.forEach(function(matchTeams, matchid) {
       this.matches.push(new MatchModel(matchTeams, matchid, this.round));
     }, this);
-
-    this.round += 1;
 
     return true;
   };

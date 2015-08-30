@@ -14,6 +14,8 @@
 	* legacy/scripts/ui/matchtableview.js: ListView for MatchResult lists, which also displays the group of the first match
 	This should be used in conjunction with grouping by group IDs
 
+	* core/scripts/swisstournamentmodel.js: group ID for all matches corrected (was one too low)
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices
