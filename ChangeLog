@@ -71,6 +71,10 @@
 
 	* legacy/scripts/ui/progresstableview.js: placeholder code for instantiating the progress tables
 
+	* tools/analyze.sh: moved to plato-gh-pages.sh
+
+	* tools/plato-gh-pages.sh: auto-commit after plato parse
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

@@ -60,4 +60,6 @@ done
 
 git checkout -q develop
 
-echo "Done. Please check the results and upload with 'git -C $outdir push'"
+git -C $localrepo commit "plato update $(date +%F)"
+
+echo "Done. Please check the results and upload with 'git -C $localrepo push'"
