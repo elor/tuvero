@@ -5,8 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
-    './browser', './storage', './storagesavecontroller'], function(extend, $,
-    View, ValueModel, ValueView, Browser, Storage, StorageSaveController) {
+    './browser', './storage', './storagesavecontroller', //
+    './fileloadcontroller'], function(extend, $, View, ValueModel, ValueView,
+    Browser, Storage, StorageSaveController, FileLoadController) {
   /**
    * represents a whole team tab
    *
@@ -38,8 +39,18 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     $container = this.$view.find('.savedate');
     this.saveDate = new ValueView(Storage.lastSaved, $container);
 
+    /*
+     * storage save button (NOT file save button)
+     */
     $button = this.$view.find('button.savestate');
     this.storageSaveController = new StorageSaveController(new View(undefined,
+        $button));
+
+    /*
+     * load button
+     */
+    $button = this.$view.find('input.load.file');
+    this.fileLoadController = new FileLoadController(new View(undefined,
         $button));
   };
 

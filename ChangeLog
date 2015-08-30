@@ -32,6 +32,10 @@
 
 	* legacy/scripts/ui/rankingview.js: rank multiplicity is possible again.
 
+	* legacy/scripts/ui/fileloadcontroller.js: Controller for loading from files
+
+	* legacy/scripts/ui/settingstab.js: using FileLoadController
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

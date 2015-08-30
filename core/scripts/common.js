@@ -130,6 +130,7 @@ define([
   'ui/data/swissperms',
   'ui/debug',
   'ui/debugtab',
+  'ui/fileloadcontroller',
   'ui/finishroundcontroller',
   'ui/fontsizecontroller',
   'ui/fontsizemodel',
