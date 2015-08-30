@@ -45,12 +45,20 @@
 	* legacy/scripts/ui/toast.js: Toast.closeTemporaryToasts() added to remove all previous toasts
 
 	* core/templates/matchtable.html: contains matchtable, which was previously embedded into historytab.html
+	using {{resultscore}}
 
 	* core/templates/progresstable.html: simple progress table added for swiss and round
+	using {{resultscore}}
 
 	* legacy/scripts/ui/historytab.js: Checkbox logic for .hidefinished added
 
 	* legacy/scripts/ui/matchview.js: only instantiating the MatchController for actual MatchModels, not MatchResults
+
+	* core/templates/correctionform.html: correction form extracted from historytab.html
+
+	* core/templates/finishmatchform.html: 'finish match'-form extracted from gamestab.html
+
+	* core/templates/resultscore.html: typical score display
 
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
