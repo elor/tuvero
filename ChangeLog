@@ -2,6 +2,7 @@
 
 	* legacy/scripts/ui/tournamenthistoryview.js: Using distinct tables for different rounds/groups
 	using MatchTableView to also enable displaying the group ID
+	using a GenericTournamentHistoryView to initiate the progress tables
 
 	* legacy/scripts/ui/listview.js: using the actual $subview, not subview.$view, since the SubView has to take care of DOM bookkeeping.
 
@@ -65,6 +66,10 @@
 
 	* legacy/scripts/ui/generictournamentview.js: critical destroy() bug fixed
 	unused variable removed
+
+	* legacy/scripts/ui/generictournamenthistoryview.js: dynamically instantiate different history output types (KO, Progresstable, ...)
+
+	* legacy/scripts/ui/progresstableview.js: placeholder code for instantiating the progress tables
 
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

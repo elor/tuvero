@@ -8,10 +8,11 @@
  */
 define(['lib/extend', './templateview', './matchresultview', './listview',
     './teamtableview', './boxview', './teamview', 'core/listener',
-    'core/listener', 'core/binningreferencelistmodel', './matchtableview'], //
+    'core/listener', 'core/binningreferencelistmodel', './matchtableview',
+    './generictournamenthistoryview'], //
 function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
     BoxView, TeamView, Listener, Listener, BinningReferenceListModel,
-    MatchTableView) {
+    MatchTableView, GenericTournamentHistoryView) {
   /**
    * Constructor
    *
@@ -39,6 +40,7 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
         this.model.getCombinedHistory(), TournamentHistoryView.groupFilter);
 
     this.initMatches();
+    this.initGenericView();
 
     Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
 
@@ -62,6 +64,11 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
         this.teamlist, this.$template.filter('.correct'), this.model);
 
     this.$teamtableview = new TeamTableView(this, this.teamsize);
+  };
+
+  TournamentHistoryView.prototype.initGenericView = function() {
+    this.genericView = new GenericTournamentHistoryView(this.model, this.$view,
+        this.teamlist, this.teamsize);
   };
 
   TournamentHistoryView.prototype.updateNames = function() {
