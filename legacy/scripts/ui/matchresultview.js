@@ -27,7 +27,7 @@ define(['lib/extend', './matchview', './matchresultcontroller'], function(
 
     this.updateScore();
 
-    if ($correctionForm && tournament) {
+    if ($correctionForm && tournament && this.model.isResult()) {
       this.controller = new MatchResultController(this,
           $correctionForm.clone(), tournament);
     }
@@ -38,9 +38,11 @@ define(['lib/extend', './matchview', './matchresultcontroller'], function(
    * display the score of the MatchResult
    */
   MatchResultView.prototype.updateScore = function() {
-    this.model.score.forEach(function(score, index) {
-      this.$scores.eq(index).text(score);
-    }, this);
+    if (this.model.isResult()) {
+      this.model.score.forEach(function(score, index) {
+        this.$scores.eq(index).text(score);
+      }, this);
+    }
   };
 
   return MatchResultView;
