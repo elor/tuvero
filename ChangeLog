@@ -16,6 +16,10 @@
 
 	* core/scripts/swisstournamentmodel.js: group ID for all matches corrected (was one too low)
 
+	* core/scripts/combinedreferencelistmodel.js: CombinedReferenceListModel appends multiple lists into a single one
+
+	* core/scripts/test/combinedreferencelistmodel.js: Testing CombinedReferenceListModel
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

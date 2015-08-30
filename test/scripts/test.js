@@ -14,6 +14,7 @@ require(['config'], function() {
   'core/test/antisymmetricmatrixmodel',
   'core/test/binningreferencelistmodel',
   'core/test/byeresult',
+  'core/test/combinedreferencelistmodel',
   'core/test/correctionmodel',
   'core/test/correctionreferencemodel',
   'core/test/delegatematrix',

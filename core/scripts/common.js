@@ -23,6 +23,7 @@ define([
   'core/binningreferencelistmodel',
   'core/byeresult',
   'core/classview',
+  'core/combinedreferencelistmodel',
   'core/controller',
   'core/correctionmodel',
   'core/correctionreferencemodel',
