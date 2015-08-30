@@ -32,7 +32,15 @@
   text-overflow: ellipsis;
 }
 
-#tabs > [data-tab="history"].hidenames .name, #tabs > [data-tab="history"].hidenames .playercol {
+#tabs > [data-tab="history"].hidenames .name {
+  display: none;
+}
+
+#tabs > [data-tab="history"].hidenames .playercol {
+  display: none;
+}
+
+#tabs > [data-tab="history"].hidefinished .matchtable.finished {
   display: none;
 }
 

@@ -7,14 +7,17 @@
 
 	* core/templates/historytab.html: matchtable nested in a div, along with a "round" text
 	matchtable moved to its own file
+	'hidefinished'-checkbox added
 
 	* legacy/style/general.css: matchview removed
 
 	* legacy/style/history.css: div.matchtable can be aligned on the same line, since they only show a single round
+	.hidefinished rules added
 
 	* legacy/scripts/ui/matchtableview.js: ListView for MatchResult lists, which also displays the group of the first match
 	This should be used in conjunction with grouping by group IDs
-	setting .running for running classes
+	setting .running for running groups
+	setting .finished for finished groups
 
 	* core/scripts/swisstournamentmodel.js: group ID for all matches corrected (was one too low)
 
@@ -44,6 +47,8 @@
 	* core/templates/matchtable.html: contains matchtable, which was previously embedded into historytab.html
 
 	* core/templates/progresstable.html: simple progress table added for swiss and round
+
+	* legacy/scripts/ui/historytab.js: Checkbox logic for .hidefinished added
 
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

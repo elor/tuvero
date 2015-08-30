@@ -60,6 +60,13 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
     this.showtableCheckboxView = new CheckboxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view, 'showtable');
 
+    // list/table selection checkbox
+    value = new ValueModel();
+    $container = this.$view.find('>.options input.hidefinished');
+    this.hidefinishedCheckboxView = new CheckboxView(value, $container);
+    this.hidefinishedClassView = new ClassView(value, this.$view,
+        'hidefinished');
+
     // hide teamTable content depending on state
     // this.teamTableView = new TeamTableView(this.teamTable,
     // State.teamsize);

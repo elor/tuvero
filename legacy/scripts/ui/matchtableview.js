@@ -55,7 +55,9 @@ function(extend, ListView, Listener, MatchResult) {
 
     if (isRunning) {
       this.$container.addClass('running');
+      this.$container.removeClass('finished');
     } else {
+      this.$container.addClass('finished');
       this.$container.removeClass('running');
     }
 
