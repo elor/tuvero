@@ -36,6 +36,8 @@
 
 	* legacy/scripts/ui/settingstab.js: using FileLoadController
 
+	* legacy/scripts/ui/toast.js: Toast.closeTemporaryToasts() added to remove all previous toasts
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

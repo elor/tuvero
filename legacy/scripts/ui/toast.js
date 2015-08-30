@@ -104,6 +104,9 @@ define(['jquery', 'core/type'], function($, Type) {
     if (this.duration > 0) {
       window.setTimeout(this.close.bind(this),
           1000 * (this.duration + Toast.fadeinDuration));
+      $toast.addClass('temporary');
+    } else {
+      $toast.addClass('infinite');
     }
   };
 
@@ -179,6 +182,14 @@ define(['jquery', 'core/type'], function($, Type) {
     }, this);
 
     pending = undefined;
+  };
+
+  Toast.closeTemporaryToasts = function() {
+    Toast.$container.find('.toast.temporary').map(function() {
+      var $toast = $(this);
+      $toast.next().hide();
+      $toast.hide();
+    });
   };
 
   Toast.SHORT = 2;
