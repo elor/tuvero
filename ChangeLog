@@ -24,6 +24,9 @@
 
 	* core/scripts/matchresult.js: isBye() checks isResult()
 
+	* core/scripts/resultreferencemodel.js: If used by tournament.getCombinedHistory(), the MatchModel instances would be cast to MatchResult instances.
+	The fix in this commit makes the isResult() function return 'false' for matches, but 'true' for results.
+
 2015-08-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices

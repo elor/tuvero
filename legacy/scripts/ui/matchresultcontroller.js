@@ -13,7 +13,6 @@ function(extend, Controller, Strings, Toast, Options) {
    */
   function MatchResultController(view, $correctionForm, tournament) {
     var controller;
-
     MatchResultController.superconstructor.call(this, view);
 
     if (this.model.isBye()) {

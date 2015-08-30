@@ -18,10 +18,16 @@ define(['lib/extend', './matchresult', './matchreferencemodel'], function(
    *          a ListModel instance of team ids, which is used for team mapping
    */
   function ResultReferenceModel(result, teamlist) {
-    var matchRef = new MatchReferenceModel(result, teamlist);
-    ResultReferenceModel.superconstructor.call(this, matchRef, result.score);
+    var matchRef;
 
-    this.result = result;
+    if (result instanceof MatchResult) {
+      matchRef = new MatchReferenceModel(result, teamlist);
+      ResultReferenceModel.superconstructor.call(this, matchRef, result.score);
+      this.result = result;
+    } else {
+      MatchReferenceModel.call(this, result, teamlist);
+      this.finish = MatchReferenceModel.prototype.finish;
+    }
   }
   extend(ResultReferenceModel, MatchResult);
 
