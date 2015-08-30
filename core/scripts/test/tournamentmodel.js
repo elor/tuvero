@@ -16,7 +16,7 @@ define(function() {
 
     QUnit.test('TournamentModel', function() {
       var tournament, state, teams, matches, byes, match, ranking, ref, data, //
-      history, corrections, result;
+      history, combinedHistory, corrections, result;
 
       QUnit.ok(extend.isSubclass(TournamentModel, PropertyModel),
           'TournamentModel is subclass of PropertyModel');
@@ -28,6 +28,7 @@ define(function() {
       teams = tournament.getTeams();
       matches = tournament.getMatches();
       history = tournament.getHistory();
+      combinedHistory = tournament.getCombinedHistory();
       corrections = tournament.getCorrections();
       byes = tournament.getVotes('bye');
       ranking = tournament.getRanking();
@@ -36,6 +37,7 @@ define(function() {
       QUnit.ok(teams, 'getTeams() returns');
       QUnit.ok(matches, 'getMatches() returns');
       QUnit.ok(history, 'getHistory() returns');
+      QUnit.ok(combinedHistory, 'getHistory() returns');
       QUnit.ok(corrections, 'getCorrections() returns');
       QUnit.ok(byes, 'getTeams() returns');
       QUnit.ok(ranking, 'getRanking() returns');
@@ -96,6 +98,9 @@ define(function() {
 
       QUnit.equal(history.length, 0, 'match has not been pushed to history');
 
+      QUnit.equal(combinedHistory.length, 1,
+          'combinedHistory contains an element');
+
       QUnit.equal(tournament.finish(), false,
           'tournament cannot be finished when there are open matches');
 
@@ -136,6 +141,10 @@ define(function() {
 
       QUnit.equal(matches.length, 1, 'matches have been generated');
       QUnit.equal(byes.length, 1, 'byes have been generated');
+      QUnit.equal(history.length, 1, 'history contains a match and a bye');
+      QUnit.equal(combinedHistory.length, 2,
+          'combined history contains a current match, '
+              + 'a finished match and the current bye');
 
       match = matches.get(0);
       QUnit.equal(match.getTeamID(0), 4, 'global team id in match');

@@ -64,6 +64,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
     numGames = numTeams >> 1;
 
     if (numTeams % 2) {
+      // TODO use a function to auto-create all bye conditions. DRY principle.
       this.votes.bye.push(numTeams - this.round - 1);
       this.history.push(new ByeResult(numTeams - this.round - 1, [
           Options.byepointswon, Options.byepointslost], numTeams >> 1,

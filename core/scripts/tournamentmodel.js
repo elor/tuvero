@@ -17,13 +17,14 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './referencelistmodel', './maplistmodel', './valuemodel',
     './readonlylistmodel', 'options', './indexedmodel', './correctionmodel',
     './matchreferencemodel', './resultreferencemodel',
-    './correctionreferencemodel', './sortedreferencelistmodel'], function(
-    extend, PropertyModel, ListModel, UniqueListModel, RankingMapper,
-    StateValueModel, MatchModel, MatchResult, ListCollectorModel, Listener,
-    RankingModel, ReferenceListModel, MapListModel, ValueModel,
-    ReadonlyListModel, Options, IndexedModel, CorrectionModel,
-    MatchReferenceModel, ResultReferenceModel, CorrectionReferenceModel,
-    SortedReferenceListModel) {
+    './correctionreferencemodel', './sortedreferencelistmodel',
+    './combinedreferencelistmodel'], function(extend, PropertyModel, ListModel,
+    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
+    ListCollectorModel, Listener, RankingModel, ReferenceListModel,
+    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
+    CorrectionModel, MatchReferenceModel, ResultReferenceModel,
+    CorrectionReferenceModel, SortedReferenceListModel,
+    CombinedReferenceListModel) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -293,6 +294,27 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
               TournamentModel.matchCompare), this.teams, ResultReferenceModel);
     }
     return this.singletons.history;
+  };
+
+  /**
+   * @return ListModel of the running matches, with global team ids
+   */
+  TournamentModel.prototype.getCombinedHistory = function() {
+    // prepare this.singletons.sortedRawHistory
+
+    if (this.singletons.combinedHistory === undefined) {
+      // combine matches and history into a single list
+      this.singletons.combinedRawHistory = new CombinedReferenceListModel(
+          this.matches, this.history);
+      // sort the combined list
+      this.singletons.sortedCombinedRawHistory = new SortedReferenceListModel(
+          this.singletons.combinedRawHistory, TournamentModel.matchCompare);
+      // reference the combined list and map the teams
+      this.singletons.combinedHistory = new ReferenceListModel(
+          this.singletons.sortedCombinedRawHistory, this.teams,
+          ResultReferenceModel);
+    }
+    return this.singletons.combinedHistory;
   };
 
   /**

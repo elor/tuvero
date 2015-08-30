@@ -21,7 +21,7 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
    *          the container
    * @param teamlist
    *          a ListModel of all TeamModels. Is referenced by ID by
-   *          model.getHistory()
+   *          model.getCombinedHistory()
    * @param teamsize
    *          a ValueModel which represents the number of players in a team
    */
@@ -35,8 +35,8 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
     this.teamlist = teamlist;
     this.teamsize = teamsize;
 
-    this.groups = new BinningReferenceListModel(this.model.getHistory(),
-        TournamentHistoryView.groupFilter);
+    this.groups = new BinningReferenceListModel(
+        this.model.getCombinedHistory(), TournamentHistoryView.groupFilter);
 
     this.initMatches();
 
