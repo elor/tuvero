@@ -1,14 +1,3 @@
-#tabs > [data-tab="history"] .matchview, #tabs > [data-tab="history"] .voteview {
-  display: inline-table;
-  margin: 0.5em;
-  border-radius: 0.5em;
-  border: solid 1px #000000;
-  background-color: #d3d3d3;
-  text-align: left;
-  white-space: nowrap;
-  vertical-align: top;
-}
-
 #tabs > [data-tab="history"] .hideresult .result {
   display: none;
 }
@@ -18,62 +7,12 @@
   max-width: 3em;
 }
 
-#tabs > [data-tab="history"] .matchview > div {
-  display: table;
-  margin: 0.0em;
-  padding: 0.0em;
-  width: 100%;
-}
-
-#tabs > [data-tab="history"] .matchview  .finish {
-  display: none;
-  text-align: center;
-  vertical-align: middle;
-}
-
-#tabs > [data-tab="history"] .matchview .correcting .finish {
-  display: table-cell;
-}
-
-#tabs > [data-tab="history"] .matchview  .teamno {
-  display: table-cell;
-  background: none;
-}
-
-#tabs > [data-tab="history"] .matchview  button {
-  width: 6.5em;
-  border: none;
-  box-shadow: inset 0px 0px 1px #000000;
-  border-radius: 5px;
-  background-color: #d3d3d3;
-  transition: color 0.2s;
-}
-
-/* this is awesome! */
-#tabs > [data-tab="history"] .matchview  button:not ([disabled] ):hover {
-  cursor: pointer;
-}
-
 #tabs > [data-tab="history"] .matchrow .teamno {
   font-weight: bold;
 }
 
 #tabs > [data-tab="history"] .matchrow .name {
   text-align: left
-}
-
-#tabs > [data-tab="history"] .matchview .left {
-  text-align: left;
-}
-
-#tabs > [data-tab="history"] .matchview .right .name {
-  text-align: right;
-}
-
-#tabs > [data-tab="history"] .matchview .bottom .team {
-  display: table-cell;
-  padding: 0em 0.3em;
-  vertical-align: middle;
 }
 
 #tabs > [data-tab="history"].maxwidth .bottom .team {
@@ -110,15 +49,7 @@
   text-align: center;
 }
 
-#tabs > [data-tab="history"] .matchtable {
-  display: none;
-}
-
 #tabs > [data-tab="history"].showtable .matchtable {
-  display: table;
-}
-
-#tabs > [data-tab="history"].showtable .matchlist {
   display: none;
 }
 

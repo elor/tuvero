@@ -50,14 +50,9 @@ define(['lib/extend', './templateview', './matchresultview', './listview',
   };
 
   /**
-   * initializes matchlist and matchtable
+   * initializes matchtable
    */
   TournamentHistoryView.prototype.initMatches = function() {
-    this.$matchlist = this.$view.find('.matchlist');
-    this.matchlist = new ListView(this.groups, this.$view, this.$matchlist,
-        ListView, this.$template.filter('.matchview'), MatchResultView,
-        this.teamlist, this.$template.filter('.correct'), this.model);
-
     this.$matchtable = this.$view.find('.matchtable');
     // nested ListViews: BinningReferenceListModel is 2D
     this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
