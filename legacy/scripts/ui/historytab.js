@@ -58,7 +58,8 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
     value = new ValueModel();
     $container = this.$view.find('>.options input.showtable');
     this.showtableCheckboxView = new CheckboxView(value, $container);
-    this.showtableClassView = new ClassView(value, this.$view, 'showtable');
+    this.showtableClassView = new ClassView(value, this.$view, 'showtable',
+        'showmatchtable');
 
     // list/table selection checkbox
     value = new ValueModel();

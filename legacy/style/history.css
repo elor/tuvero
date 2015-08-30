@@ -66,6 +66,10 @@
   display: none;
 }
 
+#tabs > [data-tab="history"].showmatchtable .progresstable {
+  display: none;
+}
+
 #tabs > [data-tab="history"] .voteview {
   display: inline-table;
   border-radius: 0.5em;

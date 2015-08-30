@@ -13,6 +13,7 @@
 
 	* legacy/style/history.css: div.matchtable can be aligned on the same line, since they only show a single round
 	.hidefinished rules added
+	hiding progresstable when matchtable is wanted
 
 	* legacy/scripts/ui/matchtableview.js: ListView for MatchResult lists, which also displays the group of the first match
 	This should be used in conjunction with grouping by group IDs
@@ -49,8 +50,10 @@
 
 	* core/templates/progresstable.html: simple progress table added for swiss and round
 	using {{resultscore}}
+	progresstable is '.hidden' by default, not '.template'
 
 	* legacy/scripts/ui/historytab.js: Checkbox logic for .hidefinished added
+	setting '.showmatchtable' when '.showtable' checkbox is unchecked
 
 	* legacy/scripts/ui/matchview.js: only instantiating the MatchController for actual MatchModels, not MatchResults
 
