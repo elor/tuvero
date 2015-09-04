@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', './state_new', './teammodel',
-    './playermodel', 'options'], function(extend, Model, State, TeamModel,
-    PlayerModel, Options) {
+    './playermodel', 'options', 'core/tournamentindex'], function(extend,
+    Model, State, TeamModel, PlayerModel, Options, TournamentIndex) {
   /**
    * Constructor
    */
@@ -62,8 +62,45 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     State.teamsize.set(Options.teamsize);
   };
 
-  LegacyLoaderModel.prototype.loadTournaments = function(tournaments) {
-    // console.log(tournaments);
+  LegacyLoaderModel.prototype.loadTournaments = function(blob) {
+    var tournaments = JSON.parse(blob);
+
+    tournaments.forEach(function(data) {
+      var tournament, system, name, blob, teams, ranking, parent, rankingorder;
+
+      system = data[0];
+      name = data[1];
+      blob = data[2];
+      teams = data[3];
+      ranking = data[4];
+      parent = data[5];
+
+      rankingorder = {
+        swiss: ['wins', 'buchholz', 'finebuchholz', 'saldo'],
+        ko: ['ko']
+      }[system];
+
+      tournament = TournamentIndex.createTournament(system, rankingorder);
+      if (!tournament) {
+        console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system);
+        return;
+      }
+
+      tournament.getName().set(name);
+      teams.forEach(tournament.addTeam.bind(tournament));
+
+      if (blob) {
+        // TODO read current state of the tournament
+      } else {
+        tournament.state.forceState('finished');
+      }
+
+      // TODO ranking? Nope. Just use the history.
+
+      // TODO bind parent
+
+      State.tournaments.push(tournament);
+    });
   };
 
   LegacyLoaderModel.prototype.loadHistory = function(history) {
