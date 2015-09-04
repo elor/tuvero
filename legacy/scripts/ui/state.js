@@ -42,7 +42,7 @@ define(['options', './state_new', './legacyloadermodel'], function(Options,
       if (!object.version) {
         console.warn('Saved data is older than 1.5.0. '
             + 'Tuvero tries to auto-convert it, but success is not guaranteed.'
-            + 'Please check the results');
+            + 'Please check the results before trusting them blindly');
 
         loader = new LegacyLoaderModel();
         if (loader.load(blob)) {

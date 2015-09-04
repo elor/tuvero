@@ -7,7 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', './state_new', './teammodel',
-    './playermodel'], function(extend, Model, State, TeamModel, PlayerModel) {
+    './playermodel', 'options'], function(extend, Model, State, TeamModel,
+    PlayerModel, Options) {
   /**
    * Constructor
    */
@@ -56,8 +57,9 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     });
   };
 
-  LegacyLoaderModel.prototype.loadOptions = function(options) {
-    // console.log(options);
+  LegacyLoaderModel.prototype.loadOptions = function(blob) {
+    Options.fromBlob(blob);
+    State.teamsize.set(Options.teamsize);
   };
 
   LegacyLoaderModel.prototype.loadTournaments = function(tournaments) {

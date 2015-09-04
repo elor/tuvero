@@ -1,6 +1,8 @@
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
+	Options are loaded
+	Teamsize if loaded
 
 	* legacy/scripts/ui/state.js: using a LegacyLoaderModel to parse old
 
