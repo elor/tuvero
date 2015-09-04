@@ -8,7 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['options', './state_new'], function(Options, State_New) {
+define(['options', './state_new', './legacyloadermodel'], function(Options,
+    State_New, LegacyLoaderModel) {
   var State;
 
   State = {
@@ -28,7 +29,7 @@ define(['options', './state_new'], function(Options, State_New) {
      *          the blob
      */
     fromBlob: function(blob) {
-      var object;
+      var object, loader;
 
       State_New.clear();
 
@@ -39,9 +40,15 @@ define(['options', './state_new'], function(Options, State_New) {
       object = JSON.parse(blob);
 
       if (!object.version) {
-        console.error('Saved data is older than 1.5.0. '
-            + 'It cannot be loaded by newer versions yet. '
-            + 'An automatic converter is being worked on.');
+        console.warn('Saved data is older than 1.5.0. '
+            + 'Tuvero tries to auto-convert it, but success is not guaranteed.'
+            + 'Please check the results');
+
+        loader = new LegacyLoaderModel();
+        if (loader.load(blob)) {
+          return true;
+        }
+
         new Toast(Strings.oldsaveformat, Toast.LONG);
         return false;
       }

@@ -1,3 +1,9 @@
+2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
+
+	* legacy/scripts/ui/state.js: using a LegacyLoaderModel to parse old
+
 2015-08-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tournamenthistoryview.js: Using distinct tables for different rounds/groups

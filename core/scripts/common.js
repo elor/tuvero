@@ -142,6 +142,7 @@ define([
   'ui/hometab',
   'ui/inputview',
   'ui/koline',
+  'ui/legacyloadermodel',
   'ui/lengthview',
   'ui/listcleanuplistener',
   'ui/listclickcontroller',
