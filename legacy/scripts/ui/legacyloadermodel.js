@@ -7,8 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', './state_new', './teammodel',
-    './playermodel', 'options', 'core/tournamentindex'], function(extend,
-    Model, State, TeamModel, PlayerModel, Options, TournamentIndex) {
+    './playermodel', 'options', 'core/tournamentindex', 'core/matchmodel',
+    'core/matchresult', 'core/byeresult'], function(extend, Model, State,
+    TeamModel, PlayerModel, Options, TournamentIndex, MatchModel, MatchResult,
+    ByeResult) {
   /**
    * Constructor
    */
@@ -66,7 +68,8 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     var tournaments = JSON.parse(blob);
 
     tournaments.forEach(function(data) {
-      var tournament, system, name, blob, teams, ranking, parent, rankingorder;
+      var tournament, system, name, blob, teams, ranking, parent, //
+      rankingorder, tournamentData;
 
       system = data[0];
       name = data[1];
@@ -74,6 +77,10 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
       teams = data[3];
       ranking = data[4];
       parent = data[5];
+
+      if (blob) {
+        tournamentData = JSON.parse(blob);
+      }
 
       rankingorder = {
         swiss: ['wins', 'buchholz', 'finebuchholz', 'saldo'],
@@ -83,6 +90,7 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
       tournament = TournamentIndex.createTournament(system, rankingorder);
       if (!tournament) {
         console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system);
+        tournament = TournamentIndex.createTournament('swiss', ['wins']);
         return;
       }
 
@@ -90,12 +98,34 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
       teams.forEach(tournament.addTeam.bind(tournament));
 
       if (blob) {
-        // TODO read current state of the tournament
+        // TODO read matches and votes from the blob. Ranking is
+        // recalculated
+        if (tournamentData.games && tournamentData.games.length > 0) {
+          tournament.state.forceState('running');
+        } else {
+          tournament.state.forceState('initial');
+        }
+
+        if (system === 'swiss') {
+          tournament.round = tournamentData.round - 1;
+        } else {
+          tournament.round = 0;
+        }
+
+        tournamentData.games.forEach(function(data) {
+          var teams, match, id;
+
+          teams = [data.teams[0][0], data.teams[1][0]];
+          id = data.id;
+
+          match = new MatchModel(teams, id, tournament.round);
+
+          tournament.matches.push(match);
+        });
+
       } else {
         tournament.state.forceState('finished');
       }
-
-      // TODO ranking? Nope. Just use the history.
 
       // TODO bind parent
 
@@ -103,8 +133,85 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     });
   };
 
-  LegacyLoaderModel.prototype.loadHistory = function(history) {
-    // console.log(history);
+  LegacyLoaderModel.prototype.loadHistory = function(blob) {
+    var history = JSON.parse(blob);
+
+    history.forEach(function(tournamenthistory, index) {
+      var tournament, round;
+
+      tournament = State.tournaments.get(index);
+      round = tournament.round;
+
+      /*
+       * Matches
+       */
+      if (tournamenthistory.games && tournamenthistory.games.length > 0) {
+        if (tournament.state.get() === 'initial') {
+          tournament.state.forceState('idle');
+        }
+
+        tournamenthistory.games.forEach(function(match) {
+          var match, result, teams, score, id, group;
+
+          teams = [match[0], match[1]];
+          score = [match[2], match[3]];
+          group = match[4];
+          id = match[5];
+
+          if (group > round) {
+            round = group;
+          }
+
+          match = new MatchModel(teams, id, group);
+          result = new MatchResult(match, score);
+
+          tournament.history.push(result);
+          tournament.ranking.result(result);
+        });
+
+        if (tournament.SYSTEM === 'swiss' && round > tournament.round) {
+          tournament.round = round;
+        }
+      }
+
+      /*
+       * Votes
+       */
+      tournamenthistory.votes.forEach(function(data) {
+        var type, teamid, round, vote, id;
+
+        type = data[0];
+        teamid = data[1];
+        round = data[2];
+        id = tournament.getTeams().length >> 1;
+
+        switch (type) {
+        case 0: // bye
+          vote = new ByeResult(teamid, [Options.byepointswon,
+              Options.byepointslost], id, round);
+          tournament.history.push(vote);
+          if (tournament.SYSTEM === 'swiss' //
+              && round === tournament.getRound()) {
+            tournament.votes.bye.push(teamid);
+          }
+          tournament.ranking.bye(teamid);
+          break;
+        case 1: // upvote
+          // TODO remember upvote
+          console.error('upvote ignored');
+          break;
+        case -1: // downvote
+          // TODO remember downvote
+          console.error('downvote ignored');
+          break;
+        }
+      });
+
+      /*
+       * Corrections
+       */
+    });
+
   };
 
   return LegacyLoaderModel;

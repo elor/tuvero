@@ -1,6 +1,7 @@
 2015-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: Rudimentary tournament loading code
+	restoring state, matches, history, byes, ranking and round
 
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
