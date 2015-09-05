@@ -6,18 +6,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './strings', './toast', 'options'], //
-function(extend, Controller, Strings, Toast, Options) {
+define(['lib/extend', './matchcontroller', './strings', './toast', 'options'], //
+function(extend, MatchController, Strings, Toast, Options) {
   /**
    * Constructor
    */
-  function MatchResultController(view, $correctionForm, tournament) {
-    var controller;
-    MatchResultController.superconstructor.call(this, view);
-
-    if (this.model.isBye()) {
-      return;
-    }
+  function MatchResultController(view, $form, tournament) {
+    MatchResultController.superconstructor.call(this, view, $form);
 
     if (this.model.length != 2) {
       console.error('corrections corrently only works with two teams.');
@@ -26,51 +21,26 @@ function(extend, Controller, Strings, Toast, Options) {
 
     this.tournament = tournament;
 
-    this.$result = this.view.$view.find('.result');
-    this.$correction = $correctionForm;
-    this.$score = this.$correction.find('.score');
-    this.$match = this.$result.parent();
-    this.$match.append(this.$correction);
-
-    this.$cancelbutton = this.$correction.find('button.cancel');
-    this.$submitbutton = this.$correction.find('button.submit');
+    this.$match = this.$form.parent();
+    this.$result = this.view.$result;
 
     this.$result.click(this.enableCorrection.bind(this));
-    this.$cancelbutton.click(this.cancel.bind(this));
-    this.$submitbutton.click(this.submit.bind(this));
-
-    controller = this;
-    this.$correction.keydown(function(e) {
-      switch (e.which) {
-      case 27: // escape
-        controller.cancel();
-        break;
-      case 13: // enter
-        controller.submit();
-        break;
-      default:
-        return;
-      }
-
-      e.preventDefault();
-      return false;
-    });
 
     this.updateScore();
   }
-  extend(MatchResultController, Controller);
+  extend(MatchResultController, MatchController);
 
   MatchResultController.prototype.updateScore = function() {
-    this.$score.eq(0).val(this.model.score[0]);
-    this.$score.eq(1).val(this.model.score[1]);
-    this.$score.attr('max', Options.maxpoints);
-    this.$score.attr('min', Options.minpoints);
+    this.$scores.eq(0).val(this.model.score[0]);
+    this.$scores.eq(1).val(this.model.score[1]);
+    this.$scores.attr('max', Options.maxpoints);
+    this.$scores.attr('min', Options.minpoints);
   };
 
   MatchResultController.prototype.enableCorrection = function() {
     this.updateScore();
     this.$match.addClass('correcting');
-    this.$score.eq(0).focus().select();
+    this.$scores.eq(0).click();
   };
 
   MatchResultController.prototype.disableCorrection = function() {
@@ -82,10 +52,13 @@ function(extend, Controller, Strings, Toast, Options) {
     this.disableCorrection();
   };
 
-  MatchResultController.prototype.submit = function() {
+  MatchResultController.prototype.accept = function() {
     var score;
 
-    score = [Number(this.$score.eq(0).val()), Number(this.$score.eq(1).val())];
+    score = [];
+    score.push(Number(this.$scores.eq(0).val()));
+    score.push(Number(this.$scores.eq(1).val()));
+
     if (isNaN(score[0]) || isNaN(score[1])) {
       return;
     } else if (score[0] < Options.minpoints || score[1] < Options.minpoints) {

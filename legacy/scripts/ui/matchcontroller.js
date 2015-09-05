@@ -16,31 +16,57 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
    * @param view
    *          the associated MatchView
    */
-  function MatchController(view) {
+  function MatchController(view, $form) {
     MatchController.superconstructor.call(this, view);
 
-    this.$form = this.view.$view.find('form.finish');
-    this.$submitbutton = this.$form.find('button');
-    this.$points = this.$form.find('.points');
+    this.$form = $form;
+    this.$acceptbutton = this.$form.find('button.accept');
+    this.$cancelbutton = this.$form.find('button.cancel');
+    this.$scores = this.$form.find('.score');
+
+    this.$scores.val(Options.defaultscore || 0);
+
+    this.$acceptbutton.click(this.accept.bind(this));
+    this.$cancelbutton.click(this.cancel.bind(this));
+    this.initKeyListeners();
 
     this.initNumberValidation();
-    this.initFormSubmission();
 
-    this.updateSubmitButtonStatus();
+    this.updateButtonStatus();
   }
   extend(MatchController, Controller);
+
+  MatchController.prototype.initKeyListeners = function() {
+    var controller = this;
+
+    this.$form.keydown(function(e) {
+      switch (e.which) {
+      case 27: // escape
+        controller.cancel();
+        break;
+      case 13: // enter
+        controller.accept();
+        break;
+      default:
+        return;
+      }
+
+      e.preventDefault();
+      return false;
+    });
+  };
 
   MatchController.prototype.initNumberValidation = function() {
     var controller = this;
 
     // select the whole input field on focus. make id DAU-safe.
-    this.$points.click(function() {
+    this.$scores.click(function() {
       $(this).select();
     });
 
     // We're using keyup to check the values as the user types, not only when
     // the focus is lost or the value is changed incrementally
-    this.$points.on('change keyup', function() {
+    this.$scores.on('change keyup', function() {
       var $this, value, valid;
 
       valid = true;
@@ -68,31 +94,24 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
         $this.addClass('invalid');
       }
 
-      controller.updateSubmitButtonStatus();
+      controller.updateButtonStatus();
     }).attr('min', Options.minpoints).attr('max', Options.maxpoints);
   };
 
-  MatchController.prototype.initFormSubmission = function() {
-    var controller = this;
-
-    this.$form.submit(function(e) {
-
-      e.preventDefault();
-      controller.finish();
-      return false;
-    });
+  MatchController.prototype.updateButtonStatus = function() {
+    this.$acceptbutton.prop('disabled', !this.validateScore());
   };
 
-  MatchController.prototype.updateSubmitButtonStatus = function() {
+  MatchController.prototype.validateScore = function() {
     var valid, tie, firstpoints, maxpoints;
 
-    valid = this.$points.filter('.invalid').length === 0;
+    valid = this.$scores.filter('.invalid').length === 0;
 
     if (valid && (Options.tiesforbidden || Options.maxpointtiesforbidden)) {
       tie = true;
       firstpoints = undefined;
 
-      this.$points.each(function() {
+      this.$scores.each(function() {
         var points = Number($(this).val());
         if (firstpoints === undefined) {
           firstpoints = points;
@@ -106,25 +125,34 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
         valid = false;
       }
 
-      maxpoints = (Number(this.$points.eq(0).val()) == Options.maxpoints);
+      maxpoints = (Number(this.$scores.eq(0).val()) == Options.maxpoints);
       if (tie && maxpoints && Options.maxpointtiesforbidden) {
         valid = false;
       }
     }
 
-    this.$submitbutton.prop('disabled', !valid);
+    return valid;
   };
 
-  MatchController.prototype.finish = function() {
+  MatchController.prototype.accept = function() {
     var points;
+
+    if (!this.validateScore()) {
+      return;
+    }
 
     points = [];
 
-    this.view.$view.find('.points').each(function(i) {
+    this.$scores.each(function(i) {
       points[i] = Number($(this).val());
     });
 
     this.model.finish(points);
+  };
+
+  MatchController.prototype.cancel = function() {
+    // inherit if necessary. Usual result submissions cannot be canceled
+    // We could reset the points, however
   };
 
   return MatchController;

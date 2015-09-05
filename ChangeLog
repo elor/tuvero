@@ -62,6 +62,10 @@
 	* legacy/scripts/ui/matchresultview.js: finding $result, $correctionform and $scores
 	removing the .result and .correct based on the match type (MatchModel/MatchResult/ByeResult)
 
+	* legacy/scripts/ui/matchcontroller.js: $form parameter allows for reuse of the logic
+
+	* legacy/scripts/ui/matchresultcontroller.js: inheriting from MatchController to avoid code duplication
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
