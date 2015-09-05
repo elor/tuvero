@@ -10,12 +10,6 @@
   text-overflow: ellipsis;
 }
 
-#tabs > [data-tab="games"] .finish input {
-  width: 3em;
-  max-width: 3em;
-  text-align: center;
-}
-
 #tabs > [data-tab="games"].hidenames .name, #tabs > [data-tab="games"].hidenames .playercol {
   display: none;
 }
@@ -52,7 +46,7 @@
 }
 
 @media print {
-  .noprint {
+  #tabs>[data-tab="games"] .matchtable .resultcol {
     display: none !important;
   }
 }

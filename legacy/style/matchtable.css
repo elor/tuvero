@@ -15,8 +15,16 @@
   text-align: left
 }
 
-@media print {
-  .matchtable .finish {
-    display: none;
-  }
+.matchtable .finish input, .matchtable .correct input {
+  width: 3em;
+  max-width: 3em;
+  text-align: center;
+}
+
+.matchtable .correct {
+  display: none;
+}
+
+.matchtable .correcting .correct {
+  display: block;
 }

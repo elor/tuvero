@@ -31,23 +31,10 @@
   display: none;
 }
 
-#tabs > [data-tab="history"] .finish {
-  display: none;
-}
-
-#tabs > [data-tab="history"] .correcting .finish {
-  display: block;
-}
-
 #tabs > [data-tab="history"] .correcting .result {
   display: none;
 }
 
-#tabs > [data-tab="history"] .finish input {
-  width: 3em;
-  max-width: 3em;
-  text-align: center;
-}
 
 #tabs > [data-tab="history"].showtable .matchtable {
   display: none;
@@ -87,10 +74,6 @@
 }
 
 @media print {
-  .noprint {
-    display: none !important;
-  }
-
   .result {
     display: block !important;
   }

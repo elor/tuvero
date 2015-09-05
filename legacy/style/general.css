@@ -34,6 +34,10 @@ div, button {
   padding: 0px;
 }
 
+button[disabled] {
+  color: #d3d3d3;
+}
+
 .hidden {
   display: none !important;
 }
@@ -73,10 +77,16 @@ input {
     color: #000000;
     padding: 0em;
   }
+
   button, input, h1, h2 {
     display: none !important;
   }
+
   .editable:hover:after {
     display: none;
+  }
+
+  .noprint {
+    display: none !important;
   }
 }
