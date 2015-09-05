@@ -73,6 +73,8 @@
 	* core/templates/rankingtab.html: 'showtable'-checkbox removed
 	'abbreviate'-checkbox added
 
+	* legacy/scripts/ui/checkboxview.js: autoformatting
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

@@ -6,49 +6,50 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', 'core/valuemodel', './checkboxcontroller'],
-    function(extend, View, ValueModel, CheckboxController) {
+define(['lib/extend', 'core/view', 'core/valuemodel', './checkboxcontroller'], //
+function(extend, View, ValueModel, CheckboxController) {
 
-      /**
-       * Constructor
-       *
-       * @param model
-       *          a boolean ValueModel instance
-       * @param $view
-       *          the checkbox
-       */
-      function CheckBoxView(model, $view) {
-        CheckBoxView.superconstructor.call(this, model || new ValueModel(),
-            $view);
+  /**
+   * Constructor
+   *
+   * @param model
+   *          a boolean ValueModel instance
+   * @param $view
+   *          the checkbox
+   */
+  function CheckBoxView(model, $view) {
+    CheckBoxView.superconstructor.call(this, model || new ValueModel(), $view);
 
-        if (this.model.get() !== true && this.model.get() !== false) {
-          this.model.set(this.$view.prop('checked'));
-        }
+    if (this.model.get() !== true && this.model.get() !== false) {
+      this.model.set(this.$view.prop('checked'));
+    }
 
-        this.controller = new CheckboxController(this);
-      }
-      extend(CheckBoxView, View);
+    this.controller = new CheckboxController(this);
 
-      /**
-       * apply model state to checkbox state
-       */
-      CheckBoxView.prototype.update = function() {
-        var viewvalue, modelvalue;
+    this.update();
+  }
+  extend(CheckBoxView, View);
 
-        viewvalue = this.$view.prop('checked');
-        modelvalue = this.model.get();
+  /**
+   * apply model state to checkbox state
+   */
+  CheckBoxView.prototype.update = function() {
+    var viewvalue, modelvalue;
 
-        if (viewvalue !== modelvalue) {
-          this.$view.prop('checked', modelvalue);
-        }
-      };
+    viewvalue = this.$view.prop('checked');
+    modelvalue = this.model.get();
 
-      /**
-       * Callback function
-       */
-      CheckBoxView.prototype.onupdate = function() {
-        this.update();
-      };
+    if (viewvalue !== modelvalue) {
+      this.$view.prop('checked', modelvalue);
+    }
+  };
 
-      return CheckBoxView;
-    });
+  /**
+   * Callback function
+   */
+  CheckBoxView.prototype.onupdate = function() {
+    this.update();
+  };
+
+  return CheckBoxView;
+});
