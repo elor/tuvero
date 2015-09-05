@@ -1,129 +1,53 @@
-#tabs>[data-tab="games"] .matchview, #tabs>[data-tab="games"] .voteview {
-  display: inline-table;
-  margin: 0.5em;
-  border-radius: 0.5em;
-  border: solid 1px #000000;
-  background-color: #d3d3d3;
-  text-align: left;
-  white-space: nowrap;
-  vertical-align: top;
-}
-
-#tabs>[data-tab="games"] .matchview>div {
-  display: table;
-  margin: 0.0em;
-  padding: 0.0em;
-  width: 100%;
-}
-
-#tabs>[data-tab="games"] .matchview  .finish {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-  '
-}
-
-#tabs>[data-tab="games"] .matchview  .teamno {
-  display: table-cell;
-  background: none;
-}
-
-#tabs>[data-tab="games"] .matchview  button {
-  width: 6.5em;
-  border: none;
-  box-shadow: inset 0px 0px 1px #000000;
-  border-radius: 5px;
-  background-color: #d3d3d3;
-  transition: color 0.2s;
-}
-
-/* this is awesome! */
-#tabs>[data-tab="games"] .matchview  button:not ([disabled] ):hover {
-  cursor: pointer;
-}
-
-#tabs>[data-tab="games"] .matchrow .teamno {
-  font-weight: bold;
-}
-
-#tabs>[data-tab="games"] .matchrow .name {
-  text-align: left
-}
-
-#tabs>[data-tab="games"] .matchview .left {
-  text-align: left;
-}
-
-#tabs>[data-tab="games"] .matchview .right .name {
-  text-align: right;
-}
-
-#tabs>[data-tab="games"] .matchview .bottom .team {
-  display: table-cell;
-  padding: 0em 0.3em;
-  vertical-align: middle;
-}
-
-#tabs>[data-tab="games"].maxwidth .bottom .team {
+#tabs > [data-tab="games"].maxwidth .bottom .team {
   width: 8em;
   max-width: 8em;
 }
 
-#tabs>[data-tab="games"].maxwidth .name {
+#tabs > [data-tab="games"].maxwidth .name {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#tabs>[data-tab="games"] .finish input {
+#tabs > [data-tab="games"] .finish input {
   width: 3em;
   max-width: 3em;
   text-align: center;
 }
 
-#tabs>[data-tab="games"].hidenames .name, #tabs>[data-tab="games"].hidenames .playercol
-  {
+#tabs > [data-tab="games"].hidenames .name, #tabs > [data-tab="games"].hidenames .playercol {
   display: none;
 }
 
-#tabs>[data-tab="games"] .matchtable {
-  display: none;
-}
-
-#tabs>[data-tab="games"].showtable .matchtable {
-  display: table;
-}
-
-#tabs>[data-tab="games"].showtable .matchlist {
-  display: none;
-}
-
-#tabs>[data-tab="games"] .voteview {
-  display: inline-table;
-  border-radius: 0.5em;
-  border: solid 1px #000000;
-  background-color: #d3d3d3;
-  margin: 0.5em;
-  white-space: nowrap;
-}
-
-#tabs>[data-tab="games"] div.teamno {
+#tabs > [data-tab="games"] div.teamno {
   display: table-cell;
   background: none;
 }
 
-#tabs>[data-tab="games"] div.voteview.names {
+#tabs > [data-tab="games"] .voteview {
+  display: inline-table;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  border: solid 1px #000000;
+  background-color: #d3d3d3;
+  vertical-align: top;
+  text-align: left;
+  white-space: nowrap;
+}
+
+#tabs > [data-tab="games"] div.voteview.names {
   display: table-cell;
   text-align: left;
   vertical-align: middle;
 }
 
-#tabs>[data-tab="games"] div.voteview.name {
+#tabs > [data-tab="games"] div.voteview.name {
   margin: 0.2em;
 }
 
-#tabs>[data-tab="games"]:not (.hidenames ) .votes .vote .names {
+#tabs>[data-tab="games"]:not (.hidenames )
+.votes .vote .names {
   display: table-cell;
 }
 

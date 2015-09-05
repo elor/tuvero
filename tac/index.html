@@ -450,78 +450,46 @@
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
-            checked="checked" />Spielernamen</span> <span><input class="showtable"
-            type="checkbox" checked="checked" />Tabelle</span>
+            checked="checked" />Spielernamen</span>
         </div>
         <h2>Laufende Spiele</h2>
 
         <div class="tournamentlist">
           <div class="boxview tournament template">
-            <h3 class="tournamentname"></h3>
+            <h3 class="tournamentname">%% %%</h3>
 
-            <div class="matchlist">
-              <div class="matchview template">
-                <div class="top">
-                  <div class="team left">
-                    <span class="teamno">##</span>
+            <div class="matchtable">
+              <h3>Runde <span class="round">##</span></h3>
+              <table class="background">
+                <tr>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th>Ergebnis</th>
+                </tr>
+                <tr class="matchrow template">
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td>
+                  <div class="result">
+                    <span class="score">##</span> : <span class="score">##</span>
                   </div>
-                  <form class="finish">
-                    <button type="submit">Beenden</button>
-                    <br> <input class="points" type="number" value="0" /> <input
-                      class="points" type="number" value="0" />
-                  </form>
-                  <div class="team left">
-                    <span class="teamno">##</span>
-                  </div>
-                </div>
-                <div class="bottom">
-                  <div class="team left">
-                    <div class="name">%% %%</div>
-                    <div class="name">%% %%</div>
-                    <div class="name">%% %%</div>
-                  </div>
-                  <div class="team right">
-                    <div class="name">%% %%</div>
-                    <div class="name">%% %%</div>
-                    <div class="name">%% %%</div>
-                  </div>
-                </div>
-              </div>
+                  <!-- {{finishmatchform}}
+                  {{correctionform}} -->      </td>
+                </tr>
+              </table>
             </div>
-
-            <table class="matchtable background">
-              <tr>
-                <th>No.</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th>No.</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th class="noprint">Ergebnis</th>
-              </tr>
-              <tr class="matchrow template">
-                <td class="teamno"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td class="teamno"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td class="name"></td>
-                <td class="noprint">
-                  <form class="finish">
-                    <input class="points" type="number" />
-                    :
-                    <input class="points" type="number" />
-                    <button type="submit">
-                      Beenden
-                    </button>
-                  </form>
-                </td>
-              </tr>
-            </table>
 
             <div class="votelist bye">
               <h3>&#x2205; Freilos</h3>

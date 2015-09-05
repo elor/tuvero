@@ -20,6 +20,16 @@
 
 	* core/templates/swissoptions.html: option texts updated (#155)
 
+	* core/templates/gamestab.html: using {{matchtable}}
+	matchlist removed
+
+	* legacy/style/games.css: .matchview removed
+	.matchtable extracted to matchtable.css
+
+	* legacy/style/history.css: .matchtable extracted to matchtable.css
+
+	* legacy/style/matchtable.css: .matchtable extracted from games.css and history.css
+
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
