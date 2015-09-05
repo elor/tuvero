@@ -7,19 +7,22 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', './listview', 'core/listener',
-    'core/matchresult', './/matchresultview'], function(extend, View, ListView,
-    Listener, MatchResult, MatchResultView) {
+    'core/matchresult', './/matchresultview', './teamtableview'], function(
+    extend, View, ListView, Listener, MatchResult, MatchResultView,
+    TeamTableView) {
   /**
    * Constructor
    */
   function MatchTableView(model, $view, $rowtemplate, teamlist, $correction,
-      tournament) {
+      tournament, teamsize) {
     var $listview;
     MatchTableView.superconstructor.call(this, model, $view);
 
     $listview = this.$view.children('table');
     this.listView = new ListView(this.model, $listview, $rowtemplate,
         MatchResultView, teamlist, $correction, tournament);
+
+    this.teamTableView = new TeamTableView(this.listView, teamsize);
 
     this.$round = this.$view.find('.round');
 

@@ -1,7 +1,7 @@
 /**
- * TeamTableView: hides th.playercol tags in consecutive occurences, when their
- * index inside the consecutive occurence is greater or equal to the number of
- * teams. This allows for the occurence of multiple teams inside a single row,
+ * TeamTableView: hides th.playercol tags in consecutive occurrences, when their
+ * index inside the consecutive occurrence is greater or equal to the number of
+ * teams. This allows for the occurrence of multiple teams inside a single row,
  * e.g. for match tables
  *
  * Also hides the whole table if there's no entry in the table.
