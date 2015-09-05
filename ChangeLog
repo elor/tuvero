@@ -13,10 +13,13 @@
 	unused constructor arguments removed
 	auto-initialize TeamTableView
 	$correction parameter removed: It's already present in the $view
+	$rowtemplate parameter removed: Just use $view.find() and a TemplateView
 
 	* legacy/scripts/ui/tournamenthistoryview.js: MatchResultView is referenced by MatchTableView
 	TeamTableView dependency removed
 	MatchTableView: $correction parameter removed
+	MatchTableView: $rowtemplate parameter removed
+	Inheriting from View, not TemplateView
 
 	* legacy/scripts/ui/teamtableview.js: header comment typos fixed
 
@@ -42,6 +45,7 @@
 	* legacy/scripts/ui/tournamentmatchesview.js: matchlist removed
 	using MatchTableView for matchtable
 	MatchTableView: $correction parameter removed
+	MatchTableView: $rowtemplate parameter removed
 
 	* core/templates/correctionform.html: simplified div hierarchy
 

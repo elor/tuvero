@@ -6,12 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', './boxview',
-    './teamview', 'core/listener', 'core/listener',
-    'core/binningreferencelistmodel', './matchtableview',
-    './generictournamenthistoryview'], function(extend, TemplateView, ListView,
-    BoxView, TeamView, Listener, Listener, BinningReferenceListModel,
-    MatchTableView, GenericTournamentHistoryView) {
+define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
+    'core/listener', 'core/listener', 'core/binningreferencelistmodel',
+    './matchtableview', './generictournamenthistoryview'], function(extend,
+    View, ListView, BoxView, TeamView, Listener, Listener,
+    BinningReferenceListModel, MatchTableView, GenericTournamentHistoryView) {
   /**
    * Constructor
    *
@@ -26,8 +25,7 @@ define(['lib/extend', './templateview', './listview', './boxview',
    *          a ValueModel which represents the number of players in a team
    */
   function TournamentHistoryView(model, $view, teamlist, teamsize) {
-    TournamentHistoryView.superconstructor.call(this, model, $view, //
-    $view.find('.template'));
+    TournamentHistoryView.superconstructor.call(this, model, $view);
 
     this.boxview = new BoxView(this.$view);
 
@@ -45,7 +43,7 @@ define(['lib/extend', './templateview', './listview', './boxview',
 
     this.updateNames();
   }
-  extend(TournamentHistoryView, TemplateView);
+  extend(TournamentHistoryView, View);
 
   TournamentHistoryView.groupFilter = function(matchresult) {
     return matchresult.getGroup();
@@ -59,8 +57,8 @@ define(['lib/extend', './templateview', './listview', './boxview',
 
     // nested ListViews: BinningReferenceListModel is 2D
     this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
-        MatchTableView, this.$template.filter('.matchrow'), this.teamlist,
-        this.model, this.teamsize);
+        MatchTableView, this.teamlist, this.model,
+        this.teamsize);
   };
 
   TournamentHistoryView.prototype.initGenericView = function() {

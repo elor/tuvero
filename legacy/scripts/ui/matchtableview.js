@@ -6,20 +6,20 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './listview', 'core/listener',
+define(['lib/extend', './templateview', './listview', 'core/listener',
     'core/matchresult', './/matchresultview', './teamtableview'], function(
-    extend, View, ListView, Listener, MatchResult, MatchResultView,
+    extend, TemplateView, ListView, Listener, MatchResult, MatchResultView,
     TeamTableView) {
   /**
    * Constructor
    */
-  function MatchTableView(model, $view, $rowtemplate, teamlist, tournament,
-      teamsize) {
+  function MatchTableView(model, $view, teamlist, tournament, teamsize) {
     var $listview;
-    MatchTableView.superconstructor.call(this, model, $view);
+    MatchTableView.superconstructor.call(this, model, $view, $view
+        .find('.matchrow'));
 
     $listview = this.$view.children('table');
-    this.listView = new ListView(this.model, $listview, $rowtemplate,
+    this.listView = new ListView(this.model, $listview, this.$template,
         MatchResultView, teamlist, tournament);
 
     this.teamTableView = new TeamTableView(this.listView, teamsize);
@@ -29,7 +29,7 @@ define(['lib/extend', 'core/view', './listview', 'core/listener',
     this.updateRunningState();
     this.updateGroupNumber();
   }
-  extend(MatchTableView, View);
+  extend(MatchTableView, TemplateView);
 
   /**
    * print the group ID as soon as it's available

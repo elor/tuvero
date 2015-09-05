@@ -25,7 +25,7 @@ define(['lib/extend', './templateview', './matchview', './listview',
    */
   function TournamentMatchesView(model, $view, teamlist, teamsize) {
     TournamentMatchesView.superconstructor.call(this, model, $view, //
-    $view.find('.template'));
+    $view.find('.template.voteview'));
 
     this.boxview = new BoxView(this.$view);
 
@@ -49,8 +49,7 @@ define(['lib/extend', './templateview', './matchview', './listview',
   TournamentMatchesView.prototype.initMatches = function() {
     this.$matchtable = this.$view.find('.matchtable');
     this.matchtable = new MatchTableView(this.model.getMatches(),
-        this.$matchtable, this.$template.filter('.matchrow'), this.teamlist,
-        this.model, this.teamsize);
+        this.$matchtable, this.teamlist, this.model, this.teamsize);
   };
 
   /**
@@ -61,7 +60,7 @@ define(['lib/extend', './templateview', './matchview', './listview',
 
     this.$view.find('.votelist').hide();
 
-    $votetemplate = this.$template.filter('.voteview');
+    $votetemplate = this.$template;
 
     this.votelistmodels = this.model.VOTES.map(function(votetype) {
       var $votes, votelist;
