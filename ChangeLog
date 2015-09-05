@@ -18,6 +18,8 @@
 
 	* legacy/scripts/ui/teamtableview.js: header comment typos fixed
 
+	* core/templates/swissoptions.html: option texts updated (#155)
+
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
