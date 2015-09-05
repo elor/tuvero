@@ -80,6 +80,14 @@
 
 	* legacy/scripts/ui/tournamentrankingview.js: passing the abbreviate value through to RankingView
 
+	* legacy/scripts/ui/rankingview.js: using the localized strings instead of component names
+	respecting the abbreviate value
+	auto-redraw on player name change
+
+	* legacy/scripts/ui/strings.js: medium ranking strings added as an alternative to abbreviations
+
+	* test/rankingview.html: test extended to provide the 'abbreviate' parameter
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

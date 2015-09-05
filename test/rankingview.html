@@ -38,6 +38,7 @@ function TestMain(Common, $) {
   RankingModel = Common('core/rankingmodel');
   TeamModel = Common('ui/teammodel');
   PlayerModel = Common('ui/playermodel');
+  ValueModel = Common('core/valuemodel');
   ListModel = Common('core/listmodel');
   MatchModel = Common('core/matchmodel');
   MatchResult = Common('core/matchresult');
@@ -53,16 +54,16 @@ function TestMain(Common, $) {
       teams = [];
       do {
         teams.push(new PlayerModel('Player ' + i + '.' + (teams.length+1)));
-      } while (Math.random() < (1.0/(teams.length+1)))
+      } while (Math.random() < (1.0/(teams.length+1)));
       teamlist.push(new TeamModel(teams));
     }
 
     $view = $('table');
-    view = new RankingView(ranking, $view, teamlist);
+    view = new RankingView(ranking, $view, teamlist, new ValueModel(false));
 
     for ( i=0; i<ranking.length * 10; i+=1 ) {
       window.setTimeout(function() {
-        var a, b, p, q
+        var a, b, p, q;
         a = Math.floor(Math.random()*ranking.length);
         b = Math.floor(Math.random()*(ranking.length - 1));
         if (b >= a){
