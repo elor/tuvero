@@ -470,7 +470,7 @@
                   <th class="playercol">Spieler</th>
                   <th class="playercol">Spieler</th>
                   <th class="playercol">Spieler</th>
-                  <th>Ergebnis</th>
+                  <th class="resultcol">Ergebnis</th>
                 </tr>
                 <tr class="matchrow template">
                   <td class="teamno"></td>
@@ -485,8 +485,26 @@
                   <div class="result">
                     <span class="score">##</span> : <span class="score">##</span>
                   </div>
-                  <!-- {{finishmatchform}}
-                  {{correctionform}} -->      </td>
+                  <div class="noprint finish">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="accept">
+                      Beenden
+                    </button>
+                  </div>
+                  <div class="noprint correct">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="cancel">
+                      abbrechen
+                    </button>
+                    <button class="accept">
+                      korrigieren
+                    </button>
+                  </div>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -612,7 +630,7 @@
                   <th class="playercol">Spieler</th>
                   <th class="playercol">Spieler</th>
                   <th class="playercol">Spieler</th>
-                  <th>Ergebnis</th>
+                  <th class="resultcol">Ergebnis</th>
                 </tr>
                 <tr class="matchrow template">
                   <td class="teamno"></td>
@@ -627,8 +645,26 @@
                   <div class="result">
                     <span class="score">##</span> : <span class="score">##</span>
                   </div>
-                  <!-- {{finishmatchform}}
-                  {{correctionform}} -->      </td>
+                  <div class="noprint finish">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="accept">
+                      Beenden
+                    </button>
+                  </div>
+                  <div class="noprint correct">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="cancel">
+                      abbrechen
+                    </button>
+                    <button class="accept">
+                      korrigieren
+                    </button>
+                  </div>
+                  </td>
                 </tr>
               </table>
             </div>
@@ -653,21 +689,6 @@
                 <td class="template"> {{resultscore}} </td>
               </tr>
             </table>
-
-            <div class="correct noprint template">
-              <div class="finish">
-                <input class="score" type="number" />
-                :
-                <input class="score"
-                type="number" />
-                <button class="cancel">
-                  abbrechen
-                </button>
-                <button class="submit">
-                  korrigieren
-                </button>
-              </div>
-            </div>
 
           </div>
         </div>

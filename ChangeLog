@@ -35,6 +35,14 @@
 	* legacy/scripts/ui/tournamentmatchesview.js: matchlist removed
 	using MatchTableView for matchtable
 
+	* core/templates/correctionform.html: simplified div hierarchy
+
+	* core/templates/finishmatchform.html: form replaced with divs
+
+	* core/templates/historytab.html: correction templates removed
+
+	* core/templates/matchtable.html: .finish and .correct pseudo-forms are included directly
+
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
