@@ -7,7 +7,7 @@
   white-space: nowrap;
 }
 
-#tabs>[data-tab="ranking"].maxwidth .name {
+#tabs>[data-tab="ranking"].maxwidth .playername {
   width: 8em;
   max-width: 8em;
   overflow: hidden;

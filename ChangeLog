@@ -66,6 +66,10 @@
 
 	* legacy/scripts/ui/matchresultcontroller.js: inheriting from MatchController to avoid code duplication
 
+	* legacy/style/ranking.css: maxwidth-checkbox works
+
+	* legacy/style/rankingview.css: larger paddings for table cells
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
