@@ -31,7 +31,7 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
     hasHistory = false;
 
     for (i = 0; !hasHistory && i < State.tournaments.length; i += 1) {
-      hasHistory = State.tournaments.get(i).getHistory().length > 0;
+      hasHistory = State.tournaments.get(i).getCombinedHistory().length > 0;
     }
 
     if (hasHistory) {

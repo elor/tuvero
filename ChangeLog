@@ -88,6 +88,8 @@
 
 	* test/rankingview.html: test extended to provide the 'abbreviate' parameter
 
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing history tab even when only running matches are available
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
