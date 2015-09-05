@@ -59,6 +59,9 @@
 	* legacy/scripts/ui/matchview.js: input field zeroing is left to the controller
 	removing $finish if this.model is not a running match
 
+	* legacy/scripts/ui/matchresultview.js: finding $result, $correctionform and $scores
+	removing the .result and .correct based on the match type (MatchModel/MatchResult/ByeResult)
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

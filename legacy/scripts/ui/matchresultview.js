@@ -18,19 +18,32 @@ define(['lib/extend', './matchview', './matchresultcontroller'], function(
    * @param teamlist
    *          a ListModel of TeamModel instances
    */
-  function MatchResultView(model, $view, teamlist, $correctionForm, //
-  tournament) {
+  function MatchResultView(model, $view, teamlist, tournament) {
     MatchResultView.superconstructor.call(this, model, $view, teamlist);
 
-    this.$results = this.$view.find('.result');
-    this.$scores = this.$results.find('.score');
+    this.$result = this.$view.find('.result');
+    this.$scores = this.$result.find('.score');
+    this.$correctionform = this.$view.find('.correct');
+
+    if (this.model.isResult()) {
+      if (this.model.isBye()) {
+        this.$correctionform.remove();
+        this.$correctionform = undefined;
+      } else {
+        if (tournament) {
+          this.controller = new MatchResultController(this,
+              this.$correctionform, tournament);
+        }
+      }
+    } else {
+      this.$result.remove();
+      this.$result = undefined;
+      this.$scores = undefined;
+      this.$correctionform.remove();
+      this.$correctionform = undefined;
+    }
 
     this.updateScore();
-
-    if ($correctionForm && tournament && this.model.isResult()) {
-      this.controller = new MatchResultController(this,
-          $correctionForm.clone(), tournament);
-    }
   }
   extend(MatchResultView, MatchView);
 
