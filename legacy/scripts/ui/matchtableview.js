@@ -13,14 +13,14 @@ define(['lib/extend', 'core/view', './listview', 'core/listener',
   /**
    * Constructor
    */
-  function MatchTableView(model, $view, $rowtemplate, teamlist, $correction,
-      tournament, teamsize) {
+  function MatchTableView(model, $view, $rowtemplate, teamlist, tournament,
+      teamsize) {
     var $listview;
     MatchTableView.superconstructor.call(this, model, $view);
 
     $listview = this.$view.children('table');
     this.listView = new ListView(this.model, $listview, $rowtemplate,
-        MatchResultView, teamlist, $correction, tournament);
+        MatchResultView, teamlist, tournament);
 
     this.teamTableView = new TeamTableView(this.listView, teamsize);
 

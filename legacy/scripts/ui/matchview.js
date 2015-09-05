@@ -82,10 +82,13 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
       this.teamlist = undefined;
     }
 
-    this.$view.find('.finish .points').val(Options.defaultscore || 0);
+    this.$finishform = this.$view.find('.finish');
 
     if (!this.model.isResult()) {
-      this.controller = new MatchController(this);
+      this.controller = new MatchController(this, this.$finishform);
+    } else {
+      this.$finishform.remove();
+      this.$finishform = undefined;
     }
 
     this.update();

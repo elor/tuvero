@@ -61,21 +61,12 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
     this.showtableClassView = new ClassView(value, this.$view, 'showtable',
         'showmatchtable');
 
-    // list/table selection checkbox
+    // hidefinished checkbox
     value = new ValueModel();
     $container = this.$view.find('>.options input.hidefinished');
     this.hidefinishedCheckboxView = new CheckboxView(value, $container);
     this.hidefinishedClassView = new ClassView(value, this.$view,
         'hidefinished');
-
-    // hide teamTable content depending on state
-    // this.teamTableView = new TeamTableView(this.teamTable,
-    // State.teamsize);
-
-    // $container = this.$view.find('>.filereader input');
-    // this.teamsFileLoadController = new TeamsFileLoadController(new
-    // InputView(
-    // $container));
   };
 
   // FIXME CHEAP HACK AHEAD

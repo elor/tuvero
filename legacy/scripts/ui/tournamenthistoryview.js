@@ -60,7 +60,7 @@ define(['lib/extend', './templateview', './listview', './boxview',
     // nested ListViews: BinningReferenceListModel is 2D
     this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
         MatchTableView, this.$template.filter('.matchrow'), this.teamlist,
-        this.$template.filter('.correct'), this.model, this.teamsize);
+        this.model, this.teamsize);
   };
 
   TournamentHistoryView.prototype.initGenericView = function() {

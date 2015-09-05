@@ -50,7 +50,7 @@ define(['lib/extend', './templateview', './matchview', './listview',
     this.$matchtable = this.$view.find('.matchtable');
     this.matchtable = new MatchTableView(this.model.getMatches(),
         this.$matchtable, this.$template.filter('.matchrow'), this.teamlist,
-        this.$template.filter('.correction'), this.model, this.teamsize);
+        this.model, this.teamsize);
   };
 
   /**

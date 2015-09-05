@@ -12,9 +12,11 @@
 	This keep the contract of 'this.$view == $view'
 	unused constructor arguments removed
 	auto-initialize TeamTableView
+	$correction parameter removed: It's already present in the $view
 
 	* legacy/scripts/ui/tournamenthistoryview.js: MatchResultView is referenced by MatchTableView
 	TeamTableView dependency removed
+	MatchTableView: $correction parameter removed
 
 	* legacy/scripts/ui/teamtableview.js: header comment typos fixed
 
@@ -39,6 +41,7 @@
 
 	* legacy/scripts/ui/tournamentmatchesview.js: matchlist removed
 	using MatchTableView for matchtable
+	MatchTableView: $correction parameter removed
 
 	* core/templates/correctionform.html: simplified div hierarchy
 
@@ -50,6 +53,11 @@
 
 	* legacy/style/general.css: disabled buttons have grey text
 	.noprint rules moved here
+
+	* legacy/scripts/ui/historytab.js: unrelated comments removed
+
+	* legacy/scripts/ui/matchview.js: input field zeroing is left to the controller
+	removing $finish if this.model is not a running match
 
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
