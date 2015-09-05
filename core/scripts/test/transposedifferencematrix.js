@@ -21,7 +21,7 @@ define(function() {
 
     QUnit.test('TransposeDifferenceMatrix', function() {
       // constructor validation
-      var a, m, state;
+      var a, m;
 
       QUnit.ok(extend.isSubclass(TransposeDifferenceMatrix, DelegateMatrix),
           'TransposeDifferenceMatrix is a DelegateMatrix subclass');

@@ -78,11 +78,11 @@ define(['lib/extend', 'core/view', './listview', 'core/listener',
    */
   MatchTableView.prototype.onresize = function(emitter, event, data) {
     this.updateRunningState();
-  }
+  };
 
   MatchTableView.prototype.destroy = function() {
     this.listView.destroy();
-  }
+  };
 
   return MatchTableView;
 });

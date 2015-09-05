@@ -48,7 +48,7 @@ define(function() {
       }
       QUnit.ok(success, 'missing bin list throws an error');
 
-      binlist = new BinningReferenceListModel(list, binningFunction)
+      binlist = new BinningReferenceListModel(list, binningFunction);
       QUnit.ok(binlist, 'proper construction');
       QUnit.equal(binlist.length, 0, 'initial length is 0');
 
@@ -72,11 +72,11 @@ define(function() {
       list.push(12);
       list.push(53);
 
-      QUnit.equal(binlist.length, 4, "More insertions: 4 bins");
+      QUnit.equal(binlist.length, 4, 'More insertions: 4 bins');
 
       list.pop();
       QUnit.equal(binlist.length, 3,
-          "only 3 bins after the removal of a unique number");
+          'only 3 bins after the removal of a unique number');
 
       list = new ListModel([4, 1, 2, 53, 16, 5, 8, 9, 0, 7]);
       binlist = new BinningReferenceListModel(list, binningFunction);

@@ -71,7 +71,7 @@ define(['lib/extend', './indexedmodel'], function(extend, IndexedModel) {
    */
   MatchModel.prototype.isResult = function() {
     return this.score !== undefined || !this.finish;
-  }
+  };
 
   /**
    * disable setID() functionality

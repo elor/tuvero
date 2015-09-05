@@ -36,8 +36,8 @@ define(function() {
       QUnit.ok(success, 'empty construction fails');
 
       sorted = new SortedReferenceListModel(list);
-      QUnit.ok(sorted, "proper construction");
-      QUnit.equal(sorted.length, 0, "initial sorted list is empty");
+      QUnit.ok(sorted, 'proper construction');
+      QUnit.equal(sorted.length, 0, 'initial sorted list is empty');
 
       list.push(5);
 
@@ -67,20 +67,20 @@ define(function() {
       QUnit.deepEqual(sorted.asArray(), [1, 2, 4, 6, 53],
           'pre-initialized list is sorted on construction');
 
-      list = new ListModel(["Erik", "Kai", "Fabe"]);
+      list = new ListModel(['Erik', 'Kai', 'Fabe']);
       sorted = new SortedReferenceListModel(list);
-      QUnit.deepEqual(sorted.asArray(), ["Erik", "Fabe", "Kai"],
+      QUnit.deepEqual(sorted.asArray(), ['Erik', 'Fabe', 'Kai'],
           'strings are sorted');
 
       sorted = new SortedReferenceListModel(list,
           SortedReferenceListModel.descending);
-      QUnit.deepEqual(sorted.asArray(), ["Kai", "Fabe", "Erik"],
+      QUnit.deepEqual(sorted.asArray(), ['Kai', 'Fabe', 'Erik'],
           'descending order works, too');
 
       // descending order, even first
       sortfunc = function(a, b) {
         return ((a % 2) - (b % 2)) || (b - a);
-      }
+      };
 
       list = new ListModel();
       sorted = new SortedReferenceListModel(list, sortfunc);
@@ -98,7 +98,7 @@ define(function() {
 
       sortfunc = function() {
         return 0;
-      }
+      };
       sorted = new SortedReferenceListModel(list, sortfunc);
       QUnit.deepEqual(sorted.asArray(), list.asArray(),
           'sortfunction with zeroing sortfunction: '

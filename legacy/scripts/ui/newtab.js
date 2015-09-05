@@ -31,7 +31,7 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './systemlistview',
    * TODO maybe split it into multiple autodetected functions?
    */
   NewTab.prototype.init = function() {
-    var $view, view, factory, $templates, value;
+    var $view, factory, $templates, value;
 
     $templates = this.$view.find('.template[data-system]').detach();
     factory = new TournamentViewPopulator($templates);

@@ -83,7 +83,7 @@ define(['lib/extend', 'core/controller', 'core/view', './state_new',
     }
 
     return first + ' ' + last;
-  }
+  };
 
   return RegisterTeamsController;
 });

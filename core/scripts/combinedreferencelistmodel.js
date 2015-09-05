@@ -21,7 +21,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     this.makeReadonly();
 
     if (list1 === undefined) {
-      throw new Error("No lists to combine");
+      throw new Error('No lists to combine');
     }
 
     this.refLists = [];
@@ -136,7 +136,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     index += elementID;
 
     return index;
-  }
+  };
 
   return CombinedReferenceListModel;
 });

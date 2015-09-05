@@ -21,7 +21,7 @@ define(function() {
 
     QUnit.test('AbsoluteMatrix', function() {
       // constructor validation
-      var a, m, state;
+      var a, m;
 
       QUnit.ok(extend.isSubclass(AbsoluteMatrix, DelegateMatrix),
           'AbsoluteMatrix is a DelegateMatrix subclass');

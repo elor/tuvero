@@ -23,11 +23,11 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     this.makeReadonly();
 
     if (list === undefined) {
-      throw new Error("list argument is missins");
+      throw new Error('list argument is missing');
     }
 
     if (binningFunction === undefined) {
-      throw new Error("binning function is missing");
+      throw new Error('binning function is missing');
     }
 
     this.binningFunction = binningFunction;
@@ -131,7 +131,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
       }
     }
 
-    bin.insert(nextElementIndex, element)
+    bin.insert(nextElementIndex, element);
 
     return bin;
   };

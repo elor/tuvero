@@ -21,7 +21,7 @@ define(function() {
 
     QUnit.test('TransposeSumMatrix', function() {
       // constructor validation
-      var a, m, state;
+      var a, m;
 
       QUnit.ok(extend.isSubclass(TransposeSumMatrix, DelegateMatrix),
           'TransposeSumMatrix is a DelegateMatrix subclass');

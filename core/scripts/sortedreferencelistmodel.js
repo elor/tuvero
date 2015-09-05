@@ -19,7 +19,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     this.makeReadonly();
 
     if (list === undefined) {
-      throw new Error("SortedReferenceListModel: list argument is missing");
+      throw new Error('SortedReferenceListModel: list argument is missing');
     }
 
     if (sortFunction === undefined) {

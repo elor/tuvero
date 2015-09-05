@@ -52,7 +52,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
         }
       });
     });
-  }
+  };
 
   return RequireModsShortcut;
 });

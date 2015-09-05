@@ -57,7 +57,7 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     $container = this.$view.find('.allimages');
     this.allImages = new LoadedImagesView($container);
 
-    $container
+    $container;
 
     /*
      * button: register teams
