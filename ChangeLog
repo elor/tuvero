@@ -95,6 +95,10 @@
 
 	* legacy/scripts/ui/tournamentview.js: '.idle' advanced options are also boxviewed
 
+	* core/templates/progresstable.html: re-using the matchtable children
+
+	* legacy/style/progresstable.css: almost direct copy of matchtable.css for the same reasons
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

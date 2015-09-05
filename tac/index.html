@@ -686,7 +686,30 @@
                 <td class="name"></td>
                 <td class="rank">##</td>
                 <td class="template teamno"></td>
-                <td class="template"> {{resultscore}} </td>
+                <td class="template result">
+                  <div class="result">
+                    <span class="score">##</span> : <span class="score">##</span>
+                  </div>
+                  <div class="noprint finish">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="accept">
+                      Beenden
+                    </button>
+                  </div>
+                  <div class="noprint correct">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="cancel">
+                      abbrechen
+                    </button>
+                    <button class="accept">
+                      korrigieren
+                    </button>
+                  </div>
+                </td>
               </tr>
             </table>
 

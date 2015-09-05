@@ -1,0 +1,22 @@
+.progresstable {
+  display: inline-block;
+  padding: 0em 0.5em;
+}
+
+.progresstable > table {
+  margin: auto;
+}
+
+.progresstable .finish input, .progresstable .correct input {
+  width: 3em;
+  max-width: 3em;
+  text-align: center;
+}
+
+.progresstable .correct {
+  display: none;
+}
+
+.progresstable .correcting .correct {
+  display: block;
+}
