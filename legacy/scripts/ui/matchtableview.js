@@ -6,24 +6,27 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listview', 'core/listener', 'core/matchresult'], //
-function(extend, ListView, Listener, MatchResult) {
+define(['lib/extend', 'core/view', './listview', 'core/listener',
+    'core/matchresult', './/matchresultview'], function(extend, View, ListView,
+    Listener, MatchResult, MatchResultView) {
   /**
    * Constructor
    */
-  function MatchTableView() {
-    var $container = arguments[1];
-    arguments[1] = $container.children('table');
-    MatchTableView.superconstructor.apply(this, arguments);
+  function MatchTableView(model, $view, $rowtemplate, undefined, teamlist,
+      $correction, tournament) {
+    var $listview;
+    MatchTableView.superconstructor.call(this, model, $view);
 
-    this.$container = $container;
+    $listview = this.$view.children('table');
+    this.listView = new ListView(this.model, $listview, $rowtemplate,
+        MatchResultView, teamlist, $correction, tournament);
 
-    this.$round = this.$container.find('.round');
+    this.$round = this.$view.find('.round');
 
     this.updateRunningState();
     this.updateGroupNumber();
   }
-  extend(MatchTableView, ListView);
+  extend(MatchTableView, View);
 
   /**
    * print the group ID as soon as it's available
@@ -54,11 +57,11 @@ function(extend, ListView, Listener, MatchResult) {
     }
 
     if (isRunning) {
-      this.$container.addClass('running');
-      this.$container.removeClass('finished');
+      this.$view.addClass('running');
+      this.$view.removeClass('finished');
     } else {
-      this.$container.addClass('finished');
-      this.$container.removeClass('running');
+      this.$view.addClass('finished');
+      this.$view.removeClass('running');
     }
 
   };
@@ -72,6 +75,10 @@ function(extend, ListView, Listener, MatchResult) {
    */
   MatchTableView.prototype.onresize = function(emitter, event, data) {
     this.updateRunningState();
+  }
+
+  MatchTableView.prototype.destroy = function() {
+    this.listView.destroy();
   }
 
   return MatchTableView;
