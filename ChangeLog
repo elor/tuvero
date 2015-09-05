@@ -4,6 +4,8 @@
 	restoring state, matches, history, byes, ranking and round
 	TODO and console errors resynced
 
+	* legacy/scripts/ui/listview.js: $subview != subview.$view - Bugs fixed by referencing all $subviews in a separate array
+
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

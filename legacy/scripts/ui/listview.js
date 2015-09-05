@@ -33,6 +33,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
     this.SubView = SubView || TextView;
     this.optArgs = [];
     this.subviews = [];
+    this.$subviews = [];
 
     for (i = 4; i < arguments.length; i += 1) {
       this.optArgs.push(arguments[i]);
@@ -71,7 +72,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    *          the index of the item inside the underlying list
    */
   ListView.prototype.insertItem = function(index) {
-    var $item, $subview, subview, model, $previousView, args;
+    var $subview, subview, model, $previousView, args;
 
     $subview = this.$template.clone();
     model = this.model.get(index);
@@ -83,15 +84,14 @@ define(['lib/extend', './templateview', './textview'], function(extend,
      */
     subview = new (Function.prototype.bind.apply(this.SubView, args));
 
-    $item = $subview;
-
     if (index === this.subviews.length) {
-      this.$view.append($item);
+      this.$view.append($subview);
     } else {
-      $previousView = this.subviews[index].$view;
-      $previousView.before($item);
+      $previousView = this.$subviews[index];
+      $previousView.before($subview);
     }
     this.subviews.splice(index, 0, subview);
+    this.$subviews.splice(index, 0, $subview);
   };
 
   /**
@@ -134,10 +134,10 @@ define(['lib/extend', './templateview', './textview'], function(extend,
      * get the actual index
      */
     index = undefined;
-    this.subviews.some(function(subview, subviewid) {
+    this.$subviews.some(function($subview, subviewid) {
       // Note to self: cannot compare separate jQuery objects directly, but
       // their data() object is unique for each DOM element
-      if (subview.$view.data() === $view.data()) {
+      if ($subview.data() === $view.data()) {
         index = subviewid;
         return true;
       }
@@ -169,13 +169,16 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    *          the index of the item upon removal
    */
   ListView.prototype.removeItem = function(index) {
-    var subview;
+    var subview, $subview;
 
     subview = this.subviews[index];
+    $subview = this.subviews[index];
 
     if (subview) {
       subview.destroy();
+      $subview.remove();
       this.subviews.splice(index, 1);
+      this.$subviews.splice(index, 1);
     }
   };
 
