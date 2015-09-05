@@ -19,6 +19,7 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
    * @param $view
    */
   function TournamentView(tournament, $view) {
+    var $advancedOptions;
     TournamentView.superconstructor.call(this, undefined, $view);
 
     this.model.tournament = tournament;
@@ -33,7 +34,10 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
 
     this.$advancedOptions = this.$view.find('.tournamentoptions.boxview');
     if (this.$advancedOptions.length > 0) {
-      this.advancedOptions = new BoxView(this.$advancedOptions.eq(0));
+      this.advancedOptions = $advancedOptions = [];
+      this.$advancedOptions.each(function() {
+        $advancedOptions.push(new BoxView($(this)));
+      });
     }
 
     this.$rankingOrderView = this.$view.find('.rankingorderview');
