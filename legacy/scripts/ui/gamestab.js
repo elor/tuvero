@@ -54,12 +54,6 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         'hidenames');
 
-    // list/table selection checkbox
-    value = new ValueModel();
-    $container = this.$view.find('>.options input.showtable');
-    this.showtableCheckboxView = new CheckboxView(value, $container);
-    this.showtableClassView = new ClassView(value, this.$view, 'showtable');
-
     // hide teamTable content depending on state
     // this.teamTableView = new TeamTableView(this.teamTable,
     // State.teamsize);

@@ -30,6 +30,11 @@
 
 	* legacy/style/matchtable.css: .matchtable extracted from games.css and history.css
 
+	* legacy/scripts/ui/gamestab.js: 'show table'-option removed
+
+	* legacy/scripts/ui/tournamentmatchesview.js: matchlist removed
+	using MatchTableView for matchtable
+
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

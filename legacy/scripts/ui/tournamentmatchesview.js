@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './matchview', './listview',
-    './teamtableview', './boxview', './teamview', 'core/listener'//
-], function(extend, TemplateView, MatchView, ListView, TeamTableView, BoxView,
-    TeamView, Listener) {
+    './teamtableview', './boxview', './teamview', 'core/listener',
+    './matchtableview'], function(extend, TemplateView, MatchView, ListView,
+    TeamTableView, BoxView, TeamView, Listener, MatchTableView) {
   /**
    * Constructor
    *
@@ -44,18 +44,13 @@ define(['lib/extend', './templateview', './matchview', './listview',
   extend(TournamentMatchesView, TemplateView);
 
   /**
-   * initializes matchlist and matchtable
+   * initializes matchtable
    */
   TournamentMatchesView.prototype.initMatches = function() {
-    this.$matchlist = this.$view.find('.matchlist');
-    this.matchlist = new ListView(this.model.getMatches(), this.$matchlist,
-        this.$template.filter('.matchview'), MatchView, this.teamlist);
-
     this.$matchtable = this.$view.find('.matchtable');
-    this.matchtable = new ListView(this.model.getMatches(), this.$matchtable,
-        this.$template.filter('.matchrow'), MatchView, this.teamlist);
-
-    this.$teamtableview = new TeamTableView(this, this.teamsize);
+    this.matchtable = new MatchTableView(this.model.getMatches(),
+        this.$matchtable, this.$template.filter('.matchrow'), this.teamlist,
+        this.$template.filter('.correction'), this.model, this.teamsize);
   };
 
   /**
