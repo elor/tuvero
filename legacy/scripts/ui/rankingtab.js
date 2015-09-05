@@ -33,12 +33,6 @@ define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
   RankingTab.prototype.init = function() {
     var $template, $container, value;
 
-    // rankinglist
-    $container = this.$view.find('.tournamentlist');
-    $template = $container.find('.tournament.template');
-    this.teamList = new ListView(State.tournaments, $container, $template,
-        TournamentRankingView, State.teams);
-
     // name maxwidth checkbox
     value = new ValueModel();
     $container = this.$view.find('>.options input.maxwidth');
@@ -54,10 +48,17 @@ define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
         'hidenames');
 
     // list/table selection checkbox
-    value = new ValueModel();
-    $container = this.$view.find('>.options input.showtable');
-    this.showtableCheckboxView = new CheckboxView(value, $container);
-    this.showtableClassView = new ClassView(value, this.$view, 'showtable');
+    this.rankingabbreviations = new ValueModel();
+    $container = this.$view.find('>.options input.abbreviate');
+    this.abbreviateCheckboxView = new CheckboxView(this.rankingabbreviations,
+        $container);
+
+    // rankinglist
+    $container = this.$view.find('.tournamentlist');
+    $template = $container.find('.tournament.template');
+    this.tournamentList = new ListView(State.tournaments, $container,
+        $template, TournamentRankingView, State.teams,
+        this.rankingabbreviations);
   };
 
   // FIXME CHEAP HACK AHEAD

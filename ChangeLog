@@ -75,6 +75,11 @@
 
 	* legacy/scripts/ui/checkboxview.js: autoformatting
 
+	* legacy/scripts/ui/rankingtab.js: abbreviate checkbox logic added
+	ranking tables depend on the 'abbreviate' value
+
+	* legacy/scripts/ui/tournamentrankingview.js: passing the abbreviate value through to RankingView
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

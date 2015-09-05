@@ -21,13 +21,12 @@ function(extend, View, RankingView, ListView, CorrectionView, TeamTableView,
    *          a ListModel of TeamModel instances which is referenced by index by
    *          TournamentModel.getRanking()
    */
-  function TournamentRankingView(model, $view, teams) {
-    var view;
+  function TournamentRankingView(model, $view, teams, abbreviate) {
     TournamentRankingView.superconstructor.call(this, model, $view);
 
     this.$ranking = this.$view.find('.rankingview');
     this.rankingview = new RankingView(this.model.getRanking(), this.$ranking,
-        teams);
+        teams, abbreviate);
 
     this.$corrections = this.$view.find('.correctiontable');
     this.$correctionrow = this.$corrections.find('.correctionrow.template')
