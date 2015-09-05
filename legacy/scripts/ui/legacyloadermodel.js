@@ -87,31 +87,34 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         ko: ['ko']
       }[system];
 
+      // create tournament
       tournament = TournamentIndex.createTournament(system, rankingorder);
       if (!tournament) {
+        // TODO support for KOTournamentModel
         console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system);
-        tournament = TournamentIndex.createTournament('swiss', ['wins']);
         return;
       }
 
+      // name and teams
       tournament.getName().set(name);
       teams.forEach(tournament.addTeam.bind(tournament));
 
       if (blob) {
-        // TODO read matches and votes from the blob. Ranking is
-        // recalculated
+        // set state
         if (tournamentData.games && tournamentData.games.length > 0) {
           tournament.state.forceState('running');
         } else {
           tournament.state.forceState('initial');
         }
 
+        // set round
         if (system === 'swiss') {
           tournament.round = tournamentData.round - 1;
         } else {
           tournament.round = 0;
         }
 
+        // add matches
         tournamentData.games.forEach(function(data) {
           var teams, match, id;
 
@@ -128,6 +131,7 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
       }
 
       // TODO bind parent
+      console.error('tournament hierarchy can not yet be restored');
 
       State.tournaments.push(tournament);
     });
