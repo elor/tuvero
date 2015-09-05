@@ -6,6 +6,7 @@
 
 	* legacy/scripts/ui/listview.js: $subview != subview.$view - Bugs fixed by referencing all $subviews in a separate array
 	subviews/$subviews typo fixed
+	reverting to 'this.$view === $view' contract (View class)
 
 	* legacy/scripts/ui/matchtableview.js: MatchTableView is composed of a ListView, not inheriting one.
 	This keep the contract of 'this.$view == $view'

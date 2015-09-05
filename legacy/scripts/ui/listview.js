@@ -33,7 +33,6 @@ define(['lib/extend', './templateview', './textview'], function(extend,
     this.SubView = SubView || TextView;
     this.optArgs = [];
     this.subviews = [];
-    this.$subviews = [];
 
     for (i = 4; i < arguments.length; i += 1) {
       this.optArgs.push(arguments[i]);
@@ -83,15 +82,18 @@ define(['lib/extend', './templateview', './textview'], function(extend,
      * the use of an arbitrary number of optional arguments
      */
     subview = new (Function.prototype.bind.apply(this.SubView, args));
+    if (subview.$view !== $subview) {
+      console.error('$subview != subview.$view');
+      throw new Error('$subview != subview.$view');
+    }
 
     if (index === this.subviews.length) {
-      this.$view.append($subview);
+      this.$view.append(subview.$view);
     } else {
-      $previousView = this.$subviews[index];
-      $previousView.before($subview);
+      $previousView = this.subviews[index].$view;
+      $previousView.before(subview.$view);
     }
     this.subviews.splice(index, 0, subview);
-    this.$subviews.splice(index, 0, $subview);
   };
 
   /**
@@ -134,10 +136,10 @@ define(['lib/extend', './templateview', './textview'], function(extend,
      * get the actual index
      */
     index = undefined;
-    this.$subviews.some(function($subview, subviewid) {
+    this.subviews.some(function(subview, subviewid) {
       // Note to self: cannot compare separate jQuery objects directly, but
       // their data() object is unique for each DOM element
-      if ($subview.data() === $view.data()) {
+      if (subview.$view.data() === $view.data()) {
         index = subviewid;
         return true;
       }
@@ -169,16 +171,13 @@ define(['lib/extend', './templateview', './textview'], function(extend,
    *          the index of the item upon removal
    */
   ListView.prototype.removeItem = function(index) {
-    var subview, $subview;
+    var subview;
 
     subview = this.subviews[index];
-    $subview = this.$subviews[index];
 
     if (subview) {
       subview.destroy();
-      $subview.remove();
       this.subviews.splice(index, 1);
-      this.$subviews.splice(index, 1);
     }
   };
 
