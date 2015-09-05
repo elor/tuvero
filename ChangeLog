@@ -5,6 +5,7 @@
 	TODO and console errors resynced
 
 	* legacy/scripts/ui/listview.js: $subview != subview.$view - Bugs fixed by referencing all $subviews in a separate array
+	subviews/$subviews typo fixed
 
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

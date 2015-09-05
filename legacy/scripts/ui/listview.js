@@ -172,7 +172,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
     var subview, $subview;
 
     subview = this.subviews[index];
-    $subview = this.subviews[index];
+    $subview = this.$subviews[index];
 
     if (subview) {
       subview.destroy();
