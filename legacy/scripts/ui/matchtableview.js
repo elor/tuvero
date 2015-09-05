@@ -12,8 +12,8 @@ define(['lib/extend', 'core/view', './listview', 'core/listener',
   /**
    * Constructor
    */
-  function MatchTableView(model, $view, $rowtemplate, undefined, teamlist,
-      $correction, tournament) {
+  function MatchTableView(model, $view, $rowtemplate, teamlist, $correction,
+      tournament) {
     var $listview;
     MatchTableView.superconstructor.call(this, model, $view);
 

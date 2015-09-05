@@ -6,13 +6,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './matchresultview', './listview',
-    './teamtableview', './boxview', './teamview', 'core/listener',
-    'core/listener', 'core/binningreferencelistmodel', './matchtableview',
+define(['lib/extend', './templateview', './listview', './teamtableview',
+    './boxview', './teamview', 'core/listener', 'core/listener',
+    'core/binningreferencelistmodel', './matchtableview',
     './generictournamenthistoryview'], //
-function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
-    BoxView, TeamView, Listener, Listener, BinningReferenceListModel,
-    MatchTableView, GenericTournamentHistoryView) {
+function(extend, TemplateView, ListView, TeamTableView, BoxView, TeamView,
+    Listener, Listener, BinningReferenceListModel, MatchTableView,
+    GenericTournamentHistoryView) {
   /**
    * Constructor
    *
@@ -60,8 +60,8 @@ function(extend, TemplateView, MatchResultView, ListView, TeamTableView,
 
     // nested ListViews: BinningReferenceListModel is 2D
     this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
-        MatchTableView, this.$template.filter('.matchrow'), MatchResultView,
-        this.teamlist, this.$template.filter('.correct'), this.model);
+        MatchTableView, this.$template.filter('.matchrow'), this.teamlist,
+        this.$template.filter('.correct'), this.model);
 
     this.$teamtableview = new TeamTableView(this, this.teamsize);
   };

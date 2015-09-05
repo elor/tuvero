@@ -10,6 +10,9 @@
 
 	* legacy/scripts/ui/matchtableview.js: MatchTableView is composed of a ListView, not inheriting one.
 	This keep the contract of 'this.$view == $view'
+	unused constructor arguments removed
+
+	* legacy/scripts/ui/tournamenthistoryview.js: MatchResultView is referenced by MatchTableView
 
 2015-09-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
