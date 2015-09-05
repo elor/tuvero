@@ -103,6 +103,10 @@
 
 	* legacy/style/progresstable.css: almost direct copy of matchtable.css for the same reasons
 
+	* legacy/scripts/ui/progressrowview.js: a single row of the progress table
+
+	* legacy/scripts/ui/progresstableview.js: a ListView of ProgressRowViews added
+
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates

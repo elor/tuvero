@@ -163,6 +163,7 @@ define([
   'ui/playermodel',
   'ui/players',
   'ui/preregcloserview',
+  'ui/progressrowview',
   'ui/progresstableview',
   'ui/rankingcomponentview',
   'ui/rankingordercontroller',
