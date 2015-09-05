@@ -69,6 +69,7 @@
 	* legacy/style/ranking.css: maxwidth-checkbox works
 
 	* legacy/style/rankingview.css: larger paddings for table cells
+	removed
 
 	* core/templates/rankingtab.html: 'showtable'-checkbox removed
 	'abbreviate'-checkbox added
@@ -89,6 +90,8 @@
 	* test/rankingview.html: test extended to provide the 'abbreviate' parameter
 
 	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing history tab even when only running matches are available
+
+	* core/style/table.css: larger paddings for all table cells
 
 2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 

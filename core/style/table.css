@@ -10,6 +10,7 @@
   font-size: 1.2em;
   white-space: nowrap;
   font-weight: bold;
+  padding: 0em 0.2em;
 }
 
 #app table.inline {
@@ -22,6 +23,7 @@
 
 #app table td {
   vertical-align: top;
+  padding: 0em 0.2em;
 }
 
 #app table tr>td:first-child {
