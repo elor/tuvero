@@ -80,7 +80,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.corrections = new ListModel();
     this.name = new ValueModel(this.SYSTEM);
 
-    // singletons for the getters(), in order to not bloat the listener arrays
+    // singletons for the getters(), in order to not bloat the listener
+    // arrays
     this.singletons = {};
 
     // initial properties
@@ -582,15 +583,25 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
    * @return true on success, false otherwise
    */
   TournamentModel.prototype.correct = function(result, newScore) {
-    var index, correction, newResult;
+    var index, correction, newResult, baseResult;
 
-    index = this.history.indexOf(result.result);
+    baseResult = result;
+    while (baseResult.result != undefined) {
+      if (baseResult.result.result !== undefined
+          && baseResult.teams.slice().reverse().join(',') === //
+          baseResult.result.teams.join(',')) {
+        debugger;
+        newScore.reverse();
+      }
+    }
+
+    index = this.history.indexOf(baseResult);
     if (index === -1) {
       this.emit('error', 'correct(): result does not exist in history');
       return false;
     }
 
-    newResult = new MatchResult(result, newScore);
+    newResult = new MatchResult(baseResult, newScore);
     if (!this.validateMatchResult(newResult)) {
       this.emit('error', 'correction has invalid score');
       return false;

@@ -14,6 +14,8 @@
 
 	* core/templates/progresstable.html: simpler progress table header: "round ##"
 
+	* core/scripts/tournamentmodel.js: more complex correct() checks, which also support deep nesting of MatchResults, including reversed match result references
+
 2015-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: Rudimentary tournament loading code
