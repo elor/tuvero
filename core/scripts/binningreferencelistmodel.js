@@ -8,7 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel'], function(extend, ListModel) {
+define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
+    Type) {
   /**
    * Constructor
    *
@@ -63,8 +64,16 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
         return undefined;
       }
 
+      /*
+       * push to bins and sort. It's fast enough, since there should only be a
+       * handful of bins anyway
+       */
       this.bins.push(binName);
-      this.bins.sort();
+      /*
+       * use our own binning function to ensure expected order of bins for
+       * Numbers, Dates, Strings etc. regardless of the actual type
+       */
+      this.bins.sort(this.binSortFunction);
       index = this.bins.indexOf(binName);
 
       BinningReferenceListModel.superclass.insert.call(this, index,
@@ -221,6 +230,29 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     if (emitter === this.refList) {
       BinningReferenceListModel.removeElement(this, data.object);
     }
+  };
+
+  /**
+   * General sort function for Numbers, Strings, Dates, etc. Handles Numbers
+   * differently.
+   *
+   * @param a
+   *          a bin name
+   * @param b
+   *          another bin name
+   * @return +1 is a > b, -1 if a < b, 0 otherwise
+   */
+  BinningReferenceListModel.prototype.binSortFunction = function(a, b) {
+    if (Type.isNumber(a) && Type.isNumber(b)) {
+      return a - b;
+    }
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
   };
 
   return BinningReferenceListModel;
