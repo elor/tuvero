@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
-    Type) {
+define(['lib/extend', './listmodel', './type', './sortedreferencelistmodel'], //
+function(extend, ListModel, Type, SortedReferenceListModel) {
   /**
    * Constructor
    *
@@ -32,7 +32,9 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
     }
 
     this.binningFunction = binningFunction;
-    this.bins = [];
+    this.bins = new ListModel();
+    this.sortedBins = new SortedReferenceListModel(this.bins,
+        this.binSortFunction, true);
     this.refList = list;
 
     this.refList.map(function(element, index) {
@@ -42,6 +44,14 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
     this.refList.registerListener(this);
   }
   extend(BinningReferenceListModel, ListModel);
+
+  /**
+   * @return a readonly ListModel instance, which contains the names of all
+   *         bins, in the bin order.
+   */
+  BinningReferenceListModel.prototype.getBinNames = function() {
+    return this.sortedBins;
+  };
 
   /**
    * creates a new empty bin
@@ -57,7 +67,7 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
       createIfMissing) {
     var index;
 
-    index = this.bins.indexOf(binName);
+    index = this.sortedBins.indexOf(binName);
 
     if (index === -1) {
       if (!createIfMissing) {
@@ -69,12 +79,7 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
        * handful of bins anyway
        */
       this.bins.push(binName);
-      /*
-       * use our own binning function to ensure expected order of bins for
-       * Numbers, Dates, Strings etc. regardless of the actual type
-       */
-      this.bins.sort(this.binSortFunction);
-      index = this.bins.indexOf(binName);
+      index = this.sortedBins.indexOf(binName);
 
       BinningReferenceListModel.superclass.insert.call(this, index,
           new ListModel());
@@ -91,7 +96,7 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
    *         element in the respective bin
    */
   BinningReferenceListModel.prototype.getBinName = function(binIndex) {
-    return this.bins[binIndex];
+    return this.sortedBins.get(binIndex);
   };
 
   /**
@@ -101,12 +106,14 @@ define(['lib/extend', './listmodel', './type'], function(extend, ListModel,
    *          the name of the bin
    */
   BinningReferenceListModel.prototype.removeEmptyBin = function(binName) {
-    var binIndex = this.bins.indexOf(binName);
+    var binIndex, sortedBinIndex;
+    binIndex = this.bins.indexOf(binName);
+    sortedBinIndex = this.sortedBins.indexOf(binName);
 
-    if (binIndex !== -1) {
-      if (this.get(binIndex).length === 0) {
-        this.bins.splice(binIndex, 1);
-        BinningReferenceListModel.superclass.remove.call(this, binIndex);
+    if (binIndex !== -1 && sortedBinIndex !== -1) {
+      if (this.get(sortedBinIndex).length === 0) {
+        this.bins.remove(binIndex);
+        BinningReferenceListModel.superclass.remove.call(this, sortedBinIndex);
       }
     }
   };

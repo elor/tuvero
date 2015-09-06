@@ -9,6 +9,8 @@
 	* core/scripts/test/sortedreferencelistmodel.js: testing the 'unique' parameter
 
 	* core/scripts/binningreferencelistmodel.js: improved sort function, which handles numbers and strings properly
+	bins are a ListModel instance now, using a SortedReferenceListModel
+	getBinNames() added, which exposes the sorted list of bins
 
 	* core/scripts/matchreferencemodel.js: missing teamlist? Then don't change the team ids, just reference the whole match.
 
