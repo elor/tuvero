@@ -10,6 +10,8 @@
 
 	* core/scripts/binningreferencelistmodel.js: improved sort function, which handles numbers and strings properly
 
+	* core/scripts/matchreferencemodel.js: missing teamlist? Then don't change the team ids, just reference the whole match.
+
 2015-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: Rudimentary tournament loading code

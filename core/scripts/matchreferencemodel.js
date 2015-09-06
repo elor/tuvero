@@ -18,9 +18,15 @@ define(['lib/extend', './matchmodel'], function(extend, MatchModel) {
    *          tournament) the the external id (global team id)
    */
   function MatchReferenceModel(match, teamlist) {
-    var teams = match.teams.map(function(teamid) {
-      return teamlist.get(teamid);
-    });
+    var teams;
+
+    if (teamlist) {
+      teams = match.teams.map(function(teamid) {
+        return teamlist.get(teamid);
+      });
+    } else {
+      teams = match.teams.slice();
+    }
     MatchReferenceModel.superconstructor.call(this, teams, match.id,
         match.group);
 
