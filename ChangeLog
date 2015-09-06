@@ -12,6 +12,8 @@
 
 	* core/scripts/matchreferencemodel.js: missing teamlist? Then don't change the team ids, just reference the whole match.
 
+	* core/templates/progresstable.html: simpler progress table header: "round ##"
+
 2015-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: Rudimentary tournament loading code
