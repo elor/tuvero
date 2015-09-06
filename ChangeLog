@@ -4,6 +4,10 @@
 
 	* core/templates/rankingtab.html: "abbreviate" -> "Abbreviations"
 
+	* core/scripts/sortedreferencelistmodel.js: 'unique' parameter added and implemented
+
+	* core/scripts/test/sortedreferencelistmodel.js: testing the 'unique' parameter
+
 2015-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: Rudimentary tournament loading code

@@ -108,6 +108,22 @@ define(function() {
       QUnit.deepEqual(sorted.asArray(), [1, 4, 3, 8, 100, 3, 4, 5, 13],
           'zeroing sortfunction: '
               + 'insertion order is not the initial list order!');
+
+      /*
+       * 'unique' parameter
+       */
+
+      sorted = new SortedReferenceListModel(list, undefined, false);
+      QUnit.deepEqual(sorted.asArray(), [1, 3, 3, 4, 4, 5, 8, 13, 100],
+          'non-"unique" mode');
+
+      sorted = new SortedReferenceListModel(list, undefined, true);
+      QUnit.deepEqual(sorted.asArray(), [1, 3, 4, 5, 8, 13, 100],
+          '"unique" mode');
+
+      list.remove(3);
+      QUnit.deepEqual(sorted.asArray(), [1, 4, 5, 8, 13, 100],
+          'CAREFUL: remove() removes ALL references, not just the last one');
     });
   };
 });

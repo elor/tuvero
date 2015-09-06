@@ -12,8 +12,13 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
    *          a ListModel instance
    * @param sortFunction
    *          Optional. A sort function to use for sorting the lists
+   * @param unique
+   *          Optional. If true, each object will only be inserted once.
+   *          subsequent insertions are ignored. Defaults to 'false'. NOTE:
+   *          Removing the second element removes ALL elements of this type! Be
+   *          careful when you use it.
    */
-  function SortedReferenceListModel(list, sortFunction) {
+  function SortedReferenceListModel(list, sortFunction, unique) {
     SortedReferenceListModel.superconstructor.call(this);
 
     this.makeReadonly();
@@ -28,6 +33,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
 
     this.refList = list;
     this.sortFunction = sortFunction;
+    this.unique = unique || false;
 
     list.map(function(element) {
       SortedReferenceListModel.insertElement(this, element);
@@ -113,6 +119,12 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
    */
   SortedReferenceListModel.insertElement = function(list, element) {
     var index = SortedReferenceListModel.findPosition(list, element);
+
+    if (list.unique && index !== 0) {
+      if (list.sortFunction(list.get(index - 1), element) === 0) {
+        return;
+      }
+    }
 
     SortedReferenceListModel.superclass.insert.call(list, index, element);
   };
