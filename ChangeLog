@@ -1,3 +1,9 @@
+2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/historytab.html: "Click score to correct a result" note added
+
+	* core/templates/rankingtab.html: "abbreviate" -> "Abbreviations"
+
 2015-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/legacyloadermodel.js: Rudimentary tournament loading code
