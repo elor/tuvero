@@ -23,7 +23,8 @@ define(['lib/extend', 'core/view', './progresstableview'], function(extend,
   /**
    * Constructor
    */
-  function GenericTournamentHistoryView(tournament, $view, teamlist, teamsize) {
+  function GenericTournamentHistoryView(tournament, $view, groups, teamlist,
+      teamsize) {
     var Constructor, $subview;
     GenericTournamentHistoryView.superconstructor.call(this, undefined, $view);
 
@@ -33,7 +34,8 @@ define(['lib/extend', 'core/view', './progresstableview'], function(extend,
       $subview = this.$view.find(selectors[tournament.SYSTEM]);
       $subview.removeClass('hidden');
       Constructor = constructors[tournament.SYSTEM];
-      this.view = new Constructor(tournament, $view, teamlist, teamsize);
+      this.view = new Constructor(tournament, $view, groups, teamlist, //
+      teamsize);
     } else {
       this.view = new View(undefined, $view);
     }

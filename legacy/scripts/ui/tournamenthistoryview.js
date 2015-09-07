@@ -63,7 +63,7 @@ define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
 
   TournamentHistoryView.prototype.initGenericView = function() {
     this.genericView = new GenericTournamentHistoryView(this.model, this.$view,
-        this.teamlist, this.teamsize);
+        this.groups, this.teamlist, this.teamsize);
   };
 
   TournamentHistoryView.prototype.updateNames = function() {

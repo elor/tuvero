@@ -7,28 +7,32 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './teamview', './listview',
-    'core/listener'], function(extend, TemplateView, TeamView, ListView,
-    Listener) {
+    'core/listener', './matchresultview'], function(extend, TemplateView,
+    TeamView, ListView, Listener, MatchResultView) {
   /**
    * Constructor
    */
-  function ProgressRowView(teamno, $view, teamlist, ranking) {
+  function ProgressRowView(matches, $view, teamlist, tournament) {
+    var teamno = matches.get(0).getTeamID(0);
     ProgressRowView.superconstructor.call(this, teamlist.get(teamno), $view,
         $view.find('.template'));
 
-    this.ranking = ranking;
+    this.ranking = tournament.getRanking();
     this.$rank = this.$view.find('.rank');
 
     this.teamView = new TeamView(this.model, $view);
 
     // TODO defer
     this.updatePending = false;
-    Listener.bind(ranking, 'update', function() {
+    Listener.bind(this.ranking, 'update', function() {
       if (!this.updatePending) {
         window.setTimeout(this.updateRank.bind(this), 1);
         this.updatePending = true;
       }
     }, this);
+
+    this.matches = new ListView(matches, this.$view, this.$template,
+        MatchResultView, teamlist, tournament);
 
     this.updateRank();
   }

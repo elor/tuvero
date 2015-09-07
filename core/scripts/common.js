@@ -164,6 +164,7 @@ define([
   'ui/players',
   'ui/preregcloserview',
   'ui/progresslistmodel',
+  'ui/progressroundview',
   'ui/progressrowview',
   'ui/progresstableview',
   'ui/rankingcomponentview',

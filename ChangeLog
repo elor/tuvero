@@ -14,6 +14,17 @@
 
 	* legacy/style/progresstable.css: rounds are separated by black borders
 
+	* legacy/scripts/ui/generictournamenthistoryview.js: passing groups through (i.e. the BinningReferenceListModel which separates the match groups)
+
+	* legacy/scripts/ui/progressroundview.js: showing the respective round in the table header
+
+	* legacy/scripts/ui/progressrowview.js: using ProgressListModel instead of a simple team list
+
+	* legacy/scripts/ui/progresstableview.js: show round in the table headers
+	instantiate ProgressListMOdel
+
+	* legacy/scripts/ui/tournamenthistoryview.js: passing groups (BinningReferenceListModel) to the GenericTournamentHistoryViews
+
 2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/historytab.html: "Click score to correct a result" note added
