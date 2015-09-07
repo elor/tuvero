@@ -66,6 +66,16 @@ define(function() {
       QUnit.deepEqual(combined.asArray(), [2, 13, 4, 6],
           'clear() shifts all following elements towards the front');
 
+      list1 = new ListModel([1, 3, 5]);
+      combined = new CombinedReferenceListModel(list1,
+          new CombinedReferenceListModel(list1),
+          new CombinedReferenceListModel(list1));
+      QUnit.deepEqual(combined.asArray(), [1, 3, 5, 1, 3, 5, 1, 3, 5],
+          'combining the same list three times');
+
+      list1.push(7);
+      QUnit.deepEqual(combined.asArray(), [1, 3, 5, 7, 1, 3, 5, 7, 1, 3, 5, 7],
+          'pushing to the triply-combined list');
     });
   };
 });

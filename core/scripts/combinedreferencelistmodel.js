@@ -25,8 +25,10 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     }
 
     this.refLists = [];
+    this.listOffsets = [];
     for (i = 0; i < arguments.length; i += 1) {
       this.refLists.push(arguments[i]);
+      this.listOffsets.push(0);
     }
 
     this.refLists.map(function(refList, listID) {
@@ -89,6 +91,7 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
     if (index !== -1) {
       CombinedReferenceListModel.superclass.insert.call(list, index,
           list.refLists[listID].get(elementID));
+      list.increaseOffsets(listID);
     }
   };
 
@@ -103,7 +106,9 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   CombinedReferenceListModel.removeElement = function(list, listID, elementID) {
     var index = list.findPosition(listID, elementID);
     if (index !== -1) {
+//      debugger
       CombinedReferenceListModel.superclass.remove.call(list, index);
+      list.reduceOffsets(listID);
     }
   };
 
@@ -119,23 +124,23 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
    */
   CombinedReferenceListModel.prototype.findPosition = function(listID,
       elementID) {
-    var index = 0;
+    return this.listOffsets[listID] + elementID;
+  };
 
-    if (listID === -1 || elementID === -1) {
-      return -1;
+  CombinedReferenceListModel.prototype.increaseOffsets = function(
+      startingListIndex) {
+    var id;
+    for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
+      this.listOffsets[id] += 1;
     }
+  };
 
-    this.refLists.every(function(refList, refListID) {
-      if (listID > refListID) {
-        index += refList.length;
-        return true;
-      }
-      return false;
-    }, this);
-
-    index += elementID;
-
-    return index;
+  CombinedReferenceListModel.prototype.reduceOffsets = function(
+      startingListIndex) {
+    var id;
+    for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
+      this.listOffsets[id] -= 1;
+    }
   };
 
   return CombinedReferenceListModel;
