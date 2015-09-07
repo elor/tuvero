@@ -14,6 +14,7 @@ define(['lib/extend', 'core/resultreferencemodel'], function(extend,
   function ReverseResultReferenceModel(result, teamlist) {
     ReverseResultReferenceModel.superconstructor.call(this, result, teamlist);
     this.teams.reverse();
+    this.score.reverse();
   }
   extend(ReverseResultReferenceModel, ResultReferenceModel);
 

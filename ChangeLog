@@ -3,6 +3,7 @@
 	* legacy/scripts/ui/reversematchreferencemodel.js: MatchReferenceModel, but with reversed teams
 
 	* legacy/scripts/ui/reverseresultreferencemodel.js: ResultReferenceModel, but with reversed teams
+	also reversing the score, not only the team
 
 	* core/scripts/tournamentmodel.js: using hasReversedTeams to correct scores for reversed teams
 
