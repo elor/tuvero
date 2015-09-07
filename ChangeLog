@@ -6,6 +6,8 @@
 
 	* core/scripts/tournamentmodel.js: using hasReversedTeams to correct scores for reversed teams
 
+	* legacy/scripts/ui/progresslistmodel.js: a ListModel subclass which contains all relevant information for a ProgressTableView
+
 2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/historytab.html: "Click score to correct a result" note added
