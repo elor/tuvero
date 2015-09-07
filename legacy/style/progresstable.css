@@ -20,3 +20,7 @@
 .progresstable .correcting .correct {
   display: block;
 }
+
+.progresstable td.result, .progresstable td.rank {
+  border-right: solid black 1px;
+}

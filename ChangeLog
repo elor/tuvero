@@ -12,6 +12,8 @@
 
 	* core/templates/progresstable.html: second hidden teamno to avoid printing the first teamno (=== the row's team)
 
+	* legacy/style/progresstable.css: rounds are separated by black borders
+
 2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/historytab.html: "Click score to correct a result" note added
