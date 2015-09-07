@@ -8,6 +8,10 @@
 
 	* legacy/scripts/ui/progresslistmodel.js: a ListModel subclass which contains all relevant information for a ProgressTableView
 
+	* core/templates/historytab.html: 'showtable' checkbox is initially checked
+
+	* core/templates/progresstable.html: second hidden teamno to avoid printing the first teamno (=== the row's team)
+
 2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/historytab.html: "Click score to correct a result" note added
