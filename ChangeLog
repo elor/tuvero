@@ -1,3 +1,11 @@
+2015-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/reversematchreferencemodel.js: MatchReferenceModel, but with reversed teams
+
+	* legacy/scripts/ui/reverseresultreferencemodel.js: ResultReferenceModel, but with reversed teams
+
+	* core/scripts/tournamentmodel.js: using hasReversedTeams to correct scores for reversed teams
+
 2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/historytab.html: "Click score to correct a result" note added

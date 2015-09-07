@@ -172,6 +172,8 @@ define([
   'ui/rankingview',
   'ui/registerteamscontroller',
   'ui/requiremodsshortcut',
+  'ui/reversematchreferencemodel',
+  'ui/reverseresultreferencemodel',
   'ui/roundtournamentview',
   'ui/settingstab',
   'ui/splash',

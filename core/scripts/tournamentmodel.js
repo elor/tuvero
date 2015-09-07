@@ -586,13 +586,11 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     var index, correction, newResult, baseResult;
 
     baseResult = result;
-    while (baseResult.result != undefined) {
-      if (baseResult.result.result !== undefined
-          && baseResult.teams.slice().reverse().join(',') === //
-          baseResult.result.teams.join(',')) {
-        debugger;
+    while (baseResult.result !== undefined) {
+      if (baseResult.hasReversedTeams) {
         newScore.reverse();
       }
+      baseResult = baseResult.result;
     }
 
     index = this.history.indexOf(baseResult);
