@@ -8,11 +8,12 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     './newteamview', './lengthview', './teamsizeview', './preregcloserview',
     'core/valuemodel', './checkboxview', 'core/classview', './tabshandle',
     './teamremovecontroller', './teamnamecontroller', './teamtableview',
-    './inputview', './teamsfileloadcontroller', 'options', 'core/lengthmodel'//
-], function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
-    TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
-    TabsHandle, TeamRemoveController, TeamNameController, TeamTableView,
-    InputView, TeamsFileLoadController, Options, LengthModel) {
+    './inputview', './teamsfileloadcontroller', 'options', 'core/lengthmodel',
+    './deleteallteamscontroller'], function(extend, View, ListView, TeamView,
+    State, NewTeamView, LengthView, TeamSizeView, PreregCloserView, ValueModel,
+    CheckboxView, ClassView, TabsHandle, TeamRemoveController,
+    TeamNameController, TeamTableView, InputView, TeamsFileLoadController,
+    Options, LengthModel, DeleteAllTeamsController) {
   /**
    * represents a whole team tab
    *
@@ -101,6 +102,10 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     $container = this.$view.find('>button.delete');
     this.teamRemoveController = new TeamRemoveController([this.teamList,
         this.teamTable], $container, this.$view);
+
+    $container = this.$view.find('>button.deleteall');
+    this.deleteAllTeamsController = new DeleteAllTeamsController(new View(
+        undefined, $container));
 
     // player name changes
     this.teamNameController = new TeamNameController(this.teamList);

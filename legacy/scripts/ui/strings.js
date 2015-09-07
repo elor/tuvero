@@ -72,6 +72,7 @@ define(function() {
     autocompletereloadfailed: 'Konnte Spielernamen nicht laden',
     fileempty: 'Datei ist leer',
     teamdeleted: 'Anmeldung %s gelöscht',
+    deleteallteamsconfirmation: 'Wirklich alle Anmeldungen löschen?',
     nofilereader: 'Dieser Browser kann keine Speicherstände laden!',
     nojson: 'Dieser Browser kann keine Speicherstände erstellen!',
     nostorage: 'Dieser Browser kann keine Spielstände speichern!',

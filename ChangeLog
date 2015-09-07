@@ -33,6 +33,15 @@
 
 	* core/templates/correctionform.html: capitalized button labels
 
+	* core/templates/teamstab.html: "delete all" button added
+
+	* legacy/scripts/ui/deleteallteamscontroller.js: "delete all" button logic and confirmation added
+
+	* legacy/scripts/ui/strings.js: "delete all" confirmation text added
+
+	* legacy/scripts/ui/teamstab.js: binding DeleteAllTeamsController
+
+	* legacy/style/teams.css: "delete all" button rules
 
 2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

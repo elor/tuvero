@@ -2,7 +2,7 @@ div#tabs > [data-tab="teams"] {
   text-align: left;
 }
 
-#tabs > [data-tab="teams"] div.team, .newteamview, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete {
+#tabs > [data-tab="teams"] div.team, .newteamview, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete, #tabs > [data-tab="teams"] .deleteall {
   display: inline-table;
   height: 5em;
   border-radius: 0.5em;
@@ -14,7 +14,7 @@ div#tabs > [data-tab="teams"] {
   white-space: nowrap;
 }
 
-#tabs > [data-tab="teams"] div.team, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete {
+#tabs > [data-tab="teams"] div.team, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete, #tabs > [data-tab="teams"] .deleteall {
   background-color: #d0d0d0;
 }
 
@@ -96,7 +96,7 @@ div#tabs > [data-tab="teams"] {
   display: none;
 }
 
-#tabs > [data-tab="teams"] button.delete {
+#tabs > [data-tab="teams"] button.delete, #tabs > [data-tab="teams"] button.deleteall {
   display: none;
   background-color: #d3d3d3;
   height: 3em;
@@ -121,7 +121,7 @@ div#tabs > [data-tab="teams"] {
   display: inline-block;
 }
 
-#tabs > [data-tab="teams"].noprereg button.delete {
+#tabs > [data-tab="teams"].noprereg button.delete, #tabs > [data-tab="teams"].noprereg button.deleteall {
   display: initial;
 }
 
@@ -150,12 +150,12 @@ div#tabs > [data-tab="teams"] {
   display: none;
 }
 
-#tabs > [data-tab="teams"].noreg button.delete, #tabs > [data-tab="teams"].noreg .newteamview {
+#tabs > [data-tab="teams"].noreg button.delete, #tabs > [data-tab="teams"].noreg button.deleteall, #tabs > [data-tab="teams"].noreg .newteamview {
   display: none;
 }
 
 @media print {
-  #tabs > [data-tab="teams"] button.delete, #tabs > [data-tab="teams"] .filereader {
+  #tabs > [data-tab="teams"] button.delete, #tabs > [data-tab="teams"] button.deleteall, #tabs > [data-tab="teams"] .filereader {
     display: none !important;
   }
   #tabs > [data-tab="teams"] .team {
