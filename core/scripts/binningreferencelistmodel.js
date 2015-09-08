@@ -63,29 +63,45 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @return the bin (i.e. an empty ListModel instance), or undefined if it
    *         couldn't be found and shouldn't be created
    */
-  BinningReferenceListModel.prototype.getBin = function(binName,
-      createIfMissing) {
+  BinningReferenceListModel.prototype.getBin = function(binName) {
     var index;
 
     index = this.sortedBins.indexOf(binName);
 
     if (index === -1) {
-      if (!createIfMissing) {
-        return undefined;
-      }
-
-      /*
-       * push to bins and sort. It's fast enough, since there should only be a
-       * handful of bins anyway
-       */
-      this.bins.push(binName);
-      index = this.sortedBins.indexOf(binName);
-
-      BinningReferenceListModel.superclass.insert.call(this, index,
-          new ListModel());
+      return undefined;
     }
 
     return this.get(index);
+  };
+
+  /**
+   * Since bins are never allowed to be empty, a new bin is instantiated with an
+   * object. This avoids event race conditions
+   *
+   * @param binName
+   *          the name of the newly created bin
+   * @param object
+   *          the first object in the newly created bin
+   * @return the newly created bin (a ListModel), or undefined if the bin
+   *         already exists
+   */
+  BinningReferenceListModel.prototype.createBinWithObject = function(binName,
+      object) {
+    var index, bin;
+
+    bin = undefined;
+    index = this.sortedBins.indexOf(binName);
+
+    if (index === -1) {
+      this.bins.push(binName);
+      index = this.sortedBins.indexOf(binName);
+
+      bin = new ListModel([object]);
+      BinningReferenceListModel.superclass.insert.call(this, index, bin);
+    }
+
+    return bin
   };
 
   /**
@@ -133,21 +149,26 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
 
     element = list.refList.get(elementIndex);
     binName = list.binningFunction(element);
-    bin = list.getBin(binName, true);
+    bin = list.getBin(binName);
 
-    nextElementIndex = BinningReferenceListModel.getNextBinElementIndex(list,
-        elementIndex, binName);
-
-    if (nextElementIndex === -1) {
-      nextElementIndex = bin.length;
+    if (bin === undefined) {
+      bin = list.createBinWithObject(binName, element);
     } else {
-      nextElementIndex = bin.indexOf(list.refList.get(nextElementIndex));
+
+      nextElementIndex = BinningReferenceListModel.getNextBinElementIndex(list,
+          elementIndex, binName);
+
       if (nextElementIndex === -1) {
         nextElementIndex = bin.length;
+      } else {
+        nextElementIndex = bin.indexOf(list.refList.get(nextElementIndex));
+        if (nextElementIndex === -1) {
+          nextElementIndex = bin.length;
+        }
       }
-    }
 
-    bin.insert(nextElementIndex, element);
+      bin.insert(nextElementIndex, element);
+    }
 
     return bin;
   };
@@ -189,7 +210,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
     var bin, binName, index;
 
     binName = list.binningFunction(element);
-    bin = list.getBin(binName, false);
+    bin = list.getBin(binName);
 
     if (bin === undefined) {
       return;

@@ -1,3 +1,7 @@
+2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/binningreferencelistmodel.js: bin creation race conditions fixed: the bin was empty for a split second
+
 2015-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/reversematchreferencemodel.js: MatchReferenceModel, but with reversed teams
