@@ -21,6 +21,7 @@ require(['config'], function() {
   'core/test/emitter',
   'core/test/indexedlistmodel',
   'core/test/indexedmodel',
+  'core/test/kotournamentmodel',
   'core/test/lengthmodel',
   'core/test/listener',
   'core/test/listmodel',

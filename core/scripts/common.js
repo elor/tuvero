@@ -31,6 +31,7 @@ define([
   'core/emitter',
   'core/indexedlistmodel',
   'core/indexedmodel',
+  'core/kotournamentmodel',
   'core/lengthmodel',
   'core/listener',
   'core/listexclusionlistener',
