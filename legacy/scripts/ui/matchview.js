@@ -10,10 +10,12 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
     'ui/matchcontroller', 'options', './playermodel', './teammodel',
     './strings', 'core/type'], function(extend, $, View, TeamView,
     MatchController, Options, PlayerModel, TeamModel, Strings, Type) {
-  var byePlayer;
+  var emptyPlayer, byePlayer;
 
   // player name for bye votes
   byePlayer = new PlayerModel(Strings.byename);
+  emptyPlayer = new PlayerModel('');
+  emptyPlayer.name = ''; // avoid 'NONAME'
 
   /**
    * create a team with exactly the wanted number of bye players.
@@ -32,6 +34,20 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
 
     team = new TeamModel(players);
     team.setID(Strings.byeid);
+    return team;
+  }
+
+  function createEmptyTeam(length) {
+    var players, team;
+
+    players = [];
+
+    while (players.length < length) {
+      players.push(emptyPlayer);
+    }
+
+    team = new TeamModel(players);
+    team.setID('');
     return team;
   }
 
@@ -130,10 +146,15 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
       $team = $($teams[i]);
       teamid = this.model.getTeamID(i % this.model.length);
 
-      if (teamid !== undefined && this.teamlist) {
-        team = this.teamlist.get(teamid);
-        if (isBye && i % 2) {
-          team = createByeTeam(team.length);
+      if (this.teamlist) {
+        if (teamid !== undefined) {
+          team = this.teamlist.get(teamid);
+          if (isBye && i % 2) {
+            team = createByeTeam(team.length);
+          }
+        } else {
+          // TODO somehow determine the current team size, don't just use "3"
+          team = createEmptyTeam(3);
         }
         this.teamviews.push(new TeamView(team, $team));
       } else {
@@ -141,6 +162,8 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
           team = Strings.byename;
         } else if (Type.isNumber(teamid)) {
           team = teamid + 1;
+        } else if (teamid === undefined) {
+          team = '';
         } else {
           team = teamid;
         }

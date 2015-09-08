@@ -2,6 +2,8 @@
 
 	* core/scripts/binningreferencelistmodel.js: bin creation race conditions fixed: the bin was empty for a split second
 
+	* legacy/scripts/ui/matchview.js: an 'undefined' teamid prints nothing. That's great for KO tournaments :-)
+
 2015-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/reversematchreferencemodel.js: MatchReferenceModel, but with reversed teams
