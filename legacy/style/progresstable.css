@@ -21,6 +21,6 @@
   display: block;
 }
 
-.progresstable td.result, .progresstable td.rank {
-  border-right: solid black 1px;
+.progresstable td.separator {
+  border-left: solid black 1px !important;
 }

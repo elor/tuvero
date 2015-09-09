@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './teamview', './listview',
-    'core/listener', './matchresultview'], function(extend, TemplateView,
-    TeamView, ListView, Listener, MatchResultView) {
+    './inlinelistview', 'core/listener', './matchresultview'], function(extend,
+    TemplateView, TeamView, ListView, InlineListView, Listener, MatchResultView) {
   /**
    * Constructor
    */
@@ -31,7 +31,7 @@ define(['lib/extend', './templateview', './teamview', './listview',
       }
     }, this);
 
-    this.matches = new ListView(matches, this.$view, this.$template,
+    this.matches = new InlineListView(matches, this.$rank, this.$template,
         MatchResultView, teamlist, tournament);
 
     this.updateRank();
