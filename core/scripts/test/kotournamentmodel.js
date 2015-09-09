@@ -15,7 +15,8 @@ define(function() {
     TournamentModel = getModule('core/tournamentmodel');
 
     QUnit.test('KOTournamentModel', function() {
-      var ids, result, ref;
+      var ids, result, ref, tournament;
+
       QUnit.ok(extend.isSubclass(KOTournamentModel, TournamentModel),
           'KOTournamentModel is subclass of TournamentModel');
 
@@ -91,6 +92,26 @@ define(function() {
       ref = [-1, -1, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4,
           4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5];
       QUnit.deepEqual(result, ref, 'loserGroupID()');
+
+      /*
+       * initial matches
+       */
+      tournament = new KOTournamentModel();
+      tournament.addTeam(0);
+      tournament.addTeam(1);
+      tournament.addTeam(2);
+
+      QUnit.ok(tournament.run(), 'run() with 3 teams succeeds');
+      QUnit.equal(tournament.getProperty('komode'), 'matched',
+          'initial ko mode is "matched"');
+      QUnit.equal(tournament.getHistory().length, 1, '1 match in the history');
+      QUnit.equal(tournament.getMatches().length, 1, '1 running match');
+      QUnit.ok(tournament.getHistory().get(0), 'history match is a bye');
+      QUnit.equal(tournament.getMatches().get(0).isResult(), false,
+          'running match is running');
+      QUnit.equal(tournament.getHistory().get(0).getID(), 2, 'id of bye is 2');
+      QUnit.equal(tournament.getMatches().get(0).getID(), 3,
+          'id of running match is 3');
 
     });
   };

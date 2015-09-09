@@ -18,6 +18,7 @@
 	creating some initial matches
 
 	* core/scripts/test/kotournamentmodel.js: testing the utility functions
+	testing initial matches with default mode
 
 2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

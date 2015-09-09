@@ -51,13 +51,15 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
     while (indices.length > 0) {
       teams = indices.splice(0, 2);
 
+      console.log(teams)
+
       if (teams[1] === undefined) {
-        match = new ByeResult(teams, matchID, 0);
+        match = new ByeResult(teams[0], ['', ''], matchID, 0);
+        this.history.push(match);
       } else {
         match = new MatchModel(teams, matchID, 0);
+        this.matches.push(match);
       }
-
-      this.matches.push(match);
 
       matchID += 1;
     }
