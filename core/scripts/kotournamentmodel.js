@@ -163,16 +163,15 @@ function(extend, TournamentModel, Random, Type) {
    *          the round ID
    * @return the number of matches in this round
    */
-  KOTournamentModel.numMatchesInRound = function(round) {
-    return firstMatchIDOfRound(round + 1) - firstMatchIDOfRound(round);
-  };
+  // coincidentally, the two functions are the same
+  KOTournamentModel.numMatchesInRound = KOTournamentModel.firstMatchIDOfRound;
 
   /**
    * @param matchID
    * @return the round of this match
    */
   KOTournamentModel.roundOfMatchID = function(matchID) {
-    if (matchID === 0) {
+    if (matchID <= 0) {
       matchID = 1;
     }
     return Math.floor(Math.log(matchID) / Math.LN2);
@@ -186,7 +185,19 @@ function(extend, TournamentModel, Random, Type) {
    * @return the next group ID
    */
   KOTournamentModel.loserGroupID = function(groupID, lostMatchID) {
-    return groupID + roundOfMatchID(lostMatchID);
+    return groupID + KOTournamentModel.roundOfMatchID(lostMatchID);
+  };
+
+  /**
+   * @param numTeams
+   *          number of Teams
+   * @return the initial round ID for the given number of teams
+   */
+  KOTournamentModel.initialRoundForTeams = function(numTeams) {
+    if (numTeams <= 0) {
+      numTeams = 1;
+    }
+    return Math.ceil(Math.log(numTeams) / Math.LN2) - 1;
   };
 
   return KOTournamentModel;

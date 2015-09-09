@@ -14,6 +14,9 @@
 	* legacy/style/progresstable.css: .separator class added for better control
 
 	* core/scripts/kotournamentmodel.js: utility functions for binary tree traversal added
+	initialRoundFromTeams() utility function added
+
+	* core/scripts/test/kotournamentmodel.js: testing the utility functions
 
 2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
