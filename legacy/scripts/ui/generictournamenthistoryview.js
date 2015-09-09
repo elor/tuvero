@@ -33,10 +33,12 @@ define(['lib/extend', 'core/view', './progresstableview'], function(extend,
         && constructors[tournament.SYSTEM]) {
       $subview = this.$view.find(selectors[tournament.SYSTEM]);
       $subview.removeClass('hidden');
+      $view.addClass('hastable');
       Constructor = constructors[tournament.SYSTEM];
       this.view = new Constructor(tournament, $view, groups, teamlist, //
       teamsize);
     } else {
+      // always display the default matchtable
       this.view = new View(undefined, $view);
     }
   }

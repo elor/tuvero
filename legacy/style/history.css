@@ -35,8 +35,7 @@
   display: none;
 }
 
-
-#tabs > [data-tab="history"].showtable .matchtable {
+#tabs > [data-tab="history"].showtable .hastable .matchtable {
   display: none;
 }
 

@@ -27,6 +27,10 @@
 
 	* core/templates/newtab.html: enabling ko tournament run button
 
+	* legacy/scripts/ui/generictournamenthistoryview.js: using .hastable class to control visibility
+
+	* legacy/style/history.css: using .hastable class to control visibility
+
 2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: bin creation race conditions fixed: the bin was empty for a split second
