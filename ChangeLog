@@ -15,6 +15,7 @@
 
 	* core/scripts/kotournamentmodel.js: utility functions for binary tree traversal added
 	initialRoundFromTeams() utility function added
+	creating some initial matches
 
 	* core/scripts/test/kotournamentmodel.js: testing the utility functions
 

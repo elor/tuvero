@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './tournamentmodel', 'backend/random', './type'], //
-function(extend, TournamentModel, Random, Type) {
+define(['lib/extend', './tournamentmodel', 'backend/random', './type',
+    './matchmodel', './byeresult'], function(extend, TournamentModel, Random,
+    Type, MatchModel, ByeResult) {
   var rng = new Random();
 
   /**
@@ -29,29 +30,54 @@ function(extend, TournamentModel, Random, Type) {
   };
 
   KOTournamentModel.prototype.initialMatches = function() {
-    var mode, indices, indexFunction;
+    var mode, indices, indexFunction, matchID, roundID, match, teams;
 
     mode = this.getProperty('komode');
     indexFunction = KOTournamentModel[mode + 'Indices'];
     if (!Type.isFunction(indexFunction)) {
-      this.emit('unknown KO mode: ' + mode);
+      this.emit('error', 'unknown KO mode: ' + mode);
       return false;
     }
 
     indices = indexFunction(this.teams.length);
 
-    while (indices.length > 0) {
-      if (indices[1] === undefined) {
-        // bye
-      } else {
-        // match
-      }
+    roundID = KOTournamentModel.initialRoundForTeams(this.teams.length);
+    if (roundID < 0) {
+      this.emit('error', 'not enough players for KO tournament');
+      return false;
     }
+    matchID = KOTournamentModel.firstMatchIDOfRound(roundID);
+
+    while (indices.length > 0) {
+      teams = indices.splice(0, 2);
+
+      if (teams[1] === undefined) {
+        match = new ByeResult(teams, matchID, 0);
+      } else {
+        match = new MatchModel(teams, matchID, 0);
+      }
+
+      this.matches.push(match);
+
+      matchID += 1;
+    }
+
+    return true;
   };
 
+  /**
+   * should never be called since KO tournaments can't be idle, only finished
+   */
   KOTournamentModel.prototype.idleMatches = function() {
     throw new Error('KO Tournaments cannot be in idle state.'
         + ' This function can never be called by the TournamentModel.');
+  };
+
+  /**
+   * @param matchresult
+   */
+  KOTournamentModel.prototype.postprocessMatch = function(matchresult) {
+    // TODO create the follow-up matches
   };
 
   /**
