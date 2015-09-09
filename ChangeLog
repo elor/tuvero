@@ -4,6 +4,17 @@
 
 	* legacy/scripts/ui/listview.js: InlineListView support added
 
+	* core/templates/progresstable.html: columns rearranged
+	separators added
+
+	* legacy/scripts/ui/progressrowview.js: using InlineListView for the matches, in order to append the ranks AFTER the matches
+
+	* legacy/scripts/ui/progresstableview.js: using InlineListView for the "round headers"
+
+	* legacy/style/progresstable.css: .separator class added for better control
+
+	* core/scripts/kotournamentmodel.js: utility functions for binary tree traversal added
+
 2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: bin creation race conditions fixed: the bin was empty for a split second

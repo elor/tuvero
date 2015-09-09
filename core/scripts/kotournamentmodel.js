@@ -44,6 +44,7 @@ function(extend, TournamentModel, Random, Type) {
       if (indices[1] === undefined) {
         // bye
       } else {
+        // match
       }
     }
   };
@@ -127,6 +128,65 @@ function(extend, TournamentModel, Random, Type) {
    */
   KOTournamentModel.ceilPowerOfTwo = function(number) {
     return 1 << Math.ceil(Math.log(number) / Math.LN2);
+  };
+
+  /**
+   * @param currentMatchID
+   *          match ID
+   * @return the next match ID the teams will play
+   */
+  KOTournamentModel.nextRoundMatchID = function(currentMatchID) {
+    return currentMatchID >> 1;
+  };
+
+  /**
+   * @param matchID
+   *          the match ID
+   * @return true if the teams of this match will be the second player of their
+   *         next match, false otherwise
+   */
+  KOTournamentModel.isSecondInNextRound = function(matchID) {
+    return matchID % 2 === 1 && matchID !== 1;
+  };
+
+  /**
+   * @param round
+   *          the round ID
+   * @return the ID of the first match in the round
+   */
+  KOTournamentModel.firstMatchIDOfRound = function(round) {
+    return 1 << round;
+  };
+
+  /**
+   * @param round
+   *          the round ID
+   * @return the number of matches in this round
+   */
+  KOTournamentModel.numMatchesInRound = function(round) {
+    return firstMatchIDOfRound(round + 1) - firstMatchIDOfRound(round);
+  };
+
+  /**
+   * @param matchID
+   * @return the round of this match
+   */
+  KOTournamentModel.roundOfMatchID = function(matchID) {
+    if (matchID === 0) {
+      matchID = 1;
+    }
+    return Math.floor(Math.log(matchID) / Math.LN2);
+  };
+
+  /**
+   * @param groupID
+   *          the current group ID
+   * @param lostMatchID
+   *          the ID of the just lost match
+   * @return the next group ID
+   */
+  KOTournamentModel.loserGroupID = function(groupID, lostMatchID) {
+    return groupID + roundOfMatchID(lostMatchID);
   };
 
   return KOTournamentModel;
