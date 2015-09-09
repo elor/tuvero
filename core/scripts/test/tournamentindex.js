@@ -19,8 +19,7 @@ define(function() {
           'undefined fails');
       QUnit.ok(TournamentIndex.createTournament('round'), 'round');
       QUnit.ok(TournamentIndex.createTournament('swiss'), 'swiss');
-      QUnit.equal(TournamentIndex.createTournament('ko'), undefined,//
-      'ko fails');
+      QUnit.ok(TournamentIndex.createTournament('ko'), 'ko');
       QUnit.equal(TournamentIndex.createTournament('poule'), undefined,
           'poule fails');
 

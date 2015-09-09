@@ -16,9 +16,16 @@
 	* core/scripts/kotournamentmodel.js: utility functions for binary tree traversal added
 	initialRoundFromTeams() utility function added
 	creating some initial matches
+	defaulting to 'wins' ranking for now. Let's fix it later
 
 	* core/scripts/test/kotournamentmodel.js: testing the utility functions
 	testing initial matches with default mode
+
+	* core/scripts/test/tournamentindex.js: expected 'ko' result corrected (it works now!)
+
+	* core/scripts/tournamentindex.js: KOTournamentModel added
+
+	* core/templates/newtab.html: enabling ko tournament run button
 
 2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
