@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './tournamentmodel', 'backend/random', './type',
-    './matchmodel', './byeresult'], function(extend, TournamentModel, Random,
-    Type, MatchModel, ByeResult) {
+    './matchmodel', './byeresult', 'options'], function(extend,
+    TournamentModel, Random, Type, MatchModel, ByeResult, Options) {
   var rng = new Random();
 
   /**
@@ -54,7 +54,8 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
       console.log(teams)
 
       if (teams[1] === undefined) {
-        match = new ByeResult(teams[0], ['', ''], matchID, 0);
+        match = new ByeResult(teams[0], [Options.byepointswon,
+            Options.byepointslost], matchID, 0);
         this.history.push(match);
       } else {
         match = new MatchModel(teams, matchID, 0);

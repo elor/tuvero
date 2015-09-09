@@ -17,6 +17,7 @@
 	initialRoundFromTeams() utility function added
 	creating some initial matches
 	defaulting to 'wins' ranking for now. Let's fix it later
+	using default bye points for byes.
 
 	* core/scripts/test/kotournamentmodel.js: testing the utility functions
 	testing initial matches with default mode
