@@ -1,3 +1,9 @@
+2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END
+
+	* legacy/scripts/ui/listview.js: InlineListView support added
+
 2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/binningreferencelistmodel.js: bin creation race conditions fixed: the bin was empty for a split second

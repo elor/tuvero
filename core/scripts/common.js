@@ -142,6 +142,7 @@ define([
   'ui/generictournamentview',
   'ui/historytab',
   'ui/hometab',
+  'ui/inlinelistview',
   'ui/inputview',
   'ui/koline',
   'ui/legacyloadermodel',

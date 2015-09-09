@@ -12,10 +12,10 @@ define(['lib/extend', './templateview', './textview'], function(extend,
   /**
    * Constructor
    *
-   * @param $view
-   *          the jquery table object
    * @param model
    *          the ListModel instance
+   * @param $view
+   *          the jquery table object
    * @param $template
    *          a template jQuery object, into which to insert the text of each
    *          element. Defaults to a <div>
@@ -88,7 +88,11 @@ define(['lib/extend', './templateview', './textview'], function(extend,
     }
 
     if (index === this.subviews.length) {
-      this.$view.append(subview.$view);
+      if (this.insertBeforeView) {
+        this.$view.before(subview.$view);
+      } else {
+        this.$view.append(subview.$view);
+      }
     } else {
       $previousView = this.subviews[index].$view;
       $previousView.before(subview.$view);
