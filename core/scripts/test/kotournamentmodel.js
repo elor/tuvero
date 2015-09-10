@@ -51,6 +51,13 @@ define(function() {
           false, true, false, true];
       QUnit.deepEqual(result, ref, 'isSecondInNextRound()');
 
+      result = ids.map(function(id) {
+        return KOTournamentModel.complementaryMatchID(id);
+      });
+      ref = [1, 0, 3, 2, 5, 4, 7, 6, 9, 8, 11, 10, 13, 12, 15, 14, 17, 16, 19,
+          18, 21, 20, 23, 22, 25, 24, 27, 26, 29, 28, 31, 30, 33, 32];
+      QUnit.deepEqual(result, ref, 'complementaryMatchID()');
+
       result = ids.slice(0, 16).map(function(id) {
         return KOTournamentModel.firstMatchIDOfRound(id);
       });
@@ -93,6 +100,20 @@ define(function() {
           4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5];
       QUnit.deepEqual(result, ref, 'loserGroupID()');
 
+      result = ids.map(function(id) {
+        return KOTournamentModel.roundsInGroup(id);
+      });
+      ref = [32, 1, 2, 1, 3, 1, 2, 1, 4, 1, 2, 1, 3, 1, 2, 1, 5, 1, 2, 1, 3, 1,
+          2, 1, 4, 1, 2, 1, 3, 1, 2, 1, 6, 1];
+      QUnit.deepEqual(result, ref, 'roundsInGroup()');
+
+      result = ids.map(function(id) {
+        return KOTournamentModel.parentGroup(id);
+      });
+      ref = [0, 0, 0, 2, 0, 4, 4, 6, 0, 8, 8, 10, 8, 12, 12, 14, 0, 16, 16, 18,
+          16, 20, 20, 22, 16, 24, 24, 26, 24, 28, 28, 30, 0, 32];
+      QUnit.deepEqual(result, ref, 'parentGroup()');
+
       /*
        * initial matches
        */
@@ -105,13 +126,15 @@ define(function() {
       QUnit.equal(tournament.getProperty('komode'), 'matched',
           'initial ko mode is "matched"');
       QUnit.equal(tournament.getHistory().length, 1, '1 match in the history');
-      QUnit.equal(tournament.getMatches().length, 1, '1 running match');
+      QUnit.equal(tournament.getMatches().length, 2, '2 running matches');
       QUnit.ok(tournament.getHistory().get(0), 'history match is a bye');
       QUnit.equal(tournament.getMatches().get(0).isResult(), false,
           'running match is running');
       QUnit.equal(tournament.getHistory().get(0).getID(), 2, 'id of bye is 2');
-      QUnit.equal(tournament.getMatches().get(0).getID(), 3,
-          'id of running match is 3');
+      QUnit.equal(tournament.getMatches().get(1).getID(), 3,
+          'id of first running match is 1');
+      QUnit.equal(tournament.getMatches().get(1).getID(), 3,
+          'id of second running match is 3');
 
     });
   };

@@ -15,6 +15,10 @@
 	* legacy/scripts/ui/matchview.js: using isRunningMatch() to show/hide the 'finish' inputs
 	placeholder teams: estimating the correct size
 
+	* core/scripts/kotournamentmodel.js: first working version
+
+	* core/scripts/test/kotournamentmodel.js: rudimentary tests. Nothing important, still mostly utility functions
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END
