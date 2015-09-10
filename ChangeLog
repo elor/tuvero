@@ -39,8 +39,10 @@
 	* legacy/scripts/ui/teamstab.js: using shared tab options
 
 	* core/templates/historytab.html: added {{kotree}} dependency
+	extracted tournamentlist.html
 
 	* core/templates/kotree.html: preliminary kotree structure copied from matchtable.html
+	proper ko tree definitions added
 
 	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
 
@@ -48,6 +50,12 @@
 	This gives a more compact view
 
 	* legacy/scripts/ui/kotreeview.js: simple KOTreeView added, which currently only invokes a MatchTableView for preliminary testing
+
+	* core/templates/komatchresult.html: KOMatchResult structure added
+
+	* core/templates/koteam.html: a single team, as shown in the KOTournament
+
+	* core/templates/tournamentlist.html: extracted from historytab.html
 
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
