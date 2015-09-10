@@ -19,6 +19,8 @@
 
 	* core/scripts/test/kotournamentmodel.js: rudimentary tests. Nothing important, still mostly utility functions
 
+	* legacy/scripts/ui/matchtableview.js: add superclass.destroy() call, which has been forgotten
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END

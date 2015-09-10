@@ -81,6 +81,7 @@ define(['lib/extend', './templateview', './listview', 'core/listener',
   };
 
   MatchTableView.prototype.destroy = function() {
+    MatchTableView.superclass.destroy.call(this);
     this.listView.destroy();
   };
 
