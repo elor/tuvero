@@ -724,6 +724,7 @@
             <div class="kotree">
               <h3>Spiel um Platz <span class="bestrank">##</span></h3>
               <div class="forest">
+                <div class="kolineanchor"></div>
                 <table class="komatchresult template borderless">
                   <tr>
                     <td class="team">
@@ -739,22 +740,26 @@
                       <div class="result">
                         <span class="score">##</span> : <span class="score">##</span>
                       </div>
+
                       <div class="noprint finish">
+                        <div>
                         <input class="score" type="number" />
-                        :
+                        <br>
                         <input class="score" type="number" />
-                        <button class="accept">
+                        </div>
+                        <button class="accept hidden">
                           Beenden
                         </button>
                       </div>
+
                       <div class="noprint correct">
                         <input class="score" type="number" />
-                        :
+                        <br>
                         <input class="score" type="number" />
-                        <button class="cancel">
+                        <button class="cancel hidden">
                           Abbrechen
                         </button>
-                        <button class="accept">
+                        <button class="accept hidden">
                           Korrigieren
                         </button>
                       </div>

@@ -44,6 +44,7 @@
 
 	* core/templates/kotree.html: preliminary kotree structure copied from matchtable.html
 	proper ko tree definitions added
+	.kolineanchor added as an Anchor for the KO line lists
 
 	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
 	KO Tree rules added (table-based)
@@ -59,6 +60,7 @@
 
 	* core/templates/komatchresult.html: KOMatchResult structure added
 	using a table for kotree
+	using ko-specific versions of 'finish' and 'correct', where the buttons are hidden for spatial reasons
 
 	* core/templates/koteam.html: a single team, as shown in the KOTournament
 	using a table for kotree

@@ -6,8 +6,29 @@
       <div class="result">
         {{resultscore}}
       </div>
-      {{finishmatchform}}
-      {{correctionform}}
+
+      <div class="noprint finish">
+        <div>
+        <input class="score" type="number" />
+        <br>
+        <input class="score" type="number" />
+        </div>
+        <button class="accept hidden">
+          Beenden
+        </button>
+      </div>
+
+      <div class="noprint correct">
+        <input class="score" type="number" />
+        <br>
+        <input class="score" type="number" />
+        <button class="cancel hidden">
+          Abbrechen
+        </button>
+        <button class="accept hidden">
+          Korrigieren
+        </button>
+      </div>
     </td>
   </tr>
   <tr>
