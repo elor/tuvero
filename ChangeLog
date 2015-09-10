@@ -21,6 +21,8 @@
 
 	* legacy/scripts/ui/matchtableview.js: add superclass.destroy() call, which has been forgotten
 
+	* legacy/scripts/ui/generictournamenthistoryview.js: JSDoc comments and normal comments added
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END

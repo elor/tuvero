@@ -22,6 +22,17 @@ define(['lib/extend', 'core/view', './progresstableview'], function(extend,
 
   /**
    * Constructor
+   *
+   * @param tournament
+   *          a TournamentModel instance
+   * @param $view
+   *          a DOM element
+   * @param groups
+   *          a ListModel with the group names
+   * @param teamlist
+   *          a ListModel of TeamModels which are referenced by teamIDs
+   * @param teamsize
+   *          a ValueModel of the current default team size
    */
   function GenericTournamentHistoryView(tournament, $view, groups, teamlist,
       teamsize) {
@@ -33,12 +44,13 @@ define(['lib/extend', 'core/view', './progresstableview'], function(extend,
         && constructors[tournament.SYSTEM]) {
       $subview = this.$view.find(selectors[tournament.SYSTEM]);
       $subview.removeClass('hidden');
+      // don't display the matchtable on default anymore, since there's a more
+      // sophisticated view in place
       $view.addClass('hastable');
       Constructor = constructors[tournament.SYSTEM];
       this.view = new Constructor(tournament, $view, groups, teamlist, //
       teamsize);
     } else {
-      // always display the default matchtable
       this.view = new View(undefined, $view);
     }
   }
