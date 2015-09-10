@@ -30,12 +30,14 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
     KOTreeView.superconstructor.call(this, model, $view, $view
         .find('.komatchresult.template'));
 
+    this.group = this.model.get(0).getGroup() & ~0x1;
     this.boxView = new BoxView(this.$view);
 
     this.tournament = tournament;
     this.$forest = this.$view.find('.forest');
     this.$kolineanchor = this.$forest.find('.kolineanchor').removeClass(
         'kolineanchor');
+    this.$bestrank = this.$view.find('.bestrank');
 
     this.lines = new InlineListView(this.model, this.$kolineanchor,
         this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length);
@@ -43,21 +45,35 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
     this.matches = new ListView(this.model, this.$forest, this.$template,
         KOMatchResultView, teamlist, tournament, undefined);
 
+    this.updateGroupInformation();
     this.setSize();
   }
   extend(KOTreeView, TemplateView);
 
+  /**
+   * print the best possible rank for this group
+   */
+  KOTreeView.prototype.updateGroupInformation = function() {
+    var bestrank = this.group * 2 + 1;
+
+    this.$bestrank.text(bestrank);
+  };
+
+  /**
+   * set the size of $forest to match the tree. It's necessary since the tree
+   * nodes are absolutely positioned, so the div doesn't flow around them
+   * automatically.
+   */
   KOTreeView.prototype.setSize = function() {
-    var numTeams, group, thirdPlacePos, lowestPos, x, y;
+    var numTeams, thirdPlacePos, lowestPos, x, y;
 
     numTeams = this.tournament.getTeams().length;
-    group = this.model.get(0).getGroup() & ~0x1;
 
-    thirdPlacePos = new KOTreePosition(1, group + 1, numTeams);
+    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams);
 
     lowestID = KOTournamentModel
         .firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;
-    lowestPos = new KOTreePosition(lowestID, group, numTeams);
+    lowestPos = new KOTreePosition(lowestID, this.group, numTeams);
 
     x = thirdPlacePos.x;
     y = Math.max(lowestPos.y, thirdPlacePos.y);

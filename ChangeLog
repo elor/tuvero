@@ -64,6 +64,7 @@
 	complexity reduced by using KOTreePosition
 	using .kolineanchor and a second ListView just for the KOLines
 	KOTreeView includes a BoxView
+	showing '.bestrank' information
 
 	* core/templates/komatchresult.html: KOMatchResult structure added
 	using a table for kotree
