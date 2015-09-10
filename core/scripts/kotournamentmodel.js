@@ -94,6 +94,10 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    */
   KOTournamentModel.prototype.postprocessMatch = function(matchresult) {
     this.checkForFollowupMatches(matchresult);
+
+    if (this.matches.length === 0) {
+      this.state.set('finished');
+    }
   };
 
   /**

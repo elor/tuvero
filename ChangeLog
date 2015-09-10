@@ -16,6 +16,7 @@
 	placeholder teams: estimating the correct size
 
 	* core/scripts/kotournamentmodel.js: first working version
+	seting state to 'finished' when the last match is through
 
 	* core/scripts/test/kotournamentmodel.js: rudimentary tests. Nothing important, still mostly utility functions
 
