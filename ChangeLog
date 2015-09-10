@@ -55,6 +55,7 @@
 	* legacy/scripts/ui/kotreeview.js: simple KOTreeView added, which currently only invokes a MatchTableView for preliminary testing
 	ListView of KO matches
 	resizing the "forest" to match the tree width and height
+	complexity reduced by using KOTreePosition
 
 	* core/templates/komatchresult.html: KOMatchResult structure added
 	using a table for kotree
@@ -69,10 +70,13 @@
 
 	* legacy/scripts/ui/komatchresultview.js: MatchResultView, which arranges itself in the KOTree
 	automatically positioning the KO matches where they belong
+	using KOTreePosition for the positioning
 
 	* legacy/scripts/ui/matchresultview.js: JSDoc comment added
 
 	* legacy/style/matchtable.css: missing semicolon added
+
+	* legacy/scripts/ui/kotreeposition.js: dedicated calculation class: determines the tree position of a KO match
 
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

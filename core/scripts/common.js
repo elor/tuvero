@@ -148,6 +148,7 @@ define([
   'ui/koline',
   'ui/kolistmodel',
   'ui/komatchresultview',
+  'ui/kotreeposition',
   'ui/kotreeview',
   'ui/legacyloadermodel',
   'ui/lengthview',

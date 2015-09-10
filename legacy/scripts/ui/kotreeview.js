@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './listview', './komatchresultview',
-    'core/matchmodel', 'core/kotournamentmodel'], function(extend,
-    TemplateView, ListView, KOMatchResultView, MatchModel, KOTournamentModel) {
+    'core/matchmodel', 'core/kotournamentmodel', './kotreeposition'], //
+function(extend, TemplateView, ListView, KOMatchResultView, MatchModel,
+    KOTournamentModel, KOTreePosition) {
   /**
    * Constructor
    *
@@ -39,32 +40,22 @@ define(['lib/extend', './templateview', './listview', './komatchresultview',
   extend(KOTreeView, TemplateView);
 
   KOTreeView.prototype.setSize = function() {
-    var group, thirdPlaceMatch, lowestMatch, lowestID, firstRound, x, y;
+    var numTeams, group, thirdPlacePos, lowestPos, x, y;
 
+    numTeams = this.tournament.getTeams().length;
     group = this.model.get(0).getGroup() & ~0x1;
 
-    firstRound = Math.min(//
-    KOTournamentModel.initialRoundForTeams(this.tournament.getTeams().length), //
-    KOTournamentModel.roundsInGroup(group & ~0x1) - 1 //
-    );
+    thirdPlacePos = new KOTreePosition(1, group + 1, numTeams);
 
-    lowestID = KOTournamentModel.firstMatchIDOfRound(firstRound + 1) - 1;
+    lowestID = KOTournamentModel
+        .firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;
+    lowestPos = new KOTreePosition(lowestID, group, numTeams);
 
-    // TODO think of a prettier way
-    lowestMatch = new MatchModel([undefined, undefined], lowestID, group);
-    thirdPlaceMatch = new MatchModel([undefined, undefined], 1, group + 1);
+    x = thirdPlacePos.x;
+    y = Math.max(lowestPos.y, thirdPlacePos.y);
 
-    // TODO think of a prettier way
-    lowestMatch = new KOMatchResultView(lowestMatch, undefined, undefined,
-        this.tournament, undefined);
-    thirdPlaceMatch = new KOMatchResultView(thirdPlaceMatch, undefined,
-        undefined, this.tournament, undefined);
-
-    x = thirdPlaceMatch.x;
-    y = Math.max(lowestMatch.y, thirdPlaceMatch.y);
-
-    x += KOMatchResultView.width;
-    y += KOMatchResultView.height;
+    x += KOTreePosition.WIDTH;
+    y += KOTreePosition.HEIGHT;
 
     this.$forest.css('width', x + 'em');
     this.$forest.css('height', y + 'em');
