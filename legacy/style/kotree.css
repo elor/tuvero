@@ -1,0 +1,30 @@
+.kotree {
+  display: inline-block;
+  padding: 0em 0.5em;
+}
+
+.kotree > table {
+  margin: auto;
+}
+
+.kotree .matchrow .teamno {
+  font-weight: bold;
+}
+
+.kotree .matchrow .name {
+  text-align: left
+}
+
+.kotree .finish input, .kotree .correct input {
+  width: 3em;
+  max-width: 3em;
+  text-align: center;
+}
+
+.kotree .correct {
+  display: none;
+}
+
+.kotree .correcting .correct {
+  display: block;
+}

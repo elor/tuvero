@@ -37,6 +37,12 @@
 
 	* legacy/scripts/ui/teamstab.js: using shared tab options
 
+	* core/templates/historytab.html: added {{kotree}} dependency
+
+	* core/templates/kotree.html: preliminary kotree structure copied from matchtable.html
+
+	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END
