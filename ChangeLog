@@ -46,6 +46,7 @@
 	* core/templates/kotree.html: preliminary kotree structure copied from matchtable.html
 	proper ko tree definitions added
 	.kolineanchor added as an Anchor for the KO line lists
+	kotree is a BoxView
 
 	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
 	KO Tree rules added (table-based)
@@ -61,6 +62,7 @@
 	resizing the "forest" to match the tree width and height
 	complexity reduced by using KOTreePosition
 	using .kolineanchor and a second ListView just for the KOLines
+	KOTreeView includes a BoxView
 
 	* core/templates/komatchresult.html: KOMatchResult structure added
 	using a table for kotree
