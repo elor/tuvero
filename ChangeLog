@@ -50,6 +50,7 @@
 	KO Tree rules added (table-based)
 	KO matches are now absolute-positioned
 	.koline is handled separately
+	input elements are properly aligned
 
 	* legacy/scripts/ui/kolistmodel.js: group the matches for first and third place together
 	This gives a more compact view
@@ -63,6 +64,7 @@
 	* core/templates/komatchresult.html: KOMatchResult structure added
 	using a table for kotree
 	using ko-specific versions of 'finish' and 'correct', where the buttons are hidden for spatial reasons
+	score is vertically distributed and horizontally aligned
 
 	* core/templates/koteam.html: a single team, as shown in the KOTournament
 	using a table for kotree

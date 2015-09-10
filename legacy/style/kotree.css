@@ -35,7 +35,6 @@
 
 .kotree .komatchresult .name {
   width: 3em;
-  text-align: left;
 }
 
 .kotree .komatchresult .koscore, .kotree .komatchresult .team {
@@ -44,9 +43,11 @@
 
 .kotree .komatchresult .koscore {
   min-width: 3em;
+  text-align: center;
 }
 
-.kotree .finish input, .kotree .correct input {
+.kotree .koscore input {
+  display: block;
   width: 3em;
   max-width: 3em;
   text-align: center;
