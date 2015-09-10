@@ -49,6 +49,7 @@
 	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
 	KO Tree rules added (table-based)
 	KO matches are now absolute-positioned
+	.koline is handled separately
 
 	* legacy/scripts/ui/kolistmodel.js: group the matches for first and third place together
 	This gives a more compact view
@@ -57,6 +58,7 @@
 	ListView of KO matches
 	resizing the "forest" to match the tree width and height
 	complexity reduced by using KOTreePosition
+	using .kolineanchor and a second ListView just for the KOLines
 
 	* core/templates/komatchresult.html: KOMatchResult structure added
 	using a table for kotree
@@ -73,12 +75,15 @@
 	* legacy/scripts/ui/komatchresultview.js: MatchResultView, which arranges itself in the KOTree
 	automatically positioning the KO matches where they belong
 	using KOTreePosition for the positioning
+	KOLine code moved to KOLineView
 
 	* legacy/scripts/ui/matchresultview.js: JSDoc comment added
 
 	* legacy/style/matchtable.css: missing semicolon added
 
 	* legacy/scripts/ui/kotreeposition.js: dedicated calculation class: determines the tree position of a KO match
+
+	* legacy/scripts/ui/kolineview.js: a View just for KOLines. It's easier this way
 
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

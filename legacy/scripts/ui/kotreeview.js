@@ -6,10 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', './komatchresultview',
-    'core/matchmodel', 'core/kotournamentmodel', './kotreeposition'], //
-function(extend, TemplateView, ListView, KOMatchResultView, MatchModel,
-    KOTournamentModel, KOTreePosition) {
+define(['lib/extend', './templateview', './listview', './inlinelistview',
+    './komatchresultview', 'core/matchmodel', 'core/kotournamentmodel',
+    './kotreeposition', './kolineview'], function(extend, TemplateView,
+    ListView, InlineListView, KOMatchResultView, MatchModel, KOTournamentModel,
+    KOTreePosition, KOLineView) {
   /**
    * Constructor
    *
@@ -31,6 +32,11 @@ function(extend, TemplateView, ListView, KOMatchResultView, MatchModel,
 
     this.tournament = tournament;
     this.$forest = this.$view.find('.forest');
+    this.$kolineanchor = this.$forest.find('.kolineanchor').removeClass(
+        'kolineanchor');
+
+    this.lines = new InlineListView(this.model, this.$kolineanchor,
+        this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length);
 
     this.matches = new ListView(this.model, this.$forest, this.$template,
         KOMatchResultView, teamlist, tournament, undefined);

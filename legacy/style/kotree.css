@@ -26,6 +26,7 @@
   width: 12em;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-height: 1em;
 }
 
 .kotree .komatchresult .teamno {
@@ -57,4 +58,8 @@
 
 .kotree .correcting .correct {
   display: block;
+}
+
+.kotree .koline {
+  position: absolute;
 }

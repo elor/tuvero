@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './matchresultview', './koline', './kotreeposition'], //
-function(extend, MatchResultView, KOLine, KOTreePosition) {
+define(['lib/extend', './matchresultview', 'jquery', './koline',
+    './kotreeposition'], function(extend, MatchResultView, $, KOLine,
+    KOTreePosition) {
   /**
    * Constructor
    *
@@ -33,9 +34,6 @@ function(extend, MatchResultView, KOLine, KOTreePosition) {
 
     this.$view.css('left', this.x + 'em');
     this.$view.css('top', this.y + 'em');
-
-    // TODO print the KOLine
-    this.line = undefined;
   }
   extend(KOMatchResultView, MatchResultView);
 
