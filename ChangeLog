@@ -57,6 +57,8 @@
 
 	* core/templates/tournamentlist.html: extracted from historytab.html
 
+	* legacy/style/history.css: hiding .kotree when match table is required
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END

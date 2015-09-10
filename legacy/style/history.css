@@ -39,7 +39,7 @@
   display: none;
 }
 
-#tabs > [data-tab="history"].showmatchtable .progresstable {
+#tabs > [data-tab="history"].showmatchtable .progresstable, #tabs > [data-tab="history"].showmatchtable .kotree {
   display: none;
 }
 
