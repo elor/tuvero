@@ -53,6 +53,7 @@
 	KO matches are now absolute-positioned
 	.koline is handled separately
 	input elements are properly aligned
+	black border removed
 
 	* legacy/scripts/ui/kolistmodel.js: group the matches for first and third place together
 	This gives a more compact view
