@@ -49,6 +49,10 @@ define(function() {
       QUnit.deepEqual(bye.score, [13, 7], 'score matches the argument');
       QUnit.equal(bye.isBye(), true, 'bye.isBye() is true');
 
+      /*
+       * isRunningMatch()
+       */
+      QUnit.equal(bye.isRunningMatch(), false, 'byes are not running matches');
     });
   };
 });

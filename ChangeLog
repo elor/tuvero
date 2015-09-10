@@ -1,3 +1,15 @@
+2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/matchmodel.js: support for 'undefined' team IDs (indicate empty teams, which are no byes though)
+	save()/restore() of 'undefined' team IDs
+	isRunningMatch() function: whether this match really is a valid match, not just a placeholder or a result
+
+	* core/scripts/test/byeresult.js: testing isRunningMatch()
+
+	* core/scripts/test/matchmodel.js: testing isRunningMatch()
+
+	* core/scripts/test/matchresult.js: testing isRunningMatch()
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END

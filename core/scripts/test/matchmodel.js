@@ -75,6 +75,31 @@ define(function() {
       QUnit.equal(game.getTeamID(0), 4, 'restore(): correct team id 0');
       QUnit.equal(game.getTeamID(1), 1, 'restore(): correct team id 1');
       QUnit.equal(game.getTeamID(2), 2, 'restore(): correct team id 2');
+
+      /*
+       * isRunningMatch()
+       */
+      game = new MatchModel([0, 1], 0, 0);
+      QUnit.ok(game.isRunningMatch(), 'isRunningMatch() of a typical match');
+
+      game = new MatchModel([0, 0], 0, 0);
+      QUnit.equal(game.isRunningMatch(), false,
+          'isRunningMatch() of a match with duplicate teams');
+
+      game = new MatchModel([0, undefined], 0, 0);
+      QUnit.equal(game.isRunningMatch(), false,
+          'isRunningMatch() of a match with an undefined team');
+
+      /*
+       * save() with an undefined team
+       */
+      data = game.save();
+      QUnit.ok(data, 'save() with undefined team succeeds');
+      game = new MatchModel();
+      QUnit.equal(game.restore(data), true,
+          'restore() with undefined team works');
+      QUnit.equal(game.getTeamID(1), undefined,
+          'second team still is undefined');
     });
   };
 });

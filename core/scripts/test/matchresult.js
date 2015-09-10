@@ -103,6 +103,12 @@ define(function() {
       QUnit.deepEqual(result.getID(), 8, 'restore(): id restored');
       QUnit.deepEqual(result.getGroup(), 1, 'restore(): group id restored');
       QUnit.equal(result.isBye(), false, 'result is not a bye');
+
+      /*
+       * isRunningMatch()
+       */
+      QUnit.equal(result.isRunningMatch(), false,
+          'results are not running matches');
     });
   };
 });

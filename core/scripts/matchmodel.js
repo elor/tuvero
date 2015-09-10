@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './indexedmodel'], function(extend, IndexedModel) {
+define(['lib/extend', './indexedmodel', './type'], function(extend,
+    IndexedModel, Type) {
   /**
    * Constructor
    *
@@ -74,6 +75,34 @@ define(['lib/extend', './indexedmodel'], function(extend, IndexedModel) {
   };
 
   /**
+   * @return true if this is not a result, all team IDs are unique and all team
+   *         IDs are valid (not undefined). false otherwise.
+   */
+  MatchModel.prototype.isRunningMatch = function() {
+    var valid;
+
+    valid = true;
+
+    if (valid) {
+      valid = !this.isResult();
+    }
+
+    if (valid) {
+      valid = this.teams.every(function(teamID) {
+        return Type.isNumber(teamID);
+      });
+    }
+
+    if (valid) {
+      valid = this.teams.every(function(teamID, index) {
+        return this.teams.slice(index + 1).indexOf(teamID) === -1;
+      }, this);
+    }
+
+    return valid;
+  };
+
+  /**
    * disable setID() functionality
    */
   MatchModel.prototype.setID = undefined;
@@ -113,7 +142,13 @@ define(['lib/extend', './indexedmodel'], function(extend, IndexedModel) {
 
     data.g = this.group;
     data.t = this.teams.map(function(team) {
-      return team.getID ? team.getID() : team;
+      if (team && team.getID) {
+        return team.getID();
+      } else if (team === undefined) {
+        return -1;
+      } else {
+        return team;
+      }
     });
 
     return data;
@@ -135,7 +170,7 @@ define(['lib/extend', './indexedmodel'], function(extend, IndexedModel) {
 
     this.teams.splice(0);
     data.t.forEach(function(t) {
-      this.teams.push(t);
+      this.teams.push(t === -1 ? undefined : t);
     }, this);
     this.length = this.teams.length;
 
