@@ -127,7 +127,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
    * update all the values
    */
   MatchView.prototype.update = function() {
-    var $teams, i, $team, teamid, isBye, team;
+    var $teams, i, $team, teamid, isBye, team, teamsize;
 
     $teams = this.$view.find('.team');
     if ($teams.length === 0) {
@@ -137,11 +137,13 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
       $teams = $createTeamsLists(this.$view.filter('.teamno,.name'));
     }
 
+    teamsize = undefined;
+
     this.destroyTeamViews();
 
     isBye = this.model.isBye && this.model.isBye();
 
-    // FIXME support for a varying number of teams required
+    // should support a varying number of teams
     for (i = 0; i < $teams.length; i += 1) {
       $team = $($teams[i]);
       teamid = this.model.getTeamID(i % this.model.length);
@@ -149,12 +151,16 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
       if (this.teamlist) {
         if (teamid !== undefined) {
           team = this.teamlist.get(teamid);
-          if (isBye && i % 2) {
+          teamsize = team.length;
+          if (isBye && (i % this.model.length == 0)) {
             team = createByeTeam(team.length);
           }
         } else {
-          // TODO somehow determine the current team size, don't just use "3"
-          team = createEmptyTeam(3);
+          if (teamsize === undefined) {
+            // dirty hack: just look for size of the the first team.
+            teamsize = this.teamlist.get(0) && this.teamlist.get(0).length;
+          }
+          team = createEmptyTeam(teamsize);
         }
         this.teamviews.push(new TeamView(team, $team));
       } else {

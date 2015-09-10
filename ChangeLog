@@ -13,6 +13,7 @@
 	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing history when the first match is added, not just the first result
 
 	* legacy/scripts/ui/matchview.js: using isRunningMatch() to show/hide the 'finish' inputs
+	placeholder teams: estimating the correct size
 
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
