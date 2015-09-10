@@ -10,6 +10,8 @@
 
 	* core/scripts/test/matchresult.js: testing isRunningMatch()
 
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing history when the first match is added, not just the first result
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END

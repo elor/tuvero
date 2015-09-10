@@ -63,7 +63,7 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
   TabHistoryCheapHackListener.prototype.oninsert = function(emitter, event, //
   data) {
     if (emitter === State.tournaments) {
-      data.object.getHistory().registerListener(this);
+      data.object.getCombinedHistory().registerListener(this);
     }
     this.update();
   };
