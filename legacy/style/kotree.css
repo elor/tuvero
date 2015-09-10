@@ -5,10 +5,11 @@
 
 .kotree .forest {
   position: relative;
+  border: solid 1px black;
 }
 
 .kotree .komatchresult {
-  /* position: absolute; */
+  position: absolute;
   display: block;
   border-radius: 0.5em;
   border: solid 1px black;
