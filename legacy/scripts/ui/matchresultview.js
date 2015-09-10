@@ -17,6 +17,8 @@ define(['lib/extend', './matchview', './matchresultcontroller'], function(
    *          the container element
    * @param teamlist
    *          a ListModel of TeamModel instances
+   * @param tournament
+   *          a TournamentModel instance
    */
   function MatchResultView(model, $view, teamlist, tournament) {
     MatchResultView.superconstructor.call(this, model, $view, teamlist);

@@ -6,9 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', './kolistmodel',
-    './matchtableview'], function(extend, TemplateView, ListView, KOListModel,
-    MatchTableView) {
+define(['lib/extend', './templateview', './listview', './komatchresultview'], //
+function(extend, TemplateView, ListView, KOMatchResultView) {
   /**
    * Constructor
    *
@@ -24,15 +23,16 @@ define(['lib/extend', './templateview', './listview', './kolistmodel',
    * @param teamsize
    *          a ValueModel which represents the size of all registered teams
    */
-  function KOTreeView(tournament, $view, groups, teamlist, teamsize) {
-    KOTreeView.superconstructor.call(this, new KOListModel(tournament), $view,
-        $view.find('.progressrow.template'));
+  function KOTreeView(model, $view, teamlist, tournament, teamsize) {
+    KOTreeView.superconstructor.call(this, model, $view, $view
+        .find('.komatchresult.template'));
 
-    this.$matchtable = this.$view.find('.kotree').detach();
+    console.log(this.$template);
 
-    // nested ListViews: BinningReferenceListModel is 2D
-    this.matchtable = new ListView(this.model, this.$view, this.$matchtable,
-        MatchTableView, teamlist, tournament, teamsize);
+    this.$forest = this.$view.find('.forest');
+
+    this.matches = new ListView(this.model, this.$forest, this.$template,
+        KOMatchResultView, teamlist, tournament, undefined);
   }
   extend(KOTreeView, TemplateView);
 
