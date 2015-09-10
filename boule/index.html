@@ -728,51 +728,53 @@
             <div class="kotree">
               <h3>Spiel um Platz <span class="bestrank">##</span></h3>
               <div class="forest">
-                <div class="komatchresult template">
-                  <div class="teams">
-                    <div class="team">
-                      <div class="teamno">##</div>
-                      <div class="names">
-                        <div class="name">%% %%</div>
-                        <div class="name">%% %%</div>
-                        <div class="name">%% %%</div>
-                      </div>
-                    </div>
-                    <div class="team">
-                      <div class="teamno">##</div>
-                      <div class="names">
-                        <div class="name">%% %%</div>
-                        <div class="name">%% %%</div>
-                        <div class="name">%% %%</div>
-                      </div>
-                    </div>
-                  </div>
+                <table class="komatchresult template borderless">
+                  <tr>
+                    <td class="team">
+                      <span class="teamno">##</span>
+                      <span class="names">
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                      </span>
+                    </td>
 
-                  <div>
-                    <div class="result">
-                      <span class="score">##</span> : <span class="score">##</span>
-                    </div>
-                    <div class="noprint finish">
-                      <input class="score" type="number" />
-                      :
-                      <input class="score" type="number" />
-                      <button class="accept">
-                        Beenden
-                      </button>
-                    </div>
-                    <div class="noprint correct">
-                      <input class="score" type="number" />
-                      :
-                      <input class="score" type="number" />
-                      <button class="cancel">
-                        Abbrechen
-                      </button>
-                      <button class="accept">
-                        Korrigieren
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                    <td class="koscore" rowspan="2">
+                      <div class="result">
+                        <span class="score">##</span> : <span class="score">##</span>
+                      </div>
+                      <div class="noprint finish">
+                        <input class="score" type="number" />
+                        :
+                        <input class="score" type="number" />
+                        <button class="accept">
+                          Beenden
+                        </button>
+                      </div>
+                      <div class="noprint correct">
+                        <input class="score" type="number" />
+                        :
+                        <input class="score" type="number" />
+                        <button class="cancel">
+                          Abbrechen
+                        </button>
+                        <button class="accept">
+                          Korrigieren
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="team">
+                      <span class="teamno">##</span>
+                      <span class="names">
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
               </div>
             </div>
 

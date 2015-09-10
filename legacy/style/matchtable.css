@@ -12,7 +12,7 @@
 }
 
 .matchtable .matchrow .name {
-  text-align: left
+  text-align: left;
 }
 
 .matchtable .finish input, .matchtable .correct input {

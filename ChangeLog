@@ -46,6 +46,7 @@
 	proper ko tree definitions added
 
 	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
+	KO Tree rules added (table-based)
 
 	* legacy/scripts/ui/kolistmodel.js: group the matches for first and third place together
 	This gives a more compact view
@@ -54,8 +55,10 @@
 	ListView of KO matches
 
 	* core/templates/komatchresult.html: KOMatchResult structure added
+	using a table for kotree
 
 	* core/templates/koteam.html: a single team, as shown in the KOTournament
+	using a table for kotree
 
 	* core/templates/tournamentlist.html: extracted from historytab.html
 
@@ -65,6 +68,8 @@
 	* legacy/scripts/ui/komatchresultview.js: MatchResultView, which arranges itself in the KOTree
 
 	* legacy/scripts/ui/matchresultview.js: JSDoc comment added
+
+	* legacy/style/matchtable.css: missing semicolon added
 
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

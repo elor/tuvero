@@ -1,14 +1,16 @@
-<div class="komatchresult template">
-  <div class="teams">
+<table class="komatchresult template borderless">
+  <tr>
     {{koteam}}
+    
+    <td class="koscore" rowspan="2">
+      <div class="result">
+        {{resultscore}}
+      </div>
+      {{finishmatchform}}
+      {{correctionform}}
+    </td>
+  </tr>
+  <tr>
     {{koteam}}
-  </div>
-
-  <div>
-    <div class="result">
-      {{resultscore}}
-    </div>
-    {{finishmatchform}}
-    {{correctionform}}
-  </div>
-</div>
+  </tr>
+</table>

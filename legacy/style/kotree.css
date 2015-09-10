@@ -3,16 +3,45 @@
   padding: 0em 0.5em;
 }
 
-.kotree > table {
-  margin: auto;
+.kotree .forest {
+  position: relative;
 }
 
-.kotree .matchrow .teamno {
+.kotree .komatchresult {
+  /* position: absolute; */
+  display: block;
+  border-radius: 0.5em;
+  border: solid 1px black;
+  background-color: #d0d0d0;
+  margin: 0.5em;
+  padding: 0.2em;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.kotree .komatchresult .team {
+  display: block;
+  width: 12em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kotree .komatchresult .teamno {
   font-weight: bold;
 }
 
-.kotree .matchrow .name {
-  text-align: left
+.kotree .komatchresult .name {
+  width: 3em;
+  text-align: left;
+}
+
+.kotree .komatchresult .koscore, .kotree .komatchresult .team {
+  vertical-align: middle !important;
+}
+
+.kotree .komatchresult .koscore {
+  min-width: 3em;
 }
 
 .kotree .finish input, .kotree .correct input {
