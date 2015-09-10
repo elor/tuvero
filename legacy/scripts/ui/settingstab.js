@@ -4,10 +4,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
-    './browser', './storage', './storagesavecontroller', //
-    './fileloadcontroller'], function(extend, $, View, ValueModel, ValueView,
-    Browser, Storage, StorageSaveController, FileLoadController) {
+define(['lib/extend', 'jquery', 'core/view', './valueview', './browser',
+    './storage', './storagesavecontroller', './fileloadcontroller'], function(
+    extend, $, View, ValueView, Browser, Storage, StorageSaveController,
+    FileLoadController) {
   /**
    * represents a whole team tab
    *

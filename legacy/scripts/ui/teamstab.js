@@ -6,11 +6,11 @@
  */
 define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     './newteamview', './lengthview', './teamsizeview', './preregcloserview',
-    'core/valuemodel', './checkboxview', 'core/classview', './tabshandle',
+    './checkboxview', 'core/classview', './tabshandle',
     './teamremovecontroller', './teamnamecontroller', './teamtableview',
     './inputview', './teamsfileloadcontroller', 'options', 'core/lengthmodel',
     './deleteallteamscontroller'], function(extend, View, ListView, TeamView,
-    State, NewTeamView, LengthView, TeamSizeView, PreregCloserView, ValueModel,
+    State, NewTeamView, LengthView, TeamSizeView, PreregCloserView,
     CheckboxView, ClassView, TabsHandle, TeamRemoveController,
     TeamNameController, TeamTableView, InputView, TeamsFileLoadController,
     Options, LengthModel, DeleteAllTeamsController) {
@@ -81,14 +81,14 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
         this.$view, 'noreg');
 
     // name maxwidth checkbox
-    value = new ValueModel();
+    value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find('>.options input.maxwidth');
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
         'nomaxwidth');
 
     // list/table selection checkbox
-    value = new ValueModel();
+    value = State.tabOptions.teamTable;
     $container = this.$view.find('>.options input.showtable');
     this.showtableCheckboxView = new CheckboxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view, 'showtable');

@@ -5,10 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
-    'core/valuemodel', './checkboxview', 'core/classview', 'options',
-    './tournamentmatchesview'],//
-function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
-    Options, TournamentMatchesView) {
+    './checkboxview', 'core/classview', 'options', './tournamentmatchesview'],//
+function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
+    TournamentMatchesView) {
   /**
    * represents a whole team tab
    *
@@ -41,14 +40,14 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
         TournamentMatchesView, State.teams, State.teamsize);
 
     // name maxwidth checkbox
-    value = new ValueModel();
+    value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find('>.options input.maxwidth');
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
         'nomaxwidth');
 
     // player names checkbox
-    value = new ValueModel();
+    value = State.tabOptions.showNames;
     $container = this.$view.find('>.options input.shownames');
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,

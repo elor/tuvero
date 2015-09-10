@@ -22,6 +22,15 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     this.teamsize = new ValueModel(3);
     this.tournaments = new TournamentListModel();
 
+    this.tabOptions = {
+      showNames: new ValueModel(true),
+      nameMaxWidth: new ValueModel(true),
+      teamTable: new ValueModel(true),
+      rankingAbbreviations: new ValueModel(true),
+      showMatchTables: new ValueModel(true),
+      hideFinishedGroups: new ValueModel(false)
+    };
+
     this.initCleanupListeners();
 
     Listener.bind(this, 'error', function(emitter, event, message) {

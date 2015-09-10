@@ -5,10 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
-    'core/valuemodel', './checkboxview', 'core/classview', 'options',
-    './tournamenthistoryview'],//
-function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
-    Options, TournamentHistoryView) {
+    './checkboxview', 'core/classview', 'options', './tournamenthistoryview'], //
+function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
+    TournamentHistoryView) {
   /**
    * represents a whole team tab
    *
@@ -41,28 +40,28 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
         TournamentHistoryView, State.teams, State.teamsize);
 
     // name maxwidth checkbox
-    value = new ValueModel();
+    value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find('>.options input.maxwidth');
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
         'nomaxwidth');
 
     // player names checkbox
-    value = new ValueModel();
+    value = State.tabOptions.showNames;
     $container = this.$view.find('>.options input.shownames');
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         'hidenames');
 
     // list/table selection checkbox
-    value = new ValueModel();
+    value = State.tabOptions.showMatchTables;
     $container = this.$view.find('>.options input.showtable');
     this.showtableCheckboxView = new CheckboxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view, 'showtable',
         'showmatchtable');
 
     // hidefinished checkbox
-    value = new ValueModel();
+    value = State.tabOptions.hideFinishedGroups;
     $container = this.$view.find('>.options input.hidefinished');
     this.hidefinishedCheckboxView = new CheckboxView(value, $container);
     this.hidefinishedClassView = new ClassView(value, this.$view,

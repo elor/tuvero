@@ -23,6 +23,20 @@
 
 	* legacy/scripts/ui/generictournamenthistoryview.js: JSDoc comments and normal comments added
 
+	* legacy/scripts/ui/gamestab.js: using shared tab options
+
+	* legacy/scripts/ui/historytab.js: using shared tab options
+
+	* legacy/scripts/ui/newtab.js: using shared tab options
+
+	* legacy/scripts/ui/rankingtab.js: using shared tab options
+
+	* legacy/scripts/ui/settingstab.js: using shared tab options
+
+	* legacy/scripts/ui/statemodel.js: providing shared tab options
+
+	* legacy/scripts/ui/teamstab.js: using shared tab options
+
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END

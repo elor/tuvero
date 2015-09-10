@@ -5,9 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
-    'core/valuemodel', './checkboxview', 'core/classview', 'options',
-    './tournamentrankingview'], function(extend, $, View, ListView, State,
-    ValueModel, CheckboxView, ClassView, Options, TournamentRankingView) {
+    './checkboxview', 'core/classview', 'options', './tournamentrankingview'], //
+function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
+    TournamentRankingView) {
   /**
    * represents a whole team tab
    *
@@ -34,21 +34,21 @@ define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
     var $template, $container, value;
 
     // name maxwidth checkbox
-    value = new ValueModel();
+    value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find('>.options input.maxwidth');
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
         'nomaxwidth');
 
     // player names checkbox
-    value = new ValueModel();
+    value = State.tabOptions.showNames;
     $container = this.$view.find('>.options input.shownames');
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         'hidenames');
 
     // list/table selection checkbox
-    this.rankingabbreviations = new ValueModel();
+    this.rankingabbreviations = State.tabOptions.rankingAbbreviations;
     $container = this.$view.find('>.options input.abbreviate');
     this.abbreviateCheckboxView = new CheckboxView(this.rankingabbreviations,
         $container);
