@@ -22,6 +22,7 @@
 	* legacy/scripts/ui/matchtableview.js: add superclass.destroy() call, which has been forgotten
 
 	* legacy/scripts/ui/generictournamenthistoryview.js: JSDoc comments and normal comments added
+	KOTreeView added for KOTournamentModels (system: 'ko')
 
 	* legacy/scripts/ui/gamestab.js: using shared tab options
 
@@ -42,6 +43,11 @@
 	* core/templates/kotree.html: preliminary kotree structure copied from matchtable.html
 
 	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
+
+	* legacy/scripts/ui/kolistmodel.js: group the matches for first and third place together
+	This gives a more compact view
+
+	* legacy/scripts/ui/kotreeview.js: simple KOTreeView added, which currently only invokes a MatchTableView for preliminary testing
 
 2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

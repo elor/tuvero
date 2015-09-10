@@ -6,18 +6,20 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './progresstableview'], function(extend,
-    View, ProgressTableView) {
+define(['lib/extend', 'core/view', './progresstableview', './kotreeview'], //
+function(extend, View, ProgressTableView, KOTreeView) {
   var constructors, selectors;
 
   constructors = {
     swiss: ProgressTableView,
-    round: ProgressTableView
+    round: ProgressTableView,
+    ko: KOTreeView
   };
 
   selectors = {
     swiss: '.progresstable',
-    round: '.progresstable'
+    round: '.progresstable',
+    ko: '.kotree'
   };
 
   /**
