@@ -100,7 +100,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
 
     this.$finishform = this.$view.find('.finish');
 
-    if (!this.model.isResult()) {
+    if (this.model.isRunningMatch()) {
       this.controller = new MatchController(this, this.$finishform);
     } else {
       this.$finishform.remove();
