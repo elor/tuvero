@@ -68,13 +68,13 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
       matchID += 1;
     }
 
+    this.createPlaceholderMatches();
+
     this.history.map(function(match) {
       if (match.isBye()) {
         this.checkForFollowupMatches(match);
       }
     }, this);
-
-    // this.createPlaceholderMatches();
 
     return true;
   };
@@ -151,20 +151,20 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    * create all placeholder matches
    */
   KOTournamentModel.prototype.createPlaceholderMatches = function() {
-    var groups, groupMatchIDLimit, losergroup, id;
+    var groups, groupMatchIDLimit, id;
 
     groups = [];
     while (groups.length * 2 < this.teams.length) {
       groups.push(groups.length);
     }
 
-    groupMatchIDLimit = groups.map(function(groupID) {
+    groupMatchIDLimit = groups.map(function(group) {
       return KOTournamentModel.firstMatchIDOfRound(KOTournamentModel
           .roundsInGroup(group));
     });
 
     id = KOTournamentModel.firstMatchIDOfRound(KOTournamentModel
-        .initialRoundForTeams(this.teams)) - 1;
+        .initialRoundForTeams(this.teams.length)) - 1;
     for (; id > 0; id -= 1) {
       groupMatchIDLimit.forEach(function(matchIDLimit, group) {
         if (id < matchIDLimit) {
@@ -434,7 +434,8 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    * @return the next group ID
    */
   KOTournamentModel.loserGroupID = function(groupID, lostMatchID) {
-    return groupID + KOTournamentModel.roundOfMatchID(lostMatchID);
+    var round = KOTournamentModel.roundOfMatchID(lostMatchID);
+    return groupID + (1 << (round - 1));
   };
 
   /**
@@ -471,10 +472,10 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
     var rounds;
 
     if (group === 0) {
-      return 32;
+      return 30;
     }
 
-    for (rounds = 0; rounds < 32; rounds += 1) {
+    for (rounds = 0; rounds < 30; rounds += 1) {
       if ((group & (1 << rounds)) !== 0) {
         break;
       }
