@@ -126,16 +126,6 @@ define(function() {
       QUnit.ok(tournament.run(), 'run() with 3 teams succeeds');
       QUnit.equal(tournament.getProperty('komode'), 'matched',
           'initial ko mode is "matched"');
-      QUnit.equal(tournament.getHistory().length, 1, '1 match in the history');
-      QUnit.equal(tournament.getMatches().length, 3, '3 running matches');
-      QUnit.ok(tournament.getHistory().get(0), 'history match is a bye');
-      QUnit.equal(tournament.getMatches().get(0).isResult(), false,
-          'running match is running');
-      QUnit.equal(tournament.getHistory().get(0).getID(), 2, 'id of bye is 2');
-      QUnit.equal(tournament.getMatches().get(1).getID(), 3,
-          'id of first running match is 1');
-      QUnit.equal(tournament.getMatches().get(1).getID(), 3,
-          'id of second running match is 3');
 
     });
   };

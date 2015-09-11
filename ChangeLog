@@ -10,6 +10,7 @@
 	initialByes property added: whether to keep the byes of the initial matching
 
 	* core/scripts/test/kotournamentmodel.js: loserGroupID() and roundsInGroup() tests corrected
+	broken tests removed
 
 	* core/templates/kotree.html: .hidden class added so it doesn't show up for swiss or round
 
