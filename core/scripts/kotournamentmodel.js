@@ -18,6 +18,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
     KOTournamentModel.superconstructor.call(this, ['wins']);
 
     this.setProperty('komode', 'matched');
+    this.setProperty('komaxgroup', 1);
   }
   extend(KOTournamentModel, TournamentModel);
 
@@ -151,10 +152,13 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    * create all placeholder matches
    */
   KOTournamentModel.prototype.createPlaceholderMatches = function() {
-    var groups, groupMatchIDLimit, id;
+    var groups, groupMatchIDLimit, id, maxgroup;
+
+    maxgroup = Math.min(this.getProperty('komaxgroup'),
+        (this.teams.length - 1) / 2);
 
     groups = [];
-    while (groups.length * 2 < this.teams.length) {
+    while (groups.length <= maxgroup) {
       groups.push(groups.length);
     }
 
@@ -235,6 +239,10 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
     currentGroupID = currentMatch.getGroup();
 
     if (currentMatchID <= 1) {
+      return;
+    }
+
+    if (nextGroupID > this.getProperty('komaxgroup')) {
       return;
     }
 
@@ -435,7 +443,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    */
   KOTournamentModel.loserGroupID = function(groupID, lostMatchID) {
     var round = KOTournamentModel.roundOfMatchID(lostMatchID);
-    if (round === 0){
+    if (round === 0) {
       return groupID;
     }
     return groupID + (1 << (round - 1));
