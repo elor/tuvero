@@ -11,6 +11,15 @@
 
 	* core/scripts/test/kotournamentmodel.js: loserGroupID() and roundsInGroup() tests corrected
 
+	* core/templates/kotree.html: .hidden class added so it doesn't show up for swiss or round
+
+	* core/templates/newtab.html: #games links point to #history
+	"Click to Rename" hint added
+
+	* core/templates/tabs.html: history and games swapped
+
+	* core/templates/teamstab.html: "Click to Rename" hint added
+
 2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: support for 'undefined' team IDs (indicate empty teams, which are no byes though)

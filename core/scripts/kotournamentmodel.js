@@ -19,7 +19,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
 
     this.setProperty('komode', 'matched');
     this.setProperty('komaxgroup', 1);
-    this.setProperty('initialByes', true);
+    this.setProperty('initialByes', false);
   }
   extend(KOTournamentModel, TournamentModel);
 

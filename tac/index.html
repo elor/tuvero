@@ -139,6 +139,9 @@
           <span>
             <input class="showtable" type="checkbox" checked="checked" />
             Tabelle</span>
+            <br>
+            <br>
+            <span>Zum Umbenennen Namen klicken</span>
         </div>
         <h2><span class="numteams">##</span> Anmeldungen</h2>
 
@@ -227,8 +230,11 @@
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
             checked="checked" />Spielernamen</span>
+            <br>
+            <br>
+            <span>Zum Umbenennen Turniersystem klicken</span>
         </div>
-        <h2>Turniersystem</h2>
+        <h2>Turniersysteme</h2>
 
         <table class="systemtable background">
           <tr>
@@ -327,7 +333,7 @@
               Runde <span class="round">#</span> wurde ausgelost.
             </p>
             <p>
-              Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+              Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
 
@@ -405,7 +411,7 @@
               Runde <span class="round">#</span> wurde ausgelost.
             </p>
             <p>
-              Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+              Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
           <div class="idle">
@@ -440,163 +446,12 @@
           <div class="running">
             <p>KO-Turnier wird gespielt.</p>
             <p>
-              Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+              Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
           <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
         </div>
 
-      </div>
-
-      <div data-tab="games" accesskey="g">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
-        <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
-            Breite</span> <span><input class="shownames" type="checkbox"
-            checked="checked" />Spielernamen</span>
-        </div>
-        <h2>Laufende Spiele</h2>
-
-        <div class="tournamentlist">
-          <div class="boxview tournament template">
-            <h3 class="tournamentname">%% %%</h3>
-
-            <div class="matchtable">
-              <h3>Runde <span class="round">##</span></h3>
-              <table class="background">
-                <tr>
-                  <th>No.</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th>No.</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="resultcol">Ergebnis</th>
-                </tr>
-                <tr class="matchrow template">
-                  <td class="teamno"></td>
-                  <td class="name"></td>
-                  <td class="name"></td>
-                  <td class="name"></td>
-                  <td class="teamno"></td>
-                  <td class="name"></td>
-                  <td class="name"></td>
-                  <td class="name"></td>
-                  <td>
-                  <div class="result">
-                    <span class="score">##</span> : <span class="score">##</span>
-                  </div>
-                  <div class="noprint finish">
-                    <input class="score" type="number" />
-                    :
-                    <input class="score" type="number" />
-                    <button class="accept">
-                      Beenden
-                    </button>
-                  </div>
-                  <div class="noprint correct">
-                    <input class="score" type="number" />
-                    :
-                    <input class="score" type="number" />
-                    <button class="cancel">
-                      Abbrechen
-                    </button>
-                    <button class="accept">
-                      Korrigieren
-                    </button>
-                  </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-
-            <div class="votelist bye">
-              <h3>&#x2205; Freilos</h3>
-            </div>
-
-            <div class="votelist up">
-              <h3>&#x25b2; Hochlos</h3>
-            </div>
-
-            <div class="votelist down">
-              <h3>&#x25bc; Runterlos</h3>
-            </div>
-
-            <div class="teamview voteview template">
-              <div class="teamno">##</div>
-              <div class="names">
-                <div class="name">%% %%</div>
-                <div class="name">%% %%</div>
-                <div class="name">%% %%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div data-tab="ranking" accesskey="r">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
-        <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
-            Breite</span> <span><input class="shownames" type="checkbox"
-            checked="checked" />Spielernamen</span> <span><input class="abbreviate"
-            type="checkbox" checked="checked"/>Abkürzungen</span>
-        </div>
-        <h2>Platzierungen</h2>
-
-        <div class="tournamentlist">
-          <div class="boxview tournament template">
-            <h3 class="tournamentname"></h3>
-
-            <table class="rankingview background">
-              <tr class="rankingheader">
-                <th>Platz</th>
-                <th>No.</th>
-                <th class="playername">Spieler</th>
-                <th class="component">%% %%</th>
-              </tr>
-              <tr class="rankingrow template">
-                <td class="rank">##</td>
-                <td class="teamno">##</td>
-                <td class="playername"></td>
-                <td class="component">##</td>
-              </tr>
-            </table>
-
-
-            <!-- autoformat placeholder :-( -->
-
-            <table class="correctiontable background">
-              <tr>
-                <th colspan="9">Korrekturen:</th>
-              </tr>
-              <tr class="correctionrow template">
-                <td class="before teamno"></td>
-                <td>vs.</td>
-                <td class="before teamno"></td>
-                <td class="before score">
-                  <div class="result">
-                    <span class="score"></span> : <span class="score"></span>
-                  </div>
-                </td>
-                <td>&#x21d2;</td>
-                <td class="after teamno"></td>
-                <td>vs.</td>
-                <td class="after teamno"></td>
-                <td class="after">
-                  <div class="result">
-                    <span class="score"></span> : <span class="score"></span>
-                  </div>
-                </td>
-              </tr>
-            </table>
-
-          </div>
-        </div>
       </div>
 
       <div data-tab="history" accesskey="h">
@@ -721,7 +576,7 @@
               </tr>
             </table>
 
-            <div class="kotree boxview">
+            <div class="kotree boxview hidden">
               <h3>Spiel um Platz <span class="bestrank">##</span></h3>
               <div class="forest">
                 <div class="kolineanchor"></div>
@@ -783,11 +638,162 @@
 
       </div>
 
+      <div data-tab="ranking" accesskey="r">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+            Breite</span> <span><input class="shownames" type="checkbox"
+            checked="checked" />Spielernamen</span> <span><input class="abbreviate"
+            type="checkbox" checked="checked"/>Abkürzungen</span>
+        </div>
+        <h2>Platzierungen</h2>
+
+        <div class="tournamentlist">
+          <div class="boxview tournament template">
+            <h3 class="tournamentname"></h3>
+
+            <table class="rankingview background">
+              <tr class="rankingheader">
+                <th>Platz</th>
+                <th>No.</th>
+                <th class="playername">Spieler</th>
+                <th class="component">%% %%</th>
+              </tr>
+              <tr class="rankingrow template">
+                <td class="rank">##</td>
+                <td class="teamno">##</td>
+                <td class="playername"></td>
+                <td class="component">##</td>
+              </tr>
+            </table>
+
+
+            <!-- autoformat placeholder :-( -->
+
+            <table class="correctiontable background">
+              <tr>
+                <th colspan="9">Korrekturen:</th>
+              </tr>
+              <tr class="correctionrow template">
+                <td class="before teamno"></td>
+                <td>vs.</td>
+                <td class="before teamno"></td>
+                <td class="before score">
+                  <div class="result">
+                    <span class="score"></span> : <span class="score"></span>
+                  </div>
+                </td>
+                <td>&#x21d2;</td>
+                <td class="after teamno"></td>
+                <td>vs.</td>
+                <td class="after teamno"></td>
+                <td class="after">
+                  <div class="result">
+                    <span class="score"></span> : <span class="score"></span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+        </div>
+      </div>
+
       <div data-tab="lanes" accesskey="l">
         <h2>Bahnen</h2>
         An der Auslosung und Zuweisung von Bahnen wird noch gearbeitet.
         <br>
         Ich bitte um etwas Geduld.
+      </div>
+
+      <div data-tab="games" accesskey="g">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+            Breite</span> <span><input class="shownames" type="checkbox"
+            checked="checked" />Spielernamen</span>
+        </div>
+        <h2>Laufende Spiele</h2>
+
+        <div class="tournamentlist">
+          <div class="boxview tournament template">
+            <h3 class="tournamentname">%% %%</h3>
+
+            <div class="matchtable">
+              <h3>Runde <span class="round">##</span></h3>
+              <table class="background">
+                <tr>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="resultcol">Ergebnis</th>
+                </tr>
+                <tr class="matchrow template">
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td>
+                  <div class="result">
+                    <span class="score">##</span> : <span class="score">##</span>
+                  </div>
+                  <div class="noprint finish">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="accept">
+                      Beenden
+                    </button>
+                  </div>
+                  <div class="noprint correct">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="cancel">
+                      Abbrechen
+                    </button>
+                    <button class="accept">
+                      Korrigieren
+                    </button>
+                  </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="votelist bye">
+              <h3>&#x2205; Freilos</h3>
+            </div>
+
+            <div class="votelist up">
+              <h3>&#x25b2; Hochlos</h3>
+            </div>
+
+            <div class="votelist down">
+              <h3>&#x25bc; Runterlos</h3>
+            </div>
+
+            <div class="teamview voteview template">
+              <div class="teamno">##</div>
+              <div class="names">
+                <div class="name">%% %%</div>
+                <div class="name">%% %%</div>
+                <div class="name">%% %%</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div data-tab="settings" accesskey="o">
