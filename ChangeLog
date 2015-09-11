@@ -9,6 +9,7 @@
 	komaxgroup option added: restricts matches above a certain 'bestrank'
 	initialByes property added: whether to keep the byes of the initial matching
 	initialByes -> initialbyes
+	using 'ko' ranking
 
 	* core/scripts/test/kotournamentmodel.js: loserGroupID() and roundsInGroup() tests corrected
 	broken tests removed
@@ -32,6 +33,16 @@
 	* legacy/scripts/ui/kotournamentview.js: view for KO tournaments in the NewTab
 
 	* legacy/scripts/ui/swisstournamentcontroller.js: redundant visualization code removed
+
+	* core/scripts/rankingcomponentindex.js: KO ranking added
+
+	* core/scripts/rankingdatalistenerindex.js: KO ranking added
+
+	* core/scripts/rankingkocomponent.js: KO ranking added
+
+	* core/scripts/rankingkolistener.js: KO ranking added, which mainly just adjusts the group of the loser after a lost match
+
+	* legacy/scripts/ui/strings.js: KO ranking texts added
 
 2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

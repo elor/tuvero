@@ -15,7 +15,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    * Constructor
    */
   function KOTournamentModel() {
-    KOTournamentModel.superconstructor.call(this, ['wins']);
+    KOTournamentModel.superconstructor.call(this, ['ko']);
 
     this.setProperty('komode', 'matched');
     this.setProperty('komaxgroup', 1);
