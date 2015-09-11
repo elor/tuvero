@@ -7,6 +7,7 @@
 	Max round decreased to 32 to avoid 32 bit integer overflows
 	loserGroupID overflow bug fixed
 	komaxgroup option added: restricts matches above a certain 'bestrank'
+	initialByes property added: whether to keep the byes of the initial matching
 
 	* core/scripts/test/kotournamentmodel.js: loserGroupID() and roundsInGroup() tests corrected
 
