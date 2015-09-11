@@ -56,6 +56,8 @@
 
 	* legacy/style/splash.css: error text looked horrible
 
+	* core/templates/hometab.html: donate-button at the bottom of the home screen.
+
 2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: support for 'undefined' team IDs (indicate empty teams, which are no byes though)
