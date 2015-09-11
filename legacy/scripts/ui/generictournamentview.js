@@ -7,13 +7,14 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', './tournamentview', './roundtournamentview',
-    './swisstournamentview'], function(extend, View, TournamentView,
-    RoundTournamentView, SwissTournamentView) {
+    './swisstournamentview', './kotournamentview'], function(extend, View, //
+TournamentView, RoundTournamentView, SwissTournamentView, KOTournamentView) {
   var constructors, defaultConstructor;
 
   constructors = {
     swiss: SwissTournamentView,
-    round: RoundTournamentView
+    round: RoundTournamentView,
+    ko: KOTournamentView
   };
 
   defaultConstructor = TournamentView;

@@ -8,6 +8,7 @@
 	loserGroupID overflow bug fixed
 	komaxgroup option added: restricts matches above a certain 'bestrank'
 	initialByes property added: whether to keep the byes of the initial matching
+	initialByes -> initialbyes
 
 	* core/scripts/test/kotournamentmodel.js: loserGroupID() and roundsInGroup() tests corrected
 	broken tests removed
@@ -23,6 +24,14 @@
 	* core/templates/teamstab.html: "Click to Rename" hint added
 
 	* core/templates/kooptions.html: options updated to new KOTournamentModel formularion
+
+	* legacy/scripts/ui/generictournamentview.js: add KOTournamentView
+
+	* legacy/scripts/ui/kotournamentcontroller.js: controller for KO tournaments in the NewTab
+
+	* legacy/scripts/ui/kotournamentview.js: view for KO tournaments in the NewTab
+
+	* legacy/scripts/ui/swisstournamentcontroller.js: redundant visualization code removed
 
 2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

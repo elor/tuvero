@@ -19,7 +19,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
 
     this.setProperty('komode', 'matched');
     this.setProperty('komaxgroup', 1);
-    this.setProperty('initialByes', false);
+    this.setProperty('initialbyes', false);
   }
   extend(KOTournamentModel, TournamentModel);
 
@@ -64,7 +64,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
         match = new ByeResult(teams[0], [Options.byepointswon,
             Options.byepointslost], matchID, 0);
         this.checkForFollowupMatches(match);
-        if (this.getProperty('initialByes')) {
+        if (this.getProperty('initialbyes')) {
           this.history.push(match);
         }
       } else {

@@ -34,7 +34,6 @@ define(['lib/extend', 'core/controller', 'core/listener'], function(extend,
     });
 
     Listener.bind(noshuffle, 'update', function() {
-      $noshuffle.prop('checked', noshuffle.get());
       tournament.setProperty('swissshuffle', !noshuffle.get());
     });
   }
