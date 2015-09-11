@@ -435,6 +435,9 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    */
   KOTournamentModel.loserGroupID = function(groupID, lostMatchID) {
     var round = KOTournamentModel.roundOfMatchID(lostMatchID);
+    if (round === 0){
+      return groupID;
+    }
     return groupID + (1 << (round - 1));
   };
 

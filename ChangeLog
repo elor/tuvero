@@ -5,6 +5,9 @@
 	missing parens added
 	loserGroupID corrected (was missing a power of 2)
 	Max round decreased to 32 to avoid 32 bit integer overflows
+	loserGroupID overflow bug fixed
+
+	* core/scripts/test/kotournamentmodel.js: loserGroupID() and roundsInGroup() tests corrected
 
 2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

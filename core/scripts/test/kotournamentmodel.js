@@ -82,16 +82,17 @@ define(function() {
       result = ids.map(function(id) {
         return KOTournamentModel.loserGroupID(0, id);
       });
-      ref = [0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4,
-          4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5];
-      QUnit.deepEqual(result, ref, 'loserGroupID()');
+      ref = [0, 0, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 8, 8, 8, 8, 8, 8,
+          8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 16, 16];
+      QUnit.deepEqual(result, ref, 'loserGroupID(0)');
 
       result = ids.map(function(id) {
         return KOTournamentModel.loserGroupID(8, id);
       });
-      ref = [8, 8, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 12,
-          12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 13, 13];
-      QUnit.deepEqual(result, ref, 'loserGroupID()');
+      ref = ref.map(function(a) {
+        return a + 8;
+      });
+      QUnit.deepEqual(result, ref, 'loserGroupID(8)');
 
       result = ids.map(function(id) {
         return KOTournamentModel.initialRoundForTeams(id);
@@ -103,7 +104,7 @@ define(function() {
       result = ids.map(function(id) {
         return KOTournamentModel.roundsInGroup(id);
       });
-      ref = [32, 1, 2, 1, 3, 1, 2, 1, 4, 1, 2, 1, 3, 1, 2, 1, 5, 1, 2, 1, 3, 1,
+      ref = [30, 1, 2, 1, 3, 1, 2, 1, 4, 1, 2, 1, 3, 1, 2, 1, 5, 1, 2, 1, 3, 1,
           2, 1, 4, 1, 2, 1, 3, 1, 2, 1, 6, 1];
       QUnit.deepEqual(result, ref, 'roundsInGroup()');
 
@@ -126,7 +127,7 @@ define(function() {
       QUnit.equal(tournament.getProperty('komode'), 'matched',
           'initial ko mode is "matched"');
       QUnit.equal(tournament.getHistory().length, 1, '1 match in the history');
-      QUnit.equal(tournament.getMatches().length, 2, '2 running matches');
+      QUnit.equal(tournament.getMatches().length, 3, '3 running matches');
       QUnit.ok(tournament.getHistory().get(0), 'history match is a bye');
       QUnit.equal(tournament.getMatches().get(0).isResult(), false,
           'running match is running');
