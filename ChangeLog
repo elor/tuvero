@@ -16,10 +16,13 @@
 
 	* core/templates/newtab.html: #games links point to #history
 	"Click to Rename" hint added
+	ko options have the correct classes
 
 	* core/templates/tabs.html: history and games swapped
 
 	* core/templates/teamstab.html: "Click to Rename" hint added
+
+	* core/templates/kooptions.html: options updated to new KOTournamentModel formularion
 
 2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -436,14 +436,21 @@
           </h3>
           <div class="finished">Turnier beendet</div>
           <div class="initial">
-            <div class="boxview collapsed">
+            <div class="boxview tournamentoptions">
               <h3>Erweiterte Optionen</h3>
-              <div>Erste Runde</div>
-              <select class="mode" size="3">
-                <option value="order">Reihenfolge</option>
-                <option value="set" selected="selected">Setzen</option>
-                <option value="random">Zufall</option>
-              </select>
+              <div class="option">
+                Erste Runde
+                <select class="mode">
+                  <option value="ordered">Reihenfolge</option>
+                  <option value="matched">Setzen</option>
+                  <option value="shuffled">Auslosen</option>
+                </select>
+              </div>
+              <div class="option">
+                <span>
+                  <input class="initialbyes" type="checkbox">
+                  Freilose beim Turnierstart</span>
+              </div>
             </div>
             <button class="runtournament">KO-Turnier starten</button>
           </div>
