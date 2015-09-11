@@ -48,11 +48,6 @@ require(['core/config', 'core/common'], function() {
     // up, hence the jquery function.
     $(function() {
 
-      // try {
-      // NOT actively looking for updates. The events are handled
-      // automatically
-      // Update();
-
       if (!Splash.valid) {
         console.error('Splash screen indicates browser incompatibilities');
         return;
@@ -64,8 +59,19 @@ require(['core/config', 'core/common'], function() {
 
       // using a timeout to let the browser update the splashtext
       setTimeout(function() {
+        var loaded;
         try {
-          if (Storage.restore()) {
+
+          try {
+            loaded = Storage.restore();
+          } catch (e) {
+            Toast.init();
+            Storage.disable();
+            Splash.error();
+            return;
+          }
+
+          if (loaded) {
             new Toast(Strings.loaded);
           } else {
             new Toast(Strings.newtournament);

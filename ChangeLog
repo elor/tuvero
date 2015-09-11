@@ -44,6 +44,18 @@
 
 	* legacy/scripts/ui/strings.js: KO ranking texts added
 
+	* core/scripts/listmodel.js: improved restore() failure handling
+
+	* core/scripts/main.js: improved Storage restore handling
+
+	* core/templates/splash.html: improved state load error messages
+
+	* legacy/scripts/ui/state.js: proper error handling after restore()
+
+	* legacy/scripts/ui/statemodel.js: proper error handling during restore()
+
+	* legacy/style/splash.css: error text looked horrible
+
 2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/matchmodel.js: support for 'undefined' team IDs (indicate empty teams, which are no byes though)

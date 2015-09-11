@@ -12,9 +12,14 @@
   white-space: nowrap;
 }
 
-#splash p {
+#splash p, #splash .error {
   margin-bottom: 2em;
   display: none;
+}
+
+#splash .error {
+  margin-bottom: 2em;
+  text-align: left;
 }
 
 #splash p a[href] {
@@ -42,6 +47,10 @@ body:not(.splash) #splash {
 .splash #tabs, .splash .tabmenu {
   opacity: 0;
   transition: opacity 0s;
+}
+
+#splash.error p {
+  white-space: normal;
 }
 
 #tabs, .tabmenu {

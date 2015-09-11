@@ -274,7 +274,7 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
         } catch (e) {
           console.error('ListModel.save() failed with error: ');
           console.error(e);
-          return undefined;
+          throw new Error('ListModel.save() failed');
         }
       });
     } else {

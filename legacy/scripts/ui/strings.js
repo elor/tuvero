@@ -144,7 +144,7 @@ define(function() {
     ranking_medium_headtohead: 'Vergleich',
     ranking_medium_tac: 'TAC',
     tournamenterrorprefix: 'Turnierfehler',
-    oldsaveformat: 'Inkompatibles Format. Nur Versionen 1.5 und neuer unterstützt',
+    oldsaveformat: 'Fehler beim Umwandeln eines alten 1.4-Speicherstandes',
     tournament_initial: 'Unterturnier erstellt',
     tournament_running: 'Runde gestartet',
     tournament_idle: 'Runde beendet',

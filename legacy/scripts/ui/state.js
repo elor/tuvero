@@ -49,12 +49,17 @@ define(['options', './state_new', './legacyloadermodel'], function(Options,
           return true;
         }
 
-        new Toast(Strings.oldsaveformat, Toast.LONG);
+        this.reset();
+        new Toast(Strings.oldsaveformat, Toast.INFINITE);
+        throw new Error('Failure when converting from a 1.4 savefile');
         return false;
       }
 
       if (!State_New.restore(object)) {
-        return false;
+        this.reset();
+        State_new.emit('error', 'Error while loading a savefile of version '
+            + object.version);
+        throw new Error('State_New.restore() failed softly.');
       }
 
       return true;

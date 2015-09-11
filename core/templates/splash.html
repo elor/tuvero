@@ -32,12 +32,44 @@
   <p class="oldinternetexplorer">
     Internet Explorer wird erst ab Version 9 unterstützt.
   </p>
-  <p class="error">
-    Gespeicherter Turnierstand kann nicht geladen werden.
-    Öffne <a href="#reset">#reset</a>, um den gespeicherten Turnierstand zu löschen.
-    Sollte der Fehler dann immer noch bestehen, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
-    Für Informationen zu Ladefehlern siehe <a href="http://blog.tuvero.de">http://blog.tuvero.de</a>
-  </p>
+  <div class="error">
+    <h3>Speicherstand kann nicht geladen werden.</h3>
+    Das im Browser gespeicherte Turnier konnte nicht geladen werden.
+    Die Ursache kann in einem Fehler in Tuvero, einem extrem alten Speicherstand
+    oder der falschen Tuvero-Variante liegen.
+    Der Speicherstand wurde nicht überschrieben.
+    Es gibt jetzt folgende Möglichkeiten:
+    <ul>
+      <li>
+        Vielleicht wird im Hintergrund schon eine neue Version von Tuvero
+        heruntergeladen, mit der der Speicherstand geöffnet werden kann.
+        Wenn eine <b>neue Version</b> heruntergeladen wurde, kann man sie durch <a href="index.html#home">Neuladen</a> starten.
+      </li>
+      <li>
+        <b>Offline-Versionen</b> erhalten keine Updates.
+        Auf <a href="https://tuvero.de/">https://tuvero.de/</a> ist immer die neueste Version verfügbar.
+      </li>
+      <li>
+        Wurde die richtige <b>Tuvero-Variante</b> geöffnet?
+        Eine Übersicht ist auf <a href="https://tuvero.de/">https://tuvero.de/</a> verfügbar.
+      </li>
+      <li>
+        Wenn der Turnierstand nicht mehr benötigt wird, kann er gelöscht werden.
+        Zum <b>Löschen</b> muss <a href="#reset">#reset</a> geöffnet werden.
+      </li>
+      <li>
+        Für <b>technische Details</b> kann man die JavaScript-Konsole öffnen
+        (Chrome: Strg+Shift+J). Dort stehen mögliche Ursachen.
+      </li>
+      <li>
+        Wenn der Fehler weiterhin besteht, dann bitte ich um <b>Kontakt</b>, z.B.
+        über <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
+        Bitte fügt auch die Ausgabe der JavaScript-Konsole bei.
+      </li>
+    </ul>
+    Informationen zu neuen Versionen und behobenen Fehlern stehen auf
+    <a href="http://blog.tuvero.de">http://blog.tuvero.de</a>.
+  </div>
   <p class="loaderror">
     Konnte eine Skriptdatei nicht laden.
     Sollte der Fehler auch bei wiederholtem Neuladen der Seite bestehen bleiben, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.

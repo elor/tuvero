@@ -123,8 +123,16 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
 
     Options.fromBlob(JSON.stringify(data.options));
     this.teamsize.set(data.teamsize);
-    this.teams.restore(data.teams, TeamModel);
-    this.tournaments.restore(data.tournaments);
+
+    if (!this.teams.restore(data.teams, TeamModel)) {
+      this.emit('error', 'error: cannot restore State.teams');
+      return false;
+    }
+
+    if (!this.tournaments.restore(data.tournaments)) {
+      this.emit('error', 'error: cannot restore State.teams');
+      return false;
+    }
 
     return true;
   };
