@@ -17,8 +17,8 @@ define(['lib/extend', './tournamentview', './swisstournamentcontroller',
    * @param $view
    *          a jquery DOM element
    */
-  function SwissTournamentView(model, $view) {
-    SwissTournamentView.superconstructor.call(this, model, $view);
+  function SwissTournamentView(model, $view, tournaments) {
+    SwissTournamentView.superconstructor.call(this, model, $view, tournaments);
 
     // set noshuffle
     this.model.noshuffle = new ValueModel(!this.model.tournament

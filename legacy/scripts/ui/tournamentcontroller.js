@@ -18,7 +18,7 @@ function(extend, jquery, Controller, Toast, Strings) {
    * @param view
    *          a TournamentView instance
    */
-  function TournamentController(view) {
+  function TournamentController(view, tournaments) {
     var tournament, rankingOrder;
     TournamentController.superconstructor.call(this, view);
 
@@ -28,6 +28,7 @@ function(extend, jquery, Controller, Toast, Strings) {
     this.toast = undefined;
 
     this.$runbutton = this.view.$view.find('button.runtournament');
+    this.$closebutton = this.view.$view.find('button.closetournament');
     this.$toptitle = this.view.$view.find('>h3:first-child');
     this.$nameinput = this.$toptitle.find('input');
 
@@ -59,6 +60,17 @@ function(extend, jquery, Controller, Toast, Strings) {
         }
       }
       tournament.run();
+    });
+
+    this.$closebutton.click(function() {
+      var state;
+
+      if (tournament.finish()) {
+        tournaments.closeTournament(tournament.getID());
+        new Toast(Strings.tournamentfinished);
+      } else {
+        new Toast(Strings.gamesstillrunning, Toast.LONG);
+      }
     });
 
     this.$toptitle.click(this.showNameInput.bind(this));

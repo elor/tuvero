@@ -17,8 +17,8 @@ define(['lib/extend', './tournamentview', 'core/valuemodel', './checkboxview',
    * @param $view
    *          a DOM element to fill
    */
-  function KOTournamentView(model, $view) {
-    KOTournamentView.superconstructor.call(this, model, $view);
+  function KOTournamentView(model, $view, tournaments) {
+    KOTournamentView.superconstructor.call(this, model, $view, tournaments);
 
     // set the initial value of the ValueModel
     this.model.initialByes = new ValueModel(this.model.tournament

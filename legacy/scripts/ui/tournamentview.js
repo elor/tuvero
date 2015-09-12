@@ -18,7 +18,7 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
    *          a TournamentModel instance
    * @param $view
    */
-  function TournamentView(tournament, $view) {
+  function TournamentView(tournament, $view, tournaments) {
     var $advancedOptions;
     TournamentView.superconstructor.call(this, undefined, $view);
 
@@ -67,7 +67,7 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
     this.updateNames();
     this.updateRound();
 
-    this.controller = new TournamentController(this);
+    this.controller = new TournamentController(this, tournaments);
   }
   extend(TournamentView, View);
 

@@ -15,8 +15,8 @@ define(['lib/extend', './tournamentview'], function(extend, TournamentView) {
    * @param $view
    *          a DOM element to fill
    */
-  function RoundTournamentView(model, $view) {
-    RoundTournamentView.superconstructor.call(this, model, $view);
+  function RoundTournamentView(model, $view, tournaments) {
+    RoundTournamentView.superconstructor.call(this, model, $view, tournaments);
 
     this.subcontroller = undefined;
 

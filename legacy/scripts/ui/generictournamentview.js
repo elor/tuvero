@@ -22,14 +22,14 @@ TournamentView, RoundTournamentView, SwissTournamentView, KOTournamentView) {
   /**
    * Constructor
    */
-  function GenericTournamentView(tournament, $view) {
+  function GenericTournamentView(tournament, $view, tournaments) {
     var Constructor;
     GenericTournamentView.superconstructor.call(this, undefined, $view);
 
     this.tournament = tournament;
     if (tournament) {
       Constructor = constructors[tournament.SYSTEM] || defaultConstructor;
-      this.view = new Constructor(tournament, $view);
+      this.view = new Constructor(tournament, $view, tournaments);
     } else {
       this.view = new View(undefined, $view);
     }

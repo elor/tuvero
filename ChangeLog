@@ -13,6 +13,7 @@
 	* legacy/scripts/ui/systemtablerowview.js: offsets corrected, so the newtab-tournaments show the correct number of teams
 	new counting algorithm for the length of a TournamentView
 	'rowspan' code moved to the TournamentView
+	passing State.tournaments to TournamentController
 
 	* core/templates/newsystem.html: extracted from {{newtab}}
 	input.tournamentsize added for obvious reasons
@@ -42,6 +43,16 @@
 	* legacy/scripts/ui/tournamentmatchesview.js: box is hidden if the tournament has no matches
 
 	* legacy/scripts/ui/tournamentview.js: setting the rowspan of the TournamentView
+
+	* legacy/scripts/ui/generictournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/kotournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/roundtournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/swisstournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/tournamentcontroller.js: .closetournament button logic enabled
 
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

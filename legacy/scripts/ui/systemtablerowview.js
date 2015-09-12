@@ -123,7 +123,8 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     this.viewPopulator.populate(tournament, $view);
 
     if (tournament) {
-      this.tournamentView = new GenericTournamentView(tournament, $view);
+      this.tournamentView = new GenericTournamentView(tournament, $view,
+          this.tournaments);
     } else {
       this.tournamentView = new NewTournamentView(displayID, tournamentSize,
           $view, this.tournaments, this.teams);
@@ -160,7 +161,6 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
   };
 
   /**
-   *
    * @param teams
    * @param tournaments
    * @param viewPopulator
