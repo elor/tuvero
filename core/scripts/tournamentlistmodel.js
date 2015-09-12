@@ -7,8 +7,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
-], function(extend, IndexedListModel, TournamentIndex, Listener) {
+define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener',
+    './model'], function(extend, IndexedListModel, TournamentIndex, Listener,
+    Model) {
   /**
    * Constructor
    */
@@ -170,8 +171,6 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
     this.invalidateGlobalRanking();
   };
 
-  // TournamentListModel.prototype.save is directly inherited from ListModel
-
   /**
    * helper function to set all anonymous Listeners
    *
@@ -196,6 +195,15 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
     }, this);
   };
 
+  TournamentListModel.prototype.save = function() {
+    data = Model.prototype.save.call(this);
+
+    data.tournaments = TournamentListModel.superclass.save.call(this);
+    data.startIndex = [];
+
+    return data;
+  };
+
   /**
    * restores tournaments from savedata objects. This function is used to
    * enforce the usage of TournamentIndex.createTournament as a factory. The
@@ -207,11 +215,22 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
    * @return true on success, false otherwise
    */
   TournamentListModel.prototype.restore = function(data) {
-    return TournamentListModel.superclass.restore.call(this, data,
+    if (!Model.prototype.restore.call(this, data)) {
+      return false;
+    }
+
+    // TODO restore startIndex
+
+    TournamentListModel.superclass.restore.call(this, data.tournaments,
         TournamentIndex.createTournament);
+
+    return true;
   };
 
-  TournamentListModel.prototype.SAVEFORMAT = [Object];
+  TournamentListModel.prototype.SAVEFORMAT = {
+    tournaments: [Object],
+    startIndex: [Number]
+  };
 
   return TournamentListModel;
 });

@@ -70,7 +70,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
   StateModel.prototype.SAVEFORMAT.options = Object;
   StateModel.prototype.SAVEFORMAT.teams = [Object];
   StateModel.prototype.SAVEFORMAT.teamsize = Number;
-  StateModel.prototype.SAVEFORMAT.tournaments = [Object];
+  StateModel.prototype.SAVEFORMAT.tournaments = Object;
   StateModel.prototype.SAVEFORMAT.target = String; // e.g. 'tac', 'boule', ...
   StateModel.prototype.SAVEFORMAT.version = String; // e.g. '1.5.0'
 
@@ -130,7 +130,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     }
 
     if (!this.tournaments.restore(data.tournaments)) {
-      this.emit('error', 'error: cannot restore State.teams');
+      this.emit('error', 'error: cannot restore State.tournaments');
       return false;
     }
 

@@ -3,6 +3,7 @@
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code
 	setListeners() should have been a method all along, not a function
 	forgot to set the thisArg for the callback functions
+	SAVEFORMAT: allowing for additional data to be saved alongside the actual list
 
 	* legacy/scripts/ui/progressrowview.js: showing correct rank for multiple parallel tournaments
 
@@ -24,6 +25,8 @@
 	* legacy/scripts/ui/backgroundscripts/matchtoasts.js: not showing 'match finished' toast for placeholder matches
 
 	* core/scripts/model.js: restore() failure: printing the responsible object to the console for debugging
+
+	* legacy/scripts/ui/statemodel.js: SAFEFORMAT.tournaments adjusted to new TournamentListModel format
 
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
