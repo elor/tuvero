@@ -17,7 +17,9 @@ define(['ui/state_new', 'ui/listcollectormodel', 'ui/toast', 'ui/strings',
    */
   MatchToasts.matchfinished = new Listener();
   MatchToasts.matchfinished.onremove = function(emitter, event, data) {
-    return new Toast(Strings.gamefinished);
+    if (data.object.isRunningMatch()) {
+      return new Toast(Strings.gamefinished);
+    }
   };
 
   /*

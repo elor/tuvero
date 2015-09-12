@@ -21,6 +21,8 @@
 
 	* legacy/scripts/ui/finishroundcontroller.js: 'finish all' with KO tournaments didn't work when isRunningMatch() was false
 
+	* legacy/scripts/ui/backgroundscripts/matchtoasts.js: not showing 'match finished' toast for placeholder matches
+
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: creating placeholder matches
