@@ -10,30 +10,6 @@
 define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
 ], function(extend, IndexedListModel, TournamentIndex, Listener) {
   /**
-   * helper function to set all anonymous Listeners
-   *
-   * @param list
-   *          a TournamentListModel instance
-   */
-  function setListeners(list) {
-    Listener.bind(list, 'insert', function(emitter, event, data) {
-      if (emitter === list) {
-        data.object.getRanking().registerListener(list);
-        data.object.getState().registerListener(list);
-        list.invalidateGlobalRanking();
-      }
-    });
-
-    Listener.bind(list, 'remove', function(emitter, event, data) {
-      if (emitter === list) {
-        data.object.getRanking().unregisterListener(list);
-        data.object.getState().unregisterListener(list);
-        list.invalidateGlobalRanking();
-      }
-    });
-  }
-
-  /**
    * Constructor
    */
   function TournamentListModel() {
@@ -41,7 +17,7 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
 
     this.rankingCache = undefined;
 
-    setListeners(this);
+    this.setListeners();
   }
   extend(TournamentListModel, IndexedListModel);
 
@@ -195,6 +171,31 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
   };
 
   // TournamentListModel.prototype.save is directly inherited from ListModel
+
+  /**
+   * helper function to set all anonymous Listeners
+   *
+   * @param list
+   *          a TournamentListModel instance
+   */
+  TournamentListModel.prototype.setListeners = function()
+  {
+    Listener.bind(this, 'insert', function(emitter, event, data) {
+      if (emitter === this) {
+        data.object.getRanking().registerListener(this);
+        data.object.getState().registerListener(this);
+        this.invalidateGlobalRanking();
+      }
+    });
+
+    Listener.bind(this, 'remove', function(emitter, event, data) {
+      if (emitter === this) {
+        data.object.getRanking().unregisterListener(this);
+        data.object.getState().unregisterListener(this);
+        this.invalidateGlobalRanking();
+      }
+    });
+  }
 
   /**
    * restores tournaments from savedata objects. This function is used to
