@@ -23,8 +23,12 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
 
     this.$tournamentsize.attr('max', this.model.numTeams);
     this.$tournamentsize.val(this.model.numTeams);
+    controller.updateViewHeight();
 
-    $tournamentsize = this.$tournamentsize;
+    this.$tournamentsize.on('change keypress mousewheel', function() {
+      controller.updateViewHeight();
+      window.setTimeout(controller.updateViewHeight.bind(controller), 1);
+    });
 
     this.$buttons.click(function(e) {
       var $button, type, size;
@@ -32,18 +36,36 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
       $button = $(this);
       type = $button.attr('data-system');
 
-      size = Number($tournamentsize.val());
+      size = Number(controller.$tournamentsize.val());
 
       controller.createTournament(type, size);
     });
   }
   extend(NewTournamentController, Controller);
 
+  /**
+   * @param size
+   *          a tournament size
+   * @return true if the size is valid for a tournament, false otherwise
+   */
+  NewTournamentController.prototype.validateSize = function(size) {
+    return size >= 2 && size <= this.model.numTeams;
+  };
+
+  NewTournamentController.prototype.updateViewHeight = function() {
+    var size;
+
+    size = Number(this.$tournamentsize.val());
+
+    if (this.validateSize(size)) {
+      this.view.$view.attr('rowspan', size);
+    }
+  };
+
   NewTournamentController.prototype.createTournament = function(type, size) {
     var tournament, ranking, i, imax;
 
-    if (!(size >= 2 && size <= this.model.numTeams)) {
-      this.$tournamentsize.val(this.model.numTeams);
+    if (!this.validateSize(size)) {
       return;
     }
 

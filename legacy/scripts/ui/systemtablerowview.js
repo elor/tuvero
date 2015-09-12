@@ -78,7 +78,7 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     // too many variables.
     // TODO extract methods + reduce variables
     var ranking, displayID, tournamentID, isFirstInTournament, previousTeamID;
-    var rankingLength, nextDisplayID, nextTeamID, rowspan, tournament;
+    var rankingLength, nextDisplayID, nextTeamID, tournamentSize, tournament;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     displayID = ranking.displayOrder.indexOf(this.teamID);
@@ -115,10 +115,9 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
       }
     }
 
-    rowspan = nextDisplayID - displayID;
+    tournamentSize = nextDisplayID - displayID;
 
     $view = $('<td>').addClass('system');
-    $view.attr('rowspan', rowspan);
 
     tournament = this.tournaments.get(tournamentID);
     this.viewPopulator.populate(tournament, $view);
@@ -126,8 +125,8 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     if (tournament) {
       this.tournamentView = new GenericTournamentView(tournament, $view);
     } else {
-      this.tournamentView = new NewTournamentView(displayID, rowspan, $view,
-          this.tournaments, this.teams);
+      this.tournamentView = new NewTournamentView(displayID, tournamentSize,
+          $view, this.tournaments, this.teams);
     }
 
     this.$view.append($view);

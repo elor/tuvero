@@ -22,6 +22,8 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
     var $advancedOptions;
     TournamentView.superconstructor.call(this, undefined, $view);
 
+    this.$view.attr('rowspan', tournament.getTeams().length);
+
     this.model.tournament = tournament;
     this.model.rankingOrder = new ListModel(
         this.model.tournament.ranking.componentnames);

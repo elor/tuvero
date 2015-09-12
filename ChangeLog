@@ -12,6 +12,7 @@
 
 	* legacy/scripts/ui/systemtablerowview.js: offsets corrected, so the newtab-tournaments show the correct number of teams
 	new counting algorithm for the length of a TournamentView
+	'rowspan' code moved to the TournamentView
 
 	* core/templates/newsystem.html: extracted from {{newtab}}
 	input.tournamentsize added for obvious reasons
@@ -20,6 +21,7 @@
 
 	* legacy/scripts/ui/newtournamentcontroller.js: validating and respecting the input.tournamentsize during tournament creation
 	register teams first, then add the tournament to the list of tournaments. Saves nothing, but is more intuitive
+	resizing the NewTournamentView to the number of selected teams
 
 	* legacy/scripts/ui/newtournamentview.js: adding 'newsystem' class for some specific CSS rules
 
@@ -38,6 +40,8 @@
 	* legacy/scripts/ui/tournamenthistoryview.js: box is hidden if the tournament has no history
 
 	* legacy/scripts/ui/tournamentmatchesview.js: box is hidden if the tournament has no matches
+
+	* legacy/scripts/ui/tournamentview.js: setting the rowspan of the TournamentView
 
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
