@@ -2,6 +2,7 @@
 
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code
 	setListeners() should have been a method all along, not a function
+	forgot to set the thisArg for the callback functions
 
 	* legacy/scripts/ui/progressrowview.js: showing correct rank for multiple parallel tournaments
 

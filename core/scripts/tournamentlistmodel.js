@@ -178,15 +178,14 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
    * @param list
    *          a TournamentListModel instance
    */
-  TournamentListModel.prototype.setListeners = function()
-  {
+  TournamentListModel.prototype.setListeners = function() {
     Listener.bind(this, 'insert', function(emitter, event, data) {
       if (emitter === this) {
         data.object.getRanking().registerListener(this);
         data.object.getState().registerListener(this);
         this.invalidateGlobalRanking();
       }
-    });
+    }, this);
 
     Listener.bind(this, 'remove', function(emitter, event, data) {
       if (emitter === this) {
@@ -194,8 +193,8 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
         data.object.getState().unregisterListener(this);
         this.invalidateGlobalRanking();
       }
-    });
-  }
+    }, this);
+  };
 
   /**
    * restores tournaments from savedata objects. This function is used to
