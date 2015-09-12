@@ -340,14 +340,13 @@
         </div>
 
         <div class="boxview swiss template" data-system="swiss">
-          <h3>
-            <span class="tournamentname">##</span><input type="text" /> - Schweizer
-            System
-          </h3>
+          <h3><span class="tournamentname">##</span>
+          <input type="text" />
+          - Schweizer
+          System</h3>
+
           <div class="initial">
-            <h3>
-              Runde <span class="nextround">##</span> auslosen
-            </h3>
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
 
             <h3>Wertungsreihenfolge</h3>
 
@@ -389,8 +388,14 @@
               </div>
             </div>
 
-            <button class="runtournament">Runde starten</button>
+            <button class="runtournament">
+              Runde starten
+            </button>
+            <button class="closetournament">
+              Schweizer Turnier abbrechen
+            </button>
           </div>
+
           <div class="running">
             <p>
               Runde <span class="round">#</span> wurde ausgelost.
@@ -401,9 +406,7 @@
           </div>
 
           <div class="idle">
-            <h3>
-              Runde <span class="nextround">##</span> auslosen
-            </h3>
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
 
             <div class="boxview collapsed tournamentoptions">
               <h3>Erweiterte Optionen</h3>
@@ -427,19 +430,35 @@
               </div>
             </div>
 
-
-            <button class="runtournament">Runde starten</button>
+            <button class="runtournament">
+              Runde starten
+            </button>
+            <button class="closetournament">
+              Schweizer Turnier beenden
+            </button>
           </div>
-          <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
-          <h3>
-            <span class="tournamentname">##</span> - Schweizer System
-          </h3>
+
+          <div class="finished">
+            Keine weiteren Spiele möglich
+            <br>
+            <br>
+            <button class="closetournament">
+              Schweizer Turnier beenden
+            </button>
+          </div>
+
+          <div class="failure">
+            Unerwarteter Fehler bei der Turnierberechnung.
+          </div>
+          <h3><span class="tournamentname">##</span> - Schweizer System </h3>
         </div>
+
 
         <div class="boxview round template" data-system="round">
-          <h3>
-            <span class="tournamentname">##</span><input type="text" /> - Rundenturnier
-          </h3>
+          <h3><span class="tournamentname">##</span>
+          <input type="text" />
+          - Rundenturnier </h3>
+
           <div class="initial">
 
             <h3>Wertungsreihenfolge</h3>
@@ -464,11 +483,15 @@
               <h3>Erweiterte Optionen</h3>
             </div>
 
-            <h3>
-              Runde <span class="nextround">##</span> auslosen
-            </h3>
-            <button class="runtournament">Runde starten</button>
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
+            <button class="runtournament">
+              Runde starten
+            </button>
+            <button class="closetournament">
+              Rundenturnier abbrechen
+            </button>
           </div>
+
           <div class="running">
             <p>
               Runde <span class="round">#</span> wurde ausgelost.
@@ -477,23 +500,38 @@
               Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
+
           <div class="idle">
-            <h3>
-              Runde <span class="nextround">##</span> auslosen
-            </h3>
-            <button class="runtournament">Runde starten</button>
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
+            <button class="runtournament">
+              Runde starten
+            </button>
+            <button class="closetournament">
+              Rundenturnier beenden
+            </button>
           </div>
-          <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
-          <h3>
-            <span class="tournamentname">##</span> - Rundenturnier
-          </h3>
+
+          <div class="finished">
+            Alle Spiele beendet.
+            <br>
+            <br>
+            <button class="closetournament">
+              Rundenturnier beenden
+            </button>
+          </div>
+
+          <div class="failure">
+            Unerwarteter Fehler bei der Turnierberechnung.
+          </div>
+          <h3><span class="tournamentname">##</span> - Rundenturnier </h3>
         </div>
 
+
         <div class="boxview ko template" data-system="ko">
-          <h3>
-            <span class="tournamentname">##</span><input type="text" /> - KO-System
-          </h3>
-          <div class="finished">Turnier beendet</div>
+          <h3><span class="tournamentname">##</span>
+          <input type="text" />
+          - KO-System </h3>
+
           <div class="initial">
             <div class="boxview tournamentoptions">
               <h3>Erweiterte Optionen</h3>
@@ -511,15 +549,35 @@
                   Freilose beim Turnierstart</span>
               </div>
             </div>
-            <button class="runtournament">KO-Turnier starten</button>
+            <button class="runtournament">
+              KO-Turnier starten
+            </button>
+            <button class="closetournament">
+              KO-Turnier abbrechen
+            </button>
           </div>
+
           <div class="running">
-            <p>KO-Turnier wird gespielt.</p>
+            <p>
+              KO-Turnier wird gespielt.
+            </p>
             <p>
               Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
-          <div class="failure">Unerwarteter Fehler bei der Turnierberechnung.</div>
+
+          <div class="finished">
+            Alle Spiele beendet.
+            <br>
+            <br>
+            <button class="closetournament">
+              KO-Turnier beenden
+            </button>
+          </div>
+
+          <div class="failure">
+            Unerwarteter Fehler bei der Turnierberechnung.
+          </div>
         </div>
 
       </div>

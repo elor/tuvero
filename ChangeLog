@@ -19,6 +19,7 @@
 	input.tournamentsize added for obvious reasons
 
 	* core/templates/newtab.html: extracted {{newtab}}
+	.closetournament button added
 
 	* legacy/scripts/ui/newtournamentcontroller.js: validating and respecting the input.tournamentsize during tournament creation
 	register teams first, then add the tournament to the list of tournaments. Saves nothing, but is more intuitive
@@ -53,6 +54,14 @@
 	* legacy/scripts/ui/swisstournamentview.js: passing State.tournaments to TournamentController
 
 	* legacy/scripts/ui/tournamentcontroller.js: .closetournament button logic enabled
+
+	* core/templates/kosystem.html: .closetournament button added
+
+	* core/templates/roundsystem.html: .closetournament button added
+
+	* core/templates/swisssystem.html: .closetournament button added
+
+	* tac/index.html: extracted the individual tournament systems
 
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
