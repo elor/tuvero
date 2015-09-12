@@ -605,16 +605,16 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return false;
     }
 
-    correction = new CorrectionModel(result, newResult);
+    correction = new CorrectionModel(baseResult, newResult);
 
     if (!this.validateCorrection(correction)) {
       this.emit('error', 'correction is invalid, although the score is fine');
       return false;
     }
 
+    this.ranking.correct(correction);
     this.corrections.push(correction);
     this.history.set(index, correction.after);
-    this.ranking.correct(correction);
 
     this.postprocessCorrection(correction);
 
