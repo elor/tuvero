@@ -91,16 +91,15 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener'//
       return undefined;
     }
 
-
     if (this.rankingCache && this.rankingCache.displayOrder
         && this.rankingCache.displayOrder.length === numTeams) {
       return this.rankingCache;
     }
 
-      teams = [];
-      while (teams.length < numTeams) {
-        teams.push(teams.length);
-      }
+    teams = [];
+    while (teams.length < numTeams) {
+      teams.push(teams.length);
+    }
 
     // initialize empty object
     ranks = {

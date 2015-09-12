@@ -1,3 +1,11 @@
+2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code
+
+	* legacy/scripts/ui/progressrowview.js: showing correct rank for multiple parallel tournaments
+
+	* legacy/scripts/ui/systemtablerowview.js: offsets corrected, so the newtab-tournaments show the correct number of teams
+
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: creating placeholder matches

@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './teamview', './listview',
-    './inlinelistview', 'core/listener', './matchresultview'], function(extend,
-    TemplateView, TeamView, ListView, InlineListView, Listener, MatchResultView) {
+    './inlinelistview', 'core/listener', './matchresultview'], //
+function(extend, TemplateView, TeamView, ListView, InlineListView, Listener,
+    MatchResultView) {
   /**
    * Constructor
    */
@@ -39,8 +40,14 @@ define(['lib/extend', './templateview', './teamview', './listview',
   extend(ProgressRowView, TemplateView);
 
   ProgressRowView.prototype.updateRank = function() {
+    var ranking, rankIndex, rank;
+
+    ranking = this.ranking.get();
+    rankIndex = ranking.ids.indexOf(this.model.getID());
+    rank = ranking.ranks[rankIndex];
+
+    this.$rank.text(rank + 1);
     this.updatePending = false;
-    this.$rank.text(this.ranking.get().ranks[this.model.getID()] + 1);
   };
 
   return ProgressRowView;
