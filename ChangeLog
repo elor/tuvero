@@ -39,6 +39,7 @@
 	* core/scripts/model.js: restore() failure: printing the responsible object to the console for debugging
 
 	* legacy/scripts/ui/statemodel.js: SAFEFORMAT.tournaments adjusted to new TournamentListModel format
+	showmatchtables is false by default
 
 	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: tab visibility: just look for the first visible tournament, not all.
 
@@ -67,6 +68,10 @@
 	* core/scripts/test/tournamentlistmodel.js: broken tests disabled
 
 	* legacy/style/new.css: .notenoughteams rules added
+
+	* core/templates/historytab.html: showmatchtables text made unambiguous
+
+	* legacy/scripts/ui/historytab.js: showmatchtables logic inverted
 
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

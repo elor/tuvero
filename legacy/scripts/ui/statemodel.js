@@ -27,7 +27,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
       nameMaxWidth: new ValueModel(true),
       teamTable: new ValueModel(true),
       rankingAbbreviations: new ValueModel(true),
-      showMatchTables: new ValueModel(true),
+      showMatchTables: new ValueModel(false),
       hideFinishedGroups: new ValueModel(false)
     };
 

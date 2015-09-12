@@ -57,8 +57,8 @@ function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
     value = State.tabOptions.showMatchTables;
     $container = this.$view.find('>.options input.showtable');
     this.showtableCheckboxView = new CheckboxView(value, $container);
-    this.showtableClassView = new ClassView(value, this.$view, 'showtable',
-        'showmatchtable');
+    this.showtableClassView = new ClassView(value, this.$view, 'showmatchtable',
+        'showtable');
 
     // hidefinished checkbox
     value = State.tabOptions.hideFinishedGroups;
