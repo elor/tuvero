@@ -202,11 +202,11 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
    *          a global ranking object, as will be returned by getGlobalRanking()
    */
   TournamentListModel.prototype.calculateGlobalRanks = function(ranking) {
-    var lastTournamentID, tournamentOffset, lastTournamentRank;
+    var lastTournamentID, lastTournamentRank, rank;
 
     lastTournamentID = undefined;
     lastTournamentRank = 0;
-    tournamentOffset = 0;
+    rank = undefined;
 
     ranking.displayOrder.map(function(teamID, displayID) {
       var tournamentID, tournamentRank;
@@ -214,15 +214,14 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
       tournamentID = ranking.tournamentIDs[teamID];
       tournamentRank = ranking.tournamentRanks[teamID];
 
-      if (tournamentID !== lastTournamentID
-          || lastTournamentRank > tournamentRank) {
+      if (rank === undefined || tournamentID !== lastTournamentID
+          || lastTournamentRank !== tournamentRank) {
+        rank = displayID;
+        lastTournamentRank = tournamentRank;
         lastTournamentID = tournamentID;
-        tournamentOffset = displayID;
       }
 
-      lastTournamentRank = tournamentRank;
-
-      ranking.globalRanks[teamID] = tournamentRank + tournamentOffset;
+      ranking.globalRanks[teamID] = rank;
     });
   };
 

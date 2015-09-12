@@ -7,6 +7,7 @@
 	startIndex field added to remember where the tournament starts
 	completely new logic for getGlobalRanking(), which relies on the tournament order and the start indices
 	tournaments can be closed
+	global rank calculations corrected (rank was too high for follow-up tournaments)
 
 	* legacy/scripts/ui/progressrowview.js: showing correct rank for multiple parallel tournaments
 
