@@ -22,6 +22,10 @@ define(['lib/extend', 'core/view', './newtournamentcontroller'], function(
 
     this.$view.addClass('newsystem');
 
+    if (numTeams < 2) {
+      this.$view.addClass('notenoughteams');
+    }
+
     // anonymous model
     this.model.firstTeamID = firstTeamID;
     this.model.numTeams = numTeams;

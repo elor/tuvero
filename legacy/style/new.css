@@ -128,6 +128,22 @@
   text-align: center;
 }
 
+#tabs>[data-tab="new"] .newsystem .notenoughteams {
+  display: none;
+}
+
+#tabs>[data-tab="new"] .newsystem.notenoughteams .notenoughteams {
+  display: block;
+}
+
+#tabs>[data-tab="new"] .newsystem.notenoughteams .enoughteams {
+  display: none !important;
+}
+
+#tabs>[data-tab="new"] .newsystem.notenoughteams {
+  padding: 0em !important;
+}
+
 #tabs>[data-tab="new"] .system>button, #tabs>[data-tab="new"] .system>div>button
   {
   font-size: 1em;

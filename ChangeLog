@@ -18,6 +18,7 @@
 
 	* core/templates/newsystem.html: extracted from {{newtab}}
 	input.tournamentsize added for obvious reasons
+	showing 'not enough teams' message
 
 	* core/templates/newtab.html: extracted {{newtab}}
 	.closetournament button added
@@ -27,6 +28,7 @@
 	resizing the NewTournamentView to the number of selected teams
 
 	* legacy/scripts/ui/newtournamentview.js: adding 'newsystem' class for some specific CSS rules
+	showing 'not enough teams' message when less than 2 teams
 
 	* core/scripts/tournamentmodel.js: correct(): team ID bug fixed, which caused a failure of ranking.correct()
 
@@ -62,9 +64,9 @@
 
 	* core/templates/swisssystem.html: .closetournament button added
 
-	* tac/index.html: extracted the individual tournament systems
-
 	* core/scripts/test/tournamentlistmodel.js: broken tests disabled
+
+	* legacy/style/new.css: .notenoughteams rules added
 
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
