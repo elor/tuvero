@@ -8,9 +8,9 @@
  */
 define(['lib/extend', 'core/model', './state_new', './teammodel',
     './playermodel', 'options', 'core/tournamentindex', 'core/matchmodel',
-    'core/matchresult', 'core/byeresult'], function(extend, Model, State,
-    TeamModel, PlayerModel, Options, TournamentIndex, MatchModel, MatchResult,
-    ByeResult) {
+    'core/matchresult', 'core/byeresult', 'core/correctionmodel'], function(
+    extend, Model, State, TeamModel, PlayerModel, Options, TournamentIndex,
+    MatchModel, MatchResult, ByeResult, CorrectionModel) {
   /**
    * Constructor
    */
@@ -20,9 +20,10 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
   extend(LegacyLoaderModel, Model);
 
   LegacyLoaderModel.prototype.load = function(blob) {
-    var glob;
+    var glob, tournamentDataArray;
 
     glob = JSON.parse(blob);
+    tournamentDataArray = [];
 
     /*
      * Teams
@@ -37,12 +38,12 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     /*
      * Tournaments
      */
-    this.loadTournaments(glob.tournaments);
+    this.loadTournaments(glob.tournaments, tournamentDataArray);
 
     /*
      * History
      */
-    this.loadHistory(glob.history);
+    this.loadHistory(glob.history, tournamentDataArray);
 
     return true;
   };
@@ -64,10 +65,11 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     State.teamsize.set(Options.teamsize);
   };
 
-  LegacyLoaderModel.prototype.loadTournaments = function(blob) {
+  LegacyLoaderModel.prototype.loadTournaments = function(blob,
+      tournamentDataArray) {
     var tournaments = JSON.parse(blob);
 
-    tournaments.forEach(function(data) {
+    tournaments.forEach(function(data, tournamentID) {
       var tournament, system, name, blob, teams, ranking, parent, //
       rankingorder, tournamentData;
 
@@ -80,6 +82,7 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
 
       if (blob) {
         tournamentData = JSON.parse(blob);
+        tournamentDataArray[tournamentID] = tournamentData
       }
 
       rankingorder = {
@@ -90,7 +93,6 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
       // create tournament
       tournament = TournamentIndex.createTournament(system, rankingorder);
       if (!tournament) {
-        // TODO support for KOTournamentModel
         console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system);
         return;
       }
@@ -111,17 +113,23 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         if (system === 'swiss') {
           tournament.round = tournamentData.round - 1;
         } else {
-          tournament.round = 0;
+          // no tournament round..
         }
 
         // add matches
         tournamentData.games.forEach(function(data) {
-          var teams, match, id;
+          var teams, match, id, group;
 
           teams = [data.teams[0][0], data.teams[1][0]];
           id = data.id;
 
-          match = new MatchModel(teams, id, tournament.round);
+          if (system === 'swiss') {
+            group = tournament.round;
+          } else {
+            group = tournamentData.roundids[teams[0]];
+            id += 1;
+          }
+          match = new MatchModel(teams, id, group);
 
           tournament.matches.push(match);
         });
@@ -137,14 +145,39 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     });
   };
 
-  LegacyLoaderModel.prototype.loadHistory = function(blob) {
+  LegacyLoaderModel.prototype.loadHistory = function(blob, //
+  tournamentDataArray) {
     var history = JSON.parse(blob);
 
     history.forEach(function(tournamenthistory, index) {
-      var tournament, round;
+      var tournament, round, tournamentData, system;
 
+      tournamentData = tournamentDataArray[index];
       tournament = State.tournaments.get(index);
       round = tournament.round;
+      system = tournament.SYSTEM;
+
+      function restoreMatchResult(match) {
+        var result, teams, score, id, group;
+
+        teams = [match[0], match[1]];
+        score = [match[2], match[3]];
+        group = match[4];
+        id = match[5];
+
+        if (group > round) {
+          round = group;
+        }
+
+        if (system === 'ko') {
+          id += 1;
+        }
+
+        match = new MatchModel(teams, id, group);
+        result = new MatchResult(match, score);
+
+        return result;
+      }
 
       /*
        * Matches
@@ -155,27 +188,38 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         }
 
         tournamenthistory.games.forEach(function(match) {
-          var match, result, teams, score, id, group;
-
-          teams = [match[0], match[1]];
-          score = [match[2], match[3]];
-          group = match[4];
-          id = match[5];
-
-          if (group > round) {
-            round = group;
-          }
-
-          match = new MatchModel(teams, id, group);
-          result = new MatchResult(match, score);
+          var result = restoreMatchResult(match);
 
           tournament.history.push(result);
           tournament.ranking.result(result);
         });
 
+        // TODO restore half-filled KO matches
+
+        // TODO fill in placeholder matches
+
         if (tournament.SYSTEM === 'swiss' && round > tournament.round) {
           tournament.round = round;
         }
+      }
+
+      /*
+       * Corrections
+       */
+      if (tournamenthistory.corrections) {
+        tournamenthistory.corrections.forEach(function(correctionData) {
+          var before, after;
+
+          debugger
+
+          before = restoreMatchResult(correctionData[0]);
+          after = restoreMatchResult(correctionData[1]);
+
+          correction = new CorrectionModel(before, after);
+
+
+          tournament.corrections.push(correction);
+        });
       }
 
       /*
@@ -210,10 +254,6 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
           break;
         }
       });
-
-      /*
-       * Corrections
-       */
     });
 
   };

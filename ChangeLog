@@ -73,6 +73,9 @@
 
 	* legacy/scripts/ui/historytab.js: showmatchtables logic inverted
 
+	* legacy/scripts/ui/legacyloadermodel.js: restoring running and finished KO matches
+	restoring corrections
+
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: creating placeholder matches
