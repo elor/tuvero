@@ -57,13 +57,15 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
   };
 
   /**
+   * create a global ranking object, which includes the tournament IDs, team
+   * IDs, global display order, tournament ranks and global ranks.
    *
    * @param numTeams
    *          the number of teams
-   * @return a pseudo-ranking object
+   * @return a globalRanking object
    */
   TournamentListModel.prototype.getGlobalRanking = function(numTeams) {
-    var ranks, tournamentOffsets, lastrank, teams;
+    var teams, undefinedTeams, zeroTeams;
 
     if (numTeams === undefined || numTeams < 0) {
       console.error('invalid numTeams parameter');
@@ -80,85 +82,107 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
       teams.push(teams.length);
     }
 
-    // initialize empty object
-    ranks = {
-      displayOrder: [],
-      globalRanks: [],
-      tournamentRanks: [],
-      tournamentIDs: this.tournamentIDsForEachTeam(),
-      tournamentOffsets: {}
+    undefinedTeams = teams.map(function() {
+      return undefined;
+    });
+
+    zeroTeams = teams.map(function() {
+      return 0;
+    });
+
+    // initialize empty object, but with correct team sizes
+    this.rankingCache = {
+      // index: rank
+      displayOrder: teams.slice(0),
+      // index: teamid
+      globalRanks: zeroTeams.slice(0),
+      tournamentRanks: zeroTeams.slice(0),
+      tournamentIDs: undefinedTeams.slice(0),
+      tournamentOffsets: this.startIndex.asArray()
     };
 
-    // calculate Offsets for globalRanks
-    tournamentOffsets = [0];
-    this.map(function(tournament, tournamentID) {
-      tournamentOffsets[tournamentID + 1] = tournamentOffsets[tournamentID]
-          + tournament.getTeams().length;
-    });
-
-    // write tournamentRanks and globalRanks
-    teams.map(function(team, teamID) {
-      var ranking, tournamentID;
-
-      tournamentID = ranks.tournamentIDs[teamID];
-      if (tournamentID !== undefined) {
-        ranking = this.get(tournamentID).getRanking().get();
-
-        ranks.tournamentRanks[teamID] = ranking.ranks[ranking.ids
-            .indexOf(teamID)];
-        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
-            + tournamentOffsets[tournamentID];
-      } else {
-        ranks.tournamentIDs[teamID] = undefined;
-        ranks.tournamentRanks[teamID] = 0;
-        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
-            + tournamentOffsets[tournamentOffsets.length - 1];
-      }
+    // apply all tournaments in order, just like they were played.
+    this.map(function(tournament) {
+      this.applyTournamentToRanks(tournament, this.rankingCache);
     }, this);
 
-    // correct ranking order
-    lastrank = -1;
-    while (ranks.displayOrder.length < teams.length) {
-      ranks.displayOrder.push(ranks.displayOrder.length);
-    }
-    ranks.displayOrder.sort(function(a, b) {
-      return ranks.globalRanks[a] - ranks.globalRanks[b] || a - b;
-    });
-
-    // adjust the global ranks to account for ignored teams, which are
-    // already
-    // playing in another subtournament
-    lastrank = -1;
-    lastid = -1;
-    ranks.displayOrder.forEach(function(id, displayID) {
-      var rank = ranks.globalRanks[id];
-      if (rank > lastrank) {
-        ranks.globalRanks[id] = displayID;
-        lastid = id;
-        lastrank = rank;
-      } else {
-        ranks.globalRanks[id] = ranks.globalRanks[lastid];
-      }
-    });
-
-    lastid = -1;
-    // don't use arrays.
-    // arrays cannot be as sparse and don't support 'undefined' as a key
-    ranks.displayOrder.forEach(function(id, displayID) {
-      var tournamentID;
-
-      tournamentID = ranks.tournamentIDs[id];
-      if (tournamentID != lastid) {
-        ranks.tournamentOffsets[tournamentID] = displayID;
-        lastid = tournamentID;
-      }
-    });
-
-    this.rankingCache = ranks;
+    this.calculateGlobalRanks(this.rankingCache);
 
     return this.rankingCache;
   };
 
+  /**
+   * apply a single tournament to a global ranking object, in order to
+   * manipulate the ranking so that this tournament is considered part of it.
+   * Sounds strange, but it mainly reorders the teams by the tournament ranks
+   * and sets the tournament ranks. Doesn't take care of the global ranks.
+   *
+   * @param tournament
+   *          a TournamentModel instance
+   * @param globalRanking
+   *          a globalRanking object.
+   */
+  TournamentListModel.prototype.applyTournamentToRanks = function(tournament,
+      globalRanking) {
+    var tournamentID, tournamentRanking, startIndex;
+
+    tournamentID = tournament.getID();
+    tournamentRanking = tournament.getRanking().get();
+    length = tournamentRanking.displayOrder.length;
+    startIndex = this.startIndex.get(tournamentID);
+
+    tournamentRanking.displayOrder.map(function(tournamentTeamID, displayID) {
+      var globalTeamID, globalDisplayID, tournamentRank;
+
+      globalTeamID = tournamentRanking.ids[tournamentTeamID];
+      globalDisplayID = startIndex + displayID;
+      tournamentRank = tournamentRanking.ranks[tournamentTeamID];
+
+      globalRanking.tournamentIDs[globalTeamID] = tournamentID;
+      globalRanking.tournamentRanks[globalTeamID] = tournamentRank;
+      globalRanking.displayOrder[globalDisplayID] = globalTeamID;
+    }, this);
+  };
+
+  /**
+   * after all tournaments have been applied to a bare global ranking, this
+   * function calculates the global ranks from the given information
+   *
+   * @param ranking
+   *          a global ranking object, as will be returned by getGlobalRanking()
+   */
+  TournamentListModel.prototype.calculateGlobalRanks = function(ranking) {
+    var lastTournamentID, tournamentOffset;
+
+    lastTournamentID = undefined;
+    tournamentOffset = 0;
+
+    ranking.displayOrder.map(function(teamID, displayID) {
+      var tournamentID, tournamentRank;
+
+      tournamentID = ranking.tournamentIDs[teamID];
+      if (tournamentID !== lastTournamentID) {
+        lastTournamentID = tournamentID;
+        tournamentOffset = displayID;
+      }
+
+      tournamentRank = ranking.tournamentRanks[teamID];
+
+      ranking.globalRanks[teamID] = tournamentRank + tournamentOffset;
+    });
+  };
+
+  /**
+   * add a new tournament to the list, but also remember its starting index. The
+   * starting index is required for the calculation of the global ranking
+   *
+   * @param tournament
+   *          a TournamentModel instance
+   * @param startIndex
+   *          the index of the first team in the global Ranking. Used for global
+   *          ranking calculations
+   * @return true on success, false or undefined otherwise. See ListModel.push()
+   */
   TournamentListModel.prototype.push = function(tournament, startIndex) {
     if (this.length == this.startIndex.length) {
       this.startIndex.push(startIndex || 0);
@@ -166,6 +190,11 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
 
     return TournamentListModel.superclass.push.call(this, tournament);
   };
+
+  /**
+   * don't allow insertions into this list. It'll mess up the global ranking
+   */
+  TournamentListModel.prototype.insert = undefined;
 
   /**
    * forward ranking updates to external listeners

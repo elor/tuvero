@@ -28,7 +28,7 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
       $newTournamentTemplate) {
     SystemTableRowView.superconstructor.call(this, undefined, $view);
 
-    this.index = index;
+    this.teamID = index;
     this.teams = teams;
     this.tournaments = tournaments;
     this.teamView = new TeamView(teams.get(index), this.$view);
@@ -56,8 +56,8 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     var ranking, globalRank, tournamentRank;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    globalRank = ranking.globalRanks[this.index];
-    tournamentRank = ranking.tournamentRanks[this.index];
+    globalRank = ranking.globalRanks[this.teamID];
+    tournamentRank = ranking.tournamentRanks[this.teamID];
 
     if (this.globalRank !== globalRank) {
       this.$globalrank.text(globalRank + 1);
@@ -70,20 +70,31 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     }
   };
 
+  /**
+   * finds out if the current team is the first team in the tournament and
+   * creates a new TournamentView, if necessary.
+   */
   SystemTableRowView.prototype.updateSystem = function() {
-    var ranking, offset, tournamentID, rowspan, $view, tournament;
+    // too many variables.
+    // TODO extract methods + reduce variables
+    var ranking, displayID, tournamentID, isFirstInTournament, previousTeamID;
+    var rankingLength, nextDisplayID, nextTeamID, rowspan, tournament;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    tournamentID = ranking.tournamentIDs[this.index];
-    offset = ranking.globalRanks[this.index];
-    if (this.index !== ranking.displayOrder[offset]) {
-      // increase the offset to avoid a match, since another one is the
-      // "first"
-      // The offset cannot "overflow", or the global ranks would differ
-      offset = undefined;
+    displayID = ranking.displayOrder.indexOf(this.teamID);
+    tournamentID = ranking.tournamentIDs[this.teamID];
+
+    isFirstInTournament = false;
+    if (displayID === 0) {
+      isFirstInTournament = true;
+    } else {
+      previousTeamID = ranking.displayOrder[displayID - 1];
+
+      if (ranking.tournamentIDs[previousTeamID] !== tournamentID) {
+        isFirstInTournament = true;
+      }
     }
 
-    // TODO check if the IDs match and only update the rowspan.
     if (this.tournamentView) {
       this.tournamentView.$view.remove();
       this.tournamentView.destroy();
@@ -91,36 +102,36 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
       this.$view.removeClass('firstrow');
     }
 
-    if (offset === ranking.tournamentOffsets[tournamentID]) {
-      if (tournamentID === undefined) {
-        rowspan = this.teams.length;
-      } else if (ranking.tournamentOffsets[tournamentID + 1] === undefined) {
-        if (ranking.tournamentOffsets[undefined] == undefined) {
-          rowspan = this.teams.length;
-        } else {
-          rowspan = ranking.tournamentOffsets[undefined];
-        }
-      } else {
-        rowspan = ranking.tournamentOffsets[tournamentID + 1];
-      }
-      rowspan -= offset;
-
-      $view = $('<td>').addClass('system');
-      $view.attr('rowspan', rowspan);
-
-      tournament = this.tournaments.get(tournamentID);
-      this.viewPopulator.populate(tournament, $view);
-
-      if (tournament) {
-        this.tournamentView = new GenericTournamentView(tournament, $view);
-      } else {
-        this.tournamentView = new NewTournamentView(offset, rowspan, $view,
-            this.tournaments, this.teams);
-      }
-
-      this.$view.append($view);
-      this.$view.addClass('firstrow');
+    if (!isFirstInTournament) {
+      return;
     }
+
+    rankingLength = ranking.displayOrder.length;
+    nextDisplayID = displayID + 1;
+    for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
+      nextTeamID = ranking.displayOrder[nextDisplayID];
+      if (ranking.tournamentIDs[nextTeamID] !== tournamentID) {
+        break;
+      }
+    }
+
+    rowspan = nextDisplayID - displayID;
+
+    $view = $('<td>').addClass('system');
+    $view.attr('rowspan', rowspan);
+
+    tournament = this.tournaments.get(tournamentID);
+    this.viewPopulator.populate(tournament, $view);
+
+    if (tournament) {
+      this.tournamentView = new GenericTournamentView(tournament, $view);
+    } else {
+      this.tournamentView = new NewTournamentView(displayID, rowspan, $view,
+          this.tournaments, this.teams);
+    }
+
+    this.$view.append($view);
+    this.$view.addClass('firstrow');
   };
 
   SystemTableRowView.prototype.onupdate = function(emitter, event, data) {
