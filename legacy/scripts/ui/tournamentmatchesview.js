@@ -50,6 +50,19 @@ define(['lib/extend', './templateview', './matchview', './listview',
     this.$matchtable = this.$view.find('.matchtable');
     this.matchtable = new MatchTableView(this.model.getMatches(),
         this.$matchtable, this.teamlist, this.model, this.teamsize);
+
+    Listener.bind(this.model.getMatches(), 'resize', this.updateVisibility
+        .bind(this));
+
+    this.updateVisibility();
+  };
+
+  TournamentMatchesView.prototype.updateVisibility = function() {
+    if (this.model.getMatches().length === 0) {
+      this.$view.addClass('hidden');
+    } else {
+      this.$view.removeClass('hidden');
+    }
   };
 
   /**

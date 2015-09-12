@@ -41,6 +41,11 @@ define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
 
     Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
 
+    Listener.bind(this.model.getCombinedHistory(), 'resize',
+        this.updateVisibility.bind(this));
+
+    this.updateVisibility();
+
     this.updateNames();
   }
   extend(TournamentHistoryView, View);
@@ -57,13 +62,20 @@ define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
 
     // nested ListViews: BinningReferenceListModel is 2D
     this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
-        MatchTableView, this.teamlist, this.model,
-        this.teamsize);
+        MatchTableView, this.teamlist, this.model, this.teamsize);
   };
 
   TournamentHistoryView.prototype.initGenericView = function() {
     this.genericView = new GenericTournamentHistoryView(this.model, this.$view,
         this.groups, this.teamlist, this.teamsize);
+  };
+
+  TournamentHistoryView.prototype.updateVisibility = function() {
+    if (this.model.getCombinedHistory().length === 0) {
+      this.$view.addClass('hidden');
+    } else {
+      this.$view.removeClass('hidden');
+    }
   };
 
   TournamentHistoryView.prototype.updateNames = function() {

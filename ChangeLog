@@ -33,6 +33,12 @@
 
 	* legacy/scripts/ui/statemodel.js: SAFEFORMAT.tournaments adjusted to new TournamentListModel format
 
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: tab visibility: just look for the first visible tournament, not all.
+
+	* legacy/scripts/ui/tournamenthistoryview.js: box is hidden if the tournament has no history
+
+	* legacy/scripts/ui/tournamentmatchesview.js: box is hidden if the tournament has no matches
+
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: creating placeholder matches
