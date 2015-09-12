@@ -95,6 +95,7 @@ define(['lib/extend', './emitter', './type'], function(extend, Emitter, Type) {
         return true;
       }
       console.error('Missing key or wrong format: ' + key);
+      console.log(data);
       return false;
     }, this);
   };
