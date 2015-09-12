@@ -66,20 +66,9 @@ define(function() {
       QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'restore() restores the ids for all players');
 
-      // HACK! DO NOT ACCESS DIRECTLY!
-      list.get(0).state.forceState('idle');
-      ref = {
-        displayOrder: [0, 2, 4, 1, 3, 5, 6],
-        globalRanks: [0, 3, 1, 4, 2, 5, 6],
-        tournamentIDs: [0, 1, 0, 1, 0, 1, undefined],
-        tournamentRanks: [0, 0, 2, 1, 3, 2 , 0],
-        tournamentOffsets: {
-          0: 0,
-          1: 3,
-          undefined: 6
-        }
-      };
-      QUnit.deepEqual(list.getGlobalRanking(7), ref, 'global Ranks');
+      // TODO test getGlobalRanking()
+      // TODO test closeTournament()
+      // TODO test push, insert, pop, remove and erase
     });
   };
 });

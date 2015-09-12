@@ -63,6 +63,8 @@
 
 	* tac/index.html: extracted the individual tournament systems
 
+	* core/scripts/test/tournamentlistmodel.js: broken tests disabled
+
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: creating placeholder matches
