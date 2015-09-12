@@ -24,10 +24,21 @@ define(['lib/extend', 'core/controller', 'core/view', './state_new',
    */
   FinishRoundController.prototype.finishRound = function() {
     State.tournaments.map(function(tournament) {
-      var matches = tournament.getMatches();
-      while (matches.length > 0) {
-        matches.get(0).finish(this.getScore(matches.get(0).length));
-      }
+      var matches, finished;
+
+      matches = tournament.getMatches();
+
+      do {
+        finished = true;
+
+        matches.map(function(match) {
+          if (match.isRunningMatch()) {
+            match.finish(this.getScore(match.length));
+            finished = false;
+          }
+        }, this);
+
+      } while (!finished);
     }, this);
   };
 
