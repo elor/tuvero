@@ -7,14 +7,16 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener',
-    './model'], function(extend, IndexedListModel, TournamentIndex, Listener,
-    Model) {
+define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
+    './listener', './model'], function(extend, IndexedListModel, ListModel,
+    TournamentIndex, Listener, Model) {
   /**
    * Constructor
    */
   function TournamentListModel() {
     TournamentListModel.superconstructor.call(this);
+
+    this.startIndex = new ListModel();
 
     this.rankingCache = undefined;
 
@@ -157,6 +159,14 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener',
     return this.rankingCache;
   };
 
+  TournamentListModel.prototype.push = function(tournament, startIndex) {
+    if (this.length == this.startIndex.length) {
+      this.startIndex.push(startIndex || 0);
+    }
+
+    return TournamentListModel.superclass.push.call(this, tournament);
+  };
+
   /**
    * forward ranking updates to external listeners
    *
@@ -199,7 +209,7 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener',
     data = Model.prototype.save.call(this);
 
     data.tournaments = TournamentListModel.superclass.save.call(this);
-    data.startIndex = [];
+    data.startIndex = this.startIndex.save();
 
     return data;
   };
@@ -219,7 +229,7 @@ define(['lib/extend', './indexedlistmodel', './tournamentindex', './listener',
       return false;
     }
 
-    // TODO restore startIndex
+    this.startIndex.restore(data.startIndex);
 
     TournamentListModel.superclass.restore.call(this, data.tournaments,
         TournamentIndex.createTournament);

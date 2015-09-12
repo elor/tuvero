@@ -56,12 +56,12 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
     imax = Math.min(this.model.firstTeamID + size, //
     ranking.displayOrder.length);
 
-    if (tournament) {
-      this.model.tournaments.push(tournament);
-    }
-
     for (i = this.model.firstTeamID; i < imax; i += 1) {
       tournament.addTeam(ranking.displayOrder[i]);
+    }
+
+    if (tournament) {
+      this.model.tournaments.push(tournament, this.model.firstTeamID);
     }
 
     TournamentController.initiateNameChange(tournament);

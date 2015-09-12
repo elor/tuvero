@@ -4,6 +4,7 @@
 	setListeners() should have been a method all along, not a function
 	forgot to set the thisArg for the callback functions
 	SAVEFORMAT: allowing for additional data to be saved alongside the actual list
+	startIndex field added to remember where the tournament starts
 
 	* legacy/scripts/ui/progressrowview.js: showing correct rank for multiple parallel tournaments
 
@@ -15,6 +16,7 @@
 	* core/templates/newtab.html: extracted {{newtab}}
 
 	* legacy/scripts/ui/newtournamentcontroller.js: validating and respecting the input.tournamentsize during tournament creation
+	register teams first, then add the tournament to the list of tournaments. Saves nothing, but is more intuitive
 
 	* legacy/scripts/ui/newtournamentview.js: adding 'newsystem' class for some specific CSS rules
 
