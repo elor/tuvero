@@ -13,26 +13,39 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
    * Constructor
    */
   function NewTournamentController(view) {
-    var controller;
+    var controller, $tournamentsize;
     NewTournamentController.superconstructor.call(this, view);
 
     controller = this;
 
+    this.$tournamentsize = this.view.$view.find('input.tournamentsize');
     this.$buttons = this.view.$view.find('button[data-system]');
 
+    this.$tournamentsize.attr('max', this.model.numTeams);
+    this.$tournamentsize.val(this.model.numTeams);
+
+    $tournamentsize = this.$tournamentsize;
+
     this.$buttons.click(function(e) {
-      var $button, type;
+      var $button, type, size;
 
       $button = $(this);
       type = $button.attr('data-system');
 
-      controller.createTournament(type);
+      size = Number($tournamentsize.val());
+
+      controller.createTournament(type, size);
     });
   }
   extend(NewTournamentController, Controller);
 
-  NewTournamentController.prototype.createTournament = function(type) {
+  NewTournamentController.prototype.createTournament = function(type, size) {
     var tournament, ranking, i, imax;
+
+    if (!(size >= 2 && size <= this.model.numTeams)) {
+      this.$tournamentsize.val(this.model.numTeams);
+      return;
+    }
 
     tournament = TournamentIndex.createTournament(type, ['wins']);
 
@@ -40,8 +53,8 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
 
     ranking = this.model.tournaments.getGlobalRanking(this.model.teams.length);
 
-    imax = Math.min(this.model.firstTeamID + this.model.numTeams,
-        ranking.displayOrder.length);
+    imax = Math.min(this.model.firstTeamID + size, //
+    ranking.displayOrder.length);
 
     if (tournament) {
       this.model.tournaments.push(tournament);

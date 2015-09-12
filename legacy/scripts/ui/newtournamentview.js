@@ -20,6 +20,8 @@ define(['lib/extend', 'core/view', './newtournamentcontroller'], function(
   function NewTournamentView(firstTeamID, numTeams, $view, tournaments, teams) {
     NewTournamentView.superconstructor.call(this, undefined, $view);
 
+    this.$view.addClass('newsystem');
+
     // anonymous model
     this.model.firstTeamID = firstTeamID;
     this.model.numTeams = numTeams;

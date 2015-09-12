@@ -6,6 +6,15 @@
 
 	* legacy/scripts/ui/systemtablerowview.js: offsets corrected, so the newtab-tournaments show the correct number of teams
 
+	* core/templates/newsystem.html: extracted from {{newtab}}
+	input.tournamentsize added for obvious reasons
+
+	* core/templates/newtab.html: extracted {{newtab}}
+
+	* legacy/scripts/ui/newtournamentcontroller.js: validating and respecting the input.tournamentsize during tournament creation
+
+	* legacy/scripts/ui/newtournamentview.js: adding 'newsystem' class for some specific CSS rules
+
 2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: creating placeholder matches
