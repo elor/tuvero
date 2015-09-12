@@ -7,9 +7,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
-    './listener', './model'], function(extend, IndexedListModel, ListModel,
-    TournamentIndex, Listener, Model) {
+define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
+    './tournamentindex', './listener', './model'], function(extend,
+    IndexedListModel, ListModel, UniqueListModel, TournamentIndex, Listener,
+    Model) {
   /**
    * Constructor
    */
@@ -17,6 +18,7 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
     TournamentListModel.superconstructor.call(this);
 
     this.startIndex = new ListModel();
+    this.closedTournaments = new UniqueListModel();
 
     this.rankingCache = undefined;
 
@@ -51,9 +53,50 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
     return ids;
   };
 
+  /**
+   * force a recalculation of the global Ranking and emit 'update'
+   */
   TournamentListModel.prototype.invalidateGlobalRanking = function() {
     this.rankingCache = undefined;
     this.emit('update');
+  };
+
+  /**
+   * @param tournamentID
+   * @return true on success, false otherwise.
+   */
+  TournamentListModel.prototype.closeTournament = function(tournamentID) {
+    if (this.get(tournamentID) === undefined) {
+      console.error('tournament ID ' + tournamentID + ' is undefined');
+      return false;
+    }
+
+    if (!this.closedTournaments.push(tournamentID)) {
+      console.error('tournament ID ' + tournamentID + ' is already closed');
+      return false;
+    }
+
+    this.invalidateGlobalRanking();
+
+    return true;
+  };
+
+  /**
+   * @return an array with a 'true' or 'false' entry for every tournament.
+   */
+  TournamentListModel.prototype.areTournamentsClosed = function() {
+    var closed;
+
+    closed = [];
+    while (closed.length < this.length) {
+      closed.push(false);
+    }
+
+    this.closedTournaments.map(function(tournamentID) {
+      closed[tournamentID] = true;
+    });
+
+    return closed;
   };
 
   /**
@@ -124,12 +167,14 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
    */
   TournamentListModel.prototype.applyTournamentToRanks = function(tournament,
       globalRanking) {
-    var tournamentID, tournamentRanking, startIndex;
+    var tournamentID, tournamentRanking, startIndex, isClosed;
 
     tournamentID = tournament.getID();
     tournamentRanking = tournament.getRanking().get();
     length = tournamentRanking.displayOrder.length;
     startIndex = this.startIndex.get(tournamentID);
+
+    isClosed = this.closedTournaments.indexOf(tournamentID) !== -1;
 
     tournamentRanking.displayOrder.map(function(tournamentTeamID, displayID) {
       var globalTeamID, globalDisplayID, tournamentRank;
@@ -138,9 +183,14 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
       globalDisplayID = startIndex + displayID;
       tournamentRank = tournamentRanking.ranks[tournamentTeamID];
 
-      globalRanking.tournamentIDs[globalTeamID] = tournamentID;
-      globalRanking.tournamentRanks[globalTeamID] = tournamentRank;
       globalRanking.displayOrder[globalDisplayID] = globalTeamID;
+      globalRanking.tournamentRanks[globalTeamID] = tournamentRank;
+
+      if (isClosed) {
+        globalRanking.tournamentIDs[globalTeamID] = undefined;
+      } else {
+        globalRanking.tournamentIDs[globalTeamID] = tournamentID;
+      }
     }, this);
   };
 
@@ -152,21 +202,25 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
    *          a global ranking object, as will be returned by getGlobalRanking()
    */
   TournamentListModel.prototype.calculateGlobalRanks = function(ranking) {
-    var lastTournamentID, tournamentOffset;
+    var lastTournamentID, tournamentOffset, lastTournamentRank;
 
     lastTournamentID = undefined;
+    lastTournamentRank = 0;
     tournamentOffset = 0;
 
     ranking.displayOrder.map(function(teamID, displayID) {
       var tournamentID, tournamentRank;
 
       tournamentID = ranking.tournamentIDs[teamID];
-      if (tournamentID !== lastTournamentID) {
+      tournamentRank = ranking.tournamentRanks[teamID];
+
+      if (tournamentID !== lastTournamentID
+          || lastTournamentRank > tournamentRank) {
         lastTournamentID = tournamentID;
         tournamentOffset = displayID;
       }
 
-      tournamentRank = ranking.tournamentRanks[teamID];
+      lastTournamentRank = tournamentRank;
 
       ranking.globalRanks[teamID] = tournamentRank + tournamentOffset;
     });
@@ -191,10 +245,10 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
     return TournamentListModel.superclass.push.call(this, tournament);
   };
 
-  /**
-   * don't allow insertions into this list. It'll mess up the global ranking
+  /*
+   * TODO don't allow insert, remove, clear and whatever else could mess up the
+   * global ranking
    */
-  TournamentListModel.prototype.insert = undefined;
 
   /**
    * forward ranking updates to external listeners
@@ -239,6 +293,7 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
 
     data.tournaments = TournamentListModel.superclass.save.call(this);
     data.startIndex = this.startIndex.save();
+    data.closedTournaments = this.closedTournaments.save();
 
     return data;
   };
@@ -258,17 +313,24 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './tournamentindex',
       return false;
     }
 
-    this.startIndex.restore(data.startIndex);
+    if (!this.startIndex.restore(data.startIndex)) {
+      console.error('TournamentListModel: cannot restore closedTournaments');
+      return false;
+    }
 
-    TournamentListModel.superclass.restore.call(this, data.tournaments,
+    if (!this.closedTournaments.restore(data.closedTournaments)) {
+      console.error('TournamentListModel: cannot restore closedTournaments');
+      return false;
+    }
+
+    return TournamentListModel.superclass.restore.call(this, data.tournaments,
         TournamentIndex.createTournament);
-
-    return true;
   };
 
   TournamentListModel.prototype.SAVEFORMAT = {
     tournaments: [Object],
-    startIndex: [Number]
+    startIndex: [Number],
+    closedTournaments: [Number]
   };
 
   return TournamentListModel;

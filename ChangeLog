@@ -6,6 +6,7 @@
 	SAVEFORMAT: allowing for additional data to be saved alongside the actual list
 	startIndex field added to remember where the tournament starts
 	completely new logic for getGlobalRanking(), which relies on the tournament order and the start indices
+	tournaments can be closed
 
 	* legacy/scripts/ui/progressrowview.js: showing correct rank for multiple parallel tournaments
 
