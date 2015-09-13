@@ -287,6 +287,15 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
     }, this);
   };
 
+  /**
+   * clear everything
+   */
+  TournamentListModel.prototype.clear = function() {
+    this.startIndex.clear();
+    this.closedTournaments.clear();
+    TournamentListModel.superclass.clear.call(this);
+  };
+
   TournamentListModel.prototype.save = function() {
     data = Model.prototype.save.call(this);
 
