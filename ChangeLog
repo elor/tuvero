@@ -1,3 +1,9 @@
+2015-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/legacyloadermodel.js: verbose output during conversion
+	closing finished tournaments
+	restoring tournament hierarchy
+
 2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code

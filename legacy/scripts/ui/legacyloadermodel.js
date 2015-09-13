@@ -26,14 +26,14 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     tournamentDataArray = [];
 
     /*
-     * Teams
-     */
-    this.loadTeams(glob.team);
-
-    /*
      * Options
      */
     this.loadOptions(glob.options);
+
+    /*
+     * Teams
+     */
+    this.loadTeams(glob.team);
 
     /*
      * Tournaments
@@ -49,29 +49,56 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
   };
 
   LegacyLoaderModel.prototype.loadTeams = function(blob) {
-    var teams = JSON.parse(blob);
+    var teams;
 
-    teams.forEach(function(team) {
-      var players = team.names.map(function(playername) {
+    console.log('converting teams');
+
+    teams = JSON.parse(blob);
+
+    teams.forEach(function(teamData) {
+      var players, team;
+
+      players = teamData.names.map(function(playername) {
         return new PlayerModel(playername);
       });
 
-      State.teams.push(new TeamModel(players));
+      team = new TeamModel(players)
+
+      State.teams.push(team);
+
+      console.log('converting team ' + team.getID() + ': '
+          + teamData.names.join(', '));
     });
+
+    console.log('conversion finished: ' + State.teams.length
+        + ' teams converted');
   };
 
   LegacyLoaderModel.prototype.loadOptions = function(blob) {
+    console.log('converting options');
+
     Options.fromBlob(blob);
+
+    console.log('converting teamsize');
     State.teamsize.set(Options.teamsize);
+
+    console.log('conversion finished: options');
   };
 
   LegacyLoaderModel.prototype.loadTournaments = function(blob,
       tournamentDataArray) {
-    var tournaments = JSON.parse(blob);
+    var tournaments, parents;
+
+    console.log('converting tournaments');
+
+    tournaments = JSON.parse(blob);
+    parents = [];
+
+    subtournamentOffsets = [];
 
     tournaments.forEach(function(data, tournamentID) {
       var tournament, system, name, blob, teams, ranking, parent, //
-      rankingorder, tournamentData;
+      rankingorder, tournamentData, startIndex;
 
       system = data[0];
       name = data[1];
@@ -79,6 +106,8 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
       teams = data[3];
       ranking = data[4];
       parent = data[5];
+
+      console.log('converting tournament ' + tournamentID + ': ' + name);
 
       if (blob) {
         tournamentData = JSON.parse(blob);
@@ -116,6 +145,8 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
           // no tournament round..
         }
 
+        console.log('converting tournament matches');
+
         // add matches
         tournamentData.games.forEach(function(data) {
           var teams, match, id, group;
@@ -131,6 +162,9 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
           }
           match = new MatchModel(teams, id, group);
 
+          console.log('converting match ' + group + ':' + id + ': '
+              + teams.join(' vs. '));
+
           tournament.matches.push(match);
         });
 
@@ -138,11 +172,33 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         tournament.state.forceState('finished');
       }
 
-      // TODO bind parent
-      console.error('tournament hierarchy can not yet be restored');
+      console.log('converted tournament state: ' + tournament.state.get());
 
+      // push tournaments. Also sets the ID. Arrays are dense (not sparse)
       State.tournaments.push(tournament);
+
+      // convert the parent properties to startIndex
+      if (parent === undefined || parent === null) {
+        startIndex = 0;
+      } else {
+        console.log("converted tournament's parent: " + parent);
+        startIndex = subtournamentOffsets[parent];
+        subtournamentOffsets[parent] += tournament.getTeams().length;
+      }
+      subtournamentOffsets[tournamentID] = startIndex;
+      State.tournaments.startIndex.push(startIndex);
+
+      console.log('converted tournament range: ' + startIndex + '-'
+          + (startIndex + tournament.getTeams().length));
+
+      // close tournament if necessary
+      if (!blob) {
+        console.log('closing tournament ' + tournamentID)
+        State.tournaments.closeTournament(tournamentID);
+      }
     });
+
+    console.log('conversion finished: tournaments');
   };
 
   LegacyLoaderModel.prototype.loadHistory = function(blob, //
@@ -210,13 +266,10 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         tournamenthistory.corrections.forEach(function(correctionData) {
           var before, after;
 
-          debugger
-
           before = restoreMatchResult(correctionData[0]);
           after = restoreMatchResult(correctionData[1]);
 
           correction = new CorrectionModel(before, after);
-
 
           tournament.corrections.push(correction);
         });
