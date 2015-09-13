@@ -24,6 +24,7 @@
 	* core/scripts/rankingvoteslistener.js: recalc: convert the number of byes, upvotes and downvotes into a string representation
 
 	* legacy/scripts/ui/strings.js: 'votes' strings added
+	SBH -> SB typo fixed
 
 2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

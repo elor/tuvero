@@ -126,7 +126,7 @@ define(function() {
     ranking_short_saldo: 'SP',
     ranking_short_buchholz: 'BH',
     ranking_short_finebuchholz: 'FBH',
-    ranking_short_sonneborn: 'SBH',
+    ranking_short_sonneborn: 'SB',
     ranking_short_id: 'No.',
     ranking_short_ko: 'KO',
     ranking_short_headtohead: 'VGL',
