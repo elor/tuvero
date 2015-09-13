@@ -33,6 +33,8 @@
 
 	* legacy/scripts/ui/listview.js: duplication bug with $view.length > 1 fixed
 
+	* legacy/scripts/ui/matchview.js: byes: showing second team as bye
+
 2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code

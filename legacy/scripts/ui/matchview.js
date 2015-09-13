@@ -152,7 +152,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
         if (teamid !== undefined) {
           team = this.teamlist.get(teamid);
           teamsize = team.length;
-          if (isBye && (i % this.model.length == 0)) {
+          if (isBye && (i % this.model.length !== 0)) {
             team = createByeTeam(team.length);
           }
         } else {
