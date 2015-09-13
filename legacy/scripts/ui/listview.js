@@ -95,7 +95,7 @@ define(['lib/extend', './templateview', './textview'], function(extend,
       }
     } else {
       $previousView = this.subviews[index].$view;
-      $previousView.before(subview.$view);
+      $previousView.eq(0).before(subview.$view);
     }
     this.subviews.splice(index, 0, subview);
   };

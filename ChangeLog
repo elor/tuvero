@@ -31,6 +31,8 @@
 
 	* legacy/scripts/ui/state.js: legacyloader exceptions are printed, including stacktrace
 
+	* legacy/scripts/ui/listview.js: duplication bug with $view.length > 1 fixed
+
 2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code
