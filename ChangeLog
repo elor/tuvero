@@ -7,6 +7,7 @@
 	showing Toasts on critical errors
 	validating the target (boule/tac)
 	votes are restored from ranking or tournament, whatever is still available
+	recalculating ranking after votes are extracted
 
 	* core/scripts/tournamentlistmodel.js: overriding clear() to clear this.startIndex and this.closedTournaments
 

@@ -430,9 +430,14 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         }
       }
 
-      tournament.ranking.invalidate();
-
       console.log('conversion finished: votes of tournament ' + tournamentID);
+
+      console.log('updating the ranking. You know... for safety and stuff.');
+      console.log('');
+      console.log('ok, I admit it. It is for the upvotes and downvotes.');
+
+      tournament.ranking.emit('recalc');
+      tournament.ranking.invalidate();
     });
 
     console.log('conversion finished: votes');
