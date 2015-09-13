@@ -17,6 +17,9 @@ define([//
 './rankinglostpointslistener', //
 './rankingpointslistener',//
 './rankingsaldolistener', //
+'./rankingupvoteslistener', //
+'./rankingdownvoteslistener', //
+'./rankingvoteslistener', //
 './rankingbyelistener', //
 './rankingwinslistener', //
 './rankinggamematrixlistener', //

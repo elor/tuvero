@@ -12,7 +12,8 @@ define(['./rankingidcomponent', './rankingpointscomponent',
     './rankingbuchholzcomponent', './rankingfinebuchholzcomponent',
     './rankingsonneborncomponent', './rankingwinscomponent',
     './rankingheadtoheadcomponent', './rankingtaccomponent',
-    './rankingnumgamescomponent', './rankingkocomponent'], function() {
+    './rankingvotescomponent', './rankingnumgamescomponent',
+    './rankingkocomponent'], function() {
   var RankingComponentIndex, index, Component, allComponents;
 
   // build the index from the XXXRankingComponent.NAME fields

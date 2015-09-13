@@ -11,6 +11,20 @@
 
 	* legacy/scripts/ui/fileloadcontroller.js: resetting the file chooser every time
 
+	* core/scripts/rankingcomponentindex.js: 'votes' component added
+
+	* core/scripts/rankingdatalistenerindex.js: 'upvotes', 'downvotes' and 'votes' listener added
+
+	* core/scripts/rankingdownvoteslistener.js: listener for the number of downvotes
+
+	* core/scripts/rankingupvoteslistener.js: listener for the number of upvotes
+
+	* core/scripts/rankingvotescomponent.js: this component cannot be sorted by
+
+	* core/scripts/rankingvoteslistener.js: recalc: convert the number of byes, upvotes and downvotes into a string representation
+
+	* legacy/scripts/ui/strings.js: 'votes' strings added
+
 2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code
