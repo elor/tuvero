@@ -61,7 +61,6 @@ define(['lib/extend', 'core/controller', './storage', 'options', './toast',
         new Toast(Strings.loaded, Toast.LONG);
       } else {
         // TODO what if something invalid has been returned?
-        this.reset();
       }
     } catch (err) {
       new Toast(Strings.loadfailed, Toast.LONG);
@@ -69,6 +68,7 @@ define(['lib/extend', 'core/controller', './storage', 'options', './toast',
       // tournament
       Storage.clear(Options.dbname);
     }
+    this.reset();
   };
 
   FileLoadController.prototype.abort = function() {

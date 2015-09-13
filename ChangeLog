@@ -9,6 +9,8 @@
 
 	* core/scripts/tournamentlistmodel.js: overriding clear() to clear this.startIndex and this.closedTournaments
 
+	* legacy/scripts/ui/fileloadcontroller.js: resetting the file chooser every time
+
 2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code
