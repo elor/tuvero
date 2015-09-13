@@ -29,6 +29,8 @@
 
 	* core/templates/roundsystem.html: "idle"-'close tournament'-button removed. Roundtournaments should always be finished.
 
+	* legacy/scripts/ui/state.js: legacyloader exceptions are printed, including stacktrace
+
 2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code

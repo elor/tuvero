@@ -45,8 +45,13 @@ define(['options', './state_new', './legacyloadermodel'], function(Options,
             + 'Please check the results before trusting them blindly');
 
         loader = new LegacyLoaderModel();
-        if (loader.load(blob)) {
-          return true;
+        try {
+          if (loader.load(blob)) {
+            return true;
+          }
+        } catch (e) {
+          console.error(e.stack);
+          throw e;
         }
 
         this.reset();
