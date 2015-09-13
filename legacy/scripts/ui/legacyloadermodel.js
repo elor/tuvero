@@ -8,10 +8,10 @@
  */
 define(['lib/extend', 'core/model', './state_new', './teammodel',
     './playermodel', 'options', 'core/tournamentindex', 'core/matchmodel',
-    'core/matchresult', 'core/byeresult', 'core/correctionmodel', './toast'], //
-function(extend, Model, State, TeamModel, PlayerModel, Options,
-    TournamentIndex, MatchModel, MatchResult, ByeResult, CorrectionModel, //
-    Toast) {
+    'core/matchresult', 'core/byeresult', 'core/correctionmodel', './toast',
+    'core/rle'], function(extend, Model, State, TeamModel, PlayerModel,
+    Options, TournamentIndex, MatchModel, MatchResult, ByeResult,
+    CorrectionModel, Toast, RLE) {
   /**
    * Constructor
    */
@@ -21,12 +21,13 @@ function(extend, Model, State, TeamModel, PlayerModel, Options,
   extend(LegacyLoaderModel, Model);
 
   LegacyLoaderModel.prototype.load = function(blob) {
-    var glob, tournamentDataArray;
+    var glob, tournamentDataArray, tournamentRankingArray;
 
     console.log('starting conversion');
 
     glob = JSON.parse(blob);
     tournamentDataArray = [];
+    tournamentRankingArray = [];
 
     /*
      * Options
@@ -41,12 +42,18 @@ function(extend, Model, State, TeamModel, PlayerModel, Options,
     /*
      * Tournaments
      */
-    this.loadTournaments(glob.tournaments, tournamentDataArray);
+    this.loadTournaments(glob.tournaments, tournamentDataArray,
+        tournamentRankingArray);
 
     /*
      * History
      */
     this.loadHistory(glob.history, tournamentDataArray);
+
+    /*
+     * Votes
+     */
+    this.loadVotes(tournamentDataArray, tournamentRankingArray);
 
     console.log('conversion to format 1.5.0 successful');
 
@@ -112,7 +119,7 @@ function(extend, Model, State, TeamModel, PlayerModel, Options,
   };
 
   LegacyLoaderModel.prototype.loadTournaments = function(blob,
-      tournamentDataArray) {
+      tournamentDataArray, tournamentRankingArray) {
     var tournaments, parents;
 
     console.log('converting tournaments');
@@ -137,11 +144,15 @@ function(extend, Model, State, TeamModel, PlayerModel, Options,
 
       if (blob) {
         tournamentData = JSON.parse(blob);
-        tournamentDataArray[tournamentID] = tournamentData
+      } else {
+        tournamentData = undefined;
       }
 
+      tournamentDataArray[tournamentID] = tournamentData;
+      tournamentRankingArray[tournamentID] = ranking;
+
       rankingorder = {
-        swiss: ['wins', 'buchholz', 'finebuchholz', 'saldo'],
+        swiss: ['wins', 'buchholz', 'finebuchholz', 'saldo', 'votes'],
         ko: ['ko']
       }[system];
 
@@ -156,7 +167,7 @@ function(extend, Model, State, TeamModel, PlayerModel, Options,
       tournament.getName().set(name);
       teams.forEach(tournament.addTeam.bind(tournament));
 
-      if (blob) {
+      if (tournamentData) {
         // set state
         if (tournamentData.games && tournamentData.games.length > 0) {
           tournament.state.forceState('running');
@@ -328,30 +339,103 @@ function(extend, Model, State, TeamModel, PlayerModel, Options,
         round = data[2];
         id = tournament.getTeams().length >> 1;
 
-        switch (type) {
-        case 0: // bye
+        if (type === 0) {
+          // bye
           vote = new ByeResult(teamid, [Options.byepointswon,
               Options.byepointslost], id, round);
+
+          console.log('converting bye for team ' + teamid);
+
           tournament.history.push(vote);
           if (tournament.SYSTEM === 'swiss' //
               && round === tournament.getRound()) {
             tournament.votes.bye.push(teamid);
           }
           tournament.ranking.bye(teamid);
-          break;
-        case 1: // upvote
-          // TODO remember upvote
-          console.error('upvote ignored');
-          break;
-        case -1: // downvote
-          // TODO remember downvote
-          console.error('downvote ignored');
-          break;
         }
       });
     });
 
     console.log('conversion finished: history');
+  };
+
+  LegacyLoaderModel.prototype.loadVotes = function(tournamentDataArray,
+      tournamentRankingArray) {
+
+    console.log('converting votes');
+
+    tournamentDataArray.forEach(function(tournamentData, tournamentID) {
+      var tournament, system, ranking, upvoteArray, downvoteArray;
+
+      console.log('converting votes of tournament ' + tournamentID);
+
+      tournament = State.tournaments.get(tournamentID);
+      ranking = tournamentRankingArray[tournamentID];
+      displayOrder = tournament.getRanking().get().displayOrder;
+
+      system = tournament.SYSTEM;
+
+      if (tournamentData) {
+        console.log('converting votes from tournament data');
+
+        if (tournamentData.upvote) {
+          upvoteArray = RLE.decode(tournamentData.upvote);
+        }
+
+        if (tournamentData.downvote) {
+          upvoteArray = RLE.decode(tournamentData.downvote);
+        }
+
+      } else if (ranking) {
+        console.log('converting votes from ranking cache');
+
+        upvoteArray = ranking.upvote;
+        downvoteArray = ranking.downvote;
+
+      } else {
+        new Toast('tournament ' + tournamentID
+            + ' contains neither tournament nor ranking blob', Toast.LONG);
+        throw new Error('tournament ' + tournamentID
+            + ' contains neither tournament nor ranking blob');
+      }
+
+      if (system === 'swiss') {
+        if (tournament.ranking.upvotes && upvoteArray) {
+          upvoteArray.forEach(function(upvotes, displayID) {
+            var teamID = displayOrder[displayID];
+
+            if (upvotes > 0) {
+              console.log('converting ' + upvotes + ' upvotes for team '
+                  + teamID);
+
+              tournament.ranking.upvotes.set(teamID, tournament.ranking.upvotes
+                  .get(teamID)
+                  + upvotes);
+            }
+          });
+        }
+
+        if (tournament.ranking.downvotes && downvoteArray) {
+          downvoteArray.forEach(function(downvotes, displayID) {
+            var teamID = displayOrder[displayID];
+
+            if (downvotes > 0) {
+              console.log('converting ' + downvotes + ' downvotes for team '
+                  + teamID);
+
+              tournament.ranking.downvotes.set(teamID,
+                  tournament.ranking.downvotes.get(teamID) + downvotes);
+            }
+          });
+        }
+      }
+
+      tournament.ranking.invalidate();
+
+      console.log('conversion finished: votes of tournament ' + tournamentID);
+    });
+
+    console.log('conversion finished: votes');
   };
 
   return LegacyLoaderModel;
