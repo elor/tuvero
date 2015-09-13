@@ -3,6 +3,9 @@
 	* legacy/scripts/ui/legacyloadermodel.js: verbose output during conversion
 	closing finished tournaments
 	restoring tournament hierarchy
+	more verbose output
+	showing Toasts on critical errors
+	validating the target (boule/tac)
 
 	* core/scripts/tournamentlistmodel.js: overriding clear() to clear this.startIndex and this.closedTournaments
 

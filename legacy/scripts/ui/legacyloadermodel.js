@@ -8,9 +8,10 @@
  */
 define(['lib/extend', 'core/model', './state_new', './teammodel',
     './playermodel', 'options', 'core/tournamentindex', 'core/matchmodel',
-    'core/matchresult', 'core/byeresult', 'core/correctionmodel'], function(
-    extend, Model, State, TeamModel, PlayerModel, Options, TournamentIndex,
-    MatchModel, MatchResult, ByeResult, CorrectionModel) {
+    'core/matchresult', 'core/byeresult', 'core/correctionmodel', './toast'], //
+function(extend, Model, State, TeamModel, PlayerModel, Options,
+    TournamentIndex, MatchModel, MatchResult, ByeResult, CorrectionModel, //
+    Toast) {
   /**
    * Constructor
    */
@@ -21,6 +22,8 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
 
   LegacyLoaderModel.prototype.load = function(blob) {
     var glob, tournamentDataArray;
+
+    console.log('starting conversion');
 
     glob = JSON.parse(blob);
     tournamentDataArray = [];
@@ -44,6 +47,8 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
      * History
      */
     this.loadHistory(glob.history, tournamentDataArray);
+
+    console.log('conversion to format 1.5.0 successful');
 
     return true;
   };
@@ -75,6 +80,27 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
   };
 
   LegacyLoaderModel.prototype.loadOptions = function(blob) {
+    var optionsData;
+
+    optionsData = JSON.parse(blob);
+    if (optionsData.savefile === undefined) {
+      if (Options.target !== 'boule') {
+        new Toast('cannot load pre-1.4 saves with this target: '
+            + Options.target, Toast.LONG);
+        throw new Error('cannot load pre-1.4 saves with this target: '
+            + Options.target);
+      }
+    } else {
+      if (optionsData.savefile !== Options.target + '.json') {
+        new Toast('cannot convert '
+            + optionsData.savefile.replace(/.json$/, '') + ' to '
+            + Options.target, Toast.LONG);
+        throw new Error('cannot convert '
+            + optionsData.savefile.replace(/.json$/, '') + ' to '
+            + Options.target);
+      }
+    }
+
     console.log('converting options');
 
     Options.fromBlob(blob);
@@ -205,11 +231,15 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
   tournamentDataArray) {
     var history = JSON.parse(blob);
 
-    history.forEach(function(tournamenthistory, index) {
+    console.log('converting history');
+
+    history.forEach(function(tournamenthistory, tournamentID) {
       var tournament, round, tournamentData, system;
 
-      tournamentData = tournamentDataArray[index];
-      tournament = State.tournaments.get(index);
+      console.log('converting history for tournament ' + tournamentID);
+
+      tournamentData = tournamentDataArray[tournamentID];
+      tournament = State.tournaments.get(tournamentID);
       round = tournament.round;
       system = tournament.SYSTEM;
 
@@ -246,9 +276,15 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         tournamenthistory.games.forEach(function(match) {
           var result = restoreMatchResult(match);
 
+          console.log('converting match result ' + result.getID() + ': '
+              + result.teams.join(' vs. ') + ':  ' + result.score.join(':'));
+
           tournament.history.push(result);
           tournament.ranking.result(result);
         });
+
+        console.log('conversion: ' + tournament.history.length
+            + ' results converted');
 
         // TODO restore half-filled KO matches
 
@@ -263,7 +299,7 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
        * Corrections
        */
       if (tournamenthistory.corrections) {
-        tournamenthistory.corrections.forEach(function(correctionData) {
+        tournamenthistory.corrections.forEach(function(correctionData, id) {
           var before, after;
 
           before = restoreMatchResult(correctionData[0]);
@@ -271,9 +307,15 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
 
           correction = new CorrectionModel(before, after);
 
+          console.log('converting correction ' + id + ': '
+              + before.teams.join(' vs. ') + ': ');
+
           tournament.corrections.push(correction);
         });
       }
+
+      console.log('conversion finished: ' + tournament.corrections.length
+          + ' corrections converted');
 
       /*
        * Votes
@@ -309,6 +351,7 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
       });
     });
 
+    console.log('conversion finished: history');
   };
 
   return LegacyLoaderModel;
