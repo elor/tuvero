@@ -26,6 +26,10 @@ define(['lib/extend', 'core/model', 'jquery', 'core/type', './toast',
   AutocompletionModel.prototype.download = function(url) {
     var autocomplete = this;
 
+    if (!url) {
+      return;
+    }
+
     $.get(url, undefined, function(jsontext, status, response) {
       autocomplete.parse(jsontext);
     }, 'text').fail(
@@ -45,15 +49,7 @@ define(['lib/extend', 'core/model', 'jquery', 'core/type', './toast',
       try {
         names = JSON.parse(text);
 
-        if (!Type.isArray(names)) {
-          throw new Error('names is not an array');
-        }
-
-        this.names = names.map(function(name) {
-          return name.trim();
-        });
-
-        this.emit('update');
+        this.set(names);
 
         new Toast(Strings.autocompleteloaded);
       } catch (err) {
@@ -64,10 +60,48 @@ define(['lib/extend', 'core/model', 'jquery', 'core/type', './toast',
     }
   };
 
+  AutocompletionModel.prototype.set = function(names) {
+    if (!Type.isArray(names)) {
+      throw new Error('names is not an array');
+    }
+
+    this.clear();
+
+    this.names = names.map(function(name) {
+      return name.trim();
+    });
+
+    this.emit('update');
+  };
+
   AutocompletionModel.prototype.clear = function() {
     this.names = [];
     this.emit('clear');
   };
+
+  AutocompletionModel.prototype.save = function() {
+    var data = AutocompletionModel.superclass.save.call(this);
+
+    data.names = this.names.slice();
+
+    return names;
+  };
+
+  AutocompletionModel.prototype.restore = function(data) {
+    if (!AutocompletionModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.set(data.names.slice());
+
+    this.emit('update');
+
+    return true;
+  };
+
+  AutocompletionModel.prototype.SAVEFORMAT = Object
+      .create(AutocompletionModel.superclass.SAVEFORMAT);
+  AutocompletionModel.prototype.SAVEFORMAT.names = [String];
 
   return AutocompletionModel;
 });

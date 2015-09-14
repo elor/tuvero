@@ -108,6 +108,7 @@ define([
   'core/vectormodel',
   'core/view',
   'backend/random',
+  'ui/autocompletionlegacyblobber',
   'ui/autocompletionmodel',
   'ui/autocompletionview',
   'ui/backgroundscripts/autosave',

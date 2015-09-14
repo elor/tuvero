@@ -3,14 +3,18 @@
 	* legacy/scripts/ui/autocomplete.js: replaced by AutocompletionView
 
 	* legacy/scripts/ui/autocompletionmodel.js: download and process the player names
+	set() function added
 
-	* legacy/scripts/ui/autocompletionview.js: enable and update autocompletion entries for typeahead/bloodhound 
+	* legacy/scripts/ui/autocompletionview.js: enable and update autocompletion entries for typeahead/bloodhound
 
 	* legacy/scripts/ui/players.js: replaced by AutocompletionModel
 
 	* legacy/scripts/ui/storage.js: Player.toBlob() disabled for now
+	saving the AutocompletionModel contents via AutocompletionLegacyBlobber
 
 	* legacy/scripts/ui/teamstab.js: creating and binding AutocompletionModel/View
+
+	* legacy/scripts/ui/autocompletionlegacyblobber.js: serializing/deserializing a single AutocompletionModel
 
 2015-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

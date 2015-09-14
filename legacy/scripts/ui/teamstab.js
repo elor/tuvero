@@ -10,11 +10,12 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     './teamremovecontroller', './teamnamecontroller', './teamtableview',
     './inputview', './teamsfileloadcontroller', 'options', 'core/lengthmodel',
     './deleteallteamscontroller', './autocompletionmodel',
-    './autocompletionview'], function(extend, View, ListView, TeamView, State,
-    NewTeamView, LengthView, TeamSizeView, PreregCloserView, CheckboxView,
-    ClassView, TabsHandle, TeamRemoveController, TeamNameController,
-    TeamTableView, InputView, TeamsFileLoadController, Options, LengthModel,
-    DeleteAllTeamsController, AutocompletionModel, AutocompletionView) {
+    './autocompletionview', './autocompletionlegacyblobber'], function(extend,
+    View, ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
+    PreregCloserView, CheckboxView, ClassView, TabsHandle,
+    TeamRemoveController, TeamNameController, TeamTableView, InputView,
+    TeamsFileLoadController, Options, LengthModel, DeleteAllTeamsController,
+    AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber) {
   /**
    * represents a whole team tab
    *
@@ -121,6 +122,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
 
     this.autocompletionModel = new AutocompletionModel();
     this.autocompletionModel.download(Options.playernameurl);
+    AutocompletionLegacyBlobber.set(this.autocompletionModel);
 
     $container = this.$view.find('input.playername');
     this.autocompletionView = new AutocompletionView(this.autocompletionModel,

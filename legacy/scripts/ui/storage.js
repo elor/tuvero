@@ -145,13 +145,12 @@ define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
    * enables localStorage, if possible. Necessary initialization
    */
   Storage.enable = function() {
-
     Storage.disable();
 
     if (Modernizr.localstorage) {
       keys[Options.dbname] = require('ui/state');
-      // TODO restore playername load and stuff
-      // keys[Options.dbplayername] = require('ui/players');
+
+      keys[Options.dbplayername] = require('ui/autocompletionlegacyblobber');
     }
   };
 
