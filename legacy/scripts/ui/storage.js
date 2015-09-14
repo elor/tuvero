@@ -150,7 +150,8 @@ define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
 
     if (Modernizr.localstorage) {
       keys[Options.dbname] = require('ui/state');
-      keys[Options.dbplayername] = require('ui/players');
+      // TODO restore playername load and stuff
+      // keys[Options.dbplayername] = require('ui/players');
     }
   };
 
