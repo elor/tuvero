@@ -12,6 +12,8 @@
 	creating missing objects only after everything else has been loaded
 	using createWaitingMatches()
 
+	* legacy/scripts/ui/tournamentrankingview.js: TournamentRankingView is also a BoxView
+
 2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/autocomplete.js: replaced by AutocompletionView

@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './rankingview', './listview',
+define(['lib/extend', 'core/view', './rankingview', './listview', './boxview',
     './correctionview', './teamtableview', 'core/valuemodel', 'core/listener'],//
-function(extend, View, RankingView, ListView, CorrectionView, TeamTableView,
-    ValueModel, Listener) {
+function(extend, View, RankingView, ListView, BoxView, CorrectionView,
+    TeamTableView, ValueModel, Listener) {
   /**
    * Constructor
    *
@@ -23,6 +23,8 @@ function(extend, View, RankingView, ListView, CorrectionView, TeamTableView,
    */
   function TournamentRankingView(model, $view, teams, abbreviate) {
     TournamentRankingView.superconstructor.call(this, model, $view);
+
+    this.boxview = new BoxView(this.$view);
 
     this.$ranking = this.$view.find('.rankingview');
     this.rankingview = new RankingView(this.model.getRanking(), this.$ranking,
