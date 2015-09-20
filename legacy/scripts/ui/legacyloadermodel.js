@@ -275,6 +275,8 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
           id += 1;
         }
 
+        teams = teams.map(tournament.teams.indexOf.bind(tournament.teams));
+
         match = new MatchModel(teams, id, group);
         result = new MatchResult(match, score);
 
