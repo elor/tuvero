@@ -11,6 +11,7 @@
 	createMissingObjects() output added
 	creating missing objects only after everything else has been loaded
 	using createWaitingMatches()
+	setting the startIndex properly
 
 	* legacy/scripts/ui/tournamentrankingview.js: TournamentRankingView is also a BoxView
 

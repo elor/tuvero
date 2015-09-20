@@ -215,9 +215,6 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
 
       console.log('converted tournament state: ' + tournament.state.get());
 
-      // push tournaments. Also sets the ID. Arrays are dense (not sparse)
-      State.tournaments.push(tournament);
-
       // convert the parent properties to startIndex
       if (parent === undefined || parent === null) {
         startIndex = 0;
@@ -227,14 +224,16 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         subtournamentOffsets[parent] += tournament.getTeams().length;
       }
       subtournamentOffsets[tournamentID] = startIndex;
-      State.tournaments.startIndex.push(startIndex);
 
       console.log('converted tournament range: ' + startIndex + '-'
           + (startIndex + tournament.getTeams().length));
 
+      // push tournaments. Also sets the ID. Arrays are dense (not sparse)
+      State.tournaments.push(tournament, startIndex);
+
       // close tournament if necessary
       if (!blob) {
-        console.log('closing tournament ' + tournamentID)
+        console.log('closing tournament ' + tournamentID);
         State.tournaments.closeTournament(tournamentID);
       }
     });
