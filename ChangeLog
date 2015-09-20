@@ -2,6 +2,8 @@
 
 	* core/scripts/kotournamentmodel.js: createPlaceholderMatches doesn't overwrite existing matches/results
 
+	* legacy/scripts/ui/legacyloadermodel.js: createMissingObjects() functions, e.g. for placeholder matches
+
 2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/autocomplete.js: replaced by AutocompletionView

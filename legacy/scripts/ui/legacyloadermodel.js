@@ -51,6 +51,11 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     this.loadHistory(glob.history, tournamentDataArray);
 
     /*
+     * additional missing objects, e.g. placeholder matches
+     */
+    this.createMissingObjects();
+
+    /*
      * Votes
      */
     this.loadVotes(tournamentDataArray, tournamentRankingArray);
@@ -357,6 +362,20 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     });
 
     console.log('conversion finished: history');
+  };
+
+  LegacyLoaderModel.prototype.createMissingObjects = function() {
+    State.tournaments.map(function(tournament) {
+      this['createMissingObjects' + tournament.SYSTEM](tournament);
+    }, this);
+  };
+
+  LegacyLoaderModel.prototype.createMissingObjectsko = function(tournament) {
+    tournament.createPlaceholderMatches();
+  };
+
+  LegacyLoaderModel.prototype.createMissingObjectsswiss = function(tournament) {
+    // Nothing to do here
   };
 
   LegacyLoaderModel.prototype.loadVotes = function(tournamentDataArray,
