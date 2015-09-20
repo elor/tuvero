@@ -36,7 +36,7 @@ define(['lib/extend', 'ui/textview', 'ui/strings'], function(extend, TextView,
 
   /**
    * set the "value" attribute to the text and read the displayed text from
-   * Strings.
+   * Strings
    */
   RankingComponentView.prototype.update = function() {
     this.$view.val(this.model.text);

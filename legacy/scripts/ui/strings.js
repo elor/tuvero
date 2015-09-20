@@ -155,7 +155,8 @@ define(function() {
     namechangeprompt: 'Neuen Namen eingeben',
     teamdeleteprompt: 'Zum Löschen Team anklicken',
     csvheader_teams: 'No.,Name',
-    csvheader_history: 'Runde,Spielno.,"No. 1","No. 2","Punkte 1","Punkte 2"'
+    csvheader_history: 'Runde,Spielno.,"No. 1","No. 2","Punkte 1","Punkte 2"',
+    csvheader_ranking: 'No.',
   };
 
   return Strings;

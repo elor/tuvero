@@ -44,7 +44,7 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
       });
       saveAs(blob, Options.csvfile);
     } catch (e) {
-      new Toast(Strings.exportfailed, Strings.LONG);
+      new Toast(Strings.exportfailed, Toast.LONG);
     }
   };
 
