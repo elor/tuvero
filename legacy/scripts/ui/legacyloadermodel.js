@@ -376,9 +376,15 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
   };
 
   LegacyLoaderModel.prototype.createMissingObjectsko = function(tournament) {
-    console.log('conversion: creating ko placeholders for tournament '
+    var teams, lastresults;
+
+    console.log('conversion: creating missing objects for tournament '
         + tournament.getID() + ' (' + tournament.getName().get() + ')');
 
+    console.log('conversion: finding dangling teams');
+    tournament.createWaitingMatches();
+
+    console.log('conversion: creating missing ko placeholder matches');
     tournament.createPlaceholderMatches();
   };
 

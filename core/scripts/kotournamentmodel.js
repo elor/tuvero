@@ -189,6 +189,50 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
   };
 
   /**
+   * looks for missing "waiting" matches, i.e. matches in which one team waits
+   * for another team to finish a match in the previous round. This is intended
+   * to be used for repairs only.
+   */
+  KOTournamentModel.prototype.createWaitingMatches = function() {
+    var teamMatches, lastresults;
+
+    teamMatches = this.teams.map(function() {
+      return undefined;
+    });
+
+    this.matches.map(function(match) {
+      match.teams.forEach(function(teamID) {
+        teamMatches[teamID] = match;
+      });
+    });
+
+    lastresults = [];
+
+    teamMatches.forEach(function(team, teamid) {
+      var lastHistoryResult = undefined;
+
+      if (team === undefined) {
+        this.history.map(function(result) {
+          if (result.teams.indexOf(teamid) !== -1) {
+            if (lastHistoryResult === undefined
+                || lastHistoryResult.getID() < result.getID()) {
+              lastHistoryResult = result;
+            }
+          }
+        });
+
+        if (lastresults.indexOf(lastHistoryResult) === -1) {
+          lastresults.push(lastHistoryResult);
+        }
+      }
+    }, this);
+
+    lastresults.forEach(function(result) {
+      this.checkForFollowupMatches(result);
+    }, this);
+  };
+
+  /**
    * after a match has been finished or a bye has been issued, this function
    * checks for possible subsequent matches and create them
    *

@@ -2,11 +2,13 @@
 
 	* core/scripts/kotournamentmodel.js: createPlaceholderMatches doesn't overwrite existing matches/results
 	2d array typo fixed
+	createWaitingMatches() function added for tournament repair
 
 	* legacy/scripts/ui/legacyloadermodel.js: createMissingObjects() functions, e.g. for placeholder matches
 	translating history team ids to tournament-internal ids. Team names would be blank otherwise
 	createMissingObjects() output added
 	creating missing objects only after everything else has been loaded
+	using createWaitingMatches()
 
 2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
