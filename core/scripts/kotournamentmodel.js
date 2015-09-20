@@ -304,20 +304,24 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
       match = this.findMatch(nextGroupID, nextMatchID);
 
       if (match) {
-        opponent = match.getTeamID(0);
-        if (opponent === undefined) {
-          opponent = match.getTeamID(1);
+        if (match.isRunningMatch()) {
+          console.warn('trying to overwrite existing match!');
+        } else {
+          opponent = match.getTeamID(0);
+          if (opponent === undefined) {
+            opponent = match.getTeamID(1);
+          }
+          this.matches.remove(this.matches.indexOf(match));
+          teams = [teamID, opponent];
+          if (KOTournamentModel.isSecondInNextRound(currentMatchID)) {
+            teams.reverse();
+          }
+          match = new MatchModel(teams, nextMatchID, nextGroupID);
+          this.matches.push(match);
+          // if (opponent === undefined && nextMatchID !== 0) {
+          // this.checkForFollowupMatches(match);
+          // }
         }
-        this.matches.remove(this.matches.indexOf(match));
-        teams = [teamID, opponent];
-        if (KOTournamentModel.isSecondInNextRound(currentMatchID)) {
-          teams.reverse();
-        }
-        match = new MatchModel(teams, nextMatchID, nextGroupID);
-        this.matches.push(match);
-        // if (opponent === undefined && nextMatchID !== 0) {
-        // this.checkForFollowupMatches(match);
-        // }
       } else {
         complementaryMatchID = KOTournamentModel
             .complementaryMatchID(currentMatchID);
