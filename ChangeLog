@@ -30,6 +30,8 @@
 	csvheader_teams added
 	csvheader_history added
 
+	* tools/verify-strings.sh: rudimentary strings search added for now. To be expanded later
+
 2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/autocomplete.js: replaced by AutocompletionView
