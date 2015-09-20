@@ -338,7 +338,8 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
               Options.byepointslost], nextMatchID, nextGroupID);
           this.history.push(match);
           this.checkForFollowupMatches(match);
-        } else {
+        } else if (match.getTeamID(0) === undefined
+            && match.getTeamID(1) === undefined) {
           match = new MatchModel([teamID, undefined], nextMatchID, //
           nextGroupID);
           this.matches.push(match);
