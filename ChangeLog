@@ -14,6 +14,8 @@
 
 	* legacy/scripts/ui/tournamentrankingview.js: TournamentRankingView is also a BoxView
 
+	* core/scripts/tournamentlistmodel.js: prevent restore() from clearing previously restored values (startIndex and closedTournaments)
+
 2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/autocomplete.js: replaced by AutocompletionView

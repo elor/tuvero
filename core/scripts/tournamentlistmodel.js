@@ -291,8 +291,10 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
    * clear everything
    */
   TournamentListModel.prototype.clear = function() {
-    this.startIndex.clear();
-    this.closedTournaments.clear();
+    if (!this.isRestoring) {
+      this.startIndex.clear();
+      this.closedTournaments.clear();
+    }
     TournamentListModel.superclass.clear.call(this);
   };
 
@@ -321,6 +323,8 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
       return false;
     }
 
+    this.isRestoring = true;
+
     if (!this.startIndex.restore(data.startIndex)) {
       console.error('TournamentListModel: cannot restore closedTournaments');
       return false;
@@ -331,8 +335,15 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
       return false;
     }
 
-    return TournamentListModel.superclass.restore.call(this, data.tournaments,
-        TournamentIndex.createTournament);
+    if (!TournamentListModel.superclass.restore.call(this, data.tournaments,
+        TournamentIndex.createTournament)) {
+      console.error('TournamentListModel: cannot restore "this"');
+      return false;
+    }
+
+    delete this.isRestoring;
+
+    return true;
   };
 
   TournamentListModel.prototype.SAVEFORMAT = {
