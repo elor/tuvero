@@ -51,15 +51,14 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     this.loadHistory(glob.history, tournamentDataArray);
 
     /*
-     * additional missing objects, e.g. placeholder matches
-     */
-    this.createMissingObjects();
-
-    /*
      * Votes
      */
     this.loadVotes(tournamentDataArray, tournamentRankingArray);
 
+    /*
+     * additional missing objects, e.g. placeholder matches
+     */
+    this.createMissingObjects();
     console.log('conversion to format 1.5.0 successful');
 
     return true;
