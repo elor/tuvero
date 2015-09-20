@@ -367,17 +367,25 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
   };
 
   LegacyLoaderModel.prototype.createMissingObjects = function() {
+    console.log('conversion: creating missing tournament objects');
+
     State.tournaments.map(function(tournament) {
       this['createMissingObjects' + tournament.SYSTEM](tournament);
     }, this);
+
+    console.log('conversion finished: missing tournament objects');
   };
 
   LegacyLoaderModel.prototype.createMissingObjectsko = function(tournament) {
+    console.log('conversion: creating ko placeholders for tournament '
+        + tournament.getID() + ' (' + tournament.getName().get() + ')');
+
     tournament.createPlaceholderMatches();
   };
 
   LegacyLoaderModel.prototype.createMissingObjectsswiss = function(tournament) {
-    // Nothing to do here
+    console.log('conversion: no need missing objects for swiss tournament '
+        + tournament.getID() + ' (' + tournament.getName().get() + ')');
   };
 
   LegacyLoaderModel.prototype.loadVotes = function(tournamentDataArray,
