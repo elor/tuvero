@@ -19,8 +19,11 @@
 	* core/scripts/tournamentlistmodel.js: prevent restore() from clearing previously restored values (startIndex and closedTournaments)
 
 	* legacy/scripts/ui/csvexportcontroller.js: Controller for CSV Export
+	saving CSV into file
 
 	* legacy/scripts/ui/settingstab.js: using CSVExportController to enable CSV Export buttons
+
+	* legacy/scripts/ui/strings.js: exportfailed added
 
 2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

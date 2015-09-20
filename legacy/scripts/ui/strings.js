@@ -45,6 +45,7 @@ define(function() {
     registrationclosed: 'Registrierung geschlossen',
     saved: 'gespeichert',
     savefailed: 'Speichern fehlgeschlagen',
+    exportfailed: 'Export fehlgeschlagen',
     startfailed: 'Auslosung fehlgeschlagen. Zu wenige Teams?',
     teamadded: 'Team %s registriert',
     notenoughteams: 'Zu wenige Teams',

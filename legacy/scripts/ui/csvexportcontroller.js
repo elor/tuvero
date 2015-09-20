@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './state_new'], function(extend,
-    Controller, State) {
+define(['lib/extend', 'core/controller', './state_new', 'options',
+    'lib/FileSaver', 'lib/Blob', './toast', './strings'], function(extend,
+    Controller, State, Options, saveAs, Blob, Toast, Strings) {
   /**
    * Constructor
    *
@@ -34,11 +35,18 @@ define(['lib/extend', 'core/controller', './state_new'], function(extend,
   extend(CSVExportController, Controller);
 
   CSVExportController.prototype.saveCSV = function(datasets) {
-    var data;
+    var data, blob;
 
     data = this.generateCSV(datasets);
+    try {
+      blob = new Blob([data], {
+        type: 'text/csv'
+      });
+      saveAs(blob, Options.csvfile);
+    } catch (e) {
+      new Toast(Strings.exportfailed, Strings.LONG);
+    }
 
-    console.log(data);
   };
 
   CSVExportController.prototype.generateCSV = function(datasets) {
