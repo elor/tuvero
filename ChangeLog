@@ -1,3 +1,7 @@
+2015-09-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/kotournamentmodel.js: createPlaceholderMatches doesn't overwrite existing matches/results
+
 2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/autocomplete.js: replaced by AutocompletionView

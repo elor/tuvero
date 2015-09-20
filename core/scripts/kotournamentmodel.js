@@ -150,7 +150,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    * create all placeholder matches
    */
   KOTournamentModel.prototype.createPlaceholderMatches = function() {
-    var groups, groupMatchIDLimit, id, maxgroup;
+    var groups, groupMatchIDLimit, id, maxgroup, existingMatches;
 
     maxgroup = Math.min(this.getProperty('komaxgroup'),
         (this.teams.length - 1) / 2);
@@ -165,11 +165,23 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
           .roundsInGroup(group));
     });
 
+    existingMatches = groups.map(function() {
+      return [];
+    });
+
+    this.matches.map(function(match) {
+      existingMatches[match.getGroup(), match.getID()] = match;
+    });
+
+    this.history.map(function(match) {
+      existingMatches[match.getGroup(), match.getID()] = match;
+    });
+
     id = KOTournamentModel.firstMatchIDOfRound(KOTournamentModel
         .initialRoundForTeams(this.teams.length)) - 1;
     for (; id > 0; id -= 1) {
       groupMatchIDLimit.forEach(function(matchIDLimit, group) {
-        if (id < matchIDLimit) {
+        if (id < matchIDLimit && existingMatches[group][id] === undefined) {
           this.matches.push(new MatchModel([undefined, undefined], id, group));
         }
       }, this);
