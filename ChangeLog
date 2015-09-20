@@ -20,6 +20,7 @@
 
 	* legacy/scripts/ui/csvexportcontroller.js: Controller for CSV Export
 	saving CSV into file
+	JSDoc comments added
 
 	* legacy/scripts/ui/settingstab.js: using CSVExportController to enable CSV Export buttons
 

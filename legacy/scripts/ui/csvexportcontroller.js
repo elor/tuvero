@@ -46,9 +46,16 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
     } catch (e) {
       new Toast(Strings.exportfailed, Strings.LONG);
     }
-
   };
 
+  /**
+   * create a shared CSV file
+   *
+   * @param datasets
+   *          an array of strings, each of which is a dataset name (i.e. one of
+   *          'ranking', 'history' or 'teams)
+   * @return a combined CSV string of all datasets
+   */
   CSVExportController.prototype.generateCSV = function(datasets) {
     var csvDataSets = datasets.map(function(dataset) {
       if (this[dataset + 'ToCSV']) {
@@ -62,14 +69,24 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
     return csvDataSets.join('\r\n\r\n');
   };
 
+  /**
+   * @return a CSV string which represents the registered teams
+   */
   CSVExportController.prototype.teamsToCSV = function() {
     return 'teams';
   };
 
+  /**
+   * @return a CSV string which represents the ranking
+   */
   CSVExportController.prototype.rankingToCSV = function() {
     return 'ranking';
   };
 
+  /**
+   * @return a CSV string which represents all past matches and byes, without
+   *         placeholders
+   */
   CSVExportController.prototype.historyToCSV = function() {
     return 'history';
   };
