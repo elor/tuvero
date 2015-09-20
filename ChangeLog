@@ -1,6 +1,7 @@
 2015-09-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: createPlaceholderMatches doesn't overwrite existing matches/results
+	2d array typo fixed
 
 	* legacy/scripts/ui/legacyloadermodel.js: createMissingObjects() functions, e.g. for placeholder matches
 

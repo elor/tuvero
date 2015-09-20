@@ -170,11 +170,11 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
     });
 
     this.matches.map(function(match) {
-      existingMatches[match.getGroup(), match.getID()] = match;
+      existingMatches[match.getGroup()][match.getID()] = match;
     });
 
     this.history.map(function(match) {
-      existingMatches[match.getGroup(), match.getID()] = match;
+      existingMatches[match.getGroup()][match.getID()] = match;
     });
 
     id = KOTournamentModel.firstMatchIDOfRound(KOTournamentModel
