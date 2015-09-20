@@ -5,9 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './valueview', './browser',
-    './storage', './storagesavecontroller', './fileloadcontroller'], function(
-    extend, $, View, ValueView, Browser, Storage, StorageSaveController,
-    FileLoadController) {
+    './storage', './storagesavecontroller', './fileloadcontroller',
+    './csvexportcontroller'], function(extend, $, View, ValueView, Browser,
+    Storage, StorageSaveController, FileLoadController, CSVExportController) {
   /**
    * represents a whole team tab
    *
@@ -52,6 +52,13 @@ define(['lib/extend', 'jquery', 'core/view', './valueview', './browser',
     $button = this.$view.find('input.load.file');
     this.fileLoadController = new FileLoadController(new View(undefined,
         $button));
+
+    /*
+     * CSV buttons
+     */
+    $container = this.$view.find('.csv');
+    this.csvExportController = new CSVExportController(new View(undefined,
+        $container));
   };
 
   // FIXME CHEAP HACK AHEAD

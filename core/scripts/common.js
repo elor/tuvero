@@ -136,6 +136,7 @@ define([
   'ui/checkboxview',
   'ui/correctionview',
   'ui/csver',
+  'ui/csvexportcontroller',
   'ui/data/swissperms',
   'ui/debug',
   'ui/debugtab',
