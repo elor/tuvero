@@ -23,6 +23,8 @@
 	JSDoc comments added
 	teams can be CSV-exported
 	history can be CSV-exported
+	printing stacktrace on saveAs exception
+	ranking can be CSV-exported
 
 	* legacy/scripts/ui/settingstab.js: using CSVExportController to enable CSV Export buttons
 

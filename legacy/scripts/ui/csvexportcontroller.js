@@ -44,6 +44,7 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
       });
       saveAs(blob, Options.csvfile);
     } catch (e) {
+      console.log(e.stack);
       new Toast(Strings.exportfailed, Toast.LONG);
     }
   };
@@ -96,7 +97,32 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
    * @return a CSV string which represents the ranking
    */
   CSVExportController.prototype.rankingToCSV = function() {
-    return 'ranking';
+    var tournaments = State.tournaments.map(function(tournament) {
+      var lines, ranking;
+
+      ranking = tournament.getRanking().get();
+
+      lines = ranking.displayOrder.map(function(displayID) {
+        var teamID, fields;
+
+        teamID = ranking.ids[displayID];
+        fields = [ranking.ranks[displayID] + 1, teamID + 1];
+
+        ranking.components.map(function(componentname) {
+          fields.push(ranking[componentname][displayID]);
+        });
+
+        return fields.join(',');
+      });
+
+      lines.unshift(Strings.csvheader_ranking + ','
+          + ranking.components.join(','));
+      lines.unshift(this.escape(tournament.getName().get()));
+
+      return lines.join('\r\n');
+    }, this);
+
+    return tournaments.join('\r\n\r\n');
   };
 
   /**
