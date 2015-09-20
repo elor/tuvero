@@ -73,7 +73,23 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
    * @return a CSV string which represents the registered teams
    */
   CSVExportController.prototype.teamsToCSV = function() {
-    return 'teams';
+    var csvLines;
+
+    csvLines = State.teams.map(function(team) {
+      var i, line;
+
+      line = [team.getID() + 1];
+
+      for (i = 0; i < team.length; i += 1) {
+        line.push(this.escape(team.getPlayer(i).getName()));
+      }
+
+      return line.join(',');
+    }, this);
+
+    csvLines.unshift(Strings.csvheader_teams);
+
+    return csvLines.join('\r\n');
   };
 
   /**
@@ -91,7 +107,16 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
     return 'history';
   };
 
-  CSVExportController
+  CSVExportController.prototype.escape = function(string) {
+    string = "" + string;
+
+    if (/[",]|\s/.test(string)) {
+      string = string.replace(/"/g, '""');
+      string = '"' + string + '"';
+    }
+
+    return string;
+  }
 
   return CSVExportController;
 });

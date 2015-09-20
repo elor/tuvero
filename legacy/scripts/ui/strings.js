@@ -153,7 +153,8 @@ define(function() {
     tournament_idle: 'Runde beendet',
     tournament_finished: 'Unterturnier beendet',
     namechangeprompt: 'Neuen Namen eingeben',
-    teamdeleteprompt: 'Zum Löschen Team anklicken'
+    teamdeleteprompt: 'Zum Löschen Team anklicken',
+    csvheader_teams: 'No.,Name'
   };
 
   return Strings;
