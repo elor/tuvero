@@ -154,7 +154,8 @@ define(function() {
     tournament_finished: 'Unterturnier beendet',
     namechangeprompt: 'Neuen Namen eingeben',
     teamdeleteprompt: 'Zum Löschen Team anklicken',
-    csvheader_teams: 'No.,Name'
+    csvheader_teams: 'No.,Name',
+    csvheader_history: 'Runde,Spielno.,"No. 1","No. 2","Punkte 1","Punkte 2"'
   };
 
   return Strings;

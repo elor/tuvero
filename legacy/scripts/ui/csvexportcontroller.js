@@ -104,7 +104,40 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
    *         placeholders
    */
   CSVExportController.prototype.historyToCSV = function() {
-    return 'history';
+    var csvTournaments;
+
+    csvTournaments = State.tournaments.map(function(tournament) {
+      var lines = [this.escape(tournament.getName().get()),
+          Strings.csvheader_history];
+
+      tournament.getHistory().map(function(result) {
+        var fields, i;
+
+        fields = [];
+        fields.push(result.getGroup() + 1);
+        fields.push(result.getID() + 1);
+
+        if (result.isResult()) {
+          for (i = 0; i < result.length; i += 1) {
+            if (i > 0 && result.isBye()) {
+              fields.push(Strings.byeid);
+            } else {
+              fields.push(result.getTeamID(i) + 1);
+            }
+          }
+
+          for (i = 0; i < result.length; i += 1) {
+            fields.push(result.score[i]);
+          }
+
+          lines.push(fields.join(','));
+        }
+      }, this);
+
+      return lines.join('\r\n');
+    });
+
+    return csvTournaments.join('\r\n\r\n');
   };
 
   CSVExportController.prototype.escape = function(string) {
@@ -116,7 +149,7 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
     }
 
     return string;
-  }
+  };
 
   return CSVExportController;
 });
