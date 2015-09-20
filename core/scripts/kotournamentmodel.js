@@ -407,7 +407,7 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
    * @return an array of teamIDs and placeholders for the initial set of ko
    *         matches
    */
-  KOTournamentModel.randomIndices = function(length) {
+  KOTournamentModel.shuffledIndices = function(length) {
     var indices, length2, index, teamids;
 
     length2 = KOTournamentModel.ceilPowerOfTwo(length);
