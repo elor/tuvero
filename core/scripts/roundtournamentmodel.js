@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
-    'options'], function(extend, TournamentModel, MatchModel, ByeResult,
-    Options) {
+    'options', './type'], function(extend, TournamentModel, MatchModel,
+    ByeResult, Options, Type) {
   /**
    * Constructor
    *
@@ -58,34 +58,67 @@ define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
    * be a RoundTournamentModel instance.
    */
   RoundTournamentModel.generateSlideSystemMatches = function() {
-    var list1, list2, numTeams, numGames, i, start, stop;
+    var slideList, teamA, teamB, id;
 
-    numTeams = this.teams.length;
-    numGames = numTeams >> 1;
+    slideList = RoundTournamentModel.generateSlideList(this.teams.length,
+        this.round);
 
-    if (numTeams % 2) {
+    if (slideList.length % 2) {
       // TODO use a function to auto-create all bye conditions. DRY principle.
-      this.votes.bye.push(numTeams - this.round - 1);
-      this.history.push(new ByeResult(numTeams - this.round - 1, [
-          Options.byepointswon, Options.byepointslost], numTeams >> 1,
-          this.round));
-      this.ranking.bye(numTeams - this.round - 1);
+      if (this.round == slideList.length - 1) {
+        teamB = slideList.shift();
+      } else {
+        teamB = slideList.pop();
+      }
+      id = slideList.length >> 1;
+
+      this.votes.bye.push(teamB);
+      this.history.push(new ByeResult(teamB, [Options.byepointswon,
+          Options.byepointslost], id, this.round));
+      this.ranking.bye(teamB);
     }
 
-    list1 = [];
-    list2 = [];
+    id = 0;
 
-    start = numTeams - this.round;
-    stop = numTeams - this.round + numGames;
-    for (i = start; i < stop; i += 1) {
-      list1.push(i % numTeams);
-      list2.push((i + numGames) % numTeams);
-    }
-    list2.reverse();
+    while (slideList.length > 1) {
+      teamA = slideList.shift();
+      teamB = slideList.pop();
 
-    for (i = 0; i < numGames; i += 1) {
-      this.matches.push(new MatchModel([list1[i], list2[i]], i, this.round));
+      this.matches.push(new MatchModel([teamA, teamB], id, this.round));
+
+      id += 1;
     }
+  };
+
+  /**
+   * @param numteams
+   *          the number of teams
+   * @param round
+   *          the round, starting with 0.
+   * @return an array of teams in a clockwise slide order, starting with the
+   *         first team. Undefined on error.
+   */
+  RoundTournamentModel.generateSlideList = function(numteams, round) {
+    var teams, slideteam;
+
+    if (!Type.isNumber(numteams) || !Type.isNumber(round)) {
+      return undefined;
+    }
+
+    if (round <= 0) {
+      teams = [];
+      while (teams.length < numteams) {
+        teams.push(teams.length);
+      }
+      return teams;
+    }
+
+    teams = RoundTournamentModel.generateSlideList(numteams, round - 1);
+
+    slideteam = teams.splice(numteams - 1, 1)[0];
+    teams.splice(1, 0, slideteam);
+
+    return teams;
   };
 
   /**
@@ -95,7 +128,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
    */
   RoundTournamentModel.prototype.postprocessMatch = function(matchresult) {
     if (this.matches.length === 0) {
-      if (this.round === this.teams.length - 1) {
+      if (this.round === this.numRounds() - 1) {
         this.state.set('finished');
       }
     }
@@ -107,6 +140,17 @@ define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
    */
   RoundTournamentModel.prototype.getRound = function() {
     return this.round;
+  };
+
+  /**
+   * @return the total number of rounds.
+   */
+  RoundTournamentModel.prototype.numRounds = function() {
+    if (this.teams.length % 2) {
+      // tournaments with odd teams take one round longer due to the byes
+      return this.teams.length;
+    }
+    return this.teams.length - 1;
   };
 
   /**

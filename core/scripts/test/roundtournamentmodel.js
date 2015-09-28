@@ -74,11 +74,11 @@ define(function() {
         };
       });
       ref = [{
-        t: [5, 3],
+        t: [1, 3],
         i: 0,
         g: 1
       }, {
-        t: [1, 2],
+        t: [5, 2],
         i: 1,
         g: 1
       }];
@@ -101,11 +101,11 @@ define(function() {
         };
       });
       ref = [{
-        t: [4, 2],
+        t: [1, 2],
         i: 0,
         g: 2
       }, {
-        t: [5, 1],
+        t: [4, 5],
         i: 1,
         g: 2
       }];
@@ -114,7 +114,7 @@ define(function() {
           'third round: correct bye');
 
       matches.get(0).finish([11, 13]);
-      matches.get(0).finish([11, 10]);
+      matches.get(0).finish([10, 13]);
       QUnit.equal(state.get(), 'idle', 'idle after games finished');
 
       QUnit.equal(matches.length, 0,
@@ -129,11 +129,11 @@ define(function() {
         };
       });
       ref = [{
-        t: [3, 1],
+        t: [1, 5],
         i: 0,
         g: 3
       }, {
-        t: [4, 5],
+        t: [3, 4],
         i: 1,
         g: 3
       }];
@@ -141,7 +141,7 @@ define(function() {
       QUnit.deepEqual(tournament.getVotes('bye').get(0), 2,
           'fourth round: correct bye');
 
-      matches.get(0).finish([2, 13]);
+      matches.get(0).finish([13, 2]);
       matches.get(0).finish([13, 0]);
       QUnit.equal(state.get(), 'idle', 'idle after games finished');
 
@@ -170,17 +170,18 @@ define(function() {
 
       matches.get(0).finish([13, 5]);
       matches.get(0).finish([7, 13]);
-      QUnit.equal(state.get(), 'finished', 'finished after the last round');
+      QUnit.equal(state.get(), 'finished',
+          '5-team tournament finished after 5 rounds');
 
       ret = tournament.getRanking().get();
       ref = {
         components: ['wins', 'sonneborn', 'saldo'],
         ids: [1, 2, 3, 4, 5],
-        displayOrder: [0, 1, 4, 3, 2],
-        ranks: [0, 1, 4, 3, 2],
-        saldo: [27, 9, -18, 17, -5],
-        sonneborn: [8, 6, 3, 5, 6],
-        wins: [4, 3, 2, 3, 3]
+        displayOrder: [0, 1, 2, 4, 3],
+        ranks: [0, 1, 2, 4, 3],
+        saldo: [30, 9, 6, -10, -5],
+        sonneborn: [8, 7, 5, 3, 5],
+        wins: [4, 3, 3, 2, 3]
       };
       QUnit.deepEqual(ret, ref, 'final ranking is correct');
 
@@ -195,7 +196,96 @@ define(function() {
 
       QUnit.ok(tournament.restore(data), 'restore() works');
       ret = tournament.getRanking().get();
-      QUnit.deepEqual(ret, ref, 'final ranking is correct');
+      QUnit.deepEqual(ret, ref, 'restored ranking is correct');
+
+      /*
+       * even number of teams
+       */
+      tournament = new RoundTournamentModel(['sonneborn']);
+      tournament.addTeam(7);
+      tournament.addTeam(5);
+      tournament.addTeam(3);
+      tournament.addTeam(2);
+
+      QUnit.ok(tournament, 'round tournament with 4 teams');
+
+      matches = tournament.getMatches();
+      byes = tournament.getVotes('bye');
+      state = tournament.getState();
+
+      tournament.run();
+      QUnit.equal(state.get(), 'running', 'tournament with 4 teams runs');
+      QUnit.equal(byes.length, 0, 'no byes for 4 teams');
+      QUnit.equal(matches.length, 2, 'two matches for 4 teams');
+
+      ret = tournament.getMatches().asArray().map(function(match) {
+        return {
+          t: match.teams,
+          i: match.getID(),
+          g: match.getGroup()
+        };
+      });
+      ref = [{
+        g: 0,
+        i: 0,
+        t: [7, 2]
+      }, {
+        g: 0,
+        i: 1,
+        t: [5, 3]
+      }];
+      QUnit.deepEqual(ret, ref, 'round 1 for 4 teams has correct matches');
+
+      matches.get(0).finish([13, 8]);
+      matches.get(0).finish([10, 13]);
+
+      tournament.run();
+      ret = tournament.getMatches().asArray().map(function(match) {
+        return {
+          t: match.teams,
+          i: match.getID(),
+          g: match.getGroup()
+        };
+      });
+      ref = [{
+        g: 1,
+        i: 0,
+        t: [7, 3]
+      }, {
+        g: 1,
+        i: 1,
+        t: [2, 5]
+      }];
+      QUnit.deepEqual(ret, ref, 'round 2 for 4 teams has correct matches');
+
+      matches.get(0).finish([3, 13]);
+      matches.get(0).finish([13, 9]);
+
+      tournament.run();
+      ret = tournament.getMatches().asArray().map(function(match) {
+        return {
+          t: match.teams,
+          i: match.getID(),
+          g: match.getGroup()
+        };
+      });
+      ref = [{
+        g: 2,
+        i: 0,
+        t: [7, 5]
+      }, {
+        g: 2,
+        i: 1,
+        t: [3, 2]
+      }];
+      QUnit.deepEqual(ret, ref, 'round 3 for 4 teams has correct matches');
+
+      matches.get(0).finish([13, 4]);
+      matches.get(0).finish([13, 9]);
+
+      QUnit.equal(state.get(), 'finished',
+          '4-team tournament is finished after 3 rounds');
+
     });
   };
 });
