@@ -7,10 +7,10 @@
 define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     './browser', './storage', './strings', './toast', './loadedimagesview',
     './browserinfoview', './registerteamscontroller', './requiremodsshortcut',
-    './finishroundcontroller'], function(extend, $, View, ValueModel,
-    ValueView, Browser, Storage, Strings, Toast, LoadedImagesView,
-    BrowserInfoView, RegisterTeamsController, RequireModsShortcut,
-    FinishRoundController) {
+    './finishroundcontroller', './debug', './tabshandle'], function(extend, $,
+    View, ValueModel, ValueView, Browser, Storage, Strings, Toast,
+    LoadedImagesView, BrowserInfoView, RegisterTeamsController,
+    RequireModsShortcut, FinishRoundController, Debug, TabsHandle) {
   /**
    * represents a whole team tab
    *
@@ -34,7 +34,14 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
    * TODO maybe split it into multiple autodetected functions?
    */
   DebugTab.prototype.init = function() {
-    var $container, $button, value;
+    var $container, $button;
+
+    /*
+     * Show Tab in dev versions
+     */
+    if (!Debug.isDevVersion) {
+      TabsHandle.hide('debug');
+    }
 
     /*
      * show browser info
