@@ -135,7 +135,6 @@ define([
   'ui/checkboxcontroller',
   'ui/checkboxview',
   'ui/correctionview',
-  'ui/csver',
   'ui/csvexportcontroller',
   'ui/data/swissperms',
   'ui/debug',
@@ -230,7 +229,6 @@ define([
   'ui/tournamentrankingview',
   'ui/tournamentview',
   'ui/tournamentviewpopulator',
-  'ui/treenode',
   'ui/update',
   'ui/valueview'
 ], function(undefined) {
