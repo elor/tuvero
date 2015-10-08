@@ -134,6 +134,7 @@ define([
   'ui/browser',
   'ui/checkboxcontroller',
   'ui/checkboxview',
+  'ui/closedtournamentcollapselistener',
   'ui/correctionview',
   'ui/csvexportcontroller',
   'ui/data/swissperms',

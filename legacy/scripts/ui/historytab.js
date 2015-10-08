@@ -5,9 +5,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
-    './checkboxview', 'core/classview', 'options', './tournamenthistoryview'], //
-function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
-    TournamentHistoryView) {
+    './checkboxview', 'core/classview', 'options', './tournamenthistoryview',
+    './closedtournamentcollapselistener'], function(extend, $, View, ListView,
+    State, CheckboxView, ClassView, Options, TournamentHistoryView,
+    ClosedTournamentCollapseListener) {
   /**
    * represents a whole team tab
    *
@@ -36,8 +37,12 @@ function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
     // tournamentlist
     $container = this.$view.find('.tournamentlist');
     $template = $container.find('.tournament.template');
-    this.teamList = new ListView(State.tournaments, $container, $template,
-        TournamentHistoryView, State.teams, State.teamsize);
+    this.tournamentList = new ListView(State.tournaments, $container,
+        $template, TournamentHistoryView, State.teams, State.teamsize);
+
+    // HACK: close tournaments
+    this.collapseListener = new ClosedTournamentCollapseListener(
+        this.tournamentList);
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
@@ -57,8 +62,8 @@ function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
     value = State.tabOptions.showMatchTables;
     $container = this.$view.find('>.options input.showtable');
     this.showtableCheckboxView = new CheckboxView(value, $container);
-    this.showtableClassView = new ClassView(value, this.$view, 'showmatchtable',
-        'showtable');
+    this.showtableClassView = new ClassView(value, this.$view,
+        'showmatchtable', 'showtable');
 
     // hidefinished checkbox
     value = State.tabOptions.hideFinishedGroups;

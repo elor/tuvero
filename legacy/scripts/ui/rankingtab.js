@@ -5,9 +5,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
-    './checkboxview', 'core/classview', 'options', './tournamentrankingview'], //
-function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
-    TournamentRankingView) {
+    './checkboxview', 'core/classview', 'options', './tournamentrankingview',
+    './closedtournamentcollapselistener'], function(extend, $, View, ListView,
+    State, CheckboxView, ClassView, Options, TournamentRankingView,
+    ClosedTournamentCollapseListener) {
   /**
    * represents a whole team tab
    *
@@ -59,6 +60,10 @@ function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
     this.tournamentList = new ListView(State.tournaments, $container,
         $template, TournamentRankingView, State.teams,
         this.rankingabbreviations);
+
+    // HACK: close tournaments
+    this.collapseListener = new ClosedTournamentCollapseListener(
+        this.tournamentList);
   };
 
   // FIXME CHEAP HACK AHEAD

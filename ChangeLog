@@ -8,6 +8,12 @@
 
 	* legacy/scripts/ui/treenode.js: removed
 
+	* legacy/scripts/ui/gamestab.js: closed tournaments get auto-collapsed
+
+	* legacy/scripts/ui/historytab.js: closed tournaments get auto-collapsed
+
+	* legacy/scripts/ui/rankingtab.js: closed tournaments get auto-collapsed
+
 2015-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/roundtournamentmodel.js: Issue #149 fixed: even number of teams don't generate duplicate matches anymore
