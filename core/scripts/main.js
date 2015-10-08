@@ -65,6 +65,7 @@ require(['core/config', 'core/common'], function() {
           try {
             loaded = Storage.restore();
           } catch (e) {
+            console.error(e.stack);
             Toast.init();
             Storage.disable();
             Splash.error();
