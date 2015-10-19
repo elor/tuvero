@@ -148,6 +148,22 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'correct() works correctly with TAC');
 
+      // undo a correct by correcting again. Should yield the same result.
+      ranking = new RankingModel(['tac'], 2);
+      ranking.result(new MatchResult(new MatchModel([0, 1], 0, 0), [8, 0]));
+      ref = ranking.get();
+      ranking.correct(new CorrectionModel(//
+      new MatchResult(new MatchModel([0, 1], 0, 0), [8, 0]),//
+      new MatchResult(new MatchModel([0, 1], 0, 0), [8, 7])//
+      ));
+      ranking.correct(new CorrectionModel(//
+      new MatchResult(new MatchModel([0, 1], 0, 0), [8, 7]),//
+      new MatchResult(new MatchModel([0, 1], 0, 0), [8, 0])//
+      ));
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, 'undo a correction yields original result'
+          + ' ("one point for 0:8" is undone correctly)');
+
       /*
        * bye
        */
