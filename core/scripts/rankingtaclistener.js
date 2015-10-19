@@ -150,7 +150,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
       points = this.tac.get(correction.before.teams[loser])
           - correction.before.score[loser];
       if (correction.before.score[loser] === 0) {
-        points += 1;
+        points -= 1;
       }
       this.tac.set(correction.before.teams[loser], points);
     } else {

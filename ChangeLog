@@ -2,6 +2,8 @@
 
 	* core/scripts/test/rankingtac.js: Test for #165 added
 
+	* core/scripts/rankingtaclistener.js: Fix for #165 added: Wrong sign corrected
+
 2015-10-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debugtab.js: hiding Debug tab in release versions
