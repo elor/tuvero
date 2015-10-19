@@ -23,6 +23,7 @@ define(function() {
         RLE.encode(undefined);
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with undefined');
       success = true;
@@ -30,6 +31,7 @@ define(function() {
         RLE.encode(null);
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with null');
       success = true;
@@ -37,6 +39,7 @@ define(function() {
         RLE.encode('');
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with ""');
       success = true;
@@ -44,6 +47,7 @@ define(function() {
         RLE.encode({});
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with {}');
       success = true;
@@ -51,6 +55,7 @@ define(function() {
         RLE.encode(/5/);
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with /5/');
       success = true;
@@ -60,6 +65,7 @@ define(function() {
         });
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with {a:4}');
       success = true;
@@ -67,6 +73,7 @@ define(function() {
         RLE.encode('loremipsum');
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with "loremipsum"');
 
@@ -75,6 +82,7 @@ define(function() {
         RLE.encode('5');
         success = false;
       } catch (e) {
+        //
       }
       QUnit.ok(success, 'RLE.encode() with "5"');
 

@@ -37,12 +37,14 @@ define(['lib/extend', 'core/listener', 'core/model'], function(extend,
    * resets the whole view
    */
   View.prototype.reset = function() {
+    //
   };
 
   /**
    * update the whole view
    */
   View.prototype.update = function() {
+    //
   };
 
   /**

@@ -66,6 +66,7 @@ define(function() {
           'array object references are not stored');
 
       ref = function() {
+        //
       };
 
       QUnit.equal(prop.setProperty('function', ref), false,

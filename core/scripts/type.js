@@ -31,6 +31,7 @@ define(function() {
    * anonymous reference function
    */
   function() {
+    //
   }];
 
   /**

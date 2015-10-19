@@ -198,6 +198,7 @@ function() {
 
     // keep adding names until there's none left
     while (orderDependenciesOnce(input, names)) {
+      //
     }
 
     // check for unresolvable dependencies
