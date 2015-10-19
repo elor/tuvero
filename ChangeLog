@@ -4,6 +4,10 @@
 
 	* core/scripts/rankingtaclistener.js: Fix for #165 added: Wrong sign corrected
 
+	* core/scripts/swisstournamentmodel.js: findSwissByesAndMatches is not a static function anymore. It requires the properties
+
+	* core/scripts/test/swisstournamentmodel.js: testing a tournament instance.
+
 2015-10-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/debugtab.js: hiding Debug tab in release versions

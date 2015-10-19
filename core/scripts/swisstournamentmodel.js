@@ -77,7 +77,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
      */
     matches = [];
     byes = [];
-    if (!SwissTournamentModel.findSwissByesAndMatches(matches, byes,
+    if (!this.findSwissByesAndMatches(matches, byes,
         rankGroups, this.ranking.gamematrix, this.ranking.byes)) {
       this.emit('error', 'cannot find unique byes and matches');
       return false;
@@ -250,8 +250,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    *          a vector with the number of byes for every team
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.findSwissByesAndMatches = function(outMatches, outByes,
-      rankGroups, gamematrix, byes) {
+  SwissTournamentModel.prototype.findSwissByesAndMatches = function(outMatches,
+      outByes, rankGroups, gamematrix, byes) {
     var reverseRankGroups;
 
     if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {

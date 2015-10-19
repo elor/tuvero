@@ -17,7 +17,7 @@ define(function() {
     VectorModel = getModule('core/vectormodel');
 
     QUnit.test('SwissTournamentModel', function() {
-      var groups, matches, byes, result;
+      var groups, matches, byes, result, tournament;
 
       QUnit.ok(extend.isSubclass(SwissTournamentModel, TournamentModel),
           'SwissTournamentModel is subclass of TournamentModel');
@@ -27,14 +27,15 @@ define(function() {
       matches = [];
       gamematrix = new SymmetricMatrixModel(0);
       byevector = new VectorModel(0);
+      tournament = new SwissTournamentModel();
 
-      result = SwissTournamentModel.findSwissByesAndMatches(matches, byes,
-          groups, gamematrix, byevector);
+      result = tournament.findSwissByesAndMatches(matches, byes, groups,
+          gamematrix, byevector);
       QUnit.ok(result, 'findSwissByesAndMatches: empty groups array');
 
       groups = [[5]];
-      result = SwissTournamentModel.findSwissByesAndMatches(matches, byes,
-          groups, gamematrix, byevector);
+      result = tournament.findSwissByesAndMatches(matches, byes, groups,
+          gamematrix, byevector);
       QUnit.ok(result, 'findSwissByesAndMatches: single team');
       QUnit.deepEqual(byes, [5], 'single team: correct bye');
 
@@ -42,8 +43,8 @@ define(function() {
       byes = [];
       gamematrix = new SymmetricMatrixModel(5);
 
-      result = SwissTournamentModel.findSwissByesAndMatches(matches, byes,
-          groups, gamematrix, byevector);
+      result = tournament.findSwissByesAndMatches(matches, byes, groups,
+          gamematrix, byevector);
       QUnit.ok(result, 'findSwissByesAndMatches: four teams');
       QUnit.deepEqual(matches, [[1, 2], [3, 4]], 'four teams: matches');
 
@@ -52,8 +53,8 @@ define(function() {
       matches = [];
       gamematrix = new SymmetricMatrixModel(4);
       gamematrix.set(2, 3, 1);
-      result = SwissTournamentModel.findSwissByesAndMatches(matches, byes,
-          groups, gamematrix, byevector);
+      result = tournament.findSwissByesAndMatches(matches, byes, groups,
+          gamematrix, byevector);
       QUnit.ok(result, 'findSwissByesAndMatches: already played');
       QUnit.deepEqual(matches, [[0, 2], [1, 3]], 'already played: matches');
     });
