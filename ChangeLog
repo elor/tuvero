@@ -6,6 +6,7 @@
 
 	* core/scripts/swisstournamentmodel.js: findSwissByesAndMatches is not a static function anymore. It requires the properties
 	findSwissMatches is not static anymore
+	separate "canGetBye" function for confirming bye conditions
 
 	* core/scripts/test/swisstournamentmodel.js: testing a tournament instance.
 

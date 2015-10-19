@@ -78,7 +78,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     matches = [];
     byes = [];
     if (!this.findSwissByesAndMatches(matches, byes, rankGroups,
-        this.ranking.gamematrix, this.ranking.byes)) {
+        this.ranking.gamematrix)) {
       this.emit('error', 'cannot find unique byes and matches');
       return false;
     }
@@ -246,12 +246,10 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    *          a 2d groups array
    * @param gamematrix
    *          a matrixmodel instance with the previous matches (gamematrix)
-   * @param byes
-   *          a vector with the number of byes for every team
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.findSwissByesAndMatches = function(outMatches,
-      outByes, rankGroups, gamematrix, byes) {
+      outByes, rankGroups, gamematrix) {
     var reverseRankGroups;
 
     if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {
@@ -260,7 +258,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       if (!reverseRankGroups.some(function(group) {
         return group.slice(0).reverse().some(function(teamid) {
           var index;
-          if (byes.get(teamid)) {
+          if (!this.canGetBye(teamid)) {
             return false;
           }
 
@@ -362,6 +360,21 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     currentGroup.unshift(teamA);
 
     return false;
+  };
+
+  /**
+   * checks all conditions and returns true if a bye can be issued
+   *
+   * @param teamid
+   *          the prospective team id
+   * @return true if the bye would be valid, false otherwise
+   */
+  SwissTournamentModel.prototype.canGetBye = function(teamid) {
+    if (this.ranking.byes.get(teamid)) {
+      return false;
+    }
+
+    return true;
   };
 
   return SwissTournamentModel;
