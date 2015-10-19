@@ -77,8 +77,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
      */
     matches = [];
     byes = [];
-    if (!this.findSwissByesAndMatches(matches, byes,
-        rankGroups, this.ranking.gamematrix, this.ranking.byes)) {
+    if (!this.findSwissByesAndMatches(matches, byes, rankGroups,
+        this.ranking.gamematrix, this.ranking.byes)) {
       this.emit('error', 'cannot find unique byes and matches');
       return false;
     }
@@ -258,32 +258,29 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       reverseRankGroups = rankGroups.slice(0).reverse();
 
       if (!reverseRankGroups.some(function(group) {
-        return group.slice(0).reverse().some(
-            function(teamid) {
-              var index;
-              if (byes.get(teamid)) {
-                return false;
-              }
+        return group.slice(0).reverse().some(function(teamid) {
+          var index;
+          if (byes.get(teamid)) {
+            return false;
+          }
 
-              index = group.indexOf(teamid);
-              group.splice(index, 1);
-              if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
-                  gamematrix)) {
-                outByes.push(teamid);
-                return true;
-              }
+          index = group.indexOf(teamid);
+          group.splice(index, 1);
+          if (this.findSwissMatches(outMatches, rankGroups, gamematrix)) {
+            outByes.push(teamid);
+            return true;
+          }
 
-              group.splice(index, 0, teamid);
+          group.splice(index, 0, teamid);
 
-              return false;
-            });
-      })) {
+          return false;
+        }, this);
+      }, this)) {
         return false;
       }
     }
 
-    if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
-        gamematrix)) {
+    if (this.findSwissMatches(outMatches, rankGroups, gamematrix)) {
       return true;
     }
 
@@ -313,8 +310,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @param gamematrix
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.findSwissMatches = function(outMatches, rankGroups,
-      gamematrix) {
+  SwissTournamentModel.prototype.findSwissMatches = function(outMatches,
+      rankGroups, gamematrix) {
     var currentGroup, secondGroup, teamA, teamB, teamBindex;
 
     // console.log(getGroupsTeamCount(rankGroups));
@@ -347,16 +344,15 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
           secondGroup.splice(teamBindex, 1);
 
-          if (SwissTournamentModel.findSwissMatches(outMatches, rankGroups,
-              gamematrix)) {
+          if (this.findSwissMatches(outMatches, rankGroups, gamematrix)) {
             return true;
           }
 
           secondGroup.splice(teamBindex, 0, teamB);
         }
         return false;
-      });
-    })) {
+      }, this);
+    }, this)) {
       // don't use push, because the best-ranked team should be listed in
       // the first match
       outMatches.unshift([teamA, teamB]);
