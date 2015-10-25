@@ -5,9 +5,13 @@
 	using 'XafterY' properties during 'canGetX' functions
 	ranking dependency: 'byes' -> 'votes'
 	findXXX function parameters removed in favor of this.ranking.something
+	'enableupdown' property added
+	ups and downs outputs added to findXXX
+	adding teams to the ups and downs arrays
 
 	* core/scripts/test/swisstournamentmodel.js: tests now require the teams to be registered.
 	unnecessary variables removed
+	tests adjusted to not fail in the face of ups and downs
 
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
