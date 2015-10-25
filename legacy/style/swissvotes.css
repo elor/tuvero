@@ -10,6 +10,7 @@ table.swissvotes td.prop:active {
   color: #969696;
 }
 
-table.swissvotes td.prop.forbidden {
+.swissvotes .forbidden {
   color: #d3d3d3;
 }
+

@@ -31,11 +31,14 @@
 
 	* core/templates/swissvotes.html: votes matrix added (just look at it to know what i mean)
 	descriptions and examples added
+	better example (with .forbidden symbols)
+	byeupafterbye -> byeafterbye typo fixed
 
 	* legacy/scripts/ui/swisstournamentview.js: BoxView around description
 
 	* legacy/style/swissvotes.css: color-coding of previous versions
 	using :active instead of :hover. Looks more responsive.
+	.forbidden also acts on the description text
 
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
