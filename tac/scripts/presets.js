@@ -1,4 +1,6 @@
 /**
+ * TAC Presets: TAC rankings, followed by wins and numgames
+ *
  * @return Presets
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -11,7 +13,7 @@ define(function() {
   Presets = {
     systems: {
       swiss: {
-        ranking: ['tac', 'wins', 'numgames'],
+        ranking: ['tac', 'numgames', 'wins'],
         mode: 'ranks'
       },
       ko: {
@@ -22,7 +24,7 @@ define(function() {
       }
     },
     ranking: {
-      components: ['tac', 'wins', 'numgames']
+      components: ['tac', 'numgames', 'wins']
     }
   };
 

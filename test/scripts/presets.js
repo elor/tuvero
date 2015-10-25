@@ -1,4 +1,6 @@
 /**
+ * Test presets. like boule, but with every possible ranking component.
+ *
  * @return Presets
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License

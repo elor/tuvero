@@ -1,4 +1,7 @@
 /**
+ * Boule presets: swiss as played in the PVO, round similar to chess, and ko
+ * with a matched cadrage. Point-based rankings.
+ *
  * @return Presets
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
