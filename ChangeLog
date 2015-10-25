@@ -56,6 +56,12 @@
 
 	* legacy/scripts/ui/strings.js: ranking_ko and ranking_votes strings added
 
+	* boule/scripts/presets.js: added
+
+	* tac/scripts/presets.js: added
+
+	* test/scripts/presets.js: added
+
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/rankingtac.js: Test for #165 added
