@@ -123,8 +123,8 @@
   margin-bottom: 1em;
 }
 
-#tabs>[data-tab="new"] .newsystem button {
-  display: block !important;
+#tabs>[data-tab="new"] .newsystem button[data-system] {
+  display: block;
   margin: 1em auto;
 }
 
