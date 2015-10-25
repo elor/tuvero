@@ -377,5 +377,35 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     return true;
   };
 
+  /**
+   * checks all upvote conditions and returns true if an upvote is allowed
+   *
+   * @param teamid
+   *          the prospective team id
+   * @returns true if the upvote is allowed, false otherwise
+   */
+  SwissTournamentModel.prototype.canGetUpvote = function(teamid) {
+    if (this.ranking.upvotes.get(teamid)) {
+      return false;
+    }
+
+    return true;
+  };
+
+  /**
+   * checks all downvote conditions and returns true if a downvote is allowed
+   *
+   * @param teamid
+   *          the prospective team id
+   * @returns true if the downvote is allowed, false otherwise
+   */
+  SwissTournamentModel.prototype.canGetDownvote = function(teamid) {
+    if (this.ranking.downvotes.get(teamid)) {
+      return false;
+    }
+
+    return true;
+  };
+
   return SwissTournamentModel;
 });
