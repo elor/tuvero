@@ -101,6 +101,17 @@ define(function() {
       QUnit.equal(prop.getProperty('int'), 53241, 'int restored');
       QUnit.equal(prop.getProperty('float'), 53.241, 'float restored');
       QUnit.equal(prop.getProperty('boolean'), true, 'boolean restored');
+
+      prop = new PropertyModel({
+        bool: true,
+        str: 'string',
+        num: 123
+      });
+
+      QUnit.ok(prop, 'property model with default initialization');
+      QUnit.equal(prop.getProperty('bool'), true, 'default bool property');
+      QUnit.equal(prop.getProperty('str'), 'string', 'default str property');
+      QUnit.equal(prop.getProperty('num'), 123, 'default num property');
     });
   };
 });

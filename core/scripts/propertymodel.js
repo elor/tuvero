@@ -24,7 +24,7 @@ define(['lib/extend', './model', './type'], function(extend, Model, Type) {
     // initialize with the init object, if available
     if (defaultProperties) {
       Object.keys(defaultProperties).forEach(function(key) {
-        this.set(key, defaultProperties[key]);
+        this.setProperty(key, defaultProperties[key]);
       }, this);
     }
   }

@@ -18,6 +18,10 @@
 	tests use the outVotes object
 	test playthrough for bye votes
 
+	* core/scripts/propertymodel.js: defaultValues bug fixed: set() -> setProperties()
+
+	* core/scripts/test/propertymodel.js: testing defaultValues
+
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/rankingtac.js: Test for #165 added
