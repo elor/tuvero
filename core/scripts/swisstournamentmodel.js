@@ -38,7 +38,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
   SwissTournamentModel.prototype.SYSTEM = 'swiss';
 
-  SwissTournamentModel.prototype.RANKINGDEPENDENCIES = ['byes', 'gamematrix'];
+  SwissTournamentModel.prototype.RANKINGDEPENDENCIES = ['votes', 'gamematrix'];
 
   SwissTournamentModel.MODES = {
     all: 'all',
