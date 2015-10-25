@@ -21,6 +21,18 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     this.setProperty('swissmode', SwissTournamentModel.MODES.ranks);
     this.setProperty('swissshuffle', true);
     this.setProperty('swisstranspose', false);
+
+    this.setProperty('byeafterbye', false);
+    this.setProperty('byeafterup', true);
+    this.setProperty('byeafterdown', true);
+
+    this.setProperty('upafterbye', true);
+    this.setProperty('upafterup', false);
+    this.setProperty('upafterdown', true);
+
+    this.setProperty('downafterbye', true);
+    this.setProperty('downafterup', true);
+    this.setProperty('downafterdown', false);
   }
   extend(SwissTournamentModel, RoundTournamentModel);
 
@@ -363,6 +375,33 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   };
 
   /**
+   * @param teamid
+   *          the id of the team
+   * @returns true if the team already has a bye
+   */
+  SwissTournamentModel.prototype.hasBye = function(teamid) {
+    return this.ranking.byes.get(teamid) != 0;
+  };
+
+  /**
+   * @param teamid
+   *          the id of the team
+   * @returns true if the team already has an upvote
+   */
+  SwissTournamentModel.prototype.hasUpvote = function(teamid) {
+    return this.ranking.upvotes.get(teamid) != 0;
+  };
+
+  /**
+   * @param teamid
+   *          the id of the team
+   * @returns true if the team already has a downvote
+   */
+  SwissTournamentModel.prototype.hasDownvote = function(teamid) {
+    return this.ranking.downvotes.get(teamid) != 0;
+  };
+
+  /**
    * checks all conditions and returns true if a bye can be issued
    *
    * @param teamid
@@ -370,7 +409,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @return true if the bye would be valid, false otherwise
    */
   SwissTournamentModel.prototype.canGetBye = function(teamid) {
-    if (this.ranking.byes.get(teamid)) {
+    if (this.hasBye(teamid)) {
       return false;
     }
 
@@ -385,7 +424,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @returns true if the upvote is allowed, false otherwise
    */
   SwissTournamentModel.prototype.canGetUpvote = function(teamid) {
-    if (this.ranking.upvotes.get(teamid)) {
+    if (this.hasUpvote(teamid)) {
       return false;
     }
 
@@ -400,7 +439,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @returns true if the downvote is allowed, false otherwise
    */
   SwissTournamentModel.prototype.canGetDownvote = function(teamid) {
-    if (this.ranking.downvotes.get(teamid)) {
+    if (this.hasDownvote(teamid)) {
       return false;
     }
 
