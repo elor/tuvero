@@ -10,6 +10,7 @@
 	adding teams to the ups and downs arrays
 	outByes/byes, ups and downs joined into the outVotes object
 	initialMatches() didn't use outVotes yet. Fixed it.
+	missing 'this' added. Now, the up/down/byevotes work.
 
 	* core/scripts/test/swisstournamentmodel.js: tests now require the teams to be registered.
 	unnecessary variables removed

@@ -121,13 +121,13 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       this.votes.up.push(upTeamID);
       this.ranking.upvotes
           .set(upTeamID, this.ranking.upvotes.get(upTeamID) + 1);
-    });
+    }, this);
 
     votes.downs.forEach(function(upTeamID) {
       this.votes.down.push(upTeamID);
       this.ranking.downvotes.set(upTeamID,
           this.ranking.upvotes.get(upTeamID) + 1);
-    });
+    }, this);
 
     matches.forEach(function(matchTeams, matchid) {
       this.matches.push(new MatchModel(matchTeams, matchid, this.round));
