@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', './tournamentview', './swisstournamentcontroller',
-    'core/valuemodel', './checkboxview', './boxview'], function(extend,
+    'core/valuemodel', './checkboxview', './swissvotesview'], function(extend,
     TournamentView, SwissTournamentController, ValueModel, CheckBoxView,
-    BoxView) {
+    SwissVotesView) {
   /**
    * Constructor
    *
@@ -36,7 +36,8 @@ define(['lib/extend', './tournamentview', './swisstournamentcontroller',
     this.$view.find('.tournamentoptions .option select.mode').val(
         this.model.tournament.getProperty('swissmode'));
 
-    this.explanationbox = new BoxView(this.$view.find('.swissvotes .boxview'));
+    this.swissvotes = new SwissVotesView(this.model.tournament, this.$view
+        .find('.swissvotes'));
 
     this.subcontroller = new SwissTournamentController(this);
   }
