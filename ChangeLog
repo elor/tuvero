@@ -27,6 +27,16 @@
 
 	* core/scripts/test/propertyvaluemodel.js: testing PropertyValueModel value propagations
 
+	* core/templates/swissoptions.html: referencing swissvotes.html
+
+	* core/templates/swissvotes.html: votes matrix added (just look at it to know what i mean)
+	descriptions and examples added
+
+	* legacy/scripts/ui/swisstournamentview.js: BoxView around description
+
+	* legacy/style/swissvotes.css: color-coding of previous versions
+	using :active instead of :hover. Looks more responsive.
+
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/rankingtac.js: Test for #165 added

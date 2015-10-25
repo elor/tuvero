@@ -1,0 +1,15 @@
+table.swissvotes td {
+  font-size: 1.5em;
+}
+
+table.swissvotes td.prop {
+  cursor: pointer;
+}
+
+table.swissvotes td.prop:active {
+  color: #969696;
+}
+
+table.swissvotes td.prop.forbidden {
+  color: #d3d3d3;
+}
