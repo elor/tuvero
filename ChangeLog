@@ -36,6 +36,7 @@
 
 	* legacy/scripts/ui/swisstournamentview.js: BoxView around description
 	initialization of SwissVotesView added
+	swissvotes selection restricted to uppermost DOM level
 
 	* legacy/style/swissvotes.css: color-coding of previous versions
 	using :active instead of :hover. Looks more responsive.
@@ -46,8 +47,11 @@
 	* legacy/scripts/ui/swissvotepropview.js: View for a single SwissVotes property
 
 	* legacy/scripts/ui/swissvotesview.js: View for swissvotes, which also shows/hides the swissvotes options
+	hidden-logic inverted
 
 	* legacy/scripts/ui/backgroundscripts/autosave.js: save after tournament property change
+
+	* legacy/scripts/ui/swisstournamentcontroller.js: swissmode-enableupdowns logic inverted
 
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

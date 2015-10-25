@@ -24,7 +24,7 @@ define(['lib/extend', 'core/view', './boxview', './swissvotepropview',
 
     this.votesenabled = new PropertyValueModel(this.model, 'enableupdown');
     this.hiddenclassview = new ClassView(this.votesenabled, this.$view,
-        'hidden');
+        undefined, 'hidden');
 
     this.initProps();
   }

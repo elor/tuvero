@@ -37,7 +37,7 @@ define(['lib/extend', './tournamentview', './swisstournamentcontroller',
         this.model.tournament.getProperty('swissmode'));
 
     this.swissvotes = new SwissVotesView(this.model.tournament, this.$view
-        .find('.swissvotes'));
+        .find('.option.swissvotes'));
 
     this.subcontroller = new SwissTournamentController(this);
   }

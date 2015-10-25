@@ -54,7 +54,7 @@ define(['lib/extend', 'core/controller', 'core/listener',
     byeafterbye = new PropertyValueModel(this.model.tournament, 'byeafterbye');
 
     Listener.bind(modevalue, 'update', function() {
-      votesenabled.set(modevalue.get() !== 'wins');
+      votesenabled.set(modevalue.get() === 'wins');
       if (!votesenabled.get()) {
         byeafterbye.set(false);
       }
