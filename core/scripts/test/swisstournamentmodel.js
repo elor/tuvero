@@ -33,12 +33,17 @@ define(function() {
           gamematrix, byevector);
       QUnit.ok(result, 'findSwissByesAndMatches: empty groups array');
 
-      groups = [[5]];
+      tournament.addTeam(0);
+      groups = [[0]];
       result = tournament.findSwissByesAndMatches(matches, byes, groups,
           gamematrix, byevector);
       QUnit.ok(result, 'findSwissByesAndMatches: single team');
-      QUnit.deepEqual(byes, [5], 'single team: correct bye');
+      QUnit.deepEqual(byes, [0], 'single team: correct bye');
 
+      tournament.addTeam(1);
+      tournament.addTeam(2);
+      tournament.addTeam(3);
+      tournament.addTeam(4);
       groups = [[1, 2, 3, 4]];
       byes = [];
       gamematrix = new SymmetricMatrixModel(5);
