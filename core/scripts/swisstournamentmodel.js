@@ -272,19 +272,19 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    *
    * @param outMatches
    *          an array into which the matches are written (int[][2])
-   * @param outByes
-   *          an array into which the bye is written (int[]);
+   * @param outVotes
+   *          an empty object. The vote output arrays are written here
    * @param rankGroups
    *          a 2d groups array
-   * @param ups
-   *          Output. An array into which the upvotes are written.
-   * @param downs
-   *          Output. An array into which the downvotes are written.
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.findSwissByesAndMatches = function(outMatches,
-      outByes, rankGroups, ups, downs) {
+      outVotes, rankGroups) {
     var reverseRankGroups;
+
+    outVotes.byes = [];
+    outVotes.ups = [];
+    outVotes.downs = [];
 
     if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {
       reverseRankGroups = rankGroups.slice(0).reverse();
@@ -298,8 +298,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
           index = group.indexOf(teamid);
           group.splice(index, 1);
-          if (this.findSwissMatches(outMatches, rankGroups, ups, downs)) {
-            outByes.push(teamid);
+          if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
+            outVotes.byes.push(teamid);
             return true;
           }
 
@@ -312,7 +312,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       }
     }
 
-    if (this.findSwissMatches(outMatches, rankGroups, ups, downs)) {
+    if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
       return true;
     }
 
@@ -339,17 +339,16 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   /**
    * @param outMatches
    *          Output. An array into which the matches are written.
+   * @param outVotes
+   *          Output. A pre-initialized object of arrays into which the votes
+   *          are written for output.
    * @param rankGroups
    *          The rank groups.
-   * @param ups
-   *          Output. An array into which the upvotes are written.
-   * @param downs
-   *          Output. An array into which the downvotes are written.
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.findSwissMatches = function(outMatches,
-      rankGroups, ups, downs) {
-    var currentGroup, secondGroup, teamA, teamB, teamBindex, updown;
+      outVotes, rankGroups) {
+    var currentGroup, teamA, teamB, updown;
 
     // console.log(getGroupsTeamCount(rankGroups));
     // console.log(JSON.stringify(rankGroups));
@@ -366,11 +365,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     }
 
     teamA = currentGroup.shift();
-
-    secondGroup = undefined;
-    teamBindex = undefined;
     teamB = undefined;
-    updown = false;
+    updown = false; // whether the next non-empty group has already been tried
 
     // try to find a match in any subsequent group, or just this or the one
     // after.
@@ -390,26 +386,27 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       }
 
       return group.some(function(team, index) {
+        var secondGroup, teamBindex;
+
         if (this.canPlayMatch(teamA, team, updown)) {
           secondGroup = group;
           teamB = team;
           teamBindex = index;
-          if (updown) {
-            downs.push(teamA);
-            ups.push(team);
-          }
 
+          if (updown) {
+            outVotes.downs.push(teamA);
+            outVotes.ups.push(team);
+          }
           secondGroup.splice(teamBindex, 1);
 
-          if (this.findSwissMatches(outMatches, rankGroups, ups, downs)) {
+          if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
             return true;
           }
 
           secondGroup.splice(teamBindex, 0, teamB);
-
           if (updown) {
-            downs.pop();
-            ups.pop();
+            outVotes.downs.pop();
+            outVotes.ups.pop();
           }
         }
         return false;

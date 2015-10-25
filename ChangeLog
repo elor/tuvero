@@ -8,10 +8,12 @@
 	'enableupdown' property added
 	ups and downs outputs added to findXXX
 	adding teams to the ups and downs arrays
+	outByes/byes, ups and downs joined into the outVotes object
 
 	* core/scripts/test/swisstournamentmodel.js: tests now require the teams to be registered.
 	unnecessary variables removed
 	tests adjusted to not fail in the face of ups and downs
+	tests use the outVotes object
 
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
