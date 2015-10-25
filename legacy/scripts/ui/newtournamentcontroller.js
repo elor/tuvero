@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
-    './tournamentcontroller'], function(extend, Controller, TournamentIndex,
-    Strings, TournamentController) {
+    './tournamentcontroller', 'presets'], function(extend, Controller,
+    TournamentIndex, Strings, TournamentController, Presets) {
   /**
    * Constructor
    */
@@ -63,13 +63,18 @@ define(['lib/extend', 'core/controller', 'core/tournamentindex', './strings',
   };
 
   NewTournamentController.prototype.createTournament = function(type, size) {
-    var tournament, ranking, i, imax;
+    var tournament, ranking, i, imax, rankingorder;
 
     if (!this.validateSize(size)) {
       return;
     }
 
-    tournament = TournamentIndex.createTournament(type, ['wins']);
+    rankingorder = ['wins'];
+    if (Presets.systems[type] && Presets.systems[type].ranking) {
+      rankingorder = Presets.systems[type].ranking.slice(0);
+    }
+
+    tournament = TournamentIndex.createTournament(type, rankingorder);
 
     tournament.getName().set(Strings['defaultname' + tournament.SYSTEM]);
 

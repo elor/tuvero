@@ -7,10 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
-    './tournamentcontroller', 'core/listmodel', './boxview',
+    './tournamentcontroller', 'core/listmodel', './boxview', 'presets',
     './rankingorderview', 'core/rankingcomponentindex', './strings'], function(
     extend, View, StateClassView, Listener, TournamentController, ListModel,
-    BoxView, RankingOrderView, RankingComponentIndex, Strings) {
+    BoxView, Presets, RankingOrderView, RankingComponentIndex, Strings) {
   /**
    * Constructor
    *
@@ -46,7 +46,7 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
     if (this.$rankingOrderView.length > 0) {
       this.rankingOrderView = new RankingOrderView(this.model.rankingOrder,
           this.$rankingOrderView.eq(0), new ListModel(
-              RankingComponentIndex.components.slice().sort(function(a, b) {
+              Presets.ranking.components.slice().sort(function(a, b) {
                 a = Strings['ranking_' + a] || a;
                 b = Strings['ranking_' + b] || b;
                 return a.localeCompare(b);

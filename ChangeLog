@@ -62,6 +62,10 @@
 
 	* test/scripts/presets.js: added
 
+	* legacy/scripts/ui/newtournamentcontroller.js: initializing rankingorder from presets
+
+	* legacy/scripts/ui/tournamentview.js: initializing available rankings from presets 
+
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/rankingtac.js: Test for #165 added
