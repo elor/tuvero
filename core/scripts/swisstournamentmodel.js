@@ -466,6 +466,13 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     return true;
   };
 
+  /**
+   * @param teamA
+   *          index of team A
+   * @param teamB
+   *          index of team B
+   * @return true if they can play a match, false otherwise
+   */
   SwissTournamentModel.prototype.canPlayMatch = function(teamA, teamB) {
     return this.ranking.gamematrix.get(teamA, teamB) === 0;
   };
