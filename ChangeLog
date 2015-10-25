@@ -2,6 +2,7 @@
 
 	* core/scripts/swisstournamentmodel.js: canGetUpvote() and canGetDownvote() added. Never used.
 	hasBye/Upvote/Downvote() functions added
+	using 'XafterY' properties during 'canGetX' functions
 
 	* core/scripts/test/swisstournamentmodel.js: tests now require the teams to be registered.
 

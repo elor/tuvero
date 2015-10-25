@@ -409,7 +409,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @return true if the bye would be valid, false otherwise
    */
   SwissTournamentModel.prototype.canGetBye = function(teamid) {
-    if (this.hasBye(teamid)) {
+    if (!this.getProperty('byeafterbye') && this.hasBye(teamid)) {
       return false;
     }
 
@@ -424,7 +424,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @returns true if the upvote is allowed, false otherwise
    */
   SwissTournamentModel.prototype.canGetUpvote = function(teamid) {
-    if (this.hasUpvote(teamid)) {
+    if (!this.getProperty('upafterup') && this.hasUpvote(teamid)) {
       return false;
     }
 
@@ -439,7 +439,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @returns true if the downvote is allowed, false otherwise
    */
   SwissTournamentModel.prototype.canGetDownvote = function(teamid) {
-    if (this.hasDownvote(teamid)) {
+    if (!this.getProperty('downafterdown') && this.hasDownvote(teamid)) {
       return false;
     }
 
