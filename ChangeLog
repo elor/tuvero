@@ -4,8 +4,10 @@
 	hasBye/Upvote/Downvote() functions added
 	using 'XafterY' properties during 'canGetX' functions
 	ranking dependency: 'byes' -> 'votes'
+	findXXX function parameters removed in favor of this.ranking.something
 
 	* core/scripts/test/swisstournamentmodel.js: tests now require the teams to be registered.
+	unnecessary variables removed
 
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

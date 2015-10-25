@@ -89,8 +89,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
      */
     matches = [];
     byes = [];
-    if (!this.findSwissByesAndMatches(matches, byes, rankGroups,
-        this.ranking.gamematrix)) {
+    if (!this.findSwissByesAndMatches(matches, byes, rankGroups)) {
       this.emit('error', 'cannot find unique byes and matches');
       return false;
     }
@@ -256,12 +255,10 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    *          an array into which the bye is written (int[]);
    * @param rankGroups
    *          a 2d groups array
-   * @param gamematrix
-   *          a matrixmodel instance with the previous matches (gamematrix)
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.findSwissByesAndMatches = function(outMatches,
-      outByes, rankGroups, gamematrix) {
+      outByes, rankGroups) {
     var reverseRankGroups;
 
     if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {
@@ -276,7 +273,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
           index = group.indexOf(teamid);
           group.splice(index, 1);
-          if (this.findSwissMatches(outMatches, rankGroups, gamematrix)) {
+          if (this.findSwissMatches(outMatches, rankGroups)) {
             outByes.push(teamid);
             return true;
           }
@@ -290,7 +287,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       }
     }
 
-    if (this.findSwissMatches(outMatches, rankGroups, gamematrix)) {
+    if (this.findSwissMatches(outMatches, rankGroups)) {
       return true;
     }
 
@@ -317,11 +314,10 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   /**
    * @param outMatches
    * @param rankGroups
-   * @param gamematrix
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.findSwissMatches = function(outMatches,
-      rankGroups, gamematrix) {
+      rankGroups) {
     var currentGroup, secondGroup, teamA, teamB, teamBindex;
 
     // console.log(getGroupsTeamCount(rankGroups));
@@ -347,14 +343,14 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     // try to find a match in the current group or the one after
     if (rankGroups.some(function(group) {
       return group.some(function(team, index) {
-        if (gamematrix.get(teamA, team) === 0) {
+        if (this.canPlayMatch(teamA, team)) {
           secondGroup = group;
           teamB = team;
           teamBindex = index;
 
           secondGroup.splice(teamBindex, 1);
 
-          if (this.findSwissMatches(outMatches, rankGroups, gamematrix)) {
+          if (this.findSwissMatches(outMatches, rankGroups)) {
             return true;
           }
 
@@ -468,6 +464,10 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     }
 
     return true;
+  };
+
+  SwissTournamentModel.prototype.canPlayMatch = function(teamA, teamB) {
+    return this.ranking.gamematrix.get(teamA, teamB) === 0;
   };
 
   return SwissTournamentModel;
