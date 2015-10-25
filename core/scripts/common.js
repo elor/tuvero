@@ -211,7 +211,6 @@ define([
   'ui/swisstournamentview',
   'ui/swissvotepropcontroller',
   'ui/swissvotepropview',
-  'ui/swissvotescontroller',
   'ui/swissvotesview',
   'ui/systemlistview',
   'ui/systemtablerowview',
