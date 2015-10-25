@@ -5,9 +5,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel', 'ui/storage',
-    'core/listener'], function(State, ListCollectorModel, TeamModel, Storage,
-    Listener) {
+define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel',
+    'core/tournamentmodel', 'ui/storage', 'core/listener'], function(State,
+    ListCollectorModel, TeamModel, TournamentModel, Storage, Listener) {
   var updatePending, nameListener,
 
   updatePending = undefined;
@@ -27,6 +27,10 @@ define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel', 'ui/storage',
 
   // save on team insertion/removal
   Listener.bind(State.teams, 'resize', save);
+
+  // save on tournament property change
+  Listener.bind(new ListCollectorModel(State.tournaments, TournamentModel),
+      'update', save);
 
   // save on tournament insertion/removal
   Listener.bind(State.tournaments, 'resize', save);
