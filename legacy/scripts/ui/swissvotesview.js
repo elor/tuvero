@@ -7,9 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', './boxview', './swissvotepropview',
-    'core/propertyvaluemodel', 'core/listener', 'core/classview'], function(
-    extend, View, BoxView, SwissVotePropView, PropertyValueModel, Listener,
-    ClassView) {
+    'core/propertyvaluemodel', 'core/classview'], function(extend, View,
+    BoxView, SwissVotePropView, PropertyValueModel, ClassView) {
   /**
    * Constructor
    *
@@ -23,13 +22,9 @@ define(['lib/extend', 'core/view', './boxview', './swissvotepropview',
 
     this.boxview = new BoxView(this.$view.find('.boxview'));
 
-    this.modevalue = new PropertyValueModel(this.model, 'swissmode');
     this.votesenabled = new PropertyValueModel(this.model, 'enableupdown');
     this.hiddenclassview = new ClassView(this.votesenabled, this.$view,
         'hidden');
-
-    Listener.bind(this.modevalue, 'update', this.updateVisibility.bind(this));
-    this.updateVisibility();
 
     this.initProps();
   }
@@ -51,17 +46,6 @@ define(['lib/extend', 'core/view', './boxview', './swissvotepropview',
           return new SwissVotePropView(
               new PropertyValueModel(tournament, prop), $view);
         });
-  };
-
-  /**
-   * FIXME this doesn't belong into a view. Maybe move it into a Controller The
-   * whole SwissVotesView should only be visible when working with wingroups
-   */
-  SwissVotesView.prototype.updateVisibility = function() {
-    this.votesenabled.set(this.modevalue.get() !== 'wins');
-    if (!this.votesenabled.get()) {
-      this.model.setProperty('byeafterbye', false);
-    }
   };
 
   return SwissVotesView;

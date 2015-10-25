@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'core/listener'], function(extend,
-    Controller, Listener) {
+define(['lib/extend', 'core/controller', 'core/listener',
+    'core/propertyvaluemodel'], function(extend, Controller, Listener,
+    PropertyValueModel) {
   /**
    * Constructor
    *
@@ -36,8 +37,29 @@ define(['lib/extend', 'core/controller', 'core/listener'], function(extend,
     Listener.bind(noshuffle, 'update', function() {
       tournament.setProperty('swissshuffle', !noshuffle.get());
     });
+
+    this.initSpecialWinsProperties();
   }
   extend(SwissTournamentController, Controller);
+
+  /**
+   * update the visibility and properties
+   */
+  SwissTournamentController.prototype.initSpecialWinsProperties = function() {
+    var modevalue, votesenabled;
+
+    modevalue = new PropertyValueModel(this.model.tournament, 'swissmode');
+    votesenabled = new PropertyValueModel(this.model.tournament, //
+    'enableupdown');
+    byeafterbye = new PropertyValueModel(this.model.tournament, 'byeafterbye');
+
+    Listener.bind(modevalue, 'update', function() {
+      votesenabled.set(modevalue.get() !== 'wins');
+      if (!votesenabled.get()) {
+        byeafterbye.set(false);
+      }
+    });
+  };
 
   return SwissTournamentController;
 });
