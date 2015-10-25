@@ -64,7 +64,11 @@
 
 	* legacy/scripts/ui/newtournamentcontroller.js: initializing rankingorder from presets
 
-	* legacy/scripts/ui/tournamentview.js: initializing available rankings from presets 
+	* legacy/scripts/ui/tournamentview.js: initializing available rankings from presets
+
+	* legacy/scripts/ui/debug.js: Release Candidates aren't considered dev versions
+
+	* legacy/scripts/ui/debugtab.js: only hide the tab in releases, without making it inaccessible
 
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

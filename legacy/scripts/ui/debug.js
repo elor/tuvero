@@ -24,7 +24,8 @@ define(['./toast', './strings', 'jquery'], function(Toast, Strings, $) {
   // Not waiting for document load. We're just reading a header text, not
   // manipulating the DOM. We should be safe.
   // $(function($) {
-  Debug.isDevVersion = !/\s[0-9]+(\.[0-9]+)+$/.test($('head title').text());
+  Debug.isDevVersion = !/\s[0-9]+(\.[0-9]+)+(-rc[0-9]*)?$/.test($('head title')
+      .text());
   if (Debug.isDevVersion) {
     new Toast(Strings.dev, Toast.INFINITE);
   }

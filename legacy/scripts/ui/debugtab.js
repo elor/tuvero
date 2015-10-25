@@ -40,7 +40,7 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
      * Show Tab in dev versions
      */
     if (!Debug.isDevVersion) {
-      TabsHandle.hide('debug');
+      TabsHandle.direct.getTabModel('debug').visibility.set(false);
     }
 
     /*
