@@ -14,6 +14,7 @@
 	unnecessary variables removed
 	tests adjusted to not fail in the face of ups and downs
 	tests use the outVotes object
+	test playthrough for bye votes
 
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

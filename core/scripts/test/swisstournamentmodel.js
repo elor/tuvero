@@ -54,6 +54,20 @@ define(function() {
       result = tournament.findSwissByesAndMatches(matches, votes, groups);
       QUnit.ok(result, 'findSwissByesAndMatches: already played');
       QUnit.deepEqual(matches, [[0, 2], [1, 3]], 'already played: matches');
+
+      /*
+       * tournament playthroughs/starts
+       */
+
+      tournament = new SwissTournamentModel(['wins']);
+      tournament.addTeam(5);
+      tournament.addTeam(4);
+      tournament.addTeam(3);
+      tournament.addTeam(2);
+      tournament.addTeam(1);
+      QUnit.ok(tournament.run(), 'default test tournament');
+
+      QUnit.deepEqual(tournament.getVotes('bye').asArray(), [1], 'bye votes');
     });
   };
 });
