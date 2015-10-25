@@ -123,6 +123,11 @@
   margin-bottom: 1em;
 }
 
+#tabs>[data-tab="new"] .newsystem button {
+  display: block !important;
+  margin: 1em auto;
+}
+
 #tabs>[data-tab="new"] .newsystem input[type="number"] {
   width: 3em;
   text-align: center;
