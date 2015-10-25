@@ -413,6 +413,14 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       return false;
     }
 
+    if (!this.getProperty('byeafterup') && this.hasUpvote(teamid)) {
+      return false;
+    }
+
+    if (!this.getProperty('byeafterdown') && this.hasDownvote(teamid)) {
+      return false;
+    }
+
     return true;
   };
 
@@ -428,6 +436,14 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       return false;
     }
 
+    if (!this.getProperty('upafterbye') && this.hasBye(teamid)) {
+      return false;
+    }
+
+    if (!this.getProperty('upafterdown') && this.hasDownvote(teamid)) {
+      return false;
+    }
+
     return true;
   };
 
@@ -440,6 +456,14 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    */
   SwissTournamentModel.prototype.canGetDownvote = function(teamid) {
     if (!this.getProperty('downafterdown') && this.hasDownvote(teamid)) {
+      return false;
+    }
+
+    if (!this.getProperty('downafterbye') && this.hasBye(teamid)) {
+      return false;
+    }
+
+    if (!this.getProperty('downafterup') && this.hasUpvote(teamid)) {
       return false;
     }
 
