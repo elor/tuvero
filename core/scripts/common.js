@@ -46,6 +46,7 @@ define([
   'core/orderlistmodel',
   'core/positivematrix',
   'core/propertymodel',
+  'core/propertyvaluemodel',
   'core/rankingbuchholzcomponent',
   'core/rankingbuchholzlistener',
   'core/rankingbyelistener',

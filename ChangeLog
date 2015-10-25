@@ -23,6 +23,10 @@
 
 	* core/scripts/test/propertymodel.js: testing defaultValues
 
+	* core/scripts/propertyvaluemodel.js: Model, which binds properties to a ValueModel for setting/getting
+
+	* core/scripts/test/propertyvaluemodel.js: testing PropertyValueModel value propagations
+
 2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/rankingtac.js: Test for #165 added

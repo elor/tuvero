@@ -35,6 +35,7 @@ require(['config'], function() {
   'core/test/orderlistmodel',
   'core/test/positivematrix',
   'core/test/propertymodel',
+  'core/test/propertyvaluemodel',
   'core/test/rankingcomponentindex',
   'core/test/rankingdatalistenerindex',
   'core/test/rankingheadtohead',
