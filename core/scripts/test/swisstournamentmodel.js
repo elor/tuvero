@@ -65,6 +65,8 @@ define(function() {
       tournament.addTeam(3);
       tournament.addTeam(2);
       tournament.addTeam(1);
+      tournament
+          .setProperty('swissmode', SwissTournamentModel.MODES.individual);
       QUnit.ok(tournament.run(), 'default test tournament');
 
       QUnit.deepEqual(tournament.getVotes('bye').asArray(), [1], 'bye votes');

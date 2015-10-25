@@ -17,6 +17,7 @@
 	tests adjusted to not fail in the face of ups and downs
 	tests use the outVotes object
 	test playthrough for bye votes
+	swissmode of bye test corrected. Can't test randomness.
 
 	* core/scripts/propertymodel.js: defaultValues bug fixed: set() -> setProperties()
 
