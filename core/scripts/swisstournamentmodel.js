@@ -95,10 +95,8 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
      * use awesome algorithm to find an allowed solution
      */
     matches = [];
-    byes = [];
-    ups = [];
-    downs = [];
-    if (!this.findSwissByesAndMatches(matches, byes, rankGroups, ups, downs)) {
+    votes = {};
+    if (!this.findSwissByesAndMatches(matches, votes, rankGroups)) {
       this.emit('error', 'cannot find unique byes and matches');
       return false;
     }
@@ -111,7 +109,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     /*
      * add the byes and matches to the current tournament
      */
-    byes.forEach(function(byeTeamID, byeIndex) {
+    votes.byes.forEach(function(byeTeamID, byeIndex) {
       // TODO extract method
       this.votes.bye.push(byeTeamID);
       this.history.push(new ByeResult(byeTeamID, [Options.byepointswon,
@@ -119,13 +117,13 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       this.ranking.bye(byeTeamID);
     }, this);
 
-    ups.forEach(function(upTeamID) {
+    votes.ups.forEach(function(upTeamID) {
       this.votes.up.push(upTeamID);
       this.ranking.upvotes
           .set(upTeamID, this.ranking.upvotes.get(upTeamID) + 1);
     });
 
-    downs.forEach(function(upTeamID) {
+    votes.downs.forEach(function(upTeamID) {
       this.votes.down.push(upTeamID);
       this.ranking.downvotes.set(upTeamID,
           this.ranking.upvotes.get(upTeamID) + 1);
