@@ -45,63 +45,62 @@
       </div>
     </div>
   </div>
-</body>
 
-<script id="testmain">
-function TestMain(Common, $) {
-  var MatchModel, MatchView, IndexedListModel, TeamModel, PlayerModel,
-      ListModel, ListView, Listener;
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var MatchModel, MatchView, IndexedListModel, TeamModel, PlayerModel,
+        ListModel, ListView, Listener;
+    
+    IndexedListModel = Common('core/indexedlistmodel');
+    ListModel = Common('core/listmodel');
+    MatchModel = Common('core/matchmodel');
+    MatchView = Common('ui/matchview');
+    TeamModel = Common('ui/teammodel');
+    PlayerModel = Common('ui/playermodel');
+    ListView = Common('ui/listview');
+    Listener = Common('core/listener');
   
-  IndexedListModel = Common('core/indexedlistmodel');
-  ListModel = Common('core/listmodel');
-  MatchModel = Common('core/matchmodel');
-  MatchView = Common('ui/matchview');
-  TeamModel = Common('ui/teammodel');
-  PlayerModel = Common('ui/playermodel');
-  ListView = Common('ui/listview');
-  Listener = Common('core/listener');
-
-  $(function($) {
-    var $view, matchview, teamlist, matchlist, matchlistview;
-
-    $view = $('.matchview.simple');
-    matchview = new MatchView(new MatchModel([1,0], 0, 0), $view);
-
-    teamlist = new IndexedListModel();
-    
-    teamlist.push(new TeamModel([new PlayerModel("Erik E. Lorenz"), new PlayerModel("Fabian Böttcher")]));
-    teamlist.push(new TeamModel([new PlayerModel("Kai Angne"), new PlayerModel("Martin Richter")]));
-    teamlist.push(new TeamModel([new PlayerModel("Petra Henning"), new PlayerModel("Detlef Schwede")]));
-    teamlist.push(new TeamModel([new PlayerModel("Stefan Weigel"), new PlayerModel("Gert Schwarz")]));
-    teamlist.push(new TeamModel([new PlayerModel("Marcel Neumann"), new PlayerModel("Antje Müller")]));
-    
-    $view = $('.matchview.teamlist');
-    matchview = new MatchView(new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0), $view, teamlist);
-    
-    matchlist = new ListModel();
-    do {
-      match = new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0);
-      matchlist.push(match);
-      Listener.bind(match, 'finish', function(match){
-        matchlist.erase(match);
-      });
-    } while (Math.random() < 0.5);
-    
-    $view = $('.matchlist');
-    $template = $view.find('.template');
-    matchlistview = new ListView(matchlist, $view, $template,
-        MatchView.bindTeamList(teamlist));
-        
-    do {
-      match = new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0);
-      matchlist.push(match);
-      Listener.bind(match, 'finish', function(match){
-        matchlist.erase(match);
-      });
-    } while (Math.random() < 0.7);
-  });
-}
-</script>
-<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
-
+    $(function($) {
+      var $view, matchview, teamlist, matchlist, matchlistview;
+  
+      $view = $('.matchview.simple');
+      matchview = new MatchView(new MatchModel([1,0], 0, 0), $view);
+  
+      teamlist = new IndexedListModel();
+      
+      teamlist.push(new TeamModel([new PlayerModel("Erik E. Lorenz"), new PlayerModel("Fabian Böttcher")]));
+      teamlist.push(new TeamModel([new PlayerModel("Kai Angne"), new PlayerModel("Martin Richter")]));
+      teamlist.push(new TeamModel([new PlayerModel("Petra Henning"), new PlayerModel("Detlef Schwede")]));
+      teamlist.push(new TeamModel([new PlayerModel("Stefan Weigel"), new PlayerModel("Gert Schwarz")]));
+      teamlist.push(new TeamModel([new PlayerModel("Marcel Neumann"), new PlayerModel("Antje Müller")]));
+      
+      $view = $('.matchview.teamlist');
+      matchview = new MatchView(new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0), $view, teamlist);
+      
+      matchlist = new ListModel();
+      do {
+        match = new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0);
+        matchlist.push(match);
+        Listener.bind(match, 'finish', function(match){
+          matchlist.erase(match);
+        });
+      } while (Math.random() < 0.5);
+      
+      $view = $('.matchlist');
+      $template = $view.find('.template');
+      matchlistview = new ListView(matchlist, $view, $template,
+          MatchView.bindTeamList(teamlist));
+          
+      do {
+        match = new MatchModel([Math.floor(Math.random()*teamlist.length),Math.floor(Math.random()*teamlist.length)], 0, 0);
+        matchlist.push(match);
+        Listener.bind(match, 'finish', function(match){
+          matchlist.erase(match);
+        });
+      } while (Math.random() < 0.7);
+    });
+  }
+  </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+</body>
 </html>

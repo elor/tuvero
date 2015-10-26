@@ -43,43 +43,41 @@ td {
 	Hover ID:
 	<span id="hoverid"></span> (hover or click at the table directly above)
 
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var ListView, ListModel, ListClickController;
+  
+    ListView = Common('ui/listview');
+    ListModel = Common('core/listmodel');
+    ListClickController = Common('ui/listclickcontroller');
+  
+    $(function($) {
+      var view, view2, model, i;
+  
+      model = new ListModel();
+      view = new ListView(model, $('ul').eq(0), $('<li>'));
+      view.update();
+      view = new ListView(model, $('ol').eq(0), $('<li>'));
+      view.update();
+      view = new ListView(model, $('div').eq(0), $('<span>'));
+      view.update();
+      view = new ListView(model, $('tr').eq(0), $('<td>'));
+      view.update();
+  
+      for (i = 1; i <= 10; i += 1) {
+        model.push(i);
+      }
+  
+      $('body').on('mouseenter', 'td,span,li', function(e) {
+        $('#hoverid').text(view.indexOf($(this)));
+      });
+  
+      new ListClickController(view, function(model, index) {
+        model.remove(index);
+      });
+    });
+  }
+  </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
 </body>
-
-<script id="testmain">
-function TestMain(Common, $) {
-  var ListView, ListModel, ListClickController;
-
-  ListView = Common('ui/listview');
-  ListModel = Common('core/listmodel');
-  ListClickController = Common('ui/listclickcontroller');
-
-  $(function($) {
-    var view, view2, model, i;
-
-    model = new ListModel();
-    view = new ListView(model, $('ul').eq(0), $('<li>'));
-    view.update();
-    view = new ListView(model, $('ol').eq(0), $('<li>'));
-    view.update();
-    view = new ListView(model, $('div').eq(0), $('<span>'));
-    view.update();
-    view = new ListView(model, $('tr').eq(0), $('<td>'));
-    view.update();
-
-    for (i = 1; i <= 10; i += 1) {
-      model.push(i);
-    }
-
-    $('body').on('mouseenter', 'td,span,li', function(e) {
-      $('#hoverid').text(view.indexOf($(this)));
-    });
-
-    new ListClickController(view, function(model, index) {
-      model.remove(index);
-    });
-  });
-}
-</script>
-<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
-
 </html>

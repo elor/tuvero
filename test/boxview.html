@@ -41,37 +41,35 @@
     </select>
   </div>
 
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var StaticViewLoader, BoxView;
+  
+    // backendscripts takes care of that for us
+    // StaticViewLoader = Common('ui/staticviewloader');
+    BoxView = Common('ui/boxview');
+  
+    $(function($) {
+      var $box;
+  
+      // StaticViewLoader.registerView('boxview', BoxView);
+      // StaticViewLoader.loadViews($('body'));
+      
+      $box = $('<div>').addClass('boxview').addClass('generated').append(
+          $('<h3>').text('Script-Generated Box'));
+  
+      new BoxView($box);
+  
+      window.setInterval(
+          function() {
+            $box.append($('<span>').text((new Date()).toTimeString())).append(
+                '<br>');
+          }, 864);
+  
+      $('body').append($box);
+    });
+  }
+  </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
 </body>
-
-<script id="testmain">
-function TestMain(Common, $) {
-  var StaticViewLoader, BoxView;
-
-  // backendscripts takes care of that for us
-  // StaticViewLoader = Common('ui/staticviewloader');
-  BoxView = Common('ui/boxview');
-
-  $(function($) {
-    var $box;
-
-    // StaticViewLoader.registerView('boxview', BoxView);
-    // StaticViewLoader.loadViews($('body'));
-    
-    $box = $('<div>').addClass('boxview').addClass('generated').append(
-        $('<h3>').text('Script-Generated Box'));
-
-    new BoxView($box);
-
-    window.setInterval(
-        function() {
-          $box.append($('<span>').text((new Date()).toTimeString())).append(
-              '<br>');
-        }, 864);
-
-    $('body').append($box);
-  });
-}
-</script>
-<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
-
 </html>

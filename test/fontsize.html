@@ -44,27 +44,25 @@
 
 	<button id="manualreset">Manual Reset</button>
 
-</body>
-
-<script id="testmain">
-    function TestMain(Common, $){
-      var StaticViewLoader, FontSizeView, FontSizeModel;
-
-//      backendscripts takes care of that for us. For now.      
-//      StaticViewLoader = Common('ui/staticviewloader');
-      FontSizeView = Common('ui/fontsizeview');
-      FontSizeModel = Common('ui/fontsizemodel');
-      
-      $(function($){
-//        StaticViewLoader.registerView('fontsizeview', FontSizeView);
-//        StaticViewLoader.loadViews($('body'));
+  <script id="testmain">
+      function TestMain(Common, $){
+        var StaticViewLoader, FontSizeView, FontSizeModel;
+  
+  //      backendscripts takes care of that for us. For now.      
+  //      StaticViewLoader = Common('ui/staticviewloader');
+        FontSizeView = Common('ui/fontsizeview');
+        FontSizeModel = Common('ui/fontsizemodel');
         
-        $('#manualreset').click(function(){
-          FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
+        $(function($){
+  //        StaticViewLoader.registerView('fontsizeview', FontSizeView);
+  //        StaticViewLoader.loadViews($('body'));
+          
+          $('#manualreset').click(function(){
+            FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
+          });
         });
-      });
-    }
-  </script>
-<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
-
+      }
+    </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+</body>
 </html>

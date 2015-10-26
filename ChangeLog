@@ -7,6 +7,28 @@
 	* legacy/scripts/ui/systemtablerowview.js: .lastrow CSS class re-introduced
 	also updating lastrow right after the creation of a tournament
 
+	* test/boxview.html: <script> moved into <body>
+
+	* test/checkboxview.html: <script> moved into <body>
+
+	* test/fontsize.html: <script> moved into <body>
+
+	* test/koline.html: <script> moved into <body>
+
+	* test/listview.html: <script> moved into <body>
+
+	* test/matchview.html: <script> moved into <body>
+
+	* test/rankingorderview.html: <script> moved into <body>
+
+	* test/rankingview.html: <script> moved into <body>
+
+	* test/teamentry.html: <script> moved into <body>
+
+	* test/teamlistview.html: <script> moved into <body>
+
+	* test/teamsizeview.html: <script> moved into <body>
+
 2015-10-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: canGetUpvote() and canGetDownvote() added. Never used.
