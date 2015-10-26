@@ -62,14 +62,14 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     if (this.globalRank !== globalRank) {
       this.$globalrank.text(globalRank + 1);
       this.globalRank = globalRank;
-
-      this.updateLastRowClass(ranking);
     }
 
     if (this.tournamentRank !== tournamentRank) {
       this.$tournamentrank.text(tournamentRank + 1);
       this.tournamentRank = tournamentRank;
     }
+
+    this.updateLastRowClass(ranking);
   };
 
   /**
