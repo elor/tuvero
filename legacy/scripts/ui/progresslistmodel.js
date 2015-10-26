@@ -58,7 +58,7 @@ define(['lib/extend', 'core/binningreferencelistmodel',
    *          a MatchModel instance
    * @param b
    *          another MatchModel instance
-   * @returns the order relation between the two
+   * @return the order relation between the two
    */
   ProgressListModel.prototype.sortFunction = function(a, b) {
     return a.getTeamID(0) - b.getTeamID(0) || a.getGroup() - b.getGroup();

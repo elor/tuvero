@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './listview', './kolistmodel',
-    './kotreeview', './matchtableview', ], function(extend, TemplateView,
+    './kotreeview', './matchtableview'], function(extend, TemplateView,
     ListView, KOListModel, KOTreeView, MatchTableView) {
   /**
    * Constructor

@@ -42,7 +42,7 @@ define(['lib/extend', 'core/view', './boxview', './swissvotepropview',
         function() {
           var prop, $view;
           $view = $(this);
-          prop = $view.attr('class').replace(regex, "$2");
+          prop = $view.attr('class').replace(regex, '$2');
           return new SwissVotePropView(
               new PropertyValueModel(tournament, prop), $view);
         });

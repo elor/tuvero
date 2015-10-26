@@ -167,7 +167,7 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
   };
 
   CSVExportController.prototype.escape = function(string) {
-    string = "" + string;
+    string = '' + string;
 
     if (/[",]|\s/.test(string)) {
       string = string.replace(/"/g, '""');

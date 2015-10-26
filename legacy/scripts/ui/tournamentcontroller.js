@@ -128,7 +128,7 @@ function(extend, jquery, Controller, Toast, Strings) {
     TournamentController.superclass.destroy.call(this);
 
     this.closeNameInput();
-  }
+  };
 
   return TournamentController;
 });

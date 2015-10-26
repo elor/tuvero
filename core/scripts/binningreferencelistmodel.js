@@ -101,7 +101,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
       BinningReferenceListModel.superclass.insert.call(this, index, bin);
     }
 
-    return bin
+    return bin;
   };
 
   /**

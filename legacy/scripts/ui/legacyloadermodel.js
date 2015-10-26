@@ -78,7 +78,7 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
         return new PlayerModel(playername);
       });
 
-      team = new TeamModel(players)
+      team = new TeamModel(players);
 
       State.teams.push(team);
 
