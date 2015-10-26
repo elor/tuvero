@@ -31,6 +31,8 @@
 
 	* index.html: normalize.css applied
 
+	* NEWS: updated
+
 2015-10-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: canGetUpvote() and canGetDownvote() added. Never used.

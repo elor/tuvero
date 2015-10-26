@@ -3,12 +3,40 @@ Tuvero 1.5.0 (yyyy-mm-dd)
 
 FEATURES:
 
-  * dynamic TournamentModel for generic tournaments
-
+  * MVC rewrite finished (faster, stronger, smaller)
+  * Entry of all results in the history tab
+  * Custom Ranking order
+  * more rankings
+  * Tuvero TAC
+  * new save format (incl. autovalidation)
+  * backwards-compatibility with old save format
+  * Travis CI support
+  * Plato support
+  * template system for HTML files
+  * rudimentary selenium tests added
+  * Round Tournaments (round robin)
+  * extended load failure message
+  * browser incompatibility notification
+  * print TournamentModel backend errors as Toast
+  * print stacktraces on most errors
+  * more swiss modes
+  * individual presets for different build targets
 
 FIXES:
 
   * memory leak in Listener.destroy() fixed
+  * undefined vector and matrix behavior specified
+  * auto-enforcing codestyle
+  * size of subtournaments is visible during creation
+  * auto-updating libraries
+  * most legacy code removed
+  * debug switch for Emitter
+  * obvious cross-browser style differences removed
+  * auto-saving more often
+  * CSV export re-enabled
+  * namechange and teamdelete hints added
+  * swiss algorithm includes every possible match
+  * increased button and input size
 
 Tuvero 1.4.10 (2015-05-02)
 --------------------------
