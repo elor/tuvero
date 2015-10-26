@@ -62,11 +62,39 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     if (this.globalRank !== globalRank) {
       this.$globalrank.text(globalRank + 1);
       this.globalRank = globalRank;
+
+      this.updateLastRowClass(ranking);
     }
 
     if (this.tournamentRank !== tournamentRank) {
       this.$tournamentrank.text(tournamentRank + 1);
       this.tournamentRank = tournamentRank;
+    }
+  };
+
+  /**
+   * adds/removes the .lastrow class on demand
+   *
+   * @param ranking
+   *          a global ranking object
+   */
+  SystemTableRowView.prototype.updateLastRowClass = function(ranking) {
+    var tournamentID, displayID, nextTeamID, nextTournamentID;
+
+    tournamentID = ranking.tournamentIDs[this.teamID];
+    displayID = ranking.displayOrder.indexOf(this.teamID);
+    if (displayID + 1 == ranking.displayOrder.length) {
+      this.$view.addClass('lastrow');
+      return;
+    }
+
+    nextTeamID = ranking.displayOrder[displayID + 1];
+    nextTournamentID = ranking.tournamentIDs[nextTeamID];
+
+    if (tournamentID !== nextTournamentID) {
+      this.$view.addClass('lastrow');
+    } else {
+      this.$view.removeClass('lastrow');
     }
   };
 
