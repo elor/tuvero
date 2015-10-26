@@ -86,5 +86,14 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
     this.updateRound();
   };
 
+  TournamentView.prototype.destroy = function() {
+    this.controller.destroy();
+    if (this.subcontroller) {
+      this.subcontroller.destroy();
+    }
+
+    TournamentView.superclass.destroy.call(this);
+  };
+
   return TournamentView;
 });

@@ -124,5 +124,11 @@ function(extend, jquery, Controller, Toast, Strings) {
     pendingNameChange = tournament;
   };
 
+  TournamentController.prototype.destroy = function() {
+    TournamentController.superclass.destroy.call(this);
+
+    this.closeNameInput();
+  }
+
   return TournamentController;
 });

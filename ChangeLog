@@ -1,3 +1,9 @@
+2015-10-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/tournamentcontroller.js: destroy() automatically closes the namechange input
+
+	* legacy/scripts/ui/tournamentview.js: destroy() also destroys controller and subcontroller
+
 2015-10-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: canGetUpvote() and canGetDownvote() added. Never used.
