@@ -138,7 +138,6 @@ define([
   'ui/closedtournamentcollapselistener',
   'ui/correctionview',
   'ui/csvexportcontroller',
-  'ui/data/swissperms',
   'ui/debug',
   'ui/debugtab',
   'ui/deleteallteamscontroller',
