@@ -4,6 +4,7 @@
 	"let" had an unexpected return code
 	indexing improved
 	commit: --message option added
+	`git push` added
 
 2015-10-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

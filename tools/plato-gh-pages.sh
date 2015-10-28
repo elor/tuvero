@@ -70,5 +70,6 @@ git checkout -q develop
 
 git -C $localrepo add .
 git -C $localrepo commit -m "plato update $(date +%F)"
+git -C $localrepo push
 
-echo "Done. Please check the results and upload with 'git -C $localrepo push'"
+echo "Done. Analyzed, committed and pushed"
