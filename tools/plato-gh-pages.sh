@@ -45,9 +45,13 @@ numcommits=$(wc -w <<< "$commits")
 commitnumber=0
 
 for commit in $commits; do
-    let commitnumber+=1
     commitdate=$(git show -s --format=%ct $commit)
-    (( "$commitdate" > "$lastentrydate" )) || continue
+    if (( "$commitdate" <= "$lastentrydate" )); then
+        let numcommits-=1
+        continue
+    fi
+
+    let commitnumber+=1
 
     git checkout -q $commit
 

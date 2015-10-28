@@ -2,6 +2,7 @@
 
 	* tools/plato-gh-pages.sh: showing the current progress
 	"let" had an unexpected return code
+	indexing improved
 
 2015-10-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
