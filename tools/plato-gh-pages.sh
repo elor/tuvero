@@ -43,8 +43,6 @@ lastentrydate=$(getlastentry)
 
 numcommits=$(wc -w <<< "$commits")
 commitnumber=0
-echo "$commitnumber/$numcommits"
-exit
 
 for commit in $commits; do
     let commitnumber++
