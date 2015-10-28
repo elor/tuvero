@@ -41,7 +41,13 @@ lastentrydate=$(getlastentry)
 
 [ -z $lastentrydate ] && { echo "cannot read last entry date">&2; exit 1; }
 
+numcommits=$(wc -w <<< "$commits")
+commitnumber=0
+echo "$commitnumber/$numcommits"
+exit
+
 for commit in $commits; do
+    let commitnumber++
     commitdate=$(git show -s --format=%ct $commit)
     (( "$commitdate" > "$lastentrydate" )) || continue
 
@@ -53,7 +59,7 @@ for commit in $commits; do
     scripts=$(find * -name '*.js' | grep -v 'lib/' | grep -v 'test/')
     [ -z "$scripts" ] && continue
 
-    echo "analyzing $commit"
+    echo "analyzing $commit ($commitnumber/$numcommits)"
 
     $plato -d $outdir -t Tuvero -D $commitdate -x 'qunit.*.js|require.*.js|build.js|jquery.*.js' $scripts
 done
