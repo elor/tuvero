@@ -1,6 +1,7 @@
 2015-10-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tools/plato-gh-pages.sh: showing the current progress
+	"let" had an unexpected return code
 
 2015-10-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

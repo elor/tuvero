@@ -45,7 +45,7 @@ numcommits=$(wc -w <<< "$commits")
 commitnumber=0
 
 for commit in $commits; do
-    let commitnumber++
+    let commitnumber+=1
     commitdate=$(git show -s --format=%ct $commit)
     (( "$commitdate" > "$lastentrydate" )) || continue
 
