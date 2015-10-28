@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">72.04</p>
+      <p class="stat">71.85</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">36</p>
+      <p class="stat">57</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">10.07</p>
+      <p class="stat">14.09</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.27</p>
+      <p class="stat">0.42</p>
     </div>
   </div>
 </div>
@@ -97,8 +97,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;core/listener&#039;], function(extend,
-    Controller, Listener) {
+define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;core/listener&#039;,
+    &#039;core/propertyvaluemodel&#039;], function(extend, Controller, Listener,
+    PropertyValueModel) {
   /**
    * Constructor
    *
@@ -125,11 +126,31 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;core/listener
     });
 
     Listener.bind(noshuffle, &#039;update&#039;, function() {
-      $noshuffle.prop(&#039;checked&#039;, noshuffle.get());
       tournament.setProperty(&#039;swissshuffle&#039;, !noshuffle.get());
     });
+
+    this.initSpecialWinsProperties();
   }
   extend(SwissTournamentController, Controller);
+
+  /**
+   * update the visibility and properties
+   */
+  SwissTournamentController.prototype.initSpecialWinsProperties = function() {
+    var modevalue, votesenabled;
+
+    modevalue = new PropertyValueModel(this.model.tournament, &#039;swissmode&#039;);
+    votesenabled = new PropertyValueModel(this.model.tournament, //
+    &#039;enableupdown&#039;);
+    byeafterbye = new PropertyValueModel(this.model.tournament, &#039;byeafterbye&#039;);
+
+    Listener.bind(modevalue, &#039;update&#039;, function() {
+      votesenabled.set(modevalue.get() === &#039;wins&#039;);
+      if (!votesenabled.get()) {
+        byeafterbye.set(false);
+      }
+    });
+  };
 
   return SwissTournamentController;
 });</textarea>

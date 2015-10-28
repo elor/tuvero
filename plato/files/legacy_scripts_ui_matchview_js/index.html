@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">63.29</p>
+      <p class="stat">61.13</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">175</p>
+      <p class="stat">207</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">35.88</p>
+      <p class="stat">41.75</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.07</p>
+      <p class="stat">1.32</p>
     </div>
   </div>
 </div>
@@ -101,10 +101,12 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
     &#039;ui/matchcontroller&#039;, &#039;options&#039;, &#039;./playermodel&#039;, &#039;./teammodel&#039;,
     &#039;./strings&#039;, &#039;core/type&#039;], function(extend, $, View, TeamView,
     MatchController, Options, PlayerModel, TeamModel, Strings, Type) {
-  var byePlayer;
+  var emptyPlayer, byePlayer;
 
   // player name for bye votes
   byePlayer = new PlayerModel(Strings.byename);
+  emptyPlayer = new PlayerModel(&#039;&#039;);
+  emptyPlayer.name = &#039;&#039;; // avoid &#039;NONAME&#039;
 
   /**
    * create a team with exactly the wanted number of bye players.
@@ -123,6 +125,20 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
 
     team = new TeamModel(players);
     team.setID(Strings.byeid);
+    return team;
+  }
+
+  function createEmptyTeam(length) {
+    var players, team;
+
+    players = [];
+
+    while (players.length &lt; length) {
+      players.push(emptyPlayer);
+    }
+
+    team = new TeamModel(players);
+    team.setID(&#039;&#039;);
     return team;
   }
 
@@ -173,10 +189,13 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
       this.teamlist = undefined;
     }
 
-    this.$view.find(&#039;.finish .points&#039;).val(Options.defaultscore || 0);
+    this.$finishform = this.$view.find(&#039;.finish&#039;);
 
-    if (!this.model.isResult()) {
-      this.controller = new MatchController(this);
+    if (this.model.isRunningMatch()) {
+      this.controller = new MatchController(this, this.$finishform);
+    } else {
+      this.$finishform.remove();
+      this.$finishform = undefined;
     }
 
     this.update();
@@ -199,7 +218,7 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
    * update all the values
    */
   MatchView.prototype.update = function() {
-    var $teams, i, $team, teamid, isBye, team;
+    var $teams, i, $team, teamid, isBye, team, teamsize;
 
     $teams = this.$view.find(&#039;.team&#039;);
     if ($teams.length === 0) {
@@ -209,19 +228,30 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
       $teams = $createTeamsLists(this.$view.filter(&#039;.teamno,.name&#039;));
     }
 
+    teamsize = undefined;
+
     this.destroyTeamViews();
 
     isBye = this.model.isBye &amp;&amp; this.model.isBye();
 
-    // FIXME support for a varying number of teams required
+    // should support a varying number of teams
     for (i = 0; i &lt; $teams.length; i += 1) {
       $team = $($teams[i]);
       teamid = this.model.getTeamID(i % this.model.length);
 
-      if (teamid !== undefined &amp;&amp; this.teamlist) {
-        team = this.teamlist.get(teamid);
-        if (isBye &amp;&amp; i % 2) {
-          team = createByeTeam(team.length);
+      if (this.teamlist) {
+        if (teamid !== undefined) {
+          team = this.teamlist.get(teamid);
+          teamsize = team.length;
+          if (isBye &amp;&amp; (i % this.model.length !== 0)) {
+            team = createByeTeam(team.length);
+          }
+        } else {
+          if (teamsize === undefined) {
+            // dirty hack: just look for size of the the first team.
+            teamsize = this.teamlist.get(0) &amp;&amp; this.teamlist.get(0).length;
+          }
+          team = createEmptyTeam(teamsize);
         }
         this.teamviews.push(new TeamView(team, $team));
       } else {
@@ -229,6 +259,8 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
           team = Strings.byename;
         } else if (Type.isNumber(teamid)) {
           team = teamid + 1;
+        } else if (teamid === undefined) {
+          team = &#039;&#039;;
         } else {
           team = teamid;
         }

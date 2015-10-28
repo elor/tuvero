@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">70.78</p>
+      <p class="stat">70.27</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">143</p>
+      <p class="stat">178</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">28.08</p>
+      <p class="stat">35.85</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.69</p>
+      <p class="stat">0.92</p>
     </div>
   </div>
 </div>
@@ -97,7 +97,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./indexedmodel&#039;], function(extend, IndexedModel) {
+define([&#039;lib/extend&#039;, &#039;./indexedmodel&#039;, &#039;./type&#039;], function(extend,
+    IndexedModel, Type) {
   /**
    * Constructor
    *
@@ -162,7 +163,35 @@ define([&#039;lib/extend&#039;, &#039;./indexedmodel&#039;], function(extend, In
    */
   MatchModel.prototype.isResult = function() {
     return this.score !== undefined || !this.finish;
-  }
+  };
+
+  /**
+   * @return true if this is not a result, all team IDs are unique and all team
+   *         IDs are valid (not undefined). false otherwise.
+   */
+  MatchModel.prototype.isRunningMatch = function() {
+    var valid;
+
+    valid = true;
+
+    if (valid) {
+      valid = !this.isResult();
+    }
+
+    if (valid) {
+      valid = this.teams.every(function(teamID) {
+        return Type.isNumber(teamID);
+      });
+    }
+
+    if (valid) {
+      valid = this.teams.every(function(teamID, index) {
+        return this.teams.slice(index + 1).indexOf(teamID) === -1;
+      }, this);
+    }
+
+    return valid;
+  };
 
   /**
    * disable setID() functionality
@@ -204,7 +233,13 @@ define([&#039;lib/extend&#039;, &#039;./indexedmodel&#039;], function(extend, In
 
     data.g = this.group;
     data.t = this.teams.map(function(team) {
-      return team.getID ? team.getID() : team;
+      if (team &amp;&amp; team.getID) {
+        return team.getID();
+      } else if (team === undefined) {
+        return -1;
+      } else {
+        return team;
+      }
     });
 
     return data;
@@ -226,7 +261,7 @@ define([&#039;lib/extend&#039;, &#039;./indexedmodel&#039;], function(extend, In
 
     this.teams.splice(0);
     data.t.forEach(function(t) {
-      this.teams.push(t);
+      this.teams.push(t === -1 ? undefined : t);
     }, this);
     this.length = this.teams.length;
 

@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">66.52</p>
+      <p class="stat">68.47</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">78</p>
+      <p class="stat">71</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">13.65</p>
+      <p class="stat">12.66</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.44</p>
+      <p class="stat">0.38</p>
     </div>
   </div>
 </div>
@@ -96,10 +96,9 @@
  * @see LICENSE
  */
 define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &#039;./state_new&#039;,
-    &#039;core/valuemodel&#039;, &#039;./checkboxview&#039;, &#039;core/classview&#039;, &#039;options&#039;,
-    &#039;./tournamentmatchesview&#039;],//
-function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
-    Options, TournamentMatchesView) {
+    &#039;./checkboxview&#039;, &#039;core/classview&#039;, &#039;options&#039;, &#039;./tournamentmatchesview&#039;],//
+function(extend, $, View, ListView, State, CheckboxView, ClassView, Options,
+    TournamentMatchesView) {
   /**
    * represents a whole team tab
    *
@@ -128,28 +127,22 @@ function(extend, $, View, ListView, State, ValueModel, CheckboxView, ClassView,
     // tournamentlist
     $container = this.$view.find(&#039;.tournamentlist&#039;);
     $template = $container.find(&#039;.tournament.template&#039;);
-    this.teamList = new ListView(State.tournaments, $container, $template,
-        TournamentMatchesView, State.teams, State.teamsize);
+    this.tournamentList = new ListView(State.tournaments, $container,
+        $template, TournamentMatchesView, State.teams, State.teamsize);
 
     // name maxwidth checkbox
-    value = new ValueModel();
+    value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find(&#039;&gt;.options input.maxwidth&#039;);
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, &#039;maxwidth&#039;,
         &#039;nomaxwidth&#039;);
 
     // player names checkbox
-    value = new ValueModel();
+    value = State.tabOptions.showNames;
     $container = this.$view.find(&#039;&gt;.options input.shownames&#039;);
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         &#039;hidenames&#039;);
-
-    // list/table selection checkbox
-    value = new ValueModel();
-    $container = this.$view.find(&#039;&gt;.options input.showtable&#039;);
-    this.showtableCheckboxView = new CheckboxView(value, $container);
-    this.showtableClassView = new ClassView(value, this.$view, &#039;showtable&#039;);
 
     // hide teamTable content depending on state
     // this.teamTableView = new TeamTableView(this.teamTable,

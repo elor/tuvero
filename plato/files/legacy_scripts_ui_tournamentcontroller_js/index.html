@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">63.74</p>
+      <p class="stat">64.80</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">108</p>
+      <p class="stat">126</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">24.42</p>
+      <p class="stat">24.75</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.93</p>
+      <p class="stat">1.12</p>
     </div>
   </div>
 </div>
@@ -109,7 +109,7 @@ function(extend, jquery, Controller, Toast, Strings) {
    * @param view
    *          a TournamentView instance
    */
-  function TournamentController(view) {
+  function TournamentController(view, tournaments) {
     var tournament, rankingOrder;
     TournamentController.superconstructor.call(this, view);
 
@@ -119,6 +119,7 @@ function(extend, jquery, Controller, Toast, Strings) {
     this.toast = undefined;
 
     this.$runbutton = this.view.$view.find(&#039;button.runtournament&#039;);
+    this.$closebutton = this.view.$view.find(&#039;button.closetournament&#039;);
     this.$toptitle = this.view.$view.find(&#039;&gt;h3:first-child&#039;);
     this.$nameinput = this.$toptitle.find(&#039;input&#039;);
 
@@ -150,6 +151,17 @@ function(extend, jquery, Controller, Toast, Strings) {
         }
       }
       tournament.run();
+    });
+
+    this.$closebutton.click(function() {
+      var state;
+
+      if (tournament.finish()) {
+        tournaments.closeTournament(tournament.getID());
+        new Toast(Strings.tournamentfinished);
+      } else {
+        new Toast(Strings.gamesstillrunning, Toast.LONG);
+      }
     });
 
     this.$toptitle.click(this.showNameInput.bind(this));
@@ -201,6 +213,12 @@ function(extend, jquery, Controller, Toast, Strings) {
    */
   TournamentController.initiateNameChange = function(tournament) {
     pendingNameChange = tournament;
+  };
+
+  TournamentController.prototype.destroy = function() {
+    TournamentController.superclass.destroy.call(this);
+
+    this.closeNameInput();
   };
 
   return TournamentController;

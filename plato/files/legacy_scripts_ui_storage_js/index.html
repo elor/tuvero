@@ -236,12 +236,12 @@ define([&#039;options&#039;, &#039;lib/modernizr&#039;, &#039;core/valuemodel&#0
    * enables localStorage, if possible. Necessary initialization
    */
   Storage.enable = function() {
-
     Storage.disable();
 
     if (Modernizr.localstorage) {
       keys[Options.dbname] = require(&#039;ui/state&#039;);
-      keys[Options.dbplayername] = require(&#039;ui/players&#039;);
+
+      keys[Options.dbplayername] = require(&#039;ui/autocompletionlegacyblobber&#039;);
     }
   };
 

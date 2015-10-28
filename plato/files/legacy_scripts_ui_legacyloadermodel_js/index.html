@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/ui/legacyloadermodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/ui/legacyloadermodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">60.49</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">472</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">47.64</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">4.34</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * LegacyLoaderModel
+ *
+ * @return LegacyLoaderModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;./state_new&#039;, &#039;./teammodel&#039;,
+    &#039;./playermodel&#039;, &#039;options&#039;, &#039;core/tournamentindex&#039;, &#039;core/matchmodel&#039;,
+    &#039;core/matchresult&#039;, &#039;core/byeresult&#039;, &#039;core/correctionmodel&#039;, &#039;./toast&#039;,
+    &#039;core/rle&#039;], function(extend, Model, State, TeamModel, PlayerModel,
+    Options, TournamentIndex, MatchModel, MatchResult, ByeResult,
+    CorrectionModel, Toast, RLE) {
+  /**
+   * Constructor
+   */
+  function LegacyLoaderModel() {
+    LegacyLoaderModel.superconstructor.call(this);
+  }
+  extend(LegacyLoaderModel, Model);
+
+  LegacyLoaderModel.prototype.load = function(blob) {
+    var glob, tournamentDataArray, tournamentRankingArray;
+
+    console.log(&#039;starting conversion&#039;);
+
+    glob = JSON.parse(blob);
+    tournamentDataArray = [];
+    tournamentRankingArray = [];
+
+    /*
+     * Options
+     */
+    this.loadOptions(glob.options);
+
+    /*
+     * Teams
+     */
+    this.loadTeams(glob.team);
+
+    /*
+     * Tournaments
+     */
+    this.loadTournaments(glob.tournaments, tournamentDataArray,
+        tournamentRankingArray);
+
+    /*
+     * History
+     */
+    this.loadHistory(glob.history, tournamentDataArray);
+
+    /*
+     * Votes
+     */
+    this.loadVotes(tournamentDataArray, tournamentRankingArray);
+
+    /*
+     * additional missing objects, e.g. placeholder matches
+     */
+    this.createMissingObjects();
+    console.log(&#039;conversion to format 1.5.0 successful&#039;);
+
+    return true;
+  };
+
+  LegacyLoaderModel.prototype.loadTeams = function(blob) {
+    var teams;
+
+    console.log(&#039;converting teams&#039;);
+
+    teams = JSON.parse(blob);
+
+    teams.forEach(function(teamData) {
+      var players, team;
+
+      players = teamData.names.map(function(playername) {
+        return new PlayerModel(playername);
+      });
+
+      team = new TeamModel(players);
+
+      State.teams.push(team);
+
+      console.log(&#039;converting team &#039; + team.getID() + &#039;: &#039;
+          + teamData.names.join(&#039;, &#039;));
+    });
+
+    console.log(&#039;conversion finished: &#039; + State.teams.length
+        + &#039; teams converted&#039;);
+  };
+
+  LegacyLoaderModel.prototype.loadOptions = function(blob) {
+    var optionsData;
+
+    optionsData = JSON.parse(blob);
+    if (optionsData.savefile === undefined) {
+      if (Options.target !== &#039;boule&#039;) {
+        new Toast(&#039;cannot load pre-1.4 saves with this target: &#039;
+            + Options.target, Toast.LONG);
+        throw new Error(&#039;cannot load pre-1.4 saves with this target: &#039;
+            + Options.target);
+      }
+    } else {
+      if (optionsData.savefile !== Options.target + &#039;.json&#039;) {
+        new Toast(&#039;cannot convert &#039;
+            + optionsData.savefile.replace(/.json$/, &#039;&#039;) + &#039; to &#039;
+            + Options.target, Toast.LONG);
+        throw new Error(&#039;cannot convert &#039;
+            + optionsData.savefile.replace(/.json$/, &#039;&#039;) + &#039; to &#039;
+            + Options.target);
+      }
+    }
+
+    console.log(&#039;converting options&#039;);
+
+    Options.fromBlob(blob);
+
+    console.log(&#039;converting teamsize&#039;);
+    State.teamsize.set(Options.teamsize);
+
+    console.log(&#039;conversion finished: options&#039;);
+  };
+
+  LegacyLoaderModel.prototype.loadTournaments = function(blob,
+      tournamentDataArray, tournamentRankingArray) {
+    var tournaments, parents;
+
+    console.log(&#039;converting tournaments&#039;);
+
+    tournaments = JSON.parse(blob);
+    parents = [];
+
+    subtournamentOffsets = [];
+
+    tournaments.forEach(function(data, tournamentID) {
+      var tournament, system, name, blob, teams, ranking, parent, //
+      rankingorder, tournamentData, startIndex;
+
+      system = data[0];
+      name = data[1];
+      blob = data[2];
+      teams = data[3];
+      ranking = data[4];
+      parent = data[5];
+
+      console.log(&#039;converting tournament &#039; + tournamentID + &#039;: &#039; + name);
+
+      if (blob) {
+        tournamentData = JSON.parse(blob);
+      } else {
+        tournamentData = undefined;
+      }
+
+      tournamentDataArray[tournamentID] = tournamentData;
+      tournamentRankingArray[tournamentID] = ranking;
+
+      rankingorder = {
+        swiss: [&#039;wins&#039;, &#039;buchholz&#039;, &#039;finebuchholz&#039;, &#039;saldo&#039;, &#039;votes&#039;],
+        ko: [&#039;ko&#039;]
+      }[system];
+
+      // create tournament
+      tournament = TournamentIndex.createTournament(system, rankingorder);
+      if (!tournament) {
+        console.error(&#039;TOURNAMENT SYSTEM NOT SUPPORTED YET: &#039; + system);
+        return;
+      }
+
+      // name and teams
+      tournament.getName().set(name);
+      teams.forEach(tournament.addTeam.bind(tournament));
+
+      if (tournamentData) {
+        // set state
+        if (tournamentData.games &amp;&amp; tournamentData.games.length &gt; 0) {
+          tournament.state.forceState(&#039;running&#039;);
+        } else {
+          tournament.state.forceState(&#039;initial&#039;);
+        }
+
+        // set round
+        if (system === &#039;swiss&#039;) {
+          tournament.round = tournamentData.round - 1;
+        } else {
+          // no tournament round..
+        }
+
+        console.log(&#039;converting tournament matches&#039;);
+
+        // add matches
+        tournamentData.games.forEach(function(data) {
+          var teams, match, id, group;
+
+          teams = [data.teams[0][0], data.teams[1][0]];
+          id = data.id;
+
+          if (system === &#039;swiss&#039;) {
+            group = tournament.round;
+          } else {
+            group = tournamentData.roundids[teams[0]];
+            id += 1;
+          }
+          match = new MatchModel(teams, id, group);
+
+          console.log(&#039;converting match &#039; + group + &#039;:&#039; + id + &#039;: &#039;
+              + teams.join(&#039; vs. &#039;));
+
+          tournament.matches.push(match);
+        });
+
+      } else {
+        tournament.state.forceState(&#039;finished&#039;);
+      }
+
+      console.log(&#039;converted tournament state: &#039; + tournament.state.get());
+
+      // convert the parent properties to startIndex
+      if (parent === undefined || parent === null) {
+        startIndex = 0;
+      } else {
+        console.log(&quot;converted tournament&#039;s parent: &quot; + parent);
+        startIndex = subtournamentOffsets[parent];
+        subtournamentOffsets[parent] += tournament.getTeams().length;
+      }
+      subtournamentOffsets[tournamentID] = startIndex;
+
+      console.log(&#039;converted tournament range: &#039; + startIndex + &#039;-&#039;
+          + (startIndex + tournament.getTeams().length));
+
+      // push tournaments. Also sets the ID. Arrays are dense (not sparse)
+      State.tournaments.push(tournament, startIndex);
+
+      // close tournament if necessary
+      if (!blob) {
+        console.log(&#039;closing tournament &#039; + tournamentID);
+        State.tournaments.closeTournament(tournamentID);
+      }
+    });
+
+    console.log(&#039;conversion finished: tournaments&#039;);
+  };
+
+  LegacyLoaderModel.prototype.loadHistory = function(blob, //
+  tournamentDataArray) {
+    var history = JSON.parse(blob);
+
+    console.log(&#039;converting history&#039;);
+
+    history.forEach(function(tournamenthistory, tournamentID) {
+      var tournament, round, tournamentData, system;
+
+      console.log(&#039;converting history for tournament &#039; + tournamentID);
+
+      tournamentData = tournamentDataArray[tournamentID];
+      tournament = State.tournaments.get(tournamentID);
+      round = tournament.round;
+      system = tournament.SYSTEM;
+
+      function restoreMatchResult(match) {
+        var result, teams, score, id, group;
+
+        teams = [match[0], match[1]];
+        score = [match[2], match[3]];
+        group = match[4];
+        id = match[5];
+
+        if (group &gt; round) {
+          round = group;
+        }
+
+        if (system === &#039;ko&#039;) {
+          id += 1;
+        }
+
+        teams = teams.map(tournament.teams.indexOf.bind(tournament.teams));
+
+        match = new MatchModel(teams, id, group);
+        result = new MatchResult(match, score);
+
+        return result;
+      }
+
+      /*
+       * Matches
+       */
+      if (tournamenthistory.games &amp;&amp; tournamenthistory.games.length &gt; 0) {
+        if (tournament.state.get() === &#039;initial&#039;) {
+          tournament.state.forceState(&#039;idle&#039;);
+        }
+
+        tournamenthistory.games.forEach(function(match) {
+          var result = restoreMatchResult(match);
+
+          console.log(&#039;converting match result &#039; + result.getID() + &#039;: &#039;
+              + result.teams.join(&#039; vs. &#039;) + &#039;:  &#039; + result.score.join(&#039;:&#039;));
+
+          tournament.history.push(result);
+          tournament.ranking.result(result);
+        });
+
+        console.log(&#039;conversion: &#039; + tournament.history.length
+            + &#039; results converted&#039;);
+
+        // TODO restore half-filled KO matches
+
+        // TODO fill in placeholder matches
+
+        if (tournament.SYSTEM === &#039;swiss&#039; &amp;&amp; round &gt; tournament.round) {
+          tournament.round = round;
+        }
+      }
+
+      /*
+       * Corrections
+       */
+      if (tournamenthistory.corrections) {
+        tournamenthistory.corrections.forEach(function(correctionData, id) {
+          var before, after;
+
+          before = restoreMatchResult(correctionData[0]);
+          after = restoreMatchResult(correctionData[1]);
+
+          correction = new CorrectionModel(before, after);
+
+          console.log(&#039;converting correction &#039; + id + &#039;: &#039;
+              + before.teams.join(&#039; vs. &#039;) + &#039;: &#039;);
+
+          tournament.corrections.push(correction);
+        });
+      }
+
+      console.log(&#039;conversion finished: &#039; + tournament.corrections.length
+          + &#039; corrections converted&#039;);
+
+      /*
+       * Votes
+       */
+      tournamenthistory.votes.forEach(function(data) {
+        var type, teamid, round, vote, id;
+
+        type = data[0];
+        teamid = data[1];
+        round = data[2];
+        id = tournament.getTeams().length &gt;&gt; 1;
+
+        if (type === 0) {
+          // bye
+          vote = new ByeResult(teamid, [Options.byepointswon,
+              Options.byepointslost], id, round);
+
+          console.log(&#039;converting bye for team &#039; + teamid);
+
+          tournament.history.push(vote);
+          if (tournament.SYSTEM === &#039;swiss&#039; //
+              &amp;&amp; round === tournament.getRound()) {
+            tournament.votes.bye.push(teamid);
+          }
+          tournament.ranking.bye(teamid);
+        }
+      });
+    });
+
+    console.log(&#039;conversion finished: history&#039;);
+  };
+
+  LegacyLoaderModel.prototype.createMissingObjects = function() {
+    console.log(&#039;conversion: creating missing tournament objects&#039;);
+
+    State.tournaments.map(function(tournament) {
+      this[&#039;createMissingObjects&#039; + tournament.SYSTEM](tournament);
+    }, this);
+
+    console.log(&#039;conversion finished: missing tournament objects&#039;);
+  };
+
+  LegacyLoaderModel.prototype.createMissingObjectsko = function(tournament) {
+    var teams, lastresults;
+
+    console.log(&#039;conversion: creating missing objects for tournament &#039;
+        + tournament.getID() + &#039; (&#039; + tournament.getName().get() + &#039;)&#039;);
+
+    console.log(&#039;conversion: finding dangling teams&#039;);
+    tournament.createWaitingMatches();
+
+    console.log(&#039;conversion: creating missing ko placeholder matches&#039;);
+    tournament.createPlaceholderMatches();
+  };
+
+  LegacyLoaderModel.prototype.createMissingObjectsswiss = function(tournament) {
+    console.log(&#039;conversion: no need missing objects for swiss tournament &#039;
+        + tournament.getID() + &#039; (&#039; + tournament.getName().get() + &#039;)&#039;);
+  };
+
+  LegacyLoaderModel.prototype.loadVotes = function(tournamentDataArray,
+      tournamentRankingArray) {
+
+    console.log(&#039;converting votes&#039;);
+
+    tournamentDataArray.forEach(function(tournamentData, tournamentID) {
+      var tournament, system, ranking, upvoteArray, downvoteArray;
+
+      console.log(&#039;converting votes of tournament &#039; + tournamentID);
+
+      tournament = State.tournaments.get(tournamentID);
+      ranking = tournamentRankingArray[tournamentID];
+      displayOrder = tournament.getRanking().get().displayOrder;
+
+      system = tournament.SYSTEM;
+
+      if (tournamentData) {
+        console.log(&#039;converting votes from tournament data&#039;);
+
+        if (tournamentData.upvote) {
+          upvoteArray = RLE.decode(tournamentData.upvote);
+        }
+
+        if (tournamentData.downvote) {
+          upvoteArray = RLE.decode(tournamentData.downvote);
+        }
+
+      } else if (ranking) {
+        console.log(&#039;converting votes from ranking cache&#039;);
+
+        upvoteArray = ranking.upvote;
+        downvoteArray = ranking.downvote;
+
+      } else {
+        new Toast(&#039;tournament &#039; + tournamentID
+            + &#039; contains neither tournament nor ranking blob&#039;, Toast.LONG);
+        throw new Error(&#039;tournament &#039; + tournamentID
+            + &#039; contains neither tournament nor ranking blob&#039;);
+      }
+
+      if (system === &#039;swiss&#039;) {
+        if (tournament.ranking.upvotes &amp;&amp; upvoteArray) {
+          upvoteArray.forEach(function(upvotes, displayID) {
+            var teamID = displayOrder[displayID];
+
+            if (upvotes &gt; 0) {
+              console.log(&#039;converting &#039; + upvotes + &#039; upvotes for team &#039;
+                  + teamID);
+
+              tournament.ranking.upvotes.set(teamID, tournament.ranking.upvotes
+                  .get(teamID)
+                  + upvotes);
+            }
+          });
+        }
+
+        if (tournament.ranking.downvotes &amp;&amp; downvoteArray) {
+          downvoteArray.forEach(function(downvotes, displayID) {
+            var teamID = displayOrder[displayID];
+
+            if (downvotes &gt; 0) {
+              console.log(&#039;converting &#039; + downvotes + &#039; downvotes for team &#039;
+                  + teamID);
+
+              tournament.ranking.downvotes.set(teamID,
+                  tournament.ranking.downvotes.get(teamID) + downvotes);
+            }
+          });
+        }
+      }
+
+      console.log(&#039;conversion finished: votes of tournament &#039; + tournamentID);
+
+      console.log(&#039;updating the ranking. You know... for safety and stuff.&#039;);
+      console.log(&#039;&#039;);
+      console.log(&#039;ok, I admit it. It is for the upvotes and downvotes.&#039;);
+
+      tournament.ranking.emit(&#039;recalc&#039;);
+      tournament.ranking.invalidate();
+    });
+
+    console.log(&#039;conversion finished: votes&#039;);
+  };
+
+  return LegacyLoaderModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

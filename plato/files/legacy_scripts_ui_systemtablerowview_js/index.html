@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">62.46</p>
+      <p class="stat">61.01</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">162</p>
+      <p class="stat">200</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">37.58</p>
+      <p class="stat">47.81</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.26</p>
+      <p class="stat">1.49</p>
     </div>
   </div>
 </div>
@@ -119,7 +119,7 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./teamview&#039;, &
       $newTournamentTemplate) {
     SystemTableRowView.superconstructor.call(this, undefined, $view);
 
-    this.index = index;
+    this.teamID = index;
     this.teams = teams;
     this.tournaments = tournaments;
     this.teamView = new TeamView(teams.get(index), this.$view);
@@ -147,8 +147,8 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./teamview&#039;, &
     var ranking, globalRank, tournamentRank;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    globalRank = ranking.globalRanks[this.index];
-    tournamentRank = ranking.tournamentRanks[this.index];
+    globalRank = ranking.globalRanks[this.teamID];
+    tournamentRank = ranking.tournamentRanks[this.teamID];
 
     if (this.globalRank !== globalRank) {
       this.$globalrank.text(globalRank + 1);
@@ -159,22 +159,61 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./teamview&#039;, &
       this.$tournamentrank.text(tournamentRank + 1);
       this.tournamentRank = tournamentRank;
     }
+
+    this.updateLastRowClass(ranking);
   };
 
-  SystemTableRowView.prototype.updateSystem = function() {
-    var ranking, offset, tournamentID, rowspan, $view, tournament;
+  /**
+   * adds/removes the .lastrow class on demand
+   *
+   * @param ranking
+   *          a global ranking object
+   */
+  SystemTableRowView.prototype.updateLastRowClass = function(ranking) {
+    var tournamentID, displayID, nextTeamID, nextTournamentID;
 
-    ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    tournamentID = ranking.tournamentIDs[this.index];
-    offset = ranking.globalRanks[this.index];
-    if (this.index !== ranking.displayOrder[offset]) {
-      // increase the offset to avoid a match, since another one is the
-      // &quot;first&quot;
-      // The offset cannot &quot;overflow&quot;, or the global ranks would differ
-      offset = undefined;
+    tournamentID = ranking.tournamentIDs[this.teamID];
+    displayID = ranking.displayOrder.indexOf(this.teamID);
+    if (displayID + 1 == ranking.displayOrder.length) {
+      this.$view.addClass(&#039;lastrow&#039;);
+      return;
     }
 
-    // TODO check if the IDs match and only update the rowspan.
+    nextTeamID = ranking.displayOrder[displayID + 1];
+    nextTournamentID = ranking.tournamentIDs[nextTeamID];
+
+    if (tournamentID !== nextTournamentID) {
+      this.$view.addClass(&#039;lastrow&#039;);
+    } else {
+      this.$view.removeClass(&#039;lastrow&#039;);
+    }
+  };
+
+  /**
+   * finds out if the current team is the first team in the tournament and
+   * creates a new TournamentView, if necessary.
+   */
+  SystemTableRowView.prototype.updateSystem = function() {
+    // too many variables.
+    // TODO extract methods + reduce variables
+    var ranking, displayID, tournamentID, isFirstInTournament, previousTeamID;
+    var rankingLength, nextDisplayID, nextTeamID, tournamentSize, tournament;
+
+    ranking = this.tournaments.getGlobalRanking(this.teams.length);
+    displayID = ranking.displayOrder.indexOf(this.teamID);
+    tournamentID = ranking.tournamentIDs[this.teamID];
+
+    isFirstInTournament = false;
+    if (displayID === 0) {
+      isFirstInTournament = true;
+    } else {
+      previousTeamID = ranking.displayOrder[displayID - 1];
+
+      if (ranking.tournamentIDs[previousTeamID] !== tournamentID) {
+        isFirstInTournament = true;
+      }
+    }
+
     if (this.tournamentView) {
       this.tournamentView.$view.remove();
       this.tournamentView.destroy();
@@ -182,36 +221,36 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./teamview&#039;, &
       this.$view.removeClass(&#039;firstrow&#039;);
     }
 
-    if (offset === ranking.tournamentOffsets[tournamentID]) {
-      if (tournamentID === undefined) {
-        rowspan = this.teams.length - offset;
-      } else if (ranking.tournamentOffsets[tournamentID + 1] === undefined) {
-        if (ranking.tournamentOffsets[undefined] == undefined) {
-          rowspan = this.teams.length - offset;
-        } else {
-          rowspan = ranking.tournamentOffsets[undefined];
-        }
-      } else {
-        rowspan = ranking.tournamentOffsets[tournamentID + 1];
-      }
-      rowspan -= offset;
-
-      $view = $(&#039;&lt;td&gt;&#039;).addClass(&#039;system&#039;);
-      $view.attr(&#039;rowspan&#039;, rowspan);
-
-      tournament = this.tournaments.get(tournamentID);
-      this.viewPopulator.populate(tournament, $view);
-
-      if (tournament) {
-        this.tournamentView = new GenericTournamentView(tournament, $view);
-      } else {
-        this.tournamentView = new NewTournamentView(offset, rowspan, $view,
-            this.tournaments, this.teams);
-      }
-
-      this.$view.append($view);
-      this.$view.addClass(&#039;firstrow&#039;);
+    if (!isFirstInTournament) {
+      return;
     }
+
+    rankingLength = ranking.displayOrder.length;
+    nextDisplayID = displayID + 1;
+    for (; nextDisplayID &lt; rankingLength; nextDisplayID += 1) {
+      nextTeamID = ranking.displayOrder[nextDisplayID];
+      if (ranking.tournamentIDs[nextTeamID] !== tournamentID) {
+        break;
+      }
+    }
+
+    tournamentSize = nextDisplayID - displayID;
+
+    $view = $(&#039;&lt;td&gt;&#039;).addClass(&#039;system&#039;);
+
+    tournament = this.tournaments.get(tournamentID);
+    this.viewPopulator.populate(tournament, $view);
+
+    if (tournament) {
+      this.tournamentView = new GenericTournamentView(tournament, $view,
+          this.tournaments);
+    } else {
+      this.tournamentView = new NewTournamentView(displayID, tournamentSize,
+          $view, this.tournaments, this.teams);
+    }
+
+    this.$view.append($view);
+    this.$view.addClass(&#039;firstrow&#039;);
   };
 
   SystemTableRowView.prototype.onupdate = function(emitter, event, data) {
@@ -241,7 +280,6 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./teamview&#039;, &
   };
 
   /**
-   *
    * @param teams
    * @param tournaments
    * @param viewPopulator

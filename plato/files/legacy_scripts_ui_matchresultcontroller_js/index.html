@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">63.85</p>
+      <p class="stat">66.55</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">99</p>
+      <p class="stat">72</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">32.89</p>
+      <p class="stat">27.14</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.04</p>
+      <p class="stat">0.73</p>
     </div>
   </div>
 </div>
@@ -97,18 +97,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./strings&#039;, &#039;./toast&#039;, &#039;options&#039;], //
-function(extend, Controller, Strings, Toast, Options) {
+define([&#039;lib/extend&#039;, &#039;./matchcontroller&#039;, &#039;./strings&#039;, &#039;./toast&#039;, &#039;options&#039;], //
+function(extend, MatchController, Strings, Toast, Options) {
   /**
    * Constructor
    */
-  function MatchResultController(view, $correctionForm, tournament) {
-    var controller;
-    MatchResultController.superconstructor.call(this, view);
-
-    if (this.model.isBye()) {
-      return;
-    }
+  function MatchResultController(view, $form, tournament) {
+    MatchResultController.superconstructor.call(this, view, $form);
 
     if (this.model.length != 2) {
       console.error(&#039;corrections corrently only works with two teams.&#039;);
@@ -117,51 +112,26 @@ function(extend, Controller, Strings, Toast, Options) {
 
     this.tournament = tournament;
 
-    this.$result = this.view.$view.find(&#039;.result&#039;);
-    this.$correction = $correctionForm;
-    this.$score = this.$correction.find(&#039;.score&#039;);
-    this.$match = this.$result.parent();
-    this.$match.append(this.$correction);
-
-    this.$cancelbutton = this.$correction.find(&#039;button.cancel&#039;);
-    this.$submitbutton = this.$correction.find(&#039;button.submit&#039;);
+    this.$match = this.$form.parent();
+    this.$result = this.view.$result;
 
     this.$result.click(this.enableCorrection.bind(this));
-    this.$cancelbutton.click(this.cancel.bind(this));
-    this.$submitbutton.click(this.submit.bind(this));
-
-    controller = this;
-    this.$correction.keydown(function(e) {
-      switch (e.which) {
-      case 27: // escape
-        controller.cancel();
-        break;
-      case 13: // enter
-        controller.submit();
-        break;
-      default:
-        return;
-      }
-
-      e.preventDefault();
-      return false;
-    });
 
     this.updateScore();
   }
-  extend(MatchResultController, Controller);
+  extend(MatchResultController, MatchController);
 
   MatchResultController.prototype.updateScore = function() {
-    this.$score.eq(0).val(this.model.score[0]);
-    this.$score.eq(1).val(this.model.score[1]);
-    this.$score.attr(&#039;max&#039;, Options.maxpoints);
-    this.$score.attr(&#039;min&#039;, Options.minpoints);
+    this.$scores.eq(0).val(this.model.score[0]);
+    this.$scores.eq(1).val(this.model.score[1]);
+    this.$scores.attr(&#039;max&#039;, Options.maxpoints);
+    this.$scores.attr(&#039;min&#039;, Options.minpoints);
   };
 
   MatchResultController.prototype.enableCorrection = function() {
     this.updateScore();
     this.$match.addClass(&#039;correcting&#039;);
-    this.$score.eq(0).focus().select();
+    this.$scores.eq(0).click();
   };
 
   MatchResultController.prototype.disableCorrection = function() {
@@ -173,10 +143,13 @@ function(extend, Controller, Strings, Toast, Options) {
     this.disableCorrection();
   };
 
-  MatchResultController.prototype.submit = function() {
+  MatchResultController.prototype.accept = function() {
     var score;
 
-    score = [Number(this.$score.eq(0).val()), Number(this.$score.eq(1).val())];
+    score = [];
+    score.push(Number(this.$scores.eq(0).val()));
+    score.push(Number(this.$scores.eq(1).val()));
+
     if (isNaN(score[0]) || isNaN(score[1])) {
       return;
     } else if (score[0] &lt; Options.minpoints || score[1] &lt; Options.minpoints) {

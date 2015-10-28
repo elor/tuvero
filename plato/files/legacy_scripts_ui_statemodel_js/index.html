@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">66.33</p>
+      <p class="stat">64.05</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">116</p>
+      <p class="stat">133</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">22.18</p>
+      <p class="stat">22.31</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.85</p>
+      <p class="stat">0.99</p>
     </div>
   </div>
 </div>
@@ -113,6 +113,15 @@ define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;core/listmodel&#03
     this.teamsize = new ValueModel(3);
     this.tournaments = new TournamentListModel();
 
+    this.tabOptions = {
+      showNames: new ValueModel(true),
+      nameMaxWidth: new ValueModel(true),
+      teamTable: new ValueModel(true),
+      rankingAbbreviations: new ValueModel(true),
+      showMatchTables: new ValueModel(false),
+      hideFinishedGroups: new ValueModel(false)
+    };
+
     this.initCleanupListeners();
 
     Listener.bind(this, &#039;error&#039;, function(emitter, event, message) {
@@ -152,7 +161,7 @@ define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;core/listmodel&#03
   StateModel.prototype.SAVEFORMAT.options = Object;
   StateModel.prototype.SAVEFORMAT.teams = [Object];
   StateModel.prototype.SAVEFORMAT.teamsize = Number;
-  StateModel.prototype.SAVEFORMAT.tournaments = [Object];
+  StateModel.prototype.SAVEFORMAT.tournaments = Object;
   StateModel.prototype.SAVEFORMAT.target = String; // e.g. &#039;tac&#039;, &#039;boule&#039;, ...
   StateModel.prototype.SAVEFORMAT.version = String; // e.g. &#039;1.5.0&#039;
 
@@ -205,8 +214,16 @@ define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;core/listmodel&#03
 
     Options.fromBlob(JSON.stringify(data.options));
     this.teamsize.set(data.teamsize);
-    this.teams.restore(data.teams, TeamModel);
-    this.tournaments.restore(data.tournaments);
+
+    if (!this.teams.restore(data.teams, TeamModel)) {
+      this.emit(&#039;error&#039;, &#039;error: cannot restore State.teams&#039;);
+      return false;
+    }
+
+    if (!this.tournaments.restore(data.tournaments)) {
+      this.emit(&#039;error&#039;, &#039;error: cannot restore State.tournaments&#039;);
+      return false;
+    }
 
     return true;
   };

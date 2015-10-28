@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">57.86</p>
+      <p class="stat">56.24</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">122</p>
+      <p class="stat">137</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">19.52</p>
+      <p class="stat">19.65</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.02</p>
+      <p class="stat">1.22</p>
     </div>
   </div>
 </div>
@@ -97,13 +97,16 @@
  */
 define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &#039;./teamview&#039;, &#039;./state_new&#039;,
     &#039;./newteamview&#039;, &#039;./lengthview&#039;, &#039;./teamsizeview&#039;, &#039;./preregcloserview&#039;,
-    &#039;core/valuemodel&#039;, &#039;./checkboxview&#039;, &#039;core/classview&#039;, &#039;./tabshandle&#039;,
+    &#039;./checkboxview&#039;, &#039;core/classview&#039;, &#039;./tabshandle&#039;,
     &#039;./teamremovecontroller&#039;, &#039;./teamnamecontroller&#039;, &#039;./teamtableview&#039;,
-    &#039;./inputview&#039;, &#039;./teamsfileloadcontroller&#039;, &#039;options&#039;, &#039;core/lengthmodel&#039;//
-], function(extend, View, ListView, TeamView, State, NewTeamView, LengthView,
-    TeamSizeView, PreregCloserView, ValueModel, CheckboxView, ClassView,
-    TabsHandle, TeamRemoveController, TeamNameController, TeamTableView,
-    InputView, TeamsFileLoadController, Options, LengthModel) {
+    &#039;./inputview&#039;, &#039;./teamsfileloadcontroller&#039;, &#039;options&#039;, &#039;core/lengthmodel&#039;,
+    &#039;./deleteallteamscontroller&#039;, &#039;./autocompletionmodel&#039;,
+    &#039;./autocompletionview&#039;, &#039;./autocompletionlegacyblobber&#039;], function(extend,
+    View, ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
+    PreregCloserView, CheckboxView, ClassView, TabsHandle,
+    TeamRemoveController, TeamNameController, TeamTableView, InputView,
+    TeamsFileLoadController, Options, LengthModel, DeleteAllTeamsController,
+    AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber) {
   /**
    * represents a whole team tab
    *
@@ -171,14 +174,14 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
         this.$view, &#039;noreg&#039;);
 
     // name maxwidth checkbox
-    value = new ValueModel();
+    value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find(&#039;&gt;.options input.maxwidth&#039;);
     this.maxwidthCheckboxView = new CheckboxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, &#039;maxwidth&#039;,
         &#039;nomaxwidth&#039;);
 
     // list/table selection checkbox
-    value = new ValueModel();
+    value = State.tabOptions.teamTable;
     $container = this.$view.find(&#039;&gt;.options input.showtable&#039;);
     this.showtableCheckboxView = new CheckboxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view, &#039;showtable&#039;);
@@ -193,6 +196,10 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     this.teamRemoveController = new TeamRemoveController([this.teamList,
         this.teamTable], $container, this.$view);
 
+    $container = this.$view.find(&#039;&gt;button.deleteall&#039;);
+    this.deleteAllTeamsController = new DeleteAllTeamsController(new View(
+        undefined, $container));
+
     // player name changes
     this.teamNameController = new TeamNameController(this.teamList);
     this.teamNameController = new TeamNameController(this.teamTable);
@@ -203,6 +210,14 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     $container = this.$view.find(&#039;&gt;.filereader input&#039;);
     this.teamsFileLoadController = new TeamsFileLoadController(new InputView(
         $container));
+
+    this.autocompletionModel = new AutocompletionModel();
+    this.autocompletionModel.download(Options.playernameurl);
+    AutocompletionLegacyBlobber.set(this.autocompletionModel);
+
+    $container = this.$view.find(&#039;input.playername&#039;);
+    this.autocompletionView = new AutocompletionView(this.autocompletionModel,
+        $container);
   };
 
   // FIXME CHEAP HACK AHEAD

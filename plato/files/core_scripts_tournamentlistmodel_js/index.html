@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">209</p>
+      <p class="stat">347</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">47.67</p>
+      <p class="stat">57.38</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.42</p>
+      <p class="stat">2.24</p>
     </div>
   </div>
 </div>
@@ -98,41 +98,22 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./indexedlistmodel&#039;, &#039;./tournamentindex&#039;, &#039;./listener&#039;//
-], function(extend, IndexedListModel, TournamentIndex, Listener) {
-  /**
-   * helper function to set all anonymous Listeners
-   *
-   * @param list
-   *          a TournamentListModel instance
-   */
-  function setListeners(list) {
-    Listener.bind(list, &#039;insert&#039;, function(emitter, event, data) {
-      if (emitter === list) {
-        data.object.getRanking().registerListener(list);
-        data.object.getState().registerListener(list);
-        list.invalidateGlobalRanking();
-      }
-    });
-
-    Listener.bind(list, &#039;remove&#039;, function(emitter, event, data) {
-      if (emitter === list) {
-        data.object.getRanking().unregisterListener(list);
-        data.object.getState().unregisterListener(list);
-        list.invalidateGlobalRanking();
-      }
-    });
-  }
-
+define([&#039;lib/extend&#039;, &#039;./indexedlistmodel&#039;, &#039;./listmodel&#039;, &#039;./uniquelistmodel&#039;,
+    &#039;./tournamentindex&#039;, &#039;./listener&#039;, &#039;./model&#039;], function(extend,
+    IndexedListModel, ListModel, UniqueListModel, TournamentIndex, Listener,
+    Model) {
   /**
    * Constructor
    */
   function TournamentListModel() {
     TournamentListModel.superconstructor.call(this);
 
+    this.startIndex = new ListModel();
+    this.closedTournaments = new UniqueListModel();
+
     this.rankingCache = undefined;
 
-    setListeners(this);
+    this.setListeners();
   }
   extend(TournamentListModel, IndexedListModel);
 
@@ -163,114 +144,201 @@ define([&#039;lib/extend&#039;, &#039;./indexedlistmodel&#039;, &#039;./tourname
     return ids;
   };
 
+  /**
+   * force a recalculation of the global Ranking and emit &#039;update&#039;
+   */
   TournamentListModel.prototype.invalidateGlobalRanking = function() {
     this.rankingCache = undefined;
     this.emit(&#039;update&#039;);
   };
 
   /**
+   * @param tournamentID
+   * @return true on success, false otherwise.
+   */
+  TournamentListModel.prototype.closeTournament = function(tournamentID) {
+    if (this.get(tournamentID) === undefined) {
+      console.error(&#039;tournament ID &#039; + tournamentID + &#039; is undefined&#039;);
+      return false;
+    }
+
+    if (!this.closedTournaments.push(tournamentID)) {
+      console.error(&#039;tournament ID &#039; + tournamentID + &#039; is already closed&#039;);
+      return false;
+    }
+
+    this.invalidateGlobalRanking();
+
+    return true;
+  };
+
+  /**
+   * @return an array with a &#039;true&#039; or &#039;false&#039; entry for every tournament.
+   */
+  TournamentListModel.prototype.areTournamentsClosed = function() {
+    var closed;
+
+    closed = [];
+    while (closed.length &lt; this.length) {
+      closed.push(false);
+    }
+
+    this.closedTournaments.map(function(tournamentID) {
+      closed[tournamentID] = true;
+    });
+
+    return closed;
+  };
+
+  /**
+   * create a global ranking object, which includes the tournament IDs, team
+   * IDs, global display order, tournament ranks and global ranks.
    *
    * @param numTeams
    *          the number of teams
-   * @return a pseudo-ranking object
+   * @return a globalRanking object
    */
   TournamentListModel.prototype.getGlobalRanking = function(numTeams) {
-    var ranks, tournamentOffsets, lastrank, teams;
+    var teams, undefinedTeams, zeroTeams;
 
     if (numTeams === undefined || numTeams &lt; 0) {
       console.error(&#039;invalid numTeams parameter&#039;);
       return undefined;
     }
 
-
     if (this.rankingCache &amp;&amp; this.rankingCache.displayOrder
         &amp;&amp; this.rankingCache.displayOrder.length === numTeams) {
       return this.rankingCache;
     }
 
-      teams = [];
-      while (teams.length &lt; numTeams) {
-        teams.push(teams.length);
-      }
+    teams = [];
+    while (teams.length &lt; numTeams) {
+      teams.push(teams.length);
+    }
 
-    // initialize empty object
-    ranks = {
-      displayOrder: [],
-      globalRanks: [],
-      tournamentRanks: [],
-      tournamentIDs: this.tournamentIDsForEachTeam(),
-      tournamentOffsets: {}
+    undefinedTeams = teams.map(function() {
+      return undefined;
+    });
+
+    zeroTeams = teams.map(function() {
+      return 0;
+    });
+
+    // initialize empty object, but with correct team sizes
+    this.rankingCache = {
+      // index: rank
+      displayOrder: teams.slice(0),
+      // index: teamid
+      globalRanks: zeroTeams.slice(0),
+      tournamentRanks: zeroTeams.slice(0),
+      tournamentIDs: undefinedTeams.slice(0),
+      tournamentOffsets: this.startIndex.asArray()
     };
 
-    // calculate Offsets for globalRanks
-    tournamentOffsets = [0];
-    this.map(function(tournament, tournamentID) {
-      tournamentOffsets[tournamentID + 1] = tournamentOffsets[tournamentID]
-          + tournament.getTeams().length;
-    });
-
-    // write tournamentRanks and globalRanks
-    teams.map(function(team, teamID) {
-      var ranking, tournamentID;
-
-      tournamentID = ranks.tournamentIDs[teamID];
-      if (tournamentID !== undefined) {
-        ranking = this.get(tournamentID).getRanking().get();
-
-        ranks.tournamentRanks[teamID] = ranking.ranks[ranking.ids
-            .indexOf(teamID)];
-        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
-            + tournamentOffsets[tournamentID];
-      } else {
-        ranks.tournamentIDs[teamID] = undefined;
-        ranks.tournamentRanks[teamID] = 0;
-        ranks.globalRanks[teamID] = ranks.tournamentRanks[teamID]
-            + tournamentOffsets[tournamentOffsets.length - 1];
-      }
+    // apply all tournaments in order, just like they were played.
+    this.map(function(tournament) {
+      this.applyTournamentToRanks(tournament, this.rankingCache);
     }, this);
 
-    // correct ranking order
-    lastrank = -1;
-    while (ranks.displayOrder.length &lt; teams.length) {
-      ranks.displayOrder.push(ranks.displayOrder.length);
-    }
-    ranks.displayOrder.sort(function(a, b) {
-      return ranks.globalRanks[a] - ranks.globalRanks[b] || a - b;
-    });
-
-    // adjust the global ranks to account for ignored teams, which are
-    // already
-    // playing in another subtournament
-    lastrank = -1;
-    lastid = -1;
-    ranks.displayOrder.forEach(function(id, displayID) {
-      var rank = ranks.globalRanks[id];
-      if (rank &gt; lastrank) {
-        ranks.globalRanks[id] = displayID;
-        lastid = id;
-        lastrank = rank;
-      } else {
-        ranks.globalRanks[id] = ranks.globalRanks[lastid];
-      }
-    });
-
-    lastid = -1;
-    // don&#039;t use arrays.
-    // arrays cannot be as sparse and don&#039;t support &#039;undefined&#039; as a key
-    ranks.displayOrder.forEach(function(id, displayID) {
-      var tournamentID;
-
-      tournamentID = ranks.tournamentIDs[id];
-      if (tournamentID != lastid) {
-        ranks.tournamentOffsets[tournamentID] = displayID;
-        lastid = tournamentID;
-      }
-    });
-
-    this.rankingCache = ranks;
+    this.calculateGlobalRanks(this.rankingCache);
 
     return this.rankingCache;
   };
+
+  /**
+   * apply a single tournament to a global ranking object, in order to
+   * manipulate the ranking so that this tournament is considered part of it.
+   * Sounds strange, but it mainly reorders the teams by the tournament ranks
+   * and sets the tournament ranks. Doesn&#039;t take care of the global ranks.
+   *
+   * @param tournament
+   *          a TournamentModel instance
+   * @param globalRanking
+   *          a globalRanking object.
+   */
+  TournamentListModel.prototype.applyTournamentToRanks = function(tournament,
+      globalRanking) {
+    var tournamentID, tournamentRanking, startIndex, isClosed;
+
+    tournamentID = tournament.getID();
+    tournamentRanking = tournament.getRanking().get();
+    length = tournamentRanking.displayOrder.length;
+    startIndex = this.startIndex.get(tournamentID);
+
+    isClosed = this.closedTournaments.indexOf(tournamentID) !== -1;
+
+    tournamentRanking.displayOrder.map(function(tournamentTeamID, displayID) {
+      var globalTeamID, globalDisplayID, tournamentRank;
+
+      globalTeamID = tournamentRanking.ids[tournamentTeamID];
+      globalDisplayID = startIndex + displayID;
+      tournamentRank = tournamentRanking.ranks[tournamentTeamID];
+
+      globalRanking.displayOrder[globalDisplayID] = globalTeamID;
+      globalRanking.tournamentRanks[globalTeamID] = tournamentRank;
+
+      if (isClosed) {
+        globalRanking.tournamentIDs[globalTeamID] = undefined;
+      } else {
+        globalRanking.tournamentIDs[globalTeamID] = tournamentID;
+      }
+    }, this);
+  };
+
+  /**
+   * after all tournaments have been applied to a bare global ranking, this
+   * function calculates the global ranks from the given information
+   *
+   * @param ranking
+   *          a global ranking object, as will be returned by getGlobalRanking()
+   */
+  TournamentListModel.prototype.calculateGlobalRanks = function(ranking) {
+    var lastTournamentID, lastTournamentRank, rank;
+
+    lastTournamentID = undefined;
+    lastTournamentRank = 0;
+    rank = undefined;
+
+    ranking.displayOrder.map(function(teamID, displayID) {
+      var tournamentID, tournamentRank;
+
+      tournamentID = ranking.tournamentIDs[teamID];
+      tournamentRank = ranking.tournamentRanks[teamID];
+
+      if (rank === undefined || tournamentID !== lastTournamentID
+          || lastTournamentRank !== tournamentRank) {
+        rank = displayID;
+        lastTournamentRank = tournamentRank;
+        lastTournamentID = tournamentID;
+      }
+
+      ranking.globalRanks[teamID] = rank;
+    });
+  };
+
+  /**
+   * add a new tournament to the list, but also remember its starting index. The
+   * starting index is required for the calculation of the global ranking
+   *
+   * @param tournament
+   *          a TournamentModel instance
+   * @param startIndex
+   *          the index of the first team in the global Ranking. Used for global
+   *          ranking calculations
+   * @return true on success, false or undefined otherwise. See ListModel.push()
+   */
+  TournamentListModel.prototype.push = function(tournament, startIndex) {
+    if (this.length == this.startIndex.length) {
+      this.startIndex.push(startIndex || 0);
+    }
+
+    return TournamentListModel.superclass.push.call(this, tournament);
+  };
+
+  /*
+   * TODO don&#039;t allow insert, remove, clear and whatever else could mess up the
+   * global ranking
+   */
 
   /**
    * forward ranking updates to external listeners
@@ -286,7 +354,50 @@ define([&#039;lib/extend&#039;, &#039;./indexedlistmodel&#039;, &#039;./tourname
     this.invalidateGlobalRanking();
   };
 
-  // TournamentListModel.prototype.save is directly inherited from ListModel
+  /**
+   * helper function to set all anonymous Listeners
+   *
+   * @param list
+   *          a TournamentListModel instance
+   */
+  TournamentListModel.prototype.setListeners = function() {
+    Listener.bind(this, &#039;insert&#039;, function(emitter, event, data) {
+      if (emitter === this) {
+        data.object.getRanking().registerListener(this);
+        data.object.getState().registerListener(this);
+        this.invalidateGlobalRanking();
+      }
+    }, this);
+
+    Listener.bind(this, &#039;remove&#039;, function(emitter, event, data) {
+      if (emitter === this) {
+        data.object.getRanking().unregisterListener(this);
+        data.object.getState().unregisterListener(this);
+        this.invalidateGlobalRanking();
+      }
+    }, this);
+  };
+
+  /**
+   * clear everything
+   */
+  TournamentListModel.prototype.clear = function() {
+    if (!this.isRestoring) {
+      this.startIndex.clear();
+      this.closedTournaments.clear();
+    }
+    TournamentListModel.superclass.clear.call(this);
+  };
+
+  TournamentListModel.prototype.save = function() {
+    data = Model.prototype.save.call(this);
+
+    data.tournaments = TournamentListModel.superclass.save.call(this);
+    data.startIndex = this.startIndex.save();
+    data.closedTournaments = this.closedTournaments.save();
+
+    return data;
+  };
 
   /**
    * restores tournaments from savedata objects. This function is used to
@@ -299,11 +410,38 @@ define([&#039;lib/extend&#039;, &#039;./indexedlistmodel&#039;, &#039;./tourname
    * @return true on success, false otherwise
    */
   TournamentListModel.prototype.restore = function(data) {
-    return TournamentListModel.superclass.restore.call(this, data,
-        TournamentIndex.createTournament);
+    if (!Model.prototype.restore.call(this, data)) {
+      return false;
+    }
+
+    this.isRestoring = true;
+
+    if (!this.startIndex.restore(data.startIndex)) {
+      console.error(&#039;TournamentListModel: cannot restore closedTournaments&#039;);
+      return false;
+    }
+
+    if (!this.closedTournaments.restore(data.closedTournaments)) {
+      console.error(&#039;TournamentListModel: cannot restore closedTournaments&#039;);
+      return false;
+    }
+
+    if (!TournamentListModel.superclass.restore.call(this, data.tournaments,
+        TournamentIndex.createTournament)) {
+      console.error(&#039;TournamentListModel: cannot restore &quot;this&quot;&#039;);
+      return false;
+    }
+
+    delete this.isRestoring;
+
+    return true;
   };
 
-  TournamentListModel.prototype.SAVEFORMAT = [Object];
+  TournamentListModel.prototype.SAVEFORMAT = {
+    tournaments: [Object],
+    startIndex: [Number],
+    closedTournaments: [Number]
+  };
 
   return TournamentListModel;
 });</textarea>

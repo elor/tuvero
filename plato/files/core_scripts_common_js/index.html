@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">208</p>
+      <p class="stat">236</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">6.20</p>
+      <p class="stat">6.18</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.62</p>
+      <p class="stat">0.70</p>
     </div>
   </div>
 </div>
@@ -122,6 +122,7 @@ define([
   &#039;core/emitter&#039;,
   &#039;core/indexedlistmodel&#039;,
   &#039;core/indexedmodel&#039;,
+  &#039;core/kotournamentmodel&#039;,
   &#039;core/lengthmodel&#039;,
   &#039;core/listener&#039;,
   &#039;core/listexclusionlistener&#039;,
@@ -136,6 +137,7 @@ define([
   &#039;core/orderlistmodel&#039;,
   &#039;core/positivematrix&#039;,
   &#039;core/propertymodel&#039;,
+  &#039;core/propertyvaluemodel&#039;,
   &#039;core/rankingbuchholzcomponent&#039;,
   &#039;core/rankingbuchholzlistener&#039;,
   &#039;core/rankingbyelistener&#039;,
@@ -143,12 +145,15 @@ define([
   &#039;core/rankingcomponent&#039;,
   &#039;core/rankingdatalistenerindex&#039;,
   &#039;core/rankingdatalistener&#039;,
+  &#039;core/rankingdownvoteslistener&#039;,
   &#039;core/rankingfinebuchholzcomponent&#039;,
   &#039;core/rankingfinebuchholzlistener&#039;,
   &#039;core/rankinggamematrixlistener&#039;,
   &#039;core/rankingheadtoheadcomponent&#039;,
   &#039;core/rankingheadtoheadmatrixlistener&#039;,
   &#039;core/rankingidcomponent&#039;,
+  &#039;core/rankingkocomponent&#039;,
+  &#039;core/rankingkolistener&#039;,
   &#039;core/rankinglostpointscomponent&#039;,
   &#039;core/rankinglostpointslistener&#039;,
   &#039;core/rankingmapper&#039;,
@@ -163,6 +168,9 @@ define([
   &#039;core/rankingsonnebornlistener&#039;,
   &#039;core/rankingtaccomponent&#039;,
   &#039;core/rankingtaclistener&#039;,
+  &#039;core/rankingupvoteslistener&#039;,
+  &#039;core/rankingvotescomponent&#039;,
+  &#039;core/rankingvoteslistener&#039;,
   &#039;core/rankingwinscomponent&#039;,
   &#039;core/rankingwinslistener&#039;,
   &#039;core/rankingwinsmatrixlistener&#039;,
@@ -192,7 +200,9 @@ define([
   &#039;core/vectormodel&#039;,
   &#039;core/view&#039;,
   &#039;backend/random&#039;,
-  &#039;ui/autocomplete&#039;,
+  &#039;ui/autocompletionlegacyblobber&#039;,
+  &#039;ui/autocompletionmodel&#039;,
+  &#039;ui/autocompletionview&#039;,
   &#039;ui/backgroundscripts/autosave&#039;,
   &#039;ui/backgroundscripts/featuredetect&#039;,
   &#039;ui/backgroundscripts/initviews&#039;,
@@ -216,11 +226,13 @@ define([
   &#039;ui/browser&#039;,
   &#039;ui/checkboxcontroller&#039;,
   &#039;ui/checkboxview&#039;,
+  &#039;ui/closedtournamentcollapselistener&#039;,
   &#039;ui/correctionview&#039;,
-  &#039;ui/csver&#039;,
+  &#039;ui/csvexportcontroller&#039;,
   &#039;ui/data/swissperms&#039;,
   &#039;ui/debug&#039;,
   &#039;ui/debugtab&#039;,
+  &#039;ui/deleteallteamscontroller&#039;,
   &#039;ui/fileloadcontroller&#039;,
   &#039;ui/finishroundcontroller&#039;,
   &#039;ui/fontsizecontroller&#039;,
@@ -231,8 +243,18 @@ define([
   &#039;ui/generictournamentview&#039;,
   &#039;ui/historytab&#039;,
   &#039;ui/hometab&#039;,
+  &#039;ui/inlinelistview&#039;,
   &#039;ui/inputview&#039;,
+  &#039;ui/kohistoryview&#039;,
   &#039;ui/koline&#039;,
+  &#039;ui/kolineview&#039;,
+  &#039;ui/kolistmodel&#039;,
+  &#039;ui/komatchresultview&#039;,
+  &#039;ui/kotournamentcontroller&#039;,
+  &#039;ui/kotournamentview&#039;,
+  &#039;ui/kotreeposition&#039;,
+  &#039;ui/kotreeview&#039;,
+  &#039;ui/legacyloadermodel&#039;,
   &#039;ui/lengthview&#039;,
   &#039;ui/listcleanuplistener&#039;,
   &#039;ui/listclickcontroller&#039;,
@@ -251,8 +273,10 @@ define([
   &#039;ui/newtournamentview&#039;,
   &#039;ui/options&#039;,
   &#039;ui/playermodel&#039;,
-  &#039;ui/players&#039;,
   &#039;ui/preregcloserview&#039;,
+  &#039;ui/progresslistmodel&#039;,
+  &#039;ui/progressroundview&#039;,
+  &#039;ui/progressrowview&#039;,
   &#039;ui/progresstableview&#039;,
   &#039;ui/rankingcomponentview&#039;,
   &#039;ui/rankingordercontroller&#039;,
@@ -261,6 +285,8 @@ define([
   &#039;ui/rankingview&#039;,
   &#039;ui/registerteamscontroller&#039;,
   &#039;ui/requiremodsshortcut&#039;,
+  &#039;ui/reversematchreferencemodel&#039;,
+  &#039;ui/reverseresultreferencemodel&#039;,
   &#039;ui/roundtournamentview&#039;,
   &#039;ui/settingstab&#039;,
   &#039;ui/splash&#039;,
@@ -274,6 +300,9 @@ define([
   &#039;ui/strings&#039;,
   &#039;ui/swisstournamentcontroller&#039;,
   &#039;ui/swisstournamentview&#039;,
+  &#039;ui/swissvotepropcontroller&#039;,
+  &#039;ui/swissvotepropview&#039;,
+  &#039;ui/swissvotesview&#039;,
   &#039;ui/systemlistview&#039;,
   &#039;ui/systemtablerowview&#039;,
   &#039;ui/tabshandle&#039;,
@@ -296,7 +325,6 @@ define([
   &#039;ui/tournamentrankingview&#039;,
   &#039;ui/tournamentview&#039;,
   &#039;ui/tournamentviewpopulator&#039;,
-  &#039;ui/treenode&#039;,
   &#039;ui/update&#039;,
   &#039;ui/valueview&#039;
 ], function(undefined) {

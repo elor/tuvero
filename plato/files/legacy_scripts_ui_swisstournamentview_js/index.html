@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">69.76</p>
+      <p class="stat">68.31</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">35</p>
+      <p class="stat">39</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">10.94</p>
+      <p class="stat">11.35</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.21</p>
+      <p class="stat">0.26</p>
     </div>
   </div>
 </div>
@@ -98,8 +98,9 @@
  * @see LICENSE
  */
 define([&#039;lib/extend&#039;, &#039;./tournamentview&#039;, &#039;./swisstournamentcontroller&#039;,
-    &#039;core/valuemodel&#039;, &#039;./checkboxview&#039;], function(extend, TournamentView,
-    SwissTournamentController, ValueModel, CheckBoxView) {
+    &#039;core/valuemodel&#039;, &#039;./checkboxview&#039;, &#039;./swissvotesview&#039;], function(extend,
+    TournamentView, SwissTournamentController, ValueModel, CheckBoxView,
+    SwissVotesView) {
   /**
    * Constructor
    *
@@ -108,8 +109,8 @@ define([&#039;lib/extend&#039;, &#039;./tournamentview&#039;, &#039;./swisstourn
    * @param $view
    *          a jquery DOM element
    */
-  function SwissTournamentView(model, $view) {
-    SwissTournamentView.superconstructor.call(this, model, $view);
+  function SwissTournamentView(model, $view, tournaments) {
+    SwissTournamentView.superconstructor.call(this, model, $view, tournaments);
 
     // set noshuffle
     this.model.noshuffle = new ValueModel(!this.model.tournament
@@ -125,6 +126,9 @@ define([&#039;lib/extend&#039;, &#039;./tournamentview&#039;, &#039;./swisstourn
     // read the swiss mode
     this.$view.find(&#039;.tournamentoptions .option select.mode&#039;).val(
         this.model.tournament.getProperty(&#039;swissmode&#039;));
+
+    this.swissvotes = new SwissVotesView(this.model.tournament, this.$view
+        .find(&#039;.option.swissvotes&#039;));
 
     this.subcontroller = new SwissTournamentController(this);
   }

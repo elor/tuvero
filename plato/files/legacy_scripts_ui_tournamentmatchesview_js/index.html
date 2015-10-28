@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">69.68</p>
+      <p class="stat">70.34</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">97</p>
+      <p class="stat">104</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,7 +62,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">18.15</p>
+      <p class="stat">18.76</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
@@ -98,9 +98,9 @@
  * @see LICENSE
  */
 define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchview&#039;, &#039;./listview&#039;,
-    &#039;./teamtableview&#039;, &#039;./boxview&#039;, &#039;./teamview&#039;, &#039;core/listener&#039;//
-], function(extend, TemplateView, MatchView, ListView, TeamTableView, BoxView,
-    TeamView, Listener) {
+    &#039;./teamtableview&#039;, &#039;./boxview&#039;, &#039;./teamview&#039;, &#039;core/listener&#039;,
+    &#039;./matchtableview&#039;], function(extend, TemplateView, MatchView, ListView,
+    TeamTableView, BoxView, TeamView, Listener, MatchTableView) {
   /**
    * Constructor
    *
@@ -116,7 +116,7 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchview&#0
    */
   function TournamentMatchesView(model, $view, teamlist, teamsize) {
     TournamentMatchesView.superconstructor.call(this, model, $view, //
-    $view.find(&#039;.template&#039;));
+    $view.find(&#039;.template.voteview&#039;));
 
     this.boxview = new BoxView(this.$view);
 
@@ -135,18 +135,25 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchview&#0
   extend(TournamentMatchesView, TemplateView);
 
   /**
-   * initializes matchlist and matchtable
+   * initializes matchtable
    */
   TournamentMatchesView.prototype.initMatches = function() {
-    this.$matchlist = this.$view.find(&#039;.matchlist&#039;);
-    this.matchlist = new ListView(this.model.getMatches(), this.$matchlist,
-        this.$template.filter(&#039;.matchview&#039;), MatchView, this.teamlist);
-
     this.$matchtable = this.$view.find(&#039;.matchtable&#039;);
-    this.matchtable = new ListView(this.model.getMatches(), this.$matchtable,
-        this.$template.filter(&#039;.matchrow&#039;), MatchView, this.teamlist);
+    this.matchtable = new MatchTableView(this.model.getMatches(),
+        this.$matchtable, this.teamlist, this.model, this.teamsize);
 
-    this.$teamtableview = new TeamTableView(this, this.teamsize);
+    Listener.bind(this.model.getMatches(), &#039;resize&#039;, this.updateVisibility
+        .bind(this));
+
+    this.updateVisibility();
+  };
+
+  TournamentMatchesView.prototype.updateVisibility = function() {
+    if (this.model.getMatches().length === 0) {
+      this.$view.addClass(&#039;hidden&#039;);
+    } else {
+      this.$view.removeClass(&#039;hidden&#039;);
+    }
   };
 
   /**
@@ -157,7 +164,7 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./matchview&#0
 
     this.$view.find(&#039;.votelist&#039;).hide();
 
-    $votetemplate = this.$template.filter(&#039;.voteview&#039;);
+    $votetemplate = this.$template;
 
     this.votelistmodels = this.model.VOTES.map(function(votetype) {
       var $votes, votelist;

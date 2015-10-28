@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">66.63</p>
+      <p class="stat">66.39</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">217</p>
+      <p class="stat">277</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">44.33</p>
+      <p class="stat">54.28</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.98</p>
+      <p class="stat">1.27</p>
     </div>
   </div>
 </div>
@@ -99,7 +99,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListModel) {
+define([&#039;lib/extend&#039;, &#039;./listmodel&#039;, &#039;./type&#039;, &#039;./sortedreferencelistmodel&#039;], //
+function(extend, ListModel, Type, SortedReferenceListModel) {
   /**
    * Constructor
    *
@@ -114,15 +115,17 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
     this.makeReadonly();
 
     if (list === undefined) {
-      throw new Error(&quot;list argument is missins&quot;);
+      throw new Error(&#039;list argument is missing&#039;);
     }
 
     if (binningFunction === undefined) {
-      throw new Error(&quot;binning function is missing&quot;);
+      throw new Error(&#039;binning function is missing&#039;);
     }
 
     this.binningFunction = binningFunction;
-    this.bins = [];
+    this.bins = new ListModel();
+    this.sortedBins = new SortedReferenceListModel(this.bins,
+        this.binSortFunction, true);
     this.refList = list;
 
     this.refList.map(function(element, index) {
@@ -134,6 +137,14 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
   extend(BinningReferenceListModel, ListModel);
 
   /**
+   * @return a readonly ListModel instance, which contains the names of all
+   *         bins, in the bin order.
+   */
+  BinningReferenceListModel.prototype.getBinNames = function() {
+    return this.sortedBins;
+  };
+
+  /**
    * creates a new empty bin
    *
    * @param binName
@@ -143,26 +154,45 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
    * @return the bin (i.e. an empty ListModel instance), or undefined if it
    *         couldn&#039;t be found and shouldn&#039;t be created
    */
-  BinningReferenceListModel.prototype.getBin = function(binName,
-      createIfMissing) {
+  BinningReferenceListModel.prototype.getBin = function(binName) {
     var index;
 
-    index = this.bins.indexOf(binName);
+    index = this.sortedBins.indexOf(binName);
 
     if (index === -1) {
-      if (!createIfMissing) {
-        return undefined;
-      }
-
-      this.bins.push(binName);
-      this.bins.sort();
-      index = this.bins.indexOf(binName);
-
-      BinningReferenceListModel.superclass.insert.call(this, index,
-          new ListModel());
+      return undefined;
     }
 
     return this.get(index);
+  };
+
+  /**
+   * Since bins are never allowed to be empty, a new bin is instantiated with an
+   * object. This avoids event race conditions
+   *
+   * @param binName
+   *          the name of the newly created bin
+   * @param object
+   *          the first object in the newly created bin
+   * @return the newly created bin (a ListModel), or undefined if the bin
+   *         already exists
+   */
+  BinningReferenceListModel.prototype.createBinWithObject = function(binName,
+      object) {
+    var index, bin;
+
+    bin = undefined;
+    index = this.sortedBins.indexOf(binName);
+
+    if (index === -1) {
+      this.bins.push(binName);
+      index = this.sortedBins.indexOf(binName);
+
+      bin = new ListModel([object]);
+      BinningReferenceListModel.superclass.insert.call(this, index, bin);
+    }
+
+    return bin;
   };
 
   /**
@@ -173,7 +203,7 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
    *         element in the respective bin
    */
   BinningReferenceListModel.prototype.getBinName = function(binIndex) {
-    return this.bins[binIndex];
+    return this.sortedBins.get(binIndex);
   };
 
   /**
@@ -183,12 +213,14 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
    *          the name of the bin
    */
   BinningReferenceListModel.prototype.removeEmptyBin = function(binName) {
-    var binIndex = this.bins.indexOf(binName);
+    var binIndex, sortedBinIndex;
+    binIndex = this.bins.indexOf(binName);
+    sortedBinIndex = this.sortedBins.indexOf(binName);
 
-    if (binIndex !== -1) {
-      if (this.get(binIndex).length === 0) {
-        this.bins.splice(binIndex, 1);
-        BinningReferenceListModel.superclass.remove.call(this, binIndex);
+    if (binIndex !== -1 &amp;&amp; sortedBinIndex !== -1) {
+      if (this.get(sortedBinIndex).length === 0) {
+        this.bins.remove(binIndex);
+        BinningReferenceListModel.superclass.remove.call(this, sortedBinIndex);
       }
     }
   };
@@ -208,21 +240,26 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
 
     element = list.refList.get(elementIndex);
     binName = list.binningFunction(element);
-    bin = list.getBin(binName, true);
+    bin = list.getBin(binName);
 
-    nextElementIndex = BinningReferenceListModel.getNextBinElementIndex(list,
-        elementIndex, binName);
-
-    if (nextElementIndex === -1) {
-      nextElementIndex = bin.length;
+    if (bin === undefined) {
+      bin = list.createBinWithObject(binName, element);
     } else {
-      nextElementIndex = bin.indexOf(list.refList.get(nextElementIndex));
+
+      nextElementIndex = BinningReferenceListModel.getNextBinElementIndex(list,
+          elementIndex, binName);
+
       if (nextElementIndex === -1) {
         nextElementIndex = bin.length;
+      } else {
+        nextElementIndex = bin.indexOf(list.refList.get(nextElementIndex));
+        if (nextElementIndex === -1) {
+          nextElementIndex = bin.length;
+        }
       }
-    }
 
-    bin.insert(nextElementIndex, element)
+      bin.insert(nextElementIndex, element);
+    }
 
     return bin;
   };
@@ -264,7 +301,7 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
     var bin, binName, index;
 
     binName = list.binningFunction(element);
-    bin = list.getBin(binName, false);
+    bin = list.getBin(binName);
 
     if (bin === undefined) {
       return;
@@ -312,6 +349,29 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;], function(extend, ListM
     if (emitter === this.refList) {
       BinningReferenceListModel.removeElement(this, data.object);
     }
+  };
+
+  /**
+   * General sort function for Numbers, Strings, Dates, etc. Handles Numbers
+   * differently.
+   *
+   * @param a
+   *          a bin name
+   * @param b
+   *          another bin name
+   * @return +1 is a &gt; b, -1 if a &lt; b, 0 otherwise
+   */
+  BinningReferenceListModel.prototype.binSortFunction = function(a, b) {
+    if (Type.isNumber(a) &amp;&amp; Type.isNumber(b)) {
+      return a - b;
+    }
+    if (a &lt; b) {
+      return -1;
+    }
+    if (a &gt; b) {
+      return 1;
+    }
+    return 0;
   };
 
   return BinningReferenceListModel;

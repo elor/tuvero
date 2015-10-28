@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">37.19</p>
+      <p class="stat">34.21</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">122</p>
+      <p class="stat">155</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">3.55</p>
+      <p class="stat">3.62</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.93</p>
+      <p class="stat">1.24</p>
     </div>
   </div>
 </div>
@@ -136,6 +136,7 @@ define(function() {
     registrationclosed: &#039;Registrierung geschlossen&#039;,
     saved: &#039;gespeichert&#039;,
     savefailed: &#039;Speichern fehlgeschlagen&#039;,
+    exportfailed: &#039;Export fehlgeschlagen&#039;,
     startfailed: &#039;Auslosung fehlgeschlagen. Zu wenige Teams?&#039;,
     teamadded: &#039;Team %s registriert&#039;,
     notenoughteams: &#039;Zu wenige Teams&#039;,
@@ -163,6 +164,7 @@ define(function() {
     autocompletereloadfailed: &#039;Konnte Spielernamen nicht laden&#039;,
     fileempty: &#039;Datei ist leer&#039;,
     teamdeleted: &#039;Anmeldung %s gelöscht&#039;,
+    deleteallteamsconfirmation: &#039;Wirklich alle Anmeldungen löschen?&#039;,
     nofilereader: &#039;Dieser Browser kann keine Speicherstände laden!&#039;,
     nojson: &#039;Dieser Browser kann keine Speicherstände erstellen!&#039;,
     nostorage: &#039;Dieser Browser kann keine Spielstände speichern!&#039;,
@@ -207,16 +209,47 @@ define(function() {
     ranking_finebuchholz: &#039;Feinbuchholz-Punkte&#039;,
     ranking_sonneborn: &#039;Sonneborn-Berger-Zahl&#039;,
     ranking_id: &#039;No.&#039;,
+    ranking_ko: &#039;KO-Wertung&#039;,
     ranking_headtohead: &#039;Direkter Vergleich&#039;,
     ranking_tac: &#039;TAC-Punkte&#039;,
+    ranking_votes: &#039;Lose (nur Anzeige)&#039;,
+    ranking_short_numgames: &#039;Sp.&#039;,
+    ranking_short_wins: &#039;S&#039;,
+    ranking_short_points: &#039;P&#039;,
+    ranking_short_lostpoints: &#039;GP&#039;,
+    ranking_short_saldo: &#039;SP&#039;,
+    ranking_short_buchholz: &#039;BH&#039;,
+    ranking_short_finebuchholz: &#039;FBH&#039;,
+    ranking_short_sonneborn: &#039;SB&#039;,
+    ranking_short_id: &#039;No.&#039;,
+    ranking_short_ko: &#039;KO&#039;,
+    ranking_short_headtohead: &#039;VGL&#039;,
+    ranking_short_tac: &#039;TAC&#039;,
+    ranking_short_votes: &#039;L&#039;,
+    ranking_medium_numgames: &#039;Spiele&#039;,
+    ranking_medium_wins: &#039;Siege&#039;,
+    ranking_medium_points: &#039;Punkte&#039;,
+    ranking_medium_lostpoints: &#039;Gegnerpunkte&#039;,
+    ranking_medium_saldo: &#039;Saldo&#039;,
+    ranking_medium_buchholz: &#039;Buchholz&#039;,
+    ranking_medium_finebuchholz: &#039;Feinbuchholz&#039;,
+    ranking_medium_sonneborn: &#039;Sonneborn-Berger&#039;,
+    ranking_medium_id: &#039;Startnummer&#039;,
+    ranking_medium_ko: &#039;KO-Wertung&#039;,
+    ranking_medium_headtohead: &#039;Vergleich&#039;,
+    ranking_medium_tac: &#039;TAC&#039;,
+    ranking_medium_votes: &#039;Lose&#039;,
     tournamenterrorprefix: &#039;Turnierfehler&#039;,
-    oldsaveformat: &#039;Inkompatibles Format. Nur Versionen 1.5 und neuer unterstützt&#039;,
+    oldsaveformat: &#039;Fehler beim Umwandeln eines alten 1.4-Speicherstandes&#039;,
     tournament_initial: &#039;Unterturnier erstellt&#039;,
     tournament_running: &#039;Runde gestartet&#039;,
     tournament_idle: &#039;Runde beendet&#039;,
     tournament_finished: &#039;Unterturnier beendet&#039;,
     namechangeprompt: &#039;Neuen Namen eingeben&#039;,
-    teamdeleteprompt: &#039;Zum Löschen Team anklicken&#039;
+    teamdeleteprompt: &#039;Zum Löschen Team anklicken&#039;,
+    csvheader_teams: &#039;No.,Name&#039;,
+    csvheader_history: &#039;Runde,Spielno.,&quot;No. 1&quot;,&quot;No. 2&quot;,&quot;Punkte 1&quot;,&quot;Punkte 2&quot;&#039;,
+    csvheader_ranking: &#039;Platz,No.&#039;
   };
 
   return Strings;

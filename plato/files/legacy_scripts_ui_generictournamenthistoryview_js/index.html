@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">64.87</p>
+      <p class="stat">63.61</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">41</p>
+      <p class="stat">59</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">17.88</p>
+      <p class="stat">16.50</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.27</p>
+      <p class="stat">0.30</p>
     </div>
   </div>
 </div>
@@ -97,24 +97,38 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./progresstableview&#039;], function(extend,
-    View, ProgressTableView) {
+define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./progresstableview&#039;, &#039;./kohistoryview&#039;], //
+function(extend, View, ProgressTableView, KOHistoryView) {
   var constructors, selectors;
 
   constructors = {
     swiss: ProgressTableView,
-    round: ProgressTableView
+    round: ProgressTableView,
+    ko: KOHistoryView
   };
 
   selectors = {
     swiss: &#039;.progresstable&#039;,
-    round: &#039;.progresstable&#039;
+    round: &#039;.progresstable&#039;,
+    ko: &#039;.kotree&#039;
   };
 
   /**
    * Constructor
+   *
+   * @param tournament
+   *          a TournamentModel instance
+   * @param $view
+   *          a DOM element
+   * @param groups
+   *          a ListModel with the group names
+   * @param teamlist
+   *          a ListModel of TeamModels which are referenced by teamIDs
+   * @param teamsize
+   *          a ValueModel of the current default team size
    */
-  function GenericTournamentHistoryView(tournament, $view, teamlist, teamsize) {
+  function GenericTournamentHistoryView(tournament, $view, groups, teamlist,
+      teamsize) {
     var Constructor, $subview;
     GenericTournamentHistoryView.superconstructor.call(this, undefined, $view);
 
@@ -123,8 +137,12 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./progresstableview
         &amp;&amp; constructors[tournament.SYSTEM]) {
       $subview = this.$view.find(selectors[tournament.SYSTEM]);
       $subview.removeClass(&#039;hidden&#039;);
+      // don&#039;t display the matchtable on default anymore, since there&#039;s a more
+      // sophisticated view in place
+      $view.addClass(&#039;hastable&#039;);
       Constructor = constructors[tournament.SYSTEM];
-      this.view = new Constructor(tournament, $view, teamlist, teamsize);
+      this.view = new Constructor(tournament, $view, groups, teamlist, //
+      teamsize);
     } else {
       this.view = new View(undefined, $view);
     }

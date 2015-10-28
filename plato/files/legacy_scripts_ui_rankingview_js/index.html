@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">68.15</p>
+      <p class="stat">67.18</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">108</p>
+      <p class="stat">125</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">31.78</p>
+      <p class="stat">33.04</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.00</p>
+      <p class="stat">1.20</p>
     </div>
   </div>
 </div>
@@ -97,114 +97,131 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;ui/templateview&#039;],
-    function(extend, TemplateView) {
-      /**
-       * Constructor
-       *
-       * @param model
-       *          a RankingModel instance
-       * @param $view
-       *          a jQuery object representing a RankingView table
-       * @param teamList
-       *          a ListModel of TeamModel instances, to which the team ids are
-       *          corresponding
-       */
-      function RankingView(model, $view, teamList) {
-        RankingView.superconstructor.call(this, model, $view, $view
-            .find(&#039;.rankingrow.template&#039;));
+define([&#039;lib/extend&#039;, &#039;ui/templateview&#039;, &#039;./strings&#039;, &#039;./listcollectormodel&#039;,
+    &#039;./teammodel&#039;], function(extend, TemplateView, Strings, ListCollectorModel,
+    TeamModel) {
+  /**
+   * Constructor
+   *
+   * @param model
+   *          a RankingModel instance
+   * @param $view
+   *          a jQuery object representing a RankingView table
+   * @param teamList
+   *          a ListModel of TeamModel instances, to which the team ids are
+   *          corresponding
+   * @param abbreviate
+   *          a ValueModel instance which indicates whether this
+   */
+  function RankingView(model, $view, teamList, abbreviate) {
+    RankingView.superconstructor.call(this, model, $view, $view
+        .find(&#039;.rankingrow.template&#039;));
 
-        this.$rankingheader = this.$view.find(&#039;.rankingheader&#039;);
-        this.$headercomponenttemplate = this.$rankingheader.find(&#039;.component&#039;)
-            .detach();
-        this.$headernametemplate = this.$rankingheader.find(&#039;.playername&#039;)
-            .detach();
-        this.$nametemplate = this.$template.find(&#039;.playername&#039;).detach();
-        this.$componenttemplate = this.$template.find(&#039;.component&#039;).detach();
+    this.$rankingheader = this.$view.find(&#039;.rankingheader&#039;);
+    this.$headercomponenttemplate = this.$rankingheader.find(&#039;.component&#039;);
+    this.$headercomponenttemplate.detach();
+    this.$headernametemplate = this.$rankingheader.find(&#039;.playername&#039;);
+    this.$headernametemplate.detach();
+    this.$nametemplate = this.$template.find(&#039;.playername&#039;).detach();
+    this.$componenttemplate = this.$template.find(&#039;.component&#039;).detach();
 
-        this.teamList = teamList;
+    this.teamList = teamList;
+    this.abbreviate = abbreviate;
 
-        this.updateTimeout = undefined;
+    this.updateTimeout = undefined;
 
-        // TODO use some standardized defer-statement
-        this.onupdate(this.model, &#039;update&#039;);
+    // TODO use some standardized defer-statement
+    this.onupdate(this.model, &#039;update&#039;);
+
+    this.teamCollector = new ListCollectorModel(this.teamList, TeamModel);
+
+    this.teamCollector.registerListener(this);
+    this.abbreviate.registerListener(this);
+  }
+  extend(RankingView, TemplateView);
+
+  RankingView.prototype.reset = function() {
+    this.$view.find(&#039;.rankingrow&#039;).remove();
+  };
+
+  RankingView.prototype.update = function() {
+    var ranks, teamsize, i;
+
+    ranks = this.model.get();
+    if (!ranks) {
+      return false;
+    }
+
+    this.reset();
+
+    teamsize = 0;
+    ranks.displayOrder.forEach(function(teamIndex) {
+      var size = this.teamList.get(teamIndex)
+          &amp;&amp; this.teamList.get(teamIndex).length || 0;
+      if (teamsize &lt; size) {
+        teamsize = size;
       }
-      extend(RankingView, TemplateView);
+    }, this);
 
-      RankingView.prototype.reset = function() {
-        this.$view.find(&#039;.rankingrow&#039;).remove();
-      };
+    this.$view.find(&#039;.rankingheader .playername&#039;).remove();
+    for (i = 0; i &lt; teamsize; i += 1) {
+      this.$rankingheader.append(this.$headernametemplate.clone());
+    }
 
-      RankingView.prototype.update = function() {
-        var ranks, teamsize, i;
+    this.$view.find(&#039;.rankingheader .component&#039;).remove();
+    ranks.components.forEach(function(componentName) {
+      var name;
+      if (this.useAbbreviations()) {
+        name = Strings[&#039;ranking_short_&#039; + componentName];
+      } else {
+        name = Strings[&#039;ranking_medium_&#039; + componentName];
+      }
+      this.$rankingheader.append(this.$headercomponenttemplate.clone().text(
+          name));
+    }, this);
 
-        ranks = this.model.get();
-        if (!ranks) {
-          return false;
+    ranks.displayOrder.forEach(function(teamIndex, rank) {
+      var i, $row, team, player, $nametemplate;
+
+      team = this.teamList.get(ranks.ids[teamIndex]);
+
+      $row = this.$template.clone();
+      $row.find(&#039;.rank&#039;).text(ranks.ranks[teamIndex] + 1);
+      $row.find(&#039;.teamno&#039;).text(team.getID() + 1);
+
+      for (i = 0; i &lt; teamsize; i += 1) {
+        player = team &amp;&amp; team.getPlayer(i);
+        $nametemplate = this.$nametemplate.clone();
+        if (player) {
+          $nametemplate.text(player.getName());
         }
+        $row.append($nametemplate);
+      }
+      ranks.components.forEach(function(componentName) {
+        $row.append(this.$componenttemplate.clone().text(
+            ranks[componentName][teamIndex]));
+      }, this);
 
-        this.reset();
+      this.$view.append($row);
+    }, this);
+  };
 
-        teamsize = 0;
-        ranks.displayOrder.forEach(function(teamIndex) {
-          var size = this.teamList.get(teamIndex)
-              &amp;&amp; this.teamList.get(teamIndex).length || 0;
-          if (teamsize &lt; size) {
-            teamsize = size;
-          }
-        }, this);
+  RankingView.prototype.onupdate = function(emitter, event, data) {
+    var rankingview = this;
+    if (this.updateTimeout === undefined) {
+      this.updateTimeout = window.setTimeout(function() {
+        rankingview.update();
+        rankingview.updateTimeout = undefined;
+      }, 1);
+    }
+  };
 
-        this.$view.find(&#039;.rankingheader .playername&#039;).remove();
-        for (i = 0; i &lt; teamsize; i += 1) {
-          this.$rankingheader.append(this.$headernametemplate.clone());
-        }
+  RankingView.prototype.useAbbreviations = function() {
+    return this.abbreviate.get();
+  };
 
-        this.$view.find(&#039;.rankingheader .component&#039;).remove();
-        ranks.components.forEach(function(componentName) {
-          this.$rankingheader.append(this.$headercomponenttemplate.clone()
-              .text(componentName));
-        }, this);
-
-        ranks.displayOrder.forEach(function(teamIndex, rank) {
-          var i, $row, team, player, $nametemplate;
-
-          team = this.teamList.get(ranks.ids[teamIndex]);
-
-          $row = this.$template.clone();
-          $row.find(&#039;.rank&#039;).text(ranks.ranks[teamIndex] + 1);
-          $row.find(&#039;.teamno&#039;).text(team.getID() + 1);
-
-          for (i = 0; i &lt; teamsize; i += 1) {
-            player = team &amp;&amp; team.getPlayer(i);
-            $nametemplate = this.$nametemplate.clone();
-            if (player) {
-              $nametemplate.text(player.getName());
-            }
-            $row.append($nametemplate);
-          }
-          ranks.components.forEach(function(componentName) {
-            $row.append(this.$componenttemplate.clone().text(
-                ranks[componentName][teamIndex]));
-          }, this);
-
-          this.$view.append($row);
-        }, this);
-      };
-
-      RankingView.prototype.onupdate = function(emitter, event, data) {
-        var rankingview = this;
-        if (emitter == this.model) {
-          if (this.updateTimeout === undefined) {
-            this.updateTimeout = window.setTimeout(function() {
-              rankingview.update();
-              rankingview.updateTimeout = undefined;
-            }, 1);
-          }
-        }
-      };
-
-      return RankingView;
-    });</textarea>
+  return RankingView;
+});</textarea>
   </div>
 </div>
 

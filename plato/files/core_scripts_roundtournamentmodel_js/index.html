@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">66.46</p>
+      <p class="stat">66.51</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">138</p>
+      <p class="stat">182</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">35.66</p>
+      <p class="stat">45.49</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.85</p>
+      <p class="stat">1.05</p>
     </div>
   </div>
 </div>
@@ -98,8 +98,8 @@
  * @see LICENSE
  */
 define([&#039;lib/extend&#039;, &#039;./tournamentmodel&#039;, &#039;./matchmodel&#039;, &#039;./byeresult&#039;,
-    &#039;options&#039;], function(extend, TournamentModel, MatchModel, ByeResult,
-    Options) {
+    &#039;options&#039;, &#039;./type&#039;], function(extend, TournamentModel, MatchModel,
+    ByeResult, Options, Type) {
   /**
    * Constructor
    *
@@ -149,34 +149,67 @@ define([&#039;lib/extend&#039;, &#039;./tournamentmodel&#039;, &#039;./matchmode
    * be a RoundTournamentModel instance.
    */
   RoundTournamentModel.generateSlideSystemMatches = function() {
-    var list1, list2, numTeams, numGames, i, start, stop;
+    var slideList, teamA, teamB, id;
 
-    numTeams = this.teams.length;
-    numGames = numTeams &gt;&gt; 1;
+    slideList = RoundTournamentModel.generateSlideList(this.teams.length,
+        this.round);
 
-    if (numTeams % 2) {
+    if (slideList.length % 2) {
       // TODO use a function to auto-create all bye conditions. DRY principle.
-      this.votes.bye.push(numTeams - this.round - 1);
-      this.history.push(new ByeResult(numTeams - this.round - 1, [
-          Options.byepointswon, Options.byepointslost], numTeams &gt;&gt; 1,
-          this.round));
-      this.ranking.bye(numTeams - this.round - 1);
+      if (this.round == slideList.length - 1) {
+        teamB = slideList.shift();
+      } else {
+        teamB = slideList.pop();
+      }
+      id = slideList.length &gt;&gt; 1;
+
+      this.votes.bye.push(teamB);
+      this.history.push(new ByeResult(teamB, [Options.byepointswon,
+          Options.byepointslost], id, this.round));
+      this.ranking.bye(teamB);
     }
 
-    list1 = [];
-    list2 = [];
+    id = 0;
 
-    start = numTeams - this.round;
-    stop = numTeams - this.round + numGames;
-    for (i = start; i &lt; stop; i += 1) {
-      list1.push(i % numTeams);
-      list2.push((i + numGames) % numTeams);
-    }
-    list2.reverse();
+    while (slideList.length &gt; 1) {
+      teamA = slideList.shift();
+      teamB = slideList.pop();
 
-    for (i = 0; i &lt; numGames; i += 1) {
-      this.matches.push(new MatchModel([list1[i], list2[i]], i, this.round));
+      this.matches.push(new MatchModel([teamA, teamB], id, this.round));
+
+      id += 1;
     }
+  };
+
+  /**
+   * @param numteams
+   *          the number of teams
+   * @param round
+   *          the round, starting with 0.
+   * @return an array of teams in a clockwise slide order, starting with the
+   *         first team. Undefined on error.
+   */
+  RoundTournamentModel.generateSlideList = function(numteams, round) {
+    var teams, slideteam;
+
+    if (!Type.isNumber(numteams) || !Type.isNumber(round)) {
+      return undefined;
+    }
+
+    if (round &lt;= 0) {
+      teams = [];
+      while (teams.length &lt; numteams) {
+        teams.push(teams.length);
+      }
+      return teams;
+    }
+
+    teams = RoundTournamentModel.generateSlideList(numteams, round - 1);
+
+    slideteam = teams.splice(numteams - 1, 1)[0];
+    teams.splice(1, 0, slideteam);
+
+    return teams;
   };
 
   /**
@@ -186,7 +219,7 @@ define([&#039;lib/extend&#039;, &#039;./tournamentmodel&#039;, &#039;./matchmode
    */
   RoundTournamentModel.prototype.postprocessMatch = function(matchresult) {
     if (this.matches.length === 0) {
-      if (this.round === this.teams.length - 1) {
+      if (this.round === this.numRounds() - 1) {
         this.state.set(&#039;finished&#039;);
       }
     }
@@ -198,6 +231,17 @@ define([&#039;lib/extend&#039;, &#039;./tournamentmodel&#039;, &#039;./matchmode
    */
   RoundTournamentModel.prototype.getRound = function() {
     return this.round;
+  };
+
+  /**
+   * @return the total number of rounds.
+   */
+  RoundTournamentModel.prototype.numRounds = function() {
+    if (this.teams.length % 2) {
+      // tournaments with odd teams take one round longer due to the byes
+      return this.teams.length;
+    }
+    return this.teams.length - 1;
   };
 
   /**

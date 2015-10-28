@@ -62,7 +62,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">18.48</p>
+      <p class="stat">18.13</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
@@ -98,8 +98,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;./type&#039;, &#039;./roundtournamentmodel&#039;, &#039;./swisstournamentmodel&#039;],//
-function(Type) {
+define([&#039;./type&#039;, &#039;./roundtournamentmodel&#039;, &#039;./swisstournamentmodel&#039;,
+    &#039;./kotournamentmodel&#039;], function(Type) {
   var TournamentIndex, tournamentSystems, i, sys;
 
   tournamentSystems = {};
