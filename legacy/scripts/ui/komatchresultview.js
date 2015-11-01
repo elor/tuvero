@@ -22,20 +22,32 @@ define(['lib/extend', './matchresultview', 'jquery', './koline',
    *          a TournamentModel instance
    */
   function KOMatchResultView(model, $view, teamlist, tournament, showNames) {
-    var pos;
     KOMatchResultView.superconstructor.call(this, model, $view, teamlist,
         tournament);
 
-    pos = new KOTreePosition(this.model.getID(), this.model.getGroup(),
-        tournament.getTeams().length);
+    this.tournament = tournament;
+    this.showNames = showNames;
+
+    this.reposition();
+
+    showNames.registerListener(this);
+  }
+  extend(KOMatchResultView, MatchResultView);
+
+  KOMatchResultView.prototype.reposition = function() {
+    var pos = new KOTreePosition(this.model.getID(), this.model.getGroup(),
+        this.tournament.getTeams().length, this.showNames.get());
 
     this.x = pos.x;
     this.y = pos.y;
 
     this.$view.css('left', this.x + 'em');
     this.$view.css('top', this.y + 'em');
-  }
-  extend(KOMatchResultView, MatchResultView);
+  };
+
+  KOMatchResultView.prototype.onupdate = function() {
+    this.reposition();
+  };
 
   return KOMatchResultView;
 });

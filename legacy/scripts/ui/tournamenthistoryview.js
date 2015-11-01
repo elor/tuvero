@@ -23,8 +23,10 @@ define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
    *          model.getCombinedHistory()
    * @param teamsize
    *          a ValueModel which represents the number of players in a team
+   * @param showNames
+   *          a ValueModel which evaluates to true if the names should be shown
    */
-  function TournamentHistoryView(model, $view, teamlist, teamsize) {
+  function TournamentHistoryView(model, $view, teamlist, teamsize, showNames) {
     TournamentHistoryView.superconstructor.call(this, model, $view);
 
     this.boxview = new BoxView(this.$view);
@@ -32,6 +34,7 @@ define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
     this.$names = this.$view.find('.tournamentname');
     this.teamlist = teamlist;
     this.teamsize = teamsize;
+    this.showNames = showNames;
 
     this.groups = new BinningReferenceListModel(
         this.model.getCombinedHistory(), TournamentHistoryView.groupFilter);
@@ -67,7 +70,7 @@ define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
 
   TournamentHistoryView.prototype.initGenericView = function() {
     this.genericView = new GenericTournamentHistoryView(this.model, this.$view,
-        this.groups, this.teamlist, this.teamsize);
+        this.groups, this.teamlist, this.teamsize, this.showNames);
   };
 
   TournamentHistoryView.prototype.updateVisibility = function() {

@@ -35,9 +35,11 @@ function(extend, View, ProgressTableView, KOHistoryView) {
    *          a ListModel of TeamModels which are referenced by teamIDs
    * @param teamsize
    *          a ValueModel of the current default team size
+   * @param showNames
+   *          a ValueModel, which evaluates to true if names should be shown
    */
   function GenericTournamentHistoryView(tournament, $view, groups, teamlist,
-      teamsize) {
+      teamsize, showNames) {
     var Constructor, $subview;
     GenericTournamentHistoryView.superconstructor.call(this, undefined, $view);
 
@@ -51,7 +53,7 @@ function(extend, View, ProgressTableView, KOHistoryView) {
       $view.addClass('hastable');
       Constructor = constructors[tournament.SYSTEM];
       this.view = new Constructor(tournament, $view, groups, teamlist, //
-      teamsize);
+      teamsize, showNames);
     } else {
       this.view = new View(undefined, $view);
     }

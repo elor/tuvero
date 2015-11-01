@@ -7,9 +7,10 @@
  * @see LICENSE
  */
 define(['core/kotournamentmodel'], function(KOTournamentModel) {
-  var leftPadding, topPadding, width, height;
+  var leftPadding, topPadding, width, height, shortWidth;
 
   width = 17;
+  shortWidth = 7;
   height = 4;
   topPadding = -1.5;
   leftPadding = 1;
@@ -23,11 +24,14 @@ define(['core/kotournamentmodel'], function(KOTournamentModel) {
    *          a KO match group
    * @param numTeams
    *          the total number of teams in the tournament
+   * @param showNames
+   *          whether the boxes should be wide enough to include names
    */
-  function KOTreePosition(id, group, numTeams) {
+  function KOTreePosition(id, group, numTeams, showNames) {
     this.id = id;
     this.group = group;
     this.numTeams = numTeams;
+    this.showNames = showNames;
     this.round = KOTournamentModel.roundOfMatchID(this.id);
     this.isThirdPlace = (this.group & 0x1) === 1;
     this.firstid = KOTournamentModel.firstMatchIDOfRound(this.round);
@@ -45,7 +49,14 @@ define(['core/kotournamentmodel'], function(KOTournamentModel) {
    * @return the x position
    */
   KOTreePosition.prototype.calcXPosition = function() {
-    return leftPadding + (this.firstRound - this.round) * width;
+    return leftPadding + (this.firstRound - this.round) * this.getWidth();
+  };
+
+  KOTreePosition.prototype.getWidth = function() {
+    if (this.showNames) {
+      return width;
+    }
+    return shortWidth;
   };
 
   /**

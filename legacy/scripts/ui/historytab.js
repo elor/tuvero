@@ -38,7 +38,8 @@ define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
     $container = this.$view.find('.tournamentlist');
     $template = $container.find('.tournament.template');
     this.tournamentList = new ListView(State.tournaments, $container,
-        $template, TournamentHistoryView, State.teams, State.teamsize);
+        $template, TournamentHistoryView, State.teams, State.teamsize,
+        State.tabOptions.showNames);
 
     // HACK: close tournaments
     this.collapseListener = new ClosedTournamentCollapseListener(

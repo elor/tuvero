@@ -23,8 +23,11 @@ define(['lib/extend', './templateview', './listview', './kolistmodel',
    *          a ListModel of TeamModel instances
    * @param teamsize
    *          a ValueModel which represents the size of all registered teams
+   * @param showNames
+   *          a ValueModel which evaluates to true if names should be shown
    */
-  function KOHistoryView(tournament, $view, groups, teamlist, teamsize) {
+  function KOHistoryView(tournament, $view, groups, teamlist, teamsize,
+      showNames) {
     KOHistoryView.superconstructor.call(this, new KOListModel(tournament),
         $view, $view.find('.progressrow.template'));
 
@@ -32,7 +35,7 @@ define(['lib/extend', './templateview', './listview', './kolistmodel',
 
     // nested ListViews: BinningReferenceListModel is 2D
     this.kotrees = new ListView(this.model, this.$view, this.$kotree,
-        KOTreeView, teamlist, tournament, teamsize);
+        KOTreeView, teamlist, tournament, teamsize, showNames);
   }
   extend(KOHistoryView, TemplateView);
 

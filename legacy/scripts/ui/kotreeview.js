@@ -25,8 +25,10 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
    *          a ListModel of TeamModel instances
    * @param teamsize
    *          a ValueModel which represents the size of all registered teams
+   * @param showNames
+   *          a ValueModel which evaluates to true if names should be shown
    */
-  function KOTreeView(model, $view, teamlist, tournament, teamsize) {
+  function KOTreeView(model, $view, teamlist, tournament, teamsize, showNames) {
     KOTreeView.superconstructor.call(this, model, $view, $view
         .find('.komatchresult.template'));
 
@@ -40,10 +42,11 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
     this.$bestrank = this.$view.find('.bestrank');
 
     this.lines = new InlineListView(this.model, this.$kolineanchor,
-        this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length);
+        this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length,
+        showNames);
 
     this.matches = new ListView(this.model, this.$forest, this.$template,
-        KOMatchResultView, teamlist, tournament, undefined);
+        KOMatchResultView, teamlist, tournament, showNames);
 
     this.updateGroupInformation();
     this.setSize();
