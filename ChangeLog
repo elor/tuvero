@@ -7,6 +7,7 @@
 	* legacy/scripts/ui/systemtablerowview.js: destroy() open tournament views on row destruction
 
 	* legacy/scripts/ui/tournamentcontroller.js: There's no general Controller.destroy() function yet.
+	close input field only if it's open.
 
 	* legacy/scripts/ui/tournamentview.js: subcontroller.destroy need not be present
 

@@ -99,6 +99,11 @@ function(extend, jquery, Controller, Toast, Strings) {
 
   TournamentController.prototype.closeNameInput = function() {
     var name;
+
+    if (!this.$toptitle.hasClass('rename')) {
+      return;
+    }
+
     name = this.$nameinput.val();
     name = name.replace(/^\s+|\s+$/, '');
     if (name) {
