@@ -53,10 +53,7 @@ define(['core/kotournamentmodel'], function(KOTournamentModel) {
   };
 
   KOTreePosition.prototype.getWidth = function() {
-    if (this.showNames) {
-      return width;
-    }
-    return shortWidth;
+    return KOTreePosition.getWidth(this.showNames);
   };
 
   /**
@@ -97,7 +94,13 @@ define(['core/kotournamentmodel'], function(KOTournamentModel) {
     return new KOTreePosition(nextID, this.group, this.numTeams);
   };
 
-  KOTreePosition.WIDTH = width;
+  KOTreePosition.getWidth = function(showNames) {
+    if (showNames) {
+      return width;
+    }
+    return shortWidth;
+  };
+
   KOTreePosition.HEIGHT = height;
   KOTreePosition.TOPPADDING = topPadding;
   KOTreePosition.LEFTPADDING = leftPadding;

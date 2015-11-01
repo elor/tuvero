@@ -35,6 +35,7 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
     this.group = this.model.get(0).getGroup() & ~0x1;
     this.boxView = new BoxView(this.$view);
 
+    this.showNames = showNames;
     this.tournament = tournament;
     this.$forest = this.$view.find('.forest');
     this.$kolineanchor = this.$forest.find('.kolineanchor').removeClass(
@@ -50,6 +51,8 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
 
     this.updateGroupInformation();
     this.setSize();
+
+    showNames.registerListener(this);
   }
   extend(KOTreeView, TemplateView);
 
@@ -72,21 +75,37 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
 
     numTeams = this.tournament.getTeams().length;
 
-    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams);
+    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams,
+        this.showNames.get());
 
     lowestID = KOTournamentModel
         .firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;
-    lowestPos = new KOTreePosition(lowestID, this.group, numTeams);
+    lowestPos = new KOTreePosition(lowestID, this.group, numTeams,
+        this.showNames.get());
 
     x = thirdPlacePos.x;
     y = Math.max(lowestPos.y, thirdPlacePos.y);
 
-    x += KOTreePosition.WIDTH;
+    x += KOTreePosition.getWidth(this.showNames.get());
     y += KOTreePosition.HEIGHT;
 
     this.$forest.css('width', x + 'em');
     this.$forest.css('height', y + 'em');
   };
+
+  /**
+   * 'update'-listener for showNames
+   *
+   * @param emitter ==
+   *          this.showNames
+   * @param event ==
+   *          'update'
+   * @param data
+   *          a data object
+   */
+  KOTreeView.prototype.onupdate = function(emitter, event, data) {
+    this.setSize();
+  }
 
   return KOTreeView;
 });
