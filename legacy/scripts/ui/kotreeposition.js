@@ -91,7 +91,8 @@ define(['core/kotournamentmodel'], function(KOTournamentModel) {
   KOTreePosition.prototype.getFollowingPosition = function() {
     var nextID = KOTournamentModel.nextRoundMatchID(this.id);
 
-    return new KOTreePosition(nextID, this.group, this.numTeams);
+    return new KOTreePosition(nextID, this.group, this.numTeams, //
+    this.showNames);
   };
 
   KOTreePosition.getWidth = function(showNames) {

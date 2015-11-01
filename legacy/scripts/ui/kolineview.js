@@ -66,7 +66,8 @@ function(extend, View, $, KOLine, KOTreePosition) {
 
     pos = pos.getFollowingPosition();
 
-    from = [this.x + KOTreePosition.WIDTH - 1, this.y + 2];
+    from = [this.x + KOTreePosition.getWidth(this.showNames.get()) - 1,
+        this.y + 2];
     to = [pos.x + 0.4, pos.y + 2];
 
     line = new KOLine(from, to);

@@ -12,8 +12,11 @@
 	* legacy/scripts/ui/tournamentview.js: subcontroller.destroy need not be present
 
 	* legacy/scripts/ui/kotreeposition.js: WIDTH -> getWidth(showName)
+	getFollowingPosition() properly passes showNames-argument
 
 	* legacy/scripts/ui/kotreeview.js: auto-adjust width to showName-value
+
+	* legacy/scripts/ui/kolineview.js: using getWidth instead of WIDTH
 
 2015-10-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
