@@ -58,8 +58,6 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
           return;
         }
 
-        debugger
-
         $lastinput = controller.$scores.eq(controller.$scores.length - 1);
         if ($lastinput.data() !== $(e.target).data()) {
           return;
