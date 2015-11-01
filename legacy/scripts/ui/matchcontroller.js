@@ -37,7 +37,9 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
   extend(MatchController, Controller);
 
   MatchController.prototype.initKeyListeners = function() {
-    var controller = this;
+    var controller, $lastinput;
+
+    controller = this;
 
     this.$form.keydown(function(e) {
       switch (e.which) {
@@ -47,6 +49,25 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
       case 13: // enter
         controller.accept();
         break;
+      case 9: // tab
+        if (e.shiftKey) {
+          return;
+        }
+
+        if (controller.$acceptbutton.filter(':not(.hidden)').length !== 0) {
+          return;
+        }
+
+        debugger
+
+        $lastinput = controller.$scores.eq(controller.$scores.length - 1);
+        if ($lastinput.data() !== $(e.target).data()) {
+          return;
+        }
+
+        if (controller.accept()) {
+          break;
+        }
       default:
         return;
       }
@@ -64,7 +85,8 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
       $(this).select();
     });
 
-    // We're using keyup to check the values as the user types, not only when
+    // We're using keyup to check the values as the user types, not only
+    // when
     // the focus is lost or the value is changed incrementally
     this.$scores.on('change keyup', function() {
       var $this, value, valid;
@@ -134,11 +156,16 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
     return valid;
   };
 
+  /**
+   * finish the match with the entered result, if it's valid.
+   *
+   * @return true on success, false otherwise
+   */
   MatchController.prototype.accept = function() {
     var points;
 
     if (!this.validateScore()) {
-      return;
+      return false;
     }
 
     points = [];
@@ -148,8 +175,12 @@ define(['lib/extend', 'core/controller', 'options'], function(extend,
     });
 
     this.model.finish(points);
+    return true;
   };
 
+  /**
+   * cancel the input. Please overload where necessary
+   */
   MatchController.prototype.cancel = function() {
     // inherit if necessary. Usual result submissions cannot be canceled
     // We could reset the points, however
