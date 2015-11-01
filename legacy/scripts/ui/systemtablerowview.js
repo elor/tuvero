@@ -124,7 +124,6 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     }
 
     if (this.tournamentView) {
-      this.tournamentView.$view.remove();
       this.tournamentView.destroy();
       this.tournamentView = undefined;
       this.$view.removeClass('firstrow');
@@ -202,6 +201,14 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     extend(BoundSystemTableRowView, SystemTableRowView);
 
     return BoundSystemTableRowView;
+  };
+
+  SystemTableRowView.prototype.destroy = function() {
+    if (this.tournamentView) {
+      this.tournamentView.destroy();
+    }
+
+    SystemTableRowView.superclass.destroy.call(this);
   };
 
   return SystemTableRowView;

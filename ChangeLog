@@ -2,6 +2,14 @@
 
 	* legacy/scripts/ui/matchcontroller.js: tabbing out of the last input element triggers accept()
 
+	* legacy/scripts/ui/generictournamentview.js: destroy function was simply ignored by prototype chain
+
+	* legacy/scripts/ui/systemtablerowview.js: destroy() open tournament views on row destruction
+
+	* legacy/scripts/ui/tournamentcontroller.js: There's no general Controller.destroy() function yet.
+
+	* legacy/scripts/ui/tournamentview.js: subcontroller.destroy need not be present
+
 2015-10-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tools/plato-gh-pages.sh: showing the current progress

@@ -88,7 +88,7 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
 
   TournamentView.prototype.destroy = function() {
     this.controller.destroy();
-    if (this.subcontroller) {
+    if (this.subcontroller && this.subcontroller.destroy) {
       this.subcontroller.destroy();
     }
 

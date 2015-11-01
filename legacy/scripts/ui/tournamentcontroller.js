@@ -125,8 +125,6 @@ function(extend, jquery, Controller, Toast, Strings) {
   };
 
   TournamentController.prototype.destroy = function() {
-    TournamentController.superclass.destroy.call(this);
-
     this.closeNameInput();
   };
 

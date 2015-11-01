@@ -33,10 +33,16 @@ TournamentView, RoundTournamentView, SwissTournamentView, KOTournamentView) {
     } else {
       this.view = new View(undefined, $view);
     }
+
+    /*
+     * Note: for some unknown reason, the prototype chain ignores
+     * 'prototype.destroy'
+     */
+    this.destroy = GenericTournamentView.destroy;
   }
   extend(GenericTournamentView, View);
 
-  GenericTournamentView.prototype.destroy = function() {
+  GenericTournamentView.destroy = function() {
     this.view.destroy();
     GenericTournamentView.superclass.destroy.call(this);
   };
