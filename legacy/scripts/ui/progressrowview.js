@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './teamview', './listview',
-    './inlinelistview', 'core/listener', './matchresultview'], //
-function(extend, TemplateView, TeamView, ListView, InlineListView, Listener,
-    MatchResultView) {
+define(['lib/extend', './templateview', './teamview', './listview', //
+'core/listmodel', './inlinelistview', 'core/listener', './matchresultview'], //
+function(extend, TemplateView, TeamView, ListView, ListModel, InlineListView,
+    Listener, MatchResultView) {
   /**
    * Constructor
    */
@@ -19,7 +19,8 @@ function(extend, TemplateView, TeamView, ListView, InlineListView, Listener,
         $view.find('.template'));
 
     this.ranking = tournament.getRanking();
-    this.$rank = this.$view.find('.rank');
+    this.$separator = this.$view.find('.hidden.separator');
+    this.rankingList = new ListModel();
 
     this.teamView = new TeamView(this.model, $view);
 
@@ -32,21 +33,39 @@ function(extend, TemplateView, TeamView, ListView, InlineListView, Listener,
       }
     }, this);
 
-    this.matches = new InlineListView(matches, this.$rank, this.$template,
-        MatchResultView, teamlist, tournament);
+    this.matches = new InlineListView(matches, this.$separator, this.$template
+        .filter('.result'), MatchResultView, teamlist, tournament);
+
+    this.ranks = new ListView(this.rankingList, this.$view, this.$template
+        .filter('.rankingcomponent'));
 
     this.updateRank();
   }
   extend(ProgressRowView, TemplateView);
 
   ProgressRowView.prototype.updateRank = function() {
-    var ranking, rankIndex, rank;
+    var ranking, rankIndex, order;
 
     ranking = this.ranking.get();
     rankIndex = ranking.ids.indexOf(this.model.getID());
-    rank = ranking.ranks[rankIndex];
 
-    this.$rank.text(rank + 1);
+    order = ranking.components.slice(0);
+    order.push('ranks');
+
+    order.forEach(function(component, index) {
+      var value = ranking[component][rankIndex];
+      if (component === 'ranks') {
+        value += 1;
+      }
+      if (this.rankingList.get(index) != value) {
+        if (index === this.rankingList.length) {
+          this.rankingList.push(value);
+        } else {
+          this.rankingList.set(index, value);
+        }
+      }
+    }, this);
+
     this.updatePending = false;
   };
 

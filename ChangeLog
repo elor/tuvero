@@ -1,3 +1,9 @@
+2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/progresstable.html: rankcomponent columns added
+
+	* legacy/scripts/ui/progressrowview.js: showing rankcomponent columns
+
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchcontroller.js: tabbing out of the last input element triggers accept()
