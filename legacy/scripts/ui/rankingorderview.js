@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './rankingcomponentview', './listview',
-    './rankingordercontroller'], function(extend, TemplateView,
-    RankingComponentView, ListView, RankingOrderController) {
+    './rankingordercontroller', 'core/listener'], function(extend,
+    TemplateView, RankingComponentView, ListView, RankingOrderController,
+    Listener) {
   /**
    * Constructor
    *
@@ -18,10 +19,13 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
    */
   function RankingOrderView(selectedComponents, $view, allComponents) {
     RankingOrderView.superconstructor.call(this, selectedComponents, $view,
-        $view.find('option.template'));
+        $view.find('.template'));
 
-    this.$availableList = this.$view.find('>select').eq(0);
-    this.$selectedList = this.$view.find('>select').eq(1);
+    this.selected = selectedComponents;
+    this.allComponents = allComponents;
+
+    this.$availableList = this.$view.find('.available');
+    this.$selectedList = this.$view.find('.selected');
 
     this.selectedListView = new ListView(selectedComponents,
         this.$selectedList, this.$template, RankingComponentView);
@@ -40,7 +44,7 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
    */
   RankingOrderView.prototype.update = function() {
     var model = this.model;
-    this.$availableList.find('option').each(function(index) {
+    this.$availableList.find('.component').each(function(index) {
       var $option = $(this);
       if (model.indexOf($option.val()) === -1) {
         $option.show();

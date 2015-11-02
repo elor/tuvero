@@ -1,66 +1,59 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-<meta charset="utf-8" />
-<title>Tuvero Test 1.5.0-dev</title>
-<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
-<link rel="stylesheet" href="style/main.css" />
-<link rel="stylesheet" href="style/sprite.css" />
-<style>
-</style>
-</head>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tuvero Test 1.5.0-dev</title>
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="style/sprite.css" />
+    <style>
+    </style>
+  </head>
 
-<body>
-  <h1>RankingOrderView Test</h1>
-  <h3>Input:</h3>
-  <div class="rankingorderview">
-    <select size="8" multiple="multiple">
-      <option value="%% %%" class="template">%% %%</option>
-    </select>
+  <body>
+    <h1>RankingOrderView Test</h1>
+    <h3>Input:</h3>
+    <div class="rankingorderview">
+      <div class="available"></div>
 
-    <div>
-      <button class="move-up">&#x21d1;</button>
-      <button class="move-left">&#x21d0;</button>
-      <button class="move-right">&#x21d2;</button>
-      <button class="move-down">&#x21d3;</button>
+      <div class="selected">
+        <button class="component template">
+          %% %%
+        </button>
+      </div>
     </div>
 
-    <select size="8">
-    </select>
-  </div>
+    <h3>Result:</h3>
+    <ol id="outputlistview"></ol>
 
-  <h3>Result:</h3>
-  <ol id="outputlistview"></ol>
+    <script id="testmain">
+        function TestMain(Common, $) {
+            var UniqueListModel, RankingOrderView, ListView, RankingComponentIndex, Strings;
 
-  <script id="testmain">
-  function TestMain(Common, $) {
-    var UniqueListModel, RankingOrderView, ListView, RankingComponentIndex, Strings;
-  
-    UniqueListModel = Common('core/uniquelistmodel');
-    RankingOrderView = Common('ui/rankingorderview');
-    RankingComponentIndex = Common('core/rankingcomponentindex');
-    ListView = Common('ui/listview');
-    Strings = Common('ui/strings');
-  
-    $(function($) {
-      var allcomponents, rankingorder, view, $view;
-  
-      allcomponents = new UniqueListModel(RankingComponentIndex.components
-        .slice().sort(function(a,b){
-          a = Strings['ranking_' + a] || a;
-          b = Strings['ranking_' + b] || b;
-          return a.localeCompare(b);
-      }));
-      rankingorder = new UniqueListModel();
-  
-      $view = $('#outputlistview');
-      new ListView(rankingorder, $view, $('<li>'));
-      
-      $view = $('.rankingorderview');
-      new RankingOrderView(rankingorder, $view, allcomponents);
-    });
-  }
-  </script>
-  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
-</body>
+            UniqueListModel = Common('core/uniquelistmodel');
+            RankingOrderView = Common('ui/rankingorderview');
+            RankingComponentIndex = Common('core/rankingcomponentindex');
+            ListView = Common('ui/listview');
+            Strings = Common('ui/strings');
+
+            $(function($) {
+                var allcomponents, rankingorder, view, $view;
+
+                allcomponents = new UniqueListModel(RankingComponentIndex.components.slice().sort(function(a, b) {
+                    a = Strings['ranking_' + a] || a;
+                    b = Strings['ranking_' + b] || b;
+                    return a.localeCompare(b);
+                }));
+                rankingorder = new UniqueListModel();
+
+                $view = $('#outputlistview');
+                new ListView(rankingorder, $view, $('<li>'));
+
+                $view = $('.rankingorderview');
+                new RankingOrderView(rankingorder, $view, allcomponents);
+            });
+        }
+    </script>
+    <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+  </body>
 </html>
