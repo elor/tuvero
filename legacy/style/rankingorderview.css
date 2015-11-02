@@ -1,17 +1,32 @@
 .rankingorderview {
   white-space: nowrap;
+  text-align: center;
 }
 
-.rankingorderview>* {
-  display: inline-block;
-  vertical-align: middle;
+.rankingorderview .selected, .rankingorderview .available {
+  margin-bottom: 2em;
+  min-height: 5em;
 }
 
-.rankingorderview>select {
-  min-width: 10em;
-}
-
-.rankingorderview button {
+.rankingorderview .component {
+  position: relative;
   display: block;
+  margin: 0.2em auto;
+  padding: 0.2em 0.2em 0.2em 1.2em;
+  border-radius: 0.5em;
+  width: 12em;
+  text-overflow: ellipsis;
   font-size: 100%;
+}
+
+.rankingorderview .available .component:after {
+  content: '+';
+  position: absolute;
+  left: 0.3em;
+}
+
+.rankingorderview .selected .component:after {
+  content: '-';
+  position: absolute;
+  left: 0.3em;
 }

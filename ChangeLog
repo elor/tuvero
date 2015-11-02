@@ -21,6 +21,11 @@
 	* legacy/scripts/ui/rankingorderview.js: using a simpler DOM structure
 
 	* test/rankingorderview.html: simpler visual structure
+	updated to match the current implementation
+
+	* core/templates/rankingorderview.html: simpler RankingOrderView layout
+
+	* legacy/style/rankingorderview.css: improved button styling
 
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
