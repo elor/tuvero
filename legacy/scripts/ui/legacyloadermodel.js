@@ -7,11 +7,11 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', './state_new', './teammodel',
-    './playermodel', 'options', 'core/tournamentindex', 'core/matchmodel',
-    'core/matchresult', 'core/byeresult', 'core/correctionmodel', './toast',
-    'core/rle'], function(extend, Model, State, TeamModel, PlayerModel,
-    Options, TournamentIndex, MatchModel, MatchResult, ByeResult,
-    CorrectionModel, Toast, RLE) {
+    './playermodel', 'options', 'presets', 'core/tournamentindex',
+    'core/matchmodel', 'core/matchresult', 'core/byeresult',
+    'core/correctionmodel', './toast', 'core/rle'], function(extend, Model,
+    State, TeamModel, PlayerModel, Options, Presets, TournamentIndex,
+    MatchModel, MatchResult, ByeResult, CorrectionModel, Toast, RLE) {
   /**
    * Constructor
    */
@@ -95,20 +95,20 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
 
     optionsData = JSON.parse(blob);
     if (optionsData.savefile === undefined) {
-      if (Options.target !== 'boule') {
+      if (Presets.target !== 'boule') {
         new Toast('cannot load pre-1.4 saves with this target: '
-            + Options.target, Toast.LONG);
+            + Presets.target, Toast.LONG);
         throw new Error('cannot load pre-1.4 saves with this target: '
-            + Options.target);
+            + Presets.target);
       }
     } else {
-      if (optionsData.savefile !== Options.target + '.json') {
+      if (optionsData.savefile !== Presets.target + '.json') {
         new Toast('cannot convert '
             + optionsData.savefile.replace(/.json$/, '') + ' to '
-            + Options.target, Toast.LONG);
+            + Presets.target, Toast.LONG);
         throw new Error('cannot convert '
             + optionsData.savefile.replace(/.json$/, '') + ' to '
-            + Options.target);
+            + Presets.target);
       }
     }
 
@@ -117,7 +117,7 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
     Options.fromBlob(blob);
 
     console.log('converting teamsize');
-    State.teamsize.set(Options.teamsize);
+    State.teamsize.set(Options.teamsize || 1);
 
     console.log('conversion finished: options');
   };

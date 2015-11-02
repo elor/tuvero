@@ -8,9 +8,9 @@
  */
 define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     'core/valuemodel', './listcleanuplistener', 'core/tournamentlistmodel',
-    'options', './teammodel', 'core/listener'], function(extend, Model,
-    ListModel, IndexedListModel, ValueModel, ListCleanupListener,
-    TournamentListModel, Options, TeamModel, Listener) {
+    'options', 'presets', './teammodel', 'core/listener'], function(extend,
+    Model, ListModel, IndexedListModel, ValueModel, ListCleanupListener,
+    TournamentListModel, Options, Presets, TeamModel, Listener) {
 
   /**
    * Constructor
@@ -92,7 +92,7 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
     data.version = '1.5.0-dev';
 
     // TODO read from DOM or something
-    data.target = Options.target;
+    data.target = Presets.target;
 
     return data;
   };
@@ -110,10 +110,10 @@ define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
       return false;
     }
 
-    if (Options.target !== data.target) {
+    if (Presets.target !== data.target) {
       // TODO somehow send a toast
       this.emit('error', 'Wrong target: ' + data.target + ', expected: '
-          + Options.target);
+          + Presets.target);
       return false;
     }
 

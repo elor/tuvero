@@ -7,7 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'jquery', 'core/type', './toast',
-    './strings'], function(extend, Model, $, Type, Toast, Strings) {
+    'presets', './strings'], function(extend, Model, $, Type, Toast, Presets,
+    Strings) {
   /**
    * Constructor
    */
@@ -34,7 +35,7 @@ define(['lib/extend', 'core/model', 'jquery', 'core/type', './toast',
       autocomplete.parse(jsontext);
     }, 'text').fail(
         function() {
-          console.error('could not read ' + Options.playernameurl
+          console.error('could not read ' + Presets.names.playernameurl
               + '. Is this a local installation?');
           new Toast(Strings.autocompletereloadfailed, Toast.LONG);
         });

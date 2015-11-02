@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './state_new', 'options',
+define(['lib/extend', 'core/controller', './state_new', 'presets',
     'lib/FileSaver', 'lib/Blob', './toast', './strings'], function(extend,
-    Controller, State, Options, saveAs, Blob, Toast, Strings) {
+    Controller, State, Presets, saveAs, Blob, Toast, Strings) {
   /**
    * Constructor
    *
@@ -42,7 +42,7 @@ define(['lib/extend', 'core/controller', './state_new', 'options',
       blob = new Blob([data], {
         type: 'text/csv'
       });
-      saveAs(blob, Options.csvfile);
+      saveAs(blob, Presets.names.csvfile);
     } catch (e) {
       console.log(e.stack);
       new Toast(Strings.exportfailed, Toast.LONG);

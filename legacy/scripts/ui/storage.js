@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
+define(['presets', 'lib/modernizr', 'core/valuemodel'], function(Presets,
     Modernizr, ValueModel) {
   var Storage, keys, savespending;
 
@@ -148,9 +148,10 @@ define(['options', 'lib/modernizr', 'core/valuemodel'], function(Options,
     Storage.disable();
 
     if (Modernizr.localstorage) {
-      keys[Options.dbname] = require('ui/state');
+      keys[Presets.names.dbname] = require('ui/state');
 
-      keys[Options.dbplayername] = require('ui/autocompletionlegacyblobber');
+      keys[Presets.names.dbplayername] = //
+      require('ui/autocompletionlegacyblobber');
     }
   };
 

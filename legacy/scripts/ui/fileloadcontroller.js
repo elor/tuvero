@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './storage', 'options', './toast',
-    './strings', './state'], function(extend, Controller, Storage, Options,
+define(['lib/extend', 'core/controller', './storage', 'presets', './toast',
+    './strings', './state'], function(extend, Controller, Storage, Presets,
     Toast, Strings, State) {
   /**
    * Constructor
@@ -51,7 +51,7 @@ define(['lib/extend', 'core/controller', './storage', 'options', './toast',
     blob = evt.target.result;
 
     Storage.enable();
-    Storage.clear(Options.dbname);
+    Storage.clear(Presets.names.dbname);
 
     Toast.closeTemporaryToasts();
     try {
@@ -66,7 +66,7 @@ define(['lib/extend', 'core/controller', './storage', 'options', './toast',
       new Toast(Strings.loadfailed, Toast.LONG);
       // perform a complete reset of the everything related to the
       // tournament
-      Storage.clear(Options.dbname);
+      Storage.clear(Presets.names.dbname);
     }
     this.reset();
   };

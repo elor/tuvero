@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/Blob', 'jquery', '../state', '../toast', '../strings',
-    'lib/FileSaver', 'options'], function(Blob, $, State, Toast, Strings,
-    saveAs, Options) {
+    'lib/FileSaver', 'presets'], function(Blob, $, State, Toast, Strings,
+    saveAs, Presets) {
 
   $(function($) {
     $('#tabs').on('click', 'button.save', function() {
@@ -21,7 +21,7 @@ define(['lib/Blob', 'jquery', '../state', '../toast', '../strings',
           blob = new Blob([save], {
             type: 'application/json'
           });
-          saveAs(blob, Options.savefile);
+          saveAs(blob, Presets.names.savefile);
         } catch (er) {
           console.error(er);
           new Toast(Strings.savefailed);

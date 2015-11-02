@@ -8,13 +8,13 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     './newteamview', './lengthview', './teamsizeview', './preregcloserview',
     './checkboxview', 'core/classview', './tabshandle',
     './teamremovecontroller', './teamnamecontroller', './teamtableview',
-    './inputview', './teamsfileloadcontroller', 'options', 'core/lengthmodel',
+    './inputview', './teamsfileloadcontroller', 'presets', 'core/lengthmodel',
     './deleteallteamscontroller', './autocompletionmodel',
     './autocompletionview', './autocompletionlegacyblobber'], function(extend,
     View, ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
     PreregCloserView, CheckboxView, ClassView, TabsHandle,
     TeamRemoveController, TeamNameController, TeamTableView, InputView,
-    TeamsFileLoadController, Options, LengthModel, DeleteAllTeamsController,
+    TeamsFileLoadController, Presets, LengthModel, DeleteAllTeamsController,
     AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber) {
   /**
    * represents a whole team tab
@@ -42,11 +42,11 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     var $template, $container, value;
 
     // teamsize bugfix
-    if (State.teamsize.get() < Options.minteamsize) {
-      State.teamsize.set(Options.minteamsize);
+    if (State.teamsize.get() < Presets.registration.minteamsize) {
+      State.teamsize.set(Presets.registration.minteamsize);
     }
-    if (State.teamsize.get() > Options.maxteamsize) {
-      State.teamsize.set(Options.maxteamsize);
+    if (State.teamsize.get() > Presets.registration.maxteamsize) {
+      State.teamsize.set(Presets.registration.maxteamsize);
     }
 
     // teamlist
@@ -96,7 +96,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     this.showtableClassView = new ClassView(value, this.$view, 'showtable');
 
     // update the tab when the team size changes
-    if (Options.teamsizeicon) {
+    if (Presets.registration.teamsizeicon) {
       TabsHandle.bindTabOpts('teams', State.teamsize);
     }
 
@@ -121,7 +121,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
         $container));
 
     this.autocompletionModel = new AutocompletionModel();
-    this.autocompletionModel.download(Options.playernameurl);
+    this.autocompletionModel.download(Presets.names.playernameurl);
     AutocompletionLegacyBlobber.set(this.autocompletionModel);
 
     $container = this.$view.find('input.playername');

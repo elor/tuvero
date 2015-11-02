@@ -5,9 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
-    './checkboxview', 'core/classview', 'options', './tournamenthistoryview',
+    './checkboxview', 'core/classview', './tournamenthistoryview',
     './closedtournamentcollapselistener'], function(extend, $, View, ListView,
-    State, CheckboxView, ClassView, Options, TournamentHistoryView,
+    State, CheckboxView, ClassView, TournamentHistoryView,
     ClosedTournamentCollapseListener) {
   /**
    * represents a whole team tab
