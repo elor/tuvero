@@ -57,12 +57,11 @@ function(extend, TemplateView, TeamView, ListView, ListModel, InlineListView,
       if (component === 'ranks') {
         value += 1;
       }
-      if (this.rankingList.get(index) != value) {
-        if (index === this.rankingList.length) {
-          this.rankingList.push(value);
-        } else {
-          this.rankingList.set(index, value);
-        }
+
+      if (this.rankingList.length === index) {
+        this.rankingList.push(value);
+      } else if (this.rankingList.get(index) != value) {
+        this.rankingList.set(index, value);
       }
     }, this);
 

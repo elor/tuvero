@@ -4,8 +4,11 @@
 	rankcomponent header columns added
 
 	* legacy/scripts/ui/progressrowview.js: showing rankcomponent columns
+	showing human-readable names instead of the canonical component names
 
 	* legacy/scripts/ui/progresstableview.js: rankcomponent header columns added
+
+	* legacy/scripts/ui/strings.js: ranking name for "ranks" added
 
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

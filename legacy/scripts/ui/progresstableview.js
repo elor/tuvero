@@ -7,10 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './listview', './inlinelistview',
-    './teamtableview', './progressrowview', './progresslistmodel',
+    './teamtableview', './progressrowview', './progresslistmodel', './strings',
     'core/listmodel', './progressroundview', 'core/listener'], function(extend,
     TemplateView, ListView, InlineListView, TeamTableView, ProgressRowView,
-    ProgressListModel, ListModel, ProgressRoundView, Listener) {
+    ProgressListModel, Strings, ListModel, ProgressRoundView, Listener) {
   /**
    * Constructor
    *
@@ -68,12 +68,12 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
     order.push('ranks');
 
     order.forEach(function(componentName, index) {
-      if (this.rankingComponents.get(index) !== componentName) {
-        if (this.rankingComponents.length === index) {
-          this.rankingComponents.push(componentName);
-        } else {
-          this.rankingComponents.set(index, componentName);
-        }
+      var name = Strings['ranking_medium_' + componentName];
+
+      if (this.rankingComponents.length === index) {
+        this.rankingComponents.push(name);
+      } else if (this.rankingComponents.get(index) !== name) {
+        this.rankingComponents.set(index, name);
       }
     }, this);
   };
