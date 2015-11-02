@@ -28,6 +28,7 @@
 	* core/templates/rankingorderview.html: simpler RankingOrderView layout
 
 	* legacy/style/rankingorderview.css: improved button styling
+	numbering added for selected components
 
 	* core/scripts/swisstournamentmodel.js: don't force the use of the 'votes' ranking component
 
