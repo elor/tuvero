@@ -19,6 +19,7 @@
 	* legacy/scripts/ui/rankingordercontroller.js: using button presses instead of complicated select-button combinations
 
 	* legacy/scripts/ui/rankingorderview.js: using a simpler DOM structure
+	using jquery-supported .hide()/.show() functions caused artifacts. using the .hidden-class now
 
 	* test/rankingorderview.html: simpler visual structure
 	updated to match the current implementation

@@ -47,9 +47,9 @@ define(['lib/extend', './templateview', './rankingcomponentview', './listview',
     this.$availableList.find('.component').each(function(index) {
       var $option = $(this);
       if (model.indexOf($option.val()) === -1) {
-        $option.show();
+        $option.removeClass('hidden');
       } else {
-        $option.hide();
+        $option.addClass('hidden');
       }
     });
   };
