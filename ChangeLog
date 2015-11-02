@@ -30,6 +30,8 @@
 
 	* core/scripts/swisstournamentmodel.js: don't force the use of the 'votes' ranking component
 
+	* legacy/scripts/ui/tournamentview.js: auto-adding selected rankingorder components to the list of available components
+
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchcontroller.js: tabbing out of the last input element triggers accept()

@@ -19,7 +19,7 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
    * @param $view
    */
   function TournamentView(tournament, $view, tournaments) {
-    var $advancedOptions;
+    var $advancedOptions, availableComponents;
     TournamentView.superconstructor.call(this, undefined, $view);
 
     this.$view.attr('rowspan', tournament.getTeams().length);
@@ -42,15 +42,23 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
       });
     }
 
+    availableComponents = Presets.ranking.components.slice(0);
+    tournament.getRanking().get().components.forEach(function(component) {
+      if (availableComponents.indexOf(component) === -1) {
+        availableComponents.push(component);
+      }
+    });
+
+    availableComponents.sort(function(a, b) {
+      a = Strings['ranking_' + a] || a;
+      b = Strings['ranking_' + b] || b;
+      return a.localeCompare(b);
+    });
+
     this.$rankingOrderView = this.$view.find('.rankingorderview');
     if (this.$rankingOrderView.length > 0) {
       this.rankingOrderView = new RankingOrderView(this.model.rankingOrder,
-          this.$rankingOrderView.eq(0), new ListModel(
-              Presets.ranking.components.slice().sort(function(a, b) {
-                a = Strings['ranking_' + a] || a;
-                b = Strings['ranking_' + b] || b;
-                return a.localeCompare(b);
-              })));
+          this.$rankingOrderView.eq(0), new ListModel(availableComponents));
       this.rankingOrderView.availableListView.model.erase('headtohead');
       this.rankingOrderView.availableListView.model.erase('id');
 
