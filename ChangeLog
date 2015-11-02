@@ -7,6 +7,7 @@
 	showing human-readable names instead of the canonical component names
 
 	* legacy/scripts/ui/progresstableview.js: rankcomponent header columns added
+	forgot to remove extraneous rankingcomponent headers
 
 	* legacy/scripts/ui/strings.js: ranking name for "ranks" added
 

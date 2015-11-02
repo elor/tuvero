@@ -76,6 +76,10 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
         this.rankingComponents.set(index, name);
       }
     }, this);
+
+    while (this.rankingComponents.length > order.length) {
+      this.rankingComponents.pop();
+    }
   };
 
   return ProgressTableView;
