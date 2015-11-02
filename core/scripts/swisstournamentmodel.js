@@ -16,11 +16,6 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @param rankingorder
    */
   function SwissTournamentModel(rankingorder) {
-    // append 'votes' to rankingorder.
-    if (rankingorder && rankingorder.indexOf('votes') === -1) {
-      rankingorder = rankingorder.slice(0);
-      rankingorder.push('votes');
-    }
     SwissTournamentModel.superconstructor.call(this, rankingorder);
 
     this.setProperty('swissmode', SwissTournamentModel.MODES.ranks);
