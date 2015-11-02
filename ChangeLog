@@ -12,6 +12,8 @@
 
 	* legacy/scripts/ui/statemodel.js: not using ranking abbreviations by default
 
+	* core/templates/newtab.html: "Rang" -> "Platz"
+
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchcontroller.js: tabbing out of the last input element triggers accept()
