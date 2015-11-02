@@ -1,8 +1,11 @@
 2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/progresstable.html: rankcomponent columns added
+	rankcomponent header columns added
 
 	* legacy/scripts/ui/progressrowview.js: showing rankcomponent columns
+
+	* legacy/scripts/ui/progresstableview.js: rankcomponent header columns added
 
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

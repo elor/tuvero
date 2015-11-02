@@ -34,7 +34,7 @@ function(extend, TemplateView, TeamView, ListView, ListModel, InlineListView,
     }, this);
 
     this.matches = new InlineListView(matches, this.$separator, this.$template
-        .filter('.result'), MatchResultView, teamlist, tournament);
+        .filter('.match'), MatchResultView, teamlist, tournament);
 
     this.ranks = new ListView(this.rankingList, this.$view, this.$template
         .filter('.rankingcomponent'));
