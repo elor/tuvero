@@ -11,6 +11,7 @@ define(function() {
   var Presets;
 
   Presets = {
+    target: 'tac',
     systems: {
       swiss: {
         ranking: ['tac', 'numgames', 'wins'],
@@ -25,6 +26,18 @@ define(function() {
     },
     ranking: {
       components: ['tac', 'numgames', 'wins']
+    },
+    registration: {
+      minteamsize: 1,
+      maxteamsize: 1,
+      teamsizeicon: false
+    },
+    names: {
+      playernameurl: '',
+      dbname: 'tactournament',
+      dbplayername: 'tacplayers',
+      savefile: 'tac.json',
+      csvfile: 'tac.csv',
     }
   };
 

@@ -13,11 +13,7 @@ define(['ui/options'], function(Options) {
   var Default;
 
   Default = {
-    // installation-specific
-    // global : {},
-    playernameurl: '',
-    minteamsize: 1,
-    maxteamsize: 1,
+    // must stay the same across this save, hence Options, not Presets
     minpoints: 0,
     maxpoints: 8,
     byepointswon: 8,
@@ -25,17 +21,6 @@ define(['ui/options'], function(Options) {
     defaultscore: 8,
     tiesforbidden: false,
     maxpointtiesforbidden: true,
-    target: 'tac',
-    // user-specific
-    // local : {},
-    dbname: 'tactournament',
-    dbplayername: 'tacplayers',
-    roundtries: 20,
-    savefile: 'tac.json',
-    csvfile: 'tac.csv',
-    teamsizeicon: false
-  // tournament-specific
-  // tournament : {},
   };
 
   Options.setDefault(Default);

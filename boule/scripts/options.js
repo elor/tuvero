@@ -13,11 +13,7 @@ define(['ui/options'], function(Options) {
   var Default;
 
   Default = {
-    // installation-specific
-    // global : {},
-    playernameurl: 'https://boulesdb.appspot.com/json',
-    minteamsize: 1,
-    maxteamsize: 3,
+    // must stay the same across this save, hence Options, not Presets
     minpoints: 0,
     maxpoints: 15,
     byepointswon: 13,
@@ -25,17 +21,6 @@ define(['ui/options'], function(Options) {
     defaultscore: 0,
     tiesforbidden: true,
     maxpointtiesforbidden: true,
-    target: 'boule',
-    // user-specific
-    // local : {},
-    dbname: 'boulestournament',
-    dbplayername: 'bouleplayers',
-    roundtries: 20,
-    savefile: 'boule.json',
-    csvfile: 'boule.csv',
-    teamsizeicon: true
-  // tournament-specific
-  // tournament : {},
   };
 
   Options.setDefault(Default);

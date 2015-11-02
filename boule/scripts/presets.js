@@ -12,6 +12,7 @@ define(function() {
   var Presets;
 
   Presets = {
+    target: 'boule',
     systems: {
       swiss: {
         ranking: ['wins', 'buchholz', 'finebuchholz', 'saldo', 'votes'],
@@ -27,6 +28,18 @@ define(function() {
     ranking: {
       components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn',
           'numgames', 'wins']
+    },
+    registration: {
+      minteamsize: 1,
+      maxteamsize: 3,
+      teamsizeicon: true
+    },
+    names: {
+      playernameurl: 'https://boulesdb.appspot.com/json',
+      dbname: 'boulestournament',
+      dbplayername: 'bouleplayers',
+      savefile: 'boule.json',
+      csvfile: 'boule.csv',
     }
   };
 

@@ -11,6 +11,7 @@ define(['core/rankingcomponentindex'], function(RankingComponentIndex) {
   var Presets;
 
   Presets = {
+    target: 'test',
     systems: {
       swiss: {
         ranking: ['wins', 'buchholz', 'finebuchholz', 'saldo'],
@@ -25,6 +26,18 @@ define(['core/rankingcomponentindex'], function(RankingComponentIndex) {
     },
     ranking: {
       components: RankingComponentIndex.components
+    },
+    registration: {
+      minteamsize: 1,
+      maxteamsize: 3,
+      teamsizeicon: true
+    },
+    names: {
+      playernameurl: 'https://boulesdb.appspot.com/json',
+      dbname: 'boulestournament',
+      dbplayername: 'bouleplayers',
+      savefile: 'boule.json',
+      csvfile: 'boule.csv'
     }
   };
 
