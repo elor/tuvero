@@ -31,6 +31,7 @@
 	* core/scripts/swisstournamentmodel.js: don't force the use of the 'votes' ranking component
 
 	* legacy/scripts/ui/tournamentview.js: auto-adding selected rankingorder components to the list of available components
+	constructor cleanup
 
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
