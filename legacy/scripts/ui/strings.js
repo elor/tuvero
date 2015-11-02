@@ -117,7 +117,7 @@ define(function() {
     ranking_buchholz: 'Buchholz-Punkte',
     ranking_finebuchholz: 'Feinbuchholz-Punkte',
     ranking_sonneborn: 'Sonneborn-Berger-Zahl',
-    ranking_id: 'No.',
+    ranking_id: 'Startnummer',
     ranking_ko: 'KO-Wertung',
     ranking_headtohead: 'Direkter Vergleich',
     ranking_tac: 'TAC-Punkte',
