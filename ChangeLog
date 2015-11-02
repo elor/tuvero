@@ -14,6 +14,8 @@
 
 	* core/templates/newtab.html: "Rang" -> "Platz"
 
+	* core/templates/historytab.html: hiding the "only finished rounds" checkbox
+
 2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/matchcontroller.js: tabbing out of the last input element triggers accept()
