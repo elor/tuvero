@@ -43,12 +43,12 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     this.tournamentView = undefined;
     this.viewPopulator = viewPopulator;
 
-    this.tournaments.registerListener(this);
-
     this.updateRankTexts();
     this.updateSystem();
 
     this.teams.registerListener(this);
+    this.tournaments.registerListener(this);
+
   }
   extend(SystemTableRowView, View);
 
@@ -185,22 +185,6 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     if (emitter === this.teams) {
       this.updateSystem();
     }
-  };
-
-  /**
-   * @param teams
-   * @param tournaments
-   * @param viewPopulator
-   * @return {Function}
-   */
-  SystemTableRowView.bindLists = function(teams, tournaments, viewPopulator) {
-    function BoundSystemTableRowView(index, $view) {
-      BoundSystemTableRowView.superconstructor.call(this, index, $view, teams,
-          tournaments, viewPopulator);
-    }
-    extend(BoundSystemTableRowView, SystemTableRowView);
-
-    return BoundSystemTableRowView;
   };
 
   SystemTableRowView.prototype.destroy = function() {

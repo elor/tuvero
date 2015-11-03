@@ -8,6 +8,11 @@
 
 	* legacy/scripts/ui/storage.js: "store" console output disabled
 
+	* legacy/scripts/ui/systemlistview.js: not using bindLists function anymore: Superseded by variadic ListView arguments
+
+	* legacy/scripts/ui/systemtablerowview.js: bindLists removed
+	registerListeners at the bottom of the constructor
+
 2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/progresstable.html: rankcomponent columns added

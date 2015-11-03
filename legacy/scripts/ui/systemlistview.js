@@ -25,8 +25,8 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
     $systemTemplate = $view.find('.system.template').detach();
     orderList = new OrderListModel();
     SystemListView.superconstructor.call(this, orderList, $view, $view
-        .find('.team.template'), SystemTableRowView.bindLists(teams,
-        tournaments, tournamentViewFactory));
+        .find('.team.template'), SystemTableRowView, teams, tournaments,
+        tournamentViewFactory);
 
     this.teams = teams;
     this.tournaments = tournaments;
