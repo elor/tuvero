@@ -98,6 +98,21 @@ define(function() {
       emitter.emit('reset');
 
       QUnit.equal(ref, emitter, 'bind(): thisArg works');
+
+      /*
+       * testing memory leak due to invalid forEach call
+       */
+      emitter = new Emitter();
+      emitter2 = new Emitter();
+      listener = new Listener(emitter);
+      emitter2.registerListener(listener);
+      listener.destroy();
+
+      QUnit.equal(emitter.listeners.length, 0,
+          'memleak: first emitter was unregistered');
+      QUnit.equal(emitter2.listeners.length, 0,
+          'memleak: second emitter was unregistered');
+
     });
   };
 });

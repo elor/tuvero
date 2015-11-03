@@ -153,6 +153,25 @@ define(function() {
       emitter.emit('evt');
       QUnit.equal(listener2.success, true,
           'Mixin-initialization of an emitter preserves the listeners');
+
+      /*
+       * testing memory leak due to invalid forEach call
+       */
+      emitter = new Emitter();
+      listener = {
+        emitters: []
+      }
+      listener2 = {
+        emitters: []
+      }
+      emitter.registerListener(listener);
+      emitter.registerListener(listener2);
+      emitter.destroy();
+
+      QUnit.equal(listener.emitters.length, 0,
+          'memleak: first listener was unregistered');
+      QUnit.equal(listener2.emitters.length, 0,
+          'memleak: second listener was unregistered');
     });
   };
 });
