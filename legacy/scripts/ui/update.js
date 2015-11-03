@@ -11,7 +11,7 @@
  */
 // FIXME start this script as early as possible!
 define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
-  var Update, appCache, downloadToast;
+  var Update, appCache, downloadToast, uncachedToast;
 
   downloadToast = undefined;
 
@@ -44,12 +44,17 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
   function setCached(cached) {
     if (cached) {
       Update.isCached = true;
+      if (uncachedToast) {
+        uncachedToast.close();
+      }
     } else {
       Update.isCached = false;
       if (!Debug.isDevVersion) {
         if (!isLocal()) {
           console.error('no cache manifest found');
-          new Toast(Strings.nomanifest, Toast.INFINITE);
+          if (uncachedToast === undefined) {
+            uncachedToast = new Toast(Strings.nomanifest, Toast.INFINITE);
+          }
         }
       }
     }

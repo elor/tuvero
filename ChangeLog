@@ -17,6 +17,11 @@
 
 	* core/scripts/listener.js: Critical memory leak fixed
 
+	* legacy/scripts/ui/strings.js: offline-notification text shortened
+
+	* legacy/scripts/ui/update.js: closing "uncached"-toasts after becoming cached
+	Only up to one uncached toast.
+
 2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/progresstable.html: rankcomponent columns added
