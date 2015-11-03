@@ -35,7 +35,7 @@ define(['presets', 'lib/modernizr', 'core/valuemodel'], function(Presets,
       return true;
     }
 
-    console.log('storing ' + key);
+//    console.log('storing ' + key);
     window.localStorage.setItem(key, blob);
 
     return window.localStorage.getItem(key) !== blob;

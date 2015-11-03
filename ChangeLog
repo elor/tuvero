@@ -6,6 +6,8 @@
 
 	* legacy/scripts/ui/registeridscontroller.js: registering teams with their IDs as player names
 
+	* legacy/scripts/ui/storage.js: "store" console output disabled
+
 2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/progresstable.html: rankcomponent columns added
