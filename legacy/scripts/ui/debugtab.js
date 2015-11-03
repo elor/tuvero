@@ -6,11 +6,13 @@
  */
 define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     './browser', './storage', './strings', './toast', './loadedimagesview',
-    './browserinfoview', './registerteamscontroller', './requiremodsshortcut',
+    './browserinfoview', './registerteamscontroller',
+    './registeridscontroller', './requiremodsshortcut',
     './finishroundcontroller', './debug', './tabshandle'], function(extend, $,
     View, ValueModel, ValueView, Browser, Storage, Strings, Toast,
     LoadedImagesView, BrowserInfoView, RegisterTeamsController,
-    RequireModsShortcut, FinishRoundController, Debug, TabsHandle) {
+    RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
+    TabsHandle) {
   /**
    * represents a whole team tab
    *
@@ -67,12 +69,20 @@ define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
     $container;
 
     /*
-     * button: register teams
+     * buttons: register teams
      */
     $button = this.$view.find('button.registerteams');
     $container = this.$view.find('input.numteams');
     this.registerTeamsController = new RegisterTeamsController($button,
         $container);
+
+    /*
+     * buttons: register teams
+     */
+    $button = this.$view.find('button.registerids');
+    $container = this.$view.find('input.numteams');
+    this.registerIDsController = new RegisterIDsController($button, //
+    $container);
 
     this.mods = new RequireModsShortcut();
 

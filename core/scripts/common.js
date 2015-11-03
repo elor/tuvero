@@ -191,6 +191,7 @@ define([
   'ui/rankingorderview',
   'ui/rankingtab',
   'ui/rankingview',
+  'ui/registeridscontroller',
   'ui/registerteamscontroller',
   'ui/requiremodsshortcut',
   'ui/reversematchreferencemodel',

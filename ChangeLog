@@ -1,3 +1,11 @@
+2015-11-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/debugtab.html: button.registerids added
+
+	* legacy/scripts/ui/debugtab.js: binding registerids button
+
+	* legacy/scripts/ui/registeridscontroller.js: registering teams with their IDs as player names
+
 2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/progresstable.html: rankcomponent columns added
