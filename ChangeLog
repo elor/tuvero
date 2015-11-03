@@ -13,6 +13,10 @@
 	* legacy/scripts/ui/systemtablerowview.js: bindLists removed
 	registerListeners at the bottom of the constructor
 
+	* core/scripts/emitter.js: Critical memory leak fixed
+
+	* core/scripts/listener.js: Critical memory leak fixed
+
 2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/progresstable.html: rankcomponent columns added

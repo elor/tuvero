@@ -152,9 +152,9 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
   Emitter.prototype.destroy = function() {
     Emitter.superclass.destroy.call(this);
 
-    this.listeners.forEach(function(listener) {
-      this.unregisterListener(listener);
-    }, this);
+    while (this.listeners.length > 0) {
+      this.unregisterListener(this.listeners[0]);
+    }
   };
 
   /**

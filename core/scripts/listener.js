@@ -67,9 +67,9 @@ define(function() {
    * destroy the listener, i.e. remove it from all emitters
    */
   Listener.prototype.destroy = function() {
-    this.emitters.forEach(function(emitter) {
-      emitter.unregisterListener(this);
-    }, this);
+    while (this.emitters.length > 0) {
+      this.emitters[0].unregisterListener(this);
+    }
   };
   return Listener;
 });
