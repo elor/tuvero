@@ -51,7 +51,7 @@
     background-color: transparent !important;
   }
 
-  tr:nth-child(4n+1) td {
+  #app table tr:nth-child(4n+1) td {
     padding-bottom: 0.5em;
   }
 }

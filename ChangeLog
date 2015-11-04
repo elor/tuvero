@@ -1,3 +1,7 @@
+2015-11-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/table.css: CSS specificity of @print table row grouping increased
+
 2015-11-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/debugtab.html: button.registerids added
