@@ -41,13 +41,24 @@ function(extend, View, RankingView, ListView, BoxView, CorrectionView,
     this.$names = this.$view.find('.tournamentname');
 
     Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
+    Listener.bind(this.model.getState(), 'update', this.updateVisibility
+        .bind(this));
 
     this.updateNames();
+    this.updateVisibility();
   }
   extend(TournamentRankingView, View);
 
   TournamentRankingView.prototype.updateNames = function() {
     this.$names.text(this.model.getName().get());
+  };
+
+  TournamentRankingView.prototype.updateVisibility = function() {
+    if (this.model.getState().get() === 'initial') {
+      this.$view.addClass('hidden');
+    } else {
+      this.$view.removeClass('hidden');
+    }
   };
 
   return TournamentRankingView;
