@@ -144,7 +144,7 @@ define(function() {
     ranking_medium_saldo: 'Saldo',
     ranking_medium_buchholz: 'Buchholz',
     ranking_medium_finebuchholz: 'Feinbuchholz',
-    ranking_medium_sonneborn: 'Sonneborn-Berger',
+    ranking_medium_sonneborn: 'SB-Zahl',
     ranking_medium_id: 'Startnummer',
     ranking_medium_ko: 'KO-Wertung',
     ranking_medium_headtohead: 'Vergleich',
