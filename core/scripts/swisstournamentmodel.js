@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './roundtournamentmodel', 'backend/random',
-    './matchmodel', './byeresult', 'options'], function(extend,
-    RoundTournamentModel, Random, MatchModel, ByeResult, Options) {
+    './matchmodel', './byeresult', 'options', 'presets'], function(extend,
+    RoundTournamentModel, Random, MatchModel, ByeResult, Options, Presets) {
   var rng = new Random();
   /**
    * Constructor
@@ -18,7 +18,9 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
   function SwissTournamentModel(rankingorder) {
     SwissTournamentModel.superconstructor.call(this, rankingorder);
 
-    this.setProperty('swissmode', SwissTournamentModel.MODES.ranks);
+    this.setProperty('swissmode',
+        (Presets.systems.swiss && Presets.systems.swiss.mode)
+            || SwissTournamentModel.MODES.ranks);
     this.setProperty('swissshuffle', true);
     this.setProperty('swisstranspose', false);
 

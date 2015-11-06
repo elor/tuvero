@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './tournamentmodel', 'backend/random', './type',
-    './matchmodel', './byeresult', 'options'], function(extend,
-    TournamentModel, Random, Type, MatchModel, ByeResult, Options) {
+    './matchmodel', './byeresult', 'options', 'presets'], function(extend,
+    TournamentModel, Random, Type, MatchModel, ByeResult, Options, Presets) {
   var rng = new Random();
 
   /**
@@ -17,7 +17,8 @@ define(['lib/extend', './tournamentmodel', 'backend/random', './type',
   function KOTournamentModel() {
     KOTournamentModel.superconstructor.call(this, ['ko']);
 
-    this.setProperty('komode', 'matched');
+    this.setProperty('komode', (Presets.systems.ko && Presets.systems.ko.mode)
+        || KOTournamentModel.MODES.matched);
     this.setProperty('komaxgroup', 1);
     this.setProperty('initialbyes', false);
   }
