@@ -36,7 +36,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     this.setProperty('downafterup', true);
     this.setProperty('downafterdown', false);
 
-    this.setProperty('enableupdown', false);
+    this.setProperty('enableupdown', this.getProperty('swissmode') === 'wins');
   }
   extend(SwissTournamentModel, RoundTournamentModel);
 

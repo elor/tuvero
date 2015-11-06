@@ -3,6 +3,7 @@
 	* core/scripts/kotournamentmodel.js: using Presets.systems.ko.mode
 
 	* core/scripts/swisstournamentmodel.js: using Presets.systems.swiss.mode
+	enabling up/downvotes based on the swiss mode, not off by default
 
 2015-11-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
