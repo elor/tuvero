@@ -1,3 +1,7 @@
+2015-11-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/swisstournamentmodel.js: up/downvotes before byes, then invalidate the ranking
+
 2015-11-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: using Presets.systems.ko.mode

@@ -65,7 +65,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.idleMatches = function() {
-    var rankGroups, matches, byes, ups, downs, mode;
+    var rankGroups, matches, votes, mode;
 
     /*
      * validate swiss mode
@@ -108,17 +108,6 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
      */
     this.round += 1;
 
-    /*
-     * add the byes and matches to the current tournament
-     */
-    votes.byes.forEach(function(byeTeamID, byeIndex) {
-      // TODO extract method
-      this.votes.bye.push(byeTeamID);
-      this.history.push(new ByeResult(byeTeamID, [Options.byepointswon,
-          Options.byepointslost], matches.length + byeIndex, this.round));
-      this.ranking.bye(byeTeamID);
-    }, this);
-
     votes.ups.forEach(function(upTeamID) {
       this.votes.up.push(upTeamID);
       this.ranking.upvotes
@@ -131,9 +120,22 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
           this.ranking.upvotes.get(upTeamID) + 1);
     }, this);
 
+    /*
+     * add the byes and matches to the current tournament
+     */
+    votes.byes.forEach(function(byeTeamID, byeIndex) {
+      // TODO extract method
+      this.votes.bye.push(byeTeamID);
+      this.history.push(new ByeResult(byeTeamID, [Options.byepointswon,
+          Options.byepointslost], matches.length + byeIndex, this.round));
+      this.ranking.bye(byeTeamID);
+    }, this);
+
     matches.forEach(function(matchTeams, matchid) {
       this.matches.push(new MatchModel(matchTeams, matchid, this.round));
     }, this);
+
+    this.ranking.invalidate();
 
     return true;
   };
