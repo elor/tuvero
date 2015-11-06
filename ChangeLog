@@ -5,6 +5,8 @@
 	* core/scripts/swisstournamentmodel.js: using Presets.systems.swiss.mode
 	enabling up/downvotes based on the swiss mode, not off by default
 
+	* legacy/scripts/ui/strings.js: TeamView shows byevote as '∅', which is more consistent than 'F'.
+
 2015-11-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/table.css: CSS specificity of @print table row grouping increased

@@ -22,7 +22,7 @@ define(function() {
     downvote: '▼',
     byevote: '∅',
     byename: 'Freilos',
-    byeid: 'F',
+    byeid: '∅',
     fileabort: 'Lesen abgebrochen',
     fileerror: 'Lesefehler',
     filenotfound: 'Datei wurde nicht gefunden',
