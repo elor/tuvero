@@ -2,6 +2,8 @@
 
 	* core/scripts/swisstournamentmodel.js: up/downvotes before byes, then invalidate the ranking
 
+	* legacy/scripts/ui/registeridscontroller.js: Enter in the number field is not evaluated by this one
+
 2015-11-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: using Presets.systems.ko.mode

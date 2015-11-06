@@ -24,11 +24,6 @@ define(['lib/extend', 'core/controller', 'core/view', './state_new',
     this.$numteams = $numteams;
 
     $button.click(this.registerTeams.bind(this));
-    this.$numteams.keydown((function(e) {
-      if (e.which == 13) {
-        this.registerTeams();
-      }
-    }).bind(this));
   }
   extend(RegisterIDsController, Controller);
 
@@ -41,7 +36,7 @@ define(['lib/extend', 'core/controller', 'core/view', './state_new',
     }
 
     for (id = 0; id < numTeams; id += 1) {
-      State.teams.push(RegisterIDsController.createTeam(id+1));
+      State.teams.push(RegisterIDsController.createTeam(id + 1));
     }
   };
 
