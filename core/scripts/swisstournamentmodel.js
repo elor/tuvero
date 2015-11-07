@@ -207,7 +207,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
       break;
     case SwissTournamentModel.MODES.wins:
       getID = function(rankingid) {
-        return ranking.wins[rankingid];
+        return ranking.wins[ranking.displayOrder[rankingid]];
       };
       break;
     case SwissTournamentModel.MODES.ranks:
