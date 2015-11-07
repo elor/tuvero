@@ -34,6 +34,8 @@
 
 .kotree .komatchresult .teamno {
   font-weight: bold;
+  min-width: 1.5em;
+  display: inline-block;
 }
 
 .kotree .komatchresult .name {

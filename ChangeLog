@@ -7,6 +7,8 @@
 
 	* legacy/scripts/ui/reverseresultreferencemodel.js: not reversing byes, which should remain immutable
 
+	* legacy/style/kotree.css: names are aligned
+
 2015-11-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: using Presets.systems.ko.mode
