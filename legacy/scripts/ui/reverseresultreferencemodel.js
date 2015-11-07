@@ -13,11 +13,14 @@ define(['lib/extend', 'core/resultreferencemodel'], function(extend,
    */
   function ReverseResultReferenceModel(result, teamlist) {
     ReverseResultReferenceModel.superconstructor.call(this, result, teamlist);
+    if (this.isBye()) {
+      return;
+    }
+
     this.teams.reverse();
     this.score.reverse();
   }
   extend(ReverseResultReferenceModel, ResultReferenceModel);
-
 
   /**
    * used by TournamentModel.correct() to determine whether the teams are

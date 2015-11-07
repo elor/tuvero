@@ -4,6 +4,8 @@
 
 	* legacy/scripts/ui/registeridscontroller.js: Enter in the number field is not evaluated by this one
 
+	* legacy/scripts/ui/reverseresultreferencemodel.js: not reversing byes, which should remain immutable
+
 2015-11-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/kotournamentmodel.js: using Presets.systems.ko.mode
