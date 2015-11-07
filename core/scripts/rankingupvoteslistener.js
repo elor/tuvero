@@ -20,6 +20,16 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
   }
   extend(RankingUpvotesListener, RankingDataListener);
 
+  /**
+   * override the 'isPrimary()' function: Don't check for specialties, just make
+   * it save stuff.
+   *
+   * @return true
+   */
+  RankingUpvotesListener.prototype.isPrimary = function() {
+    return true;
+  };
+
   RankingUpvotesListener.NAME = 'upvotes';
   RankingUpvotesListener.DEPENDENCIES = undefined;
 
