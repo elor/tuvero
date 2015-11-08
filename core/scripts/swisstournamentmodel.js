@@ -300,9 +300,12 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
           index = group.indexOf(teamid);
           group.splice(index, 1);
-          if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
-            outVotes.byes.push(teamid);
-            return true;
+
+          if (this.prefilterSwissMatches(rankGroups)) {
+            if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
+              outVotes.byes.push(teamid);
+              return true;
+            }
           }
 
           group.splice(index, 0, teamid);
@@ -336,6 +339,49 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     });
 
     return sum;
+  };
+
+  /**
+   * quick-check whether the up/downvotes can be applied. This is not a complete
+   * test, it just checks for obvious errors (are there any upvotes/downvotes in
+   * the group?)
+   *
+   * @param rankGroups
+   *          a 2D array of rank groups
+   * @return true if there's no obvious error, false otherwise
+   */
+  SwissTournamentModel.prototype.prefilterSwissMatches = function(rankGroups) {
+    var downvote = false;
+
+    // verify up/downvotes
+    if (this.getProperty('enableupdown')) {
+      if (!rankGroups.every(function(group) {
+        var teams = group.length;
+        if (downvote) {
+          // upvote required
+          if (!group.some(this.canGetUpvote.bind(this))) {
+            return false;
+          }
+
+          downvote = false;
+          teams -= 1;
+        }
+
+        if (teams % 2 != 0) {
+          // downvote required
+          if (!group.some(this.canGetDownvote.bind(this))) {
+            return false;
+          }
+          downvote = true;
+        }
+
+        return true;
+      }, this)) {
+        return false;
+      }
+    }
+
+    return true;
   };
 
   /**
@@ -397,7 +443,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
 
           if (updown) {
             outVotes.downs.push(teamA);
-            outVotes.ups.push(team);
+            outVotes.ups.push(teamB);
           }
           secondGroup.splice(teamBindex, 1);
 
