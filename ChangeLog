@@ -1,37 +1,2341 @@
-2015-05-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-11-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
-	* legacy/scripts/ui/options.js: Critical error fixed where new options are overwritten during updates
+	* core/templates/roundsystem.html: Advanced Options removed
 
-2015-04-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+	* legacy/scripts/ui/systemtablerowview.js: .lastrow wasn't set on team registration
 
-	* legacy/scripts/ui/teamsfileloadcontroller.js: Debug Logging removed
+	* core/templates/abouttab.html: using the same urls everywhere
+
+	* core/templates/splash.html: using the same urls everywhere
+
+	* index.html: using the same urls everywhere
+
+	* core/scripts/swisstournamentmodel.js: prefiltering upvotes/downvotes to avoid stalls
+	double downvote bug fixed
+
+2015-11-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/swisstournamentmodel.js: up/downvotes before byes, then invalidate the ranking
+	wins were read from displayID, not teamID
+
+	* legacy/scripts/ui/registeridscontroller.js: Enter in the number field is not evaluated by this one
+
+	* legacy/scripts/ui/reverseresultreferencemodel.js: not reversing byes, which should remain immutable
+
+	* legacy/style/kotree.css: names are aligned
+
+2015-11-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/kotournamentmodel.js: using Presets.systems.ko.mode
+
+	* core/scripts/swisstournamentmodel.js: using Presets.systems.swiss.mode
+	enabling up/downvotes based on the swiss mode, not off by default
+
+	* legacy/scripts/ui/strings.js: TeamView shows byevote as '∅', which is more consistent than 'F'.
+
+2015-11-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/table.css: CSS specificity of @print table row grouping increased
+
+	* legacy/scripts/ui/tournamentrankingview.js: hiding tournamnets with 'initial' state
+
+2015-11-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/debugtab.html: button.registerids added
+
+	* legacy/scripts/ui/debugtab.js: binding registerids button
+
+	* legacy/scripts/ui/registeridscontroller.js: registering teams with their IDs as player names
+
+	* legacy/scripts/ui/storage.js: "store" console output disabled
+
+	* legacy/scripts/ui/systemlistview.js: not using bindLists function anymore: Superseded by variadic ListView arguments
+
+	* legacy/scripts/ui/systemtablerowview.js: bindLists removed
+	registerListeners at the bottom of the constructor
+
+	* core/scripts/emitter.js: Critical memory leak fixed
+
+	* core/scripts/listener.js: Critical memory leak fixed
+
+	* legacy/scripts/ui/strings.js: offline-notification text shortened
+
+	* legacy/scripts/ui/update.js: closing "uncached"-toasts after becoming cached
+	Only up to one uncached toast.
+
+2015-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/progresstable.html: rankcomponent columns added
+	rankcomponent header columns added
+
+	* legacy/scripts/ui/progressrowview.js: showing rankcomponent columns
+	showing human-readable names instead of the canonical component names
+
+	* legacy/scripts/ui/progresstableview.js: rankcomponent header columns added
+	forgot to remove extraneous rankingcomponent headers
+
+	* legacy/scripts/ui/strings.js: ranking name for "ranks" added
+
+	* legacy/scripts/ui/statemodel.js: not using ranking abbreviations by default
+
+	* core/templates/newtab.html: "Rang" -> "Platz"
+
+	* core/templates/historytab.html: hiding the "only finished rounds" checkbox
+
+	* legacy/scripts/ui/rankingordercontroller.js: using button presses instead of complicated select-button combinations
+
+	* legacy/scripts/ui/rankingorderview.js: using a simpler DOM structure
+	using jquery-supported .hide()/.show() functions caused artifacts. using the .hidden-class now
+
+	* test/rankingorderview.html: simpler visual structure
+	updated to match the current implementation
+
+	* core/templates/rankingorderview.html: simpler RankingOrderView layout
+
+	* legacy/style/rankingorderview.css: improved button styling
+	numbering added for selected components
+
+	* core/scripts/swisstournamentmodel.js: don't force the use of the 'votes' ranking component
+
+	* legacy/scripts/ui/tournamentview.js: auto-adding selected rankingorder components to the list of available components
+	constructor cleanup
+
+2015-11-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/matchcontroller.js: tabbing out of the last input element triggers accept()
+
+	* legacy/scripts/ui/generictournamentview.js: destroy function was simply ignored by prototype chain
+
+	* legacy/scripts/ui/systemtablerowview.js: destroy() open tournament views on row destruction
+
+	* legacy/scripts/ui/tournamentcontroller.js: There's no general Controller.destroy() function yet.
+	close input field only if it's open.
+
+	* legacy/scripts/ui/tournamentview.js: subcontroller.destroy need not be present
+
+	* legacy/scripts/ui/kotreeposition.js: WIDTH -> getWidth(showName)
+	getFollowingPosition() properly passes showNames-argument
+
+	* legacy/scripts/ui/kotreeview.js: auto-adjust width to showName-value
+
+	* legacy/scripts/ui/kolineview.js: using getWidth instead of WIDTH
+
+2015-10-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* tools/plato-gh-pages.sh: showing the current progress
+	"let" had an unexpected return code
+	indexing improved
+	commit: --message option added
+	`git push` added
+
+	* legacy/scripts/ui/data/swissperms.js: removed
+
+2015-10-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/tournamentcontroller.js: destroy() automatically closes the namechange input
+
+	* legacy/scripts/ui/tournamentview.js: destroy() also destroys controller and subcontroller
+
+	* legacy/scripts/ui/systemtablerowview.js: .lastrow CSS class re-introduced
+	also updating lastrow right after the creation of a tournament
+
+	* test/boxview.html: <script> moved into <body>
+
+	* test/checkboxview.html: <script> moved into <body>
+
+	* test/fontsize.html: <script> moved into <body>
+
+	* test/koline.html: <script> moved into <body>
+
+	* test/listview.html: <script> moved into <body>
+
+	* test/matchview.html: <script> moved into <body>
+
+	* test/rankingorderview.html: <script> moved into <body>
+
+	* test/rankingview.html: <script> moved into <body>
+
+	* test/teamentry.html: <script> moved into <body>
+
+	* test/teamlistview.html: <script> moved into <body>
+
+	* test/teamsizeview.html: <script> moved into <body>
+
+	* index.html: normalize.css applied
+
+	* NEWS: updated
+
+2015-10-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/swisstournamentmodel.js: canGetUpvote() and canGetDownvote() added. Never used.
+	hasBye/Upvote/Downvote() functions added
+	using 'XafterY' properties during 'canGetX' functions
+	ranking dependency: 'byes' -> 'votes'
+	findXXX function parameters removed in favor of this.ranking.something
+	'enableupdown' property added
+	ups and downs outputs added to findXXX
+	adding teams to the ups and downs arrays
+	outByes/byes, ups and downs joined into the outVotes object
+	initialMatches() didn't use outVotes yet. Fixed it.
+	missing 'this' added. Now, the up/down/byevotes work.
+	auto-appending 'votes' to the rankingorder of a new tournament
+
+	* core/scripts/test/swisstournamentmodel.js: tests now require the teams to be registered.
+	unnecessary variables removed
+	tests adjusted to not fail in the face of ups and downs
+	tests use the outVotes object
+	test playthrough for bye votes
+	swissmode of bye test corrected. Can't test randomness.
+
+	* core/scripts/propertymodel.js: defaultValues bug fixed: set() -> setProperties()
+
+	* core/scripts/test/propertymodel.js: testing defaultValues
+
+	* core/scripts/propertyvaluemodel.js: Model, which binds properties to a ValueModel for setting/getting
+
+	* core/scripts/test/propertyvaluemodel.js: testing PropertyValueModel value propagations
+
+	* core/templates/swissoptions.html: referencing swissvotes.html
+
+	* core/templates/swissvotes.html: votes matrix added (just look at it to know what i mean)
+	descriptions and examples added
+	better example (with .forbidden symbols)
+	byeupafterbye -> byeafterbye typo fixed
+
+	* legacy/scripts/ui/swisstournamentview.js: BoxView around description
+	initialization of SwissVotesView added
+	swissvotes selection restricted to uppermost DOM level
+
+	* legacy/style/swissvotes.css: color-coding of previous versions
+	using :active instead of :hover. Looks more responsive.
+	.forbidden also acts on the description text
+
+	* legacy/scripts/ui/swissvotepropcontroller.js: Controller for a single SwissVotes property
+
+	* legacy/scripts/ui/swissvotepropview.js: View for a single SwissVotes property
+
+	* legacy/scripts/ui/swissvotesview.js: View for swissvotes, which also shows/hides the swissvotes options
+	hidden-logic inverted
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: save after tournament property change
+
+	* legacy/scripts/ui/swisstournamentcontroller.js: swissmode-enableupdowns logic inverted
+
+	* legacy/scripts/ui/strings.js: ranking_ko and ranking_votes strings added
+
+	* boule/scripts/presets.js: added
+
+	* tac/scripts/presets.js: added
+
+	* test/scripts/presets.js: added
+
+	* legacy/scripts/ui/newtournamentcontroller.js: initializing rankingorder from presets
+
+	* legacy/scripts/ui/tournamentview.js: initializing available rankings from presets
+
+	* legacy/scripts/ui/debug.js: Release Candidates aren't considered dev versions
+
+	* legacy/scripts/ui/debugtab.js: only hide the tab in releases, without making it inaccessible
+
+2015-10-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/rankingtac.js: Test for #165 added
+
+	* core/scripts/rankingtaclistener.js: Fix for #165 added: Wrong sign corrected
+
+	* core/scripts/swisstournamentmodel.js: findSwissByesAndMatches is not a static function anymore. It requires the properties
+	findSwissMatches is not static anymore
+	separate "canGetBye" function for confirming bye conditions
+
+	* core/scripts/test/swisstournamentmodel.js: testing a tournament instance.
+
+2015-10-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/debugtab.js: hiding Debug tab in release versions
+
+	* legacy/scripts/ui/csver.js: removed
+
+	* legacy/scripts/ui/test/treenode.js: removed
+
+	* legacy/scripts/ui/treenode.js: removed
+
+	* legacy/scripts/ui/gamestab.js: closed tournaments get auto-collapsed
+
+	* legacy/scripts/ui/historytab.js: closed tournaments get auto-collapsed
+
+	* legacy/scripts/ui/rankingtab.js: closed tournaments get auto-collapsed
+
+	* core/scripts/main.js: printing stack on load error
+
+2015-09-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/roundtournamentmodel.js: Issue #149 fixed: even number of teams don't generate duplicate matches anymore
+	numRounds() function added
+
+	* core/scripts/test/roundtournamentmodel.js: testing the matches with 4 teams
+	correct match order for five teams
+
+2015-09-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/kotournamentmodel.js: createPlaceholderMatches doesn't overwrite existing matches/results
+	2d array typo fixed
+	createWaitingMatches() function added for tournament repair
+	createFollowupMatch() doesn't overwrite running matches
+	createFollowupMatch() doesn't overwrite history
+	randomIndices -> shuffledIndices, to match "shuffled" mode
+
+	* legacy/scripts/ui/legacyloadermodel.js: createMissingObjects() functions, e.g. for placeholder matches
+	translating history team ids to tournament-internal ids. Team names would be blank otherwise
+	createMissingObjects() output added
+	creating missing objects only after everything else has been loaded
+	using createWaitingMatches()
+	setting the startIndex properly
+
+	* legacy/scripts/ui/tournamentrankingview.js: TournamentRankingView is also a BoxView
+
+	* core/scripts/tournamentlistmodel.js: prevent restore() from clearing previously restored values (startIndex and closedTournaments)
+
+	* legacy/scripts/ui/csvexportcontroller.js: Controller for CSV Export
+	saving CSV into file
+	JSDoc comments added
+	teams can be CSV-exported
+	history can be CSV-exported
+	printing stacktrace on saveAs exception
+	ranking can be CSV-exported
+
+	* legacy/scripts/ui/settingstab.js: using CSVExportController to enable CSV Export buttons
+
+	* legacy/scripts/ui/strings.js: exportfailed added
+	csvheader_teams added
+	csvheader_history added
+	csvheader_ranking added
+
+	* tools/verify-strings.sh: rudimentary strings search added for now. To be expanded later
+
+2015-09-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/autocomplete.js: replaced by AutocompletionView
+
+	* legacy/scripts/ui/autocompletionmodel.js: download and process the player names
+	set() function added
+
+	* legacy/scripts/ui/autocompletionview.js: enable and update autocompletion entries for typeahead/bloodhound
+
+	* legacy/scripts/ui/players.js: replaced by AutocompletionModel
+
+	* legacy/scripts/ui/storage.js: Player.toBlob() disabled for now
+	saving the AutocompletionModel contents via AutocompletionLegacyBlobber
+
+	* legacy/scripts/ui/teamstab.js: creating and binding AutocompletionModel/View
+
+	* legacy/scripts/ui/autocompletionlegacyblobber.js: serializing/deserializing a single AutocompletionModel
+
+2015-09-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/legacyloadermodel.js: verbose output during conversion
+	closing finished tournaments
+	restoring tournament hierarchy
+	more verbose output
+	showing Toasts on critical errors
+	validating the target (boule/tac)
+	votes are restored from ranking or tournament, whatever is still available
+	recalculating ranking after votes are extracted
+
+	* core/scripts/tournamentlistmodel.js: overriding clear() to clear this.startIndex and this.closedTournaments
+
+	* legacy/scripts/ui/fileloadcontroller.js: resetting the file chooser every time
+
+	* core/scripts/rankingcomponentindex.js: 'votes' component added
+
+	* core/scripts/rankingdatalistenerindex.js: 'upvotes', 'downvotes' and 'votes' listener added
+
+	* core/scripts/rankingdownvoteslistener.js: listener for the number of downvotes
+
+	* core/scripts/rankingupvoteslistener.js: listener for the number of upvotes
+
+	* core/scripts/rankingvotescomponent.js: this component cannot be sorted by
+
+	* core/scripts/rankingvoteslistener.js: recalc: convert the number of byes, upvotes and downvotes into a string representation
+
+	* legacy/scripts/ui/strings.js: 'votes' strings added
+	SBH -> SB typo fixed
+
+	* core/templates/roundsystem.html: "idle"-'close tournament'-button removed. Roundtournaments should always be finished.
+
+	* legacy/scripts/ui/state.js: legacyloader exceptions are printed, including stacktrace
+
+	* legacy/scripts/ui/listview.js: duplication bug with $view.length > 1 fixed
+
+	* legacy/scripts/ui/matchview.js: byes: showing second team as bye
+
+2015-09-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentlistmodel.js: auto-indentation of some source code
+	setListeners() should have been a method all along, not a function
+	forgot to set the thisArg for the callback functions
+	SAVEFORMAT: allowing for additional data to be saved alongside the actual list
+	startIndex field added to remember where the tournament starts
+	completely new logic for getGlobalRanking(), which relies on the tournament order and the start indices
+	tournaments can be closed
+	global rank calculations corrected (rank was too high for follow-up tournaments)
+
+	* legacy/scripts/ui/progressrowview.js: showing correct rank for multiple parallel tournaments
+
+	* legacy/scripts/ui/systemtablerowview.js: offsets corrected, so the newtab-tournaments show the correct number of teams
+	new counting algorithm for the length of a TournamentView
+	'rowspan' code moved to the TournamentView
+	passing State.tournaments to TournamentController
+
+	* core/templates/newsystem.html: extracted from {{newtab}}
+	input.tournamentsize added for obvious reasons
+	showing 'not enough teams' message
+
+	* core/templates/newtab.html: extracted {{newtab}}
+	.closetournament button added
+
+	* legacy/scripts/ui/newtournamentcontroller.js: validating and respecting the input.tournamentsize during tournament creation
+	register teams first, then add the tournament to the list of tournaments. Saves nothing, but is more intuitive
+	resizing the NewTournamentView to the number of selected teams
+
+	* legacy/scripts/ui/newtournamentview.js: adding 'newsystem' class for some specific CSS rules
+	showing 'not enough teams' message when less than 2 teams
+
+	* core/scripts/tournamentmodel.js: correct(): team ID bug fixed, which caused a failure of ranking.correct()
+
+	* legacy/scripts/ui/finishroundcontroller.js: 'finish all' with KO tournaments didn't work when isRunningMatch() was false
+
+	* legacy/scripts/ui/backgroundscripts/matchtoasts.js: not showing 'match finished' toast for placeholder matches
+
+	* core/scripts/model.js: restore() failure: printing the responsible object to the console for debugging
+
+	* legacy/scripts/ui/statemodel.js: SAFEFORMAT.tournaments adjusted to new TournamentListModel format
+	showmatchtables is false by default
+
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: tab visibility: just look for the first visible tournament, not all.
+
+	* legacy/scripts/ui/tournamenthistoryview.js: box is hidden if the tournament has no history
+
+	* legacy/scripts/ui/tournamentmatchesview.js: box is hidden if the tournament has no matches
+
+	* legacy/scripts/ui/tournamentview.js: setting the rowspan of the TournamentView
+
+	* legacy/scripts/ui/generictournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/kotournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/roundtournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/swisstournamentview.js: passing State.tournaments to TournamentController
+
+	* legacy/scripts/ui/tournamentcontroller.js: .closetournament button logic enabled
+
+	* core/templates/kosystem.html: .closetournament button added
+
+	* core/templates/roundsystem.html: .closetournament button added
+
+	* core/templates/swisssystem.html: .closetournament button added
+
+	* core/scripts/test/tournamentlistmodel.js: broken tests disabled
+
+	* legacy/style/new.css: .notenoughteams rules added
+
+	* core/templates/historytab.html: showmatchtables text made unambiguous
+
+	* legacy/scripts/ui/historytab.js: showmatchtables logic inverted
+
+	* legacy/scripts/ui/legacyloadermodel.js: restoring running and finished KO matches
+	restoring corrections
+
+2015-09-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/kotournamentmodel.js: creating placeholder matches
+	variable typos fixed
+	missing parens added
+	loserGroupID corrected (was missing a power of 2)
+	Max round decreased to 32 to avoid 32 bit integer overflows
+	loserGroupID overflow bug fixed
+	komaxgroup option added: restricts matches above a certain 'bestrank'
+	initialByes property added: whether to keep the byes of the initial matching
+	initialByes -> initialbyes
+	using 'ko' ranking
+
+	* core/scripts/test/kotournamentmodel.js: loserGroupID() and roundsInGroup() tests corrected
+	broken tests removed
+
+	* core/templates/kotree.html: .hidden class added so it doesn't show up for swiss or round
+
+	* core/templates/newtab.html: #games links point to #history
+	"Click to Rename" hint added
+	ko options have the correct classes
+
+	* core/templates/tabs.html: history and games swapped
+
+	* core/templates/teamstab.html: "Click to Rename" hint added
+
+	* core/templates/kooptions.html: options updated to new KOTournamentModel formularion
+
+	* legacy/scripts/ui/generictournamentview.js: add KOTournamentView
+
+	* legacy/scripts/ui/kotournamentcontroller.js: controller for KO tournaments in the NewTab
+
+	* legacy/scripts/ui/kotournamentview.js: view for KO tournaments in the NewTab
+
+	* legacy/scripts/ui/swisstournamentcontroller.js: redundant visualization code removed
+
+	* core/scripts/rankingcomponentindex.js: KO ranking added
+
+	* core/scripts/rankingdatalistenerindex.js: KO ranking added
+
+	* core/scripts/rankingkocomponent.js: KO ranking added
+
+	* core/scripts/rankingkolistener.js: KO ranking added, which mainly just adjusts the group of the loser after a lost match
+
+	* legacy/scripts/ui/strings.js: KO ranking texts added
+
+	* core/scripts/listmodel.js: improved restore() failure handling
+
+	* core/scripts/main.js: improved Storage restore handling
+
+	* core/templates/splash.html: improved state load error messages
+
+	* legacy/scripts/ui/state.js: proper error handling after restore()
+
+	* legacy/scripts/ui/statemodel.js: proper error handling during restore()
+
+	* legacy/style/splash.css: error text looked horrible
+
+	* core/templates/hometab.html: donate-button at the bottom of the home screen.
+
+2015-09-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/matchmodel.js: support for 'undefined' team IDs (indicate empty teams, which are no byes though)
+	save()/restore() of 'undefined' team IDs
+	isRunningMatch() function: whether this match really is a valid match, not just a placeholder or a result
+
+	* core/scripts/test/byeresult.js: testing isRunningMatch()
+
+	* core/scripts/test/matchmodel.js: testing isRunningMatch()
+
+	* core/scripts/test/matchresult.js: testing isRunningMatch()
+
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing history when the first match is added, not just the first result
+
+	* legacy/scripts/ui/matchview.js: using isRunningMatch() to show/hide the 'finish' inputs
+	placeholder teams: estimating the correct size
+
+	* core/scripts/kotournamentmodel.js: first working version
+	seting state to 'finished' when the last match is through
+
+	* core/scripts/test/kotournamentmodel.js: rudimentary tests. Nothing important, still mostly utility functions
+
+	* legacy/scripts/ui/matchtableview.js: add superclass.destroy() call, which has been forgotten
+
+	* legacy/scripts/ui/generictournamenthistoryview.js: JSDoc comments and normal comments added
+	KOTreeView added for KOTournamentModels (system: 'ko')
+	KOTreeView -> KOHistoryView
+
+	* legacy/scripts/ui/gamestab.js: using shared tab options
+
+	* legacy/scripts/ui/historytab.js: using shared tab options
+
+	* legacy/scripts/ui/newtab.js: using shared tab options
+
+	* legacy/scripts/ui/rankingtab.js: using shared tab options
+
+	* legacy/scripts/ui/settingstab.js: using shared tab options
+
+	* legacy/scripts/ui/statemodel.js: providing shared tab options
+
+	* legacy/scripts/ui/teamstab.js: using shared tab options
+
+	* core/templates/historytab.html: added {{kotree}} dependency
+	extracted tournamentlist.html
+
+	* core/templates/kotree.html: preliminary kotree structure copied from matchtable.html
+	proper ko tree definitions added
+	.kolineanchor added as an Anchor for the KO line lists
+	kotree is a BoxView
+
+	* legacy/style/kotree.css: preliminary kotree rules copied from matchtable.css
+	KO Tree rules added (table-based)
+	KO matches are now absolute-positioned
+	.koline is handled separately
+	input elements are properly aligned
+	black border removed
+
+	* legacy/scripts/ui/kolistmodel.js: group the matches for first and third place together
+	This gives a more compact view
+
+	* legacy/scripts/ui/kotreeview.js: simple KOTreeView added, which currently only invokes a MatchTableView for preliminary testing
+	ListView of KO matches
+	resizing the "forest" to match the tree width and height
+	complexity reduced by using KOTreePosition
+	using .kolineanchor and a second ListView just for the KOLines
+	KOTreeView includes a BoxView
+	showing '.bestrank' information
+
+	* core/templates/komatchresult.html: KOMatchResult structure added
+	using a table for kotree
+	using ko-specific versions of 'finish' and 'correct', where the buttons are hidden for spatial reasons
+	score is vertically distributed and horizontally aligned
+
+	* core/templates/koteam.html: a single team, as shown in the KOTournament
+	using a table for kotree
+
+	* core/templates/tournamentlist.html: extracted from historytab.html
+
+	* legacy/style/history.css: hiding .kotree when match table is required
+	* legacy/scripts/ui/kohistoryview.js: That's a ListView for KOTreeModels from a KOListModel
+
+	* legacy/scripts/ui/komatchresultview.js: MatchResultView, which arranges itself in the KOTree
+	automatically positioning the KO matches where they belong
+	using KOTreePosition for the positioning
+	KOLine code moved to KOLineView
+
+	* legacy/scripts/ui/matchresultview.js: JSDoc comment added
+
+	* legacy/style/matchtable.css: missing semicolon added
+
+	* legacy/scripts/ui/kotreeposition.js: dedicated calculation class: determines the tree position of a KO match
+
+	* legacy/scripts/ui/kolineview.js: a View just for KOLines. It's easier this way
+
+2015-09-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/inlinelistview.js: InlineListView: append BEFORE the $view, not at its END
+
+	* legacy/scripts/ui/listview.js: InlineListView support added
+
+	* core/templates/progresstable.html: columns rearranged
+	separators added
+
+	* legacy/scripts/ui/progressrowview.js: using InlineListView for the matches, in order to append the ranks AFTER the matches
+
+	* legacy/scripts/ui/progresstableview.js: using InlineListView for the "round headers"
+
+	* legacy/style/progresstable.css: .separator class added for better control
+
+	* core/scripts/kotournamentmodel.js: utility functions for binary tree traversal added
+	initialRoundFromTeams() utility function added
+	creating some initial matches
+	defaulting to 'wins' ranking for now. Let's fix it later
+	using default bye points for byes.
+
+	* core/scripts/test/kotournamentmodel.js: testing the utility functions
+	testing initial matches with default mode
+
+	* core/scripts/test/tournamentindex.js: expected 'ko' result corrected (it works now!)
+
+	* core/scripts/tournamentindex.js: KOTournamentModel added
+
+	* core/templates/newtab.html: enabling ko tournament run button
+
+	* legacy/scripts/ui/generictournamenthistoryview.js: using .hastable class to control visibility
+
+	* legacy/style/history.css: using .hastable class to control visibility
+
+2015-09-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/binningreferencelistmodel.js: bin creation race conditions fixed: the bin was empty for a split second
+
+	* legacy/scripts/ui/matchview.js: an 'undefined' teamid prints nothing. That's great for KO tournaments :-)
+
+2015-09-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/reversematchreferencemodel.js: MatchReferenceModel, but with reversed teams
+
+	* legacy/scripts/ui/reverseresultreferencemodel.js: ResultReferenceModel, but with reversed teams
+	also reversing the score, not only the team
+
+	* core/scripts/tournamentmodel.js: using hasReversedTeams to correct scores for reversed teams
+
+	* legacy/scripts/ui/progresslistmodel.js: a ListModel subclass which contains all relevant information for a ProgressTableView
+
+	* core/templates/historytab.html: 'showtable' checkbox is initially checked
+
+	* core/templates/progresstable.html: second hidden teamno to avoid printing the first teamno (=== the row's team)
+	rank moved towards the front of the progress table
+
+	* legacy/style/progresstable.css: rounds are separated by black borders
+
+	* legacy/scripts/ui/generictournamenthistoryview.js: passing groups through (i.e. the BinningReferenceListModel which separates the match groups)
+
+	* legacy/scripts/ui/progressroundview.js: showing the respective round in the table header
+
+	* legacy/scripts/ui/progressrowview.js: using ProgressListModel instead of a simple team list
+
+	* legacy/scripts/ui/progresstableview.js: show round in the table headers
+	instantiate ProgressListMOdel
+
+	* legacy/scripts/ui/tournamenthistoryview.js: passing groups (BinningReferenceListModel) to the GenericTournamentHistoryViews
+
+	* core/scripts/combinedreferencelistmodel.js: Properly handling concurrency conditions after detecting a length-related error
+
+	* core/scripts/test/combinedreferencelistmodel.js: testing the concurrency conditions for reference lists
+
+	* core/templates/correctionform.html: capitalized button labels
+
+	* core/templates/teamstab.html: "delete all" button added
+
+	* legacy/scripts/ui/deleteallteamscontroller.js: "delete all" button logic and confirmation added
+
+	* legacy/scripts/ui/strings.js: "delete all" confirmation text added
+
+	* legacy/scripts/ui/teamstab.js: binding DeleteAllTeamsController
+
+	* legacy/style/teams.css: "delete all" button rules
+
+2015-09-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/historytab.html: "Click score to correct a result" note added
+
+	* core/templates/rankingtab.html: "abbreviate" -> "Abbreviations"
+
+	* core/scripts/sortedreferencelistmodel.js: 'unique' parameter added and implemented
+
+	* core/scripts/test/sortedreferencelistmodel.js: testing the 'unique' parameter
+
+	* core/scripts/binningreferencelistmodel.js: improved sort function, which handles numbers and strings properly
+	bins are a ListModel instance now, using a SortedReferenceListModel
+	getBinNames() added, which exposes the sorted list of bins
+
+	* core/scripts/matchreferencemodel.js: missing teamlist? Then don't change the team ids, just reference the whole match.
+
+	* core/templates/progresstable.html: simpler progress table header: "round ##"
+
+	* core/scripts/tournamentmodel.js: more complex correct() checks, which also support deep nesting of MatchResults, including reversed match result references
+
+2015-09-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/legacyloadermodel.js: Rudimentary tournament loading code
+	restoring state, matches, history, byes, ranking and round
+	TODO and console errors resynced
+
+	* legacy/scripts/ui/listview.js: $subview != subview.$view - Bugs fixed by referencing all $subviews in a separate array
+	subviews/$subviews typo fixed
+	reverting to 'this.$view === $view' contract (View class)
+
+	* legacy/scripts/ui/matchtableview.js: MatchTableView is composed of a ListView, not inheriting one.
+	This keep the contract of 'this.$view == $view'
+	unused constructor arguments removed
+	auto-initialize TeamTableView
+	$correction parameter removed: It's already present in the $view
+	$rowtemplate parameter removed: Just use $view.find() and a TemplateView
+
+	* legacy/scripts/ui/tournamenthistoryview.js: MatchResultView is referenced by MatchTableView
+	TeamTableView dependency removed
+	MatchTableView: $correction parameter removed
+	MatchTableView: $rowtemplate parameter removed
+	Inheriting from View, not TemplateView
+
+	* legacy/scripts/ui/teamtableview.js: header comment typos fixed
+
+	* core/templates/swissoptions.html: option texts updated (#155)
+
+	* core/templates/gamestab.html: using {{matchtable}}
+	matchlist removed
+
+	* legacy/style/games.css: .matchview removed
+	.matchtable extracted to matchtable.css
+	input styling moved to matchtable.css
+	hiding the result column during printing
+
+	* legacy/style/history.css: .matchtable extracted to matchtable.css
+	.finish and .correct rules moved to matchtable.css
+	.noprint moved to .general.css
+
+	* legacy/style/matchtable.css: .matchtable extracted from games.css and history.css
+	.finish and .correct rules moved here
+
+	* legacy/scripts/ui/gamestab.js: 'show table'-option removed
+
+	* legacy/scripts/ui/tournamentmatchesview.js: matchlist removed
+	using MatchTableView for matchtable
+	MatchTableView: $correction parameter removed
+	MatchTableView: $rowtemplate parameter removed
+
+	* core/templates/correctionform.html: simplified div hierarchy
+
+	* core/templates/finishmatchform.html: form replaced with divs
+
+	* core/templates/historytab.html: correction templates removed
+
+	* core/templates/matchtable.html: .finish and .correct pseudo-forms are included directly
+
+	* legacy/style/general.css: disabled buttons have grey text
+	.noprint rules moved here
+
+	* legacy/scripts/ui/historytab.js: unrelated comments removed
+
+	* legacy/scripts/ui/matchview.js: input field zeroing is left to the controller
+	removing $finish if this.model is not a running match
+
+	* legacy/scripts/ui/matchresultview.js: finding $result, $correctionform and $scores
+	removing the .result and .correct based on the match type (MatchModel/MatchResult/ByeResult)
+
+	* legacy/scripts/ui/matchcontroller.js: $form parameter allows for reuse of the logic
+
+	* legacy/scripts/ui/matchresultcontroller.js: inheriting from MatchController to avoid code duplication
+
+	* legacy/style/ranking.css: maxwidth-checkbox works
+
+	* legacy/style/rankingview.css: larger paddings for table cells
+	removed
+
+	* core/templates/rankingtab.html: 'showtable'-checkbox removed
+	'abbreviate'-checkbox added
+
+	* legacy/scripts/ui/checkboxview.js: autoformatting
+
+	* legacy/scripts/ui/rankingtab.js: abbreviate checkbox logic added
+	ranking tables depend on the 'abbreviate' value
+
+	* legacy/scripts/ui/tournamentrankingview.js: passing the abbreviate value through to RankingView
+
+	* legacy/scripts/ui/rankingview.js: using the localized strings instead of component names
+	respecting the abbreviate value
+	auto-redraw on player name change
+
+	* legacy/scripts/ui/strings.js: medium ranking strings added as an alternative to abbreviations
+
+	* test/rankingview.html: test extended to provide the 'abbreviate' parameter
+
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing history tab even when only running matches are available
+
+	* core/style/table.css: larger paddings for all table cells
+
+	* legacy/scripts/ui/tournamentview.js: '.idle' advanced options are also boxviewed
+
+	* core/templates/progresstable.html: re-using the matchtable children
+
+	* legacy/style/progresstable.css: almost direct copy of matchtable.css for the same reasons
+
+	* legacy/scripts/ui/progressrowview.js: a single row of the progress table
+
+	* legacy/scripts/ui/progresstableview.js: a ListView of ProgressRowViews added
+
+2015-09-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/legacyloadermodel.js: a parser for pre-1.5 savestates
+	options are loaded
+	teamsize if loaded
+
+	* legacy/scripts/ui/state.js: using a legacyloadermodel to parse old
+
+2015-08-30	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/tournamenthistoryview.js: using distinct tables for different rounds/groups
+	using matchtableview to also enable displaying the group id
+	using a generictournamenthistoryview to initiate the progress tables
+
+	* legacy/scripts/ui/listview.js: using the actual $subview, not subview.$view, since the subview has to take care of dom bookkeeping.
+
+	* core/templates/historytab.html: matchtable nested in a div, along with a "round" text
+	matchtable moved to its own file
+	'hidefinished'-checkbox added
+
+	* legacy/style/general.css: matchview removed
+
+	* legacy/style/history.css: div.matchtable can be aligned on the same line, since they only show a single round
+	.hidefinished rules added
+	hiding progresstable when matchtable is wanted
+
+	* legacy/scripts/ui/matchtableview.js: listview for matchresult lists, which also displays the group of the first match
+	this should be used in conjunction with grouping by group ids
+	setting .running for running groups
+	setting .finished for finished groups
+
+	* core/scripts/swisstournamentmodel.js: group id for all matches corrected (was one too low)
+
+	* core/scripts/combinedreferencelistmodel.js: combinedreferencelistmodel appends multiple lists into a single one
+
+	* core/scripts/test/combinedreferencelistmodel.js: testing combinedreferencelistmodel
+
+	* core/scripts/matchmodel.js: isresult() added to determine whether `this` is a result or a match
+
+	* core/scripts/matchresult.js: isbye() checks isresult()
+
+	* core/scripts/resultreferencemodel.js: if used by tournament.getcombinedhistory(), the matchmodel instances would be cast to matchresult instances.
+	the fix in this commit makes the isresult() function return 'false' for matches, but 'true' for results.
+
+	* legacy/scripts/ui/matchresultview.js: check isresult() before showing score or initializing the controller
+
+	* legacy/scripts/ui/rankingview.js: rank multiplicity is possible again.
+
+	* legacy/scripts/ui/fileloadcontroller.js: controller for loading from files
+	when loading from a file, all "clear"-toasts will be closed.
+	resetting the input after every action ensures that the same file can be loaded multiple times in a row
+
+	* legacy/scripts/ui/settingstab.js: using fileloadcontroller
+
+	* legacy/scripts/ui/toast.js: toast.closetemporarytoasts() added to remove all previous toasts
+
+	* core/templates/matchtable.html: contains matchtable, which was previously embedded into historytab.html
+	using {{resultscore}}
+
+	* core/templates/progresstable.html: simple progress table added for swiss and round
+	using {{resultscore}}
+	progresstable is '.hidden' by default, not '.template'
+
+	* legacy/scripts/ui/historytab.js: checkbox logic for .hidefinished added
+	setting '.showmatchtable' when '.showtable' checkbox is unchecked
+
+	* legacy/scripts/ui/matchview.js: only instantiating the matchcontroller for actual matchmodels, not matchresults
+
+	* core/templates/correctionform.html: correction form extracted from historytab.html
+
+	* core/templates/finishmatchform.html: 'finish match'-form extracted from gamestab.html
+
+	* core/templates/resultscore.html: typical score display
+
+	* legacy/scripts/ui/generictournamentview.js: critical destroy() bug fixed
+	unused variable removed
+
+	* legacy/scripts/ui/generictournamenthistoryview.js: dynamically instantiate different history output types (ko, progresstable, ...)
+
+	* legacy/scripts/ui/progresstableview.js: placeholder code for instantiating the progress tables
+
+	* tools/analyze.sh: moved to plato-gh-pages.sh
+
+	* tools/plato-gh-pages.sh: auto-commit after plato parse
+
+2015-08-28	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/binningreferencelistmodel.js: initialization from non-empty list used the elements as indices
+
+	* core/scripts/test/binningreferencelistmodel.js: testing the element-index bug scenario
+
+	* tools/analyze.sh: appending to existing plato repository (currently in debug mode)
+	epoch / human-readable date confusion fixed
+	eof error and too verbose output fixed
+	comparison typo fixed
+	traversing and restoring develop branch
+	debug mode disabled.
+
+2015-08-27	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/sortedreferencelistmodel.js: an auto-sorting listmodel which draws its elements dynamically from another listmodel
+
+	* core/scripts/test/sortedreferencelistmodel.js: testing sortedreferencelistmodel
+
+	* core/scripts/tournamentmodel.js: using sortedreferencelistmodel to sort gethistory() and getmatches()
+
+	* core/scripts/test/roundtournamentmodel.js: testing the sort order of concurrently running matches
+
+	* core/scripts/binningreferencelistmodel.js: a binning model, which allows the grouping of similar items from another list
+	the items are stored in sublists, so the list yields a 2d structure
+
+	* core/scripts/test/binningreferencelistmodel.js: testing binningreferencelistmodel
+
+2015-08-26	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/debugtab.html: .round -> .finishround
+
+	* legacy/scripts/ui/debugtab.js: invoking finishroundcontroller
+
+	* legacy/scripts/ui/finishroundcontroller.js: finishing a round with the maximum number of points
+
+2015-08-24	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/historytab.html: correction form replaced with div
+	correction: .points -> .score
+
+	* legacy/scripts/ui/correctioncontroller.js: replaced with matchresultcontroller
+
+	* legacy/scripts/ui/matchcontroller.js: unused assignment removed
+
+	* legacy/scripts/ui/matchresultcontroller.js: replacement for correctioncontroller
+	handles correction of the match
+
+	* legacy/scripts/ui/matchresultview.js: initiates matchresultcontroller
+	matchresultcontroller requires a lot of variables
+
+	* legacy/scripts/ui/teamnamecontroller.js: enter/escape comments added for later reference
+
+	* legacy/scripts/ui/tournamenthistoryview.js: passing additional parameters to matchresultview
+	not using correctioncontroller anymore
+
+	* legacy/style/history.css: dynamic visibility of .result and .correct
+	.result is always printed!
+
+	* core/templates/abouttab.html: amazon wishlist removed
+
+	* tools/codestyle.sh: dev/ excluded from codestyle-corrections
+
+	* legacy/scripts/ui/hometab.js: hometab added
+	'clear tournaments'-button added
+	state-clear toast moved to statetoasts.js
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: auto-saving on state clear
+
+	* legacy/scripts/ui/backgroundscripts/stateerrortoasts.js: moved to statetoasts.js
+
+	* legacy/scripts/ui/backgroundscripts/statetoasts.js: moved from stateerrortoasts.js
+	showing 'clear'-toasts after the state has been cleared
+
+	* legacy/scripts/ui/statemodel.js: emitting 'clear' at the end of a clear() call
+
+	* core/templates/debugtab.html: 'register teams' classes changed to more meaningful names than 'submit'
+
+	* legacy/scripts/ui/debugtab.js: 'register teams' button logic enabled
+	initializing the 'mods' variable
+
+	* legacy/scripts/ui/registerteamscontroller.js: 'register teams' button enabled
+
+	* legacy/scripts/ui/requiremodsshortcut.js: class for initialization of the global 'mods' variable.
+	not disabled during production to ease live debugging
+
+2015-08-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/matchview.js: teamid of anonymous teams is increased by 1 to get the team number
+
+2015-08-16	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/toast.js: toast rewritten to ensure correct close() behaviour
+
+	* tools/index-from-template.sh: template parser reads from the shared strings file, too
+
+	* core/templates/teamstab.html: deletion prompt added as a small helper
+	spieler laden -> anmeldungen laden
+
+	* legacy/scripts/ui/strings.js: deletion prompt texts added
+
+	* legacy/style/teams.css: showing deletion prompt only in deletion mode
+
+	* legacy/scripts/ui/teamremovecontroller.js: showing deletion toast in deletion mode (secondary deletion prompt)
+
+	* core/style/fontsize.css: input element font size has been increased by ~50%
+
+	* legacy/style/general.css: removed all padding around input elements
+
+	* legacy/scripts/ui/teamnamecontroller.js: namechange prompt toast added while namechange mode is active
+
+	* core/templates/newtab.html: missing input elements added
+	todo box removed
+	maastricht box removed
+
+	* core/templates/newtabtodo.html: removed
+
+	* tac/templates/newtabtodo.html: removed
+
+	* legacy/scripts/ui/tournamentcontroller.js: showing namechange info toast when changing subtournament name
+	applying name change for newly created tournaments
+
+	* legacy/scripts/ui/newtournamentcontroller.js: trigger name change for newly created tournaments
+
+	* core/templates/settingstab.html: savedate information added
+	storage meters removed
+	"load autocompletion file" dialog removed. wasn't useful anyway
+	"nojson" removed. there's a polyfill for that, and we don't support such old browsers anyway.
+	link to the unit tests removed. use the main index to reach them.
+
+	* legacy/scripts/ui/settingstab.js: settingstab
+	show when the state was last saved to storage
+	binding the save storage-button
+
+	* legacy/scripts/ui/storage.js: formatting savedate
+	date format includes leading zeroes for the hours, minutes and seconds
+
+	* core/templates/swissoptions.html: "begegnungen setzen": checkbox is on the left of the text
+
+	* core/scripts/main.js: hiding the tabs on load error
+
+	* legacy/style/splash.css: using z-index to display splash on top of the still invisible tabs
+
+	* legacy/scripts/ui/storagesavecontroller.js: manually save the state to localstorage and raise a toast about it
+
+2015-08-14	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/abouttab.html: list of mobile browsers removed: cannot test them at the moment
+
+	* core/templates/debugtab.html: number of buttons reduced. not all of them make sense anymore
+	browser information box added
+	table with browser information
+	browserinfo update button: #update -> .update
+
+	* lib/normalize.css: library for style normalization across browsers
+
+	* tools/write-mainstyle.sh: loading files from the lib/ directory, too
+
+	* tools/create-commonjs.sh: libraries are loaded first
+
+	* lib/es5-shim.js: ecmascript 5 polyfill, mainly for for ie8
+
+	* tools/install-libs.sh: auto-updating es5-shim
+	explicitly using version 1 of jquery (ie-compatible)
+
+	* legacy/scripts/ui/debugtab.js: replacement for tab_debug started
+	showing browser name and version
+	clear all-button works
+	showing all loaded images
+	using browserinfoview for browser information
+
+	* makefile: `make dev` doesn't reset the dev-index to the original version
+	removing the travis config file for releases
+
+	* lib/jquery.js: reverted to version 1
+
+	* lib/object-create-polyfill.js: polyfill for object.create
+
+	* legacy/scripts/ui/browser.js: browser identification capabilities added
+	regex typo fixed
+	debugging output: browser name and version
+	update() function added
+	also collects the online, local and cached information
+
+	* core/scripts/main.js: aborting on old internet explorer
+	typo fixed: ie -> msie
+
+	* core/templates/splash.html: oldinternetexplorer text added
+	splash screen texts condensed
+
+	* legacy/scripts/ui/splash.js: oldie() function added to show oldinternetexplorer text
+
+	* legacy/style/splash.css: oldinternetexplorer rules added
+
+	* legacy/scripts/ui/loadedimagesview.js: a view which locates and displays all images
+
+	* legacy/scripts/ui/backgroundscripts/online.js: don't manage the update button anymore
+
+	* legacy/scripts/ui/browserinfoview.js: display browser identification and status
+	using the browserinfocontroller
+
+	* tools/create-ui-class.sh: using the correct core directory
+
+	* legacy/scripts/ui/browserinfocontroller.js: browser info update button works
+
+2015-08-07	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* selenium-tests/makefile: auto-downloading libraries if necessary
+
+2015-08-03	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* .gitignore: ignoring dev/
+
+	* makefile: `make dev` added for dev-builds
+	using `git rev-parse` since `git show-ref` doesn't always work
+	`make clean` includes dev/ and selenium-tests (via make invocation)
+
+	* selenium-tests/makefile: `make clean` removes lib/
+
+2015-08-02	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* test/selenium-tests/update-selenium.sh: works with msysgit, i.e. under windows (tested with win7)
+
+	* test/selenium-tests/src/tuverotestrunner.java: allowing the use of internet explorer
+
+2015-08-02	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* test/boxview.html: adding '.generated' class to the generated boxview for easier debugging
+
+	* test/selenium-tests/java/src/tacindex.java: chrome need to wait three seconds for the tac index for some reason
+
+	* test/selenium-tests/java/src/tuverotestrunner.java: equal() and notequal() use generic types
+	this ensures the same behaviour for string and integer comparison
+	if the comma-separated tests environment variable is set, tests not in this list are skipped
+
+	* test/selenium-tests/java/src/unittests.java: comparing integer values of the unit test successes
+
+	* test/selenium-tests/java/src/boxview.java: testing the boxview test page
+	test: focus-loss on collapsing
+	testing auto-growth of boxviews
+	major cleanup of the test
+
+	* test/selenium-tests/java/src/testindex.java: checking the availability of links to other test pages
+
+	* test/selenium-tests/java/src/bouleindex.java: also waiting up to 3 seconds for consistency
+
+	* test/selenium-tests/java/makefile: force-removing all classes and pngs
+
+	* test/selenium-tests/java/maketuverotestlist.sh: don't show the output. it's proven to work.
+
+	* makefile: run-selenium-tests -> selenium-tests
+
+	* tests/selenium-tests/java/: moved to selenium-tests/
+
+	* selenium-tests/: moved from tests/selenium-tests/java/
+
+	* selenium-tests/src/tuverotestrunner.java: relative path to root directory adjusted
+	sleepmilliseconds() function added
+	equal() and notequal() can now handle null arguments
+	navigate() works with hashes: it changes only the hash
+	navigate() prints the pageload status
+	navigate() detects timeouts and unwanted reloads
+
+	* test/selenium-tests/node/: removed in favor of the java version
+
+	* selenium-tests/src/checkboxview.java: checkboxview test added
+	also testing clicks on the text right next to the checkbox
+
+	* test/checkboxview.html: the checkbox is inside a span element, for consistency with the tuvero taboptions
+
+	* selenium-tests/src/listview.java: testing the listview test page
+
+	* selenium-tests/src/rankingorderview.java: testing the rankingorderview
+
+	* selenium-tests/src/rankingview.java: testing rankingview
+
+	* selenium-tests/src/tabmenuview.java: testing tabmenuview
+
+	* test/tabmenuview.html: frequency of the periodically forbidden tab increased for faster ui tests
+
+2015-08-01	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* test/selenium-tests/java/makefile: paths adjusted
+
+	* test/selenium-tests/java/maketuverotestlist.sh: paths adjusted
+
+	* test/selenium-tests/java/src/tuverotest.java: interface for tuvero tests
+
+	* test/selenium-tests/java/src/tuverotestlist.java: auto-generated list of selenium-driven tests
+
+	* test/selenium-tests/java/src/tuverotestrunner.java: main test runner and test-helper class
+	output and test error handling improved
+	geturl() added to create a local url
+	navigate() automatically waits for pageload
+	error/success output matches that of qunit.
+
+	* test/selenium-tests/java/src/tuverounittests.java: old selenium test removed
+
+	* test/selenium-tests/java/src/unittests.java: first actual selenium test
+
+	* test/selenium-tests/java/src/bouleindex.java: open boule index and see if the main script loads (hides the splash screen)
+
+	* test/selenium-tests/java/src/index.java: load index. no further checks yet.
+	further checks: verifying that all links are present
+
+	* test/selenium-tests/java/src/tacindex.java: open tac index and see if the main script loads (hides the splash screen)
+
+2015-07-31	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* makefile: `make run-selenium-tests` added
+	using java version of selenium-tests
+
+	* test/selenium-tests/tests/openboule.js: wrong parentheses fixed
+
+	* test/selenium-tests/tests/opentac.js: wrong parentheses fixed
+
+	* test/selenium-tests/*: moved to test/selenium-tests/node/
+	nodejs-based browser tests
+
+	* test/selenium-tests/java/: java-based browser tests
+
+	* test/selenium-tests/java/update-selenium.sh: downloading and installing chromedriver
+
+	* test/selenium-tests/java/makefile: adding the library to path just before execution
+	no need for path variable anymore. that's handled by the java code.
+
+	* test/selenium-tests/java/src/tuverounittests.java: handling the path-equivalent of the chromedriver executable
+
+	* legacy/scripts/*: requirement on most legacy ui/tabbing code removed
+
+2015-07-30	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* test/selenium-tests/common/runtest.js: testrunner nodejs source file for selenium tests
+
+	* test/selenium-tests/common/testtools.js: additional set of tools for selenium tests
+
+	* test/selenium-tests/.gitignore: ignoring temporary files
+
+	* test/selenium-tests/runtest.sh: testrunner script for selenium tests
+
+	* test/selenium-tests/tests/openboule.js: test where tuvero boule is opened
+
+	* test/selenium-tests/tests/opentac.js: test where tuvero tac is opened
+
+	* test/selenium-tests/tests/openindex.js: test where the tuvero index is opened
+
+2015-07-27	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* makefile: `make lib` added
+	`make links` added
+
+	* tools/install-libs.sh: installing libraries using bower
+	output improved
+	looking for local bower installation
+
+	* .travis.yml: installing bower prior to build process
+
+	* tools/verify-links.sh: find all links in html files and see if they're still online
+
+2015-07-25	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/swisstournamentmodel.js: local functions made into static methods (for testing)
+	error output differentiates between bye- and bye-less backtracks
+	backtracking functions renamed
+	errors are emitted from the class instance again.
+	backtracking algorithm cornercase fixed: last two teams have already played
+
+	* core/scripts/test/swisstournamentmodel.js: testing some internal functions
+	tests extended to test wm2015-tac-bug
+
+	* legacy/scripts/ui/tab_debug.js: debugging-tab: startround and finishround buttons work again
+
+2015-07-22	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/abouttab.html: https://boules-dev.appspot.org -> https://tuvero.dev/dev/
+	https://boulesdb.appspot.com/issues -> http://fehler.tuvero.de
+
+	* index.html: https://boulesdb.appspot.com/issues -> http://fehler.tuvero.de
+
+2015-07-19	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/statemodel.js: showing error when the wrong target is loaded
+	error when the wrong format is loaded
+
+	* legacy/scripts/ui/backgroundscripts/stateerrortoasts.js: showing a toast on statemodel errors
+
+	* core/scripts/byeresult.js: byeresult added for easy bye calculations
+
+	* core/scripts/test/byeresult.js: testing byeresult
+	testing isbye()
+
+	* test/scripts/test.js: testing construction and save/restore of byeresult
+
+	* core/scripts/roundtournamentmodel.js: adding byeresult to history
+	bye has not been added to ranking
+
+	* core/scripts/rankingsonnebornlistener.js: does sonneborn include a bye-related win of the opponent?
+
+	* core/scripts/test/roundtournamentmodel.js: byes are included in the result. take sonneborn with a grain of salt
+
+	* core/scripts/matchresult.js: isbye() added
+
+	* core/scripts/test/matchresult.js: testing isbye()
+
+	* core/scripts/matrixmodel.js: storing the length separately, because matrixmodel.data is compact and omits empty rows
+
+	* core/scripts/rankingwinscomponent.js: reformatting
+
+	* core/scripts/test/matrixmodel.js: testing length after restore()
+
+	* core/scripts/test/rle.js: additional tests added during debugging
+
+	* legacy/scripts/ui/matchview.js: handling byeresults, too
+	jsdoc comment updated
+	correctionview + correctioncontroller added
+
+	* legacy/scripts/ui/strings.js: byename and byeid added
+	defaultnameroundtournament -> defaultnameround
+
+	* legacy/scripts/ui/teamview.js: handling textual ids properly (e.g. for byes: 'f' instead of a team number)
+
+	* core/templates/historytab.html: placeholders for match results added
+	correction fields added
+	separate vote-lists removed
+	unwanted noprint classes removed (we want to print!)
+
+	* legacy/scripts/ui/matchresultview.js: displaying a match result with its score
+
+	* legacy/scripts/ui/tournamenthistoryview.js: using matchresultview
+	initializing corrections
+	separate vote-lists removed
+	auto-updating the tournament name
+
+	* legacy/scripts/ui/matchcontroller.js: select on focus for easier handling
+	ties can be allowed (optionally)
+	ties with max points can optionally be forbidden
+	using jquery select() instead of the browser-supported version
+
+	* boule/scripts/options.js: tiesforbidden added
+	maxpointtiesforbidden added
+
+	* tac/scripts/options.js: tiesforbidden added
+	maxpointtiesforbidden added
+
+	* test/scripts/options.js: tiesforbidden added
+	maxpointtiesforbidden added
+
+	* core/scripts/swisstournamentmodel.js: creating groups with the same rank when starting a new round
+	randomizing the rankgroups
+	using new backtracking algorithm to generate matches
+	different modes added (not tested yet)
+	swisstranspose-option and code added
+	property: swissshuffled -> swissshuffle
+	bye traversal starts in the last team in the last group
+
+	* core/scripts/rankingbyelistener.js: number of byes: ranking.byelistener added (for swisstournament)
+
+	* core/scripts/rankingdatalistenerindex.js: rankingbyelistener added to index
+
+	* core/scripts/tournamentmodel.js: reading the external ranking dependencies from rankingdependencies
+	correct() bug fixed (undefined values, forgotten "this")
+	name and getname() added to remember the name of the tournament
+
+	* legacy/scripts/ui/backgroundscripts/taboptionclick.js: replaced by checkboxcontroller
+
+	* legacy/scripts/ui/checkboxcontroller.js: clicking a parent span delegates the click to the checkbox
+
+	* core/templates/newtab.html: using {{swissoptions}} to share between idle and initial state
+	tournament name change input field added
+
+	* core/templates/swissoptions.html: swisstournament options exported here
+
+	* legacy/style/new.css: .votepermission removed
+	.options margin added
+	namechange input field styles added
+
+	* core/templates/gamestab.html: tabindex=-1 removed from the finish-buttons
+
+	* legacy/style/history.css: style of hidden match results added
+
+	* legacy/scripts/ui/correctioncontroller.js: correctioncontroller for dynamically attaching/detaching a correction input field added
+
+	* core/templates/rankingtab.html: correctiontable added
+
+	* legacy/style/ranking.css: maxwidth and hidenames rules added
+	* core/templates/correctiontable.html: correctiontable added
+
+	* legacy/scripts/ui/correctionview.js: correctionview added for displaying a single correctiontable row
+
+	* legacy/scripts/ui/tournamentrankingview.js: initializing correctiontable view
+
+	* legacy/scripts/ui/newtournamentcontroller.js: tournament name is set to strings.defaultnamexxx
+
+	* legacy/scripts/ui/tournamentmatchesview.js: updating tournament name
+
+	* legacy/scripts/ui/tournamentview.js: updating tournament name
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: saving on tournament name change
+
+	* legacy/scripts/ui/tournamentcontroller.js: tournament title click -> tournament name change
+	namechange: only the top title works as a trigger
+
+2015-07-18	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/rankingview.js: rendering defered until all changes are accumulated
+	initial update during construction (defered)
+
+	* legacy/scripts/ui/systemlistview.js: rendering defered until all changes are accumulated
+
+	* legacy/scripts/ui/systemtablerowview.js: rendering defered until all changes are accumulated
+
+	* legacy/scripts/ui/gamestab.js: $view -> $container (variable was leaking into global object)
+
+	* legacy/scripts/ui/historytab.js: $view -> $container (variable was leaking into global object)
+
+	* legacy/scripts/ui/rankingtab.js: $view -> $container (variable was leaking into global object)
+
+	* legacy/scripts/ui/matchcontroller.js: button enabled on keyup, not only on change, to visualize as you type
+
+	* core/scripts/listmodel.js: support for construction with an array of elements added
+
+	* core/scripts/uniquelistmodel.js: support for construction with an array of elements added
+
+	* legacy/scripts/ui/rankingordercontroller.js: preventing left-right-scrolling when switching between lists
+
+	* core/templates/newtab.html: rankingorderview added to swiss
+	rankingorderview put outside of the tournamentoptions box
+	dom elements are back in order. i messed something up.
+
+	* core/templates/rankingorderview.html: changes from the test suite integrated
+
+	* core/scripts/swisstournamentmodel.js: swisstournamentmodel added
+	emitting 'error' on round-start errors
+
+	* core/scripts/test/swisstournamentmodel.js: rudimentary swisstournamentmodel test added
+
+	* core/scripts/test/tournamentindex.js: tests now also account for 'swiss', 'ko' and 'poule'
+
+	* core/scripts/tournamentindex.js: swisstournamentmodel added
+
+	* legacy/style/new.css: button styles adjusted
+
+	* test/rankingorderview.html: instantiating the available ranking types directly
+
+	* legacy/scripts/ui/generictournamentview.js: swisstournamentview added
+
+	* legacy/scripts/ui/swisstournamentcontroller.js: swisstournamentcontroller added
+
+	* legacy/scripts/ui/swisstournamentview.js: swisstournamentview added
+	common code transfered to tournamentview
+
+	* core/scripts/tournamentmodel.js: signalling internal failures by emitting 'error' with a message as data
+	setrankingorder() added for redefining the ranking order as long as the tournament is in 'initial' state
+
+	* legacy/scripts/ui/backgroundscripts/tournamenterrortoasts.js: showing toasts on any internal tournament error
+	moved to tournamenterrortoasts.js
+
+	* legacy/scripts/ui/newtournamentcontroller.js: default ranking set to wins
+
+	* legacy/scripts/ui/rankingorderview.js: hiding pre-selected options on construction
+
+	* legacy/scripts/ui/roundtournamentview.js: common code transfered to tournamentview
+
+	* legacy/scripts/ui/tournamentcontroller.js: setting ranking order prior to starting the tournament
+
+	* legacy/scripts/ui/tournamentview.js: sharing common code between all subclasses, e.g. roundtournamentview and swisstournamentview
+
+	* core/templates/rankingtab.html: rankingview has been encapsulated into rankingview.html
+
+	* core/templates/rankingview.html: encapsulated rankingview file
+
+	* test/rankingview.html: rank -> platz
+
+	* core/scripts/lengthmodel.js: lengthmodel added to passively mirror the length of a list
+
+	* core/scripts/test/lengthmodel.js: testing lengthmodel
+
+	* core/scripts/valuemodel.js: onupdate() conflict with tournamentlistmodel+lengthmodel circumvented
+
+	* legacy/scripts/ui/teamstab.js: 'state.numtournaments' has been replaced with 'new lengthmodel(state.tournaments)'
+
+	* legacy/scripts/ui/statemodel.js: statemodel is subclass of model
+	statemodel.save() and statemodel.restore() added
+	statemodel.saveformat also uses a version identifier
+	saveformat contains the target ('tac', 'boule', ...)
+	restore(): forgotten listmodel.restore() content constructor added (teammodel)
+	actual data and cleanuplisteners separated
+	clear() function added
+	tournaments restore() bug fixed
+	also saving/restoring the options
+
+	* core/scripts/model.js: didn't load the type module properly
+	more precise restore() error messages
+
+	* legacy/scripts/ui/playermodel.js: save() and restore() added
+	forgotten "this" added
+
+	* legacy/scripts/ui/teammodel.js: save() and restore() added
+
+	* legacy/scripts/ui/backgroundscripts/save.js: explicit jquery import added
+
+	* legacy/scripts/ui/state.js: exclusively using state_new
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: managing every autosave scenario
+
+	* legacy/scripts/ui/backgroundscripts/redrawonplayerchange.js: moved to autosave.js
+
+	* legacy/scripts/ui/savestate.js: removed and superseded by autosave.js
+
+	* legacy/scripts/ui/options.js: no need to save/restore the teamsize within the options anymore
+
+	* legacy/scripts/ui/backgroundscripts/matchtoasts.js: sending toasts for finishing matches and changing tournament states
+
+	* legacy/scripts/ui/strings.js: tournament state strings added
+	team csv texts revised
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: dependency on team.js removed
+
+	* legacy/scripts/ui/backgroundscripts/tournamenterrortoasts.js: `make codestyle`
+
+	* legacy/scripts/ui/team.js: all code removed, except for the tocsv code
+
+2015-07-17	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/gamestab.html: classes and lists adjusted to match mvc classes
+	matchview style restored
+	div/form order changed for better matchcontroller $view definitions
+	matchtable added
+	text changed (no. a/b -> no.)
+	.noprint css class added for results column
+	tags and classes of the vote lists adjusted to mvc formulation
+	voteviews are essentially teamviews
+
+	* legacy/scripts/ui/listview.js: optdata argument added to constructor, which will be passed through to the subview constructor
+	listmodel doesn't usually send update events. this has lead to errors with tournamentlistmodel, which does, but for different reasons
+	optional additional arguments (optargs, as many as you like) are supported by appending them to the argument list
+	"new" keyword forgotten :-(
+
+	* legacy/scripts/ui/tournamentmatchesview.js: represents a box inside the games tab, which contains match lists
+	using teamtableview to hide unused teams columns
+	using boxview for the tournamentmatchesview
+	initmatches() method introduced to keep constructor clean
+	initvotes() creates the vote lists
+	initvotes() functionality restored after tag/class reordering
+
+	* legacy/scripts/ui/gamestab.js: list of running tournament games (listview of tournamentmatchesview) added
+	some minor autoformatting of comments
+	matchtable initialization added
+	passing state.teams to tournamentmatchesview's listview to hide extra teams
+
+	* core/scripts/emitter.js: debugging output added (shows emit() recursion)
+	warning about 'update' ambiguity added
+
+	* core/scripts/tournamentmodel.js: using singletons for the getters to avoid listeners-bloat
+
+	* legacy/scripts/ui/tournamentcontroller.js: comment + field added (makes eclipse realize it's a class, not just a function)
+
+	* core/templates/newtab.html: input element removed to improve tabbing
+
+	* legacy/style/games.css: matchview style restored
+	styling matchtable
+	table and input style adjusted. it looks great now
+	input elements styled with one games-specific rule
+	not printing .noprint elements
+	voteview style adjusted to match that of matchview
+
+	* legacy/scripts/ui/matchview.js: more input elements than teams? use the teams twice. as long as they're interlaced, we're fine
+	support for teams without a common parent tag added (for matchtable rows, because <td>s can't be nested)
+	using options.defaultscore as the default value for input elements
+
+	* legacy/scripts/ui/matchcontroller.js: enable/disable submit button depending on values and ties
+
+	* core/scripts/referencelistmodel.js: don't re-emit an event, the superclass already emits it.
+
+	* core/scripts/test/referencelistmodel.js: testing how often an event is emitted.
+
+	* legacy/scripts/ui/teamview.js: support for jquery elements without a common parent tag added (multiple teams in one <tr>)
+	support for referencing a teamlist with an index added (to avoid an individual voteview for now)
+
+	* legacy/style/general.css: teamno style doesn't apply to table cells
+	matchlist: team number style restored
+	autoformatting
+	using the same style for "games" and "history"
+
+	* boule/scripts/options.js: options.defaultscore = 0
+
+	* tac/scripts/options.js: options.defaultscore = 8
+
+	* test/scripts/options.js: options.defaultscore = 0
+
+	* core/scripts/view.js: more specified error condition than "!$view" and "$view.length"
+
+	* legacy/scripts/ui/teamstab.js: only showing the teamsizeview when the $container exists
+
+	* legacy/scripts/ui/teamtableview.js: support for multiple teams in a single table row added
+	it counts the consecutive occurences of th.playercol
+
+	* core/scripts/maplistmodel.js: don't emit insert/remove twice
+
+	* core/scripts/test/maplistmodel.js: testing whether insert/remove is re-emitted exactly once
+
+	* legacy/scripts/ui/tournamenthistoryview.js: primitive list of a tournament history
+
+	* legacy/scripts/ui/historytab.js: historytab added to show the tournament history
+
+	* core/templates/historytab.html: format of gamestab adapted
+
+	* legacy/style/history.css: copy of games.css. to be adjusted
+
+	* legacy/scripts/ui/backgroundscripts/tabhistorycheaphacklistener.js: showing the history tab only if there's any tournament with a history
+
+	* legacy/scripts/ui/backgroundscripts/tabrankingcheaphacklistener.js: showing the ranking tab only if there's a started tournament
+
+	* core/templates/rankingtab.html: using rankingview to display the ranking
+
+	* legacy/scripts/ui/rankingtab.js: ranking tab logic initializer added
+
+	* legacy/scripts/ui/tournamentrankingview.js: collection of rankingview and a correctionview-containing listview
+
+2015-07-16	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/newtab.html: .idle class added
+	bottom-title (second h3) added to 'round'
+
+	* legacy/style/new.css: .idle class added
+
+	* legacy/scripts/ui/tab_games.js: removed from the dependency chains
+
+	* legacy/scripts/ui/strings.js: tab_games string changed to "laufende spiele"
+
+	* core/templates/gamestab.html: gamestab classes changed
+
+	* legacy/scripts/ui/teamstab.js: teamstab file reformatted
+
+	* legacy/scripts/ui/gamestab.js: gamestab added
+
+	* legacy/scripts/ui/backgroundscripts/tabgamescheaphacklistener.js: show/hide #games when no tournament is running
+
+2015-07-15	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/newtab.html: "system" templates use a data-system attribute to denote their respective tournament system
+	newtournament buttons: data-system attributes added
+	newtournament buttons re-arranged
+	"best n players" input box removed. re-introduce when needed
+	.system .name -> .tournamentname (tournament name class is unique)
+
+	* legacy/scripts/ui/generictournamentview.js: constructor takes a tournament instance now
+	create roundtournamentview for 'round'-tournaments
+
+	* legacy/scripts/ui/generictournamentviewfactory.js: factory for generictournamentviews
+	holds some persistent data so it doesn't have to be passed one-by-one
+	loading a newtournamentview if the tournament doesn't exist
+	create() function signature changed to use the list of tournaments again (newtournamentview needs it)
+	renamed to tournamentviewpopulator. doesn't instantiate the tournaments anymore
+
+	* legacy/scripts/ui/newtab.js: instantiating generictournamentviewfactory
+	tournamentviewpopulator renaming
+	names maxwidth checkbox functionality added
+	hidenames checkbox functionality added
+
+	* legacy/scripts/ui/systemlistview.js: passing generictournamentviewfactory through
+
+	* legacy/scripts/ui/systemtablerowview.js: using generictournamentviewfactory
+	using newtournamentview when a tournament doesn't exist
+	using tournamentviewpopulator before instantiating any tournamentview
+	rowspan calculations were incorrect (nan) for only one tournament with all players. fixed it.
+
+	* legacy/scripts/ui/newtournamentview.js: empty constructor added. rest will follow
+	firstid -> firstteamid
+
+	* core/scripts/tournamentindex.js: jsdoc for createtournament() added
+
+	* legacy/scripts/ui/newtournamentcontroller.js: controller for button-clicking
+	typo fixed
+	creating tournaments and filling them with teams. works good enough for now.
+
+	* legacy/scripts/ui/tournamentviewpopulator.js: renamed from generictournamentviewfactory
+	doesn't create tournamentviews anymore, only populates the $views
+
+	* legacy/style/new.css: .preparing -> .initial
+	hidenames rules revisited (.playercol added)
+	maxwidth rules revisited
+
+	* legacy/scripts/ui/tournamentcontroller.js: '.runtournament'-button-click --> create new tournament
+
+	* legacy/scripts/ui/tournamentview.js: show the tournament name (its system for now)
+
+	* core/scripts/roundtournamentmodel.js: getround() added
+
+	* legacy/scripts/ui/roundtournamentview.js: showing the current and next round
+
+2015-07-13	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* .travis.yml: travis ci yaml file added
+	apt: find -> findutils
+	trying to move to the container architecture of travis
+	`make update` is no part of the build process
+	language: bash
+	npm install requirejs, not r.js
+
+	* tools/build.sh: searching for r.js in the local path, too
+	npm: using local r.js path. granting write access, if necessary
+	build: using nodejs/node executable directly
+	node is used implicitly again, to enable direct 'r.js' calls
+
+	* .gitignore: node_modules added
+
+	* readme.md: travis badge added to readme
+
+	* core/scripts/orderlistmodel.js: using a diff to determine the lowest number of insert/remove operations prior to moving the elements
+	autoformatted due to using emacs instead of eclipse
+
+	* core/scripts/test/orderlistmodel.js: reference orders corrected
+
+	* lib/diff.js: the diff.js diff library is provided by kpdecker on github: https://github.com/kpdecker/jsdiff
+
+	* lib/license_diffjs.txt: diff.js license added
+
+	* core/scripts/rankingcomponentindex.js: .components property lists the names of all components
+
+	* test/rankingorderview.html: getting names of components from rankingcomponentindex.components
+	order of selected/available lists switched
+
+	* legacy/scripts/ui/rankingordercontroller.js: left/right list switched
+	moveleft/moveright renamed to something more specific
+
+	* legacy/scripts/ui/rankingorderview.js: left/right list switched
+
+	* core/templates/rankingorderview.html: cleanup
+
+	* core/scripts/test/tournamentlistmodel.js: testing new getglobalranking features
+	getglobalranking: passing the number of teams, not a list of teams
+
+	* core/scripts/tournamentlistmodel.js: getglobalranking also returns tournamentoffsets
+	tournamentids for tournament-less teams are set to undefined
+	using a cache to avoid massive recalculations of the global ranking
+	getglobalranking takes the number of teams, not the list of teams anymore
+	variables/fields moved within getglobalranking()
+
+	* legacy/scripts/ui/systemtablerowview.js: caching the rank and only updating if it differs
+	using the tournament offsets to insert the tournament columns
+	css class typo fixed: i accidentally typed the dot in jquery
+	testing tournamentview
+	using generictournamentview instead of tournamentview
+
+	* legacy/scripts/ui/systemlistview.js: passing the number of teams instead of the list of teams
+	.tpl -> .template
+
+	* core/templates/newtab.html: .teamtable -> .systemtable
+	.tpl -> .template
+	.preparing -> .initial
+
+	* legacy/scripts/ui/newtab.js: .teamtable -> .systemtable
+	.tpl -> .template
+
+	* legacy/style/new.css: .teamtable -> .systemtable
+	some additional table border styling rules added
+
+	* legacy/scripts/ui/stateclassview.js: set css class to a valuemodel value
+
+	* legacy/scripts/ui/tournamentview.js: tournamentview: for the system table (newtab)
+
+	* legacy/scripts/ui/generictournamentview.js: a proxy class to automatically construct the right tournamentview subclass
+
+2015-07-12	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/rankingordercontroller.js: can move between both lists with left/right arrows
+	comments added
+
+	* legacy/scripts/ui/rankingcomponentview.js: comments added
+
+	* legacy/scripts/ui/rankingorderview.js: comments added
+
+	* core/scripts/test/tournamentlistmodel.js: testing tournamentlistmodel
+	testing save/restore functionality
+	testing getglobalranking
+	testing getglobalranking().globalrank correction
+
+	* core/scripts/tournamentlistmodel.js: collect tournamentmodel instances in a single list
+	functions for retrieval of tournament ids for every team from non-finished tournaments
+	save()/restore() functions added
+	getglobalranking(): rudimentary working version implemented
+	globalrank is reduced by the number of skipped teams in another post-process step
+	this ensures tightly-packed ranks and correct indices, although half-finished tournaments will need further adjustments
+	insert/remove events are forwarded as update events
+	tournament.ranking-'update' events are forwarded as update events, too
+	accidentally used 'registerlistener' twice and forgot 'unregisterlistener'
+	nan-bug fixed for tournamentless teams
+
+	* core/scripts/listmodel.js: restore() can also take a factory function instead of a constructor
+
+	* core/scripts/test/listmodel.js: testing restore() with factory function
+
+	* core/scripts/test/tournamentindex.js: testing createtournament with savedata
+
+	* core/scripts/tournamentindex.js: createtournament can be passed savedata, from which the system is then read
+	this enables the direct use of listmodel.restore() for restoring a list of tournaments
+	tournamentindex.systems is an array of all registered tournament systems
+
+	* core/scripts/rankingmapper.js: mapping the ids, too
+	mapping only the ids, not the displayorder
+
+	* core/scripts/rankingmodel.js: added a field of ids to the output data for later teamid mapping
+	length is set even for datalistener-less rankings (e.g. id-only), as long as there's a component
+
+	* core/scripts/test/ranking*.js: ids field added to reference values
+	only the ids field is mapped to external team ids, not the displayorder field
+
+	* core/scripts/test/*tournamentmodel.js: ranking: ids field added to reference values
+
+	* legacy/scripts/ui/rankingview.js: correctly using the ids field, not just the displayorder field, for teamid gathering
+
+	* test/rankingview.html: forgot to update to the new matchresult constructor
+
+	* core/scripts/matchresult.js: forgot a "this", which lead to thrown exceptions
+
+	* core/scripts/test/rankingmodel.js: testing save-restore of id-only rankings
+	testing the 'id' component
+
+	* core/scripts/rankingidcomponent.js: values are correct, but the comparison is reversed as compared to typical points
+
+	* core/scripts/rankingdatalistenerindex.js: autoformat: re-indented
+
+	* legacy/scripts/ui/alltabs.js: tab_new removed
+
+	* legacy/scripts/ui/backgroundscripts/redrawonplayerchange.js: tab_new removed
+
+	* legacy/scripts/ui/backgroundscripts/tabnewcheaphacklistener.js: tab_new removed
+
+	* legacy/scripts/ui/state.js: tab_new removed
+
+	* legacy/scripts/ui/tab_games.js: tab_new removed
+
+	* legacy/scripts/ui/test/tab.js: tab_new removed
+
+	* core/scripts/orderlistmodel.js: orderlistmodel can convert a displayorder into a listmodel instance
+	this is useful for views, which don't want to redraw everything
+	enforceorder(): order of operation changed to reflect the order itself. this is a compromise, we still need to investigate further.
+
+	* core/scripts/test/orderlistmodel.js: testing orderlistmodel
+
+	* core/templates/newtab.html: classes adapted to match that of a team table
+
+	* legacy/scripts/ui/statemodel.js: tournamentlistmodel added to the state
+
+	* legacy/scripts/ui/teamview.js: teamview.bindteamlist creates a subclass, which takes indices of a model instead of teammodel instances
+	this enables the use of orderlistmodels and similar constructs
+
+	* legacy/scripts/ui/newtab.js: using systemlistview
+
+	* legacy/scripts/ui/systemlistview.js: systemlistview: a single view for the subtournament system list
+	using systemtablerowview instead of the more generic teamview to display single team rows
+
+	* legacy/scripts/ui/options.js: circular dependency between tournamentmodel and statemodel fixed
+
+	* legacy/scripts/ui/systemtablerowview.js: display a row inside the system table
+
+2015-07-11	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/rankingorderview.html: rankingorderview html code added
+
+	* test/rankingorderview.html: rankingorderview test page added
+	rankingorderview initialization uncommented
+	using uniquelistmodels to enforce unique selections
+	list of available components extended
+
+	* legacy/style/rankingorderview.css: rankingorderview style added
+	min-width for component lists set to 10em
+
+	* tools/create-ui-class.sh: script to create a new ui class, which excludes test scripts for now
+
+	* legacy/scripts/ui/rankingcomponentview.js: a view that displays information about a single ranking component selection element
+	the $view is required to be an 'option' html element.
+
+	* legacy/scripts/ui/rankingordercontroller.js: placeholder class added
+	rankingordercontroller implemented to support appending/removing components and manually sorting them
+	selecting the availablelist contents on moveright
+	auto-highlighting left-moved component
+
+	* legacy/scripts/ui/rankingorderview.js: currently fills both lists with information.
+	the $somethinglist fields are used by the controller, so i made them into fields for direct access.
+	hiding already selected components from the "available"-list
+	more restrictive selection of the $template, using the .template-class
+
+	* legacy/scripts/ui/strings.js: readable ranking names added
+	ranking_matches -> ranking_numgames
+
+2015-07-07	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/binarytreemodel.js: moved from binarytreenode.js
+
+	* legacy/scripts/ui/binarytreenode.js: moved to binarytreemodel.js
+
+	* legacy/scripts/ui/test/binarytreemodel.js: moved from binarytreenode.js
+
+	* legacy/scripts/ui/test/binarytreenode.js: moved to binarytreemodel.js
+
+2015-07-06	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/test/treenode.js: treenode tests added
+
+	* legacy/scripts/ui/treenode.js: generic treenode implemented
+
+	* legacy/scripts/ui/binarytreenode.js: binary tree nodes added
+	binarytreenode is an indexedmodel subclass (rename imminent!)
+	createchildren() removed
+	special cases for root and subroot added
+
+	* legacy/scripts/ui/test/binarytreenode.js: testing binarytreenode
+
+2015-06-27	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/rankingtac.js: tac ranking: correct() test
+
+2015-06-26	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/matchreferencelistmodel.js: using a referencemodel parameter to become a general referencelistmodel
+	moved to referencelistmodel.js
+
+	* core/scripts/test/matchreferencelistmodel.js: testing the referencemodel parameter
+
+	* core/scripts/referencelistmodel.js: moved from matchreferencelistmodel.js
+
+	* core/scripts/test/referencelistmodel.js: testing referencelistmodel, using matchreferencemodel for convenience
+
+	* core/scripts/tournamentmodel.js: using referencelistmodel for getmatches, gethistory and getcorrections
+	correct() takes resultreferencemodel
+	getcorrections() added
+
+	* core/scripts/correctionreferencemodel.js: a "referencemodel" for correctionmodel instances
+
+	* core/scripts/test/correctionreferencemodel.js: testing correctionreferencemodel construction
+	testing teams and scores
+	testing id and group
+
+	* core/scripts/test/tournamentmodel.js: testing tournament history
+
+	* core/scripts/rankinglostpointslistener.js: accidentally applied the corrected result twice or more
+
+	* core/scripts/rankingmodel.js: typo corrected (result -> correction)
+
+	* core/scripts/rankingpointslistener.js: correction was applied inversely
+
+	* core/scripts/rankingwinslistener.js: jdoc comments added
+
+	* core/scripts/test/rankingmodel.js: rudimentary correct() test added. it works. yeah.
+
+	* core/scripts/test/rankingheadtohead.js: todo comment added
+
+	* core/scripts/test/rankingsonneborn.js: testing correct() function
+
+2015-06-25	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/matchresult.js: testing matchresult instantiation from another matchresult
+
+	* core/scripts/tournamentmodel.js: correct() function finished so far. only a list of corrections is missing.
+	tournamentmodel.corrections added
+	save/restore corrections
+	push new corrections to correction list
+	correction-related function profiles changed to use correctionmodel instances
+
+	* core/scripts/correctionmodel.js: correctionmodel added
+
+	* core/scripts/test/correctionmodel.js: testing the correctionmodel
+
+	* core/scripts/resultreferencemodel.js: referencemodel for matchresults
+
+	* core/scripts/test/resultreferencemodel.js: testing resultreferencemodel
+
+2015-06-21	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/matchmodel.js: matchresult has to be loaded on demand to avoid circular dependencies between matchmodel and matchresult
+
+	* core/scripts/matchresult.js: re-implemented as a matchmodel subclass
+	this avoids code duplication between matchmodel and matchresult
+	default constructor threw propertyerrors
+
+	* core/scripts/tournamentmodel.js: onfinish(): reading matchmodel instance from the event emitter
+	instead of using a secondary reference
+	onfinish(): emitter != match. the match can be read from the collector source
+	forgot to require the matchresult constructor
+
+	* core/scripts/test/matchresult.js: matchresult tests adjusted
+
+	* core/scripts/test/rankingdatalistenerindex.js: matchresult constructor calls updated
+
+	* core/scripts/test/rankingheadtohead.js: matchresult constructor calls updated
+
+	* core/scripts/test/rankingmapper.js: matchresult constructor calls updated
+
+	* core/scripts/test/rankingmodel.js: matchresult constructor calls updated
+
+	* core/scripts/test/rankingsonneborn.js: matchresult constructor calls updated
+
+	* core/scripts/test/rankingtac.js: matchresult constructor calls updated
+
+2015-06-18	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/tournamentmodel.js: testing getid and setid
+	testing save/restore of the id
+
+	* core/scripts/tournamentmodel.js: tournamentmodel implements the indexedmodel interface (hardcore)
+	first steps toward a general correct() function
+
+	* core/scripts/matchresult.js: default constructor ("empty constructor") added
+	save/restore added
+	equals() added for result comparison
+
+	* core/scripts/test/matchresult.js: testing save/restore and the default constructor
+	testing the equals() function
+
+2015-06-13	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/matchview.js: matchview first draft added
+	teamlist support extended and debugged
+	binding a matchcontroller
+
+	* legacy/scripts/ui/listview.js: initializing listview with existing values
+
+	* test/matchview.html: matchview tests added
+	matchcontroller tests added
+
+	* legacy/scripts/ui/matchcontroller.js: matchcontroller added for finishing matches and validating points
+
+2015-05-25	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/indexedlistmodel.js: clear() triggered a typeerror exception
+	avoiding this exception by checking the input values
+
+	* core/scripts/test/indexedlistmodel.js: testing list.clear() to avoid typeerror exceptions
+
+	* test/*.html: header: boules -> tuvero
+
+	* legacy/scripts/ui/rankingview.js: rankingview added
+
+	* test/rankingview.html: rankingview test added
+
+2015-05-24	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/vectormodel.js: using rle encoding/decoding for save()/restore()
+	testing leading and trailing undefined values
+	setting undefined to 0 for calculations and output
+
+	* core/scripts/listmodel.js: compensating for undefined values
+
+	* core/scripts/rle.js: forcing the insertion of undefined values
+
+	* core/scripts/test/rle.js: testing undefined values
+
+	* core/scripts/tournamentindex.js: tournamentindex object added
+	tournamentmodel removed (unnecessary)
+	roundtournamentmodel added
+
+	* core/scripts/matrixmodel.js: restore() and saveformat bugs fixed
+
+	* core/scripts/model.js: error output improved
+
+	* core/scripts/roundtournamentmodel.js: roundtournamentmodel added for round tournaments
+	it uses the slide system
+
+	* core/scripts/test/roundtournamentmodel.js: testing roundtournamentmodel
+
+	* core/scripts/test/tournamentindex.js: testing tournamentindex for defined systems
+
+2015-05-23	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingmodel.js: forgot to move variable allocation to extracted init() function
+
+	* core/scripts/model.js: "this" output error fixed:
+	forgot to set "this" properly, so it always showed "window"
+
+	* core/scripts/matchmodel.js: allowing empty constructions
+	'update' event was disabled by mistake. is only thrown on construction
+
+	* core/scripts/test/matchmodel.js: tests use proper listeners
+	missing variables added
+	testing empty constructions
+
+	* core/scripts/statevaluemodel.js: forcestate() added
+
+	* core/scripts/test/statevaluemodel.js: forcestate() tested
+
+	* core/scripts/test/tournamentmodel.js: save() added
+	restore() added
+
+	* core/scripts/tournamentmodel.js: save() tested
+	restore() tested
+	using listmodel.save/restore()
+	comments added
+
+	* core/scripts/listmodel.js: save()/restore() added
+	saveformat added
+
+	* core/scripts/test/listmodel.js: save()/restore() added
+
+	* legacy/scripts/ui/listcollectormodel.js: comments added
+
+	* core/scripts/rle.js: run length encoding/decoding of one- or multidimensional arrays
+
+	* core/scripts/test/rle.js: testing run length encoding/decoding
+
+2015-05-17	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingtaclistener.js: accepting byes
+
+	* core/scripts/test/rankingtac.js: testing bye()
+
+	* core/scripts/rankingdatalistener.js: destroy() deletes ranking containers (e.g. ranking.points)
+
+	* core/scripts/rankingmodel.js: reset() resets everything to a blank state
+	component and listener creation extracted into init()
+	restore() now works properly
+
+	* core/scripts/rankinglostpointslistener.js: onbye() added
+
+	* core/scripts/rankingnumgameslistener.js: onbye() added
+
+	* core/scripts/rankingpointslistener.js: onbye() added
+
+	* core/scripts/rankingwinslistener.js: onbye() added
+
+	* core/scripts/rankingwinsmatrixlistener.js: comments updated
+
+	* core/scripts/test/rankingmodel.js: testing bye(), resize() and reset()
+	testing restore()
+
+2015-05-10	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingdatalistener.js: isprimary() added
+	isprimary detects whether a datalistener is supposed to be serialized for storage
+	onresize: verify that we're not dealing with a readonly object, e.g. a reference matrix
+
+	* core/scripts/test/matrixmodel.js: debugging output removed
+
+	* core/scripts/test/rankingheadtohead.js: isprimary test (is not even a data listener)
+
+	* core/scripts/test/rankingmodel.js: isprimary tests
+	rankingmodel() empty constructor tests adjusted
+	testing empty constructors and extra dependencies
+
+	* core/scripts/test/rankingtac.js: isprimary test
+
+	* core/scripts/rankingmodel.js: empty calls to rankingmodel() are now allowed
+	they allow for the deserialization into an empty rankingmodel instance
+	get(): return empty ranking data for an empty rankingmodel instance
+
+2015-05-09	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/test/type.js: testing new type.is() capabilities
+
+	* core/scripts/type.js: type.is() accepts array, date, function etc. as second argument, not only strings
+
+	* core/scripts/test/vectormodel.js: testing save() and restore()
+
+	* core/scripts/vectormodel.js: save() and restore() added
+
+	* core/scripts/valuemodel.js: comment against save()/restore() added
+
+	* core/scripts/propertymodel.js: restricting the valid data types of values
+	save() and restore() added
+
+	* core/scripts/test/propertymodel.js: testing the new type restrictions
+	save() and restore() tested
+
+	* core/scripts/model.js: restore() type validation: multidimensional arrays enabled
+
+	* core/scripts/matrixmodel.js: unoptimized save()/restore() added
+
+	* core/scripts/test/matrixmodel.js: testing save()/restore()
+
+	* core/scripts/rankingdatalistenerindex.js: comments added
+
+	* core/scripts/rankingheadtoheadcomponent.js: debug logs removed
+
+	* core/scripts/rankingmodel.js: function order changed
+	remembering the datalisteners as an object
+	saveformat added
+
+2015-05-02	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/matchmodel.js: save() and restore() added
+
+	* core/scripts/test/matchmodel.js: save() and restore() tested
+
+	* legacy/scripts/ui/options.js: critical error fixed where new options are overwritten during updates
+
+2015-05-01	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/model.js: save() and restore() added
+
+	* core/scripts/test/model.js: testing save() and restore()
+
+	* core/scripts/indexedmodel.js: save() and restore() added
+
+	* core/scripts/test/indexedmodel.js: save() and restore() tested
+
+2015-04-27	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingmapper.js: mapping the results of rankingmodel.get() according to a list of team ids
+
+	* core/scripts/test/rankingmapper.js: testing rankingmapper
+
+	* core/scripts/tournamentmodel.js: getranking() added
+	using rankingmapper for getranking()
+	rankingmapper module loaded
+
+	* core/scripts/test/tournamentmodel.js: getranking() tests added
+
+2015-04-26	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/indexedlistmodel.js: using listupdatelistener instead of self-listening emitters
+
+	* core/scripts/listmodel.js: using listupdatelistener instead of self-listening emitters
+
+	* core/scripts/listupdatelistener.js: perform a function whenever a list element is inserted/removed
+
+	* core/scripts/test/listupdatelistener.js: placeholder for when i'm awake again
+	i'm awake again. tests have been added
+
+	* core/scripts/listener.js: missing 'this' added to a foreach-call
+	this fixes a critical memory leak
+	listener.bind() added
+
+	* core/scripts/test/listener.js: testing listener.destroy()
+	testing listener.bind()
+
+	* test/scripts/test.js: test modules are now in alphabetic order
+
+	* tools/create-testjs.sh: sorting test modules by alphabetic order
+
+	* core/scripts/matchreferencelistmodel.js: list, which re-maps team ids of a match
+	redundant function parameter removed
+
+	* core/scripts/test/matchreferencelistmodel.js: testing matchreferencelistmodel
+
+	* core/scripts/tournamentmodel.js: using matchreferencelistmodel for getmatches()
+	getstate() function added
+	no matches and still 'running' -> transition to 'idle' state
+	votes added
+	votetypes -> votes
+	getstate() returns a bound valuemodel instance
+	abstract functions added
+	initbyelistener added for convenience
+	run() and finish() added as public api functions
+	dummy functionality for initialmatches() and idlematches() to allow for testing
+	missing modules and module order fixed
+	'update' event re-added (required by propertymodel)
+	state.get() and state.set() mess fixed
+	this.teams.insert(teamid) corrected to this.teams.push(teamid)
+	using correct matchresult fields
+	initialmatches: confirming the number of teams
+	idlematches: different teams than initialmatches
+
+	* core/scripts/maplistmodel.js: map indices to list elements
+
+	* core/scripts/test/maplistmodel.js: testing maplistmodel
+
+	* tools/create-core-class.sh: creating test script, too
+
+	* core/scripts/rankingdatalistener.js: onbye() function added
+
+	* core/scripts/rankingmodel.js: bye() function added
+
+	* boule/scripts/options.js: minpoints added
+
+	* tac/scripts/options.js: minpoints added
+
+	* test/scripts/options.js: minpoints added
+
+	* core/scripts/test/tournamentmodel.js: tournamentmodel tests added
+
+	* legacy/scripts/ui/listcollectormodel.js: comments added
+
+2015-04-25	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: initializing rankingmodel on construction
+	resizing rankingmodel during addteam()
+	addteam(): respecting 'addteamrunning' and 'addteamidle' properties
+
+	* core/scripts/listmodel.js: makereadonly() function added
+
+	* core/scripts/test/listmodel.js: testing makereadonly()
+
+2015-04-24	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: getgames jsdoc comment added
+	tournament.votes + tournament.history added
+	todo added
+	using listcollectormodel to retrieve all results during match.finish() calls
+	getgames -> getmatches
+	validatematchresult added
+	postprocessmatch added
+
+	* core/scripts/matchmodel.js: gameresult -> matchresult
+	this.finished removed. this is for the tournament to decide. it should have been a valuemodel instance anyway
+
+	* core/scripts/matchresult.js: matchresult() accepts a matchmodel instance instead of a team list, too
+	this.match is a reference to the match, if available
+
+	* core/scripts/test/matchmodel.js: gamemodel -> matchmodel
+	a game can be finished multiple times, if necessary
+	reference value updated to contain the this.match reference
+
+	* core/scripts/test/matchresult.js: matchresult tests added
+
+	* legacy/scripts/ui/listcollectormodel.js: source field todo added
+
+2015-04-19	erik e. lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: debug logging removed
 
 	* core/templates: templates added
 
 	* boule/scripts/strings.js: variant-specific strings file
-	version removed (DRY principle)
+	version removed (dry principle)
 	teamsicon added
 
 	* tools/rebuild-from-template.sh: template resolving script added
 	stripping whitespaces from end the of a line
-	%version% is read from the Version file
+	%version% is read from the version file
 	renamed to index-from-template.sh
 
 	* boule/index.html: rebuilt from template
 	rebuilt from template, again
 	'tabimgopts' removed - we're explicitly assigning now
 
-	* legacy/scripts/ui/tab_games.js: reading min/max input values from Options
+	* legacy/scripts/ui/tab_games.js: reading min/max input values from options
 
-	* legacy/scripts/ui/tab_history.js: reading min/max input values from Options
+	* legacy/scripts/ui/tab_history.js: reading min/max input values from options
 
-	* core/templates/gamestab.html: DOM: min/max attributes removed in favor of Options
+	* core/templates/gamestab.html: dom: min/max attributes removed in favor of options
 
-	* core/templates/historytab.html: DOM: min/max attributes removed in favor of Options
+	* core/templates/historytab.html: dom: min/max attributes removed in favor of options
 	deleted input field restored
 	html formatting
 
-	* Makefile: `make boule/index.html` auto-builds from template
+	* makefile: `make boule/index.html` auto-builds from template
 	`make tac/index.html` added
 	`make update` also runs `make template`
 	`make template`: `make boule/index.html` + `make tac/index.html
@@ -52,17 +2356,17 @@
 
 	* core/templates/abouttab.html: importing {{extralinks}}
 
-	* core/templates/extralinks.html: empty. Supposed to contain extra links for the about tab
+	* core/templates/extralinks.html: empty. supposed to contain extra links for the about tab
 
 	* core/templates/newtab.html: importing {{newtabtodo}}
 	html formatting
 
-	* core/templates/newtabtodo.html: list of todo items, which are displayed in Tab_New
+	* core/templates/newtabtodo.html: list of todo items, which are displayed in tab_new
 
 	* core/templates/teamsizeview.html: separate teamsizeview.
-	can be overridden to disable teamsizeview. Not ideal, but it works. Must use options instead
+	can be overridden to disable teamsizeview. not ideal, but it works. must use options instead
 
-	* tac/templates/: TAC-specific templates
+	* tac/templates/: tac-specific templates
 
 	* tac/index.html: auto-built from templates
 
@@ -70,11 +2374,11 @@
 
 	* tools/build.sh: removing template folder and strings file
 
-2015-04-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-04-15	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: handling both utf-8 and latin-1 as possible encodings
 
-2015-04-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-04-11	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: noscript messages added to splash screen
 
@@ -94,30 +2398,30 @@
 
 	* boule/scripts/options.js: logic moved to ui/options
 
-	* legacy/scripts/ui/options.js: central Options object. (don't repeat yourself!)
-	Don't require 'ui/options', load 'options' instead.
-	This Options object does not remove unused keys when reading from blob to allow for the insertion of new keys
+	* legacy/scripts/ui/options.js: central options object. (don't repeat yourself!)
+	don't require 'ui/options', load 'options' instead.
+	this options object does not remove unused keys when reading from blob to allow for the insertion of new keys
 
 	* tac/scripts/options.js: logic moved to ui/options
 	bye is counted as 8:6
 
 	* test/scripts/options.js: logic moved to ui/options
 
-2015-03-29	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-29	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* legacy/scripts/backend/kotournament.js: critical matchSet cadrage error fixed
-	initial (pre-shuffle) order was matchOrder, not linear, leaving single holes in the ranking
+	* legacy/scripts/backend/kotournament.js: critical matchset cadrage error fixed
+	initial (pre-shuffle) order was matchorder, not linear, leaving single holes in the ranking
 
-	* legacy/scripts/ui/tab_history.js: KOTree boxheight bug fixed:
+	* legacy/scripts/ui/tab_history.js: kotree boxheight bug fixed:
 	when the last game was a bye, the box wasn't high enough
 
 	* core/style/table.css: printing spaces every 4 entries (instead of alternating grey background)
 	print: colors removed (= white)
-	print: NOT using white anymore, but "transparent"
+	print: not using white anymore, but "transparent"
 
 	* boule/index.html: unnecessary line break removed in #ranking
 	start page rearranged
-	"Why Chrome?"-text updated
+	"why chrome?"-text updated
 	"delete tournament" button renamed
 
 	* core/style/boxview.css: print: header margins removed
@@ -125,22 +2429,22 @@
 	* legacy/style/general.css: print: page paddings removed
 	print: hiding editable-indicator during hover
 
-	* legacy/scripts/ui/backgroundscripts/online.js: "Offline!"-confirmation removed when using local files while offline
+	* legacy/scripts/ui/backgroundscripts/online.js: "offline!"-confirmation removed when using local files while offline
 
 	* tac/index.html: start page rearranged
-	"Why Chrome?"-text updated
+	"why chrome?"-text updated
 	"delete tournament" button renamed
 
 	* legacy/style/teams.css: hiding hover-cursor during printing
 
-2015-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-25	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tab_history.js: correction logic: gamestable check was inverted by accident
 	additional error output when unable to find the to be corrected game
 	correction for games table re-enabled
 	storing the tournamentid of kotree tournaments
-	determining the tournament system from the DOM. This is bad, but until the MVC rewrite, it works
-	This bad code enables corrections from the KO tree
+	determining the tournament system from the dom. this is bad, but until the mvc rewrite, it works
+	this bad code enables corrections from the ko tree
 
 	* boule/index.html: kotree correction class (.correct) added
 	kotree: showing hover indicator .editable
@@ -156,38 +2460,38 @@
 	* legacy/style/splash.css: less resource-intensive splash transitions
 	splash screen slides to the left, tabs fade in from behind
 
-	* legacy/scripts/backend/kotournament.js: restoring savestate compatibility for KOTournament
-	This fixes the critical issue #99
+	* legacy/scripts/backend/kotournament.js: restoring savestate compatibility for kotournament
+	this fixes the critical issue #99
 
-2015-03-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-22	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/players.js: accepting an empty blob as valid input
 
-	* legacy/scripts/ui/storage.js: calling fromBlob() with an empty blob to force e.g. visibility updates
+	* legacy/scripts/ui/storage.js: calling fromblob() with an empty blob to force e.g. visibility updates
 
-	* legacy/scripts/ui/statemodel.js: State.numTournaments added as a temporary measure
+	* legacy/scripts/ui/statemodel.js: state.numtournaments added as a temporary measure
 
-	* legacy/scripts/ui/tab_new.js: updating State.numTournaments from Tournaments.numTournaments
-	Explanation: This enables us to hide player registration fields after the first tournament started
+	* legacy/scripts/ui/tab_new.js: updating state.numtournaments from tournaments.numtournaments
+	explanation: this enables us to hide player registration fields after the first tournament started
 
-	* legacy/scripts/ui/teamstab.js: ClassView for the 'noreg' class, which hides player registration and removal fields
+	* legacy/scripts/ui/teamstab.js: classview for the 'noreg' class, which hides player registration and removal fields
 
 	* legacy/style/teams.css: .noreg logic
 
 	* core/scripts/rankingtaclistener.js: using our own sign() function
-	Math.sign() is an experimental feature of ECMAScript 6. Tuvero is based on ECMAScript 5.
+	math.sign() is an experimental feature of ecmascript 6. tuvero is based on ecmascript 5.
 
 	* legacy/scripts/backend/kotournament.js: roundids added to show which "loser round" a player belongs to
 	round = bestplace/2, as played in separate ko trees (currently not rendered)
 	a lot of annoying debugging output added
 	games for loser rounds are added
-	copying the roundid into every new Game(). This is a hack.
+	copying the roundid into every new game(). this is a hack.
 	some of the annoying debugging output removed
-	getRanking() shows the best possible places for each player (github issue #3)
+	getranking() shows the best possible places for each player (github issue #3)
 	second places are handled properly
 
 	* legacy/scripts/ui/tab_history.js: only showing the winner round (roundid == 0)
-	kotree: only showing round-0-games from History (fixes width issues)
+	kotree: only showing round-0-games from history (fixes width issues)
 	showing the game for third place (currently without label) in all possible states
 	showing gamebox label for games for first and third places
 
@@ -201,9 +2505,11 @@
 
 	* tac/index.html: kotree gamebox label added
 
-	* legacy/scripts/ui/backgroundscripts/reset.js: "Reset"-button references the correct tab again
+	* legacy/scripts/ui/backgroundscripts/reset.js: "reset"-button references the correct tab again
 
-2015-03-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+	* core/scripts/tournamentmodel.js: first version of tournamentmodel committed
+
+2015-03-17	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/index.html: tournament mode preview shortened
 
@@ -212,7 +2518,7 @@
 
 	* index.html: tuvero archive link added
 
-2015-03-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-15	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/listmodel.js: erase() added
 	return value for insert() added (undefined on failure)
@@ -221,9 +2527,9 @@
 
 	* core/scripts/test/listmodel.js: testing erase()
 
-	* core/scripts/test/uniquelistmodel.js: testing UniqueListModel
+	* core/scripts/test/uniquelistmodel.js: testing uniquelistmodel
 
-	* core/scripts/uniquelistmodel.js: UniqueListModel, in which every object can only be contained once
+	* core/scripts/uniquelistmodel.js: uniquelistmodel, in which every object can only be contained once
 
 	* core/scripts/emitter.js: mixin pattern construction enabled
 
@@ -231,7 +2537,7 @@
 
 	* core/scripts/test/emitter.js: testing mixin pattern construction validity
 
-	* core/scripts/test/test.js: testing Type, Type.is and Type.isType
+	* core/scripts/test/test.js: testing type, type.is and type.istype
 
 	* core/scripts/type.js: moved from legacy
 
@@ -241,15 +2547,15 @@
 
 	* core/scripts/test/selectionvaluemodel.js: set() return value tests
 
-	* core/scripts/statevaluemodel.js: Model for states and state transitions
+	* core/scripts/statevaluemodel.js: model for states and state transitions
 
-	* core/scripts/test/statevaluemodel.js: Model for states and state transitions
+	* core/scripts/test/statevaluemodel.js: model for states and state transitions
 
-	* core/scripts/readonlylistmodel.js: bind to an existing list and provide the read-only API functions and events
+	* core/scripts/readonlylistmodel.js: bind to an existing list and provide the read-only api functions and events
 
-	* core/scripts/test/readonlylistmodel.js: testing ReadonlyListModel
+	* core/scripts/test/readonlylistmodel.js: testing readonlylistmodel
 
-2015-03-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-14	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/fontsize.css: using the pre-defined font size as the base font size
 
@@ -265,42 +2571,42 @@
 	finish() and emit("finish") added
 	cannot finish a game twice
 
-	* core/scripts/test/gamemodel.js: GameModel tests added
+	* core/scripts/test/gamemodel.js: gamemodel tests added
 	testing finish(0 and the "finish" event
 	testing whether a game really cannot be finished twice
 
 	* core/scripts/gamereferencemodel.js: game reference with team id mapping
 	forwarding finish() and onfinish()
-	unregistering during onfinish(). The current API disallows any event after 'finish'
+	unregistering during onfinish(). the current api disallows any event after 'finish'
 
-	* core/scripts/test/gamereferencemodel.js: testing GameReferenceModel
+	* core/scripts/test/gamereferencemodel.js: testing gamereferencemodel
 	testing finish() and the 'finish' events
 
 	* core/scripts/gameresult.js: players -> teams
 	points -> score
 
-	* core/scripts/ranking*.js: GameResult variables updated
+	* core/scripts/ranking*.js: gameresult variables updated
 
-	* core/scripts/rankingmodel.js: long-closed TODOs removed
+	* core/scripts/rankingmodel.js: long-closed todos removed
 
-	* core/scripts/emitter.js: emit+unregisterListener bug fixed:
-	calling unregisterListener from an event callback caused listeners to be skipped
+	* core/scripts/emitter.js: emit+unregisterlistener bug fixed:
+	calling unregisterlistener from an event callback caused listeners to be skipped
 
-	* core/scripts/test/emitter.js: test case for emit+unregisterListener bug
+	* core/scripts/test/emitter.js: test case for emit+unregisterlistener bug
 
-	* core/scripts/propertymodel.js: PropertyModel added: store/retrieve values from keys
+	* core/scripts/propertymodel.js: propertymodel added: store/retrieve values from keys
 	emits update events when a value is changed or set
 
-	* core/scripts/test/propertymodel.js: PropertyModel unit test
+	* core/scripts/test/propertymodel.js: propertymodel unit test
 
-2015-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-09	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/tabshandle.js: compatible with unittest.html
 	dummy functions reduced to throw more errors where appropriate
 
 	* core/scripts/test/valuemodel.js: testing bind()
 
-	* core/scripts/valuemodel.js: bind(): construction-time validation of bind-compatible ValueModel
+	* core/scripts/valuemodel.js: bind(): construction-time validation of bind-compatible valuemodel
 
 	* core/scripts/view.js: throwing an error if $view is not defined/unavailable
 	also printing the selector when throwing the error
@@ -312,7 +2618,7 @@
 
 	* legacy/scripts/ui/tab_history.js: fixed a bug where a swiss starting with not-first player breaks the tab by iterating over the correct array
 
-	* legacy/scripts/ui/tab_new.js: every swiss bye vote was part of the FIRST TOURNAMENT!!!
+	* legacy/scripts/ui/tab_new.js: every swiss bye vote was part of the first tournament!!!
 
 	* index.html: periodically check for updates of the main page
 	not checking for updates if the browser is offline
@@ -322,51 +2628,51 @@
 
 	* tac/scripts/options.js: teamsizeicon option disabled
 
-	* legacy/scripts/ui/tab_debug.js: Devtools back online:
-	finishRound() finally finished more than one game
-	playTournament() abort if there's not enough players
+	* legacy/scripts/ui/tab_debug.js: devtools back online:
+	finishround() finally finished more than one game
+	playtournament() abort if there's not enough players
 	general cleanup of the file (autoformatter and stuff)
 
 	* doc/doc_de/*.md: basic code documentation added
 
-2015-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-08	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* Version: Starting work on 1.4.6
+	* version: starting work on 1.4.6
 
-	* NEWS: Starting work on 1.4.6
+	* news: starting work on 1.4.6
 
 	* tools/create-core-class.sh: unbounded variable bug ($2 with <2 arguments) fixed
 	reading constructor arguments from superconstructor
 
-	* core/scripts/selectionvaluemodel.js: ValueModel, which is restricted to a list of allowed values
+	* core/scripts/selectionvaluemodel.js: valuemodel, which is restricted to a list of allowed values
 
-	* core/scripts/test/selectionvaluemodel.js: testing SelectionValueModel
+	* core/scripts/test/selectionvaluemodel.js: testing selectionvaluemodel
 
 	* core/scripts/valuemodel.js: constructor: calling its own set() function
-	bind() added to mirror another ValueModel instances value
+	bind() added to mirror another valuemodel instances value
 	bind(): reference fixed (forgot a prototype reference)
 
-	* core/scripts/tabmenucontroller.js: empty TabMenuController added
-	following location.hash, nothing more. No button magic or anything
+	* core/scripts/tabmenucontroller.js: empty tabmenucontroller added
+	following location.hash, nothing more. no button magic or anything
 	follow location.hash on startup
 	follow location.hash when it becomes accessible
-	focus() added. It just performs an automated hashchange
+	focus() added. it just performs an automated hashchange
 
 	* core/scripts/tabmenuview.js: initialization logic of the new tab system written
 	update/validation logic written: only open valid tabs
-	using SelectionValueModel for a list of available (visible) tabs
-	SelectionValueModel pre-filters whether a tab should be visible
+	using selectionvaluemodel for a list of available (visible) tabs
+	selectionvaluemodel pre-filters whether a tab should be visible
 	$tabs and $tabicons are objects for keyed access, as opposed to indexed access
 	class construction implicitly and deliberately calls onupdate() to show the first tab
 	forgot to remove the 'open' class from previously open menu icons
-	TabMenuView does not work with ids anymore, but uses data-id instead to avoid auto-scrolling
+	tabmenuview does not work with ids anymore, but uses data-id instead to avoid auto-scrolling
 	accesskey support added
 	not using a timeout for the update, because it was a dumb idea
 	hiding specially marked tabs (.hiddentab)
-	instantiating a TabModel for each tab, which can be retrieved using getTabModel()
-	using TabModel to listen for tab availability changes and image parameters
-	using TabImageView to set the data-img attribute
-	focus() added. It delegates to the controller.
+	instantiating a tabmodel for each tab, which can be retrieved using gettabmodel()
+	using tabmodel to listen for tab availability changes and image parameters
+	using tabimageview to set the data-img attribute
+	focus() added. it delegates to the controller.
 
 	* core/style/mainstyle.css: tab.css removed; tab*view.css added
 
@@ -375,7 +2681,7 @@
 	* core/style/tabview.css: style of the tabs themselves
 
 	* legacy/scripts/ui/tabshandle.js: disabled
-	rewritten to be a wrapper for the TabMenuView
+	rewritten to be a wrapper for the tabmenuview
 	aborting when this is a test page ($(#testmain).length !== 0)
 
 	* legacy/style/tabs.css: removed, replaced by tabmenuview.css and tabview.css
@@ -383,41 +2689,41 @@
 	* test/tabmenuview.html: tab test page
 	using data-id instead of id to avoid auto-scrolling
 	some accesskeys added
-	cycling through the teams imgParam
-	alternating the HTML5_Logo_128 visibility/accessibility
+	cycling through the teams imgparam
+	alternating the html5_logo_128 visibility/accessibility
 	disabling the debug tab visibility
 	disabling the deleteteam tab accessibility
 	descriptive text added
 	focus() test added (goto form on the #home page)
-	scripts tags moved inside the body (for IE)
+	scripts tags moved inside the body (for ie)
 
-	* Makefile: `make update` also updates the test index
+	* makefile: `make update` also updates the test index
 
 	* core/scripts/classview.js: moved from legacy to core
 
-	* core/scripts/listexclusionlistener.js: TODO: rename
-	When the trigger (a ValueModel) is true, the value added to the list
-	When the trigger is false, the value is removed from the list
+	* core/scripts/listexclusionlistener.js: todo: rename
+	when the trigger (a valuemodel) is true, the value added to the list
+	when the trigger is false, the value is removed from the list
 
-	* core/scripts/tabimageview.js: listen for imgParam changes and set the tab icon image
+	* core/scripts/tabimageview.js: listen for imgparam changes and set the tab icon image
 
 	* core/scripts/tabmodel.js: a struct which defines the tab state
 
-	* legacy/scripts/ui/classview.js: ClassView moved to core
+	* legacy/scripts/ui/classview.js: classview moved to core
 
-	* legacy/scripts/ui/teamremovecontroller.js: ClassView moved to core
+	* legacy/scripts/ui/teamremovecontroller.js: classview moved to core
 
-	* legacy/scripts/ui/teamstab.js: ClassView moved to core
+	* legacy/scripts/ui/teamstab.js: classview moved to core
 
 	* boule/index.html: new tabmenu structure adapted (id -> data-tab)
 
-	* core/scripts/main.js: Tabshandle.valid() disabled (unnecessary)
+	* core/scripts/main.js: tabshandle.valid() disabled (unnecessary)
 
 	* legacy/scripts/ui/autocomplete.js: $('id') -> data-tab
 
 	* legacy/scripts/ui/backgroundscripts/load.js: $('id') -> data-tab
 
-	* legacy/scripts/ui/state.js: Tabshandle.updateOpts() disabled
+	* legacy/scripts/ui/state.js: tabshandle.updateopts() disabled
 	$('id') -> data-tab
 
 	* legacy/scripts/ui/tab_debug.js: $('id') -> data-tab
@@ -425,17 +2731,17 @@
 	* legacy/scripts/ui/tab_games.js: $('id') -> data-tab
 
 	* legacy/scripts/ui/tab_history.js: $('id') -> data-tab
-	"visualupdate" KOTree rendering became unnecessary a long time ago
+	"visualupdate" kotree rendering became unnecessary a long time ago
 
 	* legacy/scripts/ui/tab_new.js: $('id') -> data-tab
 
-	* legacy/scripts/ui/taboptslistener.js: removed in favor of TabModel
+	* legacy/scripts/ui/taboptslistener.js: removed in favor of tabmodel
 
 	* legacy/scripts/ui/tab_ranking.js: $('id') -> data-tab
 
 	* legacy/scripts/ui/tab_settings.js: $('id') -> data-tab
 
-	* legacy/scripts/ui/tabs.js: removed in favor of TabMenuView
+	* legacy/scripts/ui/tabs.js: removed in favor of tabmenuview
 
 	* legacy/style/about.css: new tabmenu structure adapted (id -> data-tab)
 
@@ -465,23 +2771,23 @@
 
 	* tac/index.html: new tabmenu structure adapted (id -> data-tab)
 
-2015-03-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-04	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/new.css: only styling the system buttons, not the floating buttons
 
 	* build-tools/: moved to tools/
 	build-tools/ references changed to tools/
 
-	* Makefile: build-tools/ references changed to tools/
+	* makefile: build-tools/ references changed to tools/
 	`make all` removed (misleading)
-	`make build` copies the index file (Welcome page)
+	`make build` copies the index file (welcome page)
 	`make clean` removed the new build/ directory
 	`make manifest` removed in favor of `make all`, in which it is used
-	./tools/Makefile functions invoked directly
+	./tools/makefile functions invoked directly
 	creating build directory where necessary
 	`make clean-shared-code` removed
 	`make clean-build-tools` -> `make clean-tools`
-	`make NEWS` moved into prepare-release.sh
+	`make news` moved into prepare-release.sh
 
 	* build-scripts/write-reference.sh: moved to tools/archive/
 
@@ -496,36 +2802,36 @@
 	* tools/build.sh: build directory changed to build/
 	using the first argument as the source directory
 	is supposed to be run inside the root directory
-	"rmdir: missing operand" warning: non-issue notification and "Done" message added
+	"rmdir: missing operand" warning: non-issue notification and "done" message added
 
 	* tools/write-manifest.sh: first argument is the target directory
 
-	* tools/Makefile: removed
+	* tools/makefile: removed
 
 	* tools/write-sprite.sh: first argument is the target directory
 
 	* tools/codestyle.sh: build path adjusted (for ignoring already-built scripts)
 
 	* tools/prepare-release.sh: build dirs and make targets updated
-	changing the NEWS date after everything is finished
-	changing the NEWS date after the build finished, but before the source files are removed
+	changing the news date after everything is finished
+	changing the news date after the build finished, but before the source files are removed
 
 	* boule/index.html: manual links disabled until we actually have a manual
 
-	* NEWS: updated from commit messages
+	* news: updated from commit messages
 	updated from github issues
 
 	* tac/index.html: manual links disabled until we actually have a manual
 
-	* doc/: removed for now. Please rewrite the documentation whenever possible
+	* doc/: removed for now. please rewrite the documentation whenever possible
 
-2015-03-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-02	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: favicon bug fixed, it actually displays now
 	"dev-release" message replaced with links
 
-	* boule/index.html: Contributors updated
-	LICENSE points to github
+	* boule/index.html: contributors updated
+	license points to github
 	compatible browsers updated
 	"all functions supported" message removed - it was wrong in unsupported browsers
 	donation text updated (webserver, domain, ...)
@@ -534,8 +2840,8 @@
 	splash icon added
 	tuvero.de link text changed
 
-	* tac/index.html: Contributors updated
-	LICENSE points to github
+	* tac/index.html: contributors updated
+	license points to github
 	compatible browsers updated
 	"all functions supported" message removed - it was wrong in unsupported browsers
 	donation text updated (webserver, domain, ...)
@@ -555,15 +2861,15 @@
 	kotree box height adjusted
 
 	* legacy/style/general.css: hiding the tab header during printing
-	Have you seen how much space it takes?
+	have you seen how much space it takes?
 
 	* legacy/style/splash.css: splash icon added with fixed height
 
-	* Makefile: `make update` updates all intermediate files
+	* makefile: `make update` updates all intermediate files
 
 	* legacy/scripts/ui/tab_settings.js: csv export: ignoring empty strings
 
-	* legacy/scripts/ui/team.js: toCSV(): not exporting if there's no team
+	* legacy/scripts/ui/team.js: tocsv(): not exporting if there's no team
 
 	* legacy/style/buttons.css: fontsize-independent button styles
 
@@ -576,10 +2882,10 @@
 
 	* core/scripts/test/rankingtac.js: testing tac ranking adjustments
 
-	* README_en.md: short readme added
+	* readme_en.md: short readme added
 	oops, forgot something
 
-	* README.md: Kurzanleitung hinzugefügt
+	* readme.md: kurzanleitung hinzugefügt
 
 	* build-tools/merge-master.sh: exec flag set
 
@@ -589,13 +2895,13 @@
 	branch name validation logic was reversed
 	`make clean-shared-code` was redundant
 
-2015-03-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-03-01	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* legacy/scripts/ui/debug.js: isDevVersion: not waiting for document load
-	isDevVersion regex corrected: The title does contain more than just a version number
+	* legacy/scripts/ui/debug.js: isdevversion: not waiting for document load
+	isdevversion regex corrected: the title does contain more than just a version number
 
 	* legacy/scripts/ui/update.js: only complaining about a missing manifest if the document is local
-	calling swapCache()
+	calling swapcache()
 
 	* core/style/general.css: table style moved to tableview.css
 
@@ -607,12 +2913,12 @@
 
 	* build-tools/write-mainstyle.sh: auto-create the main shared style file core/style/mainstyle.css
 
-	* Makefile: `make style` added to auto-create style files
+	* makefile: `make style` added to auto-create style files
 	`make manifest` added for top-level index.html manifest creation
 
 	* core/style/: most files moved to legacy/style/
 
-	* legacy/style/new.css: special CSS rules required for the systems table
+	* legacy/style/new.css: special css rules required for the systems table
 
 	* boule/index.html: additional table classes added
 	links updated (boules -> tuvero)
@@ -621,11 +2927,11 @@
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
 	#home tab cleaned up
 	#settings tab cleaned up
-	Boules -> Tuvero
+	boules -> tuvero
 	reload button removed
 
 	* legacy/scripts/ui/teamview.js: removing player names instead of hiding
-	Improves player table borders significantly
+	improves player table borders significantly
 
 	* legacy/style/history.css: general table properties moved to table.css
 
@@ -643,14 +2949,14 @@
 
 	* core/style/fontsize.css: smoother fontsize changes through css transition
 
-	* tac/index.html: manual merge of the boule/index.html changes. We need a templating system...
-	http://spiel-tac.de: TAC homepage added to the links
+	* tac/index.html: manual merge of the boule/index.html changes. we need a templating system...
+	http://spiel-tac.de: tac homepage added to the links
 	#home: load/save/reset box added
 	#settings: load/save box removed
 	#settings: hidden 1px*1px filereader for file loading (cheap hack)
 	#home tab cleaned up
 	#settings tab cleaned up
-	Boules -> Tuvero
+	boules -> tuvero
 	reload button removed
 
 	* core/images/clear.png: red crossmark icon instead of blank (see blank.png for that)
@@ -688,14 +2994,14 @@
 	* legacy/scripts/ui/tab_settings.js: autocomplete reload button removed
 	autocomplete load button delegates clicks to the hidden file input
 	jquery selectors corrected
-	boules.csv -> Options.csvfile
+	boules.csv -> options.csvfile
 
 	* build-tools/write-manifest.sh: using more restrictive paths
 	not failing when there's no script, stylesheet or image to load
 
 	* boule/scripts/options.js: savefile and csvfile fields added
 
-	* legacy/scripts/ui/backgroundscripts/save.js: boules.json -> Options.savefile
+	* legacy/scripts/ui/backgroundscripts/save.js: boules.json -> options.savefile
 
 	* legacy/style/home.css: prettier vertical-align
 
@@ -703,11 +3009,11 @@
 
 	* index.html: swapping and auto-reloading on cache update
 
-2015-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-28	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: #home added to the links to avoid history-mangling
 
-	* legacy/scripts/ui/backgroundscripts/saveOnPlayerNameChange.js: functionality moved to savestate.js
+	* legacy/scripts/ui/backgroundscripts/saveonplayernamechange.js: functionality moved to savestate.js
 
 	* legacy/scripts/ui/savestate.js: saving on player name change
 	onupdate added
@@ -749,29 +3055,29 @@
 	displaying cache-status in onlinecheck button
 
 	* legacy/scripts/ui/update.js: checking the current status before the first event fired
-	This should also display missed events
+	this should also display missed events
 
 	* build-tools/create-commonjs.sh: excluding core/main from common.js to avoid circular dependencies
 
 	* test/unittest.html: offline capability restored
 
-	* build-tools/Makefile: a build does not write and optimize the sprites anymore
+	* build-tools/makefile: a build does not write and optimize the sprites anymore
 	sprites are supposed to be tested pre-commit (and, thus, pre-build)
 
 	* build-tools/write-sprite.sh: optimizing the newly written sprite
 	pixel-comparing the old and the new sprite, replacing only when there's a change
 	final output improved
 
-	* Makefile: a build does not write and optimize the sprites anymore
+	* makefile: a build does not write and optimize the sprites anymore
 	`make sprites` added
 
-2015-02-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-27	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* core/scripts/rankingtaclistener.js: TAC ranking corrected: winner only gets saldo
+	* core/scripts/rankingtaclistener.js: tac ranking corrected: winner only gets saldo
 
-	* core/scripts/test/rankingtac.js: testing corrected TAC ranking
+	* core/scripts/test/rankingtac.js: testing corrected tac ranking
 
-	* legacy/scripts/ui/backgroundscripts/redrawOnPlayerChange.js: update tabs on player name change
+	* legacy/scripts/ui/backgroundscripts/redrawonplayerchange.js: update tabs on player name change
 
 	* tac/images/teams.png: replacement of the teams2 icon, which can no longer be displayed
 
@@ -779,20 +3085,20 @@
 
 	* legacy/scripts/ui/statemodel.js: using three players per team as the default again
 
-	* legacy/scripts/ui/teamstab.js: limiting the number of players per team to the options.js-provided values (CHEAPHACK)
+	* legacy/scripts/ui/teamstab.js: limiting the number of players per team to the options.js-provided values (cheaphack)
 
 	* tac/scripts/options.js: changing the number of names per team to 1 instead of 2
 
 	* legacy/scripts/ui/players.js: player autocompletion: author name removed
 
-2015-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-23	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
-	* build-tools/write-sprite.sh: listFiles() multi-html formatting bug fixed
+	* build-tools/write-sprite.sh: listfiles() multi-html formatting bug fixed
 
-	* Makefile: explicit `make test/index.html` added for auto-update
+	* makefile: explicit `make test/index.html` added for auto-update
 	`make all` includes `make test`
 
-	* test/*.html: testenv pattern changed to a TestMain function pattern, which also works after the optimization
+	* test/*.html: testenv pattern changed to a testmain function pattern, which also works after the optimization
 	stylesheet changed to main.css
 
 	* test/scripts/build.js: build options added
@@ -800,7 +3106,7 @@
 	* test/scripts/testenv.js: moved to testmain.js
 
 	* test/scripts/testmain.js: moved from testmain.js
-	after config and module loading, TestFunc is called directly
+	after config and module loading, testfunc is called directly
 
 	* test/style/main.css: single main stylesheet for all tests (unit and view)
 
@@ -808,117 +3114,117 @@
 
 	* test/unittest.html: stylesheet changed to style.css
 
-	* boule/index.html: Options: Development Tools section cleaned up
+	* boule/index.html: options: development tools section cleaned up
 
-	* tac/index.html: Options: Development Tools section cleaned up
+	* tac/index.html: options: development tools section cleaned up
 
 	* core/scripts/matrixmodel.js: emitting 'resize'
 	internal remove() argument
 	not calling resize() from the constructor to enable readonly-matrices
-	getAbs() removed in favor of delegated matrices
+	getabs() removed in favor of delegated matrices
 
-	* core/scripts/test/matrixmodel.js: getAbs() tests removed
+	* core/scripts/test/matrixmodel.js: getabs() tests removed
 
-	* core/scripts/delegatematrix.js: DelegateMatrix, which is a read-only reference to an actual matrix
+	* core/scripts/delegatematrix.js: delegatematrix, which is a read-only reference to an actual matrix
 	get() can modify the returned value and uses the superget() function, which links to matrix.get()
 
 	* core/scripts/test/delegatematrix.js: test construction, disabled write functions and get()
 
-	* core/scripts/absolutematrix.js: a DelegateMatrix subclass which always returns the absolute value
+	* core/scripts/absolutematrix.js: a delegatematrix subclass which always returns the absolute value
 
-	* core/scripts/positivematrix.js: a DelegateMatrix subclass which only returns positive values
+	* core/scripts/positivematrix.js: a delegatematrix subclass which only returns positive values
 
-	* core/scripts/test/absolutematrix.js: test AbsoluteMatrix.get()
+	* core/scripts/test/absolutematrix.js: test absolutematrix.get()
 
-	* core/scripts/test/positivematrix.js: test PositiveMatrix.get()
+	* core/scripts/test/positivematrix.js: test positivematrix.get()
 
-	* core/scripts/test/transposesummatrix.js: TransposeSumMatrix.get() test
+	* core/scripts/test/transposesummatrix.js: transposesummatrix.get() test
 
 	* core/scripts/transposesummatrix.js: sum of a matrix and its transpose
 
-	* core/scripts/rankingdatalistenerindex.js: RankingWinsMatrixListener added
-	Sonneborn added
-	TAC added
-	HeadToHeadMatrix added
+	* core/scripts/rankingdatalistenerindex.js: rankingwinsmatrixlistener added
+	sonneborn added
+	tac added
+	headtoheadmatrix added
 
 	* core/scripts/rankingdatalistener.js: resize new fields only if the sizes differ
 
-	* core/scripts/rankinggamematrixlistener.js: gamematrix equals TransposeSumMatrix(RankingWinsMatrixListener)
+	* core/scripts/rankinggamematrixlistener.js: gamematrix equals transposesummatrix(rankingwinsmatrixlistener)
 
-	* core/scripts/rankingwinsmatrixlistener.js: RankingWinsMatrixListener: win score for every opponent.
-	Side note: the line sum vector of this matrix is the number of wins (and draws/2, if there's a draw)
+	* core/scripts/rankingwinsmatrixlistener.js: rankingwinsmatrixlistener: win score for every opponent.
+	side note: the line sum vector of this matrix is the number of wins (and draws/2, if there's a draw)
 
-	* core/scripts/rankingcomponentindex.js: Sonneborn added
-	TAC added
-	HeadToHead added
+	* core/scripts/rankingcomponentindex.js: sonneborn added
+	tac added
+	headtohead added
 
-	* core/scripts/rankingsonneborncomponent.js: sort by Sonneborn-Berger score
+	* core/scripts/rankingsonneborncomponent.js: sort by sonneborn-berger score
 
-	* core/scripts/rankingsonnebornlistener.js: calculate Sonneborn-Berger score from wins and winmatrix
+	* core/scripts/rankingsonnebornlistener.js: calculate sonneborn-berger score from wins and winmatrix
 
-	* core/scripts/test/rankingsonneborn.js: testing the Sonneborn score calculations
+	* core/scripts/test/rankingsonneborn.js: testing the sonneborn score calculations
 
 	* core/scripts/rankingmodel.js: didn't skip duplicate ranks
 
 	* core/scripts/test/rankingmodel.js: duplicate ranks test added
 
-	* core/scripts/test/vectormodel.js: testing mult(Number)
+	* core/scripts/test/vectormodel.js: testing mult(number)
 
-	* core/scripts/vectormodel.js: mult() overloaded: mult(Vector) and mult(Number)
-	mult(Number) and mult(Number, Vector) do what you'd expect
+	* core/scripts/vectormodel.js: mult() overloaded: mult(vector) and mult(number)
+	mult(number) and mult(number, vector) do what you'd expect
 
-	* core/scripts/rankingtaccomponent.js: TAC ranking component added
+	* core/scripts/rankingtaccomponent.js: tac ranking component added
 
-	* core/scripts/rankingtaclistener.js: TAC calculations added (12*wins + points)
+	* core/scripts/rankingtaclistener.js: tac calculations added (12*wins + points)
 
-	* core/scripts/test/rankingtac.js: testing TAC ranking calculations
+	* core/scripts/test/rankingtac.js: testing tac ranking calculations
 
-	* core/scripts/test/transposedifferencematrix.js: Like TransposeSumMatrix, but with a difference
+	* core/scripts/test/transposedifferencematrix.js: like transposesummatrix, but with a difference
 
-	* core/scripts/transposedifferencematrix.js: Like TransposeSumMatrix, but with a difference
+	* core/scripts/transposedifferencematrix.js: like transposesummatrix, but with a difference
 
-	* core/scripts/rankingcomponent.js: getValues(): typo in the 'undefined'-removal function fixed
+	* core/scripts/rankingcomponent.js: getvalues(): typo in the 'undefined'-removal function fixed
 
-	* core/scripts/rankingheadtoheadcomponent.js: HeadToHead comparison added
+	* core/scripts/rankingheadtoheadcomponent.js: headtohead comparison added
 
-	* core/scripts/rankingheadtoheadmatrixlistener.js: HeadToHeadMatrix added for comparison
+	* core/scripts/rankingheadtoheadmatrixlistener.js: headtoheadmatrix added for comparison
 
-	* core/scripts/test/rankingheadtohead.js: simpe HeadToHead test
-	test of cyclic HeadToHead sorting
+	* core/scripts/test/rankingheadtohead.js: simpe headtohead test
+	test of cyclic headtohead sorting
 
-2015-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+2015-02-22	erik e. lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/test/vectormodel.js: fill() tested
 	testing mult(a,b) and mult(a)
 	testing add(a,b) and add(a)
 
 	* core/scripts/vectormodel.js: fill() added: fill whole vector with one value
-	setProduct(a,b) -> mult(a,b); where b now defaults to this
+	setproduct(a,b) -> mult(a,b); where b now defaults to this
 	add(a,b) added; where b defaults to this
 
 	* core/scripts/matrixmodel.js: fill() tested
 
 	* core/scripts/test/matrixmodel.js: fill() added: fill whole array with one value
-	In the AntisymmetricMatrixModel, the superdiagonal elements are inverted
+	in the antisymmetricmatrixmodel, the superdiagonal elements are inverted
 
-	* core/scripts/rankingdatalistener.js: Base class for ranking data fields
+	* core/scripts/rankingdatalistener.js: base class for ranking data fields
 	ranking.size -> ranking.length
 	events: insert -> result
 
-	* core/scripts/rankingmodel.js: RankingDataListeners will be event-based
-	Additional dependencies on construction (e.g. for 'have they played before'-type questions)
-	storing the dependencies of the componentchain for building DataListeners
-	using RankingDataListenerIndex for registering all required DataListeners
+	* core/scripts/rankingmodel.js: rankingdatalisteners will be event-based
+	additional dependencies on construction (e.g. for 'have they played before'-type questions)
+	storing the dependencies of the componentchain for building datalisteners
+	using rankingdatalistenerindex for registering all required datalisteners
 	constructor argument validation
 	processing the additional dependencies
 	size -> length
 	keeping componentnames
 	events: insert -> result
 	reset(), result(), invalidate(), get() and resize() functions added
-	correct() function STUB added
-	accidentally fired an 'insert' event. Should have been a 'result' event
-	private helper functions added: getRankingOrder() and getRanks()
-	updateRanking(): private function to extract the ranks, displayOrder and separate components
+	correct() function stub added
+	accidentally fired an 'insert' event. should have been a 'result' event
+	private helper functions added: getrankingorder() and getranks()
+	updateranking(): private function to extract the ranks, displayorder and separate components
 
 	* core/scripts/rankingpointslistener.js: updates ranking.points
 	cyclic inheritance fixed
@@ -931,16 +3237,16 @@
 	result.player -> result.players
 	index vs. player confusion fixed
 
-	* core/scripts/gamesrankingcomponent.js: using VectorModel.get()
+	* core/scripts/gamesrankingcomponent.js: using vectormodel.get()
 
-	* core/scripts/pointsrankingcomponent.js: using VectorModel.get()
+	* core/scripts/pointsrankingcomponent.js: using vectormodel.get()
 
-	* core/scripts/saldorankingcomponent.js: using VectorModel.get()
+	* core/scripts/saldorankingcomponent.js: using vectormodel.get()
 
-	* core/scripts/winsrankingcomponent.js: using VectorModel.get()
+	* core/scripts/winsrankingcomponent.js: using vectormodel.get()
 
 	* core/scripts/rankinglostpointslistener.js: subtracting the opponent's points to lostpoints
-	typo fixed: It accidentally ADDED the points, instead of subtracting
+	typo fixed: it accidentally added the points, instead of subtracting
 	cyclic inheritance fixed
 	events: insert -> result
 	result.player -> result.players
@@ -949,66 +3255,66 @@
 	* core/scripts/rankingsaldolistener.js: adding points and lostpoints (the last of which is negative)
 	cyclic inheritance fixed
 
-	* core/scripts/rankinggamescomponent.js: fixed a wrong NAME (copy&paste error)
+	* core/scripts/rankinggamescomponent.js: fixed a wrong name (copy&paste error)
 	moved to rankingnumgamescomponent.js
 
-	* core/scripts/rankingidcomponent.js: added an empty DEPENDENCIES array to avoid the implicit 'id' dependency
-	DEPENDENCIED -> DEPENDENCIES typo fixed. We need a test for this.
+	* core/scripts/rankingidcomponent.js: added an empty dependencies array to avoid the implicit 'id' dependency
+	dependencied -> dependencies typo fixed. we need a test for this.
 
-	* core/scripts/rankingwinscomponent.js: fixed a wrong NAME (copy&paste error)
+	* core/scripts/rankingwinscomponent.js: fixed a wrong name (copy&paste error)
 
-	* core/scripts/rankingcomponent.js: using the DEPENDENCIES array to form a dependency chain
+	* core/scripts/rankingcomponent.js: using the dependencies array to form a dependency chain
 	value default: undefined (to filter out unnecessary values in the final ranking object)
-	getValues(): function to recursively extract all values along the component chain into a 2d array
+	getvalues(): function to recursively extract all values along the component chain into a 2d array
 
-	* core/scripts/rankingdatalistenerindex.js: DataListener Index, similar to RankingComponentIndex
+	* core/scripts/rankingdatalistenerindex.js: datalistener index, similar to rankingcomponentindex
 	helper functions for flattening, ordering and compressing the dependencies
-	when a DataListener is undefined, return its name in the names array
-	registerDataListeners(): swapping argument order
+	when a datalistener is undefined, return its name in the names array
+	registerdatalisteners(): swapping argument order
 	no names -> abort
-	RankingNumGamesListener added to index
+	rankingnumgameslistener added to index
 	"undefined"-error message improved by printing the missing name directly
-	GameMatrix, Buchholz and Finebuchholz added
+	gamematrix, buchholz and finebuchholz added
 
 	* core/scripts/rankingcomponentindex.js: reversing the components to the correct order
-	Buchholz and Finebuchholz added
+	buchholz and finebuchholz added
 
 	* core/scripts/rankinglostpointscomponent.js: 'lostpoints' component added (negative numbers)
 
 	* core/scripts/rankingnumgamescomponent.js: moved from rankinggamescomponent.js
 
-	* core/scripts/test/rankingcomponentindex.js: RankingComponentIndex tests: chaining and  invalid names
+	* core/scripts/test/rankingcomponentindex.js: rankingcomponentindex tests: chaining and  invalid names
 
-	* core/scripts/rankingnumgameslistener.js: RankingNumGamesListener added
+	* core/scripts/rankingnumgameslistener.js: rankingnumgameslistener added
 	events: insert -> result
 	result.player -> result.players
 
-	* core/scripts/test/rankingdatalistenerindex.js: test for RankingDataListenerIndex added
-	registerDataListeners(): swapping argument order
+	* core/scripts/test/rankingdatalistenerindex.js: test for rankingdatalistenerindex added
+	registerdatalisteners(): swapping argument order
 	ranking.size -> ranking.length
 	events: insert -> result
-	using GameResult class
+	using gameresult class
 
 	* build-tools/create-commonjs.sh: throwing an error if the module is undefined
 
-	* build-tools/create-testjs.sh: parsing and displaying load errors in the console and QUnit
+	* build-tools/create-testjs.sh: parsing and displaying load errors in the console and qunit
 
-	* core/scripts/test/rankingmodel.js: RankingModel tests added: construction exceptions
+	* core/scripts/test/rankingmodel.js: rankingmodel tests added: construction exceptions
 	testing the fired 'update' events
 	testing get(), invalidate() and result()
-	testing Finebuchholz ranking
+	testing finebuchholz ranking
 
-	* core/scripts/gameresult.js: simple GameResult class added
+	* core/scripts/gameresult.js: simple gameresult class added
 
-	* core/scripts/rankingbuchholzcomponent.js: RankingBuchholzComponent added
+	* core/scripts/rankingbuchholzcomponent.js: rankingbuchholzcomponent added
 
-	* core/scripts/rankingbuchholzlistener.js: RankingBuchholzListener added
+	* core/scripts/rankingbuchholzlistener.js: rankingbuchholzlistener added
 
-	* core/scripts/rankingfinebuchholzcomponent.js: RankingFinebuchholzComponent added
+	* core/scripts/rankingfinebuchholzcomponent.js: rankingfinebuchholzcomponent added
 
-	* core/scripts/rankingfinebuchholzlistener.js: RankingFinebuchholzListener added
+	* core/scripts/rankingfinebuchholzlistener.js: rankingfinebuchholzlistener added
 
-	* core/scripts/rankinggamematrixlistener.js: RankingGameMatrixListener added
+	* core/scripts/rankinggamematrixlistener.js: rankinggamematrixlistener added
 
 	* legacy/scripts/ui/test/listcollectormodel.js: unnecessary logging output removed
 
@@ -1020,11 +3326,11 @@
 
 	* build-tools/build.sh: rmdir command is allowed to fail when there's nothing to remove
 
-	* build-tools/Makefile: smallchange.png doesn't need optimization
+	* build-tools/makefile: smallchange.png doesn't need optimization
 
 	* core/images/: central image folder
 
-	* Makefile: `make clean` is more verbose
+	* makefile: `make clean` is more verbose
 
 	* tac/images/: only favicon.png, games.png, svg/games.svg and svg/games_black.svg retained
 

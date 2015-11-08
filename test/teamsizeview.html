@@ -2,7 +2,7 @@
 <html lang="de" manifest="manifest.appcache">
 <head>
 <meta charset="utf-8" />
-<title>Boules Test 1.4.10</title>
+<title>Tuvero Test 1.5.0</title>
 <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
 <link rel="stylesheet" href="style/main.css" />
 <link rel="stylesheet" href="style/sprite.css" />
@@ -32,33 +32,32 @@
 		<button data-img="teams3"></button>
 	</div>
 
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
+  
+    ValueModel = Common('core/valuemodel');
+    TeamSizeView = Common('ui/teamsizeview');
+    ValueView = Common('ui/valueview');
+    ListModel = Common('core/listmodel');
+    NewTeamView = Common('ui/newteamview');
+  
+    $(function($) {
+      var teamsize, $view;
+  
+      teamsize = new ValueModel(3);
+      $view = $('.teamsizeview');
+      new TeamSizeView(teamsize, $view);
+  
+      $view = $('.teamsize');
+      new ValueView(teamsize, $view);
+  
+      $view = $('.newteam');
+      new NewTeamView(new ListModel(), $view, teamsize);
+    });
+  }
+  </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
 </body>
-
-<script id="testmain">
-function TestMain(Common, $) {
-  var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
-
-  ValueModel = Common('core/valuemodel');
-  TeamSizeView = Common('ui/teamsizeview');
-  ValueView = Common('ui/valueview');
-  ListModel = Common('core/listmodel');
-  NewTeamView = Common('ui/newteamview');
-
-  $(function($) {
-    var teamsize, $view;
-
-    teamsize = new ValueModel(3);
-    $view = $('.teamsizeview');
-    new TeamSizeView(teamsize, $view);
-
-    $view = $('.teamsize');
-    new ValueView(teamsize, $view);
-
-    $view = $('.newteam');
-    new NewTeamView(new ListModel(), $view, teamsize);
-  });
-}
-</script>
-<script data-main="scripts/testmain.js" src="scripts/require.js"></script>
 
 </html>

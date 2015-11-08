@@ -3,7 +3,7 @@
 <html lang="de" manifest="manifest.appcache">
   <head>
     <meta charset="utf-8" />
-    <title>Tuvero Boule 1.4.10</title>
+    <title>Tuvero Boule 1.5.0</title>
     <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="style/main.css" />
   </head>
@@ -13,7 +13,7 @@
     <div id="splash" class="loading">
       <img src="images/favicon.png" title="Icon"/>
       <h1>Tuvero Boule</h1>
-      <h2>Version 1.4.10</h2>
+      <h2>Version 1.5.0</h2>
       <span>&copy; Erik E. Lorenz</span>
       <p class="loading">
         Lade JavaScript...
@@ -41,25 +41,57 @@
       <p class="ready">
         Schönes Spiel!
       </p>
-      <p class="error">
-        Unerwarteter Fehler beim Laden.
-        Typische Ursache sind fehlerhafte oder inkompatible Spielstände, die von alten Versionen erstellt wurden.
-        Siehe dazu auch <a href="https://tuveroblog.wordpress.com/">https://boulesprog.wordpress.com/</a> für Informationen über die letzten Updates.
-        Um die gespeicherten Spielstände zu löschen, kann man <a href="#reset">#reset</a> öffnen.
-        Sollte der Fehler dann immer noch bestehen, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
+      <p class="oldinternetexplorer">
+        Internet Explorer wird erst ab Version 9 unterstützt.
       </p>
+      <div class="error">
+        <h3>Speicherstand kann nicht geladen werden.</h3>
+        Das im Browser gespeicherte Turnier konnte nicht geladen werden.
+        Die Ursache kann in einem Fehler in Tuvero, einem extrem alten Speicherstand
+        oder der falschen Tuvero-Variante liegen.
+        Der Speicherstand wurde nicht überschrieben.
+        Es gibt jetzt folgende Möglichkeiten:
+        <ul>
+          <li>
+            Vielleicht wird im Hintergrund schon eine neue Version von Tuvero
+            heruntergeladen, mit der der Speicherstand geöffnet werden kann.
+            Wenn eine <b>neue Version</b> heruntergeladen wurde, kann man sie durch <a href="index.html#home">Neuladen</a> starten.
+          </li>
+          <li>
+            <b>Offline-Versionen</b> erhalten keine Updates.
+            Auf <a href="https://tuvero.de">https://tuvero.de</a> ist immer die neueste Version verfügbar.
+          </li>
+          <li>
+            Wurde die richtige <b>Tuvero-Variante</b> geöffnet?
+            Eine Übersicht ist auf <a href="https://tuvero.de">https://tuvero.de</a> verfügbar.
+          </li>
+          <li>
+            Wenn der Turnierstand nicht mehr benötigt wird, kann er gelöscht werden.
+            Zum <b>Löschen</b> muss <a href="#reset">#reset</a> geöffnet werden.
+          </li>
+          <li>
+            Für <b>technische Details</b> kann man die JavaScript-Konsole öffnen
+            (Chrome: Strg+Shift+J). Dort stehen mögliche Ursachen.
+          </li>
+          <li>
+            Wenn der Fehler weiterhin besteht, dann bitte ich um <b>Kontakt</b>, z.B.
+            über <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
+            Bitte fügt auch die Ausgabe der JavaScript-Konsole bei.
+          </li>
+        </ul>
+        Informationen zu neuen Versionen und behobenen Fehlern stehen auf
+        <a href="http://blog.tuvero.de">http://blog.tuvero.de</a>.
+      </div>
       <p class="loaderror">
         Konnte eine Skriptdatei nicht laden.
-        Das kann passieren, wenn die Internetverbindung beim Laden der Seite verloren geht und sollte in einer Release-Version nicht vorkommen.
-        Alternativ kann ein Serverausfall dieses Problem verursacht haben.
-        Sollte der Fehler bestehen bleiben, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
+        Sollte der Fehler auch bei wiederholtem Neuladen der Seite bestehen bleiben, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
       </p>
     </div>
 
     <div id="tabs">
 
       <div data-tab="home" accesskey="s">
-        <h2>Willkommen zu Tuvero Boule 1.4.10</h2>
+        <h2>Willkommen zu Tuvero Boule 1.5.0</h2>
         <div class="boxview">
           <h3>Tabs</h3>
           <a href="#home" class="tiny" data-img="home"> Startseite</a>
@@ -72,6 +104,7 @@
           <a href="#settings" class="tiny" data-img="settings"> Optionen und Einstellungen</a>
           <a href="#about" class="tiny" data-img="about"> Über...</a>
         </div>
+
         <div class="boxview">
           <h3>Turnierstand</h3>
           <button class="load" data-img="load"></button>
@@ -83,6 +116,7 @@
           <button class="reset" data-img="clear"></button>
           Turnier löschen
         </div>
+
         <div class="boxview firststeps">
           <h3>Erste Schritte</h3>
           Um ein Turnier durchzuführen, folge diesen Schritten:
@@ -105,6 +139,7 @@
           </ol>
           Hilfe und Links:<a href="#about" class="tiny" data-img="about"> Über...-Tab</a>
         </div>
+
         <div class="boxview">
           <h3>Warum Chrome?</h3>
           <p>
@@ -119,6 +154,7 @@
             <a href="#about" class="tiny" data-img="about">Über...-Tab</a>
           </p>
         </div>
+
         <div class="boxview">
           <h3>Hinweis - Klick mich</h3>
           Diese Kästen können durch einen Klick auf ihre Titelleiste versteckt und wiederhergestellt werden.
@@ -127,14 +163,31 @@
           <br>
           Die Schriftgröße beim Drucken kann im <a href="#settings" class="tiny" data-img="settings"> Optionen-Tab</a> eingestellt werden.
         </div>
+
+        <div class="boxview">
+          <h3>Beteiligung an den laufenden Kosten</h3>
+          Tuvero ist für uns neben dem Arbeitsaufwand mit jährlichen Kosten verbunden,
+          die Server, Domänen, Sicherheitszertifikate, Testumgebungen und Archivspeicher beinhalten.
+          Wenn euch Tuvero gefällt und die Turnierleitung vereinfacht, würden wir uns
+          über eine kleine Beteiligung an diesen Kosten freuen.
+          <br>
+          <a class="large" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
+        </div>
       </div>
 
       <div data-tab="teams" accesskey="t">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-          <span><input class="showtable" type="checkbox" checked="checked" />Tabelle</span>
+          <span>
+            <input class="maxwidth" type="checkbox" checked="checked" />
+            feste Breite</span>
+          <span>
+            <input class="showtable" type="checkbox" checked="checked" />
+            Tabelle</span>
+            <br>
+            <br>
+            <span>Zum Umbenennen Namen klicken</span>
         </div>
         <h2><span class="numteams">##</span> Anmeldungen</h2>
 
@@ -201,44 +254,60 @@
 
         <div class="load filereader">
           <p>
-            Spieler aus Datei laden
+            Anmeldungen aus Datei laden
             <br>
             <input type="file" />
           </p>
         </div>
 
         <button class="delete" tabindex="-1">
-          Anmeldung Löschen
+          Anmeldung löschen
         </button>
+
+        <button class="deleteall" tabindex="-1">
+          Alle löschen
+        </button>
+
+        <div class="deletionprompt">
+          Zum Löschen Team anklicken
+        </div>
 
       </div>
 
       <div data-tab="new" accesskey="n">
         <button class="save" data-img="save"></button>
         <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+            Breite</span> <span><input class="shownames" type="checkbox"
+            checked="checked" />Spielernamen</span>
+            <br>
+            <br>
+            <span>Zum Umbenennen Turniersystem klicken</span>
         </div>
-        <h2>Turniersystem</h2>
+        <h2>Turniersysteme</h2>
 
-        <table class="playertable background">
+        <table class="systemtable background">
           <tr>
-            <th colspan="2">Rang</th>
+            <th colspan="2">Platz</th>
             <th>No.</th>
-            <th class="names">Spieler</th>
+            <th class="playercol">Spieler</th>
+            <th class="playercol">Spieler</th>
+            <th class="playercol">Spieler</th>
             <th>Turniersystem</th>
           </tr>
-          <tr class="team tpl">
+          <tr class="team template">
             <td class="rank">##</td>
             <td class="tournamentrank">##</td>
             <td class="teamno">##</td>
-            <td class="names">%% %%</td>
-            <td class="system">
-              <div class="removesystem preparing finished failure">
+            <td class="name">%% %%</td>
+            <td class="name">%% %%</td>
+            <td class="name">%% %%</td>
+            <td class="system template">
+              <div class="removesystem initial finished failure">
                 <br>
                 <h3>Beenden und nächste Turnierphase starten</h3>
                 <button>
-                  <span class="name">##</span> beenden
+                  <span class="tournamentname">##</span> beenden
                 </button>
               </div>
             </td>
@@ -247,353 +316,591 @@
 
         <br>
 
-        <div class="boxview newsystem tpl">
-          <h3>Neue Turnierphase
-            <input type="text" class="chname" value="%%"/>
-          </h3>
-          <span>Unterturnier mit den besten
-            <input type="number" class="numteams" min="2">
-            Teams</span>
-          <br>
-          <button class="swiss">
-            Schweizer System
-          </button>
-          <br>
-          <button class="ko">
-            KO-System
-          </button>
+        <div class="boxview newsystem template" data-system="undefined">
+          <h3 class="enoughteams">Neue Turnierphase</h3>
+          <div class="enoughteams">
+            <span>
+              <input type="number" class="tournamentsize" min="2" value="2" />
+              Teilnehmer</span>
+
+            <button data-system="swiss">
+              Schweizer System
+            </button>
+
+            <button data-system="round">
+              Rundenturnier
+            </button>
+
+            <button data-system="ko">
+              KO-System
+            </button>
+
+          </div>
+          <div class="notenoughteams">
+            Nicht genug Teilnehmer
+          </div>
         </div>
 
-        <div class="boxview swiss tpl">
-          <h3><span class="name">##</span> - Schweizer System</h3>
-          <div class="preparing finished">
-            <h3>Runde <span class="nextround">##</span> auslosen</h3>
-            <div class="boxview collapsed">
-              <h3>Erweiterte Optionen</h3>
-              <table>
-                <tr>
-                  <td>Modus</td>
-                  <td>
-                    <select class="mode" size="3">
-                      <option value="wins">Schweizer</option>
-                      <option value="halves" selected="selected">2 Lostöpfe</option>
-                      <option value="random">Zufall</option>
-                    </select>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Los-
-                    <br>
-                    beding-
-                    <br>
-                    ungen</td>
-                  <td>
-                    <select class="preset" size="5">
-                      <!-- <option value="strict">streng</option> -->
-                      <!-- <option value="updown" selected="selected">hoch/runter</option> -->
-                      <option value="custom">manuell</option>
-                      <option value="nice">straf-arm</option>
-                      <option value="pvo" selected="selected">Standard</option>
-                      <option value="relaxed">locker</option>
-                      <option value="none">unbegrenzt</option>
-                    </select>
-                    <br>
-                    <table class="votepermissions">
-                      <tr class="up">
-                        <td>&#x25b2;&rArr;</td>
-                        <td class="perm up">&#x25b2;</td>
-                        <td class="perm down">&#x25bc;</td>
-                        <td class="perm bye">&#x2205;</td>
-                      </tr>
-                      <tr class="down">
-                        <td>&#x25bc;&rArr;</td>
-                        <td class="perm up">&#x25b2;</td>
-                        <td class="perm down">&#x25bc;</td>
-                        <td class="perm bye">&#x2205;</td>
-                      </tr>
-                      <tr class="bye">
-                        <td>&#x2205;&rArr;</td>
-                        <td class="perm up">&#x25b2;</td>
-                        <td class="perm down">&#x25bc;</td>
-                        <td class="perm bye">&#x2205;</td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
+        <div class="boxview swiss template" data-system="swiss">
+          <h3><span class="tournamentname">##</span>
+          <input type="text" />
+          - Schweizer
+          System</h3>
+
+          <div class="initial">
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
+
+            <h3>Wertungsreihenfolge</h3>
+
+            <div class="rankingorderview">
+              <div class="selected">
+                Ausgewählt:
+                <button class="component template">
+                  %% %%
+                </button>
+              </div>
+
+              <div class="available">Verfügbar:</div>
             </div>
-            <button>
+
+            <div class="boxview collapsed tournamentoptions">
+              <h3>Erweiterte Optionen</h3>
+              <div class="option">
+                Modus
+                <select class="mode">
+                  <option value="all">Jeder gegen Jeden</option>
+                  <option value="halves">Obere gegen untere Hälfte</option>
+                  <option value="ranks">Gleiche Plätze gegeneinander</option>
+                  <option value="wins">Siegesgruppen</option>
+                  <option value="individual">Reihenfolge</option>
+                </select>
+              </div>
+              <div class="option">
+                <span class="noshuffle">
+                  <input class="noshuffle" type="checkbox">
+                  Begegnungen setzen </span>
+              </div>
+              <div class="option swissvotes">
+                <table class="swissvotes borderless">
+                  <tr>
+                    <th colspan="4"> Losbedingungen </th>
+                  </tr>
+                  <tr>
+                    <td>▲ ⇒</td>
+                    <td class="prop upafterup">▲</td>
+                    <td class="prop downafterup">▼</td>
+                    <td class="prop byeafterup">∅</td>
+                  </tr>
+                  <tr>
+                    <td>▼ ⇒</td>
+                    <td class="prop upafterdown">▲</td>
+                    <td class="prop downafterdown">▼</td>
+                    <td class="prop byeafterdown">∅</td>
+                  </tr>
+                  <tr>
+                    <td>∅ ⇒</td>
+                    <td class="prop upafterbye">▲</td>
+                    <td class="prop downafterbye">▼</td>
+                    <td class="prop byeafterbye">∅</td>
+                  </tr>
+                </table>
+
+                <div class="boxview collapsed">
+                  <h3>Legende</h3>
+                  <p>
+                    ∅ - Freilos
+                    <br>
+                    ▲ - Hochlos
+                    <br>
+                    ▼ - Runterlos
+                  </p>
+                  <p>
+                    Beispiel: ∅ ⇒ ▲<span class="forbidden">▼∅</span>
+                    <br>
+                    Ein Spieler mit einem Freilos darf
+                    <br>
+                    ein Hochlos erhalten, aber kein
+                    <br>
+                    Runterlos oder weiteres Freilos.
+                  </p>
+                  <p>
+                    Bedingungen können per Klick geändert werden.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button class="runtournament">
               Runde starten
             </button>
+            <button class="closetournament">
+              Schweizer Turnier abbrechen
+            </button>
           </div>
+
           <div class="running">
             <p>
               Runde <span class="round">#</span> wurde ausgelost.
             </p>
             <p>
-              Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+              Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
+
+          <div class="idle">
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
+
+            <div class="boxview collapsed tournamentoptions">
+              <h3>Erweiterte Optionen</h3>
+              <div class="option">
+                Modus
+                <select class="mode">
+                  <option value="all">Jeder gegen Jeden</option>
+                  <option value="halves">Obere gegen untere Hälfte</option>
+                  <option value="ranks">Gleiche Plätze gegeneinander</option>
+                  <option value="wins">Siegesgruppen</option>
+                  <option value="individual">Reihenfolge</option>
+                </select>
+              </div>
+              <div class="option">
+                <span class="noshuffle">
+                  <input class="noshuffle" type="checkbox">
+                  Begegnungen setzen </span>
+              </div>
+              <div class="option swissvotes">
+                <table class="swissvotes borderless">
+                  <tr>
+                    <th colspan="4"> Losbedingungen </th>
+                  </tr>
+                  <tr>
+                    <td>▲ ⇒</td>
+                    <td class="prop upafterup">▲</td>
+                    <td class="prop downafterup">▼</td>
+                    <td class="prop byeafterup">∅</td>
+                  </tr>
+                  <tr>
+                    <td>▼ ⇒</td>
+                    <td class="prop upafterdown">▲</td>
+                    <td class="prop downafterdown">▼</td>
+                    <td class="prop byeafterdown">∅</td>
+                  </tr>
+                  <tr>
+                    <td>∅ ⇒</td>
+                    <td class="prop upafterbye">▲</td>
+                    <td class="prop downafterbye">▼</td>
+                    <td class="prop byeafterbye">∅</td>
+                  </tr>
+                </table>
+
+                <div class="boxview collapsed">
+                  <h3>Legende</h3>
+                  <p>
+                    ∅ - Freilos
+                    <br>
+                    ▲ - Hochlos
+                    <br>
+                    ▼ - Runterlos
+                  </p>
+                  <p>
+                    Beispiel: ∅ ⇒ ▲<span class="forbidden">▼∅</span>
+                    <br>
+                    Ein Spieler mit einem Freilos darf
+                    <br>
+                    ein Hochlos erhalten, aber kein
+                    <br>
+                    Runterlos oder weiteres Freilos.
+                  </p>
+                  <p>
+                    Bedingungen können per Klick geändert werden.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <button class="runtournament">
+              Runde starten
+            </button>
+            <button class="closetournament">
+              Schweizer Turnier beenden
+            </button>
+          </div>
+
+          <div class="finished">
+            Keine weiteren Spiele möglich
+            <br>
+            <br>
+            <button class="closetournament">
+              Schweizer Turnier beenden
+            </button>
+          </div>
+
           <div class="failure">
             Unerwarteter Fehler bei der Turnierberechnung.
           </div>
+          <h3><span class="tournamentname">##</span> - Schweizer System </h3>
         </div>
 
-        <div class="boxview ko tpl">
-          <h3><span class="name">##</span> - KO-System</h3>
-          <div class="finished">
-            Turnier beendet
+
+        <div class="boxview round template" data-system="round">
+          <h3><span class="tournamentname">##</span>
+          <input type="text" />
+          - Rundenturnier </h3>
+
+          <div class="initial">
+
+            <h3>Wertungsreihenfolge</h3>
+
+            <div class="rankingorderview">
+              <div class="selected">
+                Ausgewählt:
+                <button class="component template">
+                  %% %%
+                </button>
+              </div>
+
+              <div class="available">Verfügbar:</div>
+            </div>
+
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
+            <button class="runtournament">
+              Runde starten
+            </button>
+            <button class="closetournament">
+              Rundenturnier abbrechen
+            </button>
           </div>
-          <div class="preparing">
-            <button>
+
+          <div class="running">
+            <p>
+              Runde <span class="round">#</span> wurde ausgelost.
+            </p>
+            <p>
+              Siehe <a href="#history" data-img="history">Turnierverlauf</a>
+            </p>
+          </div>
+
+          <div class="idle">
+            <h3> Runde <span class="nextround">##</span> auslosen </h3>
+            <button class="runtournament">
+              Runde starten
+            </button>
+          </div>
+
+          <div class="finished">
+            Alle Spiele beendet.
+            <br>
+            <br>
+            <button class="closetournament">
+              Rundenturnier beenden
+            </button>
+          </div>
+
+          <div class="failure">
+            Unerwarteter Fehler bei der Turnierberechnung.
+          </div>
+          <h3><span class="tournamentname">##</span> - Rundenturnier </h3>
+        </div>
+
+
+        <div class="boxview ko template" data-system="ko">
+          <h3><span class="tournamentname">##</span>
+          <input type="text" />
+          - KO-System </h3>
+
+          <div class="initial">
+            <div class="boxview tournamentoptions">
+              <h3>Erweiterte Optionen</h3>
+              <div class="option">
+                Erste Runde
+                <select class="mode">
+                  <option value="ordered">Reihenfolge</option>
+                  <option value="matched">Setzen</option>
+                  <option value="shuffled">Auslosen</option>
+                </select>
+              </div>
+              <div class="option">
+                <span>
+                  <input class="initialbyes" type="checkbox">
+                  Freilose beim Turnierstart</span>
+              </div>
+            </div>
+            <button class="runtournament">
               KO-Turnier starten
             </button>
-            <div class="boxview collapsed">
-              <h3>Erweiterte Optionen</h3>
-              <div>
-                Erste Runde
-              </div>
-              <select class="mode" size="3">
-                <option value="order">Reihenfolge</option>
-                <option value="set" selected="selected">Setzen</option>
-                <option value="random">Zufall</option>
-              </select>
-            </div>
+            <button class="closetournament">
+              KO-Turnier abbrechen
+            </button>
           </div>
+
           <div class="running">
             <p>
               KO-Turnier wird gespielt.
             </p>
             <p>
-              Siehe <a href="#games" data-img="games">Laufende Spiele</a>
+              Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
+
+          <div class="finished">
+            Alle Spiele beendet.
+            <br>
+            <br>
+            <button class="closetournament">
+              KO-Turnier beenden
+            </button>
+          </div>
+
           <div class="failure">
             Unerwarteter Fehler bei der Turnierberechnung.
           </div>
         </div>
 
-        <div class="boxview maastricht">
-          <h3>Maastrichter System</h3>
-          <p>
-            Nimm <em>Schweizer System</em> als Vorrunde, dann <em>KO-System</em> als A/B/C/D-Turniere.
-          </p>
-        </div>
-
-        <div class="boxview">
-          <h3>In Arbeit</h3>
-          Rundenturnier<br>
-          Supermelee<br>
-          Poule<br>
-          ...
-        </div>
-
-      </div>
-
-      <div data-tab="games" accesskey="g">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
-        <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
-        </div>
-        <h2> Laufende Spiele</h2>
-
-        <div class="boxview tpl">
-          <h3>Runde <span class="round">##</span></h3>
-          <form class="game">
-            <div class="top">
-              <div class="teamno left">
-                ##
-              </div>
-              <div class="finish">
-                <button type="submit" tabindex="-1" disabled="disabled">
-                  Beenden
-                </button>
-                <br>
-                <input class="points" type="number" value="0" />
-                <input class="points" type="number" value="0" />
-              </div>
-              <div class="teamno right">
-                ##
-              </div>
-            </div>
-            <div class="bottom">
-              <div class="names left">
-                %% %%
-              </div>
-              <div class="names right">
-                %% %%
-              </div>
-            </div>
-          </form>
-
-          <div class="votes">
-            <div class="bye">
-              <h3>&#x2205; Freilos</h3>
-            </div>
-
-            <div class="up">
-              <h3>&#x25b2; Hochlos</h3>
-            </div>
-
-            <div class="down">
-              <h3>&#x25bc; Runterlos</h3>
-            </div>
-
-            <div class="vote">
-              <div class="teamno">
-                ##
-              </div>
-              <div class="names">
-                %% %%
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div data-tab="ranking" accesskey="r">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
-        <h2>Platzierung</h2>
-        <div class="boxview tpl">
-          <h3>## ##</h3>
-          <table class="ranking background">
-            <tr class="head">
-              <th>Rang</th>
-              <th>No.</th>
-              <th colspan="3">Spieler</th>
-              <th>Spiele</th>
-              <th>Siege</th>
-              <th>BH</th>
-              <th>FBH</th>
-              <th>Saldo</th>
-              <th>Lose</th>
-            </tr>
-            <tr class="line">
-              <td>##</td>
-              <td>##</td>
-              <td class="name">%%%</td>
-              <td class="name">%%%</td>
-              <td class="name">%%%</td>
-              <td>##</td>
-              <td>##</td>
-              <td>##</td>
-              <td>##</td>
-              <td>##</td>
-              <td>##</td>
-            </tr>
-          </table>
-
-          <div class="corrections">
-            <h3>Korrekturen</h3>
-            <table class="correctionstable background">
-              <tr>
-                <th>Spiel</th>
-                <th>Korrektur</th>
-              </tr>
-              <tr class="corr">
-                <td><span class="teamno">##</span> gg. <span class="teamno">##</span></td>
-                <td class="points"><span>##</span> : <span>##</span> &rarr; <span>##</span> : <span>##</span></td>
-              </tr>
-            </table>
-          </div>
-        </div>
       </div>
 
       <div data-tab="history" accesskey="h">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
         <div class="options">
-          <span><input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
-          <span><input class="shownames" type="checkbox" checked="checked" />Spielernamen</span>
-          <span><input class="gamelists" type="checkbox" />Spiele-Listen</span>
+          <span>
+            <input class="maxwidth" type="checkbox" checked="checked" />
+            feste Breite</span>
+          <span>
+            <input class="shownames" type="checkbox" checked="checked" />
+            Spielernamen</span>
+          <span class="hidden">
+            <input class="hidefinished" type="checkbox" />
+            Nur Laufende Runden</span>
+          <span>
+            <input class="showtable" type="checkbox" checked="checked" />
+            Spielelisten</span>
+            <br>
+            <br>
+            <span>Zum Korrigieren Ergebnis klicken</span>
         </div>
+
         <h2>Turnierverlauf</h2>
 
-        <div class="boxview tpl">
-          <h3>Runde <span class="roundno">##</span></h3>
-          <table class="gamestable background">
-            <tr>
-              <th>Team 1</th>
-              <th>Team 2</th>
-              <th>Punktzahl</th>
-            </tr>
-            <tr class="bye tpl">
-              <td class="team"><span class="number">##</span><span class="names">### ###
-                  <br>
-                  ### ###</span></td>
-              <td> Freilos </td>
-              <td class="points"> %%:%% </td>
-            </tr>
-            <tr class="game tpl">
-              <td class="team"><span class="number">##</span><span class="names">### ###
-                  <br>
-                  ### ###</span></td>
-              <td class="team"><span class="number">##</span><span class="names">### ###
-                  <br>
-                  ### ###</span></td>
-              <td class="correct editable">##:##</td>
-              <td class="chpoints">
-                <form class="middle">
-                  <button class="abort">
-                    abbrechen
-                  </button>
-                  <br>
-                  <input class="points" type="number" value="0" />
-                  <input class="points" type="number" value="0" />
-                  <br>
-                  <button class="change" type="submit">
-                    speichern
-                  </button>
-                </form>
-              </td>
-            </tr>
-          </table>
+        <div class="tournamentlist">
+          <div class="boxview tournament template">
+            <h3 class="tournamentname">##</h3>
 
-          <table class="progresstable background">
-            <tr>
-              <th>No.</th>
-              <th class="names">Spieler</th>
-              <th class="names">Spieler</th>
-              <th class="names">Spieler</th>
-              <th class="game vsep" colspan="3">Runde <span class="roundno">##</span></th>
-              <th class="result vsep">Siege</th>
-              <th class="result">BH</th>
-              <th class="result">FBH</th>
-              <th class="result">Saldo</th>
-              <th class="result">Rang</th>
-            </tr>
-            <tr class="team">
-              <td class="number">##</td>
-              <td class="names">%% %%</td>
-              <td class="names">%% %%</td>
-              <td class="names">%% %%</td>
-              <td class="game vsep">##</td>
-              <td class="game correct editable">%%</td>
-              <td class="game">%%</td>
-              <td class="result vsep">##</td>
-              <td class="result">##</td>
-              <td class="result">##</td>
-              <td class="result">##</td>
-              <td class="result">##</td>
-            </tr>
-          </table>
+            <div class="matchtable">
+              <h3>Runde <span class="round">##</span></h3>
+              <table class="background">
+                <tr>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="resultcol">Ergebnis</th>
+                </tr>
+                <tr class="matchrow template">
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td>
+                  <div class="result">
+                    <span class="score">##</span> : <span class="score">##</span>
+                  </div>
+                  <div class="noprint finish">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="accept">
+                      Beenden
+                    </button>
+                  </div>
+                  <div class="noprint correct">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="cancel">
+                      Abbrechen
+                    </button>
+                    <button class="accept">
+                      Korrigieren
+                    </button>
+                  </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
 
-          <div class="kotree">
-            <table class="game borderless">
-              <tr class="label"><th colspan="2">Lorem Ipsum</th><tr>
-              <tr>
-                <td class="number">##</td>
-                <td class="names">%%</td>
-                <td rowspan="2" class="points correct editable">%%</td>
+            <table class="progresstable hidden background">
+              <tr class="headerrow">
+                <th>No.</th>
+                <th class="playercol">Spieler</th>
+                <th class="playercol">Spieler</th>
+                <th class="playercol">Spieler</th>
+                <th class="roundcol template" colspan="2">Runde <span class="round">##</span></th>
+                <th class="hidden separator"></th>
+                <th class="rankcol template"></th>
               </tr>
-              <tr>
-                <td class="number">##</td>
-                <td class="names">%%</td>
+              <tr class="progressrow template">
+                <td class="teamno"></td>
+                <td class="name"></td>
+                <td class="name"></td>
+                <td class="name"></td>
+                <td class="template match teamno hidden">first teamid, i.e. this line.</td>
+                <td class="template match teamno separator"></td>
+                <td class="template match result">
+                <div class="result">
+                  <span class="score">##</span> : <span class="score">##</span>
+                </div>
+                <div class="noprint finish">
+                  <input class="score" type="number" />
+                  :
+                  <input class="score" type="number" />
+                  <button class="accept">
+                    Beenden
+                  </button>
+                </div>
+                <div class="noprint correct">
+                  <input class="score" type="number" />
+                  :
+                  <input class="score" type="number" />
+                  <button class="cancel">
+                    Abbrechen
+                  </button>
+                  <button class="accept">
+                    Korrigieren
+                  </button>
+                </div>
+                </td>
+                <td class="hidden separator"></td>
+                <td class="rankingcomponent template">##</td>
               </tr>
             </table>
+
+            <div class="kotree boxview hidden">
+              <h3>Spiel um Platz <span class="bestrank">##</span></h3>
+              <div class="forest">
+                <div class="kolineanchor"></div>
+                <table class="komatchresult template borderless">
+                  <tr>
+                    <td class="team">
+                      <span class="teamno">##</span>
+                      <span class="names">
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                      </span>
+                    </td>
+
+                    <td class="koscore" rowspan="2">
+                      <div class="result">
+                        <div class="score">##</div>
+                        <div class="score">##</div>
+                      </div>
+
+                      <div class="noprint finish">
+                        <div>
+                        <input class="score" type="number" />
+                        <input class="score" type="number" />
+                        </div>
+                        <button class="accept hidden">
+                          Beenden
+                        </button>
+                      </div>
+
+                      <div class="noprint correct">
+                        <input class="score" type="number" />
+                        <input class="score" type="number" />
+                        <button class="cancel hidden">
+                          Abbrechen
+                        </button>
+                        <button class="accept hidden">
+                          Korrigieren
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="team">
+                      <span class="teamno">##</span>
+                      <span class="names">
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                        <span class="name">%% %%</span>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div data-tab="ranking" accesskey="r">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+            Breite</span> <span><input class="shownames" type="checkbox"
+            checked="checked" />Spielernamen</span> <span><input class="abbreviate"
+            type="checkbox" checked="checked"/>Abkürzungen</span>
+        </div>
+        <h2>Platzierungen</h2>
+
+        <div class="tournamentlist">
+          <div class="boxview tournament template">
+            <h3 class="tournamentname"></h3>
+
+            <table class="rankingview background">
+              <tr class="rankingheader">
+                <th>Platz</th>
+                <th>No.</th>
+                <th class="playername">Spieler</th>
+                <th class="component">%% %%</th>
+              </tr>
+              <tr class="rankingrow template">
+                <td class="rank">##</td>
+                <td class="teamno">##</td>
+                <td class="playername"></td>
+                <td class="component">##</td>
+              </tr>
+            </table>
+
+
+            <!-- autoformat placeholder :-( -->
+
+            <table class="correctiontable background">
+              <tr>
+                <th colspan="9">Korrekturen:</th>
+              </tr>
+              <tr class="correctionrow template">
+                <td class="before teamno"></td>
+                <td>vs.</td>
+                <td class="before teamno"></td>
+                <td class="before score">
+                  <div class="result">
+                    <span class="score"></span> : <span class="score"></span>
+                  </div>
+                </td>
+                <td>&#x21d2;</td>
+                <td class="after teamno"></td>
+                <td>vs.</td>
+                <td class="after teamno"></td>
+                <td class="after">
+                  <div class="result">
+                    <span class="score"></span> : <span class="score"></span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+
           </div>
         </div>
       </div>
@@ -603,6 +910,95 @@
         An der Auslosung und Zuweisung von Bahnen wird noch gearbeitet.
         <br>
         Ich bitte um etwas Geduld.
+      </div>
+
+      <div data-tab="games" accesskey="g">
+        <button class="print" data-img="print"></button>
+        <button class="save" data-img="save"></button>
+        <div class="options">
+          <span><input class="maxwidth" type="checkbox" checked="checked" />feste
+            Breite</span> <span><input class="shownames" type="checkbox"
+            checked="checked" />Spielernamen</span>
+        </div>
+        <h2>Laufende Spiele</h2>
+
+        <div class="tournamentlist">
+          <div class="boxview tournament template">
+            <h3 class="tournamentname">%% %%</h3>
+
+            <div class="matchtable">
+              <h3>Runde <span class="round">##</span></h3>
+              <table class="background">
+                <tr>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th>No.</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Spieler</th>
+                  <th class="resultcol">Ergebnis</th>
+                </tr>
+                <tr class="matchrow template">
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="teamno"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td class="name"></td>
+                  <td>
+                  <div class="result">
+                    <span class="score">##</span> : <span class="score">##</span>
+                  </div>
+                  <div class="noprint finish">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="accept">
+                      Beenden
+                    </button>
+                  </div>
+                  <div class="noprint correct">
+                    <input class="score" type="number" />
+                    :
+                    <input class="score" type="number" />
+                    <button class="cancel">
+                      Abbrechen
+                    </button>
+                    <button class="accept">
+                      Korrigieren
+                    </button>
+                  </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="votelist bye">
+              <h3>&#x2205; Freilos</h3>
+            </div>
+
+            <div class="votelist up">
+              <h3>&#x25b2; Hochlos</h3>
+            </div>
+
+            <div class="votelist down">
+              <h3>&#x25bc; Runterlos</h3>
+            </div>
+
+            <div class="teamview voteview template">
+              <div class="teamno">##</div>
+              <div class="names">
+                <div class="name">%% %%</div>
+                <div class="name">%% %%</div>
+                <div class="name">%% %%</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div data-tab="settings" accesskey="o">
@@ -659,25 +1055,6 @@
           <button class="teams ranking history" data-img="all"></button>
         </div>
 
-        <p class="nojson">
-          ACHTUNG: Dieser Browser unterstützt
-          wichtige Standards nicht, die zum Speichern und Laden notwendig
-          sind. Beim Schließen des Browserfensters gehen sämtliche Daten
-          verloren.
-        </p>
-
-        <div class="boxview autocomplete">
-          <h3>Autovervollständigung</h3>
-          <p>
-            Namen für Vervollständigung aus Datei laden.
-          </p>
-          <p class="nofilereader">
-            Dieser Browser kann keine lokalen Dateien laden.
-          </p>
-          <input class="filereader file" type="file" />
-          <button data-img="load"></button>
-        </div>
-
         <div class="boxview">
           <h3>Storage</h3>
           <p>
@@ -685,36 +1062,29 @@
             dem Schließen und Öffnen des Browsers wieder hergestellt.
           </p>
           <div class="local">
-            <button class="save">
+            <button class="savestate">
               Manuell Speichern
             </button>
-            <button class="clear" tabindex="-1">
-              Turnier löschen
-            </button>
-            <br>
-            <br>
-            Speicherverbrauch:
-            <br>
-            <meter class="playerstoragemeter" min="0" max="5.0" value="0.0"></meter>
-            <span>Spielerdatenbank</span>
-            <br>
-            <meter class="tournamentstoragemeter" min="0" max="5.0" value="0.0"></meter>
-            <span>Turnierdatenbank</span>          </div>
+            <p>
+              Zuletzt gespeichert:
+              <br>
+              <span class="savedate">%% %%</span>
+            </p>
+          </div>
 
         </div>
 
         <div class="boxview">
           <h3>Entwicklerwerkzeuge</h3>
-          <div class="devel">
-            <a href="../test/index.html" target="_blank" data-img="test"><br>Tuvero Test</a>
-            <a href="#debug" data-img="debug"><br>Dev Console</a>
-          </div>
+          <a href="#debug" data-img="debug">
+          <br>
+          Dev Console</a>
         </div>
 
       </div>
 
       <div data-tab="about" accesskey="?">
-        <h2>Über Tuvero Boule 1.4.10</h2>
+        <h2>Über Tuvero Boule 1.5.0</h2>
         <div class="boxview">
           <h3>Autor &amp; Mitwirkende</h3>
           <p>
@@ -740,23 +1110,19 @@
         <div class="boxview links">
           <h3>Links</h3>
           <p>
-            <strike>HTML-Anleitung</strike>
-            zum Einlesen und Nachschlagen. (In Arbeit)
-            <br>
-            <br>
             <a href="https://tuvero.de" target="_blank">Tuvero.de</a> zur kostenlosen Nutzung ohne Installation
             <br>
             <br>
-            <a href="https://github.com/elor/tuvero/" target="_blank">Quellcode</a> auf Github.com
+            <a href="https://github.com/elor/tuvero" target="_blank">Quellcode</a> auf Github.com
             <br>
             <br>
-            <a href="https://tuveroblog.wordpress.com/" target="_blank">Update-Blog</a> für Infos über neue Versionen
+            <a href="http://blog.tuvero.de" target="_blank">Update-Blog</a> für Infos über neue Versionen
             <br>
             <br>
-            <a href="https://boulesdb.appspot.com/issue" target="_blank">Fehler melden</a> auf <a href="https://github.com/elor/tuvero/issues" target="_blank">Github.com</a>
+            <a href="http://fehler.tuvero.de/" target="_blank">Fehler melden</a> auf <a href="https://github.com/elor/tuvero/issues" target="_blank">Github.com</a>
             <br>
             <br>
-            <a href="http://boules-dev.appspot.org/" target="_blank">Entwicklerversion</a> zur Vorschau auf kommende Funktionen
+            <a href="https://tuvero.de/dev/" target="_blank">Entwicklerversion</a> zur Vorschau auf kommende Funktionen
           </p>
         </div>
         <div class="boxview">
@@ -771,20 +1137,9 @@
           <p>
             Desktop:
             <a class="inline logo supported" title="Google Chrome" data-img="logos/chrome_128x128"></a>
-            <a class="inline logo supported" title="Chromium" data-img="logos/chromium_128x128"></a>
             <a class="inline logo maywork" title="Opera" data-img="logos/opera_128x128"></a>
             <a class="inline logo maywork" title="Mozilla Firefox" data-img="logos/firefox_128x128"></a>
             <a class="inline logo unsupported" title="Internet Explorer" data-img="logos/internet-explorer_128x128"></a>
-          </p>
-          <p>
-            Mobil:
-            <a class="inline logo supported" title="Google Chrome for Android" data-img="logos/chrome-android_128x128"></a>
-            <a class="inline logo supported" title="Opera" data-img="logos/opera_128x128"></a>
-            <a class="inline logo supported" title="Mozilla Firefox" data-img="logos/firefox_128x128"></a>
-            <a class="inline logo supported" title="Lightning" data-img="logos/lightning_128x128"></a>
-            <a class="inline logo supported" title="Dolphin Browser" data-img="logos/dolphin_128x128"></a>
-            <a class="inline logo unsupported" title="UC Browser" data-img="logos/uc_128x128"></a>
-            <a class="inline logo unsupported" title="Puffin" data-img="logos/puffin_128x128"></a>
           </p>
           <p class="no-support">
             Dieser Browser unterstützt folgende Funktionen nicht:
@@ -827,7 +1182,6 @@
           </p>
           <div class="donatebuttons">
             <a class="large" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
-            <a class="large" data-img="ext/amazonwishlist" href="http://www.amazon.de/registry/wishlist/35WFB5LM44A7R" target="_blank"></a>
           </div>
         </div>
       </div>
@@ -837,44 +1191,68 @@
 
         <div class="boxview">
           <h3>GUI Shortcuts</h3>
-          <form class="register">
-            <button type="button" class="delete">
+          <div class="register">
+            <button class="delete">
               Alles löschen
             </button>
-            <input class="num" type="number" min="0" max="9999" value="33" placeholder="Spielerzahl" />
-            <button type="submit" class="submit">
+            <input class="numteams" type="number" min="0" max="9999" value="33" placeholder="Spielerzahl" />
+            <button class="registerteams">
               Teams anmelden
             </button>
-          </form>
+            <button class="registerids">
+              IDs anmelden
+            </button>
+          </div>
 
-          <form class="tournament">
-            <button class="all">
-              Turnier durchspielen
-            </button>
-            <button class="start">
-              Runde starten
-            </button>
-            <button class="round">
+          <div class="tournament">
+            <button class="finishround">
               Runde ausspielen
             </button>
-          </form>
+          </div>
 
-          <form class="phases">
-            <button class="sidetournamentswiss">
-              Nebenturnier starten (swiss)
-            </button>
-          </form>
-
-          <form class="script">
+          <div class="script">
             <button class="loadmods">
               RequireJS -> var mods (global)
             </button>
-            <button class="updatetabs">
-              Alle Tabs neu laden
-            </button>
-          </form>
-          <button id="onlinecheck">Onlinecheck failed</button>
+          </div>
         </div>
+
+        <div class="boxview">
+          <h3>Browser Info</h3>
+          <table class="browser background">
+            <tr>
+              <th>Property</th>
+              <th>Value</th>
+            </tr>
+            <tr>
+              <td>Browser:</td>
+              <td class="name">%%%%</td>
+            </tr>
+            <tr>
+              <td>Version:</td>
+              <td class="version">%%%%</td>
+            </tr>
+            <tr>
+              <td>Online:</td>
+              <td class="online">%%%%</td>
+            </tr>
+            <tr>
+              <td>Local:</td>
+              <td class="local">%%%%</td>
+            </tr>
+            <tr>
+              <td>Cached:</td>
+              <td class="cached">%%%%</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+              <button class="update">
+                update
+              </button><td>
+            </tr>
+          </table>
+        </div>
+
         <div class="boxview allimages">
           <h3>Images at Pageload</h3>
           <!-- All images get inserted here -->
@@ -882,7 +1260,7 @@
 
         <div class="boxview sprite">
           <h3>Sprite</h3>
-          <div class="large" data-img="sprite"></div>
+          <div data-img="sprite"></div>
         </div>
 
       </div>
