@@ -2,6 +2,8 @@
 
 	* core/templates/roundsystem.html: Advanced Options removed
 
+	* legacy/scripts/ui/systemtablerowview.js: .lastrow wasn't set on team registration
+
 2015-11-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: up/downvotes before byes, then invalidate the ranking

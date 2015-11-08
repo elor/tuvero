@@ -43,8 +43,7 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     this.tournamentView = undefined;
     this.viewPopulator = viewPopulator;
 
-    this.updateRankTexts();
-    this.updateSystem();
+    this.updateEverything();
 
     this.teams.registerListener(this);
     this.tournaments.registerListener(this);
@@ -68,8 +67,6 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
       this.$tournamentrank.text(tournamentRank + 1);
       this.tournamentRank = tournamentRank;
     }
-
-    this.updateLastRowClass(ranking);
   };
 
   /**
@@ -78,12 +75,13 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
    * @param ranking
    *          a global ranking object
    */
-  SystemTableRowView.prototype.updateLastRowClass = function(ranking) {
-    var tournamentID, displayID, nextTeamID, nextTournamentID;
+  SystemTableRowView.prototype.updateLastRowClass = function() {
+    var tournamentID, displayID, nextTeamID, nextTournamentID, ranking;
 
+    ranking = this.tournaments.getGlobalRanking(this.teams.length);
     tournamentID = ranking.tournamentIDs[this.teamID];
     displayID = ranking.displayOrder.indexOf(this.teamID);
-    if (displayID + 1 == ranking.displayOrder.length) {
+    if (displayID + 1 == this.teams.length) {
       this.$view.addClass('lastrow');
       return;
     }
@@ -161,14 +159,19 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
     this.$view.addClass('firstrow');
   };
 
+  SystemTableRowView.prototype.updateEverything = function() {
+    this.updateRankTexts();
+    this.updateLastRowClass();
+    this.updateSystem();
+  };
+
   SystemTableRowView.prototype.onupdate = function(emitter, event, data) {
     var rowview = this;
     if (emitter === this.tournaments) {
       if (this.updatepending === undefined) {
         this.updatepending = true;
         window.setTimeout(function() {
-          rowview.updateRankTexts();
-          rowview.updateSystem();
+          rowview.updateEverything();
           rowview.updatepending = undefined;
         }, 1);
       }
@@ -177,13 +180,13 @@ define(['lib/extend', 'core/view', './teamview', './newtournamentview',
 
   SystemTableRowView.prototype.oninsert = function(emitter, event, data) {
     if (emitter === this.teams) {
-      this.updateSystem();
+      this.updateEverything();
     }
   };
 
   SystemTableRowView.prototype.onremove = function(emitter, event, data) {
     if (emitter === this.teams) {
-      this.updateSystem();
+      this.updateEverything();
     }
   };
 
