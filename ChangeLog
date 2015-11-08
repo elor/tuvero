@@ -4,6 +4,12 @@
 
 	* legacy/scripts/ui/systemtablerowview.js: .lastrow wasn't set on team registration
 
+	* core/templates/abouttab.html: using the same urls everywhere
+
+	* core/templates/splash.html: using the same urls everywhere
+
+	* index.html: using the same urls everywhere
+
 2015-11-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: up/downvotes before byes, then invalidate the ranking
