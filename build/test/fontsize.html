@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html lang="de" manifest="manifest.appcache">
+<head>
+<meta charset="utf-8" />
+<title>Tuvero Test 1.5.0</title>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="style/main.css" />
+</head>
+
+<body>
+	<div class="fontsizeview">
+		Font Size:
+		<button class="fontsizetiny">T</button>
+		<button class="fontsizesmall">T</button>
+		<button class="fontsizenormal">T</button>
+		<button class="fontsizelarge">T</button>
+		<button class="fontsizehuge">T</button>
+	</div>
+
+	<h1>H1 Main Header</h1>
+	<h2>H2 Secondary Header</h2>
+	<h3>H3 Tertiary Header</h3>
+	<h4>H4 Joke Header</h4>
+	<h5>H5 Laughable Header</h5>
+	<h6>H6 Unused Header</h6>
+
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+		eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+		minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+		aliquip ex ea commodo consequat. Duis aute irure dolor in
+		reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+		culpa qui officia deserunt mollit anim id est laborum.</p>
+
+	<img src="images/favicon.png" alt="reference image" /> reference image
+
+	<form target="#">
+		<button>Button</button>
+		<input type="button" value="input-button" /> <input type="text"
+			value="input-text" /> <input type="number" value="input-number" />
+		<input type="checkbox" value="input-checkbox" />
+	</form>
+
+	<button id="manualreset">Manual Reset</button>
+
+  <script id="testmain">
+      function TestMain(Common, $){
+        var StaticViewLoader, FontSizeView, FontSizeModel;
+  
+  //      backendscripts takes care of that for us. For now.      
+  //      StaticViewLoader = Common('ui/staticviewloader');
+        FontSizeView = Common('ui/fontsizeview');
+        FontSizeModel = Common('ui/fontsizemodel');
+        
+        $(function($){
+  //        StaticViewLoader.registerView('fontsizeview', FontSizeView);
+  //        StaticViewLoader.loadViews($('body'));
+          
+          $('#manualreset').click(function(){
+            FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
+          });
+        });
+      }
+    </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+</body>
+</html>
