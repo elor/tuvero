@@ -1,3 +1,7 @@
+2015-11-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/roundsystem.html: Advanced Options removed
+
 2015-11-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/swisstournamentmodel.js: up/downvotes before byes, then invalidate the ranking
