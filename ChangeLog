@@ -11,6 +11,7 @@
 	* index.html: using the same urls everywhere
 
 	* core/scripts/swisstournamentmodel.js: prefiltering upvotes/downvotes to avoid stalls
+	double downvote bug fixed
 
 2015-11-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

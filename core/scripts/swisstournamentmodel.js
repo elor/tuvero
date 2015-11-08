@@ -117,7 +117,7 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     votes.downs.forEach(function(upTeamID) {
       this.votes.down.push(upTeamID);
       this.ranking.downvotes.set(upTeamID,
-          this.ranking.upvotes.get(upTeamID) + 1);
+          this.ranking.downvotes.get(upTeamID) + 1);
     }, this);
 
     /*
@@ -410,6 +410,13 @@ define(['lib/extend', './roundtournamentmodel', 'backend/random',
     })) {
       // success! there's no team left
       return true;
+    }
+
+    // verify eventual downvote
+    if (currentGroup.length == 1 && this.getProperty('enableupdown')) {
+      if (!this.canGetDownvote(currentGroup[0])) {
+        return false;
+      }
     }
 
     teamA = currentGroup.shift();
