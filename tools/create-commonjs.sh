@@ -30,7 +30,7 @@ $(printrefs core $coredir)
 $(printrefs backend $backenddir)
 $(printrefs ui $uidir | sed '$s/,$//')
 ], function(undefined) {
-  return function(str) {
+  var Common = function(str) {
     var module = require.s.contexts._.defined[str];
     if (!module) {
       throw new Error('module "' + str +
@@ -38,5 +38,7 @@ $(printrefs ui $uidir | sed '$s/,$//')
     }
     return module;
   };
+
+  return Common;
 });
 EOF
