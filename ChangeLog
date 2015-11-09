@@ -5,6 +5,8 @@
 
 	* tools/create-commonjs.sh: explicitly naming the export
 
+	* tools/listdependencies.sh: list dependencies for every .js file
+
 2015-11-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/roundsystem.html: Advanced Options removed
