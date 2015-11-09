@@ -81,6 +81,7 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
     this.update();
   };
 
-  return new TabGamesCheapHackListener();
-  // return TabGamesCheapHackListener;
+  TabGamesCheapHackListener.instance = new TabGamesCheapHackListener();
+
+  return undefined;
 });

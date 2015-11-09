@@ -237,7 +237,7 @@ define([
   'ui/update',
   'ui/valueview'
 ], function(undefined) {
-  return function(str) {
+  var Common = function(str) {
     var module = require.s.contexts._.defined[str];
     if (!module) {
       throw new Error('module "' + str +
@@ -245,4 +245,6 @@ define([
     }
     return module;
   };
+
+  return Common;
 });

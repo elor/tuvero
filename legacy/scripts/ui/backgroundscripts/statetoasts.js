@@ -20,4 +20,6 @@ define(['../state_new', 'core/listener', '../toast', '../strings'], function(
       new Toast(Strings.newtournament, Toast.LONG);
     }
   });
+
+  return undefined;
 });

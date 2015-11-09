@@ -87,6 +87,7 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
     this.update();
   };
 
-  return new TabHistoryCheapHackListener();
-  // return TabHistoryCheapHackListener;
+  TabHistoryCheapHackListener.instance = new TabHistoryCheapHackListener();
+
+  return undefined;
 });

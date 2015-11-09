@@ -38,4 +38,6 @@ define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
   });
 
   hashcheck();
+
+  return undefined;
 });

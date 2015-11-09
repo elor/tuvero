@@ -53,4 +53,5 @@ define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel',
     data.object.getName().unregisterListener(nameListener);
   });
 
+  return undefined;
 });

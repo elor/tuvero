@@ -22,6 +22,8 @@ define(['./backgroundscripts/online', './update'], function(Online, Update) {
     /**
      * original code copied from:
      * http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
+     *
+     * @return browser information: "Browsername 13.0.0.1" or similar
      */
     sayswho = (function() {
       var ua, tem, M, regex;
@@ -38,8 +40,8 @@ define(['./backgroundscripts/online', './update'], function(Online, Update) {
         if (tem != null)
           return tem.slice(1).join(' ').replace('OPR', 'Opera');
       }
-      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion,
-          '-?'];
+      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion,//
+      '-?'];
       if ((tem = ua.match(/version\/(\d+)/i)) != null)
         M.splice(1, 1, tem[1]);
       return M.join(' ');
@@ -66,5 +68,7 @@ define(['./backgroundscripts/online', './update'], function(Online, Update) {
     return Browser;
   };
 
-  return Browser.update();
+  Browser.update();
+
+  return Browser;
 });

@@ -6,10 +6,13 @@
  * @see LICENSE
  */
 
-define(['../boxview', '../fontsizeview', '../staticviewloader', 'jquery'], function(BoxView, FontSizeView, StaticViewLoader, $) {
+define(['../boxview', '../fontsizeview', '../staticviewloader', 'jquery'], //
+function(BoxView, FontSizeView, StaticViewLoader, $) {
   $(function($) {
     StaticViewLoader.registerView('boxview', BoxView);
     StaticViewLoader.registerView('fontsizeview', FontSizeView);
     StaticViewLoader.loadViews($('body'));
   });
+
+  return undefined;
 });
