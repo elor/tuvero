@@ -1,6 +1,7 @@
 2015-11-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tools/getexports.sh: list the exported contents of each module
+	extracting library names, too
 
 	* tools/create-commonjs.sh: explicitly naming the export
 
