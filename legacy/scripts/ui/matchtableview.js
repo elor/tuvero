@@ -28,6 +28,14 @@ define(['lib/extend', './templateview', './listview', 'core/listener',
 
     this.updateRunningState();
     this.updateGroupNumber();
+
+    var view = this;
+    this.groupListener = new Listener(this.model);
+    this.groupListener.oninsert = function(emitter, event, data) {
+      if (view.model.length === 1) {
+        view.updateGroupNumber();
+      }
+    };
   }
   extend(MatchTableView, TemplateView);
 
@@ -35,15 +43,7 @@ define(['lib/extend', './templateview', './listview', 'core/listener',
    * print the group ID as soon as it's available
    */
   MatchTableView.prototype.updateGroupNumber = function() {
-    var view = this;
-
-    if (this.model.length === 0) {
-      this.groupListener = new Listener(this.model);
-      this.groupListener.onresize = function(emitter, event, data) {
-        view.updateGroupNumber();
-        this.destroy();
-      };
-    } else {
+    if (this.model.length > 0) {
       this.$round.text(Number(this.model.get(0).getGroup()) + 1);
     }
   };
@@ -83,6 +83,7 @@ define(['lib/extend', './templateview', './listview', 'core/listener',
   MatchTableView.prototype.destroy = function() {
     MatchTableView.superclass.destroy.call(this);
     this.listView.destroy();
+    this.groupListener.destroy();
   };
 
   return MatchTableView;
