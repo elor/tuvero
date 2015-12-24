@@ -44,7 +44,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">69.75</p>
+      <p class="stat">69.70</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">9.87</p>
+      <p class="stat">9.74</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.17</p>
+      <p class="stat">0.18</p>
     </div>
   </div>
 </div>
@@ -98,8 +98,8 @@
  * @see LICENSE
  */
 define([&#039;lib/Blob&#039;, &#039;jquery&#039;, &#039;../state&#039;, &#039;../toast&#039;, &#039;../strings&#039;,
-    &#039;lib/FileSaver&#039;, &#039;options&#039;], function(Blob, $, State, Toast, Strings,
-    saveAs, Options) {
+    &#039;lib/FileSaver&#039;, &#039;presets&#039;], function(Blob, $, State, Toast, Strings,
+    saveAs, Presets) {
 
   $(function($) {
     $(&#039;#tabs&#039;).on(&#039;click&#039;, &#039;button.save&#039;, function() {
@@ -112,7 +112,7 @@ define([&#039;lib/Blob&#039;, &#039;jquery&#039;, &#039;../state&#039;, &#039;..
           blob = new Blob([save], {
             type: &#039;application/json&#039;
           });
-          saveAs(blob, Options.savefile);
+          saveAs(blob, Presets.names.savefile);
         } catch (er) {
           console.error(er);
           new Toast(Strings.savefailed);

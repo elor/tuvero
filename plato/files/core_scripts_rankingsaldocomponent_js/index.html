@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">29</p>
+      <p class="stat">28</p>
     </div>
   </div>
   <div class="row historical">
@@ -97,35 +97,34 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;],
-    function(extend, RankingComponent) {
-      /**
-       * Constructor
-       *
-       * @param ranking
-       *          a RankingModel instance
-       * @param nextcomponent
-       *          the next component in the chain
-       */
-      function RankingSaldoComponent(ranking, nextcomponent) {
-        RankingSaldoComponent.superconstructor.call(this, ranking,
-            nextcomponent);
-      }
-      extend(RankingSaldoComponent, RankingComponent);
+define([&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;], //
+function(extend, RankingComponent) {
+  /**
+   * Constructor
+   *
+   * @param ranking
+   *          a RankingModel instance
+   * @param nextcomponent
+   *          the next component in the chain
+   */
+  function RankingSaldoComponent(ranking, nextcomponent) {
+    RankingSaldoComponent.superconstructor.call(this, ranking, nextcomponent);
+  }
+  extend(RankingSaldoComponent, RankingComponent);
 
-      RankingSaldoComponent.NAME = &#039;saldo&#039;;
+  RankingSaldoComponent.NAME = &#039;saldo&#039;;
 
-      /**
-       * @param i
-       *          a team index
-       * @return the point difference, aka. saldo points
-       */
-      RankingSaldoComponent.prototype.value = function(i) {
-        return this.ranking.saldo.get(i);
-      };
+  /**
+   * @param i
+   *          a team index
+   * @return the point difference, aka. saldo points
+   */
+  RankingSaldoComponent.prototype.value = function(i) {
+    return this.ranking.saldo.get(i);
+  };
 
-      return RankingSaldoComponent;
-    });</textarea>
+  return RankingSaldoComponent;
+});</textarea>
   </div>
 </div>
 

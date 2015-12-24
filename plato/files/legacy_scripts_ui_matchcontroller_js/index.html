@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">67.71</p>
+      <p class="stat">65.98</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">149</p>
+      <p class="stat">178</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">36.12</p>
+      <p class="stat">38.50</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.06</p>
+      <p class="stat">1.21</p>
     </div>
   </div>
 </div>
@@ -128,7 +128,9 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;options&#039;
   extend(MatchController, Controller);
 
   MatchController.prototype.initKeyListeners = function() {
-    var controller = this;
+    var controller, $lastinput;
+
+    controller = this;
 
     this.$form.keydown(function(e) {
       switch (e.which) {
@@ -138,6 +140,23 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;options&#039;
       case 13: // enter
         controller.accept();
         break;
+      case 9: // tab
+        if (e.shiftKey) {
+          return;
+        }
+
+        if (controller.$acceptbutton.filter(&#039;:not(.hidden)&#039;).length !== 0) {
+          return;
+        }
+
+        $lastinput = controller.$scores.eq(controller.$scores.length - 1);
+        if ($lastinput.data() !== $(e.target).data()) {
+          return;
+        }
+
+        if (controller.accept()) {
+          break;
+        }
       default:
         return;
       }
@@ -155,7 +174,8 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;options&#039;
       $(this).select();
     });
 
-    // We&#039;re using keyup to check the values as the user types, not only when
+    // We&#039;re using keyup to check the values as the user types, not only
+    // when
     // the focus is lost or the value is changed incrementally
     this.$scores.on(&#039;change keyup&#039;, function() {
       var $this, value, valid;
@@ -225,11 +245,16 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;options&#039;
     return valid;
   };
 
+  /**
+   * finish the match with the entered result, if it&#039;s valid.
+   *
+   * @return true on success, false otherwise
+   */
   MatchController.prototype.accept = function() {
     var points;
 
     if (!this.validateScore()) {
-      return;
+      return false;
     }
 
     points = [];
@@ -239,8 +264,12 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;options&#039;
     });
 
     this.model.finish(points);
+    return true;
   };
 
+  /**
+   * cancel the input. Please overload where necessary
+   */
   MatchController.prototype.cancel = function() {
     // inherit if necessary. Usual result submissions cannot be canceled
     // We could reset the points, however

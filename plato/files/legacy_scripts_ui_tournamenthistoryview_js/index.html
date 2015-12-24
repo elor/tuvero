@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">73.37</p>
+      <p class="stat">72.94</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">78</p>
+      <p class="stat">81</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">14.74</p>
+      <p class="stat">15.00</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.58</p>
+      <p class="stat">0.60</p>
     </div>
   </div>
 </div>
@@ -114,8 +114,10 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
    *          model.getCombinedHistory()
    * @param teamsize
    *          a ValueModel which represents the number of players in a team
+   * @param showNames
+   *          a ValueModel which evaluates to true if the names should be shown
    */
-  function TournamentHistoryView(model, $view, teamlist, teamsize) {
+  function TournamentHistoryView(model, $view, teamlist, teamsize, showNames) {
     TournamentHistoryView.superconstructor.call(this, model, $view);
 
     this.boxview = new BoxView(this.$view);
@@ -123,6 +125,7 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     this.$names = this.$view.find(&#039;.tournamentname&#039;);
     this.teamlist = teamlist;
     this.teamsize = teamsize;
+    this.showNames = showNames;
 
     this.groups = new BinningReferenceListModel(
         this.model.getCombinedHistory(), TournamentHistoryView.groupFilter);
@@ -158,7 +161,7 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
 
   TournamentHistoryView.prototype.initGenericView = function() {
     this.genericView = new GenericTournamentHistoryView(this.model, this.$view,
-        this.groups, this.teamlist, this.teamsize);
+        this.groups, this.teamlist, this.teamsize, this.showNames);
   };
 
   TournamentHistoryView.prototype.updateVisibility = function() {

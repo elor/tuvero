@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">69.95</p>
+      <p class="stat">70.22</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">95</p>
+      <p class="stat">91</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,7 +62,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">18.46</p>
+      <p class="stat">17.31</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
@@ -97,101 +97,97 @@
  * @see LICENSE
  */
 
-define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./playermodel&#039;, &#039;./teammodel&#039;],
-    function(extend, Controller, PlayerModel, TeamModel) {
-      /**
-       * Constructor
-       *
-       * @param view
-       *          the associated NewTeamView
-       */
-      function NewTeamController(view) {
-        var controller;
-        NewTeamController.superconstructor.call(this, view);
+define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./playermodel&#039;, &#039;./teammodel&#039;], //
+function(extend, Controller, PlayerModel, TeamModel) {
+  /**
+   * Constructor
+   *
+   * @param view
+   *          the associated NewTeamView
+   */
+  function NewTeamController(view) {
+    var controller;
+    NewTeamController.superconstructor.call(this, view);
 
-        controller = this;
+    controller = this;
 
-        this.$players = this.view.$players;
+    this.$players = this.view.$players;
 
-        /**
-         * add a new team at form submission
-         *
-         * @param e
-         *          jQuery event object
-         */
-        this.view.$view.submit(function(e) {
-          controller.createNewTeam();
-          e.preventDefault();
-          return false;
-        });
+    /*
+     * add a new team at form submission
+     */
+    this.view.$view.submit(function(e) {
+      controller.createNewTeam();
+      e.preventDefault();
+      return false;
+    });
+  }
+  extend(NewTeamController, Controller);
+
+  /**
+   * reads the playernames from the newteam form
+   *
+   * @return an array of player names
+   */
+  NewTeamController.prototype.readPlayerNames = function() {
+    var names;
+
+    names = this.$players.map(function(id, player) {
+      var $player;
+      $player = $(player);
+
+      if ($player.prop(&#039;disabled&#039;)) {
+        return undefined;
       }
-      extend(NewTeamController, Controller);
+      return $player.val();
+    }).get();
 
-      /**
-       * reads the playernames from the newteam form
-       *
-       * @return an array of player names
-       */
-      NewTeamController.prototype.readPlayerNames = function() {
-        var names;
+    while (names.length &gt; 0 &amp;&amp; names[names.length - 1] === undefined) {
+      names.pop();
+    }
 
-        names = this.$players.map(function(id, player) {
-          var $player;
-          $player = $(player);
+    return names;
+  };
 
-          if ($player.prop(&#039;disabled&#039;)) {
-            return undefined;
-          } else {
-            return $player.val();
-          }
-        }).get();
+  /**
+   * Add a new team after reading the names from the registered input fields and
+   * push it to this.model, which is supposed to be a ListModel.
+   *
+   * If a player name is invalid (whitespace-only or empty), team creation is
+   * aborted and the first invalid input field is focused
+   */
+  NewTeamController.prototype.createNewTeam = function() {
+    var names, players;
 
-        while (names.length &gt; 0 &amp;&amp; names[names.length - 1] === undefined) {
-          names.pop();
-        }
+    names = this.readPlayerNames();
 
-        return names;
-      };
+    if (names.length === 0) {
+      console.error(&#039;NewTeamController: all input fields disabled?&#039;);
+      return;
+    }
 
-      /**
-       * Add a new team after reading the names from the registered input fields
-       * and push it to this.model, which is supposed to be a ListModel.
-       *
-       * If a player name is invalid (whitespace-only or empty), team creation
-       * is aborted and the first invalid input field is focused
-       */
-      NewTeamController.prototype.createNewTeam = function() {
-        var names, players;
+    players = names.map(function(name) {
+      var player;
 
-        names = this.readPlayerNames();
+      player = new PlayerModel(name);
 
-        if (names.length === 0) {
-          console.error(&#039;NewTeamController: all input fields disabled?&#039;);
-          return;
-        }
+      if (player.getName() === PlayerModel.NONAME) {
+        return undefined;
+      }
 
-        players = names.map(function(name) {
-          var player;
+      return player;
+    });
 
-          player = new PlayerModel(name);
+    if (players.indexOf(undefined) === -1) {
+      this.model.push(new TeamModel(players));
+      this.view.resetNames();
+    }
 
-          if (player.getName() === PlayerModel.NONAME) {
-            return undefined;
-          }
+    this.view.focusEmpty();
+  };
 
-          return player;
-        });
-
-        if (players.indexOf(undefined) === -1) {
-          this.model.push(new TeamModel(players));
-          this.view.resetNames();
-        }
-
-        this.view.focusEmpty();
-      };
-
-      return NewTeamController;
-    });</textarea>
+  return NewTeamController;
+});</textarea>
   </div>
 </div>
 

@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">24</p>
+      <p class="stat">23</p>
     </div>
   </div>
   <div class="row historical">
@@ -97,30 +97,29 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;],
-    function(extend, RankingComponent) {
-      /**
-       * Constructor
-       *
-       * @param ranking
-       *          a RankingModel instance
-       */
-      function RankingHeadToHeadComponent(ranking) {
-        RankingHeadToHeadComponent.superconstructor.call(this, ranking,
-            undefined);
-      }
-      extend(RankingHeadToHeadComponent, RankingComponent);
+define([&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;], //
+function(extend, RankingComponent) {
+  /**
+   * Constructor
+   *
+   * @param ranking
+   *          a RankingModel instance
+   */
+  function RankingHeadToHeadComponent(ranking) {
+    RankingHeadToHeadComponent.superconstructor.call(this, ranking, undefined);
+  }
+  extend(RankingHeadToHeadComponent, RankingComponent);
 
-      RankingHeadToHeadComponent.NAME = &#039;headtohead&#039;;
-      RankingHeadToHeadComponent.DEPENDENCIES = [&#039;headtoheadmatrix&#039;];
+  RankingHeadToHeadComponent.NAME = &#039;headtohead&#039;;
+  RankingHeadToHeadComponent.DEPENDENCIES = [&#039;headtoheadmatrix&#039;];
 
-      RankingHeadToHeadComponent.prototype.compare = function(i, k) {
-        return this.ranking.headtoheadmatrix.get(k, i)
-            || this.nextcomponent.compare(i, k);
-      };
+  RankingHeadToHeadComponent.prototype.compare = function(i, k) {
+    return this.ranking.headtoheadmatrix.get(k, i)
+        || this.nextcomponent.compare(i, k);
+  };
 
-      return RankingHeadToHeadComponent;
-    });</textarea>
+  return RankingHeadToHeadComponent;
+});</textarea>
   </div>
 </div>
 

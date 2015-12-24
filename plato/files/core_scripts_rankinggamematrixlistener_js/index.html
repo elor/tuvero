@@ -99,25 +99,25 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./rankingdatalistener&#039;, &#039;./transposesummatrix&#039;],
-    function(extend, RankingDataListener, TransposeSumMatrix) {
-      /**
-       * Constructor
-       *
-       * @param ranking
-       *          a RankingModel instance
-       */
-      function RankingGameMatrixListener(ranking) {
-        RankingGameMatrixListener.superconstructor.call(this, ranking,
-            new TransposeSumMatrix(ranking.winsmatrix));
-      }
-      extend(RankingGameMatrixListener, RankingDataListener);
+define([&#039;lib/extend&#039;, &#039;./rankingdatalistener&#039;, &#039;./transposesummatrix&#039;], //
+function(extend, RankingDataListener, TransposeSumMatrix) {
+  /**
+   * Constructor
+   *
+   * @param ranking
+   *          a RankingModel instance
+   */
+  function RankingGameMatrixListener(ranking) {
+    RankingGameMatrixListener.superconstructor.call(this, ranking,
+        new TransposeSumMatrix(ranking.winsmatrix));
+  }
+  extend(RankingGameMatrixListener, RankingDataListener);
 
-      RankingGameMatrixListener.NAME = &#039;gamematrix&#039;;
-      RankingGameMatrixListener.DEPENDENCIES = [&#039;winsmatrix&#039;];
+  RankingGameMatrixListener.NAME = &#039;gamematrix&#039;;
+  RankingGameMatrixListener.DEPENDENCIES = [&#039;winsmatrix&#039;];
 
-      return RankingGameMatrixListener;
-    });</textarea>
+  return RankingGameMatrixListener;
+});</textarea>
   </div>
 </div>
 

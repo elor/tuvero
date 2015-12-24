@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">29</p>
+      <p class="stat">28</p>
     </div>
   </div>
   <div class="row historical">
@@ -97,35 +97,34 @@
  * @license MIT License
  * @see LICENSE
  */
-define(
-    [&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;],
-    function(extend, RankingComponent) {
-      /**
-       * Constructor
-       *
-       * @param ranking
-       *          a RankingModel instance
-       * @param nextcomponent
-       *          the next component in the chain
-       */
-      function RankingTacComponent(ranking, nextcomponent) {
-        RankingTacComponent.superconstructor.call(this, ranking, nextcomponent);
-      }
-      extend(RankingTacComponent, RankingComponent);
+define([&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;],//
+function(extend, RankingComponent) {
+  /**
+   * Constructor
+   *
+   * @param ranking
+   *          a RankingModel instance
+   * @param nextcomponent
+   *          the next component in the chain
+   */
+  function RankingTacComponent(ranking, nextcomponent) {
+    RankingTacComponent.superconstructor.call(this, ranking, nextcomponent);
+  }
+  extend(RankingTacComponent, RankingComponent);
 
-      RankingTacComponent.NAME = &#039;tac&#039;;
+  RankingTacComponent.NAME = &#039;tac&#039;;
 
-      /**
-       * @param i
-       *          a team index
-       * @return the point difference, aka. tac points
-       */
-      RankingTacComponent.prototype.value = function(i) {
-        return this.ranking.tac.get(i);
-      };
+  /**
+   * @param i
+   *          a team index
+   * @return the point difference, aka. tac points
+   */
+  RankingTacComponent.prototype.value = function(i) {
+    return this.ranking.tac.get(i);
+  };
 
-      return RankingTacComponent;
-    });</textarea>
+  return RankingTacComponent;
+});</textarea>
   </div>
 </div>
 

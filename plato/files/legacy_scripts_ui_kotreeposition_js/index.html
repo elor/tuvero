@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">65.86</p>
+      <p class="stat">67.63</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">87</p>
+      <p class="stat">102</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">28.74</p>
+      <p class="stat">30.98</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.50</p>
+      <p class="stat">0.58</p>
     </div>
   </div>
 </div>
@@ -98,9 +98,10 @@
  * @see LICENSE
  */
 define([&#039;core/kotournamentmodel&#039;], function(KOTournamentModel) {
-  var leftPadding, topPadding, width, height;
+  var leftPadding, topPadding, width, height, shortWidth;
 
   width = 17;
+  shortWidth = 7;
   height = 4;
   topPadding = -1.5;
   leftPadding = 1;
@@ -114,11 +115,14 @@ define([&#039;core/kotournamentmodel&#039;], function(KOTournamentModel) {
    *          a KO match group
    * @param numTeams
    *          the total number of teams in the tournament
+   * @param showNames
+   *          whether the boxes should be wide enough to include names
    */
-  function KOTreePosition(id, group, numTeams) {
+  function KOTreePosition(id, group, numTeams, showNames) {
     this.id = id;
     this.group = group;
     this.numTeams = numTeams;
+    this.showNames = showNames;
     this.round = KOTournamentModel.roundOfMatchID(this.id);
     this.isThirdPlace = (this.group &amp; 0x1) === 1;
     this.firstid = KOTournamentModel.firstMatchIDOfRound(this.round);
@@ -136,7 +140,11 @@ define([&#039;core/kotournamentmodel&#039;], function(KOTournamentModel) {
    * @return the x position
    */
   KOTreePosition.prototype.calcXPosition = function() {
-    return leftPadding + (this.firstRound - this.round) * width;
+    return leftPadding + (this.firstRound - this.round) * this.getWidth();
+  };
+
+  KOTreePosition.prototype.getWidth = function() {
+    return KOTreePosition.getWidth(this.showNames);
   };
 
   /**
@@ -174,10 +182,17 @@ define([&#039;core/kotournamentmodel&#039;], function(KOTournamentModel) {
   KOTreePosition.prototype.getFollowingPosition = function() {
     var nextID = KOTournamentModel.nextRoundMatchID(this.id);
 
-    return new KOTreePosition(nextID, this.group, this.numTeams);
+    return new KOTreePosition(nextID, this.group, this.numTeams, //
+    this.showNames);
   };
 
-  KOTreePosition.WIDTH = width;
+  KOTreePosition.getWidth = function(showNames) {
+    if (showNames) {
+      return width;
+    }
+    return shortWidth;
+  };
+
   KOTreePosition.HEIGHT = height;
   KOTreePosition.TOPPADDING = topPadding;
   KOTreePosition.LEFTPADDING = leftPadding;

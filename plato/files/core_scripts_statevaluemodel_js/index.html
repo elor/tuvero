@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">84</p>
+      <p class="stat">83</p>
     </div>
   </div>
   <div class="row historical">
@@ -97,90 +97,89 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./selectionvaluemodel&#039;, &#039;./uniquelistmodel&#039;],
-    function(extend, SelectionValueModel, UniqueListModel) {
+define([&#039;lib/extend&#039;, &#039;./selectionvaluemodel&#039;, &#039;./uniquelistmodel&#039;], function(
+    extend, SelectionValueModel, UniqueListModel) {
 
-      /**
-       * Constructor
-       *
-       * Transition object: { &#039;current&#039;: [&#039;possible1&#039;, &#039;possible2&#039;]}
-       *
-       * @param initial
-       *          initial value
-       * @param transitions
-       *          an object with transition arrays, as described above
-       */
-      function StateValueModel(initial, transitions) {
-        StateValueModel.superconstructor.call(this, initial,
-            new UniqueListModel());
+  /**
+   * Constructor
+   *
+   * Transition object: { &#039;current&#039;: [&#039;possible1&#039;, &#039;possible2&#039;]}
+   *
+   * @param initial
+   *          initial value
+   * @param transitions
+   *          an object with transition arrays, as described above
+   */
+  function StateValueModel(initial, transitions) {
+    StateValueModel.superconstructor.call(this, initial,//
+    new UniqueListModel());
 
-        // push it for safety
-        this.allowedValues.push(initial);
+    // push it for safety
+    this.allowedValues.push(initial);
 
-        /*
-         * Design decision: Not cloning the transitions object, so the state
-         * transitions can later be modified, although they&#039;re not immediate,
-         * but require an update across one of the old transition paths.
-         */
-        this.transitions = transitions;
-        this.updateStates();
+    /*
+     * Design decision: Not cloning the transitions object, so the state
+     * transitions can later be modified, although they&#039;re not immediate, but
+     * require an update across one of the old transition paths.
+     */
+    this.transitions = transitions;
+    this.updateStates();
 
-        this.registerListener(this);
+    this.registerListener(this);
+  }
+  extend(StateValueModel, SelectionValueModel);
+
+  /**
+   * Write all possible next states, as specified by this.transitions, to the
+   * list of allowed values.
+   */
+  StateValueModel.prototype.updateStates = function() {
+    /*
+     * Read all possible states, remove all currently inaccessible states from
+     * allowedValues and add those that are accessible. This is not the fastest
+     * way, but it avoids any assumptions about possible subclasses
+     */
+    Object.keys(this.transitions).forEach(function(state) {
+      var transition;
+      transition = this.transitions[this.get()];
+
+      if (this.get() === state) {
+        // retain the current state to avoid the default value
+        this.allowedValues.push(state);
+      } else if (transition.indexOf(state) !== -1) {
+        // transition is possible. Allowed state
+        this.allowedValues.push(state);
+      } else {
+        // transition is impossible. Invalid state
+        this.allowedValues.erase(state);
       }
-      extend(StateValueModel, SelectionValueModel);
+    }, this);
+  };
 
-      /**
-       * Write all possible next states, as specified by this.transitions, to
-       * the list of allowed values.
-       */
-      StateValueModel.prototype.updateStates = function() {
-        /*
-         * Read all possible states, remove all currently inaccessible states
-         * from allowedValues and add those that are accessible. This is not the
-         * fastest way, but it avoids any assumptions about possible subclasses
-         */
-        Object.keys(this.transitions).forEach(function(state) {
-          var transition;
-          transition = this.transitions[this.get()];
+  /**
+   * like this.set(), but it enforces a state change
+   *
+   * @param newState
+   * @return true on success, false otherwise
+   */
+  StateValueModel.prototype.forceState = function(newState) {
+    if (this.transitions[newState]) {
+      this.allowedValues.push(newState);
+      this.set(newState);
+      return true;
+    }
+    return false;
+  };
 
-          if (this.get() === state) {
-            // retain the current state to avoid the default value
-            this.allowedValues.push(state);
-          } else if (transition.indexOf(state) !== -1) {
-            // transition is possible. Allowed state
-            this.allowedValues.push(state);
-          } else {
-            // transition is impossible. Invalid state
-            this.allowedValues.erase(state);
-          }
-        }, this);
-      };
+  /**
+   * Callback function to update the list of allowed states after a state change
+   */
+  StateValueModel.prototype.onupdate = function() {
+    this.updateStates();
+  };
 
-      /**
-       * like this.set(), but it enforces a state change
-       *
-       * @param newState
-       * @return true on success, false otherwise
-       */
-      StateValueModel.prototype.forceState = function(newState) {
-        if (this.transitions[newState]) {
-          this.allowedValues.push(newState);
-          this.set(newState);
-          return true;
-        }
-        return false;
-      };
-
-      /**
-       * Callback function to update the list of allowed states after a state
-       * change
-       */
-      StateValueModel.prototype.onupdate = function() {
-        this.updateStates();
-      };
-
-      return StateValueModel;
-    });</textarea>
+  return StateValueModel;
+});</textarea>
   </div>
 </div>
 

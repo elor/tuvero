@@ -97,35 +97,35 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;],
-    function(extend, RankingComponent) {
-      /**
-       * Constructor
-       *
-       * @param ranking
-       *          a RankingModel instance
-       * @param nextcomponent
-       *          the next component in the chain
-       */
-      function RankingLostPointsComponent(ranking, nextcomponent) {
-        RankingLostPointsComponent.superconstructor.call(this, ranking,
-            nextcomponent);
-      }
-      extend(RankingLostPointsComponent, RankingComponent);
+define([&#039;lib/extend&#039;, &#039;./rankingcomponent&#039;], //
+function(extend, RankingComponent) {
+  /**
+   * Constructor
+   *
+   * @param ranking
+   *          a RankingModel instance
+   * @param nextcomponent
+   *          the next component in the chain
+   */
+  function RankingLostPointsComponent(ranking, nextcomponent) {
+    RankingLostPointsComponent.superconstructor.call(this, ranking,
+        nextcomponent);
+  }
+  extend(RankingLostPointsComponent, RankingComponent);
 
-      RankingLostPointsComponent.NAME = &#039;lostpoints&#039;;
+  RankingLostPointsComponent.NAME = &#039;lostpoints&#039;;
 
-      /**
-       * @param i
-       *          a team index
-       * @return the small points: won points, without subtracting lost points
-       */
-      RankingLostPointsComponent.prototype.value = function(i) {
-        return this.ranking.lostpoints.get(i);
-      };
+  /**
+   * @param i
+   *          a team index
+   * @return the small points: won points, without subtracting lost points
+   */
+  RankingLostPointsComponent.prototype.value = function(i) {
+    return this.ranking.lostpoints.get(i);
+  };
 
-      return RankingLostPointsComponent;
-    });</textarea>
+  return RankingLostPointsComponent;
+});</textarea>
   </div>
 </div>
 

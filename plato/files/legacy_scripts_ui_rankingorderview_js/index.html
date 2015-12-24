@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">74.98</p>
+      <p class="stat">74.00</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">60</p>
+      <p class="stat">64</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">14.40</p>
+      <p class="stat">14.25</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.37</p>
+      <p class="stat">0.38</p>
     </div>
   </div>
 </div>
@@ -98,8 +98,9 @@
  * @see LICENSE
  */
 define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./rankingcomponentview&#039;, &#039;./listview&#039;,
-    &#039;./rankingordercontroller&#039;], function(extend, TemplateView,
-    RankingComponentView, ListView, RankingOrderController) {
+    &#039;./rankingordercontroller&#039;, &#039;core/listener&#039;], function(extend,
+    TemplateView, RankingComponentView, ListView, RankingOrderController,
+    Listener) {
   /**
    * Constructor
    *
@@ -109,10 +110,13 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./rankingcompo
    */
   function RankingOrderView(selectedComponents, $view, allComponents) {
     RankingOrderView.superconstructor.call(this, selectedComponents, $view,
-        $view.find(&#039;option.template&#039;));
+        $view.find(&#039;.template&#039;));
 
-    this.$availableList = this.$view.find(&#039;&gt;select&#039;).eq(0);
-    this.$selectedList = this.$view.find(&#039;&gt;select&#039;).eq(1);
+    this.selected = selectedComponents;
+    this.allComponents = allComponents;
+
+    this.$availableList = this.$view.find(&#039;.available&#039;);
+    this.$selectedList = this.$view.find(&#039;.selected&#039;);
 
     this.selectedListView = new ListView(selectedComponents,
         this.$selectedList, this.$template, RankingComponentView);
@@ -131,12 +135,12 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./rankingcompo
    */
   RankingOrderView.prototype.update = function() {
     var model = this.model;
-    this.$availableList.find(&#039;option&#039;).each(function(index) {
+    this.$availableList.find(&#039;.component&#039;).each(function(index) {
       var $option = $(this);
       if (model.indexOf($option.val()) === -1) {
-        $option.show();
+        $option.removeClass(&#039;hidden&#039;);
       } else {
-        $option.hide();
+        $option.addClass(&#039;hidden&#039;);
       }
     });
   };

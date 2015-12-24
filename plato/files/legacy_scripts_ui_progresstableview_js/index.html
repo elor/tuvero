@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">68.62</p>
+      <p class="stat">66.84</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">42</p>
+      <p class="stat">78</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">7.40</p>
+      <p class="stat">17.77</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.27</p>
+      <p class="stat">0.62</p>
     </div>
   </div>
 </div>
@@ -98,10 +98,10 @@
  * @see LICENSE
  */
 define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./listview&#039;, &#039;./inlinelistview&#039;,
-    &#039;./teamtableview&#039;, &#039;./progressrowview&#039;, &#039;./progresslistmodel&#039;,
-    &#039;./progressroundview&#039;], function(extend, TemplateView, ListView,
-    InlineListView, TeamTableView, ProgressRowView, ProgressListModel,
-    ProgressRoundView) {
+    &#039;./teamtableview&#039;, &#039;./progressrowview&#039;, &#039;./progresslistmodel&#039;, &#039;./strings&#039;,
+    &#039;core/listmodel&#039;, &#039;./progressroundview&#039;, &#039;core/listener&#039;], function(extend,
+    TemplateView, ListView, InlineListView, TeamTableView, ProgressRowView,
+    ProgressListModel, Strings, ListModel, ProgressRoundView, Listener) {
   /**
    * Constructor
    *
@@ -118,24 +118,60 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./listview&#03
    *          a ValueModel which represents the size of all registered teams
    */
   function ProgressTableView(tournament, $view, groups, teamlist, teamsize) {
+    this.$table = $view.find(&#039;.progresstable&#039;);
     ProgressTableView.superconstructor.call(this, new ProgressListModel(
-        tournament), $view, $view.find(&#039;.progressrow.template&#039;));
+        tournament), $view, this.$table.find(&#039;tr.template,th.template&#039;));
 
-    this.$table = this.$view.find(&#039;.progresstable&#039;);
-    this.$roundHeaderTemplate = this.$view.find(&#039;th.template&#039;);
-    this.$header = this.$roundHeaderTemplate.parent();
-    this.$roundHeaderTemplate.detach();
-    this.$rankHeader = this.$header.find(&#039;.rankcol&#039;);
+    this.$separator = this.$table.find(&#039;th.hidden.separator&#039;);
 
-    this.listView = new ListView(this.model, this.$table, this.$template,
-        ProgressRowView, teamlist, tournament);
+    // progress table rows
+    this.listView = new ListView(this.model, this.$table, this.$template
+        .filter(&#039;.progressrow&#039;), ProgressRowView, teamlist, tournament);
 
+    // teamsize adjustments
     this.teamTableView = new TeamTableView(this.listView, teamsize);
 
+    // table headers for every round
     this.roundHeaderView = new InlineListView(groups.getBinNames(),
-        this.$rankHeader, this.$roundHeaderTemplate, ProgressRoundView);
+        this.$separator, this.$template.filter(&#039;.roundcol&#039;), //
+        ProgressRoundView);
+
+    // table headers for every ranking component + &#039;ranks&#039;
+    this.rankingComponents = new ListModel();
+    this.$headerRow = this.$table.find(&#039;.headerrow&#039;);
+    this.rankingComponentHeaderView = new ListView(this.rankingComponents,
+        this.$headerRow, this.$template.filter(&#039;.rankcol&#039;));
+
+    // regular update of this.rankingComponents
+    this.ranking = tournament.getRanking();
+    Listener.bind(this.ranking, &#039;update&#039;, this.updateRankingComponents
+        .bind(this));
+    this.updateRankingComponents();
   }
   extend(ProgressTableView, TemplateView);
+
+  /**
+   * Read the ranking components from tournament.getRanking() and add missing
+   * components to the list of components, to be displayed via a ListView
+   */
+  ProgressTableView.prototype.updateRankingComponents = function() {
+    var order = this.ranking.get().components.slice();
+    order.push(&#039;ranks&#039;);
+
+    order.forEach(function(componentName, index) {
+      var name = Strings[&#039;ranking_medium_&#039; + componentName];
+
+      if (this.rankingComponents.length === index) {
+        this.rankingComponents.push(name);
+      } else if (this.rankingComponents.get(index) !== name) {
+        this.rankingComponents.set(index, name);
+      }
+    }, this);
+
+    while (this.rankingComponents.length &gt; order.length) {
+      this.rankingComponents.pop();
+    }
+  };
 
   return ProgressTableView;
 });</textarea>

@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">64.35</p>
+      <p class="stat">65.40</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">81</p>
+      <p class="stat">103</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">16.95</p>
+      <p class="stat">18.15</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.65</p>
+      <p class="stat">0.76</p>
     </div>
   </div>
 </div>
@@ -116,14 +116,17 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./listview&#03
    *          a ListModel of TeamModel instances
    * @param teamsize
    *          a ValueModel which represents the size of all registered teams
+   * @param showNames
+   *          a ValueModel which evaluates to true if names should be shown
    */
-  function KOTreeView(model, $view, teamlist, tournament, teamsize) {
+  function KOTreeView(model, $view, teamlist, tournament, teamsize, showNames) {
     KOTreeView.superconstructor.call(this, model, $view, $view
         .find(&#039;.komatchresult.template&#039;));
 
     this.group = this.model.get(0).getGroup() &amp; ~0x1;
     this.boxView = new BoxView(this.$view);
 
+    this.showNames = showNames;
     this.tournament = tournament;
     this.$forest = this.$view.find(&#039;.forest&#039;);
     this.$kolineanchor = this.$forest.find(&#039;.kolineanchor&#039;).removeClass(
@@ -131,13 +134,16 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./listview&#03
     this.$bestrank = this.$view.find(&#039;.bestrank&#039;);
 
     this.lines = new InlineListView(this.model, this.$kolineanchor,
-        this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length);
+        this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length,
+        showNames);
 
     this.matches = new ListView(this.model, this.$forest, this.$template,
-        KOMatchResultView, teamlist, tournament, undefined);
+        KOMatchResultView, teamlist, tournament, showNames);
 
     this.updateGroupInformation();
     this.setSize();
+
+    showNames.registerListener(this);
   }
   extend(KOTreeView, TemplateView);
 
@@ -160,21 +166,37 @@ define([&#039;lib/extend&#039;, &#039;./templateview&#039;, &#039;./listview&#03
 
     numTeams = this.tournament.getTeams().length;
 
-    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams);
+    thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams,
+        this.showNames.get());
 
     lowestID = KOTournamentModel
         .firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;
-    lowestPos = new KOTreePosition(lowestID, this.group, numTeams);
+    lowestPos = new KOTreePosition(lowestID, this.group, numTeams,
+        this.showNames.get());
 
     x = thirdPlacePos.x;
     y = Math.max(lowestPos.y, thirdPlacePos.y);
 
-    x += KOTreePosition.WIDTH;
+    x += KOTreePosition.getWidth(this.showNames.get());
     y += KOTreePosition.HEIGHT;
 
     this.$forest.css(&#039;width&#039;, x + &#039;em&#039;);
     this.$forest.css(&#039;height&#039;, y + &#039;em&#039;);
   };
+
+  /**
+   * &#039;update&#039;-listener for showNames
+   *
+   * @param emitter ==
+   *          this.showNames
+   * @param event ==
+   *          &#039;update&#039;
+   * @param data
+   *          a data object
+   */
+  KOTreeView.prototype.onupdate = function(emitter, event, data) {
+    this.setSize();
+  }
 
   return KOTreeView;
 });</textarea>

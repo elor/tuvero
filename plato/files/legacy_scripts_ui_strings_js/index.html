@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">34.21</p>
+      <p class="stat">33.97</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">155</p>
+      <p class="stat">158</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">3.62</p>
+      <p class="stat">3.64</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.24</p>
+      <p class="stat">1.27</p>
     </div>
   </div>
 </div>
@@ -113,7 +113,7 @@ define(function() {
     downvote: &#039;▼&#039;,
     byevote: &#039;∅&#039;,
     byename: &#039;Freilos&#039;,
-    byeid: &#039;F&#039;,
+    byeid: &#039;∅&#039;,
     fileabort: &#039;Lesen abgebrochen&#039;,
     fileerror: &#039;Lesefehler&#039;,
     filenotfound: &#039;Datei wurde nicht gefunden&#039;,
@@ -183,7 +183,7 @@ define(function() {
     winstatustrue: &#039;S&#039;,
     winstatusfalse: &#039;N&#039;,
     winstatusundefined: &#039;&#039;,
-    nomanifest: &#039;Offline-Modus deaktiviert: Kein Manifest&#039;,
+    nomanifest: &#039;Offline-Modus deaktiviert&#039;,
     tournamentalreadyfinished: &#039;Turnier ist schon beendet&#039;,
     gamesstillrunning: &#039;Es gibt noch offene Spiele&#039;,
     tournamentstarted: &#039;Turnier gestartet&#039;,
@@ -208,11 +208,12 @@ define(function() {
     ranking_buchholz: &#039;Buchholz-Punkte&#039;,
     ranking_finebuchholz: &#039;Feinbuchholz-Punkte&#039;,
     ranking_sonneborn: &#039;Sonneborn-Berger-Zahl&#039;,
-    ranking_id: &#039;No.&#039;,
+    ranking_id: &#039;Startnummer&#039;,
     ranking_ko: &#039;KO-Wertung&#039;,
     ranking_headtohead: &#039;Direkter Vergleich&#039;,
     ranking_tac: &#039;TAC-Punkte&#039;,
     ranking_votes: &#039;Lose (nur Anzeige)&#039;,
+    ranking_ranks: &#039;Platz&#039;,
     ranking_short_numgames: &#039;Sp.&#039;,
     ranking_short_wins: &#039;S&#039;,
     ranking_short_points: &#039;P&#039;,
@@ -226,6 +227,7 @@ define(function() {
     ranking_short_headtohead: &#039;VGL&#039;,
     ranking_short_tac: &#039;TAC&#039;,
     ranking_short_votes: &#039;L&#039;,
+    ranking_short_ranks: &#039;Pl.&#039;,
     ranking_medium_numgames: &#039;Spiele&#039;,
     ranking_medium_wins: &#039;Siege&#039;,
     ranking_medium_points: &#039;Punkte&#039;,
@@ -233,12 +235,13 @@ define(function() {
     ranking_medium_saldo: &#039;Saldo&#039;,
     ranking_medium_buchholz: &#039;Buchholz&#039;,
     ranking_medium_finebuchholz: &#039;Feinbuchholz&#039;,
-    ranking_medium_sonneborn: &#039;Sonneborn-Berger&#039;,
+    ranking_medium_sonneborn: &#039;SB-Zahl&#039;,
     ranking_medium_id: &#039;Startnummer&#039;,
     ranking_medium_ko: &#039;KO-Wertung&#039;,
     ranking_medium_headtohead: &#039;Vergleich&#039;,
     ranking_medium_tac: &#039;TAC&#039;,
     ranking_medium_votes: &#039;Lose&#039;,
+    ranking_medium_ranks: &#039;Platz&#039;,
     tournamenterrorprefix: &#039;Turnierfehler&#039;,
     oldsaveformat: &#039;Fehler beim Umwandeln eines alten 1.4-Speicherstandes&#039;,
     tournament_initial: &#039;Unterturnier erstellt&#039;,

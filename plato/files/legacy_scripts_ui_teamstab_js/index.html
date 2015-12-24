@@ -44,7 +44,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">56.24</p>
+      <p class="stat">56.18</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">19.65</p>
+      <p class="stat">19.67</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.22</p>
+      <p class="stat">1.25</p>
     </div>
   </div>
 </div>
@@ -99,13 +99,13 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     &#039;./newteamview&#039;, &#039;./lengthview&#039;, &#039;./teamsizeview&#039;, &#039;./preregcloserview&#039;,
     &#039;./checkboxview&#039;, &#039;core/classview&#039;, &#039;./tabshandle&#039;,
     &#039;./teamremovecontroller&#039;, &#039;./teamnamecontroller&#039;, &#039;./teamtableview&#039;,
-    &#039;./inputview&#039;, &#039;./teamsfileloadcontroller&#039;, &#039;options&#039;, &#039;core/lengthmodel&#039;,
+    &#039;./inputview&#039;, &#039;./teamsfileloadcontroller&#039;, &#039;presets&#039;, &#039;core/lengthmodel&#039;,
     &#039;./deleteallteamscontroller&#039;, &#039;./autocompletionmodel&#039;,
     &#039;./autocompletionview&#039;, &#039;./autocompletionlegacyblobber&#039;], function(extend,
     View, ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
     PreregCloserView, CheckboxView, ClassView, TabsHandle,
     TeamRemoveController, TeamNameController, TeamTableView, InputView,
-    TeamsFileLoadController, Options, LengthModel, DeleteAllTeamsController,
+    TeamsFileLoadController, Presets, LengthModel, DeleteAllTeamsController,
     AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber) {
   /**
    * represents a whole team tab
@@ -133,11 +133,11 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     var $template, $container, value;
 
     // teamsize bugfix
-    if (State.teamsize.get() &lt; Options.minteamsize) {
-      State.teamsize.set(Options.minteamsize);
+    if (State.teamsize.get() &lt; Presets.registration.minteamsize) {
+      State.teamsize.set(Presets.registration.minteamsize);
     }
-    if (State.teamsize.get() &gt; Options.maxteamsize) {
-      State.teamsize.set(Options.maxteamsize);
+    if (State.teamsize.get() &gt; Presets.registration.maxteamsize) {
+      State.teamsize.set(Presets.registration.maxteamsize);
     }
 
     // teamlist
@@ -187,7 +187,7 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     this.showtableClassView = new ClassView(value, this.$view, &#039;showtable&#039;);
 
     // update the tab when the team size changes
-    if (Options.teamsizeicon) {
+    if (Presets.registration.teamsizeicon) {
       TabsHandle.bindTabOpts(&#039;teams&#039;, State.teamsize);
     }
 
@@ -212,7 +212,7 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
         $container));
 
     this.autocompletionModel = new AutocompletionModel();
-    this.autocompletionModel.download(Options.playernameurl);
+    this.autocompletionModel.download(Presets.names.playernameurl);
     AutocompletionLegacyBlobber.set(this.autocompletionModel);
 
     $container = this.$view.find(&#039;input.playername&#039;);
