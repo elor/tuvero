@@ -37,7 +37,8 @@ define(['core/rankingcomponentindex'], function(RankingComponentIndex) {
       dbname: 'boulestournament',
       dbplayername: 'bouleplayers',
       savefile: 'boule.json',
-      csvfile: 'boule.csv'
+      csvfile: 'boule.csv',
+      teamsfile: 'anmeldungen.txt',
     }
   };
 

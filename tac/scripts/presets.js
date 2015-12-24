@@ -38,6 +38,7 @@ define(function() {
       dbplayername: 'tacplayers',
       savefile: 'tac.json',
       csvfile: 'tac.csv',
+      teamsfile: 'anmeldungen.txt',
     }
   };
 

@@ -2,6 +2,18 @@
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: #202 mitigated: iso-8859-1 + utf-8 compatibility with 'ß'
 
+	* boule/scripts/presets.js: names.teamsfile added
+
+	* core/templates/teamstab.html: teamsfile download link added
+
+	* legacy/scripts/ui/teamformatdownloadcontroller.js: downloading an example file
+
+	* legacy/scripts/ui/teamstab.js: binding a TeamFormatDownloadController instance
+
+	* tac/scripts/presets.js: names.teamsfile added
+
+	* test/scripts/presets.js: names.teamsfile added
+
 2015-11-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tools/getexports.sh: list the exported contents of each module

@@ -10,12 +10,14 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     './teamremovecontroller', './teamnamecontroller', './teamtableview',
     './inputview', './teamsfileloadcontroller', 'presets', 'core/lengthmodel',
     './deleteallteamscontroller', './autocompletionmodel',
-    './autocompletionview', './autocompletionlegacyblobber'], function(extend,
-    View, ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
-    PreregCloserView, CheckboxView, ClassView, TabsHandle,
-    TeamRemoveController, TeamNameController, TeamTableView, InputView,
-    TeamsFileLoadController, Presets, LengthModel, DeleteAllTeamsController,
-    AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber) {
+    './autocompletionview', './autocompletionlegacyblobber',
+    './teamformatdownloadcontroller'], function(extend, View, ListView,
+    TeamView, State, NewTeamView, LengthView, TeamSizeView, PreregCloserView,
+    CheckboxView, ClassView, TabsHandle, TeamRemoveController,
+    TeamNameController, TeamTableView, InputView, TeamsFileLoadController,
+    Presets, LengthModel, DeleteAllTeamsController, AutocompletionModel,
+    AutocompletionView, AutocompletionLegacyBlobber,
+    TeamFormatDownloadController) {
   /**
    * represents a whole team tab
    *
@@ -127,6 +129,10 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     $container = this.$view.find('input.playername');
     this.autocompletionView = new AutocompletionView(this.autocompletionModel,
         $container);
+
+    $container = this.$view.find('>.filereader .downloadexample');
+    this.downloadexamplecontroller = new TeamFormatDownloadController(new View(
+        undefined, $container));
   };
 
   // FIXME CHEAP HACK AHEAD
