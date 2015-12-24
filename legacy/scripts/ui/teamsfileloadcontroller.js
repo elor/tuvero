@@ -39,6 +39,8 @@ define(['lib/extend', 'core/controller', './toast', './strings', './state_new',
     case code >= 0xFC && code < 0xFE:
       return 6;
     }
+
+    return 0;
   }
 
   function isutf8byte(character) {
@@ -177,7 +179,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', './state_new',
       }
     }
 
-    teamsize = -1;
+    teamsize = 0;
 
     // split and strip the individual player names and store them in the
     // lines
@@ -196,7 +198,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', './state_new',
 
       // verify that all teams have the same number of playuers
       if (teamsize !== names.length) {
-        if (teamsize === -1) {
+        if (teamsize <= 0) {
           teamsize = names.length;
         } else {
           new Toast(Strings.differentteamsizes);
@@ -212,6 +214,11 @@ define(['lib/extend', 'core/controller', './toast', './strings', './state_new',
     case 3:
       // set the team size
       State.teamsize.set(teamsize);
+      break;
+    case 0:
+      // TODO use designated String
+      new Toast(Strings.invalidteamsize);
+      return undefined;
       break;
     default:
       new Toast(Strings.invalidteamsize);
@@ -287,7 +294,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', './state_new',
       reader.teamsfileloadcontroller = controller;
 
       // TODO try different encodings and select the best one
-      reader.readAsText(evt.target.files[0], 'ISO-8859-1');
+      reader.readAsBinaryString(evt.target.files[0]);
     });
   };
 

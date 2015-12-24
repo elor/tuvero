@@ -1,3 +1,7 @@
+2015-12-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: #202 mitigated: iso-8859-1 + utf-8 compatibility with 'ß'
+
 2015-11-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tools/getexports.sh: list the exported contents of each module
