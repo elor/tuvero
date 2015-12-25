@@ -26,21 +26,13 @@ define(['lib/extend', './rankingdatalistener', './vectormodel',
   RankingHeadToHeadListener.NAME = 'headtohead';
   RankingHeadToHeadListener.DEPENDENCIES = ['winsmatrix'];
 
-  RankingHeadToHeadListener.prototype.getRankingComponents = function() {
-    var components;
-
-    components = [];
-
-    this.ranking.componentnames.some(function(component) {
-      if (component == RankingHeadToHeadComponent.NAME) {
-        return true;
-      }
-      components.push(component);
-    });
-
-    return components;
-  };
-
+  /**
+   * creates a copy of this.ranking, where the ranking stops just before
+   * 'headtohead'
+   *
+   * @return a RankingModel instance, which is a direct copy of this.ranking,
+   *         but stops its ranking just before the 'headtohead' component
+   */
   RankingHeadToHeadListener.prototype.createDummyRanking = function() {
     var components, dummyRanking, RankingModel;
 
@@ -59,6 +51,13 @@ define(['lib/extend', './rankingdatalistener', './vectormodel',
     return dummyRanking;
   };
 
+  /**
+   * converts the dummy ranking result to a 2d array of equally-ranked teams
+   *
+   * @param ranks
+   *          the result of dummyRanking.get()
+   * @return the 2D array of equally-ranked teams
+   */
   RankingHeadToHeadListener.prototype.getGroups = function(ranks) {
     var groups = [];
 
@@ -73,6 +72,13 @@ define(['lib/extend', './rankingdatalistener', './vectormodel',
     return groups;
   };
 
+  /**
+   * calculates the headtohead ranking for each team and writes them straight to
+   * this.headtohead
+   *
+   * @param groups
+   *          the result of getGroups()
+   */
   RankingHeadToHeadListener.prototype.calculatePoints = function(groups) {
     this.headtohead.fill(0);
 
@@ -89,6 +95,13 @@ define(['lib/extend', './rankingdatalistener', './vectormodel',
     }, this);
   };
 
+  /**
+   * Recalculates the headtohead vector, depending on the ranking with only the
+   * previous components.
+   *
+   * The headtohead value is calculated as the sum of wins against
+   * equally-ranked teams
+   */
   RankingHeadToHeadListener.prototype.onrecalc = function() {
     var dummyRanking, ranks;
 
