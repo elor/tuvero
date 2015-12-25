@@ -4,6 +4,8 @@
 
 	* tac/scripts/presets.js: headtohead ranking added
 
+	* legacy/scripts/ui/tournamentview.js: not excluding 'id' and 'headtohead' implicitly, but via `presets.js`
+
 2015-12-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: #202 mitigated: iso-8859-1 + utf-8 compatibility with 'ß'

@@ -83,8 +83,6 @@ define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
 
       this.rankingOrderView = new RankingOrderView(this.model.rankingOrder,
           this.$rankingOrderView.eq(0), new ListModel(availableComponents));
-      this.rankingOrderView.availableListView.model.erase('headtohead');
-      this.rankingOrderView.availableListView.model.erase('id');
     }
   };
 
