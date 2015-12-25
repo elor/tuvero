@@ -105,7 +105,7 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
    */
   KOTreeView.prototype.onupdate = function(emitter, event, data) {
     this.setSize();
-  }
+  };
 
   return KOTreeView;
 });

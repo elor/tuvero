@@ -20,7 +20,7 @@ define(['ui/options'], function(Options) {
     byepointslost: 7,
     defaultscore: 0,
     tiesforbidden: false,
-    maxpointtiesforbidden: true,
+    maxpointtiesforbidden: true
   };
 
   Options.setDefault(Default);

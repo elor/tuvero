@@ -160,10 +160,10 @@ define(function() {
       emitter = new Emitter();
       listener = {
         emitters: []
-      }
+      };
       listener2 = {
         emitters: []
-      }
+      };
       emitter.registerListener(listener);
       emitter.registerListener(listener2);
       emitter.destroy();

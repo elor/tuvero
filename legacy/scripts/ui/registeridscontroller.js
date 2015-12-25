@@ -45,7 +45,7 @@ define(['lib/extend', 'core/controller', 'core/view', './state_new',
 
     players = [];
     while (players.length < State.teamsize.get()) {
-      players.push(new PlayerModel("" + id));
+      players.push(new PlayerModel('' + id));
     }
 
     team = new TeamModel(players);

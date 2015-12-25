@@ -11,10 +11,10 @@ define(['lib/extend', 'core/controller', 'lib/FileSaver', 'lib/Blob',
     Blob, Toast, Strings, Presets) {
   var examplefile;
 
-  examplefile = "# Ein Team pro Zeile, Spielernamen mit Komma getrennt\n"
-      + "# Alle Teams müssen gleiche Größe haben\n"
-      + "Erik E. Lorenz, Fabian \"Fabe\" Böttcher\n"
-      + "Spieler 3, \"Spieler 4\"\n";
+  examplefile = '# Ein Team pro Zeile, Spielernamen mit Komma getrennt\n'
+      + '# Alle Teams müssen gleiche Größe haben\n'
+      + 'Erik E. Lorenz, Fabian \"Fabe\" Böttcher\n'
+      + 'Spieler 3, \"Spieler 4\"\n';
 
   /**
    * Constructor

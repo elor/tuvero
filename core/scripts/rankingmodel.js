@@ -287,7 +287,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     updateRanking.call(this, true);
 
     return this.ranking;
-  }
+  };
 
   /**
    * Resizes the ranking data structures

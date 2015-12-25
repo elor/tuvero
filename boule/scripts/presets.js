@@ -40,7 +40,7 @@ define(function() {
       dbplayername: 'bouleplayers',
       savefile: 'boule.json',
       csvfile: 'boule.csv',
-      teamsfile: 'anmeldungen.txt',
+      teamsfile: 'anmeldungen.txt'
     }
   };
 
