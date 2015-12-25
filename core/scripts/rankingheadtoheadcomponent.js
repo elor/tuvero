@@ -20,11 +20,15 @@ function(extend, RankingComponent) {
   extend(RankingHeadToHeadComponent, RankingComponent);
 
   RankingHeadToHeadComponent.NAME = 'headtohead';
-  RankingHeadToHeadComponent.DEPENDENCIES = ['headtoheadmatrix'];
 
-  RankingHeadToHeadComponent.prototype.compare = function(i, k) {
-    return this.ranking.headtoheadmatrix.get(k, i)
-        || this.nextcomponent.compare(i, k);
+  /**
+   * @param i
+   *          a team index
+   * @return the headtohead value, i.e. how often the team has won against
+   *         another with the same number of wins
+   */
+  RankingHeadToHeadComponent.prototype.value = function(i) {
+    return this.ranking.headtohead.get(i);
   };
 
   return RankingHeadToHeadComponent;

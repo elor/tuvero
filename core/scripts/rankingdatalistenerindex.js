@@ -28,7 +28,7 @@ define([//
 './rankingwinsmatrixlistener', //
 './rankingtaclistener', //
 './rankingsonnebornlistener', //
-'./rankingheadtoheadmatrixlistener', //
+'./rankingheadtoheadlistener', //
 './rankingnumgameslistener', //
 './rankingkolistener'], //
 function() {

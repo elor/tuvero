@@ -19,18 +19,16 @@ define(function() {
       var ranking, result, ret, ref;
 
       ranking = new RankingModel(['wins', 'headtohead'], 5);
-      QUnit.equal(ranking.dataListeners.headtohead, undefined,
-          'headtohead is not a data listener');
-
       ref = {
         components: ['wins', 'headtohead'],
         ids: [0, 1, 2, 3, 4],
         ranks: [0, 0, 0, 0, 0],
         displayOrder: [0, 1, 2, 3, 4],
-        wins: [0, 0, 0, 0, 0]
+        wins: [0, 0, 0, 0, 0],
+        headtohead: [0, 0, 0, 0, 0]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'empty ranking: correct SB-score');
+      QUnit.deepEqual(ret, ref, 'empty ranking: correct H2H-score');
 
       ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [7, 13]));
       ranking.result(new MatchResult(new MatchModel([1, 0], 0, 0), [13, 9]));
@@ -39,7 +37,8 @@ define(function() {
         ids: [0, 1, 2, 3, 4],
         ranks: [2, 1, 2, 0, 2],
         displayOrder: [3, 1, 0, 2, 4],
-        wins: [0, 1, 0, 1, 0]
+        wins: [0, 1, 0, 1, 0],
+        headtohead: [0, 0, 0, 1, 0]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'first ranking is correct');
@@ -48,13 +47,13 @@ define(function() {
       ref = {
         components: ['wins', 'headtohead'],
         ids: [0, 1, 2, 3, 4],
-        ranks: [1, 0, 3, 2, 3],
-        displayOrder: [1, 0, 3, 2, 4],
-        wins: [1, 1, 0, 1, 0]
+        ranks: [0, 0, 3, 0, 3],
+        displayOrder: [0, 1, 3, 2, 4],
+        wins: [1, 1, 0, 1, 0],
+        headtohead: [1, 1, 0, 1, 0]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'cyclic ranking finishes');
-      // TODO implement correct head-to-head algorithm
 
       // TODO correct
     });

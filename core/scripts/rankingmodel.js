@@ -81,11 +81,17 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
    * ranking object.
    *
    * Private RankingModel function.
+   *
+   * @param norecalc
+   *          true if the data listeners shouldn't be recalculated, undefined or
+   *          false otherwise.
    */
-  function updateRanking() {
+  function updateRanking(norecalc) {
     var newRanking, components;
 
-    this.emit('recalc');
+    if (!norecalc) {
+      this.emit('recalc');
+    }
 
     newRanking = {
       components: this.componentnames
@@ -277,6 +283,12 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
     return this.ranking;
   };
 
+  RankingModel.prototype.getNoRecalc = function() {
+    updateRanking.call(this, true);
+
+    return this.ranking;
+  }
+
   /**
    * Resizes the ranking data structures
    *
@@ -361,7 +373,7 @@ define(['lib/extend', './model', './rankingcomponentindex', './type',
           return true;
         }
       }
-      console.error('RankingModel.restore(): cannot restore listener' + name);
+      console.error('RankingModel.restore(): cannot restore listener ' + name);
       return false;
     }, this)) {
       this.reset();

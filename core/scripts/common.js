@@ -59,7 +59,7 @@ define([
   'core/rankingfinebuchholzlistener',
   'core/rankinggamematrixlistener',
   'core/rankingheadtoheadcomponent',
-  'core/rankingheadtoheadmatrixlistener',
+  'core/rankingheadtoheadlistener',
   'core/rankingidcomponent',
   'core/rankingkocomponent',
   'core/rankingkolistener',
