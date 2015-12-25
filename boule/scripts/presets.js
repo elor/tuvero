@@ -27,7 +27,7 @@ define(function() {
     },
     ranking: {
       components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn',
-          'numgames', 'wins']
+          'numgames', 'wins', 'headtohead']
     },
     registration: {
       minteamsize: 1,

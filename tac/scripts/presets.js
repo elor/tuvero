@@ -25,7 +25,7 @@ define(function() {
       }
     },
     ranking: {
-      components: ['tac', 'numgames', 'wins']
+      components: ['tac', 'numgames', 'wins', 'headtohead']
     },
     registration: {
       minteamsize: 1,

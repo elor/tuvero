@@ -1,3 +1,9 @@
+2015-12-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boule/scripts/presets.js: headtohead ranking added
+
+	* tac/scripts/presets.js: headtohead ranking added
+
 2015-12-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: #202 mitigated: iso-8859-1 + utf-8 compatibility with 'ß'
