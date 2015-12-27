@@ -28,7 +28,7 @@ function(extend, RankingComponent) {
    *         another with the same number of wins
    */
   RankingHeadToHeadComponent.prototype.value = function(i) {
-    return this.ranking.headtohead.get(i);
+    return this.ranking.headtohead.get(i) || '';
   };
 
   return RankingHeadToHeadComponent;

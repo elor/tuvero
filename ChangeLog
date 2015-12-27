@@ -1,3 +1,9 @@
+2015-12-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingheadtoheadcomponent.js: hiding zero value in ranking.get() output (0 -> '')
+
+	* core/scripts/test/rankingheadtohead.js: changed zeroing behavior
+
 2015-12-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/scripts/presets.js: headtohead ranking added

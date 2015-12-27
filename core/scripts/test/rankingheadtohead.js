@@ -25,7 +25,7 @@ define(function() {
         ranks: [0, 0, 0, 0, 0],
         displayOrder: [0, 1, 2, 3, 4],
         wins: [0, 0, 0, 0, 0],
-        headtohead: [0, 0, 0, 0, 0]
+        headtohead: ['', '', '', '', '']
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'empty ranking: correct H2H-score');
@@ -38,7 +38,7 @@ define(function() {
         ranks: [2, 1, 2, 0, 2],
         displayOrder: [3, 1, 0, 2, 4],
         wins: [0, 1, 0, 1, 0],
-        headtohead: [0, 0, 0, 1, 0]
+        headtohead: ['', '', '', 1, '']
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'first ranking is correct');
@@ -50,7 +50,7 @@ define(function() {
         ranks: [0, 0, 3, 0, 3],
         displayOrder: [0, 1, 3, 2, 4],
         wins: [1, 1, 0, 1, 0],
-        headtohead: [1, 1, 0, 1, 0]
+        headtohead: [1, 1, '', 1, '']
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'cyclic ranking finishes');
