@@ -27,6 +27,9 @@ define(['lib/extend', 'core/controller', 'lib/FileSaver', 'lib/Blob',
 
   /**
    * Constructor
+   *
+   * @param view
+   *          a View instance, which contains the button
    */
   function TeamFormatDownloadController(view) {
     TeamFormatDownloadController.superconstructor.call(this, view);
