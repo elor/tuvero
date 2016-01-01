@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/elor/tuvero.svg?branch=develop)](https://travis-ci.org/elor/tuvero)
 
-# Tuvero 1.5.0
+# Tuvero 1.5.1
 
 ## Beschreibung
 
