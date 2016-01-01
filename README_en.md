@@ -1,4 +1,4 @@
-# Tuvero 1.5.1-dev
+# Tuvero 1.5.1
 
 ## Description
 
