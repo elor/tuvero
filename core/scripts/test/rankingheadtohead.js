@@ -55,7 +55,22 @@ define(function() {
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'cyclic ranking finishes');
 
-      // TODO correct
+      /*
+       * Test for 'ignoring subsequent components' bug, #204
+       */
+
+      ranking = new RankingModel(['wins', 'headtohead', 'points'], 6);
+      ref = {
+        components: ['wins', 'headtohead', 'points'],
+        ids: [0, 1, 2, 3, 4, 5],
+        ranks: [0, 0, 0, 0, 0, 0],
+        displayOrder: [0, 1, 2, 3, 4, 5],
+        wins: [0, 0, 0, 0, 0, 0],
+        headtohead: ['', '', '', '', '', ''],
+        points: [0, 0, 0, 0, 0, 0]
+      };
+      ret = ranking.get();
+      QUnit.deepEqual(ret, ref, '');
     });
   };
 });

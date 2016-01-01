@@ -13,9 +13,12 @@ function(extend, RankingComponent) {
    *
    * @param ranking
    *          a RankingModel instance
+   * @param nextcomponent
+   *          the next component in the component chain
    */
-  function RankingHeadToHeadComponent(ranking) {
-    RankingHeadToHeadComponent.superconstructor.call(this, ranking, undefined);
+  function RankingHeadToHeadComponent(ranking, nextcomponent) {
+    RankingHeadToHeadComponent.superconstructor.call(this, ranking,
+        nextcomponent);
   }
   extend(RankingHeadToHeadComponent, RankingComponent);
 

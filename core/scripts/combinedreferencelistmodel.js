@@ -106,7 +106,6 @@ define(['lib/extend', './listmodel'], function(extend, ListModel) {
   CombinedReferenceListModel.removeElement = function(list, listID, elementID) {
     var index = list.findPosition(listID, elementID);
     if (index !== -1) {
-//      debugger
       CombinedReferenceListModel.superclass.remove.call(list, index);
       list.reduceOffsets(listID);
     }

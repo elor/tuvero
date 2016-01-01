@@ -1,3 +1,11 @@
+2016-01-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/combinedreferencelistmodel.js: unused 'debugger' statement removed
+
+	* core/scripts/rankingheadtoheadcomponent.js: Missing 'nextcomponent' constructor parameter added
+
+	* core/scripts/test/rankingheadtohead.js: 'subsequent rankings are ignored'-test added
+
 2015-12-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingheadtoheadcomponent.js: hiding zero value in ranking.get() output (0 -> '')
