@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de" manifest="manifest.appcache">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tuvero Turnierverwaltung</title>
+    <link rel="shortcut icon" href="boule/images/favicon.png" type="image/png" />
+    <style>
+      /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
+      /* only selected elements were copied over. Erik E. Lorenz */
+
+/**
+ * 1. Set default font family to sans-serif.
+ * 2. Prevent iOS and IE text size adjust after device orientation change,
+ *    without disabling user zoom.
+ */
+
+html {
+  font-family: sans-serif; /* 1 */
+  -ms-text-size-adjust: 100%; /* 2 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/**
+ * Remove default margin.
+ */
+
+body {
+  margin: 0;
+}
+
+/* HTML5 display definitions
+   ========================================================================== */
+
+/* Links
+   ========================================================================== */
+
+/**
+ * Remove the gray background color from active links in IE 10.
+ */
+
+a {
+  background-color: transparent;
+}
+
+/**
+ * Improve readability of focused elements when they are also in an
+ * active/hover state.
+ */
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Address style set to `bolder` in Firefox 4+, Safari, and Chrome.
+ */
+
+b,
+strong {
+  font-weight: bold;
+}
+
+/**
+ * Address variable `h1` font-size and margin within `section` and `article`
+ * contexts in Firefox 4+, Safari, and Chrome.
+ */
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+/**
+ * Address inconsistent and variable font size in all browsers.
+ */
+
+small {
+  font-size: 80%;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove border when inside `a` element in IE 8/9/10.
+ */
+
+img {
+  border: 0;
+}
+    </style>
+    <style>
+      body {
+      background-color: #808080;
+      }
+
+      body > div {
+      margin: 2em auto;
+      background-color: #ffffff;
+      padding: 0.5em;
+      border-radius: 1em;
+      text-align: center;
+      max-width: 50em;
+      }
+
+      a[href] {
+      color: inherit;
+      text-decoration: underline;
+      }
+
+      a[href].app {
+      margin: 0.5em;
+      display: inline-block;
+      }
+
+      img {
+      height: 3em;
+      }
+      
+      .columns {
+        column-width: 13em;
+        -webkit-column-width: 13em;
+        -moz-column-width: 13em;
+        -o-column-width: 13em;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Tuvero Turnierverwaltung 1.5.1</h1>
+
+      <p>
+        Willkommen auf <b>tuvero.de</b>
+      </p>
+      <p>
+        Tuvero ist eine <a href="https://github.com/elor/tuvero">quelloffene</a>, kostenlose Turnierverwaltungssoftware, die für verschiedene Spiele und Sportarten zur Verfügung steht.
+      </p>
+      <a href="boule/index.html#home" class="app"><img src="boule/images/favicon.png" title="Boule" /><br>Tuvero Boule</a>
+      <a href="tac/index.html#home" class="app"><img src="tac/images/favicon.png" title="TAC" /><br>Tuvero TAC</a>
+      <p>
+        Die Varianten sind auch offline über diese Seite verfügbar, sobald sie geöffnet wurden.
+      </p>
+      <p>
+        <br>
+        <b>Weitere Links:</b>
+      </p>
+      <p class="columns">
+	      <a href="http://blog.tuvero.de" class="app">Update-Blog</a><br>
+	      <a href="https://github.com/elor/tuvero" class="app">Quellcode</a>auf Github<br>
+	      <a href="http://fehler.tuvero.de/" class="app">Fehler melden</a><br>
+	      <a href="https://tuvero.de/dev/" class="app">Vorschauversion</a><br>
+	      <a href="test/index.html" class="app">Test-Suite</a><br>
+        <a href="https://tuvero.de/archive.html" class="app">Tuvero Archiv</a><br>
+      </p>
+    </div>
+  </body>
+  <script>
+    function updateCache(){
+      if (window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+        window.applicationCache.swapCache();
+        document.location.reload();
+      }
+    }
+    window.applicationCache.onupdateready = updateCache;
+    updateCache();
+    // periodically check for updates
+    window.setInterval(function(){
+      if (navigator.onLine === false){
+        return;
+      }
+      switch (window.applicationCache.status) {
+      case window.applicationCache.IDLE:
+      case window.applicationCache.OBSOLETE:
+        window.applicationCache.update();
+      }
+    }, 321000);
+  </script>
+</html>
