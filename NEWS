@@ -1,5 +1,16 @@
-Tuvero 1.5.0 (yyyy-mm-dd)
+Tuvero 1.5.1 (yyyy-mm-dd)
 -------------------------
+
+FEATURES:
+
+  * Head-To-Head Ranking Component (#17, #203)
+  * Download of a 'load teams from file' example file (#200)
+  * New tool to list used CSS colors (#140)
+
+FIXES:
+
+  * 'load teams from file' with 'ß' character: Invalid conversion fixed (#202)
+  * Persistent round number in #games-tab fixed (#201)
 
 Tuvero 1.5.0 (2015-11-08)
 -------------------------
