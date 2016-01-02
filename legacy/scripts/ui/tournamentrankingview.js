@@ -24,7 +24,7 @@ function(extend, View, RankingView, ListView, BoxView, CorrectionView,
   function TournamentRankingView(model, $view, teams, abbreviate) {
     TournamentRankingView.superconstructor.call(this, model, $view);
 
-    this.boxview = new BoxView(this.$view);
+    this.boxview = new BoxView(this.$view, true);
 
     this.$ranking = this.$view.find('.rankingview');
     this.rankingview = new RankingView(this.model.getRanking(), this.$ranking,

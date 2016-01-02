@@ -9,6 +9,11 @@
 	* tac/index.html: ranking: span for tournament name added
 
 	* core/style/boxview.css: collapse/decollapse icon added to box header
+	rules for a popout header icon added
+
+	* legacy/scripts/ui/boxview.js: popout argument added to BoxView constructor
+
+	* legacy/scripts/ui/tournamentrankingview.js: making the boxview pop out
 
 2016-01-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

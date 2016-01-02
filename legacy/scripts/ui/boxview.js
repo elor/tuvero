@@ -44,14 +44,22 @@ define(['lib/extend', 'core/view', './boxcontroller'], function(extend, View,
    *
    * @param $box
    *          the .boxview jQuery object
+   * @param popout
+   *          add a popout icon
    */
-  function BoxView($box) {
+  function BoxView($box, popout) {
+    var $popoutview;
     BoxView.superconstructor.call(this, undefined, $box);
     this.model.EVENTS = BoxView.EVENTS;
 
     if (this.$view.hasClass('collapsed')) {
       // start collapsed, if specified
       setTabbing(this.$view.css('height', 0));
+    }
+
+    if (popout) {
+      $popoutview = $('<div>').addClass('popout').text("↗");
+      this.$view.find('>h3:first-child').append($popoutview);
     }
 
     this.controller = new BoxController(this);

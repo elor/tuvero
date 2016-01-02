@@ -41,6 +41,15 @@ div.boxview:not(.collapsed) > h3:first-child:after {
   float: right;
 }
 
+div.boxview > h3:first-child .popout {
+  content: "↗";
+  float: right;
+}
+
+div.boxview > h3:first-child .popout:hover {
+  background-color: #808080;
+}
+
 @media print {
   div.boxview {
     border:none;
@@ -57,5 +66,9 @@ div.boxview:not(.collapsed) > h3:first-child:after {
     border: none;
     background: none;
     margin: 0em;
+  }
+
+  div.boxview > h3 > .popout {
+    display: none !important;
   }
 }
