@@ -8,6 +8,8 @@
 
 	* tac/index.html: ranking: span for tournament name added
 
+	* core/style/boxview.css: collapse/decollapse icon added to box header
+
 2016-01-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/combinedreferencelistmodel.js: unused 'debugger' statement removed

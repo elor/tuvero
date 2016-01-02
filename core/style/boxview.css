@@ -31,6 +31,16 @@ div.boxview > h3:first-child {
   cursor: pointer;
 }
 
+div.boxview.collapsed > h3:first-child:after {
+  content: "¯";
+  float: right;
+}
+
+div.boxview:not(.collapsed) > h3:first-child:after {
+  content: "_";
+  float: right;
+}
+
 @media print {
   div.boxview {
     border:none;
