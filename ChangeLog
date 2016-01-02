@@ -1,3 +1,7 @@
+2016-01-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* NEWS: Work on 1.5.2 started
+
 2016-01-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/combinedreferencelistmodel.js: unused 'debugger' statement removed
