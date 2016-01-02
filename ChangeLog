@@ -2,6 +2,12 @@
 
 	* NEWS: Work on 1.5.2 started
 
+	* boule/index.html: ranking: span for tournament name added
+
+	* core/templates/rankingtab.html: span for tournament name added
+
+	* tac/index.html: ranking: span for tournament name added
+
 2016-01-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/combinedreferencelistmodel.js: unused 'debugger' statement removed
