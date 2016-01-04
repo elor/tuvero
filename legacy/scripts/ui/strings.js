@@ -161,7 +161,8 @@ define(function() {
     teamdeleteprompt: 'Zum Löschen Team anklicken',
     csvheader_teams: 'No.,Name',
     csvheader_history: 'Runde,Spielno.,"No. 1","No. 2","Punkte 1","Punkte 2"',
-    csvheader_ranking: 'Platz,No.'
+    csvheader_ranking: 'Platz,No.',
+    popout_adblocked: 'Bitte Werbeblocker oder PopupBlocker deaktivieren, um Popout zu sehen. Tuvero ist und bleibt werbefrei.'
   };
 
   return Strings;
