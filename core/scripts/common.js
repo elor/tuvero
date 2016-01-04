@@ -181,6 +181,8 @@ define([
   'ui/newtournamentview',
   'ui/options',
   'ui/playermodel',
+  'ui/popoutboxview',
+  'ui/popoutcontroller',
   'ui/preregcloserview',
   'ui/progresslistmodel',
   'ui/progressroundview',
