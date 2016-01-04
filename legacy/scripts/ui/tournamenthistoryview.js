@@ -6,11 +6,12 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
-    'core/listener', 'core/listener', 'core/binningreferencelistmodel',
-    './matchtableview', './generictournamenthistoryview'], function(extend,
-    View, ListView, BoxView, TeamView, Listener, Listener,
-    BinningReferenceListModel, MatchTableView, GenericTournamentHistoryView) {
+define(['lib/extend', 'core/view', './listview', './popoutboxview',
+    './teamview', 'core/listener', 'core/listener',
+    'core/binningreferencelistmodel', './matchtableview',
+    './generictournamenthistoryview'], function(extend, View, ListView,
+    PopoutBoxView, TeamView, Listener, Listener, BinningReferenceListModel,
+    MatchTableView, GenericTournamentHistoryView) {
   /**
    * Constructor
    *
@@ -27,9 +28,14 @@ define(['lib/extend', 'core/view', './listview', './boxview', './teamview',
    *          a ValueModel which evaluates to true if the names should be shown
    */
   function TournamentHistoryView(model, $view, teamlist, teamsize, showNames) {
+    var $popoutTemplate = $view.clone();
     TournamentHistoryView.superconstructor.call(this, model, $view);
 
-    this.boxview = new BoxView(this.$view);
+    this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function(
+        $view) {
+      return new TournamentHistoryView(model, $view, teamlist, teamsize,
+          showNames);
+    });
 
     this.$names = this.$view.find('.tournamentname');
     this.teamlist = teamlist;

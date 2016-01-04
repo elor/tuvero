@@ -71,5 +71,7 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
 
   // TODO change CSS behavior of tables to not rely on proper tabs!
 
+  // TODO call destroy() when the popout is closed.
+
   return PopoutController;
 });

@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './matchview', './listview',
-    './teamtableview', './boxview', './teamview', 'core/listener',
+    './teamtableview', './popoutboxview', './teamview', 'core/listener',
     './matchtableview'], function(extend, TemplateView, MatchView, ListView,
-    TeamTableView, BoxView, TeamView, Listener, MatchTableView) {
+    TeamTableView, PopoutBoxView, TeamView, Listener, MatchTableView) {
   /**
    * Constructor
    *
@@ -24,10 +24,14 @@ define(['lib/extend', './templateview', './matchview', './listview',
    *          a ValueModel which represents the number of players in a team
    */
   function TournamentMatchesView(model, $view, teamlist, teamsize) {
+    var $popoutTemplate = $view.clone();
     TournamentMatchesView.superconstructor.call(this, model, $view, //
     $view.find('.template.voteview'));
 
-    this.boxview = new BoxView(this.$view);
+    this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function(
+        $view) {
+      return new TournamentMatchesView(model, $view, teamlist, teamsize);
+    });
 
     this.$names = this.$view.find('.tournamentname');
     this.teamlist = teamlist;
