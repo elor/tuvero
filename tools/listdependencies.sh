@@ -16,7 +16,7 @@ listdependencies(){
     local file=$1
     local fileexport=$(grep $file'$' <<< "$exports" | awk '{print $1}')
 
-    grep -Po "$grepstring" $file | sort -u | grep -v "^$fileexport$"
+    sed -e '1,/{/d' -e '/^\s*\/\*/,/\*\/\s*$/d' -e 's/\/\/.*$//' $file | grep -Po "$grepstring" | sort -u | grep -v "^$fileexport$"
 }
 
 processfile(){

@@ -1,3 +1,7 @@
+2016-01-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* tools/listdependencies.sh: ignoring comments and loaded resources
+
 2016-01-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* NEWS: Work on 1.5.2 started
