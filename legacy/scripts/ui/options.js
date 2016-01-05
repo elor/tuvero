@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define([], function() {
+define(function() {
   var Options, Default, State;
 
   State = undefined;

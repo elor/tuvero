@@ -2,6 +2,8 @@
 
 	* tools/listdependencies.sh: ignoring comments and loaded resources
 
+	* tools/listrequires.sh: list currently required modules in each script file
+
 2016-01-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* NEWS: Work on 1.5.2 started
