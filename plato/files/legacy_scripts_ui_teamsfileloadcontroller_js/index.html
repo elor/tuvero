@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">60.68</p>
+      <p class="stat">60.31</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">277</p>
+      <p class="stat">284</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">50.70</p>
+      <p class="stat">49.84</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">2.10</p>
+      <p class="stat">2.11</p>
     </div>
   </div>
 </div>
@@ -130,6 +130,8 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./toast&#039;
     case code &gt;= 0xFC &amp;&amp; code &lt; 0xFE:
       return 6;
     }
+
+    return 0;
   }
 
   function isutf8byte(character) {
@@ -268,7 +270,7 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./toast&#039;
       }
     }
 
-    teamsize = -1;
+    teamsize = 0;
 
     // split and strip the individual player names and store them in the
     // lines
@@ -287,7 +289,7 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./toast&#039;
 
       // verify that all teams have the same number of playuers
       if (teamsize !== names.length) {
-        if (teamsize === -1) {
+        if (teamsize &lt;= 0) {
           teamsize = names.length;
         } else {
           new Toast(Strings.differentteamsizes);
@@ -303,6 +305,11 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./toast&#039;
     case 3:
       // set the team size
       State.teamsize.set(teamsize);
+      break;
+    case 0:
+      // TODO use designated String
+      new Toast(Strings.invalidteamsize);
+      return undefined;
       break;
     default:
       new Toast(Strings.invalidteamsize);
@@ -378,7 +385,7 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./toast&#039;
       reader.teamsfileloadcontroller = controller;
 
       // TODO try different encodings and select the best one
-      reader.readAsText(evt.target.files[0], &#039;ISO-8859-1&#039;);
+      reader.readAsBinaryString(evt.target.files[0]);
     });
   };
 

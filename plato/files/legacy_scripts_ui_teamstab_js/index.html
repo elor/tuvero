@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">56.18</p>
+      <p class="stat">55.73</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">137</p>
+      <p class="stat">143</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">19.67</p>
+      <p class="stat">19.78</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.25</p>
+      <p class="stat">1.30</p>
     </div>
   </div>
 </div>
@@ -101,12 +101,14 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     &#039;./teamremovecontroller&#039;, &#039;./teamnamecontroller&#039;, &#039;./teamtableview&#039;,
     &#039;./inputview&#039;, &#039;./teamsfileloadcontroller&#039;, &#039;presets&#039;, &#039;core/lengthmodel&#039;,
     &#039;./deleteallteamscontroller&#039;, &#039;./autocompletionmodel&#039;,
-    &#039;./autocompletionview&#039;, &#039;./autocompletionlegacyblobber&#039;], function(extend,
-    View, ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
-    PreregCloserView, CheckboxView, ClassView, TabsHandle,
-    TeamRemoveController, TeamNameController, TeamTableView, InputView,
-    TeamsFileLoadController, Presets, LengthModel, DeleteAllTeamsController,
-    AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber) {
+    &#039;./autocompletionview&#039;, &#039;./autocompletionlegacyblobber&#039;,
+    &#039;./teamformatdownloadcontroller&#039;], function(extend, View, ListView,
+    TeamView, State, NewTeamView, LengthView, TeamSizeView, PreregCloserView,
+    CheckboxView, ClassView, TabsHandle, TeamRemoveController,
+    TeamNameController, TeamTableView, InputView, TeamsFileLoadController,
+    Presets, LengthModel, DeleteAllTeamsController, AutocompletionModel,
+    AutocompletionView, AutocompletionLegacyBlobber,
+    TeamFormatDownloadController) {
   /**
    * represents a whole team tab
    *
@@ -218,6 +220,10 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     $container = this.$view.find(&#039;input.playername&#039;);
     this.autocompletionView = new AutocompletionView(this.autocompletionModel,
         $container);
+
+    $container = this.$view.find(&#039;&gt;.filereader .downloadexample&#039;);
+    this.downloadexamplecontroller = new TeamFormatDownloadController(new View(
+        undefined, $container));
   };
 
   // FIXME CHEAP HACK AHEAD

@@ -136,7 +136,7 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;core/view&#03
 
     players = [];
     while (players.length &lt; State.teamsize.get()) {
-      players.push(new PlayerModel(&quot;&quot; + id));
+      players.push(new PlayerModel(&#039;&#039; + id));
     }
 
     team = new TeamModel(players);
