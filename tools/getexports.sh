@@ -35,17 +35,26 @@ getexport(){
 getmodule(){
     local file=$1
 
-    echo "$file" | sed -e 's#\.js$##' -e 's#^core/scripts/#core/#' -e 's#^legacy/scripts/ui/#ui/#' -e 's#^lib/jquery#jquery#'
+    echo "$file" | sed -e 's#\.js$##' \
+        -e 's#^core/scripts/#core/#' \
+        -e 's#^legacy/scripts/backend/#backend/#' \
+        -e 's#^legacy/scripts/ui/#ui/#' \
+        -e 's#^lib/jquery#jquery#'
 }
 
-for file in $(listscripts); do
-    {
-        exported=$(getexport $file)
-        module=$(getmodule $file)
-        if [ -n "$exported" ]; then
-            echo "$exported $module $file"
-        elif ! istest $file && ismodule $file; then
-            echo "$module has no export!" >&2
-        fi
-    } &
-done | sort -k2,2 | column -t
+{
+    for file in $(listscripts); do
+        {
+            exported=$(getexport $file)
+            module=$(getmodule $file)
+            if [ -n "$exported" ]; then
+                echo "$exported $module $file"
+            elif ! istest $file && ismodule $file; then
+                echo "$module has no export!" >&2
+            fi
+        } &
+    done
+
+    echo Options options options.js
+    echo Presets presets presets.js
+} | sort -k2,2 | column -t

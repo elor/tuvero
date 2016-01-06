@@ -8,10 +8,6 @@ set -e -u
 exports=$(./tools/getexports.sh)
 #grepstring=$(awk 'BEGIN {a=""} {a=a "|" $1} END {print a}' <<< "$exports" | sed -e 's/^|\(.*\)$/\\b(\1)\\b/' -e 's/\$/\\$/')
 
-findscripts(){
-    find core/scripts/ legacy/scripts/ -type f -name '*.js'
-}
-
 listrequires(){
     local file=$1
     #    local fileexport=$(grep $file'$' <<< "$exports" | awk '{print $1}')
@@ -85,7 +81,7 @@ processfile(){
     echo "$file:"
     moduledir=$(getmoduledir "$file")
     supermoduledir=$(getsupermoduledir "$file")
-    listrequires $file | sed -e "s#^\./#$moduledir#g" -e "s#^\.\./#$supermoduledir#g" | sed 's/^/  /'
+    listrequires $file | sed -e "s#^\./#$moduledir#g" -e "s#^\.\./#$supermoduledir#g" | sort | sed 's/^/  /'
 }
 
 if (( ${#@} > 0 )); then
@@ -94,7 +90,7 @@ if (( ${#@} > 0 )); then
     done
 else 
     # all files
-    for file in $(findscripts); do
+    for file in $(./tools/listscripts.sh); do
         processfile $file
     done
 fi
