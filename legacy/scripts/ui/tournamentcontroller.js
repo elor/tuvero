@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/controller', './toast', './strings'], //
-function(extend, jquery, Controller, Toast, Strings) {
+function(extend, $, Controller, Toast, Strings) {
   var pendingNameChange;
 
   pendingNameChange = undefined;

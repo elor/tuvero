@@ -4,12 +4,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'core/valuemodel', './valueview',
-    './browser', './storage', './strings', './toast', './loadedimagesview',
-    './browserinfoview', './registerteamscontroller',
-    './registeridscontroller', './requiremodsshortcut',
-    './finishroundcontroller', './debug', './tabshandle'], function(extend, $,
-    View, ValueModel, ValueView, Browser, Storage, Strings, Toast,
+define(['lib/extend', 'jquery', 'core/view', './storage', './strings',
+    './toast', './loadedimagesview', './browserinfoview',
+    './registerteamscontroller', './registeridscontroller',
+    './requiremodsshortcut', './finishroundcontroller', './debug',
+    './tabshandle'], function(extend, $, View, Storage, Strings, Toast,
     LoadedImagesView, BrowserInfoView, RegisterTeamsController,
     RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
     TabsHandle) {

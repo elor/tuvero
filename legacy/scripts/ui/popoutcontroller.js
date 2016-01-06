@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller'], function(extend, Controller) {
+define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings'], function(
+    extend, Controller, Toast, Strings) {
   var openWindows;
 
   windows = [];

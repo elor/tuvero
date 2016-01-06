@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['options', './state_new', './legacyloadermodel'], function(Options,
-    State_New, LegacyLoaderModel) {
+define(['./state_new', './legacyloadermodel', 'ui/toast', 'ui/strings'], //
+function(State_New, LegacyLoaderModel, Toast, Strings) {
   var State;
 
   State = {

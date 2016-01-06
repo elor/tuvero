@@ -7,10 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './listview', './inlinelistview',
-    './komatchresultview', 'core/matchmodel', 'core/kotournamentmodel',
-    './kotreeposition', './kolineview', './boxview'], function(extend,
-    TemplateView, ListView, InlineListView, KOMatchResultView, MatchModel,
-    KOTournamentModel, KOTreePosition, KOLineView, BoxView) {
+    './komatchresultview', 'core/kotournamentmodel', './kotreeposition',
+    './kolineview', './boxview'], function(extend, TemplateView, ListView,
+    InlineListView, KOMatchResultView, KOTournamentModel, KOTreePosition,
+    KOLineView, BoxView) {
   /**
    * Constructor
    *

@@ -7,11 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', './listview', './popoutboxview',
-    './teamview', 'core/listener', 'core/listener',
-    'core/binningreferencelistmodel', './matchtableview',
+    'core/listener', 'core/binningreferencelistmodel', './matchtableview',
     './generictournamenthistoryview'], function(extend, View, ListView,
-    PopoutBoxView, TeamView, Listener, Listener, BinningReferenceListModel,
-    MatchTableView, GenericTournamentHistoryView) {
+    PopoutBoxView, Listener, BinningReferenceListModel, MatchTableView,
+    GenericTournamentHistoryView) {
   /**
    * Constructor
    *

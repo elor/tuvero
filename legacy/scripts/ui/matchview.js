@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
-    'ui/matchcontroller', 'options', './playermodel', './teammodel',
-    './strings', 'core/type'], function(extend, $, View, TeamView,
-    MatchController, Options, PlayerModel, TeamModel, Strings, Type) {
+    'ui/matchcontroller', './playermodel', './teammodel', './strings',
+    'core/type'], function(extend, $, View, TeamView, MatchController,
+    PlayerModel, TeamModel, Strings, Type) {
   var emptyPlayer, byePlayer;
 
   // player name for bye votes

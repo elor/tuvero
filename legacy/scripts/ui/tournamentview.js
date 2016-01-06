@@ -8,9 +8,9 @@
  */
 define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
     './tournamentcontroller', 'core/listmodel', './boxview', 'presets',
-    './rankingorderview', 'core/rankingcomponentindex', './strings'], function(
-    extend, View, StateClassView, Listener, TournamentController, ListModel,
-    BoxView, Presets, RankingOrderView, RankingComponentIndex, Strings) {
+    './rankingorderview', './strings'], function(extend, View, StateClassView,
+    Listener, TournamentController, ListModel, BoxView, Presets,
+    RankingOrderView, Strings) {
   /**
    * Constructor
    *

@@ -7,9 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './listview', 'core/listener',
-    'core/matchresult', './/matchresultview', './teamtableview'], function(
-    extend, TemplateView, ListView, Listener, MatchResult, MatchResultView,
-    TeamTableView) {
+    './matchresultview', './teamtableview'], function(extend, TemplateView,
+    ListView, Listener, MatchResultView, TeamTableView) {
   /**
    * Constructor
    */

@@ -13,7 +13,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     './autocompletionview', './autocompletionlegacyblobber',
     './teamformatdownloadcontroller'], function(extend, View, ListView,
     TeamView, State, NewTeamView, LengthView, TeamSizeView, PreregCloserView,
-    CheckboxView, ClassView, TabsHandle, TeamRemoveController,
+    CheckBoxView, ClassView, TabsHandle, TeamRemoveController,
     TeamNameController, TeamTableView, InputView, TeamsFileLoadController,
     Presets, LengthModel, DeleteAllTeamsController, AutocompletionModel,
     AutocompletionView, AutocompletionLegacyBlobber,
@@ -87,14 +87,14 @@ define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find('>.options input.maxwidth');
-    this.maxwidthCheckboxView = new CheckboxView(value, $container);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
         'nomaxwidth');
 
     // list/table selection checkbox
     value = State.tabOptions.teamTable;
     $container = this.$view.find('>.options input.showtable');
-    this.showtableCheckboxView = new CheckboxView(value, $container);
+    this.showtableCheckBoxView = new CheckBoxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view, 'showtable');
 
     // update the tab when the team size changes

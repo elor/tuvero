@@ -7,7 +7,7 @@
 define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
     './checkboxview', 'core/classview', './tournamenthistoryview',
     './closedtournamentcollapselistener'], function(extend, $, View, ListView,
-    State, CheckboxView, ClassView, TournamentHistoryView,
+    State, CheckBoxView, ClassView, TournamentHistoryView,
     ClosedTournamentCollapseListener) {
   /**
    * represents a whole team tab
@@ -48,28 +48,28 @@ define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find('>.options input.maxwidth');
-    this.maxwidthCheckboxView = new CheckboxView(value, $container);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
         'nomaxwidth');
 
     // player names checkbox
     value = State.tabOptions.showNames;
     $container = this.$view.find('>.options input.shownames');
-    this.maxwidthCheckboxView = new CheckboxView(value, $container);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         'hidenames');
 
     // list/table selection checkbox
     value = State.tabOptions.showMatchTables;
     $container = this.$view.find('>.options input.showtable');
-    this.showtableCheckboxView = new CheckboxView(value, $container);
+    this.showtableCheckBoxView = new CheckBoxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view,
         'showmatchtable', 'showtable');
 
     // hidefinished checkbox
     value = State.tabOptions.hideFinishedGroups;
     $container = this.$view.find('>.options input.hidefinished');
-    this.hidefinishedCheckboxView = new CheckboxView(value, $container);
+    this.hidefinishedCheckBoxView = new CheckBoxView(value, $container);
     this.hidefinishedClassView = new ClassView(value, this.$view,
         'hidefinished');
   };

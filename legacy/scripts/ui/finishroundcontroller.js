@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'core/view', './state_new',
-    './options'], function(extend, Controller, View, State, Options) {
+    'options'], function(extend, Controller, View, State, Options) {
   /**
    * Constructor
    */

@@ -7,9 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', './templateview', './rankingcomponentview', './listview',
-    './rankingordercontroller', 'core/listener'], function(extend,
-    TemplateView, RankingComponentView, ListView, RankingOrderController,
-    Listener) {
+    './rankingordercontroller'], function(extend, TemplateView,
+    RankingComponentView, ListView, RankingOrderController) {
   /**
    * Constructor
    *

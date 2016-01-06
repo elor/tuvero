@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/listmodel', 'core/indexedlistmodel',
-    'core/valuemodel', './listcleanuplistener', 'core/tournamentlistmodel',
-    'options', 'presets', './teammodel', 'core/listener'], function(extend,
-    Model, ListModel, IndexedListModel, ValueModel, ListCleanupListener,
-    TournamentListModel, Options, Presets, TeamModel, Listener) {
+define(['lib/extend', 'core/model', 'core/indexedlistmodel', 'core/valuemodel',
+    './listcleanuplistener', 'core/tournamentlistmodel', 'options', 'presets',
+    './teammodel', 'core/listener'], function(extend, Model, IndexedListModel,
+    ValueModel, ListCleanupListener, TournamentListModel, Options, Presets,
+    TeamModel, Listener) {
 
   /**
    * Constructor

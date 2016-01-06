@@ -6,10 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './matchview', './listview',
-    './teamtableview', './popoutboxview', './teamview', 'core/listener',
-    './matchtableview'], function(extend, TemplateView, MatchView, ListView,
-    TeamTableView, PopoutBoxView, TeamView, Listener, MatchTableView) {
+define(['lib/extend', './templateview', './listview', './popoutboxview',
+    './teamview', 'core/listener', './matchtableview'], function(extend,
+    TemplateView, ListView, PopoutBoxView, TeamView, Listener, MatchTableView) {
   /**
    * Constructor
    *
