@@ -39,11 +39,13 @@ getmodule(){
 }
 
 for file in $(listscripts); do
-    exported=$(getexport $file)
-    module=$(getmodule $file)
-    if [ -n "$exported" ]; then
-        echo "$exported $module $file"
-    elif ! istest $file && ismodule $file; then
-        echo "$module has no export!" >&2
-    fi
-done | column -t
+    {
+        exported=$(getexport $file)
+        module=$(getmodule $file)
+        if [ -n "$exported" ]; then
+            echo "$exported $module $file"
+        elif ! istest $file && ismodule $file; then
+            echo "$module has no export!" >&2
+        fi
+    } &
+done | sort -k2,2 | column -t

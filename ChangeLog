@@ -1,3 +1,9 @@
+2016-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* tools/getexports.sh: accelerated by 250% by simple parallelization
+
+	* tools/listrequires.sh: using nodejs to export and correlate module and argument names
+
 2016-01-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* tools/listdependencies.sh: ignoring comments and loaded resources
