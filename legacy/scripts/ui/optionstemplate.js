@@ -1,6 +1,6 @@
 /**
- * central options object. Please require 'options' instead of 'ui/options' to
- * ensure the target-specific Default options.
+ * central options object. Please require 'options' instead of 'ui/optionsclass'
+ * to ensure the target-specific Default options.
  *
  * TODO MVC-rewrite with multiple levels of default values
  *
@@ -12,52 +12,52 @@
  * @see LICENSE
  */
 define(function() {
-  var Options, Default, State;
+  var OptionsTemplate, Default, State;
 
   State = undefined;
   Default = {};
-  Options = {};
+  OptionsTemplate = {};
 
   function getState() {
     return State || (State = require('ui/state_new'));
   }
 
-  Options.toBlob = function() {
-    return JSON.stringify(Options);
+  OptionsTemplate.toBlob = function() {
+    return JSON.stringify(OptionsTemplate);
   };
 
-  Options.fromBlob = function(blob) {
+  OptionsTemplate.fromBlob = function(blob) {
     var opts, key;
     opts = JSON.parse(blob);
 
     // delete everything
-    for (key in Options) {
-      if (typeof (Options[key]) !== 'function') {
-        delete Options[key];
+    for (key in OptionsTemplate) {
+      if (typeof (OptionsTemplate[key]) !== 'function') {
+        delete OptionsTemplate[key];
       }
     }
 
     // apply default options
     for (key in Default) {
-      Options[key] = Default[key];
+      OptionsTemplate[key] = Default[key];
     }
 
     // reset everything
     for (key in opts) {
-      Options[key] = opts[key];
+      OptionsTemplate[key] = opts[key];
     }
   };
 
-  Options.setDefault = function(newDefault) {
+  OptionsTemplate.setDefault = function(newDefault) {
     Default = newDefault;
   };
 
-  Options.reset = function() {
+  OptionsTemplate.reset = function() {
     // just use available functions instead of cloning
-    Options.fromBlob(JSON.stringify(Default));
+    OptionsTemplate.fromBlob(JSON.stringify(Default));
   };
 
-  Options.reset();
+  OptionsTemplate.reset();
 
-  return Options;
+  return OptionsTemplate;
 });

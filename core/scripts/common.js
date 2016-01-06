@@ -179,7 +179,7 @@ define([
   'ui/newteamview',
   'ui/newtournamentcontroller',
   'ui/newtournamentview',
-  'ui/options',
+  'ui/optionstemplate',
   'ui/playermodel',
   'ui/popoutboxview',
   'ui/popoutcontroller',

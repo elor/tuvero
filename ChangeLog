@@ -8,10 +8,19 @@
 	* legacy/scripts/ui/options.js: moved to optionstemplate.js
 
 	* legacy/scripts/ui/optionstemplate.js: moved from options.js
+	renamed Options to OptionsTemplate
 
 	* tools/listdependencies.sh: properly excludes circular dependencies
 
 	* tools/listscripts.sh: list all core/legacy module scripts
+
+	* boule/scripts/options.js: renamed Options to OptionsTemplate
+
+	* core/scripts/common.js: renamed Options to OptionsTemplate
+
+	* tac/scripts/options.js: renamed Options to OptionsTemplate
+
+	* test/scripts/options.js: renamed Options to OptionsTemplate
 
 2016-01-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

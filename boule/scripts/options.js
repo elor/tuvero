@@ -9,11 +9,11 @@
  * @see LICENSE
  */
 
-define(['ui/options'], function(Options) {
+define(['ui/optionstemplate'], function(OptionsTemplate) {
   var Default;
 
   Default = {
-    // must stay the same across this save, hence Options, not Presets
+    // must stay the same across this save, hence OptionsTemplate, not Presets
     minpoints: 0,
     maxpoints: 15,
     byepointswon: 13,
@@ -23,8 +23,8 @@ define(['ui/options'], function(Options) {
     maxpointtiesforbidden: true
   };
 
-  Options.setDefault(Default);
-  Options.reset();
+  OptionsTemplate.setDefault(Default);
+  OptionsTemplate.reset();
 
-  return Options;
+  return OptionsTemplate;
 });
