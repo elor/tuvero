@@ -8,20 +8,21 @@
 define(['../state_new', '../listcollectormodel', 'core/tournamentmodel',
     '../toast', '../strings'], function(State, ListCollectorModel,
     TournamentModel, Toast, Strings) {
-  var errorListener;
+  var TournamentErrorToasts;
 
   // save on player name change
-  errorListener = new ListCollectorModel(State.tournaments, TournamentModel);
+  TournamentErrorToasts = new ListCollectorModel(State.tournaments,
+      TournamentModel);
   /**
    * overwrite the update listener: save whenever a team has been updated.
    *
    * Note to self: this also catches setID-fired events. Storage.store should
    * buffer multiple store() requests anyhow
    */
-  errorListener.onerror = function(emitter, event, message) {
+  TournamentErrorToasts.onerror = function(emitter, event, message) {
     return new Toast(Strings.tournamenterrorprefix + ': ' + message,//
     Toast.LONG);
   };
 
-  return errorListener;
+  return TournamentErrorToasts;
 });

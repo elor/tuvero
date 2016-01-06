@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
-], function(extend, Listener, State, Tabshandle) {
+], function(extend, Listener, State, TabsHandle) {
 
   /**
    * Constructor
@@ -39,9 +39,9 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
     }
 
     if (hasHistory) {
-      Tabshandle.show('history');
+      TabsHandle.show('history');
     } else {
-      Tabshandle.hide('history');
+      TabsHandle.hide('history');
     }
   };
 

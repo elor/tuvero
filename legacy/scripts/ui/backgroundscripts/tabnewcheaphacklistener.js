@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
-], function(extend, Listener, State, Tabshandle) {
+], function(extend, Listener, State, TabsHandle) {
 
   /**
    * Constructor
@@ -27,9 +27,9 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
    */
   TabNewCheapHackListener.prototype.update = function() {
     if (State.teams.length < 2) {
-      Tabshandle.hide('new');
+      TabsHandle.hide('new');
     } else {
-      Tabshandle.show('new');
+      TabsHandle.show('new');
     }
   };
 

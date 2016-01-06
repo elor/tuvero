@@ -5,9 +5,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state_new', 'ui/listcollectormodel', 'ui/toast', 'ui/strings',
-    'core/tournamentmodel', 'core/listener'], function(State,
-    ListCollectorModel, Toast, Strings, TournamentModel, Listener) {
+define(['ui/state_new', 'ui/toast', 'ui/strings', 'core/listener'], function(
+    State, Toast, Strings, Listener) {
   var MatchToasts;
 
   MatchToasts = {};

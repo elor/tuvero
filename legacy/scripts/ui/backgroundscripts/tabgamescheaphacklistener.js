@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
-], function(extend, Listener, State, Tabshandle) {
+], function(extend, Listener, State, TabsHandle) {
 
   /**
    * Constructor
@@ -35,9 +35,9 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
     }
 
     if (isRunning) {
-      Tabshandle.show('games');
+      TabsHandle.show('games');
     } else {
-      Tabshandle.hide('games');
+      TabsHandle.hide('games');
     }
   };
 
