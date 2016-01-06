@@ -9,6 +9,7 @@
 define(['lib/Blob', 'jquery', '../state', '../toast', '../strings',
     'lib/FileSaver', 'presets'], function(Blob, $, State, Toast, Strings,
     saveAs, Presets) {
+  var Save = undefined;
 
   $(function($) {
     $('#tabs').on('click', 'button.save', function() {
@@ -34,5 +35,5 @@ define(['lib/Blob', 'jquery', '../state', '../toast', '../strings',
     });
   });
 
-  return undefined;
+  return Save;
 });

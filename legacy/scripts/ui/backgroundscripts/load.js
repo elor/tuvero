@@ -9,6 +9,7 @@
  * @see LICENSE
  */
 define(['jquery'], function() {
+  var Load = undefined;
 
   $(function($) {
     $('#tabs').on('click', 'button.load', function(e) {
@@ -16,5 +17,5 @@ define(['jquery'], function() {
     });
   });
 
-  return undefined;
+  return Load;
 });

@@ -7,11 +7,13 @@
  * @see LICENSE
  */
 define(['jquery'], function($) {
+  var Print = undefined;
+
   $(function($) {
     $('#tabs').on('click', 'button.print', function() {
       window.print();
     });
   });
 
-  return undefined;
+  return Print;
 });

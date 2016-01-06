@@ -8,7 +8,9 @@
 define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel',
     'core/tournamentmodel', 'ui/storage', 'core/listener'], function(State,
     ListCollectorModel, TeamModel, TournamentModel, Storage, Listener) {
-  var updatePending, nameListener,
+  var updatePending, nameListener, AutoSave,
+
+  AutoSave = undefined;
 
   updatePending = undefined;
 
@@ -53,5 +55,5 @@ define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel',
     data.object.getName().unregisterListener(nameListener);
   });
 
-  return undefined;
+  return AutoSave;
 });

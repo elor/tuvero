@@ -42,5 +42,5 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
 
   TabNewCheapHackListener.instance = new TabNewCheapHackListener();
 
-  return undefined;
+  return TabNewCheapHackListener;
 });

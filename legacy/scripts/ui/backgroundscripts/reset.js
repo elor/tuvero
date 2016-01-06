@@ -10,6 +10,7 @@
  * @see LICENSE
  */
 define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
+  var Reset = undefined;
 
   function hashcheck() {
     if (location.hash === '#reset') {
@@ -39,5 +40,5 @@ define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
 
   hashcheck();
 
-  return undefined;
+  return Reset;
 });

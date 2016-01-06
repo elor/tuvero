@@ -83,5 +83,5 @@ define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
 
   TabRankingCheapHackListener.instance = new TabRankingCheapHackListener();
 
-  return undefined;
+  return TabRankingCheapHackListener;
 });

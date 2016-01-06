@@ -7,19 +7,25 @@
  */
 define(['../state_new', 'core/listener', '../toast', '../strings'], function(
     State, Listener, Toast, Strings) {
+  var StateToasts;
+
+  StateToasts = {};
+
   /*
    * show error toasts
    */
-  Listener.bind(State, 'error', function(emitter, event, message) {
+  StateToasts.errorListener = Listener.bind(State, 'error', function(emitter,
+      event, message) {
     new Toast(message, Toast.LONG);
   });
 
-  Listener.bind(State, 'clear', function(emitter, event, message) {
+  StateToasts.clearListener = Listener.bind(State, 'clear', function(emitter,
+      event, message) {
     // TODO replace with Toast.isInitialized or similar.
     if (Toast.$container !== undefined) {
       new Toast(Strings.newtournament, Toast.LONG);
     }
   });
 
-  return undefined;
+  return StateToasts;
 });
