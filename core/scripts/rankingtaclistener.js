@@ -40,18 +40,18 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
   RankingTacListener.NAME = 'tac';
 
   RankingTacListener.prototype.onresult = function(r, e, result) {
-    var winner, loser, diff, points;
+    var winner, loser, difference, points;
 
     if (result.teams.length !== 2) {
       throw new Error('TAC ranking requires exactly two teams in a result');
     }
 
-    diff = result.score[0] - result.score[1];
-    switch (sign(diff)) {
+    difference = result.score[0] - result.score[1];
+    switch (sign(difference)) {
     case -1:
       winner = 1;
       loser = 0;
-      diff = -diff;
+      difference = -difference;
       break;
     case 1:
       winner = 0;
@@ -70,7 +70,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
       // everything went to completion
 
       // winner
-      points = this.tac.get(result.teams[winner]) + winscore + diff;
+      points = this.tac.get(result.teams[winner]) + winscore + difference;
       this.tac.set(result.teams[winner], points);
 
       // loser
@@ -112,18 +112,18 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
   RankingTacListener.prototype.oncorrect = function(r, e, correction) {
     // TODO DRY - Don't Repeat Yourself!
     // TODO extract a method for use by onresult and oncorrect
-    var winner, loser, diff, points;
+    var winner, loser, difference, points;
 
     if (correction.before.teams.length !== 2) {
       throw new Error('TAC ranking requires exactly two teams in a result');
     }
 
-    diff = correction.before.score[0] - correction.before.score[1];
-    switch (sign(diff)) {
+    difference = correction.before.score[0] - correction.before.score[1];
+    switch (sign(difference)) {
     case -1:
       winner = 1;
       loser = 0;
-      diff = -diff;
+      difference = -difference;
       break;
     case 1:
       winner = 0;
@@ -143,7 +143,8 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
       // everything went to completion
 
       // winner
-      points = this.tac.get(correction.before.teams[winner]) - winscore - diff;
+      points = this.tac.get(correction.before.teams[winner]) - winscore
+          - difference;
       this.tac.set(correction.before.teams[winner], points);
 
       // loser

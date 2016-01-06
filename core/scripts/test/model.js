@@ -8,7 +8,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var Model, Emitter, extend, Type;
+    var Model, Emitter, extend;
 
     Model = getModule('core/model');
     Emitter = getModule('core/emitter');

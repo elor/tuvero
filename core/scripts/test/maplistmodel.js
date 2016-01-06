@@ -8,7 +8,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var ListModel, MatchModel, MatchReferenceListModel, Listener;
+    var ListModel, MatchReferenceListModel, Listener;
 
     Listener = getModule('core/listener');
     ListModel = getModule('core/listmodel');

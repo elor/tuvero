@@ -8,10 +8,11 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var ListModel, DummyModel;
+    var ListModel, DummyModel, extend;
 
     ListModel = getModule('core/listmodel');
     Model = getModule('core/model');
+    extend = getModule('lib/extend');
 
     /*
      * dummy Model, which can be saved/restored for testing
