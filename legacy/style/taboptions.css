@@ -1,0 +1,19 @@
+/* Tab options */
+.maxwidth .name {
+  width: 8em;
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hidenames .name {
+  display: none;
+}
+
+.hidenames .playercol {
+  display: none;
+}
+
+.hidefinished .matchtable.finished {
+  display: none;
+}

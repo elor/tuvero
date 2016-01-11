@@ -5,10 +5,13 @@
 
 	* legacy/style/history.css: css rules simplified and globalized
 	MatchResultView-specific rules moved to matchresult.css
+	tab options moved to taboptions.css
 
 	* legacy/style/matchresult.css: dedicated file for MatchResultView-specific rules
 
 	* legacy/style/progresstable.css: MatchResultView-specific rules moved to matchresult.css
+
+	* legacy/style/taboptions.css: Tab Options rules
 
 2016-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
