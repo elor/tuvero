@@ -1,79 +1,40 @@
-#tabs > [data-tab="history"] .hideresult .result {
+/* MatchResultView / CorrectionController */
+.match.result.correcting .result {
   display: none;
 }
 
-#tabs > [data-tab="history"] input[type="number"] {
-  width: 3em;
-  max-width: 3em;
+/* MatchResultView / CorrectionController */
+@media print {
+  .result {
+    display: block !important;
+  }
 }
 
-#tabs > [data-tab="history"].maxwidth .bottom .team {
-  width: 8em;
-  max-width: 8em;
-}
-
-#tabs > [data-tab="history"].maxwidth .name {
+/* Tab options */
+.maxwidth .name {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#tabs > [data-tab="history"].hidenames .name {
+.hidenames .name {
   display: none;
 }
 
-#tabs > [data-tab="history"].hidenames .playercol {
+.hidenames .playercol {
   display: none;
 }
 
-#tabs > [data-tab="history"].hidefinished .matchtable.finished {
+.hidefinished .matchtable.finished {
   display: none;
 }
 
-#tabs > [data-tab="history"] .correcting .result {
+/* history-specific tab options */
+.showtable .hastable .matchtable {
   display: none;
 }
 
-#tabs > [data-tab="history"].showtable .hastable .matchtable {
+.showmatchtable .progresstable, .showmatchtable .kotree {
   display: none;
-}
-
-#tabs > [data-tab="history"].showmatchtable .progresstable, #tabs > [data-tab="history"].showmatchtable .kotree {
-  display: none;
-}
-
-#tabs > [data-tab="history"] .voteview {
-  display: inline-table;
-  border-radius: 0.5em;
-  border: solid 1px #000000;
-  background-color: #d3d3d3;
-  margin: 0.5em;
-  white-space: nowrap;
-}
-
-#tabs > [data-tab="history"] div.teamno {
-  display: table-cell;
-  background: none;
-}
-
-#tabs > [data-tab="history"] div.voteview.names {
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
-}
-
-#tabs > [data-tab="history"] div.voteview.name {
-  margin: 0.2em;
-}
-
-#tabs>[data-tab="history"]:not (.hidenames )
-.votes .vote .names {
-  display: table-cell;
-}
-
-@media print {
-  .result {
-    display: block !important;
-  }
 }
