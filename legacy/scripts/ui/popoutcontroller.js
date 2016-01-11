@@ -8,9 +8,25 @@
  */
 define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings'], function(
     extend, Controller, Toast, Strings) {
-  var openWindows;
+  var mainPopout;
 
-  windows = [];
+  mainPopout = undefined;
+
+  function isMainPopoutOpen() {
+    return mainPopout && mainPopout.document;
+  }
+
+  /**
+   * close all popout on page leave
+   */
+  $(function($) {
+    $(window).on('beforeunload', function() {
+      debugger
+      if (isMainPopoutOpen()) {
+        mainPopout.close();
+      }
+    });
+  });
 
   /**
    * Constructor
@@ -25,40 +41,34 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings'], function(
   extend(PopoutController, Controller);
 
   PopoutController.prototype.popout = function(e) {
-    var container, $popoutView, stylepath, $stylelink, $title;
+    var $popoutView, stylepath, $stylelink, $title;
 
     $popoutView = this.view.$popoutTemplate.clone();
 
-    console.log('opening popout');
-    container = window.open(undefined, 'popout');
-    // container = window.open(undefined, 'popout' + windows.length);
-
-    if (!container) {
-      console.error(Error('cannot open popout window'));
-      throw new Error('cannot open popout window');
+    if (!isMainPopoutOpen()) {
+      console.log('opening new popout');
+      mainPopout = window.open('', '', 'location=0');
+    } else {
+      console.log('main popout already exists and is open');
     }
 
     stylepath = window.location.href.replace(/index.html[?#].*/,
         'style/main.css');
     $stylelink = $('<link rel="stylesheet" href=' + stylepath + '>');
     $title = $('title').clone();
-    $(container.document.head).append($stylelink).append($title);
-    $(container.document.body).attr('id', 'app').append($popoutView);
-    this.cloneFunction.call(container, $popoutView);
+    $(mainPopout.document.head).append($stylelink).append($title);
+    $(mainPopout.document.body).attr('id', 'app').append($popoutView);
+    this.cloneFunction.call(mainPopout, $popoutView);
 
     window.setTimeout(function() {
-      if (!container || !container.document || !container.document.body) {
+      if (!isMainPopoutOpen()) {
         new Toast(Strings.popout_adblocked);
       }
     }, 500);
 
-    windows.push(container);
-
     e.preventDefault(true);
     return false;
   };
-
-  // TODO close all popout on page leave
 
   // TODO close a popout when its parent is removed from the DOM
 
