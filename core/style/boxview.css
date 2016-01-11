@@ -36,7 +36,7 @@ div.boxview.collapsed > h3:first-child:after {
   float: right;
 }
 
-div.boxview:not(.collapsed) > h3:first-child:after {
+#tabs div.boxview:not(.collapsed) > h3:first-child:after {
   content: "_";
   float: right;
 }
@@ -57,7 +57,7 @@ div.boxview > h3:first-child .popout:hover {
     padding: 0em;
     margin: 0.2em;
   }
-  
+
   div.boxview.collapsed {
     display:none !important;
   }
@@ -66,6 +66,10 @@ div.boxview > h3:first-child .popout:hover {
     border: none;
     background: none;
     margin: 0em;
+  }
+
+  div.boxview > h3:first-child:after {
+    display: none !important;
   }
 
   div.boxview > h3 > .popout {
