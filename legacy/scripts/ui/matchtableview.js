@@ -15,7 +15,7 @@ define(['lib/extend', './templateview', './listview', 'core/listener',
   function MatchTableView(model, $view, teamlist, tournament, teamsize) {
     var $listview;
     MatchTableView.superconstructor.call(this, model, $view, $view
-        .find('.matchrow'));
+        .find('.match'));
 
     $listview = this.$view.children('table');
     this.listView = new ListView(this.model, $listview, this.$template,

@@ -11,7 +11,6 @@
 @import url("../../legacy/style/autocomplete.css");
 @import url("../../legacy/style/buttons.css");
 @import url("../../legacy/style/debug.css");
-@import url("../../legacy/style/games.css");
 @import url("../../legacy/style/general.css");
 @import url("../../legacy/style/history.css");
 @import url("../../legacy/style/home.css");
@@ -30,3 +29,4 @@
 @import url("../../legacy/style/teams.css");
 @import url("../../legacy/style/teamsizeview.css");
 @import url("../../legacy/style/toasts.css");
+@import url("../../legacy/style/voteview.css");

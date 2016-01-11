@@ -7,24 +7,13 @@
   margin: auto;
 }
 
-.matchtable .matchrow .teamno {
+/* TODO move to its own css file. This affects other tables, too */
+table .teamno {
   font-weight: bold;
 }
 
-.matchtable .matchrow .name {
-  text-align: left;
-}
-
-.matchtable .finish input, .matchtable .correct input {
-  width: 3em;
-  max-width: 3em;
-  text-align: center;
-}
-
-.matchtable .correct {
-  display: none;
-}
-
-.matchtable .correcting .correct {
-  display: block;
+@media print {
+  .dontprintresultcol .resultcol {
+    display: none !important;
+  }
 }
