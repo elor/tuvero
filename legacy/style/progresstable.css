@@ -7,20 +7,6 @@
   margin: auto;
 }
 
-.progresstable .finish input, .progresstable .correct input {
-  width: 3em;
-  max-width: 3em;
-  text-align: center;
-}
-
-.progresstable .correct {
-  display: none;
-}
-
-.progresstable .correcting .correct {
-  display: block;
-}
-
 .progresstable td.separator {
   border-left: solid black 1px !important;
 }

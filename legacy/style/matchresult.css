@@ -1,0 +1,23 @@
+.match.result input {
+  width: 3em;
+  max-width: 3em;
+  text-align: center;
+}
+
+.match.result .correct {
+  display: none;
+}
+
+.match.result .correcting .correct {
+  display: block;
+}
+
+.match.result.correcting .result {
+  display: none;
+}
+
+@media print {
+  .result {
+    display: block !important;
+  }
+}

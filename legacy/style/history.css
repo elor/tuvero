@@ -1,15 +1,3 @@
-/* MatchResultView / CorrectionController */
-.match.result.correcting .result {
-  display: none;
-}
-
-/* MatchResultView / CorrectionController */
-@media print {
-  .result {
-    display: block !important;
-  }
-}
-
 /* Tab options */
 .maxwidth .name {
   width: 8em;
