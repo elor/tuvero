@@ -5,7 +5,6 @@
 #tabs > [data-tab="home"] > .boxview {
   vertical-align: middle;
   max-width: 50em;
-  display: inline-block;
 }
 
 #tabs > [data-tab="home"] > .boxview > p {

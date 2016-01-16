@@ -15,6 +15,10 @@ div.boxview {
   background-color: #ffffff;
 }
 
+div.boxview.inline {
+  display: inline-block;
+}
+
 div.boxview.collapsed {
   border-radius: 1em 1em 0em 0em;
 }
