@@ -1,3 +1,7 @@
+2016-01-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/boxview.css: not viewing boxview minmax icons in a popout
+
 2016-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/popoutcontroller.js: using and maintaining a singular main popout window

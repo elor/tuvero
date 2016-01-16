@@ -49,7 +49,7 @@ div.boxview > h3:first-child {
   cursor: pointer;
 }
 
-div.boxview.collapsed > h3:first-child:after {
+#tabs div.boxview.collapsed > h3:first-child:after {
   content: "¯";
   float: right;
 }
