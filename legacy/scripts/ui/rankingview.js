@@ -29,9 +29,9 @@ define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
     this.$rankingheader = this.$view.find('.rankingheader');
     this.$headercomponenttemplate = this.$rankingheader.find('.component');
     this.$headercomponenttemplate.detach();
-    this.$headernametemplate = this.$rankingheader.find('.playername');
+    this.$headernametemplate = this.$rankingheader.find('.name');
     this.$headernametemplate.detach();
-    this.$nametemplate = this.$template.find('.playername').detach();
+    this.$nametemplate = this.$template.find('.name').detach();
     this.$componenttemplate = this.$template.find('.component').detach();
 
     this.teamList = teamList;
