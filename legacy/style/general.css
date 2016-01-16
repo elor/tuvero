@@ -46,6 +46,19 @@ button[disabled] {
   clear: both;
 }
 
+.leftalign {
+  text-align: left !important;
+}
+
+.justify {
+  text-align: justify !important;
+}
+
+a[data-img].inline {
+  margin: 0.5em;
+  display: inline-block;
+}
+
 .noadownload, .nostorage, .nofilereader, .nojson, .noatob {
   display: none;
 }

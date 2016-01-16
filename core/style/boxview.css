@@ -19,6 +19,20 @@ div.boxview.inline {
   display: inline-block;
 }
 
+div.boxview.info {
+  vertical-align: middle;
+  max-width: 35em;
+}
+
+div.boxview.info > p {
+  text-align: justify;
+}
+
+div.boxview.largeinfo {
+  vertical-align: middle;
+  max-width: 50em;
+}
+
 div.boxview.collapsed {
   border-radius: 1em 1em 0em 0em;
 }
