@@ -72,7 +72,7 @@ define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
       }
     }, this);
 
-    this.$view.find('.rankingheader .playername').remove();
+    this.$view.find('.rankingheader .name').remove();
     for (i = 0; i < teamsize; i += 1) {
       this.$rankingheader.append(this.$headernametemplate.clone());
     }

@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings'], function(
-    extend, Controller, Toast, Strings) {
+define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
+    'core/classview', 'ui/state_new'], function(extend, Controller, Toast,
+    Strings, ClassView, State) {
   var mainPopout;
 
   mainPopout = undefined;
@@ -41,23 +42,34 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings'], function(
   extend(PopoutController, Controller);
 
   PopoutController.prototype.popout = function(e) {
-    var $popoutView, stylepath, $stylelink, $title;
+    var $popoutView, stylepath, $stylelink, $title, $body;
 
     $popoutView = this.view.$popoutTemplate.clone();
 
     if (!isMainPopoutOpen()) {
       console.log('opening new popout');
       mainPopout = window.open('', '', 'location=0');
+      stylepath = window.location.href.replace(/index.html[?#].*/,
+          'style/main.css');
+      $stylelink = $('<link rel="stylesheet" href=' + stylepath + '>');
+      $title = $('title').clone();
+      $(mainPopout.document.head).append($stylelink).append($title);
+      $body = $(mainPopout.document.body);
+      $body.attr('id', 'app');
+      $body.data({
+        maxWidthView: new ClassView(State.tabOptions.nameMaxWidth, $body,
+            'maxwidth', 'nomaxwidth'),
+        hideNamesView: new ClassView(State.tabOptions.showNames, $body,
+            undefined, 'hidenames'),
+        showtableClassView: new ClassView(State.tabOptions.showMatchTables,
+            $body, 'showmatchtable', 'showtable')
+      });
+
     } else {
       console.log('main popout already exists and is open');
     }
 
-    stylepath = window.location.href.replace(/index.html[?#].*/,
-        'style/main.css');
-    $stylelink = $('<link rel="stylesheet" href=' + stylepath + '>');
-    $title = $('title').clone();
-    $(mainPopout.document.head).append($stylelink).append($title);
-    $(mainPopout.document.body).attr('id', 'app').append($popoutView);
+    $(mainPopout.document.body).append($popoutView);
     this.cloneFunction.call(mainPopout, $popoutView);
 
     window.setTimeout(function() {
