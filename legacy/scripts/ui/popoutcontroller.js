@@ -22,7 +22,6 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
    */
   $(function($) {
     $(window).on('beforeunload', function() {
-      debugger
       if (isMainPopoutOpen()) {
         mainPopout.close();
       }
@@ -37,7 +36,12 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
 
     this.cloneFunction = cloneFunction;
 
-    this.view.$popout.click(this.popout.bind(this));
+    if (this.view.$popout) {
+      this.view.$popout.click(this.popout.bind(this));
+    }
+    if (this.view.$close) {
+      this.view.$close.click(this.close.bind(this));
+    }
   }
   extend(PopoutController, Controller);
 
@@ -55,7 +59,7 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
       $title = $('title').clone();
       $(mainPopout.document.head).append($stylelink).append($title);
       $body = $(mainPopout.document.body);
-      $body.attr('id', 'app');
+      $body.attr('id', 'app').addClass('popoutContainer');
       $body.data({
         maxWidthView: new ClassView(State.tabOptions.nameMaxWidth, $body,
             'maxwidth', 'nomaxwidth'),
@@ -69,6 +73,7 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
       console.log('main popout already exists and is open');
     }
 
+    $popoutView.addClass('primaryPopout');
     $(mainPopout.document.body).append($popoutView);
     this.cloneFunction.call(mainPopout, $popoutView);
 
@@ -77,6 +82,13 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
         new Toast(Strings.popout_adblocked);
       }
     }, 500);
+
+    e.preventDefault(true);
+    return false;
+  };
+
+  PopoutController.prototype.close = function(e) {
+    console.log('close');
 
     e.preventDefault(true);
     return false;

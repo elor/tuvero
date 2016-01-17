@@ -8,10 +8,11 @@
  */
 define(['lib/extend', './boxview', './popoutcontroller'], function(extend,
     BoxView, PopoutController) {
-  var $iconTemplate;
+  var $popoutIconTemplate, $closeIconTemplate;
 
   // TODO read this from DOM.
-  $iconTemplate = $('<div>').addClass('popout').text("↗");
+  $popoutIconTemplate = $('<div>').addClass('popout').text("↗");
+  $closeIconTemplate = $('<div>').addClass('close').text("❌");
 
   /**
    * Constructor
@@ -20,12 +21,26 @@ define(['lib/extend', './boxview', './popoutcontroller'], function(extend,
     PopoutBoxView.superconstructor.call(this, $view);
 
     this.$popoutTemplate = $popoutTemplate;
-    this.$popout = $iconTemplate.clone();
-    this.$view.find('>h3:first-child').append(this.$popout);
+
+    if (this.$view.hasClass('primaryPopout')) {
+      this.addCloseIcon();
+    } else {
+      this.addPopoutIcon();
+    }
 
     this.popoutController = new PopoutController(this, cloneFunction);
   }
   extend(PopoutBoxView, BoxView);
+
+  PopoutBoxView.prototype.addPopoutIcon = function() {
+    this.$popout = $popoutIconTemplate.clone();
+    this.$view.find('>h3:first-child').append(this.$popout);
+  };
+
+  PopoutBoxView.prototype.addCloseIcon = function() {
+    this.$close = $closeIconTemplate.clone();
+    this.$view.find('>h3:first-child').append(this.$close);
+  };
 
   return PopoutBoxView;
 });

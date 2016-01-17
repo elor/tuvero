@@ -59,12 +59,13 @@ div.boxview > h3:first-child {
   float: right;
 }
 
-div.boxview > h3:first-child .popout {
-  content: "↗";
+div.boxview > h3:first-child .popout,
+div.boxview > h3:first-child .close {
   float: right;
 }
 
-div.boxview > h3:first-child .popout:hover {
+div.boxview > h3:first-child .popout:hover,
+div.boxview > h3:first-child .close:hover {
   background-color: #808080;
 }
 
