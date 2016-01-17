@@ -7,6 +7,7 @@
 	* legacy/scripts/ui/popoutboxview.js: .close icon added
 
 	* legacy/scripts/ui/popoutcontroller.js: .close icon + placeholder close() function added
+	close() button removes a popout instance
 
 2016-01-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

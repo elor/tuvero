@@ -90,6 +90,8 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
   PopoutController.prototype.close = function(e) {
     console.log('close');
 
+    this.view.destroy();
+
     e.preventDefault(true);
     return false;
   };
