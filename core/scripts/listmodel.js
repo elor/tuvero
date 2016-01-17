@@ -273,7 +273,7 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
           return element.save();
         } catch (e) {
           console.error('ListModel.save() failed with error: ');
-          console.error(e);
+          console.error(e.stack);
           throw new Error('ListModel.save() failed');
         }
       });
@@ -326,7 +326,7 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
         } catch (e) {
           console.error('ListModel.restore() failed for an element:');
           console.error(element);
-          console.error(e);
+          console.error(e.stack);
           return false;
         }
       }, this);

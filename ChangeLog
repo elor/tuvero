@@ -1,3 +1,7 @@
+2016-01-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/listmodel.js: listmodel: printing stack trace, not just error message
+
 2016-01-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: not viewing boxview minmax icons in a popout
