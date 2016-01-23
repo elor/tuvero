@@ -11,7 +11,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define([], function() { // NOTE TO SELF: Don't remove the '[],' from this line
+// Removing it WILL break EVERYTHING after r.js compilation !!!
   var OptionsTemplate, Default, State;
 
   State = undefined;
