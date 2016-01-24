@@ -98,17 +98,7 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
 
   // TODO close a popout when its parent is removed from the DOM
 
-  // TODO close a popout when it's forcefully reloaded
-
-  // TODO add close buttons to the popouts
-
-  // TODO close a window when its last popout is closed
-
   // TODO allow popouts to be moved to their own window
-
-  // TODO change CSS behavior of tables to not rely on proper tabs!
-
-  // TODO call destroy() when the popout is closed.
 
   return PopoutController;
 });

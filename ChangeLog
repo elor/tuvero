@@ -10,6 +10,8 @@
 
 	* boule/scripts/presets.js: using PVO ranking components as a default
 
+	* legacy/scripts/ui/popoutcontroller.js: resolved TODOs removed
+
 2016-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/optionstemplate.js: critical dependency bug related to r.js and require.js "fixed" by adding an empty dependency array
