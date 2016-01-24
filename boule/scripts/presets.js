@@ -15,14 +15,15 @@ define(function() {
     target: 'boule',
     systems: {
       swiss: {
-        ranking: ['wins', 'buchholz', 'finebuchholz', 'saldo', 'votes'],
+        ranking: ['wins', 'buchholz', 'finebuchholz', 'headtohead', 'saldo',
+            'votes'],
         mode: 'wins'
       },
       ko: {
         mode: 'matched'
       },
       round: {
-        ranking: ['wins', 'sonneborn']
+        ranking: ['wins', 'sonneborn', 'headtohead', 'points']
       }
     },
     ranking: {
