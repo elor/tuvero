@@ -1,3 +1,19 @@
+Tuvero 1.5.2 (2016-01-24)
+-------------------------
+
+FEATURES:
+
+  * minimize/restore icons for boxviews (#121)
+  * Popout boxes (#205)
+  * Tool for automatic detection of dependency problems
+  * using PVO ranking order as the default
+
+FIXES:
+
+  * require.js/r.js related error with empty dependency arrays fixed (#207)
+  * displaying of removed teams in the NewTab fixed (#206)
+  * CSS files streamlined (unnecessary, duplicate and overly complicated rules removed and replaced)
+
 Tuvero 1.5.1 (2016-01-01)
 -------------------------
 

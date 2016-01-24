@@ -1,4 +1,4 @@
-# Tuvero 1.5.1
+# Tuvero 1.5.2
 
 ## Description
 

@@ -1,3 +1,117 @@
+2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/strings.js: `Strings.display_error` added
+
+	* legacy/scripts/ui/teamremovecontroller.js: change team ID and player names to error messages in case of a display error
+
+	* core/templates/newtab.html: unused templates removed
+
+	* legacy/scripts/ui/systemlistview.js: #206 fixed by forcing an update of all teams after and including the deleted team
+
+	* boule/scripts/presets.js: using PVO ranking components as a default
+
+	* legacy/scripts/ui/popoutcontroller.js: resolved TODOs removed
+
+2016-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/optionstemplate.js: critical dependency bug related to r.js and require.js "fixed" by adding an empty dependency array
+
+2016-01-17	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/listmodel.js: listmodel: printing stack trace, not just error message
+
+	* core/style/boxview.css: .close icon rules added
+
+	* legacy/scripts/ui/popoutboxview.js: .close icon added
+
+	* legacy/scripts/ui/popoutcontroller.js: .close icon + placeholder close() function added
+	close() button removes a popout instance
+
+2016-01-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/boxview.css: not viewing boxview minmax icons in a popout
+
+2016-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/popoutcontroller.js: using and maintaining a singular main popout window
+	closing main popout when leaving the main app
+
+	* legacy/style/history.css: css rules simplified and globalized
+	MatchResultView-specific rules moved to matchresult.css
+	tab options moved to taboptions.css
+
+	* legacy/style/matchresult.css: dedicated file for MatchResultView-specific rules
+	rules for .matchtable compatibility added
+
+	* legacy/style/progresstable.css: MatchResultView-specific rules moved to matchresult.css
+
+	* legacy/style/taboptions.css: Tab Options rules
+
+	* core/templates/gamestab.html: .dontprintresultcol class added to container
+
+	* core/templates/matchtable.html: .matchrow class renamed to .match for matchresult.css compatibility
+
+	* legacy/scripts/ui/matchtableview.js: .matchrow class renamed to .match for matchresult.css compatibility
+
+	* legacy/style/games.css: moved to voteview.css
+
+	* legacy/style/general.css: '.teamlist .teamno' rule simplified
+
+	* legacy/style/matchtable.css: redundant rules removed (matchresult.css)
+
+	* legacy/style/voteview.css: moved from games.css
+
+	* core/style/boxview.css: not printing header icons
+
+	* core/style/table.css: all table cells are centered, even in popouts (user stylesheet was overwriting it)
+
+2016-01-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* tools/getexports.sh: accelerated by 250% by simple parallelization
+	including lines for Options and Presets
+
+	* tools/listrequires.sh: using nodejs to export and correlate module and argument names
+
+	* legacy/scripts/ui/options.js: moved to optionstemplate.js
+
+	* legacy/scripts/ui/optionstemplate.js: moved from options.js
+	renamed Options to OptionsTemplate
+
+	* tools/listdependencies.sh: properly excludes circular dependencies
+
+	* tools/listscripts.sh: list all core/legacy module scripts
+
+	* boule/scripts/options.js: renamed Options to OptionsTemplate
+
+	* core/scripts/common.js: renamed Options to OptionsTemplate
+
+	* tac/scripts/options.js: renamed Options to OptionsTemplate
+
+	* test/scripts/options.js: renamed Options to OptionsTemplate
+
+2016-01-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* tools/listdependencies.sh: ignoring comments and loaded resources
+
+	* tools/listrequires.sh: list currently required modules in each script file
+
+2016-01-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* NEWS: Work on 1.5.2 started
+
+	* boule/index.html: ranking: span for tournament name added
+
+	* core/templates/rankingtab.html: span for tournament name added
+
+	* tac/index.html: ranking: span for tournament name added
+
+	* core/style/boxview.css: collapse/decollapse icon added to box header
+	rules for a popout header icon added
+
+	* legacy/scripts/ui/boxview.js: popout argument added to BoxView constructor
+
+	* legacy/scripts/ui/tournamentrankingview.js: making the boxview pop out
+
 2016-01-01	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/combinedreferencelistmodel.js: unused 'debugger' statement removed

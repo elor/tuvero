@@ -192,6 +192,20 @@ div.boxview {
   vertical-align: top;
   background-color: #ffffff;
 }
+div.boxview.inline {
+  display: inline-block;
+}
+div.boxview.info {
+  vertical-align: middle;
+  max-width: 35em;
+}
+div.boxview.info > p {
+  text-align: justify;
+}
+div.boxview.largeinfo {
+  vertical-align: middle;
+  max-width: 50em;
+}
 div.boxview.collapsed {
   border-radius: 1em 1em 0em 0em;
 }
@@ -206,6 +220,22 @@ div.boxview > h3:first-child {
   text-align: center;
   cursor: pointer;
 }
+#tabs div.boxview.collapsed > h3:first-child:after {
+  content: "¯";
+  float: right;
+}
+#tabs div.boxview:not(.collapsed) > h3:first-child:after {
+  content: "_";
+  float: right;
+}
+div.boxview > h3:first-child .popout,
+div.boxview > h3:first-child .close {
+  float: right;
+}
+div.boxview > h3:first-child .popout:hover,
+div.boxview > h3:first-child .close:hover {
+  background-color: #808080;
+}
 @media print {
   div.boxview {
     border:none;
@@ -213,7 +243,6 @@ div.boxview > h3:first-child {
     padding: 0em;
     margin: 0.2em;
   }
-  
   div.boxview.collapsed {
     display:none !important;
   }
@@ -221,6 +250,12 @@ div.boxview > h3:first-child {
     border: none;
     background: none;
     margin: 0em;
+  }
+  div.boxview > h3:first-child:after {
+    display: none !important;
+  }
+  div.boxview > h3 > .popout {
+    display: none !important;
   }
 }
 html {
@@ -317,6 +352,7 @@ button, input {
   white-space: nowrap;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
 }
 #app table th {
   font-size: 1.2em;
@@ -505,73 +541,21 @@ button[data-img] {
   float: left;
   margin-right: 2px;
 }
-#tabs > [data-tab="debug"] {
-  display: none;
-}
-#tabs > [data-tab="debug"]:target {
-  display: block;
-}
-#tabs > [data-tab="debug"] button {
+button.big {
   background-color: #d0d0d0;
   border-radius: 0.5em;
   padding: 0.5em;
-  cursor: pointer;
   margin-bottom: 1em;
+  cursor: pointer;
 }
-#tabs > [data-tab="debug"] button.selected {
-  background-color: #ffffff;
+button.withlabel {
+  vertical-align: middle;
+  margin: 0.5em;
 }
-#tabs > [data-tab="debug"] .allimages [data-img] {
+.allimages [data-img], .sprite [data-img] {
   display: inline-block;
   margin: 0.2em;
   background-color: #d3d3d3;
-}
-#tabs > [data-tab="debug"] .sprite img {
-  background-color: #d3d3d3;
-}
-#tabs > [data-tab="games"].maxwidth .bottom .team {
-  width: 8em;
-  max-width: 8em;
-}
-#tabs > [data-tab="games"].maxwidth .name {
-  width: 8em;
-  max-width: 8em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#tabs > [data-tab="games"].hidenames .name, #tabs > [data-tab="games"].hidenames .playercol {
-  display: none;
-}
-#tabs > [data-tab="games"] div.teamno {
-  display: table-cell;
-  background: none;
-}
-#tabs > [data-tab="games"] .voteview {
-  display: inline-table;
-  margin: 0.5em;
-  border-radius: 0.5em;
-  border: solid 1px #000000;
-  background-color: #d3d3d3;
-  vertical-align: top;
-  text-align: left;
-  white-space: nowrap;
-}
-#tabs > [data-tab="games"] div.voteview.names {
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
-}
-#tabs > [data-tab="games"] div.voteview.name {
-  margin: 0.2em;
-}
-#tabs>[data-tab="games"]:not (.hidenames )
-.votes .vote .names {
-  display: table-cell;
-}
-@media print {
-  #tabs>[data-tab="games"] .matchtable .resultcol {
-    display: none !important;
-  }
 }
 #app {
   background-color: #808080;
@@ -612,10 +596,20 @@ button[disabled] {
 .clear {
   clear: both;
 }
+.leftalign {
+  text-align: left !important;
+}
+.justify {
+  text-align: justify !important;
+}
+a[data-img].inline {
+  margin: 0.5em;
+  display: inline-block;
+}
 .noadownload, .nostorage, .nofilereader, .nojson, .noatob {
   display: none;
 }
-#tabs > [data-tab="teams"] div.teamno, .voteview .teamno {
+.teamlist .teamno, .voteview .teamno, .newteamview .teamno {
   width: 1.5em;
   height: 1.5em;
   font-size: 200%;
@@ -649,94 +643,11 @@ input {
     display: none !important;
   }
 }
-#tabs > [data-tab="history"] .hideresult .result {
+.showtable .hastable .matchtable {
   display: none;
 }
-#tabs > [data-tab="history"] input[type="number"] {
-  width: 3em;
-  max-width: 3em;
-}
-#tabs > [data-tab="history"].maxwidth .bottom .team {
-  width: 8em;
-  max-width: 8em;
-}
-#tabs > [data-tab="history"].maxwidth .name {
-  width: 8em;
-  max-width: 8em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#tabs > [data-tab="history"].hidenames .name {
+.showmatchtable .progresstable, .showmatchtable .kotree {
   display: none;
-}
-#tabs > [data-tab="history"].hidenames .playercol {
-  display: none;
-}
-#tabs > [data-tab="history"].hidefinished .matchtable.finished {
-  display: none;
-}
-#tabs > [data-tab="history"] .correcting .result {
-  display: none;
-}
-#tabs > [data-tab="history"].showtable .hastable .matchtable {
-  display: none;
-}
-#tabs > [data-tab="history"].showmatchtable .progresstable, #tabs > [data-tab="history"].showmatchtable .kotree {
-  display: none;
-}
-#tabs > [data-tab="history"] .voteview {
-  display: inline-table;
-  border-radius: 0.5em;
-  border: solid 1px #000000;
-  background-color: #d3d3d3;
-  margin: 0.5em;
-  white-space: nowrap;
-}
-#tabs > [data-tab="history"] div.teamno {
-  display: table-cell;
-  background: none;
-}
-#tabs > [data-tab="history"] div.voteview.names {
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
-}
-#tabs > [data-tab="history"] div.voteview.name {
-  margin: 0.2em;
-}
-#tabs>[data-tab="history"]:not (.hidenames )
-.votes .vote .names {
-  display: table-cell;
-}
-@media print {
-  .result {
-    display: block !important;
-  }
-}
-#tabs > [data-tab="home"] {
-  text-align: center;
-}
-#tabs > [data-tab="home"] > .boxview {
-  vertical-align: middle;
-  max-width: 50em;
-  display: inline-block;
-}
-#tabs > [data-tab="home"] > .boxview > p {
-  text-align: justify;
-}
-#tabs > [data-tab="home"] > .boxview > button,
-#tabs > [data-tab="home"] > .boxview > a[data-img] {
-  margin: 0.5em;
-  display: inline-block;
-}
-#tabs > [data-tab="home"] > .boxview > button {
-  vertical-align: middle;
-}
-#tabs > [data-tab="home"] > .firststeps {
-  text-align: left;
-}
-#tabs > [data-tab="home"] .logo {
-  float: right;
 }
 .kotree {
   display: inline-block;
@@ -797,6 +708,25 @@ input {
 .kotree .koline {
   position: absolute;
 }
+.match input {
+  width: 3em;
+  max-width: 3em;
+  text-align: center;
+}
+.match .correct {
+  display: none;
+}
+.match.correcting .correct {
+  display: block;
+}
+.match.correcting .result {
+  display: none;
+}
+@media print {
+  .result {
+    display: block !important;
+  }
+}
 .matchtable {
   display: inline-block;
   padding: 0em 0.5em;
@@ -804,22 +734,13 @@ input {
 .matchtable > table {
   margin: auto;
 }
-.matchtable .matchrow .teamno {
+table .teamno {
   font-weight: bold;
 }
-.matchtable .matchrow .name {
-  text-align: left;
-}
-.matchtable .finish input, .matchtable .correct input {
-  width: 3em;
-  max-width: 3em;
-  text-align: center;
-}
-.matchtable .correct {
-  display: none;
-}
-.matchtable .correcting .correct {
-  display: block;
+@media print {
+  .dontprintresultcol .resultcol {
+    display: none !important;
+  }
 }
 #tabs>[data-tab="new"] .systemtable {
   display: inline-block;
@@ -959,51 +880,8 @@ input {
 .progresstable > table {
   margin: auto;
 }
-.progresstable .finish input, .progresstable .correct input {
-  width: 3em;
-  max-width: 3em;
-  text-align: center;
-}
-.progresstable .correct {
-  display: none;
-}
-.progresstable .correcting .correct {
-  display: block;
-}
 .progresstable td.separator {
   border-left: solid black 1px !important;
-}
-#tabs>[data-tab="ranking"] {
-  text-align: center;
-}
-#tabs>[data-tab="ranking"] td {
-  width: 3em;
-  white-space: nowrap;
-}
-#tabs>[data-tab="ranking"].maxwidth .playername {
-  width: 8em;
-  max-width: 8em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#tabs>[data-tab="ranking"].hidenames .playername {
-  display: none;
-}
-#tabs>[data-tab="ranking"] .name {
-  text-align: left;
-  min-width: 10em;
-  width: 10em;
-  max-width: 10em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-#tabs>[data-tab="ranking"] .corrections h2 {
-  text-align: left;
-  margin-left: 1em;
-}
-#tabs>[data-tab="ranking"] .corrections td {
-  padding-left: 0.5em;
-  padding-right: 0.5em;
 }
 .rankingorderview {
   white-space: nowrap;
@@ -1046,10 +924,8 @@ input {
   text-align: justify;
 }
 #tabs > [data-tab="settings"] > .boxview {
-  display: inline-box;
   vertical-align: middle;
   max-width: 20em;
-  display: inline-block;
 }
 #tabs > [data-tab="settings"] button.selected {
   background-color: #ffffff;
@@ -1141,6 +1017,21 @@ table.swissvotes td.prop:active {
 }
 .swissvotes .forbidden {
   color: #d3d3d3;
+}
+.maxwidth .name {
+  width: 8em;
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hidenames .name {
+  display: none;
+}
+.hidenames .playercol {
+  display: none;
+}
+.hidefinished .matchtable.finished {
+  display: none;
 }
 div#tabs > [data-tab="teams"] {
   text-align: left;
@@ -1332,6 +1223,26 @@ div#tabs > [data-tab="teams"] {
 }
 #toasts > div.hidden {
   display: none;
+}
+.voteview .teamno {
+  display: table-cell;
+  background: none;
+}
+.voteview {
+  display: inline-table;
+  padding: 0.2em 0em;
+  margin: 0.5em;
+  border-radius: 0.5em;
+  border: solid 1px #000000;
+  background-color: #d3d3d3;
+  vertical-align: top;
+  text-align: left;
+  white-space: nowrap;
+}
+.voteview .names {
+  display: table-cell;
+  text-align: left;
+  vertical-align: middle;
 }
 [data-img="about"]::before {
     background-image: url(../images/sprite.png);
