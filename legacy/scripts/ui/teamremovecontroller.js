@@ -84,7 +84,21 @@ define(['lib/extend', 'core/controller', 'core/valuemodel',
    *          the index to remove from model
    */
   TeamRemoveController.removalCallback = function(model, index) {
+    var team, playerid;
+
+    // HACK start
+    // Change the player names to an error message. Change ID, too.
+    team = model.get(index);
+    if (team) {
+      for (playerid = 0; playerid < team.length; playerid += 1) {
+        team.getPlayer(playerid).name = Strings.display_error;
+      }
+    }
+    team.setID('ERROR');
+    // HACK end
+
     model.remove(index);
+
     this.set(false);
   };
 
