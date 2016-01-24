@@ -4,6 +4,10 @@
 
 	* legacy/scripts/ui/teamremovecontroller.js: change team ID and player names to error messages in case of a display error
 
+	* core/templates/newtab.html: unused templates removed
+
+	* legacy/scripts/ui/systemlistview.js: #206 fixed by forcing an update of all teams after and including the deleted team
+
 2016-01-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/optionstemplate.js: critical dependency bug related to r.js and require.js "fixed" by adding an empty dependency array

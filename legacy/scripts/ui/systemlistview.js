@@ -12,17 +12,22 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
   /**
    * Constructor
    *
-   * @param tournaments
-   * @param $view
    * @param teams
+   *          a ListModel of TeamModels
+   * @param $view
+   *          the associated DOM subtree
+   * @param tournaments
+   *          a ListModel of TournamentModels
    * @param teamsize
+   *          a ValueModel which stores the team size
    * @param tournamentViewFactory
+   *          a TournamentView factory
+   *
    */
   function SystemListView(teams, $view, tournaments, teamsize,
       tournamentViewFactory) {
-    var view, $systemTemplate, orderList, updateTimeout;
+    var orderList, updateTimeout;
 
-    $systemTemplate = $view.find('.system.template').detach();
     orderList = new OrderListModel();
     SystemListView.superconstructor.call(this, orderList, $view, $view
         .find('.team.template'), SystemTableRowView, teams, tournaments,
@@ -33,7 +38,7 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
 
     updateTimeout = undefined;
 
-    Listener.bind(tournaments, 'update', function() {
+    Listener.bind(tournaments, 'update', function(model, event, data) {
       var list = this;
       if (updateTimeout === undefined) {
         window.setTimeout(function() {
@@ -43,8 +48,12 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
       }
     }, this);
 
-    Listener.bind(teams, 'insert,remove', function() {
+    Listener.bind(teams, 'insert,remove', function(model, event, data) {
       var list = this;
+      if (event === 'remove') {
+        list.removeAfter(data.id);
+      }
+
       if (updateTimeout === undefined) {
         window.setTimeout(function() {
           list.updateOrder();
@@ -59,11 +68,34 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
   }
   extend(SystemListView, ListView);
 
+  /**
+   * Update the row order to match the global ranking displayOrder
+   */
   SystemListView.prototype.updateOrder = function() {
     var ranking, order;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     order = ranking.displayOrder;
+
+    this.model.enforceOrder(order);
+  };
+
+  /**
+   * remove all teams with an ID after and including firstID, regardless of the
+   * display order
+   *
+   * @param firstID
+   *          the first ID to remove
+   */
+  SystemListView.prototype.removeAfter = function(firstID) {
+    var order = this.model.map(function(teamID) {
+      return teamID;
+    }).filter(function(id) {
+      return id < firstID;
+    });
+
+    console.log(this.model.list)
+    console.log(order);
 
     this.model.enforceOrder(order);
   };
