@@ -94,9 +94,6 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
       return id < firstID;
     });
 
-    console.log(this.model.list)
-    console.log(order);
-
     this.model.enforceOrder(order);
   };
 
