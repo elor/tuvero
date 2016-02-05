@@ -6,7 +6,7 @@ FEATURES:
 FIXES:
 
   * Display problems in popped-out KO trees resolved (#209)
-  * Close icon of popped-out views won't be printed (#210)
+  * Close icon of popped-out views won't be printed (#211)
 
 Tuvero 1.5.2 (2016-01-24)
 -------------------------
