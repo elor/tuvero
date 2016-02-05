@@ -14,6 +14,7 @@
 	* legacy/scripts/ui/matchresultcontroller.js: setting 'correcting'-class on the next 'match'-parent, not the direct parent (#210)
 
 	* core/templates/hometab.html: bugreport section added
+	printer hint typo fixed
 
 	* legacy/style/general.css: .float-left/right classes added
 
