@@ -27,7 +27,10 @@ which compare >/dev/null || exit 1
 which convert >/dev/null || exit 1
 
 listFiles(){
-    grep -Poh 'data-img="[^"]+"' *.html | sort | uniq | sed -r -e 's#^data-img="#images/#' -e 's#"$#.png#' | grep -v $finalsprite
+    grep -Poh 'data-(img|tab)="[^"]+"(?!\s*data-spriteignore)' *.html \
+        | sed -r -e 's ^data-(img|tab)=" images/ ' -e 's "$ .png ' \
+        | sort -u \
+        | grep -v $finalsprite
 }
 
 coredir=../core/

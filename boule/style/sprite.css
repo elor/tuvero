@@ -61,233 +61,317 @@
     height: 128px;
 }
 
-[data-img="logos/chrome_128x128"]::before {
+[data-img="home"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -66px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="logos/chrome_128x128"]::before {
+.tiny[data-img="home"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -33px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="logos/chrome_128x128"]::before {
+.large[data-img="home"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -132px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="new"]::before {
+[data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
     background-position: -66px -66px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="new"]::before {
+.tiny[data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
     background-position: -33px -33px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="new"]::before {
+.large[data-img="lanes"]::before {
     background-image: url("../images/sprite.png");
     background-position: -132px -132px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="ranking"]::before {
+[data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -132px -66px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="ranking"]::before {
+.tiny[data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -66px -33px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="ranking"]::before {
+.large[data-img="logos/chrome_128x128"]::before {
     background-image: url("../images/sprite.png");
     background-position: -264px -132px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams1"]::before {
+[data-img="new"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -132px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="teams1"]::before {
+.tiny[data-img="new"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -66px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="teams1"]::before {
+.large[data-img="new"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -264px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams2"]::before {
+[data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
     background-position: -66px -132px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="teams2"]::before {
+.tiny[data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
     background-position: -33px -66px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="teams2"]::before {
+.large[data-img="ranking"]::before {
     background-image: url("../images/sprite.png");
     background-position: -132px -264px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams3"]::before {
+[data-img="settings"]::before {
     background-image: url("../images/sprite.png");
     background-position: -132px -132px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="teams3"]::before {
+.tiny[data-img="settings"]::before {
     background-image: url("../images/sprite.png");
     background-position: -66px -66px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="teams3"]::before {
+.large[data-img="settings"]::before {
     background-image: url("../images/sprite.png");
     background-position: -264px -264px;
     width: 128px;
     height: 128px;
 }
 
+[data-img="teams1"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="teams1"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="teams1"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -396px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="teams2"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -66px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="teams2"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -33px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="teams2"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -132px -396px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="teams3"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -132px -198px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="teams3"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -66px -99px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="teams3"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -264px -396px;
+    width: 128px;
+    height: 128px;
+}
+
+[data-img="games"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -264px;
+    width: 64px;
+    height: 64px;
+}
+
+.tiny[data-img="games"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: 0px -132px;
+    width: 32px;
+    height: 32px;
+}
+
+.large[data-img="games"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -1px -528px;
+    width: 128px;
+    height: 128px;
+}
+
 [data-img="clear"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -198px -132px;
+    background-position: -66px -264px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="clear"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -99px -66px;
+    background-position: -33px -132px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="clear"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -396px -264px;
+    background-position: -132px -528px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="load"]::before {
     background-image: url("../images/sprite.png");
-    background-position: 0px -198px;
+    background-position: -116px -264px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="load"]::before {
     background-image: url("../images/sprite.png");
-    background-position: 0px -99px;
+    background-position: -58px -132px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="load"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -1px -396px;
+    background-position: -232px -528px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -50px -198px;
+    background-position: -166px -264px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -25px -99px;
+    background-position: -83px -132px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="print"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -100px -396px;
+    background-position: -332px -528px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -100px -198px;
+    background-position: 0px -330px;
     width: 48px;
     height: 48px;
 }
 
 .tiny[data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -50px -99px;
+    background-position: 0px -165px;
     width: 24px;
     height: 24px;
 }
 
 .large[data-img="save"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -200px -396px;
+    background-position: -1px -660px;
     width: 96px;
     height: 96px;
 }
 
 [data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -150px -198px;
+    background-position: -50px -330px;
     width: 63px;
     height: 23px;
 }
 
 .tiny[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -75px -99px;
+    background-position: -25px -165px;
     width: 31px;
     height: 11px;
 }
 
 .large[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -300px -396px;
+    background-position: -100px -660px;
     width: 126px;
     height: 47px;
 }
@@ -295,24 +379,24 @@
 
 [data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 248px;
-    height: 246px;
+    width: 216px;
+    height: 378px;
 }
 
 .tiny[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 124px;
-    height: 123px;
+    width: 108px;
+    height: 189px;
 }
 
 .large[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 496px;
-    height: 493px;
+    width: 432px;
+    height: 757px;
 }
 
 [data-img]::before {
-  background-size: 248px 246px;
+  background-size: 216px 378px;
   display: inline-block;
   content: '';
 }
@@ -322,9 +406,9 @@
 }
 
 .large[data-img]::before {
-  background-size: 496px 493px;
+  background-size: 432px 757px;
 }
 
 .tiny[data-img]::before {
-  background-size: 124px 123px;;
+  background-size: 108px 189px;;
 }

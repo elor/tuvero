@@ -19,6 +19,12 @@
 
 	* legacy/style/general.css: .float-left/right classes added
 
+	* core/templates/teamstab.html: data-spriteignore attribute added
+
+	* test/tabmenuview.html: data-spriteignore attribute added
+
+	* tools/write-sprite.sh: processing data-tab entries, except those that are followed directly by data-spriteignore
+
 2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/strings.js: `Strings.display_error` added
