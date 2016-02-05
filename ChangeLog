@@ -13,6 +13,10 @@
 
 	* legacy/scripts/ui/matchresultcontroller.js: setting 'correcting'-class on the next 'match'-parent, not the direct parent (#210)
 
+	* core/templates/hometab.html: bugreport section added
+
+	* legacy/style/general.css: .float-left/right classes added
+
 2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/strings.js: `Strings.display_error` added

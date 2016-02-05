@@ -42,6 +42,14 @@ button[disabled] {
   display: none !important;
 }
 
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
 .clear {
   clear: both;
 }
