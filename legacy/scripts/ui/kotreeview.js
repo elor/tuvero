@@ -38,8 +38,7 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
     this.showNames = showNames;
     this.tournament = tournament;
     this.$forest = this.$view.find('.forest');
-    this.$kolineanchor = this.$forest.find('.kolineanchor').removeClass(
-        'kolineanchor');
+    this.$kolineanchor = this.$forest.find('.kolineanchor');
     this.$bestrank = this.$view.find('.bestrank');
 
     this.lines = new InlineListView(this.model, this.$kolineanchor,

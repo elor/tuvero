@@ -20,6 +20,12 @@
   white-space: nowrap;
 }
 
+.kotree .komatchresult .koteams,
+.kotree .komatchresult .koscore {
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .kotree .komatchresult .team {
   display: block;
   width: 12em;
@@ -36,14 +42,11 @@
   font-weight: bold;
   min-width: 1.5em;
   display: inline-block;
+  text-align: center;
 }
 
 .kotree .komatchresult .name {
   width: 3em;
-}
-
-.kotree .komatchresult .koscore, .kotree .komatchresult .team {
-  vertical-align: middle !important;
 }
 
 .kotree .komatchresult .koscore {

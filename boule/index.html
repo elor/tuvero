@@ -775,56 +775,59 @@
               <h3>Spiel um Platz <span class="bestrank">##</span></h3>
               <div class="forest">
                 <div class="kolineanchor"></div>
-                <table class="komatchresult template borderless">
-                  <tr>
-                    <td class="team">
-                      <span class="teamno">##</span>
-                      <span class="names">
-                        <span class="name">%% %%</span>
-                        <span class="name">%% %%</span>
-                        <span class="name">%% %%</span>
-                      </span>
-                    </td>
+                <div class="komatchresult template">
+                  <div class="koteams">
+                  <div class="team">
+                    <span class="teamno">##</span>
+                    <span class="names">
+                      <span class="name">%% %%</span>
+                      <span class="name">%% %%</span>
+                      <span class="name">%% %%</span>
+                    </span>
+                  </div>
+                  <div class="team">
+                    <span class="teamno">##</span>
+                    <span class="names">
+                      <span class="name">%% %%</span>
+                      <span class="name">%% %%</span>
+                      <span class="name">%% %%</span>
+                    </span>
+                  </div>
+                  </div>
+                  <div class="koscore">
+                    <div class="result">
+                      <div class="score">##</div>
+                      <div class="score">##</div>
+                    </div>
 
-                    <td class="koscore" rowspan="2">
-                      <div class="result">
-                        <div class="score">##</div>
-                        <div class="score">##</div>
+                    <div class="noprint finish">
+                      <div>
+                        <input class="score" type="number" />
                       </div>
+                      <div>
+                        <input class="score" type="number" />
+                      </div>
+                      <button class="accept hidden">
+                        Beenden
+                      </button>
+                    </div>
 
-                      <div class="noprint finish">
-                        <div>
+                    <div class="noprint correct">
+                      <div>
                         <input class="score" type="number" />
-                        <input class="score" type="number" />
-                        </div>
-                        <button class="accept hidden">
-                          Beenden
-                        </button>
                       </div>
-
-                      <div class="noprint correct">
+                      <div>
                         <input class="score" type="number" />
-                        <input class="score" type="number" />
-                        <button class="cancel hidden">
-                          Abbrechen
-                        </button>
-                        <button class="accept hidden">
-                          Korrigieren
-                        </button>
                       </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="team">
-                      <span class="teamno">##</span>
-                      <span class="names">
-                        <span class="name">%% %%</span>
-                        <span class="name">%% %%</span>
-                        <span class="name">%% %%</span>
-                      </span>
-                    </td>
-                  </tr>
-                </table>
+                      <button class="cancel hidden">
+                        Abbrechen
+                      </button>
+                      <button class="accept hidden">
+                        Korrigieren
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 

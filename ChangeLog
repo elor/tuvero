@@ -1,3 +1,13 @@
+2016-02-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/komatchresult.html: switched from tables to divs
+
+	* core/templates/koteam.html: switched from tables to divs
+
+	* legacy/scripts/ui/kotreeview.js: not removing the 'kolineanchor' class
+
+	* legacy/style/kotree.css: style adapted for div-based komatchview
+
 2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/strings.js: `Strings.display_error` added
