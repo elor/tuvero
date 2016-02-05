@@ -15,6 +15,7 @@
 
 	* core/templates/hometab.html: bugreport section added
 	printer hint typo fixed
+	error reporting: sending variant + version as GET vars.
 
 	* legacy/style/general.css: .float-left/right classes added
 
