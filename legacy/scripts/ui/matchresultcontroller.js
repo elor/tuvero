@@ -21,7 +21,7 @@ function(extend, MatchController, Strings, Toast, Options) {
 
     this.tournament = tournament;
 
-    this.$match = this.$form.parent();
+    this.$match = this.$form.parents('.match').eq(0);
     this.$result = this.view.$result;
 
     this.$result.click(this.enableCorrection.bind(this));

@@ -1,6 +1,7 @@
 2016-02-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/komatchresult.html: switched from tables to divs
+	'.match' class added to .komatchresult for #210 fix
 
 	* core/templates/koteam.html: switched from tables to divs
 
@@ -9,6 +10,8 @@
 	* legacy/style/kotree.css: style adapted for div-based komatchview
 
 	* legacy/scripts/ui/popoutboxview.js: 'noprint'-class added to "close"-icon
+
+	* legacy/scripts/ui/matchresultcontroller.js: setting 'correcting'-class on the next 'match'-parent, not the direct parent (#210)
 
 2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
