@@ -8,6 +8,8 @@
 
 	* legacy/style/kotree.css: style adapted for div-based komatchview
 
+	* legacy/scripts/ui/popoutboxview.js: 'noprint'-class added to "close"-icon
+
 2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/strings.js: `Strings.display_error` added
