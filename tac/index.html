@@ -91,7 +91,14 @@
     <div id="tabs">
 
       <div data-tab="home" accesskey="s">
-        <h2>Willkommen zu Tuvero TAC 1.5.3-dev</h2>
+        <div class="options">
+          <a href="https://www.google.com/chrome/browser/desktop/index.html">
+          Funktioniert am besten<br> mit
+          <span class="tiny" data-img="logos/chrome_128x128">Chrome</span></a>
+        </div>
+
+        <h2>Tuvero TAC 1.5.3-dev</h2>
+
         <div class="boxview info inline">
           <h3>Turnierstand</h3>
           <button class="withlabel load" data-img="load"></button>
@@ -102,19 +109,6 @@
           <br>
           <button class="withlabel reset" data-img="clear"></button>
           Turnier löschen
-        </div>
-
-        <div class="boxview info inline">
-          <h3>Tabs</h3>
-          <a href="#home" class="tiny inline" data-img="home"> Startseite</a>
-          <a href="#teams" class="tiny inline" data-img="teams"> Anmeldungen</a>
-          <a href="#new" class="tiny inline" data-img="new"> Turniersystem und Unterturniere</a>
-          <a href="#games" class="tiny inline" data-img="games"> Laufende Spiele</a>
-          <a href="#ranking" class="tiny inline" data-img="ranking"> Platzierungen</a>
-          <a href="#history" class="tiny inline" data-img="history"> Turnierverlauf</a>
-          <a href="#lanes" class="tiny inline" data-img="lanes"> Bahnen</a>
-          <a href="#settings" class="tiny inline" data-img="settings"> Optionen und Einstellungen</a>
-          <a href="#about" class="tiny inline" data-img="about"> Über...</a>
         </div>
 
         <div class="boxview info inline firststeps leftalign">
@@ -128,49 +122,49 @@
               Wähle und starte ein Turniersystem im <a href="#new" class="tiny" data-img="new"> Turniersysteme-Tab</a>
             </li>
             <li>
-              Trage die Spielergebnisse im <a href="#games" class="tiny" data-img="games"> Laufende Spiele-Tab</a> ein
+              Trage die Spielergebnisse im <a href="#games" class="tiny" data-img="history"> Turnierverlauf-Tab</a> ein
             </li>
             <li>
               Sieh die Platzierung im <a href="#ranking" class="tiny" data-img="ranking"> Platzierungen-Tab</a> ein
             </li>
             <li>
-              Exportiere die Turnierergebnisse über das <a href="#settings" class="tiny" data-img="settings"> Optionen-Tab</a>
+              Drucke Auslosungen und Ergebnisse über die <button class="print tiny" data-img="print"></button> Druck-Knopf</a>
             </li>
           </ol>
-          Hilfe und Links:<a href="#about" class="tiny" data-img="about"> Über...-Tab</a>
         </div>
 
-        <div class="boxview info inline">
-          <h3>Warum Chrome?</h3>
+        <div class="boxview info inline collapsed">
+          <h3>Autor &amp; Mitwirkende</h3>
           <p>
-            Zur Nutzung von Tuvero wird der <a href="https://www.google.com/chrome/browser/desktop/index.html" class="tiny" data-img="logos/chrome_128x128"> Chrome Browser</a> empfohlen.
+            © Erik E. Lorenz
+            <br>
+            Tel: 0175 8404964
+            <br>
+            Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>
           </p>
           <p>
-            Der Chrome Browser bietet eine Druckvorschau, mit der sich
-            Seitenränder etc. anpassen lassen.
+            Bei Fragen und Problemen stehe ich gern zur Verfügung.
           </p>
-          <p>
-            Für eine unverbindliche Übersicht aller unterstützten Browser, siehe
-            <a href="#about" class="tiny" data-img="about">Über...-Tab</a>
-          </p>
-        </div>
+          <h4>Mitwirkende</h4>
+          <table class="borderless background middle">
+            <tr>
+              <td>Fabian Böttcher</td>
+              <td>Öffentlichkeitsarbeit<br>Beratung (Boule, Design)</td>
+            </tr>
+            <tr>
+              <td>Kai Angne</td>
+              <td>Beratung (TAC)</td>
+            </tr>
+          </table>
 
-        <div class="boxview info inline">
-          <h3>Hinweis - Klick mich</h3>
-          Diese Kästen können durch einen Klick auf ihre Titelleiste versteckt und wiederhergestellt werden.
-          Versteckte Kästen werden nicht gedruckt.
-          <br>
-          Die Schriftgröße beim Drucken kann im <a href="#settings" class="tiny" data-img="settings"> Optionen-Tab</a> eingestellt werden.
-        </div>
-
-        <div class="boxview info inline">
-          <h3>Beteiligung an den laufenden Kosten</h3>
-          Tuvero ist für uns neben dem Arbeitsaufwand mit jährlichen Kosten verbunden,
-          die Server, Domänen, Sicherheitszertifikate, Testumgebungen und Archivspeicher beinhalten.
-          Wenn euch Tuvero gefällt und die Turnierleitung vereinfacht, würden wir uns
-          über eine kleine Beteiligung an diesen Kosten freuen.
-          <br>
-          <a class="large" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
+          <p>
+            Wir vom Tuvero-Team bedanken uns für das anhaltende Vertrauen in Tuvero.
+            Für uns ist Tuvero mit jährlichen Kosten verbunden.
+            Wenn euch Tuvero gefällt und die Turnierleitung vereinfacht, würden wir uns
+            über eine kleine Beteiligung an diesen Kosten freuen.
+            Vielen Dank.
+            <a class="large" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
+          </p>
         </div>
       </div>
 
@@ -1069,111 +1063,6 @@
           Dev Console</a>
         </div>
 
-      </div>
-
-      <div data-tab="about" accesskey="?">
-        <h2>Über Tuvero TAC 1.5.3-dev</h2>
-        <div class="boxview">
-          <h3>Autor &amp; Mitwirkende</h3>
-          <p>
-            © Erik E. Lorenz
-            <br>
-            Tel: 0175 8404964
-            <br>
-            Mail: <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>
-          </p>
-          <p>
-            Bei Fragen und Problemen stehe ich gern zur Verfügung.
-          </p>
-          <h4>Mitwirkende</h4>
-          <ul>
-            <li>
-              Fabian Böttcher - Beratung (Boule, Design), Öffentlichkeitsarbeit
-            </li>
-            <li>
-              Kai Angne - Beratung (TAC)
-            </li>
-          </ul>
-        </div>
-        <div class="boxview links">
-          <h3>Links</h3>
-          <p>
-            <a href="https://tuvero.de" target="_blank">Tuvero.de</a> zur kostenlosen Nutzung ohne Installation
-            <br>
-            <br>
-            <a href="https://github.com/elor/tuvero" target="_blank">Quellcode</a> auf Github.com
-            <br>
-            <br>
-            <a href="http://blog.tuvero.de" target="_blank">Update-Blog</a> für Infos über neue Versionen
-            <br>
-            <br>
-            <a href="http://fehler.tuvero.de/" target="_blank">Fehler melden</a> auf <a href="https://github.com/elor/tuvero/issues" target="_blank">Github.com</a>
-            <br>
-            <br>
-            <a href="https://tuvero.de/dev/" target="_blank">Entwicklerversion</a> zur Vorschau auf kommende Funktionen
-            <br>
-            <br>
-            <a href="http://spiel-tac.de/" target="_blank">Spiel TAC</a> - Die TAC-Homepage
-          </p>
-        </div>
-        <div class="boxview">
-          <h3>Browserunterstützung </h3>
-          <a data-img="HTML5_Logo_128" class="logo float"></a>
-          <p>
-            Für diese Software wird auf <a href="http://de.wikipedia.org/wiki/HTML5">freie Webstandards</a> gesetzt.
-            Leider werden diese <a href="http://fmbip.com/litmus/">nicht von allen Browsern vollständig</a> unterstützt.
-            Deshalb kann es vorkommen, dass einzelne Funktionen mit einigen Browsern nicht zur Verfügung stehen.
-            Um das nach Möglichkeit zu vermeiden, wird das Programm mit diesen Browsern getestet:
-          </p>
-          <p>
-            <a class="logo supported" title="Google Chrome" data-img="logos/chrome_128x128"></a>
-            <a class="logo maywork" title="Opera" data-img="logos/opera_128x128"></a>
-            <a class="logo maywork" title="Mozilla Firefox" data-img="logos/firefox_128x128"></a>
-            <a class="logo unsupported" title="Internet Explorer" data-img="logos/internet-explorer_128x128"></a>
-          </p>
-          <p class="no-support">
-            Dieser Browser unterstützt folgende Funktionen nicht:
-            <ul>
-              <li class="no-js">
-                JavaScript
-              </li>
-              <li class="no-hashchange">
-                HashChange
-              </li>
-              <li class="no-localstorage">
-                LocalStorage
-              </li>
-              <li class="no-webworkers">
-                WebWorkers
-              </li>
-              <li class="no-adownload">
-                Download Attribute
-              </li>
-              <li class="no-filereader">
-                FileReader
-              </li>
-              <li class="no-json">
-                JSON
-              </li>
-            </ul>
-          </p>
-        </div>
-        <div class="boxview">
-          <h3>Nutzungsbedingungen</h3>
-          <p>
-            Die Nutzung dieses Programmes ist kostenlos und uneingeschränkt, wie sie bei jeder Software sein sollte.
-            <a href="https://github.com/elor/tuvero/blob/master/LICENSE">Lizenz auf Github</a>
-          </p>
-          <p>
-            Die laufenden Kosten bestehen hauptsächlich aus Ausgaben für
-            Webserver, SSL-Zertifikate und Domain-Registrierungen. Wenn sie
-            einen Beitrag zu diesen Kosten leisten oder die Entwickler moralisch
-            unterstützen möchten, können sie das auf folgende Weise tun:
-          </p>
-          <div class="donatebuttons">
-            <a class="large" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
-          </div>
-        </div>
       </div>
 
       <div data-tab="debug" accesskey="d">
