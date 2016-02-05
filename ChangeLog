@@ -25,6 +25,13 @@
 
 	* tools/write-sprite.sh: processing data-tab entries, except those that are followed directly by data-spriteignore
 
+	* Makefile: using provess-template.py instead of index-from-template.sh
+
+	* tools/index-from-template.sh: replaced with process-template.py
+
+	* tools/process-template.py: replacing index-from-template.sh
+	100-fold improvement in speed. Results are near-identical (All empty lines were removed, rest is identical)
+
 2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/strings.js: `Strings.display_error` added

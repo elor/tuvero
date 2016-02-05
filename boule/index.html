@@ -7,9 +7,7 @@
     <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="style/main.css" />
   </head>
-
   <body class="splash" id="app">
-
     <div id="splash" class="loading">
       <img src="images/favicon.png" title="Icon"/>
       <h1>Tuvero Boule</h1>
@@ -87,18 +85,14 @@
         Sollte der Fehler auch bei wiederholtem Neuladen der Seite bestehen bleiben, bitte ich um eine Nachricht an <a href="mailto:erik.e.lorenz@gmail.com">erik.e.lorenz@gmail.com</a>.
       </p>
     </div>
-
     <div id="tabs">
-
       <div data-tab="home" accesskey="s">
         <div class="options">
           <a href="https://www.google.com/chrome/browser/desktop/index.html">
           Funktioniert am besten<br> mit
           <span class="tiny" data-img="logos/chrome_128x128">Chrome</span></a>
         </div>
-
         <h2>Tuvero Boule 1.5.3-dev</h2>
-
         <div class="boxview info inline">
           <h3>Turnierstand</h3>
           <button class="withlabel load" data-img="load"></button>
@@ -110,7 +104,6 @@
           <button class="withlabel reset" data-img="clear"></button>
           Turnier löschen
         </div>
-
         <div class="boxview info inline firststeps leftalign">
           <h3>Erste Schritte</h3>
           Um ein Turnier durchzuführen, folge diesen Schritten:
@@ -132,7 +125,6 @@
             </li>
           </ol>
         </div>
-
         <div class="boxview info inline collapsed">
           <h3>Autor &amp; Mitwirkende</h3>
           <p>
@@ -145,7 +137,6 @@
           <p>
             Bei Fragen und Problemen stehe ich gern zur Verfügung.
           </p>
-
           <h4>Fehler gefunden?</h4>
           <p>
             Bitte auf <a href="http://fehler.tuvero.de/?variant=Boule&version=1.5.3-dev">http://fehler.tuvero.de/</a>
@@ -153,7 +144,6 @@
             <br>
             Bitte heruntergeladenen Spielstand (<button class="tiny save" data-img="save"></button>) mitschicken.
           </p>
-
           <h4>Mitwirkende</h4>
           <table class="borderless background middle">
             <tr>
@@ -165,7 +155,6 @@
               <td>Beratung (TAC)</td>
             </tr>
           </table>
-
           <h4>Laufende Kosten</h4>
           <p>
             <a class="large float-right" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
@@ -176,7 +165,6 @@
           </p>
         </div>
       </div>
-
       <div data-tab="teams" data-spriteignore accesskey="t">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
@@ -192,15 +180,12 @@
             <span>Zum Umbenennen Namen klicken</span>
         </div>
         <h2><span class="numteams">##</span> Anmeldungen</h2>
-
         <div class="teamsizeview">
           <button data-img="teams1"></button>
           <button data-img="teams2"></button>
           <button data-img="teams3"></button>
         </div>
-
         <br>
-
         <div class="teamlist">
           <div class="team template">
             <div class="teamno">
@@ -219,7 +204,6 @@
             </div>
           </div>
         </div>
-
         <table class="teamtable background">
           <tr>
             <th class="teamnocol">No.</th>
@@ -234,7 +218,6 @@
             <td class="name editable">%% %%</td>
           </tr>
         </table>
-
         <form class="newteamview">
           <div class="teamno">
             <button>
@@ -253,7 +236,6 @@
             </div>
           </div>
         </form>
-
         <div class="load filereader">
           <p>
             Anmeldungen aus Datei laden (<a href="#teams" class="downloadexample">Beispiel</a>)
@@ -261,21 +243,16 @@
             <input type="file" />
           </p>
         </div>
-
         <button class="delete" tabindex="-1">
           Anmeldung löschen
         </button>
-
         <button class="deleteall" tabindex="-1">
           Alle löschen
         </button>
-
         <div class="deletionprompt">
           Zum Löschen Team anklicken
         </div>
-
       </div>
-
       <div data-tab="new" accesskey="n">
         <button class="save" data-img="save"></button>
         <div class="options">
@@ -287,7 +264,6 @@
             <span>Zum Umbenennen Turniersystem klicken</span>
         </div>
         <h2>Turniersysteme</h2>
-
         <table class="systemtable background">
           <tr>
             <th colspan="2">Platz</th>
@@ -306,45 +282,35 @@
             <td class="name">%% %%</td>
           </tr>
         </table>
-
         <br>
-
         <div class="boxview newsystem template" data-system="undefined">
           <h3 class="enoughteams">Neue Turnierphase</h3>
           <div class="enoughteams">
             <span>
               <input type="number" class="tournamentsize" min="2" value="2" />
               Teilnehmer</span>
-
             <button data-system="swiss">
               Schweizer System
             </button>
-
             <button data-system="round">
               Rundenturnier
             </button>
-
             <button data-system="ko">
               KO-System
             </button>
-
           </div>
           <div class="notenoughteams">
             Nicht genug Teilnehmer
           </div>
         </div>
-
         <div class="boxview swiss template" data-system="swiss">
           <h3><span class="tournamentname">##</span>
           <input type="text" />
           - Schweizer
           System</h3>
-
           <div class="initial">
             <h3> Runde <span class="nextround">##</span> auslosen </h3>
-
             <h3>Wertungsreihenfolge</h3>
-
             <div class="rankingorderview">
               <div class="selected">
                 Ausgewählt:
@@ -352,10 +318,8 @@
                   %% %%
                 </button>
               </div>
-
               <div class="available">Verfügbar:</div>
             </div>
-
             <div class="boxview collapsed tournamentoptions">
               <h3>Erweiterte Optionen</h3>
               <div class="option">
@@ -397,7 +361,6 @@
                     <td class="prop byeafterbye">∅</td>
                   </tr>
                 </table>
-
                 <div class="boxview collapsed">
                   <h3>Legende</h3>
                   <p>
@@ -422,7 +385,6 @@
                 </div>
               </div>
             </div>
-
             <button class="runtournament">
               Runde starten
             </button>
@@ -430,7 +392,6 @@
               Schweizer Turnier abbrechen
             </button>
           </div>
-
           <div class="running">
             <p>
               Runde <span class="round">#</span> wurde ausgelost.
@@ -439,10 +400,8 @@
               Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
-
           <div class="idle">
             <h3> Runde <span class="nextround">##</span> auslosen </h3>
-
             <div class="boxview collapsed tournamentoptions">
               <h3>Erweiterte Optionen</h3>
               <div class="option">
@@ -484,7 +443,6 @@
                     <td class="prop byeafterbye">∅</td>
                   </tr>
                 </table>
-
                 <div class="boxview collapsed">
                   <h3>Legende</h3>
                   <p>
@@ -509,7 +467,6 @@
                 </div>
               </div>
             </div>
-
             <button class="runtournament">
               Runde starten
             </button>
@@ -517,7 +474,6 @@
               Schweizer Turnier beenden
             </button>
           </div>
-
           <div class="finished">
             Keine weiteren Spiele möglich
             <br>
@@ -526,23 +482,17 @@
               Schweizer Turnier beenden
             </button>
           </div>
-
           <div class="failure">
             Unerwarteter Fehler bei der Turnierberechnung.
           </div>
           <h3><span class="tournamentname">##</span> - Schweizer System </h3>
         </div>
-
-
         <div class="boxview round template" data-system="round">
           <h3><span class="tournamentname">##</span>
           <input type="text" />
           - Rundenturnier </h3>
-
           <div class="initial">
-
             <h3>Wertungsreihenfolge</h3>
-
             <div class="rankingorderview">
               <div class="selected">
                 Ausgewählt:
@@ -550,10 +500,8 @@
                   %% %%
                 </button>
               </div>
-
               <div class="available">Verfügbar:</div>
             </div>
-
             <h3> Runde <span class="nextround">##</span> auslosen </h3>
             <button class="runtournament">
               Runde starten
@@ -562,7 +510,6 @@
               Rundenturnier abbrechen
             </button>
           </div>
-
           <div class="running">
             <p>
               Runde <span class="round">#</span> wurde ausgelost.
@@ -571,14 +518,12 @@
               Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
-
           <div class="idle">
             <h3> Runde <span class="nextround">##</span> auslosen </h3>
             <button class="runtournament">
               Runde starten
             </button>
           </div>
-
           <div class="finished">
             Alle Spiele beendet.
             <br>
@@ -587,19 +532,15 @@
               Rundenturnier beenden
             </button>
           </div>
-
           <div class="failure">
             Unerwarteter Fehler bei der Turnierberechnung.
           </div>
           <h3><span class="tournamentname">##</span> - Rundenturnier </h3>
         </div>
-
-
         <div class="boxview ko template" data-system="ko">
           <h3><span class="tournamentname">##</span>
           <input type="text" />
           - KO-System </h3>
-
           <div class="initial">
             <div class="boxview tournamentoptions">
               <h3>Erweiterte Optionen</h3>
@@ -624,7 +565,6 @@
               KO-Turnier abbrechen
             </button>
           </div>
-
           <div class="running">
             <p>
               KO-Turnier wird gespielt.
@@ -633,7 +573,6 @@
               Siehe <a href="#history" data-img="history">Turnierverlauf</a>
             </p>
           </div>
-
           <div class="finished">
             Alle Spiele beendet.
             <br>
@@ -642,14 +581,11 @@
               KO-Turnier beenden
             </button>
           </div>
-
           <div class="failure">
             Unerwarteter Fehler bei der Turnierberechnung.
           </div>
         </div>
-
       </div>
-
       <div data-tab="history" accesskey="h">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
@@ -670,13 +606,10 @@
             <br>
             <span>Zum Korrigieren Ergebnis klicken</span>
         </div>
-
         <h2>Turnierverlauf</h2>
-
         <div class="tournamentlist">
           <div class="boxview tournament template">
             <h3><span class="tournamentname">##</span></h3>
-
             <div class="matchtable">
               <h3>Runde <span class="round">##</span></h3>
               <table class="background">
@@ -727,7 +660,6 @@
                 </tr>
               </table>
             </div>
-
             <table class="progresstable hidden background">
               <tr class="headerrow">
                 <th>No.</th>
@@ -773,7 +705,6 @@
                 <td class="rankingcomponent template">##</td>
               </tr>
             </table>
-
             <div class="kotree boxview hidden">
               <h3>Spiel um Platz <span class="bestrank">##</span></h3>
               <div class="forest">
@@ -802,7 +733,6 @@
                       <div class="score">##</div>
                       <div class="score">##</div>
                     </div>
-
                     <div class="noprint finish">
                       <div>
                         <input class="score" type="number" />
@@ -814,7 +744,6 @@
                         Beenden
                       </button>
                     </div>
-
                     <div class="noprint correct">
                       <div>
                         <input class="score" type="number" />
@@ -833,12 +762,9 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
-
       <div data-tab="ranking" accesskey="r">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
@@ -849,11 +775,9 @@
             type="checkbox" checked="checked"/>Abkürzungen</span>
         </div>
         <h2>Platzierungen</h2>
-
         <div class="tournamentlist">
           <div class="boxview tournament template">
             <h3><span class="tournamentname">%% %%</span></h3>
-
             <table class="rankingview background">
               <tr class="rankingheader">
                 <th>Platz</th>
@@ -868,9 +792,7 @@
                 <td class="component">##</td>
               </tr>
             </table>
-
             <!-- autoformat placeholder :-( -->
-
             <table class="correctiontable background">
               <tr>
                 <th colspan="9">Korrekturen:</th>
@@ -895,18 +817,15 @@
                 </td>
               </tr>
             </table>
-
           </div>
         </div>
       </div>
-
       <div data-tab="lanes" accesskey="l">
         <h2>Bahnen</h2>
         An der Auslosung und Zuweisung von Bahnen wird noch gearbeitet.
         <br>
         Ich bitte um etwas Geduld.
       </div>
-
       <div data-tab="games" accesskey="g">
         <button class="print" data-img="print"></button>
         <button class="save" data-img="save"></button>
@@ -916,11 +835,9 @@
             checked="checked" />Spielernamen</span>
         </div>
         <h2>Laufende Spiele</h2>
-
         <div class="tournamentlist">
           <div class="boxview tournament dontprintresultcol template">
             <h3><span class="tournamentname">%% %%</span></h3>
-
             <div class="matchtable">
               <h3>Runde <span class="round">##</span></h3>
               <table class="background">
@@ -971,19 +888,15 @@
                 </tr>
               </table>
             </div>
-
             <div class="votelist bye">
               <h3>&#x2205; Freilos</h3>
             </div>
-
             <div class="votelist up">
               <h3>&#x25b2; Hochlos</h3>
             </div>
-
             <div class="votelist down">
               <h3>&#x25bc; Runterlos</h3>
             </div>
-
             <div class="teamview voteview template">
               <div class="teamno">##</div>
               <div class="names">
@@ -995,10 +908,8 @@
           </div>
         </div>
       </div>
-
       <div data-tab="settings" accesskey="o">
         <h2>Optionen und Einstellungen</h2>
-
         <div class="boxview inline">
           <h3>Schriftgröße</h3>
           <p>
@@ -1022,9 +933,7 @@
             </button>
           </div>
         </div>
-
         <input class="load filereader file" type="file" />
-
         <p class="nofilereader">
           Dieser Browser kann keine lokalen Dateien laden.
           Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem
@@ -1033,7 +942,6 @@
           ihre Browser unter einigen Betriebssystemen zur Verfügung
           (z.B. Apple mit Safari für Windows).
         </p>
-
         <div class="boxview inline csv">
           <h3>Tabellen-Export</h3>
           <p>
@@ -1049,7 +957,6 @@
           <button class="history" data-img="history"></button>
           <button class="teams ranking history" data-img="all"></button>
         </div>
-
         <div class="boxview inline">
           <h3>Storage</h3>
           <p>
@@ -1066,21 +973,16 @@
               <span class="savedate">%% %%</span>
             </p>
           </div>
-
         </div>
-
         <div class="boxview inline">
           <h3>Entwicklerwerkzeuge</h3>
           <a href="#debug" data-img="debug">
           <br>
           Dev Console</a>
         </div>
-
       </div>
-
       <div data-tab="debug" accesskey="d">
         <h2>Debugging Console</h2>
-
         <div class="boxview inline">
           <h3>GUI Shortcuts</h3>
           <div class="register">
@@ -1095,20 +997,17 @@
               IDs anmelden
             </button>
           </div>
-
           <div class="tournament">
             <button class="big finishround">
               Runde ausspielen
             </button>
           </div>
-
           <div class="script">
             <button class="big loadmods">
               RequireJS -> var mods (global)
             </button>
           </div>
         </div>
-
         <div class="boxview inline">
           <h3>Browser Info</h3>
           <table class="browser background">
@@ -1144,24 +1043,17 @@
             </tr>
           </table>
         </div>
-
         <div class="boxview inline allimages">
           <h3>Images at Pageload</h3>
           <!-- All images get inserted here -->
         </div>
-
         <div class="boxview inline sprite">
           <h3>Sprite</h3>
           <div data-img="sprite"></div>
         </div>
-
       </div>
-
     </div>
-
-
     <a href="#reset" accesskey="!" tabindex="-1" class="hiddenlink devonly">&nbsp;</a>
-
     <script>
       require = {
       urlArgs : "bust=" + (new Date()).getTime()
@@ -1169,7 +1061,5 @@
     </script>
     <script src="scripts/require.js"></script>
     <script src="scripts/main.js"></script>
-
   </body>
-
 </html>

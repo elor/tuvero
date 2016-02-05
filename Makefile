@@ -79,10 +79,10 @@ test/index.html: FORCE
 	./tools/write-testindex.sh
 
 boule/index.html: FORCE
-	cd boule && ../tools/index-from-template.sh
+	cd boule && ../tools/process-template.py
 
 tac/index.html: FORCE
-	cd tac && ../tools/index-from-template.sh
+	cd tac && ../tools/process-template.py
 
 selenium-tests: FORCE
 	make -C selenium-tests
