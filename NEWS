@@ -3,6 +3,8 @@ Tuvero 1.5.3 (yyyy-mm-dd)
 
 FEATURES:
 
+  * Prefill error report data (version, variant, browser)
+
 FIXES:
 
   * Display problems in popped-out KO trees resolved (#209)

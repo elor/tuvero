@@ -1,3 +1,9 @@
+2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/hometab.html: .errorlink marker added
+
+	* legacy/scripts/ui/hometab.js: adding browser data to .errorlink
+
 2016-02-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/komatchresult.html: switched from tables to divs

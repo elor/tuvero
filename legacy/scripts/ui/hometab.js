@@ -5,7 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './state_new', './strings',
-    './toast'], function(extend, $, View, State, Strings, Toast) {
+    './toast', './browser'], function(extend, $, View, State, Strings, Toast,
+    Browser) {
   /**
    * represents a whole team tab
    *
@@ -29,7 +30,7 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './strings',
    * TODO maybe split it into multiple autodetected functions?
    */
   HomeTab.prototype.init = function() {
-    var $button;
+    var $button, $errorlink, browserstring;
 
     // TODO move to a controller
     $button = this.$view.find('button.reset');
@@ -38,6 +39,11 @@ define(['lib/extend', 'jquery', 'core/view', './state_new', './strings',
         State.clear();
       }
     });
+
+    // TODO move to a view
+    $errorlink = this.$view.find('a.errorlink');
+    $errorlink.attr('href', $errorlink.attr('href') + '&browser='
+        + Browser.name + ' ' + Browser.version);
   };
 
   // FIXME CHEAP HACK AHEAD
