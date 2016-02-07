@@ -32,6 +32,10 @@ define(function() {
       maxteamsize: 1,
       teamsizeicon: false
     },
+    taboptions: {
+      namemaxwidth: false,
+      showmatchtables: true,
+    },
     names: {
       playernameurl: '',
       dbname: 'tactournament',

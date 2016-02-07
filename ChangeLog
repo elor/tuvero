@@ -28,6 +28,11 @@
 
 	* test/scripts/strings.js: 'strings' dependency is required now ...
 
+	* legacy/scripts/ui/statemodel.js: Reading taboptions from Presets, if available.
+
+	* tac/scripts/presets.js: default taboptions: no maxwidth for names
+	default taboptions: show matchtables
+
 2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/hometab.html: .errorlink marker added

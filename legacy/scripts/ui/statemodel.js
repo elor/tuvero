@@ -22,13 +22,23 @@ define(['lib/extend', 'core/model', 'core/indexedlistmodel', 'core/valuemodel',
     this.teamsize = new ValueModel(3);
     this.tournaments = new TournamentListModel();
 
+    function tabOptionPreset(name, defaultValue) {
+      if (!Presets.taboptions || Presets.taboptions[name] === undefined) {
+        return new ValueModel(defaultValue);
+      }
+
+      // cast to bool, just in case.
+      return new ValueModel(!!Presets.taboptions[name]);
+    }
+    ;
+
     this.tabOptions = {
-      showNames: new ValueModel(true),
-      nameMaxWidth: new ValueModel(true),
-      teamTable: new ValueModel(true),
-      rankingAbbreviations: new ValueModel(false),
-      showMatchTables: new ValueModel(false),
-      hideFinishedGroups: new ValueModel(false)
+      showNames: tabOptionPreset('shownames', true),
+      nameMaxWidth: tabOptionPreset('namemaxwidth', true),
+      teamTable: tabOptionPreset('teamtable', true),
+      rankingAbbreviations: tabOptionPreset('rankingabbreviations', false),
+      showMatchTables: tabOptionPreset('showmatchtables', false),
+      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false)
     };
 
     this.initCleanupListeners();
