@@ -1,3 +1,9 @@
+2016-02-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/strings.js: single properties are auto-superseded by scripts/strings.js
+
+	* tac/scripts/strings.js: teamstext='Team', not 'Spieler'
+
 2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/hometab.html: .errorlink marker added
