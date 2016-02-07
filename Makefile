@@ -17,12 +17,6 @@ build: clean
 build/index.html:
 	cp -v index.html build/
 
-tac: tac/index.html
-
-boule: boule/index.html
-
-test: test/index.html
-
 clean: FORCE
 	make -C selenium-tests/ clean
 	rm -rfv build/ dev/
@@ -32,7 +26,7 @@ clean: FORCE
 update: style templates test/index.html codestyle sprites lib links
 
 templates: FORCE
-	make boule/index.html tac/index.html -j
+	make basic/index.html boule/index.html tac/index.html -j
 
 lib: FORCE
 	./tools/install-libs.sh
@@ -45,7 +39,7 @@ scripts: FORCE
 	./tools/create-testjs.sh
 	./tools/update-headers.sh
 
-sprites: FORCE
+sprites: templates FORCE
 	./tools/write-sprite.sh boule
 	./tools/write-sprite.sh tac
 	./tools/write-sprite.sh test
@@ -78,11 +72,8 @@ merge-master: FORCE
 test/index.html: FORCE
 	./tools/write-testindex.sh
 
-boule/index.html: FORCE
-	cd boule && ../tools/process-template.py
-
-tac/index.html: FORCE
-	cd tac && ../tools/process-template.py
+%/index.html: %/scripts/main.js FORCE
+	cd $(shell dirname $@) && ../tools/process-template.py
 
 selenium-tests: FORCE
 	make -C selenium-tests
