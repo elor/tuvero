@@ -66,7 +66,9 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
         hideNamesView: new ClassView(State.tabOptions.showNames, $body,
             undefined, 'hidenames'),
         showtableClassView: new ClassView(State.tabOptions.showMatchTables,
-            $body, 'showmatchtable', 'showtable')
+            $body, 'showmatchtable', 'showtable'),
+        hidefinishedClassView: new ClassView(
+            State.tabOptions.hideFinishedGroups, $body, 'hidefinished')
       });
 
     } else {

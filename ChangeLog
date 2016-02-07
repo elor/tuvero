@@ -33,6 +33,8 @@
 	* tac/scripts/presets.js: default taboptions: no maxwidth for names
 	default taboptions: show matchtables
 
+	* legacy/scripts/ui/popoutcontroller.js: popout taboptions: hidefinishedrounds implemented
+
 2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/hometab.html: .errorlink marker added
