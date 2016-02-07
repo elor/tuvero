@@ -30,7 +30,6 @@ define(['lib/extend', 'core/model', 'core/indexedlistmodel', 'core/valuemodel',
       // cast to bool, just in case.
       return new ValueModel(!!Presets.taboptions[name]);
     }
-    ;
 
     this.tabOptions = {
       showNames: tabOptionPreset('shownames', true),

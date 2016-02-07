@@ -156,7 +156,7 @@ define(['strings'], function(LocalStrings) {
     display_error: 'Anzeigefehler. Bitte neu laden.'
   };
 
-  Object.keys(LocalStrings).forEach(function(key){
+  Object.keys(LocalStrings).forEach(function(key) {
     Strings[key] = LocalStrings[key];
   });
 

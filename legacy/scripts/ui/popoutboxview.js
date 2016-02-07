@@ -11,9 +11,9 @@ define(['lib/extend', './boxview', './popoutcontroller'], function(extend,
   var $popoutIconTemplate, $closeIconTemplate;
 
   // TODO read this from DOM.
-  $popoutIconTemplate = $('<div>').addClass('popout').text("↗");
+  $popoutIconTemplate = $('<div>').addClass('popout').text('↗');
   $closeIconTemplate = $('<div>').addClass('close').addClass('noprint').text(
-      "❌");
+      '❌');
 
   /**
    * Constructor

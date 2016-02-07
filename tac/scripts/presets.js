@@ -34,7 +34,7 @@ define(function() {
     },
     taboptions: {
       namemaxwidth: false,
-      showmatchtables: true,
+      showmatchtables: true
     },
     names: {
       playernameurl: '',
