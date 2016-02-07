@@ -14,7 +14,7 @@ templateStack = {}
 for template_dir in template_dirs:
     if not os.path.isdir(template_dir):
         if template_dir != "templates":
-            sys.stderr.write("ERROR: %s is not a directory"%template_dir)
+            sys.stderr.write("ERROR: %s is not a directory\n"%template_dir)
             exit(1)
     else:
         for template in os.listdir(template_dir):
@@ -45,7 +45,7 @@ def get_string(key):
     try:
         return strings[key]
     except:
-        sys.stderr.write("string cannot be found: '%s'"%key)
+        sys.stderr.write("string cannot be found: '%s'\n"%key)
         exit(1)
 
 def replace_strings(lines):
@@ -68,7 +68,8 @@ def parse_template(template):
     try:
         raw_template = templates[template]
     except:
-        sys.stderr.write("template %s does not exist!"%template)
+        sys.stderr.write("template %s does not exist!\n"%template)
+        exit(1)
 
     in_lines = deque(raw_template.split('\n'))
     while len(in_lines) > 0:

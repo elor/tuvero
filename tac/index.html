@@ -109,7 +109,7 @@
           So führst du ein Turnier durch:
           <ol class="leftalign">
             <li>
-              Trage die Spieler im <a href="#teams" class="tiny" data-img="teams"> Anmeldungen-Tab</a> ein
+              Trage die Teilnehmer im <a href="#teams" class="tiny" data-img="teams"> Teilnehmer-Tab</a> ein
             </li>
             <li>
               Wähle und starte ein Turniersystem im <a href="#new" class="tiny" data-img="new"> Turniersysteme-Tab</a>
@@ -179,7 +179,7 @@
             <br>
             <span>Zum Umbenennen Namen klicken</span>
         </div>
-        <h2><span class="numteams">##</span> Anmeldungen</h2>
+        <h2><span class="numteams">##</span> Teilnehmer</h2>
         <!-- TeamSizeView is disabled in Tuvero TAC -->
         <br>
         <div class="teamlist">
@@ -203,9 +203,9 @@
         <table class="teamtable background">
           <tr>
             <th class="teamnocol">No.</th>
-            <th class="playercol">Spieler 1</th>
-            <th class="playercol">Spieler 2</th>
-            <th class="playercol">Spieler 3</th>
+            <th class="playercol">Team</th>
+            <th class="playercol">Team</th>
+            <th class="playercol">Team</th>
           </tr>
           <tr class="team template">
             <td class="teamno">##</td>
@@ -222,13 +222,13 @@
           </div>
           <div class="names">
             <div>
-              <input class="playername" type="text" placeholder="Spieler 1" />
+              <input class="playername" type="text" placeholder="Team 1" />
             </div>
             <div>
-              <input class="playername" type="text" placeholder="Spieler 2" />
+              <input class="playername" type="text" placeholder="Team 2" />
             </div>
             <div>
-              <input class="playername" type="text" placeholder="Spieler 3" />
+              <input class="playername" type="text" placeholder="Team 3" />
             </div>
           </div>
         </form>
@@ -254,7 +254,7 @@
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
-            checked="checked" />Spielernamen</span>
+            checked="checked" />Teamnamen</span>
             <br>
             <br>
             <span>Zum Umbenennen Turniersystem klicken</span>
@@ -264,9 +264,9 @@
           <tr>
             <th colspan="2">Platz</th>
             <th>No.</th>
-            <th class="playercol">Spieler</th>
-            <th class="playercol">Spieler</th>
-            <th class="playercol">Spieler</th>
+            <th class="playercol">Team</th>
+            <th class="playercol">Team</th>
+            <th class="playercol">Team</th>
             <th>Turniersystem</th>
           </tr>
           <tr class="team template">
@@ -369,7 +369,7 @@
                   <p>
                     Beispiel: ∅ ⇒ ▲<span class="forbidden">▼∅</span>
                     <br>
-                    Ein Spieler mit einem Freilos darf
+                    Ein Team mit einem Freilos darf
                     <br>
                     ein Hochlos erhalten, aber kein
                     <br>
@@ -451,7 +451,7 @@
                   <p>
                     Beispiel: ∅ ⇒ ▲<span class="forbidden">▼∅</span>
                     <br>
-                    Ein Spieler mit einem Freilos darf
+                    Ein Team mit einem Freilos darf
                     <br>
                     ein Hochlos erhalten, aber kein
                     <br>
@@ -587,17 +587,13 @@
         <button class="save" data-img="save"></button>
         <div class="options">
           <span>
-            <input class="maxwidth" type="checkbox" checked="checked" />
-            feste Breite</span>
+            <input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
           <span>
-            <input class="shownames" type="checkbox" checked="checked" />
-            Spielernamen</span>
+            <input class="shownames" type="checkbox" checked="checked" />Teamnamen</span>
           <span class="hidden">
-            <input class="hidefinished" type="checkbox" />
-            Nur Laufende Runden</span>
+            <input class="hidefinished" type="checkbox" />Nur Laufende Runden</span>
           <span>
-            <input class="showtable" type="checkbox" checked="checked" />
-            Spielelisten</span>
+            <input class="showtable" type="checkbox" checked="checked" />Spielelisten</span>
             <br>
             <br>
             <span>Zum Korrigieren Ergebnis klicken</span>
@@ -611,13 +607,13 @@
               <table class="background">
                 <tr>
                   <th>No.</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
                   <th>No.</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
                   <th class="resultcol">Ergebnis</th>
                 </tr>
                 <tr class="match template">
@@ -659,9 +655,9 @@
             <table class="progresstable hidden background">
               <tr class="headerrow">
                 <th>No.</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
-                <th class="playercol">Spieler</th>
+                <th class="playercol">Team</th>
+                <th class="playercol">Team</th>
+                <th class="playercol">Team</th>
                 <th class="roundcol template" colspan="2">Runde <span class="round">##</span></th>
                 <th class="hidden separator"></th>
                 <th class="rankcol template"></th>
@@ -767,7 +763,7 @@
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
-            checked="checked" />Spielernamen</span> <span><input class="abbreviate"
+            checked="checked" />Teamnamen</span> <span><input class="abbreviate"
             type="checkbox" checked="checked"/>Abkürzungen</span>
         </div>
         <h2>Platzierungen</h2>
@@ -778,7 +774,7 @@
               <tr class="rankingheader">
                 <th>Platz</th>
                 <th>No.</th>
-                <th class="name">Spieler</th>
+                <th class="name">Team</th>
                 <th class="component">%% %%</th>
               </tr>
               <tr class="rankingrow template">
@@ -828,7 +824,7 @@
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
-            checked="checked" />Spielernamen</span>
+            checked="checked" />Teamnamen</span>
         </div>
         <h2>Laufende Spiele</h2>
         <div class="tournamentlist">
@@ -839,13 +835,13 @@
               <table class="background">
                 <tr>
                   <th>No.</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
                   <th>No.</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
-                  <th class="playercol">Spieler</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
+                  <th class="playercol">Team</th>
                   <th class="resultcol">Ergebnis</th>
                 </tr>
                 <tr class="match template">

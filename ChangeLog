@@ -4,6 +4,28 @@
 
 	* tac/scripts/strings.js: teamstext='Team', not 'Spieler'
 
+	* core/templates/gamestab.html: Spieler -> %teamstext%
+
+	* core/templates/historytab.html: Spieler -> %teamstext%
+
+	* core/templates/hometab.html: Spieler -> %teamstext%
+
+	* core/templates/matchtable.html: Spieler -> %teamstext%
+
+	* core/templates/newtab.html: Spieler -> %teamstext%
+
+	* core/templates/progresstable.html: Spieler -> %teamstext%
+
+	* core/templates/rankingtab.html: Spieler -> %teamstext%
+
+	* core/templates/rankingview.html: Spieler -> %teamstext%
+
+	* core/templates/swissvotes.html: Spieler -> %teamstext%
+
+	* core/templates/teamstab.html: Spieler -> %teamstext%
+
+	* tools/process-template.py: missing line breaks added
+
 2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/hometab.html: .errorlink marker added
