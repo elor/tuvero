@@ -10,7 +10,7 @@ GITHEAD=$(shell git rev-parse HEAD | head -c8)
 
 build: clean
 	make templates scripts
-	make boule tac test build/index.html
+	make basic boule tac test build/index.html
 	./tools/write-manifest.sh build/
 	cp -v Version build/
 
