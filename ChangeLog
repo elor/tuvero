@@ -26,6 +26,8 @@
 
 	* tools/process-template.py: missing line breaks added
 
+	* test/scripts/strings.js: 'strings' dependency is required now ...
+
 2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/hometab.html: .errorlink marker added
