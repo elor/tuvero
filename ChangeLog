@@ -35,6 +35,23 @@
 
 	* legacy/scripts/ui/popoutcontroller.js: popout taboptions: hidefinishedrounds implemented
 
+	* basic/images/favicon.png: using the unofficial tuvero logo
+
+	* basic/images/games.png: using the unofficial tuvero logo
+
+	* basic/scripts/presets.js: swiss ranking simplified
+
+	* basic/scripts/strings.js: teamsicon wasn't visible
+
+	* basic/templates/teamsizeview.html: teamsize selection disabled
+
+	* core/images/teams.png: moved from tac
+
+	* index.html: using Basic favicon
+	Link to Tuvero Basic added
+
+	* tac/images/teams.png: moved to core
+
 2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/hometab.html: .errorlink marker added

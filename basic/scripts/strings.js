@@ -8,7 +8,7 @@
  */
 define(function() {
     return {
-        teamsicon: 'teams3',
+        teamsicon: 'teams',
         variant: 'Basic',
         teamtext: 'Team'
     };

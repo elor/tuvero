@@ -39,10 +39,10 @@ scripts: FORCE
 	./tools/create-testjs.sh
 	./tools/update-headers.sh
 
-sprites: templates FORCE
-	./tools/write-sprite.sh boule
-	./tools/write-sprite.sh tac
-	./tools/write-sprite.sh test
+sprites: basic/images/sprite.png boule/images/sprite.png tac/images/sprite.png test/images/sprite.png
+
+%/images/sprite.png: %/index.html FORCE
+	./tools/write-sprite.sh $(shell dirname $<)
 
 style: FORCE
 	./tools/write-mainstyle.sh

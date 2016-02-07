@@ -187,42 +187,42 @@
     height: 128px;
 }
 
-[data-img="games"]::before {
+[data-img="teams"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -198px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="games"]::before {
+.tiny[data-img="teams"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -99px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="games"]::before {
+.large[data-img="teams"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -396px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="teams"]::before {
+[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -66px -198px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="teams"]::before {
+.tiny[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -33px -99px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="teams"]::before {
+.large[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -132px -396px;
     width: 128px;

@@ -1,6 +1,6 @@
 /**
- * Boule presets: swiss as played in the PVO, round similar to chess, and ko
- * with a matched cadrage. Point-based rankings.
+ * Basic presets: swiss direct matchings, round similar to chess, and ko
+ * with a matched cadrage. Simple rankings
  *
  * @return Presets
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -15,9 +15,8 @@ define(function() {
     target: 'basic',
     systems: {
       swiss: {
-        ranking: ['wins', 'buchholz', 'finebuchholz', 'headtohead', 'saldo',
-            'votes'],
-        mode: 'wins'
+        ranking: ['wins', 'headtohead', 'saldo'],
+        mode: 'ranks'
       },
       ko: {
         mode: 'matched'
