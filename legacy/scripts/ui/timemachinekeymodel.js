@@ -1,5 +1,5 @@
 /**
- * TimeMachineKeyModel
+ * TimeMachineKeyModel *
  *
  * @return TimeMachineKeyModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -13,15 +13,15 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
   delimiter = '_';
   dateRegexSource = '[0-9]{4}-[0-9]{2}-[0-9]{2}'
       + 'T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z';
-  dateRegex = new RegExp('^' + dateRegexSource + '$', 'i');
-  targetRegex = new RegExp('^(' + Presets.target + ')' + delimiter, 'i');
+  dateRegex = new RegExp('^' + dateRegexSource + '$');
+  targetRegex = new RegExp('^(' + Presets.target + ')' + delimiter);
   keyRegex = new RegExp(targetRegex.source + '(' + dateRegexSource + ')'
-      + delimiter + '(' + dateRegexSource + ')$', 'i');
+      + delimiter + '(' + dateRegexSource + ')$');
 
   /**
    * Constructor. Either a root key (empty construction), a descendant of
    * another key (pass a TimeMachineKeyModel instance as parent) or a
-   * representation (pass a key string to read all info from)
+   * representation (pass a key string to read all info from) *
    *
    * @param reference
    *          Leave empty to create a new key. TimeMachineKeyModel instance to
@@ -32,11 +32,11 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     var matches;
     TimeMachineKeyModel.superconstructor.call(this);
 
-    this.nowDate = (new Date()).toISOString();
-    this.startDate = this.nowDate;
+    this.saveDate = (new Date()).toISOString();
+    this.startDate = this.saveDate;
     this.target = Presets.target;
 
-    if (!dateRegex.test(this.nowDate)) {
+    if (!dateRegex.test(this.saveDate)) {
       throw new Error('Date.toISOString() does not return valid ISO 8601.');
     }
 
@@ -51,14 +51,14 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
         throw new Error(
             'TimeMachineKeyModel reference string does not match format');
       }
-      if (matches.length != 3) {
-        throw new Error('Regex Error? wrong number of matches (not 3): '
+      if (matches.length != 4) {
+        throw new Error('Regex Error? wrong number of captures (not 3): '
             + matches.join(','));
       }
 
       // this.target has already been set from Presets.
-      this.startDate = matches[1];
-      this.saveDate = matches[2];
+      this.startDate = matches[2];
+      this.saveDate = matches[3];
     } else if (Type.isObject(reference)
         && reference instanceof TimeMachineKeyModel) {
       if (!dateRegex.test(reference.startDate)) {
@@ -73,12 +73,12 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
   extend(TimeMachineKeyModel, Model);
 
   /**
-   * converts the the Key to a localStorage-compatible string representation
+   * converts the the Key to a localStorage-compatible string representation *
    *
    * @return a localStorage-compatible string representation of the key
    */
   TimeMachineKeyModel.prototype.toString = function() {
-    var key = [this.target, this.startDate, this.nowDate].join(delimiter);
+    var key = [this.target, this.startDate, this.saveDate].join(delimiter);
 
     if (!keyRegex.test(key)) {
       throw new Error('created TimeMachineKeyModel does not match format: '
@@ -86,6 +86,53 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     }
 
     return key;
+  };
+
+  /**
+   * Test whether the given key is valid and can be processed by this target.
+   * This does not test the stored content, only the key strings.
+   *
+   * @param key
+   *          a string representation of a key
+   * @return true if key matches the key format and currently open target, false
+   *         otherwise
+   */
+  TimeMachineKeyModel.isValidKey = function(key) {
+    return keyRegex.test(key);
+  };
+
+  /**
+   * Test whether the key is somehow related to this key, i.e. whether the start
+   * date and target match. This does not test whether they're in the same
+   * branch, since only the keys are tested, not their relations.
+   *
+   * If used as an Array.filter() function, you must use the bind() function!
+   *
+   * @param key
+   * @return true if target and start date match, false otherwise.
+   */
+  TimeMachineKeyModel.prototype.isRelated = function(key) {
+    if (Type.isObject(key)) {
+      key = key.toString();
+    }
+
+    var relatedRegex = new RegExp(targetRegex.source + '(' + this.startDate
+        + ')' + delimiter + '(' + dateRegexSource + ')$', 'i');
+
+    return relatedRegex.test(key);
+  };
+
+  /**
+   * @param key
+   *          a key string or instance
+   * @return true if both keys match, false otherwise
+   */
+  TimeMachineKeyModel.prototype.isEqual = function(key) {
+    if (Type.isObject(key)) {
+      key = key.toString();
+    }
+
+    return this.toString() == key.toString();
   };
 
   return TimeMachineKeyModel;
