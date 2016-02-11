@@ -6,6 +6,8 @@
 	* legacy/scripts/ui/timemachinekeymodel.js: isValidKey, isRelated and isEqual added
 	isInitKey() added
 
+	* legacy/scripts/ui/timemachinekeyquerymodel.js: simple model for key name querying added
+
 2016-02-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/strings.js: single properties are auto-superseded by scripts/strings.js
