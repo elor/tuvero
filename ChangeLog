@@ -1,8 +1,10 @@
 2016-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/test/timemachinekeymodel.js: testing typical timemachinekey scenarios
+	testing isInitKey
 
 	* legacy/scripts/ui/timemachinekeymodel.js: isValidKey, isRelated and isEqual added
+	isInitKey() added
 
 2016-02-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

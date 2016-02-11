@@ -98,7 +98,31 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    *         otherwise
    */
   TimeMachineKeyModel.isValidKey = function(key) {
+    if (Type.isObject(key)) {
+      key = key.toString();
+    }
+
     return keyRegex.test(key);
+  };
+
+  /**
+   * Test whether a key is valid and an init key, i.e. both dates match
+   *
+   * @param key
+   *          a key
+   * @return true if valid and an init key, false otherwise
+   */
+  TimeMachineKeyModel.isInitKey = function(key) {
+    if (!TimeMachineKeyModel.isValidKey(key)) {
+      return false;
+    }
+
+    if (Type.isString(key)) {
+      key = new TimeMachineKeyModel(key);
+    }
+
+    return key instanceof TimeMachineKeyModel && key.startDate
+        && key.startDate == key.saveDate;
   };
 
   /**

@@ -31,6 +31,10 @@ define(function() {
 
       QUnit.equal(TimeMachineKeyModel.isValidKey(key.toString()), true,
           'serialized init-key is a valid key');
+      QUnit.equal(TimeMachineKeyModel.isInitKey(key), true,
+          'init-key is an init key');
+      QUnit.equal(TimeMachineKeyModel.isInitKey(key.toString()), true,
+          'serialized init-key is an init key');
       QUnit.equal(key.isRelated(key), true,
           'init-key is actually related to itself');
       QUnit.equal(key.isRelated(key.toString()), true,
@@ -65,6 +69,10 @@ define(function() {
 
       QUnit.equal(TimeMachineKeyModel.isValidKey(key2), true,
           'key2 is a valid key');
+      QUnit.equal(TimeMachineKeyModel.isInitKey(key2), false,
+          'save-key is no init key');
+      QUnit.equal(TimeMachineKeyModel.isInitKey(key2.toString()), false,
+          'serialized save-key is no init key');
 
       QUnit.equal(key2.isEqual(key2), true, 'key2 is equal to itself');
       QUnit.equal(key2.isRelated(key2), true, 'key2 is related to itself');
@@ -83,8 +91,16 @@ define(function() {
       QUnit.equal(key.toString(), ref, 'data is read and reconstructed as-is');
       QUnit.equal(key.isEqual(ref), true,
           'key is equal to its construction string');
+
       QUnit.equal(TimeMachineKeyModel.isValidKey(key), true,
           'string-constructed key is a valid key');
+      QUnit.equal(TimeMachineKeyModel.isInitKey(key), false,
+          'string-key is no init key');
+      QUnit.equal(TimeMachineKeyModel.isInitKey(key.toString()), false,
+          'serialized string-key is no init key');
+      QUnit.equal(TimeMachineKeyModel.isInitKey(ref), false,
+          'ref string is no init key');
+
       QUnit.equal(key.isEqual(key2), false, 'unrelated keys are unequal');
       QUnit.equal(key.isRelated(key2), false, 'unrelated keys are unrelated');
 
