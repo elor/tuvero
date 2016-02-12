@@ -231,6 +231,7 @@ define([
   'ui/templateview',
   'ui/textview',
   'ui/timemachinekeymodel',
+  'ui/timemachinekeyquerymodel',
   'ui/timemachinemodel',
   'ui/toast',
   'ui/tournamentcontroller',

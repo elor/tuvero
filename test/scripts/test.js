@@ -69,7 +69,8 @@ require(['config'], function() {
   'ui/test/listcollectormodel',
   'ui/test/playermodel',
   'ui/test/teammodel',
-  'ui/test/timemachinekeymodel'
+  'ui/test/timemachinekeymodel',
+  'ui/test/timemachinekeyquerymodel'
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {

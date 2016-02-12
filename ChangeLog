@@ -1,3 +1,9 @@
+2016-02-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/test/timemachinekeyquerymodel.js: testing local storage queries
+
+	* legacy/scripts/ui/timemachinekeyquerymodel.js: should be finished...
+
 2016-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/test/timemachinekeymodel.js: testing typical timemachinekey scenarios

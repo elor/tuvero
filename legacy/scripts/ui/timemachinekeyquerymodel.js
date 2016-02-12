@@ -16,13 +16,19 @@ function(extend, Model, TimeMachineKeyModel, Type) {
 
   /**
    * Constructor
+   *
+   * @param reference
+   *          a TimeMachineKeyModel instance/string (=> related keys) or one of
+   *          TimeMachineKeyQueryModel.ALLKEYS/INITKEYS/LASTKEYS/LATESTSAVE
    */
   function TimeMachineKeyQueryModel(reference) {
     TimeMachineKeyQueryModel.superconstructor.call(this);
 
     this.reference = reference;
-    if (!reference) {
-
+    if (reference === TimeMachineKeyQueryModel.ALLKEYS) {
+    } else if (reference === TimeMachineKeyQueryModel.INITKEYS) {
+    } else if (reference === TimeMachineKeyQueryModel.LASTKEYS) {
+    } else if (reference === TimeMachineKeyQueryModel.LATESTSAVE) {
     } else if (Type.isString(reference)) {
       this.referenceKey = new TimeMachineKeyModel(reference);
     } else if (reference instanceof TimeMachineKeyModel) {
@@ -39,6 +45,10 @@ function(extend, Model, TimeMachineKeyModel, Type) {
   TimeMachineKeyQueryModel.LASTKEYS = {};
   TimeMachineKeyQueryModel.LATESTSAVE = {};
 
+  /**
+   *
+   * @return an array of keys in the database which match the selection
+   */
   TimeMachineKeyQueryModel.prototype.filter = function() {
     var keys, trees, last, lastDate;
     keys = Object.keys(window.localStorage).filter(
@@ -48,7 +58,7 @@ function(extend, Model, TimeMachineKeyModel, Type) {
       return [];
     }
 
-    switch (this.referenceRaw) {
+    switch (this.reference) {
     case TimeMachineKeyQueryModel.ALLKEYS:
       // Nothing to do here. keys already contains all keys.
       break;
