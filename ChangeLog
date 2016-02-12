@@ -4,6 +4,10 @@
 
 	* legacy/scripts/ui/timemachinekeyquerymodel.js: should be finished...
 
+	* legacy/scripts/ui/test/timemachinekeymodel.js: testing isTuveroKey
+
+	* legacy/scripts/ui/timemachinekeymodel.js: isTuveroKey() function added for testing different targets
+
 2016-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/test/timemachinekeymodel.js: testing typical timemachinekey scenarios

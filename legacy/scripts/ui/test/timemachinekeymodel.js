@@ -21,6 +21,10 @@ define(function() {
       QUnit.ok(extend.isSubclass(TimeMachineKeyModel, Model),
           'TimeMachineKeyModel is subclass of Model');
 
+      /*
+       * init-key
+       */
+
       key = new TimeMachineKeyModel();
       QUnit.ok(key, 'empty initialization works (init-key)');
       QUnit.ok(key.toString(), 'init-key serialization works');
@@ -48,6 +52,10 @@ define(function() {
       QUnit.ok(date, 'startDate can be converted to an instance of Date');
       QUnit.equal(date.toISOString(), key.startDate,
           'Date conversion is fully reversible');
+
+      /*
+       * save-keys
+       */
 
       key2 = new TimeMachineKeyModel(key);
 
@@ -83,6 +91,10 @@ define(function() {
       QUnit.equal(key.isRelated(key2), true, 'key is related to key2');
       QUnit.equal(key.isEqual(key2), false, 'key is not equal to key2');
 
+      /*
+       * string construction
+       */
+
       ref = 'test_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
       QUnit.equal(TimeMachineKeyModel.isValidKey(ref), true,
           'ref is a valid key: ' + ref);
@@ -103,6 +115,21 @@ define(function() {
 
       QUnit.equal(key.isEqual(key2), false, 'unrelated keys are unequal');
       QUnit.equal(key.isRelated(key2), false, 'unrelated keys are unrelated');
+
+      /*
+       * other targets
+       */
+      ref = 'boule_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
+      QUnit.equal(TimeMachineKeyModel.isTuveroKey(ref), true,
+          'cross-target key is a tuvero key: ' + ref);
+      QUnit.equal(TimeMachineKeyModel.isValidKey(ref), false,
+          'cross-target key is not valid: ' + ref);
+
+      ref = 'basic_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
+      QUnit.equal(TimeMachineKeyModel.isTuveroKey(ref), true,
+          'cross-target key is a tuvero key: ' + ref);
+      QUnit.equal(TimeMachineKeyModel.isValidKey(ref), false,
+          'cross-target key is not valid: ' + ref);
 
       function testkey(keystring, keydescription) {
         var success = false;

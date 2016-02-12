@@ -8,7 +8,7 @@
  */
 define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     Model, Type, Presets) {
-  var delimiter, dateRegexSource, dateRegex, keyRegex;
+  var delimiter, dateRegexSource, dateRegex, keyRegex, tuveroKeyRegex;
 
   delimiter = '_';
   dateRegexSource = '[0-9]{4}-[0-9]{2}-[0-9]{2}'
@@ -17,6 +17,8 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
   targetRegex = new RegExp('^(' + Presets.target + ')' + delimiter);
   keyRegex = new RegExp(targetRegex.source + '(' + dateRegexSource + ')'
       + delimiter + '(' + dateRegexSource + ')$');
+  tuveroKeyRegex = new RegExp('^([a-z]*)' + delimiter + '(' + dateRegexSource
+      + ')' + delimiter + '(' + dateRegexSource + ')$');
 
   /**
    * Constructor. Either a root key (empty construction), a descendant of
@@ -103,6 +105,22 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     }
 
     return keyRegex.test(key);
+  };
+
+  /**
+   * Test whether the given key could in theory be used for another target
+   * (Basic, Boule, TAC, ...)
+   *
+   * @param key
+   *          a string representation of a key
+   * @return true if key matches the tuvero key format, regardless of the target
+   */
+  TimeMachineKeyModel.isTuveroKey = function(key) {
+    if (Type.isObject(key)) {
+      key = key.toString();
+    }
+
+    return tuveroKeyRegex.test(key);
   };
 
   /**
