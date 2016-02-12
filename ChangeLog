@@ -7,6 +7,11 @@
 	* legacy/scripts/ui/test/timemachinekeymodel.js: testing isTuveroKey
 
 	* legacy/scripts/ui/timemachinekeymodel.js: isTuveroKey() function added for testing different targets
+	construct() added
+
+	* legacy/scripts/ui/timemachinemodel.js: removed all code that has been moved to TimeMachineKeyModel
+
+	* legacy/scripts/ui/timemachinereflogmodel.js: TimeMachineRefLogModel functionality is there.
 
 2016-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

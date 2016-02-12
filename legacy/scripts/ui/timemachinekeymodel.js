@@ -74,6 +74,13 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
   }
   extend(TimeMachineKeyModel, Model);
 
+  // TODO test!
+  TimeMachineKeyModel.construct = function(startDate, saveDate) {
+    var str = [Presets.target, startDate, saveDate].join(delimiter);
+
+    return new TimeMachineKeyModel(str);
+  };
+
   /**
    * converts the the Key to a localStorage-compatible string representation *
    *

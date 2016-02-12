@@ -233,6 +233,7 @@ define([
   'ui/timemachinekeymodel',
   'ui/timemachinekeyquerymodel',
   'ui/timemachinemodel',
+  'ui/timemachinereflogmodel',
   'ui/toast',
   'ui/tournamentcontroller',
   'ui/tournamenthistoryview',
