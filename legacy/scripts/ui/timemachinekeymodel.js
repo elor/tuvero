@@ -184,5 +184,9 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     return this.toString() == key.toString();
   };
 
+  TimeMachineKeyModel.sortFunction = function(keyA, keyB) {
+    return keyA.toString().localeCompare(keyB.toString());
+  };
+
   return TimeMachineKeyModel;
 });

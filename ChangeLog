@@ -1,3 +1,18 @@
+2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/timemachinecommitmodel.js: transparent wrapper around reflog, localStorage and keys
+
+	* legacy/scripts/ui/timemachinekeymodel.js: sortFunction added
+
+	* legacy/scripts/ui/timemachinekeyquerymodel.js: ALLTUVEROKEYS added
+
+	* legacy/scripts/ui/timemachinemodel.js: completely remodeled
+
+	* legacy/scripts/ui/timemachinereflog.js: made into a singleton
+	moved from timemachinereflogmodel.js
+
+	* legacy/scripts/ui/timemachinereflogmodel.js: moved to timemachinereflog
+
 2016-02-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/test/timemachinekeyquerymodel.js: testing local storage queries

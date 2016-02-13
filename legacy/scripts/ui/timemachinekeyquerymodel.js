@@ -29,6 +29,7 @@ function(extend, Model, TimeMachineKeyModel, Type) {
     } else if (reference === TimeMachineKeyQueryModel.INITKEYS) {
     } else if (reference === TimeMachineKeyQueryModel.LASTKEYS) {
     } else if (reference === TimeMachineKeyQueryModel.LATESTSAVE) {
+    } else if (reference === TimeMachineKeyQueryModel.ALLTUVEROKEYS) {
     } else if (Type.isString(reference)) {
       this.referenceKey = new TimeMachineKeyModel(reference);
     } else if (reference instanceof TimeMachineKeyModel) {
@@ -40,10 +41,11 @@ function(extend, Model, TimeMachineKeyModel, Type) {
   }
   extend(TimeMachineKeyQueryModel, Model);
 
-  TimeMachineKeyQueryModel.ALLKEYS = undefined;
+  TimeMachineKeyQueryModel.ALLKEYS = undefined; // --> default behaviour
   TimeMachineKeyQueryModel.INITKEYS = {};
   TimeMachineKeyQueryModel.LASTKEYS = {};
   TimeMachineKeyQueryModel.LATESTSAVE = {};
+  TimeMachineKeyQueryModel.ALLTUVEROKEYS = {};
 
   /**
    *
@@ -51,8 +53,12 @@ function(extend, Model, TimeMachineKeyModel, Type) {
    */
   TimeMachineKeyQueryModel.prototype.filter = function() {
     var keys, trees, last, lastDate;
-    keys = Object.keys(window.localStorage).filter(
-        TimeMachineKeyModel.isValidKey);
+    keys = Object.keys(window.localStorage);
+    if (this.reference === TimeMachineKeyQueryModel.ALLTUVEROKEYS) {
+      keys = keys.filter(TimeMachineKeyModel.isTuveroKey)
+    } else {
+      keys = keys.filter(TimeMachineKeyModel.isValidKey)
+    }
 
     if (keys.length === 0) {
       return [];
@@ -60,6 +66,7 @@ function(extend, Model, TimeMachineKeyModel, Type) {
 
     switch (this.reference) {
     case TimeMachineKeyQueryModel.ALLKEYS:
+    case TimeMachineKeyQueryModel.ALLTUVEROKEYS:
       // Nothing to do here. keys already contains all keys.
       break;
     case TimeMachineKeyQueryModel.INITKEYS:

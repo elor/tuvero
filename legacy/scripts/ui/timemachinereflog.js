@@ -10,7 +10,7 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     'core/listmodel', 'core/listener', 'ui/timemachinekeymodel'], function(
     extend, Model, Presets, TimeMachineKeyQueryModel, ListModel, Listener,
     TimeMachineKeyModel) {
-  var reflogKey, reflogRegex;
+  var reflogKey, reflogRegex, TimeMachineRefLog;
 
   reflogKey = Presets.target + '-reflog';
   reflogRegex = /^[a-z]*-reflog$/;
@@ -232,6 +232,20 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     });
   };
 
+  TimeMachineRefLogModel.prototype.getAllKeys = function() {
+    var keys;
+
+    keys = this.getInitKeys();
+
+    Object.keys(this.data).forEach(function(startDate) {
+      Object.keys(this.data[startDate]).forEach(function(saveDate) {
+        keys.push(TimeMachineKeyModel.construct(startDate, saveDate));
+      });
+    }, this);
+
+    return keys.sort();
+  }
+
   TimeMachineRefLogModel.prototype.getInitKeys = function() {
     return Object.keys(this.data).sort().map(function(startDate) {
       return TimeMachineKeyModel.construct(startDate, startDate);
@@ -239,22 +253,20 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
   };
 
   TimeMachineRefLogModel.prototype.getLatestGlobalKey = function() {
-    var data, dates;
+    var data, latestKey;
 
     data = this.data;
-    dates = Object.keys(this.data).map(function(startDate) {
+    latestKey = Object.keys(this.data).map(function(startDate) {
       var saveDate = Object.keys(data[startDate]).sort().pop() || startDate;
-      return [startDate, saveDate];
-    }).sort(function(dates1, dates2) {
-      return dates2[1].localeCompare(dates1[1]);
-    })[0];
+      return TimeMachineKeyModel.construct(startDate, saveDate);
+    }).sort(TimeMachineKeyModel.sortFunction).pop();
 
-    if (!dates) {
+    if (!latestKey) {
       this.emit('error', 'reflog contains no data');
       return undefined;
     }
 
-    return TimeMachineKeyModel.construct(dates[0], dates[1]);
+    return latestKey;
   };
 
   TimeMachineRefLogModel.prototype.getLatestRelatedKey = function(refKey) {
@@ -323,5 +335,11 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     this.store();
   };
 
-  return TimeMachineRefLogModel;
+  TimeMachineRefLogModel.prototype.toString = function() {
+    return JSON.stringify(this.data);
+  };
+
+  TimeMachineRefLog = new TimeMachineRefLogModel();
+
+  return TimeMachineRefLog;
 });
