@@ -1,7 +1,7 @@
 /**
- * TimeMachineKeyModel *
+ * KeyModel *
  *
- * @return TimeMachineKeyModel
+ * @return KeyModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -22,17 +22,17 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
 
   /**
    * Constructor. Either a root key (empty construction), a descendant of
-   * another key (pass a TimeMachineKeyModel instance as parent) or a
+   * another key (pass a KeyModel instance as parent) or a
    * representation (pass a key string to read all info from) *
    *
    * @param reference
-   *          Leave empty to create a new key. TimeMachineKeyModel instance to
+   *          Leave empty to create a new key. KeyModel instance to
    *          create a child from, or a key string to create a representation
    *          from.
    */
-  function TimeMachineKeyModel(reference) {
+  function KeyModel(reference) {
     var matches;
-    TimeMachineKeyModel.superconstructor.call(this);
+    KeyModel.superconstructor.call(this);
 
     this.saveDate = (new Date()).toISOString();
     this.startDate = this.saveDate;
@@ -45,13 +45,13 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     if (Type.isString(reference)) {
       if (!targetRegex.test(reference)) {
         throw new Error(
-            'TimeMachineKeyModel reference string has wrong target: '
+            'KeyModel reference string has wrong target: '
                 + reference);
       }
       matches = keyRegex.exec(reference);
       if (!matches) {
         throw new Error(
-            'TimeMachineKeyModel reference string does not match format');
+            'KeyModel reference string does not match format');
       }
       if (matches.length != 4) {
         throw new Error('Regex Error? wrong number of captures (not 3): '
@@ -62,23 +62,23 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
       this.startDate = matches[2];
       this.saveDate = matches[3];
     } else if (Type.isObject(reference)
-        && reference instanceof TimeMachineKeyModel) {
+        && reference instanceof KeyModel) {
       if (!dateRegex.test(reference.startDate)) {
         throw new Error(
-            'referenced TimeMachineKeyModel startDate is no valid ISO 8601');
+            'referenced KeyModel startDate is no valid ISO 8601');
       }
       this.startDate = reference.startDate;
     } else if (reference !== undefined) {
-      throw new Error('TimeMachineKeyModel(): invalid argument: ' + reference);
+      throw new Error('KeyModel(): invalid argument: ' + reference);
     }
   }
-  extend(TimeMachineKeyModel, Model);
+  extend(KeyModel, Model);
 
   // TODO test!
-  TimeMachineKeyModel.construct = function(startDate, saveDate) {
+  KeyModel.construct = function(startDate, saveDate) {
     var str = [Presets.target, startDate, saveDate].join(delimiter);
 
-    return new TimeMachineKeyModel(str);
+    return new KeyModel(str);
   };
 
   /**
@@ -86,11 +86,11 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    *
    * @return a localStorage-compatible string representation of the key
    */
-  TimeMachineKeyModel.prototype.toString = function() {
+  KeyModel.prototype.toString = function() {
     var key = [this.target, this.startDate, this.saveDate].join(delimiter);
 
     if (!keyRegex.test(key)) {
-      throw new Error('created TimeMachineKeyModel does not match format: '
+      throw new Error('created KeyModel does not match format: '
           + key);
     }
 
@@ -106,7 +106,7 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    * @return true if key matches the key format and currently open target, false
    *         otherwise
    */
-  TimeMachineKeyModel.isValidKey = function(key) {
+  KeyModel.isValidKey = function(key) {
     if (Type.isObject(key)) {
       key = key.toString();
     }
@@ -122,7 +122,7 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    *          a string representation of a key
    * @return true if key matches the tuvero key format, regardless of the target
    */
-  TimeMachineKeyModel.isTuveroKey = function(key) {
+  KeyModel.isTuveroKey = function(key) {
     if (Type.isObject(key)) {
       key = key.toString();
     }
@@ -137,16 +137,16 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    *          a key
    * @return true if valid and an init key, false otherwise
    */
-  TimeMachineKeyModel.isInitKey = function(key) {
-    if (!TimeMachineKeyModel.isValidKey(key)) {
+  KeyModel.isInitKey = function(key) {
+    if (!KeyModel.isValidKey(key)) {
       return false;
     }
 
     if (Type.isString(key)) {
-      key = new TimeMachineKeyModel(key);
+      key = new KeyModel(key);
     }
 
-    return key instanceof TimeMachineKeyModel && key.startDate
+    return key instanceof KeyModel && key.startDate
         && key.startDate == key.saveDate;
   };
 
@@ -160,7 +160,7 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    * @param key
    * @return true if target and start date match, false otherwise.
    */
-  TimeMachineKeyModel.prototype.isRelated = function(key) {
+  KeyModel.prototype.isRelated = function(key) {
     if (Type.isObject(key)) {
       key = key.toString();
     }
@@ -176,7 +176,7 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    *          a key string or instance
    * @return true if both keys match, false otherwise
    */
-  TimeMachineKeyModel.prototype.isEqual = function(key) {
+  KeyModel.prototype.isEqual = function(key) {
     if (Type.isObject(key)) {
       key = key.toString();
     }
@@ -184,9 +184,9 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     return this.toString() == key.toString();
   };
 
-  TimeMachineKeyModel.sortFunction = function(keyA, keyB) {
+  KeyModel.sortFunction = function(keyA, keyB) {
     return keyA.toString().localeCompare(keyB.toString());
   };
 
-  return TimeMachineKeyModel;
+  return KeyModel;
 });

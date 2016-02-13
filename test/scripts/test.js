@@ -65,12 +65,12 @@ require(['config'], function() {
   'core/test/vectormodel',
   'backend/test/random',
 
+  'timemachine/test/keymodel',
+  'timemachine/test/keyquerymodel',
   'ui/test/binarytreemodel',
   'ui/test/listcollectormodel',
   'ui/test/playermodel',
-  'ui/test/teammodel',
-  'ui/test/timemachinekeymodel',
-  'ui/test/timemachinekeyquerymodel'
+  'ui/test/teammodel'
 ], function(Common, QUnit) {
           var i;
           for (i = 2; i < arguments.length; i += 1) {

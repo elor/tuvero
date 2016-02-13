@@ -1,5 +1,5 @@
 /**
- * Unit tests for TimeMachineKeyModel
+ * Unit tests for KeyModel
  *
  * @return test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -8,24 +8,24 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, TimeMachineKeyModel, Model, Presets;
+    var extend, KeyModel, Model, Presets;
 
     extend = getModule('lib/extend');
-    TimeMachineKeyModel = getModule('ui/timemachinekeymodel');
+    KeyModel = getModule('timemachine/keymodel');
     Model = getModule('core/model');
     Presets = getModule('presets');
 
-    QUnit.test('TimeMachineKeyModel', function() {
+    QUnit.test('KeyModel', function() {
       var key, key2, ref, date;
 
-      QUnit.ok(extend.isSubclass(TimeMachineKeyModel, Model),
-          'TimeMachineKeyModel is subclass of Model');
+      QUnit.ok(extend.isSubclass(KeyModel, Model),
+          'KeyModel is subclass of Model');
 
       /*
        * init-key
        */
 
-      key = new TimeMachineKeyModel();
+      key = new KeyModel();
       QUnit.ok(key, 'empty initialization works (init-key)');
       QUnit.ok(key.toString(), 'init-key serialization works');
       QUnit.ok(key.startDate, 'init-key startDate is set');
@@ -33,11 +33,11 @@ define(function() {
       QUnit.equal(key.startDate, key.saveDate, 'init-key dates match');
       QUnit.equal(key.target, Presets.target, 'init-key target matches');
 
-      QUnit.equal(TimeMachineKeyModel.isValidKey(key.toString()), true,
+      QUnit.equal(KeyModel.isValidKey(key.toString()), true,
           'serialized init-key is a valid key');
-      QUnit.equal(TimeMachineKeyModel.isInitKey(key), true,
+      QUnit.equal(KeyModel.isInitKey(key), true,
           'init-key is an init key');
-      QUnit.equal(TimeMachineKeyModel.isInitKey(key.toString()), true,
+      QUnit.equal(KeyModel.isInitKey(key.toString()), true,
           'serialized init-key is an init key');
       QUnit.equal(key.isRelated(key), true,
           'init-key is actually related to itself');
@@ -57,7 +57,7 @@ define(function() {
        * save-keys
        */
 
-      key2 = new TimeMachineKeyModel(key);
+      key2 = new KeyModel(key);
 
       QUnit.ok(key2, 'reference initialization works (save-key)');
       QUnit.ok(key2.toString(), 'save-key serialization works');
@@ -75,11 +75,11 @@ define(function() {
       QUnit.equal(date.toISOString(), key.saveDate,
           'Date conversion is fully reversible');
 
-      QUnit.equal(TimeMachineKeyModel.isValidKey(key2), true,
+      QUnit.equal(KeyModel.isValidKey(key2), true,
           'key2 is a valid key');
-      QUnit.equal(TimeMachineKeyModel.isInitKey(key2), false,
+      QUnit.equal(KeyModel.isInitKey(key2), false,
           'save-key is no init key');
-      QUnit.equal(TimeMachineKeyModel.isInitKey(key2.toString()), false,
+      QUnit.equal(KeyModel.isInitKey(key2.toString()), false,
           'serialized save-key is no init key');
 
       QUnit.equal(key2.isEqual(key2), true, 'key2 is equal to itself');
@@ -96,21 +96,21 @@ define(function() {
        */
 
       ref = 'test_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
-      QUnit.equal(TimeMachineKeyModel.isValidKey(ref), true,
+      QUnit.equal(KeyModel.isValidKey(ref), true,
           'ref is a valid key: ' + ref);
-      key = new TimeMachineKeyModel(ref);
+      key = new KeyModel(ref);
       QUnit.ok(key, 'string-key construction works');
       QUnit.equal(key.toString(), ref, 'data is read and reconstructed as-is');
       QUnit.equal(key.isEqual(ref), true,
           'key is equal to its construction string');
 
-      QUnit.equal(TimeMachineKeyModel.isValidKey(key), true,
+      QUnit.equal(KeyModel.isValidKey(key), true,
           'string-constructed key is a valid key');
-      QUnit.equal(TimeMachineKeyModel.isInitKey(key), false,
+      QUnit.equal(KeyModel.isInitKey(key), false,
           'string-key is no init key');
-      QUnit.equal(TimeMachineKeyModel.isInitKey(key.toString()), false,
+      QUnit.equal(KeyModel.isInitKey(key.toString()), false,
           'serialized string-key is no init key');
-      QUnit.equal(TimeMachineKeyModel.isInitKey(ref), false,
+      QUnit.equal(KeyModel.isInitKey(ref), false,
           'ref string is no init key');
 
       QUnit.equal(key.isEqual(key2), false, 'unrelated keys are unequal');
@@ -120,22 +120,22 @@ define(function() {
        * other targets
        */
       ref = 'boule_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
-      QUnit.equal(TimeMachineKeyModel.isTuveroKey(ref), true,
+      QUnit.equal(KeyModel.isTuveroKey(ref), true,
           'cross-target key is a tuvero key: ' + ref);
-      QUnit.equal(TimeMachineKeyModel.isValidKey(ref), false,
+      QUnit.equal(KeyModel.isValidKey(ref), false,
           'cross-target key is not valid: ' + ref);
 
       ref = 'basic_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
-      QUnit.equal(TimeMachineKeyModel.isTuveroKey(ref), true,
+      QUnit.equal(KeyModel.isTuveroKey(ref), true,
           'cross-target key is a tuvero key: ' + ref);
-      QUnit.equal(TimeMachineKeyModel.isValidKey(ref), false,
+      QUnit.equal(KeyModel.isValidKey(ref), false,
           'cross-target key is not valid: ' + ref);
 
       function testkey(keystring, keydescription) {
         var success = false;
         key = undefined;
         try {
-          key = new TimeMachineKeyModel(keystring);
+          key = new KeyModel(keystring);
         } catch (e) {
           success = true;
         }

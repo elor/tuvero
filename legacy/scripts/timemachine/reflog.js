@@ -1,16 +1,15 @@
 /**
- * TimeMachineRefLogModel
+ * RefLogModel
  *
- * @return TimeMachineRefLogModel
+ * @return RefLogModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
-    'core/listmodel', 'core/listener', 'ui/timemachinekeymodel'], function(
-    extend, Model, Presets, TimeMachineKeyQueryModel, ListModel, Listener,
-    TimeMachineKeyModel) {
-  var reflogKey, reflogRegex, TimeMachineRefLog;
+define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
+    'core/listmodel', 'core/listener', 'timemachine/keymodel'], function(
+    extend, Model, Presets, KeyQueryModel, ListModel, Listener, KeyModel) {
+  var reflogKey, reflogRegex, RefLog;
 
   reflogKey = Presets.target + '-reflog';
   reflogRegex = /^[a-z]*-reflog$/;
@@ -18,8 +17,8 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
   /**
    * Constructor
    */
-  function TimeMachineRefLogModel() {
-    TimeMachineRefLogModel.superconstructor.call(this);
+  function RefLogModel() {
+    RefLogModel.superconstructor.call(this);
 
     this.data = {};
 
@@ -29,13 +28,19 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
 
     this.refresh();
   }
-  extend(TimeMachineRefLogModel, Model);
+  extend(RefLogModel, Model);
 
-  TimeMachineRefLogModel.prototype.EVENTS = {
-    'error': true
+  RefLogModel.prototype.EVENTS = {
+    'error': true,
+    'reset': true,
+    'remove': true,
+    'parentchanged': true,
+    'initkey': true,
+    'savekey': true
   };
 
-  TimeMachineRefLogModel.prototype.refresh = function() {
+  RefLogModel.prototype.refresh = function() {
+    this.reset();
     if (!window.localStorage) {
       this.emit('error', 'This browser does not support LocalStorage!');
       return false;
@@ -48,7 +53,6 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
       return this.reconstruct();
     }
 
-    this.data = undefined;
     try {
       this.data = JSON.parse(window.localStorage[reflogKey]);
     } catch (e) {
@@ -70,24 +74,26 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return true;
   };
 
-  TimeMachineRefLogModel.prototype.reconstruct = function() {
+  RefLogModel.prototype.reconstruct = function() {
     var query, data;
 
-    query = new TimeMachineKeyQueryModel(TimeMachineKeyQueryModel.INITKEYS);
+    this.reset();
+
+    query = new KeyQueryModel(KeyQueryModel.INITKEYS);
     data = {};
 
     query.filter().forEach(function(initKey) {
       var keyQuery, initDate, refDate;
 
-      initKey = new TimeMachineKeyModel(initKey);
-      keyQuery = new TimeMachineKeyQueryModel(initKey);
+      initKey = new KeyModel(initKey);
+      keyQuery = new KeyQueryModel(initKey);
 
       initDate = initKey.startDate;
       data[initDate] = {};
       refDate = initKey.startDate;
 
       keyQuery.filter().forEach(function(saveKey) {
-        saveKey = new TimeMachineKeyModel(saveKey);
+        saveKey = new KeyModel(saveKey);
 
         if (saveKey.isEqual(initKey)) {
           return;
@@ -108,7 +114,7 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return true;
   };
 
-  TimeMachineRefLogModel.prototype.store = function() {
+  RefLogModel.prototype.store = function() {
     var dataString;
 
     if (!this.isValid()) {
@@ -123,7 +129,7 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return window.localStorage[reflogKey] === dataString;
   };
 
-  TimeMachineRefLogModel.prototype.isValid = function() {
+  RefLogModel.prototype.isValid = function() {
     if (!this.data) {
       return false;
     }
@@ -132,14 +138,14 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return true;
   };
 
-  TimeMachineRefLogModel.prototype.newSaveKey = function(parentKey) {
+  RefLogModel.prototype.newSaveKey = function(parentKey) {
     var newKey, startDate, refDate, saveDate;
     if (!parentKey) {
       this.emit('error', 'newSaveKey: no parent key given');
       return undefined;
     }
 
-    newKey = new TimeMachineKeyModel(parentKey);
+    newKey = new KeyModel(parentKey);
 
     if (!parentKey.isRelated(newKey)) {
       this.emit('error', 'unexpected error: newKey is unrelated to parentKey');
@@ -170,8 +176,8 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return newKey;
   };
 
-  TimeMachineRefLogModel.prototype.newInitKey = function() {
-    var newKey = new TimeMachineKeyModel();
+  RefLogModel.prototype.newInitKey = function() {
+    var newKey = new KeyModel();
 
     if (!this.data) {
       this.emit('error', 'reflog contains no data! reconstructing...');
@@ -188,12 +194,12 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return newKey;
   };
 
-  TimeMachineRefLogModel.prototype.contains = function(refKey) {
+  RefLogModel.prototype.contains = function(refKey) {
     if (!this.data[refKey.startDate]) {
       return false;
     }
 
-    if (TimeMachineKeyModel.isInitKey(refKey)) {
+    if (KeyModel.isInitKey(refKey)) {
       return true;
     }
 
@@ -204,21 +210,21 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return true;
   };
 
-  TimeMachineRefLogModel.prototype.getParent = function(refKey) {
+  RefLogModel.prototype.getParent = function(refKey) {
     if (!this.contains(refKey)) {
       this.emit('error', 'reflog does not contain key for parent search!');
       return undefined;
     }
 
-    if (TimeMachineKeyModel.isInitKey(refKey)) {
+    if (KeyModel.isInitKey(refKey)) {
       return undefined;
     }
 
-    return TimeMachineKeyModel.construct(refKey.startDate,
+    return KeyModel.construct(refKey.startDate,
         this.data[refKey.startDate][refKey.saveDate]);
   };
 
-  TimeMachineRefLogModel.prototype.getChildren = function(refKey) {
+  RefLogModel.prototype.getChildren = function(refKey) {
     if (!this.contains(refKey)) {
       this.emit('error', 'reflog does not contain key for children search');
       return undefined;
@@ -228,38 +234,38 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
       var parentDate = this.data[refKey.startDate][saveDate];
       return parentDate === refKey.saveDate;
     }, this).map(function(saveDate) {
-      return TimeMachineKeyModel.construct(refKey.startDate, saveDate);
+      return KeyModel.construct(refKey.startDate, saveDate);
     });
   };
 
-  TimeMachineRefLogModel.prototype.getAllKeys = function() {
+  RefLogModel.prototype.getAllKeys = function() {
     var keys;
 
     keys = this.getInitKeys();
 
     Object.keys(this.data).forEach(function(startDate) {
       Object.keys(this.data[startDate]).forEach(function(saveDate) {
-        keys.push(TimeMachineKeyModel.construct(startDate, saveDate));
+        keys.push(KeyModel.construct(startDate, saveDate));
       });
     }, this);
 
     return keys.sort();
   }
 
-  TimeMachineRefLogModel.prototype.getInitKeys = function() {
+  RefLogModel.prototype.getInitKeys = function() {
     return Object.keys(this.data).sort().map(function(startDate) {
-      return TimeMachineKeyModel.construct(startDate, startDate);
+      return KeyModel.construct(startDate, startDate);
     });
   };
 
-  TimeMachineRefLogModel.prototype.getLatestGlobalKey = function() {
+  RefLogModel.prototype.getLatestGlobalKey = function() {
     var data, latestKey;
 
     data = this.data;
     latestKey = Object.keys(this.data).map(function(startDate) {
       var saveDate = Object.keys(data[startDate]).sort().pop() || startDate;
-      return TimeMachineKeyModel.construct(startDate, saveDate);
-    }).sort(TimeMachineKeyModel.sortFunction).pop();
+      return KeyModel.construct(startDate, saveDate);
+    }).sort(KeyModel.sortFunction).pop();
 
     if (!latestKey) {
       this.emit('error', 'reflog contains no data');
@@ -269,10 +275,10 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     return latestKey;
   };
 
-  TimeMachineRefLogModel.prototype.getLatestRelatedKey = function(refKey) {
+  RefLogModel.prototype.getLatestRelatedKey = function(refKey) {
     var startDate, saveDate, latestKey;
 
-    if (!TimeMachineKeyModel.isValidKey(refKey)) {
+    if (!KeyModel.isValidKey(refKey)) {
       this.emit('error', 'getLatestRelatedKey(): refKey is invalid')
       return undefined;
     }
@@ -286,31 +292,45 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
 
     saveDate = Object.keys(this.data[startDate]).sort().pop() || startDate;
 
-    return TimeMachineKeyModel.construct(startDate, saveDate);
+    return KeyModel.construct(startDate, saveDate);
   };
 
-  TimeMachineRefLogModel.prototype.reset = function() {
+  RefLogModel.prototype.reset = function() {
+    if (!this.data) {
+      this.emit('error', 'RefLog.reset(): data is undefined');
+      this.data = {};
+      return;
+    }
+
+    if (Object.keys(this.data).length === 0) {
+      // data is already empty. Nothing to do here. (Don't overwrite storage!)
+      return;
+    }
+
     this.data = {};
+
+    this.emit('reset');
 
     this.store();
   };
 
-  TimeMachineRefLogModel.prototype.deleteTree = function(refKey) {
+  RefLogModel.prototype.deleteTree = function(refKey) {
     delete this.data[refKey.startDate];
 
     this.store();
   };
 
-  TimeMachineRefLogModel.prototype.deleteKey = function(refKey) {
+  RefLogModel.prototype.deleteKey = function(refKey) {
     var parentKey, children;
 
-    if (TimeMachineKeyModel.isInitKey(refKey)) {
+    if (KeyModel.isInitKey(refKey)) {
       this.emit('error', 'cannot delete a single init key. '
-          + 'use deleteTournament() instead');
+          + 'use deleteTree() instead');
+      return undefined;
     }
 
     if (!this.contains(refKey)) {
-      this.emit('error', 'deleteKey(): refKey is not in reflog!');
+      // this.emit('error', 'deleteKey(): refKey is not in reflog!');
       return undefined;
     }
 
@@ -335,11 +355,11 @@ define(['lib/extend', 'core/model', 'presets', 'ui/timemachinekeyquerymodel',
     this.store();
   };
 
-  TimeMachineRefLogModel.prototype.toString = function() {
+  RefLogModel.prototype.toString = function() {
     return JSON.stringify(this.data);
   };
 
-  TimeMachineRefLog = new TimeMachineRefLogModel();
+  RefLog = new RefLogModel();
 
-  return TimeMachineRefLog;
+  return RefLog;
 });

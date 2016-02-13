@@ -5,6 +5,7 @@
 coredir=core/scripts
 uidir=legacy/scripts/ui
 backenddir=legacy/scripts/backend
+timemachinedir=legacy/scripts/timemachine
 libdir=lib
 
 printrefs(){
@@ -28,6 +29,7 @@ define([
 $(printrefs lib $libdir)
 $(printrefs core $coredir)
 $(printrefs backend $backenddir)
+$(printrefs timemachine $timemachinedir)
 $(printrefs ui $uidir | sed '$s/,$//')
 ], function(undefined) {
   var Common = function(str) {

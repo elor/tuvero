@@ -30,6 +30,7 @@ require.config({
      */
     'lib': '../../lib',
     'ui': '../../legacy/scripts/ui',
+    'timemachine' : '../../legacy/scripts/timemachine',
     'backend': '../../legacy/scripts/backend',
     'jquery': '../../lib/jquery',
     'filesaver': '../../lib/FileSaver'

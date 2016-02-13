@@ -6,13 +6,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['presets', 'lib/modernizr', 'core/valuemodel'], function(Presets,
-    Modernizr, ValueModel) {
-  var Storage, keys, savespending;
+define(['presets', 'lib/modernizr', 'core/valuemodel', 'timemachine/model'], //
+function(Presets, Modernizr, ValueModel, TimeMachineModel) {
+  var Storage, keys, savespending, timeMachine;
 
   Storage = {};
   keys = {};
   savespending = {};
+
+  timeMachine = new TimeMachineModel();
 
   Storage.lastSaved = new ValueModel(undefined);
 
@@ -35,8 +37,12 @@ define(['presets', 'lib/modernizr', 'core/valuemodel'], function(Presets,
       return true;
     }
 
-//    console.log('storing ' + key);
+    console.log('storing ' + key);
     window.localStorage.setItem(key, blob);
+    // FIXME DEBUGGING CODE AHEAD!
+    if (key === Presets.names.dbname) {
+      console.log('saving to ' + timeMachine.save(blob).key);
+    }
 
     return window.localStorage.getItem(key) !== blob;
   }

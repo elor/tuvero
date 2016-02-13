@@ -5,6 +5,7 @@
 coredir=core/scripts
 uidir=legacy/scripts/ui
 backenddir=legacy/scripts/backend
+timemachinedir=legacy/scripts/timemachine
 libdir=lib
 
 printrefs(){
@@ -27,6 +28,7 @@ require(['config'], function() {
 $(printrefs core $coredir)
 $(printrefs backend $backenddir)
 $(printrefs lib $libdir)
+$(printrefs timemachine $timemachinedir)
 $(printrefs ui $uidir | sed '$s/,$//')
 ], function(Common, QUnit) {
           var i;
