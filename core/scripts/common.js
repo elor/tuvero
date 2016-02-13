@@ -235,6 +235,7 @@ define([
   'ui/teamview',
   'ui/templateview',
   'ui/textview',
+  'ui/timemachinecommitview',
   'ui/toast',
   'ui/tournamentcontroller',
   'ui/tournamenthistoryview',

@@ -5,9 +5,11 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './valueview', './storage',
-    './storagesavecontroller', './fileloadcontroller', //
-    './csvexportcontroller'], function(extend, $, View, ValueView, Storage,
-    StorageSaveController, FileLoadController, CSVExportController) {
+    './storagesavecontroller', './fileloadcontroller', './csvexportcontroller',
+    'ui/timemachinecommitview', 'ui/listview', 'timemachine/timemachine'], //
+function(extend, $, View, ValueView, Storage, StorageSaveController,
+    FileLoadController, CSVExportController, TimeMachineCommitView, ListView,
+    TimeMachine) {
   /**
    * represents a whole team tab
    *
@@ -59,6 +61,14 @@ define(['lib/extend', 'jquery', 'core/view', './valueview', './storage',
     $container = this.$view.find('.csv');
     this.csvExportController = new CSVExportController(new View(undefined,
         $container));
+
+    /*
+     * Time Machine Commits
+     */
+    $container = this.$view.find('.initcommits');
+    $template = $container.find('.template');
+    this.initCommits = new ListView(TimeMachine.roots, $container, $template,
+        TimeMachineCommitView);
   };
 
   // FIXME CHEAP HACK AHEAD
