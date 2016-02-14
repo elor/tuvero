@@ -40,6 +40,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
         CommitModel);
     this.rootsCollector.registerListener(this);
 
+    RefLog.registerListener(this);
+
     this.updateRoots();
 
     /*
@@ -237,6 +239,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     }
   };
 
+  TimeMachineModel.prototype.onrefresh = function(event, emitter, data) {
+    this.updateRoots();
+  };
+
   /*
    * DEBUG START
    */
@@ -249,7 +255,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       console.log(lastReflog);
       console.log(JSON.stringify(window.TimeMachine.usedStorage()));
     }
-  }, 50);
+  }, 500);
   /*
    * DEBUG END
    */

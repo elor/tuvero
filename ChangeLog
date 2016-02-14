@@ -2,11 +2,13 @@
 
 	* legacy/scripts/timemachine/reflog.js: formatTargetKey() function for database key creation
 	many comments added
+	support for multiple parallel browser sessions added
 
 	* legacy/scripts/timemachine/timemachine.js: usedRelatedStorage() lists the storage size of a single tree
 	listening for 'remove' events on root commits
 	using createRoot() and createChild()
-	commented
+	comments added
+	reflog-debug interval increased from 50 to 500 ms
 
 	* legacy/scripts/ui/timemachinecommitview.js: showing usedRelatedStorage() information
 
