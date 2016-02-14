@@ -21,7 +21,7 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine'], function(extend,
   extend(TimeMachineCommitView, View);
 
   TimeMachineCommitView.prototype.updateText = function() {
-    var startDate, saveDate, youngestAncestor;
+    var startDate, saveDate, youngestAncestor, storageSize;
 
     startDate = new Date(this.model.key.startDate);
     startDate = startDate.toLocaleString();
@@ -32,7 +32,10 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine'], function(extend,
       saveDate = youngestAncestor.toLocaleString();
     }
 
-    this.$view.text(startDate + ' - ' + saveDate);
+    storageSize = TimeMachine.usedRelatedStorage(this.model);
+    storageSize = Math.round(storageSize / 102.4) / 10;
+
+    this.$view.text(startDate + ' - ' + saveDate + ' (' + storageSize + 'kB)');
   };
 
   TimeMachineCommitView.prototype.onsave = function(event, emitter, commit) {

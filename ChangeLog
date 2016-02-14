@@ -2,6 +2,10 @@
 
 	* legacy/scripts/timemachine/reflog.js: formatTargetKey() function for database key creation
 
+	* legacy/scripts/timemachine/timemachine.js: usedRelatedStorage() lists the storage size of a single tree
+
+	* legacy/scripts/ui/timemachinecommitview.js: showing usedRelatedStorage() information
+
 2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitmodel.js: transparent wrapper around reflog, localStorage and keys

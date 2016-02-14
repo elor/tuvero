@@ -142,6 +142,20 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     return orphanedCommits.sort(CommitModel.sortFunction);
   };
 
+  TimeMachineModel.prototype.usedRelatedStorage = function(commit) {
+    var total, query;
+
+    total = 0;
+    query = new KeyQueryModel(commit.key);
+
+    query.filter().forEach(function(key) {
+      var data = localStorage[key] || '';
+      total += data.length;
+    });
+
+    return total;
+  };
+
   TimeMachineModel.prototype.usedStorage = function() {
     var tuveroQuery, keys, targetSizes, total;
 
@@ -158,11 +172,13 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     });
 
     total = 0;
-    Object.keys(targetSizes).forEach(function(target) {
-      // TODO use RefLog.dbstring() function or something
-      targetSizes[target] += (localStorage[target + '-reflog'] || '').length;
-      total += targetSizes[target];
-    });
+    Object.keys(targetSizes)
+        .forEach(
+            function(target) {
+              targetSizes[target] += (localStorage[RefLog
+                  .formatTargetKey(target)] || '').length;
+              total += targetSizes[target];
+            });
     targetSizes.total = total;
 
     return targetSizes;
