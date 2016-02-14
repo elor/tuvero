@@ -9,10 +9,7 @@
 define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
     'core/listmodel', 'core/listener', 'timemachine/keymodel'], function(
     extend, Model, Presets, KeyQueryModel, ListModel, Listener, KeyModel) {
-  var reflogKey, reflogRegex, RefLog;
-
-  reflogKey = Presets.target + '-reflog';
-  reflogRegex = /^[a-z]*-reflog$/;
+  var RefLog;
 
   /**
    * Constructor
@@ -21,6 +18,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
     RefLogModel.superconstructor.call(this);
 
     this.data = {};
+    this.storageKey = this.formatTargetKey(Presets.target);
 
     Listener.bind(this, 'error', function(event, emitter, message) {
       console.error(message);
@@ -46,15 +44,15 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
       return false;
     }
 
-    if (!window.localStorage[reflogKey]
-        || window.localStorage[reflogKey] === 'undefined') {
-      this.emit('error', reflogKey
+    if (!window.localStorage[this.storageKey]
+        || window.localStorage[this.storageKey] === 'undefined') {
+      this.emit('error', this.storageKey
           + ' key missing in LocalStorage! Reconstructing...');
       return this.reconstruct();
     }
 
     try {
-      this.data = JSON.parse(window.localStorage[reflogKey]);
+      this.data = JSON.parse(window.localStorage[this.storageKey]);
     } catch (e) {
       console.error(e.stack);
     }
@@ -124,9 +122,9 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
 
     dataString = JSON.stringify(this.data);
 
-    window.localStorage[reflogKey] = dataString;
+    window.localStorage[this.storageKey] = dataString;
 
-    return window.localStorage[reflogKey] === dataString;
+    return window.localStorage[this.storageKey] === dataString;
   };
 
   RefLogModel.prototype.isValid = function() {
@@ -357,6 +355,10 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
 
   RefLogModel.prototype.toString = function() {
     return JSON.stringify(this.data);
+  };
+
+  RefLogModel.prototype.formatTargetKey = function(target) {
+    return target + '-reflog';
   };
 
   RefLog = new RefLogModel();

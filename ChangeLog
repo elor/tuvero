@@ -1,3 +1,7 @@
+2016-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/timemachine/reflog.js: formatTargetKey() function for database key creation
+
 2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitmodel.js: transparent wrapper around reflog, localStorage and keys
