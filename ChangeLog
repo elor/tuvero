@@ -7,6 +7,11 @@
 
 	* legacy/scripts/ui/timemachinecommitview.js: showing usedRelatedStorage() information
 
+	* legacy/scripts/timemachine/commitmodel.js: function comments added
+	isAncestorOf() added
+	emitting 'remove' events
+	isEqual() added
+
 2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitmodel.js: transparent wrapper around reflog, localStorage and keys
