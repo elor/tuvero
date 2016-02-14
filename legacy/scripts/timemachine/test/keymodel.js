@@ -25,7 +25,7 @@ define(function() {
        * init-key
        */
 
-      key = new KeyModel();
+      key = KeyModel.createRoot();
       QUnit.ok(key, 'empty initialization works (init-key)');
       QUnit.ok(key.toString(), 'init-key serialization works');
       QUnit.ok(key.startDate, 'init-key startDate is set');
@@ -35,10 +35,8 @@ define(function() {
 
       QUnit.equal(KeyModel.isValidKey(key.toString()), true,
           'serialized init-key is a valid key');
-      QUnit.equal(KeyModel.isInitKey(key), true,
+      QUnit.equal(key.isRoot(), true,
           'init-key is an init key');
-      QUnit.equal(KeyModel.isInitKey(key.toString()), true,
-          'serialized init-key is an init key');
       QUnit.equal(key.isRelated(key), true,
           'init-key is actually related to itself');
       QUnit.equal(key.isRelated(key.toString()), true,
@@ -57,7 +55,7 @@ define(function() {
        * save-keys
        */
 
-      key2 = new KeyModel(key);
+      key2 = KeyModel.createChild(key);
 
       QUnit.ok(key2, 'reference initialization works (save-key)');
       QUnit.ok(key2.toString(), 'save-key serialization works');
@@ -77,10 +75,8 @@ define(function() {
 
       QUnit.equal(KeyModel.isValidKey(key2), true,
           'key2 is a valid key');
-      QUnit.equal(KeyModel.isInitKey(key2), false,
+      QUnit.equal(key2.isRoot(), false,
           'save-key is no init key');
-      QUnit.equal(KeyModel.isInitKey(key2.toString()), false,
-          'serialized save-key is no init key');
 
       QUnit.equal(key2.isEqual(key2), true, 'key2 is equal to itself');
       QUnit.equal(key2.isRelated(key2), true, 'key2 is related to itself');
@@ -98,7 +94,7 @@ define(function() {
       ref = 'test_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
       QUnit.equal(KeyModel.isValidKey(ref), true,
           'ref is a valid key: ' + ref);
-      key = new KeyModel(ref);
+      key = KeyModel.fromString(ref);
       QUnit.ok(key, 'string-key construction works');
       QUnit.equal(key.toString(), ref, 'data is read and reconstructed as-is');
       QUnit.equal(key.isEqual(ref), true,
@@ -106,12 +102,8 @@ define(function() {
 
       QUnit.equal(KeyModel.isValidKey(key), true,
           'string-constructed key is a valid key');
-      QUnit.equal(KeyModel.isInitKey(key), false,
+      QUnit.equal(key.isRoot(), false,
           'string-key is no init key');
-      QUnit.equal(KeyModel.isInitKey(key.toString()), false,
-          'serialized string-key is no init key');
-      QUnit.equal(KeyModel.isInitKey(ref), false,
-          'ref string is no init key');
 
       QUnit.equal(key.isEqual(key2), false, 'unrelated keys are unequal');
       QUnit.equal(key.isRelated(key2), false, 'unrelated keys are unrelated');
@@ -135,7 +127,7 @@ define(function() {
         var success = false;
         key = undefined;
         try {
-          key = new KeyModel(keystring);
+          key = KeyModel.fromString(keystring);
         } catch (e) {
           success = true;
         }

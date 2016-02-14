@@ -39,13 +39,13 @@ define(function() {
           'ALL-query on cleared localStorage returns no results');
 
       ref = 'test_2016-02-12T12:10:11.591Z_2016-02-12T12:10:11.591Z';
-      key = new KeyModel(ref);
-      key2 = new KeyModel(key);
+      key = KeyModel.fromString(ref);
+      key2 = KeyModel.fromString(key);
 
       ref = 'test_2015-06-01T19:55:12.512Z_2015-06-01T19:55:12.512Z';
-      key3 = new KeyModel(ref);
+      key3 = KeyModel.fromString(ref);
       ref = 'test_2015-06-01T19:55:12.512Z_2345-10-01T20:55:12.512Z';
-      key4 = new KeyModel(ref);
+      key4 = KeyModel.fromString(ref);
 
       localStorage.setItem(key, 'test');
       localStorage.setItem(key2, 'test');

@@ -15,6 +15,7 @@
 	init-key renamed to root key
 	init() and save() renamed to createRoot() and createChild()
 	getRoot() added
+	getYoungestAncestor -> getYoungestDescendant
 
 	* core/templates/settingstab.html: order of boxes changed for better debugging
 
@@ -23,6 +24,8 @@
 	* legacy/scripts/timemachine/query.js: moved from keyquerymodel
 	Model dependency removed
 	renamed to Query
+
+	* legacy/scripts/timemachine/keymodel.js: avoiding the overloaded constructor
 
 2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

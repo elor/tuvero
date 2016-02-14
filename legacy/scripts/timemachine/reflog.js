@@ -83,7 +83,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     query.filter().forEach(function(initKey) {
       var keyQuery, initDate, refDate;
 
-      initKey = new KeyModel(initKey);
+      initKey = KeyModel.fromString(initKey);
       keyQuery = new Query(initKey);
 
       initDate = initKey.startDate;
@@ -91,7 +91,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
       refDate = initKey.startDate;
 
       keyQuery.filter().forEach(function(saveKey) {
-        saveKey = new KeyModel(saveKey);
+        saveKey = KeyModel.fromString(saveKey);
 
         if (saveKey.isEqual(initKey)) {
           return;
@@ -104,8 +104,6 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     });
 
     this.data = data;
-
-    console.log(this.data)
 
     this.store();
 
@@ -143,7 +141,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
       return undefined;
     }
 
-    newKey = new KeyModel(parentKey);
+    newKey = KeyModel.createChild(parentKey);
 
     if (!parentKey.isRelated(newKey)) {
       this.emit('error', 'unexpected error: newKey is unrelated to parentKey');
@@ -175,7 +173,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   };
 
   RefLogModel.prototype.newInitKey = function() {
-    var newKey = new KeyModel();
+    var newKey = KeyModel.createRoot();
 
     if (!this.data) {
       this.emit('error', 'reflog contains no data! reconstructing...');
@@ -197,7 +195,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
       return false;
     }
 
-    if (KeyModel.isInitKey(refKey)) {
+    if (refKey.isRoot()) {
       return true;
     }
 
@@ -214,11 +212,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
       return undefined;
     }
 
-    if (KeyModel.isInitKey(refKey)) {
+    if (refKey.isRoot()) {
       return undefined;
     }
 
-    return KeyModel.construct(refKey.startDate,
+    return new KeyModel(refKey.startDate,
         this.data[refKey.startDate][refKey.saveDate]);
   };
 
@@ -232,7 +230,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
       var parentDate = this.data[refKey.startDate][saveDate];
       return parentDate === refKey.saveDate;
     }, this).map(function(saveDate) {
-      return KeyModel.construct(refKey.startDate, saveDate);
+      return new KeyModel(refKey.startDate, saveDate);
     });
   };
 
@@ -243,7 +241,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
     Object.keys(this.data).forEach(function(startDate) {
       Object.keys(this.data[startDate]).forEach(function(saveDate) {
-        keys.push(KeyModel.construct(startDate, saveDate));
+        keys.push(new KeyModel(startDate, saveDate));
       });
     }, this);
 
@@ -252,7 +250,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
   RefLogModel.prototype.getInitKeys = function() {
     return Object.keys(this.data).sort().map(function(startDate) {
-      return KeyModel.construct(startDate, startDate);
+      return new KeyModel(startDate, startDate);
     });
   };
 
@@ -262,7 +260,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     data = this.data;
     latestKey = Object.keys(this.data).map(function(startDate) {
       var saveDate = Object.keys(data[startDate]).sort().pop() || startDate;
-      return KeyModel.construct(startDate, saveDate);
+      return new KeyModel(startDate, saveDate);
     }).sort(KeyModel.sortFunction).pop();
 
     if (!latestKey) {
@@ -290,7 +288,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
     saveDate = Object.keys(this.data[startDate]).sort().pop() || startDate;
 
-    return KeyModel.construct(startDate, saveDate);
+    return new KeyModel(startDate, saveDate);
   };
 
   RefLogModel.prototype.reset = function() {
@@ -321,7 +319,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   RefLogModel.prototype.deleteKey = function(refKey) {
     var parentKey, children;
 
-    if (KeyModel.isInitKey(refKey)) {
+    if (refKey.isRoot()) {
       this.emit('error', 'cannot delete a single init key. '
           + 'use deleteTree() instead');
       return undefined;

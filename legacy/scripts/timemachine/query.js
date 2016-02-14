@@ -43,7 +43,7 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
     } else if (reference === Query.LATESTSAVE) {
     } else if (reference === Query.ALLTUVEROKEYS) {
     } else if (Type.isString(reference)) {
-      this.referenceKey = new KeyModel(reference);
+      this.referenceKey = KeyModel.fromString(reference);
     } else if (reference instanceof KeyModel) {
       this.referenceKey = reference;
     } else {
@@ -84,12 +84,12 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
       // Nothing to do here. keys already contains all keys.
       break;
     case Query.ROOTKEYS:
-      keys = keys.filter(KeyModel.isInitKey);
+      keys = keys.filter(KeyModel.prototype.isRoot.call);
       break;
     case Query.LASTKEYS:
       trees = {};
       keys.forEach(function(keyString) {
-        var startDate = (new KeyModel(keyString)).startDate;
+        var startDate = (KeyModel.fromString(keyString)).startDate;
         if (!trees[startDate] || trees[startDate] < keyString) {
           trees[startDate] = keyString;
         }
@@ -102,7 +102,7 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
     case Query.LATESTSAVE:
       last = undefined;
       keys.forEach(function(keyString) {
-        var saveDate = (new KeyModel(keyString)).saveDate;
+        var saveDate = (KeyModel.fromString(keyString)).saveDate;
         if (!last || lastDate < saveDate) {
           last = keyString;
           lastDate = saveDate;

@@ -26,7 +26,7 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine'], function(extend,
     startDate = new Date(this.model.key.startDate);
     startDate = startDate.toLocaleString();
     saveDate = '';
-    youngestAncestor = this.model.getYoungestAncestor();
+    youngestAncestor = this.model.getYoungestDescendant();
     if (youngestAncestor) {
       youngestAncestor = new Date(youngestAncestor.key.saveDate);
       saveDate = youngestAncestor.toLocaleString();

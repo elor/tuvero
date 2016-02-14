@@ -21,7 +21,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
     CommitModel.superconstructor.call(this);
 
     if (Type.isString(key)) {
-      key = new KeyModel(key);
+      key = KeyModel.fromString(key);
     }
 
     this.key = key;
@@ -46,7 +46,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *         false otherwise
    */
   CommitModel.prototype.isRoot = function() {
-    return KeyModel.isInitKey(this.key);
+    return this.key.isRoot();
   };
 
   /**
@@ -67,7 +67,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *
    * @return the youngest ancestor of this commit
    */
-  CommitModel.prototype.getYoungestAncestor = function() {
+  CommitModel.prototype.getYoungestDescendant = function() {
     var children, youngestChild;
 
     children = this.getChildren();
@@ -79,7 +79,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
     youngestChild = children[children.length - 1];
 
     children.forEach(function(child) {
-      var youngestGrandChild = child.getYoungestAncestor();
+      var youngestGrandChild = child.getYoungestDescendant();
       if (!youngestGrandChild) {
         return;
       }
@@ -113,7 +113,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
       return this;
     }
 
-    rootKey = KeyModel.construct(this.key.startDate, this.key.startDate);
+    rootKey = new KeyModel(this.key.startDate, this.key.startDate);
 
     return new CommitModel(rootKey);
   };
