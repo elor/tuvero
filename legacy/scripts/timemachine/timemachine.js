@@ -10,9 +10,10 @@
  */
 define(['lib/extend', 'core/model', 'timemachine/reflog',
     'timemachine/keymodel', 'timemachine/commitmodel', 'core/listmodel',
-    'timemachine/keyquerymodel', 'core/sortedreferencelistmodel'], function(
-    extend, Model, RefLog, KeyModel, CommitModel, ListModel, KeyQueryModel,
-    SortedReferenceListModel) {
+    'timemachine/keyquerymodel', 'core/sortedreferencelistmodel',
+    'ui/listcollectormodel'], function(extend, Model, RefLog, KeyModel,
+    CommitModel, ListModel, KeyQueryModel, SortedReferenceListModel,
+    ListCollectorModel) {
 
   /**
    * Constructor
@@ -26,6 +27,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     this.unsortedRoots = new ListModel();
     this.roots = new SortedReferenceListModel(this.unsortedRoots,
         CommitModel.sortFunction);
+
+    this.rootsCollector = new ListCollectorModel(this.unsortedRoots,
+        CommitModel);
+    this.rootsCollector.registerListener(this);
 
     this.updateRoots();
 
@@ -182,6 +187,11 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     targetSizes.total = total;
 
     return targetSizes;
+  };
+
+  TimeMachineModel.prototype.onremove = function(event, emitter, data) {
+    var index = this.unsortedRoots.indexOf(data.source);
+    this.unsortedRoots.remove(index);
   };
 
   window.RefLog = RefLog;
