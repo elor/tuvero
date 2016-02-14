@@ -1,6 +1,7 @@
 2016-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: formatTargetKey() function for database key creation
+	many comments added
 
 	* legacy/scripts/timemachine/timemachine.js: usedRelatedStorage() lists the storage size of a single tree
 	listening for 'remove' events on root commits
