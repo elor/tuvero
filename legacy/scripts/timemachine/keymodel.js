@@ -133,6 +133,19 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
   };
 
   /**
+   * Test whether the date string is a compatible ISO8601-string.
+   *
+   * @param isoDateString
+   *          a string representation of a date. Should be ISO8601 including
+   *          milliseconds.
+   * @return true if key matches the required date format. See
+   *         Date.prototype.toISOString for more information
+   */
+  KeyModel.isValidDate = function(isoDateString) {
+    return dateRegex.test(isoDateString);
+  };
+
+  /**
    * Test whether the given key could in theory be used for another target
    * (Basic, Boule, TAC, ...)
    *

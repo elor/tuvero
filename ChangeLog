@@ -26,6 +26,7 @@
 	renamed to Query
 
 	* legacy/scripts/timemachine/keymodel.js: avoiding the overloaded constructor
+	isValidDate() added
 
 2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
