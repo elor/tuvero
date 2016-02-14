@@ -6,6 +6,7 @@
 	* legacy/scripts/timemachine/timemachine.js: usedRelatedStorage() lists the storage size of a single tree
 	listening for 'remove' events on root commits
 	using createRoot() and createChild()
+	commented
 
 	* legacy/scripts/ui/timemachinecommitview.js: showing usedRelatedStorage() information
 

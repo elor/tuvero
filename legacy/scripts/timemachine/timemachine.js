@@ -12,8 +12,9 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     'timemachine/keymodel', 'timemachine/commitmodel', 'core/listmodel',
     'timemachine/query', 'core/sortedreferencelistmodel',
     'ui/listcollectormodel'], function(extend, Model, RefLog, KeyModel,
-    CommitModel, ListModel, Query, SortedReferenceListModel,
+    CommitModel, ListModel, Query, SortedReferenceListModel, //
     ListCollectorModel) {
+  var TimeMachine;
 
   /**
    * Constructor
@@ -24,7 +25,14 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
 
     latestKey = RefLog.getLatestGlobalKey();
 
+    /*
+     * unsortedRoots: base list
+     */
     this.unsortedRoots = new ListModel();
+
+    /*
+     * roots: reference list. Use this one :-)
+     */
     this.roots = new SortedReferenceListModel(this.unsortedRoots,
         CommitModel.sortFunction);
 
@@ -34,11 +42,14 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
 
     this.updateRoots();
 
+    /*
+     * commit is the current commit.
+     */
+    this.commit = undefined;
     if (latestKey) {
       this.commit = new CommitModel(latestKey);
     } else {
       console.warn('No saved tournament found.');
-      this.commit = undefined;
     }
   }
   extend(TimeMachineModel, Model);
@@ -48,13 +59,17 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     'save': true
   };
 
+  /**
+   * re-read the roots from the reflog and update this.unsortedRoots, which
+   * reflects on this.roots
+   */
   TimeMachineModel.prototype.updateRoots = function() {
-    var initCommits, initKeyStrings, index, keyString;
+    var rootCommits, rootKeyStrings, index, keyString;
 
-    initCommits = RefLog.getInitKeys().map(function(key) {
+    rootCommits = RefLog.getInitKeys().map(function(key) {
       return new CommitModel(key);
     });
-    initKeyStrings = initCommits.map(function(commit) {
+    rootKeyStrings = rootCommits.map(function(commit) {
       return commit.key.toString();
     });
 
@@ -63,7 +78,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
      */
     for (index = this.unsortedRoots.length - 1; index >= 0; index -= 1) {
       keyString = this.unsortedRoots.get(index).key.toString();
-      if (initKeyStrings.indexOf(keyString) === -1) {
+      if (rootKeyStrings.indexOf(keyString) === -1) {
         this.unsortedRoots.remove(index);
       }
     }
@@ -71,23 +86,23 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     /*
      * add new commits
      */
-    initKeyStrings = this.unsortedRoots.map(function(commit) {
+    rootKeyStrings = this.unsortedRoots.map(function(commit) {
       return commit.key.toString();
     });
-    initCommits.forEach(function(commit) {
+    rootCommits.forEach(function(commit) {
       keyString = commit.key.toString();
-      if (initKeyStrings.indexOf(keyString) === -1) {
+      if (rootKeyStrings.indexOf(keyString) === -1) {
         this.unsortedRoots.push(commit);
       }
     }, this);
   };
 
   /**
-   * stores the given state under a fresh key as the root of a new tree
+   * store the given state under a fresh commit as the root of a new tree
    *
    * @param state
    *          the string to save
-   * @return the generated key
+   * @return the associated root commit
    */
   TimeMachineModel.prototype.init = function(state) {
     this.commit = CommitModel.createRoot(state);
@@ -100,7 +115,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
   };
 
   /**
-   * stores the given state under a key, which is a descendant of parentKey
+   * stores the given state under a new commit, which is a descendant of the
+   * active commit
    *
    * @param state
    *          the string to save
@@ -147,6 +163,14 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     return orphanedCommits.sort(CommitModel.sortFunction);
   };
 
+  /**
+   * get the used amount of localStorage, in unicode symbols, which is used by
+   * the tree associated with the commit
+   *
+   * @param commit
+   *          any commit of the tree to investigate
+   * @return the size in the localStorage, in unicode symbols.
+   */
   TimeMachineModel.prototype.usedRelatedStorage = function(commit) {
     var total, query;
 
@@ -161,6 +185,12 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     return total;
   };
 
+  /**
+   * Calculate the size of each target in the localStorage.
+   *
+   * @return an object, where object[target] == size for each of the currently
+   *         stored targets, and where object.total is the total of all targets
+   */
   TimeMachineModel.prototype.usedStorage = function() {
     var tuveroQuery, keys, targetSizes, total;
 
@@ -189,11 +219,27 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     return targetSizes;
   };
 
+  /**
+   * update this.roots whenever a root is deleted (which is performed via a
+   * function of the CommitModel API)
+   *
+   * @param event ==
+   *          'remove'
+   * @param emitter ==
+   *          this.rootsCollector
+   * @param data
+   *          {source: removed_commit}
+   */
   TimeMachineModel.prototype.onremove = function(event, emitter, data) {
-    var index = this.unsortedRoots.indexOf(data.source);
-    this.unsortedRoots.remove(index);
+    if (data.source.isRoot()) {
+      var index = this.unsortedRoots.indexOf(data.source);
+      this.unsortedRoots.remove(index);
+    }
   };
 
+  /*
+   * DEBUG START
+   */
   window.RefLog = RefLog;
 
   var lastReflog;
@@ -204,7 +250,17 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       console.log(JSON.stringify(window.TimeMachine.usedStorage()));
     }
   }, 50);
+  /*
+   * DEBUG END
+   */
 
+  /*
+   * TimeMachine is a singleton:
+   *
+   * The member lists contain references to localStorage. Since there's only one
+   * localStorage, instancing doesn't make sense.
+   */
+  // TODO replace window.TimeMachine with a local variable
   window.TimeMachine = new TimeMachineModel()
   return window.TimeMachine;
 });
