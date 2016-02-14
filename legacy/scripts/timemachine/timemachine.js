@@ -10,9 +10,9 @@
  */
 define(['lib/extend', 'core/model', 'timemachine/reflog',
     'timemachine/keymodel', 'timemachine/commitmodel', 'core/listmodel',
-    'timemachine/keyquerymodel', 'core/sortedreferencelistmodel',
+    'timemachine/query', 'core/sortedreferencelistmodel',
     'ui/listcollectormodel'], function(extend, Model, RefLog, KeyModel,
-    CommitModel, ListModel, KeyQueryModel, SortedReferenceListModel,
+    CommitModel, ListModel, Query, SortedReferenceListModel,
     ListCollectorModel) {
 
   /**
@@ -127,7 +127,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     /*
      * check all localStorage keys
      */
-    query = new KeyQueryModel(KeyQueryModel.ALLKEYS);
+    query = new Query(Query.ALLKEYS);
     orphanedCommits = query.filter().map(function(keyString) {
       return new CommitModel(keyString);
     }).filter(function(commit) {
@@ -151,7 +151,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     var total, query;
 
     total = 0;
-    query = new KeyQueryModel(commit.key);
+    query = new Query(commit.key);
 
     query.filter().forEach(function(key) {
       var data = localStorage[key] || '';
@@ -166,7 +166,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
 
     targetSizes = {};
 
-    tuveroQuery = new KeyQueryModel(KeyQueryModel.ALLTUVEROKEYS);
+    tuveroQuery = new Query(Query.ALLTUVEROKEYS);
     tuveroQuery.filter().forEach(function(key) {
       var target, data;
 

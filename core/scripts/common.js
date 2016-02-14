@@ -111,7 +111,7 @@ define([
   'backend/random',
   'timemachine/commitmodel',
   'timemachine/keymodel',
-  'timemachine/keyquerymodel',
+  'timemachine/query',
   'timemachine/reflog',
   'timemachine/timemachine',
   'ui/autocompletionlegacyblobber',

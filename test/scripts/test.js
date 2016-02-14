@@ -66,7 +66,7 @@ require(['config'], function() {
   'backend/test/random',
 
   'timemachine/test/keymodel',
-  'timemachine/test/keyquerymodel',
+  'timemachine/test/query',
   'ui/test/binarytreemodel',
   'ui/test/listcollectormodel',
   'ui/test/playermodel',

@@ -16,6 +16,14 @@
 	init() and save() renamed to createRoot() and createChild()
 	getRoot() added
 
+	* core/templates/settingstab.html: order of boxes changed for better debugging
+
+	* legacy/scripts/timemachine/keyquerymodel.js: moved and renamed to query
+
+	* legacy/scripts/timemachine/query.js: moved from keyquerymodel
+	Model dependency removed
+	renamed to Query
+
 2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitmodel.js: transparent wrapper around reflog, localStorage and keys

@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
-    'timemachine/keymodel', 'timemachine/keyquerymodel'], function(extend,
-    Model, RefLog, Type, KeyModel, KeyQueryModel) {
+    'timemachine/keymodel', 'timemachine/query'], function(extend, Model,
+    RefLog, Type, KeyModel, Query) {
 
   /**
    * Constructor. Constructs a CommitModel from a KeyModel, regardless of the
@@ -169,7 +169,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
 
     if (this.isRoot()) {
       // delete eventual orphans (Won't send remove events)
-      query = new KeyQueryModel(this.key);
+      query = new Query(this.key);
       query.filter().forEach(
           window.localStorage.removeItem.bind(window.localStorage));
       RefLog.deleteTree(this.key);

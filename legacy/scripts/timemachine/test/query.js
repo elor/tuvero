@@ -1,5 +1,5 @@
 /**
- * Unit tests for KeyQueryModel
+ * Unit tests for Query
  *
  * @return test function
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -8,21 +8,21 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, KeyQueryModel, KeyModel, Model, Type;
+    var extend, Query, KeyModel, Model, Type;
 
     extend = getModule('lib/extend');
-    KeyQueryModel = getModule('timemachine/keyquerymodel');
+    Query = getModule('timemachine/query');
     KeyModel = getModule('timemachine/keymodel');
     Model = getModule('core/model');
     Type = getModule('core/type');
 
-    QUnit.test('KeyQueryModel', function() {
+    QUnit.test('Query', function() {
       var query, key, key2, key3, key4, key5, ref, date, res;
 
-      QUnit.ok(extend.isSubclass(KeyQueryModel, Model),
-          'KeyQueryModel is subclass of Model');
+      QUnit.ok(extend.isSubclass(Query, Model),
+          'Query is subclass of Model');
 
-      query = new KeyQueryModel(KeyQueryModel.ALLKEYS);
+      query = new Query(Query.ALLKEYS);
 
       QUnit.ok(query, 'ALLKEYS construction successful');
       QUnit.ok(Type.isArray(query.filter()), 'filter() result is an array');
@@ -57,35 +57,35 @@ define(function() {
 
       QUnit.deepEqual(query.filter(), ref, 'ALLKEYS returns all 4 test keys');
 
-      query = new KeyQueryModel(KeyQueryModel.INITKEYS);
-      QUnit.ok(query, 'INITKEYS construction successful');
+      query = new Query(Query.ROOTKEYS);
+      QUnit.ok(query, 'ROOTKEYS construction successful');
       ref = [key.toString(), key3.toString()].sort();
-      QUnit.deepEqual(query.filter(), ref, 'INITKEYS finds both init keys');
+      QUnit.deepEqual(query.filter(), ref, 'ROOTKEYS finds both init keys');
 
-      query = new KeyQueryModel(KeyQueryModel.LASTKEYS);
+      query = new Query(Query.LASTKEYS);
       QUnit.ok(query, 'LASTKEYS construction successful');
       ref = [key2.toString(), key4.toString()].sort();
       QUnit.deepEqual(query.filter(), ref, 'LASTKEYS finds both last saves');
 
-      query = new KeyQueryModel(//
-      KeyQueryModel.LATESTSAVE);
+      query = new Query(//
+      Query.LATESTSAVE);
       QUnit.ok(query, 'LATESTKEYS construction successful');
       ref = [key4.toString()].sort();
       QUnit.deepEqual(query.filter(), ref, 'LATESTSAVE finds the latest save');
 
       ref = [key.toString(), key2.toString()].sort();
-      query = new KeyQueryModel(key);
+      query = new Query(key);
       QUnit.ok(query, 'construction from key successful');
       QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 1');
-      query = new KeyQueryModel(key2);
+      query = new Query(key2);
       QUnit.ok(query, 'construction from key2 successful');
       QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 2');
 
       ref = [key3.toString(), key4.toString()].sort();
-      query = new KeyQueryModel(key3);
+      query = new Query(key3);
       QUnit.ok(query, 'construction from key3 successful');
       QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 3');
-      query = new KeyQueryModel(key4);
+      query = new Query(key4);
       QUnit.ok(query, 'construction from key4 successful');
       QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 4');
 
@@ -98,7 +98,7 @@ define(function() {
       localStorage.removeItem(key3);
       localStorage.removeItem(key4);
 
-      QUnit.deepEqual((new KeyQueryModel()).filter(), [],
+      QUnit.deepEqual((new Query()).filter(), [],
           'ALL-query on post-test cleared localStorage returns no results');
     });
   };

@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
+define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     'core/listmodel', 'core/listener', 'timemachine/keymodel'], function(
-    extend, Model, Presets, KeyQueryModel, ListModel, Listener, KeyModel) {
+    extend, Model, Presets, Query, ListModel, Listener, KeyModel) {
   var RefLog;
 
   /**
@@ -77,14 +77,14 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/keyquerymodel',
 
     this.reset();
 
-    query = new KeyQueryModel(KeyQueryModel.INITKEYS);
+    query = new Query(Query.ROOTKEYS);
     data = {};
 
     query.filter().forEach(function(initKey) {
       var keyQuery, initDate, refDate;
 
       initKey = new KeyModel(initKey);
-      keyQuery = new KeyQueryModel(initKey);
+      keyQuery = new Query(initKey);
 
       initDate = initKey.startDate;
       data[initDate] = {};
