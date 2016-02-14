@@ -90,7 +90,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * @return the generated key
    */
   TimeMachineModel.prototype.init = function(state) {
-    this.commit = CommitModel.init(state);
+    this.commit = CommitModel.createRoot(state);
 
     this.emit('init', this.commit);
 
@@ -111,7 +111,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    */
   TimeMachineModel.prototype.save = function(state) {
     if (this.commit && this.commit.isValid()) {
-      this.commit = this.commit.save(state);
+      this.commit = this.commit.createChild(state);
     } else {
       return this.init(state);
     }

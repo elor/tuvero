@@ -42,10 +42,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   }
 
   /**
-   * @return true if the key is an initial key (has no parent and dates match),
+   * @return true if the key is a root key (has no parent and dates match),
    *         false otherwise
    */
-  CommitModel.prototype.isInitialCommit = function() {
+  CommitModel.prototype.isRoot = function() {
     return KeyModel.isInitKey(this.key);
   };
 
@@ -92,15 +92,30 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   };
 
   /**
-   * @return the parent if this commit. If this is an initial commit, undefined
-   *         is returned
+   * @return the parent if this commit. If this is a root commit, undefined is
+   *         returned
    */
   CommitModel.prototype.getParent = function() {
-    if (this.isInitialCommit()) {
+    if (this.isRoot()) {
       return undefined;
     }
 
     return new CommitModel(RefLog.getParent(this.key));
+  };
+
+  /**
+   * @return a new CommitModel instance of the root of this tree
+   */
+  CommitModel.prototype.getRoot = function() {
+    var rootKey;
+
+    if (this.isRoot()) {
+      return this;
+    }
+
+    rootKey = KeyModel.construct(this.key.startDate, this.key.startDate);
+
+    return new CommitModel(rootKey);
   };
 
   /**
@@ -121,7 +136,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   CommitModel.prototype.isAncestorOf = function(descendant) {
     var parent;
 
-    if (!descendant || this.isInitialCommit()) {
+    if (!descendant || this.isRoot()) {
       return false;
     }
 
@@ -141,8 +156,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   /**
    * Removes all descendant and itself. Emits 'remove' on all removed elements.
    *
-   * If eraseTree is called on an initial commit, orphans with the same
-   * startDate are cleaned up, too.
+   * If eraseTree is called on a root commit, orphans with the same startDate
+   * are cleaned up, too.
    */
   CommitModel.prototype.eraseTree = function() {
     var query;
@@ -152,7 +167,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
       child.eraseTree();
     });
 
-    if (this.isInitialCommit()) {
+    if (this.isRoot()) {
       // delete eventual orphans (Won't send remove events)
       query = new KeyQueryModel(this.key);
       query.filter().forEach(
@@ -168,12 +183,12 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   /**
    * removes this commit from the RefLog and localStorage and emits 'remove'.
    *
-   * If an initial commit is removed, the whole tree is removed. See eraseTree()
+   * If a root commit is removed, the whole tree is removed. See eraseTree()
    */
   CommitModel.prototype.remove = function() {
-    if (this.isInitialCommit()) {
-      // removing the initial commit necessarily removes everything else,
-      // too
+    if (this.isRoot()) {
+      // removing the root commit necessarily removes everything else, too,
+      // since every tree needs a root in the reflog
       this.eraseTree();
     } else {
       window.localStorage.removeItem(this.key.toString());
@@ -203,7 +218,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *          the data to store locally under a new key
    * @return the newly created child commit
    */
-  CommitModel.prototype.save = function(data) {
+  CommitModel.prototype.createChild = function(data) {
     var newKey = RefLog.newSaveKey(this.key);
     localStorage[newKey] = data;
 
@@ -211,14 +226,14 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   };
 
   /**
-   * initialize a new commit with the given data. An init-key will be created,
+   * initialize a new commit with the given data. A root key will be created,
    * which serves as the root of the commit tree
    *
    * @param data
    *          the data do store locally under a new key
    * @return the newly created root commit
    */
-  CommitModel.init = function(data) {
+  CommitModel.createRoot = function(data) {
     var newKey = RefLog.newInitKey();
     localStorage[newKey] = data;
 
