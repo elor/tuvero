@@ -1,3 +1,9 @@
+2016-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* basic/images/favicon.png: using Tuvero logo
+
+	* basic/images/games.png: using Tuvero logo
+
 2016-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: formatTargetKey() function for database key creation
