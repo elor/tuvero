@@ -4,6 +4,7 @@
 
 	* legacy/scripts/timemachine/reflog.js: getName and setName added
 	'rename' event added
+	RefLog only changes the name if it doesn't already match
 
 	* legacy/scripts/timemachine/timemachine.js: init and save adjusted for 'name' events
 

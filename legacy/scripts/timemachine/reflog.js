@@ -255,7 +255,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *          any key of the tree for which to change the name
    * @param name
    *          the new name
-   * @return true on success, false otherwise
+   * @return true if the tree now carries the new name, false otherwise
    */
   RefLogModel.prototype.setName = function(key, name) {
     if (!this.contains(key)) {
@@ -264,6 +264,10 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
         this.emit('error', 'RefLog does not contain key for name setting');
         return false;
       }
+    }
+
+    if (name === this.getName(key)) {
+      return true;
     }
 
     this.data[key.startDate].name = name;
