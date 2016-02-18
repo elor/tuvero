@@ -18,7 +18,7 @@ define(['presets', 'lib/modernizr', 'core/valuemodel',
   Storage.lastSaved = new ValueModel(undefined);
 
   function saveKey(key) {
-    var val, blob;
+    var val, blob, timeMachineKey;
 
     // if (!keys.hasOwnProperty(key)) {
     // return true;
@@ -41,7 +41,9 @@ define(['presets', 'lib/modernizr', 'core/valuemodel',
     // FIXME DEBUGGING CODE AHEAD!
     if (key === Presets.names.dbname
         && (!TimeMachine.commit || blob != TimeMachine.commit.load())) {
-      console.log('saving to ' + TimeMachine.save(blob).key);
+      timeMachineKey = TimeMachine.save(blob).key;
+      console.log('saving to ' + timeMachineKey);
+      TimeMachine.cleanup(timeMachineKey, 3);
     }
 
     return window.localStorage.getItem(key) !== blob;

@@ -223,6 +223,34 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
   };
 
   /**
+   * Removes all keys until keepNum keys are left, excluding the root and the
+   * latest key, starting with the oldest key.
+   *
+   * Example: If you want to keep the root, latest and the key before the latest
+   * key
+   *
+   * @param relatedKey
+   * @param keepNum
+   */
+  TimeMachineModel.prototype.cleanup = function(relatedKey, keepNum) {
+    var query, relatedKeys;
+
+    if (!relatedKey || !relatedKey.isValid()) {
+      return;
+    }
+
+    query = new Query(relatedKey);
+    relatedKeys = query.filter();
+
+    relatedKeys.shift(); // don't delete the root key
+    relatedKeys.pop(); // don't delete the current/latest key
+
+    while (relatedKeys.length > keepNum) {
+      (new CommitModel(relatedKeys.shift())).remove();
+    }
+  }
+
+  /**
    * update this.roots whenever a root is deleted (which is performed via a
    * function of the CommitModel API)
    *
