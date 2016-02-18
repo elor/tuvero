@@ -21,7 +21,7 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine'], function(extend,
   extend(TimeMachineCommitView, View);
 
   TimeMachineCommitView.prototype.updateText = function() {
-    var startDate, saveDate, youngestAncestor, storageSize;
+    var startDate, saveDate, youngestAncestor, storageSize, name;
 
     startDate = new Date(this.model.key.startDate);
     startDate = startDate.toLocaleString();
@@ -32,16 +32,23 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine'], function(extend,
       saveDate = youngestAncestor.toLocaleString();
     }
 
+    name = this.model.getTreeName();
+
     storageSize = TimeMachine.usedRelatedStorage(this.model);
     storageSize = Math.round(storageSize / 102.4) / 10;
 
-    this.$view.text(startDate + ' - ' + saveDate + ' (' + storageSize + 'kB)');
+    this.$view.text(name + ': ' + startDate + ' - ' + saveDate + ' ('
+        + storageSize + 'kB)');
   };
 
   TimeMachineCommitView.prototype.onsave = function(event, emitter, commit) {
     if (commit.key.isRelated(this.model.key)) {
       this.updateText();
     }
+  }
+
+  TimeMachineCommitView.prototype.onrename = function(event, emitter, newname) {
+    this.updateText();
   }
 
   return TimeMachineCommitView;

@@ -1,3 +1,14 @@
+2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/timemachine/commitmodel.js: getTreName, setTreeName and onrename + RefLog listener added
+
+	* legacy/scripts/timemachine/reflog.js: getName and setName added
+	'rename' event added
+
+	* legacy/scripts/timemachine/timemachine.js: init and save adjusted for 'name' events
+
+	* legacy/scripts/ui/timemachinecommitview.js: showing the name
+
 2016-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* basic/images/favicon.png: using Tuvero logo

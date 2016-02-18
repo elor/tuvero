@@ -24,12 +24,15 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
       key = KeyModel.fromString(key);
     }
 
+    RefLog.registerListener(this);
+
     this.key = key;
   }
   extend(CommitModel, Model);
 
   CommitModel.prototype.EVENTS = {
-    'remove': true
+    'remove': true,
+    'rename': true
   };
 
   /**
@@ -116,6 +119,22 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
     rootKey = new KeyModel(this.key.startDate, this.key.startDate);
 
     return new CommitModel(rootKey);
+  };
+
+  /**
+   * @return the name of this tree
+   */
+  CommitModel.prototype.getTreeName = function() {
+    return RefLog.getName(this.key);
+  };
+
+  /**
+   * @param name
+   *          the new name of the whole tree
+   * @return true on success, false otherwise
+   */
+  CommitModel.prototype.setTreeName = function(name) {
+    return RefLog.setName(this.key, name);
   };
 
   /**
@@ -233,8 +252,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *          the data do store locally under a new key
    * @return the newly created root commit
    */
-  CommitModel.createRoot = function(data) {
-    var newKey = RefLog.newInitKey();
+  CommitModel.createRoot = function(data, name) {
+    var newKey = RefLog.newInitKey(name);
     localStorage[newKey] = data;
 
     return new CommitModel(newKey);
@@ -249,6 +268,12 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    */
   CommitModel.sortFunction = function(commitA, commitB) {
     return KeyModel.sortFunction(commitA.key, commitB.key);
+  };
+
+  CommitModel.prototype.onrename = function(event, emitter, treeKey) {
+    if (this.key.isRelated(treeKey)) {
+      this.emit('rename');
+    }
   };
 
   return CommitModel;

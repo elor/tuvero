@@ -1,5 +1,16 @@
 /**
- * RefLogModel: A reference log of
+ * RefLogModel: A reference log of storage keys.
+ *
+ * RefLogModel does not use ValueModel, ListModel and the like because it has to
+ * be periodically synchronized between multiple instances, and because the
+ * Model.save() mechanism isn't sophisticated enough for the data object due to
+ * its usage of dynamic keys.
+ *
+ * Instead, a 2D data object is used, with the startdate as the outer key and
+ * the savedate as the inner key. Inside the start-object, there's a 'name'
+ * property, too. The value inner savedate-objects are the name of their
+ * previous key, e.g. another savedate-key or the startdate-key. This yields a
+ * tree-like structure.
  *
  * @return RefLogModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -31,6 +42,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
   RefLogModel.prototype.EVENTS = {
     'error': true,
+    'rename': true,
     'refresh': true,
     'reset': true
   };
@@ -145,12 +157,14 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   /**
    * @return a new root key
    */
-  RefLogModel.prototype.newInitKey = function() {
+  RefLogModel.prototype.newInitKey = function(name) {
     var newKey = KeyModel.createRoot();
 
     this.refresh();
 
-    this.data[newKey.startDate] = {};
+    this.data[newKey.startDate] = {
+      name: name
+    };
 
     this.store();
 
@@ -215,6 +229,50 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     }
 
     return Object.keys(this.data[startDate]).filter(KeyModel.isValidDate);
+  };
+
+  /**
+   * retrieve the name of the whole tree
+   *
+   * @param key
+   *          a KeyModel instance
+   * @return the name of the root element of the tree
+   */
+  RefLogModel.prototype.getName = function(key) {
+    if (!this.contains(key)) {
+      key = new KeyModel(key.startDate, key.startDate);
+      if (!this.contains(key)) {
+        this.emit('error', 'reflog does not contain key for name query');
+        return '';
+      }
+    }
+
+    return this.data[key.startDate].name || '';
+  };
+
+  /**
+   * @param key
+   *          any key of the tree for which to change the name
+   * @param name
+   *          the new name
+   * @return true on success, false otherwise
+   */
+  RefLogModel.prototype.setName = function(key, name) {
+    if (!this.contains(key)) {
+      key = new KeyModel(key.startDate, key.startDate);
+      if (!this.contains(key)) {
+        this.emit('error', 'RefLog does not contain key for name setting');
+        return false;
+      }
+    }
+
+    this.data[key.startDate].name = name;
+    if (!this.store()) {
+      this.emit('error', 'RefLog: store() error during name change');
+      return false;
+    }
+    this.emit('rename', key);
+    return true;
   };
 
   /**

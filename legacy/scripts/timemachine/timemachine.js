@@ -81,6 +81,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     for (index = this.unsortedRoots.length - 1; index >= 0; index -= 1) {
       keyString = this.unsortedRoots.get(index).key.toString();
       if (rootKeyStrings.indexOf(keyString) === -1) {
+        this.unsortedRoots.get(index).destroy();
         this.unsortedRoots.remove(index);
       }
     }
@@ -106,8 +107,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    *          the string to save
    * @return the associated root commit
    */
-  TimeMachineModel.prototype.init = function(state) {
-    this.commit = CommitModel.createRoot(state);
+  TimeMachineModel.prototype.init = function(state, name) {
+    this.commit = CommitModel.createRoot(state, name);
 
     this.emit('init', this.commit);
 
@@ -131,7 +132,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     if (this.commit && this.commit.isValid()) {
       this.commit = this.commit.createChild(state);
     } else {
-      return this.init(state);
+      return this.init(state, '');
     }
 
     this.emit('save', this.commit);
@@ -235,6 +236,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
   TimeMachineModel.prototype.onremove = function(event, emitter, data) {
     if (data.source.isRoot()) {
       var index = this.unsortedRoots.indexOf(data.source);
+      this.unsortedRoots.get(index).destroy();
       this.unsortedRoots.remove(index);
     }
   };
