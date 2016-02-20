@@ -1,3 +1,16 @@
+2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
+
+	* legacy/scripts/timemachine/timemachine.js: Reading default name from Presets
+	missing cleanup event added
+	relatedKey -> relatedCommit
+	Debugging disabled
+
+	* legacy/scripts/ui/settingstab.js: missing $template variable added
+
+	* legacy/scripts/ui/storage.js: timeMachineKey -> timeMachineCommit
+
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/commitmodel.js: getTreName, setTreeName and onrename + RefLog listener added

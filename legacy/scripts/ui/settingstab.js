@@ -33,7 +33,7 @@ function(extend, $, View, ValueView, Storage, StorageSaveController,
    * TODO maybe split it into multiple autodetected functions?
    */
   SettingsTab.prototype.init = function() {
-    var $container, value, $button;
+    var $container, value, $button, $template;
 
     /*
      * show browser info

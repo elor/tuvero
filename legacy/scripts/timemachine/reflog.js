@@ -358,7 +358,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     }, this).sort(KeyModel.sortFunction).pop();
 
     if (!latestKey) {
-      this.emit('error', 'reflog contains no data');
+      // this.emit('error', 'no latest key found');
       return undefined;
     }
 

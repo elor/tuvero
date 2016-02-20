@@ -11,9 +11,9 @@
 define(['lib/extend', 'core/model', 'timemachine/reflog',
     'timemachine/keymodel', 'timemachine/commitmodel', 'core/listmodel',
     'timemachine/query', 'core/sortedreferencelistmodel',
-    'ui/listcollectormodel'], function(extend, Model, RefLog, KeyModel,
-    CommitModel, ListModel, Query, SortedReferenceListModel, //
-    ListCollectorModel) {
+    'ui/listcollectormodel', 'presets'], function(extend, Model, RefLog,
+    KeyModel, CommitModel, ListModel, Query, SortedReferenceListModel,
+    ListCollectorModel, Presets) {
   var TimeMachine;
 
   /**
@@ -58,7 +58,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
 
   TimeMachineModel.prototype.EVENTS = {
     'init': true,
-    'save': true
+    'save': true,
+    'cleanup': true
   };
 
   /**
@@ -132,7 +133,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     if (this.commit && this.commit.isValid()) {
       this.commit = this.commit.createChild(state);
     } else {
-      return this.init(state, '');
+      return this.init(state, Presets.target);
     }
 
     this.emit('save', this.commit);
@@ -229,25 +230,30 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * Example: If you want to keep the root, latest and the key before the latest
    * key
    *
-   * @param relatedKey
+   * @param relatedCommit
+   *          any commit within the tree. Required!
    * @param keepNum
+   *          the number of commits to keep, excluding root and latest
    */
-  TimeMachineModel.prototype.cleanup = function(relatedKey, keepNum) {
+  TimeMachineModel.prototype.cleanup = function(relatedCommit, keepNum) {
     var query, relatedKeys;
 
-    if (!relatedKey || !relatedKey.isValid()) {
+    if (!relatedCommit || !relatedCommit.isValid || !relatedCommit.isValid()) {
+      debugger
       return;
     }
 
-    query = new Query(relatedKey);
+    query = new Query(relatedCommit.key);
     relatedKeys = query.filter();
 
     relatedKeys.shift(); // don't delete the root key
-    relatedKeys.pop(); // don't delete the current/latest key
+    relatedKeys.pop(); // don't delete the latest key
 
     while (relatedKeys.length > keepNum) {
       (new CommitModel(relatedKeys.shift())).remove();
     }
+
+    this.emit('cleanup', relatedCommit);
   }
 
   /**
@@ -273,30 +279,6 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     this.updateRoots();
   };
 
-  /*
-   * DEBUG START
-   */
-  window.RefLog = RefLog;
-
-  var lastReflog;
-  window.setInterval(function() {
-    if (RefLog.toString() != lastReflog) {
-      lastReflog = RefLog.toString();
-      console.log(lastReflog);
-      console.log(JSON.stringify(window.TimeMachine.usedStorage()));
-    }
-  }, 500);
-  /*
-   * DEBUG END
-   */
-
-  /*
-   * TimeMachine is a singleton:
-   *
-   * The member lists contain references to localStorage. Since there's only one
-   * localStorage, instancing doesn't make sense.
-   */
-  // TODO replace window.TimeMachine with a local variable
-  window.TimeMachine = new TimeMachineModel()
-  return window.TimeMachine;
+  TimeMachine = new TimeMachineModel();
+  return TimeMachine;
 });
