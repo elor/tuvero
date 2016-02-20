@@ -299,7 +299,7 @@ define(['lib/extend', './indexedlistmodel', './listmodel', './uniquelistmodel',
   };
 
   TournamentListModel.prototype.save = function() {
-    data = Model.prototype.save.call(this);
+    var data = Model.prototype.save.call(this);
 
     data.tournaments = TournamentListModel.superclass.save.call(this);
     data.startIndex = this.startIndex.save();
