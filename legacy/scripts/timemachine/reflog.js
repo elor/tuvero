@@ -53,11 +53,14 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @return true on success, false otherwise
    */
   RefLogModel.prototype.refresh = function() {
-    var newSource;
+    var newSource, newData;
 
     newSource = window.localStorage[this.storageKey];
 
-    if (this.source === newSource || newSource === 'undefined') {
+    if (!newSource) {
+      console.log('creating new reflog');
+      newSource = '{}';
+    } else if (this.source === newSource || newSource === 'undefined') {
       return true;
     }
 
@@ -65,7 +68,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
       newData = JSON.parse(newSource);
     } catch (e) {
       console.error(e.stack);
-      this.emit('error', 'JSON error: cannot parse reflog from localStorage.');
+      this.emit('error', 'cannot JSON-parse reflog from localStorage.');
       return false;
     }
 

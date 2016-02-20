@@ -1,11 +1,13 @@
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
+	auto-creating a new reflog.
 
 	* legacy/scripts/timemachine/timemachine.js: Reading default name from Presets
 	missing cleanup event added
 	relatedKey -> relatedCommit
 	Debugging disabled
+	cleanup(): verifying whether relatedCommit is CommitModel instance.
 
 	* legacy/scripts/ui/settingstab.js: missing $template variable added
 	initcommits -> rootcommits

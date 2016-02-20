@@ -238,8 +238,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
   TimeMachineModel.prototype.cleanup = function(relatedCommit, keepNum) {
     var query, relatedKeys;
 
-    if (!relatedCommit || !relatedCommit.isValid || !relatedCommit.isValid()) {
-      debugger
+    if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
       return;
     }
 
