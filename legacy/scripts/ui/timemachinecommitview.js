@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', 'timemachine/timemachine',
-    'core/valuemodel', 'ui/valueview', 'core/classview'], function(extend,
-    View, TimeMachine, ValueModel, ValueView, ClassView) {
+    'core/valuemodel', 'ui/valueview', 'core/classview',
+    'ui/timemachinecommitcontroller'], function(extend, View, TimeMachine,
+    ValueModel, ValueView, ClassView, TimeMachineCommitController) {
   /**
    * Constructor
    */
@@ -29,6 +30,8 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
     this.updateSaveDate();
     this.updateSize();
     this.updateActive();
+
+    this.controller = new TimeMachineCommitController(this);
 
     TimeMachine.registerListener(this);
   }

@@ -24,8 +24,10 @@
 	* legacy/scripts/ui/timemachinecommitview.js: multiple lines inside a single div. Looks ok.
 	updating on cleanup
 	setting an '.activetree' class for all TimeMachineCommitViews
+	initializing TimeMachineCommitController
 
 	* core/templates/timemachinecommitview.html: missing file added
+	load, remove and cleanup-buttons added
 
 	* legacy/style/timemachine.css: missing file added
 	activetree rules added
@@ -56,6 +58,8 @@
 	* legacy/scripts/ui/state_new.js: moved to state.js for file name consistency
 
 	* core/scripts/tournamentlistmodel.js: variable leak fixed
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: logic for load, cleanup and removal
 
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
