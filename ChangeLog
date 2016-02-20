@@ -2,6 +2,7 @@
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
 	auto-creating a new reflog.
+	unique root key guarantee
 
 	* legacy/scripts/timemachine/timemachine.js: Reading default name from Presets
 	missing cleanup event added
@@ -23,6 +24,8 @@
 	* core/templates/timemachinecommitview.html: missing file added
 
 	* legacy/style/timemachine.css: missing file added
+
+	* legacy/scripts/ui/backgroundscripts/tournamenterrortoasts.js: misleading comments removed
 
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

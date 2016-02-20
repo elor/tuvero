@@ -158,12 +158,19 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   };
 
   /**
-   * @return a new root key
+   * @return a new root key which hasn't been in the reflog before
    */
   RefLogModel.prototype.newInitKey = function(name) {
-    var newKey = KeyModel.createRoot();
+    var newKey;
 
-    this.refresh();
+    /*
+     * Creating keys within milliseconds of another can cause rootkey collision
+     *
+     * Reading the reflog takes care of that.
+     */
+    do {
+      newKey = KeyModel.createRoot();
+    } while (this.contains(newKey));
 
     this.data[newKey.startDate] = {
       name: name
