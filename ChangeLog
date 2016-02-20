@@ -11,6 +11,7 @@
 	cleanup(): verifying whether relatedCommit is CommitModel instance.
 	load() function added
 	default tree name also applies to init()
+	save() only writes to localStorage if there's a change in the stored data
 
 	* legacy/scripts/ui/settingstab.js: missing $template variable added
 	initcommits -> rootcommits

@@ -132,6 +132,9 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    */
   TimeMachineModel.prototype.save = function(state) {
     if (this.commit && this.commit.isValid()) {
+      if (state === this.commit.load()) {
+        return this.commit; // no change in data. Nothing to save here.
+      }
       this.commit = this.commit.createChild(state);
     } else {
       return this.init(state);
