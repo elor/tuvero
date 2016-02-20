@@ -47,6 +47,8 @@
 
 	* legacy/scripts/ui/fileloadcontroller.js: using StateSaver and StateLoader instead of State.toBlob
 
+	* legacy/scripts/ui/state.js: Removed.
+
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/commitmodel.js: getTreeName, setTreeName and onrename + RefLog listener added

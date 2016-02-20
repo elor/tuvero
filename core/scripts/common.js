@@ -208,7 +208,6 @@ define([
   'ui/settingstab',
   'ui/splash',
   'ui/stateclassview',
-  'ui/state',
   'ui/stateloader',
   'ui/statemodel',
   'ui/state_new',
