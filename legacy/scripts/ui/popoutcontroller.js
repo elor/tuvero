@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
-    'core/classview', 'ui/state_new'], function(extend, Controller, Toast,
+    'core/classview', 'ui/state'], function(extend, Controller, Toast,
     Strings, ClassView, State) {
   var mainPopout;
 

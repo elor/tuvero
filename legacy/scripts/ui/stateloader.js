@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state_new', 'timemachine/timemachine', 'ui/legacyloadermodel',
+define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
     'ui/legacystoragekeyconverter'], function(State, TimeMachine,
     LegacyLoaderModel, LegacyStorageKeyConverter) {
   var StateLoader;

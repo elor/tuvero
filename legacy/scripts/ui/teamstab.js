@@ -4,7 +4,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './listview', './teamview', './state_new',
+define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     './newteamview', './lengthview', './teamsizeview', './preregcloserview',
     './checkboxview', 'core/classview', './tabshandle',
     './teamremovecontroller', './teamnamecontroller', './teamtableview',

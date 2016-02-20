@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state_new', 'ui/toast', 'ui/strings', 'core/listener'], function(
+define(['ui/state', 'ui/toast', 'ui/strings', 'core/listener'], function(
     State, Toast, Strings, Listener) {
   var MatchToasts;
 

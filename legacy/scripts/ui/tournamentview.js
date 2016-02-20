@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './stateclassview', 'core/listener',
+define(['lib/extend', 'core/view', 'ui/stateclassview', 'core/listener',
     './tournamentcontroller', 'core/listmodel', './boxview', 'presets',
     './rankingorderview', './strings'], function(extend, View, StateClassView,
     Listener, TournamentController, ListModel, BoxView, Presets,

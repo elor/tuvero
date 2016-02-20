@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel',
+define(['ui/state', 'ui/listcollectormodel', 'ui/teammodel',
     'core/tournamentmodel', 'ui/statesaver', 'core/listener'], function(State,
     ListCollectorModel, TeamModel, TournamentModel, StateSaver, Listener) {
   var updatePending, nameListener, AutoSave,

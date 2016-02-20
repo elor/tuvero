@@ -20,7 +20,7 @@ define([], function() { // NOTE TO SELF: Don't remove the '[],' from this line
   OptionsTemplate = {};
 
   function getState() {
-    return State || (State = require('ui/state_new'));
+    return State || (State = require('ui/state'));
   }
 
   OptionsTemplate.toBlob = function() {

@@ -4,7 +4,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './listview', './state_new',
+define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     './checkboxview', 'core/classview', './tournamenthistoryview',
     './closedtournamentcollapselistener'], function(extend, $, View, ListView,
     State, CheckBoxView, ClassView, TournamentHistoryView,

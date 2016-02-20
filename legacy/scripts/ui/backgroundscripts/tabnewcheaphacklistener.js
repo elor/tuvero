@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener', '../state_new', '../tabshandle'//
+define(['lib/extend', 'core/listener', 'ui/state', '../tabshandle'//
 ], function(extend, Listener, State, TabsHandle) {
 
   /**

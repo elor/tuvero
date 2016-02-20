@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state_new', 'timemachine/timemachine'], function(State, //
+define(['ui/state', 'timemachine/timemachine'], function(State, //
 TimeMachine) {
   var StateSaver;
 

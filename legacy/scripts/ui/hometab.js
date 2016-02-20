@@ -4,7 +4,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './state_new', './strings',
+define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
     './toast', './browser'], function(extend, $, View, State, Strings, Toast,
     Browser) {
   /**

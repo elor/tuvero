@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['./statemodel'], function(StateModel) {
+define(['ui/statemodel'], function(StateModel) {
   var State;
 
   State = new StateModel();

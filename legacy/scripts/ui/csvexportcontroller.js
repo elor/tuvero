@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './state_new', 'presets',
+define(['lib/extend', 'core/controller', 'ui/state', 'presets',
     'lib/FileSaver', 'lib/Blob', './toast', './strings'], function(extend,
     Controller, State, Presets, saveAs, Blob, Toast, Strings) {
   /**

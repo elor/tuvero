@@ -49,6 +49,10 @@
 
 	* legacy/scripts/ui/state.js: Removed.
 
+	* legacy/scripts/ui/*.js: ui/state_new -> ui/state
+
+	* legacy/scripts/ui/state_new.js: moved to state.js for file name consistency
+
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/commitmodel.js: getTreeName, setTreeName and onrename + RefLog listener added

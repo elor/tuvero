@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'core/view', './state_new',
+define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
     'options'], function(extend, Controller, View, State, Options) {
   /**
    * Constructor

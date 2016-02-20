@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/listener', './state_new', './listcollectormodel',
+define(['lib/extend', 'core/listener', 'ui/state', './listcollectormodel',
     './teammodel', './toast', './strings'], function(extend, Listener, State,
     ListCollectorModel, TeamModel, Toast, Strings) {
 

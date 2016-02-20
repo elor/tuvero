@@ -16,7 +16,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './toast', './strings', './state_new',
+define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     './playermodel', './teammodel'], function(extend, Controller, Toast,
     Strings, State, PlayerModel, TeamModel) {
 

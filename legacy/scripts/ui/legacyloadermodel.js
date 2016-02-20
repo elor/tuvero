@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', './state_new', './teammodel',
+define(['lib/extend', 'core/model', 'ui/state', './teammodel',
     './playermodel', 'options', 'presets', 'core/tournamentindex',
     'core/matchmodel', 'core/matchresult', 'core/byeresult',
     'core/correctionmodel', './toast', 'core/rle'], function(extend, Model,
