@@ -144,8 +144,6 @@ define(['presets', 'lib/modernizr', 'core/valuemodel',
     Storage.disable();
 
     if (Modernizr.localstorage) {
-      keys[Presets.names.dbname] = require('ui/state');
-
       keys[Presets.names.dbplayername] = //
       require('ui/autocompletionlegacyblobber');
     }

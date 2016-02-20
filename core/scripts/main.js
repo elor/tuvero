@@ -32,7 +32,7 @@ require(['core/config', 'core/common'], function() {
 
   function Main() {
     // FIXME reduce to one var statement. This function is too long anyhow
-    var Update, Splash, Toast, Strings, Storage, Browser;
+    var Update, Splash, Toast, Strings, Storage, Browser, StateLoader;
     var TeamToastsListener;
 
     Browser = require('ui/browser');
@@ -41,6 +41,7 @@ require(['core/config', 'core/common'], function() {
     Toast = require('ui/toast');
     Strings = require('ui/strings');
     Storage = require('ui/storage');
+    StateLoader = require('ui/stateloader');
     TeamToastsListener = require('ui/teamtoastslistener');
 
     // actual initializations are started after any other module has
@@ -59,11 +60,12 @@ require(['core/config', 'core/common'], function() {
 
       // using a timeout to let the browser update the splashtext
       setTimeout(function() {
-        var loaded;
-        try {
+        var loaded, lastCommit, data;
 
+        try {
           try {
-            loaded = Storage.restore();
+            Storage.restore();
+            loaded = StateLoader.loadLatest();
           } catch (e) {
             console.error(e.stack);
             Toast.init();

@@ -16,6 +16,7 @@
 
 	* legacy/scripts/ui/storage.js: timeMachineKey -> timeMachineCommit
 	lastSaveDate is a localeString-date
+	dbname-saving has been removed. Using StateSaver/StateLoader instead
 
 	* core/templates/settingstab.html: timemachine commits are arranged in divs
 
@@ -31,6 +32,14 @@
 	* legacy/scripts/ui/stateloader.js: StateLoader wrapper for State.restore()-calls added
 
 	* legacy/scripts/ui/statesaver.js: StateSaver wrapper for State.save()-calls added
+
+	* core/scripts/main.js: using StateLoader instead of Storage to load the latest state
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: using StateSaver instead of Storage
+
+	* legacy/scripts/ui/legacyloadermodel.js: taking a global data object instead of its serialized version.
+
+	* legacy/scripts/ui/storagesavecontroller.js: using StateSaver instead of Storage
 
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

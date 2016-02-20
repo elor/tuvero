@@ -20,12 +20,11 @@ define(['lib/extend', 'core/model', './state_new', './teammodel',
   }
   extend(LegacyLoaderModel, Model);
 
-  LegacyLoaderModel.prototype.load = function(blob) {
-    var glob, tournamentDataArray, tournamentRankingArray;
+  LegacyLoaderModel.prototype.load = function(glob) {
+    var tournamentDataArray, tournamentRankingArray;
 
     console.log('starting conversion');
 
-    glob = JSON.parse(blob);
     tournamentDataArray = [];
     tournamentRankingArray = [];
 

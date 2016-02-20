@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel',
-    'core/tournamentmodel', 'ui/storage', 'core/listener'], function(State,
-    ListCollectorModel, TeamModel, TournamentModel, Storage, Listener) {
+    'core/tournamentmodel', 'ui/statesaver', 'core/listener'], function(State,
+    ListCollectorModel, TeamModel, TournamentModel, StateSaver, Listener) {
   var updatePending, nameListener, AutoSave,
 
   AutoSave = undefined;
@@ -18,7 +18,10 @@ define(['ui/state_new', 'ui/listcollectormodel', 'ui/teammodel',
     if (updatePending === undefined) {
       updatePending = window.setTimeout(function() {
         updatePending = undefined;
-        Storage.store();
+        if (!StateSaver.saveState()) {
+          // TODO display as Toast!
+          console.error('autosave failed');
+        }
       }, 10);
     }
   }
