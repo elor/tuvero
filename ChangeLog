@@ -20,6 +20,7 @@
 	* core/templates/settingstab.html: timemachine commits are arranged in divs
 
 	* legacy/scripts/ui/timemachinecommitview.js: multiple lines inside a single div. Looks ok.
+	updating on cleanup
 
 	* core/templates/timemachinecommitview.html: missing file added
 

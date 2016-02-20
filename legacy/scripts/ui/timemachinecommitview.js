@@ -69,6 +69,10 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
     }
   };
 
+  TimeMachineCommitView.prototype.oncleanup = function(event, emitter, commit) {
+    this.updateSize();
+  };
+
   TimeMachineCommitView.prototype.onrename = function(event, emitter, newname) {
     this.updateName();
   };
