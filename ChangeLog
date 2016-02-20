@@ -30,6 +30,8 @@
 
 	* legacy/scripts/ui/stateloader.js: StateLoader wrapper for State.restore()-calls added
 
+	* legacy/scripts/ui/statesaver.js: StateSaver wrapper for State.save()-calls added
+
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/commitmodel.js: getTreName, setTreeName and onrename + RefLog listener added
