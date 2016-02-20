@@ -23,10 +23,12 @@
 
 	* legacy/scripts/ui/timemachinecommitview.js: multiple lines inside a single div. Looks ok.
 	updating on cleanup
+	setting an '.activetree' class for all TimeMachineCommitViews
 
 	* core/templates/timemachinecommitview.html: missing file added
 
 	* legacy/style/timemachine.css: missing file added
+	activetree rules added
 
 	* legacy/scripts/ui/backgroundscripts/tournamenterrortoasts.js: misleading comments removed
 

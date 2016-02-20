@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', 'timemachine/timemachine',
-    'core/valuemodel', 'ui/valueview'], function(extend, View, TimeMachine,
-    ValueModel, ValueView) {
+    'core/valuemodel', 'ui/valueview', 'core/classview'], function(extend,
+    View, TimeMachine, ValueModel, ValueView, ClassView) {
   /**
    * Constructor
    */
@@ -21,11 +21,14 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
     this.saveDateView = new ValueView(new ValueModel(), this.$view
         .find('.savedate'));
     this.sizeView = new ValueView(new ValueModel(), this.$view.find('.size'));
+    this.activeView = new ClassView(new ValueModel(false), this.$view,
+        'activetree');
 
     this.updateName();
     this.updateStartDate();
     this.updateSaveDate();
     this.updateSize();
+    this.updateActive();
 
     TimeMachine.registerListener(this);
   }
@@ -55,6 +58,12 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
     this.sizeView.model.set(size + 'kB');
   };
 
+  TimeMachineCommitView.prototype.updateActive = function() {
+    var isActive = this.model.key.isRelated(TimeMachine.commit.key);
+
+    this.activeView.model.set(isActive);
+  };
+
   TimeMachineCommitView.prototype.onsave = function(event, emitter, commit) {
     if (commit.key.isRelated(this.model.key)) {
       this.updateSaveDate();
@@ -67,6 +76,14 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
       this.updateSaveDate();
       this.updateSize();
     }
+  };
+
+  TimeMachineCommitView.prototype.oninit = function(event, emitter, commit) {
+    this.updateActive();
+  };
+
+  TimeMachineCommitView.prototype.onload = function(event, emitter, commit) {
+    this.updateActive();
   };
 
   TimeMachineCommitView.prototype.oncleanup = function(event, emitter, commit) {

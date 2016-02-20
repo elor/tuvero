@@ -1,3 +1,7 @@
 .timemachinecommitview {
   text-align: left;
 }
+
+.timemachinecommitview.activetree {
+  font-weight: bold;
+}
