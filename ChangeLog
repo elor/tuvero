@@ -8,6 +8,7 @@
 	relatedKey -> relatedCommit
 	Debugging disabled
 	cleanup(): verifying whether relatedCommit is CommitModel instance.
+	load() function added
 
 	* legacy/scripts/ui/settingstab.js: missing $template variable added
 	initcommits -> rootcommits

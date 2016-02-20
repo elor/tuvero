@@ -59,7 +59,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
   TimeMachineModel.prototype.EVENTS = {
     'init': true,
     'save': true,
-    'cleanup': true
+    'cleanup': true,
+    'load': true
   };
 
   /**
@@ -139,6 +140,29 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     this.emit('save', this.commit);
 
     return this.commit;
+  };
+
+  /**
+   * load another commit from localStorage
+   *
+   * @param commit
+   *          a CommitModel instance to load
+   * @return undefined on load error, the localStorage content otherwise
+   *         (serialized save state)
+   */
+  TimeMachineModel.prototype.load = function(commit) {
+    var data;
+
+    if (!(commit instanceof CommitModel) || !commit.isValid()) {
+      return undefined;
+    }
+
+    data = commit.load();
+    if (data) {
+      this.commit = commit;
+      this.emit('load', data);
+    }
+    return data
   };
 
   TimeMachineModel.prototype.getOrphans = function() {
