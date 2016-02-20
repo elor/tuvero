@@ -6,50 +6,86 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'timemachine/timemachine'], function(extend,
-    View, TimeMachine) {
+define(['lib/extend', 'core/view', 'timemachine/timemachine',
+    'core/valuemodel', 'ui/valueview'], function(extend, View, TimeMachine,
+    ValueModel, ValueView) {
   /**
    * Constructor
    */
   function TimeMachineCommitView(model, $view) {
     TimeMachineCommitView.superconstructor.call(this, model, $view);
 
-    this.updateText();
+    this.nameView = new ValueView(new ValueModel(), this.$view.find('.name'));
+    this.startDateView = new ValueView(new ValueModel(), this.$view
+        .find('.startdate'));
+    this.saveDateView = new ValueView(new ValueModel(), this.$view
+        .find('.savedate'));
+    this.sizeView = new ValueView(new ValueModel(), this.$view.find('.size'));
+
+    this.updateName();
+    this.updateStartDate();
+    this.updateSaveDate();
+    this.updateSize();
 
     TimeMachine.registerListener(this);
   }
   extend(TimeMachineCommitView, View);
 
-  TimeMachineCommitView.prototype.updateText = function() {
-    var startDate, saveDate, youngestAncestor, storageSize, name;
+  TimeMachineCommitView.prototype.updateName = function() {
+    this.nameView.model.set(this.model.getTreeName());
+  };
 
-    startDate = new Date(this.model.key.startDate);
-    startDate = startDate.toLocaleString();
-    saveDate = '';
-    youngestAncestor = this.model.getYoungestDescendant();
-    if (youngestAncestor) {
-      youngestAncestor = new Date(youngestAncestor.key.saveDate);
-      saveDate = youngestAncestor.toLocaleString();
-    }
+  TimeMachineCommitView.prototype.updateStartDate = function() {
+    var startDate = new Date(this.model.key.startDate);
+    this.startDateView.model.set(startDate.toLocaleString());
+  };
 
-    name = this.model.getTreeName();
+  TimeMachineCommitView.prototype.updateSaveDate = function() {
+    var youngestAncestor, saveDate;
 
-    storageSize = TimeMachine.usedRelatedStorage(this.model);
-    storageSize = Math.round(storageSize / 102.4) / 10;
+    youngestAncestor = this.model.getYoungestDescendant() || this.model;
+    saveDate = new Date(youngestAncestor.key.saveDate);
 
-    this.$view.text(name + ': ' + startDate + ' - ' + saveDate + ' ('
-        + storageSize + 'kB)');
+    this.saveDateView.model.set(saveDate.toLocaleString());
+  };
+
+  TimeMachineCommitView.prototype.updateSize = function() {
+    var size = TimeMachine.usedRelatedStorage(this.model);
+    size = Math.round(size / 102.4) / 10;
+    this.sizeView.model.set(size + 'kB');
   };
 
   TimeMachineCommitView.prototype.onsave = function(event, emitter, commit) {
     if (commit.key.isRelated(this.model.key)) {
-      this.updateText();
+      this.updateSaveDate();
+      this.updateSize();
     }
-  }
+  };
+
+  TimeMachineCommitView.prototype.onremove = function(event, emitter, commit) {
+    if (!commit.isRoot()) {
+      this.updateSaveDate();
+      this.updateSize();
+    }
+  };
 
   TimeMachineCommitView.prototype.onrename = function(event, emitter, newname) {
-    this.updateText();
-  }
+    this.updateName();
+  };
+
+  TimeMachineCommitView.prototype.destroy = function() {
+    this.nameView.destroy();
+    this.startDateView.destroy();
+    this.saveDateView.destroy();
+    this.sizeView.destroy();
+
+    this.nameView.model.destroy();
+    this.startDateView.model.destroy();
+    this.saveDateView.model.destroy();
+    this.sizeView.model.destroy();
+
+    TimeMachineCommitView.superclass.destroy.call(this);
+  };
 
   return TimeMachineCommitView;
 });

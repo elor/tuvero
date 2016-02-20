@@ -65,8 +65,8 @@ function(extend, $, View, ValueView, Storage, StorageSaveController,
     /*
      * Time Machine Commits
      */
-    $container = this.$view.find('.initcommits');
-    $template = $container.find('.template');
+    $container = this.$view.find('.rootcommits');
+    $template = $container.find('.timemachinecommitview.template');
     this.initCommits = new ListView(TimeMachine.roots, $container, $template,
         TimeMachineCommitView);
   };

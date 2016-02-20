@@ -8,8 +8,13 @@
 	Debugging disabled
 
 	* legacy/scripts/ui/settingstab.js: missing $template variable added
+	initcommits -> rootcommits
 
 	* legacy/scripts/ui/storage.js: timeMachineKey -> timeMachineCommit
+
+	* core/templates/settingstab.html: timemachine commits are arranged in divs
+
+	* legacy/scripts/ui/timemachinecommitview.js: multiple lines inside a single div. Looks ok.
 
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
