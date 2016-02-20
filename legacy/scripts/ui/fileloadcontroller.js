@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', './storage', 'presets', './toast',
-    './strings', './state'], function(extend, Controller, Storage, Presets,
-    Toast, Strings, State) {
+    './strings', 'ui/stateloader', 'ui/statesaver'], function(extend,
+    Controller, Storage, Presets, Toast, Strings, StateLoader, StateSaver) {
   /**
    * Constructor
    */
@@ -55,8 +55,11 @@ define(['lib/extend', 'core/controller', './storage', 'presets', './toast',
 
     Toast.closeTemporaryToasts();
     try {
-      if (State.fromBlob(blob)) {
-        Storage.changed();
+      // TODO use filename until the tournament name is stored in the file, too
+      StateSaver.newTree('');
+      if (StateLoader.loadString(blob)) {
+        StateSaver.saveState();
+
         Toast.closeTemporaryToasts();
         new Toast(Strings.loaded, Toast.LONG);
       } else {

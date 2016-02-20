@@ -14,7 +14,12 @@ TimeMachine) {
    * Constructor of the singleton StateSaver
    */
   function StateSaverModel() {
+    this.createTree = undefined;
   }
+
+  StateSaverModel.prototype.newTree = function(name) {
+    this.createTree = name || '';
+  };
 
   /**
    * Save the current state to a new commit
@@ -60,7 +65,12 @@ TimeMachine) {
       return false;
     }
 
-    commit = TimeMachine.save(string);
+    if (this.createTree === undefined) {
+      commit = TimeMachine.save(string);
+    } else {
+      commit = TimeMachine.init(string, this.createTree);
+    }
+
     if (!commit) {
       return false;
     }
@@ -68,6 +78,7 @@ TimeMachine) {
     success = commit.isValid();
 
     if (success) {
+      this.createTree = undefined;
       // TODO auto-adjust the number of stored commits.
       TimeMachine.cleanup(commit, 3);
       console.log('state saved');

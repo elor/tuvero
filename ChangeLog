@@ -33,6 +33,7 @@
 	* legacy/scripts/ui/stateloader.js: StateLoader wrapper for State.restore()-calls added
 
 	* legacy/scripts/ui/statesaver.js: StateSaver wrapper for State.save()-calls added
+	newTree() function added to make the next commit use create a completely new tree
 
 	* core/scripts/main.js: using StateLoader instead of Storage to load the latest state
 
@@ -42,9 +43,13 @@
 
 	* legacy/scripts/ui/storagesavecontroller.js: using StateSaver instead of Storage
 
+	* legacy/scripts/ui/backgroundscripts/save.js: using TimeMachine instead of State.toBlob (read from storage)
+
+	* legacy/scripts/ui/fileloadcontroller.js: using StateSaver and StateLoader instead of State.toBlob
+
 2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
-	* legacy/scripts/timemachine/commitmodel.js: getTreName, setTreeName and onrename + RefLog listener added
+	* legacy/scripts/timemachine/commitmodel.js: getTreeName, setTreeName and onrename + RefLog listener added
 
 	* legacy/scripts/timemachine/reflog.js: getName and setName added
 	'rename' event added

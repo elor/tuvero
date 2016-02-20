@@ -6,17 +6,24 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/Blob', 'jquery', '../state', '../toast', '../strings',
-    'lib/FileSaver', 'presets'], function(Blob, $, State, Toast, Strings,
-    saveAs, Presets) {
+define(['lib/Blob', 'jquery', 'timemachine/timemachine', '../toast',
+    '../strings', 'lib/FileSaver', 'presets'], function(Blob, $, TimeMachine,
+    Toast, Strings, saveAs, Presets) {
   var Save = undefined;
 
   $(function($) {
     $('#tabs').on('click', 'button.save', function() {
       var save, blob;
 
+      if (!TimeMachine.commit) {
+        return;
+      }
+
       try {
-        save = State.toBlob();
+        save = TimeMachine.commit.load();
+        if (!save) {
+          return;
+        }
 
         try {
           blob = new Blob([save], {
@@ -28,7 +35,7 @@ define(['lib/Blob', 'jquery', '../state', '../toast', '../strings',
           new Toast(Strings.savefailed);
         }
       } catch (err) {
-        console.error('State.toBlob failed');
+        console.error('blob load failed');
         console.error(err.stack);
         new Toast(Strings.savefailed);
       }
