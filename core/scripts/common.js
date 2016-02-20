@@ -168,6 +168,7 @@ define([
   'ui/kotreeposition',
   'ui/kotreeview',
   'ui/legacyloadermodel',
+  'ui/legacystoragekeyconverter',
   'ui/lengthview',
   'ui/listcleanuplistener',
   'ui/listclickcontroller',
