@@ -13,6 +13,7 @@
 	initcommits -> rootcommits
 
 	* legacy/scripts/ui/storage.js: timeMachineKey -> timeMachineCommit
+	lastSaveDate is a localeString-date
 
 	* core/templates/settingstab.html: timemachine commits are arranged in divs
 

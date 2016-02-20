@@ -112,19 +112,7 @@ define(['presets', 'lib/modernizr', 'core/valuemodel',
     }
 
     date = new Date();
-    datestring = '';
-    datestring += date.getFullYear();
-    datestring += '-';
-    datestring += (date.getMonth() + 1).toString().replace(/^(.)$/, '0$1');
-    datestring += '-';
-    datestring += date.getDate().toString().replace(/^(.)$/, '0$1');
-    datestring += ' ';
-    datestring += date.getHours().toString().replace(/^(.)$/, '0$1');
-    datestring += ':';
-    datestring += date.getMinutes().toString().replace(/^(.)$/, '0$1');
-    datestring += ':';
-    datestring += date.getSeconds().toString().replace(/^(.)$/, '0$1');
-    Storage.lastSaved.set(datestring);
+    Storage.lastSaved.set(date.toLocaleString());
 
     return true;
   };
