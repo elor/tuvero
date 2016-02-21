@@ -37,11 +37,8 @@ define(function() {
     },
     names: {
       playernameurl: 'https://boulesdb.appspot.com/json',
-      dbname: 'boulestournament',
       dbplayername: 'bouleplayers',
-      savefile: 'boule.json',
-      csvfile: 'boule.csv',
-      teamsfile: 'anmeldungen.txt'
+      teamsfile: 'tuvero-anmeldungen.txt'
     }
   };
 

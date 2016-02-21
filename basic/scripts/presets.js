@@ -36,11 +36,8 @@ define(function() {
     },
     names: {
       playernameurl: '',
-      dbname: 'tuverobasic',
       dbplayername: 'tuverobasicplayers',
-      savefile: 'tuvero.json',
-      csvfile: 'tuvero.csv',
-      teamsfile: 'tuvero-voranmeldung.txt'
+      teamsfile: 'tuvero-anmeldungen.txt'
     }
   };
 

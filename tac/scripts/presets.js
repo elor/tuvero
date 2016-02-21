@@ -38,11 +38,8 @@ define(function() {
     },
     names: {
       playernameurl: '',
-      dbname: 'tactournament',
       dbplayername: 'tacplayers',
-      savefile: 'tac.json',
-      csvfile: 'tac.csv',
-      teamsfile: 'anmeldungen.txt'
+      teamsfile: 'tuvero-anmeldungen.txt'
     }
   };
 

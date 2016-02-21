@@ -33,12 +33,9 @@ define(['core/rankingcomponentindex'], function(RankingComponentIndex) {
       teamsizeicon: true
     },
     names: {
-      playernameurl: 'https://boulesdb.appspot.com/json',
-      dbname: 'boulestournament',
-      dbplayername: 'bouleplayers',
-      savefile: 'boule.json',
-      csvfile: 'boule.csv',
-      teamsfile: 'anmeldungen.txt'
+      playernameurl: '',
+      dbplayername: 'testplayers',
+      teamsfile: 'tuvero-anmeldungen.txt'
     }
   };
 
