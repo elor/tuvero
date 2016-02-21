@@ -80,6 +80,7 @@
 	* legacy/style/timemachine.css: .rootcommits margin added
 
 	* tools/write-sprite.sh: vertical-align of images according to .inline class
+	button, h2 and .middle-elements are middled
 
 	* legacy/scripts/ui/backgroundscripts/reset.js: accessibility of windows.localStorage/windows.location
 

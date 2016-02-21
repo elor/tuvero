@@ -207,7 +207,9 @@ cat <<EOF >> $stylesheet
   content: '';
 }
 
-button[data-img]::before {
+button[data-img]::before,
+h2[data-img]::before,
+.middle[data-img]::before {
   vertical-align: middle;
 }
 
