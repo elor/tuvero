@@ -29,7 +29,6 @@ define(['jquery', '../strings', '../update'], function($, Strings, Update) {
     $(window).on('beforeunload', function(e) {
       var message = Strings.offlineconfirmexit;
 
-      // TODO add Storage.enabled() warning
       if (!Online() && !Update.isCached &&
           document.location.protocol !== 'file:') {
         if (e) {

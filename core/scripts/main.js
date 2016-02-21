@@ -54,8 +54,6 @@ require(['core/config', 'core/common'], function() {
         return;
       }
 
-      Storage.enable();
-
       Splash.loading();
 
       // using a timeout to let the browser update the splashtext
@@ -69,7 +67,6 @@ require(['core/config', 'core/common'], function() {
           } catch (e) {
             console.error(e.stack);
             Toast.init();
-            Storage.disable();
             Splash.error();
             return;
           }

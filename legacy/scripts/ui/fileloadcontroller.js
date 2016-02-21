@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './storage', 'presets', './toast',
-    './strings', 'ui/stateloader', 'ui/statesaver'], function(extend,
-    Controller, Storage, Presets, Toast, Strings, StateLoader, StateSaver) {
+define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
+    'ui/stateloader', 'ui/statesaver'], function(extend, Controller, Presets,
+    Toast, Strings, StateLoader, StateSaver) {
   /**
    * Constructor
    */
@@ -50,9 +50,6 @@ define(['lib/extend', 'core/controller', './storage', 'presets', './toast',
 
     blob = evt.target.result;
 
-    Storage.enable();
-    Storage.clear(Presets.names.dbname);
-
     Toast.closeTemporaryToasts();
     try {
       // TODO use filename until the tournament name is stored in the file, too
@@ -69,7 +66,6 @@ define(['lib/extend', 'core/controller', './storage', 'presets', './toast',
       new Toast(Strings.loadfailed, Toast.LONG);
       // perform a complete reset of the everything related to the
       // tournament
-      Storage.clear(Presets.names.dbname);
     }
     this.reset();
   };

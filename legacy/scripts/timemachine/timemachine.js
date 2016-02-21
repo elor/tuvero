@@ -136,7 +136,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       if (state === this.commit.get().load()) {
         return this.commit.get(); // no change in data. Nothing to save here.
       }
-      this.commit.set(this.commit.createChild(state));
+      this.commit.set(this.commit.get().createChild(state));
     } else {
       this.commit.set(undefined);
       return undefined;

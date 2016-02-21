@@ -31,6 +31,18 @@
 
 	* legacy/scripts/ui/backgroundscripts/save.js: using TimeMachine.load() instead of TimeMachine.commit.load()
 
+	* core/scripts/main.js: Storage.enable/disable removed
+
+	* legacy/scripts/ui/autocompletionlegacyblobber.js: lazy-loading the Storage object
+
+	* legacy/scripts/ui/backgroundscripts/online.js: Storage hints aren't required anymore
+
+	* legacy/scripts/ui/debugtab.js: clear-button properly resets the whole time machine
+
+	* legacy/scripts/ui/fileloadcontroller.js: Doesn't require Storage anymore
+
+	* legacy/scripts/ui/storage.js: simplified. It only serves the player names, no need for crazy stuff
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.

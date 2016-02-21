@@ -6,12 +6,17 @@
  * @see LICENSE
  */
 
-define(['core/listener', './storage'], function(Listener, Storage) {
-  var listener;
+define(['core/listener'], function(Listener) {
+  var listener, Storage;
+
+  function getStorage() {
+    Storage = Storage || require('ui/storage');
+    return Storage;
+  }
 
   listener = new Listener();
   listener.onupdate = function() {
-    Storage.store();
+    getStorage().store();
   };
 
   var AutocompletionLegacyBlobber = {
