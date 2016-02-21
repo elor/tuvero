@@ -11,6 +11,11 @@
 
 	* legacy/scripts/ui/timemachinenewtreecontroller.js: Controller for tree creation added
 
+	* legacy/scripts/timemachine/timemachine.js: save() doesn't initiate a new tree, it just fails.
+	unload() added
+
+	* legacy/scripts/ui/stateloader.js: unload() added
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.

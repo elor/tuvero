@@ -139,6 +139,14 @@ define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
     return false;
   };
 
+  /**
+   * reset the current state and forget about all previously loaded states
+   */
+  StateLoaderModel.prototype.unload = function() {
+    TimeMachine.unload();
+    State.clear();
+  };
+
   /*
    * StateLoader is a singleton
    */

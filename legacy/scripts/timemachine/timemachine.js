@@ -137,7 +137,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       }
       this.commit = this.commit.createChild(state);
     } else {
-      return this.init(state);
+      return undefined;
     }
 
     this.emit('save', this.commit);
@@ -166,6 +166,13 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       this.emit('load', data);
     }
     return data
+  };
+
+  /**
+   * resets the currently active commit.
+   */
+  TimeMachineModel.prototype.unload = function() {
+    this.commit = undefined;
   };
 
   TimeMachineModel.prototype.getOrphans = function() {
