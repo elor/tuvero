@@ -25,6 +25,8 @@
 	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
 	confirmation text includes the tournament name
 
+	* core/templates/timemachinecommitview.html: cleanup-button removed
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
