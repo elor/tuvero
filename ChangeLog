@@ -100,6 +100,7 @@
 	static filenames removed
 
 	* legacy/scripts/timemachine/test/query.js: useless tests removed
+	bugs in test suite fixed
 
 	* legacy/scripts/timemachine/query.js: ROOTKEY bug fixed
 

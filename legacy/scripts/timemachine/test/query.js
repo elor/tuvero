@@ -35,6 +35,7 @@ define(function() {
 
       ref = 'test_2016-02-12T12:10:11.591Z_2016-02-12T12:10:11.591Z';
       key = KeyModel.fromString(ref);
+      key2 = KeyModel.createChild(key);
 
       ref = 'test_2015-06-01T19:55:12.512Z_2015-06-01T19:55:12.512Z';
       key3 = KeyModel.fromString(ref);
@@ -42,10 +43,11 @@ define(function() {
       key4 = KeyModel.fromString(ref);
 
       localStorage.setItem(key, 'test');
+      localStorage.setItem(key2, 'test');
       localStorage.setItem(key3, 'test');
       localStorage.setItem(key4, 'test');
 
-      ref = [key.toString(), key3.toString(), key4.toString()]
+      ref = [key.toString(), key2.toString(), key3.toString(), key4.toString()]
           .sort();
 
       QUnit.deepEqual(query.filter(), ref, 'ALLKEYS returns all 4 test keys');
