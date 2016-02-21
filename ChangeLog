@@ -71,6 +71,7 @@
 
 	* core/templates/hometab.html: timemachineview moved here
 	load/save texts optimized
+	tuvero logo centered
 
 	* legacy/scripts/ui/hometab.js: timemachineview moved here
 	use StateSaver.removeEverything()
