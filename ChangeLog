@@ -23,6 +23,7 @@
 	Long strings shortened
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
+	confirmation text includes the tournament name
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

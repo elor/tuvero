@@ -22,14 +22,15 @@ define(['lib/extend', 'core/controller', 'timemachine/timemachine',
   extend(TimeMachineCommitController, Controller);
 
   TimeMachineCommitController.prototype.remove = function() {
-    var active, confirmtext;
+    var active, confirmtext, name;
 
     active = TimeMachine.isRelatedToActive(this.model);
+    name = this.model.getTreeName() || 'noname';
 
     confirmtext = active ? Strings.confirmactivetreeremoval
         : Strings.confirmtreeremoval;
 
-    if (window.confirm(confirmtext)) {
+    if (window.confirm(confirmtext.replace('%s', name))) {
 
       this.model.remove();
 
