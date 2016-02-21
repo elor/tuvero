@@ -20,6 +20,7 @@
 	* legacy/scripts/ui/timemachinecommitview.js: using TimeMachine.isRelatedToActive()
 
 	* legacy/scripts/ui/strings.js: reflog tree removal confirmations added
+	Long strings shortened
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
 
