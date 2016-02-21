@@ -13,6 +13,7 @@
 	* legacy/scripts/ui/backgroundscripts/autosave.js: Don't save on clear(), since TimeMachine takes care of that
 
 	* legacy/scripts/ui/statesaver.js: createNewEmptyTree() added
+	removeEverything() removes every entry for the current target
 
 	* legacy/scripts/ui/timemachinenewtreecontroller.js: Controller for tree creation added
 

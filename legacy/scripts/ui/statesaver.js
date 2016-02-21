@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'timemachine/timemachine'], function(State, //
-TimeMachine) {
+define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
+    State, TimeMachine, StateLoader) {
   var StateSaver;
 
   /**
@@ -93,6 +93,16 @@ TimeMachine) {
     }
 
     return success;
+  };
+
+  StateSaverModel.prototype.removeEverything = function() {
+    StateLoader.unload();
+    while (TimeMachine.roots.length > 0) {
+      TimeMachine.roots.get(0).eraseTree();
+    }
+    TimeMachine.getOrphans().forEach(function(orphan) {
+      orphan.remove();
+    });
   };
 
   /*
