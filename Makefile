@@ -10,12 +10,17 @@ GITHEAD=$(shell git rev-parse HEAD | head -c8)
 
 build: clean
 	make templates scripts
-	make basic boule tac test build/index.html
-	./tools/write-manifest.sh build/
+	make basic boule tac test build/manifest.appcache
 	cp -v Version build/
 
-build/index.html:
+build/index.html: build/images
 	cp -v index.html build/
+
+build/images: build-dir FORCE
+	cp -r images build/
+
+build/manifest.appcache: build/index.html FORCE
+	./tools/write-manifest.sh build/
 
 clean: FORCE
 	make -C selenium-tests/ clean
