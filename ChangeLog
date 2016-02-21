@@ -19,6 +19,10 @@
 
 	* legacy/scripts/ui/timemachinecommitview.js: using TimeMachine.isRelatedToActive()
 
+	* legacy/scripts/ui/strings.js: reflog tree removal confirmations added
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.

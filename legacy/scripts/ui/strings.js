@@ -17,6 +17,8 @@ define(['strings'], function(LocalStrings) {
     autoupdateoff: 'Automatische Aktualisierung aus',
     autoupdateon: 'Automatische Aktualisierung an',
     clearstorage: 'Lokal gespeicherte Daten löschen? Sämtliche Turnierdaten gehen damit verloren!',
+    confirmtreeremoval: 'Dieses Turnier wirklich löschen?',
+    confirmactivetreeremoval: 'Das laufende Turnier wirklich löschen?',
     confirmleave: 'Das Turnier kann nicht gespeichert werden. Fenster trotzdem schließen?',
     upvote: '▲',
     downvote: '▼',

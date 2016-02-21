@@ -7,7 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'timemachine/timemachine',
-    'ui/stateloader'], function(extend, Controller, TimeMachine, StateLoader) {
+    'ui/stateloader', 'ui/strings'], function(extend, Controller, TimeMachine,
+    StateLoader, Strings) {
   /**
    * Constructor
    */
@@ -21,7 +22,21 @@ define(['lib/extend', 'core/controller', 'timemachine/timemachine',
   extend(TimeMachineCommitController, Controller);
 
   TimeMachineCommitController.prototype.remove = function() {
-    this.model.remove();
+    var active, confirmtext;
+
+    active = TimeMachine.isRelatedToActive(this.model);
+
+    confirmtext = active ? Strings.confirmactivetreeremoval
+        : Strings.confirmtreeremoval;
+
+    if (window.confirm(confirmtext)) {
+
+      this.model.remove();
+
+      if (active) {
+        StateLoader.unload();
+      }
+    }
   };
 
   TimeMachineCommitController.prototype.cleanup = function() {
