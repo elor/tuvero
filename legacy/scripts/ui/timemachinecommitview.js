@@ -8,13 +8,16 @@
  */
 define(['lib/extend', 'core/view', 'timemachine/timemachine',
     'core/valuemodel', 'ui/valueview', 'core/classview',
-    'ui/timemachinecommitcontroller'], function(extend, View, TimeMachine,
-    ValueModel, ValueView, ClassView, TimeMachineCommitController) {
+    'ui/timemachinecommitcontroller', 'ui/boxview'], function(extend, View,
+    TimeMachine, ValueModel, ValueView, ClassView, TimeMachineCommitController,
+    BoxView) {
   /**
    * Constructor
    */
   function TimeMachineCommitView(model, $view) {
     TimeMachineCommitView.superconstructor.call(this, model, $view);
+
+    this.boxView = new BoxView(this.$view);
 
     this.nameView = new ValueView(new ValueModel(), this.$view.find('.name'));
     this.startDateView = new ValueView(new ValueModel(), this.$view
@@ -105,6 +108,8 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
     this.startDateView.model.destroy();
     this.saveDateView.model.destroy();
     this.sizeView.model.destroy();
+
+    this.boxView.destroy();
 
     TimeMachineCommitView.superclass.destroy.call(this);
   };

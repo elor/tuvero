@@ -95,21 +95,24 @@
         <h2>Tuvero TAC 1.5.3-dev</h2>
         <div class="boxview info inline timemachineview">
           <h3>Gespeicherte Turniere</h3>
+          Turniere werden <b>automatisch gespeichert</b>.
           <div class="rootcommits">
-            <div class="timemachinecommitview template">
-              Name: <span class="name">## ##</span>
+            <div class="timemachinecommitview template boxview">
+              <h3 class="name">## ##</h3>
+              Beginn: <span class="startdate">## ##</span>
               <br>
-              Start: <span class="startdate">## ##</span>
+              Änderung: <span class="savedate">## ##</span>
               <br>
-              Save: <span class="savedate">## ##</span>
+              Größe: <span class="size">## ##</span>
               <br>
-              Size: <span class="size">## ##</span>
-              <br>
-              <button class="removecommit">
-                remove
+              <button class="loaddescendant inline tiny" data-img="reload">
+                Laden
               </button>
-              <button class="loaddescendant">
-                load
+              <button class="download inline tiny" data-img="save">
+                Herunterladen
+              </button>
+              <button class="removecommit inline tiny" data-img="clear">
+                Löschen
               </button>
               <!-- <button class="cleanuptree">
               cleanup
@@ -119,25 +122,15 @@
           <div class="newcommittree">
             <input type="text" class="treename"
             placeholder="z.B. Stadtmeisterschaft 2016" />
-            <button class="createroot">
+            <button class="createroot withlabel big">
               Neues Turnier
             </button>
           </div>
-          <p>
-            Der Turnierstand wird <b>automatisch gespeichert</b>.
-            <button class="savestate">
-              Manuell Speichern
-            </button>
-          </p>
-          <h3>Turnierstand</h3>
           <button class="withlabel load" data-img="load"></button>
-          Turnier laden
-          <br>
-          <button class="withlabel save" data-img="save"></button>
-          Turnier speichern
+          Turnier aus <code>json</code>-Datei laden
           <br>
           <button class="withlabel reset" data-img="clear"></button>
-          Turnier löschen
+          Alle Turniere löschen
         </div>
         <div class="boxview info inline firststeps leftalign">
           <h3>Erste Schritte</h3>

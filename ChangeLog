@@ -24,14 +24,19 @@
 	* legacy/scripts/ui/stateloader.js: unload() added
 
 	* legacy/scripts/ui/timemachinecommitview.js: using TimeMachine.isRelatedToActive()
+	BoxView added
 
 	* legacy/scripts/ui/strings.js: reflog tree removal confirmations added
 	Long strings shortened
+	clearstorage text emphasized
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
 	confirmation text includes the tournament name
 
 	* core/templates/timemachinecommitview.html: cleanup-button removed
+	Germanized
+	button images added
+	download button added
 
 	* legacy/scripts/ui/backgroundscripts/save.js: using TimeMachine.load() instead of TimeMachine.commit.load()
 
@@ -49,14 +54,19 @@
 
 	* core/templates/timemachineview.html: Extracted from settingstab.html
 	containing box removed. The tab takes care of it.
+	necessary newtournament button classes added
 
 	* legacy/scripts/ui/timemachineview.js: Extracted from settingstab.js
+	global storage save button removed
 
 	* core/templates/hometab.html: timemachineview moved here
+	load/save texts optimized
 
 	* legacy/scripts/ui/hometab.js: timemachineview moved here
 
 	* legacy/style/settings.css: unused rules removed
+
+	* legacy/style/timemachine.css: .rootcommits margin added
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

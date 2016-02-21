@@ -24,13 +24,6 @@ define(['lib/extend', 'core/view', './storagesavecontroller',
   TimeMachineView.prototype.init = function() {
     var $button, $container, $template;
     /*
-     * storage save button (NOT file save button)
-     */
-    $button = this.$view.find('button.savestate');
-    this.storageSaveController = new StorageSaveController(new View(undefined,
-        $button));
-
-    /*
      * Time Machine Commits
      */
     $container = this.$view.find('.rootcommits');

@@ -5,3 +5,7 @@
 .timemachinecommitview.activetree {
   font-weight: bold;
 }
+
+.timemachineview .rootcommits {
+  margin-bottom: 1em;
+}
