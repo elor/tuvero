@@ -148,6 +148,7 @@ define([
   'ui/debugtab',
   'ui/deleteallteamscontroller',
   'ui/fileloadcontroller',
+  'ui/filesavermodel',
   'ui/finishroundcontroller',
   'ui/fontsizecontroller',
   'ui/fontsizemodel',

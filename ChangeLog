@@ -81,6 +81,8 @@
 
 	* legacy/scripts/ui/backgroundscripts/tabteamscheaphacklistener.js: Team entry disabled when no tournament has been selected
 
+	* legacy/scripts/ui/filesavermodel.js: save a single commit
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
