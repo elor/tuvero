@@ -21,6 +21,14 @@ TimeMachine) {
     this.createTree = name || '';
   };
 
+  StateSaverModel.prototype.createNewEmptyTree = function(name) {
+    this.newTree(name);
+
+    State.clear();
+
+    return this.saveState();
+  };
+
   /**
    * Save the current state to a new commit
    *

@@ -239,6 +239,7 @@ define([
   'ui/textview',
   'ui/timemachinecommitcontroller',
   'ui/timemachinecommitview',
+  'ui/timemachinenewtreecontroller',
   'ui/toast',
   'ui/tournamentcontroller',
   'ui/tournamenthistoryview',

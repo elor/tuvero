@@ -43,9 +43,6 @@ define(['ui/state', 'ui/listcollectormodel', 'ui/teammodel',
   // save on global ranking change (i.e. after every match, etc.
   Listener.bind(State.tournaments, 'update', save);
 
-  // save on state reset
-  Listener.bind(State, 'clear', save);
-
   // save on tournament name change
   nameListener = new Listener();
   nameListener.onupdate = save;

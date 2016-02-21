@@ -4,12 +4,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './valueview', './storage',
+define(['lib/extend', 'jquery', 'core/view', './valueview',
     './storagesavecontroller', './fileloadcontroller', './csvexportcontroller',
-    'ui/timemachinecommitview', 'ui/listview', 'timemachine/timemachine'], //
-function(extend, $, View, ValueView, Storage, StorageSaveController,
-    FileLoadController, CSVExportController, TimeMachineCommitView, ListView,
-    TimeMachine) {
+    'ui/timemachinecommitview', 'ui/listview', 'timemachine/timemachine',
+    'ui/timemachinenewtreecontroller'], //
+function(extend, $, View, ValueView, StorageSaveController, FileLoadController,
+    CSVExportController, TimeMachineCommitView, ListView, TimeMachine,
+    TimeMachineNewTreeController) {
   /**
    * represents a whole team tab
    *
@@ -63,6 +64,13 @@ function(extend, $, View, ValueView, Storage, StorageSaveController,
     $template = $container.find('.timemachinecommitview.template');
     this.initCommits = new ListView(TimeMachine.roots, $container, $template,
         TimeMachineCommitView);
+
+    /*
+     * Time Machine New Tree
+     */
+    $container = this.$view.find('.newcommittree');
+    this.newcommitTreeController = new TimeMachineNewTreeController(new View(
+        undefined, $container))
   };
 
   // FIXME CHEAP HACK AHEAD
