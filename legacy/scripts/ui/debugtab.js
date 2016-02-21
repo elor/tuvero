@@ -8,11 +8,10 @@ define(['lib/extend', 'jquery', 'core/view', './storage', './strings',
     './toast', './loadedimagesview', './browserinfoview',
     './registerteamscontroller', './registeridscontroller',
     './requiremodsshortcut', './finishroundcontroller', './debug',
-    './tabshandle', 'timemachine/timemachine', 'ui/stateloader'], function(
-    extend, $, View, Storage, Strings, Toast, LoadedImagesView,
-    BrowserInfoView, RegisterTeamsController, RegisterIDsController,
-    RequireModsShortcut, FinishRoundController, Debug, TabsHandle, TimeMachine,
-    StateLoader) {
+    './tabshandle', 'ui/statesaver'], function(extend, $, View, Storage,
+    Strings, Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
+    RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
+    TabsHandle, StateSaver) {
   /**
    * represents a whole team tab
    *
@@ -56,12 +55,9 @@ define(['lib/extend', 'jquery', 'core/view', './storage', './strings',
      */
     $container = this.$view.find('.register .delete');
     $container.click(function() {
-      StateLoader.unload();
-      while (TimeMachine.roots.length > 0) {
-        TimeMachine.roots.get(0).eraseTree();
-      }
-      window.localStorage.clear();
+      StateSaver.removeEverything();
       Storage.clear();
+      window.localStorage.clear();
       new Toast(Strings.reset);
     });
 

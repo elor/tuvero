@@ -15,10 +15,10 @@ define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
   function hashcheck() {
     if (location.hash === '#reset') {
       console.log('clearing localstorage');
-      localStorage.clear();
+      window.localStorage.clear();
 
       new Toast(Strings.reset, Toast.LONG);
-      location.hash = '#debug';
+      window.location.hash = '#debug';
 
       return true;
     }

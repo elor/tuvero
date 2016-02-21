@@ -5,8 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
-    './toast', './browser', 'ui/timemachineview'], function(extend, $, View,
-    State, Strings, Toast, Browser, TimeMachineView) {
+    './toast', './browser', 'ui/timemachineview', 'ui/statesaver'], function(
+    extend, $, View, State, Strings, Toast, Browser, TimeMachineView,
+    StateSaver) {
   /**
    * represents a whole team tab
    *
@@ -36,7 +37,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
     $button = this.$view.find('button.reset');
     $button.click(function() {
       if (confirm(Strings.clearstorage)) {
-        State.clear();
+        StateSaver.removeEverything();
       }
     });
 

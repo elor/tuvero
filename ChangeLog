@@ -50,6 +50,7 @@
 	* legacy/scripts/ui/backgroundscripts/online.js: Storage hints aren't required anymore
 
 	* legacy/scripts/ui/debugtab.js: clear-button properly resets the whole time machine
+	use StateSaver.removeEverything()
 
 	* legacy/scripts/ui/fileloadcontroller.js: Doesn't require Storage anymore
 	take tournament name from file name
@@ -68,12 +69,15 @@
 	load/save texts optimized
 
 	* legacy/scripts/ui/hometab.js: timemachineview moved here
+	use StateSaver.removeEverything()
 
 	* legacy/style/settings.css: unused rules removed
 
 	* legacy/style/timemachine.css: .rootcommits margin added
 
 	* tools/write-sprite.sh: vertical-align of images according to .inline class
+
+	* legacy/scripts/ui/backgroundscripts/reset.js: accessibility of windows.localStorage/windows.location
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
