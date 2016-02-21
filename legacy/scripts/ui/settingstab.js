@@ -36,12 +36,6 @@ function(extend, $, View, ValueView, Storage, StorageSaveController,
     var $container, value, $button, $template;
 
     /*
-     * show browser info
-     */
-    $container = this.$view.find('.savedate');
-    this.saveDate = new ValueView(Storage.lastSaved, $container);
-
-    /*
      * storage save button (NOT file save button)
      */
     $button = this.$view.find('button.savestate');
