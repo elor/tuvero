@@ -108,6 +108,10 @@
 
 	* core/images/tuvero.png: tuvero logo added
 
+	* images/: images for index.html
+
+	* index.html: redesign
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
