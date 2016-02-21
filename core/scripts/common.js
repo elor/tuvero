@@ -240,6 +240,7 @@ define([
   'ui/timemachinecommitcontroller',
   'ui/timemachinecommitview',
   'ui/timemachinenewtreecontroller',
+  'ui/timemachineview',
   'ui/toast',
   'ui/tournamentcontroller',
   'ui/tournamenthistoryview',

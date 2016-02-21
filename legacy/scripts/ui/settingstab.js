@@ -4,13 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './valueview',
-    './storagesavecontroller', './fileloadcontroller', './csvexportcontroller',
-    'ui/timemachinecommitview', 'ui/listview', 'timemachine/timemachine',
-    'ui/timemachinenewtreecontroller'], //
-function(extend, $, View, ValueView, StorageSaveController, FileLoadController,
-    CSVExportController, TimeMachineCommitView, ListView, TimeMachine,
-    TimeMachineNewTreeController) {
+define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
+    'ui/timemachineview'], function(extend, $, View, CSVExportController,
+    TimeMachineView) {
   /**
    * represents a whole team tab
    *
@@ -34,21 +30,7 @@ function(extend, $, View, ValueView, StorageSaveController, FileLoadController,
    * TODO maybe split it into multiple autodetected functions?
    */
   SettingsTab.prototype.init = function() {
-    var $container, value, $button, $template;
-
-    /*
-     * storage save button (NOT file save button)
-     */
-    $button = this.$view.find('button.savestate');
-    this.storageSaveController = new StorageSaveController(new View(undefined,
-        $button));
-
-    /*
-     * load button
-     */
-    $button = this.$view.find('input.load.file');
-    this.fileLoadController = new FileLoadController(new View(undefined,
-        $button));
+    var $container;
 
     /*
      * CSV buttons
@@ -58,19 +40,11 @@ function(extend, $, View, ValueView, StorageSaveController, FileLoadController,
         $container));
 
     /*
-     * Time Machine Commits
+     * Time Machine
      */
-    $container = this.$view.find('.rootcommits');
-    $template = $container.find('.timemachinecommitview.template');
-    this.initCommits = new ListView(TimeMachine.roots, $container, $template,
-        TimeMachineCommitView);
+    $container = this.$view.find('.timemachineview');
+    this.timeMachineView = new TimeMachineView($container);
 
-    /*
-     * Time Machine New Tree
-     */
-    $container = this.$view.find('.newcommittree');
-    this.newcommitTreeController = new TimeMachineNewTreeController(new View(
-        undefined, $container))
   };
 
   // FIXME CHEAP HACK AHEAD
