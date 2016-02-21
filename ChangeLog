@@ -104,6 +104,8 @@
 
 	* legacy/scripts/timemachine/query.js: ROOTKEY bug fixed
 
+	* core/images/tuvero.png: tuvero logo added
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
