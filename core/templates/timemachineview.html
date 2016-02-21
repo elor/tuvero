@@ -1,23 +1,17 @@
-<div class="boxview inline timemachineview">
-  <h3>Turniere</h3>
-  <div class="rootcommits">
-    {{timemachinecommitview}}
-  </div>
-  <div class="newcommittree">
-    <input type="text" class="treename"
-    placeholder="z.B. Stadtmeisterschaft 2015" />
-    <button class="createroot">
-      Neues Turnier
-    </button>
-  </div>
-  <p>
-    Der Turnierstand wird <b>automatisch gespeichert</b> und wird nach
-    dem Schließen und Öffnen des Browsers wieder hergestellt.
-  </p>
-  <div class="local">
-    <button class="savestate">
-      Manuell Speichern
-    </button>
-  </div>
-
+<h3>Gespeicherte Turniere</h3>
+<div class="rootcommits">
+  {{timemachinecommitview}}
 </div>
+<div class="newcommittree">
+  <input type="text" class="treename"
+  placeholder="z.B. Stadtmeisterschaft 2016" />
+  <button class="createroot">
+    Neues Turnier
+  </button>
+</div>
+<p>
+  Der Turnierstand wird <b>automatisch gespeichert</b>.
+  <button class="savestate">
+    Manuell Speichern
+  </button>
+</p>

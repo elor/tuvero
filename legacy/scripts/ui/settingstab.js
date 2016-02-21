@@ -4,9 +4,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
-    'ui/timemachineview'], function(extend, $, View, CSVExportController,
-    TimeMachineView) {
+define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller'],//
+    function(extend, $, View, CSVExportController) {
   /**
    * represents a whole team tab
    *
@@ -38,13 +37,6 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     $container = this.$view.find('.csv');
     this.csvExportController = new CSVExportController(new View(undefined,
         $container));
-
-    /*
-     * Time Machine
-     */
-    $container = this.$view.find('.timemachineview');
-    this.timeMachineView = new TimeMachineView($container);
-
   };
 
   // FIXME CHEAP HACK AHEAD

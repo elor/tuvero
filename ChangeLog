@@ -3,9 +3,11 @@
 	* core/templates/settingstab.html: savedate display removed
 	"New Tournament" input added
 	referencing {{timemachineview}}
+	timemachineview moved to hometab
 
 	* legacy/scripts/ui/settingstab.js: savedate display removed
 	TimeMachine-logic extracted to TimeMachineView
+	TimeMachineView moved to hometab
 
 	* legacy/scripts/ui/backgroundscripts/autosave.js: Don't save on clear(), since TimeMachine takes care of that
 
@@ -46,8 +48,15 @@
 	* legacy/scripts/ui/storage.js: simplified. It only serves the player names, no need for crazy stuff
 
 	* core/templates/timemachineview.html: Extracted from settingstab.html
+	containing box removed. The tab takes care of it.
 
 	* legacy/scripts/ui/timemachineview.js: Extracted from settingstab.js
+
+	* core/templates/hometab.html: timemachineview moved here
+
+	* legacy/scripts/ui/hometab.js: timemachineview moved here
+
+	* legacy/style/settings.css: unused rules removed
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

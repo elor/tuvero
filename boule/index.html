@@ -88,12 +88,47 @@
     <div id="tabs">
       <div data-tab="home" accesskey="s">
         <div class="options">
-          <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank">
-          Funktioniert am besten<br> mit
-          <span class="tiny" data-img="logos/chrome_128x128">Chrome</span></a>
+          <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank"> Funktioniert am besten
+          <br>
+          mit <span class="tiny" data-img="logos/chrome_128x128">Chrome</span></a>
         </div>
         <h2>Tuvero Boule 1.5.3-dev</h2>
-        <div class="boxview info inline">
+        <div class="boxview info inline timemachineview">
+          <h3>Gespeicherte Turniere</h3>
+          <div class="rootcommits">
+            <div class="timemachinecommitview template">
+              Name: <span class="name">## ##</span>
+              <br>
+              Start: <span class="startdate">## ##</span>
+              <br>
+              Save: <span class="savedate">## ##</span>
+              <br>
+              Size: <span class="size">## ##</span>
+              <br>
+              <button class="removecommit">
+                remove
+              </button>
+              <button class="loaddescendant">
+                load
+              </button>
+              <!-- <button class="cleanuptree">
+              cleanup
+              </button> -->
+            </div>
+          </div>
+          <div class="newcommittree">
+            <input type="text" class="treename"
+            placeholder="z.B. Stadtmeisterschaft 2016" />
+            <button class="createroot">
+              Neues Turnier
+            </button>
+          </div>
+          <p>
+            Der Turnierstand wird <b>automatisch gespeichert</b>.
+            <button class="savestate">
+              Manuell Speichern
+            </button>
+          </p>
           <h3>Turnierstand</h3>
           <button class="withlabel load" data-img="load"></button>
           Turnier laden
@@ -121,7 +156,8 @@
               Sieh die Platzierung im <a href="#ranking" class="tiny" data-img="ranking"> Platzierungen-Tab</a> ein
             </li>
             <li>
-              Drucke Begegnungen und Ergebnisse über den <button class="print tiny" data-img="print"></button> Drucker-Knopf</a>
+              Drucke Begegnungen und Ergebnisse über den <button class="print tiny" data-img="print"></button>
+              Drucker-Knopf</a>
             </li>
           </ol>
         </div>
@@ -142,13 +178,16 @@
             Bitte auf <a class="errorlink" href="http://fehler.tuvero.de/?variant=Boule&version=1.5.3-dev">http://fehler.tuvero.de/</a>
             melden oder eine Mail an mich schreiben.
             <br>
-            Bitte heruntergeladenen Spielstand (<button class="tiny save" data-img="save"></button>) mitschicken.
+            Bitte heruntergeladenen Spielstand (<button class="tiny save" data-img="save"></button>
+            ) mitschicken.
           </p>
           <h4>Mitwirkende</h4>
           <table class="borderless background middle">
             <tr>
               <td>Fabian Böttcher</td>
-              <td>Öffentlichkeitsarbeit<br>Beratung (Boule, Design)</td>
+              <td>Öffentlichkeitsarbeit
+              <br>
+              Beratung (Boule, Design)</td>
             </tr>
             <tr>
               <td>Kai Angne</td>
@@ -929,47 +968,7 @@
             </button>
           </div>
         </div>
-        <div class="boxview inline timemachineview">
-          <h3>Turniere</h3>
-          <div class="rootcommits">
-            <div class="timemachinecommitview template">
-              Name: <span class="name">## ##</span>
-              <br>
-              Start: <span class="startdate">## ##</span>
-              <br>
-              Save: <span class="savedate">## ##</span>
-              <br>
-              Size: <span class="size">## ##</span>
-              <br>
-              <button class="removecommit">
-                remove
-              </button>
-              <button class="loaddescendant">
-                load
-              </button>
-              <!-- <button class="cleanuptree">
-              cleanup
-              </button> -->
-            </div>
-          </div>
-          <div class="newcommittree">
-            <input type="text" class="treename"
-            placeholder="z.B. Stadtmeisterschaft 2015" />
-            <button class="createroot">
-              Neues Turnier
-            </button>
-          </div>
-          <p>
-            Der Turnierstand wird <b>automatisch gespeichert</b> und wird nach
-            dem Schließen und Öffnen des Browsers wieder hergestellt.
-          </p>
-          <div class="local">
-            <button class="savestate">
-              Manuell Speichern
-            </button>
-          </div>
-        </div>
-        <input class="load filereader file" type="file" />
+        <input class="load filereader file hidden" type="file" />
         <p class="nofilereader">
           Dieser Browser kann keine lokalen Dateien laden.
           Aktualisieren sie ihren Browser oder öffnen sie diese Seite in einem

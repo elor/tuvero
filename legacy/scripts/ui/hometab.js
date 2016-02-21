@@ -5,8 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
-    './toast', './browser'], function(extend, $, View, State, Strings, Toast,
-    Browser) {
+    './toast', './browser', 'ui/timemachineview'], function(extend, $, View,
+    State, Strings, Toast, Browser, TimeMachineView) {
   /**
    * represents a whole team tab
    *
@@ -30,7 +30,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
    * TODO maybe split it into multiple autodetected functions?
    */
   HomeTab.prototype.init = function() {
-    var $button, $errorlink, browserstring;
+    var $button, $errorlink, browserstring, $container;
 
     // TODO move to a controller
     $button = this.$view.find('button.reset');
@@ -44,6 +44,12 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
     $errorlink = this.$view.find('a.errorlink');
     $errorlink.attr('href', $errorlink.attr('href') + '&browser='
         + Browser.name + ' ' + Browser.version);
+
+    /*
+     * Time Machine
+     */
+    $container = this.$view.find('.timemachineview');
+    this.timeMachineView = new TimeMachineView($container);
   };
 
   // FIXME CHEAP HACK AHEAD

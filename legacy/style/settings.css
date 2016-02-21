@@ -18,8 +18,7 @@
   padding: 1em;
 }
 
-#tabs > [data-tab="settings"] input[type="file"], #tabs > [data-tab="settings"] button.clear {
-  visibility: hidden;
+#tabs > [data-tab="settings"] input[type="file"] {
   width: 1px;
   height: 1px;
   position: absolute;
@@ -31,7 +30,6 @@
   font-size: 120%;
 }
 
-#tabs > [data-tab="settings"] .local button,
 #tabs > [data-tab="settings"] .devel button {
   font-size: 1em;
   padding: 0.5em;
