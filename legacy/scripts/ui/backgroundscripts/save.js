@@ -15,12 +15,12 @@ define(['lib/Blob', 'jquery', 'timemachine/timemachine', '../toast',
     $('#tabs').on('click', 'button.save', function() {
       var save, blob;
 
-      if (!TimeMachine.commit) {
+      if (!TimeMachine.isInitialized()) {
         return;
       }
 
       try {
-        save = TimeMachine.commit.load();
+        save = TimeMachine.load();
         if (!save) {
           return;
         }

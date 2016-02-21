@@ -14,6 +14,8 @@
 	* legacy/scripts/timemachine/timemachine.js: save() doesn't initiate a new tree, it just fails.
 	unload() added
 	isActive() and isRelatedToActive() added
+	TimeMachine.commit made into a ValueModel
+	load(undefined) returns the current state
 
 	* legacy/scripts/ui/stateloader.js: unload() added
 
@@ -26,6 +28,8 @@
 	confirmation text includes the tournament name
 
 	* core/templates/timemachinecommitview.html: cleanup-button removed
+
+	* legacy/scripts/ui/backgroundscripts/save.js: using TimeMachine.load() instead of TimeMachine.commit.load()
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

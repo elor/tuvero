@@ -11,9 +11,9 @@
 define(['lib/extend', 'core/model', 'timemachine/reflog',
     'timemachine/keymodel', 'timemachine/commitmodel', 'core/listmodel',
     'timemachine/query', 'core/sortedreferencelistmodel',
-    'ui/listcollectormodel', 'presets'], function(extend, Model, RefLog,
-    KeyModel, CommitModel, ListModel, Query, SortedReferenceListModel,
-    ListCollectorModel, Presets) {
+    'ui/listcollectormodel', 'presets', 'core/valuemodel'], function(extend,
+    Model, RefLog, KeyModel, CommitModel, ListModel, Query,
+    SortedReferenceListModel, ListCollectorModel, Presets, ValueModel) {
   var TimeMachine;
 
   /**
@@ -47,9 +47,9 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     /*
      * commit is the current commit.
      */
-    this.commit = undefined;
+    this.commit = new ValueModel(undefined);
     if (latestKey) {
-      this.commit = new CommitModel(latestKey);
+      this.commit.set(new CommitModel(latestKey));
     } else {
       console.warn('No saved tournament found.');
     }
@@ -60,7 +60,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     'init': true,
     'save': true,
     'cleanup': true,
-    'load': true
+    'load': true,
+    'unload': true
   };
 
   /**
@@ -110,13 +111,13 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * @return the associated root commit
    */
   TimeMachineModel.prototype.init = function(state, name) {
-    this.commit = CommitModel.createRoot(state, name || Presets.target);
+    this.commit.set(CommitModel.createRoot(state, name || Presets.target));
 
-    this.emit('init', this.commit);
+    this.emit('init', this.commit.get());
 
     this.updateRoots();
 
-    return this.commit;
+    return this.commit.get();
   };
 
   /**
@@ -131,18 +132,19 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * @return the generated key
    */
   TimeMachineModel.prototype.save = function(state) {
-    if (this.commit && this.commit.isValid()) {
-      if (state === this.commit.load()) {
-        return this.commit; // no change in data. Nothing to save here.
+    if (this.commit.get() && this.commit.get().isValid()) {
+      if (state === this.commit.get().load()) {
+        return this.commit.get(); // no change in data. Nothing to save here.
       }
-      this.commit = this.commit.createChild(state);
+      this.commit.set(this.commit.createChild(state));
     } else {
+      this.commit.set(undefined);
       return undefined;
     }
 
-    this.emit('save', this.commit);
+    this.emit('save', this.commit.get());
 
-    return this.commit;
+    return this.commit.get();
   };
 
   /**
@@ -156,13 +158,17 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
   TimeMachineModel.prototype.load = function(commit) {
     var data;
 
+    if (commit === undefined && this.isInitialized()) {
+      return this.commit.get().load();
+    }
+
     if (!(commit instanceof CommitModel) || !commit.isValid()) {
       return undefined;
     }
 
     data = commit.load();
     if (data) {
-      this.commit = commit;
+      this.commit.set(commit);
       this.emit('load', data);
     }
     return data
@@ -172,7 +178,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * resets the currently active commit.
    */
   TimeMachineModel.prototype.unload = function() {
-    this.commit = undefined;
+    this.commit.set(undefined);
+    this.emit('unload');
   };
 
   TimeMachineModel.prototype.getOrphans = function() {
@@ -201,12 +208,18 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     return orphanedCommits.sort(CommitModel.sortFunction);
   };
 
+  TimeMachineModel.prototype.isInitialized = function() {
+    return !!this.commit.get();
+  };
+
   TimeMachineModel.prototype.isActive = function(commit) {
-    return !!this.commit && !!commit && this.commit.key.isEqual(commit.key);
+    return !!this.commit.get() && !!commit
+        && this.commit.get().key.isEqual(commit.key);
   };
 
   TimeMachineModel.prototype.isRelatedToActive = function(commit) {
-    return !!this.commit && !!commit && this.commit.key.isRelated(commit.key);
+    return !!this.commit.get() && !!commit
+        && this.commit.get().key.isRelated(commit.key);
   };
 
   /**
