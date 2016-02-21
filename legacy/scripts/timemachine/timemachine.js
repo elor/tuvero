@@ -201,6 +201,14 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     return orphanedCommits.sort(CommitModel.sortFunction);
   };
 
+  TimeMachineModel.prototype.isActive = function(commit) {
+    return !!this.commit && !!commit && this.commit.key.isEqual(commit.key);
+  };
+
+  TimeMachineModel.prototype.isRelatedToActive = function(commit) {
+    return !!this.commit && !!commit && this.commit.key.isRelated(commit.key);
+  };
+
   /**
    * get the used amount of localStorage, in unicode symbols, which is used by
    * the tree associated with the commit

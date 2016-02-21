@@ -62,9 +62,7 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
   };
 
   TimeMachineCommitView.prototype.updateActive = function() {
-    var isActive = this.model.key.isRelated(TimeMachine.commit.key);
-
-    this.activeView.model.set(isActive);
+    this.activeView.model.set(TimeMachine.isRelatedToActive(this.model));
   };
 
   TimeMachineCommitView.prototype.onsave = function(event, emitter, commit) {
@@ -75,7 +73,7 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
   };
 
   TimeMachineCommitView.prototype.onremove = function(event, emitter, commit) {
-    if (!commit.isRoot()) {
+    if (commit && !commit.isRoot()) {
       this.updateSaveDate();
       this.updateSize();
     }

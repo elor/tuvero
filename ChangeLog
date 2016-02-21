@@ -13,8 +13,11 @@
 
 	* legacy/scripts/timemachine/timemachine.js: save() doesn't initiate a new tree, it just fails.
 	unload() added
+	isActive() and isRelatedToActive() added
 
 	* legacy/scripts/ui/stateloader.js: unload() added
+
+	* legacy/scripts/ui/timemachinecommitview.js: using TimeMachine.isRelatedToActive()
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
