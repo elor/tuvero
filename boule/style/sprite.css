@@ -250,149 +250,170 @@
     height: 128px;
 }
 
-[data-img="games"]::before {
+[data-img="tuvero"]::before {
     background-image: url("../images/sprite.png");
     background-position: -330px -66px;
     width: 64px;
     height: 64px;
 }
 
-.tiny[data-img="games"]::before {
+.tiny[data-img="tuvero"]::before {
     background-image: url("../images/sprite.png");
     background-position: -165px -33px;
     width: 32px;
     height: 32px;
 }
 
-.large[data-img="games"]::before {
+.large[data-img="tuvero"]::before {
     background-image: url("../images/sprite.png");
     background-position: -660px -132px;
     width: 128px;
     height: 128px;
 }
 
-[data-img="clear"]::before {
+[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -396px -66px;
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
 }
 
-.tiny[data-img="clear"]::before {
+.tiny[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -198px -33px;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
 }
 
-.large[data-img="clear"]::before {
+.large[data-img="games"]::before {
     background-image: url("../images/sprite.png");
     background-position: -792px -132px;
-    width: 96px;
-    height: 96px;
+    width: 128px;
+    height: 128px;
 }
 
-[data-img="load"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -446px -66px;
-    width: 48px;
-    height: 48px;
-}
-
-.tiny[data-img="load"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -223px -33px;
-    width: 24px;
-    height: 24px;
-}
-
-.large[data-img="load"]::before {
-    background-image: url("../images/sprite.png");
-    background-position: -892px -132px;
-    width: 96px;
-    height: 96px;
-}
-
-[data-img="print"]::before {
+[data-img="clear"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -132px;
     width: 48px;
     height: 48px;
 }
 
-.tiny[data-img="print"]::before {
+.tiny[data-img="clear"]::before {
     background-image: url("../images/sprite.png");
     background-position: 0px -66px;
     width: 24px;
     height: 24px;
 }
 
-.large[data-img="print"]::before {
+.large[data-img="clear"]::before {
     background-image: url("../images/sprite.png");
     background-position: -1px -264px;
     width: 96px;
     height: 96px;
 }
 
-[data-img="reload"]::before {
+[data-img="load"]::before {
     background-image: url("../images/sprite.png");
     background-position: -50px -132px;
     width: 48px;
     height: 48px;
 }
 
-.tiny[data-img="reload"]::before {
+.tiny[data-img="load"]::before {
     background-image: url("../images/sprite.png");
     background-position: -25px -66px;
     width: 24px;
     height: 24px;
 }
 
-.large[data-img="reload"]::before {
+.large[data-img="load"]::before {
     background-image: url("../images/sprite.png");
     background-position: -100px -264px;
     width: 96px;
     height: 96px;
 }
 
-[data-img="save"]::before {
+[data-img="print"]::before {
     background-image: url("../images/sprite.png");
     background-position: -100px -132px;
     width: 48px;
     height: 48px;
 }
 
-.tiny[data-img="save"]::before {
+.tiny[data-img="print"]::before {
     background-image: url("../images/sprite.png");
     background-position: -50px -66px;
     width: 24px;
     height: 24px;
 }
 
-.large[data-img="save"]::before {
+.large[data-img="print"]::before {
     background-image: url("../images/sprite.png");
     background-position: -200px -264px;
     width: 96px;
     height: 96px;
 }
 
-[data-img="ext/btn_donateCC_LG"]::before {
+[data-img="reload"]::before {
     background-image: url("../images/sprite.png");
     background-position: -150px -132px;
+    width: 48px;
+    height: 48px;
+}
+
+.tiny[data-img="reload"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -75px -66px;
+    width: 24px;
+    height: 24px;
+}
+
+.large[data-img="reload"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -300px -264px;
+    width: 96px;
+    height: 96px;
+}
+
+[data-img="save"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -200px -132px;
+    width: 48px;
+    height: 48px;
+}
+
+.tiny[data-img="save"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -100px -66px;
+    width: 24px;
+    height: 24px;
+}
+
+.large[data-img="save"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -400px -264px;
+    width: 96px;
+    height: 96px;
+}
+
+[data-img="ext/btn_donateCC_LG"]::before {
+    background-image: url("../images/sprite.png");
+    background-position: -250px -132px;
     width: 63px;
     height: 23px;
 }
 
 .tiny[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -75px -66px;
+    background-position: -125px -66px;
     width: 31px;
     height: 11px;
 }
 
 .large[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url("../images/sprite.png");
-    background-position: -300px -264px;
+    background-position: -500px -264px;
     width: 126px;
     height: 47px;
 }
@@ -400,37 +421,39 @@
 
 [data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 496px;
+    width: 462px;
     height: 180px;
 }
 
 .tiny[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 248px;
+    width: 231px;
     height: 90px;
 }
 
 .large[data-img="sprite"]::before {
     background-image: url("../images/sprite.png");
-    width: 992px;
+    width: 924px;
     height: 361px;
 }
 
 [data-img]::before {
-  background-size: 496px 180px;
+  background-size: 462px 180px;
   display: inline-block;
   vertical-align: bottom;
   content: '';
 }
 
-button[data-img]::before {
+button[data-img]::before,
+h2[data-img]::before,
+.middle[data-img]::before {
   vertical-align: middle;
 }
 
 .large[data-img]::before {
-  background-size: 992px 361px;
+  background-size: 924px 361px;
 }
 
 .tiny[data-img]::before {
-  background-size: 248px 90px;;
+  background-size: 231px 90px;;
 }
