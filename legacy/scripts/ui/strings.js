@@ -34,6 +34,7 @@ define(['strings'], function(LocalStrings) {
     loaded: 'Turnier geladen',
     loadfailed: 'Ladevorgang fehlgeschlagen!',
     newtournament: 'Neues Turnier begonnen',
+    notournament: 'Noch kein Turnier gestartet',
     notimplemented: 'Funktion noch nicht verfügbar',
     pageload: 'Seite geladen',
     pointchangeaborted: 'Änderung verworfen',

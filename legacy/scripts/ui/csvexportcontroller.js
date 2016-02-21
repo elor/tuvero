@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'ui/state', 'presets',
-    'lib/FileSaver', 'lib/Blob', './toast', './strings'], function(extend,
-    Controller, State, Presets, saveAs, Blob, Toast, Strings) {
+    'lib/FileSaver', 'lib/Blob', './toast', './strings',
+    'timemachine/timemachine'], function(extend, Controller, State, Presets,
+    saveAs, Blob, Toast, Strings, TimeMachine) {
   /**
    * Constructor
    *
@@ -35,16 +36,28 @@ define(['lib/extend', 'core/controller', 'ui/state', 'presets',
   extend(CSVExportController, Controller);
 
   CSVExportController.prototype.saveCSV = function(datasets) {
-    var data, blob;
+    var data, blob, filename, basename;
+
+    if (!TimeMachine.isInitialized()) {
+      new Toast(Strings.notournament, Toast.LONG);
+      return;
+    }
+
+    basename = TimeMachine.commit.get().getTreeName() || Presets.target;
+    filename = basename.substr(0, 64) + '.csv';
 
     data = this.generateCSV(datasets);
     try {
       blob = new Blob([data], {
         type: 'text/csv'
       });
-      saveAs(blob, Presets.names.csvfile);
     } catch (e) {
       console.log(e.stack);
+      new Toast(Strings.exportfailed, Toast.LONG);
+    }
+
+    if (!saveAs(blob, filename)) {
+      console.error('saveAs failed!');
       new Toast(Strings.exportfailed, Toast.LONG);
     }
   };

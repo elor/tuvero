@@ -32,6 +32,7 @@
 	Long strings shortened
 	clearstorage text emphasized
 	"reloading..." text isn't accurate anymore
+	'notournament' added
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
 	confirmation text includes the tournament name
@@ -86,6 +87,8 @@
 
 	* legacy/scripts/ui/filesavermodel.js: save a single commit
 	removing trailing .json from tournament name
+
+	* legacy/scripts/ui/csvexportcontroller.js: save into a tournament-named .csv file
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
