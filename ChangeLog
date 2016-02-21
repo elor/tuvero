@@ -99,6 +99,8 @@
 	* test/scripts/presets.js: player name loading disabled
 	static filenames removed
 
+	* legacy/scripts/timemachine/test/query.js: useless tests removed
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.

@@ -8,19 +8,14 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, Query, KeyModel, Model, Type;
+    var Query, KeyModel, Type;
 
-    extend = getModule('lib/extend');
     Query = getModule('timemachine/query');
     KeyModel = getModule('timemachine/keymodel');
-    Model = getModule('core/model');
     Type = getModule('core/type');
 
     QUnit.test('Query', function() {
       var query, key, key2, key3, key4, key5, ref, date, res;
-
-      QUnit.ok(extend.isSubclass(Query, Model),
-          'Query is subclass of Model');
 
       query = new Query(Query.ALLKEYS);
 
@@ -40,7 +35,6 @@ define(function() {
 
       ref = 'test_2016-02-12T12:10:11.591Z_2016-02-12T12:10:11.591Z';
       key = KeyModel.fromString(ref);
-      key2 = KeyModel.fromString(key);
 
       ref = 'test_2015-06-01T19:55:12.512Z_2015-06-01T19:55:12.512Z';
       key3 = KeyModel.fromString(ref);
@@ -48,11 +42,10 @@ define(function() {
       key4 = KeyModel.fromString(ref);
 
       localStorage.setItem(key, 'test');
-      localStorage.setItem(key2, 'test');
       localStorage.setItem(key3, 'test');
       localStorage.setItem(key4, 'test');
 
-      ref = [key.toString(), key2.toString(), key3.toString(), key4.toString()]
+      ref = [key.toString(), key3.toString(), key4.toString()]
           .sort();
 
       QUnit.deepEqual(query.filter(), ref, 'ALLKEYS returns all 4 test keys');
