@@ -79,6 +79,8 @@
 
 	* legacy/scripts/ui/backgroundscripts/reset.js: accessibility of windows.localStorage/windows.location
 
+	* legacy/scripts/ui/backgroundscripts/tabteamscheaphacklistener.js: Team entry disabled when no tournament has been selected
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.

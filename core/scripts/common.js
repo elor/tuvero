@@ -131,6 +131,7 @@ define([
   'ui/backgroundscripts/tabhistorycheaphacklistener',
   'ui/backgroundscripts/tabnewcheaphacklistener',
   'ui/backgroundscripts/tabrankingcheaphacklistener',
+  'ui/backgroundscripts/tabteamscheaphacklistener',
   'ui/backgroundscripts/tournamenterrortoasts',
   'ui/binarytreemodel',
   'ui/boxcontroller',
