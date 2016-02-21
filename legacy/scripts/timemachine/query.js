@@ -68,6 +68,7 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
   Query.prototype.filter = function() {
     var keys, trees, last, lastDate;
     keys = Object.keys(window.localStorage);
+
     if (this.reference === Query.ALLTUVEROKEYS) {
       keys = keys.filter(KeyModel.isTuveroKey)
     } else {
@@ -84,7 +85,10 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
       // Nothing to do here. keys already contains all keys.
       break;
     case Query.ROOTKEYS:
-      keys = keys.filter(KeyModel.prototype.isRoot.call);
+      keys = keys.filter(function(keyString) {
+        var key = new KeyModel.fromString(keyString);
+        return key.isRoot();
+      });
       break;
     case Query.LASTKEYS:
       trees = {};
