@@ -16,15 +16,21 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
     var controller;
     FileLoadController.superconstructor.call(this, view);
 
+    this.reader = undefined;
+    this.file = undefined;
+    this.filename = undefined;
+
     controller = this;
 
     this.view.$view.change(function(evt) {
-      var reader = new FileReader();
-      reader.onerror = controller.error.bind(controller);
-      reader.onabort = controller.abort.bind(controller);
-      reader.onload = controller.load.bind(controller);
+      controller.reader = new FileReader();
+      controller.file = evt.target.files[0];
 
-      reader.readAsText(evt.target.files[0]);
+      controller.reader.onerror = controller.error.bind(controller);
+      controller.reader.onabort = controller.abort.bind(controller);
+      controller.reader.onload = controller.load.bind(controller);
+
+      controller.reader.readAsText(controller.file);
     });
   }
   extend(FileLoadController, Controller);
@@ -48,18 +54,24 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
   FileLoadController.prototype.load = function(evt) {
     var blob, Alltabs;
 
+    if (evt.target !== this.reader) {
+      new Toast(Strings.loadfailed, Toast.LONG);
+      this.reset();
+    }
+
     blob = evt.target.result;
 
     Toast.closeTemporaryToasts();
     try {
       // TODO use filename until the tournament name is stored in the file, too
-      StateSaver.newTree('');
+      StateSaver.newTree(this.file.name);
       if (StateLoader.loadString(blob)) {
         StateSaver.saveState();
 
         Toast.closeTemporaryToasts();
         new Toast(Strings.loaded, Toast.LONG);
       } else {
+        new Toast(Strings.loadfailed, Toast.LONG);
         // TODO what if something invalid has been returned?
       }
     } catch (err) {

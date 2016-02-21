@@ -4,8 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller'],//
-    function(extend, $, View, CSVExportController) {
+define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
+    'ui/fileloadcontroller'], function(extend, $, View, CSVExportController,
+    FileLoadController) {
   /**
    * represents a whole team tab
    *
@@ -29,7 +30,11 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller'],//
    * TODO maybe split it into multiple autodetected functions?
    */
   SettingsTab.prototype.init = function() {
-    var $container;
+    var $container, $input;
+
+    $input = this.$view.find('input.load');
+    this.fileLoadController = new FileLoadController(
+        new View(undefined, $input));
 
     /*
      * CSV buttons

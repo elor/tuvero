@@ -8,6 +8,7 @@
 	* legacy/scripts/ui/settingstab.js: savedate display removed
 	TimeMachine-logic extracted to TimeMachineView
 	TimeMachineView moved to hometab
+	FileLoadController re-instated
 
 	* legacy/scripts/ui/backgroundscripts/autosave.js: Don't save on clear(), since TimeMachine takes care of that
 
@@ -29,6 +30,7 @@
 	* legacy/scripts/ui/strings.js: reflog tree removal confirmations added
 	Long strings shortened
 	clearstorage text emphasized
+	"reloading..." text isn't accurate anymore
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
 	confirmation text includes the tournament name
@@ -49,6 +51,8 @@
 	* legacy/scripts/ui/debugtab.js: clear-button properly resets the whole time machine
 
 	* legacy/scripts/ui/fileloadcontroller.js: Doesn't require Storage anymore
+	take tournament name from file name
+	send load error toast when file doesn't match json format
 
 	* legacy/scripts/ui/storage.js: simplified. It only serves the player names, no need for crazy stuff
 

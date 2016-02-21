@@ -32,7 +32,7 @@ define(['strings'], function(LocalStrings) {
     gamefinished: 'Spiel beendet',
     invalidresult: 'Ungültiges Ergebnis',
     loaded: 'Turnier geladen',
-    loadfailed: 'Ladevorgang fehlgeschlagen. Lade neu...',
+    loadfailed: 'Ladevorgang fehlgeschlagen!',
     newtournament: 'Neues Turnier begonnen',
     notimplemented: 'Funktion noch nicht verfügbar',
     pageload: 'Seite geladen',
