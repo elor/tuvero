@@ -111,6 +111,7 @@
 	* images/: images for index.html
 
 	* index.html: redesign
+	app icons aligned
 
 	* Makefile: index.html redesign changed the required files for the manifest
 

@@ -115,7 +115,7 @@
       .header img {
         height: 8em;
       }
-      
+
       #footer {
         clear: both;
       }
@@ -146,13 +146,8 @@
         display: inline-block;
       }
 
-      .variant {
+      .featurelist {
         text-align: left;
-      }
-
-      .variantlink, .featurelist {
-        display: inline-block;
-        vertical-align: top;
       }
 
       .variantlink img {
@@ -161,7 +156,7 @@
       }
 
       h1 {
-        color: #4f697f;
+        /*color: #4f697f;*/
         margin: 0px;
       }
 
@@ -220,9 +215,10 @@
       </p>
       <div id="variants">
         <h2>Varianten und Sportarten</h2>
-        <div class="variant">
-          <div class="variantlink">
-            <a href="basic/index.html#home"><img src="images/tuvero.png" title="Basic" /> Tuvero Basic</a>
+        <table>
+          <tr class="variant">
+            <td class="variantlink"><a href="basic/index.html#home"><img src="images/tuvero.png" title="Basic" /> Tuvero Basic</a></td>
+            <td>
             <ul class="featurelist">
               <li>
                 Grundversion
@@ -230,37 +226,33 @@
               <li>
                 Für einfache Turniere
               </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="variant">
-          <div class="variantlink">
-            <a href="boule/index.html#home"><img src="images/boule.png" title="Boule" /> Tuvero Boule</a>
-          </div>
-          <ul class="featurelist">
-            <li>
-              Für Petanque gemacht
-            </li>
-            <li>
-              Angepasste Turnierarten
-            </li>
-          </ul>
-        </div>
-
-        <div class="variant">
-          <div class="variantlink">
-            <a href="tac/index.html#home"><img src="images/tac.png" title="TAC" /> Tuvero TAC</a>
-          </div>
-          <ul class="featurelist">
-            <li>
-              Nur für TAC
-            </li>
-            <li>
-              Unterstützt TAC-Punkte
-            </li>
-          </ul>
-        </div>
+            </ul></td>
+          </tr>
+          <tr>
+          <tr class="variant">
+            <td class="variantlink"><a href="boule/index.html#home"><img src="images/boule.png" title="Boule" /> Tuvero Boule</a></td>
+            <td>
+            <ul class="featurelist">
+              <li>
+                Für Petanque gemacht
+              </li>
+              <li>
+                Angepasste Turnierarten
+              </li>
+            </ul></td>
+          <tr class="variant">
+            <td class="variantlink"><a href="tac/index.html#home"><img src="images/tac.png" title="TAC" /> Tuvero TAC</a></td>
+            <td>
+            <ul class="featurelist">
+              <li>
+                Nur für TAC
+              </li>
+              <li>
+                Unterstützt TAC-Punkte
+              </li>
+            </ul></td>
+          </tr>
+        </table>
       </div>
       <div id="offline">
         <h2>Tuvero Offline</h2>
@@ -286,8 +278,7 @@
         <a href="http://www.spiel-tac.de/"><img src="images/tac.png" alt="tac"/></a>
       </div>
 
-      <div id="footer">
-      </div>
+      <div id="footer"></div>
     </div>
   </body>
   <script>
