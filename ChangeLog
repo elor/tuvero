@@ -57,6 +57,7 @@
 	* legacy/scripts/ui/fileloadcontroller.js: Doesn't require Storage anymore
 	take tournament name from file name
 	send load error toast when file doesn't match json format
+	removing trailing .json from the filename
 
 	* legacy/scripts/ui/storage.js: simplified. It only serves the player names, no need for crazy stuff
 
@@ -84,6 +85,7 @@
 	* legacy/scripts/ui/backgroundscripts/tabteamscheaphacklistener.js: Team entry disabled when no tournament has been selected
 
 	* legacy/scripts/ui/filesavermodel.js: save a single commit
+	removing trailing .json from tournament name
 
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -18,7 +18,6 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
 
     this.reader = undefined;
     this.file = undefined;
-    this.filename = undefined;
 
     controller = this;
 
@@ -64,7 +63,7 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
     Toast.closeTemporaryToasts();
     try {
       // TODO use filename until the tournament name is stored in the file, too
-      StateSaver.newTree(this.file.name);
+      StateSaver.newTree(this.file.name.replace(/(\.json)+$/, ''));
       if (StateLoader.loadString(blob)) {
         StateSaver.saveState();
 

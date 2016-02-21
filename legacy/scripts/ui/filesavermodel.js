@@ -31,7 +31,7 @@ define(['lib/extend', 'core/model', 'lib/FileSaver', 'timemachine/timemachine',
    * @return true on success, false otherwise
    */
   FileSaverModel.prototype.save = function() {
-    var commit, basename, data, blob, saveState;
+    var commit, basename, filename, data, blob, saveState;
 
     commit = this.commit || TimeMachine.commit.get();
 
@@ -45,6 +45,7 @@ define(['lib/extend', 'core/model', 'lib/FileSaver', 'timemachine/timemachine',
     }
 
     basename = commit.getTreeName() || Presets.target;
+    filename = basename.replace(/(\.json)+$/, '').substr(0, 64) + '.json';
 
     data = commit.load();
 
@@ -64,7 +65,7 @@ define(['lib/extend', 'core/model', 'lib/FileSaver', 'timemachine/timemachine',
     }
 
     try {
-      saveState = saveAs(blob, basename + '.json');
+      saveState = saveAs(blob, filename);
     } catch (e) {
       console.error('FileSaver: saveAs failed');
       return false;
