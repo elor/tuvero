@@ -68,6 +68,8 @@
 
 	* legacy/style/timemachine.css: .rootcommits margin added
 
+	* tools/write-sprite.sh: vertical-align of images according to .inline class
+
 2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.

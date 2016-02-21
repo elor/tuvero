@@ -203,11 +203,12 @@ cat <<EOF >> $stylesheet
 [data-img]::before {
   background-size: $((canvaswidth/2))px $((canvasheight/2))px;
   display: inline-block;
+  vertical-align: bottom;
   content: '';
 }
 
-[data-img]:not(.inline)::before {
-  vertical-align: bottom;
+button[data-img]::before {
+  vertical-align: middle;
 }
 
 .large[data-img]::before {
