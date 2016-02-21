@@ -42,6 +42,7 @@
 	download button added
 
 	* legacy/scripts/ui/backgroundscripts/save.js: using TimeMachine.load() instead of TimeMachine.commit.load()
+	use a FileSaverModel
 
 	* core/scripts/main.js: Storage.enable/disable removed
 
