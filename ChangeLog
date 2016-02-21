@@ -35,6 +35,7 @@
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
 	confirmation text includes the tournament name
+	download button enabled. uses FileSaverModel
 
 	* core/templates/timemachinecommitview.html: cleanup-button removed
 	Germanized

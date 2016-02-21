@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'timemachine/timemachine',
-    'ui/stateloader', 'ui/strings'], function(extend, Controller, TimeMachine,
-    StateLoader, Strings) {
+    'ui/stateloader', 'ui/strings', 'ui/toast', 'ui/filesavermodel'], //
+function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
+    FileSaverModel) {
   /**
    * Constructor
    */
@@ -18,6 +19,7 @@ define(['lib/extend', 'core/controller', 'timemachine/timemachine',
     this.view.$view.find('button.removecommit').click(this.remove.bind(this));
     this.view.$view.find('button.loaddescendant').click(this.load.bind(this));
     this.view.$view.find('button.cleanuptree').click(this.cleanup.bind(this));
+    this.view.$view.find('button.download').click(this.download.bind(this));
   }
   extend(TimeMachineCommitController, Controller);
 
@@ -46,6 +48,16 @@ define(['lib/extend', 'core/controller', 'timemachine/timemachine',
 
   TimeMachineCommitController.prototype.load = function() {
     StateLoader.loadCommit(this.model.getYoungestDescendant() || this.model);
+  };
+
+  TimeMachineCommitController.prototype.download = function() {
+    var fileSaver;
+
+    fileSaver = new FileSaverModel(this.model.getYoungestDescendant()
+        || this.model);
+    if (!fileSaver.save()) {
+      new Toast(Strings.savefailed);
+    }
   };
 
   return TimeMachineCommitController;

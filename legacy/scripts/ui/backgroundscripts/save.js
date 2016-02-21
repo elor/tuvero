@@ -15,9 +15,7 @@ define(['jquery', 'ui/filesavermodel', '../toast', '../strings'], function($,
       var fileSaver;
 
       fileSaver = new FileSaverModel();
-      if (fileSaver.save()) {
-
-      } else {
+      if (!fileSaver.save()) {
         new Toast(Strings.savefailed);
       }
     });
