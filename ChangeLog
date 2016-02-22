@@ -5,6 +5,14 @@
 	min-width for header added
 	typos fixed
 
+	* core/templates/swisssystem.html: .swissmaxroundview added to .initial and .idle
+
+	* legacy/scripts/ui/swissmaxroundview.js: showing the approximate maximum number of rounds
+
+	* legacy/scripts/ui/swisstournamentview.js: SwissMaxRoundView added
+
+	* legacy/style/new.css: .infotext rules added
+
 2016-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/settingstab.html: savedate display removed

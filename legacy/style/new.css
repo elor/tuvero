@@ -123,6 +123,10 @@
   margin-bottom: 1em;
 }
 
+#tabs>[data-tab="new"] .systemtable td.system .infotext {
+  margin: 1em;
+}
+
 #tabs>[data-tab="new"] .newsystem button[data-system] {
   display: block;
   margin: 1em auto;

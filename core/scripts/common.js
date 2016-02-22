@@ -218,6 +218,7 @@ define([
   'ui/storage',
   'ui/storagesavecontroller',
   'ui/strings',
+  'ui/swissmaxroundview',
   'ui/swisstournamentcontroller',
   'ui/swisstournamentview',
   'ui/swissvotepropcontroller',

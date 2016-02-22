@@ -7,9 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', './tournamentview', './swisstournamentcontroller',
-    'core/valuemodel', './checkboxview', './swissvotesview'], function(extend,
-    TournamentView, SwissTournamentController, ValueModel, CheckBoxView,
-    SwissVotesView) {
+    'core/valuemodel', './checkboxview', './swissvotesview',
+    'ui/swissmaxroundview'], function(extend, TournamentView,
+    SwissTournamentController, ValueModel, CheckBoxView, SwissVotesView,
+    SwissMaxRoundView) {
   /**
    * Constructor
    *
@@ -31,6 +32,9 @@ define(['lib/extend', './tournamentview', './swisstournamentcontroller',
       idle: new CheckBoxView(this.model.noshuffle, this.$view
           .find('.idle .tournamentoptions .option input.noshuffle'))
     };
+
+    this.maxroundview = new SwissMaxRoundView(this.model.tournament, $view
+        .find('.swissmaxroundview'));
 
     // read the swiss mode
     this.$view.find('.tournamentoptions .option select.mode').val(
