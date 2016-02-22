@@ -1,3 +1,7 @@
+2016-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: style simplified
+
 2016-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/settingstab.html: savedate display removed
