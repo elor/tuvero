@@ -103,22 +103,22 @@
  * @see LICENSE
  */
 define([&#039;lib/extend&#039;, &#039;./listmodel&#039;, &#039;lib/diff&#039;], function(extend, ListModel,
-    Diff) {
+    diff) {
 
   /**
-   * get a diff of two integer arrays
+   * get a diffresult of two integer arrays
    *
    * @param a
    *          the first array of integers
    * @param b
    *          the second array of integers
-   * @return a diff array, where each element contains a value, removed and
+   * @return a diffresult array, where each element contains a value, removed and
    *          added property. The value property is an array of numbers, while
    *          the removed/added properties are true if the values need to be
    *          removed/added
    */
-  function getDiff(a, b) {
-    var diff;
+  function getdiff(a, b) {
+    var diffresult;
     a = a.join(&#039;\n&#039;);
     if (a.length &gt; 0) {
       a += &#039;\n&#039;;
@@ -127,11 +127,11 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;, &#039;lib/diff&#039;], 
     if (b.length &gt; 0) {
       b += &#039;\n&#039;;
     }
-    diff = Diff.diffLines(a, b);
-    diff.forEach(function(lines) {
+    diffresult = diff.diffLines(a, b);
+    diffresult.forEach(function(lines) {
       lines.value = lines.value.replace(/\n$/, &#039;&#039;).split(&#039;\n&#039;).map(Number);
     });
-    return diff;
+    return diffresult;
   }
 
   /**
@@ -151,12 +151,12 @@ define([&#039;lib/extend&#039;, &#039;./listmodel&#039;, &#039;lib/diff&#039;], 
    *          The wanted end result
    */
   OrderListModel.prototype.enforceOrder = function(order) {
-    var index, diff;
+    var index, diffresult;
 
-    diff = getDiff(this.list, order);
+    diffresult = getdiff(this.list, order);
 
     index = 0;
-    diff.forEach(function(lines) {
+    diffresult.forEach(function(lines) {
       lines.value.forEach(function(value) {
         if (lines.added) {
           OrderListModel.superclass.insert.call(this, index, value);

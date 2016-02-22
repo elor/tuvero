@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">33.89</p>
+      <p class="stat">41.17</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">159</p>
+      <p class="stat">157</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">3.64</p>
+      <p class="stat">4.79</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.28</p>
+      <p class="stat">1.29</p>
     </div>
   </div>
 </div>
@@ -99,7 +99,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define([&#039;strings&#039;], function(LocalStrings) {
   var Strings;
 
   Strings = {
@@ -107,8 +107,10 @@ define(function() {
     autosaveon: &#039;Automatisches Speichern an&#039;,
     autoupdateoff: &#039;Automatische Aktualisierung aus&#039;,
     autoupdateon: &#039;Automatische Aktualisierung an&#039;,
-    clearstorage: &#039;Lokal gespeicherte Daten löschen? Sämtliche Turnierdaten gehen damit verloren!&#039;,
-    confirmleave: &#039;Das Turnier kann nicht gespeichert werden. Fenster trotzdem schließen?&#039;,
+    clearstorage: &#039;Wirklich alle Turniere löschen?&#039;,
+    confirmtreeremoval: &#039;Das Turnier &quot;%s&quot; wirklich löschen?&#039;,
+    confirmactivetreeremoval: &#039;Das laufende Turnier &quot;%s&quot; wirklich löschen?&#039;,
+    confirmleave: &#039;Fenster schließen, ohne das Turnier zu speichern?&#039;,
     upvote: &#039;▲&#039;,
     downvote: &#039;▼&#039;,
     byevote: &#039;∅&#039;,
@@ -121,13 +123,14 @@ define(function() {
     gamefinished: &#039;Spiel beendet&#039;,
     invalidresult: &#039;Ungültiges Ergebnis&#039;,
     loaded: &#039;Turnier geladen&#039;,
-    loadfailed: &#039;Ladevorgang fehlgeschlagen. Lade neu...&#039;,
+    loadfailed: &#039;Ladevorgang fehlgeschlagen!&#039;,
     newtournament: &#039;Neues Turnier begonnen&#039;,
+    notournament: &#039;Noch kein Turnier gestartet&#039;,
     notimplemented: &#039;Funktion noch nicht verfügbar&#039;,
     pageload: &#039;Seite geladen&#039;,
     pointchangeaborted: &#039;Änderung verworfen&#039;,
     pointchangeapplied: &#039;Änderung gespeichert&#039;,
-    toolatetournamentfinished: &#039;Turnier ist schon beendet. Korrektur hat keinen Einfluss auf Rangfolge.&#039;,
+    toolatetournamentfinished: &#039;Neues Ergebnis beeinflusst Folgerunden nicht!&#039;,
     rankingupdate: &#039;Ranking wurde berechnet&#039;,
     roundfailed: &#039;Auslosung fehlgeschlagen&#039;,
     roundfinished: &#039;%s. Runde abgeschlossen&#039;,
@@ -140,28 +143,18 @@ define(function() {
     startfailed: &#039;Auslosung fehlgeschlagen. Zu wenige Teams?&#039;,
     teamadded: &#039;Team %s registriert&#039;,
     notenoughteams: &#039;Zu wenige Teams&#039;,
-    player: &#039;Spieler&#039;,
-    teamhead1: &#039;No.,Spieler&#039;,
-    teamhead2: &#039;No.,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;&#039;,
-    teamhead3: &#039;No.,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;&#039;,
-    rankhead1: &#039;Rang,Team,Spieler,Siege,BH,FBH,Saldo,Lose&#039;,
-    rankhead2: &#039;Rang,Team,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,Siege,BH,FBH,Saldo,Lose&#039;,
-    rankhead3: &#039;Rang,Team,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;,Siege,BH,FBH,Saldo,Lose&#039;,
-    correctionhead: &#039;&quot;Team 1&quot;,&quot;Team 2&quot;,&quot;P1 vorher&quot;,&quot;P2 vorher&quot;,&quot;P1 nachher&quot;,&quot;P2 nachher&quot;&#039;,
-    histhead1: &#039;Runde,&quot;Teamno. 1&quot;,&quot;Spieler 1&quot;,&quot;Teamno. 2&quot;,&quot;Spieler 1&quot;,P1,P2&#039;,
-    histhead2: &#039;Runde,&quot;Teamno. 1&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Teamno. 2&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,P1,P2&#039;,
-    histhead3: &#039;Runde,&quot;Teamno. 1&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;,&quot;Teamno. 2&quot;,&quot;Spieler 1&quot;,&quot;Spieler 2&quot;,&quot;Spieler 3&quot;,P1,P2&#039;,
+    teamtext: &#039;Spieler&#039;,
     namechanged: &#039;Umbenannt: %s&#039;,
     namechangeaborted: &#039;Name verworfen&#039;,
-    teamsnotempty: &#039;Spieler wurden schon eingetragen&#039;,
+    teamsnotempty: &#039;Teilnehmer wurden schon eingetragen&#039;,
     emptyname: &#039;N.N.&#039;,
     differentteamsizes: &#039;Teams haben unterschiedliche Größe&#039;,
     invalidteamsize: &#039;Unzulässige Spielerzahl pro Team&#039;,
     alltabsreloaded: &#039;Alle Tabs neu geladen&#039;,
     modsvariableadded: &#039;window.mods erstellt&#039;,
     tournamentfinished: &#039;Turnier beendet&#039;,
-    autocompleteloaded: &#039;Spielernamen geladen&#039;,
-    autocompletereloadfailed: &#039;Konnte Spielernamen nicht laden&#039;,
+    autocompleteloaded: &#039;Namensvorschläge geladen&#039;,
+    autocompletereloadfailed: &#039;Konnte Namensvorschläge nicht laden&#039;,
     fileempty: &#039;Datei ist leer&#039;,
     teamdeleted: &#039;Anmeldung %s gelöscht&#039;,
     deleteallteamsconfirmation: &#039;Wirklich alle Anmeldungen löschen?&#039;,
@@ -179,7 +172,7 @@ define(function() {
     defaultnamepoule: &#039;Poule-System&#039;,
     defaultnameround: &#039;Rundenturnier&#039;,
     defaultnamesupermelee: &#039;Supermelee&#039;,
-    offlineconfirmexit: &#039;Der Browser hat keine Internetverbindung und die Seite liegt nicht im Cache. Wenn sie die Seite jetzt schließen, kann das Programm nur mit bestehender Internetverbindung wieder gestartet werden.&#039;,
+    offlineconfirmexit: &#039;Tuvero ist gerade nicht offline verfügbar. Beenden?&#039;,
     winstatustrue: &#039;S&#039;,
     winstatusfalse: &#039;N&#039;,
     winstatusundefined: &#039;&#039;,
@@ -253,8 +246,13 @@ define(function() {
     csvheader_teams: &#039;No.,Name&#039;,
     csvheader_history: &#039;Runde,Spielno.,&quot;No. 1&quot;,&quot;No. 2&quot;,&quot;Punkte 1&quot;,&quot;Punkte 2&quot;&#039;,
     csvheader_ranking: &#039;Platz,No.&#039;,
-    popout_adblocked: &#039;Bitte Werbeblocker oder PopupBlocker deaktivieren, um Popout zu sehen. Tuvero ist und bleibt werbefrei.&#039;
+    popout_adblocked: &#039;Ein Werbeblocker verhindert das Öffnen eines Fensters&#039;,
+    display_error: &#039;Anzeigefehler. Bitte neu laden.&#039;
   };
+
+  Object.keys(LocalStrings).forEach(function(key) {
+    Strings[key] = LocalStrings[key];
+  });
 
   return Strings;
 });</textarea>

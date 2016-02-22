@@ -120,9 +120,9 @@ define([&#039;lib/extend&#039;, &#039;ui/templateview&#039;, &#039;./strings&#03
     this.$rankingheader = this.$view.find(&#039;.rankingheader&#039;);
     this.$headercomponenttemplate = this.$rankingheader.find(&#039;.component&#039;);
     this.$headercomponenttemplate.detach();
-    this.$headernametemplate = this.$rankingheader.find(&#039;.playername&#039;);
+    this.$headernametemplate = this.$rankingheader.find(&#039;.name&#039;);
     this.$headernametemplate.detach();
-    this.$nametemplate = this.$template.find(&#039;.playername&#039;).detach();
+    this.$nametemplate = this.$template.find(&#039;.name&#039;).detach();
     this.$componenttemplate = this.$template.find(&#039;.component&#039;).detach();
 
     this.teamList = teamList;
@@ -163,7 +163,7 @@ define([&#039;lib/extend&#039;, &#039;ui/templateview&#039;, &#039;./strings&#03
       }
     }, this);
 
-    this.$view.find(&#039;.rankingheader .playername&#039;).remove();
+    this.$view.find(&#039;.rankingheader .name&#039;).remove();
     for (i = 0; i &lt; teamsize; i += 1) {
       this.$rankingheader.append(this.$headernametemplate.clone());
     }

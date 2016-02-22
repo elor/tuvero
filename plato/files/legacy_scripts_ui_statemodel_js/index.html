@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">64.07</p>
+      <p class="stat">64.85</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">133</p>
+      <p class="stat">142</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">21.94</p>
+      <p class="stat">24.26</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.99</p>
+      <p class="stat">1.10</p>
     </div>
   </div>
 </div>
@@ -97,11 +97,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;core/listmodel&#039;, &#039;core/indexedlistmodel&#039;,
-    &#039;core/valuemodel&#039;, &#039;./listcleanuplistener&#039;, &#039;core/tournamentlistmodel&#039;,
-    &#039;options&#039;, &#039;presets&#039;, &#039;./teammodel&#039;, &#039;core/listener&#039;], function(extend,
-    Model, ListModel, IndexedListModel, ValueModel, ListCleanupListener,
-    TournamentListModel, Options, Presets, TeamModel, Listener) {
+define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;core/indexedlistmodel&#039;, &#039;core/valuemodel&#039;,
+    &#039;./listcleanuplistener&#039;, &#039;core/tournamentlistmodel&#039;, &#039;options&#039;, &#039;presets&#039;,
+    &#039;./teammodel&#039;, &#039;core/listener&#039;], function(extend, Model, IndexedListModel,
+    ValueModel, ListCleanupListener, TournamentListModel, Options, Presets,
+    TeamModel, Listener) {
 
   /**
    * Constructor
@@ -113,13 +113,22 @@ define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;core/listmodel&#03
     this.teamsize = new ValueModel(3);
     this.tournaments = new TournamentListModel();
 
+    function tabOptionPreset(name, defaultValue) {
+      if (!Presets.taboptions || Presets.taboptions[name] === undefined) {
+        return new ValueModel(defaultValue);
+      }
+
+      // cast to bool, just in case.
+      return new ValueModel(!!Presets.taboptions[name]);
+    }
+
     this.tabOptions = {
-      showNames: new ValueModel(true),
-      nameMaxWidth: new ValueModel(true),
-      teamTable: new ValueModel(true),
-      rankingAbbreviations: new ValueModel(false),
-      showMatchTables: new ValueModel(false),
-      hideFinishedGroups: new ValueModel(false)
+      showNames: tabOptionPreset(&#039;shownames&#039;, true),
+      nameMaxWidth: tabOptionPreset(&#039;namemaxwidth&#039;, true),
+      teamTable: tabOptionPreset(&#039;teamtable&#039;, true),
+      rankingAbbreviations: tabOptionPreset(&#039;rankingabbreviations&#039;, false),
+      showMatchTables: tabOptionPreset(&#039;showmatchtables&#039;, false),
+      hideFinishedGroups: tabOptionPreset(&#039;hidefinishedgroups&#039;, false)
     };
 
     this.initCleanupListeners();

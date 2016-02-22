@@ -95,7 +95,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &#039;./teamview&#039;, &#039;./state_new&#039;,
+define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &#039;./teamview&#039;, &#039;ui/state&#039;,
     &#039;./newteamview&#039;, &#039;./lengthview&#039;, &#039;./teamsizeview&#039;, &#039;./preregcloserview&#039;,
     &#039;./checkboxview&#039;, &#039;core/classview&#039;, &#039;./tabshandle&#039;,
     &#039;./teamremovecontroller&#039;, &#039;./teamnamecontroller&#039;, &#039;./teamtableview&#039;,
@@ -104,7 +104,7 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     &#039;./autocompletionview&#039;, &#039;./autocompletionlegacyblobber&#039;,
     &#039;./teamformatdownloadcontroller&#039;], function(extend, View, ListView,
     TeamView, State, NewTeamView, LengthView, TeamSizeView, PreregCloserView,
-    CheckboxView, ClassView, TabsHandle, TeamRemoveController,
+    CheckBoxView, ClassView, TabsHandle, TeamRemoveController,
     TeamNameController, TeamTableView, InputView, TeamsFileLoadController,
     Presets, LengthModel, DeleteAllTeamsController, AutocompletionModel,
     AutocompletionView, AutocompletionLegacyBlobber,
@@ -178,14 +178,14 @@ define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find(&#039;&gt;.options input.maxwidth&#039;);
-    this.maxwidthCheckboxView = new CheckboxView(value, $container);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, &#039;maxwidth&#039;,
         &#039;nomaxwidth&#039;);
 
     // list/table selection checkbox
     value = State.tabOptions.teamTable;
     $container = this.$view.find(&#039;&gt;.options input.showtable&#039;);
-    this.showtableCheckboxView = new CheckboxView(value, $container);
+    this.showtableCheckBoxView = new CheckBoxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view, &#039;showtable&#039;);
 
     // update the tab when the team size changes

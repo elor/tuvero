@@ -100,11 +100,11 @@
  * @see LICENSE
  */
 
-define([&#039;ui/options&#039;], function(Options) {
+define([&#039;ui/optionstemplate&#039;], function(OptionsTemplate) {
   var Default;
 
   Default = {
-    // must stay the same across this save, hence Options, not Presets
+    // must stay the same across this save, hence OptionsTemplate, not Presets
     minpoints: 0,
     maxpoints: 15,
     byepointswon: 13,
@@ -114,10 +114,10 @@ define([&#039;ui/options&#039;], function(Options) {
     maxpointtiesforbidden: true
   };
 
-  Options.setDefault(Default);
-  Options.reset();
+  OptionsTemplate.setDefault(Default);
+  OptionsTemplate.reset();
 
-  return Options;
+  return OptionsTemplate;
 });</textarea>
   </div>
 </div>

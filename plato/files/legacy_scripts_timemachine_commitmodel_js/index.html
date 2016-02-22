@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/timemachine/commitmodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/timemachine/commitmodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.63</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">272</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">35.06</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.43</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * CommitModel
+ *
+ * @return CommitModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;timemachine/reflog&#039;, &#039;core/type&#039;,
+    &#039;timemachine/keymodel&#039;, &#039;timemachine/query&#039;], function(extend, Model,
+    RefLog, Type, KeyModel, Query) {
+
+  /**
+   * Constructor. Constructs a CommitModel from a KeyModel, regardless of the
+   * presence in the localStorage or the RefLog
+   *
+   * @param key
+   *          a KeyModel instance
+   */
+  function CommitModel(key) {
+    CommitModel.superconstructor.call(this);
+
+    if (Type.isString(key)) {
+      key = KeyModel.fromString(key);
+    }
+
+    RefLog.registerListener(this);
+
+    this.key = key;
+  }
+  extend(CommitModel, Model);
+
+  CommitModel.prototype.EVENTS = {
+    &#039;remove&#039;: true,
+    &#039;rename&#039;: true
+  };
+
+  /**
+   * @return true if the key is valid, is in the RefLog and is in the
+   *         localStorage, false otherwise
+   */
+  CommitModel.prototype.isValid = function() {
+    return !!this.key &amp;&amp; KeyModel.isValidKey(this.key)
+        &amp;&amp; RefLog.contains(this.key) &amp;&amp; !!window.localStorage[this.key];
+  }
+
+  /**
+   * @return true if the key is a root key (has no parent and dates match),
+   *         false otherwise
+   */
+  CommitModel.prototype.isRoot = function() {
+    return this.key.isRoot();
+  };
+
+  /**
+   * @return an array of CommitModels of children of this commit. If there&#039;s no
+   *         child, the array is empty.
+   */
+  CommitModel.prototype.getChildren = function() {
+    if (!RefLog.contains(this.key)) {
+      return [];
+    }
+    return RefLog.getChildren(this.key).map(function(key) {
+      return new CommitModel(key);
+    }).sort(CommitModel.sortFunction);
+  };
+
+  /**
+   * traverses the RefLog to find the youngest ancestor (highest save date)
+   *
+   * @return the youngest ancestor of this commit
+   */
+  CommitModel.prototype.getYoungestDescendant = function() {
+    var children, youngestChild;
+
+    children = this.getChildren();
+
+    if (children.length === 0) {
+      return undefined;
+    }
+
+    youngestChild = children[children.length - 1];
+
+    children.forEach(function(child) {
+      var youngestGrandChild = child.getYoungestDescendant();
+      if (!youngestGrandChild) {
+        return;
+      }
+      if (CommitModel.sortFunction(youngestGrandChild, youngestChild) === 1) {
+        youngestChild = youngestGrandChild;
+      }
+    });
+
+    return youngestChild;
+  };
+
+  /**
+   * @return the parent if this commit. If this is a root commit, undefined is
+   *         returned
+   */
+  CommitModel.prototype.getParent = function() {
+    if (this.isRoot()) {
+      return undefined;
+    }
+
+    return new CommitModel(RefLog.getParent(this.key));
+  };
+
+  /**
+   * @return a new CommitModel instance of the root of this tree
+   */
+  CommitModel.prototype.getRoot = function() {
+    var rootKey;
+
+    if (this.isRoot()) {
+      return this;
+    }
+
+    rootKey = new KeyModel(this.key.startDate, this.key.startDate);
+
+    return new CommitModel(rootKey);
+  };
+
+  /**
+   * @return the name of this tree
+   */
+  CommitModel.prototype.getTreeName = function() {
+    return RefLog.getName(this.key);
+  };
+
+  /**
+   * @param name
+   *          the new name of the whole tree
+   * @return true on success, false otherwise
+   */
+  CommitModel.prototype.setTreeName = function(name) {
+    return RefLog.setName(this.key, name);
+  };
+
+  /**
+   * @param commit
+   *          a CommitModel instance
+   * @return true if the keys are equal, false otherwise
+   */
+  CommitModel.prototype.isEqual = function(commit) {
+    return !!commit &amp;&amp; this.key.isEqual(commit.key);
+  }
+
+  /**
+   * @param descendant
+   *          a CommitModel instance which might be a descendant of this commit
+   * @return true if &#039;this&#039; is in the parent chain of descendant, false
+   *         otherwise
+   */
+  CommitModel.prototype.isAncestorOf = function(descendant) {
+    var parent;
+
+    if (!descendant || this.isRoot()) {
+      return false;
+    }
+
+    if (this.key.isRelated(descendant.key)) {
+      return false;
+    }
+
+    for (parent = descendant.getParent(); parent; parent = parent.getParent()) {
+      if (this.isEqual(parent)) {
+        return true
+      }
+    }
+
+    return false;
+  };
+
+  /**
+   * Removes all descendant and itself. Emits &#039;remove&#039; on all removed elements.
+   *
+   * If eraseTree is called on a root commit, orphans with the same startDate
+   * are cleaned up, too.
+   */
+  CommitModel.prototype.eraseTree = function() {
+    var query;
+
+    // first: properly delete all children to send the proper events
+    this.getChildren().forEach(function(child) {
+      child.eraseTree();
+    });
+
+    if (this.isRoot()) {
+      // delete eventual orphans (Won&#039;t send remove events)
+      query = new Query(this.key);
+      query.filter().forEach(
+          window.localStorage.removeItem.bind(window.localStorage));
+      RefLog.deleteTree(this.key);
+      this.emit(&#039;remove&#039;);
+    } else {
+      // only delete everything that&#039;s depending on this commit
+      this.remove();
+    }
+  };
+
+  /**
+   * removes this commit from the RefLog and localStorage and emits &#039;remove&#039;.
+   *
+   * If a root commit is removed, the whole tree is removed. See eraseTree()
+   */
+  CommitModel.prototype.remove = function() {
+    if (this.isRoot()) {
+      // removing the root commit necessarily removes everything else, too,
+      // since every tree needs a root in the reflog
+      this.eraseTree();
+    } else {
+      window.localStorage.removeItem(this.key.toString());
+      RefLog.deleteKey(this.key);
+
+      this.emit(&#039;remove&#039;);
+    }
+  };
+
+  /**
+   * read the contents of the localStorage under this key
+   *
+   * @return the locally stored data of this commit
+   */
+  CommitModel.prototype.load = function() {
+    if (this.isValid()) {
+      return window.localStorage[this.key];
+    }
+    return undefined;
+  };
+
+  /**
+   * Creates a Child commit and saves data on it. Properly deals with the RefLog
+   * and the localStorage.
+   *
+   * @param data
+   *          the data to store locally under a new key
+   * @return the newly created child commit
+   */
+  CommitModel.prototype.createChild = function(data) {
+    var newKey = RefLog.newSaveKey(this.key);
+    localStorage[newKey] = data;
+
+    return new CommitModel(newKey);
+  };
+
+  /**
+   * initialize a new commit with the given data. A root key will be created,
+   * which serves as the root of the commit tree
+   *
+   * @param data
+   *          the data do store locally under a new key
+   * @return the newly created root commit
+   */
+  CommitModel.createRoot = function(data, name) {
+    var newKey = RefLog.newInitKey(name);
+    localStorage[newKey] = data;
+
+    return new CommitModel(newKey);
+  };
+
+  /**
+   * a sort function for CommitModels
+   *
+   * @param commitA
+   * @param commitB
+   * @return -1, 0, or 1, depending on the sort relation between the two
+   */
+  CommitModel.sortFunction = function(commitA, commitB) {
+    return KeyModel.sortFunction(commitA.key, commitB.key);
+  };
+
+  CommitModel.prototype.onrename = function(event, emitter, treeKey) {
+    if (this.key.isRelated(treeKey)) {
+      this.emit(&#039;rename&#039;);
+    }
+  };
+
+  return CommitModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

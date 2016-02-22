@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">64.73</p>
+      <p class="stat">70.55</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">168</p>
+      <p class="stat">84</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">26.29</p>
+      <p class="stat">21.99</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.92</p>
+      <p class="stat">0.47</p>
     </div>
   </div>
 </div>
@@ -90,70 +90,49 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">/**
- * Storage object, which binds storage keys to actual objects for storage and
- * retrieval from a local storage
+ * Storage object, saves simple stuff, like the player names
  *
  * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;presets&#039;, &#039;lib/modernizr&#039;, &#039;core/valuemodel&#039;], function(Presets,
-    Modernizr, ValueModel) {
-  var Storage, keys, savespending;
+define([&#039;presets&#039;, &#039;core/valuemodel&#039;, &#039;ui/autocompletionlegacyblobber&#039;], //
+function(Presets, ValueModel, AutoCompletionLegacyBlobber) {
+  var Storage, keys;
 
   Storage = {};
   keys = {};
-  savespending = {};
-
-  Storage.lastSaved = new ValueModel(undefined);
+  keys[Presets.names.dbplayername] = AutoCompletionLegacyBlobber;
 
   function saveKey(key) {
-    var val, blob;
+    var val, blob, timeMachineCommit;
 
-    // if (!keys.hasOwnProperty(key)) {
-    // return true;
-    // }
-
-    val = keys[key];
-
-    if (!val) {
+    if (!keys[key]) {
       return true;
     }
 
-    // console.log(&#039;blobbing &#039; + key);
-    blob = val.toBlob();
+    blob = keys[key].toBlob();
     if (!blob) {
       return true;
     }
 
-//    console.log(&#039;storing &#039; + key);
+    console.log(&#039;storing &#039; + key);
     window.localStorage.setItem(key, blob);
 
     return window.localStorage.getItem(key) !== blob;
   }
 
   function loadKey(key) {
-    var val, blob;
+    var blob;
 
-    // if (!keys.hasOwnProperty(key)) {
-    // return true;
-    // }
-
-    val = keys[key];
-
-    if (!val) {
+    if (!keys[key]) {
       console.error(&#039;localStorage.&#039; + key + &quot; doesn&#039;t exist&quot;);
       return true;
     }
 
     blob = window.localStorage.getItem(key);
-
-    if (!blob) {
-      val.fromBlob(&#039;&#039;);
-      return true;
-    }
-
-    val.fromBlob(blob);
+    keys[key].fromBlob(blob || &#039;&#039;);
+    return !blob;
   }
 
   /**
@@ -161,18 +140,13 @@ define([&#039;presets&#039;, &#039;lib/modernizr&#039;, &#039;core/valuemodel&#0
    * other software under the same domain
    */
   Storage.clear = function(key) {
-
     if (key === undefined) {
-      for (key in keys) {
-        Storage.clear(key);
+      Object.keys(keys).forEach(Storage.clear.bind(Storage));
+    } else if (keys[key]) {
+      if (keys[key].reset) {
+        keys[key].reset();
       }
-    } else {
-      if (keys[key]) {
-        if (keys[key].reset) {
-          keys[key].reset();
-        }
-        window.localStorage.removeItem(key);
-      }
+      window.localStorage.removeItem(key);
     }
   };
 
@@ -180,34 +154,11 @@ define([&#039;presets&#039;, &#039;lib/modernizr&#039;, &#039;core/valuemodel&#0
    * store everything
    */
   Storage.store = function() {
-    var key, date, datestring;
-
-    for (key in keys) {
-      if (savespending[key] !== true) {
-        savespending[key] = true;
-        window.setTimeout(function(mykey) {
-          if (saveKey(mykey)) {
-            console.error(&#039;Error when storing &#039; + mykey);
-          }
-          savespending[mykey] = false;
-        }, 1, key);
+    Object.keys(keys).forEach(function(key) {
+      if (saveKey(key)) {
+        console.error(&#039;Error when storing &#039; + key);
       }
-    }
-
-    date = new Date();
-    datestring = &#039;&#039;;
-    datestring += date.getFullYear();
-    datestring += &#039;-&#039;;
-    datestring += (date.getMonth() + 1).toString().replace(/^(.)$/, &#039;0$1&#039;);
-    datestring += &#039;-&#039;;
-    datestring += date.getDate().toString().replace(/^(.)$/, &#039;0$1&#039;);
-    datestring += &#039; &#039;;
-    datestring += date.getHours().toString().replace(/^(.)$/, &#039;0$1&#039;);
-    datestring += &#039;:&#039;;
-    datestring += date.getMinutes().toString().replace(/^(.)$/, &#039;0$1&#039;);
-    datestring += &#039;:&#039;;
-    datestring += date.getSeconds().toString().replace(/^(.)$/, &#039;0$1&#039;);
-    Storage.lastSaved.set(datestring);
+    });
 
     return true;
   };
@@ -218,49 +169,13 @@ define([&#039;presets&#039;, &#039;lib/modernizr&#039;, &#039;core/valuemodel&#0
    * @return true on successful load, false otherwise
    */
   Storage.restore = function() {
-    var key, err;
+    var err = false;
 
-    err = false;
-
-    for (key in keys) {
-      if (loadKey(key)) {
-        err = true;
-        console.warn(&quot;Could not read key &#039;&quot; + key + &quot;&#039; from localStorage yet&quot;);
-      }
-    }
+    Object.keys(keys).forEach(function(key) {
+      err = loadKey(key) || err;
+    });
 
     return !err;
-  };
-
-  /**
-   * enables localStorage, if possible. Necessary initialization
-   */
-  Storage.enable = function() {
-    Storage.disable();
-
-    if (Modernizr.localstorage) {
-      keys[Presets.names.dbname] = require(&#039;ui/state&#039;);
-
-      keys[Presets.names.dbplayername] = //
-      require(&#039;ui/autocompletionlegacyblobber&#039;);
-    }
-  };
-
-  /**
-   * disables the storage. This will inhibit any of the other functions,
-   * including clear(). Note that disable() doesn&#039;t clear the storage.
-   */
-  Storage.disable = function() {
-    keys = {};
-  };
-
-  /**
-   * this function indicates a change in the tournament state
-   */
-  // TODO move to Blob
-  Storage.changed = function() {
-
-    Storage.store();
   };
 
   return Storage;

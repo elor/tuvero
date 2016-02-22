@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">68.65</p>
+      <p class="stat">66.99</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">75</p>
+      <p class="stat">85</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">18.28</p>
+      <p class="stat">22.18</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.58</p>
+      <p class="stat">0.68</p>
     </div>
   </div>
 </div>
@@ -97,9 +97,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./storage&#039;, &#039;presets&#039;, &#039;./toast&#039;,
-    &#039;./strings&#039;, &#039;./state&#039;], function(extend, Controller, Storage, Presets,
-    Toast, Strings, State) {
+define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;presets&#039;, &#039;./toast&#039;, &#039;./strings&#039;,
+    &#039;ui/stateloader&#039;, &#039;ui/statesaver&#039;], function(extend, Controller, Presets,
+    Toast, Strings, StateLoader, StateSaver) {
   /**
    * Constructor
    */
@@ -107,15 +107,20 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./storage&#03
     var controller;
     FileLoadController.superconstructor.call(this, view);
 
+    this.reader = undefined;
+    this.file = undefined;
+
     controller = this;
 
     this.view.$view.change(function(evt) {
-      var reader = new FileReader();
-      reader.onerror = controller.error.bind(controller);
-      reader.onabort = controller.abort.bind(controller);
-      reader.onload = controller.load.bind(controller);
+      controller.reader = new FileReader();
+      controller.file = evt.target.files[0];
 
-      reader.readAsText(evt.target.files[0]);
+      controller.reader.onerror = controller.error.bind(controller);
+      controller.reader.onabort = controller.abort.bind(controller);
+      controller.reader.onload = controller.load.bind(controller);
+
+      controller.reader.readAsText(controller.file);
     });
   }
   extend(FileLoadController, Controller);
@@ -139,25 +144,30 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;./storage&#03
   FileLoadController.prototype.load = function(evt) {
     var blob, Alltabs;
 
-    blob = evt.target.result;
+    if (evt.target !== this.reader) {
+      new Toast(Strings.loadfailed, Toast.LONG);
+      this.reset();
+    }
 
-    Storage.enable();
-    Storage.clear(Presets.names.dbname);
+    blob = evt.target.result;
 
     Toast.closeTemporaryToasts();
     try {
-      if (State.fromBlob(blob)) {
-        Storage.changed();
+      // TODO use filename until the tournament name is stored in the file, too
+      StateSaver.newTree(this.file.name.replace(/(\.json)+$/, &#039;&#039;));
+      if (StateLoader.loadString(blob)) {
+        StateSaver.saveState();
+
         Toast.closeTemporaryToasts();
         new Toast(Strings.loaded, Toast.LONG);
       } else {
+        new Toast(Strings.loadfailed, Toast.LONG);
         // TODO what if something invalid has been returned?
       }
     } catch (err) {
       new Toast(Strings.loadfailed, Toast.LONG);
       // perform a complete reset of the everything related to the
       // tournament
-      Storage.clear(Presets.names.dbname);
     }
     this.reset();
   };

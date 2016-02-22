@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">20</p>
+      <p class="stat">15</p>
     </div>
   </div>
   <div class="row historical">
@@ -90,31 +90,26 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">/**
- * store the state whenever a player name changes
+ * Display tournament-related errors as Toasts
  *
  * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;../state_new&#039;, &#039;../listcollectormodel&#039;, &#039;core/tournamentmodel&#039;,
+define([&#039;ui/state&#039;, &#039;../listcollectormodel&#039;, &#039;core/tournamentmodel&#039;,
     &#039;../toast&#039;, &#039;../strings&#039;], function(State, ListCollectorModel,
     TournamentModel, Toast, Strings) {
-  var errorListener;
+  var TournamentErrorToasts;
 
   // save on player name change
-  errorListener = new ListCollectorModel(State.tournaments, TournamentModel);
-  /**
-   * overwrite the update listener: save whenever a team has been updated.
-   *
-   * Note to self: this also catches setID-fired events. Storage.store should
-   * buffer multiple store() requests anyhow
-   */
-  errorListener.onerror = function(emitter, event, message) {
+  TournamentErrorToasts = new ListCollectorModel(State.tournaments,
+      TournamentModel);
+  TournamentErrorToasts.onerror = function(emitter, event, message) {
     return new Toast(Strings.tournamenterrorprefix + &#039;: &#039; + message,//
     Toast.LONG);
   };
 
-  return errorListener;
+  return TournamentErrorToasts;
 });</textarea>
   </div>
 </div>

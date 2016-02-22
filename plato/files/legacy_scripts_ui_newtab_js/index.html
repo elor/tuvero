@@ -95,10 +95,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039;./state_new&#039;, &#039;./systemlistview&#039;,
+define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039;ui/state&#039;, &#039;./systemlistview&#039;,
     &#039;./tournamentviewpopulator&#039;, &#039;./checkboxview&#039;, &#039;core/classview&#039;], function(
     extend, $, View, State, SystemListView, TournamentViewPopulator,
-    CheckboxView, ClassView) {
+    CheckBoxView, ClassView) {
   /**
    * represents a whole team tab
    *
@@ -133,14 +133,14 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
     $view = this.$view.find(&#039;&gt;.options input.maxwidth&#039;);
-    this.maxwidthCheckboxView = new CheckboxView(value, $view);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $view);
     this.maxwidthClassView = new ClassView(value, this.$view, &#039;maxwidth&#039;,
         &#039;nomaxwidth&#039;);
 
     // player names checkbox
     value = State.tabOptions.showNames;
     $view = this.$view.find(&#039;&gt;.options input.shownames&#039;);
-    this.maxwidthCheckboxView = new CheckboxView(value, $view);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $view);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         &#039;hidenames&#039;);
 

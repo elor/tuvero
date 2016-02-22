@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/timemachine/keymodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/timemachine/keymodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">68.71</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">241</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">30.00</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.07</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * KeyModel: Represents a key for use with Query, RefLog and Commit. Keys
+ * contain a target, a startDate and a saveDate with millisecond-accuracy.
+ *
+ * Keys can be either root keys (startDate == saveDate), or child keys
+ * (startDate &lt; saveDate)
+ *
+ * This implementation tries to be as careful as possible with the formats to
+ * avoid lost orphans, hence errors are thrown at the first sign of trouble.
+ *
+ * @return KeyModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;core/type&#039;, &#039;presets&#039;], function(extend,
+    Model, Type, Presets) {
+  var delimiter, dateRegexSource, dateRegex, keyRegex, tuveroKeyRegex;
+
+  /*
+   * local regexes, which are used internally for format validation
+   */
+  delimiter = &#039;_&#039;;
+  dateRegexSource = &#039;[0-9]{4}-[0-9]{2}-[0-9]{2}&#039;
+      + &#039;T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z&#039;;
+  dateRegex = new RegExp(&#039;^&#039; + dateRegexSource + &#039;$&#039;);
+  targetRegex = new RegExp(&#039;^(&#039; + Presets.target + &#039;)&#039; + delimiter);
+  keyRegex = new RegExp(targetRegex.source + &#039;(&#039; + dateRegexSource + &#039;)&#039;
+      + delimiter + &#039;(&#039; + dateRegexSource + &#039;)$&#039;);
+  tuveroKeyRegex = new RegExp(&#039;^([a-z]*)&#039; + delimiter + &#039;(&#039; + dateRegexSource
+      + &#039;)&#039; + delimiter + &#039;(&#039; + dateRegexSource + &#039;)$&#039;);
+
+  /**
+   * Constructor. Constructs a new key from the current target (Presets.target),
+   * the given startDate and saveDate. The dates are checked for strict
+   * ISO8601-compliance, including millisecond digits. The ECMA 5 standard
+   * dictates that Date.prototype.toISOString() matches this format.
+   *
+   * @param startDate
+   *          Any start date
+   * @param saveDate
+   *          Any save date. Must be later than startDate
+   */
+  function KeyModel(startDate, saveDate) {
+    KeyModel.superconstructor.call(this);
+
+    if (!dateRegex.test(startDate)) {
+      throw new Error(&#039;startDate is no valid ISO8601. toISOString() failure?&#039;);
+    }
+    if (!dateRegex.test(saveDate)) {
+      throw new Error(&#039;saveDate is no valid ISO8601. toISOString() failure?&#039;);
+    }
+    if (saveDate &lt; startDate) {
+      throw new Error(&#039;saveDate is earlier than startDate!&#039;);
+    }
+
+    this.target = Presets.target;
+    this.startDate = startDate;
+    this.saveDate = saveDate;
+
+    if (!KeyModel.isValidKey(this)) {
+      throw new Error(
+          &#039;Critical error: serialized key is not valid. Call Erik E. Lorenz!&#039;);
+    }
+  }
+  extend(KeyModel, Model);
+
+  /**
+   * Converts the Key to a localStorage-compatible string representation.
+   * Performs additional format checks.
+   *
+   * @return a localStorage-compatible string representation of the key
+   */
+  KeyModel.prototype.toString = function() {
+    var key = [this.target, this.startDate, this.saveDate].join(delimiter);
+
+    if (!keyRegex.test(key)) {
+      throw new Error(&#039;created KeyModel does not match format: &#039; + key);
+    }
+
+    return key;
+  };
+
+  /**
+   * Test whether the key is valid and a root key, i.e. both dates match
+   *
+   * @return true if valid and an root key, false otherwise
+   */
+  KeyModel.prototype.isRoot = function() {
+    return this.startDate == this.saveDate;
+  };
+
+  /**
+   * Test whether the key is somehow related to this key, i.e. whether the start
+   * date and target match. This does not test whether they&#039;re in the same
+   * branch, since only the keys are tested, not their relations.
+   *
+   * If used as an Array.filter() function, you must use the bind() function!
+   *
+   * @param key
+   * @return true if target and start date match, false otherwise.
+   */
+  KeyModel.prototype.isRelated = function(key) {
+    var relatedRegex;
+
+    relatedRegex = new RegExp(targetRegex.source + &#039;(&#039; + this.startDate + &#039;)&#039;
+        + delimiter + &#039;(&#039; + dateRegexSource + &#039;)$&#039;, &#039;i&#039;);
+
+    return relatedRegex.test(key.toString());
+  };
+
+  /**
+   * @param key
+   *          a key string or instance
+   * @return true if both keys match, false otherwise
+   */
+  KeyModel.prototype.isEqual = function(key) {
+    return this.toString() == key.toString();
+  };
+
+  /**
+   * Test whether the given key is valid and can be processed by this target.
+   * This does not test the stored content, only the key strings, so invalid
+   * dates can still fall through.
+   *
+   * @param key
+   *          a string representation of a key
+   * @return true if key matches the key format and currently open target, false
+   *         otherwise
+   */
+  KeyModel.isValidKey = function(key) {
+    return keyRegex.test(key.toString());
+  };
+
+  /**
+   * Test whether the date string is a compatible ISO8601-string.
+   *
+   * @param isoDateString
+   *          a string representation of a date. Should be ISO8601 including
+   *          milliseconds.
+   * @return true if key matches the required date format. See
+   *         Date.prototype.toISOString for more information
+   */
+  KeyModel.isValidDate = function(isoDateString) {
+    return dateRegex.test(isoDateString);
+  };
+
+  /**
+   * Test whether the given key could in theory be used for another target
+   * (Basic, Boule, TAC, ...)
+   *
+   * @param key
+   *          a string representation of a key
+   * @return true if key matches the tuvero key format, regardless of the target
+   */
+  KeyModel.isTuveroKey = function(key) {
+    return tuveroKeyRegex.test(key.toString());
+  };
+
+  /**
+   * create a new key which is related to the parent key (see isRelated()).
+   * Apart from the key relation, no other parenting is applied.
+   *
+   * Extra care is taken when getting a new saveDate as to not accidentally
+   * create the parentKey again. This could in theory happen if the childKey is
+   * created less than a millisecond after the parentKey, but it&#039;s rather
+   * unlikely in everyday use.
+   *
+   * NOTE: If the browser doesn&#039;t update the millisecond-portion of the Date,
+   * this could potentially result in an infinite loop, or be stuck for a whole
+   * second.
+   *
+   * @param parentKey
+   *          a parent key
+   * @return a new key with a later saveDate but the same startDate
+   */
+  KeyModel.createChild = function(parentKey) {
+    var startDate, saveDate;
+
+    if (!KeyModel.isValidKey(parentKey) || !Type.isObject(parentKey)) {
+      throw new Error(&#039;createChild(): parentKey is not valid&#039;);
+    }
+
+    startDate = parentKey.startDate;
+
+    /*
+     * Avoid creating an identical key by accidentally having the exact same
+     * millisecond-precise date. Stall code execution for a millisecond instead
+     * to get a slightly different key. We could also modify the dates manually,
+     * but a millisecond won&#039;t even be noticed.
+     *
+     * Normally, you don&#039;t create two keys that close to another, and even then
+     * it&#039;s only max. 200 loop executions.
+     */
+    do {
+      saveDate = (new Date()).toISOString();
+    } while (saveDate === startDate);
+
+    return new KeyModel(startDate, saveDate);
+  };
+
+  /**
+   * read startDate and saveString from the keyString and make sure that the
+   * targets match.
+   *
+   * @param keyString
+   * @return a KeyModel instance with the extracted startDate and saveDate.
+   */
+  KeyModel.fromString = function(keyString) {
+    var startDate, saveDate, matches;
+
+    if (!targetRegex.test(keyString)) {
+      throw new Error(&#039;KeyModel reference string has wrong target: &#039;
+          + keyString);
+    }
+
+    matches = keyRegex.exec(keyString);
+    if (!matches) {
+      throw new Error(&#039;KeyModel reference string does not match format&#039;);
+    }
+    if (matches.length != 4) {
+      throw new Error(&#039;Regex Error? wrong number of captures (not 3): &#039;
+          + matches.join(&#039;,&#039;));
+    }
+
+    startDate = matches[2];
+    saveDate = matches[3];
+
+    return new KeyModel(startDate, saveDate);
+  };
+
+  /**
+   * create a new root key
+   *
+   * @return a new root key with the current date
+   */
+  KeyModel.createRoot = function() {
+    var startDate = (new Date()).toISOString();
+
+    return new KeyModel(startDate, startDate);
+  };
+
+  /**
+   * a sort function for KeyModels. Sorts by target, startDate and saveDate, all
+   * in ascending order.
+   *
+   * @param keyA
+   * @param keyB
+   * @return -1, 0 or 1, depending on the keys.
+   */
+  KeyModel.sortFunction = function(keyA, keyB) {
+    return keyA.toString().localeCompare(keyB.toString());
+  };
+
+  return KeyModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

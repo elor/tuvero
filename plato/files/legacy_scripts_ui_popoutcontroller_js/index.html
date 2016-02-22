@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">65.01</p>
+      <p class="stat">66.78</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">69</p>
+      <p class="stat">98</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">12.69</p>
+      <p class="stat">17.14</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">0.44</p>
+      <p class="stat">0.80</p>
     </div>
   </div>
 </div>
@@ -97,10 +97,27 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;core/controller&#039;], function(extend, Controller) {
-  var openWindows;
+define([&#039;lib/extend&#039;, &#039;core/controller&#039;, &#039;ui/toast&#039;, &#039;ui/strings&#039;,
+    &#039;core/classview&#039;, &#039;ui/state&#039;], function(extend, Controller, Toast,
+    Strings, ClassView, State) {
+  var mainPopout;
 
-  windows = [];
+  mainPopout = undefined;
+
+  function isMainPopoutOpen() {
+    return mainPopout &amp;&amp; mainPopout.document;
+  }
+
+  /**
+   * close all popout on page leave
+   */
+  $(function($) {
+    $(window).on(&#039;beforeunload&#039;, function() {
+      if (isMainPopoutOpen()) {
+        mainPopout.close();
+      }
+    });
+  });
 
   /**
    * Constructor
@@ -110,59 +127,71 @@ define([&#039;lib/extend&#039;, &#039;core/controller&#039;], function(extend, C
 
     this.cloneFunction = cloneFunction;
 
-    this.view.$popout.click(this.popout.bind(this));
+    if (this.view.$popout) {
+      this.view.$popout.click(this.popout.bind(this));
+    }
+    if (this.view.$close) {
+      this.view.$close.click(this.close.bind(this));
+    }
   }
   extend(PopoutController, Controller);
 
   PopoutController.prototype.popout = function(e) {
-    var container, $popoutView, stylepath, $stylelink, $title;
+    var $popoutView, stylepath, $stylelink, $title, $body;
 
     $popoutView = this.view.$popoutTemplate.clone();
 
-    console.log(&#039;opening popout&#039;);
-    container = window.open(undefined, &#039;popout&#039;);
-    // container = window.open(undefined, &#039;popout&#039; + windows.length);
+    if (!isMainPopoutOpen()) {
+      console.log(&#039;opening new popout&#039;);
+      mainPopout = window.open(&#039;&#039;, &#039;&#039;, &#039;location=0&#039;);
+      stylepath = window.location.href.replace(/index.html[?#].*/,
+          &#039;style/main.css&#039;);
+      $stylelink = $(&#039;&lt;link rel=&quot;stylesheet&quot; href=&#039; + stylepath + &#039;&gt;&#039;);
+      $title = $(&#039;title&#039;).clone();
+      $(mainPopout.document.head).append($stylelink).append($title);
+      $body = $(mainPopout.document.body);
+      $body.attr(&#039;id&#039;, &#039;app&#039;).addClass(&#039;popoutContainer&#039;);
+      $body.data({
+        maxWidthView: new ClassView(State.tabOptions.nameMaxWidth, $body,
+            &#039;maxwidth&#039;, &#039;nomaxwidth&#039;),
+        hideNamesView: new ClassView(State.tabOptions.showNames, $body,
+            undefined, &#039;hidenames&#039;),
+        showtableClassView: new ClassView(State.tabOptions.showMatchTables,
+            $body, &#039;showmatchtable&#039;, &#039;showtable&#039;),
+        hidefinishedClassView: new ClassView(
+            State.tabOptions.hideFinishedGroups, $body, &#039;hidefinished&#039;)
+      });
 
-    if (!container) {
-      console.error(Error(&#039;cannot open popout window&#039;));
-      throw new Error(&#039;cannot open popout window&#039;);
+    } else {
+      console.log(&#039;main popout already exists and is open&#039;);
     }
 
-    stylepath = window.location.href.replace(/index.html[?#].*/,
-        &#039;style/main.css&#039;);
-    $stylelink = $(&#039;&lt;link rel=&quot;stylesheet&quot; href=&#039; + stylepath + &#039;&gt;&#039;);
-    $title = $(&#039;title&#039;).clone();
-    $(container.document.head).append($stylelink).append($title);
-    $(container.document.body).attr(&#039;id&#039;, &#039;app&#039;).append($popoutView);
-    this.cloneFunction.call(container, $popoutView);
+    $popoutView.addClass(&#039;primaryPopout&#039;);
+    $(mainPopout.document.body).append($popoutView);
+    this.cloneFunction.call(mainPopout, $popoutView);
 
     window.setTimeout(function() {
-      if (!container || !container.document || !container.document.body) {
+      if (!isMainPopoutOpen()) {
         new Toast(Strings.popout_adblocked);
       }
     }, 500);
-
-    windows.push(container);
 
     e.preventDefault(true);
     return false;
   };
 
-  // TODO close all popout on page leave
+  PopoutController.prototype.close = function(e) {
+    console.log(&#039;close&#039;);
+
+    this.view.destroy();
+
+    e.preventDefault(true);
+    return false;
+  };
 
   // TODO close a popout when its parent is removed from the DOM
 
-  // TODO close a popout when it&#039;s forcefully reloaded
-
-  // TODO add close buttons to the popouts
-
-  // TODO close a window when its last popout is closed
-
   // TODO allow popouts to be moved to their own window
-
-  // TODO change CSS behavior of tables to not rely on proper tabs!
-
-  // TODO call destroy() when the popout is closed.
 
   return PopoutController;
 });</textarea>

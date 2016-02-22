@@ -90,21 +90,21 @@
 <div class="container">
   <div class="row">
     <textarea id="file-source" class="col-md-12">/**
- * Options object, which contains options such as database keys, points, etc.
+ * OptionsTemplate object, which contains options such as database keys, points, etc.
  *
- * @deprecated will be replaced with a new OptionsModel class or something
+ * @deprecated will be replaced with a new OptionsTemplateModel class or something
  *
- * @return Options
+ * @return OptionsTemplate
  * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
  * @license MIT License
  * @see LICENSE
  */
 
-define([&#039;ui/options&#039;], function(Options) {
+define([&#039;ui/optionstemplate&#039;], function(OptionsTemplate) {
   var Default;
 
   Default = {
-    // must stay the same across this save, hence Options, not Presets
+    // must stay the same across this save, hence OptionsTemplate, not Presets
     minpoints: 0,
     maxpoints: 8,
     byepointswon: 8,
@@ -114,10 +114,10 @@ define([&#039;ui/options&#039;], function(Options) {
     maxpointtiesforbidden: true
   };
 
-  Options.setDefault(Default);
-  Options.reset();
+  OptionsTemplate.setDefault(Default);
+  OptionsTemplate.reset();
 
-  return Options;
+  return OptionsTemplate;
 });</textarea>
   </div>
 </div>

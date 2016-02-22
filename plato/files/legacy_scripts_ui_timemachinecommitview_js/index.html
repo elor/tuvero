@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/ui/timemachinecommitview.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/ui/timemachinecommitview.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">72.97</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">110</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">26.16</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">1.11</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * TimeMachineCommitView
+ *
+ * @return TimeMachineCommitView
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;core/view&#039;, &#039;timemachine/timemachine&#039;,
+    &#039;core/valuemodel&#039;, &#039;ui/valueview&#039;, &#039;core/classview&#039;,
+    &#039;ui/timemachinecommitcontroller&#039;, &#039;ui/boxview&#039;], function(extend, View,
+    TimeMachine, ValueModel, ValueView, ClassView, TimeMachineCommitController,
+    BoxView) {
+  /**
+   * Constructor
+   */
+  function TimeMachineCommitView(model, $view) {
+    TimeMachineCommitView.superconstructor.call(this, model, $view);
+
+    this.boxView = new BoxView(this.$view);
+
+    this.nameView = new ValueView(new ValueModel(), this.$view.find(&#039;.name&#039;));
+    this.startDateView = new ValueView(new ValueModel(), this.$view
+        .find(&#039;.startdate&#039;));
+    this.saveDateView = new ValueView(new ValueModel(), this.$view
+        .find(&#039;.savedate&#039;));
+    this.sizeView = new ValueView(new ValueModel(), this.$view.find(&#039;.size&#039;));
+    this.activeView = new ClassView(new ValueModel(false), this.$view,
+        &#039;activetree&#039;);
+
+    this.updateName();
+    this.updateStartDate();
+    this.updateSaveDate();
+    this.updateSize();
+    this.updateActive();
+
+    this.controller = new TimeMachineCommitController(this);
+
+    TimeMachine.registerListener(this);
+  }
+  extend(TimeMachineCommitView, View);
+
+  TimeMachineCommitView.prototype.updateName = function() {
+    this.nameView.model.set(this.model.getTreeName());
+  };
+
+  TimeMachineCommitView.prototype.updateStartDate = function() {
+    var startDate = new Date(this.model.key.startDate);
+    this.startDateView.model.set(startDate.toLocaleString());
+  };
+
+  TimeMachineCommitView.prototype.updateSaveDate = function() {
+    var youngestAncestor, saveDate;
+
+    youngestAncestor = this.model.getYoungestDescendant() || this.model;
+    saveDate = new Date(youngestAncestor.key.saveDate);
+
+    this.saveDateView.model.set(saveDate.toLocaleString());
+  };
+
+  TimeMachineCommitView.prototype.updateSize = function() {
+    var size = TimeMachine.usedRelatedStorage(this.model);
+    size = Math.round(size / 102.4) / 10;
+    this.sizeView.model.set(size + &#039;kB&#039;);
+  };
+
+  TimeMachineCommitView.prototype.updateActive = function() {
+    this.activeView.model.set(TimeMachine.isRelatedToActive(this.model));
+  };
+
+  TimeMachineCommitView.prototype.onsave = function(event, emitter, commit) {
+    if (commit.key.isRelated(this.model.key)) {
+      this.updateSaveDate();
+      this.updateSize();
+    }
+  };
+
+  TimeMachineCommitView.prototype.onremove = function(event, emitter, commit) {
+    if (commit &amp;&amp; !commit.isRoot()) {
+      this.updateSaveDate();
+      this.updateSize();
+    }
+  };
+
+  TimeMachineCommitView.prototype.oninit = function(event, emitter, commit) {
+    this.updateActive();
+  };
+
+  TimeMachineCommitView.prototype.onload = function(event, emitter, commit) {
+    this.updateActive();
+  };
+
+  TimeMachineCommitView.prototype.oncleanup = function(event, emitter, commit) {
+    this.updateSize();
+  };
+
+  TimeMachineCommitView.prototype.onrename = function(event, emitter, newname) {
+    this.updateName();
+  };
+
+  TimeMachineCommitView.prototype.destroy = function() {
+    this.nameView.destroy();
+    this.startDateView.destroy();
+    this.saveDateView.destroy();
+    this.sizeView.destroy();
+
+    this.nameView.model.destroy();
+    this.startDateView.model.destroy();
+    this.saveDateView.model.destroy();
+    this.sizeView.model.destroy();
+
+    this.boxView.destroy();
+
+    TimeMachineCommitView.superclass.destroy.call(this);
+  };
+
+  return TimeMachineCommitView;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

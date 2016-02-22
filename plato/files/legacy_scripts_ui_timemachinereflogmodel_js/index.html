@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Plato - legacy/scripts/ui/timemachinereflogmodel.js</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link href="../../assets/css/vendor/morris.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/bootstrap.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/font-awesome.css" rel="stylesheet">
+  <link href="../../assets/css/vendor/codemirror.css" rel="stylesheet">
+  <link href="../../assets/css/plato.css" rel="stylesheet">
+  <link href="../../assets/css/plato-file.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="http://github.com/es-analysis/plato">Plato on Github</a>
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="../../index.html">Report Home</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1>legacy/scripts/ui/timemachinereflogmodel.js</h1>
+  </div>
+</div>
+
+<div class="container aggregate-stats">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
+      <p class="stat">66.64</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
+      <p class="stat">319</p>
+    </div>
+  </div>
+  <div class="row historical">
+    <div class="col-md-6">
+      <p id="chart_historical_maint" class="chart"></p>
+    </div>
+    <div class="col-md-6">
+      <p id="chart_historical_sloc" class="chart"></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
+      <p class="stat">41.57</p>
+    </div>
+    <div class="col-md-6">
+      <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
+      <p class="stat">2.54</p>
+    </div>
+  </div>
+</div>
+
+<div class="container charts">
+  <div class="row">
+    <h2 class="header">Function weight</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h3 class="chart-header">By Complexity <a href="http://en.wikipedia.org/wiki/Cyclomatic_complexity"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="This metric counts the number of distinct paths through a block of code. Lower values are better." data-original-title="Cyclomatic Complexity" data-container="body"></i></a></h3>
+      <div id="fn-by-complexity" class="stat"></div>
+    </div>
+    <div class="col-md-6">
+      <h3 class="chart-header">By SLOC  <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h3>
+      <div id="fn-by-sloc" class="stat"></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <textarea id="file-source" class="col-md-12">/**
+ * TimeMachineRefLogModel
+ *
+ * @return TimeMachineRefLogModel
+ * @author Erik E. Lorenz &lt;erik.e.lorenz@gmail.com&gt;
+ * @license MIT License
+ * @see LICENSE
+ */
+define([&#039;lib/extend&#039;, &#039;core/model&#039;, &#039;presets&#039;, &#039;ui/timemachinekeyquerymodel&#039;,
+    &#039;core/listmodel&#039;, &#039;core/listener&#039;, &#039;ui/timemachinekeymodel&#039;], function(
+    extend, Model, Presets, TimeMachineKeyQueryModel, ListModel, Listener,
+    TimeMachineKeyModel) {
+  var reflogKey, reflogRegex;
+
+  reflogKey = Presets.target + &#039;-reflog&#039;;
+  reflogRegex = /^[a-z]*-reflog$/;
+
+  /**
+   * Constructor
+   */
+  function TimeMachineRefLogModel() {
+    TimeMachineRefLogModel.superconstructor.call(this);
+
+    this.data = {};
+
+    Listener.bind(this, &#039;error&#039;, function(event, emitter, message) {
+      console.error(message);
+    })
+
+    this.refresh();
+  }
+  extend(TimeMachineRefLogModel, Model);
+
+  TimeMachineRefLogModel.prototype.EVENTS = {
+    &#039;error&#039;: true
+  };
+
+  TimeMachineRefLogModel.prototype.refresh = function() {
+    if (!window.localStorage) {
+      this.emit(&#039;error&#039;, &#039;This browser does not support LocalStorage!&#039;);
+      return false;
+    }
+
+    if (!window.localStorage[reflogKey]
+        || window.localStorage[reflogKey] === &#039;undefined&#039;) {
+      this.emit(&#039;error&#039;, reflogKey
+          + &#039; key missing in LocalStorage! Reconstructing...&#039;);
+      return this.reconstruct();
+    }
+
+    this.data = undefined;
+    try {
+      this.data = JSON.parse(window.localStorage[reflogKey]);
+    } catch (e) {
+      console.error(e.stack);
+    }
+
+    if (!this.data) {
+      this.emit(&#039;error&#039;, &#039;cannot read RefLog from Storage. Reconstructing...&#039;);
+      return this.reconstruct();
+    }
+
+    if (!this.isValid()) {
+      this.emit(&#039;error&#039;, &#039;loaded reflog is not valid!&#039;);
+      return false;
+    }
+
+    this.store();
+
+    return true;
+  };
+
+  TimeMachineRefLogModel.prototype.reconstruct = function() {
+    var query, data;
+
+    query = new TimeMachineKeyQueryModel(TimeMachineKeyQueryModel.INITKEYS);
+    data = {};
+
+    query.filter().forEach(function(initKey) {
+      var keyQuery, initDate, refDate;
+
+      initKey = new TimeMachineKeyModel(initKey);
+      keyQuery = new TimeMachineKeyQueryModel(initKey);
+
+      initDate = initKey.startDate;
+      data[initDate] = {};
+      refDate = initKey.startDate;
+
+      keyQuery.filter().forEach(function(saveKey) {
+        saveKey = new TimeMachineKeyModel(saveKey);
+
+        if (saveKey.isEqual(initKey)) {
+          return;
+        }
+
+        date[initDate][saveKey.saveDate] = refDate;
+
+        refDate = saveKey.saveDate;
+      });
+    });
+
+    this.data = data;
+
+    console.log(this.data)
+
+    this.store();
+
+    return true;
+  };
+
+  TimeMachineRefLogModel.prototype.store = function() {
+    var dataString;
+
+    if (!this.isValid()) {
+      this.emit(&#039;error&#039;, &#039;RefLogModel: this.data is not valid!&#039;);
+      return false;
+    }
+
+    dataString = JSON.stringify(this.data);
+
+    window.localStorage[reflogKey] = dataString;
+
+    return window.localStorage[reflogKey] === dataString;
+  };
+
+  TimeMachineRefLogModel.prototype.isValid = function() {
+    if (!this.data) {
+      return false;
+    }
+
+    // TODO check format!
+    return true;
+  };
+
+  TimeMachineRefLogModel.prototype.newSaveKey = function(parentKey) {
+    var newKey, startDate, refDate, saveDate;
+    if (!parentKey) {
+      this.emit(&#039;error&#039;, &#039;newSaveKey: no parent key given&#039;);
+      return undefined;
+    }
+
+    newKey = new TimeMachineKeyModel(parentKey);
+
+    if (!parentKey.isRelated(newKey)) {
+      this.emit(&#039;error&#039;, &#039;unexpected error: newKey is unrelated to parentKey&#039;);
+      return undefined;
+    }
+
+    startDate = parentKey.startDate;
+    refDate = parentKey.saveDate;
+    saveDate = newKey.saveDate;
+
+    if (!this.data) {
+      this.emit(&#039;error&#039;, &#039;reflog contains no data! reconstructing...&#039;);
+      if (!this.reconstruct()) {
+        this.emit(&#039;error&#039;, &#039;reflog reconstruction failed!&#039;);
+        return undefined;
+      }
+    }
+
+    if (!this.contains(parentKey)) {
+      this.emit(&#039;error&#039;, &#039;newSaveKey(): parentKey is not in reflog!&#039;);
+      return undefined;
+    }
+
+    this.data[startDate][saveDate] = refDate;
+
+    this.store();
+
+    return newKey;
+  };
+
+  TimeMachineRefLogModel.prototype.newInitKey = function() {
+    var newKey = new TimeMachineKeyModel();
+
+    if (!this.data) {
+      this.emit(&#039;error&#039;, &#039;reflog contains no data! reconstructing...&#039;);
+      if (!this.reconstruct()) {
+        this.emit(&#039;error&#039;, &#039;reflog reconstruction failed!&#039;);
+        return undefined;
+      }
+    }
+
+    this.data[newKey.startDate] = {};
+
+    this.store();
+
+    return newKey;
+  };
+
+  TimeMachineRefLogModel.prototype.contains = function(refKey) {
+    if (!this.data[refKey.startDate]) {
+      return false;
+    }
+
+    if (TimeMachineKeyModel.isInitKey(refKey)) {
+      return true;
+    }
+
+    if (!this.data[refKey.startDate][refKey.saveDate]) {
+      return false;
+    }
+
+    return true;
+  };
+
+  TimeMachineRefLogModel.prototype.getParent = function(refKey) {
+    if (!this.contains(refKey)) {
+      this.emit(&#039;error&#039;, &#039;reflog does not contain key for parent search!&#039;);
+      return undefined;
+    }
+
+    if (TimeMachineKeyModel.isInitKey(refKey)) {
+      return undefined;
+    }
+
+    return TimeMachineKeyModel.construct(refKey.startDate,
+        this.data[refKey.startDate][refKey.saveDate]);
+  };
+
+  TimeMachineRefLogModel.prototype.getChildren = function(refKey) {
+    if (!this.contains(refKey)) {
+      this.emit(&#039;error&#039;, &#039;reflog does not contain key for children search&#039;);
+      return undefined;
+    }
+
+    return Object.keys(this.data[refKey.startDate]).filter(function(saveDate) {
+      var parentDate = this.data[refKey.startDate][saveDate];
+      return parentDate === refKey.saveDate;
+    }, this).map(function(saveDate) {
+      return TimeMachineKeyModel.construct(refKey.startDate, saveDate);
+    });
+  };
+
+  TimeMachineRefLogModel.prototype.getInitKeys = function() {
+    return Object.keys(this.data).sort().map(function(startDate) {
+      return TimeMachineKeyModel.construct(startDate, startDate);
+    });
+  };
+
+  TimeMachineRefLogModel.prototype.getLatestGlobalKey = function() {
+    var data, dates;
+
+    data = this.data;
+    dates = Object.keys(this.data).map(function(startDate) {
+      var saveDate = Object.keys(data[startDate]).sort().pop() || startDate;
+      return [startDate, saveDate];
+    }).sort(function(dates1, dates2) {
+      return dates2[1].localeCompare(dates1[1]);
+    })[0];
+
+    if (!dates) {
+      this.emit(&#039;error&#039;, &#039;reflog contains no data&#039;);
+      return undefined;
+    }
+
+    return TimeMachineKeyModel.construct(dates[0], dates[1]);
+  };
+
+  TimeMachineRefLogModel.prototype.getLatestRelatedKey = function(refKey) {
+    var startDate, saveDate, latestKey;
+
+    if (!TimeMachineKeyModel.isValidKey(refKey)) {
+      this.emit(&#039;error&#039;, &#039;getLatestRelatedKey(): refKey is invalid&#039;)
+      return undefined;
+    }
+
+    startDate = refKey.startDate;
+
+    if (!this.data[startDate]) {
+      this.emit(&#039;error&#039;, &#039;init-key object is missing in reflog&#039;);
+      return undefined;
+    }
+
+    saveDate = Object.keys(this.data[startDate]).sort().pop() || startDate;
+
+    return TimeMachineKeyModel.construct(startDate, saveDate);
+  };
+
+  TimeMachineRefLogModel.prototype.reset = function() {
+    this.data = {};
+
+    this.store();
+  };
+
+  TimeMachineRefLogModel.prototype.deleteTree = function(refKey) {
+    delete this.data[refKey.startDate];
+
+    this.store();
+  };
+
+  TimeMachineRefLogModel.prototype.deleteKey = function(refKey) {
+    var parentKey, children;
+
+    if (TimeMachineKeyModel.isInitKey(refKey)) {
+      this.emit(&#039;error&#039;, &#039;cannot delete a single init key. &#039;
+          + &#039;use deleteTournament() instead&#039;);
+    }
+
+    if (!this.contains(refKey)) {
+      this.emit(&#039;error&#039;, &#039;deleteKey(): refKey is not in reflog!&#039;);
+      return undefined;
+    }
+
+    parentKey = this.getParent(refKey);
+    if (!parentKey) {
+      this.emit(&#039;error&#039;, &#039;deleteKey(): parent key is not in reflog!&#039;);
+      return undefined;
+    }
+
+    children = this.getChildren(refKey);
+    if (children === undefined) {
+      this.emit(&#039;error&#039;, &#039;deleteKey(): Children cannot be extracted!&#039;);
+      return undefined;
+    }
+
+    children.forEach(function(child) {
+      this.data[refKey.startDate][child.saveDate] = parentKey.saveDate;
+    }, this);
+
+    delete this.data[refKey.startDate][refKey.saveDate];
+
+    this.store();
+  };
+
+  return TimeMachineRefLogModel;
+});</textarea>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>.</p>
+  </div>
+</footer>
+
+<script type="text/html" id="complexity-popover-template">
+  <div class="complexity-notice">
+    Complexity : {{ complexity.cyclomatic }} <br>
+    Length : {{ complexity.halstead.length }} <br>
+    Difficulty : {{ complexity.halstead.difficulty.toFixed(2) }} <br>
+    Est # bugs : {{ complexity.halstead.bugs.toFixed(2) }}<br>
+  </div>
+</script>
+
+<script type="text/javascript" src="../../assets/scripts/bundles/core-bundle.js"></script>
+<script type="text/javascript" src="../../assets/scripts/bundles/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/scripts/codemirror.markpopovertext.js"></script>
+<script type="text/javascript" src="report.js"></script>
+<script type="text/javascript" src="report.history.js"></script>
+<script type="text/javascript" src="../../assets/scripts/plato-file.js"></script>
+</body>
+</html>

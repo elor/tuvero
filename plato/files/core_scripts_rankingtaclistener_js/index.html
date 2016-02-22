@@ -48,7 +48,7 @@
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">165</p>
+      <p class="stat">166</p>
     </div>
   </div>
   <div class="row historical">
@@ -131,18 +131,18 @@ define([&#039;lib/extend&#039;, &#039;./rankingdatalistener&#039;, &#039;./vecto
   RankingTacListener.NAME = &#039;tac&#039;;
 
   RankingTacListener.prototype.onresult = function(r, e, result) {
-    var winner, loser, diff, points;
+    var winner, loser, difference, points;
 
     if (result.teams.length !== 2) {
       throw new Error(&#039;TAC ranking requires exactly two teams in a result&#039;);
     }
 
-    diff = result.score[0] - result.score[1];
-    switch (sign(diff)) {
+    difference = result.score[0] - result.score[1];
+    switch (sign(difference)) {
     case -1:
       winner = 1;
       loser = 0;
-      diff = -diff;
+      difference = -difference;
       break;
     case 1:
       winner = 0;
@@ -161,7 +161,7 @@ define([&#039;lib/extend&#039;, &#039;./rankingdatalistener&#039;, &#039;./vecto
       // everything went to completion
 
       // winner
-      points = this.tac.get(result.teams[winner]) + winscore + diff;
+      points = this.tac.get(result.teams[winner]) + winscore + difference;
       this.tac.set(result.teams[winner], points);
 
       // loser
@@ -203,18 +203,18 @@ define([&#039;lib/extend&#039;, &#039;./rankingdatalistener&#039;, &#039;./vecto
   RankingTacListener.prototype.oncorrect = function(r, e, correction) {
     // TODO DRY - Don&#039;t Repeat Yourself!
     // TODO extract a method for use by onresult and oncorrect
-    var winner, loser, diff, points;
+    var winner, loser, difference, points;
 
     if (correction.before.teams.length !== 2) {
       throw new Error(&#039;TAC ranking requires exactly two teams in a result&#039;);
     }
 
-    diff = correction.before.score[0] - correction.before.score[1];
-    switch (sign(diff)) {
+    difference = correction.before.score[0] - correction.before.score[1];
+    switch (sign(difference)) {
     case -1:
       winner = 1;
       loser = 0;
-      diff = -diff;
+      difference = -difference;
       break;
     case 1:
       winner = 0;
@@ -234,7 +234,8 @@ define([&#039;lib/extend&#039;, &#039;./rankingdatalistener&#039;, &#039;./vecto
       // everything went to completion
 
       // winner
-      points = this.tac.get(correction.before.teams[winner]) - winscore - diff;
+      points = this.tac.get(correction.before.teams[winner]) - winscore
+          - difference;
       this.tac.set(correction.before.teams[winner], points);
 
       // loser

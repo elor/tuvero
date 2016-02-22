@@ -95,10 +95,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &#039;./state_new&#039;,
+define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039;./listview&#039;, &#039;ui/state&#039;,
     &#039;./checkboxview&#039;, &#039;core/classview&#039;, &#039;./tournamenthistoryview&#039;,
     &#039;./closedtournamentcollapselistener&#039;], function(extend, $, View, ListView,
-    State, CheckboxView, ClassView, TournamentHistoryView,
+    State, CheckBoxView, ClassView, TournamentHistoryView,
     ClosedTournamentCollapseListener) {
   /**
    * represents a whole team tab
@@ -139,28 +139,28 @@ define([&#039;lib/extend&#039;, &#039;jquery&#039;, &#039;core/view&#039;, &#039
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find(&#039;&gt;.options input.maxwidth&#039;);
-    this.maxwidthCheckboxView = new CheckboxView(value, $container);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, &#039;maxwidth&#039;,
         &#039;nomaxwidth&#039;);
 
     // player names checkbox
     value = State.tabOptions.showNames;
     $container = this.$view.find(&#039;&gt;.options input.shownames&#039;);
-    this.maxwidthCheckboxView = new CheckboxView(value, $container);
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         &#039;hidenames&#039;);
 
     // list/table selection checkbox
     value = State.tabOptions.showMatchTables;
     $container = this.$view.find(&#039;&gt;.options input.showtable&#039;);
-    this.showtableCheckboxView = new CheckboxView(value, $container);
+    this.showtableCheckBoxView = new CheckBoxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view,
         &#039;showmatchtable&#039;, &#039;showtable&#039;);
 
     // hidefinished checkbox
     value = State.tabOptions.hideFinishedGroups;
     $container = this.$view.find(&#039;&gt;.options input.hidefinished&#039;);
-    this.hidefinishedCheckboxView = new CheckboxView(value, $container);
+    this.hidefinishedCheckBoxView = new CheckBoxView(value, $container);
     this.hidefinishedClassView = new ClassView(value, this.$view,
         &#039;hidefinished&#039;);
   };
