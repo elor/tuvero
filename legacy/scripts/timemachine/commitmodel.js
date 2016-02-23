@@ -42,7 +42,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   CommitModel.prototype.isValid = function() {
     return !!this.key && KeyModel.isValidKey(this.key)
         && RefLog.contains(this.key) && !!window.localStorage[this.key];
-  }
+  };
 
   /**
    * @return true if the key is a root key (has no parent and dates match),
@@ -144,7 +144,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    */
   CommitModel.prototype.isEqual = function(commit) {
     return !!commit && this.key.isEqual(commit.key);
-  }
+  };
 
   /**
    * @param descendant
@@ -165,7 +165,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
 
     for (parent = descendant.getParent(); parent; parent = parent.getParent()) {
       if (this.isEqual(parent)) {
-        return true
+        return true;
       }
     }
 

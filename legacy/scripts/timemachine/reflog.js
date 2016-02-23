@@ -34,7 +34,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
     Listener.bind(this, 'error', function(event, emitter, message) {
       console.error(message);
-    })
+    });
 
     this.refresh();
   }
@@ -221,7 +221,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     }
 
     return Object.keys(this.data).filter(KeyModel.isValidDate);
-  }
+  };
 
   /**
    * @param startDate
@@ -344,7 +344,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     }, this);
 
     return keys.sort();
-  }
+  };
 
   /**
    * @return an array of all root keys in the reflog
@@ -384,7 +384,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     var startDate, saveDate, latestKey, rootKey;
 
     if (!KeyModel.isValidKey(refKey)) {
-      this.emit('error', 'getLatestRelatedKey(): refKey is invalid')
+      this.emit('error', 'getLatestRelatedKey(): refKey is invalid');
       return undefined;
     }
 

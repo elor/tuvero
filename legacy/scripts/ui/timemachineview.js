@@ -36,8 +36,8 @@ define(['lib/extend', 'core/view', './storagesavecontroller',
      */
     $container = this.$view.find('.newcommittree');
     this.newcommitTreeController = new TimeMachineNewTreeController(new View(
-        undefined, $container))
-  }
+        undefined, $container));
+  };
 
   return TimeMachineView;
 });

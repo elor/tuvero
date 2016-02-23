@@ -52,7 +52,7 @@ function(extend, View, ValueModel, ValueView, PropertyValueModel, Listener,
     this.maxrounds.destroy();
 
     SwissMaxRoundView.superclass.destroy.call(this);
-  }
+  };
 
   return SwissMaxRoundView;
 });

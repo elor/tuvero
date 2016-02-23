@@ -171,7 +171,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       this.commit.set(commit);
       this.emit('load', data);
     }
-    return data
+    return data;
   };
 
   /**
@@ -308,7 +308,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     }
 
     this.emit('cleanup', relatedCommit);
-  }
+  };
 
   /**
    * update this.roots whenever a root is deleted (which is performed via a

@@ -70,9 +70,9 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
     keys = Object.keys(window.localStorage);
 
     if (this.reference === Query.ALLTUVEROKEYS) {
-      keys = keys.filter(KeyModel.isTuveroKey)
+      keys = keys.filter(KeyModel.isTuveroKey);
     } else {
-      keys = keys.filter(KeyModel.isValidKey)
+      keys = keys.filter(KeyModel.isValidKey);
     }
 
     if (keys.length === 0) {
