@@ -1,3 +1,397 @@
+2016-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* NEWS: pre-release update
+
+	* core/templates/swisssystem.html: maxrounds text made more understandable
+
+	* tools/prepare-release.sh: 'basic' folder needs to be removed
+	'images' folder needs to be removed, too
+
+2016-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: style simplified
+	img sizes and layout optimized
+	min-width for header added
+	typos fixed
+
+	* core/templates/swisssystem.html: .swissmaxroundview added to .initial and .idle
+
+	* legacy/scripts/ui/swissmaxroundview.js: showing the approximate maximum number of rounds
+
+	* legacy/scripts/ui/swisstournamentview.js: SwissMaxRoundView added
+
+	* legacy/style/new.css: .infotext rules added
+
+2016-02-21	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/settingstab.html: savedate display removed
+	"New Tournament" input added
+	referencing {{timemachineview}}
+	timemachineview moved to hometab
+
+	* legacy/scripts/ui/settingstab.js: savedate display removed
+	TimeMachine-logic extracted to TimeMachineView
+	TimeMachineView moved to hometab
+	FileLoadController re-instated
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: Don't save on clear(), since TimeMachine takes care of that
+
+	* legacy/scripts/ui/statesaver.js: createNewEmptyTree() added
+	removeEverything() removes every entry for the current target
+
+	* legacy/scripts/ui/timemachinenewtreecontroller.js: Controller for tree creation added
+
+	* legacy/scripts/timemachine/timemachine.js: save() doesn't initiate a new tree, it just fails.
+	unload() added
+	isActive() and isRelatedToActive() added
+	TimeMachine.commit made into a ValueModel
+	load(undefined) returns the current state
+
+	* legacy/scripts/ui/stateloader.js: unload() added
+
+	* legacy/scripts/ui/timemachinecommitview.js: using TimeMachine.isRelatedToActive()
+	BoxView added
+
+	* legacy/scripts/ui/strings.js: reflog tree removal confirmations added
+	Long strings shortened
+	clearstorage text emphasized
+	"reloading..." text isn't accurate anymore
+	'notournament' added
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: asking for confirmation before tree deletion
+	confirmation text includes the tournament name
+	download button enabled. uses FileSaverModel
+
+	* core/templates/timemachinecommitview.html: cleanup-button removed
+	Germanized
+	button images added
+	download button added
+
+	* legacy/scripts/ui/backgroundscripts/save.js: using TimeMachine.load() instead of TimeMachine.commit.load()
+	use a FileSaverModel
+
+	* core/scripts/main.js: Storage.enable/disable removed
+
+	* legacy/scripts/ui/autocompletionlegacyblobber.js: lazy-loading the Storage object
+
+	* legacy/scripts/ui/backgroundscripts/online.js: Storage hints aren't required anymore
+
+	* legacy/scripts/ui/debugtab.js: clear-button properly resets the whole time machine
+	use StateSaver.removeEverything()
+
+	* legacy/scripts/ui/fileloadcontroller.js: Doesn't require Storage anymore
+	take tournament name from file name
+	send load error toast when file doesn't match json format
+	removing trailing .json from the filename
+
+	* legacy/scripts/ui/storage.js: simplified. It only serves the player names, no need for crazy stuff
+
+	* core/templates/timemachineview.html: Extracted from settingstab.html
+	containing box removed. The tab takes care of it.
+	necessary newtournament button classes added
+
+	* legacy/scripts/ui/timemachineview.js: Extracted from settingstab.js
+	global storage save button removed
+
+	* core/templates/hometab.html: timemachineview moved here
+	load/save texts optimized
+	tuvero logo centered
+
+	* legacy/scripts/ui/hometab.js: timemachineview moved here
+	use StateSaver.removeEverything()
+
+	* legacy/style/settings.css: unused rules removed
+
+	* legacy/style/timemachine.css: .rootcommits margin added
+
+	* tools/write-sprite.sh: vertical-align of images according to .inline class
+	button, h2 and .middle-elements are middled
+
+	* legacy/scripts/ui/backgroundscripts/reset.js: accessibility of windows.localStorage/windows.location
+
+	* legacy/scripts/ui/backgroundscripts/tabteamscheaphacklistener.js: Team entry disabled when no tournament has been selected
+
+	* legacy/scripts/ui/filesavermodel.js: save a single commit
+	removing trailing .json from tournament name
+
+	* legacy/scripts/ui/csvexportcontroller.js: save into a tournament-named .csv file
+
+	* basic/scripts/presets.js: static filenames removed
+
+	* boule/scripts/presets.js: static filenames removed
+
+	* tac/scripts/presets.js: static filenames removed
+
+	* test/scripts/presets.js: player name loading disabled
+	static filenames removed
+
+	* legacy/scripts/timemachine/test/query.js: useless tests removed
+	bugs in test suite fixed
+
+	* legacy/scripts/timemachine/query.js: ROOTKEY bug fixed
+
+	* core/images/tuvero.png: tuvero logo added
+
+	* images/: images for index.html
+
+	* index.html: redesign
+	app icons aligned
+
+	* Makefile: index.html redesign changed the required files for the manifest
+
+2016-02-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/timemachine/reflog.js: 'no latest key found' is NOT an error.
+	auto-creating a new reflog.
+	unique root key guarantee
+
+	* legacy/scripts/timemachine/timemachine.js: Reading default name from Presets
+	missing cleanup event added
+	relatedKey -> relatedCommit
+	Debugging disabled
+	cleanup(): verifying whether relatedCommit is CommitModel instance.
+	load() function added
+	default tree name also applies to init()
+	save() only writes to localStorage if there's a change in the stored data
+
+	* legacy/scripts/ui/settingstab.js: missing $template variable added
+	initcommits -> rootcommits
+
+	* legacy/scripts/ui/storage.js: timeMachineKey -> timeMachineCommit
+	lastSaveDate is a localeString-date
+	dbname-saving has been removed. Using StateSaver/StateLoader instead
+
+	* core/templates/settingstab.html: timemachine commits are arranged in divs
+
+	* legacy/scripts/ui/timemachinecommitview.js: multiple lines inside a single div. Looks ok.
+	updating on cleanup
+	setting an '.activetree' class for all TimeMachineCommitViews
+	initializing TimeMachineCommitController
+
+	* core/templates/timemachinecommitview.html: missing file added
+	load, remove and cleanup-buttons added
+
+	* legacy/style/timemachine.css: missing file added
+	activetree rules added
+
+	* legacy/scripts/ui/backgroundscripts/tournamenterrortoasts.js: misleading comments removed
+
+	* legacy/scripts/ui/stateloader.js: StateLoader wrapper for State.restore()-calls added
+
+	* legacy/scripts/ui/statesaver.js: StateSaver wrapper for State.save()-calls added
+	newTree() function added to make the next commit use create a completely new tree
+
+	* core/scripts/main.js: using StateLoader instead of Storage to load the latest state
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: using StateSaver instead of Storage
+
+	* legacy/scripts/ui/legacyloadermodel.js: taking a global data object instead of its serialized version.
+
+	* legacy/scripts/ui/storagesavecontroller.js: using StateSaver instead of Storage
+
+	* legacy/scripts/ui/backgroundscripts/save.js: using TimeMachine instead of State.toBlob (read from storage)
+
+	* legacy/scripts/ui/fileloadcontroller.js: using StateSaver and StateLoader instead of State.toBlob
+
+	* legacy/scripts/ui/state.js: Removed.
+
+	* legacy/scripts/ui/*.js: ui/state_new -> ui/state
+
+	* legacy/scripts/ui/state_new.js: moved to state.js for file name consistency
+
+	* core/scripts/tournamentlistmodel.js: variable leak fixed
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: logic for load, cleanup and removal
+
+2016-02-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/timemachine/commitmodel.js: getTreeName, setTreeName and onrename + RefLog listener added
+
+	* legacy/scripts/timemachine/reflog.js: getName and setName added
+	'rename' event added
+	RefLog only changes the name if it doesn't already match
+
+	* legacy/scripts/timemachine/timemachine.js: init and save adjusted for 'name' events
+	cleanup() function added
+
+	* legacy/scripts/ui/timemachinecommitview.js: showing the name
+
+	* legacy/scripts/ui/storage.js: automatically calling TimeMachine.cleanup() after TimeMachine.save()
+
+2016-02-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* basic/images/favicon.png: using Tuvero logo
+
+	* basic/images/games.png: using Tuvero logo
+
+2016-02-14	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/timemachine/reflog.js: formatTargetKey() function for database key creation
+	many comments added
+	support for multiple parallel browser sessions added
+
+	* legacy/scripts/timemachine/timemachine.js: usedRelatedStorage() lists the storage size of a single tree
+	listening for 'remove' events on root commits
+	using createRoot() and createChild()
+	comments added
+	reflog-debug interval increased from 50 to 500 ms
+
+	* legacy/scripts/ui/timemachinecommitview.js: showing usedRelatedStorage() information
+
+	* legacy/scripts/timemachine/commitmodel.js: function comments added
+	isAncestorOf() added
+	emitting 'remove' events
+	isEqual() added
+	init-key renamed to root key
+	init() and save() renamed to createRoot() and createChild()
+	getRoot() added
+	getYoungestAncestor -> getYoungestDescendant
+
+	* core/templates/settingstab.html: order of boxes changed for better debugging
+
+	* legacy/scripts/timemachine/keyquerymodel.js: moved and renamed to query
+
+	* legacy/scripts/timemachine/query.js: moved from keyquerymodel
+	Model dependency removed
+	renamed to Query
+
+	* legacy/scripts/timemachine/keymodel.js: avoiding the overloaded constructor
+	isValidDate() added
+
+2016-02-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/timemachinecommitmodel.js: transparent wrapper around reflog, localStorage and keys
+
+	* legacy/scripts/ui/timemachinekeymodel.js: sortFunction added
+
+	* legacy/scripts/ui/timemachinekeyquerymodel.js: ALLTUVEROKEYS added
+
+	* legacy/scripts/ui/timemachinemodel.js: completely remodeled
+
+	* legacy/scripts/ui/timemachinereflog.js: made into a singleton
+	moved from timemachinereflogmodel.js
+
+	* legacy/scripts/ui/timemachinereflogmodel.js: moved to timemachinereflog
+
+2016-02-12	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/test/timemachinekeyquerymodel.js: testing local storage queries
+
+	* legacy/scripts/ui/timemachinekeyquerymodel.js: should be finished...
+
+	* legacy/scripts/ui/test/timemachinekeymodel.js: testing isTuveroKey
+
+	* legacy/scripts/ui/timemachinekeymodel.js: isTuveroKey() function added for testing different targets
+	construct() added
+
+	* legacy/scripts/ui/timemachinemodel.js: removed all code that has been moved to TimeMachineKeyModel
+
+	* legacy/scripts/ui/timemachinereflogmodel.js: TimeMachineRefLogModel functionality is there.
+
+2016-02-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/test/timemachinekeymodel.js: testing typical timemachinekey scenarios
+	testing isInitKey
+
+	* legacy/scripts/ui/timemachinekeymodel.js: isValidKey, isRelated and isEqual added
+	isInitKey() added
+
+	* legacy/scripts/ui/timemachinekeyquerymodel.js: simple model for key name querying added
+
+2016-02-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/strings.js: single properties are auto-superseded by scripts/strings.js
+
+	* tac/scripts/strings.js: teamstext='Team', not 'Spieler'
+
+	* core/templates/gamestab.html: Spieler -> %teamstext%
+
+	* core/templates/historytab.html: Spieler -> %teamstext%
+
+	* core/templates/hometab.html: Spieler -> %teamstext%
+
+	* core/templates/matchtable.html: Spieler -> %teamstext%
+
+	* core/templates/newtab.html: Spieler -> %teamstext%
+
+	* core/templates/progresstable.html: Spieler -> %teamstext%
+
+	* core/templates/rankingtab.html: Spieler -> %teamstext%
+
+	* core/templates/rankingview.html: Spieler -> %teamstext%
+
+	* core/templates/swissvotes.html: Spieler -> %teamstext%
+
+	* core/templates/teamstab.html: Spieler -> %teamstext%
+
+	* tools/process-template.py: missing line breaks added
+
+	* test/scripts/strings.js: 'strings' dependency is required now ...
+
+	* legacy/scripts/ui/statemodel.js: Reading taboptions from Presets, if available.
+
+	* tac/scripts/presets.js: default taboptions: no maxwidth for names
+	default taboptions: show matchtables
+
+	* legacy/scripts/ui/popoutcontroller.js: popout taboptions: hidefinishedrounds implemented
+
+	* basic/images/favicon.png: using the unofficial tuvero logo
+
+	* basic/images/games.png: using the unofficial tuvero logo
+
+	* basic/scripts/presets.js: swiss ranking simplified
+
+	* basic/scripts/strings.js: teamsicon wasn't visible
+
+	* basic/templates/teamsizeview.html: teamsize selection disabled
+
+	* core/images/teams.png: moved from tac
+
+	* index.html: using Basic favicon
+	Link to Tuvero Basic added
+
+	* tac/images/teams.png: moved to core
+
+2016-02-06	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/hometab.html: .errorlink marker added
+
+	* legacy/scripts/ui/hometab.js: adding browser data to .errorlink
+
+2016-02-05	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/komatchresult.html: switched from tables to divs
+	'.match' class added to .komatchresult for #210 fix
+
+	* core/templates/koteam.html: switched from tables to divs
+
+	* legacy/scripts/ui/kotreeview.js: not removing the 'kolineanchor' class
+
+	* legacy/style/kotree.css: style adapted for div-based komatchview
+
+	* legacy/scripts/ui/popoutboxview.js: 'noprint'-class added to "close"-icon
+
+	* legacy/scripts/ui/matchresultcontroller.js: setting 'correcting'-class on the next 'match'-parent, not the direct parent (#210)
+
+	* core/templates/hometab.html: bugreport section added
+	printer hint typo fixed
+	error reporting: sending variant + version as GET vars.
+
+	* legacy/style/general.css: .float-left/right classes added
+
+	* core/templates/teamstab.html: data-spriteignore attribute added
+
+	* test/tabmenuview.html: data-spriteignore attribute added
+
+	* tools/write-sprite.sh: processing data-tab entries, except those that are followed directly by data-spriteignore
+
+	* Makefile: using provess-template.py instead of index-from-template.sh
+
+	* tools/index-from-template.sh: replaced with process-template.py
+
+	* tools/process-template.py: replacing index-from-template.sh
+	100-fold improvement in speed. Results are near-identical (All empty lines were removed, rest is identical)
+
 2016-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/strings.js: `Strings.display_error` added

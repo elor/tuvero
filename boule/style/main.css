@@ -366,6 +366,9 @@ button, input {
 #app table.background > tbody > tr:nth-child(even) {
   background-color: #d3d3d3;
 }
+#app table.middle td {
+  vertical-align: middle;
+}
 #app table td {
   vertical-align: top;
   padding: 0em 0.2em;
@@ -451,65 +454,6 @@ button, input {
     display: none;
   }
 }
-#tabs > [data-tab="about"] {
-  text-align: center;
-}
-#tabs > [data-tab="about"] .boxview {
-  width: 40em;
-  margin: 1em auto;
-}
-#tabs > [data-tab="about"] p {
-  text-align: justify;
-}
-#tabs > [data-tab="about"] .float {
-  float: right;
-}
-#tabs > [data-tab="about"] h4 {
-  text-align: left;
-}
-#tabs > [data-tab="about"] ul {
-  list-style-type: none;
-  text-align: left;
-}
-#tabs > [data-tab="about"] .links a[href] {
-  display: inline-block;
-  
-  padding: 0.2em;
-  border-radius: 0.2em;
-  font-weight: bold;
-}
-#tabs > [data-tab="about"] .links a.manual {
-  background-color: #90EE90;
-}
-#tabs > [data-tab="about"] .boxview [data-img] {
-  border-radius: 2em;
-  vertical-align: initial;
-}
-#tabs > [data-tab="about"] [data-img].supported {
-  background-color: #90ee90;
-}
-#tabs > [data-tab="about"] [data-img].maywork {
-  background-color: #eed048;
-}
-#tabs > [data-tab="about"] [data-img].unsupported {
-  background-color: #ff0000;
-  opacity: 0.7;
-}
-.js #tabs > [data-tab="about"] .no-js, .postmessage #tabs > [data-tab="about"] .no-postmessage, .hashchange #tabs > [data-tab="about"] .no-hashchange, .localstorage #tabs > [data-tab="about"] .no-localstorage, .webworkers #tabs > [data-tab="about"] .no-webworkers, .adownload #tabs > [data-tab="about"] .no-adownload, .filereader #tabs > [data-tab="about"] .no-filereader, .json #tabs > [data-tab="about"] .no-json {
-  display: none;
-}
-.js.postmessage.hashchange.localstorage.webworkers.adownload.filereader.json #tabs > [data-tab="about"] .no-support {
-  display: none;
-}
-.no-js #tabs > [data-tab="about"] .support, .no-postmessage #tabs > [data-tab="about"] .support, .no-hashchange #tabs > [data-tab="about"] .support, .no-localstorage #tabs > [data-tab="about"] .support, .no-webworkers #tabs > [data-tab="about"] .support, .no-adownload #tabs > [data-tab="about"] .support, .no-filereader #tabs > [data-tab="about"] .support, .no-json #tabs > [data-tab="about"] .support {
-  display: none;
-}
-#tabs > [data-tab="about"] .donatebuttons {
-  text-align: center;
-}
-#tabs > [data-tab="about"] .donate {
-  display: inline-block;
-}
 .tt-dropdown-menu {
   width: 100%;
   background-color: #ffffff;
@@ -593,6 +537,12 @@ button[disabled] {
 .hidden {
   display: none !important;
 }
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
 .clear {
   clear: both;
 }
@@ -668,6 +618,11 @@ input {
   vertical-align: middle;
   white-space: nowrap;
 }
+.kotree .komatchresult .koteams,
+.kotree .komatchresult .koscore {
+  display: inline-block;
+  vertical-align: middle;
+}
 .kotree .komatchresult .team {
   display: block;
   width: 12em;
@@ -682,12 +637,10 @@ input {
   font-weight: bold;
   min-width: 1.5em;
   display: inline-block;
+  text-align: center;
 }
 .kotree .komatchresult .name {
   width: 3em;
-}
-.kotree .komatchresult .koscore, .kotree .komatchresult .team {
-  vertical-align: middle !important;
 }
 .kotree .komatchresult .koscore {
   min-width: 3em;
@@ -846,6 +799,9 @@ table .teamno {
 #tabs>[data-tab="new"] .systemtable td.system .tournamentoptions .option {
   margin-bottom: 1em;
 }
+#tabs>[data-tab="new"] .systemtable td.system .infotext {
+  margin: 1em;
+}
 #tabs>[data-tab="new"] .newsystem button[data-system] {
   display: block;
   margin: 1em auto;
@@ -936,8 +892,7 @@ table .teamno {
   vertical-align: top;
   padding: 1em;
 }
-#tabs > [data-tab="settings"] input[type="file"], #tabs > [data-tab="settings"] button.clear {
-  visibility: hidden;
+#tabs > [data-tab="settings"] input[type="file"] {
   width: 1px;
   height: 1px;
   position: absolute;
@@ -947,7 +902,6 @@ table .teamno {
   font-weight: bold;
   font-size: 120%;
 }
-#tabs > [data-tab="settings"] .local button,
 #tabs > [data-tab="settings"] .devel button {
   font-size: 1em;
   padding: 0.5em;
@@ -1184,6 +1138,15 @@ div#tabs > [data-tab="teams"] {
     display: none;
   }
 }
+.timemachinecommitview {
+  text-align: left;
+}
+.timemachinecommitview.activetree {
+  font-weight: bold;
+}
+.timemachineview .rootcommits {
+  margin-bottom: 1em;
+}
 #toasts {
   position: fixed;
   top: 0em;
@@ -1244,446 +1207,395 @@ div#tabs > [data-tab="teams"] {
   text-align: left;
   vertical-align: middle;
 }
-[data-img="about"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: 0px 0px;
-    width: 64px;
-    height: 64px;
-}
-.tiny[data-img="about"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: 0px 0px;
-    width: 32px;
-    height: 32px;
-}
-.large[data-img="about"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -1px -1px;
-    width: 128px;
-    height: 128px;
-}
 [data-img="all"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -66px 0px;
+    background-position: 0px 0px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="all"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -33px 0px;
+    background-position: 0px 0px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="all"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -132px -1px;
+    background-position: -1px -1px;
     width: 128px;
     height: 128px;
 }
 [data-img="debug"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -132px 0px;
+    background-position: -66px 0px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="debug"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -66px 0px;
+    background-position: -33px 0px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="debug"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -264px -1px;
+    background-position: -132px -1px;
     width: 128px;
     height: 128px;
 }
 [data-img="history"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -198px 0px;
+    background-position: -132px 0px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="history"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -99px 0px;
+    background-position: -66px 0px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="history"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -396px -1px;
+    background-position: -264px -1px;
     width: 128px;
     height: 128px;
 }
 [data-img="home"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -264px 0px;
+    background-position: -198px 0px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="home"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -132px 0px;
+    background-position: -99px 0px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="home"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -528px -1px;
-    width: 128px;
-    height: 128px;
-}
-[data-img="HTML5_Logo_128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -330px 0px;
-    width: 64px;
-    height: 64px;
-}
-.tiny[data-img="HTML5_Logo_128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -165px 0px;
-    width: 32px;
-    height: 32px;
-}
-.large[data-img="HTML5_Logo_128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -660px -1px;
+    background-position: -396px -1px;
     width: 128px;
     height: 128px;
 }
 [data-img="lanes"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -396px 0px;
+    background-position: -264px 0px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="lanes"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -198px 0px;
+    background-position: -132px 0px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="lanes"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -792px -1px;
+    background-position: -528px -1px;
     width: 128px;
     height: 128px;
 }
 [data-img="logos/chrome_128x128"]::before {
     background-image: url(../images/sprite.png);
-    background-position: 0px -66px;
+    background-position: -330px 0px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="logos/chrome_128x128"]::before {
     background-image: url(../images/sprite.png);
-    background-position: 0px -33px;
+    background-position: -165px 0px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="logos/chrome_128x128"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -1px -132px;
-    width: 128px;
-    height: 128px;
-}
-[data-img="logos/firefox_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -66px -66px;
-    width: 64px;
-    height: 64px;
-}
-.tiny[data-img="logos/firefox_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -33px -33px;
-    width: 32px;
-    height: 32px;
-}
-.large[data-img="logos/firefox_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -132px -132px;
-    width: 128px;
-    height: 128px;
-}
-[data-img="logos/internet-explorer_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -132px -66px;
-    width: 64px;
-    height: 64px;
-}
-.tiny[data-img="logos/internet-explorer_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -66px -33px;
-    width: 32px;
-    height: 32px;
-}
-.large[data-img="logos/internet-explorer_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -264px -132px;
-    width: 128px;
-    height: 128px;
-}
-[data-img="logos/opera_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -198px -66px;
-    width: 64px;
-    height: 64px;
-}
-.tiny[data-img="logos/opera_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -99px -33px;
-    width: 32px;
-    height: 32px;
-}
-.large[data-img="logos/opera_128x128"]::before {
-    background-image: url(../images/sprite.png);
-    background-position: -396px -132px;
+    background-position: -660px -1px;
     width: 128px;
     height: 128px;
 }
 [data-img="new"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -264px -66px;
+    background-position: -396px 0px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="new"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -132px -33px;
+    background-position: -198px 0px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="new"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -528px -132px;
+    background-position: -792px -1px;
     width: 128px;
     height: 128px;
 }
 [data-img="ranking"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -330px -66px;
+    background-position: 0px -66px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="ranking"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -165px -33px;
+    background-position: 0px -33px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="ranking"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -660px -132px;
+    background-position: -1px -132px;
     width: 128px;
     height: 128px;
 }
 [data-img="settings"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -396px -66px;
+    background-position: -66px -66px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="settings"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -198px -33px;
+    background-position: -33px -33px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="settings"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -792px -132px;
+    background-position: -132px -132px;
     width: 128px;
     height: 128px;
 }
 [data-img="teams1"]::before {
     background-image: url(../images/sprite.png);
-    background-position: 0px -132px;
+    background-position: -132px -66px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="teams1"]::before {
     background-image: url(../images/sprite.png);
-    background-position: 0px -66px;
+    background-position: -66px -33px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="teams1"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -1px -264px;
+    background-position: -264px -132px;
     width: 128px;
     height: 128px;
 }
 [data-img="teams2"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -66px -132px;
+    background-position: -198px -66px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="teams2"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -33px -66px;
+    background-position: -99px -33px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="teams2"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -132px -264px;
+    background-position: -396px -132px;
     width: 128px;
     height: 128px;
 }
 [data-img="teams3"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -132px -132px;
+    background-position: -264px -66px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="teams3"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -66px -66px;
+    background-position: -132px -33px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="teams3"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -264px -264px;
+    background-position: -528px -132px;
+    width: 128px;
+    height: 128px;
+}
+[data-img="tuvero"]::before {
+    background-image: url(../images/sprite.png);
+    background-position: -330px -66px;
+    width: 64px;
+    height: 64px;
+}
+.tiny[data-img="tuvero"]::before {
+    background-image: url(../images/sprite.png);
+    background-position: -165px -33px;
+    width: 32px;
+    height: 32px;
+}
+.large[data-img="tuvero"]::before {
+    background-image: url(../images/sprite.png);
+    background-position: -660px -132px;
     width: 128px;
     height: 128px;
 }
 [data-img="games"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -198px -132px;
+    background-position: -396px -66px;
     width: 64px;
     height: 64px;
 }
 .tiny[data-img="games"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -99px -66px;
+    background-position: -198px -33px;
     width: 32px;
     height: 32px;
 }
 .large[data-img="games"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -396px -264px;
+    background-position: -792px -132px;
     width: 128px;
     height: 128px;
 }
 [data-img="clear"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -264px -132px;
+    background-position: 0px -132px;
     width: 48px;
     height: 48px;
 }
 .tiny[data-img="clear"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -132px -66px;
+    background-position: 0px -66px;
     width: 24px;
     height: 24px;
 }
 .large[data-img="clear"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -528px -264px;
+    background-position: -1px -264px;
     width: 96px;
     height: 96px;
 }
 [data-img="load"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -314px -132px;
+    background-position: -50px -132px;
     width: 48px;
     height: 48px;
 }
 .tiny[data-img="load"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -157px -66px;
+    background-position: -25px -66px;
     width: 24px;
     height: 24px;
 }
 .large[data-img="load"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -628px -264px;
+    background-position: -100px -264px;
     width: 96px;
     height: 96px;
 }
 [data-img="print"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -364px -132px;
+    background-position: -100px -132px;
     width: 48px;
     height: 48px;
 }
 .tiny[data-img="print"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -182px -66px;
+    background-position: -50px -66px;
     width: 24px;
     height: 24px;
 }
 .large[data-img="print"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -728px -264px;
+    background-position: -200px -264px;
+    width: 96px;
+    height: 96px;
+}
+[data-img="reload"]::before {
+    background-image: url(../images/sprite.png);
+    background-position: -150px -132px;
+    width: 48px;
+    height: 48px;
+}
+.tiny[data-img="reload"]::before {
+    background-image: url(../images/sprite.png);
+    background-position: -75px -66px;
+    width: 24px;
+    height: 24px;
+}
+.large[data-img="reload"]::before {
+    background-image: url(../images/sprite.png);
+    background-position: -300px -264px;
     width: 96px;
     height: 96px;
 }
 [data-img="save"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -414px -132px;
+    background-position: -200px -132px;
     width: 48px;
     height: 48px;
 }
 .tiny[data-img="save"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -207px -66px;
+    background-position: -100px -66px;
     width: 24px;
     height: 24px;
 }
 .large[data-img="save"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -828px -264px;
+    background-position: -400px -264px;
     width: 96px;
     height: 96px;
 }
 [data-img="ext/btn_donateCC_LG"]::before {
     background-image: url(../images/sprite.png);
-    background-position: 0px -198px;
+    background-position: -250px -132px;
     width: 63px;
     height: 23px;
 }
 .tiny[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url(../images/sprite.png);
-    background-position: 0px -99px;
+    background-position: -125px -66px;
     width: 31px;
     height: 11px;
 }
 .large[data-img="ext/btn_donateCC_LG"]::before {
     background-image: url(../images/sprite.png);
-    background-position: -1px -396px;
+    background-position: -500px -264px;
     width: 126px;
     height: 47px;
 }
 [data-img="sprite"]::before {
     background-image: url(../images/sprite.png);
-    width: 464px;
-    height: 222px;
+    width: 462px;
+    height: 180px;
 }
 .tiny[data-img="sprite"]::before {
     background-image: url(../images/sprite.png);
-    width: 232px;
-    height: 111px;
+    width: 231px;
+    height: 90px;
 }
 .large[data-img="sprite"]::before {
     background-image: url(../images/sprite.png);
-    width: 928px;
-    height: 444px;
+    width: 924px;
+    height: 361px;
 }
 [data-img]::before {
-  background-size: 464px 222px;
+  background-size: 462px 180px;
   display: inline-block;
+  vertical-align: bottom;
   content: '';
 }
-[data-img]:not(.inline)::before {
-  vertical-align: bottom;
+button[data-img]::before,
+h2[data-img]::before,
+.middle[data-img]::before {
+  vertical-align: middle;
 }
 .large[data-img]::before {
-  background-size: 928px 444px;
+  background-size: 924px 361px;
 }
 .tiny[data-img]::before {
-  background-size: 232px 111px;;
+  background-size: 231px 90px;;
 }
