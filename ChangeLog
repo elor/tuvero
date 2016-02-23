@@ -2,6 +2,8 @@
 
 	* NEWS: pre-release update
 
+	* core/templates/swisssystem.html: maxrounds text made more understandable
+
 2016-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: style simplified
