@@ -1,14 +1,28 @@
-Tuvero 1.5.3 (yyyy-mm-dd)
+Tuvero 1.5.3 (2016-02-23)
 -------------------------
 
 FEATURES:
 
   * Prefill error report data (version, variant, browser)
+  * Simplified welcome-page & about-page removed (#212)
+  * Template-processing accelerated x100 (#214)
+  * Tuvero Basic added (#218)
+  * Time Machine backend (Reflog) with cross-tab synchronization
+  * Parallel tournaments (#220)
+  * Time Machine save-autoconversion (#221)
+  * Cool new homepage (#224)
+  * Prefilling issue-report page
 
 FIXES:
 
   * Display problems in popped-out KO trees resolved (#209)
   * Close icon of popped-out views won't be printed (#211)
+  * KO correction AND result were visible at the same time (#210)
+  * Tab-Icons are properly included in the sprites (#213)
+  * TAC-Presets and strings improved (#217)
+  * Naming file downloads after tournaments (#223)
+  * Warning for maximum number of swiss rounds (#110)
+  * README.md updated
 
 Tuvero 1.5.2 (2016-01-24)
 -------------------------
