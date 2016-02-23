@@ -1,8 +1,0 @@
-/* history-specific tab options */
-.showtable .hastable .matchtable {
-  display: none;
-}
-
-.showmatchtable .progresstable, .showmatchtable .kotree {
-  display: none;
-}
