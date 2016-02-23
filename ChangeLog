@@ -4,6 +4,8 @@
 
 	* core/templates/swisssystem.html: maxrounds text made more understandable
 
+	* tools/prepare-release.sh: 'basic' folder needs to be removed
+
 2016-02-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: style simplified

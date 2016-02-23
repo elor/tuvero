@@ -43,7 +43,7 @@ git commit -m "release-$VERSION: targets built"
 # remove the original source code #
 ###################################
 git rm -r core legacy lib
-git rm -r boule tac test *.html
+git rm -r basic boule tac test *.html
 git commit -m "release-$VERSION: source directories removed"
 
 ############################################################
