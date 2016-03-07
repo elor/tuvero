@@ -14,18 +14,18 @@ define(function() {
     target: 'tac',
     systems: {
       swiss: {
-        ranking: ['tac', 'numgames', 'wins'],
+        ranking: ['tac', 'numgames', 'wins', 'headtohead'],
         mode: 'ranks'
       },
       ko: {
         mode: 'matched'
       },
       round: {
-        ranking: ['tac', 'numgames', 'wins']
+        ranking: ['tac', 'numgames', 'wins', 'headtohead']
       }
     },
     ranking: {
-      components: ['tac', 'numgames', 'wins', 'headtohead']
+      components: ['tac', 'numgames', 'wins', 'headtohead', 'saldo']
     },
     registration: {
       minteamsize: 1,
