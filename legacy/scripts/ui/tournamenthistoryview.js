@@ -11,6 +11,7 @@ define(['lib/extend', 'core/view', './listview', './popoutboxview',
     './generictournamenthistoryview'], function(extend, View, ListView,
     PopoutBoxView, Listener, BinningReferenceListModel, MatchTableView,
     GenericTournamentHistoryView) {
+
   /**
    * Constructor
    *
@@ -44,8 +45,8 @@ define(['lib/extend', 'core/view', './listview', './popoutboxview',
     this.groups = new BinningReferenceListModel(
         this.model.getCombinedHistory(), TournamentHistoryView.groupFilter);
 
-    this.initMatches();
     this.initGenericView();
+    this.initMatches();
 
     Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
 
@@ -68,9 +69,16 @@ define(['lib/extend', 'core/view', './listview', './popoutboxview',
   TournamentHistoryView.prototype.initMatches = function() {
     this.$matchtable = this.$view.find('.matchtable');
 
-    // nested ListViews: BinningReferenceListModel is 2D
-    this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
-        MatchTableView, this.teamlist, this.model, this.teamsize);
+    if (this.genericView.showlists) {
+      // nested ListViews: BinningReferenceListModel is 2D
+      this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
+          MatchTableView, this.teamlist, this.model, this.teamsize);
+
+      this.$view.addClass('haslists')
+    } else {
+      this.$matchtable.remove();
+      this.matchtable = undefined;
+    }
   };
 
   TournamentHistoryView.prototype.initGenericView = function() {

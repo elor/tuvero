@@ -3,6 +3,7 @@
   display: none;
 }
 
-.showmatchtable .progresstable, .showmatchtable .kotree {
+.showmatchtable .haslists .progresstable,
+.showmatchtable .haslists .kotree {
   display: none;
 }

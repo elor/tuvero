@@ -8,19 +8,25 @@
  */
 define(['lib/extend', 'core/view', './progresstableview', './kohistoryview'], //
 function(extend, View, ProgressTableView, KOHistoryView) {
-  var constructors, selectors;
+  var types;
 
-  constructors = {
-    swiss: ProgressTableView,
-    round: ProgressTableView,
-    ko: KOHistoryView
-  };
-
-  selectors = {
-    swiss: '.progresstable',
-    round: '.progresstable',
-    ko: '.kotree'
-  };
+  types = {
+    swiss: {
+      constructor: ProgressTableView,
+      selector: '.progresstable',
+      showlists: true
+    },
+    round: {
+      constructor: ProgressTableView,
+      selector: '.progresstable',
+      showlists: true
+    },
+    ko: {
+      constructor: KOHistoryView,
+      selector: '.kotree',
+      showlists: false
+    }
+  }
 
   /**
    * Constructor
@@ -40,22 +46,24 @@ function(extend, View, ProgressTableView, KOHistoryView) {
    */
   function GenericTournamentHistoryView(tournament, $view, groups, teamlist,
       teamsize, showNames) {
-    var Constructor, $subview;
+    var Constructor, $subview, type;
     GenericTournamentHistoryView.superconstructor.call(this, undefined, $view);
 
     this.tournament = tournament;
-    if (tournament && selectors[tournament.SYSTEM]
-        && constructors[tournament.SYSTEM]) {
-      $subview = this.$view.find(selectors[tournament.SYSTEM]);
+    type = types[tournament.SYSTEM];
+    if (tournament && type) {
+      $subview = this.$view.find(type.selector);
       $subview.removeClass('hidden');
       // don't display the matchtable on default anymore, since there's a more
       // sophisticated view in place
       $view.addClass('hastable');
-      Constructor = constructors[tournament.SYSTEM];
+      Constructor = type.constructor;
       this.view = new Constructor(tournament, $view, groups, teamlist, //
       teamsize, showNames);
+      this.showlists = !!type.showlists;
     } else {
       this.view = new View(undefined, $view);
+      this.showlists = true;
     }
   }
   extend(GenericTournamentHistoryView, View);

@@ -25,6 +25,15 @@
 
 	* legacy/scripts/ui/kotreeview.js: auto-reducing top-padding if top-left match is missing
 
+	* legacy/scripts/ui/generictournamenthistoryview.js: simplified constants-structure
+	setting this.showlists for list-compatible tournament types
+
+	* legacy/scripts/ui/tournamenthistoryview.js: respecting genericTournament.showlists
+	always showing KO trees
+	Don't draw KO match lists, since they're useless anyway
+
+	* legacy/style/history.css: always showing KO trees
+
 2016-02-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: icons re-arranged
