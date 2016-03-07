@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
-    'core/classview', 'ui/state'], function(extend, Controller, Toast,
-    Strings, ClassView, State) {
+    'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine'],//
+function(extend, Controller, Toast, Strings, ClassView, State, Listener,
+    TimeMachine) {
   var mainPopout;
 
   mainPopout = undefined;
@@ -42,6 +43,13 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     if (this.view.$close) {
       this.view.$close.click(this.close.bind(this));
     }
+
+    // TODO fix minor memory leak (destroy())
+    this.listener = Listener.bind(TimeMachine, 'unload', function() {
+      if (isMainPopoutOpen()) {
+        mainPopout.close()
+      }
+    })
   }
   extend(PopoutController, Controller);
 

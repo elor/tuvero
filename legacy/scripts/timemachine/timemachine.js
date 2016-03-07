@@ -162,6 +162,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       return this.commit.get().load();
     }
 
+    this.unload();
+
     if (!(commit instanceof CommitModel) || !commit.isValid()) {
       return undefined;
     }

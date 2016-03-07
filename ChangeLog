@@ -17,6 +17,10 @@
 
 	* tac/scripts/presets.js: default ranking components adjusted
 
+	* legacy/scripts/timemachine/timemachine.js: automatically unloading during load()
+
+	* legacy/scripts/ui/popoutcontroller.js: closing all popouts on timemachine unload
+
 2016-02-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: icons re-arranged
