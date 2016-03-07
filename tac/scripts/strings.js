@@ -8,9 +8,10 @@
  */
 
 define(function() {
-    return {
-        variant: 'TAC',
-        teamsicon: 'teams',
-        teamtext: 'Team'
-    };
+  return {
+    variant: 'TAC',
+    teamsicon: 'teams',
+    teamtext: 'Team',
+    teamstext: 'Teams'
+  };
 });

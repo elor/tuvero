@@ -53,6 +53,7 @@ define(['strings'], function(LocalStrings) {
     teamadded: 'Team %s registriert',
     notenoughteams: 'Zu wenige Teams',
     teamtext: 'Spieler',
+    teamstext: 'Spieler',
     namechanged: 'Umbenannt: %s',
     namechangeaborted: 'Name verworfen',
     teamsnotempty: 'Teilnehmer wurden schon eingetragen',

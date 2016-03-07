@@ -7,9 +7,10 @@
  * @see LICENSE
  */
 define(function() {
-    return {
-        teamsicon: 'teams',
-        variant: 'Basic',
-        teamtext: 'Team'
-    };
+  return {
+    teamsicon: 'teams',
+    variant: 'Basic',
+    teamtext: 'Team',
+    teamstext: 'Teams'
+  };
 });

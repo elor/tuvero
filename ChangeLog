@@ -1,3 +1,17 @@
+2016-03-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* basic/scripts/strings.js: %teamstext% added
+
+	* core/templates/newsystem.html: %teamstext% added
+
+	* core/templates/swisssystem.html: %teamstext% added
+
+	* core/templates/teamstab.html: %teamstext% added
+
+	* legacy/scripts/ui/strings.js: %teamstext% added
+
+	* tac/scripts/strings.js: %teamstext% added
+
 2016-02-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: icons re-arranged
