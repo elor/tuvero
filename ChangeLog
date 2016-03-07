@@ -11,6 +11,7 @@
 	* legacy/scripts/ui/strings.js: %teamstext% added
 
 	* tac/scripts/strings.js: %teamstext% added
+	custom ranking component strings
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: teamsize is checked when loading csv files
 
