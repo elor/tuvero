@@ -21,6 +21,10 @@
 
 	* legacy/scripts/ui/popoutcontroller.js: closing all popouts on timemachine unload
 
+	* legacy/scripts/ui/kotreeposition.js: top-padding reduced by 0.5em
+
+	* legacy/scripts/ui/kotreeview.js: auto-reducing top-padding if top-left match is missing
+
 2016-02-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: icons re-arranged

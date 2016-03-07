@@ -12,7 +12,7 @@ define(['core/kotournamentmodel'], function(KOTournamentModel) {
   width = 17;
   shortWidth = 7;
   height = 4;
-  topPadding = -1.5;
+  topPadding = -2;
   leftPadding = 1;
 
   /**

@@ -70,7 +70,7 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
    * automatically.
    */
   KOTreeView.prototype.setSize = function() {
-    var numTeams, thirdPlacePos, lowestPos, x, y;
+    var numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned;
 
     numTeams = this.tournament.getTeams().length;
 
@@ -82,6 +82,14 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
     lowestPos = new KOTreePosition(lowestID, this.group, numTeams,
         this.showNames.get());
 
+    if (this.group === 0) {
+      numRounds = KOTournamentModel.initialRoundForTeams(numTeams) + 1;
+    } else {
+      numRounds = KOTournamentModel.roundsInGroup(this.group);
+    }
+
+    isTopAligned = KOTournamentModel.numMatchesInRound(numRounds) == numTeams;
+
     x = thirdPlacePos.x;
     y = Math.max(lowestPos.y, thirdPlacePos.y);
 
@@ -90,6 +98,7 @@ define(['lib/extend', './templateview', './listview', './inlinelistview',
 
     this.$forest.css('width', x + 'em');
     this.$forest.css('height', y + 'em');
+    this.$forest.css('margin-top', isTopAligned ? '0em' : '-2.5em');
   };
 
   /**
