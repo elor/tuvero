@@ -12,6 +12,8 @@
 
 	* tac/scripts/strings.js: %teamstext% added
 
+	* legacy/scripts/ui/teamsfileloadcontroller.js: teamsize is checked when loading csv files
+
 2016-02-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* index.html: icons re-arranged

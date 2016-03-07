@@ -17,8 +17,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
-    './playermodel', './teammodel'], function(extend, Controller, Toast,
-    Strings, State, PlayerModel, TeamModel) {
+    './playermodel', './teammodel', 'presets'], function(extend, Controller,
+    Toast, Strings, State, PlayerModel, TeamModel, Presets) {
 
   function numutfbytes(character) {
     var code;
@@ -208,19 +208,9 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     }
 
     // validate team size
-    switch (teamsize) {
-    case 1:
-    case 2:
-    case 3:
-      // set the team size
+    if (teamsize >= Presets.minteamsize && teamsize <= Presets.maxteamsize) {
       State.teamsize.set(teamsize);
-      break;
-    case 0:
-      // TODO use designated String
-      new Toast(Strings.invalidteamsize);
-      return undefined;
-      break;
-    default:
+    } else {
       new Toast(Strings.invalidteamsize);
       return undefined;
     }
