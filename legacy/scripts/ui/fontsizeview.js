@@ -47,8 +47,9 @@ define(['lib/extend', 'core/view', './fontsizecontroller',
   FontSizeView.prototype.reset = function() {
     var $container = this.$container;
     FontSizeModel.SIZES.map(function(size) {
-      $container.removeClass(classprefix + size);
-    });
+      this.$container.removeClass(classprefix + size);
+      this.$view.removeClass(classprefix + size);
+    }, this);
   };
 
   /**
@@ -57,6 +58,7 @@ define(['lib/extend', 'core/view', './fontsizecontroller',
   FontSizeView.prototype.update = function() {
     this.reset();
     this.$container.addClass(classprefix + this.model.getFontSize());
+    this.$view.addClass(classprefix + this.model.getFontSize());
   };
 
   /**

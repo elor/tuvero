@@ -8,11 +8,11 @@
   width: 1em;
 }
 
-.fontsizesmall .fontsizeview > button.fontsizesmall,
-.fontsizetiny .fontsizeview > button.fontsizetiny,
-.fontsizelarge .fontsizeview > button.fontsizelarge,
-.fontsizehuge .fontsizeview > button.fontsizehuge,
-.fontsizenormal .fontsizeview > button.fontsizenormal {
+.fontsizeview.fontsizesmall > button.fontsizesmall,
+.fontsizeview.fontsizetiny > button.fontsizetiny,
+.fontsizeview.fontsizelarge > button.fontsizelarge,
+.fontsizeview.fontsizehuge > button.fontsizehuge,
+.fontsizeview.fontsizenormal > button.fontsizenormal {
   background-color: #808080;
 }
 

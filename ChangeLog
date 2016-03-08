@@ -1,3 +1,19 @@
+2016-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/fontsizeview.css: fontsize button sizes independent of their <body>
+
+	* core/templates/*table.html: popout-compatible tables need to have 'font-size=100%'
+
+	* core/templates/settingstab.html: separate fontsize for popouts
+
+	* legacy/scripts/ui/backgroundscripts/initviews.js: not initializing fontsizeviews anymore
+
+	* legacy/scripts/ui/fontsizeview.js: fontsize button sizes are independent of the containing body
+
+	* legacy/scripts/ui/popoutcontroller.js: using popout fontsizeview
+
+	* legacy/scripts/ui/settingstab.js: using and initializing separate fontsize for popout
+
 2016-03-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* basic/scripts/strings.js: %teamstext% added

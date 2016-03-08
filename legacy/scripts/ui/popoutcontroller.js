@@ -7,10 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
-    'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine'],//
-function(extend, Controller, Toast, Strings, ClassView, State, Listener,
-    TimeMachine) {
-  var mainPopout;
+    'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine',
+    'ui/fontsizeview'], function(extend, Controller, Toast, Strings, ClassView,
+    State, Listener, TimeMachine, FontSizeView) {
+  var mainPopout, $fontsizeview;
 
   mainPopout = undefined;
 
@@ -54,7 +54,7 @@ function(extend, Controller, Toast, Strings, ClassView, State, Listener,
   extend(PopoutController, Controller);
 
   PopoutController.prototype.popout = function(e) {
-    var $popoutView, stylepath, $stylelink, $title, $body;
+    var $popoutView, stylepath, $stylelink, $title, $body, fontsizeview;
 
     $popoutView = this.view.$popoutTemplate.clone();
 
@@ -78,6 +78,12 @@ function(extend, Controller, Toast, Strings, ClassView, State, Listener,
         hidefinishedClassView: new ClassView(
             State.tabOptions.hideFinishedGroups, $body, 'hidefinished')
       });
+
+      if (!$fontsizeview) {
+        $fontsizeview = $('.fontsizeview').eq(1);
+      }
+
+      fontsizeview = new FontSizeView($fontsizeview, $body);
 
     } else {
       console.log('main popout already exists and is open');

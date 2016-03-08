@@ -5,8 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
-    'ui/fileloadcontroller'], function(extend, $, View, CSVExportController,
-    FileLoadController) {
+    'ui/fileloadcontroller', 'ui/fontsizeview'], function(extend, $, View,
+    CSVExportController, FileLoadController, FontSizeView) {
   /**
    * represents a whole team tab
    *
@@ -35,6 +35,9 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     $input = this.$view.find('input.load');
     this.fileLoadController = new FileLoadController(
         new View(undefined, $input));
+
+    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
+    this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
 
     /*
      * CSV buttons
