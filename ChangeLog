@@ -7,6 +7,10 @@
 	close button text changed to 'x'
 
 	* legacy/scripts/ui/popoutcontroller.js: pagebreak icon added
+	centralized closeMainPopout() function
+	properly destroying the main popout when it's closed, which allows to create a new one
+
+	* legacy/scripts/ui/statesaver.js: properly unloading when creating a new save
 
 2016-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

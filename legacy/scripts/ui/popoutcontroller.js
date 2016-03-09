@@ -10,7 +10,15 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine',
     'ui/fontsizeview'], function(extend, Controller, Toast, Strings, ClassView,
     State, Listener, TimeMachine, FontSizeView) {
-  var mainPopout, $fontsizeview;
+  var mainPopout, $fontsizeview, fontsizeview;
+
+  // TODO close a popout when its parent is removed from the DOM
+
+  // TODO allow popouts to be moved to their own window
+
+  // TODO close popout window when all popouts are closed? Or show a hint.
+
+  // TODO destroy all popout views on mainPopout close
 
   mainPopout = undefined;
 
@@ -18,15 +26,22 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     return mainPopout && mainPopout.document;
   }
 
+  function closeMainPopout() {
+    if (isMainPopoutOpen()) {
+      fontsizeview.destroy();
+      // TODO destroy all popout views!
+      mainPopout.close();
+    }
+    mainPopout = undefined;
+  }
+
+  timeMachineListener = Listener.bind(TimeMachine, 'unload', closeMainPopout);
+
   /**
    * close all popout on page leave
    */
   $(function($) {
-    $(window).on('beforeunload', function() {
-      if (isMainPopoutOpen()) {
-        mainPopout.close();
-      }
-    });
+    $(window).on('beforeunload', closeMainPopout);
   });
 
   /**
@@ -46,29 +61,26 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     if (this.view.$pageBreak) {
       this.view.$pageBreak.click(this.togglePageBreak.bind(this));
     }
-
-    // TODO fix minor memory leak (destroy())
-    this.listener = Listener.bind(TimeMachine, 'unload', function() {
-      if (isMainPopoutOpen()) {
-        mainPopout.close()
-      }
-    })
   }
   extend(PopoutController, Controller);
 
   PopoutController.prototype.popout = function(e) {
-    var $popoutView, stylepath, $stylelink, $title, $body, fontsizeview;
+    var $popoutView, stylepath, $stylelink, $title, $body;
 
     $popoutView = this.view.$popoutTemplate.clone();
 
     if (!isMainPopoutOpen()) {
       console.log('opening new popout');
+
       mainPopout = window.open('', '', 'location=0');
+      $(mainPopout).on('beforeunload', closeMainPopout);
+
       stylepath = window.location.href.replace(/index.html[?#].*/,
           'style/main.css');
       $stylelink = $('<link rel="stylesheet" href=' + stylepath + '>');
       $title = $('title').clone();
       $(mainPopout.document.head).append($stylelink).append($title);
+
       $body = $(mainPopout.document.body);
       $body.attr('id', 'app').addClass('popoutContainer');
       $body.data({
@@ -121,10 +133,6 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     e.preventDefault(true);
     return false;
   };
-
-  // TODO close a popout when its parent is removed from the DOM
-
-  // TODO allow popouts to be moved to their own window
 
   return PopoutController;
 });

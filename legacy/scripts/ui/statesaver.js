@@ -24,7 +24,7 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
   StateSaverModel.prototype.createNewEmptyTree = function(name) {
     this.newTree(name);
 
-    State.clear();
+    StateLoader.unload();
 
     return this.saveState();
   };
