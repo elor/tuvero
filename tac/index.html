@@ -3,7 +3,7 @@
 <html lang="de" manifest="manifest.appcache">
   <head>
     <meta charset="utf-8" />
-    <title>Tuvero TAC 1.5.3</title>
+    <title>Tuvero TAC 1.5.4</title>
     <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     <link rel="stylesheet" href="style/main.css" />
   </head>
@@ -12,7 +12,7 @@
       <span data-img="tuvero"></span>
       <span data-img="games"></span>
       <h1>Tuvero TAC</h1>
-      <h2>Version 1.5.3</h2>
+      <h2>Version 1.5.4</h2>
       <span>&copy; Erik E. Lorenz</span>
       <p class="loading">
         Lade JavaScript...
@@ -95,7 +95,7 @@
         </div>
         <div style="width: 30em; margin: auto;">
         <a class="middle" href="https://tuvero.de/" data-img="tuvero"></a>
-        <h2>Tuvero TAC 1.5.3</h2>
+        <h2>Tuvero TAC 1.5.4</h2>
         </div>
         <div class="boxview info inline timemachineview">
           <h3>Gespeicherte Turniere</h3>
@@ -172,7 +172,7 @@
           </p>
           <h4>Fehler gefunden?</h4>
           <p>
-            Bitte auf <a class="errorlink" href="http://fehler.tuvero.de/?variant=TAC&version=1.5.3">http://fehler.tuvero.de/</a>
+            Bitte auf <a class="errorlink" href="http://fehler.tuvero.de/?variant=TAC&version=1.5.4">http://fehler.tuvero.de/</a>
             melden oder eine Mail an mich schreiben.
             <br>
             Bitte heruntergeladenen Spielstand (<button class="tiny save" data-img="save"></button>
@@ -215,7 +215,7 @@
             <br>
             <span>Zum Umbenennen Namen klicken</span>
         </div>
-        <h2><span class="numteams">##</span> Teilnehmer</h2>
+        <h2><span class="numteams">##</span> Anmeldungen</h2>
         <!-- TeamSizeView is disabled in Tuvero TAC -->
         <br>
         <div class="teamlist">
@@ -236,7 +236,7 @@
             </div>
           </div>
         </div>
-        <table class="teamtable background">
+        <table class="teamtable background" style="font-size: 100%">
           <tr>
             <th class="teamnocol">No.</th>
             <th class="playercol">Team</th>
@@ -296,7 +296,7 @@
             <span>Zum Umbenennen Turniersystem klicken</span>
         </div>
         <h2>Turniersysteme</h2>
-        <table class="systemtable background">
+        <table class="systemtable background" style="font-size: 100%">
           <tr>
             <th colspan="2">Platz</th>
             <th>No.</th>
@@ -320,7 +320,7 @@
           <div class="enoughteams">
             <span>
               <input type="number" class="tournamentsize" min="2" value="2" />
-              Teilnehmer</span>
+              Teams</span>
             <button data-system="swiss">
               Schweizer System
             </button>
@@ -332,7 +332,7 @@
             </button>
           </div>
           <div class="notenoughteams">
-            Nicht genug Teilnehmer
+            Nicht genug Teams
           </div>
         </div>
         <div class="boxview swiss template" data-system="swiss">
@@ -370,7 +370,7 @@
                   Begegnungen setzen </span>
               </div>
               <div class="option swissvotes">
-                <table class="swissvotes borderless">
+                <table class="swissvotes borderless" style="font-size: 100%">
                   <tr>
                     <th colspan="4"> Losbedingungen </th>
                   </tr>
@@ -418,7 +418,7 @@
               </div>
             </div>
             <div class="infotext swissmaxroundview">
-              Voraussichtlich max. <span class="maxrounds">##</span> Runden (<span class="numteams">##</span> Teilnehmer)
+              Voraussichtlich max. <span class="maxrounds">##</span> Runden (<span class="numteams">##</span> Teams)
               <br>
               Gegebenenfalls Erweiterte Optionen ändern
             </div>
@@ -457,7 +457,7 @@
                   Begegnungen setzen </span>
               </div>
               <div class="option swissvotes">
-                <table class="swissvotes borderless">
+                <table class="swissvotes borderless" style="font-size: 100%">
                   <tr>
                     <th colspan="4"> Losbedingungen </th>
                   </tr>
@@ -650,7 +650,7 @@
             <h3><span class="tournamentname">##</span></h3>
             <div class="matchtable">
               <h3>Runde <span class="round">##</span></h3>
-              <table class="background">
+              <table class="background" style="font-size: 100%">
                 <tr>
                   <th>No.</th>
                   <th class="playercol">Team</th>
@@ -698,7 +698,7 @@
                 </tr>
               </table>
             </div>
-            <table class="progresstable hidden background">
+            <table class="progresstable hidden background" style="font-size: 100%">
               <tr class="headerrow">
                 <th>No.</th>
                 <th class="playercol">Team</th>
@@ -816,7 +816,7 @@
         <div class="tournamentlist">
           <div class="boxview tournament template">
             <h3><span class="tournamentname">%% %%</span></h3>
-            <table class="rankingview background">
+            <table class="rankingview background" style="font-size: 100%">
               <tr class="rankingheader">
                 <th>Platz</th>
                 <th>No.</th>
@@ -831,7 +831,7 @@
               </tr>
             </table>
             <!-- autoformat placeholder :-( -->
-            <table class="correctiontable background">
+            <table class="correctiontable background" style="font-size: 100%">
               <tr>
                 <th colspan="9">Korrekturen:</th>
               </tr>
@@ -878,7 +878,7 @@
             <h3><span class="tournamentname">%% %%</span></h3>
             <div class="matchtable">
               <h3>Runde <span class="round">##</span></h3>
-              <table class="background">
+              <table class="background" style="font-size: 100%">
                 <tr>
                   <th>No.</th>
                   <th class="playercol">Team</th>
@@ -953,6 +953,25 @@
           <p>
             Legt auch die Schriftgröße beim Drucken fest.
           </p>
+          <h4>Hauptanwendung</h4>
+          <div class="fontsizeview">
+            <button class="fontsizetiny">
+              T
+            </button>
+            <button class="fontsizesmall">
+              T
+            </button>
+            <button class="fontsizenormal">
+              T
+            </button>
+            <button class="fontsizelarge">
+              T
+            </button>
+            <button class="fontsizehuge">
+              T
+            </button>
+          </div>
+          <h4>Präsentationsfenster</h4>
           <div class="fontsizeview">
             <button class="fontsizetiny">
               T
@@ -1031,7 +1050,7 @@
         </div>
         <div class="boxview inline">
           <h3>Browser Info</h3>
-          <table class="browser background">
+          <table class="browser background" style="font-size: 100%">
             <tr>
               <th>Property</th>
               <th>Value</th>

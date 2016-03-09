@@ -1,3 +1,24 @@
+Tuvero 1.5.4 (2016-03-09)
+-------------------------
+
+FEATURES:
+
+  * different team texts for different variants (#232)
+  * adjusted TAC default rankings (#233)
+  * different texts for ranking components
+  * pagebreak buttons added to popouts (#237)
+  * separate fontsize for popouts (#235)
+
+FIXES:
+
+  * homepage icons re-arranged side-by-side
+  * homepage: reduced spacing
+  * closing popouts when switching/removing tournament (#227)
+  * KOTree margins reduced, depending on the visible matches (#228)
+  * Always showing KOTree, never lists (#229)
+  * CSV-load teamsize bug fixed (#230)
+  * popout is correctly reopened after it has been closed (#238)
+
 Tuvero 1.5.3 (2016-02-23)
 -------------------------
 

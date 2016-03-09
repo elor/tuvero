@@ -1,3 +1,75 @@
+2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/boxview.css: icon styles unified
+	pagebreak rules added
+
+	* legacy/scripts/ui/popoutboxview.js: pagebreak icon added
+	close button text changed to 'x'
+
+	* legacy/scripts/ui/popoutcontroller.js: pagebreak icon added
+	centralized closeMainPopout() function
+	properly destroying the main popout when it's closed, which allows to create a new one
+
+	* legacy/scripts/ui/statesaver.js: properly unloading when creating a new save
+
+2016-03-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/fontsizeview.css: fontsize button sizes independent of their <body>
+
+	* core/templates/*table.html: popout-compatible tables need to have 'font-size=100%'
+
+	* core/templates/settingstab.html: separate fontsize for popouts
+
+	* legacy/scripts/ui/backgroundscripts/initviews.js: not initializing fontsizeviews anymore
+
+	* legacy/scripts/ui/fontsizeview.js: fontsize button sizes are independent of the containing body
+
+	* legacy/scripts/ui/popoutcontroller.js: using popout fontsizeview
+
+	* legacy/scripts/ui/settingstab.js: using and initializing separate fontsize for popout
+
+2016-03-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* basic/scripts/strings.js: %teamstext% added
+
+	* core/templates/newsystem.html: %teamstext% added
+
+	* core/templates/swisssystem.html: %teamstext% added
+
+	* core/templates/teamstab.html: %teamstext% added
+
+	* legacy/scripts/ui/strings.js: %teamstext% added
+
+	* tac/scripts/strings.js: %teamstext% added
+	custom ranking component strings
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: teamsize is checked when loading csv files
+
+	* tac/scripts/presets.js: default ranking components adjusted
+
+	* legacy/scripts/timemachine/timemachine.js: automatically unloading during load()
+
+	* legacy/scripts/ui/popoutcontroller.js: closing all popouts on timemachine unload
+
+	* legacy/scripts/ui/kotreeposition.js: top-padding reduced by 0.5em
+
+	* legacy/scripts/ui/kotreeview.js: auto-reducing top-padding if top-left match is missing
+
+	* legacy/scripts/ui/generictournamenthistoryview.js: simplified constants-structure
+	setting this.showlists for list-compatible tournament types
+
+	* legacy/scripts/ui/tournamenthistoryview.js: respecting genericTournament.showlists
+	always showing KO trees
+	Don't draw KO match lists, since they're useless anyway
+
+	* legacy/style/history.css: always showing KO trees
+
+2016-02-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: icons re-arranged
+	lower-case list items
+	spacing reduced
+
 2016-02-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* NEWS: pre-release update
