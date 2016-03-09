@@ -16,7 +16,7 @@ define(['lib/extend', './boxview', './popoutcontroller', 'core/valuemodel',
 
   // TODO read this from DOM.
   $popoutIconTemplate = $iconTemplate.clone().addClass('popout').text('↗');
-  $closeIconTemplate = $iconTemplate.clone().addClass('close').text('❌');
+  $closeIconTemplate = $iconTemplate.clone().addClass('close').text('x');
   $pageBreakIconTemplate = $iconTemplate.clone().addClass('pagebreak')
       .text('⏎');
 

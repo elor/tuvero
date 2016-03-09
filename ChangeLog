@@ -4,6 +4,7 @@
 	pagebreak rules added
 
 	* legacy/scripts/ui/popoutboxview.js: pagebreak icon added
+	close button text changed to 'x'
 
 	* legacy/scripts/ui/popoutcontroller.js: pagebreak icon added
 
