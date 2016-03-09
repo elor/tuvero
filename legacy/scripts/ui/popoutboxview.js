@@ -6,14 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './boxview', './popoutcontroller'], function(extend,
-    BoxView, PopoutController) {
-  var $popoutIconTemplate, $closeIconTemplate;
+define(['lib/extend', './boxview', './popoutcontroller', 'core/valuemodel',
+    'core/classview'], function(extend, BoxView, PopoutController, ValueModel,
+    ClassView) {
+  var $iconTemplate, $popoutIconTemplate, $closeIconTemplate, //
+  $pageBreakIconTemplate;
+
+  $iconTemplate = $('<div>').addClass('icon').addClass('noprint');
 
   // TODO read this from DOM.
-  $popoutIconTemplate = $('<div>').addClass('popout').text('↗');
-  $closeIconTemplate = $('<div>').addClass('close').addClass('noprint').text(
-      '❌');
+  $popoutIconTemplate = $iconTemplate.clone().addClass('popout').text('↗');
+  $closeIconTemplate = $iconTemplate.clone().addClass('close').text('❌');
+  $pageBreakIconTemplate = $iconTemplate.clone().addClass('pagebreak')
+      .text('⏎');
 
   /**
    * Constructor
@@ -25,6 +30,7 @@ define(['lib/extend', './boxview', './popoutcontroller'], function(extend,
 
     if (this.$view.hasClass('primaryPopout')) {
       this.addCloseIcon();
+      this.addPageBreakIcon();
     } else {
       this.addPopoutIcon();
     }
@@ -41,6 +47,25 @@ define(['lib/extend', './boxview', './popoutcontroller'], function(extend,
   PopoutBoxView.prototype.addCloseIcon = function() {
     this.$close = $closeIconTemplate.clone();
     this.$view.find('>h3:first-child').append(this.$close);
+  };
+
+  PopoutBoxView.prototype.addPageBreakIcon = function() {
+    this.$pageBreak = $pageBreakIconTemplate.clone();
+    this.pageBreakModel = new ValueModel(false);
+    this.pageBreakView = new ClassView(this.pageBreakModel, this.$view,
+        'pagebreak');
+    this.$view.find('>h3:first-child').append(this.$pageBreak);
+  };
+
+  PopoutBoxView.prototype.destroy = function() {
+    if (this.pageBreakModel) {
+      this.pageBreakModel.destroy();
+    }
+    if (this.pageBreakView) {
+      this.pageBreakView.destroy();
+    }
+
+    PopoutBoxView.superclass.destroy.bind(this);
   };
 
   return PopoutBoxView;

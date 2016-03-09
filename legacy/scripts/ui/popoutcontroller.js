@@ -43,6 +43,9 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     if (this.view.$close) {
       this.view.$close.click(this.close.bind(this));
     }
+    if (this.view.$pageBreak) {
+      this.view.$pageBreak.click(this.togglePageBreak.bind(this));
+    }
 
     // TODO fix minor memory leak (destroy())
     this.listener = Listener.bind(TimeMachine, 'unload', function() {
@@ -107,6 +110,13 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     console.log('close');
 
     this.view.destroy();
+
+    e.preventDefault(true);
+    return false;
+  };
+
+  PopoutController.prototype.togglePageBreak = function(e) {
+    this.view.pageBreakModel.set(!this.view.pageBreakModel.get());
 
     e.preventDefault(true);
     return false;
