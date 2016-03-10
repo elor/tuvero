@@ -11,7 +11,7 @@ fi
 
 target="$1"
 
-cd build/
+cd build/ || exit 1
 
 spritetmpfile=${target}_sprite_tmp.png
 styletmpfile=${target}_style_tmp.png
@@ -23,35 +23,35 @@ favicon=$target/images/favicon.png
 sprite=$target/images/sprite.png
 stylesheet=$target/style/main.css
 
-favicondata="data:image/png;base64,$(base64 -w0 $favicon)"
-spritedata="data:image/png;base64,$(base64 -w0 $sprite)"
+favicondata="data:image/png;base64,$(base64 -w0 $favicon)" || exit 1
+spritedata="data:image/png;base64,$(base64 -w0 $sprite)" || exit 1
 
-echo -ne "$spritedata" > $spritetmpfile
+echo -ne "$spritedata" > $spritetmpfile || exit 1
 sed -e 's/$//' \
     -e "/background-image/c background-image: url($spritedata);" \
-    $stylesheet > $styletmpfile
-echo "</style>" >> $styletmpfile
-rm $spritetmpfile
+    $stylesheet > $styletmpfile || exit 1
+echo "</style>" >> $styletmpfile || exit 1
+rm $spritetmpfile || exit 1
 
-cat $requirescript $mainscript > $scripttmpfile
-echo "</script>" >> $scripttmpfile
+cat $requirescript $mainscript > $scripttmpfile || exit 1
+echo "</script>" >> $scripttmpfile || exit 1
 
 sed -i \
     -e "s#images/favicon.png#$favicondata#" \
     -e '/<link rel="stylesheet"/c<style>' \
     -e '/<script src="scripts\/main.js">/d' \
     -e '/<script src="scripts\/require.js">/c<script>' \
-    $target/index.html
+    $target/index.html || exit 1
 
 sed -i \
     -e "/<style>/r $styletmpfile" \
     -e "/<script>/r $scripttmpfile" \
-    $target/index.html
+    $target/index.html || exit 1
 
 sed  -i \
-    -e '/^\s*$/d' $target/index.html
+    -e '/^\s*$/d' $target/index.html || exit 1
 
-rm $styletmpfile
-rm $scripttmpfile
+rm $styletmpfile || exit 1
+rm $scripttmpfile || exit 1
 
-echo "$target/ compressed into $target.html"
+echo "$target/index.html compressed in place"

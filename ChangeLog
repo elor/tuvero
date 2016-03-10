@@ -23,6 +23,8 @@
 	* core/templates/settingstab.html: tiny csv buttons
 
 	* tools/compress-build.sh: work in-place on the index.html files
+	final output improved
+	liberally inserted 'exit 1' for proper `make`-abort
 
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
