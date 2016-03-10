@@ -13,15 +13,22 @@
 define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
   var tabmenu, TabsHandle;
 
-  if ($('#tabs').length === 1 && $('#testmain').length === 0) {
-    tabmenu = new TabMenuView($('#tabs'));
-  } else {
-    tabmenu = {
-      getTabModel: function() {
-        return undefined;
-      }
-    };
+  tabmenu = {
+    getTabModel: function() {
+      return undefined;
+    }
   }
+
+  $(function() {
+    if ($('#tabs').length === 1 && $('#testmain').length === 0) {
+      tabmenu = new TabMenuView($('#tabs'));
+    }
+
+    // hide the lanes tab
+    if (tabmenu.getTabModel('lanes')) {
+      tabmenu.getTabModel('lanes').visibility.set(false);
+    }
+  });
 
   TabsHandle = {
     hide: function(tabname) {
@@ -49,16 +56,14 @@ define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
     },
     bindTabOpts: function(tabname, valueModel) {
       var tab = tabmenu.getTabModel(tabname);
+
+      if (!tab) {
+        return undefined;
+      }
+
       tab.imgParam.bind(valueModel);
-    },
-    direct: tabmenu
-
+    }
   };
-
-  // hide the lanes tab
-  if (TabsHandle.direct.getTabModel('lanes')) {
-    TabsHandle.direct.getTabModel('lanes').visibility.set(false);
-  }
 
   return TabsHandle;
 });
