@@ -10,6 +10,8 @@ define(['lib/extend', 'core/controller', 'ui/state', 'presets',
     'lib/FileSaver', 'lib/Blob', './toast', './strings',
     'timemachine/timemachine'], function(extend, Controller, State, Presets,
     saveAs, Blob, Toast, Strings, TimeMachine) {
+  var validsets = ['teams', 'ranking', 'history'];
+
   /**
    * Constructor
    *
@@ -71,7 +73,9 @@ define(['lib/extend', 'core/controller', 'ui/state', 'presets',
    * @return a combined CSV string of all datasets
    */
   CSVExportController.prototype.generateCSV = function(datasets) {
-    var csvDataSets = datasets.map(function(dataset) {
+    var csvDataSets = datasets.filter(function(dataset) {
+      return validsets.indexOf(dataset) !== -1;
+    }).map(function(dataset) {
       if (this[dataset + 'ToCSV']) {
         return this[dataset + 'ToCSV']();
       }
