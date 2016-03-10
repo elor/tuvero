@@ -180,19 +180,16 @@ canvasheight=$nexty
 cat <<EOF >> $stylesheet
 
 [data-img="sprite"]::before {
-    background-image: url("../$finalsprite");
     width: $((canvaswidth/2))px;
     height: $((canvasheight/2))px;
 }
 
 .tiny[data-img="sprite"]::before {
-    background-image: url("../$finalsprite");
     width: $((canvaswidth/4))px;
     height: $((canvasheight/4))px;
 }
 
 .large[data-img="sprite"]::before {
-    background-image: url("../$finalsprite");
     width: ${canvaswidth}px;
     height: ${canvasheight}px;
 }
