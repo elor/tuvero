@@ -19,6 +19,8 @@
 
 	* Makefile: `make testserver` added
 
+	* core/templates/settingstab.html: tiny csv buttons
+
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: icon styles unified
