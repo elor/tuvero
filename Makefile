@@ -10,7 +10,9 @@ GITHEAD=$(shell git rev-parse HEAD | head -c8)
 
 build: clean
 	make templates scripts
-	make basic boule tac test build/manifest.appcache
+	make build/index.html
+	make build/basic.html build/boule.html build/tac.html build/test.html
+	make build/manifest.appcache
 	cp -v Version build/
 
 build/index.html: build/images
@@ -85,8 +87,12 @@ selenium-tests: FORCE
 
 # makefile-related secondary targets
 
-%: %/index.html build-dir
-	./tools/build.sh $@
+build/%: %/index.html build-dir
+	./tools/build.sh $(shell basename $@)
+
+build/%.html: build/%
+	./tools/compress-build.sh $(shell basename $@ .html)
+	rm -rf "$<"
 
 build-dir: FORCE
 	mkdir -p build
