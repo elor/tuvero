@@ -414,19 +414,16 @@
 
 
 [data-img="sprite"]::before {
-    background-image: url("../images/sprite.png");
     width: 466px;
     height: 196px;
 }
 
 .tiny[data-img="sprite"]::before {
-    background-image: url("../images/sprite.png");
     width: 233px;
     height: 98px;
 }
 
 .large[data-img="sprite"]::before {
-    background-image: url("../images/sprite.png");
     width: 932px;
     height: 393px;
 }

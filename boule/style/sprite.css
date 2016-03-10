@@ -360,19 +360,16 @@
 
 
 [data-img="sprite"]::before {
-    background-image: url("../images/sprite.png");
     width: 462px;
     height: 180px;
 }
 
 .tiny[data-img="sprite"]::before {
-    background-image: url("../images/sprite.png");
     width: 231px;
     height: 90px;
 }
 
 .large[data-img="sprite"]::before {
-    background-image: url("../images/sprite.png");
     width: 924px;
     height: 361px;
 }
