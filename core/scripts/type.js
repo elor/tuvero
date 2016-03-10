@@ -26,6 +26,11 @@ define(function() {
     return str[0].toUpperCase() + str.slice(1).toLowerCase();
   }
 
+  function getFunctionName(func) {
+    return func.toString().replace(/\s+/g, ' ').replace(
+        /^\s*function ([A-Za-z]+)\(.*$/, '$1').toLowerCase();
+  }
+
   types = [1, , {}, '', undefined, null, new Date(), [], /asd/, true,
   /**
    * anonymous reference function
@@ -80,8 +85,8 @@ define(function() {
     case 'string':
       return Type(obj) === typestring;
     case 'function':
-      return Type(obj) === typestring.toString().match(/\s[a-zA-Z]+/g)[1]
-          .slice(1).toLowerCase();
+
+      return Type(obj) === getFunctionName(typestring);
     case 'undefined':
       return Type(obj) === 'undefined';
     case 'null':
