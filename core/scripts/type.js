@@ -80,8 +80,8 @@ define(function() {
     case 'string':
       return Type(obj) === typestring;
     case 'function':
-      return Type(obj) === typestring.toString().match(/\s([a-zA-Z]+)/)[1]
-          .toLowerCase();
+      return Type(obj) === typestring.toString().match(/\s[a-zA-Z]+/g)[1]
+          .slice(1).toLowerCase();
     case 'undefined':
       return Type(obj) === 'undefined';
     case 'null':

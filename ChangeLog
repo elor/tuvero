@@ -1,3 +1,7 @@
+2016-03-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/type.js: IE-related Type.is() bug fixed
+
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: icon styles unified
