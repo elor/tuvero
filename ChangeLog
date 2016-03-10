@@ -9,6 +9,10 @@
 
 	* legacy/scripts/ui/tabshandle.js: loading order fixed
 
+	* core/templates/head.html: <script> tags moved here
+
+	* core/templates/index.html: <script> tags moved to head
+
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: icon styles unified
