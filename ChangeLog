@@ -15,6 +15,8 @@
 
 	* legacy/scripts/ui/csvexportcontroller.js: using tiny csv export symbols
 
+	* legacy/scripts/ui/popoutcontroller.js: popouts prefer <style> tags over <link> tags
+
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: icon styles unified

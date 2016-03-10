@@ -65,7 +65,7 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
   extend(PopoutController, Controller);
 
   PopoutController.prototype.popout = function(e) {
-    var $popoutView, stylepath, $stylelink, $title, $body;
+    var $popoutView, stylepath, $style, $title, $body;
 
     $popoutView = this.view.$popoutTemplate.clone();
 
@@ -75,11 +75,16 @@ define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
       mainPopout = window.open('', '', 'location=0');
       $(mainPopout).on('beforeunload', closeMainPopout);
 
-      stylepath = window.location.href.replace(/index.html[?#].*/,
-          'style/main.css');
-      $stylelink = $('<link rel="stylesheet" href=' + stylepath + '>');
+      $style = $('style');
+      if ($style.length == 0) {
+        stylepath = window.location.href.replace(/index.html[?#].*/,
+            'style/main.css');
+        $style = $('<link rel="stylesheet" href="' + stylepath + '">');
+      } else {
+        $style = $style.clone();
+      }
       $title = $('title').clone();
-      $(mainPopout.document.head).append($stylelink).append($title);
+      $(mainPopout.document.head).append($style).append($title);
 
       $body = $(mainPopout.document.body);
       $body.attr('id', 'app').addClass('popoutContainer');
