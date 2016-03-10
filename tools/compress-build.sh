@@ -36,16 +36,20 @@ rm $spritetmpfile
 cat $requirescript $mainscript > $scripttmpfile
 echo "</script>" >> $scripttmpfile
 
-sed \
+sed -i \
     -e "s#images/favicon.png#$favicondata#" \
     -e '/<link rel="stylesheet"/c<style>' \
     -e '/<script src="scripts\/main.js">/d' \
     -e '/<script src="scripts\/require.js">/c<script>' \
-    $target/index.html \
-    | sed -e "/<style>/r $styletmpfile" \
+    $target/index.html
+
+sed -i \
+    -e "/<style>/r $styletmpfile" \
     -e "/<script>/r $scripttmpfile" \
-    | sed -e '/^\s*$/d' \
-    > $target.html
+    $target/index.html
+
+sed  -i \
+    -e '/^\s*$/d' $target/index.html
 
 rm $styletmpfile
 rm $scripttmpfile

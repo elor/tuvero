@@ -11,7 +11,7 @@ GITHEAD=$(shell git rev-parse HEAD | head -c8)
 build: clean
 	make templates scripts
 	make build/index.html
-	make build/basic.html build/boule.html build/tac.html build/test.html
+	make build/basic/index.html build/boule/index.html build/tac/index.html build/test
 	make build/manifest.appcache
 	cp -v Version build/
 
@@ -90,9 +90,10 @@ selenium-tests: FORCE
 build/%: %/index.html build-dir
 	./tools/build.sh $(shell basename $@)
 
-build/%.html: build/%
-	./tools/compress-build.sh $(shell basename $@ .html)
-	rm -rf "$<"
+build/%/index.html: build/%
+	./tools/compress-build.sh $(shell basename $<)
+	rm -r $</scripts/ $</style/ $</images/
+	./tools/write-manifest.sh $<
 
 build-dir: FORCE
 	mkdir -p build
