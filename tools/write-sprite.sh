@@ -153,21 +153,18 @@ for i in `seq 0 $((${#files[@]}-1))`; do
 
     cat <<EOF >> $stylesheet
 [data-img="$shortname"]::before {
-    background-image: url("../$finalsprite");
     background-position: $((-x/2))px $((-y/2))px;
     width: $((width/2))px;
     height: $((height/2))px;
 }
 
 .tiny[data-img="$shortname"]::before {
-    background-image: url("../$finalsprite");
     background-position: $((-x/4))px $((-y/4))px;
     width: $((width/4))px;
     height: $((height/4))px;
 }
 
 .large[data-img="$shortname"]::before {
-    background-image: url("../$finalsprite");
     background-position: -${x}px -${y}px;
     width: ${width}px;
     height: ${height}px;
@@ -201,6 +198,7 @@ cat <<EOF >> $stylesheet
 }
 
 [data-img]::before {
+  background-image: url("../$finalsprite");
   background-size: $((canvaswidth/2))px $((canvasheight/2))px;
   display: inline-block;
   vertical-align: bottom;
