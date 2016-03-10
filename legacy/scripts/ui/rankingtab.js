@@ -6,9 +6,9 @@
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     './checkboxview', 'core/classview', './tournamentrankingview',
-    './closedtournamentcollapselistener'], function(extend, $, View, ListView,
-    State, CheckBoxView, ClassView, TournamentRankingView,
-    ClosedTournamentCollapseListener) {
+    'ui/tabshandle', './closedtournamentcollapselistener'], function(extend, $,
+    View, ListView, State, CheckBoxView, ClassView, TournamentRankingView,
+    TabsHandle, ClosedTournamentCollapseListener) {
   /**
    * represents a whole team tab
    *
@@ -23,6 +23,10 @@ define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     RankingTab.superconstructor.call(this, undefined, $tab);
 
     this.init();
+
+    this.update();
+
+    State.tournaments.registerListener(this);
   }
   extend(RankingTab, View);
 
@@ -64,6 +68,62 @@ define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     // HACK: close tournaments
     this.collapseListener = new ClosedTournamentCollapseListener(
         this.tournamentList);
+  };
+
+  /**
+   * show/hide the tab and update it as necessary
+   */
+  RankingTab.prototype.update = function() {
+    var i, isRunning;
+
+    isRunning = false;
+
+    for (i = 0; !isRunning && i < State.tournaments.length; i += 1) {
+      isRunning = State.tournaments.get(i).getState().get() !== 'initial';
+    }
+
+    if (isRunning) {
+      TabsHandle.show('ranking');
+    } else {
+      TabsHandle.hide('ranking');
+    }
+  };
+
+  /**
+   * a tournament state has been changed
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  RankingTab.prototype.onupdate = function(emitter, event, data) {
+    if (emitter !== State.tournaments) {
+      this.update();
+    }
+  };
+
+  /**
+   * a tournament has been added
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  RankingTab.prototype.oninsert = function(emitter, event, data) {
+    data.object.getState().registerListener(this);
+    this.update();
+  };
+
+  /**
+   * a tournament has been removed
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  RankingTab.prototype.onremove = function(emitter, event, data) {
+    data.object.getState().unregisterListener(this);
+    this.update();
   };
 
   // FIXME CHEAP HACK AHEAD

@@ -5,9 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', './systemlistview',
-    './tournamentviewpopulator', './checkboxview', 'core/classview'], function(
-    extend, $, View, State, SystemListView, TournamentViewPopulator,
-    CheckBoxView, ClassView) {
+    './tournamentviewpopulator', './checkboxview', 'core/classview',
+    'ui/tabshandle'], function(extend, $, View, State, SystemListView,
+    TournamentViewPopulator, CheckBoxView, ClassView, TabsHandle) {
   /**
    * represents a whole team tab
    *
@@ -22,6 +22,10 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './systemlistview',
     NewTab.superconstructor.call(this, undefined, $tab);
 
     this.init();
+
+    this.update();
+
+    State.teams.registerListener(this);
   }
   extend(NewTab, View);
 
@@ -54,6 +58,24 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './systemlistview',
         'hidenames');
 
     this.$view.find('.boxview.template').detach();
+  };
+
+  /**
+   * show/hide the tab and update it as necessary
+   */
+  NewTab.prototype.update = function() {
+    if (State.teams.length < 2) {
+      TabsHandle.hide('new');
+    } else {
+      TabsHandle.show('new');
+    }
+  };
+
+  /**
+   * the number of teams has changed
+   */
+  NewTab.prototype.onresize = function() {
+    this.update();
   };
 
   // FIXME CHEAP HACK AHEAD

@@ -3,6 +3,10 @@
 	* core/scripts/type.js: IE-related Type.is() bug fixed
 	bugfix had a bug
 
+	* legacy/scripts/ui/backgroundscripts/tab*cheaphacklistener.js: logic moved into 'ui/*tab'
+
+	* legacy/scripts/ui/*tab.js: contains tab visibility logic
+
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: icon styles unified

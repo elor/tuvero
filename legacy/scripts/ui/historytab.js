@@ -6,9 +6,9 @@
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     './checkboxview', 'core/classview', './tournamenthistoryview',
-    './closedtournamentcollapselistener'], function(extend, $, View, ListView,
-    State, CheckBoxView, ClassView, TournamentHistoryView,
-    ClosedTournamentCollapseListener) {
+    './closedtournamentcollapselistener', 'ui/tabshandle'], function(extend, $,
+    View, ListView, State, CheckBoxView, ClassView, TournamentHistoryView,
+    ClosedTournamentCollapseListener, TabsHandle) {
   /**
    * represents a whole team tab
    *
@@ -23,6 +23,10 @@ define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     HistoryTab.superconstructor.call(this, undefined, $tab);
 
     this.init();
+
+    this.update();
+
+    State.tournaments.registerListener(this);
   }
   extend(HistoryTab, View);
 
@@ -72,6 +76,71 @@ define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     this.hidefinishedCheckBoxView = new CheckBoxView(value, $container);
     this.hidefinishedClassView = new ClassView(value, this.$view,
         'hidefinished');
+  };
+
+  /**
+   * show/hide the tab and update it as necessary
+   */
+  HistoryTab.prototype.update = function() {
+    var i, hasHistory;
+
+    hasHistory = false;
+
+    for (i = 0; !hasHistory && i < State.tournaments.length; i += 1) {
+      hasHistory = State.tournaments.get(i).getCombinedHistory().length > 0;
+
+      if (hasHistory) {
+        break;
+      }
+    }
+
+    if (hasHistory) {
+      TabsHandle.show('history');
+    } else {
+      TabsHandle.hide('history');
+    }
+  };
+
+  /**
+   * a tournament state has been changed
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  HistoryTab.prototype.onresize = function(emitter, event, //
+  data) {
+    this.update();
+  };
+
+  /**
+   * a tournament has been added
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  HistoryTab.prototype.oninsert = function(emitter, event, //
+  data) {
+    if (emitter === State.tournaments) {
+      data.object.getCombinedHistory().registerListener(this);
+    }
+    this.update();
+  };
+
+  /**
+   * a tournament has been removed
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  HistoryTab.prototype.onremove = function(emitter, event, //
+  data) {
+    if (emitter === State.tournaments) {
+      data.object.getHistory().unregisterListener(this);
+    }
+    this.update();
   };
 
   // FIXME CHEAP HACK AHEAD

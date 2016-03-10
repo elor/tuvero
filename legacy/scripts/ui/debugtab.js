@@ -41,7 +41,7 @@ define(['lib/extend', 'jquery', 'core/view', './storage', './strings',
      * Show Tab in dev versions
      */
     if (!Debug.isDevVersion) {
-      TabsHandle.direct.getTabModel('debug').visibility.set(false);
+      TabsHandle.hide('debug');
     }
 
     /*

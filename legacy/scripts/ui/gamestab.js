@@ -5,9 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
-    './checkboxview', 'core/classview', './tournamentmatchesview'],//
-function(extend, $, View, ListView, State, CheckBoxView, ClassView,
-    TournamentMatchesView) {
+    './checkboxview', 'core/classview', './tournamentmatchesview',
+    'ui/tabshandle'], function(extend, $, View, ListView, State, CheckBoxView,
+    ClassView, TournamentMatchesView, TabsHandle) {
   /**
    * represents a whole team tab
    *
@@ -22,6 +22,10 @@ function(extend, $, View, ListView, State, CheckBoxView, ClassView,
     GamesTab.superconstructor.call(this, undefined, $tab);
 
     this.init();
+
+    this.update();
+
+    State.tournaments.registerListener(this);
   }
   extend(GamesTab, View);
 
@@ -61,6 +65,65 @@ function(extend, $, View, ListView, State, CheckBoxView, ClassView,
     // this.teamsFileLoadController = new TeamsFileLoadController(new
     // InputView(
     // $container));
+  };
+
+  /**
+   * show/hide the tab and update it as necessary
+   */
+  GamesTab.prototype.update = function() {
+    var i, isRunning;
+
+    isRunning = false;
+
+    for (i = 0; !isRunning && i < State.tournaments.length; i += 1) {
+      isRunning = State.tournaments.get(i).getState().get() === 'running';
+    }
+
+    if (isRunning) {
+      TabsHandle.show('games');
+    } else {
+      TabsHandle.hide('games');
+    }
+  };
+
+  /**
+   * a tournament state has been changed
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  GamesTab.prototype.onupdate = function(emitter, event, //
+  data) {
+    if (emitter !== State.tournaments) {
+      this.update();
+    }
+  };
+
+  /**
+   * a tournament has been added
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  GamesTab.prototype.oninsert = function(emitter, event, //
+  data) {
+    data.object.getState().registerListener(this);
+    this.update();
+  };
+
+  /**
+   * a tournament has been removed
+   *
+   * @param emitter
+   * @param event
+   * @param data
+   */
+  GamesTab.prototype.onremove = function(emitter, event, //
+  data) {
+    data.object.getState().unregisterListener(this);
+    this.update();
   };
 
   // FIXME CHEAP HACK AHEAD

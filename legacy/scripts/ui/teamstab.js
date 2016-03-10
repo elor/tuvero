@@ -11,13 +11,13 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     './inputview', './teamsfileloadcontroller', 'presets', 'core/lengthmodel',
     './deleteallteamscontroller', './autocompletionmodel',
     './autocompletionview', './autocompletionlegacyblobber',
-    './teamformatdownloadcontroller'], function(extend, View, ListView,
-    TeamView, State, NewTeamView, LengthView, TeamSizeView, PreregCloserView,
-    CheckBoxView, ClassView, TabsHandle, TeamRemoveController,
-    TeamNameController, TeamTableView, InputView, TeamsFileLoadController,
-    Presets, LengthModel, DeleteAllTeamsController, AutocompletionModel,
-    AutocompletionView, AutocompletionLegacyBlobber,
-    TeamFormatDownloadController) {
+    './teamformatdownloadcontroller', 'timemachine/timemachine'], function(
+    extend, View, ListView, TeamView, State, NewTeamView, LengthView,
+    TeamSizeView, PreregCloserView, CheckBoxView, ClassView, TabsHandle,
+    TeamRemoveController, TeamNameController, TeamTableView, InputView,
+    TeamsFileLoadController, Presets, LengthModel, DeleteAllTeamsController,
+    AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber,
+    TeamFormatDownloadController, TimeMachine) {
   /**
    * represents a whole team tab
    *
@@ -32,6 +32,10 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     TeamsTab.superconstructor.call(this, undefined, $tab);
 
     this.init();
+
+    this.update();
+
+    TimeMachine.commit.registerListener(this);
   }
   extend(TeamsTab, View);
 
@@ -134,6 +138,18 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     this.downloadexamplecontroller = new TeamFormatDownloadController(new View(
         undefined, $container));
   };
+
+  TeamsTab.prototype.onupdate = function() {
+    this.update();
+  }
+
+  TeamsTab.prototype.update = function() {
+    if (TimeMachine.commit.get()) {
+      TabsHandle.show('teams');
+    } else {
+      TabsHandle.hide('teams');
+    }
+  }
 
   // FIXME CHEAP HACK AHEAD
   $(function($) {
