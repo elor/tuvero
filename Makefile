@@ -91,4 +91,7 @@ selenium-tests: FORCE
 build-dir: FORCE
 	mkdir -p build
 
+testserver: FORCE
+	python -m SimpleHTTPServer
+
 FORCE:

@@ -17,6 +17,8 @@
 
 	* legacy/scripts/ui/popoutcontroller.js: popouts prefer <style> tags over <link> tags
 
+	* Makefile: `make testserver` added
+
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: icon styles unified
