@@ -5,6 +5,8 @@
 
 	* legacy/scripts/ui/test/teamsfileloadcontroller.js: Testing CSV import and teamsize heuristic
 
+	* NEWS: NEWS updated prior to 1.5.5 release
+
 2016-03-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/type.js: IE-related Type.is() bug fixed
