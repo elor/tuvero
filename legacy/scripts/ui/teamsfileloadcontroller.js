@@ -144,87 +144,67 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
    *
    * @return true on success, undefined or false on failure
    */
-  TeamsFileLoadController.createTeamsFromString = function(str) {
-    var lines, name, names, teamsize, team, i;
-
-    if (State.teams.length !== 0) {
-      new Toast(Strings.teamsnotempty);
-      return undefined;
-    }
+  TeamsFileLoadController.parseCSVString = function(str, teamsizeModel) {
+    var lines, name, names, i;
 
     lines = str.split('\n');
 
-    // strip unnecessary lines and characters
-    for (i = lines.length - 1; i >= 0; i -= 1) {
-      // strip white spaces
-      lines[i] = lines[i].trim();
+    lines = lines.filter(function(line) {
+      return line.trim().length !== 0 && !line.trim().match(/^#/);
+    }).map(function(line) {
+      var match, name, names = [];
 
-      // convert CSV format to plain text
-      // first, replace all commas and double quotes inside quotes
-      lines[i] = lines[i].replace(/(, ?"([^,"])*)""/g, '$1%DBQUOTE%');
-      lines[i] = lines[i].replace(/(, ?"([^,"])*),/g, '$1%COMMA%');
-      // second, remove spaces around commas
-      lines[i] = lines[i].replace(/ *, */g, ',');
-      // second, convert the actual content
-      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)","([^"]*)"$/,
-          '$2,$3,$4');
-      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)","([^"]*)"$/, '$2,$3');
-      lines[i] = lines[i].replace(/^([0-9]+,)?"([^"]*)"$/, '$2');
+      while (line.length > 0) {
+        match = (line.match(/^\s*"([^"]+|"")*"\s*(,|$)/) || '');
+        match = match || line.match(/^\s*[^,]*\s*(,|$)/);
 
-      // remove all comments
-      lines[i] = lines[i].replace(/^#.*/, '');
-      // remove empty lines (and the aforementioned comments)
-      if (lines[i].length === 0) {
-        lines.splice(i, 1);
-      }
-    }
-
-    teamsize = 0;
-
-    // split and strip the individual player names and store them in the
-    // lines
-    // variable
-    for (names in lines) {
-      lines[names] = lines[names].split(',');
-      names = lines[names];
-
-      for (name in names) {
-        names[name] = names[name].trim().replace('%COMMA%', ',');
-        names[name] = names[name].trim().replace('%DBQUOTE%', '"');
-        if (names[name].length === 0) {
-          names[name] = Strings.emptyname;
-        }
+        name = (match && match[0]) || line;
+        line = line.substr(name.length);
+        names.push(name);
       }
 
-      // verify that all teams have the same number of playuers
-      if (teamsize !== names.length) {
-        if (teamsize <= 0) {
-          teamsize = names.length;
-        } else {
-          new Toast(Strings.differentteamsizes);
-          return undefined;
-        }
-      }
-    }
-
-    // validate team size
-    if (teamsize >= Presets.minteamsize && teamsize <= Presets.maxteamsize) {
-      State.teamsize.set(teamsize);
-    } else {
-      new Toast(Strings.invalidteamsize);
-      return undefined;
-    }
-
-    // enter new teams
-    lines.forEach(function(names) {
-      var players = names.map(function(name) {
-        return new PlayerModel(name);
-      });
-
-      State.teams.push(new TeamModel(players));
+      return names;
     });
 
-    return true;
+    lines = lines.map(function(names) {
+      return names.map(function(name) {
+        // remove commas and whitespaces
+        name = name.replace(/,$/, '').trim();
+        if (name.match(/^".*"$/)) {
+          name = name.replace(/^"(.*)"$/, '$1');
+          name = name.replace(/""/g, '"');
+        }
+        return name;
+      });
+    });
+
+    lines = lines.filter(function(names) {
+      return names.join('').length !== 0;
+    });
+
+    return lines;
+  };
+
+  TeamsFileLoadController.readTeamsize = function(teams) {
+    var teamsizes, teamsize;
+
+    if (teams.length === 0) {
+      return 0;
+    }
+
+    teamsizes = teams.map(function(team) {
+      return team.length;
+    });
+
+    teamsize = teamsizes[0];
+
+    if (teamsizes.some(function(size) {
+      return size !== teamsize;
+    })) {
+      return 0;
+    }
+
+    return teamsize;
   };
 
   TeamsFileLoadController.prototype.reset = function() {
@@ -250,19 +230,44 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
   };
 
   TeamsFileLoadController.loadFileLoad = function(evt) {
-    var contents;
+    var contents, teams, teamsize;
 
     contents = evt.target.result;
+    this.teamsfileloadcontroller.reset();
 
     contents = latin2utf8(contents);
 
     filereadercontents = contents;
 
-    if (TeamsFileLoadController.createTeamsFromString(contents)) {
-      new Toast(Strings.loaded);
+    if (State.teams.length !== 0) {
+      new Toast(Strings.teamsnotempty);
+      return undefined;
     }
 
-    this.teamsfileloadcontroller.reset();
+    debugger
+
+    teams = TeamsFileLoadController.parseCSVString(contents, State.teamsize);
+    teamsize = TeamsFileLoadController.readTeamsize(teams);
+
+    // validate team size
+    if (teamsize >= Presets.registration.minteamsize
+        && teamsize <= Presets.registration.maxteamsize) {
+      State.teamsize.set(teamsize);
+    } else {
+      new Toast(Strings.invalidteamsize);
+      return undefined;
+    }
+
+    // enter new teams
+    teams.forEach(function(names) {
+      var players = names.map(function(name) {
+        return new PlayerModel(name);
+      });
+
+      State.teams.push(new TeamModel(players));
+    });
+
+    new Toast(Strings.loaded);
   };
 
   TeamsFileLoadController.loadFileAbort = function() {

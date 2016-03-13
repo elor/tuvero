@@ -1,3 +1,10 @@
+2016-03-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: Didn't read the right teamsize values from the Presets
+	completely rewrote the CSV parser
+
+	* legacy/scripts/ui/test/teamsfileloadcontroller.js: Testing CSV import and teamsize heuristic
+
 2016-03-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/type.js: IE-related Type.is() bug fixed
