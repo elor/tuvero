@@ -1,3 +1,42 @@
+2016-03-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: Didn't read the right teamsize values from the Presets
+	completely rewrote the CSV parser
+
+	* legacy/scripts/ui/test/teamsfileloadcontroller.js: Testing CSV import and teamsize heuristic
+
+	* NEWS: NEWS updated prior to 1.5.5 release
+
+2016-03-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/type.js: IE-related Type.is() bug fixed
+	bugfix had a bug
+
+	* legacy/scripts/ui/backgroundscripts/tab*cheaphacklistener.js: logic moved into 'ui/*tab'
+
+	* legacy/scripts/ui/*tab.js: contains tab visibility logic
+
+	* legacy/scripts/ui/tabshandle.js: loading order fixed
+
+	* core/templates/head.html: <script> tags moved here
+
+	* core/templates/index.html: <script> tags moved to head
+
+	* legacy/scripts/ui/csvexportcontroller.js: using tiny csv export symbols
+
+	* legacy/scripts/ui/popoutcontroller.js: popouts prefer <style> tags over <link> tags
+
+	* Makefile: `make testserver` added
+	build-compression works in-place, not replacing the variant index.html files
+
+	* core/templates/settingstab.html: tiny csv buttons
+
+	* tools/compress-build.sh: work in-place on the index.html files
+	final output improved
+	liberally inserted 'exit 1' for proper `make`-abort
+
+	* tools/write-sprite.sh: duplicate data-uris removed
+
 2016-03-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/boxview.css: icon styles unified

@@ -1,3 +1,14 @@
+Tuvero 1.5.5 (2016-03-13)
+-------------------------
+
+FEATURES:
+
+  * Compressed every target into a single file
+
+FIXES:
+
+  * Critical CSV Team import bug fixed
+
 Tuvero 1.5.4 (2016-03-09)
 -------------------------
 
