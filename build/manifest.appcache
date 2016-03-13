@@ -1,0 +1,25 @@
+CACHE MANIFEST
+# Version: dev
+# Date: Sun Mar 13 20:00:45 CET 2016
+
+# tuvero is purely offline
+CACHE:
+index.html
+
+images/wordpress.png
+images/github.png
+images/tac.png
+images/pvo.png
+images/archive.png
+images/boule.png
+images/dev.png
+images/tuvero.png
+images/facebook.png
+
+
+# allow player database updates
+NETWORK:
+http://*
+https://*
+*
+
