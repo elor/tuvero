@@ -11,6 +11,8 @@
 
 	* legacy/scripts/ui/gamestab.js: commented-out code removed
 
+	* core/templates/hometab.html: 'json' restriction lifted
+
 2016-03-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: Didn't read the right teamsize values from the Presets
