@@ -26,6 +26,12 @@
 
 	* tools/create-testjs.sh: backend/ dir removed
 
+	* legacy/scripts/ui/registerteamscontroller.js: create new tournament, if necessary
+
+	* legacy/scripts/ui/statesaver.js: canSave() function added
+
+	* legacy/scripts/ui/registeridscontroller.js: create new tournament, if necessary
+
 2016-03-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: Didn't read the right teamsize values from the Presets

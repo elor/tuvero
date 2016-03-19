@@ -30,6 +30,13 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
   };
 
   /**
+   * @return true if a state can be saved, false otherwise
+   */
+  StateSaverModel.prototype.canSave = function() {
+    return this.createTree !== undefined || TimeMachine.isInitialized();
+  };
+
+  /**
    * Save the current state to a new commit
    *
    * @return true on success, false otherwise
@@ -87,7 +94,6 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
 
     if (success) {
       this.createTree = undefined;
-      // TODO auto-adjust the number of stored commits.
       TimeMachine.cleanup(commit, 3);
       console.log('state saved');
     }

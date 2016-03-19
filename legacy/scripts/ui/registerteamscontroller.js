@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
-    './teammodel', './playermodel', 'core/random'], function(extend,
-    Controller, View, State, TeamModel, PlayerModel, Random) {
+    './teammodel', './playermodel', 'core/random', 'ui/statesaver'], //
+function(extend, Controller, View, State, TeamModel, PlayerModel, Random,
+    StateSaver) {
   var rng;
 
   rng = new Random();
@@ -38,6 +39,10 @@ define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
     numTeams = Number(this.$numteams.val());
     if (isNaN(numTeams)) {
       return;
+    }
+
+    if (!StateSaver.canSave()) {
+      StateSaver.createNewEmptyTree('Tuvero Test-Turnier');
     }
 
     for (; numTeams > 0; numTeams -= 1) {
