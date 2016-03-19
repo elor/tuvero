@@ -6,6 +6,7 @@
 	* legacy/scripts/ui/legacyloadermodel.js: missing `State.clear()` added
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: using function binding instead of injected fields
+	separate 'load' function, which doesn't deal with FileReaders and stuff. To be extracted to TeamsCSVLoader or so
 
 	* legacy/scripts/ui/backgroundscripts/reset.js: updating timemachine roots
 

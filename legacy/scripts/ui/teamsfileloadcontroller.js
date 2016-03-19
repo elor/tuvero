@@ -229,22 +229,16 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     this.reset();
   };
 
-  TeamsFileLoadController.loadFileLoad = function(evt) {
-    var contents, teams, teamsize;
-
-    contents = evt.target.result;
-    this.reset();
-
-    contents = latin2utf8(contents);
-
-    filereadercontents = contents;
+  TeamsFileLoadController.load = function(csvString) {
+    var teams, teamsize;
+    csvString = latin2utf8(csvString);
 
     if (State.teams.length !== 0) {
       new Toast(Strings.teamsnotempty);
-      return undefined;
+      return false;
     }
 
-    teams = TeamsFileLoadController.parseCSVString(contents, State.teamsize);
+    teams = TeamsFileLoadController.parseCSVString(csvString, State.teamsize);
     teamsize = TeamsFileLoadController.readTeamsize(teams);
 
     // validate team size
@@ -253,7 +247,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
       State.teamsize.set(teamsize);
     } else {
       new Toast(Strings.invalidteamsize);
-      return undefined;
+      return false;
     }
 
     // enter new teams
@@ -266,6 +260,17 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     });
 
     new Toast(Strings.loaded);
+
+    return true;
+  };
+
+  TeamsFileLoadController.loadFileLoad = function(evt) {
+    var contents, teams, teamsize;
+
+    contents = evt.target.result;
+
+    this.reset();
+    return TeamsFileLoadController.load(contents);
   };
 
   TeamsFileLoadController.loadFileAbort = function() {
