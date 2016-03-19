@@ -56,15 +56,6 @@ define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
         'hidenames');
-
-    // hide teamTable content depending on state
-    // this.teamTableView = new TeamTableView(this.teamTable,
-    // State.teamsize);
-
-    // $container = this.$view.find('>.filereader input');
-    // this.teamsFileLoadController = new TeamsFileLoadController(new
-    // InputView(
-    // $container));
   };
 
   /**

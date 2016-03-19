@@ -1,12 +1,15 @@
 2016-03-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/fileloadcontroller.js: unloading current state on error
+	removing '.txt' and '.csv' suffixes as well
 
 	* legacy/scripts/ui/legacyloadermodel.js: missing `State.clear()` added
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: using function binding instead of injected fields
 
 	* legacy/scripts/ui/backgroundscripts/reset.js: updating timemachine roots
+
+	* legacy/scripts/ui/gamestab.js: commented-out code removed
 
 2016-03-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
