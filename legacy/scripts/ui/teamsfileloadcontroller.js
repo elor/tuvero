@@ -226,14 +226,14 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
       new Toast(Strings.fileerror);
     }
 
-    this.teamsfileloadcontroller.reset();
+    this.reset();
   };
 
   TeamsFileLoadController.loadFileLoad = function(evt) {
     var contents, teams, teamsize;
 
     contents = evt.target.result;
-    this.teamsfileloadcontroller.reset();
+    this.reset();
 
     contents = latin2utf8(contents);
 
@@ -243,8 +243,6 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
       new Toast(Strings.teamsnotempty);
       return undefined;
     }
-
-    debugger
 
     teams = TeamsFileLoadController.parseCSVString(contents, State.teamsize);
     teamsize = TeamsFileLoadController.readTeamsize(teams);
@@ -273,7 +271,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
   TeamsFileLoadController.loadFileAbort = function() {
     new Toast(Strings.fileabort);
 
-    this.teamsfileloadcontroller.reset();
+    this.reset();
   };
 
   TeamsFileLoadController.prototype.init = function() {
@@ -282,11 +280,9 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     this.view.$view.data('controller', this).change(function(evt) {
       var reader = new FileReader();
 
-      reader.onerror = TeamsFileLoadController.loadFileError;
-      reader.onabort = TeamsFileLoadController.loadFileAbort;
-      reader.onload = TeamsFileLoadController.loadFileLoad;
-
-      reader.teamsfileloadcontroller = controller;
+      reader.onerror = TeamsFileLoadController.loadFileError.bind(controller);
+      reader.onabort = TeamsFileLoadController.loadFileAbort.bind(controller);
+      reader.onload = TeamsFileLoadController.loadFileLoad.bind(controller);
 
       // TODO try different encodings and select the best one
       reader.readAsBinaryString(evt.target.files[0]);

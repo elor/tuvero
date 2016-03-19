@@ -36,6 +36,7 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
 
   FileLoadController.prototype.error = function(evt) {
     // file api callback function
+    StateLoader.unload();
     switch (evt.target.error.code) {
     case evt.target.error.NOT_FOUND_ERR:
       new Toast(Strings.filenotfound);
