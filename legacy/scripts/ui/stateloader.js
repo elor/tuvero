@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
-    'ui/legacystoragekeyconverter'], function(State, TimeMachine,
-    LegacyLoaderModel, LegacyStorageKeyConverter) {
+    'ui/legacystoragekeyconverter', 'ui/teamsfileloadcontroller'], //
+function(State, TimeMachine, LegacyLoaderModel, LegacyStorageKeyConverter,
+    TeamsFileLoadController) {
   var StateLoader;
 
   /**
@@ -78,7 +79,8 @@ define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
     try {
       data = JSON.parse(string);
     } catch (e) {
-      return false;
+      // try CSV-loading
+      return this.loadTeamsCSV(string);
     }
 
     return this.loadData(data);
@@ -138,6 +140,15 @@ define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
 
     return false;
   };
+
+  StateLoaderModel.prototype.loadTeamsCSV = function(csvString) {
+    try {
+      State.clear();
+      return TeamsFileLoadController.load(csvString);
+    } catch (e) {
+    }
+    return false;
+  }
 
   /**
    * reset the current state and forget about all previously loaded states
