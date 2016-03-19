@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
-    './teammodel', './playermodel', 'backend/random'], function(extend,
+    './teammodel', './playermodel', 'core/random'], function(extend,
     Controller, View, State, TeamModel, PlayerModel, Random) {
   var rng;
 

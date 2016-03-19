@@ -4,7 +4,6 @@
 
 coredir=core/scripts
 uidir=legacy/scripts/ui
-backenddir=legacy/scripts/backend
 timemachinedir=legacy/scripts/timemachine
 libdir=lib
 
@@ -26,7 +25,6 @@ require(['config'], function() {
   require(['core/config'], function() {
     require(['core/common', 'qunit',
 $(printrefs core $coredir)
-$(printrefs backend $backenddir)
 $(printrefs lib $libdir)
 $(printrefs timemachine $timemachinedir)
 $(printrefs ui $uidir | sed '$s/,$//')

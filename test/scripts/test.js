@@ -36,6 +36,7 @@ require(['config'], function() {
   'core/test/positivematrix',
   'core/test/propertymodel',
   'core/test/propertyvaluemodel',
+  'core/test/random',
   'core/test/rankingcomponentindex',
   'core/test/rankingdatalistenerindex',
   'core/test/rankingheadtohead',
@@ -63,7 +64,6 @@ require(['config'], function() {
   'core/test/uniquelistmodel',
   'core/test/valuemodel',
   'core/test/vectormodel',
-  'backend/test/random',
 
   'timemachine/test/keymodel',
   'timemachine/test/query',

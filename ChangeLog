@@ -16,6 +16,16 @@
 
 	* legacy/scripts/ui/stateloader.js: resort to CSV-loading the teams if JSON doesn't work
 
+	* core/scripts/config.js: backend/ dir removed
+
+	* core/scripts/random.js: moved from backend/random
+
+	* core/scripts/test/random.js: moved from backend/test/random
+
+	* tools/create-commonjs.sh: backend/ dir removed
+
+	* tools/create-testjs.sh: backend/ dir removed
+
 2016-03-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: Didn't read the right teamsize values from the Presets

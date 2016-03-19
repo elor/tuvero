@@ -13,7 +13,7 @@ define(function() {
   return function(QUnit, getModule) {
     var Random;
 
-    Random = getModule('backend/random');
+    Random = getModule('core/random');
 
     QUnit.test('Random', function() {
       var min, max, r, x, i, sum;

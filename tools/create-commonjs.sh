@@ -4,7 +4,6 @@
 
 coredir=core/scripts
 uidir=legacy/scripts/ui
-backenddir=legacy/scripts/backend
 timemachinedir=legacy/scripts/timemachine
 libdir=lib
 
@@ -28,7 +27,6 @@ cat <<EOF > core/scripts/common.js
 define([
 $(printrefs lib $libdir)
 $(printrefs core $coredir)
-$(printrefs backend $backenddir)
 $(printrefs timemachine $timemachinedir)
 $(printrefs ui $uidir | sed '$s/,$//')
 ], function(undefined) {
