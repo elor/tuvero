@@ -9,13 +9,16 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
+define(['../toast', 'timemachine/timemachine', '../strings', 'jquery'], //
+function(Toast, TimeMachine, Strings, $) {
   var Reset = undefined;
 
   function hashcheck() {
     if (location.hash === '#reset') {
       console.log('clearing localstorage');
       window.localStorage.clear();
+
+      TimeMachine.updateRoots();
 
       new Toast(Strings.reset, Toast.LONG);
       window.location.hash = '#debug';
@@ -31,7 +34,8 @@ define(['../toast', '../strings', 'jquery'], function(Toast, Strings, $) {
     }
   });
 
-  // also bind the reset button by delegating its click to a Tab_Storage element
+  // also bind the reset button by delegating its click to a Tab_Storage
+  // element
   $(function($) {
     $('#tabs').on('click', 'button.reset', function(e) {
       $('#tabs > [data-tab="settings"] .local button.clear').click();
