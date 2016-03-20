@@ -191,7 +191,7 @@ function() {
   function orderDependencies(names) {
     var input;
 
-    input = names.splice(0);
+    input = names.splice(0).reverse();
 
     addMissingDependencies(input);
     removeMultipleDependencies(input);

@@ -1,3 +1,7 @@
+2016-03-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingdatalistenerindex.js: HeadToHead problem with indirect dependencies fixed
+
 2016-03-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/fileloadcontroller.js: unloading current state on error
