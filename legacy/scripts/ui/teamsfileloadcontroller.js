@@ -330,12 +330,11 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
       return;
     }
 
+    $button.on('dragover', this.buttonDragOver.bind(this));
+    $button.on('drop', this.buttonDrop.bind(this));
     $button.click(function(e) {
       $input.click();
     });
-
-    $button.on('dragover', this.buttonDragOver.bind(this));
-    $button.on('drop', this.buttonDrop.bind(this));
   };
 
   return TeamsFileLoadController;

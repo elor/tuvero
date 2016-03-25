@@ -17,6 +17,18 @@
 
 	* legacy/style/teams.css: button rules simplified
 
+	* core/templates/hometab.html: fileload input moved from settingstab
+
+	* core/templates/settingstab.html: fileload input moved to hometab
+
+	* legacy/scripts/ui/backgroundscripts/load.js: removed in favor of fileloadcontroller
+
+	* legacy/scripts/ui/fileloadcontroller.js: $button handling copied over from teamsfileloadcontroller
+
+	* legacy/scripts/ui/hometab.js: FileLoadController moved from settingstab
+
+	* legacy/scripts/ui/settingstab.js: FileLoadController moved to hometab
+
 2016-03-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingdatalistenerindex.js: HeadToHead problem with indirect dependencies fixed

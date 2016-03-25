@@ -5,9 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
-    './toast', './browser', 'ui/timemachineview', 'ui/statesaver'], function(
-    extend, $, View, State, Strings, Toast, Browser, TimeMachineView,
-    StateSaver) {
+    './toast', './browser', 'ui/timemachineview', 'ui/statesaver',
+    'ui/fileloadcontroller'], function(extend, $, View, State, Strings, Toast,
+    Browser, TimeMachineView, StateSaver, FileLoadController) {
   /**
    * represents a whole team tab
    *
@@ -31,7 +31,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
    * TODO maybe split it into multiple autodetected functions?
    */
   HomeTab.prototype.init = function() {
-    var $button, $errorlink, browserstring, $container;
+    var $button, $errorlink, browserstring, $container, $input;
 
     // TODO move to a controller
     $button = this.$view.find('button.reset');
@@ -51,6 +51,15 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
      */
     $container = this.$view.find('.timemachineview');
     this.timeMachineView = new TimeMachineView($container);
+
+    /*
+     * tournament loader
+     */
+    $button = this.$view.find('button.load');
+    $input = this.$view.find('input.load');
+    this.fileLoadController = new FileLoadController(
+        new View(undefined, $input), $button);
+
   };
 
   // FIXME CHEAP HACK AHEAD

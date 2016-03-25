@@ -12,7 +12,7 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
   /**
    * Constructor
    */
-  function FileLoadController(view) {
+  function FileLoadController(view, $button) {
     var controller;
     FileLoadController.superconstructor.call(this, view);
 
@@ -22,17 +22,49 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
     controller = this;
 
     this.view.$view.change(function(evt) {
-      controller.reader = new FileReader();
-      controller.file = evt.target.files[0];
-
-      controller.reader.onerror = controller.error.bind(controller);
-      controller.reader.onabort = controller.abort.bind(controller);
-      controller.reader.onload = controller.load.bind(controller);
-
-      controller.reader.readAsText(controller.file);
+      controller.initFileRead(evt.target.files[0]);
     });
+
+    if ($button) {
+      $button.on('dragover', this.buttonDragOver.bind(this));
+      $button.on('drop', this.buttonDrop.bind(this));
+      $button.click(function() {
+        controller.view.$view.click();
+      });
+    }
   }
   extend(FileLoadController, Controller);
+
+  FileLoadController.prototype.buttonDragOver = function(evt) {
+    evt.originalEvent.dataTransfer.dropEffect = 'copy';
+    evt.preventDefault();
+    return false;
+  };
+
+  FileLoadController.prototype.buttonDrop = function(evt) {
+    var files = evt.originalEvent.dataTransfer.files;
+
+    if (files.length == 1 && files[0]) {
+      this.initFileRead(files[0]);
+    } else {
+      // TODO use Strings
+      new Toast('wrong number of files', Toast.LONG);
+    }
+
+    evt.preventDefault();
+    return false;
+  };
+
+  FileLoadController.prototype.initFileRead = function(file) {
+    this.file = file;
+    this.reader = new FileReader();
+
+    this.reader.onerror = this.error.bind(this);
+    this.reader.onabort = this.abort.bind(this);
+    this.reader.onload = this.load.bind(this);
+
+    this.reader.readAsText(this.file);
+  };
 
   FileLoadController.prototype.error = function(evt) {
     // file api callback function

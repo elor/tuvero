@@ -5,8 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
-    'ui/fileloadcontroller', 'ui/fontsizeview'], function(extend, $, View,
-    CSVExportController, FileLoadController, FontSizeView) {
+    'ui/fontsizeview'], function(extend, $, View,
+    CSVExportController, FontSizeView) {
   /**
    * represents a whole team tab
    *
@@ -31,10 +31,6 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
    */
   SettingsTab.prototype.init = function() {
     var $container, $input;
-
-    $input = this.$view.find('input.load');
-    this.fileLoadController = new FileLoadController(
-        new View(undefined, $input));
 
     this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
