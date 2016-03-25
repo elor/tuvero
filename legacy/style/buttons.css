@@ -5,9 +5,12 @@ button[data-img] {
   cursor: pointer;
 }
 
-#tabs > div > button[data-img] {
-  float: left;
+button.left {
   margin-right: 2px;
+}
+
+button.right {
+  margin-left: 2px;
 }
 
 button.big {

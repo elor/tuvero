@@ -1,3 +1,11 @@
+2016-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/*tab.html: header-buttons use the 'left' class instead of special rules
+
+	* legacy/style/buttons.css: header button rules removed
+
+	* legacy/style/general.css: float-right/left renamed to right/left
+
 2016-03-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingdatalistenerindex.js: HeadToHead problem with indirect dependencies fixed

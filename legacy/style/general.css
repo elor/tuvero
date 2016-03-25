@@ -42,11 +42,11 @@ button[disabled] {
   display: none !important;
 }
 
-.float-right {
+.right {
   float: right;
 }
 
-.float-left {
+.left {
   float: left;
 }
 
