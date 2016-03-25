@@ -130,11 +130,19 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
    *
    * @param view
    *          an InputView instance of a filereader input
+   * @param $button
+   *          Optional. A button element which, when clicked, starts the file
+   *          selection
    */
-  function TeamsFileLoadController(view) {
+  function TeamsFileLoadController(view, $button) {
     TeamsFileLoadController.superconstructor.call(this, view);
 
     this.init();
+    if ($button) {
+      $button.click(function(e) {
+        view.$view.click();
+      });
+    }
   }
   extend(TeamsFileLoadController, Controller);
 

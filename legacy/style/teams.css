@@ -2,24 +2,20 @@ div#tabs > [data-tab="teams"] {
   text-align: left;
 }
 
-#tabs > [data-tab="teams"] div.team, .newteamview, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete, #tabs > [data-tab="teams"] .deleteall {
+#tabs > [data-tab="teams"] div.team, .newteamview {
   display: inline-table;
+  vertical-align: middle;
   height: 5em;
   border-radius: 0.5em;
   border-spacing: 0px;
   margin: 0.5em;
   padding: 0em 0.5em;
   text-align: left;
-  vertical-align: top;
   white-space: nowrap;
 }
 
-#tabs > [data-tab="teams"] div.team, #tabs > [data-tab="teams"] .load, #tabs > [data-tab="teams"] .delete, #tabs > [data-tab="teams"] .deleteall {
+#tabs > [data-tab="teams"] div.team {
   background-color: #d0d0d0;
-}
-
-#tabs > [data-tab="teams"] .load {
-  text-align: center;
 }
 
 #tabs > [data-tab="teams"] .teamtable {
@@ -92,19 +88,12 @@ div#tabs > [data-tab="teams"] {
   transition: max-width 0.5s;
 }
 
-#tabs > [data-tab="teams"].noprereg .filereader {
+#tabs > [data-tab="teams"].noprereg .fileloadteams {
   display: none;
 }
 
 #tabs > [data-tab="teams"] button.delete, #tabs > [data-tab="teams"] button.deleteall {
   display: none;
-  background-color: #d3d3d3;
-  height: 3em;
-  font-size: 100%;
-  border-radius: 0.2em;
-  border: none;
-  box-shadow: 1px 1px 0px #808080;
-  cursor: crosshair;
 }
 
 #tabs > [data-tab="teams"] .deletionprompt {
@@ -121,12 +110,17 @@ div#tabs > [data-tab="teams"] {
   display: inline-block;
 }
 
-#tabs > [data-tab="teams"].noprereg button.delete, #tabs > [data-tab="teams"].noprereg button.deleteall {
+#tabs > [data-tab="teams"].noprereg button.delete {
   display: initial;
+  cursor: crosshair;
 }
 
 #tabs > [data-tab="teams"].deletion button.delete {
-  background-color: red;
+  background-color: #ff0000;
+}
+
+#tabs > [data-tab="teams"].noprereg button.deleteall {
+  display: initial;
 }
 
 /*
@@ -146,7 +140,7 @@ div#tabs > [data-tab="teams"] {
   background-color: #969696;
 }
 
-#tabs > [data-tab="teams"].deletion .load, #tabs > [data-tab="teams"].deletion .newteamview {
+#tabs > [data-tab="teams"].deletion .newteamview {
   display: none;
 }
 
@@ -155,9 +149,10 @@ div#tabs > [data-tab="teams"] {
 }
 
 @media print {
-  #tabs > [data-tab="teams"] button.delete, #tabs > [data-tab="teams"] button.deleteall, #tabs > [data-tab="teams"] .filereader {
+  #tabs > [data-tab="teams"] .fileloadteams {
     display: none !important;
   }
+
   #tabs > [data-tab="teams"] .team {
     margin: 0em;
   }

@@ -122,9 +122,9 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     // hide teamTable content depending on state
     this.teamTableView = new TeamTableView(this.teamTable, State.teamsize);
 
-    $container = this.$view.find('>.filereader input');
+    $container = this.$view.find('>.fileloadteams');
     this.teamsFileLoadController = new TeamsFileLoadController(new InputView(
-        $container));
+        $container.find('input')), $container.find('button'));
 
     this.autocompletionModel = new AutocompletionModel();
     this.autocompletionModel.download(Presets.names.playernameurl);
@@ -134,7 +134,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     this.autocompletionView = new AutocompletionView(this.autocompletionModel,
         $container);
 
-    $container = this.$view.find('>.filereader .downloadexample');
+    $container = this.$view.find('>.fileloadteams .downloadexample');
     this.downloadexamplecontroller = new TeamFormatDownloadController(new View(
         undefined, $container));
   };

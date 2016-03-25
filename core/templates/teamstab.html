@@ -71,19 +71,18 @@
     </div>
   </form>
 
-  <div class="load filereader">
-    <p>
-      Anmeldungen aus Datei laden (<a href="#teams" class="downloadexample">Beispiel</a>)
-      <br>
-      <input type="file" />
-    </p>
-  </div>
+  <span class="fileloadteams">
+    <button class="tiny withlabel" data-img="load">
+      Anmeldungen laden
+    </button> (<a href="#teams" class="downloadexample">Beispieldatei</a>)
+    <input class="hidden" type="file" />
+  </span>
 
-  <button class="delete" tabindex="-1">
+  <button class="delete tiny withlabel" data-img="clear" tabindex="-1">
     Anmeldung löschen
   </button>
 
-  <button class="deleteall" tabindex="-1">
+  <button class="deleteall tiny withlabel" data-img="clear" tabindex="-1">
     Alle löschen
   </button>
 

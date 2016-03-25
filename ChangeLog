@@ -6,6 +6,16 @@
 
 	* legacy/style/general.css: float-right/left renamed to right/left
 
+	* core/templates/teamstab.html: csv-load input replaced with button
+	data-imgs added for delete buttons
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: logic for button-to-input click delegation added
+
+	* legacy/scripts/ui/teamstab.js: teamsfileload button added
+	.filereader -> .fileloadteams
+
+	* legacy/style/teams.css: button rules simplified
+
 2016-03-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingdatalistenerindex.js: HeadToHead problem with indirect dependencies fixed
