@@ -18,9 +18,13 @@ define(['ui/state', 'ui/listcollectormodel', 'ui/teammodel',
     if (updatePending === undefined) {
       updatePending = window.setTimeout(function() {
         updatePending = undefined;
-        if (!StateSaver.saveState()) {
-          // TODO display as Toast!
-          console.error('autosave failed');
+        if (StateSaver.canSave()) {
+          if (!StateSaver.saveState()) {
+            // TODO display as Toast!
+            console.error('autosave failed');
+          }
+        } else {
+          console.warn('cannot autosave: No state loaded.');
         }
       }, 10);
     }

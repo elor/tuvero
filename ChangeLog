@@ -42,6 +42,8 @@
 	* legacy/scripts/ui/unicodehelper.js: collection of functions which were used in CSV reading:
 	Unicode detection and conversion
 
+	* legacy/scripts/ui/backgroundscripts/autosave.js: detecting whether you can even save, else 'autosave fails' messages are sent
+
 2016-03-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/rankingdatalistenerindex.js: HeadToHead problem with indirect dependencies fixed
