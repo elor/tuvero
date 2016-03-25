@@ -200,7 +200,7 @@
           </table>
           <h4>Laufende Kosten</h4>
           <p>
-            <a class="large float-right" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
+            <a class="large right" data-img="ext/btn_donateCC_LG" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZCU4ZVDREECYE" target="_blank"></a>
             Wenn euch Tuvero gefällt und eure Turniere vereinfacht, würden wir
             uns über eine kleine Beteiligung an den laufenden Kosten freuen.
             <br>
@@ -209,8 +209,8 @@
         </div>
       </div>
       <div data-tab="teams" data-spriteignore accesskey="t">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
+        <button class="print left" data-img="print"></button>
+        <button class="save left" data-img="save"></button>
         <div class="options">
           <span>
             <input class="maxwidth" type="checkbox" checked="checked" />
@@ -218,9 +218,9 @@
           <span>
             <input class="showtable" type="checkbox" checked="checked" />
             Tabelle</span>
-            <br>
-            <br>
-            <span>Zum Umbenennen Namen klicken</span>
+          <br>
+          <br>
+          <span>Zum Umbenennen Namen klicken</span>
         </div>
         <h2><span class="numteams">##</span> Anmeldungen</h2>
         <div class="teamsizeview">
@@ -279,17 +279,16 @@
             </div>
           </div>
         </form>
-        <div class="load filereader">
-          <p>
-            Anmeldungen aus Datei laden (<a href="#teams" class="downloadexample">Beispiel</a>)
-            <br>
-            <input type="file" />
-          </p>
-        </div>
-        <button class="delete" tabindex="-1">
+        <span class="fileloadteams">
+          <button class="tiny withlabel" data-img="load">
+            Anmeldungen laden
+          </button> (<a href="#teams" class="downloadexample">Beispieldatei</a>)
+          <input class="hidden" type="file" />
+        </span>
+        <button class="delete tiny withlabel" data-img="clear" tabindex="-1">
           Anmeldung löschen
         </button>
-        <button class="deleteall" tabindex="-1">
+        <button class="deleteall tiny withlabel" data-img="clear" tabindex="-1">
           Alle löschen
         </button>
         <div class="deletionprompt">
@@ -297,7 +296,7 @@
         </div>
       </div>
       <div data-tab="new" accesskey="n">
-        <button class="save" data-img="save"></button>
+        <button class="save left" data-img="save"></button>
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
@@ -640,8 +639,8 @@
         </div>
       </div>
       <div data-tab="history" accesskey="h">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
+        <button class="print left" data-img="print"></button>
+        <button class="save left" data-img="save"></button>
         <div class="options">
           <span>
             <input class="maxwidth" type="checkbox" checked="checked" />feste Breite</span>
@@ -815,8 +814,8 @@
         </div>
       </div>
       <div data-tab="ranking" accesskey="r">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
+        <button class="print left" data-img="print"></button>
+        <button class="save left" data-img="save"></button>
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
@@ -876,8 +875,8 @@
         Ich bitte um etwas Geduld.
       </div>
       <div data-tab="games" accesskey="g">
-        <button class="print" data-img="print"></button>
-        <button class="save" data-img="save"></button>
+        <button class="print left" data-img="print"></button>
+        <button class="save left" data-img="save"></button>
         <div class="options">
           <span><input class="maxwidth" type="checkbox" checked="checked" />feste
             Breite</span> <span><input class="shownames" type="checkbox"
