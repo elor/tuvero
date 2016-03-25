@@ -120,7 +120,6 @@ define([
   'ui/backgroundscripts/autosave',
   'ui/backgroundscripts/featuredetect',
   'ui/backgroundscripts/initviews',
-  'ui/backgroundscripts/load',
   'ui/backgroundscripts/matchtoasts',
   'ui/backgroundscripts/online',
   'ui/backgroundscripts/print',
@@ -205,6 +204,7 @@ define([
   'ui/settingstab',
   'ui/splash',
   'ui/stateclassview',
+  'ui/statefileloadcontroller',
   'ui/state',
   'ui/stateloader',
   'ui/statemodel',
@@ -246,6 +246,7 @@ define([
   'ui/tournamentrankingview',
   'ui/tournamentview',
   'ui/tournamentviewpopulator',
+  'ui/unicodehelper',
   'ui/update',
   'ui/valueview'
 ], function(undefined) {

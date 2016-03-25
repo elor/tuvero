@@ -8,26 +8,39 @@
 
 	* core/templates/teamstab.html: csv-load input replaced with button
 	data-imgs added for delete buttons
+	file input removed in favor of FileLoadController
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: logic for button-to-input click delegation added
 	load prereg.csv by drag-and-drop (no additional indicators yet)
+	using FileLoadController as base class
 
 	* legacy/scripts/ui/teamstab.js: teamsfileload button added
 	.filereader -> .fileloadteams
+	using new StateFileLoadController constructor
 
 	* legacy/style/teams.css: button rules simplified
 
 	* core/templates/hometab.html: fileload input moved from settingstab
+	file input removed in favor of FileLoadController
 
 	* core/templates/settingstab.html: fileload input moved to hometab
 
 	* legacy/scripts/ui/backgroundscripts/load.js: removed in favor of fileloadcontroller
 
 	* legacy/scripts/ui/fileloadcontroller.js: $button handling copied over from teamsfileloadcontroller
+	Copied to StateFileLoadcontroller
+	Used as base class for all file loading
 
 	* legacy/scripts/ui/hometab.js: FileLoadController moved from settingstab
+	using new TeamsFileLoadController constructor
 
 	* legacy/scripts/ui/settingstab.js: FileLoadController moved to hometab
+
+	* legacy/scripts/ui/statefileloadcontroller.js: superseeds FileLoadController
+	Uses the new FileLoadController class as a base class, just like TeamsFileLoadController
+
+	* legacy/scripts/ui/unicodehelper.js: collection of functions which were used in CSV reading:
+	Unicode detection and conversion
 
 2016-03-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

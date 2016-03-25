@@ -6,41 +6,82 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
-    'ui/stateloader', 'ui/statesaver'], function(extend, Controller, Presets,
-    Toast, Strings, StateLoader, StateSaver) {
+define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', './toast',
+    './strings'], function($, extend, Controller, InputView, Toast, Strings) {
   /**
-   * Constructor
+   * Constructor. Attention: It doesn't take a View, but a jquery element!
+   *
+   * @param $button
+   *          a button element which, when clicked or drag-dropped, triggers the
+   *          file selection/open
    */
-  function FileLoadController(view, $button) {
-    var controller;
+  function FileLoadController($button) {
+    var controller, view;
+
+    view = new InputView($('<input>').attr('type', 'file'));
     FileLoadController.superconstructor.call(this, view);
 
+    controller = this;
     this.reader = undefined;
     this.file = undefined;
-
-    controller = this;
 
     this.view.$view.change(function(evt) {
       controller.initFileRead(evt.target.files[0]);
     });
 
-    if ($button) {
-      $button.on('dragover', this.buttonDragOver.bind(this));
-      $button.on('drop', this.buttonDrop.bind(this));
-      $button.click(function() {
-        controller.view.$view.click();
-      });
-    }
+    $button.on('dragover', this.buttonDragOver.bind(this));
+    $button.on('drop', this.buttonDrop.bind(this));
+    $button.click(function() {
+      controller.view.$view.click();
+    });
   }
   extend(FileLoadController, Controller);
 
+  /*
+   * Functions to implement
+   */
+
+  /**
+   * unread a file, e.g. on file read error. Please overload.
+   */
+  FileLoadController.prototype.unreadFile = function() {
+    console.warn('FileLoadController.unreadfile() called but not overloaded');
+  };
+
+  /**
+   * Read a file into your model or whatever. Please overload.
+   *
+   * @param fileContents
+   *          the contents of the loaded file
+   */
+  FileLoadController.prototype.readFile = function(fileContents) {
+    console.log(fileContents);
+  };
+
+  /*
+   * Protected functions. Do not implement.
+   */
+
+  /**
+   * Drag&Drop event handling: set drag&drop behavior
+   *
+   * @param evt
+   *          the dragover event
+   * @return false
+   */
   FileLoadController.prototype.buttonDragOver = function(evt) {
     evt.originalEvent.dataTransfer.dropEffect = 'copy';
     evt.preventDefault();
     return false;
   };
 
+  /**
+   * Handle Drag-Drop events: if there is exactly one file carried, open it.
+   * Show error-toasts otherwise.
+   *
+   * @param evt
+   * @return false
+   */
   FileLoadController.prototype.buttonDrop = function(evt) {
     var files = evt.originalEvent.dataTransfer.files;
 
@@ -55,20 +96,31 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
     return false;
   };
 
+  /**
+   * initiate file read after its selection. Applies to drag&drop and click.
+   *
+   * @param file
+   */
   FileLoadController.prototype.initFileRead = function(file) {
     this.file = file;
     this.reader = new FileReader();
 
-    this.reader.onerror = this.error.bind(this);
-    this.reader.onabort = this.abort.bind(this);
-    this.reader.onload = this.load.bind(this);
+    this.reader.onerror = this.loadError.bind(this);
+    this.reader.onabort = this.loadAbort.bind(this);
+    this.reader.onload = this.loadSuccess.bind(this);
 
     this.reader.readAsText(this.file);
   };
 
-  FileLoadController.prototype.error = function(evt) {
-    // file api callback function
-    StateLoader.unload();
+  /**
+   * FileReader callback function for load error. Calls `this.unreadFile()` and
+   * shows the cause of the error as a toast
+   *
+   * @param evt
+   */
+  FileLoadController.prototype.loadError = function(evt) {
+    this.unreadFile();
+
     switch (evt.target.error.code) {
     case evt.target.error.NOT_FOUND_ERR:
       new Toast(Strings.filenotfound);
@@ -81,45 +133,33 @@ define(['lib/extend', 'core/controller', 'presets', './toast', './strings',
     default:
       new Toast(Strings.fileerror, Toast.LONG);
     }
+
+    this.model.emit('reset');
   };
 
-  FileLoadController.prototype.load = function(evt) {
+  /**
+   * FileReader callback function: load success. Calls this.readFile()
+   *
+   * @param evt
+   */
+  FileLoadController.prototype.loadSuccess = function(evt) {
     var blob, Alltabs;
 
-    if (evt.target !== this.reader) {
+    if (evt.target === this.reader) {
+      this.readFile(evt.target.result);
+    } else {
       new Toast(Strings.loadfailed, Toast.LONG);
-      this.reset();
     }
 
-    blob = evt.target.result;
-
-    Toast.closeTemporaryToasts();
-    try {
-      // TODO use filename until the tournament name is stored in the file, too
-      StateSaver.newTree(this.file.name.replace(/(\.(json|txt|csv))+$/, ''));
-      if (StateLoader.loadString(blob)) {
-        StateSaver.saveState();
-
-        Toast.closeTemporaryToasts();
-        new Toast(Strings.loaded, Toast.LONG);
-      } else {
-        new Toast(Strings.loadfailed, Toast.LONG);
-        // TODO what if something invalid has been returned?
-      }
-    } catch (err) {
-      new Toast(Strings.loadfailed, Toast.LONG);
-      // perform a complete reset of the everything related to the
-      // tournament
-    }
-    this.reset();
+    this.model.emit('reset');
   };
 
-  FileLoadController.prototype.abort = function() {
+  /**
+   * FileReader callback function: loading was aborted (e.g. during file
+   * selection)
+   */
+  FileLoadController.prototype.loadAbort = function() {
     new Toast(Strings.fileabort);
-  };
-
-  FileLoadController.prototype.reset = function() {
-    this.view.$view.val('');
   };
 
   return FileLoadController;

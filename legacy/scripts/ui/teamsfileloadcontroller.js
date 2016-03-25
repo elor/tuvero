@@ -16,131 +16,40 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
-    './playermodel', './teammodel', 'presets'], function(extend, Controller,
-    Toast, Strings, State, PlayerModel, TeamModel, Presets) {
-
-  function numutfbytes(character) {
-    var code;
-
-    code = character.charCodeAt();
-
-    switch (true) {
-    case code < 0xC0:
-      return 1;
-    case code >= 0xC0 && code < 0xE0:
-      return 2;
-    case code >= 0xE0 && code < 0xF0:
-      return 3;
-    case code >= 0xF0 && code < 0xF8:
-      return 4;
-    case code >= 0xF8 && code < 0xFC:
-      return 5;
-    case code >= 0xFC && code < 0xFE:
-      return 6;
-    }
-
-    return 0;
-  }
-
-  function isutf8byte(character) {
-    var code;
-
-    code = character.charCodeAt();
-
-    return code >= 0x80 && code < 0xC0;
-  }
-
-  function isutf8codepoint(string) {
-    var bytes, byteindex;
-
-    bytes = numutfbytes(string[0]);
-    if (bytes <= 1) {
-      return false;
-    }
-
-    for (byteindex = 1; byteindex < bytes; byteindex += 1) {
-      if (!isutf8byte(string[byteindex])) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  function latin2utf8symbol(characters) {
-    var bytes, symbol, byteindex;
-
-    bytes = numutfbytes(characters[0]);
-
-    symbol = characters[0].charCodeAt();
-    switch (bytes) {
-    case 1:
-      return characters[0];
-    case 2:
-      symbol = symbol ^ 0xC0;
-      break;
-    case 3:
-      symbol = symbol ^ 0xE0;
-      break;
-    case 4:
-      symbol = symbol ^ 0xF0;
-      break;
-    case 5:
-      symbol = symbol ^ 0xF8;
-      break;
-    case 6:
-      symbol = symbol ^ 0xFC;
-      break;
-    default:
-      return characters[0];
-    }
-
-    for (byteindex = 1; byteindex < bytes; byteindex += 1) {
-      symbol = symbol << 6;
-      symbol += characters[byteindex].charCodeAt() ^ 0x80;
-    }
-
-    return String.fromCharCode(symbol);
-  }
-
-  function latin2utf8(string) {
-    var symbolindex, ret, symbol;
-    ret = [];
-
-    for (symbolindex = 0; symbolindex < string.length; symbolindex += 1) {
-
-      symbol = string.substr(symbolindex, 6);
-      if (isutf8codepoint(symbol)) {
-        // skip utf8 bytes
-        symbolindex += numutfbytes(symbol) - 1;
-        // add utf-8 codepoint instead of its ansi representation
-        ret.push(latin2utf8symbol(symbol));
-      } else {
-        // just display the ansi symbol
-        ret.push(string[symbolindex]);
-      }
-    }
-
-    return ret.join('');
-  }
+define(['lib/extend', 'ui/fileloadcontroller', './toast', './strings',
+    'ui/state', './playermodel', './teammodel', 'presets', //
+    'ui/unicodehelper'], function(extend, FileLoadController, Toast, Strings,
+    State, PlayerModel, TeamModel, Presets, UnicodeHelper) {
 
   /**
    * Constructor
    *
-   * @param view
-   *          an InputView instance of a filereader input
    * @param $button
    *          Optional. A button element which, when clicked, starts the file
    *          selection
    */
-  function TeamsFileLoadController(view, $button) {
-    TeamsFileLoadController.superconstructor.call(this, view);
-
-    this.init();
-    this.initButton($button);
+  function TeamsFileLoadController($button) {
+    TeamsFileLoadController.superconstructor.call(this, $button);
   }
-  extend(TeamsFileLoadController, Controller);
+  extend(TeamsFileLoadController, FileLoadController);
+
+  /**
+   * Implemented function: file read success. Start parsing.
+   *
+   * @param fileContents
+   *          file contents
+   */
+  TeamsFileLoadController.prototype.readFile = function(fileContents) {
+    return TeamsFileLoadController.load(fileContents);
+  };
+
+  /**
+   * Implemented function: unread current file. Nothing to do here, since there
+   * should be no registered teams
+   */
+  TeamsFileLoadController.prototype.unreadFile = function() {
+    // Nothing to unread
+  };
 
   /**
    * reads names from a string and adds the players accordingly. Ignores
@@ -189,6 +98,13 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     return lines;
   };
 
+  /**
+   * Read teamsize from teams array
+   *
+   * @param teams
+   *          a 2d teams array
+   * @return the team size, or 0 on failure.
+   */
   TeamsFileLoadController.readTeamsize = function(teams) {
     var teamsizes, teamsize;
 
@@ -211,31 +127,16 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     return teamsize;
   };
 
-  TeamsFileLoadController.prototype.reset = function() {
-    this.model.emit('reset');
-  };
-
-  TeamsFileLoadController.prototype.loadFileError = function(evt) {
-    // file api callback function
-    switch (evt.target.error.code) {
-    case evt.target.error.NOT_FOUND_ERR:
-      new Toast(Strings.filenotfound);
-      break;
-    case evt.target.error.NOT_READABLE_ERR:
-      new Toast(Strings.filenotreadable);
-      break;
-    case evt.target.error.ABORT_ERR:
-      break;
-    default:
-      new Toast(Strings.fileerror);
-    }
-
-    this.reset();
-  };
-
+  /**
+   * load the teams from a csv string and write them to State
+   *
+   * @param csvString
+   * @return true on success, false otherwise
+   */
   TeamsFileLoadController.load = function(csvString) {
     var teams, teamsize;
-    csvString = latin2utf8(csvString);
+
+    csvString = UnicodeHelper.latin2utf8(csvString);
 
     if (State.teams.length !== 0) {
       new Toast(Strings.teamsnotempty);
@@ -266,75 +167,6 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     new Toast(Strings.loaded);
 
     return true;
-  };
-
-  TeamsFileLoadController.prototype.loadFileLoad = function(evt) {
-    var contents, teams, teamsize;
-
-    contents = evt.target.result;
-
-    this.reset();
-    return TeamsFileLoadController.load(contents);
-  };
-
-  TeamsFileLoadController.prototype.loadFileAbort = function() {
-    new Toast(Strings.fileabort);
-
-    this.reset();
-  };
-
-  TeamsFileLoadController.prototype.buttonDragOver = function(e) {
-    e.originalEvent.dataTransfer.dropEffect = 'copy';
-    e.preventDefault();
-    return false;
-  };
-
-  TeamsFileLoadController.prototype.buttonDrop = function(e) {
-    var files = e.originalEvent.dataTransfer.files;
-    if (files.length == 1 && files[0]) {
-      this.initFileRead(files[0]);
-    } else {
-      // TODO use Strings
-      new Toast('wrong number of files', Toast.LONG);
-    }
-
-    e.preventDefault();
-    return false;
-  };
-
-  TeamsFileLoadController.prototype.initFileRead = function(file) {
-    var reader = new FileReader();
-
-    reader.onerror = this.loadFileError.bind(this);
-    reader.onabort = this.loadFileAbort.bind(this);
-    reader.onload = this.loadFileLoad.bind(this);
-
-    // TODO try different encodings and select the best one
-    reader.readAsBinaryString(file);
-  };
-
-  TeamsFileLoadController.prototype.init = function() {
-    var controller = this;
-
-    this.view.$view.data('controller', this).change(function(evt) {
-      controller.initFileRead(evt.target.files[0]);
-    });
-  };
-
-  TeamsFileLoadController.prototype.initButton = function($button) {
-    var $input = this.view.$view;
-
-    this.$button = $button;
-
-    if (!$button) {
-      return;
-    }
-
-    $button.on('dragover', this.buttonDragOver.bind(this));
-    $button.on('drop', this.buttonDrop.bind(this));
-    $button.click(function(e) {
-      $input.click();
-    });
   };
 
   return TeamsFileLoadController;

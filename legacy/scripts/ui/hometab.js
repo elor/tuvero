@@ -6,8 +6,8 @@
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
     './toast', './browser', 'ui/timemachineview', 'ui/statesaver',
-    'ui/fileloadcontroller'], function(extend, $, View, State, Strings, Toast,
-    Browser, TimeMachineView, StateSaver, FileLoadController) {
+    'ui/statefileloadcontroller'], function(extend, $, View, State, Strings,
+    Toast, Browser, TimeMachineView, StateSaver, StateFileLoadController) {
   /**
    * represents a whole team tab
    *
@@ -56,9 +56,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
      * tournament loader
      */
     $button = this.$view.find('button.load');
-    $input = this.$view.find('input.load');
-    this.fileLoadController = new FileLoadController(
-        new View(undefined, $input), $button);
+    this.fileLoadController = new StateFileLoadController($button);
 
   };
 

@@ -45,7 +45,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
    * TODO maybe split it into multiple autodetected functions?
    */
   TeamsTab.prototype.init = function() {
-    var $template, $container, value;
+    var $template, $container, $button, value;
 
     // teamsize bugfix
     if (State.teamsize.get() < Presets.registration.minteamsize) {
@@ -122,9 +122,8 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     // hide teamTable content depending on state
     this.teamTableView = new TeamTableView(this.teamTable, State.teamsize);
 
-    $container = this.$view.find('>.fileloadteams');
-    this.teamsFileLoadController = new TeamsFileLoadController(new InputView(
-        $container.find('input')), $container.find('button'));
+    $button = this.$view.find('>button.fileloadteams');
+    this.teamsFileLoadController = new TeamsFileLoadController($button);
 
     this.autocompletionModel = new AutocompletionModel();
     this.autocompletionModel.download(Presets.names.playernameurl);
