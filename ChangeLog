@@ -10,6 +10,7 @@
 	data-imgs added for delete buttons
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: logic for button-to-input click delegation added
+	load prereg.csv by drag-and-drop (no additional indicators yet)
 
 	* legacy/scripts/ui/teamstab.js: teamsfileload button added
 	.filereader -> .fileloadteams

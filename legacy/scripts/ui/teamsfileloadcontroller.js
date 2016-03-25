@@ -138,11 +138,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     TeamsFileLoadController.superconstructor.call(this, view);
 
     this.init();
-    if ($button) {
-      $button.click(function(e) {
-        view.$view.click();
-      });
-    }
+    this.initButton($button);
   }
   extend(TeamsFileLoadController, Controller);
 
@@ -219,7 +215,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     this.model.emit('reset');
   };
 
-  TeamsFileLoadController.loadFileError = function(evt) {
+  TeamsFileLoadController.prototype.loadFileError = function(evt) {
     // file api callback function
     switch (evt.target.error.code) {
     case evt.target.error.NOT_FOUND_ERR:
@@ -272,7 +268,7 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     return true;
   };
 
-  TeamsFileLoadController.loadFileLoad = function(evt) {
+  TeamsFileLoadController.prototype.loadFileLoad = function(evt) {
     var contents, teams, teamsize;
 
     contents = evt.target.result;
@@ -281,25 +277,65 @@ define(['lib/extend', 'core/controller', './toast', './strings', 'ui/state',
     return TeamsFileLoadController.load(contents);
   };
 
-  TeamsFileLoadController.loadFileAbort = function() {
+  TeamsFileLoadController.prototype.loadFileAbort = function() {
     new Toast(Strings.fileabort);
 
     this.reset();
+  };
+
+  TeamsFileLoadController.prototype.buttonDragOver = function(e) {
+    e.originalEvent.dataTransfer.dropEffect = 'copy';
+    e.preventDefault();
+    return false;
+  };
+
+  TeamsFileLoadController.prototype.buttonDrop = function(e) {
+    var files = e.originalEvent.dataTransfer.files;
+    if (files.length == 1 && files[0]) {
+      this.initFileRead(files[0]);
+    } else {
+      // TODO use Strings
+      new Toast('wrong number of files', Toast.LONG);
+    }
+
+    e.preventDefault();
+    return false;
+  };
+
+  TeamsFileLoadController.prototype.initFileRead = function(file) {
+    var reader = new FileReader();
+
+    reader.onerror = this.loadFileError.bind(this);
+    reader.onabort = this.loadFileAbort.bind(this);
+    reader.onload = this.loadFileLoad.bind(this);
+
+    // TODO try different encodings and select the best one
+    reader.readAsBinaryString(file);
   };
 
   TeamsFileLoadController.prototype.init = function() {
     var controller = this;
 
     this.view.$view.data('controller', this).change(function(evt) {
-      var reader = new FileReader();
-
-      reader.onerror = TeamsFileLoadController.loadFileError.bind(controller);
-      reader.onabort = TeamsFileLoadController.loadFileAbort.bind(controller);
-      reader.onload = TeamsFileLoadController.loadFileLoad.bind(controller);
-
-      // TODO try different encodings and select the best one
-      reader.readAsBinaryString(evt.target.files[0]);
+      controller.initFileRead(evt.target.files[0]);
     });
+  };
+
+  TeamsFileLoadController.prototype.initButton = function($button) {
+    var $input = this.view.$view;
+
+    this.$button = $button;
+
+    if (!$button) {
+      return;
+    }
+
+    $button.click(function(e) {
+      $input.click();
+    });
+
+    $button.on('dragover', this.buttonDragOver.bind(this));
+    $button.on('drop', this.buttonDrop.bind(this));
   };
 
   return TeamsFileLoadController;
