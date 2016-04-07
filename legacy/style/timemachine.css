@@ -9,3 +9,20 @@
 .timemachineview .rootcommits {
   margin-bottom: 1em;
 }
+
+.timemachinecommitview .name:hover {
+  cursor: text;
+  text-decoration: underline;
+}
+
+.timemachinecommitview input.rename {
+  display: none;
+}
+
+.timemachinecommitview.renaming input.rename {
+  display: inline-block;
+}
+
+.timemachinecommitview.renaming .name {
+  display: none;
+}

@@ -14,6 +14,12 @@
 
 	* legacy/style/teams.css: .downloadcsvexample visibility bug fixed
 
+	* core/templates/timemachinecommitview.html: rename input added
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: rename input enabled
+
+	* legacy/style/timemachine.css: rename input visibility enabled
+
 2016-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/*tab.html: header-buttons use the 'left' class instead of special rules
