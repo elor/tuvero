@@ -25,6 +25,7 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
 
     this.view.$view.find('.name').click(this.startRename.bind(this));
     this.$rename.blur(this.endRename.bind(this));
+    this.$rename.click(this.endRename.bind(this));
     this.$rename.keydown(this.renameKey.bind(this));
   }
   extend(TimeMachineCommitController, Controller);
@@ -67,7 +68,8 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   };
 
   TimeMachineCommitController.prototype.rename = function(name) {
-    if (name && name.length && name != this.model.getTreeName()) {
+    name = name.trim();
+    if (name != this.model.getTreeName()) {
       this.model.setTreeName(name);
     }
   }
@@ -85,10 +87,15 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     }
   };
 
-  TimeMachineCommitController.prototype.endRename = function() {
+  TimeMachineCommitController.prototype.endRename = function(evt) {
     this.rename(this.$rename.val());
 
     this.view.$view.removeClass('renaming');
+
+    if (evt) {
+      evt.preventDefault();
+      return false;
+    }
   };
 
   TimeMachineCommitController.prototype.renameKey = function(evt) {
