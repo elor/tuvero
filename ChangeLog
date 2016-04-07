@@ -8,6 +8,12 @@
 
 	* core/scripts/tournamentmodel.js: addBye() added
 
+	* core/templates/teamstab.html: .downloadcsvexample renamed from something else
+
+	* legacy/scripts/ui/teamstab.js: .downloadcsvexample selector bug fixed
+
+	* legacy/style/teams.css: .downloadcsvexample visibility bug fixed
+
 2016-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/*tab.html: header-buttons use the 'left' class instead of special rules

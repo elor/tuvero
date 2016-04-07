@@ -133,7 +133,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     this.autocompletionView = new AutocompletionView(this.autocompletionModel,
         $container);
 
-    $container = this.$view.find('>.fileloadteams .downloadexample');
+    $container = this.$view.find('.downloadcsvexample');
     this.downloadexamplecontroller = new TeamFormatDownloadController(new View(
         undefined, $container));
   };

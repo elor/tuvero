@@ -88,7 +88,7 @@ div#tabs > [data-tab="teams"] {
   transition: max-width 0.5s;
 }
 
-#tabs > [data-tab="teams"].noprereg .fileloadteams {
+#tabs > [data-tab="teams"].noprereg .fileloadteams, #tabs > [data-tab="teams"].noprereg .downloadcsvexample {
   display: none;
 }
 
