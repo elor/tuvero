@@ -18,13 +18,13 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     './readonlylistmodel', 'options', './indexedmodel', './correctionmodel',
     './matchreferencemodel', './resultreferencemodel',
     './correctionreferencemodel', './sortedreferencelistmodel',
-    './combinedreferencelistmodel'], function(extend, PropertyModel, ListModel,
-    UniqueListModel, RankingMapper, StateValueModel, MatchModel, MatchResult,
-    ListCollectorModel, Listener, RankingModel, ReferenceListModel,
-    MapListModel, ValueModel, ReadonlyListModel, Options, IndexedModel,
-    CorrectionModel, MatchReferenceModel, ResultReferenceModel,
+    './combinedreferencelistmodel', './byeresult'], function(extend,
+    PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
+    MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
+    ReferenceListModel, MapListModel, ValueModel, ReadonlyListModel, Options,
+    IndexedModel, CorrectionModel, MatchReferenceModel, ResultReferenceModel,
     CorrectionReferenceModel, SortedReferenceListModel,
-    CombinedReferenceListModel) {
+    CombinedReferenceListModel, ByeResult) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -138,21 +138,6 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     });
 
     return votes;
-  };
-
-  /**
-   * Whenever a bye is added to the this.votes.bye ListModel instance, it's
-   * automatically submitted to the results
-   *
-   * @param tournament
-   */
-  TournamentModel.initByeListener = function(tournament) {
-    if (tournament.votes.bye) {
-      Listener.bind(tournament.votes.bye, 'insert', function(emitter, event,
-          data) {
-        this.ranking.bye(data.object);
-      }, tournament);
-    }
   };
 
   /**
@@ -569,6 +554,37 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
 
     return true;
   };
+
+  /**
+   * Properly add a ByeResult to this.votes, this.ranking and this.history.
+   *
+   * @param byeResultOrTeamID
+   *          Either a proper byeResult, or the team ID
+   * @param matchID
+   * @param round
+   */
+  TournamentModel.prototype.addBye = function(byeResultOrTeamID, matchID, //
+  round) {
+    var i, teamID, byeResult;
+
+    if (arguments.length == 1 && (Type instanceof ByeResult)) {
+      byeResult = byeResultOrTeamID;
+    } else if (arguments.length == 3 && Type.isNumber(byeResultOrTeamID)
+        && Type.isNumber(matchID) && Type.isNumber(round)) {
+      teamID = byeResultOrTeamID;
+      byeResult = new ByeResult(teamID, [Options.byepointswon,
+          Options.byepointslost], matchID, round);
+    } else {
+      console.error(arguments);
+      throw new Error("addBye isn't provided the correct arguments");
+    }
+
+    this.votes.bye.push(teamID);
+    this.ranking.bye(teamID);
+    this.history.push(byeResult);
+
+    return byeResult;
+  }
 
   /**
    * correct a previous result by replacing it with a new result and updating

@@ -1,3 +1,13 @@
+2016-04-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/kotournamentmodel.js: using addBye()
+
+	* core/scripts/roundtournamentmodel.js: using addBye()
+
+	* core/scripts/swisstournamentmodel.js: using addBye()
+
+	* core/scripts/tournamentmodel.js: addBye() added
+
 2016-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/*tab.html: header-buttons use the 'left' class instead of special rules

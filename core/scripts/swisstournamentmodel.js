@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './roundtournamentmodel', 'core/random',
-    './matchmodel', './byeresult', 'options', 'presets'], function(extend,
+define(['lib/extend', './roundtournamentmodel', 'core/random', './matchmodel',
+    './byeresult', 'options', 'presets'], function(extend,
     RoundTournamentModel, Random, MatchModel, ByeResult, Options, Presets) {
   var rng = new Random();
   /**
@@ -124,11 +124,7 @@ define(['lib/extend', './roundtournamentmodel', 'core/random',
      * add the byes and matches to the current tournament
      */
     votes.byes.forEach(function(byeTeamID, byeIndex) {
-      // TODO extract method
-      this.votes.bye.push(byeTeamID);
-      this.history.push(new ByeResult(byeTeamID, [Options.byepointswon,
-          Options.byepointslost], matches.length + byeIndex, this.round));
-      this.ranking.bye(byeTeamID);
+      this.addBye(byeTeamID, matches.length + byeIndex, this.round);
     }, this);
 
     matches.forEach(function(matchTeams, matchid) {

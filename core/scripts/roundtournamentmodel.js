@@ -72,10 +72,7 @@ define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
       }
       id = slideList.length >> 1;
 
-      this.votes.bye.push(teamB);
-      this.history.push(new ByeResult(teamB, [Options.byepointswon,
-          Options.byepointslost], id, this.round));
-      this.ranking.bye(teamB);
+      this.addBye(teamB, id, this.round);
     }
 
     id = 0;

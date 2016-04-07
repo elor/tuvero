@@ -335,9 +335,7 @@ define(['lib/extend', './tournamentmodel', 'core/random', './type',
         }
 
         if ((match && match.isResult() && match.isBye())) {
-          match = new ByeResult(teamID, [Options.byepointswon,
-              Options.byepointslost], nextMatchID, nextGroupID);
-          this.history.push(match);
+          match = this.addBye(teamID, nextMatchID, nextGroupID);
           this.checkForFollowupMatches(match);
         } else if (match.getTeamID(0) === undefined
             && match.getTeamID(1) === undefined) {
