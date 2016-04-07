@@ -17,6 +17,7 @@
 	* core/templates/timemachinecommitview.html: rename input added
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: rename input enabled
+	escape-button works now
 
 	* legacy/style/timemachine.css: rename input visibility enabled
 

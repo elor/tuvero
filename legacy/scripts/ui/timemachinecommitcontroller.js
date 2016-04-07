@@ -105,7 +105,8 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
 
     switch (evt.which) {
     case 27: // escape
-      this.$input.val(this.model.getTreeName());
+      this.$rename.val(this.model.getTreeName());
+      // deliberate fallthrough
     case 13: // enter
       this.endRename();
       break;
