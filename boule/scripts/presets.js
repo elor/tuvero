@@ -36,7 +36,7 @@ define(function() {
       teamsizeicon: true
     },
     names: {
-      playernameurl: 'https://boulesdb.appspot.com/json',
+      playernameurl: '',
       dbplayername: 'bouleplayers',
       teamsfile: 'tuvero-anmeldungen.txt'
     }
