@@ -3,10 +3,13 @@
 	* core/templates/timemachinecommitview.html: RenameController
 
 	* legacy/scripts/ui/renamecontroller.js: All click-renaming is taking place here
+	use of 'hidden' classes for rename stuff to reduce CSS footprint
+	Act on the $anchor directly, instead of writing classes to the parent
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: extends RenameController
 
 	* legacy/style/rename.css: supposed to contain rename rules only
+	removed again. use 'hidden' classes instead
 
 	* legacy/style/timemachine.css: rename stuff moved to rename.css
 

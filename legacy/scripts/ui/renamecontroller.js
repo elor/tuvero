@@ -1,5 +1,5 @@
 /**
- * RenameController
+ * RenameController *
  *
  * @return RenameController
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -16,6 +16,7 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   function RenameController(view) {
     RenameController.superconstructor.call(this, view);
 
+    this.$anchor = undefined;
     this.$rename = undefined;
 
     this.view.$view.find('.startrename').click(this.startRename.bind(this));
@@ -32,21 +33,30 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     return 'overload RenameController.prototype.getName()!';
   };
 
+  RenameController.prototype.initRenameInput = function() {
+    if (!this.$rename) {
+      this.$rename = $('<input>').addClass('rename');
+      this.$rename.blur(this.endRename.bind(this));
+      this.$rename.click(this.endRename.bind(this));
+      this.$rename.keydown(this.renameKeyDown.bind(this));
+    }
+  };
+
   RenameController.prototype.startRename = function(evt) {
-    var $anchor;
-
-    this.initRenameInput();
-
-    if (this.$rename.parent().length) {
+    if (this.$anchor) {
       return;
     }
 
-    $anchor = $(evt.target);
+    this.$anchor = $(evt.target);
+    if (!this.$anchor) {
+      return;
+    }
 
-    $anchor.before(this.$rename);
+    this.initRenameInput();
+
+    this.$anchor.before(this.$rename);
+    this.$anchor.addClass('hidden');
     this.$rename.val(this.getName());
-    this.view.$view.addClass('renaming');
-
     this.$rename.focus();
 
     evt.preventDefault();
@@ -56,16 +66,16 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   RenameController.prototype.endRename = function(evt) {
     var name;
 
-    if (!this.$rename) {
+    if (!this.$anchor) {
       return;
     }
 
     name = this.$rename.val().trim();
 
     if (this.setName(name)) {
-      this.view.$view.removeClass('renaming');
-      this.$rename.remove();
-      this.$rename = undefined;
+      this.$rename.detach();
+      this.$anchor.removeClass('hidden');
+      this.$anchor = undefined;
     }
 
     evt.preventDefault();
@@ -73,7 +83,7 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   };
 
   RenameController.prototype.renameKeyDown = function(evt) {
-    if (!evt) {
+    if (!evt || !this.$rename) {
       return;
     }
 
@@ -83,15 +93,6 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
       // deliberate fallthrough
     case 13: // enter
       return this.endRename(evt);
-    }
-  };
-
-  RenameController.prototype.initRenameInput = function() {
-    if (!this.$rename) {
-      this.$rename = $('<input>').addClass('rename');
-      this.$rename.blur(this.endRename.bind(this));
-      this.$rename.click(this.endRename.bind(this));
-      this.$rename.keydown(this.renameKeyDown.bind(this));
     }
   };
 
