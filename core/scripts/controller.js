@@ -21,5 +21,8 @@ define(function() {
     this.view = view;
   }
 
+  Controller.prototype.destroy = function() {
+  };
+
   return Controller;
 });
