@@ -81,6 +81,10 @@ a[data-img].inline {
   border-radius: 0.2em;
 }
 
+.rename:hover {
+  text-decoration: underline;
+}
+
 .rename:hover:after {
   display: inline-block;
   font-size: 80%;

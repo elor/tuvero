@@ -21,6 +21,7 @@
 	TeamNameController removed
 
 	* legacy/style/general.css: use RenameController classes (.rename instead of .editable)
+	underline .rename when hovered over
 
 	* core/templates/kosystem.html: using .rename
 
@@ -51,6 +52,8 @@
 	* legacy/scripts/ui/rankingview.js: using TeamView for team lists, which enables team name editing
 	Side effect: TeamView instances replace TeamCollector
 	destroy() implemented
+
+	* core/templates/koteam.html: KOTree teams can be renamed
 
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
