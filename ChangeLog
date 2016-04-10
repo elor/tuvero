@@ -17,6 +17,7 @@
 	* core/templates/teamstab.html: use RenameController classes (.rename instead of .editable)
 
 	* legacy/scripts/ui/teamnamecontroller.js: extend RenameController
+	TeamNameController removed
 
 	* legacy/style/general.css: use RenameController classes (.rename instead of .editable)
 
@@ -29,6 +30,8 @@
 	* legacy/scripts/ui/tournamentcontroller.js: extending RenameController
 
 	* legacy/style/new.css: using RenameController for rename styling
+
+	* legacy/scripts/ui/teamstab.js: TeamNameController removed
 
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

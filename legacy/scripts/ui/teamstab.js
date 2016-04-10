@@ -7,16 +7,16 @@
 define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     './newteamview', './lengthview', './teamsizeview', './preregcloserview',
     './checkboxview', 'core/classview', './tabshandle',
-    './teamremovecontroller', './teamnamecontroller', './teamtableview',
-    './inputview', './teamsfileloadcontroller', 'presets', 'core/lengthmodel',
+    './teamremovecontroller', './teamtableview', './inputview',
+    './teamsfileloadcontroller', 'presets', 'core/lengthmodel',
     './deleteallteamscontroller', './autocompletionmodel',
     './autocompletionview', './autocompletionlegacyblobber',
     './teamformatdownloadcontroller', 'timemachine/timemachine'], function(
     extend, View, ListView, TeamView, State, NewTeamView, LengthView,
     TeamSizeView, PreregCloserView, CheckBoxView, ClassView, TabsHandle,
-    TeamRemoveController, TeamNameController, TeamTableView, InputView,
-    TeamsFileLoadController, Presets, LengthModel, DeleteAllTeamsController,
-    AutocompletionModel, AutocompletionView, AutocompletionLegacyBlobber,
+    TeamRemoveController, TeamTableView, InputView, TeamsFileLoadController,
+    Presets, LengthModel, DeleteAllTeamsController, AutocompletionModel,
+    AutocompletionView, AutocompletionLegacyBlobber,
     TeamFormatDownloadController, TimeMachine) {
   /**
    * represents a whole team tab
@@ -114,10 +114,6 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     $container = this.$view.find('>button.deleteall');
     this.deleteAllTeamsController = new DeleteAllTeamsController(new View(
         undefined, $container));
-
-    // player name changes
-    this.teamNameController = new TeamNameController(this.teamList);
-    this.teamNameController = new TeamNameController(this.teamTable);
 
     // hide teamTable content depending on state
     this.teamTableView = new TeamTableView(this.teamTable, State.teamsize);
