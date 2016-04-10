@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
-    './teammodel'], function(extend, TemplateView, Strings, ListCollectorModel,
-    TeamModel) {
+    './teammodel', 'ui/teamview'], function(extend, TemplateView, Strings,
+    ListCollectorModel, TeamModel, TeamView) {
   /**
    * Constructor
    *
@@ -31,10 +31,10 @@ define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
     this.$headercomponenttemplate.detach();
     this.$headernametemplate = this.$rankingheader.find('.name');
     this.$headernametemplate.detach();
-    this.$nametemplate = this.$template.find('.name').detach();
     this.$componenttemplate = this.$template.find('.component').detach();
 
     this.teamList = teamList;
+    this.teamViews = [];
     this.abbreviate = abbreviate;
 
     this.updateTimeout = undefined;
@@ -51,6 +51,10 @@ define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
 
   RankingView.prototype.reset = function() {
     this.$view.find('.rankingrow').remove();
+    this.teamViews.forEach(function(teamView) {
+      teamView.destroy();
+    });
+    this.teamViews = [];
   };
 
   RankingView.prototype.update = function() {
@@ -90,22 +94,14 @@ define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
     }, this);
 
     ranks.displayOrder.forEach(function(teamIndex, rank) {
-      var i, $row, team, player, $nametemplate;
+      var i, $row, team, player;
 
       team = this.teamList.get(ranks.ids[teamIndex]);
 
       $row = this.$template.clone();
       $row.find('.rank').text(ranks.ranks[teamIndex] + 1);
-      $row.find('.teamno').text(team.getID() + 1);
+      this.teamViews.push(new TeamView(team, $row));
 
-      for (i = 0; i < teamsize; i += 1) {
-        player = team && team.getPlayer(i);
-        $nametemplate = this.$nametemplate.clone();
-        if (player) {
-          $nametemplate.text(player.getName());
-        }
-        $row.append($nametemplate);
-      }
       ranks.components.forEach(function(componentName) {
         $row.append(this.$componenttemplate.clone().text(
             ranks[componentName][teamIndex]));

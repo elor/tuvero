@@ -17,8 +17,6 @@ define(['lib/extend', 'ui/renamecontroller', './toast', './strings'], function(
    */
   function TeamController(view, $input) {
     TeamController.superconstructor.call(this, view);
-
-    this.toast = undefined;
   }
   extend(TeamController, RenameController);
 
@@ -35,6 +33,9 @@ define(['lib/extend', 'ui/renamecontroller', './toast', './strings'], function(
     var index, $names;
 
     $names = this.view.$view.find('.name');
+    if ($names.length === 0) {
+      $names = this.view.$view.filter('.name');
+    }
     index = $names.index($name);
 
     return this.model.getPlayer(index);

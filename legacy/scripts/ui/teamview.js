@@ -83,5 +83,11 @@ function(extend, View, Type, TeamController) {
     return IndexTeamView;
   };
 
+  TeamView.destroy = function() {
+    this.teamController.destroy();
+
+    TeamView.superclass.destroy.call(this);
+  };
+
   return TeamView;
 });

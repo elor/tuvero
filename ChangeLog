@@ -6,6 +6,7 @@
 	use of 'hidden' classes for rename stuff to reduce CSS footprint
 	Act on the $anchor directly, instead of writing classes to the parent
 	bind to dynamically added elements
+	destroy() implemented
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: extends RenameController
 
@@ -36,12 +37,18 @@
 	* core/templates/newtab.html: '.rename' classes added
 
 	* legacy/scripts/ui/teamcontroller.js: Renaming logic team-by-team
+	destroy() implemented
 
 	* legacy/scripts/ui/teamview.js: Using TeamController
+	destroy() implemented
 
 	* core/scripts/controller.js: Controller.prototype.destroy() added
 
 	* core/scripts/tournamentmodel.js: Type ('core/type') wasn't loaded
+
+	* core/templates/rankingview.html: using TeamView classes
+
+	* legacy/scripts/ui/rankingview.js: using TeamView for team lists, which enables team name editing
 
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

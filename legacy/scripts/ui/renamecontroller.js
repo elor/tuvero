@@ -96,5 +96,13 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     }
   };
 
+  RenameController.prototype.destroy = function() {
+    if (this.$rename) {
+      this.$rename.remove();
+    }
+
+    RenameController.superclass.destroy.call(this);
+  };
+
   return RenameController;
 });
