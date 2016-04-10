@@ -1,0 +1,11 @@
+input.rename {
+  display: none;
+}
+
+.renaming input.rename {
+  display: inline-block;
+}
+
+.renaming .name {
+  display: none;
+}

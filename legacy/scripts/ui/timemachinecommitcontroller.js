@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'timemachine/timemachine',
+define(['lib/extend', 'ui/renamecontroller', 'timemachine/timemachine',
     'ui/stateloader', 'ui/strings', 'ui/toast', 'ui/filesavermodel'], //
-function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
+function(extend, RenameController, TimeMachine, StateLoader, Strings, Toast,
     FileSaverModel) {
   /**
    * Constructor
@@ -16,19 +16,12 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   function TimeMachineCommitController(view) {
     TimeMachineCommitController.superconstructor.call(this, view);
 
-    this.$rename = this.view.$view.find('input.rename');
-
     this.view.$view.find('button.removecommit').click(this.remove.bind(this));
     this.view.$view.find('button.loaddescendant').click(this.load.bind(this));
     this.view.$view.find('button.cleanuptree').click(this.cleanup.bind(this));
     this.view.$view.find('button.download').click(this.download.bind(this));
-
-    this.view.$view.find('.name').click(this.startRename.bind(this));
-    this.$rename.blur(this.endRename.bind(this));
-    this.$rename.click(this.endRename.bind(this));
-    this.$rename.keydown(this.renameKey.bind(this));
   }
-  extend(TimeMachineCommitController, Controller);
+  extend(TimeMachineCommitController, RenameController);
 
   TimeMachineCommitController.prototype.remove = function() {
     var active, confirmtext, name;
@@ -67,51 +60,16 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     }
   };
 
-  TimeMachineCommitController.prototype.rename = function(name) {
-    name = name.trim();
-    if (name != this.model.getTreeName()) {
+  TimeMachineCommitController.prototype.getName = function(name) {
+    return this.model.getTreeName();
+  };
+
+  TimeMachineCommitController.prototype.setName = function(name) {
+    if (name) {
       this.model.setTreeName(name);
+      return true;
     }
-  }
-
-  TimeMachineCommitController.prototype.startRename = function(evt) {
-    this.$rename.val(this.model.getTreeName());
-
-    this.view.$view.addClass('renaming');
-
-    this.$rename.focus();
-
-    if (evt) {
-      evt.preventDefault();
-      return false;
-    }
+    return false;
   };
-
-  TimeMachineCommitController.prototype.endRename = function(evt) {
-    this.rename(this.$rename.val());
-
-    this.view.$view.removeClass('renaming');
-
-    if (evt) {
-      evt.preventDefault();
-      return false;
-    }
-  };
-
-  TimeMachineCommitController.prototype.renameKey = function(evt) {
-    if (!evt) {
-      return;
-    }
-
-    switch (evt.which) {
-    case 27: // escape
-      this.$rename.val(this.model.getTreeName());
-      // deliberate fallthrough
-    case 13: // enter
-      this.endRename();
-      break;
-    }
-  };
-
   return TimeMachineCommitController;
 });

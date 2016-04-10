@@ -1,3 +1,15 @@
+2016-04-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/timemachinecommitview.html: RenameController
+
+	* legacy/scripts/ui/renamecontroller.js: All click-renaming is taking place here
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: extends RenameController
+
+	* legacy/style/rename.css: supposed to contain rename rules only
+
+	* legacy/style/timemachine.css: rename stuff moved to rename.css
+
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/scripts/presets.js: boulesdb disabled
