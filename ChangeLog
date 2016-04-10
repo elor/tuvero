@@ -49,6 +49,7 @@
 	* core/templates/rankingview.html: using TeamView classes
 
 	* legacy/scripts/ui/rankingview.js: using TeamView for team lists, which enables team name editing
+	Side effect: TeamView instances replace TeamCollector
 
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -6,9 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
-    './teammodel', 'ui/teamview'], function(extend, TemplateView, Strings,
-    ListCollectorModel, TeamModel, TeamView) {
+define(['lib/extend', 'ui/templateview', './strings', 'ui/teamview'], function(
+    extend, TemplateView, Strings, TeamView) {
   /**
    * Constructor
    *
@@ -42,9 +41,6 @@ define(['lib/extend', 'ui/templateview', './strings', './listcollectormodel',
     // TODO use some standardized defer-statement
     this.onupdate(this.model, 'update');
 
-    this.teamCollector = new ListCollectorModel(this.teamList, TeamModel);
-
-    this.teamCollector.registerListener(this);
     this.abbreviate.registerListener(this);
   }
   extend(RankingView, TemplateView);
