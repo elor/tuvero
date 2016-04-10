@@ -16,6 +16,8 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
   byePlayer = new PlayerModel(Strings.byename);
   emptyPlayer = new PlayerModel('');
   emptyPlayer.name = ''; // avoid 'NONAME'
+  emptyPlayer.setName = function() {
+  };
 
   /**
    * create a team with exactly the wanted number of bye players.
