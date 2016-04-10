@@ -16,12 +16,9 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   function RenameController(view) {
     RenameController.superconstructor.call(this, view);
 
-    this.$rename = this.view.$view.find('input.rename');
+    this.$rename = undefined;
 
     this.view.$view.find('.startrename').click(this.startRename.bind(this));
-    this.$rename.blur(this.endRename.bind(this));
-    this.$rename.click(this.endRename.bind(this));
-    this.$rename.keydown(this.renameKeyDown.bind(this));
   }
   extend(RenameController, Controller);
 
@@ -36,29 +33,43 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   };
 
   RenameController.prototype.startRename = function(evt) {
-    this.$rename.val(this.getName());
+    var $anchor;
 
+    this.initRenameInput();
+
+    if (this.$rename.parent().length) {
+      return;
+    }
+
+    $anchor = $(evt.target);
+
+    $anchor.before(this.$rename);
+    this.$rename.val(this.getName());
     this.view.$view.addClass('renaming');
 
     this.$rename.focus();
 
-    if (evt) {
-      evt.preventDefault();
-      return false;
-    }
+    evt.preventDefault();
+    return false;
   };
 
   RenameController.prototype.endRename = function(evt) {
+    var name;
+
+    if (!this.$rename) {
+      return;
+    }
+
     name = this.$rename.val().trim();
 
     if (this.setName(name)) {
       this.view.$view.removeClass('renaming');
+      this.$rename.remove();
+      this.$rename = undefined;
     }
 
-    if (evt) {
-      evt.preventDefault();
-      return false;
-    }
+    evt.preventDefault();
+    return false;
   };
 
   RenameController.prototype.renameKeyDown = function(evt) {
@@ -71,8 +82,16 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
       this.$rename.val(this.getName());
       // deliberate fallthrough
     case 13: // enter
-      this.endRename();
-      break;
+      return this.endRename(evt);
+    }
+  };
+
+  RenameController.prototype.initRenameInput = function() {
+    if (!this.$rename) {
+      this.$rename = $('<input>').addClass('rename');
+      this.$rename.blur(this.endRename.bind(this));
+      this.$rename.click(this.endRename.bind(this));
+      this.$rename.keydown(this.renameKeyDown.bind(this));
     }
   };
 
