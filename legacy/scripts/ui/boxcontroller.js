@@ -16,16 +16,20 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
    *          the instance of BoxView which will be controlled
    */
   function BoxController(view) {
-    var model;
     BoxController.superconstructor.call(this, view);
 
-    model = this.model;
-
-    this.view.$view.on('click', '> h3:first-child', function() {
-      model.emit('toggle');
-    });
+    this.view.$view.on('click', '> h3:first-child', this.toggle.bind(this));
   }
   extend(BoxController, Controller);
+
+  BoxController.prototype.toggle = function(evt) {
+    if (evt.target.nodeName.toLowerCase() == 'input') {
+      evt.preventDefault();
+      return false;
+    }
+
+    this.model.emit('toggle');
+  };
 
   return BoxController;
 });

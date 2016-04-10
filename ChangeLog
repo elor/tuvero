@@ -8,6 +8,7 @@
 	bind to dynamically added elements
 	destroy() implemented
 	also looking for '.rename' using $.filter, not just $.find (0th-level-elements)
+	ignoring input-click events, which mess with text selection
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: extends RenameController
 
@@ -79,6 +80,8 @@
 	* legacy/scripts/ui/tournamentrankingview.js: tournament renaming enabled
 
 	* legacy/scripts/ui/tournamentrenamecontroller.js: tournament renaming enabled
+
+	* legacy/scripts/ui/boxcontroller.js: ignoring header-clicks on input tags
 
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -38,7 +38,6 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     if (!this.$rename) {
       this.$rename = $('<input>').addClass('rename');
       this.$rename.blur(this.endRename.bind(this));
-      this.$rename.click(this.endRename.bind(this));
       this.$rename.keydown(this.renameKeyDown.bind(this));
     }
   };
