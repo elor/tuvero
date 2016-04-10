@@ -16,14 +16,14 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     'ui/listcollectormodel', './listener', './rankingmodel',
     './referencelistmodel', './maplistmodel', './valuemodel',
     './readonlylistmodel', 'options', './indexedmodel', './correctionmodel',
-    './matchreferencemodel', './resultreferencemodel',
+    './matchreferencemodel', './resultreferencemodel', 'core/type',
     './correctionreferencemodel', './sortedreferencelistmodel',
     './combinedreferencelistmodel', './byeresult'], function(extend,
     PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
     MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
     ReferenceListModel, MapListModel, ValueModel, ReadonlyListModel, Options,
     IndexedModel, CorrectionModel, MatchReferenceModel, ResultReferenceModel,
-    CorrectionReferenceModel, SortedReferenceListModel,
+    Type, CorrectionReferenceModel, SortedReferenceListModel,
     CombinedReferenceListModel, ByeResult) {
   var STATETRANSITIONS, INITIALSTATE;
 

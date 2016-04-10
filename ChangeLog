@@ -41,6 +41,8 @@
 
 	* core/scripts/controller.js: Controller.prototype.destroy() added
 
+	* core/scripts/tournamentmodel.js: Type ('core/type') wasn't loaded
+
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* boule/scripts/presets.js: boulesdb disabled
