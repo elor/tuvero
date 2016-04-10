@@ -8,9 +8,10 @@
  */
 define(['lib/extend', 'core/view', './listview', './popoutboxview',
     'core/listener', 'core/binningreferencelistmodel', './matchtableview',
-    './generictournamenthistoryview'], function(extend, View, ListView,
-    PopoutBoxView, Listener, BinningReferenceListModel, MatchTableView,
-    GenericTournamentHistoryView) {
+    './generictournamenthistoryview', 'ui/tournamentrenamecontroller'], //
+function(extend, View, ListView, PopoutBoxView, Listener,
+    BinningReferenceListModel, MatchTableView, GenericTournamentHistoryView,
+    TournamentRenameController) {
 
   /**
    * Constructor
@@ -31,6 +32,8 @@ define(['lib/extend', 'core/view', './listview', './popoutboxview',
     var $popoutTemplate = $view.clone();
     TournamentHistoryView.superconstructor.call(this, model, $view);
 
+    this.renameController = new TournamentRenameController(new View(model,
+        this.$view.find('.tournamentname.rename')));
     this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function(
         $view) {
       return new TournamentHistoryView(model, $view, teamlist, teamsize,

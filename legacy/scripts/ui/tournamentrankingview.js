@@ -8,9 +8,9 @@
  */
 define(['lib/extend', 'core/view', './rankingview', './listview',
     './popoutboxview', './correctionview', './teamtableview',
-    'core/valuemodel', 'core/listener'], function(extend, View, RankingView,
-    ListView, PopoutBoxView, CorrectionView, TeamTableView, ValueModel,
-    Listener) {
+    'core/valuemodel', 'core/listener', 'ui/tournamentrenamecontroller'], //
+function(extend, View, RankingView, ListView, PopoutBoxView, CorrectionView,
+    TeamTableView, ValueModel, Listener, TournamentRenameController) {
   /**
    * Constructor
    *
@@ -26,6 +26,8 @@ define(['lib/extend', 'core/view', './rankingview', './listview',
     var $popout = $view.clone();
     TournamentRankingView.superconstructor.call(this, model, $view);
 
+    this.renameController = new TournamentRenameController(new View(model,
+        this.$view.find('.tournamentname.rename')));
     this.boxview = new PopoutBoxView(this.$view, $popout, function($view) {
       return new TournamentRankingView(model, $view, teams, abbreviate);
     });

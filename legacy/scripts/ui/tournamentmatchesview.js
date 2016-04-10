@@ -6,9 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', './popoutboxview',
-    './teamview', 'core/listener', './matchtableview'], function(extend,
-    TemplateView, ListView, PopoutBoxView, TeamView, Listener, MatchTableView) {
+define(['lib/extend', 'core/view', './templateview', './listview',
+    './popoutboxview', './teamview', 'core/listener', './matchtableview',
+    'ui/tournamentrenamecontroller'], function(extend, View, TemplateView,
+    ListView, PopoutBoxView, TeamView, Listener, MatchTableView,
+    TournamentRenameController) {
   /**
    * Constructor
    *
@@ -27,6 +29,8 @@ define(['lib/extend', './templateview', './listview', './popoutboxview',
     TournamentMatchesView.superconstructor.call(this, model, $view, //
     $view.find('.template.voteview'));
 
+    this.renameController = new TournamentRenameController(new View(model,
+        this.$view.find('.tournamentname.rename')));
     this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function(
         $view) {
       return new TournamentMatchesView(model, $view, teamlist, teamsize);

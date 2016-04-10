@@ -66,6 +66,19 @@
 	* legacy/scripts/ui/matchview.js: disallow empty-team renaming
 
 	* core/templates/gamestab.html: byevote renaming enabled
+	tournament renaming enabled
+
+	* core/templates/rankingtab.html: tournament renaming enabled
+
+	* core/templates/tournamentlist.html: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamenthistoryview.js: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamentmatchesview.js: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamentrankingview.js: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamentrenamecontroller.js: tournament renaming enabled
 
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

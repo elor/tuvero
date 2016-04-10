@@ -245,6 +245,7 @@ define([
   'ui/tournamenthistoryview',
   'ui/tournamentmatchesview',
   'ui/tournamentrankingview',
+  'ui/tournamentrenamecontroller',
   'ui/tournamentview',
   'ui/tournamentviewpopulator',
   'ui/unicodehelper',
