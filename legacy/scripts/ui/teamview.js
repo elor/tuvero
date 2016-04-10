@@ -8,7 +8,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', 'core/type'], function(extend, View, Type) {
+define(['lib/extend', 'core/view', 'core/type', 'ui/teamcontroller'], //
+function(extend, View, Type, TeamController) {
   /**
    * Constructor
    *
@@ -25,6 +26,8 @@ define(['lib/extend', 'core/view', 'core/type'], function(extend, View, Type) {
       model = teamlist.get(model);
     }
     TeamView.superconstructor.call(this, model, $view);
+
+    this.teamController = new TeamController(this);
 
     this.update();
   }

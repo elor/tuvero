@@ -223,6 +223,7 @@ define([
   'ui/systemlistview',
   'ui/systemtablerowview',
   'ui/tabshandle',
+  'ui/teamcontroller',
   'ui/teamformatdownloadcontroller',
   'ui/teammodel',
   'ui/teamremovecontroller',
