@@ -121,5 +121,11 @@ define(['lib/extend', 'ui/templateview', './strings', 'ui/teamview'], function(
     return this.abbreviate.get();
   };
 
+  RankingView.prototype.destroy = function() {
+    this.reset();
+
+    RankingView.superclass.destroy.call(this);
+  }
+
   return RankingView;
 });
