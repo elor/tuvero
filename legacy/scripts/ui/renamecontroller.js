@@ -20,6 +20,7 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     this.$rename = undefined;
 
     this.view.$view.on('click', '.rename', this.startRename.bind(this));
+    this.view.$view.filter('.rename').click(this.startRename.bind(this));
   }
   extend(RenameController, Controller);
 
