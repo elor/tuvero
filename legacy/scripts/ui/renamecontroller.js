@@ -19,7 +19,7 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     this.$anchor = undefined;
     this.$rename = undefined;
 
-    this.view.$view.find('.rename').click(this.startRename.bind(this));
+    this.view.$view.on('click', '.rename', this.startRename.bind(this));
   }
   extend(RenameController, Controller);
 
@@ -73,9 +73,9 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     name = this.$rename.val().trim();
 
     if (this.setName(name)) {
-      this.$rename.detach();
       this.$anchor.removeClass('hidden');
       this.$anchor = undefined;
+      this.$rename.detach();
     }
 
     evt.preventDefault();

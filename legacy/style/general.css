@@ -81,7 +81,7 @@ a[data-img].inline {
   border-radius: 0.2em;
 }
 
-.editable:hover:after {
+.rename:hover:after {
   display: inline-block;
   font-size: 80%;
   vertical-align: top;
@@ -103,7 +103,7 @@ input {
     display: none !important;
   }
 
-  .editable:hover:after {
+  .rename:hover:after {
     display: none;
   }
 
