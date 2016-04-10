@@ -1,5 +1,5 @@
 /**
- * RenameController *
+ * RenameController
  *
  * @return RenameController
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
@@ -19,7 +19,7 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     this.$anchor = undefined;
     this.$rename = undefined;
 
-    this.view.$view.find('.startrename').click(this.startRename.bind(this));
+    this.view.$view.find('.rename').click(this.startRename.bind(this));
   }
   extend(RenameController, Controller);
 
