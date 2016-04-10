@@ -9,8 +9,3 @@
 .timemachineview .rootcommits {
   margin-bottom: 1em;
 }
-
-.timemachinecommitview .name:hover {
-  cursor: text;
-  text-decoration: underline;
-}

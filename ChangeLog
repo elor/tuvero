@@ -14,6 +14,7 @@
 	removed again. use 'hidden' classes instead
 
 	* legacy/style/timemachine.css: rename stuff moved to rename.css
+	hover underline moved to general.css
 
 	* core/templates/teamstab.html: use RenameController classes (.rename instead of .editable)
 
@@ -54,6 +55,10 @@
 	destroy() implemented
 
 	* core/templates/koteam.html: KOTree teams can be renamed
+
+	* core/templates/matchtable.html: rename capability added
+
+	* legacy/style/matchresult.css: input width only applies to scores
 
 2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
