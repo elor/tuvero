@@ -58,7 +58,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     if (window.localStorage) {
       newSource = window.localStorage[this.storageKey];
     } else {
-      newSource = undefined;
+      newSource = this.source;
     }
 
     if (!newSource) {

@@ -7,6 +7,7 @@
 	* legacy/scripts/timemachine/commitmodel.js: window.localStorage made optional
 
 	* legacy/scripts/timemachine/reflog.js: window.localStorage made optional
+	localStorage-related infinite refresh-loop bug fixed
 
 	* legacy/scripts/timemachine/test/query.js: window.localStorage made optional
 
@@ -25,6 +26,8 @@
 	* boule/index.html: removed from git. run `make templates` to regenerate
 
 	* tac/index.html: removed from git. run `make templates` to regenerate
+
+	* legacy/scripts/timemachine/query.js: window.localStorage made optional
 
 2016-04-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

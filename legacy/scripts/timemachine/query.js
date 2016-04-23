@@ -7,11 +7,6 @@
  * @see LICENSE
  */
 define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
-
-  if (!window.localStorage) {
-    throw new Error('No support for LocalStorage!');
-  }
-
   /**
    * Constructor. Constructs a new query, but does not apply the filter. A query
    * reads the localStorage for entries, regardless of the RefLog.
@@ -67,7 +62,11 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
    */
   Query.prototype.filter = function() {
     var keys, trees, last, lastDate;
-    keys = Object.keys(window.localStorage);
+    if (window.localStorage) {
+      keys = Object.keys(window.localStorage);
+    } else {
+      keys = [];
+    }
 
     if (this.reference === Query.ALLTUVEROKEYS) {
       keys = keys.filter(KeyModel.isTuveroKey);
