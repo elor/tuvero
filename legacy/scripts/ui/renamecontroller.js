@@ -43,6 +43,8 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   };
 
   RenameController.prototype.startRename = function(evt) {
+    var name;
+
     if (this.$anchor) {
       return;
     }
@@ -52,11 +54,16 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
       return;
     }
 
+    name = this.getName();
+    if (name === undefined) {
+      return;
+    }
+
     this.initRenameInput();
 
     this.$anchor.before(this.$rename);
     this.$anchor.addClass('hidden');
-    this.$rename.val(this.getName());
+    this.$rename.val(name);
     this.$rename.focus();
 
     evt.preventDefault();

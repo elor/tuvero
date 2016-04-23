@@ -48,6 +48,10 @@ define(['lib/extend', 'ui/renamecontroller', './toast', './strings'], function(
       return '';
     }
 
+//    if (!(this.model.getID() >= 0)) {
+//      return undefined;
+//    }
+
     player = this.getPlayer(this.$anchor);
 
     return player.getName();

@@ -1,3 +1,9 @@
+2016-04-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/renamecontroller.js: don't initiate renaming if getName() returns undefined;
+
+	* legacy/scripts/ui/teamcontroller.js: commented out code: return 'undefined' for bye names
+
 2016-04-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/timemachinecommitview.html: RenameController
