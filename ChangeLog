@@ -33,6 +33,8 @@
 
 	* .gitignore: removed index files are now git-ignored
 
+	* core/style/tabmenuview.css: outline of tabicons removed
+
 2016-04-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/timemachinecommitview.html: RenameController
