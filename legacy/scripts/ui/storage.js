@@ -13,8 +13,19 @@ function(Presets, ValueModel, AutoCompletionLegacyBlobber) {
   keys = {};
   keys[Presets.names.dbplayername] = AutoCompletionLegacyBlobber;
 
+  /**
+   * save a key to localStorage
+   *
+   * @param key
+   *          the name of a key to save. Must be in the keys object
+   * @return true on failure, false otherwise
+   */
   function saveKey(key) {
     var val, blob, timeMachineCommit;
+
+    if (!window.localStorage) {
+      return true;
+    }
 
     if (!keys[key]) {
       return true;
@@ -34,6 +45,11 @@ function(Presets, ValueModel, AutoCompletionLegacyBlobber) {
   function loadKey(key) {
     var blob;
 
+    if (!window.localStorage) {
+      console.error('localStorage not available');
+      return true;
+    }
+
     if (!keys[key]) {
       console.error('localStorage.' + key + " doesn't exist");
       return true;
@@ -46,9 +62,17 @@ function(Presets, ValueModel, AutoCompletionLegacyBlobber) {
 
   /**
    * remove this and only this key from localStorage to avoid collision with
-   * other software under the same domain
+   * other software under the same domain.
+   *
+   * @param key
+   *          The key to remove from localStorage. if undefined, clear every key
+   *          in the keys object
    */
   Storage.clear = function(key) {
+    if (!window.localStorage) {
+      return;
+    }
+
     if (key === undefined) {
       Object.keys(keys).forEach(Storage.clear.bind(Storage));
     } else if (keys[key]) {

@@ -55,7 +55,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   RefLogModel.prototype.refresh = function() {
     var newSource, newData;
 
-    newSource = window.localStorage[this.storageKey];
+    if (window.localStorage) {
+      newSource = window.localStorage[this.storageKey];
+    } else {
+      newSource = undefined;
+    }
 
     if (!newSource) {
       console.log('creating new reflog');
@@ -102,9 +106,12 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
     dataString = JSON.stringify(this.data);
 
-    window.localStorage[this.storageKey] = dataString;
+    if (window.localStorage) {
+      window.localStorage[this.storageKey] = dataString;
+      return window.localStorage[this.storageKey] === dataString;
+    }
 
-    return window.localStorage[this.storageKey] === dataString;
+    return false;
   };
 
   /**

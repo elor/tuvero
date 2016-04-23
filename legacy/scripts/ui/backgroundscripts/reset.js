@@ -16,7 +16,9 @@ function(Toast, TimeMachine, Strings, $) {
   function hashcheck() {
     if (location.hash === '#reset') {
       console.log('clearing localstorage');
-      window.localStorage.clear();
+      if (window.localStorage) {
+        window.localStorage.clear();
+      }
 
       TimeMachine.updateRoots();
 

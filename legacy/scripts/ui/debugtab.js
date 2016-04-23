@@ -57,7 +57,9 @@ define(['lib/extend', 'jquery', 'core/view', './storage', './strings',
     $container.click(function() {
       StateSaver.removeEverything();
       Storage.clear();
-      window.localStorage.clear();
+      if (window.localStorage) {
+        window.localStorage.clear();
+      }
       new Toast(Strings.reset);
     });
 

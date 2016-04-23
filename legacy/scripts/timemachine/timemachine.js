@@ -239,7 +239,12 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     query = new Query(commit.key);
 
     query.filter().forEach(function(key) {
-      var data = localStorage[key] || '';
+      var data;
+      if (window.localStorage) {
+        data = window.localStorage[key] || '';
+      } else {
+        data = '';
+      }
       total += data.length;
     });
 
@@ -262,19 +267,24 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       var target, data;
 
       target = key.split('_')[0];
-      data = localStorage[key] || '';
+      if (window.localStorage) {
+        data = window.localStorage[key] || '';
+      } else {
+        data = '';
+      }
 
       targetSizes[target] = (targetSizes[target] || 0) + data.length;
     });
 
     total = 0;
-    Object.keys(targetSizes)
-        .forEach(
-            function(target) {
-              targetSizes[target] += (localStorage[RefLog
-                  .formatTargetKey(target)] || '').length;
-              total += targetSizes[target];
-            });
+    if (window.localStorage) {
+      Object.keys(targetSizes).forEach(
+          function(target) {
+            targetSizes[target] += (window.localStorage[RefLog
+                .formatTargetKey(target)] || '').length;
+            total += targetSizes[target];
+          });
+    }
     targetSizes.total = total;
 
     return targetSizes;

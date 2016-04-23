@@ -23,7 +23,12 @@ define(['timemachine/commitmodel', 'presets'], function(CommitModel, Presets) {
   LegacyStorageKeyConverter.prototype.convertAll = function() {
     var allKeys, legacyKeys;
 
-    allKeys = Object.keys(window.localStorage);
+    if (window.localStorage) {
+      allKeys = Object.keys(window.localStorage);
+    } else {
+      allKeys = [];
+    }
+
     legacyKeys = allKeys.filter(keyRegex.test.bind(keyRegex));
 
     legacyKeys.forEach(this.convert.bind(this));
@@ -44,9 +49,13 @@ define(['timemachine/commitmodel', 'presets'], function(CommitModel, Presets) {
       return true;
     }
 
-    storedString = localStorage[legacyKey];
+    if (!window.localStorage) {
+      return false;
+    }
+
+    storedString = window.localStorage[legacyKey];
     if (!storedString) {
-      localStorage.removeItem(legacyKey);
+      window.localStorage.removeItem(legacyKey);
       return true;
     }
 

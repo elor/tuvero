@@ -4,6 +4,22 @@
 
 	* legacy/scripts/ui/teamcontroller.js: commented out code: return 'undefined' for bye names
 
+	* legacy/scripts/timemachine/commitmodel.js: window.localStorage made optional
+
+	* legacy/scripts/timemachine/reflog.js: window.localStorage made optional
+
+	* legacy/scripts/timemachine/test/query.js: window.localStorage made optional
+
+	* legacy/scripts/timemachine/timemachine.js: window.localStorage made optional
+
+	* legacy/scripts/ui/backgroundscripts/reset.js: window.localStorage made optional
+
+	* legacy/scripts/ui/debugtab.js: window.localStorage made optional
+
+	* legacy/scripts/ui/legacystoragekeyconverter.js: window.localStorage made optional
+
+	* legacy/scripts/ui/storage.js: window.localStorage made optional
+
 2016-04-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/timemachinecommitview.html: RenameController

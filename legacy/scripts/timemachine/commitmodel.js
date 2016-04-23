@@ -41,7 +41,8 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    */
   CommitModel.prototype.isValid = function() {
     return !!this.key && KeyModel.isValidKey(this.key)
-        && RefLog.contains(this.key) && !!window.localStorage[this.key];
+        && RefLog.contains(this.key)
+        && (!window.localStorage || !!window.localStorage[this.key]);
   };
 
   /**
@@ -189,8 +190,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
     if (this.isRoot()) {
       // delete eventual orphans (Won't send remove events)
       query = new Query(this.key);
-      query.filter().forEach(
-          window.localStorage.removeItem.bind(window.localStorage));
+      if (window.localStorage) {
+        query.filter().forEach(
+            window.localStorage.removeItem.bind(window.localStorage));
+      }
       RefLog.deleteTree(this.key);
       this.emit('remove');
     } else {
@@ -210,7 +213,9 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
       // since every tree needs a root in the reflog
       this.eraseTree();
     } else {
-      window.localStorage.removeItem(this.key.toString());
+      if (window.localStorage) {
+        window.localStorage.removeItem(this.key.toString());
+      }
       RefLog.deleteKey(this.key);
 
       this.emit('remove');
@@ -224,7 +229,9 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    */
   CommitModel.prototype.load = function() {
     if (this.isValid()) {
-      return window.localStorage[this.key];
+      if (window.localStorage) {
+        return window.localStorage[this.key];
+      }
     }
     return undefined;
   };
@@ -239,7 +246,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    */
   CommitModel.prototype.createChild = function(data) {
     var newKey = RefLog.newSaveKey(this.key);
-    localStorage[newKey] = data;
+
+    if (window.localStorage) {
+      window.localStorage[newKey] = data;
+    }
 
     return new CommitModel(newKey);
   };
@@ -254,7 +264,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    */
   CommitModel.createRoot = function(data, name) {
     var newKey = RefLog.newInitKey(name);
-    localStorage[newKey] = data;
+
+    if (window.localStorage) {
+      window.localStorage[newKey] = data;
+    }
 
     return new CommitModel(newKey);
   };

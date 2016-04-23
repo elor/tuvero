@@ -26,7 +26,9 @@ define(function() {
         var match = /test_/.test(key);
         QUnit.equal(match, true, 'saved key matches target: ' + key);
         if (match) {
-          localStorage.removeItem(key);
+          if (window.localStorage) {
+            window.localStorage.removeItem(key);
+          }
         }
       });
 
@@ -42,10 +44,12 @@ define(function() {
       ref = 'test_2015-06-01T19:55:12.512Z_2345-10-01T20:55:12.512Z';
       key4 = KeyModel.fromString(ref);
 
-      localStorage.setItem(key, 'test');
-      localStorage.setItem(key2, 'test');
-      localStorage.setItem(key3, 'test');
-      localStorage.setItem(key4, 'test');
+      if (window.localStorage) {
+        window.localStorage.setItem(key, 'test');
+        window.localStorage.setItem(key2, 'test');
+        window.localStorage.setItem(key3, 'test');
+        window.localStorage.setItem(key4, 'test');
+      }
 
       ref = [key.toString(), key2.toString(), key3.toString(), key4.toString()]
           .sort();
@@ -88,10 +92,12 @@ define(function() {
        * cleanup
        */
 
-      localStorage.removeItem(key);
-      localStorage.removeItem(key2);
-      localStorage.removeItem(key3);
-      localStorage.removeItem(key4);
+      if (window.localStorage) {
+        window.localStorage.removeItem(key);
+        window.localStorage.removeItem(key2);
+        window.localStorage.removeItem(key3);
+        window.localStorage.removeItem(key4);
+      }
 
       QUnit.deepEqual((new Query()).filter(), [],
           'ALL-query on post-test cleared localStorage returns no results');
