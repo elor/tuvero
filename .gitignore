@@ -11,3 +11,6 @@ build/
 dev/
 sprite_new.png
 node_modules/
+basic/index.html
+boule/index.html
+tac/index.html

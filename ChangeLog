@@ -31,6 +31,8 @@
 
 	* legacy/style/app.css: ChromeApp scrolling enabled
 
+	* .gitignore: removed index files are now git-ignored
+
 2016-04-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/timemachinecommitview.html: RenameController
