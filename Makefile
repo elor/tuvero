@@ -8,12 +8,17 @@
 VERSION=$(shell cat Version)
 GITHEAD=$(shell git rev-parse HEAD | head -c8)
 
+all: build build-chromeapp
+
 build: clean
 	make templates scripts
 	make build/index.html
 	make build/basic/index.html build/boule/index.html build/tac/index.html build/test
 	make build/manifest.appcache
 	cp -v Version build/
+
+build-chromeapp: FORCE
+	make build-chromeapp/basic build-chromeapp/boule build-chromeapp/tac
 
 build/index.html: build/images
 	cp -v index.html build/
@@ -26,7 +31,7 @@ build/manifest.appcache: build/index.html FORCE
 
 clean: FORCE
 	make -C selenium-tests/ clean
-	rm -rfv build/ dev/
+	rm -rfv build/ dev/ build-chromeapp/
 
 # primary global targets
 
@@ -94,6 +99,9 @@ build/%/index.html: build/%
 	./tools/compress-build.sh $(shell basename $<)
 	rm -r $</scripts/ $</style/ $</images/
 	./tools/write-manifest.sh $<
+
+build-chromeapp/%: build/%/index.html
+	./tools/chromeapp.sh $(shell basename $@)
 
 build-dir: FORCE
 	mkdir -p build

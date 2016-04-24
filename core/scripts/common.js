@@ -119,7 +119,7 @@ define([
   'ui/autocompletionview',
   'ui/backgroundscripts/autosave',
   'ui/backgroundscripts/featuredetect',
-  'ui/backgroundscripts/initviews',
+  'ui/backgroundscripts/initboxviews',
   'ui/backgroundscripts/matchtoasts',
   'ui/backgroundscripts/online',
   'ui/backgroundscripts/print',

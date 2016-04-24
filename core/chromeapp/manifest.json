@@ -1,0 +1,18 @@
+{
+    "name": "Tuvero %variant%",
+    "description": "Tuvero Turniersoftware",
+    "version": "%version%",
+    "manifest_version": 2,
+    "app": {
+        "background": {
+            "scripts": ["background.js"]
+        }
+    },
+    "icons": {
+        "32": "tuvero-32.png",
+        "128": "tuvero-128.png"
+    },
+    "permissions" : [
+        "storage"
+    ]
+}

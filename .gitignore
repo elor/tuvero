@@ -8,6 +8,7 @@ thumbs.db
 *~
 #*#
 build/
+build-chromeapp/
 dev/
 sprite_new.png
 node_modules/

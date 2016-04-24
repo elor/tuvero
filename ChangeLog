@@ -12,6 +12,18 @@
 
 	* test/fontsize.html: StaticViewLoader finally removed
 
+	* core/chromeapp/background.js: template for chromeapp background script added
+
+	* core/chromeapp/manifest.json: template for chromeapp manifest added
+
+	* core/scripts/common.js: initviews -> initboxviews
+
+	* .gitignore: ignoring build-chromeapp
+
+	* Makefile: `make build-chromeapp` and `make all` added
+
+	* tools/chromeapp.sh: create chromeapp from a built variant
+
 2016-04-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/renamecontroller.js: don't initiate renaming if getName() returns undefined;
