@@ -1,3 +1,17 @@
+2016-04-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/backgroundscripts/initboxviews.js: StaticViewLoader removed
+	moved to initboxviews
+
+	* legacy/scripts/ui/backgroundscripts/initviews.js: StaticViewLoader removed
+	moved to initboxviews
+
+	* legacy/scripts/ui/staticviewloader.js: completely removed
+
+	* test/boxview.html: StaticViewLoader finally removed
+
+	* test/fontsize.html: StaticViewLoader finally removed
+
 2016-04-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/renamecontroller.js: don't initiate renaming if getName() returns undefined;

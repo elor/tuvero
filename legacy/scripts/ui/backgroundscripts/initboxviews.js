@@ -6,13 +6,19 @@
  * @see LICENSE
  */
 
-define(['../boxview', '../staticviewloader', 'jquery'], function(BoxView,
-    StaticViewLoader, $) {
+define(['ui/boxview', 'jquery'], function(BoxView, $) {
   var InitViews = undefined;
 
   $(function($) {
-    StaticViewLoader.registerView('boxview', BoxView);
-    StaticViewLoader.loadViews($('body'));
+    $('.boxview:not(.template)').each(function() {
+      var $box;
+
+      $box = $(this);
+
+      if ($box.parents('.template').length == 0) {
+        return new BoxView($box);
+      }
+    });
   });
 
   return InitViews;

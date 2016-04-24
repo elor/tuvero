@@ -210,7 +210,6 @@ define([
   'ui/stateloader',
   'ui/statemodel',
   'ui/statesaver',
-  'ui/staticviewloader',
   'ui/storage',
   'ui/storagesavecontroller',
   'ui/strings',
