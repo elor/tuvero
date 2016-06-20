@@ -1,3 +1,9 @@
+2016-06-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* images/basic.png: dedicated image for Tuvero Basic added
+
+	* index.html: linking to basic.png
+
 2016-04-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/backgroundscripts/initboxviews.js: StaticViewLoader removed
