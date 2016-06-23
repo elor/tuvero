@@ -142,7 +142,26 @@ define(['lib/extend', './roundtournamentmodel', 'core/random', './matchmodel',
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.initialMatches = function() {
+    this.correctWinGroupRankingOrder();
     return this.idleMatches();
+  };
+
+  SwissTournamentModel.prototype.correctWinGroupRankingOrder = function() {
+    var components, windex;
+
+    components = this.ranking.componentnames;
+
+    if (this.getProperty('swissmode') === 'wins' && components[0] != 'wins') {
+      windex = components.indexOf('wins');
+
+      if (windex !== -1) {
+        components.splice(windex, 1);
+      }
+
+      components.unshift('wins');
+
+      this.setRankingOrder(components);
+    }
   };
 
   /**

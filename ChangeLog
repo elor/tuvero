@@ -4,6 +4,8 @@
 
 	* core/templates/hometab.html: 'create tournament' step added to HowTo-List
 
+	* core/scripts/swisstournamentmodel.js: automatically using 'wins' as first ranking component for wingroups (swissmode='wins')
+
 2016-06-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/basic.png: dedicated image for Tuvero Basic added
