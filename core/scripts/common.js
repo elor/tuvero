@@ -118,6 +118,7 @@ define([
   'ui/autocompletionmodel',
   'ui/autocompletionview',
   'ui/backgroundscripts/autosave',
+  'ui/backgroundscripts/dropstyle',
   'ui/backgroundscripts/featuredetect',
   'ui/backgroundscripts/fonthotkeys',
   'ui/backgroundscripts/initboxviews',

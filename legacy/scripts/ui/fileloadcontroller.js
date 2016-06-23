@@ -71,8 +71,6 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', './toast',
    */
   FileLoadController.prototype.buttonDragOver = function(evt) {
     evt.originalEvent.dataTransfer.dropEffect = 'copy';
-    evt.preventDefault();
-    return false;
   };
 
   /**
@@ -88,12 +86,8 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', './toast',
     if (files.length == 1 && files[0]) {
       this.initFileRead(files[0]);
     } else {
-      // TODO use Strings
-      new Toast('wrong number of files', Toast.LONG);
+      new Toast(Strings.onlyonefile, Toast.LONG);
     }
-
-    evt.preventDefault();
-    return false;
   };
 
   /**

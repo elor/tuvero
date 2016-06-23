@@ -3,6 +3,7 @@
 	* index.html: favicon taken from inside images/, not basic/images
 
 	* core/templates/hometab.html: 'create tournament' step added to HowTo-List
+	using fileload drag/drop style
 
 	* core/scripts/swisstournamentmodel.js: automatically using 'wins' as first ranking component for wingroups (swissmode='wins')
 
@@ -11,6 +12,18 @@
 	* core/templates/index.html: including fonthotkeys.html
 
 	* legacy/scripts/ui/backgroundscripts/fonthotkeys.js: hashchange-listener for font hotkeys
+
+	* core/style/mainstyle.css: using fileload drag/drop style
+
+	* core/templates/teamstab.html: using fileload drag/drop style
+
+	* legacy/scripts/ui/fileloadcontroller.js: event precedence order (and 'preventDefault' order) fixed
+
+	* legacy/scripts/ui/strings.js: Strings.onlyonefile added
+
+	* legacy/scripts/ui/backgroundscripts/dropstyle.js: adjusting fileload button styles according to drop status
+
+	* legacy/style/fileload.css: styles for drag&drop status
 
 2016-06-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -1,0 +1,8 @@
+body .fileload {
+  transition: all 0.25s ease-in;   
+}
+
+body.dragover .fileload {
+  padding: 5em;
+  background-color: #ffffff;
+}

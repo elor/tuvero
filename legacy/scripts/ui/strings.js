@@ -25,6 +25,7 @@ define(['strings'], function(LocalStrings) {
     byevote: '∅',
     byename: 'Freilos',
     byeid: '∅',
+    onlyonefile: 'Zu viele Dateien. Bitte nur eine Datei laden',
     fileabort: 'Lesen abgebrochen',
     fileerror: 'Lesefehler',
     filenotfound: 'Datei wurde nicht gefunden',
