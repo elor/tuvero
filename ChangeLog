@@ -12,6 +12,7 @@
 	* core/templates/index.html: including fonthotkeys.html
 
 	* legacy/scripts/ui/backgroundscripts/fonthotkeys.js: hashchange-listener for font hotkeys
+	debugging output removed
 
 	* core/style/mainstyle.css: using fileload drag/drop style
 

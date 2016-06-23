@@ -31,7 +31,6 @@ define(['jquery'], function($) {
     var fontSize = -1;
 
     $buttons.each(function(index) {
-      console.log($(this).attr('class'))
       if ($(this).parent().hasClass($(this).attr('class'))) {
         fontSize = index;
       }
@@ -41,7 +40,6 @@ define(['jquery'], function($) {
   }
 
   function setFontSize(fontSize) {
-    console.log('fontsize: ' + fontSize)
     index = Math.min(Math.max(fontSize, 0), $buttons.length - 1);
 
     $buttons.eq(index).click();
@@ -53,7 +51,6 @@ define(['jquery'], function($) {
 
   $(function($) {
     $buttons = $('#tabs>[data-tab="settings"] .fontsizeview:first button');
-    console.log($buttons)
   });
 
   return FontHotkeys;
