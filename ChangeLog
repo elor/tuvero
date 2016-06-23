@@ -2,6 +2,8 @@
 
 	* index.html: favicon taken from inside images/, not basic/images
 
+	* core/templates/hometab.html: 'create tournament' step added to HowTo-List
+
 2016-06-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/basic.png: dedicated image for Tuvero Basic added
