@@ -6,6 +6,12 @@
 
 	* core/scripts/swisstournamentmodel.js: automatically using 'wins' as first ranking component for wingroups (swissmode='wins')
 
+	* core/templates/fonthotkeys.html: placeholder links for font hotkeys added
+
+	* core/templates/index.html: including fonthotkeys.html
+
+	* legacy/scripts/ui/backgroundscripts/fonthotkeys.js: hashchange-listener for font hotkeys
+
 2016-06-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* images/basic.png: dedicated image for Tuvero Basic added
