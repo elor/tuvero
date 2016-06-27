@@ -125,7 +125,7 @@ define(['lib/extend', 'ui/templateview', './strings', 'ui/teamview'], function(
     this.reset();
 
     RankingView.superclass.destroy.call(this);
-  }
+  };
 
   return RankingView;
 });

@@ -26,7 +26,7 @@ RenameController) {
 
   TournamentRenameController.prototype.getName = function() {
     return this.model.getName().get();
-  }
+  };
 
   return TournamentRenameController;
 });

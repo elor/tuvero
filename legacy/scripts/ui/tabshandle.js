@@ -17,7 +17,7 @@ define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
     getTabModel: function() {
       return undefined;
     }
-  }
+  };
 
   $(function() {
     if ($('#tabs').length === 1 && $('#testmain').length === 0) {

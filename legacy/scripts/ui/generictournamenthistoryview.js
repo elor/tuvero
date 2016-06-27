@@ -26,7 +26,7 @@ function(extend, View, ProgressTableView, KOHistoryView) {
       selector: '.kotree',
       showlists: false
     }
-  }
+  };
 
   /**
    * Constructor

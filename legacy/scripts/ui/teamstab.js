@@ -136,7 +136,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
 
   TeamsTab.prototype.onupdate = function() {
     this.update();
-  }
+  };
 
   TeamsTab.prototype.update = function() {
     if (TimeMachine.commit.get()) {
@@ -144,7 +144,7 @@ define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
     } else {
       TabsHandle.hide('teams');
     }
-  }
+  };
 
   // FIXME CHEAP HACK AHEAD
   $(function($) {

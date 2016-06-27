@@ -22,12 +22,12 @@ define(function() {
        * Single Teams
        */
       input = '';
-      reference = []
+      reference = [];
       output = TeamsFileLoadController.parseCSVString(input);
       QUnit.deepEqual(output, reference, 'empty string');
 
       input = '\n';
-      reference = []
+      reference = [];
       output = TeamsFileLoadController.parseCSVString(input);
       QUnit.deepEqual(output, reference, 'empty line');
 

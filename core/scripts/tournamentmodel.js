@@ -584,7 +584,7 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
     this.history.push(byeResult);
 
     return byeResult;
-  }
+  };
 
   /**
    * correct a previous result by replacing it with a new result and updating

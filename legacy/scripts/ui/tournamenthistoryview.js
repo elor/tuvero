@@ -77,7 +77,7 @@ function(extend, View, ListView, PopoutBoxView, Listener,
       this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
           MatchTableView, this.teamlist, this.model, this.teamsize);
 
-      this.$view.addClass('haslists')
+      this.$view.addClass('haslists');
     } else {
       this.$matchtable.remove();
       this.matchtable = undefined;

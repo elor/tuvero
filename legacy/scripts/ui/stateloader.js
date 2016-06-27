@@ -148,7 +148,7 @@ function(State, TimeMachine, LegacyLoaderModel, LegacyStorageKeyConverter,
     } catch (e) {
     }
     return false;
-  }
+  };
 
   /**
    * reset the current state and forget about all previously loaded states
