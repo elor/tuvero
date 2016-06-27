@@ -69,6 +69,10 @@ div#tabs > [data-tab="teams"] {
   white-space: nowrap;
 }
 
+#tabs > [data-tab="teams"] .newteamview .names > div > .playername {
+  margin: 0.5em 0em;
+}
+
 #tabs > [data-tab="teams"].maxwidth .team .name {
   width: 10em;
   min-width: 10em;
