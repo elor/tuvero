@@ -10,6 +10,8 @@
 
 	* legacy/style/teamsizeview.css: using new button design
 
+	* core/style/boxview.css: uses same design as the buttons
+
 2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/teams.css: #267 fixed: team input layout without typeahead

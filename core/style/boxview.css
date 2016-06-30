@@ -12,7 +12,7 @@ div.boxview {
   min-width: -o-min-content;
   min-width: min-content;
   vertical-align: top;
-  background-color: #ffffff;
+  background: #ffffff;
 }
 
 div.boxview.inline {
@@ -44,9 +44,17 @@ div.boxview > h3:first-child {
   margin: -1em -1em 1em -1em;
   border-bottom-style: solid;
   border-bottom-width: 1px;
-  background-color: #d0d0d0;
+  background: linear-gradient(#f0f0f0, #e8e8e8);
   text-align: center;
   cursor: pointer;
+}
+
+div.boxview > h3:first-child:hover {
+    background: #f0f0f0;
+}
+
+div.boxview > h3:first-child:active {
+  background: linear-gradient(#e8e8e8, #f0f0f0);
 }
 
 #tabs div.boxview.collapsed > h3:first-child:after {
@@ -65,7 +73,7 @@ div.boxview > h3:first-child .icon {
 }
 
 div.boxview > h3:first-child .icon:hover {
-  background-color: #808080;
+  background: #808080;
 }
 
 div.boxview.pagebreak {
