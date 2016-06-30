@@ -38,6 +38,8 @@
 	* legacy/style/general.css: hover-exclamation mark is removed
 	correctable match results are highlighted just as renamable stuff
 
+	* legacy/style/toasts.css: Toasts hover above the page now, instead of being flat
+
 2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/teams.css: #267 fixed: team input layout without typeahead

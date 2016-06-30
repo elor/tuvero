@@ -17,11 +17,12 @@
 #toasts > div {
   margin-bottom: 0.2em;
   display: inline-block;
-  background-color: #d0d0d0;
+  background: #e8e8e8;
   border-radius: 0.5em;
   border-style: solid;
   border-width: 1px;
   padding: 0.5em;
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
 }
 
 #toasts > div:not(.toast) {
