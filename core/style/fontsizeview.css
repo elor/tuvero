@@ -4,8 +4,9 @@
 
 .fontsizeview > button {
   vertical-align: middle;
-  height: 1.2em;
-  width: 1em;
+  height: 2em;
+  width: 2em;
+  border-radius: 1em;
 }
 
 .fontsizeview.fontsizesmall > button.fontsizesmall,
@@ -13,7 +14,8 @@
 .fontsizeview.fontsizelarge > button.fontsizelarge,
 .fontsizeview.fontsizehuge > button.fontsizehuge,
 .fontsizeview.fontsizenormal > button.fontsizenormal {
-  background-color: #808080;
+  background: #bbbbbb;
+  box-shadow: none;
 }
 
 @media print {

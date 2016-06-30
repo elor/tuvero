@@ -3,6 +3,7 @@
 	* core/style/newteamview.css: using new input field design
 
 	* legacy/style/buttons.css: new button design
+	missing color added
 
 	* legacy/style/input.css: new input field design
 
@@ -11,6 +12,12 @@
 	* legacy/style/teamsizeview.css: using new button design
 
 	* core/style/boxview.css: uses same design as the buttons
+
+	* core/style/fontsizeview.css: using same highlighting color as 'button.selected'
+
+	* legacy/style/fileload.css: using default button color instead of white
+
+	* legacy/style/new.css: using boxview colors for 'system table' headers
 
 2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
