@@ -6,7 +6,7 @@
 
 .tabmenu > a {
   display: inline-block;
-  background-color: #d0d0d0;
+  background: #e8e8e8;
   padding: 16px;
   margin-right: 10px;
   border-radius: 20px 20px 0em 0em;
@@ -14,7 +14,7 @@
 }
 
 .tabmenu .open {
-  background-color: #ffffff;
+  background: #ffffff;
 }
 
 @media print {

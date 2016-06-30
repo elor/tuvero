@@ -15,7 +15,7 @@ div#tabs > [data-tab="teams"] {
 }
 
 #tabs > [data-tab="teams"] div.team {
-  background-color: #d0d0d0;
+  background: #e8e8e8;
 }
 
 #tabs > [data-tab="teams"] .teamtable {
@@ -99,7 +99,7 @@ div#tabs > [data-tab="teams"] {
 #tabs > [data-tab="teams"] .deletionprompt {
   display: none;
   margin-bottom: 0.2em;
-  background-color: #d0d0d0;
+  background: #d0d0d0;
   border-radius: 0.5em;
   border-style: solid;
   border-width: 1px;
@@ -116,7 +116,7 @@ div#tabs > [data-tab="teams"] {
 }
 
 #tabs > [data-tab="teams"].deletion button.delete {
-  background-color: #ff0000;
+  background: #ff0000;
 }
 
 #tabs > [data-tab="teams"].noprereg button.deleteall {
@@ -137,7 +137,7 @@ div#tabs > [data-tab="teams"] {
 }
 
 #tabs > [data-tab="teams"].deletion {
-  background-color: #969696;
+  background: #969696;
 }
 
 #tabs > [data-tab="teams"].deletion .newteamview {

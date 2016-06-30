@@ -67,7 +67,7 @@
   min-width: -o-min-content;
   min-width: min-content;
   vertical-align: top;
-  background-color: #ffffff;
+  background: #ffffff;
 }
 
 #tabs>[data-tab="new"] .systemtable .system>h3:first-child {

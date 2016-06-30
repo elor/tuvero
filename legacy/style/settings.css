@@ -8,7 +8,7 @@
 }
 
 #tabs > [data-tab="settings"] button.selected {
-  background-color: #ffffff;
+  background: #ffffff;
 }
 
 #tabs > [data-tab="settings"] .boxview > div {
@@ -25,7 +25,7 @@
 }
 
 #tabs > [data-tab="settings"] .nojson {
-  background-color: #ff0000;
+  background: #ff0000;
   font-weight: bold;
   font-size: 120%;
 }
