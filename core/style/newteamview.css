@@ -3,14 +3,9 @@
 }
 
 .newteamview .teamno button {
-  background-color: #d3d3d3;
   width: inherit;
   height: inherit;
   font-size: 100%;
-  border-radius: 0.2em;
-  border: none;
-  box-shadow: 1px 1px 0px #808080;
-  height: inherit;
 }
 
 .newteamview>.names {
@@ -27,11 +22,8 @@
 
 .newteamview .playername {
   display: block;
-  background-color: #ffffff;
-  border: none;
+  margin: 0.1em 0em;
   width: 100%;
-  box-shadow: 1px 1px 0px #808080;
-  margin: 0em;
 }
 
 @media print {

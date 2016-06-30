@@ -1,8 +1,19 @@
+button {
+  border: solid 1px #d0d0d0;
+  background: linear-gradient(#f0f0f0, #e8e8e8);
+  box-shadow: 0px 1px 0px 0px rgba(64, 64, 64, 0.25);
+  border-radius: 10px;
+  font-weight: bold;
+  padding: 5px;
+  cursor: pointer;
+}
+
+button.mini {
+  padding: 0.2em 0.3em;
+}
+
 button[data-img] {
   padding: 5px;
-  border-radius: 10px;
-  background-color: #d0d0d0;
-  cursor: pointer;
 }
 
 button.left {
@@ -26,3 +37,20 @@ button.withlabel {
   margin: 0.5em;
 }
 
+button:hover {
+  background: #f0f0f0;
+}
+
+button:active {
+  background: linear-gradient(#e8e8e8, #f0f0f0);
+  box-shadow: none;
+}
+
+button.selected {
+  background: #bbbbbb;
+  box-shadow: none;
+}
+
+button[disabled] {
+  color: #bbbbbb;
+}

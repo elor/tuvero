@@ -1,3 +1,15 @@
+2016-06-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/newteamview.css: using new input field design
+
+	* legacy/style/buttons.css: new button design
+
+	* legacy/style/input.css: new input field design
+
+	* legacy/style/teams.css: using new input field design
+
+	* legacy/style/teamsizeview.css: using new button design
+
 2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/teams.css: #267 fixed: team input layout without typeahead

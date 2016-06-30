@@ -29,13 +29,9 @@ h3 {
   margin-left: 0.5em;
 }
 
-div, button {
+div {
   margin: 0px;
   padding: 0px;
-}
-
-button[disabled] {
-  color: #d3d3d3;
 }
 
 .hidden {

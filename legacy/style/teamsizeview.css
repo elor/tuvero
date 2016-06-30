@@ -3,10 +3,6 @@
   margin-bottom: 1em;
 }
 
-.teamsizeview button.selected {
-  background-color: #ffffff;
-}
-
 .noprereg>.teamsizeview {
   display: none;
 }
