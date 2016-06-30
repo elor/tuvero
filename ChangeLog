@@ -4,8 +4,10 @@
 
 	* legacy/style/buttons.css: new button design
 	missing color added
+	font size
 
 	* legacy/style/input.css: new input field design
+	font size
 
 	* legacy/style/teams.css: using new input field design
 
@@ -39,6 +41,8 @@
 	correctable match results are highlighted just as renamable stuff
 
 	* legacy/style/toasts.css: Toasts hover above the page now, instead of being flat
+
+	* core/style/fontsize.css: font size is taken care of by the specific files (input.css and buttons.css)
 
 2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

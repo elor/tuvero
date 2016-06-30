@@ -1,5 +1,5 @@
 input {
-  font-size: 100%;
+  font-size: 90%;
   font-weight: bold;
   border: solid 1px #e5e5e5;
   padding: 0.3em;
@@ -8,12 +8,17 @@ input {
   text-align: inherit;
 }
 
+input:not([type="checkbox"]):not([type="radio"]) {
+  outline: none;
+}
+
 input.mini {
   font-weight: normal;
-  padding: 0.1em 0em;
+  padding: 0.2em 0em;
 }
 
 input.rename {
+  font-size: 100%;
   padding: 2px 0em;
   margin: -3px 0em;
 }

@@ -6,10 +6,6 @@ body {
   transition: font-size 0.2s ease-out;
 }
 
-button, input {
-  font-size: 90%;
-}
-
 .fontsizetiny {
   font-size: 60%;
 }
