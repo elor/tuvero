@@ -27,6 +27,17 @@
 
 	* core/templates/teamstab.html: inputs are input.mini
 
+	* legacy/scripts/ui/renamecontroller.js: hover-rename is now possible
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: using hover-rename
+
+	* legacy/scripts/ui/tournamentcontroller.js: using hover-rename
+
+	* legacy/scripts/ui/tournamentrenamecontroller.js: using hover-rename
+
+	* legacy/style/general.css: hover-exclamation mark is removed
+	correctable match results are highlighted just as renamable stuff
+
 2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/teams.css: #267 fixed: team input layout without typeahead

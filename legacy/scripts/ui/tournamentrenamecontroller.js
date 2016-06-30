@@ -12,7 +12,7 @@ RenameController) {
    * Constructor
    */
   function TournamentRenameController(view) {
-    TournamentRenameController.superconstructor.call(this, view);
+    TournamentRenameController.superconstructor.call(this, view, true);
   }
   extend(TournamentRenameController, RenameController);
 

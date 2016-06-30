@@ -77,7 +77,7 @@ a[data-img].inline {
   border-radius: 0.2em;
 }
 
-.rename:hover {
+.rename:hover, .match .result:hover {
   text-decoration: underline;
   cursor: text;
 }
@@ -91,10 +91,6 @@ a[data-img].inline {
 
   button, input, h1, h2 {
     display: none !important;
-  }
-
-  .rename:hover:after {
-    display: none;
   }
 
   .noprint {

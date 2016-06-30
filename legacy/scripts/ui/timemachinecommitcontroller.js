@@ -14,7 +14,7 @@ function(extend, RenameController, TimeMachine, StateLoader, Strings, Toast,
    * Constructor
    */
   function TimeMachineCommitController(view) {
-    TimeMachineCommitController.superconstructor.call(this, view);
+    TimeMachineCommitController.superconstructor.call(this, view, true);
 
     this.view.$view.find('button.removecommit').click(this.remove.bind(this));
     this.view.$view.find('button.loaddescendant').click(this.load.bind(this));

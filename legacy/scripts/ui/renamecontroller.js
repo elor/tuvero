@@ -13,14 +13,19 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   /**
    * Constructor
    */
-  function RenameController(view) {
+  function RenameController(view, mouseSupport) {
+    var events;
+
     RenameController.superconstructor.call(this, view);
 
     this.$anchor = undefined;
     this.$rename = undefined;
+    this.mouseSupport = !!mouseSupport;
 
-    this.view.$view.on('click', '.rename', this.startRename.bind(this));
-    this.view.$view.filter('.rename').click(this.startRename.bind(this));
+    events = 'click' + (this.mouseSupport ? ' mouseenter' : '');
+    this.view.$view.on(events,
+        '.rename', this.startRename.bind(this));
+    this.view.$view.filter('.rename').on(events, this.startRename.bind(this));
   }
   extend(RenameController, Controller);
 
@@ -37,7 +42,8 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
   RenameController.prototype.initRenameInput = function() {
     if (!this.$rename) {
       this.$rename = $('<input>').addClass('rename');
-      this.$rename.blur(this.endRename.bind(this));
+      this.$rename.on('blur' + (this.mouseSupport ? ' mouseleave' : ''),
+          this.endRename.bind(this));
       this.$rename.keydown(this.renameKeyDown.bind(this));
     }
   };
@@ -56,6 +62,7 @@ function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
 
     name = this.getName();
     if (name === undefined) {
+      this.$anchor = undefined;
       return;
     }
 
