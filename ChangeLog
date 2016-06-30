@@ -19,6 +19,14 @@
 
 	* legacy/style/new.css: using boxview colors for 'system table' headers
 
+	* core/templates/correctionform.html: inputs are input.mini
+
+	* core/templates/finishmatchform.html: inputs are input.mini
+
+	* core/templates/komatchresult.html: inputs are input.mini
+
+	* core/templates/teamstab.html: inputs are input.mini
+
 2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/style/teams.css: #267 fixed: team input layout without typeahead
