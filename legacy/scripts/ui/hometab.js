@@ -6,8 +6,10 @@
  */
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
     './toast', './browser', 'ui/timemachineview', 'ui/statesaver',
-    'ui/statefileloadcontroller'], function(extend, $, View, State, Strings,
-    Toast, Browser, TimeMachineView, StateSaver, StateFileLoadController) {
+    'ui/statefileloadcontroller', 'core/valuemodel', 'core/classview',
+    'ui/browser'], function(extend, $, View, State, Strings, Toast, Browser,
+    TimeMachineView, StateSaver, StateFileLoadController, ValueModel,
+    ClassView, Browser) {
   /**
    * represents a whole team tab
    *
@@ -57,6 +59,10 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
      */
     $button = this.$view.find('button.load');
     this.fileLoadController = new StateFileLoadController($button);
+
+    $container = this.$view.find('.chromerecommendation');
+    this.chromeRecommendationClassView = new ClassView(new ValueModel(
+        Browser.name == 'Chrome'), $container, 'hidden');
 
   };
 

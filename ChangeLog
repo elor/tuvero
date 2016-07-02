@@ -9,6 +9,10 @@
 	* core/style/tabmenuview.css: box-shadow for unopened menu elements added
 	outline-style changed to outline
 
+	* core/templates/hometab.html: hiding chrome recommendation in chrome browsers
+
+	* legacy/scripts/ui/hometab.js: hiding chrome recommendation in chrome browsers
+
 2016-06-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/newteamview.css: using new input field design
