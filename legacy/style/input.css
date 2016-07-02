@@ -6,9 +6,6 @@ input {
   box-shadow: inset 0px 1px 0px 0px rgba(64, 64, 64, 0.25);
   transition: background-color 0.25s, box-shadow 0.1s;
   text-align: inherit;
-}
-
-input:not([type="checkbox"]):not([type="radio"]) {
   outline: none;
 }
 
@@ -36,6 +33,7 @@ input[type="checkbox"], input[type="radio"] {
   -webkit-appearance: initial;
   width: 1em;
   height: 1em;
+  margin: 0em 0.2em;
   border-radius: 0.5em;
   cursor: pointer;
 }
