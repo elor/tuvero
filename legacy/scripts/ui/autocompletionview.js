@@ -23,6 +23,10 @@ define(['lib/extend', 'core/view', 'lib/typeahead'], function(extend, View,
 
     this.reset();
 
+    if (!this.$view.typeahead) {
+      return;
+    }
+
     if (this.model.names.length === 0) {
       return;
     }
@@ -51,10 +55,16 @@ define(['lib/extend', 'core/view', 'lib/typeahead'], function(extend, View,
   };
 
   AutocompletionView.prototype.onclear = function() {
+    if (!this.$view.typeahead) {
+      return;
+    }
     this.$view.typeahead('val', '');
   };
 
   AutocompletionView.prototype.reset = function() {
+    if (!this.$view.typeahead) {
+      return;
+    }
     this.$view.typeahead('destroy');
   };
 
