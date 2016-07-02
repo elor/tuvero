@@ -6,6 +6,9 @@
 
 	* Makefile: Pseudo-Chromeapp capabilities added
 
+	* core/style/tabmenuview.css: box-shadow for unopened menu elements added
+	outline-style changed to outline
+
 2016-06-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/newteamview.css: using new input field design
