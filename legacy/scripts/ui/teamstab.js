@@ -4,14 +4,14 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './listview', './teamview', 'ui/state',
-    './newteamview', './lengthview', './teamsizeview', './preregcloserview',
-    './checkboxview', 'core/classview', './tabshandle',
+define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
+    'ui/state', './newteamview', './lengthview', './teamsizeview',
+    './preregcloserview', './checkboxview', 'core/classview', './tabshandle',
     './teamremovecontroller', './teamtableview', './inputview',
     './teamsfileloadcontroller', 'presets', 'core/lengthmodel',
     './deleteallteamscontroller', './autocompletionmodel',
     './autocompletionview', './autocompletionlegacyblobber',
-    './teamformatdownloadcontroller', 'timemachine/timemachine'], function(
+    './teamformatdownloadcontroller', 'timemachine/timemachine'], function($,
     extend, View, ListView, TeamView, State, NewTeamView, LengthView,
     TeamSizeView, PreregCloserView, CheckBoxView, ClassView, TabsHandle,
     TeamRemoveController, TeamTableView, InputView, TeamsFileLoadController,

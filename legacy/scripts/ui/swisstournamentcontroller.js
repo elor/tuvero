@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'core/listener',
-    'core/propertyvaluemodel'], function(extend, Controller, Listener,
+define(['jquery', 'lib/extend', 'core/controller', 'core/listener',
+    'core/propertyvaluemodel'], function($, extend, Controller, Listener,
     PropertyValueModel) {
   /**
    * Constructor

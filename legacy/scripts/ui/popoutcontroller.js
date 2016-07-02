@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
+define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine',
-    'ui/fontsizeview'], function(extend, Controller, Toast, Strings, ClassView,
+    'ui/fontsizeview'], function($, extend, Controller, Toast, Strings, ClassView,
     State, Listener, TimeMachine, FontSizeView) {
   var mainPopout, $fontsizeview, fontsizeview;
 

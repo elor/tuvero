@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './teamview', './newtournamentview',
-    './generictournamentview'], function(extend, View, TeamView,
-    NewTournamentView, GenericTournamentView) {
+define(['jquery', 'lib/extend', 'core/view', './teamview',
+    './newtournamentview', './generictournamentview'], function($, extend,
+    View, TeamView, NewTournamentView, GenericTournamentView) {
   /**
    * Constructor
    *

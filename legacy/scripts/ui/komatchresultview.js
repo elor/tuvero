@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './matchresultview', 'jquery', './kotreeposition'], //
-function(extend, MatchResultView, $, KOTreePosition) {
+define(['lib/extend', './matchresultview', './kotreeposition'], //
+function(extend, MatchResultView, KOTreePosition) {
   /**
    * Constructor
    *

@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'timemachine/timemachine',
+define(['jquery', 'lib/extend', 'core/controller', 'timemachine/timemachine',
     'ui/stateloader', 'ui/strings', 'ui/toast', 'ui/filesavermodel'], //
-function(extend, Controller, TimeMachine, StateLoader, Strings, Toast,
+function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     FileSaverModel) {
   /**
    * Constructor

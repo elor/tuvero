@@ -19,9 +19,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './view', './tabmenucontroller', './listmodel',
+define(['jquery', 'lib/extend', './view', './tabmenucontroller', './listmodel',
     './selectionvaluemodel', './tabmodel', './classview', './tabimageview',
-    './listexclusionlistener'], function(extend, View, TabMenuController,
+    './listexclusionlistener'], function($, extend, View, TabMenuController,
     ListModel, SelectionValueModel, TabModel, ClassView, TabImageView,
     ListExclusionListener) {
   /**

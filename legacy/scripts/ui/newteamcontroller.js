@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/controller', './playermodel', './teammodel'], //
-function(extend, Controller, PlayerModel, TeamModel) {
+define(['jquery', 'lib/extend', 'core/controller', './playermodel',
+    './teammodel'], function($, extend, Controller, PlayerModel, TeamModel) {
   /**
    * Constructor
    *

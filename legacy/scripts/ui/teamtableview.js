@@ -16,7 +16,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(['jquery', 'lib/extend', 'core/view'], function($, extend, View) {
   /**
    * Constructor
    *

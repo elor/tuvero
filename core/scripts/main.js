@@ -18,6 +18,8 @@ require(['core/config', 'core/common'], function() {
   function notifyAboutLoadError(err) {
     console.log(err);
 
+    var $ = require('jquery');
+
     $(function($) {
       var $splash;
 
@@ -34,6 +36,8 @@ require(['core/config', 'core/common'], function() {
     // FIXME reduce to one var statement. This function is too long anyhow
     var Update, Splash, Toast, Strings, Storage, Browser, StateLoader;
     var TeamToastsListener;
+
+    var $ = require('jquery');
 
     Browser = require('ui/browser');
     Splash = require('ui/splash');

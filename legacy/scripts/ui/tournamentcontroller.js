@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'ui/renamecontroller', './toast', './strings'], //
-function(extend, $, RenameController, Toast, Strings) {
+define(['lib/extend', 'ui/renamecontroller', './toast', './strings'], //
+function(extend, RenameController, Toast, Strings) {
   var pendingNameChange;
 
   pendingNameChange = undefined;

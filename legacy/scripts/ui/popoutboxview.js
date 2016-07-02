@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './boxview', './popoutcontroller', 'core/valuemodel',
-    'core/classview'], function(extend, BoxView, PopoutController, ValueModel,
+define(['jquery', 'lib/extend', './boxview', './popoutcontroller', 'core/valuemodel',
+    'core/classview'], function($, extend, BoxView, PopoutController, ValueModel,
     ClassView) {
   var $iconTemplate, $popoutIconTemplate, $closeIconTemplate, //
   $pageBreakIconTemplate;

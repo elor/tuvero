@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/controller', 'options'], function(extend,
+define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, extend,
     Controller, Options) {
   /**
    * Constructor

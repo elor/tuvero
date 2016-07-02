@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/stateclassview', 'core/listener',
+define(['jquery', 'lib/extend', 'core/view', 'ui/stateclassview', 'core/listener',
     './tournamentcontroller', 'core/listmodel', './boxview', 'presets',
-    './rankingorderview', './strings'], function(extend, View, StateClassView,
+    './rankingorderview', './strings'], function($, extend, View, StateClassView,
     Listener, TournamentController, ListModel, BoxView, Presets,
     RankingOrderView, Strings) {
   /**
