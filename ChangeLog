@@ -4,6 +4,8 @@
 
 	* legacy/style/buttons.css: buttons don't have an outline anymore
 
+	* Makefile: Pseudo-Chromeapp capabilities added
+
 2016-06-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/newteamview.css: using new input field design

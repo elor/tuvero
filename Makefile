@@ -109,4 +109,7 @@ build-dir: FORCE
 testserver: FORCE
 	python -m SimpleHTTPServer
 
+open-as-app: FORCE
+	chromium-browser --app=file://$(PWD)/index.html
+
 FORCE:
