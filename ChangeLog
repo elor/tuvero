@@ -2,6 +2,8 @@
 
 	* legacy/scripts/ui/autocompletionview.js: Electron support: check for typeahead before usage
 
+	* legacy/style/buttons.css: buttons don't have an outline anymore
+
 2016-06-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/newteamview.css: using new input field design

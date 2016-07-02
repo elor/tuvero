@@ -7,6 +7,7 @@ button {
   font-weight: bold;
   padding: 5px;
   cursor: pointer;
+  outline: none;
 }
 
 button.mini {
@@ -38,7 +39,7 @@ button.withlabel {
   margin: 0.5em;
 }
 
-button:hover {
+button:hover, button:focus {
   background: #f0f0f0;
 }
 
