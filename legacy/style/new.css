@@ -81,6 +81,19 @@
   text-align: center;
 }
 
+#tabs>[data-tab="new"] .systemtable .system>h3:last-child {
+  position: absolute;
+  display: block;
+  width: 100%;
+  bottom: 0em;
+  padding: 0.2em 0.2em 0.3em 0.2em;
+  margin: 0em -1em;
+  border-top-style: solid;
+  border-top-width: 1px;
+  background: linear-gradient(#e8e8e8, #f0f0f0);
+  text-align: center;
+}
+
 #tabs>[data-tab="new"] .systemtable .system>.initial, #tabs>[data-tab="new"] .systemtable .system>.running,
   #tabs>[data-tab="new"] .systemtable .system>.finished, #tabs>[data-tab="new"] .systemtable .system>.idle,
   #tabs>[data-tab="new"] .systemtable .system>.failure {

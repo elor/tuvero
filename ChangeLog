@@ -13,6 +13,8 @@
 
 	* legacy/scripts/ui/hometab.js: hiding chrome recommendation in chrome browsers
 
+	* legacy/style/new.css: h3:last-child was still used, but removed earlier
+
 2016-06-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/style/newteamview.css: using new input field design
