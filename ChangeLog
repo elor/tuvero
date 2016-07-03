@@ -3,13 +3,18 @@
 	* core/templates/settingstab.html: crude LoginView added to settings tab
 	minor update to force server cache update
 	using iframe instead of secondary window
+	iframe and unnecessary buttons removed
 
 	* legacy/scripts/ui/settingstab.js: LoginView added to settings tab
+	LoginModel supersedes LoginView logic
 
 	* legacy/scripts/ui/logincontroller.js: LoginController added (crude logic)
 	must fetch token with cookie credentials
+	most logic moved to LoginModel
 
 	* legacy/scripts/ui/loginview.js: LoginView added
+
+	* legacy/scripts/ui/loginmodel.js: Logic from LoginView and LoginController moved here
 
 2016-07-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

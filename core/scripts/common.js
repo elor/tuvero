@@ -174,6 +174,7 @@ define([
   'ui/listview',
   'ui/loadedimagesview',
   'ui/logincontroller',
+  'ui/loginmodel',
   'ui/loginview',
   'ui/matchcontroller',
   'ui/matchresultcontroller',
