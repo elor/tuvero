@@ -6,6 +6,7 @@
 	* legacy/scripts/ui/settingstab.js: LoginView added to settings tab
 
 	* legacy/scripts/ui/logincontroller.js: LoginController added (crude logic)
+	must fetch token with cookie credentials
 
 	* legacy/scripts/ui/loginview.js: LoginView added
 

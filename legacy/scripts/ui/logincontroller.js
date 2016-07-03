@@ -27,17 +27,19 @@ define(['lib/extend', 'core/controller', 'jquery'], function(extend,
   LoginController.prototype.getToken = function() {
     var token = this.model.token;
 
-    $.get('https://turniere.tuvero.de/profile/token/new/json', function(tok) {
-      if (tok) {
-        if (tok.error) {
-          token.set(tok.error);
-        } else {
-          token.set(tok.fulltoken);
-        }
-      } else {
-        token.set('404');
+    $.ajax({
+      method: 'GET',
+      url: 'https://turniere.tuvero.de/profile/token/new/json',
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function(d) {
+        token.set(d.fulltoken || d.error);
+      },
+      error: function(d) {
+        token.set('unexpected error');
       }
-    })
+    });
   };
 
   LoginController.prototype.getProfile = function() {
