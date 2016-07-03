@@ -5,8 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
-    'ui/fontsizeview'], function(extend, $, View,
-    CSVExportController, FontSizeView) {
+    'ui/fontsizeview', 'ui/loginview'], function(extend, $, View,
+    CSVExportController, FontSizeView, LoginView) {
   /**
    * represents a whole team tab
    *
@@ -41,6 +41,9 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     $container = this.$view.find('.csv');
     this.csvExportController = new CSVExportController(new View(undefined,
         $container));
+
+    $container = this.$view.find('.tuvero-login');
+    this.loginView = new LoginView($container);
   };
 
   // FIXME CHEAP HACK AHEAD

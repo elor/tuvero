@@ -1,3 +1,13 @@
+2016-07-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/settingstab.html: crude LoginView added to settings tab
+
+	* legacy/scripts/ui/settingstab.js: LoginView added to settings tab
+
+	* legacy/scripts/ui/logincontroller.js: LoginController added (crude logic)
+
+	* legacy/scripts/ui/loginview.js: LoginView added
+
 2016-07-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/autocompletionview.js: Electron support: check for typeahead before usage

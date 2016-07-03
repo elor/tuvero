@@ -173,6 +173,8 @@ define([
   'ui/listcollectormodel',
   'ui/listview',
   'ui/loadedimagesview',
+  'ui/logincontroller',
+  'ui/loginview',
   'ui/matchcontroller',
   'ui/matchresultcontroller',
   'ui/matchresultview',
