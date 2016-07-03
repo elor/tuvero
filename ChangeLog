@@ -2,6 +2,7 @@
 
 	* core/templates/settingstab.html: crude LoginView added to settings tab
 	minor update to force server cache update
+	using iframe instead of secondary window
 
 	* legacy/scripts/ui/settingstab.js: LoginView added to settings tab
 
