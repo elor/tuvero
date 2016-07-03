@@ -44,7 +44,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery'], function(
         withCredentials: true
       },
       success: function(data) {
-        if (error) {
+        if (data.error) {
           token.set(undefined);
           if (loggingIn.get()) {
             emit('loginfailure');
