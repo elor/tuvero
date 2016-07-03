@@ -16,6 +16,7 @@
 
 	* legacy/scripts/ui/loginmodel.js: Logic from LoginView and LoginController moved here
 	'error not defined' bug fixed
+	"logginin->loggingIn" typo fixed
 
 2016-07-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

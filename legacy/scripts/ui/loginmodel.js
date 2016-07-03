@@ -34,7 +34,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery'], function(
     var token, emit, loggingIn;
 
     token = this.token;
-    loggingIn = this.loggingin;
+    loggingIn = this.loggingIn;
     emit = this.emit.bind(this);
 
     $.ajax({
