@@ -1,6 +1,7 @@
 2016-07-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/settingstab.html: crude LoginView added to settings tab
+	minor update to force server cache update
 
 	* legacy/scripts/ui/settingstab.js: LoginView added to settings tab
 
