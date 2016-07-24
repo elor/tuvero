@@ -6,17 +6,32 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery'], function(
-    extend, Model, ValueModel, $) {
+define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
+    'core/statevaluemodel'], function(extend, Model, ValueModel, $,
+    StateValueModel) {
+  var STATETRANSITIONS, INITIALSTATE;
+
+  STATETRANSITIONS = {
+    'loggedout': ['newtoken', 'trytoken'],
+    'trytoken': ['loggedout', 'loggedin'],
+    'newtoken': ['loggedin', 'loginrequired', 'error'],
+    'loginrequired': ['newtoken', 'loggedout', 'error'],
+    'loggedin': ['loggedout', 'error'],
+    'error': ['loggedout']
+  };
+  INITIALSTATE = 'loggedout';
+
   /**
    * Constructor
    */
   function LoginModel() {
     LoginModel.superconstructor.call(this);
 
-    this.username = new ValueModel(undefined);
-    this.token = new ValueModel(undefined);
-    this.loggingIn = new ValueModel(false);
+    this.username = new ValueModel('none');
+    this.token = new ValueModel('none');
+    this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS);
+
+    this.registerListener(this);
   }
   extend(LoginModel, Model);
 
@@ -27,14 +42,29 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery'], function(
   };
 
   LoginModel.prototype.login = function() {
+    console.log('login()');
     this.renewToken();
   };
 
-  LoginModel.prototype.renewToken = function() {
-    var token, emit, loggingIn;
+  LoginModel.prototype.logout = function() {
+    console.log('logout()');
+    if (!this.state.set('loggedout')) {
+      console.error('logout failed: wrong state');
+    }
+    this.token.set('none');
+    this.username.set('none');
+  };
 
+  LoginModel.prototype.renewToken = function() {
+    var token, emit, state;
+
+    if (!this.state.set('newtoken')) {
+      this.state.set('error');
+      console.log('newtoken set() failed');
+      return false;
+    }
     token = this.token;
-    loggingIn = this.loggingIn;
+    state = this.state;
     emit = this.emit.bind(this);
 
     $.ajax({
@@ -45,27 +75,24 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery'], function(
       },
       success: function(data) {
         if (data.error) {
-          token.set(undefined);
-          if (loggingIn.get()) {
+          token.set('none');
+          if (state.get() === 'loginrequired') {
+            state.set('error');
             emit('loginfailure');
           } else {
+            state.set('loginrequired');
             emit('loginstart');
-            loggingIn.set(false);
           }
         } else {
           token.set(data.fulltoken);
+          state.set('loggedin')
           emit('logincomplete');
-          loggingIn.set(false);
         }
       },
       error: function(data) {
-        token.set(undefined);
-        if (loggingIn.get()) {
-          emit('loginfailure');
-          loggingIn.set(false);
-        } else {
-          emit('loginstart');
-        }
+        token.set('none');
+        state.set('error');
+        emit('loginfailure');
       }
     })
   };
@@ -73,27 +100,39 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery'], function(
   LoginModel.prototype.updateProfile = function() {
     var username, login;
 
-    login = this;
+    console.log('updateProfile()');
+
+    if (this.state.get() != 'loggedin') {
+      console.log('not logged in!');
+    }
 
     username = this.username;
 
-    if (this.token.get() === undefined) {
+    if (this.token.get() === 'none') {
+      console.log('no token set');
       return;
     }
 
     $.get('https://api.tuvero.de/profile', 'auth=' + this.token.get(),
         function(profile) {
+          console.log('api data:');
+          console.log(profile);
           if (profile) {
             if (profile.displayname) {
               username.set(profile.displayname);
             } else {
-
-              username.set(undefined);
+              console.log('displayname not set in returned shit')
+              username.set('none');
             }
           } else {
-            username.set(undefined);
+            console.log('returned user data is empty')
+            username.set('none');
           }
         });
+  };
+
+  LoginModel.prototype.onlogincomplete = function() {
+    this.updateProfile();
   };
 
   return LoginModel;

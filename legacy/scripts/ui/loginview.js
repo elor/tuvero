@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/loginmodel', 'ui/valueview',
-    'ui/logincontroller', 'core/classview'], function(extend, View, LoginModel,
-    ValueView, LoginController, ClassView) {
+define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
+    'core/classview'], function(extend, View, ValueView, LoginController,
+    ClassView) {
   /**
    * Constructor
    */
@@ -19,6 +19,15 @@ define(['lib/extend', 'core/view', 'ui/loginmodel', 'ui/valueview',
         .find('.username'));
 
     this.loginWindow = undefined;
+
+    this.tokenView = new ValueView(this.model.token, //
+    this.$view.find('.token'));
+    this.tokenView = new ValueView(this.model.state, //
+    this.$view.find('.state'));
+    this.usernameView = new ValueView(this.model.username, //
+    this.$view.find('.username'));
+
+    this.model.registerListener(this);
 
     this.controller = new LoginController(this);
   }
