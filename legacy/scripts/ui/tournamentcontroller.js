@@ -20,7 +20,7 @@ function(extend, RenameController, Toast, Strings) {
    */
   function TournamentController(view, tournaments) {
     var tournament, rankingOrder;
-    TournamentController.superconstructor.call(this, view, true);
+    TournamentController.superconstructor.call(this, view, false);
 
     tournament = this.model.tournament;
     rankingOrder = this.model.rankingOrder;
