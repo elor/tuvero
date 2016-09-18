@@ -22,6 +22,8 @@
 
 	* core/scripts/test/listmodel.js: testing ListModel.includes()
 
+	* legacy/scripts/ui/noregmodel.js: LengthModel isn't sufficient for noreg-decisions
+
 2016-07-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/settingstab.html: Login test fields moved to first position
