@@ -59,11 +59,6 @@ div#tabs > [data-tab="teams"] {
   margin: 0.2em;
 }
 
-#tabs > [data-tab="teams"] .team .name:hover {
-  cursor: text;
-  text-decoration: underline;
-}
-
 #tabs > [data-tab="teams"] div.team .name {
   font-weight: bold;
   white-space: nowrap;
@@ -155,10 +150,5 @@ div#tabs > [data-tab="teams"] {
 
   #tabs > [data-tab="teams"] .team {
     margin: 0em;
-  }
-
-  #tabs > [data-tab="teams"] .team .name:hover {
-    cursor: inherit;
-    text-decoration: inherit;
   }
 }

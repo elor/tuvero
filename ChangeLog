@@ -14,6 +14,10 @@
 
 	* legacy/style/app.css: showing default cursor everywhere
 
+	* legacy/style/general.css: hover-cursors disabled for printing
+
+	* legacy/style/teams.css: hover-cursors disabled for printing
+
 2016-07-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/settingstab.html: Login test fields moved to first position
