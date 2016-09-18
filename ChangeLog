@@ -15,6 +15,7 @@
 	* legacy/style/app.css: showing default cursor everywhere
 
 	* legacy/style/general.css: hover-cursors disabled for printing
+	underlining of rename input boxes disabled
 
 	* legacy/style/teams.css: hover-cursors disabled for printing
 
