@@ -8,14 +8,14 @@ define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
     'ui/state', './newteamview', './lengthview', './teamsizeview',
     './preregcloserview', './checkboxview', 'core/classview', './tabshandle',
     './teamremovecontroller', './teamtableview', './inputview',
-    './teamsfileloadcontroller', 'presets', 'core/lengthmodel',
+    './teamsfileloadcontroller', 'presets', 'ui/noregmodel',
     './deleteallteamscontroller', './autocompletionmodel',
     './autocompletionview', './autocompletionlegacyblobber',
     './teamformatdownloadcontroller', 'timemachine/timemachine'], function($,
     extend, View, ListView, TeamView, State, NewTeamView, LengthView,
     TeamSizeView, PreregCloserView, CheckBoxView, ClassView, TabsHandle,
     TeamRemoveController, TeamTableView, InputView, TeamsFileLoadController,
-    Presets, LengthModel, DeleteAllTeamsController, AutocompletionModel,
+    Presets, NoRegModel, DeleteAllTeamsController, AutocompletionModel,
     AutocompletionView, AutocompletionLegacyBlobber,
     TeamFormatDownloadController, TimeMachine) {
   /**
@@ -85,7 +85,7 @@ define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
     this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view);
 
     // hide registration and removal buttons after the first tournament
-    this.regVisibilityView = new ClassView(new LengthModel(State.tournaments),
+    this.regVisibilityView = new ClassView(new NoRegModel(State.tournaments),
         this.$view, 'noreg');
 
     // name maxwidth checkbox
