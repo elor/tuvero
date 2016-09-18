@@ -1,3 +1,9 @@
+2016-09-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: Hover-rename disabled. It shows unexpected behaviour
+
+	* legacy/scripts/ui/tournamentrenamecontroller.js: Hover-rename disabled. It shows unexpected behaviour
+
 2016-07-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/settingstab.html: Login test fields moved to first position
