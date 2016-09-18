@@ -113,6 +113,12 @@ define(function() {
       QUnit.equal(list.indexOf('unavailable'), -1,
           'indexOf: unavailable element');
 
+      QUnit.equal(list.includes(1), true, 'includes: first element');
+      QUnit.equal(list.includes(3), true, 'includes: middle element');
+      QUnit.equal(list.includes(5), true, 'includes: last element');
+      QUnit.equal(list.includes(0), false, 'includes: unavailable');
+      QUnit.equal(list.includes(-1), false, 'includes: another unavailable');
+
       QUnit.equal(list.remove(0), 1, 'remove returns the removed object');
       QUnit.deepEqual(list.asArray(), [2, 3, 4, 5], 'remove at front');
       QUnit.equal(list.length, 4, 'length after remove');
@@ -207,7 +213,8 @@ define(function() {
       list.push('3');
 
       QUnit.equal(list.erase(3), 3, 'erase() returns number of removals');
-      QUnit.equal(list.indexOf(3), -1, 'erase removes all instances');
+      QUnit.equal(list.includes(3), false, 'erase removes all instances');
+      QUnit.equal(list.indexOf(3), -1, 'erased element has no index anymore');
       QUnit.equal(list.length, 3, 'erase resizes the list');
 
       QUnit.equal(list.erase('notfound'), 0, 'erase() returns 0 if not found');

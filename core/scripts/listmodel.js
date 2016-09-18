@@ -146,6 +146,17 @@ define(['lib/extend', './model', './listupdatelistener', './type'], function(
   };
 
   /**
+   * Return true if the object is in the list, false otherwise
+   *
+   * @param object
+   *          the object to look for
+   * @return true if the object is in the list, false otherwise
+   */
+  ListModel.prototype.includes = function(object) {
+    return this.list.indexOf(object) !== -1;
+  };
+
+  /**
    * access the element at the specified index
    *
    * @param index
