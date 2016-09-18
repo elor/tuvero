@@ -4,6 +4,16 @@
 
 	* legacy/scripts/ui/tournamentrenamecontroller.js: Hover-rename disabled. It shows unexpected behaviour
 
+	* core/style/tabview.css: showing pointer cursor on options
+
+	* core/templates/historytab.html: not showing pointer cursor on hints
+
+	* core/templates/newtab.html: not showing pointer cursor on hints
+
+	* core/templates/teamstab.html: not showing pointer cursor on hints
+
+	* legacy/style/app.css: showing default cursor everywhere
+
 2016-07-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/settingstab.html: Login test fields moved to first position

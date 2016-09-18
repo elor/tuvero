@@ -28,6 +28,10 @@
   float: right;
 }
 
+#tabs > div .options > span {
+  cursor: pointer;
+}
+
 @media print {
   #tabs > div {
     margin-top: 0em;
