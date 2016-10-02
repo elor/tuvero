@@ -20,6 +20,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.loginWindow = undefined;
     this.interval = undefined;
+    this.loginWindowJustClosed = false;
 
     this.tokenView = new ValueView(this.model.token, //
     this.$view.find('.token'));
@@ -46,6 +47,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.interval = window.setInterval((function() {
       if (!this.loginWindow.parent) {
         window.clearInterval(this.interval);
+        this.interval = undefined;
+        this.loginWindowJustClosed = true;
         this.model.login();
       }
     }).bind(this), 100);
@@ -79,11 +82,20 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.onloginsuccess = function() {
+    this.loginWindowJustClosed = false;
     this.closeLoginWindow();
   };
 
+  LoginView.prototype.onerror = function() {
+    this.loginWindowJustClosed = false;
+  };
+
   LoginView.prototype.onloginrequired = function() {
-    this.openLoginWindow();
+    if (this.loginWindowJustClosed) {
+      this.loginWindowJustClosed = false;
+    } else {
+      this.openLoginWindow();
+    }
   };
 
   return LoginView;

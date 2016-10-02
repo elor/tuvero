@@ -7,9 +7,11 @@
 	* legacy/scripts/ui/loginview.js: automatically open login window
 	upper/lower typo fixed
 	openLogoutWindow() added
+	not instantly re-opening login window when login failed
 
 	* core/templates/settingstab.html: loginwindow button added
 	logoutwindow button added
+	wording
 
 	* legacy/scripts/ui/logincontroller.js: loginwindow button added
 	logoutwindow button added
