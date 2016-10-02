@@ -28,6 +28,7 @@
 	it's an error when token validation fails.
 	updateProfile() AJAX error callback added
 	ajax timeout added
+	calling logout() when logging in
 
 	* legacy/scripts/ui/textview.js: TextView 'undefined' default text added
 

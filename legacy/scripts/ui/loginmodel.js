@@ -47,6 +47,9 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
   LoginModel.prototype.login = function() {
     // TODO check if token is set
+    if (this.state.get() !== 'loggedout') {
+      this.logout();
+    }
     console.log('login()');
     this.renewToken();
   };
