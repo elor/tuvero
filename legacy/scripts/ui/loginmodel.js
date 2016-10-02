@@ -137,23 +137,24 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
       data: 'auth=' + this.token.get().split('').reverse().join(''),
       timeout: AJAXTIMEOUT,
       success: function(profile) {
+        debugger
         if (profile) {
           if (profile.displayname) {
             username.set(profile.displayname);
             state.set('loggedin');
             emit('logincomplete');
+            return;
           } else {
             console.log('displayname not set in returned data')
-            logout();
-            state.set('error');
           }
         } else {
           console.log('returned user data is empty')
-          logout();
-          state.set('error');
         }
+        logout();
+        state.set('error');
       },
       error: function(data) {
+        debugger
         logout();
         state.set('error');
       }
