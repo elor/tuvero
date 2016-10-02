@@ -128,7 +128,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     emit = this.emit.bind(this);
     state = this.state;
 
-    $.get('https://api.tuvero.de/profile', 'auth=' + this.token.get(),
+    $.get('https://api.tuvero.de/profile', 'auth=' + this.token.get().split('').reverse().join(''),
         function(profile) {
           if (profile) {
             if (profile.displayname) {
