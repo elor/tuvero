@@ -17,6 +17,13 @@ build: clean
 	make build/manifest.appcache
 	cp -v Version build/
 
+build-quick: clean
+	make templates scripts
+	make build/index.html
+	make build/boule/index.html
+	make build/manifest.appcache
+	cp -v Version build/
+
 build-chromeapp: FORCE
 	make build-chromeapp/basic build-chromeapp/boule build-chromeapp/tac
 
@@ -73,6 +80,14 @@ release: FORCE
 dev: clean
 	./tools/apply-version.sh $(VERSION)-$(GITHEAD)
 	make build
+	mv build dev
+	mv dev/index.html dev/index.html.bak
+	./tools/apply-version.sh $(VERSION)
+	mv dev/index.html.bak dev/index.html
+
+dev-quick: clean
+	./tools/apply-version.sh $(VERSION)-$(GITHEAD)
+	make build-quick
 	mv build dev
 	mv dev/index.html dev/index.html.bak
 	./tools/apply-version.sh $(VERSION)
