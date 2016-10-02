@@ -31,7 +31,11 @@ define(['lib/extend', 'core/view'], function(extend, View) {
    *          the new text
    */
   TextView.prototype.setText = function(text) {
-    this.model.text = text;
+    if (text === undefined) {
+      this.model.text = 'undefined';
+    } else {
+      this.model.text = text;
+    }
     this.model.emit('update');
   };
 
