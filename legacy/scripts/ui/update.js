@@ -112,5 +112,9 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
 
   cacheStatus();
 
+  if (Debug.isDevVersion) {
+    window.setInterval(Update, 5000);
+  }
+
   return Update;
 });
