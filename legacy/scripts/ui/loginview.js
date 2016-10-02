@@ -79,7 +79,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.closeLoginWindow();
   };
 
-  LoginModel.prototype.onloginrequired = function() {
+  LoginView.prototype.onloginrequired = function() {
     this.openLoginWindow();
   };
 
