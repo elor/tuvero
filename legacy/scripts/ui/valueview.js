@@ -28,7 +28,12 @@ define(['lib/extend', 'core/view'], function(extend, View) {
    * write the contents of get() to the DOM
    */
   ValueView.prototype.update = function() {
-    this.$view.text(this.model.get());
+    var value = this.model.get();
+    if (value === undefined) {
+      this.$view.text('undefined');
+    } else {
+      this.$view.text(value);
+    }
   };
 
   /**

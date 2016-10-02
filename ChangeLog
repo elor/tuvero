@@ -25,6 +25,8 @@
 
 	* legacy/scripts/ui/textview.js: TextView 'undefined' default text added
 
+	* legacy/scripts/ui/valueview.js: ValueView 'undefined' default value added
+
 2016-09-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: Hover-rename disabled. It shows unexpected behaviour
