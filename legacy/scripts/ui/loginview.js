@@ -49,7 +49,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.closeLoginWindow = function() {
-    if (!this.isloginWindowOpen()) {
+    if (!this.isLoginWindowOpen()) {
       return;
     }
 
