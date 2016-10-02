@@ -8,6 +8,7 @@
 	upper/lower typo fixed
 	openLogoutWindow() added
 	not instantly re-opening login window when login failed
+	listener functions set to the correct name
 
 	* core/templates/settingstab.html: loginwindow button added
 	logoutwindow button added

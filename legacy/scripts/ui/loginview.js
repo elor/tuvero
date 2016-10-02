@@ -29,8 +29,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.usernameView = new ValueView(this.model.username, //
     this.$view.find('.username'));
 
-    this.model.registerListener(this);
-
     this.controller = new LoginController(this);
   }
   extend(LoginView, View);
@@ -75,22 +73,16 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     return !!this.loginWindow && !!this.loginWindow.document;
   };
 
-  LoginView.prototype.onloginstart = function() {
-    if (!this.isLoginWindowOpen()) {
-      this.openLoginWindow();
-    }
-  };
-
   LoginView.prototype.onloginsuccess = function() {
     this.loginWindowJustClosed = false;
     this.closeLoginWindow();
   };
 
-  LoginView.prototype.onerror = function() {
+  LoginView.prototype.onloginfailure = function() {
     this.loginWindowJustClosed = false;
   };
 
-  LoginView.prototype.onloginrequired = function() {
+  LoginView.prototype.onloginstart = function() {
     if (this.loginWindowJustClosed) {
       this.loginWindowJustClosed = false;
     } else {
