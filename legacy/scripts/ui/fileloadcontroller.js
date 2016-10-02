@@ -83,10 +83,18 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', './toast',
   FileLoadController.prototype.buttonDrop = function(evt) {
     var files = evt.originalEvent.dataTransfer.files;
 
-    if (files.length == 1 && files[0]) {
+    if (files.length < 1) {
+      new Toast(Strings.nofiles, Toast.LONG);
+      return;
+    } else if (files.length > 1) {
+      new Toast(Strings.onlyonefile, Toast.LONG);
+      return;
+    }
+
+    if (files[0]) {
       this.initFileRead(files[0]);
     } else {
-      new Toast(Strings.onlyonefile, Toast.LONG);
+      new Toast(Strings.nofiles, Toast.LONG);
     }
   };
 

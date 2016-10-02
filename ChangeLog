@@ -1,3 +1,9 @@
+2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/fileloadcontroller.js: error Toasts miswording fixed
+
+	* legacy/scripts/ui/strings.js: nofiles added
+
 2016-09-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: Hover-rename disabled. It shows unexpected behaviour
