@@ -9,7 +9,7 @@
 define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     'core/statevaluemodel'], function(extend, Model, ValueModel, $,
     StateValueModel) {
-  var STATETRANSITIONS, INITIALSTATE;
+  var STATETRANSITIONS, INITIALSTATE, NULLTOKEN;
 
   STATETRANSITIONS = {
     'loggedout': ['newtoken', 'trytoken'],
@@ -21,14 +21,16 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   };
   INITIALSTATE = 'loggedout';
 
+  NULLTOKEN = undefined;
+
   /**
    * Constructor
    */
   function LoginModel() {
     LoginModel.superconstructor.call(this);
 
-    this.username = new ValueModel('none');
-    this.token = new ValueModel('none');
+    this.username = new ValueModel(NULLTOKEN);
+    this.token = new ValueModel(NULLTOKEN);
     this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS);
 
     this.registerListener(this);
@@ -51,8 +53,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     if (!this.state.set('loggedout')) {
       console.error('logout failed: wrong state');
     }
-    this.token.set('none');
-    this.username.set('none');
+    this.token.set(NULLTOKEN);
+    this.username.set(NULLTOKEN);
   };
 
   LoginModel.prototype.renewToken = function() {
@@ -75,7 +77,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
       },
       success: function(data) {
         if (data.error) {
-          token.set('none');
+          token.set(NULLTOKEN);
           if (state.get() === 'loginrequired') {
             state.set('error');
             emit('loginfailure');
@@ -90,7 +92,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
         }
       },
       error: function(data) {
-        token.set('none');
+        token.set(NULLTOKEN);
         state.set('error');
         emit('loginfailure');
       }
@@ -108,7 +110,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
     username = this.username;
 
-    if (this.token.get() === 'none') {
+    if (this.token.get() === NULLTOKEN) {
       console.log('no token set');
       return;
     }
