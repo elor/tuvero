@@ -9,7 +9,7 @@
 define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     'core/statevaluemodel'], function(extend, Model, ValueModel, $,
     StateValueModel) {
-  var STATETRANSITIONS, INITIALSTATE, NULLTOKEN;
+  var STATETRANSITIONS, INITIALSTATE, NULLTOKEN, AJAXTIMEOUT;
 
   STATETRANSITIONS = {
     'loggedout': ['newtoken', 'trytoken'],
@@ -22,6 +22,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   INITIALSTATE = 'loggedout';
 
   NULLTOKEN = undefined;
+  AJAXTIMEOUT = 10000;
 
   /**
    * Constructor
@@ -78,6 +79,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     $.ajax({
       method: 'GET',
       url: 'https://turniere.tuvero.de/profile/token/new/json',
+      timeout: AJAXTIMEOUT,
       xhrFields: {
         withCredentials: true
       },
@@ -133,6 +135,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
       method: 'GET',
       url: 'https://api.tuvero.de/profile',
       data: 'auth=' + this.token.get().split('').reverse().join(''),
+      timeout: AJAXTIMEOUT,
       success: function(profile) {
         if (profile) {
           if (profile.displayname) {

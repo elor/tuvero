@@ -27,6 +27,7 @@
 	token scrambling added for testing
 	it's an error when token validation fails.
 	updateProfile() AJAX error callback added
+	ajax timeout added
 
 	* legacy/scripts/ui/textview.js: TextView 'undefined' default text added
 
