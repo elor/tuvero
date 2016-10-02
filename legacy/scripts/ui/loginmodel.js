@@ -147,7 +147,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   };
 
   LoginModel.prototype.ontrytoken = function() {
-    this.updateProfile();
+    window.setTimeout(this.updateProfile.bind(this), 500);
   };
 
   return LoginModel;

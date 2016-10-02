@@ -21,7 +21,7 @@ function(Presets, ValueModel, AutoCompletionLegacyBlobber) {
    * @return true on failure, false otherwise
    */
   function saveKey(key) {
-    var val, blob, timeMachineCommit;
+    var val, blob;
 
     if (!window.localStorage) {
       return true;

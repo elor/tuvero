@@ -23,6 +23,7 @@
 
 	* legacy/scripts/ui/loginmodel.js: 'none' moved into a constant
 	token has to be verified before login is considered complete
+	test delay added
 
 	* legacy/scripts/ui/textview.js: TextView 'undefined' default text added
 
