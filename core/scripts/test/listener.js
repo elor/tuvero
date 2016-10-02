@@ -113,6 +113,22 @@ define(function() {
       QUnit.equal(emitter2.listeners.length, 0,
           'memleak: second emitter was unregistered');
 
+      /**
+       * double-listening test
+       */
+      emitter = new Emitter();
+      listener = new Listener(emitter);
+      emitter.registerListener(listener);
+      QUnit.equal(listener.emitters.length, 1,
+          'double registration of a listener is prevented');
+
+      listener.resetcount = 0;
+      listener.onreset = function() {
+        this.resetcount += 1;
+      }
+      emitter.emit('reset');
+      QUnit.equal(listener.resetcount, 1,
+          'double invocation of a listener is prevented');
     });
   };
 });
