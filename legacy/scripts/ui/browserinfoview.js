@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', './browser', './toast',
-    './browserinfocontroller'], function(extend, View, Browser, Toast,
-    BrowserInfoController) {
+    './browserinfocontroller', 'ui/update'], function(extend, View, Browser,
+    Toast, BrowserInfoController, Update) {
   /**
    * Constructor
    */
@@ -39,6 +39,7 @@ define(['lib/extend', 'core/view', './browser', './toast',
 
   BrowserInfoView.prototype.onupdate = function() {
     this.update();
+    Update();
     new Toast('update');
   };
 

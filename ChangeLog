@@ -19,6 +19,8 @@
 
 	* core/scripts/test/listener.js: testing double registration of a listener. It worked already
 
+	* legacy/scripts/ui/browserinfoview.js: #279: update appCache too when 'update' button is pressed
+
 2016-09-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: Hover-rename disabled. It shows unexpected behaviour
