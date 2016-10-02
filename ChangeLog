@@ -25,6 +25,7 @@
 	token has to be verified before login is considered complete
 	test delay added
 	token scrambling added for testing
+	it's an error when token validation fails.
 
 	* legacy/scripts/ui/textview.js: TextView 'undefined' default text added
 

@@ -45,6 +45,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   };
 
   LoginModel.prototype.login = function() {
+    // TODO check if token is set
     console.log('login()');
     this.renewToken();
   };
@@ -128,26 +129,28 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     emit = this.emit.bind(this);
     state = this.state;
 
-    $.get('https://api.tuvero.de/profile', 'auth=' + this.token.get().split('').reverse().join(''),
-        function(profile) {
-          if (profile) {
-            if (profile.displayname) {
-              username.set(profile.displayname);
-              state.set('loggedin');
-              emit('logincomplete');
-            } else {
-              console.log('displayname not set in returned data')
-              logout();
-            }
-          } else {
-            console.log('returned user data is empty')
-            logout();
-          }
-        });
+    $.get('https://api.tuvero.de/profile', 'auth='
+        + this.token.get().split('').reverse().join(''), function(profile) {
+      if (profile) {
+        if (profile.displayname) {
+          username.set(profile.displayname);
+          state.set('loggedin');
+          emit('logincomplete');
+        } else {
+          console.log('displayname not set in returned data')
+          logout();
+          state.set('error');
+        }
+      } else {
+        console.log('returned user data is empty')
+        logout();
+        state.set('error');
+      }
+    });
   };
 
   LoginModel.prototype.ontrytoken = function() {
-    window.setTimeout(this.updateProfile.bind(this), 500);
+    this.updateProfile.bind(this);
   };
 
   return LoginModel;
