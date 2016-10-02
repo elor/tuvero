@@ -13,8 +13,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
   STATETRANSITIONS = {
     'loggedout': ['newtoken', 'trytoken'],
+    'newtoken': ['trytoken', 'loginrequired', 'error'],
     'trytoken': ['loggedout', 'loggedin'],
-    'newtoken': ['loggedin', 'loginrequired', 'error'],
     'loginrequired': ['newtoken', 'loggedout', 'error'],
     'loggedin': ['loggedout', 'error'],
     'error': ['loggedout']
@@ -29,9 +29,9 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   function LoginModel() {
     LoginModel.superconstructor.call(this);
 
-    this.username = new ValueModel(NULLTOKEN);
-    this.token = new ValueModel(NULLTOKEN);
     this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS);
+    this.token = new ValueModel(NULLTOKEN);
+    this.username = new ValueModel(NULLTOKEN);
 
     this.registerListener(this);
   }
@@ -39,6 +39,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
   LoginModel.prototype.EVENTS = {
     loginstart: true,
+    trytoken: true,
     logincomplete: true,
     loginfailure: true
   };
@@ -50,6 +51,10 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
   LoginModel.prototype.logout = function() {
     console.log('logout()');
+
+    if (this.state.get('loggedout')) {
+      console.log('already logged out');
+    }
     if (!this.state.set('loggedout')) {
       console.error('logout failed: wrong state');
     }
@@ -87,8 +92,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
           }
         } else {
           token.set(data.fulltoken);
-          state.set('loggedin')
-          emit('logincomplete');
+          state.set('trytoken')
+          emit('trytoken');
         }
       },
       error: function(data) {
@@ -99,41 +104,49 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     })
   };
 
+  LoginModel.prototype.tryToken = function(token) {
+    this.logout();
+
+    this.token.set(data.fulltoken);
+    this.state.set('trytoken')
+    this.emit('trytoken');
+  };
+
   LoginModel.prototype.updateProfile = function() {
-    var username, login;
+    var username, logout, emit, state;
 
     console.log('updateProfile()');
 
-    if (this.state.get() != 'loggedin') {
-      console.log('not logged in!');
-    }
-
-    username = this.username;
-
     if (this.token.get() === NULLTOKEN) {
       console.log('no token set');
+      this.logout();
       return;
     }
 
+    username = this.username;
+    logout = this.logout.bind(this);
+    emit = this.emit.bind(this);
+    state = this.state;
+
     $.get('https://api.tuvero.de/profile', 'auth=' + this.token.get(),
         function(profile) {
-          console.log('api data:');
-          console.log(profile);
           if (profile) {
             if (profile.displayname) {
               username.set(profile.displayname);
+              state.set('loggedin');
+              emit('logincomplete');
             } else {
-              console.log('displayname not set in returned shit')
-              username.set('none');
+              console.log('displayname not set in returned data')
+              logout();
             }
           } else {
             console.log('returned user data is empty')
-            username.set('none');
+            logout();
           }
         });
   };
 
-  LoginModel.prototype.onlogincomplete = function() {
+  LoginModel.prototype.ontrytoken = function() {
     this.updateProfile();
   };
 
