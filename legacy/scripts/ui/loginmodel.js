@@ -129,20 +129,28 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     emit = this.emit.bind(this);
     state = this.state;
 
-    $.get('https://api.tuvero.de/profile', 'auth='
-        + this.token.get().split('').reverse().join(''), function(profile) {
-      if (profile) {
-        if (profile.displayname) {
-          username.set(profile.displayname);
-          state.set('loggedin');
-          emit('logincomplete');
+    $.ajax({
+      method: 'GET',
+      url: 'https://api.tuvero.de/profile',
+      data: 'auth=' + this.token.get().split('').reverse().join(''),
+      success: function(profile) {
+        if (profile) {
+          if (profile.displayname) {
+            username.set(profile.displayname);
+            state.set('loggedin');
+            emit('logincomplete');
+          } else {
+            console.log('displayname not set in returned data')
+            logout();
+            state.set('error');
+          }
         } else {
-          console.log('displayname not set in returned data')
+          console.log('returned user data is empty')
           logout();
           state.set('error');
         }
-      } else {
-        console.log('returned user data is empty')
+      },
+      error: function(data) {
         logout();
         state.set('error');
       }
