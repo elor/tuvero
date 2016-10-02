@@ -4,6 +4,8 @@
 
 	* legacy/scripts/ui/strings.js: nofiles added
 
+	* legacy/scripts/ui/loginview.js: automatically open login window
+
 2016-09-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/timemachinecommitcontroller.js: Hover-rename disabled. It shows unexpected behaviour

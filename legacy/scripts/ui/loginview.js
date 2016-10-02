@@ -19,6 +19,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         .find('.username'));
 
     this.loginWindow = undefined;
+    this.interval = undefined;
 
     this.tokenView = new ValueView(this.model.token, //
     this.$view.find('.token'));
@@ -37,6 +38,14 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.closeLoginWindow();
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
+
+
+    this.interval = window.setInterval((function() {
+      if (!this.loginWindow.parent) {
+        window.clearInterval(this.interval);
+        this.model.login();
+      }
+    }).bind(this), 100);
   };
 
   LoginView.prototype.closeLoginWindow = function() {
@@ -47,6 +56,12 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     if (this.loginWindow) {
       this.loginWindow.close();
     }
+
+    if (this.interval !== undefined) {
+      window.clearInterval(this.interval);
+      this.interval = undefined;
+    }
+
     this.loginWindow = undefined;
   };
 
@@ -62,6 +77,10 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.onloginsuccess = function() {
     this.closeLoginWindow();
+  };
+
+  LoginModel.prototype.onloginrequired = function() {
+    this.openLoginWindow();
   };
 
   return LoginView;
