@@ -15,6 +15,8 @@ function(extend, Controller) {
     LoginController.superconstructor.call(this, view);
 
     this.view.$view.find('.login').click(this.model.login.bind(this.model));
+    this.view.$view.find('.loginwindow').click(this.view.openLoginWindow.bind(this.view));
+    this.view.$view.find('.logoutwindow').click(this.view.openLogoutWindow.bind(this.view));
     this.view.$view.find('.logout').click(this.model.logout.bind(this.model));
   }
   extend(LoginController, Controller);

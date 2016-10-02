@@ -34,11 +34,14 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   }
   extend(LoginView, View);
 
+  LoginView.prototype.openLogoutWindow = function() {
+    window.open('https://turniere.tuvero.de/logout');
+  };
+
   LoginView.prototype.openLoginWindow = function() {
     this.closeLoginWindow();
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
-
 
     this.interval = window.setInterval((function() {
       if (!this.loginWindow.parent) {
