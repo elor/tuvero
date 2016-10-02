@@ -2,7 +2,7 @@
   appDir: "..",
   baseUrl: "scripts",
   dir: "../../build/test",
-  optimize: "uglify2",
+  optimize: "none",
   modules: [{
     name: "test"
   },{

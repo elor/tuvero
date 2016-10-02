@@ -2,7 +2,7 @@
   appDir: "..",
   baseUrl: "scripts",
   dir: "../../build/tac",
-  optimize: "uglify2",
+  optimize: "none",
   modules: [{
     name: "main"
   }],
