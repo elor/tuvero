@@ -24,6 +24,10 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.usernameView = new ValueView(this.model.username, this.$view
         .find('.username'));
 
+    $(window).on('beforeunload', (function($) {
+      this.closeLoginWindow();
+    }).bind(this));
+
     this.controller = new LoginController(this);
   }
   extend(LoginView, View);
@@ -82,8 +86,10 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   LoginView.prototype.onloginstart = function(emitter, event, causedByUser) {
     if (causedByUser) {
       this.openLoginWindow();
+      this.loginPolling();
+    } else if (this.isLoginWindowOpen()) {
+      this.loginPolling();
     }
-    this.loginPolling();
   };
 
   return LoginView;

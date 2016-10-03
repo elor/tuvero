@@ -27,6 +27,8 @@
 	closing logout window on successful logout
 	logoutWindow removed
 	last logout references removed
+	reduced login polling
+	autoclose windows when exiting tuvero
 
 	* core/templates/settingstab.html: login/logoutwindow buttons removed
 
