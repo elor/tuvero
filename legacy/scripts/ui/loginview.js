@@ -39,13 +39,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
 
     this.interval = window.setInterval((function() {
-      if (!this.loginWindow.parent) {
-        window.clearInterval(this.interval);
-        this.interval = undefined;
-        this.loginWindowJustClosed = true;
-        this.model.login();
-      }
-    }).bind(this), 100);
+      this.model.login(false);
+    }).bind(this), 500);
   };
 
   LoginView.prototype.closeLoginWindow = function() {

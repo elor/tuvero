@@ -20,6 +20,7 @@
 	* legacy/scripts/ui/loginview.js: loginWindow XSS bug fixed
 	trying jquery for focus()
 	Apparently, tab-focussing considered XSS
+	login polling when loginview is open
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
