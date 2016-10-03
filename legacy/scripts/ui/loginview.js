@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
-    'core/classview'], function(extend, View, ValueView, LoginController,
-    ClassView) {
+    'core/classview', 'jquery'], function(extend, View, ValueView,
+    LoginController, ClassView, $) {
   /**
    * Constructor
    */
@@ -35,7 +35,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.openLoginWindow = function() {
     if (this.isLoginWindowOpen() && this.loginWindow.focus) {
-      this.loginWindow.focus();
+      $(this.loginWindow).focus();
       return;
     } else {
       this.closeLoginWindow();

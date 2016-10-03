@@ -18,6 +18,7 @@
 	`make dev-quick` relied on index.html existing
 
 	* legacy/scripts/ui/loginview.js: loginWindow XSS bug fixed
+	trying jquery for focus()
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
