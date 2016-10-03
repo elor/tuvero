@@ -113,9 +113,11 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
   cacheStatus();
 
   if (Debug.isDevVersion) {
-    window.setInterval(Update, 15000);
+    window.setInterval(Update, 5000);
     appCache.addEventListener('updateready', function() {
-      window.setTimeout(window.location.reload, 1000);
+      window.setTimeout(function() {
+        window.location.reload();
+      }, 1000);
     });
   }
 
