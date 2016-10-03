@@ -4,6 +4,8 @@
 	loggedout->error state transition was missing
 	token scrambling test removed
 
+	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
+
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/fileloadcontroller.js: error Toasts miswording fixed
