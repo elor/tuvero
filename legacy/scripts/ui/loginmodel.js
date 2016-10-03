@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
-    'core/statevaluemodel'], function(extend, Model, ValueModel, $,
-    StateValueModel) {
+    'core/statevaluemodel', 'core/listener'], function(extend, Model,
+    ValueModel, $, StateValueModel, Listener) {
   var STATETRANSITIONS, INITIALSTATE, NULLTOKEN, AJAXTIMEOUT;
 
   STATETRANSITIONS = {
@@ -36,7 +36,14 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
     this.registerListener(this);
 
-    LoginModel.tryToken = this.tryToken.bind(this);
+    Listener.bind(token, 'update', function() {
+      if (this.token.get() !== NULLTOKEN) {
+        this.state.set('trytoken')
+        this.emit('trytoken');
+      }
+    }, this);
+
+    LoginModel.singleton = this;
   }
   extend(LoginModel, Model);
 
@@ -100,8 +107,6 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
           }
         } else {
           token.set(data.fulltoken);
-          state.set('trytoken')
-          emit('trytoken');
         }
       },
       error: function(data) {
@@ -116,8 +121,6 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     this.logout();
 
     this.token.set(token);
-    this.state.set('trytoken')
-    this.emit('trytoken');
   };
 
   LoginModel.prototype.updateProfile = function() {
@@ -141,10 +144,10 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
       url: 'https://api.tuvero.de/profile',
       data: 'auth=' + this.token.get(),
       timeout: AJAXTIMEOUT,
-      success: function(profile) {
-        if (profile) {
-          if (profile.displayname) {
-            username.set(profile.displayname);
+      success: function(data) {
+        if (data) {
+          if (data.displayname) {
+            username.set(data.displayname);
             state.set('loggedin');
             emit('logincomplete');
             return;
