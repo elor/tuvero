@@ -115,7 +115,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   LoginModel.prototype.tryToken = function(token) {
     this.logout();
 
-    this.token.set(data.fulltoken);
+    this.token.set(token);
     this.state.set('trytoken')
     this.emit('trytoken');
   };
