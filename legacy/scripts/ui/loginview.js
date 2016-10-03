@@ -74,19 +74,12 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.onlogincomplete = function() {
     this.closeLoginWindow();
-
-    if (this.isLogoutWindowOpen()) {
-      this.logoutPolling();
-    }
   };
 
   LoginView.prototype.onloginfailure = function() {
-    this.closeLogoutWindow();
   };
 
   LoginView.prototype.onloginstart = function(emitter, event, causedByUser) {
-    this.closeLogoutWindow();
-
     if (causedByUser) {
       this.openLoginWindow();
     }

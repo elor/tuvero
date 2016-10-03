@@ -25,6 +25,7 @@
 	logout polling added
 	closing logout window on successful logout
 	logoutWindow removed
+	last logout references removed
 
 	* core/templates/settingstab.html: login/logoutwindow buttons removed
 
