@@ -13,6 +13,7 @@
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 
 	* Makefile: `make build-quick` excludes index.html anymore
+	`make dev-quick` relied on index.html existing
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
