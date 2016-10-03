@@ -35,6 +35,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     this.username = new ValueModel(NULLTOKEN);
 
     this.registerListener(this);
+
+    LoginModel.tryToken = this.tryToken.bind(this);
   }
   extend(LoginModel, Model);
 
@@ -137,7 +139,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     $.ajax({
       method: 'GET',
       url: 'https://api.tuvero.de/profile',
-      data: 'auth=' + this.token.get().split('').reverse().join(''),
+      data: 'auth=' + this.token.get(),
       timeout: AJAXTIMEOUT,
       success: function(profile) {
         if (profile) {
