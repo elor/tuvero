@@ -19,9 +19,7 @@ build: clean
 
 build-quick: clean
 	make templates scripts
-	make build/index.html
 	make build/boule/index.html
-	make build/manifest.appcache
 	cp -v Version build/
 
 build-chromeapp: FORCE
