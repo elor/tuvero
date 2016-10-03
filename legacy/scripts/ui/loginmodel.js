@@ -59,16 +59,10 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     if (this.state.get() !== 'loggedout') {
       this.logout();
     }
-    console.log('login()');
     this.renewToken();
   };
 
   LoginModel.prototype.logout = function() {
-    console.log('logout()');
-
-    if (this.state.get('loggedout')) {
-      console.log('already logged out');
-    }
     if (!this.state.set('loggedout')) {
       console.error('logout failed: wrong state');
     }
@@ -81,7 +75,6 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
     if (!this.state.set('newtoken')) {
       this.state.set('error');
-      console.log('newtoken set() failed');
       return false;
     }
     token = this.token;
@@ -96,6 +89,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
         withCredentials: true
       },
       success: function(data) {
+        console.log(data)
         if (data.error) {
           token.set(NULLTOKEN);
           if (state.get() === 'loginrequired') {
@@ -126,10 +120,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   LoginModel.prototype.updateProfile = function() {
     var username, logout, emit, state;
 
-    console.log('updateProfile()');
-
     if (this.token.get() === NULLTOKEN) {
-      console.log('no token set');
       this.logout();
       return;
     }
@@ -145,20 +136,15 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
       data: 'auth=' + this.token.get(),
       timeout: AJAXTIMEOUT,
       success: function(data) {
-        if (data) {
-          if (data.displayname) {
-            username.set(data.displayname);
-            state.set('loggedin');
-            emit('logincomplete');
-            return;
-          } else {
-            console.log('displayname not set in returned data')
-          }
+        console.log(data)
+        if (data && data.displayname) {
+          username.set(data.displayname);
+          state.set('loggedin');
+          emit('logincomplete');
         } else {
-          console.log('returned user data is empty')
+          logout();
+          state.set('error');
         }
-        logout();
-        state.set('error');
       },
       error: function(data) {
         logout();

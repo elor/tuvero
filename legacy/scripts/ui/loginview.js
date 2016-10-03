@@ -22,12 +22,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.interval = undefined;
     this.loginWindowJustClosed = false;
 
-    this.tokenView = new ValueView(this.model.token, //
-    this.$view.find('.token'));
-    this.tokenView = new ValueView(this.model.state, //
-    this.$view.find('.state'));
-    this.usernameView = new ValueView(this.model.username, //
-    this.$view.find('.username'));
+    this.usernameView = new ValueView(this.model.username, this.$view
+        .find('.username'));
 
     this.controller = new LoginController(this);
   }
