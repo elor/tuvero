@@ -6,6 +6,7 @@
 	using token event propagation instead of ambiguous states
 	save()/restore() added
 	unreferenced variable fixed
+	save()/restore() didn't do anything. it does now
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 

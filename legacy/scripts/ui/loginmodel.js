@@ -172,14 +172,26 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   };
 
   LoginModel.prototype.save = function() {
-    return this.token.save()
+    var data = LoginModel.superclass.save.call(this);
+
+    data.token = this.token.get() || '';
+
+    return data;
   };
 
   LoginModel.prototype.restore = function(data) {
-    return this.token.restore(data);
+    if (!TournamentModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.tryToken(data.token || undefined);
+
+    return true;
   };
 
-  LoginModel.prototype.SAVEFORMAT = ValueModel.prototype.SAVEFORMAT;
+  LoginModel.prototype.SAVEFORMAT = Object
+      .create(LoginModel.superclass.SAVEFORMAT);
+  LoginModel.prototype.SAVEFORMAT.token = String;
 
   return LoginModel;
 });
