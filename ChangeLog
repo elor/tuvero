@@ -4,6 +4,7 @@
 	loggedout->error state transition was missing
 	token scrambling test removed
 	using token event propagation instead of ambiguous states
+	save()/restore() added
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 

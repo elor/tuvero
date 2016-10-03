@@ -171,5 +171,15 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     this.updateProfile();
   };
 
+  LoginModel.prototype.save = function() {
+    return this.token.save()
+  };
+
+  LoginModel.prototype.restore = function(data) {
+    return this.token.restore(data);
+  };
+
+  LoginModel.prototype.SAVEFORMAT = ValueModel.prototype.SAVEFORMAT;
+
   return LoginModel;
 });
