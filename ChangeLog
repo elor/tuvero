@@ -11,6 +11,7 @@
 	trying POST for token retrieval
 	singleton removed. Was for testing only
 	auto-login
+	autologin removed. It makes for bad privacy and sense security
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 	autoreload on update
