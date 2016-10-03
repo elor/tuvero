@@ -34,12 +34,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.openLoginWindow = function() {
-    if (this.isLoginWindowOpen() && this.loginWindow.focus) {
-      $(this.loginWindow).focus();
-      return;
-    } else {
-      this.closeLoginWindow();
-    }
+    this.closeLoginWindow();
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
 
