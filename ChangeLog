@@ -22,6 +22,7 @@
 	Apparently, tab-focussing considered XSS
 	login polling when loginview is open
 	non-overlapping login polling
+	logout polling added
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

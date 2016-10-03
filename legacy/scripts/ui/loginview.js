@@ -19,7 +19,9 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         .find('.username'));
 
     this.loginWindow = undefined;
-    this.interval = undefined;
+    this.logoutWindow = undefined;
+    this.loginPollingTimeout = undefined;
+    this.loginPollingTimeout = undefined;
 
     this.usernameView = new ValueView(this.model.username, this.$view
         .find('.username'));
@@ -29,7 +31,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   extend(LoginView, View);
 
   LoginView.prototype.openLogoutWindow = function() {
-    window.open('https://turniere.tuvero.de/logout');
+    this.closeLogoutWindow();
+
+    this.logoutWindow = window.open('https://turniere.tuvero.de/logout');
+
+    this.logoutPolling();
   };
 
   LoginView.prototype.openLoginWindow = function() {
@@ -41,15 +47,32 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   LoginView.prototype.loginPolling = function() {
     var timeout;
 
-    if (this.interval) {
+    if (this.loginPollingTimeout) {
       return;
     }
 
-    timeout = this.interval = window.setTimeout((function() {
-      if (this.interval !== timeout) {
+    timeout = this.loginPollingTimeout = window.setTimeout((function() {
+      if (this.loginPollingTimeout !== timeout) {
         return;
       }
-      this.interval = undefined;
+      this.loginPollingTimeout = undefined;
+
+      this.model.login(false);
+    }).bind(this), 500);
+  };
+
+  LoginView.prototype.logoutPolling = function() {
+    var timeout;
+
+    if (this.logoutPollingTimeout) {
+      return;
+    }
+
+    timeout = this.logoutPollingTimeout = window.setTimeout((function() {
+      if (this.logoutPollingTimeout !== timeout) {
+        return;
+      }
+      this.logoutPollingTimeout = undefined;
 
       this.model.login(false);
     }).bind(this), 500);
@@ -64,23 +87,49 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
       this.loginWindow.close();
     }
 
-    if (this.interval !== undefined) {
-      window.clearInterval(this.interval);
-      this.timeout = undefined;
+    if (this.loginPollingTimeout !== undefined) {
+      window.clearInterval(this.loginPollingTimeout);
+      this.loginPollingInterval = undefined;
     }
 
     this.loginWindow = undefined;
+  };
+
+  LoginView.prototype.closeLogoutWindow = function() {
+    if (!this.isLogoutWindowOpen()) {
+      return;
+    }
+
+    if (this.logoutWindow) {
+      this.logoutWindow.close();
+    }
+
+    if (this.logoutPollingTimeout !== undefined) {
+      window.clearInterval(this.logoutPollingTimeout);
+      this.logoutPollingInterval = undefined;
+    }
+
+    this.logoutWindow = undefined;
   };
 
   LoginView.prototype.isLoginWindowOpen = function() {
     return !!this.loginWindow && !!this.loginWindow.parent;
   };
 
+  LoginView.prototype.isLogoutWindowOpen = function() {
+    return !!this.logoutWindow && !!this.logoutWindow.parent;
+  };
+
   LoginView.prototype.onlogincomplete = function() {
     this.closeLoginWindow();
+
+    if (this.isLogoutWindowOpen()) {
+      this.logoutPolling();
+    }
   };
 
   LoginView.prototype.onloginfailure = function() {
+    this.closeLogoutWindow();
   };
 
   LoginView.prototype.onloginstart = function(emitter, event, causedByUser) {
