@@ -23,6 +23,7 @@
 	login polling when loginview is open
 	non-overlapping login polling
 	logout polling added
+	closing logout window on successful logout
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

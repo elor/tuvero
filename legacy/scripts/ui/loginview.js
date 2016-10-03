@@ -133,6 +133,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.onloginstart = function(emitter, event, causedByUser) {
+    this.closeLogoutWindow();
+
     if (causedByUser) {
       this.openLoginWindow();
     }
