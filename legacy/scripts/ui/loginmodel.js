@@ -42,6 +42,10 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
         this.emit('trytoken');
       }
     }, this);
+
+    $((function($) {
+      this.login(false);
+    }).bind(this));
   }
   extend(LoginModel, Model);
 

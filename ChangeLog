@@ -10,6 +10,7 @@
 	trying POST
 	trying POST for token retrieval
 	singleton removed. Was for testing only
+	auto-login
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 	autoreload on update
