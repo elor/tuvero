@@ -36,7 +36,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
 
     this.registerListener(this);
 
-    Listener.bind(token, 'update', function() {
+    Listener.bind(this.token, 'update', function() {
       if (this.token.get() !== NULLTOKEN) {
         this.state.set('trytoken')
         this.emit('trytoken');

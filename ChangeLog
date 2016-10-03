@@ -5,6 +5,7 @@
 	token scrambling test removed
 	using token event propagation instead of ambiguous states
 	save()/restore() added
+	unreferenced variable fixed
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 
