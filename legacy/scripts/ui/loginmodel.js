@@ -140,7 +140,6 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
       data: 'auth=' + this.token.get().split('').reverse().join(''),
       timeout: AJAXTIMEOUT,
       success: function(profile) {
-        debugger
         if (profile) {
           if (profile.displayname) {
             username.set(profile.displayname);
@@ -157,7 +156,6 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
         state.set('error');
       },
       error: function(data) {
-        debugger
         logout();
         state.set('error');
       }
@@ -165,7 +163,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   };
 
   LoginModel.prototype.ontrytoken = function() {
-    this.updateProfile.bind(this);
+    this.updateProfile();
   };
 
   return LoginModel;
