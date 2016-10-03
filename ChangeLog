@@ -21,6 +21,7 @@
 	trying jquery for focus()
 	Apparently, tab-focussing considered XSS
 	login polling when loginview is open
+	non-overlapping login polling
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

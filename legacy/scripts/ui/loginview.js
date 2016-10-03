@@ -37,8 +37,21 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.closeLoginWindow();
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
+  };
 
-    this.interval = window.setInterval((function() {
+  LoginView.prototype.loginPolling = function() {
+    var timeout;
+
+    if (this.interval) {
+      return;
+    }
+
+    timeout = this.interval = window.setTimeout((function() {
+      if (this.interval !== timeout) {
+        return;
+      }
+      this.interval = undefined;
+
       this.model.login(false);
     }).bind(this), 500);
   };
@@ -54,7 +67,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     if (this.interval !== undefined) {
       window.clearInterval(this.interval);
-      this.interval = undefined;
+      this.timeout = undefined;
     }
 
     this.loginWindow = undefined;
@@ -77,6 +90,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     if (causedByUser) {
       this.openLoginWindow();
     }
+    this.loginPolling();
   };
 
   return LoginView;
