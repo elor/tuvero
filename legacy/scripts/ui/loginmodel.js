@@ -52,12 +52,13 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     loginfailure: true
   };
 
-  LoginModel.prototype.login = function() {
+  LoginModel.prototype.login = function(causedByUser) {
+    causedByUser = causedByUser || false;
     // TODO check if token is set
     if (this.state.get() !== 'loggedout') {
       this.logout();
     }
-    this.renewToken();
+    this.retrieveNewToken(causedByUser);
   };
 
   LoginModel.prototype.logout = function() {
@@ -68,7 +69,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     this.username.set(NULLTOKEN);
   };
 
-  LoginModel.prototype.renewToken = function() {
+  LoginModel.prototype.retrieveNewToken = function(causedByUser) {
     var token, emit, state;
 
     if (!this.state.set('newtoken')) {
@@ -95,7 +96,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
             emit('loginfailure');
           } else {
             state.set('loginrequired');
-            emit('loginstart');
+            emit('loginstart', causedByUser);
           }
         } else {
           token.set(data.fulltoken);
