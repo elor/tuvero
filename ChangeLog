@@ -7,6 +7,7 @@
 	save()/restore() added
 	unreferenced variable fixed
 	save()/restore() didn't do anything. it does now
+	trying POST
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 

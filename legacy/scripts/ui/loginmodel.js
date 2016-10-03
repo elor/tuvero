@@ -140,7 +140,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     state = this.state;
 
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: 'https://api.tuvero.de/profile',
       data: 'auth=' + this.token.get(),
       timeout: AJAXTIMEOUT,
