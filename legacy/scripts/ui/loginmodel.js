@@ -12,7 +12,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   var STATETRANSITIONS, INITIALSTATE, NULLTOKEN, AJAXTIMEOUT;
 
   STATETRANSITIONS = {
-    'loggedout': ['newtoken', 'trytoken'],
+    'loggedout': ['newtoken', 'trytoken', 'error'],
     'newtoken': ['trytoken', 'loginrequired', 'error'],
     'trytoken': ['loggedout', 'loggedin'],
     'loginrequired': ['newtoken', 'loggedout', 'error'],

@@ -1,6 +1,7 @@
 2016-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginmodel.js: function wasn't called correctly, but bound only.
+	loggedout->error state transition was missing
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
