@@ -174,6 +174,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
   LoginModel.prototype.save = function() {
     var data = LoginModel.superclass.save.call(this);
 
+    // TODO scramble token to guard against simple attacks
+
     data.token = this.token.get() || '';
 
     return data;
