@@ -34,7 +34,12 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.openLoginWindow = function() {
-    this.closeLoginWindow();
+    if (this.isLoginWindowOpen() && this.loginWindow.focus) {
+      this.loginWindow.focus();
+      return;
+    } else {
+      this.closeLoginWindow();
+    }
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
 
@@ -66,7 +71,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.isLoginWindowOpen = function() {
-    return !!this.loginWindow && !!this.loginWindow.document;
+    return !!this.loginWindow && !!this.loginWindow.parent;
   };
 
   LoginView.prototype.onloginsuccess = function() {

@@ -42,8 +42,6 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
         this.emit('trytoken');
       }
     }, this);
-
-    LoginModel.singleton = this;
   }
   extend(LoginModel, Model);
 

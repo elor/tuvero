@@ -9,11 +9,14 @@
 	save()/restore() didn't do anything. it does now
 	trying POST
 	trying POST for token retrieval
+	singleton removed. Was for testing only
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 
 	* Makefile: `make build-quick` excludes index.html anymore
 	`make dev-quick` relied on index.html existing
+
+	* legacy/scripts/ui/loginview.js: loginWindow XSS bug fixed
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
