@@ -20,7 +20,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.loginWindow = undefined;
     this.interval = undefined;
-    this.loginWindowJustClosed = false;
 
     this.usernameView = new ValueView(this.model.username, this.$view
         .find('.username'));
@@ -77,13 +76,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     return !!this.loginWindow && !!this.loginWindow.parent;
   };
 
-  LoginView.prototype.onloginsuccess = function() {
-    this.loginWindowJustClosed = false;
+  LoginView.prototype.onlogincomplete = function() {
     this.closeLoginWindow();
   };
 
   LoginView.prototype.onloginfailure = function() {
-    this.loginWindowJustClosed = false;
   };
 
   LoginView.prototype.onloginstart = function(emitter, event, causedByUser) {
