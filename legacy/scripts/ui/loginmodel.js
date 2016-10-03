@@ -89,7 +89,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'jquery',
     emit = this.emit.bind(this);
 
     $.ajax({
-      method: 'GET',
+      method: 'POST',
       url: 'https://turniere.tuvero.de/profile/token/new/json',
       timeout: AJAXTIMEOUT,
       xhrFields: {

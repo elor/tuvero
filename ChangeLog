@@ -8,6 +8,7 @@
 	unreferenced variable fixed
 	save()/restore() didn't do anything. it does now
 	trying POST
+	trying POST for token retrieval
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
 
