@@ -19,8 +19,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         .find('.username'));
 
     this.loginWindow = undefined;
-    this.logoutWindow = undefined;
-    this.loginPollingTimeout = undefined;
     this.loginPollingTimeout = undefined;
 
     this.usernameView = new ValueView(this.model.username, this.$view
@@ -29,14 +27,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.controller = new LoginController(this);
   }
   extend(LoginView, View);
-
-  LoginView.prototype.openLogoutWindow = function() {
-    this.closeLogoutWindow();
-
-    this.logoutWindow = window.open('https://turniere.tuvero.de/logout');
-
-    this.logoutPolling();
-  };
 
   LoginView.prototype.openLoginWindow = function() {
     this.closeLoginWindow();
@@ -61,23 +51,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     }).bind(this), 500);
   };
 
-  LoginView.prototype.logoutPolling = function() {
-    var timeout;
-
-    if (this.logoutPollingTimeout) {
-      return;
-    }
-
-    timeout = this.logoutPollingTimeout = window.setTimeout((function() {
-      if (this.logoutPollingTimeout !== timeout) {
-        return;
-      }
-      this.logoutPollingTimeout = undefined;
-
-      this.model.login(false);
-    }).bind(this), 500);
-  };
-
   LoginView.prototype.closeLoginWindow = function() {
     if (!this.isLoginWindowOpen()) {
       return;
@@ -95,29 +68,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.loginWindow = undefined;
   };
 
-  LoginView.prototype.closeLogoutWindow = function() {
-    if (!this.isLogoutWindowOpen()) {
-      return;
-    }
-
-    if (this.logoutWindow) {
-      this.logoutWindow.close();
-    }
-
-    if (this.logoutPollingTimeout !== undefined) {
-      window.clearInterval(this.logoutPollingTimeout);
-      this.logoutPollingInterval = undefined;
-    }
-
-    this.logoutWindow = undefined;
-  };
-
   LoginView.prototype.isLoginWindowOpen = function() {
     return !!this.loginWindow && !!this.loginWindow.parent;
-  };
-
-  LoginView.prototype.isLogoutWindowOpen = function() {
-    return !!this.logoutWindow && !!this.logoutWindow.parent;
   };
 
   LoginView.prototype.onlogincomplete = function() {

@@ -24,6 +24,11 @@
 	non-overlapping login polling
 	logout polling added
 	closing logout window on successful logout
+	logoutWindow removed
+
+	* core/templates/settingstab.html: login/logoutwindow buttons removed
+
+	* legacy/scripts/ui/logincontroller.js: login/logoutwindow buttons removed
 
 2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
