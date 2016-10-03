@@ -12,6 +12,7 @@
 	singleton removed. Was for testing only
 
 	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
+	autoreload on update
 
 	* Makefile: `make build-quick` excludes index.html anymore
 	`make dev-quick` relied on index.html existing
