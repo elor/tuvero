@@ -12,6 +12,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    */
   function MessageModel(server, apipath, data) {
     MessageModel.superconstructor.call(this);
+
     this.server = server;
     this.apipath = apipath;
     this.data = data;
@@ -23,7 +24,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   MessageModel.prototype.send = function() {
     $.ajax({
       method: 'POST',
-      url: 'https://api.tuvero.de/profile',
+      url: 'https://api.tuvero.de/' + this.apipath,
       data: 'auth=' + this.server.token.get(),
       timeout: 5000,
       success: (function(data) {
