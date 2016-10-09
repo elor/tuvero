@@ -8,6 +8,10 @@
 
 	* legacy/scripts/ui/browser.js: 'secure' (http) and 'legit' (tuvero.de) fields added
 
+	* legacy/scripts/ui/messagemodel.js: A singular message to and from the API server
+
+	* legacy/scripts/ui/servermodel.js: Token and message generator
+
 2016-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginmodel.js: function wasn't called correctly, but bound only.
