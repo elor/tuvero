@@ -14,6 +14,7 @@
 	ValueModel wasn't included
 	typo fixed
 	callbacks look for error field, too
+	createToken function added
 
 	* legacy/scripts/ui/servermodel.js: Token and message generator
 	auto-validation of tokens after they're set

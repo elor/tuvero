@@ -22,6 +22,11 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   }
   extend(ServerModel, Model);
 
+  ServerModel.prototype.EVENTS = {
+    'error': true,
+    'login': true,
+  };
+
   ServerModel.prototype.validateToken = function() {
     var message;
 
@@ -42,6 +47,29 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     this.invalidateToken();
     this.token.set(token);
     this.validateToken();
+  };
+
+  ServerModel.prototype.createToken = function(token) {
+    this.invalidateToken();
+
+    $.ajax({
+      method: 'POST',
+      url: 'https://turniere.tuvero.de/profile/token/new/json',
+      timeout: 5000,
+      xhrFields: {
+        withCredentials: true
+      },
+      success: (function(data) {
+        if (!data) {
+          this.emit('error');
+        } else if (data.error) {
+          this.emit('login', causedByUser);
+        } else {
+          this.setToken(data.fulltoken);
+        }
+      }).bind(this),
+      error: this.emit.bind(this, 'error')
+    });
   };
 
   ServerModel.prototype.invalidateToken = function() {

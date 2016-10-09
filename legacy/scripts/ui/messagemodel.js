@@ -26,6 +26,9 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
   extend(MessageModel, Model);
 
   MessageModel.prototype.send = function() {
+    if (this.server.tokenvalid.get() === false || !this.server.token.get()) {
+      return false;
+    }
     if (this.status.get() === 'sent') {
       return false;
     }
