@@ -17,35 +17,51 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.apipath = apipath;
     this.data = data;
 
+    this.status = new ValueModel('unsent');
+    this.result = new ValueModel(undefined);
+
     this.registerListener(this);
   }
   extend(MessageModel, Model);
 
   MessageModel.prototype.send = function() {
+    if (this.status.get() === 'sent') {
+      return false;
+    }
+    this.result.set(undefined);
+
     $.ajax({
       method: 'POST',
       url: 'https://api.tuvero.de/' + this.apipath,
       data: 'auth=' + this.server.token.get(),
       timeout: 5000,
       success: (function(data) {
+        this.result.set(data);
         if (data !== undefined && data !== '') {
-          this.emit('recieve', data);
+          this.status.set('done');
+          this.emit('received', data);
         } else {
+          this.status.set('error');
           this.emit('error', data);
         }
       }).bind(this),
       error: (function(data) {
+        this.result.set(data);
+        this.status.set('error');
         this.emit('error', data);
       }).bind(this)
     });
 
+    this.status.set('sent');
     this.emit('send', this.data);
+
+    return true;
   };
 
   MessageModel.prototype.onsend = function(emitter, event, data) {
   };
 
-  MessageModel.prototype.onrecieve = function(emitter, event, data) {
+  MessageModel.prototype.onreceive = function(emitter, event, data) {
   };
 
   MessageModel.prototype.onerror = function(emitter, event, data) {
@@ -54,7 +70,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   MessageModel.prototype.EVENTS = {
     'error': true,
     'send': true,
-    'recieve': true
+    'receive': true
   };
 
   return MessageModel;
