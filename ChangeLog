@@ -20,6 +20,7 @@
 	tokenvalid is reset along with the token
 	messages aren't sent without a valid token
 	shorter validation message callbacks
+	ServerModel instantiation with token argument
 
 2016-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

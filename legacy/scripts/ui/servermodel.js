@@ -12,11 +12,13 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   /**
    * Constructor
    */
-  function ServerModel() {
+  function ServerModel(token) {
     ServerModel.superconstructor.call(this);
 
-    this.token = new ValueModel(undefined);
+    this.token = new ValueModel(token || undefined);
     this.tokenvalid = new ValueModel(undefined);
+
+    this.validateToken();
   }
   extend(ServerModel, Model);
 
