@@ -32,7 +32,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     }
 
     message = this.message('/');
-    message.onrecieve = this.tokenvalid.set.bind(this.tokenvalid, true);
+    message.onreceive = this.tokenvalid.set.bind(this.tokenvalid, true);
     message.onerror = this.tokenvalid.set.bind(this.tokenvalid, false);
 
     message.send();

@@ -100,7 +100,7 @@ define(function() {
       emitter.unregisterListener(listener);
       retval = emitter.emit('event');
       QUnit.equal(eventcounter, 3,
-          'unregistered listeners do not recieve events');
+          'unregistered listeners do not receive events');
 
       retval = emitter.listeners.indexOf(listener);
       QUnit.equal(retval, -1, 'listeners are removed from emitter.listeners');
