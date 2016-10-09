@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
-    'core/classview', 'jquery'], function(extend, View, ValueView,
-    LoginController, ClassView, $) {
+    'core/classview', 'jquery', 'core/valuemodel', 'core/classview'], function(
+    extend, View, ValueView, LoginController, ClassView, $, ValueModel,
+    ClassView) {
   /**
    * Constructor
    */
@@ -20,6 +21,21 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.loginWindow = undefined;
     this.loginPollingTimeout = undefined;
+
+    this.popupBlocked = new ValueModel(false);
+    this.popupBlockedView = new ClassView(this.popupBlocked, this.$view
+        .find('.popupnotice'), undefined, 'hidden');
+
+    this.errorModel = new ValueModel(false);
+    this.errorModel.onupdate = function(state) {
+      this.set(state.get() === 'error');
+    };
+    this.model.state.registerListener(this.errorModel);
+    this.errorView = new ClassView(this.errorModel, this.$view
+        .find('.errornotice'), undefined, 'hidden');
+
+    // TODO offlinenotice
+    // TODO domainnotice
 
     this.usernameView = new ValueView(this.model.username, this.$view
         .find('.username'));
@@ -37,10 +53,14 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
 
-    if (this.loginWindow === undefined) {
+    if (!this.isLoginWindowOpen()) {
       this.closeLoginWindow();
-      this.model.username.set('popup-blocker');
+      this.popupBlocked.set(true);
+    } else {
+      this.popupBlocked.set(false);
     }
+
+    return this.isLoginWindowOpen();
   };
 
   LoginView.prototype.loginPolling = function() {
@@ -82,6 +102,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.onlogincomplete = function() {
+    this.popupBlocked.set(false);
     this.closeLoginWindow();
   };
 
@@ -90,8 +111,9 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.onloginstart = function(emitter, event, causedByUser) {
     if (causedByUser) {
-      this.openLoginWindow();
-      this.loginPolling();
+      if (this.openLoginWindow()) {
+        this.loginPolling();
+      }
     } else if (this.isLoginWindowOpen()) {
       this.loginPolling();
     }
