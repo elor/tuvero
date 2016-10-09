@@ -128,5 +128,25 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     return causes;
   };
 
+  ServerModel.prototype.save = function() {
+    var data = ServerModel.superclass.save.call(this);
+
+    data.token = this.token.get();
+  };
+
+  ServerModel.prototype.restore = function(data) {
+    if (!ServerModel.superclass.restore.call(this, data)) {
+      return false;
+    }
+
+    this.setToken(data.token || undefined);
+
+    return true;
+  };
+
+  ServerModel.prototype.SAVEFORMAT = Object
+      .create(ServerModel.superclass.SAVEFORMAT);
+  ServerModel.prototype.SAVEFORMAT.token = String;
+
   return ServerModel;
 });
