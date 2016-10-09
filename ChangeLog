@@ -11,8 +11,10 @@
 	* legacy/scripts/ui/messagemodel.js: A singular message to and from the API server
 	receive spelling corrected
 	storing result and status
+	ValueModel wasn't included
 
 	* legacy/scripts/ui/servermodel.js: Token and message generator
+	auto-validation of tokens after they're set
 
 2016-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

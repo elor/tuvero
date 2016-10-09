@@ -23,10 +23,11 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   ServerModel.prototype.validateToken = function() {
     var message;
 
+    this.tokenvalid.set(undefined);
+
     if (!this.token.get()) {
       return;
     }
-    this.tokenvalid.set(undefined);
 
     message = this.message('/');
 
@@ -46,8 +47,10 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   };
 
   ServerModel.prototype.setToken = function(token) {
+    debugger
     this.invalidateToken();
     this.token.set(token);
+    this.validateToken();
   };
 
   ServerModel.prototype.invalidateToken = function() {
@@ -63,6 +66,14 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   };
 
   ServerModel.prototype.message = function(apipath, data) {
+    if (this.tokenvalid.get() === false) {
+      return undefined;
+    }
+
+    // tokenvalid can be true or undefined.
+    // true: it's deemed valid
+    // undefined: validation pending
+
     message = new MessageModel(this, apipath, data);
 
     return message;
