@@ -17,10 +17,12 @@ define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
 
   Update = function() {
     cacheStatus();
-    try {
-      appCache.update();
-    } catch (er) {
-      console.error(er);
+    if (Update.isCached) {
+      try {
+        appCache.update();
+      } catch (er) {
+        console.error(er);
+      }
     }
   };
   // Note: Update() is NOT A CLASS
