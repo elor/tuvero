@@ -6,6 +6,7 @@
 	using ServerModel now
 	argument order of the /profile callback fixed
 	listening for logout
+	resetting profile if communicationStatus() fails
 
 	* core/templates/settingstab.html: different notices added
 
@@ -26,6 +27,7 @@
 	shorter validation message callbacks
 	ServerModel instantiation with token argument
 	'logout' event added
+	communicationStatus() extended: lists individual reasons
 
 	* legacy/scripts/ui/logincontroller.js: switched to ServerModel
 

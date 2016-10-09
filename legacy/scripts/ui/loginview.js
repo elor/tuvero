@@ -99,6 +99,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.updateProfile = function() {
+    if (!this.model.communicationStatus().all) {
+      this.username.set(undefined);
+      return;
+    }
+
     var msg = this.model.message('/profile');
     msg.onreceive = (function(emitter, event, data) {
       this.username.set(data.displayname);

@@ -113,8 +113,19 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     return message;
   };
 
-  ServerModel.prototype.communicationPossible = function() {
-    return Browser.secure && Browser.legit && Online();
+  ServerModel.prototype.communicationStatus = function() {
+    var causes = {
+      'https': Browser.secure,
+      'tuvero.de': Browser.legit,
+      'online': Online(),
+      'validtoken': this.token.get() && this.tokenvalid.get(),
+    };
+
+    causes.all = Object.keys(causes).every(function(value) {
+      return causes[value] == true;
+    });
+
+    return causes;
   };
 
   return ServerModel;
