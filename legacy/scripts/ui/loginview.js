@@ -121,7 +121,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.onlogout = function() {
-    updateProfile();
+    this.updateProfile();
   };
 
   LoginView.prototype.onerror = function() {
