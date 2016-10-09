@@ -30,24 +30,13 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     }
 
     message = this.message('/');
-
-    message.onrecieve = (function(emitter, event, data) {
-      if (data.error) {
-        this.tokenvalid.set(false);
-      } else if (data.valid) {
-        this.tokenvalid.set(true);
-      }
-    }).bind(this);
-
-    message.onerror = (function() {
-      this.tokenvalid.set(false);
-    }).bind(this);
+    message.onrecieve = this.tokenvalid.set.bind(this.tokenvalid, true);
+    message.onerror = this.tokenvalid.set.bind(this.tokenvalid, false);
 
     message.send();
   };
 
   ServerModel.prototype.setToken = function(token) {
-    debugger
     this.invalidateToken();
     this.token.set(token);
     this.validateToken();

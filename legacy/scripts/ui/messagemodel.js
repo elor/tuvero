@@ -38,12 +38,12 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
       timeout: 5000,
       success: (function(data) {
         this.result.set(data);
-        if (data !== undefined && data !== '') {
-          this.status.set('done');
-          this.emit('receive', data);
-        } else {
+        if (!data || data.error) {
           this.status.set('error');
           this.emit('error', data);
+        } else {
+          this.status.set('done');
+          this.emit('receive', data);
         }
       }).bind(this),
       error: (function(data) {
