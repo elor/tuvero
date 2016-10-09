@@ -12,9 +12,12 @@
 	receive spelling corrected
 	storing result and status
 	ValueModel wasn't included
+	typo fixed
 
 	* legacy/scripts/ui/servermodel.js: Token and message generator
 	auto-validation of tokens after they're set
+	tokenvalid is reset along with the token
+	messages aren't sent without a valid token
 
 2016-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

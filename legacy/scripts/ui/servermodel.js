@@ -55,7 +55,9 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
 
   ServerModel.prototype.invalidateToken = function() {
     var message;
+
     if (!this.token.get()) {
+      this.tokenvalid.set(false);
       return;
     }
 
@@ -63,10 +65,11 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     message.send(); // fire and forget
 
     this.token.set(undefined);
+    this.tokenvalid.set(undefined);
   };
 
   ServerModel.prototype.message = function(apipath, data) {
-    if (this.tokenvalid.get() === false) {
+    if (this.tokenvalid.get() === false || !this.token.get()) {
       return undefined;
     }
 
