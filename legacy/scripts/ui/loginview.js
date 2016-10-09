@@ -16,7 +16,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   function LoginView(model, $view) {
     LoginView.superconstructor.call(this, model, $view);
 
-    this.usernameView = new ValueView(this.model.username, this.$view
+    this.username = new ValueModel();
+    this.usernameView = new ValueView(this.username, this.$view
         .find('.username'));
 
     this.loginWindow = undefined;
@@ -30,15 +31,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.errorModel.onupdate = function(state) {
       this.set(state.get() === 'error');
     };
-    this.model.state.registerListener(this.errorModel);
     this.errorView = new ClassView(this.errorModel, this.$view
         .find('.errornotice'), undefined, 'hidden');
 
     // TODO offlinenotice
     // TODO domainnotice
-
-    this.usernameView = new ValueView(this.model.username, this.$view
-        .find('.username'));
 
     $(window).on('beforeunload', (function($) {
       this.closeLoginWindow();
@@ -76,7 +73,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
       }
       this.loginPollingTimeout = undefined;
 
-      this.model.login(false);
+      this.model.createToken();
     }).bind(this), 500);
   };
 
@@ -101,22 +98,35 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     return !!this.loginWindow && !!this.loginWindow.parent;
   };
 
-  LoginView.prototype.onlogincomplete = function() {
+  LoginView.prototype.updateProfile = function() {
+    var msg = this.model.message('/profile');
+    msg.onreceive = (function(data) {
+      this.username.set(data.displayname);
+    }).bind(this);
+    msg.onerror = (function() {
+      this.username.set(undefined);
+    }).bind(this);
+    msg.send();
+  };
+
+  LoginView.prototype.onlogin = function() {
+    this.updateProfile();
     this.popupBlocked.set(false);
     this.closeLoginWindow();
   };
 
-  LoginView.prototype.onloginfailure = function() {
+  LoginView.prototype.onerror = function() {
+    this.updateProfile();
   };
 
-  LoginView.prototype.onloginstart = function(emitter, event, causedByUser) {
-    if (causedByUser) {
-      if (this.openLoginWindow()) {
-        this.loginPolling();
+  LoginView.prototype.onauthenticate = function(emitter, event) {
+    if (this.isLoginWindowOpen()) {
+      if (!this.openLoginWindow()) {
+        return;
       }
-    } else if (this.isLoginWindowOpen()) {
-      this.loginPolling();
     }
+
+    this.loginPolling();
   };
 
   return LoginView;

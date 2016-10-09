@@ -3,6 +3,7 @@
 	* legacy/scripts/ui/loginview.js: popup blocker detection added
 	different notices added
 	only poll when popup is open
+	using ServerModel now
 
 	* core/templates/settingstab.html: different notices added
 
@@ -22,6 +23,12 @@
 	messages aren't sent without a valid token
 	shorter validation message callbacks
 	ServerModel instantiation with token argument
+
+	* legacy/scripts/ui/logincontroller.js: switched to ServerModel
+
+	* legacy/scripts/ui/loginmodel.js: replaced by ServerModel
+
+	* legacy/scripts/ui/settingstab.js: switched to ServerModel
 
 2016-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
