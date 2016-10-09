@@ -16,7 +16,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   function LoginView(model, $view) {
     LoginView.superconstructor.call(this, model, $view);
 
-    this.username = new ValueModel();
+    this.username = new ValueModel(undefined);
     this.usernameView = new ValueView(this.username, this.$view
         .find('.username'));
 
@@ -100,7 +100,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.updateProfile = function() {
     var msg = this.model.message('/profile');
-    msg.onreceive = (function(data) {
+    msg.onreceive = (function(emitter, event, data) {
       this.username.set(data.displayname);
     }).bind(this);
     msg.onerror = (function() {

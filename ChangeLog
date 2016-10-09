@@ -4,6 +4,7 @@
 	different notices added
 	only poll when popup is open
 	using ServerModel now
+	argument order of the /profile callback fixed
 
 	* core/templates/settingstab.html: different notices added
 
