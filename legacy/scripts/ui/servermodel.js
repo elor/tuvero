@@ -24,7 +24,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
 
   ServerModel.prototype.EVENTS = {
     'error': true,
-    'login': true,
+    'authenticate': true,
+    'login': true
   };
 
   ServerModel.prototype.validateToken = function() {
@@ -37,8 +38,16 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     }
 
     message = this.message('/');
-    message.onreceive = this.tokenvalid.set.bind(this.tokenvalid, true);
-    message.onerror = this.tokenvalid.set.bind(this.tokenvalid, false);
+
+    message.onreceive = (function() {
+      this.tokenvalid.set(true);
+      this.emit('login');
+    }).bind(this);
+
+    message.onerror = (function() {
+      this.tokenvalid.set(false);
+      this.emit('error');
+    }).bind(this);
 
     message.send();
   };
@@ -63,7 +72,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
         if (!data) {
           this.emit('error');
         } else if (data.error) {
-          this.emit('login', causedByUser);
+          this.emit('authenticate', causedByUser);
         } else {
           this.setToken(data.fulltoken);
         }
