@@ -5,6 +5,7 @@
 	only poll when popup is open
 	using ServerModel now
 	argument order of the /profile callback fixed
+	listening for logout
 
 	* core/templates/settingstab.html: different notices added
 
@@ -24,6 +25,7 @@
 	messages aren't sent without a valid token
 	shorter validation message callbacks
 	ServerModel instantiation with token argument
+	'logout' event added
 
 	* legacy/scripts/ui/logincontroller.js: switched to ServerModel
 

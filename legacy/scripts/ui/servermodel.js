@@ -25,7 +25,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   ServerModel.prototype.EVENTS = {
     'error': true,
     'authenticate': true,
-    'login': true
+    'login': true,
+    'logout': true
   };
 
   ServerModel.prototype.validateToken = function() {
@@ -94,6 +95,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
 
     this.token.set(undefined);
     this.tokenvalid.set(undefined);
+
+    this.emit('logout');
   };
 
   ServerModel.prototype.message = function(apipath, data) {
