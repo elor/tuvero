@@ -15,7 +15,9 @@ define(['./backgroundscripts/online', './update'], function(Online, Update) {
     version: undefined,
     online: undefined,
     cached: undefined,
-    local: undefined
+    local: undefined,
+    secure: undefined,
+    legit: undefined
   };
 
   Browser.update = function() {
@@ -64,6 +66,10 @@ define(['./backgroundscripts/online', './update'], function(Online, Update) {
     Browser.cached = Update.isCached;
 
     Browser.local = document.location.protocol === 'file:';
+
+    Browser.secure = document.location.protocol === 'https:';
+
+    Browser.legit = document.location.host === 'tuvero.de';
 
     return Browser;
   };
