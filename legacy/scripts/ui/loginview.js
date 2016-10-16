@@ -20,6 +20,9 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.usernameView = new ValueView(this.username, this.$view
         .find('.username'));
 
+    this.avatar = new ValueModel(undefined);
+    this.avatarView = new ImageView(this.avatar, this.$view.find('img.avatar'));
+
     this.loginWindow = undefined;
     this.loginPollingTimeout = undefined;
 
@@ -107,9 +110,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     var msg = this.model.message('/profile');
     msg.onreceive = (function(emitter, event, data) {
       this.username.set(data.displayname);
+      this.avatar.set(data.avatar_url);
     }).bind(this);
     msg.onerror = (function() {
       this.username.set(undefined);
+      this.avatar.set(undefined);
     }).bind(this);
     msg.send();
   };
