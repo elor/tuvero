@@ -1,3 +1,7 @@
+2016-10-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/servermodel.js: missing variable removed
+
 2016-10-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: popup blocker detection added

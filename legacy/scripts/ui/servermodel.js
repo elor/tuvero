@@ -73,7 +73,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
         if (!data) {
           this.emit('error');
         } else if (data.error) {
-          this.emit('authenticate', causedByUser);
+          this.emit('authenticate');
         } else {
           this.setToken(data.fulltoken);
         }
