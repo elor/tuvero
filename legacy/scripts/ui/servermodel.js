@@ -118,7 +118,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
       'https': Browser.secure,
       'tuvero.de': Browser.legit,
       'online': Online(),
-      'validtoken': this.token.get() && this.tokenvalid.get(),
+      'validtoken': this.token.get() && this.tokenvalid.get()
     };
 
     causes.all = Object.keys(causes).every(function(value) {

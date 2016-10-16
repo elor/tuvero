@@ -32,11 +32,11 @@ define(['lib/extend', 'core/valuemodel', 'core/tournamentmodel'], function(
     }
 
     return false;
-  }
+  };
 
   NoRegModel.prototype.onupdate = function() {
     NoRegModel.superclass.set.call(this, this.isClosed());
-  }
+  };
 
   NoRegModel.prototype.set = undefined;
 

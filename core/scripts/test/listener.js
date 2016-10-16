@@ -125,7 +125,7 @@ define(function() {
       listener.resetcount = 0;
       listener.onreset = function() {
         this.resetcount += 1;
-      }
+      };
       emitter.emit('reset');
       QUnit.equal(listener.resetcount, 1,
           'double invocation of a listener is prevented');
