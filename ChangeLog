@@ -4,6 +4,7 @@
 
 	* legacy/scripts/ui/loginview.js: inverted logic fixed
 	Avatar image added
+	Import cleanup
 
 	* legacy/scripts/ui/attributevalueview.js: added: writes value to an attribute
 

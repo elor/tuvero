@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
-    'core/classview', 'jquery', 'core/valuemodel', 'core/classview'], function(
-    extend, View, ValueView, LoginController, ClassView, $, ValueModel,
-    ClassView) {
+    'jquery', 'core/valuemodel', 'core/classview', 'ui/imageview'], function(
+    extend, View, ValueView, LoginController, $, ValueModel, ClassView,
+    ImageView) {
   /**
    * Constructor
    */
@@ -21,7 +21,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         .find('.username'));
 
     this.avatar = new ValueModel(undefined);
-    this.avatarView = new ImageView(this.avatar, this.$view.find('img.avatar'));
+    this.avatarView = new ImageView(this.avatar, //
+    this.$view.find('img.avatar'));
 
     this.loginWindow = undefined;
     this.loginPollingTimeout = undefined;
