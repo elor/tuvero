@@ -2,6 +2,8 @@
 
 	* legacy/scripts/ui/servermodel.js: missing variable removed
 
+	* legacy/scripts/ui/loginview.js: inverted logic fixed
+
 2016-10-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: popup blocker detection added

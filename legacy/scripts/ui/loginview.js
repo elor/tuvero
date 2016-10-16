@@ -129,7 +129,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.onauthenticate = function(emitter, event) {
-    if (this.isLoginWindowOpen()) {
+    if (!this.isLoginWindowOpen()) {
       if (!this.openLoginWindow()) {
         return;
       }
