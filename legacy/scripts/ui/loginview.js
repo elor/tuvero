@@ -29,9 +29,9 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.userinfovisibility = new ClassView(this.model.tokenvalid,
         this.$userinfo, undefined, 'hidden');
     this.loginbuttonvisibility = new ClassView(this.model.tokenvalid,
-        this.$userinfo, 'hidden', undefined);
+        this.$loginbutton, 'hidden', undefined);
     this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
-        this.$userinfo, undefined, 'hidden');
+        this.$logoutbutton, undefined, 'hidden');
 
     this.usernameView = new ValueView(this.username, this.$username);
 
