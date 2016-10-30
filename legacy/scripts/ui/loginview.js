@@ -17,17 +17,29 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     LoginView.superconstructor.call(this, model, $view);
 
     this.username = new ValueModel(undefined);
-    this.usernameView = new ValueView(this.username, this.$view
-        .find('.username'));
-
     this.avatar = new ValueModel(undefined);
-    this.avatarView = new ImageView(this.avatar, //
-    this.$view.find('img.avatar'));
+    this.popupBlocked = new ValueModel(false);
+
+    this.$userinfo = this.$view.find('.userinfo');
+    this.$username = this.$view.find('.username');
+    this.$avatar = this.$view.find('img.avatar');
+    this.$loginbutton = this.$view.find('button.login');
+    this.$logoutbutton = this.$view.find('button.logout');
+
+    this.userinfovisibility = new ClassView(this.model.tokenvalid,
+        this.$userinfo, undefined, 'hidden');
+    this.loginbuttonvisibility = new ClassView(this.model.tokenvalid,
+        this.$userinfo, 'hidden', undefined);
+    this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
+        this.$userinfo, undefined, 'hidden');
+
+    this.usernameView = new ValueView(this.username, this.$username);
+
+    this.avatarView = new ImageView(this.avatar, this.$avatar);
 
     this.loginWindow = undefined;
     this.loginPollingTimeout = undefined;
 
-    this.popupBlocked = new ValueModel(false);
     this.popupBlockedView = new ClassView(this.popupBlocked, this.$view
         .find('.popupnotice'), undefined, 'hidden');
 
