@@ -121,6 +121,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   LoginView.prototype.updateProfile = function() {
     if (!this.model.communicationStatus().all) {
       this.username.set(undefined);
+      this.avatar.set(undefined);
       return;
     }
 

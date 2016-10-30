@@ -4,6 +4,7 @@
 
 	* legacy/scripts/ui/loginview.js: auto-hiding login/logout buttons depending on the login state
 	showing/hiding username and avatar in addition to userinfo, depending on their actual state
+	avatar was not reset on logout
 
 2016-10-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
