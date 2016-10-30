@@ -28,6 +28,10 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.userinfovisibility = new ClassView(this.model.tokenvalid,
         this.$userinfo, undefined, 'hidden');
+    this.avatarvisibility = new ClassView(this.avatar, this.$avatar, undefined,
+        'hidden');
+    this.usernamevisibility = new ClassView(this.username, this.$username,
+        undefined, 'hidden');
     this.loginbuttonvisibility = new ClassView(this.model.tokenvalid,
         this.$loginbutton, 'hidden', undefined);
     this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
