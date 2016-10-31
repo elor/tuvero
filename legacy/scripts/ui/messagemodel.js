@@ -34,6 +34,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
     }
     this.result.set(undefined);
 
+    this.server.registerMessage();
+
     $.ajax({
       method: 'POST',
       url: 'https://api.tuvero.de/' + this.apipath,
@@ -53,6 +55,9 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
         this.result.set(data);
         this.status.set('error');
         this.emit('error', data);
+      }).bind(this),
+      complete: (function(){
+        this.server.unregisterMessage();
       }).bind(this)
     });
 

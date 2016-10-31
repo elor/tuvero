@@ -25,6 +25,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.$avatar = this.$view.find('img.avatar');
     this.$loginbutton = this.$view.find('button.login');
     this.$logoutbutton = this.$view.find('button.logout');
+    this.$busy = this.$view.find('.busy');
 
     this.userinfovisibility = new ClassView(this.model.tokenvalid,
         this.$userinfo, undefined, 'hidden');
@@ -36,6 +37,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         this.$loginbutton, 'hidden', undefined);
     this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
         this.$logoutbutton, undefined, 'hidden');
+    this.busyvisibility = new ClassView(this.model.openMessages, this.$busy,
+        'hidden', undefined);
 
     this.usernameView = new ValueView(this.username, this.$username);
 

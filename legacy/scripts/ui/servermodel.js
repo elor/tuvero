@@ -17,6 +17,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
 
     this.token = new ValueModel(token || undefined);
     this.tokenvalid = new ValueModel(undefined);
+    this.openMessages = new ValueModel(0);
 
     this.validateToken();
   }
@@ -62,6 +63,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   ServerModel.prototype.createToken = function(token) {
     this.invalidateToken();
 
+    this.registerMessage();
+
     $.ajax({
       method: 'POST',
       url: 'https://turniere.tuvero.de/profile/token/new/json',
@@ -77,8 +80,12 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
         } else {
           this.setToken(data.fulltoken);
         }
+        this.openMessages.set(true);
       }).bind(this),
-      error: this.emit.bind(this, 'error')
+      error: this.emit.bind(this, 'error'),
+      complete: (function() {
+        this.unregisterMessage();
+      }).bind(this)
     });
   };
 
@@ -111,6 +118,14 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     message = new MessageModel(this, apipath, data);
 
     return message;
+  };
+
+  ServerModel.prototype.registerMessage = function() {
+    this.openMessages.set(this.openMessages.get() + 1);
+  };
+
+  ServerModel.prototype.unregisterMessage = function() {
+    this.openMessages.set(this.openMessages.get() - 1);
   };
 
   ServerModel.prototype.communicationStatus = function() {
