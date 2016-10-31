@@ -6,6 +6,7 @@
 	communicationStatus typo fixed
 
 	* legacy/scripts/ui/messagemodel.js: 'complete' event added
+	'complete' event added to EVENTS list
 
 	* legacy/scripts/ui/servermodel.js: 'tuvero.de' property name changed to 'tuvero' for easier dereferencing
 

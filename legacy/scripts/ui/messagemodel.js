@@ -84,7 +84,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
   MessageModel.prototype.EVENTS = {
     'error': true,
     'send': true,
-    'receive': true
+    'receive': true,
+    'complete': true
   };
 
   return MessageModel;
