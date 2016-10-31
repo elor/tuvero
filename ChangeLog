@@ -3,6 +3,7 @@
 	* core/templates/loginview.html: 'hidden' tags are dynamically set
 
 	* legacy/scripts/ui/loginview.js: showing domain notice when on wrong domain
+	communicationStatus typo fixed
 
 	* legacy/scripts/ui/messagemodel.js: 'complete' event added
 
