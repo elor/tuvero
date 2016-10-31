@@ -131,7 +131,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   ServerModel.prototype.communicationStatus = function() {
     var causes = {
       'https': Browser.secure,
-      'tuvero.de': Browser.legit,
+      'tuvero': Browser.legit,
       'online': Online(),
       'validtoken': this.token.get() && this.tokenvalid.get()
     };

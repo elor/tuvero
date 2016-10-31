@@ -56,8 +56,9 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
         this.status.set('error');
         this.emit('error', data);
       }).bind(this),
-      complete: (function(){
+      complete: (function(data) {
         this.server.unregisterMessage();
+        this.emit('complete', data);
       }).bind(this)
     });
 
@@ -74,6 +75,10 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
   };
 
   MessageModel.prototype.onerror = function(emitter, event, data) {
+  };
+
+  MessageModel.prototype.oncomplete = function(emitter, event, data) {
+
   };
 
   MessageModel.prototype.EVENTS = {

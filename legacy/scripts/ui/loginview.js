@@ -26,6 +26,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.$loginbutton = this.$view.find('button.login');
     this.$logoutbutton = this.$view.find('button.logout');
     this.$busy = this.$view.find('.busy');
+    this.$domainnotice = this.$view.find('.domainnotice');
 
     this.userinfovisibility = new ClassView(this.model.tokenvalid,
         this.$userinfo, undefined, 'hidden');
@@ -38,7 +39,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
         this.$logoutbutton, undefined, 'hidden');
     this.busyvisibility = new ClassView(this.model.openMessages, this.$busy,
-        'hidden', undefined);
+        undefined, 'hidden');
+
+    if (this.model.communicationStatus['tuvero']) {
+      this.$domainnotice.addClass('hidden');
+    }
 
     this.usernameView = new ValueView(this.username, this.$username);
 
@@ -128,12 +133,15 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
       return;
     }
 
+    this.errorModel.set(false);
+
     var msg = this.model.message('/profile');
     msg.onreceive = (function(emitter, event, data) {
       this.username.set(data.displayname);
       this.avatar.set(data.avatar_url);
     }).bind(this);
     msg.onerror = (function() {
+      this.errorModel.set(true);
       this.username.set(undefined);
       this.avatar.set(undefined);
     }).bind(this);
@@ -151,6 +159,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.onerror = function() {
+    this.errorModel.set(true);
     this.updateProfile();
   };
 

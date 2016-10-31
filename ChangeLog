@@ -1,3 +1,13 @@
+2016-10-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/loginview.html: 'hidden' tags are dynamically set
+
+	* legacy/scripts/ui/loginview.js: showing domain notice when on wrong domain
+
+	* legacy/scripts/ui/messagemodel.js: 'complete' event added
+
+	* legacy/scripts/ui/servermodel.js: 'tuvero.de' property name changed to 'tuvero' for easier dereferencing
+
 2016-10-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/loginview.html: auto-hiding login/logout buttons depending on the login state
