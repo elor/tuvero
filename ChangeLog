@@ -1,3 +1,9 @@
+2016-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/loginview.html: .busy image is spinning
+
+	* legacy/style/spin.css: .spin class added
+
 2016-10-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/loginview.html: 'hidden' tags are dynamically set
