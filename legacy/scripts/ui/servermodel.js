@@ -80,7 +80,6 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
         } else {
           this.setToken(data.fulltoken);
         }
-        this.openTransactions.set(true);
       }).bind(this),
       error: this.emit.bind(this, 'error'),
       complete: (function() {
