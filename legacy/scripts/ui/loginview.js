@@ -41,6 +41,9 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.busyvisibility = new ClassView(this.model.openMessages, this.$busy,
         undefined, 'hidden');
 
+    this.transactions = new ValueView(this.model.openMessages, this.$view
+        .find('.transactions'));
+
     if (this.model.communicationStatus().tuvero) {
       this.$domainnotice.addClass('hidden');
     }
