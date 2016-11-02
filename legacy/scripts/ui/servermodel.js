@@ -17,7 +17,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
 
     this.token = new ValueModel(token || undefined);
     this.tokenvalid = new ValueModel(undefined);
-    this.openMessages = new ValueModel(0);
+    this.openTransactions = new ValueModel(0);
 
     this.validateToken();
   }
@@ -80,7 +80,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
         } else {
           this.setToken(data.fulltoken);
         }
-        this.openMessages.set(true);
+        this.openTransactions.set(true);
       }).bind(this),
       error: this.emit.bind(this, 'error'),
       complete: (function() {
@@ -121,11 +121,11 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   };
 
   ServerModel.prototype.registerMessage = function() {
-    this.openMessages.set(this.openMessages.get() + 1);
+    this.openTransactions.set(this.openTransactions.get() + 1);
   };
 
   ServerModel.prototype.unregisterMessage = function() {
-    this.openMessages.set(this.openMessages.get() - 1);
+    this.openTransactions.set(this.openTransactions.get() - 1);
   };
 
   ServerModel.prototype.communicationStatus = function() {

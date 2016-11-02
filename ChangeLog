@@ -4,6 +4,8 @@
 
 	* legacy/style/spin.css: .spin class added
 
+	* legacy/scripts/ui/servermodel.js: openMessages property renamed to openTransactions
+
 2016-10-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/loginview.html: 'hidden' tags are dynamically set

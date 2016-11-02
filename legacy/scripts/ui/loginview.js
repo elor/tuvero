@@ -38,10 +38,10 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         this.$loginbutton, 'hidden', undefined);
     this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
         this.$logoutbutton, undefined, 'hidden');
-    this.busyvisibility = new ClassView(this.model.openMessages, this.$busy,
+    this.busyvisibility = new ClassView(this.model.openTransactions, this.$busy,
         undefined, 'hidden');
 
-    this.transactions = new ValueView(this.model.openMessages, this.$view
+    this.transactions = new ValueView(this.model.openTransactions, this.$view
         .find('.transactions'));
 
     if (this.model.communicationStatus().tuvero) {
