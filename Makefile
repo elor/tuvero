@@ -1,5 +1,5 @@
 ##################################################################
-# Build all or individual projects.															 #
+# Build all or individual projects.                              #
 # For more options, run `make ...` in the individual directories #
 ##################################################################
 
@@ -9,6 +9,9 @@ VERSION=$(shell cat Version)
 GITHEAD=$(shell git rev-parse HEAD | head -c8)
 
 all: build build-chromeapp
+
+node_modules: FORCE
+	npm install requirejs bower
 
 build: clean
 	make templates scripts
@@ -96,7 +99,7 @@ test/index.html: FORCE
 	./tools/write-testindex.sh
 
 %/index.html: %/scripts/main.js FORCE
-	cd $(shell dirname $@) && ../tools/process-template.py
+	cd $(shell dirname $@) && python ../tools/process-template.py
 
 selenium-tests: FORCE
 	make -C selenium-tests
