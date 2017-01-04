@@ -2,6 +2,10 @@
 
 	* Makefile: `make node_modules` added
 
+	* core/templates/correctionform.html: invalid attributes fixed
+
+	* core/templates/hometab.html: extra closing tag removed
+
 2016-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/templates/loginview.html: .busy image is spinning
