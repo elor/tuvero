@@ -2,6 +2,8 @@
 
 	* legacy/scripts/ui/loginview.js: Trying to avoid re-opening login windows during polling
 
+	* core/templates/loginview.html: iproved error text
+
 2017-01-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: `make node_modules` added
