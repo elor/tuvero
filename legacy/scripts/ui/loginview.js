@@ -169,6 +169,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.onlogin = function() {
     this.errorModel.set(false);
+    this.suppressLoginWindow = false;
     this.updateProfile();
     this.popupBlocked.set(false);
     this.closeLoginWindow();
@@ -176,11 +177,13 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.onlogout = function() {
     this.errorModel.set(false);
+    this.suppressLoginWindow = false;
     this.updateProfile();
   };
 
   LoginView.prototype.onerror = function() {
     this.errorModel.set(true);
+    this.suppressLoginWindow = false;
     this.updateProfile();
   };
 
