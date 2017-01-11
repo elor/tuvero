@@ -74,9 +74,12 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   extend(LoginView, View);
 
   LoginView.prototype.openLoginWindow = function() {
-	  debugger
-	  console.log('openLoginWindow');
     this.closeLoginWindow();
+    
+    if (this.loginWindow) {
+    	this.loginWindow = undefined;
+    	return false;
+    }
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
 
@@ -108,7 +111,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.closeLoginWindow = function() {
-	  debugger
 	  console.log('closeLoginWindow');
     if (!this.isLoginWindowOpen()) {
       return;
