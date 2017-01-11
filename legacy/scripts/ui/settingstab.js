@@ -43,8 +43,10 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
         $container));
 
     $container = this.$view.find('.tuvero-login');
-    this.serverModel = new ServerModel();
+    this.serverModel = new ServerModel(undefined);
     this.loginView = new LoginView(this.serverModel, $container);
+    this.loginView.suppressLoginWindow = true;
+    this.serverModel.createToken();
   };
 
   // FIXME CHEAP HACK AHEAD
