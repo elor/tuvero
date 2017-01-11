@@ -74,6 +74,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   extend(LoginView, View);
 
   LoginView.prototype.openLoginWindow = function() {
+	  debugger
+	  console.log('openLoginWindow');
     this.closeLoginWindow();
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
@@ -106,6 +108,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.closeLoginWindow = function() {
+	  debugger
+	  console.log('closeLoginWindow');
     if (!this.isLoginWindowOpen()) {
       return;
     }
@@ -126,10 +130,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     return !!this.loginWindow && !!this.loginWindow.parent;
   };
   
-  LoginView.prototype.hasLoginWindowBeenClosed = function() {
-	  return !!this.loginWindow && !this.loginWindow.parent;
-  };
-
   LoginView.prototype.updateProfile = function() {
     if (!this.model.communicationStatus().all) {
       this.username.set(undefined);
@@ -172,9 +172,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   LoginView.prototype.onauthenticate = function(emitter, event) {
     this.errorModel.set(false);
     if (!this.isLoginWindowOpen()) {
-      if (this.hasLoginWindowBeenClosed()) {
-    	  this.window = undefined;
-      } else if (!this.openLoginWindow()) {
+      if (!this.openLoginWindow()) {
         return;
       }
     }
