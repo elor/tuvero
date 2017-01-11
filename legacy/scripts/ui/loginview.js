@@ -38,8 +38,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         this.$loginbutton, 'hidden', undefined);
     this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
         this.$logoutbutton, undefined, 'hidden');
-    this.busyvisibility = new ClassView(this.model.openTransactions, this.$busy,
-        undefined, 'hidden');
+    this.busyvisibility = new ClassView(this.model.openTransactions,
+        this.$busy, undefined, 'hidden');
 
     if (this.model.communicationStatus().tuvero) {
       this.$domainnotice.addClass('hidden');
@@ -51,6 +51,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.loginWindow = undefined;
     this.loginPollingTimeout = undefined;
+    this.loginWindowSuppressed = false;
 
     this.popupBlockedView = new ClassView(this.popupBlocked, this.$view
         .find('.popupnotice'), undefined, 'hidden');
@@ -75,11 +76,20 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.openLoginWindow = function() {
     this.closeLoginWindow();
-    
-    if (this.loginWindow) {
-    	this.loginWindow = undefined;
-    	this.onerror();
-    	return false;
+
+    if (this.loginWindowSuppressed) {
+      this.loginWindowSuppressed = false;
+
+      // loginWindow is supposed to be closed, but has been open while a token
+      // creation is happening.
+      // This indicates that the login window has been closed without logging
+      // in.
+      if (this.loginWindow) {
+        this.onerror();
+        this.loginWindow = undefined; // should be closed anyway
+      }
+
+      return false;
     }
 
     this.loginWindow = window.open('https://turniere.tuvero.de/login');
@@ -89,6 +99,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
       this.popupBlocked.set(true);
     } else {
       this.popupBlocked.set(false);
+      this.loginWindowSuppressed = true;
     }
 
     return this.isLoginWindowOpen();
@@ -112,7 +123,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   };
 
   LoginView.prototype.closeLoginWindow = function() {
-	  console.log('closeLoginWindow');
+    console.log('closeLoginWindow');
     if (!this.isLoginWindowOpen()) {
       return;
     }
@@ -127,12 +138,13 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     }
 
     this.loginWindow = undefined;
+    this.loginWindowSuppressed = false;
   };
 
   LoginView.prototype.isLoginWindowOpen = function() {
     return !!this.loginWindow && !!this.loginWindow.parent;
   };
-  
+
   LoginView.prototype.updateProfile = function() {
     if (!this.model.communicationStatus().all) {
       this.username.set(undefined);
