@@ -125,6 +125,10 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   LoginView.prototype.isLoginWindowOpen = function() {
     return !!this.loginWindow && !!this.loginWindow.parent;
   };
+  
+  LoginView.prototype.hasLoginWindowBeenClosed = function() {
+	  return !!this.loginWindow && !this.loginWindow.parent;
+  };
 
   LoginView.prototype.updateProfile = function() {
     if (!this.model.communicationStatus().all) {
@@ -168,7 +172,9 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   LoginView.prototype.onauthenticate = function(emitter, event) {
     this.errorModel.set(false);
     if (!this.isLoginWindowOpen()) {
-      if (!this.openLoginWindow()) {
+      if (this.hasLoginWindowBeenClosed()) {
+    	  this.window = undefined;
+      } else if (!this.openLoginWindow()) {
         return;
       }
     }

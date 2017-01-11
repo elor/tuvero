@@ -1,3 +1,7 @@
+2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/loginview.js: Trying to avoid re-opening login windows during polling
+
 2017-01-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* Makefile: `make node_modules` added
