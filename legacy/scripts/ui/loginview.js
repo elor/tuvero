@@ -78,6 +78,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     
     if (this.loginWindow) {
     	this.loginWindow = undefined;
+    	this.onerror();
     	return false;
     }
 
