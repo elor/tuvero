@@ -155,6 +155,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     var data = ServerModel.superclass.save.call(this);
 
     data.token = this.token.get();
+
+    return data;
   };
 
   ServerModel.prototype.restore = function(data) {
