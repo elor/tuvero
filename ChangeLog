@@ -26,6 +26,7 @@
 	* legacy/scripts/ui/servermodel.js: relay token update event for Storage-compatibility
 	missing ticks added
 	save() didn't return the data
+	save() didn't store empty tokens
 
 2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
