@@ -19,6 +19,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     this.tokenvalid = new ValueModel(undefined);
     this.openTransactions = new ValueModel(0);
 
+    this.token.registerListener(this);
     this.validateToken();
   }
   extend(ServerModel, Model);
@@ -27,7 +28,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     'error': true,
     'authenticate': true,
     'login': true,
-    'logout': true
+    'logout': true,
+    'update': true
   };
 
   ServerModel.prototype.validateToken = function() {
@@ -140,6 +142,13 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     });
 
     return causes;
+  };
+
+  /**
+   * Relay 'update' event from this.token
+   */
+  ServerModel.prototype.onupdate = function() {
+    this.emit(update);
   };
 
   ServerModel.prototype.save = function() {
