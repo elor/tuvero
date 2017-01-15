@@ -85,7 +85,7 @@ define(['lib/extend', 'core/model', 'jquery', 'core/type', './toast',
 
     data.names = this.names.slice();
 
-    return names;
+    return data;
   };
 
   AutocompletionModel.prototype.restore = function(data) {

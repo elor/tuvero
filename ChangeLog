@@ -20,6 +20,8 @@
 
 	* legacy/scripts/ui/teamstab.js: registering AutocompletionModel with Storage
 
+	* legacy/scripts/ui/autocompletionmodel.js: save() returned non-existing variable instead of 'data'
+
 2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: Trying to avoid re-opening login windows during polling
