@@ -39,6 +39,7 @@ define(function() {
     names: {
       playernameurl: '',
       dbplayername: 'tacplayers',
+      apitoken: 'apitoken',
       teamsfile: 'tuvero-anmeldungen.txt'
     }
   };

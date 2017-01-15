@@ -6,6 +6,14 @@
 
 	* legacy/scripts/ui/autocompletionlegacyblobber.js: AutocompletionLegacyBlobber removed in favor of new Storage class
 
+	* basic/scripts/presets.js: Presets.names.apitoken added
+
+	* boule/scripts/presets.js: Presets.names.apitoken added
+
+	* tac/scripts/presets.js: Presets.names.apitoken added
+
+	* test/scripts/presets.js: Presets.names.apitoken added
+
 2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: Trying to avoid re-opening login windows during polling

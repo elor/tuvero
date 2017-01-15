@@ -35,6 +35,7 @@ define(['core/rankingcomponentindex'], function(RankingComponentIndex) {
     names: {
       playernameurl: '',
       dbplayername: 'testplayers',
+      apitoken: 'apitoken',
       teamsfile: 'tuvero-anmeldungen.txt'
     }
   };

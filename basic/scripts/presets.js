@@ -37,6 +37,7 @@ define(function() {
     names: {
       playernameurl: '',
       dbplayername: 'tuverobasicplayers',
+      apitoken: 'apitoken',
       teamsfile: 'tuvero-anmeldungen.txt'
     }
   };
