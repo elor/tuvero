@@ -23,6 +23,7 @@
 	* legacy/scripts/ui/autocompletionmodel.js: save() returned non-existing variable instead of 'data'
 
 	* legacy/scripts/ui/servermodel.js: relay token update event for Storage-compatibility
+	missing ticks added
 
 2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

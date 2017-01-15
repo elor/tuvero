@@ -148,7 +148,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
    * Relay 'update' event from this.token
    */
   ServerModel.prototype.onupdate = function() {
-    this.emit(update);
+    this.emit('update');
   };
 
   ServerModel.prototype.save = function() {
