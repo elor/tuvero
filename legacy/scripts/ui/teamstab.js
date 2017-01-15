@@ -10,14 +10,13 @@ define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
     './teamremovecontroller', './teamtableview', './inputview',
     './teamsfileloadcontroller', 'presets', 'ui/noregmodel',
     './deleteallteamscontroller', './autocompletionmodel',
-    './autocompletionview', './autocompletionlegacyblobber',
-    './teamformatdownloadcontroller', 'timemachine/timemachine'], function($,
-    extend, View, ListView, TeamView, State, NewTeamView, LengthView,
-    TeamSizeView, PreregCloserView, CheckBoxView, ClassView, TabsHandle,
+    './autocompletionview', './teamformatdownloadcontroller',
+    'timemachine/timemachine', 'ui/storage'], function($, extend, View,
+    ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
+    PreregCloserView, CheckBoxView, ClassView, TabsHandle,
     TeamRemoveController, TeamTableView, InputView, TeamsFileLoadController,
     Presets, NoRegModel, DeleteAllTeamsController, AutocompletionModel,
-    AutocompletionView, AutocompletionLegacyBlobber,
-    TeamFormatDownloadController, TimeMachine) {
+    AutocompletionView, TeamFormatDownloadController, TimeMachine, Storage) {
   /**
    * represents a whole team tab
    *
@@ -121,9 +120,9 @@ define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
     $button = this.$view.find('>button.fileloadteams');
     this.teamsFileLoadController = new TeamsFileLoadController($button);
 
-    this.autocompletionModel = new AutocompletionModel();
+    this.autocompletionModel = Storage.register(Presets.names.dbplayername,
+        AutocompletionModel);
     this.autocompletionModel.download(Presets.names.playernameurl);
-    AutocompletionLegacyBlobber.set(this.autocompletionModel);
 
     $container = this.$view.find('input.playername');
     this.autocompletionView = new AutocompletionView(this.autocompletionModel,
