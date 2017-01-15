@@ -17,6 +17,7 @@
 	* core/scripts/main.js: Storage.restore() removed
 
 	* legacy/scripts/ui/storage.js: new Storage class allows for load-time storage reading and event-driven storing
+	stored JSON data didn't get parsed
 
 	* legacy/scripts/ui/teamstab.js: registering AutocompletionModel with Storage
 

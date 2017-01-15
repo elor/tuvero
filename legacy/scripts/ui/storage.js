@@ -98,6 +98,7 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
 
     stored = window.localStorage.getItem(key);
     if (Type.isString(stored)) {
+      stored = JSON.parse(stored);
       if (Type.isFunction(model.restore)) {
         model.restore(stored);
       } else if (model instanceof ValueModel) {
