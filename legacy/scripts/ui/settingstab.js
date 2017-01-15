@@ -5,8 +5,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
-    'ui/fontsizeview', 'ui/servermodel', 'ui/loginview'], function(extend, $,
-    View, CSVExportController, FontSizeView, ServerModel, LoginView) {
+    'ui/fontsizeview', 'ui/servermodel', 'ui/loginview', 'ui/storage',
+    'presets'], function(extend, $, View, CSVExportController, FontSizeView,
+    ServerModel, LoginView, Storage, Presets) {
   /**
    * represents a whole team tab
    *
@@ -43,10 +44,12 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
         $container));
 
     $container = this.$view.find('.tuvero-login');
-    this.serverModel = new ServerModel(undefined);
+    this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
     this.loginView = new LoginView(this.serverModel, $container);
-    this.loginView.suppressLoginWindow = true;
-    this.serverModel.createToken();
+    if (!this.serverModel.token.get()) {
+      this.loginView.suppressLoginWindow = true;
+      this.serverModel.createToken();
+    }
   };
 
   // FIXME CHEAP HACK AHEAD
