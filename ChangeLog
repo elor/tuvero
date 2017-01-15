@@ -1,3 +1,9 @@
+2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/storagesavecontroller.js: StorageSaveController removed
+
+	* legacy/scripts/ui/timemachineview.js: StorageSaveController removed
+
 2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: Trying to avoid re-opening login windows during polling

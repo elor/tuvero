@@ -6,10 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './storagesavecontroller',
-    'ui/timemachinecommitview', 'ui/listview', 'timemachine/timemachine',
-    'ui/timemachinenewtreecontroller'], function(extend, View,
-    StorageSaveController, TimeMachineCommitView, ListView, TimeMachine,
+define(['lib/extend', 'core/view', 'ui/timemachinecommitview', 'ui/listview',
+    'timemachine/timemachine', 'ui/timemachinenewtreecontroller'], function(
+    extend, View, TimeMachineCommitView, ListView, TimeMachine,
     TimeMachineNewTreeController) {
   /**
    * Constructor
