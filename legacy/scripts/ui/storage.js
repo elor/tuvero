@@ -1,64 +1,113 @@
 /**
- * Storage object, saves simple stuff, like the player names
+ * Storage: Save ValueModels and save/restore-compatible models whenever they
+ * emit 'update'.
  *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['presets', 'core/valuemodel', 'ui/autocompletionlegacyblobber'], //
-function(Presets, ValueModel, AutoCompletionLegacyBlobber) {
-  var Storage, keys;
-
-  Storage = {};
-  keys = {};
-  keys[Presets.names.dbplayername] = AutoCompletionLegacyBlobber;
+define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
+    'core/listener'], function(extend, Type, Model, ValueModel, Listener) {
+  /**
+   * A Storage class. Has no further use at the moment, since there's only one
+   * localStorage.
+   */
+  function Storage() {
+  }
 
   /**
-   * save a key to localStorage
+   * Test whether stuff can be stored
+   *
+   * @return true if storage is possible, false otherwise
+   */
+  Storage.available = function() {
+    if (!window.localStorage) {
+      console.error('Storage is not available');
+      return false;
+    }
+
+    return true;
+  };
+
+  /**
+   * stored model instances, i.e. values
+   */
+  Storage.values = {};
+
+  /**
+   * Register or retrieve an instance of the Implementation class:
    *
    * @param key
-   *          the name of a key to save. Must be in the keys object
-   * @return true on failure, false otherwise
+   *          the Key under which to store it
+   * @param Implementation
+   *          A constructor which is a subclass of Model, i.e. ValueModel. It is
+   *          required to either support save/restore or be a ValueModel
+   *          subclass.
+   * @return an singleton instance of the Implementation class, or undefined if
+   *         anything fails (e.g. Implementation is the wrong type)
    */
-  function saveKey(key) {
-    var val, blob;
+  Storage.register = function(key, Implementation) {
+    var stored, model;
 
-    if (!window.localStorage) {
-      return true;
+    key = key || undefined;
+    Implementation = Implementation || Model;
+
+    if (!key || !Type.isString(key)) {
+      console.error('Storage.getModel(): Key is not a String: ');
+      console.error(key);
+      return undefined;
     }
 
-    if (!keys[key]) {
-      return true;
+    if (!extend.isSubclass(Implementation, Model) && Implementation !== Model) {
+      console.error('Storage.register(): Not a model: ');
+      console.error(Implementation)
+      return undefined;
     }
 
-    blob = keys[key].toBlob();
-    if (!blob) {
-      return true;
+    if (!Storage.available()) {
+      return undefined;
     }
 
-    console.log('storing ' + key);
-    window.localStorage.setItem(key, blob);
+    model = Storage.values[key];
+    if (model) {
+      if (model instanceof Implementation) {
+        return model;
+      }
 
-    return window.localStorage.getItem(key) !== blob;
-  }
-
-  function loadKey(key) {
-    var blob;
-
-    if (!window.localStorage) {
-      console.error('localStorage not available');
-      return true;
+      console.error('Storage.register(): '
+          + 'stored instance does not match Implementation:');
+      console.error(model);
+      console.error(Implementation);
+      return undefined;
     }
 
-    if (!keys[key]) {
-      console.error('localStorage.' + key + " doesn't exist");
-      return true;
+    model = new Implementation();
+    if (Type.isFunction(model.save)) {
+      Listener.bind(model, 'update', function() {
+        window.localStorage.setItem(key, JSON.stringify(model.save()))
+      });
+    } else if (model instanceof ValueModel) {
+      Listener.bind(model, 'update', function() {
+        window.localStorage.setItem(key, JSON.stringify(model.get()));
+      });
+    } else {
+      console.error('Storage.register(): instance cannot save/restore');
+      console.error(model);
+      return undefined;
     }
 
-    blob = window.localStorage.getItem(key);
-    keys[key].fromBlob(blob || '');
-    return !blob;
-  }
+    stored = window.localStorage.getItem(key);
+    if (Type.isString(stored)) {
+      if (Type.isFunction(model.restore)) {
+        model.restore(stored);
+      } else if (model instanceof ValueModel) {
+        model.set(stored);
+      }
+    }
+
+    Storage.values[key] = model;
+    return model;
+  };
 
   /**
    * remove this and only this key from localStorage to avoid collision with
@@ -69,46 +118,18 @@ function(Presets, ValueModel, AutoCompletionLegacyBlobber) {
    *          in the keys object
    */
   Storage.clear = function(key) {
-    if (!window.localStorage) {
+    if (!Storage.available()) {
       return;
     }
 
     if (key === undefined) {
-      Object.keys(keys).forEach(Storage.clear.bind(Storage));
-    } else if (keys[key]) {
-      if (keys[key].reset) {
-        keys[key].reset();
+      Object.keys(Storage.values).forEach(Storage.clear.bind(Storage));
+    } else {
+      if (Storage.values[key]) {
+        Storage.values[key].destroy();
       }
       window.localStorage.removeItem(key);
     }
-  };
-
-  /**
-   * store everything
-   */
-  Storage.store = function() {
-    Object.keys(keys).forEach(function(key) {
-      if (saveKey(key)) {
-        console.error('Error when storing ' + key);
-      }
-    });
-
-    return true;
-  };
-
-  /**
-   * restore everything
-   *
-   * @return true on successful load, false otherwise
-   */
-  Storage.restore = function() {
-    var err = false;
-
-    Object.keys(keys).forEach(function(key) {
-      err = loadKey(key) || err;
-    });
-
-    return !err;
   };
 
   return Storage;

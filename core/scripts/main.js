@@ -34,7 +34,7 @@ require(['core/config', 'core/common'], function() {
 
   function Main() {
     // FIXME reduce to one var statement. This function is too long anyhow
-    var Update, Splash, Toast, Strings, Storage, Browser, StateLoader;
+    var Update, Splash, Toast, Strings, Browser, StateLoader;
     var TeamToastsListener;
 
     var $ = require('jquery');
@@ -44,7 +44,6 @@ require(['core/config', 'core/common'], function() {
     Update = require('ui/update');
     Toast = require('ui/toast');
     Strings = require('ui/strings');
-    Storage = require('ui/storage');
     StateLoader = require('ui/stateloader');
     TeamToastsListener = require('ui/teamtoastslistener');
 
@@ -66,7 +65,6 @@ require(['core/config', 'core/common'], function() {
 
         try {
           try {
-            Storage.restore();
             loaded = StateLoader.loadLatest();
           } catch (e) {
             console.error(e.stack);
@@ -94,7 +92,7 @@ require(['core/config', 'core/common'], function() {
             }
           }, 10);
         } catch (err) {
-          console.error('Storage.restore() error caught');
+          console.error('StateLoader.loadLatest() error caught');
           console.error(err);
           Splash.error();
         }

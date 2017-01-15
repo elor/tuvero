@@ -14,6 +14,10 @@
 
 	* test/scripts/presets.js: Presets.names.apitoken added
 
+	* core/scripts/main.js: Storage.restore() removed
+
+	* legacy/scripts/ui/storage.js: new Storage class allows for load-time storage reading and event-driven storing
+
 2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: Trying to avoid re-opening login windows during polling
