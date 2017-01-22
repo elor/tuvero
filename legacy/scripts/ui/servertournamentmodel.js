@@ -1,4 +1,3 @@
-
 /**
  * ServerTournamentModel
  *
@@ -21,13 +20,37 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.teamsize = data.teamsize;
     this.variant = data.target;
     this.www_url = data.www_url;
-    this.api_url = data.api_url;
+
+    this.registration = [];
 
     this.server = server;
 
     this.server.registerListener(this);
   }
   extend(ServerTournamentModel, Model);
+
+  ServerTournamentModel.prototype.EVENTS = {
+    'error' : true,
+    'ready' : true
+  }
+
+  ServerTournamentModel.prototype.readRegistrations = function() {
+    var message = this.server.message('t/' + this.id);
+
+    message.onreceive = (function(emitter, event, data) {
+      if (data.registrations) {
+        this.registrations = data.registrations;
+        this.emit('ready');
+      } else {
+        this.emit('error');
+      }
+    }).bind(this);
+    message.onerror = (function() {
+      this.emit('error');
+    }).bind(this);
+
+    message.send();
+  };
 
   return ServerTournamentModel;
 });

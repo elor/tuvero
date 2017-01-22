@@ -20,6 +20,7 @@
 
 	* legacy/scripts/ui/servertournamentmodel.js: encapsulate relevant information into this object
 	typo fixed
+	readRegistrations() added
 
 	* legacy/scripts/ui/servertournamentview.js: view relevant information from the corresponding model
 	using proper url for tournament link
