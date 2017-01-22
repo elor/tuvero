@@ -12,6 +12,7 @@
 	populating the list with ServerTournamentModel instances
 	missing Presets import added
 	proper dereferencing of the tournamentID
+	unnecessary null-check removed
 
 	* core/templates/loginview.html: servertournaments list added
 

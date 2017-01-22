@@ -37,9 +37,7 @@ define(['lib/extend', 'core/listmodel', 'ui/servertournamentmodel', //
     var message = this.server.message('t');
 
     message.onreceive = (function(emitter, event, data) {
-      if (data) {
-        this.parseResult(data);
-      }
+      this.parseResult(data);
     }).bind(this);
     message.onerror = this.clear.bind(this)
 
