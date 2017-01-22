@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listmodel'], function(extend, ListModel) {
+define(['lib/extend', 'core/listmodel', 'ui/servertournamentmodel'], function(
+    extend, ListModel, ServerTournamentModel) {
   /**
    * Constructor
    */
@@ -21,7 +22,14 @@ define(['lib/extend', 'core/listmodel'], function(extend, ListModel) {
 
   ServerTournamentListModel.prototype.parseResult = function(data) {
     this.clear();
-    console.log(data);
+
+    Object.keys(data.tournaments).forEach(function(tournamentData) {
+      var tournament;
+      if (tournamentData.target == Presets.target) {
+        tournament = new ServerTournamentModel(this.server, tournamentData);
+        this.push(tournament);
+      }
+    }, this);
   };
 
   ServerTournamentListModel.prototype.update = function() {

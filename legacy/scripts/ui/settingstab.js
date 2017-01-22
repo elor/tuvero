@@ -6,9 +6,10 @@
  */
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     'ui/fontsizeview', 'ui/servermodel', 'ui/loginview', 'ui/storage',
-    'presets', 'ui/servertournamentlistmodel' ], function(extend, $, View,
-    CSVExportController, FontSizeView, ServerModel, LoginView, Storage,
-    Presets, ServerTournamentListModel) {
+    'presets', 'ui/servertournamentlistmodel', 'ui/servertournamentview',
+    'ui/listview'], function(extend, $, View, CSVExportController,
+    FontSizeView, ServerModel, LoginView, Storage, Presets,
+    ServerTournamentListModel, ServerTournamentView, ListView) {
   /**
    * represents a whole team tab
    *
@@ -32,7 +33,7 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
    * TODO maybe split it into multiple autodetected functions?
    */
   SettingsTab.prototype.init = function() {
-    var $container, $input;
+    var $container, $input, $template;
 
     this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
@@ -46,8 +47,15 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
 
     $container = this.$view.find('.tuvero-login');
     this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
+
     this.serverTournamentListModel = new ServerTournamentListModel(
         this.serverModel);
+    $container = this.$view.find('.servertournaments');
+    $template = $container.find('.template')
+    this.serverTournamentListView = new ListView(
+        this.serverTournamentListModel, $container, $template,
+        ServerTournamentView);
+
     this.loginView = new LoginView(this.serverModel, $container);
     if (!this.serverModel.token.get()) {
       this.loginView.loginWindowSuppressed.set(true);

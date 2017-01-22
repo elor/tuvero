@@ -4,9 +4,19 @@
 
 	* legacy/scripts/ui/settingstab.js: direct window suppression variable interaction. bad stuff.
 	Auto-loading of serverside tournaments enabled
+	listview for server tournaments added
 
 	* legacy/scripts/ui/servertournamentlistmodel.js: List of server-side tournaments under the current account
 	forgot to register the listener
+	populating the list with ServerTournamentModel instances
+
+	* core/templates/loginview.html: servertournaments list added
+
+	* core/templates/servertournaments.html: servertournaments list added
+
+	* legacy/scripts/ui/servertournamentmodel.js: encapsulate relevant information into this object
+
+	* legacy/scripts/ui/servertournamentview.js: view relevant information from the corresponding model
 
 2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

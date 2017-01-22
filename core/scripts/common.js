@@ -211,6 +211,8 @@ define([
   'ui/roundtournamentview',
   'ui/servermodel',
   'ui/servertournamentlistmodel',
+  'ui/servertournamentmodel',
+  'ui/servertournamentview',
   'ui/settingstab',
   'ui/splash',
   'ui/stateclassview',
