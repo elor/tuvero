@@ -17,7 +17,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
     this.$view.find('.place').text(model.place);
     this.$view.find('.creator').text(model.creator);
     this.$view.find('.teamsize').text(model.teamsize);
-    this.$view.find('a.www_url').attr('href', model.www_url);
+    this.$view.find('a.www_url').attr('href', model.url_www);
   }
   extend(ServerTournamentView, View);
 

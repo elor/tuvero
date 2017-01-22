@@ -21,6 +21,7 @@
 	typo fixed
 
 	* legacy/scripts/ui/servertournamentview.js: view relevant information from the corresponding model
+	using proper url for tournament link
 
 2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
