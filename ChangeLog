@@ -5,10 +5,12 @@
 	* legacy/scripts/ui/settingstab.js: direct window suppression variable interaction. bad stuff.
 	Auto-loading of serverside tournaments enabled
 	listview for server tournaments added
+	double-use of $container variable fixed
 
 	* legacy/scripts/ui/servertournamentlistmodel.js: List of server-side tournaments under the current account
 	forgot to register the listener
 	populating the list with ServerTournamentModel instances
+	missing Presets import added
 
 	* core/templates/loginview.html: servertournaments list added
 

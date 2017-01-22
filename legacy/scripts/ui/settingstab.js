@@ -45,17 +45,16 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     this.csvExportController = new CSVExportController(new View(undefined,
         $container));
 
-    $container = this.$view.find('.tuvero-login');
     this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
 
     this.serverTournamentListModel = new ServerTournamentListModel(
         this.serverModel);
     $container = this.$view.find('.servertournaments');
     $template = $container.find('.template')
-    this.serverTournamentListView = new ListView(
-        this.serverTournamentListModel, $container, $template,
-        ServerTournamentView);
+    this.serverTournamentListView = new ListView(this.serverTournamentListModel,
+        $container, $template, ServerTournamentView);
 
+    $container = this.$view.find('.tuvero-login');
     this.loginView = new LoginView(this.serverModel, $container);
     if (!this.serverModel.token.get()) {
       this.loginView.loginWindowSuppressed.set(true);
