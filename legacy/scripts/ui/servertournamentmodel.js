@@ -1,3 +1,4 @@
+
 /**
  * ServerTournamentModel
  *
@@ -6,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model'], function(extend, ListModel) {
+define(['lib/extend', 'core/model'], function(extend, Model) {
   /**
    * Constructor
    */

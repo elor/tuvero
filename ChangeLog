@@ -15,6 +15,7 @@
 	* core/templates/servertournaments.html: servertournaments list added
 
 	* legacy/scripts/ui/servertournamentmodel.js: encapsulate relevant information into this object
+	typo fixed
 
 	* legacy/scripts/ui/servertournamentview.js: view relevant information from the corresponding model
 
