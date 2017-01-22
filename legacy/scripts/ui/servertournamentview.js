@@ -20,7 +20,7 @@ define(['lib/extend', 'core/view', 'ui/servertournamentcontroller'], function(
     this.$view.find('.teamsize').text(model.teamsize);
     this.$view.find('a.www_url').attr('href', model.url_www);
 
-    this.controller = this;
+    this.controller = new ServerTournamentController(this);
   }
   extend(ServerTournamentView, View);
 
