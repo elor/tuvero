@@ -17,6 +17,7 @@
 	* core/templates/loginview.html: servertournaments list added
 
 	* core/templates/servertournaments.html: servertournaments list added
+	play button added
 
 	* legacy/scripts/ui/servertournamentmodel.js: encapsulate relevant information into this object
 	typo fixed
@@ -25,6 +26,8 @@
 
 	* legacy/scripts/ui/servertournamentview.js: view relevant information from the corresponding model
 	using proper url for tournament link
+
+	* legacy/scripts/ui/servertournamentcontroller.js: 'play' button logic added (create state+reflog, add teams)
 
 2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -6,7 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(['lib/extend', 'core/view', 'ui/servertournamentcontroller'], function(
+    extend, View, ServerTournamentController) {
   /**
    * Constructor
    */
@@ -18,6 +19,8 @@ define(['lib/extend', 'core/view'], function(extend, View) {
     this.$view.find('.creator').text(model.creator);
     this.$view.find('.teamsize').text(model.teamsize);
     this.$view.find('a.www_url').attr('href', model.url_www);
+
+    this.controller = this;
   }
   extend(ServerTournamentView, View);
 
