@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listmodel' ], function(extend, ListModel) {
+define(['lib/extend', 'core/listmodel'], function(extend, ListModel) {
   /**
    * Constructor
    */
@@ -14,6 +14,8 @@ define(['lib/extend', 'core/listmodel' ], function(extend, ListModel) {
     ServerTournamentListModel.superconstructor.call(this);
 
     this.server = server;
+
+    this.server.registerListener(this);
   }
   extend(ServerTournamentListModel, ListModel);
 

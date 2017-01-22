@@ -6,6 +6,7 @@
 	Auto-loading of serverside tournaments enabled
 
 	* legacy/scripts/ui/servertournamentlistmodel.js: List of server-side tournaments under the current account
+	forgot to register the listener
 
 2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
