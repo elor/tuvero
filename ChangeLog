@@ -29,6 +29,7 @@
 	didn't create ServerTournamentController
 
 	* legacy/scripts/ui/servertournamentcontroller.js: 'play' button logic added (create state+reflog, add teams)
+	missing dereference added
 
 2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

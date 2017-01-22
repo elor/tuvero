@@ -26,8 +26,10 @@ define(['lib/extend', 'core/controller', 'core/listener', 'ui/statesaver',
     StateSaver.createNewEmptyTree(this.model.name);
     // add all players
     State.teamsize.set(this.model.teamsize);
+
     // TODO switch to teamstab
-    this.registrations.forEach(function(names) {
+
+    this.model.registrations.forEach(function(names) {
       var players;
 
       while (names.length > State.teamsize.get()) {
