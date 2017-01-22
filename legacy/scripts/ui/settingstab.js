@@ -6,8 +6,9 @@
  */
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     'ui/fontsizeview', 'ui/servermodel', 'ui/loginview', 'ui/storage',
-    'presets'], function(extend, $, View, CSVExportController, FontSizeView,
-    ServerModel, LoginView, Storage, Presets) {
+    'presets', 'ui/servertournamentlistmodel' ], function(extend, $, View,
+    CSVExportController, FontSizeView, ServerModel, LoginView, Storage,
+    Presets, ServerTournamentListModel) {
   /**
    * represents a whole team tab
    *
@@ -45,6 +46,8 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
 
     $container = this.$view.find('.tuvero-login');
     this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
+    this.serverTournamentListModel = new ServerTournamentListModel(
+        this.serverModel);
     this.loginView = new LoginView(this.serverModel, $container);
     if (!this.serverModel.token.get()) {
       this.loginView.loginWindowSuppressed.set(true);

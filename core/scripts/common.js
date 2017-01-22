@@ -210,6 +210,7 @@ define([
   'ui/reverseresultreferencemodel',
   'ui/roundtournamentview',
   'ui/servermodel',
+  'ui/servertournamentlistmodel',
   'ui/settingstab',
   'ui/splash',
   'ui/stateclassview',
