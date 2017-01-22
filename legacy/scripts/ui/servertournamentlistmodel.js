@@ -23,8 +23,9 @@ define(['lib/extend', 'core/listmodel', 'ui/servertournamentmodel', //
   ServerTournamentListModel.prototype.parseResult = function(data) {
     this.clear();
 
-    Object.keys(data.tournaments).forEach(function(tournamentData) {
-      var tournament;
+    Object.keys(data.tournaments).forEach(function(tournamentID) {
+      var tournament, tournamentData;
+      tournamentData = data.tournaments[tournamentID];
       if (tournamentData.target == Presets.target) {
         tournament = new ServerTournamentModel(this.server, tournamentData);
         this.push(tournament);

@@ -11,6 +11,7 @@
 	forgot to register the listener
 	populating the list with ServerTournamentModel instances
 	missing Presets import added
+	proper dereferencing of the tournamentID
 
 	* core/templates/loginview.html: servertournaments list added
 
