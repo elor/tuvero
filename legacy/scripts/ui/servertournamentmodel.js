@@ -19,7 +19,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.creator = data.creator_name;
     this.teamsize = data.teamsize;
     this.variant = data.target;
-    this.www_url = data.www_url;
+    this.www_url = data.url_www;
 
     this.registration = [];
 
