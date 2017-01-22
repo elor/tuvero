@@ -51,7 +51,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.loginWindow = undefined;
     this.loginPollingTimeout = undefined;
-    this.loginWindowSuppressed = false;
+    this.loginWindowSuppressed = new ValueModel(false);
 
     this.popupBlockedView = new ClassView(this.popupBlocked, this.$view
         .find('.popupnotice'), undefined, 'hidden');
@@ -77,8 +77,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   LoginView.prototype.openLoginWindow = function() {
     this.closeLoginWindow();
 
-    if (this.loginWindowSuppressed) {
-      this.loginWindowSuppressed = false;
+    if (this.loginWindowSuppressed.get()) {
+      this.loginWindowSuppressed.set(false);
 
       // loginWindow is supposed to be closed, but has been open while a token
       // creation is happening.
@@ -99,7 +99,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
       this.popupBlocked.set(true);
     } else {
       this.popupBlocked.set(false);
-      this.loginWindowSuppressed = true;
+      this.loginWindowSuppressed.set(true);
     }
 
     return this.isLoginWindowOpen();
@@ -138,7 +138,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     }
 
     this.loginWindow = undefined;
-    this.loginWindowSuppressed = false;
+    this.loginWindowSuppressed.set(false);
   };
 
   LoginView.prototype.isLoginWindowOpen = function() {

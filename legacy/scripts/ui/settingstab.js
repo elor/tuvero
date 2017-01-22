@@ -47,7 +47,7 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
     this.loginView = new LoginView(this.serverModel, $container);
     if (!this.serverModel.token.get()) {
-      this.loginView.suppressLoginWindow = true;
+      this.loginView.loginWindowSuppressed.set(true);
       this.serverModel.createToken();
     }
   };
