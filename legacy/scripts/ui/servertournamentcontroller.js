@@ -8,7 +8,7 @@
  */
 define(['lib/extend', 'core/controller', 'core/listener',
     'ui/servertournamentloader'], function(extend, Controller, Listener,
-    StateSaver, State, PlayerModel, TeamModel, ServerTournamentLoader) {
+    ServerTournamentLoader) {
   /**
    * Constructor
    */

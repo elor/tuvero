@@ -5,6 +5,7 @@
 	* legacy/scripts/ui/servertournamentmodel.js: setting registrations on initialization, if possible
 
 	* legacy/scripts/ui/servertournamentcontroller.js: Load capability extracted to ServerTournamentLoader
+	dependencies didn't match the arguments
 
 	* legacy/scripts/ui/servertournamentloader.js: creating a new tournament from registrations
 	Model/Loader mixup fixed
