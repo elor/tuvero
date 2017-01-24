@@ -9,6 +9,7 @@
 	* legacy/scripts/ui/servertournamentloader.js: creating a new tournament from registrations
 
 	* legacy/scripts/ui/serverautoloadmodel.js: auto-loading depending on the initial location hash (e.g. '/t/123456789')
+	verifying tournament target
 
 	* legacy/scripts/ui/settingstab.js: enabling ServerAutoloadModel
 

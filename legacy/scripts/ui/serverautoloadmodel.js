@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
-    'ui/servertournamentloader'], function(extend, Model, Browser,
-    ServerTournamentModel, ServerTournamentLoader) {
+    'ui/servertournamentloader', 'presets'], function(extend, Model, Browser,
+    ServerTournamentModel, ServerTournamentLoader, Presets) {
   /**
    * Constructor
    */
@@ -44,7 +44,7 @@ define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
 
       message = this.server.message('t/' + this.tournamentID);
       message.onreceive = (function(data) {
-        if (data && data.registrations) {
+        if (data && data.registrations && data.target === Presets.target) {
           var model = new ServerTournamentModel(this.server, data);
           ServerTournamentLoader.load(model);
         }
