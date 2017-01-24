@@ -1,3 +1,7 @@
+2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/browser.js: Browser.inithash added
+
 2017-01-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: window suppression variable changed to ValueModel!
