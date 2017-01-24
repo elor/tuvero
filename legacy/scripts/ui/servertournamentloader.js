@@ -49,7 +49,7 @@ function(StateSaver, State, PlayerModel, TeamModel) {
     }, this);
   };
 
-  ServerTournamentLoder.loadTournament = //
+  ServerTournamentLoader.loadTournament = //
   ServerTournamentModel.prototype.loadTournament;
 
   return ServerTournamentLoader;
