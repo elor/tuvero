@@ -7,9 +7,10 @@
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     'ui/fontsizeview', 'ui/servermodel', 'ui/loginview', 'ui/storage',
     'presets', 'ui/servertournamentlistmodel', 'ui/servertournamentview',
-    'ui/listview'], function(extend, $, View, CSVExportController,
-    FontSizeView, ServerModel, LoginView, Storage, Presets,
-    ServerTournamentListModel, ServerTournamentView, ListView) {
+    'ui/listview', 'ui/serverautoloadmodel'], function(extend, $, View,
+    CSVExportController, FontSizeView, ServerModel, LoginView, Storage,
+    Presets, ServerTournamentListModel, ServerTournamentView, ListView,
+    ServerAutoloadModel) {
   /**
    * represents a whole team tab
    *
@@ -46,13 +47,15 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
         $container));
 
     this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
+    this.serverAutoloadModel = new ServerAutoloadModel(this.serverModel);
 
     this.serverTournamentListModel = new ServerTournamentListModel(
         this.serverModel);
     $container = this.$view.find('.servertournaments');
     $template = $container.find('.template')
-    this.serverTournamentListView = new ListView(this.serverTournamentListModel,
-        $container, $template, ServerTournamentView);
+    this.serverTournamentListView = new ListView(
+        this.serverTournamentListModel, $container, $template,
+        ServerTournamentView);
 
     $container = this.$view.find('.tuvero-login');
     this.loginView = new LoginView(this.serverModel, $container);

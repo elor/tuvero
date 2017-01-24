@@ -213,6 +213,7 @@ define([
   'ui/servermodel',
   'ui/servertournamentcontroller',
   'ui/servertournamentlistmodel',
+  'ui/servertournamentloader',
   'ui/servertournamentmodel',
   'ui/servertournamentview',
   'ui/settingstab',

@@ -1,0 +1,57 @@
+/**
+ * ServerAutoloadModel
+ *
+ * @return ServerAutoloadModel
+ * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @license MIT License
+ * @see LICENSE
+ */
+define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
+    'ui/servertournamentloader'], function(extend, Model, Browser,
+    ServerTournamentModel, ServerTournamentLoader) {
+  /**
+   * Constructor
+   */
+  function ServerAutoloadModel(server) {
+    ServerAutoloadModel.superconstructor.call(this);
+
+    this.server = server;
+    this.tournamentID = this.readTournamentID();
+
+    this.server.registerListener(this);
+
+  }
+  extend(ServerAutoloadModel, Model);
+
+  ServerAutoloadModel.prototype.readTournamentID = function() {
+    var testresult;
+    if (Browser.inithash) {
+      testresult = Browser.inithash.match(/^\/?t\/([0-9a-f]+)$/);
+      if (testresult && testresult[0] && testresult[1]) {
+        return testresult[1];
+      }
+    }
+
+    return undefined;
+  };
+
+  /**
+   * event function
+   */
+  ServerAutoloadModel.prototype.onlogin = function() {
+    var message;
+    if (this.tournamentID) {
+
+      message = this.server.message('t/' + this.tournamentID);
+      message.onreceive = (function(data) {
+        if (data && data.registrations) {
+          var model = new ServerTournamentModel(this.server, data);
+          ServerTournamentLoader.load(model);
+        }
+      }).bind(this);
+      message.send();
+    }
+  };
+
+  return ServerAutoloadModel;
+});
