@@ -43,7 +43,7 @@ define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
     if (this.tournamentID) {
 
       message = this.server.message('t/' + this.tournamentID);
-      message.onreceive = (function(data) {
+      message.onreceive = (function(emitter, event, data) {
         if (data && data.registrations && data.target === Presets.target) {
           var model = new ServerTournamentModel(this.server, data);
           ServerTournamentLoader.load(model);

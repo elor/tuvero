@@ -11,6 +11,7 @@
 
 	* legacy/scripts/ui/serverautoloadmodel.js: auto-loading depending on the initial location hash (e.g. '/t/123456789')
 	verifying tournament target
+	mixed up the callback arguments
 
 	* legacy/scripts/ui/settingstab.js: enabling ServerAutoloadModel
 
