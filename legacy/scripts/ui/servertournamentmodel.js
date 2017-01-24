@@ -21,7 +21,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.variant = data.target;
     this.url_www = data.url_www;
 
-    this.registration = [];
+    this.registrations = data.registrations || [];
 
     this.server = server;
 
