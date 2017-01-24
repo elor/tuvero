@@ -4,6 +4,10 @@
 
 	* legacy/scripts/ui/servertournamentmodel.js: setting registrations on initialization, if possible
 
+	* legacy/scripts/ui/servertournamentcontroller.js: Load capability extracted to ServerTournamentLoader
+
+	* legacy/scripts/ui/servertournamentloader.js: creating a new tournament from registrations
+
 2017-01-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: window suppression variable changed to ValueModel!

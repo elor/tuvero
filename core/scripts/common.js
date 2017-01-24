@@ -209,6 +209,7 @@ define([
   'ui/reversematchreferencemodel',
   'ui/reverseresultreferencemodel',
   'ui/roundtournamentview',
+  'ui/serverautoloadmodel',
   'ui/servermodel',
   'ui/servertournamentcontroller',
   'ui/servertournamentlistmodel',
