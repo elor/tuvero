@@ -50,7 +50,7 @@ function(StateSaver, State, PlayerModel, TeamModel) {
   };
 
   ServerTournamentLoader.loadTournament = //
-  ServerTournamentModel.prototype.loadTournament;
+  ServerTournamentLoader.prototype.loadTournament;
 
   return ServerTournamentLoader;
 });

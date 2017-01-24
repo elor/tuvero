@@ -7,6 +7,7 @@
 	* legacy/scripts/ui/servertournamentcontroller.js: Load capability extracted to ServerTournamentLoader
 
 	* legacy/scripts/ui/servertournamentloader.js: creating a new tournament from registrations
+	Model/Loader mixup fixed
 
 	* legacy/scripts/ui/serverautoloadmodel.js: auto-loading depending on the initial location hash (e.g. '/t/123456789')
 	verifying tournament target
