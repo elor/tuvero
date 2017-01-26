@@ -13,6 +13,7 @@
 	total height reduced
 	userinfo positioning improved
 	errornotice is only visible when online
+	errornotice further nested due to lack of AndModel or other LogicModels
 
 	* core/templates/servertournaments.html: better tournament listing
 	.servertournamentview class added for later
