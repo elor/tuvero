@@ -12,6 +12,7 @@
 	appearance and order of notifications changed
 	total height reduced
 	userinfo positioning improved
+	errornotice is only visible when online
 
 	* core/templates/servertournaments.html: better tournament listing
 	.servertournamentview class added for later
@@ -34,6 +35,8 @@
 	* legacy/scripts/ui/hometab.js: loginview added
 
 	* legacy/scripts/ui/settingstab.js: loginview removed
+
+	* legacy/scripts/ui/loginview.js: online and offline visibility enabled
 
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

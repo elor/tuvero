@@ -1,6 +1,6 @@
 /**
  * LoginView
- *
+ * 
  * @return LoginView
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -19,6 +19,12 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.username = new ValueModel(undefined);
     this.avatar = new ValueModel(undefined);
     this.popupBlocked = new ValueModel(false);
+    this.errorModel = new ValueModel(false);
+    this.online = new ValueModel(this.model.communicationStatus().online);
+    this.errorModel.registerListener(this.online);
+    this.online.onupdate(function() {
+      this.set(model.communicationStatus().online);
+    });
 
     this.$userinfo = this.$view.find('.userinfo');
     this.$username = this.$view.find('.username');
@@ -27,6 +33,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.$logoutbutton = this.$view.find('button.logout');
     this.$busy = this.$view.find('.busy');
     this.$domainnotice = this.$view.find('.domainnotice');
+    this.$online = this.$view.find('.online');
+    this.$offline = this.$view.find('.offline');
 
     this.userinfovisibility = new ClassView(this.model.tokenvalid,
         this.$userinfo, undefined, 'hidden');
@@ -40,6 +48,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
         this.$logoutbutton, undefined, 'hidden');
     this.busyvisibility = new ClassView(this.model.openTransactions,
         this.$busy, undefined, 'hidden');
+
+    this.onlineVisibility = new ClassView(this.online, //
+    this.$online, undefined, 'hidden');
+    this.offlineVisibility = new ClassView(this.online, //
+    this.$offline, 'hidden');
 
     if (this.model.communicationStatus().tuvero) {
       this.$domainnotice.addClass('hidden');
@@ -56,10 +69,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.popupBlockedView = new ClassView(this.popupBlocked, this.$view
         .find('.popupnotice'), undefined, 'hidden');
 
-    this.errorModel = new ValueModel(false);
-    this.errorModel.onupdate = function(state) {
-      this.set(state.get() === 'error');
-    };
     this.errorView = new ClassView(this.errorModel, this.$view
         .find('.errornotice'), undefined, 'hidden');
 
