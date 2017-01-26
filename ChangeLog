@@ -11,6 +11,7 @@
 	button size increased
 	appearance and order of notifications changed
 	total height reduced
+	userinfo positioning improved
 
 	* core/templates/servertournaments.html: better tournament listing
 	.servertournamentview class added for later
