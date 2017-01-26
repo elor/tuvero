@@ -44,6 +44,7 @@ git commit -m "release-$VERSION: targets built"
 ###################################
 git rm -r core legacy lib
 git rm -r basic boule images tac test *.html
+rm -rf basic boule tac test
 git commit -m "release-$VERSION: source directories removed"
 
 ############################################################

@@ -19,6 +19,8 @@
 
 	* test/index.html: unittest try-catch disabled: It caused problems with compiled tests...
 
+	* tools/prepare-release.sh: removing intermediate index.html files before copying the new version
+
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/browser.js: Browser.inithash added
