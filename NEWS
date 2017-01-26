@@ -1,3 +1,24 @@
+Tuvero 1.5.6 (2017-01-26)
+-------------------------
+
+FEATURES:
+
+  * API compatibility with the tuvero servers
+  * Download of registered teams from turniere.tuvero.de
+  * Most things can be renamed anywhere
+  * Font size hotkeys added
+  * New button design
+  * File load drag&drop added
+
+FIXES:
+
+  * Unified file loading
+  * #reset also resets timemachine roots
+  * Unified renaming
+  * RankingView event leak fixed
+  * better cursor hinting
+  * autoupdate for dev versions
+
 Tuvero 1.5.5 (2016-03-13)
 -------------------------
 

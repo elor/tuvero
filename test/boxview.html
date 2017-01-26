@@ -2,7 +2,7 @@
 <html lang="de" manifest="manifest.appcache">
 <head>
 <meta charset="utf-8" />
-<title>Tuvero Test 1.5.5</title>
+<title>Tuvero Test 1.5.6</title>
 <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
 <link rel="stylesheet" href="style/main.css" />
 </head>
@@ -43,18 +43,13 @@
 
   <script id="testmain">
   function TestMain(Common, $) {
-    var StaticViewLoader, BoxView;
+    var BoxView;
   
-    // backendscripts takes care of that for us
-    // StaticViewLoader = Common('ui/staticviewloader');
     BoxView = Common('ui/boxview');
   
     $(function($) {
       var $box;
   
-      // StaticViewLoader.registerView('boxview', BoxView);
-      // StaticViewLoader.loadViews($('body'));
-      
       $box = $('<div>').addClass('boxview').addClass('generated').append(
           $('<h3>').text('Script-Generated Box'));
   

@@ -1,3 +1,724 @@
+2017-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/serverautoloadmodel.js: reset inithash when a tournament has been autoloaded, to avoid tournament duplication on an eventual update-reload
+
+	* core/templates/hometab.html: phrasing
+	loginview added
+	servertournaments added
+
+	* core/templates/loginview.html: better view of user information
+	surrounding div added + centered
+	button size increased
+	appearance and order of notifications changed
+	total height reduced
+	userinfo positioning improved
+	errornotice is only visible when online
+	errornotice further nested due to lack of AndModel or other LogicModels
+
+	* core/templates/servertournaments.html: better tournament listing
+	.servertournamentview class added for later
+
+	* legacy/scripts/ui/servertournamentview.js: additional classes added
+
+	* legacy/style/loginview.css: everything centered
+	fixed avatar size
+	image height reduced
+
+	* .externalToolBuilders/Style Maker.launch: Eclipse Style Builder added
+
+	* test/index.html: unittest try-catch disabled: It caused problems with compiled tests...
+
+	* tools/prepare-release.sh: removing intermediate index.html files before copying the new version
+
+	* core/templates/settingstab.html: loginview removed
+	servertournaments removed
+
+	* legacy/scripts/ui/hometab.js: loginview added
+
+	* legacy/scripts/ui/settingstab.js: loginview removed
+
+	* legacy/scripts/ui/loginview.js: online and offline visibility enabled
+	onupdate function not registered correctly
+
+	* legacy/scripts/ui/servermodel.js: token invalidation without previous validation fixed
+
+2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/browser.js: Browser.inithash added
+
+	* legacy/scripts/ui/servertournamentmodel.js: setting registrations on initialization, if possible
+
+	* legacy/scripts/ui/servertournamentcontroller.js: Load capability extracted to ServerTournamentLoader
+	dependencies didn't match the arguments
+
+	* legacy/scripts/ui/servertournamentloader.js: creating a new tournament from registrations
+	Model/Loader mixup fixed
+
+	* legacy/scripts/ui/serverautoloadmodel.js: auto-loading depending on the initial location hash (e.g. '/t/123456789')
+	verifying tournament target
+	mixed up the callback arguments
+
+	* legacy/scripts/ui/settingstab.js: enabling ServerAutoloadModel
+
+2017-01-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/loginview.js: window suppression variable changed to ValueModel!
+
+	* legacy/scripts/ui/settingstab.js: direct window suppression variable interaction. bad stuff.
+	Auto-loading of serverside tournaments enabled
+	listview for server tournaments added
+	double-use of $container variable fixed
+
+	* legacy/scripts/ui/servertournamentlistmodel.js: List of server-side tournaments under the current account
+	forgot to register the listener
+	populating the list with ServerTournamentModel instances
+	missing Presets import added
+	proper dereferencing of the tournamentID
+	unnecessary null-check removed
+
+	* core/templates/loginview.html: servertournaments list added
+
+	* core/templates/servertournaments.html: servertournaments list added
+	play button added
+
+	* legacy/scripts/ui/servertournamentmodel.js: encapsulate relevant information into this object
+	typo fixed
+	readRegistrations() added
+	www_url --> url_www
+
+	* legacy/scripts/ui/servertournamentview.js: view relevant information from the corresponding model
+	using proper url for tournament link
+	didn't create ServerTournamentController
+
+	* legacy/scripts/ui/servertournamentcontroller.js: 'play' button logic added (create state+reflog, add teams)
+	missing dereference added
+
+2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/storagesavecontroller.js: StorageSaveController removed
+
+	* legacy/scripts/ui/timemachineview.js: StorageSaveController removed
+
+	* legacy/scripts/ui/autocompletionlegacyblobber.js: AutocompletionLegacyBlobber removed in favor of new Storage class
+
+	* basic/scripts/presets.js: Presets.names.apitoken added
+
+	* boule/scripts/presets.js: Presets.names.apitoken added
+
+	* tac/scripts/presets.js: Presets.names.apitoken added
+
+	* test/scripts/presets.js: Presets.names.apitoken added
+
+	* core/scripts/main.js: Storage.restore() removed
+
+	* legacy/scripts/ui/storage.js: new Storage class allows for load-time storage reading and event-driven storing
+	stored JSON data didn't get parsed
+
+	* legacy/scripts/ui/teamstab.js: registering AutocompletionModel with Storage
+
+	* legacy/scripts/ui/autocompletionmodel.js: save() returned non-existing variable instead of 'data'
+
+	* legacy/scripts/ui/servermodel.js: relay token update event for Storage-compatibility
+	missing ticks added
+	save() didn't return the data
+	save() didn't store empty tokens
+
+2017-01-11	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/loginview.js: Trying to avoid re-opening login windows during polling
+
+	* core/templates/loginview.html: iproved error text
+
+2017-01-04	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* Makefile: `make node_modules` added
+
+	* core/templates/correctionform.html: invalid attributes fixed
+
+	* core/templates/hometab.html: extra closing tag removed
+
+2016-11-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/loginview.html: .busy image is spinning
+
+	* legacy/style/spin.css: .spin class added
+
+	* legacy/scripts/ui/servermodel.js: openMessages property renamed to openTransactions
+	openTransactions was falsely set to 'true'
+
+2016-10-31	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/loginview.html: 'hidden' tags are dynamically set
+
+	* legacy/scripts/ui/loginview.js: showing domain notice when on wrong domain
+	communicationStatus typo fixed
+
+	* legacy/scripts/ui/messagemodel.js: 'complete' event added
+	'complete' event added to EVENTS list
+
+	* legacy/scripts/ui/servermodel.js: 'tuvero.de' property name changed to 'tuvero' for easier dereferencing
+
+2016-10-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/loginview.html: auto-hiding login/logout buttons depending on the login state
+
+	* legacy/scripts/ui/loginview.js: auto-hiding login/logout buttons depending on the login state
+	showing/hiding username and avatar in addition to userinfo, depending on their actual state
+	avatar was not reset on logout
+
+2016-10-16	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/servermodel.js: missing variable removed
+
+	* legacy/scripts/ui/loginview.js: inverted logic fixed
+	Avatar image added
+	Import cleanup
+
+	* legacy/scripts/ui/attributevalueview.js: added: writes value to an attribute
+
+	* legacy/scripts/ui/imageview.js: added: writes value to src (subclass of AttributeValueView)
+
+	* core/templates/loginview.html: Avatar image added
+
+2016-10-09	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/loginview.js: popup blocker detection added
+	different notices added
+	only poll when popup is open
+	using ServerModel now
+	argument order of the /profile callback fixed
+	listening for logout
+	resetting profile if communicationStatus() fails
+
+	* core/templates/settingstab.html: different notices added
+
+	* legacy/scripts/ui/browser.js: 'secure' (http) and 'legit' (tuvero.de) fields added
+
+	* legacy/scripts/ui/messagemodel.js: A singular message to and from the API server
+	receive spelling corrected
+	storing result and status
+	ValueModel wasn't included
+	typo fixed
+	callbacks look for error field, too
+	createToken function added
+
+	* legacy/scripts/ui/servermodel.js: Token and message generator
+	auto-validation of tokens after they're set
+	tokenvalid is reset along with the token
+	messages aren't sent without a valid token
+	shorter validation message callbacks
+	ServerModel instantiation with token argument
+	'logout' event added
+	communicationStatus() extended: lists individual reasons
+
+	* legacy/scripts/ui/logincontroller.js: switched to ServerModel
+
+	* legacy/scripts/ui/loginmodel.js: replaced by ServerModel
+
+	* legacy/scripts/ui/settingstab.js: switched to ServerModel
+
+2016-10-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/loginmodel.js: function wasn't called correctly, but bound only.
+	loggedout->error state transition was missing
+	token scrambling test removed
+	using token event propagation instead of ambiguous states
+	save()/restore() added
+	unreferenced variable fixed
+	save()/restore() didn't do anything. it does now
+	trying POST
+	trying POST for token retrieval
+	singleton removed. Was for testing only
+	auto-login
+	autologin removed. It makes for bad privacy and sense security
+
+	* legacy/scripts/ui/update.js: autoupdate interval increased to 15s
+	autoreload on update
+
+	* Makefile: `make build-quick` excludes index.html anymore
+	`make dev-quick` relied on index.html existing
+
+	* legacy/scripts/ui/loginview.js: loginWindow XSS bug fixed
+	trying jquery for focus()
+	Apparently, tab-focussing considered XSS
+	login polling when loginview is open
+	non-overlapping login polling
+	logout polling added
+	closing logout window on successful logout
+	logoutWindow removed
+	last logout references removed
+	reduced login polling
+	autoclose windows when exiting tuvero
+
+	* core/templates/settingstab.html: login/logoutwindow buttons removed
+
+	* legacy/scripts/ui/logincontroller.js: login/logoutwindow buttons removed
+
+2016-10-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/fileloadcontroller.js: error Toasts miswording fixed
+
+	* legacy/scripts/ui/strings.js: nofiles added
+
+	* legacy/scripts/ui/loginview.js: automatically open login window
+	upper/lower typo fixed
+	openLogoutWindow() added
+	not instantly re-opening login window when login failed
+	listener functions set to the correct name
+
+	* core/templates/settingstab.html: loginwindow button added
+	logoutwindow button added
+	wording
+
+	* legacy/scripts/ui/logincontroller.js: loginwindow button added
+	logoutwindow button added
+
+	* core/scripts/test/listener.js: testing double registration of a listener. It worked already
+
+	* legacy/scripts/ui/browserinfoview.js: #279: update appCache too when 'update' button is pressed
+
+	* legacy/scripts/ui/loginmodel.js: 'none' moved into a constant
+	token has to be verified before login is considered complete
+	test delay added
+	token scrambling added for testing
+	it's an error when token validation fails.
+	updateProfile() AJAX error callback added
+	ajax timeout added
+	calling logout() when logging in
+
+	* legacy/scripts/ui/textview.js: TextView 'undefined' default text added
+
+	* legacy/scripts/ui/valueview.js: ValueView 'undefined' default value added
+
+	* legacy/scripts/ui/update.js: autoupdate for dev versions enabled
+
+2016-09-18	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: Hover-rename disabled. It shows unexpected behaviour
+
+	* legacy/scripts/ui/tournamentrenamecontroller.js: Hover-rename disabled. It shows unexpected behaviour
+
+	* core/style/tabview.css: showing pointer cursor on options
+
+	* core/templates/historytab.html: not showing pointer cursor on hints
+
+	* core/templates/newtab.html: not showing pointer cursor on hints
+
+	* core/templates/teamstab.html: not showing pointer cursor on hints
+
+	* legacy/style/app.css: showing default cursor everywhere
+
+	* legacy/style/general.css: hover-cursors disabled for printing
+	underlining of rename input boxes disabled
+
+	* legacy/style/teams.css: hover-cursors disabled for printing
+
+	* core/scripts/listmodel.js: includes() function added
+
+	* core/scripts/test/listmodel.js: testing ListModel.includes()
+
+	* legacy/scripts/ui/noregmodel.js: LengthModel isn't sufficient for noreg-decisions
+
+	* legacy/scripts/ui/teamstab.js: Using NoRegModel for Reg-Closing classes
+
+	* legacy/scripts/ui/tournamentcontroller.js: hover-renaming disabled
+
+2016-07-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/settingstab.html: Login test fields moved to first position
+	logout button added
+	state output added
+
+	* legacy/scripts/ui/logincontroller.js: logout button added
+
+	* legacy/scripts/ui/loginmodel.js: state-based login model added (username for testing only)
+
+	* legacy/scripts/ui/loginview.js: output fields added (state, token, username)
+
+2016-07-03	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/settingstab.html: crude LoginView added to settings tab
+	minor update to force server cache update
+	using iframe instead of secondary window
+	iframe and unnecessary buttons removed
+
+	* legacy/scripts/ui/settingstab.js: LoginView added to settings tab
+	LoginModel supersedes LoginView logic
+
+	* legacy/scripts/ui/logincontroller.js: LoginController added (crude logic)
+	must fetch token with cookie credentials
+	most logic moved to LoginModel
+
+	* legacy/scripts/ui/loginview.js: LoginView added
+
+	* legacy/scripts/ui/loginmodel.js: Logic from LoginView and LoginController moved here
+	'error not defined' bug fixed
+	"logginin->loggingIn" typo fixed
+
+2016-07-02	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/autocompletionview.js: Electron support: check for typeahead before usage
+
+	* legacy/style/buttons.css: buttons don't have an outline anymore
+
+	* Makefile: Pseudo-Chromeapp capabilities added
+
+	* core/style/tabmenuview.css: box-shadow for unopened menu elements added
+	outline-style changed to outline
+
+	* core/templates/hometab.html: hiding chrome recommendation in chrome browsers
+
+	* legacy/scripts/ui/hometab.js: hiding chrome recommendation in chrome browsers
+
+	* legacy/style/new.css: h3:last-child was still used, but removed earlier
+
+	* legacy/style/input.css: checkbox outline removed
+
+2016-06-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/style/newteamview.css: using new input field design
+
+	* legacy/style/buttons.css: new button design
+	missing color added
+	font size
+
+	* legacy/style/input.css: new input field design
+	font size
+
+	* legacy/style/teams.css: using new input field design
+
+	* legacy/style/teamsizeview.css: using new button design
+
+	* core/style/boxview.css: uses same design as the buttons
+
+	* core/style/fontsizeview.css: using same highlighting color as 'button.selected'
+
+	* legacy/style/fileload.css: using default button color instead of white
+
+	* legacy/style/new.css: using boxview colors for 'system table' headers
+
+	* core/templates/correctionform.html: inputs are input.mini
+
+	* core/templates/finishmatchform.html: inputs are input.mini
+
+	* core/templates/komatchresult.html: inputs are input.mini
+
+	* core/templates/teamstab.html: inputs are input.mini
+
+	* legacy/scripts/ui/renamecontroller.js: hover-rename is now possible
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: using hover-rename
+
+	* legacy/scripts/ui/tournamentcontroller.js: using hover-rename
+
+	* legacy/scripts/ui/tournamentrenamecontroller.js: using hover-rename
+
+	* legacy/style/general.css: hover-exclamation mark is removed
+	correctable match results are highlighted just as renamable stuff
+
+	* legacy/style/toasts.css: Toasts hover above the page now, instead of being flat
+
+	* core/style/fontsize.css: font size is taken care of by the specific files (input.css and buttons.css)
+
+2016-06-27	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/style/teams.css: #267 fixed: team input layout without typeahead
+
+2016-06-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* index.html: favicon taken from inside images/, not basic/images
+
+	* core/templates/hometab.html: 'create tournament' step added to HowTo-List
+	using fileload drag/drop style
+
+	* core/scripts/swisstournamentmodel.js: automatically using 'wins' as first ranking component for wingroups (swissmode='wins')
+
+	* core/templates/fonthotkeys.html: placeholder links for font hotkeys added
+
+	* core/templates/index.html: including fonthotkeys.html
+
+	* legacy/scripts/ui/backgroundscripts/fonthotkeys.js: hashchange-listener for font hotkeys
+	debugging output removed
+
+	* core/style/mainstyle.css: using fileload drag/drop style
+
+	* core/templates/teamstab.html: using fileload drag/drop style
+
+	* legacy/scripts/ui/fileloadcontroller.js: event precedence order (and 'preventDefault' order) fixed
+
+	* legacy/scripts/ui/strings.js: Strings.onlyonefile added
+
+	* legacy/scripts/ui/backgroundscripts/dropstyle.js: adjusting fileload button styles according to drop status
+
+	* legacy/style/fileload.css: styles for drag&drop status
+
+2016-06-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* images/basic.png: dedicated image for Tuvero Basic added
+
+	* index.html: linking to basic.png
+
+2016-04-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/backgroundscripts/initboxviews.js: StaticViewLoader removed
+	moved to initboxviews
+
+	* legacy/scripts/ui/backgroundscripts/initviews.js: StaticViewLoader removed
+	moved to initboxviews
+
+	* legacy/scripts/ui/staticviewloader.js: completely removed
+
+	* test/boxview.html: StaticViewLoader finally removed
+
+	* test/fontsize.html: StaticViewLoader finally removed
+
+	* core/chromeapp/background.js: template for chromeapp background script added
+
+	* core/chromeapp/manifest.json: template for chromeapp manifest added
+
+	* core/scripts/common.js: initviews -> initboxviews
+
+	* .gitignore: ignoring build-chromeapp
+
+	* Makefile: `make build-chromeapp` and `make all` added
+
+	* tools/chromeapp.sh: create chromeapp from a built variant
+
+2016-04-23	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/renamecontroller.js: don't initiate renaming if getName() returns undefined;
+
+	* legacy/scripts/ui/teamcontroller.js: commented out code: return 'undefined' for bye names
+
+	* legacy/scripts/timemachine/commitmodel.js: window.localStorage made optional
+
+	* legacy/scripts/timemachine/reflog.js: window.localStorage made optional
+	localStorage-related infinite refresh-loop bug fixed
+
+	* legacy/scripts/timemachine/test/query.js: window.localStorage made optional
+
+	* legacy/scripts/timemachine/timemachine.js: window.localStorage made optional
+
+	* legacy/scripts/ui/backgroundscripts/reset.js: window.localStorage made optional
+
+	* legacy/scripts/ui/debugtab.js: window.localStorage made optional
+
+	* legacy/scripts/ui/legacystoragekeyconverter.js: window.localStorage made optional
+
+	* legacy/scripts/ui/storage.js: window.localStorage made optional
+
+	* basic/index.html: removed from git. run `make templates` to regenerate
+
+	* boule/index.html: removed from git. run `make templates` to regenerate
+
+	* tac/index.html: removed from git. run `make templates` to regenerate
+
+	* legacy/scripts/timemachine/query.js: window.localStorage made optional
+
+	* legacy/style/app.css: ChromeApp scrolling enabled
+
+	* .gitignore: removed index files are now git-ignored
+
+	* core/style/tabmenuview.css: outline of tabicons removed
+
+2016-04-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/timemachinecommitview.html: RenameController
+
+	* legacy/scripts/ui/renamecontroller.js: All click-renaming is taking place here
+	use of 'hidden' classes for rename stuff to reduce CSS footprint
+	Act on the $anchor directly, instead of writing classes to the parent
+	bind to dynamically added elements
+	destroy() implemented
+	also looking for '.rename' using $.filter, not just $.find (0th-level-elements)
+	ignoring input-click events, which mess with text selection
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: extends RenameController
+
+	* legacy/style/rename.css: supposed to contain rename rules only
+	removed again. use 'hidden' classes instead
+
+	* legacy/style/timemachine.css: rename stuff moved to rename.css
+	hover underline moved to general.css
+
+	* core/templates/teamstab.html: use RenameController classes (.rename instead of .editable)
+
+	* legacy/scripts/ui/teamnamecontroller.js: extend RenameController
+	TeamNameController removed
+
+	* legacy/style/general.css: use RenameController classes (.rename instead of .editable)
+	underline .rename when hovered over
+
+	* core/templates/kosystem.html: using .rename
+
+	* core/templates/roundsystem.html: using .rename
+
+	* core/templates/swisssystem.html: using .rename
+
+	* legacy/scripts/ui/tournamentcontroller.js: extending RenameController
+
+	* legacy/style/new.css: using RenameController for rename styling
+
+	* legacy/scripts/ui/teamstab.js: TeamNameController removed
+
+	* core/templates/newtab.html: '.rename' classes added
+
+	* legacy/scripts/ui/teamcontroller.js: Renaming logic team-by-team
+	destroy() implemented
+
+	* legacy/scripts/ui/teamview.js: Using TeamController
+	destroy() implemented
+
+	* core/scripts/controller.js: Controller.prototype.destroy() added
+
+	* core/scripts/tournamentmodel.js: Type ('core/type') wasn't loaded
+
+	* core/templates/rankingview.html: using TeamView classes
+
+	* legacy/scripts/ui/rankingview.js: using TeamView for team lists, which enables team name editing
+	Side effect: TeamView instances replace TeamCollector
+	destroy() implemented
+
+	* core/templates/koteam.html: KOTree teams can be renamed
+
+	* core/templates/matchtable.html: rename capability added
+
+	* legacy/style/matchresult.css: input width only applies to scores
+
+	* core/templates/progresstable.html: rename teams from within the progress table
+
+	* legacy/scripts/ui/matchview.js: disallow empty-team renaming
+
+	* core/templates/gamestab.html: byevote renaming enabled
+	tournament renaming enabled
+
+	* core/templates/rankingtab.html: tournament renaming enabled
+
+	* core/templates/tournamentlist.html: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamenthistoryview.js: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamentmatchesview.js: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamentrankingview.js: tournament renaming enabled
+
+	* legacy/scripts/ui/tournamentrenamecontroller.js: tournament renaming enabled
+
+	* legacy/scripts/ui/boxcontroller.js: ignoring header-clicks on input tags
+
+2016-04-08	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* boule/scripts/presets.js: boulesdb disabled
+
+2016-04-07	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/kotournamentmodel.js: using addBye()
+
+	* core/scripts/roundtournamentmodel.js: using addBye()
+
+	* core/scripts/swisstournamentmodel.js: using addBye()
+
+	* core/scripts/tournamentmodel.js: addBye() added
+
+	* core/templates/teamstab.html: .downloadcsvexample renamed from something else
+
+	* legacy/scripts/ui/teamstab.js: .downloadcsvexample selector bug fixed
+
+	* legacy/style/teams.css: .downloadcsvexample visibility bug fixed
+
+	* core/templates/timemachinecommitview.html: rename input added
+
+	* legacy/scripts/ui/timemachinecommitcontroller.js: rename input enabled
+	escape-button works now
+
+	* legacy/style/timemachine.css: rename input visibility enabled
+
+	* core/templates/hometab.html: tournament rename hint added
+
+2016-03-25	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/templates/*tab.html: header-buttons use the 'left' class instead of special rules
+
+	* legacy/style/buttons.css: header button rules removed
+
+	* legacy/style/general.css: float-right/left renamed to right/left
+
+	* core/templates/teamstab.html: csv-load input replaced with button
+	data-imgs added for delete buttons
+	file input removed in favor of FileLoadController
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: logic for button-to-input click delegation added
+	load prereg.csv by drag-and-drop (no additional indicators yet)
+	using FileLoadController as base class
+
+	* legacy/scripts/ui/teamstab.js: teamsfileload button added
+	.filereader -> .fileloadteams
+	using new StateFileLoadController constructor
+
+	* legacy/style/teams.css: button rules simplified
+
+	* core/templates/hometab.html: fileload input moved from settingstab
+	file input removed in favor of FileLoadController
+
+	* core/templates/settingstab.html: fileload input moved to hometab
+
+	* legacy/scripts/ui/backgroundscripts/load.js: removed in favor of fileloadcontroller
+
+	* legacy/scripts/ui/fileloadcontroller.js: $button handling copied over from teamsfileloadcontroller
+	Copied to StateFileLoadcontroller
+	Used as base class for all file loading
+
+	* legacy/scripts/ui/hometab.js: FileLoadController moved from settingstab
+	using new TeamsFileLoadController constructor
+
+	* legacy/scripts/ui/settingstab.js: FileLoadController moved to hometab
+
+	* legacy/scripts/ui/statefileloadcontroller.js: superseeds FileLoadController
+	Uses the new FileLoadController class as a base class, just like TeamsFileLoadController
+
+	* legacy/scripts/ui/unicodehelper.js: collection of functions which were used in CSV reading:
+	Unicode detection and conversion
+
+	* legacy/scripts/ui/backgroundscripts/autosave.js: detecting whether you can even save, else 'autosave fails' messages are sent
+
+2016-03-20	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingdatalistenerindex.js: HeadToHead problem with indirect dependencies fixed
+
+2016-03-19	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/fileloadcontroller.js: unloading current state on error
+	removing '.txt' and '.csv' suffixes as well
+
+	* legacy/scripts/ui/legacyloadermodel.js: missing `State.clear()` added
+
+	* legacy/scripts/ui/teamsfileloadcontroller.js: using function binding instead of injected fields
+	separate 'load' function, which doesn't deal with FileReaders and stuff. To be extracted to TeamsCSVLoader or so
+
+	* legacy/scripts/ui/backgroundscripts/reset.js: updating timemachine roots
+
+	* legacy/scripts/ui/gamestab.js: commented-out code removed
+
+	* core/templates/hometab.html: 'json' restriction lifted
+
+	* legacy/scripts/ui/stateloader.js: resort to CSV-loading the teams if JSON doesn't work
+
+	* core/scripts/config.js: backend/ dir removed
+
+	* core/scripts/random.js: moved from backend/random
+
+	* core/scripts/test/random.js: moved from backend/test/random
+
+	* tools/create-commonjs.sh: backend/ dir removed
+
+	* tools/create-testjs.sh: backend/ dir removed
+
+	* legacy/scripts/ui/registerteamscontroller.js: create new tournament, if necessary
+
+	* legacy/scripts/ui/statesaver.js: canSave() function added
+
+	* legacy/scripts/ui/registeridscontroller.js: create new tournament, if necessary
+
 2016-03-13	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/teamsfileloadcontroller.js: Didn't read the right teamsize values from the Presets
@@ -6,6 +727,7 @@
 	* legacy/scripts/ui/test/teamsfileloadcontroller.js: Testing CSV import and teamsize heuristic
 
 	* NEWS: NEWS updated prior to 1.5.5 release
+	Work on 1.5.6 started
 
 2016-03-10	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

@@ -3,7 +3,7 @@
 <html lang="de" manifest="manifest.appcache">
 <head>
 <meta charset="utf-8" />
-<title>Tuvero Test 1.5.5</title>
+<title>Tuvero Test 1.5.6</title>
 <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
 <link rel="stylesheet" href="style/main.css" />
 </head>
@@ -46,17 +46,12 @@
 
   <script id="testmain">
       function TestMain(Common, $){
-        var StaticViewLoader, FontSizeView, FontSizeModel;
+        var FontSizeView, FontSizeModel;
   
-  //      backendscripts takes care of that for us. For now.      
-  //      StaticViewLoader = Common('ui/staticviewloader');
         FontSizeView = Common('ui/fontsizeview');
         FontSizeModel = Common('ui/fontsizemodel');
         
         $(function($){
-  //        StaticViewLoader.registerView('fontsizeview', FontSizeView);
-  //        StaticViewLoader.loadViews($('body'));
-          
           $('#manualreset').click(function(){
             FontSizeView.getModelOfContainer($('body')).setFontSize(FontSizeModel.DEFAULT);
           });
