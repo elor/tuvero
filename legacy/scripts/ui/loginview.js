@@ -22,9 +22,9 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.errorModel = new ValueModel(false);
     this.online = new ValueModel(this.model.communicationStatus().online);
     this.errorModel.registerListener(this.online);
-    this.online.onupdate(function() {
+    this.online.onupdate = function() {
       this.set(model.communicationStatus().online);
-    });
+    };
 
     this.$userinfo = this.$view.find('.userinfo');
     this.$username = this.$view.find('.username');

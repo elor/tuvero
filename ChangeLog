@@ -37,6 +37,7 @@
 	* legacy/scripts/ui/settingstab.js: loginview removed
 
 	* legacy/scripts/ui/loginview.js: online and offline visibility enabled
+	onupdate function not registered correctly
 
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
