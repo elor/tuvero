@@ -5,10 +5,14 @@
 	* core/templates/hometab.html: phrasing
 
 	* core/templates/loginview.html: better view of user information
+	surrounding div added + centered
 
 	* core/templates/servertournaments.html: better tournament listing
+	.servertournamentview class added for later
 
 	* legacy/scripts/ui/servertournamentview.js: additional classes added
+
+	* legacy/style/loginview.css: everything centered
 
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
