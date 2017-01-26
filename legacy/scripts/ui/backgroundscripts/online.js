@@ -9,7 +9,6 @@
  * @license MIT License
  * @see LICENSE
  */
-// FIXME modernizr
 define(['jquery', '../strings', '../update'], function($, Strings, Update) {
   var Online;
 

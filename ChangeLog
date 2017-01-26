@@ -2,6 +2,14 @@
 
 	* legacy/scripts/ui/serverautoloadmodel.js: reset inithash when a tournament has been autoloaded, to avoid tournament duplication on an eventual update-reload
 
+	* core/templates/hometab.html: phrasing
+
+	* core/templates/loginview.html: better view of user information
+
+	* core/templates/servertournaments.html: better tournament listing
+
+	* legacy/scripts/ui/servertournamentview.js: additional classes added
+
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/browser.js: Browser.inithash added
