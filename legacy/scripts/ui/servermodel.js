@@ -1,6 +1,6 @@
 /**
  * ServerModel
- *
+ * 
  * @return ServerModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
@@ -25,11 +25,11 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
   extend(ServerModel, Model);
 
   ServerModel.prototype.EVENTS = {
-    'error': true,
-    'authenticate': true,
-    'login': true,
-    'logout': true,
-    'update': true
+    'error' : true,
+    'authenticate' : true,
+    'login' : true,
+    'logout' : true,
+    'update' : true
   };
 
   ServerModel.prototype.validateToken = function() {
@@ -68,13 +68,13 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     this.registerMessage();
 
     $.ajax({
-      method: 'POST',
-      url: 'https://turniere.tuvero.de/profile/token/new/json',
-      timeout: 5000,
-      xhrFields: {
-        withCredentials: true
+      method : 'POST',
+      url : 'https://turniere.tuvero.de/profile/token/new/json',
+      timeout : 5000,
+      xhrFields : {
+        withCredentials : true
       },
-      success: (function(data) {
+      success : (function(data) {
         if (!data) {
           this.emit('error');
         } else if (data.error) {
@@ -83,8 +83,8 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
           this.setToken(data.fulltoken);
         }
       }).bind(this),
-      error: this.emit.bind(this, 'error'),
-      complete: (function() {
+      error : this.emit.bind(this, 'error'),
+      complete : (function() {
         this.unregisterMessage();
       }).bind(this)
     });
@@ -99,7 +99,9 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     }
 
     message = this.message('/token/delete');
-    message.send(); // fire and forget
+    if (message) {
+      message.send(); // fire and forget
+    }
 
     this.token.set(undefined);
     this.tokenvalid.set(undefined);
@@ -131,10 +133,10 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
 
   ServerModel.prototype.communicationStatus = function() {
     var causes = {
-      'https': Browser.secure,
-      'tuvero': Browser.legit,
-      'online': Online(),
-      'validtoken': this.token.get() && this.tokenvalid.get()
+      'https' : Browser.secure,
+      'tuvero' : Browser.legit,
+      'online' : Online(),
+      'validtoken' : this.token.get() && this.tokenvalid.get()
     };
 
     causes.all = Object.keys(causes).every(function(value) {

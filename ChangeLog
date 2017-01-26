@@ -40,6 +40,8 @@
 	* legacy/scripts/ui/loginview.js: online and offline visibility enabled
 	onupdate function not registered correctly
 
+	* legacy/scripts/ui/servermodel.js: token invalidation without previous validation fixed
+
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/browser.js: Browser.inithash added
