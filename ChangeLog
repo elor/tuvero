@@ -14,6 +14,8 @@
 
 	* legacy/style/loginview.css: everything centered
 
+	* .externalToolBuilders/Style Maker.launch: Eclipse Style Builder added
+
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/browser.js: Browser.inithash added
