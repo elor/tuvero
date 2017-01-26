@@ -6,6 +6,7 @@
 
 	* core/templates/loginview.html: better view of user information
 	surrounding div added + centered
+	button size increased
 
 	* core/templates/servertournaments.html: better tournament listing
 	.servertournamentview class added for later
