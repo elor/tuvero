@@ -3,10 +3,13 @@
 	* legacy/scripts/ui/serverautoloadmodel.js: reset inithash when a tournament has been autoloaded, to avoid tournament duplication on an eventual update-reload
 
 	* core/templates/hometab.html: phrasing
+	loginview added
+	servertournaments added
 
 	* core/templates/loginview.html: better view of user information
 	surrounding div added + centered
 	button size increased
+	appearance and order of notifications changed
 
 	* core/templates/servertournaments.html: better tournament listing
 	.servertournamentview class added for later
@@ -21,6 +24,13 @@
 	* test/index.html: unittest try-catch disabled: It caused problems with compiled tests...
 
 	* tools/prepare-release.sh: removing intermediate index.html files before copying the new version
+
+	* core/templates/settingstab.html: loginview removed
+	servertournaments removed
+
+	* legacy/scripts/ui/hometab.js: loginview added
+
+	* legacy/scripts/ui/settingstab.js: loginview removed
 
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
