@@ -17,6 +17,8 @@
 
 	* .externalToolBuilders/Style Maker.launch: Eclipse Style Builder added
 
+	* test/index.html: unittest try-catch disabled: It caused problems with compiled tests...
+
 2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/browser.js: Browser.inithash added
