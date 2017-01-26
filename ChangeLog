@@ -10,6 +10,7 @@
 	surrounding div added + centered
 	button size increased
 	appearance and order of notifications changed
+	total height reduced
 
 	* core/templates/servertournaments.html: better tournament listing
 	.servertournamentview class added for later
@@ -18,6 +19,7 @@
 
 	* legacy/style/loginview.css: everything centered
 	fixed avatar size
+	image height reduced
 
 	* .externalToolBuilders/Style Maker.launch: Eclipse Style Builder added
 
