@@ -1,3 +1,7 @@
+2017-01-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: Reloading a tournament fixes running/idle state error
+
 2017-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/serverautoloadmodel.js: reset inithash when a tournament has been autoloaded, to avoid tournament duplication on an eventual update-reload

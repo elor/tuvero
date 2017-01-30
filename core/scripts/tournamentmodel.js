@@ -728,6 +728,8 @@ define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
       return false;
     }
 
+    this.checkIdleState();
+
     return true;
   };
 
