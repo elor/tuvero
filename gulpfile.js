@@ -1,11 +1,16 @@
-﻿/// <binding BeforeBuild='all' />
-var gulp = require('gulp');
-var rename = require('gulp-rename');
+﻿/// <binding />
 var bower = require('gulp-bower');
+var del = require('del');
+var gulp = require('gulp');
+var modernizr = require('gulp-modernizr');
+var rename = require('gulp-rename');
 
 gulp.task('all', ['lib']);
+gulp.task('build', ['build-static']);
+gulp.task('clean', ['clean-lib', 'clean-build']);
+gulp.task('update', ['update-mainstyle']);
 
-gulp.task('lib', ['lib-requirejs', 'lib-extend', 'lib-blob', 'lib-filesaver', 'lib-jsdiff', 'lib-normalize.css', 'lib-jquery']);
+gulp.task('lib', ['lib-blob', 'lib-extend', 'lib-filesaver', 'lib-jquery', 'lib-jsdiff', 'lib-modernizr', 'lib-normalize', 'lib-typeahead']);
 
 gulp.task('bower', function () {
     return bower();
@@ -14,11 +19,6 @@ gulp.task('bower', function () {
 /**
  * lib/
  **/
-gulp.task('lib-requirejs', ['bower'], function () {
-    return gulp.src('bower_components/requirejs/require.js')
-        .pipe(gulp.dest('lib/'));
-});
-
 gulp.task('lib-blob', ['bower'], function () {
     return gulp.src('bower_components/Blob/Blob.js')
         .pipe(gulp.dest('lib/'));
@@ -42,13 +42,61 @@ gulp.task('lib-jsdiff', ['bower'], function () {
         .pipe(gulp.dest('lib/'));
 });
 
-gulp.task('lib-normalize.css', ['bower'], function () {
+gulp.task('lib-normalize', ['bower'], function () {
     return gulp.src('bower_components/normalize.css/normalize.css')
-        .pipe(gulp.dest('lib/'))
+        .pipe(gulp.dest('lib/'));
 });
 
 gulp.task('lib-jquery', ['bower'], function () {
     return gulp.src('bower_components/jquery/dist/jquery.min.js')
         .pipe(rename('jquery.js'))
         .pipe(gulp.dest('lib/'));
+});
+
+gulp.task('lib-typeahead', ['bower'], function () {
+    return gulp.src('bower_components/typeahead.js/dist/typeahead.bundle.min.js')
+        .pipe(rename('typeahead.js'))
+        .pipe(gulp.dest('lib/'));
+});
+
+gulp.task('lib-modernizr', function () {
+    gulp.src(['*/scripts/*.js', '*/scripts/*/*.js', '*/scripts/*/*/*.js'])
+        .pipe(modernizr())
+        .pipe(gulp.dest("lib/"));
+});
+
+/**
+ * clean
+ **/
+gulp.task('clean-lib', function () {
+    return del('lib');
+});
+
+gulp.task('clean-build', function () {
+    return del('build');
+});
+
+gulp.task('clean-dev', function () {
+    return del('dev');
+});
+
+/**
+ * build
+ **/
+gulp.task('build-static', ['build-static-images', 'build-static-html', 'build-static-manifest']);
+
+gulp.task('build-static-html', function () {
+    return gulp.src('index.html')
+        .pipe(gulp.dest('build/'));
+});
+
+gulp.task('build-static-images', function () {
+    return gulp.src('images/*.png')
+        .pipe(gulp.dest('build/images/'));
+});
+
+gulp.task('build-static-manifest', function () {
+    return gulp.src(['index.html', 'images/*.png'], { base: './' })
+        .pipe(manifest({ filename: 'manifest.appcache', timestamp: false, hash: true }))
+        .pipe(gulp.dest('build/'));
 });
