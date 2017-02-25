@@ -4,8 +4,16 @@
   "private": true,
   "devDependencies": {
     "bower": "^1.8.0",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-bower": "^0.0.13",
+    "gulp-manifest": "^0.1.1",
+    "gulp-modernizr": "^1.0.0-alpha",
     "gulp-rename": "^1.2.2",
-  }
+    "gulp-replace": "^0.5.4",
+    "gulp-util": "^3.0.8",
+    "through2": "^2.0.3",
+    "requirejs": "^2.3.3"
+  },
+  "dependencies": {}
 }
