@@ -2,8 +2,11 @@
 var bower = require('gulp-bower');
 var del = require('del');
 var gulp = require('gulp');
+var manifest = require('gulp-manifest');
 var modernizr = require('gulp-modernizr');
 var rename = require('gulp-rename');
+
+var mainstyle = require('./gulp-tools/mainstyle');
 
 gulp.task('all', ['lib']);
 gulp.task('build', ['build-static']);
@@ -99,4 +102,13 @@ gulp.task('build-static-manifest', function () {
     return gulp.src(['index.html', 'images/*.png'], { base: './' })
         .pipe(manifest({ filename: 'manifest.appcache', timestamp: false, hash: true }))
         .pipe(gulp.dest('build/'));
+});
+
+/**
+ * update
+ **/
+gulp.task('update-mainstyle', function () {
+    return gulp.src(['lib/*.css', 'core/style/*.css', 'legacy/style/*.css', '!core/style/mainstyle.css'], { base: './' })
+        .pipe(mainstyle())
+        .pipe(gulp.dest('core/style'));
 });

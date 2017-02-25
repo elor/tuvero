@@ -3,15 +3,8 @@
 # For more options, run `make ...` in the individual directories #
 ##################################################################
 
-# primary build targets
-
 VERSION=$(shell cat Version)
 GITHEAD=$(shell git rev-parse HEAD | head -c8)
-
-all: build build-chromeapp
-
-node_modules: FORCE
-	npm install requirejs bower
 
 build: clean
 	make templates scripts
@@ -25,31 +18,12 @@ build-quick: clean
 	make build/boule/index.html
 	cp -v Version build/
 
-build-chromeapp: FORCE
-	make build-chromeapp/basic build-chromeapp/boule build-chromeapp/tac
-
-build/index.html: build/images
-	cp -v index.html build/
-
-build/images: build-dir FORCE
-	cp -r images build/
-
-build/manifest.appcache: build/index.html FORCE
-	./tools/write-manifest.sh build/
-
-clean: FORCE
-	make -C selenium-tests/ clean
-	rm -rfv build/ dev/ build-chromeapp/
-
 # primary global targets
 
 update: style templates test/index.html codestyle sprites lib links
 
 templates: FORCE
 	make basic/index.html boule/index.html tac/index.html -j
-
-lib: FORCE
-	./tools/install-libs.sh
 
 links: FORCE
 	./tools/verify-links.sh
@@ -63,9 +37,6 @@ sprites: basic/images/sprite.png boule/images/sprite.png tac/images/sprite.png t
 
 %/images/sprite.png: %/index.html FORCE
 	./tools/write-sprite.sh $(shell dirname $<)
-
-style: FORCE
-	./tools/write-mainstyle.sh
 
 codestyle: scripts
 	./tools/codestyle.sh
@@ -114,16 +85,36 @@ build/%/index.html: build/%
 	rm -r $</scripts/ $</style/ $</images/
 	./tools/write-manifest.sh $<
 
-build-chromeapp/%: build/%/index.html
-	./tools/chromeapp.sh $(shell basename $@)
-
 build-dir: FORCE
 	mkdir -p build
 
-testserver: FORCE
-	python -m SimpleHTTPServer
-
-open-as-app: FORCE
-	chromium-browser --app=file://$(PWD)/index.html
-
 FORCE:
+
+###############################
+# Migration to gulp complete  #
+###############################
+all: build
+
+node_modules: FORCE
+	npm install
+
+lib: FORCE
+	gulp lib
+
+clean: FORCE
+	gulp clean
+
+  build/index.html: build/images
+	cp -v index.html build/
+
+build/images: build-dir FORCE
+	cp -r images build/
+
+build/manifest.appcache: build/index.html FORCE
+	gulp build-static-manifest
+
+style: FORCE
+	gulp update-mainstyle
+
+
+# done
