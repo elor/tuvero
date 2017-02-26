@@ -23,10 +23,10 @@
       <td class="name rename"></td>
       <td>
       <div class="result">
-        {{resultscore}}
+        {% include 'resultscore.html' %}
       </div>
-      {{finishmatchform}}
-      {{correctionform}}
+      {% include 'finishmatchform.html' %}
+      {% include 'correctionform.html' %}
       </td>
     </tr>
   </table>

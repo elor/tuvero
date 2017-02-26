@@ -17,10 +17,10 @@
     <td class="template match teamno separator"></td>
     <td class="template match result">
     <div class="result">
-      {{resultscore}}
+      {% include 'resultscore.html' %}
     </div>
-    {{finishmatchform}}
-    {{correctionform}}
+    {% include 'finishmatchform.html' %}
+    {% include 'correctionform.html' %}
     </td>
     <td class="hidden separator"></td>
     <td class="rankingcomponent template">##</td>

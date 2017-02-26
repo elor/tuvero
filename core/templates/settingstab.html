@@ -1,17 +1,17 @@
 <div data-tab="settings" accesskey="o">
   <h2>Optionen und Einstellungen</h2>
 
-  {{loginview}}
+  {% include 'loginview.html' %}
 
   <div class="boxview inline">
     <h3>Schriftgröße</h3>
     <p>Legt auch die Schriftgröße beim Drucken fest.</p>
 
     <h4>Hauptanwendung</h4>
-    {{fontsizeview}}
+    {% include 'fontsizeview.html' %}
 
     <h4>Präsentationsfenster</h4>
-    {{fontsizeview}}
+    {% include 'fontsizeview.html' %}
   </div>
 
   <p class="nofilereader">Dieser Browser kann keine lokalen Dateien
