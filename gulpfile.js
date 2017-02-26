@@ -2,14 +2,18 @@
 var bower = require('gulp-bower');
 var del = require('del');
 var gulp = require('gulp');
+var htmlbeautify = require('gulp-html-beautify');
 var manifest = require('gulp-manifest');
 var modernizr = require('gulp-modernizr');
+var nunjucks = require('gulp-nunjucks');
 var rename = require('gulp-rename');
 
 var mainstyle = require('./gulp-tools/mainstyle');
 
+var htmlbeautify_options = { 'indent_size': 2, 'max_preserve_newlines': 0 }
+
 gulp.task('all', ['lib']);
-gulp.task('build', ['build-static']);
+gulp.task('build', ['build-static', 'build-boule']);
 gulp.task('clean', ['clean-lib', 'clean-build']);
 gulp.task('update', ['update-mainstyle']);
 
@@ -111,4 +115,15 @@ gulp.task('update-mainstyle', function () {
     return gulp.src(['lib/*.css', 'core/style/*.css', 'legacy/style/*.css', '!core/style/mainstyle.css'], { base: './' })
         .pipe(mainstyle())
         .pipe(gulp.dest('core/style'));
+});
+
+/**
+ * build templates
+ **/
+gulp.task('build-boule', ['build-boule-template']);
+gulp.task('build-boule-template', function () {
+    return gulp.src('core/templates/index.html')
+        .pipe(nunjucks.compile({}))
+        .pipe(htmlbeautify(htmlbeautify_options))
+        .pipe(gulp.dest('build/boule/'));
 });
