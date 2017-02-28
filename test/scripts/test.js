@@ -6231,7 +6231,7 @@ define('core/rankingtaclistener',['lib/extend', './rankingdatalistener', './vect
   RankingTacListener.prototype.onbye = function(r, e, teams) {
     teams.forEach(function(team) {
       var points = this.tac.get(team) + Options.byepointswon
-          - Options.byepointslost;
+          - Options.byepointslost + 12;
       this.tac.set(team, points);
     }, this);
   };
@@ -8342,6 +8342,8 @@ define('core/tournamentmodel',['lib/extend', './propertymodel', './listmodel', '
       this.emit('error', 'TournamentModel.restore(): cannot restore votes');
       return false;
     }
+
+    this.checkIdleState();
 
     return true;
   };
@@ -30898,7 +30900,7 @@ define('core/test/rankingtac',[],function() {
         ids: [0, 1],
         ranks: [1, 0],
         displayOrder: [1, 0],
-        tac: [0, Options.byepointswon - Options.byepointslost]
+        tac: [0, 12 + Options.byepointswon - Options.byepointslost]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'tac accepts byes');

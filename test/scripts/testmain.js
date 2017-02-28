@@ -6231,7 +6231,7 @@ define('core/rankingtaclistener',['lib/extend', './rankingdatalistener', './vect
   RankingTacListener.prototype.onbye = function(r, e, teams) {
     teams.forEach(function(team) {
       var points = this.tac.get(team) + Options.byepointswon
-          - Options.byepointslost;
+          - Options.byepointslost + 12;
       this.tac.set(team, points);
     }, this);
   };
@@ -8342,6 +8342,8 @@ define('core/tournamentmodel',['lib/extend', './propertymodel', './listmodel', '
       this.emit('error', 'TournamentModel.restore(): cannot restore votes');
       return false;
     }
+
+    this.checkIdleState();
 
     return true;
   };

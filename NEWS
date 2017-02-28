@@ -1,3 +1,10 @@
+Tuvero 1.5.7 (2017-02-??)
+-------------------------
+
+FEATURES:
+
+FIXES:
+
 Tuvero 1.5.6 (2017-01-26)
 -------------------------
 
@@ -18,6 +25,8 @@ FIXES:
   * RankingView event leak fixed
   * better cursor hinting
   * autoupdate for dev versions
+  * head-to-head: erroneous sorting fixed
+  * wingroup-swiss: force wins as first ranking component
 
 Tuvero 1.5.5 (2016-03-13)
 -------------------------
