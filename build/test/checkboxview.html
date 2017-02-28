@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de" manifest="manifest.appcache">
+<head>
+<meta charset="utf-8" />
+<title>Tuvero Test 1.5.6-1</title>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<style>
+</style>
+</head>
+
+<body>
+  <span class="checkboxspan"> <input class="checkbox" type="checkbox"
+    checked="checked" /> Checkbox <br>
+  </span> Value:
+  <span class="checkboxvalue"></span>
+
+  <br>
+
+  <button class="false">false</button>
+  <button class="true">true</button>
+
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
+  
+    ValueModel = Common('core/valuemodel');
+    ValueView = Common('ui/valueview');
+    CheckboxView = Common('ui/checkboxview');
+  
+    $(function($) {
+      var value, $view;
+  
+      value = new ValueModel();
+      $view = $('input.checkbox');
+      new CheckboxView(value, $view);
+  
+      $view = $('.checkboxvalue');
+      new ValueView(value, $view);
+  
+      $('button.false').click(function() {
+        value.set(false);
+      });
+  
+      $('button.true').click(function() {
+        value.set(true);
+      });
+  
+    });
+  }
+  </script>
+  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+</body>
+</html>
