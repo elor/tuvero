@@ -1,3 +1,9 @@
+2017-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingtaclistener.js: bye votes yield 14 points (12 + difference)
+
+	* core/scripts/test/rankingtac.js: bye vote update checked
+
 2017-01-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* core/scripts/tournamentmodel.js: Reloading a tournament fixes running/idle state error
