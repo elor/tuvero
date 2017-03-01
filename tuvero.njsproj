@@ -29,6 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="basic\images\favicon.png" />
     <Content Include="basic\images\games.png" />
     <Content Include="basic\images\sprite.png" />
@@ -237,19 +238,11 @@
     <Content Include="test\teamsizeview.html" />
     <Content Include="test\unittest.html" />
     <Content Include="tools\apply-version.sh" />
-    <Content Include="tools\archive\write-reference.sh" />
     <Content Include="tools\build.sh" />
-    <Content Include="tools\chromeapp.sh" />
     <Content Include="tools\codestyle.sh" />
     <Content Include="tools\compress-build.sh" />
     <Content Include="tools\create-commonjs.sh" />
-    <Content Include="tools\create-core-class.sh" />
     <Content Include="tools\create-testjs.sh" />
-    <Content Include="tools\create-ui-class.sh" />
-    <Content Include="tools\getexports.sh" />
-    <Content Include="tools\listdependencies.sh" />
-    <Content Include="tools\listrequires.sh" />
-    <Content Include="tools\listscripts.sh" />
     <Content Include="tools\merge-master.sh" />
     <Content Include="tools\plato-gh-pages.sh" />
     <Content Include="tools\prepare-release.sh" />
@@ -258,7 +251,6 @@
     <Content Include="tools\verify-css-colors.sh" />
     <Content Include="tools\verify-links.sh" />
     <Content Include="tools\verify-strings.sh" />
-    <Content Include="tools\write-mainstyle.sh" />
     <Content Include="tools\write-manifest.sh" />
     <Content Include="tools\write-sprite.sh" />
     <Content Include="tools\write-testindex.sh" />
@@ -310,7 +302,6 @@
     <Folder Include="test\scripts\" />
     <Folder Include="test\style\" />
     <Folder Include="tools\" />
-    <Folder Include="tools\archive\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="basic\scripts\build.js" />
