@@ -465,6 +465,7 @@
     <Compile Include="core\scripts\valuemodel.js" />
     <Compile Include="core\scripts\vectormodel.js" />
     <Compile Include="core\scripts\view.js" />
+    <Compile Include="gulp-tools\filecount.js" />
     <Compile Include="gulp-tools\mainstyle.js">
       <SubType>Code</SubType>
     </Compile>
