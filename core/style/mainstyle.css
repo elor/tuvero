@@ -17,11 +17,13 @@
 @import url("../../legacy/style/input.css");
 @import url("../../legacy/style/kotree.css");
 @import url("../../legacy/style/lanes.css");
+@import url("../../legacy/style/loginview.css");
 @import url("../../legacy/style/matchresult.css");
 @import url("../../legacy/style/matchtable.css");
 @import url("../../legacy/style/new.css");
 @import url("../../legacy/style/progresstable.css");
 @import url("../../legacy/style/rankingorderview.css");
+@import url("../../legacy/style/servertournamentview.css");
 @import url("../../legacy/style/settings.css");
 @import url("../../legacy/style/spin.css");
 @import url("../../legacy/style/splash.css");

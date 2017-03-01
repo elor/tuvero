@@ -17,7 +17,8 @@ define(['./backgroundscripts/online', './update'], function(Online, Update) {
     cached: undefined,
     local: undefined,
     secure: undefined,
-    legit: undefined
+    legit: undefined,
+    inithash: window.location.hash.replace(/^#/, '')
   };
 
   Browser.update = function() {

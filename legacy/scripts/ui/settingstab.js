@@ -5,11 +5,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
-    'ui/fontsizeview', 'ui/servermodel', 'ui/loginview', 'ui/storage',
-    'presets', 'ui/servertournamentlistmodel', 'ui/servertournamentview',
-    'ui/listview'], function(extend, $, View, CSVExportController,
-    FontSizeView, ServerModel, LoginView, Storage, Presets,
-    ServerTournamentListModel, ServerTournamentView, ListView) {
+    'ui/fontsizeview'], function(extend, $, View,
+    CSVExportController, FontSizeView) {
   /**
    * represents a whole team tab
    *
@@ -33,7 +30,7 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
    * TODO maybe split it into multiple autodetected functions?
    */
   SettingsTab.prototype.init = function() {
-    var $container, $input, $template;
+    var $container;
 
     this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
     this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
@@ -44,22 +41,6 @@ define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
     $container = this.$view.find('.csv');
     this.csvExportController = new CSVExportController(new View(undefined,
         $container));
-
-    this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
-
-    this.serverTournamentListModel = new ServerTournamentListModel(
-        this.serverModel);
-    $container = this.$view.find('.servertournaments');
-    $template = $container.find('.template')
-    this.serverTournamentListView = new ListView(this.serverTournamentListModel,
-        $container, $template, ServerTournamentView);
-
-    $container = this.$view.find('.tuvero-login');
-    this.loginView = new LoginView(this.serverModel, $container);
-    if (!this.serverModel.token.get()) {
-      this.loginView.loginWindowSuppressed.set(true);
-      this.serverModel.createToken();
-    }
   };
 
   // FIXME CHEAP HACK AHEAD

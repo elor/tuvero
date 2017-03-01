@@ -1,3 +1,75 @@
+2017-02-28	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/rankingtaclistener.js: bye votes yield 14 points (12 + difference)
+
+	* core/scripts/test/rankingtac.js: bye vote update checked
+
+2017-01-30	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* core/scripts/tournamentmodel.js: Reloading a tournament fixes running/idle state error
+
+2017-01-26	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/serverautoloadmodel.js: reset inithash when a tournament has been autoloaded, to avoid tournament duplication on an eventual update-reload
+
+	* core/templates/hometab.html: phrasing
+	loginview added
+	servertournaments added
+
+	* core/templates/loginview.html: better view of user information
+	surrounding div added + centered
+	button size increased
+	appearance and order of notifications changed
+	total height reduced
+	userinfo positioning improved
+	errornotice is only visible when online
+	errornotice further nested due to lack of AndModel or other LogicModels
+
+	* core/templates/servertournaments.html: better tournament listing
+	.servertournamentview class added for later
+
+	* legacy/scripts/ui/servertournamentview.js: additional classes added
+
+	* legacy/style/loginview.css: everything centered
+	fixed avatar size
+	image height reduced
+
+	* .externalToolBuilders/Style Maker.launch: Eclipse Style Builder added
+
+	* test/index.html: unittest try-catch disabled: It caused problems with compiled tests...
+
+	* tools/prepare-release.sh: removing intermediate index.html files before copying the new version
+
+	* core/templates/settingstab.html: loginview removed
+	servertournaments removed
+
+	* legacy/scripts/ui/hometab.js: loginview added
+
+	* legacy/scripts/ui/settingstab.js: loginview removed
+
+	* legacy/scripts/ui/loginview.js: online and offline visibility enabled
+	onupdate function not registered correctly
+
+	* legacy/scripts/ui/servermodel.js: token invalidation without previous validation fixed
+
+2017-01-24	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
+
+	* legacy/scripts/ui/browser.js: Browser.inithash added
+
+	* legacy/scripts/ui/servertournamentmodel.js: setting registrations on initialization, if possible
+
+	* legacy/scripts/ui/servertournamentcontroller.js: Load capability extracted to ServerTournamentLoader
+	dependencies didn't match the arguments
+
+	* legacy/scripts/ui/servertournamentloader.js: creating a new tournament from registrations
+	Model/Loader mixup fixed
+
+	* legacy/scripts/ui/serverautoloadmodel.js: auto-loading depending on the initial location hash (e.g. '/t/123456789')
+	verifying tournament target
+	mixed up the callback arguments
+
+	* legacy/scripts/ui/settingstab.js: enabling ServerAutoloadModel
+
 2017-01-22	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 
 	* legacy/scripts/ui/loginview.js: window suppression variable changed to ValueModel!
@@ -29,6 +101,7 @@
 	didn't create ServerTournamentController
 
 	* legacy/scripts/ui/servertournamentcontroller.js: 'play' button logic added (create state+reflog, add teams)
+	missing dereference added
 
 2017-01-15	Erik E. Lorenz	<erik.e.lorenz@gmail.com>
 

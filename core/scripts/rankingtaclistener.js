@@ -104,7 +104,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel', //
   RankingTacListener.prototype.onbye = function(r, e, teams) {
     teams.forEach(function(team) {
       var points = this.tac.get(team) + Options.byepointswon
-          - Options.byepointslost;
+          - Options.byepointslost + 12;
       this.tac.set(team, points);
     }, this);
   };

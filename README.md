@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/elor/tuvero.svg?branch=develop)](https://travis-ci.org/elor/tuvero)
 
-# Tuvero 1.5.6-dev
+# Tuvero 1.5.7
 
 ## Beschreibung
 
@@ -8,33 +8,23 @@ Tuvero ist eine browserbasierte Turnierverwaltungssoftware, die auch offline gen
 
 ## Benutzung
 
-Einfach <https://tuvero.de> im Browser öffnen, Variante (Tuvero Basic, Tuvero Boule, Tuvero TAC, ...) auswählen und das Turnier kann beginnen.
-Es ist keine Installation notwendig.
-
-Tuvero kann damit auch offline genutzt werden.
-Nachdem eine der Varianten geöffnet wurde, muss sie einfach als Lesezeichen gespeichert werden und kann danach mindestens 30 Tage lang auch offline genutzt werden.
+Einfach <https://tuvero.de> im Browser öffnen, Variante (Tuvero Basic, Tuvero Boule, Tuvero TAC, ...) auswählen und ein Turnier erstellen.
+Es ist keine Installation notwendig, und Tuvero kann nach dem ersten Öffnen offline genutzt werden.
 
 Tuvero speichert alle Turnierstände, sodass sie auch nach dem Schließen von Tuvero nicht verloren gehen.
 
-## Voraussetzungen
-
-* Windows, Linux, MacOS, Android, iOS
-* Moderner Browser. Empfehlung: Google Chrome oder Chromium
-* Einmalige Internetverbindung beim erstmaligen Öffnen
-* Danach auch offline nutzbar
-* Für Druckvorschau mit Seitenrandanpassung: Google Chrome oder Chromium
-
 ## Build-Prozess
 
-Tuvero besteht aus hunderten einzelner Dateien, die die Entwicklung vereinfachen.
-Leider wird das Laden der Entwicklungsversion im Browser damit enorm verlangsamt.
+Die Master-Versionen von Tuvero sind bereits vorkompiliert und müssen nicht nochmal kompiliert werden.
 
-Um die Release-Version zu erzeugen, werden deshalb eine Menge von Tools benutzt, die Tuvero komprimieren und optimieren.
+Die Entwicklungs-Versionen im develop-Zweig können wie folgt gebaut werden:
 
+    make update
+    make
 
-    ./build-tools/apply-version.sh {myversion}
-    make update    # erzeuge alle automatisch generierten Dateien. Notwendig nach Änderungen an Bildern, Code oder Templates
-    make all       # Komprimiert die Software zu ~6 Dateien (von mehreren Hundert!)
+Die kompilierte Version liegt dann im `build/`-Unterordner.
+
+Eventuell muss vorher Software installiert werden. Dazu einfach `make node_modules` aufrufen.
 
 Voraussetzungen (möglicherweise unvollständig):
 
@@ -49,15 +39,7 @@ Voraussetzungen (möglicherweise unvollständig):
 * `optipng` für Sprite-Komprimierung
 * `fixjsstyle` (siehe `closure-linter`) für Code-Formattierung
 
-Als Entwicklungsplattform dient Ubuntu 14.04, die Entwicklungsumgebung ist Eclipse Luna, das moderne Eclipse Mars sollte auch funktionieren.
-
-Um eine neue Version zu packen, müssen folgende Schritte durchgeführt werden:
-
-    ./tools/apply-version {versionsnummer, z.B. 1.5.3}
-    make update
-    make build
-
-Die kompilierte Version liegt dann im `build/`-Unterordner.
+Als Entwicklungsplattform dient Ubuntu 16.10, die Entwicklungsumgebung ist Eclipse Neon.2.
 
 ## Tests
 

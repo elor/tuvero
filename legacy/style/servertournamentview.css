@@ -1,0 +1,11 @@
+.servertournaments {
+	margin-bottom: 1em;
+}
+
+.servertournamentview {
+	text-align: center;
+}
+
+.servertournamentview .name {
+	font-weight: bold;
+}

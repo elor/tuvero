@@ -174,7 +174,7 @@ define(function() {
         ids: [0, 1],
         ranks: [1, 0],
         displayOrder: [1, 0],
-        tac: [0, Options.byepointswon - Options.byepointslost]
+        tac: [0, 12 + Options.byepointswon - Options.byepointslost]
       };
       ret = ranking.get();
       QUnit.deepEqual(ret, ref, 'tac accepts byes');
