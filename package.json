@@ -15,7 +15,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-util": "^3.0.8",
-    "nunjucks": "^3.0.0",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3"
   },
