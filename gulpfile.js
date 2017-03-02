@@ -33,7 +33,7 @@ gulp.task('lib-blob', ['bower'], function () {
 });
 
 gulp.task('lib-extend', ['bower'], function () {
-    return gulp.src('bower_components/extend/index.js')
+    return gulp.src('bower_components/extend/dist/extend.min.js')
         .pipe(filecount())
         .pipe(rename('extend.js'))
         .pipe(gulp.dest('lib/'));
