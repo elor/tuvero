@@ -12,6 +12,9 @@ module.exports = function (minimum, maximum) {
 
     function transform(file, encoding, callback) {
         numFiles += 1;
+
+        this.push(file);
+
         callback();
     }
 
