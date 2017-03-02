@@ -12,7 +12,6 @@ var filecount = require('./gulp-tools/filecount');
 
 var htmlbeautify_options = { 'indent_size': 2, 'max_preserve_newlines': 0 }
 
-
 gulp.task('all', ['lib']);
 gulp.task('build', ['build-static', 'build-boule']);
 gulp.task('clean', ['clean-lib', 'clean-build']);
@@ -133,14 +132,25 @@ gulp.task('update-mainstyle', ['lib-normalize'], function () {
 });
 
 /**
- * build templates
+ * build & templates
  **/
-gulp.task('build-boule', ['build-boule-template']);
-gulp.task('build-boule-template', function () {
+gulp.task('build-boule', ['template-boule']);
+gulp.task('template-boule', function () {
+    var requirejs = require('requirejs').config({
+        baseUrl: 'boule/scripts',
+        paths: {
+            'ui': '../../legacy/scripts/ui/'
+        },
+        nodeRequire: require
+    });
+
+    var strings = requirejs('ui/strings');
+
     return gulp.src('core/templates/index.html')
         .pipe(filecount())
-        .pipe(nunjucks.compile({}))
+        .pipe(nunjucks.compile(strings))
+        .pipe(filecount())
         .pipe(htmlbeautify(htmlbeautify_options))
         .pipe(filecount())
-        .pipe(gulp.dest('build/boule/'));
+        .pipe(gulp.dest('boule/'));
 });
