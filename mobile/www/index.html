@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tuvero App</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="cordova.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+    <script src="scripts/apptest.js"></script>
+</head>
+
+<body>
+    <div data-role="panel" id="left-panel" data-position="left" data-display="overlay" data-theme="a">
+        <div class="ui-panel-inner" style="text-align:center">
+            <ul data-role="listview">
+                <li>
+                    <img src="images/tuvero.png" alt="Tuvero" data-role="ui-li-icon" />
+                    <h1>Tuvero</h1>
+                </li>
+                <!--                <li><a href="#home" data-rel="close" data-transition="pop" class="border-home">Startseite</a></li>          -->
+                <li><a href="#tournaments" data-rel="close" data-transition="pop">Turniere</a></li>
+                <li><a href="#test" data-rel="close" data-transition="pop">Test</a></li>
+                <li><a href="#prefs" data-rel="close" data-transition="pop">Einstellungen</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div data-role="panel" id="right-panel" data-position="right" data-display="overlay" data-theme="a">
+        <div class="ui-panel-inner" style="text-align:center">
+            <ul data-role="listview">
+                <li data-role="list-divider">Benutzer</li>
+                <li>
+                    <img src="images/tuvero.png" alt="Tuvero" />
+                    <h1>Erik E. Lorenz</h1>
+                </li>
+                <li>
+                    <form action="https://turniere.tuvero.de/profile" method="get"><input type="submit" value="Profil öffnen" /></form>
+                    <button id="logout">Abmelden</button>
+                </li>
+                <li>
+                    <a href="https://turniere.tuvero.de/login" class="ui-btn">Anmelden</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tournaments" data-role="page">
+        <div data-role="header">
+            <h2><img src="images/tuvero.png" alt="" style="height: 1em; vertical-align: middle"> Turniere</h2>
+            <a href="#left-panel" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+            <a href="#right-panel" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-user ui-nodisc-icon ui-alt-icon ui-btn-right">Search</a>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <ul data-role="listview" data-filter="true">
+
+                <li data-icon="plus" class="tournament template">
+                    <a href="#">
+                        <img src="images/tuvero.png" alt="Tuvero" />
+                        <h2 class="name">Test-Turnier 8</h2>
+                        <p><strong><span class="date">01.01.1970</span>, <span class="place">Borna</span></strong></p>
+                        <p class="description">Alljährliches Test-Turnier in gemütlicher Atmosphäre</p>
+                    </a>
+                </li>
+                <!--
+                <li data-role="list-divider">
+                    Laufende Turniere
+                </li>
+                <li data-role="list-divider">
+                    Zukünftige Turniere
+                </li>
+                <li data-role="list-divider">
+                    Abgeschlossene Turniere
+                </li>
+
+                <li data-icon="alert">
+                    <a href="#">
+                        <img src="images/tuvero.png" alt="Tuvero" />
+                        <h2>Test-Turnier 7</h2>
+                        <p><strong>28.01.2017, Borna</strong></p>
+                        <p>Alljährliches Test-Turnier in gemütlicher Atmosphäre</p>
+                    </a>
+                </li>
+                -->
+
+            </ul>
+        </div>
+    </div>
+
+    <div id="test" data-role="page">
+        <div data-role="header">
+            <h2>Test Output</h2>
+            <a href="#left-panel" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+            <a href="#right-panel" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-user ui-nodisc-icon ui-alt-icon ui-btn-right">Search</a>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <pre id="rawdata">
+                No response yet.
+            </pre>
+        </div>
+    </div>
+
+    <div id="prefs" data-role="page">
+        <div data-role="header">
+            <h2>Einstellungen</h2>
+            <a href="#left-panel" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+            <a href="#right-panel" class="ui-btn ui-btn-icon-notext ui-corner-all ui-icon-user ui-nodisc-icon ui-alt-icon ui-btn-right">Search</a>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <form action="#">
+                <ul data-role="listview">
+                    <li data-role="list-divider">Darstellung</li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

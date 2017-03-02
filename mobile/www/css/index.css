@@ -1,0 +1,63 @@
+body :not(INPUT):not(TEXTAREA) {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+[data-role="panel"] h1 {
+    text-align: center;
+}
+
+[data-role="header"] {
+    border-bottom-width: 5px;
+    border-bottom-style: solid;
+    border-color: #4f698f;
+}
+
+#left-panel li > a {
+    border-left-width: 5px;
+    border-left-style: solid;
+}
+
+[data-role="header"] > h2 > img {
+    height: 1.5em;
+    vertical-align: middle;
+}
+
+#left-panel li > a[href="#home"] {
+    border-left-color: #2d5e87;
+}
+
+#home [data-role="header"] {
+    border-bottom-color: #2d5e87;
+}
+
+#left-panel li > a[href="#tournaments"] {
+    border-left-color: #f0b500;
+}
+
+#tournaments [data-role="header"] {
+    border-bottom-color: #f0b500;
+}
+
+#left-panel li > a[href="#test"] {
+    border-left-color: #009500;
+}
+
+#test [data-role="header"] {
+    border-bottom-color: #009500;
+}
+
+#left-panel li > a[href="#prefs"] {
+    border-left-color: #b03501;
+}
+
+#prefs [data-role="header"] {
+    border-bottom-color: #b03501;
+}
+
+.template {
+    display: none !important;
+}

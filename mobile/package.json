@@ -1,0 +1,8 @@
+{
+  "name": "apptest",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "gulp": "^3.9.1"
+  }
+}
