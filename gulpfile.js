@@ -131,7 +131,6 @@ gulp.task('update-mainstyle', ['lib-normalize'], function () {
 /**
  * templates
  **/
-
 function templateStrings(variant) {
     var requirejs = require('requirejs').config({
         baseUrl: variant + '/scripts',
@@ -147,7 +146,15 @@ function templateStrings(variant) {
     return strings;
 }
 
-gulp.task('template', ['template-boule']);
+gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
+gulp.task('template-basic', function () {
+    return gulp.src('core/templates/index.html')
+        .pipe(filecount())
+        .pipe(nunjucks.compile(templateStrings('basic')))
+        .pipe(filecount())
+        .pipe(gulp.dest('basic/'));
+});
+
 gulp.task('template-boule', function () {
     return gulp.src('core/templates/index.html')
         .pipe(filecount())
@@ -156,7 +163,17 @@ gulp.task('template-boule', function () {
         .pipe(gulp.dest('boule/'));
 });
 
+gulp.task('template-tac', function () {
+    return gulp.src('core/templates/index.html')
+        .pipe(filecount())
+        .pipe(nunjucks.compile(templateStrings('tac')))
+        .pipe(filecount())
+        .pipe(gulp.dest('tac/'));
+});
+
+gulp.task('build-basic', ['template-basic']);
 gulp.task('build-boule', ['template-boule']);
+gulp.task('build-tac', ['template-tac']);
 
 gulp.task('watch', function () {
     gulp.watch('core/templates/**/*.html', ['template']);

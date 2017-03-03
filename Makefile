@@ -22,9 +22,6 @@ build-quick: clean
 
 update: style templates test/index.html codestyle sprites lib links
 
-templates: FORCE
-	make basic/index.html boule/index.html tac/index.html -j
-
 links: FORCE
 	./tools/verify-links.sh
 
@@ -35,7 +32,7 @@ scripts: FORCE
 
 sprites: basic/images/sprite.png boule/images/sprite.png tac/images/sprite.png test/images/sprite.png
 
-%/images/sprite.png: %/index.html FORCE
+%/images/sprite.png: templates FORCE
 	./tools/write-sprite.sh $(shell dirname $<)
 
 codestyle: scripts
@@ -68,9 +65,6 @@ merge-master: FORCE
 
 test/index.html: FORCE
 	./tools/write-testindex.sh
-
-%/index.html: %/scripts/main.js FORCE
-	cd $(shell dirname $@) && python ../tools/process-template.py
 
 selenium-tests: FORCE
 	make -C selenium-tests
@@ -116,5 +110,7 @@ build/manifest.appcache: build/index.html FORCE
 style: FORCE
 	gulp update-mainstyle
 
+templates: FORCE
+	gulp template
 
 # done
