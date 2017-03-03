@@ -40,9 +40,9 @@
   <table class="teamtable background" style="font-size: 100%">
     <tr>
       <th class="teamnocol">No.</th>
-      <th class="playercol">%teamtext%</th>
-      <th class="playercol">%teamtext%</th>
-      <th class="playercol">%teamtext%</th>
+      <th class="playercol">{{ teamtext }}</th>
+      <th class="playercol">{{ teamtext }}</th>
+      <th class="playercol">{{ teamtext }}</th>
     </tr>
     <tr class="team template">
       <td class="teamno">##</td>
@@ -60,13 +60,13 @@
     </div>
     <div class="names">
       <div>
-        <input class="playername mini" type="text" placeholder="%teamtext% 1" />
+        <input class="playername mini" type="text" placeholder="{{ teamtext }} 1" />
       </div>
       <div>
-        <input class="playername mini" type="text" placeholder="%teamtext% 2" />
+        <input class="playername mini" type="text" placeholder="{{ teamtext }} 2" />
       </div>
       <div>
-        <input class="playername mini" type="text" placeholder="%teamtext% 3" />
+        <input class="playername mini" type="text" placeholder="{{ teamtext }} 3" />
       </div>
     </div>
   </form>
@@ -85,7 +85,7 @@
   </button>
 
   <div class="deletionprompt">
-    %teamdeleteprompt%
+    {{ teamdeleteprompt }}
   </div>
 
 </div>
