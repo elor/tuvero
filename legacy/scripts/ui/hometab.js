@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
@@ -7,20 +7,20 @@
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
     './toast', './browser', 'ui/timemachineview', 'ui/statesaver',
     'ui/statefileloadcontroller', 'core/valuemodel', 'core/classview',
-    'ui/browser', 'ui/servermodel', 'ui/loginview', 'ui/storage', 'presets',
+    'ui/servermodel', 'ui/loginview', 'ui/storage', 'presets',
     'ui/servertournamentlistmodel', 'ui/servertournamentview', 'ui/listview',
     'ui/serverautoloadmodel'], function(extend, $, View, State, Strings, Toast,
     Browser, TimeMachineView, StateSaver, StateFileLoadController, ValueModel,
-    ClassView, Browser, ServerModel, LoginView, Storage, Presets,
+    ClassView, ServerModel, LoginView, Storage, Presets,
     ServerTournamentListModel, ServerTournamentView, ListView,
     ServerAutoloadModel) {
   /**
    * represents a whole team tab
-   * 
+   *
    * TODO write a TabView superclass with common functions
-   * 
+   *
    * TODO isolate common tab-related function
-   * 
+   *
    * @param $tab
    *          the tab DOM element
    */
@@ -33,7 +33,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
 
   /**
    * initialize the tab functionality
-   * 
+   *
    * TODO maybe split it into multiple autodetected functions?
    */
   HomeTab.prototype.init = function() {
@@ -66,7 +66,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
 
     $container = this.$view.find('.chromerecommendation');
     this.chromeRecommendationClassView = new ClassView(new ValueModel(
-        Browser.name == 'Chrome'), $container, 'hidden');
+        Browser.name === 'Chrome'), $container, 'hidden');
 
     /*
      * LoginView, ServerTournamentView
@@ -78,7 +78,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
     this.serverTournamentListModel = new ServerTournamentListModel(
         this.serverModel);
     $container = this.$view.find('.servertournaments');
-    $template = $container.find('.template')
+    $template = $container.find('.template');
     this.serverTournamentListView = new ListView(
         this.serverTournamentListModel, $container, $template,
         ServerTournamentView);
