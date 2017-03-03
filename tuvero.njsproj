@@ -42,7 +42,6 @@
     <Content Include="boule\images\games.png" />
     <Content Include="boule\images\sprite.png" />
     <Content Include="boule\images\svg\games.svg" />
-    <Content Include="boule\index.html" />
     <Content Include="boule\style\main.css" />
     <Content Include="boule\style\sprite.css" />
     <Content Include="bower.json" />
