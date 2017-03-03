@@ -162,3 +162,6 @@ gulp.task('template-boule', function () {
 
 gulp.task('build-boule', ['template-boule']);
 
+gulp.task('watch', function () {
+    gulp.watch('core/templates/**/*.html', ['template']);
+});
