@@ -26,8 +26,8 @@ links: FORCE
 	./tools/verify-links.sh
 
 scripts: FORCE
-	./tools/create-commonjs.sh
-	./tools/create-testjs.sh
+  gulp update-common-js
+  gulp update-test-js
 	./tools/update-headers.sh
 
 sprites: basic/images/sprite.png boule/images/sprite.png tac/images/sprite.png test/images/sprite.png
