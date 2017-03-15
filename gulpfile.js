@@ -9,11 +9,12 @@ var rename = require('gulp-rename');
 var mainstyle = require('./gulp-tools/mainstyle');
 var filecount = require('./gulp-tools/filecount');
 var createcommonjs = require('./gulp-tools/create-common');
+var createtestjs = require('./gulp-tools/create-test');
 
 gulp.task('all', ['lib', 'update', 'build']);
 gulp.task('build', ['build-static', 'build-boule']);
 gulp.task('clean', ['clean-lib', 'clean-build']);
-gulp.task('update', ['update-mainstyle', 'update-common-js']);
+gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js']);
 
 gulp.task('lib', ['lib-blob', 'lib-extend', 'lib-filesaver', 'lib-jquery', 'lib-jsdiff', 'lib-modernizr', 'lib-normalize', 'lib-typeahead']);
 
@@ -131,10 +132,17 @@ gulp.task('update-mainstyle', ['lib-normalize'], function () {
 
 gulp.task('update-common-js', [], function () {
     return gulp.src(['lib/*.js', 'core/scripts/*.js', 'legacy/scripts/**/*.js', '!core/scripts/{common,config,main}.js', '!**/test/*.js'], { base: './' })
+        .pipe(filecount())
         .pipe(createcommonjs())
         .pipe(gulp.dest('core/scripts'));
 });
 
+gulp.task('update-test-js', [], function () {
+    return gulp.src(['*/scripts/**/test/*.js'], { base: './' })
+        .pipe(filecount())
+        .pipe(createtestjs())
+        .pipe(gulp.dest('test/scripts'));
+});
 
 /**
  * templates
