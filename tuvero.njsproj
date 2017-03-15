@@ -245,7 +245,6 @@
     <Content Include="tools\merge-master.sh" />
     <Content Include="tools\plato-gh-pages.sh" />
     <Content Include="tools\prepare-release.sh" />
-    <Content Include="tools\process-template.py" />
     <Content Include="tools\update-headers.sh" />
     <Content Include="tools\verify-css-colors.sh" />
     <Content Include="tools\verify-links.sh" />
@@ -290,6 +289,8 @@
     <Folder Include="legacy\scripts\ui\test\" />
     <Folder Include="legacy\style\" />
     <Folder Include="gulp-tools\" />
+    <Folder Include="server\" />
+    <Folder Include="server\scripts\" />
     <Folder Include="tac\" />
     <Folder Include="tac\images\" />
     <Folder Include="tac\images\svg\" />
@@ -465,6 +466,7 @@
     <Compile Include="core\scripts\vectormodel.js" />
     <Compile Include="core\scripts\view.js" />
     <Compile Include="gulp-tools\filecount.js" />
+    <Compile Include="gulp-tools\create-common.js" />
     <Compile Include="gulp-tools\mainstyle.js">
       <SubType>Code</SubType>
     </Compile>
@@ -628,6 +630,12 @@
     <Compile Include="legacy\scripts\ui\unicodehelper.js" />
     <Compile Include="legacy\scripts\ui\update.js" />
     <Compile Include="legacy\scripts\ui\valueview.js" />
+    <Compile Include="server\scripts\build.js" />
+    <Compile Include="server\scripts\main.js" />
+    <Compile Include="server\scripts\options.js" />
+    <Compile Include="server\scripts\presets.js" />
+    <Compile Include="server\scripts\require.js" />
+    <Compile Include="server\scripts\strings.js" />
     <Compile Include="tac\scripts\build.js" />
     <Compile Include="tac\scripts\main.js" />
     <Compile Include="tac\scripts\options.js" />
