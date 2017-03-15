@@ -240,8 +240,6 @@
     <Content Include="tools\build.sh" />
     <Content Include="tools\codestyle.sh" />
     <Content Include="tools\compress-build.sh" />
-    <Content Include="tools\create-commonjs.sh" />
-    <Content Include="tools\create-testjs.sh" />
     <Content Include="tools\merge-master.sh" />
     <Content Include="tools\plato-gh-pages.sh" />
     <Content Include="tools\prepare-release.sh" />
@@ -279,6 +277,7 @@
     <Folder Include="core\templates\" />
     <Folder Include="doc\" />
     <Folder Include="doc\doc_de\" />
+    <Folder Include="gulp-tools\templates\" />
     <Folder Include="images\" />
     <Folder Include="legacy\" />
     <Folder Include="legacy\scripts\" />
@@ -465,11 +464,14 @@
     <Compile Include="core\scripts\valuemodel.js" />
     <Compile Include="core\scripts\vectormodel.js" />
     <Compile Include="core\scripts\view.js" />
+    <Compile Include="gulp-tools\create-test.js" />
     <Compile Include="gulp-tools\filecount.js" />
     <Compile Include="gulp-tools\create-common.js" />
     <Compile Include="gulp-tools\mainstyle.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="gulp-tools\templates\test.js" />
+    <Compile Include="gulp-tools\templates\common.js" />
     <Compile Include="gulpfile.js" />
     <Compile Include="legacy\scripts\timemachine\commitmodel.js" />
     <Compile Include="legacy\scripts\timemachine\keymodel.js" />
