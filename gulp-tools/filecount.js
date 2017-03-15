@@ -4,10 +4,11 @@ var through = require('through2');
 var File = require('gulp-util').File;
 var path = require('path');
 
-module.exports = function (minimum, maximum) {
+module.exports = function (minimum, maximum, verbose) {
 
     minimum = minimum || 1;
     maximum = maximum || undefined;
+    verbose = verbose || false;
     var numFiles = 0;
 
     function transform(file, encoding, callback) {
@@ -19,6 +20,10 @@ module.exports = function (minimum, maximum) {
     }
 
     function flush(callback) {
+        if (verbose) {
+            console.log('processing ' + numFiles + ' files');
+        }
+
         if (maximum !== undefined && minimum > maximum) {
             callback('Parameter Error: Minimum > Maximum');
             return;
