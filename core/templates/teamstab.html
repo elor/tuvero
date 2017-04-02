@@ -5,87 +5,59 @@
     <span>
       <input class="maxwidth" type="checkbox" checked="checked" />
       feste Breite</span>
-    <span>
-      <input class="showtable" type="checkbox" checked="checked" />
-      Tabelle</span>
     <br>
     <br>
     Zum Umbenennen Namen klicken
   </div>
-  <h2><span class="numteams">##</span> Anmeldungen</h2>
+  <h2>Anmeldung & Turniersystem</h2>
 
   {% include 'teamsizeview.html' %}
 
   <br>
 
-  <div class="teamlist">
-    <div class="team template">
-      <div class="teamno">
-        ##
-      </div>
-      <div class="names">
-        <div class="name rename">
-          %% %%
-        </div>
-        <div class="name rename">
-          %% %%
-        </div>
-        <div class="name rename">
-          %% %%
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <table class="teamtable background" style="font-size: 100%">
+  <table class="systemtable background" style="font-size: 100%">
+  <tbody>
     <tr>
-      <th class="teamnocol">No.</th>
+      <th colspan="2">Platz</th>
+      <th>No.</th>
       <th class="playercol">{{ teamtext }}</th>
       <th class="playercol">{{ teamtext }}</th>
       <th class="playercol">{{ teamtext }}</th>
+	  <th></th> <!-- button -->
+      <th class="noprint"></th>
     </tr>
     <tr class="team template">
+      <td class="rank">##</td>
+      <td class="tournamentrank">##</td>
       <td class="teamno">##</td>
       <td class="name rename">%% %%</td>
       <td class="name rename">%% %%</td>
       <td class="name rename">%% %%</td>
+      <td class="deletebutton"><button class="delete mini">x</button></td>
     </tr>
+	</tbody>
+	<tbody class="newteamview">
+	<tr class="middle">
+		<td></td>
+		<td></td>
+		<td class="teamno nextteamnumber">##</td>
+		<td class="newteamline"><input class="playername mini" type="text" placeholder="{{ teamtext }} 1" /></td>
+		<td class="newteamline"><input class="playername mini" type="text" placeholder="{{ teamtext }} 2" /></td>
+		<td class="newteamline"><input class="playername mini" type="text" placeholder="{{ teamtext }} 3" /></td>
+		<td><button class="register mini"> + </button></td>
+	    <td><button class="deleteall">Alle {{ teamstext }} löschen</button></td>
+	</tr>
+	</tbody>
   </table>
 
-  <form class="newteamview">
-    <div class="teamno">
-      <button>
-        +
-      </button>
-    </div>
-    <div class="names">
-      <div>
-        <input class="playername mini" type="text" placeholder="{{ teamtext }} 1" />
-      </div>
-      <div>
-        <input class="playername mini" type="text" placeholder="{{ teamtext }} 2" />
-      </div>
-      <div>
-        <input class="playername mini" type="text" placeholder="{{ teamtext }} 3" />
-      </div>
-    </div>
-  </form>
+  <br>
 
-  <button class="tiny withlabel fileloadteams fileload" data-img="load">
-    Anmeldungen laden
-  </button>
-  <a href="#teams" class="downloadcsvexample">(Beispieldatei)</a>
+  {% include 'newsystem.html' %}
 
-  <button class="delete tiny withlabel" data-img="clear" tabindex="-1">
-    Anmeldung löschen
-  </button>
-
-  <button class="deleteall tiny withlabel" data-img="clear" tabindex="-1">
-    Alle löschen
-  </button>
-
-  <div class="deletionprompt">
-    {{ teamdeleteprompt }}
-  </div>
+  {% include 'swisssystem.html' %}
+  
+  {% include 'roundsystem.html' %}
+  
+  {% include 'kosystem.html' %}
 
 </div>
