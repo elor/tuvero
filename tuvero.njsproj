@@ -4,6 +4,8 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>tuvero</Name>
     <RootNamespace>tuvero</RootNamespace>
+    <ScriptArguments>
+    </ScriptArguments>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -20,7 +22,7 @@
     <OutputPath>.</OutputPath>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
-    <StartWebBrowser>false</StartWebBrowser>
+    <StartWebBrowser>False</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -236,7 +238,6 @@
     <Content Include="test\teamlistview.html" />
     <Content Include="test\teamsizeview.html" />
     <Content Include="test\unittest.html" />
-    <Content Include="tools\apply-version.sh" />
     <Content Include="tools\build.sh" />
     <Content Include="tools\codestyle.sh" />
     <Content Include="tools\compress-build.sh" />
@@ -310,6 +311,7 @@
     <Compile Include="basic\scripts\require.js" />
     <Compile Include="basic\scripts\strings.js" />
     <Compile Include="boule\scripts\build.js" />
+    <Compile Include="boule\scripts\buildtest.js" />
     <Compile Include="boule\scripts\main.js" />
     <Compile Include="boule\scripts\options.js" />
     <Compile Include="boule\scripts\presets.js" />
@@ -467,7 +469,11 @@
     <Compile Include="gulp-tools\create-test.js" />
     <Compile Include="gulp-tools\filecount.js" />
     <Compile Include="gulp-tools\create-common.js" />
-    <Compile Include="gulp-tools\mainstyle.js">
+    <Compile Include="gulp-tools\mainstyle.js" />
+    <Compile Include="gulp-tools\libs.js" />
+    <Compile Include="gulp-tools\buildstyle.js" />
+    <Compile Include="gulp-tools\version.js" />
+    <Compile Include="gulp-tools\template.js">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="gulp-tools\templates\test.js" />
