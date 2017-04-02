@@ -73,11 +73,12 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
    */
   SystemListView.prototype.updateOrder = function() {
     var ranking, order;
-
-    ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    order = ranking.displayOrder;
-
-    this.model.enforceOrder(order);
+	
+	if (this.teams.length > 0) {
+		ranking = this.tournaments.getGlobalRanking(this.teams.length);
+		order = ranking.displayOrder;
+		this.model.enforceOrder(order);
+	}
   };
 
   /**
