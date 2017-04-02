@@ -1,5 +1,5 @@
 {
-  "version": "1.5.6",
+  "version": "1.5.7-dev",
   "name": "tuvero",
   "private": true,
   "devDependencies": {
@@ -7,12 +7,24 @@
     "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-bower": "^0.0.13",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-cssmin": "^0.1.7",
     "gulp-manifest": "^0.1.1",
     "gulp-modernizr": "^1.0.0-alpha",
     "gulp-nunjucks": "^3.0.0",
     "gulp-rename": "^1.2.2",
+    "gulp-spawn": "^0.3.0",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "requirejs": "^2.3.3"
+  },
+  "scripts": {
+    "all": "gulp all; npm run build",
+    "build-basic-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
+    "build-boule-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
+    "build-tac-style": "./node_modules/.bin/r.js.cmd -cssIn boule/style/main.css",
+    "build-tac-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js"
+  }
 }
