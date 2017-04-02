@@ -22,7 +22,7 @@
   background: #e8e8e8;
 }
 
-#app table.middle td {
+#app table.middle td, #app table tr.middle > td, #app table td.middle {
   vertical-align: middle;
 }
 
