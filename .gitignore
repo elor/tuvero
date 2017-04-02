@@ -19,3 +19,5 @@ bower_components/
 lib/
 .vs
 *.user
+core/scripts/common.js
+
