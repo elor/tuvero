@@ -17,8 +17,10 @@ define(['lib/extend', 'core/view'], function(extend, View) {
    * @param $view
    *          the associated DOM element
    */
-  function LengthView(model, $view) {
+  function LengthView(model, $view, offset) {
     LengthView.superconstructor.call(this, model, $view);
+	
+	this.offset = offset || 0;
 
     this.update();
   }
@@ -28,7 +30,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
    * write the playernames and teamnumber to the DOM
    */
   LengthView.prototype.update = function() {
-    this.$view.text(this.model.length);
+    this.$view.text(this.model.length + this.offset);
   };
 
   /**
