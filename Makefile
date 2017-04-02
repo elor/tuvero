@@ -26,8 +26,8 @@ links: FORCE
 	./tools/verify-links.sh
 
 scripts: FORCE
-  gulp update-common-js
-  gulp update-test-js
+	gulp update-common-js
+	gulp update-test-js
 	./tools/update-headers.sh
 
 sprites: basic/images/sprite.png boule/images/sprite.png tac/images/sprite.png test/images/sprite.png
@@ -84,9 +84,9 @@ build-dir: FORCE
 
 FORCE:
 
-###############################
-# Migration to gulp complete  #
-###############################
+##############################
+# Migration to gulp complete #
+##############################
 all: build
 
 node_modules: FORCE
@@ -98,7 +98,7 @@ lib: FORCE
 clean: FORCE
 	gulp clean
 
-  build/index.html: build/images
+build/index.html: build/images
 	cp -v index.html build/
 
 build/images: build-dir FORCE
