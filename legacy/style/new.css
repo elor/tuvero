@@ -1,61 +1,61 @@
-#tabs>[data-tab="new"] .systemtable {
+#tabs>[data-tab="teams"] .systemtable {
   display: inline-block;
   text-align: center;
   border-collapse: separate;
   border-spacing: 0em;
 }
 
-#tabs>[data-tab="new"] .systemtable td, #tabs>[data-tab="new"] .systemtable th {
+#tabs>[data-tab="teams"] .systemtable td, #tabs>[data-tab="teams"] .systemtable th {
   padding-right: 1em;
 }
 
-#tabs>[data-tab="new"] .systemtable th {
+#tabs>[data-tab="teams"] .systemtable th {
   border-bottom: none;
 }
 
-#tabs>[data-tab="new"] .systemtable td:first-child {
+#tabs>[data-tab="teams"] .systemtable td:first-child {
   border-left: solid 1px;
 }
 
-#tabs>[data-tab="new"] .systemtable td:last-child {
+#tabs>[data-tab="teams"] .systemtable td:last-child {
   border-right: none;
 }
 
-#tabs>[data-tab="new"] .systemtable tr:nth-child(2) td {
+#tabs>[data-tab="teams"] .systemtable tr:nth-child(2) td {
   border-top: solid 1px;
 }
 
-#tabs>[data-tab="new"] .systemtable tr:last-child td {
+#tabs>[data-tab="teams"] .systemtable tr:last-child td {
   border-bottom: solid 1px;
 }
 
-#tabs>[data-tab="new"] .systemtable tr.firstrow td {
+#tabs>[data-tab="teams"] .systemtable tr.firstrow td {
   border-top: solid 1px black;
 }
 
-#tabs>[data-tab="new"] .systemtable tr.lastrow td {
+#tabs>[data-tab="teams"] .systemtable tr.lastrow td {
   height: 100%;
   vertical-align: top;
 }
 
-#tabs>[data-tab="new"] .names {
+#tabs>[data-tab="teams"] .names {
   white-space: nowrap;
   text-align: left;
   border-right: none !important;
 }
 
-#tabs>[data-tab="new"].hidenames .name, #tabs>[data-tab="new"].hidenames .playercol
+#tabs>[data-tab="teams"].hidenames .name, #tabs>[data-tab="teams"].hidenames .playercol
   {
   display: none;
 }
 
-#tabs>[data-tab="new"].maxwidth .name {
+#tabs>[data-tab="teams"].maxwidth .name {
   max-width: 10em;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#tabs>[data-tab="new"] .systemtable td.system {
+#tabs>[data-tab="teams"] .systemtable td.system {
   position: relative;
   padding: 1em 1em 3em 1em;
   border: solid 1px;
@@ -70,7 +70,7 @@
   background: #ffffff;
 }
 
-#tabs>[data-tab="new"] .systemtable .system>h3:first-child {
+#tabs>[data-tab="teams"] .systemtable .system>h3:first-child {
   position: relative;
   display: block;
   padding: 0.3em 1em 0.2em 1em;
@@ -81,7 +81,7 @@
   text-align: center;
 }
 
-#tabs>[data-tab="new"] .systemtable .system>h3:last-child {
+#tabs>[data-tab="teams"] .systemtable .system>h3:last-child {
   position: absolute;
   display: block;
   width: 100%;
@@ -94,53 +94,53 @@
   text-align: center;
 }
 
-#tabs>[data-tab="new"] .systemtable .system>.initial, #tabs>[data-tab="new"] .systemtable .system>.running,
-  #tabs>[data-tab="new"] .systemtable .system>.finished, #tabs>[data-tab="new"] .systemtable .system>.idle,
-  #tabs>[data-tab="new"] .systemtable .system>.failure {
+#tabs>[data-tab="teams"] .systemtable .system>.initial, #tabs>[data-tab="teams"] .systemtable .system>.running,
+  #tabs>[data-tab="teams"] .systemtable .system>.finished, #tabs>[data-tab="teams"] .systemtable .system>.idle,
+  #tabs>[data-tab="teams"] .systemtable .system>.failure {
   display: none;
 }
 
-#tabs>[data-tab="new"] .systemtable .system.initial>.initial, #tabs>[data-tab="new"] .systemtable .system.running>.running,
-  #tabs>[data-tab="new"] .systemtable .system.finished>.finished, #tabs>[data-tab="new"] .systemtable .system.idle>.idle,
-  #tabs>[data-tab="new"] .systemtable .system.failure>.failure {
+#tabs>[data-tab="teams"] .systemtable .system.initial>.initial, #tabs>[data-tab="teams"] .systemtable .system.running>.running,
+  #tabs>[data-tab="teams"] .systemtable .system.finished>.finished, #tabs>[data-tab="teams"] .systemtable .system.idle>.idle,
+  #tabs>[data-tab="teams"] .systemtable .system.failure>.failure {
   display: block;
 }
 
-#tabs>[data-tab="new"] .systemtable td.system .tournamentoptions .option {
+#tabs>[data-tab="teams"] .systemtable td.system .tournamentoptions .option {
   margin-bottom: 1em;
 }
 
-#tabs>[data-tab="new"] .systemtable td.system .infotext {
+#tabs>[data-tab="teams"] .systemtable td.system .infotext {
   margin: 1em;
 }
 
-#tabs>[data-tab="new"] .newsystem button[data-system] {
+#tabs>[data-tab="teams"] .newsystem button[data-system] {
   display: block;
   margin: 1em auto;
 }
 
-#tabs>[data-tab="new"] .newsystem input[type="number"] {
+#tabs>[data-tab="teams"] .newsystem input[type="number"] {
   width: 3em;
   text-align: center;
 }
 
-#tabs>[data-tab="new"] .newsystem .notenoughteams {
+#tabs>[data-tab="teams"] .newsystem .notenoughteams {
   display: none;
 }
 
-#tabs>[data-tab="new"] .newsystem.notenoughteams .notenoughteams {
+#tabs>[data-tab="teams"] .newsystem.notenoughteams .notenoughteams {
   display: block;
 }
 
-#tabs>[data-tab="new"] .newsystem.notenoughteams .enoughteams {
+#tabs>[data-tab="teams"] .newsystem.notenoughteams .enoughteams {
   display: none !important;
 }
 
-#tabs>[data-tab="new"] .newsystem.notenoughteams {
+#tabs>[data-tab="teams"] .newsystem.notenoughteams {
   padding: 0em !important;
 }
 
-#tabs>[data-tab="new"] .system>button, #tabs>[data-tab="new"] .system>div>button
+#tabs>[data-tab="teams"] .system>button, #tabs>[data-tab="teams"] .system>div>button
   {
   font-size: 1em;
   padding: 0.5em;

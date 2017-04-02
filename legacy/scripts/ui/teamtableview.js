@@ -33,7 +33,6 @@ define(['jquery', 'lib/extend', 'core/view'], function($, extend, View) {
 
     this.$names = this.$view.find('tr>th');
 
-    this.updateVisibility();
     this.updatePlayerColumns();
   }
   extend(TeamTableView, View);
@@ -66,29 +65,10 @@ define(['jquery', 'lib/extend', 'core/view'], function($, extend, View) {
   };
 
   /**
-   * hide the whole table if there's no player; show it as soon as a player has
-   * been registered
-   */
-  TeamTableView.prototype.updateVisibility = function() {
-    if (this.teamlist.length === 0) {
-      this.$view.addClass('hidden');
-    } else {
-      this.$view.removeClass('hidden');
-    }
-  };
-
-  /**
    * the team size changed. check player column visibility
    */
   TeamTableView.prototype.onupdate = function() {
     this.updatePlayerColumns();
-  };
-
-  /**
-   * the number of teams changed. update the visibility
-   */
-  TeamTableView.prototype.onresize = function() {
-    this.updateVisibility();
   };
 
   return TeamTableView;

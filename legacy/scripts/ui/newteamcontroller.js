@@ -25,11 +25,14 @@ define(['jquery', 'lib/extend', 'core/controller', './playermodel',
     /*
      * add a new team at form submission
      */
-    this.view.$view.submit(function(e) {
-      controller.createNewTeam();
-      e.preventDefault();
-      return false;
-    });
+    this.view.$players.keydown(function(e) {
+		if (e.which === 13) {
+			controller.createNewTeam();
+			e.preventDefault();
+			return false;
+		}
+	});
+    this.view.$button.click(this.createNewTeam.bind(this));
   }
   extend(NewTeamController, Controller);
 

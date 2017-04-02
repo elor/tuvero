@@ -7,14 +7,14 @@
 define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
     'ui/state', './newteamview', './lengthview', './teamsizeview',
     './preregcloserview', './checkboxview', 'core/classview', './tabshandle',
-    './teamremovecontroller', './teamtableview', './inputview',
+    './teamtableview', './inputview',
     './teamsfileloadcontroller', 'presets', 'ui/noregmodel',
     './deleteallteamscontroller', './autocompletionmodel',
     './autocompletionview', './teamformatdownloadcontroller',
     'timemachine/timemachine', 'ui/storage'], function($, extend, View,
     ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
     PreregCloserView, CheckBoxView, ClassView, TabsHandle,
-    TeamRemoveController, TeamTableView, InputView, TeamsFileLoadController,
+    TeamTableView, InputView, TeamsFileLoadController,
     Presets, NoRegModel, DeleteAllTeamsController, AutocompletionModel,
     AutocompletionView, TeamFormatDownloadController, TimeMachine, Storage) {
   /**
@@ -54,25 +54,14 @@ define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
       State.teamsize.set(Presets.registration.maxteamsize);
     }
 
-    // teamlist
-    $container = this.$view.find('>.teamlist');
-    $template = $container.find('.team.template');
-    this.teamList = new ListView(State.teams, $container, $template, TeamView);
-
-    // teamtable
-    $container = this.$view.find('>.teamtable');
-    $template = $container.find('.team.template');
-    this.teamTable = new ListView(State.teams, $container, $template, //
-    TeamView);
-
     // registration
-    $container = this.$view.find('>.newteamview');
+    $container = this.$view.find('.newteamview');
     this.newTeamView = new NewTeamView(State.teams, $container, //
     State.teamsize);
 
     // number of teams
-    $container = this.$view.find('> h2 > .numteams');
-    this.lengthView = new LengthView(State.teams, $container);
+    $container = this.$view.find('.nextteamnumber');
+    this.lengthView = new LengthView(State.teams, $container, +1);
 
     // change team size
     $container = this.$view.find('> .teamsizeview');
@@ -94,28 +83,14 @@ define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
     this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
         'nomaxwidth');
 
-    // list/table selection checkbox
-    value = State.tabOptions.teamTable;
-    $container = this.$view.find('>.options input.showtable');
-    this.showtableCheckBoxView = new CheckBoxView(value, $container);
-    this.showtableClassView = new ClassView(value, this.$view, 'showtable');
-
     // update the tab when the team size changes
     if (Presets.registration.teamsizeicon) {
       TabsHandle.bindTabOpts('teams', State.teamsize);
     }
 
-    // team removal controllers
-    $container = this.$view.find('>button.delete');
-    this.teamRemoveController = new TeamRemoveController([this.teamList,
-        this.teamTable], $container, this.$view);
-
-    $container = this.$view.find('>button.deleteall');
+    $container = this.$view.find('button.deleteall');
     this.deleteAllTeamsController = new DeleteAllTeamsController(new View(
         undefined, $container));
-
-    // hide teamTable content depending on state
-    this.teamTableView = new TeamTableView(this.teamTable, State.teamsize);
 
     $button = this.$view.find('>button.fileloadteams');
     this.teamsFileLoadController = new TeamsFileLoadController($button);
@@ -127,10 +102,6 @@ define(['jquery', 'lib/extend', 'core/view', './listview', './teamview',
     $container = this.$view.find('input.playername');
     this.autocompletionView = new AutocompletionView(this.autocompletionModel,
         $container);
-
-    $container = this.$view.find('.downloadcsvexample');
-    this.downloadexamplecontroller = new TeamFormatDownloadController(new View(
-        undefined, $container));
   };
 
   TeamsTab.prototype.onupdate = function() {

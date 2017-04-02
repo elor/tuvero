@@ -69,6 +69,7 @@ define(['strings'], function(LocalStrings) {
     autocompletereloadfailed: 'Konnte Namensvorschläge nicht laden',
     fileempty: 'Datei ist leer',
     teamdeleted: 'Anmeldung %s gelöscht',
+    deleteteamconfirmation: 'Anmeldung %s löschen?',
     deleteallteamsconfirmation: 'Wirklich alle Anmeldungen löschen?',
     nofilereader: 'Dieser Browser kann keine Speicherstände laden!',
     nojson: 'Dieser Browser kann keine Speicherstände erstellen!',

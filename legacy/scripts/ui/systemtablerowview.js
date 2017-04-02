@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['jquery', 'lib/extend', 'core/view', './teamview',
-    './newtournamentview', './generictournamentview'], function($, extend,
-    View, TeamView, NewTournamentView, GenericTournamentView) {
+    './newtournamentview', './generictournamentview', './teamdeletecontroller'], function($, extend,
+    View, TeamView, NewTournamentView, GenericTournamentView, TeamDeleteController) {
   /**
    * Constructor
    *
@@ -32,6 +32,7 @@ define(['jquery', 'lib/extend', 'core/view', './teamview',
     this.teams = teams;
     this.tournaments = tournaments;
     this.teamView = new TeamView(teams.get(index), this.$view);
+	this.teamDeleteController = new TeamDeleteController(this);
 
     this.tournamentRank = -1;
     this.globalRank = -1;

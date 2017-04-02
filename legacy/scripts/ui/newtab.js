@@ -43,46 +43,14 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', './systemlistview',
     view = new SystemListView(State.teams, $view, State.tournaments,
         State.teamsize, factory);
 
-    // name maxwidth checkbox
-    value = State.tabOptions.nameMaxWidth;
-    $view = this.$view.find('>.options input.maxwidth');
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $view);
-    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
-        'nomaxwidth');
-
-    // player names checkbox
-    value = State.tabOptions.showNames;
-    $view = this.$view.find('>.options input.shownames');
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $view);
-    this.maxwidthClassView = new ClassView(value, this.$view, undefined,
-        'hidenames');
-
-    this.$view.find('.boxview.template').detach();
-  };
-
-  /**
-   * show/hide the tab and update it as necessary
-   */
-  NewTab.prototype.update = function() {
-    if (State.teams.length < 2) {
-      TabsHandle.hide('new');
-    } else {
-      TabsHandle.show('new');
-    }
-  };
-
-  /**
-   * the number of teams has changed
-   */
-  NewTab.prototype.onresize = function() {
-    this.update();
+    this.$view.find('.boxview.system.template').detach();
   };
 
   // FIXME CHEAP HACK AHEAD
   $(function($) {
     var $tab;
 
-    $tab = $('#tabs > [data-tab="new"]');
+    $tab = $('#tabs > [data-tab="teams"]');
     if ($tab.length && $('#testmain').length === 0) {
       return new NewTab($tab);
     }

@@ -23,7 +23,8 @@ define(['jquery', 'lib/extend', 'core/view', './newteamcontroller'], function(
     NewTeamView.superconstructor.call(this, model, $view);
 
     this.$players = this.$view.find('input.playername');
-    this.$lines = this.$view.find('>.names>');
+    this.$lines = this.$view.find('.newteamline');
+    this.$button = this.$view.find('button.register');
 
     if (teamsize) {
       this.teamsize = teamsize;
