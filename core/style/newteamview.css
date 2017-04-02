@@ -2,24 +2,6 @@
   background: #90ee90;
 }
 
-.newteamview .teamno button {
-  width: inherit;
-  height: inherit;
-  font-size: 100%;
-}
-
-.newteamview>.names {
-  padding-left: 0.5em;
-  display: table-cell;
-  text-align: left;
-  vertical-align: middle;
-  line-height: 1.4em;
-}
-
-.newteamview>.names>div {
-  vertical-align: middle;
-}
-
 .newteamview .playername {
   display: block;
   margin: 0.1em 0em;

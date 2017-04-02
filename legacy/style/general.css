@@ -67,7 +67,7 @@ a[data-img].inline {
   display: none;
 }
 
-.teamlist .teamno, .voteview .teamno, .newteamview .teamno {
+.teamlist .teamno, .voteview .teamno {
   width: 1.5em;
   height: 1.5em;
   font-size: 200%;
