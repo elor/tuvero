@@ -1,6 +1,6 @@
 ﻿// For an introduction to the Blank template, see the following documentation:
 // http://go.microsoft.com/fwlink/?LinkID=397704
-// To debug code on page load in Ripple or on Android devices/emulators: launch your app, set breakpoints, 
+// To debug code on page load in Ripple or on Android devices/emulators: launch your app, set breakpoints,
 // and then run "window.location.reload()" in the JavaScript Console.
 (function () {
     "use strict";
@@ -44,10 +44,8 @@
 
         var tournaments = Object.keys(data.tournaments).map(function (tournamentid) {
             return data.tournaments[tournamentid];
-        });
-
-        tournaments.sort(function (a, b) {
-            return a.startdate > b.startdate;
+        }).sort(function (a, b) {
+            return new Date(a.startdate) - new Date(b.startdate);
         });
 
         tournaments.forEach(function (tournament) {
