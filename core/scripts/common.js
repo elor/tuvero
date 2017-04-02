@@ -226,7 +226,6 @@ define([
   'ui/teamcontroller',
   'ui/teamformatdownloadcontroller',
   'ui/teammodel',
-  'ui/teamremovecontroller',
   'ui/teamsfileloadcontroller',
   'ui/teamsizecontroller',
   'ui/teamsizeview',
