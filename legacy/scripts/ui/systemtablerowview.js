@@ -26,12 +26,12 @@ define(['jquery', 'lib/extend', 'core/view', './teamview',
    */
   function SystemTableRowView(index, $view, teams, tournaments, viewPopulator,
       $newTournamentTemplate) {
-    SystemTableRowView.superconstructor.call(this, undefined, $view);
+    SystemTableRowView.superconstructor.call(this, teams.get(index), $view);
 
     this.teamID = index;
     this.teams = teams;
     this.tournaments = tournaments;
-    this.teamView = new TeamView(teams.get(index), this.$view);
+    this.teamView = new TeamView(this.model, this.$view);
 	this.teamDeleteController = new TeamDeleteController(this);
 
     this.tournamentRank = -1;
