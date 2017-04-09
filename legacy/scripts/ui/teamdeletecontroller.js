@@ -19,7 +19,7 @@ define(['lib/extend', 'core/controller', 'ui/state', './strings'], function(
   extend(TeamDeleteController, Controller);
 
   /**
-   * ask the user if he really wants to delete all teams. abortf if not.
+   * ask the user if he really wants to delete all teams. abort if not.
    */
   TeamDeleteController.prototype.confirmDeletion = function() {
 	  var id = this.model.getID();
@@ -27,7 +27,7 @@ define(['lib/extend', 'core/controller', 'ui/state', './strings'], function(
 		console.error('Cannot delete team: It has not been assigned to a list, hence its ID is -1');
 	  } else if (State.teams.get(id) !== this.model) {
 		console.error('Cannot delete team: ID mismatch. Has the team already been removed from the list?');
-	  } else if (window.confirm(Strings.deleteteamconfirmation.replace('%s', this.model.getID()))) {
+	  } else if (window.confirm(Strings.deleteteamconfirmation.replace('%s', this.model.getID() + 1))) {
 		this.performDeletion();
 	  }
   };
