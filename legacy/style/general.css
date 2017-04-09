@@ -98,7 +98,7 @@ a[data-img].inline {
   }
 
   .rename:hover, .match .result:hover {
-    text-decoration: inherit;
+    text-decoration: inherit !important;
     cursor: inherit;
   }
 }
