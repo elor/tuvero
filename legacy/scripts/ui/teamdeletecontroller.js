@@ -36,12 +36,13 @@ define(['lib/extend', 'core/controller', 'ui/state', './strings'], function(
    * really REALLY delete all registered teams
    */
   TeamDeleteController.prototype.performDeletion = function() {
+	  var id = this.model.getID();
 	  if (id === -1) {
 		console.error('Cannot delete team: It has not been assigned to a list, hence its ID is -1');
 	  } else if (State.teams.get(id) !== this.model) {
 		console.error('Cannot delete team: ID mismatch. Has the team already been removed from the list?');
 	  } else {
-		State.teams.clear();
+		State.teams.remove(id);
 	  }
   };
 
