@@ -14,7 +14,7 @@ define(['lib/extend', 'core/controller', 'ui/state', './strings'], function(
   function TeamDeleteController(view) {
     TeamDeleteController.superconstructor.call(this, view);
 
-    this.view.$view.click(this.confirmDeletion.bind(this));
+    this.view.$view.find('button.delete').click(this.confirmDeletion.bind(this));
   }
   extend(TeamDeleteController, Controller);
 
