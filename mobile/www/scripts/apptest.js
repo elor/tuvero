@@ -6,6 +6,8 @@
     "use strict";
 
     var $tournamenttemplate = undefined;
+    var loginWindow = undefined;
+    var token = undefined;
 
     document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
@@ -14,7 +16,43 @@
         document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
+        $('#login').click(login.bind(this));
+        $('#logout').click(logout.bind(this));
+
         reloadTournaments();
+    }
+
+    function login() {
+        if (loginWindow) {
+            loginWindow.close();
+        }
+
+        loginWindow = cordova.InAppBrowser.open('https://turniere.tuvero.de/login/callback/token', '_system');
+
+        cordova.plugins.clipboard.copy('Tuvero');
+
+        var interval = window.setInterval(function () {
+            cordova.plugins.clipboard.paste(function (newClipboard) {
+                if (newClipboard !== 'Tuvero') {
+                    console.log(newClipboard);
+                    cordova.plugins.clipboard.copy('Tuvero');
+                    setToken(newClipboard);
+                    window.clearInterval(interval);
+                    loginWindow.close();
+                    window.plugins.bringtofront();
+                }
+            });
+        }, 100);
+    }
+
+    function logout() {
+        setToken(undefined);
+    }
+
+    function setToken(text) {
+        // TODO verifyToken();
+        token = text;
+        $('#token').val(token);
     }
 
     function onPause() {
