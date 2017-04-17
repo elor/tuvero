@@ -114,4 +114,7 @@
   <engine name="android" spec="5.2.1" />
   <engine name="ios" spec="4.2.0" />
   <engine name="windows" spec="4.4.2" />
+  <plugin name="cordova-plugin-inappbrowser" spec="~1.7.0" />
+  <plugin name="cordova-plugin-clipboard-x" spec="~1.0.1" />
+  <plugin name="in.lucasdup.bringtofront" spec="~0.0.1" src="https://github.com/lucasdupin/cordova-bring-to-front" />
 </widget>

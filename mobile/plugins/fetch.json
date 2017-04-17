@@ -6,5 +6,30 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-inappbrowser": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-inappbrowser@1.7.0"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "cordova-plugin-clipboard-x": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-clipboard-x"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "in.lucasdup.bringtofront": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lucasdupin/cordova-bring-to-front",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

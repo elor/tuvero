@@ -9,6 +9,15 @@
     "installed_plugins": {
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "de.tuvero.app.tuvero"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "de.tuvero.app.tuvero"
+        },
+        "cordova-plugin-clipboard-x": {
+            "PACKAGE_NAME": "de.tuvero.app.tuvero"
+        },
+        "in.lucasdup.bringtofront": {
+            "PACKAGE_NAME": "de.tuvero.app.tuvero"
         }
     },
     "dependent_plugins": {}
