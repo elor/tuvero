@@ -56,6 +56,8 @@ define(['lib/extend', 'core/model', 'core/indexedlistmodel', 'core/valuemodel',
   /**
    * whenever an element is removed from those central and elemental lists, call
    * its destroy() function
+   *
+   * TODO inline State.initCleanupListeners!
    */
   StateModel.prototype.initCleanupListeners = function() {
     this.teamscleanuplistener = new ListCleanupListener(this.teams);
