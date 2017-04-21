@@ -20,4 +20,5 @@ lib/
 .vs
 *.user
 core/scripts/common.js
-
+bin/
+obj/
