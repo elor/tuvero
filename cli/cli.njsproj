@@ -32,10 +32,9 @@
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="bin\showRanks.js" />
-    <Compile Include="bin\loadState.js">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="bin\tuvero-teams" />
+    <Compile Include="bin\tuvero-ranks" />
+    <Compile Include="bin\tuvero-format" />
     <Compile Include="index.js" />
   </ItemGroup>
   <ItemGroup>
