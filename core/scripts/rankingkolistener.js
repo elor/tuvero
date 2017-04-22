@@ -6,11 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
-    extend, RankingDataListener, VectorModel) {
-  var KOTournamentModel;
-
-  KOTournamentModel = undefined;
+define(['lib/extend', './rankingdatalistener', './vectormodel'], function (
+  extend, RankingDataListener, VectorModel) {
+  var KOTournamentModel = undefined;
 
   /**
    * @param result
@@ -24,7 +22,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     loser = undefined;
     minpoints = undefined;
 
-    result.teams.forEach(function(teamid, index) {
+    result.teams.forEach(function (teamid, index) {
       var points;
       points = result.score[index];
       if (minpoints === undefined || points < minpoints) {
@@ -38,6 +36,42 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
     return loser;
   }
 
+  function getWinner(result) {
+    var winner, maxpoints;
+
+    winner = undefined;
+    maxpoints = undefined;
+
+    result.teams.forEach(function (teamid, index) {
+      var points;
+      points = result.score[index];
+      if (maxpoints === undefined || points > maxpoints) {
+        winner = teamid;
+        maxpoints = points;
+      } else if (points === maxpoints) {
+        winner = undefined;
+      }
+    }, this);
+
+    return winner;
+  }
+
+  function getWinnerPoints(result) {
+    return -2 * result.getGroup();
+  }
+
+  function getLoserPoints(result) {
+    var group = result.getGroup();
+    var matchID = result.getID();
+    KOTournamentModel = KOTournamentModel || require('core/kotournamentmodel');
+
+    if (matchID <= 1) {
+      return -2 * group - 1;
+    } else {
+      return -2 * KOTournamentModel.loserGroupID(group, matchID);
+    }
+  }
+
   /**
    * Constructor
    *
@@ -46,7 +80,7 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    */
   function RankingKOListener(ranking) {
     RankingKOListener.superconstructor.call(this, ranking, // autoformat
-    new VectorModel());
+      new VectorModel());
   }
   extend(RankingKOListener, RankingDataListener);
 
@@ -63,27 +97,35 @@ define(['lib/extend', './rankingdatalistener', './vectormodel'], function(
    * @param result
    *          a game result
    */
-  RankingKOListener.prototype.onresult = function(r, e, result) {
-    var matchID, group, loser;
+  RankingKOListener.prototype.onresult = function (r, e, result) {
+    this.ko.set(getLoser(result), getLoserPoints(result));
+    this.ko.set(getWinner(result), getWinnerPoints(result));
+  };
 
-    matchID = result.getID();
-    group = result.getGroup();
-    loser = getLoser(result);
+  /**
+   * correct a ranking entry. Do not check whether it's valid. The
+   * TournamentModel has to take care of that
+   *
+   * @param r
+   *          the Emitter, i.e. a RankingModel instance
+   * @param e
+   *          the event type, i.e. "correct"
+   * @param correction
+   *          a game correction
+   */
+  RankingKOListener.prototype.oncorrect = function (r, e, correction) {
+    var winner, loser, winnerPoints, loserPoints;
 
-    if (loser === undefined) {
-      console.error('there is no loser. just pick the second team.');
-      loser = result.getTeamID(1);
+    winner = getWinner(correction.before);
+    loser = getLoser(correction.before);
+    winnerPoints = getWinnerPoints(correction.before);
+    loserPoints = getLoserPoints(correction.before);
+
+    if (this.ko.get(winner) !== winnerPoints || this.ko.get(loser) !== loserPoints) {
+      return;
     }
 
-    if (matchID <= 1) {
-      this.ko.set(loser, -2 * group - 1);
-    } else {
-      if (!KOTournamentModel) {
-        KOTournamentModel = require('core/kotournamentmodel');
-      }
-
-      this.ko.set(loser, -2 * KOTournamentModel.loserGroupID(group, matchID));
-    }
+    this.onresult(r, e, correction.after);
   };
 
   return RankingKOListener;
