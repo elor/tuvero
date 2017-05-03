@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', '../strings', '../update'], function($, Strings, Update) {
+define(['jquery', 'ui/strings', 'ui/update'], function($, Strings, Update) {
   var Online;
 
   /**

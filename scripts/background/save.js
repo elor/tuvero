@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'ui/filesavermodel', '../toast', '../strings'], function($,
+define(['jquery', 'ui/filesavermodel', 'ui/toast', 'ui/strings'], function($,
     FileSaverModel, Toast, Strings) {
   var Save = undefined;
 

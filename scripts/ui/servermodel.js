@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
-    'ui/backgroundscripts/online', 'ui/messagemodel', 'ui/browser'], function(
+    'background/online', 'ui/messagemodel', 'ui/browser'], function(
     extend, Model, ValueModel, StateValueModel, Online, MessageModel, Browser) {
   /**
    * Constructor

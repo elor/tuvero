@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'core/listener', '../toast', '../strings'], function(
+define(['ui/state', 'core/listener', 'ui/toast', 'ui/strings'], function(
     State, Listener, Toast, Strings) {
   var StateToasts;
 

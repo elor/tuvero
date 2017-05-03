@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/modernizr', '../strings', '../toast'], function($,
+define(['jquery', 'lib/modernizr', 'ui/strings', 'ui/toast'], function($,
     Modernizr, Strings, Toast) {
   var FeatureDetect;
 

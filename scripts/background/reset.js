@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['../toast', 'timemachine/timemachine', '../strings', 'jquery'], //
+define(['ui/toast', 'timemachine/timemachine', 'ui/strings', 'jquery'], //
 function(Toast, TimeMachine, Strings, $) {
   var Reset = undefined;
 
