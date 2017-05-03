@@ -11,7 +11,7 @@ var libs = require('./gulp-tools/libs');
 var buildstyle = require('./gulp-tools/buildstyle');
 
 gulp.task('all', ['lib', 'update', 'build']);
-gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js']);
+gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
 gulp.task('build', ['build-static', 'build-boule', 'build-basic', 'build-tac']);
 
 gulp.task('lib', libs());
