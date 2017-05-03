@@ -61,6 +61,14 @@ define(['lib/extend', 'core/indexedmodel', './playermodel'], function(extend,
     this.players.forEach(function(player) {
       player.registerListener(this);
     }, this);
+
+    console.log(this.getNames());
+  };
+
+  TeamModel.prototype.getNames = function () {
+      return this.players.map(function (player) {
+          return player.getName();
+      });
   };
 
   /**
