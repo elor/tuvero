@@ -4,11 +4,13 @@ var gulp = require('gulp');
 var nunjucks = require('gulp-nunjucks');
 var filecount = require('./filecount');
 
-function templateStrings (variant) {
+function templateStrings(variant) {
     var requirejs = require('requirejs').config({
-        baseUrl: variant + '/scripts',
+        baseUrl: 'scripts',
         paths: {
-            'ui': '../../legacy/scripts/ui/'
+            'options': '../' + variant + '/scripts/options',
+            'presets': '../' + variant + '/scripts/presets',
+            'strings': '../' + variant + '/scripts/strings'
         },
         nodeRequire: require
     });

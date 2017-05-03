@@ -62,10 +62,10 @@ gulp.task('update-mainstyle', ['lib-normalize'], function () {
 });
 
 gulp.task('update-common-js', [], function () {
-    return gulp.src(['lib/*.js', 'core/scripts/*.js', 'legacy/scripts/**/*.js', '!core/scripts/{common,config,main}.js', '!**/test/*.js'], { base: './' })
+    return gulp.src(['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/test/*.js'], { base: 'scripts/' })
         .pipe(filecount())
         .pipe(createcommonjs())
-        .pipe(gulp.dest('core/scripts'));
+        .pipe(gulp.dest('scripts/core'));
 });
 
 gulp.task('update-test-js', [], function () {

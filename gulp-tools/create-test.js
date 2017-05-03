@@ -12,7 +12,7 @@ module.exports = function () {
     var mapping = {
         'core/scripts/test': 'core/test',
         'legacy/scripts/ui/test': 'ui/test',
-        'legacy/scripts/ui/backgroundscripts/test': 'ui/backgroundscripts/test',
+        'legacy/scripts/background/test': 'background/test',
         'legacy/scripts/timemachine/test': 'timemachine/test'
     };
 
