@@ -10,19 +10,26 @@
  */
 
 require.config({
-  shim: {
-    'qunit': {
-      exports: 'QUnit',
-      /**
-       * disable QUnit autoload/autostart for requirejs optimizer compatibility
-       */
-      init: function() {
-        QUnit.config.autoload = false;
-        QUnit.config.autostart = false;
-      }
+    baseUrl: '../scripts',
+    shim: {
+        'qunit': {
+            exports: 'QUnit',
+            /**
+             * disable QUnit autoload/autostart for requirejs optimizer compatibility
+             */
+            init: function () {
+                QUnit.config.autoload = false;
+                QUnit.config.autostart = false;
+            }
+        }
+    },
+    paths: {
+        'options': '../test/scripts/options',
+        'presets': '../test/scripts/presets',
+        'strings': '../test/scripts/strings',
+        'qunit': '../test/scripts/qunit',
+        'core/test': '../core/scripts/test',
+        'timemachine/test': '../legacy/scripts/timemachine/test',
+        'ui/test': '../legacy/scripts/ui/test'
     }
-  },
-  paths: {
-    'core': '../../core/scripts/'
-  }
 });
