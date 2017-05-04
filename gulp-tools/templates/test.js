@@ -9,12 +9,19 @@
  */
 require(['config'], function () {
     require(['core/config'], function () {
-        require(['core/common', 'qunit',
+        var dependencies = ['core/common', 'qunit',
             { modules }
-        ], function (Common, QUnit) {
-            var i;
+        ];
+        require(dependencies, function (Common, QUnit) {
+            var i, group, currentGroup;
             for (i = 2; i < arguments.length; i += 1) {
                 try {
+                    currentGroup = dependencies[i].match(/^[^/]+/)[0];
+                    console.log(currentGroup);
+                    if (group !== currentGroup) {
+                        group = currentGroup;
+                        QUnit.module(group);
+                    }
                     arguments[i](QUnit, Common);
                 } catch (e) {
                     QUnit.test('Loading Error', function () {
