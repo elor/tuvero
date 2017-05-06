@@ -23,3 +23,5 @@ core/scripts/common.js
 bin/
 obj/
 style/mainstyle.css
+scripts/core/common.js
+test/scripts/test.js
