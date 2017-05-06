@@ -21,9 +21,9 @@ function templateStrings(variant) {
     return strings;
 }
 
-module.exports = function (variant) {
+module.exports = function (variant, searchpath) {
     return function () {
-        return gulp.src('core/templates/index.html')
+        return gulp.src(searchpath + '/index.html')
             .pipe(filecount())
             .pipe(nunjucks.compile(templateStrings(variant)))
             .pipe(filecount())
