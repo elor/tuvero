@@ -1,0 +1,14 @@
+{
+  "name": "qunit-test",
+  "version": "0.0.0",
+  "description": "qunit-test",
+  "main": "app.js",
+  "author": {
+    "name": "elor"
+  },
+  "dependencies": {
+    "istanbul": "^0.4.5",
+    "qunit": "^1.0.0",
+    "qunitjs": "^2.3.2"
+  }
+}

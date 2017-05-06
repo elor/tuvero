@@ -2,7 +2,7 @@
   "name": "tuvero-cli",
   "version": "1.5.6-dev",
   "description": "Tuvero library for tournament management",
-  "main": "index.js",
+  "main": "state.js",
   "author": {
     "name": "Erik E. Lorenz"
   },

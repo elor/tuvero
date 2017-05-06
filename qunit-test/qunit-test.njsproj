@@ -2,18 +2,20 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <Name>cli</Name>
-    <RootNamespace>cli</RootNamespace>
-    <ScriptArguments>
-    </ScriptArguments>
+    <Name>qunit-test</Name>
+    <RootNamespace>qunit-test</RootNamespace>
+    <NodejsPort>
+    </NodejsPort>
+    <DebuggerPort>
+    </DebuggerPort>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>2deed847-8792-4c57-94b7-df609757d084</ProjectGuid>
+    <ProjectGuid>7356b55d-3a91-4525-812e-25db850e80dd</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test.js</StartupFile>
+    <StartupFile>testrunner.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -30,16 +32,14 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="test.js" />
-    <Compile Include="state.js" />
-    <Content Include="bin\tuvero-format.js" />
-    <Content Include="bin\tuvero-ranks.js" />
-    <Content Include="bin\tuvero-teams.js" />
+    <Compile Include="testrunner.js" />
+    <Compile Include="test\app.js" />
+    <Compile Include="app.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="bin\" />
+    <Folder Include="test\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
