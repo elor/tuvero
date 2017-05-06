@@ -8,7 +8,6 @@ module.exports = function () {
     var list = [];
 
     function addToList(file, encoding, callback) {
-        file.base = 'core/style';
         list.push(file.relative);
 
         callback();
@@ -32,8 +31,8 @@ module.exports = function () {
         // Create a Vinyl file
         file = new File({
             cwd: __dirname,
-            base: path.join(__dirname, 'core', 'style'),
-            path: path.join(__dirname, 'core', 'style', 'mainstyle.css'),
+            base: path.join(__dirname),
+            path: path.join(__dirname, 'mainstyle.css'),
             contents: new Buffer(contents)
         });
         // Pass the Vinyl file on

@@ -54,11 +54,11 @@ gulp.task('build-tac-style', buildstyle('tac'));
  * update
  **/
 gulp.task('update-mainstyle', ['lib-normalize'], function () {
-    return gulp.src(['lib/*.css', '{core,legacy}/style/*.css', '!core/style/mainstyle.css'], { base: './' })
+    return gulp.src(['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'], { base: 'style/' })
         .pipe(filecount())
         .pipe(mainstyle())
         .pipe(filecount())
-        .pipe(gulp.dest('core/style'));
+        .pipe(gulp.dest('style'));
 });
 
 gulp.task('update-common-js', [], function () {

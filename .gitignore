@@ -22,3 +22,4 @@ lib/
 core/scripts/common.js
 bin/
 obj/
+style/mainstyle.css
