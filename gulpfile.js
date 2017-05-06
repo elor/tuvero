@@ -89,7 +89,7 @@ gulp.task('update-common-js', [], function () {
 });
 
 gulp.task('update-test-js', [], function () {
-    return gulp.src(sources.tests, { base: './' })
+    return gulp.src(sources.tests, { base: 'scripts/' })
         .pipe(filecount())
         .pipe(createtestjs())
         .pipe(gulp.dest('test/scripts'));

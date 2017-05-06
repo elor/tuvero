@@ -8,23 +8,16 @@ var fs = require('fs');
 module.exports = function () {
     var list = [];
 
-    // TODO read from core config
-    var mapping = {
-        'core/scripts/test': 'core/test',
-        'legacy/scripts/ui/test': 'ui/test',
-        'legacy/scripts/background/test': 'background/test',
-        'legacy/scripts/timemachine/test': 'timemachine/test'
-    };
-
     function addToList(file, encoding, callback) {
-        var dir, base;
+        var dir, base, parts;
 
-        dir = path.dirname(file.relative).replace(new RegExp('\\' + path.sep, 'g'), '/');
+        dir = path.dirname(file.relative);
         base = path.basename(file.relative, '.js');
 
-        dir = mapping[dir] || dir;
+        parts = dir.split(path.sep);
+        parts.push(base)
 
-        list.push(dir + '/' + base);
+        list.push(parts.join('/'));
 
         callback();
     }

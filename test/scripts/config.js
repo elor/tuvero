@@ -27,9 +27,6 @@ require.config({
         'options': '../test/scripts/options',
         'presets': '../test/scripts/presets',
         'strings': '../test/scripts/strings',
-        'qunit': '../test/scripts/qunit',
-        'core/test': '../core/scripts/test',
-        'timemachine/test': '../legacy/scripts/timemachine/test',
-        'ui/test': '../legacy/scripts/ui/test'
+        'qunit': '../test/scripts/qunit'
     }
 });

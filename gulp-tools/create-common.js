@@ -9,12 +9,15 @@ module.exports = function () {
     var list = [];
 
     function addToList(file, encoding, callback) {
-        var dir, base;
+        var dir, base, parts;
 
         dir = path.dirname(file.relative);
         base = path.basename(file.relative, '.js');
 
-        list.push(dir + '/' + base);
+        parts = dir.split(path.sep);
+        parts.push(base)
+
+        list.push(parts.join('/'));
 
         callback();
     }
