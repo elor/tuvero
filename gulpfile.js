@@ -88,5 +88,8 @@ gulp.task('template-boule', template('boule'));
 gulp.task('template-tac', template('tac'));
 
 gulp.task('watch', function () {
-    gulp.watch('core/templates/**/*.html', ['template']);
+    gulp.watch(sources.scripts, ['update-common-js']);
+    gulp.watch(sources.styles, ['update-mainstyle']);
+    gulp.watch(sources.templates, ['template']);
+    gulp.watch(sources.tests, ['update-test-js']);
 });
