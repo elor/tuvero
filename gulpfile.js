@@ -10,14 +10,22 @@ var template = require('./gulp-tools/template');
 var libs = require('./gulp-tools/libs');
 var buildstyle = require('./gulp-tools/buildstyle');
 
+var sources = {
+    styles: ['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'],
+    scripts: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/test/*.js'],
+    tests: ['scripts/**/test/*.js'],
+    templates: 'core/templates/**/*.html'
+};
+
 gulp.task('all', ['lib', 'update', 'build']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
+gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
 gulp.task('build', ['build-static', 'build-boule', 'build-basic', 'build-tac']);
 
 gulp.task('lib', libs());
 
 gulp.task('clean', function () {
-    return del('lib|build|dev|{basic,boule,tac}/index.html|core/style/mainstyle.css');
+    return del('lib|build|dev|{basic,boule,tac}/index.html|style/mainstyle.css|scripts/common.css');
 });
 
 gulp.task('build-static', ['build-static-images', 'build-static-html', 'build-static-manifest']);
@@ -54,7 +62,7 @@ gulp.task('build-tac-style', buildstyle('tac'));
  * update
  **/
 gulp.task('update-mainstyle', ['lib-normalize'], function () {
-    return gulp.src(['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'], { base: 'style/' })
+    return gulp.src(sources.styles, { base: 'style/' })
         .pipe(filecount())
         .pipe(mainstyle())
         .pipe(filecount())
@@ -62,20 +70,19 @@ gulp.task('update-mainstyle', ['lib-normalize'], function () {
 });
 
 gulp.task('update-common-js', [], function () {
-    return gulp.src(['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/test/*.js'], { base: 'scripts/' })
+    return gulp.src(sources.scripts, { base: 'scripts/' })
         .pipe(filecount())
         .pipe(createcommonjs())
         .pipe(gulp.dest('scripts/core'));
 });
 
 gulp.task('update-test-js', [], function () {
-    return gulp.src(['scripts/**/test/*.js'], { base: './' })
+    return gulp.src(sources.tests, { base: './' })
         .pipe(filecount())
         .pipe(createtestjs())
         .pipe(gulp.dest('test/scripts'));
 });
 
-gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
 gulp.task('template-basic', template('basic'));
 gulp.task('template-boule', template('boule'));
 gulp.task('template-tac', template('tac'));
