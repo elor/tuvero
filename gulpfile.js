@@ -9,6 +9,7 @@ var rename = require('gulp-rename');
 var template = require('./gulp-tools/template');
 var libs = require('./gulp-tools/libs');
 var buildstyle = require('./gulp-tools/buildstyle');
+var multiprocess = require('gulp-multi-process');
 
 var sources = {
     styles: ['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'],
@@ -55,9 +56,19 @@ gulp.task('build-basic', ['template', 'build-basic-style']);
 gulp.task('build-boule', ['template', 'build-boule-style']);
 gulp.task('build-tac', ['template', 'build-tac-style']);
 
-gulp.task('build-basic-style', buildstyle('basic'));
-gulp.task('build-boule-style', buildstyle('boule'));
-gulp.task('build-tac-style', buildstyle('tac'));
+gulp.task('build-basic-style-internal', buildstyle('basic'));
+gulp.task('build-boule-style-internal', buildstyle('boule'));
+gulp.task('build-tac-style-internal', buildstyle('tac'));
+
+gulp.task('build-basic-style', function (cb) {
+    return multiprocess(['build-basic-style-internal'], cb);
+});
+gulp.task('build-boule-style', function (cb) {
+    return multiprocess(['build-boule-style-internal'], cb);
+});
+gulp.task('build-tac-style', function (cb) {
+    return multiprocess(['build-tac-style-internal'], cb);
+});
 
 /**
  * update
