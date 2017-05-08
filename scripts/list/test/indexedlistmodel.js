@@ -11,9 +11,9 @@ define(function() {
     var extend, IndexedListModel, IndexedModel, ListModel;
 
     extend = getModule('lib/extend');
-    IndexedListModel = getModule('core/indexedlistmodel');
-    ListModel = getModule('core/listmodel');
-    IndexedModel = getModule('core/indexedmodel');
+    IndexedListModel = getModule('list/indexedlistmodel');
+    ListModel = getModule('list/listmodel');
+    IndexedModel = getModule('list/indexedmodel');
 
     QUnit.test('IndexedListModel', function() {
       var list;

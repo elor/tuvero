@@ -11,7 +11,7 @@ define(function() {
     var extend, LengthModel, ValueModel, ListModel;
 
     extend = getModule('lib/extend');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
     LengthModel = getModule('core/lengthmodel');
     ValueModel = getModule('core/valuemodel');
 

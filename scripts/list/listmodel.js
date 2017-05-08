@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './model', './listupdatelistener', './type'], function(
+define(['lib/extend', 'core/model', 'list/listupdatelistener', 'core/type'], function(
     extend, Model, ListUpdateListener, Type) {
 
   /**

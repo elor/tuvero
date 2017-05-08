@@ -11,8 +11,8 @@ define(function() {
     var extend, OrderListModel, ListModel;
 
     extend = getModule('lib/extend');
-    OrderListModel = getModule('core/orderlistmodel');
-    ListModel = getModule('core/listmodel');
+    OrderListModel = getModule('list/orderlistmodel');
+    ListModel = getModule('list/listmodel');
 
     QUnit.test('OrderListModel', function() {
       var list, order, ref;

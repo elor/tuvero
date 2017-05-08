@@ -11,8 +11,8 @@ define(function() {
     var extend, BinningReferenceListModel, ListModel;
 
     extend = getModule('lib/extend');
-    BinningReferenceListModel = getModule('core/binningreferencelistmodel');
-    ListModel = getModule('core/listmodel');
+    BinningReferenceListModel = getModule('list/binningreferencelistmodel');
+    ListModel = getModule('list/listmodel');
 
     QUnit.test('BinningReferenceListModel', function() {
       var success, binlist, bin, list, binningFunction;

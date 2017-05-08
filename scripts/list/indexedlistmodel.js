@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './listmodel', './listupdatelistener'], function(extend,
+define(['lib/extend', 'list/listmodel', 'list/listupdatelistener'], function(extend,
     ListModel, ListUpdateListener) {
   /**
    * Constructor for an empty list

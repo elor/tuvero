@@ -11,8 +11,8 @@ define(function() {
     var extend, CombinedReferenceListModel, ListModel;
 
     extend = getModule('lib/extend');
-    CombinedReferenceListModel = getModule('core/combinedreferencelistmodel');
-    ListModel = getModule('core/listmodel');
+    CombinedReferenceListModel = getModule('list/combinedreferencelistmodel');
+    ListModel = getModule('list/listmodel');
 
     QUnit.test('CombinedReferenceListModel', function() {
       var list1, list2, combined, success;

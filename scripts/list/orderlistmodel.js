@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel', 'lib/diff'], function(extend, ListModel,
+define(['lib/extend', 'list/listmodel', 'lib/diff'], function(extend, ListModel,
     diff) {
 
   /**

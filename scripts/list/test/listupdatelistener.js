@@ -10,8 +10,8 @@ define(function() {
   return function(QUnit, getModule) {
     var ListModel, ListUpdateListener;
 
-    ListModel = getModule('core/listmodel');
-    ListUpdateListener = getModule('core/listupdatelistener');
+    ListModel = getModule('list/listmodel');
+    ListUpdateListener = getModule('list/listupdatelistener');
 
     QUnit.test('ListUpdateListener', function() {
       var list, listener, ref;

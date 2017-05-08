@@ -11,10 +11,10 @@ define(function() {
     var ListModel, MatchModel, ReferenceListModel, MatchReferenceModel, Listener;
 
     Listener = getModule('core/listener');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
     MatchModel = getModule('core/matchmodel');
     MatchReferenceModel = getModule('core/matchreferencemodel');
-    ReferenceListModel = getModule('core/referencelistmodel');
+    ReferenceListModel = getModule('list/referencelistmodel');
 
     QUnit.test('ReferenceListModel', function() {
       var teams, matches, refs, listener, matchref;

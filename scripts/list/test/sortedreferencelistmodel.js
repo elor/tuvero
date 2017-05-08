@@ -15,8 +15,8 @@ define(function() {
     var extend, SortedReferenceListModel;
 
     extend = getModule('lib/extend');
-    SortedReferenceListModel = getModule('core/sortedreferencelistmodel');
-    ListModel = getModule('core/listmodel');
+    SortedReferenceListModel = getModule('list/sortedreferencelistmodel');
+    ListModel = getModule('list/listmodel');
 
     QUnit.test('SortedReferenceListModel', function() {
       var list, sorted, sortfunc, success;

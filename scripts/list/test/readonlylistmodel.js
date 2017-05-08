@@ -10,8 +10,8 @@ define(function() {
   return function(QUnit, getModule) {
     var ListModel, ReadonlyListModel;
 
-    ListModel = getModule('core/listmodel');
-    ReadonlyListModel = getModule('core/readonlylistmodel');
+    ListModel = getModule('list/listmodel');
+    ReadonlyListModel = getModule('list/readonlylistmodel');
 
     QUnit.test('ReadonlyListModel', function() {
       var list, obj, i, ret, res, listener;

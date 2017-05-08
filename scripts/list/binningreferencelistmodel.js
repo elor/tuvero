@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listmodel', './type', './sortedreferencelistmodel'], //
+define(['lib/extend', 'list/listmodel', 'core/type', 'list/sortedreferencelistmodel'], //
 function(extend, ListModel, Type, SortedReferenceListModel) {
   /**
    * Constructor

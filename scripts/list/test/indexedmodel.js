@@ -12,7 +12,7 @@ define(function() {
 
     extend = getModule('lib/extend');
     Model = getModule('core/model');
-    IndexedModel = getModule('core/indexedmodel');
+    IndexedModel = getModule('list/indexedmodel');
 
     QUnit.test('IndexedModel', function() {
       var model, listener, data;

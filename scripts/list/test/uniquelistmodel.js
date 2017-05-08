@@ -10,7 +10,7 @@ define(function() {
   return function(QUnit, getModule) {
     var ListModel, UniqueListModel, extend;
 
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
     UniqueListModel = getModule('core/uniquelistmodel');
     extend = getModule('lib/extend');
 
