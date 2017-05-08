@@ -10,7 +10,7 @@
  * @see LICENSE
  */
 // FIXME start this script as early as possible!
-define(['./strings', './toast', './debug'], function(Strings, Toast, Debug) {
+define(['ui/strings', 'ui/toast', 'ui/debug'], function(Strings, Toast, Debug) {
   var Update, appCache, downloadToast, uncachedToast;
 
   downloadToast = undefined;

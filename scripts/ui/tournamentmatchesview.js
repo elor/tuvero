@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './templateview', './listview',
-    './popoutboxview', './teamview', 'core/listener', './matchtableview',
+define(['lib/extend', 'core/view', 'ui/templateview', 'ui/listview',
+    'ui/popoutboxview', 'ui/teamview', 'core/listener', 'ui/matchtableview',
     'ui/tournamentrenamecontroller'], function(extend, View, TemplateView,
     ListView, PopoutBoxView, TeamView, Listener, MatchTableView,
     TournamentRenameController) {

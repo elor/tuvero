@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/indexedmodel', 'core/type'], function(extend,
+define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
     IndexedModel, Type) {
   /**
    * Constructor

@@ -13,7 +13,7 @@ define(function() {
     extend = getModule('lib/extend');
     TournamentListModel = getModule('tournament/tournamentlistmodel');
     TournamentIndex = getModule('tournament/tournamentindex');
-    IndexedListModel = getModule('core/indexedlistmodel');
+    IndexedListModel = getModule('list/indexedlistmodel');
 
     QUnit.test('TournamentListModel', function() {
       var tournament, list, ref, savedata;

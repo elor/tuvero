@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/binningreferencelistmodel'], function(extend,
+define(['lib/extend', 'list/binningreferencelistmodel'], function(extend,
     BinningReferenceListModel) {
 
   /**

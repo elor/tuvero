@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', './boxcontroller'], function(extend, View,
+define(['lib/extend', 'core/view', 'ui/boxcontroller'], function(extend, View,
     BoxController) {
   /**
    * Set the current tabbing state. This forbids tabbing into a collapsed box.

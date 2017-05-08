@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './matchview', './matchresultcontroller'], function(
+define(['lib/extend', 'ui/matchview', 'ui/matchresultcontroller'], function(
     extend, MatchView, MatchResultController) {
   /**
    * Constructor

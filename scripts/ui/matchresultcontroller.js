@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './matchcontroller', './strings', './toast', 'options'], //
+define(['lib/extend', 'ui/matchcontroller', 'ui/strings', 'ui/toast', 'options'], //
 function(extend, MatchController, Strings, Toast, Options) {
   /**
    * Constructor

@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 
-define(['./strings'], function(Strings) {
+define(['ui/strings'], function(Strings) {
   function generateCacheID(from, midx, to) {
     return [from[0], from[1], midx, to[0], to[1]].join(':');
   }

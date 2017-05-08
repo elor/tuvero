@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
-    'core/listener', './systemtablerowview'], function(extend, ListView,
+define(['lib/extend', 'ui/listview', 'ui/teamtableview', 'list/orderlistmodel',
+    'core/listener', 'ui/systemtablerowview'], function(extend, ListView,
     TeamTableView, OrderListModel, Listener, SystemTableRowView) {
   /**
    * Constructor
@@ -73,7 +73,7 @@ define(['lib/extend', './listview', './teamtableview', 'core/orderlistmodel',
    */
   SystemListView.prototype.updateOrder = function() {
     var ranking, order;
-	
+
 	if (this.teams.length > 0) {
 		ranking = this.tournaments.getGlobalRanking(this.teams.length);
 		order = ranking.displayOrder;

@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model', './matchresult'], function(extend, Model,
+define(['lib/extend', 'core/model', 'core/matchresult'], function(extend, Model,
     MatchResult) {
   /**
    * Constructor

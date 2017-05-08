@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './tournamentview', './swisstournamentcontroller',
-    'core/valuemodel', './checkboxview', './swissvotesview',
+define(['lib/extend', 'ui/tournamentview', 'ui/swisstournamentcontroller',
+    'core/valuemodel', 'ui/checkboxview', 'ui/swissvotesview',
     'ui/swissmaxroundview'], function(extend, TournamentView,
     SwissTournamentController, ValueModel, CheckBoxView, SwissVotesView,
     SwissMaxRoundView) {

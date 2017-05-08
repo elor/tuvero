@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', './kolistmodel',
-    './kotreeview'], function(extend, TemplateView, ListView, KOListModel,
+define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/kolistmodel',
+    'ui/kotreeview'], function(extend, TemplateView, ListView, KOListModel,
     KOTreeView) {
   /**
    * Constructor

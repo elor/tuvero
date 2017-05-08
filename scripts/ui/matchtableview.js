@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', 'core/listener',
-    './matchresultview', './teamtableview'], function(extend, TemplateView,
+define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
+    'ui/matchresultview', 'ui/teamtableview'], function(extend, TemplateView,
     ListView, Listener, MatchResultView, TeamTableView) {
   /**
    * Constructor

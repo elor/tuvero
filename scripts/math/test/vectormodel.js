@@ -11,7 +11,7 @@ define(function() {
     var ListModel, VectorModel, extend;
 
     extend = getModule('lib/extend');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
     VectorModel = getModule('math/vectormodel');
 
     QUnit.test('VectorModel', function() {

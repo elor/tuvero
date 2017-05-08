@@ -8,8 +8,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/listener', 'ui/state', './listcollectormodel',
-    './teammodel', './toast', './strings'], function(extend, Listener, State,
+define(['lib/extend', 'core/listener', 'ui/state', 'ui/listcollectormodel',
+    'ui/teammodel', 'ui/toast', 'ui/strings'], function(extend, Listener, State,
     ListCollectorModel, TeamModel, Toast, Strings) {
 
   function TeamToastsListener(emitter) {

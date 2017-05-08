@@ -11,7 +11,7 @@ define(function() {
     var extend, RankingMapper, Model, RankingModel, MatchResult, MatchModel, ListModel, Listener;
 
     extend = getModule('lib/extend');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
     RankingModel = getModule('ranking/rankingmodel');
     RankingMapper = getModule('ranking/rankingmapper');
     MatchResult = getModule('core/matchresult');

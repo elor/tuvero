@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', './newtournamentcontroller',
+define(['jquery', 'lib/extend', 'core/view', 'ui/newtournamentcontroller',
     'presets'], function($, extend, View, NewTournamentController, Presets) {
   /**
    * Constructor

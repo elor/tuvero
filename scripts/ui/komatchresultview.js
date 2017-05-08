@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './matchresultview', './kotreeposition'], //
+define(['lib/extend', 'ui/matchresultview', 'ui/kotreeposition'], //
 function(extend, MatchResultView, KOTreePosition) {
   /**
    * Constructor

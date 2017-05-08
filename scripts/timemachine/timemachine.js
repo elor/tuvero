@@ -9,8 +9,8 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'timemachine/reflog',
-    'timemachine/keymodel', 'timemachine/commitmodel', 'core/listmodel',
-    'timemachine/query', 'core/sortedreferencelistmodel',
+    'timemachine/keymodel', 'timemachine/commitmodel', 'list/listmodel',
+    'timemachine/query', 'list/sortedreferencelistmodel',
     'ui/listcollectormodel', 'presets', 'core/valuemodel'], function(extend,
     Model, RefLog, KeyModel, CommitModel, ListModel, Query,
     SortedReferenceListModel, ListCollectorModel, Presets, ValueModel) {

@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './model', './type'], function(extend, Model, Type) {
+define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) {
   /**
    * Constructor
    *

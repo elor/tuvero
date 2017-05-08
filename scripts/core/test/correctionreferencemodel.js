@@ -15,7 +15,7 @@ define(function() {
     CorrectionModel = getModule('core/correctionmodel');
     MatchModel = getModule('core/matchmodel');
     MatchResult = getModule('core/matchresult');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
 
     QUnit.test('CorrectionReferenceModel', function() {
       var result, result2, correction, reference, teams;

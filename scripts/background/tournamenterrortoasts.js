@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'ui/listcollectormodel', 'core/tournamentmodel',
+define(['ui/state', 'ui/listcollectormodel', 'tournament/tournamentmodel',
     'ui/toast', 'ui/strings'], function(State, ListCollectorModel,
     TournamentModel, Toast, Strings) {
   var TournamentErrorToasts;

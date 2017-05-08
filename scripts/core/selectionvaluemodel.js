@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './valuemodel'], function(extend, ValueModel) {
+define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
   /**
    * Constructor
    *

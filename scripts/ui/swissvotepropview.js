@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/classview', './swissvotepropcontroller'], function(
+define(['lib/extend', 'core/classview', 'ui/swissvotepropcontroller'], function(
     extend, ClassView, SwissVotePropController) {
   /**
    * Constructor

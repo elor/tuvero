@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', './templateview', './textview'], function(extend,
+define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
     TemplateView, TextView) {
   /**
    * Constructor

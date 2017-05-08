@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './tournamentview', './roundtournamentview',
-    './swisstournamentview', './kotournamentview'], function(extend, View, //
+define(['lib/extend', 'core/view', 'ui/tournamentview', 'ui/roundtournamentview',
+    'ui/swisstournamentview', 'ui/kotournamentview'], function(extend, View, //
 TournamentView, RoundTournamentView, SwissTournamentView, KOTournamentView) {
   var constructors, defaultConstructor;
 

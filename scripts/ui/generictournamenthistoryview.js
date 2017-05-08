@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './progresstableview', './kohistoryview'], //
+define(['lib/extend', 'core/view', 'ui/progresstableview', 'ui/kohistoryview'], //
 function(extend, View, ProgressTableView, KOHistoryView) {
   var types;
 

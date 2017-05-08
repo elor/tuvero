@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', './inlinelistview',
-    './komatchresultview', 'core/kotournamentmodel', './kotreeposition',
-    './kolineview', './boxview'], function(extend, TemplateView, ListView,
+define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
+    'ui/komatchresultview', 'tournament/kotournamentmodel', 'ui/kotreeposition',
+    'ui/kolineview', 'ui/boxview'], function(extend, TemplateView, ListView,
     InlineListView, KOMatchResultView, KOTournamentModel, KOTreePosition,
     KOLineView, BoxView) {
   /**

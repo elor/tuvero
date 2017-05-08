@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './selectionvaluemodel', './uniquelistmodel'], function(
+define(['lib/extend', 'core/selectionvaluemodel', 'core/uniquelistmodel'], function(
     extend, SelectionValueModel, UniqueListModel) {
 
   /**

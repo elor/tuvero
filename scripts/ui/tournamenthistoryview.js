@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './listview', './popoutboxview',
-    'core/listener', 'core/binningreferencelistmodel', './matchtableview',
-    './generictournamenthistoryview', 'ui/tournamentrenamecontroller'], //
+define(['lib/extend', 'core/view', 'ui/listview', 'ui/popoutboxview',
+    'core/listener', 'list/binningreferencelistmodel', 'ui/matchtableview',
+    'ui/generictournamenthistoryview', 'ui/tournamentrenamecontroller'], //
 function(extend, View, ListView, PopoutBoxView, Listener,
     BinningReferenceListModel, MatchTableView, GenericTournamentHistoryView,
     TournamentRenameController) {

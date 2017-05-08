@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', './templateview', './rankingcomponentview', './listview',
-    './rankingordercontroller'], function($, extend, TemplateView,
+define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'ui/listview',
+    'ui/rankingordercontroller'], function($, extend, TemplateView,
     RankingComponentView, ListView, RankingOrderController) {
   /**
    * Constructor

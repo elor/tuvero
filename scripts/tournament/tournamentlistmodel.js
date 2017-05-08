@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/indexedlistmodel', 'core/listmodel', 'core/uniquelistmodel',
+define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelistmodel',
     'tournament/tournamentindex', 'core/listener', 'core/model'], function(extend,
     IndexedListModel, ListModel, UniqueListModel, TournamentIndex, Listener,
     Model) {

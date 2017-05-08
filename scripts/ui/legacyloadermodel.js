@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'ui/state', './teammodel',
-    './playermodel', 'options', 'presets', 'core/tournamentindex',
+define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
+    'ui/playermodel', 'options', 'presets', 'tournament/tournamentindex',
     'core/matchmodel', 'core/matchresult', 'core/byeresult',
-    'core/correctionmodel', './toast', 'core/rle'], function(extend, Model,
+    'core/correctionmodel', 'ui/toast', 'core/rle'], function(extend, Model,
     State, TeamModel, PlayerModel, Options, Presets, TournamentIndex,
     MatchModel, MatchResult, ByeResult, CorrectionModel, Toast, RLE) {
   /**

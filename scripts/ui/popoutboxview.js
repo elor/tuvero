@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', './boxview', './popoutcontroller', 'core/valuemodel',
+define(['jquery', 'lib/extend', 'ui/boxview', 'ui/popoutcontroller', 'core/valuemodel',
     'core/classview'], function($, extend, BoxView, PopoutController, ValueModel,
     ClassView) {
   var $iconTemplate, $popoutIconTemplate, $closeIconTemplate, //

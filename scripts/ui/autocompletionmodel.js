@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'jquery', 'core/type', './toast',
-    'presets', './strings'], function(extend, Model, $, Type, Toast, Presets,
+define(['lib/extend', 'core/model', 'jquery', 'core/type', 'ui/toast',
+    'presets', 'ui/strings'], function(extend, Model, $, Type, Toast, Presets,
     Strings) {
   /**
    * Constructor

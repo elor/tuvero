@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'lib/FileSaver', 'lib/Blob',
-    './toast', './strings', 'presets', 'ui/state'], function(extend,
+    'ui/toast', 'ui/strings', 'presets', 'ui/state'], function(extend,
     Controller, saveAs, Blob, Toast, Strings, Presets, State) {
   var examplefiles;
 

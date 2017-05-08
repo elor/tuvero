@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', 'core/valuemodel', 'ui/valueview',
-    'core/propertyvaluemodel', 'core/listener', 'core/swisstournamentmodel'], //
+    'core/propertyvaluemodel', 'core/listener', 'tournament/swisstournamentmodel'], //
 function(extend, View, ValueModel, ValueView, PropertyValueModel, Listener,
     SwissTournamentModel) {
   /**

@@ -11,8 +11,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', './fontsizecontroller',
-    './fontsizemodel'], function($, extend, View, FontSizeController,
+define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
+    'ui/fontsizemodel'], function($, extend, View, FontSizeController,
     FontSizeModel) {
   var classprefix;
 

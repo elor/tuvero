@@ -12,7 +12,7 @@ define(function() {
 
     extend = getModule('lib/extend');
     BinaryTreeModel = getModule('ui/binarytreemodel');
-    IndexedModel = getModule('core/indexedmodel');
+    IndexedModel = getModule('list/indexedmodel');
 
     QUnit.test('BinaryTreeModel', function() {
       var node;

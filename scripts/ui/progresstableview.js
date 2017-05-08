@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './listview', './inlinelistview',
-    './teamtableview', './progressrowview', './progresslistmodel', './strings',
-    'core/listmodel', './progressroundview', 'core/listener'], function(extend,
+define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
+    'ui/teamtableview', 'ui/progressrowview', 'ui/progresslistmodel', 'ui/strings',
+    'list/listmodel', 'ui/progressroundview', 'core/listener'], function(extend,
     TemplateView, ListView, InlineListView, TeamTableView, ProgressRowView,
     ProgressListModel, Strings, ListModel, ProgressRoundView, Listener) {
   /**

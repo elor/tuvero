@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', './boxview', './swissvotepropview',
+define(['jquery', 'lib/extend', 'core/view', 'ui/boxview', 'ui/swissvotepropview',
     'core/propertyvaluemodel', 'core/classview'], function($, extend, View,
     BoxView, SwissVotePropView, PropertyValueModel, ClassView) {
   /**

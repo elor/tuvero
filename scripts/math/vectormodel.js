@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listmodel', 'core/type', 'core/rle'], function(extend,
+define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(extend,
     ListModel, Type, RLE) {
   /**
    * Constructor

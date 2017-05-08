@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/valuemodel', 'core/tournamentmodel'], function(
+define(['lib/extend', 'core/valuemodel', 'tournament/tournamentmodel'], function(
     extend, ValueModel, TournamentModel) {
   /**
    * Constructor

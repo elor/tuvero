@@ -4,7 +4,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './csvexportcontroller',
+define(['lib/extend', 'jquery', 'core/view', 'ui/csvexportcontroller',
     'ui/fontsizeview'], function(extend, $, View,
     CSVExportController, FontSizeView) {
   /**

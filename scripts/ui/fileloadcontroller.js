@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', './toast',
-    './strings'], function($, extend, Controller, InputView, Toast, Strings) {
+define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
+    'ui/strings'], function($, extend, Controller, InputView, Toast, Strings) {
   /**
    * Constructor. Attention: It doesn't take a View, but a jquery element!
    *

@@ -11,7 +11,7 @@ define(function() {
     var ListModel, ListCollectorModel, ValueModel;
 
     ValueModel = getModule('core/valuemodel');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
     ListCollectorModel = getModule('ui/listcollectormodel');
 
     QUnit.test('ListCollectorModel', function() {
@@ -42,7 +42,6 @@ define(function() {
       obj = list.pop();
       QUnit.equal(model.emitters.length, 0,
           'unregistering from emitters when they are removed from the list');
-      return;
 
       listener.updatecount = 0;
       obj.set(8);

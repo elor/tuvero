@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', './newteamcontroller'], function(
+define(['jquery', 'lib/extend', 'core/view', 'ui/newteamcontroller'], function(
     $, extend, View, NewTeamController) {
   /**
    * Constructor

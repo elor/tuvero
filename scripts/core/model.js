@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './emitter', './type'], function(extend, Emitter, Type) {
+define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Type) {
   function getClassName(instance) {
     return instance.constructor.toString().replace(
         /^function (\S+)\((.+|\s+)*$/g, '$1');

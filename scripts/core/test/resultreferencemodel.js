@@ -13,7 +13,7 @@ define(function() {
     ResultReferenceModel = getModule('core/resultreferencemodel');
     MatchResult = getModule('core/matchresult');
     MatchModel = getModule('core/matchmodel');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
 
     QUnit.test('ResultReferenceModel', function() {
       var game, result, ref, teamlist;

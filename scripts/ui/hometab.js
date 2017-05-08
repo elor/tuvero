@@ -4,8 +4,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'ui/state', './strings',
-    './toast', './browser', 'ui/timemachineview', 'ui/statesaver',
+define(['lib/extend', 'jquery', 'core/view', 'ui/state', 'ui/strings',
+    'ui/toast', 'ui/browser', 'ui/timemachineview', 'ui/statesaver',
     'ui/statefileloadcontroller', 'core/valuemodel', 'core/classview',
     'ui/servermodel', 'ui/loginview', 'ui/storage', 'presets',
     'ui/servertournamentlistmodel', 'ui/servertournamentview', 'ui/listview',

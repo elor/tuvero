@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/templateview', './strings', 'ui/teamview'], function(
+define(['lib/extend', 'ui/templateview', 'ui/strings', 'ui/teamview'], function(
     extend, TemplateView, Strings, TeamView) {
   /**
    * Constructor

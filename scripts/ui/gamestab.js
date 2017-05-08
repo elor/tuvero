@@ -4,8 +4,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
-    './checkboxview', 'core/classview', './tournamentmatchesview',
+define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
+    'ui/checkboxview', 'core/classview', 'ui/tournamentmatchesview',
     'ui/tabshandle'], function(extend, $, View, ListView, State, CheckBoxView,
     ClassView, TournamentMatchesView, TabsHandle) {
   /**

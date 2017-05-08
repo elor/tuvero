@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', './controller', './listener'], function($,
+define(['jquery', 'lib/extend', 'core/controller', 'core/listener'], function($,
     extend, Controller, Listener) {
   /**
    * Constructor

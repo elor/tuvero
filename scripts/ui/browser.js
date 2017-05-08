@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['background/online', './update'], function(Online, Update) {
+define(['background/online', 'ui/update'], function(Online, Update) {
   var Browser;
 
   Browser = {

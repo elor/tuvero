@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './templateview', './teamview', './listview', //
-'core/listmodel', './inlinelistview', 'core/listener', './matchresultview'], //
+define(['lib/extend', 'ui/templateview', 'ui/teamview', 'ui/listview', //
+'list/listmodel', 'ui/inlinelistview', 'core/listener', 'ui/matchresultview'], //
 function(extend, TemplateView, TeamView, ListView, ListModel, InlineListView,
     Listener, MatchResultView) {
   /**

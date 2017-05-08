@@ -18,7 +18,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
-    'core/listmodel', 'core/listener', 'timemachine/keymodel'], function(
+    'list/listmodel', 'core/listener', 'timemachine/keymodel'], function(
     extend, Model, Presets, Query, ListModel, Listener, KeyModel) {
   var RefLog;
 

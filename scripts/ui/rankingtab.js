@@ -4,9 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', './listview', 'ui/state',
-    './checkboxview', 'core/classview', './tournamentrankingview',
-    'ui/tabshandle', './closedtournamentcollapselistener'], function(extend, $,
+define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
+    'ui/checkboxview', 'core/classview', 'ui/tournamentrankingview',
+    'ui/tabshandle', 'ui/closedtournamentcollapselistener'], function(extend, $,
     View, ListView, State, CheckBoxView, ClassView, TournamentRankingView,
     TabsHandle, ClosedTournamentCollapseListener) {
   /**

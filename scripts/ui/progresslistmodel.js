@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/binningreferencelistmodel',
-    'core/sortedreferencelistmodel', 'core/combinedreferencelistmodel',
-    'core/referencelistmodel', './reversematchreferencemodel',
-    './reverseresultreferencemodel'], function(extend,
+define(['lib/extend', 'list/binningreferencelistmodel',
+    'list/sortedreferencelistmodel', 'list/combinedreferencelistmodel',
+    'list/referencelistmodel', 'ui/reversematchreferencemodel',
+    'ui/reverseresultreferencemodel'], function(extend,
     BinningReferenceListModel, SortedReferenceListModel,
     CombinedReferenceListModel, ReferenceListModel, ReverseMatchReferenceModel,
     ReverseResultReferenceModel) {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8" />
@@ -35,23 +35,23 @@
   <script id="testmain">
   function TestMain(Common, $) {
     var TeamSizeModel, TeamSizeView, LengthView, ListView, NewTeamView;
-  
+
     ValueModel = Common('core/valuemodel');
     TeamSizeView = Common('ui/teamsizeview');
     ValueView = Common('ui/valueview');
-    ListModel = Common('core/listmodel');
+    ListModel = Common('list/listmodel');
     NewTeamView = Common('ui/newteamview');
-  
+
     $(function($) {
       var teamsize, $view;
-  
+
       teamsize = new ValueModel(3);
       $view = $('.teamsizeview');
       new TeamSizeView(teamsize, $view);
-  
+
       $view = $('.teamsize');
       new ValueView(teamsize, $view);
-  
+
       $view = $('.newteam');
       new NewTeamView(new ListModel(), $view, teamsize);
     });

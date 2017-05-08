@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
-    './teammodel', './playermodel', 'core/random', 'ui/statesaver'], //
+    'ui/teammodel', 'ui/playermodel', 'core/random', 'ui/statesaver'], //
 function(extend, Controller, View, State, TeamModel, PlayerModel, Random,
     StateSaver) {
   var rng;

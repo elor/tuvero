@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', './browser', './toast',
-    './browserinfocontroller', 'ui/update'], function(extend, View, Browser,
+define(['lib/extend', 'core/view', 'ui/browser', 'ui/toast',
+    'ui/browserinfocontroller', 'ui/update'], function(extend, View, Browser,
     Toast, BrowserInfoController, Update) {
   /**
    * Constructor

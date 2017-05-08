@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/renamecontroller', './toast', './strings'], function(
+define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], function(
     extend, RenameController, Toast, Strings) {
   /**
    * Constructor

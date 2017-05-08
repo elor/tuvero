@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './tournamentview', 'core/valuemodel', './checkboxview',
-    './kotournamentcontroller'], function(extend, TournamentView, ValueModel,
+define(['lib/extend', 'ui/tournamentview', 'core/valuemodel', 'ui/checkboxview',
+    'ui/kotournamentcontroller'], function(extend, TournamentView, ValueModel,
     CheckBoxView, KOTournamentController) {
   /**
    * Constructor

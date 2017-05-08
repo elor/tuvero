@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['jquery', 'lib/extend', 'core/controller', 'ui/state', 'presets',
-    'lib/FileSaver', 'lib/Blob', './toast', './strings',
+    'lib/FileSaver', 'lib/Blob', 'ui/toast', 'ui/strings',
     'timemachine/timemachine'], function($, extend, Controller, State, Presets,
     saveAs, Blob, Toast, Strings, TimeMachine) {
   var validsets = ['teams', 'ranking', 'history'];

@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['core/kotournamentmodel'], function(KOTournamentModel) {
+define(['tournament/kotournamentmodel'], function(KOTournamentModel) {
   var leftPadding, topPadding, width, height, shortWidth;
 
   width = 17;

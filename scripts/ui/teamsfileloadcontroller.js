@@ -16,8 +16,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/fileloadcontroller', './toast', './strings',
-    'ui/state', './playermodel', './teammodel', 'presets', //
+define(['lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
+    'ui/state', 'ui/playermodel', 'ui/teammodel', 'presets', //
     'ui/unicodehelper'], function(extend, FileLoadController, Toast, Strings,
     State, PlayerModel, TeamModel, Presets, UnicodeHelper) {
 

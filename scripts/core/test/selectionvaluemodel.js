@@ -11,7 +11,7 @@ define(function() {
     var SelectionValueModel, ListModel;
 
     SelectionValueModel = getModule('core/selectionvaluemodel');
-    ListModel = getModule('core/listmodel');
+    ListModel = getModule('list/listmodel');
 
     QUnit.test('SelectionValueModel', function() {
       var model, allowed, defaultvalue;
