@@ -108,7 +108,7 @@ gulp.task('template-boule', template('boule', sources.template_path));
 gulp.task('template-tac', template('tac', sources.template_path));
 
 gulp.task('watch', function () {
-    gulp.watch(sources.scripts, ['update-common-js']);
+    gulp.watch(sources.scripts, ['check-dependencies', 'update-common-js']);
     gulp.watch(sources.styles, ['update-mainstyle']);
     gulp.watch(sources.templates, ['template']);
     gulp.watch(sources.tests, ['update-test-js']);
