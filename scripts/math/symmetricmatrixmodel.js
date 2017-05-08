@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './matrixmodel'], function(extend, MatrixModel) {
+define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
   /**
    * Constructor
    *

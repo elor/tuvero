@@ -14,9 +14,9 @@ define(function() {
   return function(QUnit, getModule) {
     var DelegateMatrix;
 
-    TransposeSumMatrix = getModule('core/transposesummatrix');
-    DelegateMatrix = getModule('core/delegatematrix');
-    MatrixModel = getModule('core/matrixmodel');
+    TransposeSumMatrix = getModule('math/transposesummatrix');
+    DelegateMatrix = getModule('math/delegatematrix');
+    MatrixModel = getModule('math/matrixmodel');
     extend = getModule('lib/extend');
 
     QUnit.test('TransposeSumMatrix', function() {

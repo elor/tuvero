@@ -14,8 +14,8 @@ define(function() {
   return function(QUnit, getModule) {
     var MatrixModel;
 
-    MatrixModel = getModule('core/matrixmodel');
-    VectorModel = getModule('core/vectormodel');
+    MatrixModel = getModule('math/matrixmodel');
+    VectorModel = getModule('math/vectormodel');
 
     QUnit.test('MatrixModel', function() {
       // constructor validation

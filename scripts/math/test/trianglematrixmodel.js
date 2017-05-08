@@ -12,33 +12,32 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var MatrixModel, SymmetricMatrixModel, extend;
+    var MatrixModel, TriangleMatrixModel, extend;
 
-    MatrixModel = getModule('core/matrixmodel');
-    SymmetricMatrixModel = getModule('core/symmetricmatrixmodel');
+    MatrixModel = getModule('math/matrixmodel');
+    TriangleMatrixModel = getModule('core/trianglematrixmodel');
     extend = getModule('lib/extend');
 
-    QUnit.test('SymmetricMatrixModel', function() {
+    QUnit.test('TriangleMatrixModel', function() {
       // constructor validation
       var a;
 
-      QUnit.ok(extend.isSubclass(SymmetricMatrixModel, MatrixModel),
-          'SymmetricMatrixModel is subclass of MatrixModel');
+      QUnit.ok(extend.isSubclass(TriangleMatrixModel, MatrixModel),
+          'TriangleMatrixModel is subclass of MatrixModel');
 
-      a = new SymmetricMatrixModel(5);
+      a = new TriangleMatrixModel(5);
 
       QUnit.equal(a.length, 5, 'length at initialization is accepted');
 
-      QUnit.equal(a.set(0, 4, 5), a, 'set() above the main diagonal works');
-      QUnit.equal(a.get(0, 4), 5, 'get() confirms the written value');
-      QUnit.equal(a.get(4, 0), 5, 'get() confirms the symmetric mapping');
+      QUnit.equal(a.set(0, 4, 5), undefined,
+          'set() above the main diagonal aborts, leaving the value at 0');
+      QUnit.equal(a.get(0, 4), 0, 'get() confirms the zero-value');
 
       QUnit.equal(a.set(2, 2, 5), a, 'set() on the main diagonal works');
       QUnit.equal(a.get(2, 2), 5, 'get() confirms the main diagonal value');
 
       QUnit.equal(a.set(4, 3, 3), a, 'set() below main diagonal works');
       QUnit.equal(a.get(4, 3), 3, 'get() confirms the value');
-      QUnit.equal(a.get(3, 4), 3, 'get() confirms the symmetric value');
     });
   };
 });

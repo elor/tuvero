@@ -14,8 +14,8 @@ define(function() {
   return function(QUnit, getModule) {
     var DelegateMatrix;
 
-    DelegateMatrix = getModule('core/delegatematrix');
-    MatrixModel = getModule('core/matrixmodel');
+    DelegateMatrix = getModule('math/delegatematrix');
+    MatrixModel = getModule('math/matrixmodel');
     extend = getModule('lib/extend');
 
     QUnit.test('DelegateMatrix', function() {

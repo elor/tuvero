@@ -14,7 +14,7 @@ define(function() {
   return function(QUnit, getModule) {
     var MatrixModel, AntisymmetricMatrixModel, extend;
 
-    MatrixModel = getModule('core/matrixmodel');
+    MatrixModel = getModule('math/matrixmodel');
     AntisymmetricMatrixModel = getModule('core/antisymmetricmatrixmodel');
     extend = getModule('lib/extend');
 

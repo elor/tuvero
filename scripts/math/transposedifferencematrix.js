@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './delegatematrix'], function(extend, DelegateMatrix) {
+define(['lib/extend', 'math/delegatematrix'], function(extend, DelegateMatrix) {
   /**
    * Constructor
    *

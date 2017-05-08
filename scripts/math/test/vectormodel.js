@@ -12,7 +12,7 @@ define(function() {
 
     extend = getModule('lib/extend');
     ListModel = getModule('core/listmodel');
-    VectorModel = getModule('core/vectormodel');
+    VectorModel = getModule('math/vectormodel');
 
     QUnit.test('VectorModel', function() {
       var vec, vec2, retvec, ref, success, data;
