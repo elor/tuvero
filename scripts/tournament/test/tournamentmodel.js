@@ -11,7 +11,7 @@ define(function() {
     var extend, TournamentModel, PropertyModel;
 
     extend = getModule('lib/extend');
-    TournamentModel = getModule('core/tournamentmodel');
+    TournamentModel = getModule('tournament/tournamentmodel');
     PropertyModel = getModule('core/propertymodel');
 
     QUnit.test('TournamentModel', function() {

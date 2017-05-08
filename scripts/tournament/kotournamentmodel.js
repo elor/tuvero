@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './tournamentmodel', 'core/random', './type',
-    './matchmodel', './byeresult', 'options', 'presets'], function(extend,
+define(['lib/extend', 'tournament/tournamentmodel', 'core/random', 'core/type',
+    'core/matchmodel', 'core/byeresult', 'options', 'presets'], function(extend,
     TournamentModel, Random, Type, MatchModel, ByeResult, Options, Presets) {
   var rng = new Random();
 

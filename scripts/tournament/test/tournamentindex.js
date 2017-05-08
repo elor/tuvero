@@ -10,7 +10,7 @@ define(function() {
   return function(QUnit, getModule) {
     var TournamentIndex;
 
-    TournamentIndex = getModule('core/tournamentindex');
+    TournamentIndex = getModule('tournament/tournamentindex');
 
     QUnit.test('TournamentIndex', function() {
       QUnit.equal(TournamentIndex.createTournament(), undefined,

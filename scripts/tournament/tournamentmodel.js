@@ -11,14 +11,14 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './propertymodel', './listmodel', './uniquelistmodel',
-    './rankingmapper', './statevaluemodel', './matchmodel', './matchresult',
-    'ui/listcollectormodel', './listener', './rankingmodel',
-    './referencelistmodel', './maplistmodel', './valuemodel',
-    './readonlylistmodel', 'options', './indexedmodel', './correctionmodel',
-    './matchreferencemodel', './resultreferencemodel', 'core/type',
-    './correctionreferencemodel', './sortedreferencelistmodel',
-    './combinedreferencelistmodel', './byeresult'], function(extend,
+define(['lib/extend', 'core/propertymodel', 'core/listmodel', 'core/uniquelistmodel',
+    'ranking/rankingmapper', 'core/statevaluemodel', 'core/matchmodel', 'core/matchresult',
+    'ui/listcollectormodel', 'core/listener', 'ranking/rankingmodel',
+    'core/referencelistmodel', 'core/maplistmodel', 'core/valuemodel',
+    'core/readonlylistmodel', 'options', 'core/indexedmodel', 'core/correctionmodel',
+    'core/matchreferencemodel', 'core/resultreferencemodel', 'core/type',
+    'core/correctionreferencemodel', 'core/sortedreferencelistmodel',
+    'core/combinedreferencelistmodel', 'core/byeresult'], function(extend,
     PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
     MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
     ReferenceListModel, MapListModel, ValueModel, ReadonlyListModel, Options,

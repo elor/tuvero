@@ -11,8 +11,8 @@ define(function() {
     var extend, RoundTournamentModel, TournamentModel, matches, byes, state;
 
     extend = getModule('lib/extend');
-    RoundTournamentModel = getModule('core/roundtournamentmodel');
-    TournamentModel = getModule('core/tournamentmodel');
+    RoundTournamentModel = getModule('tournament/roundtournamentmodel');
+    TournamentModel = getModule('tournament/tournamentmodel');
 
     QUnit.test('RoundTournamentModel', function() {
       var tournament, ret, ref, data;

@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', './tournamentmodel', './matchmodel', './byeresult',
-    'options', './type'], function(extend, TournamentModel, MatchModel,
+define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/byeresult',
+    'options', 'core/type'], function(extend, TournamentModel, MatchModel,
     ByeResult, Options, Type) {
   /**
    * Constructor

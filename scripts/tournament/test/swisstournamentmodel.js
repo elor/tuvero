@@ -11,9 +11,9 @@ define(function() {
     var extend, SwissTournamentModel, TournamentModel;
 
     extend = getModule('lib/extend');
-    SwissTournamentModel = getModule('core/swisstournamentmodel');
-    TournamentModel = getModule('core/tournamentmodel');
-    VectorModel = getModule('core/vectormodel');
+    SwissTournamentModel = getModule('tournament/swisstournamentmodel');
+    TournamentModel = getModule('tournament/tournamentmodel');
+    VectorModel = getModule('math/vectormodel');
 
     QUnit.test('SwissTournamentModel', function() {
       var groups, matches, votes, result, tournament;

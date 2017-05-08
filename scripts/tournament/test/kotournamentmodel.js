@@ -11,8 +11,8 @@ define(function() {
     var extend, KOTournamentModel, TournamentModel;
 
     extend = getModule('lib/extend');
-    KOTournamentModel = getModule('core/kotournamentmodel');
-    TournamentModel = getModule('core/tournamentmodel');
+    KOTournamentModel = getModule('tournament/kotournamentmodel');
+    TournamentModel = getModule('tournament/tournamentmodel');
 
     QUnit.test('KOTournamentModel', function() {
       var ids, result, ref, tournament;
