@@ -4,6 +4,7 @@ var del = require('del');
 var filecount = require('./gulp-tools/filecount');
 var gulp = require('gulp');
 var mainstyle = require('./gulp-tools/mainstyle');
+var checkdependencies = require('./gulp-tools/check-dependencies');
 var manifest = require('gulp-manifest');
 var rename = require('gulp-rename');
 var template = require('./gulp-tools/template');
@@ -14,6 +15,7 @@ var multiprocess = require('gulp-multi-process');
 var sources = {
     styles: ['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'],
     scripts: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/test/*.js'],
+    scripts_nolibs: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/{lib,test}/*.js'],
     tests: ['scripts/**/test/*.js'],
     templates: 'templates/**/*.html',
     template_path: 'templates'
@@ -68,6 +70,12 @@ gulp.task('build-boule-style', function (cb) {
 });
 gulp.task('build-tac-style', function (cb) {
     return multiprocess(['build-tac-style-internal'], cb);
+});
+
+gulp.task('check-dependencies', function () {
+    return gulp.src(sources.scripts_nolibs, { base: 'scripts' })
+        .pipe(filecount())
+        .pipe(checkdependencies());
 });
 
 /**
