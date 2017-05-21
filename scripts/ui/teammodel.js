@@ -61,8 +61,6 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
     this.players.forEach(function(player) {
       player.registerListener(this);
     }, this);
-
-    console.log(this.getNames());
   };
 
   TeamModel.prototype.getNames = function () {
