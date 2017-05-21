@@ -20,15 +20,11 @@ function loadState(file, callback, errcallback) {
     var target = fileContents.target;
 
     requirejs.config({
-        baseUrl: 'scripts',
-        paths: {
-            'core': '../../core/scripts/'
-        },
-        nodeRequire: require
+        baseUrl: '../scripts',
     });
 
-    requirejs(['core/config'], function (config) {
-        var myBase = '../../' + target + '/scripts/';
+    requirejs(['core/config'], function(config) {
+        var myBase = '../' + target + '/scripts/';
 
         requirejs.config({
             paths: {
@@ -40,7 +36,7 @@ function loadState(file, callback, errcallback) {
 
         var State = requirejs('ui/state');
 
-        fs.readFile(file, { encoding: 'utf-8' }, function (err, data) {
+        fs.readFile(file, { encoding: 'utf-8' }, function(err, data) {
             if (err) {
                 errcallback(err)
             } else {

@@ -4,8 +4,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>cli</Name>
     <RootNamespace>cli</RootNamespace>
-    <ScriptArguments>
-    </ScriptArguments>
+    <ScriptArguments>tuvero.json ranking</ScriptArguments>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -13,7 +12,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2deed847-8792-4c57-94b7-df609757d084</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>test.js</StartupFile>
+    <StartupFile>bin\tuvero.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -30,11 +29,9 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bin\tuvero.js" />
     <Compile Include="test.js" />
     <Compile Include="state.js" />
-    <Content Include="bin\tuvero-format.js" />
-    <Content Include="bin\tuvero-ranks.js" />
-    <Content Include="bin\tuvero-teams.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
