@@ -7,4 +7,9 @@ function myLittleFunction(a, b) {
     return a + b;
 }
 
+function secondFunction(w, t, f) {
+    return 'covered';
+}
+
 exports.do = myLittleFunction;
+exports.secondFunction = secondFunction;

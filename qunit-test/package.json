@@ -1,14 +1,15 @@
 {
-  "name": "qunit-test",
-  "version": "0.0.0",
-  "description": "qunit-test",
-  "main": "app.js",
-  "author": {
-    "name": "elor"
-  },
-  "dependencies": {
-    "istanbul": "^0.4.5",
-    "qunit": "^1.0.0",
-    "qunitjs": "^2.3.2"
-  }
+    "name": "qunit-test",
+    "version": "0.0.0",
+    "description": "qunit-test",
+    "main": "app.js",
+    "author": {
+        "name": "elor"
+    },
+    "dependencies": {
+        "istanbul": "^0.4.5",
+        "qunit": "^1.0.0",
+        "gulp-qunits": "^2.1.1",
+        "gulp": "^3.9.1"
+    }
 }

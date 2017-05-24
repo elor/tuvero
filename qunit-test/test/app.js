@@ -1,5 +1,5 @@
 QUnit.test("app test", function (assert) {
-    assert.ok(1 == 1, 'stupid test');
+    assert.ok(1 === 1, 'stupid test');
 
     var app = require('../app.js');
     assert.equal(app.do(1, 1), 2, '1 + 1');
