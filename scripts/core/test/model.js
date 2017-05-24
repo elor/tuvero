@@ -14,24 +14,24 @@ define(function() {
     Emitter = getModule('core/emitter');
     extend = getModule('lib/extend');
 
-    QUnit.test('Model', function() {
+    QUnit.test('Model', function (assert) {
       var model, success;
 
-      QUnit.ok(extend.isSubclass(Model, Emitter),
+      assert.ok(extend.isSubclass(Model, Emitter),
           'Model is an Emitter subclass');
 
       model = new Model();
 
-      QUnit.deepEqual(model.save(), {}, 'Model.save() returns empty object');
+      assert.deepEqual(model.save(), {}, 'Model.save() returns empty object');
 
       try {
-        QUnit.equal(model.restore({}), true,
+        assert.equal(model.restore({}), true,
             'Model.restore() returns true on success');
         success = true;
       } catch (e) {
         success = false;
       }
-      QUnit.ok(success, 'model.restore() exists and is a function');
+      assert.ok(success, 'model.restore() exists and is a function');
 
     });
   };

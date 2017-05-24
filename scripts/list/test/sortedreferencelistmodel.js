@@ -18,10 +18,10 @@ define(function() {
     SortedReferenceListModel = getModule('list/sortedreferencelistmodel');
     ListModel = getModule('list/listmodel');
 
-    QUnit.test('SortedReferenceListModel', function() {
+    QUnit.test('SortedReferenceListModel', function (assert) {
       var list, sorted, sortfunc, success;
 
-      QUnit.ok(extend.isSubclass(SortedReferenceListModel, ListModel),
+      assert.ok(extend.isSubclass(SortedReferenceListModel, ListModel),
           'SortedReferenceListModel is subclass of ReferenceListModel');
 
       list = new ListModel();
@@ -33,48 +33,48 @@ define(function() {
         success = true;
       }
 
-      QUnit.ok(success, 'empty construction fails');
+      assert.ok(success, 'empty construction fails');
 
       sorted = new SortedReferenceListModel(list);
-      QUnit.ok(sorted, 'proper construction');
-      QUnit.equal(sorted.length, 0, 'initial sorted list is empty');
+      assert.ok(sorted, 'proper construction');
+      assert.equal(sorted.length, 0, 'initial sorted list is empty');
 
       list.push(5);
 
-      QUnit.equal(sorted.length, 1,
+      assert.equal(sorted.length, 1,
           'pushing to the original list is mirrored by sorted list');
-      QUnit.deepEqual(sorted.asArray(), [5], 'element has been appended');
+      assert.deepEqual(sorted.asArray(), [5], 'element has been appended');
 
       list.push(2);
       list.push(1);
       list.push(4);
-      QUnit.deepEqual(sorted.asArray(), [1, 2, 4, 5],
+      assert.deepEqual(sorted.asArray(), [1, 2, 4, 5],
           'appended elements are inserted in sort order');
 
       list.remove(1);
-      QUnit.deepEqual(sorted.asArray(), [1, 4, 5],
+      assert.deepEqual(sorted.asArray(), [1, 4, 5],
           'correct element is removed when removing from original list');
 
       list.insert(2, 3);
-      QUnit.deepEqual(sorted.asArray(), [1, 3, 4, 5],
+      assert.deepEqual(sorted.asArray(), [1, 3, 4, 5],
           'sorting arbitrary insertions into the original list ');
 
       list.clear();
-      QUnit.equal(sorted.length, 0, 'clear() is mirrored');
+      assert.equal(sorted.length, 0, 'clear() is mirrored');
 
       list = new ListModel([4, 1, 2, 6, 53]);
       sorted = new SortedReferenceListModel(list);
-      QUnit.deepEqual(sorted.asArray(), [1, 2, 4, 6, 53],
+      assert.deepEqual(sorted.asArray(), [1, 2, 4, 6, 53],
           'pre-initialized list is sorted on construction');
 
       list = new ListModel(['Erik', 'Kai', 'Fabe']);
       sorted = new SortedReferenceListModel(list);
-      QUnit.deepEqual(sorted.asArray(), ['Erik', 'Fabe', 'Kai'],
+      assert.deepEqual(sorted.asArray(), ['Erik', 'Fabe', 'Kai'],
           'strings are sorted');
 
       sorted = new SortedReferenceListModel(list,
           SortedReferenceListModel.descending);
-      QUnit.deepEqual(sorted.asArray(), ['Kai', 'Fabe', 'Erik'],
+      assert.deepEqual(sorted.asArray(), ['Kai', 'Fabe', 'Erik'],
           'descending order works, too');
 
       // descending order, even first
@@ -93,19 +93,19 @@ define(function() {
       list.push(3);
       list.push(4);
       list.push(5);
-      QUnit.deepEqual(sorted.asArray(), [100, 8, 4, 4, 5, 3, 3, 1],
+      assert.deepEqual(sorted.asArray(), [100, 8, 4, 4, 5, 3, 3, 1],
           'arbitrary sort functions are accepyted');
 
       sortfunc = function() {
         return 0;
       };
       sorted = new SortedReferenceListModel(list, sortfunc);
-      QUnit.deepEqual(sorted.asArray(), list.asArray(),
+      assert.deepEqual(sorted.asArray(), list.asArray(),
           'sortfunction with zeroing sortfunction: '
               + 'add element in list order on construction');
 
       list.insert(2, 13);
-      QUnit.deepEqual(sorted.asArray(), [1, 4, 3, 8, 100, 3, 4, 5, 13],
+      assert.deepEqual(sorted.asArray(), [1, 4, 3, 8, 100, 3, 4, 5, 13],
           'zeroing sortfunction: '
               + 'insertion order is not the initial list order!');
 
@@ -114,15 +114,15 @@ define(function() {
        */
 
       sorted = new SortedReferenceListModel(list, undefined, false);
-      QUnit.deepEqual(sorted.asArray(), [1, 3, 3, 4, 4, 5, 8, 13, 100],
+      assert.deepEqual(sorted.asArray(), [1, 3, 3, 4, 4, 5, 8, 13, 100],
           'non-"unique" mode');
 
       sorted = new SortedReferenceListModel(list, undefined, true);
-      QUnit.deepEqual(sorted.asArray(), [1, 3, 4, 5, 8, 13, 100],
+      assert.deepEqual(sorted.asArray(), [1, 3, 4, 5, 8, 13, 100],
           '"unique" mode');
 
       list.remove(3);
-      QUnit.deepEqual(sorted.asArray(), [1, 4, 5, 8, 13, 100],
+      assert.deepEqual(sorted.asArray(), [1, 4, 5, 8, 13, 100],
           'CAREFUL: remove() removes ALL references, not just the last one');
     });
   };

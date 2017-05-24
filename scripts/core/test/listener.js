@@ -13,7 +13,7 @@ define(function() {
     Emitter = getModule('core/emitter');
     Listener = getModule('core/listener');
 
-    QUnit.test('Listener', function() {
+    QUnit.test('Listener', function (assert) {
       var emitter, emitter2, listener, ref;
 
       emitter = new Emitter();
@@ -31,34 +31,34 @@ define(function() {
         return this.emitters.length;
       };
 
-      QUnit.equal(listener.numEmitters(), 1,
+      assert.equal(listener.numEmitters(), 1,
           'listener initializes with an emitter');
 
       emitter.emit('update');
-      QUnit.equal(listener.updatecount, 1,
+      assert.equal(listener.updatecount, 1,
           'update event received from emitter1');
 
       emitter2.registerListener(listener);
-      QUnit.equal(listener.numEmitters(), 2, 'registerListener adds emitter2');
+      assert.equal(listener.numEmitters(), 2, 'registerListener adds emitter2');
 
       emitter2.emit('update');
-      QUnit.equal(listener.updatecount, 2, 'receiving events from emitter2');
+      assert.equal(listener.updatecount, 2, 'receiving events from emitter2');
 
       emitter.unregisterListener(listener);
-      QUnit.equal(listener.numEmitters(), 1,
+      assert.equal(listener.numEmitters(), 1,
           'emitter.destroy() unregisters the listener');
 
       emitter.registerListener(listener);
-      QUnit.equal(listener.numEmitters(), 2, 're-registering the emitter');
+      assert.equal(listener.numEmitters(), 2, 're-registering the emitter');
 
       emitter.destroy();
-      QUnit.equal(listener.numEmitters(), 1,
+      assert.equal(listener.numEmitters(), 1,
           'emitter.destroy() unregisters the listener');
 
       listener.destroy();
-      QUnit.equal(listener.numEmitters(), 0,
+      assert.equal(listener.numEmitters(), 0,
           'listener.destroy() unregisters all emitters');
-      QUnit.equal(emitter2.numListeners(), 0,
+      assert.equal(emitter2.numListeners(), 0,
           'listener.destroy() unregisters the listener from all emitters');
 
       /*
@@ -72,7 +72,7 @@ define(function() {
 
       emitter.emit('update');
       emitter.emit('reset');
-      QUnit.ok(emitter, 'bind-created listener works');
+      assert.ok(emitter, 'bind-created listener works');
 
       emitter.destroy();
       emitter = new Emitter();
@@ -84,7 +84,7 @@ define(function() {
       emitter.emit('reset');
       emitter.emit('update', 123);
 
-      QUnit.equal(ref, 124, 'bind-listening for multiple event types '
+      assert.equal(ref, 124, 'bind-listening for multiple event types '
           + 'with data object');
 
       emitter.destroy();
@@ -97,7 +97,7 @@ define(function() {
 
       emitter.emit('reset');
 
-      QUnit.equal(ref, emitter, 'bind(): thisArg works');
+      assert.equal(ref, emitter, 'bind(): thisArg works');
 
       /*
        * testing memory leak due to invalid forEach call
@@ -108,9 +108,9 @@ define(function() {
       emitter2.registerListener(listener);
       listener.destroy();
 
-      QUnit.equal(emitter.listeners.length, 0,
+      assert.equal(emitter.listeners.length, 0,
           'memleak: first emitter was unregistered');
-      QUnit.equal(emitter2.listeners.length, 0,
+      assert.equal(emitter2.listeners.length, 0,
           'memleak: second emitter was unregistered');
 
       /**
@@ -119,7 +119,7 @@ define(function() {
       emitter = new Emitter();
       listener = new Listener(emitter);
       emitter.registerListener(listener);
-      QUnit.equal(listener.emitters.length, 1,
+      assert.equal(listener.emitters.length, 1,
           'double registration of a listener is prevented');
 
       listener.resetcount = 0;
@@ -127,7 +127,7 @@ define(function() {
         this.resetcount += 1;
       };
       emitter.emit('reset');
-      QUnit.equal(listener.resetcount, 1,
+      assert.equal(listener.resetcount, 1,
           'double invocation of a listener is prevented');
     });
   };

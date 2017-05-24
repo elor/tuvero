@@ -19,11 +19,11 @@ define(function() {
     MatrixModel = getModule('math/matrixmodel');
     extend = getModule('lib/extend');
 
-    QUnit.test('TransposeSumMatrix', function() {
+    QUnit.test('TransposeSumMatrix', function (assert) {
       // constructor validation
       var a, m;
 
-      QUnit.ok(extend.isSubclass(TransposeSumMatrix, DelegateMatrix),
+      assert.ok(extend.isSubclass(TransposeSumMatrix, DelegateMatrix),
           'TransposeSumMatrix is a DelegateMatrix subclass');
 
       m = new MatrixModel(5);
@@ -34,16 +34,16 @@ define(function() {
         });
       });
 
-      QUnit.equal(a.get(0, 0), 24, 'get() on diagonal returns a twice value');
-      QUnit.equal(a.get(3, 2), -6, 'get() returns the transpose-sum');
-      QUnit.equal(a.get(1, 0), 18, 'get() returns the transpose-sum');
-      QUnit.equal(a.get(2, 2), 0, 'get() returns the transpose-sum');
-      QUnit.equal(a.get(4, 4), -24, 'get() returns the transpose-sum');
+      assert.equal(a.get(0, 0), 24, 'get() on diagonal returns a twice value');
+      assert.equal(a.get(3, 2), -6, 'get() returns the transpose-sum');
+      assert.equal(a.get(1, 0), 18, 'get() returns the transpose-sum');
+      assert.equal(a.get(2, 2), 0, 'get() returns the transpose-sum');
+      assert.equal(a.get(4, 4), -24, 'get() returns the transpose-sum');
 
-      QUnit.equal(a.get(-1, 2), undefined, 'get() out of bounds (row low)');
-      QUnit.equal(a.get(2, -9), undefined, 'get() out of bounds (col low)');
-      QUnit.equal(a.get(5, 3), undefined, 'get() out of bounds (row high)');
-      QUnit.equal(a.get(3, 7531), undefined, 'get() out of bounds (col high)');
+      assert.equal(a.get(-1, 2), undefined, 'get() out of bounds (row low)');
+      assert.equal(a.get(2, -9), undefined, 'get() out of bounds (col low)');
+      assert.equal(a.get(5, 3), undefined, 'get() out of bounds (row high)');
+      assert.equal(a.get(3, 7531), undefined, 'get() out of bounds (col high)');
     });
   };
 });

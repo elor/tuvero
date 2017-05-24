@@ -12,7 +12,7 @@ define(function() {
 
     Emitter = getModule('core/emitter');
 
-    QUnit.test('Emitter', function() {
+    QUnit.test('Emitter', function(assert) {
       var emitter, listener, listener2, eventcounter, resetcounter, retval;
 
       eventcounter = resetcounter = 0;
@@ -39,10 +39,10 @@ define(function() {
          */
         onevent: function(_emitter, event) {
           eventcounter += 1;
-          QUnit.equal(this, listener, 'onevent(): this equals listener');
-          QUnit.equal(_emitter, emitter,
+          assert.equal(this, listener, 'onevent(): this equals listener');
+          assert.equal(_emitter, emitter,
               'onevent(): first argument equals emitter ');
-          QUnit.equal(event, 'event',
+          assert.equal(event, 'event',
               'onevent(): second argument equals event string');
         },
         emitters: []
@@ -67,45 +67,45 @@ define(function() {
 
       retval = emitter.emit('asd');
 
-      QUnit.equal(retval, false,
+      assert.equal(retval, false,
           'Emitter: unreceived event returns false on emit()');
 
       emitter.registerListener(listener).registerListener(listener2);
-      QUnit.equal(eventcounter + resetcounter, 0,
+      assert.equal(eventcounter + resetcounter, 0,
           'counters are at a zero state after listener registration');
 
       retval = emitter.emit('event');
-      QUnit.equal(eventcounter, 2, "both listeners received 'event'");
-      QUnit.equal(retval, true,
+      assert.equal(eventcounter, 2, "both listeners received 'event'");
+      assert.equal(retval, true,
           'Emitter: received event returns true on emit()');
 
       emitter.registerListener(listener);
       retval = emitter.emit('event');
-      QUnit.equal(eventcounter, 4, 'Cannot register an event listener twice');
+      assert.equal(eventcounter, 4, 'Cannot register an event listener twice');
 
       retval = emitter.emit('reset');
-      QUnit.equal(eventcounter, 0, "counter was reset during 'reset' event");
-      QUnit.equal(resetcounter, 1, 'reset was processed');
+      assert.equal(eventcounter, 0, "counter was reset during 'reset' event");
+      assert.equal(resetcounter, 1, 'reset was processed');
 
       retval = emitter.emit('event');
       retval = emitter.emit();
-      QUnit.equal(resetcounter, 1,
+      assert.equal(resetcounter, 1,
           'default event (undefined) was not processed');
-      QUnit.equal(eventcounter, 2,
+      assert.equal(eventcounter, 2,
           'onundefined callback function was not processed');
 
       emitter.emit('thisEventIsInvalid');
-      QUnit.equal(eventcounter, 2, 'unspecified events are not processed');
+      assert.equal(eventcounter, 2, 'unspecified events are not processed');
 
       emitter.unregisterListener(listener);
       retval = emitter.emit('event');
-      QUnit.equal(eventcounter, 3,
+      assert.equal(eventcounter, 3,
           'unregistered listeners do not receive events');
 
       retval = emitter.listeners.indexOf(listener);
-      QUnit.equal(retval, -1, 'listeners are removed from emitter.listeners');
+      assert.equal(retval, -1, 'listeners are removed from emitter.listeners');
       retval = listener.emitters.indexOf(emitter);
-      QUnit.equal(retval, -1, 'emitters are removed from listener.emitters');
+      assert.equal(retval, -1, 'emitters are removed from listener.emitters');
 
       /*
        * emit+unregister test
@@ -135,7 +135,7 @@ define(function() {
       emitter.registerListener(listener);
       emitter.registerListener(listener2);
       emitter.emit('evt');
-      QUnit.equal(listener2.success, true,
+      assert.equal(listener2.success, true,
           'unregister during emit should not cause listeners to be skipped');
 
       /*
@@ -151,7 +151,7 @@ define(function() {
       emitter.registerListener(listener2);
       Emitter.call(emitter); // mix-in
       emitter.emit('evt');
-      QUnit.equal(listener2.success, true,
+      assert.equal(listener2.success, true,
           'Mixin-initialization of an emitter preserves the listeners');
 
       /*
@@ -168,9 +168,9 @@ define(function() {
       emitter.registerListener(listener2);
       emitter.destroy();
 
-      QUnit.equal(listener.emitters.length, 0,
+      assert.equal(listener.emitters.length, 0,
           'memleak: first listener was unregistered');
-      QUnit.equal(listener2.emitters.length, 0,
+      assert.equal(listener2.emitters.length, 0,
           'memleak: second listener was unregistered');
     });
   };

@@ -15,7 +15,7 @@ define(function() {
     MatchModel = getModule('core/matchmodel');
     ListModel = getModule('list/listmodel');
 
-    QUnit.test('ResultReferenceModel', function() {
+    QUnit.test('ResultReferenceModel', function (assert) {
       var game, result, ref, teamlist;
 
       teamlist = new ListModel();
@@ -28,14 +28,14 @@ define(function() {
       result = new MatchResult(game, [13, 7, 5, 2]);
       ref = new ResultReferenceModel(result, teamlist);
 
-      QUnit.equal(ref.getID(), game.getID(), 'identical game ids');
-      QUnit.equal(ref.getGroup(), game.getGroup(), 'identical game group');
+      assert.equal(ref.getID(), game.getID(), 'identical game ids');
+      assert.equal(ref.getGroup(), game.getGroup(), 'identical game group');
 
-      QUnit.deepEqual(ref.score, [13, 7, 5, 2], 'score is retained');
-      QUnit.equal(ref.getTeamID(0), 9, 'global value');
-      QUnit.equal(ref.getTeamID(1), 3, 'global value');
-      QUnit.equal(ref.getTeamID(2), 7, 'global value');
-      QUnit.equal(ref.getTeamID(3), 5, 'global value');
+      assert.deepEqual(ref.score, [13, 7, 5, 2], 'score is retained');
+      assert.equal(ref.getTeamID(0), 9, 'global value');
+      assert.equal(ref.getTeamID(1), 3, 'global value');
+      assert.equal(ref.getTeamID(2), 7, 'global value');
+      assert.equal(ref.getTeamID(3), 5, 'global value');
 
       teamlist.set(1, 12);
       teamlist.remove(0);
@@ -44,10 +44,10 @@ define(function() {
 
       // The time of reference is relevant, not the team list at a later
       // time
-      QUnit.equal(ref.getTeamID(0), 9, 'teamlist changes have no impact');
-      QUnit.equal(ref.getTeamID(1), 3, 'teamlist changes have no impact');
-      QUnit.equal(ref.getTeamID(2), 7, 'teamlist changes have no impact');
-      QUnit.equal(ref.getTeamID(3), 5, 'teamlist changes have no impact');
+      assert.equal(ref.getTeamID(0), 9, 'teamlist changes have no impact');
+      assert.equal(ref.getTeamID(1), 3, 'teamlist changes have no impact');
+      assert.equal(ref.getTeamID(2), 7, 'teamlist changes have no impact');
+      assert.equal(ref.getTeamID(3), 5, 'teamlist changes have no impact');
     });
   };
 });

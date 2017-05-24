@@ -13,7 +13,7 @@ define(function() {
     SelectionValueModel = getModule('core/selectionvaluemodel');
     ListModel = getModule('list/listmodel');
 
-    QUnit.test('SelectionValueModel', function() {
+    QUnit.test('SelectionValueModel', function (assert) {
       var model, allowed, defaultvalue;
 
       defaultvalue = 123;
@@ -21,17 +21,17 @@ define(function() {
       allowed = new ListModel();
 
       model = new SelectionValueModel(defaultvalue, allowed);
-      QUnit.equal(model.get(), defaultvalue, 'defaultvalue respected');
+      assert.equal(model.get(), defaultvalue, 'defaultvalue respected');
 
-      QUnit.equal(model.set(321), false, 'unallowed value');
-      QUnit.equal(model.set(5), false, 'unallowed value');
-      QUnit.equal(model.set('asd'), false, 'unallowed value');
-      QUnit.equal(model.get(), defaultvalue, 'empty allowed-list');
+      assert.equal(model.set(321), false, 'unallowed value');
+      assert.equal(model.set(5), false, 'unallowed value');
+      assert.equal(model.set('asd'), false, 'unallowed value');
+      assert.equal(model.get(), defaultvalue, 'empty allowed-list');
 
       allowed.push(5);
-      QUnit.equal(model.set(5), true, 'allowed value');
-      QUnit.equal(model.set(5), true, 'allowed value, again');
-      QUnit.equal(model.get(), 5, 'setting allowed value');
+      assert.equal(model.set(5), true, 'allowed value');
+      assert.equal(model.set(5), true, 'allowed value, again');
+      assert.equal(model.get(), 5, 'setting allowed value');
 
       allowed.push(4);
       allowed.push(3);
@@ -40,16 +40,16 @@ define(function() {
       allowed.push(10);
       allowed.push(551);
 
-      QUnit.equal(model.get(), 5, 'retaining value on allowedlist-extension');
+      assert.equal(model.get(), 5, 'retaining value on allowedlist-extension');
 
-      QUnit.equal(model.set(10), true, 'allowed value');
-      QUnit.equal(model.get(), 10, 'changing allowed value');
+      assert.equal(model.set(10), true, 'allowed value');
+      assert.equal(model.get(), 10, 'changing allowed value');
 
       allowed.remove(allowed.indexOf(10));
-      QUnit.equal(model.get(), defaultvalue, 'value reverts to defaultValue');
+      assert.equal(model.get(), defaultvalue, 'value reverts to defaultValue');
 
       model.setDefault(321);
-      QUnit.equal(model.get(), 321, 'default value changed, was not allowed');
+      assert.equal(model.get(), 321, 'default value changed, was not allowed');
     });
   };
 });

@@ -16,7 +16,7 @@ define(function() {
     MatchModel = getModule('core/matchmodel');
     Emitter = getModule('core/emitter');
 
-    QUnit.test('RankingDataListenerIndex', function() {
+    QUnit.test('RankingDataListenerIndex', function (assert) {
       var names, listeners, dummyRanking, result, ref;
 
       dummyRanking = new Emitter();
@@ -28,25 +28,25 @@ define(function() {
       names = [];
       listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
           names);
-      QUnit.deepEqual(names, [], 'empty names: still valid input');
-      QUnit.deepEqual(listeners, [], 'empty names: no listeners');
+      assert.deepEqual(names, [], 'empty names: still valid input');
+      assert.deepEqual(listeners, [], 'empty names: no listeners');
 
       names = ['points'];
       listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
           names);
-      QUnit.deepEqual(names, ['points'], 'flat dependencies: valid names out');
-      QUnit.deepEqual(listeners.length, 1, 'flat dependencies: one listener');
-      QUnit.ok(dummyRanking.points, 'listener creates points field');
-      QUnit.equal(dummyRanking.points.length, dummyRanking.length,
+      assert.deepEqual(names, ['points'], 'flat dependencies: valid names out');
+      assert.deepEqual(listeners.length, 1, 'flat dependencies: one listener');
+      assert.ok(dummyRanking.points, 'listener creates points field');
+      assert.equal(dummyRanking.points.length, dummyRanking.length,
           'listener initializes points field size');
-      QUnit.equal(dummyRanking.points, listeners[0].points,
+      assert.equal(dummyRanking.points, listeners[0].points,
           'dummyRanking and listener share the reference');
 
       result = new MatchResult(new MatchModel([1, 4], 0, 0), [13, 7]);
       dummyRanking.emit('result', result);
 
       ref = [0, 13, 0, 0, 7];
-      QUnit.deepEqual(dummyRanking.points.asArray(), ref,
+      assert.deepEqual(dummyRanking.points.asArray(), ref,
           'single result accepted');
 
       result = new MatchResult(new MatchModel([0, 1], 0, 0), [5, 11]);
@@ -55,7 +55,7 @@ define(function() {
       dummyRanking.emit('result', result);
 
       ref = [5, 24, 0, 13, 7];
-      QUnit.deepEqual(dummyRanking.points.asArray(), ref,
+      assert.deepEqual(dummyRanking.points.asArray(), ref,
           'multiple results work');
 
       /*
@@ -68,22 +68,22 @@ define(function() {
       names = ['saldo'];
       listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
           names);
-      QUnit.deepEqual(names, ['points', 'lostpoints', 'saldo'],
+      assert.deepEqual(names, ['points', 'lostpoints', 'saldo'],
           'hidden dependencies: valid names and name order');
-      QUnit.deepEqual(listeners.length, 3,
+      assert.deepEqual(listeners.length, 3,
           'hidden dependencies: additional listeners');
-      QUnit.ok(dummyRanking.points, 'listener creates points field');
-      QUnit.ok(dummyRanking.lostpoints, 'listener creates lostpoints field');
-      QUnit.ok(dummyRanking.saldo, 'listener creates saldo field');
+      assert.ok(dummyRanking.points, 'listener creates points field');
+      assert.ok(dummyRanking.lostpoints, 'listener creates lostpoints field');
+      assert.ok(dummyRanking.saldo, 'listener creates saldo field');
 
       dummyRanking = new Emitter();
       dummyRanking.length = 5;
       names = ['points', 'lostpoints', 'points'];
       listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
           names);
-      QUnit.deepEqual(names, ['points', 'lostpoints'],
+      assert.deepEqual(names, ['points', 'lostpoints'],
           'duplicate dependencies: removing duplicates');
-      QUnit.deepEqual(listeners.length, 2,
+      assert.deepEqual(listeners.length, 2,
           'hidden dependencies: additional listeners');
 
       dummyRanking = new Emitter();
@@ -91,8 +91,8 @@ define(function() {
       names = ['points', 'wtfisthis', 'saldo'];
       listeners = RankingDataListenerIndex.registerDataListeners(dummyRanking,
           names);
-      QUnit.equal(listeners, undefined, 'undefined name -> abort');
-      QUnit.deepEqual(names, ['wtfisthis'],
+      assert.equal(listeners, undefined, 'undefined name -> abort');
+      assert.deepEqual(names, ['wtfisthis'],
           'undefined name -> names array contains undefined entries');
     });
   };

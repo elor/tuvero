@@ -19,10 +19,10 @@ define(function() {
     Model = getModule('core/model');
     Listener = getModule('core/listener');
 
-    QUnit.test('RankingMapper', function(teams) {
-      var internal, ranking, result, listener;
+    QUnit.test('RankingMapper', function (assert) {
+      var internal, ranking, result, listener, teams;
 
-      QUnit.ok(extend.isSubclass(RankingMapper, Model),
+      assert.ok(extend.isSubclass(RankingMapper, Model),
           'RankingMapper is subclass of Model');
 
       teams = new ListModel();
@@ -43,7 +43,7 @@ define(function() {
         wins: [0, 0, 0, 0, 0],
         saldo: [0, 0, 0, 0, 0]
       };
-      QUnit.deepEqual(ranking.get(), ref,
+      assert.deepEqual(ranking.get(), ref,
           'only the ids get re-mapped to external ids, not the displayOrder');
 
       internal.result(new MatchResult(new MatchModel([1, 2], 0, 0), [13, 7]));
@@ -56,7 +56,7 @@ define(function() {
         wins: [0, 1, 0, 0, 0],
         saldo: [0, 6, -6, 0, 0]
       };
-      QUnit.deepEqual(ranking.get(), ref, 'ids remapped after first result');
+      assert.deepEqual(ranking.get(), ref, 'ids remapped after first result');
 
       listener = new Listener(ranking);
       listener.onupdate = function(emitter) {
@@ -72,15 +72,15 @@ define(function() {
           wins: [0, 1, 1, 0, 0],
           saldo: [0, 6, 6, 0, -12]
         };
-        QUnit.equal(emitter, ranking,
+        assert.equal(emitter, ranking,
             'callback: emitter is ranking (safety check)');
-        QUnit.deepEqual(emitter.get(), reference,
+        assert.deepEqual(emitter.get(), reference,
             'ids remapped after second result, inside callback');
       };
 
       internal.result(new MatchResult(new MatchModel([2, 4], 0, 0), [13, 1]));
 
-      QUnit.ok(listener.success, 'RankingMapper emits update events');
+      assert.ok(listener.success, 'RankingMapper emits update events');
 
       ref = {
         components: ['wins', 'saldo'],
@@ -90,7 +90,7 @@ define(function() {
         wins: [0, 1, 1, 0, 0],
         saldo: [0, 6, 6, 0, -12]
       };
-      QUnit.deepEqual(ranking.get(), ref,
+      assert.deepEqual(ranking.get(), ref,
           'ids remapped after second result, outside of callback');
 
     });

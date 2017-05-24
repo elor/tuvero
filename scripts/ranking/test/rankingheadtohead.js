@@ -15,7 +15,7 @@ define(function() {
     MatchResult = getModule('core/matchresult');
     MatchModel = getModule('core/matchmodel');
 
-    QUnit.test('Head-to-Head Ranking', function() {
+    QUnit.test('Head-to-Head Ranking', function (assert) {
       var ranking, result, ret, ref;
 
       ranking = new RankingModel(['wins', 'headtohead'], 5);
@@ -28,7 +28,7 @@ define(function() {
         headtohead: ['', '', '', '', '']
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'empty ranking: correct H2H-score');
+      assert.deepEqual(ret, ref, 'empty ranking: correct H2H-score');
 
       ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [7, 13]));
       ranking.result(new MatchResult(new MatchModel([1, 0], 0, 0), [13, 9]));
@@ -41,7 +41,7 @@ define(function() {
         headtohead: ['', '', '', 1, '']
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'first ranking is correct');
+      assert.deepEqual(ret, ref, 'first ranking is correct');
 
       ranking.result(new MatchResult(new MatchModel([0, 3], 0, 0), [13, 11]));
       ref = {
@@ -53,7 +53,7 @@ define(function() {
         headtohead: [1, 1, '', 1, '']
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'cyclic ranking finishes');
+      assert.deepEqual(ret, ref, 'cyclic ranking finishes');
 
       /*
        * Test for 'ignoring subsequent components' bug, #204
@@ -70,7 +70,7 @@ define(function() {
         points: [0, 0, 0, 0, 0, 0]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, '');
+      assert.deepEqual(ret, ref, '');
     });
   };
 });

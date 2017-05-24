@@ -15,7 +15,7 @@ define(function() {
 
     Random = getModule('core/random');
 
-    QUnit.test('Random', function() {
+    QUnit.test('Random', function (assert) {
       var min, max, r, x, i, sum;
 
       r = new Random();
@@ -37,11 +37,11 @@ define(function() {
       }
 
       // approximate testing
-      QUnit.equal(Math.abs(sum - 5000) < 100, true, 'double mean');
-      QUnit.equal(min < 0.01, true, 'double min top');
-      QUnit.equal(min >= 0.0, true, 'double min bottom');
-      QUnit.equal(max > 0.99, true, 'double max top');
-      QUnit.equal(max < 1.0, true, 'double max bottom');
+      assert.equal(Math.abs(sum - 5000) < 100, true, 'double mean');
+      assert.equal(min < 0.01, true, 'double min top');
+      assert.equal(min >= 0.0, true, 'double min bottom');
+      assert.equal(max > 0.99, true, 'double max top');
+      assert.equal(max < 1.0, true, 'double max bottom');
 
       max = min = r.nextInt(64);
 
@@ -56,8 +56,8 @@ define(function() {
         }
       }
 
-      QUnit.equal(min, 0, 'int min');
-      QUnit.equal(max, 63, 'int max');
+      assert.equal(min, 0, 'int min');
+      assert.equal(max, 63, 'int max');
 
       // TODO test pick() and pickAndRemove()
     });

@@ -12,23 +12,23 @@ define(function() {
 
     TournamentIndex = getModule('tournament/tournamentindex');
 
-    QUnit.test('TournamentIndex', function() {
-      QUnit.equal(TournamentIndex.createTournament(), undefined,
+    QUnit.test('TournamentIndex', function (assert) {
+      assert.equal(TournamentIndex.createTournament(), undefined,
           'empty construction fails');
-      QUnit.equal(TournamentIndex.createTournament('undefined'), undefined,
+      assert.equal(TournamentIndex.createTournament('undefined'), undefined,
           'undefined fails');
-      QUnit.ok(TournamentIndex.createTournament('round'), 'round');
-      QUnit.ok(TournamentIndex.createTournament('swiss'), 'swiss');
-      QUnit.ok(TournamentIndex.createTournament('ko'), 'ko');
-      QUnit.equal(TournamentIndex.createTournament('poule'), undefined,
+      assert.ok(TournamentIndex.createTournament('round'), 'round');
+      assert.ok(TournamentIndex.createTournament('swiss'), 'swiss');
+      assert.ok(TournamentIndex.createTournament('ko'), 'ko');
+      assert.equal(TournamentIndex.createTournament('poule'), undefined,
           'poule fails');
 
-      QUnit.equal(TournamentIndex.createTournament({}), undefined,
+      assert.equal(TournamentIndex.createTournament({}), undefined,
           'savedata-passing without "sys" property fails');
-      QUnit.ok(TournamentIndex.createTournament({
+      assert.ok(TournamentIndex.createTournament({
         sys: 'round'
       }), 'round-tournament with savedata');
-      QUnit.equal(TournamentIndex.createTournament({
+      assert.equal(TournamentIndex.createTournament({
         sys: 'poule'
       }), undefined, 'poule-tournament with savedata fails');
 

@@ -15,10 +15,10 @@ define(function() {
     IndexedModel = getModule('list/indexedmodel');
     PlayerModel = getModule('ui/playermodel');
 
-    QUnit.test('TeamModel', function() {
+    QUnit.test('TeamModel', function (assert) {
       var team, players, names, listener;
 
-      QUnit.ok(extend.isSubclass(TeamModel, IndexedModel),
+      assert.ok(extend.isSubclass(TeamModel, IndexedModel),
           'TeamModel is subclass of IndexedModel');
 
       listener = {
@@ -39,15 +39,15 @@ define(function() {
       };
 
       team = new TeamModel();
-      QUnit.equal(team.length, 1,
+      assert.equal(team.length, 1,
           'empty initialization generates an empty team player');
-      QUnit.equal(team.getPlayer(0).getName(), PlayerModel.NONAME,
+      assert.equal(team.getPlayer(0).getName(), PlayerModel.NONAME,
           'empty initialization generates an default team player name');
-      QUnit.equal(team.getID(), -1, 'empty initialization sets id to -1');
+      assert.equal(team.getID(), -1, 'empty initialization sets id to -1');
 
-      QUnit.equal(team.getPlayer(-1), undefined,
+      assert.equal(team.getPlayer(-1), undefined,
           'getPlayer(-1) returns undefined');
-      QUnit.equal(team.getPlayer(5), undefined,
+      assert.equal(team.getPlayer(5), undefined,
           'out of bounds getPlayer returns undefined');
 
       names = ['Erik E. Lorenz', 'Fabian Böttcher', 'Detlef Schwede'];
@@ -55,12 +55,12 @@ define(function() {
           new PlayerModel(names[2])];
       team = new TeamModel(players, 5);
 
-      QUnit.equal(team.length, players.length,
+      assert.equal(team.length, players.length,
           'proper initialization: team length');
-      QUnit.equal(team.getID(), 5, 'proper initialization sets id');
-      QUnit.equal(team.getPlayer(0).getName(), names[0], 'player name 1');
-      QUnit.equal(team.getPlayer(1).getName(), names[1], 'player name 2');
-      QUnit.equal(team.getPlayer(2).getName(), names[2], 'player name 3');
+      assert.equal(team.getID(), 5, 'proper initialization sets id');
+      assert.equal(team.getPlayer(0).getName(), names[0], 'player name 1');
+      assert.equal(team.getPlayer(1).getName(), names[1], 'player name 2');
+      assert.equal(team.getPlayer(2).getName(), names[2], 'player name 3');
 
       team.registerListener(listener);
 
@@ -68,7 +68,7 @@ define(function() {
       players[0].setName('Generic Name');
       players[1].setName('Another Generic Name');
       players[2].setName('Third Generic Name');
-      QUnit.equal(listener.updatecount, 3,
+      assert.equal(listener.updatecount, 3,
           'player name updates propagate through to TeamModel');
     });
   };

@@ -17,7 +17,7 @@ define(function() {
     CorrectionModel = getModule('core/correctionmodel');
     Options = getModule('options');
 
-    QUnit.test('TAC Ranking', function() {
+    QUnit.test('TAC Ranking', function (assert) {
       var ranking, result, ret, ref, optionbak;
 
       /*
@@ -34,7 +34,7 @@ define(function() {
 
       ranking = new RankingModel(['tac', 'wins', 'points'], 5);
 
-      QUnit.equal(ranking.dataListeners.tac.isPrimary(), true,
+      assert.equal(ranking.dataListeners.tac.isPrimary(), true,
           'tac is a primary dataListener');
 
       ref = {
@@ -47,7 +47,7 @@ define(function() {
         tac: [0, 0, 0, 0, 0]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'empty ranking: correct TAC score');
+      assert.deepEqual(ret, ref, 'empty ranking: correct TAC score');
 
       ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [8, 7]));
       ref = {
@@ -60,7 +60,7 @@ define(function() {
         tac: [0, 13, 0, 7, 0]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'first ranking is correct');
+      assert.deepEqual(ret, ref, 'first ranking is correct');
 
       ranking.result(new MatchResult(new MatchModel([0, 4], 0, 0), [0, 8]));
       ret = ranking.get();
@@ -73,7 +73,7 @@ define(function() {
         points: [0, 8, 0, 7, 8],
         tac: [1, 13, 0, 7, 20]
       };
-      QUnit.deepEqual(ret, ref, 'second ranking is correct (0 -> 1)');
+      assert.deepEqual(ret, ref, 'second ranking is correct (0 -> 1)');
 
       ranking.result(new MatchResult(new MatchModel([1, 4], 0, 0), [8, 5]));
       ref = {
@@ -86,7 +86,7 @@ define(function() {
         tac: [1, 28, 0, 7, 25]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'third ranking is correct');
+      assert.deepEqual(ret, ref, 'third ranking is correct');
 
       ranking.result(new MatchResult(new MatchModel([1, 2], 0, 0), [3, 8]));
       ranking.result(new MatchResult(new MatchModel([3, 0], 0, 0), [8, 0]));
@@ -101,7 +101,7 @@ define(function() {
         tac: [2, 31, 23, 27, 39]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'final ranking is correct');
+      assert.deepEqual(ret, ref, 'final ranking is correct');
 
       ranking.result(new MatchResult(new MatchModel([0, 2], 0, 0), [7, 6]));
       ref = {
@@ -114,7 +114,7 @@ define(function() {
         tac: [9, 31, 29, 27, 39]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'aborted game points are saldo only');
+      assert.deepEqual(ret, ref, 'aborted game points are saldo only');
 
       ranking.result(new MatchResult(new MatchModel([1, 3], 0, 0), [5, 5]));
       ref = {
@@ -127,7 +127,7 @@ define(function() {
         tac: [9, 36, 29, 32, 39]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'aborted game points, equal');
+      assert.deepEqual(ret, ref, 'aborted game points, equal');
 
       /*
        * correct()
@@ -146,7 +146,7 @@ define(function() {
         tac: [7, 36, 38, 32, 39]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'correct() works correctly with TAC');
+      assert.deepEqual(ret, ref, 'correct() works correctly with TAC');
 
       // undo a correct by correcting again. Should yield the same result.
       ranking = new RankingModel(['tac'], 2);
@@ -161,7 +161,7 @@ define(function() {
       new MatchResult(new MatchModel([0, 1], 0, 0), [8, 0])//
       ));
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'undo a correction yields original result'
+      assert.deepEqual(ret, ref, 'undo a correction yields original result'
           + ' ("one point for 0:8" is undone correctly)');
 
       /*
@@ -177,12 +177,12 @@ define(function() {
         tac: [0, 12 + Options.byepointswon - Options.byepointslost]
       };
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'tac accepts byes');
+      assert.deepEqual(ret, ref, 'tac accepts byes');
 
       ranking.bye(1);
       ref.tac[1] *= 2;
       ret = ranking.get();
-      QUnit.deepEqual(ret, ref, 'tac accepts multiple byes');
+      assert.deepEqual(ret, ref, 'tac accepts multiple byes');
 
       /*
        * restore original options

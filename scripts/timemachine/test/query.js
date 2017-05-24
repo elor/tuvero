@@ -14,17 +14,17 @@ define(function() {
     KeyModel = getModule('timemachine/keymodel');
     Type = getModule('core/type');
 
-    QUnit.test('Query', function() {
+    QUnit.test('Query', function (assert) {
       var query, key, key2, key3, key4, key5, ref, date, res;
 
       query = new Query(Query.ALLKEYS);
 
-      QUnit.ok(query, 'ALLKEYS construction successful');
-      QUnit.ok(Type.isArray(query.filter()), 'filter() result is an array');
+      assert.ok(query, 'ALLKEYS construction successful');
+      assert.ok(Type.isArray(query.filter()), 'filter() result is an array');
 
       query.filter().forEach(function(key) {
         var match = /test_/.test(key);
-        QUnit.equal(match, true, 'saved key matches target: ' + key);
+        assert.equal(match, true, 'saved key matches target: ' + key);
         if (match) {
           if (window.localStorage) {
             window.localStorage.removeItem(key);
@@ -32,7 +32,7 @@ define(function() {
         }
       });
 
-      QUnit.deepEqual(query.filter(), [],
+      assert.deepEqual(query.filter(), [],
           'ALL-query on cleared localStorage returns no results');
 
       ref = 'test_2016-02-12T12:10:11.591Z_2016-02-12T12:10:11.591Z';
@@ -54,39 +54,39 @@ define(function() {
       ref = [key.toString(), key2.toString(), key3.toString(), key4.toString()]
           .sort();
 
-      QUnit.deepEqual(query.filter(), ref, 'ALLKEYS returns all 4 test keys');
+      assert.deepEqual(query.filter(), ref, 'ALLKEYS returns all 4 test keys');
 
       query = new Query(Query.ROOTKEYS);
-      QUnit.ok(query, 'ROOTKEYS construction successful');
+      assert.ok(query, 'ROOTKEYS construction successful');
       ref = [key.toString(), key3.toString()].sort();
-      QUnit.deepEqual(query.filter(), ref, 'ROOTKEYS finds both init keys');
+      assert.deepEqual(query.filter(), ref, 'ROOTKEYS finds both init keys');
 
       query = new Query(Query.LASTKEYS);
-      QUnit.ok(query, 'LASTKEYS construction successful');
+      assert.ok(query, 'LASTKEYS construction successful');
       ref = [key2.toString(), key4.toString()].sort();
-      QUnit.deepEqual(query.filter(), ref, 'LASTKEYS finds both last saves');
+      assert.deepEqual(query.filter(), ref, 'LASTKEYS finds both last saves');
 
       query = new Query(//
       Query.LATESTSAVE);
-      QUnit.ok(query, 'LATESTKEYS construction successful');
+      assert.ok(query, 'LATESTKEYS construction successful');
       ref = [key4.toString()].sort();
-      QUnit.deepEqual(query.filter(), ref, 'LATESTSAVE finds the latest save');
+      assert.deepEqual(query.filter(), ref, 'LATESTSAVE finds the latest save');
 
       ref = [key.toString(), key2.toString()].sort();
       query = new Query(key);
-      QUnit.ok(query, 'construction from key successful');
-      QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 1');
+      assert.ok(query, 'construction from key successful');
+      assert.deepEqual(query.filter(), ref, 'successful related-keys query 1');
       query = new Query(key2);
-      QUnit.ok(query, 'construction from key2 successful');
-      QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 2');
+      assert.ok(query, 'construction from key2 successful');
+      assert.deepEqual(query.filter(), ref, 'successful related-keys query 2');
 
       ref = [key3.toString(), key4.toString()].sort();
       query = new Query(key3);
-      QUnit.ok(query, 'construction from key3 successful');
-      QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 3');
+      assert.ok(query, 'construction from key3 successful');
+      assert.deepEqual(query.filter(), ref, 'successful related-keys query 3');
       query = new Query(key4);
-      QUnit.ok(query, 'construction from key4 successful');
-      QUnit.deepEqual(query.filter(), ref, 'successful related-keys query 4');
+      assert.ok(query, 'construction from key4 successful');
+      assert.deepEqual(query.filter(), ref, 'successful related-keys query 4');
 
       /*
        * cleanup
@@ -99,7 +99,7 @@ define(function() {
         window.localStorage.removeItem(key4);
       }
 
-      QUnit.deepEqual((new Query()).filter(), [],
+      assert.deepEqual((new Query()).filter(), [],
           'ALL-query on post-test cleared localStorage returns no results');
     });
   };

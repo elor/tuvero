@@ -16,7 +16,7 @@ define(function() {
     MatchReferenceModel = getModule('core/matchreferencemodel');
     ReferenceListModel = getModule('list/referencelistmodel');
 
-    QUnit.test('ReferenceListModel', function() {
+    QUnit.test('ReferenceListModel', function (assert) {
       var teams, matches, refs, listener, matchref;
 
       teams = new ListModel();
@@ -33,7 +33,7 @@ define(function() {
 
       refs = new ReferenceListModel(matches, teams, MatchReferenceModel);
 
-      QUnit.equal(refs.length, matches.length,
+      assert.equal(refs.length, matches.length,
           'number of teams match after initialization');
 
       listener = new Listener(refs);
@@ -46,20 +46,20 @@ define(function() {
 
       matches.push(new MatchModel([4, 3], 2, 0));
 
-      QUnit.ok(listener.success, '"insert" event is re-emitted');
-      QUnit.equal(listener.callcount, 1, '"insert" is emitted exactly once');
-      QUnit.equal(refs.length, 3, 'new team gets added to the matches list');
+      assert.ok(listener.success, '"insert" event is re-emitted');
+      assert.equal(listener.callcount, 1, '"insert" is emitted exactly once');
+      assert.equal(refs.length, 3, 'new team gets added to the matches list');
       listener.destroy();
 
       matchref = refs.get(0);
-      QUnit.equal(matchref.getTeamID(0), 4, 'team id gets translated');
-      QUnit.equal(matchref.getTeamID(1), 3, 'team id gets translated');
+      assert.equal(matchref.getTeamID(0), 4, 'team id gets translated');
+      assert.equal(matchref.getTeamID(1), 3, 'team id gets translated');
       matchref = refs.get(1);
-      QUnit.equal(matchref.getTeamID(0), 5, 'team id gets translated');
-      QUnit.equal(matchref.getTeamID(1), 0, 'team id gets translated');
+      assert.equal(matchref.getTeamID(0), 5, 'team id gets translated');
+      assert.equal(matchref.getTeamID(1), 0, 'team id gets translated');
       matchref = refs.get(2);
-      QUnit.equal(matchref.getTeamID(0), 1, 'team id gets translated');
-      QUnit.equal(matchref.getTeamID(1), 2, 'team id gets translated');
+      assert.equal(matchref.getTeamID(0), 1, 'team id gets translated');
+      assert.equal(matchref.getTeamID(1), 2, 'team id gets translated');
 
       listener = new Listener(matchref);
       listener.numEvents = 0;
@@ -69,9 +69,9 @@ define(function() {
       matches.get(2).registerListener(listener);
 
       matches.get(2).finish([13, 7]);
-      QUnit.equal(listener.numEvents, 2,
+      assert.equal(listener.numEvents, 2,
           'both "finish" events propagate to the matchref');
-      QUnit.equal(matches.length, 3, 'match has not been removed by finish()');
+      assert.equal(matches.length, 3, 'match has not been removed by finish()');
 
       listener.destroy();
       listener = new Listener(refs);
@@ -82,10 +82,10 @@ define(function() {
         this.callcount += 1;
       };
       matches.remove(2);
-      QUnit.equal(matches.length, 2, 'match has been removed from matches');
-      QUnit.equal(refs.length, 2, 'match has been removed from refs');
-      QUnit.ok(listener.success, '"remove" event propagates to the matchref');
-      QUnit.equal(listener.callcount, 1, '"remove" is emitted exactly once');
+      assert.equal(matches.length, 2, 'match has been removed from matches');
+      assert.equal(refs.length, 2, 'match has been removed from refs');
+      assert.ok(listener.success, '"remove" event propagates to the matchref');
+      assert.equal(listener.callcount, 1, '"remove" is emitted exactly once');
     });
   };
 });

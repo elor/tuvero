@@ -15,16 +15,16 @@ define(function() {
     TournamentIndex = getModule('tournament/tournamentindex');
     IndexedListModel = getModule('list/indexedlistmodel');
 
-    QUnit.test('TournamentListModel', function() {
+    QUnit.test('TournamentListModel', function (assert) {
       var tournament, list, ref, savedata;
-      QUnit.ok(extend.isSubclass(TournamentListModel, IndexedListModel),
+      assert.ok(extend.isSubclass(TournamentListModel, IndexedListModel),
           'TournamentListModel is subclass of IndexedListModel');
 
       list = new TournamentListModel();
 
-      QUnit.ok(list, 'TournamentListModel construction works');
-      QUnit.equal(list.length, 0, 'no initial entries');
-      QUnit.deepEqual(list.tournamentIDsForEachTeam(), [],
+      assert.ok(list, 'TournamentListModel construction works');
+      assert.equal(list.length, 0, 'no initial entries');
+      assert.deepEqual(list.tournamentIDsForEachTeam(), [],
           'no tournament ids yet');
 
       tournament = TournamentIndex.createTournament('round',
@@ -37,7 +37,7 @@ define(function() {
       list.push(tournament);
 
       ref = [0, 0, 0, undefined, 0];
-      QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
+      assert.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'tournament ids for single tournament are correct');
 
       tournament = TournamentIndex.createTournament('round',
@@ -49,21 +49,21 @@ define(function() {
       list.push(tournament);
 
       ref = [0, 1, 0, 1, 0, 1];
-      QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
+      assert.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'tournament ids for two tournaments are correct');
 
       // HACK! DO NOT ACCESS DIRECTLY!
       list.get(0).state.forceState('finished');
       ref = [undefined, 1, undefined, 1, undefined, 1];
-      QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
+      assert.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'ids of finished tournaments are ignored (undefined)');
 
       savedata = list.save();
-      QUnit.ok(savedata, 'save() returns properly');
+      assert.ok(savedata, 'save() returns properly');
 
       list = new TournamentListModel();
-      QUnit.ok(list.restore(savedata), 'restore() returns true');
-      QUnit.deepEqual(list.tournamentIDsForEachTeam(), ref,
+      assert.ok(list.restore(savedata), 'restore() returns true');
+      assert.deepEqual(list.tournamentIDsForEachTeam(), ref,
           'restore() restores the ids for all players');
 
       // TODO test getGlobalRanking()

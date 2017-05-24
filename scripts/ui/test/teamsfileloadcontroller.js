@@ -13,7 +13,7 @@ define(function() {
     TeamsFileLoadController = getModule('ui/teamsfileloadcontroller');
     ValueModel = getModule('core/valuemodel');
 
-    QUnit.test('TeamsFileLoadController', function() {
+    QUnit.test('TeamsFileLoadController', function (assert) {
       var input, output, reference, teamsize;
 
       teamsize = new ValueModel(0);
@@ -24,57 +24,57 @@ define(function() {
       input = '';
       reference = [];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'empty string');
+      assert.deepEqual(output, reference, 'empty string');
 
       input = '\n';
       reference = [];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'empty line');
+      assert.deepEqual(output, reference, 'empty line');
 
       input = 'Erik';
       reference = [['Erik']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'single line');
+      assert.deepEqual(output, reference, 'single line');
 
       input = '"Erik"';
       reference = [['Erik']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'quoted single line');
+      assert.deepEqual(output, reference, 'quoted single line');
 
       input = '""';
       reference = [];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'quoted empty line');
+      assert.deepEqual(output, reference, 'quoted empty line');
 
       input = '"Erik ""Doublequote"" Lorenz"';
       reference = [['Erik "Doublequote" Lorenz']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'quoted double-quote');
+      assert.deepEqual(output, reference, 'quoted double-quote');
 
       input = '"Lorenz, Erik E."';
       reference = [['Lorenz, Erik E.']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'quoted single line with a comma');
+      assert.deepEqual(output, reference, 'quoted single line with a comma');
 
       input = '    Erik   ';
       reference = [['Erik']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'space-padded single line');
+      assert.deepEqual(output, reference, 'space-padded single line');
 
       input = 'Erik, Fabe';
       reference = [['Erik', 'Fabe']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'two players, one team');
+      assert.deepEqual(output, reference, 'two players, one team');
 
       input = '"Erik, Fabe"';
       reference = [['Erik, Fabe']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'quoted two-player line, one name');
+      assert.deepEqual(output, reference, 'quoted two-player line, one name');
 
       input = '"Erik", "Fabe"';
       reference = [['Erik', 'Fabe']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'two quoted players');
+      assert.deepEqual(output, reference, 'two quoted players');
 
       /*
        * Multiple Teams
@@ -82,33 +82,33 @@ define(function() {
       input = 'Erik\nFabe';
       reference = [['Erik'], ['Fabe']];
       output = TeamsFileLoadController.parseCSVString(input);
-      QUnit.deepEqual(output, reference, 'two lines');
+      assert.deepEqual(output, reference, 'two lines');
 
       /*
        * Teamsizes
        */
       input = [];
-      QUnit.equal(TeamsFileLoadController.readTeamsize(input), 0,
+      assert.equal(TeamsFileLoadController.readTeamsize(input), 0,
           'no team -> error');
 
       input = [[]];
-      QUnit.equal(TeamsFileLoadController.readTeamsize(input), 0,
+      assert.equal(TeamsFileLoadController.readTeamsize(input), 0,
           'empty team -> error');
 
       input = [['asd'], []];
-      QUnit.equal(TeamsFileLoadController.readTeamsize(input), 0,
+      assert.equal(TeamsFileLoadController.readTeamsize(input), 0,
           'empty team among others -> error');
 
       input = [['asd'], ['dsa', 'sdf']];
-      QUnit.equal(TeamsFileLoadController.readTeamsize(input), 0,
+      assert.equal(TeamsFileLoadController.readTeamsize(input), 0,
           'different team sizes -> error');
 
       input = [['asd'], ['dsa'], ['sdf']];
-      QUnit.equal(TeamsFileLoadController.readTeamsize(input), 1,
+      assert.equal(TeamsFileLoadController.readTeamsize(input), 1,
           'teamsize == 1');
 
       input = [['asd', 'dsa'], ['sdf', 'fds'], ['fda', 'fad']];
-      QUnit.equal(TeamsFileLoadController.readTeamsize(input), 2,
+      assert.equal(TeamsFileLoadController.readTeamsize(input), 2,
           'teamsize == 2');
     });
   };

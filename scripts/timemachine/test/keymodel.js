@@ -15,10 +15,10 @@ define(function() {
     Model = getModule('core/model');
     Presets = getModule('presets');
 
-    QUnit.test('KeyModel', function() {
+    QUnit.test('KeyModel', function (assert) {
       var key, key2, ref, date;
 
-      QUnit.ok(extend.isSubclass(KeyModel, Model),
+      assert.ok(extend.isSubclass(KeyModel, Model),
           'KeyModel is subclass of Model');
 
       /*
@@ -26,29 +26,29 @@ define(function() {
        */
 
       key = KeyModel.createRoot();
-      QUnit.ok(key, 'empty initialization works (init-key)');
-      QUnit.ok(key.toString(), 'init-key serialization works');
-      QUnit.ok(key.startDate, 'init-key startDate is set');
-      QUnit.ok(key.saveDate, 'init-key saveDate is set');
-      QUnit.equal(key.startDate, key.saveDate, 'init-key dates match');
-      QUnit.equal(key.target, Presets.target, 'init-key target matches');
+      assert.ok(key, 'empty initialization works (init-key)');
+      assert.ok(key.toString(), 'init-key serialization works');
+      assert.ok(key.startDate, 'init-key startDate is set');
+      assert.ok(key.saveDate, 'init-key saveDate is set');
+      assert.equal(key.startDate, key.saveDate, 'init-key dates match');
+      assert.equal(key.target, Presets.target, 'init-key target matches');
 
-      QUnit.equal(KeyModel.isValidKey(key.toString()), true,
+      assert.equal(KeyModel.isValidKey(key.toString()), true,
           'serialized init-key is a valid key');
-      QUnit.equal(key.isRoot(), true,
+      assert.equal(key.isRoot(), true,
           'init-key is an init key');
-      QUnit.equal(key.isRelated(key), true,
+      assert.equal(key.isRelated(key), true,
           'init-key is actually related to itself');
-      QUnit.equal(key.isRelated(key.toString()), true,
+      assert.equal(key.isRelated(key.toString()), true,
           'key string is related to itself');
 
-      QUnit.equal(key.isEqual(key), true, 'key is equal to itself');
-      QUnit.equal(key.isEqual(key.toString()), true,
+      assert.equal(key.isEqual(key), true, 'key is equal to itself');
+      assert.equal(key.isEqual(key.toString()), true,
           'key string is equal to itself');
 
       date = new Date(key.startDate);
-      QUnit.ok(date, 'startDate can be converted to an instance of Date');
-      QUnit.equal(date.toISOString(), key.startDate,
+      assert.ok(date, 'startDate can be converted to an instance of Date');
+      assert.equal(date.toISOString(), key.startDate,
           'Date conversion is fully reversible');
 
       /*
@@ -57,70 +57,70 @@ define(function() {
 
       key2 = KeyModel.createChild(key);
 
-      QUnit.ok(key2, 'reference initialization works (save-key)');
-      QUnit.ok(key2.toString(), 'save-key serialization works');
-      QUnit.ok(key2.startDate, 'save-key startDate is set');
-      QUnit.ok(key2.saveDate, 'save-key saveDate is set');
-      QUnit.equal(key2.target, Presets.target,
+      assert.ok(key2, 'reference initialization works (save-key)');
+      assert.ok(key2.toString(), 'save-key serialization works');
+      assert.ok(key2.startDate, 'save-key startDate is set');
+      assert.ok(key2.saveDate, 'save-key saveDate is set');
+      assert.equal(key2.target, Presets.target,
           'save-key target matches current target');
-      QUnit.notEqual(key2.startDate, key2.saveDate,
+      assert.notEqual(key2.startDate, key2.saveDate,
           'save-key dates are not equal');
-      QUnit.equal(key2.startDate, key.startDate,
+      assert.equal(key2.startDate, key.startDate,
           'both keys have the same start date');
 
       date = new Date(key.saveDate);
-      QUnit.ok(date, 'saveDate can be converted to an instance of Date');
-      QUnit.equal(date.toISOString(), key.saveDate,
+      assert.ok(date, 'saveDate can be converted to an instance of Date');
+      assert.equal(date.toISOString(), key.saveDate,
           'Date conversion is fully reversible');
 
-      QUnit.equal(KeyModel.isValidKey(key2), true,
+      assert.equal(KeyModel.isValidKey(key2), true,
           'key2 is a valid key');
-      QUnit.equal(key2.isRoot(), false,
+      assert.equal(key2.isRoot(), false,
           'save-key is no init key');
 
-      QUnit.equal(key2.isEqual(key2), true, 'key2 is equal to itself');
-      QUnit.equal(key2.isRelated(key2), true, 'key2 is related to itself');
+      assert.equal(key2.isEqual(key2), true, 'key2 is equal to itself');
+      assert.equal(key2.isRelated(key2), true, 'key2 is related to itself');
 
-      QUnit.equal(key.isRelated(key2), true, 'key is related to key2');
-      QUnit.equal(key.isEqual(key2), false, 'key is not equal to key2');
+      assert.equal(key.isRelated(key2), true, 'key is related to key2');
+      assert.equal(key.isEqual(key2), false, 'key is not equal to key2');
 
-      QUnit.equal(key.isRelated(key2), true, 'key is related to key2');
-      QUnit.equal(key.isEqual(key2), false, 'key is not equal to key2');
+      assert.equal(key.isRelated(key2), true, 'key is related to key2');
+      assert.equal(key.isEqual(key2), false, 'key is not equal to key2');
 
       /*
        * string construction
        */
 
       ref = 'test_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
-      QUnit.equal(KeyModel.isValidKey(ref), true,
+      assert.equal(KeyModel.isValidKey(ref), true,
           'ref is a valid key: ' + ref);
       key = KeyModel.fromString(ref);
-      QUnit.ok(key, 'string-key construction works');
-      QUnit.equal(key.toString(), ref, 'data is read and reconstructed as-is');
-      QUnit.equal(key.isEqual(ref), true,
+      assert.ok(key, 'string-key construction works');
+      assert.equal(key.toString(), ref, 'data is read and reconstructed as-is');
+      assert.equal(key.isEqual(ref), true,
           'key is equal to its construction string');
 
-      QUnit.equal(KeyModel.isValidKey(key), true,
+      assert.equal(KeyModel.isValidKey(key), true,
           'string-constructed key is a valid key');
-      QUnit.equal(key.isRoot(), false,
+      assert.equal(key.isRoot(), false,
           'string-key is no init key');
 
-      QUnit.equal(key.isEqual(key2), false, 'unrelated keys are unequal');
-      QUnit.equal(key.isRelated(key2), false, 'unrelated keys are unrelated');
+      assert.equal(key.isEqual(key2), false, 'unrelated keys are unequal');
+      assert.equal(key.isRelated(key2), false, 'unrelated keys are unrelated');
 
       /*
        * other targets
        */
       ref = 'boule_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
-      QUnit.equal(KeyModel.isTuveroKey(ref), true,
+      assert.equal(KeyModel.isTuveroKey(ref), true,
           'cross-target key is a tuvero key: ' + ref);
-      QUnit.equal(KeyModel.isValidKey(ref), false,
+      assert.equal(KeyModel.isValidKey(ref), false,
           'cross-target key is not valid: ' + ref);
 
       ref = 'basic_2016-02-11T17:36:50.123Z_2016-02-11T18:23:02.543Z';
-      QUnit.equal(KeyModel.isTuveroKey(ref), true,
+      assert.equal(KeyModel.isTuveroKey(ref), true,
           'cross-target key is a tuvero key: ' + ref);
-      QUnit.equal(KeyModel.isValidKey(ref), false,
+      assert.equal(KeyModel.isValidKey(ref), false,
           'cross-target key is not valid: ' + ref);
 
       function testkey(keystring, keydescription) {
@@ -136,11 +136,11 @@ define(function() {
           success = false;
         }
 
-        QUnit.equal(success, true, 'forbidden key is intercepted: '
+        assert.equal(success, true, 'forbidden key is intercepted: '
             + keydescription);
       }
 
-      QUnit.ok(Presets.target, 'test', 'Tuvero Test target is "test"');
+      assert.ok(Presets.target, 'test', 'Tuvero Test target is "test"');
 
       key = undefined;
       testkey('', 'empty key');

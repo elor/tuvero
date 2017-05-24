@@ -16,10 +16,10 @@ define(function() {
     ValueModel = getModule('core/valuemodel');
     Listener = getModule('core/listener');
 
-    QUnit.test('PropertyValueModel', function() {
+    QUnit.test('PropertyValueModel', function (assert) {
       var model, value, listener;
 
-      QUnit.ok(extend.isSubclass(PropertyValueModel, ValueModel),
+      assert.ok(extend.isSubclass(PropertyValueModel, ValueModel),
           'PropertyValueModel is subclass of ValueModel');
 
       model = new PropertyModel({
@@ -30,8 +30,8 @@ define(function() {
 
       value = new PropertyValueModel(model, 'bool');
 
-      QUnit.ok(value, 'bool value initialization');
-      QUnit.equal(value.get(), true, 'value is initialized to current value');
+      assert.ok(value, 'bool value initialization');
+      assert.equal(value.get(), true, 'value is initialized to current value');
 
       listener = new Listener(value);
       listener.updates = 0;
@@ -40,23 +40,23 @@ define(function() {
       };
 
       model.setProperty('bool', false);
-      QUnit.equal(listener.updates, 1, 'value: 1 propagate update');
-      QUnit.equal(value.get(), false, 'value is propagated to value');
+      assert.equal(listener.updates, 1, 'value: 1 propagate update');
+      assert.equal(value.get(), false, 'value is propagated to value');
 
       listener.updates = 0;
       value.set(true);
-      QUnit.equal(listener.updates, 1, 'value.set(): no event loop');
-      QUnit.equal(value.get(), true, 'value is properly set');
-      QUnit.equal(model.getProperty('bool'), true,
+      assert.equal(listener.updates, 1, 'value.set(): no event loop');
+      assert.equal(value.get(), true, 'value is properly set');
+      assert.equal(model.getProperty('bool'), true,
           'value is propagated to PropertyModel');
 
       listener.updates = 0;
       value.set(value.get());
-      QUnit.equal(listener.updates, 0, 'value.set(value.get()): no-op');
+      assert.equal(listener.updates, 0, 'value.set(value.get()): no-op');
 
       listener.updates = 0;
       model.setProperty('bool', model.getProperty('bool'));
-      QUnit.equal(listener.updates, 0, 'setProp(getProp()): no-op');
+      assert.equal(listener.updates, 0, 'setProp(getProp()): no-op');
     });
   };
 });

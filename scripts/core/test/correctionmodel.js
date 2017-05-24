@@ -16,10 +16,10 @@ define(function() {
     CorrectionModel = getModule('core/correctionmodel');
     Model = getModule('core/model');
 
-    QUnit.test('CorrectionModel', function() {
+    QUnit.test('CorrectionModel', function (assert) {
       var match, result, result2, correction, data, success;
 
-      QUnit.ok(extend.isSubclass(CorrectionModel, Model),
+      assert.ok(extend.isSubclass(CorrectionModel, Model),
           'CorrectionModel is subclass of Model');
 
       match = new MatchModel([1, 4], 0, 1);
@@ -27,9 +27,9 @@ define(function() {
       result2 = new MatchResult(result, [7, 13]);
       correction = new CorrectionModel(result, result2);
 
-      QUnit.ok(correction, 'construction works');
-      QUnit.equal(correction.before, result, "'before' stored as reference");
-      QUnit.equal(correction.after, result2, "'after' stored as reference");
+      assert.ok(correction, 'construction works');
+      assert.equal(correction.before, result, "'before' stored as reference");
+      assert.equal(correction.after, result2, "'after' stored as reference");
 
       /*
        * erronuous construction -> throw
@@ -43,17 +43,17 @@ define(function() {
         success = true;
       }
 
-      QUnit.ok(success, 'the constructor throws on invalid values');
+      assert.ok(success, 'the constructor throws on invalid values');
 
       /*
        * default construction
        */
 
       correction = new CorrectionModel();
-      QUnit.ok(correction, 'default construction works');
-      QUnit.deepEqual(correction.before, new MatchResult(),
+      assert.ok(correction, 'default construction works');
+      assert.deepEqual(correction.before, new MatchResult(),
           'default construction of pre-correction result');
-      QUnit.deepEqual(correction.after, new MatchResult(),
+      assert.deepEqual(correction.after, new MatchResult(),
           'default construction of post-correction result');
 
       /*
@@ -61,13 +61,13 @@ define(function() {
        */
       correction = new CorrectionModel(result, result2);
       data = correction.save();
-      QUnit.ok(data, 'save() returns');
+      assert.ok(data, 'save() returns');
 
       correction = new CorrectionModel();
-      QUnit.ok(correction.restore(data), 'restore() returns');
-      QUnit.deepEqual(correction.before, result,
+      assert.ok(correction.restore(data), 'restore() returns');
+      assert.deepEqual(correction.before, result,
           'restore() restores the pre-correction result');
-      QUnit.deepEqual(correction.after, result2,
+      assert.deepEqual(correction.after, result2,
           'restore() restores the post-correction result');
     });
   };

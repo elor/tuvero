@@ -12,7 +12,7 @@ define(function() {
 
     Type = getModule('core/type');
 
-    QUnit.test('Type', function() {
+    QUnit.test('Type', function (assert) {
       var types, ref, functionnames, constructors;
 
       /*
@@ -47,7 +47,7 @@ define(function() {
        */
 
       ref.forEach(function(typename, index) {
-        QUnit.equal(Type(types[index]), typename, 'Type ' + typename
+        assert.equal(Type(types[index]), typename, 'Type ' + typename
             + ' detected');
       });
 
@@ -59,11 +59,11 @@ define(function() {
        * Type.is and Type.isType existance
        */
 
-      QUnit.ok(Type.is, 'Type.is exists');
-      QUnit.equal(Type(Type.is), 'function', 'Type.is() is a function');
+      assert.ok(Type.is, 'Type.is exists');
+      assert.equal(Type(Type.is), 'function', 'Type.is() is a function');
       functionnames.forEach(function(functionname) {
-        QUnit.ok(Type[functionname], 'Type.' + functionname + ' exists');
-        QUnit.equal(Type(Type[functionname]), 'function', 'Type.'
+        assert.ok(Type[functionname], 'Type.' + functionname + ' exists');
+        assert.equal(Type(Type[functionname]), 'function', 'Type.'
             + functionname + '() is a function');
       });
 
@@ -74,7 +74,7 @@ define(function() {
       types.forEach(function(type, typeindex) {
         functionnames.forEach(function(functionname, functionindex) {
           var expected = functionindex === typeindex;
-          QUnit.equal(Type[functionname](type), expected, 'Type.'
+          assert.equal(Type[functionname](type), expected, 'Type.'
               + functionname + ' on a ' + Type(type) + ' is ' + expected);
         });
       });
@@ -86,7 +86,7 @@ define(function() {
       types.forEach(function(type, typeindex) {
         ref.forEach(function(refname, functionindex) {
           var expected = functionindex === typeindex;
-          QUnit.equal(Type.is(type, refname), expected, 'Type.is(obj, "'
+          assert.equal(Type.is(type, refname), expected, 'Type.is(obj, "'
               + refname + '") on a ' + Type(type) + ' is ' + expected);
         });
       });
@@ -94,7 +94,7 @@ define(function() {
       types.forEach(function(type, typeindex) {
         constructors.forEach(function(constructor, functionindex) {
           var expected = functionindex === typeindex;
-          QUnit.equal(Type.is(type, constructor), expected, 'Type.is(obj, '
+          assert.equal(Type.is(type, constructor), expected, 'Type.is(obj, '
               + constructor + ') on a ' + Type(type) + ' is ' + expected);
         });
       });
