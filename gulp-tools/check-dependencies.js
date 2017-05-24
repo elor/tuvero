@@ -25,6 +25,18 @@ module.exports = function () {
         return parts.join('/');
     }
 
+    function getRequiredDeps(contents) {
+        var re = /(?:require|getModule)\(['"]([^)",]+)["']\)/g;
+        var match;
+        var deps = [];
+
+        while (match = re.exec(contents)) {
+            deps.push(match[1])
+        }
+
+        return deps;
+    }
+
     function readDependencies(contents) {
         function define(dependencies, callback) {
             if (isArray(dependencies)) {
@@ -34,7 +46,7 @@ module.exports = function () {
         var require = define;
         require.config = function () { };
 
-        return eval(contents);
+        return getRequiredDeps(contents).concat(eval(contents) || []);
     };
 
     function getDuplicates(array) {
@@ -77,7 +89,7 @@ module.exports = function () {
         }
 
         var deps = readDependencies.call({}, file.contents.toString());
-        if (deps === undefined) {
+        if (deps === undefined || deps.length === 0) {
             // Not an error: There are files which don't require anything
             done();
             return;
