@@ -18,7 +18,9 @@
     "through2": "^2.0.3"
   },
   "dependencies": {
+    "gulp": "^3.9.1",
     "gulp-multi-process": "^1.2.0",
+    "gulp-qunit": "^1.5.0",
     "requirejs": "^2.3.3"
   },
   "scripts": {
