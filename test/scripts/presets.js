@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['core/rankingcomponentindex'], function(RankingComponentIndex) {
+define(['ranking/rankingcomponentindex'], function(RankingComponentIndex) {
   var Presets;
 
   Presets = {
