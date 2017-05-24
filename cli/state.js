@@ -5,7 +5,7 @@
 var fs = require('fs');
 
 function loadState(file, callback, errcallback) {
-    var requirejs = require('requirejs')
+    var requirejs = require('requirejs');
 
     callback = callback || console.log.bind(console);
     errcallback = errcallback || console.error.bind(console);
@@ -20,7 +20,7 @@ function loadState(file, callback, errcallback) {
     var target = fileContents.target;
 
     requirejs.config({
-        baseUrl: '../scripts',
+        baseUrl: '../scripts'
     });
 
     requirejs(['core/config'], function(config) {
@@ -38,7 +38,7 @@ function loadState(file, callback, errcallback) {
 
         fs.readFile(file, { encoding: 'utf-8' }, function(err, data) {
             if (err) {
-                errcallback(err)
+                errcallback(err);
             } else {
                 State.restore(JSON.parse(data));
                 callback(State);

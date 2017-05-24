@@ -7,6 +7,7 @@
     "name": "Erik E. Lorenz"
   },
   "dependencies": {
+    "qunitjs": "^2.3.2",
     "requirejs": "^2.3.3"
   }
 }
