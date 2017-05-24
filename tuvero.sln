@@ -9,8 +9,6 @@ Project("{262852C6-CD72-467D-83FE-5EEB1973A190}") = "mobile", "mobile\mobile.jsp
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "cli", "cli\cli.njsproj", "{2DEED847-8792-4C57-94B7-DF609757D084}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "qunit-test", "qunit-test\qunit-test.njsproj", "{7356B55D-3A91-4525-812E-25DB850E80DD}"
-EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "turniere.tuvero.de", "..\turniere.tuvero.de\turniere.tuvero.de.pyproj", "{E6EFB1D4-9115-47E0-BDC9-4E59B6BC39C8}"
 EndProject
 Global
@@ -157,42 +155,6 @@ Global
 		{2DEED847-8792-4C57-94B7-DF609757D084}.Release|Windows-x64.Build.0 = Release|Any CPU
 		{2DEED847-8792-4C57-94B7-DF609757D084}.Release|Windows-x86.ActiveCfg = Release|Any CPU
 		{2DEED847-8792-4C57-94B7-DF609757D084}.Release|Windows-x86.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Android.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Android.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|iOS.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|iOS.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows Phone (Universal).ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows Phone (Universal).Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows Phone 8.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows Phone 8.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-AnyCPU.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-AnyCPU.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-ARM.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-ARM.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-x64.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-x64.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-x86.ActiveCfg = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Debug|Windows-x86.Build.0 = Debug|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Android.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Android.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|iOS.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|iOS.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows Phone (Universal).ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows Phone (Universal).Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows Phone 8.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows Phone 8.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-AnyCPU.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-AnyCPU.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-ARM.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-ARM.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-x64.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-x64.Build.0 = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-x86.ActiveCfg = Release|Any CPU
-		{7356B55D-3A91-4525-812E-25DB850E80DD}.Release|Windows-x86.Build.0 = Release|Any CPU
 		{E6EFB1D4-9115-47E0-BDC9-4E59B6BC39C8}.Debug|Android.ActiveCfg = Debug|Any CPU
 		{E6EFB1D4-9115-47E0-BDC9-4E59B6BC39C8}.Debug|Android.Build.0 = Debug|Any CPU
 		{E6EFB1D4-9115-47E0-BDC9-4E59B6BC39C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
