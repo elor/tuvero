@@ -16,12 +16,6 @@
     "through2": "^2.0.3"
   },
   "scripts": {
-    "build-basic-scripts": "./node_modules/.bin/r.js.cmd -o basic/scripts/build.js",
-    "build-basic-style": "./node_modules/.bin/r.js.cmd -cssIn basic/style/main.css",
-    "build-boule-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
-    "build-boule-style": "./node_modules/.bin/r.js.cmd -cssIn boule/style/main.css",
-    "build-tac-scripts": "./node_modules/.bin/r.js.cmd -o tac/scripts/build.js",
-    "build-tac-style": "./node_modules/.bin/r.js.cmd -cssIn tac/style/main.css",
     "test": "gulp test"
   },
   "dependencies": {}
