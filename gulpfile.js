@@ -31,7 +31,7 @@ gulp.task('default', ['lib', 'update', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
 gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
 gulp.task('build', ['build-static', 'build-boule', 'build-basic', 'build-tac']);
-gulp.task('test', function () {
+gulp.task('test', ['libs'], function () {
   return run('npm test').exec();
 })
 
