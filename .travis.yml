@@ -7,7 +7,7 @@ sudo: false
 
 install:
   - npm install
-  - cd cli && npm install
+  - npm install cli/
 
 script:
 - gulp
