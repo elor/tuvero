@@ -101,7 +101,8 @@ requirejs(['core/config'], function (config) {
     });
 
     QUnit.done(function (data) {
-        console.log(data);
+        console.log(JSON.stringify(data, null, '  '));
+
         if (data.failed) {
             process.exit(1);
         }
