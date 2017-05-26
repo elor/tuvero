@@ -2,7 +2,7 @@
 var createtestjs = require('./gulp-tools/create-test');
 var del = require('del');
 var filecount = require('./gulp-tools/filecount');
-var gulp = require('gulp');
+var gulp = require('gulp-npm-run')(require('gulp'));
 var mainstyle = require('./gulp-tools/mainstyle');
 var checkdependencies = require('./gulp-tools/check-dependencies');
 var manifest = require('gulp-manifest');
@@ -14,6 +14,7 @@ var multiprocess = require('gulp-multi-process');
 
 var sources = {
     styles: ['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'],
+    scripts_and_tests: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js'],
     scripts: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/test/*.js'],
     dependant_scripts: [
         'scripts/*/*.js',
@@ -115,6 +116,7 @@ gulp.task('template-tac', template('tac', sources.template_path));
 
 gulp.task('watch', function () {
     gulp.watch(sources.scripts, ['update-common-js']);
+    gulp.watch(sources.scripts_and_tests, ['test']);
     gulp.watch(sources.dependant_scripts, ['check-dependencies']);
     gulp.watch(sources.styles, ['update-mainstyle']);
     gulp.watch(sources.templates, ['template']);
