@@ -6,10 +6,11 @@ var gulp = require('gulp');
 var manifest = require('gulp-manifest');
 var buildstyle = require('./buildstyle');
 var buildconfig = require('./create-build-config');
+var path = require('path');
 
 var targets = ['basic', 'boule', 'tac'];
 
-var extension = '.cmd';
+var extension = path === path.win32 ? '.cmd' : '';
 
 module.exports = function () {
   gulp.task('build-static', ['build-static-images', 'build-static-html', 'build-static-manifest']);
