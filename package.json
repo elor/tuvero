@@ -28,6 +28,7 @@
     "build-basic-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
     "build-boule-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
     "build-tac-style": "./node_modules/.bin/r.js.cmd -cssIn boule/style/main.css",
-    "build-tac-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js"
+    "build-tac-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
+    "test": "node cli/test.js"
   }
 }
