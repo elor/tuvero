@@ -87,8 +87,6 @@ requirejs(['core/config'], function (config) {
     });
 
     QUnit.testStart(function (test) {
-        console.log("testStart");
-        //console.log(test);
     });
 
     QUnit.log(function (test) {
@@ -100,12 +98,9 @@ requirejs(['core/config'], function (config) {
     });
 
     QUnit.testDone(function (test) {
-        console.log("testDone");
-        //console.log(test);
     });
 
     QUnit.done(function (data) {
-        console.log("done");
         console.log(data);
     });
 
