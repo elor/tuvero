@@ -49,7 +49,11 @@ module.exports = function () {
       return run(`gulp build-${target}-style-internal`).exec();
     });
 
-    gulp.task(`build-${target}-scripts`, ['build-config', `build-${target}-requirejs`], function () {
+    gulp.task(`build-${target}-scripts`, [
+      'build-config',
+      `build-${target}-requirejs`,
+      'update-common-js'
+    ], function () {
       return run(`r.js${extension} -o build/config/${target}.js`).exec();
     });
 
