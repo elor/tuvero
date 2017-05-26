@@ -26,17 +26,12 @@ var sources = {
   template_path: 'templates'
 };
 
-gulp.task('all', ['lib', 'update', 'build']);
-gulp.task('default', ['all']);
+gulp.task('default', ['lib', 'update', 'build']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
 gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
 gulp.task('build', ['build-static', 'build-boule', 'build-basic', 'build-tac']);
 
 gulp.task('lib', libs());
-
-gulp.task('clean', function () {
-  return del('lib|build|dev|{basic,boule,tac}/index.html|style/mainstyle.css|scripts/common.css');
-});
 
 gulp.task('build-static', ['build-static-images', 'build-static-html', 'build-static-manifest']);
 
