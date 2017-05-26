@@ -21,8 +21,7 @@
     "build-boule-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
     "build-boule-style": "./node_modules/.bin/r.js.cmd -cssIn boule/style/main.css",
     "build-tac-scripts": "./node_modules/.bin/r.js.cmd -o tac/scripts/build.js",
-    "build-tac-style": "./node_modules/.bin/r.js.cmd -cssIn tac/style/main.css",
-    "test": "node cli/test.js"
+    "build-tac-style": "./node_modules/.bin/r.js.cmd -cssIn tac/style/main.css"
   },
   "dependencies": {}
 }
