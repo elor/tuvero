@@ -26,7 +26,7 @@ var sources = {
   template_path: 'templates'
 };
 
-gulp.task('default', ['lib', 'update', 'build']);
+gulp.task('default', ['lib', 'update', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
 gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
 gulp.task('build', ['build-static', 'build-boule', 'build-basic', 'build-tac']);
