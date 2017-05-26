@@ -13,8 +13,8 @@ var multiprocess = require('gulp-multi-process');
 
 var sources = {
   styles: ['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'],
-  scripts_and_tests: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js'],
-  scripts: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/test/*.js'],
+  scripts_and_tests: ['scripts/**/*.js', '!scripts/core/{common,config,main}.js', '!**/lib/*.js'],
+  scripts: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/{lib,test}/*.js'],
   dependant_scripts: [
     'scripts/*/*.js',
     '{basic,boule,tac,test}/scripts/{presets,options,strings}.js',
@@ -33,7 +33,7 @@ gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
 gulp.task('build', ['build-static', 'build-boule', 'build-basic', 'build-tac']);
 gulp.task('test', ['lib'], function () {
   return run('node cli/test.js').exec();
-})
+});
 
 gulp.task('lib', libs());
 
