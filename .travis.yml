@@ -1,20 +1,12 @@
-language: bash
+language: nodejs
+node_js:
+  - "node"
+  - "7"
 
 sudo: false
 
-addons:
-  apt:
-    packages:
-    - sed
-    - grep
-    - findutils
-    - optipng
-    - imagemagick
-    - python
-    - make
-
 install:
-- npm install requirejs bower
+- npm install
 
 script:
-- make build
+- gulp
