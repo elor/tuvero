@@ -47,6 +47,21 @@ module.exports = function () {
     gulp.task(`build-${target}-style`, ['update-mainstyle'], function () {
       return run(`gulp build-${target}-style-internal`).exec();
     });
+
+    gulp.task(`build-${target}-index`, ['template'], function () {
+      return gulp.src([`${target}/index.html`])
+        .pipe(gulp.dest(`build/${target}/`));
+    });
+
+    gulp.task(`build-${target}-requirejs`, function () {
+      return gulp.src([`${target}/scripts/require.js`])
+        .pipe(gulp.dest(`build/${target}/scripts/`));
+    });
+
+    gulp.task(`build-${target}-images`, function () {
+      return gulp.src([`${target}/images/{sprite,favicon}.png`])
+        .pipe(gulp.dest(`build/${target}/images/`));
+    });
   });
 
   gulp.task('build-config', function () {
