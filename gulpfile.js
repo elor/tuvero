@@ -35,7 +35,7 @@ gulp.task('test', ['lib', 'test-dependencies'], function () {
 gulp.task('lib', libs());
 gulp.task('build', build());
 
-gulp.task('test-dependencies', function () {
+gulp.task('test-dependencies', ['lib'], function () {
   return gulp.src(sources.dependant_scripts, { base: 'scripts' })
     .pipe(filecount())
     .pipe(checkdependencies());
