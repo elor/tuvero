@@ -102,6 +102,9 @@ requirejs(['core/config'], function (config) {
 
     QUnit.done(function (data) {
         console.log(data);
+        if (data.failed) {
+            process.exit(1);
+        }
     });
 
     tests.forEach(test => requirejs(test)(QUnit, requirejs));
