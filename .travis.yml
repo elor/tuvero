@@ -6,9 +6,7 @@ node_js:
 sudo: false
 
 install:
-  - npm install -g gulp
   - npm install
-  - node --version
 
 script:
 - gulp
