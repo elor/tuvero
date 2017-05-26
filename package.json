@@ -15,6 +15,7 @@
     "gulp-nunjucks": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-spawn": "^0.3.0",
+    "gulp-util": "^3.0.8",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3"
   },
