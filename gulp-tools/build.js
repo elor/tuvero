@@ -52,6 +52,7 @@ module.exports = function () {
     gulp.task(`build-${target}-scripts`, [
       'build-config',
       `build-${target}-requirejs`,
+      'lib',
       'update-common-js'
     ], function () {
       return run(`r.js${extension} -o build/config/${target}.js`).exec();
