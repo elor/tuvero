@@ -1,7 +1,8 @@
 ﻿var createcommonjs = require('./gulp-tools/create-common');
 var createtestjs = require('./gulp-tools/create-test');
 var filecount = require('./gulp-tools/filecount');
-var gulp = require('gulp-npm-run')(require('gulp'));
+var run = require('gulp-run');
+var gulp = require('gulp');
 var mainstyle = require('./gulp-tools/mainstyle');
 var checkdependencies = require('./gulp-tools/check-dependencies');
 var manifest = require('gulp-manifest');
@@ -30,6 +31,9 @@ gulp.task('default', ['lib', 'update', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
 gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
 gulp.task('build', ['build-static', 'build-boule', 'build-basic', 'build-tac']);
+gulp.task('test', function () {
+  return run('npm test').exec();
+})
 
 gulp.task('lib', libs());
 
