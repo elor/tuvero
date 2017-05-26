@@ -69,6 +69,8 @@ var tests = ['core/test/byeresult',
     //'ui/test/teamsfileloadcontroller'
 ];
 
+process.chdir(__dirname);
+
 requirejs.config({
     baseUrl: '../scripts'
 });
