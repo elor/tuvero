@@ -5,8 +5,8 @@ var run = require('gulp-run');
 var gulp = require('gulp');
 var manifest = require('gulp-manifest');
 var buildstyle = require('./buildstyle');
-var buildconfig = require('./create-build-config');
 var path = require('path');
+var rjs = require('./rjs-optimize');
 
 var targets = ['basic', 'boule', 'tac'];
 
@@ -50,12 +50,12 @@ module.exports = function () {
     });
 
     gulp.task(`build-${target}-scripts`, [
-      'build-config',
       `build-${target}-requirejs`,
       'lib',
       'update-common-js'
     ], function () {
-      return run(`r.js${extension} -o build/config/${target}.js`).exec();
+      return gulp.src([`${target}/scripts/main.js`], { base: './' })
+        .pipe(rjs());
     });
 
     gulp.task(`build-${target}-index`, ['template'], function () {
@@ -72,12 +72,6 @@ module.exports = function () {
       return gulp.src([`${target}/images/{sprite,favicon}.png`])
         .pipe(gulp.dest(`build/${target}/images/`));
     });
-  });
-
-  gulp.task('build-config', function () {
-    return gulp.src(['*/scripts/main.js'])
-      .pipe(buildconfig())
-      .pipe(gulp.dest('build/config/'));
   });
 
   return ['build-static', 'build-boule', 'build-basic', 'build-tac'];
