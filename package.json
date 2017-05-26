@@ -3,33 +3,26 @@
   "name": "tuvero",
   "private": true,
   "devDependencies": {
-    "bower": "^1.8.0",
-    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-bower": "^0.0.13",
     "gulp-clean-css": "^3.0.4",
-    "gulp-cssmin": "^0.1.7",
     "gulp-manifest": "^0.1.1",
     "gulp-modernizr": "^1.0.0-alpha",
-    "gulp-npm-run": "^0.0.3",
+    "gulp-multi-process": "^1.2.0",
+    "gulp-run": "^1.7.1",
     "gulp-nunjucks": "^3.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-spawn": "^0.3.0",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3"
   },
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-multi-process": "^1.2.0",
-    "gulp-qunit": "^1.5.0",
-    "requirejs": "^2.3.3"
-  },
   "scripts": {
-    "all": "gulp all; npm run build",
-    "build-basic-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
+    "build-basic-scripts": "./node_modules/.bin/r.js.cmd -o basic/scripts/build.js",
+    "build-basic-style": "./node_modules/.bin/r.js.cmd -cssIn basic/style/main.css",
     "build-boule-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
-    "build-tac-style": "./node_modules/.bin/r.js.cmd -cssIn boule/style/main.css",
-    "build-tac-scripts": "./node_modules/.bin/r.js.cmd -o boule/scripts/build.js",
-    "test": "node cli/test.js"
-  }
+    "build-boule-style": "./node_modules/.bin/r.js.cmd -cssIn boule/style/main.css",
+    "build-tac-scripts": "./node_modules/.bin/r.js.cmd -o tac/scripts/build.js",
+    "build-tac-style": "./node_modules/.bin/r.js.cmd -cssIn tac/style/main.css",
+    "test": "gulp test"
+  },
+  "dependencies": {}
 }
