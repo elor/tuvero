@@ -3,27 +3,17 @@
   "name": "tuvero",
   "private": true,
   "devDependencies": {
-    "bower": "^1.8.0",
-    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-bower": "^0.0.13",
     "gulp-clean-css": "^3.0.4",
-    "gulp-cssmin": "^0.1.7",
     "gulp-manifest": "^0.1.1",
     "gulp-modernizr": "^1.0.0-alpha",
+    "gulp-multi-process": "^1.2.0",
     "gulp-npm-run": "^0.0.3",
     "gulp-nunjucks": "^3.0.0",
     "gulp-rename": "^1.2.2",
-    "gulp-spawn": "^0.3.0",
-    "gulp-util": "^3.0.8",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3"
-  },
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-multi-process": "^1.2.0",
-    "gulp-qunit": "^1.5.0",
-    "requirejs": "^2.3.3"
   },
   "scripts": {
     "all": "gulp all; npm run build",
