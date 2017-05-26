@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
+define(['timemachine/keymodel', 'core/type'], function (KeyModel, Type) {
   /**
    * Constructor. Constructs a new query, but does not apply the filter. A query
    * reads the localStorage for entries, regardless of the RefLog.
@@ -31,6 +31,8 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
    *
    */
   function Query(reference) {
+    this.source = Query.source || window.localStorage;
+
     this.reference = reference;
     if (reference === Query.ALLKEYS) {
     } else if (reference === Query.ROOTKEYS) {
@@ -60,10 +62,10 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
    *
    * @return an array of stored key strings which match the selection
    */
-  Query.prototype.filter = function() {
+  Query.prototype.filter = function () {
     var keys, trees, last, lastDate;
-    if (window.localStorage) {
-      keys = Object.keys(window.localStorage);
+    if (this.source) {
+      keys = Object.keys(this.source);
     } else {
       keys = [];
     }
@@ -79,50 +81,50 @@ define(['timemachine/keymodel', 'core/type'], function(KeyModel, Type) {
     }
 
     switch (this.reference) {
-    case Query.ALLKEYS:
-    case Query.ALLTUVEROKEYS:
-      // Nothing to do here. keys already contains all keys.
-      break;
-    case Query.ROOTKEYS:
-      keys = keys.filter(function(keyString) {
-        var key = new KeyModel.fromString(keyString);
-        return key.isRoot();
-      });
-      break;
-    case Query.LASTKEYS:
-      trees = {};
-      keys.forEach(function(keyString) {
-        var startDate = (KeyModel.fromString(keyString)).startDate;
-        if (!trees[startDate] || trees[startDate] < keyString) {
-          trees[startDate] = keyString;
-        }
-      });
+      case Query.ALLKEYS:
+      case Query.ALLTUVEROKEYS:
+        // Nothing to do here. keys already contains all keys.
+        break;
+      case Query.ROOTKEYS:
+        keys = keys.filter(function (keyString) {
+          var key = new KeyModel.fromString(keyString);
+          return key.isRoot();
+        });
+        break;
+      case Query.LASTKEYS:
+        trees = {};
+        keys.forEach(function (keyString) {
+          var startDate = (KeyModel.fromString(keyString)).startDate;
+          if (!trees[startDate] || trees[startDate] < keyString) {
+            trees[startDate] = keyString;
+          }
+        });
 
-      keys = Object.keys(trees).map(function(key) {
-        return trees[key];
-      });
-      break;
-    case Query.LATESTSAVE:
-      last = undefined;
-      keys.forEach(function(keyString) {
-        var saveDate = (KeyModel.fromString(keyString)).saveDate;
-        if (!last || lastDate < saveDate) {
-          last = keyString;
-          lastDate = saveDate;
-        }
-      });
+        keys = Object.keys(trees).map(function (key) {
+          return trees[key];
+        });
+        break;
+      case Query.LATESTSAVE:
+        last = undefined;
+        keys.forEach(function (keyString) {
+          var saveDate = (KeyModel.fromString(keyString)).saveDate;
+          if (!last || lastDate < saveDate) {
+            last = keyString;
+            lastDate = saveDate;
+          }
+        });
 
-      keys = [last];
-      break;
-    default:
-      if (!this.referenceKey) {
-        throw new Error('Query:'
+        keys = [last];
+        break;
+      default:
+        if (!this.referenceKey) {
+          throw new Error('Query:'
             + ' this.referenceKey could not be extracted from this.reference');
-      }
+        }
 
-      keys = keys.filter(this.referenceKey.isRelated.bind(this.referenceKey));
+        keys = keys.filter(this.referenceKey.isRelated.bind(this.referenceKey));
 
-      break;
+        break;
     }
 
     return keys.sort();
