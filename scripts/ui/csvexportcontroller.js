@@ -178,7 +178,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/state', 'presets',
       }, this);
 
       return lines.join('\r\n');
-    });
+    }, this);
 
     return csvTournaments.join('\r\n\r\n');
   };
