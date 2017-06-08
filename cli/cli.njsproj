@@ -12,7 +12,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>2deed847-8792-4c57-94b7-df609757d084</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>bin\tuvero.js</StartupFile>
+    <StartupFile>test.js</StartupFile>
     <StartWebBrowser>False</StartWebBrowser>
     <SearchPath>
     </SearchPath>
@@ -29,6 +29,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bin\tuvero-server.js" />
     <Compile Include="bin\tuvero.js" />
     <Compile Include="test.js" />
     <Compile Include="state.js" />

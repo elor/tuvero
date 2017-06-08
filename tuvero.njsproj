@@ -113,7 +113,6 @@
     <Content Include="style\settings\fontsize.css" />
     <Content Include="style\settings\fontsizeview.css" />
     <Content Include="style\settings\loginview.css" />
-    <Content Include="style\mainstyle.css" />
     <Content Include="style\teams\newteamview.css" />
     <Content Include="style\settings\onlinecheck.css" />
     <Content Include="style\core\table.css" />
@@ -316,19 +315,19 @@
     <Folder Include="tools\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="basic\scripts\build.js" />
     <Compile Include="basic\scripts\main.js" />
     <Compile Include="basic\scripts\options.js" />
     <Compile Include="basic\scripts\presets.js" />
     <Compile Include="basic\scripts\require.js" />
     <Compile Include="basic\scripts\strings.js" />
-    <Compile Include="boule\scripts\build.js" />
     <Compile Include="boule\scripts\main.js" />
     <Compile Include="boule\scripts\options.js" />
     <Compile Include="boule\scripts\presets.js" />
     <Compile Include="boule\scripts\require.js" />
     <Compile Include="boule\scripts\strings.js" />
     <Compile Include="gulp-tools\check-dependencies.js" />
+    <Compile Include="gulp-tools\build.js" />
+    <Compile Include="gulp-tools\rjs-optimize.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
     <Compile Include="scripts\ui\servertournamentloader.js" />
     <Compile Include="scripts\ui\teamdeletecontroller.js" />
@@ -651,7 +650,6 @@
     <Compile Include="scripts\ui\unicodehelper.js" />
     <Compile Include="scripts\ui\update.js" />
     <Compile Include="scripts\ui\valueview.js" />
-    <Compile Include="tac\scripts\build.js" />
     <Compile Include="tac\scripts\main.js" />
     <Compile Include="tac\scripts\options.js" />
     <Compile Include="tac\scripts\presets.js" />

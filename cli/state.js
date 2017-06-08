@@ -5,46 +5,57 @@
 var fs = require('fs');
 
 function loadState(file, callback, errcallback) {
-    var requirejs = require('requirejs');
+  callback = callback || console.log.bind(console);
+  errcallback = errcallback || console.error.bind(console);
 
-    callback = callback || console.log.bind(console);
-    errcallback = errcallback || console.error.bind(console);
+  try {
+    var fileContents = JSON.parse(fs.readFileSync(file, 'utf-8'));
+  } catch (e) {
+    errcallback('cannot read file ' + file);
+    return;
+  }
 
+  parseState(fileContents, callback, errcallback);
+}
+
+function parseState(fileContents, callback, errcallback) {
+  var requirejs = require('requirejs');
+
+  if (typeof (fileContents) === "string") {
     try {
-        var fileContents = JSON.parse(fs.readFileSync(file, 'utf-8'));
-    } catch (e) {
-        errcallback('cannot read file ' + file);
-        return;
+      fileContents = JSON.parse(fileContents);
+    } catch (err) {
+      errcallback(err);
     }
+  }
 
-    var target = fileContents.target;
+  var target = fileContents.target;
+
+  requirejs.config({
+    baseUrl: '../scripts'
+  });
+
+  requirejs(['core/config'], function (config) {
+    var myBase = '../' + target + '/scripts/';
 
     requirejs.config({
-        baseUrl: '../scripts'
+      paths: {
+        'options': myBase + 'options',
+        'presets': myBase + 'presets',
+        'strings': myBase + 'strings'
+      }
     });
 
-    requirejs(['core/config'], function(config) {
-        var myBase = '../' + target + '/scripts/';
+    var State = requirejs('ui/state');
 
-        requirejs.config({
-            paths: {
-                'options': myBase + 'options',
-                'presets': myBase + 'presets',
-                'strings': myBase + 'strings'
-            }
-        });
-
-        var State = requirejs('ui/state');
-
-        fs.readFile(file, { encoding: 'utf-8' }, function(err, data) {
-            if (err) {
-                errcallback(err);
-            } else {
-                State.restore(JSON.parse(data));
-                callback(State);
-            }
-        });
-    });
+    try {
+      State.restore(fileContents);
+      callback(State);
+    } catch (err) {
+      errcallback(err);
+    }
+  });
 }
 
 exports.load = loadState;
+exports.parse = parseState;
