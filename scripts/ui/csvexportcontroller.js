@@ -46,7 +46,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/state', 'presets',
     }
 
     basename = TimeMachine.commit.get().getTreeName() || Presets.target;
-    filename = basename.substr(0, 64) + '.csv';
+    filename = basename.substr(0, 64) + '_' + datasets.join('_') + '.csv';
 
     data = this.generateCSV(datasets);
     try {
