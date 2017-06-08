@@ -59,3 +59,4 @@ function parseState(fileContents, callback, errcallback) {
 
 exports.load = loadState;
 exports.parse = parseState;
+exports.commands = require('./commands.js')

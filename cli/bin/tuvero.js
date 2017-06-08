@@ -9,35 +9,22 @@ var tuvero = require(libdir + path.sep + 'state.js');
 
 var args = process.argv.slice(2);
 
-if (args.length < 2) {
-    console.error('Syntax: tuvero.js <input.json> <command>');
-    process.exit(1);
+function printandexit() {
+  console.error('Syntax: tuvero.js <input.json> <command>');
+  console.error('Commands:');
+  console.error('    ' + Object.keys(tuvero.commands).sort().join(', '));
+  process.exit(1);
 }
+
+if (args.length < 2) printandexit();
 
 var filename = args.shift();
 var command = args.shift();
-var callback = undefined;
+var callback = tuvero.commands[command];
 
-switch (command) {
-    case 'format':
-        callback = state => state.save();
-        break;
-    case 'ranking':
-        callback = state => state.tournaments.getGlobalRanking(state.teams.length);
-        break;
-    case 'teams':
-        callback = state => state.teams.save();
-        break;
-    default:
-        console.error(command + ': command not found');
-        process.exit(1);
-}
+if (!command || !callback) printandexit();
 
-var errback = function(err) {
-    console.error(err);
-    process.exit(1);
-};
-
-var logToConsole = state => console.log(JSON.stringify(callback(state)));
+var logToConsole = state => console.log(JSON.stringify(callback(state), null, '  '));
+var errback = err => { console.error(err); process.exit(1); };
 
 tuvero.load(filename, logToConsole, errback);
