@@ -2,14 +2,14 @@
 
 "use strict";
 
-var fs = require('fs');
+const fs = require('fs');
 
 function loadState(file, callback, errcallback) {
   callback = callback || console.log.bind(console);
   errcallback = errcallback || console.error.bind(console);
 
   try {
-    var fileContents = JSON.parse(fs.readFileSync(file, 'utf-8'));
+    const fileContents = JSON.parse(fs.readFileSync(file, 'utf-8'));
   } catch (e) {
     errcallback('cannot read file ' + file);
     return;
@@ -19,7 +19,7 @@ function loadState(file, callback, errcallback) {
 }
 
 function parseState(fileContents, callback, errcallback) {
-  var requirejs = require('requirejs');
+  let requirejs = require('requirejs');
 
   if (typeof (fileContents) === "string") {
     try {
@@ -29,24 +29,26 @@ function parseState(fileContents, callback, errcallback) {
     }
   }
 
-  var target = fileContents.target;
+  const target = fileContents.target;
 
   requirejs.config({
     baseUrl: '../scripts'
   });
 
   requirejs(['core/config'], function (config) {
-    var myBase = '../' + target + '/scripts/';
+    const baseDir = '../' + target + '/scripts/';
 
     requirejs.config({
       paths: {
-        'options': myBase + 'options',
-        'presets': myBase + 'presets',
-        'strings': myBase + 'strings'
+        'options': baseDir + 'options',
+        'presets': baseDir + 'presets',
+        'strings': baseDir + 'strings'
       }
     });
 
-    var State = requirejs('ui/state');
+    let StateModel = requirejs('ui/statemodel');
+    let State = new StateModel();
+
 
     try {
       State.restore(fileContents);
