@@ -22,12 +22,11 @@ function extractStages(state) {
       return {
         id: tournament.getID(),
         name: tournament.getName().get(),
-        system: tournament.SYSTEM,
+        size: tournament.getTeams().length,
         state: tournament.getState().get(),
-        size: tournament.getTeams().length
+        system: tournament.SYSTEM
       };
-    }),
-    numtournaments: state.tournaments.length
+    })
   };
 
   result.closed = state.tournaments.closedTournaments.asArray().map(id => result.tournaments[id]);
@@ -36,7 +35,47 @@ function extractStages(state) {
 }
 
 function extractRanking(state) {
-  return state.tournaments.getGlobalRanking();
+  let teams = extractTeams(state).teams;
+  let globalRanking = state.tournaments.getGlobalRanking(teams.length);
+
+  return {
+    globalranking: globalRanking.displayOrder.map(function (teamid, displayid) {
+      return {
+        displayid: displayid,
+        globalrank: globalRanking.globalRanks[teamid],
+        team: teams[teamid],
+        tournamentid: globalRanking.tournamentIDs[teamid],
+        tournamentrank: globalRanking.tournamentRanks[teamid]
+      }
+    }),
+    tournaments: state.tournaments.map(function (tournament, tournamentid) {
+      let ranking = tournament.getRanking().get();
+      return {
+        components: ranking.components.slice(),
+        globaloffset: globalRanking.tournamentOffsets[tournamentid],
+        id: tournament.getID(),
+        name: tournament.getName().get(),
+        ranking: ranking.displayOrder.map(function (internalid, displayid) {
+          let teamid = ranking.ids[internalid];
+          let points = {};
+
+          ranking.components.forEach(function (component) {
+            points[component] = ranking[component][internalid];
+          })
+
+
+          return {
+            team: teams[teamid],
+            rank: ranking.ranks[internalid],
+            displayid: displayid,
+            points: points
+          };
+        }),
+        state: tournament.getState().get(),
+        system: tournament.SYSTEM
+      };
+    })
+  }
 }
 
 function extractMatches(state) {

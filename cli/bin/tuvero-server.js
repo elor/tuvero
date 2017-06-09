@@ -17,7 +17,7 @@ app.use(bodyParser.json({ type: 'application/json' }));
 function formatError(error) {
   return JSON.stringify({
     'error': 'Error while processing the request',
-    'message': error ? (error.message || error.msg || error) : ''
+    'message': error ? error.message || error.msg || error : ''
   }, null, '  ');
 }
 
