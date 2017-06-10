@@ -25,3 +25,4 @@ style/mainstyle.css
 scripts/core/common.js
 test/scripts/test.js
 */scripts/require.js
+tmp/

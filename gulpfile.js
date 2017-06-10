@@ -21,13 +21,13 @@ var sources = {
     '!**/lib/*.js'
   ],
   tests: ['scripts/**/test/*.js'],
-  templates: 'templates/**/*.html',
-  template_path: 'templates'
+  templates: 'templates/*.html',
+  template_index: 'templates/index.html'
 };
 
 gulp.task('default', ['lib', 'update', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
-gulp.task('template', ['template-basic', 'template-boule', 'template-tac']);
+gulp.task('template', build.targets.map(target => template(target, sources)));
 gulp.task('test', ['lib', 'test-dependencies'], function () {
   return run('node cli/test.js').exec();
 });
@@ -65,10 +65,6 @@ gulp.task('update-test-js', [], function () {
     .pipe(createtestjs())
     .pipe(gulp.dest('test/scripts'));
 });
-
-build.targets.forEach(function (target) {
-  gulp.task(`template-${target}`, template(target, sources.template_path));
-})
 
 gulp.task('watch', function () {
   gulp.watch(sources.scripts, ['update-common-js']);
