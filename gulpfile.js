@@ -11,7 +11,7 @@ var libs = require('./gulp-tools/libs');
 var build = require('./gulp-tools/build');
 var sources = require('./gulp-tools/sources');
 
-gulp.task('default', ['lib', 'update', 'build', 'test']);
+gulp.task('default', ['lib', 'update', 'lint', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
 gulp.task('template', build.targets.map(target => template(target, sources)));
 gulp.task('test', ['lib', 'test-dependencies'], function () {

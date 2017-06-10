@@ -330,6 +330,7 @@
     <Compile Include="gulp-tools\check-dependencies.js" />
     <Compile Include="gulp-tools\build.js" />
     <Compile Include="gulp-tools\rjs-optimize.js" />
+    <Compile Include="gulp-tools\sources.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
     <Compile Include="scripts\ui\servertournamentloader.js" />
     <Compile Include="scripts\ui\teamdeletecontroller.js" />
