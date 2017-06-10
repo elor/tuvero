@@ -8,7 +8,7 @@
  */
 define(['jquery', 'ui/filesavermodel', 'ui/toast', 'ui/strings'], function($,
     FileSaverModel, Toast, Strings) {
-  var Save = undefined;
+  var Save;
 
   $(function($) {
     $('#tabs').on('click', 'button.save', function() {

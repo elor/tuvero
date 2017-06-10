@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['jquery'], function($) {
-  var Print = undefined;
+  var Print;
 
   $(function($) {
     $('#tabs').on('click', 'button.print', function() {

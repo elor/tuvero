@@ -11,7 +11,7 @@
  */
 define(['ui/toast', 'timemachine/timemachine', 'ui/strings', 'jquery'], //
 function(Toast, TimeMachine, Strings, $) {
-  var Reset = undefined;
+  var Reset;
 
   function hashcheck() {
     if (location.hash === '#reset') {

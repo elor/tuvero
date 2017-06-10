@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 define(['jquery'], function($) {
-  var DropStyle;
+  var DropStyle, $body;
 
   DropStyle = undefined;
   $body = undefined;

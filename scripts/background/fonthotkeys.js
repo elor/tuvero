@@ -12,8 +12,6 @@ define(['jquery'], function($) {
   $buttons = undefined;
 
   function hashcheck() {
-    var fontSize;
-
     if (!$buttons) {
       return;
     }
@@ -40,7 +38,7 @@ define(['jquery'], function($) {
   }
 
   function setFontSize(fontSize) {
-    index = Math.min(Math.max(fontSize, 0), $buttons.length - 1);
+    var index = Math.min(Math.max(fontSize, 0), $buttons.length - 1);
 
     $buttons.eq(index).click();
   }
