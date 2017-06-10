@@ -22,7 +22,7 @@ gulp.task('lib', libs());
 gulp.task('build', build());
 
 gulp.task('test-dependencies', ['lib'], function () {
-  return gulp.src(sources.dependant_scripts, { base: 'scripts' })
+  return gulp.src(sources.dependent_scripts, { base: 'scripts' })
     .pipe(filecount())
     .pipe(checkdependencies());
 });
