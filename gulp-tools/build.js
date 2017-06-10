@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var manifest = require('gulp-manifest');
 var buildstyle = require('./buildstyle');
 var path = require('path');
+var replace = require("gulp-replace");
 var rjs = require('./rjs-optimize');
 
 var targets = ['basic', 'boule', 'tac'];
@@ -60,6 +61,8 @@ module.exports = function () {
 
     gulp.task(`build-${target}-index`, ['template'], function () {
       return gulp.src([`${target}/index.html`])
+        .pipe(replace(/\s*<script>[^<]*<\/script>/g, ''))
+        .pipe(replace(/<html/, '<html manifest="manifest.appcache"'))
         .pipe(gulp.dest(`build/${target}/`));
     });
 
