@@ -24,7 +24,15 @@ var callback = tuvero.commands[command];
 
 if (!command || !callback) printandexit();
 
-var logToConsole = state => console.log(JSON.stringify(callback(state), null, '  '));
-var errback = err => { console.error(err); process.exit(1); };
+var output = state => {
+  console.log(JSON.stringify(callback(state), null, '  '));
+};
 
-tuvero.load(filename, logToConsole, errback);
+var errput = (err) => {
+  console.error(err);
+  process.exit(1);
+};
+
+tuvero.load(filename)
+  .then(output)
+  .catch(errput);

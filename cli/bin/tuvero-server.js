@@ -12,6 +12,8 @@ const tuvero = require(libdir + path.sep + 'state.js');
 
 const app = express();
 
+const PORT = 8080;
+
 app.use(bodyParser.json({ type: 'application/json' }));
 
 function formatError(error) {
@@ -21,34 +23,39 @@ function formatError(error) {
   }, null, '  ');
 }
 
-var router = express.Router();
+let router = express.Router();
+
+const allCommands = Object.keys(tuvero.commands);
 
 router.post('/:command', function (request, response, next) {
   let command = request.params.command || undefined;
+  let id = `${request.ip}->{${request.path}`;
 
-  if (!command) {
-    response.status(400).send(formatError('No command given. Try /teams'));
-  } else if (!tuvero.commands[command]) {
-    response.status(400).send(formatError(`command ${command} not known. Try /teams`));
-  } else if (!request.headers['content-type']) {
-    response.status(400).send(formatError('No content-type given. content-type must be application/json'));
-  } else if (request.headers['content-type'] !== 'application/json') {
-    response.status(400).send(formatError('No content-type given. content-type must be application/json'));
-  } else {
-    try {
-      tuvero.parse(request.body, function (state) {
-        let result = tuvero.commands[command](state);
-        response.send(JSON.stringify(result, null, '  '));
-      }, function (error) {
-        response.status(400).send(formatError(error));
-      });
-    } catch (err) {
-      response.status(400).send(formatError(err));
+  (new Promise((resolve, reject) => {
+    if (!command || !tuvero.commands[command]) {
+      return reject("Command not recognized. Available commands: " + allCommands.join(', '));
     }
-  }
+    if (!request.is("application/json")) {
+      return reject("Content-Type must be application/json");
+    }
+    if (!request.body) {
+      return reject("No JSON data received");
+    }
 
+    tuvero.parse(request.body)
+      .then(state => {
+        resolve(JSON.stringify(tuvero.commands[command](state), null, ' '));
+      }).catch(reject);
+  }))
+    .then(json => {
+      response.send(json);
+    }).catch(error => {
+      response.status(400).send(formatError(error));
+    });
 });
 
 app.use('/', router);
 
-app.listen(8080);
+app.listen(PORT);
+
+console.log("listening on port " + PORT);

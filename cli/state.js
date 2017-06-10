@@ -3,42 +3,41 @@
 "use strict";
 
 const fs = require('fs');
+const util = require('util');
 
-function loadState(file, callback, errcallback) {
-  callback = callback || console.log.bind(console);
-  errcallback = errcallback || console.error.bind(console);
+const requirejs = require('requirejs');
 
-  try {
-    const fileContents = JSON.parse(fs.readFileSync(file, 'utf-8'));
-  } catch (e) {
-    errcallback('cannot read file ' + file);
-    return;
-  }
-
-  parseState(fileContents, callback, errcallback);
+function loadState(file) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(file, 'utf-8', (error, fileContents) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(fileContents);
+      }
+    });
+  })
+    .then(parseState);
 }
 
-function parseState(fileContents, callback, errcallback) {
-  let requirejs = require('requirejs');
-
-  if (typeof (fileContents) === "string") {
-    try {
-      fileContents = JSON.parse(fileContents);
-    } catch (err) {
-      errcallback(err);
+function parseState(savedState) {
+  return new Promise((resolve, reject) => {
+    if (util.isString(savedState)) {
+      savedState = JSON.parse(savedState);
     }
-  }
+    if (!util.isObject(savedState)) {
+      return reject("incompatible data type. Must be JSON string or JSON");
+    }
 
-  const target = fileContents.target;
+    if (!savedState.target) {
+      return reject("No Tuvero target given. Is this even a Tuvero savestate?");
+    }
 
-  requirejs.config({
-    baseUrl: '../scripts'
-  });
-
-  requirejs(['core/config'], function (config) {
-    const baseDir = '../' + target + '/scripts/';
+    const target = savedState.target;
+    const baseDir = `../${target}/scripts/`;
 
     requirejs.config({
+      baseUrl: '../scripts',
       paths: {
         'options': baseDir + 'options',
         'presets': baseDir + 'presets',
@@ -46,19 +45,26 @@ function parseState(fileContents, callback, errcallback) {
       }
     });
 
-    let StateModel = requirejs('ui/statemodel');
-    let State = new StateModel();
+    requirejs(['core/config'], function (config) {
 
+      let StateModel = requirejs('ui/statemodel');
+      let Listener = requirejs('core/listener');
 
-    try {
-      State.restore(fileContents);
-      callback(State);
-    } catch (err) {
-      errcallback(err);
-    }
+      let State = new StateModel();
+
+      Listener.bind(State, 'error', function (emitter, event, data) {
+        reject(data);
+      });
+
+      if (State.restore(savedState)) {
+        resolve(State);
+      } else {
+        reject("cannot restore saved state");
+      }
+    });
   });
 }
 
 exports.load = loadState;
 exports.parse = parseState;
-exports.commands = require('./commands.js')
+exports.commands = require('./commands.js');

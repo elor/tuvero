@@ -4,8 +4,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <Name>cli</Name>
     <RootNamespace>cli</RootNamespace>
-    <ScriptArguments>
-    </ScriptArguments>
+    <ScriptArguments>tuvero.json ranking</ScriptArguments>
     <LaunchUrl>
     </LaunchUrl>
     <NodejsPort>8080</NodejsPort>
@@ -38,8 +37,6 @@
     <Compile Include="commands.js" />
     <Compile Include="test.js" />
     <Compile Include="state.js" />
-    <Content Include=".dockerignore" />
-    <Content Include="Dockerfile" />
     <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
