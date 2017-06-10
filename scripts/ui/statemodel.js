@@ -41,10 +41,6 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     };
 
     this.initCleanupListeners();
-
-    Listener.bind(this, 'error', function(emitter, event, message) {
-      console.error(message);
-    });
   }
   extend(StateModel, Model);
 

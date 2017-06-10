@@ -6,10 +6,14 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/statemodel'], function(StateModel) {
+define(['ui/statemodel'], function (StateModel) {
   var State;
 
   State = new StateModel();
+
+  Listener.bind(State, 'error', function (emitter, event, message) {
+    console.error(message);
+  });
 
   return State;
 });
