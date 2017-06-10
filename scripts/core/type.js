@@ -31,7 +31,7 @@ define(function() {
         /^\s*function ([A-Za-z]+)\(.*$/, '$1').toLowerCase();
   }
 
-  types = [1, , {}, '', undefined, null, new Date(), [], /asd/, true,
+  types = [1, {}, '', undefined, null, new Date(), [], /asd/, true,
   /**
    * anonymous reference function
    */

@@ -8,7 +8,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, PropertyValueModel, ValueModel;
+    var extend, PropertyValueModel, ValueModel, PropertyModel, Listener;
 
     extend = getModule('lib/extend');
     PropertyValueModel = getModule('core/propertyvaluemodel');

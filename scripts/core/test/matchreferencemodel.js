@@ -15,7 +15,7 @@ define(function() {
     ListModel = getModule('list/listmodel');
 
     QUnit.test('MatchReferenceModel', function (assert) {
-      var game, gameref, teamlist;
+      var game, gameref, teamlist, listener;
 
       teamlist = new ListModel();
       teamlist.push(5);

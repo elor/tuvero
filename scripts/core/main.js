@@ -61,7 +61,7 @@ require(['core/config', 'core/common'], function() {
 
       // using a timeout to let the browser update the splashtext
       setTimeout(function() {
-        var loaded, lastCommit, data;
+        var loaded;
 
         try {
           try {

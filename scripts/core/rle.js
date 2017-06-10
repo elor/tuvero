@@ -63,7 +63,7 @@ define(['core/type'], function (Type) {
             // continue an old string
             str += ',';
           }
-          if ((i - nullstart) == 1) {
+          if ((i - nullstart) === 1) {
             str += 'n';
           } else {
             str += 'n' + (i - nullstart);
@@ -123,7 +123,7 @@ define(['core/type'], function (Type) {
   RLE.decode = function (blob) {
     var array, nesting, i, num, char, isnull, nullsleft, newarray;
 
-    if (Type(blob) != 'string') {
+    if (Type(blob) !== 'string') {
       console.error('RLE.decode: input is no string, but of type "'
         + Type(blob) + "'");
       return undefined;
@@ -232,8 +232,8 @@ define(['core/type'], function (Type) {
             nullsleft = 0;
           }
           // ends a nested subarray
-          if (nesting.length == 1) {
-            if (i == blob.length - 1) {
+          if (nesting.length === 1) {
+            if (i === blob.length - 1) {
               // end of input reached
               return array;
             }
