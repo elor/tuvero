@@ -1,8 +1,6 @@
 ﻿'use strict';
 
 var through = require('through2');
-var File = require('gulp-util').File;
-var path = require('path');
 
 module.exports = function (minimum, maximum, verbose) {
 

@@ -5,13 +5,10 @@ var run = require('gulp-run');
 var gulp = require('gulp');
 var manifest = require('gulp-manifest');
 var buildstyle = require('./buildstyle');
-var path = require('path');
 var replace = require("gulp-replace");
 var rjs = require('./rjs-optimize');
 
 var targets = ['basic', 'boule', 'tac'];
-
-var extension = path === path.win32 ? '.cmd' : '';
 
 module.exports = function () {
   gulp.task('build-static', ['build-static-images', 'build-static-html', 'build-static-manifest']);

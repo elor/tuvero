@@ -15,7 +15,7 @@ module.exports = function () {
         base = path.basename(file.relative, '.js');
 
         parts = dir.split(path.sep);
-        parts.push(base)
+        parts.push(base);
 
         list.push(parts.join('/'));
 

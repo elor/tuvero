@@ -1,12 +1,12 @@
 'use strict';
 
+/* jshint evil: true */
+
 var through = require('through2');
-var File = require('gulp-util').File;
 var path = require('path');
 var fs = require('fs');
 
 module.exports = function () {
-    var checked = {};
     var existant = {};
 
     function isArray(obj) {
@@ -21,7 +21,7 @@ module.exports = function () {
         var dir = path.dirname(filePath);
         var base = path.basename(filePath, '.js');
         var parts = dir.split(path.sep);
-        parts.push(base)
+        parts.push(base);
         return parts.join('/');
     }
 
@@ -30,8 +30,8 @@ module.exports = function () {
         var match;
         var deps = [];
 
-        while (match = re.exec(contents)) {
-            deps.push(match[1])
+        while ((match = re.exec(contents))) {
+          deps.push(match[1]);
         }
 
         return deps;
@@ -47,7 +47,7 @@ module.exports = function () {
         require.config = function () { };
 
         return getRequiredDeps(contents).concat(eval(contents) || []);
-    };
+    }
 
     function getDuplicates(array) {
         return array.slice().sort().filter(function (value, index, copy) {
@@ -59,7 +59,7 @@ module.exports = function () {
         return deps.filter(function (depPath) {
             return /^\./.test(depPath);
         });
-    };
+    }
 
     function checkExistance(deps) {
         return deps.filter(function (depPath) {

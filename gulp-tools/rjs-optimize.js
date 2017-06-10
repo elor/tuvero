@@ -1,16 +1,11 @@
 ﻿"use strict";
 
 var through = require("through2");
-var File = require("gulp-util").File;
 var path = require("path");
-var fs = require("fs");
 var requirejs = require('requirejs');
 
 module.exports = function () {
   function scriptConfig(target) {
-    var outputDir = "build/config";
-    var scriptPath = path.posix.relative(outputDir, "scripts");
-    var outPath = path.posix.relative(outputDir, `build/${target}/scripts/`);
 
     return {
       baseUrl: "scripts",
