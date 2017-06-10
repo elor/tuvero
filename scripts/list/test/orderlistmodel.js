@@ -15,7 +15,7 @@ define(function() {
     ListModel = getModule('list/listmodel');
 
     QUnit.test('OrderListModel', function (assert) {
-      var list, order, ref;
+      var list, ref;
       assert.ok(extend.isSubclass(OrderListModel, ListModel),
           'OrderListModel is subclass of ListModel');
 

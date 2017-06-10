@@ -8,14 +8,14 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var ListModel, MatchReferenceListModel, Listener;
+    var ListModel, MapListModel, Listener;
 
     Listener = getModule('core/listener');
     ListModel = getModule('list/listmodel');
     MapListModel = getModule('list/maplistmodel');
 
     QUnit.test('MapListModel', function (assert) {
-      var teams, list, refs, listener, matchref;
+      var teams, refs, listener, indices;
 
       teams = new ListModel();
       teams.push(5);

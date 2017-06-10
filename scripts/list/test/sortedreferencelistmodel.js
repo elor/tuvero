@@ -12,7 +12,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, SortedReferenceListModel;
+    var extend, SortedReferenceListModel, ListModel;
 
     extend = getModule('lib/extend');
     SortedReferenceListModel = getModule('list/sortedreferencelistmodel');
@@ -28,7 +28,7 @@ define(function() {
 
       success = false;
       try {
-        sorted = new SortedListModel(list);
+        sorted = new SortedReferenceListModel();
       } catch (e) {
         success = true;
       }

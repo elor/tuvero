@@ -14,7 +14,7 @@ define(function() {
     ReadonlyListModel = getModule('list/readonlylistmodel');
 
     QUnit.test('ReadonlyListModel', function (assert) {
-      var list, obj, i, ret, res, listener;
+      var list, obj, i, ret, res, listener, rolist;
 
       listener = {
         reset: function() {

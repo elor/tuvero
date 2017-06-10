@@ -8,7 +8,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var ListModel, DummyModel, extend;
+    var ListModel, DummyModel, extend, Model;
 
     ListModel = getModule('list/listmodel');
     Model = getModule('core/model');
@@ -33,13 +33,6 @@ define(function() {
       };
     };
     extend(DummyModel, Model);
-
-    function DummyModelFactory(data) {
-      if (data.d) {
-        return new DummyModel();
-      }
-      return undefined;
-    }
 
     QUnit.test('ListModel', function (assert) {
       var list, obj, i, ret, res, listener, data;
