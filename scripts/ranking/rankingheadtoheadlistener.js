@@ -103,7 +103,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel',
    * equally-ranked teams
    */
   RankingHeadToHeadListener.prototype.onrecalc = function() {
-    var dummyRanking, ranks;
+    var dummyRanking, ranks, groups;
 
     dummyRanking = this.createDummyRanking();
 

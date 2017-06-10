@@ -9,7 +9,7 @@
 
 define(function() {
   return function(QUnit, getModule) {
-    var RankingComponentIndex;
+    var RankingComponentIndex, Type;
 
     RankingComponentIndex = getModule('ranking/rankingcomponentindex');
     Type = getModule('core/type');

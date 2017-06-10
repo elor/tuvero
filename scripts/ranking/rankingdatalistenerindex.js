@@ -133,8 +133,6 @@ function() {
    *
    * @param dependencies
    *          an array of dependency names
-   *
-   * @return dependencies an array of all dependencies, in any order
    */
   function removeMultipleDependencies(dependencies) {
     var index;
@@ -232,12 +230,12 @@ function() {
    * order the names by their dependencies and register every DataListener, if
    * available. Aborts otherwise
    *
+   * @param ranking
+   *          the RankingModel instance to register the listeners to
    * @param names
    *          an array of DataListener names (see RankingDataListener.NAME).
    *          Will contain the names, which correspond to the returned
    *          listeners. On error, undefined names are written here.
-   * @param ranking
-   *          the RankingModel instance to register the listeners to
    * @return A ordered array of DataListener instances on success, undefined
    *         otherwise
    */

@@ -17,7 +17,7 @@ define(function() {
     CorrectionModel = getModule('core/correctionmodel');
 
     QUnit.test('Sonneborn-Berger Ranking', function (assert) {
-      var ranking, result, ret, ref;
+      var ranking, ref, ret;
 
       ranking = new RankingModel(['wins', 'sonneborn'], 5);
       ref = {

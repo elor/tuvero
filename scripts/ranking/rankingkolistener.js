@@ -8,7 +8,7 @@
  */
 define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
   extend, RankingDataListener, VectorModel) {
-  var KOTournamentModel = undefined;
+  var KOTournamentModel;
 
   /**
    * @param result

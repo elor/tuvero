@@ -36,7 +36,7 @@ define(['ranking/rankingidcomponent', 'ranking/rankingpointscomponent',
    *         the first element in the components array
    */
   RankingComponentIndex.createComponentChain = function(ranking, components) {
-    var chainfront, retval;
+    var chainfront;
 
     chainfront = undefined;
 

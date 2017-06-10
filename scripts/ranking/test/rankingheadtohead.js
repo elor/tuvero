@@ -16,7 +16,7 @@ define(function() {
     MatchModel = getModule('core/matchmodel');
 
     QUnit.test('Head-to-Head Ranking', function (assert) {
-      var ranking, result, ret, ref;
+      var ranking, ret, ref;
 
       ranking = new RankingModel(['wins', 'headtohead'], 5);
       ref = {

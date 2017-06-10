@@ -20,7 +20,7 @@ define(function() {
     Listener = getModule('core/listener');
 
     QUnit.test('RankingMapper', function (assert) {
-      var internal, ranking, result, listener, teams;
+      var internal, ranking, listener, teams, ref;
 
       assert.ok(extend.isSubclass(RankingMapper, Model),
           'RankingMapper is subclass of Model');

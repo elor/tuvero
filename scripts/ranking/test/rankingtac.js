@@ -18,7 +18,7 @@ define(function() {
     Options = getModule('options');
 
     QUnit.test('TAC Ranking', function (assert) {
-      var ranking, result, ret, ref, optionbak;
+      var ranking, ret, ref, optionbak;
 
       /*
        * adjust options to fit typical TAC options

@@ -21,7 +21,7 @@ define(function() {
     CorrectionModel = getModule('core/correctionmodel');
 
     QUnit.test('RankingModel', function (assert) {
-      var ranking, result, rankingobject, ref, listener, savedata;
+      var ranking, rankingobject, ref, listener, savedata, ret;
 
       assert.equal(Options.byepointswon, 13,
           'Options.byepointswon is set properly');
