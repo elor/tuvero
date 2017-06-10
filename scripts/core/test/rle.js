@@ -13,7 +13,7 @@ define(function() {
     RLE = getModule('core/rle');
 
     QUnit.test('RLE', function (assert) {
-      var success, data, exp;
+      var success, data, exp, e, d;
 
       /*
        * encoding tests: static function
@@ -223,6 +223,10 @@ define(function() {
       exp[123] = -123.433e-43;
       assert.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), exp,
           'RLE re-encoding chain');
+
+      exp = [[[[[]]]]];
+      assert.deepEqual(d(e(d(e(d(e(d(e(d(e(d(e(exp)))))))))))), [undefined],
+        'RLE re-encoding chain of nested arrays');
 
       assert.equal(RLE.encode([0, 1, 1, 1]), '[n,1,1,1]',
           'encoding leading null value');

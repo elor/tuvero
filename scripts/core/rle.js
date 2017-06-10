@@ -12,8 +12,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['core/type'], function(Type) {
+define(['core/type'], function (Type) {
   var RLE = {};
+
+  function isNestedEmptyArray(array) {
+    if (!Type.isArray(array)) {
+      return false;
+    }
+    return array.every(isNestedEmptyArray);
+  }
 
   /**
    * RLE-encode the one- or multidimensional array of numerical data
@@ -25,18 +32,17 @@ define(['core/type'], function(Type) {
    *          a sparse multidimensional non-circular numerical array
    * @return a string representation of array
    */
-  RLE.encode = function(array) {
+  RLE.encode = function (array) {
     var i, nullstart, str, elem, notnull;
 
     switch (Type(array)) {
-    case 'array':
-      // use the code below
-      break;
-    case 'number':
-      // just return the string representation of the number. Fallback for
-      return array.toString();
-    default:
-      throw new Error('RLE encoding failed: cannot parse content of type '
+      case 'array':
+        break;
+      case 'number':
+        // just return the string representation of the number
+        return array.toString();
+      default:
+        throw new Error('RLE encoding failed: cannot parse content of type '
           + Type(array));
     }
 
@@ -45,7 +51,8 @@ define(['core/type'], function(Type) {
     for (i = 0; i < array.length; i += 1) {
       elem = array[i];
 
-      notnull = elem != null && elem != 0;
+      notnull = elem !== null && elem !== undefined && elem !== 0;
+      notnull = notnull && !isNestedEmptyArray(elem);
 
       if (nullstart > -1) {
         if (notnull) {
@@ -69,7 +76,7 @@ define(['core/type'], function(Type) {
       }
 
       if (notnull) {
-        if (i != 0) {
+        if (i !== 0) {
           // continue string
           str += ',';
         } else {
@@ -113,16 +120,16 @@ define(['core/type'], function(Type) {
    * @return an array which has been decoded from the blob, or undefined on
    *         failure
    */
-  RLE.decode = function(blob) {
+  RLE.decode = function (blob) {
     var array, nesting, i, num, char, isnull, nullsleft, newarray;
 
     if (Type(blob) != 'string') {
       console.error('RLE.decode: input is no string, but of type "'
-          + Type(blob) + "'");
+        + Type(blob) + "'");
       return undefined;
     }
 
-    if (blob.length == 0) {
+    if (blob.length === 0) {
       return [];
     }
 
@@ -136,115 +143,115 @@ define(['core/type'], function(Type) {
       char = blob[i];
 
       switch (char) {
-      case '0':
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-      case '6':
-      case '7':
-      case '8':
-      case '9':
-      case '+':
-      case '-':
-      case 'e':
-      case '.':
-        // is part of a number: add to number OR a skip number
-        num += char;
-        break;
-      case 'n':
-        // is indicative of a null run
-        if (isnull) {
-          console.error('unexpected sequence of multiple "n" '
-              + 'characters in RLE.decode input');
-          return undefined;
-        }
-        isnull = true;
-        break;
-      case '[':
-        // starts a new nested subarray
-        newarray = [];
-        // write all nulls up to this point
-        if (nesting.length > 0) {
-          array[array.length + nullsleft] = newarray;
-        }
-        nullsleft = 0;
-        nesting.push(newarray);
-        array = nesting[nesting.length - 1];
-        break;
-      case ',':
-        if (num.length == 0) {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '+':
+        case '-':
+        case 'e':
+        case '.':
+          // is part of a number: add to number OR a skip number
+          num += char;
+          break;
+        case 'n':
+          // is indicative of a null run
           if (isnull) {
-            nullsleft += 1;
-          } else {
-            // Note to self: ',,' does nothing (compromise)
-            // Note to self: '],' is allowed this way, so KEEP IT THAT WAY!
-            // console.error('empty array element in decode input');
-            // return undefined;
-          }
-        } else {
-          num = Number(num);
-          if (isNaN(num)) {
-            console.error('invalid number or character sequence '
-                + 'in RLE.decode input');
+            console.error('unexpected sequence of multiple "n" '
+              + 'characters in RLE.decode input');
             return undefined;
           }
-          if (isnull) {
-            nullsleft += num;
-          } else {
-            array[array.length + nullsleft] = num;
-            nullsleft = 0;
+          isnull = true;
+          break;
+        case '[':
+          // starts a new nested subarray
+          newarray = [];
+          // write all nulls up to this point
+          if (nesting.length > 0) {
+            array[array.length + nullsleft] = newarray;
           }
-        }
-        isnull = false;
-        num = '';
-        break;
-      case ']':
-        // first, write the last number, if any
-        if (!isnull) {
-          if (num.length == 0) {
-            // console.error('empty field in RLE.decode input.
-            // Discarding end of this array');
+          nullsleft = 0;
+          nesting.push(newarray);
+          array = nesting[nesting.length - 1];
+          break;
+        case ',':
+          if (num.length === 0) {
+            if (isnull) {
+              nullsleft += 1;
+            } else {
+              // Note to self: ',,' does nothing (compromise)
+              // Note to self: '],' is allowed this way, so KEEP IT THAT WAY!
+              // console.error('empty array element in decode input');
+              // return undefined;
+            }
           } else {
             num = Number(num);
             if (isNaN(num)) {
               console.error('invalid number or character sequence '
-                  + 'in RLE.decode input');
+                + 'in RLE.decode input');
               return undefined;
             }
-            array[array.length + nullsleft] = num;
+            if (isnull) {
+              nullsleft += num;
+            } else {
+              array[array.length + nullsleft] = num;
+              nullsleft = 0;
+            }
+          }
+          isnull = false;
+          num = '';
+          break;
+        case ']':
+          // first, write the last number, if any
+          if (!isnull) {
+            if (num.length === 0) {
+              // console.error('empty field in RLE.decode input.
+              // Discarding end of this array');
+            } else {
+              num = Number(num);
+              if (isNaN(num)) {
+                console.error('invalid number or character sequence '
+                  + 'in RLE.decode input');
+                return undefined;
+              }
+              array[array.length + nullsleft] = num;
+              nullsleft = 0;
+            }
+          } else {
+            num = Number(num);
+            nullsleft += num;
+            if (nullsleft > 0) {
+              array[array.length + nullsleft - 1] = undefined;
+            }
             nullsleft = 0;
           }
-        } else {
-          num = Number(num);
-          nullsleft += num;
-          if (nullsleft > 0) {
-            array[array.length + nullsleft - 1] = undefined;
+          // ends a nested subarray
+          if (nesting.length == 1) {
+            if (i == blob.length - 1) {
+              // end of input reached
+              return array;
+            }
+            console.error('unbalanced closing "]" in RLE input');
+            return undefined;
           }
-          nullsleft = 0;
-        }
-        // ends a nested subarray
-        if (nesting.length == 1) {
-          if (i == blob.length - 1) {
-            // end of input reached
-            return array;
+          nesting.pop();
+          array = nesting[nesting.length - 1];
+          if (array[array.length - 1].length === 0) {
+            array[array.length - 1] = undefined;
           }
-          console.error('unbalanced closing "]" in RLE input');
-          return undefined;
-        }
-        nesting.pop();
-        array = nesting[nesting.length - 1];
-        if (array[array.length - 1].length == 0) {
-          array[array.length - 1] = undefined;
-        }
-        num = '';
-        isnull = false;
-        break;
-      default:
-        console.error('RLE decode: unexpected character "' + char
+          num = '';
+          isnull = false;
+          break;
+        default:
+          console.error('RLE decode: unexpected character "' + char
             + '" in sparse array blob');
-        return undefined;
+          return undefined;
       }
     }
 
