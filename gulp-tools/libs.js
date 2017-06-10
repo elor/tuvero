@@ -73,8 +73,8 @@ module.exports = function () {
       .pipe(gulp.dest('basic/scripts/'))
       .pipe(gulp.dest('boule/scripts/'))
       .pipe(gulp.dest('tac/scripts/'))
-      .pipe(gulp.dest('test/scripts/'))
-  })
+      .pipe(gulp.dest('test/scripts/'));
+  });
 
-  return ['lib-blob', 'lib-extend', 'lib-filesaver', 'lib-jquery', 'lib-jsdiff', 'lib-modernizr', 'lib-normalize', 'lib-typeahead'];
+  return Object.keys(gulp.tasks).filter(task => /^lib-.*$/.test(task));
 };
