@@ -120,7 +120,7 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
   VectorModel.prototype.dot = function(vec) {
     var index, sum;
 
-    if (this.length != vec.length) {
+    if (this.length !== vec.length) {
       console.error('VectorModel.dot: different input lengths: ' + this.length
           + '<>' + vec.length);
       return undefined;
@@ -151,7 +151,7 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
 
     if (vec1.length !== vec2.length) {
       console.error('VectorModel.prototype.add: different input lengths: '
-          + +vec1.length + '<>' + vec2.length);
+          + vec1.length + '<>' + vec2.length);
       return undefined;
     }
 

@@ -12,7 +12,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var MatrixModel;
+    var MatrixModel, VectorModel;
 
     MatrixModel = getModule('math/matrixmodel');
     VectorModel = getModule('math/vectormodel');

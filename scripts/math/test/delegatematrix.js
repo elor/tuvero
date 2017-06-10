@@ -12,7 +12,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var DelegateMatrix;
+    var DelegateMatrix, MatrixModel, extend;
 
     DelegateMatrix = getModule('math/delegatematrix');
     MatrixModel = getModule('math/matrixmodel');
