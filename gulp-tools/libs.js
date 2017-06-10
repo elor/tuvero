@@ -62,7 +62,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-modernizr', function () {
-    gulp.src(['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/test/*.js'])
+    gulp.src(['scripts/background/featuredetect.js'])
       .pipe(filecount())
       .pipe(modernizr())
       .pipe(gulp.dest(dest_js));
