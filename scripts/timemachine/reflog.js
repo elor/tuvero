@@ -367,7 +367,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *         latest save state
    */
   RefLogModel.prototype.getLatestGlobalKey = function() {
-    var data, latestKey;
+    var latestKey;
 
     latestKey = this.listStartDates().map(function(startDate) {
       var saveDate = this.listSaveDates(startDate).sort().pop() || startDate;
@@ -388,7 +388,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @return the youngest key in the whole tree
    */
   RefLogModel.prototype.getLatestRelatedKey = function(refKey) {
-    var startDate, saveDate, latestKey, rootKey;
+    var startDate, saveDate, rootKey;
 
     if (!KeyModel.isValidKey(refKey)) {
       this.emit('error', 'getLatestRelatedKey(): refKey is invalid');

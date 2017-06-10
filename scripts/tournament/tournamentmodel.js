@@ -565,11 +565,11 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    */
   TournamentModel.prototype.addBye = function(byeResultOrTeamID, matchID, //
   round) {
-    var i, teamID, byeResult;
+    var teamID, byeResult;
 
-    if (arguments.length == 1 && (Type instanceof ByeResult)) {
+    if (arguments.length === 1 && (Type instanceof ByeResult)) {
       byeResult = byeResultOrTeamID;
-    } else if (arguments.length == 3 && Type.isNumber(byeResultOrTeamID)
+    } else if (arguments.length === 3 && Type.isNumber(byeResultOrTeamID)
         && Type.isNumber(matchID) && Type.isNumber(round)) {
       teamID = byeResultOrTeamID;
       byeResult = new ByeResult(teamID, [Options.byepointswon,

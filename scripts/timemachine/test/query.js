@@ -13,14 +13,12 @@ define(function () {
     try {
       localStorage = window.localStorage;
     } catch (e) {
-      window = {
-        localStorage: {
-          setItem: function (key, value) {
-            this[key] = value;
-          },
-          removeItem: function (key) {
-            delete this[key];
-          }
+      localStorage = {
+        setItem: function (key, value) {
+          this[key] = value;
+        },
+        removeItem: function (key) {
+          delete this[key];
         }
       };
     }
@@ -32,7 +30,7 @@ define(function () {
     Query.source = localStorage;
 
     QUnit.test('Query', function (assert) {
-      var query, key, key2, key3, key4, key5, ref, date, res;
+      var query, key, key2, key3, key4, ref;
 
       query = new Query(Query.ALLKEYS);
 
@@ -43,8 +41,8 @@ define(function () {
         var match = /test_/.test(key);
         assert.equal(match, true, 'saved key matches target: ' + key);
         if (match) {
-          if (window.localStorage) {
-            window.localStorage.removeItem(key);
+          if (localStorage) {
+            localStorage.removeItem(key);
           }
         }
       });
@@ -61,11 +59,11 @@ define(function () {
       ref = 'test_2015-06-01T19:55:12.512Z_2345-10-01T20:55:12.512Z';
       key4 = KeyModel.fromString(ref);
 
-      if (window.localStorage) {
-        window.localStorage.setItem(key, 'test');
-        window.localStorage.setItem(key2, 'test');
-        window.localStorage.setItem(key3, 'test');
-        window.localStorage.setItem(key4, 'test');
+      if (localStorage) {
+        localStorage.setItem(key, 'test');
+        localStorage.setItem(key2, 'test');
+        localStorage.setItem(key3, 'test');
+        localStorage.setItem(key4, 'test');
       }
 
       ref = [key.toString(), key2.toString(), key3.toString(), key4.toString()]
@@ -109,11 +107,11 @@ define(function () {
        * cleanup
        */
 
-      if (window.localStorage) {
-        window.localStorage.removeItem(key);
-        window.localStorage.removeItem(key2);
-        window.localStorage.removeItem(key3);
-        window.localStorage.removeItem(key4);
+      if (localStorage) {
+        localStorage.removeItem(key);
+        localStorage.removeItem(key2);
+        localStorage.removeItem(key3);
+        localStorage.removeItem(key4);
       }
 
       assert.deepEqual((new Query(undefined)).filter(), [],

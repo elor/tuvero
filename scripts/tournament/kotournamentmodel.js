@@ -210,7 +210,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/random', 'core/type',
     lastresults = [];
 
     teamMatches.forEach(function(team, teamid) {
-      var lastHistoryResult = undefined;
+      var lastHistoryResult;
 
       if (team === undefined) {
         this.history.map(function(result) {
@@ -289,6 +289,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/random', 'core/type',
   KOTournamentModel.prototype.createFollowupMatch = function(teamID,
       nextMatchID, nextGroupID, currentMatch) {
     var opponent, match, complementaryMatchID, currentMatchID, currentGroupID;
+    var teams, complementaryMatchGroup;
 
     currentMatchID = currentMatch.getID();
     currentGroupID = currentMatch.getGroup();

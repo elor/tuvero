@@ -8,7 +8,7 @@
  */
 define(function() {
   return function(QUnit, getModule) {
-    var extend, SwissTournamentModel, TournamentModel;
+    var extend, SwissTournamentModel, TournamentModel, VectorModel;
 
     extend = getModule('lib/extend');
     SwissTournamentModel = getModule('tournament/swisstournamentmodel');

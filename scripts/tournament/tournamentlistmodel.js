@@ -43,7 +43,7 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
     var ids = [];
 
     this.map(function(tournament) {
-      if (tournament.getState().get() != 'finished') {
+      if (tournament.getState().get() !== 'finished') {
         tournament.getTeams().map(function(team) {
           ids[team] = tournament.getID();
         });
@@ -171,7 +171,6 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
 
     tournamentID = tournament.getID();
     tournamentRanking = tournament.getRanking().get();
-    length = tournamentRanking.displayOrder.length;
     startIndex = this.startIndex.get(tournamentID);
 
     isClosed = this.closedTournaments.indexOf(tournamentID) !== -1;
@@ -237,7 +236,7 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
    * @return true on success, false or undefined otherwise. See ListModel.push()
    */
   TournamentListModel.prototype.push = function(tournament, startIndex) {
-    if (this.length == this.startIndex.length) {
+    if (this.length === this.startIndex.length) {
       this.startIndex.push(startIndex || 0);
     }
 

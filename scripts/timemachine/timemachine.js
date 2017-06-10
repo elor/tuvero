@@ -258,7 +258,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    *         stored targets, and where object.total is the total of all targets
    */
   TimeMachineModel.prototype.usedStorage = function() {
-    var tuveroQuery, keys, targetSizes, total;
+    var tuveroQuery, targetSizes, total;
 
     targetSizes = {};
 

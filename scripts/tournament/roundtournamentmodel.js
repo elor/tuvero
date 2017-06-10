@@ -65,7 +65,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
 
     if (slideList.length % 2) {
       // TODO use a function to auto-create all bye conditions. DRY principle.
-      if (this.round == slideList.length - 1) {
+      if (this.round === slideList.length - 1) {
         teamB = slideList.shift();
       } else {
         teamB = slideList.pop();

@@ -151,7 +151,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
 
     components = this.ranking.componentnames;
 
-    if (this.getProperty('swissmode') === 'wins' && components[0] != 'wins') {
+    if (this.getProperty('swissmode') === 'wins' && components[0] !== 'wins') {
       windex = components.indexOf('wins');
 
       if (windex !== -1) {
@@ -382,7 +382,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
           teams -= 1;
         }
 
-        if (teams % 2 != 0) {
+        if (teams % 2 !== 0) {
           // downvote required
           if (!group.some(this.canGetDownvote.bind(this))) {
             return false;
@@ -428,7 +428,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     }
 
     // verify eventual downvote
-    if (currentGroup.length == 1 && this.getProperty('enableupdown')) {
+    if (currentGroup.length === 1 && this.getProperty('enableupdown')) {
       if (!this.canGetDownvote(currentGroup[0])) {
         return false;
       }
@@ -499,7 +499,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    * @return true if the team already has a bye
    */
   SwissTournamentModel.prototype.hasBye = function(teamid) {
-    return this.ranking.byes.get(teamid) != 0;
+    return this.ranking.byes.get(teamid) !== 0;
   };
 
   /**
@@ -508,7 +508,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    * @return true if the team already has an upvote
    */
   SwissTournamentModel.prototype.hasUpvote = function(teamid) {
-    return this.ranking.upvotes.get(teamid) != 0;
+    return this.ranking.upvotes.get(teamid) !== 0;
   };
 
   /**
@@ -517,7 +517,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    * @return true if the team already has a downvote
    */
   SwissTournamentModel.prototype.hasDownvote = function(teamid) {
-    return this.ranking.downvotes.get(teamid) != 0;
+    return this.ranking.downvotes.get(teamid) !== 0;
   };
 
   /**

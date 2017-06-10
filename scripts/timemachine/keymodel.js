@@ -2,7 +2,7 @@
  * KeyModel: Represents a key for use with Query, RefLog and Commit. Keys
  * contain a target, a startDate and a saveDate with millisecond-accuracy.
  *
- * Keys can be either root keys (startDate == saveDate), or child keys
+ * Keys can be either root keys (startDate === saveDate), or child keys
  * (startDate < saveDate)
  *
  * This implementation tries to be as careful as possible with the formats to
@@ -15,7 +15,7 @@
  */
 define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     Model, Type, Presets) {
-  var delimiter, dateRegexSource, dateRegex, keyRegex, tuveroKeyRegex;
+  var delimiter, dateRegexSource, dateRegex, targetRegex, keyRegex, tuveroKeyRegex;
 
   /*
    * local regexes, which are used internally for format validation
@@ -87,7 +87,7 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    * @return true if valid and an root key, false otherwise
    */
   KeyModel.prototype.isRoot = function() {
-    return this.startDate == this.saveDate;
+    return this.startDate === this.saveDate;
   };
 
   /**
@@ -115,7 +115,7 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
    * @return true if both keys match, false otherwise
    */
   KeyModel.prototype.isEqual = function(key) {
-    return this.toString() == key.toString();
+    return this.toString() === key.toString();
   };
 
   /**
@@ -218,7 +218,7 @@ define(['lib/extend', 'core/model', 'core/type', 'presets'], function(extend,
     if (!matches) {
       throw new Error('KeyModel reference string does not match format');
     }
-    if (matches.length != 4) {
+    if (matches.length !== 4) {
       throw new Error('Regex Error? wrong number of captures (not 3): '
           + matches.join(','));
     }
