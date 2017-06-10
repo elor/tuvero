@@ -5,8 +5,11 @@
  * @license MIT License
  * @see LICENSE
  */
+
+/* globals TestMain */
+
 require(['config'], function () {
-    require(['core/config'], function () {
-        require(['core/common', 'jquery'], TestMain(Common, $));
-    });
+  require(['core/config'], function () {
+    require(['core/common', 'jquery'], TestMain);
+  });
 });
