@@ -6,6 +6,7 @@ WORKDIR /usr/src/app/cli
 
 COPY cli/package.json /usr/src/app/cli
 RUN npm install
+RUN gulp lib
 
 COPY cli/ /usr/src/app/cli
 COPY scripts /usr/src/app/scripts
