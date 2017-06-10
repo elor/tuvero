@@ -14,7 +14,7 @@ var sources = {
     '!scripts/core/{common,config,main}.js',
     '!**/{lib,test}/*.js'
   ],
-  scripts_all: [
+  scripts_for_linting: [
     '*.js',
     'gulp-tools/*.js',
     'scripts/**/*.js',

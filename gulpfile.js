@@ -53,7 +53,7 @@ gulp.task('update-test-js', function () {
 });
 
 gulp.task('lint', function () {
-  return gulp.src(sources.scripts_all)
+  return gulp.src(sources.scripts_for_linting)
     .pipe(filecount())
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
@@ -62,7 +62,7 @@ gulp.task('lint', function () {
 
 gulp.task('watch', function () {
   gulp.watch(sources.scripts, ['update-common-js']);
-  gulp.watch(sources.scripts_all, ['lint']);
+  gulp.watch(sources.scripts_for_linting, ['lint']);
   gulp.watch(sources.scripts_and_tests, ['test']);
   gulp.watch(sources.dependent_scripts, ['test-dependencies']);
   gulp.watch(sources.styles, ['update-mainstyle']);
