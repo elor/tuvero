@@ -52,14 +52,14 @@ gulp.task('update-mainstyle', ['lib-normalize'], function () {
     .pipe(gulp.dest('style'));
 });
 
-gulp.task('update-common-js', [], function () {
+gulp.task('update-common-js', function () {
   return gulp.src(sources.scripts, { base: 'scripts/' })
     .pipe(filecount())
     .pipe(createcommonjs())
     .pipe(gulp.dest('scripts/core'));
 });
 
-gulp.task('update-test-js', [], function () {
+gulp.task('update-test-js', function () {
   return gulp.src(sources.tests, { base: 'scripts/' })
     .pipe(filecount())
     .pipe(createtestjs())
