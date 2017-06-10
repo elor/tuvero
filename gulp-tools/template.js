@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 var gulp = require('gulp');
+var run = require('gulp-run');
 var nunjucks = require('gulp-nunjucks');
 var filecount = require('./filecount');
 
@@ -8,9 +9,9 @@ function templateStrings(target) {
   var requirejs = require('requirejs').config({
     baseUrl: 'scripts',
     paths: {
-      options: `../${target}/scripts/options`,
-      presets: `../${target}/scripts/presets`,
-      strings: `../${target}/scripts/strings`
+      'options': `../${target}/scripts/options`,
+      'presets': `../${target}/scripts/presets`,
+      'strings': `../${target}/scripts/strings`
     },
     nodeRequire: require
   });
@@ -31,14 +32,17 @@ module.exports = function (target, sources) {
       .pipe(gulp.dest(temp_template_dir));
   });
 
-  gulp.task(`template-${target}`, [`template-${target}-sources`],
-    function () {
-      return gulp.src(temp_template_dir + '/index.html')
-        .pipe(filecount())
-        .pipe(nunjucks.compile(templateStrings(target)))
-        .pipe(filecount())
-        .pipe(gulp.dest(target));
-    });
+  gulp.task(`template-${target}-internal`, function () {
+    return gulp.src(temp_template_dir + '/index.html')
+      .pipe(filecount())
+      .pipe(nunjucks.compile(templateStrings(target)))
+      .pipe(filecount())
+      .pipe(gulp.dest(target));
+  });
+
+  gulp.task(`template-${target}`, [`template-${target}-sources`], function () {
+    return run(`gulp template-${target}-internal`).exec();
+  });
 
   return `template-${target}`;
 };
