@@ -10,7 +10,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine',
     'ui/fontsizeview'], function($, extend, Controller, Toast, Strings, ClassView,
     State, Listener, TimeMachine, FontSizeView) {
-  var mainPopout, $fontsizeview, fontsizeview;
+      var mainPopout, $fontsizeview, fontsizeview, timeMachineListener;
 
   // TODO close a popout when its parent is removed from the DOM
 
@@ -76,7 +76,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
       $(mainPopout).on('beforeunload', closeMainPopout);
 
       $style = $('style');
-      if ($style.length == 0) {
+      if ($style.length === 0) {
         stylepath = window.location.href.replace(/index.html[?#].*/,
             'style/main.css');
         $style = $('<link rel="stylesheet" href="' + stylepath + '">');

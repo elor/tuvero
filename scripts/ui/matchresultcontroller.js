@@ -14,7 +14,7 @@ function(extend, MatchController, Strings, Toast, Options) {
   function MatchResultController(view, $form, tournament) {
     MatchResultController.superconstructor.call(this, view, $form);
 
-    if (this.model.length != 2) {
+    if (this.model.length !== 2) {
       console.error('corrections corrently only works with two teams.');
       return;
     }

@@ -58,7 +58,7 @@ define(['lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
    * @return true on success, undefined or false on failure
    */
   TeamsFileLoadController.parseCSVString = function(str, teamsizeModel) {
-    var lines, name, names, i;
+    var lines;
 
     lines = str.split('\n');
 

@@ -60,7 +60,7 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
 
     if (!extend.isSubclass(Implementation, Model) && Implementation !== Model) {
       console.error('Storage.register(): Not a model: ');
-      console.error(Implementation)
+      console.error(Implementation);
       return undefined;
     }
 
@@ -84,7 +84,7 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
     model = new Implementation();
     if (Type.isFunction(model.save)) {
       Listener.bind(model, 'update', function() {
-        window.localStorage.setItem(key, JSON.stringify(model.save()))
+        window.localStorage.setItem(key, JSON.stringify(model.save()));
       });
     } else if (model instanceof ValueModel) {
       Listener.bind(model, 'update', function() {

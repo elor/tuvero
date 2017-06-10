@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/statemodel'], function (StateModel) {
+define(['ui/statemodel', 'core/listener'], function (StateModel, Listener) {
   var State;
 
   State = new StateModel();

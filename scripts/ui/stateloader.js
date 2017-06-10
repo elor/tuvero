@@ -123,7 +123,9 @@ function(State, TimeMachine, LegacyLoaderModel, LegacyStorageKeyConverter,
    *          a data object of pre-1.5.0 format
    * @return true on success, false otherwise
    */
-  StateLoaderModel.prototype.loadLegacyData = function(data) {
+  StateLoaderModel.prototype.loadLegacyData = function (data) {
+    var loader;
+
     console.warn('Saved data is older than 1.5.0. '
         + 'Tuvero tries to auto-convert it, but success is not guaranteed.'
         + 'Please check the results before trusting them blindly');

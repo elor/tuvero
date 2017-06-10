@@ -47,7 +47,7 @@ define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
         if (data && data.registrations && data.target === Presets.target) {
           var model = new ServerTournamentModel(this.server, data);
           ServerTournamentLoader.loadTournament(model);
-          if (window.location.hash.replace(/^#/, '') == Browser.inithash) {
+          if (window.location.hash.replace(/^#/, '') === Browser.inithash) {
             window.location.hash = '';
           }
         }

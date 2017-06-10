@@ -26,7 +26,7 @@ define(['lib/extend', 'list/listmodel', 'ui/servertournamentmodel', //
     Object.keys(data.tournaments).forEach(function(tournamentID) {
       var tournament, tournamentData;
       tournamentData = data.tournaments[tournamentID];
-      if (tournamentData.target == Presets.target) {
+      if (tournamentData.target === Presets.target) {
         tournament = new ServerTournamentModel(this.server, tournamentData);
         this.push(tournament);
       }
@@ -39,7 +39,7 @@ define(['lib/extend', 'list/listmodel', 'ui/servertournamentmodel', //
     message.onreceive = (function(emitter, event, data) {
       this.parseResult(data);
     }).bind(this);
-    message.onerror = this.clear.bind(this)
+    message.onerror = this.clear.bind(this);
 
     message.send();
   };

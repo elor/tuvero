@@ -19,10 +19,6 @@ define([], function() { // NOTE TO SELF: Don't remove the '[],' from this line
   Default = {};
   OptionsTemplate = {};
 
-  function getState() {
-    return State || (State = require('ui/state'));
-  }
-
   OptionsTemplate.toBlob = function() {
     return JSON.stringify(OptionsTemplate);
   };

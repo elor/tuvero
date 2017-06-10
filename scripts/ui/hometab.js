@@ -37,12 +37,12 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', 'ui/strings',
    * TODO maybe split it into multiple autodetected functions?
    */
   HomeTab.prototype.init = function() {
-    var $button, $errorlink, browserstring, $container, $input, $template;
+    var $button, $errorlink, $container, $template;
 
     // TODO move to a controller
     $button = this.$view.find('button.reset');
     $button.click(function() {
-      if (confirm(Strings.clearstorage)) {
+      if (window.confirm(Strings.clearstorage)) {
         StateSaver.removeEverything();
       }
     });

@@ -50,7 +50,7 @@ define(['lib/extend', 'core/controller', 'ui/statesaver'], function(extend,
    * @return false if event propagation should be stopped
    */
   TimeMachineNewTreeController.prototype.inputKey = function(evt) {
-    if (evt.which == 13) {
+    if (evt.which === 13) {
       // enter
       this.$button.click();
 

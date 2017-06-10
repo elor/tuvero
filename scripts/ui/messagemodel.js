@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
-    ValueModel) {
+define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
+  $, extend, Model, ValueModel) {
   /**
    * Constructor
    */

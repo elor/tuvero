@@ -104,7 +104,7 @@ function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     switch (evt.which) {
     case 27: // escape
       this.$rename.val(this.getName());
-      // deliberate fallthrough
+      return this.endRename(evt);
     case 13: // enter
       return this.endRename(evt);
     }

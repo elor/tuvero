@@ -52,7 +52,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    */
   PlayerModel.prototype.setName = function(name) {
     name = trimName(name || '');
-    if (name && name != this.name) {
+    if (name && name !== this.name) {
       this.name = name;
       this.emit('update');
     }

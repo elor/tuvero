@@ -90,7 +90,7 @@ define(['lib/extend', 'ui/templateview', 'ui/strings', 'ui/teamview'], function(
     }, this);
 
     ranks.displayOrder.forEach(function(teamIndex, rank) {
-      var i, $row, team, player;
+      var $row, team;
 
       team = this.teamList.get(ranks.ids[teamIndex]);
 

@@ -1,13 +1,13 @@
 /**
  * ServerModel
- * 
+ *
  * @return ServerModel
  * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
-    'background/online', 'ui/messagemodel', 'ui/browser'], function(
+define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
+    'background/online', 'ui/messagemodel', 'ui/browser'], function($,
     extend, Model, ValueModel, StateValueModel, Online, MessageModel, Browser) {
   /**
    * Constructor
@@ -113,14 +113,11 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     if (this.tokenvalid.get() === false || !this.token.get()) {
       return undefined;
     }
-
     // tokenvalid can be true or undefined.
     // true: it's deemed valid
     // undefined: validation pending
 
-    message = new MessageModel(this, apipath, data);
-
-    return message;
+    return new MessageModel(this, apipath, data);
   };
 
   ServerModel.prototype.registerMessage = function() {
@@ -140,7 +137,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel', 'core/statevaluemodel',
     };
 
     causes.all = Object.keys(causes).every(function(value) {
-      return causes[value] == true;
+      return causes[value] === true;
     });
 
     return causes;

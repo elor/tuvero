@@ -66,6 +66,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
         if (controller.accept()) {
           break;
         }
+        return;
       default:
         return;
       }
@@ -145,7 +146,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
         valid = false;
       }
 
-      maxpoints = (Number(this.$scores.eq(0).val()) == Options.maxpoints);
+      maxpoints = (Number(this.$scores.eq(0).val()) === Options.maxpoints);
       if (tie && maxpoints && Options.maxpointtiesforbidden) {
         valid = false;
       }

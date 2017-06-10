@@ -26,7 +26,7 @@ function(extend, Controller, View, State, TeamModel, PlayerModel, Random,
 
     $button.click(this.registerTeams.bind(this));
     this.$numteams.keydown((function(e) {
-      if (e.which == 13) {
+      if (e.which === 13) {
         this.registerTeams();
       }
     }).bind(this));

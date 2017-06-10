@@ -145,8 +145,6 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
    * @param evt
    */
   FileLoadController.prototype.loadSuccess = function(evt) {
-    var blob, Alltabs;
-
     if (evt.target === this.reader) {
       this.readFile(evt.target.result);
     } else {

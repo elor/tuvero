@@ -118,7 +118,7 @@ define(['jquery', 'core/type'], function($, Type) {
    * @return a close function
    */
   Toast.prototype.close = function() {
-    var i, $alltoasts, $toast;
+    var $toast;
 
     if (initialized && this.$toast) {
       $toast = this.$toast;
@@ -144,7 +144,6 @@ define(['jquery', 'core/type'], function($, Type) {
    * unit tests show toasts for every error.
    */
   Toast.init = function() {
-    var transition, duration, id;
     // create toast container
     Toast.$container = $('<div id="toasts">');
     Toast.$template = $('<div class="hidden">ERROR</div>');
@@ -159,14 +158,14 @@ define(['jquery', 'core/type'], function($, Type) {
       Toast.$template.addClass('toast');
       Toast.fadeinDuration = getTransitionDuration();
 
-      if (Toast.fadeinDuration != Number(Toast.fadeinDuration)
+      if (Toast.fadeinDuration !== Number(Toast.fadeinDuration)
           || !isFinite(Toast.fadeinDuration) || isNaN(Toast.fadeinDuration)) {
         console.error('Toast.fadeinDuration: not a valid number: '
             + Toast.fadeinDuration);
         Toast.$template.removeClass('hidden');
       }
 
-      if (Toast.fadeoutDuration != Number(Toast.fadeoutDuration)
+      if (Toast.fadeoutDuration !== Number(Toast.fadeoutDuration)
           || !isFinite(Toast.fadeoutDuration) || isNaN(Toast.fadeoutDuration)) {
         console.error('Toast.fadeoutDuration: not a valid number: '
             + Toast.fadeoutDuration);

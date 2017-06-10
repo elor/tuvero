@@ -60,7 +60,7 @@ function(extend, TemplateView, TeamView, ListView, ListModel, InlineListView,
 
       if (this.rankingList.length === index) {
         this.rankingList.push(value);
-      } else if (this.rankingList.get(index) != value) {
+      } else if (this.rankingList.get(index) !== value) {
         this.rankingList.set(index, value);
       }
     }, this);

@@ -18,7 +18,7 @@ define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controll
    *          a valid RankingOrderView instance
    */
   function RankingOrderController(view) {
-    var selected, available;
+    var selected, allComponents;
 
     RankingOrderController.superconstructor.call(this, view);
 

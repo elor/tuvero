@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', 'ui/boxcontroller'], function(extend, View,
-    BoxController) {
+define(['lib/extend', 'core/view', 'ui/boxcontroller'], function (extend, View,
+  BoxController) {
   /**
    * Set the current tabbing state. This forbids tabbing into a collapsed box.
    *
@@ -65,15 +65,17 @@ define(['lib/extend', 'core/view', 'ui/boxcontroller'], function(extend, View,
   /**
    * reset to the expanded state
    */
-  BoxView.prototype.reset = function() {
+  BoxView.prototype.reset = function () {
     setTabbing(this.$view.removeClass('collapsed').css('height', '').css(
-        'transition', ''));
+      'transition', ''));
   };
 
   /**
    * update the box with a transition, e.g. after toggling its state
    */
-  BoxView.prototype.update = function() {
+  BoxView.prototype.update = function () {
+    /* jshint expr: true */
+
     var $box, oldheight, targetheight;
 
     $box = this.$view;
@@ -98,7 +100,7 @@ define(['lib/extend', 'core/view', 'ui/boxcontroller'], function(extend, View,
     setTabbing($box);
 
     // reset the transition value
-    setTimeout(function() {
+    setTimeout(function () {
       $box.css('transition', '');
       if (!$box.hasClass('collapsed')) {
         $box.css('height', '');
@@ -109,7 +111,7 @@ define(['lib/extend', 'core/view', 'ui/boxcontroller'], function(extend, View,
   /**
    * toggle callback function
    */
-  BoxView.prototype.ontoggle = function() {
+  BoxView.prototype.ontoggle = function () {
     this.$view.toggleClass('collapsed');
     this.update();
   };

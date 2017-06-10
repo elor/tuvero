@@ -44,7 +44,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/listview', 'ui/teamview',
    * TODO maybe split it into multiple autodetected functions?
    */
   TeamsTab.prototype.init = function() {
-    var $template, $container, $button, value;
+    var $container, $button, value;
 
     // teamsize bugfix
     if (State.teamsize.get() < Presets.registration.minteamsize) {

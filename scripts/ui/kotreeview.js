@@ -70,7 +70,7 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
    * automatically.
    */
   KOTreeView.prototype.setSize = function() {
-    var numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned;
+    var numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned, lowestID;
 
     numTeams = this.tournament.getTeams().length;
 
@@ -88,7 +88,7 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
       numRounds = KOTournamentModel.roundsInGroup(this.group);
     }
 
-    isTopAligned = KOTournamentModel.numMatchesInRound(numRounds) == numTeams;
+    isTopAligned = KOTournamentModel.numMatchesInRound(numRounds) === numTeams;
 
     x = thirdPlacePos.x;
     y = Math.max(lowestPos.y, thirdPlacePos.y);

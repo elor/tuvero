@@ -10,6 +10,10 @@ define(['lib/extend', 'core/view', 'lib/typeahead'], function(extend, View,
     typeahead) {
   /**
    * Constructor
+   *
+   * @param model An AutocompletionModel
+   *
+   * @param $view the DOM element to bind this to
    */
   function AutocompletionView(model, $view) {
     AutocompletionView.superconstructor.call(this, model, $view);

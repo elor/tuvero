@@ -23,7 +23,7 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
   extend(BoxController, Controller);
 
   BoxController.prototype.toggle = function(evt) {
-    if (evt.target.nodeName.toLowerCase() == 'input') {
+    if (evt.target.nodeName.toLowerCase() === 'input') {
       evt.preventDefault();
       return false;
     }

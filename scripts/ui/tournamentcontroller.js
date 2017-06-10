@@ -44,8 +44,6 @@ function(extend, RenameController, Toast, Strings) {
     });
 
     this.$closebutton.click(function() {
-      var state;
-
       if (tournament.finish()) {
         tournaments.closeTournament(tournament.getID());
         new Toast(Strings.tournamentfinished);

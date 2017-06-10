@@ -46,7 +46,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'core/listener',
    * update the visibility and properties
    */
   SwissTournamentController.prototype.initSpecialWinsProperties = function() {
-    var modevalue, votesenabled;
+    var modevalue, votesenabled, byeafterbye;
 
     modevalue = new PropertyValueModel(this.model.tournament, 'swissmode');
     votesenabled = new PropertyValueModel(this.model.tournament, //

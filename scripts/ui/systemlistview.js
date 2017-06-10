@@ -26,7 +26,7 @@ define(['lib/extend', 'ui/listview', 'ui/teamtableview', 'list/orderlistmodel',
    */
   function SystemListView(teams, $view, tournaments, teamsize,
       tournamentViewFactory) {
-    var orderList, updateTimeout;
+    var orderList, updateTimeout, view;
 
     orderList = new OrderListModel();
     SystemListView.superconstructor.call(this, orderList, $view, $view

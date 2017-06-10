@@ -81,7 +81,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
      * Magic: this replaces 'new SubView(model, $subview, optArgs), but enables
      * the use of an arbitrary number of optional arguments
      */
-    subview = new (Function.prototype.bind.apply(this.SubView, args));
+    subview = new (Function.prototype.bind.apply(this.SubView, args))();
     if (subview.$view !== $subview) {
       console.error('$subview != subview.$view');
       throw new Error('$subview != subview.$view');

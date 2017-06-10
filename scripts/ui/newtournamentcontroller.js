@@ -13,7 +13,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'tournament/tournamentindex',
    * Constructor
    */
   function NewTournamentController(view) {
-    var controller, $tournamentsize;
+    var controller;
     NewTournamentController.superconstructor.call(this, view);
 
     controller = this;

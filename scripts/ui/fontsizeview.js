@@ -45,7 +45,6 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
    * removes all font size information
    */
   FontSizeView.prototype.reset = function() {
-    var $container = this.$container;
     FontSizeModel.SIZES.map(function(size) {
       this.$container.removeClass(classprefix + size);
       this.$view.removeClass(classprefix + size);

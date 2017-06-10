@@ -69,8 +69,6 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
     $container = this.$view.find('.allimages');
     this.allImages = new LoadedImagesView($container);
 
-    $container;
-
     /*
      * buttons: register teams
      */

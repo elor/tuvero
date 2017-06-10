@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['background/online', 'ui/update'], function(Online, Update) {
+define(['background/online', 'ui/update'], function (Online, Update) {
   var Browser;
 
   Browser = {
@@ -21,14 +21,14 @@ define(['background/online', 'ui/update'], function(Online, Update) {
     inithash: window.location.hash.replace(/^#/, '')
   };
 
-  Browser.update = function() {
+  Browser.update = function () {
     /**
      * original code copied from:
      * http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
      *
      * @return browser information: "Browsername 13.0.0.1" or similar
      */
-    sayswho = (function() {
+    var sayswho = (function () {
       var ua, tem, M, regex;
 
       ua = navigator.userAgent;
@@ -40,13 +40,15 @@ define(['background/online', 'ui/update'], function(Online, Update) {
       }
       if (M[1] === 'Chrome') {
         tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
-        if (tem != null)
+        if (tem !== null) {
           return tem.slice(1).join(' ').replace('OPR', 'Opera');
+        }
       }
       M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion,//
-      '-?'];
-      if ((tem = ua.match(/version\/(\d+)/i)) != null)
+        '-?'];
+      if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
         M.splice(1, 1, tem[1]);
+      }
       return M.join(' ');
     })();
 

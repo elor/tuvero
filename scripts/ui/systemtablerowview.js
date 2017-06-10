@@ -82,7 +82,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     tournamentID = ranking.tournamentIDs[this.teamID];
     displayID = ranking.displayOrder.indexOf(this.teamID);
-    if (displayID + 1 == this.teams.length) {
+    if (displayID + 1 === this.teams.length) {
       this.$view.addClass('lastrow');
       return;
     }
@@ -106,6 +106,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
     // TODO extract methods + reduce variables
     var ranking, displayID, tournamentID, isFirstInTournament, previousTeamID;
     var rankingLength, nextDisplayID, nextTeamID, tournamentSize, tournament;
+    var $view;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     displayID = ranking.displayOrder.indexOf(this.teamID);

@@ -21,7 +21,7 @@ define(['lib/extend', 'core/view', 'ui/timemachinecommitview', 'ui/listview',
   extend(TimeMachineView, View);
 
   TimeMachineView.prototype.init = function() {
-    var $button, $container, $template;
+    var $container, $template;
     /*
      * Time Machine Commits
      */

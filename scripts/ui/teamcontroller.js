@@ -57,7 +57,9 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], function
     return player.getName();
   };
 
-  TeamController.prototype.setName = function(name) {
+  TeamController.prototype.setName = function (name) {
+    var player;
+
     if (!this.$anchor || !name) {
       return false;
     }

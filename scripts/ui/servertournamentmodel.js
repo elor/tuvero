@@ -30,9 +30,9 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   extend(ServerTournamentModel, Model);
 
   ServerTournamentModel.prototype.EVENTS = {
-    'error' : true,
-    'ready' : true
-  }
+    'error': true,
+    'ready': true
+  };
 
   ServerTournamentModel.prototype.readRegistrations = function() {
     var message = this.server.message('t/' + this.id);

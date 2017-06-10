@@ -125,7 +125,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
 
   LegacyLoaderModel.prototype.loadTournaments = function(blob,
       tournamentDataArray, tournamentRankingArray) {
-    var tournaments, parents;
+    var tournaments, parents, subtournamentOffsets;
 
     console.log('converting tournaments');
 
@@ -317,7 +317,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
        */
       if (tournamenthistory.corrections) {
         tournamenthistory.corrections.forEach(function(correctionData, id) {
-          var before, after;
+          var before, after, correction;
 
           before = restoreMatchResult(correctionData[0]);
           after = restoreMatchResult(correctionData[1]);
@@ -376,8 +376,6 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
   };
 
   LegacyLoaderModel.prototype.createMissingObjectsko = function(tournament) {
-    var teams, lastresults;
-
     console.log('conversion: creating missing objects for tournament '
         + tournament.getID() + ' (' + tournament.getName().get() + ')');
 
@@ -399,7 +397,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
     console.log('converting votes');
 
     tournamentDataArray.forEach(function(tournamentData, tournamentID) {
-      var tournament, system, ranking, upvoteArray, downvoteArray;
+      var tournament, system, ranking, upvoteArray, downvoteArray, displayOrder;
 
       console.log('converting votes of tournament ' + tournamentID);
 
