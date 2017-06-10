@@ -1,15 +1,15 @@
 ﻿var createcommonjs = require('./gulp-tools/create-common');
 var createtestjs = require('./gulp-tools/create-test');
 var filecount = require('./gulp-tools/filecount');
-var run = require('gulp-run');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-var mainstyle = require('./gulp-tools/mainstyle');
-var checkdependencies = require('./gulp-tools/check-dependencies');
-var template = require('./gulp-tools/template');
-var libs = require('./gulp-tools/libs');
+var run = require('gulp-run');
 var build = require('./gulp-tools/build');
+var checkdependencies = require('./gulp-tools/check-dependencies');
+var libs = require('./gulp-tools/libs');
+var mainstyle = require('./gulp-tools/mainstyle');
 var sources = require('./gulp-tools/sources');
+var template = require('./gulp-tools/template');
 
 gulp.task('default', ['lib', 'update', 'lint', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
@@ -64,7 +64,7 @@ gulp.task('watch', function () {
   gulp.watch(sources.scripts, ['update-common-js']);
   gulp.watch(sources.scripts_all, ['lint']);
   gulp.watch(sources.scripts_and_tests, ['test']);
-  gulp.watch(sources.dependant_scripts, ['test-dependencies']);
+  gulp.watch(sources.dependent_scripts, ['test-dependencies']);
   gulp.watch(sources.styles, ['update-mainstyle']);
   gulp.watch(sources.templates, ['template']);
   gulp.watch(sources.tests, ['update-test-js']);

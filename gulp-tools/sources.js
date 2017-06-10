@@ -16,12 +16,14 @@ var sources = {
   ],
   scripts_all: [
     '*.js',
-    '{scripts,gulp-tools}/**/*.js',
+    'gulp-tools/*.js',
+    'scripts/**/*.js',
     '*/scripts/**/*.js',
+    '!*/scripts/**/build.js',
     '!**/lib/*.js',
     '!**/{require,qunit}.js'
   ],
-  dependant_scripts: [
+  dependent_scripts: [
     'scripts/*/*.js',
     '{basic,boule,tac,test}/scripts/{presets,options,strings}.js',
     'scripts/**/test/*.js',
