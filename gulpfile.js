@@ -3,6 +3,7 @@ var createtestjs = require('./gulp-tools/create-test');
 var filecount = require('./gulp-tools/filecount');
 var run = require('gulp-run');
 var gulp = require('gulp');
+var jshint = require('gulp-jshint');
 var mainstyle = require('./gulp-tools/mainstyle');
 var checkdependencies = require('./gulp-tools/check-dependencies');
 var template = require('./gulp-tools/template');
@@ -51,8 +52,17 @@ gulp.task('update-test-js', function () {
     .pipe(gulp.dest('test/scripts'));
 });
 
+gulp.task('lint', function () {
+  return gulp.src(sources.scripts_all)
+    .pipe(filecount())
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
+});
+
 gulp.task('watch', function () {
   gulp.watch(sources.scripts, ['update-common-js']);
+  gulp.watch(sources.scripts_all, ['lint']);
   gulp.watch(sources.scripts_and_tests, ['test']);
   gulp.watch(sources.dependant_scripts, ['test-dependencies']);
   gulp.watch(sources.styles, ['update-mainstyle']);
