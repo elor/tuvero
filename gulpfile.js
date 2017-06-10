@@ -8,22 +8,7 @@ var checkdependencies = require('./gulp-tools/check-dependencies');
 var template = require('./gulp-tools/template');
 var libs = require('./gulp-tools/libs');
 var build = require('./gulp-tools/build');
-
-var sources = {
-  styles: ['lib/*.css', 'style/**/*.css', '!style/mainstyle.css'],
-  scripts_and_tests: ['scripts/**/*.js', '!scripts/core/{common,config,main}.js', '!**/lib/*.js'],
-  scripts: ['scripts/*/*.js', '!scripts/core/{common,config,main}.js', '!**/{lib,test}/*.js'],
-  dependant_scripts: [
-    'scripts/*/*.js',
-    '{basic,boule,tac,test}/scripts/{presets,options,strings}.js',
-    'scripts/**/test/*.js',
-    '!scripts/core/{common,config,main}.js',
-    '!**/lib/*.js'
-  ],
-  tests: ['scripts/**/test/*.js'],
-  templates: 'templates/*.html',
-  template_index: 'templates/index.html'
-};
+var sources = require('./gulp-tools/sources');
 
 gulp.task('default', ['lib', 'update', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
