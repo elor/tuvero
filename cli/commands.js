@@ -26,7 +26,8 @@ function extractStages(state) {
         state: tournament.getState().get(),
         system: tournament.SYSTEM
       };
-    })
+    }),
+    teamsize: state.teamsize.get()
   };
 
   result.closed = state.tournaments.closedTournaments.asArray().map(id => result.tournaments[id]);
@@ -74,7 +75,8 @@ function extractRanking(state) {
         state: tournament.getState().get(),
         system: tournament.SYSTEM
       };
-    })
+    }),
+    teamsize: state.teamsize.get()
   }
 }
 
@@ -116,6 +118,7 @@ function extractMatches(state) {
         })
       };
     }),
+    teamsize: state.teamsize.get()
   };
 }
 

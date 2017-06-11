@@ -7,10 +7,10 @@
     "name": "Erik E. Lorenz"
   },
   "dependencies": {
-    "qunitjs": "^2.3.2",
-    "requirejs": "^2.3.3",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "body-parser": "^1.17.2"
+    "qunitjs": "^2.3.2",
+    "requirejs": "^2.3.3"
   },
   "scripts": {
     "test": "node test.js",
