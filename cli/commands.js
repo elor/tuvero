@@ -106,6 +106,10 @@ function extractMatches(state) {
   return {
     tournaments: state.tournaments.map(function (tournament) {
       return {
+        name: tournament.getName().get(),
+        size: tournament.getTeams().length,
+        state: tournament.getState().get(),
+        system: tournament.SYSTEM,
         finished: tournament.getHistory().map(formatResult),
         running: tournament.getMatches().asArray()
           .filter(match => match.teams.indexOf(undefined) === -1)
