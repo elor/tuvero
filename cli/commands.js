@@ -126,9 +126,25 @@ function extractMatches(state) {
   };
 }
 
-module.exports = {
+function extractAll(state) {
+  var ret = {};
+
+  for (command in commands) {
+    if (command !== 'all') {
+      ret[command] = commands[command](state);
+    }
+  }
+
+  return ret;
+}
+
+let commands = {
+  all: extractAll,
+  matches: extractMatches,
   ranking: extractRanking,
-  teams: extractTeams,
   stages: extractStages,
-  matches: extractMatches
+  teams: extractTeams
 };
+
+
+module.exports = commands;
