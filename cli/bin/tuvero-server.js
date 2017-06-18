@@ -27,6 +27,14 @@ let router = express.Router();
 
 const allCommands = Object.keys(tuvero.commands);
 
+const allRoutes = (function (commands) {
+  var routes = {};
+  commands.forEach(function (cmd) {
+    routes[cmd] = `/${cmd}`
+  });
+  return routes;
+})(allCommands);
+
 router.post('/:command', function (request, response, next) {
   let command = request.params.command || undefined;
   let id = `${request.ip}->{${request.path}`;
@@ -47,11 +55,15 @@ router.post('/:command', function (request, response, next) {
         resolve(JSON.stringify(tuvero.commands[command](state), null, ' '));
       }).catch(reject);
   }))
-    .then(json => {
-      response.send(json);
+    .then(jsonstring => {
+      response.send(jsonstring);
     }).catch(error => {
       response.status(400).send(formatError(error));
     });
+});
+
+router.all('/', function (request, response, next) {
+  response.send(JSON.stringify(allRoutes, null, ' '));
 });
 
 app.use('/', router);
