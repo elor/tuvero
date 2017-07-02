@@ -60,7 +60,7 @@ module.exports = function () {
         .pipe(gulp.dest(`tmp/${target}/`));
     });
 
-    gulp.task(`build-${target}-requirejs`, ['lib-requirejs'] function () {
+    gulp.task(`build-${target}-requirejs`, ['lib-requirejs'], function () {
       return gulp.src([`${target}/scripts/require.js`])
         .pipe(filecount())
         .pipe(uglify())
