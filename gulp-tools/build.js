@@ -8,6 +8,7 @@ var buildstyle = require('./buildstyle');
 var replace = require("gulp-replace");
 var rjs = require('./rjs-optimize');
 var inlinesource = require('gulp-inline-source');
+const uglify = require('gulp-uglify');
 
 var targets = ['basic', 'boule', 'tac'];
 
@@ -64,6 +65,7 @@ module.exports = function () {
 
     gulp.task(`build-${target}-requirejs`, function () {
       return gulp.src([`${target}/scripts/require.js`])
+        .pipe(uglify())
         .pipe(gulp.dest(`tmp/${target}/scripts/`));
     });
 
