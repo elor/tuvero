@@ -11,7 +11,7 @@ const urlregex = /url\(['"]?([^"']+\.png)['"]?\)/;
 function pngToBase64(filename) {
   let encoded = fs.readFileSync(filename, { encoding: 'base64' });
 
-  return `data:image/png;base64,${encoded}`
+  return `data:image/png;base64,${encoded}`;
 }
 
 
