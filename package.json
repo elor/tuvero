@@ -20,6 +20,7 @@
     "through2": "^2.0.3"
   },
   "scripts": {
+    "build": "gulp default",
     "test": "gulp test"
   },
   "dependencies": {}
