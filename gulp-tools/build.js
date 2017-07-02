@@ -60,8 +60,9 @@ module.exports = function () {
         .pipe(gulp.dest(`tmp/${target}/`));
     });
 
-    gulp.task(`build-${target}-requirejs`, function () {
+    gulp.task(`build-${target}-requirejs`, ['lib-requirejs'] function () {
       return gulp.src([`${target}/scripts/require.js`])
+        .pipe(filecount())
         .pipe(uglify())
         .pipe(gulp.dest(`tmp/${target}/scripts/`));
     });
@@ -76,8 +77,7 @@ module.exports = function () {
       `build-${target}-index`,
       `build-${target}-requirejs`,
       `build-${target}-scripts`,
-      `build-${target}-style`,
-      "lib-requirejs"
+      `build-${target}-style`
     ], function () {
       return gulp.src(`tmp/${target}/index.html`)
         .pipe(inlinesource({ compress: false }))
