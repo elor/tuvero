@@ -36,9 +36,7 @@ module.exports = function () {
   });
 
   targets.forEach(function (target) {
-    gulp.task(`build-${target}`, [
-      `build-${target}-inline`
-    ]);
+    gulp.task(`build-${target}`, [`build-${target}-inline`]);
 
     gulp.task(`build-${target}-style-internal`,
       buildstyle(`${target}/style`, `tmp/${target}/style`));
@@ -48,7 +46,6 @@ module.exports = function () {
     });
 
     gulp.task(`build-${target}-scripts`, [
-      `build-${target}-requirejs`,
       'lib',
       'update-common-js'
     ], function () {
@@ -77,8 +74,10 @@ module.exports = function () {
     gulp.task(`build-${target}-inline`, [
       `build-${target}-images`,
       `build-${target}-index`,
+      `build-${target}-requirejs`,
       `build-${target}-scripts`,
-      `build-${target}-style`
+      `build-${target}-style`,
+      "lib-requirejs"
     ], function () {
       return gulp.src(`tmp/${target}/index.html`)
         .pipe(inlinesource({ compress: false }))
