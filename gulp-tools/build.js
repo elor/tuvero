@@ -39,7 +39,8 @@ module.exports = function () {
       `build-${target}-inline`
     ]);
 
-    gulp.task(`build-${target}-style-internal`, buildstyle(target));
+    gulp.task(`build-${target}-style-internal`,
+      buildstyle(`${target}/style`, `tmp/${target}/style`));
 
     gulp.task(`build-${target}-style`, ['update-mainstyle'], function () {
       return run(`gulp build-${target}-style-internal`).exec();
