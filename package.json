@@ -13,6 +13,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-run": "^1.7.1",
+    "gulp-uglify": "^3.0.0",
     "gulp-jshint": "^2.0.4",
     "jshint": "^2.9.4",
     "requirejs": "^2.3.3",

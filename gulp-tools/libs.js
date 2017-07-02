@@ -5,6 +5,7 @@ var filecount = require('./filecount');
 var gulp = require('gulp');
 var modernizr = require('gulp-modernizr');
 var rename = require('gulp-rename');
+const uglify = require('gulp-uglify');
 
 var dest_js = 'scripts/lib/';
 var dest_css = 'lib/';
@@ -70,6 +71,7 @@ module.exports = function () {
 
   gulp.task('lib-requirejs', ['bower'], function () {
     gulp.src('bower_components/requirejs/require.js')
+      .pipe(uglify())
       .pipe(gulp.dest('basic/scripts/'))
       .pipe(gulp.dest('boule/scripts/'))
       .pipe(gulp.dest('tac/scripts/'))
