@@ -214,7 +214,6 @@
     <Content Include="tac\images\sprite.png" />
     <Content Include="tac\images\svg\games.svg" />
     <Content Include="tac\images\svg\games_black.svg" />
-    <Content Include="tac\index.html" />
     <Content Include="tac\style\main.css" />
     <Content Include="tac\style\sprite.css" />
     <Content Include="tac\templates\extralinks.html" />
@@ -320,12 +319,10 @@
     <Compile Include="basic\scripts\main.js" />
     <Compile Include="basic\scripts\options.js" />
     <Compile Include="basic\scripts\presets.js" />
-    <Compile Include="basic\scripts\require.js" />
     <Compile Include="basic\scripts\strings.js" />
     <Compile Include="boule\scripts\main.js" />
     <Compile Include="boule\scripts\options.js" />
     <Compile Include="boule\scripts\presets.js" />
-    <Compile Include="boule\scripts\require.js" />
     <Compile Include="boule\scripts\strings.js" />
     <Compile Include="gulp-tools\check-dependencies.js" />
     <Compile Include="gulp-tools\build.js" />
@@ -656,14 +653,12 @@
     <Compile Include="tac\scripts\main.js" />
     <Compile Include="tac\scripts\options.js" />
     <Compile Include="tac\scripts\presets.js" />
-    <Compile Include="tac\scripts\require.js" />
     <Compile Include="tac\scripts\strings.js" />
     <Compile Include="test\scripts\build.js" />
     <Compile Include="test\scripts\config.js" />
     <Compile Include="test\scripts\options.js" />
     <Compile Include="test\scripts\presets.js" />
     <Compile Include="test\scripts\qunit.js" />
-    <Compile Include="test\scripts\require.js" />
     <Compile Include="test\scripts\strings.js" />
     <Compile Include="test\scripts\test.js" />
     <Compile Include="test\scripts\testmain.js" />
