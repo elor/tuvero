@@ -1,14 +1,14 @@
 ﻿'use strict';
 
-var bower = require('gulp-bower');
-var filecount = require('./filecount');
-var gulp = require('gulp');
-var modernizr = require('gulp-modernizr');
-var rename = require('gulp-rename');
+const bower = require('gulp-bower');
+const filecount = require('./filecount');
+const gulp = require('gulp');
+const modernizr = require('gulp-modernizr');
+const rename = require('gulp-rename');
 const uglify = require('gulp-uglify');
 
-var dest_js = 'scripts/lib/';
-var dest_css = 'lib/';
+const dest_js = 'scripts/lib/';
+const dest_css = 'lib/';
 
 module.exports = function () {
   gulp.task('bower', function () {

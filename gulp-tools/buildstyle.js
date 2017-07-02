@@ -1,12 +1,12 @@
 ﻿'use strict';
 
-var path = require('path');
-var gulp = require('gulp');
-var cleancss = require('gulp-clean-css');
+const path = require('path');
+const gulp = require('gulp');
+const cleancss = require('gulp-clean-css');
 
 module.exports = function (variant) {
   return function () {
-    var srcpath = variant + '/style';
+    const srcpath = variant + '/style';
     var dstpath = 'build/' + variant + '/style';
 
     process.chdir(srcpath);
