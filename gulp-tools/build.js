@@ -52,7 +52,7 @@ module.exports = function () {
       'update-common-js'
     ], function () {
       return gulp.src([`${target}/scripts/main.js`], { base: './' })
-        .pipe(rjs());
+        .pipe(rjs({ outDir: "tmp" }));
     });
 
     gulp.task(`build-${target}-index`, ['template'], function () {

@@ -4,7 +4,9 @@ var through = require("through2");
 var path = require("path");
 var requirejs = require('requirejs');
 
-module.exports = function () {
+module.exports = function (options) {
+  let outDir = options.outDir || "build";
+
   function scriptConfig(target) {
 
     return {
@@ -14,7 +16,7 @@ module.exports = function () {
         "scripts/core/config.js"
       ],
       name: path.posix.relative("scripts", `${target}/scripts/main`),
-      out: `tmp/${target}/scripts/main.js`,
+      out: `${outDir}/${target}/scripts/main.js`,
       preserveLicenseComments: false
     };
   }
