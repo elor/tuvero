@@ -59,17 +59,17 @@ module.exports = function () {
       return gulp.src([`${target}/index.html`])
         .pipe(replace(/\s*<script>[^<]*<\/script>/g, ''))
         .pipe(replace(/<html/, '<html manifest="manifest.appcache"'))
-        .pipe(gulp.dest(`build/${target}/`));
+        .pipe(gulp.dest(`tmp/${target}/`));
     });
 
     gulp.task(`build-${target}-requirejs`, function () {
       return gulp.src([`${target}/scripts/require.js`])
-        .pipe(gulp.dest(`build/${target}/scripts/`));
+        .pipe(gulp.dest(`tmp/${target}/scripts/`));
     });
 
     gulp.task(`build-${target}-images`, function () {
       return gulp.src([`${target}/images/{sprite,favicon}.png`])
-        .pipe(gulp.dest(`build/${target}/images/`));
+        .pipe(gulp.dest(`tmp/${target}/images/`));
     });
 
     gulp.task(`build-${target}-inline`, [
@@ -78,7 +78,7 @@ module.exports = function () {
       `build-${target}-scripts`,
       `build-${target}-style`
     ], function () {
-      return gulp.src(`build/${target}/index.html`)
+      return gulp.src(`tmp/${target}/index.html`)
         .pipe(inlinesource({ compress: false }))
         .pipe(gulp.dest(`build/${target}/`));
     });

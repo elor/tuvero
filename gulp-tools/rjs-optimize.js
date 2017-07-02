@@ -14,7 +14,7 @@ module.exports = function () {
         "scripts/core/config.js"
       ],
       name: path.posix.relative("scripts", `${target}/scripts/main`),
-      out: `build/${target}/scripts/main.js`,
+      out: `tmp/${target}/scripts/main.js`,
       preserveLicenseComments: false
     };
   }
