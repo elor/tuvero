@@ -7,6 +7,7 @@ var manifest = require('gulp-manifest');
 var buildstyle = require('./buildstyle');
 var replace = require("gulp-replace");
 var rjs = require('./rjs-optimize');
+var inlinesource = require('gulp-inline-source');
 
 var targets = ['basic', 'boule', 'tac'];
 
@@ -35,10 +36,7 @@ module.exports = function () {
 
   targets.forEach(function (target) {
     gulp.task(`build-${target}`, [
-      `build-${target}-images`,
-      `build-${target}-index`,
-      `build-${target}-scripts`,
-      `build-${target}-style`
+      `build-${target}-inline`
     ]);
 
     gulp.task(`build-${target}-style-internal`, buildstyle(target));
@@ -71,6 +69,17 @@ module.exports = function () {
     gulp.task(`build-${target}-images`, function () {
       return gulp.src([`${target}/images/{sprite,favicon}.png`])
         .pipe(gulp.dest(`build/${target}/images/`));
+    });
+
+    gulp.task(`build-${target}-inline`, [
+      `build-${target}-images`,
+      `build-${target}-index`,
+      `build-${target}-scripts`,
+      `build-${target}-style`
+    ], function () {
+      return gulp.src(`build/${target}/index.html`)
+        .pipe(inlinesource({ compress: false }))
+        .pipe(gulp.dest(`build/${target}/`));
     });
   });
 
