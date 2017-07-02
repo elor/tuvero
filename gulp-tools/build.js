@@ -36,7 +36,13 @@ module.exports = function () {
   });
 
   targets.forEach(function (target) {
-    gulp.task(`build-${target}`, [`build-${target}-inline`]);
+    gulp.task(`build-${target}`, [`build-${target}-inline`], function () {
+      return gulp.src(`build/${target}/index.html`)
+        .pipe(filecount())
+        .pipe(manifest({ filename: 'manifest.appcache', timestamp: false, hash: true }))
+        .pipe(filecount())
+        .pipe(gulp.dest(`build/${target}/`));
+    });
 
     gulp.task(`build-${target}-style-internal`,
       buildstyle(`${target}/style`, `tmp/${target}/style`));
