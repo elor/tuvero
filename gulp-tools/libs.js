@@ -62,14 +62,15 @@ module.exports = function () {
   });
 
   gulp.task('lib-modernizr', function () {
-    gulp.src(['scripts/background/featuredetect.js'])
+    return gulp.src(['scripts/background/featuredetect.js'])
       .pipe(filecount())
       .pipe(modernizr())
       .pipe(gulp.dest(dest_js));
   });
 
   gulp.task('lib-requirejs', ['bower'], function () {
-    gulp.src('bower_components/requirejs/require.js')
+    return gulp.src('bower_components/requirejs/require.js')
+      .pipe(filecount())
       .pipe(gulp.dest('basic/scripts/'))
       .pipe(gulp.dest('boule/scripts/'))
       .pipe(gulp.dest('tac/scripts/'))
