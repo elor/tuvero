@@ -224,7 +224,7 @@
     <Content Include="test\images\favicon.png" />
     <Content Include="test\images\games.png" />
     <Content Include="test\images\sprite.png" />
-    <Content Include="test\index.html" />
+    <Content Include="test\templates\index.html" />
     <Content Include="test\koline.html" />
     <Content Include="test\listview.html" />
     <Content Include="test\matchview.html" />
@@ -311,6 +311,7 @@
     <Folder Include="tac\templates\" />
     <Folder Include="test\" />
     <Folder Include="test\images\" />
+    <Folder Include="test\templates\" />
     <Folder Include="test\scripts\" />
     <Folder Include="test\style\" />
     <Folder Include="tools\" />
@@ -654,8 +655,6 @@
     <Compile Include="tac\scripts\options.js" />
     <Compile Include="tac\scripts\presets.js" />
     <Compile Include="tac\scripts\strings.js" />
-    <Compile Include="test\scripts\build.js" />
-    <Compile Include="test\scripts\config.js" />
     <Compile Include="test\scripts\options.js" />
     <Compile Include="test\scripts\presets.js" />
     <Compile Include="test\scripts\qunit.js" />
