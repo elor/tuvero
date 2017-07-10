@@ -34,14 +34,21 @@ var sources = {
   templates: 'templates/*.html',
   template_index: 'templates/index.html',
   release_source_cleanup: [
-    '**/*',
-    '!build/**/*',
-    '!{NEWS,ChangeLog,LICENSE,README.md,README_en.md,package.json}',
-    '!gulp-tools/**/*'
+    '{basic,boule,tac,test}/**/*',
+    'bower_components/**/*',
+    '{bower.json,ChangeLog,Dockerfile}',
+    'index.html',
+    '{core,tmp,tools}/**/*',
+    '{script,images,style,templates}/**/*',
+    '{cli,mobile,doc}/**/*',
+    '.{jshintrc,dockerignore,travis.yml}',
   ],
   release_final_cleanup: [
     'package.json',
-    'gulp-tools/**/*'
+    'gulpfile.js',
+    'node_modules/**/*',
+    'gulp-tools/**/*',
+    '{tuvero.njsproj,tuvero.sln}',
   ]
 };
 
