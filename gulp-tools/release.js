@@ -2,7 +2,7 @@
 
 var del = require('del');
 var gulp = require('gulp');
-var sources = require('./gulp-tools/sources');
+var sources = require('./sources');
 var replace = require("gulp-replace");
 
 module.exports = function () {
