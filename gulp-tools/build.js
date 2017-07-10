@@ -51,18 +51,8 @@ module.exports = function () {
       return run(`gulp build-${target}-style-internal`).exec();
     });
 
-    gulp.task(`build-${target}-scripts`,
-      target !== 'test' ? ['lib', 'update-common-js'] : [`build-${target}-testscripts`]
-      , function () {
-      return gulp.src([`${target}/scripts/main.js`], { base: './' })
-        .pipe(rjs({ outDir: "tmp" }));
-    });
-
-    gulp.task(`build-${target}-testscripts`, [
-      'lib',
-      'update-common-js'
-    ], function () {
-      return gulp.src([`${target}/scripts/test.js`], { base: './' })
+    gulp.task(`build-${target}-scripts`, ['lib', 'update-common-js'], function () {
+      return gulp.src([`${target}/scripts/{test,main}.js`], { base: './' })
         .pipe(rjs({ outDir: "tmp" }));
     });
 
