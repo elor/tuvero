@@ -10,18 +10,11 @@
  * @see LICENSE
  */
 
-var modules = [
+define([
     { modules }
-];
-
-define(modules, function() {
-    var loaded = {};
-    for (let i = 0; i < arguments.length; i += 1) {
-        loaded[modules[i]] = arguments[i];
-    }
-
+], function() {
     var Common = function(str) {
-        var module = loaded[str] || require.s.contexts._.defined[str];
+        var module = require.s.contexts._.defined[str];
         if (!module) {
             throw new Error("module '" + str + "' is undefined, not loaded or equals 0 in some way => " + module);
         }
