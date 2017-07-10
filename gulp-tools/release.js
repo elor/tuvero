@@ -27,5 +27,5 @@ module.exports = function () {
     return del(sources.release_final_cleanup);
   });
 
-  return;
+  return ['release-date', 'release-source-cleanup', 'release-copy-build', 'release-final-cleanup'];
 };
