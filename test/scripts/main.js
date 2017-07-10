@@ -23,6 +23,6 @@ require.config({
 });
 
 require(['core/config', 'core/common'], function (Config, Common) {
-  var $ = require('jquery')
+  var $ = require('jquery');
   TestMain(Common, $);
 });

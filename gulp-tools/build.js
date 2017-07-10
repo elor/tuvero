@@ -84,7 +84,7 @@ module.exports = function () {
     ], function () {
       if (target === 'test') {
         return gulp.src([`tmp/${target}/{*.html,/scripts/*.js,/style/*.css,/images/*.png}`])
-          .pipe(gulp.dest(`build/${target}/`))
+          .pipe(gulp.dest(`build/${target}/`));
       } else {
         return gulp.src(`tmp/${target}/*.html`)
           .pipe(inlinesource({ compress: false }))
