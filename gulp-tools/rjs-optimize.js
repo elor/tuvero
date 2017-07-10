@@ -7,16 +7,16 @@ var requirejs = require('requirejs');
 module.exports = function (options) {
   let outDir = options.outDir || "build";
 
-  function scriptConfig(target) {
+  function scriptConfig(target, base) {
 
     return {
       baseUrl: "scripts",
       mainConfigFile: [
-        `${target}/scripts/main.js`,
+        `${target}/scripts/${base}.js`,
         "scripts/core/config.js"
       ],
-      name: path.posix.relative("scripts", `${target}/scripts/main`),
-      out: `${outDir}/${target}/scripts/main.js`,
+      name: path.posix.relative("scripts", `${target}/scripts/${base}`),
+      out: `${outDir}/${target}/scripts/${base}.js`,
       preserveLicenseComments: false
     };
   }
@@ -33,13 +33,13 @@ module.exports = function (options) {
     switch (false) {
       case dirParts.length === 2:
       case dirParts[1] === "scripts":
-      case base === "main":
-        callback("input file does not match '<target>/scripts/main.js': " + file.relative);
+      case base === "main" || base === "test":
+        callback("input file does not match '<target>/scripts/{main,test}.js': " + file.relative);
     }
 
     target = dirParts[0];
 
-    config = scriptConfig(target);
+    config = scriptConfig(target, base);
 
     requirejs.optimize(config, function (success) {
       callback();
