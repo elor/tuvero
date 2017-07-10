@@ -32,7 +32,8 @@ var sources = {
   ],
   tests: ['scripts/**/test/*.js'],
   templates: 'templates/*.html',
-  template_index: 'templates/index.html'
+  template_index: 'templates/index.html',
+  release_cleanup: ['**/*', '!build/**/*', '!{NEWS,ChangeLog,LICENSE,README.md,README_en.md']
 };
 
 module.exports = sources;

@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var run = require('gulp-run');
 var build = require('./gulp-tools/build');
+var release = require('./gulp-tools/release');
 var checkdependencies = require('./gulp-tools/check-dependencies');
 var libs = require('./gulp-tools/libs');
 var mainstyle = require('./gulp-tools/mainstyle');
@@ -20,6 +21,7 @@ gulp.task('test', ['lib', 'test-dependencies'], function () {
 
 gulp.task('lib', libs());
 gulp.task('build', build());
+gulp.task('release', release());
 
 gulp.task('test-dependencies', ['lib'], function () {
   return gulp.src(sources.dependent_scripts, { base: 'scripts' })
