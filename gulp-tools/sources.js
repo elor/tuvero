@@ -33,7 +33,16 @@ var sources = {
   tests: ['scripts/**/test/*.js'],
   templates: 'templates/*.html',
   template_index: 'templates/index.html',
-  release_cleanup: ['**/*', '!build/**/*', '!{NEWS,ChangeLog,LICENSE,README.md,README_en.md']
+  release_source_cleanup: [
+    '**/*',
+    '!build/**/*',
+    '!{NEWS,ChangeLog,LICENSE,README.md,README_en.md,package.json}',
+    '!gulp-tools/**/*'
+  ],
+  release_final_cleanup: [
+    'package.json',
+    'gulp-tools/**/*'
+  ]
 };
 
 module.exports = sources;
