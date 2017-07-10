@@ -55,7 +55,6 @@
     IndexedListModel = Common('list/indexedlistmodel');
     TeamView = Common('ui/teamview');
     ListView = Common('ui/listview');
-    TeamNameController = Common('ui/teamnamecontroller');
 
     $(function($) {
       var $view, $template, players, teamlist, view;
@@ -86,11 +85,9 @@
       players.push(new PlayerModel('Antje Müller'));
       players.push(new PlayerModel('Marcel Neumann'));
       teamlist.insert(3, new TeamModel(players));
-
-      new TeamNameController(teamlistview);
     });
   }
   </script>
-  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+  <script data-main="scripts/main.js" src="scripts/require.js"></script>
 </body>
 </html>

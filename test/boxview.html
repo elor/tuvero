@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="utf-8" />
@@ -44,27 +44,27 @@
   <script id="testmain">
   function TestMain(Common, $) {
     var BoxView;
-  
+
     BoxView = Common('ui/boxview');
-  
+
     $(function($) {
       var $box;
-  
+
       $box = $('<div>').addClass('boxview').addClass('generated').append(
           $('<h3>').text('Script-Generated Box'));
-  
+
       new BoxView($box);
-  
+
       window.setInterval(
           function() {
             $box.append($('<span>').text((new Date()).toTimeString())).append(
                 '<br>');
           }, 864);
-  
+
       $('body').append($box);
     });
   }
   </script>
-  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+  <script data-main="scripts/main.js" src="scripts/require.js"></script>
 </body>
 </html>

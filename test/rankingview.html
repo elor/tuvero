@@ -32,22 +32,22 @@
   <script id="testmain">
   function TestMain(Common, $) {
     var RankingView, RankingModel, TeamModel, MatchResult, ListModel;
-  
+
     RankingView = Common('ui/rankingview');
-    RankingModel = Common('core/rankingmodel');
+    RankingModel = Common('ranking/rankingmodel');
     TeamModel = Common('ui/teammodel');
     PlayerModel = Common('ui/playermodel');
     ValueModel = Common('core/valuemodel');
     ListModel = Common('list/listmodel');
     MatchModel = Common('core/matchmodel');
     MatchResult = Common('core/matchresult');
-  
+
     $(function($) {
       var ranking, $view, i, teamlist, teams;
-      
+
       ranking = new RankingModel(['wins', 'buchholz', 'finebuchholz', 'sonneborn',
         'saldo', 'points'], 64);
-        
+
       teamlist = new ListModel();
       for (i = 0; i < ranking.length; i += 1){
         teams = [];
@@ -56,10 +56,10 @@
         } while (Math.random() < (1.0/(teams.length+1)));
         teamlist.push(new TeamModel(teams));
       }
-  
+
       $view = $('table');
       view = new RankingView(ranking, $view, teamlist, new ValueModel(false));
-  
+
       for ( i=0; i<ranking.length * 10; i+=1 ) {
         window.setTimeout(function() {
           var a, b, p, q;
@@ -83,6 +83,6 @@
     });
   }
   </script>
-  <script data-main="scripts/testmain.js" src="scripts/require.js"></script>
+  <script data-main="scripts/main.js" src="scripts/require.js"></script>
 </body>
 </html>
