@@ -9,6 +9,7 @@
     "jsdiff": "^3.2.0",
     "normalize.css": "^5.0.0",
     "requirejs": "^2.3.3",
-    "typeahead.js": "0.10.5"
+    "typeahead.js": "0.10.5",
+    "qunit": "^2.4.0"
   }
 }

@@ -77,5 +77,17 @@ module.exports = function () {
       .pipe(gulp.dest('test/scripts/'));
   });
 
+  gulp.task('lib-qunit-js', ['bower'], function () {
+    return gulp.src('bower_components/qunit/qunit/qunit.js')
+      .pipe(filecount())
+      .pipe(gulp.dest('test/scripts/'));
+  });
+
+  gulp.task('lib-qunit-css', ['bower'], function () {
+    return gulp.src('bower_components/qunit/qunit/qunit.css')
+      .pipe(filecount())
+      .pipe(gulp.dest('test/style/'));
+  });
+
   return Object.keys(gulp.tasks).filter(task => /^lib-.*$/.test(task));
 };

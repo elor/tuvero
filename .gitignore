@@ -26,4 +26,6 @@ style/mainstyle.css
 scripts/core/common.js
 test/scripts/test.js
 */scripts/require.js
+test/scripts/qunit.js
+test/style/qunit.css
 tmp/
