@@ -29,3 +29,4 @@ test/scripts/test.js
 test/scripts/qunit.js
 test/style/qunit.css
 tmp/
+npm-debug.log
