@@ -10,7 +10,7 @@ var rjs = require('./rjs-optimize');
 var inlinesource = require('gulp-inline-source');
 const uglify = require('gulp-uglify');
 
-var targets = ['basic', 'boule', 'tac'];
+var targets = ['basic', 'boule', 'tac', 'test'];
 
 module.exports = function () {
   gulp.task('build-static', ['build-static-images', 'build-static-html', 'build-static-manifest']);
@@ -28,7 +28,7 @@ module.exports = function () {
   });
 
   gulp.task('build-static-manifest', function () {
-    return gulp.src(['index.html', 'images/*.png'], { base: './' })
+    return gulp.src(['*.html', 'images/*.png'], { base: './' })
       .pipe(filecount())
       .pipe(manifest({ filename: 'manifest.appcache', timestamp: false, hash: true }))
       .pipe(filecount())
@@ -37,7 +37,7 @@ module.exports = function () {
 
   targets.forEach(function (target) {
     gulp.task(`build-${target}`, [`build-${target}-inline`], function () {
-      return gulp.src(`build/${target}/index.html`)
+      return gulp.src(`build/${target}/{*.html,scripts/*.js,style/*.css,images/*.png}`)
         .pipe(filecount())
         .pipe(manifest({ filename: 'manifest.appcache', timestamp: false, hash: true }))
         .pipe(filecount())
@@ -51,16 +51,23 @@ module.exports = function () {
       return run(`gulp build-${target}-style-internal`).exec();
     });
 
-    gulp.task(`build-${target}-scripts`, [
-      'lib',
-      'update-common-js'
-    ], function () {
+    gulp.task(`build-${target}-scripts`,
+      target !== 'test' ? ['lib', 'update-common-js'] : [`build-${target}-testscripts`]
+      , function () {
       return gulp.src([`${target}/scripts/main.js`], { base: './' })
         .pipe(rjs({ outDir: "tmp" }));
     });
 
-    gulp.task(`build-${target}-index`, ['template'], function () {
-      return gulp.src([`${target}/index.html`])
+    gulp.task(`build-${target}-testscripts`, [
+      'lib',
+      'update-common-js'
+    ], function () {
+      return gulp.src([`${target}/scripts/test.js`], { base: './' })
+        .pipe(rjs({ outDir: "tmp" }));
+    });
+
+    gulp.task(`build-${target}-html`, ['template'], function () {
+      return gulp.src([`${target}/*.html`])
         .pipe(replace(/\s*<script>[^<]*<\/script>/g, ''))
         .pipe(replace(/<html/, '<html manifest="manifest.appcache"'))
         .pipe(gulp.dest(`tmp/${target}/`));
@@ -80,17 +87,22 @@ module.exports = function () {
 
     gulp.task(`build-${target}-inline`, [
       `build-${target}-images`,
-      `build-${target}-index`,
+      `build-${target}-html`,
       `build-${target}-requirejs`,
       `build-${target}-scripts`,
       `build-${target}-style`
     ], function () {
-      return gulp.src(`tmp/${target}/index.html`)
-        .pipe(inlinesource({ compress: false }))
-        .pipe(gulp.dest(`build/${target}/`));
+      if (target === 'test') {
+        return gulp.src([`tmp/${target}/{*.html,/scripts/*.js,/style/*.css,/images/*.png}`])
+          .pipe(gulp.dest(`build/${target}/`))
+      } else {
+        return gulp.src(`tmp/${target}/*.html`)
+          .pipe(inlinesource({ compress: false }))
+          .pipe(gulp.dest(`build/${target}/`));
+      }
     });
   });
 
-  return ['build-static', 'build-boule', 'build-basic', 'build-tac'];
+  return ['build-static', 'build-boule', 'build-basic', 'build-tac', 'build-test'];
 };
 module.exports.targets = targets;
