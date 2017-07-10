@@ -22,7 +22,8 @@
   },
   "scripts": {
     "build": "gulp default",
-    "test": "gulp test"
+    "test": "gulp test",
+    "watch": "gulp watch"
   },
   "dependencies": {}
 }
