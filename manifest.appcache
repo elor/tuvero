@@ -1,0 +1,19 @@
+CACHE MANIFEST
+
+CACHE:
+index.html
+images/archive.png
+images/basic.png
+images/boule.png
+images/dev.png
+images/facebook.png
+images/github.png
+images/pvo.png
+images/tac.png
+images/tuvero.png
+images/wordpress.png
+
+NETWORK:
+*
+
+# hash: 68e15f65d2e6dfe4e782bacab134846012baf3c9cf761d8ffad52ddf7c083d1e
