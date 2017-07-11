@@ -34,7 +34,7 @@ define(['lib/extend', 'list/listmodel', 'ui/servertournamentmodel', //
   };
 
   ServerTournamentListModel.prototype.update = function() {
-    var message = this.server.message('t');
+    var message = this.server.message('t', {publiconly: false, showarchive: true});
 
     message.onreceive = (function(emitter, event, data) {
       this.parseResult(data);
