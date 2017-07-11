@@ -30,7 +30,9 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/state', 'presets',
       var $button, classes;
 
       $button = $(this);
-      classes = $button.attr('class').split(' ');
+      classes = $button.attr('class').split(' ').filter(function (dataset) {
+        return validsets.indexOf(dataset) !== -1;
+      });
 
       controller.saveCSV(classes);
     });
