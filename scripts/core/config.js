@@ -17,6 +17,9 @@ require.config({
         },
         'lib/Blob': {
             exports: 'Blob'
+        },
+        'lib/FileSaver': {
+          exports: 'saveAs'
         }
     },
     paths: {
