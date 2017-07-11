@@ -51,6 +51,16 @@ define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
       tab.visibility.set(true);
       tab.accessibility.set(true);
     },
+    secret: function(tabname) {
+      var tab = tabmenu.getTabModel(tabname);
+
+      if (!tab) {
+        return;
+      }
+
+      tab.visibility.set(false);
+      tab.accessibility.set(true);
+    },
     focus: function(tabname) {
       tabmenu.focus(tabname);
     },
