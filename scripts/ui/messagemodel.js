@@ -25,7 +25,9 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
   }
   extend(MessageModel, Model);
 
-  MessageModel.prototype.send = function() {
+  MessageModel.prototype.send = function () {
+    var server = this.server;
+
     if (this.server.tokenvalid.get() === false || !this.server.token.get()) {
       return false;
     }
@@ -39,9 +41,16 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
     $.ajax({
       method: 'POST',
       url: 'https://api.tuvero.de/' + this.apipath,
-      data: 'auth=' + this.server.token.get(),
-      timeout: 5000,
-      success: (function(data) {
+      data: this.data,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader("Authorization", "Bearer " + server.token.get());
+      },
+      xhrFields: {
+        withCredentials: true,
+      },
+      dataType: 'json',
+      timeout: 10000,
+      success: (function (data) {
         this.result.set(data);
         if (!data || data.error) {
           this.status.set('error');
@@ -51,12 +60,12 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
           this.emit('receive', data);
         }
       }).bind(this),
-      error: (function(data) {
+      error: (function (data) {
         this.result.set(data);
         this.status.set('error');
         this.emit('error', data);
       }).bind(this),
-      complete: (function(data) {
+      complete: (function (data) {
         this.server.unregisterMessage();
         this.emit('complete', data);
       }).bind(this)
@@ -68,16 +77,16 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
     return true;
   };
 
-  MessageModel.prototype.onsend = function(emitter, event, data) {
+  MessageModel.prototype.onsend = function (emitter, event, data) {
   };
 
-  MessageModel.prototype.onreceive = function(emitter, event, data) {
+  MessageModel.prototype.onreceive = function (emitter, event, data) {
   };
 
-  MessageModel.prototype.onerror = function(emitter, event, data) {
+  MessageModel.prototype.onerror = function (emitter, event, data) {
   };
 
-  MessageModel.prototype.oncomplete = function(emitter, event, data) {
+  MessageModel.prototype.oncomplete = function (emitter, event, data) {
 
   };
 
