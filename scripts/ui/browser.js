@@ -72,7 +72,7 @@ define(['background/online', 'ui/update'], function (Online, Update) {
 
     Browser.secure = document.location.protocol === 'https:';
 
-    Browser.legit = document.location.host === 'tuvero.de';
+    Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host);
 
     return Browser;
   };
