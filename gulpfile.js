@@ -15,7 +15,7 @@ var template = require('./gulp-tools/template');
 gulp.task('default', ['lib', 'update', 'lint', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
 gulp.task('template', build.targets.map(target => template(target, sources)));
-gulp.task('test', ['lib', 'test-dependencies'], function () {
+gulp.task('test', ['lib', 'lint', 'test-dependencies'], function () {
   return run('node cli/test.js').exec();
 });
 

@@ -29,6 +29,5 @@
     "watch": "gulp watch",
     "release": "gulp release"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
