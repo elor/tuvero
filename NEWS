@@ -1,9 +1,29 @@
-Tuvero 1.5.7 (2017-02-??)
+Tuvero 1.5.8 (yyyy-mm-dd)
 -------------------------
 
 FEATURES:
 
 FIXES:
+
+Tuvero 1.5.7 (2017-07-12)
+-------------------------
+
+FEATURES:
+
+  * Better and improved build system
+  * Teams-Tab and New-Tab joined
+  * Preparations for savestate upload to cloud servers
+  * command-line testing
+  * Tests are automatically run in CI environment
+  * clearer project directory structure
+  * support for www.tuvero.de
+
+FIXES:
+
+  * Teams-Tab left-padding removed
+  * CSV-loading from home tab added (removed from Teams-Tab)
+  * CSV file names contain exported dataset names (e.g. ..._teams.csv)
+  * Firefox-based testing works again
 
 Tuvero 1.5.6 (2017-01-26)
 -------------------------
@@ -202,7 +222,7 @@ FIX:
 
   * restoring savestate compatibility (file and localstorage)
 
-Tuvero 1.4.6 (yyyy-mm-dd)
+Tuvero 1.4.6 (2017-07-12)
 
 FEATURES:
 
