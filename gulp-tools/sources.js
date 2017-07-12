@@ -47,7 +47,8 @@ var sources = {
     'build',
     'gulpfile.js',
     'gulp-tools',
-    'node_modules'
+    'node_modules',
+    '.gitignore'
   ]
 };
 
