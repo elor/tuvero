@@ -1,7 +1,3 @@
-div#tabs > [data-tab="teams"] {
-  text-align: left;
-}
-
 #tabs > [data-tab="teams"] div.team {
   display: inline-table;
   vertical-align: middle;
