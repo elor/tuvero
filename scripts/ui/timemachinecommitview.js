@@ -7,10 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'core/view', 'timemachine/timemachine',
-    'core/valuemodel', 'ui/valueview', 'core/classview',
-    'ui/timemachinecommitcontroller', 'ui/boxview'], function(extend, View,
-    TimeMachine, ValueModel, ValueView, ClassView, TimeMachineCommitController,
-    BoxView) {
+    'core/valuemodel', 'ui/valueview', 'core/classview', 'ui/state',
+    'ui/timemachinecommitcontroller', 'ui/boxview', 'ui/checkboxview'], function(extend, View,
+    TimeMachine, ValueModel, ValueView, ClassView, State, TimeMachineCommitController,
+    BoxView, CheckBoxView) {
   /**
    * Constructor
    */
@@ -33,6 +33,10 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
     this.updateSaveDate();
     this.updateSize();
     this.updateActive();
+
+    this.autouploadCheckbox = new CheckBoxView(
+      State.tabOptions.autouploadState,
+      this.$view.find('input.autoupload'));
 
     this.controller = new TimeMachineCommitController(this);
 

@@ -38,7 +38,8 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
       teamTable: tabOptionPreset('teamtable', true),
       rankingAbbreviations: tabOptionPreset('rankingabbreviations', false),
       showMatchTables: tabOptionPreset('showmatchtables', false),
-      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false)
+      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false),
+      autouploadState: tabOptionPreset('autouploadstate', false)
     };
 
     this.initCleanupListeners();
