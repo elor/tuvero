@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 define(['ui/state', 'ui/listcollectormodel', 'ui/teammodel',
-    'tournament/tournamentmodel', 'ui/statesaver', 'core/listener', 'upload'], function(State,
-    ListCollectorModel, TeamModel, TournamentModel, StateSaver, Listener) {
+  'tournament/tournamentmodel', 'ui/statesaver', 'core/listener', 'background/upload'],
+  function (State, ListCollectorModel, TeamModel, TournamentModel, StateSaver, Listener, upload) {
   var updatePending, nameListener, AutoSave;
 
   AutoSave = undefined;
