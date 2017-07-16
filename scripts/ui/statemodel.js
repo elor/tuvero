@@ -98,10 +98,9 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     data.serverlink = this.serverlink.get();
     data.options = JSON.parse(Options.toBlob());
 
-    // TODO read from DOM or something
-    data.version = '1.5.0-dev';
+    // This reflects the json schema version for now.
+    data.version = '1.5.8';
 
-    // TODO read from DOM or something
     data.target = Presets.target;
 
     return data;
