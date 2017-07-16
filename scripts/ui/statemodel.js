@@ -21,6 +21,7 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     this.teams = new IndexedListModel();
     this.teamsize = new ValueModel(3);
     this.tournaments = new TournamentListModel();
+    this.serverlink = new ValueModel(undefined);
 
     function tabOptionPreset(name, defaultValue) {
       if (!Presets.taboptions || Presets.taboptions[name] === undefined) {
@@ -80,6 +81,7 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
   StateModel.prototype.SAVEFORMAT.tournaments = Object;
   StateModel.prototype.SAVEFORMAT.target = String; // e.g. 'tac', 'boule', ...
   StateModel.prototype.SAVEFORMAT.version = String; // e.g. '1.5.0'
+  // StateModel.prototype.SAVEFORMAT.serverlink = String; // OPTIONAL alphanumeric serverside identifier
 
   /**
    * prepares a serializable data object, which can later be used for restoring
@@ -93,6 +95,7 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     data.teams = this.teams.save();
     data.teamsize = this.teamsize.get();
     data.tournaments = this.tournaments.save();
+    data.serverlink = this.serverlink.get();
     data.options = JSON.parse(Options.toBlob());
 
     // TODO read from DOM or something
@@ -139,6 +142,10 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     if (!this.tournaments.restore(data.tournaments)) {
       this.emit('error', 'error: cannot restore State.tournaments');
       return false;
+    }
+
+    if (data.serverlink) {
+      this.serverlink.set(data.serverlink);
     }
 
     return true;
