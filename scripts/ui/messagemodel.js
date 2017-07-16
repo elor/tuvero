@@ -41,7 +41,7 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
     $.ajax({
       method: 'POST',
       url: 'https://api.tuvero.de/' + this.apipath,
-      data: this.data,
+      data: JSON.stringify(this.data),
       beforeSend: function (xhr) {
         xhr.setRequestHeader("Authorization", "Bearer " + server.token.get());
       },
@@ -50,6 +50,7 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
       },
       dataType: 'json',
       contentType: 'application/json; charset=utf8',
+      processData: false,
       timeout: 10000,
       success: (function (data) {
         this.result.set(data);
