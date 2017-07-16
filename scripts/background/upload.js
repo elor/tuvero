@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(['jquery', 'ui/toast', 'ui/strings', 'ui/server', 'ui/state', 'core/listener'],
-  function ($, Toast, Strings, Server, State) {
+  function ($, Toast, Strings, Server, State, Listener) {
     var Upload;
 
     $(function ($) {
