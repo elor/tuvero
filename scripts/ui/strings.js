@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['strings'], function(LocalStrings) {
+define(['strings'], function (LocalStrings) {
   var Strings;
 
   Strings = {
@@ -160,10 +160,16 @@ define(['strings'], function(LocalStrings) {
     csvheader_history: 'Runde,Spielno.,"No. 1","No. 2","Punkte 1","Punkte 2"',
     csvheader_ranking: 'Platz,No.',
     popout_adblocked: 'Ein Werbeblocker verhindert das Öffnen eines Fensters',
-    display_error: 'Anzeigefehler. Bitte neu laden.'
+    display_error: 'Anzeigefehler. Bitte neu laden.',
+    state_upload_complete: 'Turnierstand hochgeladen',
+    state_upload_failed: 'Hochladen fehlgeschlagen',
+    state_uploading: 'Lade Turnierstand hoch...',
+    state_not_linked: 'Turnier nicht vom Server gestartet',
+    not_logged_in: 'Nicht angemeldet',
+
   };
 
-  Object.keys(LocalStrings).forEach(function(key) {
+  Object.keys(LocalStrings).forEach(function (key) {
     Strings[key] = LocalStrings[key];
   });
 
