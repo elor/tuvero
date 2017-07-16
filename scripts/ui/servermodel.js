@@ -81,6 +81,7 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel', 'core/statevalu
       xhrFields : {
         withCredentials : true
       },
+      dataType: 'json',
       success : (function(data) {
         if (!data) {
           this.emit('error');
