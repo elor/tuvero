@@ -20,6 +20,7 @@ function(StateSaver, State, PlayerModel, TeamModel) {
     StateSaver.createNewEmptyTree(tournament.name);
     // add all players
     State.teamsize.set(tournament.teamsize);
+    State.serverlink.set(tournament.id);
 
     // TODO switch to teamstab
 
