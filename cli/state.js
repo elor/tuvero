@@ -5,7 +5,6 @@
 const fs = require('fs');
 const util = require('util');
 
-const requirejs = require('requirejs');
 
 function loadState(file) {
   return new Promise((resolve, reject) => {
@@ -36,6 +35,8 @@ function parseState(savedState) {
     const target = savedState.target;
     const baseDir = `../${target}/scripts/`;
 
+    delete require.cache[require.resolve('requirejs')];
+    const requirejs = require('requirejs');
     requirejs.config({
       baseUrl: '../scripts',
       paths: {
