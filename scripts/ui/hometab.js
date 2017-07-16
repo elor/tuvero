@@ -7,11 +7,11 @@
 define(['lib/extend', 'jquery', 'core/view', 'ui/state', 'ui/strings',
     'ui/toast', 'ui/browser', 'ui/timemachineview', 'ui/statesaver',
     'ui/statefileloadcontroller', 'core/valuemodel', 'core/classview',
-    'ui/servermodel', 'ui/loginview', 'ui/storage', 'presets',
+    'ui/server', 'ui/loginview', 'ui/storage', 'presets',
     'ui/servertournamentlistmodel', 'ui/servertournamentview', 'ui/listview',
     'ui/serverautoloadmodel'], function(extend, $, View, State, Strings, Toast,
     Browser, TimeMachineView, StateSaver, StateFileLoadController, ValueModel,
-    ClassView, ServerModel, LoginView, Storage, Presets,
+    ClassView, Server, LoginView, Storage, Presets,
     ServerTournamentListModel, ServerTournamentView, ListView,
     ServerAutoloadModel) {
   /**
@@ -72,11 +72,10 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', 'ui/strings',
      * LoginView, ServerTournamentView
      */
 
-    this.serverModel = Storage.register(Presets.names.apitoken, ServerModel);
-    this.serverAutoloadModel = new ServerAutoloadModel(this.serverModel);
+    this.serverAutoloadModel = new ServerAutoloadModel(Server);
 
     this.serverTournamentListModel = new ServerTournamentListModel(
-        this.serverModel);
+        Server);
     $container = this.$view.find('.servertournaments');
     $template = $container.find('.template');
     this.serverTournamentListView = new ListView(
@@ -84,10 +83,10 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/state', 'ui/strings',
         ServerTournamentView);
 
     $container = this.$view.find('.loginview');
-    this.loginView = new LoginView(this.serverModel, $container);
-    if (!this.serverModel.token.get()) {
+    this.loginView = new LoginView(Server, $container);
+    if (!Server.token.get()) {
       this.loginView.loginWindowSuppressed.set(true);
-      this.serverModel.createToken();
+      Server.createToken();
     }
   };
 
