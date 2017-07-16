@@ -3,7 +3,14 @@ Tuvero 1.5.8 (yyyy-mm-dd)
 
 FEATURES:
 
+* Upload of tournament states to the Tuvero servers
+* Automatic tournament state upload to the Tuvero servers
+
 FIXES:
+
+* Load button removed when tournament is already loaded
+* API datatypes, endpoints and content-types
+* API data preprocessing
 
 Tuvero 1.5.7 (2017-07-12)
 -------------------------
