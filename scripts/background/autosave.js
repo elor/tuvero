@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 define(['ui/state', 'ui/listcollectormodel', 'ui/teammodel',
-    'tournament/tournamentmodel', 'ui/statesaver', 'core/listener'], function(State,
+    'tournament/tournamentmodel', 'ui/statesaver', 'core/listener', 'upload'], function(State,
     ListCollectorModel, TeamModel, TournamentModel, StateSaver, Listener) {
   var updatePending, nameListener, AutoSave;
 
@@ -22,6 +22,11 @@ define(['ui/state', 'ui/listcollectormodel', 'ui/teammodel',
             // TODO display as Toast!
             console.error('autosave failed');
           }
+
+          if (State.tabOptions.autouploadState.get()) {
+            upload();
+          }
+
         } else {
           console.warn('cannot autosave: No state loaded.');
         }
