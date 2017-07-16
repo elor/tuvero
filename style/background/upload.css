@@ -1,3 +1,7 @@
 ﻿body.loggedout button.upload {
   color: #bbbbbb;
 }
+
+body.nostatelink button.upload {
+  color: #bbbbbb;
+}
