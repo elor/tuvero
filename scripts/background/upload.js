@@ -20,8 +20,10 @@ define(['jquery', 'ui/toast', 'ui/strings', 'ui/server', 'ui/state', 'core/liste
           new Toast('Turnier nicht auf dem Server registriert');
         } else {
           var message = Server.message('/t/' + serverlink + '/state/upload', State.save());
-          Listener.bind(message, 'error', function () {
+          Listener.bind(message, 'error', function (emitter, event, data) {
             new Toast('Hochladen fehlgeschlagen');
+            console.error(data);
+            console.error(JSON.stringify(data));
           });
           Listener.bind(message, 'receive', function () {
             new Toast('Turnierstand hochgeladen');
