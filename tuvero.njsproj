@@ -111,6 +111,9 @@
     <Content Include="core\images\tuvero.png" />
     <Content Include="core\images\xcf\amazonwishlist.xcf" />
     <Content Include="Dockerfile" />
+    <Content Include="style\background\upload.css">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="style\core\boxview.css" />
     <Content Include="style\settings\fontsize.css" />
     <Content Include="style\settings\fontsizeview.css" />
@@ -277,6 +280,7 @@
     <Folder Include="scripts\ranking\" />
     <Folder Include="scripts\ranking\test\" />
     <Folder Include="scripts\tournament\test\" />
+    <Folder Include="style\background\" />
     <Folder Include="templates\" />
     <Folder Include="doc\" />
     <Folder Include="doc\doc_de\" />
@@ -325,8 +329,12 @@
     <Compile Include="gulp-tools\build.js" />
     <Compile Include="gulp-tools\rjs-optimize.js" />
     <Compile Include="gulp-tools\sources.js" />
+    <Compile Include="scripts\background\serverstatelink.js" />
+    <Compile Include="scripts\background\loginstate.js" />
+    <Compile Include="scripts\background\upload.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
     <Compile Include="scripts\ui\servertournamentloader.js" />
+    <Compile Include="scripts\ui\server.js" />
     <Compile Include="scripts\ui\teamdeletecontroller.js" />
     <Compile Include="scripts\math\absolutematrix.js" />
     <Compile Include="scripts\math\antisymmetricmatrixmodel.js" />
