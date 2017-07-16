@@ -49,6 +49,7 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel'], function (
         withCredentials: true,
       },
       dataType: 'json',
+      contentType: 'application/json; charset=utf8',
       timeout: 10000,
       success: (function (data) {
         this.result.set(data);
