@@ -12,12 +12,12 @@ define(['jquery', 'ui/toast', 'ui/strings', 'ui/server', 'ui/state', 'core/liste
 
     $(function ($) {
       $('#tabs').on('click', 'button.upload', function () {
-        var serverlink = !State.serverlink.get();
+        var serverlink = State.serverlink.get();
         var uploadToast;
 
         if (!Server.logged_in.get()) {
           new Toast('Nicht angemeldet');
-        } else if (serverlink) {
+        } else if (!serverlink) {
           new Toast('Turnier nicht auf dem Server registriert');
         } else {
           var message = Server.message('/t/' + serverlink + '/state/upload', State.save());
