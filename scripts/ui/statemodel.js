@@ -144,9 +144,7 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
       return false;
     }
 
-    if (data.serverlink) {
-      this.serverlink.set(data.serverlink);
-    }
+    this.serverlink.set(data.serverlink || undefined);
 
     return true;
   };
