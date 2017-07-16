@@ -6,6 +6,14 @@
   font-weight: bold;
 }
 
+.timemachinecommitview.activetree .inactive {
+  display: none;
+}
+
+.timemachinecommitview:not(.activetree) .active {
+  display: none;
+}
+
 .timemachineview .rootcommits {
   margin-bottom: 1em;
 }
