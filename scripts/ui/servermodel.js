@@ -47,7 +47,7 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel', 'core/statevalu
 
     message.onreceive = (function() {
       this.tokenvalid.set(true);
-      this.login.set(true);
+      this.logged_in.set(true);
       this.emit('login');
     }).bind(this);
 
@@ -113,7 +113,7 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel', 'core/statevalu
     this.token.set(undefined);
     this.tokenvalid.set(undefined);
 
-    this.login.set(false);
+    this.logged_in.set(false);
     this.emit('logout');
   };
 
