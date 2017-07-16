@@ -654,6 +654,7 @@
     <Compile Include="scripts\ui\tournamentviewpopulator.js" />
     <Compile Include="scripts\ui\unicodehelper.js" />
     <Compile Include="scripts\ui\update.js" />
+    <Compile Include="scripts\ui\statelinkview.js" />
     <Compile Include="scripts\ui\valueview.js" />
     <Compile Include="tac\scripts\main.js" />
     <Compile Include="tac\scripts\options.js" />
