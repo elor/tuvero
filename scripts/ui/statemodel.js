@@ -71,6 +71,10 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     this.teams.clear();
     Options.reset();
     this.emit('clear');
+
+    // explicit rule to avoid uploading an already existing state
+    this.tabOptions.autouploadState.set(false);
+
     // this.teamsize.set(3); // TODO read default team size from options
   };
 
