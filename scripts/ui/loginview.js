@@ -33,6 +33,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.$logoutbutton = this.$view.find('button.logout');
     this.$busy = this.$view.find('.busy');
     this.$domainnotice = this.$view.find('.domainnotice');
+    this.$nodomainnotice = this.$view.find('.nodomainnotice');
     this.$online = this.$view.find('.online');
     this.$offline = this.$view.find('.offline');
 
@@ -56,6 +57,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     if (this.model.communicationStatus().tuvero) {
       this.$domainnotice.addClass('hidden');
+    } else {
+      this.$nodomainnotice.addClass('hidden');
     }
 
     this.usernameView = new ValueView(this.username, this.$username);
