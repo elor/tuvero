@@ -8,9 +8,10 @@
  */
 define(['lib/extend', 'core/view', 'timemachine/timemachine',
     'core/valuemodel', 'ui/valueview', 'core/classview', 'ui/state',
-    'ui/timemachinecommitcontroller', 'ui/boxview', 'ui/checkboxview'], function(extend, View,
-    TimeMachine, ValueModel, ValueView, ClassView, State, TimeMachineCommitController,
-    BoxView, CheckBoxView) {
+  'ui/timemachinecommitcontroller', 'ui/boxview', 'ui/checkboxview',
+  'ui/statelinkview'], function (extend, View, TimeMachine, ValueModel,
+    ValueView, ClassView, State, TimeMachineCommitController, BoxView,
+    CheckBoxView, StateLinkView) {
   /**
    * Constructor
    */
@@ -37,6 +38,9 @@ define(['lib/extend', 'core/view', 'timemachine/timemachine',
     this.autouploadCheckbox = new CheckBoxView(
       State.tabOptions.autouploadState,
       this.$view.find('input.autoupload'));
+
+    this.stateLinkView = new StateLinkView(State.serverlink,
+      this.$view.find('a.statelink'));
 
     this.controller = new TimeMachineCommitController(this);
 
