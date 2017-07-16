@@ -159,7 +159,6 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
   LoginView.prototype.updateProfile = function() {
     if (!this.model.communicationStatus().all) {
-      console.error("LoginModel.communicationStatus().all isn't true");
       this.username.set(undefined);
       this.avatar.set(undefined);
       return;

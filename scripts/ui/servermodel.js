@@ -68,6 +68,10 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel', 'core/statevalu
   ServerModel.prototype.createToken = function(token) {
     this.invalidateToken();
 
+    if (!this.communicationStatus().tuvero) {
+      return this.emit('error');
+    }
+
     this.registerMessage();
 
     $.ajax({
@@ -117,6 +121,11 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel', 'core/statevalu
     if (this.tokenvalid.get() === false || !this.token.get()) {
       return undefined;
     }
+
+    if (!this.communicationStatus().tuvero) {
+      return this.emit('error');
+    }
+
     // tokenvalid can be true or undefined.
     // true: it's deemed valid
     // undefined: validation pending
