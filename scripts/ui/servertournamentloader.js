@@ -18,36 +18,10 @@ function(StateSaver, State, PlayerModel, TeamModel) {
   ServerTournamentLoader.prototype.loadTournament = function(tournament) {
     // create new root RefLog with proper name
     StateSaver.createNewEmptyTree(tournament.name);
-    // add all players
-    State.teamsize.set(tournament.teamsize);
+    // load state
+    State.restore(tournament.statejson);
+    // for good measure, set the serverlink again
     State.serverlink.set(tournament.id);
-
-    // TODO switch to teamstab
-
-    tournament.registrations.forEach(function(names) {
-      var players;
-
-      while (names.length > State.teamsize.get()) {
-        names.pop();
-      }
-      while (names.length < State.teamsize.get()) {
-        names.push('N.N.');
-      }
-
-      players = names.map(function(name) {
-        var player = new PlayerModel(name);
-
-        if (player.getName() === PlayerModel.NONAME) {
-          return undefined;
-        }
-
-        return player;
-      });
-
-      if (players.indexOf(undefined) === -1) {
-        State.teams.push(new TeamModel(players));
-      }
-    }, this);
   };
 
   ServerTournamentLoader.loadTournament = //

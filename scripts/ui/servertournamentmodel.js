@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(['lib/extend', 'core/model'], function (extend, Model) {
   /**
    * Constructor
    */
@@ -21,7 +21,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     this.variant = data.target;
     this.url_www = data.url_www;
 
-    this.registrations = data.registrations || [];
+    this.statejson = undefined;
 
     this.server = server;
 
@@ -34,18 +34,18 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     'ready': true
   };
 
-  ServerTournamentModel.prototype.readRegistrations = function() {
-    var message = this.server.message('t/' + this.id);
+  ServerTournamentModel.prototype.readRegistrations = function () {
+    var message = this.server.message('t/' + this.id + '/state/latest/state');
 
-    message.onreceive = (function(emitter, event, data) {
-      if (data.registrations) {
-        this.registrations = data.registrations;
+    message.onreceive = (function (emitter, event, statejson) {
+      if (!statejson.error) {
+        this.statejson = statejson;
         this.emit('ready');
       } else {
         this.emit('error');
       }
     }).bind(this);
-    message.onerror = (function() {
+    message.onerror = (function () {
       this.emit('error');
     }).bind(this);
 

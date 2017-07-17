@@ -16,7 +16,7 @@ define(['lib/extend', 'core/controller', 'core/listener',
     ServerTournamentController.superconstructor.call(this, view);
 
     this.view.$view.find('button.play').click(
-        this.model.readRegistrations.bind(this.model));
+        this.model.downloadState.bind(this.model));
     Listener.bind(this.model, 'ready', function() {
       ServerTournamentLoader.loadTournament(this.model);
     }, this);
