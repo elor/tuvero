@@ -34,7 +34,7 @@ define(['lib/extend', 'core/model'], function (extend, Model) {
     'ready': true
   };
 
-  ServerTournamentModel.prototype.readRegistrations = function () {
+  ServerTournamentModel.prototype.downloadState = function () {
     var message = this.server.message('t/' + this.id + '/state/latest/state');
 
     message.onreceive = (function (emitter, event, statejson) {
