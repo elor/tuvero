@@ -75,11 +75,11 @@ define(function () {
         };
       });
       ref = [{
-        t: [1, 3],
+        t: [5, 3],
         i: 0,
         g: 1
       }, {
-        t: [5, 2],
+        t: [1, 2],
         i: 1,
         g: 1
       }];
@@ -102,11 +102,11 @@ define(function () {
         };
       });
       ref = [{
-        t: [1, 2],
+        t: [4, 2],
         i: 0,
         g: 2
       }, {
-        t: [4, 5],
+        t: [5, 1],
         i: 1,
         g: 2
       }];
@@ -130,11 +130,11 @@ define(function () {
         };
       });
       ref = [{
-        t: [1, 5],
+        t: [3, 1],
         i: 0,
         g: 3
       }, {
-        t: [3, 4],
+        t: [4, 5],
         i: 1,
         g: 3
       }];
@@ -142,7 +142,7 @@ define(function () {
       assert.deepEqual(tournament.getVotes('bye').get(0), 2,
         'fourth round: correct bye');
 
-      matches.get(0).finish([13, 2]);
+      matches.get(0).finish([2, 13]);
       matches.get(0).finish([13, 0]);
       assert.equal(state.get(), 'idle', 'idle after games finished');
 
@@ -170,7 +170,7 @@ define(function () {
         'fifth round: correct bye');
 
       matches.get(0).finish([13, 5]);
-      matches.get(0).finish([7, 13]);
+      matches.get(0).finish([13, 7]);
       assert.equal(state.get(), 'finished',
         '5-team tournament finished after 5 rounds');
 
@@ -178,11 +178,11 @@ define(function () {
       ref = {
         components: ['wins', 'sonneborn', 'saldo'],
         ids: [1, 2, 3, 4, 5],
-        displayOrder: [0, 1, 2, 4, 3],
-        ranks: [0, 1, 2, 4, 3],
-        saldo: [30, 9, 6, -10, -5],
-        sonneborn: [8, 7, 5, 3, 5],
-        wins: [4, 3, 3, 2, 3]
+        displayOrder: [0, 2, 1, 4, 3],
+        ranks: [0, 2, 1, 4, 3],
+        saldo: [31, 9, -6, 5, -9],
+        sonneborn: [10, 4, 5, 2, 3],
+        wins: [5, 3, 3, 2, 2]
       };
       assert.deepEqual(ret, ref, 'final ranking is correct');
 
