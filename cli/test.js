@@ -91,8 +91,8 @@ requirejs(['core/config'], function (config) {
 
   QUnit.log(function (test) {
     if (!test.result) {
-      console.log(test);
       console.log(test.message);
+      console.log({ actual: test.actual, expected: test.expected });
       console.log(test.source);
     }
   });
