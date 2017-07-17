@@ -126,7 +126,9 @@
   display: none;
 }
 
-#tabs > [data-tab="teams"].noreg button.deleteall, #tabs > [data-tab="teams"].noreg .newteamview {
+#tabs > [data-tab="teams"].noreg button.deleteall,
+#tabs > [data-tab="teams"].noreg button.delete,
+#tabs > [data-tab="teams"].noreg .newteamview {
   display: none;
 }
 
