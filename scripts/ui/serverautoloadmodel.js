@@ -48,8 +48,8 @@ define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
             var model = new ServerTournamentModel(this.server, data);
 
             Listener.bind(model, 'ready', function () {
-              ServerTournamentLoader.loadTournament(this.model);
-            }, this);
+              ServerTournamentLoader.loadTournament(model);
+            });
             model.downloadState();
 
             if (window.location.hash.replace(/^#/, '') === Browser.inithash) {
