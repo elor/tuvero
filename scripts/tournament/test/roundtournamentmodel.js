@@ -6,19 +6,20 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
-  return function(QUnit, getModule) {
-    var extend, RoundTournamentModel, TournamentModel, matches, byes, state;
+define(function () {
+  return function (QUnit, getModule) {
+    var extend, RoundTournamentModel, TournamentModel;
 
     extend = getModule('lib/extend');
     RoundTournamentModel = getModule('tournament/roundtournamentmodel');
     TournamentModel = getModule('tournament/tournamentmodel');
 
     QUnit.test('RoundTournamentModel', function (assert) {
-      var tournament, ret, ref, data;
+
+      var tournament, ret, ref, data, numteams, matches, teams, byes, state;
 
       assert.ok(extend.isSubclass(RoundTournamentModel, TournamentModel),
-          'RoundTournamentModel is subclass of TournamentModel');
+        'RoundTournamentModel is subclass of TournamentModel');
 
       tournament = new RoundTournamentModel(['wins', 'sonneborn', 'saldo']);
       assert.ok(tournament, 'proper construction works');
@@ -28,7 +29,7 @@ define(function() {
 
       tournament.addTeam(1);
       assert.ok(!tournament.run(),
-          'too few teams prohibit running the tournament');
+        'too few teams prohibit running the tournament');
       tournament.addTeam(2);
       tournament.addTeam(3);
       tournament.addTeam(4);
@@ -37,9 +38,9 @@ define(function() {
       assert.equal(matches.length, 2, 'two games for 5 teams');
 
       assert.ok(matches.get(0).getID() < matches.get(1).getID(),
-          'match ids are sorted');
+        'match ids are sorted');
 
-      ret = matches.map(function(match) {
+      ret = matches.map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -63,10 +64,10 @@ define(function() {
       assert.equal(state.get(), 'idle', 'idle after games finished');
 
       assert.equal(matches.length, 0,
-          'second round does not start automatically');
+        'second round does not start automatically');
       assert.ok(tournament.run(), 'second round starts manually');
       assert.equal(matches.length, 2, 'second round started');
-      ret = tournament.getMatches().asArray().map(function(match) {
+      ret = tournament.getMatches().asArray().map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -84,7 +85,7 @@ define(function() {
       }];
       assert.deepEqual(ret, ref, 'second round: correct teams in the matches');
       assert.deepEqual(tournament.getVotes('bye').get(0), 4,
-          'second round: correct bye');
+        'second round: correct bye');
 
       matches.get(0).finish([13, 4]);
       matches.get(0).finish([13, 8]);
@@ -93,7 +94,7 @@ define(function() {
       assert.equal(matches.length, 0, 'third round does not run automatically');
       assert.ok(tournament.run(), 'third round started manually');
       assert.equal(matches.length, 2, 'third round started');
-      ret = tournament.getMatches().asArray().map(function(match) {
+      ret = tournament.getMatches().asArray().map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -111,17 +112,17 @@ define(function() {
       }];
       assert.deepEqual(ret, ref, 'third round: correct teams in the matches');
       assert.deepEqual(tournament.getVotes('bye').get(0), 3,
-          'third round: correct bye');
+        'third round: correct bye');
 
       matches.get(0).finish([11, 13]);
       matches.get(0).finish([10, 13]);
       assert.equal(state.get(), 'idle', 'idle after games finished');
 
       assert.equal(matches.length, 0,
-          'fourth round does not start automatically');
+        'fourth round does not start automatically');
       assert.ok(tournament.run(), 'fourth round started manually');
       assert.equal(matches.length, 2, 'fourth round started');
-      ret = tournament.getMatches().asArray().map(function(match) {
+      ret = tournament.getMatches().asArray().map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -139,7 +140,7 @@ define(function() {
       }];
       assert.deepEqual(ret, ref, 'fourth round: correct teams in the matches');
       assert.deepEqual(tournament.getVotes('bye').get(0), 2,
-          'fourth round: correct bye');
+        'fourth round: correct bye');
 
       matches.get(0).finish([13, 2]);
       matches.get(0).finish([13, 0]);
@@ -148,7 +149,7 @@ define(function() {
       assert.equal(matches.length, 0, 'fifth round does not run automatically');
       assert.ok(tournament.run(), 'fifth round started manually');
       assert.equal(matches.length, 2, 'fifth round started');
-      ret = tournament.getMatches().asArray().map(function(match) {
+      ret = tournament.getMatches().asArray().map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -166,12 +167,12 @@ define(function() {
       }];
       assert.deepEqual(ret, ref, 'fifth round: correct teams in the matches');
       assert.deepEqual(tournament.getVotes('bye').get(0), 1,
-          'fifth round: correct bye');
+        'fifth round: correct bye');
 
       matches.get(0).finish([13, 5]);
       matches.get(0).finish([7, 13]);
       assert.equal(state.get(), 'finished',
-          '5-team tournament finished after 5 rounds');
+        '5-team tournament finished after 5 rounds');
 
       ret = tournament.getRanking().get();
       ref = {
@@ -218,7 +219,7 @@ define(function() {
       assert.equal(byes.length, 0, 'no byes for 4 teams');
       assert.equal(matches.length, 2, 'two matches for 4 teams');
 
-      ret = tournament.getMatches().asArray().map(function(match) {
+      ret = tournament.getMatches().asArray().map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -240,7 +241,7 @@ define(function() {
       matches.get(0).finish([10, 13]);
 
       tournament.run();
-      ret = tournament.getMatches().asArray().map(function(match) {
+      ret = tournament.getMatches().asArray().map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -262,7 +263,7 @@ define(function() {
       matches.get(0).finish([13, 9]);
 
       tournament.run();
-      ret = tournament.getMatches().asArray().map(function(match) {
+      ret = tournament.getMatches().asArray().map(function (match) {
         return {
           t: match.teams,
           i: match.getID(),
@@ -284,8 +285,42 @@ define(function() {
       matches.get(0).finish([13, 9]);
 
       assert.equal(state.get(), 'finished',
-          '4-team tournament is finished after 3 rounds');
+        '4-team tournament is finished after 3 rounds');
 
+
+      /*
+       * Check for duplications
+       */
+
+      for (numteams = 2; numteams <= 32; numteams += 1) {
+        tournament = new RoundTournamentModel(['buchholz']); // buchholz implies gamematrix
+        teams = tournament.getTeams();
+        matches = tournament.getMatches();
+
+        while (teams.length < numteams) {
+          tournament.addTeam(teams.length);
+        }
+
+        while (tournament.getState().get() !== 'finished') {
+          tournament.run();
+
+          while (matches.length > 0) {
+            matches.get(0).finish([13, 7]);
+          }
+        }
+
+        ret = teams.map(function (teamno1, id1) {
+          return teams.map(function (teamno2, id2) {
+            return tournament.ranking.gamematrix.get(id1, id2);
+          }).filter(function (occurences, id2) {
+            return occurences !== 1 && id1 !== id2;
+          });
+        }).filter(function (duplications) {
+          return duplications.length !== 0;
+        });
+
+        assert.deepEqual(ret, [], 'No duplications / omissions for ' + numteams + 'teams');
+      }
     });
   };
 });
