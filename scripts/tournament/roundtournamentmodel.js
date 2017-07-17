@@ -60,19 +60,11 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
   RoundTournamentModel.generateSlideSystemMatches = function() {
     var slideList, teamA, teamB, id;
 
-    slideList = RoundTournamentModel.generateSlideList(this.teams.length,
-        this.round);
+    slideList = RoundTournamentModel.generateSlideList(this.teams.length, this.round);
 
-    if (slideList.length % 2) {
-      // TODO use a function to auto-create all bye conditions. DRY principle.
-      if (this.round === slideList.length - 1) {
-        teamB = slideList.shift();
-      } else {
-        teamB = slideList.pop();
-      }
-      id = slideList.length >> 1;
-
-      this.addBye(teamB, id, this.round);
+    if (slideList.length % 2 === 1) {
+      teamA = slideList.pop();
+      this.addBye(teamA, slideList.length / 2, this.round);
     }
 
     id = 0;
@@ -81,7 +73,12 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
       teamA = slideList.shift();
       teamB = slideList.pop();
 
-      this.matches.push(new MatchModel([teamA, teamB], id, this.round));
+      if (teamA > this.teams.length) {
+        this.addBye(teamB, id, this.round);
+      } else if (teamB > this.teams.length) {
+      } else {
+        this.matches.push(new MatchModel([teamA, teamB], id, this.round));
+      }
 
       id += 1;
     }
@@ -95,7 +92,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    * @return an array of teams in a clockwise slide order, starting with the
    *         first team. Undefined on error.
    */
-  RoundTournamentModel.generateSlideList = function(numteams, round) {
+  RoundTournamentModel.generateSlideList = function (numteams, round) {
     var teams, slideteam;
 
     if (!Type.isNumber(numteams) || !Type.isNumber(round)) {
@@ -107,19 +104,18 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
       while (teams.length < numteams) {
         teams.push(teams.length);
       }
-      return teams;
+    } else {
+      teams = RoundTournamentModel.generateSlideList(numteams, round - 1);
+      slideteam = teams.splice(numteams - 1, 1)[0];
+
+      // numteams even: skip first player, odd: first player is shifted, too
+      teams.splice(1 - numteams % 2, 0, slideteam);
     }
-
-    teams = RoundTournamentModel.generateSlideList(numteams, round - 1);
-
-    slideteam = teams.splice(numteams - 1, 1)[0];
-    teams.splice(1, 0, slideteam);
 
     return teams;
   };
 
   /**
-   *
    * @param matchresult
    *          Ignored.
    */
