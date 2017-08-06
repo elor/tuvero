@@ -5,7 +5,7 @@ stages:
 
 before_script:
   - apk update
-  - apk add nodejs nodejs-npm
+  - apk add nodejs nodejs-npm git
   - npm install
   - npm install cli/
 
