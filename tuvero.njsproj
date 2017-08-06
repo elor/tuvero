@@ -33,6 +33,7 @@
   <ItemGroup>
     <Content Include=".dockerignore" />
     <Content Include=".gitignore" />
+    <Content Include=".gitlab-ci.yml" />
     <Content Include="basic\images\favicon.png" />
     <Content Include="basic\images\games.png" />
     <Content Include="basic\images\sprite.png" />
