@@ -1,5 +1,4 @@
 stages:
-  - test
   - build
   - deploy
 
@@ -8,13 +7,6 @@ before_script:
   - apk add nodejs nodejs-npm git
   - npm install
   - npm install cli/
-
-test:
-  stage: test
-  tags:
-    - alpine
-  script:
-    npm run-script test
 
 build:
   stage: build
