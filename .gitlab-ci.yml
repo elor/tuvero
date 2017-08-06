@@ -17,7 +17,7 @@ test:
     npm run-script test
 
 build:
-  stage: test
+  stage: build
   tags:
     - alpine
   script:
