@@ -4,11 +4,10 @@ stages:
   - deploy
 
 before_script:
-  script:
-    - apk update
-    - apk add nodejs nodejs-npm
-    - npm install
-    - npm install cli/
+  - apk update
+  - apk add nodejs nodejs-npm
+  - npm install
+  - npm install cli/
 
 test:
   stage: test
