@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!-- Note to self: don't autoformat this file using eclipse/aptana! It introduces unwanted visible spaces -->
+<html manifest="manifest.appcache" lang="de">
+<head>
+<meta charset="utf-8" />
+<title>Tuvero Test 1.5.7</title>
+<link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+<link rel="stylesheet" href="style/main.css" />
+<style>
+div.team {
+  display: inline-block;
+  vertical-align: top;
+}
+
+tr.team>td.name {
+  width: 10em;
+}
+
+tr.team>td.teamno {
+  width: 2em;
+  text-align: center;
+}
+
+div.team .name, div.team .teamno {
+  display: block;
+  width: 10em;
+  height: 1.5em;
+}
+
+div.team .teamno:before {
+  content: "Team "
+}
+
+#templates, .template {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+	<h2>
+		<span class="numteams">##</span> Teams
+	</h2>
+	<form class="newteam">
+		<input class="playername" type="text" placeholder="Spieler 1" /> <input
+			class="playername" type="text" placeholder="Spieler 2" /> <input
+			class="playername" type="text" placeholder="Spieler 3" />
+		<button>eintragen</button>
+	</form>
+
+	<br>
+
+	<div id="tiles"></div>
+
+	<br>
+
+	<table id="table">
+		<tr>
+			<th>No.</th>
+			<th>Spieler 1</th>
+			<th>Spieler 2</th>
+			<th>Spieler 3</th>
+		</tr>
+	</table>
+
+	<div id="templates">
+		<div class="team template">
+			<span class="teamno">##</span> <span class="name">%% %%</span> <span
+				class="name">%% %%</span> <span class="name">%% %%</span>
+		</div>
+		<table>
+			<tr class="team template">
+				<td class="teamno"></td>
+				<td class="name"></td>
+				<td class="name"></td>
+				<td class="name"></td>
+			</tr>
+		</table>
+	</div>
+
+  <script id="testmain">
+  function TestMain(Common, $) {
+    var PlayerModel, TeamModel, IndexedListModel, TeamView, ListView, NewTeamView, LengthView;
+  
+    PlayerModel = Common('ui/playermodel');
+    TeamModel = Common('ui/teammodel');
+    IndexedListModel = Common('list/indexedlistmodel');
+    TeamView = Common('ui/teamview');
+    ListView = Common('ui/listview');
+    LengthView = Common('ui/lengthview');
+    NewTeamView = Common('ui/newteamview');
+  
+    $(function($) {
+      var $view, $template, players, teamlist, view;
+  
+      teamlist = new IndexedListModel();
+  
+      $view = $('#tiles');
+      $template = $('#templates').find('div.template').detach().removeClass(
+          'template');
+      new ListView(teamlist, $view, $template, TeamView);
+  
+      $view = $('#table');
+      $template = $('#templates').find('tr.template').detach().removeClass(
+          'template');
+      new ListView(teamlist, $view, $template, TeamView);
+  
+      $view = $('.numteams');
+      new LengthView(teamlist, $view);
+  
+      $view = $('.newteam');
+      (new NewTeamView(teamlist, $view)).focusEmpty();
+    });
+  }
+  </script>
+  <script data-main="scripts/main.js" src="scripts/require.js"></script>
+</body>
+</html>
