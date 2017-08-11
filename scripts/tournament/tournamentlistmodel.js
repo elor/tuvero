@@ -8,9 +8,9 @@
  * @see LICENSE
  */
 define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelistmodel',
-    'tournament/tournamentindex', 'core/listener', 'core/model'], function(extend,
+    'tournament/tournamentindex', 'core/listener', 'core/model', 'core/valuemodel'], function(extend,
     IndexedListModel, ListModel, UniqueListModel, TournamentIndex, Listener,
-    Model) {
+    Model, ValueModel) {
   /**
    * Constructor
    */
@@ -21,6 +21,8 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
     this.closedTournaments = new UniqueListModel();
 
     this.rankingCache = undefined;
+
+    this.interlaceCount = new ValueModel(1);
 
     this.setListeners();
   }
@@ -111,7 +113,7 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
     var teams, undefinedTeams, zeroTeams;
 
     if (numTeams === undefined || numTeams < 0) {
-      console.error('invalid numTeams parameter');
+      console.error('invalid numTeams argument');
       return undefined;
     }
 
@@ -140,6 +142,7 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       // index: teamid
       globalRanks: zeroTeams.slice(0),
       tournamentRanks: zeroTeams.slice(0),
+      lastTournamentIDs: undefinedTeams.slice(0),
       tournamentIDs: undefinedTeams.slice(0),
       tournamentOffsets: this.startIndex.asArray()
     };
@@ -149,9 +152,87 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       this.applyTournamentToRanks(tournament, this.rankingCache);
     }, this);
 
+    this.interlaceRanks(this.rankingCache);
+
     this.calculateGlobalRanks(this.rankingCache);
 
     return this.rankingCache;
+  };
+
+  TournamentListModel.prototype.interlaceRanks = function (rankingCache) {
+    var tournamentOrder = rankingCache.displayOrder.map(function (teamID) {
+      return rankingCache.tournamentIDs[teamID];
+    });
+
+    var begin = tournamentOrder.indexOf(undefined);
+    if (begin === -1) {
+      setTimeout((function () {
+        this.interlaceCount.set(1);
+      }).bind(this), 1);
+      return;
+    }
+
+    var end = begin;
+    while (end < tournamentOrder.length && tournamentOrder[end] === undefined) {
+      end++;
+    }
+
+    var displayOrder = rankingCache.displayOrder.slice(begin, end);
+    var tournamentIDs = displayOrder.map(function (teamID) {
+      return rankingCache.lastTournamentIDs[teamID];
+    }).filter(function (tournamentID, index, list) {
+      return tournamentID !== undefined && list.indexOf(tournamentID) === index;
+    });
+
+    if (tournamentIDs.length < this.interlaceCount.get()) {
+      setTimeout((function () {
+        this.interlaceCount.set(tournamentIDs.length || 1);
+      }).bind(this), 1);
+    }
+
+    tournamentIDs.splice(this.interlaceCount.get());
+
+    var tournamentTeams = {};
+    tournamentIDs.forEach(function (tournamentID) {
+      tournamentTeams[tournamentID] = [];
+    });
+
+    var leftoverTeams = [];
+
+    displayOrder.forEach(function (teamID) {
+      var tournamentID = rankingCache.lastTournamentIDs[teamID];
+      if (tournamentTeams[tournamentID]) {
+        tournamentTeams[tournamentID].push(teamID);
+      } else {
+        leftoverTeams.push(teamID);
+      }
+    });
+
+    displayOrder = [];
+
+    while (Object.keys(tournamentTeams).length > 0) {
+      tournamentIDs.forEach(function (tournamentID) {
+        var teams = tournamentTeams[tournamentID];
+        if (teams === undefined) {
+          return;
+        }
+        if (teams.length > 0) {
+          displayOrder.push(teams.shift());
+        }
+        if (teams.length === 0) {
+          delete tournamentTeams[tournamentID];
+        }
+      });
+
+    }
+
+    leftoverTeams.forEach(function (teamID) {
+      displayOrder.push(teamID);
+    });
+
+    for (var position = begin; position < end; position += 1) {
+      rankingCache.displayOrder[position] = displayOrder[position - begin];
+    }
   };
 
   /**
@@ -185,9 +266,8 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       globalRanking.displayOrder[globalDisplayID] = globalTeamID;
       globalRanking.tournamentRanks[globalTeamID] = tournamentRank;
 
-      if (isClosed) {
-        globalRanking.tournamentIDs[globalTeamID] = undefined;
-      } else {
+      globalRanking.lastTournamentIDs[globalTeamID] = tournamentID;
+      if (!isClosed) {
         globalRanking.tournamentIDs[globalTeamID] = tournamentID;
       }
     }, this);
@@ -281,6 +361,12 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       if (emitter === this) {
         data.object.getRanking().unregisterListener(this);
         data.object.getState().unregisterListener(this);
+        this.invalidateGlobalRanking();
+      }
+    }, this);
+
+    Listener.bind(this.interlaceCount, 'update', function (emitter, event, data) {
+      if (emitter === this.interlaceCount) {
         this.invalidateGlobalRanking();
       }
     }, this);

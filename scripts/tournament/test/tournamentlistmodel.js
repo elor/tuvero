@@ -16,7 +16,7 @@ define(function() {
     IndexedListModel = getModule('list/indexedlistmodel');
 
     QUnit.test('TournamentListModel', function (assert) {
-      var tournament, list, ref, savedata;
+      var tournament, list, ref, savedata, ranking;
       assert.ok(extend.isSubclass(TournamentListModel, IndexedListModel),
           'TournamentListModel is subclass of IndexedListModel');
 
@@ -69,6 +69,29 @@ define(function() {
       // TODO test getGlobalRanking()
       // TODO test closeTournament()
       // TODO test push, insert, pop, remove and erase
+
+      // interlacing
+      list = new TournamentListModel();
+      tournament = TournamentIndex.createTournament('swiss', ['sonneborn', 'id']);
+      tournament.addTeam(0);
+      tournament.addTeam(1);
+      tournament.addTeam(2);
+      list.push(tournament, 0);
+
+      tournament = TournamentIndex.createTournament('swiss', ['sonneborn', 'id']);
+      tournament.addTeam(3);
+      tournament.addTeam(4);
+      tournament.addTeam(5);
+      list.push(tournament, 3);
+
+      list.closeTournament(0);
+      list.closeTournament(1);
+
+      list.interlaceCount.set(2);
+
+      ref = undefined;
+      ranking = list.getGlobalRanking(6);
+      assert.deepEqual(ranking.displayOrder, [0,3,1,4,2,5], "interlaced displayOrder");
     });
   };
 });
