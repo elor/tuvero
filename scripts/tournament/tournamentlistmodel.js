@@ -294,7 +294,7 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
     ranking.displayOrder.map(function(teamID, displayID) {
       var tournamentID, tournamentRank;
 
-      tournamentID = ranking.tournamentIDs[teamID];
+      tournamentID = ranking.lastTournamentIDs[teamID];
       tournamentRank = ranking.tournamentRanks[teamID];
 
       if (rank === undefined || tournamentID !== lastTournamentID
