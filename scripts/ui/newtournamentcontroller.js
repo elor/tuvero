@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['jquery', 'lib/extend', 'core/controller', 'tournament/tournamentindex', 'ui/strings',
-    'ui/tournamentcontroller', 'presets'], function($, extend, Controller,
-    TournamentIndex, Strings, TournamentController, Presets) {
+    'ui/tournamentcontroller', 'presets', 'ui/inputvalueview'], function($, extend, Controller,
+    TournamentIndex, Strings, TournamentController, Presets, InputValueView) {
   /**
    * Constructor
    */
@@ -17,6 +17,12 @@ define(['jquery', 'lib/extend', 'core/controller', 'tournament/tournamentindex',
     NewTournamentController.superconstructor.call(this, view);
 
     controller = this;
+
+    this.$interlacecount = this.view.$view.find('input.interlacecount');
+    this.interlaceBinding = new InputValueView(
+      this.model.tournaments.interlaceCount,
+      this.$interlacecount
+    );
 
     this.$tournamentsize = this.view.$view.find('input.tournamentsize');
     this.$buttons = this.view.$view.find('button[data-system]');
