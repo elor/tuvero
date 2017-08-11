@@ -333,6 +333,8 @@
     <Compile Include="scripts\background\serverstatelink.js" />
     <Compile Include="scripts\background\loginstate.js" />
     <Compile Include="scripts\background\upload.js" />
+    <Compile Include="scripts\ui\inputvalueview.js" />
+    <Compile Include="scripts\ui\inputvaluecontroller.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
     <Compile Include="scripts\ui\servertournamentloader.js" />
     <Compile Include="scripts\ui\server.js" />
