@@ -152,6 +152,8 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       this.applyTournamentToRanks(tournament, this.rankingCache);
     }, this);
 
+    console.log(this.rankingCache.displayOrder)
+
     this.interlaceRanks(this.rankingCache);
 
     this.calculateGlobalRanks(this.rankingCache);
@@ -257,13 +259,15 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
     isClosed = this.closedTournaments.indexOf(tournamentID) !== -1;
 
     tournamentRanking.displayOrder.map(function(tournamentTeamID, displayID) {
-      var globalTeamID, globalDisplayID, tournamentRank;
+      var globalTeamID, globalDisplayID, tournamentRank, oldDisplayPlace;
 
       globalTeamID = tournamentRanking.ids[tournamentTeamID];
       globalDisplayID = startIndex + displayID;
       tournamentRank = tournamentRanking.ranks[tournamentTeamID];
 
-      globalRanking.displayOrder[globalDisplayID] = globalTeamID;
+      oldDisplayPlace = globalRanking.displayOrder.indexOf(globalTeamID);
+      globalRanking.displayOrder.splice(oldDisplayPlace, 1);
+      globalRanking.displayOrder.splice(globalDisplayID, 0, globalTeamID);
       globalRanking.tournamentRanks[globalTeamID] = tournamentRank;
 
       globalRanking.lastTournamentIDs[globalTeamID] = tournamentID;
