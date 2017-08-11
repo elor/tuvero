@@ -152,8 +152,6 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       this.applyTournamentToRanks(tournament, this.rankingCache);
     }, this);
 
-    console.log(this.rankingCache.displayOrder)
-
     this.interlaceRanks(this.rankingCache);
 
     this.calculateGlobalRanks(this.rankingCache);
