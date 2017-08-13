@@ -57,6 +57,14 @@ define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Ty
   }
   extend(Model, Emitter);
 
+  Model.prototype.clone = function () {
+    var clone = new this.constructor();
+    if (!clone.restore(this.save())) {
+      throw 'Cannot clone object ' + this;
+    }
+    return clone;
+  };
+
   /**
    * save the state of this object, so it can later be restored using the
    * restore() function. Subclasses are supposed to call superclass.save()
