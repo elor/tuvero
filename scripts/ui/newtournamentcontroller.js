@@ -21,6 +21,8 @@ define(['jquery', 'lib/extend', 'core/controller', 'tournament/tournamentindex',
     this.$interlacecount = this.view.$view.find('input.interlacecount');
     this.interlaceMaximum =
       new AttributeValueView(this.model.tournaments.interlaceMaximum, this.$interlacecount, 'max');
+    this.interlaceVisibility =
+      new ClassView(this.model.tournaments.interlaceAllowed, this.view.$view.find('.interlace'), undefined, 'hidden');
     this.interlaceBinding = new InputValueView(
       this.model.tournaments.interlaceCount,
       this.$interlacecount
