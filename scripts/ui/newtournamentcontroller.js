@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['jquery', 'lib/extend', 'core/controller', 'tournament/tournamentindex', 'ui/strings',
-    'ui/tournamentcontroller', 'presets', 'ui/inputvalueview'], function($, extend, Controller,
-    TournamentIndex, Strings, TournamentController, Presets, InputValueView) {
+    'ui/tournamentcontroller', 'presets', 'ui/inputvalueview', 'ui/attributevalueview', 'core/classview'], function($, extend, Controller,
+    TournamentIndex, Strings, TournamentController, Presets, InputValueView, AttributeValueView, ClassView) {
   /**
    * Constructor
    */
@@ -19,6 +19,8 @@ define(['jquery', 'lib/extend', 'core/controller', 'tournament/tournamentindex',
     controller = this;
 
     this.$interlacecount = this.view.$view.find('input.interlacecount');
+    this.interlaceMaximum =
+      new AttributeValueView(this.model.tournaments.interlaceMaximum, this.$interlacecount, 'max');
     this.interlaceBinding = new InputValueView(
       this.model.tournaments.interlaceCount,
       this.$interlacecount
