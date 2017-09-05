@@ -4,7 +4,8 @@
   <div class="options">
     <span>
       <input class="maxwidth" type="checkbox" checked="checked" />
-      feste Breite</span>
+      feste Breite
+    </span>
     <br>
     <br>
     Zum Umbenennen Namen klicken
@@ -18,7 +19,7 @@
   <table class="systemtable background" style="font-size: 100%">
   <tbody>
     <tr>
-      <th colspan="2">Platz</th>
+      <th colspan="2" class="noprint">Platz</th>
       <th>No.</th>
       <th class="playercol">{{ teamtext }}</th>
       <th class="playercol">{{ teamtext }}</th>
@@ -27,8 +28,8 @@
       <th class="noprint"></th>
     </tr>
     <tr class="team template">
-      <td class="rank">##</td>
-      <td class="tournamentrank">##</td>
+      <td class="rank noprint">##</td>
+      <td class="tournamentrank noprint">##</td>
       <td class="teamno">##</td>
       <td class="name rename">%% %%</td>
       <td class="name rename">%% %%</td>
@@ -55,9 +56,9 @@
   {% include 'newsystem.html' %}
 
   {% include 'swisssystem.html' %}
-  
+
   {% include 'roundsystem.html' %}
-  
+
   {% include 'kosystem.html' %}
 
 </div>
