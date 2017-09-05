@@ -11,6 +11,7 @@ var libs = require('./gulp-tools/libs');
 var mainstyle = require('./gulp-tools/mainstyle');
 var sources = require('./gulp-tools/sources');
 var template = require('./gulp-tools/template');
+var typescript = require('./gulp-tools/typescript');
 
 gulp.task('default', ['lib', 'update', 'lint', 'build', 'test']);
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template']);
@@ -22,6 +23,8 @@ gulp.task('test', ['lib', 'lint', 'test-dependencies'], function () {
 gulp.task('lib', libs());
 gulp.task('build', build());
 gulp.task('release', release());
+
+gulp.task('typescript', typescript());
 
 gulp.task('test-dependencies', ['lib'], function () {
   return gulp.src(sources.dependent_scripts, { base: 'scripts' })
@@ -70,4 +73,5 @@ gulp.task('watch', function () {
   gulp.watch(sources.styles, ['update-mainstyle']);
   gulp.watch(sources.templates, ['template']);
   gulp.watch(sources.tests, ['update-test-js']);
+  gulp.watch(sources.typescript, ['typescript']);
 });

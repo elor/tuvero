@@ -49,7 +49,8 @@ var sources = {
     'gulp-tools',
     'node_modules',
     '.gitignore'
-  ]
+  ],
+  typescript: 'scripts/**/*.ts'
 };
 
 module.exports = sources;

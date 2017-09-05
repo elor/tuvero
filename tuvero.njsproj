@@ -277,6 +277,7 @@
     <Folder Include="scripts\math\test\" />
     <Folder Include="scripts\list\" />
     <Folder Include="scripts\matches\" />
+    <Folder Include="scripts\immutable\" />
     <Folder Include="scripts\tournament\" />
     <Folder Include="scripts\ranking\" />
     <Folder Include="scripts\ranking\test\" />
@@ -325,6 +326,7 @@
     <Compile Include="boule\scripts\options.js" />
     <Compile Include="boule\scripts\presets.js" />
     <Compile Include="boule\scripts\strings.js" />
+    <Compile Include="gulp-tools\typescript.js" />
     <Compile Include="gulp-tools\release.js" />
     <Compile Include="gulp-tools\check-dependencies.js" />
     <Compile Include="gulp-tools\build.js" />
@@ -333,6 +335,7 @@
     <Compile Include="scripts\background\serverstatelink.js" />
     <Compile Include="scripts\background\loginstate.js" />
     <Compile Include="scripts\background\upload.js" />
+    <Compile Include="scripts\immutable\state.ts" />
     <Compile Include="scripts\ui\inputvalueview.js" />
     <Compile Include="scripts\ui\inputvaluecontroller.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
@@ -669,6 +672,10 @@
     <Compile Include="test\scripts\strings.js" />
     <Compile Include="test\scripts\test.js" />
     <Compile Include="test\scripts\main.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="scripts\immutable\teamtransitions.ts" />
+    <TypeScriptCompile Include="scripts\immutable\transitions.ts" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
