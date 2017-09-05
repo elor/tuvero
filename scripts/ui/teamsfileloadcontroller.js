@@ -68,8 +68,8 @@ define(['lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
       var match, name, names = [];
 
       while (line.length > 0) {
-        match = (line.match(/^\s*"([^"]+|"")*"\s*(,|$)/) || '');
-        match = match || line.match(/^\s*[^,]*\s*(,|$)/);
+        match = line.match(/^\s*"([^"]+|"")*"\s*(,|;|$)/) || '';
+        match = match || line.match(/^\s*[^,;]*\s*(,|;|$)/);
 
         name = (match && match[0]) || line;
         line = line.substr(name.length);
