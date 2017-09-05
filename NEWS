@@ -1,4 +1,16 @@
-Tuvero 1.5.10 (yyyy-mm-dd)
+Tuvero 1.5.11 (2017-09-05)
+-------------------------
+
+FEATURES:
+
+  * Join stages by interlacing (e.g. multiple groups into one KO)
+
+FIXES:
+
+  * Don't print tournament system information
+  * Load semicolon-separated CSV files
+
+Tuvero 1.5.10 (2017-07-17)
 -------------------------
 
 FEATURES:
