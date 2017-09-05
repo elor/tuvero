@@ -23,6 +23,8 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
     this.rankingCache = undefined;
 
     this.interlaceCount = new ValueModel(1);
+    this.interlaceMaximum = new ValueModel(1);
+    this.interlaceAllowed = new ValueModel(false);
 
     this.setListeners();
   }
@@ -166,8 +168,9 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
 
     var begin = tournamentOrder.indexOf(undefined);
     if (begin === -1) {
+      this.interlaceMaximum.set(1);
       setTimeout((function () {
-        this.interlaceCount.set(1);
+        this.interlaceCount.set(this.interlaceMaximum.get());
       }).bind(this), 1);
       return;
     }
@@ -184,9 +187,10 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       return tournamentID !== undefined && list.indexOf(tournamentID) === index;
     });
 
+    this.interlaceMaximum.set(tournamentIDs.length || 1);
     if (tournamentIDs.length < this.interlaceCount.get()) {
       setTimeout((function () {
-        this.interlaceCount.set(tournamentIDs.length || 1);
+        this.interlaceCount.set(this.interlaceMaximum.get());
       }).bind(this), 1);
     }
 
@@ -367,10 +371,14 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
       }
     }, this);
 
-    Listener.bind(this.interlaceCount, 'update', function (emitter, event, data) {
+    Listener.bind(this.interlaceCount, 'update', function (emitter, event, value) {
       if (emitter === this.interlaceCount) {
         this.invalidateGlobalRanking();
       }
+    }, this);
+
+    Listener.bind(this.interlaceMaximum, 'update', function (emitter, event, value) {
+      this.interlaceAllowed.set(value > 1);
     }, this);
   };
 
