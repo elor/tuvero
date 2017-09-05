@@ -13,6 +13,10 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "turniere.tuvero.de", "..\tu
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "tuvero-issue", "..\tuvero-issue\tuvero-issue.pyproj", "{97662D41-71E1-4402-A367-20750E8EBF72}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "tuvero-next", "..\tuvero-next\tuvero-next.njsproj", "{CF8CD942-D7DD-4688-8B1E-013F42850DC1}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "tuvero-redirect", "..\tuvero-redirect\tuvero-redirect.njsproj", "{4F8281A9-634A-4ACC-8892-578E21D13332}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Android = Debug|Android
