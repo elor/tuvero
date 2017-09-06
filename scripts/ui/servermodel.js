@@ -76,7 +76,7 @@ define(['jquery', 'lib/extend', 'core/model', 'core/valuemodel', 'core/statevalu
 
     $.ajax({
       method : 'POST',
-      url : 'https://turniere.tuvero.de/profile/token/new/json',
+      url : 'https://www.tuvero.de/profile/token/new/json',
       timeout : 5000,
       xhrFields : {
         withCredentials : true
