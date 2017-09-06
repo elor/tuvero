@@ -104,7 +104,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
       return false;
     }
 
-    this.loginWindow = window.open('https://turniere.tuvero.de/login');
+    this.loginWindow = window.open('https://www.tuvero.de/login');
 
     if (!this.isLoginWindowOpen()) {
       this.closeLoginWindow();
