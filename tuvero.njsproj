@@ -173,17 +173,6 @@
     <Content Include="doc\doc_de\index.md" />
     <Content Include="doc\doc_de\mvc.md" />
     <Content Include="doc\doc_de\tabmenu.md" />
-    <Content Include="images\archive.png" />
-    <Content Include="images\basic.png" />
-    <Content Include="images\boule.png" />
-    <Content Include="images\dev.png" />
-    <Content Include="images\facebook.png" />
-    <Content Include="images\github.png" />
-    <Content Include="images\pvo.png" />
-    <Content Include="images\tac.png" />
-    <Content Include="images\tuvero.png" />
-    <Content Include="images\wordpress.png" />
-    <Content Include="index.html" />
     <Content Include="style\core\app.css" />
     <Content Include="style\core\autocomplete.css" />
     <Content Include="style\core\buttons.css" />
@@ -287,7 +276,6 @@
     <Folder Include="doc\" />
     <Folder Include="doc\doc_de\" />
     <Folder Include="gulp-tools\templates\" />
-    <Folder Include="images\" />
     <Folder Include="scripts\timemachine\test\" />
     <Folder Include="scripts\background\" />
     <Folder Include="scripts\ui\test\" />
