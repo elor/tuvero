@@ -9,7 +9,7 @@
  * avoid lost orphans, hence errors are thrown at the first sign of trouble.
  *
  * @return KeyModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

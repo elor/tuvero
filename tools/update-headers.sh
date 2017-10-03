@@ -18,7 +18,7 @@ for script in `listuserscripts`; do
     fi
 
     sed -r -i '0,/\*\// {/@(author|license|see)/d}' $script
-    sed -r -i '0,/^\s*\*\// s/^\s*\*\// * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>\
+    sed -r -i '0,/^\s*\*\// s/^\s*\*\// * @author Erik E. Lorenz <erik@tuvero.de>\
  * @license MIT License\
  * @see LICENSE\
  *\//' $script

@@ -3,7 +3,7 @@
  *
  * TODO use ValueModel events to communicate the values, not jquery events
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

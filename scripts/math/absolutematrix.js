@@ -2,7 +2,7 @@
  * AbsoluteMatrix: return the absolute of all values
  *
  * @return AbsoluteMatrix
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

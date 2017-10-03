@@ -2,7 +2,7 @@
  * A class for collecting all necessary state information of one or more running
  * tournaments.
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

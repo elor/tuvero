@@ -3,7 +3,7 @@
  * tournaments. We're not carrying out scientific calculations, after all.
  *
  * @return Random
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

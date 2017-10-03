@@ -2,7 +2,7 @@
  * some debugging functions, such as stack trace and whether it's a dev version
  *
  * @return Debug
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

@@ -3,7 +3,7 @@
  *
  * This file is automatically created on build. Do not attempt manual changes
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

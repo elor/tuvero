@@ -2,7 +2,7 @@
  * Generic View for filling a DOM element with text
  *
  * @return TextView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

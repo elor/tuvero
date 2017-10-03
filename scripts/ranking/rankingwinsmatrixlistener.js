@@ -3,7 +3,7 @@
  * against another team. Does not represent byes
  *
  * @return RankingWinsMatrixListener
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

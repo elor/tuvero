@@ -1,7 +1,7 @@
 /**
  * No Description
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */
@@ -10,7 +10,7 @@
  * A model, which stores a value and emits update events when it's changed
  *
  * @return ValueModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

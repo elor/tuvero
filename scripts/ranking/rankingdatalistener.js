@@ -4,7 +4,7 @@
  * which it uses to update a single field of data, e.g. wins, points, saldo, ...
  *
  * @return RankingDataListener
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

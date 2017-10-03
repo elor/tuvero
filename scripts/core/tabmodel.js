@@ -2,7 +2,7 @@
  * TabModel: control the visibility and accesibility state of a tab
  *
  * @return TabModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

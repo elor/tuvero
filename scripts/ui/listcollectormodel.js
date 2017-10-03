@@ -4,7 +4,7 @@
  * emitter to the data object as data.source
  *
  * @return ListCollectorModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

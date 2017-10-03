@@ -12,7 +12,7 @@
  * TODO rewrite the whole thing and extract a lot of methods
  *
  * @return TeamsFileLoadController
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

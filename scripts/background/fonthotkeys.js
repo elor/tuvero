@@ -1,7 +1,7 @@
 /**
  * Hotkeys for the font size. Hooks as directly as possible into the fontsize
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

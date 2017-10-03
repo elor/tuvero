@@ -3,7 +3,7 @@
  * querying the ids of parent, left/right children and the sibling.
  *
  * @return BinaryTreeModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

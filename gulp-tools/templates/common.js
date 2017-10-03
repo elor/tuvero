@@ -5,7 +5,7 @@
  * Do not attempt manual changes, they'll be overwritten
  *
  * @return Common
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

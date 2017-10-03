@@ -5,7 +5,7 @@
  * won. get(i,k) > 0: i has won. get(i,k) < 0: k has won. Otherwise: draw.
  *
  * @return TransposeDifferenceMatrix
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

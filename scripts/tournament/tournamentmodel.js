@@ -7,7 +7,7 @@
  * direct descendant. This is to ensure the encapsulation in IndexedListModels.
  *
  * @return TournamentModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

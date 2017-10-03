@@ -2,7 +2,7 @@
  * Storage: Save ValueModels and save/restore-compatible models whenever they
  * emit 'update'.
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

@@ -5,7 +5,7 @@
  * no longer compatible. Do not use this for clearing the storage, because the
  * page will be reloaded unnecessarily.
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

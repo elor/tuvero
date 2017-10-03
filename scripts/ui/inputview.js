@@ -2,7 +2,7 @@
  * InputView, mainly for automatically resetting a text or file input to an empty state
  *
  * @return InputView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

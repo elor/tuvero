@@ -3,7 +3,7 @@
  * from their tournament-specific id to the global id.
  *
  * @return ResultReferenceModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

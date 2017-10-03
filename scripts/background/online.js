@@ -5,7 +5,7 @@
  * re-open it because it's not in the cache
  *
  * @return Online
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

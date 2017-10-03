@@ -1,7 +1,7 @@
 /**
  * Controller for adding a new player and handling invalid player names on input
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

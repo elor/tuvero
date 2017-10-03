@@ -12,7 +12,7 @@
  * soon as the list is empty
  *
  * @return TeamTableView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

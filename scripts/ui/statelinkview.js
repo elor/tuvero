@@ -2,7 +2,7 @@
  * A ValueView, which updates the value of ValueModel to the DOM
  *
  * @return ValueView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */
@@ -32,7 +32,7 @@ define(['lib/extend', 'core/classview'], function (extend, ClassView) {
     StateLinkView.superclass.update.call(this);
     var tournamentid = this.model.get();
     if (tournamentid) {
-      this.$view.attr('href', 'https://turniere.tuvero.de/t/' + tournamentid + this.propertyPath);
+      this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath);
     }
   };
 

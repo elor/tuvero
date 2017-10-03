@@ -7,7 +7,7 @@
  * next component in the chain. The
  *
  * @return RankingComponent
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

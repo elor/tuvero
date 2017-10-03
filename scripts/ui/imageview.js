@@ -2,7 +2,7 @@
  * A ImageView, which updates the value of ValueModel to the DOM
  *
  * @return ImageView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

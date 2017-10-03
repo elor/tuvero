@@ -2,7 +2,7 @@
  * LengthModel: binds to a ListModel instance and always evaluates to its length
  *
  * @return LengthModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

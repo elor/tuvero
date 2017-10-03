@@ -2,7 +2,7 @@
  * A AttributeValueView, which updates the value of ValueModel to the DOM
  *
  * @return AttributeValueView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

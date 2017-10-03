@@ -2,7 +2,7 @@
  * ListView for printing data in a list using arbitrary views
  *
  * @return ListView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

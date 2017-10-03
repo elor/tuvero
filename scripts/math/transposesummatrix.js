@@ -6,7 +6,7 @@
  * number of games against an opponent, so long as the main diagonal is zero.
  *
  * @return TransposeSumMatrix
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

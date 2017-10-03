@@ -6,7 +6,7 @@
  * matrices. So, we're defining and maintaining our own arrays.
  *
  * @return MatrixModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

@@ -2,7 +2,7 @@
  * hide preregistration elements as soon as the first team has been registered
  *
  * @return PreregCloserView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

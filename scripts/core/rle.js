@@ -8,7 +8,7 @@
  * data. Don't be surprised if it messes up any other kind of data.
  *
  * @return RLE
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

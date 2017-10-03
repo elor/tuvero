@@ -2,7 +2,7 @@
  * First file to load. Contains the non-core config and loads the shared main
  * file. Target-specific modules can be loaded and executed from here
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

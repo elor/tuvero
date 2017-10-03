@@ -2,7 +2,7 @@
  * Save button logic which initiates a file download of the current state for
  * later loading
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

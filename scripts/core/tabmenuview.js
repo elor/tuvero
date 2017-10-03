@@ -15,7 +15,7 @@
  * By using CSS classes to show/hide tabs, all of the above errors are avoided.
  *
  * @return TabMenuView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

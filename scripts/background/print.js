@@ -2,7 +2,7 @@
  * Print button logic, which triggers printing the current tab to paper.
  *
  * @return undefined
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

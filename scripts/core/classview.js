@@ -2,7 +2,7 @@
  * ClassView, a class which sets CSS classes according to
  *
  * @return ClassView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

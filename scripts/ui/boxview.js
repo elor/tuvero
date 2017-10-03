@@ -2,7 +2,7 @@
  * BoxView for collapsing boxes on click events
  *
  * @return BoxView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

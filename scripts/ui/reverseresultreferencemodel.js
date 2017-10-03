@@ -2,7 +2,7 @@
  * ReverseResultReferenceModel
  *
  * @return ReverseResultReferenceModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

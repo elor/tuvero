@@ -6,7 +6,7 @@
  * additional documentation. They just match the type and return true or false
  *
  * @return Type
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

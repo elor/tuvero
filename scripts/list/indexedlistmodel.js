@@ -2,7 +2,7 @@
  * A ListModel, which also adjusts the ids using setID
  *
  * @return IndexedListModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

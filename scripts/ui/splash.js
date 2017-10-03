@@ -2,7 +2,7 @@
  * Manage the state and visibility of the splash screen
  *
  * @return Splash
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

@@ -2,7 +2,7 @@
  * A combination of players is a team. A team should contain at least one player *
  *
  * @return TeamModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

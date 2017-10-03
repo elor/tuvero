@@ -2,7 +2,7 @@
  * Shared main file. loads the shared config and modules and manages the program
  * startup and splash screen. A complete rewrite is necessary.
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

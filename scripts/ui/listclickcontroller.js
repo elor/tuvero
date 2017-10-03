@@ -2,7 +2,7 @@
  * on a list element click, runs the callback function. Can handle other events
  * as well
  *
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

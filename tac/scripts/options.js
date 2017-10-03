@@ -4,7 +4,7 @@
  * @deprecated will be replaced with a new OptionsTemplateModel class or something
  *
  * @return OptionsTemplate
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

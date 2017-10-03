@@ -2,7 +2,7 @@
  * MatchModel, a representation of a single match between teams
  *
  * @return MatchModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

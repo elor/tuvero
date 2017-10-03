@@ -5,7 +5,7 @@
  * use string keys and primary data types (Strings, Numbers, Boolean)
  *
  * @return PropertyModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

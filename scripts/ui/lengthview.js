@@ -2,7 +2,7 @@
  * A LengthView, which writes the length of a ListModel to a DOM element
  *
  * @return LengthView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

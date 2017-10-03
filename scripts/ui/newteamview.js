@@ -3,7 +3,7 @@
  * team is to be added to the associated ListModel
  *
  * @return NewTeamView
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

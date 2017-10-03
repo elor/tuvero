@@ -2,7 +2,7 @@
  * Create a StateModel singleton
  *
  * Note to self: Avoid DOM manipulations at all costs!
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */

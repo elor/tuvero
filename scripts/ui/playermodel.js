@@ -2,7 +2,7 @@
  * A Model for each single Player
  *
  * @return PlayerModel
- * @author Erik E. Lorenz <erik.e.lorenz@gmail.com>
+ * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */
