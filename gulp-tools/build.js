@@ -13,28 +13,6 @@ const uglify = require('gulp-uglify');
 var targets = ['basic', 'boule', 'tac', 'test'];
 
 module.exports = function () {
-  gulp.task('build-static', ['build-static-images', 'build-static-html', 'build-static-manifest']);
-
-  gulp.task('build-static-html', function () {
-    return gulp.src('index.html')
-      .pipe(filecount())
-      .pipe(gulp.dest('build/'));
-  });
-
-  gulp.task('build-static-images', function () {
-    return gulp.src('images/*.png')
-      .pipe(filecount())
-      .pipe(gulp.dest('build/images/'));
-  });
-
-  gulp.task('build-static-manifest', function () {
-    return gulp.src(['*.html', 'images/*.png'], { base: './' })
-      .pipe(filecount())
-      .pipe(manifest({ filename: 'manifest.appcache', timestamp: false, hash: true }))
-      .pipe(filecount())
-      .pipe(gulp.dest('build/'));
-  });
-
   targets.forEach(function (target) {
     gulp.task(`build-${target}`, [`build-${target}-inline`], function () {
       return gulp.src(`build/${target}/{*.html,scripts/*.js,style/*.css,images/*.png}`)
@@ -93,6 +71,6 @@ module.exports = function () {
     });
   });
 
-  return ['build-static', 'build-boule', 'build-basic', 'build-tac', 'build-test'];
+  return ['build-boule', 'build-basic', 'build-tac', 'build-test'];
 };
 module.exports.targets = targets;
