@@ -27,6 +27,7 @@ deploy:dev:
   dependencies:
     - build:dev
   script:
+    - echo "172.17.42.1 server server.local" >> /etc/hosts
     - apk update
     - apk add find
     - echo "Deploy Test"
