@@ -4,12 +4,10 @@ stages:
 
 image: alpine
 
-before_script:
-  - apk update
-
 build:dev:
   stage: build
   before_script:
+    - apk update
     - apk add nodejs nodejs-npm git
     - npm install
     - npm install cli/
@@ -29,6 +27,8 @@ deploy:dev:
   dependencies:
     - build:dev
   script:
+    - apk update
+    - apk add find
     - echo "Deploy Test"
     - find *
     - echo "Deploy Success"
