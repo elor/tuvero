@@ -23,10 +23,16 @@ deploy:dev:
   stage: deploy
   only:
     - develop
-  image: google/cloud-sdk:alpine
-  dependencies:
-    - build:dev
   script:
-    - echo "Deploy Test"
-    - find *
-    - echo "Deploy Success"
+    - apk update
+    - apk add curl
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=develop http://server.local/api/v4/projects/1/trigger/pipeline
+
+deploy:master:
+  stage: deploy
+  only:
+    - master
+  script:
+    - apk update
+    - apk add curl
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://server.local/api/v4/projects/1/trigger/pipeline
