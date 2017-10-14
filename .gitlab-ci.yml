@@ -27,8 +27,6 @@ deploy:dev:
   dependencies:
     - build:dev
   script:
-    - apk update
-    - apk add find
     - echo "Deploy Test"
     - find *
     - echo "Deploy Success"
