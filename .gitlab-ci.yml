@@ -30,6 +30,8 @@ deploy:dev:
 
 deploy:master:
   stage: deploy
+  variables:
+    GIT_STRATEGY: none
   only:
     - master
   script:
