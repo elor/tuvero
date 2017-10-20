@@ -25,7 +25,7 @@ deploy:dev:
     - develop
   variables:
     GIT_STRATEGY: none
-  dependencies:
+  dependencies: []
   script:
     - apk update
     - apk add curl
