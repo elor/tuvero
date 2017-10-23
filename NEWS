@@ -5,6 +5,11 @@ FEATURES:
   * Three-Point- and Two-Point rankings
   * improved autobuild and testing capabilities
 
+FIXES:
+
+  * Use www.tuvero.de as default domain
+  * Use erik@tuvero.de as default mail address
+
 Tuvero 1.5.11 (2017-09-05)
 -------------------------
 
