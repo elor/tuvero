@@ -26,6 +26,8 @@ build:dev:
 
 build:release:
   stage: build
+  variables:
+    GIT_STRATEGY: clone
   only:
     - release
   script:
@@ -36,9 +38,10 @@ build:release:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
-    - git remote show server &>/dev/null && git remote remove server
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
-    - git branch
+    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
+    - git checkout -b release-$version-test
+    - git push --set-upstream server release-$version-test
     - echo "Done"
 
 deploy:dev:
