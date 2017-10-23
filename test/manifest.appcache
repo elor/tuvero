@@ -16,14 +16,14 @@ teamentry.html
 teamlistview.html
 teamsizeview.html
 unittest.html
-style/main.css
 images/favicon.png
 images/sprite.png
 scripts/main.js
 scripts/require.js
 scripts/test.js
+style/main.css
 
 NETWORK:
 *
 
-# hash: c0a226b10f9b79620ab3fee26a08911e8f05196ec92380bc7693d0f92fb739aa
+# hash: eea16d8230eb7114ee90dba2707f771a9c5cd7321a635c822dbe5b898b511e54
