@@ -32,7 +32,7 @@ build:release:
     - release
   script:
     - apk update
-    - apk add git openssh-client
+    - apk add nodejs nodejs-npm git openssh-client
     - mkdir -p ~/.ssh/
     - chmod 700 ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
@@ -40,6 +40,12 @@ build:release:
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
     - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
+    - npm install
+    - npm install cli/
+    - npm run-script release
+    - find *
+    - git add .
+    - git commit -m "Release ${version}"
     - git checkout -b release-$version-test
     - git push --set-upstream server release-$version-test
     - echo "Done"
