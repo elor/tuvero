@@ -18,7 +18,6 @@ teamsizeview.html
 unittest.html
 scripts/main.js
 scripts/require.js
-scripts/test.js
 style/main.css
 images/favicon.png
 images/sprite.png
@@ -26,4 +25,4 @@ images/sprite.png
 NETWORK:
 *
 
-# hash: 02ba9d1e785212674bd3ee4a03e5c8bac8da07a0955d292224830d638b8b47ac
+# hash: 4228922420e9662bb4bef82383c61c7f86210933e293137a2a8975ec87b6bd4d
