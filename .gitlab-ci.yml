@@ -6,10 +6,9 @@ image: alpine:latest
 
 build:dev:
   stage: build
-  except:
-    - release
-    - master
-    - /^release-.*$/
+  only:
+    - develop
+    - /^feature-.*$/
   script:
     - apk update
     - apk add nodejs nodejs-npm git
