@@ -67,3 +67,15 @@ deploy:dev:
     - apk update
     - apk add curl
     - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=develop http://server.local/api/v4/projects/1/trigger/pipeline
+
+deploy:production:
+  stage: deploy
+  only:
+    - master
+  variables:
+    GIT_STRATEGY: none
+  dependencies: []
+  script:
+    - apk update
+    - apk add curl
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://server.local/api/v4/projects/1/trigger/pipeline
