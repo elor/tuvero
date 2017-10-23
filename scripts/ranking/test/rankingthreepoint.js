@@ -75,6 +75,22 @@ define(function() {
       };
       ret = ranking.get();
       assert.deepEqual(ret, ref, 'draw yields 1 point each');
+
+      ranking.correct(new CorrectionModel(
+        new MatchResult(new MatchModel([4, 3], 0, 2), [3, 3]),
+        new MatchResult(new MatchModel([4, 3], 0, 2), [3, 8])
+      ));
+      ref = {
+        components: ['threepoint', 'wins', 'points'],
+        ids: [0, 1, 2, 3, 4],
+        ranks: [4, 1, 1, 0, 3],
+        displayOrder: [3, 1, 2, 4, 0],
+        threepoint: [0, 3, 3, 3, 0],
+        wins: [0, 1, 1, 1, 0],
+        points: [0, 8, 8, 11, 3]
+      };
+      ret = ranking.get();
+      assert.deepEqual(ret, ref, 'corrections work');
     });
   };
 });

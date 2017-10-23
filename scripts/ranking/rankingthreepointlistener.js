@@ -105,10 +105,19 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    *          a game correction
    */
   RankingThreePointListener.prototype.oncorrect = function(r, e, correction) {
-    var winner = getWinner(correction.before);
+    var winner, maxpoints;
+
+    winner = getWinner(correction.before);
 
     if (winner !== undefined) {
-      this.threepoint.set(winner, this.threepoint.get(winner) - 1);
+      this.threepoint.set(winner, this.threepoint.get(winner) - 3);
+    } else {
+      maxpoints = Math.max.apply(Math, correction.before.score);
+      correction.before.teams.forEach(function (teamid, index) {
+        if (correction.before.score[index] === maxpoints) {
+          this.threepoint.set(teamid, this.threepoint.get(teamid) - 1);
+        }
+      }, this);
     }
 
     this.onresult(r, e, correction.after);
