@@ -36,15 +36,9 @@ build:release:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
-    - git remote show server && git remote remove server
+    - git remote show server &>/dev/null && git remote remove server
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
-    - git remote -v
-    - git checkout -b this-is-a-test-again
-    - git push --set-upstream server this-is-a-test
-    - echo 'test' > test.txt
-    - git add test.txt
-    - git commit -m 'Add test.txt'
-    - git push
+    - git branch
     - echo "Done"
 
 deploy:dev:
