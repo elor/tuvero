@@ -35,8 +35,7 @@ build:release:
     - chmod 700 ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - git remote -v
-    - echo git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
+    - git remote show server || git remote remove server
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
     - git remote -v
     - git checkout -b this-is-a-test
