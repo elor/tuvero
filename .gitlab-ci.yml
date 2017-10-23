@@ -43,7 +43,7 @@ build:release:
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
   script:
-    - [ -z "${version}" ] && { echo "Cannot read version"; exit 1; }
+    - test -z "${version}" && { echo "Cannot read version"; exit 1; }
     - npm install
     - npm install cli/
     - npm run-script release
