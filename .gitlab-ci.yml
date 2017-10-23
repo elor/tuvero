@@ -30,7 +30,7 @@ build:release:
     GIT_STRATEGY: clone
   only:
     - release
-  script:
+  before_script:
     - apk update
     - apk add nodejs nodejs-npm git openssh-client
     - mkdir -p ~/.ssh/
@@ -40,10 +40,15 @@ build:release:
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
     - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
+    - git config --global user.email "info@tuvero.de"
+    - git config --global user.name "Tuvero Autobuild"
+  script:
+    - [ -z "${version}" ] && { echo "Cannot read version"; exit 1; }
     - npm install
     - npm install cli/
     - npm run-script release
     - find *
+    - git add -u
     - git add .
     - git commit -m "Release ${version}"
     - git checkout -b release-$version-test
