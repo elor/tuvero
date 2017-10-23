@@ -2,7 +2,7 @@ stages:
   - build
   - deploy
 
-image: alpine
+image: alpine:latest
 
 build:dev:
   stage: build
