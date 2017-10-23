@@ -23,7 +23,8 @@ build:dev:
 
 build:release:
   stage: build
-  only: release
+  only:
+    - release
   script:
     - apk update
     - apk add git openssh
