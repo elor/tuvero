@@ -61,10 +61,19 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    *          a game result
    */
   RankingThreePointListener.prototype.onresult = function(r, e, result) {
-    var winner = getWinner(result);
+    var winner, maxpoints;
+
+    winner = getWinner(result);
 
     if (winner !== undefined) {
-      this.threepoint.set(winner, this.threepoint.get(winner) + 1);
+      this.threepoint.set(winner, this.threepoint.get(winner) + 3);
+    } else {
+      maxpoints = Math.max.apply(Math, result.score);
+      result.teams.forEach(function (teamid, index) {
+        if (result.score[index] === maxpoints) {
+          this.threepoint.set(teamid, this.threepoint.get(teamid) + 1);
+        }
+      }, this);
     }
   };
 
@@ -80,7 +89,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    */
   RankingThreePointListener.prototype.onbye = function(r, e, teams) {
     teams.forEach(function(teamid) {
-      this.threepoint.set(teamid, this.threepoint.get(teamid) + 1);
+      this.threepoint.set(teamid, this.threepoint.get(teamid) + 3);
     }, this);
   };
 

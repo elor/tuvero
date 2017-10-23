@@ -20,19 +20,19 @@ define(function() {
     QUnit.test('ThreePoint Ranking', function (assert) {
       var ranking, ret, ref;
 
-      ranking = new RankingModel(['threepoint', 'wins', 'points'], 4);
+      ranking = new RankingModel(['threepoint', 'wins', 'points'], 5);
 
       assert.equal(ranking.dataListeners.threepoint.isPrimary(), true,
           'threepoint is a primary dataListener');
 
       ref = {
         components: ['threepoint', 'wins', 'points'],
-        ids: [0, 1, 2, 3],
-        ranks: [0, 0, 0, 0],
-        displayOrder: [0, 1, 2, 3],
-        wins: [0, 0, 0, 0],
-        points: [0, 0, 0, 0],
-        threepoint: [0, 0, 0, 0]
+        ids: [0, 1, 2, 3, 4],
+        ranks: [0, 0, 0, 0, 0],
+        displayOrder: [0, 1, 2, 3, 4],
+        threepoint: [0, 0, 0, 0, 0],
+        wins: [0, 0, 0, 0, 0],
+        points: [0, 0, 0, 0, 0]
       };
       ret = ranking.get();
       assert.deepEqual(ret, ref, 'empty ranking: correct ThreePoint score');
@@ -43,35 +43,35 @@ define(function() {
         ids: [0, 1, 2, 3, 4],
         ranks: [2, 0, 2, 1, 2],
         displayOrder: [1, 3, 0, 2, 4],
+        threepoint: [0, 3, 0, 0, 0],
         wins: [0, 1, 0, 0, 0],
-        points: [0, 8, 0, 3, 0],
-        threepoint: [0, 3, 0, 0, 0]
+        points: [0, 8, 0, 3, 0]
       };
       ret = ranking.get();
       assert.deepEqual(ret, ref, 'win for A yields 3 points');
 
-      ranking.result(new MatchResult(new MatchModel([0, 2], 0, 0), [0, 8]));
+      ranking.result(new MatchResult(new MatchModel([0, 2], 0, 1), [0, 8]));
       ref = {
         components: ['threepoint', 'wins', 'points'],
         ids: [0, 1, 2, 3, 4],
         ranks: [3, 0, 0, 2, 3],
         displayOrder: [1, 2, 3, 0, 4],
+        threepoint: [0, 3, 3, 0, 0],
         wins: [0, 1, 1, 0, 0],
-        points: [0, 8, 8, 3, 0],
-        threepoint: [0, 3, 3, 0, 0]
+        points: [0, 8, 8, 3, 0]
       };
       ret = ranking.get();
       assert.deepEqual(ret, ref, 'win for B yields 3 points');
 
-      ranking.result(new MatchResult(new MatchModel([4, 3], 0, 0), [3, 3]));
+      ranking.result(new MatchResult(new MatchModel([4, 3], 0, 2), [3, 3]));
       ref = {
         components: ['threepoint', 'wins', 'points'],
         ids: [0, 1, 2, 3, 4],
         ranks: [4, 0, 0, 2, 3],
         displayOrder: [1, 2, 3, 4, 0],
+        threepoint: [0, 3, 3, 1, 1],
         wins: [0, 1, 1, 0, 0],
-        points: [0, 8, 8, 6, 3],
-        threepoint: [0, 3, 3, 1, 1]
+        points: [0, 8, 8, 6, 3]
       };
       ret = ranking.get();
       assert.deepEqual(ret, ref, 'draw yields 1 point each');
