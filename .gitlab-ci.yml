@@ -33,9 +33,10 @@ build:release:
     - chmod 600 ~/.ssh/id_rsa
     - git remote -v
     - echo git@${CI_SERVER_NAME}:${CI_PROJECT_PATH_SLUG}
-    - git remote set-url origin git@${CI_SERVER_NAME}:${CI_PROJECT_PATH_SLUG}
-    - git checkout -b release-test
-    - git push --set-upstream origin release-test
+    - git remote add server git@${CI_SERVER_NAME}:${CI_PROJECT_PATH_SLUG}
+    - git remote -v
+    - git checkout -b this-is-a-test
+    - git push --set-upstream server this-is-a-test
     - echo 'test' > test.txt
     - git add test.txt
     - git commit -m 'Add test.txt'
