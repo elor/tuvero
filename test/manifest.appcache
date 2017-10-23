@@ -1,0 +1,28 @@
+CACHE MANIFEST
+
+CACHE:
+boxview.html
+checkboxview.html
+fontsize.html
+index.html
+koline.html
+listview.html
+matchview.html
+rankingorderview.html
+rankingview.html
+sprite.html
+tabmenuview.html
+teamentry.html
+teamlistview.html
+teamsizeview.html
+unittest.html
+scripts/main.js
+scripts/require.js
+style/main.css
+images/favicon.png
+images/sprite.png
+
+NETWORK:
+*
+
+# hash: 07bf0d2475c783dd8aa7b3c264b0b438ddb98148616d19bee73133a6f7e56182
