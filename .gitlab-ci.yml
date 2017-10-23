@@ -30,11 +30,12 @@ build:release:
     - release
   script:
     - apk update
-    - apk add git openssh
+    - apk add git openssh-client
     - mkdir -p ~/.ssh/
     - chmod 700 ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
     - git remote show server || git remote remove server
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
     - git remote -v
