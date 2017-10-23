@@ -23,6 +23,7 @@ build:dev:
 
 build:release:
   stage: build
+  script:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - apk update
