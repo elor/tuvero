@@ -1,4 +1,13 @@
+Tuvero 1.5.14 (yyyy-mm-dd)
+--------------------------
+
+FEATURES:
+
+FIXES:
+
+
 Tuvero 1.5.13 (2017-10-23)
+-------------------------
 
 FIXES:
 
@@ -394,8 +403,8 @@ boules 1.4 (2014-09-14)
 
 FEATURES:
 
-	* 'about' tab added
-	* README added
+  * 'about' tab added
+  * README added
   * Settings tab overhaul
   * List view in History tab
   * Splash Screen added
