@@ -43,7 +43,7 @@ define(function() {
         ids: [0, 1, 2, 3, 4],
         ranks: [2, 0, 2, 1, 2],
         displayOrder: [1, 3, 0, 2, 4],
-        twopoint: [0, 3, 0, 0, 0],
+        twopoint: [0, 2, 0, 0, 0],
         wins: [0, 1, 0, 0, 0],
         points: [0, 8, 0, 3, 0]
       };
@@ -56,7 +56,7 @@ define(function() {
         ids: [0, 1, 2, 3, 4],
         ranks: [3, 0, 0, 2, 3],
         displayOrder: [1, 2, 3, 0, 4],
-        twopoint: [0, 3, 3, 0, 0],
+        twopoint: [0, 2, 2, 0, 0],
         wins: [0, 1, 1, 0, 0],
         points: [0, 8, 8, 3, 0]
       };
@@ -69,7 +69,7 @@ define(function() {
         ids: [0, 1, 2, 3, 4],
         ranks: [4, 0, 0, 2, 3],
         displayOrder: [1, 2, 3, 4, 0],
-        twopoint: [0, 3, 3, 1, 1],
+        twopoint: [0, 2, 2, 1, 1],
         wins: [0, 1, 1, 0, 0],
         points: [0, 8, 8, 6, 3]
       };
@@ -85,7 +85,7 @@ define(function() {
         ids: [0, 1, 2, 3, 4],
         ranks: [4, 1, 1, 0, 3],
         displayOrder: [3, 1, 2, 4, 0],
-        twopoint: [0, 3, 3, 3, 0],
+        twopoint: [0, 2, 2, 2, 0],
         wins: [0, 1, 1, 1, 0],
         points: [0, 8, 8, 11, 3]
       };

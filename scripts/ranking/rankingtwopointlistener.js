@@ -66,7 +66,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
     winner = getWinner(result);
 
     if (winner !== undefined) {
-      this.twopoint.set(winner, this.twopoint.get(winner) + 3);
+      this.twopoint.set(winner, this.twopoint.get(winner) + 2);
     } else {
       maxpoints = Math.max.apply(Math, result.score);
       result.teams.forEach(function (teamid, index) {
@@ -89,7 +89,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    */
   RankingTwoPointListener.prototype.onbye = function(r, e, teams) {
     teams.forEach(function(teamid) {
-      this.twopoint.set(teamid, this.twopoint.get(teamid) + 3);
+      this.twopoint.set(teamid, this.twopoint.get(teamid) + 2);
     }, this);
   };
 
@@ -110,7 +110,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
     winner = getWinner(correction.before);
 
     if (winner !== undefined) {
-      this.twopoint.set(winner, this.twopoint.get(winner) - 3);
+      this.twopoint.set(winner, this.twopoint.get(winner) - 2);
     } else {
       maxpoints = Math.max.apply(Math, correction.before.score);
       correction.before.teams.forEach(function (teamid, index) {
