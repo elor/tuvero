@@ -7,6 +7,7 @@ var requirejs = require('requirejs');
 var QUnit = require('qunitjs');
 
 var tests = ['core/test/byeresult',
+  'core/test/byeresult',
   'core/test/correctionmodel',
   'core/test/correctionreferencemodel',
   'core/test/emitter',
@@ -54,6 +55,7 @@ var tests = ['core/test/byeresult',
   'ranking/test/rankingmodel',
   'ranking/test/rankingsonneborn',
   'ranking/test/rankingtac',
+  'ranking/test/rankingthreepoint',
   'timemachine/test/keymodel',
   'timemachine/test/query',
   'tournament/test/kotournamentmodel',

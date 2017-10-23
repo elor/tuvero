@@ -30,7 +30,8 @@ define([//
 'ranking/rankingsonnebornlistener', //
 'ranking/rankingheadtoheadlistener', //
 'ranking/rankingnumgameslistener', //
-'ranking/rankingkolistener'], //
+  'ranking/rankingkolistener', //
+'ranking/rankingthreepointlistener'], //
 function() {
   var RankingDataListenerIndex;
 

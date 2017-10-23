@@ -324,6 +324,9 @@
     <Compile Include="scripts\background\loginstate.js" />
     <Compile Include="scripts\background\upload.js" />
     <Compile Include="scripts\immutable\state.ts" />
+    <Compile Include="scripts\ranking\rankingthreepointlistener.js" />
+    <Compile Include="scripts\ranking\rankingthreepointcomponent.js" />
+    <Compile Include="scripts\ranking\test\rankingthreepoint.js" />
     <Compile Include="scripts\ui\inputvalueview.js" />
     <Compile Include="scripts\ui\inputvaluecontroller.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
