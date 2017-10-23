@@ -52,8 +52,8 @@ build:release:
     - git add -u
     - git add .
     - git commit -m "Release ${version}"
-    - git checkout -b release-$version-test
-    - git push --set-upstream server release-$version-test
+    - git checkout -b release-$version
+    - git push --set-upstream server release-$version
     - echo "Done"
 
 deploy:dev:
