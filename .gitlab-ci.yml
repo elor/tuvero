@@ -23,13 +23,14 @@ build:dev:
 
 build:release:
   stage: build
+  only: release
   script:
+    - apk update
+    - apk add git openssh
     - mkdir -p ~/.ssh/
     - chmod 700 ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - apk update
-    - apk add git
     - git remote -v
     - echo git@${CI_SERVER_NAME}:${CI_PROJECT_PATH_SLUG}
     - git remote set-url origin git@${CI_SERVER_NAME}:${CI_PROJECT_PATH_SLUG}
