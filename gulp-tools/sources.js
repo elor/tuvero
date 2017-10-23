@@ -35,7 +35,7 @@ var sources = {
   template_index: 'templates/index.html',
   release_source_cleanup: [
     '*',
-    '.{jshintrc,dockerignore,travis.yml}',
+    '.{jshintrc,dockerignore,travis.yml,gitlab-ci.yml}',
     '!build',
     '!gulpfile.js',
     '!gulp-tools',
