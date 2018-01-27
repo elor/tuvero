@@ -86,7 +86,9 @@ define(['jquery', 'lib/extend', 'core/controller', 'tournament/tournamentindex',
 
     tournament = TournamentIndex.createTournament(type, rankingorder);
 
-    tournament.getName().set(Strings['defaultname' + tournament.SYSTEM]);
+    tournament.getName().set(
+      Strings['defaultname' + tournament.SYSTEM] || Strings.defaultnamegeneric
+    );
 
     ranking = this.model.tournaments.getGlobalRanking(this.model.teams.length);
 
