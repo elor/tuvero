@@ -139,6 +139,7 @@
     <Content Include="templates\index.html" />
     <Content Include="templates\komatchresult.html" />
     <Content Include="templates\kooptions.html" />
+    <Content Include="templates\placementsystem.html" />
     <Content Include="templates\kosystem.html" />
     <Content Include="templates\koteam.html" />
     <Content Include="templates\kotree.html" />
@@ -146,7 +147,6 @@
     <Content Include="templates\loginview.html" />
     <Content Include="templates\matchtable.html" />
     <Content Include="templates\newsystem.html" />
-    <Content Include="templates\newtab.html" />
     <Content Include="templates\progresstable.html" />
     <Content Include="templates\rankingorderview.html" />
     <Content Include="templates\rankingtab.html" />
@@ -324,14 +324,17 @@
     <Compile Include="scripts\background\loginstate.js" />
     <Compile Include="scripts\background\upload.js" />
     <Compile Include="scripts\immutable\state.ts" />
+    <Compile Include="scripts\ranking\rankingplacementcomponent.js" />
     <Compile Include="scripts\ranking\rankingtwopointcomponent.js" />
     <Compile Include="scripts\ranking\rankingtwopointlistener.js" />
     <Compile Include="scripts\ranking\rankingthreepointlistener.js" />
     <Compile Include="scripts\ranking\rankingthreepointcomponent.js" />
     <Compile Include="scripts\ranking\test\rankingtwopoint.js" />
     <Compile Include="scripts\ranking\test\rankingthreepoint.js" />
+    <Compile Include="scripts\tournament\placementtournament.js" />
     <Compile Include="scripts\ui\inputvalueview.js" />
     <Compile Include="scripts\ui\inputvaluecontroller.js" />
+    <Compile Include="scripts\ui\placementtournamentview.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
     <Compile Include="scripts\ui\servertournamentloader.js" />
     <Compile Include="scripts\ui\server.js" />
