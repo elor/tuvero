@@ -1,10 +1,14 @@
-Tuvero 1.5.14 (yyyy-mm-dd)
+Tuvero 1.5.14 (2018-01-27)
 --------------------------
 
 FEATURES:
 
+  * Add placement tournament
+
 FIXES:
 
+  * Add generic default tournament name as a fallback to avoid undefined-errors
+  * Fix online processing of tournament savestates for online live view
 
 Tuvero 1.5.13 (2017-10-23)
 -------------------------
@@ -14,6 +18,7 @@ FIXES:
   * Two-Point rankings actually use two points
 
 Tuvero 1.5.12 (2017-10-23)
+--------------------------
 
 FEATURES:
 
