@@ -14,7 +14,7 @@ define(['ranking/rankingidcomponent', 'ranking/rankingpointscomponent',
   'ranking/rankingheadtoheadcomponent', 'ranking/rankingtaccomponent',
   'ranking/rankingvotescomponent', 'ranking/rankingnumgamescomponent',
   'ranking/rankingkocomponent', 'ranking/rankingthreepointcomponent',
-  'ranking/rankingtwopointcomponent'],
+  'ranking/rankingtwopointcomponent', 'ranking/rankingplacementcomponent'],
   function () {
     var RankingComponentIndex, index, Component, allComponents;
 

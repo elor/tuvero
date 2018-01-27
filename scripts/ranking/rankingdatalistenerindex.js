@@ -32,7 +32,8 @@ define([//
   'ranking/rankingnumgameslistener', //
   'ranking/rankingkolistener', //
   'ranking/rankingthreepointlistener',
-  'ranking/rankingtwopointlistener'
+  'ranking/rankingtwopointlistener',
+  'ranking/rankingplacementlistener'
 ], //
   function () {
     var RankingDataListenerIndex;
