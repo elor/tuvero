@@ -325,13 +325,14 @@
     <Compile Include="scripts\background\upload.js" />
     <Compile Include="scripts\immutable\state.ts" />
     <Compile Include="scripts\ranking\rankingplacementcomponent.js" />
+    <Compile Include="scripts\ranking\rankingplacementlistener.js" />
     <Compile Include="scripts\ranking\rankingtwopointcomponent.js" />
     <Compile Include="scripts\ranking\rankingtwopointlistener.js" />
     <Compile Include="scripts\ranking\rankingthreepointlistener.js" />
     <Compile Include="scripts\ranking\rankingthreepointcomponent.js" />
     <Compile Include="scripts\ranking\test\rankingtwopoint.js" />
     <Compile Include="scripts\ranking\test\rankingthreepoint.js" />
-    <Compile Include="scripts\tournament\placementtournament.js" />
+    <Compile Include="scripts\tournament\placementtournamentmodel.js" />
     <Compile Include="scripts\ui\inputvalueview.js" />
     <Compile Include="scripts\ui\inputvaluecontroller.js" />
     <Compile Include="scripts\ui\placementtournamentview.js" />
