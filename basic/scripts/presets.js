@@ -23,6 +23,8 @@ define(function() {
       },
       round: {
         ranking: ['wins', 'sonneborn', 'headtohead', 'points']
+      },
+      placement: {
       }
     },
     ranking: {

@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(function() {
+define(function () {
   var Presets;
 
   Presets = {
@@ -22,6 +22,8 @@ define(function() {
       },
       round: {
         ranking: ['tac', 'numgames', 'wins', 'headtohead']
+      },
+      placement: {
       }
     },
     ranking: {

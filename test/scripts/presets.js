@@ -22,6 +22,8 @@ define(['ranking/rankingcomponentindex'], function(RankingComponentIndex) {
       },
       round: {
         ranking: ['wins', 'sonneborn']
+      },
+      placement: {
       }
     },
     ranking: {
