@@ -26,6 +26,8 @@ build:dev:
 
 build:release:
   stage: build
+  environment:
+    name: production
   variables:
     GIT_STRATEGY: clone
   only:
@@ -59,6 +61,8 @@ build:release:
 
 deploy:dev:
   stage: deploy
+  environment:
+    name: staging
   only:
     - develop
   variables:
