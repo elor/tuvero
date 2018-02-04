@@ -28,7 +28,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-filesaver', ['bower'], function () {
-    return gulp.src('bower_components/FileSaver/FileSaver.min.js')
+    return gulp.src('node_modules/file-saver/FileSaver.js')
       .pipe(filecount())
       .pipe(rename('FileSaver.js'))
       .pipe(gulp.dest(dest_js));
