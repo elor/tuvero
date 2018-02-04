@@ -21,7 +21,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-extend', ['bower'], function () {
-    return gulp.src('bower_components/extend/dist/extend.min.js')
+    return gulp.src('bower_components/extend/dist/extend.js')
       .pipe(filecount())
       .pipe(rename('extend.js'))
       .pipe(gulp.dest(dest_js));
@@ -48,7 +48,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-jquery', ['bower'], function () {
-    return gulp.src('node_modules/jquery/dist/jquery.min.js')
+    return gulp.src('node_modules/jquery/dist/jquery.js')
       .pipe(filecount())
       .pipe(rename('jquery.js'))
       .pipe(gulp.dest(dest_js));
@@ -62,7 +62,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-requirejs', ['bower'], function () {
-    return gulp.src('bower_components/requirejs/require.js')
+    return gulp.src('node_modules/requirejs/require.js')
       .pipe(filecount())
       .pipe(gulp.dest('basic/scripts/'))
       .pipe(gulp.dest('boule/scripts/'))
