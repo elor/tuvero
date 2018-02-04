@@ -54,13 +54,6 @@ module.exports = function () {
       .pipe(gulp.dest(dest_js));
   });
 
-  gulp.task('lib-typeahead', ['bower'], function () {
-    return gulp.src('bower_components/typeahead.js/dist/typeahead.bundle.min.js')
-      .pipe(filecount())
-      .pipe(rename('typeahead.js'))
-      .pipe(gulp.dest(dest_js));
-  });
-
   gulp.task('lib-modernizr', function () {
     return gulp.src(['scripts/background/featuredetect.js'])
       .pipe(filecount())
