@@ -35,7 +35,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-jsdiff', ['bower'], function () {
-    return gulp.src('bower_components/jsdiff/diff.min.js')
+    return gulp.src('node_modules/diff/dist/diff.js')
       .pipe(filecount())
       .pipe(rename('diff.js'))
       .pipe(gulp.dest(dest_js));
