@@ -9,31 +9,22 @@ const dest_js = 'scripts/lib/';
 const dest_css = 'lib/';
 
 module.exports = function () {
-  gulp.task('lib-filesaver', function () {
-    return gulp.src('node_modules/file-saver/FileSaver.js')
+  gulp.task('lib-scripts', function () {
+    return gulp.src([
+      'node_modules/file-saver/FileSaver.js',
+      'node_modules/diff/dist/diff.js',
+      'node_modules/jquery/dist/jquery.js'
+    ])
       .pipe(filecount())
       .pipe(gulp.dest(dest_js));
   });
 
-  gulp.task('lib-jsdiff', function () {
-    return gulp.src('node_modules/diff/dist/diff.js')
-      .pipe(filecount())
-      .pipe(rename('diff.js'))
-      .pipe(gulp.dest(dest_js));
-  });
-
-  gulp.task('lib-normalize', function () {
+  gulp.task('lib-styles', function () {
     return gulp.src('node_modules/normalize.css/normalize.css')
       .pipe(filecount())
       .pipe(gulp.dest(dest_css));
   });
 
-  gulp.task('lib-jquery', function () {
-    return gulp.src('node_modules/jquery/dist/jquery.js')
-      .pipe(filecount())
-      .pipe(rename('jquery.js'))
-      .pipe(gulp.dest(dest_js));
-  });
 
   gulp.task('lib-modernizr', function () {
     return gulp.src(['scripts/background/featuredetect.js'])
@@ -51,13 +42,13 @@ module.exports = function () {
       .pipe(gulp.dest('test/scripts/'));
   });
 
-  gulp.task('lib-qunit-js', function () {
+  gulp.task('lib-test-scripts', function () {
     return gulp.src('node_modules/qunit/qunit/qunit.js')
       .pipe(filecount())
       .pipe(gulp.dest('test/scripts/'));
   });
 
-  gulp.task('lib-qunit-css', function () {
+  gulp.task('lib-test-styles', function () {
     return gulp.src('node_modules/qunit/qunit/qunit.css')
       .pipe(filecount())
       .pipe(gulp.dest('test/style/'));

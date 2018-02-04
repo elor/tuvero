@@ -35,7 +35,7 @@ gulp.task('test-dependencies', ['lib'], function () {
 /**
  * update
  **/
-gulp.task('update-mainstyle', ['lib-normalize'], function () {
+gulp.task('update-mainstyle', ['lib-styles'], function () {
   return gulp.src(sources.styles, { base: 'style/' })
     .pipe(filecount())
     .pipe(mainstyle())
