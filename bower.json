@@ -4,7 +4,6 @@
   "dependencies": {
     "Blob": "*",
     "extend": "^0.1.1",
-    "normalize.css": "^5.0.0",
-    "qunit": "^2.4.0"
+    "normalize.css": "^5.0.0"
   }
 }
