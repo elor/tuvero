@@ -14,12 +14,6 @@ module.exports = function () {
     return bower();
   });
 
-  gulp.task('lib-blob', ['bower'], function () {
-    return gulp.src('bower_components/Blob/Blob.js')
-      .pipe(filecount())
-      .pipe(gulp.dest(dest_js));
-  });
-
   gulp.task('lib-extend', ['bower'], function () {
     return gulp.src('bower_components/extend/dist/extend.js')
       .pipe(filecount())
