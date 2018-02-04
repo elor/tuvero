@@ -4,7 +4,6 @@ FROM node:latest
 RUN mkdir -p /usr/src/app/cli
 
 COPY package.json /usr/src/app
-COPY bower.json /usr/src/app
 COPY gulpfile.js /usr/src/app
 COPY gulp-tools /usr/src/app/gulp-tools
 COPY cli/ /usr/src/app/cli
