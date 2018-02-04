@@ -48,7 +48,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-jquery', ['bower'], function () {
-    return gulp.src('bower_components/jquery/dist/jquery.min.js')
+    return gulp.src('node_modules/jquery/dist/jquery.min.js')
       .pipe(filecount())
       .pipe(rename('jquery.js'))
       .pipe(gulp.dest(dest_js));

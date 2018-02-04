@@ -21,6 +21,7 @@
     "gulp-run": "^1.7.1",
     "gulp-typescript": "^3.2.1",
     "gulp-uglify": "^3.0.0",
+    "jquery": "~1",
     "jshint": "^2.9.4",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3",
