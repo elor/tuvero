@@ -42,7 +42,7 @@ module.exports = function () {
   });
 
   gulp.task('lib-normalize', ['bower'], function () {
-    return gulp.src('bower_components/normalize.css/normalize.css')
+    return gulp.src('node_modules/normalize.css/normalize.css')
       .pipe(filecount())
       .pipe(gulp.dest(dest_css));
   });

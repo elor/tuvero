@@ -25,6 +25,7 @@
     "gulp-uglify": "^3.0.0",
     "jquery": "~1",
     "jshint": "^2.9.4",
+    "normalize.css": "^5.0.0",
     "qunit": "^2.5.0",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3",

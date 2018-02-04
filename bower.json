@@ -3,7 +3,6 @@
   "private": true,
   "dependencies": {
     "Blob": "*",
-    "extend": "^0.1.1",
-    "normalize.css": "^5.0.0"
+    "extend": "^0.1.1"
   }
 }
