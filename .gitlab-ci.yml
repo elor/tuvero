@@ -22,7 +22,7 @@ build:dev:
   artifacts:
     paths:
       - build/
-    expire_in: 1 month
+    expire_in: 1 day
 
 build:release:
   stage: build
