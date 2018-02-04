@@ -3,7 +3,6 @@
 const filecount = require('./filecount');
 const gulp = require('gulp');
 const modernizr = require('gulp-modernizr');
-const rename = require('gulp-rename');
 
 const dest_js = 'scripts/lib/';
 const dest_css = 'lib/';
