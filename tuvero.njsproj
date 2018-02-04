@@ -47,7 +47,6 @@
     <Content Include="boule\images\svg\games.svg" />
     <Content Include="boule\style\main.css" />
     <Content Include="boule\style\sprite.css" />
-    <Content Include="bower.json" />
     <Content Include="ChangeLog" />
     <Content Include="core\images\about.png" />
     <Content Include="core\images\all.png" />
@@ -266,7 +265,6 @@
     <Folder Include="scripts\math\test\" />
     <Folder Include="scripts\list\" />
     <Folder Include="scripts\matches\" />
-    <Folder Include="scripts\immutable\" />
     <Folder Include="scripts\tournament\" />
     <Folder Include="scripts\ranking\" />
     <Folder Include="scripts\ranking\test\" />
@@ -323,7 +321,6 @@
     <Compile Include="scripts\background\serverstatelink.js" />
     <Compile Include="scripts\background\loginstate.js" />
     <Compile Include="scripts\background\upload.js" />
-    <Compile Include="scripts\immutable\state.ts" />
     <Compile Include="scripts\ranking\rankingplacementcomponent.js" />
     <Compile Include="scripts\ranking\rankingplacementlistener.js" />
     <Compile Include="scripts\ranking\rankingtwopointcomponent.js" />
@@ -509,8 +506,6 @@
     <Compile Include="scripts\timemachine\test\query.js" />
     <Compile Include="scripts\timemachine\timemachine.js" />
     <Compile Include="scripts\ui\attributevalueview.js" />
-    <Compile Include="scripts\ui\autocompletionmodel.js" />
-    <Compile Include="scripts\ui\autocompletionview.js" />
     <Compile Include="scripts\background\autosave.js" />
     <Compile Include="scripts\background\dropstyle.js" />
     <Compile Include="scripts\background\featuredetect.js" />
@@ -670,10 +665,6 @@
     <Compile Include="test\scripts\strings.js" />
     <Compile Include="test\scripts\test.js" />
     <Compile Include="test\scripts\main.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="scripts\immutable\teamtransitions.ts" />
-    <TypeScriptCompile Include="scripts\immutable\transitions.ts" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
