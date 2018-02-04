@@ -14,13 +14,6 @@ module.exports = function () {
     return bower();
   });
 
-  gulp.task('lib-extend', ['bower'], function () {
-    return gulp.src('bower_components/extend/dist/extend.js')
-      .pipe(filecount())
-      .pipe(rename('extend.js'))
-      .pipe(gulp.dest(dest_js));
-  });
-
   gulp.task('lib-filesaver', ['bower'], function () {
     return gulp.src('node_modules/file-saver/FileSaver.js')
       .pipe(filecount())
