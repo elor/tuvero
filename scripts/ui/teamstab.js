@@ -9,14 +9,12 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/listview', 'ui/teamview',
     'ui/preregcloserview', 'ui/checkboxview', 'core/classview', 'ui/tabshandle',
     'ui/teamtableview', 'ui/inputview',
     'ui/teamsfileloadcontroller', 'presets', 'ui/noregmodel',
-    'ui/deleteallteamscontroller', 'ui/autocompletionmodel',
-    'ui/autocompletionview', 'ui/teamformatdownloadcontroller',
+    'ui/deleteallteamscontroller', 'ui/teamformatdownloadcontroller',
     'timemachine/timemachine', 'ui/storage'], function($, extend, View,
     ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
     PreregCloserView, CheckBoxView, ClassView, TabsHandle,
     TeamTableView, InputView, TeamsFileLoadController,
-    Presets, NoRegModel, DeleteAllTeamsController, AutocompletionModel,
-    AutocompletionView, TeamFormatDownloadController, TimeMachine, Storage) {
+    Presets, NoRegModel, DeleteAllTeamsController, TeamFormatDownloadController, TimeMachine, Storage) {
   /**
    * represents a whole team tab
    *
@@ -94,14 +92,6 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/listview', 'ui/teamview',
 
     $button = this.$view.find('>button.fileloadteams');
     this.teamsFileLoadController = new TeamsFileLoadController($button);
-
-    this.autocompletionModel = Storage.register(Presets.names.dbplayername,
-        AutocompletionModel);
-    this.autocompletionModel.download(Presets.names.playernameurl);
-
-    $container = this.$view.find('input.playername');
-    this.autocompletionView = new AutocompletionView(this.autocompletionModel,
-        $container);
   };
 
   TeamsTab.prototype.onupdate = function() {
