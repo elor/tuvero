@@ -1,4 +1,4 @@
-define(['lib/tuvero'], function (tuvero) {
+define(['tuvero'], function (tuvero) {
 
   var Random = function () {
     this.nextInt = tuvero.random.int;

@@ -17,13 +17,11 @@ require.config({
     },
     'lib/FileSaver': {
       exports: 'saveAs'
-    },
-    'lib/tuvero': {
-      exports: 'tuvero'
     }
   },
   paths: {
     'jquery': 'lib/jquery',
-    'filesaver': 'lib/FileSaver'
+    'filesaver': 'lib/FileSaver',
+    'tuvero': 'lib/tuvero.bundle-amd'
   }
 });
