@@ -27,7 +27,7 @@
     "qunit": "^2.5.0",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3",
-    "tuvero-cli": "file:cli",
+    "tuvero-cli": "file:cli"
   },
   "scripts": {
     "postinstall": "gulp update",
