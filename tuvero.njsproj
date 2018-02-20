@@ -312,7 +312,6 @@
     <Compile Include="boule\scripts\options.js" />
     <Compile Include="boule\scripts\presets.js" />
     <Compile Include="boule\scripts\strings.js" />
-    <Compile Include="gulp-tools\typescript.js" />
     <Compile Include="gulp-tools\release.js" />
     <Compile Include="gulp-tools\check-dependencies.js" />
     <Compile Include="gulp-tools\build.js" />
