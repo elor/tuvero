@@ -20,7 +20,6 @@
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "gulp-run": "^1.7.1",
-    "gulp-typescript": "^3.2.1",
     "gulp-uglify": "^3.0.0",
     "jquery": "~1",
     "jshint": "^2.9.4",
@@ -29,7 +28,6 @@
     "requirejs": "^2.3.3",
     "through2": "^2.0.3",
     "tuvero-cli": "file:cli",
-    "typescript": "^2.4.2"
   },
   "scripts": {
     "postinstall": "gulp update",
