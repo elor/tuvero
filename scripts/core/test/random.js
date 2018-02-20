@@ -20,29 +20,6 @@ define(function() {
 
       r = new Random();
 
-      min = max = r.nextDouble();
-      sum = 0.0;
-
-      for (i = 0; i < 10000; i += 1) {
-        x = r.nextDouble();
-
-        if (x < min) {
-          min = x;
-        }
-        if (x > max) {
-          max = x;
-        }
-
-        sum += x;
-      }
-
-      // approximate testing
-      assert.equal(Math.abs(sum - 5000) < 100, true, 'double mean');
-      assert.equal(min < 0.01, true, 'double min top');
-      assert.equal(min >= 0.0, true, 'double min bottom');
-      assert.equal(max > 0.99, true, 'double max top');
-      assert.equal(max < 1.0, true, 'double max bottom');
-
       max = min = r.nextInt(64);
 
       for (i = 0; i < 10000; i += 1) {
