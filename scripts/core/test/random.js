@@ -16,7 +16,7 @@ define(function() {
     Random = getModule('core/random');
 
     QUnit.test('Random', function (assert) {
-      var min, max, r, x, i, sum;
+      var min, max, r, x, i;
 
       r = new Random();
 
@@ -35,8 +35,6 @@ define(function() {
 
       assert.equal(min, 0, 'int min');
       assert.equal(max, 63, 'int max');
-
-      // TODO test pick() and pickAndRemove()
     });
   };
 });
