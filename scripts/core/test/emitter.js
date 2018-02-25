@@ -193,7 +193,7 @@ define(function () {
           eventcounter += 1;
         },
         emitters: []
-      }
+      };
       emitter.registerListener(listener);
       emitter.registerListener(listener2);
       emitter.emit('evt');
