@@ -60,7 +60,9 @@ build:release:
     - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
+    - git fetch server staging
   script:
+    - git checkout -b "release-$version"
     - test -z "$version" && { echo "Cannot read version"; exit 1; }
     - sed -i -e "s/$version-[a-z][a-z0-9]*/$version/" package.json
     - npm install
@@ -71,7 +73,7 @@ build:release:
     - git add .
     - git commit -m "Release $version built"
     - git checkout staging
-    - git merge -X ours -m "Release $version" develop
+    - git merge -X ours -m "Release $version" "release-$version"
     - git push server staging:staging
 
 deploy:release:
@@ -92,6 +94,8 @@ deploy:release:
     - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
+    - git fetch server staging
+    - git fetch server master
   script:
     - git checkout master
     - git merge --ff-only staging
