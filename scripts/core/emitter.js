@@ -92,7 +92,7 @@ define(['lib/extend', 'core/listener'], function (extend, Listener) {
             console.error(e.name);
             console.error(e.message);
             if (e.stack) {
-              console.error(e.stack)
+              console.error(e.stack);
             }
           }
         }
