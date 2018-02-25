@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - stage
   - release
 
 variables:
@@ -40,8 +41,9 @@ deploy:dev:
     - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://server.local/api/v4/projects/1/trigger/pipeline
 
 build:release:
-  stage: release
+  stage: stage
   when: manual
+  allow_failure: false
   variables:
     GIT_STRATEGY: clone
   only:
@@ -59,15 +61,38 @@ build:release:
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
   script:
-    - test -z "${version}" && { echo "Cannot read version"; exit 1; }
-    - sed -i -e "s/${version}-[a-z][a-z0-9]*/${version}/" package.json
+    - test -z "$version" && { echo "Cannot read version"; exit 1; }
+    - sed -i -e "s/$version-[a-z][a-z0-9]*/$version/" package.json
     - npm install
     - npm install cli/
     - npm run-script release
     - test -z "$(find -name '.*' -not -path './.git' -not -path '.' | tee /dev/stderr)"
     - git add -u
     - git add .
-    - git commit -m "Release ${version} built"
+    - git commit -m "Release $version built"
     - git checkout staging
-    - git merge -X ours develop
+    - git merge -X ours -m "Release $version" develop
     - git push server staging:staging
+
+deploy:release:
+  stage: stage
+  when: manual
+  allow_failure: false
+  only:
+    - develop
+  before_script:
+    - apk update
+    - apk add git openssh-client
+    - mkdir -p ~/.ssh/
+    - chmod 700 ~/.ssh/
+    - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
+    - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
+    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
+    - git config --global user.email "info@tuvero.de"
+    - git config --global user.name "Tuvero Autobuild"
+  script:
+    - git checkout master
+    - git merge --ff-only staging
+    - git push server master:master
