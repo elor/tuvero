@@ -1,6 +1,7 @@
 stages:
   - build
   - deploy
+  - release
 
 variables:
   SERVER_HOSTNAME: "server.local"
@@ -24,14 +25,27 @@ build:dev:
       - build/
     expire_in: 1 day
 
-build:release:
-  stage: build
+deploy:dev:
+  stage: deploy
   environment:
-    name: production
+    name: staging
+  only:
+    - develop
+  variables:
+    GIT_STRATEGY: none
+  dependencies: []
+  script:
+    - apk update
+    - apk add curl
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://server.local/api/v4/projects/1/trigger/pipeline
+
+build:release:
+  stage: release
+  when: manual
   variables:
     GIT_STRATEGY: clone
   only:
-    - release
+    - develop
   before_script:
     - apk update
     - apk add nodejs nodejs-npm git openssh-client
@@ -50,25 +64,10 @@ build:release:
     - npm install
     - npm install cli/
     - npm run-script release
-    - find *
     - test -z "$(find -name '.*' -not -path './.git' -not -path '.' | tee /dev/stderr)"
     - git add -u
     - git add .
-    - git commit -m "Release ${version}"
-    - git checkout -b release-$version
-    - git push --set-upstream server release-$version
-    - echo "Done"
-
-deploy:dev:
-  stage: deploy
-  environment:
-    name: staging
-  only:
-    - develop
-  variables:
-    GIT_STRATEGY: none
-  dependencies: []
-  script:
-    - apk update
-    - apk add curl
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://server.local/api/v4/projects/1/trigger/pipeline
+    - git commit -m "Release ${version} built"
+    - git checkout staging
+    - git merge -X ours develop
+    - git push server staging:staging
