@@ -6,13 +6,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
-  return function(QUnit, getModule) {
+define(function () {
+  return function (QUnit, getModule) {
     var Emitter;
 
     Emitter = getModule('core/emitter');
 
-    QUnit.test('Emitter', function(assert) {
+    QUnit.test('Emitter', function (assert) {
       var emitter, listener, listener2, eventcounter, resetcounter, retval;
 
       eventcounter = resetcounter = 0;
@@ -24,26 +24,26 @@ define(function() {
         /**
          * test function
          */
-        onundefined: function() {
+        onundefined: function () {
           this.onreset();
         },
         /**
          * test function
          */
-        onreset: function() {
+        onreset: function () {
           eventcounter = 0;
           resetcounter += 1;
         },
         /**
          * test function
          */
-        onevent: function(_emitter, event) {
+        onevent: function (_emitter, event) {
           eventcounter += 1;
           assert.equal(this, listener, 'onevent(): this equals listener');
           assert.equal(_emitter, emitter,
-              'onevent(): first argument equals emitter ');
+            'onevent(): first argument equals emitter ');
           assert.equal(event, 'event',
-              'onevent(): second argument equals event string');
+            'onevent(): second argument equals event string');
         },
         emitters: []
       };
@@ -52,7 +52,7 @@ define(function() {
         /**
          * test function
          */
-        onevent: function() {
+        onevent: function () {
           eventcounter += 1;
         },
         emitters: []
@@ -68,16 +68,16 @@ define(function() {
       retval = emitter.emit('asd');
 
       assert.equal(retval, false,
-          'Emitter: unreceived event returns false on emit()');
+        'Emitter: unreceived event returns false on emit()');
 
       emitter.registerListener(listener).registerListener(listener2);
       assert.equal(eventcounter + resetcounter, 0,
-          'counters are at a zero state after listener registration');
+        'counters are at a zero state after listener registration');
 
       retval = emitter.emit('event');
       assert.equal(eventcounter, 2, "both listeners received 'event'");
       assert.equal(retval, true,
-          'Emitter: received event returns true on emit()');
+        'Emitter: received event returns true on emit()');
 
       emitter.registerListener(listener);
       retval = emitter.emit('event');
@@ -90,9 +90,9 @@ define(function() {
       retval = emitter.emit('event');
       retval = emitter.emit();
       assert.equal(resetcounter, 1,
-          'default event (undefined) was not processed');
+        'default event (undefined) was not processed');
       assert.equal(eventcounter, 2,
-          'onundefined callback function was not processed');
+        'onundefined callback function was not processed');
 
       emitter.emit('thisEventIsInvalid');
       assert.equal(eventcounter, 2, 'unspecified events are not processed');
@@ -100,7 +100,7 @@ define(function() {
       emitter.unregisterListener(listener);
       retval = emitter.emit('event');
       assert.equal(eventcounter, 3,
-          'unregistered listeners do not receive events');
+        'unregistered listeners do not receive events');
 
       retval = emitter.listeners.indexOf(listener);
       assert.equal(retval, -1, 'listeners are removed from emitter.listeners');
@@ -121,13 +121,13 @@ define(function() {
       };
       listener2 = {
         success: false,
-        onevt: function() {
+        onevt: function () {
           this.success = true;
         },
         emitters: []
       };
       listener = {
-        onevt: function() {
+        onevt: function () {
           emitter.unregisterListener(this);
         },
         emitters: []
@@ -136,7 +136,7 @@ define(function() {
       emitter.registerListener(listener2);
       emitter.emit('evt');
       assert.equal(listener2.success, true,
-          'unregister during emit should not cause listeners to be skipped');
+        'unregister during emit should not cause listeners to be skipped');
 
       /*
        * Mixin tests: when instantiating the emitter multiple times, the
@@ -152,7 +152,7 @@ define(function() {
       Emitter.call(emitter); // mix-in
       emitter.emit('evt');
       assert.equal(listener2.success, true,
-          'Mixin-initialization of an emitter preserves the listeners');
+        'Mixin-initialization of an emitter preserves the listeners');
 
       /*
        * testing memory leak due to invalid forEach call
@@ -169,9 +169,38 @@ define(function() {
       emitter.destroy();
 
       assert.equal(listener.emitters.length, 0,
-          'memleak: first listener was unregistered');
+        'memleak: first listener was unregistered');
       assert.equal(listener2.emitters.length, 0,
-          'memleak: second listener was unregistered');
+        'memleak: second listener was unregistered');
+
+      /*
+       * Test Exception handling
+       */
+
+      emitter = new Emitter();
+      emitter.EVENTS = {
+        'evt': true
+      };
+      eventcounter = 0;
+      listener = {
+        onevt: function () {
+          throw Error("Planned failure.");
+        },
+        emitters: []
+      };
+      listener2 = {
+        onevt: function () {
+          eventcounter += 1;
+        },
+        emitters: []
+      }
+      emitter.registerListener(listener);
+      emitter.registerListener(listener2);
+      emitter.emit('evt');
+      emitter.emit('evt');
+
+      assert.equal(eventcounter, 2, 'errors are intercepted');
+
     });
   };
 });

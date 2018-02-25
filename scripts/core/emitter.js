@@ -6,14 +6,14 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener'], function(extend, Listener) {
+define(['lib/extend', 'core/listener'], function (extend, Listener) {
   var depth;
 
   depth = 0;
 
   function getClassName(instance) {
     return instance.constructor.toString().split('\n')[0].replace(
-        /function (\S+)\(.*/, '$1');
+      /function (\S+)\(.*/, '$1');
   }
 
   /**
@@ -28,7 +28,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
 
     if (Emitter.debug && this.EVENTS.update) {
       console.warn(getClassName(this)
-          + ": The use of the 'update' event is discouraged.");
+        + ": The use of the 'update' event is discouraged.");
       console.warn("   Cause: The meaning of 'update' is ambiguous");
     }
   }
@@ -55,7 +55,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    *          arbitrary additional data. Please keep it simple!
    * @return true if the some listener received the event, false otherwise
    */
-  Emitter.prototype.emit = function(event, data) {
+  Emitter.prototype.emit = function (event, data) {
     var success, indentation;
 
     success = false;
@@ -78,13 +78,24 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
         indentation += ' ';
       }
       console.log(indentation + getClassName(this) + '.emit(' + event
-          + ') with ' + this.listeners.length + ' listeners');
+        + ') with ' + this.listeners.length + ' listeners');
     }
 
-    this.listeners.slice().forEach(function(listener) {
+    this.listeners.slice().forEach(function (listener) {
       if (listener['on' + event]) {
-        listener['on' + event].call(listener, this, event, data);
-        success = true;
+        try {
+          listener['on' + event].call(listener, this, event, data);
+          success = true;
+        } catch (e) {
+          console.error(e);
+          if (e instanceof Error) {
+            console.error(e.name);
+            console.error(e.message);
+            if (e.stack) {
+              console.error(e.stack)
+            }
+          }
+        }
       }
     }, this);
 
@@ -100,7 +111,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    *          an event string, e.g. 'update'
    * @return true if the event type is defined, false otherwise
    */
-  Emitter.prototype.validEvent = function(event) {
+  Emitter.prototype.validEvent = function (event) {
     return this.EVENTS && !!this.EVENTS[event];
   };
 
@@ -112,7 +123,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    *          callback functions
    * @return this
    */
-  Emitter.prototype.registerListener = function(listener) {
+  Emitter.prototype.registerListener = function (listener) {
     this.unregisterListener(listener);
     this.listeners.push(listener);
     listener.emitters.push(this);
@@ -128,7 +139,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    *          registered
    * @return this
    */
-  Emitter.prototype.unregisterListener = function(listener) {
+  Emitter.prototype.unregisterListener = function (listener) {
     var index;
 
     index = this.listeners.indexOf(listener);
@@ -149,7 +160,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
   /**
    * unregister all related listeners
    */
-  Emitter.prototype.destroy = function() {
+  Emitter.prototype.destroy = function () {
     Emitter.superclass.destroy.call(this);
 
     while (this.listeners.length > 0) {
