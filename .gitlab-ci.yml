@@ -77,7 +77,7 @@ build:release:
     - git push server staging:staging
 
 deploy:release:
-  stage: stage
+  stage: release
   when: manual
   allow_failure: false
   only:
