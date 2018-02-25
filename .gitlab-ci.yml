@@ -65,7 +65,6 @@ build:release:
     - test -z "$version" && { echo "Cannot read version"; exit 1; }
     - sed -i -e "s/$version-[a-z][a-z0-9]*/$version/" package.json
     - npm install
-    - npm install cli/
     - npm run-script release
     - test -z "$(find -name '.*' -not -path './.git' -not -path '.' | tee /dev/stderr)"
     - git add -u
