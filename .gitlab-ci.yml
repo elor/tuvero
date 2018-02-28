@@ -50,8 +50,7 @@ build:release:
   before_script:
     - apk update
     - apk add nodejs nodejs-npm git openssh-client
-    - mkdir -p ~/.ssh/
-    - chmod 700 ~/.ssh/
+    - mkdir -m 700 -p ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
@@ -87,8 +86,7 @@ deploy:release:
   before_script:
     - apk update
     - apk add git openssh-client
-    - mkdir -p ~/.ssh/
-    - chmod 700 ~/.ssh/
+    - mkdir -m 700 -p ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
