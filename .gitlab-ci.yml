@@ -1,8 +1,8 @@
 stages:
-  - build
-  - deploy
   - stage
   - release
+  - build
+  - deploy
 
 variables:
   SERVER_HOSTNAME: "server.local"
