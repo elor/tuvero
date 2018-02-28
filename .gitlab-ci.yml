@@ -93,6 +93,7 @@ deploy:release:
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
+    - git remote add github git@github.com:${REPOSITORY_PATH}
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
     - git fetch server staging
@@ -101,3 +102,4 @@ deploy:release:
     - git checkout -b master server/master
     - git merge --ff-only staging
     - git push server master:master
+    - git push github master:master
