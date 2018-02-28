@@ -78,6 +78,9 @@ deploy:release:
   stage: release
   when: manual
   allow_failure: false
+  variables:
+    GIT_STRATEGY: clone
+  dependencies: []
   only:
     - develop
   image: alpine:latest
