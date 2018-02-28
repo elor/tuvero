@@ -62,7 +62,6 @@ build:release:
     - git fetch server staging
   script:
     - git checkout -b "release-$version"
-    - git checkout -b staging server/staging
     - test -z "$version" && { echo "Cannot read version"; exit 1; }
     - sed -i -e "s/$version-[a-z][a-z0-9]*/$version/" package.json
     - npm install
@@ -71,7 +70,7 @@ build:release:
     - git add -u
     - git add .
     - git commit -m "Release $version built"
-    - git checkout staging
+    - git checkout -b staging server/staging
     - git merge -X ours -m "Release $version" "release-$version"
     - git push server staging:staging
 
