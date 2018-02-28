@@ -46,6 +46,7 @@ build:release:
     GIT_STRATEGY: clone
   only:
     - develop
+  dependencies: []
   image: alpine:latest
   before_script:
     - apk update
