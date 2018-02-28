@@ -72,7 +72,7 @@ build:release:
     - git commit -m "Release $version built"
     - git checkout -b staging server/staging
     - git merge -X ours -m "Release $version" "release-$version"
-    - git tag "$version"
+    - git tag -f "$version"
     - git push server staging:staging --tags
 
 deploy:release:
