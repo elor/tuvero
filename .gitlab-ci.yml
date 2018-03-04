@@ -107,7 +107,8 @@ deploy:release:
 
 deploy:version:
   stage: release
-  variables: GIT_STRATEGY: clone
+  variables:
+    GIT_STRATEGY: clone
   dependencies: []
   only:
     - develop
