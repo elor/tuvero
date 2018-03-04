@@ -93,7 +93,7 @@ deploy:release:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
-    - ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
+    - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
     - git remote add github git@github.com:${REPOSITORY_PATH}
     - git config --global user.email "info@tuvero.de"
