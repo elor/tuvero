@@ -28,4 +28,3 @@ test/scripts/qunit.js
 test/style/qunit.css
 tmp/
 npm-debug.log
-package-lock.json
