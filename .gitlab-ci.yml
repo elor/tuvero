@@ -71,7 +71,7 @@ build:release:
     - git add .
     - git commit -m "Release $version built"
     - git checkout -b staging server/staging
-    - git merge -X ours -m "Release $version" "release-$version"
+    - git merge -X theirs -m "Release $version" "release-$version"
     - git tag "$version"
     - git push server staging:staging --tags
 
