@@ -22,7 +22,7 @@ build:dev:
     name: "artifacts_develop"
     paths:
       - build/
-    expire_in: 1 day
+    expire_in: 1 week
 
 deploy:dev:
   stage: deploy
