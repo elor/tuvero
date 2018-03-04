@@ -121,7 +121,6 @@ deploy:version:
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
     - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
-    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
   script:
