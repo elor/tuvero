@@ -19,6 +19,7 @@ build:dev:
     - npm install cli/
     - npm run-script build
   artifacts:
+    name: "artifacts_develop"
     paths:
       - build/
     expire_in: 1 day
