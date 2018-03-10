@@ -5,7 +5,7 @@ stages:
   - release
 
 variables:
-  SERVER_HOSTNAME: "server.local"
+  SERVER_HOSTNAME: "server.fritz.box"
   REPOSITORY_PATH: "elor/tuvero"
 
 build:dev:
@@ -37,7 +37,7 @@ deploy:dev:
   script:
     - apk update
     - apk add curl
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://server.local/api/v4/projects/1/trigger/pipeline
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
 
 build:release:
   stage: stage
