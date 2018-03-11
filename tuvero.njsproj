@@ -138,6 +138,7 @@
     <Content Include="templates\index.html" />
     <Content Include="templates\komatchresult.html" />
     <Content Include="templates\kooptions.html" />
+    <Content Include="templates\poulessystem.html" />
     <Content Include="templates\placementsystem.html" />
     <Content Include="templates\kosystem.html" />
     <Content Include="templates\koteam.html" />
@@ -331,6 +332,7 @@
     <Compile Include="scripts\tournament\placementtournamentmodel.js" />
     <Compile Include="scripts\ui\inputvalueview.js" />
     <Compile Include="scripts\ui\inputvaluecontroller.js" />
+    <Compile Include="scripts\ui\poulestournamentview.js" />
     <Compile Include="scripts\ui\placementtournamentview.js" />
     <Compile Include="scripts\ui\serverautoloadmodel.js" />
     <Compile Include="scripts\ui\servertournamentloader.js" />
