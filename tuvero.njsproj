@@ -330,6 +330,7 @@
     <Compile Include="scripts\ranking\test\rankingtwopoint.js" />
     <Compile Include="scripts\ranking\test\rankingthreepoint.js" />
     <Compile Include="scripts\tournament\placementtournamentmodel.js" />
+    <Compile Include="scripts\tournament\poulestournamentmodel.js" />
     <Compile Include="scripts\ui\inputvalueview.js" />
     <Compile Include="scripts\ui\inputvaluecontroller.js" />
     <Compile Include="scripts\ui\poulestournamentview.js" />

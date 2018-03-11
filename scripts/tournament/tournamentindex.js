@@ -8,7 +8,8 @@
  * @see LICENSE
  */
 define(['core/type', 'tournament/roundtournamentmodel', 'tournament/swisstournamentmodel',
-    'tournament/kotournamentmodel', 'tournament/placementtournamentmodel'], function(Type) {
+  'tournament/kotournamentmodel', 'tournament/placementtournamentmodel',
+  'tournament/poulestournamentmodel'], function (Type) {
   var TournamentIndex, tournamentSystems, i, sys;
 
   tournamentSystems = {};
