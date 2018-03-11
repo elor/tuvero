@@ -33,6 +33,7 @@
     "postinstall": "gulp update",
     "build": "gulp default",
     "test": "gulp test",
+    "lint": "gulp lint",
     "watch": "gulp watch",
     "release": "gulp release"
   },
