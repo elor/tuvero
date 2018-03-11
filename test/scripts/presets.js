@@ -24,6 +24,8 @@ define(['ranking/rankingcomponentindex'], function(RankingComponentIndex) {
         ranking: ['wins', 'sonneborn']
       },
       placement: {
+      },
+      poules: {
       }
     },
     ranking: {
