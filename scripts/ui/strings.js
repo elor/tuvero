@@ -87,6 +87,7 @@ define(['strings'], function (LocalStrings) {
     defaultnameround: 'Rundenturnier',
     defaultnamesupermelee: 'Supermelee',
     defaultnameplacement: 'Platzierungsrunde',
+    defaultnamepoules: 'Poules',
     offlineconfirmexit: 'Tuvero ist gerade nicht offline verfügbar. Beenden?',
     winstatustrue: 'S',
     winstatusfalse: 'N',
