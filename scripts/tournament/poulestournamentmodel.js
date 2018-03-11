@@ -42,7 +42,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
     };
 
     PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
-      var counterpart, counterpartID, winner, loser;
+      var winner, loser;
 
       if (matchresult.score[0] > matchresult.score[1]) {
         winner = matchresult.teams[0];
@@ -59,7 +59,6 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
             if (match.group === matchresult.group) {
               if (match.id === 2) {
                 match.teams[matchresult.id] = winner;
-                debugger
                 match.emit('update');
               } else if (match.id === 3) {
                 match.teams[matchresult.id] = loser;
