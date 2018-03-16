@@ -4,10 +4,6 @@ stages:
   - stage
   - release
 
-variables:
-  SERVER_HOSTNAME: "server.fritz.box"
-  REPOSITORY_PATH: "elor/tuvero"
-
 build:dev:
   stage: build
   only:
@@ -66,7 +62,7 @@ build:release:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
-    - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
+    - git remote add server git@${SERVER_HOSTNAME}:${CI_PROJECT_PATH}
     - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
@@ -104,8 +100,8 @@ deploy:release:
     - chmod 600 ~/.ssh/id_rsa
     - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
     - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-    - git remote add server git@${SERVER_HOSTNAME}:${REPOSITORY_PATH}
-    - git remote add github git@github.com:${REPOSITORY_PATH}
+    - git remote add server git@${SERVER_HOSTNAME}:${CI_PROJECT_PATH}
+    - git remote add github git@github.com:${CI_PROJECT_PATH}
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
     - git fetch server staging
