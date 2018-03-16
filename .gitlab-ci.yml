@@ -44,7 +44,7 @@ deploy:dev:
     - apk update
     - apk add curl lftp
     - tar czfv latest.tar.gz -C build .
-    - filestamp="$(date -Iseconds)_${CI_COMMIT_SHA}""
+    - filestamp="$(date -Iseconds)_${CI_COMMIT_SHA}"
     - cp latest.tar.gz ${filestamp}.tar.gz
     - lftp -c "put ${CI_COMMIT_REF_NAME}/ build.tar.gz; put ${CI_COMMIT_REF_NAME}/ ${filestamp}.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
     - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
