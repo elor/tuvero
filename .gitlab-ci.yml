@@ -97,7 +97,7 @@ deploy:release:
   image: alpine:latest
   before_script:
     - apk update
-    - apk add git openssh-client
+    - apk add git openssh-client lftp
     - mkdir -m 700 -p ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
@@ -105,6 +105,7 @@ deploy:release:
     - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
     - git remote add server git@${SERVER_HOSTNAME}:${CI_PROJECT_PATH}
     - git remote add github git@github.com:${CI_PROJECT_PATH}
+    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
     - git config --global user.email "info@tuvero.de"
     - git config --global user.name "Tuvero Autobuild"
     - git fetch server staging
@@ -114,3 +115,6 @@ deploy:release:
     - git merge --ff-only server/staging
     - git push server master:master
     - git push github master:master
+    - tar czvf latest.tar.gz *
+    - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
+    - lftp -e "mkdir master; cd master; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
