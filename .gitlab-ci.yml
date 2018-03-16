@@ -57,7 +57,7 @@ build:release:
   image: alpine:latest
   before_script:
     - apk update
-    - apk add nodejs nodejs-npm git openssh-client
+    - apk add nodejs nodejs-npm git openssh-client lftp
     - mkdir -m 700 -p ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
@@ -81,6 +81,9 @@ build:release:
     - git merge -X theirs -m "Release $version" "release-$version"
     - git tag "$version"
     - git push server staging:staging --tags
+    - tar czvf latest.tar.gz *
+    - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
+    - lftp -e "mkdir staging; cd staging; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
 
 deploy:release:
   stage: release
