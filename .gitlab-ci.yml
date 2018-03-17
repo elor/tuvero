@@ -23,7 +23,7 @@ build:dev:
 deploy:dev:
   stage: deploy
   environment:
-    name: staging
+    name: dev
   only:
     - develop
   variables:
@@ -51,6 +51,8 @@ build:release:
   allow_failure: false
   variables:
     GIT_STRATEGY: clone
+  environment:
+    name: staging
   only:
     - develop
   dependencies: []
@@ -92,6 +94,8 @@ deploy:release:
   variables:
     GIT_STRATEGY: clone
   dependencies: []
+  environment:
+    name: production
   only:
     - develop
   image: alpine:latest
