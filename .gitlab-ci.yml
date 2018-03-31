@@ -42,7 +42,7 @@ deploy:dev:
     - tar czfv latest.tar.gz -C build .
     - filestamp="$(date -Iseconds)_${CI_COMMIT_SHA:0:8}"
     - cp latest.tar.gz ${filestamp}.tar.gz
-    - lftp -e "mkdir ${CI_COMMIT_REF_NAME}; cd ${CI_COMMIT_REF_NAME}; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
+    - lftp -e "mkdir -p ${CI_COMMIT_REF_NAME}; cd ${CI_COMMIT_REF_NAME}; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
     - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
 
 build:release:
@@ -85,7 +85,7 @@ build:release:
     - git push server staging:staging --tags
     - tar czvf latest.tar.gz *
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
-    - lftp -e "mkdir staging; cd staging; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
+    - lftp -e "mkdir -p staging; cd staging; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
 
 deploy:release:
   stage: release
@@ -121,4 +121,4 @@ deploy:release:
     - git push github master:master
     - tar czvf latest.tar.gz *
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
-    - lftp -e "mkdir master; cd master; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
+    - lftp -e "mkdir -p master; cd master; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
