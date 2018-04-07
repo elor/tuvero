@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function (extend,
+define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
   IndexedModel, PlayerModel) {
 
   /**
@@ -91,7 +91,7 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function (extend,
     data = {
       id: this.players.indexOf(emitter)
     };
-    this.emit('update', data);
+    this.emit("update", data);
   };
 
   TeamModel.prototype.SAVEFORMAT = Object

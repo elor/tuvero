@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/model'], function (extend, Model) {
+define(["lib/extend", "core/model"], function (extend, Model) {
 
   /**
    * remove extra white spaces from a player name
@@ -17,7 +17,7 @@ define(['lib/extend', 'core/model'], function (extend, Model) {
    * @return a trimmed version of the name
    */
   function trimName(name) {
-    return name.trim().replace(/\s+/g, ' ');
+    return name.trim().replace(/\s+/g, " ");
   }
 
   /**
@@ -39,7 +39,7 @@ define(['lib/extend', 'core/model'], function (extend, Model) {
     this.setName(name);
   }
   extend(PlayerModel, Model);
-  PlayerModel.NONAME = 'noname';
+  PlayerModel.NONAME = "noname";
 
   /**
    * retrieve a copy of the player name
@@ -58,10 +58,10 @@ define(['lib/extend', 'core/model'], function (extend, Model) {
    *          the new name
    */
   PlayerModel.prototype.setName = function (name) {
-    name = trimName(name || '');
+    name = trimName(name || "");
     if (name && name !== this.alias) {
       this.alias = name;
-      this.emit('update');
+      this.emit("update");
     }
   };
 
