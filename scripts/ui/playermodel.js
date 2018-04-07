@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(['lib/extend', 'core/model'], function (extend, Model) {
 
   /**
    * remove extra white spaces from a player name
@@ -28,7 +28,14 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    */
   function PlayerModel(name) {
     PlayerModel.superconstructor.call(this);
-    this.name = PlayerModel.NONAME;
+
+    this.club = "";
+    this.email = "";
+    this.license = "";
+    this.firstname = "";
+    this.lastname = "";
+    this.alias = PlayerModel.NONAME;
+
     this.setName(name);
   }
   extend(PlayerModel, Model);
@@ -39,8 +46,8 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @return a copy of the player name
    */
-  PlayerModel.prototype.getName = function() {
-    return this.name.slice(0);
+  PlayerModel.prototype.getName = function () {
+    return this.alias.slice(0);
   };
 
   /**
@@ -50,16 +57,16 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    * @param name
    *          the new name
    */
-  PlayerModel.prototype.setName = function(name) {
+  PlayerModel.prototype.setName = function (name) {
     name = trimName(name || '');
-    if (name && name !== this.name) {
-      this.name = name;
+    if (name && name !== this.alias) {
+      this.alias = name;
       this.emit('update');
     }
   };
 
   PlayerModel.prototype.SAVEFORMAT = Object
-      .create(PlayerModel.superclass.SAVEFORMAT);
+    .create(PlayerModel.superclass.SAVEFORMAT);
   PlayerModel.prototype.SAVEFORMAT.n = String;
 
   /**
@@ -68,10 +75,10 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @return a serializable data object, which can be used for restoring
    */
-  PlayerModel.prototype.save = function() {
+  PlayerModel.prototype.save = function () {
     var data = PlayerModel.superclass.save.call(this);
 
-    data.n = this.name;
+    data.n = this.getName();
 
     return data;
   };
@@ -83,7 +90,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *          a data object, that was previously written by save()
    * @return true on success, false otherwise
    */
-  PlayerModel.prototype.restore = function(data) {
+  PlayerModel.prototype.restore = function (data) {
     if (!PlayerModel.superclass.restore.call(this, data)) {
       return false;
     }
