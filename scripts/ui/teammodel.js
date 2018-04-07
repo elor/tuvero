@@ -21,6 +21,11 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function (extend,
   function TeamModel(players, id) {
     TeamModel.superconstructor.call(this, id);
 
+    this.alias = "";
+    this.club = "";
+    this.email = "";
+    this.players = [];
+
     this.setPlayers(players);
   }
   extend(TeamModel, IndexedModel);
