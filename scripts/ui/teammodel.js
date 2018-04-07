@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
-    IndexedModel, PlayerModel) {
+define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function (extend,
+  IndexedModel, PlayerModel) {
 
   /**
    * Constructor
@@ -38,7 +38,7 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
    *          the index of the player inside the team
    * @return a PlayerModel reference
    */
-  TeamModel.prototype.getPlayer = function(id) {
+  TeamModel.prototype.getPlayer = function (id) {
     if (id >= 0 && id < this.length) {
       return this.players[id];
     }
@@ -51,22 +51,22 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
    * @param players
    *          an array of PlayerModel instances
    */
-  TeamModel.prototype.setPlayers = function(players) {
+  TeamModel.prototype.setPlayers = function (players) {
     players = players || [];
     if (players.length === 0) {
       players.push(new PlayerModel());
     }
     this.length = players.length;
     this.players = players.slice(0);
-    this.players.forEach(function(player) {
+    this.players.forEach(function (player) {
       player.registerListener(this);
     }, this);
   };
 
   TeamModel.prototype.getNames = function () {
-      return this.players.map(function (player) {
-          return player.getName();
-      });
+    return this.players.map(function (player) {
+      return player.getName();
+    });
   };
 
   /**
@@ -81,7 +81,7 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
    *          the event type
    *
    */
-  TeamModel.prototype.onupdate = function(emitter, event) {
+  TeamModel.prototype.onupdate = function (emitter, event) {
     var data;
     data = {
       id: this.players.indexOf(emitter)
@@ -90,7 +90,7 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
   };
 
   TeamModel.prototype.SAVEFORMAT = Object
-      .create(TeamModel.superclass.SAVEFORMAT);
+    .create(TeamModel.superclass.SAVEFORMAT);
   TeamModel.prototype.SAVEFORMAT.p = [Object];
 
   /**
@@ -99,10 +99,10 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
    *
    * @return a serializable data object, which can be used for restoring
    */
-  TeamModel.prototype.save = function() {
+  TeamModel.prototype.save = function () {
     var data = TeamModel.superclass.save.call(this);
 
-    data.p = this.players.map(function(player) {
+    data.p = this.players.map(function (player) {
       return player.save();
     });
 
@@ -116,12 +116,12 @@ define(['lib/extend', 'list/indexedmodel', 'ui/playermodel'], function(extend,
    *          a data object, that was previously written by save()
    * @return true on success, false otherwise
    */
-  TeamModel.prototype.restore = function(data) {
+  TeamModel.prototype.restore = function (data) {
     if (!TeamModel.superclass.restore.call(this, data)) {
       return false;
     }
 
-    this.setPlayers(data.p.map(function(player) {
+    this.setPlayers(data.p.map(function (player) {
       var p = new PlayerModel();
       p.restore(player);
       return p;
