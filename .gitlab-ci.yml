@@ -9,7 +9,7 @@ build:dev:
   only:
     - develop
     - /^feature-.*$/
-  image: node:latest
+  image: node:9
   script:
     - npm install
     - npm install cli/
