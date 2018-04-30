@@ -34,12 +34,16 @@ module.exports = function () {
         .pipe(rjs({ outDir: "tmp" }));
     });
 
-    gulp.task(`build-${target}-html`, ['template'], function () {
-      return gulp.src([`${target}/*.html`])
-        .pipe(replace(/\s*<script>[^<]*<\/script>/g, ''))
-        .pipe(replace(/<html/, '<html manifest="manifest.appcache"'))
-        .pipe(gulp.dest(`tmp/${target}/`));
-    });
+    if (target === "test") {
+      gulp.task("build-test-html");
+    } else {
+      gulp.task(`build-${target}-html`, ['template'], function () {
+        return gulp.src([`${target}/*.html`])
+          .pipe(replace(/\s*<script>[^<]*<\/script>/g, ''))
+          .pipe(replace(/<html/, '<html manifest="manifest.appcache"'))
+          .pipe(gulp.dest(`tmp/${target}/`));
+      });
+    }
 
     gulp.task(`build-${target}-requirejs`, ['lib-requirejs'], function () {
       return gulp.src([`${target}/scripts/require.js`])
