@@ -41,6 +41,12 @@ module.exports = function () {
       .pipe(gulp.dest('test/scripts/'));
   });
 
+  gulp.task('lib-tuvero', function () {
+    return gulp.src('node_modules/tuvero/dist/tuvero.bundle-amd.js')
+      .pipe(filecount())
+      .pipe(gulp.dest(dest_js));
+  });
+
   gulp.task('lib-test-scripts', function () {
     return gulp.src('node_modules/qunit/qunit/qunit.js')
       .pipe(filecount())
