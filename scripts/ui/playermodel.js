@@ -80,6 +80,26 @@ define(["lib/extend", "core/model"], function (extend, Model) {
 
     data.n = this.getName();
 
+    if (this.club) {
+      data.club = this.club;
+    }
+
+    if (this.email) {
+      data.email = this.email;
+    }
+
+    if (this.license) {
+      data.license = this.license;
+    }
+
+    if (this.firstname) {
+      data.firstname = this.firstname;
+    }
+
+    if (this.lastname) {
+      data.lastname = this.lastname;
+    }
+
     return data;
   };
 
@@ -96,6 +116,26 @@ define(["lib/extend", "core/model"], function (extend, Model) {
     }
 
     this.setName(data.n);
+
+    if (data.club) {
+      this.club = data.club;
+    }
+
+    if (data.email) {
+      this.email = data.email;
+    }
+
+    if (data.license) {
+      this.license = data.license;
+    }
+
+    if (data.firstname) {
+      this.firstname = data.firstname;
+    }
+
+    if (data.lastname) {
+      this.lastname = data.lastname;
+    }
 
     return true;
   };

@@ -111,6 +111,18 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
       return player.save();
     });
 
+    if (this.alias) {
+      data.alias = this.alias;
+    }
+
+    if (this.club) {
+      data.club = this.club;
+    }
+
+    if (this.email) {
+      data.email = this.email;
+    }
+
     return data;
   };
 
@@ -131,6 +143,18 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
       p.restore(player);
       return p;
     }));
+
+    if (data.alias) {
+      this.alias = data.alias;
+    }
+
+    if (data.club) {
+      this.club = data.club;
+    }
+
+    if (data.email) {
+      this.email = data.email;
+    }
 
     return true;
   };
