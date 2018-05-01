@@ -34,6 +34,8 @@ define(["lib/extend", "core/model"], function (extend, Model) {
     this.license = "";
     this.firstname = "";
     this.lastname = "";
+    this.elo = 0
+    this.rankingpoints = 0;
     this.alias = PlayerModel.NONAME;
 
     this.setName(name);
@@ -100,6 +102,14 @@ define(["lib/extend", "core/model"], function (extend, Model) {
       data.lastname = this.lastname;
     }
 
+    if (this.elo) {
+      data.elo = this.elo;
+    }
+
+    if (this.rankingpoints) {
+      data.rankingpoints = this.rankingpoints;
+    }
+
     return data;
   };
 
@@ -135,6 +145,14 @@ define(["lib/extend", "core/model"], function (extend, Model) {
 
     if (data.lastname) {
       this.lastname = data.lastname;
+    }
+
+    if (data.lastname) {
+      this.elo = data.elo;
+    }
+
+    if (data.rankingpoints) {
+      this.rankingpoints = data.rankingpoints;
     }
 
     return true;

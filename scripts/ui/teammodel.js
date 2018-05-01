@@ -24,6 +24,8 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
     this.alias = "";
     this.club = "";
     this.email = "";
+    this.elo = 0;
+    this.rankingpoints = 0;
     this.players = [];
 
     this.setPlayers(players);
@@ -123,6 +125,14 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
       data.email = this.email;
     }
 
+    if (this.elo) {
+      data.elo = this.elo;
+    }
+
+    if (this.rankingpoints) {
+      data.rankingpoints = this.rankingpoints;
+    }
+
     return data;
   };
 
@@ -154,6 +164,14 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
 
     if (data.email) {
       this.email = data.email;
+    }
+
+    if (data.elo) {
+      this.elo = data.elo;
+    }
+
+    if (data.rankingpoints) {
+      this.rankingpoints = data.rankingpoints;
     }
 
     return true;
