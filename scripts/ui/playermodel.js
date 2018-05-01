@@ -34,7 +34,7 @@ define(["lib/extend", "core/model"], function (extend, Model) {
     this.license = "";
     this.firstname = "";
     this.lastname = "";
-    this.elo = 0
+    this.elo = 0;
     this.rankingpoints = 0;
     this.alias = PlayerModel.NONAME;
 
