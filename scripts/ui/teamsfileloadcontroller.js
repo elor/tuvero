@@ -16,9 +16,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
+define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
     'ui/state', 'ui/playermodel', 'ui/teammodel', 'presets', //
-    'ui/unicodehelper'], function(extend, FileLoadController, Toast, Strings,
+    'ui/unicodehelper'], function(tuvero, extend, FileLoadController, Toast, Strings,
     State, PlayerModel, TeamModel, Presets, UnicodeHelper) {
 
   /**
@@ -57,45 +57,8 @@ define(['lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
    *
    * @return true on success, undefined or false on failure
    */
-  TeamsFileLoadController.parseCSVString = function(str, teamsizeModel) {
-    var lines;
-
-    lines = str.split('\n');
-
-    lines = lines.filter(function(line) {
-      return line.trim().length !== 0 && !line.trim().match(/^#/);
-    }).map(function(line) {
-      var match, name, names = [];
-
-      while (line.length > 0) {
-        match = line.match(/^\s*"([^"]+|"")*"\s*(,|;|$)/) || '';
-        match = match || line.match(/^\s*[^,;]*\s*(,|;|$)/);
-
-        name = (match && match[0]) || line;
-        line = line.substr(name.length);
-        names.push(name);
-      }
-
-      return names;
-    });
-
-    lines = lines.map(function(names) {
-      return names.map(function(name) {
-        // remove commas and whitespaces
-        name = name.replace(/,$/, '').trim();
-        if (name.match(/^".*"$/)) {
-          name = name.replace(/^"(.*)"$/, '$1');
-          name = name.replace(/""/g, '"');
-        }
-        return name;
-      });
-    });
-
-    lines = lines.filter(function(names) {
-      return names.join('').length !== 0;
-    });
-
-    return lines;
+  TeamsFileLoadController.parseCSVString = function(str) {
+    return tuvero.csv.read(str);
   };
 
   /**
