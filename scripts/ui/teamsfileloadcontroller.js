@@ -17,9 +17,9 @@
  * @see LICENSE
  */
 define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
-    'ui/state', 'ui/playermodel', 'ui/teammodel', 'presets', //
-    'ui/unicodehelper'], function(tuvero, extend, FileLoadController, Toast, Strings,
-    State, PlayerModel, TeamModel, Presets, UnicodeHelper) {
+    'ui/state', 'ui/playermodel', 'ui/teammodel', 'presets'],
+    function(tuvero, extend, FileLoadController, Toast, Strings,
+    State, PlayerModel, TeamModel, Presets) {
 
   /**
    * Constructor
@@ -58,7 +58,7 @@ define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings
    * @return true on success, undefined or false on failure
    */
   TeamsFileLoadController.parseCSVString = function(str) {
-    return tuvero.csv.read(str);
+    return tuvero.io.csv.read(str);
   };
 
   /**
@@ -99,7 +99,7 @@ define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings
   TeamsFileLoadController.load = function(csvString) {
     var teams, teamsize;
 
-    csvString = UnicodeHelper.latin2utf8(csvString);
+    csvString = tuvero.io.utf8.latin2utf8(csvString);
 
     if (State.teams.length !== 0) {
       new Toast(Strings.teamsnotempty);
