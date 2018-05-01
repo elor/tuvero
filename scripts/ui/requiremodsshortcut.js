@@ -52,6 +52,8 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
         }
       });
     });
+
+    window.tuvero = mods.tuvero;
   };
 
   return RequireModsShortcut;
