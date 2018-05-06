@@ -16,17 +16,18 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings',
-    'ui/state', 'ui/playermodel', 'ui/teammodel', 'presets'],
-    function(tuvero, extend, FileLoadController, Toast, Strings,
+define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings",
+    "ui/state", "ui/playermodel", "ui/teammodel", "presets"],
+    function (tuvero, extend, FileLoadController, Toast, Strings,
     State, PlayerModel, TeamModel, Presets) {
 
   /**
    * Constructor
    *
-   * @param $button
+   * @param {$element} $button
    *          Optional. A button element which, when clicked, starts the file
    *          selection
+   * @returns {undefined}
    */
   function TeamsFileLoadController($button) {
     TeamsFileLoadController.superconstructor.call(this, $button);
@@ -36,18 +37,21 @@ define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings
   /**
    * Implemented function: file read success. Start parsing.
    *
-   * @param fileContents
+   * @param {string} fileContents
    *          file contents
+   * @returns {boolean} true on success, false otherwise
    */
-  TeamsFileLoadController.prototype.readFile = function(fileContents) {
+  TeamsFileLoadController.prototype.readFile = function (fileContents) {
     return TeamsFileLoadController.load(fileContents);
   };
 
   /**
    * Implemented function: unread current file. Nothing to do here, since there
    * should be no registered teams
+   *
+   * @returns {undefined}
    */
-  TeamsFileLoadController.prototype.unreadFile = function() {
+  TeamsFileLoadController.prototype.unreadFile = function () {
     // Nothing to unread
   };
 
@@ -55,33 +59,34 @@ define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings
    * reads names from a string and adds the players accordingly. Ignores
    * #-escaped lines
    *
-   * @return true on success, undefined or false on failure
+   * @param {string} str A (multiline) CSV string
+   * @returns {boolean} true on success, undefined or false on failure
    */
-  TeamsFileLoadController.parseCSVString = function(str) {
+  TeamsFileLoadController.parseCSVString = function (str) {
     return tuvero.io.csv.read(str);
   };
 
   /**
    * Read teamsize from teams array
    *
-   * @param teams
+   * @param {[[string]]} teams
    *          a 2d teams array
-   * @return the team size, or 0 on failure.
+   * @returns {number} the team size, or 0 on failure.
    */
-  TeamsFileLoadController.readTeamsize = function(teams) {
+  TeamsFileLoadController.readTeamsize = function (teams) {
     var teamsizes, teamsize;
 
     if (teams.length === 0) {
       return 0;
     }
 
-    teamsizes = teams.map(function(team) {
+    teamsizes = teams.map(function (team) {
       return team.length;
     });
 
     teamsize = teamsizes[0];
 
-    if (teamsizes.some(function(size) {
+    if (teamsizes.some(function (size) {
       return size !== teamsize;
     })) {
       return 0;
@@ -93,10 +98,10 @@ define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings
   /**
    * load the teams from a csv string and write them to State
    *
-   * @param csvString
-   * @return true on success, false otherwise
+   * @param {string} csvString A (multiline) csv string
+   * @returns {boolean} true on success, false otherwise
    */
-  TeamsFileLoadController.load = function(csvString) {
+  TeamsFileLoadController.load = function (csvString) {
     var teams, teamsize;
 
     csvString = tuvero.io.utf8.latin2utf8(csvString);
@@ -119,8 +124,8 @@ define(['tuvero', 'lib/extend', 'ui/fileloadcontroller', 'ui/toast', 'ui/strings
     }
 
     // enter new teams
-    teams.forEach(function(names) {
-      var players = names.map(function(name) {
+    teams.forEach(function (names) {
+      var players = names.map(function (name) {
         return new PlayerModel(name);
       });
 
