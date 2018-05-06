@@ -13,6 +13,7 @@ module.exports = {
       "anonymous": "always",
       "named": "never",
       "asyncArrow": "always"
-    }]
+    }],
+    "valid-jsdoc": "error"
   }
 };
