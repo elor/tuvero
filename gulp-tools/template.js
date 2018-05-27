@@ -46,3 +46,5 @@ module.exports = function (target, sources) {
 
   return `template-${target}`;
 };
+
+module.exports.targets = ['basic', 'boule', 'tac'];
