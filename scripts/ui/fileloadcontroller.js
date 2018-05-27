@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
-    'ui/strings'], function($, extend, Controller, InputView, Toast, Strings) {
+define(["jquery", "lib/extend", "core/controller", "ui/inputview", "ui/toast",
+    "ui/strings"], function ($, extend, Controller, InputView, Toast, Strings) {
   /**
    * Constructor. Attention: It doesn't take a View, but a jquery element!
    *
@@ -18,20 +18,20 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
   function FileLoadController($button) {
     var controller, view;
 
-    view = new InputView($('<input>').attr('type', 'file'));
+    view = new InputView($("<input>").attr("type", "file"));
     FileLoadController.superconstructor.call(this, view);
 
     controller = this;
     this.reader = undefined;
     this.file = undefined;
 
-    this.view.$view.change(function(evt) {
+    this.view.$view.change(function (evt) {
       controller.initFileRead(evt.target.files[0]);
     });
 
-    $button.on('dragover', this.buttonDragOver.bind(this));
-    $button.on('drop', this.buttonDrop.bind(this));
-    $button.click(function() {
+    $button.on("dragover", this.buttonDragOver.bind(this));
+    $button.on("drop", this.buttonDrop.bind(this));
+    $button.click(function () {
       controller.view.$view.click();
     });
   }
@@ -44,8 +44,8 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
   /**
    * unread a file, e.g. on file read error. Please overload.
    */
-  FileLoadController.prototype.unreadFile = function() {
-    console.warn('FileLoadController.unreadfile() called but not overloaded');
+  FileLoadController.prototype.unreadFile = function () {
+    console.warn("FileLoadController.unreadfile() called but not overloaded");
   };
 
   /**
@@ -54,7 +54,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
    * @param fileContents
    *          the contents of the loaded file
    */
-  FileLoadController.prototype.readFile = function(fileContents) {
+  FileLoadController.prototype.readFile = function (fileContents) {
     console.log(fileContents);
   };
 
@@ -69,8 +69,8 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
    *          the dragover event
    * @return false
    */
-  FileLoadController.prototype.buttonDragOver = function(evt) {
-    evt.originalEvent.dataTransfer.dropEffect = 'copy';
+  FileLoadController.prototype.buttonDragOver = function (evt) {
+    evt.originalEvent.dataTransfer.dropEffect = "copy";
   };
 
   /**
@@ -80,7 +80,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
    * @param evt
    * @return false
    */
-  FileLoadController.prototype.buttonDrop = function(evt) {
+  FileLoadController.prototype.buttonDrop = function (evt) {
     var files = evt.originalEvent.dataTransfer.files;
 
     if (files.length < 1) {
@@ -103,7 +103,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
    *
    * @param file
    */
-  FileLoadController.prototype.initFileRead = function(file) {
+  FileLoadController.prototype.initFileRead = function (file) {
     this.file = file;
     this.reader = new FileReader();
 
@@ -120,7 +120,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
    *
    * @param evt
    */
-  FileLoadController.prototype.loadError = function(evt) {
+  FileLoadController.prototype.loadError = function (evt) {
     this.unreadFile();
 
     switch (evt.target.error.code) {
@@ -136,7 +136,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
       new Toast(Strings.fileerror, Toast.LONG);
     }
 
-    this.model.emit('reset');
+    this.model.emit("reset");
   };
 
   /**
@@ -144,21 +144,21 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/inputview', 'ui/toast',
    *
    * @param evt
    */
-  FileLoadController.prototype.loadSuccess = function(evt) {
+  FileLoadController.prototype.loadSuccess = function (evt) {
     if (evt.target === this.reader) {
       this.readFile(evt.target.result);
     } else {
       new Toast(Strings.loadfailed, Toast.LONG);
     }
 
-    this.model.emit('reset');
+    this.model.emit("reset");
   };
 
   /**
    * FileReader callback function: loading was aborted (e.g. during file
    * selection)
    */
-  FileLoadController.prototype.loadAbort = function() {
+  FileLoadController.prototype.loadAbort = function () {
     new Toast(Strings.fileabort);
   };
 

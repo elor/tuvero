@@ -1,70 +1,17 @@
-/**
- * TeamsFileLoadController: loads a whole file and adds its lines as teams
- *
- * Inner workings: An HTML5 FileReader reads all contents as ANSI (ISO-8859-1).
- * It then converts possible UTF-8 byte into utf-8 code points, leaving all
- * other characters in place. This enables the use of both latin-1 and utf-8 as
- * input file encoding.
- *
- * All other encodings are discouraged. DOS-style line endings are filtered by
- * "new TeamModel()". MAC-style line endings can still be a problem.
- *
- * TODO rewrite the whole thing and extract a lot of methods
- *
- * @return TeamsFileLoadController
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
 define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings",
     "ui/state", "ui/playermodel", "ui/teammodel", "presets"],
     function (tuvero, extend, FileLoadController, Toast, Strings,
     State, PlayerModel, TeamModel, Presets) {
 
-  /**
-   * Constructor
-   *
-   * @param {$element} $button
-   *          Optional. A button element which, when clicked, starts the file
-   *          selection
-   * @returns {undefined}
-   */
   function TeamsFileLoadController($button) {
     TeamsFileLoadController.superconstructor.call(this, $button);
   }
   extend(TeamsFileLoadController, FileLoadController);
 
-  /**
-   * Implemented function: file read success. Start parsing.
-   *
-   * @param {string} fileContents
-   *          file contents
-   * @returns {boolean} true on success, false otherwise
-   */
-  TeamsFileLoadController.prototype.readFile = function (fileContents) {
-    return TeamsFileLoadController.load(fileContents);
-  };
+  TeamsFileLoadController.prototype.readFile = TeamsFileLoadController.load;
+  TeamsFileLoadController.prototype.unreadFile = function () {};
 
-  /**
-   * Implemented function: unread current file. Nothing to do here, since there
-   * should be no registered teams
-   *
-   * @returns {undefined}
-   */
-  TeamsFileLoadController.prototype.unreadFile = function () {
-    // Nothing to unread
-  };
-
-  /**
-   * reads names from a string and adds the players accordingly. Ignores
-   * #-escaped lines
-   *
-   * @param {string} str A (multiline) CSV string
-   * @returns {boolean} true on success, undefined or false on failure
-   */
-  TeamsFileLoadController.parseCSVString = function (str) {
-    return tuvero.io.csv.read(str);
-  };
+  TeamsFileLoadController.parseCSVString = tuvero.io.csv.read;
 
   /**
    * Read teamsize from teams array
