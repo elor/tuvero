@@ -26,8 +26,6 @@ define(function () {
         ranking: ['wins', 'sonneborn', 'headtohead', 'points']
       },
       placement: {
-      },
-      poules: {
       }
     },
     ranking: {
