@@ -26,4 +26,4 @@ Die fertige Version liegt dann im `build/`-Unterordner.
 
 ## Tests
 
-    `npm run test`
+    npm run test
