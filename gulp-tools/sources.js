@@ -36,6 +36,7 @@ var sources = {
   release_source_cleanup: [
     '*',
     '.{jshintrc,dockerignore,travis.yml,gitlab-ci.yml,eslintrc.js}',
+    'build/test',
     '!build',
     '!gulpfile.js',
     '!gulp-tools',
