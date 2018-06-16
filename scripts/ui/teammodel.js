@@ -21,6 +21,7 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
   function TeamModel(players, id) {
     TeamModel.superconstructor.call(this, id);
 
+    this.number = "";
     this.alias = "";
     this.club = "";
     this.email = "";
@@ -153,6 +154,10 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
       p.restore(player);
       return p;
     }));
+
+    if (data.number) {
+      this.number = data.number;
+    }
 
     if (data.alias) {
       this.alias = data.alias;

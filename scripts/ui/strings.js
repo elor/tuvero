@@ -62,6 +62,7 @@ define(['strings'], function (LocalStrings) {
     emptyname: 'N.N.',
     differentteamsizes: 'Teams haben unterschiedliche Größe',
     invalidteamsize: 'Unzulässige Spielerzahl pro Team',
+    invalidfileformat: 'Kann Datei nicht lesen',
     alltabsreloaded: 'Alle Tabs neu geladen',
     modsvariableadded: 'window.mods erstellt',
     tournamentfinished: 'Turnier beendet',
