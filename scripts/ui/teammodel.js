@@ -90,7 +90,7 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel", "core/type"], funct
     }
 
     return number;
-  }
+  };
 
   /**
    * Callback listener
