@@ -59,7 +59,7 @@ define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings
         return false;
       }
 
-      teams = TeamsFileLoadController.parseCSVString(csvString, State.teamsize);
+      teams = TeamsFileLoadController.parseCSVString(csvString);
       teamsize = TeamsFileLoadController.readTeamsize(teams);
 
       // validate team size
