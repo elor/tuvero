@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
-    'ui/legacystoragekeyconverter', 'ui/teamsfileloadcontroller'
+define(["ui/state", "timemachine/timemachine", "ui/legacyloadermodel",
+    "ui/legacystoragekeyconverter", "ui/teamsfileloadcontroller"
   ], //
   function (State, TimeMachine, LegacyLoaderModel, LegacyStorageKeyConverter,
     TeamsFileLoadController) {
@@ -112,7 +112,7 @@ define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
       success = State.restore(data);
 
       if (success) {
-        console.log('savestate loaded');
+        console.log("savestate loaded");
       }
 
       return success;
@@ -129,14 +129,14 @@ define(['ui/state', 'timemachine/timemachine', 'ui/legacyloadermodel',
     StateLoaderModel.prototype.loadLegacyData = function (data) {
       var loader;
 
-      console.warn('Saved data is older than 1.5.0. ' +
-        'Tuvero tries to auto-convert it, but success is not guaranteed.' +
-        'Please check the results before trusting them blindly');
+      console.warn("Saved data is older than 1.5.0. " +
+        "Tuvero tries to auto-convert it, but success is not guaranteed." +
+        "Please check the results before trusting them blindly");
 
       loader = new LegacyLoaderModel();
       try {
         if (loader.load(data)) {
-          console.log('legacy savestate loaded');
+          console.log("legacy savestate loaded");
           return true;
         }
       } catch (e) {
