@@ -1,6 +1,6 @@
 {
   "version": "1.5.18-dev",
-  "name": "tuvero",
+  "name": "tuvero-web",
   "private": true,
   "devDependencies": {
     "babel-core": "^6.26.3",
