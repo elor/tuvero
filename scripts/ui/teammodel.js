@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
-  IndexedModel, PlayerModel) {
+define(["lib/extend", "list/indexedmodel", "ui/playermodel", "core/type"], function (extend,
+  IndexedModel, PlayerModel, Type) {
 
   /**
    * Constructor
@@ -77,6 +77,21 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
     });
   };
 
+  TeamModel.prototype.getNumber = function () {
+    var number = this.number;
+
+    if (number) {
+      return number;
+    }
+
+    number = this.getID();
+    if (Type.isNumber(number)) {
+      return number + 1;
+    }
+
+    return number;
+  }
+
   /**
    * Callback listener
    *
@@ -113,6 +128,10 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel"], function (extend,
     data.p = this.players.map(function (player) {
       return player.save();
     });
+
+    if (this.number) {
+      data.number = this.number;
+    }
 
     if (this.alias) {
       data.alias = this.alias;
