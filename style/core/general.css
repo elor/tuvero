@@ -77,6 +77,11 @@ a[data-img].inline {
   border-radius: 0.2em;
 }
 
+table .teamno:hover, .teamlist .teamno:hover, .voteview .teamno:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .rename:hover:not(input), .match .result:hover {
   text-decoration: underline;
   cursor: text;
