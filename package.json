@@ -28,7 +28,7 @@
     "qunit": "^2.6.1",
     "requirejs": "^2.3.3",
     "through2": "^2.0.3",
-    "tuvero": "^1.7.2",
+    "tuvero": "^1.7.3",
     "tuvero-cli": "file:cli"
   },
   "scripts": {
