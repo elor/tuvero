@@ -74,8 +74,8 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], function
   };
 
   TeamController.prototype.openModal = function () {
-    alert("OPEN MODAL");
-  }
+    window.alert("OPEN MODAL");
+  };
 
   return TeamController;
 });
