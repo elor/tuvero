@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], function (
+define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings"], function (
   extend, RenameController, Toast, Strings) {
   /**
    * Constructor
@@ -18,7 +18,7 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], function
   function TeamController(view, $input) {
     TeamController.superconstructor.call(this, view);
 
-    this.view.$view.find('.teamno').click(this.openModal.bind(this));
+    this.view.$view.find(".teamno").click(this.openModal.bind(this));
   }
   extend(TeamController, RenameController);
 
@@ -34,9 +34,9 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], function
   TeamController.prototype.getPlayer = function ($name) {
     var index, $names;
 
-    $names = this.view.$view.find('.name');
+    $names = this.view.$view.find(".name");
     if ($names.length === 0) {
-      $names = this.view.$view.filter('.name');
+      $names = this.view.$view.filter(".name");
     }
     index = $names.index($name);
 
@@ -47,7 +47,7 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], function
     var player;
 
     if (!this.$anchor) {
-      return '';
+      return "";
     }
 
     //    if (!(this.model.getID() >= 0)) {
