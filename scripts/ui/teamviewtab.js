@@ -5,9 +5,9 @@
  */
 define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
   "ui/state", "ui/teammodel", "core/classview", "ui/teamsettingsview",
-  "ui/playersettingsview", "list/listmodel"
+  "ui/playersettingsview", "list/listmodel", "ui/tabshandle"
 ], function ($, extend, View, ListView, TeamView, State, TeamModel, ClassView,
-  TeamSettingsView, PlayerSettingsView, ListModel) {
+  TeamSettingsView, PlayerSettingsView, ListModel, TabsHandle) {
 
   function TeamViewTab($tab) {
     TeamViewTab.superconstructor.call(this, undefined, $tab);
@@ -44,6 +44,8 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
     this.reset();
 
     if (State.focusedteam.get()) {
+      TabsHandle.secret("team");
+
       this.team = State.focusedteam.get();
 
       this.team.players.forEach(function (player) {
@@ -54,6 +56,8 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
         this.$view.find(".teamsettings"));
 
       this.$view.find(".teamno").text(this.team.getNumber());
+    } else {
+      TabsHandle.hide("team");
     }
   };
 
