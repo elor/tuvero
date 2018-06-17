@@ -53,7 +53,7 @@
             </td>
           </tr>
           <tr>
-            <td>T.ELO-Punkte</td>
+            <td>Elo-Punkte</td>
             <td>
               <input type="number" class="elo" />
             </td>
@@ -65,8 +65,75 @@
       <button class="reset">Zurücksetzen</button>
     </div>
 
-    <div class="boxview">
-      <h3>Spieler-Eigenschaften</h3>
+    <div class="boxview playersettings">
+      <h3>Spieler</h3>
+
+      <div class="template">
+        <table>
+          <thead>
+            <tr>
+              <th>Eigenschaft</th>
+              <th>Wert</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Name / Pseudonym</td>
+              <td>
+                <input type="text" class="alias" />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Vorname</td>
+              <td>
+                <input type="text" class="firstname" />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Nachname</td>
+              <td>
+                <input type="text" class="lastname" />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Verein</td>
+              <td>
+                <input type="text" class="club" />
+              </td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>
+                <input type="text" class="email" />
+              </td>
+            </tr>
+            <tr>
+              <td>Lizenznummer</td>
+              <td>
+                <input type="text" class="license" />
+              </td>
+            </tr>
+            <tr>
+              <td>Ranglistenpunkte</td>
+              <td>
+                <input type="number" class="rankingpoints" />
+              </td>
+            </tr>
+            <tr>
+              <td>Elo-Punkte</td>
+              <td>
+                <input type="number" class="elo" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <button class="update">Speichern</button>
+        <button class="reset">Zurücksetzen</button>
+      </div>
     </div>
   </div>
 </div>

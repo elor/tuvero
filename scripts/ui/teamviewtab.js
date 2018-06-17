@@ -1,16 +1,18 @@
 /**
- *
  * @author Erik E. Lorenz <erik@tuvero.de>
  * @license MIT License
  * @see LICENSE
  */
 define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
-  "ui/state", "ui/teammodel", "core/classview", "ui/teamsettingsview"
+  "ui/state", "ui/teammodel", "core/classview", "ui/teamsettingsview",
+  "ui/playersettingsview", "list/listmodel"
 ], function ($, extend, View, ListView, TeamView, State, TeamModel, ClassView,
-  TeamSettingsView) {
+  TeamSettingsView, PlayerSettingsView, ListModel) {
 
   function TeamViewTab($tab) {
     TeamViewTab.superconstructor.call(this, undefined, $tab);
+
+    this.players = new ListModel();
 
     this.init();
 
@@ -23,13 +25,17 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
   };
 
   TeamViewTab.prototype.init = function () {
-    var $container;
+    var $container, $template;
 
     $container = this.$view.find(".hasteam");
     this.hasnoteam = new ClassView(State.focusedteam, $container, undefined, "hidden");
 
     $container = this.$view.find(".hasnoteam");
     this.hasnoteam = new ClassView(State.focusedteam, $container, "hidden", undefined);
+
+    $container = this.$view.find(".playersettings");
+    $template = $container.find(".template");
+    this.playerlistview = new ListView(this.players, $container, $template, PlayerSettingsView);
 
     this.update();
   };
@@ -39,13 +45,20 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
 
     if (State.focusedteam.get()) {
       this.team = State.focusedteam.get();
-      this.teamSettingsView = new TeamSettingsView(this.team, this.$view.find(".teamsettings"));
+
+      this.team.players.forEach(function (player) {
+        this.players.push(player);
+      }, this);
+
+      this.teamSettingsView = new TeamSettingsView(this.team,
+        this.$view.find(".teamsettings"));
 
       this.$view.find(".teamno").text(this.team.getNumber());
     }
   };
 
   TeamViewTab.prototype.reset = function () {
+    this.players.clear();
     this.team = new TeamModel();
     if (this.teamSettingsView) {
       this.teamSettingsView.destroy();
