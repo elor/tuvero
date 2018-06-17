@@ -45,6 +45,11 @@
   text-align: center;
 }
 
+.kotree .komatchresult .teamno:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .kotree .komatchresult .name {
   width: 3em;
 }
