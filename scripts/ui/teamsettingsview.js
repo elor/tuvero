@@ -22,8 +22,8 @@ define(
     extend(TeamSettingsView, View);
 
     TeamSettingsView.prototype.update = function () {
-      this.$view.find(".teamid").text(this.model.getID());
-      this.$view.find(".teamnumber").val(this.model.getNumber());
+      this.$view.find(".teamid").text(this.model.getID() + 1);
+      this.$view.find(".teamnumber").val(this.model.number);
       this.$view.find(".alias").val(this.model.alias);
       this.$view.find(".club").val(this.model.club);
       this.$view.find(".rankingpoints").val(this.model.rankingpoints);
