@@ -59,10 +59,15 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    * @param name
    *          the new name
    */
-  PlayerModel.prototype.setName = function (name) {
-    name = trimName(name || "");
-    if (name && name !== this.alias) {
-      this.alias = name;
+  PlayerModel.prototype.setName = function (alias) {
+    alias = trimName(alias || "");
+
+    if (!alias) {
+      alias = trimName(this.firstname + " " + this.lastname);
+    }
+
+    if (alias && alias !== this.alias) {
+      this.alias = alias;
       this.emit("update");
     }
   };

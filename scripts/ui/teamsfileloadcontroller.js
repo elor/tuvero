@@ -20,7 +20,7 @@ define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings
     function dpv2player(dpv) {
       var name, player;
 
-      name = (dpv.Vorname + " " + dpv.Name) || dpv.SpielerID;
+      name = (dpv.Vorname + " " + dpv.Name) || dpv.SpielerID || dpv.LizNr;
       player = new PlayerModel(name);
 
       player.club = dpv.Verein;
