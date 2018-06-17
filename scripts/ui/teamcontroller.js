@@ -62,5 +62,13 @@ define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings",
     TabsHandle.focus("team");
   };
 
+  TeamController.prototype.destroy = function () {
+    if (State.focusedteam.get() === this.model) {
+      State.focusedteam.set(undefined);
+    }
+
+    TeamController.superclass.destroy.call(this);
+  };
+
   return TeamController;
 });
