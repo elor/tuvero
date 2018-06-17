@@ -6,15 +6,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
-    'ui/listcleanuplistener', 'tournament/tournamentlistmodel', 'options', 'presets',
-    'ui/teammodel', 'core/listener'], function(extend, Model, IndexedListModel,
-    ValueModel, ListCleanupListener, TournamentListModel, Options, Presets,
-    TeamModel, Listener) {
+define(["lib/extend", "core/model", "list/indexedlistmodel", "core/valuemodel",
+  "ui/listcleanuplistener", "tournament/tournamentlistmodel", "options", "presets",
+  "ui/teammodel", "core/listener"
+], function (extend, Model, IndexedListModel,
+  ValueModel, ListCleanupListener, TournamentListModel, Options, Presets,
+  TeamModel, Listener) {
 
-  /**
-   * Constructor
-   */
   function StateModel() {
     StateModel.superconstructor.call(this);
     // actual state
@@ -33,14 +31,16 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     }
 
     this.tabOptions = {
-      showNames: tabOptionPreset('shownames', true),
-      nameMaxWidth: tabOptionPreset('namemaxwidth', true),
-      teamTable: tabOptionPreset('teamtable', true),
-      rankingAbbreviations: tabOptionPreset('rankingabbreviations', false),
-      showMatchTables: tabOptionPreset('showmatchtables', false),
-      hideFinishedGroups: tabOptionPreset('hidefinishedgroups', false),
-      autouploadState: tabOptionPreset('autouploadstate', false)
+      showNames: tabOptionPreset("shownames", true),
+      nameMaxWidth: tabOptionPreset("namemaxwidth", true),
+      teamTable: tabOptionPreset("teamtable", true),
+      rankingAbbreviations: tabOptionPreset("rankingabbreviations", false),
+      showMatchTables: tabOptionPreset("showmatchtables", false),
+      hideFinishedGroups: tabOptionPreset("hidefinishedgroups", false),
+      autouploadState: tabOptionPreset("autouploadstate", false)
     };
+
+    this.focusedteam = new ValueModel(undefined); // Holds a TeamModel reference
 
     this.initCleanupListeners();
   }
@@ -55,22 +55,24 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
    * whenever an element is removed from those central and elemental lists, call
    * its destroy() function
    *
-   * TODO inline State.initCleanupListeners!
+   * @returns {undefined}
    */
-  StateModel.prototype.initCleanupListeners = function() {
+  StateModel.prototype.initCleanupListeners = function () {
     this.teamscleanuplistener = new ListCleanupListener(this.teams);
-    this.tournamentscleanuplistener = new ListCleanupListener(//
-    this.tournaments);
+    this.tournamentscleanuplistener = new ListCleanupListener( //
+      this.tournaments);
   };
 
   /**
    * reset the state of everything
+   *
+   * @returns {undefined}
    */
-  StateModel.prototype.clear = function() {
+  StateModel.prototype.clear = function () {
     this.tournaments.clear();
     this.teams.clear();
     Options.reset();
-    this.emit('clear');
+    this.emit("clear");
 
     // explicit rule to avoid uploading an already existing state
     this.tabOptions.autouploadState.set(false);
@@ -79,7 +81,7 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
   };
 
   StateModel.prototype.SAVEFORMAT = Object
-      .create(StateModel.superclass.SAVEFORMAT);
+    .create(StateModel.superclass.SAVEFORMAT);
   StateModel.prototype.SAVEFORMAT.options = Object;
   StateModel.prototype.SAVEFORMAT.teams = [Object];
   StateModel.prototype.SAVEFORMAT.teamsize = Number;
@@ -92,9 +94,9 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
    * prepares a serializable data object, which can later be used for restoring
    * the current state using the restore() function
    *
-   * @return a serializable data object, which can be used for restoring
+   * @returns {Object} a serializable data object, which can be used for restoring
    */
-  StateModel.prototype.save = function() {
+  StateModel.prototype.save = function () {
     var data = StateModel.superclass.save.call(this);
 
     data.teams = this.teams.save();
@@ -104,7 +106,7 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     data.options = JSON.parse(Options.toBlob());
 
     // This reflects the json schema version for now.
-    data.version = '1.5.8';
+    data.version = "1.5.8";
 
     data.target = Presets.target;
 
@@ -114,20 +116,20 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
   /**
    * restore a previously saved state from a serializable data object
    *
-   * @param data
+   * @param {Object} data
    *          a data object, that was previously written by save()
-   * @return true on success, false otherwise
+   * @returns {boolean} true on success, false otherwise
    */
-  StateModel.prototype.restore = function(data) {
+  StateModel.prototype.restore = function (data) {
     if (!StateModel.superclass.restore.call(this, data)) {
-      this.emit('error', 'Wrong data format');
+      this.emit("error", "Wrong data format");
       return false;
     }
 
     if (Presets.target !== data.target) {
       // TODO somehow send a toast
-      this.emit('error', 'Wrong target: ' + data.target + ', expected: '
-          + Presets.target);
+      this.emit("error", "Wrong target: " + data.target + ", expected: " +
+        Presets.target);
       return false;
     }
 
@@ -139,12 +141,12 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
     this.teamsize.set(data.teamsize);
 
     if (!this.teams.restore(data.teams, TeamModel)) {
-      this.emit('error', 'error: cannot restore State.teams');
+      this.emit("error", "error: cannot restore State.teams");
       return false;
     }
 
     if (!this.tournaments.restore(data.tournaments)) {
-      this.emit('error', 'error: cannot restore State.tournaments');
+      this.emit("error", "error: cannot restore State.tournaments");
       return false;
     }
 

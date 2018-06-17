@@ -10,28 +10,33 @@
  * @see LICENSE
  */
 
-define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
+define(["core/tabmenuview", "jquery"], function (TabMenuView, $) {
   var tabmenu, TabsHandle;
 
   tabmenu = {
-    getTabModel: function() {
+    getTabModel: function () {
       return undefined;
     }
   };
 
-  $(function() {
-    if ($('#tabs').length === 1 && $('#testmain').length === 0) {
-      tabmenu = new TabMenuView($('#tabs'));
+  $(function () {
+    if ($("#tabs").length === 1 && $("#testmain").length === 0) {
+      tabmenu = new TabMenuView($("#tabs"));
     }
 
     // hide the lanes tab
-    if (tabmenu.getTabModel('lanes')) {
-      tabmenu.getTabModel('lanes').visibility.set(false);
+    if (tabmenu.getTabModel("lanes")) {
+      tabmenu.getTabModel("lanes").visibility.set(false);
+    }
+
+    // hide the teams view tab
+    if (tabmenu.getTabModel("team")) {
+      tabmenu.getTabModel("team").visibility.set(false);
     }
   });
 
   TabsHandle = {
-    hide: function(tabname) {
+    hide: function (tabname) {
       var tab = tabmenu.getTabModel(tabname);
 
       if (!tab) {
@@ -41,7 +46,7 @@ define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
       tab.visibility.set(false);
       tab.accessibility.set(false);
     },
-    show: function(tabname) {
+    show: function (tabname) {
       var tab = tabmenu.getTabModel(tabname);
 
       if (!tab) {
@@ -51,7 +56,7 @@ define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
       tab.visibility.set(true);
       tab.accessibility.set(true);
     },
-    secret: function(tabname) {
+    secret: function (tabname) {
       var tab = tabmenu.getTabModel(tabname);
 
       if (!tab) {
@@ -61,10 +66,10 @@ define(['core/tabmenuview', 'jquery'], function(TabMenuView, $) {
       tab.visibility.set(false);
       tab.accessibility.set(true);
     },
-    focus: function(tabname) {
+    focus: function (tabname) {
       tabmenu.focus(tabname);
     },
-    bindTabOpts: function(tabname, valueModel) {
+    bindTabOpts: function (tabname, valueModel) {
       var tab = tabmenu.getTabModel(tabname);
 
       if (!tab) {

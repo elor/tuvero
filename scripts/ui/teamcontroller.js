@@ -7,14 +7,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings"], function (
-  extend, RenameController, Toast, Strings) {
-  /**
-   * Constructor
-   *
-   * @param view
-   *          a ListView instance with TeamView instances
-   */
+define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings",
+  "ui/state", "ui/tabshandle"
+], function (extend, RenameController, Toast, Strings, State, TabsHandle) {
+
   function TeamController(view, $input) {
     TeamController.superconstructor.call(this, view);
 
@@ -22,15 +18,6 @@ define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings"], function
   }
   extend(TeamController, RenameController);
 
-  /**
-   * Retrieve the Player instance, which is associated with the $name element
-   *
-   * This requires working knowledge of the TeamView structure. So be it.
-   *
-   * @param $name
-   *          the DOM element which displays the player name
-   * @return the associated PlayerModel instance
-   */
   TeamController.prototype.getPlayer = function ($name) {
     var index, $names;
 
@@ -49,10 +36,6 @@ define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings"], function
     if (!this.$anchor) {
       return "";
     }
-
-    //    if (!(this.model.getID() >= 0)) {
-    //      return undefined;
-    //    }
 
     player = this.getPlayer(this.$anchor);
 
@@ -74,7 +57,9 @@ define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings"], function
   };
 
   TeamController.prototype.openModal = function () {
-    window.alert("OPEN MODAL");
+    State.focusedteam.set(this.model);
+
+    TabsHandle.focus("team");
   };
 
   return TeamController;
