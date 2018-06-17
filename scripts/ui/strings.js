@@ -178,7 +178,9 @@ define(['strings'], function (LocalStrings) {
     state_upload_failed: 'Hochladen fehlgeschlagen',
     state_uploading: 'Lade Turnierstand hoch...',
     state_not_linked: 'Turnier nicht vom Server gestartet',
-    not_logged_in: 'Hochladen nicht möglich: Nicht am Server angemeldet'
+    not_logged_in: 'Hochladen nicht möglich: Nicht am Server angemeldet',
+    team_settings_updated: 'Änderungen gespeichert',
+    team_settings_reset: 'Änderungen zurückgesetzt'
   };
 
   Object.keys(LocalStrings).forEach(function (key) {

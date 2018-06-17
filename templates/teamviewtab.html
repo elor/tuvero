@@ -2,6 +2,71 @@
   <button class="print left" data-img="print"></button>
   <button class="save left" data-img="save"></button>
 
-  <h2>Team #<span class="teamno">##</span></h2>
+  <div class="hasnoteam">
+    <h2>Kein Team ausgewählt</h2>
 
+    <p>Wähle ein Team aus, indem du auf die Teamnummer im
+      <a href="#teams">Teams-Tab</a> klickst.</p>
+  </div>
+
+  <div class="hasteam">
+    <h2>Team
+      <span class="teamno">##</span>
+    </h2>
+
+    <div class="boxview teamsettings">
+      <h3>Team</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Eigenschaft</th>
+            <th>Wert</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ID</td>
+            <td class="teamid">##</td>
+          </tr>
+          <tr>
+            <td>Teamnummer</td>
+            <td>
+              <input type="text" class="teamnumber" />
+            </td>
+          </tr>
+          <tr>
+            <td>Pseudonym</td>
+            <td>
+              <input type="text" class="alias" />
+            </td>
+          </tr>
+          <tr>
+            <td>Verein</td>
+            <td>
+              <input type="text" class="club" />
+            </td>
+          </tr>
+          <tr>
+            <td>Ranglistenpunkte</td>
+            <td>
+              <input type="number" class="rankingpoints" />
+            </td>
+          </tr>
+          <tr>
+            <td>T.ELO-Punkte</td>
+            <td>
+              <input type="number" class="elo" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <button class="update">Speichern</button>
+      <button class="reset">Zurücksetzen</button>
+    </div>
+
+    <div class="boxview">
+      <h3>Spieler-Eigenschaften</h3>
+    </div>
+  </div>
 </div>
