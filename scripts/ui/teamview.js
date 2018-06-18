@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', 'core/type', 'ui/teamcontroller'], //
+define(["lib/extend", "core/view", "core/type", "ui/teamcontroller"], //
   function (extend, View, Type, TeamController) {
     /**
      * Constructor
@@ -37,18 +37,20 @@ define(['lib/extend', 'core/view', 'core/type', 'ui/teamcontroller'], //
      * write the playernames and teamnumber to the DOM
      */
     TeamView.prototype.update = function () {
-      var $names, i, $name, $teamno, player, teamid;
+      var $names, i, $name, $teamno, player, $rankingpoints;
 
-      $teamno = this.$view.find('.teamno');
+      $teamno = this.$view.find(".teamno");
       if ($teamno.length === 0) {
-        $teamno = this.$view.filter('.teamno');
+        $teamno = this.$view.filter(".teamno");
       }
-      teamid = this.model.getNumber();
-      $teamno.text(teamid);
+      $teamno.text(this.model.getNumber());
 
-      $names = this.$view.find('.name');
+      $rankingpoints = this.$view.find(".rankingpoints");
+      $rankingpoints.text(this.model.rankingpoints);
+
+      $names = this.$view.find(".name");
       if ($names.length === 0) {
-        $names = this.$view.filter('.name');
+        $names = this.$view.filter(".name");
       }
 
       // FIXME read maxteamsize from options or something

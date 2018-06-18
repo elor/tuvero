@@ -3,12 +3,13 @@
   <button class="save left" data-img="save"></button>
   <div class="options">
     <span>
-      <input class="maxwidth" type="checkbox" checked="checked" />
-      feste Breite
+      <input class="maxwidth" type="checkbox" checked="checked" /> feste Breite
+    </span>
+    <span>
+      <input class="rankingpoints" type="checkbox" checked="checked" /> Ranglistenpunkte
     </span>
     <br>
-    <br>
-    Zum Umbenennen Namen klicken
+    <br> Zum Umbenennen Namen klicken
   </div>
   <h2>Anmeldung & Turniersystem</h2>
 
@@ -24,9 +25,11 @@
         <th class="playercol">{{ teamtext }}</th>
         <th class="playercol">{{ teamtext }}</th>
         <th class="playercol">{{ teamtext }}</th>
-        <th></th> <!-- button -->
+        <th class="rankingpoints">Rangliste</th>
+        <th></th>
+        <!-- button -->
         <th class="noprint"></th>
-      </tr>
+    </tr>
       <tr class="team template">
         <td class="rank noprint">##</td>
         <td class="tournamentrank noprint">##</td>
@@ -34,7 +37,10 @@
         <td class="name rename">%% %%</td>
         <td class="name rename">%% %%</td>
         <td class="name rename">%% %%</td>
-        <td class="deletebutton"><button class="delete mini">x</button></td>
+        <td class="rankingpoints">%% %%</td>
+        <td class="deletebutton">
+          <button class="delete mini">x</button>
+        </td>
       </tr>
     </tbody>
     <tbody class="newteamview">
@@ -42,27 +48,26 @@
         <td></td>
         <td></td>
         <td class="teamno nextteamnumber">##</td>
-        <td class="newteamline"><input class="playername mini" type="text" placeholder="{{ teamtext }} 1" /></td>
-        <td class="newteamline"><input class="playername mini" type="text" placeholder="{{ teamtext }} 2" /></td>
-        <td class="newteamline"><input class="playername mini" type="text" placeholder="{{ teamtext }} 3" /></td>
-        <td><button class="register mini"> + </button></td>
-        <td><button class="deleteall">Alle {{ teamstext }} löschen</button></td>
+        <td class="newteamline">
+          <input class="playername mini" type="text" placeholder="{{ teamtext }} 1" />
+        </td>
+        <td class="newteamline">
+          <input class="playername mini" type="text" placeholder="{{ teamtext }} 2" />
+        </td>
+        <td class="newteamline">
+          <input class="playername mini" type="text" placeholder="{{ teamtext }} 3" />
+        </td>
+        <td>
+          <button class="register mini"> + </button>
+        </td>
+        <td>
+          <button class="deleteall">Alle {{ teamstext }} löschen</button>
+        </td>
       </tr>
     </tbody>
   </table>
 
-  <br>
-
-  {% include 'newsystem.html' %}
-
-  {% include 'swisssystem.html' %}
-
-  {% include 'roundsystem.html' %}
-
-  {% include 'kosystem.html' %}
-
-  {% include 'placementsystem.html' %}
-
-  {% include 'poulessystem.html' %}
+  <br> {% include 'newsystem.html' %} {% include 'swisssystem.html' %} {% include 'roundsystem.html' %} {% include 'kosystem.html'
+  %} {% include 'placementsystem.html' %} {% include 'poulessystem.html' %}
 
 </div>

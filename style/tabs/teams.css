@@ -132,6 +132,10 @@
   display: none;
 }
 
+#tabs > [data-tab="teams"].hiderankingpoints .systemtable .rankingpoints {
+  display: none;
+}
+
 @media print {
   #tabs > [data-tab="teams"] .fileloadteams {
     display: none !important;

@@ -4,17 +4,18 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', 'ui/listview', 'ui/teamview',
-    'ui/state', 'ui/newteamview', 'ui/lengthview', 'ui/teamsizeview',
-    'ui/preregcloserview', 'ui/checkboxview', 'core/classview', 'ui/tabshandle',
-    'ui/teamtableview', 'ui/inputview',
-    'ui/teamsfileloadcontroller', 'presets', 'ui/noregmodel',
-    'ui/deleteallteamscontroller', 'ui/teamformatdownloadcontroller',
-    'timemachine/timemachine', 'ui/storage'], function($, extend, View,
-    ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
-    PreregCloserView, CheckBoxView, ClassView, TabsHandle,
-    TeamTableView, InputView, TeamsFileLoadController,
-    Presets, NoRegModel, DeleteAllTeamsController, TeamFormatDownloadController, TimeMachine, Storage) {
+define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
+  "ui/state", "ui/newteamview", "ui/lengthview", "ui/teamsizeview",
+  "ui/preregcloserview", "ui/checkboxview", "core/classview", "ui/tabshandle",
+  "ui/teamtableview", "ui/inputview",
+  "ui/teamsfileloadcontroller", "presets", "ui/noregmodel",
+  "ui/deleteallteamscontroller", "ui/teamformatdownloadcontroller",
+  "timemachine/timemachine", "ui/storage", "core/valuemodel"
+], function ($, extend, View,
+  ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
+  PreregCloserView, CheckBoxView, ClassView, TabsHandle,
+  TeamTableView, InputView, TeamsFileLoadController,
+  Presets, NoRegModel, DeleteAllTeamsController, TeamFormatDownloadController, TimeMachine, Storage, ValueModel) {
   /**
    * represents a whole team tab
    *
@@ -41,7 +42,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/listview', 'ui/teamview',
    *
    * TODO maybe split it into multiple autodetected functions?
    */
-  TeamsTab.prototype.init = function() {
+  TeamsTab.prototype.init = function () {
     var $container, $button, value;
 
     // teamsize bugfix
@@ -53,16 +54,16 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/listview', 'ui/teamview',
     }
 
     // registration
-    $container = this.$view.find('.newteamview');
+    $container = this.$view.find(".newteamview");
     this.newTeamView = new NewTeamView(State.teams, $container, //
-    State.teamsize);
+      State.teamsize);
 
     // number of teams
-    $container = this.$view.find('.nextteamnumber');
+    $container = this.$view.find(".nextteamnumber");
     this.lengthView = new LengthView(State.teams, $container, +1);
 
     // change team size
-    $container = this.$view.find('> .teamsizeview');
+    $container = this.$view.find("> .teamsizeview");
     if ($container.length !== 0) {
       this.teamSizeView = new TeamSizeView(State.teamsize, $container);
     }
@@ -72,46 +73,52 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/listview', 'ui/teamview',
 
     // hide registration and removal buttons after the first tournament
     this.regVisibilityView = new ClassView(new NoRegModel(State.tournaments),
-        this.$view, 'noreg');
+      this.$view, "noreg");
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
-    $container = this.$view.find('>.options input.maxwidth');
+    $container = this.$view.find(">.options input.maxwidth");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
-        'nomaxwidth');
+    this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
+      "nomaxwidth");
+
+    // rankingpoints checkbox
+    value = new ValueModel(true);
+    $container = this.$view.find(">.options input.rankingpoints");
+    this.rankingpointsCheckBoxView = new CheckBoxView(value, $container);
+    this.rankingpointsClassView = new ClassView(value, this.$view, undefined, "hiderankingpoints");
 
     // update the tab when the team size changes
     if (Presets.registration.teamsizeicon) {
-      TabsHandle.bindTabOpts('teams', State.teamsize);
+      TabsHandle.bindTabOpts("teams", State.teamsize);
     }
 
-    $container = this.$view.find('button.deleteall');
+    $container = this.$view.find("button.deleteall");
     this.deleteAllTeamsController = new DeleteAllTeamsController(new View(
-        undefined, $container));
+      undefined, $container));
 
-    $button = this.$view.find('>button.fileloadteams');
+    $button = this.$view.find(">button.fileloadteams");
     this.teamsFileLoadController = new TeamsFileLoadController($button);
   };
 
-  TeamsTab.prototype.onupdate = function() {
+  TeamsTab.prototype.onupdate = function () {
     this.update();
   };
 
-  TeamsTab.prototype.update = function() {
+  TeamsTab.prototype.update = function () {
     if (TimeMachine.commit.get()) {
-      TabsHandle.show('teams');
+      TabsHandle.show("teams");
     } else {
-      TabsHandle.hide('teams');
+      TabsHandle.hide("teams");
     }
   };
 
   // FIXME CHEAP HACK AHEAD
-  $(function($) {
+  $(function ($) {
     var $tab;
 
-    $tab = $('#tabs > [data-tab="teams"]');
-    if ($tab.length && $('#testmain').length === 0) {
+    $tab = $("#tabs > [data-tab=\"teams\"]");
+    if ($tab.length && $("#testmain").length === 0) {
       return new TeamsTab($tab);
     }
   });
