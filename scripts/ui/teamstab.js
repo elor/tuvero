@@ -4,28 +4,17 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
-  "ui/state", "ui/newteamview", "ui/lengthview", "ui/teamsizeview",
-  "ui/preregcloserview", "ui/checkboxview", "core/classview", "ui/tabshandle",
-  "ui/teamtableview", "ui/inputview",
+define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
+  "ui/lengthview", "ui/teamsizeview", "ui/preregcloserview",
+  "ui/checkboxview", "core/classview", "ui/tabshandle",
   "ui/teamsfileloadcontroller", "presets", "ui/noregmodel",
-  "ui/deleteallteamscontroller", "ui/teamformatdownloadcontroller",
-  "timemachine/timemachine", "ui/storage", "core/valuemodel"
-], function ($, extend, View,
-  ListView, TeamView, State, NewTeamView, LengthView, TeamSizeView,
+  "ui/deleteallteamscontroller", "timemachine/timemachine",
+  "core/valuemodel"
+], function ($, extend, View, State, NewTeamView, LengthView, TeamSizeView,
   PreregCloserView, CheckBoxView, ClassView, TabsHandle,
-  TeamTableView, InputView, TeamsFileLoadController,
-  Presets, NoRegModel, DeleteAllTeamsController, TeamFormatDownloadController, TimeMachine, Storage, ValueModel) {
-  /**
-   * represents a whole team tab
-   *
-   * TODO write a TabView superclass with common functions
-   *
-   * TODO isolate common tab-related function
-   *
-   * @param $tab
-   *          the tab DOM element
-   */
+  TeamsFileLoadController, Presets, NoRegModel, DeleteAllTeamsController,
+  TimeMachine, ValueModel) {
+
   function TeamsTab($tab) {
     TeamsTab.superconstructor.call(this, undefined, $tab);
 
@@ -37,11 +26,6 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
   }
   extend(TeamsTab, View);
 
-  /**
-   * initialize the tab functionality
-   *
-   * TODO maybe split it into multiple autodetected functions?
-   */
   TeamsTab.prototype.init = function () {
     var $container, $button, value;
 
