@@ -12,6 +12,14 @@ define(
   ["lib/extend", "core/view", "core/type", "ui/teamsettingscontroller", "core/listener"],
   function (extend, View, Type, TeamSettingsController, Listener) {
 
+    function rankingpointsplayersum(team) {
+      return team.players.map(function (player) {
+        return player.rankingpoints;
+      }).reduce(function (a, b) {
+        return a + b;
+      }, 0);
+    }
+
     function TeamSettingsView(model, $view) {
       TeamSettingsView.superconstructor.call(this, model, $view);
 
@@ -23,11 +31,14 @@ define(
 
     TeamSettingsView.prototype.update = function () {
       this.$view.find(".teamid").text(this.model.getID() + 1);
+
       this.$view.find(".teamnumber").val(this.model.number);
       this.$view.find(".alias").val(this.model.alias);
       this.$view.find(".club").val(this.model.club);
       this.$view.find(".rankingpoints").val(this.model.rankingpoints);
       this.$view.find(".elo").val(this.model.elo);
+
+      this.$view.find(".rankingpointsplayersum").text(rankingpointsplayersum(this.model));
     };
 
     TeamSettingsView.prototype.onupdate = function () {
