@@ -23,16 +23,6 @@ define(["core/tabmenuview", "jquery"], function (TabMenuView, $) {
     if ($("#tabs").length === 1 && $("#testmain").length === 0) {
       tabmenu = new TabMenuView($("#tabs"));
     }
-
-    // hide the lanes tab
-    if (tabmenu.getTabModel("lanes")) {
-      tabmenu.getTabModel("lanes").visibility.set(false);
-    }
-
-    // hide the teams view tab
-    if (tabmenu.getTabModel("team")) {
-      tabmenu.getTabModel("team").visibility.set(false);
-    }
   });
 
   TabsHandle = {
