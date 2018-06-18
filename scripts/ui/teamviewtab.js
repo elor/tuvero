@@ -47,6 +47,7 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
       TabsHandle.secret("team");
 
       this.team = State.focusedteam.get();
+      this.team.registerListener(this);
 
       this.team.players.forEach(function (player) {
         this.players.push(player);
@@ -55,7 +56,7 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
       this.teamSettingsView = new TeamSettingsView(this.team,
         this.$view.find(".teamsettings"));
 
-      this.$view.find(".teamno").text(this.team.getNumber());
+      this.updateTeamNo();
     } else {
       TabsHandle.hide("team");
     }
@@ -63,11 +64,18 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
 
   TeamViewTab.prototype.reset = function () {
     this.players.clear();
+    if (this.team) {
+      this.team.unregisterListener(this);
+    }
     this.team = new TeamModel();
     if (this.teamSettingsView) {
       this.teamSettingsView.destroy();
       this.teamSettingsView = undefined;
     }
+  };
+
+  TeamViewTab.prototype.updateTeamNo = function () {
+    this.$view.find(".teamno").text(this.team.getNumber());
   };
 
   $(function ($) {
