@@ -9,11 +9,11 @@ define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
   "ui/checkboxview", "core/classview", "ui/tabshandle",
   "ui/teamsfileloadcontroller", "presets", "ui/noregmodel",
   "ui/deleteallteamscontroller", "timemachine/timemachine",
-  "core/valuemodel"
+  "core/valuemodel", "ui/strings"
 ], function ($, extend, View, State, NewTeamView, LengthView, TeamSizeView,
   PreregCloserView, CheckBoxView, ClassView, TabsHandle,
   TeamsFileLoadController, Presets, NoRegModel, DeleteAllTeamsController,
-  TimeMachine, ValueModel) {
+  TimeMachine, ValueModel, Strings) {
 
   function TeamsTab($tab) {
     TeamsTab.superconstructor.call(this, undefined, $tab);
@@ -25,6 +25,19 @@ define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
     TimeMachine.commit.registerListener(this);
   }
   extend(TeamsTab, View);
+
+  function sortTeamsByRankingPoints() {
+    var teams;
+    teams = State.teams.asArray();
+    teams.sort(function (a, b) {
+      return b.rankingpoints - a.rankingpoints || a.getID() - b.getID();
+    });
+
+    State.teams.clear();
+    teams.forEach(function (team) {
+      State.teams.push(team);
+    });
+  }
 
   TeamsTab.prototype.init = function () {
     var $container, $button, value;
@@ -71,6 +84,13 @@ define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
     $container = this.$view.find(">.options input.rankingpoints");
     this.rankingpointsCheckBoxView = new CheckBoxView(value, $container);
     this.rankingpointsClassView = new ClassView(value, this.$view, undefined, "hiderankingpoints");
+
+    $button = this.$view.find("button.sortbyrankingpoints")
+      .click(function (e) {
+        if (window.confirm(Strings.confirm_team_sort_action)) {
+          sortTeamsByRankingPoints();
+        }
+      });
 
     // update the tab when the team size changes
     if (Presets.registration.teamsizeicon) {

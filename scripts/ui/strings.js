@@ -180,7 +180,8 @@ define(['strings'], function (LocalStrings) {
     state_not_linked: 'Turnier nicht vom Server gestartet',
     not_logged_in: 'Hochladen nicht möglich: Nicht am Server angemeldet',
     team_settings_updated: 'Änderungen gespeichert',
-    team_settings_reset: 'Änderungen zurückgesetzt'
+    team_settings_reset: 'Änderungen zurückgesetzt',
+    confirm_team_sort_action: 'Teams werden neu sortiert. OK?'
   };
 
   Object.keys(LocalStrings).forEach(function (key) {

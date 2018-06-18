@@ -128,7 +128,8 @@
 
 #tabs > [data-tab="teams"].noreg button.deleteall,
 #tabs > [data-tab="teams"].noreg button.delete,
-#tabs > [data-tab="teams"].noreg .newteamview {
+#tabs > [data-tab="teams"].noreg .newteamview,
+#tabs > [data-tab="teams"].noreg .sortbyrankingpoints {
   display: none;
 }
 
