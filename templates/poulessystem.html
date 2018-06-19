@@ -1,8 +1,14 @@
 <div class="boxview poules system template" data-system="poules">
-  <h3><span class="tournamentname rename">##</span>
+  <h3>
+    <span class="tournamentname rename">##</span>
     - Poules</h3>
 
   <div class="initial">
+    <div class="boxview tournamentoptions">
+      <h3>Erweiterte Optionen</h3>
+      {% include 'poulesoptions.html' %}
+    </div>
+
     <button class="runtournament">
       Poules starten
     </button>
@@ -18,7 +24,8 @@
       Poules wird gespielt.
     </p>
     <p>
-      Siehe <a href="#history" data-img="history">Turnierverlauf</a>
+      Siehe
+      <a href="#history" data-img="history">Turnierverlauf</a>
     </p>
   </div>
 
