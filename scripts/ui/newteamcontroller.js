@@ -75,7 +75,7 @@ define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
         return player.getName() !== PlayerModel.NONAME;
       })) {
       team = new TeamModel(players);
-      team.rankingpoints = this.$rankingpoints.val();
+      team.rankingpoints = Number(this.$rankingpoints.val());
 
       this.model.push(team);
       this.view.resetFields();

@@ -115,6 +115,12 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel", "core/type"], funct
   TeamModel.prototype.SAVEFORMAT = Object
     .create(TeamModel.superclass.SAVEFORMAT);
   TeamModel.prototype.SAVEFORMAT.p = [Object];
+  // TeamModel.prototype.SAVEFORMAT.number = String;
+  // TeamModel.prototype.SAVEFORMAT.alias = String;
+  // TeamModel.prototype.SAVEFORMAT.club = String;
+  // TeamModel.prototype.SAVEFORMAT.email = String;
+  // TeamModel.prototype.SAVEFORMAT.elo = Number;
+  // TeamModel.prototype.SAVEFORMAT.rankingpoints = Number;
 
   /**
    * prepares a serializable data object, which can later be used for restoring
@@ -191,11 +197,11 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel", "core/type"], funct
     }
 
     if (data.elo) {
-      this.elo = data.elo;
+      this.elo = Number(data.elo);
     }
 
     if (data.rankingpoints) {
-      this.rankingpoints = data.rankingpoints;
+      this.rankingpoints = Number(data.rankingpoints);
     }
 
     return true;

@@ -153,11 +153,11 @@ define(["lib/extend", "core/model"], function (extend, Model) {
     }
 
     if (data.lastname) {
-      this.elo = data.elo;
+      this.elo = Number(data.elo);
     }
 
     if (data.rankingpoints) {
-      this.rankingpoints = data.rankingpoints;
+      this.rankingpoints = Number(data.rankingpoints);
     }
 
     return true;

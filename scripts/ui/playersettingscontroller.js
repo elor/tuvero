@@ -40,9 +40,7 @@ define(
       this.model.club = this.view.$view.find(".club").val();
       this.model.email = this.view.$view.find(".email").val();
       this.model.license = this.view.$view.find(".license").val();
-      this.model.rankingpoints = Number(
-        this.view.$view.find(".rankingpoints").val()
-      );
+      this.model.rankingpoints = Number(this.view.$view.find(".rankingpoints").val());
       this.model.elo = Number(this.view.$view.find(".elo").val());
 
       new Toast(Strings.team_settings_updated);
