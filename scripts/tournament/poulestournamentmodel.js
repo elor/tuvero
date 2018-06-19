@@ -1,5 +1,13 @@
-define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"],
-  function (extend, TournamentModel, MatchModel, Presets) {
+define(
+  [
+    "lib/extend",
+    "tournament/tournamentmodel",
+    "core/matchmodel",
+    "presets",
+    "core/random"
+  ],
+  function (extend, TournamentModel, MatchModel, Presets, Random) {
+    var rng = new Random();
 
     function PoulesTournamentModel() {
       PoulesTournamentModel.superconstructor.call(this, ["wins"]);
@@ -25,27 +33,26 @@ define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"
     };
 
     PoulesTournamentModel.prototype.initialMatches = function () {
-      var groupID, teams, groups;
-      this.numpoules = Math.ceil(this.teams.length / 4);
+      var groups;
 
-      groups = [];
-      while (groups.length < this.numpoules) {
-        groupID = groups.length;
-        teams = [];
-        while (teams.length * this.numpoules + groupID < this.teams.length) {
-          teams.push(teams.length * this.numpoules + groupID);
-        }
-        groups.push(teams);
-      }
+      groups = this.createGroups();
 
       groups.forEach(function (group, groupID) {
         switch (group.length) {
           case 4:
             this.matches.push(new MatchModel([group[0], group[2]], 0, groupID));
             this.matches.push(new MatchModel([group[1], group[3]], 1, groupID));
-            this.matches.push(new MatchModel([undefined, undefined], 2, groupID));
-            this.matches.push(new MatchModel([undefined, undefined], 3, groupID));
-            this.matches.push(new MatchModel([undefined, undefined], 4, groupID));
+
+            this.matches.push(
+              new MatchModel([undefined, undefined], 2, groupID)
+            );
+            this.matches.push(
+              new MatchModel([undefined, undefined], 3, groupID)
+            );
+
+            this.matches.push(
+              new MatchModel([undefined, undefined], 4, groupID)
+            );
             break;
           default:
             throw "Poules is only supported for groups of size 3 and 4 at the moment";
@@ -53,6 +60,119 @@ define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"
       }, this);
 
       return true;
+    };
+
+    PoulesTournamentModel.prototype.numPoules = function () {
+      return Math.ceil(this.teams.length / 4);
+    };
+
+    PoulesTournamentModel.prototype.numByePoules = function () {
+      return this.numPoules() * 4 - this.teams.length;
+    };
+
+    PoulesTournamentModel.prototype.isByePoule = function (pouleID) {
+      var numPoules = this.numPoules();
+      return pouleID < numPoules && pouleID >= (numPoules - this.numByePoules());
+    };
+
+    PoulesTournamentModel.prototype.getInternalTeamIDs = function () {
+      return this.teams.map(function (externalID, internalID) {
+        return internalID;
+      });
+    };
+
+    PoulesTournamentModel.prototype.createGroups = function () {
+      switch (this.getProperty("poulesseed")) {
+        case PoulesTournamentModel.SEED.order:
+          return this.createGroupsOrder();
+        case PoulesTournamentModel.SEED.quarters:
+          return this.createGroupsQuarters();
+        case PoulesTournamentModel.SEED.heads:
+          return this.createGroupsHeads();
+        case PoulesTournamentModel.SEED.random:
+          return this.createGroupsRandom();
+        default:
+          throw new Error(
+            "Unsupported seed mode: " + this.getProperty("poulesseed")
+          );
+      }
+    };
+
+    PoulesTournamentModel.prototype.createEmptyPoules = function () {
+      var poules = [];
+
+      while (poules.length < this.numPoules()) {
+        poules.push([]);
+      }
+
+      return poules;
+    };
+
+    PoulesTournamentModel.prototype.createGroupsOrder = function () {
+      var groups, teams;
+
+      groups = this.createEmptyPoules();
+      teams = this.getInternalTeamIDs();
+
+      return groups.map(function (group, groupID) {
+        if (this.isByePoule(groupID)) {
+          return teams.splice(0, 3);
+        } else {
+          return teams.splice(0, 4);
+        }
+      }, this);
+    };
+
+    PoulesTournamentModel.prototype.createGroupsQuarters = function () {
+      var groups, teams;
+
+      groups = this.createEmptyPoules();
+      teams = this.getInternalTeamIDs();
+
+      teams.forEach(function (teamID) {
+        var groupID = teamID % this.numPoules();
+        groups[groupID].push(teamID);
+      }, this);
+
+      return groups;
+    };
+
+    PoulesTournamentModel.prototype.createGroupsHeads = function () {
+      var groups, left, heads;
+
+      groups = this.createEmptyPoules();
+      left = this.getInternalTeamIDs();
+
+      heads = left.splice(0, this.numPoules());
+
+      groups.forEach(function (group, groupID) {
+        group.push(heads[groupID]);
+        group.push(rng.pickAndRemove(left));
+        group.push(rng.pickAndRemove(left));
+        if (!this.isByePoule(groupID)) {
+          group.push(rng.pickAndRemove(left));
+        }
+      }, this);
+
+      return groups;
+    };
+
+    PoulesTournamentModel.prototype.createGroupsRandom = function () {
+      var groups, left;
+
+      groups = this.createEmptyPoules();
+      left = this.getInternalTeamIDs();
+
+      groups.forEach(function (group, groupID) {
+        group.push(rng.pickAndRemove(left));
+        group.push(rng.pickAndRemove(left));
+        group.push(rng.pickAndRemove(left));
+        if (!this.isByePoule(groupID)) {
+          group.push(rng.pickAndRemove(left));
+        }
+      }, this);
+
+      return groups;
     };
 
     PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
@@ -92,13 +212,8 @@ define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"
       }
     };
 
-    PoulesTournamentModel.prototype.numPoules = function () {
-      return this.numpoules;
-    };
-
     PoulesTournamentModel.prototype.save = function () {
       var data = PoulesTournamentModel.superclass.save.call(this);
-      data.poules = this.numpoules;
       return data;
     };
 
@@ -106,13 +221,13 @@ define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"
       if (!PoulesTournamentModel.superclass.restore.call(this, data)) {
         return false;
       }
-      this.numpoules = data.poules;
       return true;
     };
 
-    PoulesTournamentModel.prototype.SAVEFORMAT = Object
-      .create(PoulesTournamentModel.superclass.SAVEFORMAT);
-    PoulesTournamentModel.prototype.SAVEFORMAT.poules = Number;
+    PoulesTournamentModel.prototype.SAVEFORMAT = Object.create(
+      PoulesTournamentModel.superclass.SAVEFORMAT
+    );
 
     return PoulesTournamentModel;
-  });
+  }
+);
