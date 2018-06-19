@@ -69,8 +69,8 @@ define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
     this.teamSizeCloserView = new PreregCloserView(State.teams, this.$view);
 
     // hide registration and removal buttons after the first tournament
-    this.regVisibilityView = new ClassView(new NoRegModel(State.tournaments),
-      this.$view, "noreg");
+    this.noregmodel = new NoRegModel(State.tournaments);
+    this.regVisibilityView = new ClassView(this.noregmodel, this.$view, "noreg");
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
@@ -99,7 +99,7 @@ define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
 
     $container = this.$view.find("button.deleteall");
     this.deleteAllTeamsController = new DeleteAllTeamsController(new View(
-      undefined, $container));
+      this.noregmodel, $container));
 
     $button = this.$view.find(">button.fileloadteams");
     this.teamsFileLoadController = new TeamsFileLoadController($button);

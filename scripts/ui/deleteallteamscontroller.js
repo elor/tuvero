@@ -1,16 +1,5 @@
-/**
- * DeleteAllTeamsController
- *
- * @return DeleteAllTeamsController
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-define(['lib/extend', 'core/controller', 'ui/state', 'ui/strings'], function(
-    extend, Controller, State, Strings) {
-  /**
-   * Constructor
-   */
+define(["lib/extend", "core/controller", "ui/state", "ui/strings"], function (
+  extend, Controller, State, Strings) {
   function DeleteAllTeamsController(view) {
     DeleteAllTeamsController.superconstructor.call(this, view);
 
@@ -18,12 +7,10 @@ define(['lib/extend', 'core/controller', 'ui/state', 'ui/strings'], function(
   }
   extend(DeleteAllTeamsController, Controller);
 
-  /**
-   * ask the user if he really wants to delete all teams. abortf if not.
-   */
-  DeleteAllTeamsController.prototype.confirmDeletion = function() {
-    if (State.tournaments.length !== 0) {
-      console.error('cannot delete all teams: there are tournaments');
+  DeleteAllTeamsController.prototype.confirmDeletion = function () {
+    if (this.model.get()) {
+      console.error("cannot delete all teams: registration is already closed");
+      return;
     }
 
     if (window.confirm(Strings.deleteallteamsconfirmation)) {
@@ -31,10 +18,7 @@ define(['lib/extend', 'core/controller', 'ui/state', 'ui/strings'], function(
     }
   };
 
-  /**
-   * really REALLY delete all registered teams
-   */
-  DeleteAllTeamsController.prototype.performDeletion = function() {
+  DeleteAllTeamsController.prototype.performDeletion = function () {
     State.teams.clear();
   };
 
