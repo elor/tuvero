@@ -4,14 +4,8 @@ define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"
     function PoulesTournamentModel() {
       PoulesTournamentModel.superconstructor.call(this, ["wins"]);
 
-      this.numpoules = 0;
-
-      this.setProperty("poulesmode",
-        (Presets.systems.poules && Presets.systems.poules.mode) ||
-        PoulesTournamentModel.MODES.barrage);
-      this.setProperty("poulesseed",
-        (Presets.systems.poules && Presets.systems.poules.seed) ||
-        PoulesTournamentModel.SEED.heads);
+      this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
+      this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.heads);
     }
     extend(PoulesTournamentModel, TournamentModel);
 
@@ -20,7 +14,7 @@ define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"
     PoulesTournamentModel.MODES = {
       acbd: "acbd",
       barrage: "barrage",
-      full: "full",
+      roundrobin: "roundrobin"
     };
 
     PoulesTournamentModel.SEED = {
