@@ -12,25 +12,27 @@ define(function () {
   var Presets;
 
   Presets = {
-    target: 'boule',
+    target: "boule",
     systems: {
       swiss: {
-        ranking: ['wins', 'buchholz', 'finebuchholz', 'headtohead', 'saldo',
-          'votes'],
-        mode: 'wins'
+        ranking: ["wins", "buchholz", "finebuchholz", "headtohead", "saldo",
+          "votes"],
+        mode: "wins"
       },
       ko: {
-        mode: 'matched'
+        mode: "matched"
       },
       round: {
-        ranking: ['wins', 'sonneborn', 'headtohead', 'points']
+        ranking: ["wins", "sonneborn", "headtohead", "points"]
       },
       placement: {
+      },
+      poules: {
       }
     },
     ranking: {
-      components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn',
-        'numgames', 'wins', 'headtohead']
+      components: ["buchholz", "finebuchholz", "points", "saldo", "sonneborn",
+        "numgames", "wins", "headtohead"]
     },
     registration: {
       minteamsize: 1,
@@ -38,10 +40,10 @@ define(function () {
       teamsizeicon: true
     },
     names: {
-      playernameurl: '',
-      dbplayername: 'bouleplayers',
-      apitoken: 'apitoken',
-      teamsfile: 'tuvero-anmeldungen.txt'
+      playernameurl: "",
+      dbplayername: "bouleplayers",
+      apitoken: "apitoken",
+      teamsfile: "tuvero-anmeldungen.txt"
     }
   };
 
