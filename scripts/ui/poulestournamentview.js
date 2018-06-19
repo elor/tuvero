@@ -1,16 +1,17 @@
-/**
- * PoulesTournamentView
- *
- * @return PoulesTournamentView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-define(['lib/extend', 'ui/tournamentview'], function (extend, TournamentView) {
-  function PoulesTournamentView(model, $view, tournaments) {
-    PoulesTournamentView.superconstructor.call(this, model, $view, tournaments);
-  }
-  extend(PoulesTournamentView, TournamentView);
+define(["lib/extend", "ui/tournamentview", "ui/poulestournamentcontroller"],
+  function (extend, TournamentView, PoulesTournamentController) {
+    function PoulesTournamentView(model, $view, tournaments) {
+      PoulesTournamentView.superconstructor.call(this, model, $view, tournaments);
 
-  return PoulesTournamentView;
-});
+      this.$view.find(".tournamentoptions .option select.mode").val(
+        this.model.tournament.getProperty("poulesmode"));
+
+      this.$view.find(".tournamentoptions .option select.seed").val(
+        this.model.tournament.getProperty("poulesseed"));
+
+      this.subcontroller = new PoulesTournamentController(this);
+    }
+    extend(PoulesTournamentView, TournamentView);
+
+    return PoulesTournamentView;
+  });
