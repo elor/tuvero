@@ -1,22 +1,4 @@
-/**
- * hide preregistration elements as soon as the first team has been registered
- *
- * @return PreregCloserView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-
-define(['lib/extend', 'core/view'], function(extend, View) {
-
-  /**
-   * Constructor
-   *
-   * @param model
-   *          a ListModel of the teams
-   * @param $view
-   *          a container for all affected DOM elements
-   */
+define(["lib/extend", "core/view"], function (extend, View) {
   function PreregCloserView(model, $view) {
     PreregCloserView.superconstructor.call(this, model, $view);
 
@@ -24,21 +6,15 @@ define(['lib/extend', 'core/view'], function(extend, View) {
   }
   extend(PreregCloserView, View);
 
-  /**
-   * update the preregistration status
-   */
-  PreregCloserView.prototype.updateStatus = function() {
+  PreregCloserView.prototype.updateStatus = function () {
     if (this.model.length === 0) {
-      this.$view.removeClass('noprereg');
+      this.$view.removeClass("noprereg");
     } else {
-      this.$view.addClass('noprereg');
+      this.$view.addClass("noprereg");
     }
   };
 
-  /**
-   * Callback function
-   */
-  PreregCloserView.prototype.onresize = function() {
+  PreregCloserView.prototype.onresize = function () {
     this.updateStatus();
   };
 
