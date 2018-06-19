@@ -1,16 +1,4 @@
-/**
- * NoRegModel
- *
- * @return NoRegModel
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-define(['lib/extend', 'core/valuemodel', 'tournament/tournamentmodel'], function(
-    extend, ValueModel, TournamentModel) {
-  /**
-   * Constructor
-   */
+define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
   function NoRegModel(tournaments) {
     this.tournaments = tournaments;
     NoRegModel.superconstructor.call(this, this.isClosed());
@@ -20,21 +8,14 @@ define(['lib/extend', 'core/valuemodel', 'tournament/tournamentmodel'], function
   }
   extend(NoRegModel, ValueModel);
 
-  NoRegModel.prototype.isClosed = function() {
-    var tournamentID;
-
-    for (tournamentID = 0; tournamentID < this.tournaments.length; //
-    tournamentID += 1) {
-      if (this.tournaments.get(tournamentID).state.get() !== 'initial'
-          || !this.tournaments.closedTournaments.includes(tournamentID)) {
-        return true;
-      }
-    }
-
-    return false;
+  NoRegModel.prototype.isClosed = function () {
+    return this.tournaments.asArray().some(function (tournament) {
+      return tournament.state.get() !== "initial" ||
+        !this.tournaments.closedTournaments.includes(tournament.getID());
+    }, this);
   };
 
-  NoRegModel.prototype.onupdate = function() {
+  NoRegModel.prototype.onupdate = function () {
     NoRegModel.superclass.set.call(this, this.isClosed());
   };
 
