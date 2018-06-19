@@ -1,25 +1,45 @@
-define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/byeresult',
-  'options', 'core/type'], function (extend, TournamentModel, MatchModel,
-    ByeResult, Options, Type) {
+define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "presets"],
+  function (extend, TournamentModel, MatchModel, Presets) {
 
     function PoulesTournamentModel() {
-      PoulesTournamentModel.superconstructor.call(this, ['wins']);
-      this.poules = 0;
+      PoulesTournamentModel.superconstructor.call(this, ["wins"]);
+
+      this.numpoules = 0;
+
+      this.setProperty("poulesmode",
+        (Presets.systems.poules && Presets.systems.poules.mode) ||
+        PoulesTournamentModel.MODES.barrage);
+      this.setProperty("poulesseed",
+        (Presets.systems.poules && Presets.systems.poules.seed) ||
+        PoulesTournamentModel.SEED.heads);
     }
     extend(PoulesTournamentModel, TournamentModel);
 
-    PoulesTournamentModel.prototype.SYSTEM = 'poules';
+    PoulesTournamentModel.prototype.SYSTEM = "poules";
+
+    PoulesTournamentModel.MODES = {
+      acbd: "acbd",
+      barrage: "barrage",
+      full: "full",
+    };
+
+    PoulesTournamentModel.SEED = {
+      order: "order",
+      quarters: "quarters",
+      heads: "heads",
+      random: "random"
+    };
 
     PoulesTournamentModel.prototype.initialMatches = function () {
       var groupID, teams, groups;
-      this.poules = Math.ceil(this.teams.length / 4);
+      this.numpoules = Math.ceil(this.teams.length / 4);
 
       groups = [];
-      while (groups.length < this.poules) {
+      while (groups.length < this.numpoules) {
         groupID = groups.length;
         teams = [];
-        while (teams.length * this.poules + groupID < this.teams.length) {
-          teams.push(teams.length * this.poules + groupID);
+        while (teams.length * this.numpoules + groupID < this.teams.length) {
+          teams.push(teams.length * this.numpoules + groupID);
         }
         groups.push(teams);
       }
@@ -59,10 +79,10 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
             if (match.group === matchresult.group) {
               if (match.id === 2) {
                 match.teams[matchresult.id] = winner;
-                match.emit('update');
+                match.emit("update");
               } else if (match.id === 3) {
                 match.teams[matchresult.id] = loser;
-                match.emit('update');
+                match.emit("update");
               }
             }
           });
@@ -74,17 +94,17 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
       }
 
       if (this.matches.length === 0) {
-        this.state.set('finished');
+        this.state.set("finished");
       }
     };
 
     PoulesTournamentModel.prototype.numPoules = function () {
-      return this.poules;
+      return this.numpoules;
     };
 
     PoulesTournamentModel.prototype.save = function () {
       var data = PoulesTournamentModel.superclass.save.call(this);
-      data.poules = this.poules;
+      data.poules = this.numpoules;
       return data;
     };
 
@@ -92,7 +112,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
       if (!PoulesTournamentModel.superclass.restore.call(this, data)) {
         return false;
       }
-      this.poules = data.poules;
+      this.numpoules = data.poules;
       return true;
     };
 
