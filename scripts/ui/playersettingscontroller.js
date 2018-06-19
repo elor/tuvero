@@ -37,7 +37,6 @@ define(
     PlayerSettingsController.prototype.update = function () {
       this.model.firstname = this.view.$view.find(".firstname").val();
       this.model.lastname = this.view.$view.find(".lastname").val();
-      this.model.setName(this.view.$view.find(".alias").val());
       this.model.club = this.view.$view.find(".club").val();
       this.model.email = this.view.$view.find(".email").val();
       this.model.license = this.view.$view.find(".license").val();
@@ -47,6 +46,8 @@ define(
       this.model.elo = Number(this.view.$view.find(".elo").val());
 
       new Toast(Strings.team_settings_updated);
+
+      this.model.setName(this.view.$view.find(".alias").val());
 
       this.model.emit("update");
     };
