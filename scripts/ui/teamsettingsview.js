@@ -8,9 +8,10 @@
  * @see LICENSE
  */
 
-define(
-  ["lib/extend", "core/view", "core/type", "ui/teamsettingscontroller", "core/listener"],
-  function (extend, View, Type, TeamSettingsController, Listener) {
+define(["lib/extend", "core/view", "ui/teamsettingscontroller",
+    "core/listener"
+  ],
+  function (extend, View, TeamSettingsController, Listener) {
 
     function rankingpointsplayersum(team) {
       return team.players.map(function (player) {

@@ -17,6 +17,7 @@ define(["jquery", "lib/extend", "core/view", "ui/newteamcontroller"],
       this.$rankingpoints = this.$view.find("input.rankingpoints");
       this.$lines = this.$view.find(".newteamline");
       this.$button = this.$view.find("button.register");
+      this.$advanced = this.$view.find(".registeradvanced");
 
       if (teamsize) {
         this.teamsize = teamsize;

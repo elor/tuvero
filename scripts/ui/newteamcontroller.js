@@ -7,8 +7,9 @@
  */
 
 define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
-  "ui/teammodel"
-], function ($, extend, Controller, PlayerModel, TeamModel) {
+  "ui/teammodel", "ui/state", "ui/tabshandle"
+], function ($, extend, Controller, PlayerModel, TeamModel, State,
+  TabsHandle) {
 
   function NewTeamController(view) {
     NewTeamController.superconstructor.call(this, view);
@@ -18,6 +19,7 @@ define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
 
     this.view.$view.find("input").keydown(this.filterEnterKeyDown.bind(this));
     this.view.$button.click(this.createNewTeam.bind(this));
+    this.view.$advanced.click(this.createAdvanced.bind(this));
   }
   extend(NewTeamController, Controller);
 
@@ -49,8 +51,8 @@ define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
     }
   };
 
-  NewTeamController.prototype.createNewTeam = function () {
-    var names, players;
+  NewTeamController.prototype.createPlayers = function () {
+    var names;
 
     names = this.readPlayerNames();
 
@@ -59,19 +61,19 @@ define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
       return;
     }
 
-    players = names.map(function (name) {
-      var player, team;
-
-      player = new PlayerModel(name);
-
-      if (player.getName() === PlayerModel.NONAME) {
-        return undefined;
-      }
-
-      return player;
+    return names.map(function (name) {
+      return new PlayerModel(name);
     });
+  };
 
-    if (players.indexOf(undefined) === -1) {
+  NewTeamController.prototype.createNewTeam = function () {
+    var team, players;
+
+    players = this.createPlayers();
+
+    if (players.every(function (player) {
+        return player.getName() !== PlayerModel.NONAME;
+      })) {
       team = new TeamModel(players);
       team.rankingpoints = this.$rankingpoints.val();
 
@@ -80,6 +82,18 @@ define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
     }
 
     this.view.focusEmpty();
+  };
+
+  NewTeamController.prototype.createAdvanced = function () {
+    var players, team;
+
+    players = this.createPlayers();
+    team = new TeamModel(players);
+    this.model.push(team);
+    this.view.resetFields();
+
+    State.focusedteam.set(team);
+    TabsHandle.focus("team");
   };
 
   return NewTeamController;

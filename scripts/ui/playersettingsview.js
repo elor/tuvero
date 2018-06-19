@@ -12,11 +12,10 @@ define(
   [
     "lib/extend",
     "core/view",
-    "core/type",
     "ui/playersettingscontroller",
-    "core/listener"
+    "ui/playermodel"
   ],
-  function (extend, View, Type, PlayerSettingsController, Listener) {
+  function (extend, View, PlayerSettingsController, PlayerModel) {
     function TeamSettingsView(model, $view) {
       TeamSettingsView.superconstructor.call(this, model, $view);
 
@@ -27,7 +26,7 @@ define(
     extend(TeamSettingsView, View);
 
     TeamSettingsView.prototype.update = function () {
-      this.$view.find(".alias").val(this.model.alias);
+      this.$view.find(".alias").val(this.model.alias === PlayerModel.NONAME ? "" : this.model.alias);
       this.$view.find(".firstname").val(this.model.firstname);
       this.$view.find(".lastname").val(this.model.lastname);
       this.$view.find(".club").val(this.model.club);
