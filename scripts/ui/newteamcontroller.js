@@ -6,49 +6,29 @@
  * @see LICENSE
  */
 
-define(['jquery', 'lib/extend', 'core/controller', 'ui/playermodel',
-    'ui/teammodel'], function($, extend, Controller, PlayerModel, TeamModel) {
-  /**
-   * Constructor
-   *
-   * @param view
-   *          the associated NewTeamView
-   */
+define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
+  "ui/teammodel"
+], function ($, extend, Controller, PlayerModel, TeamModel) {
+
   function NewTeamController(view) {
-    var controller;
     NewTeamController.superconstructor.call(this, view);
 
-    controller = this;
-
     this.$players = this.view.$players;
+    this.$rankingpoints = this.view.$rankingpoints;
 
-    /*
-     * add a new team at form submission
-     */
-    this.view.$players.keydown(function(e) {
-		if (e.which === 13) {
-			controller.createNewTeam();
-			e.preventDefault();
-			return false;
-		}
-	});
+    this.view.$view.find("input").keydown(this.filterEnterKeyDown.bind(this));
     this.view.$button.click(this.createNewTeam.bind(this));
   }
   extend(NewTeamController, Controller);
 
-  /**
-   * reads the playernames from the newteam form
-   *
-   * @return an array of player names
-   */
-  NewTeamController.prototype.readPlayerNames = function() {
+  NewTeamController.prototype.readPlayerNames = function () {
     var names;
 
-    names = this.$players.map(function(id, player) {
+    names = this.$players.map(function (id, player) {
       var $player;
       $player = $(player);
 
-      if ($player.prop('disabled')) {
+      if ($player.prop("disabled")) {
         return undefined;
       }
       return $player.val();
@@ -61,25 +41,26 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/playermodel',
     return names;
   };
 
-  /**
-   * Add a new team after reading the names from the registered input fields and
-   * push it to this.model, which is supposed to be a ListModel.
-   *
-   * If a player name is invalid (whitespace-only or empty), team creation is
-   * aborted and the first invalid input field is focused
-   */
-  NewTeamController.prototype.createNewTeam = function() {
+  NewTeamController.prototype.filterEnterKeyDown = function (e) {
+    if (e.which === 13) {
+      this.createNewTeam();
+      e.preventDefault();
+      return false;
+    }
+  };
+
+  NewTeamController.prototype.createNewTeam = function () {
     var names, players;
 
     names = this.readPlayerNames();
 
     if (names.length === 0) {
-      console.error('NewTeamController: all input fields disabled?');
+      console.error("NewTeamController: all input fields disabled?");
       return;
     }
 
-    players = names.map(function(name) {
-      var player;
+    players = names.map(function (name) {
+      var player, team;
 
       player = new PlayerModel(name);
 
@@ -91,8 +72,11 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/playermodel',
     });
 
     if (players.indexOf(undefined) === -1) {
-      this.model.push(new TeamModel(players));
-      this.view.resetNames();
+      team = new TeamModel(players);
+      team.rankingpoints = this.$rankingpoints.val();
+
+      this.model.push(team);
+      this.view.resetFields();
     }
 
     this.view.focusEmpty();

@@ -4,8 +4,6 @@ define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings
   function (tuvero, extend, FileLoadController, Toast, Strings,
     State, PlayerModel, TeamModel, Presets) {
 
-    console.log(tuvero);
-
     function TeamsFileLoadController($button) {
       TeamsFileLoadController.superconstructor.call(this, $button);
     }

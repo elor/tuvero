@@ -7,112 +7,86 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', 'ui/newteamcontroller'], function(
-    $, extend, View, NewTeamController) {
-  /**
-   * Constructor
-   *
-   * @param model
-   *          a ListModel for containing the teams
-   * @param $view
-   *          a form which contains two input elements and a submit button
-   * @param teamsize
-   *          Optional. A ValueModel instance which represents the team size.
-   */
-  function NewTeamView(model, $view, teamsize) {
-    NewTeamView.superconstructor.call(this, model, $view);
+define(["jquery", "lib/extend", "core/view", "ui/newteamcontroller"],
+  function ($, extend, View, NewTeamController) {
 
-    this.$players = this.$view.find('input.playername');
-    this.$lines = this.$view.find('.newteamline');
-    this.$button = this.$view.find('button.register');
+    function NewTeamView(model, $view, teamsize) {
+      NewTeamView.superconstructor.call(this, model, $view);
 
-    if (teamsize) {
-      this.teamsize = teamsize;
-      this.teamsize.registerListener(this);
-      this.updateTeamSize();
-    }
+      this.$players = this.$view.find("input.playername");
+      this.$rankingpoints = this.$view.find("input.rankingpoints");
+      this.$lines = this.$view.find(".newteamline");
+      this.$button = this.$view.find("button.register");
 
-    this.controller = new NewTeamController(this);
-  }
-  extend(NewTeamView, View);
-
-  /**
-   * clear the name input fields
-   */
-  NewTeamView.prototype.resetNames = function() {
-    this.$players.val('');
-    if (this.$players.typeahead) {
-      this.$players.typeahead('val', '');
-    }
-  };
-
-  /**
-   * focus the first empty or whitespace-only name input field
-   */
-  NewTeamView.prototype.focusEmpty = function() {
-    this.$players.each(function() {
-      var $this;
-
-      $this = $(this);
-
-      if (!$this.attr('disabled') && /^\s*$/.test($this.val())) {
-        $(this).focus();
-        return false;
+      if (teamsize) {
+        this.teamsize = teamsize;
+        this.teamsize.registerListener(this);
+        this.updateTeamSize();
       }
-    });
-  };
 
-  /**
-   * update the entry team size by enabling/disabling the input fields
-   */
-  NewTeamView.prototype.updateTeamSize = function() {
-    var teamsize;
-
-    if (!this.teamsize) {
-      console.error('NewTeamView.updateTeamSize called '
-          + 'without a valid teamsize model');
-      return;
+      this.controller = new NewTeamController(this);
     }
+    extend(NewTeamView, View);
 
-    teamsize = this.teamsize.get();
-
-    this.$players.each(function(index) {
-      if (index < teamsize) {
-        $(this).prop('disabled', false);
-      } else {
-        $(this).prop('disabled', true);
+    NewTeamView.prototype.resetFields = function () {
+      this.$players.val("");
+      if (this.$players.typeahead) {
+        this.$players.typeahead("val", "");
       }
-    });
 
-    this.$lines.each(function(index) {
-      if (index < teamsize) {
-        $(this).show();
-      } else {
-        $(this).hide();
+      this.$rankingpoints.val(0);
+    };
+
+    NewTeamView.prototype.focusEmpty = function () {
+      this.$players.each(function () {
+        var $this;
+
+        $this = $(this);
+
+        if (!$this.attr("disabled") && /^\s*$/.test($this.val())) {
+          $(this).focus();
+          return false;
+        }
+      });
+    };
+
+    NewTeamView.prototype.updateTeamSize = function () {
+      var teamsize;
+
+      if (!this.teamsize) {
+        console.error("NewTeamView.updateTeamSize called " +
+          "without a valid teamsize model");
+        return;
       }
-    });
-  };
 
-  /**
-   * Callback function, after resetting the teams
-   *
-   * Note to self: the 'reset' event is fired by the model, which is a ListView
-   * containing the teams. Do not fire 'reset' on this model manually!
-   */
-  NewTeamView.prototype.onreset = function() {
-    this.resetNames();
-  };
+      teamsize = this.teamsize.get();
 
-  /**
-   * Callback function
-   *
-   * @param emitter
-   */
-  NewTeamView.prototype.onupdate = function(emitter) {
-    if (emitter === this.teamsize) {
-      this.updateTeamSize();
-    }
-  };
+      this.$players.each(function (index) {
+        if (index < teamsize) {
+          $(this).prop("disabled", false);
+        } else {
+          $(this).prop("disabled", true);
+        }
+      });
 
-  return NewTeamView;
-});
+      this.$lines.each(function (index) {
+        if (index < teamsize) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    };
+
+    NewTeamView.prototype.onreset = function () {
+      this.resetFields();
+    };
+
+    NewTeamView.prototype.onupdate = function (emitter) {
+      if (emitter === this.teamsize) {
+        this.updateTeamSize();
+      }
+    };
+
+    return NewTeamView;
+  });
