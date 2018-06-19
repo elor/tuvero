@@ -3,11 +3,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
-  "ui/state", "ui/teammodel", "core/classview", "ui/teamsettingsview",
-  "ui/playersettingsview", "list/listmodel", "ui/tabshandle"
-], function ($, extend, View, ListView, TeamView, State, TeamModel, ClassView,
-  TeamSettingsView, PlayerSettingsView, ListModel, TabsHandle) {
+define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/state",
+  "ui/teammodel", "core/classview", "ui/teamsettingsview",
+  "ui/playersettingsview", "list/listmodel", "ui/tabshandle",
+  "ui/noregmodel", "ui/newteamview",
+], function ($, extend, View, ListView, State, TeamModel, ClassView,
+  TeamSettingsView, PlayerSettingsView, ListModel, TabsHandle,
+  NoRegModel, NewTeamView) {
 
   function TeamViewTab($tab) {
     TeamViewTab.superconstructor.call(this, undefined, $tab);
@@ -32,6 +34,13 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/teamview",
 
     $container = this.$view.find(".hasnoteam");
     this.hasnoteam = new ClassView(State.focusedteam, $container, "hidden", undefined);
+
+    // registration / next team
+    $container = this.$view.find(".newteamview");
+    this.newTeamView = new NewTeamView(State.teams, $container, State.teamsize);
+    // hide when registration is closed
+    this.regVisibilityView = new ClassView(new NoRegModel(State.tournaments),
+      $container, "hidden");
 
     $container = this.$view.find(".playersettings");
     $template = $container.find(".template");
