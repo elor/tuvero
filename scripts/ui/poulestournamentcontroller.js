@@ -12,7 +12,7 @@ define([
 
     this.$options = this.view.$view.find(".tournamentoptions");
     $mode = this.$options.find("select.mode");
-    $seed = this.$options.find("select.mode");
+    $seed = this.$options.find("select.seed");
 
     $mode.change(function () {
       tournament.setProperty("poulesmode", $(this).val());
@@ -21,7 +21,7 @@ define([
 
     $seed.change(function () {
       tournament.setProperty("poulesseed", $(this).val());
-      $mode.val($(this).val());
+      $seed.val($(this).val());
     });
   }
   extend(PoulesTournamentController, Controller);
