@@ -74,9 +74,9 @@
           </thead>
           <tbody>
             <tr>
-              <td>Name / Pseudonym</td>
+              <td>Lizenznummer</td>
               <td>
-                <input type="text" class="alias" />
+                <input type="text" class="license" />
               </td>
             </tr>
 
@@ -95,29 +95,33 @@
             </tr>
 
             <tr>
+              <td>Name / Pseudonym</td>
+              <td>
+                <input type="text" class="alias" />
+              </td>
+            </tr>
+
+            <tr>
               <td>Verein</td>
               <td>
                 <input type="text" class="club" />
               </td>
             </tr>
+
             <tr>
               <td>Email</td>
               <td>
                 <input type="text" class="email" />
               </td>
             </tr>
-            <tr>
-              <td>Lizenznummer</td>
-              <td>
-                <input type="text" class="license" />
-              </td>
-            </tr>
+
             <tr>
               <td>Ranglistenpunkte</td>
               <td>
                 <input type="number" class="rankingpoints" />
               </td>
             </tr>
+
             <tr>
               <td>Elo-Punkte</td>
               <td>
@@ -130,6 +134,16 @@
         <button class="update">Speichern</button>
         <button class="reset">Zurücksetzen</button>
       </div>
+    </div>
+
+    <div class="newteamview">
+      <input class="playername hidden" type="text" />
+      <input class="playername hidden" type="text" />
+      <input class="playername hidden" type="text" />
+      <input type="number" class="rankingpoints hidden" value="0" />
+
+      <button class="registeradvanced">Neues Team</button>
+      Nicht gespeicherte Änderungen werden verworfen
     </div>
   </div>
 </div>
