@@ -112,9 +112,9 @@ define(
       numByePoules = this.numbyepoules.get();
 
       switch (this.getProperty("poulesbyepoules")) {
-        case PoulesTournamentModel.BYES.front:
-          return pouleID > 0 && pouleID < numByePoules;
-        case PoulesTournamentModel.BYES.back:
+        case PoulesTournamentModel.BYEPOULES.front:
+          return pouleID >= 0 && pouleID < numByePoules;
+        case PoulesTournamentModel.BYEPOULES.back:
           return pouleID < numPoules && pouleID >= (numPoules - numByePoules);
       }
 
