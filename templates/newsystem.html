@@ -2,12 +2,10 @@
   <h3 class="enoughteams">Neue Turnierphase</h3>
   <div class="enoughteams noprint">
     <p class="interlace">
-      <input type="number" class="interlacecount" min="1" value="1" />
-      Turniere zusammenführen
+      <input type="number" class="interlacecount" min="1" value="1" /> Turniere zusammenführen
     </p>
     <p>
-      <input type="number" class="tournamentsize" min="2" value="2" />
-      {{ teamstext }}
+      <input type="number" class="tournamentsize" min="2" value="2" /> {{ teamstext }}
     </p>
 
     <button data-system="swiss">
@@ -26,7 +24,7 @@
       Platzierungsrunde
     </button>
 
-    <button data-system="poules">
+    <button data-system="poules" data-minteams="6">
       Poules
     </button>
 

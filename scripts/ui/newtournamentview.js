@@ -6,8 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', 'ui/newtournamentcontroller',
-    'presets'], function($, extend, View, NewTournamentController, Presets) {
+define(["jquery", "lib/extend", "core/view", "ui/newtournamentcontroller",
+  "presets"
+], function ($, extend, View, NewTournamentController, Presets) {
   /**
    * Constructor
    *
@@ -20,10 +21,10 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/newtournamentcontroller',
   function NewTournamentView(firstTeamID, numTeams, $view, tournaments, teams) {
     NewTournamentView.superconstructor.call(this, undefined, $view);
 
-    this.$view.addClass('newsystem');
+    this.$view.addClass("newsystem");
 
     if (numTeams < 2) {
-      this.$view.addClass('notenoughteams');
+      this.$view.addClass("notenoughteams");
     }
 
     // anonymous model
@@ -32,11 +33,11 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/newtournamentcontroller',
     this.model.tournaments = tournaments;
     this.model.teams = teams;
 
-    this.$view.find('button').each(function() {
+    this.$view.find("button").each(function () {
       var $button, system;
 
       $button = $(this);
-      system = $button.attr('data-system');
+      system = $button.attr("data-system");
 
       if (system && !Presets.systems[system]) {
         $button.hide();
