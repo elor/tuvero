@@ -20,9 +20,6 @@ define(
       this.numbyepoules = new ValueModel(0);
 
       this.teams.registerListener(this.numpoules);
-      this.numpoules.onupdate = (function () {
-        this.numpoules.clamp();
-      }).bind(this);
       this.numpoules.clamp = (function () {
         this.numpoules.set(
           Math.min(
@@ -32,6 +29,7 @@ define(
             ), this.maxPoules()
           ));
       }).bind(this);
+      this.numpoules.onresize = this.numpoules.clamp;
 
       this.numpoules.registerListener(this.numbyepoules);
       this.teams.registerListener(this.numbyepoules);
@@ -39,6 +37,7 @@ define(
         this.numpoules.clamp();
         this.numbyepoules.set(this.numpoules.get() * 4 - this.teams.length);
       }).bind(this);
+      this.numbyepoules.onresize = this.numbyepoules.onupdate;
     }
     extend(PoulesTournamentModel, TournamentModel);
 
@@ -98,7 +97,7 @@ define(
     PoulesTournamentModel.prototype.isByePoule = function (pouleID) {
       var numPoules, numByePoules;
       numPoules = this.numpoules.get();
-      numByePoules = this.numByePoules();
+      numByePoules = this.numbyepoules.get();
 
       return pouleID < numPoules && pouleID >= (numPoules - numByePoules);
     };
@@ -241,8 +240,8 @@ define(
     };
 
     PoulesTournamentModel.prototype.destroy = function () {
-      this.numByePoules.destroy();
-      this.numPoules.destroy();
+      this.numbyepoules.destroy();
+      this.numpoules.destroy();
 
       PoulesTournamentModel.superclass.destroy.call(this);
     };
