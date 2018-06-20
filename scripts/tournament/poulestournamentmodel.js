@@ -4,9 +4,10 @@ define(
     "tournament/tournamentmodel",
     "core/matchmodel",
     "presets",
-    "core/random"
+    "core/random",
+    "core/valuemodel"
   ],
-  function (extend, TournamentModel, MatchModel, Presets, Random) {
+  function (extend, TournamentModel, MatchModel, Presets, Random, ValueModel) {
     var rng = new Random();
 
     function PoulesTournamentModel() {
@@ -14,6 +15,30 @@ define(
 
       this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
       this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.heads);
+
+      this.numpoules = new ValueModel(0);
+      this.numbyepoules = new ValueModel(0);
+
+      this.teams.registerListener(this.numpoules);
+      this.numpoules.onupdate = (function () {
+        this.numpoules.clamp();
+      }).bind(this);
+      this.numpoules.clamp = (function () {
+        this.numpoules.set(
+          Math.min(
+            Math.max(
+              this.numpoules.get(),
+              this.minPoules()
+            ), this.maxPoules()
+          ));
+      }).bind(this);
+
+      this.numpoules.registerListener(this.numbyepoules);
+      this.teams.registerListener(this.numbyepoules);
+      this.numbyepoules.onupdate = (function () {
+        this.numpoules.clamp();
+        this.numbyepoules.set(this.numpoules.get() * 4 - this.teams.length);
+      }).bind(this);
     }
     extend(PoulesTournamentModel, TournamentModel);
 
@@ -62,17 +87,20 @@ define(
       return true;
     };
 
-    PoulesTournamentModel.prototype.numPoules = function () {
+    PoulesTournamentModel.prototype.minPoules = function () {
       return Math.ceil(this.teams.length / 4);
     };
 
-    PoulesTournamentModel.prototype.numByePoules = function () {
-      return this.numPoules() * 4 - this.teams.length;
+    PoulesTournamentModel.prototype.maxPoules = function () {
+      return Math.floor(this.teams.length / 3);
     };
 
     PoulesTournamentModel.prototype.isByePoule = function (pouleID) {
-      var numPoules = this.numPoules();
-      return pouleID < numPoules && pouleID >= (numPoules - this.numByePoules());
+      var numPoules, numByePoules;
+      numPoules = this.numpoules.get();
+      numByePoules = this.numByePoules();
+
+      return pouleID < numPoules && pouleID >= (numPoules - numByePoules);
     };
 
     PoulesTournamentModel.prototype.getInternalTeamIDs = function () {
@@ -101,7 +129,7 @@ define(
     PoulesTournamentModel.prototype.createEmptyPoules = function () {
       var poules = [];
 
-      while (poules.length < this.numPoules()) {
+      while (poules.length < this.numpoules.get()) {
         poules.push([]);
       }
 
@@ -130,7 +158,7 @@ define(
       teams = this.getInternalTeamIDs();
 
       teams.forEach(function (teamID) {
-        var groupID = teamID % this.numPoules();
+        var groupID = teamID % this.numpoules.get();
         groups[groupID].push(teamID);
       }, this);
 
@@ -143,7 +171,7 @@ define(
       groups = this.createEmptyPoules();
       left = this.getInternalTeamIDs();
 
-      heads = left.splice(0, this.numPoules());
+      heads = left.splice(0, this.numpoules.get());
 
       groups.forEach(function (group, groupID) {
         group.push(heads[groupID]);
@@ -212,6 +240,13 @@ define(
       }
     };
 
+    PoulesTournamentModel.prototype.destroy = function () {
+      this.numByePoules.destroy();
+      this.numPoules.destroy();
+
+      PoulesTournamentModel.superclass.destroy.call(this);
+    };
+
     PoulesTournamentModel.prototype.save = function () {
       var data = PoulesTournamentModel.superclass.save.call(this);
       return data;
@@ -229,5 +264,4 @@ define(
     );
 
     return PoulesTournamentModel;
-  }
-);
+  });
