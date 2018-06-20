@@ -16,6 +16,7 @@ define(
       this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
       this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.heads);
       this.setProperty("poulesbyepoules", (Presets.systems.poules && Presets.systems.poules.byepoules) || PoulesTournamentModel.BYEPOULES.front);
+      this.setProperty("poulesbyeteams", (Presets.systems.poules && Presets.systems.poules.byeteams) || PoulesTournamentModel.BYETEAMS.favorites);
 
       this.numpoules = new ValueModel(0);
       this.numbyepoules = new ValueModel(0);
@@ -60,6 +61,11 @@ define(
     PoulesTournamentModel.BYEPOULES = {
       front: "front",
       back: "back"
+    };
+
+    PoulesTournamentModel.BYETEAMS = {
+      favorites: "favorites",
+      lastteams: "lastteams"
     };
 
     PoulesTournamentModel.prototype.initialMatches = function () {

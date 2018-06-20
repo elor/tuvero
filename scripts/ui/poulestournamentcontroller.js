@@ -4,7 +4,7 @@ define([
   "core/controller"
 ], function ($, extend, Controller) {
   function PoulesTournamentController(view) {
-    var $mode, $seed, $byepoules, $numpoules, tournament;
+    var $mode, $seed, $byepoules, $byeteams, $numpoules, tournament;
 
     PoulesTournamentController.superconstructor.call(this, view);
 
@@ -13,6 +13,7 @@ define([
     $mode = this.view.$mode;
     $seed = this.view.$seed;
     $byepoules = this.view.$byepoules;
+    $byeteams = this.view.$byeteams;
     $numpoules = this.view.$numpoulesinput;
 
     $mode.change(function () {
@@ -28,6 +29,11 @@ define([
     $byepoules.change(function () {
       tournament.setProperty("poulesbyepoules", $(this).val());
       $byepoules.val($(this).val());
+    });
+
+    $byeteams.change(function () {
+      tournament.setProperty("poulesbyeteams", $(this).val());
+      $byeteams.val($(this).val());
     });
 
     $numpoules.change(function () {

@@ -13,6 +13,9 @@ define(["lib/extend", "ui/tournamentview", "ui/poulestournamentcontroller"],
       this.$byepoules = this.$view.find(".tournamentoptions .option select.byepoules");
       this.$byepoules.val(this.tournament.getProperty("poulesbyepoules"));
 
+      this.$byeteams = this.$view.find(".tournamentoptions .option select.byeteams");
+      this.$byeteams.val(this.tournament.getProperty("poulesbyeteams"));
+
       this.$numpoulesinput = this.$view.find("input.numpoules");
       this.$numbyepoulestext = this.$view.find(".numbyepoules");
 
