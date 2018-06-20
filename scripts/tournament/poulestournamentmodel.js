@@ -15,6 +15,7 @@ define(
 
       this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
       this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.heads);
+      this.setProperty("poulesbyepoules", (Presets.systems.poules && Presets.systems.poules.byepoules) || PoulesTournamentModel.BYEPOULES.front);
 
       this.numpoules = new ValueModel(0);
       this.numbyepoules = new ValueModel(0);
@@ -54,6 +55,11 @@ define(
       quarters: "quarters",
       heads: "heads",
       random: "random"
+    };
+
+    PoulesTournamentModel.BYEPOULES = {
+      front: "front",
+      back: "back"
     };
 
     PoulesTournamentModel.prototype.initialMatches = function () {
@@ -99,7 +105,14 @@ define(
       numPoules = this.numpoules.get();
       numByePoules = this.numbyepoules.get();
 
-      return pouleID < numPoules && pouleID >= (numPoules - numByePoules);
+      switch (this.getProperty("poulesbyepoules")) {
+        case PoulesTournamentModel.BYES.front:
+          return pouleID > 0 && pouleID < numByePoules;
+        case PoulesTournamentModel.BYES.back:
+          return pouleID < numPoules && pouleID >= (numPoules - numByePoules);
+      }
+
+      throw new Error("unknown poulebyepoules value: " + this.getProperty("poulesbyepoules"));
     };
 
     PoulesTournamentModel.prototype.getInternalTeamIDs = function () {

@@ -10,6 +10,9 @@ define(["lib/extend", "ui/tournamentview", "ui/poulestournamentcontroller"],
       this.$seed = this.$view.find(".tournamentoptions .option select.seed");
       this.$seed.val(this.tournament.getProperty("poulesseed"));
 
+      this.$byepoules = this.$view.find(".tournamentoptions .option select.byepoules");
+      this.$byepoules.val(this.tournament.getProperty("poulesbyepoules"));
+
       this.$numpoulesinput = this.$view.find("input.numpoules");
       this.$numbyepoulestext = this.$view.find(".numbyepoules");
 
@@ -22,12 +25,21 @@ define(["lib/extend", "ui/tournamentview", "ui/poulestournamentcontroller"],
     extend(PoulesTournamentView, TournamentView);
 
     PoulesTournamentView.prototype.updateNumPoules = function () {
-      this.$numpoulesinput.prop("min", this.tournament.minPoules());
-      this.$numpoulesinput.prop("max", this.tournament.maxPoules());
-      this.$numpoulesinput.val(this.tournament.numpoules.get());
-      this.$numpoulesinput.prop("disabled", this.tournament.minPoules() === this.tournament.maxPoules());
+      var numpoules, numbyepoules, minpoules, maxpoules;
 
-      this.$numbyepoulestext.text(this.tournament.numbyepoules.get());
+      minpoules = this.tournament.minPoules();
+      maxpoules = this.tournament.maxPoules();
+      numpoules = this.tournament.numpoules.get();
+      numbyepoules = this.tournament.numbyepoules.get();
+
+      this.$numpoulesinput.prop("min", minpoules);
+      this.$numpoulesinput.prop("max", maxpoules);
+      this.$numpoulesinput.val(numpoules);
+      this.$numpoulesinput.prop("disabled", minpoules === maxpoules);
+
+      this.$numbyepoulestext.text(numbyepoules);
+
+      this.$byepoules.prop("disabled", numbyepoules === 0 || numpoules === numbyepoules);
     };
 
     PoulesTournamentView.prototype.onupdate = function () {
