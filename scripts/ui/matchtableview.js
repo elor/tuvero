@@ -6,31 +6,35 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
-    'ui/matchresultview', 'ui/teamtableview'], function(extend, TemplateView,
-    ListView, Listener, MatchResultView, TeamTableView) {
+define(["lib/extend", "ui/templateview", "ui/listview", "core/listener",
+  "ui/matchresultview", "ui/teamtableview", "ui/strings"
+], function (extend, TemplateView, ListView, Listener, MatchResultView,
+  TeamTableView, Strings) {
   /**
    * Constructor
    */
   function MatchTableView(model, $view, teamlist, tournament, teamsize) {
     var $listview;
     MatchTableView.superconstructor.call(this, model, $view, $view
-        .find('.match'));
+      .find(".match"));
 
-    $listview = this.$view.children('table');
+    $listview = this.$view.children("table");
     this.listView = new ListView(this.model, $listview, this.$template,
-        MatchResultView, teamlist, tournament);
+      MatchResultView, teamlist, tournament);
 
     this.teamTableView = new TeamTableView(this.listView, teamsize);
 
-    this.$round = this.$view.find('.round');
+    this.$roundtext = this.$view.find(".roundtext");
+    this.$round = this.$view.find(".round");
+
+    this.$roundtext.text(Strings["grouptext_" + tournament.SYSTEM] || Strings["grouptext_default"]);
 
     this.updateRunningState();
     this.updateGroupNumber();
 
     var view = this;
     this.groupListener = new Listener(this.model);
-    this.groupListener.oninsert = function(emitter, event, data) {
+    this.groupListener.oninsert = function (emitter, event, data) {
       if (view.model.length === 1) {
         view.updateGroupNumber();
       }
@@ -41,13 +45,13 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
   /**
    * print the group ID as soon as it's available
    */
-  MatchTableView.prototype.updateGroupNumber = function() {
+  MatchTableView.prototype.updateGroupNumber = function () {
     if (this.model.length > 0) {
       this.$round.text(Number(this.model.get(0).getGroup()) + 1);
     }
   };
 
-  MatchTableView.prototype.updateRunningState = function() {
+  MatchTableView.prototype.updateRunningState = function () {
     var i, isRunning;
 
     isRunning = false;
@@ -59,11 +63,11 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
     }
 
     if (isRunning) {
-      this.$view.addClass('running');
-      this.$view.removeClass('finished');
+      this.$view.addClass("running");
+      this.$view.removeClass("finished");
     } else {
-      this.$view.addClass('finished');
-      this.$view.removeClass('running');
+      this.$view.addClass("finished");
+      this.$view.removeClass("running");
     }
 
   };
@@ -75,11 +79,11 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
    * @param event
    * @param data
    */
-  MatchTableView.prototype.onresize = function(emitter, event, data) {
+  MatchTableView.prototype.onresize = function (emitter, event, data) {
     this.updateRunningState();
   };
 
-  MatchTableView.prototype.destroy = function() {
+  MatchTableView.prototype.destroy = function () {
     MatchTableView.superclass.destroy.call(this);
     this.listView.destroy();
     this.groupListener.destroy();

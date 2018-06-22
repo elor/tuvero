@@ -1,5 +1,8 @@
 <div class="matchtable">
-  <h3>Runde <span class="round">##</span></h3>
+  <h3>
+    <span class="roundtext">%%</span>
+    <span class="round">##</span>
+  </h3>
   <table class="background" style="font-size: 100%">
     <tr>
       <th>No.</th>
@@ -22,11 +25,10 @@
       <td class="name rename"></td>
       <td class="name rename"></td>
       <td>
-      <div class="result">
-        {% include 'resultscore.html' %}
-      </div>
-      {% include 'finishmatchform.html' %}
-      {% include 'correctionform.html' %}
+        <div class="result">
+          {% include 'resultscore.html' %}
+        </div>
+        {% include 'finishmatchform.html' %} {% include 'correctionform.html' %}
       </td>
     </tr>
   </table>
