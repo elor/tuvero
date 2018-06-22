@@ -8,8 +8,8 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/view", "core/type", "ui/teamcontroller", "ui/teammodel"], //
-  function (extend, View, Type, TeamController, TeamModel) {
+define(["lib/extend", "core/view", "core/type", "ui/teamcontroller"], //
+  function (extend, View, Type, TeamController) {
     function TeamView(model, $view, teamlist) {
       if (Type.isNumber(model) && teamlist !== undefined) {
         model = teamlist.get(model);
