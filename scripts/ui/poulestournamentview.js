@@ -17,6 +17,7 @@ define(["lib/extend", "ui/tournamentview", "ui/poulestournamentcontroller"],
       this.$byeteams.val(this.tournament.getProperty("poulesbyeteams"));
 
       this.$numpoulesinput = this.$view.find("input.numpoules");
+      this.$numpoulestext = this.$view.find(".numpoulestext");
       this.$numbyepoulestext = this.$view.find(".numbyepoules");
 
       this.tournament.numpoules.registerListener(this);
@@ -39,6 +40,8 @@ define(["lib/extend", "ui/tournamentview", "ui/poulestournamentcontroller"],
       this.$numpoulesinput.prop("max", maxpoules);
       this.$numpoulesinput.val(numpoules);
       this.$numpoulesinput.prop("disabled", minpoules === maxpoules);
+
+      this.$numpoulestext.text(numpoules);
 
       this.$numbyepoulestext.text(numbyepoules);
 
