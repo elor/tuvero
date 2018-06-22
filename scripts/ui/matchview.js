@@ -6,17 +6,17 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
-    'ui/matchcontroller', 'ui/playermodel', 'ui/teammodel', 'ui/strings',
-    'core/type'], function(extend, $, View, TeamView, MatchController,
+define(["lib/extend", "jquery", "core/view", "ui/teamview",
+    "ui/matchcontroller", "ui/playermodel", "ui/teammodel", "ui/strings",
+    "core/type"], function (extend, $, View, TeamView, MatchController,
     PlayerModel, TeamModel, Strings, Type) {
   var emptyPlayer, byePlayer;
 
   // player name for bye votes
   byePlayer = new PlayerModel(Strings.byename);
-  emptyPlayer = new PlayerModel('');
-  emptyPlayer.name = ''; // avoid 'NONAME'
-  emptyPlayer.setName = function() {
+  emptyPlayer = new PlayerModel("");
+  emptyPlayer.alias = ""; // avoid 'NONAME'
+  emptyPlayer.setName = function () {
   };
 
   /**
@@ -49,7 +49,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
     }
 
     team = new TeamModel(players);
-    team.setID('');
+    team.setID("");
     return team;
   }
 
@@ -61,7 +61,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
 
     for (i = 0; i <= $elements.length; i += 1) {
       $element = $elements.eq(i);
-      if (i === $elements.length || $element.hasClass('teamno')) {
+      if (i === $elements.length || $element.hasClass("teamno")) {
         if (team) {
           teams.push($(team));
         }
@@ -100,7 +100,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
       this.teamlist = undefined;
     }
 
-    this.$finishform = this.$view.find('.finish');
+    this.$finishform = this.$view.find(".finish");
 
     if (this.model.isRunningMatch()) {
       this.controller = new MatchController(this, this.$finishform);
@@ -117,9 +117,9 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
    * destroy all team views before creating new ones on the existing items. This
    * is a bit too much, but it shouldn't be called too often, right?
    */
-  MatchView.prototype.destroyTeamViews = function() {
+  MatchView.prototype.destroyTeamViews = function () {
     // destroy all teamviews in order to create new ones
-    this.teamviews.forEach(function(teamview) {
+    this.teamviews.forEach(function (teamview) {
       teamview.destroy();
     });
     this.teamviews.splice(0);
@@ -128,15 +128,15 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
   /**
    * update all the values
    */
-  MatchView.prototype.update = function() {
+  MatchView.prototype.update = function () {
     var $teams, i, $team, teamid, isBye, team, teamsize;
 
-    $teams = this.$view.find('.team');
+    $teams = this.$view.find(".team");
     if ($teams.length === 0) {
-      $teams = $createTeamsLists(this.$view.find('>.teamno , >.name'));
+      $teams = $createTeamsLists(this.$view.find(">.teamno , >.name"));
     }
     if ($teams.length === 0) {
-      $teams = $createTeamsLists(this.$view.filter('.teamno,.name'));
+      $teams = $createTeamsLists(this.$view.filter(".teamno,.name"));
     }
 
     teamsize = undefined;
@@ -171,7 +171,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
         } else if (Type.isNumber(teamid)) {
           team = teamid + 1;
         } else if (teamid === undefined) {
-          team = '';
+          team = "";
         } else {
           team = teamid;
         }
@@ -191,7 +191,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
    * @param data
    *          should be undefined
    */
-  MatchView.prototype.onupdate = function(emitter, event, data) {
+  MatchView.prototype.onupdate = function (emitter, event, data) {
     this.update();
   };
 
@@ -202,7 +202,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
    *          a ListModel of TeamModel instances
    * @return a new MatchView constructor, which has this.teamList set
    */
-  MatchView.bindTeamList = function(teamlist) {
+  MatchView.bindTeamList = function (teamlist) {
     function MyMatchView() {
       MyMatchView.superconstructor.apply(this, arguments);
     }
