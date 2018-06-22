@@ -1,6 +1,6 @@
 define(["lib/extend", "ranking/rankingcomponent"], function (extend, RankingComponent) {
-  function RankingPouleIDComponent(ranking) {
-    RankingPouleIDComponent.superconstructor.call(this, ranking, undefined);
+  function RankingPouleIDComponent(ranking, nextcomponent) {
+    RankingPouleIDComponent.superconstructor.call(this, ranking, nextcomponent);
   }
   extend(RankingPouleIDComponent, RankingComponent);
 
@@ -12,7 +12,7 @@ define(["lib/extend", "ranking/rankingcomponent"], function (extend, RankingComp
   };
 
   RankingPouleIDComponent.prototype.compare = function (i, k) {
-    return -RankingPouleIDComponent.superclass.compare.call(this, i, k);
+    return this.value(i) - this.value(k) || this.nextcomponent.compare(i, k);
   };
 
   return RankingPouleIDComponent;

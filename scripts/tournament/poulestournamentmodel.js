@@ -25,7 +25,7 @@ define(
     }
 
     function PoulesTournamentModel() {
-      PoulesTournamentModel.superconstructor.call(this, ["wins"]);
+      PoulesTournamentModel.superconstructor.call(this, ["pouleid", "wins", "saldo", "points"]);
 
       this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
       this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.quarters);
@@ -102,11 +102,20 @@ define(
           var teamA, teamB;
 
           teamA = Type.isNumber(draw[0]) ? group[draw[0]] : undefined;
+          teamB = Type.isNumber(draw[1]) ? group[draw[1]] : undefined;
+
+          if (this.ranking.pouleid) {
+            if (teamA !== undefined) {
+              this.ranking.pouleid.set(teamA, groupID);
+            }
+            if (teamB !== undefined) {
+              this.ranking.pouleid.set(teamB, groupID);
+            }
+          }
 
           if (draw.length === 1 && teamA !== undefined) {
             this.addBye(teamA, matchID, groupID);
           } else {
-            teamB = Type.isNumber(draw[1]) ? group[draw[1]] : undefined;
             this.matches.push(new MatchModel([teamA, teamB], matchID, groupID));
           }
         }, this);
