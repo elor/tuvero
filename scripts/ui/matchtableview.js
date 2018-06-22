@@ -10,9 +10,6 @@ define(["lib/extend", "ui/templateview", "ui/listview", "core/listener",
   "ui/matchresultview", "ui/teamtableview", "ui/strings"
 ], function (extend, TemplateView, ListView, Listener, MatchResultView,
   TeamTableView, Strings) {
-  /**
-   * Constructor
-   */
   function MatchTableView(model, $view, teamlist, tournament, teamsize) {
     var $listview;
     MatchTableView.superconstructor.call(this, model, $view, $view
@@ -27,7 +24,7 @@ define(["lib/extend", "ui/templateview", "ui/listview", "core/listener",
     this.$roundtext = this.$view.find(".roundtext");
     this.$round = this.$view.find(".round");
 
-    this.$roundtext.text(Strings["grouptext_" + tournament.SYSTEM] || Strings["grouptext_default"]);
+    this.$roundtext.text(Strings["grouptext_" + tournament.SYSTEM] || Strings.grouptext_default);
 
     this.updateRunningState();
     this.updateGroupNumber();
@@ -46,8 +43,21 @@ define(["lib/extend", "ui/templateview", "ui/listview", "core/listener",
    * print the group ID as soon as it's available
    */
   MatchTableView.prototype.updateGroupNumber = function () {
+    var min, max, groupIDs;
+
     if (this.model.length > 0) {
-      this.$round.text(Number(this.model.get(0).getGroup()) + 1);
+      groupIDs = this.model.map(function (match) {
+        return Number(match.getGroup()) + 1;
+      });
+
+      min = Math.min.apply(Math, groupIDs);
+      max = Math.max.apply(Math, groupIDs);
+
+      if (min === max) {
+        this.$round.text(min);
+      } else {
+        this.$round.text(min + "-" + max);
+      }
     }
   };
 
