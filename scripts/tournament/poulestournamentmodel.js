@@ -13,6 +13,17 @@ define(
     Random, ValueModel, Type) {
     var rng = new Random();
 
+    function getTeamIDFromWho(result, who) {
+      switch (who) {
+        case "winner":
+          return result.getWinner();
+        case "loser":
+          return result.getLoser();
+      }
+
+      throw new Error("unknown 'who': " + who);
+    }
+
     function PoulesTournamentModel() {
       PoulesTournamentModel.superconstructor.call(this, ["wins"]);
 
@@ -44,6 +55,8 @@ define(
         this.emit("update");
       }).bind(this);
       this.numbyepoules.onresize = this.numbyepoules.onupdate;
+
+      this.groups = [];
     }
     extend(PoulesTournamentModel, TournamentModel);
 
@@ -73,15 +86,13 @@ define(
     };
 
     PoulesTournamentModel.prototype.initialMatches = function () {
-      var groups, drawtables;
+      var drawtables;
 
-      groups = this.createGroups();
+      this.groups = this.createGroups();
       drawtables = this.getDrawTables();
 
-      groups.forEach(function (group, groupID) {
+      this.groups.forEach(function (group, groupID) {
         var draws = drawtables[group.length];
-
-        console.log(groupID);
 
         if (!draws) {
           throw new Error("no draw mode for group of size " + group.length);
@@ -102,6 +113,101 @@ define(
       }, this);
 
       return true;
+    };
+
+    PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
+      this.checkForFollowupMatches(matchresult);
+
+      if (this.matches.length === 0) {
+        this.state.set("finished");
+      }
+    };
+
+    PoulesTournamentModel.prototype.findMatch = function (matchID, groupID) {
+      var searchResult;
+
+      searchResult = this.matches.asArray().filter(function (match) {
+        return groupID === match.getGroup() && matchID === match.getID();
+      });
+
+      switch (searchResult.length) {
+        case 0:
+          return undefined;
+        case 1:
+          return searchResult[0];
+      }
+
+      throw new Error("Duplicate Match. ID/Group: " + matchID + "/" + groupID);
+    };
+
+    PoulesTournamentModel.prototype.getDependentDraws = function (matchID, groupID, who) {
+      var groupSize, draws, drawsindexed;
+
+      groupSize = this.groups[groupID].length;
+      draws = this.getDrawTables()[groupSize];
+
+      if (!draws) {
+        throw new Error("no matching draw table found. group size: " + groupSize);
+      }
+
+      drawsindexed = draws.map(function (draw, index) {
+        return {
+          draw: draw,
+          drawindex: index,
+          teamindex: draw.map(function (team, teamindex) {
+            return team.from === matchID && team.who === who ? teamindex : undefined;
+          }).filter(function (value) {
+            return value !== undefined;
+          })[0]
+        };
+      });
+
+      return drawsindexed.filter(function (draw) {
+        return draw.teamindex !== undefined;
+      });
+    };
+
+    PoulesTournamentModel.prototype.checkForFollowupMatches = function (result) {
+      this.checkFollowupMatch(result, "winner");
+      this.checkFollowupMatch(result, "loser");
+    };
+
+    PoulesTournamentModel.prototype.checkFollowupMatch = function (result, who) {
+      var dependencies, groupID, teamID;
+
+      teamID = getTeamIDFromWho(result, who);
+      groupID = result.getGroup();
+
+      dependencies = this.getDependentDraws(result.getID(), groupID, who);
+
+      dependencies.forEach(function (dependency) {
+        var match = this.findMatch(dependency.drawindex, groupID);
+
+        if (match) {
+          this.createFollowupMatch(match, dependency, teamID);
+        }
+      }, this);
+    };
+
+    PoulesTournamentModel.prototype.createFollowupMatch = function (match, dependencyDraw, teamID) {
+      var groupID, matchID;
+
+      matchID = match.getID();
+      groupID = match.getGroup();
+
+      switch (dependencyDraw.draw.length) {
+        case 2:
+          match.teams[dependencyDraw.teamindex] = teamID;
+          this.matches.insert(this.matches.indexOf(match), new MatchModel(match.teams, matchID, groupID));
+          this.matches.erase(match);
+          break;
+        case 1:
+          this.matches.erase(match);
+          this.addBye(teamID, matchID, groupID);
+          break;
+        default:
+          throw new Error("invalid number of teams in PoulesTable draw definition: " + dependencyDraw);
+      }
     };
 
     PoulesTournamentModel.prototype.getDrawTables = function () {
@@ -254,43 +360,6 @@ define(
       return groups;
     };
 
-    PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
-      var winner, loser;
-
-      if (matchresult.score[0] > matchresult.score[1]) {
-        winner = matchresult.teams[0];
-        loser = matchresult.teams[1];
-      } else if (matchresult.score[0] < matchresult.score[1]) {
-        winner = matchresult.teams[1];
-        loser = matchresult.teams[0];
-      }
-
-      switch (matchresult.id) {
-        case 0:
-        case 1:
-          this.matches.map(function (match) {
-            if (match.group === matchresult.group) {
-              if (match.id === 2) {
-                match.teams[matchresult.id] = winner;
-                match.emit("update");
-              } else if (match.id === 3) {
-                match.teams[matchresult.id] = loser;
-                match.emit("update");
-              }
-            }
-          });
-
-          break;
-        case 2:
-        case 3:
-          break;
-      }
-
-      if (this.matches.length === 0) {
-        this.state.set("finished");
-      }
-    };
-
     PoulesTournamentModel.prototype.destroy = function () {
       this.numbyepoules.destroy();
       this.numpoules.destroy();
@@ -302,6 +371,7 @@ define(
       var data = PoulesTournamentModel.superclass.save.call(this);
 
       data.numpoules = this.numpoules.get();
+      data.groups = this.groups.slice();
 
       return data;
     };
@@ -312,6 +382,7 @@ define(
       }
 
       this.numpoules.set(data.numpoules);
+      this.groups = data.groups.slice();
 
       return true;
     };
@@ -320,6 +391,9 @@ define(
       PoulesTournamentModel.superclass.SAVEFORMAT
     );
     PoulesTournamentModel.prototype.SAVEFORMAT.numpoules = Number;
+    PoulesTournamentModel.prototype.SAVEFORMAT.groups = [
+      [Number]
+    ];
 
 
     return PoulesTournamentModel;
