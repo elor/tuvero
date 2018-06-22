@@ -1,8 +1,23 @@
 define([
   "jquery",
   "lib/extend",
-  "core/controller"
-], function ($, extend, Controller) {
+  "core/controller",
+  "ui/state"
+], function ($, extend, Controller, State) {
+  var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+  function numberToAlphaString(number) {
+    if (number < 0) {
+      return "";
+    }
+
+    if (number > alphabet.length) {
+      return numberToAlphaString(Math.floor(number) / 26) + numberToAlphaString(number % alphabet.length);
+    }
+
+    return alphabet[number];
+  }
+
   function PoulesTournamentController(view) {
     var $mode, $seed, $byepoules, $byeteams, $numpoules, tournament;
 
@@ -16,14 +31,22 @@ define([
     $byeteams = this.view.$byeteams;
     $numpoules = this.view.$numpoulesinput;
 
-    this.$flipbutton = this.view.$view.find("button.flipranking");
-    this.$flipbutton.click(function () {
+    this.view.$view.find("button.flipranking").click(function () {
       tournament.flipGroupRankings();
     });
 
-    this.$finalizebutton = this.view.$view.find("button.finalizeranking");
-    this.$finalizebutton.click(function () {
+    this.view.$view.find("button.finalizeranking").click(function () {
       tournament.flipGroupRankings(["poulerank", "pouleid"]);
+    });
+
+    this.view.$view.find("button.canonicalteamnames").click(function () {
+      tournament.getGroups().forEach(function (group, groupID) {
+        group.forEach(function (teamID, teamNumber) {
+          var team = State.teams.get(teamID);
+          team.number = numberToAlphaString(groupID) + (teamNumber + 1);
+          team.emit("update");
+        });
+      });
     });
 
     $mode.change(function () {
