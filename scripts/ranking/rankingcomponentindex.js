@@ -24,7 +24,8 @@ define([
     "ranking/rankingthreepointcomponent",
     "ranking/rankingtwopointcomponent",
     "ranking/rankingplacementcomponent",
-    "ranking/rankingpouleidcomponent"
+    "ranking/rankingpouleidcomponent",
+    "ranking/rankingpoulerankcomponent"
   ],
   function () {
     var RankingComponentIndex, index, Component, allComponents;
@@ -60,18 +61,18 @@ define([
       // iterate over the components and chain them in order.
       // Abort if a component is not defined.
       if (!components.every(function (component) {
-        component = component.toLowerCase();
-        var constructor = allComponents[component];
-        if (constructor === undefined) {
-          console.error('RankingComponentIndex.createComponentChain error: '
-            + 'undefined component name: ' + component);
-          return false;
-        }
+          component = component.toLowerCase();
+          var constructor = allComponents[component];
+          if (constructor === undefined) {
+            console.error("RankingComponentIndex.createComponentChain error: " +
+              "undefined component name: " + component);
+            return false;
+          }
 
-        chainfront = new constructor(ranking, chainfront);
+          chainfront = new constructor(ranking, chainfront);
 
-        return true;
-      })) {
+          return true;
+        })) {
         // some component could not be created. Abort.
         return undefined;
       }

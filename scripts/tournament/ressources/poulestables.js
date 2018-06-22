@@ -1,12 +1,31 @@
 define(function () {
-  var roundrobin_byes, winner, loser;
+  var roundrobin_byes, acbd_ranking, winner, loser;
 
   winner = "winner";
   loser = "loser";
+
   roundrobin_byes = [
     [0, 2],
     [1, 2],
     [0, 1]
+  ];
+
+  acbd_ranking = [{
+      winner: 0,
+      loser: 2
+    },
+    {
+      winner: 0,
+      loser: 2
+    },
+    {
+      winner: 0,
+      loser: 1,
+    },
+    {
+      winner: 2,
+      loser: 3
+    }
   ];
 
   return {
@@ -107,40 +126,41 @@ define(function () {
       }
     },
     RANKING: {
-      acbd: [{
-          from: 2,
-          who: winner
-        },
-        {
-          from: 2,
-          who: loser
-        },
-        {
-          from: 3,
-          who: winner
-        },
-        {
-          from: 3,
-          who: loser
-        }
-      ],
-      barrage: [{
-          from: 2,
-          who: winner
-        },
-        {
-          from: 4,
-          who: winner
-        },
-        {
-          from: 4,
-          who: loser
-        },
-        {
-          from: 3,
-          who: loser
-        }
-      ]
+      acbd: {
+        default: acbd_ranking,
+        favorites: acbd_ranking,
+        lastteams: acbd_ranking
+      },
+      barrage: {
+        default: [{
+            winner: 0,
+            loser: 1
+          },
+          {
+            winner: 0,
+            loser: 1
+          },
+          {
+            winner: 0,
+            loser: 1
+          },
+          {
+            winner: 1,
+            loser: 3
+          },
+          {
+            winner: 1,
+            loser: 2
+          }
+        ],
+        favorites: undefined,
+        lastteams: undefined
+      },
+      roundrobin: {
+        default: undefined,
+        favorites: undefined,
+        lastteams: undefined
+      }
     }
   };
 });

@@ -34,7 +34,8 @@ define([
     "ranking/rankingthreepointlistener",
     "ranking/rankingtwopointlistener",
     "ranking/rankingplacementlistener",
-    "ranking/rankingpouleidlistener"
+    "ranking/rankingpouleidlistener",
+    "ranking/rankingpouleranklistener"
   ],
   function () {
     var RankingDataListenerIndex;
