@@ -1,7 +1,7 @@
 define({
   MATCHES: {
     acbd: {
-      4: [
+      default: [
         [0, 3],
         [1, 2],
         [{
@@ -23,37 +23,35 @@ define({
           }
         ]
       ],
-      3: {
-        favorites: [
-          [0],
-          [1, 2],
-          [
-            0,
-            {
-              from: 1,
-              who: "winner"
-            }
-          ],
-          [{
+      favorites: [
+        [0],
+        [1, 2],
+        [
+          0,
+          {
             from: 1,
-            who: "loser"
-          }]
+            who: "winner"
+          }
         ],
-        lastteams: [
-          [0, 1],
-          [2],
-          [{
-              from: 0,
-              who: "winner"
-            },
-            2
-          ],
-          [{
+        [{
+          from: 1,
+          who: "loser"
+        }]
+      ],
+      lastteams: [
+        [0, 1],
+        [2],
+        [{
             from: 0,
-            who: "loser"
-          }]
-        ]
-      }
+            who: "winner"
+          },
+          2
+        ],
+        [{
+          from: 0,
+          who: "loser"
+        }]
+      ]
     }
   },
   RANKING: {

@@ -6,9 +6,11 @@ define(
     "core/matchmodel",
     "presets",
     "core/random",
-    "core/valuemodel"
+    "core/valuemodel",
+    "core/type"
   ],
-  function (extend, TournamentModel, PoulesTables, MatchModel, Presets, Random, ValueModel) {
+  function (extend, TournamentModel, PoulesTables, MatchModel, Presets,
+    Random, ValueModel, Type) {
     var rng = new Random();
 
     function PoulesTournamentModel() {
@@ -71,33 +73,62 @@ define(
     };
 
     PoulesTournamentModel.prototype.initialMatches = function () {
-      var groups;
+      var groups, drawtables;
 
       groups = this.createGroups();
+      drawtables = this.getDrawTables();
 
       groups.forEach(function (group, groupID) {
-        switch (group.length) {
-          case 4:
-            this.matches.push(new MatchModel([group[0], group[2]], 0, groupID));
-            this.matches.push(new MatchModel([group[1], group[3]], 1, groupID));
+        var draws = drawtables[group.length];
 
-            this.matches.push(
-              new MatchModel([undefined, undefined], 2, groupID)
-            );
-            this.matches.push(
-              new MatchModel([undefined, undefined], 3, groupID)
-            );
+        console.log(groupID);
 
-            this.matches.push(
-              new MatchModel([undefined, undefined], 4, groupID)
-            );
-            break;
-          default:
-            throw "Poules is only supported for groups of size 3 and 4 at the moment";
+        if (!draws) {
+          throw new Error("no draw mode for group of size " + group.length);
         }
+
+        draws.forEach(function (draw, matchID) {
+          var teamA, teamB;
+
+          teamA = Type.isNumber(draw[0]) ? group[draw[0]] : undefined;
+
+          if (draw.length === 1 && teamA !== undefined) {
+            this.addBye(teamA, matchID, groupID);
+          } else {
+            teamB = Type.isNumber(draw[1]) ? group[draw[1]] : undefined;
+            this.matches.push(new MatchModel([teamA, teamB], matchID, groupID));
+          }
+        }, this);
       }, this);
 
       return true;
+    };
+
+    PoulesTournamentModel.prototype.getDrawTables = function () {
+      var drawmode, defaultmode, byemode, poulesmode, poulesbyemode;
+
+      poulesmode = this.getProperty("poulesmode");
+      poulesbyemode = this.getProperty("poulesbyeteams");
+
+      drawmode = PoulesTables.MATCHES[poulesmode];
+      if (!drawmode) {
+        throw new Error("unknown draw mode: " + poulesmode);
+      }
+
+      defaultmode = drawmode.default;
+      byemode = drawmode[poulesbyemode];
+
+      if (!defaultmode) {
+        throw new Error("draw mode has no default: " + poulesmode);
+      }
+      if (!byemode) {
+        throw new Error("draw/bye mode combination has no byemode: " + poulesmode + " / " + poulesbyemode);
+      }
+
+      return {
+        4: defaultmode,
+        3: byemode
+      };
     };
 
     PoulesTournamentModel.prototype.minPoules = function () {
