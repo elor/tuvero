@@ -16,6 +16,16 @@ define([
     $byeteams = this.view.$byeteams;
     $numpoules = this.view.$numpoulesinput;
 
+    this.$flipbutton = this.view.$view.find("button.flipranking");
+    this.$flipbutton.click(function () {
+      tournament.flipGroupRankings();
+    });
+
+    this.$finalizebutton = this.view.$view.find("button.finalizeranking");
+    this.$finalizebutton.click(function () {
+      tournament.flipGroupRankings(["poulerank", "pouleid"]);
+    });
+
     $mode.change(function () {
       tournament.setProperty("poulesmode", $(this).val());
       $mode.val($(this).val());
