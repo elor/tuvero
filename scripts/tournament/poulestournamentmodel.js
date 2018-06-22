@@ -181,7 +181,7 @@ define(
     PoulesTournamentModel.prototype.flipGroupRankings = function (firstTwo) {
       var rankingdata = this.ranking.save();
 
-      firstTwo = firstTwo || rankingdata.comps.slice(0,2).reverse();
+      firstTwo = firstTwo || rankingdata.comps.slice(0, 2).reverse();
 
       rankingdata.comps = firstTwo.concat(rankingdata.comps.slice(2));
 
@@ -512,6 +512,14 @@ define(
       }, this);
 
       return true;
+    };
+
+    PoulesTournamentModel.prototype.getGroups = function () {
+      return this.groups.map(function (group) {
+        return group.map(function (teamID) {
+          return this.teams.get(teamID);
+        }, this);
+      }, this);
     };
 
     PoulesTournamentModel.prototype.SAVEFORMAT = Object.create(
