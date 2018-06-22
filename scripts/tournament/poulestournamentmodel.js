@@ -178,6 +178,16 @@ define(
       this.ranking.restore(rankingdata);
     };
 
+    PoulesTournamentModel.prototype.flipGroupRankings = function (firstTwo) {
+      var rankingdata = this.ranking.save();
+
+      firstTwo = firstTwo || rankingdata.comps.slice(0,2).reverse();
+
+      rankingdata.comps = firstTwo.concat(rankingdata.comps.slice(2));
+
+      this.ranking.restore(rankingdata);
+    };
+
     PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
       this.checkForFollowupMatches(matchresult);
 
