@@ -38,6 +38,7 @@ define(
       this.numbyepoules.onupdate = (function () {
         this.numpoules.clamp();
         this.numbyepoules.set(this.numpoules.get() * 4 - this.teams.length);
+        this.emit("update");
       }).bind(this);
       this.numbyepoules.onresize = this.numbyepoules.onupdate;
     }
@@ -267,6 +268,9 @@ define(
 
     PoulesTournamentModel.prototype.save = function () {
       var data = PoulesTournamentModel.superclass.save.call(this);
+
+      data.numpoules = this.numpoules.get();
+
       return data;
     };
 
@@ -274,12 +278,17 @@ define(
       if (!PoulesTournamentModel.superclass.restore.call(this, data)) {
         return false;
       }
+
+      this.numpoules.set(data.numpoules);
+
       return true;
     };
 
     PoulesTournamentModel.prototype.SAVEFORMAT = Object.create(
       PoulesTournamentModel.superclass.SAVEFORMAT
     );
+    PoulesTournamentModel.prototype.SAVEFORMAT.numpoules = Number;
+
 
     return PoulesTournamentModel;
   });
