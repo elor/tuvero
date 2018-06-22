@@ -6,35 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', //
-'math/vectormodel'], function(extend, RankingDataListener, VectorModel) {
-
-  /**
-   * @param result
-   *          a MatchResult instance
-   * @return the index of the winner (for result.getTeamID(index)), or undefined
-   *         if no unique winner exists
-   */
-  function getWinner(result) {
-    var winner, maxpoints;
-
-    winner = undefined;
-    maxpoints = undefined;
-
-    result.teams.forEach(function(teamid, index) {
-      var points;
-      points = result.score[index];
-      if (maxpoints === undefined || points > maxpoints) {
-        winner = teamid;
-        maxpoints = points;
-      } else if (points === maxpoints) {
-        winner = undefined;
-      }
-    }, this);
-
-    return winner;
-  }
-
+define([
+  "lib/extend",
+  "ranking/rankingdatalistener",
+  "math/vectormodel"
+], function (extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
@@ -43,11 +19,11 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    */
   function RankingThreePointListener(ranking) {
     RankingThreePointListener.superconstructor.call(this, ranking, // autoformat
-    new VectorModel());
+      new VectorModel());
   }
   extend(RankingThreePointListener, RankingDataListener);
 
-  RankingThreePointListener.NAME = 'threepoint';
+  RankingThreePointListener.NAME = "threepoint";
   RankingThreePointListener.DEPENDENCIES = undefined;
 
   /**
@@ -60,10 +36,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    * @param result
    *          a game result
    */
-  RankingThreePointListener.prototype.onresult = function(r, e, result) {
+  RankingThreePointListener.prototype.onresult = function (r, e, result) {
     var winner, maxpoints;
 
-    winner = getWinner(result);
+    winner = result.getWinner();
 
     if (winner !== undefined) {
       this.threepoint.set(winner, this.threepoint.get(winner) + 3);
@@ -87,8 +63,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    * @param teams
    *          an array of team ids
    */
-  RankingThreePointListener.prototype.onbye = function(r, e, teams) {
-    teams.forEach(function(teamid) {
+  RankingThreePointListener.prototype.onbye = function (r, e, teams) {
+    teams.forEach(function (teamid) {
       this.threepoint.set(teamid, this.threepoint.get(teamid) + 3);
     }, this);
   };
@@ -104,10 +80,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    * @param correction
    *          a game correction
    */
-  RankingThreePointListener.prototype.oncorrect = function(r, e, correction) {
+  RankingThreePointListener.prototype.oncorrect = function (r, e, correction) {
     var winner, maxpoints;
 
-    winner = getWinner(correction.before);
+    winner = correction.before.getWinner();
 
     if (winner !== undefined) {
       this.threepoint.set(winner, this.threepoint.get(winner) - 3);

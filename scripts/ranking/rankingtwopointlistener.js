@@ -6,35 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', //
-'math/vectormodel'], function(extend, RankingDataListener, VectorModel) {
-
-  /**
-   * @param result
-   *          a MatchResult instance
-   * @return the index of the winner (for result.getTeamID(index)), or undefined
-   *         if no unique winner exists
-   */
-  function getWinner(result) {
-    var winner, maxpoints;
-
-    winner = undefined;
-    maxpoints = undefined;
-
-    result.teams.forEach(function(teamid, index) {
-      var points;
-      points = result.score[index];
-      if (maxpoints === undefined || points > maxpoints) {
-        winner = teamid;
-        maxpoints = points;
-      } else if (points === maxpoints) {
-        winner = undefined;
-      }
-    }, this);
-
-    return winner;
-  }
-
+define([
+  "lib/extend",
+  "ranking/rankingdatalistener",
+  "math/vectormodel"
+], function (extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
@@ -43,11 +19,11 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    */
   function RankingTwoPointListener(ranking) {
     RankingTwoPointListener.superconstructor.call(this, ranking, // autoformat
-    new VectorModel());
+      new VectorModel());
   }
   extend(RankingTwoPointListener, RankingDataListener);
 
-  RankingTwoPointListener.NAME = 'twopoint';
+  RankingTwoPointListener.NAME = "twopoint";
   RankingTwoPointListener.DEPENDENCIES = undefined;
 
   /**
@@ -60,10 +36,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    * @param result
    *          a game result
    */
-  RankingTwoPointListener.prototype.onresult = function(r, e, result) {
+  RankingTwoPointListener.prototype.onresult = function (r, e, result) {
     var winner, maxpoints;
 
-    winner = getWinner(result);
+    winner = result.getWinner();
 
     if (winner !== undefined) {
       this.twopoint.set(winner, this.twopoint.get(winner) + 2);
@@ -87,8 +63,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    * @param teams
    *          an array of team ids
    */
-  RankingTwoPointListener.prototype.onbye = function(r, e, teams) {
-    teams.forEach(function(teamid) {
+  RankingTwoPointListener.prototype.onbye = function (r, e, teams) {
+    teams.forEach(function (teamid) {
       this.twopoint.set(teamid, this.twopoint.get(teamid) + 2);
     }, this);
   };
@@ -104,10 +80,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    * @param correction
    *          a game correction
    */
-  RankingTwoPointListener.prototype.oncorrect = function(r, e, correction) {
+  RankingTwoPointListener.prototype.oncorrect = function (r, e, correction) {
     var winner, maxpoints;
 
-    winner = getWinner(correction.before);
+    winner = correction.before.getWinner();
 
     if (winner !== undefined) {
       this.twopoint.set(winner, this.twopoint.get(winner) - 2);

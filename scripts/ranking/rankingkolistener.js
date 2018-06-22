@@ -6,55 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
   extend, RankingDataListener, VectorModel) {
   var KOTournamentModel;
-
-  /**
-   * @param result
-   *          a MatchResult instance
-   * @return the index of the loser (for result.getTeamID(index)), or undefined
-   *         if no unique loser exists
-   */
-  function getLoser(result) {
-    var loser, minpoints;
-
-    loser = undefined;
-    minpoints = undefined;
-
-    result.teams.forEach(function (teamid, index) {
-      var points;
-      points = result.score[index];
-      if (minpoints === undefined || points < minpoints) {
-        loser = teamid;
-        minpoints = points;
-      } else if (points === minpoints) {
-        loser = undefined;
-      }
-    }, this);
-
-    return loser;
-  }
-
-  function getWinner(result) {
-    var winner, maxpoints;
-
-    winner = undefined;
-    maxpoints = undefined;
-
-    result.teams.forEach(function (teamid, index) {
-      var points;
-      points = result.score[index];
-      if (maxpoints === undefined || points > maxpoints) {
-        winner = teamid;
-        maxpoints = points;
-      } else if (points === maxpoints) {
-        winner = undefined;
-      }
-    }, this);
-
-    return winner;
-  }
 
   function getWinnerPoints(result) {
     return -2 * result.getGroup();
@@ -63,7 +17,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
   function getLoserPoints(result) {
     var group = result.getGroup();
     var matchID = result.getID();
-    KOTournamentModel = KOTournamentModel || require('tournament/kotournamentmodel');
+    KOTournamentModel = KOTournamentModel || require("tournament/kotournamentmodel");
 
     if (matchID <= 1) {
       return -2 * group - 1;
@@ -84,7 +38,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
   }
   extend(RankingKOListener, RankingDataListener);
 
-  RankingKOListener.NAME = 'ko';
+  RankingKOListener.NAME = "ko";
   RankingKOListener.DEPENDENCIES = undefined;
 
   /**
@@ -98,8 +52,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
    *          a game result
    */
   RankingKOListener.prototype.onresult = function (r, e, result) {
-    this.ko.set(getLoser(result), getLoserPoints(result));
-    this.ko.set(getWinner(result), getWinnerPoints(result));
+    this.ko.set(result.getLoser(), getLoserPoints(result));
+    this.ko.set(result.getWinner(), getWinnerPoints(result));
   };
 
   /**
@@ -116,8 +70,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
   RankingKOListener.prototype.oncorrect = function (r, e, correction) {
     var winner, loser, winnerPoints, loserPoints;
 
-    winner = getWinner(correction.before);
-    loser = getLoser(correction.before);
+    winner = correction.before.getWinner();
+    loser = correction.before.getWinner();
     winnerPoints = getWinnerPoints(correction.before);
     loserPoints = getLoserPoints(correction.before);
 
