@@ -1,8 +1,10 @@
 define(
   ["lib/extend", "core/controller", "ui/state", "ui/toast", "ui/strings"],
   function (extend, Controller, State, Toast, Strings) {
-    function PlayerSettingsController(view) {
-      PlayerSettingsController.superconstructor.call(this, view);
+    function PlayerSettingsController(view, teamref) {
+      PlayerSettingsController.superconstructor.call(this, view, teamref);
+
+      this.teamref = teamref;
 
       this.reset = this.reset.bind(this);
       this.update = this.update.bind(this);
@@ -44,6 +46,10 @@ define(
       this.model.elo = Number(this.view.$view.find(".elo").val());
 
       new Toast(Strings.team_settings_updated);
+
+      if (this.teamref.team) {
+        this.teamref.team.updateRankingPointSum();
+      }
 
       this.model.setName(this.view.$view.find(".alias").val());
 

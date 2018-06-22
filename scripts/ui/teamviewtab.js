@@ -44,7 +44,7 @@ define(["jquery", "lib/extend", "core/view", "ui/listview", "ui/state",
 
     $container = this.$view.find(".playersettings");
     $template = $container.find(".template");
-    this.playerlistview = new ListView(this.players, $container, $template, PlayerSettingsView);
+    this.playerlistview = new ListView(this.players, $container, $template, PlayerSettingsView, this);
 
     this.update();
   };

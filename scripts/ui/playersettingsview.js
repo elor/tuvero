@@ -16,16 +16,16 @@ define(
     "ui/playermodel"
   ],
   function (extend, View, PlayerSettingsController, PlayerModel) {
-    function TeamSettingsView(model, $view) {
-      TeamSettingsView.superconstructor.call(this, model, $view);
+    function PlayerSettingsView(model, $view, teamref) {
+      PlayerSettingsView.superconstructor.call(this, model, $view);
 
-      this.controller = new PlayerSettingsController(this);
+      this.controller = new PlayerSettingsController(this, teamref);
 
       this.update();
     }
-    extend(TeamSettingsView, View);
+    extend(PlayerSettingsView, View);
 
-    TeamSettingsView.prototype.update = function () {
+    PlayerSettingsView.prototype.update = function () {
       this.$view.find(".alias").val(this.model.alias === PlayerModel.NONAME ? "" : this.model.alias);
       this.$view.find(".firstname").val(this.model.firstname);
       this.$view.find(".lastname").val(this.model.lastname);
@@ -36,25 +36,25 @@ define(
       this.$view.find(".elo").val(this.model.elo);
     };
 
-    TeamSettingsView.prototype.onupdate = function () {
+    PlayerSettingsView.prototype.onupdate = function () {
       this.update();
     };
 
-    TeamSettingsView.bindTeamList = function (teamlist) {
+    PlayerSettingsView.bindTeamList = function (teamlist) {
       function IndexTeamView(teamID, $view) {
         IndexTeamView.superconstructor.call(this, teamlist.get(teamID), $view);
       }
-      extend(IndexTeamView, TeamSettingsView);
+      extend(IndexTeamView, PlayerSettingsView);
 
       return IndexTeamView;
     };
 
-    TeamSettingsView.prototype.destroy = function () {
+    PlayerSettingsView.prototype.destroy = function () {
       this.controller.destroy();
 
-      TeamSettingsView.superclass.destroy.call(this);
+      PlayerSettingsView.superclass.destroy.call(this);
     };
 
-    return TeamSettingsView;
+    return PlayerSettingsView;
   }
 );
