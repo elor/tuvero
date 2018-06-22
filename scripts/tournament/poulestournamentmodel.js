@@ -7,10 +7,11 @@ define(
     "presets",
     "core/random",
     "core/valuemodel",
-    "core/type"
+    "core/type",
+    "math/vectormodel"
   ],
   function (extend, TournamentModel, PoulesTables, MatchModel, Presets,
-    Random, ValueModel, Type) {
+    Random, ValueModel, Type, VectorModel) {
     var rng = new Random();
 
     function getTeamIDFromWho(result, who) {
@@ -25,7 +26,9 @@ define(
     }
 
     function PoulesTournamentModel() {
-      PoulesTournamentModel.superconstructor.call(this, ["pouleid", "wins", "saldo", "points"]);
+      PoulesTournamentModel.superconstructor.call(this, ["pouleid", "poulerank", "wins", "saldo", "points"]);
+
+      this.ranking.tournament = this;
 
       this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
       this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.quarters);
@@ -124,11 +127,79 @@ define(
       return true;
     };
 
+    PoulesTournamentModel.prototype.finalizeGroupRankings = function (groupID) {
+      var rankingdata, poulerankdata, rankingranks;
+
+      if (this.matches.asArray().some(function (match) {
+          return match.getGroup() === groupID;
+        })) {
+        // this was the last match of this poule
+        return;
+      }
+
+      rankingdata = this.ranking.save();
+      poulerankdata = new VectorModel();
+      poulerankdata.restore(rankingdata.vals.poulerank);
+      rankingranks = this.ranking.get().ranks;
+
+      if (this.groups[groupID].every(function (teamID) {
+          return poulerankdata.get(teamID) === 0;
+        }, this)) {
+
+        this.groups[groupID].map(function (teamID) {
+          return {
+            calculatedrank: rankingranks[teamID],
+            teamID: teamID
+          };
+        }).sort(function (a, b) {
+          return a.calculatedrank - b.calculatedrank || a.teamID - b.teamID;
+        }).forEach(function (team, rank) {
+          poulerankdata.set(team.teamID, rank);
+        });
+        rankingdata.vals.poulerank = poulerankdata.save();
+
+        this.ranking.restore(rankingdata);
+      }
+    };
+
+    PoulesTournamentModel.prototype.resetGroupRankingsFromPoints = function (groupID) {
+      var rankingdata, poulerankdata;
+
+      rankingdata = this.ranking.save();
+      poulerankdata = new VectorModel();
+      poulerankdata.restore(rankingdata.vals.poulerank);
+
+      this.groups[groupID].forEach(function (teamID) {
+        poulerankdata.set(teamID, 0);
+      });
+
+      rankingdata.vals.poulerank = poulerankdata.save();
+
+      this.ranking.restore(rankingdata);
+    };
+
     PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
       this.checkForFollowupMatches(matchresult);
 
+      this.finalizeGroupRankings(matchresult.getGroup());
+
       if (this.matches.length === 0) {
         this.state.set("finished");
+      }
+    };
+
+    TournamentModel.prototype.postprocessCorrection = function (correction) {
+      var groupID;
+
+      groupID = correction.before.getGroup();
+      if (correction.before.getGroup() !== groupID) {
+        this.emit("error", "cannot correct one poule match with a completely different one");
+        return;
+      }
+
+      if (this.getRankTables()[this.groups[groupID].length] === undefined) {
+        this.resetGroupRankingsFromPoints(groupID);
+        this.finalizeGroupRankings(groupID);
       }
     };
 
@@ -174,6 +245,19 @@ define(
       return drawsindexed.filter(function (draw) {
         return draw.teamindex !== undefined;
       });
+    };
+
+    PoulesTournamentModel.prototype.getRanksFromTable = function (matchID, groupID) {
+      var groupSize, ranks;
+
+      groupSize = this.groups[groupID].length;
+      ranks = this.getRankTables()[groupSize];
+      if (ranks === undefined) {
+        // decide by points
+        return undefined;
+      }
+
+      return ranks[matchID];
     };
 
     PoulesTournamentModel.prototype.checkForFollowupMatches = function (result) {
@@ -243,6 +327,26 @@ define(
       return {
         4: defaultmode,
         3: byemode
+      };
+    };
+
+    PoulesTournamentModel.prototype.getRankTables = function () {
+      var drawmode, defaultranks, byeranks, poulesmode, poulesbyemode;
+
+      poulesmode = this.getProperty("poulesmode");
+      poulesbyemode = this.getProperty("poulesbyeteams");
+
+      drawmode = PoulesTables.RANKING[poulesmode];
+      if (!drawmode) {
+        return undefined;
+      }
+
+      defaultranks = drawmode.default;
+      byeranks = drawmode[poulesbyemode];
+
+      return {
+        4: defaultranks,
+        3: byeranks
       };
     };
 
@@ -393,6 +497,10 @@ define(
       this.numpoules.set(data.numpoules);
       this.groups = data.groups.slice();
 
+      this.groups.forEach(function (group, groupID) {
+        this.finalizeGroupRankings(groupID);
+      }, this);
+
       return true;
     };
 
@@ -403,7 +511,6 @@ define(
     PoulesTournamentModel.prototype.SAVEFORMAT.groups = [
       [Number]
     ];
-
 
     return PoulesTournamentModel;
   });
