@@ -122,6 +122,16 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel", "core/type"], funct
   // TeamModel.prototype.SAVEFORMAT.elo = Number;
   // TeamModel.prototype.SAVEFORMAT.rankingpoints = Number;
 
+  TeamModel.prototype.updateRankingPointSum = function () {
+    this.rankingpoints = this.players.map(function (player) {
+      return player.rankingpoints;
+    }).reduce(function (a, b) {
+      return a + b;
+    }, 0);
+
+    this.emit("update");
+  };
+
   /**
    * prepares a serializable data object, which can later be used for restoring
    * the current state using the restore() function
