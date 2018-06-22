@@ -4,14 +4,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
-    'ui/toast', 'ui/loadedimagesview', 'ui/browserinfoview',
-    'ui/registerteamscontroller', 'ui/registeridscontroller',
-    'ui/requiremodsshortcut', 'ui/finishroundcontroller', 'ui/debug',
-    'ui/tabshandle', 'ui/statesaver'], function(extend, $, View, Storage,
-    Strings, Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
-    RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
-    TabsHandle, StateSaver) {
+define(["lib/extend", "jquery", "core/view", "ui/storage", "ui/strings",
+  "ui/toast", "ui/loadedimagesview", "ui/browserinfoview",
+  "ui/registerteamscontroller", "ui/registeridscontroller",
+  "ui/requiremodsshortcut", "ui/finishroundcontroller", "ui/debug",
+  "ui/tabshandle", "ui/statesaver"
+], function (extend, $, View, Storage,
+  Strings, Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
+  RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
+  TabsHandle, StateSaver) {
   /**
    * represents a whole team tab
    *
@@ -34,27 +35,27 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
    *
    * TODO maybe split it into multiple autodetected functions?
    */
-  DebugTab.prototype.init = function() {
+  DebugTab.prototype.init = function () {
     var $container, $button;
 
     /*
      * Show Tab in dev versions
      */
     if (!Debug.isDevVersion) {
-      TabsHandle.secret('debug');
+      TabsHandle.secret("debug");
     }
 
     /*
      * show browser info
      */
-    $container = this.$view.find('.browser');
+    $container = this.$view.find(".browser");
     this.browserNameView = new BrowserInfoView($container);
 
     /*
      * button: clear all
      */
-    $container = this.$view.find('.register .delete');
-    $container.click(function() {
+    $container = this.$view.find(".register .delete");
+    $container.click(function () {
       StateSaver.removeEverything();
       Storage.clear();
       if (window.localStorage) {
@@ -66,40 +67,43 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
     /*
      * images at pageload
      */
-    $container = this.$view.find('.allimages');
+    $container = this.$view.find(".allimages");
     this.allImages = new LoadedImagesView($container);
 
     /*
      * buttons: register teams
      */
-    $button = this.$view.find('button.registerteams');
-    $container = this.$view.find('input.numteams');
+    $button = this.$view.find("button.registerteams");
+    $container = this.$view.find("input.numteams");
     this.registerTeamsController = new RegisterTeamsController($button,
-        $container);
+      $container);
 
     /*
      * buttons: register teams
      */
-    $button = this.$view.find('button.registerids');
-    $container = this.$view.find('input.numteams');
+    $button = this.$view.find("button.registerids");
+    $container = this.$view.find("input.numteams");
     this.registerIDsController = new RegisterIDsController($button, //
-    $container);
+      $container);
 
     this.mods = new RequireModsShortcut();
 
     /*
      * button: finish matches
      */
-    $button = this.$view.find('button.finishround');
+    $button = this.$view.find("button.finishround");
     this.finishRound = new FinishRoundController($button);
+
+    $button = this.$view.find("button.finishroundrandom");
+    this.finishRoundRandom = new FinishRoundController($button, true);
   };
 
   // FIXME CHEAP HACK AHEAD
-  $(function($) {
+  $(function ($) {
     var $tab;
 
-    $tab = $('#tabs > [data-tab="debug"]');
-    if ($tab.length && $('#testmain').length === 0) {
+    $tab = $("#tabs > [data-tab=\"debug\"]");
+    if ($tab.length && $("#testmain").length === 0) {
       return new DebugTab($tab);
     }
   });

@@ -6,14 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
-    'options'], function(extend, Controller, View, State, Options) {
+define(["lib/extend", "core/controller", "core/view", "ui/state",
+  "options", "core/random"
+], function (extend, Controller, View, State, Options, Random) {
+  var rng = new Random();
+
   /**
    * Constructor
    */
-  function FinishRoundController($button) {
+  function FinishRoundController($button, random) {
     FinishRoundController.superconstructor.call(this, new View(undefined,
-        $button));
+      $button));
+
+    this.random = random;
 
     this.view.$view.click(this.finishRound.bind(this));
   }
@@ -22,8 +27,8 @@ define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
   /**
    *
    */
-  FinishRoundController.prototype.finishRound = function() {
-    State.tournaments.map(function(tournament) {
+  FinishRoundController.prototype.finishRound = function () {
+    State.tournaments.map(function (tournament) {
       var matches, finished;
 
       matches = tournament.getMatches();
@@ -31,7 +36,7 @@ define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
       do {
         finished = true;
 
-        matches.map(function(match) {
+        matches.map(function (match) {
           if (match.isRunningMatch()) {
             match.finish(this.getScore(match.length));
             finished = false;
@@ -42,8 +47,24 @@ define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
     }, this);
   };
 
-  FinishRoundController.prototype.getScore = function() {
-    return [Options.maxpoints, 0];
+  FinishRoundController.prototype.getScore = function (numTeams) {
+    var score, min, max;
+
+    min = Options.minpoints;
+    max = Options.maxpoints;
+
+    score = [];
+    while (score.length < numTeams) {
+      score.push(this.random ? rng.nextInt(min, max) : min);
+    }
+
+    if (this.random) {
+      score[rng.nextInt(score.length)] = max;
+    } else {
+      score[0] = max;
+    }
+
+    return score;
   };
 
   return FinishRoundController;
