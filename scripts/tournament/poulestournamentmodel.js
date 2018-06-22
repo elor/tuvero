@@ -2,19 +2,20 @@ define(
   [
     "lib/extend",
     "tournament/tournamentmodel",
+    "tournament/ressources/poulestables",
     "core/matchmodel",
     "presets",
     "core/random",
     "core/valuemodel"
   ],
-  function (extend, TournamentModel, MatchModel, Presets, Random, ValueModel) {
+  function (extend, TournamentModel, PoulesTables, MatchModel, Presets, Random, ValueModel) {
     var rng = new Random();
 
     function PoulesTournamentModel() {
       PoulesTournamentModel.superconstructor.call(this, ["wins"]);
 
-      this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
-      this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.heads);
+      this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.acbd);
+      this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.quarters);
       this.setProperty("poulesbyepoules", (Presets.systems.poules && Presets.systems.poules.byepoules) || PoulesTournamentModel.BYEPOULES.front);
       this.setProperty("poulesbyeteams", (Presets.systems.poules && Presets.systems.poules.byeteams) || PoulesTournamentModel.BYETEAMS.favorites);
 
