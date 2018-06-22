@@ -7,14 +7,25 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ranking/rankingidcomponent', 'ranking/rankingpointscomponent',
-  'ranking/rankinglostpointscomponent', 'ranking/rankingsaldocomponent',
-  'ranking/rankingbuchholzcomponent', 'ranking/rankingfinebuchholzcomponent',
-  'ranking/rankingsonneborncomponent', 'ranking/rankingwinscomponent',
-  'ranking/rankingheadtoheadcomponent', 'ranking/rankingtaccomponent',
-  'ranking/rankingvotescomponent', 'ranking/rankingnumgamescomponent',
-  'ranking/rankingkocomponent', 'ranking/rankingthreepointcomponent',
-  'ranking/rankingtwopointcomponent', 'ranking/rankingplacementcomponent'],
+define([
+    "ranking/rankingidcomponent",
+    "ranking/rankingpointscomponent",
+    "ranking/rankinglostpointscomponent",
+    "ranking/rankingsaldocomponent",
+    "ranking/rankingbuchholzcomponent",
+    "ranking/rankingfinebuchholzcomponent",
+    "ranking/rankingsonneborncomponent",
+    "ranking/rankingwinscomponent",
+    "ranking/rankingheadtoheadcomponent",
+    "ranking/rankingtaccomponent",
+    "ranking/rankingvotescomponent",
+    "ranking/rankingnumgamescomponent",
+    "ranking/rankingkocomponent",
+    "ranking/rankingthreepointcomponent",
+    "ranking/rankingtwopointcomponent",
+    "ranking/rankingplacementcomponent",
+    "ranking/rankingpouleidcomponent"
+  ],
   function () {
     var RankingComponentIndex, index, Component, allComponents;
 

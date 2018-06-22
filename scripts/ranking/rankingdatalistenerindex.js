@@ -13,28 +13,29 @@
  * @license MIT License
  * @see LICENSE
  */
-define([//
-  'ranking/rankinglostpointslistener', //
-  'ranking/rankingpointslistener',//
-  'ranking/rankingsaldolistener', //
-  'ranking/rankingupvoteslistener', //
-  'ranking/rankingdownvoteslistener', //
-  'ranking/rankingvoteslistener', //
-  'ranking/rankingbyelistener', //
-  'ranking/rankingwinslistener', //
-  'ranking/rankinggamematrixlistener', //
-  'ranking/rankingbuchholzlistener', //
-  'ranking/rankingfinebuchholzlistener', //
-  'ranking/rankingwinsmatrixlistener', //
-  'ranking/rankingtaclistener', //
-  'ranking/rankingsonnebornlistener', //
-  'ranking/rankingheadtoheadlistener', //
-  'ranking/rankingnumgameslistener', //
-  'ranking/rankingkolistener', //
-  'ranking/rankingthreepointlistener',
-  'ranking/rankingtwopointlistener',
-  'ranking/rankingplacementlistener'
-], //
+define([
+    "ranking/rankinglostpointslistener",
+    "ranking/rankingpointslistener",
+    "ranking/rankingsaldolistener",
+    "ranking/rankingupvoteslistener",
+    "ranking/rankingdownvoteslistener",
+    "ranking/rankingvoteslistener",
+    "ranking/rankingbyelistener",
+    "ranking/rankingwinslistener",
+    "ranking/rankinggamematrixlistener",
+    "ranking/rankingbuchholzlistener",
+    "ranking/rankingfinebuchholzlistener",
+    "ranking/rankingwinsmatrixlistener",
+    "ranking/rankingtaclistener",
+    "ranking/rankingsonnebornlistener",
+    "ranking/rankingheadtoheadlistener",
+    "ranking/rankingnumgameslistener",
+    "ranking/rankingkolistener",
+    "ranking/rankingthreepointlistener",
+    "ranking/rankingtwopointlistener",
+    "ranking/rankingplacementlistener",
+    "ranking/rankingpouleidlistener"
+  ],
   function () {
     var RankingDataListenerIndex;
 
@@ -79,7 +80,7 @@ define([//
     function getDataDependencies(name) {
       var DataListener = getDataListener(name);
       if (!DataListener) {
-        console.warn('DataListener is undefined: ' + name);
+        console.warn("DataListener is undefined: " + name);
         return undefined;
       }
       return getDataListener(name).DEPENDENCIES;
@@ -205,8 +206,8 @@ define([//
 
       // check for unresolvable dependencies
       if (input.length > 0) {
-        console.error('dependencies could not be resolved: [' + input.join(',')
-          + ']');
+        console.error("dependencies could not be resolved: [" + input.join(",") +
+          "]");
         names.splice(0);
         return false;
       }
@@ -260,7 +261,7 @@ define([//
 
       if (DataListeners.indexOf(undefined) >= 0) {
         extractUndefinedNames(names);
-        console.error('data listener is undefined: ' + names.join(', '));
+        console.error("data listener is undefined: " + names.join(", "));
         return undefined;
       }
 
