@@ -45,7 +45,8 @@ define(function () {
       teamsfile: "tuvero-anmeldungen.txt"
     },
     ui: {
-      rankingpoints: false
+      rankingpoints: false,
+      hiderankingorder: true
     }
   };
 

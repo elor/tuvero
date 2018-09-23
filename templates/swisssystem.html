@@ -1,14 +1,16 @@
 <div class="boxview swiss system template" data-system="swiss">
   <h3><span class="tournamentname rename">##</span>
-  - Schweizer
-  System</h3>
+    - Schweizer
+    System</h3>
 
   <div class="initial">
     <h3> Runde <span class="nextround">##</span> auslosen </h3>
 
-    <h3>Wertungsreihenfolge</h3>
+    <div class="rankingorder">
+      <h3>Wertungsreihenfolge</h3>
 
-    {% include 'rankingorderview.html' %}
+      {% include 'rankingorderview.html' %}
+    </div>
 
     <div class="boxview collapsed tournamentoptions">
       <h3>Erweiterte Optionen</h3>
@@ -74,4 +76,3 @@
   </div>
   <h3><span class="tournamentname">##</span> - Schweizer System </h3>
 </div>
-
