@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(["lib/extend", "core/model"], function (extend, Model) {
   /**
    * Constructor
    */
@@ -16,7 +16,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   }
   extend(RequireModsShortcut, Model);
 
-  RequireModsShortcut.prototype.createModsObject = function() {
+  RequireModsShortcut.prototype.createModsObject = function () {
     var rjsdef, mods;
 
     if (window.mods !== undefined) {
@@ -25,21 +25,21 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
 
     rjsdef = require.s.contexts._.defined;
     if (!rjsdef) {
-      console.error('require.s.contexts._.defined is undefined');
+      console.error("require.s.contexts._.defined is undefined");
       return;
     }
 
     mods = window.mods = {};
 
     // add every key to mods, which is similar to the directory tree
-    Object.keys(rjsdef).forEach(function(key) {
+    Object.keys(rjsdef).forEach(function (key) {
       var keyparts, subobject;
 
-      keyparts = key.split('/');
+      keyparts = key.split("/");
       subobject = mods;
 
       // search the position of the key, add new objects as necessary
-      keyparts.forEach(function(part, partid) {
+      keyparts.forEach(function (part, partid) {
         if (partid >= keyparts.length - 1) {
           subobject[part] = rjsdef[key];
 
@@ -54,6 +54,10 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
     });
 
     window.tuvero = mods.tuvero;
+
+    window.state = mods.ui && mods.ui.state;
+    window.teams = mods.ui && mods.ui.state.teams;
+    window.tournaments = mods.ui && mods.ui.state.tournaments;
   };
 
   return RequireModsShortcut;
