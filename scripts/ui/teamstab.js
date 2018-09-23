@@ -80,7 +80,7 @@ define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
       "nomaxwidth");
 
     // rankingpoints checkbox
-    value = new ValueModel(true);
+    value = new ValueModel(Presets.ui.rankingpoints);
     $container = this.$view.find(">.options input.rankingpoints");
     this.rankingpointsCheckBoxView = new CheckBoxView(value, $container);
     this.rankingpointsClassView = new ClassView(value, this.$view, undefined, "hiderankingpoints");
