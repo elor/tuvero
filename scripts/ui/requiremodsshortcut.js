@@ -7,9 +7,6 @@
  * @see LICENSE
  */
 define(["lib/extend", "core/model"], function (extend, Model) {
-  /**
-   * Constructor
-   */
   function RequireModsShortcut() {
     RequireModsShortcut.superconstructor.call(this);
     window.setTimeout(this.createModsObject.bind(this), 1);
