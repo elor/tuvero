@@ -8,39 +8,40 @@
  * @see LICENSE
  */
 
-define(function() {
+define(function () {
   var Presets;
 
   Presets = {
-    target: 'basic',
+    target: "basic",
     systems: {
       swiss: {
-        ranking: ['wins', 'headtohead', 'saldo'],
-        mode: 'ranks'
+        ranking: ["wins", "headtohead", "saldo"],
+        mode: "ranks"
       },
       ko: {
-        mode: 'matched'
+        mode: "matched"
       },
       round: {
-        ranking: ['wins', 'sonneborn', 'headtohead', 'points']
+        ranking: ["wins", "sonneborn", "headtohead", "points"]
       },
-      placement: {
-      }
+      placement: {}
     },
     ranking: {
-      components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn',
-          'numgames', 'wins', 'headtohead', 'threepoint', 'twopoint']
+      components: ["buchholz", "finebuchholz", "points", "saldo", "sonneborn",
+        "numgames", "wins", "headtohead", "threepoint", "twopoint"
+      ]
     },
     registration: {
+      defaultteamsize: 1,
       minteamsize: 1,
       maxteamsize: 1,
       teamsizeicon: false
     },
     names: {
-      playernameurl: '',
-      dbplayername: 'tuverobasicplayers',
-      apitoken: 'apitoken',
-      teamsfile: 'tuvero-anmeldungen.txt'
+      playernameurl: "",
+      dbplayername: "tuverobasicplayers",
+      apitoken: "apitoken",
+      teamsfile: "tuvero-anmeldungen.txt"
     }
   };
 

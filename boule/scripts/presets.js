@@ -16,7 +16,8 @@ define(function () {
     systems: {
       swiss: {
         ranking: ["wins", "buchholz", "finebuchholz", "headtohead", "saldo",
-          "votes"],
+          "votes"
+        ],
         mode: "wins"
       },
       ko: {
@@ -25,16 +26,16 @@ define(function () {
       round: {
         ranking: ["wins", "sonneborn", "headtohead", "points"]
       },
-      placement: {
-      },
-      poules: {
-      }
+      placement: {},
+      poules: {}
     },
     ranking: {
       components: ["buchholz", "finebuchholz", "points", "saldo", "sonneborn",
-        "numgames", "wins", "headtohead"]
+        "numgames", "wins", "headtohead"
+      ]
     },
     registration: {
+      defaultteamsize: 1,
       minteamsize: 1,
       maxteamsize: 3,
       teamsizeicon: true

@@ -7,40 +7,39 @@
  * @see LICENSE
  */
 
-define(['ranking/rankingcomponentindex'], function(RankingComponentIndex) {
+define(["ranking/rankingcomponentindex"], function (RankingComponentIndex) {
   var Presets;
 
   Presets = {
-    target: 'test',
+    target: "test",
     systems: {
       swiss: {
-        ranking: ['wins', 'buchholz', 'finebuchholz', 'saldo'],
-        mode: 'wins'
+        ranking: ["wins", "buchholz", "finebuchholz", "saldo"],
+        mode: "wins"
       },
       ko: {
-        mode: 'matched'
+        mode: "matched"
       },
       round: {
-        ranking: ['wins', 'sonneborn']
+        ranking: ["wins", "sonneborn"]
       },
-      placement: {
-      },
-      poules: {
-      }
+      placement: {},
+      poules: {}
     },
     ranking: {
       components: RankingComponentIndex.components
     },
     registration: {
+      defaultteamsize: 1,
       minteamsize: 1,
       maxteamsize: 3,
       teamsizeicon: true
     },
     names: {
-      playernameurl: '',
-      dbplayername: 'testplayers',
-      apitoken: 'apitoken',
-      teamsfile: 'tuvero-anmeldungen.txt'
+      playernameurl: "",
+      dbplayername: "testplayers",
+      apitoken: "apitoken",
+      teamsfile: "tuvero-anmeldungen.txt"
     }
   };
 
