@@ -17,7 +17,7 @@ define(["lib/extend", "core/model", "list/indexedlistmodel", "core/valuemodel",
     StateModel.superconstructor.call(this);
     // actual state
     this.teams = new IndexedListModel();
-    this.teamsize = new ValueModel(3);
+    this.teamsize = new ValueModel(Presets.registration.defaultteamsize || Presets.registration.minteamsize);
     this.tournaments = new TournamentListModel();
     this.serverlink = new ValueModel(undefined);
 
@@ -77,7 +77,7 @@ define(["lib/extend", "core/model", "list/indexedlistmodel", "core/valuemodel",
     // explicit rule to avoid uploading an already existing state
     this.tabOptions.autouploadState.set(false);
 
-    // this.teamsize.set(3); // TODO read default team size from options
+    this.teamsize.set(Presets.registration.defaultteamsize || Presets.registration.minteamsize);
   };
 
   StateModel.prototype.SAVEFORMAT = Object
