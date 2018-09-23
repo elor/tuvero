@@ -40,6 +40,9 @@ define(["ranking/rankingcomponentindex"], function (RankingComponentIndex) {
       dbplayername: "testplayers",
       apitoken: "apitoken",
       teamsfile: "tuvero-anmeldungen.txt"
+    },
+    ui: {
+      rankingpoints: true
     }
   };
 

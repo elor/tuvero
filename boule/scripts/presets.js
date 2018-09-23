@@ -45,6 +45,9 @@ define(function () {
       dbplayername: "bouleplayers",
       apitoken: "apitoken",
       teamsfile: "tuvero-anmeldungen.txt"
+    },
+    ui: {
+      rankingpoints: true
     }
   };
 

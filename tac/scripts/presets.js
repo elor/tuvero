@@ -43,6 +43,9 @@ define(function () {
       dbplayername: "tacplayers",
       apitoken: "apitoken",
       teamsfile: "tuvero-anmeldungen.txt"
+    },
+    ui: {
+      rankingpoints: false
     }
   };
 

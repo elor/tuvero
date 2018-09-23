@@ -42,6 +42,9 @@ define(function () {
       dbplayername: "tuverobasicplayers",
       apitoken: "apitoken",
       teamsfile: "tuvero-anmeldungen.txt"
+    },
+    ui: {
+      rankingpoints: false
     }
   };
 
