@@ -31,7 +31,7 @@ define(function () {
     },
     registration: {
       minteamsize: 1,
-      maxteamsize: 1,
+      maxteamsize: 3,
       teamsizeicon: false
     },
     taboptions: {
