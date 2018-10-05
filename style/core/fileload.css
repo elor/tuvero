@@ -1,7 +1,0 @@
-body .fileload {
-  transition: padding 0.25s ease-in;
-}
-
-body.dragover .fileload {
-  padding: 5em;
-}
