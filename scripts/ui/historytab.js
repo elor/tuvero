@@ -45,7 +45,7 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
       this.set(this.dependencies.some(function (dep) {
         return dep.get();
       }));
-    }
+    };
     fullwidth.dependencies.forEach(function (dep) {
       dep.registerListener(fullwidth);
     });
