@@ -6,12 +6,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/model", "core/valuemodel", "core/statevaluemodel",
+define(["jquery", "lib/extend", "core/model", "core/valuemodel",
   "background/online", "ui/messagemodel", "ui/browser"
 ], function ($,
-  extend, Model, ValueModel, StateValueModel, Online, MessageModel, Browser) {
+  extend, Model, ValueModel, Online, MessageModel, Browser) {
   /**
-   * Constructor
+   * @param  {String} token the API token for the current user
+   * @returns {undefined}
    */
   function ServerModel(token) {
     ServerModel.superconstructor.call(this);
@@ -160,6 +161,8 @@ define(["jquery", "lib/extend", "core/model", "core/valuemodel", "core/statevalu
 
   /**
    * Relay 'update' event from this.token
+   *
+   * @returns {undefined}
    */
   ServerModel.prototype.onupdate = function () {
     this.emit("update");
