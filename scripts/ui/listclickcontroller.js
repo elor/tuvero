@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller', 'core/valuemodel'], function($, extend,
+define(["jquery", "lib/extend", "core/controller", "core/valuemodel"], function ($, extend,
     Controller, ValueModel) {
   /**
    * Constructor
@@ -38,11 +38,11 @@ define(['jquery', 'lib/extend', 'core/controller', 'core/valuemodel'], function(
     options = options || {};
     options.active = options.active || new ValueModel(true);
     options.callbackthis = options.callbackthis || window;
-    options.event = options.event || 'click';
-    if (this.view.$view.prop('tagName') === 'TABLE') {
-      options.selector = options.selector || '> tbody >';
+    options.event = options.event || "click";
+    if (this.view.$view.prop("tagName") === "TABLE") {
+      options.selector = options.selector || "> tbody >";
     } else {
-      options.selector = options.selector || '>';
+      options.selector = options.selector || ">";
     }
 
     listview = this.view;
@@ -51,7 +51,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'core/valuemodel'], function(
     /**
      * handle the click action
      */
-    this.view.$view.on(options.event, options.selector, function(e) {
+    this.view.$view.on(options.event, options.selector, function (e) {
       var $subview, index;
 
       if (options.active.get()) {

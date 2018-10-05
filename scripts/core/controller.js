@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define(function () {
   /**
    * Controls a model, which is referenced by its view.
    *
@@ -21,7 +21,7 @@ define(function() {
     this.view = view;
   }
 
-  Controller.prototype.destroy = function() {
+  Controller.prototype.destroy = function () {
   };
 
   return Controller;

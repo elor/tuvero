@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
+define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
   /**
    * Constructor
    *
@@ -26,7 +26,7 @@ define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
    * @param list
    *          the emitter, i.e. the ListModel instance
    */
-  LengthModel.prototype.onresize = function(list) {
+  LengthModel.prototype.onresize = function (list) {
     LengthModel.superclass.set.call(this, list.length);
   };
 

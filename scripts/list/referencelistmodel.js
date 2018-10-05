@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
+define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
 
   /**
    * Constructor
@@ -30,7 +30,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
     this.teams = teamlist;
     this.ReferenceModel = ReferenceModel;
 
-    this.matches.map(function(match, id) {
+    this.matches.map(function (match, id) {
       ReferenceListModel.insertMatch(this, id);
     }, this);
 
@@ -46,7 +46,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param id
    *          the id to insert at
    */
-  ReferenceListModel.insertMatch = function(referenceList, id) {
+  ReferenceListModel.insertMatch = function (referenceList, id) {
     var ref;
     ref = new referenceList.ReferenceModel(referenceList.matches.get(id),
         referenceList.teams);
@@ -61,7 +61,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param id
    *          the id to remove
    */
-  ReferenceListModel.removeMatch = function(list, id) {
+  ReferenceListModel.removeMatch = function (list, id) {
     ListModel.prototype.remove.call(list, id);
   };
 
@@ -72,7 +72,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param event
    * @param data
    */
-  ReferenceListModel.prototype.oninsert = function(emitter, event, data) {
+  ReferenceListModel.prototype.oninsert = function (emitter, event, data) {
     if (emitter === this.matches) {
       ReferenceListModel.insertMatch(this, data.id);
     }
@@ -85,7 +85,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param event
    * @param data
    */
-  ReferenceListModel.prototype.onremove = function(emitter, event, data) {
+  ReferenceListModel.prototype.onremove = function (emitter, event, data) {
     if (emitter === this.matches) {
       ReferenceListModel.removeMatch(this, data.id);
     }
@@ -98,7 +98,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param event
    * @param data
    */
-  ReferenceListModel.prototype.onreset = function(emitter, event, data) {
+  ReferenceListModel.prototype.onreset = function (emitter, event, data) {
     if (emitter === this.matches) {
       this.emit(event, data);
     }

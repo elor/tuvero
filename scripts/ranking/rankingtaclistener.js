@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
-'options'], function(extend, RankingDataListener, VectorModel, Options) {
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
+"options"], function (extend, RankingDataListener, VectorModel, Options) {
   var winscore;
 
   // FIXME extract "12" to the config.in
@@ -37,13 +37,13 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
   }
   extend(RankingTacListener, RankingDataListener);
 
-  RankingTacListener.NAME = 'tac';
+  RankingTacListener.NAME = "tac";
 
-  RankingTacListener.prototype.onresult = function(r, e, result) {
+  RankingTacListener.prototype.onresult = function (r, e, result) {
     var winner, loser, difference, points;
 
     if (result.teams.length !== 2) {
-      throw new Error('TAC ranking requires exactly two teams in a result');
+      throw new Error("TAC ranking requires exactly two teams in a result");
     }
 
     difference = result.score[0] - result.score[1];
@@ -62,7 +62,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
       loser = 0;
       break;
     default:
-      console.error('TAC ranking does not accept draws');
+      console.error("TAC ranking does not accept draws");
       return undefined;
     }
 
@@ -101,21 +101,21 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param teams
    *          an array of teams, as prepared and provided by RankingModel.bye()
    */
-  RankingTacListener.prototype.onbye = function(r, e, teams) {
-    teams.forEach(function(team) {
+  RankingTacListener.prototype.onbye = function (r, e, teams) {
+    teams.forEach(function (team) {
       var points = this.tac.get(team) + Options.byepointswon
           - Options.byepointslost + 12;
       this.tac.set(team, points);
     }, this);
   };
 
-  RankingTacListener.prototype.oncorrect = function(r, e, correction) {
+  RankingTacListener.prototype.oncorrect = function (r, e, correction) {
     // TODO DRY - Don't Repeat Yourself!
     // TODO extract a method for use by onresult and oncorrect
     var winner, loser, difference, points;
 
     if (correction.before.teams.length !== 2) {
-      throw new Error('TAC ranking requires exactly two teams in a result');
+      throw new Error("TAC ranking requires exactly two teams in a result");
     }
 
     difference = correction.before.score[0] - correction.before.score[1];
@@ -134,7 +134,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
       loser = 0;
       break;
     default:
-      console.error('TAC ranking does not accept draws');
+      console.error("TAC ranking does not accept draws");
       return undefined;
     }
 

@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
-    'jquery', 'core/valuemodel', 'core/classview', 'ui/imageview'], function(
+define(["lib/extend", "core/view", "ui/valueview", "ui/logincontroller",
+    "jquery", "core/valuemodel", "core/classview", "ui/imageview"], function (
     extend, View, ValueView, LoginController, $, ValueModel, ClassView,
     ImageView) {
   /**
@@ -22,43 +22,43 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.errorModel = new ValueModel(false);
     this.online = new ValueModel(this.model.communicationStatus().online);
     this.errorModel.registerListener(this.online);
-    this.online.onupdate = function() {
+    this.online.onupdate = function () {
       this.set(model.communicationStatus().online);
     };
 
-    this.$userinfo = this.$view.find('.userinfo');
-    this.$username = this.$view.find('.username');
-    this.$avatar = this.$view.find('img.avatar');
-    this.$loginbutton = this.$view.find('button.login');
-    this.$logoutbutton = this.$view.find('button.logout');
-    this.$busy = this.$view.find('.busy');
-    this.$domainnotice = this.$view.find('.domainnotice');
-    this.$nodomainnotice = this.$view.find('.nodomainnotice');
-    this.$online = this.$view.find('.online');
-    this.$offline = this.$view.find('.offline');
+    this.$userinfo = this.$view.find(".userinfo");
+    this.$username = this.$view.find(".username");
+    this.$avatar = this.$view.find("img.avatar");
+    this.$loginbutton = this.$view.find("button.login");
+    this.$logoutbutton = this.$view.find("button.logout");
+    this.$busy = this.$view.find(".busy");
+    this.$domainnotice = this.$view.find(".domainnotice");
+    this.$nodomainnotice = this.$view.find(".nodomainnotice");
+    this.$online = this.$view.find(".online");
+    this.$offline = this.$view.find(".offline");
 
     this.userinfovisibility = new ClassView(this.model.tokenvalid,
-        this.$userinfo, undefined, 'hidden');
+        this.$userinfo, undefined, "hidden");
     this.avatarvisibility = new ClassView(this.avatar, this.$avatar, undefined,
-        'hidden');
+        "hidden");
     this.usernamevisibility = new ClassView(this.username, this.$username,
-        undefined, 'hidden');
+        undefined, "hidden");
     this.loginbuttonvisibility = new ClassView(this.model.tokenvalid,
-        this.$loginbutton, 'hidden', undefined);
+        this.$loginbutton, "hidden", undefined);
     this.logoutbuttonvisibility = new ClassView(this.model.tokenvalid,
-        this.$logoutbutton, undefined, 'hidden');
+        this.$logoutbutton, undefined, "hidden");
     this.busyvisibility = new ClassView(this.model.openTransactions,
-        this.$busy, undefined, 'hidden');
+        this.$busy, undefined, "hidden");
 
     this.onlineVisibility = new ClassView(this.online, //
-    this.$online, undefined, 'hidden');
+    this.$online, undefined, "hidden");
     this.offlineVisibility = new ClassView(this.online, //
-    this.$offline, 'hidden');
+    this.$offline, "hidden");
 
     if (this.model.communicationStatus().tuvero) {
-      this.$domainnotice.addClass('hidden');
+      this.$domainnotice.addClass("hidden");
     } else {
-      this.$nodomainnotice.addClass('hidden');
+      this.$nodomainnotice.addClass("hidden");
     }
 
     this.usernameView = new ValueView(this.username, this.$username);
@@ -70,15 +70,15 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.loginWindowSuppressed = new ValueModel(false);
 
     this.popupBlockedView = new ClassView(this.popupBlocked, this.$view
-        .find('.popupnotice'), undefined, 'hidden');
+        .find(".popupnotice"), undefined, "hidden");
 
     this.errorView = new ClassView(this.errorModel, this.$view
-        .find('.errornotice'), undefined, 'hidden');
+        .find(".errornotice"), undefined, "hidden");
 
     // TODO offlinenotice
     // TODO domainnotice
 
-    $(window).on('beforeunload', (function($) {
+    $(window).on("beforeunload", (function ($) {
       this.closeLoginWindow();
     }).bind(this));
 
@@ -86,7 +86,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
   }
   extend(LoginView, View);
 
-  LoginView.prototype.openLoginWindow = function() {
+  LoginView.prototype.openLoginWindow = function () {
     this.closeLoginWindow();
 
     if (this.loginWindowSuppressed.get()) {
@@ -104,7 +104,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
       return false;
     }
 
-    this.loginWindow = window.open('https://www.tuvero.de/login');
+    this.loginWindow = window.open("https://www.tuvero.de/login");
 
     if (!this.isLoginWindowOpen()) {
       this.closeLoginWindow();
@@ -117,14 +117,14 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     return this.isLoginWindowOpen();
   };
 
-  LoginView.prototype.loginPolling = function() {
+  LoginView.prototype.loginPolling = function () {
     var timeout;
 
     if (this.loginPollingTimeout) {
       return;
     }
 
-    timeout = this.loginPollingTimeout = window.setTimeout((function() {
+    timeout = this.loginPollingTimeout = window.setTimeout((function () {
       if (this.loginPollingTimeout !== timeout) {
         return;
       }
@@ -134,8 +134,8 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     }).bind(this), 500);
   };
 
-  LoginView.prototype.closeLoginWindow = function() {
-    console.log('closeLoginWindow');
+  LoginView.prototype.closeLoginWindow = function () {
+    console.log("closeLoginWindow");
     if (!this.isLoginWindowOpen()) {
       return;
     }
@@ -153,11 +153,11 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.loginWindowSuppressed.set(false);
   };
 
-  LoginView.prototype.isLoginWindowOpen = function() {
+  LoginView.prototype.isLoginWindowOpen = function () {
     return !!this.loginWindow && !!this.loginWindow.parent;
   };
 
-  LoginView.prototype.updateProfile = function() {
+  LoginView.prototype.updateProfile = function () {
     if (!this.model.communicationStatus().all) {
       this.username.set(undefined);
       this.avatar.set(undefined);
@@ -166,12 +166,12 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
 
     this.errorModel.set(false);
 
-    var msg = this.model.message('/profile');
-    msg.onreceive = (function(emitter, event, data) {
+    var msg = this.model.message("/profile");
+    msg.onreceive = (function (emitter, event, data) {
       this.username.set(data.displayname);
       this.avatar.set(data.avatar_url);
     }).bind(this);
-    msg.onerror = (function() {
+    msg.onerror = (function () {
       this.errorModel.set(true);
       this.username.set(undefined);
       this.avatar.set(undefined);
@@ -179,7 +179,7 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     msg.send();
   };
 
-  LoginView.prototype.onlogin = function() {
+  LoginView.prototype.onlogin = function () {
     this.errorModel.set(false);
     this.suppressLoginWindow = false;
     this.updateProfile();
@@ -187,19 +187,19 @@ define(['lib/extend', 'core/view', 'ui/valueview', 'ui/logincontroller',
     this.closeLoginWindow();
   };
 
-  LoginView.prototype.onlogout = function() {
+  LoginView.prototype.onlogout = function () {
     this.errorModel.set(false);
     this.suppressLoginWindow = false;
     this.updateProfile();
   };
 
-  LoginView.prototype.onerror = function() {
+  LoginView.prototype.onerror = function () {
     this.errorModel.set(true);
     this.suppressLoginWindow = false;
     this.updateProfile();
   };
 
-  LoginView.prototype.onauthenticate = function(emitter, event) {
+  LoginView.prototype.onauthenticate = function (emitter, event) {
     this.errorModel.set(false);
     if (!this.isLoginWindowOpen()) {
       if (!this.openLoginWindow()) {

@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/statesaver', 'ui/state', 'ui/playermodel', 'ui/teammodel'], //
-function(StateSaver, State, PlayerModel, TeamModel) {
+define(["ui/statesaver", "ui/state", "ui/playermodel", "ui/teammodel"], //
+function (StateSaver, State, PlayerModel, TeamModel) {
   /**
    * Constructor
    */
@@ -15,7 +15,7 @@ function(StateSaver, State, PlayerModel, TeamModel) {
     ServerTournamentLoader.superconstructor.call(this);
   }
 
-  ServerTournamentLoader.prototype.loadTournament = function(tournament) {
+  ServerTournamentLoader.prototype.loadTournament = function (tournament) {
     // create new root RefLog with proper name
     StateSaver.createNewEmptyTree(tournament.name);
     // load state

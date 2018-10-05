@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery'], function($) {
+define(["jquery"], function ($) {
   var FontHotkeys, $buttons;
 
   FontHotkeys = undefined;
@@ -16,20 +16,20 @@ define(['jquery'], function($) {
       return;
     }
 
-    if (window.location.hash === '#font+') {
+    if (window.location.hash === "#font+") {
       setFontSize(getFontSize() + 1);
-      window.location.hash = '';
-    } else if (window.location.hash === '#font-') {
+      window.location.hash = "";
+    } else if (window.location.hash === "#font-") {
       setFontSize(getFontSize() - 1);
-      window.location.hash = '';
+      window.location.hash = "";
     }
   }
 
   function getFontSize() {
     var fontSize = -1;
 
-    $buttons.each(function(index) {
-      if ($(this).parent().hasClass($(this).attr('class'))) {
+    $buttons.each(function (index) {
+      if ($(this).parent().hasClass($(this).attr("class"))) {
         fontSize = index;
       }
     });
@@ -43,12 +43,12 @@ define(['jquery'], function($) {
     $buttons.eq(index).click();
   }
 
-  $(window).on('hashchange', function() {
+  $(window).on("hashchange", function () {
     hashcheck();
   });
 
-  $(function($) {
-    $buttons = $('#tabs>[data-tab="settings"] .fontsizeview:first button');
+  $(function ($) {
+    $buttons = $("#tabs>[data-tab=\"settings\"] .fontsizeview:first button");
   });
 
   return FontHotkeys;

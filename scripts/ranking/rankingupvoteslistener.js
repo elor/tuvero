@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function(
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
     extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -26,11 +26,11 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
    *
    * @return true
    */
-  RankingUpvotesListener.prototype.isPrimary = function() {
+  RankingUpvotesListener.prototype.isPrimary = function () {
     return true;
   };
 
-  RankingUpvotesListener.NAME = 'upvotes';
+  RankingUpvotesListener.NAME = "upvotes";
   RankingUpvotesListener.DEPENDENCIES = undefined;
 
   return RankingUpvotesListener;

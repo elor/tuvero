@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'ui/statesaver'], function(extend,
+define(["lib/extend", "core/controller", "ui/statesaver"], function (extend,
     Controller, StateSaver) {
   /**
    * Constructor
@@ -14,8 +14,8 @@ define(['lib/extend', 'core/controller', 'ui/statesaver'], function(extend,
   function TimeMachineNewTreeController(view) {
     TimeMachineNewTreeController.superconstructor.call(this, view);
 
-    this.$input = this.view.$view.find('input.treename');
-    this.$button = this.view.$view.find('button.createroot');
+    this.$input = this.view.$view.find("input.treename");
+    this.$button = this.view.$view.find("button.createroot");
 
     this.$input.keydown(this.inputKey.bind(this));
     this.$button.click(this.create.bind(this));
@@ -27,7 +27,7 @@ define(['lib/extend', 'core/controller', 'ui/statesaver'], function(extend,
    *
    * @return true. always.
    */
-  TimeMachineNewTreeController.prototype.create = function() {
+  TimeMachineNewTreeController.prototype.create = function () {
     var name;
 
     name = this.$input.val();
@@ -37,7 +37,7 @@ define(['lib/extend', 'core/controller', 'ui/statesaver'], function(extend,
     }
 
     if (StateSaver.createNewEmptyTree(name)) {
-      this.$input.val('');
+      this.$input.val("");
     }
 
     return true;
@@ -49,7 +49,7 @@ define(['lib/extend', 'core/controller', 'ui/statesaver'], function(extend,
    * @param evt
    * @return false if event propagation should be stopped
    */
-  TimeMachineNewTreeController.prototype.inputKey = function(evt) {
+  TimeMachineNewTreeController.prototype.inputKey = function (evt) {
     if (evt.which === 13) {
       // enter
       this.$button.click();

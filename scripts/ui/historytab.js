@@ -4,9 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
-    'ui/checkboxview', 'core/classview', 'ui/tournamenthistoryview',
-    'ui/closedtournamentcollapselistener', 'ui/tabshandle'], function(extend, $,
+define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
+    "ui/checkboxview", "core/classview", "ui/tournamenthistoryview",
+    "ui/closedtournamentcollapselistener", "ui/tabshandle"], function (extend, $,
     View, ListView, State, CheckBoxView, ClassView, TournamentHistoryView,
     ClosedTournamentCollapseListener, TabsHandle) {
   /**
@@ -35,12 +35,12 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    *
    * TODO maybe split it into multiple autodetected functions?
    */
-  HistoryTab.prototype.init = function() {
+  HistoryTab.prototype.init = function () {
     var $template, $container, value;
 
     // tournamentlist
-    $container = this.$view.find('.tournamentlist');
-    $template = $container.find('.tournament.template');
+    $container = this.$view.find(".tournamentlist");
+    $template = $container.find(".tournament.template");
     this.tournamentList = new ListView(State.tournaments, $container,
         $template, TournamentHistoryView, State.teams, State.teamsize,
         State.tabOptions.showNames);
@@ -51,37 +51,37 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
-    $container = this.$view.find('>.options input.maxwidth');
+    $container = this.$view.find(">.options input.maxwidth");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
-        'nomaxwidth');
+    this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
+        "nomaxwidth");
 
     // player names checkbox
     value = State.tabOptions.showNames;
-    $container = this.$view.find('>.options input.shownames');
+    $container = this.$view.find(">.options input.shownames");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
-        'hidenames');
+        "hidenames");
 
     // list/table selection checkbox
     value = State.tabOptions.showMatchTables;
-    $container = this.$view.find('>.options input.showtable');
+    $container = this.$view.find(">.options input.showtable");
     this.showtableCheckBoxView = new CheckBoxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view,
-        'showmatchtable', 'showtable');
+        "showmatchtable", "showtable");
 
     // hidefinished checkbox
     value = State.tabOptions.hideFinishedGroups;
-    $container = this.$view.find('>.options input.hidefinished');
+    $container = this.$view.find(">.options input.hidefinished");
     this.hidefinishedCheckBoxView = new CheckBoxView(value, $container);
     this.hidefinishedClassView = new ClassView(value, this.$view,
-        'hidefinished');
+        "hidefinished");
   };
 
   /**
    * show/hide the tab and update it as necessary
    */
-  HistoryTab.prototype.update = function() {
+  HistoryTab.prototype.update = function () {
     var i, hasHistory;
 
     hasHistory = false;
@@ -95,9 +95,9 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
     }
 
     if (hasHistory) {
-      TabsHandle.show('history');
+      TabsHandle.show("history");
     } else {
-      TabsHandle.hide('history');
+      TabsHandle.hide("history");
     }
   };
 
@@ -108,7 +108,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    * @param event
    * @param data
    */
-  HistoryTab.prototype.onresize = function(emitter, event, //
+  HistoryTab.prototype.onresize = function (emitter, event, //
   data) {
     this.update();
   };
@@ -120,7 +120,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    * @param event
    * @param data
    */
-  HistoryTab.prototype.oninsert = function(emitter, event, //
+  HistoryTab.prototype.oninsert = function (emitter, event, //
   data) {
     if (emitter === State.tournaments) {
       data.object.getCombinedHistory().registerListener(this);
@@ -135,7 +135,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    * @param event
    * @param data
    */
-  HistoryTab.prototype.onremove = function(emitter, event, //
+  HistoryTab.prototype.onremove = function (emitter, event, //
   data) {
     if (emitter === State.tournaments) {
       data.object.getHistory().unregisterListener(this);
@@ -144,11 +144,11 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
   };
 
   // FIXME CHEAP HACK AHEAD
-  $(function($) {
+  $(function ($) {
     var $tab;
 
-    $tab = $('#tabs > [data-tab="history"]');
-    if ($tab.length && $('#testmain').length === 0) {
+    $tab = $("#tabs > [data-tab=\"history\"]");
+    if ($tab.length && $("#testmain").length === 0) {
       return new HistoryTab($tab);
     }
   });

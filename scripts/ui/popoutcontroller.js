@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
-    'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine',
-    'ui/fontsizeview'], function($, extend, Controller, Toast, Strings, ClassView,
+define(["jquery", "lib/extend", "core/controller", "ui/toast", "ui/strings",
+    "core/classview", "ui/state", "core/listener", "timemachine/timemachine",
+    "ui/fontsizeview"], function ($, extend, Controller, Toast, Strings, ClassView,
     State, Listener, TimeMachine, FontSizeView) {
       var mainPopout, $fontsizeview, fontsizeview, timeMachineListener;
 
@@ -35,13 +35,13 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     mainPopout = undefined;
   }
 
-  timeMachineListener = Listener.bind(TimeMachine, 'unload', closeMainPopout);
+  timeMachineListener = Listener.bind(TimeMachine, "unload", closeMainPopout);
 
   /**
    * close all popout on page leave
    */
-  $(function($) {
-    $(window).on('beforeunload', closeMainPopout);
+  $(function ($) {
+    $(window).on("beforeunload", closeMainPopout);
   });
 
   /**
@@ -64,56 +64,56 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
   }
   extend(PopoutController, Controller);
 
-  PopoutController.prototype.popout = function(e) {
+  PopoutController.prototype.popout = function (e) {
     var $popoutView, stylepath, $style, $title, $body;
 
     $popoutView = this.view.$popoutTemplate.clone();
 
     if (!isMainPopoutOpen()) {
-      console.log('opening new popout');
+      console.log("opening new popout");
 
-      mainPopout = window.open('', '', 'location=0');
-      $(mainPopout).on('beforeunload', closeMainPopout);
+      mainPopout = window.open("", "", "location=0");
+      $(mainPopout).on("beforeunload", closeMainPopout);
 
-      $style = $('style');
+      $style = $("style");
       if ($style.length === 0) {
         stylepath = window.location.href.replace(/index.html[?#].*/,
-            'style/main.css');
-        $style = $('<link rel="stylesheet" href="' + stylepath + '">');
+            "style/main.css");
+        $style = $("<link rel=\"stylesheet\" href=\"" + stylepath + "\">");
       } else {
         $style = $style.clone();
       }
-      $title = $('title').clone();
+      $title = $("title").clone();
       $(mainPopout.document.head).append($style).append($title);
 
       $body = $(mainPopout.document.body);
-      $body.attr('id', 'app').addClass('popoutContainer');
+      $body.attr("id", "app").addClass("popoutContainer");
       $body.data({
         maxWidthView: new ClassView(State.tabOptions.nameMaxWidth, $body,
-            'maxwidth', 'nomaxwidth'),
+            "maxwidth", "nomaxwidth"),
         hideNamesView: new ClassView(State.tabOptions.showNames, $body,
-            undefined, 'hidenames'),
+            undefined, "hidenames"),
         showtableClassView: new ClassView(State.tabOptions.showMatchTables,
-            $body, 'showmatchtable', 'showtable'),
+            $body, "showmatchtable", "showtable"),
         hidefinishedClassView: new ClassView(
-            State.tabOptions.hideFinishedGroups, $body, 'hidefinished')
+            State.tabOptions.hideFinishedGroups, $body, "hidefinished")
       });
 
       if (!$fontsizeview) {
-        $fontsizeview = $('.fontsizeview').eq(1);
+        $fontsizeview = $(".fontsizeview").eq(1);
       }
 
       fontsizeview = new FontSizeView($fontsizeview, $body);
 
     } else {
-      console.log('main popout already exists and is open');
+      console.log("main popout already exists and is open");
     }
 
-    $popoutView.addClass('primaryPopout');
+    $popoutView.addClass("primaryPopout");
     $(mainPopout.document.body).append($popoutView);
     this.cloneFunction.call(mainPopout, $popoutView);
 
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       if (!isMainPopoutOpen()) {
         new Toast(Strings.popout_adblocked);
       }
@@ -123,8 +123,8 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     return false;
   };
 
-  PopoutController.prototype.close = function(e) {
-    console.log('close');
+  PopoutController.prototype.close = function (e) {
+    console.log("close");
 
     this.view.destroy();
 
@@ -132,7 +132,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
     return false;
   };
 
-  PopoutController.prototype.togglePageBreak = function(e) {
+  PopoutController.prototype.togglePageBreak = function (e) {
     this.view.pageBreakModel.set(!this.view.pageBreakModel.get());
 
     e.preventDefault(true);

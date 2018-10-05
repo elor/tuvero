@@ -10,9 +10,9 @@ define(function () {
   return function (QUnit, getModule) {
     var Emitter;
 
-    Emitter = getModule('core/emitter');
+    Emitter = getModule("core/emitter");
 
-    QUnit.test('Emitter', function (assert) {
+    QUnit.test("Emitter", function (assert) {
       var emitter, listener, listener2, eventcounter, resetcounter, retval;
 
       eventcounter = resetcounter = 0;
@@ -39,11 +39,11 @@ define(function () {
          */
         onevent: function (_emitter, event) {
           eventcounter += 1;
-          assert.equal(this, listener, 'onevent(): this equals listener');
+          assert.equal(this, listener, "onevent(): this equals listener");
           assert.equal(_emitter, emitter,
-            'onevent(): first argument equals emitter ');
-          assert.equal(event, 'event',
-            'onevent(): second argument equals event string');
+            "onevent(): first argument equals emitter ");
+          assert.equal(event, "event",
+            "onevent(): second argument equals event string");
         },
         emitters: []
       };
@@ -60,52 +60,52 @@ define(function () {
 
       emitter = new Emitter();
       emitter.EVENTS = {
-        'asd': true,
-        'event': true,
-        'reset': true
+        "asd": true,
+        "event": true,
+        "reset": true
       };
 
-      retval = emitter.emit('asd');
+      retval = emitter.emit("asd");
 
       assert.equal(retval, false,
-        'Emitter: unreceived event returns false on emit()');
+        "Emitter: unreceived event returns false on emit()");
 
       emitter.registerListener(listener).registerListener(listener2);
       assert.equal(eventcounter + resetcounter, 0,
-        'counters are at a zero state after listener registration');
+        "counters are at a zero state after listener registration");
 
-      retval = emitter.emit('event');
+      retval = emitter.emit("event");
       assert.equal(eventcounter, 2, "both listeners received 'event'");
       assert.equal(retval, true,
-        'Emitter: received event returns true on emit()');
+        "Emitter: received event returns true on emit()");
 
       emitter.registerListener(listener);
-      retval = emitter.emit('event');
-      assert.equal(eventcounter, 4, 'Cannot register an event listener twice');
+      retval = emitter.emit("event");
+      assert.equal(eventcounter, 4, "Cannot register an event listener twice");
 
-      retval = emitter.emit('reset');
+      retval = emitter.emit("reset");
       assert.equal(eventcounter, 0, "counter was reset during 'reset' event");
-      assert.equal(resetcounter, 1, 'reset was processed');
+      assert.equal(resetcounter, 1, "reset was processed");
 
-      retval = emitter.emit('event');
+      retval = emitter.emit("event");
       retval = emitter.emit();
       assert.equal(resetcounter, 1,
-        'default event (undefined) was not processed');
+        "default event (undefined) was not processed");
       assert.equal(eventcounter, 2,
-        'onundefined callback function was not processed');
+        "onundefined callback function was not processed");
 
-      emitter.emit('thisEventIsInvalid');
-      assert.equal(eventcounter, 2, 'unspecified events are not processed');
+      emitter.emit("thisEventIsInvalid");
+      assert.equal(eventcounter, 2, "unspecified events are not processed");
 
       emitter.unregisterListener(listener);
-      retval = emitter.emit('event');
+      retval = emitter.emit("event");
       assert.equal(eventcounter, 3,
-        'unregistered listeners do not receive events');
+        "unregistered listeners do not receive events");
 
       retval = emitter.listeners.indexOf(listener);
-      assert.equal(retval, -1, 'listeners are removed from emitter.listeners');
+      assert.equal(retval, -1, "listeners are removed from emitter.listeners");
       retval = listener.emitters.indexOf(emitter);
-      assert.equal(retval, -1, 'emitters are removed from listener.emitters');
+      assert.equal(retval, -1, "emitters are removed from listener.emitters");
 
       /*
        * emit+unregister test
@@ -117,7 +117,7 @@ define(function () {
 
       emitter = new Emitter();
       emitter.EVENTS = {
-        'evt': true
+        "evt": true
       };
       listener2 = {
         success: false,
@@ -134,9 +134,9 @@ define(function () {
       };
       emitter.registerListener(listener);
       emitter.registerListener(listener2);
-      emitter.emit('evt');
+      emitter.emit("evt");
       assert.equal(listener2.success, true,
-        'unregister during emit should not cause listeners to be skipped');
+        "unregister during emit should not cause listeners to be skipped");
 
       /*
        * Mixin tests: when instantiating the emitter multiple times, the
@@ -145,14 +145,14 @@ define(function () {
 
       emitter = new Emitter();
       emitter.EVENTS = {
-        'evt': true
+        "evt": true
       };
       listener2.success = false;
       emitter.registerListener(listener2);
       Emitter.call(emitter); // mix-in
-      emitter.emit('evt');
+      emitter.emit("evt");
       assert.equal(listener2.success, true,
-        'Mixin-initialization of an emitter preserves the listeners');
+        "Mixin-initialization of an emitter preserves the listeners");
 
       /*
        * testing memory leak due to invalid forEach call
@@ -169,9 +169,9 @@ define(function () {
       emitter.destroy();
 
       assert.equal(listener.emitters.length, 0,
-        'memleak: first listener was unregistered');
+        "memleak: first listener was unregistered");
       assert.equal(listener2.emitters.length, 0,
-        'memleak: second listener was unregistered');
+        "memleak: second listener was unregistered");
 
       /*
        * Test Exception handling
@@ -179,7 +179,7 @@ define(function () {
 
       emitter = new Emitter();
       emitter.EVENTS = {
-        'evt': true
+        "evt": true
       };
       eventcounter = 0;
       listener = {
@@ -196,10 +196,10 @@ define(function () {
       };
       emitter.registerListener(listener);
       emitter.registerListener(listener2);
-      emitter.emit('evt');
-      emitter.emit('evt');
+      emitter.emit("evt");
+      emitter.emit("evt");
 
-      assert.equal(eventcounter, 2, 'errors are intercepted');
+      assert.equal(eventcounter, 2, "errors are intercepted");
 
     });
   };

@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
+define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
 
   /**
    * Constructor
@@ -27,7 +27,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
     this.indices = indexlist;
     this.map = maplist;
 
-    this.indices.map(function(index, pos) {
+    this.indices.map(function (index, pos) {
       MapListModel.insertID(this, pos);
     }, this);
 
@@ -43,7 +43,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param pos
    *          the id to insert at
    */
-  MapListModel.insertID = function(list, pos) {
+  MapListModel.insertID = function (list, pos) {
     var ref;
     ref = list.map.get(list.indices.get(pos));
     ListModel.prototype.insert.call(list, pos, ref);
@@ -57,7 +57,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param id
    *          the id to remove
    */
-  MapListModel.removeID = function(list, id) {
+  MapListModel.removeID = function (list, id) {
     ListModel.prototype.remove.call(list, id);
   };
 
@@ -68,7 +68,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param event
    * @param data
    */
-  MapListModel.prototype.oninsert = function(emitter, event, data) {
+  MapListModel.prototype.oninsert = function (emitter, event, data) {
     if (emitter === this.indices) {
       MapListModel.insertID(this, data.id);
     }
@@ -81,7 +81,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param event
    * @param data
    */
-  MapListModel.prototype.onremove = function(emitter, event, data) {
+  MapListModel.prototype.onremove = function (emitter, event, data) {
     if (emitter === this.indices) {
       MapListModel.removeID(this, data.id);
     }
@@ -94,7 +94,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param event
    * @param data
    */
-  MapListModel.prototype.onreset = function(emitter, event, data) {
+  MapListModel.prototype.onreset = function (emitter, event, data) {
     if (emitter === this.indices) {
       this.emit(event, data);
     }

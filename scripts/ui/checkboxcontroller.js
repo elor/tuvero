@@ -6,7 +6,7 @@
  * @see LICENSE
  */
 
-define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controller) {
+define(["jquery", "lib/extend", "core/controller"], function ($, extend, Controller) {
   /**
    * Constructor
    *
@@ -19,10 +19,10 @@ define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controll
 
     model = this.model;
     $checkbox = this.view.$view;
-    $parent = $checkbox.parent().filter('span');
+    $parent = $checkbox.parent().filter("span");
 
-    $parent.click(function(e) {
-      if ($(e.target).prop('tagName') === 'SPAN') {
+    $parent.click(function (e) {
+      if ($(e.target).prop("tagName") === "SPAN") {
         $checkbox.click();
       }
     });
@@ -30,10 +30,10 @@ define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controll
     /**
      * apply checkbox state to model state
      */
-    $checkbox.change(function() {
+    $checkbox.change(function () {
       var viewvalue, modelvalue;
 
-      viewvalue = $checkbox.prop('checked');
+      viewvalue = $checkbox.prop("checked");
       modelvalue = model.get();
 
       if (viewvalue !== modelvalue) {

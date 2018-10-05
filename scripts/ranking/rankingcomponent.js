@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define(function () {
   /**
    * Constructor
    *
@@ -35,7 +35,7 @@ define(function() {
     if (this.constructor.DEPENDENCIES === undefined) {
       this.dependencies.push(this.constructor.NAME);
     } else {
-      this.constructor.DEPENDENCIES.forEach(function(DEP) {
+      this.constructor.DEPENDENCIES.forEach(function (DEP) {
         this.dependencies.push(DEP);
       }, this);
     }
@@ -48,7 +48,7 @@ define(function() {
    * This also is an implicit dependency, unless DEPENDENCIES is defined. If
    * there are no dependencies, set DEPENDENCIES to an empty array.
    */
-  RankingComponent.NAME = 'undefined';
+  RankingComponent.NAME = "undefined";
 
   /**
    * a list of dependencies, i.e. names, as in ranking.name.
@@ -71,13 +71,13 @@ define(function() {
      * @return 0. After this step, every team is equal, so multiple first
      *         places can happen.
      */
-    compare: function(i, k) {
+    compare: function (i, k) {
       return 0;
     },
     /**
      * do nothing, just return the output array
      */
-    getValues: function(outArray) {
+    getValues: function (outArray) {
       return outArray;
     }
   };
@@ -91,7 +91,7 @@ define(function() {
    * @return outArray, an array of value arrays for every chain level. If a
    *          level does not have any values, its entry will be set to undefined
    */
-  RankingComponent.prototype.getValues = function(outArray) {
+  RankingComponent.prototype.getValues = function (outArray) {
     var values, index;
 
     if (outArray === undefined) {
@@ -104,7 +104,7 @@ define(function() {
       values[index] = this.value(index);
     }
 
-    if (values.every(function(value) {
+    if (values.every(function (value) {
       return value === undefined;
     })) {
       values = undefined;
@@ -127,7 +127,7 @@ define(function() {
    *          a team index
    * @return a point value (or whatever) for this team
    */
-  RankingComponent.prototype.value = function(i) {
+  RankingComponent.prototype.value = function (i) {
     return undefined;
   };
 
@@ -145,7 +145,7 @@ define(function() {
    * @return {Number} see Array.prototype.sort() for an explanation of compare
    *         functions
    */
-  RankingComponent.prototype.compare = function(i, k) {
+  RankingComponent.prototype.compare = function (i, k) {
     return this.value(k) - this.value(i) || this.nextcomponent.compare(i, k);
   };
 

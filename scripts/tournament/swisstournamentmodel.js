@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/matchmodel',
-    'core/byeresult', 'options', 'presets'], function(extend,
+define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/matchmodel",
+    "core/byeresult", "options", "presets"], function (extend,
     RoundTournamentModel, Random, MatchModel, ByeResult, Options, Presets) {
   var rng = new Random();
   /**
@@ -18,43 +18,43 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
   function SwissTournamentModel(rankingorder) {
     SwissTournamentModel.superconstructor.call(this, rankingorder);
 
-    this.setProperty('swissmode',
+    this.setProperty("swissmode",
         (Presets.systems.swiss && Presets.systems.swiss.mode)
             || SwissTournamentModel.MODES.ranks);
-    this.setProperty('swissshuffle', true);
-    this.setProperty('swisstranspose', false);
+    this.setProperty("swissshuffle", true);
+    this.setProperty("swisstranspose", false);
 
-    this.setProperty('byeafterbye', false);
-    this.setProperty('byeafterup', true);
-    this.setProperty('byeafterdown', true);
+    this.setProperty("byeafterbye", false);
+    this.setProperty("byeafterup", true);
+    this.setProperty("byeafterdown", true);
 
-    this.setProperty('upafterbye', true);
-    this.setProperty('upafterup', false);
-    this.setProperty('upafterdown', true);
+    this.setProperty("upafterbye", true);
+    this.setProperty("upafterup", false);
+    this.setProperty("upafterdown", true);
 
-    this.setProperty('downafterbye', true);
-    this.setProperty('downafterup', true);
-    this.setProperty('downafterdown', false);
+    this.setProperty("downafterbye", true);
+    this.setProperty("downafterup", true);
+    this.setProperty("downafterdown", false);
 
-    this.setProperty('enableupdown', this.getProperty('swissmode') === 'wins');
+    this.setProperty("enableupdown", this.getProperty("swissmode") === "wins");
   }
   extend(SwissTournamentModel, RoundTournamentModel);
 
-  SwissTournamentModel.prototype.SYSTEM = 'swiss';
+  SwissTournamentModel.prototype.SYSTEM = "swiss";
 
-  SwissTournamentModel.prototype.RANKINGDEPENDENCIES = ['votes', 'gamematrix'];
+  SwissTournamentModel.prototype.RANKINGDEPENDENCIES = ["votes", "gamematrix"];
 
   /**
    * an array of required vote lists
    */
-  SwissTournamentModel.prototype.VOTES = ['bye', 'up', 'down'];
+  SwissTournamentModel.prototype.VOTES = ["bye", "up", "down"];
 
   SwissTournamentModel.MODES = {
-    all: 'all',
-    halves: 'halves',
-    ranks: 'ranks',
-    wins: 'wins',
-    individual: 'individual',
+    all: "all",
+    halves: "halves",
+    ranks: "ranks",
+    wins: "wins",
+    individual: "individual",
     // TODO enable the use of global team ids (rangliste, elo, ...)
     globalteamid: undefined
   };
@@ -64,16 +64,16 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.prototype.idleMatches = function() {
+  SwissTournamentModel.prototype.idleMatches = function () {
     var rankGroups, matches, votes, mode;
 
     /*
      * validate swiss mode
      */
-    mode = this.getProperty('swissmode');
+    mode = this.getProperty("swissmode");
 
     if (SwissTournamentModel.MODES[mode] === undefined) {
-      this.emit('error', 'invalid mode: ' + mode);
+      this.emit("error", "invalid mode: " + mode);
       return false;
     }
 
@@ -82,14 +82,14 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     /*
      * shuffle if wanted
      */
-    if (this.getProperty('swissshuffle') === true) {
+    if (this.getProperty("swissshuffle") === true) {
       rankGroups = SwissTournamentModel.shuffleGroupTeams(rankGroups);
     }
 
     /*
      * transpose if wanted
      */
-    if (this.getProperty('swisstranspose') === true) {
+    if (this.getProperty("swisstranspose") === true) {
       rankGroups = SwissTournamentModel.transposeGroups(rankGroups);
     }
 
@@ -99,7 +99,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     matches = [];
     votes = {};
     if (!this.findSwissByesAndMatches(matches, votes, rankGroups)) {
-      this.emit('error', 'cannot find unique byes and matches');
+      this.emit("error", "cannot find unique byes and matches");
       return false;
     }
 
@@ -108,13 +108,13 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
      */
     this.round += 1;
 
-    votes.ups.forEach(function(upTeamID) {
+    votes.ups.forEach(function (upTeamID) {
       this.votes.up.push(upTeamID);
       this.ranking.upvotes
           .set(upTeamID, this.ranking.upvotes.get(upTeamID) + 1);
     }, this);
 
-    votes.downs.forEach(function(upTeamID) {
+    votes.downs.forEach(function (upTeamID) {
       this.votes.down.push(upTeamID);
       this.ranking.downvotes.set(upTeamID,
           this.ranking.downvotes.get(upTeamID) + 1);
@@ -123,11 +123,11 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     /*
      * add the byes and matches to the current tournament
      */
-    votes.byes.forEach(function(byeTeamID, byeIndex) {
+    votes.byes.forEach(function (byeTeamID, byeIndex) {
       this.addBye(byeTeamID, matches.length + byeIndex, this.round);
     }, this);
 
-    matches.forEach(function(matchTeams, matchid) {
+    matches.forEach(function (matchTeams, matchid) {
       this.matches.push(new MatchModel(matchTeams, matchid, this.round));
     }, this);
 
@@ -141,24 +141,24 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.prototype.initialMatches = function() {
+  SwissTournamentModel.prototype.initialMatches = function () {
     this.correctWinGroupRankingOrder();
     return this.idleMatches();
   };
 
-  SwissTournamentModel.prototype.correctWinGroupRankingOrder = function() {
+  SwissTournamentModel.prototype.correctWinGroupRankingOrder = function () {
     var components, windex;
 
     components = this.ranking.componentnames;
 
-    if (this.getProperty('swissmode') === 'wins' && components[0] !== 'wins') {
-      windex = components.indexOf('wins');
+    if (this.getProperty("swissmode") === "wins" && components[0] !== "wins") {
+      windex = components.indexOf("wins");
 
       if (windex !== -1) {
         components.splice(windex, 1);
       }
 
-      components.unshift('wins');
+      components.unshift("wins");
 
       this.setRankingOrder(components);
     }
@@ -176,11 +176,11 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          2d groups array
    * @return a 2d groups array where the groups are transposed
    */
-  SwissTournamentModel.transposeGroups = function(groups) {
+  SwissTournamentModel.transposeGroups = function (groups) {
     var transposed = [];
 
-    groups.forEach(function(group) {
-      group.forEach(function(teamid, index) {
+    groups.forEach(function (group) {
+      group.forEach(function (teamid, index) {
         if (transposed[index] === undefined) {
           transposed[index] = [];
         }
@@ -202,7 +202,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *         have the same rank, and outer array is ordered from best to worst
    *         rank
    */
-  SwissTournamentModel.getGroups = function(ranking, mode) {
+  SwissTournamentModel.getGroups = function (ranking, mode) {
     var allGroups, currentGroup, lastID, getID;
 
     /*
@@ -211,32 +211,32 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     getID = undefined;
     switch (mode) {
     case SwissTournamentModel.MODES.all:
-      getID = function(rankingid) {
+      getID = function (rankingid) {
         return 0;
       };
       break;
     case SwissTournamentModel.MODES.halves:
-      getID = function(rankingid) {
+      getID = function (rankingid) {
         return rankingid < (ranking.displayOrder.length >> 1);
       };
       break;
     case SwissTournamentModel.MODES.wins:
-      getID = function(rankingid) {
+      getID = function (rankingid) {
         return ranking.wins[ranking.displayOrder[rankingid]];
       };
       break;
     case SwissTournamentModel.MODES.ranks:
-      getID = function(rankingid) {
+      getID = function (rankingid) {
         return ranking.ranks[rankingid];
       };
       break;
     case SwissTournamentModel.MODES.individual:
-      getID = function(rankingid) {
+      getID = function (rankingid) {
         return rankingid;
       };
       break;
     default:
-      console.error('invalid mode');
+      console.error("invalid mode");
       return undefined;
     }
 
@@ -244,7 +244,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     allGroups = [currentGroup];
     lastID = undefined;
 
-    ranking.displayOrder.forEach(function(teamid, rankingid) {
+    ranking.displayOrder.forEach(function (teamid, rankingid) {
       var id = getID(rankingid);
       if (id !== lastID) {
         lastID = id;
@@ -268,8 +268,8 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          a getGroups() result
    * @return a rankGroup 2d array where the order of the inner arrays is random
    */
-  SwissTournamentModel.shuffleGroupTeams = function(rankGroups) {
-    return rankGroups.map(function(group) {
+  SwissTournamentModel.shuffleGroupTeams = function (rankGroups) {
+    return rankGroups.map(function (group) {
       var newgroup;
       newgroup = [];
 
@@ -295,7 +295,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          a 2d groups array
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.prototype.findSwissByesAndMatches = function(outMatches,
+  SwissTournamentModel.prototype.findSwissByesAndMatches = function (outMatches,
       outVotes, rankGroups) {
     var reverseRankGroups;
 
@@ -306,8 +306,8 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     if (SwissTournamentModel.getGroupsTeamCount(rankGroups) % 2) {
       reverseRankGroups = rankGroups.slice(0).reverse();
 
-      if (!reverseRankGroups.some(function(group) {
-        return group.slice(0).reverse().some(function(teamid) {
+      if (!reverseRankGroups.some(function (group) {
+        return group.slice(0).reverse().some(function (teamid) {
           var index;
           if (!this.canGetBye(teamid)) {
             return false;
@@ -346,10 +346,10 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          a rankGroups object, as returned by getGroups
    * @return the number of teams in the rank group
    */
-  SwissTournamentModel.getGroupsTeamCount = function(rankGroups) {
+  SwissTournamentModel.getGroupsTeamCount = function (rankGroups) {
     var sum = 0;
 
-    rankGroups.forEach(function(group) {
+    rankGroups.forEach(function (group) {
       sum += group.length;
     });
 
@@ -365,12 +365,12 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          a 2D array of rank groups
    * @return true if there's no obvious error, false otherwise
    */
-  SwissTournamentModel.prototype.prefilterSwissMatches = function(rankGroups) {
+  SwissTournamentModel.prototype.prefilterSwissMatches = function (rankGroups) {
     var downvote = false;
 
     // verify up/downvotes
-    if (this.getProperty('enableupdown')) {
-      if (!rankGroups.every(function(group) {
+    if (this.getProperty("enableupdown")) {
+      if (!rankGroups.every(function (group) {
         var teams = group.length;
         if (downvote) {
           // upvote required
@@ -409,7 +409,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          The rank groups.
    * @return true on success, false otherwise
    */
-  SwissTournamentModel.prototype.findSwissMatches = function(outMatches,
+  SwissTournamentModel.prototype.findSwissMatches = function (outMatches,
       outVotes, rankGroups) {
     var currentGroup, teamA, teamB, updown;
 
@@ -419,7 +419,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     currentGroup = undefined;
 
     // get firstGroupIndex by searching for the first non-empty group
-    if (!rankGroups.some(function(group) {
+    if (!rankGroups.some(function (group) {
       currentGroup = group;
       return group.length > 0;
     })) {
@@ -428,7 +428,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
     }
 
     // verify eventual downvote
-    if (currentGroup.length === 1 && this.getProperty('enableupdown')) {
+    if (currentGroup.length === 1 && this.getProperty("enableupdown")) {
       if (!this.canGetDownvote(currentGroup[0])) {
         return false;
       }
@@ -440,12 +440,12 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
 
     // try to find a match in any subsequent group, or just this or the one
     // after.
-    if (rankGroups.some(function(group) {
+    if (rankGroups.some(function (group) {
       if (group.length === 0) {
         return false;
       }
 
-      if (this.getProperty('enableupdown')) {
+      if (this.getProperty("enableupdown")) {
         if (updown) {
           return false;
         }
@@ -455,7 +455,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
         }
       }
 
-      return group.some(function(team, index) {
+      return group.some(function (team, index) {
         var secondGroup, teamBindex;
 
         if (this.canPlayMatch(teamA, team, updown)) {
@@ -498,7 +498,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          the id of the team
    * @return true if the team already has a bye
    */
-  SwissTournamentModel.prototype.hasBye = function(teamid) {
+  SwissTournamentModel.prototype.hasBye = function (teamid) {
     return this.ranking.byes.get(teamid) !== 0;
   };
 
@@ -507,7 +507,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          the id of the team
    * @return true if the team already has an upvote
    */
-  SwissTournamentModel.prototype.hasUpvote = function(teamid) {
+  SwissTournamentModel.prototype.hasUpvote = function (teamid) {
     return this.ranking.upvotes.get(teamid) !== 0;
   };
 
@@ -516,7 +516,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          the id of the team
    * @return true if the team already has a downvote
    */
-  SwissTournamentModel.prototype.hasDownvote = function(teamid) {
+  SwissTournamentModel.prototype.hasDownvote = function (teamid) {
     return this.ranking.downvotes.get(teamid) !== 0;
   };
 
@@ -527,16 +527,16 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          the prospective team id
    * @return true if the bye would be valid, false otherwise
    */
-  SwissTournamentModel.prototype.canGetBye = function(teamid) {
-    if (!this.getProperty('byeafterbye') && this.hasBye(teamid)) {
+  SwissTournamentModel.prototype.canGetBye = function (teamid) {
+    if (!this.getProperty("byeafterbye") && this.hasBye(teamid)) {
       return false;
     }
 
-    if (!this.getProperty('byeafterup') && this.hasUpvote(teamid)) {
+    if (!this.getProperty("byeafterup") && this.hasUpvote(teamid)) {
       return false;
     }
 
-    if (!this.getProperty('byeafterdown') && this.hasDownvote(teamid)) {
+    if (!this.getProperty("byeafterdown") && this.hasDownvote(teamid)) {
       return false;
     }
 
@@ -550,16 +550,16 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          the prospective team id
    * @return true if the upvote is allowed, false otherwise
    */
-  SwissTournamentModel.prototype.canGetUpvote = function(teamid) {
-    if (!this.getProperty('upafterup') && this.hasUpvote(teamid)) {
+  SwissTournamentModel.prototype.canGetUpvote = function (teamid) {
+    if (!this.getProperty("upafterup") && this.hasUpvote(teamid)) {
       return false;
     }
 
-    if (!this.getProperty('upafterbye') && this.hasBye(teamid)) {
+    if (!this.getProperty("upafterbye") && this.hasBye(teamid)) {
       return false;
     }
 
-    if (!this.getProperty('upafterdown') && this.hasDownvote(teamid)) {
+    if (!this.getProperty("upafterdown") && this.hasDownvote(teamid)) {
       return false;
     }
 
@@ -573,16 +573,16 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          the prospective team id
    * @return true if the downvote is allowed, false otherwise
    */
-  SwissTournamentModel.prototype.canGetDownvote = function(teamid) {
-    if (!this.getProperty('downafterdown') && this.hasDownvote(teamid)) {
+  SwissTournamentModel.prototype.canGetDownvote = function (teamid) {
+    if (!this.getProperty("downafterdown") && this.hasDownvote(teamid)) {
       return false;
     }
 
-    if (!this.getProperty('downafterbye') && this.hasBye(teamid)) {
+    if (!this.getProperty("downafterbye") && this.hasBye(teamid)) {
       return false;
     }
 
-    if (!this.getProperty('downafterup') && this.hasUpvote(teamid)) {
+    if (!this.getProperty("downafterup") && this.hasUpvote(teamid)) {
       return false;
     }
 
@@ -598,7 +598,7 @@ define(['lib/extend', 'tournament/roundtournamentmodel', 'core/random', 'core/ma
    *          if true, teamA is checked for downvotes and teamB for downvotes
    * @return true if they can play a match, false otherwise
    */
-  SwissTournamentModel.prototype.canPlayMatch = function(teamA, teamB, updown) {
+  SwissTournamentModel.prototype.canPlayMatch = function (teamA, teamB, updown) {
     if (this.ranking.gamematrix.get(teamA, teamB) !== 0) {
       return false;
     }

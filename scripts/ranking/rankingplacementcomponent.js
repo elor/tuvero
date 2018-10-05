@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], function (extend, //
+define(["lib/extend", "ranking/rankingcomponent"], function (extend, //
   RankingComponent) {
   /**
    * Constructor
@@ -21,7 +21,7 @@ define(['lib/extend', 'ranking/rankingcomponent'], function (extend, //
   }
   extend(RankingPlacementComponent, RankingComponent);
 
-  RankingPlacementComponent.NAME = 'placement';
+  RankingPlacementComponent.NAME = "placement";
 
   RankingPlacementComponent.prototype.isPrimary = function () {
     return false;

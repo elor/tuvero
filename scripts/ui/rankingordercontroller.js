@@ -10,7 +10,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controller) {
+define(["jquery", "lib/extend", "core/controller"], function ($, extend, Controller) {
   /**
    * Constructor
    *
@@ -25,11 +25,11 @@ define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controll
     selected = this.view.selected;
     allComponents = this.view.allComponents;
 
-    this.view.$selectedList.on('click', '.component', function() {
+    this.view.$selectedList.on("click", ".component", function () {
       selected.remove($(this).index());
     });
 
-    this.view.$availableList.on('click', '.component', function() {
+    this.view.$availableList.on("click", ".component", function () {
       selected.push(allComponents.get($(this).index()));
     });
   }

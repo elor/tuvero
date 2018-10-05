@@ -10,7 +10,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/delegatematrix'], function(extend, DelegateMatrix) {
+define(["lib/extend", "math/delegatematrix"], function (extend, DelegateMatrix) {
   /**
    * Constructor
    *
@@ -31,7 +31,7 @@ define(['lib/extend', 'math/delegatematrix'], function(extend, DelegateMatrix) {
    *          the column
    * @return get(row, col)+get(col, row), i.e. (A + A^T)
    */
-  TransposeSumMatrix.prototype.get = function(row, col) {
+  TransposeSumMatrix.prototype.get = function (row, col) {
     var v1, v2;
     v1 = this.superget(row, col);
     v2 = this.superget(col, row);

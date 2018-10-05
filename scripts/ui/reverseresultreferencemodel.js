@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/resultreferencemodel'], function(extend,
+define(["lib/extend", "core/resultreferencemodel"], function (extend,
     ResultReferenceModel) {
   /**
    * Constructor

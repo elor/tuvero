@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
-'options'], function(extend, RankingDataListener, VectorModel, Options) {
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
+"options"], function (extend, RankingDataListener, VectorModel, Options) {
   /**
    * Constructor
    *
@@ -20,7 +20,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
   }
   extend(RankingLostPointsListener, RankingDataListener);
 
-  RankingLostPointsListener.NAME = 'lostpoints';
+  RankingLostPointsListener.NAME = "lostpoints";
   RankingLostPointsListener.DEPENDENCIES = undefined;
 
   /**
@@ -37,9 +37,9 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param result
    *          a game result
    */
-  RankingLostPointsListener.prototype.onresult = function(r, e, result) {
-    result.teams.forEach(function(opponent, index) {
-      result.teams.forEach(function(team) {
+  RankingLostPointsListener.prototype.onresult = function (r, e, result) {
+    result.teams.forEach(function (opponent, index) {
+      result.teams.forEach(function (team) {
         if (team !== opponent) {
           this.lostpoints.set(team, this.lostpoints.get(team)
               - result.score[index]);
@@ -58,8 +58,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param teams
    *          an array of team ids
    */
-  RankingLostPointsListener.prototype.onbye = function(r, e, teams) {
-    teams.forEach(function(teamid) {
+  RankingLostPointsListener.prototype.onbye = function (r, e, teams) {
+    teams.forEach(function (teamid) {
       this.lostpoints.set(teamid, this.lostpoints.get(teamid)
           - Options.byepointslost);
     }, this);
@@ -76,9 +76,9 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param correction
    *          a game correction
    */
-  RankingLostPointsListener.prototype.oncorrect = function(r, e, correction) {
-    correction.before.teams.forEach(function(opponent, index) {
-      correction.before.teams.forEach(function(team) {
+  RankingLostPointsListener.prototype.oncorrect = function (r, e, correction) {
+    correction.before.teams.forEach(function (opponent, index) {
+      correction.before.teams.forEach(function (team) {
         if (team !== opponent) {
           this.lostpoints.set(team, this.lostpoints.get(team)
               + correction.before.score[index]);

@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
+define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
   /**
    * Constructor
    *
@@ -27,7 +27,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    *          an object which will be appended to the list
    * @return the new length of the array. undefined on failure
    */
-  UniqueListModel.prototype.push = function(object) {
+  UniqueListModel.prototype.push = function (object) {
     if (this.indexOf(object) !== -1) {
       return undefined;
     }
@@ -43,7 +43,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    *          the object, which will take the specified index after insertion
    * @return undefined on failure, true othwerise
    */
-  UniqueListModel.prototype.insert = function(index, object) {
+  UniqueListModel.prototype.insert = function (index, object) {
     if (this.indexOf(object) !== -1) {
       return undefined;
     }
@@ -61,7 +61,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    *          the object with which to overwrite the index
    * @return the inserted object, of undefined on failure
    */
-  UniqueListModel.prototype.set = function(index, object) {
+  UniqueListModel.prototype.set = function (index, object) {
     if (this.indexOf(object) !== -1) {
       return undefined;
     }

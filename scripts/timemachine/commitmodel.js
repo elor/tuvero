@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
-    'timemachine/keymodel', 'timemachine/query'], function(extend, Model,
+define(["lib/extend", "core/model", "timemachine/reflog", "core/type",
+    "timemachine/keymodel", "timemachine/query"], function (extend, Model,
     RefLog, Type, KeyModel, Query) {
 
   /**
@@ -31,15 +31,15 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   extend(CommitModel, Model);
 
   CommitModel.prototype.EVENTS = {
-    'remove': true,
-    'rename': true
+    "remove": true,
+    "rename": true
   };
 
   /**
    * @return true if the key is valid, is in the RefLog and is in the
    *         localStorage, false otherwise
    */
-  CommitModel.prototype.isValid = function() {
+  CommitModel.prototype.isValid = function () {
     return !!this.key && KeyModel.isValidKey(this.key)
         && RefLog.contains(this.key)
         && (!window.localStorage || !!window.localStorage[this.key]);
@@ -49,7 +49,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    * @return true if the key is a root key (has no parent and dates match),
    *         false otherwise
    */
-  CommitModel.prototype.isRoot = function() {
+  CommitModel.prototype.isRoot = function () {
     return this.key.isRoot();
   };
 
@@ -57,11 +57,11 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    * @return an array of CommitModels of children of this commit. If there's no
    *         child, the array is empty.
    */
-  CommitModel.prototype.getChildren = function() {
+  CommitModel.prototype.getChildren = function () {
     if (!RefLog.contains(this.key)) {
       return [];
     }
-    return RefLog.getChildren(this.key).map(function(key) {
+    return RefLog.getChildren(this.key).map(function (key) {
       return new CommitModel(key);
     }).sort(CommitModel.sortFunction);
   };
@@ -71,7 +71,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *
    * @return the youngest ancestor of this commit
    */
-  CommitModel.prototype.getYoungestDescendant = function() {
+  CommitModel.prototype.getYoungestDescendant = function () {
     var children, youngestChild;
 
     children = this.getChildren();
@@ -82,7 +82,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
 
     youngestChild = children[children.length - 1];
 
-    children.forEach(function(child) {
+    children.forEach(function (child) {
       var youngestGrandChild = child.getYoungestDescendant();
       if (!youngestGrandChild) {
         return;
@@ -99,7 +99,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    * @return the parent if this commit. If this is a root commit, undefined is
    *         returned
    */
-  CommitModel.prototype.getParent = function() {
+  CommitModel.prototype.getParent = function () {
     if (this.isRoot()) {
       return undefined;
     }
@@ -110,7 +110,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   /**
    * @return a new CommitModel instance of the root of this tree
    */
-  CommitModel.prototype.getRoot = function() {
+  CommitModel.prototype.getRoot = function () {
     var rootKey;
 
     if (this.isRoot()) {
@@ -125,7 +125,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
   /**
    * @return the name of this tree
    */
-  CommitModel.prototype.getTreeName = function() {
+  CommitModel.prototype.getTreeName = function () {
     return RefLog.getName(this.key);
   };
 
@@ -134,7 +134,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *          the new name of the whole tree
    * @return true on success, false otherwise
    */
-  CommitModel.prototype.setTreeName = function(name) {
+  CommitModel.prototype.setTreeName = function (name) {
     return RefLog.setName(this.key, name);
   };
 
@@ -143,7 +143,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *          a CommitModel instance
    * @return true if the keys are equal, false otherwise
    */
-  CommitModel.prototype.isEqual = function(commit) {
+  CommitModel.prototype.isEqual = function (commit) {
     return !!commit && this.key.isEqual(commit.key);
   };
 
@@ -153,7 +153,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    * @return true if 'this' is in the parent chain of descendant, false
    *         otherwise
    */
-  CommitModel.prototype.isAncestorOf = function(descendant) {
+  CommitModel.prototype.isAncestorOf = function (descendant) {
     var parent;
 
     if (!descendant || this.isRoot()) {
@@ -179,11 +179,11 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    * If eraseTree is called on a root commit, orphans with the same startDate
    * are cleaned up, too.
    */
-  CommitModel.prototype.eraseTree = function() {
+  CommitModel.prototype.eraseTree = function () {
     var query;
 
     // first: properly delete all children to send the proper events
-    this.getChildren().forEach(function(child) {
+    this.getChildren().forEach(function (child) {
       child.eraseTree();
     });
 
@@ -195,7 +195,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
             window.localStorage.removeItem.bind(window.localStorage));
       }
       RefLog.deleteTree(this.key);
-      this.emit('remove');
+      this.emit("remove");
     } else {
       // only delete everything that's depending on this commit
       this.remove();
@@ -207,7 +207,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *
    * If a root commit is removed, the whole tree is removed. See eraseTree()
    */
-  CommitModel.prototype.remove = function() {
+  CommitModel.prototype.remove = function () {
     if (this.isRoot()) {
       // removing the root commit necessarily removes everything else, too,
       // since every tree needs a root in the reflog
@@ -218,7 +218,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
       }
       RefLog.deleteKey(this.key);
 
-      this.emit('remove');
+      this.emit("remove");
     }
   };
 
@@ -227,7 +227,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *
    * @return the locally stored data of this commit
    */
-  CommitModel.prototype.load = function() {
+  CommitModel.prototype.load = function () {
     if (this.isValid()) {
       if (window.localStorage) {
         return window.localStorage[this.key];
@@ -244,7 +244,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *          the data to store locally under a new key
    * @return the newly created child commit
    */
-  CommitModel.prototype.createChild = function(data) {
+  CommitModel.prototype.createChild = function (data) {
     var newKey = RefLog.newSaveKey(this.key);
 
     if (window.localStorage) {
@@ -262,7 +262,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    *          the data do store locally under a new key
    * @return the newly created root commit
    */
-  CommitModel.createRoot = function(data, name) {
+  CommitModel.createRoot = function (data, name) {
     var newKey = RefLog.newInitKey(name);
 
     if (window.localStorage) {
@@ -279,13 +279,13 @@ define(['lib/extend', 'core/model', 'timemachine/reflog', 'core/type',
    * @param commitB
    * @return -1, 0, or 1, depending on the sort relation between the two
    */
-  CommitModel.sortFunction = function(commitA, commitB) {
+  CommitModel.sortFunction = function (commitA, commitB) {
     return KeyModel.sortFunction(commitA.key, commitB.key);
   };
 
-  CommitModel.prototype.onrename = function(event, emitter, treeKey) {
+  CommitModel.prototype.onrename = function (event, emitter, treeKey) {
     if (this.key.isRelated(treeKey)) {
-      this.emit('rename');
+      this.emit("rename");
     }
   };
 

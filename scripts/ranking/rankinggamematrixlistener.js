@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/transposesummatrix'], //
-function(extend, RankingDataListener, TransposeSumMatrix) {
+define(["lib/extend", "ranking/rankingdatalistener", "math/transposesummatrix"], //
+function (extend, RankingDataListener, TransposeSumMatrix) {
   /**
    * Constructor
    *
@@ -22,8 +22,8 @@ function(extend, RankingDataListener, TransposeSumMatrix) {
   }
   extend(RankingGameMatrixListener, RankingDataListener);
 
-  RankingGameMatrixListener.NAME = 'gamematrix';
-  RankingGameMatrixListener.DEPENDENCIES = ['winsmatrix'];
+  RankingGameMatrixListener.NAME = "gamematrix";
+  RankingGameMatrixListener.DEPENDENCIES = ["winsmatrix"];
 
   return RankingGameMatrixListener;
 });

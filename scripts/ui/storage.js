@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
-    'core/listener'], function(extend, Type, Model, ValueModel, Listener) {
+define(["lib/extend", "core/type", "core/model", "core/valuemodel",
+    "core/listener"], function (extend, Type, Model, ValueModel, Listener) {
   /**
    * A Storage class. Has no further use at the moment, since there's only one
    * localStorage.
@@ -20,9 +20,9 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
    *
    * @return true if storage is possible, false otherwise
    */
-  Storage.available = function() {
+  Storage.available = function () {
     if (!window.localStorage) {
-      console.error('Storage is not available');
+      console.error("Storage is not available");
       return false;
     }
 
@@ -46,20 +46,20 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
    * @return an singleton instance of the Implementation class, or undefined if
    *         anything fails (e.g. Implementation is the wrong type)
    */
-  Storage.register = function(key, Implementation) {
+  Storage.register = function (key, Implementation) {
     var stored, model;
 
     key = key || undefined;
     Implementation = Implementation || Model;
 
     if (!key || !Type.isString(key)) {
-      console.error('Storage.getModel(): Key is not a String: ');
+      console.error("Storage.getModel(): Key is not a String: ");
       console.error(key);
       return undefined;
     }
 
     if (!extend.isSubclass(Implementation, Model) && Implementation !== Model) {
-      console.error('Storage.register(): Not a model: ');
+      console.error("Storage.register(): Not a model: ");
       console.error(Implementation);
       return undefined;
     }
@@ -74,8 +74,8 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
         return model;
       }
 
-      console.error('Storage.register(): '
-          + 'stored instance does not match Implementation:');
+      console.error("Storage.register(): "
+          + "stored instance does not match Implementation:");
       console.error(model);
       console.error(Implementation);
       return undefined;
@@ -83,15 +83,15 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
 
     model = new Implementation();
     if (Type.isFunction(model.save)) {
-      Listener.bind(model, 'update', function() {
+      Listener.bind(model, "update", function () {
         window.localStorage.setItem(key, JSON.stringify(model.save()));
       });
     } else if (model instanceof ValueModel) {
-      Listener.bind(model, 'update', function() {
+      Listener.bind(model, "update", function () {
         window.localStorage.setItem(key, JSON.stringify(model.get()));
       });
     } else {
-      console.error('Storage.register(): instance cannot save/restore');
+      console.error("Storage.register(): instance cannot save/restore");
       console.error(model);
       return undefined;
     }
@@ -118,7 +118,7 @@ define(['lib/extend', 'core/type', 'core/model', 'core/valuemodel',
    *          The key to remove from localStorage. if undefined, clear every key
    *          in the keys object
    */
-  Storage.clear = function(key) {
+  Storage.clear = function (key) {
     if (!Storage.available()) {
       return;
     }

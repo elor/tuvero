@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/listview'], function(extend, ListView) {
+define(["lib/extend", "ui/listview"], function (extend, ListView) {
   /**
    * Constructor
    *

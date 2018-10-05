@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
+define(function () {
   /**
    * Constructor
    *
@@ -36,11 +36,11 @@ define(function() {
    *          returned listener
    * @return the internally created Listener, e.g. for destroy() calls
    */
-  Listener.bind = function(emitter, events, callback, thisArg) {
+  Listener.bind = function (emitter, events, callback, thisArg) {
     var listener, initialCallback;
 
     if (thisArg) {
-      initialCallback = function(_emitter, _event, data) {
+      initialCallback = function (_emitter, _event, data) {
         callback.call(thisArg, _emitter, _event, data);
       };
     } else {
@@ -49,14 +49,14 @@ define(function() {
 
     listener = new Listener(emitter);
 
-    events.split(',').forEach(function(event) {
+    events.split(",").forEach(function (event) {
       // trim spaces
-      event = event.replace(/^\s+|\s+$/g, '');
+      event = event.replace(/^\s+|\s+$/g, "");
 
       if (emitter.EVENTS[event]) {
-        listener['on' + event] = initialCallback;
+        listener["on" + event] = initialCallback;
       } else {
-        console.error('Listener.bind: emitter does not emit event:"' + event);
+        console.error("Listener.bind: emitter does not emit event:\"" + event);
       }
     });
 
@@ -66,7 +66,7 @@ define(function() {
   /**
    * destroy the listener, i.e. remove it from all emitters
    */
-  Listener.prototype.destroy = function() {
+  Listener.prototype.destroy = function () {
     while (this.emitters.length > 0) {
       this.emitters[0].unregisterListener(this);
     }

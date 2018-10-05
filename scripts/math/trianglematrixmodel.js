@@ -13,7 +13,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
+define(["lib/extend", "math/matrixmodel"], function (extend, MatrixModel) {
   /**
    * Constructor
    *
@@ -34,7 +34,7 @@ define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
    *          column
    * @return 0 if reading a super-diagonal element, the stored value otherwise
    */
-  TriangleMatrixModel.prototype.get = function(row, col) {
+  TriangleMatrixModel.prototype.get = function (row, col) {
     if (row < col) {
       return 0;
     }
@@ -53,7 +53,7 @@ define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
    *          value
    * @return this on success, undefined otherwise
    */
-  TriangleMatrixModel.prototype.set = function(row, col, value) {
+  TriangleMatrixModel.prototype.set = function (row, col, value) {
     if (row < col) {
       return undefined;
     }

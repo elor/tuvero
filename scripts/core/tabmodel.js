@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
+define(["lib/extend", "core/model", "core/valuemodel"], function (extend, Model,
     ValueModel) {
   /**
    * Constructor
@@ -16,7 +16,7 @@ define(['lib/extend', 'core/model', 'core/valuemodel'], function(extend, Model,
 
     this.visibility = new ValueModel(true);
     this.accessibility = new ValueModel(true);
-    this.imgParam = new ValueModel('');
+    this.imgParam = new ValueModel("");
   }
   extend(TabModel, Model);
 

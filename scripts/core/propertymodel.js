@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) {
+define(["lib/extend", "core/model", "core/type"], function (extend, Model, Type) {
   /**
    * Constructor
    *
@@ -23,7 +23,7 @@ define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) 
 
     // initialize with the init object, if available
     if (defaultProperties) {
-      Object.keys(defaultProperties).forEach(function(key) {
+      Object.keys(defaultProperties).forEach(function (key) {
         this.setProperty(key, defaultProperties[key]);
       }, this);
     }
@@ -31,7 +31,7 @@ define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) 
   extend(PropertyModel, Model);
 
   PropertyModel.prototype.EVENTS = {
-    'update': true
+    "update": true
   };
 
   /**
@@ -41,7 +41,7 @@ define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) 
    *          String. the key
    * @return the value which is stored under the key
    */
-  PropertyModel.prototype.getProperty = function(key) {
+  PropertyModel.prototype.getProperty = function (key) {
     return this.props[key];
   };
 
@@ -55,20 +55,20 @@ define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) 
    *          the value to store under the key
    * @return true on success, false otherwise
    */
-  PropertyModel.prototype.setProperty = function(key, value) {
+  PropertyModel.prototype.setProperty = function (key, value) {
     if (this.getProperty(key) !== value) {
       if (Type.isString(value) || Type.isNumber(value)
           || Type.is(value, Boolean)) {
         this.props[key] = value;
         if (this.getProperty(key) === value) {
-          this.emit('update', {
+          this.emit("update", {
             key: key,
             value: value
           });
           return true;
         }
       } else {
-        console.error('setProperty(): unsupported property type: '
+        console.error("setProperty(): unsupported property type: "
             + Type(value));
       }
     }
@@ -81,7 +81,7 @@ define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) 
    *
    * @return an array of key names, i.e. an array of strings
    */
-  PropertyModel.prototype.getPropertyKeys = function() {
+  PropertyModel.prototype.getPropertyKeys = function () {
     return Object.keys(this.props).sort();
   };
 
@@ -91,12 +91,12 @@ define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) 
    *
    * @return a data object
    */
-  PropertyModel.prototype.save = function() {
+  PropertyModel.prototype.save = function () {
     var data = PropertyModel.superclass.save.call(this);
 
     data.props = {};
 
-    this.getPropertyKeys().forEach(function(key) {
+    this.getPropertyKeys().forEach(function (key) {
       data.props[key] = this.getProperty(key);
     }, this);
 
@@ -109,12 +109,12 @@ define(['lib/extend', 'core/model', 'core/type'], function(extend, Model, Type) 
    * @param data
    * @return true on success, false otherwise
    */
-  PropertyModel.prototype.restore = function(data) {
+  PropertyModel.prototype.restore = function (data) {
     if (!PropertyModel.superclass.restore.call(this, data)) {
       return false;
     }
 
-    Object.keys(data.props).forEach(function(key) {
+    Object.keys(data.props).forEach(function (key) {
       var val = data.props[key];
       this.setProperty(key, val);
     }, this);

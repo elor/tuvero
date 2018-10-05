@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, extend,
+define(["jquery", "lib/extend", "core/controller", "options"], function ($, extend,
     Controller, Options) {
   /**
    * Constructor
@@ -20,9 +20,9 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
     MatchController.superconstructor.call(this, view);
 
     this.$form = $form;
-    this.$acceptbutton = this.$form.find('button.accept');
-    this.$cancelbutton = this.$form.find('button.cancel');
-    this.$scores = this.$form.find('.score');
+    this.$acceptbutton = this.$form.find("button.accept");
+    this.$cancelbutton = this.$form.find("button.cancel");
+    this.$scores = this.$form.find(".score");
 
     this.$scores.val(Options.defaultscore || 0);
 
@@ -36,12 +36,12 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
   }
   extend(MatchController, Controller);
 
-  MatchController.prototype.initKeyListeners = function() {
+  MatchController.prototype.initKeyListeners = function () {
     var controller, $lastinput;
 
     controller = this;
 
-    this.$form.keydown(function(e) {
+    this.$form.keydown(function (e) {
       switch (e.which) {
       case 27: // escape
         controller.cancel();
@@ -54,7 +54,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
           return;
         }
 
-        if (controller.$acceptbutton.filter(':not(.hidden)').length !== 0) {
+        if (controller.$acceptbutton.filter(":not(.hidden)").length !== 0) {
           return;
         }
 
@@ -76,18 +76,18 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
     });
   };
 
-  MatchController.prototype.initNumberValidation = function() {
+  MatchController.prototype.initNumberValidation = function () {
     var controller = this;
 
     // select the whole input field on focus. make id DAU-safe.
-    this.$scores.click(function() {
+    this.$scores.click(function () {
       $(this).select();
     });
 
     // We're using keyup to check the values as the user types, not only
     // when
     // the focus is lost or the value is changed incrementally
-    this.$scores.on('change keyup', function() {
+    this.$scores.on("change keyup", function () {
       var $this, value, valid;
 
       valid = true;
@@ -110,29 +110,29 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
       }
 
       if (valid) {
-        $this.removeClass('invalid');
+        $this.removeClass("invalid");
       } else {
-        $this.addClass('invalid');
+        $this.addClass("invalid");
       }
 
       controller.updateButtonStatus();
-    }).attr('min', Options.minpoints).attr('max', Options.maxpoints);
+    }).attr("min", Options.minpoints).attr("max", Options.maxpoints);
   };
 
-  MatchController.prototype.updateButtonStatus = function() {
-    this.$acceptbutton.prop('disabled', !this.validateScore());
+  MatchController.prototype.updateButtonStatus = function () {
+    this.$acceptbutton.prop("disabled", !this.validateScore());
   };
 
-  MatchController.prototype.validateScore = function() {
+  MatchController.prototype.validateScore = function () {
     var valid, tie, firstpoints, maxpoints;
 
-    valid = this.$scores.filter('.invalid').length === 0;
+    valid = this.$scores.filter(".invalid").length === 0;
 
     if (valid && (Options.tiesforbidden || Options.maxpointtiesforbidden)) {
       tie = true;
       firstpoints = undefined;
 
-      this.$scores.each(function() {
+      this.$scores.each(function () {
         var points = Number($(this).val());
         if (firstpoints === undefined) {
           firstpoints = points;
@@ -160,7 +160,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
    *
    * @return true on success, false otherwise
    */
-  MatchController.prototype.accept = function() {
+  MatchController.prototype.accept = function () {
     var points;
 
     if (!this.validateScore()) {
@@ -169,7 +169,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
 
     points = [];
 
-    this.$scores.each(function(i) {
+    this.$scores.each(function (i) {
       points[i] = Number($(this).val());
     });
 
@@ -180,7 +180,7 @@ define(['jquery', 'lib/extend', 'core/controller', 'options'], function($, exten
   /**
    * cancel the input. Please overload where necessary
    */
-  MatchController.prototype.cancel = function() {
+  MatchController.prototype.cancel = function () {
     // inherit if necessary. Usual result submissions cannot be canceled
     // We could reset the points, however
   };

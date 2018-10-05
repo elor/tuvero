@@ -6,12 +6,12 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'ui/filesavermodel', 'ui/toast', 'ui/strings'], function($,
+define(["jquery", "ui/filesavermodel", "ui/toast", "ui/strings"], function ($,
     FileSaverModel, Toast, Strings) {
   var Save;
 
-  $(function($) {
-    $('#tabs').on('click', 'button.save', function() {
+  $(function ($) {
+    $("#tabs").on("click", "button.save", function () {
       var fileSaver;
 
       fileSaver = new FileSaverModel();

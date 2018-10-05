@@ -7,8 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'lib/FileSaver', 'timemachine/timemachine',
-    'presets', 'lib/Blob'], function(extend, Model, saveAs, TimeMachine,
+define(["lib/extend", "core/model", "lib/FileSaver", "timemachine/timemachine",
+    "presets", "lib/Blob"], function (extend, Model, saveAs, TimeMachine,
     Presets, Blob) {
   /**
    * Constructor: Constructs a FileSaverModel instance around the given commit
@@ -30,36 +30,36 @@ define(['lib/extend', 'core/model', 'lib/FileSaver', 'timemachine/timemachine',
    *
    * @return true on success, false otherwise
    */
-  FileSaverModel.prototype.save = function() {
+  FileSaverModel.prototype.save = function () {
     var commit, basename, filename, data, blob, saveState;
 
     commit = this.commit || TimeMachine.commit.get();
 
     if (!commit) {
-      console.error('FileSaver: There is no commit to save');
+      console.error("FileSaver: There is no commit to save");
       return false;
     }
     if (!commit.isValid()) {
-      console.error('FileSaver: The commit is not valid');
+      console.error("FileSaver: The commit is not valid");
       return false;
     }
 
     basename = commit.getTreeName() || Presets.target;
-    filename = basename.replace(/(\.json)+$/, '').substr(0, 64) + '.json';
+    filename = basename.replace(/(\.json)+$/, "").substr(0, 64) + ".json";
 
     data = commit.load();
 
     if (!data) {
-      console.error('FileSaver: commit contains no data');
+      console.error("FileSaver: commit contains no data");
       return false;
     }
 
     try {
       blob = new Blob([data], {
-        type: 'application/json'
+        type: "application/json"
       });
     } catch (e) {
-      console.error('FileSaver: Blob creation failed');
+      console.error("FileSaver: Blob creation failed");
       console.error(e.stack);
       return false;
     }
@@ -67,7 +67,7 @@ define(['lib/extend', 'core/model', 'lib/FileSaver', 'timemachine/timemachine',
     try {
       saveState = saveAs(blob, filename);
     } catch (e) {
-      console.error('FileSaver: saveAs failed');
+      console.error("FileSaver: saveAs failed");
       return false;
     }
 

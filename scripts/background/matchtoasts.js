@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'ui/toast', 'ui/strings', 'core/listener'], function(
+define(["ui/state", "ui/toast", "ui/strings", "core/listener"], function (
     State, Toast, Strings, Listener) {
   var MatchToasts;
 
@@ -15,7 +15,7 @@ define(['ui/state', 'ui/toast', 'ui/strings', 'core/listener'], function(
    * toast for finished matches
    */
   MatchToasts.matchfinished = new Listener();
-  MatchToasts.matchfinished.onremove = function(emitter, event, data) {
+  MatchToasts.matchfinished.onremove = function (emitter, event, data) {
     if (data.object.isRunningMatch()) {
       return new Toast(Strings.gamefinished);
     }
@@ -25,20 +25,20 @@ define(['ui/state', 'ui/toast', 'ui/strings', 'core/listener'], function(
    * toast for tournament state changes
    */
   MatchToasts.tournamentState = new Listener();
-  MatchToasts.tournamentState.onupdate = function(emitter, event, data) {
-    return new Toast(Strings['tournament_' + data], Toast.LONG);
+  MatchToasts.tournamentState.onupdate = function (emitter, event, data) {
+    return new Toast(Strings["tournament_" + data], Toast.LONG);
   };
 
   /*
    * bind the listeners to all tournaments, and send a 'tournament created'
    * Toast
    */
-  Listener.bind(State.tournaments, 'insert', function(emitter, event, data) {
+  Listener.bind(State.tournaments, "insert", function (emitter, event, data) {
     data.object.getMatches().registerListener(MatchToasts.matchfinished);
     data.object.getState().registerListener(MatchToasts.tournamentState);
     return new Toast(Strings.tournament_initial, Toast.LONG);
   });
-  Listener.bind(State.tournaments, 'remove', function(emitter, event, data) {
+  Listener.bind(State.tournaments, "remove", function (emitter, event, data) {
     data.object.getMatches().unregisterListener(MatchToasts.matchfinished);
     data.object.getState().unregisterListener(MatchToasts.tournamentState);
   });

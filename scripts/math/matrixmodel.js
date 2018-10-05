@@ -10,7 +10,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
+define(["lib/extend", "core/model", "core/rle"], function (extend, Model, RLE) {
   /**
    * Constructor
    *
@@ -28,7 +28,7 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
   extend(MatrixModel, Model);
 
   MatrixModel.prototype.EVENTS = {
-    'resize': true
+    "resize": true
   };
 
   /**
@@ -38,19 +38,19 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *          {Integer} index
    * @return {MatrixModel} this
    */
-  MatrixModel.prototype.remove = function(index) {
+  MatrixModel.prototype.remove = function (index) {
     if (index >= this.length || index < 0) {
       return this;
     }
 
     this.data.splice(index, 1);
-    this.data.forEach(function(b) {
+    this.data.forEach(function (b) {
       b.splice(index, 1);
     });
 
     this.length -= 1;
 
-    this.emit('resize');
+    this.emit("resize");
 
     return this;
   };
@@ -62,7 +62,7 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *          the new size
    * @return this on success, undefined otherwise
    */
-  MatrixModel.prototype.resize = function(size) {
+  MatrixModel.prototype.resize = function (size) {
     if (size === undefined) {
       return undefined;
     }
@@ -73,14 +73,14 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
     if (this.length > size) {
       this.data.splice(size);
 
-      this.data.forEach(function(row) {
+      this.data.forEach(function (row) {
         row.splice(size);
       });
     }
 
     this.length = size;
 
-    this.emit('resize');
+    this.emit("resize");
 
     return this;
   };
@@ -94,9 +94,9 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *          horizontal position
    * @return value at (row, col). Defaults to 0
    */
-  MatrixModel.prototype.get = function(row, col) {
+  MatrixModel.prototype.get = function (row, col) {
     if (Math.min(row, col) < 0 || Math.max(row, col) >= this.length) {
-      console.warn('MatrixModel.get(): out of bounds');
+      console.warn("MatrixModel.get(): out of bounds");
       return undefined;
     }
     if (!this.data[row]) {
@@ -118,11 +118,11 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *          integer value to store in position (row, col)
    * @return {MatrixModel} this
    */
-  MatrixModel.prototype.set = function(row, col, value) {
+  MatrixModel.prototype.set = function (row, col, value) {
     var rowref;
 
     if (Math.min(row, col) < 0 || Math.max(row, col) >= this.length) {
-      console.warn('MatrixModel.set(): out of bounds');
+      console.warn("MatrixModel.set(): out of bounds");
       return undefined;
     }
 
@@ -147,7 +147,7 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *          a VectorModel instance to write the results to
    * @return vector on success, undefined otherwise
    */
-  MatrixModel.prototype.diagonal = function(vector) {
+  MatrixModel.prototype.diagonal = function (vector) {
     var index;
 
     vector.resize(this.length);
@@ -169,12 +169,12 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *          the input vector
    * @return outVec on success, containing this*vec. undefined otherwise.
    */
-  MatrixModel.prototype.multVector = function(outVec, vec) {
+  MatrixModel.prototype.multVector = function (outVec, vec) {
     var row, col, sum;
 
     if (vec.length !== this.length) {
-      console.warn('MatrixModel.multVector: different input lengths: '
-          + this.length + '<>' + vec.length);
+      console.warn("MatrixModel.multVector: different input lengths: "
+          + this.length + "<>" + vec.length);
       return undefined;
     }
 
@@ -203,12 +203,12 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *          the input vector
    * @return outVec on success, containing this*vec. undefined otherwise.
    */
-  MatrixModel.prototype.vectorMult = function(outVec, vec) {
+  MatrixModel.prototype.vectorMult = function (outVec, vec) {
     var row, col, sum;
 
     if (vec.length !== this.length) {
-      console.warn('MatrixModel.multVector: different input lengths: '
-          + this.length + '<>' + vec.length);
+      console.warn("MatrixModel.multVector: different input lengths: "
+          + this.length + "<>" + vec.length);
       return undefined;
     }
 
@@ -236,7 +236,7 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    * @param value
    *          Optional. The value. Defaults to 0.
    */
-  MatrixModel.prototype.fill = function(value) {
+  MatrixModel.prototype.fill = function (value) {
     var row, col;
     value = value || 0;
 
@@ -262,13 +262,13 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
    *
    * @return a serializable data object
    */
-  MatrixModel.prototype.save = function() {
+  MatrixModel.prototype.save = function () {
     var data, mat;
 
     data = MatrixModel.superclass.save.call(this);
 
-    mat = this.data.map(function(row) {
-      return row.map(function(cell) {
+    mat = this.data.map(function (row) {
+      return row.map(function (cell) {
         return cell || 0;
       });
     }, this);
@@ -279,7 +279,7 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
     return data;
   };
 
-  MatrixModel.prototype.restore = function(data) {
+  MatrixModel.prototype.restore = function (data) {
     var mat;
     if (!MatrixModel.superclass.restore.call(this, data)) {
       return false;
@@ -289,7 +289,7 @@ define(['lib/extend', 'core/model', 'core/rle'], function(extend, Model, RLE) {
 
     mat = RLE.decode(data.mat);
 
-    mat.forEach(function(row, rowindex) {
+    mat.forEach(function (row, rowindex) {
       this.data[rowindex] = row.slice();
     }, this);
 

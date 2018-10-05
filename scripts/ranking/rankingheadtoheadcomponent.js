@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], //
-function(extend, RankingComponent) {
+define(["lib/extend", "ranking/rankingcomponent"], //
+function (extend, RankingComponent) {
   /**
    * Constructor
    *
@@ -22,7 +22,7 @@ function(extend, RankingComponent) {
   }
   extend(RankingHeadToHeadComponent, RankingComponent);
 
-  RankingHeadToHeadComponent.NAME = 'headtohead';
+  RankingHeadToHeadComponent.NAME = "headtohead";
 
   /**
    * @param i
@@ -30,8 +30,8 @@ function(extend, RankingComponent) {
    * @return the headtohead value, i.e. how often the team has won against
    *         another with the same number of wins
    */
-  RankingHeadToHeadComponent.prototype.value = function(i) {
-    return this.ranking.headtohead.get(i) || '';
+  RankingHeadToHeadComponent.prototype.value = function (i) {
+    return this.ranking.headtohead.get(i) || "";
   };
 
   return RankingHeadToHeadComponent;

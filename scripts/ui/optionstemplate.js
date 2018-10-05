@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define([], function() { // NOTE TO SELF: Don't remove the '[],' from this line
+define([], function () { // NOTE TO SELF: Don't remove the '[],' from this line
 // Removing it WILL break EVERYTHING after r.js compilation !!!
   var OptionsTemplate, Default, State;
 
@@ -19,17 +19,17 @@ define([], function() { // NOTE TO SELF: Don't remove the '[],' from this line
   Default = {};
   OptionsTemplate = {};
 
-  OptionsTemplate.toBlob = function() {
+  OptionsTemplate.toBlob = function () {
     return JSON.stringify(OptionsTemplate);
   };
 
-  OptionsTemplate.fromBlob = function(blob) {
+  OptionsTemplate.fromBlob = function (blob) {
     var opts, key;
     opts = JSON.parse(blob);
 
     // delete everything
     for (key in OptionsTemplate) {
-      if (typeof (OptionsTemplate[key]) !== 'function') {
+      if (typeof (OptionsTemplate[key]) !== "function") {
         delete OptionsTemplate[key];
       }
     }
@@ -45,11 +45,11 @@ define([], function() { // NOTE TO SELF: Don't remove the '[],' from this line
     }
   };
 
-  OptionsTemplate.setDefault = function(newDefault) {
+  OptionsTemplate.setDefault = function (newDefault) {
     Default = newDefault;
   };
 
-  OptionsTemplate.reset = function() {
+  OptionsTemplate.reset = function () {
     // just use available functions instead of cloning
     OptionsTemplate.fromBlob(JSON.stringify(Default));
   };

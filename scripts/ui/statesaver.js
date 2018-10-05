@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
+define(["ui/state", "timemachine/timemachine", "ui/stateloader"], function (
     State, TimeMachine, StateLoader) {
   var StateSaver;
 
@@ -17,11 +17,11 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
     this.createTree = undefined;
   }
 
-  StateSaverModel.prototype.newTree = function(name) {
-    this.createTree = name || '';
+  StateSaverModel.prototype.newTree = function (name) {
+    this.createTree = name || "";
   };
 
-  StateSaverModel.prototype.createNewEmptyTree = function(name) {
+  StateSaverModel.prototype.createNewEmptyTree = function (name) {
     this.newTree(name);
 
     StateLoader.unload();
@@ -32,7 +32,7 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
   /**
    * @return true if a state can be saved, false otherwise
    */
-  StateSaverModel.prototype.canSave = function() {
+  StateSaverModel.prototype.canSave = function () {
     return this.createTree !== undefined || TimeMachine.isInitialized();
   };
 
@@ -41,7 +41,7 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
    *
    * @return true on success, false otherwise
    */
-  StateSaverModel.prototype.saveState = function() {
+  StateSaverModel.prototype.saveState = function () {
     var data = State.save();
 
     return this.saveData(data);
@@ -54,7 +54,7 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
    *          a data object to save
    * @return true on success, false otherwise
    */
-  StateSaverModel.prototype.saveData = function(data) {
+  StateSaverModel.prototype.saveData = function (data) {
     var string;
 
     if (!data) {
@@ -73,7 +73,7 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
    *          the string to store
    * @return true on success, false otherwise
    */
-  StateSaverModel.prototype.saveString = function(string) {
+  StateSaverModel.prototype.saveString = function (string) {
     var commit, success;
 
     if (!string) {
@@ -95,18 +95,18 @@ define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function(
     if (success) {
       this.createTree = undefined;
       TimeMachine.cleanup(commit, 3);
-      console.log('state saved');
+      console.log("state saved");
     }
 
     return success;
   };
 
-  StateSaverModel.prototype.removeEverything = function() {
+  StateSaverModel.prototype.removeEverything = function () {
     StateLoader.unload();
     while (TimeMachine.roots.length > 0) {
       TimeMachine.roots.get(0).eraseTree();
     }
-    TimeMachine.getOrphans().forEach(function(orphan) {
+    TimeMachine.getOrphans().forEach(function (orphan) {
       orphan.remove();
     });
   };

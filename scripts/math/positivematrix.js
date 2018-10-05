@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/delegatematrix'], function(extend, DelegateMatrix) {
+define(["lib/extend", "math/delegatematrix"], function (extend, DelegateMatrix) {
   /**
    * Constructor
    * @param matrix the matrix to bind itself to
@@ -26,7 +26,7 @@ define(['lib/extend', 'math/delegatematrix'], function(extend, DelegateMatrix) {
    * @return 0 if the actual value is negative, the value otherwise. undefined
    *          on error
    */
-  PositiveMatrix.prototype.get = function(row, col) {
+  PositiveMatrix.prototype.get = function (row, col) {
     var value = this.superget(row, col);
     if (value < 0) {
       return 0;

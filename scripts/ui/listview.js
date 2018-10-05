@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
+define(["lib/extend", "ui/templateview", "ui/textview"], function (extend,
     TemplateView, TextView) {
   /**
    * Constructor
@@ -45,7 +45,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
   /**
    * reset to an empty state
    */
-  ListView.prototype.reset = function() {
+  ListView.prototype.reset = function () {
     while (this.subviews.length > 0) {
       this.removeItem(0);
     }
@@ -54,7 +54,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
   /**
    * redraw everything
    */
-  ListView.prototype.update = function() {
+  ListView.prototype.update = function () {
     var index;
 
     this.reset();
@@ -70,7 +70,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
    * @param index
    *          the index of the item inside the underlying list
    */
-  ListView.prototype.insertItem = function(index) {
+  ListView.prototype.insertItem = function (index) {
     var $subview, subview, model, $previousView, args;
 
     $subview = this.$template.clone();
@@ -83,8 +83,8 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
      */
     subview = new (Function.prototype.bind.apply(this.SubView, args))();
     if (subview.$view !== $subview) {
-      console.error('$subview != subview.$view');
-      throw new Error('$subview != subview.$view');
+      console.error("$subview != subview.$view");
+      throw new Error("$subview != subview.$view");
     }
 
     if (index === this.subviews.length) {
@@ -107,7 +107,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
    *          the DOM element for which to look
    * @return the index of the DOM element inside the underlying list
    */
-  ListView.prototype.indexOf = function($view) {
+  ListView.prototype.indexOf = function ($view) {
     var $parents, parentindex, index;
 
     // verify the descendance and ascend to the subview level of the DOM
@@ -115,15 +115,15 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
     parentindex = $parents.index(this.$view);
     switch (parentindex) {
     case -1:
-      console.warn('listview.indexOf: '
-          + '$view is not a descendant of this.$view');
+      console.warn("listview.indexOf: "
+          + "$view is not a descendant of this.$view");
       return -1;
     case 0:
       // $view is a direct descendant of this.$view, i.e. child
       break;
     default:
-      if (this.$template.prop('tagName') !== 'TBODY'
-          && $parents.eq(parentindex - 1).prop('tagName') === 'TBODY') {
+      if (this.$template.prop("tagName") !== "TBODY"
+          && $parents.eq(parentindex - 1).prop("tagName") === "TBODY") {
         // adjust parentindex if we have to step over an automatically inserted
         // tbody element. This is against the standard, but more intuitive
         parentindex -= 1;
@@ -140,7 +140,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
      * get the actual index
      */
     index = undefined;
-    this.subviews.some(function(subview, subviewid) {
+    this.subviews.some(function (subview, subviewid) {
       // Note to self: cannot compare separate jQuery objects directly, but
       // their data() object is unique for each DOM element
       if (subview.$view.data() === $view.data()) {
@@ -163,7 +163,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
    *          the index of the subview
    * @return undefined on failure, a subview reference on success
    */
-  ListView.prototype.getSubview = function(index) {
+  ListView.prototype.getSubview = function (index) {
     return this.subviews[index];
   };
 
@@ -174,7 +174,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
    * @param index
    *          the index of the item upon removal
    */
-  ListView.prototype.removeItem = function(index) {
+  ListView.prototype.removeItem = function (index) {
     var subview;
 
     subview = this.subviews[index];
@@ -196,7 +196,7 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
    * @param data
    *          data object, containing at least the index within the list
    */
-  ListView.prototype.oninsert = function(model, event, data) {
+  ListView.prototype.oninsert = function (model, event, data) {
     this.insertItem(data.id);
   };
 
@@ -211,14 +211,14 @@ define(['lib/extend', 'ui/templateview', 'ui/textview'], function(extend,
    * @param data
    *          data object, containing at least the index within the list
    */
-  ListView.prototype.onremove = function(model, event, data) {
+  ListView.prototype.onremove = function (model, event, data) {
     this.removeItem(data.id);
   };
 
   /**
    * Callback function, event emitted by list.clear()
    */
-  ListView.prototype.onreset = function() {
+  ListView.prototype.onreset = function () {
     // Note to self: there should have been 'remove' events. This is just for
     // safety, in case I break the code in a strange way.
     this.reset();

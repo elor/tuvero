@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['timemachine/keymodel', 'core/type'], function (KeyModel, Type) {
+define(["timemachine/keymodel", "core/type"], function (KeyModel, Type) {
   /**
    * Constructor. Constructs a new query, but does not apply the filter. A query
    * reads the localStorage for entries, regardless of the RefLog.
@@ -44,7 +44,7 @@ define(['timemachine/keymodel', 'core/type'], function (KeyModel, Type) {
     } else if (reference instanceof KeyModel) {
       this.referenceKey = reference;
     } else {
-      throw new Error('Query: reference has unknown type: ' + reference);
+      throw new Error("Query: reference has unknown type: " + reference);
     }
   }
 
@@ -118,8 +118,8 @@ define(['timemachine/keymodel', 'core/type'], function (KeyModel, Type) {
         break;
       default:
         if (!this.referenceKey) {
-          throw new Error('Query:'
-            + ' this.referenceKey could not be extracted from this.reference');
+          throw new Error("Query:"
+            + " this.referenceKey could not be extracted from this.reference");
         }
 
         keys = keys.filter(this.referenceKey.isRelated.bind(this.referenceKey));

@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(["lib/extend", "core/view"], function (extend, View) {
 
   /**
    * Constructor
@@ -29,14 +29,14 @@ define(['lib/extend', 'core/view'], function(extend, View) {
   /**
    * write the contents of get() to the DOM
    */
-  AttributeValueView.prototype.update = function() {
+  AttributeValueView.prototype.update = function () {
     this.$view.attr(this.attribute, this.model.get());
   };
 
   /**
    * Callback listener
    */
-  AttributeValueView.prototype.onupdate = function() {
+  AttributeValueView.prototype.onupdate = function () {
     this.update();
   };
 

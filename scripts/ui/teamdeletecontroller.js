@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller', 'ui/state', 'ui/strings'], function (
+define(["lib/extend", "core/controller", "ui/state", "ui/strings"], function (
     extend, Controller, State, Strings) {
     /**
      * Constructor
@@ -14,7 +14,7 @@ define(['lib/extend', 'core/controller', 'ui/state', 'ui/strings'], function (
     function TeamDeleteController(view) {
         TeamDeleteController.superconstructor.call(this, view);
 
-        this.view.$view.find('button.delete').click(this.confirmDeletion.bind(this));
+        this.view.$view.find("button.delete").click(this.confirmDeletion.bind(this));
     }
     extend(TeamDeleteController, Controller);
 
@@ -24,10 +24,10 @@ define(['lib/extend', 'core/controller', 'ui/state', 'ui/strings'], function (
     TeamDeleteController.prototype.confirmDeletion = function () {
         var id = this.model.getID();
         if (id === -1) {
-            console.error('Cannot delete team: It has not been assigned to a list, hence its ID is -1');
+            console.error("Cannot delete team: It has not been assigned to a list, hence its ID is -1");
         } else if (State.teams.get(id) !== this.model) {
-            console.error('Cannot delete team: ID mismatch. Has the team already been removed from the list?');
-        } else if (window.confirm(Strings.deleteteamconfirmation.replace('%1', this.model.getID() + 1).replace('%2', this.model.getNames().join('/')))) {
+            console.error("Cannot delete team: ID mismatch. Has the team already been removed from the list?");
+        } else if (window.confirm(Strings.deleteteamconfirmation.replace("%1", this.model.getID() + 1).replace("%2", this.model.getNames().join("/")))) {
             this.performDeletion();
         }
     };
@@ -38,9 +38,9 @@ define(['lib/extend', 'core/controller', 'ui/state', 'ui/strings'], function (
     TeamDeleteController.prototype.performDeletion = function () {
         var id = this.model.getID();
         if (id === -1) {
-            console.error('Cannot delete team: It has not been assigned to a list, hence its ID is -1');
+            console.error("Cannot delete team: It has not been assigned to a list, hence its ID is -1");
         } else if (State.teams.get(id) !== this.model) {
-            console.error('Cannot delete team: ID mismatch. Has the team already been removed from the list?');
+            console.error("Cannot delete team: ID mismatch. Has the team already been removed from the list?");
         } else {
             State.teams.remove(id);
         }

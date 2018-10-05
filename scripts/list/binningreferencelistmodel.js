@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/listmodel', 'core/type', 'list/sortedreferencelistmodel'], //
-function(extend, ListModel, Type, SortedReferenceListModel) {
+define(["lib/extend", "list/listmodel", "core/type", "list/sortedreferencelistmodel"], //
+function (extend, ListModel, Type, SortedReferenceListModel) {
   /**
    * Constructor
    *
@@ -24,11 +24,11 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
     this.makeReadonly();
 
     if (list === undefined) {
-      throw new Error('list argument is missing');
+      throw new Error("list argument is missing");
     }
 
     if (binningFunction === undefined) {
-      throw new Error('binning function is missing');
+      throw new Error("binning function is missing");
     }
 
     this.binningFunction = binningFunction;
@@ -37,7 +37,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
         this.binSortFunction, true);
     this.refList = list;
 
-    this.refList.map(function(element, index) {
+    this.refList.map(function (element, index) {
       BinningReferenceListModel.insertElement(this, index);
     }, this);
 
@@ -49,7 +49,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @return a readonly ListModel instance, which contains the names of all
    *         bins, in the bin order.
    */
-  BinningReferenceListModel.prototype.getBinNames = function() {
+  BinningReferenceListModel.prototype.getBinNames = function () {
     return this.sortedBins;
   };
 
@@ -63,7 +63,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @return the bin (i.e. an empty ListModel instance), or undefined if it
    *         couldn't be found and shouldn't be created
    */
-  BinningReferenceListModel.prototype.getBin = function(binName) {
+  BinningReferenceListModel.prototype.getBin = function (binName) {
     var index;
 
     index = this.sortedBins.indexOf(binName);
@@ -86,7 +86,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @return the newly created bin (a ListModel), or undefined if the bin
    *         already exists
    */
-  BinningReferenceListModel.prototype.createBinWithObject = function(binName,
+  BinningReferenceListModel.prototype.createBinWithObject = function (binName,
       object) {
     var index, bin;
 
@@ -111,7 +111,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @return the name of the bin, as returned by the binning function for each
    *         element in the respective bin
    */
-  BinningReferenceListModel.prototype.getBinName = function(binIndex) {
+  BinningReferenceListModel.prototype.getBinName = function (binIndex) {
     return this.sortedBins.get(binIndex);
   };
 
@@ -121,7 +121,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @param binName
    *          the name of the bin
    */
-  BinningReferenceListModel.prototype.removeEmptyBin = function(binName) {
+  BinningReferenceListModel.prototype.removeEmptyBin = function (binName) {
     var binIndex, sortedBinIndex;
     binIndex = this.bins.indexOf(binName);
     sortedBinIndex = this.sortedBins.indexOf(binName);
@@ -144,7 +144,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    *          the index of the element inside list.refList.
    * @return the bin into which the element was inserted.
    */
-  BinningReferenceListModel.insertElement = function(list, elementIndex) {
+  BinningReferenceListModel.insertElement = function (list, elementIndex) {
     var bin, binName, element, nextElementIndex;
 
     element = list.refList.get(elementIndex);
@@ -185,7 +185,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @return the index at which to find the next element of the same bin, or -1
    *         if such an element does not exist.
    */
-  BinningReferenceListModel.getNextBinElementIndex = function(list, begin,
+  BinningReferenceListModel.getNextBinElementIndex = function (list, begin,
       binName) {
     var index;
 
@@ -206,7 +206,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @param element
    *          the element to remove
    */
-  BinningReferenceListModel.removeElement = function(list, element) {
+  BinningReferenceListModel.removeElement = function (list, element) {
     var bin, binName, index;
 
     binName = list.binningFunction(element);
@@ -236,7 +236,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @param data
    *          a data object, as emitted by insert() from the original list
    */
-  BinningReferenceListModel.prototype.oninsert = function(emitter, event, data) //
+  BinningReferenceListModel.prototype.oninsert = function (emitter, event, data) //
   {
     if (emitter === this.refList) {
       BinningReferenceListModel.insertElement(this, data.id);
@@ -253,7 +253,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    * @param data
    *          a data object, as emitted by remove() from the original list
    */
-  BinningReferenceListModel.prototype.onremove = function(emitter, event, data) //
+  BinningReferenceListModel.prototype.onremove = function (emitter, event, data) //
   {
     if (emitter === this.refList) {
       BinningReferenceListModel.removeElement(this, data.object);
@@ -270,7 +270,7 @@ function(extend, ListModel, Type, SortedReferenceListModel) {
    *          another bin name
    * @return +1 is a > b, -1 if a < b, 0 otherwise
    */
-  BinningReferenceListModel.prototype.binSortFunction = function(a, b) {
+  BinningReferenceListModel.prototype.binSortFunction = function (a, b) {
     if (Type.isNumber(a) && Type.isNumber(b)) {
       return a - b;
     }

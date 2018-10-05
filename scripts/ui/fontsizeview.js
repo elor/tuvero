@@ -11,12 +11,12 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
-    'ui/fontsizemodel'], function($, extend, View, FontSizeController,
+define(["jquery", "lib/extend", "core/view", "ui/fontsizecontroller",
+    "ui/fontsizemodel"], function ($, extend, View, FontSizeController,
     FontSizeModel) {
   var classprefix;
 
-  classprefix = 'fontsize';
+  classprefix = "fontsize";
 
   /**
    * Constructor, which also calls update() for the first time
@@ -28,7 +28,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
    *          to <body>
    */
   function FontSizeView($view, $container) {
-    $container = $container || $('body');
+    $container = $container || $("body");
 
     FontSizeView.superconstructor.call(this, FontSizeView
         .getModelOfContainer($container), $view);
@@ -44,8 +44,8 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
   /**
    * removes all font size information
    */
-  FontSizeView.prototype.reset = function() {
-    FontSizeModel.SIZES.map(function(size) {
+  FontSizeView.prototype.reset = function () {
+    FontSizeModel.SIZES.map(function (size) {
       this.$container.removeClass(classprefix + size);
       this.$view.removeClass(classprefix + size);
     }, this);
@@ -54,7 +54,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
   /**
    * sets the current font size, as defined by the model
    */
-  FontSizeView.prototype.update = function() {
+  FontSizeView.prototype.update = function () {
     this.reset();
     this.$container.addClass(classprefix + this.model.getFontSize());
     this.$view.addClass(classprefix + this.model.getFontSize());
@@ -63,7 +63,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
   /**
    * model.emit() callback function
    */
-  FontSizeView.prototype.onupdate = function() {
+  FontSizeView.prototype.onupdate = function () {
     this.update();
   };
 
@@ -75,12 +75,12 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/fontsizecontroller',
    *          the container
    * @return the model for the given container
    */
-  FontSizeView.getModelOfContainer = function($container) {
-    if (!$container.data('FontSizeModel')) {
-      $container.data('FontSizeModel', new FontSizeModel());
+  FontSizeView.getModelOfContainer = function ($container) {
+    if (!$container.data("FontSizeModel")) {
+      $container.data("FontSizeModel", new FontSizeModel());
     }
 
-    return $container.data('FontSizeModel');
+    return $container.data("FontSizeModel");
   };
 
   return FontSizeView;

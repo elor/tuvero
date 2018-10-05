@@ -11,14 +11,14 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmodel',
-    'ranking/rankingmapper', 'core/statevaluemodel', 'core/matchmodel', 'core/matchresult',
-    'ui/listcollectormodel', 'core/listener', 'ranking/rankingmodel',
-    'list/referencelistmodel', 'list/maplistmodel', 'core/valuemodel',
-    'list/readonlylistmodel', 'options', 'list/indexedmodel', 'core/correctionmodel',
-    'core/matchreferencemodel', 'core/resultreferencemodel', 'core/type',
-    'core/correctionreferencemodel', 'list/sortedreferencelistmodel',
-    'list/combinedreferencelistmodel', 'core/byeresult'], function(extend,
+define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmodel",
+    "ranking/rankingmapper", "core/statevaluemodel", "core/matchmodel", "core/matchresult",
+    "ui/listcollectormodel", "core/listener", "ranking/rankingmodel",
+    "list/referencelistmodel", "list/maplistmodel", "core/valuemodel",
+    "list/readonlylistmodel", "options", "list/indexedmodel", "core/correctionmodel",
+    "core/matchreferencemodel", "core/resultreferencemodel", "core/type",
+    "core/correctionreferencemodel", "list/sortedreferencelistmodel",
+    "list/combinedreferencelistmodel", "core/byeresult"], function (extend,
     PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
     MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
     ReferenceListModel, MapListModel, ValueModel, ReadonlyListModel, Options,
@@ -47,12 +47,12 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *
    */
   STATETRANSITIONS = {
-    'initial': ['running'],
-    'running': ['idle', 'finished'],
-    'idle': ['running', 'finished'],
-    'finished': []
+    "initial": ["running"],
+    "running": ["idle", "finished"],
+    "idle": ["running", "finished"],
+    "finished": []
   };
-  INITIALSTATE = 'initial';
+  INITIALSTATE = "initial";
 
   /**
    * Constructor
@@ -69,7 +69,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     // TODO initialize with properties
 
     // rankingorder default: sort by entry order
-    rankingorder = rankingorder || ['id'];
+    rankingorder = rankingorder || ["id"];
 
     this.state = new StateValueModel(INITIALSTATE, STATETRANSITIONS);
     this.teams = new UniqueListModel();
@@ -85,15 +85,15 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     this.singletons = {};
 
     // initial properties
-    this.setProperty('addteamrunning', false);
-    this.setProperty('addteamidle', false);
+    this.setProperty("addteamrunning", false);
+    this.setProperty("addteamidle", false);
 
     // listen to the matches
     collector = new ListCollectorModel(this.matches, MatchModel);
     collector.registerListener(this);
 
     // print error messages to the output
-    Listener.bind(this, 'error', function(emitter, event, message) {
+    Listener.bind(this, "error", function (emitter, event, message) {
       console.error(message);
     });
   }
@@ -102,15 +102,15 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
   /**
    * a unique name for the tournament mode, e.g. 'ko' or 'tacteam'
    */
-  TournamentModel.prototype.SYSTEM = 'undefined';
+  TournamentModel.prototype.SYSTEM = "undefined";
 
   /**
    * send event on state change
    */
   TournamentModel.prototype.EVENTS = {
-    'state': true,
-    'error': true,
-    'update': true
+    "state": true,
+    "error": true,
+    "update": true
   };
 
   /**
@@ -121,19 +121,19 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
   /**
    * an array of required vote lists
    */
-  TournamentModel.prototype.VOTES = ['bye'];
+  TournamentModel.prototype.VOTES = ["bye"];
 
   /**
    * @param types
    *          an array of vote types
    * @return a dictionary of vote lists
    */
-  TournamentModel.initVoteLists = function(types) {
+  TournamentModel.initVoteLists = function (types) {
     var votes;
 
     votes = {};
 
-    types.forEach(function(type) {
+    types.forEach(function (type) {
       votes[type] = new ListModel();
     });
 
@@ -144,18 +144,18 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * automatically check if the tournament is supposed to be in an idle state
    * and transition to the idle state if necessary
    */
-  TournamentModel.prototype.checkIdleState = function() {
-    if (this.state.get() === 'running' && this.matches.length === 0) {
+  TournamentModel.prototype.checkIdleState = function () {
+    if (this.state.get() === "running" && this.matches.length === 0) {
 
       // TODO add votes to history
 
       // clear votes
-      Object.keys(this.votes).forEach(function(key) {
+      Object.keys(this.votes).forEach(function (key) {
         this.votes[key].clear();
       }, this);
 
       // apply idle state
-      this.state.set('idle');
+      this.state.set("idle");
     }
   };
 
@@ -168,15 +168,15 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *          an array of ranking order component names
    * @return true on success, false otherwise
    */
-  TournamentModel.prototype.setRankingOrder = function(rankingorder) {
-    if (this.state.get() !== 'initial') {
-      this.emit('error',
-          'cannot change ranking order after starting a tournament');
+  TournamentModel.prototype.setRankingOrder = function (rankingorder) {
+    if (this.state.get() !== "initial") {
+      this.emit("error",
+          "cannot change ranking order after starting a tournament");
       return undefined;
     }
 
     this.ranking.reset();
-    return this.ranking.init(rankingorder || ['id'], this.teams.length,
+    return this.ranking.init(rankingorder || ["id"], this.teams.length,
         this.RANKINGDEPENDENCIES);
   };
 
@@ -192,23 +192,23 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @return true on success, false if the team already exists. undefined if the
    *         team cannot be added in the current state
    */
-  TournamentModel.prototype.addTeam = function(teamid) {
+  TournamentModel.prototype.addTeam = function (teamid) {
     // TODO isNumber() check
     switch (this.state.get()) {
-    case 'initial':
+    case "initial":
       break;
-    case 'running':
-      if (!this.getProperty('addteamrunning')) {
+    case "running":
+      if (!this.getProperty("addteamrunning")) {
         return undefined;
       }
       break;
-    case 'idle':
-      if (!this.getProperty('addteamidle')) {
+    case "idle":
+      if (!this.getProperty("addteamidle")) {
         return undefined;
       }
       break;
-    case 'finished':
-      this.emit('error', 'cannot enter add a team to a finished tournament');
+    case "finished":
+      this.emit("error", "cannot enter add a team to a finished tournament");
       return undefined;
     }
 
@@ -227,7 +227,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @return a readonly ValueModel instance of the state. use the get() function
    *         to retrieve the current value of the state
    */
-  TournamentModel.prototype.getState = function() {
+  TournamentModel.prototype.getState = function () {
     if (this.singletons.state === undefined) {
       this.singletons.state = new ValueModel(this.state.get());
       this.singletons.state.bind(this.state);
@@ -238,7 +238,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
   /**
    * @return a ListModel of the registered teams.
    */
-  TournamentModel.prototype.getTeams = function() {
+  TournamentModel.prototype.getTeams = function () {
     if (this.singletons.teams === undefined) {
       this.singletons.teams = new ReadonlyListModel(this.teams);
     }
@@ -248,7 +248,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  TournamentModel.prototype.getMatches = function() {
+  TournamentModel.prototype.getMatches = function () {
     if (this.singletons.matches === undefined) {
       this.singletons.matches = new ReferenceListModel(
           new SortedReferenceListModel(this.matches,
@@ -266,14 +266,14 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *          the second match
    * @return the order relation: 0, >0 or <0
    */
-  TournamentModel.matchCompare = function(a, b) {
+  TournamentModel.matchCompare = function (a, b) {
     return (a.getGroup() - b.getGroup()) || (a.getID() - b.getID());
   };
 
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  TournamentModel.prototype.getHistory = function() {
+  TournamentModel.prototype.getHistory = function () {
     if (this.singletons.history === undefined) {
       this.singletons.history = new ReferenceListModel(
           new SortedReferenceListModel(this.history,
@@ -285,7 +285,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  TournamentModel.prototype.getCombinedHistory = function() {
+  TournamentModel.prototype.getCombinedHistory = function () {
     // prepare this.singletons.sortedRawHistory
 
     if (this.singletons.combinedHistory === undefined) {
@@ -306,7 +306,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
   /**
    * @return ListModel of the running matches, with global team ids
    */
-  TournamentModel.prototype.getCorrections = function() {
+  TournamentModel.prototype.getCorrections = function () {
     if (this.singletons.corrections === undefined) {
       this.singletons.corrections = new ReferenceListModel(this.corrections,
           this.teams, CorrectionReferenceModel);
@@ -322,10 +322,10 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @return a readonly listmodel of team ids which received the specified, or
    *         undefined if the vote type doesn't exist
    */
-  TournamentModel.prototype.getVotes = function(type) {
+  TournamentModel.prototype.getVotes = function (type) {
     if (!type || this.votes[type] === undefined) {
-      this.emit('error', 'vote type "' + type
-          + '" does not exist for this tournament type');
+      this.emit("error", "vote type \"" + type
+          + "\" does not exist for this tournament type");
       return undefined;
     }
 
@@ -341,7 +341,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     return this.singletons.votes[type];
   };
 
-  TournamentModel.prototype.getName = function() {
+  TournamentModel.prototype.getName = function () {
     if (this.singletons.name === undefined) {
       this.singletons.name = new ValueModel();
       this.singletons.name.bind(this.name);
@@ -357,7 +357,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *
    * @return a RankingMapper instance, which emits 'update' and provides get()
    */
-  TournamentModel.prototype.getRanking = function() {
+  TournamentModel.prototype.getRanking = function () {
     if (this.singletons.ranking === undefined) {
       this.singletons.ranking = new RankingMapper(this.ranking, this.teams);
     }
@@ -370,32 +370,32 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *
    * @return true on success, undefined otherwise
    */
-  TournamentModel.prototype.run = function() {
+  TournamentModel.prototype.run = function () {
     switch (this.state.get()) {
-    case 'initial':
+    case "initial":
       if (this.initialMatches()) {
         break;
       }
-      this.emit('error', 'initialMatches() failed');
+      this.emit("error", "initialMatches() failed");
       return undefined;
-    case 'idle':
+    case "idle":
       if (this.idleMatches()) {
         break;
       }
-      this.emit('error', 'idleMatches() failed');
+      this.emit("error", "idleMatches() failed");
       return undefined;
-    case 'running':
-      this.emit('error', 'tournament is already running');
+    case "running":
+      this.emit("error", "tournament is already running");
       return undefined;
-    case 'finished':
-      this.emit('error', 'tournament is already finished');
+    case "finished":
+      this.emit("error", "tournament is already finished");
       return undefined;
     }
 
     if (this.matches.length > 0) {
-      this.state.set('running');
+      this.state.set("running");
     } else {
-      throw new Error('tournament is running, but no games have been created');
+      throw new Error("tournament is running, but no games have been created");
     }
     return true;
   };
@@ -405,18 +405,18 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *
    * @return true on success, false otherwise
    */
-  TournamentModel.prototype.finish = function() {
+  TournamentModel.prototype.finish = function () {
     switch (this.state.get()) {
-    case 'idle':
-      this.state.set('finished');
+    case "idle":
+      this.state.set("finished");
       return true;
-    case 'finished':
+    case "finished":
       return true;
-    case 'initial':
-      this.state.set('finished');
+    case "initial":
+      this.state.set("finished");
       return true;
-    case 'running':
-      this.emit('error', 'cannot finish a running tournament');
+    case "running":
+      this.emit("error", "cannot finish a running tournament");
       break;
     }
 
@@ -435,19 +435,19 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *          attribute, which is a reference to the original MatchModel
    *          instance
    */
-  TournamentModel.prototype.onfinish = function(emitter, event, matchresult) {
+  TournamentModel.prototype.onfinish = function (emitter, event, matchresult) {
     var match;
 
     match = matchresult.source;
 
     if (this.matches.indexOf(match) === -1) {
-      this.emit('error',
-          'onfinish: match is not open anymore or does not exist');
+      this.emit("error",
+          "onfinish: match is not open anymore or does not exist");
       return;
     }
 
     if (!this.validateMatchResult(matchresult)) {
-      this.emit('error', 'onfinish: match result fails validation test');
+      this.emit("error", "onfinish: match result fails validation test");
       return;
     }
 
@@ -474,10 +474,10 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *          a MatchResult instance
    * @return true if the result is valid, false otherwise
    */
-  TournamentModel.prototype.validateMatchResult = function(matchresult) {
+  TournamentModel.prototype.validateMatchResult = function (matchresult) {
     var valid;
 
-    valid = matchresult.score.every(function(score) {
+    valid = matchresult.score.every(function (score) {
       return score >= Options.minpoints && score <= Options.maxpoints;
     });
 
@@ -492,7 +492,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *          a CorrectionModel instance
    * @return true on success, false otherwise
    */
-  TournamentModel.prototype.validateCorrection = function(correction) {
+  TournamentModel.prototype.validateCorrection = function (correction) {
     return true;
   };
 
@@ -504,7 +504,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @param matchresult
    *          a valid and accepted match result
    */
-  TournamentModel.prototype.postprocessMatch = function(matchresult) {
+  TournamentModel.prototype.postprocessMatch = function (matchresult) {
     // Default: Do nothing.
   };
 
@@ -517,7 +517,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @param correction
    *          the applied correction
    */
-  TournamentModel.prototype.postprocessCorrection = function(correction) {
+  TournamentModel.prototype.postprocessCorrection = function (correction) {
     // Default: Do nothing.
   };
 
@@ -527,7 +527,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @return true on success (i.e. valid matches have been created), false or
    *         undefined otherwise
    */
-  TournamentModel.prototype.initialMatches = function() {
+  TournamentModel.prototype.initialMatches = function () {
     // create matches here
 
     if (this.teams.length < 3) {
@@ -546,7 +546,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @return true on success (i.e. valid matches have been created), false or
    *         undefined otherwise
    */
-  TournamentModel.prototype.idleMatches = function() {
+  TournamentModel.prototype.idleMatches = function () {
     // create matches here
 
     this.matches.push(new MatchModel([1, 2], 1, 0));
@@ -563,7 +563,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    * @param matchID
    * @param round
    */
-  TournamentModel.prototype.addBye = function(byeResultOrTeamID, matchID, //
+  TournamentModel.prototype.addBye = function (byeResultOrTeamID, matchID, //
   round) {
     var teamID, byeResult;
 
@@ -598,7 +598,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *
    * @return true on success, false otherwise
    */
-  TournamentModel.prototype.correct = function(result, newScore) {
+  TournamentModel.prototype.correct = function (result, newScore) {
     var index, correction, newResult, baseResult;
 
     baseResult = result;
@@ -611,20 +611,20 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
 
     index = this.history.indexOf(baseResult);
     if (index === -1) {
-      this.emit('error', 'correct(): result does not exist in history');
+      this.emit("error", "correct(): result does not exist in history");
       return false;
     }
 
     newResult = new MatchResult(baseResult, newScore);
     if (!this.validateMatchResult(newResult)) {
-      this.emit('error', 'correction has invalid score');
+      this.emit("error", "correction has invalid score");
       return false;
     }
 
     correction = new CorrectionModel(baseResult, newResult);
 
     if (!this.validateCorrection(correction)) {
-      this.emit('error', 'correction is invalid, although the score is fine');
+      this.emit("error", "correction is invalid, although the score is fine");
       return false;
     }
 
@@ -643,7 +643,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *
    * @return a serializable data object, which can be used for restoring
    */
-  TournamentModel.prototype.save = function() {
+  TournamentModel.prototype.save = function () {
     var data = TournamentModel.superclass.save.call(this);
 
     data.sys = this.SYSTEM;
@@ -656,7 +656,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     data.corrections = this.corrections.save();
     data.ranking = this.ranking.save();
     data.votes = {};
-    this.VOTES.forEach(function(votetype) {
+    this.VOTES.forEach(function (votetype) {
       data.votes[votetype] = this.votes[votetype].save();
     }, this);
 
@@ -670,9 +670,9 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
    *          a data object, that was previously written by save()
    * @return true on success, false otherwise
    */
-  TournamentModel.prototype.restore = function(data) {
+  TournamentModel.prototype.restore = function (data) {
     if (this.SYSTEM !== data.sys) {
-      this.emit('error', 'TournamentModel.restore() error: System mismatch');
+      this.emit("error", "TournamentModel.restore() error: System mismatch");
       return false;
     }
 
@@ -685,46 +685,46 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     this.name.set(data.name || this.SYSTEM);
 
     if (!this.state.forceState(data.state)) {
-      this.emit('error',//
-      'TournamentModel.restore(): invalid tournament state');
+      this.emit("error",//
+      "TournamentModel.restore(): invalid tournament state");
       return false;
     }
 
     if (!this.teams.restore(data.teams)) {
-      this.emit('error',//
-      'TournamentModel.restore(): cannot restore teams');
+      this.emit("error",//
+      "TournamentModel.restore(): cannot restore teams");
       return false;
     }
 
     if (!this.matches.restore(data.matches, MatchModel)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore matches');
+      this.emit("error", "TournamentModel.restore(): cannot restore matches");
       return false;
     }
 
     if (!this.history.restore(data.history, MatchResult)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore history');
+      this.emit("error", "TournamentModel.restore(): cannot restore history");
       return false;
     }
 
     if (!this.corrections.restore(data.corrections, CorrectionModel)) {
-      this.emit('error',
-          'TournamentModel.restore(): cannot restore corrections');
+      this.emit("error",
+          "TournamentModel.restore(): cannot restore corrections");
       return false;
     }
 
     if (!this.ranking.restore(data.ranking)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore ranking');
+      this.emit("error", "TournamentModel.restore(): cannot restore ranking");
       return false;
     }
 
-    if (!this.VOTES.every(function(votetype) {
+    if (!this.VOTES.every(function (votetype) {
       this.votes[votetype].clear();
       if (data.votes[votetype]) {
         this.votes[votetype].restore(data.votes[votetype]);
       }
       return true;
     }, this)) {
-      this.emit('error', 'TournamentModel.restore(): cannot restore votes');
+      this.emit("error", "TournamentModel.restore(): cannot restore votes");
       return false;
     }
 

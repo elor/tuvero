@@ -14,7 +14,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(["lib/extend", "core/model"], function (extend, Model) {
 
   /**
    * Constructor
@@ -41,10 +41,10 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    * @param value
    *          the new value
    */
-  ValueModel.prototype.set = function(value) {
+  ValueModel.prototype.set = function (value) {
     if (this.value !== value) {
       this.value = value;
-      this.emit('update', value);
+      this.emit("update", value);
     }
   };
 
@@ -53,7 +53,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @return the stored value
    */
-  ValueModel.prototype.get = function() {
+  ValueModel.prototype.get = function () {
     return this.value;
   };
 
@@ -69,7 +69,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    * @param valueModel
    *          the other value model
    */
-  ValueModel.prototype.bind = function(valueModel) {
+  ValueModel.prototype.bind = function (valueModel) {
     valueModel.registerListener(this);
     this.onupdate(valueModel);
   };
@@ -81,7 +81,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @param emitter
    */
-  ValueModel.prototype.onupdate = function(emitter) {
+  ValueModel.prototype.onupdate = function (emitter) {
     if (this.set) {
       this.set(emitter.get());
     }

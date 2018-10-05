@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
+define(["lib/extend", "math/matrixmodel"], function (extend, MatrixModel) {
   /**
    * Constructor
    *
@@ -33,7 +33,7 @@ define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
    *          column
    * @return the stored value
    */
-  SymmetricMatrixModel.prototype.get = function(row, col) {
+  SymmetricMatrixModel.prototype.get = function (row, col) {
     if (row < col) {
       return SymmetricMatrixModel.superclass.get.call(this, col, row);
     }
@@ -53,7 +53,7 @@ define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
    *          value
    * @return this on success, undefined otherwise
    */
-  SymmetricMatrixModel.prototype.set = function(row, col, value) {
+  SymmetricMatrixModel.prototype.set = function (row, col, value) {
     if (row < col) {
       return SymmetricMatrixModel.superclass.set.call(this, col, row, value);
     }

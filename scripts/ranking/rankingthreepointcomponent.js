@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], function(extend, //
+define(["lib/extend", "ranking/rankingcomponent"], function (extend, //
 RankingComponent) {
   /**
    * Constructor
@@ -21,14 +21,14 @@ RankingComponent) {
   }
   extend(RankingThreePointComponent, RankingComponent);
 
-  RankingThreePointComponent.NAME = 'threepoint';
+  RankingThreePointComponent.NAME = "threepoint";
 
   /**
    * @param i
    *          a team index
    * @return the number of won games
    */
-  RankingThreePointComponent.prototype.value = function(i) {
+  RankingThreePointComponent.prototype.value = function (i) {
     return this.ranking.threepoint.get(i);
   };
 

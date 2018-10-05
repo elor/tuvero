@@ -17,8 +17,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
-    'list/listmodel', 'core/listener', 'timemachine/keymodel'], function(
+define(["lib/extend", "core/model", "presets", "timemachine/query",
+    "list/listmodel", "core/listener", "timemachine/keymodel"], function (
     extend, Model, Presets, Query, ListModel, Listener, KeyModel) {
   var RefLog;
 
@@ -32,7 +32,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     this.data = {};
     this.storageKey = this.formatTargetKey(Presets.target);
 
-    Listener.bind(this, 'error', function(event, emitter, message) {
+    Listener.bind(this, "error", function (event, emitter, message) {
       console.error(message);
     });
 
@@ -41,10 +41,10 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   extend(RefLogModel, Model);
 
   RefLogModel.prototype.EVENTS = {
-    'error': true,
-    'rename': true,
-    'refresh': true,
-    'reset': true
+    "error": true,
+    "rename": true,
+    "refresh": true,
+    "reset": true
   };
 
   /**
@@ -52,7 +52,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *
    * @return true on success, false otherwise
    */
-  RefLogModel.prototype.refresh = function() {
+  RefLogModel.prototype.refresh = function () {
     var newSource, newData;
 
     if (window.localStorage) {
@@ -62,9 +62,9 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     }
 
     if (!newSource) {
-      console.log('creating new reflog');
-      newSource = '{}';
-    } else if (this.source === newSource || newSource === 'undefined') {
+      console.log("creating new reflog");
+      newSource = "{}";
+    } else if (this.source === newSource || newSource === "undefined") {
       return true;
     }
 
@@ -72,12 +72,12 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
       newData = JSON.parse(newSource);
     } catch (e) {
       console.error(e.stack);
-      this.emit('error', 'cannot JSON-parse reflog from localStorage.');
+      this.emit("error", "cannot JSON-parse reflog from localStorage.");
       return false;
     }
 
     if (!newData) {
-      this.emit('error', 'RefLog from localStorage contains no data.');
+      this.emit("error", "RefLog from localStorage contains no data.");
       return false;
     }
 
@@ -85,7 +85,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     this.source = newSource;
 
     this.store();
-    this.emit('refresh');
+    this.emit("refresh");
 
     return true;
   };
@@ -96,11 +96,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * FIXME REALLY enable multiple parallel tournaments by just changing the
    * currently opened tournament, not others.
    */
-  RefLogModel.prototype.store = function() {
+  RefLogModel.prototype.store = function () {
     var dataString;
 
     if (!this.isValid()) {
-      this.emit('error', 'RefLogModel: this.data is not valid!');
+      this.emit("error", "RefLogModel: this.data is not valid!");
       return false;
     }
 
@@ -117,7 +117,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   /**
    * @return true if the reflog data is valid, false otherwise
    */
-  RefLogModel.prototype.isValid = function() {
+  RefLogModel.prototype.isValid = function () {
     if (!this.data) {
       return false;
     }
@@ -133,18 +133,18 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *          the parent key
    * @return the new key. Returns undefined on error.
    */
-  RefLogModel.prototype.newSaveKey = function(parentKey) {
+  RefLogModel.prototype.newSaveKey = function (parentKey) {
     var newKey, startDate, refDate, saveDate;
 
     if (!parentKey) {
-      this.emit('error', 'newSaveKey: no parent key given');
+      this.emit("error", "newSaveKey: no parent key given");
       return undefined;
     }
 
     newKey = KeyModel.createChild(parentKey);
 
     if (!parentKey.isRelated(newKey)) {
-      this.emit('error', 'unexpected error: newKey is unrelated to parentKey');
+      this.emit("error", "unexpected error: newKey is unrelated to parentKey");
       return undefined;
     }
 
@@ -153,7 +153,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     saveDate = newKey.saveDate;
 
     if (!this.contains(parentKey)) {
-      this.emit('error', 'newSaveKey(): parentKey is not in reflog!');
+      this.emit("error", "newSaveKey(): parentKey is not in reflog!");
       return undefined;
     }
 
@@ -167,7 +167,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   /**
    * @return a new root key which hasn't been in the reflog before
    */
-  RefLogModel.prototype.newInitKey = function(name) {
+  RefLogModel.prototype.newInitKey = function (name) {
     var newKey;
 
     /*
@@ -193,11 +193,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *          a reference key
    * @return true if refKey is contained in the reflog, false otherwise
    */
-  RefLogModel.prototype.contains = function(refKey) {
+  RefLogModel.prototype.contains = function (refKey) {
     this.refresh();
 
     if (!this.data) {
-      this.emit('error', 'reflog contains no data!');
+      this.emit("error", "reflog contains no data!");
       return false;
     }
 
@@ -220,7 +220,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @return a list of start dates. returns an empty array if the reflog is
    *         empty
    */
-  RefLogModel.prototype.listStartDates = function() {
+  RefLogModel.prototype.listStartDates = function () {
     this.refresh();
 
     if (!this.data) {
@@ -237,11 +237,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @return a list of save dates under the start date. Excludes the start date
    *         itself.
    */
-  RefLogModel.prototype.listSaveDates = function(startDate) {
+  RefLogModel.prototype.listSaveDates = function (startDate) {
     this.refresh();
 
     if (!this.data || !this.data[startDate]) {
-      this.emit('error', 'reflog does not contain start Date ' + startDate);
+      this.emit("error", "reflog does not contain start Date " + startDate);
       return [];
     }
 
@@ -255,16 +255,16 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *          a KeyModel instance
    * @return the name of the root element of the tree
    */
-  RefLogModel.prototype.getName = function(key) {
+  RefLogModel.prototype.getName = function (key) {
     if (!this.contains(key)) {
       key = new KeyModel(key.startDate, key.startDate);
       if (!this.contains(key)) {
-        this.emit('error', 'reflog does not contain key for name query');
-        return '';
+        this.emit("error", "reflog does not contain key for name query");
+        return "";
       }
     }
 
-    return this.data[key.startDate].name || '';
+    return this.data[key.startDate].name || "";
   };
 
   /**
@@ -274,11 +274,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *          the new name
    * @return true if the tree now carries the new name, false otherwise
    */
-  RefLogModel.prototype.setName = function(key, name) {
+  RefLogModel.prototype.setName = function (key, name) {
     if (!this.contains(key)) {
       key = new KeyModel(key.startDate, key.startDate);
       if (!this.contains(key)) {
-        this.emit('error', 'RefLog does not contain key for name setting');
+        this.emit("error", "RefLog does not contain key for name setting");
         return false;
       }
     }
@@ -289,10 +289,10 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
     this.data[key.startDate].name = name;
     if (!this.store()) {
-      this.emit('error', 'RefLog: store() error during name change');
+      this.emit("error", "RefLog: store() error during name change");
       return false;
     }
-    this.emit('rename', key);
+    this.emit("rename", key);
     return true;
   };
 
@@ -302,9 +302,9 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @return a KeyModel instance of the parent key. Returns undefined if the key
    *         is a root key (has no parent)
    */
-  RefLogModel.prototype.getParent = function(refKey) {
+  RefLogModel.prototype.getParent = function (refKey) {
     if (!this.contains(refKey)) {
-      this.emit('error', 'reflog does not contain key for parent search!');
+      this.emit("error", "reflog does not contain key for parent search!");
       return undefined;
     }
 
@@ -322,16 +322,16 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @return an array of children. Returns an empty array if the parent key is
    *         not in the reflog
    */
-  RefLogModel.prototype.getChildren = function(refKey) {
+  RefLogModel.prototype.getChildren = function (refKey) {
     if (!this.contains(refKey)) {
-      this.emit('error', 'reflog does not contain key for children search');
+      this.emit("error", "reflog does not contain key for children search");
       return [];
     }
 
-    return this.listSaveDates(refKey.startDate).filter(function(saveDate) {
+    return this.listSaveDates(refKey.startDate).filter(function (saveDate) {
       var parentDate = this.data[refKey.startDate][saveDate];
       return parentDate === refKey.saveDate;
-    }, this).map(function(saveDate) {
+    }, this).map(function (saveDate) {
       return new KeyModel(refKey.startDate, saveDate);
     });
   };
@@ -339,13 +339,13 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   /**
    * @return an array of all keys in the reflog.
    */
-  RefLogModel.prototype.getAllKeys = function() {
+  RefLogModel.prototype.getAllKeys = function () {
     var keys;
 
     keys = this.getInitKeys();
 
-    this.listStartDates().forEach(function(startDate) {
-      this.listSaveDates(startDate).forEach(function(saveDate) {
+    this.listStartDates().forEach(function (startDate) {
+      this.listSaveDates(startDate).forEach(function (saveDate) {
         keys.push(new KeyModel(startDate, saveDate));
       });
     }, this);
@@ -356,8 +356,8 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   /**
    * @return an array of all root keys in the reflog
    */
-  RefLogModel.prototype.getInitKeys = function() {
-    return this.listStartDates().sort().map(function(startDate) {
+  RefLogModel.prototype.getInitKeys = function () {
+    return this.listStartDates().sort().map(function (startDate) {
       return new KeyModel(startDate, startDate);
     });
   };
@@ -366,10 +366,10 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @return the youngest key in the whole reflog. Should be the key of the
    *         latest save state
    */
-  RefLogModel.prototype.getLatestGlobalKey = function() {
+  RefLogModel.prototype.getLatestGlobalKey = function () {
     var latestKey;
 
-    latestKey = this.listStartDates().map(function(startDate) {
+    latestKey = this.listStartDates().map(function (startDate) {
       var saveDate = this.listSaveDates(startDate).sort().pop() || startDate;
       return new KeyModel(startDate, saveDate);
     }, this).sort(KeyModel.sortFunction).pop();
@@ -387,11 +387,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *          a key in a tree
    * @return the youngest key in the whole tree
    */
-  RefLogModel.prototype.getLatestRelatedKey = function(refKey) {
+  RefLogModel.prototype.getLatestRelatedKey = function (refKey) {
     var startDate, saveDate, rootKey;
 
     if (!KeyModel.isValidKey(refKey)) {
-      this.emit('error', 'getLatestRelatedKey(): refKey is invalid');
+      this.emit("error", "getLatestRelatedKey(): refKey is invalid");
       return undefined;
     }
 
@@ -400,7 +400,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
     if (!this.contains(refKey)) {
       rootKey = new KeyModel(startDate, startDate);
       if (!this.contains(rootKey)) {
-        this.emit('error', 'root key is missing in reflog');
+        this.emit("error", "root key is missing in reflog");
         return undefined;
       }
     }
@@ -413,11 +413,11 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
   /**
    * if the reflog is not empty, it's reset to an empty object. Emits 'remove'
    */
-  RefLogModel.prototype.reset = function() {
+  RefLogModel.prototype.reset = function () {
     this.refresh();
 
     if (!this.data) {
-      this.emit('error', 'RefLog.reset(): data is undefined');
+      this.emit("error", "RefLog.reset(): data is undefined");
       this.data = {};
       return;
     }
@@ -429,7 +429,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
     this.data = {};
 
-    this.emit('reset');
+    this.emit("reset");
 
     this.store();
   };
@@ -440,7 +440,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @param refKey
    *          any key in the tree, not necessarily the root key
    */
-  RefLogModel.prototype.deleteTree = function(refKey) {
+  RefLogModel.prototype.deleteTree = function (refKey) {
     if (!this.contains(refKey)) {
       if (!this.contains(new KeyModel(refKey.startDate, refKey.startDate))) {
         // Nothing to do here. It's already deleted
@@ -459,12 +459,12 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    * @param refKey
    *          save key. root keys cannot be deleted.
    */
-  RefLogModel.prototype.deleteKey = function(refKey) {
+  RefLogModel.prototype.deleteKey = function (refKey) {
     var parentKey, children;
 
     if (refKey.isRoot()) {
-      this.emit('error', 'cannot delete a single init key. '
-          + 'use deleteTree() instead');
+      this.emit("error", "cannot delete a single init key. "
+          + "use deleteTree() instead");
       return;
     }
 
@@ -475,17 +475,17 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
 
     parentKey = this.getParent(refKey);
     if (!parentKey) {
-      this.emit('error', 'deleteKey(): parent key is not in reflog!');
+      this.emit("error", "deleteKey(): parent key is not in reflog!");
       return;
     }
 
     children = this.getChildren(refKey);
     if (children === undefined) {
-      this.emit('error', 'deleteKey(): Children cannot be extracted!');
+      this.emit("error", "deleteKey(): Children cannot be extracted!");
       return;
     }
 
-    children.forEach(function(child) {
+    children.forEach(function (child) {
       this.data[refKey.startDate][child.saveDate] = parentKey.saveDate;
     }, this);
 
@@ -499,7 +499,7 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *
    * @return a serialized representation of the RefLog
    */
-  RefLogModel.prototype.toString = function() {
+  RefLogModel.prototype.toString = function () {
     return JSON.stringify(this.data);
   };
 
@@ -508,8 +508,8 @@ define(['lib/extend', 'core/model', 'presets', 'timemachine/query',
    *          a target name, e.g 'basic' or 'tac'
    * @return the key of the target's reflog in the localStorage
    */
-  RefLogModel.prototype.formatTargetKey = function(target) {
-    return target + '-reflog';
+  RefLogModel.prototype.formatTargetKey = function (target) {
+    return target + "-reflog";
   };
 
   /*

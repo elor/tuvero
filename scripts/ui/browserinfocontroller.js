@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller'], function(extend, Controller) {
+define(["lib/extend", "core/controller"], function (extend, Controller) {
   /**
    * Constructor
    */
@@ -15,11 +15,11 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
 
     BrowserInfoController.superconstructor.call(this, view);
 
-    this.$updateButton = this.view.$view.find('button.update');
+    this.$updateButton = this.view.$view.find("button.update");
     model = this.model;
 
-    this.$updateButton.click(function() {
-      model.emit('update');
+    this.$updateButton.click(function () {
+      model.emit("update");
     });
   }
   extend(BrowserInfoController, Controller);

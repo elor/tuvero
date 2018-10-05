@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/matchresultview', 'ui/kotreeposition'], //
-function(extend, MatchResultView, KOTreePosition) {
+define(["lib/extend", "ui/matchresultview", "ui/kotreeposition"], //
+function (extend, MatchResultView, KOTreePosition) {
   /**
    * Constructor
    *
@@ -33,18 +33,18 @@ function(extend, MatchResultView, KOTreePosition) {
   }
   extend(KOMatchResultView, MatchResultView);
 
-  KOMatchResultView.prototype.reposition = function() {
+  KOMatchResultView.prototype.reposition = function () {
     var pos = new KOTreePosition(this.model.getID(), this.model.getGroup(),
         this.tournament.getTeams().length, this.showNames.get());
 
     this.x = pos.x;
     this.y = pos.y;
 
-    this.$view.css('left', this.x + 'em');
-    this.$view.css('top', this.y + 'em');
+    this.$view.css("left", this.x + "em");
+    this.$view.css("top", this.y + "em");
   };
 
-  KOMatchResultView.prototype.onupdate = function() {
+  KOMatchResultView.prototype.onupdate = function () {
     this.reposition();
   };
 

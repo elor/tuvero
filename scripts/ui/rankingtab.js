@@ -4,9 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
-    'ui/checkboxview', 'core/classview', 'ui/tournamentrankingview',
-    'ui/tabshandle', 'ui/closedtournamentcollapselistener'], function(extend, $,
+define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
+    "ui/checkboxview", "core/classview", "ui/tournamentrankingview",
+    "ui/tabshandle", "ui/closedtournamentcollapselistener"], function (extend, $,
     View, ListView, State, CheckBoxView, ClassView, TournamentRankingView,
     TabsHandle, ClosedTournamentCollapseListener) {
   /**
@@ -35,32 +35,32 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    *
    * TODO maybe split it into multiple autodetected functions?
    */
-  RankingTab.prototype.init = function() {
+  RankingTab.prototype.init = function () {
     var $template, $container, value;
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
-    $container = this.$view.find('>.options input.maxwidth');
+    $container = this.$view.find(">.options input.maxwidth");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
-        'nomaxwidth');
+    this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
+        "nomaxwidth");
 
     // player names checkbox
     value = State.tabOptions.showNames;
-    $container = this.$view.find('>.options input.shownames');
+    $container = this.$view.find(">.options input.shownames");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, undefined,
-        'hidenames');
+        "hidenames");
 
     // list/table selection checkbox
     this.rankingabbreviations = State.tabOptions.rankingAbbreviations;
-    $container = this.$view.find('>.options input.abbreviate');
+    $container = this.$view.find(">.options input.abbreviate");
     this.abbreviateCheckBoxView = new CheckBoxView(this.rankingabbreviations,
         $container);
 
     // rankinglist
-    $container = this.$view.find('.tournamentlist');
-    $template = $container.find('.tournament.template');
+    $container = this.$view.find(".tournamentlist");
+    $template = $container.find(".tournament.template");
     this.tournamentList = new ListView(State.tournaments, $container,
         $template, TournamentRankingView, State.teams,
         this.rankingabbreviations);
@@ -73,19 +73,19 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
   /**
    * show/hide the tab and update it as necessary
    */
-  RankingTab.prototype.update = function() {
+  RankingTab.prototype.update = function () {
     var i, isRunning;
 
     isRunning = false;
 
     for (i = 0; !isRunning && i < State.tournaments.length; i += 1) {
-      isRunning = State.tournaments.get(i).getState().get() !== 'initial';
+      isRunning = State.tournaments.get(i).getState().get() !== "initial";
     }
 
     if (isRunning) {
-      TabsHandle.show('ranking');
+      TabsHandle.show("ranking");
     } else {
-      TabsHandle.hide('ranking');
+      TabsHandle.hide("ranking");
     }
   };
 
@@ -96,7 +96,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    * @param event
    * @param data
    */
-  RankingTab.prototype.onupdate = function(emitter, event, data) {
+  RankingTab.prototype.onupdate = function (emitter, event, data) {
     if (emitter !== State.tournaments) {
       this.update();
     }
@@ -109,7 +109,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    * @param event
    * @param data
    */
-  RankingTab.prototype.oninsert = function(emitter, event, data) {
+  RankingTab.prototype.oninsert = function (emitter, event, data) {
     data.object.getState().registerListener(this);
     this.update();
   };
@@ -121,17 +121,17 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
    * @param event
    * @param data
    */
-  RankingTab.prototype.onremove = function(emitter, event, data) {
+  RankingTab.prototype.onremove = function (emitter, event, data) {
     data.object.getState().unregisterListener(this);
     this.update();
   };
 
   // FIXME CHEAP HACK AHEAD
-  $(function($) {
+  $(function ($) {
     var $tab;
 
-    $tab = $('#tabs > [data-tab="ranking"]');
-    if ($tab.length && $('#testmain').length === 0) {
+    $tab = $("#tabs > [data-tab=\"ranking\"]");
+    if ($tab.length && $("#testmain").length === 0) {
       return new RankingTab($tab);
     }
   });

@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/binningreferencelistmodel'], function(extend,
+define(["lib/extend", "list/binningreferencelistmodel"], function (extend,
     BinningReferenceListModel) {
 
   /**
@@ -27,7 +27,7 @@ define(['lib/extend', 'list/binningreferencelistmodel'], function(extend,
    * @return which KO Tree Group this match belongs to. The match for third
    *         place is shown in the tree for first place, and so on.
    */
-  KOListModel.prototype.binningFunction = function(match) {
+  KOListModel.prototype.binningFunction = function (match) {
     /*
      * Just strip the '1' bit from the match group, if it's set
      *

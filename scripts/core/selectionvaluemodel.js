@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
+define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
   /**
    * Constructor
    *
@@ -31,7 +31,7 @@ define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
    * @param value
    * @return true if the value would be valid, false otherwise
    */
-  SelectionValueModel.prototype.isValid = function(value) {
+  SelectionValueModel.prototype.isValid = function (value) {
     return this.allowedValues.indexOf(value) !== -1;
   };
 
@@ -43,7 +43,7 @@ define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
    *          the value
    * @return true on success, false otherwise
    */
-  SelectionValueModel.prototype.set = function(value) {
+  SelectionValueModel.prototype.set = function (value) {
     if (this.isValid(value)) {
       SelectionValueModel.superclass.set.call(this, value);
       return true;
@@ -57,7 +57,7 @@ define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
    * @param defaultValue
    *          the default value
    */
-  SelectionValueModel.prototype.setDefault = function(defaultValue) {
+  SelectionValueModel.prototype.setDefault = function (defaultValue) {
     this.defaultValue = defaultValue;
     this.validate();
   };
@@ -66,7 +66,7 @@ define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
    * check whether the current value is still valid and set the default value
    * otherwise. Ignores the allowed values for the default value.
    */
-  SelectionValueModel.prototype.validate = function() {
+  SelectionValueModel.prototype.validate = function () {
     if (!this.isValid(this.get())) {
       SelectionValueModel.superclass.set.call(this, this.defaultValue);
     }
@@ -75,7 +75,7 @@ define(['lib/extend', 'core/valuemodel'], function(extend, ValueModel) {
   /**
    * Event callback for removing a value from the underlying list
    */
-  SelectionValueModel.prototype.onremove = function() {
+  SelectionValueModel.prototype.onremove = function () {
     this.validate();
   };
 

@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(["lib/extend", "core/view"], function (extend, View) {
   /**
    * Constructor
    *
@@ -28,7 +28,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
   /**
    * change the class to the value of this.model.get()
    */
-  StateClassView.prototype.update = function() {
+  StateClassView.prototype.update = function () {
     var newClass;
 
     newClass = this.model.get();
@@ -42,7 +42,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
   /**
    * Callback function to monitor value changes
    */
-  StateClassView.prototype.onupdate = function() {
+  StateClassView.prototype.onupdate = function () {
     this.update();
   };
 

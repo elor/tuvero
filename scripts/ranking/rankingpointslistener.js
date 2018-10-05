@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
-'options'], function(extend, RankingDataListener, VectorModel, Options) {
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
+"options"], function (extend, RankingDataListener, VectorModel, Options) {
   /**
    * Constructor
    *
@@ -20,7 +20,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
   }
   extend(RankingPointsListener, RankingDataListener);
 
-  RankingPointsListener.NAME = 'points';
+  RankingPointsListener.NAME = "points";
   RankingPointsListener.DEPENDENCIES = undefined;
 
   /**
@@ -33,8 +33,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param result
    *          a game result
    */
-  RankingPointsListener.prototype.onresult = function(r, e, result) {
-    result.teams.forEach(function(teamid, index) {
+  RankingPointsListener.prototype.onresult = function (r, e, result) {
+    result.teams.forEach(function (teamid, index) {
       this.points.set(teamid, this.points.get(teamid) + result.score[index]);
     }, this);
   };
@@ -49,8 +49,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param teams
    *          an array of team ids
    */
-  RankingPointsListener.prototype.onbye = function(r, e, teams) {
-    teams.forEach(function(teamid) {
+  RankingPointsListener.prototype.onbye = function (r, e, teams) {
+    teams.forEach(function (teamid) {
       this.points.set(teamid, this.points.get(teamid) + Options.byepointswon);
     }, this);
   };
@@ -66,8 +66,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param correction
    *          a game correction
    */
-  RankingPointsListener.prototype.oncorrect = function(r, e, correction) {
-    correction.before.teams.forEach(function(teamid, index) {
+  RankingPointsListener.prototype.oncorrect = function (r, e, correction) {
+    correction.before.teams.forEach(function (teamid, index) {
       this.points.set(teamid, this.points.get(teamid)
           - correction.before.score[index]);
     }, this);

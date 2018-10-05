@@ -1,18 +1,18 @@
 
-(function(root, factory) {
-    if(typeof exports === 'object') {
+(function (root, factory) {
+    if(typeof exports === "object") {
         module.exports = factory(require, exports, module);
     }
-    else if(typeof define === 'function' && define.amd) {
-        define(['require', 'exports', 'module'], factory);
+    else if(typeof define === "function" && define.amd) {
+        define(["require", "exports", "module"], factory);
     }
     else {
-        var req = function(id) {return root[id];},
+        var req = function (id) {return root[id];},
             exp = root,
             mod = {exports: exp};
-        root['extend'] = factory(req, exp, mod);
+        root["extend"] = factory(req, exp, mod);
     }
-}(this, function(require, exports, module) {
+}(this, function (require, exports, module) {
     /**
      * @module extend 
      */

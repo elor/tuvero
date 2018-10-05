@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/renamecontroller'], function(extend, //
+define(["lib/extend", "ui/renamecontroller"], function (extend, //
 RenameController) {
   /**
    * Constructor
@@ -16,7 +16,7 @@ RenameController) {
   }
   extend(TournamentRenameController, RenameController);
 
-  TournamentRenameController.prototype.setName = function(name) {
+  TournamentRenameController.prototype.setName = function (name) {
     if (name) {
       this.model.getName().set(name);
       return true;
@@ -24,7 +24,7 @@ RenameController) {
     return false;
   };
 
-  TournamentRenameController.prototype.getName = function() {
+  TournamentRenameController.prototype.getName = function () {
     return this.model.getName().get();
   };
 

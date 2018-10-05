@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/templateview', 'ui/listview',
-    'ui/popoutboxview', 'ui/teamview', 'core/listener', 'ui/matchtableview',
-    'ui/tournamentrenamecontroller'], function(extend, View, TemplateView,
+define(["lib/extend", "core/view", "ui/templateview", "ui/listview",
+    "ui/popoutboxview", "ui/teamview", "core/listener", "ui/matchtableview",
+    "ui/tournamentrenamecontroller"], function (extend, View, TemplateView,
     ListView, PopoutBoxView, TeamView, Listener, MatchTableView,
     TournamentRenameController) {
   /**
@@ -27,16 +27,16 @@ define(['lib/extend', 'core/view', 'ui/templateview', 'ui/listview',
   function TournamentMatchesView(model, $view, teamlist, teamsize) {
     var $popoutTemplate = $view.clone();
     TournamentMatchesView.superconstructor.call(this, model, $view, //
-    $view.find('.template.voteview'));
+    $view.find(".template.voteview"));
 
     this.renameController = new TournamentRenameController(new View(model,
-        this.$view.find('.tournamentname.rename')));
-    this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function(
+        this.$view.find(".tournamentname.rename")));
+    this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function (
         $view) {
       return new TournamentMatchesView(model, $view, teamlist, teamsize);
     });
 
-    this.$names = this.$view.find('.tournamentname');
+    this.$names = this.$view.find(".tournamentname");
     this.teamlist = teamlist;
     this.teamsize = teamsize;
 
@@ -44,7 +44,7 @@ define(['lib/extend', 'core/view', 'ui/templateview', 'ui/listview',
 
     this.initVotes();
 
-    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
+    Listener.bind(this.model.getName(), "update", this.updateNames.bind(this));
 
     this.updateNames();
   }
@@ -53,39 +53,39 @@ define(['lib/extend', 'core/view', 'ui/templateview', 'ui/listview',
   /**
    * initializes matchtable
    */
-  TournamentMatchesView.prototype.initMatches = function() {
-    this.$matchtable = this.$view.find('.matchtable');
+  TournamentMatchesView.prototype.initMatches = function () {
+    this.$matchtable = this.$view.find(".matchtable");
     this.matchtable = new MatchTableView(this.model.getMatches(),
         this.$matchtable, this.teamlist, this.model, this.teamsize);
 
-    Listener.bind(this.model.getMatches(), 'resize', this.updateVisibility
+    Listener.bind(this.model.getMatches(), "resize", this.updateVisibility
         .bind(this));
 
     this.updateVisibility();
   };
 
-  TournamentMatchesView.prototype.updateVisibility = function() {
+  TournamentMatchesView.prototype.updateVisibility = function () {
     if (this.model.getMatches().length === 0) {
-      this.$view.addClass('hidden');
+      this.$view.addClass("hidden");
     } else {
-      this.$view.removeClass('hidden');
+      this.$view.removeClass("hidden");
     }
   };
 
   /**
    * initialize all vote lists and tables
    */
-  TournamentMatchesView.prototype.initVotes = function() {
+  TournamentMatchesView.prototype.initVotes = function () {
     var $votetemplate;
 
-    this.$view.find('.votelist').hide();
+    this.$view.find(".votelist").hide();
 
     $votetemplate = this.$template;
 
-    this.votelistmodels = this.model.VOTES.map(function(votetype) {
+    this.votelistmodels = this.model.VOTES.map(function (votetype) {
       var $votes, votelist;
 
-      $votes = this.$view.find('.votelist.' + votetype);
+      $votes = this.$view.find(".votelist." + votetype);
       if ($votes.length === 0) {
         return undefined;
       }
@@ -94,7 +94,7 @@ define(['lib/extend', 'core/view', 'ui/templateview', 'ui/listview',
 
       // TODO use some shared View, e.g. ListEmptyView, to hide the whole
       // view when the list is empty
-      Listener.bind(votelist, 'resize', function(emitter, event, data) {
+      Listener.bind(votelist, "resize", function (emitter, event, data) {
         if (emitter.length === 0) {
           $votes.hide();
         } else {
@@ -111,7 +111,7 @@ define(['lib/extend', 'core/view', 'ui/templateview', 'ui/listview',
     }, this);
   };
 
-  TournamentMatchesView.prototype.updateNames = function() {
+  TournamentMatchesView.prototype.updateNames = function () {
     this.$names.text(this.model.getName().get());
   };
 

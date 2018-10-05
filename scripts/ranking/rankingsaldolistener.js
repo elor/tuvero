@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function(
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
     extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -20,10 +20,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
   }
   extend(RankingSaldoListener, RankingDataListener);
 
-  RankingSaldoListener.NAME = 'saldo';
-  RankingSaldoListener.DEPENDENCIES = ['points', 'lostpoints'];
+  RankingSaldoListener.NAME = "saldo";
+  RankingSaldoListener.DEPENDENCIES = ["points", "lostpoints"];
 
-  RankingSaldoListener.prototype.onrecalc = function() {
+  RankingSaldoListener.prototype.onrecalc = function () {
     this.saldo.add(this.points, this.lostpoints);
   };
 

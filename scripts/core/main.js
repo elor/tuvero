@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-require(['core/config', 'core/common'], function() {
+require(["core/config", "core/common"], function () {
   /**
    * error callback function
    *
@@ -18,17 +18,17 @@ require(['core/config', 'core/common'], function() {
   function notifyAboutLoadError(err) {
     console.log(err);
 
-    var $ = require('jquery');
+    var $ = require("jquery");
 
-    $(function($) {
+    $(function ($) {
       var $splash;
 
       // Splash.setState(), but without splash being loaded
-      $('body').addClass('splash');
-      $splash = $('#splash');
+      $("body").addClass("splash");
+      $splash = $("#splash");
       $splash.removeClass();
-      $splash.addClass('loaderror');
-      $('#tabs').hide();
+      $splash.addClass("loaderror");
+      $("#tabs").hide();
     });
   }
 
@@ -37,30 +37,30 @@ require(['core/config', 'core/common'], function() {
     var Update, Splash, Toast, Strings, Browser, StateLoader;
     var TeamToastsListener;
 
-    var $ = require('jquery');
+    var $ = require("jquery");
 
-    Browser = require('ui/browser');
-    Splash = require('ui/splash');
-    Update = require('ui/update');
-    Toast = require('ui/toast');
-    Strings = require('ui/strings');
-    StateLoader = require('ui/stateloader');
-    TeamToastsListener = require('ui/teamtoastslistener');
+    Browser = require("ui/browser");
+    Splash = require("ui/splash");
+    Update = require("ui/update");
+    Toast = require("ui/toast");
+    Strings = require("ui/strings");
+    StateLoader = require("ui/stateloader");
+    TeamToastsListener = require("ui/teamtoastslistener");
 
     // actual initializations are started after any other module has
     // been set
     // up, hence the jquery function.
-    $(function() {
+    $(function () {
 
       if (!Splash.valid) {
-        console.error('Splash screen indicates browser incompatibilities');
+        console.error("Splash screen indicates browser incompatibilities");
         return;
       }
 
       Splash.loading();
 
       // using a timeout to let the browser update the splashtext
-      setTimeout(function() {
+      setTimeout(function () {
         var loaded;
 
         try {
@@ -83,7 +83,7 @@ require(['core/config', 'core/common'], function() {
 
           Splash.update();
 
-          setTimeout(function() {
+          setTimeout(function () {
             try {
               Toast.init();
               Splash.hide();
@@ -92,7 +92,7 @@ require(['core/config', 'core/common'], function() {
             }
           }, 10);
         } catch (err) {
-          console.error('StateLoader.loadLatest() error caught');
+          console.error("StateLoader.loadLatest() error caught");
           console.error(err);
           Splash.error();
         }

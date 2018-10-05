@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'],//
-function(extend, RankingComponent) {
+define(["lib/extend", "ranking/rankingcomponent"],//
+function (extend, RankingComponent) {
   /**
    * Constructor
    *
@@ -21,14 +21,14 @@ function(extend, RankingComponent) {
   }
   extend(RankingTacComponent, RankingComponent);
 
-  RankingTacComponent.NAME = 'tac';
+  RankingTacComponent.NAME = "tac";
 
   /**
    * @param i
    *          a team index
    * @return the point difference, aka. tac points
    */
-  RankingTacComponent.prototype.value = function(i) {
+  RankingTacComponent.prototype.value = function (i) {
     return this.ranking.tac.get(i);
   };
 

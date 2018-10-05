@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/delegatematrix'], function(extend, DelegateMatrix) {
+define(["lib/extend", "math/delegatematrix"], function (extend, DelegateMatrix) {
   /**
    * Constructor
    *
@@ -27,7 +27,7 @@ define(['lib/extend', 'math/delegatematrix'], function(extend, DelegateMatrix) {
    *          the column
    * @return the absolute value at position (row,col)
    */
-  AbsoluteMatrix.prototype.get = function(row, col) {
+  AbsoluteMatrix.prototype.get = function (row, col) {
     var value = this.superget(row, col);
     if (value < 0) {
       return -value;

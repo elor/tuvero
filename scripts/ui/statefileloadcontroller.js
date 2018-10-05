@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/fileloadcontroller', 'ui/statesaver',
-    'ui/stateloader', 'ui/toast', 'ui/strings'], function(extend,
+define(["lib/extend", "ui/fileloadcontroller", "ui/statesaver",
+    "ui/stateloader", "ui/toast", "ui/strings"], function (extend,
     FileLoadController, StateSaver, StateLoader, Toast, Strings) {
   /**
    * Constructor
@@ -25,12 +25,12 @@ define(['lib/extend', 'ui/fileloadcontroller', 'ui/statesaver',
    *
    * @param fileContents
    */
-  StateFileLoadController.prototype.readFile = function(fileContents) {
+  StateFileLoadController.prototype.readFile = function (fileContents) {
     Toast.closeTemporaryToasts();
     try {
       // TODO use filename until the tournament name is stored in the file,
       // too
-      StateSaver.newTree(this.file.name.replace(/(\.(json|txt|csv))+$/, ''));
+      StateSaver.newTree(this.file.name.replace(/(\.(json|txt|csv))+$/, ""));
       if (StateLoader.loadString(fileContents)) {
         StateSaver.saveState();
 
@@ -52,7 +52,7 @@ define(['lib/extend', 'ui/fileloadcontroller', 'ui/statesaver',
    * there should be no active tournament, instead of just keeping the currently
    * open one.
    */
-  StateFileLoadController.prototype.unreadFile = function() {
+  StateFileLoadController.prototype.unreadFile = function () {
     StateLoader.unload();
   };
 

@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener'], function(extend, Listener) {
+define(["lib/extend", "core/listener"], function (extend, Listener) {
 
   /**
    * Constructor
@@ -23,17 +23,17 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * Callback function, which destroys removed objects
    */
 
-  ListCleanupListener.prototype.onremove = function(emitter, event, data) {
+  ListCleanupListener.prototype.onremove = function (emitter, event, data) {
     if (!data) {
-      console.warn('ListCleanupListener: no data object emitted');
+      console.warn("ListCleanupListener: no data object emitted");
       return;
     }
     if (!data.object) {
-      console.warn('ListCleanupListener: data contains no object property');
+      console.warn("ListCleanupListener: data contains no object property");
       return;
     }
     if (!data.object.destroy) {
-      console.warn('ListCleanupListener: data.object has no destroy method');
+      console.warn("ListCleanupListener: data.object has no destroy method");
       return;
     }
 

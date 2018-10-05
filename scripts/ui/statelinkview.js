@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/classview'], function (extend, ClassView) {
+define(["lib/extend", "core/classview"], function (extend, ClassView) {
   /**
    * Constructor
    *
@@ -17,9 +17,9 @@ define(['lib/extend', 'core/classview'], function (extend, ClassView) {
    *          the associated DOM element
    */
   function StateLinkView(model, $view, propertyPath) {
-    StateLinkView.superconstructor.call(this, model, $view, undefined, 'hidden');
+    StateLinkView.superconstructor.call(this, model, $view, undefined, "hidden");
 
-    this.propertyPath = propertyPath || '';
+    this.propertyPath = propertyPath || "";
 
     this.update();
   }
@@ -32,7 +32,7 @@ define(['lib/extend', 'core/classview'], function (extend, ClassView) {
     StateLinkView.superclass.update.call(this);
     var tournamentid = this.model.get();
     if (tournamentid) {
-      this.$view.attr('href', 'https://www.tuvero.de/t/' + tournamentid + this.propertyPath);
+      this.$view.attr("href", "https://www.tuvero.de/t/" + tournamentid + this.propertyPath);
     }
   };
 

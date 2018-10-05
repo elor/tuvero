@@ -10,7 +10,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener'], function(extend, Listener) {
+define(["lib/extend", "core/listener"], function (extend, Listener) {
   /**
    * Constructor
    *
@@ -33,7 +33,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
   /**
    * push the value, if it's not in the list already
    */
-  ListExclusionListener.prototype.add = function() {
+  ListExclusionListener.prototype.add = function () {
     var index;
 
     index = this.list.indexOf(this.value);
@@ -46,7 +46,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
   /**
    * remove all appearances of the value from the list
    */
-  ListExclusionListener.prototype.remove = function() {
+  ListExclusionListener.prototype.remove = function () {
     var index;
 
     while ((index = this.list.indexOf(this.value)) !== -1) {
@@ -57,7 +57,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
   /**
    * Callback listener for the trigger. Call add()/remove() accordingly
    */
-  ListExclusionListener.prototype.onupdate = function() {
+  ListExclusionListener.prototype.onupdate = function () {
     if (this.trigger.get()) {
       this.add();
     } else {

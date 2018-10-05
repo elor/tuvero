@@ -6,14 +6,14 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener'], function (extend, Listener) {
+define(["lib/extend", "core/listener"], function (extend, Listener) {
   var depth;
 
   depth = 0;
 
   function getClassName(instance) {
-    return instance.constructor.toString().split('\n')[0].replace(
-      /function (\S+)\(.*/, '$1');
+    return instance.constructor.toString().split("\n")[0].replace(
+      /function (\S+)\(.*/, "$1");
   }
 
   /**
@@ -34,8 +34,8 @@ define(['lib/extend', 'core/listener'], function (extend, Listener) {
   }
   extend(Emitter, Listener);
   Emitter.prototype.EVENTS = {
-    'update': true,
-    'reset': true
+    "update": true,
+    "reset": true
   }; // Default Events
 
   // TODO somehow restrict the events that can be emitted. This has to be
@@ -61,7 +61,7 @@ define(['lib/extend', 'core/listener'], function (extend, Listener) {
     success = false;
 
     if (!this.validEvent(event)) {
-      console.error('Emitter: unspecified event type: ' + event);
+      console.error("Emitter: unspecified event type: " + event);
       return false;
     }
 
@@ -73,18 +73,18 @@ define(['lib/extend', 'core/listener'], function (extend, Listener) {
     depth += 1;
 
     if (Emitter.debug) {
-      indentation = '>';
+      indentation = ">";
       while (indentation.length <= depth) {
-        indentation += ' ';
+        indentation += " ";
       }
-      console.log(indentation + getClassName(this) + '.emit(' + event
-        + ') with ' + this.listeners.length + ' listeners');
+      console.log(indentation + getClassName(this) + ".emit(" + event
+        + ") with " + this.listeners.length + " listeners");
     }
 
     this.listeners.slice().forEach(function (listener) {
-      if (listener['on' + event]) {
+      if (listener["on" + event]) {
         try {
-          listener['on' + event].call(listener, this, event, data);
+          listener["on" + event].call(listener, this, event, data);
           success = true;
         } catch (e) {
           console.error(e);

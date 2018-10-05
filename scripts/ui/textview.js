@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(["lib/extend", "core/view"], function (extend, View) {
 
   /**
    * constructor
@@ -30,33 +30,33 @@ define(['lib/extend', 'core/view'], function(extend, View) {
    * @param text
    *          the new text
    */
-  TextView.prototype.setText = function(text) {
+  TextView.prototype.setText = function (text) {
     if (text === undefined) {
-      this.model.text = 'undefined';
+      this.model.text = "undefined";
     } else {
       this.model.text = text;
     }
-    this.model.emit('update');
+    this.model.emit("update");
   };
 
   /**
    * reset the text to an empty string
    */
-  TextView.prototype.reset = function() {
-    this.setText('');
+  TextView.prototype.reset = function () {
+    this.setText("");
   };
 
   /**
    * write the current text to the DOM element
    */
-  TextView.prototype.update = function() {
+  TextView.prototype.update = function () {
     this.$view.text(this.model.text);
   };
 
   /**
    * Callback listener
    */
-  TextView.prototype.onupdate = function() {
+  TextView.prototype.onupdate = function () {
     this.update();
   };
 

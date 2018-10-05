@@ -16,7 +16,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view'], function($, extend, View) {
+define(["jquery", "lib/extend", "core/view"], function ($, extend, View) {
   /**
    * Constructor
    *
@@ -31,7 +31,7 @@ define(['jquery', 'lib/extend', 'core/view'], function($, extend, View) {
     this.teamlist = teamview.model;
     this.teamlist.registerListener(this);
 
-    this.$names = this.$view.find('tr>th');
+    this.$names = this.$view.find("tr>th");
 
     this.updatePlayerColumns();
   }
@@ -40,22 +40,22 @@ define(['jquery', 'lib/extend', 'core/view'], function($, extend, View) {
   /**
    * show one column for each player in a team (teamsize)
    */
-  TeamTableView.prototype.updatePlayerColumns = function() {
+  TeamTableView.prototype.updatePlayerColumns = function () {
     var teamsize, teamindex;
 
     teamsize = this.model.get();
     teamindex = 0;
 
-    this.$names.each(function(index, elem) {
+    this.$names.each(function (index, elem) {
       var $elem;
 
       $elem = $(elem);
 
-      if ($elem.hasClass('playercol')) {
+      if ($elem.hasClass("playercol")) {
         if (teamindex < teamsize) {
-          $elem.removeClass('hidden');
+          $elem.removeClass("hidden");
         } else {
-          $elem.addClass('hidden');
+          $elem.addClass("hidden");
         }
         teamindex += 1;
       } else {
@@ -67,7 +67,7 @@ define(['jquery', 'lib/extend', 'core/view'], function($, extend, View) {
   /**
    * the team size changed. check player column visibility
    */
-  TeamTableView.prototype.onupdate = function() {
+  TeamTableView.prototype.onupdate = function () {
     this.updatePlayerColumns();
   };
 

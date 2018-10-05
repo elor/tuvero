@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function(
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
     extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -20,10 +20,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
   }
   extend(RankingBuchholzListener, RankingDataListener);
 
-  RankingBuchholzListener.NAME = 'finebuchholz';
-  RankingBuchholzListener.DEPENDENCIES = ['gamematrix', 'buchholz'];
+  RankingBuchholzListener.NAME = "finebuchholz";
+  RankingBuchholzListener.DEPENDENCIES = ["gamematrix", "buchholz"];
 
-  RankingBuchholzListener.prototype.onrecalc = function() {
+  RankingBuchholzListener.prototype.onrecalc = function () {
     this.gamematrix.multVector(this.finebuchholz, this.buchholz);
   };
 

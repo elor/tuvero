@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/listview', 'ui/popoutboxview',
-    'core/listener', 'list/binningreferencelistmodel', 'ui/matchtableview',
-    'ui/generictournamenthistoryview', 'ui/tournamentrenamecontroller'], //
-function(extend, View, ListView, PopoutBoxView, Listener,
+define(["lib/extend", "core/view", "ui/listview", "ui/popoutboxview",
+    "core/listener", "list/binningreferencelistmodel", "ui/matchtableview",
+    "ui/generictournamenthistoryview", "ui/tournamentrenamecontroller"], //
+function (extend, View, ListView, PopoutBoxView, Listener,
     BinningReferenceListModel, MatchTableView, GenericTournamentHistoryView,
     TournamentRenameController) {
 
@@ -33,14 +33,14 @@ function(extend, View, ListView, PopoutBoxView, Listener,
     TournamentHistoryView.superconstructor.call(this, model, $view);
 
     this.renameController = new TournamentRenameController(new View(model,
-        this.$view.find('.tournamentname.rename')));
-    this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function(
+        this.$view.find(".tournamentname.rename")));
+    this.boxview = new PopoutBoxView(this.$view, $popoutTemplate, function (
         $view) {
       return new TournamentHistoryView(model, $view, teamlist, teamsize,
           showNames);
     });
 
-    this.$names = this.$view.find('.tournamentname');
+    this.$names = this.$view.find(".tournamentname");
     this.teamlist = teamlist;
     this.teamsize = teamsize;
     this.showNames = showNames;
@@ -51,9 +51,9 @@ function(extend, View, ListView, PopoutBoxView, Listener,
     this.initGenericView();
     this.initMatches();
 
-    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this));
+    Listener.bind(this.model.getName(), "update", this.updateNames.bind(this));
 
-    Listener.bind(this.model.getCombinedHistory(), 'resize',
+    Listener.bind(this.model.getCombinedHistory(), "resize",
         this.updateVisibility.bind(this));
 
     this.updateVisibility();
@@ -62,42 +62,42 @@ function(extend, View, ListView, PopoutBoxView, Listener,
   }
   extend(TournamentHistoryView, View);
 
-  TournamentHistoryView.groupFilter = function(matchresult) {
+  TournamentHistoryView.groupFilter = function (matchresult) {
     return matchresult.getGroup();
   };
 
   /**
    * initializes matchtable
    */
-  TournamentHistoryView.prototype.initMatches = function() {
-    this.$matchtable = this.$view.find('.matchtable');
+  TournamentHistoryView.prototype.initMatches = function () {
+    this.$matchtable = this.$view.find(".matchtable");
 
     if (this.genericView.showlists) {
       // nested ListViews: BinningReferenceListModel is 2D
       this.matchtable = new ListView(this.groups, this.$view, this.$matchtable,
           MatchTableView, this.teamlist, this.model, this.teamsize);
 
-      this.$view.addClass('haslists');
+      this.$view.addClass("haslists");
     } else {
       this.$matchtable.remove();
       this.matchtable = undefined;
     }
   };
 
-  TournamentHistoryView.prototype.initGenericView = function() {
+  TournamentHistoryView.prototype.initGenericView = function () {
     this.genericView = new GenericTournamentHistoryView(this.model, this.$view,
         this.groups, this.teamlist, this.teamsize, this.showNames);
   };
 
-  TournamentHistoryView.prototype.updateVisibility = function() {
+  TournamentHistoryView.prototype.updateVisibility = function () {
     if (this.model.getCombinedHistory().length === 0) {
-      this.$view.addClass('hidden');
+      this.$view.addClass("hidden");
     } else {
-      this.$view.removeClass('hidden');
+      this.$view.removeClass("hidden");
     }
   };
 
-  TournamentHistoryView.prototype.updateNames = function() {
+  TournamentHistoryView.prototype.updateNames = function () {
     this.$names.text(this.model.getName().get());
   };
 

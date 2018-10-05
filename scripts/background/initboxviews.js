@@ -6,16 +6,16 @@
  * @see LICENSE
  */
 
-define(['ui/boxview', 'jquery'], function(BoxView, $) {
+define(["ui/boxview", "jquery"], function (BoxView, $) {
   var InitViews;
 
-  $(function($) {
-    $('.boxview:not(.template)').each(function() {
+  $(function ($) {
+    $(".boxview:not(.template)").each(function () {
       var $box;
 
       $box = $(this);
 
-      if ($box.parents('.template').length === 0) {
+      if ($box.parents(".template").length === 0) {
         return new BoxView($box);
       }
     });

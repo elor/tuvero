@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function(
+define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
     extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -20,7 +20,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
   }
   extend(RankingNumGamesListener, RankingDataListener);
 
-  RankingNumGamesListener.NAME = 'numgames';
+  RankingNumGamesListener.NAME = "numgames";
   RankingNumGamesListener.DEPENDENCIES = undefined;
 
   /**
@@ -33,8 +33,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
    * @param result
    *          a game result
    */
-  RankingNumGamesListener.prototype.onresult = function(r, e, result) {
-    result.teams.forEach(function(teamid) {
+  RankingNumGamesListener.prototype.onresult = function (r, e, result) {
+    result.teams.forEach(function (teamid) {
       this.numgames.set(teamid, this.numgames.get(teamid) + 1);
     }, this);
   };
@@ -47,8 +47,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
    * @param teams
    *          an array of team ids
    */
-  RankingNumGamesListener.prototype.onbye = function(r, e, teams) {
-    teams.forEach(function(teamid) {
+  RankingNumGamesListener.prototype.onbye = function (r, e, teams) {
+    teams.forEach(function (teamid) {
       this.numgames.set(teamid, this.numgames.get(teamid) + 1);
     }, this);
   };
@@ -64,8 +64,8 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
    * @param correction
    *          a game correction
    */
-  RankingNumGamesListener.prototype.oncorrect = function(r, e, correction) {
-    correction.before.teams.forEach(function(teamid) {
+  RankingNumGamesListener.prototype.oncorrect = function (r, e, correction) {
+    correction.before.teams.forEach(function (teamid) {
       this.numgames.set(teamid, this.numgames.get(teamid) - 1);
     }, this);
 

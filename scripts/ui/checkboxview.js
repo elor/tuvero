@@ -6,8 +6,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', 'core/valuemodel', 'ui/checkboxcontroller'], //
-function(extend, View, ValueModel, CheckboxController) {
+define(["lib/extend", "core/view", "core/valuemodel", "ui/checkboxcontroller"], //
+function (extend, View, ValueModel, CheckboxController) {
 
   /**
    * Constructor
@@ -21,7 +21,7 @@ function(extend, View, ValueModel, CheckboxController) {
     CheckBoxView.superconstructor.call(this, model || new ValueModel(), $view);
 
     if (this.model.get() !== true && this.model.get() !== false) {
-      this.model.set(this.$view.prop('checked'));
+      this.model.set(this.$view.prop("checked"));
     }
 
     this.controller = new CheckboxController(this);
@@ -33,21 +33,21 @@ function(extend, View, ValueModel, CheckboxController) {
   /**
    * apply model state to checkbox state
    */
-  CheckBoxView.prototype.update = function() {
+  CheckBoxView.prototype.update = function () {
     var viewvalue, modelvalue;
 
-    viewvalue = this.$view.prop('checked');
+    viewvalue = this.$view.prop("checked");
     modelvalue = this.model.get();
 
     if (viewvalue !== modelvalue) {
-      this.$view.prop('checked', modelvalue);
+      this.$view.prop("checked", modelvalue);
     }
   };
 
   /**
    * Callback function
    */
-  CheckBoxView.prototype.onupdate = function() {
+  CheckBoxView.prototype.onupdate = function () {
     this.update();
   };
 

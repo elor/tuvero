@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/matchcontroller', 'ui/strings', 'ui/toast', 'options'], //
-function(extend, MatchController, Strings, Toast, Options) {
+define(["lib/extend", "ui/matchcontroller", "ui/strings", "ui/toast", "options"], //
+function (extend, MatchController, Strings, Toast, Options) {
   /**
    * Constructor
    */
@@ -15,13 +15,13 @@ function(extend, MatchController, Strings, Toast, Options) {
     MatchResultController.superconstructor.call(this, view, $form);
 
     if (this.model.length !== 2) {
-      console.error('corrections corrently only works with two teams.');
+      console.error("corrections corrently only works with two teams.");
       return;
     }
 
     this.tournament = tournament;
 
-    this.$match = this.$form.parents('.match').eq(0);
+    this.$match = this.$form.parents(".match").eq(0);
     this.$result = this.view.$result;
 
     this.$result.click(this.enableCorrection.bind(this));
@@ -30,29 +30,29 @@ function(extend, MatchController, Strings, Toast, Options) {
   }
   extend(MatchResultController, MatchController);
 
-  MatchResultController.prototype.updateScore = function() {
+  MatchResultController.prototype.updateScore = function () {
     this.$scores.eq(0).val(this.model.score[0]);
     this.$scores.eq(1).val(this.model.score[1]);
-    this.$scores.attr('max', Options.maxpoints);
-    this.$scores.attr('min', Options.minpoints);
+    this.$scores.attr("max", Options.maxpoints);
+    this.$scores.attr("min", Options.minpoints);
   };
 
-  MatchResultController.prototype.enableCorrection = function() {
+  MatchResultController.prototype.enableCorrection = function () {
     this.updateScore();
-    this.$match.addClass('correcting');
+    this.$match.addClass("correcting");
     this.$scores.eq(0).click();
   };
 
-  MatchResultController.prototype.disableCorrection = function() {
-    this.$match.removeClass('correcting');
+  MatchResultController.prototype.disableCorrection = function () {
+    this.$match.removeClass("correcting");
   };
 
-  MatchResultController.prototype.cancel = function() {
+  MatchResultController.prototype.cancel = function () {
     new Toast(Strings.pointchangeaborted);
     this.disableCorrection();
   };
 
-  MatchResultController.prototype.accept = function() {
+  MatchResultController.prototype.accept = function () {
     var score;
 
     score = [];

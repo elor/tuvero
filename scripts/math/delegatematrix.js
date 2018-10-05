@@ -12,7 +12,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
+define(["lib/extend", "math/matrixmodel"], function (extend, MatrixModel) {
   /**
    * Constructor
    *
@@ -24,7 +24,7 @@ define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
     DelegateMatrix.superconstructor.call(this, matrix.length);
 
     if (!matrix) {
-      throw new Error('DelegateMatrix(): no input matrix: ' + matrix);
+      throw new Error("DelegateMatrix(): no input matrix: " + matrix);
     }
 
     this.data = matrix.data;
@@ -46,7 +46,7 @@ define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
    *          the column
    * @return the value at the given matrix position
    */
-  DelegateMatrix.prototype.get = function(row, col) {
+  DelegateMatrix.prototype.get = function (row, col) {
     return this.superget(row, col);
   };
 
@@ -77,9 +77,9 @@ define(['lib/extend', 'math/matrixmodel'], function(extend, MatrixModel) {
    * @param matrix
    *          the emitter, i.e. the base matrix
    */
-  DelegateMatrix.prototype.onresize = function(matrix) {
+  DelegateMatrix.prototype.onresize = function (matrix) {
     this.length = matrix.length;
-    this.emit('resize');
+    this.emit("resize");
   };
 
   return DelegateMatrix;

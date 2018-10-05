@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/browser', 'ui/toast',
-    'ui/browserinfocontroller', 'ui/update'], function(extend, View, Browser,
+define(["lib/extend", "core/view", "ui/browser", "ui/toast",
+    "ui/browserinfocontroller", "ui/update"], function (extend, View, Browser,
     Toast, BrowserInfoController, Update) {
   /**
    * Constructor
@@ -15,11 +15,11 @@ define(['lib/extend', 'core/view', 'ui/browser', 'ui/toast',
   function BrowserInfoView($view) {
     BrowserInfoView.superconstructor.call(this, undefined, $view);
 
-    this.$name = this.$view.find('.name');
-    this.$version = this.$view.find('.version');
-    this.$online = this.$view.find('.online');
-    this.$local = this.$view.find('.local');
-    this.$cached = this.$view.find('.cached');
+    this.$name = this.$view.find(".name");
+    this.$version = this.$view.find(".version");
+    this.$online = this.$view.find(".online");
+    this.$local = this.$view.find(".local");
+    this.$cached = this.$view.find(".cached");
 
     this.controller = new BrowserInfoController(this);
 
@@ -27,7 +27,7 @@ define(['lib/extend', 'core/view', 'ui/browser', 'ui/toast',
   }
   extend(BrowserInfoView, View);
 
-  BrowserInfoView.prototype.update = function() {
+  BrowserInfoView.prototype.update = function () {
     Browser.update();
 
     this.$name.text(Browser.name);
@@ -37,10 +37,10 @@ define(['lib/extend', 'core/view', 'ui/browser', 'ui/toast',
     this.$cached.text(Browser.cached);
   };
 
-  BrowserInfoView.prototype.onupdate = function() {
+  BrowserInfoView.prototype.onupdate = function () {
     this.update();
     Update();
-    new Toast('update');
+    new Toast("update");
   };
 
   return BrowserInfoView;

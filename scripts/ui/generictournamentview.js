@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'ui/tournamentview', 'ui/roundtournamentview',
-  'ui/swisstournamentview', 'ui/kotournamentview', 'ui/placementtournamentview',
-  'ui/poulestournamentview'],
+define(["lib/extend", "core/view", "ui/tournamentview", "ui/roundtournamentview",
+  "ui/swisstournamentview", "ui/kotournamentview", "ui/placementtournamentview",
+  "ui/poulestournamentview"],
   function (extend, View, TournamentView, RoundTournamentView, SwissTournamentView,
     KOTournamentView, PlacementTournamentView, PoulesTournamentView) {
     var constructors, defaultConstructor;

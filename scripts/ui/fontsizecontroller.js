@@ -8,7 +8,7 @@
  * @see LICENSE
  */
 
-define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controller) {
+define(["jquery", "lib/extend", "core/controller"], function ($, extend, Controller) {
 
   /**
    * Constructor
@@ -25,8 +25,8 @@ define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controll
     /**
      * adjust the font size at the click of a button
      */
-    this.view.$view.on('click', '> button', function() {
-      model.setFontSize($(this).attr('class').replace(/.*fontsize([a-z]+).*/, '$1'));
+    this.view.$view.on("click", "> button", function () {
+      model.setFontSize($(this).attr("class").replace(/.*fontsize([a-z]+).*/, "$1"));
     });
   }
   extend(FontSizeController, Controller);

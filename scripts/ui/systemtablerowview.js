@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
-    'ui/newtournamentview', 'ui/generictournamentview', 'ui/teamdeletecontroller'], function($, extend,
+define(["jquery", "lib/extend", "core/view", "ui/teamview",
+    "ui/newtournamentview", "ui/generictournamentview", "ui/teamdeletecontroller"], function ($, extend,
     View, TeamView, NewTournamentView, GenericTournamentView, TeamDeleteController) {
   /**
    * Constructor
@@ -39,8 +39,8 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
 
     this.updatepending = undefined;
 
-    this.$tournamentrank = this.$view.find('.tournamentrank');
-    this.$globalrank = this.$view.find('.rank');
+    this.$tournamentrank = this.$view.find(".tournamentrank");
+    this.$globalrank = this.$view.find(".rank");
     this.tournamentView = undefined;
     this.viewPopulator = viewPopulator;
 
@@ -52,7 +52,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
   }
   extend(SystemTableRowView, View);
 
-  SystemTableRowView.prototype.updateRankTexts = function() {
+  SystemTableRowView.prototype.updateRankTexts = function () {
     var ranking, globalRank, tournamentRank;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
@@ -76,14 +76,14 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
    * @param ranking
    *          a global ranking object
    */
-  SystemTableRowView.prototype.updateLastRowClass = function() {
+  SystemTableRowView.prototype.updateLastRowClass = function () {
     var tournamentID, displayID, nextTeamID, nextTournamentID, ranking;
 
     ranking = this.tournaments.getGlobalRanking(this.teams.length);
     tournamentID = ranking.tournamentIDs[this.teamID];
     displayID = ranking.displayOrder.indexOf(this.teamID);
     if (displayID + 1 === this.teams.length) {
-      this.$view.addClass('lastrow');
+      this.$view.addClass("lastrow");
       return;
     }
 
@@ -91,9 +91,9 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
     nextTournamentID = ranking.tournamentIDs[nextTeamID];
 
     if (tournamentID !== nextTournamentID) {
-      this.$view.addClass('lastrow');
+      this.$view.addClass("lastrow");
     } else {
-      this.$view.removeClass('lastrow');
+      this.$view.removeClass("lastrow");
     }
   };
 
@@ -101,7 +101,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
    * finds out if the current team is the first team in the tournament and
    * creates a new TournamentView, if necessary.
    */
-  SystemTableRowView.prototype.updateSystem = function() {
+  SystemTableRowView.prototype.updateSystem = function () {
     // too many variables.
     // TODO extract methods + reduce variables
     var ranking, displayID, tournamentID, isFirstInTournament, previousTeamID;
@@ -126,7 +126,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
     if (this.tournamentView) {
       this.tournamentView.destroy();
       this.tournamentView = undefined;
-      this.$view.removeClass('firstrow');
+      this.$view.removeClass("firstrow");
     }
 
     if (!isFirstInTournament) {
@@ -144,7 +144,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
 
     tournamentSize = nextDisplayID - displayID;
 
-    $view = $('<td>').addClass('system');
+    $view = $("<td>").addClass("system");
 
     tournament = this.tournaments.get(tournamentID);
     this.viewPopulator.populate(tournament, $view);
@@ -158,21 +158,21 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
     }
 
     this.$view.append($view);
-    this.$view.addClass('firstrow');
+    this.$view.addClass("firstrow");
   };
 
-  SystemTableRowView.prototype.updateEverything = function() {
+  SystemTableRowView.prototype.updateEverything = function () {
     this.updateRankTexts();
     this.updateLastRowClass();
     this.updateSystem();
   };
 
-  SystemTableRowView.prototype.onupdate = function(emitter, event, data) {
+  SystemTableRowView.prototype.onupdate = function (emitter, event, data) {
     var rowview = this;
     if (emitter === this.tournaments) {
       if (this.updatepending === undefined) {
         this.updatepending = true;
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           rowview.updateEverything();
           rowview.updatepending = undefined;
         }, 1);
@@ -180,19 +180,19 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/teamview',
     }
   };
 
-  SystemTableRowView.prototype.oninsert = function(emitter, event, data) {
+  SystemTableRowView.prototype.oninsert = function (emitter, event, data) {
     if (emitter === this.teams) {
       this.updateEverything();
     }
   };
 
-  SystemTableRowView.prototype.onremove = function(emitter, event, data) {
+  SystemTableRowView.prototype.onremove = function (emitter, event, data) {
     if (emitter === this.teams) {
       this.updateEverything();
     }
   };
 
-  SystemTableRowView.prototype.destroy = function() {
+  SystemTableRowView.prototype.destroy = function () {
     if (this.tournamentView) {
       this.tournamentView.destroy();
     }

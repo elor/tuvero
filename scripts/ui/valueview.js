@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(["lib/extend", "core/view"], function (extend, View) {
 
   /**
    * Constructor
@@ -27,10 +27,10 @@ define(['lib/extend', 'core/view'], function(extend, View) {
   /**
    * write the contents of get() to the DOM
    */
-  ValueView.prototype.update = function() {
+  ValueView.prototype.update = function () {
     var value = this.model.get();
     if (value === undefined) {
-      this.$view.text('undefined');
+      this.$view.text("undefined");
     } else {
       this.$view.text(value);
     }
@@ -39,7 +39,7 @@ define(['lib/extend', 'core/view'], function(extend, View) {
   /**
    * Callback listener
    */
-  ValueView.prototype.onupdate = function() {
+  ValueView.prototype.onupdate = function () {
     this.update();
   };
 

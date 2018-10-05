@@ -8,10 +8,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'timemachine/reflog',
-    'timemachine/keymodel', 'timemachine/commitmodel', 'list/listmodel',
-    'timemachine/query', 'list/sortedreferencelistmodel',
-    'ui/listcollectormodel', 'presets', 'core/valuemodel'], function(extend,
+define(["lib/extend", "core/model", "timemachine/reflog",
+    "timemachine/keymodel", "timemachine/commitmodel", "list/listmodel",
+    "timemachine/query", "list/sortedreferencelistmodel",
+    "ui/listcollectormodel", "presets", "core/valuemodel"], function (extend,
     Model, RefLog, KeyModel, CommitModel, ListModel, Query,
     SortedReferenceListModel, ListCollectorModel, Presets, ValueModel) {
   var TimeMachine;
@@ -51,30 +51,30 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     if (latestKey) {
       this.commit.set(new CommitModel(latestKey));
     } else {
-      console.warn('No saved tournament found.');
+      console.warn("No saved tournament found.");
     }
   }
   extend(TimeMachineModel, Model);
 
   TimeMachineModel.prototype.EVENTS = {
-    'init': true,
-    'save': true,
-    'cleanup': true,
-    'load': true,
-    'unload': true
+    "init": true,
+    "save": true,
+    "cleanup": true,
+    "load": true,
+    "unload": true
   };
 
   /**
    * re-read the roots from the reflog and update this.unsortedRoots, which
    * reflects on this.roots
    */
-  TimeMachineModel.prototype.updateRoots = function() {
+  TimeMachineModel.prototype.updateRoots = function () {
     var rootCommits, rootKeyStrings, index, keyString;
 
-    rootCommits = RefLog.getInitKeys().map(function(key) {
+    rootCommits = RefLog.getInitKeys().map(function (key) {
       return new CommitModel(key);
     });
-    rootKeyStrings = rootCommits.map(function(commit) {
+    rootKeyStrings = rootCommits.map(function (commit) {
       return commit.key.toString();
     });
 
@@ -92,10 +92,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     /*
      * add new commits
      */
-    rootKeyStrings = this.unsortedRoots.map(function(commit) {
+    rootKeyStrings = this.unsortedRoots.map(function (commit) {
       return commit.key.toString();
     });
-    rootCommits.forEach(function(commit) {
+    rootCommits.forEach(function (commit) {
       keyString = commit.key.toString();
       if (rootKeyStrings.indexOf(keyString) === -1) {
         this.unsortedRoots.push(commit);
@@ -110,10 +110,10 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    *          the string to save
    * @return the associated root commit
    */
-  TimeMachineModel.prototype.init = function(state, name) {
+  TimeMachineModel.prototype.init = function (state, name) {
     this.commit.set(CommitModel.createRoot(state, name || Presets.target));
 
-    this.emit('init', this.commit.get());
+    this.emit("init", this.commit.get());
 
     this.updateRoots();
 
@@ -131,7 +131,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    *
    * @return the generated key
    */
-  TimeMachineModel.prototype.save = function(state) {
+  TimeMachineModel.prototype.save = function (state) {
     if (this.commit.get() && this.commit.get().isValid()) {
       if (state === this.commit.get().load()) {
         return this.commit.get(); // no change in data. Nothing to save here.
@@ -142,7 +142,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       return undefined;
     }
 
-    this.emit('save', this.commit.get());
+    this.emit("save", this.commit.get());
 
     return this.commit.get();
   };
@@ -155,7 +155,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * @return undefined on load error, the localStorage content otherwise
    *         (serialized save state)
    */
-  TimeMachineModel.prototype.load = function(commit) {
+  TimeMachineModel.prototype.load = function (commit) {
     var data;
 
     if (commit === undefined && this.isInitialized()) {
@@ -171,7 +171,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     data = commit.load();
     if (data) {
       this.commit.set(commit);
-      this.emit('load', data);
+      this.emit("load", data);
     }
     return data;
   };
@@ -179,21 +179,21 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
   /**
    * resets the currently active commit.
    */
-  TimeMachineModel.prototype.unload = function() {
+  TimeMachineModel.prototype.unload = function () {
     this.commit.set(undefined);
-    this.emit('unload');
+    this.emit("unload");
   };
 
-  TimeMachineModel.prototype.getOrphans = function() {
+  TimeMachineModel.prototype.getOrphans = function () {
     var query, orphanedCommits;
 
     /*
      * check all localStorage keys
      */
     query = new Query(Query.ALLKEYS);
-    orphanedCommits = query.filter().map(function(keyString) {
+    orphanedCommits = query.filter().map(function (keyString) {
       return new CommitModel(keyString);
-    }).filter(function(commit) {
+    }).filter(function (commit) {
       return !commit.isValid();
     });
 
@@ -201,25 +201,25 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
      * check all reflog entries
      */
     orphanedCommits = orphanedCommits.concat(RefLog.getAllKeys().map(
-        function(key) {
+        function (key) {
           return new CommitModel(key);
-        }).filter(function(commit) {
+        }).filter(function (commit) {
       return !commit.isValid();
     }));
 
     return orphanedCommits.sort(CommitModel.sortFunction);
   };
 
-  TimeMachineModel.prototype.isInitialized = function() {
+  TimeMachineModel.prototype.isInitialized = function () {
     return !!this.commit.get();
   };
 
-  TimeMachineModel.prototype.isActive = function(commit) {
+  TimeMachineModel.prototype.isActive = function (commit) {
     return !!this.commit.get() && !!commit
         && this.commit.get().key.isEqual(commit.key);
   };
 
-  TimeMachineModel.prototype.isRelatedToActive = function(commit) {
+  TimeMachineModel.prototype.isRelatedToActive = function (commit) {
     return !!this.commit.get() && !!commit
         && this.commit.get().key.isRelated(commit.key);
   };
@@ -232,18 +232,18 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    *          any commit of the tree to investigate
    * @return the size in the localStorage, in unicode symbols.
    */
-  TimeMachineModel.prototype.usedRelatedStorage = function(commit) {
+  TimeMachineModel.prototype.usedRelatedStorage = function (commit) {
     var total, query;
 
     total = 0;
     query = new Query(commit.key);
 
-    query.filter().forEach(function(key) {
+    query.filter().forEach(function (key) {
       var data;
       if (window.localStorage) {
-        data = window.localStorage[key] || '';
+        data = window.localStorage[key] || "";
       } else {
-        data = '';
+        data = "";
       }
       total += data.length;
     });
@@ -257,20 +257,20 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * @return an object, where object[target] == size for each of the currently
    *         stored targets, and where object.total is the total of all targets
    */
-  TimeMachineModel.prototype.usedStorage = function() {
+  TimeMachineModel.prototype.usedStorage = function () {
     var tuveroQuery, targetSizes, total;
 
     targetSizes = {};
 
     tuveroQuery = new Query(Query.ALLTUVEROKEYS);
-    tuveroQuery.filter().forEach(function(key) {
+    tuveroQuery.filter().forEach(function (key) {
       var target, data;
 
-      target = key.split('_')[0];
+      target = key.split("_")[0];
       if (window.localStorage) {
-        data = window.localStorage[key] || '';
+        data = window.localStorage[key] || "";
       } else {
-        data = '';
+        data = "";
       }
 
       targetSizes[target] = (targetSizes[target] || 0) + data.length;
@@ -279,9 +279,9 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     total = 0;
     if (window.localStorage) {
       Object.keys(targetSizes).forEach(
-          function(target) {
+          function (target) {
             targetSizes[target] += (window.localStorage[RefLog
-                .formatTargetKey(target)] || '').length;
+                .formatTargetKey(target)] || "").length;
             total += targetSizes[target];
           });
     }
@@ -302,7 +302,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * @param keepNum
    *          the number of commits to keep, excluding root and latest
    */
-  TimeMachineModel.prototype.cleanup = function(relatedCommit, keepNum) {
+  TimeMachineModel.prototype.cleanup = function (relatedCommit, keepNum) {
     var query, relatedKeys;
 
     if (!(relatedCommit instanceof CommitModel) || !relatedCommit.isValid()) {
@@ -319,7 +319,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
       (new CommitModel(relatedKeys.shift())).remove();
     }
 
-    this.emit('cleanup', relatedCommit);
+    this.emit("cleanup", relatedCommit);
   };
 
   /**
@@ -333,7 +333,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
    * @param data
    *          {source: removed_commit}
    */
-  TimeMachineModel.prototype.onremove = function(event, emitter, data) {
+  TimeMachineModel.prototype.onremove = function (event, emitter, data) {
     if (data.source.isRoot()) {
       var index = this.unsortedRoots.indexOf(data.source);
       this.unsortedRoots.get(index).destroy();
@@ -341,7 +341,7 @@ define(['lib/extend', 'core/model', 'timemachine/reflog',
     }
   };
 
-  TimeMachineModel.prototype.onrefresh = function(event, emitter, data) {
+  TimeMachineModel.prototype.onrefresh = function (event, emitter, data) {
     this.updateRoots();
   };
 

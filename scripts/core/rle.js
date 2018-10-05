@@ -12,7 +12,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['core/type'], function (Type) {
+define(["core/type"], function (Type) {
   var RLE = {};
 
   function isNestedEmptyArray(array) {
@@ -36,17 +36,17 @@ define(['core/type'], function (Type) {
     var i, nullstart, str, elem, notnull;
 
     switch (Type(array)) {
-      case 'array':
+      case "array":
         break;
-      case 'number':
+      case "number":
         // just return the string representation of the number
         return array.toString();
       default:
-        throw new Error('RLE encoding failed: cannot parse content of type '
+        throw new Error("RLE encoding failed: cannot parse content of type "
           + Type(array));
     }
 
-    str = '';
+    str = "";
     nullstart = -1;
     for (i = 0; i < array.length; i += 1) {
       elem = array[i];
@@ -58,15 +58,15 @@ define(['core/type'], function (Type) {
         if (notnull) {
           if (nullstart === 0) {
             // begin a new string
-            str = '[';
+            str = "[";
           } else {
             // continue an old string
-            str += ',';
+            str += ",";
           }
           if ((i - nullstart) === 1) {
-            str += 'n';
+            str += "n";
           } else {
-            str += 'n' + (i - nullstart);
+            str += "n" + (i - nullstart);
           }
           nullstart = -1;
         } else {
@@ -78,10 +78,10 @@ define(['core/type'], function (Type) {
       if (notnull) {
         if (i !== 0) {
           // continue string
-          str += ',';
+          str += ",";
         } else {
           // start new string
-          str += '[';
+          str += "[";
         }
 
         try {
@@ -98,15 +98,15 @@ define(['core/type'], function (Type) {
 
     if (nullstart !== -1) {
       if (str.length === 0) {
-        str = '[';
+        str = "[";
       } else {
-        str += ',';
+        str += ",";
       }
-      str += 'n' + (i - nullstart);
+      str += "n" + (i - nullstart);
     }
 
     if (str.length) {
-      str += ']';
+      str += "]";
     }
 
     return str;
@@ -123,8 +123,8 @@ define(['core/type'], function (Type) {
   RLE.decode = function (blob) {
     var array, nesting, i, num, char, isnull, nullsleft, newarray;
 
-    if (Type(blob) !== 'string') {
-      console.error('RLE.decode: input is no string, but of type "'
+    if (Type(blob) !== "string") {
+      console.error("RLE.decode: input is no string, but of type \""
         + Type(blob) + "'");
       return undefined;
     }
@@ -134,7 +134,7 @@ define(['core/type'], function (Type) {
     }
 
     nesting = [];
-    num = '';
+    num = "";
     array = undefined;
     isnull = false;
     nullsleft = 0;
@@ -143,33 +143,33 @@ define(['core/type'], function (Type) {
       char = blob[i];
 
       switch (char) {
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9':
-        case '+':
-        case '-':
-        case 'e':
-        case '.':
+        case "0":
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7":
+        case "8":
+        case "9":
+        case "+":
+        case "-":
+        case "e":
+        case ".":
           // is part of a number: add to number OR a skip number
           num += char;
           break;
-        case 'n':
+        case "n":
           // is indicative of a null run
           if (isnull) {
-            console.error('unexpected sequence of multiple "n" '
-              + 'characters in RLE.decode input');
+            console.error("unexpected sequence of multiple \"n\" "
+              + "characters in RLE.decode input");
             return undefined;
           }
           isnull = true;
           break;
-        case '[':
+        case "[":
           // starts a new nested subarray
           newarray = [];
           // write all nulls up to this point
@@ -180,7 +180,7 @@ define(['core/type'], function (Type) {
           nesting.push(newarray);
           array = nesting[nesting.length - 1];
           break;
-        case ',':
+        case ",":
           if (num.length === 0) {
             if (isnull) {
               nullsleft += 1;
@@ -193,8 +193,8 @@ define(['core/type'], function (Type) {
           } else {
             num = Number(num);
             if (isNaN(num)) {
-              console.error('invalid number or character sequence '
-                + 'in RLE.decode input');
+              console.error("invalid number or character sequence "
+                + "in RLE.decode input");
               return undefined;
             }
             if (isnull) {
@@ -205,9 +205,9 @@ define(['core/type'], function (Type) {
             }
           }
           isnull = false;
-          num = '';
+          num = "";
           break;
-        case ']':
+        case "]":
           // first, write the last number, if any
           if (!isnull) {
             if (num.length === 0) {
@@ -216,8 +216,8 @@ define(['core/type'], function (Type) {
             } else {
               num = Number(num);
               if (isNaN(num)) {
-                console.error('invalid number or character sequence '
-                  + 'in RLE.decode input');
+                console.error("invalid number or character sequence "
+                  + "in RLE.decode input");
                 return undefined;
               }
               array[array.length + nullsleft] = num;
@@ -237,7 +237,7 @@ define(['core/type'], function (Type) {
               // end of input reached
               return array;
             }
-            console.error('unbalanced closing "]" in RLE input');
+            console.error("unbalanced closing \"]\" in RLE input");
             return undefined;
           }
           nesting.pop();
@@ -245,18 +245,18 @@ define(['core/type'], function (Type) {
           if (array[array.length - 1].length === 0) {
             array[array.length - 1] = undefined;
           }
-          num = '';
+          num = "";
           isnull = false;
           break;
         default:
-          console.error('RLE decode: unexpected character "' + char
-            + '" in sparse array blob');
+          console.error("RLE decode: unexpected character \"" + char
+            + "\" in sparse array blob");
           return undefined;
       }
     }
 
     // ERROR: unexpected end of input
-    console.error('unexpected end of input. Unbalanced brackets');
+    console.error("unexpected end of input. Unbalanced brackets");
     return undefined;
   };
 

@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/view', 'ui/generictournamentview'], //
-function($, extend, View, GenericTournamentView) {
+define(["jquery", "lib/extend", "core/view", "ui/generictournamentview"], //
+function ($, extend, View, GenericTournamentView) {
   /**
    * Constructor
    *
@@ -17,10 +17,10 @@ function($, extend, View, GenericTournamentView) {
   function TournamentViewPopulator($templatesArray) {
     var $templates = {};
 
-    $templatesArray.each(function() {
+    $templatesArray.each(function () {
       var $template, type;
       $template = $(this);
-      type = $template.attr('data-system');
+      type = $template.attr("data-system");
 
       $templates[type] = $template;
     });
@@ -40,13 +40,13 @@ function($, extend, View, GenericTournamentView) {
    * @param $view
    *          an empty container for the actual view
    */
-  TournamentViewPopulator.prototype.populate = function(tournament, $view) {
+  TournamentViewPopulator.prototype.populate = function (tournament, $view) {
     var type;
 
     type = tournament && tournament.SYSTEM;
 
     if (this.$templates[type] === undefined) {
-      console.error('system template has not been loaded: ' + type);
+      console.error("system template has not been loaded: " + type);
     } else {
       $view.append(this.$templates[type].children().clone());
     }

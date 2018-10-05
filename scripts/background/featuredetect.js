@@ -7,42 +7,42 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/modernizr', 'ui/strings', 'ui/toast'], function($,
+define(["jquery", "lib/modernizr", "ui/strings", "ui/toast"], function ($,
     Modernizr, Strings, Toast) {
   var FeatureDetect;
 
   FeatureDetect = {};
 
-  $(function($) {
+  $(function ($) {
     function confirmLeave() {
-      window.onbeforeunload = function() {
+      window.onbeforeunload = function () {
         return Strings.confirmleave;
       };
     }
 
     if (!Modernizr) {
-      console.error('cannot load Modernizr!');
+      console.error("cannot load Modernizr!");
     } else {
       if (!Modernizr.adownload) {
-        $('.noadownload').show();
+        $(".noadownload").show();
       }
 
       if (!Modernizr.filereader) {
-        $('.nofilereader').show();
-        $('.filereader').detach();
+        $(".nofilereader").show();
+        $(".filereader").detach();
         new Toast(Strings.nofilereader, Toast.LONG);
       }
 
       if (!Modernizr.json) {
-        $('.nojson').show();
-        $('.json').detach();
+        $(".nojson").show();
+        $(".json").detach();
         new Toast(Strings.nojson, Toast.LONG);
         confirmLeave();
       }
 
       if (!Modernizr.localstorage) {
-        $('.nostorage').show();
-        $('.storage').detach();
+        $(".nostorage").show();
+        $(".storage").detach();
         new Toast(Strings.nostorage, Toast.LONG);
         confirmLeave();
       }

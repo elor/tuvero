@@ -7,8 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type',
-    'ranking/rankingdatalistenerindex'], function(extend, Model,
+define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type",
+    "ranking/rankingdatalistenerindex"], function (extend, Model,
     RankingComponentIndex, Type, RankingDataListenerIndex) {
 
   /**
@@ -40,7 +40,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
     order = ids.slice(0);
 
     chain = this.componentchain;
-    order.sort(function(a, b) {
+    order.sort(function (a, b) {
       return chain.compare(a, b) || (a - b);
     }, this);
 
@@ -61,7 +61,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
 
     ranks = new Array(this.length);
 
-    ids.forEach(function(teamid, index) {
+    ids.forEach(function (teamid, index) {
       if (index === 0) {
         ranks[teamid] = 0;
       } else {
@@ -90,7 +90,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
     var newRanking, components;
 
     if (!norecalc) {
-      this.emit('recalc');
+      this.emit("recalc");
     }
 
     newRanking = {
@@ -103,7 +103,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
 
     if (this.componentchain !== undefined) {
       components = this.componentchain.getValues();
-      components.forEach(function(component, index) {
+      components.forEach(function (component, index) {
         var name;
         if (component !== undefined) {
           name = this.componentnames[index];
@@ -147,13 +147,13 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    * the different events
    */
   RankingModel.prototype.EVENTS = {
-    'result': true, // insert a new game result
-    'bye': true, // insert a new bye
-    'correct': true, // correct a game
-    'recalc': true, // force a recalculation
-    'update': true, // there has been an update
-    'reset': true, // everything has to be reset
-    'resize': true
+    "result": true, // insert a new game result
+    "bye": true, // insert a new bye
+    "correct": true, // correct a game
+    "recalc": true, // force a recalculation
+    "update": true, // there has been an update
+    "reset": true, // everything has to be reset
+    "resize": true
   // the size of the ranking has been changed
   };
 
@@ -165,7 +165,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    * @param extDependencies
    * @return true on success, false otherwise
    */
-  RankingModel.prototype.init = function(components, size, extDependencies) {
+  RankingModel.prototype.init = function (components, size, extDependencies) {
     var dependencies, dataListenerArray;
 
     // abort if the ranking object has not been reset
@@ -191,7 +191,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
     dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
         dependencies);
     if (dataListenerArray && components && components.length > 0) {
-      dataListenerArray.forEach(function(dataListener, index) {
+      dataListenerArray.forEach(function (dataListener, index) {
         this.dataListeners[dependencies[index]] = dataListener;
       }, this);
       this.resize(size);
@@ -204,14 +204,14 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    * restore everything to an initial state, as provided by an empty
    * RankingModel construction
    */
-  RankingModel.prototype.reset = function() {
-    Object.keys(this.dataListeners).forEach(function(key) {
+  RankingModel.prototype.reset = function () {
+    Object.keys(this.dataListeners).forEach(function (key) {
       this.dataListeners[key].destroy();
     }, this);
 
     // just let the constructor reset everything for us.
     RankingModel.call(this);
-    this.emit('reset');
+    this.emit("reset");
 
     // trigger an 'update' event
     this.invalidate();
@@ -223,9 +223,9 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    * @param result
    *          a GameResult instance
    */
-  RankingModel.prototype.result = function(result) {
+  RankingModel.prototype.result = function (result) {
     // TODO result verification?
-    this.emit('result', result);
+    this.emit("result", result);
     this.invalidate();
   };
 
@@ -235,16 +235,16 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    * @param teams
    *          an array of affected teams
    */
-  RankingModel.prototype.bye = function(teams) {
+  RankingModel.prototype.bye = function (teams) {
     if (Type.isNumber(teams)) {
       teams = [teams];
     }
-    this.emit('bye', teams);
+    this.emit("bye", teams);
     this.invalidate();
   };
 
-  RankingModel.prototype.correct = function(correction) {
-    this.emit('correct', correction);
+  RankingModel.prototype.correct = function (correction) {
+    this.emit("correct", correction);
     this.invalidate();
   };
 
@@ -252,9 +252,9 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    * force a full recalculation of the ranking from the data fields. This will
    * not replay the tournament from history, just update dependent data fields.
    */
-  RankingModel.prototype.invalidate = function() {
+  RankingModel.prototype.invalidate = function () {
     this.ranking = undefined;
-    this.emit('update');
+    this.emit("update");
   };
 
   /**
@@ -275,7 +275,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    *
    * @return the current ranking, as a ranking object
    */
-  RankingModel.prototype.get = function() {
+  RankingModel.prototype.get = function () {
     if (this.ranking === undefined) {
       updateRanking.call(this);
     }
@@ -283,7 +283,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
     return this.ranking;
   };
 
-  RankingModel.prototype.getNoRecalc = function() {
+  RankingModel.prototype.getNoRecalc = function () {
     updateRanking.call(this, true);
 
     return this.ranking;
@@ -298,18 +298,18 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    *          the new size
    * @return true on success, false otherwise
    */
-  RankingModel.prototype.resize = function(size) {
+  RankingModel.prototype.resize = function (size) {
     if (size === this.length) {
       return true;
     }
     if (size >= 0) {
       this.length = size;
-      this.emit('resize');
+      this.emit("resize");
       this.invalidate();
       return true;
     }
 
-    console.error('RankingModel.resize: invalid size: ' + size);
+    console.error("RankingModel.resize: invalid size: " + size);
     return false;
   };
 
@@ -320,7 +320,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    *
    * @return a serializable data object
    */
-  RankingModel.prototype.save = function() {
+  RankingModel.prototype.save = function () {
     var data = RankingModel.superclass.save.call(this);
 
     data.len = this.length;
@@ -329,7 +329,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
     data.vals = {};
 
     // only store primary dataListeners. Abort on error
-    if (!Object.keys(this.dataListeners).every(function(name) {
+    if (!Object.keys(this.dataListeners).every(function (name) {
       var listener;
       listener = this.dataListeners[name];
 
@@ -337,7 +337,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
         if (this[name] && Type.isFunction(this[name].save)) {
           data.vals[name] = this[name].save();
         } else {
-          console.error('datalistener cannot be saved: ' + name);
+          console.error("datalistener cannot be saved: " + name);
           return false;
         }
       }
@@ -356,7 +356,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    *          a deserialized data object
    * @return true on success, false otherwise
    */
-  RankingModel.prototype.restore = function(data) {
+  RankingModel.prototype.restore = function (data) {
     if (!RankingModel.superclass.restore.call(this, data)) {
       return false;
     }
@@ -367,13 +367,13 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
       return false;
     }
 
-    if (!Object.keys(data.vals).every(function(name) {
+    if (!Object.keys(data.vals).every(function (name) {
       if (this[name] && this[name].restore) {
         if (this[name].restore(data.vals[name])) {
           return true;
         }
       }
-      console.error('RankingModel.restore(): cannot restore listener ' + name);
+      console.error("RankingModel.restore(): cannot restore listener " + name);
       return false;
     }, this)) {
       this.reset();

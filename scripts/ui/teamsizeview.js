@@ -9,7 +9,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', 'ui/teamsizecontroller'], function(extend, View,
+define(["lib/extend", "core/view", "ui/teamsizecontroller"], function (extend, View,
     TeamSizeController) {
 
   /**
@@ -21,7 +21,7 @@ define(['lib/extend', 'core/view', 'ui/teamsizecontroller'], function(extend, Vi
   function TeamSizeView(model, $view) {
     TeamSizeView.superconstructor.call(this, model, $view);
 
-    this.$buttons = this.$view.find('>button');
+    this.$buttons = this.$view.find(">button");
 
     this.update();
 
@@ -35,19 +35,19 @@ define(['lib/extend', 'core/view', 'ui/teamsizecontroller'], function(extend, Vi
    * When driven by update events, ValueModel.set() should avoid sending events
    * when the new and old values match, i.e. there's no actual change
    */
-  TeamSizeView.prototype.update = function() {
+  TeamSizeView.prototype.update = function () {
     var teamsize;
 
     teamsize = this.model.get();
 
-    this.$buttons.removeClass('selected');
-    this.$buttons.eq(teamsize - 1).addClass('selected');
+    this.$buttons.removeClass("selected");
+    this.$buttons.eq(teamsize - 1).addClass("selected");
   };
 
   /**
    * Callback function
    */
-  TeamSizeView.prototype.onupdate = function() {
+  TeamSizeView.prototype.onupdate = function () {
     this.update();
   };
 

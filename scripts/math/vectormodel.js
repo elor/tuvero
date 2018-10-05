@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(extend,
+define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (extend,
     ListModel, Type, RLE) {
   /**
    * Constructor
@@ -26,7 +26,7 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    *
    * @param size
    */
-  VectorModel.prototype.resize = function(size) {
+  VectorModel.prototype.resize = function (size) {
     if (size === undefined || size < 0) {
       size = 0;
     }
@@ -45,7 +45,7 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    * @param value
    *          Optional. The value. Defaults to 0.
    */
-  VectorModel.prototype.fill = function(value) {
+  VectorModel.prototype.fill = function (value) {
     var index;
 
     value = value || 0;
@@ -60,8 +60,8 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    *
    * @return the vector sum
    */
-  VectorModel.prototype.sum = function() {
-    return this.list.reduce(function(a, b) {
+  VectorModel.prototype.sum = function () {
+    return this.list.reduce(function (a, b) {
       return a + b;
     });
   };
@@ -75,12 +75,12 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    *          Optional. Vector B. defaults to this.
    * @return this
    */
-  VectorModel.prototype.mult = function(vecA, vecB) {
+  VectorModel.prototype.mult = function (vecA, vecB) {
     var index;
 
     if (Type.isNumber(vecB)) {
-      throw new Error('VectorModel.prototype.mult: '
-          + 'second argument must be undefined or a VectorModel instance: '
+      throw new Error("VectorModel.prototype.mult: "
+          + "second argument must be undefined or a VectorModel instance: "
           + vecB);
     }
 
@@ -95,8 +95,8 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
     } else {
       // element-wise multiplication
       if (vecA.length !== vecB.length) {
-        console.error('VectorModel.setProduct: different input lengths: '
-            + vecA.length + '<>' + vecB.length);
+        console.error("VectorModel.setProduct: different input lengths: "
+            + vecA.length + "<>" + vecB.length);
         return undefined;
       }
 
@@ -117,12 +117,12 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    *          the other vector
    * @return the dot product, (this . vec)
    */
-  VectorModel.prototype.dot = function(vec) {
+  VectorModel.prototype.dot = function (vec) {
     var index, sum;
 
     if (this.length !== vec.length) {
-      console.error('VectorModel.dot: different input lengths: ' + this.length
-          + '<>' + vec.length);
+      console.error("VectorModel.dot: different input lengths: " + this.length
+          + "<>" + vec.length);
       return undefined;
     }
 
@@ -144,14 +144,14 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    *          Optional. vector 2. Defaults to this.
    * @return this on success, undefined otherwise
    */
-  VectorModel.prototype.add = function(vec1, vec2) {
+  VectorModel.prototype.add = function (vec1, vec2) {
     var index;
 
     vec2 = vec2 || this;
 
     if (vec1.length !== vec2.length) {
-      console.error('VectorModel.prototype.add: different input lengths: '
-          + vec1.length + '<>' + vec2.length);
+      console.error("VectorModel.prototype.add: different input lengths: "
+          + vec1.length + "<>" + vec2.length);
       return undefined;
     }
 
@@ -169,7 +169,7 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    *
    * @return a data object
    */
-  VectorModel.prototype.save = function() {
+  VectorModel.prototype.save = function () {
     var data = VectorModel.superclass.save.call(this);
 
     data = RLE.encode(data);
@@ -184,7 +184,7 @@ define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function(exten
    *          the data object
    * @return true on success, false otherwise
    */
-  VectorModel.prototype.restore = function(data) {
+  VectorModel.prototype.restore = function (data) {
     var index;
 
     try {

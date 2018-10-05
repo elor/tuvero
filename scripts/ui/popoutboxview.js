@@ -6,19 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'ui/boxview', 'ui/popoutcontroller', 'core/valuemodel',
-    'core/classview'], function($, extend, BoxView, PopoutController, ValueModel,
+define(["jquery", "lib/extend", "ui/boxview", "ui/popoutcontroller", "core/valuemodel",
+    "core/classview"], function ($, extend, BoxView, PopoutController, ValueModel,
     ClassView) {
   var $iconTemplate, $popoutIconTemplate, $closeIconTemplate, //
   $pageBreakIconTemplate;
 
-  $iconTemplate = $('<div>').addClass('icon').addClass('noprint');
+  $iconTemplate = $("<div>").addClass("icon").addClass("noprint");
 
   // TODO read this from DOM.
-  $popoutIconTemplate = $iconTemplate.clone().addClass('popout').text('↗');
-  $closeIconTemplate = $iconTemplate.clone().addClass('close').text('x');
-  $pageBreakIconTemplate = $iconTemplate.clone().addClass('pagebreak')
-      .text('⏎');
+  $popoutIconTemplate = $iconTemplate.clone().addClass("popout").text("↗");
+  $closeIconTemplate = $iconTemplate.clone().addClass("close").text("x");
+  $pageBreakIconTemplate = $iconTemplate.clone().addClass("pagebreak")
+      .text("⏎");
 
   /**
    * Constructor
@@ -28,7 +28,7 @@ define(['jquery', 'lib/extend', 'ui/boxview', 'ui/popoutcontroller', 'core/value
 
     this.$popoutTemplate = $popoutTemplate;
 
-    if (this.$view.hasClass('primaryPopout')) {
+    if (this.$view.hasClass("primaryPopout")) {
       this.addCloseIcon();
       this.addPageBreakIcon();
     } else {
@@ -39,25 +39,25 @@ define(['jquery', 'lib/extend', 'ui/boxview', 'ui/popoutcontroller', 'core/value
   }
   extend(PopoutBoxView, BoxView);
 
-  PopoutBoxView.prototype.addPopoutIcon = function() {
+  PopoutBoxView.prototype.addPopoutIcon = function () {
     this.$popout = $popoutIconTemplate.clone();
-    this.$view.find('>h3:first-child').append(this.$popout);
+    this.$view.find(">h3:first-child").append(this.$popout);
   };
 
-  PopoutBoxView.prototype.addCloseIcon = function() {
+  PopoutBoxView.prototype.addCloseIcon = function () {
     this.$close = $closeIconTemplate.clone();
-    this.$view.find('>h3:first-child').append(this.$close);
+    this.$view.find(">h3:first-child").append(this.$close);
   };
 
-  PopoutBoxView.prototype.addPageBreakIcon = function() {
+  PopoutBoxView.prototype.addPageBreakIcon = function () {
     this.$pageBreak = $pageBreakIconTemplate.clone();
     this.pageBreakModel = new ValueModel(false);
     this.pageBreakView = new ClassView(this.pageBreakModel, this.$view,
-        'pagebreak');
-    this.$view.find('>h3:first-child').append(this.$pageBreak);
+        "pagebreak");
+    this.$view.find(">h3:first-child").append(this.$pageBreak);
   };
 
-  PopoutBoxView.prototype.destroy = function() {
+  PopoutBoxView.prototype.destroy = function () {
     if (this.pageBreakModel) {
       this.pageBreakModel.destroy();
     }

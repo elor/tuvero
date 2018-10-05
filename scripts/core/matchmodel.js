@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
+define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
     IndexedModel, Type) {
   /**
    * Constructor
@@ -35,8 +35,8 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
   extend(MatchModel, IndexedModel);
 
   MatchModel.prototype.EVENTS = {
-    'update': true,
-    'finish': true
+    "update": true,
+    "finish": true
   };
 
   /**
@@ -45,7 +45,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
    *          the teams position within the match
    * @return the team at position pos
    */
-  MatchModel.prototype.getTeamID = function(pos) {
+  MatchModel.prototype.getTeamID = function (pos) {
     /*
      * no additional check necessary. The array will return 'undefined' for us
      */
@@ -60,7 +60,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
    *
    * @return the group of the match within the tournament
    */
-  MatchModel.prototype.getGroup = function() {
+  MatchModel.prototype.getGroup = function () {
     return this.group;
   };
 
@@ -70,7 +70,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
    *
    * @return true if an inherited object is a MatchResult, false otherwise.
    */
-  MatchModel.prototype.isResult = function() {
+  MatchModel.prototype.isResult = function () {
     return this.score !== undefined || !this.finish;
   };
 
@@ -78,7 +78,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
    * @return true if this is not a result, all team IDs are unique and all team
    *         IDs are valid (not undefined). false otherwise.
    */
-  MatchModel.prototype.isRunningMatch = function() {
+  MatchModel.prototype.isRunningMatch = function () {
     var valid;
 
     valid = true;
@@ -88,13 +88,13 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
     }
 
     if (valid) {
-      valid = this.teams.every(function(teamID) {
+      valid = this.teams.every(function (teamID) {
         return Type.isNumber(teamID);
       });
     }
 
     if (valid) {
-      valid = this.teams.every(function(teamID, index) {
+      valid = this.teams.every(function (teamID, index) {
         return this.teams.slice(index + 1).indexOf(teamID) === -1;
       }, this);
     }
@@ -115,7 +115,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
    * @return a MatchResult instance representing the accepted result. undefined
    *         otherwise
    */
-  MatchModel.prototype.finish = function(points) {
+  MatchModel.prototype.finish = function (points) {
     var result, MatchResult;
 
     if (!points || points.length !== this.length) {
@@ -124,10 +124,10 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
     }
 
     // Circular dependency. Require MatchResult directly
-    MatchResult = require('core/matchresult');
+    MatchResult = require("core/matchresult");
     result = new MatchResult(this, points);
 
-    this.emit('finish', result);
+    this.emit("finish", result);
 
     return result;
   };
@@ -137,11 +137,11 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
    *
    * @return a data object
    */
-  MatchModel.prototype.save = function() {
+  MatchModel.prototype.save = function () {
     var data = MatchModel.superclass.save.call(this);
 
     data.g = this.group;
-    data.t = this.teams.map(function(team) {
+    data.t = this.teams.map(function (team) {
       if (team && team.getID) {
         return team.getID();
       } else if (team === undefined) {
@@ -161,7 +161,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
    *          a saved state
    * @return true on success, false otherwise
    */
-  MatchModel.prototype.restore = function(data) {
+  MatchModel.prototype.restore = function (data) {
     if (!MatchModel.superclass.restore.call(this, data)) {
       return false;
     }
@@ -169,7 +169,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
     this.group = data.g;
 
     this.teams.splice(0);
-    data.t.forEach(function(t) {
+    data.t.forEach(function (t) {
       this.teams.push(t === -1 ? undefined : t);
     }, this);
     this.length = this.teams.length;

@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/renamecontroller', 'timemachine/timemachine',
-    'ui/stateloader', 'ui/strings', 'ui/toast', 'ui/filesavermodel'], //
-function(extend, RenameController, TimeMachine, StateLoader, Strings, Toast,
+define(["lib/extend", "ui/renamecontroller", "timemachine/timemachine",
+    "ui/stateloader", "ui/strings", "ui/toast", "ui/filesavermodel"], //
+function (extend, RenameController, TimeMachine, StateLoader, Strings, Toast,
     FileSaverModel) {
   /**
    * Constructor
@@ -16,23 +16,23 @@ function(extend, RenameController, TimeMachine, StateLoader, Strings, Toast,
   function TimeMachineCommitController(view) {
     TimeMachineCommitController.superconstructor.call(this, view, false);
 
-    this.view.$view.find('button.removecommit').click(this.remove.bind(this));
-    this.view.$view.find('button.loaddescendant').click(this.load.bind(this));
-    this.view.$view.find('button.cleanuptree').click(this.cleanup.bind(this));
-    this.view.$view.find('button.download').click(this.download.bind(this));
+    this.view.$view.find("button.removecommit").click(this.remove.bind(this));
+    this.view.$view.find("button.loaddescendant").click(this.load.bind(this));
+    this.view.$view.find("button.cleanuptree").click(this.cleanup.bind(this));
+    this.view.$view.find("button.download").click(this.download.bind(this));
   }
   extend(TimeMachineCommitController, RenameController);
 
-  TimeMachineCommitController.prototype.remove = function() {
+  TimeMachineCommitController.prototype.remove = function () {
     var active, confirmtext, name;
 
     active = TimeMachine.isRelatedToActive(this.model);
-    name = this.model.getTreeName() || 'noname';
+    name = this.model.getTreeName() || "noname";
 
     confirmtext = active ? Strings.confirmactivetreeremoval
         : Strings.confirmtreeremoval;
 
-    if (window.confirm(confirmtext.replace('%s', name))) {
+    if (window.confirm(confirmtext.replace("%s", name))) {
 
       this.model.remove();
 
@@ -42,15 +42,15 @@ function(extend, RenameController, TimeMachine, StateLoader, Strings, Toast,
     }
   };
 
-  TimeMachineCommitController.prototype.cleanup = function() {
+  TimeMachineCommitController.prototype.cleanup = function () {
     TimeMachine.cleanup(this.model, 0);
   };
 
-  TimeMachineCommitController.prototype.load = function() {
+  TimeMachineCommitController.prototype.load = function () {
     StateLoader.loadCommit(this.model.getYoungestDescendant() || this.model);
   };
 
-  TimeMachineCommitController.prototype.download = function() {
+  TimeMachineCommitController.prototype.download = function () {
     var fileSaver;
 
     fileSaver = new FileSaverModel(this.model.getYoungestDescendant()
@@ -60,11 +60,11 @@ function(extend, RenameController, TimeMachine, StateLoader, Strings, Toast,
     }
   };
 
-  TimeMachineCommitController.prototype.getName = function(name) {
+  TimeMachineCommitController.prototype.getName = function (name) {
     return this.model.getTreeName();
   };
 
-  TimeMachineCommitController.prototype.setName = function(name) {
+  TimeMachineCommitController.prototype.setName = function (name) {
     if (name) {
       this.model.setTreeName(name);
       return true;

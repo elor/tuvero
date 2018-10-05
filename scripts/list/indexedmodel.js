@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(["lib/extend", "core/model"], function (extend, Model) {
 
   /**
    * Constructor
@@ -27,7 +27,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @return the id of this object within a certain set of objects
    */
-  IndexedModel.prototype.getID = function() {
+  IndexedModel.prototype.getID = function () {
     return this.id;
   };
 
@@ -37,13 +37,13 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    * @param id
    *          a preferably unique numeric id
    */
-  IndexedModel.prototype.setID = function(id) {
+  IndexedModel.prototype.setID = function (id) {
     if (id === undefined) {
       id = -1;
     }
     if (id !== this.id) {
       this.id = id;
-      this.emit('update');
+      this.emit("update");
     }
   };
 
@@ -52,7 +52,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @return the current state, as a data object
    */
-  IndexedModel.prototype.save = function() {
+  IndexedModel.prototype.save = function () {
     var data = IndexedModel.superclass.save.call(this);
 
     data.id = this.id;
@@ -67,7 +67,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *          a stored state
    * @return true on success, false otherwise
    */
-  IndexedModel.prototype.restore = function(data) {
+  IndexedModel.prototype.restore = function (data) {
     if (!IndexedModel.superclass.restore.call(this, data)) {
       return false;
     }

@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view'], function(extend, View) {
+define(["lib/extend", "core/view"], function (extend, View) {
 
   /**
    * Constructor
@@ -29,14 +29,14 @@ define(['lib/extend', 'core/view'], function(extend, View) {
   /**
    * write the playernames and teamnumber to the DOM
    */
-  LengthView.prototype.update = function() {
+  LengthView.prototype.update = function () {
     this.$view.text(this.model.length + this.offset);
   };
 
   /**
    * Callback listener
    */
-  LengthView.prototype.onresize = function() {
+  LengthView.prototype.onresize = function () {
     this.update();
   };
 

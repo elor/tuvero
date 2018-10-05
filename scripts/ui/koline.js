@@ -6,9 +6,9 @@
  * @see LICENSE
  */
 
-define(['ui/strings'], function(Strings) {
+define(["ui/strings"], function (Strings) {
   function generateCacheID(from, midx, to) {
-    return [from[0], from[1], midx, to[0], to[1]].join(':');
+    return [from[0], from[1], midx, to[0], to[1]].join(":");
   }
 
   /**
@@ -27,11 +27,11 @@ define(['ui/strings'], function(Strings) {
 
     for (key in style) {
       if (style.hasOwnProperty(key)) {
-        strings.push([key, style[key]].join(': '));
+        strings.push([key, style[key]].join(": "));
       }
     }
 
-    return strings.join('; ');
+    return strings.join("; ");
   }
 
   /**
@@ -51,16 +51,16 @@ define(['ui/strings'], function(Strings) {
     var svg, style;
 
     style = {
-      position: 'absolute',
-      width: width + 'em',
-      height: height + 'em',
-      left: left + 'em',
-      top: top + 'em',
-      overflow: 'visible'
+      position: "absolute",
+      width: width + "em",
+      height: height + "em",
+      left: left + "em",
+      top: top + "em",
+      overflow: "visible"
     };
 
-    svg = document.createElementNS(KOLine.SVGNS, 'svg');
-    svg.setAttributeNS(null, 'style', styleToString(style));
+    svg = document.createElementNS(KOLine.SVGNS, "svg");
+    svg.setAttributeNS(null, "style", styleToString(style));
 
     return svg;
   }
@@ -77,11 +77,11 @@ define(['ui/strings'], function(Strings) {
   function createSVGLine(from, to) {
     var line;
 
-    line = document.createElementNS(KOLine.SVGNS, 'line');
-    line.setAttributeNS(null, 'x1', from[0] + 'em');
-    line.setAttributeNS(null, 'y1', from[1] + 'em');
-    line.setAttributeNS(null, 'x2', to[0] + 'em');
-    line.setAttributeNS(null, 'y2', to[1] + 'em');
+    line = document.createElementNS(KOLine.SVGNS, "line");
+    line.setAttributeNS(null, "x1", from[0] + "em");
+    line.setAttributeNS(null, "y1", from[1] + "em");
+    line.setAttributeNS(null, "x2", to[0] + "em");
+    line.setAttributeNS(null, "y2", to[1] + "em");
 
     return line;
   }
@@ -111,10 +111,10 @@ define(['ui/strings'], function(Strings) {
       mid1 = [midx, from[1]];
       mid2 = [midx, to[1]];
 
-      group = document.createElementNS(KOLine.SVGNS, 'g');
-      group.setAttributeNS(null, 'stroke', 'black');
-      group.setAttributeNS(null, 'stroke-width', '2');
-      group.setAttributeNS(null, 'stroke-linecap', 'round');
+      group = document.createElementNS(KOLine.SVGNS, "g");
+      group.setAttributeNS(null, "stroke", "black");
+      group.setAttributeNS(null, "stroke-width", "2");
+      group.setAttributeNS(null, "stroke-linecap", "round");
 
       group.appendChild(createSVGLine(from, mid1));
       group.appendChild(createSVGLine(mid1, mid2));

@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/matchresult'], function(extend, Model,
+define(["lib/extend", "core/model", "core/matchresult"], function (extend, Model,
     MatchResult) {
   /**
    * Constructor
@@ -25,7 +25,7 @@ define(['lib/extend', 'core/model', 'core/matchresult'], function(extend, Model,
     } else if (oldResult instanceof MatchResult) {
       this.before = oldResult;
     } else {
-      throw new Error('CorrectionModel: oldResult is not a MatchResult!');
+      throw new Error("CorrectionModel: oldResult is not a MatchResult!");
     }
 
     if (newResult === undefined) {
@@ -33,7 +33,7 @@ define(['lib/extend', 'core/model', 'core/matchresult'], function(extend, Model,
     } else if (newResult instanceof MatchResult) {
       this.after = newResult;
     } else {
-      throw new Error('CorrectionModel: newResult is not a MatchResult!');
+      throw new Error("CorrectionModel: newResult is not a MatchResult!");
     }
   }
   extend(CorrectionModel, Model);
@@ -48,7 +48,7 @@ define(['lib/extend', 'core/model', 'core/matchresult'], function(extend, Model,
    *
    * @return a serializable data object
    */
-  CorrectionModel.prototype.save = function() {
+  CorrectionModel.prototype.save = function () {
     var data = CorrectionModel.superclass.save.call(this);
 
     data.b = this.before.save();
@@ -64,7 +64,7 @@ define(['lib/extend', 'core/model', 'core/matchresult'], function(extend, Model,
    *          a deserialized data object
    * @return true on success, false otherwise
    */
-  CorrectionModel.prototype.restore = function(data) {
+  CorrectionModel.prototype.restore = function (data) {
     if (!CorrectionModel.superclass.restore.call(this, data)) {
       return false;
     }

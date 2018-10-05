@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], //
-function(extend, RankingComponent) {
+define(["lib/extend", "ranking/rankingcomponent"], //
+function (extend, RankingComponent) {
   /**
    * Constructor
    *
@@ -21,14 +21,14 @@ function(extend, RankingComponent) {
   }
   extend(RankingSaldoComponent, RankingComponent);
 
-  RankingSaldoComponent.NAME = 'saldo';
+  RankingSaldoComponent.NAME = "saldo";
 
   /**
    * @param i
    *          a team index
    * @return the point difference, aka. saldo points
    */
-  RankingSaldoComponent.prototype.value = function(i) {
+  RankingSaldoComponent.prototype.value = function (i) {
     return this.ranking.saldo.get(i);
   };
 

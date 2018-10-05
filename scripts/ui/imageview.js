@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'ui/attributevalueview'], function(extend,
+define(["lib/extend", "ui/attributevalueview"], function (extend,
     AttributeValueView) {
 
   /**
@@ -19,7 +19,7 @@ define(['lib/extend', 'ui/attributevalueview'], function(extend,
    *          the associated DOM element
    */
   function ImageView(model, $view) {
-    ImageView.superconstructor.call(this, model, $view, 'src');
+    ImageView.superconstructor.call(this, model, $view, "src");
   }
   extend(ImageView, AttributeValueView);
 

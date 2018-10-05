@@ -5,10 +5,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Type) {
+define(["lib/extend", "core/emitter", "core/type"], function (extend, Emitter, Type) {
   function getClassName(instance) {
     return instance.constructor.toString().replace(
-        /^function (\S+)\((.+|\s+)*$/g, '$1');
+        /^function (\S+)\((.+|\s+)*$/g, "$1");
   }
 
   /**
@@ -23,16 +23,16 @@ define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Ty
     if (Type.isArray(referenceType)) {
       if (Type.isArray(data)) {
         if (referenceType.length === 1) {
-          return data.every(function(dataElement) {
+          return data.every(function (dataElement) {
             if (verifyType(dataElement, referenceType[0])) {
               return true;
             }
 
-            console.error('restore(): Array element does not match type');
+            console.error("restore(): Array element does not match type");
             return false;
           });
         }
-        console.error('SAVEFORMAT array does not contain exactly 1 Type!');
+        console.error("SAVEFORMAT array does not contain exactly 1 Type!");
       }
       return false;
     }
@@ -41,7 +41,7 @@ define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Ty
       return true;
     }
 
-    console.error(getClassName(this) + '.restore(): missing Key of type '
+    console.error(getClassName(this) + ".restore(): missing Key of type "
         + referenceType);
     return false;
   }
@@ -60,7 +60,7 @@ define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Ty
   Model.prototype.clone = function () {
     var clone = new this.constructor();
     if (!clone.restore(this.save())) {
-      throw 'Cannot clone object ' + this;
+      throw "Cannot clone object " + this;
     }
     return clone;
   };
@@ -72,7 +72,7 @@ define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Ty
    *
    * @return a data object
    */
-  Model.prototype.save = function() {
+  Model.prototype.save = function () {
     // TODO auto-verify the format
     return {};
   };
@@ -85,24 +85,24 @@ define(['lib/extend', 'core/emitter', 'core/type'], function(extend, Emitter, Ty
    *          a data object as written by save()
    * @return true on success, false or undefined otherwise
    */
-  Model.prototype.restore = function(data) {
+  Model.prototype.restore = function (data) {
     // TODO warn about additional keys
     // TODO allow for the verification of sub-Models
     if (!Type.isObject(data)) {
-      console.error('restore(): data is not an object');
+      console.error("restore(): data is not an object");
       return false;
     }
 
     if (!Type.isObject(this.SAVEFORMAT)) {
-      console.error('restore(): SAVEFORMAT is not an object');
+      console.error("restore(): SAVEFORMAT is not an object");
       return false;
     }
 
-    return Object.keys(this.SAVEFORMAT).every(function(key) {
+    return Object.keys(this.SAVEFORMAT).every(function (key) {
       if (verifyType.call(this, data[key], this.SAVEFORMAT[key])) {
         return true;
       }
-      console.error('Missing key or wrong format: ' + key);
+      console.error("Missing key or wrong format: " + key);
       console.log(data);
       return false;
     }, this);

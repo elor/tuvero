@@ -11,7 +11,7 @@
  * @see LICENSE
  */
 
-define(function() {
+define(function () {
   var types;
 
   /**
@@ -27,15 +27,15 @@ define(function() {
   }
 
   function getFunctionName(func) {
-    return func.toString().replace(/\s+/g, ' ').replace(
-        /^\s*function ([A-Za-z]+)\(.*$/, '$1').toLowerCase();
+    return func.toString().replace(/\s+/g, " ").replace(
+        /^\s*function ([A-Za-z]+)\(.*$/, "$1").toLowerCase();
   }
 
-  types = [1, {}, '', undefined, null, new Date(), [], /asd/, true,
+  types = [1, {}, "", undefined, null, new Date(), [], /asd/, true,
   /**
    * anonymous reference function
    */
-  function() {
+  function () {
     //
   }];
 
@@ -80,17 +80,17 @@ define(function() {
    *          the type string, as it may have been returned by Type()
    * @return true if the typestring matches Type(obj), false otherwise
    */
-  Type.is = function(obj, typestring) {
+  Type.is = function (obj, typestring) {
     switch (Type(typestring)) {
-    case 'string':
+    case "string":
       return Type(obj) === typestring;
-    case 'function':
+    case "function":
 
       return Type(obj) === getFunctionName(typestring);
-    case 'undefined':
-      return Type(obj) === 'undefined';
-    case 'null':
-      return Type(obj) === 'null';
+    case "undefined":
+      return Type(obj) === "undefined";
+    case "null":
+      return Type(obj) === "null";
     default:
       return false;
     }
@@ -102,12 +102,12 @@ define(function() {
    * @param reference
    *          a reference object
    */
-  types.map(function(reference) {
+  types.map(function (reference) {
     var typestring = Type(reference);
     /**
      * Type.isSomething() closure
      */
-    Type['is' + capitalize(typestring)] = function(obj) {
+    Type["is" + capitalize(typestring)] = function (obj) {
       return Type.is(obj, typestring);
     };
   });

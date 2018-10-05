@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
+define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
   /**
    * @param list
    *          a ListModel instance
@@ -24,7 +24,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
     this.makeReadonly();
 
     if (list === undefined) {
-      throw new Error('SortedReferenceListModel: list argument is missing');
+      throw new Error("SortedReferenceListModel: list argument is missing");
     }
 
     if (sortFunction === undefined) {
@@ -35,7 +35,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
     this.sortFunction = sortFunction;
     this.unique = unique || false;
 
-    list.map(function(element) {
+    list.map(function (element) {
       SortedReferenceListModel.insertElement(this, element);
     }, this);
 
@@ -54,7 +54,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param data
    *          a data object, as emitted by insert() from the original list
    */
-  SortedReferenceListModel.prototype.oninsert = function(emitter, event, data) {
+  SortedReferenceListModel.prototype.oninsert = function (emitter, event, data) {
     if (emitter === this.refList) {
       SortedReferenceListModel.insertElement(this, data.object);
     }
@@ -70,7 +70,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param data
    *          a data object, as emitted by remove() from the original list
    */
-  SortedReferenceListModel.prototype.onremove = function(emitter, event, data) {
+  SortedReferenceListModel.prototype.onremove = function (emitter, event, data) {
     if (emitter === this.refList) {
       SortedReferenceListModel.removeElement(this, data.object);
     }
@@ -85,7 +85,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    *          the second object
    * @return the ordering relation between the two, i.e. -1, 0 or +1
    */
-  SortedReferenceListModel.ascending = function(a, b) {
+  SortedReferenceListModel.ascending = function (a, b) {
     switch (true) {
     case a > b:
       return 1;
@@ -105,7 +105,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    *          the second object
    * @return the ordering relation between the two, i.e. -1, 0 or +1
    */
-  SortedReferenceListModel.descending = function(a, b) {
+  SortedReferenceListModel.descending = function (a, b) {
     return -SortedReferenceListModel.ascending(a, b);
   };
 
@@ -117,7 +117,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param element
    *          the element to insert into the list
    */
-  SortedReferenceListModel.insertElement = function(list, element) {
+  SortedReferenceListModel.insertElement = function (list, element) {
     var index = SortedReferenceListModel.findPosition(list, element);
 
     if (list.unique && index !== 0) {
@@ -137,7 +137,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @param element
    *          the element to remove from the list
    */
-  SortedReferenceListModel.removeElement = function(list, element) {
+  SortedReferenceListModel.removeElement = function (list, element) {
     var index = list.indexOf(element);
     if (index >= 0) {
       SortedReferenceListModel.superclass.remove.call(list, index);
@@ -161,7 +161,7 @@ define(['lib/extend', 'list/listmodel'], function(extend, ListModel) {
    * @return the position at which an element is to be inserted. Can range from
    *         0 to list.length.
    */
-  SortedReferenceListModel.findPosition = function(list, element, begin, end) {
+  SortedReferenceListModel.findPosition = function (list, element, begin, end) {
     var relation, mid;
 
     if (begin === undefined) {

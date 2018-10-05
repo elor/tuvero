@@ -6,14 +6,16 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener'], function(extend, Listener) {
+define(["lib/extend", "core/listener"], function (extend, Listener) {
   /**
    * Constructor
    */
   function ClosedTournamentCollapseListener(tournamentlistview) {
     var tournaments = tournamentlistview.model;
-    ClosedTournamentCollapseListener.superconstructor.call(this,
-        tournaments.closedTournaments);
+    ClosedTournamentCollapseListener.superconstructor.call(
+      this,
+      tournaments.closedTournaments
+    );
 
     this.tournaments = tournaments;
     this.tournamentlistview = tournamentlistview;
@@ -26,13 +28,13 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * @param tournamentID
    *          the tournament id
    */
-  ClosedTournamentCollapseListener.prototype.collapse = function(tournamentID) {
+  ClosedTournamentCollapseListener.prototype.collapse = function (tournamentID) {
     var tournamentView, boxView;
 
     tournamentView = this.tournamentlistview.getSubview(tournamentID);
     boxView = tournamentView.boxview;
-    if (!boxView.$view.hasClass('collapsed')) {
-      boxView.model.emit('toggle');
+    if (!boxView.$view.hasClass("collapsed")) {
+      boxView.model.emit("toggle");
     }
   };
 
@@ -44,11 +46,14 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * @param data
    *          a data object
    */
-  ClosedTournamentCollapseListener.prototype.oninsert = function(emitter,
-      event, data) {
+  ClosedTournamentCollapseListener.prototype.oninsert = function (
+    emitter,
+    event,
+    data
+  ) {
     var listener = this;
     // Use a timeout to avoid runtime concurrency problems during pageload.
-    window.setTimeout(function() {
+    window.setTimeout(function () {
       listener.collapse(data.object);
     }, 1);
   };

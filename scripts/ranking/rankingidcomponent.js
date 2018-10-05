@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], //
-function(extend, RankingComponent) {
+define(["lib/extend", "ranking/rankingcomponent"], //
+function (extend, RankingComponent) {
   /**
    * Constructor
    *
@@ -19,7 +19,7 @@ function(extend, RankingComponent) {
   }
   extend(RankingIDComponent, RankingComponent);
 
-  RankingIDComponent.NAME = 'id';
+  RankingIDComponent.NAME = "id";
   RankingIDComponent.DEPENDENCIES = [];
 
   /**
@@ -29,11 +29,11 @@ function(extend, RankingComponent) {
    *          a player index
    * @return the player index, for sorting
    */
-  RankingIDComponent.prototype.value = function(i) {
+  RankingIDComponent.prototype.value = function (i) {
     return i;
   };
 
-  RankingIDComponent.prototype.compare = function(i, k) {
+  RankingIDComponent.prototype.compare = function (i, k) {
     return -RankingIDComponent.superclass.compare.call(this, i, k);
   };
 

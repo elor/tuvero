@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
+define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
     IndexedModel, Type) {
   /**
    * Constructor
@@ -29,14 +29,14 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
   /**
    * @return the ID of this nodes' parent. returns 0 for the root
    */
-  BinaryTreeModel.prototype.getParentID = function() {
+  BinaryTreeModel.prototype.getParentID = function () {
     return this.id >> 1;
   };
 
   /**
    * @return the ID of this nodes' sibling
    */
-  BinaryTreeModel.prototype.getSiblingID = function() {
+  BinaryTreeModel.prototype.getSiblingID = function () {
     if (this.id > 1) {
       return this.id ^ 0x1;
     }
@@ -46,7 +46,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
   /**
    * @return the ID of this nodes' left child
    */
-  BinaryTreeModel.prototype.getLeftChildID = function() {
+  BinaryTreeModel.prototype.getLeftChildID = function () {
     if (this.id > 0) {
       return this.id << 1;
     } else if (this.id === 0) {
@@ -58,14 +58,14 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function(extend,
   /**
    * @return the ID of this nodes' right child
    */
-  BinaryTreeModel.prototype.getRightChildID = function() {
+  BinaryTreeModel.prototype.getRightChildID = function () {
     return this.getLeftChildID() + (this.id <= 0 ? 0 : 1);
   };
 
   /**
    * @return the depth of this node within the binary tree
    */
-  BinaryTreeModel.prototype.getDepth = function() {
+  BinaryTreeModel.prototype.getDepth = function () {
     if (this.id >= 1) {
       return Math.floor(Math.log(this.id) / Math.LN2);
     }

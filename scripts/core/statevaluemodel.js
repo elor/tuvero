@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/selectionvaluemodel', 'core/uniquelistmodel'], function(
+define(["lib/extend", "core/selectionvaluemodel", "core/uniquelistmodel"], function (
     extend, SelectionValueModel, UniqueListModel) {
 
   /**
@@ -42,13 +42,13 @@ define(['lib/extend', 'core/selectionvaluemodel', 'core/uniquelistmodel'], funct
    * Write all possible next states, as specified by this.transitions, to the
    * list of allowed values.
    */
-  StateValueModel.prototype.updateStates = function() {
+  StateValueModel.prototype.updateStates = function () {
     /*
      * Read all possible states, remove all currently inaccessible states from
      * allowedValues and add those that are accessible. This is not the fastest
      * way, but it avoids any assumptions about possible subclasses
      */
-    Object.keys(this.transitions).forEach(function(state) {
+    Object.keys(this.transitions).forEach(function (state) {
       var transition;
       transition = this.transitions[this.get()];
 
@@ -71,7 +71,7 @@ define(['lib/extend', 'core/selectionvaluemodel', 'core/uniquelistmodel'], funct
    * @param newState
    * @return true on success, false otherwise
    */
-  StateValueModel.prototype.forceState = function(newState) {
+  StateValueModel.prototype.forceState = function (newState) {
     if (this.transitions[newState]) {
       this.allowedValues.push(newState);
       this.set(newState);
@@ -83,7 +83,7 @@ define(['lib/extend', 'core/selectionvaluemodel', 'core/uniquelistmodel'], funct
   /**
    * Callback function to update the list of allowed states after a state change
    */
-  StateValueModel.prototype.onupdate = function() {
+  StateValueModel.prototype.onupdate = function () {
     this.updateStates();
   };
 

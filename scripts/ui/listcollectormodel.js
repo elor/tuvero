@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
+define(["lib/extend", "core/model", "core/listener"], function (extend, Model,
     Listener) {
   /**
    * Constructor
@@ -35,7 +35,7 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
    * whenever list elements are added or removed, the collector is registered or
    * unregistered from their emitters
    */
-  ListCollectorModel.prototype.createListListener = function() {
+  ListCollectorModel.prototype.createListListener = function () {
     this.listener = new Listener(this.list);
     this.listener.collector = this;
     this.listener.list = this.list;
@@ -43,14 +43,14 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
     /**
      * register to inserted emitters
      */
-    this.listener.oninsert = function(emitter, event, data) {
+    this.listener.oninsert = function (emitter, event, data) {
       data.object.registerListener(this.collector);
     };
 
     /**
      * unregister from removed emitters
      */
-    this.listener.onremove = function(emitter, event, data) {
+    this.listener.onremove = function (emitter, event, data) {
       // avoid the unregistration of multiply inserted emitters
       if (this.list.indexOf(data.object) === -1) {
         data.object.unregisterListener(this.collector);
@@ -67,7 +67,7 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
    * @param ContentModel
    *          the class of which the list elements are instances
    */
-  ListCollectorModel.prototype.createEventCallbacks = function(ContentModel) {
+  ListCollectorModel.prototype.createEventCallbacks = function (ContentModel) {
     var event;
 
     this.EVENTS = {};
@@ -75,7 +75,7 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
     for (event in ContentModel.prototype.EVENTS) {
       if (ContentModel.prototype.EVENTS[event]) {
         this.EVENTS[event] = true;
-        this['on' + event] = ListCollectorModel.PROXYCALLBACK;
+        this["on" + event] = ListCollectorModel.PROXYCALLBACK;
       }
     }
   };
@@ -84,8 +84,8 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
    * For every element, register a listener. Should only be used during the
    * constructor call
    */
-  ListCollectorModel.prototype.registerExistingElements = function() {
-    this.list.map(function(emitter) {
+  ListCollectorModel.prototype.registerExistingElements = function () {
+    this.list.map(function (emitter) {
       emitter.registerListener(this);
     }, this);
   };
@@ -105,7 +105,7 @@ define(['lib/extend', 'core/model', 'core/listener'], function(extend, Model,
    * @param data
    *          an optional data object
    */
-  ListCollectorModel.PROXYCALLBACK = function(emitter, event, data) {
+  ListCollectorModel.PROXYCALLBACK = function (emitter, event, data) {
     if (!data) {
       data = {};
     }

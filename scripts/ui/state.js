@@ -6,12 +6,12 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/statemodel', 'core/listener'], function (StateModel, Listener) {
+define(["ui/statemodel", "core/listener"], function (StateModel, Listener) {
   var State;
 
   State = new StateModel();
 
-  Listener.bind(State, 'error', function (emitter, event, message) {
+  Listener.bind(State, "error", function (emitter, event, message) {
     console.error(message);
   });
 

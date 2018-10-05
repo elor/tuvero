@@ -9,7 +9,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'ui/strings', 'ui/update'], function($, Strings, Update) {
+define(["jquery", "ui/strings", "ui/update"], function ($, Strings, Update) {
   var Online;
 
   /**
@@ -18,18 +18,18 @@ define(['jquery', 'ui/strings', 'ui/update'], function($, Strings, Update) {
    *
    * @return true if there's an active internet connection, false otherwise.
    */
-  Online = function() {
+  Online = function () {
     return navigator.onLine;
   };
 
   // if offline, send a nag message on exit!
 
-  $(function($) {
-    $(window).on('beforeunload', function(e) {
+  $(function ($) {
+    $(window).on("beforeunload", function (e) {
       var message = Strings.offlineconfirmexit;
 
       if (!Online() && !Update.isCached &&
-          document.location.protocol !== 'file:') {
+          document.location.protocol !== "file:") {
         if (e) {
           e.returnValue = message;
         }

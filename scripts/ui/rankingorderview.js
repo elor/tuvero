@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'ui/listview',
-    'ui/rankingordercontroller'], function($, extend, TemplateView,
+define(["jquery", "lib/extend", "ui/templateview", "ui/rankingcomponentview", "ui/listview",
+    "ui/rankingordercontroller"], function ($, extend, TemplateView,
     RankingComponentView, ListView, RankingOrderController) {
   /**
    * Constructor
@@ -18,13 +18,13 @@ define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'u
    */
   function RankingOrderView(selectedComponents, $view, allComponents) {
     RankingOrderView.superconstructor.call(this, selectedComponents, $view,
-        $view.find('.template'));
+        $view.find(".template"));
 
     this.selected = selectedComponents;
     this.allComponents = allComponents;
 
-    this.$availableList = this.$view.find('.available');
-    this.$selectedList = this.$view.find('.selected');
+    this.$availableList = this.$view.find(".available");
+    this.$selectedList = this.$view.find(".selected");
 
     this.selectedListView = new ListView(selectedComponents,
         this.$selectedList, this.$template, RankingComponentView);
@@ -41,14 +41,14 @@ define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'u
    * automatically show/hide already selected values from the list of available
    * items
    */
-  RankingOrderView.prototype.update = function() {
+  RankingOrderView.prototype.update = function () {
     var model = this.model;
-    this.$availableList.find('.component').each(function(index) {
+    this.$availableList.find(".component").each(function (index) {
       var $option = $(this);
       if (model.indexOf($option.val()) === -1) {
-        $option.removeClass('hidden');
+        $option.removeClass("hidden");
       } else {
-        $option.addClass('hidden');
+        $option.addClass("hidden");
       }
     });
   };
@@ -56,14 +56,14 @@ define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'u
   /**
    * an item has been inserted into the left list. Update the right list.
    */
-  RankingOrderView.prototype.oninsert = function() {
+  RankingOrderView.prototype.oninsert = function () {
     this.update();
   };
 
   /**
    * an item has been removed from the left list. Update the right list.
    */
-  RankingOrderView.prototype.onremove = function() {
+  RankingOrderView.prototype.onremove = function () {
     this.update();
   };
 

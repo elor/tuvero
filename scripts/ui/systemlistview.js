@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/listview', 'ui/teamtableview', 'list/orderlistmodel',
-    'core/listener', 'ui/systemtablerowview'], function(extend, ListView,
+define(["lib/extend", "ui/listview", "ui/teamtableview", "list/orderlistmodel",
+    "core/listener", "ui/systemtablerowview"], function (extend, ListView,
     TeamTableView, OrderListModel, Listener, SystemTableRowView) {
   /**
    * Constructor
@@ -30,7 +30,7 @@ define(['lib/extend', 'ui/listview', 'ui/teamtableview', 'list/orderlistmodel',
 
     orderList = new OrderListModel();
     SystemListView.superconstructor.call(this, orderList, $view, $view
-        .find('.team.template'), SystemTableRowView, teams, tournaments,
+        .find(".team.template"), SystemTableRowView, teams, tournaments,
         tournamentViewFactory);
 
     this.teams = teams;
@@ -38,24 +38,24 @@ define(['lib/extend', 'ui/listview', 'ui/teamtableview', 'list/orderlistmodel',
 
     updateTimeout = undefined;
 
-    Listener.bind(tournaments, 'update', function(model, event, data) {
+    Listener.bind(tournaments, "update", function (model, event, data) {
       var list = this;
       if (updateTimeout === undefined) {
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           list.updateOrder();
           updateTimeout = undefined;
         }, 1);
       }
     }, this);
 
-    Listener.bind(teams, 'insert,remove', function(model, event, data) {
+    Listener.bind(teams, "insert,remove", function (model, event, data) {
       var list = this;
-      if (event === 'remove') {
+      if (event === "remove") {
         list.removeAfter(data.id);
       }
 
       if (updateTimeout === undefined) {
-        window.setTimeout(function() {
+        window.setTimeout(function () {
           list.updateOrder();
           updateTimeout = undefined;
         }, 1);
@@ -71,7 +71,7 @@ define(['lib/extend', 'ui/listview', 'ui/teamtableview', 'list/orderlistmodel',
   /**
    * Update the row order to match the global ranking displayOrder
    */
-  SystemListView.prototype.updateOrder = function() {
+  SystemListView.prototype.updateOrder = function () {
     var ranking, order;
 
   if (this.teams.length > 0) {
@@ -88,10 +88,10 @@ define(['lib/extend', 'ui/listview', 'ui/teamtableview', 'list/orderlistmodel',
    * @param firstID
    *          the first ID to remove
    */
-  SystemListView.prototype.removeAfter = function(firstID) {
-    var order = this.model.map(function(teamID) {
+  SystemListView.prototype.removeAfter = function (firstID) {
+    var order = this.model.map(function (teamID) {
       return teamID;
-    }).filter(function(id) {
+    }).filter(function (id) {
       return id < firstID;
     });
 

@@ -6,21 +6,21 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
-  return function(QUnit, getModule) {
+define(function () {
+  return function (QUnit, getModule) {
     var extend, CorrectionReferenceModel, CorrectionModel, MatchResult, MatchModel, ListModel;
 
-    extend = getModule('lib/extend');
-    CorrectionReferenceModel = getModule('core/correctionreferencemodel');
-    CorrectionModel = getModule('core/correctionmodel');
-    MatchModel = getModule('core/matchmodel');
-    MatchResult = getModule('core/matchresult');
-    ListModel = getModule('list/listmodel');
+    extend = getModule("lib/extend");
+    CorrectionReferenceModel = getModule("core/correctionreferencemodel");
+    CorrectionModel = getModule("core/correctionmodel");
+    MatchModel = getModule("core/matchmodel");
+    MatchResult = getModule("core/matchresult");
+    ListModel = getModule("list/listmodel");
 
-    QUnit.test('CorrectionReferenceModel', function (assert) {
+    QUnit.test("CorrectionReferenceModel", function (assert) {
       var result, result2, correction, reference, teams;
       assert.ok(extend.isSubclass(CorrectionReferenceModel, CorrectionModel),
-          'CorrectionReferenceModel is subclass of CorrectionModel');
+          "CorrectionReferenceModel is subclass of CorrectionModel");
 
       teams = new ListModel();
       teams.push(5);
@@ -37,23 +37,23 @@ define(function() {
 
       reference = new CorrectionReferenceModel(correction, teams);
       assert.equal(reference.before.result, result,
-          'before result reference is set');
+          "before result reference is set");
       assert.equal(reference.after.result, result2,
-          'after result reference is set');
+          "after result reference is set");
 
       assert.deepEqual(reference.before.teams, [0, 1],
-          'before teams correctly referenced');
+          "before teams correctly referenced");
       assert.deepEqual(reference.after.teams, [6, 13],
-          'after teams correctly referenced');
+          "after teams correctly referenced");
       assert.deepEqual(reference.before.score, result.score,
-          'before score is correct');
+          "before score is correct");
       assert.deepEqual(reference.after.score, result2.score,
-          'after score is correct');
+          "after score is correct");
 
-      assert.equal(reference.before.getID(), 1, 'before id matches');
-      assert.equal(reference.after.getID(), 2, 'after id matches');
-      assert.equal(reference.before.getGroup(), 2, 'before group matches');
-      assert.equal(reference.after.getGroup(), 1, 'after group matches');
+      assert.equal(reference.before.getID(), 1, "before id matches");
+      assert.equal(reference.after.getID(), 2, "after id matches");
+      assert.equal(reference.before.getGroup(), 2, "before group matches");
+      assert.equal(reference.after.getGroup(), 1, "after group matches");
     });
   };
 });

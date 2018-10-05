@@ -7,9 +7,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['core/type', 'tournament/roundtournamentmodel', 'tournament/swisstournamentmodel',
-  'tournament/kotournamentmodel', 'tournament/placementtournamentmodel',
-  'tournament/poulestournamentmodel'], function (Type) {
+define(["core/type", "tournament/roundtournamentmodel", "tournament/swisstournamentmodel",
+  "tournament/kotournamentmodel", "tournament/placementtournamentmodel",
+  "tournament/poulestournamentmodel"], function (Type) {
   var TournamentIndex, tournamentSystems, i, sys;
 
   tournamentSystems = {};
@@ -17,7 +17,7 @@ define(['core/type', 'tournament/roundtournamentmodel', 'tournament/swisstournam
   for (i = 1; i < arguments.length; i += 1) {
     sys = arguments[i].prototype.SYSTEM;
     if (tournamentSystems[sys]) {
-      console.error('ERROR: duplicate tournament sys: ' + sys);
+      console.error("ERROR: duplicate tournament sys: " + sys);
     }
     tournamentSystems[sys] = arguments[i];
   }
@@ -33,7 +33,7 @@ define(['core/type', 'tournament/roundtournamentmodel', 'tournament/swisstournam
      * @return a TournamentModel instance on success, or undefined on failure
      *         (e.g. if the system doesn't exist)
      */
-    createTournament: function(system, rankingorder) {
+    createTournament: function (system, rankingorder) {
       if (Type.isString(system)) {
         // default instantiation by name
         if (tournamentSystems[system]) {
@@ -44,7 +44,7 @@ define(['core/type', 'tournament/roundtournamentmodel', 'tournament/swisstournam
         return TournamentIndex.createTournament(system.sys);
       }
 
-      console.error('TournamentIndex: system not found: ' + system);
+      console.error("TournamentIndex: system not found: " + system);
       return undefined;
     },
     systems: Object.keys(tournamentSystems).sort()

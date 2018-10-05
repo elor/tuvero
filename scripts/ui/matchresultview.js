@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/matchview', 'ui/matchresultcontroller'], function(
+define(["lib/extend", "ui/matchview", "ui/matchresultcontroller"], function (
     extend, MatchView, MatchResultController) {
   /**
    * Constructor
@@ -23,9 +23,9 @@ define(['lib/extend', 'ui/matchview', 'ui/matchresultcontroller'], function(
   function MatchResultView(model, $view, teamlist, tournament) {
     MatchResultView.superconstructor.call(this, model, $view, teamlist);
 
-    this.$result = this.$view.find('.result');
-    this.$scores = this.$result.find('.score');
-    this.$correctionform = this.$view.find('.correct');
+    this.$result = this.$view.find(".result");
+    this.$scores = this.$result.find(".score");
+    this.$correctionform = this.$view.find(".correct");
 
     if (this.model.isResult()) {
       if (this.model.isBye()) {
@@ -52,9 +52,9 @@ define(['lib/extend', 'ui/matchview', 'ui/matchresultcontroller'], function(
   /**
    * display the score of the MatchResult
    */
-  MatchResultView.prototype.updateScore = function() {
+  MatchResultView.prototype.updateScore = function () {
     if (this.model.isResult()) {
-      this.model.score.forEach(function(score, index) {
+      this.model.score.forEach(function (score, index) {
         this.$scores.eq(index).text(score);
       }, this);
     }

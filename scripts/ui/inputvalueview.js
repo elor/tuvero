@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/view', 'ui/inputvaluecontroller'],
+define(["lib/extend", "core/view", "ui/inputvaluecontroller"],
   function (extend, View, InputValueController) {
 
   /**
@@ -30,14 +30,14 @@ define(['lib/extend', 'core/view', 'ui/inputvaluecontroller'],
   /**
    * write the contents of get() to the DOM
    */
-  InputValueView.prototype.update = function() {
+  InputValueView.prototype.update = function () {
     this.$view.val(this.model.get());
   };
 
   /**
    * Callback listener
    */
-  InputValueView.prototype.onupdate = function() {
+  InputValueView.prototype.onupdate = function () {
     this.update();
   };
 

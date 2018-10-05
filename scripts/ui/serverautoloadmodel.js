@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
-  'ui/servertournamentloader', 'presets', 'core/listener'], function (extend, Model, Browser,
+define(["lib/extend", "core/model", "ui/browser", "ui/servertournamentmodel",
+  "ui/servertournamentloader", "presets", "core/listener"], function (extend, Model, Browser,
     ServerTournamentModel, ServerTournamentLoader, Presets, Listener) {
     /**
      * Constructor
@@ -42,18 +42,18 @@ define(['lib/extend', 'core/model', 'ui/browser', 'ui/servertournamentmodel',
       var message;
       if (this.tournamentID) {
 
-        message = this.server.message('t/' + this.tournamentID);
+        message = this.server.message("t/" + this.tournamentID);
         message.onreceive = (function (emitter, event, data) {
           if (data && data.registrations && data.target === Presets.target) {
             var model = new ServerTournamentModel(this.server, data);
 
-            Listener.bind(model, 'ready', function () {
+            Listener.bind(model, "ready", function () {
               ServerTournamentLoader.loadTournament(model);
             });
             model.downloadState();
 
-            if (window.location.hash.replace(/^#/, '') === Browser.inithash) {
-              window.location.hash = '';
+            if (window.location.hash.replace(/^#/, "") === Browser.inithash) {
+              window.location.hash = "";
             }
           }
         }).bind(this);

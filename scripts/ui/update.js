@@ -10,12 +10,12 @@
  * @see LICENSE
  */
 // FIXME start this script as early as possible!
-define(['ui/strings', 'ui/toast', 'ui/debug'], function(Strings, Toast, Debug) {
+define(["ui/strings", "ui/toast", "ui/debug"], function (Strings, Toast, Debug) {
   var Update, appCache, downloadToast, uncachedToast;
 
   downloadToast = undefined;
 
-  Update = function() {
+  Update = function () {
     cacheStatus();
     if (Update.isCached) {
       try {
@@ -40,7 +40,7 @@ define(['ui/strings', 'ui/toast', 'ui/debug'], function(Strings, Toast, Debug) {
   }
 
   function isLocal() {
-    return document.location.protocol === 'file:';
+    return document.location.protocol === "file:";
   }
 
   function setCached(cached) {
@@ -53,7 +53,7 @@ define(['ui/strings', 'ui/toast', 'ui/debug'], function(Strings, Toast, Debug) {
       Update.isCached = false;
       if (!Debug.isDevVersion) {
         if (!isLocal()) {
-          console.error('no cache manifest found');
+          console.error("no cache manifest found");
           if (uncachedToast === undefined) {
             uncachedToast = new Toast(Strings.nomanifest, Toast.INFINITE);
           }
@@ -77,7 +77,7 @@ define(['ui/strings', 'ui/toast', 'ui/debug'], function(Strings, Toast, Debug) {
       // appCache.swapCache();
       setCached(true);
       new Toast(Strings.updateavailable, Toast.INFINITE);
-      console.warn('boulesprog application cache updated');
+      console.warn("boulesprog application cache updated");
       window.applicationCache.swapCache();
       break;
     case appCache.IDLE:
@@ -91,7 +91,7 @@ define(['ui/strings', 'ui/toast', 'ui/debug'], function(Strings, Toast, Debug) {
       }
       break;
     default:
-      console.error('unhandled appCache status: ' + appCache.status);
+      console.error("unhandled appCache status: " + appCache.status);
       setCached(false);
       break;
     }
@@ -105,19 +105,19 @@ define(['ui/strings', 'ui/toast', 'ui/debug'], function(Strings, Toast, Debug) {
   // + window.applicationCache.status);
   // }
 
-  appCache.addEventListener('error', cacheStatus);
-  appCache.addEventListener('downloading', cacheStatus);
-  appCache.addEventListener('progress', cacheStatus);
-  appCache.addEventListener('cached', cacheStatus);
-  appCache.addEventListener('noupdate', cacheStatus);
-  appCache.addEventListener('updateready', cacheStatus);
+  appCache.addEventListener("error", cacheStatus);
+  appCache.addEventListener("downloading", cacheStatus);
+  appCache.addEventListener("progress", cacheStatus);
+  appCache.addEventListener("cached", cacheStatus);
+  appCache.addEventListener("noupdate", cacheStatus);
+  appCache.addEventListener("updateready", cacheStatus);
 
   cacheStatus();
 
   if (Debug.isDevVersion) {
     window.setInterval(Update, 5000);
-    appCache.addEventListener('updateready', function() {
-      window.setTimeout(function() {
+    appCache.addEventListener("updateready", function () {
+      window.setTimeout(function () {
         window.location.reload();
       }, 1000);
     });

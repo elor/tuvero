@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/byeresult',
-    'options', 'core/type'], function(extend, TournamentModel, MatchModel,
+define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel", "core/byeresult",
+    "options", "core/type"], function (extend, TournamentModel, MatchModel,
     ByeResult, Options, Type) {
   /**
    * Constructor
@@ -21,14 +21,14 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
   }
   extend(RoundTournamentModel, TournamentModel);
 
-  RoundTournamentModel.prototype.SYSTEM = 'round';
+  RoundTournamentModel.prototype.SYSTEM = "round";
 
   /**
    * create all matches during the initial->running transition
    *
    * @return true on success, false otherwise
    */
-  RoundTournamentModel.prototype.initialMatches = function() {
+  RoundTournamentModel.prototype.initialMatches = function () {
     this.round = 0;
 
     if (this.teams.length < 2) {
@@ -45,7 +45,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    *
    * @return true on success, false otherwise
    */
-  RoundTournamentModel.prototype.idleMatches = function() {
+  RoundTournamentModel.prototype.idleMatches = function () {
     this.round += 1;
 
     RoundTournamentModel.generateSlideSystemMatches.call(this);
@@ -57,7 +57,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    * use the slide system to generate a roundtournament. "this" is required to
    * be a RoundTournamentModel instance.
    */
-  RoundTournamentModel.generateSlideSystemMatches = function() {
+  RoundTournamentModel.generateSlideSystemMatches = function () {
     var slideList, teamA, teamB, id;
 
     slideList = RoundTournamentModel.generateSlideList(this.teams.length, this.round);
@@ -119,10 +119,10 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    * @param matchresult
    *          Ignored.
    */
-  RoundTournamentModel.prototype.postprocessMatch = function(matchresult) {
+  RoundTournamentModel.prototype.postprocessMatch = function (matchresult) {
     if (this.matches.length === 0) {
       if (this.round === this.numRounds() - 1) {
-        this.state.set('finished');
+        this.state.set("finished");
       }
     }
   };
@@ -131,14 +131,14 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    * @return the current or recently finished round. returns -1 if the
    *         tournament hasn't been started yet
    */
-  RoundTournamentModel.prototype.getRound = function() {
+  RoundTournamentModel.prototype.getRound = function () {
     return this.round;
   };
 
   /**
    * @return the total number of rounds.
    */
-  RoundTournamentModel.prototype.numRounds = function() {
+  RoundTournamentModel.prototype.numRounds = function () {
     if (this.teams.length % 2) {
       // tournaments with odd teams take one round longer due to the byes
       return this.teams.length;
@@ -151,7 +151,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    *
    * @return a serializable data object
    */
-  RoundTournamentModel.prototype.save = function() {
+  RoundTournamentModel.prototype.save = function () {
     var data = RoundTournamentModel.superclass.save.call(this);
     data.round = this.round;
     return data;
@@ -164,7 +164,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    *          a deserialized data object
    * @return true on success, false otherwise
    */
-  RoundTournamentModel.prototype.restore = function(data) {
+  RoundTournamentModel.prototype.restore = function (data) {
     if (!RoundTournamentModel.superclass.restore.call(this, data)) {
       return false;
     }

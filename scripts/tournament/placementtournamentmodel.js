@@ -6,19 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel',
-  'core/byeresult', 'options'], function (extend,
+define(["lib/extend", "tournament/tournamentmodel", "core/matchmodel",
+  "core/byeresult", "options"], function (extend,
     TournamentModel, MatchModel, ByeResult, Options) {
 
     /**
      * Constructor
      */
     function PlacementTournamentModel() {
-      PlacementTournamentModel.superconstructor.call(this, ['placement', 'wins']);
+      PlacementTournamentModel.superconstructor.call(this, ["placement", "wins"]);
     }
     extend(PlacementTournamentModel, TournamentModel);
 
-    PlacementTournamentModel.prototype.SYSTEM = 'placement';
+    PlacementTournamentModel.prototype.SYSTEM = "placement";
 
     /**
      * create the initial matches for the registered teams
@@ -56,13 +56,13 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel',
      * should never be called since KO tournaments can't be idle, only finished
      */
     PlacementTournamentModel.prototype.idleMatches = function () {
-      throw new Error('KO Tournaments cannot be in idle state.'
-        + ' This function can never be called by the TournamentModel.');
+      throw new Error("KO Tournaments cannot be in idle state."
+        + " This function can never be called by the TournamentModel.");
     };
 
     PlacementTournamentModel.prototype.postprocessMatch = function (matchresult) {
       if (this.matches.length === 0) {
-        this.state.set('finished');
+        this.state.set("finished");
       }
     };
 

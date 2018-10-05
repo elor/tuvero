@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener'], function(extend, Listener) {
+define(["lib/extend", "core/listener"], function (extend, Listener) {
   /**
    * Constructor
    *
@@ -32,7 +32,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    *          a callback function of the format function(data)
    * @return a valid ListUpdateListener instance on success
    */
-  ListUpdateListener.bind = function(list, callback) {
+  ListUpdateListener.bind = function (list, callback) {
     return new ListUpdateListener(list, callback);
   };
 
@@ -46,7 +46,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * @param data
    *          a data object
    */
-  ListUpdateListener.prototype.update = function(emitter, event, data) {
+  ListUpdateListener.prototype.update = function (emitter, event, data) {
     this.callback.call(emitter, data);
   };
 

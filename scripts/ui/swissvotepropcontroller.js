@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/controller'], function(extend, Controller) {
+define(["lib/extend", "core/controller"], function (extend, Controller) {
   /**
    * Constructor
    *
@@ -23,7 +23,7 @@ define(['lib/extend', 'core/controller'], function(extend, Controller) {
   /**
    * toggles the boolean value of the underlying model.
    */
-  SwissVotePropController.prototype.toggleValue = function() {
+  SwissVotePropController.prototype.toggleValue = function () {
     this.model.set(!this.model.get());
   };
 

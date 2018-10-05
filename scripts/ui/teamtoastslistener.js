@@ -8,8 +8,8 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'core/listener', 'ui/state', 'ui/listcollectormodel',
-    'ui/teammodel', 'ui/toast', 'ui/strings'], function(extend, Listener, State,
+define(["lib/extend", "core/listener", "ui/state", "ui/listcollectormodel",
+    "ui/teammodel", "ui/toast", "ui/strings"], function (extend, Listener, State,
     ListCollectorModel, TeamModel, Toast, Strings) {
 
   function TeamToastsListener(emitter) {
@@ -17,7 +17,7 @@ define(['lib/extend', 'core/listener', 'ui/state', 'ui/listcollectormodel',
   }
   extend(TeamToastsListener, Listener);
 
-  TeamToastsListener.prototype.onupdate = function(teamlist, event, data) {
+  TeamToastsListener.prototype.onupdate = function (teamlist, event, data) {
     var newname, team, player;
 
     team = data.source;
@@ -25,28 +25,28 @@ define(['lib/extend', 'core/listener', 'ui/state', 'ui/listcollectormodel',
       player = team.getPlayer(data.id);
       if (player) {
         newname = player.getName();
-        return new Toast(Strings.namechanged.replace('%s', newname));
+        return new Toast(Strings.namechanged.replace("%s", newname));
       }
     }
   };
 
-  TeamToastsListener.prototype.oninsert = function(teamlist, event, data) {
+  TeamToastsListener.prototype.oninsert = function (teamlist, event, data) {
     var teamno;
 
     teamno = data.id;
-    return new Toast(Strings.teamadded.replace('%s', teamno + 1));
+    return new Toast(Strings.teamadded.replace("%s", teamno + 1));
   };
 
-  TeamToastsListener.prototype.onremove = function(teamlist, event, data) {
+  TeamToastsListener.prototype.onremove = function (teamlist, event, data) {
     var teamno;
 
     teamno = data.id;
-    return new Toast(Strings.teamdeleted.replace('%s', teamno + 1));
+    return new Toast(Strings.teamdeleted.replace("%s", teamno + 1));
   };
 
   TeamToastsListener.listeners = {};
 
-  TeamToastsListener.init = function() {
+  TeamToastsListener.init = function () {
     // FIXME move this to the storage file, or associate it somehow otherwise
     TeamToastsListener.listeners.teams = new TeamToastsListener(State.teams);
     TeamToastsListener.listeners.namechange = new TeamToastsListener(

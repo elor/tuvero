@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'jquery', 'ui/koline', 'ui/kotreeposition'], //
-function(extend, View, $, KOLine, KOTreePosition) {
+define(["lib/extend", "core/view", "jquery", "ui/koline", "ui/kotreeposition"], //
+function (extend, View, $, KOLine, KOTreePosition) {
   /**
    * Constructor
    *
@@ -32,14 +32,14 @@ function(extend, View, $, KOLine, KOTreePosition) {
   }
   extend(KOLineView, View);
 
-  KOLineView.prototype.clear = function() {
+  KOLineView.prototype.clear = function () {
     if (this.$line) {
       this.$line.remove();
       this.$line = undefined;
     }
   };
 
-  KOLineView.prototype.render = function() {
+  KOLineView.prototype.render = function () {
     this.clear();
 
     if (this.model.getID() > 1) {
@@ -55,7 +55,7 @@ function(extend, View, $, KOLine, KOTreePosition) {
    *          the total number of teams in the KO tournament
    * @return a jquery object of a KO line, ready to be inserted
    */
-  KOLineView.prototype.createLine = function() {
+  KOLineView.prototype.createLine = function () {
     var line, from, to, pos;
 
     pos = new KOTreePosition(this.model.getID(), this.model.getGroup(),
@@ -71,10 +71,10 @@ function(extend, View, $, KOLine, KOTreePosition) {
     to = [pos.x + 0.4, pos.y + 2];
 
     line = new KOLine(from, to);
-    return $(line.svg).addClass('.koline');
+    return $(line.svg).addClass(".koline");
   };
 
-  KOLineView.prototype.onupdate = function(emitter, event, data) {
+  KOLineView.prototype.onupdate = function (emitter, event, data) {
     this.render();
   };
 

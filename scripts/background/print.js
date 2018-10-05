@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery'], function($) {
+define(["jquery"], function ($) {
   var Print;
 
-  $(function($) {
-    $('#tabs').on('click', 'button.print', function() {
+  $(function ($) {
+    $("#tabs").on("click", "button.print", function () {
       window.print();
     });
   });

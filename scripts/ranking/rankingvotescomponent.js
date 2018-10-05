@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingcomponent'], //
-function(extend, RankingComponent) {
+define(["lib/extend", "ranking/rankingcomponent"], //
+function (extend, RankingComponent) {
   /**
    * Constructor
    *
@@ -21,14 +21,14 @@ function(extend, RankingComponent) {
   }
   extend(RankingVotesComponent, RankingComponent);
 
-  RankingVotesComponent.NAME = 'votes';
+  RankingVotesComponent.NAME = "votes";
 
   /**
    * @param i
    *          a team index
    * @return a string representation of the votes
    */
-  RankingVotesComponent.prototype.value = function(i) {
+  RankingVotesComponent.prototype.value = function (i) {
     return this.ranking.votes.get(i);
   };
 
@@ -38,7 +38,7 @@ function(extend, RankingComponent) {
    *
    * @return the result of the next component's ranking
    */
-  RankingVotesComponent.prototype.compare = function(i, k) {
+  RankingVotesComponent.prototype.compare = function (i, k) {
     return this.nextcomponent.compare(i, k);
   };
 

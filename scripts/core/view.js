@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener', 'core/model'], function(extend,
+define(["lib/extend", "core/listener", "core/model"], function (extend,
     Listener, Model) {
   /**
    * Displays a model and updates on changes to it.
@@ -21,10 +21,10 @@ define(['lib/extend', 'core/listener', 'core/model'], function(extend,
     View.superconstructor.call(this, model);
 
     if ($view === undefined || $view.length === 0) {
-      console.error('View: $view is empty or undefined:');
+      console.error("View: $view is empty or undefined:");
       console.error($view);
       if ($view && $view.selector) {
-        console.error($view ? 'selector: ' + $view.selector : '');
+        console.error($view ? "selector: " + $view.selector : "");
       }
     }
 
@@ -36,14 +36,14 @@ define(['lib/extend', 'core/listener', 'core/model'], function(extend,
   /**
    * resets the whole view
    */
-  View.prototype.reset = function() {
+  View.prototype.reset = function () {
     //
   };
 
   /**
    * update the whole view
    */
-  View.prototype.update = function() {
+  View.prototype.update = function () {
     //
   };
 
@@ -61,7 +61,7 @@ define(['lib/extend', 'core/listener', 'core/model'], function(extend,
    * permanently removed and replaced with new elements.
    *
    */
-  View.prototype.destroy = function() {
+  View.prototype.destroy = function () {
     View.superclass.destroy.call(this);
     this.$view.remove();
   };

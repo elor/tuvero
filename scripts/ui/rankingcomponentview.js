@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/textview', 'ui/strings'], function(extend, TextView,
+define(["lib/extend", "ui/textview", "ui/strings"], function (extend, TextView,
     Strings) {
 
   /**
@@ -17,7 +17,7 @@ define(['lib/extend', 'ui/textview', 'ui/strings'], function(extend, TextView,
    * @return if available, the string representation. if not, the key itself.
    */
   function getString(text) {
-    return Strings['ranking_' + text] || text;
+    return Strings["ranking_" + text] || text;
   }
 
   /**
@@ -38,7 +38,7 @@ define(['lib/extend', 'ui/textview', 'ui/strings'], function(extend, TextView,
    * set the "value" attribute to the text and read the displayed text from
    * Strings
    */
-  RankingComponentView.prototype.update = function() {
+  RankingComponentView.prototype.update = function () {
     this.$view.val(this.model.text);
     this.$view.text(getString(this.model.text));
   };

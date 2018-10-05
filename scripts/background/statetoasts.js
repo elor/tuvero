@@ -5,7 +5,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/state', 'core/listener', 'ui/toast', 'ui/strings'], function(
+define(["ui/state", "core/listener", "ui/toast", "ui/strings"], function (
     State, Listener, Toast, Strings) {
   var StateToasts;
 
@@ -14,12 +14,12 @@ define(['ui/state', 'core/listener', 'ui/toast', 'ui/strings'], function(
   /*
    * show error toasts
    */
-  StateToasts.errorListener = Listener.bind(State, 'error', function(emitter,
+  StateToasts.errorListener = Listener.bind(State, "error", function (emitter,
       event, message) {
     new Toast(message, Toast.LONG);
   });
 
-  StateToasts.clearListener = Listener.bind(State, 'clear', function(emitter,
+  StateToasts.clearListener = Listener.bind(State, "clear", function (emitter,
       event, message) {
     // TODO replace with Toast.isInitialized or similar.
     if (Toast.$container !== undefined) {

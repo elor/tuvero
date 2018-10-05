@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], //
-function(extend, RenameController, Toast, Strings) {
+define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings"], //
+function (extend, RenameController, Toast, Strings) {
   var pendingNameChange;
 
   pendingNameChange = undefined;
@@ -27,13 +27,13 @@ function(extend, RenameController, Toast, Strings) {
 
     this.toast = undefined;
 
-    this.$runbutton = this.view.$view.find('button.runtournament');
-    this.$closebutton = this.view.$view.find('button.closetournament');
+    this.$runbutton = this.view.$view.find("button.runtournament");
+    this.$closebutton = this.view.$view.find("button.closetournament");
 
-    this.$runbutton.click(function() {
-      if (tournament.getState().get() === 'initial') {
+    this.$runbutton.click(function () {
+      if (tournament.getState().get() === "initial") {
         if (rankingOrder.length < 1) {
-          tournament.emit('error', 'not enough ranking components');
+          tournament.emit("error", "not enough ranking components");
           return;
         }
         if (!tournament.setRankingOrder(rankingOrder.asArray())) {
@@ -43,7 +43,7 @@ function(extend, RenameController, Toast, Strings) {
       tournament.run();
     });
 
-    this.$closebutton.click(function() {
+    this.$closebutton.click(function () {
       if (tournament.finish()) {
         tournaments.closeTournament(tournament.getID());
         new Toast(Strings.tournamentfinished);
@@ -53,18 +53,18 @@ function(extend, RenameController, Toast, Strings) {
     });
 
     if (pendingNameChange === this.model.tournament) {
-      this.view.$view.find('.rename').eq(0).click();
+      this.view.$view.find(".rename").eq(0).click();
       window.setTimeout(this.$rename.focus.bind(this.$rename), 1);
       window.setTimeout(this.$rename.select.bind(this.$rename), 1);
     }
   }
   extend(TournamentController, RenameController);
 
-  TournamentController.prototype.getName = function() {
+  TournamentController.prototype.getName = function () {
     return this.model.tournament.getName().get();
   };
 
-  TournamentController.prototype.setName = function(name) {
+  TournamentController.prototype.setName = function (name) {
     if (!name) {
       return false;
     }
@@ -76,11 +76,11 @@ function(extend, RenameController, Toast, Strings) {
     return true;
   };
 
-  TournamentController.initiateNameChange = function(tournament) {
+  TournamentController.initiateNameChange = function (tournament) {
     pendingNameChange = tournament;
   };
 
-  TournamentController.prototype.destroy = function() {
+  TournamentController.prototype.destroy = function () {
   };
 
   return TournamentController;

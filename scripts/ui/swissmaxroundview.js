@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'core/valuemodel', 'ui/valueview',
-    'core/propertyvaluemodel', 'core/listener', 'tournament/swisstournamentmodel'], //
-function(extend, View, ValueModel, ValueView, PropertyValueModel, Listener,
+define(["lib/extend", "core/view", "core/valuemodel", "ui/valueview",
+    "core/propertyvaluemodel", "core/listener", "tournament/swisstournamentmodel"], //
+function (extend, View, ValueModel, ValueView, PropertyValueModel, Listener,
     SwissTournamentModel) {
   /**
    * Constructor
@@ -18,22 +18,22 @@ function(extend, View, ValueModel, ValueView, PropertyValueModel, Listener,
 
     this.maxrounds = new ValueModel(0);
     this.maxroundsview = new ValueView(this.maxrounds, this.$view
-        .find('.maxrounds'));
+        .find(".maxrounds"));
 
     this.teams = this.model.getTeams();
 
-    this.$view.find('.numteams').text(this.teams.length);
+    this.$view.find(".numteams").text(this.teams.length);
 
-    this.mode = new PropertyValueModel(this.model, 'swissmode');
+    this.mode = new PropertyValueModel(this.model, "swissmode");
 
-    this.modeListener = Listener.bind(this.mode, 'update', this.update
+    this.modeListener = Listener.bind(this.mode, "update", this.update
         .bind(this));
 
     this.update();
   }
   extend(SwissMaxRoundView, View);
 
-  SwissMaxRoundView.prototype.update = function() {
+  SwissMaxRoundView.prototype.update = function () {
     switch (this.mode.get()) {
     case SwissTournamentModel.MODES.wins:
       this.maxrounds.set(Math.ceil(Math.log(this.teams.length) / Math.log(2)));
@@ -44,7 +44,7 @@ function(extend, View, ValueModel, ValueView, PropertyValueModel, Listener,
     }
   };
 
-  SwissMaxRoundView.prototype.destroy = function() {
+  SwissMaxRoundView.prototype.destroy = function () {
 
     this.modeListener.destroy();
     this.mode.destroy();

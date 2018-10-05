@@ -28,9 +28,9 @@
 
 	// Internally we use a BlobBuilder implementation to base Blob off of
 	// in order to support older browsers that only have BlobBuilder
-	var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function(view) {
+	var BlobBuilder = view.BlobBuilder || view.WebKitBlobBuilder || view.MozBlobBuilder || (function (view) {
 		var
-			  get_class = function(object) {
+			  get_class = function (object) {
 				return Object.prototype.toString.call(object).match(/^\[object\s(.*)\]$/)[1];
 			}
 			, FakeBlobBuilder = function BlobBuilder() {
@@ -45,7 +45,7 @@
 			, FBB_proto = FakeBlobBuilder.prototype
 			, FB_proto = FakeBlob.prototype
 			, FileReaderSync = view.FileReaderSync
-			, FileException = function(type) {
+			, FileException = function (type) {
 				this.code = this[this.name = type];
 			}
 			, file_ex_codes = (
@@ -71,7 +71,7 @@
 		}
 		// Polyfill URL
 		if (!real_URL.createObjectURL) {
-			URL = view.URL = function(uri) {
+			URL = view.URL = function (uri) {
 				var
 					  uri_info = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
 					, uri_origin
@@ -88,7 +88,7 @@
 				return uri_info;
 			};
 		}
-		URL.createObjectURL = function(blob) {
+		URL.createObjectURL = function (blob) {
 			var
 				  type = blob.type
 				, data_URI_header
@@ -111,12 +111,12 @@
 				return real_create_object_URL.call(real_URL, blob);
 			}
 		};
-		URL.revokeObjectURL = function(object_URL) {
+		URL.revokeObjectURL = function (object_URL) {
 			if (object_URL.substring(0, 5) !== "data:" && real_revoke_object_URL) {
 				real_revoke_object_URL.call(real_URL, object_URL);
 			}
 		};
-		FBB_proto.append = function(data/*, endings*/) {
+		FBB_proto.append = function (data/*, endings*/) {
 			var bb = this.data;
 			// decode data to a binary string
 			if (Uint8Array && (data instanceof ArrayBuffer || data instanceof Uint8Array)) {
@@ -154,16 +154,16 @@
 				bb.push(unescape(encodeURIComponent(data)));
 			}
 		};
-		FBB_proto.getBlob = function(type) {
+		FBB_proto.getBlob = function (type) {
 			if (!arguments.length) {
 				type = null;
 			}
 			return new FakeBlob(this.data.join(""), type, "raw");
 		};
-		FBB_proto.toString = function() {
+		FBB_proto.toString = function () {
 			return "[object BlobBuilder]";
 		};
-		FB_proto.slice = function(start, end, type) {
+		FB_proto.slice = function (start, end, type) {
 			var args = arguments.length;
 			if (args < 3) {
 				type = null;
@@ -174,17 +174,17 @@
 				, this.encoding
 			);
 		};
-		FB_proto.toString = function() {
+		FB_proto.toString = function () {
 			return "[object Blob]";
 		};
-		FB_proto.close = function() {
+		FB_proto.close = function () {
 			this.size = 0;
 			delete this.data;
 		};
 		return FakeBlobBuilder;
 	}(view));
 
-	view.Blob = function(blobParts, options) {
+	view.Blob = function (blobParts, options) {
 		var type = options ? (options.type || "") : "";
 		var builder = new BlobBuilder();
 		if (blobParts) {
@@ -204,7 +204,7 @@
 		return blob;
 	};
 
-	var getPrototypeOf = Object.getPrototypeOf || function(object) {
+	var getPrototypeOf = Object.getPrototypeOf || function (object) {
 		return object.__proto__;
 	};
 	view.Blob.prototype = getPrototypeOf(new view.Blob());

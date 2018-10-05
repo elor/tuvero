@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/matchreferencemodel'], function(extend,
+define(["lib/extend", "core/matchreferencemodel"], function (extend,
     MatchReferenceModel) {
   /**
    * Constructor
@@ -30,7 +30,7 @@ define(['lib/extend', 'core/matchreferencemodel'], function(extend,
    *          an array of score numbers
    * @return true on success, undefined otherwise
    */
-  ReverseMatchReferenceModel.prototype.finish = function(score) {
+  ReverseMatchReferenceModel.prototype.finish = function (score) {
     score = score.slice();
     score.reverse();
     return ReverseMatchReferenceModel.superclass.finish.call(this, score);

@@ -4,8 +4,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'jquery', 'core/view', 'ui/csvexportcontroller',
-    'ui/fontsizeview'], function(extend, $, View,
+define(["lib/extend", "jquery", "core/view", "ui/csvexportcontroller",
+    "ui/fontsizeview"], function (extend, $, View,
     CSVExportController, FontSizeView) {
   /**
    * represents a whole team tab
@@ -29,26 +29,26 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/csvexportcontroller',
    *
    * TODO maybe split it into multiple autodetected functions?
    */
-  SettingsTab.prototype.init = function() {
+  SettingsTab.prototype.init = function () {
     var $container;
 
-    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0);
-    this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'));
+    this.$fontsizeview = this.$view.find(".fontsizeview").eq(0);
+    this.fontsizeview = new FontSizeView(this.$fontsizeview, $("body"));
 
     /*
      * CSV buttons
      */
-    $container = this.$view.find('.csv');
+    $container = this.$view.find(".csv");
     this.csvExportController = new CSVExportController(new View(undefined,
         $container));
   };
 
   // FIXME CHEAP HACK AHEAD
-  $(function($) {
+  $(function ($) {
     var $tab;
 
-    $tab = $('#tabs > [data-tab="settings"]');
-    if ($tab.length && $('#testmain').length === 0) {
+    $tab = $("#tabs > [data-tab=\"settings\"]");
+    if ($tab.length && $("#testmain").length === 0) {
       return new SettingsTab($tab);
     }
   });

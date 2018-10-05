@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/view', 'jquery'], function(extend, View, $) {
+define(["lib/extend", "core/view", "jquery"], function (extend, View, $) {
   /**
    * Constructor
    */
@@ -25,14 +25,14 @@ define(['lib/extend', 'core/view', 'jquery'], function(extend, View, $) {
    * @return an array of image names, e.g. 'new', 'boule'. For use with the
    *         data-img attribute
    */
-  LoadedImagesView.imageList = function($container) {
+  LoadedImagesView.imageList = function ($container) {
     var $images, images;
 
-    $images = $container.find('[data-img]');
+    $images = $container.find("[data-img]");
     images = {};
 
-    $images.each(function() {
-      images[$(this).attr('data-img')] = true;
+    $images.each(function () {
+      images[$(this).attr("data-img")] = true;
     });
 
     // don't use the sprite itself
@@ -46,13 +46,13 @@ define(['lib/extend', 'core/view', 'jquery'], function(extend, View, $) {
    *
    * @param $container
    */
-  LoadedImagesView.prototype.appendImages = function($container) {
+  LoadedImagesView.prototype.appendImages = function ($container) {
     var images;
 
     images = LoadedImagesView.imageList($container);
 
-    images.forEach(function(image) {
-      var $image = $('<div>').attr('data-img', image);
+    images.forEach(function (image) {
+      var $image = $("<div>").attr("data-img", image);
       this.$view.append($image);
     }, this);
   };

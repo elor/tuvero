@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller', 'timemachine/timemachine',
-    'ui/stateloader', 'ui/strings', 'ui/toast', 'ui/filesavermodel'], //
-function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
+define(["jquery", "lib/extend", "core/controller", "timemachine/timemachine",
+    "ui/stateloader", "ui/strings", "ui/toast", "ui/filesavermodel"], //
+function ($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     FileSaverModel) {
   /**
    * Constructor
@@ -22,33 +22,33 @@ function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     this.$rename = undefined;
     this.mouseSupport = !!mouseSupport;
 
-    events = 'click' + (this.mouseSupport ? ' mouseenter' : '');
+    events = "click" + (this.mouseSupport ? " mouseenter" : "");
     this.view.$view.on(events,
-        '.rename', this.startRename.bind(this));
-    this.view.$view.filter('.rename').on(events, this.startRename.bind(this));
+        ".rename", this.startRename.bind(this));
+    this.view.$view.filter(".rename").on(events, this.startRename.bind(this));
   }
   extend(RenameController, Controller);
 
-  RenameController.prototype.setName = function(name) {
-    console.error('setName() needs to be overloaded');
+  RenameController.prototype.setName = function (name) {
+    console.error("setName() needs to be overloaded");
     return false;
   };
 
-  RenameController.prototype.getName = function() {
-    console.error('getName() needs to be overloaded');
-    return 'overload RenameController.prototype.getName()!';
+  RenameController.prototype.getName = function () {
+    console.error("getName() needs to be overloaded");
+    return "overload RenameController.prototype.getName()!";
   };
 
-  RenameController.prototype.initRenameInput = function() {
+  RenameController.prototype.initRenameInput = function () {
     if (!this.$rename) {
-      this.$rename = $('<input>').addClass('rename');
-      this.$rename.on('blur' + (this.mouseSupport ? ' mouseleave' : ''),
+      this.$rename = $("<input>").addClass("rename");
+      this.$rename.on("blur" + (this.mouseSupport ? " mouseleave" : ""),
           this.endRename.bind(this));
       this.$rename.keydown(this.renameKeyDown.bind(this));
     }
   };
 
-  RenameController.prototype.startRename = function(evt) {
+  RenameController.prototype.startRename = function (evt) {
     var name;
 
     if (this.$anchor) {
@@ -69,7 +69,7 @@ function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     this.initRenameInput();
 
     this.$anchor.before(this.$rename);
-    this.$anchor.addClass('hidden');
+    this.$anchor.addClass("hidden");
     this.$rename.val(name);
     this.$rename.focus();
 
@@ -77,7 +77,7 @@ function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     return false;
   };
 
-  RenameController.prototype.endRename = function(evt) {
+  RenameController.prototype.endRename = function (evt) {
     var name;
 
     if (!this.$anchor) {
@@ -87,7 +87,7 @@ function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     name = this.$rename.val().trim();
 
     if (this.setName(name)) {
-      this.$anchor.removeClass('hidden');
+      this.$anchor.removeClass("hidden");
       this.$anchor = undefined;
       this.$rename.detach();
     }
@@ -96,7 +96,7 @@ function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     return false;
   };
 
-  RenameController.prototype.renameKeyDown = function(evt) {
+  RenameController.prototype.renameKeyDown = function (evt) {
     if (!evt || !this.$rename) {
       return;
     }
@@ -110,7 +110,7 @@ function($, extend, Controller, TimeMachine, StateLoader, Strings, Toast,
     }
   };
 
-  RenameController.prototype.destroy = function() {
+  RenameController.prototype.destroy = function () {
     if (this.$rename) {
       this.$rename.remove();
     }

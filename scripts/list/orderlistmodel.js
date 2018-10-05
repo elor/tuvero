@@ -11,7 +11,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/listmodel', 'lib/diff'], function(extend, ListModel,
+define(["lib/extend", "list/listmodel", "lib/diff"], function (extend, ListModel,
     diff) {
 
   /**
@@ -28,17 +28,17 @@ define(['lib/extend', 'list/listmodel', 'lib/diff'], function(extend, ListModel,
    */
   function getdiff(a, b) {
     var diffresult;
-    a = a.join('\n');
+    a = a.join("\n");
     if (a.length > 0) {
-      a += '\n';
+      a += "\n";
     }
-    b = b.join('\n');
+    b = b.join("\n");
     if (b.length > 0) {
-      b += '\n';
+      b += "\n";
     }
     diffresult = diff.diffLines(a, b);
-    diffresult.forEach(function(lines) {
-      lines.value = lines.value.replace(/\n$/, '').split('\n').map(Number);
+    diffresult.forEach(function (lines) {
+      lines.value = lines.value.replace(/\n$/, "").split("\n").map(Number);
     });
     return diffresult;
   }
@@ -59,14 +59,14 @@ define(['lib/extend', 'list/listmodel', 'lib/diff'], function(extend, ListModel,
    * @param order
    *          The wanted end result
    */
-  OrderListModel.prototype.enforceOrder = function(order) {
+  OrderListModel.prototype.enforceOrder = function (order) {
     var index, diffresult;
 
     diffresult = getdiff(this.list, order);
 
     index = 0;
-    diffresult.forEach(function(lines) {
-      lines.value.forEach(function(value) {
+    diffresult.forEach(function (lines) {
+      lines.value.forEach(function (value) {
         if (lines.added) {
           OrderListModel.superclass.insert.call(this, index, value);
         } else if (lines.removed) {

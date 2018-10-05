@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/tournamentview'], function(extend, TournamentView) {
+define(["lib/extend", "ui/tournamentview"], function (extend, TournamentView) {
   /**
    * Constructor
    *

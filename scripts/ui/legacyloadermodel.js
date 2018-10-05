@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
-    'ui/playermodel', 'options', 'presets', 'tournament/tournamentindex',
-    'core/matchmodel', 'core/matchresult', 'core/byeresult',
-    'core/correctionmodel', 'ui/toast', 'core/rle'], function(extend, Model,
+define(["lib/extend", "core/model", "ui/state", "ui/teammodel",
+    "ui/playermodel", "options", "presets", "tournament/tournamentindex",
+    "core/matchmodel", "core/matchresult", "core/byeresult",
+    "core/correctionmodel", "ui/toast", "core/rle"], function (extend, Model,
     State, TeamModel, PlayerModel, Options, Presets, TournamentIndex,
     MatchModel, MatchResult, ByeResult, CorrectionModel, Toast, RLE) {
   /**
@@ -20,12 +20,12 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
   }
   extend(LegacyLoaderModel, Model);
 
-  LegacyLoaderModel.prototype.load = function(glob) {
+  LegacyLoaderModel.prototype.load = function (glob) {
     var tournamentDataArray, tournamentRankingArray;
 
     State.clear();
 
-    console.log('starting conversion');
+    console.log("starting conversion");
 
     tournamentDataArray = [];
     tournamentRankingArray = [];
@@ -60,22 +60,22 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
      * additional missing objects, e.g. placeholder matches
      */
     this.createMissingObjects();
-    console.log('conversion to format 1.5.0 successful');
+    console.log("conversion to format 1.5.0 successful");
 
     return true;
   };
 
-  LegacyLoaderModel.prototype.loadTeams = function(blob) {
+  LegacyLoaderModel.prototype.loadTeams = function (blob) {
     var teams;
 
-    console.log('converting teams');
+    console.log("converting teams");
 
     teams = JSON.parse(blob);
 
-    teams.forEach(function(teamData) {
+    teams.forEach(function (teamData) {
       var players, team;
 
-      players = teamData.names.map(function(playername) {
+      players = teamData.names.map(function (playername) {
         return new PlayerModel(playername);
       });
 
@@ -83,58 +83,58 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
 
       State.teams.push(team);
 
-      console.log('converting team ' + team.getID() + ': '
-          + teamData.names.join(', '));
+      console.log("converting team " + team.getID() + ": "
+          + teamData.names.join(", "));
     });
 
-    console.log('conversion finished: ' + State.teams.length
-        + ' teams converted');
+    console.log("conversion finished: " + State.teams.length
+        + " teams converted");
   };
 
-  LegacyLoaderModel.prototype.loadOptions = function(blob) {
+  LegacyLoaderModel.prototype.loadOptions = function (blob) {
     var optionsData;
 
     optionsData = JSON.parse(blob);
     if (optionsData.savefile === undefined) {
-      if (Presets.target !== 'boule') {
-        new Toast('cannot load pre-1.4 saves with this target: '
+      if (Presets.target !== "boule") {
+        new Toast("cannot load pre-1.4 saves with this target: "
             + Presets.target, Toast.LONG);
-        throw new Error('cannot load pre-1.4 saves with this target: '
+        throw new Error("cannot load pre-1.4 saves with this target: "
             + Presets.target);
       }
     } else {
-      if (optionsData.savefile !== Presets.target + '.json') {
-        new Toast('cannot convert '
-            + optionsData.savefile.replace(/.json$/, '') + ' to '
+      if (optionsData.savefile !== Presets.target + ".json") {
+        new Toast("cannot convert "
+            + optionsData.savefile.replace(/.json$/, "") + " to "
             + Presets.target, Toast.LONG);
-        throw new Error('cannot convert '
-            + optionsData.savefile.replace(/.json$/, '') + ' to '
+        throw new Error("cannot convert "
+            + optionsData.savefile.replace(/.json$/, "") + " to "
             + Presets.target);
       }
     }
 
-    console.log('converting options');
+    console.log("converting options");
 
     Options.fromBlob(blob);
 
-    console.log('converting teamsize');
+    console.log("converting teamsize");
     State.teamsize.set(Options.teamsize || 1);
 
-    console.log('conversion finished: options');
+    console.log("conversion finished: options");
   };
 
-  LegacyLoaderModel.prototype.loadTournaments = function(blob,
+  LegacyLoaderModel.prototype.loadTournaments = function (blob,
       tournamentDataArray, tournamentRankingArray) {
     var tournaments, parents, subtournamentOffsets;
 
-    console.log('converting tournaments');
+    console.log("converting tournaments");
 
     tournaments = JSON.parse(blob);
     parents = [];
 
     subtournamentOffsets = [];
 
-    tournaments.forEach(function(data, tournamentID) {
+    tournaments.forEach(function (data, tournamentID) {
       var tournament, system, name, blob, teams, ranking, parent, //
       rankingorder, tournamentData, startIndex;
 
@@ -145,7 +145,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
       ranking = data[4];
       parent = data[5];
 
-      console.log('converting tournament ' + tournamentID + ': ' + name);
+      console.log("converting tournament " + tournamentID + ": " + name);
 
       if (blob) {
         tournamentData = JSON.parse(blob);
@@ -157,14 +157,14 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
       tournamentRankingArray[tournamentID] = ranking;
 
       rankingorder = {
-        swiss: ['wins', 'buchholz', 'finebuchholz', 'saldo', 'votes'],
-        ko: ['ko']
+        swiss: ["wins", "buchholz", "finebuchholz", "saldo", "votes"],
+        ko: ["ko"]
       }[system];
 
       // create tournament
       tournament = TournamentIndex.createTournament(system, rankingorder);
       if (!tournament) {
-        console.error('TOURNAMENT SYSTEM NOT SUPPORTED YET: ' + system);
+        console.error("TOURNAMENT SYSTEM NOT SUPPORTED YET: " + system);
         return;
       }
 
@@ -175,28 +175,28 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
       if (tournamentData) {
         // set state
         if (tournamentData.games && tournamentData.games.length > 0) {
-          tournament.state.forceState('running');
+          tournament.state.forceState("running");
         } else {
-          tournament.state.forceState('initial');
+          tournament.state.forceState("initial");
         }
 
         // set round
-        if (system === 'swiss') {
+        if (system === "swiss") {
           tournament.round = tournamentData.round - 1;
         } else {
           // no tournament round..
         }
 
-        console.log('converting tournament matches');
+        console.log("converting tournament matches");
 
         // add matches
-        tournamentData.games.forEach(function(data) {
+        tournamentData.games.forEach(function (data) {
           var teams, match, id, group;
 
           teams = [data.teams[0][0], data.teams[1][0]];
           id = data.id;
 
-          if (system === 'swiss') {
+          if (system === "swiss") {
             group = tournament.round;
           } else {
             group = tournamentData.roundids[teams[0]];
@@ -204,17 +204,17 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
           }
           match = new MatchModel(teams, id, group);
 
-          console.log('converting match ' + group + ':' + id + ': '
-              + teams.join(' vs. '));
+          console.log("converting match " + group + ":" + id + ": "
+              + teams.join(" vs. "));
 
           tournament.matches.push(match);
         });
 
       } else {
-        tournament.state.forceState('finished');
+        tournament.state.forceState("finished");
       }
 
-      console.log('converted tournament state: ' + tournament.state.get());
+      console.log("converted tournament state: " + tournament.state.get());
 
       // convert the parent properties to startIndex
       if (parent === undefined || parent === null) {
@@ -226,7 +226,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
       }
       subtournamentOffsets[tournamentID] = startIndex;
 
-      console.log('converted tournament range: ' + startIndex + '-'
+      console.log("converted tournament range: " + startIndex + "-"
           + (startIndex + tournament.getTeams().length));
 
       // push tournaments. Also sets the ID. Arrays are dense (not sparse)
@@ -234,24 +234,24 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
 
       // close tournament if necessary
       if (!blob) {
-        console.log('closing tournament ' + tournamentID);
+        console.log("closing tournament " + tournamentID);
         State.tournaments.closeTournament(tournamentID);
       }
     });
 
-    console.log('conversion finished: tournaments');
+    console.log("conversion finished: tournaments");
   };
 
-  LegacyLoaderModel.prototype.loadHistory = function(blob, //
+  LegacyLoaderModel.prototype.loadHistory = function (blob, //
   tournamentDataArray) {
     var history = JSON.parse(blob);
 
-    console.log('converting history');
+    console.log("converting history");
 
-    history.forEach(function(tournamenthistory, tournamentID) {
+    history.forEach(function (tournamenthistory, tournamentID) {
       var tournament, round, tournamentData, system;
 
-      console.log('converting history for tournament ' + tournamentID);
+      console.log("converting history for tournament " + tournamentID);
 
       tournamentData = tournamentDataArray[tournamentID];
       tournament = State.tournaments.get(tournamentID);
@@ -270,7 +270,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
           round = group;
         }
 
-        if (system === 'ko') {
+        if (system === "ko") {
           id += 1;
         }
 
@@ -286,28 +286,28 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
        * Matches
        */
       if (tournamenthistory.games && tournamenthistory.games.length > 0) {
-        if (tournament.state.get() === 'initial') {
-          tournament.state.forceState('idle');
+        if (tournament.state.get() === "initial") {
+          tournament.state.forceState("idle");
         }
 
-        tournamenthistory.games.forEach(function(match) {
+        tournamenthistory.games.forEach(function (match) {
           var result = restoreMatchResult(match);
 
-          console.log('converting match result ' + result.getID() + ': '
-              + result.teams.join(' vs. ') + ':  ' + result.score.join(':'));
+          console.log("converting match result " + result.getID() + ": "
+              + result.teams.join(" vs. ") + ":  " + result.score.join(":"));
 
           tournament.history.push(result);
           tournament.ranking.result(result);
         });
 
-        console.log('conversion: ' + tournament.history.length
-            + ' results converted');
+        console.log("conversion: " + tournament.history.length
+            + " results converted");
 
         // TODO restore half-filled KO matches
 
         // TODO fill in placeholder matches
 
-        if (tournament.SYSTEM === 'swiss' && round > tournament.round) {
+        if (tournament.SYSTEM === "swiss" && round > tournament.round) {
           tournament.round = round;
         }
       }
@@ -316,7 +316,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
        * Corrections
        */
       if (tournamenthistory.corrections) {
-        tournamenthistory.corrections.forEach(function(correctionData, id) {
+        tournamenthistory.corrections.forEach(function (correctionData, id) {
           var before, after, correction;
 
           before = restoreMatchResult(correctionData[0]);
@@ -324,20 +324,20 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
 
           correction = new CorrectionModel(before, after);
 
-          console.log('converting correction ' + id + ': '
-              + before.teams.join(' vs. ') + ': ');
+          console.log("converting correction " + id + ": "
+              + before.teams.join(" vs. ") + ": ");
 
           tournament.corrections.push(correction);
         });
       }
 
-      console.log('conversion finished: ' + tournament.corrections.length
-          + ' corrections converted');
+      console.log("conversion finished: " + tournament.corrections.length
+          + " corrections converted");
 
       /*
        * Votes
        */
-      tournamenthistory.votes.forEach(function(data) {
+      tournamenthistory.votes.forEach(function (data) {
         var type, teamid, round, vote, id;
 
         type = data[0];
@@ -350,10 +350,10 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
           vote = new ByeResult(teamid, [Options.byepointswon,
               Options.byepointslost], id, round);
 
-          console.log('converting bye for team ' + teamid);
+          console.log("converting bye for team " + teamid);
 
           tournament.history.push(vote);
-          if (tournament.SYSTEM === 'swiss' //
+          if (tournament.SYSTEM === "swiss" //
               && round === tournament.getRound()) {
             tournament.votes.bye.push(teamid);
           }
@@ -362,44 +362,44 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
       });
     });
 
-    console.log('conversion finished: history');
+    console.log("conversion finished: history");
   };
 
-  LegacyLoaderModel.prototype.createMissingObjects = function() {
-    console.log('conversion: creating missing tournament objects');
+  LegacyLoaderModel.prototype.createMissingObjects = function () {
+    console.log("conversion: creating missing tournament objects");
 
-    State.tournaments.map(function(tournament) {
-      this['createMissingObjects' + tournament.SYSTEM](tournament);
+    State.tournaments.map(function (tournament) {
+      this["createMissingObjects" + tournament.SYSTEM](tournament);
     }, this);
 
-    console.log('conversion finished: missing tournament objects');
+    console.log("conversion finished: missing tournament objects");
   };
 
-  LegacyLoaderModel.prototype.createMissingObjectsko = function(tournament) {
-    console.log('conversion: creating missing objects for tournament '
-        + tournament.getID() + ' (' + tournament.getName().get() + ')');
+  LegacyLoaderModel.prototype.createMissingObjectsko = function (tournament) {
+    console.log("conversion: creating missing objects for tournament "
+        + tournament.getID() + " (" + tournament.getName().get() + ")");
 
-    console.log('conversion: finding dangling teams');
+    console.log("conversion: finding dangling teams");
     tournament.createWaitingMatches();
 
-    console.log('conversion: creating missing ko placeholder matches');
+    console.log("conversion: creating missing ko placeholder matches");
     tournament.createPlaceholderMatches();
   };
 
-  LegacyLoaderModel.prototype.createMissingObjectsswiss = function(tournament) {
-    console.log('conversion: no need missing objects for swiss tournament '
-        + tournament.getID() + ' (' + tournament.getName().get() + ')');
+  LegacyLoaderModel.prototype.createMissingObjectsswiss = function (tournament) {
+    console.log("conversion: no need missing objects for swiss tournament "
+        + tournament.getID() + " (" + tournament.getName().get() + ")");
   };
 
-  LegacyLoaderModel.prototype.loadVotes = function(tournamentDataArray,
+  LegacyLoaderModel.prototype.loadVotes = function (tournamentDataArray,
       tournamentRankingArray) {
 
-    console.log('converting votes');
+    console.log("converting votes");
 
-    tournamentDataArray.forEach(function(tournamentData, tournamentID) {
+    tournamentDataArray.forEach(function (tournamentData, tournamentID) {
       var tournament, system, ranking, upvoteArray, downvoteArray, displayOrder;
 
-      console.log('converting votes of tournament ' + tournamentID);
+      console.log("converting votes of tournament " + tournamentID);
 
       tournament = State.tournaments.get(tournamentID);
       ranking = tournamentRankingArray[tournamentID];
@@ -408,7 +408,7 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
       system = tournament.SYSTEM;
 
       if (tournamentData) {
-        console.log('converting votes from tournament data');
+        console.log("converting votes from tournament data");
 
         if (tournamentData.upvote) {
           upvoteArray = RLE.decode(tournamentData.upvote);
@@ -419,25 +419,25 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
         }
 
       } else if (ranking) {
-        console.log('converting votes from ranking cache');
+        console.log("converting votes from ranking cache");
 
         upvoteArray = ranking.upvote;
         downvoteArray = ranking.downvote;
 
       } else {
-        new Toast('tournament ' + tournamentID
-            + ' contains neither tournament nor ranking blob', Toast.LONG);
-        throw new Error('tournament ' + tournamentID
-            + ' contains neither tournament nor ranking blob');
+        new Toast("tournament " + tournamentID
+            + " contains neither tournament nor ranking blob", Toast.LONG);
+        throw new Error("tournament " + tournamentID
+            + " contains neither tournament nor ranking blob");
       }
 
-      if (system === 'swiss') {
+      if (system === "swiss") {
         if (tournament.ranking.upvotes && upvoteArray) {
-          upvoteArray.forEach(function(upvotes, displayID) {
+          upvoteArray.forEach(function (upvotes, displayID) {
             var teamID = displayOrder[displayID];
 
             if (upvotes > 0) {
-              console.log('converting ' + upvotes + ' upvotes for team '
+              console.log("converting " + upvotes + " upvotes for team "
                   + teamID);
 
               tournament.ranking.upvotes.set(teamID, tournament.ranking.upvotes
@@ -448,11 +448,11 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
         }
 
         if (tournament.ranking.downvotes && downvoteArray) {
-          downvoteArray.forEach(function(downvotes, displayID) {
+          downvoteArray.forEach(function (downvotes, displayID) {
             var teamID = displayOrder[displayID];
 
             if (downvotes > 0) {
-              console.log('converting ' + downvotes + ' downvotes for team '
+              console.log("converting " + downvotes + " downvotes for team "
                   + teamID);
 
               tournament.ranking.downvotes.set(teamID,
@@ -462,17 +462,17 @@ define(['lib/extend', 'core/model', 'ui/state', 'ui/teammodel',
         }
       }
 
-      console.log('conversion finished: votes of tournament ' + tournamentID);
+      console.log("conversion finished: votes of tournament " + tournamentID);
 
-      console.log('updating the ranking. You know... for safety and stuff.');
-      console.log('');
-      console.log('ok, I admit it. It is for the upvotes and downvotes.');
+      console.log("updating the ranking. You know... for safety and stuff.");
+      console.log("");
+      console.log("ok, I admit it. It is for the upvotes and downvotes.");
 
-      tournament.ranking.emit('recalc');
+      tournament.ranking.emit("recalc");
       tournament.ranking.invalidate();
     });
 
-    console.log('conversion finished: votes');
+    console.log("conversion finished: votes");
   };
 
   return LegacyLoaderModel;

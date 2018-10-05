@@ -13,7 +13,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'core/type'], function($, Type) {
+define(["jquery", "core/type"], function ($, Type) {
   var initialized, pending;
 
   // pending toasts which have been issued before jquery was available
@@ -26,16 +26,16 @@ define(['jquery', 'core/type'], function($, Type) {
   function getTransitionDuration() {
     var transition;
 
-    transition = Toast.$template.css('transition');
+    transition = Toast.$template.css("transition");
 
     if (transition === undefined) {
-      console.error('could not read any transition lengths. '
+      console.error("could not read any transition lengths. "
           + "What's your browser?");
       return 0.2;
     }
 
     // return duration
-    return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, '$1'));
+    return Number(transition.replace(/^[^0-9]*([0-9.]+)s.*$/, "$1"));
   }
 
   /**
@@ -68,21 +68,21 @@ define(['jquery', 'core/type'], function($, Type) {
   /**
    * display a toast
    */
-  Toast.prototype.display = function() {
+  Toast.prototype.display = function () {
     var $toast;
 
     if (!initialized) {
-      console.error('Cannot display Toast: '
-          + 'Toast.init() has not been called yet.');
+      console.error("Cannot display Toast: "
+          + "Toast.init() has not been called yet.");
       return;
     }
 
     if (this.$toast) {
-      console.error('toast is already visible');
+      console.error("toast is already visible");
       return;
     }
 
-    $toast = this.$toast = Toast.$template.clone().removeClass('hidden');
+    $toast = this.$toast = Toast.$template.clone().removeClass("hidden");
 
     // decide between text and jquery object handle
     if (Type.isString(this.message)) {
@@ -93,20 +93,20 @@ define(['jquery', 'core/type'], function($, Type) {
 
     // insert the toast and a line break
     Toast.$container.append(this.$toast);
-    Toast.$container.append('<br>');
+    Toast.$container.append("<br>");
 
     // let the toast fade in
-    window.setTimeout(function() {
-      $toast.addClass('toast');
+    window.setTimeout(function () {
+      $toast.addClass("toast");
     }, 10);
 
     // Let the toast fade out if it's not infinite
     if (this.duration > 0) {
       window.setTimeout(this.close.bind(this),
           1000 * (this.duration + Toast.fadeinDuration));
-      $toast.addClass('temporary');
+      $toast.addClass("temporary");
     } else {
-      $toast.addClass('infinite');
+      $toast.addClass("infinite");
     }
   };
 
@@ -117,17 +117,17 @@ define(['jquery', 'core/type'], function($, Type) {
    *          the toast id
    * @return a close function
    */
-  Toast.prototype.close = function() {
+  Toast.prototype.close = function () {
     var $toast;
 
     if (initialized && this.$toast) {
       $toast = this.$toast;
 
       // let the toast fade out
-      $toast.removeClass('toast');
+      $toast.removeClass("toast");
 
       // remove the toast after fadeout
-      window.setTimeout(function() {
+      window.setTimeout(function () {
         $toast.next().remove();
         $toast.remove();
       }, 1000 * Toast.fadeoutDuration);
@@ -143,48 +143,48 @@ define(['jquery', 'core/type'], function($, Type) {
    * initialize the toast. This function has to be called explicitly, or the
    * unit tests show toasts for every error.
    */
-  Toast.init = function() {
+  Toast.init = function () {
     // create toast container
-    Toast.$container = $('<div id="toasts">');
-    Toast.$template = $('<div class="hidden">ERROR</div>');
+    Toast.$container = $("<div id=\"toasts\">");
+    Toast.$template = $("<div class=\"hidden\">ERROR</div>");
     Toast.$container.append(Toast.$template);
-    $('body').append(Toast.$container);
+    $("body").append(Toast.$container);
 
     // abort if the style is not set
-    if ($('#toasts').css('position') !== 'fixed') {
-      console.error('Toast: stylesheet not found. Initialization failed.');
+    if ($("#toasts").css("position") !== "fixed") {
+      console.error("Toast: stylesheet not found. Initialization failed.");
     } else {
       Toast.fadeoutDuration = getTransitionDuration();
-      Toast.$template.addClass('toast');
+      Toast.$template.addClass("toast");
       Toast.fadeinDuration = getTransitionDuration();
 
       if (Toast.fadeinDuration !== Number(Toast.fadeinDuration)
           || !isFinite(Toast.fadeinDuration) || isNaN(Toast.fadeinDuration)) {
-        console.error('Toast.fadeinDuration: not a valid number: '
+        console.error("Toast.fadeinDuration: not a valid number: "
             + Toast.fadeinDuration);
-        Toast.$template.removeClass('hidden');
+        Toast.$template.removeClass("hidden");
       }
 
       if (Toast.fadeoutDuration !== Number(Toast.fadeoutDuration)
           || !isFinite(Toast.fadeoutDuration) || isNaN(Toast.fadeoutDuration)) {
-        console.error('Toast.fadeoutDuration: not a valid number: '
+        console.error("Toast.fadeoutDuration: not a valid number: "
             + Toast.fadeoutDuration);
-        Toast.$template.removeClass('hidden');
+        Toast.$template.removeClass("hidden");
       }
     }
 
     initialized = true;
 
     // issue any pending toasts
-    pending.forEach(function(toast) {
+    pending.forEach(function (toast) {
       toast.display();
     }, this);
 
     pending = undefined;
   };
 
-  Toast.closeTemporaryToasts = function() {
-    Toast.$container.find('.toast.temporary').map(function() {
+  Toast.closeTemporaryToasts = function () {
+    Toast.$container.find(".toast.temporary").map(function () {
       var $toast = $(this);
       $toast.next().hide();
       $toast.hide();

@@ -4,7 +4,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controller) {
+define(["jquery", "lib/extend", "core/controller"], function ($, extend, Controller) {
   /**
    * Constructor
    *
@@ -22,7 +22,7 @@ define(['jquery', 'lib/extend', 'core/controller'], function($, extend, Controll
      * adjust the team size: get the index of the clicked button and calculate
      * the team size from it. Increment and set.
      */
-    $buttons.click(function() {
+    $buttons.click(function () {
       var teamsize;
 
       teamsize = $buttons.index($(this)) + 1;

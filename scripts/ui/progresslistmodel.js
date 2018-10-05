@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'list/binningreferencelistmodel',
-    'list/sortedreferencelistmodel', 'list/combinedreferencelistmodel',
-    'list/referencelistmodel', 'ui/reversematchreferencemodel',
-    'ui/reverseresultreferencemodel'], function(extend,
+define(["lib/extend", "list/binningreferencelistmodel",
+    "list/sortedreferencelistmodel", "list/combinedreferencelistmodel",
+    "list/referencelistmodel", "ui/reversematchreferencemodel",
+    "ui/reverseresultreferencemodel"], function (extend,
     BinningReferenceListModel, SortedReferenceListModel,
     CombinedReferenceListModel, ReferenceListModel, ReverseMatchReferenceModel,
     ReverseResultReferenceModel) {
@@ -28,7 +28,7 @@ define(['lib/extend', 'list/binningreferencelistmodel',
    *          a TournamentModel instance
    * @return a ListModel containing all matches and their reversed counterparts
    */
-  ProgressListModel.prototype.createCombinedList = function(tournament) {
+  ProgressListModel.prototype.createCombinedList = function (tournament) {
     var matches, reverseMatches, history, reverseHistory;
 
     matches = tournament.getMatches();
@@ -48,7 +48,7 @@ define(['lib/extend', 'list/binningreferencelistmodel',
    * @return a sorted ListModel containing all matches and their reversed
    *         counterparts, where the matches are unique (e.g. no duplicate byes)
    */
-  ProgressListModel.prototype.createSortedList = function(tournament) {
+  ProgressListModel.prototype.createSortedList = function (tournament) {
     return new SortedReferenceListModel(this.createCombinedList(tournament),
         this.sortFunction, true);
   };
@@ -60,7 +60,7 @@ define(['lib/extend', 'list/binningreferencelistmodel',
    *          another MatchModel instance
    * @return the order relation between the two
    */
-  ProgressListModel.prototype.sortFunction = function(a, b) {
+  ProgressListModel.prototype.sortFunction = function (a, b) {
     return a.getTeamID(0) - b.getTeamID(0) || a.getGroup() - b.getGroup();
   };
 
@@ -69,7 +69,7 @@ define(['lib/extend', 'list/binningreferencelistmodel',
    *          a MatchModel instance
    * @return the first team id of the match, as used in a progress table
    */
-  ProgressListModel.prototype.binningFunction = function(match) {
+  ProgressListModel.prototype.binningFunction = function (match) {
     return match.getTeamID(0);
   };
 

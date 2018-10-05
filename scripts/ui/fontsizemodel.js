@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(["lib/extend", "core/model"], function (extend, Model) {
 
   /**
    * FontSizeModel constructor
@@ -21,7 +21,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   /**
    * list of possible font sizes
    */
-  FontSizeModel.SIZES = ['tiny', 'small', 'normal', 'large', 'huge'];
+  FontSizeModel.SIZES = ["tiny", "small", "normal", "large", "huge"];
 
   /**
    * default font size
@@ -31,7 +31,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   /**
    * @return the current font size
    */
-  FontSizeModel.prototype.getFontSize = function() {
+  FontSizeModel.prototype.getFontSize = function () {
     return this.fontsize;
   };
 
@@ -40,12 +40,12 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @param fontsize
    */
-  FontSizeModel.prototype.setFontSize = function(fontsize) {
+  FontSizeModel.prototype.setFontSize = function (fontsize) {
     if (FontSizeModel.SIZES.indexOf(fontsize) === -1) {
-      throw 'invalid font size';
+      throw "invalid font size";
     }
     this.fontsize = fontsize;
-    this.emit('update');
+    this.emit("update");
   };
 
   return FontSizeModel;

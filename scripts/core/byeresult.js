@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/matchresult', 'core/matchmodel'], function(extend,
+define(["lib/extend", "core/matchresult", "core/matchmodel"], function (extend,
     MatchResult, MatchModel) {
   /**
    * Constructor for auto-creation of a bye instance, which contains all

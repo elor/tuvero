@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(['lib/extend', 'list/listmodel', 'list/listupdatelistener'], function(extend,
+define(["lib/extend", "list/listmodel", "list/listupdatelistener"], function (extend,
     ListModel, ListUpdateListener) {
   /**
    * Constructor for an empty list
@@ -25,7 +25,7 @@ define(['lib/extend', 'list/listmodel', 'list/listupdatelistener'], function(ext
    * @param data
    *          event callback data
    */
-  IndexedListModel.prototype.updateIDs = function(data) {
+  IndexedListModel.prototype.updateIDs = function (data) {
     var index, startindex;
 
     if (data === undefined) {

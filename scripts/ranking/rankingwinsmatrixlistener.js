@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], function(
+define(["lib/extend", "ranking/rankingdatalistener", "math/matrixmodel"], function (
     extend, RankingDataListener, MatrixModel) {
   /**
    * Constructor
@@ -21,7 +21,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], functi
   }
   extend(RankingWinsMatrixListener, RankingDataListener);
 
-  RankingWinsMatrixListener.NAME = 'winsmatrix';
+  RankingWinsMatrixListener.NAME = "winsmatrix";
 
   /**
    * insert the game results into the ranking
@@ -40,13 +40,13 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], functi
    * @param result
    *          a game result
    */
-  RankingWinsMatrixListener.prototype.onresult = function(r, e, result) {
+  RankingWinsMatrixListener.prototype.onresult = function (r, e, result) {
     var maxpoints, draw, score;
 
     // get the max points, remember if there's a draw
     maxpoints = undefined;
     draw = false;
-    result.score.forEach(function(points) {
+    result.score.forEach(function (points) {
       if (points > maxpoints || maxpoints === undefined) {
         maxpoints = points;
         draw = false;
@@ -60,11 +60,11 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], functi
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
-    result.score.forEach(function(points, index) {
+    result.score.forEach(function (points, index) {
       var teamid;
       if (points === maxpoints) {
         teamid = result.teams[index];
-        result.teams.forEach(function(opponent) {
+        result.teams.forEach(function (opponent) {
           var value;
           if (teamid !== opponent) {
             value = this.winsmatrix.get(teamid, opponent) + score;
@@ -86,7 +86,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], functi
    * @param correction
    *          a game correction
    */
-  RankingWinsMatrixListener.prototype.oncorrect = function(r, e, correction) {
+  RankingWinsMatrixListener.prototype.oncorrect = function (r, e, correction) {
     // TODO DRY - Don't Repeat Yourself!
     // TODO extract a method for use by onresult and oncorrect
     var maxpoints, draw, score;
@@ -94,7 +94,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], functi
     // get the max points, remember if there's a draw
     maxpoints = undefined;
     draw = false;
-    correction.before.score.forEach(function(points) {
+    correction.before.score.forEach(function (points) {
       if (points > maxpoints || maxpoints === undefined) {
         maxpoints = points;
         draw = false;
@@ -108,11 +108,11 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], functi
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
-    correction.before.score.forEach(function(points, index) {
+    correction.before.score.forEach(function (points, index) {
       var teamid;
       if (points === maxpoints) {
         teamid = correction.before.teams[index];
-        correction.before.teams.forEach(function(opponent) {
+        correction.before.teams.forEach(function (opponent) {
           var value;
           if (teamid !== opponent) {
             value = this.winsmatrix.get(teamid, opponent) - score;

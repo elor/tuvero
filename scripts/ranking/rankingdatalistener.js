@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/listener'], function(extend, Listener) {
+define(["lib/extend", "core/listener"], function (extend, Listener) {
   /**
    * Constructor.
    *
@@ -36,17 +36,17 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
       fieldobject.resize(ranking.length);
     }
     if (ranking[Const.NAME] !== undefined) {
-      throw new Error('ranking field already exists: ' + Const.NAME);
+      throw new Error("ranking field already exists: " + Const.NAME);
     }
     ranking[Const.NAME] = fieldobject;
     this[Const.NAME] = fieldobject;
 
     // create dependency links
     if (Const.DEPENDENCIES) {
-      Const.DEPENDENCIES.forEach(function(DEPNAME) {
+      Const.DEPENDENCIES.forEach(function (DEPNAME) {
         this[DEPNAME] = ranking[DEPNAME];
         if (this[DEPNAME] === undefined) {
-          console.warn('ranking dependency not found: ' + DEPNAME);
+          console.warn("ranking dependency not found: " + DEPNAME);
         }
       }, this);
     }
@@ -61,7 +61,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    *
    * @return true if this listener contains primary data, false otherwise
    */
-  RankingDataListener.prototype.isPrimary = function() {
+  RankingDataListener.prototype.isPrimary = function () {
     return this.onbye !== RankingDataListener.prototype.onbye
         || this.onresult !== RankingDataListener.prototype.onresult;
   };
@@ -69,14 +69,14 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
   /**
    * the name of the field, which is handled by this class, e.g. 'wins'
    */
-  RankingDataListener.NAME = 'undefined';
+  RankingDataListener.NAME = "undefined";
 
   /**
    * an array of dependencies, e.g. [ 'buchholz', 'games'] for finebuchholz
    */
   RankingDataListener.DEPENDENCIES = [];
 
-  RankingDataListener.prototype.destroy = function() {
+  RankingDataListener.prototype.destroy = function () {
     RankingDataListener.superclass.destroy.call(this);
 
     delete this.ranking[this.constructor.NAME];
@@ -92,7 +92,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * @param game
    *          a game result
    */
-  RankingDataListener.prototype.onresult = function(r, e, game) {
+  RankingDataListener.prototype.onresult = function (r, e, game) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
@@ -106,7 +106,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * @param teams
    *          array of teams which receive a bye
    */
-  RankingDataListener.prototype.onbye = function(r, e, teams) {
+  RankingDataListener.prototype.onbye = function (r, e, teams) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
@@ -121,21 +121,21 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    * @param correction
    *          a game correction (CorrectionModel instance)
    */
-  RankingDataListener.prototype.oncorrect = function(r, e, correction) {
+  RankingDataListener.prototype.oncorrect = function (r, e, correction) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
   /**
    * calculate the field
    */
-  RankingDataListener.prototype.onrecalc = function() {
+  RankingDataListener.prototype.onrecalc = function () {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
   /**
    * reset the field
    */
-  RankingDataListener.prototype.onreset = function() {
+  RankingDataListener.prototype.onreset = function () {
     this[this.constructor.NAME].fill(0);
   };
 
@@ -144,7 +144,7 @@ define(['lib/extend', 'core/listener'], function(extend, Listener) {
    *
    * @param ranking
    */
-  RankingDataListener.prototype.onresize = function(ranking) {
+  RankingDataListener.prototype.onresize = function (ranking) {
     var dataobject = this[this.constructor.NAME];
     if (dataobject && dataobject.resize) {
       this[this.constructor.NAME].resize(ranking.length);

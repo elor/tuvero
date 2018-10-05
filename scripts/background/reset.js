@@ -9,13 +9,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/toast', 'timemachine/timemachine', 'ui/strings', 'jquery'], //
-function(Toast, TimeMachine, Strings, $) {
+define(["ui/toast", "timemachine/timemachine", "ui/strings", "jquery"], //
+function (Toast, TimeMachine, Strings, $) {
   var Reset;
 
   function hashcheck() {
-    if (location.hash === '#reset') {
-      console.log('clearing localstorage');
+    if (location.hash === "#reset") {
+      console.log("clearing localstorage");
       if (window.localStorage) {
         window.localStorage.clear();
       }
@@ -23,14 +23,14 @@ function(Toast, TimeMachine, Strings, $) {
       TimeMachine.updateRoots();
 
       new Toast(Strings.reset, Toast.LONG);
-      window.location.hash = '#debug';
+      window.location.hash = "#debug";
 
       return true;
     }
     return false;
   }
 
-  $(window).on('hashchange', function() {
+  $(window).on("hashchange", function () {
     if (hashcheck()) {
       location.reload();
     }
@@ -38,9 +38,9 @@ function(Toast, TimeMachine, Strings, $) {
 
   // also bind the reset button by delegating its click to a Tab_Storage
   // element
-  $(function($) {
-    $('#tabs').on('click', 'button.reset', function(e) {
-      $('#tabs > [data-tab="settings"] .local button.clear').click();
+  $(function ($) {
+    $("#tabs").on("click", "button.reset", function (e) {
+      $("#tabs > [data-tab=\"settings\"] .local button.clear").click();
     });
   });
 

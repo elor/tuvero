@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'list/listmodel'], function(extend, Model,
+define(["lib/extend", "core/model", "list/listmodel"], function (extend, Model,
     ListModel) {
   /**
    * Constructor
@@ -26,23 +26,23 @@ define(['lib/extend', 'core/model', 'list/listmodel'], function(extend, Model,
 
   ReadonlyListModel.prototype.EVENTS = ListModel.prototype.EVENTS;
 
-  ReadonlyListModel.prototype.get = function() {
+  ReadonlyListModel.prototype.get = function () {
     return this.list.get.apply(this.list, arguments);
   };
 
-  ReadonlyListModel.prototype.indexOf = function() {
+  ReadonlyListModel.prototype.indexOf = function () {
     return this.list.indexOf.apply(this.list, arguments);
   };
 
-  ReadonlyListModel.prototype.map = function() {
+  ReadonlyListModel.prototype.map = function () {
     return this.list.map.apply(this, arguments);
   };
 
-  ReadonlyListModel.prototype.asArray = function() {
+  ReadonlyListModel.prototype.asArray = function () {
     return this.list.asArray.apply(this.list, arguments);
   };
 
-  ReadonlyListModel.prototype.updateLength = function() {
+  ReadonlyListModel.prototype.updateLength = function () {
     this.length = this.list.length;
   };
 
@@ -53,7 +53,7 @@ define(['lib/extend', 'core/model', 'list/listmodel'], function(extend, Model,
    * @param event
    * @param data
    */
-  ReadonlyListModel.prototype.oninsert = function(emitter, event, data) {
+  ReadonlyListModel.prototype.oninsert = function (emitter, event, data) {
     this.emit(event, data);
   };
 
@@ -64,7 +64,7 @@ define(['lib/extend', 'core/model', 'list/listmodel'], function(extend, Model,
    * @param event
    * @param data
    */
-  ReadonlyListModel.prototype.onremove = function(emitter, event, data) {
+  ReadonlyListModel.prototype.onremove = function (emitter, event, data) {
     this.emit(event, data);
   };
 
@@ -75,7 +75,7 @@ define(['lib/extend', 'core/model', 'list/listmodel'], function(extend, Model,
    * @param event
    * @param data
    */
-  ReadonlyListModel.prototype.onreset = function(emitter, event, data) {
+  ReadonlyListModel.prototype.onreset = function (emitter, event, data) {
     this.emit(event, data);
   };
 
@@ -86,7 +86,7 @@ define(['lib/extend', 'core/model', 'list/listmodel'], function(extend, Model,
    * @param event
    * @param data
    */
-  ReadonlyListModel.prototype.onresize = function(emitter, event, data) {
+  ReadonlyListModel.prototype.onresize = function (emitter, event, data) {
     this.updateLength();
     this.emit(event, data);
   };

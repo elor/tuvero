@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['ui/servermodel', 'ui/storage', 'presets'], function (ServerModel, Storage, Presets) {
+define(["ui/servermodel", "ui/storage", "presets"], function (ServerModel, Storage, Presets) {
   var Server;
 
   Server = Storage.register(Presets.names.apitoken, ServerModel);

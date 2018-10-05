@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
-    'ui/komatchresultview', 'tournament/kotournamentmodel', 'ui/kotreeposition',
-    'ui/kolineview', 'ui/boxview'], function(extend, TemplateView, ListView,
+define(["lib/extend", "ui/templateview", "ui/listview", "ui/inlinelistview",
+    "ui/komatchresultview", "tournament/kotournamentmodel", "ui/kotreeposition",
+    "ui/kolineview", "ui/boxview"], function (extend, TemplateView, ListView,
     InlineListView, KOMatchResultView, KOTournamentModel, KOTreePosition,
     KOLineView, BoxView) {
   /**
@@ -30,16 +30,16 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
    */
   function KOTreeView(model, $view, teamlist, tournament, teamsize, showNames) {
     KOTreeView.superconstructor.call(this, model, $view, $view
-        .find('.komatchresult.template'));
+        .find(".komatchresult.template"));
 
     this.group = this.model.get(0).getGroup() & ~0x1;
     this.boxView = new BoxView(this.$view);
 
     this.showNames = showNames;
     this.tournament = tournament;
-    this.$forest = this.$view.find('.forest');
-    this.$kolineanchor = this.$forest.find('.kolineanchor');
-    this.$bestrank = this.$view.find('.bestrank');
+    this.$forest = this.$view.find(".forest");
+    this.$kolineanchor = this.$forest.find(".kolineanchor");
+    this.$bestrank = this.$view.find(".bestrank");
 
     this.lines = new InlineListView(this.model, this.$kolineanchor,
         this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length,
@@ -58,7 +58,7 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
   /**
    * print the best possible rank for this group
    */
-  KOTreeView.prototype.updateGroupInformation = function() {
+  KOTreeView.prototype.updateGroupInformation = function () {
     var bestrank = this.group * 2 + 1;
 
     this.$bestrank.text(bestrank);
@@ -69,7 +69,7 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
    * nodes are absolutely positioned, so the div doesn't flow around them
    * automatically.
    */
-  KOTreeView.prototype.setSize = function() {
+  KOTreeView.prototype.setSize = function () {
     var numTeams, numRounds, thirdPlacePos, lowestPos, x, y, isTopAligned, lowestID;
 
     numTeams = this.tournament.getTeams().length;
@@ -96,9 +96,9 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
     x += KOTreePosition.getWidth(this.showNames.get());
     y += KOTreePosition.HEIGHT;
 
-    this.$forest.css('width', x + 'em');
-    this.$forest.css('height', y + 'em');
-    this.$forest.css('margin-top', isTopAligned ? '0em' : '-2.5em');
+    this.$forest.css("width", x + "em");
+    this.$forest.css("height", y + "em");
+    this.$forest.css("margin-top", isTopAligned ? "0em" : "-2.5em");
   };
 
   /**
@@ -111,7 +111,7 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/inlinelistview',
    * @param data
    *          a data object
    */
-  KOTreeView.prototype.onupdate = function(emitter, event, data) {
+  KOTreeView.prototype.onupdate = function (emitter, event, data) {
     this.setSize();
   };
 

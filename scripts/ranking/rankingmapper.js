@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model'], function(extend, Model) {
+define(["lib/extend", "core/model"], function (extend, Model) {
   /**
    * Constructor
    *
@@ -37,8 +37,8 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *          a ListModel instance which maps positions to values
    * @return an array of re-mapped ids
    */
-  RankingMapper.translateIDs = function(rankingcomponent, map) {
-    return rankingcomponent.map(function(pos) {
+  RankingMapper.translateIDs = function (rankingcomponent, map) {
+    return rankingcomponent.map(function (pos) {
       return map.get(pos);
     });
   };
@@ -48,16 +48,16 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    * external ids. Remapping should only be performed on
    * ranking.get().displayOrder
    */
-  RankingMapper.updateCache = function() {
+  RankingMapper.updateCache = function () {
     var ranks, newcache;
 
     ranks = this.ranking.get();
     newcache = {};
 
-    Object.keys(ranks).forEach(function(key) {
+    Object.keys(ranks).forEach(function (key) {
       var values;
 
-      if (key === 'ids') {
+      if (key === "ids") {
         values = RankingMapper.translateIDs(ranks[key], this.teams);
       } else {
         values = ranks[key].slice(0);
@@ -74,7 +74,7 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
    *
    * @return a ranking object
    */
-  RankingMapper.prototype.get = function() {
+  RankingMapper.prototype.get = function () {
     if (this.cache === undefined) {
       RankingMapper.updateCache.call(this);
     }
@@ -85,16 +85,16 @@ define(['lib/extend', 'core/model'], function(extend, Model) {
   /**
    * force a rebuild of the ranking object (mapping only)
    */
-  RankingMapper.prototype.invalidate = function() {
+  RankingMapper.prototype.invalidate = function () {
     this.cache = undefined;
   };
 
   /**
    * callback function
    */
-  RankingMapper.prototype.onupdate = function() {
+  RankingMapper.prototype.onupdate = function () {
     this.invalidate();
-    this.emit('update');
+    this.emit("update");
   };
 
   return RankingMapper;

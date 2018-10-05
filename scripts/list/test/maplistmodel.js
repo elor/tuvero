@@ -6,15 +6,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(function() {
-  return function(QUnit, getModule) {
+define(function () {
+  return function (QUnit, getModule) {
     var ListModel, MapListModel, Listener;
 
-    Listener = getModule('core/listener');
-    ListModel = getModule('list/listmodel');
-    MapListModel = getModule('list/maplistmodel');
+    Listener = getModule("core/listener");
+    ListModel = getModule("list/listmodel");
+    MapListModel = getModule("list/maplistmodel");
 
-    QUnit.test('MapListModel', function (assert) {
+    QUnit.test("MapListModel", function (assert) {
       var teams, refs, listener, indices;
 
       teams = new ListModel();
@@ -33,41 +33,41 @@ define(function() {
       refs = new MapListModel(indices, teams);
 
       assert.equal(refs.length, indices.length,
-          'number of teams match after initialization');
-      assert.deepEqual(refs.asArray(), [4, 2, 0], 'ids get translated');
+          "number of teams match after initialization");
+      assert.deepEqual(refs.asArray(), [4, 2, 0], "ids get translated");
 
       listener = new Listener(refs);
       listener = new Listener(refs);
       listener.success = false;
       listener.callcount = 0;
-      listener.oninsert = function() {
+      listener.oninsert = function () {
         this.success = true;
         this.callcount += 1;
       };
 
       indices.push(2);
 
-      assert.ok(listener.success, '"insert" event is re-emitted');
-      assert.equal(listener.callcount, 1, '"insert" is emitted exactly once');
-      assert.equal(refs.length, 4, 'new team gets added to the indices list');
+      assert.ok(listener.success, "\"insert\" event is re-emitted");
+      assert.equal(listener.callcount, 1, "\"insert\" is emitted exactly once");
+      assert.equal(refs.length, 4, "new team gets added to the indices list");
       listener.destroy();
 
-      assert.deepEqual(refs.asArray(), [4, 2, 0, 3], 'ids get translated');
+      assert.deepEqual(refs.asArray(), [4, 2, 0, 3], "ids get translated");
 
       listener = new Listener(refs);
       listener.success = false;
       listener.callcount = 0;
-      listener.onremove = function() {
+      listener.onremove = function () {
         this.success = true;
         this.callcount += 1;
       };
 
       indices.remove(2);
-      assert.equal(indices.length, 3, 'match has been removed from indices');
-      assert.equal(refs.length, 3, 'match has been removed from refs');
-      assert.ok(listener.success, '"remove" event propagates to the matchref');
-      assert.equal(listener.callcount, 1, '"remove" is emitted exactly once');
-      assert.deepEqual(refs.asArray(), [4, 2, 3], 'ids get translated');
+      assert.equal(indices.length, 3, "match has been removed from indices");
+      assert.equal(refs.length, 3, "match has been removed from refs");
+      assert.ok(listener.success, "\"remove\" event propagates to the matchref");
+      assert.equal(listener.callcount, 1, "\"remove\" is emitted exactly once");
+      assert.deepEqual(refs.asArray(), [4, 2, 3], "ids get translated");
     });
   };
 });
