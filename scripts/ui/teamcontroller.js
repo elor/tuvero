@@ -53,7 +53,7 @@ define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings",
   TeamController.prototype.setName = function (name) {
     var nameModel;
 
-    if (!this.$anchor || !name) {
+    if (!this.$anchor) {
       return false;
     }
 
