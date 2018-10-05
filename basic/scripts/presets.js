@@ -34,7 +34,7 @@ define(function () {
     registration: {
       defaultteamsize: 1,
       minteamsize: 1,
-      maxteamsize: 1,
+      maxteamsize: 3,
       teamsizeicon: false
     },
     names: {
