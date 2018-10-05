@@ -14,6 +14,7 @@ define(["jquery", "lib/extend", "core/view", "ui/newteamcontroller"],
       NewTeamView.superconstructor.call(this, model, $view);
 
       this.$players = this.$view.find("input.playername");
+      this.$teamname = this.$view.find("input.teamname");
       this.$rankingpoints = this.$view.find("input.rankingpoints");
       this.$lines = this.$view.find(".newteamline");
       this.$button = this.$view.find("button.register");
@@ -35,6 +36,7 @@ define(["jquery", "lib/extend", "core/view", "ui/newteamcontroller"],
         this.$players.typeahead("val", "");
       }
 
+      this.$teamname.val("");
       this.$rankingpoints.val(0);
     };
 

@@ -15,6 +15,7 @@ define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
     NewTeamController.superconstructor.call(this, view);
 
     this.$players = this.view.$players;
+    this.$teamname = this.view.$teamname;
     this.$rankingpoints = this.view.$rankingpoints;
 
     this.view.$view.find("input").keydown(this.filterEnterKeyDown.bind(this));
@@ -75,6 +76,7 @@ define(["jquery", "lib/extend", "core/controller", "ui/playermodel",
         return player.getName() !== PlayerModel.NONAME;
       })) {
       team = new TeamModel(players);
+      team.setName(this.$teamname.val());
       team.rankingpoints = Number(this.$rankingpoints.val());
 
       this.model.push(team);
