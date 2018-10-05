@@ -93,6 +93,19 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel", "core/type"], funct
     return name;
   };
 
+  TeamModel.prototype.setName = function (alias) {
+    function trimName(name) {
+      return name.trim().replace(/\s+/g, " ");
+    }
+
+    alias = trimName(alias || "");
+
+    if (alias !== this.alias) {
+      this.alias = alias;
+      this.emit("update");
+    }
+  };
+
   TeamModel.prototype.getNumber = function () {
     var number = this.number;
 

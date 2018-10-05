@@ -30,28 +30,36 @@ define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings",
     return this.model.getPlayer(index);
   };
 
+  TeamController.prototype.getNameModel = function ($anchor) {
+    if (this.$anchor.hasClass("teamname")) {
+      return this.model;
+    } else {
+      return this.getPlayer(this.$anchor);
+    }
+  }
+
   TeamController.prototype.getName = function () {
-    var player;
+    var nameModel;
 
     if (!this.$anchor) {
       return "";
     }
 
-    player = this.getPlayer(this.$anchor);
+    nameModel = this.getNameModel(this.$anchor);
 
-    return player.getName();
+    return nameModel.getName();
   };
 
   TeamController.prototype.setName = function (name) {
-    var player;
+    var nameModel;
 
     if (!this.$anchor || !name) {
       return false;
     }
 
-    player = this.getPlayer(this.$anchor);
+    nameModel = this.getNameModel(this.$anchor);
 
-    player.setName(name);
+    nameModel.setName(name);
 
     return true;
   };
