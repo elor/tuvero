@@ -5,10 +5,11 @@
  * @see LICENSE
  */
 define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
-    "ui/checkboxview", "core/classview", "ui/tournamentrankingview",
-    "ui/tabshandle", "ui/closedtournamentcollapselistener"], function (extend, $,
-    View, ListView, State, CheckBoxView, ClassView, TournamentRankingView,
-    TabsHandle, ClosedTournamentCollapseListener) {
+  "ui/checkboxview", "core/classview", "ui/tournamentrankingview",
+  "ui/tabshandle", "ui/closedtournamentcollapselistener"
+], function (extend, $,
+  View, ListView, State, CheckBoxView, ClassView, TournamentRankingView,
+  TabsHandle, ClosedTournamentCollapseListener) {
   /**
    * represents a whole team tab
    *
@@ -43,31 +44,38 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
     $container = this.$view.find(">.options input.maxwidth");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
-        "nomaxwidth");
+      "nomaxwidth");
 
     // player names checkbox
     value = State.tabOptions.showNames;
     $container = this.$view.find(">.options input.shownames");
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, undefined,
-        "hidenames");
+    this.showNamesCheckBoxView = new CheckBoxView(value, $container);
+    this.showNamesClassView = new ClassView(value, this.$view, undefined,
+      "hidenames");
+
+    // team names checkbox
+    value = State.tabOptions.showTeamName;
+    $container = this.$view.find(">.options input.showteamname");
+    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container);
+    this.showTeamNameClassView = new ClassView(value, this.$view, undefined,
+      "hideteamname");
 
     // list/table selection checkbox
     this.rankingabbreviations = State.tabOptions.rankingAbbreviations;
     $container = this.$view.find(">.options input.abbreviate");
     this.abbreviateCheckBoxView = new CheckBoxView(this.rankingabbreviations,
-        $container);
+      $container);
 
     // rankinglist
     $container = this.$view.find(".tournamentlist");
     $template = $container.find(".tournament.template");
     this.tournamentList = new ListView(State.tournaments, $container,
-        $template, TournamentRankingView, State.teams,
-        this.rankingabbreviations);
+      $template, TournamentRankingView, State.teams,
+      this.rankingabbreviations);
 
     // HACK: close tournaments
     this.collapseListener = new ClosedTournamentCollapseListener(
-        this.tournamentList);
+      this.tournamentList);
   };
 
   /**
