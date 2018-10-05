@@ -1,5 +1,6 @@
 /* Tab options */
-.maxwidth .name {
+.maxwidth .name,
+.maxwidth .teamname {
   width: 8em;
   max-width: 8em;
   overflow: hidden;
