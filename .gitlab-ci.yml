@@ -87,6 +87,7 @@ build:release:
     - tar czvf latest.tar.gz *
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
     - lftp -e "cd staging; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
 
 deploy:release:
   stage: release
