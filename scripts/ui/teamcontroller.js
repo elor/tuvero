@@ -36,7 +36,7 @@ define(["lib/extend", "ui/renamecontroller", "ui/toast", "ui/strings",
     } else {
       return this.getPlayer(this.$anchor);
     }
-  }
+  };
 
   TeamController.prototype.getName = function () {
     var nameModel;
