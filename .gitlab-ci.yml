@@ -48,7 +48,6 @@ deploy:dev:
 build:release:
   stage: stage
   when: manual
-  allow_failure: false
   variables:
     GIT_STRATEGY: clone
   environment:
@@ -92,7 +91,6 @@ build:release:
 deploy:release:
   stage: release
   when: manual
-  allow_failure: false
   variables:
     GIT_STRATEGY: clone
   dependencies: []
