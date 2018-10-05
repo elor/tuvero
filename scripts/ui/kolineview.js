@@ -7,76 +7,77 @@
  * @see LICENSE
  */
 define(["lib/extend", "core/view", "jquery", "ui/koline", "ui/kotreeposition"], //
-function (extend, View, $, KOLine, KOTreePosition) {
-  /**
-   * Constructor
-   *
-   * @param model
-   *          a MatchResult instance
-   * @param $view
-   *          the container element
-   * @param numTeams
-   *          the total number of teams in the KO tournament
-   * @param showNames
-   *          a ValueModel which evaluates to true if names should be shown
-   */
-  function KOLineView(model, $view, numTeams, showNames) {
-    KOLineView.superconstructor.call(this, model, $view);
+  function (extend, View, $, KOLine, KOTreePosition) {
+    /**
+     * Constructor
+     *
+     * @param model
+     *          a MatchResult instance
+     * @param $view
+     *          the container element
+     * @param numTeams
+     *          the total number of teams in the KO tournament
+     * @param fullwidth
+     *          a ValueModel which evaluates to true if any name should be shown
+     */
+    function KOLineView(model, $view, numTeams, fullwidth) {
+      KOLineView.superconstructor.call(this, model, $view);
 
-    this.numTeams = numTeams;
-    this.showNames = showNames;
+      this.numTeams = numTeams;
+      this.fullwidth = fullwidth;
 
-    this.render();
+      this.render();
 
-    showNames.registerListener(this);
-  }
-  extend(KOLineView, View);
-
-  KOLineView.prototype.clear = function () {
-    if (this.$line) {
-      this.$line.remove();
-      this.$line = undefined;
+      fullwidth.registerListener(this);
     }
-  };
+    extend(KOLineView, View);
 
-  KOLineView.prototype.render = function () {
-    this.clear();
+    KOLineView.prototype.clear = function () {
+      if (this.$line) {
+        this.$line.remove();
+        this.$line = undefined;
+      }
+    };
 
-    if (this.model.getID() > 1) {
-      this.$line = this.createLine();
-      this.$view.append(this.$line);
-    }
-  };
+    KOLineView.prototype.render = function () {
+      this.clear();
 
-  /**
-   * @param model
-   *          a MatchModel instance
-   * @param numTeams
-   *          the total number of teams in the KO tournament
-   * @return a jquery object of a KO line, ready to be inserted
-   */
-  KOLineView.prototype.createLine = function () {
-    var line, from, to, pos;
+      if (this.model.getID() > 1) {
+        this.$line = this.createLine();
+        this.$view.append(this.$line);
+      }
+    };
 
-    pos = new KOTreePosition(this.model.getID(), this.model.getGroup(),
-        this.numTeams, this.showNames.get());
+    /**
+     * @param model
+     *          a MatchModel instance
+     * @param numTeams
+     *          the total number of teams in the KO tournament
+     * @return a jquery object of a KO line, ready to be inserted
+     */
+    KOLineView.prototype.createLine = function () {
+      var line, from, to, pos;
 
-    this.x = pos.x;
-    this.y = pos.y;
+      pos = new KOTreePosition(this.model.getID(), this.model.getGroup(),
+        this.numTeams, this.fullwidth.get());
 
-    pos = pos.getFollowingPosition();
+      this.x = pos.x;
+      this.y = pos.y;
 
-    from = [this.x + KOTreePosition.getWidth(this.showNames.get()) - 1,
-        this.y + 2];
-    to = [pos.x + 0.4, pos.y + 2];
+      pos = pos.getFollowingPosition();
 
-    line = new KOLine(from, to);
-    return $(line.svg).addClass(".koline");
-  };
+      from = [this.x + KOTreePosition.getWidth(this.fullwidth.get()) - 1,
+        this.y + 2
+      ];
+      to = [pos.x + 0.4, pos.y + 2];
 
-  KOLineView.prototype.onupdate = function (emitter, event, data) {
-    this.render();
-  };
+      line = new KOLine(from, to);
+      return $(line.svg).addClass(".koline");
+    };
 
-  return KOLineView;
-});
+    KOLineView.prototype.onupdate = function (emitter, event, data) {
+      this.render();
+    };
+
+    return KOLineView;
+  });

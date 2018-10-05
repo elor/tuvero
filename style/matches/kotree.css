@@ -34,7 +34,7 @@
   min-height: 1em;
 }
 
-.hidenames .kotree .komatchresult .team {
+.hidenames.hideteamname .kotree .komatchresult .team {
   width: 2em;
 }
 

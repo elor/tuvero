@@ -23,13 +23,19 @@ define(["lib/extend", "core/view", "core/type", "ui/teamcontroller"], //
     extend(TeamView, View);
 
     TeamView.prototype.update = function () {
-      var $names, i, $name, $teamno, player, $rankingpoints;
+      var $names, i, $name, $teamno, player, $rankingpoints, $teamname;
 
       $teamno = this.$view.find(".teamno");
       if ($teamno.length === 0) {
         $teamno = this.$view.filter(".teamno");
       }
       $teamno.text(this.model.getNumber());
+
+      $teamname = this.$view.find(".teamname");
+      if ($teamname.length === 0) {
+        $teamname = this.$view.filter(".teamname");
+      }
+      $teamname.text(this.model.getName());
 
       $rankingpoints = this.$view.find(".rankingpoints");
       $rankingpoints.text(this.model.rankingpoints);

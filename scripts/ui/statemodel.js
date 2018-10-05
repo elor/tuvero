@@ -32,6 +32,7 @@ define(["lib/extend", "core/model", "list/indexedlistmodel", "core/valuemodel",
 
     this.tabOptions = {
       showNames: tabOptionPreset("shownames", true),
+      showTeamName: tabOptionPreset("showteamname", false),
       nameMaxWidth: tabOptionPreset("namemaxwidth", true),
       teamTable: tabOptionPreset("teamtable", true),
       rankingAbbreviations: tabOptionPreset("rankingabbreviations", false),

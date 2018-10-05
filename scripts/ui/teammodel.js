@@ -77,6 +77,27 @@ define(["lib/extend", "list/indexedmodel", "ui/playermodel", "core/type"], funct
     });
   };
 
+  TeamModel.prototype.getName = function () {
+    var name = this.alias;
+
+    if (this.getID() === undefined) {
+      debugger
+      return undefined;
+    }
+
+    if (name) {
+      return name;
+    }
+
+    name = "Team " + this.getNumber();
+
+    if (name === "Team") {
+      debugger
+    }
+
+    return name;
+  };
+
   TeamModel.prototype.getNumber = function () {
     var number = this.number;
 

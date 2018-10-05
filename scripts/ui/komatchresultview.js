@@ -6,8 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ui/matchresultview", "ui/kotreeposition"], //
-function (extend, MatchResultView, KOTreePosition) {
+define(["lib/extend", "ui/matchresultview", "ui/kotreeposition"], function (extend, MatchResultView, KOTreePosition) {
   /**
    * Constructor
    *
@@ -19,23 +18,26 @@ function (extend, MatchResultView, KOTreePosition) {
    *          a ListModel of TeamModel instances
    * @param tournament
    *          a TournamentModel instance
+   * @param fullwidth {ValueModel}
+   *          whether a name is shown
+   * @returns {undefined}
    */
-  function KOMatchResultView(model, $view, teamlist, tournament, showNames) {
+  function KOMatchResultView(model, $view, teamlist, tournament, fullwidth) {
     KOMatchResultView.superconstructor.call(this, model, $view, teamlist,
-        tournament);
+      tournament);
 
     this.tournament = tournament;
-    this.showNames = showNames;
+    this.fullwidth = fullwidth;
 
     this.reposition();
 
-    showNames.registerListener(this);
+    fullwidth.registerListener(this);
   }
   extend(KOMatchResultView, MatchResultView);
 
   KOMatchResultView.prototype.reposition = function () {
     var pos = new KOTreePosition(this.model.getID(), this.model.getGroup(),
-        this.tournament.getTeams().length, this.showNames.get());
+      this.tournament.getTeams().length, this.fullwidth.get());
 
     this.x = pos.x;
     this.y = pos.y;

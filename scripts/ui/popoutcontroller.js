@@ -7,10 +7,11 @@
  * @see LICENSE
  */
 define(["jquery", "lib/extend", "core/controller", "ui/toast", "ui/strings",
-    "core/classview", "ui/state", "core/listener", "timemachine/timemachine",
-    "ui/fontsizeview"], function ($, extend, Controller, Toast, Strings, ClassView,
-    State, Listener, TimeMachine, FontSizeView) {
-      var mainPopout, $fontsizeview, fontsizeview, timeMachineListener;
+  "core/classview", "ui/state", "core/listener", "timemachine/timemachine",
+  "ui/fontsizeview"
+], function ($, extend, Controller, Toast, Strings, ClassView,
+  State, Listener, TimeMachine, FontSizeView) {
+  var mainPopout, $fontsizeview, fontsizeview, timeMachineListener;
 
   // TODO close a popout when its parent is removed from the DOM
 
@@ -78,7 +79,7 @@ define(["jquery", "lib/extend", "core/controller", "ui/toast", "ui/strings",
       $style = $("style");
       if ($style.length === 0) {
         stylepath = window.location.href.replace(/index.html[?#].*/,
-            "style/main.css");
+          "style/main.css");
         $style = $("<link rel=\"stylesheet\" href=\"" + stylepath + "\">");
       } else {
         $style = $style.clone();
@@ -90,13 +91,15 @@ define(["jquery", "lib/extend", "core/controller", "ui/toast", "ui/strings",
       $body.attr("id", "app").addClass("popoutContainer");
       $body.data({
         maxWidthView: new ClassView(State.tabOptions.nameMaxWidth, $body,
-            "maxwidth", "nomaxwidth"),
+          "maxwidth", "nomaxwidth"),
         hideNamesView: new ClassView(State.tabOptions.showNames, $body,
-            undefined, "hidenames"),
+          undefined, "hidenames"),
+        hideTeamNameView: new ClassView(State.tabOptions.showTeamName, $body,
+          undefined, "hideteamname"),
         showtableClassView: new ClassView(State.tabOptions.showMatchTables,
-            $body, "showmatchtable", "showtable"),
+          $body, "showmatchtable", "showtable"),
         hidefinishedClassView: new ClassView(
-            State.tabOptions.hideFinishedGroups, $body, "hidefinished")
+          State.tabOptions.hideFinishedGroups, $body, "hidefinished")
       });
 
       if (!$fontsizeview) {

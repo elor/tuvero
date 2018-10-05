@@ -7,10 +7,11 @@
  * @see LICENSE
  */
 define(["lib/extend", "ui/templateview", "ui/listview", "ui/inlinelistview",
-    "ui/komatchresultview", "tournament/kotournamentmodel", "ui/kotreeposition",
-    "ui/kolineview", "ui/boxview"], function (extend, TemplateView, ListView,
-    InlineListView, KOMatchResultView, KOTournamentModel, KOTreePosition,
-    KOLineView, BoxView) {
+  "ui/komatchresultview", "tournament/kotournamentmodel", "ui/kotreeposition",
+  "ui/kolineview", "ui/boxview"
+], function (extend, TemplateView, ListView,
+  InlineListView, KOMatchResultView, KOTournamentModel, KOTreePosition,
+  KOLineView, BoxView) {
   /**
    * Constructor
    *
@@ -25,33 +26,33 @@ define(["lib/extend", "ui/templateview", "ui/listview", "ui/inlinelistview",
    *          a ListModel of TeamModel instances
    * @param teamsize
    *          a ValueModel which represents the size of all registered teams
-   * @param showNames
+   * @param fullwidth
    *          a ValueModel which evaluates to true if names should be shown
    */
-  function KOTreeView(model, $view, teamlist, tournament, teamsize, showNames) {
+  function KOTreeView(model, $view, teamlist, tournament, teamsize, fullwidth) {
     KOTreeView.superconstructor.call(this, model, $view, $view
-        .find(".komatchresult.template"));
+      .find(".komatchresult.template"));
 
     this.group = this.model.get(0).getGroup() & ~0x1;
     this.boxView = new BoxView(this.$view);
 
-    this.showNames = showNames;
+    this.fullwidth = fullwidth;
     this.tournament = tournament;
     this.$forest = this.$view.find(".forest");
     this.$kolineanchor = this.$forest.find(".kolineanchor");
     this.$bestrank = this.$view.find(".bestrank");
 
     this.lines = new InlineListView(this.model, this.$kolineanchor,
-        this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length,
-        showNames);
+      this.$kolineanchor.clone(), KOLineView, tournament.getTeams().length,
+      fullwidth);
 
     this.matches = new ListView(this.model, this.$forest, this.$template,
-        KOMatchResultView, teamlist, tournament, showNames);
+      KOMatchResultView, teamlist, tournament, fullwidth);
 
     this.updateGroupInformation();
     this.setSize();
 
-    showNames.registerListener(this);
+    fullwidth.registerListener(this);
   }
   extend(KOTreeView, TemplateView);
 
@@ -75,12 +76,12 @@ define(["lib/extend", "ui/templateview", "ui/listview", "ui/inlinelistview",
     numTeams = this.tournament.getTeams().length;
 
     thirdPlacePos = new KOTreePosition(1, this.group + 1, numTeams,
-        this.showNames.get());
+      this.fullwidth.get());
 
     lowestID = KOTournamentModel
-        .firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;
+      .firstMatchIDOfRound(thirdPlacePos.firstRound + 1) - 1;
     lowestPos = new KOTreePosition(lowestID, this.group, numTeams,
-        this.showNames.get());
+      this.fullwidth.get());
 
     if (this.group === 0) {
       numRounds = KOTournamentModel.initialRoundForTeams(numTeams) + 1;
@@ -93,7 +94,7 @@ define(["lib/extend", "ui/templateview", "ui/listview", "ui/inlinelistview",
     x = thirdPlacePos.x;
     y = Math.max(lowestPos.y, thirdPlacePos.y);
 
-    x += KOTreePosition.getWidth(this.showNames.get());
+    x += KOTreePosition.getWidth(this.fullwidth.get());
     y += KOTreePosition.HEIGHT;
 
     this.$forest.css("width", x + "em");
@@ -102,10 +103,10 @@ define(["lib/extend", "ui/templateview", "ui/listview", "ui/inlinelistview",
   };
 
   /**
-   * 'update'-listener for showNames
+   * 'update'-listener for fullwidth
    *
    * @param emitter ==
-   *          this.showNames
+   *          this.fullwidth
    * @param event ==
    *          'update'
    * @param data

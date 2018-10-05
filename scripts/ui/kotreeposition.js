@@ -24,20 +24,20 @@ define(["tournament/kotournamentmodel"], function (KOTournamentModel) {
    *          a KO match group
    * @param numTeams
    *          the total number of teams in the tournament
-   * @param showNames
-   *          whether the boxes should be wide enough to include names
+   * @param fullwidth
+   *          whether the boxes should be wide enough to include any name
    */
-  function KOTreePosition(id, group, numTeams, showNames) {
+  function KOTreePosition(id, group, numTeams, fullwidth) {
     this.id = id;
     this.group = group;
     this.numTeams = numTeams;
-    this.showNames = showNames;
+    this.fullwidth = fullwidth;
     this.round = KOTournamentModel.roundOfMatchID(this.id);
     this.isThirdPlace = (this.group & 0x1) === 1;
     this.firstid = KOTournamentModel.firstMatchIDOfRound(this.round);
-    this.firstRound = Math.min(//
-    KOTournamentModel.initialRoundForTeams(this.numTeams), //
-    KOTournamentModel.roundsInGroup(this.group & ~0x1) - 1);
+    this.firstRound = Math.min( //
+      KOTournamentModel.initialRoundForTeams(this.numTeams), //
+      KOTournamentModel.roundsInGroup(this.group & ~0x1) - 1);
 
     this.x = this.calcXPosition();
     this.y = this.calcYPosition();
@@ -53,7 +53,7 @@ define(["tournament/kotournamentmodel"], function (KOTournamentModel) {
   };
 
   KOTreePosition.prototype.getWidth = function () {
-    return KOTreePosition.getWidth(this.showNames);
+    return KOTreePosition.getWidth(this.fullwidth);
   };
 
   /**
@@ -92,11 +92,11 @@ define(["tournament/kotournamentmodel"], function (KOTournamentModel) {
     var nextID = KOTournamentModel.nextRoundMatchID(this.id);
 
     return new KOTreePosition(nextID, this.group, this.numTeams, //
-    this.showNames);
+      this.fullwidth);
   };
 
-  KOTreePosition.getWidth = function (showNames) {
-    if (showNames) {
+  KOTreePosition.getWidth = function (fullwidth) {
+    if (fullwidth) {
       return width;
     }
     return shortWidth;

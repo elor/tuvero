@@ -5,10 +5,11 @@
  * @see LICENSE
  */
 define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
-    "ui/checkboxview", "core/classview", "ui/tournamenthistoryview",
-    "ui/closedtournamentcollapselistener", "ui/tabshandle"], function (extend, $,
-    View, ListView, State, CheckBoxView, ClassView, TournamentHistoryView,
-    ClosedTournamentCollapseListener, TabsHandle) {
+  "ui/checkboxview", "core/classview", "ui/tournamenthistoryview",
+  "ui/closedtournamentcollapselistener", "ui/tabshandle", "core/valuemodel"
+], function (extend, $,
+  View, ListView, State, CheckBoxView, ClassView, TournamentHistoryView,
+  ClosedTournamentCollapseListener, TabsHandle, ValueModel) {
   /**
    * represents a whole team tab
    *
@@ -36,46 +37,65 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * TODO maybe split it into multiple autodetected functions?
    */
   HistoryTab.prototype.init = function () {
-    var $template, $container, value;
+    var $template, $container, value, fullwidth;
+
+    fullwidth = new ValueModel();
+    fullwidth.dependencies = [State.tabOptions.showNames, State.tabOptions.showTeamName];
+    fullwidth.onupdate = function () {
+      this.set(this.dependencies.some(function (dep) {
+        return dep.get();
+      }));
+    }
+    fullwidth.dependencies.forEach(function (dep) {
+      dep.registerListener(fullwidth);
+    });
+    fullwidth.onupdate();
 
     // tournamentlist
     $container = this.$view.find(".tournamentlist");
     $template = $container.find(".tournament.template");
     this.tournamentList = new ListView(State.tournaments, $container,
-        $template, TournamentHistoryView, State.teams, State.teamsize,
-        State.tabOptions.showNames);
+      $template, TournamentHistoryView, State.teams, State.teamsize,
+      fullwidth);
 
     // HACK: close tournaments
     this.collapseListener = new ClosedTournamentCollapseListener(
-        this.tournamentList);
+      this.tournamentList);
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find(">.options input.maxwidth");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
-        "nomaxwidth");
+      "nomaxwidth");
 
     // player names checkbox
     value = State.tabOptions.showNames;
     $container = this.$view.find(">.options input.shownames");
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, undefined,
-        "hidenames");
+    this.showNamesCheckBoxView = new CheckBoxView(value, $container);
+    this.showNamesClassView = new ClassView(value, this.$view, undefined,
+      "hidenames");
+
+    // team names checkbox
+    value = State.tabOptions.showTeamName;
+    $container = this.$view.find(">.options input.showteamname");
+    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container);
+    this.showTeamNameClassView = new ClassView(value, this.$view, undefined,
+      "hideteamname");
 
     // list/table selection checkbox
     value = State.tabOptions.showMatchTables;
     $container = this.$view.find(">.options input.showtable");
     this.showtableCheckBoxView = new CheckBoxView(value, $container);
     this.showtableClassView = new ClassView(value, this.$view,
-        "showmatchtable", "showtable");
+      "showmatchtable", "showtable");
 
     // hidefinished checkbox
     value = State.tabOptions.hideFinishedGroups;
     $container = this.$view.find(">.options input.hidefinished");
     this.hidefinishedCheckBoxView = new CheckBoxView(value, $container);
     this.hidefinishedClassView = new ClassView(value, this.$view,
-        "hidefinished");
+      "hidefinished");
   };
 
   /**
@@ -109,7 +129,7 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   HistoryTab.prototype.onresize = function (emitter, event, //
-  data) {
+    data) {
     this.update();
   };
 
@@ -121,7 +141,7 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   HistoryTab.prototype.oninsert = function (emitter, event, //
-  data) {
+    data) {
     if (emitter === State.tournaments) {
       data.object.getCombinedHistory().registerListener(this);
     }
@@ -136,7 +156,7 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   HistoryTab.prototype.onremove = function (emitter, event, //
-  data) {
+    data) {
     if (emitter === State.tournaments) {
       data.object.getHistory().unregisterListener(this);
     }
