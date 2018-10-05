@@ -5,9 +5,10 @@
  * @see LICENSE
  */
 define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
-    "ui/checkboxview", "core/classview", "ui/tournamentmatchesview",
-    "ui/tabshandle"], function (extend, $, View, ListView, State, CheckBoxView,
-    ClassView, TournamentMatchesView, TabsHandle) {
+  "ui/checkboxview", "core/classview", "ui/tournamentmatchesview",
+  "ui/tabshandle"
+], function (extend, $, View, ListView, State, CheckBoxView,
+  ClassView, TournamentMatchesView, TabsHandle) {
   /**
    * represents a whole team tab
    *
@@ -41,21 +42,28 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
     $container = this.$view.find(".tournamentlist");
     $template = $container.find(".tournament.template");
     this.tournamentList = new ListView(State.tournaments, $container,
-        $template, TournamentMatchesView, State.teams, State.teamsize);
+      $template, TournamentMatchesView, State.teams, State.teamsize);
 
     // name maxwidth checkbox
     value = State.tabOptions.nameMaxWidth;
     $container = this.$view.find(">.options input.maxwidth");
     this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
     this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
-        "nomaxwidth");
+      "nomaxwidth");
 
     // player names checkbox
     value = State.tabOptions.showNames;
     $container = this.$view.find(">.options input.shownames");
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, undefined,
-        "hidenames");
+    this.showNamesCheckBoxView = new CheckBoxView(value, $container);
+    this.showNamesClassView = new ClassView(value, this.$view, undefined,
+      "hidenames");
+
+    // team names checkbox
+    value = State.tabOptions.showTeamName;
+    $container = this.$view.find(">.options input.showteamname");
+    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container);
+    this.showTeamNameClassView = new ClassView(value, this.$view, undefined,
+      "hideteamname");
   };
 
   /**
@@ -85,7 +93,7 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   GamesTab.prototype.onupdate = function (emitter, event, //
-  data) {
+    data) {
     if (emitter !== State.tournaments) {
       this.update();
     }
@@ -99,7 +107,7 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   GamesTab.prototype.oninsert = function (emitter, event, //
-  data) {
+    data) {
     data.object.getState().registerListener(this);
     this.update();
   };
@@ -112,7 +120,7 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   GamesTab.prototype.onremove = function (emitter, event, //
-  data) {
+    data) {
     data.object.getState().unregisterListener(this);
     this.update();
   };

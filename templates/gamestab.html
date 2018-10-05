@@ -2,8 +2,15 @@
   <button class="print left" data-img="print"></button>
   <button class="save left" data-img="save"></button>
   <div class="options">
-    <span><input class="maxwidth" type="checkbox" checked="checked" />feste
-      Breite</span> <span><input class="shownames" type="checkbox" checked="checked" />{{ teamtext }}namen</span>
+    <span><input class="maxwidth" type="checkbox" />
+      feste Breite
+    </span>
+    <span><input class="showteamname" type="checkbox" />
+      Team-Pseudonym
+    </span>
+    <span><input class="shownames" type="checkbox" />
+      {{ teamtext }}namen
+    </span>
   </div>
   <h2>Laufende Spiele</h2>
 
@@ -28,6 +35,7 @@
       <div class="teamview voteview template">
         <div class="teamno">##</div>
         <div class="names">
+          <div class="teamname rename">%% %%</div>
           <div class="name rename">%% %%</div>
           <div class="name rename">%% %%</div>
           <div class="name rename">%% %%</div>
