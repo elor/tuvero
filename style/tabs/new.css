@@ -5,7 +5,8 @@
   border-spacing: 0em;
 }
 
-#tabs>[data-tab="teams"] .systemtable td, #tabs>[data-tab="teams"] .systemtable th {
+#tabs>[data-tab="teams"] .systemtable td,
+#tabs>[data-tab="teams"] .systemtable th {
   padding-right: 1em;
 }
 
@@ -44,8 +45,13 @@
   border-right: none !important;
 }
 
-#tabs>[data-tab="teams"].hidenames .name, #tabs>[data-tab="teams"].hidenames .playercol
-  {
+#tabs>[data-tab="teams"].hidenames .name,
+#tabs>[data-tab="teams"].hidenames .playercol {
+  display: none;
+}
+
+#tabs>[data-tab="teams"].hideteamname .teamname,
+#tabs>[data-tab="teams"].hideteamname .teamcol {
   display: none;
 }
 
@@ -94,15 +100,19 @@
   text-align: center;
 }
 
-#tabs>[data-tab="teams"] .systemtable .system>.initial, #tabs>[data-tab="teams"] .systemtable .system>.running,
-  #tabs>[data-tab="teams"] .systemtable .system>.finished, #tabs>[data-tab="teams"] .systemtable .system>.idle,
-  #tabs>[data-tab="teams"] .systemtable .system>.failure {
+#tabs>[data-tab="teams"] .systemtable .system>.initial,
+#tabs>[data-tab="teams"] .systemtable .system>.running,
+#tabs>[data-tab="teams"] .systemtable .system>.finished,
+#tabs>[data-tab="teams"] .systemtable .system>.idle,
+#tabs>[data-tab="teams"] .systemtable .system>.failure {
   display: none;
 }
 
-#tabs>[data-tab="teams"] .systemtable .system.initial>.initial, #tabs>[data-tab="teams"] .systemtable .system.running>.running,
-  #tabs>[data-tab="teams"] .systemtable .system.finished>.finished, #tabs>[data-tab="teams"] .systemtable .system.idle>.idle,
-  #tabs>[data-tab="teams"] .systemtable .system.failure>.failure {
+#tabs>[data-tab="teams"] .systemtable .system.initial>.initial,
+#tabs>[data-tab="teams"] .systemtable .system.running>.running,
+#tabs>[data-tab="teams"] .systemtable .system.finished>.finished,
+#tabs>[data-tab="teams"] .systemtable .system.idle>.idle,
+#tabs>[data-tab="teams"] .systemtable .system.failure>.failure {
   display: block;
 }
 
@@ -140,8 +150,8 @@
   padding: 0em !important;
 }
 
-#tabs>[data-tab="teams"] .system>button, #tabs>[data-tab="teams"] .system>div>button
-  {
+#tabs>[data-tab="teams"] .system>button,
+#tabs>[data-tab="teams"] .system>div>button {
   font-size: 1em;
   padding: 0.5em;
   border-radius: 0.3em;
@@ -149,7 +159,7 @@
 }
 
 @media print {
-  #tabs > [data-tab="teams"] .systemtable td.system {
+  #tabs>[data-tab="teams"] .systemtable td.system {
     display: none !important;
   }
 }

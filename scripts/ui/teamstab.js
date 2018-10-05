@@ -79,6 +79,20 @@ define(["jquery", "lib/extend", "core/view", "ui/state", "ui/newteamview",
     this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
       "nomaxwidth");
 
+    // player names checkbox
+    value = State.tabOptions.showNames;
+    $container = this.$view.find(">.options input.shownames");
+    this.showNamesCheckBoxView = new CheckBoxView(value, $container);
+    this.showNamesClassView = new ClassView(value, this.$view, undefined,
+      "hidenames");
+
+    // team names checkbox
+    value = State.tabOptions.showTeamName;
+    $container = this.$view.find(">.options input.showteamname");
+    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container);
+    this.showTeamNameClassView = new ClassView(value, this.$view, undefined,
+      "hideteamname");
+
     // rankingpoints checkbox
     value = new ValueModel(Presets.ui.rankingpoints);
     $container = this.$view.find(">.options input.rankingpoints");

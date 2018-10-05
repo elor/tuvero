@@ -6,6 +6,10 @@
       <input class="maxwidth" type="checkbox" checked="checked" /> feste Breite
     </span>
     <span>
+      <input class="showteamname" type="checkbox" checked="checked" />Team-Pseudonym</span>
+    <span>
+      <input class="shownames" type="checkbox" checked="checked" />{{ teamtext }}namen</span>
+    <span>
       <input class="rankingpoints" type="checkbox" checked="checked" /> Ranglistenpunkte
     </span>
     <br>
@@ -22,6 +26,7 @@
       <tr>
         <th colspan="2" class="noprint">Platz</th>
         <th>No.</th>
+        <th class="teamcol">Teamname</th>
         <th class="playercol">{{ teamtext }}</th>
         <th class="playercol">{{ teamtext }}</th>
         <th class="playercol">{{ teamtext }}</th>
@@ -36,6 +41,7 @@
         <td class="rank noprint">##</td>
         <td class="tournamentrank noprint">##</td>
         <td class="teamno">##</td>
+        <td class="teamname rename">%% %%</td>
         <td class="name rename">%% %%</td>
         <td class="name rename">%% %%</td>
         <td class="name rename">%% %%</td>
@@ -72,7 +78,8 @@
     </tbody>
   </table>
 
-  <br> {% include 'newsystem.html' %} {% include 'swisssystem.html' %} {% include 'roundsystem.html' %} {% include 'kosystem.html'
+  <br> {% include 'newsystem.html' %} {% include 'swisssystem.html' %} {% include 'roundsystem.html' %} {% include
+  'kosystem.html'
   %} {% include 'placementsystem.html' %} {% include 'poulessystem.html' %}
 
 </div>
