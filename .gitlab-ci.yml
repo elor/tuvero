@@ -59,7 +59,7 @@ build:release:
   image: alpine:latest
   before_script:
     - apk update
-    - apk add nodejs nodejs-npm git openssh-client lftp
+    - apk add curl nodejs nodejs-npm git openssh-client lftp
     - mkdir -m 700 -p ~/.ssh/
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
