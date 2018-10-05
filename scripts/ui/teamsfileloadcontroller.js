@@ -46,6 +46,20 @@ define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings
       }));
     }
 
+    TeamsFileLoadController.guessCSVType = function (teams) {
+      if (teams.length === 0) {
+        return "empty";
+      }
+
+      if (teams[0].every(function (field) {
+          return ["No.", "Name", "Team", "Spieler"].indexOf(field) !== -1;
+        })) {
+        return "tuvero_teams_export";
+      }
+
+      return "pure_csv";
+    };
+
     /**
      * Read teamsize from teams array
      *
@@ -114,10 +128,63 @@ define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings
     };
 
     TeamsFileLoadController.loadCSV = function (input) {
-      var teams, teamsize;
+      var teams, type;
 
       teams = TeamsFileLoadController.parseCSVString(input);
+
+      type = TeamsFileLoadController.guessCSVType(teams);
+      switch (type) {
+        case "tuvero_teams_export":
+          return TeamsFileLoadController.loadTuveroTeamExport(teams);
+        case "pure_csv":
+        case "empty":
+          return TeamsFileLoadController.loadPureCSV(teams);
+        default:
+          console.error("unknown csv type: " + type);
+          return TeamsFileLoadController.loadPureCSV(teams);
+      }
+    };
+
+    TeamsFileLoadController.loadTuveroTeamExport = function (teams) {
+      var teamsize, header, hasTeamNumber;
+
+      header = teams.shift();
+      hasTeamNumber = header[0] === "No.";
       teamsize = TeamsFileLoadController.guessCSVTeamsize(teams);
+
+      if (hasTeamNumber) {
+        teamsize -= 1;
+      }
+
+      if (teamsize >= Presets.registration.minteamsize &&
+        teamsize <= Presets.registration.maxteamsize) {
+
+        // create TeamModels
+        return teams.map(function (names) {
+          var teamNumber, team;
+
+          if (hasTeamNumber) {
+            teamNumber = names.shift();
+          }
+          var players = names.map(function (name) {
+            return new PlayerModel(name);
+          });
+
+          team = new TeamModel(players);
+          if (hasTeamNumber) {
+            TeamModel.number = teamNumber;
+          }
+          return team;
+        });
+      } else {
+        // TODO handle failure gracefully
+      }
+
+      return undefined;
+    };
+
+    TeamsFileLoadController.loadPureCSV = function (teams) {
+      var teamsize = TeamsFileLoadController.guessCSVTeamsize(teams);
 
       // validate team size
       if (teamsize >= Presets.registration.minteamsize &&
@@ -131,6 +198,8 @@ define(["tuvero", "lib/extend", "ui/fileloadcontroller", "ui/toast", "ui/strings
 
           return new TeamModel(players);
         });
+      } else {
+        // TODO handle failure gracefully
       }
 
       return undefined;
