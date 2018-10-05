@@ -14,6 +14,6 @@ module.exports = {
       "named": "never",
       "asyncArrow": "always"
     }],
-    "valid-jsdoc": "ignore" // was "error", but drove me nuts
+    "valid-jsdoc": "off" // was "error", but drove me nuts
   }
 };
