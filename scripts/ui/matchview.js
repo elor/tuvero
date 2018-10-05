@@ -7,17 +7,17 @@
  * @see LICENSE
  */
 define(["lib/extend", "jquery", "core/view", "ui/teamview",
-    "ui/matchcontroller", "ui/playermodel", "ui/teammodel", "ui/strings",
-    "core/type"], function (extend, $, View, TeamView, MatchController,
-    PlayerModel, TeamModel, Strings, Type) {
+  "ui/matchcontroller", "ui/playermodel", "ui/teammodel", "ui/strings",
+  "core/type"
+], function (extend, $, View, TeamView, MatchController,
+  PlayerModel, TeamModel, Strings, Type) {
   var emptyPlayer, byePlayer;
 
   // player name for bye votes
   byePlayer = new PlayerModel(Strings.byename);
   emptyPlayer = new PlayerModel("");
   emptyPlayer.alias = ""; // avoid 'NONAME'
-  emptyPlayer.setName = function () {
-  };
+  emptyPlayer.setName = function () {};
 
   /**
    * create a team with exactly the wanted number of bye players.
@@ -133,10 +133,10 @@ define(["lib/extend", "jquery", "core/view", "ui/teamview",
 
     $teams = this.$view.find(".team");
     if ($teams.length === 0) {
-      $teams = $createTeamsLists(this.$view.find(">.teamno , >.name"));
+      $teams = $createTeamsLists(this.$view.find(">.teamno , >.name , >.teamname"));
     }
     if ($teams.length === 0) {
-      $teams = $createTeamsLists(this.$view.filter(".teamno,.name"));
+      $teams = $createTeamsLists(this.$view.filter(".teamno , .name , .teamname"));
     }
 
     teamsize = undefined;

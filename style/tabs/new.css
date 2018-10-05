@@ -45,16 +45,6 @@
   border-right: none !important;
 }
 
-#tabs>[data-tab="teams"].hidenames .name,
-#tabs>[data-tab="teams"].hidenames .playercol {
-  display: none;
-}
-
-#tabs>[data-tab="teams"].hideteamname .teamname,
-#tabs>[data-tab="teams"].hideteamname .teamcol {
-  display: none;
-}
-
 #tabs>[data-tab="teams"].maxwidth .name {
   max-width: 10em;
   overflow: hidden;
