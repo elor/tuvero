@@ -1,7 +1,7 @@
 stages:
   - build
   - deploy
-  - stage
+  - staging
   - release
 
 build:dev:
@@ -43,10 +43,10 @@ deploy:dev:
     - filestamp="$(date -Iseconds)_${CI_COMMIT_SHA:0:8}"
     - cp latest.tar.gz ${filestamp}.tar.gz
     - lftp -e "cd develop; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=develop http://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=develop https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
 
-build:release:
-  stage: stage
+staging:
+  stage: staging
   when: manual
   variables:
     GIT_STRATEGY: clone
@@ -86,9 +86,9 @@ build:release:
     - tar czvf latest.tar.gz *
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
     - lftp -e "cd staging; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=staging http://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=staging https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
 
-deploy:release:
+production:
   stage: release
   when: manual
   variables:
@@ -122,4 +122,4 @@ deploy:release:
     - tar czvf latest.tar.gz *
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
     - lftp -e "cd master; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master http://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
+    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
