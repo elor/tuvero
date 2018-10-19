@@ -4,6 +4,19 @@ stages:
   - staging
   - release
 
+docker-build:
+  stage: build
+  only:
+    - develop
+  image: docker:dind
+  tags:
+    - dind
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  script:
+    - docker build --pull -t tuvero-test-image .
+    - docker push tuvero-test-image
+
 build:dev:
   stage: build
   only:
