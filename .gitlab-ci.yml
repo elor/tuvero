@@ -8,9 +8,9 @@ docker-build:
   stage: build
   only:
     - develop
-  image: docker:dind
+  image: docker:latest
   tags:
-    - dind
+    - docker-build
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
