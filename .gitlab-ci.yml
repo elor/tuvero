@@ -1,12 +1,11 @@
 stages:
-  - containers
   - build
   - deploy
   - staging
   - release
 
-docker:build:
-  stage: containers
+tuveroserver:
+  stage: build
   only:
     - develop
   image: docker:latest
@@ -15,19 +14,18 @@ docker:build:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   script:
-    - docker build --pull -t $CI_REGISTRY_IMAGE/build -f Dockerfiles/build.Dockerfile .
-    - docker push $CI_REGISTRY_IMAGE/build
+    - docker build --pull -t $CI_REGISTRY_IMAGE/tuveroserver -f Dockerfiles/tuveroserver.Dockerfile .
+    - docker push $CI_REGISTRY_IMAGE/tuveroserver
 
 build:dev:
   stage: build
   only:
     - develop
     - /^feature-.*$/
-  image: server.tuvero.de:5555/elor/tuvero/build:latest
+  image: node:9
   script:
-    - pwd
-    - ls
-    - find
+    - npm install
+    - npm install cli/
     - npm run-script build
   artifacts:
     name: "artifacts_develop"
