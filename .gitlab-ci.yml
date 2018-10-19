@@ -26,6 +26,8 @@ build:dev:
   image: server.tuvero.de:5555/elor/tuvero/build:latest
   script:
     - pwd
+    - ls
+    - find
     - npm run-script build
   artifacts:
     name: "artifacts_develop"
