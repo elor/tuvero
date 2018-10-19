@@ -25,8 +25,6 @@ build:dev:
     - /^feature-.*$/
   image: server.tuvero.de:5555/elor/tuvero/build:latest
   script:
-    - npm install
-    - npm install cli/
     - npm run-script build
   artifacts:
     name: "artifacts_develop"
