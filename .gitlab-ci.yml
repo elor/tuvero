@@ -23,7 +23,7 @@ build:dev:
   only:
     - develop
     - /^feature-.*$/
-  image: node:9
+  image: server.tuvero.de:5555/elor/tuvero/build:latest
   script:
     - npm install
     - npm install cli/

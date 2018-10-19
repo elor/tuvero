@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:9
 
 # create app directory
 RUN mkdir -p /usr/src/app/cli
