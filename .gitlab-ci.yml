@@ -7,7 +7,7 @@ stages:
 container:build:
   stage: containers
   only:
-    - feature-buildcontainer
+    - schedules
   image: docker:latest
   tags:
     - docker-build
@@ -19,7 +19,7 @@ container:build:
 container:deploy:
   stage: containers
   only:
-    - feature-buildcontainer
+    - schedules
   image: docker:latest
   tags:
     - docker-build
