@@ -1,15 +1,17 @@
 FROM node:9
 
 # create app directory
-RUN mkdir -p /cache/cli
+RUN mkdir -p /root/cli
 
-COPY package.json /cache
-COPY cli/package.json /cache/cli/package.json
+COPY package.json /root/package.json
+COPY cli/package.json /root/cli/package.json
 
-WORKDIR /cache/cli
+WORKDIR /root/cli
 RUN npm install
 
-WORKDIR /cache
+WORKDIR /root
 RUN npm install
+
+WORKDIR /
 
 CMD [ "bash" ]

@@ -5,10 +5,10 @@ stages:
   - staging
   - release
 
-buildcontainer:
+container:build:
   stage: containers
   only:
-    - develop
+    - feature-buildcontainer
   image: docker:latest
   tags:
     - docker-build
@@ -17,17 +17,17 @@ buildcontainer:
     - docker build --pull -t $CI_REGISTRY_IMAGE/build -f Dockerfiles/build.Dockerfile .
     - docker push $CI_REGISTRY_IMAGE/build
 
-build:containertest:
-  stage: build
+container:deploy:
+  stage: containers
   only:
-    - develop
-  image: server.tuvero.de:5555/elor/tuvero/build:latest
+    - feature-buildcontainer
+  image: docker:latest
+  tags:
+    - docker-build
   script:
-    - ln -s /cache/node_modules
-    - ls
-    - ls node_modules
-    - npm install
-    - ls
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build --pull -t $CI_REGISTRY_IMAGE/deploy -f Dockerfiles/deploy.Dockerfile .
+    - docker push $CI_REGISTRY_IMAGE/deploy
 
 tuveroserver:
   stage: build
@@ -47,23 +47,29 @@ build:dev:
   only:
     - develop
     - /^feature-.*$/
-  image: node:9
+  image: server.tuvero.de:5555/elor/tuvero/build:latest
   script:
-    - npm install
-    - npm install cli/
-    - npm run-script build
+    - ln -vs /root/node_modules ./
+    - ln -vs /root/cli/node_modules cli/
+    - npm run build
   artifacts:
     name: "artifacts_develop"
     paths:
       - build/
     expire_in: 1 week
 
+.deploy_base:
+  image: server.tuvero.de:5555/elor/tuvero/deploy:latest
+  only:
+    - develop
+    - feature-buildcontainer
+  dependencies: []
+
 deploy:dev:
+  extends: .deploy_base
   stage: deploy
   environment:
     name: dev
-  only:
-    - develop
   variables:
     GIT_STRATEGY: none
   artifacts:
@@ -73,10 +79,7 @@ deploy:dev:
     expire_in: 1 week
   dependencies:
     - build:dev
-  image: alpine:latest
   script:
-    - apk update
-    - apk add curl lftp
     - tar czfv latest.tar.gz -C build .
     - filestamp="$(date -Iseconds)_${CI_COMMIT_SHA:0:8}"
     - cp latest.tar.gz ${filestamp}.tar.gz
@@ -84,29 +87,18 @@ deploy:dev:
     - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=develop https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
 
 staging:
+  extends: .deploy_base
   stage: staging
   when: manual
   variables:
     GIT_STRATEGY: clone
   environment:
     name: staging
-  only:
-    - develop
-  dependencies: []
-  image: alpine:latest
-  before_script:
-    - apk update
-    - apk add curl nodejs nodejs-npm git openssh-client lftp
-    - mkdir -m 700 -p ~/.ssh/
-    - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
-    - git remote add server git@${SERVER_HOSTNAME}:${CI_PROJECT_PATH}
-    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
-    - git config --global user.email "info@tuvero.de"
-    - git config --global user.name "Tuvero Autobuild"
-    - git fetch server staging
   script:
+    - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - git remote add server git@server.tuvero.de:elor/tuvero
+    - git fetch server staging
+    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
     - git checkout -b "release-$version"
     - test -z "$version" && { echo "Cannot read version"; exit 1; }
     - sed -i -e "s/$version-[a-z][a-z0-9]*/$version/" package.json
@@ -127,6 +119,7 @@ staging:
     - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=staging https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
 
 production:
+  extends: .deploy_base
   stage: release
   when: manual
   variables:
@@ -134,25 +127,13 @@ production:
   dependencies: []
   environment:
     name: production
-  only:
-    - develop
-  image: alpine:latest
-  before_script:
-    - apk update
-    - apk add curl git openssh-client lftp
-    - mkdir -m 700 -p ~/.ssh/
+  script:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - ssh-keyscan -t rsa ${SERVER_HOSTNAME} > ~/.ssh/known_hosts
-    - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-    - git remote add server git@${SERVER_HOSTNAME}:${CI_PROJECT_PATH}
-    - git remote add github git@github.com:${CI_PROJECT_PATH}
-    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
-    - git config --global user.email "info@tuvero.de"
-    - git config --global user.name "Tuvero Autobuild"
+    - git remote add server git@server.tuvero.de:elor/tuvero
+    - git remote add github git@github.com:elor/tuvero
     - git fetch server staging
     - git fetch server master
-  script:
+    - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
     - git checkout -b master server/master
     - git merge --ff-only server/staging
     - git push server master:master
