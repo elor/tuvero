@@ -1,5 +1,8 @@
 FROM node:9
 
+RUN apt update
+RUN apt install -y tar curl lftp
+
 # create app directory
 RUN mkdir -p /root/cli
 
