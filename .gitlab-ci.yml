@@ -23,11 +23,11 @@ build:containertest:
     - develop
   image: server.tuvero.de:5555/elor/tuvero/build:latest
   script:
+    - ln -s /cache/node_modules
     - ls
     - ls node_modules
     - npm install
     - ls
-    - ls node_modules
 
 tuveroserver:
   stage: build

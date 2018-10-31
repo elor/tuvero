@@ -1,15 +1,15 @@
 FROM node:9
 
 # create app directory
-RUN mkdir -p /builds/elor/tuvero/cli
+RUN mkdir -p /cache/cli
 
-COPY package.json /builds/elor/tuvero
-COPY cli/package.json /builds/elor/tuvero/cli/package.json
+COPY package.json /cache
+COPY cli/package.json /cache/cli/package.json
 
-WORKDIR /builds/elor/tuvero/cli
+WORKDIR /cache/cli
 RUN npm install
 
-WORKDIR /builds/elor/tuvero
+WORKDIR /cache
 RUN npm install
 
 CMD [ "bash" ]
