@@ -26,7 +26,7 @@ define(function () {
       placement: {}
     },
     ranking: {
-      components: ["tac", "numgames", "wins", "headtohead", "saldo"]
+      components: ["tac", "numgames", "wins", "saldo", "headtohead", "buchholz", "finebuchholz", "sonneborn"]
     },
     registration: {
       defaultteamsize: 1,
