@@ -171,8 +171,12 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
    * @return true on success, false otherwise
    */
   TournamentModel.prototype.setRankingOrder = function (rankingorder) {
+    if (rankingorder === undefined || rankingorder.length === 0) {
+      return false;
+    }
+
     this.ranking.reset();
-    if (this.ranking.init(rankingorder || ["id"], this.teams.length,
+    if (this.ranking.init(rankingorder, this.teams.length,
         this.RANKINGDEPENDENCIES)) {
       this.recalculateRanking();
       return true;
