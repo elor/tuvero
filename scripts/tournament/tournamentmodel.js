@@ -182,6 +182,21 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
       this.RANKINGDEPENDENCIES);
   };
 
+  TournamentModel.prototype.verifyRanking = function () {
+    var rankingcopy;
+
+    rankingcopy = new RankingModel();
+    rankingcopy.clone(this.ranking);
+
+    rankingcopy.recalculate(this.history, this.totalvotes);
+
+    return JSON.stringify(this.ranking.get()) === JSON.stringify(rankingcopy.get());
+  };
+
+  TournamentModel.prototype.recalculateRanking = function () {
+    this.ranking.recalculate(this.history, this.totalvotes);
+  };
+
   /**
    * add a team id to the tournament. Teams can only be entered once.
    *
