@@ -133,7 +133,7 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    *          Optional. vector 2. Defaults to this.
    * @return this on success, undefined otherwise
    */
-  VectorModel.prototype.add = function (vec1, vec2) {
+  VectorModel.prototype.sum = function (vec1, vec2) {
     var index;
 
     vec2 = vec2 || this;

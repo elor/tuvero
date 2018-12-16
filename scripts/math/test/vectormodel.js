@@ -72,10 +72,10 @@ define(function () {
       assert.equal(vec.dot(vec2), 528, "dot() calculates the dot product");
 
       retvec.resize(0);
-      assert.equal(retvec.add(vec, vec2), retvec, "add() returns the vector");
-      assert.equal(retvec.length, 18, "add() resizes the target vector");
+      assert.equal(retvec.sum(vec, vec2), retvec, "sum() returns the vector");
+      assert.equal(retvec.length, 18, "sum() resizes the target vector");
       ref = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 13, 15, 17, 19, 21, 23, 25];
-      assert.deepEqual(retvec.asArray(), ref, "add calculates the element sum");
+      assert.deepEqual(retvec.asArray(), ref, "sum calculates the element sum");
 
       // resize, so ref does not exceed the line length. This is pretty
       // stupid,
@@ -83,9 +83,9 @@ define(function () {
       vec2.resize(15);
       retvec.resize(15);
 
-      assert.equal(retvec.add(vec2), retvec, "add() returns the vector");
+      assert.equal(retvec.sum(vec2), retvec, "sum() returns the vector");
       ref = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 21, 24, 27, 30, 33];
-      assert.deepEqual(retvec.asArray(), ref, "add calculates element sum");
+      assert.deepEqual(retvec.asArray(), ref, "sum calculates element sum");
 
       retvec.fill();
       ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

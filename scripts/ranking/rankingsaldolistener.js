@@ -24,7 +24,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
   RankingSaldoListener.DEPENDENCIES = ["points", "lostpoints"];
 
   RankingSaldoListener.prototype.onrecalc = function () {
-    this.saldo.add(this.points, this.lostpoints);
+    this.saldo.sum(this.points, this.lostpoints);
   };
 
   return RankingSaldoListener;
