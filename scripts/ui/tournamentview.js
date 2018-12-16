@@ -13,7 +13,7 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
   Listener, TournamentController, ListModel, BoxView, Presets,
   RankingOrderView, Strings) {
   function TournamentView(tournament, $view, tournaments) {
-    var $advancedOptions;
+    var advancedOptions;
     TournamentView.superconstructor.call(this, undefined, $view);
 
     this.$view.attr("rowspan", tournament.getTeams().length);
@@ -35,11 +35,16 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
 
     this.$advancedOptions = this.$view.find(".tournamentoptions.boxview");
     if (this.$advancedOptions.length > 0) {
-      this.advancedOptions = $advancedOptions = [];
+      this.advancedOptions = advancedOptions = [];
       this.$advancedOptions.each(function () {
-        $advancedOptions.push(new BoxView($(this)));
+        advancedOptions.push(new BoxView($(this)));
       });
     }
+
+    this.$rankingboxes = this.$view.find(".rankingorder.boxview");
+    this.rankingBoxViews = this.$rankingboxes.map(function () {
+      return new BoxView($(this));
+    }).toArray();
 
     if (Presets.ui.hiderankingorder) {
       this.hideRankingOrder();
@@ -124,6 +129,12 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
 
     if (this.rankingOrderViews) {
       this.rankingOrderViews.forEach(function (view) {
+        view.destroy();
+      });
+    }
+
+    if (this.rankingBoxViews) {
+      this.rankingBoxViews.forEach(function (view) {
         view.destroy();
       });
     }
