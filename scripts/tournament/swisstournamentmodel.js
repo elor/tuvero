@@ -145,6 +145,21 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random",
     return this.idleMatches();
   };
 
+  SwissTournamentModel.prototype.setRankingOrder = function (rankingorder) {
+    if (rankingorder === undefined || rankingorder.length === 0) {
+      rankingorder = ["wins"];
+    }
+
+    if (rankingorder[0] !== "wins") {
+      if (rankingorder.indexOf("wins") !== -1) {
+        rankingorder.splice(rankingorder.indexOf("wins"), 1);
+      }
+      rankingorder.unshift("wins");
+    }
+
+    return SwissTournamentModel.superclass.setRankingOrder.call(this, rankingorder);
+  };
+
   SwissTournamentModel.prototype.correctWinGroupRankingOrder = function () {
     var components, windex;
 
