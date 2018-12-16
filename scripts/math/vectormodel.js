@@ -153,6 +153,10 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
     return this;
   };
 
+  VectorModel.prototype.add = function (index, summand) {
+    this.set(index, this.get(index) + summand);
+  };
+
   /**
    * prepare a compact serializable representation of the vector
    *
