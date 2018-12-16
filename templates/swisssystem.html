@@ -7,8 +7,6 @@
     <h3> Runde <span class="nextround">##</span> auslosen </h3>
 
     <div class="rankingorder">
-      <h3>Wertungsreihenfolge</h3>
-
       {% include 'rankingorderview.html' %}
     </div>
 
@@ -39,12 +37,11 @@
       Siehe <a href="#history" data-img="history">Turnierverlauf</a>
     </p>
 
-    <div class="rankingorder">
-      <h3>Wertungsreihenfolge</h3>
+    <div class="rankingorder boxview collapsed">
+      <h3>Erweiterte Optionen</h3>
 
       {% include 'rankingorderview.html' %}
     </div>
-
   </div>
 
   <div class="idle">
@@ -53,6 +50,8 @@
     <div class="boxview collapsed tournamentoptions">
       <h3>Erweiterte Optionen</h3>
       {% include 'swissoptions.html' %}
+
+      {% include 'rankingorderview.html' %}
     </div>
 
     <div class="infotext swissmaxroundview">
@@ -72,6 +71,11 @@
   <div class="finished">
     Keine weiteren Spiele möglich
     <br>
+    <div class="rankingorder boxview collapsed">
+      <h3>Erweiterte Optionen</h3>
+
+      {% include 'rankingorderview.html' %}
+    </div>
     <br>
     <button class="closetournament">
       Schweizer Turnier beenden

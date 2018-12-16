@@ -5,8 +5,6 @@
   <div class="initial">
 
     <div class="rankingorder">
-      <h3>Wertungsreihenfolge</h3>
-
       {% include 'rankingorderview.html' %}
     </div>
 
@@ -26,10 +24,23 @@
     <p>
       Siehe <a href="#history" data-img="history">Turnierverlauf</a>
     </p>
+
+    <div class="rankingorder boxview collapsed">
+      <h3>Erweiterte Optionen</h3>
+
+      {% include 'rankingorderview.html' %}
+    </div>
   </div>
 
   <div class="idle">
     <h3> Runde <span class="nextround">##</span> auslosen </h3>
+
+    <div class="rankingorder boxview collapsed">
+      <h3>Erweiterte Optionen</h3>
+
+      {% include 'rankingorderview.html' %}
+    </div>
+
     <button class="runtournament">
       Runde starten
     </button>
@@ -38,6 +49,11 @@
   <div class="finished">
     Alle Spiele beendet.
     <br>
+    <div class="rankingorder boxview collapsed">
+      <h3>Erweiterte Optionen</h3>
+
+      {% include 'rankingorderview.html' %}
+    </div>
     <br>
     <button class="closetournament">
       Rundenturnier beenden
