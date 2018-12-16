@@ -107,7 +107,7 @@ define(["lib/extend", "core/model", "list/indexedlistmodel", "core/valuemodel",
     data.options = JSON.parse(Options.toBlob());
 
     // This reflects the json schema version for now.
-    data.version = "1.5.8";
+    data.version = "1.5.25";
 
     data.target = Presets.target;
 
