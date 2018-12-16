@@ -6,12 +6,23 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["ui/state", "timemachine/timemachine", "ui/legacyloadermodel",
-    "ui/legacystoragekeyconverter", "ui/teamsfileloadcontroller"
-  ], //
-  function (State, TimeMachine, LegacyLoaderModel, LegacyStorageKeyConverter,
+define(["semver", "ui/state", "timemachine/timemachine",
+    "ui/legacyloadermodel", "ui/legacystoragekeyconverter",
+    "ui/teamsfileloadcontroller"
+  ],
+  function (semver, State, TimeMachine, LegacyLoaderModel, LegacyStorageKeyConverter,
     TeamsFileLoadController) {
-    var StateLoader;
+    var StateLoader, versionFixers;
+
+    versionFixers = {
+      "1.5.25": function (data) {
+        data.tournaments.tournaments.forEach(function (tournament) {
+          if (!tournament.totalvotes) {
+            tournament.totalvotes = tournament.votes;
+          }
+        });
+      }
+    };
 
     /**
      * Constructor. Also auto-converts all legacy storage keys. This will only be
@@ -109,6 +120,8 @@ define(["ui/state", "timemachine/timemachine", "ui/legacyloadermodel",
         return this.loadLegacyData(data);
       }
 
+      this.fixVersions(data);
+
       success = State.restore(data);
 
       if (success) {
@@ -144,6 +157,19 @@ define(["ui/state", "timemachine/timemachine", "ui/legacyloadermodel",
       }
 
       return false;
+    };
+
+    StateLoaderModel.prototype.fixVersions = function (data) {
+      var versions = Object.keys(versionFixers)
+        .filter(function (version) {
+          return semver.lt(data.version, version);
+        })
+        .sort(semver.compare);
+
+      versions.forEach(function (version) {
+        console.log("updating json data to version " + version);
+        versionFixers[version](data);
+      });
     };
 
     StateLoaderModel.prototype.loadTeamsCSV = function (csvString) {
