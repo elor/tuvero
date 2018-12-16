@@ -198,7 +198,7 @@ define(
       }
     };
 
-    TournamentModel.prototype.postprocessCorrection = function (correction) {
+    PoulesTournamentModel.prototype.postprocessCorrection = function (correction) {
       var groupID;
 
       groupID = correction.before.getGroup();
