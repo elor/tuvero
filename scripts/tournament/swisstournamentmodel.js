@@ -150,14 +150,12 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random",
       rankingorder = ["wins"];
     }
 
-    if (rankingorder[0] !== "wins") {
-      if (rankingorder.indexOf("wins") !== -1) {
-        rankingorder.splice(rankingorder.indexOf("wins"), 1);
-      }
-      rankingorder.unshift("wins");
+    if (SwissTournamentModel.superclass.setRankingOrder.call(this, rankingorder)) {
+      this.correctWinGroupRankingOrder();
+      return true;
+    } else {
+      return false;
     }
-
-    return SwissTournamentModel.superclass.setRankingOrder.call(this, rankingorder);
   };
 
   SwissTournamentModel.prototype.correctWinGroupRankingOrder = function () {
