@@ -8,7 +8,7 @@
 define(["lib/extend", "core/emitter", "core/type"], function (extend, Emitter, Type) {
   function getClassName(instance) {
     return instance.constructor.toString().replace(
-        /^function (\S+)\((.+|\s+)*$/g, "$1");
+      /^function (\S+)\((.+|\s+)*$/g, "$1");
   }
 
   /**
@@ -41,8 +41,8 @@ define(["lib/extend", "core/emitter", "core/type"], function (extend, Emitter, T
       return true;
     }
 
-    console.error(getClassName(this) + ".restore(): missing Key of type "
-        + referenceType);
+    console.error(getClassName(this) + ".restore(): missing Key of type " +
+      referenceType);
     return false;
   }
 
@@ -63,6 +63,10 @@ define(["lib/extend", "core/emitter", "core/type"], function (extend, Emitter, T
       throw "Cannot clone object " + this;
     }
     return clone;
+  };
+
+  Model.prototype.clone = function (source) {
+    this.restore(source.save());
   };
 
   /**
