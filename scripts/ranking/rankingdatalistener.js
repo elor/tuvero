@@ -132,11 +132,18 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
   };
 
+  RankingDataListener.prototype.zero = function () {
+    var data = this[this.constructor.NAME];
+    if (data.fill) {
+      data.fill(0);
+    }
+  };
+
   /**
    * reset the field
    */
   RankingDataListener.prototype.onreset = function () {
-    this[this.constructor.NAME].fill(0);
+    this.zero();
   };
 
   /**
