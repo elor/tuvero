@@ -42,8 +42,6 @@ define(function () {
 
       vec = new VectorModel(10);
 
-      assert.equal(vec.sum(), 0, "sum() of an empty/new vector is 0");
-
       vec.push(1);
       vec.push(2);
       vec.push(3);
@@ -52,8 +50,6 @@ define(function () {
       vec.push(6);
       vec.push(7);
       vec.push(8);
-
-      assert.equal(vec.sum(), 36, "sum() returns the correct sum");
 
       retvec = new VectorModel();
       vec2 = new VectorModel(vec.length);

@@ -56,17 +56,6 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
   };
 
   /**
-   * calculate and return the vector sum
-   *
-   * @return the vector sum
-   */
-  VectorModel.prototype.sum = function () {
-    return this.list.reduce(function (a, b) {
-      return a + b;
-    });
-  };
-
-  /**
    * sets the vector contens with the element-wise product of two vectors
    *
    * @param vecA
