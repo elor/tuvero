@@ -77,6 +77,7 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
     this.matches = new ListModel();
     this.ranking = new RankingModel(rankingorder, 0, this.RANKINGDEPENDENCIES);
     this.votes = TournamentModel.initVoteLists(this.VOTES);
+    this.totalvotes = TournamentModel.initVoteLists(this.VOTES);
     this.history = new ListModel();
     this.corrections = new ListModel();
     this.name = new ValueModel(this.SYSTEM);
@@ -390,6 +391,12 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
         return undefined;
     }
 
+    this.VOTES.forEach(function (votetype) {
+      this.votes[votetype].forEach(function (teamID) {
+        this.totalvotes[votetype].push(teamID);
+      }, this);
+    }, this);
+
     if (this.matches.length > 0) {
       this.state.set("running");
     } else {
@@ -655,8 +662,10 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
     data.corrections = this.corrections.save();
     data.ranking = this.ranking.save();
     data.votes = {};
+    data.totalvotes = {};
     this.VOTES.forEach(function (votetype) {
       data.votes[votetype] = this.votes[votetype].save();
+      data.totalvotes[votetype] = this.totalvotes[votetype].save();
     }, this);
 
     return data;
@@ -727,6 +736,17 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
       return false;
     }
 
+    if (!this.VOTES.every(function (votetype) {
+        this.totalvotes[votetype].clear();
+        if (data.totalvotes[votetype]) {
+          this.totalvotes[votetype].restore(data.totalvotes[votetype]);
+        }
+        return true;
+      }, this)) {
+      this.emit("error", "TournamentModel.restore(): cannot restore totalvotes");
+      return false;
+    }
+
     this.checkIdleState();
 
     return true;
@@ -752,6 +772,7 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
   TournamentModel.prototype.SAVEFORMAT.corrections = [Object];
   TournamentModel.prototype.SAVEFORMAT.ranking = Object;
   TournamentModel.prototype.SAVEFORMAT.votes = Object;
+  TournamentModel.prototype.SAVEFORMAT.totalvotes = Object;
 
   return TournamentModel;
 });
