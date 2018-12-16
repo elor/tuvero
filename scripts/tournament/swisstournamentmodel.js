@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/matchmodel",
-  "core/byeresult", "options", "presets"
+define(["lib/extend", "tournament/roundtournamentmodel", "core/random",
+  "core/matchmodel", "presets"
 ], function (extend,
-  RoundTournamentModel, Random, MatchModel, ByeResult, Options, Presets) {
+  RoundTournamentModel, Random, MatchModel, Presets) {
   var rng = new Random();
   /**
    * Constructor
