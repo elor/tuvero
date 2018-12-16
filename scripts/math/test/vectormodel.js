@@ -18,7 +18,7 @@ define(function () {
       var vec, vec2, retvec, ref, success, data;
 
       assert.ok(extend.isSubclass(VectorModel, ListModel),
-          "VectorModel is subclass of ListModel");
+        "VectorModel is subclass of ListModel");
 
       vec = new VectorModel();
 
@@ -34,11 +34,11 @@ define(function () {
       vec.resize(5);
       assert.equal(vec.length, 5, "resize() crops to the wanted length");
       assert.equal(vec.get(122), undefined,
-          "get() reads removed elements as undefined");
+        "get() reads removed elements as undefined");
 
       vec.resize(-5);
       assert.equal(vec.length, 0,
-          "resize() to negative number crops to length 0");
+        "resize() to negative number crops to length 0");
 
       vec = new VectorModel(10);
 
@@ -61,13 +61,14 @@ define(function () {
       assert.equal(retvec.length, 18, "mult resizes target");
       ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 22, 36, 52, 70, 90, 112, 136];
       assert.deepEqual(retvec.asArray(), ref,
-          "mult calculates the vector product");
+        "mult calculates the vector product");
 
       assert.equal(retvec.mult(vec), retvec, "mult with one argument");
       ref = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 44, 108, 208, 350, 540, 784,
-          1088];
+        1088
+      ];
       assert.deepEqual(retvec.asArray(), ref,
-          "mult calculates the vector product");
+        "mult calculates the vector product");
 
       assert.equal(vec.dot(vec2), 528, "dot() calculates the dot product");
 
@@ -145,7 +146,7 @@ define(function () {
       assert.ok(data, "save() does seem to work");
       assert.equal(vec2.restore(data), true, "restore() works");
       assert.deepEqual(vec2.asArray(), [5, 3, 4, 1, 2],
-          "restored values are correct");
+        "restored values are correct");
 
       vec = new VectorModel();
       vec.push(0);
@@ -157,7 +158,7 @@ define(function () {
       vec = new VectorModel();
       vec.restore(data);
       assert.deepEqual(vec.asArray(), [0, 0, 1, 0, 0],
-          "no undefined values in the array");
+        "no undefined values in the array");
     });
   };
 });

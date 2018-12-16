@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (extend,
-    ListModel, Type, RLE) {
+  ListModel, Type, RLE) {
   /**
    * Constructor
    *
@@ -68,9 +68,9 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
     var index;
 
     if (Type.isNumber(vecB)) {
-      throw new Error("VectorModel.prototype.mult: "
-          + "second argument must be undefined or a VectorModel instance: "
-          + vecB);
+      throw new Error("VectorModel.prototype.mult: " +
+        "second argument must be undefined or a VectorModel instance: " +
+        vecB);
     }
 
     vecB = vecB || this;
@@ -84,8 +84,8 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
     } else {
       // element-wise multiplication
       if (vecA.length !== vecB.length) {
-        console.error("VectorModel.setProduct: different input lengths: "
-            + vecA.length + "<>" + vecB.length);
+        console.error("VectorModel.setProduct: different input lengths: " +
+          vecA.length + "<>" + vecB.length);
         return undefined;
       }
 
@@ -110,8 +110,8 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
     var index, sum;
 
     if (this.length !== vec.length) {
-      console.error("VectorModel.dot: different input lengths: " + this.length
-          + "<>" + vec.length);
+      console.error("VectorModel.dot: different input lengths: " + this.length +
+        "<>" + vec.length);
       return undefined;
     }
 
@@ -139,8 +139,8 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
     vec2 = vec2 || this;
 
     if (vec1.length !== vec2.length) {
-      console.error("VectorModel.prototype.add: different input lengths: "
-          + vec1.length + "<>" + vec2.length);
+      console.error("VectorModel.prototype.add: different input lengths: " +
+        vec1.length + "<>" + vec2.length);
       return undefined;
     }
 
@@ -198,7 +198,7 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
   };
 
   VectorModel.prototype.SAVEFORMAT = Object
-      .create(VectorModel.superclass.SAVEFORMAT);
+    .create(VectorModel.superclass.SAVEFORMAT);
   VectorModel.prototype.SAVEFORMAT.v = [Number];
 
   return VectorModel;
