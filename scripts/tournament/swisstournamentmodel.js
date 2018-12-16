@@ -110,14 +110,12 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
 
     votes.ups.forEach(function (upTeamID) {
       this.votes.up.push(upTeamID);
-      this.ranking.upvotes
-          .set(upTeamID, this.ranking.upvotes.get(upTeamID) + 1);
+      this.ranking.upvotes.add(upTeamID, 1);
     }, this);
 
-    votes.downs.forEach(function (upTeamID) {
-      this.votes.down.push(upTeamID);
-      this.ranking.downvotes.set(upTeamID,
-          this.ranking.downvotes.get(upTeamID) + 1);
+    votes.downs.forEach(function (downTeamID) {
+      this.votes.down.push(downTeamID);
+      this.ranking.downvotes.add(downTeamID, 1);
     }, this);
 
     /*

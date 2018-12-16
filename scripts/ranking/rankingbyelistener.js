@@ -37,7 +37,7 @@ define(["lib/extend", "ranking/rankingdatalistener", //
    */
   RankingByeListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.byes.set(teamid, this.byes.get(teamid) + 1);
+      this.byes.add(teamid, 1);
     }, this);
   };
 

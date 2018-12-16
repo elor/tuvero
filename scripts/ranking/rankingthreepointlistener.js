@@ -65,7 +65,7 @@ define([
    */
   RankingThreePointListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.threepoint.set(teamid, this.threepoint.get(teamid) + 3);
+      this.threepoint.add(teamid, 3);
     }, this);
   };
 

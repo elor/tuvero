@@ -51,7 +51,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   RankingPointsListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.points.set(teamid, this.points.get(teamid) + Options.byepointswon);
+      this.points.add(teamid, Options.byepointswon);
     }, this);
   };
 
@@ -68,8 +68,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   RankingPointsListener.prototype.oncorrect = function (r, e, correction) {
     correction.before.teams.forEach(function (teamid, index) {
-      this.points.set(teamid, this.points.get(teamid)
-          - correction.before.score[index]);
+      this.points.add(teamid, -correction.before.score[index]);
     }, this);
 
     this.onresult(r, e, correction.after);

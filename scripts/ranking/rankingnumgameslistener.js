@@ -35,7 +35,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    */
   RankingNumGamesListener.prototype.onresult = function (r, e, result) {
     result.teams.forEach(function (teamid) {
-      this.numgames.set(teamid, this.numgames.get(teamid) + 1);
+      this.numgames.add(teamid, 1);
     }, this);
   };
 
@@ -49,7 +49,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    */
   RankingNumGamesListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.numgames.set(teamid, this.numgames.get(teamid) + 1);
+      this.numgames.add(teamid, 1);
     }, this);
   };
 

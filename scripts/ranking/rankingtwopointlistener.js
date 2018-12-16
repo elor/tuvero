@@ -65,7 +65,7 @@ define([
    */
   RankingTwoPointListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.twopoint.set(teamid, this.twopoint.get(teamid) + 2);
+      this.twopoint.add(teamid, 2);
     }, this);
   };
 

@@ -37,7 +37,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
       var winner = result.getWinner();
 
       if (winner !== undefined) {
-        this.wins.set(winner, this.wins.get(winner) + 1);
+        this.wins.add(winner, 1);
       }
     };
 
@@ -53,7 +53,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
      */
     RankingWinsListener.prototype.onbye = function (r, e, teams) {
       teams.forEach(function (teamid) {
-        this.wins.set(teamid, this.wins.get(teamid) + 1);
+        this.wins.add(teamid, 1);
       }, this);
     };
 
