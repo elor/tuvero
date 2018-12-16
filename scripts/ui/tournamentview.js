@@ -65,8 +65,8 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
   TournamentView.prototype.initRankingOrderView = function () {
     var availableComponents;
 
-    this.$rankingOrderView = this.$view.find(".rankingorderview");
-    if (this.$rankingOrderView.length > 0) {
+    this.$rankingOrderViews = this.$view.find(".rankingorderview");
+    if (this.$rankingOrderViews.length > 0) {
       availableComponents = Presets.ranking.components.slice(0);
       this.model.tournament.getRanking().get().components.forEach(function (
         component) {
@@ -81,8 +81,11 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
         return a.localeCompare(b);
       });
 
-      this.rankingOrderView = new RankingOrderView(this.model.rankingOrder,
-        this.$rankingOrderView.eq(0), new ListModel(availableComponents));
+      this.rankingOrderView = [];
+      for (var i = 0; i < this.$rankingOrderViews.length; i += 1) {
+        this.rankingOrderView.push(new RankingOrderView(this.model.rankingOrder,
+          this.$rankingOrderViews.eq(i), new ListModel(availableComponents)));
+      }
     }
   };
 
