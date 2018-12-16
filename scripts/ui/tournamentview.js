@@ -49,6 +49,11 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
 
     Listener.bind(this.model.tournament.getName(), "update", this.updateNames
       .bind(this));
+    Listener.bind(this.model.rankingOrder, "reset,insert,remove", function () {
+      if (!this.model.tournament.setRankingOrder(this.model.rankingOrder.asArray())) {
+        console.error("cannot set ranking order");
+      }
+    }, this);
 
     this.updateNames();
     this.updateRound();
