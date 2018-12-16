@@ -236,12 +236,6 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
       this.dataListeners[key].zero();
     }, this);
 
-    if (votes.bye) {
-      votes.bye.map(function (bye) {
-        this.bye(bye);
-      }, this);
-    }
-
     if (votes.up && this.upvotes) {
       votes.up.forEach(function (teamID) {
         this.upvotes.add(teamID, 1);
@@ -255,7 +249,9 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
     }
 
     matchResults.forEach(function (result) {
-      if (!result.isBye()) {
+      if (result.isBye()) {
+        this.bye(result.getTeamID(0));
+      } else {
         this.result(result);
       }
     }, this);
