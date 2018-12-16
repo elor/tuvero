@@ -81,9 +81,9 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
         return a.localeCompare(b);
       });
 
-      this.rankingOrderView = [];
+      this.rankingOrderViews = [];
       for (var i = 0; i < this.$rankingOrderViews.length; i += 1) {
-        this.rankingOrderView.push(new RankingOrderView(this.model.rankingOrder,
+        this.rankingOrderViews.push(new RankingOrderView(this.model.rankingOrder,
           this.$rankingOrderViews.eq(i), new ListModel(availableComponents)));
       }
     }
@@ -122,8 +122,10 @@ define(["jquery", "lib/extend", "core/view", "ui/stateclassview", "core/listener
       this.subcontroller.destroy();
     }
 
-    if (this.rankingOrderView) {
-      this.rankingOrderView.destroy();
+    if (this.rankingOrderViews) {
+      this.rankingOrderViews.forEach(function (view) {
+        view.destroy();
+      });
     }
 
     this.stateClassView.destroy();
