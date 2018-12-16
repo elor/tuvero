@@ -9,7 +9,7 @@
  */
 
 define(["lib/extend", "core/model", "list/listupdatelistener", "core/type"], function (
-    extend, Model, ListUpdateListener, Type) {
+  extend, Model, ListUpdateListener, Type) {
 
   /**
    * Constructor for an empty list
@@ -230,6 +230,8 @@ define(["lib/extend", "core/model", "list/listupdatelistener", "core/type"], fun
     return ret;
   };
 
+  ListModel.prototype.forEach = ListModel.prototype.map;
+
   /**
    * returns the contents of the list as an array
    *
@@ -276,8 +278,8 @@ define(["lib/extend", "core/model", "list/listupdatelistener", "core/type"], fun
      */
 
     if (this.list.every(function (element) {
-      return Type.isFunction(element.save);
-    })) {
+        return Type.isFunction(element.save);
+      })) {
       // everything is serializable
       data = this.list.map(function (element) {
         try {
@@ -353,7 +355,7 @@ define(["lib/extend", "core/model", "list/listupdatelistener", "core/type"], fun
     return true;
   };
 
-  ListModel.prototype.SAVEFORMAT = [/* anything */];
+  ListModel.prototype.SAVEFORMAT = [ /* anything */ ];
 
   return ListModel;
 });
