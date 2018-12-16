@@ -22,6 +22,7 @@ require.config({
   paths: {
     "jquery": "lib/jquery",
     "filesaver": "lib/FileSaver",
-    "tuvero": "lib/tuvero.bundle-amd"
+    "tuvero": "lib/tuvero.bundle-amd",
+    "semver": "lib/semver.browser"
   }
 });

@@ -27,6 +27,7 @@
     "normalize.css": "^5.0.0",
     "qunit": "^2.6.2",
     "requirejs": "^2.3.6",
+    "semver": "~4",
     "through2": "^2.0.3",
     "tuvero": "^1.7.3",
     "tuvero-cli": "file:cli"

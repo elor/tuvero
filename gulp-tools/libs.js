@@ -10,10 +10,10 @@ const dest_css = 'lib/';
 module.exports = function () {
   gulp.task('lib-scripts', function () {
     return gulp.src([
-      'node_modules/file-saver/FileSaver.js',
-      'node_modules/diff/dist/diff.js',
-      'node_modules/jquery/dist/jquery.js'
-    ])
+        'node_modules/file-saver/FileSaver.js',
+        'node_modules/diff/dist/diff.js',
+        'node_modules/jquery/dist/jquery.js'
+      ])
       .pipe(filecount())
       .pipe(gulp.dest(dest_js));
   });
@@ -23,7 +23,6 @@ module.exports = function () {
       .pipe(filecount())
       .pipe(gulp.dest(dest_css));
   });
-
 
   gulp.task('lib-modernizr', function () {
     return gulp.src(['scripts/background/featuredetect.js'])
@@ -39,6 +38,12 @@ module.exports = function () {
       .pipe(gulp.dest('boule/scripts/'))
       .pipe(gulp.dest('tac/scripts/'))
       .pipe(gulp.dest('test/scripts/'));
+  });
+
+  gulp.task('lib-semver', function () {
+    return gulp.src(['node_modules/semver/semver.browser.js'])
+      .pipe(filecount())
+      .pipe(gulp.dest(dest_js));
   });
 
   gulp.task('lib-tuvero', function () {
