@@ -62,8 +62,8 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @return true if this listener contains primary data, false otherwise
    */
   RankingDataListener.prototype.isPrimary = function () {
-    return this.onbye !== RankingDataListener.prototype.onbye
-        || this.onresult !== RankingDataListener.prototype.onresult;
+    return this.onbye !== RankingDataListener.prototype.onbye ||
+      this.onresult !== RankingDataListener.prototype.onresult;
   };
 
   /**

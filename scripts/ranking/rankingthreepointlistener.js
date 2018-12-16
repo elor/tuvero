@@ -42,12 +42,12 @@ define([
     winner = result.getWinner();
 
     if (winner !== undefined) {
-      this.threepoint.set(winner, this.threepoint.get(winner) + 3);
+      this.threepoint.add(winner, 3);
     } else {
       maxpoints = Math.max.apply(Math, result.score);
       result.teams.forEach(function (teamid, index) {
         if (result.score[index] === maxpoints) {
-          this.threepoint.set(teamid, this.threepoint.get(teamid) + 1);
+          this.threepoint.add(teamid, 1);
         }
       }, this);
     }

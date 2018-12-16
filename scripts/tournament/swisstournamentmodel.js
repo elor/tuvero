@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/matchmodel",
-    "core/byeresult", "options", "presets"], function (extend,
-    RoundTournamentModel, Random, MatchModel, ByeResult, Options, Presets) {
+  "core/byeresult", "options", "presets"
+], function (extend,
+  RoundTournamentModel, Random, MatchModel, ByeResult, Options, Presets) {
   var rng = new Random();
   /**
    * Constructor
@@ -19,8 +20,8 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
     SwissTournamentModel.superconstructor.call(this, rankingorder);
 
     this.setProperty("swissmode",
-        (Presets.systems.swiss && Presets.systems.swiss.mode)
-            || SwissTournamentModel.MODES.ranks);
+      (Presets.systems.swiss && Presets.systems.swiss.mode) ||
+      SwissTournamentModel.MODES.ranks);
     this.setProperty("swissshuffle", true);
     this.setProperty("swisstranspose", false);
 
@@ -208,34 +209,34 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
      */
     getID = undefined;
     switch (mode) {
-    case SwissTournamentModel.MODES.all:
-      getID = function (rankingid) {
-        return 0;
-      };
-      break;
-    case SwissTournamentModel.MODES.halves:
-      getID = function (rankingid) {
-        return rankingid < (ranking.displayOrder.length >> 1);
-      };
-      break;
-    case SwissTournamentModel.MODES.wins:
-      getID = function (rankingid) {
-        return ranking.wins[ranking.displayOrder[rankingid]];
-      };
-      break;
-    case SwissTournamentModel.MODES.ranks:
-      getID = function (rankingid) {
-        return ranking.ranks[rankingid];
-      };
-      break;
-    case SwissTournamentModel.MODES.individual:
-      getID = function (rankingid) {
-        return rankingid;
-      };
-      break;
-    default:
-      console.error("invalid mode");
-      return undefined;
+      case SwissTournamentModel.MODES.all:
+        getID = function (rankingid) {
+          return 0;
+        };
+        break;
+      case SwissTournamentModel.MODES.halves:
+        getID = function (rankingid) {
+          return rankingid < (ranking.displayOrder.length >> 1);
+        };
+        break;
+      case SwissTournamentModel.MODES.wins:
+        getID = function (rankingid) {
+          return ranking.wins[ranking.displayOrder[rankingid]];
+        };
+        break;
+      case SwissTournamentModel.MODES.ranks:
+        getID = function (rankingid) {
+          return ranking.ranks[rankingid];
+        };
+        break;
+      case SwissTournamentModel.MODES.individual:
+        getID = function (rankingid) {
+          return rankingid;
+        };
+        break;
+      default:
+        console.error("invalid mode");
+        return undefined;
     }
 
     currentGroup = [];
@@ -294,7 +295,7 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.findSwissByesAndMatches = function (outMatches,
-      outVotes, rankGroups) {
+    outVotes, rankGroups) {
     var reverseRankGroups;
 
     outVotes.byes = [];
@@ -305,27 +306,27 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
       reverseRankGroups = rankGroups.slice(0).reverse();
 
       if (!reverseRankGroups.some(function (group) {
-        return group.slice(0).reverse().some(function (teamid) {
-          var index;
-          if (!this.canGetBye(teamid)) {
-            return false;
-          }
-
-          index = group.indexOf(teamid);
-          group.splice(index, 1);
-
-          if (this.prefilterSwissMatches(rankGroups)) {
-            if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
-              outVotes.byes.push(teamid);
-              return true;
+          return group.slice(0).reverse().some(function (teamid) {
+            var index;
+            if (!this.canGetBye(teamid)) {
+              return false;
             }
-          }
 
-          group.splice(index, 0, teamid);
+            index = group.indexOf(teamid);
+            group.splice(index, 1);
 
-          return false;
-        }, this);
-      }, this)) {
+            if (this.prefilterSwissMatches(rankGroups)) {
+              if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
+                outVotes.byes.push(teamid);
+                return true;
+              }
+            }
+
+            group.splice(index, 0, teamid);
+
+            return false;
+          }, this);
+        }, this)) {
         return false;
       }
     }
@@ -369,27 +370,27 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
     // verify up/downvotes
     if (this.getProperty("enableupdown")) {
       if (!rankGroups.every(function (group) {
-        var teams = group.length;
-        if (downvote) {
-          // upvote required
-          if (!group.some(this.canGetUpvote.bind(this))) {
-            return false;
+          var teams = group.length;
+          if (downvote) {
+            // upvote required
+            if (!group.some(this.canGetUpvote.bind(this))) {
+              return false;
+            }
+
+            downvote = false;
+            teams -= 1;
           }
 
-          downvote = false;
-          teams -= 1;
-        }
-
-        if (teams % 2 !== 0) {
-          // downvote required
-          if (!group.some(this.canGetDownvote.bind(this))) {
-            return false;
+          if (teams % 2 !== 0) {
+            // downvote required
+            if (!group.some(this.canGetDownvote.bind(this))) {
+              return false;
+            }
+            downvote = true;
           }
-          downvote = true;
-        }
 
-        return true;
-      }, this)) {
+          return true;
+        }, this)) {
         return false;
       }
     }
@@ -408,7 +409,7 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
    * @return true on success, false otherwise
    */
   SwissTournamentModel.prototype.findSwissMatches = function (outMatches,
-      outVotes, rankGroups) {
+    outVotes, rankGroups) {
     var currentGroup, teamA, teamB, updown;
 
     // console.log(getGroupsTeamCount(rankGroups));
@@ -418,9 +419,9 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
 
     // get firstGroupIndex by searching for the first non-empty group
     if (!rankGroups.some(function (group) {
-      currentGroup = group;
-      return group.length > 0;
-    })) {
+        currentGroup = group;
+        return group.length > 0;
+      })) {
       // success! there's no team left
       return true;
     }
@@ -439,47 +440,47 @@ define(["lib/extend", "tournament/roundtournamentmodel", "core/random", "core/ma
     // try to find a match in any subsequent group, or just this or the one
     // after.
     if (rankGroups.some(function (group) {
-      if (group.length === 0) {
-        return false;
-      }
-
-      if (this.getProperty("enableupdown")) {
-        if (updown) {
+        if (group.length === 0) {
           return false;
         }
 
-        if (group !== currentGroup) {
-          updown = true;
-        }
-      }
-
-      return group.some(function (team, index) {
-        var secondGroup, teamBindex;
-
-        if (this.canPlayMatch(teamA, team, updown)) {
-          secondGroup = group;
-          teamB = team;
-          teamBindex = index;
-
+        if (this.getProperty("enableupdown")) {
           if (updown) {
-            outVotes.downs.push(teamA);
-            outVotes.ups.push(teamB);
-          }
-          secondGroup.splice(teamBindex, 1);
-
-          if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
-            return true;
+            return false;
           }
 
-          secondGroup.splice(teamBindex, 0, teamB);
-          if (updown) {
-            outVotes.downs.pop();
-            outVotes.ups.pop();
+          if (group !== currentGroup) {
+            updown = true;
           }
         }
-        return false;
-      }, this);
-    }, this)) {
+
+        return group.some(function (team, index) {
+          var secondGroup, teamBindex;
+
+          if (this.canPlayMatch(teamA, team, updown)) {
+            secondGroup = group;
+            teamB = team;
+            teamBindex = index;
+
+            if (updown) {
+              outVotes.downs.push(teamA);
+              outVotes.ups.push(teamB);
+            }
+            secondGroup.splice(teamBindex, 1);
+
+            if (this.findSwissMatches(outMatches, outVotes, rankGroups)) {
+              return true;
+            }
+
+            secondGroup.splice(teamBindex, 0, teamB);
+            if (updown) {
+              outVotes.downs.pop();
+              outVotes.ups.pop();
+            }
+          }
+          return false;
+        }, this);
+      }, this)) {
       // don't use push, because the best-ranked team should be listed in
       // the first match
       outMatches.unshift([teamA, teamB]);

@@ -9,7 +9,8 @@
  * @see LICENSE
  */
 define(["lib/extend", "ranking/rankingdatalistener", //
-"math/vectormodel"], function (extend, RankingDataListener, VectorModel) {
+  "math/vectormodel"
+], function (extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
@@ -18,7 +19,7 @@ define(["lib/extend", "ranking/rankingdatalistener", //
    */
   function RankingByeListener(ranking) {
     RankingByeListener.superconstructor.call(this, ranking, // autoformat
-    new VectorModel());
+      new VectorModel());
   }
   extend(RankingByeListener, RankingDataListener);
 

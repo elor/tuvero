@@ -7,7 +7,8 @@
  * @see LICENSE
  */
 define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
-"options"], function (extend, RankingDataListener, VectorModel, Options) {
+  "options"
+], function (extend, RankingDataListener, VectorModel, Options) {
   /**
    * Constructor
    *
@@ -16,7 +17,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   function RankingPointsListener(ranking) {
     RankingPointsListener.superconstructor.call(this, ranking,
-        new VectorModel());
+      new VectorModel());
   }
   extend(RankingPointsListener, RankingDataListener);
 
@@ -35,7 +36,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   RankingPointsListener.prototype.onresult = function (r, e, result) {
     result.teams.forEach(function (teamid, index) {
-      this.points.set(teamid, this.points.get(teamid) + result.score[index]);
+      this.points.add(teamid, result.score[index]);
     }, this);
   };
 

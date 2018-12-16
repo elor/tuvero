@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
-    extend, RankingDataListener, VectorModel) {
+  extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
@@ -16,7 +16,7 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    */
   function RankingNumGamesListener(ranking) {
     RankingNumGamesListener.superconstructor.call(this, ranking,
-        new VectorModel());
+      new VectorModel());
   }
   extend(RankingNumGamesListener, RankingDataListener);
 

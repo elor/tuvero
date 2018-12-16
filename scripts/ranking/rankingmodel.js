@@ -8,8 +8,9 @@
  * @see LICENSE
  */
 define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type",
-    "ranking/rankingdatalistenerindex"], function (extend, Model,
-    RankingComponentIndex, Type, RankingDataListenerIndex) {
+  "ranking/rankingdatalistenerindex"
+], function (extend, Model,
+  RankingComponentIndex, Type, RankingDataListenerIndex) {
 
   /**
    * create a list of IDs for reference
@@ -154,7 +155,7 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
     "update": true, // there has been an update
     "reset": true, // everything has to be reset
     "resize": true
-  // the size of the ranking has been changed
+    // the size of the ranking has been changed
   };
 
   /**
@@ -169,14 +170,14 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
     var dependencies, dataListenerArray;
 
     // abort if the ranking object has not been reset
-    if (this.componentchain || this.componentnames.length !== 0
-        || Object.keys(this.dataListeners).length !== 0) {
+    if (this.componentchain || this.componentnames.length !== 0 ||
+      Object.keys(this.dataListeners).length !== 0) {
       return false;
     }
 
     this.componentnames = components.slice(0);
     this.componentchain = RankingComponentIndex.createComponentChain(this,
-        components);
+      components);
     if (this.componentchain) {
       dependencies = this.componentchain.dependencies;
     } else {
@@ -189,7 +190,7 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
     }
 
     dataListenerArray = RankingDataListenerIndex.registerDataListeners(this,
-        dependencies);
+      dependencies);
     if (dataListenerArray && components && components.length > 0) {
       dataListenerArray.forEach(function (dataListener, index) {
         this.dataListeners[dependencies[index]] = dataListener;
@@ -330,19 +331,19 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
 
     // only store primary dataListeners. Abort on error
     if (!Object.keys(this.dataListeners).every(function (name) {
-      var listener;
-      listener = this.dataListeners[name];
+        var listener;
+        listener = this.dataListeners[name];
 
-      if (listener.isPrimary(listener)) {
-        if (this[name] && Type.isFunction(this[name].save)) {
-          data.vals[name] = this[name].save();
-        } else {
-          console.error("datalistener cannot be saved: " + name);
-          return false;
+        if (listener.isPrimary(listener)) {
+          if (this[name] && Type.isFunction(this[name].save)) {
+            data.vals[name] = this[name].save();
+          } else {
+            console.error("datalistener cannot be saved: " + name);
+            return false;
+          }
         }
-      }
-      return true;
-    }, this)) {
+        return true;
+      }, this)) {
       return undefined;
     }
 
@@ -368,14 +369,14 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
     }
 
     if (!Object.keys(data.vals).every(function (name) {
-      if (this[name] && this[name].restore) {
-        if (this[name].restore(data.vals[name])) {
-          return true;
+        if (this[name] && this[name].restore) {
+          if (this[name].restore(data.vals[name])) {
+            return true;
+          }
         }
-      }
-      console.error("RankingModel.restore(): cannot restore listener " + name);
-      return false;
-    }, this)) {
+        console.error("RankingModel.restore(): cannot restore listener " + name);
+        return false;
+      }, this)) {
       this.reset();
       return false;
     }
@@ -386,7 +387,7 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
   };
 
   RankingModel.prototype.SAVEFORMAT = Object
-      .create(RankingModel.superclass.SAVEFORMAT);
+    .create(RankingModel.superclass.SAVEFORMAT);
   RankingModel.prototype.SAVEFORMAT.len = Number;
   RankingModel.prototype.SAVEFORMAT.comps = [String];
   RankingModel.prototype.SAVEFORMAT.edep = [String];

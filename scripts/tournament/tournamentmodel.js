@@ -12,19 +12,20 @@
  * @see LICENSE
  */
 define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmodel",
-    "ranking/rankingmapper", "core/statevaluemodel", "core/matchmodel", "core/matchresult",
-    "ui/listcollectormodel", "core/listener", "ranking/rankingmodel",
-    "list/referencelistmodel", "list/maplistmodel", "core/valuemodel",
-    "list/readonlylistmodel", "options", "list/indexedmodel", "core/correctionmodel",
-    "core/matchreferencemodel", "core/resultreferencemodel", "core/type",
-    "core/correctionreferencemodel", "list/sortedreferencelistmodel",
-    "list/combinedreferencelistmodel", "core/byeresult"], function (extend,
-    PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
-    MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
-    ReferenceListModel, MapListModel, ValueModel, ReadonlyListModel, Options,
-    IndexedModel, CorrectionModel, MatchReferenceModel, ResultReferenceModel,
-    Type, CorrectionReferenceModel, SortedReferenceListModel,
-    CombinedReferenceListModel, ByeResult) {
+  "ranking/rankingmapper", "core/statevaluemodel", "core/matchmodel", "core/matchresult",
+  "ui/listcollectormodel", "core/listener", "ranking/rankingmodel",
+  "list/referencelistmodel", "list/maplistmodel", "core/valuemodel",
+  "list/readonlylistmodel", "options", "list/indexedmodel", "core/correctionmodel",
+  "core/matchreferencemodel", "core/resultreferencemodel", "core/type",
+  "core/correctionreferencemodel", "list/sortedreferencelistmodel",
+  "list/combinedreferencelistmodel", "core/byeresult"
+], function (extend,
+  PropertyModel, ListModel, UniqueListModel, RankingMapper, StateValueModel,
+  MatchModel, MatchResult, ListCollectorModel, Listener, RankingModel,
+  ReferenceListModel, MapListModel, ValueModel, ReadonlyListModel, Options,
+  IndexedModel, CorrectionModel, MatchReferenceModel, ResultReferenceModel,
+  Type, CorrectionReferenceModel, SortedReferenceListModel,
+  CombinedReferenceListModel, ByeResult) {
   var STATETRANSITIONS, INITIALSTATE;
 
   /*
@@ -171,13 +172,13 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
   TournamentModel.prototype.setRankingOrder = function (rankingorder) {
     if (this.state.get() !== "initial") {
       this.emit("error",
-          "cannot change ranking order after starting a tournament");
+        "cannot change ranking order after starting a tournament");
       return undefined;
     }
 
     this.ranking.reset();
     return this.ranking.init(rankingorder || ["id"], this.teams.length,
-        this.RANKINGDEPENDENCIES);
+      this.RANKINGDEPENDENCIES);
   };
 
   /**
@@ -185,31 +186,28 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
    *
    * Undefined behaviour if the tournament has already started.
    *
-   * TODO use some configuration object to determine
-   *
    * @param teamid
    *          the external id of a team
    * @return true on success, false if the team already exists. undefined if the
    *         team cannot be added in the current state
    */
   TournamentModel.prototype.addTeam = function (teamid) {
-    // TODO isNumber() check
     switch (this.state.get()) {
-    case "initial":
-      break;
-    case "running":
-      if (!this.getProperty("addteamrunning")) {
+      case "initial":
+        break;
+      case "running":
+        if (!this.getProperty("addteamrunning")) {
+          return undefined;
+        }
+        break;
+      case "idle":
+        if (!this.getProperty("addteamidle")) {
+          return undefined;
+        }
+        break;
+      case "finished":
+        this.emit("error", "cannot enter add a team to a finished tournament");
         return undefined;
-      }
-      break;
-    case "idle":
-      if (!this.getProperty("addteamidle")) {
-        return undefined;
-      }
-      break;
-    case "finished":
-      this.emit("error", "cannot enter add a team to a finished tournament");
-      return undefined;
     }
 
     if (this.teams.push(teamid) !== undefined) {
@@ -251,8 +249,8 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
   TournamentModel.prototype.getMatches = function () {
     if (this.singletons.matches === undefined) {
       this.singletons.matches = new ReferenceListModel(
-          new SortedReferenceListModel(this.matches,
-              TournamentModel.matchCompare), this.teams, MatchReferenceModel);
+        new SortedReferenceListModel(this.matches,
+          TournamentModel.matchCompare), this.teams, MatchReferenceModel);
     }
     return this.singletons.matches;
   };
@@ -276,8 +274,8 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
   TournamentModel.prototype.getHistory = function () {
     if (this.singletons.history === undefined) {
       this.singletons.history = new ReferenceListModel(
-          new SortedReferenceListModel(this.history,
-              TournamentModel.matchCompare), this.teams, ResultReferenceModel);
+        new SortedReferenceListModel(this.history,
+          TournamentModel.matchCompare), this.teams, ResultReferenceModel);
     }
     return this.singletons.history;
   };
@@ -291,14 +289,14 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
     if (this.singletons.combinedHistory === undefined) {
       // combine matches and history into a single list
       this.singletons.combinedRawHistory = new CombinedReferenceListModel(
-          this.matches, this.history);
+        this.matches, this.history);
       // sort the combined list
       this.singletons.sortedCombinedRawHistory = new SortedReferenceListModel(
-          this.singletons.combinedRawHistory, TournamentModel.matchCompare);
+        this.singletons.combinedRawHistory, TournamentModel.matchCompare);
       // reference the combined list and map the teams
       this.singletons.combinedHistory = new ReferenceListModel(
-          this.singletons.sortedCombinedRawHistory, this.teams,
-          ResultReferenceModel);
+        this.singletons.sortedCombinedRawHistory, this.teams,
+        ResultReferenceModel);
     }
     return this.singletons.combinedHistory;
   };
@@ -309,7 +307,7 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
   TournamentModel.prototype.getCorrections = function () {
     if (this.singletons.corrections === undefined) {
       this.singletons.corrections = new ReferenceListModel(this.corrections,
-          this.teams, CorrectionReferenceModel);
+        this.teams, CorrectionReferenceModel);
     }
     return this.singletons.corrections;
   };
@@ -324,8 +322,8 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
    */
   TournamentModel.prototype.getVotes = function (type) {
     if (!type || this.votes[type] === undefined) {
-      this.emit("error", "vote type \"" + type
-          + "\" does not exist for this tournament type");
+      this.emit("error", "vote type \"" + type +
+        "\" does not exist for this tournament type");
       return undefined;
     }
 
@@ -335,7 +333,7 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
 
     if (this.singletons.votes[type] === undefined) {
       this.singletons.votes[type] = new MapListModel(this.votes[type],
-          this.teams);
+        this.teams);
     }
 
     return this.singletons.votes[type];
@@ -372,24 +370,24 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
    */
   TournamentModel.prototype.run = function () {
     switch (this.state.get()) {
-    case "initial":
-      if (this.initialMatches()) {
-        break;
-      }
-      this.emit("error", "initialMatches() failed");
-      return undefined;
-    case "idle":
-      if (this.idleMatches()) {
-        break;
-      }
-      this.emit("error", "idleMatches() failed");
-      return undefined;
-    case "running":
-      this.emit("error", "tournament is already running");
-      return undefined;
-    case "finished":
-      this.emit("error", "tournament is already finished");
-      return undefined;
+      case "initial":
+        if (this.initialMatches()) {
+          break;
+        }
+        this.emit("error", "initialMatches() failed");
+        return undefined;
+      case "idle":
+        if (this.idleMatches()) {
+          break;
+        }
+        this.emit("error", "idleMatches() failed");
+        return undefined;
+      case "running":
+        this.emit("error", "tournament is already running");
+        return undefined;
+      case "finished":
+        this.emit("error", "tournament is already finished");
+        return undefined;
     }
 
     if (this.matches.length > 0) {
@@ -407,17 +405,17 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
    */
   TournamentModel.prototype.finish = function () {
     switch (this.state.get()) {
-    case "idle":
-      this.state.set("finished");
-      return true;
-    case "finished":
-      return true;
-    case "initial":
-      this.state.set("finished");
-      return true;
-    case "running":
-      this.emit("error", "cannot finish a running tournament");
-      break;
+      case "idle":
+        this.state.set("finished");
+        return true;
+      case "finished":
+        return true;
+      case "initial":
+        this.state.set("finished");
+        return true;
+      case "running":
+        this.emit("error", "cannot finish a running tournament");
+        break;
     }
 
     return false;
@@ -442,7 +440,7 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
 
     if (this.matches.indexOf(match) === -1) {
       this.emit("error",
-          "onfinish: match is not open anymore or does not exist");
+        "onfinish: match is not open anymore or does not exist");
       return;
     }
 
@@ -564,16 +562,17 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
    * @param round
    */
   TournamentModel.prototype.addBye = function (byeResultOrTeamID, matchID, //
-  round) {
+    round) {
     var teamID, byeResult;
 
     if (arguments.length === 1 && (Type instanceof ByeResult)) {
       byeResult = byeResultOrTeamID;
-    } else if (arguments.length === 3 && Type.isNumber(byeResultOrTeamID)
-        && Type.isNumber(matchID) && Type.isNumber(round)) {
+    } else if (arguments.length === 3 && Type.isNumber(byeResultOrTeamID) &&
+      Type.isNumber(matchID) && Type.isNumber(round)) {
       teamID = byeResultOrTeamID;
       byeResult = new ByeResult(teamID, [Options.byepointswon,
-          Options.byepointslost], matchID, round);
+        Options.byepointslost
+      ], matchID, round);
     } else {
       console.error(arguments);
       throw new Error("addBye isn't provided the correct arguments");
@@ -685,14 +684,14 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
     this.name.set(data.name || this.SYSTEM);
 
     if (!this.state.forceState(data.state)) {
-      this.emit("error",//
-      "TournamentModel.restore(): invalid tournament state");
+      this.emit("error", //
+        "TournamentModel.restore(): invalid tournament state");
       return false;
     }
 
     if (!this.teams.restore(data.teams)) {
-      this.emit("error",//
-      "TournamentModel.restore(): cannot restore teams");
+      this.emit("error", //
+        "TournamentModel.restore(): cannot restore teams");
       return false;
     }
 
@@ -708,7 +707,7 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
 
     if (!this.corrections.restore(data.corrections, CorrectionModel)) {
       this.emit("error",
-          "TournamentModel.restore(): cannot restore corrections");
+        "TournamentModel.restore(): cannot restore corrections");
       return false;
     }
 
@@ -718,12 +717,12 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
     }
 
     if (!this.VOTES.every(function (votetype) {
-      this.votes[votetype].clear();
-      if (data.votes[votetype]) {
-        this.votes[votetype].restore(data.votes[votetype]);
-      }
-      return true;
-    }, this)) {
+        this.votes[votetype].clear();
+        if (data.votes[votetype]) {
+          this.votes[votetype].restore(data.votes[votetype]);
+        }
+        return true;
+      }, this)) {
       this.emit("error", "TournamentModel.restore(): cannot restore votes");
       return false;
     }
@@ -742,7 +741,7 @@ define(["lib/extend", "core/propertymodel", "list/listmodel", "core/uniquelistmo
   // TODO use constructor references (MatchModel.SAVEFORMAT) instead of
   // "Object"
   TournamentModel.prototype.SAVEFORMAT = Object
-      .create(TournamentModel.superclass.SAVEFORMAT);
+    .create(TournamentModel.superclass.SAVEFORMAT);
   TournamentModel.prototype.SAVEFORMAT.sys = String;
   TournamentModel.prototype.SAVEFORMAT.id = Number;
   TournamentModel.prototype.SAVEFORMAT.name = String;
