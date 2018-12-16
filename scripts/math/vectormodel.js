@@ -139,7 +139,7 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
     vec2 = vec2 || this;
 
     if (vec1.length !== vec2.length) {
-      console.error("VectorModel.prototype.add: different input lengths: " +
+      console.error("VectorModel.prototype.sum: different input lengths: " +
         vec1.length + "<>" + vec2.length);
       return undefined;
     }
