@@ -230,6 +230,37 @@ define(["lib/extend", "core/model", "ranking/rankingcomponentindex", "core/type"
     this.invalidate();
   };
 
+  RankingModel.prototype.recalculate = function (matchResults, votes) {
+    this.resize(this.length);
+    Object.keys(this.dataListeners).forEach(function (key) {
+      this.dataListeners[key].zero();
+    }, this);
+
+    if (votes.bye) {
+      votes.bye.map(function (bye) {
+        this.bye(bye);
+      }, this);
+    }
+
+    if (votes.up && this.upvotes) {
+      votes.up.forEach(function (teamID) {
+        this.upvotes.add(teamID, 1);
+      }, this);
+    }
+
+    if (votes.down && this.downvotes) {
+      votes.down.forEach(function (teamID) {
+        this.downvotes.add(teamID, 1);
+      }, this);
+    }
+
+    matchResults.forEach(function (result) {
+      if (!result.isBye()) {
+        this.result(result);
+      }
+    }, this);
+  };
+
   /**
    * process a bye
    *
