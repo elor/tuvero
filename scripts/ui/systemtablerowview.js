@@ -48,7 +48,6 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
 
     this.teams.registerListener(this);
     this.tournaments.registerListener(this);
-
   }
   extend(SystemTableRowView, View);
 
@@ -103,7 +102,7 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
    * creates a new TournamentView, if necessary.
    */
   SystemTableRowView.prototype.updateSystem = function () {
-    var tournament, newView;
+    var tournament, newView, $view;
 
     if (!this.isFirstInTournament()) {
       this.clearTournamentView();
@@ -114,12 +113,12 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
     tournament = this.getTournament();
 
     if (tournament) {
-      newView = this.viewPopulator.getCachedView(this.getTournamentID());
-      if (this.tournamentView === newView) {
+      if (this.viewPopulator.getViewTeamID(this.getTournamentID()) === this.teamID) {
         return;
       }
+      newView = this.viewPopulator.getCachedView(this.getTournamentID(), this.teamID);
     } else {
-      var $view = $("<td>").addClass("system");
+      $view = $("<td>").addClass("system");
       this.viewPopulator.populate(tournament, $view);
 
       newView = new NewTournamentView(this.getDisplayID(),
@@ -128,7 +127,9 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
 
     this.clearTournamentView();
     this.tournamentView = newView;
-    this.$view.append(this.tournamentView.$view);
+
+    $view = this.tournamentView.$view;
+    this.$view.append($view);
     this.$view.addClass("firstrow");
   };
 
@@ -227,7 +228,12 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
   };
 
   SystemTableRowView.prototype.clearTournamentView = function () {
-    this.tournamentView = undefined;
+    if (this.tournamentView) {
+      if (this.tournamentView.$view.parent().is(this.$view)) {
+        this.tournamentView.$view.detach();
+      }
+      this.tournamentView = undefined;
+    }
   };
 
   return SystemTableRowView;
