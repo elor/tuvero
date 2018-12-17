@@ -7,9 +7,8 @@
  * @see LICENSE
  */
 define(["jquery", "lib/extend", "core/view", "ui/teamview",
-  "ui/newtournamentview", "ui/generictournamentview", "ui/teamdeletecontroller"
-], function ($, extend, View, TeamView, NewTournamentView,
-  GenericTournamentView, TeamDeleteController) {
+  "ui/newtournamentview", "ui/teamdeletecontroller"
+], function ($, extend, View, TeamView, NewTournamentView, TeamDeleteController) {
   /**
    * Constructor
    *
@@ -104,28 +103,31 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
    * creates a new TournamentView, if necessary.
    */
   SystemTableRowView.prototype.updateSystem = function () {
-    var tournament;
+    var tournament, newView;
 
     if (!this.isFirstInTournament()) {
+      this.clearTournamentView();
+      this.$view.removeClass("firstrow");
       return;
     }
 
-    tournament = this.getTournament()
+    tournament = this.getTournament();
 
     if (tournament) {
-      let $view = $("<td>").addClass("system");
-      this.viewPopulator.populate(tournament, $view);
-
-      this.tournamentView = new GenericTournamentView(tournament, $view,
-        this.tournaments);
+      newView = this.viewPopulator.getCachedView(this.getTournamentID());
+      if (this.tournamentView === newView) {
+        return;
+      }
     } else {
-      let $view = $("<td>").addClass("system");
+      var $view = $("<td>").addClass("system");
       this.viewPopulator.populate(tournament, $view);
 
-      this.tournamentView = new NewTournamentView(this.getDisplayID(),
+      newView = new NewTournamentView(this.getDisplayID(),
         this.estimateNewTournamentSize(), $view, this.tournaments, this.teams);
     }
 
+    this.clearTournamentView();
+    this.tournamentView = newView;
     this.$view.append(this.tournamentView.$view);
     this.$view.addClass("firstrow");
   };
@@ -182,9 +184,7 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
   };
 
   SystemTableRowView.prototype.destroy = function () {
-    if (this.tournamentView) {
-      this.tournamentView.destroy();
-    }
+    this.clearTournamentView();
 
     SystemTableRowView.superclass.destroy.call(this);
   };
@@ -218,16 +218,16 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
         isFirstInTournament = true;
       }
     }
-    if (this.tournamentView) {
-      this.tournamentView.destroy();
-      this.tournamentView = undefined;
-      this.$view.removeClass("firstrow");
-    }
+
     return isFirstInTournament;
   };
 
   SystemTableRowView.prototype.getTournament = function () {
     return this.tournaments.get(this.getTournamentID());
+  };
+
+  SystemTableRowView.prototype.clearTournamentView = function () {
+    this.tournamentView = undefined;
   };
 
   return SystemTableRowView;

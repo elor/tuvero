@@ -1,20 +1,13 @@
-/**
- * GenericTournamentView
- *
- * @return GenericTournamentView
- * @author Erik E. Lorenz <erik@tuvero.de>
- * @license MIT License
- * @see LICENSE
- */
-define(["jquery", "lib/extend", "core/view", "ui/generictournamentview"], //
-function ($, extend, View, GenericTournamentView) {
+define(["jquery", "lib/extend", "core/view", "ui/generictournamentview",
+  "core/listener"
+], function ($, extend, View, GenericTournamentView, Listener) {
   /**
    * Constructor
    *
    * @param $templatesArray
    *          a list of DOM elements which are templates
    */
-  function TournamentViewPopulator($templatesArray) {
+  function TournamentViewPopulator($templatesArray, tournaments) {
     var $templates = {};
 
     $templatesArray.each(function () {
@@ -26,6 +19,33 @@ function ($, extend, View, GenericTournamentView) {
     });
 
     this.$templates = $templates;
+    this.tournaments = tournaments;
+    this.viewCache = [];
+
+    Listener.bind(tournaments, "insert", function (emitter, event, data) {
+      var index = data.id;
+      var tournament = data.object;
+
+      var $view = $("<td>").addClass("system");
+      this.populate(tournament, $view);
+      var view = new GenericTournamentView(tournament, $view, this.tournaments);
+
+      if (index === this.viewCache.length) {
+        this.viewCache.push(view);
+      } else {
+        this.viewCache.splice(index, 0, view);
+      }
+
+    }, this);
+
+    Listener.bind(tournaments, "remove", function (emitter, event, data) {
+      var index = data.id;
+      var view = this.viewCache[index];
+
+      this.viewCache.splice(index, 1);
+      view.destroy();
+
+    }, this);
   }
   extend(GenericTournamentView, View);
 
@@ -50,6 +70,10 @@ function ($, extend, View, GenericTournamentView) {
     } else {
       $view.append(this.$templates[type].children().clone());
     }
+  };
+
+  TournamentViewPopulator.prototype.getCachedView = function (tournamentID) {
+    return this.viewCache[tournamentID];
   };
 
   return TournamentViewPopulator;
