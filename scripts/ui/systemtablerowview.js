@@ -7,8 +7,9 @@
  * @see LICENSE
  */
 define(["jquery", "lib/extend", "core/view", "ui/teamview",
-    "ui/newtournamentview", "ui/generictournamentview", "ui/teamdeletecontroller"], function ($, extend,
-    View, TeamView, NewTournamentView, GenericTournamentView, TeamDeleteController) {
+  "ui/newtournamentview", "ui/generictournamentview", "ui/teamdeletecontroller"
+], function ($, extend, View, TeamView, NewTournamentView,
+  GenericTournamentView, TeamDeleteController) {
   /**
    * Constructor
    *
@@ -25,14 +26,14 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
    *          cells
    */
   function SystemTableRowView(index, $view, teams, tournaments, viewPopulator,
-      $newTournamentTemplate) {
+    $newTournamentTemplate) {
     SystemTableRowView.superconstructor.call(this, teams.get(index), $view);
 
     this.teamID = index;
     this.teams = teams;
     this.tournaments = tournaments;
     this.teamView = new TeamView(this.model, this.$view);
-	this.teamDeleteController = new TeamDeleteController(this);
+    this.teamDeleteController = new TeamDeleteController(this);
 
     this.tournamentRank = -1;
     this.globalRank = -1;
@@ -79,9 +80,10 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
   SystemTableRowView.prototype.updateLastRowClass = function () {
     var tournamentID, displayID, nextTeamID, nextTournamentID, ranking;
 
-    ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    tournamentID = ranking.tournamentIDs[this.teamID];
-    displayID = ranking.displayOrder.indexOf(this.teamID);
+    ranking = this.getRanking();
+    tournamentID = this.getTournamentID();
+    displayID = this.getDisplayID();
+
     if (displayID + 1 === this.teams.length) {
       this.$view.addClass("lastrow");
       return;
@@ -102,39 +104,40 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
    * creates a new TournamentView, if necessary.
    */
   SystemTableRowView.prototype.updateSystem = function () {
-    // too many variables.
-    // TODO extract methods + reduce variables
-    var ranking, displayID, tournamentID, isFirstInTournament, previousTeamID;
-    var rankingLength, nextDisplayID, nextTeamID, tournamentSize, tournament;
-    var $view;
+    var tournament;
 
-    ranking = this.tournaments.getGlobalRanking(this.teams.length);
-    displayID = ranking.displayOrder.indexOf(this.teamID);
-    tournamentID = ranking.tournamentIDs[this.teamID];
-
-    isFirstInTournament = false;
-    if (displayID === 0) {
-      isFirstInTournament = true;
-    } else {
-      previousTeamID = ranking.displayOrder[displayID - 1];
-
-      if (ranking.tournamentIDs[previousTeamID] !== tournamentID) {
-        isFirstInTournament = true;
-      }
-    }
-
-    if (this.tournamentView) {
-      this.tournamentView.destroy();
-      this.tournamentView = undefined;
-      this.$view.removeClass("firstrow");
-    }
-
-    if (!isFirstInTournament) {
+    if (!this.isFirstInTournament()) {
       return;
     }
 
-    rankingLength = ranking.displayOrder.length;
-    nextDisplayID = displayID + 1;
+    tournament = this.getTournament()
+
+    if (tournament) {
+      let $view = $("<td>").addClass("system");
+      this.viewPopulator.populate(tournament, $view);
+
+      this.tournamentView = new GenericTournamentView(tournament, $view,
+        this.tournaments);
+    } else {
+      let $view = $("<td>").addClass("system");
+      this.viewPopulator.populate(tournament, $view);
+
+      this.tournamentView = new NewTournamentView(this.getDisplayID(),
+        this.estimateNewTournamentSize(), $view, this.tournaments, this.teams);
+    }
+
+    this.$view.append(this.tournamentView.$view);
+    this.$view.addClass("firstrow");
+  };
+
+  SystemTableRowView.prototype.estimateNewTournamentSize = function () {
+    var ranking = this.getRanking();
+    var displayID = this.getDisplayID();
+    var tournamentID = this.getTournamentID();
+
+    var rankingLength = ranking.displayOrder.length;
+    var nextDisplayID = displayID + 1;
+    var nextTeamID;
     for (; nextDisplayID < rankingLength; nextDisplayID += 1) {
       nextTeamID = ranking.displayOrder[nextDisplayID];
       if (ranking.tournamentIDs[nextTeamID] !== tournamentID) {
@@ -142,23 +145,9 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
       }
     }
 
-    tournamentSize = nextDisplayID - displayID;
+    var tournamentSize = nextDisplayID - displayID;
 
-    $view = $("<td>").addClass("system");
-
-    tournament = this.tournaments.get(tournamentID);
-    this.viewPopulator.populate(tournament, $view);
-
-    if (tournament) {
-      this.tournamentView = new GenericTournamentView(tournament, $view,
-          this.tournaments);
-    } else {
-      this.tournamentView = new NewTournamentView(displayID, tournamentSize,
-          $view, this.tournaments, this.teams);
-    }
-
-    this.$view.append($view);
-    this.$view.addClass("firstrow");
+    return tournamentSize;
   };
 
   SystemTableRowView.prototype.updateEverything = function () {
@@ -198,6 +187,47 @@ define(["jquery", "lib/extend", "core/view", "ui/teamview",
     }
 
     SystemTableRowView.superclass.destroy.call(this);
+  };
+
+  SystemTableRowView.prototype.getDisplayID = function () {
+    var ranking = this.getRanking();
+    var displayID = ranking.displayOrder.indexOf(this.teamID);
+    return displayID;
+  };
+
+  SystemTableRowView.prototype.getTournamentID = function () {
+    var ranking = this.tournaments.getGlobalRanking(this.teams.length);
+    var tournamentID = ranking.tournamentIDs[this.teamID];
+    return tournamentID;
+  };
+
+  SystemTableRowView.prototype.getRanking = function () {
+    return this.tournaments.getGlobalRanking(this.teams.length);
+  };
+
+  SystemTableRowView.prototype.isFirstInTournament = function () {
+    var displayID = this.getDisplayID();
+    var tournamentID = this.getTournamentID();
+    var ranking = this.getRanking();
+    var isFirstInTournament = false;
+    if (displayID === 0) {
+      isFirstInTournament = true;
+    } else {
+      var previousTeamID = ranking.displayOrder[displayID - 1];
+      if (ranking.tournamentIDs[previousTeamID] !== tournamentID) {
+        isFirstInTournament = true;
+      }
+    }
+    if (this.tournamentView) {
+      this.tournamentView.destroy();
+      this.tournamentView = undefined;
+      this.$view.removeClass("firstrow");
+    }
+    return isFirstInTournament;
+  };
+
+  SystemTableRowView.prototype.getTournament = function () {
+    return this.tournaments.get(this.getTournamentID());
   };
 
   return SystemTableRowView;
