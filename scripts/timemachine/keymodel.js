@@ -13,22 +13,22 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
-    Model, Type, Presets) {
-  var delimiter, dateRegexSource, dateRegex, targetRegex, keyRegex, tuveroKeyRegex;
+define(['lib/extend', 'core/model', 'core/type', 'presets'], function (extend,
+  Model, Type, Presets) {
+  var delimiter, dateRegexSource, dateRegex, targetRegex, keyRegex, tuveroKeyRegex
 
   /*
    * local regexes, which are used internally for format validation
    */
-  delimiter = "_";
-  dateRegexSource = "[0-9]{4}-[0-9]{2}-[0-9]{2}"
-      + "T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z";
-  dateRegex = new RegExp("^" + dateRegexSource + "$");
-  targetRegex = new RegExp("^(" + Presets.target + ")" + delimiter);
-  keyRegex = new RegExp(targetRegex.source + "(" + dateRegexSource + ")"
-      + delimiter + "(" + dateRegexSource + ")$");
-  tuveroKeyRegex = new RegExp("^([a-z]*)" + delimiter + "(" + dateRegexSource
-      + ")" + delimiter + "(" + dateRegexSource + ")$");
+  delimiter = '_'
+  dateRegexSource = '[0-9]{4}-[0-9]{2}-[0-9]{2}' +
+      'T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z'
+  dateRegex = new RegExp('^' + dateRegexSource + '$')
+  targetRegex = new RegExp('^(' + Presets.target + ')' + delimiter)
+  keyRegex = new RegExp(targetRegex.source + '(' + dateRegexSource + ')' +
+      delimiter + '(' + dateRegexSource + ')$')
+  tuveroKeyRegex = new RegExp('^([a-z]*)' + delimiter + '(' + dateRegexSource +
+      ')' + delimiter + '(' + dateRegexSource + ')$')
 
   /**
    * Constructor. Constructs a new key from the current target (Presets.target),
@@ -41,29 +41,29 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @param saveDate
    *          Any save date. Must be later than startDate
    */
-  function KeyModel(startDate, saveDate) {
-    KeyModel.superconstructor.call(this);
+  function KeyModel (startDate, saveDate) {
+    KeyModel.superconstructor.call(this)
 
     if (!dateRegex.test(startDate)) {
-      throw new Error("startDate is no valid ISO8601. toISOString() failure?");
+      throw new Error('startDate is no valid ISO8601. toISOString() failure?')
     }
     if (!dateRegex.test(saveDate)) {
-      throw new Error("saveDate is no valid ISO8601. toISOString() failure?");
+      throw new Error('saveDate is no valid ISO8601. toISOString() failure?')
     }
     if (saveDate < startDate) {
-      throw new Error("saveDate is earlier than startDate!");
+      throw new Error('saveDate is earlier than startDate!')
     }
 
-    this.target = Presets.target;
-    this.startDate = startDate;
-    this.saveDate = saveDate;
+    this.target = Presets.target
+    this.startDate = startDate
+    this.saveDate = saveDate
 
     if (!KeyModel.isValidKey(this)) {
       throw new Error(
-          "Critical error: serialized key is not valid. Call Erik E. Lorenz!");
+        'Critical error: serialized key is not valid. Call Erik E. Lorenz!')
     }
   }
-  extend(KeyModel, Model);
+  extend(KeyModel, Model)
 
   /**
    * Converts the Key to a localStorage-compatible string representation.
@@ -72,14 +72,14 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return a localStorage-compatible string representation of the key
    */
   KeyModel.prototype.toString = function () {
-    var key = [this.target, this.startDate, this.saveDate].join(delimiter);
+    var key = [this.target, this.startDate, this.saveDate].join(delimiter)
 
     if (!keyRegex.test(key)) {
-      throw new Error("created KeyModel does not match format: " + key);
+      throw new Error('created KeyModel does not match format: ' + key)
     }
 
-    return key;
-  };
+    return key
+  }
 
   /**
    * Test whether the key is valid and a root key, i.e. both dates match
@@ -87,8 +87,8 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return true if valid and an root key, false otherwise
    */
   KeyModel.prototype.isRoot = function () {
-    return this.startDate === this.saveDate;
-  };
+    return this.startDate === this.saveDate
+  }
 
   /**
    * Test whether the key is somehow related to this key, i.e. whether the start
@@ -101,13 +101,13 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return true if target and start date match, false otherwise.
    */
   KeyModel.prototype.isRelated = function (key) {
-    var relatedRegex;
+    var relatedRegex
 
-    relatedRegex = new RegExp(targetRegex.source + "(" + this.startDate + ")"
-        + delimiter + "(" + dateRegexSource + ")$", "i");
+    relatedRegex = new RegExp(targetRegex.source + '(' + this.startDate + ')' +
+        delimiter + '(' + dateRegexSource + ')$', 'i')
 
-    return relatedRegex.test(key.toString());
-  };
+    return relatedRegex.test(key.toString())
+  }
 
   /**
    * @param key
@@ -115,8 +115,8 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return true if both keys match, false otherwise
    */
   KeyModel.prototype.isEqual = function (key) {
-    return this.toString() === key.toString();
-  };
+    return this.toString() === key.toString()
+  }
 
   /**
    * Test whether the given key is valid and can be processed by this target.
@@ -129,8 +129,8 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    *         otherwise
    */
   KeyModel.isValidKey = function (key) {
-    return keyRegex.test(key.toString());
-  };
+    return keyRegex.test(key.toString())
+  }
 
   /**
    * Test whether the date string is a compatible ISO8601-string.
@@ -142,8 +142,8 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    *         Date.prototype.toISOString for more information
    */
   KeyModel.isValidDate = function (isoDateString) {
-    return dateRegex.test(isoDateString);
-  };
+    return dateRegex.test(isoDateString)
+  }
 
   /**
    * Test whether the given key could in theory be used for another target
@@ -154,8 +154,8 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return true if key matches the tuvero key format, regardless of the target
    */
   KeyModel.isTuveroKey = function (key) {
-    return tuveroKeyRegex.test(key.toString());
-  };
+    return tuveroKeyRegex.test(key.toString())
+  }
 
   /**
    * create a new key which is related to the parent key (see isRelated()).
@@ -175,13 +175,13 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return a new key with a later saveDate but the same startDate
    */
   KeyModel.createChild = function (parentKey) {
-    var startDate, saveDate;
+    var startDate, saveDate
 
     if (!KeyModel.isValidKey(parentKey) || !Type.isObject(parentKey)) {
-      throw new Error("createChild(): parentKey is not valid");
+      throw new Error('createChild(): parentKey is not valid')
     }
 
-    startDate = parentKey.startDate;
+    startDate = parentKey.startDate
 
     /*
      * Avoid creating an identical key by accidentally having the exact same
@@ -193,11 +193,11 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
      * it's only max. 200 loop executions.
      */
     do {
-      saveDate = (new Date()).toISOString();
-    } while (saveDate === startDate);
+      saveDate = (new Date()).toISOString()
+    } while (saveDate === startDate)
 
-    return new KeyModel(startDate, saveDate);
-  };
+    return new KeyModel(startDate, saveDate)
+  }
 
   /**
    * read startDate and saveString from the keyString and make sure that the
@@ -207,27 +207,27 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return a KeyModel instance with the extracted startDate and saveDate.
    */
   KeyModel.fromString = function (keyString) {
-    var startDate, saveDate, matches;
+    var startDate, saveDate, matches
 
     if (!targetRegex.test(keyString)) {
-      throw new Error("KeyModel reference string has wrong target: "
-          + keyString);
+      throw new Error('KeyModel reference string has wrong target: ' +
+          keyString)
     }
 
-    matches = keyRegex.exec(keyString);
+    matches = keyRegex.exec(keyString)
     if (!matches) {
-      throw new Error("KeyModel reference string does not match format");
+      throw new Error('KeyModel reference string does not match format')
     }
     if (matches.length !== 4) {
-      throw new Error("Regex Error? wrong number of captures (not 3): "
-          + matches.join(","));
+      throw new Error('Regex Error? wrong number of captures (not 3): ' +
+          matches.join(','))
     }
 
-    startDate = matches[2];
-    saveDate = matches[3];
+    startDate = matches[2]
+    saveDate = matches[3]
 
-    return new KeyModel(startDate, saveDate);
-  };
+    return new KeyModel(startDate, saveDate)
+  }
 
   /**
    * create a new root key
@@ -235,10 +235,10 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return a new root key with the current date
    */
   KeyModel.createRoot = function () {
-    var startDate = (new Date()).toISOString();
+    var startDate = (new Date()).toISOString()
 
-    return new KeyModel(startDate, startDate);
-  };
+    return new KeyModel(startDate, startDate)
+  }
 
   /**
    * a sort function for KeyModels. Sorts by target, startDate and saveDate, all
@@ -249,8 +249,8 @@ define(["lib/extend", "core/model", "core/type", "presets"], function (extend,
    * @return -1, 0 or 1, depending on the keys.
    */
   KeyModel.sortFunction = function (keyA, keyB) {
-    return keyA.toString().localeCompare(keyB.toString());
-  };
+    return keyA.toString().localeCompare(keyB.toString())
+  }
 
-  return KeyModel;
-});
+  return KeyModel
+})
