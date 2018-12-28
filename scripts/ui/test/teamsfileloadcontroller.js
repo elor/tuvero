@@ -8,102 +8,99 @@
  */
 define(function () {
   return function (QUnit, getModule) {
-    var TeamsFileLoadController, ValueModel;
+    var TeamsFileLoadController
 
-    TeamsFileLoadController = getModule("ui/teamsfileloadcontroller");
-    ValueModel = getModule("core/valuemodel");
+    TeamsFileLoadController = getModule('ui/teamsfileloadcontroller')
 
-    QUnit.test("TeamsFileLoadController", function (assert) {
-      var input, output, reference, teamsize;
-
-      teamsize = new ValueModel(0);
+    QUnit.test('TeamsFileLoadController', function (assert) {
+      var input, output, reference
 
       /*
        * Single Teams
        */
-      input = "";
-      reference = [];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "empty string");
+      input = ''
+      reference = []
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'empty string')
 
-      input = "\n";
-      reference = [];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "empty line");
+      input = '\n'
+      reference = []
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'empty line')
 
-      input = "Erik";
+      input = 'Erik'
       reference = [
-        ["Erik"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "single line");
+        ['Erik']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'single line')
 
-      input = "\"Erik\"";
+      input = '"Erik"'
       reference = [
-        ["Erik"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "quoted single line");
+        ['Erik']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'quoted single line')
 
-      input = "\"\"";
+      input = '""'
       reference = [
-        [""]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "quoted empty line");
+        ['']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'quoted empty line')
 
-      input = "Erik \"\"Doublequote\"\" Lorenz";
+      input = 'Erik ""Doublequote"" Lorenz'
       reference = [
-        ["Erik \"\"Doublequote\"\" Lorenz"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "unquoted double-quote");
+        ['Erik ""Doublequote"" Lorenz']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'unquoted double-quote')
 
-      input = "\"Lorenz, Erik E.\"";
+      input = '"Lorenz, Erik E."'
       reference = [
-        ["Lorenz, Erik E."]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "quoted single line with a comma");
+        ['Lorenz, Erik E.']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'quoted single line with a comma')
 
-      input = "    Erik   ";
+      input = '    Erik   '
       reference = [
-        ["Erik"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "space-padded single line");
+        ['Erik']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'space-padded single line')
 
-      input = "Erik, Fabe";
+      input = 'Erik, Fabe'
       reference = [
-        ["Erik", "Fabe"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "two players, one team");
+        ['Erik', 'Fabe']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'two players, one team')
 
-      input = "\"Erik, Fabe\"";
+      input = '"Erik, Fabe"'
       reference = [
-        ["Erik, Fabe"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "quoted two-player line, one name");
+        ['Erik, Fabe']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'quoted two-player line, one name')
 
-      input = "\"Erik\", \"Fabe\"";
+      input = '"Erik", "Fabe"'
       reference = [
-        ["Erik", "Fabe"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "two quoted players");
+        ['Erik', 'Fabe']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'two quoted players')
 
       /*
        * Multiple Teams
        */
-      input = "Erik\nFabe";
+      input = 'Erik\nFabe'
       reference = [
-        ["Erik"],
-        ["Fabe"]
-      ];
-      output = TeamsFileLoadController.parseCSVString(input);
-      assert.deepEqual(output, reference, "two lines");
-    });
-  };
-});
+        ['Erik'],
+        ['Fabe']
+      ]
+      output = TeamsFileLoadController.parseCSVString(input)
+      assert.deepEqual(output, reference, 'two lines')
+    })
+  }
+})
