@@ -7,8 +7,8 @@
  * @see LICENSE
  */
 define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'ui/listview',
-  'ui/rankingordercontroller', 'list/listmodel'], function ($, extend, TemplateView,
-  RankingComponentView, ListView, RankingOrderController, ListModel) {
+  'ui/rankingordercontroller', 'list/listmodel', 'core/listener'], function ($, extend, TemplateView,
+  RankingComponentView, ListView, RankingOrderController, ListModel, Listener) {
   function RankingOrderView (tournament, $view, allComponents) {
     RankingOrderView.superconstructor.call(this, tournament, $view,
       $view.find('.template'))
@@ -25,6 +25,8 @@ define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'u
       this.$template, RankingComponentView)
 
     this.controller = new RankingOrderController(this)
+
+    Listener.bind(tournament.getState(), 'update', this.updateFromScratch, this)
 
     this.update()
   }

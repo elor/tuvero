@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], //
+define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'],
   function (extend, RenameController, Toast, Strings) {
     var pendingNameChange
 
@@ -19,11 +19,10 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], //
    *          a TournamentView instance
    */
     function TournamentController (view, tournaments) {
-      var tournament, rankingOrder
+      var tournament
       TournamentController.superconstructor.call(this, view, false)
 
       tournament = this.model.tournament
-      rankingOrder = this.model.rankingOrder
 
       this.toast = undefined
 
@@ -31,15 +30,6 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'], //
       this.$closebutton = this.view.$view.find('button.closetournament')
 
       this.$runbutton.click(function () {
-        if (tournament.getState().get() === 'initial') {
-          if (rankingOrder.length < 1) {
-            tournament.emit('error', 'not enough ranking components')
-            return
-          }
-          if (!tournament.setRankingOrder(rankingOrder.asArray())) {
-            return
-          }
-        }
         tournament.run()
       })
 
