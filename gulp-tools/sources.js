@@ -27,6 +27,7 @@ var sources = {
     'gulp-tools/*.js',
     '*/scripts/**/*.js',
     '!**/lib/*.js',
+    '!scripts/core/common.js',
     '!*/scripts/**/{build,test}.js',
     '!gulp-tools/check-dependencies.js',
     '!**/{require,qunit}.js'
