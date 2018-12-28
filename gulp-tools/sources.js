@@ -23,7 +23,8 @@ var sources = {
   ],
   scripts_for_standardjs: [
     '*.js',
-    'gulp-tools/*.js'
+    'gulp-tools/*.js',
+    '!gulp-tools/check-dependencies.js'
   ],
   dependent_scripts: [
     'scripts/*/*.js',

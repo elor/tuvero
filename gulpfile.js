@@ -1,16 +1,16 @@
-﻿var createcommonjs = require('./gulp-tools/create-common')
-var createtestjs = require('./gulp-tools/create-test')
-var filecount = require('./gulp-tools/filecount')
-var gulp = require('gulp')
-var jshint = require('gulp-jshint')
-var run = require('gulp-run')
-var build = require('./gulp-tools/build')
-var release = require('./gulp-tools/release')
-var checkdependencies = require('./gulp-tools/check-dependencies')
-var libs = require('./gulp-tools/libs')
-var mainstyle = require('./gulp-tools/mainstyle')
-var sources = require('./gulp-tools/sources')
-var template = require('./gulp-tools/template')
+const createcommonjs = require('./gulp-tools/create-common')
+const createtestjs = require('./gulp-tools/create-test')
+const filecount = require('./gulp-tools/filecount')
+const gulp = require('gulp')
+const jshint = require('gulp-jshint')
+const run = require('gulp-run')
+const build = require('./gulp-tools/build')
+const release = require('./gulp-tools/release')
+const checkdependencies = require('./gulp-tools/check-dependencies')
+const libs = require('./gulp-tools/libs')
+const mainstyle = require('./gulp-tools/mainstyle')
+const sources = require('./gulp-tools/sources')
+const template = require('./gulp-tools/template')
 
 gulp.task('default', ['lib', 'update', 'lint', 'build', 'test'])
 gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template'])
@@ -62,12 +62,24 @@ gulp.task('lint-jshint', function () {
     .pipe(jshint.reporter('fail'))
 })
 
-gulp.task('lint', ['lint-jshint'])
+gulp.task('lint-standard', function () {
+  const standard = require('gulp-standard')
+
+  return gulp.src(sources.scripts_for_standardjs)
+    .pipe(filecount())
+    .pipe(standard())
+    .pipe(standard.reporter('default', {
+      breakOnError: true,
+      quiet: true
+    }))
+})
+
+gulp.task('lint', ['lint-jshint', 'lint-standard'])
 
 gulp.task('watch', function () {
   gulp.watch(sources.scripts, ['update-common-js'])
   gulp.watch(sources.scripts_for_jshint, ['lint-jshint'])
-  // gulp.watch(sources.scripts_for_standardjs, ['lint-standard'])
+  gulp.watch(sources.scripts_for_standardjs, ['lint-standard'])
   gulp.watch(sources.scripts_and_tests, ['test'])
   gulp.watch(sources.dependent_scripts, ['test-dependencies'])
   gulp.watch(sources.styles, ['update-mainstyle'])
