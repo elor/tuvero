@@ -7,17 +7,17 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "list/listmodel", "list/listupdatelistener"], function (extend,
-    ListModel, ListUpdateListener) {
+define(['lib/extend', 'list/listmodel', 'list/listupdatelistener'], function (extend,
+  ListModel, ListUpdateListener) {
   /**
    * Constructor for an empty list
    */
-  function IndexedListModel() {
-    IndexedListModel.superconstructor.call(this);
+  function IndexedListModel () {
+    IndexedListModel.superconstructor.call(this)
 
-    ListUpdateListener.bind(this, this.updateIDs);
+    ListUpdateListener.bind(this, this.updateIDs)
   }
-  extend(IndexedListModel, ListModel);
+  extend(IndexedListModel, ListModel)
 
   /**
    * update the ids, starting at the specified index
@@ -26,19 +26,19 @@ define(["lib/extend", "list/listmodel", "list/listupdatelistener"], function (ex
    *          event callback data
    */
   IndexedListModel.prototype.updateIDs = function (data) {
-    var index, startindex;
+    var index, startindex
 
     if (data === undefined) {
       // 'reset' event, where no data is sent
-      return;
+      return
     }
 
-    startindex = data.id || 0;
+    startindex = data.id || 0
 
     for (index = startindex; index < this.length; index += 1) {
-      this.get(index).setID(index);
+      this.get(index).setID(index)
     }
-  };
+  }
 
-  return IndexedListModel;
-});
+  return IndexedListModel
+})

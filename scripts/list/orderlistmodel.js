@@ -11,9 +11,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/listmodel", "lib/diff"], function (extend, ListModel,
-    diff) {
-
+define(['lib/extend', 'list/listmodel', 'lib/diff'], function (extend, ListModel,
+  diff) {
   /**
    * get a diffresult of two integer arrays
    *
@@ -26,31 +25,31 @@ define(["lib/extend", "list/listmodel", "lib/diff"], function (extend, ListModel
    *          the removed/added properties are true if the values need to be
    *          removed/added
    */
-  function getdiff(a, b) {
-    var diffresult;
-    a = a.join("\n");
+  function getdiff (a, b) {
+    var diffresult
+    a = a.join('\n')
     if (a.length > 0) {
-      a += "\n";
+      a += '\n'
     }
-    b = b.join("\n");
+    b = b.join('\n')
     if (b.length > 0) {
-      b += "\n";
+      b += '\n'
     }
-    diffresult = diff.diffLines(a, b);
+    diffresult = diff.diffLines(a, b)
     diffresult.forEach(function (lines) {
-      lines.value = lines.value.replace(/\n$/, "").split("\n").map(Number);
-    });
-    return diffresult;
+      lines.value = lines.value.replace(/\n$/, '').split('\n').map(Number)
+    })
+    return diffresult
   }
 
   /**
    * Constructor
    */
-  function OrderListModel() {
-    OrderListModel.superconstructor.call(this);
-    this.makeReadonly();
+  function OrderListModel () {
+    OrderListModel.superconstructor.call(this)
+    this.makeReadonly()
   }
-  extend(OrderListModel, ListModel);
+  extend(OrderListModel, ListModel)
 
   /**
    * insert/remove elements to match the given order. Use as few
@@ -60,23 +59,23 @@ define(["lib/extend", "list/listmodel", "lib/diff"], function (extend, ListModel
    *          The wanted end result
    */
   OrderListModel.prototype.enforceOrder = function (order) {
-    var index, diffresult;
+    var index, diffresult
 
-    diffresult = getdiff(this.list, order);
+    diffresult = getdiff(this.list, order)
 
-    index = 0;
+    index = 0
     diffresult.forEach(function (lines) {
       lines.value.forEach(function (value) {
         if (lines.added) {
-          OrderListModel.superclass.insert.call(this, index, value);
+          OrderListModel.superclass.insert.call(this, index, value)
         } else if (lines.removed) {
-          OrderListModel.superclass.remove.call(this, index);
-          index -= 1;
+          OrderListModel.superclass.remove.call(this, index)
+          index -= 1
         }
-        index += 1;
-      }, this);
-    }, this);
-  };
+        index += 1
+      }, this)
+    }, this)
+  }
 
-  return OrderListModel;
-});
+  return OrderListModel
+})

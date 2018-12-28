@@ -7,20 +7,19 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/model"], function (extend, Model) {
-
+define(['lib/extend', 'core/model'], function (extend, Model) {
   /**
    * Constructor
    *
    * @param id
    *          a preferably unique numeric id
    */
-  function IndexedModel(id) {
-    IndexedModel.superconstructor.call(this);
+  function IndexedModel (id) {
+    IndexedModel.superconstructor.call(this)
 
-    IndexedModel.prototype.setID.call(this, id);
+    IndexedModel.prototype.setID.call(this, id)
   }
-  extend(IndexedModel, Model);
+  extend(IndexedModel, Model)
 
   /**
    * retrieve the id of this object within a certain set of objects
@@ -28,8 +27,8 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    * @return the id of this object within a certain set of objects
    */
   IndexedModel.prototype.getID = function () {
-    return this.id;
-  };
+    return this.id
+  }
 
   /**
    * change the id
@@ -39,13 +38,13 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    */
   IndexedModel.prototype.setID = function (id) {
     if (id === undefined) {
-      id = -1;
+      id = -1
     }
     if (id !== this.id) {
-      this.id = id;
-      this.emit("update");
+      this.id = id
+      this.emit('update')
     }
-  };
+  }
 
   /**
    * save the current state to an object
@@ -53,12 +52,12 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    * @return the current state, as a data object
    */
   IndexedModel.prototype.save = function () {
-    var data = IndexedModel.superclass.save.call(this);
+    var data = IndexedModel.superclass.save.call(this)
 
-    data.id = this.id;
+    data.id = this.id
 
-    return data;
-  };
+    return data
+  }
 
   /**
    * restore the current state from an object
@@ -69,17 +68,17 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    */
   IndexedModel.prototype.restore = function (data) {
     if (!IndexedModel.superclass.restore.call(this, data)) {
-      return false;
+      return false
     }
 
-    this.id = data.id;
+    this.id = data.id
 
-    return true;
-  };
+    return true
+  }
 
   IndexedModel.prototype.SAVEFORMAT = Object
-      .create(IndexedModel.superclass.SAVEFORMAT);
-  IndexedModel.prototype.SAVEFORMAT.id = Number;
+    .create(IndexedModel.superclass.SAVEFORMAT)
+  IndexedModel.prototype.SAVEFORMAT.id = Number
 
-  return IndexedModel;
-});
+  return IndexedModel
+})

@@ -8,8 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
-
+define(['lib/extend', 'list/listmodel'], function (extend, ListModel) {
   /**
    * Constructor
    *
@@ -19,21 +18,21 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          a static list, which contains elements that are indexed by
    *          indexlist. This class does not listen for changes in the map
    */
-  function MapListModel(indexlist, maplist) {
-    MapListModel.superconstructor.call(this);
+  function MapListModel (indexlist, maplist) {
+    MapListModel.superconstructor.call(this)
 
-    this.makeReadonly();
+    this.makeReadonly()
 
-    this.indices = indexlist;
-    this.map = maplist;
+    this.indices = indexlist
+    this.map = maplist
 
     this.indices.map(function (index, pos) {
-      MapListModel.insertID(this, pos);
-    }, this);
+      MapListModel.insertID(this, pos)
+    }, this)
 
-    this.indices.registerListener(this);
+    this.indices.registerListener(this)
   }
-  extend(MapListModel, ListModel);
+  extend(MapListModel, ListModel)
 
   /**
    * Helper function for dealing with readonly list: Do not call directly
@@ -44,10 +43,10 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          the id to insert at
    */
   MapListModel.insertID = function (list, pos) {
-    var ref;
-    ref = list.map.get(list.indices.get(pos));
-    ListModel.prototype.insert.call(list, pos, ref);
-  };
+    var ref
+    ref = list.map.get(list.indices.get(pos))
+    ListModel.prototype.insert.call(list, pos, ref)
+  }
 
   /**
    * Helper function for dealing with readonly list: Do not call directly
@@ -58,8 +57,8 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          the id to remove
    */
   MapListModel.removeID = function (list, id) {
-    ListModel.prototype.remove.call(list, id);
-  };
+    ListModel.prototype.remove.call(list, id)
+  }
 
   /**
    * Callback function: called when an 'insert' event is emitted
@@ -70,9 +69,9 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   MapListModel.prototype.oninsert = function (emitter, event, data) {
     if (emitter === this.indices) {
-      MapListModel.insertID(this, data.id);
+      MapListModel.insertID(this, data.id)
     }
-  };
+  }
 
   /**
    * Callback function: called when a 'remove' event is emitted
@@ -83,9 +82,9 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   MapListModel.prototype.onremove = function (emitter, event, data) {
     if (emitter === this.indices) {
-      MapListModel.removeID(this, data.id);
+      MapListModel.removeID(this, data.id)
     }
-  };
+  }
 
   /**
    * Callback function: called when a 'reset' event is emitted
@@ -96,9 +95,9 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   MapListModel.prototype.onreset = function (emitter, event, data) {
     if (emitter === this.indices) {
-      this.emit(event, data);
+      this.emit(event, data)
     }
-  };
+  }
 
   /*
    * Note to self:
@@ -107,5 +106,5 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    * functions automatically emit resize events.
    */
 
-  return MapListModel;
-});
+  return MapListModel
+})

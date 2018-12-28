@@ -10,7 +10,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/listener"], function (extend, Listener) {
+define(['lib/extend', 'core/listener'], function (extend, Listener) {
   /**
    * Constructor
    *
@@ -21,49 +21,49 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @param value
    *          the value to add/remove
    */
-  function ListExclusionListener(trigger, list, value) {
-    ListExclusionListener.superconstructor.call(this, trigger);
+  function ListExclusionListener (trigger, list, value) {
+    ListExclusionListener.superconstructor.call(this, trigger)
 
-    this.trigger = trigger;
-    this.list = list;
-    this.value = value;
+    this.trigger = trigger
+    this.list = list
+    this.value = value
   }
-  extend(ListExclusionListener, Listener);
+  extend(ListExclusionListener, Listener)
 
   /**
    * push the value, if it's not in the list already
    */
   ListExclusionListener.prototype.add = function () {
-    var index;
+    var index
 
-    index = this.list.indexOf(this.value);
+    index = this.list.indexOf(this.value)
 
     if (index === -1) {
-      this.list.push(this.value);
+      this.list.push(this.value)
     }
-  };
+  }
 
   /**
    * remove all appearances of the value from the list
    */
   ListExclusionListener.prototype.remove = function () {
-    var index;
+    var index
 
     while ((index = this.list.indexOf(this.value)) !== -1) {
-      this.list.remove(index);
+      this.list.remove(index)
     }
-  };
+  }
 
   /**
    * Callback listener for the trigger. Call add()/remove() accordingly
    */
   ListExclusionListener.prototype.onupdate = function () {
     if (this.trigger.get()) {
-      this.add();
+      this.add()
     } else {
-      this.remove();
+      this.remove()
     }
-  };
+  }
 
-  return ListExclusionListener;
-});
+  return ListExclusionListener
+})

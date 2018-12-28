@@ -8,8 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
-
+define(['lib/extend', 'list/listmodel'], function (extend, ListModel) {
   /**
    * Constructor
    *
@@ -21,22 +20,22 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          a reference model, which takes an actual model and a team list as
    *          the constructor arguments, and creates a reference to the model
    */
-  function ReferenceListModel(matchlist, teamlist, ReferenceModel) {
-    ReferenceListModel.superconstructor.call(this);
+  function ReferenceListModel (matchlist, teamlist, ReferenceModel) {
+    ReferenceListModel.superconstructor.call(this)
 
-    this.makeReadonly();
+    this.makeReadonly()
 
-    this.matches = matchlist;
-    this.teams = teamlist;
-    this.ReferenceModel = ReferenceModel;
+    this.matches = matchlist
+    this.teams = teamlist
+    this.ReferenceModel = ReferenceModel
 
     this.matches.map(function (match, id) {
-      ReferenceListModel.insertMatch(this, id);
-    }, this);
+      ReferenceListModel.insertMatch(this, id)
+    }, this)
 
-    this.matches.registerListener(this);
+    this.matches.registerListener(this)
   }
-  extend(ReferenceListModel, ListModel);
+  extend(ReferenceListModel, ListModel)
 
   /**
    * Helper function for dealing with readonly list: Do not call directly
@@ -47,11 +46,11 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          the id to insert at
    */
   ReferenceListModel.insertMatch = function (referenceList, id) {
-    var ref;
+    var ref
     ref = new referenceList.ReferenceModel(referenceList.matches.get(id),
-        referenceList.teams);
-    ListModel.prototype.insert.call(referenceList, id, ref);
-  };
+      referenceList.teams)
+    ListModel.prototype.insert.call(referenceList, id, ref)
+  }
 
   /**
    * Helper function for dealing with readonly list: Do not call directly
@@ -62,8 +61,8 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          the id to remove
    */
   ReferenceListModel.removeMatch = function (list, id) {
-    ListModel.prototype.remove.call(list, id);
-  };
+    ListModel.prototype.remove.call(list, id)
+  }
 
   /**
    * Callback function: called when an 'insert' event is emitted
@@ -74,9 +73,9 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   ReferenceListModel.prototype.oninsert = function (emitter, event, data) {
     if (emitter === this.matches) {
-      ReferenceListModel.insertMatch(this, data.id);
+      ReferenceListModel.insertMatch(this, data.id)
     }
-  };
+  }
 
   /**
    * Callback function: called when a 'remove' event is emitted
@@ -87,9 +86,9 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   ReferenceListModel.prototype.onremove = function (emitter, event, data) {
     if (emitter === this.matches) {
-      ReferenceListModel.removeMatch(this, data.id);
+      ReferenceListModel.removeMatch(this, data.id)
     }
-  };
+  }
 
   /**
    * Callback function: called when a 'reset' event is emitted
@@ -100,9 +99,9 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   ReferenceListModel.prototype.onreset = function (emitter, event, data) {
     if (emitter === this.matches) {
-      this.emit(event, data);
+      this.emit(event, data)
     }
-  };
+  }
 
   /*
    * Note to self:
@@ -111,5 +110,5 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    * functions automatically emit resize events.
    */
 
-  return ReferenceListModel;
-});
+  return ReferenceListModel
+})

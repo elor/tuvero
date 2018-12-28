@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
+define(['lib/extend', 'list/listmodel'], function (extend, ListModel) {
   /**
    * @param list1
    *          a ListModel instance
@@ -14,33 +14,32 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          a ListModel instance. The contents of every argument of this list
    *          are merged into a single list (i.e. this)
    */
-  function CombinedReferenceListModel(list1, list2) {
-    var i;
-    CombinedReferenceListModel.superconstructor.call(this);
+  function CombinedReferenceListModel (list1, list2) {
+    var i
+    CombinedReferenceListModel.superconstructor.call(this)
 
-    this.makeReadonly();
+    this.makeReadonly()
 
     if (list1 === undefined) {
-      throw new Error("No lists to combine");
+      throw new Error('No lists to combine')
     }
 
-    this.refLists = [];
-    this.listOffsets = [];
+    this.refLists = []
+    this.listOffsets = []
     for (i = 0; i < arguments.length; i += 1) {
-      this.refLists.push(arguments[i]);
-      this.listOffsets.push(0);
+      this.refLists.push(arguments[i])
+      this.listOffsets.push(0)
     }
 
     this.refLists.map(function (refList, listID) {
       refList.map(function (element, elementID) {
-        CombinedReferenceListModel.insertElement(this, listID, elementID);
-      }, this);
+        CombinedReferenceListModel.insertElement(this, listID, elementID)
+      }, this)
 
-      refList.registerListener(this);
-    }, this);
-
+      refList.registerListener(this)
+    }, this)
   }
-  extend(CombinedReferenceListModel, ListModel);
+  extend(CombinedReferenceListModel, ListModel)
 
   /**
    * Callback function. Also inserts the inserted element into the sorted list,
@@ -54,11 +53,11 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          a data object, as emitted by insert() from the original list
    */
   CombinedReferenceListModel.prototype.oninsert = function (emitter, evt, data) {
-    var listIndex = this.refLists.indexOf(emitter);
+    var listIndex = this.refLists.indexOf(emitter)
     if (listIndex !== -1) {
-      CombinedReferenceListModel.insertElement(this, listIndex, data.id);
+      CombinedReferenceListModel.insertElement(this, listIndex, data.id)
     }
-  };
+  }
 
   /**
    * Callback function. Also removes the removed element from the sorted list
@@ -71,11 +70,11 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          a data object, as emitted by remove() from the original list
    */
   CombinedReferenceListModel.prototype.onremove = function (emitter, evt, data) {
-    var listIndex = this.refLists.indexOf(emitter);
+    var listIndex = this.refLists.indexOf(emitter)
     if (listIndex !== -1) {
-      CombinedReferenceListModel.removeElement(this, listIndex, data.id);
+      CombinedReferenceListModel.removeElement(this, listIndex, data.id)
     }
-  };
+  }
 
   /**
    * insert an element into a sorted list
@@ -86,14 +85,14 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          the element to insert into the list
    */
   CombinedReferenceListModel.insertElement = function (list, listID, elementID) {
-    var index = list.findPosition(listID, elementID);
+    var index = list.findPosition(listID, elementID)
 
     if (index !== -1) {
       CombinedReferenceListModel.superclass.insert.call(list, index,
-          list.refLists[listID].get(elementID));
-      list.increaseOffsets(listID);
+        list.refLists[listID].get(elementID))
+      list.increaseOffsets(listID)
     }
-  };
+  }
 
   /**
    * Remove an element from a sorted list
@@ -104,12 +103,12 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *          the element to remove from the list
    */
   CombinedReferenceListModel.removeElement = function (list, listID, elementID) {
-    var index = list.findPosition(listID, elementID);
+    var index = list.findPosition(listID, elementID)
     if (index !== -1) {
-      CombinedReferenceListModel.superclass.remove.call(list, index);
-      list.reduceOffsets(listID);
+      CombinedReferenceListModel.superclass.remove.call(list, index)
+      list.reduceOffsets(listID)
     }
-  };
+  }
 
   /**
    *
@@ -122,25 +121,25 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    *         if it shouldn't be inside it
    */
   CombinedReferenceListModel.prototype.findPosition = function (listID,
-      elementID) {
-    return this.listOffsets[listID] + elementID;
-  };
+    elementID) {
+    return this.listOffsets[listID] + elementID
+  }
 
   CombinedReferenceListModel.prototype.increaseOffsets = function (
-      startingListIndex) {
-    var id;
+    startingListIndex) {
+    var id
     for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
-      this.listOffsets[id] += 1;
+      this.listOffsets[id] += 1
     }
-  };
+  }
 
   CombinedReferenceListModel.prototype.reduceOffsets = function (
-      startingListIndex) {
-    var id;
+    startingListIndex) {
+    var id
     for (id = startingListIndex + 1; id < this.listOffsets.length; id += 1) {
-      this.listOffsets[id] -= 1;
+      this.listOffsets[id] -= 1
     }
-  };
+  }
 
-  return CombinedReferenceListModel;
-});
+  return CombinedReferenceListModel
+})

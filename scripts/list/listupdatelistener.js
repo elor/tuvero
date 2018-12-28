@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/listener"], function (extend, Listener) {
+define(['lib/extend', 'core/listener'], function (extend, Listener) {
   /**
    * Constructor
    *
@@ -16,12 +16,12 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @param callback
    *          the callback function of format function(data) { }
    */
-  function ListUpdateListener(list, callback) {
-    ListUpdateListener.superconstructor.call(this, list);
+  function ListUpdateListener (list, callback) {
+    ListUpdateListener.superconstructor.call(this, list)
 
-    this.callback = callback;
+    this.callback = callback
   }
-  extend(ListUpdateListener, Listener);
+  extend(ListUpdateListener, Listener)
 
   /**
    * bind function for self-commenting code and to avoid lint warnings
@@ -33,8 +33,8 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @return a valid ListUpdateListener instance on success
    */
   ListUpdateListener.bind = function (list, callback) {
-    return new ListUpdateListener(list, callback);
-  };
+    return new ListUpdateListener(list, callback)
+  }
 
   /**
    * general callback function
@@ -47,15 +47,15 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    *          a data object
    */
   ListUpdateListener.prototype.update = function (emitter, event, data) {
-    this.callback.call(emitter, data);
-  };
+    this.callback.call(emitter, data)
+  }
 
   /**
    * collect different event types
    */
-  ListUpdateListener.prototype.onremove = ListUpdateListener.prototype.update;
-  ListUpdateListener.prototype.onreset = ListUpdateListener.prototype.update;
-  ListUpdateListener.prototype.oninsert = ListUpdateListener.prototype.update;
+  ListUpdateListener.prototype.onremove = ListUpdateListener.prototype.update
+  ListUpdateListener.prototype.onreset = ListUpdateListener.prototype.update
+  ListUpdateListener.prototype.oninsert = ListUpdateListener.prototype.update
 
-  return ListUpdateListener;
-});
+  return ListUpdateListener
+})

@@ -6,19 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
+define(['lib/extend', 'core/valuemodel'], function (extend, ValueModel) {
   /**
    * Constructor
    *
    * @param list
    *          a ListModel instance
    */
-  function LengthModel(list) {
-    LengthModel.superconstructor.call(this, list.length);
+  function LengthModel (list) {
+    LengthModel.superconstructor.call(this, list.length)
 
-    list.registerListener(this);
+    list.registerListener(this)
   }
-  extend(LengthModel, ValueModel);
+  extend(LengthModel, ValueModel)
 
   /**
    * callback listener
@@ -27,13 +27,13 @@ define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
    *          the emitter, i.e. the ListModel instance
    */
   LengthModel.prototype.onresize = function (list) {
-    LengthModel.superclass.set.call(this, list.length);
-  };
+    LengthModel.superclass.set.call(this, list.length)
+  }
 
   /**
    * disable the set() function. This is a passive ValueModel
    */
-  LengthModel.prototype.set = undefined;
+  LengthModel.prototype.set = undefined
 
-  return LengthModel;
-});
+  return LengthModel
+})
