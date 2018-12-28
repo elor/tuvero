@@ -6,47 +6,47 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
-    extend, RankingDataListener, VectorModel) {
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
+  extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingVotesListener(ranking) {
+  function RankingVotesListener (ranking) {
     RankingVotesListener.superconstructor
-        .call(this, ranking, new VectorModel());
+      .call(this, ranking, new VectorModel())
   }
-  extend(RankingVotesListener, RankingDataListener);
+  extend(RankingVotesListener, RankingDataListener)
 
-  RankingVotesListener.NAME = "votes";
-  RankingVotesListener.DEPENDENCIES = ["upvotes", "downvotes", "byes"];
+  RankingVotesListener.NAME = 'votes'
+  RankingVotesListener.DEPENDENCIES = ['upvotes', 'downvotes', 'byes']
 
   RankingVotesListener.prototype.onrecalc = function () {
     this.votes.map(function (oldVote, teamID) {
-      var i, string;
+      var i, string
 
-      string = "";
+      string = ''
 
       // byes
       for (i = 0; i < this.byes.get(teamID); i += 1) {
-        string += "∅";
+        string += '∅'
       }
 
       // upvotes
       for (i = 0; i < this.upvotes.get(teamID); i += 1) {
-        string += "▲";
+        string += '▲'
       }
 
       // downvotes
       for (i = 0; i < this.downvotes.get(teamID); i += 1) {
-        string += "▼";
+        string += '▼'
       }
 
-      this.votes.set(teamID, string);
-    }, this);
-  };
+      this.votes.set(teamID, string)
+    }, this)
+  }
 
-  return RankingVotesListener;
-});
+  return RankingVotesListener
+})

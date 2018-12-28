@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'],
   function (extend, RankingDataListener, VectorModel) {
     /**
      * Constructor
@@ -14,14 +14,14 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
      * @param ranking
      *          a RankingModel instance
      */
-    function RankingWinsListener(ranking) {
+    function RankingWinsListener (ranking) {
       RankingWinsListener.superconstructor.call(this, ranking, // autoformat
-        new VectorModel());
+        new VectorModel())
     }
-    extend(RankingWinsListener, RankingDataListener);
+    extend(RankingWinsListener, RankingDataListener)
 
-    RankingWinsListener.NAME = "wins";
-    RankingWinsListener.DEPENDENCIES = undefined;
+    RankingWinsListener.NAME = 'wins'
+    RankingWinsListener.DEPENDENCIES = undefined
 
     /**
      * insert the results of a game into the ranking.
@@ -34,12 +34,12 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
      *          a game result
      */
     RankingWinsListener.prototype.onresult = function (r, e, result) {
-      var winner = result.getWinner();
+      var winner = result.getWinner()
 
       if (winner !== undefined) {
-        this.wins.add(winner, 1);
+        this.wins.add(winner, 1)
       }
-    };
+    }
 
     /**
      * add bye-related "wins"
@@ -53,9 +53,9 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
      */
     RankingWinsListener.prototype.onbye = function (r, e, teams) {
       teams.forEach(function (teamid) {
-        this.wins.add(teamid, 1);
-      }, this);
-    };
+        this.wins.add(teamid, 1)
+      }, this)
+    }
 
     /**
      * correct a ranking entry. Do not check whether it's valid. The
@@ -69,14 +69,14 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
      *          a game correction
      */
     RankingWinsListener.prototype.oncorrect = function (r, e, correction) {
-      var winner = correction.before.getWinner();
+      var winner = correction.before.getWinner()
 
       if (winner !== undefined) {
-        this.wins.set(winner, this.wins.get(winner) - 1);
+        this.wins.set(winner, this.wins.get(winner) - 1)
       }
 
-      this.onresult(r, e, correction.after);
-    };
+      this.onresult(r, e, correction.after)
+    }
 
-    return RankingWinsListener;
-  });
+    return RankingWinsListener
+  })

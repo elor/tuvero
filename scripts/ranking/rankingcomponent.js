@@ -20,24 +20,24 @@ define(function () {
    * @param nextcomponent
    *          the next RankingComponent in the chain
    */
-  function RankingComponent(ranking, nextcomponent) {
-    this.ranking = ranking;
+  function RankingComponent (ranking, nextcomponent) {
+    this.ranking = ranking
 
     if (nextcomponent) {
-      this.nextcomponent = nextcomponent;
-      this.dependencies = this.nextcomponent.dependencies;
+      this.nextcomponent = nextcomponent
+      this.dependencies = this.nextcomponent.dependencies
     } else {
-      this.nextcomponent = RankingComponent.DUMMYCOMPONENT;
-      this.dependencies = [];
+      this.nextcomponent = RankingComponent.DUMMYCOMPONENT
+      this.dependencies = []
     }
 
     // add dependencies to the dependencies list
     if (this.constructor.DEPENDENCIES === undefined) {
-      this.dependencies.push(this.constructor.NAME);
+      this.dependencies.push(this.constructor.NAME)
     } else {
       this.constructor.DEPENDENCIES.forEach(function (DEP) {
-        this.dependencies.push(DEP);
-      }, this);
+        this.dependencies.push(DEP)
+      }, this)
     }
   }
 
@@ -48,14 +48,14 @@ define(function () {
    * This also is an implicit dependency, unless DEPENDENCIES is defined. If
    * there are no dependencies, set DEPENDENCIES to an empty array.
    */
-  RankingComponent.NAME = "undefined";
+  RankingComponent.NAME = 'undefined'
 
   /**
    * a list of dependencies, i.e. names, as in ranking.name.
    *
    * If this is undefined, the NAME is an implicit dependency.
    */
-  RankingComponent.DEPENDENCIES = [];
+  RankingComponent.DEPENDENCIES = []
 
   /**
    * DUMMYCOMPONENT is the default "nextcomponent", so the sort function does
@@ -72,15 +72,15 @@ define(function () {
      *         places can happen.
      */
     compare: function (i, k) {
-      return 0;
+      return 0
     },
     /**
      * do nothing, just return the output array
      */
     getValues: function (outArray) {
-      return outArray;
+      return outArray
     }
-  };
+  }
 
   /**
    * Recursively output all values to a two-dimensional array. Ignore fully
@@ -92,28 +92,28 @@ define(function () {
    *          level does not have any values, its entry will be set to undefined
    */
   RankingComponent.prototype.getValues = function (outArray) {
-    var values, index;
+    var values, index
 
     if (outArray === undefined) {
-      outArray = [];
+      outArray = []
     }
 
-    values = [];
+    values = []
 
     for (index = 0; index < this.ranking.length; index += 1) {
-      values[index] = this.value(index);
+      values[index] = this.value(index)
     }
 
     if (values.every(function (value) {
-      return value === undefined;
+      return value === undefined
     })) {
-      values = undefined;
+      values = undefined
     }
 
-    outArray.push(values);
+    outArray.push(values)
 
-    return this.nextcomponent.getValues(outArray);
-  };
+    return this.nextcomponent.getValues(outArray)
+  }
 
   /**
    * if the values for comparison are independent (points, as opposed to direct
@@ -128,8 +128,8 @@ define(function () {
    * @return a point value (or whatever) for this team
    */
   RankingComponent.prototype.value = function (i) {
-    return undefined;
-  };
+    return undefined
+  }
 
   /**
    * compare function for sort(). Is chained to the next component. Think before
@@ -146,8 +146,8 @@ define(function () {
    *         functions
    */
   RankingComponent.prototype.compare = function (i, k) {
-    return this.value(k) - this.value(i) || this.nextcomponent.compare(i, k);
-  };
+    return this.value(k) - this.value(i) || this.nextcomponent.compare(i, k)
+  }
 
-  return RankingComponent;
-});
+  return RankingComponent
+})

@@ -14,63 +14,63 @@
  * @see LICENSE
  */
 define([
-    "ranking/rankinglostpointslistener",
-    "ranking/rankingpointslistener",
-    "ranking/rankingsaldolistener",
-    "ranking/rankingupvoteslistener",
-    "ranking/rankingdownvoteslistener",
-    "ranking/rankingvoteslistener",
-    "ranking/rankingbyelistener",
-    "ranking/rankingwinslistener",
-    "ranking/rankinggamematrixlistener",
-    "ranking/rankingbuchholzlistener",
-    "ranking/rankingfinebuchholzlistener",
-    "ranking/rankingwinsmatrixlistener",
-    "ranking/rankingtaclistener",
-    "ranking/rankingsonnebornlistener",
-    "ranking/rankingheadtoheadlistener",
-    "ranking/rankingnumgameslistener",
-    "ranking/rankingkolistener",
-    "ranking/rankingthreepointlistener",
-    "ranking/rankingtwopointlistener",
-    "ranking/rankingplacementlistener",
-    "ranking/rankingpouleidlistener",
-    "ranking/rankingpouleranklistener"
-  ],
-  function () {
-    var RankingDataListenerIndex;
+  'ranking/rankinglostpointslistener',
+  'ranking/rankingpointslistener',
+  'ranking/rankingsaldolistener',
+  'ranking/rankingupvoteslistener',
+  'ranking/rankingdownvoteslistener',
+  'ranking/rankingvoteslistener',
+  'ranking/rankingbyelistener',
+  'ranking/rankingwinslistener',
+  'ranking/rankinggamematrixlistener',
+  'ranking/rankingbuchholzlistener',
+  'ranking/rankingfinebuchholzlistener',
+  'ranking/rankingwinsmatrixlistener',
+  'ranking/rankingtaclistener',
+  'ranking/rankingsonnebornlistener',
+  'ranking/rankingheadtoheadlistener',
+  'ranking/rankingnumgameslistener',
+  'ranking/rankingkolistener',
+  'ranking/rankingthreepointlistener',
+  'ranking/rankingtwopointlistener',
+  'ranking/rankingplacementlistener',
+  'ranking/rankingpouleidlistener',
+  'ranking/rankingpouleranklistener'
+],
+function () {
+  var RankingDataListenerIndex
 
-    /**
+  /**
      * build the index from the RankingXXXListener.NAME fields
      *
      * @param DataListeners
      *          the arguments object of the outer function. NOT an array!
      * @return a RankingDataListenerIndex object (no class)
      */
-    RankingDataListenerIndex = (function (DataListeners) {
-      var RDLI, index, DataListener;
+  RankingDataListenerIndex = (function (DataListeners) {
+    var RDLI, index, DataListener
 
-      RDLI = {};
-      for (index = 0; index < DataListeners.length; index += 1) {
-        DataListener = DataListeners[index];
-        RDLI[DataListener.NAME.toLowerCase()] = DataListener;
-      }
+    RDLI = {}
+    for (index = 0; index < DataListeners.length; index += 1) {
+      DataListener = DataListeners[index]
+      RDLI[DataListener.NAME.toLowerCase()] = DataListener
+    }
 
-      return RDLI;
-    })(arguments);
+    return RDLI
+  })(arguments)
 
-    /**
+  /**
      * return the DataListener as referenced by its name
      *
      * @param name
      *          the registered name of the DataListener
      * @return a DataListener subclass (constructor)
      */
-    function getDataListener(name) {
-      return RankingDataListenerIndex[name];
-    }
+  function getDataListener (name) {
+    return RankingDataListenerIndex[name]
+  }
 
-    /**
+  /**
      * return the dependencies array of the DataListener with the given name
      *
      * @param name
@@ -78,16 +78,16 @@ define([
      * @return an array of dependency names, or undefined if there are no
      *         dependencies
      */
-    function getDataDependencies(name) {
-      var DataListener = getDataListener(name);
-      if (!DataListener) {
-        console.warn("DataListener is undefined: " + name);
-        return undefined;
-      }
-      return getDataListener(name).DEPENDENCIES;
+  function getDataDependencies (name) {
+    var DataListener = getDataListener(name)
+    if (!DataListener) {
+      console.warn('DataListener is undefined: ' + name)
+      return undefined
     }
+    return getDataListener(name).DEPENDENCIES
+  }
 
-    /**
+  /**
      * Check whether all dependencies are fulfilled, i.e. the required
      * dependencies are part of the provided dependency
      *
@@ -98,20 +98,20 @@ define([
      *
      * @return true when the dependencies are fulfilled, false otherwise
      */
-    function dependenciesFulfilled(required, provided) {
-      if (!required) {
-        return true;
-      }
-      if (!provided) {
-        return false;
-      }
-
-      return required.every(function (dependency) {
-        return provided.indexOf(dependency) !== -1;
-      });
+  function dependenciesFulfilled (required, provided) {
+    if (!required) {
+      return true
+    }
+    if (!provided) {
+      return false
     }
 
-    /**
+    return required.every(function (dependency) {
+      return provided.indexOf(dependency) !== -1
+    })
+  }
+
+  /**
      * Missing dependencies are read from RankingXListener.DEPENDENCIES and
      * appended as needed. There's no additional dependency order resolution
      *
@@ -119,38 +119,38 @@ define([
      *          Where new dependencies are added to and the dependencies are read
      *          from
      */
-    function addMissingDependencies(dependencies) {
-      var index, dataDependencies;
+  function addMissingDependencies (dependencies) {
+    var index, dataDependencies
 
-      for (index = 0; index < dependencies.length; index += 1) {
-        dataDependencies = getDataDependencies(dependencies[index]);
-        if (dataDependencies) {
-          dataDependencies.forEach(function (DEP) {
-            if (dependencies.indexOf(DEP) === -1) {
-              dependencies.push(DEP);
-            }
-          });
-        }
+    for (index = 0; index < dependencies.length; index += 1) {
+      dataDependencies = getDataDependencies(dependencies[index])
+      if (dataDependencies) {
+        dataDependencies.forEach(function (DEP) {
+          if (dependencies.indexOf(DEP) === -1) {
+            dependencies.push(DEP)
+          }
+        })
       }
     }
+  }
 
-    /**
+  /**
      * removes multiple entries in dependencies
      *
      * @param dependencies
      *          an array of dependency names
      */
-    function removeMultipleDependencies(dependencies) {
-      var index;
+  function removeMultipleDependencies (dependencies) {
+    var index
 
-      for (index = dependencies.length - 1; index >= 0; index -= 1) {
-        if (dependencies.indexOf(dependencies[index]) < index) {
-          dependencies.splice(index, 1);
-        }
+    for (index = dependencies.length - 1; index >= 0; index -= 1) {
+      if (dependencies.indexOf(dependencies[index]) < index) {
+        dependencies.splice(index, 1)
       }
     }
+  }
 
-    /**
+  /**
      * perform a single dependency ordering run.
      *
      * @param input
@@ -160,30 +160,29 @@ define([
      *          are in
      * @return true of an element has been moved, false otherwise
      */
-    function orderDependenciesOnce(input, output) {
-      var added;
+  function orderDependenciesOnce (input, output) {
+    var added
 
-      added = []; // array of indices
+    added = [] // array of indices
 
-      // transfer every name whose dependencies have been fulfilled
-      input.forEach(function (name, index) {
-        if (dependenciesFulfilled(getDataDependencies(name), output)) {
+    // transfer every name whose dependencies have been fulfilled
+    input.forEach(function (name, index) {
+      if (dependenciesFulfilled(getDataDependencies(name), output)) {
+        added.push(index)
+        output.push(name)
+      }
+    })
 
-          added.push(index);
-          output.push(name);
-        }
-      });
+    // remove the items beginning with the last one to not corrupt the array
+    added.reverse()
+    added.forEach(function (inputIndex) {
+      input.splice(inputIndex, 1)
+    })
 
-      // remove the items beginning with the last one to not corrupt the array
-      added.reverse();
-      added.forEach(function (inputIndex) {
-        input.splice(inputIndex, 1);
-      });
+    return added.length > 0
+  }
 
-      return added.length > 0;
-    }
-
-    /**
+  /**
      * order the names by their dependencies inplace, i.e. without creating a new
      * array for output
      *
@@ -192,47 +191,47 @@ define([
      *          output array.
      * @return false on failure, true on success
      */
-    function orderDependencies(names) {
-      var input;
+  function orderDependencies (names) {
+    var input
 
-      input = names.splice(0).reverse();
+    input = names.splice(0).reverse()
 
-      addMissingDependencies(input);
-      removeMultipleDependencies(input);
+    addMissingDependencies(input)
+    removeMultipleDependencies(input)
 
-      // keep adding names until there's none left
-      while (orderDependenciesOnce(input, names)) {
-        //
-      }
-
-      // check for unresolvable dependencies
-      if (input.length > 0) {
-        console.error("dependencies could not be resolved: [" + input.join(",") +
-          "]");
-        names.splice(0);
-        return false;
-      }
-
-      return true;
+    // keep adding names until there's none left
+    while (orderDependenciesOnce(input, names)) {
+      //
     }
 
-    /**
+    // check for unresolvable dependencies
+    if (input.length > 0) {
+      console.error('dependencies could not be resolved: [' + input.join(',') +
+          ']')
+      names.splice(0)
+      return false
+    }
+
+    return true
+  }
+
+  /**
      * remove all defined names and leave only the undefined names in the array
      *
      * @param names
      *          an array of dependency names
      */
-    function extractUndefinedNames(names) {
-      var index;
+  function extractUndefinedNames (names) {
+    var index
 
-      for (index = names.length - 1; index >= 0; index -= 1) {
-        if (getDataListener(names[index]) !== undefined) {
-          names.splice(index, 1);
-        }
+    for (index = names.length - 1; index >= 0; index -= 1) {
+      if (getDataListener(names[index]) !== undefined) {
+        names.splice(index, 1)
       }
     }
+  }
 
-    /**
+  /**
      * order the names by their dependencies and register every DataListener, if
      * available. Aborts otherwise
      *
@@ -245,31 +244,31 @@ define([
      * @return A ordered array of DataListener instances on success, undefined
      *         otherwise
      */
-    RankingDataListenerIndex.registerDataListeners = function (ranking, names) {
-      var DataListeners;
+  RankingDataListenerIndex.registerDataListeners = function (ranking, names) {
+    var DataListeners
 
-      if (!names) {
-        return undefined;
-      }
+    if (!names) {
+      return undefined
+    }
 
-      if (!orderDependencies(names)) {
-        return undefined;
-      }
+    if (!orderDependencies(names)) {
+      return undefined
+    }
 
-      DataListeners = names.map(function (name) {
-        return getDataListener(name);
-      });
+    DataListeners = names.map(function (name) {
+      return getDataListener(name)
+    })
 
-      if (DataListeners.indexOf(undefined) >= 0) {
-        extractUndefinedNames(names);
-        console.error("data listener is undefined: " + names.join(", "));
-        return undefined;
-      }
+    if (DataListeners.indexOf(undefined) >= 0) {
+      extractUndefinedNames(names)
+      console.error('data listener is undefined: ' + names.join(', '))
+      return undefined
+    }
 
-      return DataListeners.map(function (DataListener) {
-        return new DataListener(ranking);
-      });
-    };
+    return DataListeners.map(function (DataListener) {
+      return new DataListener(ranking)
+    })
+  }
 
-    return RankingDataListenerIndex;
-  });
+  return RankingDataListenerIndex
+})

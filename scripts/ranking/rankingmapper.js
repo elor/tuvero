@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/model"], function (extend, Model) {
+define(['lib/extend', 'core/model'], function (extend, Model) {
   /**
    * Constructor
    *
@@ -17,16 +17,16 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    * @param teams
    *          a ListModel instance which maps internal to external ids
    */
-  function RankingMapper(ranking, teams) {
-    RankingMapper.superconstructor.call(this);
+  function RankingMapper (ranking, teams) {
+    RankingMapper.superconstructor.call(this)
 
-    this.cache = undefined;
-    this.ranking = ranking;
-    this.teams = teams;
+    this.cache = undefined
+    this.ranking = ranking
+    this.teams = teams
 
-    ranking.registerListener(this);
+    ranking.registerListener(this)
   }
-  extend(RankingMapper, Model);
+  extend(RankingMapper, Model)
 
   /**
    * translate internal ids (pos) to external ids
@@ -39,9 +39,9 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    */
   RankingMapper.translateIDs = function (rankingcomponent, map) {
     return rankingcomponent.map(function (pos) {
-      return map.get(pos);
-    });
-  };
+      return map.get(pos)
+    })
+  }
 
   /**
    * read a ranking object with internal ids and map all internal ids to
@@ -49,25 +49,25 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    * ranking.get().displayOrder
    */
   RankingMapper.updateCache = function () {
-    var ranks, newcache;
+    var ranks, newcache
 
-    ranks = this.ranking.get();
-    newcache = {};
+    ranks = this.ranking.get()
+    newcache = {}
 
     Object.keys(ranks).forEach(function (key) {
-      var values;
+      var values
 
-      if (key === "ids") {
-        values = RankingMapper.translateIDs(ranks[key], this.teams);
+      if (key === 'ids') {
+        values = RankingMapper.translateIDs(ranks[key], this.teams)
       } else {
-        values = ranks[key].slice(0);
+        values = ranks[key].slice(0)
       }
 
-      newcache[key] = values;
-    }, this);
+      newcache[key] = values
+    }, this)
 
-    this.cache = newcache;
-  };
+    this.cache = newcache
+  }
 
   /**
    * get the cached ranking or rebuild it if invalidated
@@ -76,26 +76,26 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    */
   RankingMapper.prototype.get = function () {
     if (this.cache === undefined) {
-      RankingMapper.updateCache.call(this);
+      RankingMapper.updateCache.call(this)
     }
 
-    return this.cache;
-  };
+    return this.cache
+  }
 
   /**
    * force a rebuild of the ranking object (mapping only)
    */
   RankingMapper.prototype.invalidate = function () {
-    this.cache = undefined;
-  };
+    this.cache = undefined
+  }
 
   /**
    * callback function
    */
   RankingMapper.prototype.onupdate = function () {
-    this.invalidate();
-    this.emit("update");
-  };
+    this.invalidate()
+    this.emit('update')
+  }
 
-  return RankingMapper;
-});
+  return RankingMapper
+})

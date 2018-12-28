@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingcomponent"], function (extend, //
-RankingComponent) {
+define(['lib/extend', 'ranking/rankingcomponent'], function (extend, //
+  RankingComponent) {
   /**
    * Constructor
    *
@@ -16,12 +16,12 @@ RankingComponent) {
    * @param nextcomponent
    *          the next component in the chain
    */
-  function RankingThreePointComponent(ranking, nextcomponent) {
-    RankingThreePointComponent.superconstructor.call(this, ranking, nextcomponent);
+  function RankingThreePointComponent (ranking, nextcomponent) {
+    RankingThreePointComponent.superconstructor.call(this, ranking, nextcomponent)
   }
-  extend(RankingThreePointComponent, RankingComponent);
+  extend(RankingThreePointComponent, RankingComponent)
 
-  RankingThreePointComponent.NAME = "threepoint";
+  RankingThreePointComponent.NAME = 'threepoint'
 
   /**
    * @param i
@@ -29,8 +29,8 @@ RankingComponent) {
    * @return the number of won games
    */
   RankingThreePointComponent.prototype.value = function (i) {
-    return this.ranking.threepoint.get(i);
-  };
+    return this.ranking.threepoint.get(i)
+  }
 
-  return RankingThreePointComponent;
-});
+  return RankingThreePointComponent
+})

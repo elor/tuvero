@@ -1,27 +1,27 @@
 define(
-  ["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"],
+  ['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'],
   function (extend, RankingDataListener, VectorModel) {
-    function RankingPouleRankListener(ranking) {
-      RankingPouleRankListener.superconstructor.call(this, ranking, new VectorModel());
+    function RankingPouleRankListener (ranking) {
+      RankingPouleRankListener.superconstructor.call(this, ranking, new VectorModel())
     }
-    extend(RankingPouleRankListener, RankingDataListener);
+    extend(RankingPouleRankListener, RankingDataListener)
 
-    RankingPouleRankListener.NAME = "poulerank";
-    RankingPouleRankListener.DEPENDENCIES = undefined;
+    RankingPouleRankListener.NAME = 'poulerank'
+    RankingPouleRankListener.DEPENDENCIES = undefined
 
     RankingPouleRankListener.prototype.onresult = function (r, e, result) {
-      var ranks;
+      var ranks
 
-      ranks = this.ranking.tournament.getRanksFromTable(result.getID(), result.getGroup());
+      ranks = this.ranking.tournament.getRanksFromTable(result.getID(), result.getGroup())
       if (ranks) {
-        this.poulerank.set(result.getWinner(), ranks.winner);
-        this.poulerank.set(result.getLoser(), ranks.loser);
+        this.poulerank.set(result.getWinner(), ranks.winner)
+        this.poulerank.set(result.getLoser(), ranks.loser)
       }
-    };
+    }
 
     RankingPouleRankListener.prototype.oncorrect = function (r, e, correction) {
-      this.onresult(r, e, correction.after);
-    };
+      this.onresult(r, e, correction.after)
+    }
 
-    return RankingPouleRankListener;
-  });
+    return RankingPouleRankListener
+  })

@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define([
-  "lib/extend",
-  "ranking/rankingdatalistener",
-  "math/vectormodel"
+  'lib/extend',
+  'ranking/rankingdatalistener',
+  'math/vectormodel'
 ], function (extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -17,14 +17,14 @@ define([
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingTwoPointListener(ranking) {
+  function RankingTwoPointListener (ranking) {
     RankingTwoPointListener.superconstructor.call(this, ranking, // autoformat
-      new VectorModel());
+      new VectorModel())
   }
-  extend(RankingTwoPointListener, RankingDataListener);
+  extend(RankingTwoPointListener, RankingDataListener)
 
-  RankingTwoPointListener.NAME = "twopoint";
-  RankingTwoPointListener.DEPENDENCIES = undefined;
+  RankingTwoPointListener.NAME = 'twopoint'
+  RankingTwoPointListener.DEPENDENCIES = undefined
 
   /**
    * insert the results of a game into the ranking.
@@ -37,21 +37,21 @@ define([
    *          a game result
    */
   RankingTwoPointListener.prototype.onresult = function (r, e, result) {
-    var winner, maxpoints;
+    var winner, maxpoints
 
-    winner = result.getWinner();
+    winner = result.getWinner()
 
     if (winner !== undefined) {
-      this.twopoint.add(winner, 2);
+      this.twopoint.add(winner, 2)
     } else {
-      maxpoints = Math.max.apply(Math, result.score);
+      maxpoints = Math.max.apply(Math, result.score)
       result.teams.forEach(function (teamid, index) {
         if (result.score[index] === maxpoints) {
-          this.twopoint.add(teamid, 1);
+          this.twopoint.add(teamid, 1)
         }
-      }, this);
+      }, this)
     }
-  };
+  }
 
   /**
    * add bye-related "twopoint"
@@ -65,9 +65,9 @@ define([
    */
   RankingTwoPointListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.twopoint.add(teamid, 2);
-    }, this);
-  };
+      this.twopoint.add(teamid, 2)
+    }, this)
+  }
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
@@ -81,23 +81,23 @@ define([
    *          a game correction
    */
   RankingTwoPointListener.prototype.oncorrect = function (r, e, correction) {
-    var winner, maxpoints;
+    var winner, maxpoints
 
-    winner = correction.before.getWinner();
+    winner = correction.before.getWinner()
 
     if (winner !== undefined) {
-      this.twopoint.set(winner, this.twopoint.get(winner) - 2);
+      this.twopoint.set(winner, this.twopoint.get(winner) - 2)
     } else {
-      maxpoints = Math.max.apply(Math, correction.before.score);
+      maxpoints = Math.max.apply(Math, correction.before.score)
       correction.before.teams.forEach(function (teamid, index) {
         if (correction.before.score[index] === maxpoints) {
-          this.twopoint.set(teamid, this.twopoint.get(teamid) - 1);
+          this.twopoint.set(teamid, this.twopoint.get(teamid) - 1)
         }
-      }, this);
+      }, this)
     }
 
-    this.onresult(r, e, correction.after);
-  };
+    this.onresult(r, e, correction.after)
+  }
 
-  return RankingTwoPointListener;
-});
+  return RankingTwoPointListener
+})

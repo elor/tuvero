@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingcomponent"], //
-function (extend, RankingComponent) {
+define(['lib/extend', 'ranking/rankingcomponent'], //
+  function (extend, RankingComponent) {
   /**
    * Constructor
    *
@@ -16,22 +16,22 @@ function (extend, RankingComponent) {
    * @param nextcomponent
    *          the next component in the chain
    */
-  function RankingPointsComponent(ranking, nextcomponent) {
-    RankingPointsComponent.superconstructor.call(this, ranking, //
-    nextcomponent);
-  }
-  extend(RankingPointsComponent, RankingComponent);
+    function RankingPointsComponent (ranking, nextcomponent) {
+      RankingPointsComponent.superconstructor.call(this, ranking, //
+        nextcomponent)
+    }
+    extend(RankingPointsComponent, RankingComponent)
 
-  RankingPointsComponent.NAME = "points";
+    RankingPointsComponent.NAME = 'points'
 
-  /**
+    /**
    * @param i
    *          a team index
    * @return the small points: won points, without subtracting lost points
    */
-  RankingPointsComponent.prototype.value = function (i) {
-    return this.ranking.points.get(i);
-  };
+    RankingPointsComponent.prototype.value = function (i) {
+      return this.ranking.points.get(i)
+    }
 
-  return RankingPointsComponent;
-});
+    return RankingPointsComponent
+  })

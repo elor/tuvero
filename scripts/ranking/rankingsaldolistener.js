@@ -6,26 +6,26 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
-    extend, RankingDataListener, VectorModel) {
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
+  extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingSaldoListener(ranking) {
+  function RankingSaldoListener (ranking) {
     RankingSaldoListener.superconstructor
-        .call(this, ranking, new VectorModel());
+      .call(this, ranking, new VectorModel())
   }
-  extend(RankingSaldoListener, RankingDataListener);
+  extend(RankingSaldoListener, RankingDataListener)
 
-  RankingSaldoListener.NAME = "saldo";
-  RankingSaldoListener.DEPENDENCIES = ["points", "lostpoints"];
+  RankingSaldoListener.NAME = 'saldo'
+  RankingSaldoListener.DEPENDENCIES = ['points', 'lostpoints']
 
   RankingSaldoListener.prototype.onrecalc = function () {
-    this.saldo.sum(this.points, this.lostpoints);
-  };
+    this.saldo.sum(this.points, this.lostpoints)
+  }
 
-  return RankingSaldoListener;
-});
+  return RankingSaldoListener
+})

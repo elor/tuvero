@@ -7,21 +7,21 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/matrixmodel"], function (
-    extend, RankingDataListener, MatrixModel) {
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/matrixmodel'], function (
+  extend, RankingDataListener, MatrixModel) {
   /**
    * Constructor
    *
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingWinsMatrixListener(ranking) {
+  function RankingWinsMatrixListener (ranking) {
     RankingWinsMatrixListener.superconstructor.call(this, ranking,
-        new MatrixModel());
+      new MatrixModel())
   }
-  extend(RankingWinsMatrixListener, RankingDataListener);
+  extend(RankingWinsMatrixListener, RankingDataListener)
 
-  RankingWinsMatrixListener.NAME = "winsmatrix";
+  RankingWinsMatrixListener.NAME = 'winsmatrix'
 
   /**
    * insert the game results into the ranking
@@ -41,39 +41,39 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/matrixmodel"], functi
    *          a game result
    */
   RankingWinsMatrixListener.prototype.onresult = function (r, e, result) {
-    var maxpoints, draw, score;
+    var maxpoints, draw, score
 
     // get the max points, remember if there's a draw
-    maxpoints = undefined;
-    draw = false;
+    maxpoints = undefined
+    draw = false
     result.score.forEach(function (points) {
       if (points > maxpoints || maxpoints === undefined) {
-        maxpoints = points;
-        draw = false;
+        maxpoints = points
+        draw = false
       } else if (points === maxpoints) {
-        draw = true;
+        draw = true
       }
-    }, this);
+    }, this)
 
     // only give half the score for a draw
-    score = draw ? 0.5 : 1;
+    score = draw ? 0.5 : 1
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
     result.score.forEach(function (points, index) {
-      var teamid;
+      var teamid
       if (points === maxpoints) {
-        teamid = result.teams[index];
+        teamid = result.teams[index]
         result.teams.forEach(function (opponent) {
-          var value;
+          var value
           if (teamid !== opponent) {
-            value = this.winsmatrix.get(teamid, opponent) + score;
-            this.winsmatrix.set(teamid, opponent, value);
+            value = this.winsmatrix.get(teamid, opponent) + score
+            this.winsmatrix.set(teamid, opponent, value)
           }
-        }, this);
+        }, this)
       }
-    }, this);
-  };
+    }, this)
+  }
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
@@ -89,41 +89,41 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/matrixmodel"], functi
   RankingWinsMatrixListener.prototype.oncorrect = function (r, e, correction) {
     // TODO DRY - Don't Repeat Yourself!
     // TODO extract a method for use by onresult and oncorrect
-    var maxpoints, draw, score;
+    var maxpoints, draw, score
 
     // get the max points, remember if there's a draw
-    maxpoints = undefined;
-    draw = false;
+    maxpoints = undefined
+    draw = false
     correction.before.score.forEach(function (points) {
       if (points > maxpoints || maxpoints === undefined) {
-        maxpoints = points;
-        draw = false;
+        maxpoints = points
+        draw = false
       } else if (points === maxpoints) {
-        draw = true;
+        draw = true
       }
-    }, this);
+    }, this)
 
     // only give half the score for a draw
-    score = draw ? 0.5 : 1;
+    score = draw ? 0.5 : 1
 
     // find every winner and apply the score over his opponents (i.e. everyone
     // else)
     correction.before.score.forEach(function (points, index) {
-      var teamid;
+      var teamid
       if (points === maxpoints) {
-        teamid = correction.before.teams[index];
+        teamid = correction.before.teams[index]
         correction.before.teams.forEach(function (opponent) {
-          var value;
+          var value
           if (teamid !== opponent) {
-            value = this.winsmatrix.get(teamid, opponent) - score;
-            this.winsmatrix.set(teamid, opponent, value);
+            value = this.winsmatrix.get(teamid, opponent) - score
+            this.winsmatrix.set(teamid, opponent, value)
           }
-        }, this);
+        }, this)
       }
-    }, this);
+    }, this)
 
-    this.onresult(r, e, correction.after);
-  };
+    this.onresult(r, e, correction.after)
+  }
 
-  return RankingWinsMatrixListener;
-});
+  return RankingWinsMatrixListener
+})

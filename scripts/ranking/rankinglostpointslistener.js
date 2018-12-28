@@ -6,22 +6,22 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
-"options"], function (extend, RankingDataListener, VectorModel, Options) {
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
+  'options'], function (extend, RankingDataListener, VectorModel, Options) {
   /**
    * Constructor
    *
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingLostPointsListener(ranking) {
+  function RankingLostPointsListener (ranking) {
     RankingLostPointsListener.superconstructor.call(this, ranking,
-        new VectorModel());
+      new VectorModel())
   }
-  extend(RankingLostPointsListener, RankingDataListener);
+  extend(RankingLostPointsListener, RankingDataListener)
 
-  RankingLostPointsListener.NAME = "lostpoints";
-  RankingLostPointsListener.DEPENDENCIES = undefined;
+  RankingLostPointsListener.NAME = 'lostpoints'
+  RankingLostPointsListener.DEPENDENCIES = undefined
 
   /**
    * insert the results of a game into the ranking.
@@ -41,12 +41,12 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
     result.teams.forEach(function (opponent, index) {
       result.teams.forEach(function (team) {
         if (team !== opponent) {
-          this.lostpoints.set(team, this.lostpoints.get(team)
-              - result.score[index]);
+          this.lostpoints.set(team, this.lostpoints.get(team) -
+              result.score[index])
         }
-      }, this);
-    }, this);
-  };
+      }, this)
+    }, this)
+  }
 
   /**
    * account for bye points
@@ -60,10 +60,10 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   RankingLostPointsListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.lostpoints.set(teamid, this.lostpoints.get(teamid)
-          - Options.byepointslost);
-    }, this);
-  };
+      this.lostpoints.set(teamid, this.lostpoints.get(teamid) -
+          Options.byepointslost)
+    }, this)
+  }
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
@@ -80,15 +80,14 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
     correction.before.teams.forEach(function (opponent, index) {
       correction.before.teams.forEach(function (team) {
         if (team !== opponent) {
-          this.lostpoints.set(team, this.lostpoints.get(team)
-              + correction.before.score[index]);
+          this.lostpoints.set(team, this.lostpoints.get(team) +
+              correction.before.score[index])
         }
-      }, this);
+      }, this)
+    }, this)
 
-    }, this);
+    this.onresult(r, e, correction.after)
+  }
 
-    this.onresult(r, e, correction.after);
-  };
-
-  return RankingLostPointsListener;
-});
+  return RankingLostPointsListener
+})

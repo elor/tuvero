@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
-  "options"
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
+  'options'
 ], function (extend, RankingDataListener, VectorModel, Options) {
   /**
    * Constructor
@@ -15,14 +15,14 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingPointsListener(ranking) {
+  function RankingPointsListener (ranking) {
     RankingPointsListener.superconstructor.call(this, ranking,
-      new VectorModel());
+      new VectorModel())
   }
-  extend(RankingPointsListener, RankingDataListener);
+  extend(RankingPointsListener, RankingDataListener)
 
-  RankingPointsListener.NAME = "points";
-  RankingPointsListener.DEPENDENCIES = undefined;
+  RankingPointsListener.NAME = 'points'
+  RankingPointsListener.DEPENDENCIES = undefined
 
   /**
    * insert the results of a game into the ranking.
@@ -36,9 +36,9 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   RankingPointsListener.prototype.onresult = function (r, e, result) {
     result.teams.forEach(function (teamid, index) {
-      this.points.add(teamid, result.score[index]);
-    }, this);
-  };
+      this.points.add(teamid, result.score[index])
+    }, this)
+  }
 
   /**
    * add bye points
@@ -52,9 +52,9 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   RankingPointsListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.points.add(teamid, Options.byepointswon);
-    }, this);
-  };
+      this.points.add(teamid, Options.byepointswon)
+    }, this)
+  }
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
@@ -69,11 +69,11 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel", //
    */
   RankingPointsListener.prototype.oncorrect = function (r, e, correction) {
     correction.before.teams.forEach(function (teamid, index) {
-      this.points.add(teamid, -correction.before.score[index]);
-    }, this);
+      this.points.add(teamid, -correction.before.score[index])
+    }, this)
 
-    this.onresult(r, e, correction.after);
-  };
+    this.onresult(r, e, correction.after)
+  }
 
-  return RankingPointsListener;
-});
+  return RankingPointsListener
+})

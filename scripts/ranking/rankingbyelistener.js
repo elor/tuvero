@@ -8,8 +8,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", //
-  "math/vectormodel"
+define(['lib/extend', 'ranking/rankingdatalistener', //
+  'math/vectormodel'
 ], function (extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -17,14 +17,14 @@ define(["lib/extend", "ranking/rankingdatalistener", //
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingByeListener(ranking) {
+  function RankingByeListener (ranking) {
     RankingByeListener.superconstructor.call(this, ranking, // autoformat
-      new VectorModel());
+      new VectorModel())
   }
-  extend(RankingByeListener, RankingDataListener);
+  extend(RankingByeListener, RankingDataListener)
 
-  RankingByeListener.NAME = "byes";
-  RankingByeListener.DEPENDENCIES = undefined;
+  RankingByeListener.NAME = 'byes'
+  RankingByeListener.DEPENDENCIES = undefined
 
   /**
    * accumulate byes
@@ -38,9 +38,9 @@ define(["lib/extend", "ranking/rankingdatalistener", //
    */
   RankingByeListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.byes.add(teamid, 1);
-    }, this);
-  };
+      this.byes.add(teamid, 1)
+    }, this)
+  }
 
-  return RankingByeListener;
-});
+  return RankingByeListener
+})

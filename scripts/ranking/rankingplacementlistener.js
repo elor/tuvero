@@ -6,20 +6,20 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
-    extend, RankingDataListener, VectorModel) {
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
+  extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingPlacementListener(ranking) {
-    RankingPlacementListener.superconstructor.call(this, ranking, new VectorModel());
+  function RankingPlacementListener (ranking) {
+    RankingPlacementListener.superconstructor.call(this, ranking, new VectorModel())
   }
-  extend(RankingPlacementListener, RankingDataListener);
+  extend(RankingPlacementListener, RankingDataListener)
 
-  RankingPlacementListener.NAME = "placement";
+  RankingPlacementListener.NAME = 'placement'
 
-  return RankingPlacementListener;
-});
+  return RankingPlacementListener
+})

@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 define([
-  "lib/extend",
-  "ranking/rankingdatalistener",
-  "math/vectormodel"
+  'lib/extend',
+  'ranking/rankingdatalistener',
+  'math/vectormodel'
 ], function (extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -17,14 +17,14 @@ define([
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingThreePointListener(ranking) {
+  function RankingThreePointListener (ranking) {
     RankingThreePointListener.superconstructor.call(this, ranking, // autoformat
-      new VectorModel());
+      new VectorModel())
   }
-  extend(RankingThreePointListener, RankingDataListener);
+  extend(RankingThreePointListener, RankingDataListener)
 
-  RankingThreePointListener.NAME = "threepoint";
-  RankingThreePointListener.DEPENDENCIES = undefined;
+  RankingThreePointListener.NAME = 'threepoint'
+  RankingThreePointListener.DEPENDENCIES = undefined
 
   /**
    * insert the results of a game into the ranking.
@@ -37,21 +37,21 @@ define([
    *          a game result
    */
   RankingThreePointListener.prototype.onresult = function (r, e, result) {
-    var winner, maxpoints;
+    var winner, maxpoints
 
-    winner = result.getWinner();
+    winner = result.getWinner()
 
     if (winner !== undefined) {
-      this.threepoint.add(winner, 3);
+      this.threepoint.add(winner, 3)
     } else {
-      maxpoints = Math.max.apply(Math, result.score);
+      maxpoints = Math.max.apply(Math, result.score)
       result.teams.forEach(function (teamid, index) {
         if (result.score[index] === maxpoints) {
-          this.threepoint.add(teamid, 1);
+          this.threepoint.add(teamid, 1)
         }
-      }, this);
+      }, this)
     }
-  };
+  }
 
   /**
    * add bye-related "threepoint"
@@ -65,9 +65,9 @@ define([
    */
   RankingThreePointListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.threepoint.add(teamid, 3);
-    }, this);
-  };
+      this.threepoint.add(teamid, 3)
+    }, this)
+  }
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
@@ -81,23 +81,23 @@ define([
    *          a game correction
    */
   RankingThreePointListener.prototype.oncorrect = function (r, e, correction) {
-    var winner, maxpoints;
+    var winner, maxpoints
 
-    winner = correction.before.getWinner();
+    winner = correction.before.getWinner()
 
     if (winner !== undefined) {
-      this.threepoint.set(winner, this.threepoint.get(winner) - 3);
+      this.threepoint.set(winner, this.threepoint.get(winner) - 3)
     } else {
-      maxpoints = Math.max.apply(Math, correction.before.score);
+      maxpoints = Math.max.apply(Math, correction.before.score)
       correction.before.teams.forEach(function (teamid, index) {
         if (correction.before.score[index] === maxpoints) {
-          this.threepoint.set(teamid, this.threepoint.get(teamid) - 1);
+          this.threepoint.set(teamid, this.threepoint.get(teamid) - 1)
         }
-      }, this);
+      }, this)
     }
 
-    this.onresult(r, e, correction.after);
-  };
+    this.onresult(r, e, correction.after)
+  }
 
-  return RankingThreePointListener;
-});
+  return RankingThreePointListener
+})

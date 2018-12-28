@@ -6,26 +6,26 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
-    extend, RankingDataListener, VectorModel) {
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
+  extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingBuchholzListener(ranking) {
+  function RankingBuchholzListener (ranking) {
     RankingBuchholzListener.superconstructor.call(this, ranking,
-        new VectorModel());
+      new VectorModel())
   }
-  extend(RankingBuchholzListener, RankingDataListener);
+  extend(RankingBuchholzListener, RankingDataListener)
 
-  RankingBuchholzListener.NAME = "buchholz";
-  RankingBuchholzListener.DEPENDENCIES = ["gamematrix", "wins"];
+  RankingBuchholzListener.NAME = 'buchholz'
+  RankingBuchholzListener.DEPENDENCIES = ['gamematrix', 'wins']
 
   RankingBuchholzListener.prototype.onrecalc = function () {
-    this.gamematrix.multVector(this.buchholz, this.wins);
-  };
+    this.gamematrix.multVector(this.buchholz, this.wins)
+  }
 
-  return RankingBuchholzListener;
-});
+  return RankingBuchholzListener
+})

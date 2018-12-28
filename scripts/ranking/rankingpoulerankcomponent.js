@@ -1,22 +1,22 @@
-define(["lib/extend", "ranking/rankingcomponent"], function (
+define(['lib/extend', 'ranking/rankingcomponent'], function (
   extend,
   RankingComponent
 ) {
-  function RankingPouleRankComponent(ranking, nextcomponent) {
-    RankingPouleRankComponent.superconstructor.call(this, ranking, nextcomponent);
+  function RankingPouleRankComponent (ranking, nextcomponent) {
+    RankingPouleRankComponent.superconstructor.call(this, ranking, nextcomponent)
   }
-  extend(RankingPouleRankComponent, RankingComponent);
+  extend(RankingPouleRankComponent, RankingComponent)
 
-  RankingPouleRankComponent.NAME = "poulerank";
-  RankingPouleRankComponent.DEPENDENCIES = ["poulerank", "wins", "saldo", "points"];
+  RankingPouleRankComponent.NAME = 'poulerank'
+  RankingPouleRankComponent.DEPENDENCIES = ['poulerank', 'wins', 'saldo', 'points']
 
   RankingPouleRankComponent.prototype.value = function (i) {
-    return Number(this.ranking.poulerank.get(i)) + 1;
-  };
+    return Number(this.ranking.poulerank.get(i)) + 1
+  }
 
   RankingPouleRankComponent.prototype.compare = function (i, k) {
-    return this.value(i) - this.value(k) || this.nextcomponent.compare(i, k);
-  };
+    return this.value(i) - this.value(k) || this.nextcomponent.compare(i, k)
+  }
 
-  return RankingPouleRankComponent;
-});
+  return RankingPouleRankComponent
+})

@@ -6,19 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
-    extend, RankingDataListener, VectorModel) {
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
+  extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
    *
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingUpvotesListener(ranking) {
+  function RankingUpvotesListener (ranking) {
     RankingUpvotesListener.superconstructor.call(this, ranking,
-        new VectorModel());
+      new VectorModel())
   }
-  extend(RankingUpvotesListener, RankingDataListener);
+  extend(RankingUpvotesListener, RankingDataListener)
 
   /**
    * override the 'isPrimary()' function: Don't check for specialties, just make
@@ -27,11 +27,11 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    * @return true
    */
   RankingUpvotesListener.prototype.isPrimary = function () {
-    return true;
-  };
+    return true
+  }
 
-  RankingUpvotesListener.NAME = "upvotes";
-  RankingUpvotesListener.DEPENDENCIES = undefined;
+  RankingUpvotesListener.NAME = 'upvotes'
+  RankingUpvotesListener.DEPENDENCIES = undefined
 
-  return RankingUpvotesListener;
-});
+  return RankingUpvotesListener
+})

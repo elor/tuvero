@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/listener"], function (extend, Listener) {
+define(['lib/extend', 'core/listener'], function (extend, Listener) {
   /**
    * Constructor.
    *
@@ -19,41 +19,41 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @param fieldobject
    *          the object for the field this class is calculating
    */
-  function RankingDataListener(ranking, fieldobject) {
-    var Const;
-    RankingDataListener.superconstructor.call(this);
+  function RankingDataListener (ranking, fieldobject) {
+    var Const
+    RankingDataListener.superconstructor.call(this)
 
     /**
      * This.constructor, on inherited classes, is NOT RankingDataListener, but
      * the constructor that was invoked by 'new'
      */
-    Const = this.constructor;
+    Const = this.constructor
 
-    this.ranking = ranking;
+    this.ranking = ranking
 
     // resize and map the ranking field
     if (fieldobject.length !== ranking.length) {
-      fieldobject.resize(ranking.length);
+      fieldobject.resize(ranking.length)
     }
     if (ranking[Const.NAME] !== undefined) {
-      throw new Error("ranking field already exists: " + Const.NAME);
+      throw new Error('ranking field already exists: ' + Const.NAME)
     }
-    ranking[Const.NAME] = fieldobject;
-    this[Const.NAME] = fieldobject;
+    ranking[Const.NAME] = fieldobject
+    this[Const.NAME] = fieldobject
 
     // create dependency links
     if (Const.DEPENDENCIES) {
       Const.DEPENDENCIES.forEach(function (DEPNAME) {
-        this[DEPNAME] = ranking[DEPNAME];
+        this[DEPNAME] = ranking[DEPNAME]
         if (this[DEPNAME] === undefined) {
-          console.warn("ranking dependency not found: " + DEPNAME);
+          console.warn('ranking dependency not found: ' + DEPNAME)
         }
-      }, this);
+      }, this)
     }
 
-    ranking.registerListener(this);
+    ranking.registerListener(this)
   }
-  extend(RankingDataListener, Listener);
+  extend(RankingDataListener, Listener)
 
   /**
    * detect whether this specific instance is a primary data listener, or is
@@ -63,24 +63,24 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    */
   RankingDataListener.prototype.isPrimary = function () {
     return this.onbye !== RankingDataListener.prototype.onbye ||
-      this.onresult !== RankingDataListener.prototype.onresult;
-  };
+      this.onresult !== RankingDataListener.prototype.onresult
+  }
 
   /**
    * the name of the field, which is handled by this class, e.g. 'wins'
    */
-  RankingDataListener.NAME = "undefined";
+  RankingDataListener.NAME = 'undefined'
 
   /**
    * an array of dependencies, e.g. [ 'buchholz', 'games'] for finebuchholz
    */
-  RankingDataListener.DEPENDENCIES = [];
+  RankingDataListener.DEPENDENCIES = []
 
   RankingDataListener.prototype.destroy = function () {
-    RankingDataListener.superclass.destroy.call(this);
+    RankingDataListener.superclass.destroy.call(this)
 
-    delete this.ranking[this.constructor.NAME];
-  };
+    delete this.ranking[this.constructor.NAME]
+  }
 
   /**
    * insert the results of a game into the ranking.
@@ -94,7 +94,7 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    */
   RankingDataListener.prototype.onresult = function (r, e, game) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
-  };
+  }
 
   /**
    * inserts a bye into the ranking
@@ -108,7 +108,7 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    */
   RankingDataListener.prototype.onbye = function (r, e, teams) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
-  };
+  }
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
@@ -123,28 +123,28 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    */
   RankingDataListener.prototype.oncorrect = function (r, e, correction) {
     // do something to this.NAME, where NAME is the value of constructor.NAME
-  };
+  }
 
   /**
    * calculate the field
    */
   RankingDataListener.prototype.onrecalc = function () {
     // do something to this.NAME, where NAME is the value of constructor.NAME
-  };
+  }
 
   RankingDataListener.prototype.zero = function () {
-    var data = this[this.constructor.NAME];
+    var data = this[this.constructor.NAME]
     if (data.fill) {
-      data.fill(0);
+      data.fill(0)
     }
-  };
+  }
 
   /**
    * reset the field
    */
   RankingDataListener.prototype.onreset = function () {
-    this.zero();
-  };
+    this.zero()
+  }
 
   /**
    * resize the contents
@@ -152,11 +152,11 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @param ranking
    */
   RankingDataListener.prototype.onresize = function (ranking) {
-    var dataobject = this[this.constructor.NAME];
+    var dataobject = this[this.constructor.NAME]
     if (dataobject && dataobject.resize) {
-      this[this.constructor.NAME].resize(ranking.length);
+      this[this.constructor.NAME].resize(ranking.length)
     }
-  };
+  }
 
-  return RankingDataListener;
-});
+  return RankingDataListener
+})

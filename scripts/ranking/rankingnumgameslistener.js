@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], function (
+define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], function (
   extend, RankingDataListener, VectorModel) {
   /**
    * Constructor
@@ -14,14 +14,14 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    * @param ranking
    *          a RankingModel instance
    */
-  function RankingNumGamesListener(ranking) {
+  function RankingNumGamesListener (ranking) {
     RankingNumGamesListener.superconstructor.call(this, ranking,
-      new VectorModel());
+      new VectorModel())
   }
-  extend(RankingNumGamesListener, RankingDataListener);
+  extend(RankingNumGamesListener, RankingDataListener)
 
-  RankingNumGamesListener.NAME = "numgames";
-  RankingNumGamesListener.DEPENDENCIES = undefined;
+  RankingNumGamesListener.NAME = 'numgames'
+  RankingNumGamesListener.DEPENDENCIES = undefined
 
   /**
    * insert the results of a game into the ranking.
@@ -35,9 +35,9 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    */
   RankingNumGamesListener.prototype.onresult = function (r, e, result) {
     result.teams.forEach(function (teamid) {
-      this.numgames.add(teamid, 1);
-    }, this);
-  };
+      this.numgames.add(teamid, 1)
+    }, this)
+  }
 
   /**
    * @param r
@@ -49,9 +49,9 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    */
   RankingNumGamesListener.prototype.onbye = function (r, e, teams) {
     teams.forEach(function (teamid) {
-      this.numgames.add(teamid, 1);
-    }, this);
-  };
+      this.numgames.add(teamid, 1)
+    }, this)
+  }
 
   /**
    * correct a ranking entry. Do not check whether it's valid. The
@@ -66,11 +66,11 @@ define(["lib/extend", "ranking/rankingdatalistener", "math/vectormodel"], functi
    */
   RankingNumGamesListener.prototype.oncorrect = function (r, e, correction) {
     correction.before.teams.forEach(function (teamid) {
-      this.numgames.set(teamid, this.numgames.get(teamid) - 1);
-    }, this);
+      this.numgames.set(teamid, this.numgames.get(teamid) - 1)
+    }, this)
 
-    this.onresult(r, e, correction.after);
-  };
+    this.onresult(r, e, correction.after)
+  }
 
-  return RankingNumGamesListener;
-});
+  return RankingNumGamesListener
+})

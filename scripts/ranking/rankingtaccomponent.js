@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ranking/rankingcomponent"],//
-function (extend, RankingComponent) {
+define(['lib/extend', 'ranking/rankingcomponent'], //
+  function (extend, RankingComponent) {
   /**
    * Constructor
    *
@@ -16,21 +16,21 @@ function (extend, RankingComponent) {
    * @param nextcomponent
    *          the next component in the chain
    */
-  function RankingTacComponent(ranking, nextcomponent) {
-    RankingTacComponent.superconstructor.call(this, ranking, nextcomponent);
-  }
-  extend(RankingTacComponent, RankingComponent);
+    function RankingTacComponent (ranking, nextcomponent) {
+      RankingTacComponent.superconstructor.call(this, ranking, nextcomponent)
+    }
+    extend(RankingTacComponent, RankingComponent)
 
-  RankingTacComponent.NAME = "tac";
+    RankingTacComponent.NAME = 'tac'
 
-  /**
+    /**
    * @param i
    *          a team index
    * @return the point difference, aka. tac points
    */
-  RankingTacComponent.prototype.value = function (i) {
-    return this.ranking.tac.get(i);
-  };
+    RankingTacComponent.prototype.value = function (i) {
+      return this.ranking.tac.get(i)
+    }
 
-  return RankingTacComponent;
-});
+    return RankingTacComponent
+  })
