@@ -6,20 +6,20 @@
  * @see LICENSE
  */
 
-define(["ui/boxview", "jquery"], function (BoxView, $) {
-  var InitViews;
+define(['ui/boxview', 'jquery'], function (BoxView, $) {
+  var InitViews
 
   $(function ($) {
-    $(".boxview:not(.template)").each(function () {
-      var $box;
+    $('.boxview:not(.template)').each(function () {
+      var $box
 
-      $box = $(this);
+      $box = $(this)
 
-      if ($box.parents(".template").length === 0) {
-        return new BoxView($box);
+      if ($box.parents('.template').length === 0) {
+        return new BoxView($box)
       }
-    });
-  });
+    })
+  })
 
-  return InitViews;
-});
+  return InitViews
+})

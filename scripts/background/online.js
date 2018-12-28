@@ -9,8 +9,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "ui/strings", "ui/update"], function ($, Strings, Update) {
-  var Online;
+define(['jquery', 'ui/strings', 'ui/update'], function ($, Strings, Update) {
+  var Online
 
   /**
    * Check for an internet connection. Does not check for an active connection
@@ -19,21 +19,21 @@ define(["jquery", "ui/strings", "ui/update"], function ($, Strings, Update) {
    * @return true if there's an active internet connection, false otherwise.
    */
   Online = function () {
-    return navigator.onLine;
-  };
+    return navigator.onLine
+  }
 
   // if offline, send a nag message on exit!
 
   $(function ($) {
-    $(window).on("beforeunload", function (e) {
-      var message = Strings.offlineconfirmexit;
+    $(window).on('beforeunload', function (e) {
+      var message = Strings.offlineconfirmexit
 
       if (!Online() && !Update.isCached &&
-          document.location.protocol !== "file:") {
+          document.location.protocol !== 'file:') {
         if (e) {
-          e.returnValue = message;
+          e.returnValue = message
         }
-        return message;
+        return message
       }
 
       // uncomment to show dev reload notifications again
@@ -50,9 +50,9 @@ define(["jquery", "ui/strings", "ui/update"], function ($, Strings, Update) {
       //
 
       // let it reload
-      return undefined;
-    });
-  });
+      return undefined
+    })
+  })
 
-  return Online;
-});
+  return Online
+})

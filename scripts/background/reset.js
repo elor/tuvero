@@ -9,42 +9,42 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["ui/toast", "timemachine/timemachine", "ui/strings", "jquery"], //
-function (Toast, TimeMachine, Strings, $) {
-  var Reset;
+define(['ui/toast', 'timemachine/timemachine', 'ui/strings', 'jquery'], //
+  function (Toast, TimeMachine, Strings, $) {
+    var Reset
 
-  function hashcheck() {
-    if (location.hash === "#reset") {
-      console.log("clearing localstorage");
-      if (window.localStorage) {
-        window.localStorage.clear();
+    function hashcheck () {
+      if (window.location.hash === '#reset') {
+        console.log('clearing localstorage')
+        if (window.localStorage) {
+          window.localStorage.clear()
+        }
+
+        TimeMachine.updateRoots()
+
+        Toast.once(Strings.reset, Toast.LONG)
+        window.location.hash = '#debug'
+
+        return true
       }
-
-      TimeMachine.updateRoots();
-
-      new Toast(Strings.reset, Toast.LONG);
-      window.location.hash = "#debug";
-
-      return true;
+      return false
     }
-    return false;
-  }
 
-  $(window).on("hashchange", function () {
-    if (hashcheck()) {
-      location.reload();
-    }
-  });
+    $(window).on('hashchange', function () {
+      if (hashcheck()) {
+        window.location.reload()
+      }
+    })
 
-  // also bind the reset button by delegating its click to a Tab_Storage
-  // element
-  $(function ($) {
-    $("#tabs").on("click", "button.reset", function (e) {
-      $("#tabs > [data-tab=\"settings\"] .local button.clear").click();
-    });
-  });
+    // also bind the reset button by delegating its click to a Tab_Storage
+    // element
+    $(function ($) {
+      $('#tabs').on('click', 'button.reset', function (e) {
+        $('#tabs > [data-tab="settings"] .local button.clear').click()
+      })
+    })
 
-  hashcheck();
+    hashcheck()
 
-  return Reset;
-});
+    return Reset
+  })

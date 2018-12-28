@@ -5,51 +5,51 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery"], function ($) {
-  var FontHotkeys, $buttons;
+define(['jquery'], function ($) {
+  var FontHotkeys, $buttons
 
-  FontHotkeys = undefined;
-  $buttons = undefined;
+  FontHotkeys = undefined
+  $buttons = undefined
 
-  function hashcheck() {
+  function hashcheck () {
     if (!$buttons) {
-      return;
+      return
     }
 
-    if (window.location.hash === "#font+") {
-      setFontSize(getFontSize() + 1);
-      window.location.hash = "";
-    } else if (window.location.hash === "#font-") {
-      setFontSize(getFontSize() - 1);
-      window.location.hash = "";
+    if (window.location.hash === '#font+') {
+      setFontSize(getFontSize() + 1)
+      window.location.hash = ''
+    } else if (window.location.hash === '#font-') {
+      setFontSize(getFontSize() - 1)
+      window.location.hash = ''
     }
   }
 
-  function getFontSize() {
-    var fontSize = -1;
+  function getFontSize () {
+    var fontSize = -1
 
     $buttons.each(function (index) {
-      if ($(this).parent().hasClass($(this).attr("class"))) {
-        fontSize = index;
+      if ($(this).parent().hasClass($(this).attr('class'))) {
+        fontSize = index
       }
-    });
+    })
 
-    return fontSize;
+    return fontSize
   }
 
-  function setFontSize(fontSize) {
-    var index = Math.min(Math.max(fontSize, 0), $buttons.length - 1);
+  function setFontSize (fontSize) {
+    var index = Math.min(Math.max(fontSize, 0), $buttons.length - 1)
 
-    $buttons.eq(index).click();
+    $buttons.eq(index).click()
   }
 
-  $(window).on("hashchange", function () {
-    hashcheck();
-  });
+  $(window).on('hashchange', function () {
+    hashcheck()
+  })
 
   $(function ($) {
-    $buttons = $("#tabs>[data-tab=\"settings\"] .fontsizeview:first button");
-  });
+    $buttons = $('#tabs>[data-tab="settings"] .fontsizeview:first button')
+  })
 
-  return FontHotkeys;
-});
+  return FontHotkeys
+})
