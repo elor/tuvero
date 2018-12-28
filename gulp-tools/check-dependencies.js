@@ -75,7 +75,7 @@ module.exports = function () {
     })
   }
 
-  function check_file (file, encoding, done) {
+  function checkFile (file, encoding, done) {
     var loadPath = guessLoadPath(file.relative)
 
     if (!file.contents) {
@@ -126,5 +126,5 @@ module.exports = function () {
     done()
   }
 
-  return through.obj(check_file, writeFile)
+  return through.obj(checkFile, writeFile)
 }
