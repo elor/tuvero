@@ -16,12 +16,12 @@ var sources = {
   ],
   scripts_for_jshint: [
     'scripts/**/*.js',
-    '!scripts/core/**/*.js',
+    '!scripts/{core,math}/**/*.js',
     '!scripts/**/test/*.js',
     '!**/lib/*.js'
   ],
   scripts_for_standardjs: [
-    'scripts/core/**/*.js',
+    'scripts/{core,math}/**/*.js',
     'scripts/**/test/*.js',
     '*.js',
     'gulp-tools/*.js',

@@ -11,17 +11,17 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "math/matrixmodel"], function (extend, MatrixModel) {
+define(['lib/extend', 'math/matrixmodel'], function (extend, MatrixModel) {
   /**
    * Constructor
    *
    * @param size
    *          size of the matrix. defaults to 0
    */
-  function SymmetricMatrixModel(size) {
-    SymmetricMatrixModel.superconstructor.call(this, size);
+  function SymmetricMatrixModel (size) {
+    SymmetricMatrixModel.superconstructor.call(this, size)
   }
-  extend(SymmetricMatrixModel, MatrixModel);
+  extend(SymmetricMatrixModel, MatrixModel)
 
   /**
    * get() function, which maps super-diagonal elements to a lower triangular
@@ -35,11 +35,11 @@ define(["lib/extend", "math/matrixmodel"], function (extend, MatrixModel) {
    */
   SymmetricMatrixModel.prototype.get = function (row, col) {
     if (row < col) {
-      return SymmetricMatrixModel.superclass.get.call(this, col, row);
+      return SymmetricMatrixModel.superclass.get.call(this, col, row)
     }
 
-    return SymmetricMatrixModel.superclass.get.call(this, row, col);
-  };
+    return SymmetricMatrixModel.superclass.get.call(this, row, col)
+  }
 
   /**
    * set() function, which maps super-diagonal writes to the lower triangular
@@ -55,11 +55,11 @@ define(["lib/extend", "math/matrixmodel"], function (extend, MatrixModel) {
    */
   SymmetricMatrixModel.prototype.set = function (row, col, value) {
     if (row < col) {
-      return SymmetricMatrixModel.superclass.set.call(this, col, row, value);
+      return SymmetricMatrixModel.superclass.set.call(this, col, row, value)
     }
 
-    return SymmetricMatrixModel.superclass.set.call(this, row, col, value);
-  };
+    return SymmetricMatrixModel.superclass.set.call(this, row, col, value)
+  }
 
-  return SymmetricMatrixModel;
-});
+  return SymmetricMatrixModel
+})

@@ -10,17 +10,17 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "math/delegatematrix"], function (extend, DelegateMatrix) {
+define(['lib/extend', 'math/delegatematrix'], function (extend, DelegateMatrix) {
   /**
    * Constructor
    *
    * @param matrix
    *          the matrix to bind itself to
    */
-  function TransposeSumMatrix(matrix) {
-    TransposeSumMatrix.superconstructor.call(this, matrix);
+  function TransposeSumMatrix (matrix) {
+    TransposeSumMatrix.superconstructor.call(this, matrix)
   }
-  extend(TransposeSumMatrix, DelegateMatrix);
+  extend(TransposeSumMatrix, DelegateMatrix)
 
   /**
    * return only positive values
@@ -32,14 +32,14 @@ define(["lib/extend", "math/delegatematrix"], function (extend, DelegateMatrix) 
    * @return get(row, col)+get(col, row), i.e. (A + A^T)
    */
   TransposeSumMatrix.prototype.get = function (row, col) {
-    var v1, v2;
-    v1 = this.superget(row, col);
-    v2 = this.superget(col, row);
+    var v1, v2
+    v1 = this.superget(row, col)
+    v2 = this.superget(col, row)
     if (v1 === undefined || v2 === undefined) {
-      return undefined;
+      return undefined
     }
-    return v1 + v2;
-  };
+    return v1 + v2
+  }
 
-  return TransposeSumMatrix;
-});
+  return TransposeSumMatrix
+})

@@ -6,15 +6,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "math/delegatematrix"], function (extend, DelegateMatrix) {
+define(['lib/extend', 'math/delegatematrix'], function (extend, DelegateMatrix) {
   /**
    * Constructor
    * @param matrix the matrix to bind itself to
    */
-  function PositiveMatrix(matrix) {
-    PositiveMatrix.superconstructor.call(this, matrix);
+  function PositiveMatrix (matrix) {
+    PositiveMatrix.superconstructor.call(this, matrix)
   }
-  extend(PositiveMatrix, DelegateMatrix);
+  extend(PositiveMatrix, DelegateMatrix)
 
   /**
    * return only positive values
@@ -27,12 +27,12 @@ define(["lib/extend", "math/delegatematrix"], function (extend, DelegateMatrix) 
    *          on error
    */
   PositiveMatrix.prototype.get = function (row, col) {
-    var value = this.superget(row, col);
+    var value = this.superget(row, col)
     if (value < 0) {
-      return 0;
+      return 0
     }
-    return value;
-  };
+    return value
+  }
 
-  return PositiveMatrix;
-});
+  return PositiveMatrix
+})

@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (extend,
+define(['lib/extend', 'list/listmodel', 'core/type', 'core/rle'], function (extend,
   ListModel, Type, RLE) {
   /**
    * Constructor
@@ -14,12 +14,12 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    * @param size
    *          Optional. The initial size of the vector
    */
-  function VectorModel(size) {
-    VectorModel.superconstructor.call(this);
+  function VectorModel (size) {
+    VectorModel.superconstructor.call(this)
 
-    this.resize(size);
+    this.resize(size)
   }
-  extend(VectorModel, ListModel);
+  extend(VectorModel, ListModel)
 
   /**
    * resize function: pop or push elements until the target size is reached
@@ -28,16 +28,16 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    */
   VectorModel.prototype.resize = function (size) {
     if (size === undefined || size < 0) {
-      size = 0;
+      size = 0
     }
 
     while (this.length > size) {
-      this.pop();
+      this.pop()
     }
     while (this.length < size) {
-      this.push(0);
+      this.push(0)
     }
-  };
+  }
 
   /**
    * set the whole vector to one value
@@ -46,14 +46,14 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    *          Optional. The value. Defaults to 0.
    */
   VectorModel.prototype.fill = function (value) {
-    var index;
+    var index
 
-    value = value || 0;
+    value = value || 0
 
     for (index = 0; index < this.length; index += 1) {
-      this.set(index, value);
+      this.set(index, value)
     }
-  };
+  }
 
   /**
    * sets the vector contens with the element-wise product of two vectors
@@ -65,39 +65,39 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    * @return this
    */
   VectorModel.prototype.mult = function (vecA, vecB) {
-    var index;
+    var index
 
     if (Type.isNumber(vecB)) {
-      throw new Error("VectorModel.prototype.mult: " +
-        "second argument must be undefined or a VectorModel instance: " +
-        vecB);
+      throw new Error('VectorModel.prototype.mult: ' +
+        'second argument must be undefined or a VectorModel instance: ' +
+        vecB)
     }
 
-    vecB = vecB || this;
+    vecB = vecB || this
 
     if (Type.isNumber(vecA)) {
       // numerical multiplication
-      this.resize(vecB.length);
+      this.resize(vecB.length)
       for (index = 0; index < this.length; index += 1) {
-        this.set(index, vecB.get(index) * vecA);
+        this.set(index, vecB.get(index) * vecA)
       }
     } else {
       // element-wise multiplication
       if (vecA.length !== vecB.length) {
-        console.error("VectorModel.setProduct: different input lengths: " +
-          vecA.length + "<>" + vecB.length);
-        return undefined;
+        console.error('VectorModel.setProduct: different input lengths: ' +
+          vecA.length + '<>' + vecB.length)
+        return undefined
       }
 
-      this.resize(vecB.length);
+      this.resize(vecB.length)
 
       for (index = 0; index < this.length; index += 1) {
-        this.set(index, vecA.get(index) * vecB.get(index));
+        this.set(index, vecA.get(index) * vecB.get(index))
       }
     }
 
-    return this;
-  };
+    return this
+  }
 
   /**
    * calculate and return the dot product of this and another vector
@@ -107,21 +107,21 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    * @return the dot product, (this . vec)
    */
   VectorModel.prototype.dot = function (vec) {
-    var index, sum;
+    var index, sum
 
     if (this.length !== vec.length) {
-      console.error("VectorModel.dot: different input lengths: " + this.length +
-        "<>" + vec.length);
-      return undefined;
+      console.error('VectorModel.dot: different input lengths: ' + this.length +
+        '<>' + vec.length)
+      return undefined
     }
 
-    sum = 0;
+    sum = 0
     for (index = 0; index < this.length; index += 1) {
-      sum += this.get(index) * vec.get(index);
+      sum += this.get(index) * vec.get(index)
     }
 
-    return sum;
-  };
+    return sum
+  }
 
   /**
    * Adds two vectors and stores the results in this. If the second vector is
@@ -134,28 +134,28 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    * @return this on success, undefined otherwise
    */
   VectorModel.prototype.sum = function (vec1, vec2) {
-    var index;
+    var index
 
-    vec2 = vec2 || this;
+    vec2 = vec2 || this
 
     if (vec1.length !== vec2.length) {
-      console.error("VectorModel.prototype.sum: different input lengths: " +
-        vec1.length + "<>" + vec2.length);
-      return undefined;
+      console.error('VectorModel.prototype.sum: different input lengths: ' +
+        vec1.length + '<>' + vec2.length)
+      return undefined
     }
 
-    this.resize(vec1.length);
+    this.resize(vec1.length)
 
     for (index = 0; index < this.length; index += 1) {
-      this.set(index, vec1.get(index) + vec2.get(index));
+      this.set(index, vec1.get(index) + vec2.get(index))
     }
 
-    return this;
-  };
+    return this
+  }
 
   VectorModel.prototype.add = function (index, summand) {
-    this.set(index, this.get(index) + summand);
-  };
+    this.set(index, this.get(index) + summand)
+  }
 
   /**
    * prepare a compact serializable representation of the vector
@@ -163,12 +163,12 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    * @return a data object
    */
   VectorModel.prototype.save = function () {
-    var data = VectorModel.superclass.save.call(this);
+    var data = VectorModel.superclass.save.call(this)
 
-    data = RLE.encode(data);
+    data = RLE.encode(data)
 
-    return data;
-  };
+    return data
+  }
 
   /**
    * restore the vector from a previously saved data object
@@ -178,28 +178,28 @@ define(["lib/extend", "list/listmodel", "core/type", "core/rle"], function (exte
    * @return true on success, false otherwise
    */
   VectorModel.prototype.restore = function (data) {
-    var index;
+    var index
 
     try {
-      data = RLE.decode(data);
+      data = RLE.decode(data)
     } catch (e) {
-      console.error(e);
-      return false;
+      console.error(e)
+      return false
     }
 
     if (!VectorModel.superclass.restore.call(this, data)) {
-      return false;
+      return false
     }
 
     while ((index = this.indexOf(undefined)) !== -1) {
-      this.set(index, 0);
+      this.set(index, 0)
     }
-    return true;
-  };
+    return true
+  }
 
   VectorModel.prototype.SAVEFORMAT = Object
-    .create(VectorModel.superclass.SAVEFORMAT);
-  VectorModel.prototype.SAVEFORMAT.v = [Number];
+    .create(VectorModel.superclass.SAVEFORMAT)
+  VectorModel.prototype.SAVEFORMAT.v = [Number]
 
-  return VectorModel;
-});
+  return VectorModel
+})
