@@ -1,243 +1,242 @@
 define(
   [
-    "lib/extend",
-    "tournament/tournamentmodel",
-    "tournament/ressources/poulestables",
-    "core/matchmodel",
-    "presets",
-    "core/random",
-    "core/valuemodel",
-    "core/type",
-    "math/vectormodel"
+    'lib/extend',
+    'tournament/tournamentmodel',
+    'tournament/ressources/poulestables',
+    'core/matchmodel',
+    'presets',
+    'core/random',
+    'core/valuemodel',
+    'core/type',
+    'math/vectormodel'
   ],
   function (extend, TournamentModel, PoulesTables, MatchModel, Presets,
     Random, ValueModel, Type, VectorModel) {
-    var rng = new Random();
+    var rng = new Random()
 
-    function getTeamIDFromWho(result, who) {
+    function getTeamIDFromWho (result, who) {
       switch (who) {
-        case "winner":
-          return result.getWinner();
-        case "loser":
-          return result.getLoser();
+        case 'winner':
+          return result.getWinner()
+        case 'loser':
+          return result.getLoser()
       }
 
-      throw new Error("unknown 'who': " + who);
+      throw new Error("unknown 'who': " + who)
     }
 
-    function PoulesTournamentModel() {
-      PoulesTournamentModel.superconstructor.call(this, ["pouleid", "poulerank", "wins", "saldo", "points"]);
+    function PoulesTournamentModel () {
+      PoulesTournamentModel.superconstructor.call(this, ['pouleid', 'poulerank', 'wins', 'saldo', 'points'])
 
-      this.ranking.tournament = this;
+      this.ranking.tournament = this
 
-      this.setProperty("poulesmode", (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage);
-      this.setProperty("poulesseed", (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.quarters);
-      this.setProperty("poulesbyepoules", (Presets.systems.poules && Presets.systems.poules.byepoules) || PoulesTournamentModel.BYEPOULES.front);
-      this.setProperty("poulesbyeteams", (Presets.systems.poules && Presets.systems.poules.byeteams) || PoulesTournamentModel.BYETEAMS.favorites);
+      this.setProperty('poulesmode', (Presets.systems.poules && Presets.systems.poules.mode) || PoulesTournamentModel.MODES.barrage)
+      this.setProperty('poulesseed', (Presets.systems.poules && Presets.systems.poules.seed) || PoulesTournamentModel.SEED.quarters)
+      this.setProperty('poulesbyepoules', (Presets.systems.poules && Presets.systems.poules.byepoules) || PoulesTournamentModel.BYEPOULES.front)
+      this.setProperty('poulesbyeteams', (Presets.systems.poules && Presets.systems.poules.byeteams) || PoulesTournamentModel.BYETEAMS.favorites)
 
-      this.numpoules = new ValueModel(0);
-      this.numbyepoules = new ValueModel(0);
+      this.numpoules = new ValueModel(0)
+      this.numbyepoules = new ValueModel(0)
 
-      this.teams.registerListener(this.numpoules);
-      this.numpoules.clamp = (function () {
+      this.teams.registerListener(this.numpoules)
+      this.numpoules.clamp = function () {
         this.numpoules.set(
           Math.min(
             Math.max(
               this.numpoules.get(),
               this.minPoules()
             ), this.maxPoules()
-          ));
-      }).bind(this);
-      this.numpoules.onresize = this.numpoules.clamp;
+          ))
+      }.bind(this)
+      this.numpoules.onresize = this.numpoules.clamp
 
-      this.numpoules.registerListener(this.numbyepoules);
-      this.teams.registerListener(this.numbyepoules);
-      this.numbyepoules.onupdate = (function () {
-        this.numpoules.clamp();
-        this.numbyepoules.set(this.numpoules.get() * 4 - this.teams.length);
-        this.emit("update");
-      }).bind(this);
-      this.numbyepoules.onresize = this.numbyepoules.onupdate;
+      this.numpoules.registerListener(this.numbyepoules)
+      this.teams.registerListener(this.numbyepoules)
+      this.numbyepoules.onupdate = function () {
+        this.numpoules.clamp()
+        this.numbyepoules.set(this.numpoules.get() * 4 - this.teams.length)
+        this.emit('update')
+      }.bind(this)
+      this.numbyepoules.onresize = this.numbyepoules.onupdate
 
-      this.groups = [];
+      this.groups = []
     }
-    extend(PoulesTournamentModel, TournamentModel);
+    extend(PoulesTournamentModel, TournamentModel)
 
-    PoulesTournamentModel.prototype.SYSTEM = "poules";
+    PoulesTournamentModel.prototype.SYSTEM = 'poules'
 
     PoulesTournamentModel.MODES = {
-      acbd: "acbd",
-      barrage: "barrage",
-      roundrobin: "roundrobin"
-    };
+      acbd: 'acbd',
+      barrage: 'barrage',
+      roundrobin: 'roundrobin'
+    }
 
     PoulesTournamentModel.SEED = {
-      order: "order",
-      quarters: "quarters",
-      heads: "heads",
-      random: "random"
-    };
+      order: 'order',
+      quarters: 'quarters',
+      heads: 'heads',
+      random: 'random'
+    }
 
     PoulesTournamentModel.BYEPOULES = {
-      front: "front",
-      back: "back"
-    };
+      front: 'front',
+      back: 'back'
+    }
 
     PoulesTournamentModel.BYETEAMS = {
-      favorites: "favorites",
-      lastteams: "lastteams"
-    };
+      favorites: 'favorites',
+      lastteams: 'lastteams'
+    }
 
     PoulesTournamentModel.prototype.initialMatches = function () {
-      var drawtables;
+      var drawtables
 
-      this.groups = this.createGroups();
-      drawtables = this.getDrawTables();
+      this.groups = this.createGroups()
+      drawtables = this.getDrawTables()
 
       this.groups.forEach(function (group, groupID) {
-        var draws = drawtables[group.length];
+        var draws = drawtables[group.length]
 
         if (!draws) {
-          throw new Error("no draw mode for group of size " + group.length);
+          throw new Error('no draw mode for group of size ' + group.length)
         }
 
         draws.forEach(function (draw, matchID) {
-          var teamA, teamB;
+          var teamA, teamB
 
-          teamA = Type.isNumber(draw[0]) ? group[draw[0]] : undefined;
-          teamB = Type.isNumber(draw[1]) ? group[draw[1]] : undefined;
+          teamA = Type.isNumber(draw[0]) ? group[draw[0]] : undefined
+          teamB = Type.isNumber(draw[1]) ? group[draw[1]] : undefined
 
           if (this.ranking.pouleid) {
             if (teamA !== undefined) {
-              this.ranking.pouleid.set(teamA, groupID);
+              this.ranking.pouleid.set(teamA, groupID)
             }
             if (teamB !== undefined) {
-              this.ranking.pouleid.set(teamB, groupID);
+              this.ranking.pouleid.set(teamB, groupID)
             }
           }
 
           if (draw.length === 1 && teamA !== undefined) {
-            this.addBye(teamA, matchID, groupID);
+            this.addBye(teamA, matchID, groupID)
           } else {
-            this.matches.push(new MatchModel([teamA, teamB], matchID, groupID));
+            this.matches.push(new MatchModel([teamA, teamB], matchID, groupID))
           }
-        }, this);
-      }, this);
+        }, this)
+      }, this)
 
-      return true;
-    };
+      return true
+    }
 
     PoulesTournamentModel.prototype.finalizeGroupRankings = function (groupID) {
-      var rankingdata, poulerankdata, rankingranks;
+      var rankingdata, poulerankdata, rankingranks
 
       if (this.matches.asArray().some(function (match) {
-          return match.getGroup() === groupID;
-        })) {
+        return match.getGroup() === groupID
+      })) {
         // this was the last match of this poule
-        return;
+        return
       }
 
-      rankingdata = this.ranking.save();
-      poulerankdata = new VectorModel();
-      poulerankdata.restore(rankingdata.vals.poulerank);
-      rankingranks = this.ranking.get().ranks;
+      rankingdata = this.ranking.save()
+      poulerankdata = new VectorModel()
+      poulerankdata.restore(rankingdata.vals.poulerank)
+      rankingranks = this.ranking.get().ranks
 
       if (this.groups[groupID].every(function (teamID) {
-          return poulerankdata.get(teamID) === 0;
-        }, this)) {
-
+        return poulerankdata.get(teamID) === 0
+      }, this)) {
         this.groups[groupID].map(function (teamID) {
           return {
             calculatedrank: rankingranks[teamID],
             teamID: teamID
-          };
+          }
         }).sort(function (a, b) {
-          return a.calculatedrank - b.calculatedrank || a.teamID - b.teamID;
+          return a.calculatedrank - b.calculatedrank || a.teamID - b.teamID
         }).forEach(function (team, rank) {
-          poulerankdata.set(team.teamID, rank);
-        });
-        rankingdata.vals.poulerank = poulerankdata.save();
+          poulerankdata.set(team.teamID, rank)
+        })
+        rankingdata.vals.poulerank = poulerankdata.save()
 
-        this.ranking.restore(rankingdata);
+        this.ranking.restore(rankingdata)
       }
-    };
+    }
 
     PoulesTournamentModel.prototype.resetGroupRankingsFromPoints = function (groupID) {
-      var rankingdata, poulerankdata;
+      var rankingdata, poulerankdata
 
-      rankingdata = this.ranking.save();
-      poulerankdata = new VectorModel();
-      poulerankdata.restore(rankingdata.vals.poulerank);
+      rankingdata = this.ranking.save()
+      poulerankdata = new VectorModel()
+      poulerankdata.restore(rankingdata.vals.poulerank)
 
       this.groups[groupID].forEach(function (teamID) {
-        poulerankdata.set(teamID, 0);
-      });
+        poulerankdata.set(teamID, 0)
+      })
 
-      rankingdata.vals.poulerank = poulerankdata.save();
+      rankingdata.vals.poulerank = poulerankdata.save()
 
-      this.ranking.restore(rankingdata);
-    };
+      this.ranking.restore(rankingdata)
+    }
 
     PoulesTournamentModel.prototype.flipGroupRankings = function (firstTwo) {
-      var rankingdata = this.ranking.save();
+      var rankingdata = this.ranking.save()
 
-      firstTwo = firstTwo || rankingdata.comps.slice(0, 2).reverse();
+      firstTwo = firstTwo || rankingdata.comps.slice(0, 2).reverse()
 
-      rankingdata.comps = firstTwo.concat(rankingdata.comps.slice(2));
+      rankingdata.comps = firstTwo.concat(rankingdata.comps.slice(2))
 
-      this.ranking.restore(rankingdata);
-    };
+      this.ranking.restore(rankingdata)
+    }
 
     PoulesTournamentModel.prototype.postprocessMatch = function (matchresult) {
-      this.checkForFollowupMatches(matchresult);
+      this.checkForFollowupMatches(matchresult)
 
-      this.finalizeGroupRankings(matchresult.getGroup());
+      this.finalizeGroupRankings(matchresult.getGroup())
 
       if (this.matches.length === 0) {
-        this.state.set("finished");
+        this.state.set('finished')
       }
-    };
+    }
 
     PoulesTournamentModel.prototype.postprocessCorrection = function (correction) {
-      var groupID;
+      var groupID
 
-      groupID = correction.before.getGroup();
+      groupID = correction.before.getGroup()
       if (correction.before.getGroup() !== groupID) {
-        this.emit("error", "cannot correct one poule match with a completely different one");
-        return;
+        this.emit('error', 'cannot correct one poule match with a completely different one')
+        return
       }
 
       if (this.getRankTables()[this.groups[groupID].length] === undefined) {
-        this.resetGroupRankingsFromPoints(groupID);
-        this.finalizeGroupRankings(groupID);
+        this.resetGroupRankingsFromPoints(groupID)
+        this.finalizeGroupRankings(groupID)
       }
-    };
+    }
 
     PoulesTournamentModel.prototype.findMatch = function (matchID, groupID) {
-      var searchResult;
+      var searchResult
 
       searchResult = this.matches.asArray().filter(function (match) {
-        return groupID === match.getGroup() && matchID === match.getID();
-      });
+        return groupID === match.getGroup() && matchID === match.getID()
+      })
 
       switch (searchResult.length) {
         case 0:
-          return undefined;
+          return undefined
         case 1:
-          return searchResult[0];
+          return searchResult[0]
       }
 
-      throw new Error("Duplicate Match. ID/Group: " + matchID + "/" + groupID);
-    };
+      throw new Error('Duplicate Match. ID/Group: ' + matchID + '/' + groupID)
+    }
 
     PoulesTournamentModel.prototype.getDependentDraws = function (matchID, groupID, who) {
-      var groupSize, draws, drawsindexed;
+      var groupSize, draws, drawsindexed
 
-      groupSize = this.groups[groupID].length;
-      draws = this.getDrawTables()[groupSize];
+      groupSize = this.groups[groupID].length
+      draws = this.getDrawTables()[groupSize]
 
       if (!draws) {
-        throw new Error("no matching draw table found. group size: " + groupSize);
+        throw new Error('no matching draw table found. group size: ' + groupSize)
       }
 
       drawsindexed = draws.map(function (draw, index) {
@@ -245,290 +244,290 @@ define(
           draw: draw,
           drawindex: index,
           teamindex: draw.map(function (team, teamindex) {
-            return team.from === matchID && team.who === who ? teamindex : undefined;
+            return team.from === matchID && team.who === who ? teamindex : undefined
           }).filter(function (value) {
-            return value !== undefined;
+            return value !== undefined
           })[0]
-        };
-      });
+        }
+      })
 
       return drawsindexed.filter(function (draw) {
-        return draw.teamindex !== undefined;
-      });
-    };
+        return draw.teamindex !== undefined
+      })
+    }
 
     PoulesTournamentModel.prototype.getRanksFromTable = function (matchID, groupID) {
-      var groupSize, ranks;
+      var groupSize, ranks
 
-      groupSize = this.groups[groupID].length;
-      ranks = this.getRankTables()[groupSize];
+      groupSize = this.groups[groupID].length
+      ranks = this.getRankTables()[groupSize]
       if (ranks === undefined) {
         // decide by points
-        return undefined;
+        return undefined
       }
 
-      return ranks[matchID];
-    };
+      return ranks[matchID]
+    }
 
     PoulesTournamentModel.prototype.checkForFollowupMatches = function (result) {
-      this.checkFollowupMatch(result, "winner");
-      this.checkFollowupMatch(result, "loser");
-    };
+      this.checkFollowupMatch(result, 'winner')
+      this.checkFollowupMatch(result, 'loser')
+    }
 
     PoulesTournamentModel.prototype.checkFollowupMatch = function (result, who) {
-      var dependencies, groupID, teamID;
+      var dependencies, groupID, teamID
 
-      teamID = getTeamIDFromWho(result, who);
-      groupID = result.getGroup();
+      teamID = getTeamIDFromWho(result, who)
+      groupID = result.getGroup()
 
-      dependencies = this.getDependentDraws(result.getID(), groupID, who);
+      dependencies = this.getDependentDraws(result.getID(), groupID, who)
 
       dependencies.forEach(function (dependency) {
-        var match = this.findMatch(dependency.drawindex, groupID);
+        var match = this.findMatch(dependency.drawindex, groupID)
 
         if (match) {
-          this.createFollowupMatch(match, dependency, teamID);
+          this.createFollowupMatch(match, dependency, teamID)
         }
-      }, this);
-    };
+      }, this)
+    }
 
     PoulesTournamentModel.prototype.createFollowupMatch = function (match, dependencyDraw, teamID) {
-      var groupID, matchID;
+      var groupID, matchID
 
-      matchID = match.getID();
-      groupID = match.getGroup();
+      matchID = match.getID()
+      groupID = match.getGroup()
 
       switch (dependencyDraw.draw.length) {
         case 2:
-          match.teams[dependencyDraw.teamindex] = teamID;
-          this.matches.insert(this.matches.indexOf(match), new MatchModel(match.teams, matchID, groupID));
-          this.matches.erase(match);
-          break;
+          match.teams[dependencyDraw.teamindex] = teamID
+          this.matches.insert(this.matches.indexOf(match), new MatchModel(match.teams, matchID, groupID))
+          this.matches.erase(match)
+          break
         case 1:
-          this.matches.erase(match);
-          this.addBye(teamID, matchID, groupID);
-          break;
+          this.matches.erase(match)
+          this.addBye(teamID, matchID, groupID)
+          break
         default:
-          throw new Error("invalid number of teams in PoulesTable draw definition: " + dependencyDraw);
+          throw new Error('invalid number of teams in PoulesTable draw definition: ' + dependencyDraw)
       }
-    };
+    }
 
     PoulesTournamentModel.prototype.getDrawTables = function () {
-      var drawmode, defaultmode, byemode, poulesmode, poulesbyemode;
+      var drawmode, defaultmode, byemode, poulesmode, poulesbyemode
 
-      poulesmode = this.getProperty("poulesmode");
-      poulesbyemode = this.getProperty("poulesbyeteams");
+      poulesmode = this.getProperty('poulesmode')
+      poulesbyemode = this.getProperty('poulesbyeteams')
 
-      drawmode = PoulesTables.MATCHES[poulesmode];
+      drawmode = PoulesTables.MATCHES[poulesmode]
       if (!drawmode) {
-        throw new Error("unknown draw mode: " + poulesmode);
+        throw new Error('unknown draw mode: ' + poulesmode)
       }
 
-      defaultmode = drawmode.default;
-      byemode = drawmode[poulesbyemode];
+      defaultmode = drawmode.default
+      byemode = drawmode[poulesbyemode]
 
       if (!defaultmode) {
-        throw new Error("draw mode has no default: " + poulesmode);
+        throw new Error('draw mode has no default: ' + poulesmode)
       }
       if (!byemode) {
-        throw new Error("draw/bye mode combination has no byemode: " + poulesmode + " / " + poulesbyemode);
+        throw new Error('draw/bye mode combination has no byemode: ' + poulesmode + ' / ' + poulesbyemode)
       }
 
       return {
         4: defaultmode,
         3: byemode
-      };
-    };
+      }
+    }
 
     PoulesTournamentModel.prototype.getRankTables = function () {
-      var drawmode, defaultranks, byeranks, poulesmode, poulesbyemode;
+      var drawmode, defaultranks, byeranks, poulesmode, poulesbyemode
 
-      poulesmode = this.getProperty("poulesmode");
-      poulesbyemode = this.getProperty("poulesbyeteams");
+      poulesmode = this.getProperty('poulesmode')
+      poulesbyemode = this.getProperty('poulesbyeteams')
 
-      drawmode = PoulesTables.RANKING[poulesmode];
+      drawmode = PoulesTables.RANKING[poulesmode]
       if (!drawmode) {
-        return undefined;
+        return undefined
       }
 
-      defaultranks = drawmode.default;
-      byeranks = drawmode[poulesbyemode];
+      defaultranks = drawmode.default
+      byeranks = drawmode[poulesbyemode]
 
       return {
         4: defaultranks,
         3: byeranks
-      };
-    };
+      }
+    }
 
     PoulesTournamentModel.prototype.minPoules = function () {
-      return Math.ceil(this.teams.length / 4);
-    };
+      return Math.ceil(this.teams.length / 4)
+    }
 
     PoulesTournamentModel.prototype.maxPoules = function () {
-      return Math.floor(this.teams.length / 3);
-    };
+      return Math.floor(this.teams.length / 3)
+    }
 
     PoulesTournamentModel.prototype.isByePoule = function (pouleID) {
-      var numPoules, numByePoules;
-      numPoules = this.numpoules.get();
-      numByePoules = this.numbyepoules.get();
+      var numPoules, numByePoules
+      numPoules = this.numpoules.get()
+      numByePoules = this.numbyepoules.get()
 
-      switch (this.getProperty("poulesbyepoules")) {
+      switch (this.getProperty('poulesbyepoules')) {
         case PoulesTournamentModel.BYEPOULES.front:
-          return pouleID >= 0 && pouleID < numByePoules;
+          return pouleID >= 0 && pouleID < numByePoules
         case PoulesTournamentModel.BYEPOULES.back:
-          return pouleID < numPoules && pouleID >= (numPoules - numByePoules);
+          return pouleID < numPoules && pouleID >= (numPoules - numByePoules)
       }
 
-      throw new Error("unknown poulebyepoules value: " + this.getProperty("poulesbyepoules"));
-    };
+      throw new Error('unknown poulebyepoules value: ' + this.getProperty('poulesbyepoules'))
+    }
 
     PoulesTournamentModel.prototype.getInternalTeamIDs = function () {
       return this.teams.map(function (externalID, internalID) {
-        return internalID;
-      });
-    };
+        return internalID
+      })
+    }
 
     PoulesTournamentModel.prototype.createGroups = function () {
-      switch (this.getProperty("poulesseed")) {
+      switch (this.getProperty('poulesseed')) {
         case PoulesTournamentModel.SEED.order:
-          return this.createGroupsOrder();
+          return this.createGroupsOrder()
         case PoulesTournamentModel.SEED.quarters:
-          return this.createGroupsQuarters();
+          return this.createGroupsQuarters()
         case PoulesTournamentModel.SEED.heads:
-          return this.createGroupsHeads();
+          return this.createGroupsHeads()
         case PoulesTournamentModel.SEED.random:
-          return this.createGroupsRandom();
+          return this.createGroupsRandom()
         default:
           throw new Error(
-            "Unsupported seed mode: " + this.getProperty("poulesseed")
-          );
+            'Unsupported seed mode: ' + this.getProperty('poulesseed')
+          )
       }
-    };
+    }
 
     PoulesTournamentModel.prototype.createEmptyPoules = function () {
-      var poules = [];
+      var poules = []
 
       while (poules.length < this.numpoules.get()) {
-        poules.push([]);
+        poules.push([])
       }
 
-      return poules;
-    };
+      return poules
+    }
 
     PoulesTournamentModel.prototype.createGroupsOrder = function () {
-      var groups, teams;
+      var groups, teams
 
-      groups = this.createEmptyPoules();
-      teams = this.getInternalTeamIDs();
+      groups = this.createEmptyPoules()
+      teams = this.getInternalTeamIDs()
 
       return groups.map(function (group, groupID) {
         if (this.isByePoule(groupID)) {
-          return teams.splice(0, 3);
+          return teams.splice(0, 3)
         } else {
-          return teams.splice(0, 4);
+          return teams.splice(0, 4)
         }
-      }, this);
-    };
+      }, this)
+    }
 
     PoulesTournamentModel.prototype.createGroupsQuarters = function () {
-      var groups, teams;
+      var groups, teams
 
-      groups = this.createEmptyPoules();
-      teams = this.getInternalTeamIDs();
+      groups = this.createEmptyPoules()
+      teams = this.getInternalTeamIDs()
 
       teams.forEach(function (teamID) {
-        var groupID = teamID % this.numpoules.get();
-        groups[groupID].push(teamID);
-      }, this);
+        var groupID = teamID % this.numpoules.get()
+        groups[groupID].push(teamID)
+      }, this)
 
-      return groups;
-    };
+      return groups
+    }
 
     PoulesTournamentModel.prototype.createGroupsHeads = function () {
-      var groups, left, heads;
+      var groups, left, heads
 
-      groups = this.createEmptyPoules();
-      left = this.getInternalTeamIDs();
+      groups = this.createEmptyPoules()
+      left = this.getInternalTeamIDs()
 
-      heads = left.splice(0, this.numpoules.get());
+      heads = left.splice(0, this.numpoules.get())
 
       groups.forEach(function (group, groupID) {
-        group.push(heads[groupID]);
-        group.push(rng.pickAndRemove(left));
-        group.push(rng.pickAndRemove(left));
+        group.push(heads[groupID])
+        group.push(rng.pickAndRemove(left))
+        group.push(rng.pickAndRemove(left))
         if (!this.isByePoule(groupID)) {
-          group.push(rng.pickAndRemove(left));
+          group.push(rng.pickAndRemove(left))
         }
-      }, this);
+      }, this)
 
-      return groups;
-    };
+      return groups
+    }
 
     PoulesTournamentModel.prototype.createGroupsRandom = function () {
-      var groups, left;
+      var groups, left
 
-      groups = this.createEmptyPoules();
-      left = this.getInternalTeamIDs();
+      groups = this.createEmptyPoules()
+      left = this.getInternalTeamIDs()
 
       groups.forEach(function (group, groupID) {
-        group.push(rng.pickAndRemove(left));
-        group.push(rng.pickAndRemove(left));
-        group.push(rng.pickAndRemove(left));
+        group.push(rng.pickAndRemove(left))
+        group.push(rng.pickAndRemove(left))
+        group.push(rng.pickAndRemove(left))
         if (!this.isByePoule(groupID)) {
-          group.push(rng.pickAndRemove(left));
+          group.push(rng.pickAndRemove(left))
         }
-      }, this);
+      }, this)
 
-      return groups;
-    };
+      return groups
+    }
 
     PoulesTournamentModel.prototype.destroy = function () {
-      this.numbyepoules.destroy();
-      this.numpoules.destroy();
+      this.numbyepoules.destroy()
+      this.numpoules.destroy()
 
-      PoulesTournamentModel.superclass.destroy.call(this);
-    };
+      PoulesTournamentModel.superclass.destroy.call(this)
+    }
 
     PoulesTournamentModel.prototype.save = function () {
-      var data = PoulesTournamentModel.superclass.save.call(this);
+      var data = PoulesTournamentModel.superclass.save.call(this)
 
-      data.numpoules = this.numpoules.get();
-      data.groups = this.groups.slice();
+      data.numpoules = this.numpoules.get()
+      data.groups = this.groups.slice()
 
-      return data;
-    };
+      return data
+    }
 
     PoulesTournamentModel.prototype.restore = function (data) {
       if (!PoulesTournamentModel.superclass.restore.call(this, data)) {
-        return false;
+        return false
       }
 
-      this.numpoules.set(data.numpoules);
-      this.groups = data.groups.slice();
+      this.numpoules.set(data.numpoules)
+      this.groups = data.groups.slice()
 
       this.groups.forEach(function (group, groupID) {
-        this.finalizeGroupRankings(groupID);
-      }, this);
+        this.finalizeGroupRankings(groupID)
+      }, this)
 
-      return true;
-    };
+      return true
+    }
 
     PoulesTournamentModel.prototype.getGroups = function () {
       return this.groups.map(function (group) {
         return group.map(function (teamID) {
-          return this.teams.get(teamID);
-        }, this);
-      }, this);
-    };
+          return this.teams.get(teamID)
+        }, this)
+      }, this)
+    }
 
     PoulesTournamentModel.prototype.SAVEFORMAT = Object.create(
       PoulesTournamentModel.superclass.SAVEFORMAT
-    );
-    PoulesTournamentModel.prototype.SAVEFORMAT.numpoules = Number;
+    )
+    PoulesTournamentModel.prototype.SAVEFORMAT.numpoules = Number
     PoulesTournamentModel.prototype.SAVEFORMAT.groups = [
       [Number]
-    ];
+    ]
 
-    return PoulesTournamentModel;
-  });
+    return PoulesTournamentModel
+  })

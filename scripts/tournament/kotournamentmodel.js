@@ -6,31 +6,31 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
-    "core/matchmodel", "core/byeresult", "options", "presets"], function (extend,
-    TournamentModel, Random, Type, MatchModel, ByeResult, Options, Presets) {
-  var rng = new Random();
+define(['lib/extend', 'tournament/tournamentmodel', 'core/random', 'core/type',
+  'core/matchmodel', 'core/byeresult', 'options', 'presets'], function (extend,
+  TournamentModel, Random, Type, MatchModel, ByeResult, Options, Presets) {
+  var rng = new Random()
 
   /**
    * Constructor
    */
-  function KOTournamentModel() {
-    KOTournamentModel.superconstructor.call(this, ["ko"]);
+  function KOTournamentModel () {
+    KOTournamentModel.superconstructor.call(this, ['ko'])
 
-    this.setProperty("komode", (Presets.systems.ko && Presets.systems.ko.mode)
-        || KOTournamentModel.MODES.matched);
-    this.setProperty("komaxgroup", 1);
-    this.setProperty("initialbyes", false);
+    this.setProperty('komode', (Presets.systems.ko && Presets.systems.ko.mode) ||
+        KOTournamentModel.MODES.matched)
+    this.setProperty('komaxgroup', 1)
+    this.setProperty('initialbyes', false)
   }
-  extend(KOTournamentModel, TournamentModel);
+  extend(KOTournamentModel, TournamentModel)
 
-  KOTournamentModel.prototype.SYSTEM = "ko";
+  KOTournamentModel.prototype.SYSTEM = 'ko'
 
   KOTournamentModel.MODES = {
-    ordered: "ordered",
-    matched: "matched",
-    shuffled: "shuffled"
-  };
+    ordered: 'ordered',
+    matched: 'matched',
+    shuffled: 'shuffled'
+  }
 
   /**
    * create the initial matches for the registered teams
@@ -38,54 +38,54 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return true on success, false otherwise
    */
   KOTournamentModel.prototype.initialMatches = function () {
-    var mode, indices, indexFunction, matchID, roundID, match, teams;
+    var mode, indices, indexFunction, matchID, roundID, match, teams
 
-    mode = this.getProperty("komode");
-    indexFunction = KOTournamentModel[mode + "Indices"];
+    mode = this.getProperty('komode')
+    indexFunction = KOTournamentModel[mode + 'Indices']
     if (!Type.isFunction(indexFunction)) {
-      this.emit("error", "unknown KO mode: " + mode);
-      return false;
+      this.emit('error', 'unknown KO mode: ' + mode)
+      return false
     }
 
-    indices = indexFunction(this.teams.length);
+    indices = indexFunction(this.teams.length)
 
-    roundID = KOTournamentModel.initialRoundForTeams(this.teams.length);
+    roundID = KOTournamentModel.initialRoundForTeams(this.teams.length)
     if (roundID < 0) {
-      this.emit("error", "not enough players for KO tournament");
-      return false;
+      this.emit('error', 'not enough players for KO tournament')
+      return false
     }
-    matchID = KOTournamentModel.firstMatchIDOfRound(roundID);
+    matchID = KOTournamentModel.firstMatchIDOfRound(roundID)
 
-    this.createPlaceholderMatches();
+    this.createPlaceholderMatches()
 
     while (indices.length > 0) {
-      teams = indices.splice(0, 2);
+      teams = indices.splice(0, 2)
 
       if (teams[1] === undefined) {
         match = new ByeResult(teams[0], [Options.byepointswon,
-            Options.byepointslost], matchID, 0);
-        this.checkForFollowupMatches(match);
-        if (this.getProperty("initialbyes")) {
-          this.history.push(match);
+          Options.byepointslost], matchID, 0)
+        this.checkForFollowupMatches(match)
+        if (this.getProperty('initialbyes')) {
+          this.history.push(match)
         }
       } else {
-        match = new MatchModel(teams, matchID, 0);
-        this.matches.push(match);
+        match = new MatchModel(teams, matchID, 0)
+        this.matches.push(match)
       }
 
-      matchID += 1;
+      matchID += 1
     }
 
-    return true;
-  };
+    return true
+  }
 
   /**
    * should never be called since KO tournaments can't be idle, only finished
    */
   KOTournamentModel.prototype.idleMatches = function () {
-    throw new Error("KO Tournaments cannot be in idle state."
-        + " This function can never be called by the TournamentModel.");
-  };
+    throw new Error('KO Tournaments cannot be in idle state.' +
+        ' This function can never be called by the TournamentModel.')
+  }
 
   /**
    * create subsequent matches in the KO tree
@@ -93,12 +93,12 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @param matchresult
    */
   KOTournamentModel.prototype.postprocessMatch = function (matchresult) {
-    this.checkForFollowupMatches(matchresult);
+    this.checkForFollowupMatches(matchresult)
 
     if (this.matches.length === 0) {
-      this.state.set("finished");
+      this.state.set('finished')
     }
-  };
+  }
 
   /**
    * search the current matches for the required match
@@ -110,18 +110,18 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return the match (MatchModel) on success, undefined otherwise
    */
   KOTournamentModel.prototype.findMatch = function (group, id) {
-    var index, match;
+    var index, match
 
     for (index = 0; index < this.matches.length; index += 1) {
-      match = this.matches.get(index);
+      match = this.matches.get(index)
 
       if (match.getID() === id && match.getGroup() === group) {
-        return match;
+        return match
       }
     }
 
-    return undefined;
-  };
+    return undefined
+  }
 
   /**
    * find a match in the history
@@ -134,60 +134,60 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    *         otherwise
    */
   KOTournamentModel.prototype.findMatchInHistory = function (group, id) {
-    var index, match;
+    var index, match
 
     for (index = 0; index < this.history.length; index += 1) {
-      match = this.history.get(index);
+      match = this.history.get(index)
 
       if (match.getID() === id && match.getGroup() === group) {
-        return match;
+        return match
       }
     }
 
-    return undefined;
-  };
+    return undefined
+  }
 
   /**
    * create all placeholder matches
    */
   KOTournamentModel.prototype.createPlaceholderMatches = function () {
-    var groups, groupMatchIDLimit, id, maxgroup, existingMatches;
+    var groups, groupMatchIDLimit, id, maxgroup, existingMatches
 
-    maxgroup = Math.min(this.getProperty("komaxgroup"),
-        (this.teams.length - 1) / 2);
+    maxgroup = Math.min(this.getProperty('komaxgroup'),
+      (this.teams.length - 1) / 2)
 
-    groups = [];
+    groups = []
     while (groups.length <= maxgroup) {
-      groups.push(groups.length);
+      groups.push(groups.length)
     }
 
     groupMatchIDLimit = groups.map(function (group) {
       return KOTournamentModel.firstMatchIDOfRound(KOTournamentModel
-          .roundsInGroup(group));
-    });
+        .roundsInGroup(group))
+    })
 
     existingMatches = groups.map(function () {
-      return [];
-    });
+      return []
+    })
 
     this.matches.map(function (match) {
-      existingMatches[match.getGroup()][match.getID()] = match;
-    });
+      existingMatches[match.getGroup()][match.getID()] = match
+    })
 
     this.history.map(function (match) {
-      existingMatches[match.getGroup()][match.getID()] = match;
-    });
+      existingMatches[match.getGroup()][match.getID()] = match
+    })
 
     id = KOTournamentModel.firstMatchIDOfRound(KOTournamentModel
-        .initialRoundForTeams(this.teams.length)) - 1;
+      .initialRoundForTeams(this.teams.length)) - 1
     for (; id > 0; id -= 1) {
       groupMatchIDLimit.forEach(function (matchIDLimit, group) {
         if (id < matchIDLimit && existingMatches[group][id] === undefined) {
-          this.matches.push(new MatchModel([undefined, undefined], id, group));
+          this.matches.push(new MatchModel([undefined, undefined], id, group))
         }
-      }, this);
+      }, this)
     }
-  };
+  }
 
   /**
    * looks for missing "waiting" matches, i.e. matches in which one team waits
@@ -195,43 +195,43 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * to be used for repairs only.
    */
   KOTournamentModel.prototype.createWaitingMatches = function () {
-    var teamMatches, lastresults;
+    var teamMatches, lastresults
 
     teamMatches = this.teams.map(function () {
-      return undefined;
-    });
+      return undefined
+    })
 
     this.matches.map(function (match) {
       match.teams.forEach(function (teamID) {
-        teamMatches[teamID] = match;
-      });
-    });
+        teamMatches[teamID] = match
+      })
+    })
 
-    lastresults = [];
+    lastresults = []
 
     teamMatches.forEach(function (team, teamid) {
-      var lastHistoryResult;
+      var lastHistoryResult
 
       if (team === undefined) {
         this.history.map(function (result) {
           if (result.teams.indexOf(teamid) !== -1) {
-            if (lastHistoryResult === undefined
-                || lastHistoryResult.getID() < result.getID()) {
-              lastHistoryResult = result;
+            if (lastHistoryResult === undefined ||
+                lastHistoryResult.getID() < result.getID()) {
+              lastHistoryResult = result
             }
           }
-        });
+        })
 
         if (lastresults.indexOf(lastHistoryResult) === -1) {
-          lastresults.push(lastHistoryResult);
+          lastresults.push(lastHistoryResult)
         }
       }
-    }, this);
+    }, this)
 
     lastresults.forEach(function (result) {
-      this.checkForFollowupMatches(result);
-    }, this);
-  };
+      this.checkForFollowupMatches(result)
+    }, this)
+  }
 
   /**
    * after a match has been finished or a bye has been issued, this function
@@ -241,37 +241,37 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    *          a MatchResult (or MatchModel or ByeResult)
    */
   KOTournamentModel.prototype.checkForFollowupMatches = function (result) {
-    var currentMatchID, nextMatchID, winnergroup, losergroup, winner, loser;
+    var currentMatchID, nextMatchID, winnergroup, losergroup, winner, loser
 
-    currentMatchID = result.getID();
+    currentMatchID = result.getID()
     if (currentMatchID === 0) {
       // don't advance beyond the finale
-      return;
+      return
     }
 
     // calculate the IDs
-    nextMatchID = KOTournamentModel.nextRoundMatchID(currentMatchID);
-    winnergroup = result.getGroup();
-    losergroup = KOTournamentModel.loserGroupID(winnergroup, currentMatchID);
+    nextMatchID = KOTournamentModel.nextRoundMatchID(currentMatchID)
+    winnergroup = result.getGroup()
+    losergroup = KOTournamentModel.loserGroupID(winnergroup, currentMatchID)
 
     // get winners
     if (result.isBye()) {
-      winner = result.getTeamID(0);
-      loser = undefined;
+      winner = result.getTeamID(0)
+      loser = undefined
     } else {
       if (result.score[0] < result.score[1]) {
-        winner = result.getTeamID(1);
-        loser = result.getTeamID(0);
+        winner = result.getTeamID(1)
+        loser = result.getTeamID(0)
       } else {
-        winner = result.getTeamID(0);
-        loser = result.getTeamID(1);
+        winner = result.getTeamID(0)
+        loser = result.getTeamID(1)
       }
     }
 
     // create matches
-    this.createFollowupMatch(winner, nextMatchID, winnergroup, result);
-    this.createFollowupMatch(loser, nextMatchID, losergroup, result);
-  };
+    this.createFollowupMatch(winner, nextMatchID, winnergroup, result)
+    this.createFollowupMatch(loser, nextMatchID, losergroup, result)
+  }
 
   /**
    * create a followup match, i.e. a match to which a team from a previous match
@@ -287,66 +287,61 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    *          the current match, which has just ended
    */
   KOTournamentModel.prototype.createFollowupMatch = function (teamID,
-      nextMatchID, nextGroupID, currentMatch) {
-    var opponent, match, complementaryMatchID, currentMatchID, currentGroupID;
-    var teams, complementaryMatchGroup;
+    nextMatchID, nextGroupID, currentMatch) {
+    var opponent, match, complementaryMatchID, currentMatchID, currentGroupID, teams
 
-    currentMatchID = currentMatch.getID();
-    currentGroupID = currentMatch.getGroup();
+    currentMatchID = currentMatch.getID()
+    currentGroupID = currentMatch.getGroup()
 
     if (currentMatchID <= 1) {
-      return;
+      return
     }
 
-    if (nextGroupID > this.getProperty("komaxgroup")) {
-      return;
+    if (nextGroupID > this.getProperty('komaxgroup')) {
+      return
     }
 
     if (teamID !== undefined) {
-      match = this.findMatch(nextGroupID, nextMatchID);
+      match = this.findMatch(nextGroupID, nextMatchID)
 
       if (match) {
         if (match.isRunningMatch()) {
-          console.warn("trying to overwrite existing match!");
+          console.warn('trying to overwrite existing match!')
         } else {
-          opponent = match.getTeamID(0);
+          opponent = match.getTeamID(0)
           if (opponent === undefined) {
-            opponent = match.getTeamID(1);
+            opponent = match.getTeamID(1)
           }
-          this.matches.remove(this.matches.indexOf(match));
-          teams = [teamID, opponent];
+          this.matches.remove(this.matches.indexOf(match))
+          teams = [teamID, opponent]
           if (KOTournamentModel.isSecondInNextRound(currentMatchID)) {
-            teams.reverse();
+            teams.reverse()
           }
-          match = new MatchModel(teams, nextMatchID, nextGroupID);
-          this.matches.push(match);
+          match = new MatchModel(teams, nextMatchID, nextGroupID)
+          this.matches.push(match)
           // if (opponent === undefined && nextMatchID !== 0) {
           // this.checkForFollowupMatches(match);
           // }
         }
       } else {
-        complementaryMatchID = KOTournamentModel
-            .complementaryMatchID(currentMatchID);
-        complementaryMatchGroup = currentGroupID;
+        complementaryMatchID = KOTournamentModel.complementaryMatchID(currentMatchID)
 
-        match = this.findMatch(currentGroupID, complementaryMatchID);
+        match = this.findMatch(currentGroupID, complementaryMatchID)
         if (!match) {
-          match = this.findMatchInHistory(currentGroupID, //
-          complementaryMatchID);
+          match = this.findMatchInHistory(currentGroupID, complementaryMatchID)
         }
 
         if ((match && match.isResult() && match.isBye())) {
-          match = this.addBye(teamID, nextMatchID, nextGroupID);
-          this.checkForFollowupMatches(match);
-        } else if (match.getTeamID(0) === undefined
-            && match.getTeamID(1) === undefined) {
-          match = new MatchModel([teamID, undefined], nextMatchID, //
-          nextGroupID);
-          this.matches.push(match);
+          match = this.addBye(teamID, nextMatchID, nextGroupID)
+          this.checkForFollowupMatches(match)
+        } else if (match.getTeamID(0) === undefined &&
+            match.getTeamID(1) === undefined) {
+          match = new MatchModel([teamID, undefined], nextMatchID, nextGroupID)
+          this.matches.push(match)
         }
       }
     }
-  };
+  }
 
   /**
    * @param length
@@ -354,28 +349,28 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return an array of team indices for a matched tournament
    */
   KOTournamentModel.matchedIndices = function (length) {
-    var indices, index, value, length2;
+    var indices, index, value, length2
 
     if (length === 1) {
-      indices = [0];
+      indices = [0]
     } else if (length > 1) {
-      length2 = KOTournamentModel.ceilPowerOfTwo(length);
-      indices = KOTournamentModel.matchedIndices(length2 >> 1);
+      length2 = KOTournamentModel.ceilPowerOfTwo(length)
+      indices = KOTournamentModel.matchedIndices(length2 >> 1)
 
       for (index = indices.length - 1; index >= 0; index -= 1) {
-        value = indices[index];
-        value = length2 - value - 1;
+        value = indices[index]
+        value = length2 - value - 1
         if (value >= length) {
-          value = undefined;
+          value = undefined
         }
-        indices.splice(index + 1, 0, value);
+        indices.splice(index + 1, 0, value)
       }
     } else {
-      indices = [];
+      indices = []
     }
 
-    return indices;
-  };
+    return indices
+  }
 
   /**
    * @param length
@@ -384,21 +379,21 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    *         for the init function
    */
   KOTournamentModel.orderedIndices = function (length) {
-    var indices, length2, index;
+    var indices, length2, index
 
-    length2 = KOTournamentModel.ceilPowerOfTwo(length);
+    length2 = KOTournamentModel.ceilPowerOfTwo(length)
 
-    indices = [];
+    indices = []
     while (indices.length < length) {
-      indices.push(indices.length);
+      indices.push(indices.length)
     }
 
     for (index = indices.length; indices.length < length2; index -= 1) {
-      indices.splice(index, 0, undefined);
+      indices.splice(index, 0, undefined)
     }
 
-    return indices;
-  };
+    return indices
+  }
 
   /**
    *
@@ -408,34 +403,34 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    *         matches
    */
   KOTournamentModel.shuffledIndices = function (length) {
-    var indices, length2, index, teamids;
+    var indices, length2, index, teamids
 
-    length2 = KOTournamentModel.ceilPowerOfTwo(length);
+    length2 = KOTournamentModel.ceilPowerOfTwo(length)
 
-    teamids = [];
+    teamids = []
     while (teamids.length < length) {
-      teamids.push(teamids.length);
+      teamids.push(teamids.length)
     }
 
-    indices = [];
+    indices = []
     while (teamids.length > 0) {
-      indices.push(rng.pickAndRemove(teamids));
+      indices.push(rng.pickAndRemove(teamids))
     }
 
     for (index = indices.length; indices.length < length2; index -= 1) {
-      indices.splice(index, 0, undefined);
+      indices.splice(index, 0, undefined)
     }
 
-    return indices;
-  };
+    return indices
+  }
 
   /**
    * @param number
    * @return the ceiling-rounded number, to the power of two
    */
   KOTournamentModel.ceilPowerOfTwo = function (number) {
-    return 1 << Math.ceil(Math.log(number) / Math.LN2);
-  };
+    return 1 << Math.ceil(Math.log(number) / Math.LN2)
+  }
 
   /**
    * @param currentMatchID
@@ -443,8 +438,8 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return the next match ID the teams will play
    */
   KOTournamentModel.nextRoundMatchID = function (currentMatchID) {
-    return currentMatchID >> 1;
-  };
+    return currentMatchID >> 1
+  }
 
   /**
    * @param matchID
@@ -453,8 +448,8 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    *         next match, false otherwise
    */
   KOTournamentModel.isSecondInNextRound = function (matchID) {
-    return matchID % 2 === 1 && matchID !== 1;
-  };
+    return matchID % 2 === 1 && matchID !== 1
+  }
 
   /**
    * @param matchID
@@ -462,8 +457,8 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return the ID of the match from which the next opponents are drawn
    */
   KOTournamentModel.complementaryMatchID = function (matchID) {
-    return matchID ^ 0x1;
-  };
+    return matchID ^ 0x1
+  }
 
   /**
    * @param round
@@ -471,8 +466,8 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return the ID of the first match in the round
    */
   KOTournamentModel.firstMatchIDOfRound = function (round) {
-    return 1 << round;
-  };
+    return 1 << round
+  }
 
   /**
    * @param round
@@ -480,7 +475,7 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return the number of matches in this round
    */
   // coincidentally, the two functions are the same
-  KOTournamentModel.numMatchesInRound = KOTournamentModel.firstMatchIDOfRound;
+  KOTournamentModel.numMatchesInRound = KOTournamentModel.firstMatchIDOfRound
 
   /**
    * @param matchID
@@ -488,10 +483,10 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    */
   KOTournamentModel.roundOfMatchID = function (matchID) {
     if (matchID <= 0) {
-      matchID = 1;
+      matchID = 1
     }
-    return Math.floor(Math.log(matchID) / Math.LN2);
-  };
+    return Math.floor(Math.log(matchID) / Math.LN2)
+  }
 
   /**
    * @param groupID
@@ -501,12 +496,12 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return the next group ID
    */
   KOTournamentModel.loserGroupID = function (groupID, lostMatchID) {
-    var round = KOTournamentModel.roundOfMatchID(lostMatchID);
+    var round = KOTournamentModel.roundOfMatchID(lostMatchID)
     if (round === 0) {
-      return groupID;
+      return groupID
     }
-    return groupID + (1 << (round - 1));
-  };
+    return groupID + (1 << (round - 1))
+  }
 
   /**
    * @param group
@@ -515,11 +510,11 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    */
   KOTournamentModel.parentGroup = function (group) {
     if (group === 0) {
-      return 0;
+      return 0
     }
 
-    return group - (1 << (KOTournamentModel.roundsInGroup(group) - 1));
-  };
+    return group - (1 << (KOTournamentModel.roundsInGroup(group) - 1))
+  }
 
   /**
    * @param numTeams
@@ -528,10 +523,10 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    */
   KOTournamentModel.initialRoundForTeams = function (numTeams) {
     if (numTeams <= 0) {
-      numTeams = 1;
+      numTeams = 1
     }
-    return Math.ceil(Math.log(numTeams) / Math.LN2) - 1;
-  };
+    return Math.ceil(Math.log(numTeams) / Math.LN2) - 1
+  }
 
   /**
    * @param group
@@ -539,20 +534,20 @@ define(["lib/extend", "tournament/tournamentmodel", "core/random", "core/type",
    * @return the number of rounds which are played exclusively in this group
    */
   KOTournamentModel.roundsInGroup = function (group) {
-    var rounds;
+    var rounds
 
     if (group === 0) {
-      return 30;
+      return 30
     }
 
     for (rounds = 0; rounds < 30; rounds += 1) {
       if ((group & (1 << rounds)) !== 0) {
-        break;
+        break
       }
     }
 
-    return rounds + 1;
-  };
+    return rounds + 1
+  }
 
-  return KOTournamentModel;
-});
+  return KOTournamentModel
+})

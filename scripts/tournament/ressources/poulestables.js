@@ -1,32 +1,32 @@
 define(function () {
-  var roundrobin_byes, acbd_ranking, winner, loser;
+  var roundrobinByes, acbdRanking, winner, loser
 
-  winner = "winner";
-  loser = "loser";
+  winner = 'winner'
+  loser = 'loser'
 
-  roundrobin_byes = [
+  roundrobinByes = [
     [0, 2],
     [1, 2],
     [0, 1]
-  ];
+  ]
 
-  acbd_ranking = [{
-      winner: 0,
-      loser: 2
-    },
-    {
-      winner: 0,
-      loser: 2
-    },
-    {
-      winner: 0,
-      loser: 1,
-    },
-    {
-      winner: 2,
-      loser: 3
-    }
-  ];
+  acbdRanking = [{
+    winner: 0,
+    loser: 2
+  },
+  {
+    winner: 0,
+    loser: 2
+  },
+  {
+    winner: 0,
+    loser: 1
+  },
+  {
+    winner: 2,
+    loser: 3
+  }
+  ]
 
   return {
     MATCHES: {
@@ -35,22 +35,22 @@ define(function () {
           [0, 3],
           [1, 2],
           [{
-              from: 0,
-              who: winner
-            },
-            {
-              from: 1,
-              who: winner
-            }
+            from: 0,
+            who: winner
+          },
+          {
+            from: 1,
+            who: winner
+          }
           ],
           [{
-              from: 0,
-              who: loser
-            },
-            {
-              from: 1,
-              who: loser
-            }
+            from: 0,
+            who: loser
+          },
+          {
+            from: 1,
+            who: loser
+          }
           ]
         ],
         favorites: [
@@ -72,10 +72,10 @@ define(function () {
           [0, 1],
           [2],
           [{
-              from: 0,
-              who: winner
-            },
-            2
+            from: 0,
+            who: winner
+          },
+          2
           ],
           [{
             from: 0,
@@ -109,8 +109,8 @@ define(function () {
             who: winner
           }]
         ],
-        favorites: roundrobin_byes,
-        lastteams: roundrobin_byes
+        favorites: roundrobinByes,
+        lastteams: roundrobinByes
       },
       roundrobin: {
         default: [
@@ -121,37 +121,37 @@ define(function () {
           [0, 1],
           [2, 3]
         ],
-        favorites: roundrobin_byes,
-        lastteams: roundrobin_byes
+        favorites: roundrobinByes,
+        lastteams: roundrobinByes
       }
     },
     RANKING: {
       acbd: {
-        default: acbd_ranking,
-        favorites: acbd_ranking,
-        lastteams: acbd_ranking
+        default: acbdRanking,
+        favorites: acbdRanking,
+        lastteams: acbdRanking
       },
       barrage: {
         default: [{
-            winner: 0,
-            loser: 1
-          },
-          {
-            winner: 0,
-            loser: 1
-          },
-          {
-            winner: 0,
-            loser: 1
-          },
-          {
-            winner: 1,
-            loser: 3
-          },
-          {
-            winner: 1,
-            loser: 2
-          }
+          winner: 0,
+          loser: 1
+        },
+        {
+          winner: 0,
+          loser: 1
+        },
+        {
+          winner: 0,
+          loser: 1
+        },
+        {
+          winner: 1,
+          loser: 3
+        },
+        {
+          winner: 1,
+          loser: 2
+        }
         ],
         favorites: undefined,
         lastteams: undefined
@@ -162,5 +162,5 @@ define(function () {
         lastteams: undefined
       }
     }
-  };
-});
+  }
+})
