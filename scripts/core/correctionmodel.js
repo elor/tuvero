@@ -7,8 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/model", "core/matchresult"], function (extend, Model,
-    MatchResult) {
+define(['lib/extend', 'core/model', 'core/matchresult'], function (extend, Model,
+  MatchResult) {
   /**
    * Constructor
    *
@@ -17,31 +17,31 @@ define(["lib/extend", "core/model", "core/matchresult"], function (extend, Model
    * @param newResult
    *          the result after the correction
    */
-  function CorrectionModel(oldResult, newResult) {
-    CorrectionModel.superconstructor.call(this);
+  function CorrectionModel (oldResult, newResult) {
+    CorrectionModel.superconstructor.call(this)
 
     if (oldResult === undefined) {
-      this.before = new MatchResult();
+      this.before = new MatchResult()
     } else if (oldResult instanceof MatchResult) {
-      this.before = oldResult;
+      this.before = oldResult
     } else {
-      throw new Error("CorrectionModel: oldResult is not a MatchResult!");
+      throw new Error('CorrectionModel: oldResult is not a MatchResult!')
     }
 
     if (newResult === undefined) {
-      this.after = new MatchResult();
+      this.after = new MatchResult()
     } else if (newResult instanceof MatchResult) {
-      this.after = newResult;
+      this.after = newResult
     } else {
-      throw new Error("CorrectionModel: newResult is not a MatchResult!");
+      throw new Error('CorrectionModel: newResult is not a MatchResult!')
     }
   }
-  extend(CorrectionModel, Model);
+  extend(CorrectionModel, Model)
 
   /**
    * This model does not emit events. It's for storage only.
    */
-  CorrectionModel.prototype.EVENTS = {};
+  CorrectionModel.prototype.EVENTS = {}
 
   /**
    * gather the data and return it as a serializable object
@@ -49,13 +49,13 @@ define(["lib/extend", "core/model", "core/matchresult"], function (extend, Model
    * @return a serializable data object
    */
   CorrectionModel.prototype.save = function () {
-    var data = CorrectionModel.superclass.save.call(this);
+    var data = CorrectionModel.superclass.save.call(this)
 
-    data.b = this.before.save();
-    data.a = this.after.save();
+    data.b = this.before.save()
+    data.a = this.after.save()
 
-    return data;
-  };
+    return data
+  }
 
   /**
    * restore a previous state, which has been saved with the 'save()' function
@@ -66,24 +66,24 @@ define(["lib/extend", "core/model", "core/matchresult"], function (extend, Model
    */
   CorrectionModel.prototype.restore = function (data) {
     if (!CorrectionModel.superclass.restore.call(this, data)) {
-      return false;
+      return false
     }
 
     if (!this.before.restore(data.b)) {
-      return false;
+      return false
     }
 
     if (!this.after.restore(data.a)) {
-      return false;
+      return false
     }
 
-    return true;
-  };
+    return true
+  }
 
   CorrectionModel.prototype.SAVEFORMAT = Object
-      .create(CorrectionModel.superclass.SAVEFORMAT);
-  CorrectionModel.prototype.SAVEFORMAT.a = Object;
-  CorrectionModel.prototype.SAVEFORMAT.b = Object;
+    .create(CorrectionModel.superclass.SAVEFORMAT)
+  CorrectionModel.prototype.SAVEFORMAT.a = Object
+  CorrectionModel.prototype.SAVEFORMAT.b = Object
 
-  return CorrectionModel;
-});
+  return CorrectionModel
+})

@@ -7,7 +7,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/matchmodel"], function (extend, MatchModel) {
+define(['lib/extend', 'core/matchmodel'], function (extend, MatchModel) {
   /**
    * Constructor
    *
@@ -17,25 +17,25 @@ define(["lib/extend", "core/matchmodel"], function (extend, MatchModel) {
    *          a list of teams which maps an internal id (index within the
    *          tournament) the the external id (global team id)
    */
-  function MatchReferenceModel(match, teamlist) {
-    this.match = match;
+  function MatchReferenceModel (match, teamlist) {
+    this.match = match
     this.updateTeams = function () {
       if (teamlist) {
         this.teams = this.match.teams.map(function (teamid) {
-          return teamlist.get(teamid);
-        });
+          return teamlist.get(teamid)
+        })
       } else {
-        this.teams = this.match.teams.slice();
+        this.teams = this.match.teams.slice()
       }
-    };
-    this.updateTeams();
+    }
+    this.updateTeams()
 
     MatchReferenceModel.superconstructor.call(this, this.teams, match.id,
-      match.group);
+      match.group)
 
-    match.registerListener(this);
+    match.registerListener(this)
   }
-  extend(MatchReferenceModel, MatchModel);
+  extend(MatchReferenceModel, MatchModel)
 
   /**
    * forward the finish()-call to the referenced match
@@ -46,10 +46,10 @@ define(["lib/extend", "core/matchmodel"], function (extend, MatchModel) {
    */
   MatchReferenceModel.prototype.finish = function (score) {
     if (this.match.finish(score) === undefined) {
-      return undefined;
+      return undefined
     }
-    return true;
-  };
+    return true
+  }
 
   /**
    * Forward the "finish"-event to notify listeners about a finished match
@@ -61,14 +61,14 @@ define(["lib/extend", "core/matchmodel"], function (extend, MatchModel) {
    * The current specification disallows any events after 'finish'.
    */
   MatchReferenceModel.prototype.onfinish = function () {
-    this.match.unregisterListener(this);
-    this.emit("finish");
-  };
+    this.match.unregisterListener(this)
+    this.emit('finish')
+  }
 
   MatchReferenceModel.prototype.onupdate = function () {
-    this.updateTeams();
-    this.emit("update");
-  };
+    this.updateTeams()
+    this.emit('update')
+  }
 
-  return MatchReferenceModel;
-});
+  return MatchReferenceModel
+})

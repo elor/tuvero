@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/matchresult", "core/matchmodel"], function (extend,
-    MatchResult, MatchModel) {
+define(['lib/extend', 'core/matchresult', 'core/matchmodel'], function (extend,
+  MatchResult, MatchModel) {
   /**
    * Constructor for auto-creation of a bye instance, which contains all
    * relevant data, and matches the MatchResult interface.
@@ -30,11 +30,11 @@ define(["lib/extend", "core/matchresult", "core/matchmodel"], function (extend,
    *          the group of the bye. Similar to the match group.
    *
    */
-  function ByeResult(teamid, score, id, group) {
+  function ByeResult (teamid, score, id, group) {
     ByeResult.superconstructor.call(this, new MatchModel([teamid, teamid], id,
-        group), score);
+      group), score)
   }
-  extend(ByeResult, MatchResult);
+  extend(ByeResult, MatchResult)
 
-  return ByeResult;
-});
+  return ByeResult
+})

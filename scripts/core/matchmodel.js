@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
-    IndexedModel, Type) {
+define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
+  IndexedModel, Type) {
   /**
    * Constructor
    *
@@ -18,26 +18,26 @@ define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
    * @param group
    *          identifier of the round, phase, pool, ...
    */
-  function MatchModel(teams, id, group) {
-    MatchModel.superconstructor.call(this, id);
+  function MatchModel (teams, id, group) {
+    MatchModel.superconstructor.call(this, id)
 
     if (teams === undefined) {
-      teams = [];
+      teams = []
     }
     if (group === undefined) {
-      group = -1;
+      group = -1
     }
 
-    this.teams = teams.slice();
-    this.length = this.teams.length;
-    this.group = group;
+    this.teams = teams.slice()
+    this.length = this.teams.length
+    this.group = group
   }
-  extend(MatchModel, IndexedModel);
+  extend(MatchModel, IndexedModel)
 
   MatchModel.prototype.EVENTS = {
-    "update": true,
-    "finish": true
-  };
+    'update': true,
+    'finish': true
+  }
 
   /**
    *
@@ -52,8 +52,8 @@ define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
     // if (pos === undefined || pos < 0 || pos >= this.length) {
     // return undefined;
     // }
-    return this.teams[pos];
-  };
+    return this.teams[pos]
+  }
 
   /**
    * return the group of the match within the tournament
@@ -61,8 +61,8 @@ define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
    * @return the group of the match within the tournament
    */
   MatchModel.prototype.getGroup = function () {
-    return this.group;
-  };
+    return this.group
+  }
 
   /**
    * If isResult() is false, `this.score` does not exist and this.finish() still
@@ -71,41 +71,41 @@ define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
    * @return true if an inherited object is a MatchResult, false otherwise.
    */
   MatchModel.prototype.isResult = function () {
-    return this.score !== undefined || !this.finish;
-  };
+    return this.score !== undefined || !this.finish
+  }
 
   /**
    * @return true if this is not a result, all team IDs are unique and all team
    *         IDs are valid (not undefined). false otherwise.
    */
   MatchModel.prototype.isRunningMatch = function () {
-    var valid;
+    var valid
 
-    valid = true;
+    valid = true
 
     if (valid) {
-      valid = !this.isResult();
+      valid = !this.isResult()
     }
 
     if (valid) {
       valid = this.teams.every(function (teamID) {
-        return Type.isNumber(teamID);
-      });
+        return Type.isNumber(teamID)
+      })
     }
 
     if (valid) {
       valid = this.teams.every(function (teamID, index) {
-        return this.teams.slice(index + 1).indexOf(teamID) === -1;
-      }, this);
+        return this.teams.slice(index + 1).indexOf(teamID) === -1
+      }, this)
     }
 
-    return valid;
-  };
+    return valid
+  }
 
   /**
    * disable setID() functionality
    */
-  MatchModel.prototype.setID = undefined;
+  MatchModel.prototype.setID = undefined
 
   /**
    * finishes a match with a certain result
@@ -116,21 +116,21 @@ define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
    *         otherwise
    */
   MatchModel.prototype.finish = function (points) {
-    var result, MatchResult;
+    var result, MatchResult
 
     if (!points || points.length !== this.length) {
-      console.error("MatchModel.finish(): lengths don't match");
-      return undefined;
+      console.error("MatchModel.finish(): lengths don't match")
+      return undefined
     }
 
     // Circular dependency. Require MatchResult directly
-    MatchResult = require("core/matchresult");
-    result = new MatchResult(this, points);
+    MatchResult = require('core/matchresult')
+    result = new MatchResult(this, points)
 
-    this.emit("finish", result);
+    this.emit('finish', result)
 
-    return result;
-  };
+    return result
+  }
 
   /**
    * save the state into a data object
@@ -138,21 +138,21 @@ define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
    * @return a data object
    */
   MatchModel.prototype.save = function () {
-    var data = MatchModel.superclass.save.call(this);
+    var data = MatchModel.superclass.save.call(this)
 
-    data.g = this.group;
+    data.g = this.group
     data.t = this.teams.map(function (team) {
       if (team && team.getID) {
-        return team.getID();
+        return team.getID()
       } else if (team === undefined) {
-        return -1;
+        return -1
       } else {
-        return team;
+        return team
       }
-    });
+    })
 
-    return data;
-  };
+    return data
+  }
 
   /**
    * restore from a saved state. Copies teams as Team IDs.
@@ -163,24 +163,24 @@ define(["lib/extend", "list/indexedmodel", "core/type"], function (extend,
    */
   MatchModel.prototype.restore = function (data) {
     if (!MatchModel.superclass.restore.call(this, data)) {
-      return false;
+      return false
     }
 
-    this.group = data.g;
+    this.group = data.g
 
-    this.teams.splice(0);
+    this.teams.splice(0)
     data.t.forEach(function (t) {
-      this.teams.push(t === -1 ? undefined : t);
-    }, this);
-    this.length = this.teams.length;
+      this.teams.push(t === -1 ? undefined : t)
+    }, this)
+    this.length = this.teams.length
 
-    return true;
-  };
+    return true
+  }
 
   MatchModel.prototype.SAVEFORMAT = Object
-      .create(MatchModel.superclass.SAVEFORMAT);
-  MatchModel.prototype.SAVEFORMAT.g = Number;
-  MatchModel.prototype.SAVEFORMAT.t = [Number];
+    .create(MatchModel.superclass.SAVEFORMAT)
+  MatchModel.prototype.SAVEFORMAT.g = Number
+  MatchModel.prototype.SAVEFORMAT.t = [Number]
 
-  return MatchModel;
-});
+  return MatchModel
+})

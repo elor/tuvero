@@ -30,7 +30,7 @@ define(["jquery", "core/type"], function ($, Type) {
 
     if (transition === undefined) {
       console.error("could not read any transition lengths. "
-          + "What's your browser?");
+        + "What's your browser?");
       return 0.2;
     }
 
@@ -73,7 +73,7 @@ define(["jquery", "core/type"], function ($, Type) {
 
     if (!initialized) {
       console.error("Cannot display Toast: "
-          + "Toast.init() has not been called yet.");
+        + "Toast.init() has not been called yet.");
       return;
     }
 
@@ -103,7 +103,7 @@ define(["jquery", "core/type"], function ($, Type) {
     // Let the toast fade out if it's not infinite
     if (this.duration > 0) {
       window.setTimeout(this.close.bind(this),
-          1000 * (this.duration + Toast.fadeinDuration));
+        1000 * (this.duration + Toast.fadeinDuration));
       $toast.addClass("temporary");
     } else {
       $toast.addClass("infinite");
@@ -159,16 +159,16 @@ define(["jquery", "core/type"], function ($, Type) {
       Toast.fadeinDuration = getTransitionDuration();
 
       if (Toast.fadeinDuration !== Number(Toast.fadeinDuration)
-          || !isFinite(Toast.fadeinDuration) || isNaN(Toast.fadeinDuration)) {
+        || !isFinite(Toast.fadeinDuration) || isNaN(Toast.fadeinDuration)) {
         console.error("Toast.fadeinDuration: not a valid number: "
-            + Toast.fadeinDuration);
+          + Toast.fadeinDuration);
         Toast.$template.removeClass("hidden");
       }
 
       if (Toast.fadeoutDuration !== Number(Toast.fadeoutDuration)
-          || !isFinite(Toast.fadeoutDuration) || isNaN(Toast.fadeoutDuration)) {
+        || !isFinite(Toast.fadeoutDuration) || isNaN(Toast.fadeoutDuration)) {
         console.error("Toast.fadeoutDuration: not a valid number: "
-            + Toast.fadeoutDuration);
+          + Toast.fadeoutDuration);
         Toast.$template.removeClass("hidden");
       }
     }
@@ -189,6 +189,10 @@ define(["jquery", "core/type"], function ($, Type) {
       $toast.next().hide();
       $toast.hide();
     });
+  };
+
+  Toast.once = function (message, seconds) {
+    return new Toast(message, seconds);
   };
 
   Toast.SHORT = 2;

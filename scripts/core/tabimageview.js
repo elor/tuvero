@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view"], function (extend, View) {
+define(['lib/extend', 'core/view'], function (extend, View) {
   /**
    * Constructor
    *
@@ -18,28 +18,28 @@ define(["lib/extend", "core/view"], function (extend, View) {
    * @param $view
    *          the associated view
    */
-  function TabImageView(tabname, model, $view) {
-    TabImageView.superconstructor.call(this, model, $view);
+  function TabImageView (tabname, model, $view) {
+    TabImageView.superconstructor.call(this, model, $view)
 
-    this.tabname = tabname;
+    this.tabname = tabname
 
-    this.update();
+    this.update()
   }
-  extend(TabImageView, View);
+  extend(TabImageView, View)
 
   /**
    * update the image to the given parameters
    */
   TabImageView.prototype.update = function () {
-    this.$view.attr("data-img", this.tabname + this.model.get());
-  };
+    this.$view.attr('data-img', this.tabname + this.model.get())
+  }
 
   /**
    * Callback function for the associated ValueModel
    */
   TabImageView.prototype.onupdate = function () {
-    this.update();
-  };
+    this.update()
+  }
 
-  return TabImageView;
-});
+  return TabImageView
+})

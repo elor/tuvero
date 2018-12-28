@@ -16,13 +16,13 @@ define(function () {
    * @param view
    *          An associated instance of View
    */
-  function Controller(view) {
-    this.model = view.model;
-    this.view = view;
+  function Controller (view) {
+    this.model = view.model
+    this.view = view
   }
 
   Controller.prototype.destroy = function () {
-  };
+  }
 
-  return Controller;
-});
+  return Controller
+})

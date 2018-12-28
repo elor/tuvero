@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/valuemodel", "core/listener"], function (extend,
-    ValueModel, Listener) {
+define(['lib/extend', 'core/valuemodel', 'core/listener'], function (extend,
+  ValueModel, Listener) {
   /**
    * Constructor
    *
@@ -16,24 +16,24 @@ define(["lib/extend", "core/valuemodel", "core/listener"], function (extend,
    * @param prop
    *          the name of the property
    */
-  function PropertyValueModel(model, prop) {
-    PropertyValueModel.superconstructor.call(this, model.getProperty(prop));
+  function PropertyValueModel (model, prop) {
+    PropertyValueModel.superconstructor.call(this, model.getProperty(prop))
 
-    this.prop = prop;
+    this.prop = prop
 
-    model.registerListener(this);
+    model.registerListener(this)
 
-    Listener.bind(this, "update", function () {
-      model.setProperty(prop, this.get());
-    }, this);
+    Listener.bind(this, 'update', function () {
+      model.setProperty(prop, this.get())
+    }, this)
   }
-  extend(PropertyValueModel, ValueModel);
+  extend(PropertyValueModel, ValueModel)
 
   PropertyValueModel.prototype.onupdate = function (emitter, event, data) {
     if (data.key === this.prop) {
-      this.set(data.value);
+      this.set(data.value)
     }
-  };
+  }
 
-  return PropertyValueModel;
-});
+  return PropertyValueModel
+})

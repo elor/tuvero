@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
+define(['lib/extend', 'core/valuemodel'], function (extend, ValueModel) {
   /**
    * Constructor
    *
@@ -15,15 +15,15 @@ define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
    * @param allowedValues
    *          a ListModel instance of allowed values
    */
-  function SelectionValueModel(defaultValue, allowedValues) {
-    SelectionValueModel.superconstructor.call(this, defaultValue);
+  function SelectionValueModel (defaultValue, allowedValues) {
+    SelectionValueModel.superconstructor.call(this, defaultValue)
 
-    this.allowedValues = allowedValues;
-    this.setDefault(defaultValue);
+    this.allowedValues = allowedValues
+    this.setDefault(defaultValue)
 
-    this.allowedValues.registerListener(this);
+    this.allowedValues.registerListener(this)
   }
-  extend(SelectionValueModel, ValueModel);
+  extend(SelectionValueModel, ValueModel)
 
   /**
    * /** *
@@ -32,8 +32,8 @@ define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
    * @return true if the value would be valid, false otherwise
    */
   SelectionValueModel.prototype.isValid = function (value) {
-    return this.allowedValues.indexOf(value) !== -1;
-  };
+    return this.allowedValues.indexOf(value) !== -1
+  }
 
   /**
    * set the value if it's valid, i.e. if it has been registered as a valid
@@ -45,11 +45,11 @@ define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
    */
   SelectionValueModel.prototype.set = function (value) {
     if (this.isValid(value)) {
-      SelectionValueModel.superclass.set.call(this, value);
-      return true;
+      SelectionValueModel.superclass.set.call(this, value)
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
   /**
    * set the default value, which supersedes the allowed values *
@@ -58,9 +58,9 @@ define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
    *          the default value
    */
   SelectionValueModel.prototype.setDefault = function (defaultValue) {
-    this.defaultValue = defaultValue;
-    this.validate();
-  };
+    this.defaultValue = defaultValue
+    this.validate()
+  }
 
   /**
    * check whether the current value is still valid and set the default value
@@ -68,16 +68,16 @@ define(["lib/extend", "core/valuemodel"], function (extend, ValueModel) {
    */
   SelectionValueModel.prototype.validate = function () {
     if (!this.isValid(this.get())) {
-      SelectionValueModel.superclass.set.call(this, this.defaultValue);
+      SelectionValueModel.superclass.set.call(this, this.defaultValue)
     }
-  };
+  }
 
   /**
    * Event callback for removing a value from the underlying list
    */
   SelectionValueModel.prototype.onremove = function () {
-    this.validate();
-  };
+    this.validate()
+  }
 
-  return SelectionValueModel;
-});
+  return SelectionValueModel
+})

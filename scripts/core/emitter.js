@@ -6,37 +6,37 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/listener"], function (extend, Listener) {
-  var depth;
+define(['lib/extend', 'core/listener'], function (extend, Listener) {
+  var depth
 
-  depth = 0;
+  depth = 0
 
-  function getClassName(instance) {
-    return instance.constructor.toString().split("\n")[0].replace(
-      /function (\S+)\(.*/, "$1");
+  function getClassName (instance) {
+    return instance.constructor.toString().split('\n')[0].replace(
+      /function (\S+)\(.*/, '$1')
   }
 
   /**
    * Constructor
    */
-  function Emitter() {
-    Emitter.superconstructor.call(this, undefined);
+  function Emitter () {
+    Emitter.superconstructor.call(this, undefined)
 
     if (this.listeners === undefined) {
-      this.listeners = [];
+      this.listeners = []
     }
 
     if (Emitter.debug && this.EVENTS.update) {
-      console.warn(getClassName(this)
-        + ": The use of the 'update' event is discouraged.");
-      console.warn("   Cause: The meaning of 'update' is ambiguous");
+      console.warn(getClassName(this) +
+        ": The use of the 'update' event is discouraged.")
+      console.warn("   Cause: The meaning of 'update' is ambiguous")
     }
   }
-  extend(Emitter, Listener);
+  extend(Emitter, Listener)
   Emitter.prototype.EVENTS = {
-    "update": true,
-    "reset": true
-  }; // Default Events
+    'update': true,
+    'reset': true
+  } // Default Events
 
   // TODO somehow restrict the events that can be emitted. This has to be
   // visible to the user (i.e. programmers)!
@@ -56,13 +56,13 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @return true if the some listener received the event, false otherwise
    */
   Emitter.prototype.emit = function (event, data) {
-    var success, indentation;
+    var success, indentation
 
-    success = false;
+    success = false
 
     if (!this.validEvent(event)) {
-      console.error("Emitter: unspecified event type: " + event);
-      return false;
+      console.error('Emitter: unspecified event type: ' + event)
+      return false
     }
 
     /*
@@ -70,39 +70,39 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
      * so that unregisterListener()-calls don't cause other listeners to be
      * skipped. Have a look at the corresponding unit test.
      */
-    depth += 1;
+    depth += 1
 
     if (Emitter.debug) {
-      indentation = ">";
+      indentation = '>'
       while (indentation.length <= depth) {
-        indentation += " ";
+        indentation += ' '
       }
-      console.log(indentation + getClassName(this) + ".emit(" + event
-        + ") with " + this.listeners.length + " listeners");
+      console.log(indentation + getClassName(this) + '.emit(' + event +
+        ') with ' + this.listeners.length + ' listeners')
     }
 
     this.listeners.slice().forEach(function (listener) {
-      if (listener["on" + event]) {
+      if (listener['on' + event]) {
         try {
-          listener["on" + event].call(listener, this, event, data);
-          success = true;
+          listener['on' + event](this, event, data)
+          success = true
         } catch (e) {
-          console.error(e);
+          console.error(e)
           if (e instanceof Error) {
-            console.error(e.name);
-            console.error(e.message);
+            console.error(e.name)
+            console.error(e.message)
             if (e.stack) {
-              console.error(e.stack);
+              console.error(e.stack)
             }
           }
         }
       }
-    }, this);
+    }, this)
 
-    depth -= 1;
+    depth -= 1
 
-    return success;
-  };
+    return success
+  }
 
   /**
    * validate the event type
@@ -112,8 +112,8 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @return true if the event type is defined, false otherwise
    */
   Emitter.prototype.validEvent = function (event) {
-    return this.EVENTS && !!this.EVENTS[event];
-  };
+    return this.EVENTS && !!this.EVENTS[event]
+  }
 
   /**
    * register an event listener
@@ -124,12 +124,12 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @return this
    */
   Emitter.prototype.registerListener = function (listener) {
-    this.unregisterListener(listener);
-    this.listeners.push(listener);
-    listener.emitters.push(this);
+    this.unregisterListener(listener)
+    this.listeners.push(listener)
+    listener.emitters.push(this)
 
-    return this;
-  };
+    return this
+  }
 
   /**
    * Makes sure that the event listener is not receiving event callbacks anymore
@@ -140,38 +140,38 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    * @return this
    */
   Emitter.prototype.unregisterListener = function (listener) {
-    var index;
+    var index
 
-    index = this.listeners.indexOf(listener);
+    index = this.listeners.indexOf(listener)
     if (index !== -1) {
-      this.listeners.splice(index, 1);
+      this.listeners.splice(index, 1)
     }
 
     if (listener.emitters) {
-      index = listener.emitters.indexOf(this);
+      index = listener.emitters.indexOf(this)
       if (index !== -1) {
-        listener.emitters.splice(index, 1);
+        listener.emitters.splice(index, 1)
       }
     }
 
-    return this;
-  };
+    return this
+  }
 
   /**
    * unregister all related listeners
    */
   Emitter.prototype.destroy = function () {
-    Emitter.superclass.destroy.call(this);
+    Emitter.superclass.destroy.call(this)
 
     while (this.listeners.length > 0) {
-      this.unregisterListener(this.listeners[0]);
+      this.unregisterListener(this.listeners[0])
     }
-  };
+  }
 
   /**
    * enable/disable debugging log
    */
-  Emitter.debug = false;
+  Emitter.debug = false
 
-  return Emitter;
-});
+  return Emitter
+})

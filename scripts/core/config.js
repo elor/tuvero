@@ -8,21 +8,21 @@
 
 require.config({
   shim: {
-    "lib/modernizr": {
-      deps: ["lib/Blob"],
-      exports: "Modernizr"
+    'lib/modernizr': {
+      deps: ['lib/Blob'],
+      exports: 'Modernizr'
     },
-    "lib/Blob": {
-      exports: "Blob"
+    'lib/Blob': {
+      exports: 'Blob'
     },
-    "lib/FileSaver": {
-      exports: "saveAs"
+    'lib/FileSaver': {
+      exports: 'saveAs'
     }
   },
   paths: {
-    "jquery": "lib/jquery",
-    "filesaver": "lib/FileSaver",
-    "tuvero": "lib/tuvero.bundle-amd",
-    "semver": "lib/semver.browser"
+    'jquery': 'lib/jquery',
+    'filesaver': 'lib/FileSaver',
+    'tuvero': 'lib/tuvero.bundle-amd',
+    'semver': 'lib/semver.browser'
   }
-});
+})

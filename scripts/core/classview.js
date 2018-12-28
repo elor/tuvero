@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view"], function (extend, View) {
+define(['lib/extend', 'core/view'], function (extend, View) {
   /**
    * Constructor
    *
@@ -19,15 +19,15 @@ define(["lib/extend", "core/view"], function (extend, View) {
    * @param offclass
    *          Optional. the class when model.get() returns false
    */
-  function ClassView(model, $view, onclass, offclass) {
-    ClassView.superconstructor.call(this, model, $view);
+  function ClassView (model, $view, onclass, offclass) {
+    ClassView.superconstructor.call(this, model, $view)
 
-    this.onclass = onclass || undefined;
-    this.offclass = offclass || undefined;
+    this.onclass = onclass || undefined
+    this.offclass = offclass || undefined
 
-    this.update();
+    this.update()
   }
-  extend(ClassView, View);
+  extend(ClassView, View)
 
   /**
    * set or remove the classes according to model.get()
@@ -35,27 +35,27 @@ define(["lib/extend", "core/view"], function (extend, View) {
   ClassView.prototype.update = function () {
     if (this.model.get()) {
       if (this.onclass) {
-        this.$view.addClass(this.onclass);
+        this.$view.addClass(this.onclass)
       }
       if (this.offclass) {
-        this.$view.removeClass(this.offclass);
+        this.$view.removeClass(this.offclass)
       }
     } else {
       if (this.onclass) {
-        this.$view.removeClass(this.onclass);
+        this.$view.removeClass(this.onclass)
       }
       if (this.offclass) {
-        this.$view.addClass(this.offclass);
+        this.$view.addClass(this.offclass)
       }
     }
-  };
+  }
 
   /**
    * Callback function to monitor value changes
    */
   ClassView.prototype.onupdate = function () {
-    this.update();
-  };
+    this.update()
+  }
 
-  return ClassView;
-});
+  return ClassView
+})

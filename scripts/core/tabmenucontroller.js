@@ -6,36 +6,36 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/controller", "core/listener"], function ($,
-    extend, Controller, Listener) {
+define(['jquery', 'lib/extend', 'core/controller', 'core/listener'], function ($,
+  extend, Controller, Listener) {
   /**
    * Constructor
    *
    * @param view
    *          the associated TabMenuView
    */
-  function TabMenuController(view) {
-    var model, listener;
+  function TabMenuController (view) {
+    var model, listener
 
-    TabMenuController.superconstructor.call(this, view);
+    TabMenuController.superconstructor.call(this, view)
 
-    model = this.model;
+    model = this.model
 
-    function followHash() {
-      model.set(window.location.hash.replace(/^#/, ""));
+    function followHash () {
+      model.set(window.location.hash.replace(/^#/, ''))
     }
 
     // move to current location, if available
-    $(window).on("hashchange", followHash);
+    $(window).on('hashchange', followHash)
 
     // follow the hash if the tab accessibility has changed in our favor
-    listener = new Listener(this.view.tabnames);
-    listener.oninsert = followHash;
+    listener = new Listener(this.view.tabnames)
+    listener.oninsert = followHash
 
     // follow the hash now
-    followHash();
+    followHash()
   }
-  extend(TabMenuController, Controller);
+  extend(TabMenuController, Controller)
 
   /**
    * focus a tab using the hard way: location change.
@@ -44,8 +44,8 @@ define(["jquery", "lib/extend", "core/controller", "core/listener"], function ($
    *          the tab to focus
    */
   TabMenuController.prototype.focus = function (tabname) {
-    window.location.hash = "#" + tabname;
-  };
+    window.location.hash = '#' + tabname
+  }
 
-  return TabMenuController;
-});
+  return TabMenuController
+})

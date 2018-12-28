@@ -14,26 +14,25 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/model"], function (extend, Model) {
-
+define(['lib/extend', 'core/model'], function (extend, Model) {
   /**
    * Constructor
    *
    * @param value
    *          the initial value
    */
-  function ValueModel(value) {
-    ValueModel.superconstructor.call(this);
+  function ValueModel (value) {
+    ValueModel.superconstructor.call(this)
 
-    if (this.onupdate !== ValueModel.prototype.onupdate
-        && this.bind === ValueModel.prototype.bind) {
-      this.bind = undefined;
+    if (this.onupdate !== ValueModel.prototype.onupdate &&
+        this.bind === ValueModel.prototype.bind) {
+      this.bind = undefined
     }
 
     // don't call this.set, because set() can be overridden by a subclass
-    ValueModel.prototype.set.call(this, value);
+    ValueModel.prototype.set.call(this, value)
   }
-  extend(ValueModel, Model);
+  extend(ValueModel, Model)
 
   /**
    * set the value
@@ -43,10 +42,10 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    */
   ValueModel.prototype.set = function (value) {
     if (this.value !== value) {
-      this.value = value;
-      this.emit("update", value);
+      this.value = value
+      this.emit('update', value)
     }
-  };
+  }
 
   /**
    * retrieve the value
@@ -54,8 +53,8 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    * @return the stored value
    */
   ValueModel.prototype.get = function () {
-    return this.value;
-  };
+    return this.value
+  }
 
   /**
    * bind this value to another value without re-registering the listeners. The
@@ -70,9 +69,9 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    *          the other value model
    */
   ValueModel.prototype.bind = function (valueModel) {
-    valueModel.registerListener(this);
-    this.onupdate(valueModel);
-  };
+    valueModel.registerListener(this)
+    this.onupdate(valueModel)
+  }
 
   /**
    * Callback function
@@ -83,9 +82,9 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    */
   ValueModel.prototype.onupdate = function (emitter) {
     if (this.set) {
-      this.set(emitter.get());
+      this.set(emitter.get())
     }
-  };
+  }
 
   /*
    * ValueModel does not implement save()/restore(), because it is an abstract
@@ -95,5 +94,5 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    * Please use a SuperModel instead, e.g. StateModel or PropertyModel.
    */
 
-  return ValueModel;
-});
+  return ValueModel
+})

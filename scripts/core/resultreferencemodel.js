@@ -7,8 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/matchresult", "core/matchreferencemodel"], function (
-    extend, MatchResult, MatchReferenceModel) {
+define(['lib/extend', 'core/matchresult', 'core/matchreferencemodel'], function (
+  extend, MatchResult, MatchReferenceModel) {
   /**
    * Constructor
    *
@@ -17,19 +17,19 @@ define(["lib/extend", "core/matchresult", "core/matchreferencemodel"], function 
    * @param teamlist
    *          a ListModel instance of team ids, which is used for team mapping
    */
-  function ResultReferenceModel(result, teamlist) {
-    var matchRef;
+  function ResultReferenceModel (result, teamlist) {
+    var matchRef
 
     if (result instanceof MatchResult) {
-      matchRef = new MatchReferenceModel(result, teamlist);
-      ResultReferenceModel.superconstructor.call(this, matchRef, result.score);
-      this.result = result;
+      matchRef = new MatchReferenceModel(result, teamlist)
+      ResultReferenceModel.superconstructor.call(this, matchRef, result.score)
+      this.result = result
     } else {
-      MatchReferenceModel.call(this, result, teamlist);
-      this.finish = MatchReferenceModel.prototype.finish;
+      MatchReferenceModel.call(this, result, teamlist)
+      this.finish = MatchReferenceModel.prototype.finish
     }
   }
-  extend(ResultReferenceModel, MatchResult);
+  extend(ResultReferenceModel, MatchResult)
 
-  return ResultReferenceModel;
-});
+  return ResultReferenceModel
+})

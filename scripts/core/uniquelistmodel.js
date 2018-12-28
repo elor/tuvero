@@ -7,17 +7,17 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
+define(['lib/extend', 'list/listmodel'], function (extend, ListModel) {
   /**
    * Constructor
    *
    * @param array
    *          Optional. An array with elements which to fill the list with
    */
-  function UniqueListModel(array) {
-    UniqueListModel.superconstructor.call(this, array);
+  function UniqueListModel (array) {
+    UniqueListModel.superconstructor.call(this, array)
   }
-  extend(UniqueListModel, ListModel);
+  extend(UniqueListModel, ListModel)
 
   /**
    * push() function, which appends an object to the end of the list if it isn't
@@ -29,10 +29,10 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   UniqueListModel.prototype.push = function (object) {
     if (this.indexOf(object) !== -1) {
-      return undefined;
+      return undefined
     }
-    return UniqueListModel.superclass.push.call(this, object);
-  };
+    return UniqueListModel.superclass.push.call(this, object)
+  }
 
   /**
    * insert an object at the specified index if it isn't already contained
@@ -45,10 +45,10 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   UniqueListModel.prototype.insert = function (index, object) {
     if (this.indexOf(object) !== -1) {
-      return undefined;
+      return undefined
     }
-    return UniqueListModel.superclass.insert.call(this, index, object);
-  };
+    return UniqueListModel.superclass.insert.call(this, index, object)
+  }
 
   /**
    * overwrites (i.e. removes and inserts) an object at the specified index if
@@ -63,10 +63,10 @@ define(["lib/extend", "list/listmodel"], function (extend, ListModel) {
    */
   UniqueListModel.prototype.set = function (index, object) {
     if (this.indexOf(object) !== -1) {
-      return undefined;
+      return undefined
     }
-    return UniqueListModel.superclass.set.call(this, index, object);
-  };
+    return UniqueListModel.superclass.set.call(this, index, object)
+  }
 
-  return UniqueListModel;
-});
+  return UniqueListModel
+})

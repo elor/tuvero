@@ -19,67 +19,67 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/view", "core/tabmenucontroller", "list/listmodel",
-    "core/selectionvaluemodel", "core/tabmodel", "core/classview", "core/tabimageview",
-    "list/listexclusionlistener"], function ($, extend, View, TabMenuController,
-    ListModel, SelectionValueModel, TabModel, ClassView, TabImageView,
-    ListExclusionListener) {
+define(['jquery', 'lib/extend', 'core/view', 'core/tabmenucontroller', 'list/listmodel',
+  'core/selectionvaluemodel', 'core/tabmodel', 'core/classview', 'core/tabimageview',
+  'list/listexclusionlistener'], function ($, extend, View, TabMenuController,
+  ListModel, SelectionValueModel, TabModel, ClassView, TabImageView,
+  ListExclusionListener) {
   /**
    * Constructor
    *
    * @param $view
    *          associated DOM element
    */
-  function TabMenuView($view) {
-    this.tabnames = new ListModel();
+  function TabMenuView ($view) {
+    this.tabnames = new ListModel()
     TabMenuView.superconstructor.call(this, new SelectionValueModel(undefined,
-        this.tabnames), $view);
+      this.tabnames), $view)
 
-    this.keys = {};
-    this.$tabs = {};
-    this.$tabicons = {};
-    this.tabmodels = {};
-    this.$menu = undefined;
-    this.tabmodels = {};
+    this.keys = {}
+    this.$tabs = {}
+    this.$tabicons = {}
+    this.tabmodels = {}
+    this.$menu = undefined
+    this.tabmodels = {}
 
-    this.initTabs();
+    this.initTabs()
 
-    this.controller = new TabMenuController(this);
+    this.controller = new TabMenuController(this)
   }
-  extend(TabMenuView, View);
+  extend(TabMenuView, View)
 
   /**
    * Perform all initializations
    */
   TabMenuView.prototype.initTabs = function () {
-    this.extractTabNames();
-    this.createTabMenu();
-    this.createTabModels();
-    this.readDefaultTab();
-  };
+    this.extractTabNames()
+    this.createTabMenu()
+    this.createTabModels()
+    this.readDefaultTab()
+  }
 
   /**
    * read the data-tab of the tabs, remove them and store them in tabnames
    */
   TabMenuView.prototype.extractTabNames = function () {
-    var tabnames, $tabs, keys;
+    var tabnames, $tabs, keys
 
-    tabnames = this.tabnames;
-    $tabs = this.$tabs;
-    keys = this.keys;
+    tabnames = this.tabnames
+    $tabs = this.$tabs
+    keys = this.keys
 
-    this.$view.find("> div").each(function (index) {
-      var $this, tabname;
-      $this = $(this);
-      tabname = $this.attr("data-tab");
+    this.$view.find('> div').each(function (index) {
+      var $this, tabname
+      $this = $(this)
+      tabname = $this.attr('data-tab')
 
-      keys[tabname] = $this.attr("accesskey");
-      $this.removeAttr("accesskey");
+      keys[tabname] = $this.attr('accesskey')
+      $this.removeAttr('accesskey')
 
-      $tabs[tabname] = $this;
-      tabnames.push(tabname);
-    });
-  };
+      $tabs[tabname] = $this
+      tabnames.push(tabname)
+    })
+  }
 
   /**
    * For every extracted tabname, create and bind a TabModel which controls the
@@ -92,20 +92,20 @@ define(["jquery", "lib/extend", "core/view", "core/tabmenucontroller", "list/lis
        * keep them active for other parts of the code. This is bad coding, but I
        * don't want another reference outside of emitters and listeners.
        */
-      var tmp, model;
+      var tmp, model
 
-      model = new TabModel();
-      this.tabmodels[tabname] = model;
+      model = new TabModel()
+      this.tabmodels[tabname] = model
 
       tmp = new ClassView(model.visibility, this.$tabicons[tabname], undefined,
-          "hidden");
-      tmp = new TabImageView(tabname, model.imgParam, this.$tabicons[tabname]);
+        'hidden')
+      tmp = new TabImageView(tabname, model.imgParam, this.$tabicons[tabname])
       tmp = new ListExclusionListener(model.accessibility, this.tabnames,
-          tabname);
+        tabname)
 
-      return tmp;
-    }, this);
-  };
+      return tmp
+    }, this)
+  }
 
   /**
    * use the first tab as the default tab.
@@ -120,8 +120,8 @@ define(["jquery", "lib/extend", "core/view", "core/tabmenucontroller", "list/lis
    */
   TabMenuView.prototype.readDefaultTab = function () {
     // This implicitly calls onupdate()
-    this.model.setDefault(this.tabnames.get(0));
-  };
+    this.model.setDefault(this.tabnames.get(0))
+  }
 
   /**
    * Retrieve the controlling TabModel instances
@@ -131,50 +131,49 @@ define(["jquery", "lib/extend", "core/view", "core/tabmenucontroller", "list/lis
    * @return undefined on failure, the associated tab model otherwise
    */
   TabMenuView.prototype.getTabModel = function (tabname) {
-    return this.tabmodels[tabname];
-  };
+    return this.tabmodels[tabname]
+  }
 
   /**
    * create and add the menu to the DOM
    */
   TabMenuView.prototype.createTabMenu = function () {
-
-    this.$menu = $("<span>").addClass("tabmenu");
+    this.$menu = $('<span>').addClass('tabmenu')
 
     this.tabnames.map(function (tabname) {
-      var $tab = $("<a>").attr("tabindex", -1);
-      $tab.attr("href", "#" + tabname);
+      var $tab = $('<a>').attr('tabindex', -1)
+      $tab.attr('href', '#' + tabname)
       if (this.keys[tabname]) {
-        $tab.attr("accesskey", this.keys[tabname]);
+        $tab.attr('accesskey', this.keys[tabname])
       }
-      this.$tabicons[tabname] = $tab;
-      this.$menu.append($tab);
-    }, this);
+      this.$tabicons[tabname] = $tab
+      this.$menu.append($tab)
+    }, this)
 
-    this.$view.before(this.$menu);
-  };
+    this.$view.before(this.$menu)
+  }
 
   /**
    * shows the currently active tab
    */
   TabMenuView.prototype.update = function () {
-    var tabname;
+    var tabname
 
     // guaranteed to be a valid index, because of SelectionValueModel
-    tabname = this.model.get();
+    tabname = this.model.get()
 
-    this.$view.find(">.open").removeClass("open");
-    this.$menu.find(">.open").removeClass("open");
-    this.$tabs[tabname].addClass("open");
-    this.$tabicons[tabname].addClass("open");
-  };
+    this.$view.find('>.open').removeClass('open')
+    this.$menu.find('>.open').removeClass('open')
+    this.$tabs[tabname].addClass('open')
+    this.$tabicons[tabname].addClass('open')
+  }
 
   /**
    * Callback Listener for SelectionValueModel changes
    */
   TabMenuView.prototype.onupdate = function () {
-    this.update();
-  };
+    this.update()
+  }
 
   /**
    * Delegate the focus request all the way to the controller
@@ -183,8 +182,8 @@ define(["jquery", "lib/extend", "core/view", "core/tabmenucontroller", "list/lis
    *          the tab to focus
    */
   TabMenuView.prototype.focus = function (tabname) {
-    this.controller.focus(tabname);
-  };
+    this.controller.focus(tabname)
+  }
 
-  return TabMenuView;
-});
+  return TabMenuView
+})

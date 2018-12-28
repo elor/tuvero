@@ -6,19 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/model", "core/valuemodel"], function (extend, Model,
-    ValueModel) {
+define(['lib/extend', 'core/model', 'core/valuemodel'], function (extend, Model,
+  ValueModel) {
   /**
    * Constructor
    */
-  function TabModel() {
-    TabModel.superconstructor.call(this);
+  function TabModel () {
+    TabModel.superconstructor.call(this)
 
-    this.visibility = new ValueModel(true);
-    this.accessibility = new ValueModel(true);
-    this.imgParam = new ValueModel("");
+    this.visibility = new ValueModel(true)
+    this.accessibility = new ValueModel(true)
+    this.imgParam = new ValueModel('')
   }
-  extend(TabModel, Model);
+  extend(TabModel, Model)
 
-  return TabModel;
-});
+  return TabModel
+})

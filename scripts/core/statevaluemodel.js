@@ -6,9 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/selectionvaluemodel", "core/uniquelistmodel"], function (
-    extend, SelectionValueModel, UniqueListModel) {
-
+define(['lib/extend', 'core/selectionvaluemodel', 'core/uniquelistmodel'], function (
+  extend, SelectionValueModel, UniqueListModel) {
   /**
    * Constructor
    *
@@ -19,24 +18,24 @@ define(["lib/extend", "core/selectionvaluemodel", "core/uniquelistmodel"], funct
    * @param transitions
    *          an object with transition arrays, as described above
    */
-  function StateValueModel(initial, transitions) {
-    StateValueModel.superconstructor.call(this, initial,//
-    new UniqueListModel());
+  function StateValueModel (initial, transitions) {
+    StateValueModel.superconstructor.call(this, initial, //
+      new UniqueListModel())
 
     // push it for safety
-    this.allowedValues.push(initial);
+    this.allowedValues.push(initial)
 
     /*
      * Design decision: Not cloning the transitions object, so the state
      * transitions can later be modified, although they're not immediate, but
      * require an update across one of the old transition paths.
      */
-    this.transitions = transitions;
-    this.updateStates();
+    this.transitions = transitions
+    this.updateStates()
 
-    this.registerListener(this);
+    this.registerListener(this)
   }
-  extend(StateValueModel, SelectionValueModel);
+  extend(StateValueModel, SelectionValueModel)
 
   /**
    * Write all possible next states, as specified by this.transitions, to the
@@ -49,21 +48,21 @@ define(["lib/extend", "core/selectionvaluemodel", "core/uniquelistmodel"], funct
      * way, but it avoids any assumptions about possible subclasses
      */
     Object.keys(this.transitions).forEach(function (state) {
-      var transition;
-      transition = this.transitions[this.get()];
+      var transition
+      transition = this.transitions[this.get()]
 
       if (this.get() === state) {
         // retain the current state to avoid the default value
-        this.allowedValues.push(state);
+        this.allowedValues.push(state)
       } else if (transition.indexOf(state) !== -1) {
         // transition is possible. Allowed state
-        this.allowedValues.push(state);
+        this.allowedValues.push(state)
       } else {
         // transition is impossible. Invalid state
-        this.allowedValues.erase(state);
+        this.allowedValues.erase(state)
       }
-    }, this);
-  };
+    }, this)
+  }
 
   /**
    * like this.set(), but it enforces a state change
@@ -73,19 +72,19 @@ define(["lib/extend", "core/selectionvaluemodel", "core/uniquelistmodel"], funct
    */
   StateValueModel.prototype.forceState = function (newState) {
     if (this.transitions[newState]) {
-      this.allowedValues.push(newState);
-      this.set(newState);
-      return true;
+      this.allowedValues.push(newState)
+      this.set(newState)
+      return true
     }
-    return false;
-  };
+    return false
+  }
 
   /**
    * Callback function to update the list of allowed states after a state change
    */
   StateValueModel.prototype.onupdate = function () {
-    this.updateStates();
-  };
+    this.updateStates()
+  }
 
-  return StateValueModel;
-});
+  return StateValueModel
+})
