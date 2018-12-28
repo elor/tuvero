@@ -7,9 +7,9 @@
  * @see LICENSE
  */
 
-define(function() {
+define(function () {
   return {
     teamsicon: 'teams2',
     variant: 'Test'
-  };
-});
+  }
+})

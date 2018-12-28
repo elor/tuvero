@@ -8,25 +8,25 @@
  */
 
 define(function () {
-  var Presets;
+  var Presets
 
   Presets = {
-    target: "tac",
+    target: 'tac',
     systems: {
       swiss: {
-        ranking: ["tac", "numgames", "wins", "headtohead"],
-        mode: "ranks"
+        ranking: ['tac', 'numgames', 'wins', 'headtohead'],
+        mode: 'ranks'
       },
       ko: {
-        mode: "matched"
+        mode: 'matched'
       },
       round: {
-        ranking: ["tac", "numgames", "wins", "headtohead"]
+        ranking: ['tac', 'numgames', 'wins', 'headtohead']
       },
       placement: {}
     },
     ranking: {
-      components: ["tac", "numgames", "wins", "saldo", "headtohead", "buchholz", "finebuchholz", "sonneborn"]
+      components: ['tac', 'numgames', 'wins', 'saldo', 'headtohead', 'buchholz', 'finebuchholz', 'sonneborn']
     },
     registration: {
       defaultteamsize: 1,
@@ -39,16 +39,16 @@ define(function () {
       showmatchtables: true
     },
     names: {
-      playernameurl: "",
-      dbplayername: "tacplayers",
-      apitoken: "apitoken",
-      teamsfile: "tuvero-anmeldungen.txt"
+      playernameurl: '',
+      dbplayername: 'tacplayers',
+      apitoken: 'apitoken',
+      teamsfile: 'tuvero-anmeldungen.txt'
     },
     ui: {
       rankingpoints: false,
       hiderankingorder: true
     }
-  };
+  }
 
-  return Presets;
-});
+  return Presets
+})

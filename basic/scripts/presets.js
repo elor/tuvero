@@ -9,26 +9,26 @@
  */
 
 define(function () {
-  var Presets;
+  var Presets
 
   Presets = {
-    target: "basic",
+    target: 'basic',
     systems: {
       swiss: {
-        ranking: ["wins", "headtohead", "saldo"],
-        mode: "ranks"
+        ranking: ['wins', 'headtohead', 'saldo'],
+        mode: 'ranks'
       },
       ko: {
-        mode: "matched"
+        mode: 'matched'
       },
       round: {
-        ranking: ["wins", "sonneborn", "headtohead", "points"]
+        ranking: ['wins', 'sonneborn', 'headtohead', 'points']
       },
       placement: {}
     },
     ranking: {
-      components: ["buchholz", "finebuchholz", "points", "saldo", "sonneborn",
-        "numgames", "wins", "headtohead", "threepoint", "twopoint"
+      components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn',
+        'numgames', 'wins', 'headtohead', 'threepoint', 'twopoint'
       ]
     },
     registration: {
@@ -38,15 +38,15 @@ define(function () {
       teamsizeicon: false
     },
     names: {
-      playernameurl: "",
-      dbplayername: "tuverobasicplayers",
-      apitoken: "apitoken",
-      teamsfile: "tuvero-anmeldungen.txt"
+      playernameurl: '',
+      dbplayername: 'tuverobasicplayers',
+      apitoken: 'apitoken',
+      teamsfile: 'tuvero-anmeldungen.txt'
     },
     ui: {
       rankingpoints: false
     }
-  };
+  }
 
-  return Presets;
-});
+  return Presets
+})

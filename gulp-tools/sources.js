@@ -16,15 +16,16 @@ var sources = {
   ],
   scripts_for_jshint: [
     'scripts/**/*.js',
-    '*/scripts/**/*.js',
-    '!*/scripts/**/build.js',
-    '!**/lib/*.js',
-    '!**/{require,qunit}.js'
+    '!**/lib/*.js'
   ],
   scripts_for_standardjs: [
     '*.js',
     'gulp-tools/*.js',
-    '!gulp-tools/check-dependencies.js'
+    '*/scripts/**/*.js',
+    '!**/lib/*.js',
+    '!*/scripts/**/{build,test}.js',
+    '!gulp-tools/check-dependencies.js',
+    '!**/{require,qunit}.js'
   ],
   dependent_scripts: [
     'scripts/*/*.js',

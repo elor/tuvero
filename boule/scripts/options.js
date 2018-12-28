@@ -9,8 +9,8 @@
  * @see LICENSE
  */
 
-define(['ui/optionstemplate'], function(OptionsTemplate) {
-  var Default;
+define(['ui/optionstemplate'], function (OptionsTemplate) {
+  var Default
 
   Default = {
     // must stay the same across this save, hence OptionsTemplate, not Presets
@@ -21,10 +21,10 @@ define(['ui/optionstemplate'], function(OptionsTemplate) {
     defaultscore: 0,
     tiesforbidden: true,
     maxpointtiesforbidden: true
-  };
+  }
 
-  OptionsTemplate.setDefault(Default);
-  OptionsTemplate.reset();
+  OptionsTemplate.setDefault(Default)
+  OptionsTemplate.reset()
 
-  return OptionsTemplate;
-});
+  return OptionsTemplate
+})

@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(function() {
+define(function () {
   return {
     variant: 'TAC',
     teamsicon: 'teams',
@@ -16,5 +16,5 @@ define(function() {
     ranking_saldo: 'Kugeldifferenz',
     ranking_short_saldo: 'KD',
     ranking_medium_saldo: 'Diff.'
-  };
-});
+  }
+})

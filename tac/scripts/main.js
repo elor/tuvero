@@ -13,14 +13,14 @@
  * the build script. See build.js and build.sh.
  */
 require.config({
-    baseUrl: '../scripts',
-    paths: {
-        'options': '../tac/scripts/options',
-        'presets': '../tac/scripts/presets',
-        'strings': '../tac/scripts/strings'
-    }
-});
+  baseUrl: '../scripts',
+  paths: {
+    'options': '../tac/scripts/options',
+    'presets': '../tac/scripts/presets',
+    'strings': '../tac/scripts/strings'
+  }
+})
 
 require(['core/main'], function () {
-    // load target-specific modules here. But please don't try to
-});
+  // load target-specific modules here. But please don't try to
+})

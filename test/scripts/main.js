@@ -20,9 +20,9 @@ require.config({
     'presets': '../test/scripts/presets',
     'strings': '../test/scripts/strings'
   }
-});
+})
 
 require(['core/config', 'core/common'], function (Config, Common) {
-  var $ = require('jquery');
-  TestMain(Common, $);
-});
+  var $ = require('jquery')
+  TestMain(Common, $)
+})

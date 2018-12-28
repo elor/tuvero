@@ -13,14 +13,14 @@
  * the build script. See build.js and build.sh.
  */
 require.config({
-    baseUrl: '../scripts',
-    paths: {
-        'options': '../boule/scripts/options',
-        'presets': '../boule/scripts/presets',
-        'strings': '../boule/scripts/strings'
-    }
-});
+  baseUrl: '../scripts',
+  paths: {
+    'options': '../boule/scripts/options',
+    'presets': '../boule/scripts/presets',
+    'strings': '../boule/scripts/strings'
+  }
+})
 
 require(['core/main'], function () {
-    // load target-specific modules here. But please don't try to
-});
+  // load target-specific modules here. But please don't try to
+})
