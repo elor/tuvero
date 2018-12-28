@@ -18,19 +18,23 @@ define(['jquery', 'lib/extend', 'core/controller'], function ($, extend, Control
    *          a valid RankingOrderView instance
    */
   function RankingOrderController (view) {
-    var selected, allComponents
-
     RankingOrderController.superconstructor.call(this, view)
 
-    selected = this.view.selected
-    allComponents = this.view.allComponents
+    var tournament = this.model
+    var allComponents = this.view.allComponents
 
     this.view.$selectedList.on('click', '.component', function () {
-      selected.remove($(this).index())
+      var components = tournament.ranking.componentnames
+      components.splice($(this).index(), 1)
+      tournament.setRankingOrder(components)
+      view.updateFromScratch()
     })
 
     this.view.$availableList.on('click', '.component', function () {
-      selected.push(allComponents.get($(this).index()))
+      var components = tournament.ranking.componentnames
+      components.push(allComponents.get($(this).index()))
+      tournament.setRankingOrder(components)
+      view.updateFromScratch()
     })
   }
   extend(RankingOrderController, Controller)

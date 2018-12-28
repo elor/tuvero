@@ -19,8 +19,6 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/stateclassview', 'core/listener
     this.$view.attr('rowspan', tournament.getTeams().length)
 
     this.model.tournament = tournament
-    this.model.rankingOrder = new ListModel(
-      this.model.tournament.ranking.componentnames)
 
     this.stateClassView = new StateClassView(tournament.getState(), $view)
 
@@ -50,15 +48,10 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/stateclassview', 'core/listener
       this.hideRankingOrder()
     }
 
-    this.initRankingOrderView()
+    this.initRankingOrderViews()
 
     Listener.bind(this.model.tournament.getName(), 'update', this.updateNames, this)
     Listener.bind(this.model.tournament.getState(), 'update', this.updateRound, this)
-    Listener.bind(this.model.rankingOrder, 'reset,insert,remove', function () {
-      if (!this.model.tournament.setRankingOrder(this.model.rankingOrder.asArray())) {
-        console.error('cannot set ranking order')
-      }
-    }, this)
 
     this.updateNames()
     this.updateRound()
@@ -67,7 +60,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/stateclassview', 'core/listener
   }
   extend(TournamentView, View)
 
-  TournamentView.prototype.initRankingOrderView = function () {
+  TournamentView.prototype.initRankingOrderViews = function () {
     var availableComponents
 
     this.$rankingOrderViews = this.$view.find('.rankingorderview')
@@ -88,7 +81,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/stateclassview', 'core/listener
 
       this.rankingOrderViews = []
       for (var i = 0; i < this.$rankingOrderViews.length; i += 1) {
-        this.rankingOrderViews.push(new RankingOrderView(this.model.rankingOrder,
+        this.rankingOrderViews.push(new RankingOrderView(this.model.tournament,
           this.$rankingOrderViews.eq(i), new ListModel(availableComponents)))
       }
     }

@@ -7,26 +7,19 @@
  * @see LICENSE
  */
 define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'ui/listview',
-  'ui/rankingordercontroller'], function ($, extend, TemplateView,
-  RankingComponentView, ListView, RankingOrderController) {
-  /**
-   * Constructor
-   *
-   * @param selectedComponents
-   * @param $view
-   * @param allComponents
-   */
-  function RankingOrderView (selectedComponents, $view, allComponents) {
-    RankingOrderView.superconstructor.call(this, selectedComponents, $view,
+  'ui/rankingordercontroller', 'list/listmodel'], function ($, extend, TemplateView,
+  RankingComponentView, ListView, RankingOrderController, ListModel) {
+  function RankingOrderView (tournament, $view, allComponents) {
+    RankingOrderView.superconstructor.call(this, tournament, $view,
       $view.find('.template'))
 
-    this.selected = selectedComponents
+    this.selectedComponents = new ListModel(this.model.ranking.componentnames)
     this.allComponents = allComponents
 
     this.$availableList = this.$view.find('.available')
     this.$selectedList = this.$view.find('.selected')
 
-    this.selectedListView = new ListView(selectedComponents,
+    this.selectedListView = new ListView(this.selectedComponents,
       this.$selectedList, this.$template, RankingComponentView)
     this.availableListView = new ListView(allComponents, this.$availableList,
       this.$template, RankingComponentView)
@@ -42,15 +35,21 @@ define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'u
    * items
    */
   RankingOrderView.prototype.update = function () {
-    var model = this.model
+    var selected = this.selectedComponents
+
     this.$availableList.find('.component').each(function (index) {
       var $option = $(this)
-      if (model.indexOf($option.val()) === -1) {
+      if (selected.indexOf($option.val()) === -1) {
         $option.removeClass('hidden')
       } else {
         $option.addClass('hidden')
       }
     })
+  }
+
+  RankingOrderView.prototype.updateFromScratch = function () {
+    this.selectedComponents.restore(this.model.ranking.componentnames)
+    this.update()
   }
 
   /**
