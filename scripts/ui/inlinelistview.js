@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ui/listview"], function (extend, ListView) {
+define(['lib/extend', 'ui/listview'], function (extend, ListView) {
   /**
    * Constructor
    *
@@ -24,11 +24,11 @@ define(["lib/extend", "ui/listview"], function (extend, ListView) {
    *          arbitrary number of additional arguments, which are passed to the
    *          SubView constructor
    */
-  function InlineListView(model, $view, $template, SubView) {
-    this.insertBeforeView = true;
-    InlineListView.superconstructor.apply(this, arguments);
+  function InlineListView (model, $view, $template, SubView) {
+    this.insertBeforeView = true
+    InlineListView.superconstructor.apply(this, arguments)
   }
-  extend(InlineListView, ListView);
+  extend(InlineListView, ListView)
 
-  return InlineListView;
-});
+  return InlineListView
+})

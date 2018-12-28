@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view"], function (extend, View, StateClassView) {
+define(['lib/extend', 'core/view'], function (extend, View, StateClassView) {
   /**
    * Constructor
    *
@@ -15,23 +15,23 @@ define(["lib/extend", "core/view"], function (extend, View, StateClassView) {
    * @param $view
    *          the view
    */
-  function ProgressRoundView(round, $view) {
-    ProgressRoundView.superconstructor.call(this, undefined, $view);
+  function ProgressRoundView (round, $view) {
+    ProgressRoundView.superconstructor.call(this, undefined, $view)
 
-    this.round = round;
-    this.$round = this.$view.find(".round");
+    this.round = round
+    this.$round = this.$view.find('.round')
 
-    this.updateRound();
+    this.updateRound()
   }
-  extend(ProgressRoundView, View);
+  extend(ProgressRoundView, View)
 
   ProgressRoundView.prototype.updateRound = function () {
-    this.$round.text(this.round + 1);
-  };
+    this.$round.text(this.round + 1)
+  }
 
   ProgressRoundView.prototype.onstate = function () {
-    this.updateRound();
-  };
+    this.updateRound()
+  }
 
-  return ProgressRoundView;
-});
+  return ProgressRoundView
+})

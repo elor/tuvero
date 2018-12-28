@@ -6,25 +6,25 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view"], function (extend, View) {
+define(['lib/extend', 'core/view'], function (extend, View) {
   /**
    * Constructor
    *
    * @param $view
    *          a DOM input element
    */
-  function InputView($view) {
-    InputView.superconstructor.call(this, undefined, $view);
+  function InputView ($view) {
+    InputView.superconstructor.call(this, undefined, $view)
   }
-  extend(InputView, View);
+  extend(InputView, View)
 
   /**
    * 'reset' Callback function: set the content of the input field to an empty
    * string
    */
   InputView.prototype.onreset = function () {
-    this.$view.val("");
-  };
+    this.$view.val('')
+  }
 
-  return InputView;
-});
+  return InputView
+})

@@ -4,9 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "jquery", "core/view", "ui/csvexportcontroller",
-    "ui/fontsizeview"], function (extend, $, View,
-    CSVExportController, FontSizeView) {
+define(['lib/extend', 'jquery', 'core/view', 'ui/csvexportcontroller',
+  'ui/fontsizeview'], function (extend, $, View,
+  CSVExportController, FontSizeView) {
   /**
    * represents a whole team tab
    *
@@ -17,12 +17,12 @@ define(["lib/extend", "jquery", "core/view", "ui/csvexportcontroller",
    * @param $tab
    *          the tab DOM element
    */
-  function SettingsTab($tab) {
-    SettingsTab.superconstructor.call(this, undefined, $tab);
+  function SettingsTab ($tab) {
+    SettingsTab.superconstructor.call(this, undefined, $tab)
 
-    this.init();
+    this.init()
   }
-  extend(SettingsTab, View);
+  extend(SettingsTab, View)
 
   /**
    * initialize the tab functionality
@@ -30,28 +30,28 @@ define(["lib/extend", "jquery", "core/view", "ui/csvexportcontroller",
    * TODO maybe split it into multiple autodetected functions?
    */
   SettingsTab.prototype.init = function () {
-    var $container;
+    var $container
 
-    this.$fontsizeview = this.$view.find(".fontsizeview").eq(0);
-    this.fontsizeview = new FontSizeView(this.$fontsizeview, $("body"));
+    this.$fontsizeview = this.$view.find('.fontsizeview').eq(0)
+    this.fontsizeview = new FontSizeView(this.$fontsizeview, $('body'))
 
     /*
      * CSV buttons
      */
-    $container = this.$view.find(".csv");
+    $container = this.$view.find('.csv')
     this.csvExportController = new CSVExportController(new View(undefined,
-        $container));
-  };
+      $container))
+  }
 
   // FIXME CHEAP HACK AHEAD
   $(function ($) {
-    var $tab;
+    var $tab
 
-    $tab = $("#tabs > [data-tab=\"settings\"]");
-    if ($tab.length && $("#testmain").length === 0) {
-      return new SettingsTab($tab);
+    $tab = $('#tabs > [data-tab="settings"]')
+    if ($tab.length && $('#testmain').length === 0) {
+      return new SettingsTab($tab)
     }
-  });
+  })
 
-  return SettingsTab;
-});
+  return SettingsTab
+})

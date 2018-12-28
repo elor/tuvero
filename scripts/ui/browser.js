@@ -7,8 +7,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["background/online", "ui/update"], function (Online, Update) {
-  var Browser;
+define(['background/online', 'ui/update'], function (Online, Update) {
+  var Browser
 
   Browser = {
     name: undefined,
@@ -18,8 +18,8 @@ define(["background/online", "ui/update"], function (Online, Update) {
     local: undefined,
     secure: undefined,
     legit: undefined,
-    inithash: window.location.hash.replace(/^#/, "")
-  };
+    inithash: window.location.hash.replace(/^#/, '')
+  }
 
   Browser.update = function () {
     /**
@@ -29,55 +29,55 @@ define(["background/online", "ui/update"], function (Online, Update) {
      * @return browser information: "Browsername 13.0.0.1" or similar
      */
     var sayswho = (function () {
-      var ua, tem, M, regex;
+      var ua, tem, M, regex
 
-      ua = navigator.userAgent;
-      regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i;
-      M = ua.match(regex) || [];
+      ua = navigator.userAgent
+      regex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i
+      M = ua.match(regex) || []
       if (/trident/i.test(M[1])) {
-        tem = /\brv[ :]+(\d+)/g.exec(ua) || [];
-        return "IE " + (tem[1] || "");
+        tem = /\brv[ :]+(\d+)/g.exec(ua) || []
+        return 'IE ' + (tem[1] || '')
       }
-      if (M[1] === "Chrome") {
-        tem = ua.match(/\b(OPR|Edge)\/(\d+)/);
+      if (M[1] === 'Chrome') {
+        tem = ua.match(/\b(OPR|Edge)\/(\d+)/)
         if (tem !== null) {
-          return tem.slice(1).join(" ").replace("OPR", "Opera");
+          return tem.slice(1).join(' ').replace('OPR', 'Opera')
         }
       }
-      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion,//
-        "-?"];
+      M = M[2] ? [M[1], M[2]] : [navigator.appName, navigator.appVersion, //
+        '-?']
       if ((tem = ua.match(/version\/(\d+)/i)) !== null) {
-        M.splice(1, 1, tem[1]);
+        M.splice(1, 1, tem[1])
       }
-      return M.join(" ");
-    })();
+      return M.join(' ')
+    })()
 
-    Browser.name = sayswho.match(/^\S+/)[0];
-    if (Browser.name === "undefined") {
-      Browser.name = undefined;
+    Browser.name = sayswho.match(/^\S+/)[0]
+    if (Browser.name === 'undefined') {
+      Browser.name = undefined
     }
 
-    Browser.version = sayswho.match(/\S+$/)[0];
-    if (Browser.version === "undefined") {
-      Browser.version = undefined;
+    Browser.version = sayswho.match(/\S+$/)[0]
+    if (Browser.version === 'undefined') {
+      Browser.version = undefined
     } else {
-      Browser.version = Number(Browser.version);
+      Browser.version = Number(Browser.version)
     }
 
-    Browser.online = Online();
+    Browser.online = Online()
 
-    Browser.cached = Update.isCached;
+    Browser.cached = Update.isCached
 
-    Browser.local = document.location.protocol === "file:";
+    Browser.local = document.location.protocol === 'file:'
 
-    Browser.secure = document.location.protocol === "https:";
+    Browser.secure = document.location.protocol === 'https:'
 
-    Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host);
+    Browser.legit = /(^|\.)tuvero\.de$/.test(document.location.host)
 
-    return Browser;
-  };
+    return Browser
+  }
 
-  Browser.update();
+  Browser.update()
 
-  return Browser;
-});
+  return Browser
+})

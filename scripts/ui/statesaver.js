@@ -6,35 +6,35 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["ui/state", "timemachine/timemachine", "ui/stateloader"], function (
-    State, TimeMachine, StateLoader) {
-  var StateSaver;
+define(['ui/state', 'timemachine/timemachine', 'ui/stateloader'], function (
+  State, TimeMachine, StateLoader) {
+  var StateSaver
 
   /**
    * Constructor of the singleton StateSaver
    */
-  function StateSaverModel() {
-    this.createTree = undefined;
+  function StateSaverModel () {
+    this.createTree = undefined
   }
 
   StateSaverModel.prototype.newTree = function (name) {
-    this.createTree = name || "";
-  };
+    this.createTree = name || ''
+  }
 
   StateSaverModel.prototype.createNewEmptyTree = function (name) {
-    this.newTree(name);
+    this.newTree(name)
 
-    StateLoader.unload();
+    StateLoader.unload()
 
-    return this.saveState();
-  };
+    return this.saveState()
+  }
 
   /**
    * @return true if a state can be saved, false otherwise
    */
   StateSaverModel.prototype.canSave = function () {
-    return this.createTree !== undefined || TimeMachine.isInitialized();
-  };
+    return this.createTree !== undefined || TimeMachine.isInitialized()
+  }
 
   /**
    * Save the current state to a new commit
@@ -42,10 +42,10 @@ define(["ui/state", "timemachine/timemachine", "ui/stateloader"], function (
    * @return true on success, false otherwise
    */
   StateSaverModel.prototype.saveState = function () {
-    var data = State.save();
+    var data = State.save()
 
-    return this.saveData(data);
-  };
+    return this.saveData(data)
+  }
 
   /**
    * Save a data object to a new commit
@@ -55,16 +55,16 @@ define(["ui/state", "timemachine/timemachine", "ui/stateloader"], function (
    * @return true on success, false otherwise
    */
   StateSaverModel.prototype.saveData = function (data) {
-    var string;
+    var string
 
     if (!data) {
-      return false;
+      return false
     }
 
-    string = JSON.stringify(data);
+    string = JSON.stringify(data)
 
-    return this.saveString(string);
-  };
+    return this.saveString(string)
+  }
 
   /**
    * Save a string to a new commit
@@ -74,47 +74,47 @@ define(["ui/state", "timemachine/timemachine", "ui/stateloader"], function (
    * @return true on success, false otherwise
    */
   StateSaverModel.prototype.saveString = function (string) {
-    var commit, success;
+    var commit, success
 
     if (!string) {
-      return false;
+      return false
     }
 
     if (this.createTree === undefined) {
-      commit = TimeMachine.save(string);
+      commit = TimeMachine.save(string)
     } else {
-      commit = TimeMachine.init(string, this.createTree);
+      commit = TimeMachine.init(string, this.createTree)
     }
 
     if (!commit) {
-      return false;
+      return false
     }
 
-    success = commit.isValid();
+    success = commit.isValid()
 
     if (success) {
-      this.createTree = undefined;
-      TimeMachine.cleanup(commit, 3);
-      console.log("state saved");
+      this.createTree = undefined
+      TimeMachine.cleanup(commit, 3)
+      console.log('state saved')
     }
 
-    return success;
-  };
+    return success
+  }
 
   StateSaverModel.prototype.removeEverything = function () {
-    StateLoader.unload();
+    StateLoader.unload()
     while (TimeMachine.roots.length > 0) {
-      TimeMachine.roots.get(0).eraseTree();
+      TimeMachine.roots.get(0).eraseTree()
     }
     TimeMachine.getOrphans().forEach(function (orphan) {
-      orphan.remove();
-    });
-  };
+      orphan.remove()
+    })
+  }
 
   /*
    * StateSaver is a singleton
    */
-  StateSaver = new StateSaverModel();
+  StateSaver = new StateSaverModel()
 
-  return StateSaver;
-});
+  return StateSaver
+})

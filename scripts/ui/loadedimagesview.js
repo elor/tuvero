@@ -6,16 +6,16 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view", "jquery"], function (extend, View, $) {
+define(['lib/extend', 'core/view', 'jquery'], function (extend, View, $) {
   /**
    * Constructor
    */
-  function LoadedImagesView($view) {
-    LoadedImagesView.superconstructor.call(this, undefined, $view);
+  function LoadedImagesView ($view) {
+    LoadedImagesView.superconstructor.call(this, undefined, $view)
 
-    this.appendImages($(document.body));
+    this.appendImages($(document.body))
   }
-  extend(LoadedImagesView, View);
+  extend(LoadedImagesView, View)
 
   /**
    * reads all sprite images from the page and returns them as a list
@@ -26,20 +26,20 @@ define(["lib/extend", "core/view", "jquery"], function (extend, View, $) {
    *         data-img attribute
    */
   LoadedImagesView.imageList = function ($container) {
-    var $images, images;
+    var $images, images
 
-    $images = $container.find("[data-img]");
-    images = {};
+    $images = $container.find('[data-img]')
+    images = {}
 
     $images.each(function () {
-      images[$(this).attr("data-img")] = true;
-    });
+      images[$(this).attr('data-img')] = true
+    })
 
     // don't use the sprite itself
-    delete images.sprite;
+    delete images.sprite
 
-    return Object.keys(images).sort();
-  };
+    return Object.keys(images).sort()
+  }
 
   /**
    * finds and appends all images from the container
@@ -47,15 +47,15 @@ define(["lib/extend", "core/view", "jquery"], function (extend, View, $) {
    * @param $container
    */
   LoadedImagesView.prototype.appendImages = function ($container) {
-    var images;
+    var images
 
-    images = LoadedImagesView.imageList($container);
+    images = LoadedImagesView.imageList($container)
 
     images.forEach(function (image) {
-      var $image = $("<div>").attr("data-img", image);
-      this.$view.append($image);
-    }, this);
-  };
+      var $image = $('<div>').attr('data-img', image)
+      this.$view.append($image)
+    }, this)
+  }
 
-  return LoadedImagesView;
-});
+  return LoadedImagesView
+})

@@ -8,49 +8,48 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/view", "ui/teamsettingscontroller",
-    "core/listener"
-  ],
-  function (extend, View, TeamSettingsController, Listener) {
+define(['lib/extend', 'core/view', 'ui/teamsettingscontroller',
+  'core/listener'
+],
+function (extend, View, TeamSettingsController, Listener) {
+  function TeamSettingsView (model, $view) {
+    TeamSettingsView.superconstructor.call(this, model, $view)
 
-    function TeamSettingsView(model, $view) {
-      TeamSettingsView.superconstructor.call(this, model, $view);
+    this.controller = new TeamSettingsController(this)
 
-      this.controller = new TeamSettingsController(this);
-
-      this.update();
-    }
-    extend(TeamSettingsView, View);
-
-    TeamSettingsView.prototype.update = function () {
-      this.$view.find(".teamid").text(this.model.getID() + 1);
-
-      this.$view.find(".teamnumber").val(this.model.number);
-      this.$view.find(".alias").val(this.model.alias);
-      this.$view.find(".club").val(this.model.club);
-      this.$view.find(".rankingpoints").val(this.model.rankingpoints);
-      this.$view.find(".elo").val(this.model.elo);
-    };
-
-    TeamSettingsView.prototype.onupdate = function () {
-      this.update();
-    };
-
-    TeamSettingsView.bindTeamList = function (teamlist) {
-      function IndexTeamView(teamID, $view) {
-        IndexTeamView.superconstructor.call(this, teamlist.get(teamID), $view);
-      }
-      extend(IndexTeamView, TeamSettingsView);
-
-      return IndexTeamView;
-    };
-
-    TeamSettingsView.prototype.destroy = function () {
-      this.controller.destroy();
-
-      Listener.prototype.destroy.call(this);
-    };
-
-    return TeamSettingsView;
+    this.update()
   }
-);
+  extend(TeamSettingsView, View)
+
+  TeamSettingsView.prototype.update = function () {
+    this.$view.find('.teamid').text(this.model.getID() + 1)
+
+    this.$view.find('.teamnumber').val(this.model.number)
+    this.$view.find('.alias').val(this.model.alias)
+    this.$view.find('.club').val(this.model.club)
+    this.$view.find('.rankingpoints').val(this.model.rankingpoints)
+    this.$view.find('.elo').val(this.model.elo)
+  }
+
+  TeamSettingsView.prototype.onupdate = function () {
+    this.update()
+  }
+
+  TeamSettingsView.bindTeamList = function (teamlist) {
+    function IndexTeamView (teamID, $view) {
+      IndexTeamView.superconstructor.call(this, teamlist.get(teamID), $view)
+    }
+    extend(IndexTeamView, TeamSettingsView)
+
+    return IndexTeamView
+  }
+
+  TeamSettingsView.prototype.destroy = function () {
+    this.controller.destroy()
+
+    Listener.prototype.destroy.call(this)
+  }
+
+  return TeamSettingsView
+}
+)

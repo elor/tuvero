@@ -6,10 +6,10 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["ui/servermodel", "ui/storage", "presets"], function (ServerModel, Storage, Presets) {
-  var Server;
+define(['ui/servermodel', 'ui/storage', 'presets'], function (ServerModel, Storage, Presets) {
+  var Server
 
-  Server = Storage.register(Presets.names.apitoken, ServerModel);
+  Server = Storage.register(Presets.names.apitoken, ServerModel)
 
-  return Server;
-});
+  return Server
+})

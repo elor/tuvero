@@ -6,21 +6,21 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/listener"], function (extend, Listener) {
+define(['lib/extend', 'core/listener'], function (extend, Listener) {
   /**
    * Constructor
    */
-  function ClosedTournamentCollapseListener(tournamentlistview) {
-    var tournaments = tournamentlistview.model;
+  function ClosedTournamentCollapseListener (tournamentlistview) {
+    var tournaments = tournamentlistview.model
     ClosedTournamentCollapseListener.superconstructor.call(
       this,
       tournaments.closedTournaments
-    );
+    )
 
-    this.tournaments = tournaments;
-    this.tournamentlistview = tournamentlistview;
+    this.tournaments = tournaments
+    this.tournamentlistview = tournamentlistview
   }
-  extend(ClosedTournamentCollapseListener, Listener);
+  extend(ClosedTournamentCollapseListener, Listener)
 
   /**
    * The tournament has been closed. Collapse it.
@@ -29,14 +29,14 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
    *          the tournament id
    */
   ClosedTournamentCollapseListener.prototype.collapse = function (tournamentID) {
-    var tournamentView, boxView;
+    var tournamentView, boxView
 
-    tournamentView = this.tournamentlistview.getSubview(tournamentID);
-    boxView = tournamentView.boxview;
-    if (!boxView.$view.hasClass("collapsed")) {
-      boxView.model.emit("toggle");
+    tournamentView = this.tournamentlistview.getSubview(tournamentID)
+    boxView = tournamentView.boxview
+    if (!boxView.$view.hasClass('collapsed')) {
+      boxView.model.emit('toggle')
     }
-  };
+  }
 
   /**
    * @param emitter
@@ -51,12 +51,12 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
     event,
     data
   ) {
-    var listener = this;
+    var listener = this
     // Use a timeout to avoid runtime concurrency problems during pageload.
     window.setTimeout(function () {
-      listener.collapse(data.object);
-    }, 1);
-  };
+      listener.collapse(data.object)
+    }, 1)
+  }
 
-  return ClosedTournamentCollapseListener;
-});
+  return ClosedTournamentCollapseListener
+})

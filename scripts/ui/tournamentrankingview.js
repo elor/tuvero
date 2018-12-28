@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view", "ui/rankingview", "ui/listview",
-    "ui/popoutboxview", "ui/correctionview", "ui/teamtableview",
-    "core/valuemodel", "core/listener", "ui/tournamentrenamecontroller"], //
+define(['lib/extend', 'core/view', 'ui/rankingview', 'ui/listview',
+  'ui/popoutboxview', 'ui/correctionview', 'ui/teamtableview',
+  'core/valuemodel', 'core/listener', 'ui/tournamentrenamecontroller'], //
 function (extend, View, RankingView, ListView, PopoutBoxView, CorrectionView,
-    TeamTableView, ValueModel, Listener, TournamentRenameController) {
+  TeamTableView, ValueModel, Listener, TournamentRenameController) {
   /**
    * Constructor
    *
@@ -22,50 +22,50 @@ function (extend, View, RankingView, ListView, PopoutBoxView, CorrectionView,
    *          a ListModel of TeamModel instances which is referenced by index by
    *          TournamentModel.getRanking()
    */
-  function TournamentRankingView(model, $view, teams, abbreviate) {
-    var $popout = $view.clone();
-    TournamentRankingView.superconstructor.call(this, model, $view);
+  function TournamentRankingView (model, $view, teams, abbreviate) {
+    var $popout = $view.clone()
+    TournamentRankingView.superconstructor.call(this, model, $view)
 
     this.renameController = new TournamentRenameController(new View(model,
-        this.$view.find(".tournamentname.rename")));
+      this.$view.find('.tournamentname.rename')))
     this.boxview = new PopoutBoxView(this.$view, $popout, function ($view) {
-      return new TournamentRankingView(model, $view, teams, abbreviate);
-    });
+      return new TournamentRankingView(model, $view, teams, abbreviate)
+    })
 
-    this.$ranking = this.$view.find(".rankingview");
+    this.$ranking = this.$view.find('.rankingview')
     this.rankingview = new RankingView(this.model.getRanking(), this.$ranking,
-        teams, abbreviate);
+      teams, abbreviate)
 
-    this.$corrections = this.$view.find(".correctiontable");
-    this.$correctionrow = this.$corrections.find(".correctionrow.template")
-        .detach();
+    this.$corrections = this.$view.find('.correctiontable')
+    this.$correctionrow = this.$corrections.find('.correctionrow.template')
+      .detach()
     this.corrections = new ListView(this.model.getCorrections(),
-        this.$corrections, this.$correctionrow, CorrectionView);
+      this.$corrections, this.$correctionrow, CorrectionView)
     this.correctionTeamHideListener = new TeamTableView(this.corrections,
-        new ValueModel(3));
+      new ValueModel(3))
 
-    this.$names = this.$view.find(".tournamentname");
+    this.$names = this.$view.find('.tournamentname')
 
-    Listener.bind(this.model.getName(), "update", this.updateNames.bind(this));
-    Listener.bind(this.model.getState(), "update", this.updateVisibility
-        .bind(this));
+    Listener.bind(this.model.getName(), 'update', this.updateNames.bind(this))
+    Listener.bind(this.model.getState(), 'update', this.updateVisibility
+      .bind(this))
 
-    this.updateNames();
-    this.updateVisibility();
+    this.updateNames()
+    this.updateVisibility()
   }
-  extend(TournamentRankingView, View);
+  extend(TournamentRankingView, View)
 
   TournamentRankingView.prototype.updateNames = function () {
-    this.$names.text(this.model.getName().get());
-  };
+    this.$names.text(this.model.getName().get())
+  }
 
   TournamentRankingView.prototype.updateVisibility = function () {
-    if (this.model.getState().get() === "initial") {
-      this.$view.addClass("hidden");
+    if (this.model.getState().get() === 'initial') {
+      this.$view.addClass('hidden')
     } else {
-      this.$view.removeClass("hidden");
+      this.$view.removeClass('hidden')
     }
-  };
+  }
 
-  return TournamentRankingView;
-});
+  return TournamentRankingView
+})

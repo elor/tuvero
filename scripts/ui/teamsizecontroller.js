@@ -4,35 +4,35 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/controller"], function ($, extend, Controller) {
+define(['jquery', 'lib/extend', 'core/controller'], function ($, extend, Controller) {
   /**
    * Constructor
    *
    * @param view
    *          the TeamSizeView
    */
-  function TeamSizeController(view) {
-    var $buttons, model;
-    TeamSizeController.superconstructor.call(this, view);
+  function TeamSizeController (view) {
+    var $buttons, model
+    TeamSizeController.superconstructor.call(this, view)
 
-    $buttons = this.view.$buttons;
-    model = this.model;
+    $buttons = this.view.$buttons
+    model = this.model
 
     /**
      * adjust the team size: get the index of the clicked button and calculate
      * the team size from it. Increment and set.
      */
     $buttons.click(function () {
-      var teamsize;
+      var teamsize
 
-      teamsize = $buttons.index($(this)) + 1;
+      teamsize = $buttons.index($(this)) + 1
 
       if (teamsize > 0) {
-        model.set(teamsize);
+        model.set(teamsize)
       }
-    });
+    })
   }
-  extend(TeamSizeController, Controller);
+  extend(TeamSizeController, Controller)
 
-  return TeamSizeController;
-});
+  return TeamSizeController
+})

@@ -6,12 +6,12 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/controller", "ui/toast", "ui/strings",
-  "core/classview", "ui/state", "core/listener", "timemachine/timemachine",
-  "ui/fontsizeview"
+define(['jquery', 'lib/extend', 'core/controller', 'ui/toast', 'ui/strings',
+  'core/classview', 'ui/state', 'core/listener', 'timemachine/timemachine',
+  'ui/fontsizeview'
 ], function ($, extend, Controller, Toast, Strings, ClassView,
   State, Listener, TimeMachine, FontSizeView) {
-  var mainPopout, $fontsizeview, fontsizeview, timeMachineListener;
+  var mainPopout, $fontsizeview, fontsizeview
 
   // TODO close a popout when its parent is removed from the DOM
 
@@ -21,126 +21,125 @@ define(["jquery", "lib/extend", "core/controller", "ui/toast", "ui/strings",
 
   // TODO destroy all popout views on mainPopout close
 
-  mainPopout = undefined;
+  mainPopout = undefined
 
-  function isMainPopoutOpen() {
-    return mainPopout && mainPopout.document;
+  function isMainPopoutOpen () {
+    return mainPopout && mainPopout.document
   }
 
-  function closeMainPopout() {
+  function closeMainPopout () {
     if (isMainPopoutOpen()) {
-      fontsizeview.destroy();
+      fontsizeview.destroy()
       // TODO destroy all popout views!
-      mainPopout.close();
+      mainPopout.close()
     }
-    mainPopout = undefined;
+    mainPopout = undefined
   }
 
-  timeMachineListener = Listener.bind(TimeMachine, "unload", closeMainPopout);
+  Listener.bind(TimeMachine, 'unload', closeMainPopout)
 
   /**
    * close all popout on page leave
    */
   $(function ($) {
-    $(window).on("beforeunload", closeMainPopout);
-  });
+    $(window).on('beforeunload', closeMainPopout)
+  })
 
   /**
    * Constructor
    */
-  function PopoutController(view, cloneFunction) {
-    PopoutController.superconstructor.call(this, view);
+  function PopoutController (view, cloneFunction) {
+    PopoutController.superconstructor.call(this, view)
 
-    this.cloneFunction = cloneFunction;
+    this.cloneFunction = cloneFunction
 
     if (this.view.$popout) {
-      this.view.$popout.click(this.popout.bind(this));
+      this.view.$popout.click(this.popout.bind(this))
     }
     if (this.view.$close) {
-      this.view.$close.click(this.close.bind(this));
+      this.view.$close.click(this.close.bind(this))
     }
     if (this.view.$pageBreak) {
-      this.view.$pageBreak.click(this.togglePageBreak.bind(this));
+      this.view.$pageBreak.click(this.togglePageBreak.bind(this))
     }
   }
-  extend(PopoutController, Controller);
+  extend(PopoutController, Controller)
 
   PopoutController.prototype.popout = function (e) {
-    var $popoutView, stylepath, $style, $title, $body;
+    var $popoutView, stylepath, $style, $title, $body
 
-    $popoutView = this.view.$popoutTemplate.clone();
+    $popoutView = this.view.$popoutTemplate.clone()
 
     if (!isMainPopoutOpen()) {
-      console.log("opening new popout");
+      console.log('opening new popout')
 
-      mainPopout = window.open("", "", "location=0");
-      $(mainPopout).on("beforeunload", closeMainPopout);
+      mainPopout = window.open('', '', 'location=0')
+      $(mainPopout).on('beforeunload', closeMainPopout)
 
-      $style = $("style");
+      $style = $('style')
       if ($style.length === 0) {
         stylepath = window.location.href.replace(/index.html[?#].*/,
-          "style/main.css");
-        $style = $("<link rel=\"stylesheet\" href=\"" + stylepath + "\">");
+          'style/main.css')
+        $style = $('<link rel="stylesheet" href="' + stylepath + '">')
       } else {
-        $style = $style.clone();
+        $style = $style.clone()
       }
-      $title = $("title").clone();
-      $(mainPopout.document.head).append($style).append($title);
+      $title = $('title').clone()
+      $(mainPopout.document.head).append($style).append($title)
 
-      $body = $(mainPopout.document.body);
-      $body.attr("id", "app").addClass("popoutContainer");
+      $body = $(mainPopout.document.body)
+      $body.attr('id', 'app').addClass('popoutContainer')
       $body.data({
         maxWidthView: new ClassView(State.tabOptions.nameMaxWidth, $body,
-          "maxwidth", "nomaxwidth"),
+          'maxwidth', 'nomaxwidth'),
         hideNamesView: new ClassView(State.tabOptions.showNames, $body,
-          undefined, "hidenames"),
+          undefined, 'hidenames'),
         hideTeamNameView: new ClassView(State.tabOptions.showTeamName, $body,
-          undefined, "hideteamname"),
+          undefined, 'hideteamname'),
         showtableClassView: new ClassView(State.tabOptions.showMatchTables,
-          $body, "showmatchtable", "showtable"),
+          $body, 'showmatchtable', 'showtable'),
         hidefinishedClassView: new ClassView(
-          State.tabOptions.hideFinishedGroups, $body, "hidefinished")
-      });
+          State.tabOptions.hideFinishedGroups, $body, 'hidefinished')
+      })
 
       if (!$fontsizeview) {
-        $fontsizeview = $(".fontsizeview").eq(1);
+        $fontsizeview = $('.fontsizeview').eq(1)
       }
 
-      fontsizeview = new FontSizeView($fontsizeview, $body);
-
+      fontsizeview = new FontSizeView($fontsizeview, $body)
     } else {
-      console.log("main popout already exists and is open");
+      console.log('main popout already exists and is open')
     }
 
-    $popoutView.addClass("primaryPopout");
-    $(mainPopout.document.body).append($popoutView);
-    this.cloneFunction.call(mainPopout, $popoutView);
+    $popoutView.addClass('primaryPopout')
+    $(mainPopout.document.body).append($popoutView)
+    this.cloneFunction.call(mainPopout, $popoutView)
 
     window.setTimeout(function () {
       if (!isMainPopoutOpen()) {
-        new Toast(Strings.popout_adblocked);
+        Toast.once(Strings.popout_adblocked)
       }
-    }, 500);
+    }, 500)
 
-    e.preventDefault(true);
-    return false;
-  };
+    e.preventDefault(true)
+    return false
+  }
 
   PopoutController.prototype.close = function (e) {
-    console.log("close");
+    console.log('close')
 
-    this.view.destroy();
+    this.view.destroy()
 
-    e.preventDefault(true);
-    return false;
-  };
+    e.preventDefault(true)
+    return false
+  }
 
   PopoutController.prototype.togglePageBreak = function (e) {
-    this.view.pageBreakModel.set(!this.view.pageBreakModel.get());
+    this.view.pageBreakModel.set(!this.view.pageBreakModel.get())
 
-    e.preventDefault(true);
-    return false;
-  };
+    e.preventDefault(true)
+    return false
+  }
 
-  return PopoutController;
-});
+  return PopoutController
+})

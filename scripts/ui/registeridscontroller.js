@@ -6,57 +6,53 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/controller", "core/view", "ui/state",
-    "ui/teammodel", "ui/playermodel", "core/random", "ui/statesaver"], //
+define(['lib/extend', 'core/controller', 'core/view', 'ui/state',
+  'ui/teammodel', 'ui/playermodel', 'core/random', 'ui/statesaver'], //
 function (extend, Controller, View, State, TeamModel, PlayerModel, Random,
-    StateSaver) {
-  var rng;
-
-  rng = new Random();
-
+  StateSaver) {
   /**
    * Constructor
    */
-  function RegisterIDsController($button, $numteams) {
+  function RegisterIDsController ($button, $numteams) {
     RegisterIDsController.superconstructor.call(this, new View(undefined,
-        $button));
+      $button))
 
-    this.$button = $button;
-    this.$numteams = $numteams;
+    this.$button = $button
+    this.$numteams = $numteams
 
-    $button.click(this.registerTeams.bind(this));
+    $button.click(this.registerTeams.bind(this))
   }
-  extend(RegisterIDsController, Controller);
+  extend(RegisterIDsController, Controller)
 
   RegisterIDsController.prototype.registerTeams = function () {
-    var numTeams, id;
+    var numTeams, id
 
-    numTeams = Number(this.$numteams.val());
+    numTeams = Number(this.$numteams.val())
     if (isNaN(numTeams)) {
-      return;
+      return
     }
 
     if (!StateSaver.canSave()) {
-      StateSaver.createNewEmptyTree("Tuvero Test-Turnier");
+      StateSaver.createNewEmptyTree('Tuvero Test-Turnier')
     }
 
     for (id = 0; id < numTeams; id += 1) {
-      State.teams.push(RegisterIDsController.createTeam(id + 1));
+      State.teams.push(RegisterIDsController.createTeam(id + 1))
     }
-  };
+  }
 
   RegisterIDsController.createTeam = function (id) {
-    var players, team;
+    var players, team
 
-    players = [];
+    players = []
     while (players.length < State.teamsize.get()) {
-      players.push(new PlayerModel("" + id));
+      players.push(new PlayerModel('' + id))
     }
 
-    team = new TeamModel(players);
+    team = new TeamModel(players)
 
-    return team;
-  };
+    return team
+  }
 
-  return RegisterIDsController;
-});
+  return RegisterIDsController
+})

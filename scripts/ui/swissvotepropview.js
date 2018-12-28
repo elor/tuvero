@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/classview", "ui/swissvotepropcontroller"], function (
-    extend, ClassView, SwissVotePropController) {
+define(['lib/extend', 'core/classview', 'ui/swissvotepropcontroller'], function (
+  extend, ClassView, SwissVotePropController) {
   /**
    * Constructor
    *
@@ -16,13 +16,13 @@ define(["lib/extend", "core/classview", "ui/swissvotepropcontroller"], function 
    * @param $view
    *          a '.swissvotes .prop' DOM element
    */
-  function SwissVotePropView(model, $view) {
+  function SwissVotePropView (model, $view) {
     SwissVotePropView.superconstructor.call(this, model, $view, undefined,
-        "forbidden");
+      'forbidden')
 
-    this.controller = new SwissVotePropController(this);
+    this.controller = new SwissVotePropController(this)
   }
-  extend(SwissVotePropView, ClassView);
+  extend(SwissVotePropView, ClassView)
 
-  return SwissVotePropView;
-});
+  return SwissVotePropView
+})

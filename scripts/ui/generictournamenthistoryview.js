@@ -6,27 +6,27 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view", "ui/progresstableview", "ui/kohistoryview"], //
+define(['lib/extend', 'core/view', 'ui/progresstableview', 'ui/kohistoryview'], //
   function (extend, View, ProgressTableView, KOHistoryView) {
-    var types;
+    var types
 
     types = {
       swiss: {
         constructor: ProgressTableView,
-        selector: ".progresstable",
+        selector: '.progresstable',
         showlists: true
       },
       round: {
         constructor: ProgressTableView,
-        selector: ".progresstable",
+        selector: '.progresstable',
         showlists: true
       },
       ko: {
         constructor: KOHistoryView,
-        selector: ".kotree",
+        selector: '.kotree',
         showlists: false
       }
-    };
+    }
 
     /**
      * Constructor
@@ -44,34 +44,34 @@ define(["lib/extend", "core/view", "ui/progresstableview", "ui/kohistoryview"], 
      * @param fullwidth
      *          a ValueModel, which evaluates to true if any names should be shown
      */
-    function GenericTournamentHistoryView(tournament, $view, groups, teamlist,
+    function GenericTournamentHistoryView (tournament, $view, groups, teamlist,
       teamsize, fullwidth) {
-      var Constructor, $subview, type;
-      GenericTournamentHistoryView.superconstructor.call(this, undefined, $view);
+      var Constructor, $subview, type
+      GenericTournamentHistoryView.superconstructor.call(this, undefined, $view)
 
-      this.tournament = tournament;
-      type = types[tournament.SYSTEM];
+      this.tournament = tournament
+      type = types[tournament.SYSTEM]
       if (tournament && type) {
-        $subview = this.$view.find(type.selector);
-        $subview.removeClass("hidden");
+        $subview = this.$view.find(type.selector)
+        $subview.removeClass('hidden')
         // don't display the matchtable on default anymore, since there's a more
         // sophisticated view in place
-        $view.addClass("hastable");
-        Constructor = type.constructor;
+        $view.addClass('hastable')
+        Constructor = type.constructor
         this.view = new Constructor(tournament, $view, groups, teamlist, //
-          teamsize, fullwidth);
-        this.showlists = !!type.showlists;
+          teamsize, fullwidth)
+        this.showlists = !!type.showlists
       } else {
-        this.view = new View(undefined, $view);
-        this.showlists = true;
+        this.view = new View(undefined, $view)
+        this.showlists = true
       }
     }
-    extend(GenericTournamentHistoryView, View);
+    extend(GenericTournamentHistoryView, View)
 
     GenericTournamentHistoryView.prototype.destroy = function () {
-      this.view.destroy();
-      GenericTournamentHistoryView.superclass.destroy.call(this);
-    };
+      this.view.destroy()
+      GenericTournamentHistoryView.superclass.destroy.call(this)
+    }
 
-    return GenericTournamentHistoryView;
-  });
+    return GenericTournamentHistoryView
+  })

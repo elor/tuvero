@@ -1,22 +1,22 @@
-define(["lib/extend", "core/view"], function (extend, View) {
-  function PreregCloserView(model, $view) {
-    PreregCloserView.superconstructor.call(this, model, $view);
+define(['lib/extend', 'core/view'], function (extend, View) {
+  function PreregCloserView (model, $view) {
+    PreregCloserView.superconstructor.call(this, model, $view)
 
-    this.updateStatus();
+    this.updateStatus()
   }
-  extend(PreregCloserView, View);
+  extend(PreregCloserView, View)
 
   PreregCloserView.prototype.updateStatus = function () {
     if (this.model.length === 0) {
-      this.$view.removeClass("noprereg");
+      this.$view.removeClass('noprereg')
     } else {
-      this.$view.addClass("noprereg");
+      this.$view.addClass('noprereg')
     }
-  };
+  }
 
   PreregCloserView.prototype.onresize = function () {
-    this.updateStatus();
-  };
+    this.updateStatus()
+  }
 
-  return PreregCloserView;
-});
+  return PreregCloserView
+})

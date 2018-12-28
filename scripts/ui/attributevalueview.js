@@ -7,8 +7,7 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/view"], function (extend, View) {
-
+define(['lib/extend', 'core/view'], function (extend, View) {
   /**
    * Constructor
    *
@@ -17,28 +16,28 @@ define(["lib/extend", "core/view"], function (extend, View) {
    * @param $view
    *          the associated DOM element
    */
-  function AttributeValueView(model, $view, attribute) {
-    AttributeValueView.superconstructor.call(this, model, $view);
+  function AttributeValueView (model, $view, attribute) {
+    AttributeValueView.superconstructor.call(this, model, $view)
 
-    this.attribute = attribute;
+    this.attribute = attribute
 
-    this.update();
+    this.update()
   }
-  extend(AttributeValueView, View);
+  extend(AttributeValueView, View)
 
   /**
    * write the contents of get() to the DOM
    */
   AttributeValueView.prototype.update = function () {
-    this.$view.attr(this.attribute, this.model.get());
-  };
+    this.$view.attr(this.attribute, this.model.get())
+  }
 
   /**
    * Callback listener
    */
   AttributeValueView.prototype.onupdate = function () {
-    this.update();
-  };
+    this.update()
+  }
 
-  return AttributeValueView;
-});
+  return AttributeValueView
+})

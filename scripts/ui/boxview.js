@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/view", "ui/boxcontroller"], function (extend, View,
+define(['lib/extend', 'core/view', 'ui/boxcontroller'], function (extend, View,
   BoxController) {
   /**
    * Set the current tabbing state. This forbids tabbing into a collapsed box.
@@ -15,26 +15,26 @@ define(["lib/extend", "core/view", "ui/boxcontroller"], function (extend, View,
    * @param $box
    *          the .boxview jQuery object
    */
-  function setTabbing($box) {
-    var i, $inputs, $input, enable;
+  function setTabbing ($box) {
+    var i, $inputs, $input, enable
 
-    enable = !$box.hasClass("collapsed");
+    enable = !$box.hasClass('collapsed')
 
-    $inputs = $box.find("a, button, input, select, textarea");
+    $inputs = $box.find('a, button, input, select, textarea')
 
     for (i = 0; i < $inputs.length; i += 1) {
-      $input = $inputs.eq(i);
+      $input = $inputs.eq(i)
 
       if (enable) {
         if ($input.data().tabindex === undefined) {
-          $input.removeAttr("tabindex");
+          $input.removeAttr('tabindex')
         } else {
-          $input.attr("tabindex", $input.data().tabindex);
+          $input.attr('tabindex', $input.data().tabindex)
         }
-        delete $input.data().tabindex;
+        delete $input.data().tabindex
       } else {
-        $input.data().tabindex = $input.attr("tabindex");
-        $input.attr("tabindex", -1);
+        $input.data().tabindex = $input.attr('tabindex')
+        $input.attr('tabindex', -1)
       }
     }
   }
@@ -45,30 +45,30 @@ define(["lib/extend", "core/view", "ui/boxcontroller"], function (extend, View,
    * @param $box
    *          the .boxview jQuery object
    */
-  function BoxView($box) {
-    BoxView.superconstructor.call(this, undefined, $box);
-    this.model.EVENTS = BoxView.EVENTS;
+  function BoxView ($box) {
+    BoxView.superconstructor.call(this, undefined, $box)
+    this.model.EVENTS = BoxView.EVENTS
 
-    if (this.$view.hasClass("collapsed")) {
+    if (this.$view.hasClass('collapsed')) {
       // start collapsed, if specified
-      setTabbing(this.$view.css("height", 0));
+      setTabbing(this.$view.css('height', 0))
     }
 
-    this.controller = new BoxController(this);
+    this.controller = new BoxController(this)
   }
-  extend(BoxView, View);
+  extend(BoxView, View)
 
   BoxView.EVENTS = {
     toggle: true
-  };
+  }
 
   /**
    * reset to the expanded state
    */
   BoxView.prototype.reset = function () {
-    setTabbing(this.$view.removeClass("collapsed").css("height", "").css(
-      "transition", ""));
-  };
+    setTabbing(this.$view.removeClass('collapsed').css('height', '').css(
+      'transition', ''))
+  }
 
   /**
    * update the box with a transition, e.g. after toggling its state
@@ -76,45 +76,49 @@ define(["lib/extend", "core/view", "ui/boxcontroller"], function (extend, View,
   BoxView.prototype.update = function () {
     /* jshint expr: true */
 
-    var $box, oldheight, targetheight;
+    var $box, oldheight, targetheight
 
-    $box = this.$view;
+    $box = this.$view
 
-    if ($box.hasClass("collapsed")) {
-      targetheight = 0;
+    if ($box.hasClass('collapsed')) {
+      targetheight = 0
     } else {
-      oldheight = $box.height();
-      $box.css("transition", "");
-      $box.css("height", "");
-      $box[0].offsetHeight;
+      oldheight = $box.height()
+      $box.css('transition', '')
+      $box.css('height', '')
+      this.forceHeightRecalculation()
 
-      targetheight = $box.height();
-      $box.css("height", oldheight);
-      $box[0].offsetHeight;
+      targetheight = $box.height()
+      $box.css('height', oldheight)
+      this.forceHeightRecalculation()
     }
-    $box.css("height", $box.height());
-    $box.css("transition", "height 0.5s");
-    $box[0].offsetHeight;
-    $box.css("height", targetheight);
+    $box.css('height', $box.height())
+    $box.css('transition', 'height 0.5s')
+    this.forceHeightRecalculation()
+    $box.css('height', targetheight)
 
-    setTabbing($box);
+    setTabbing($box)
 
     // reset the transition value
     setTimeout(function () {
-      $box.css("transition", "");
-      if (!$box.hasClass("collapsed")) {
-        $box.css("height", "");
+      $box.css('transition', '')
+      if (!$box.hasClass('collapsed')) {
+        $box.css('height', '')
       }
-    }, 500);
-  };
+    }, 500)
+  }
 
   /**
    * toggle callback function
    */
   BoxView.prototype.ontoggle = function () {
-    this.$view.toggleClass("collapsed");
-    this.update();
-  };
+    this.$view.toggleClass('collapsed')
+    this.update()
+  }
 
-  return BoxView;
-});
+  BoxView.prototype.forceHeightRecalculation = function () {
+    return this.$view[0].offsetHeight
+  }
+
+  return BoxView
+})

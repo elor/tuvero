@@ -2,7 +2,6 @@ const createcommonjs = require('./gulp-tools/create-common')
 const createtestjs = require('./gulp-tools/create-test')
 const filecount = require('./gulp-tools/filecount')
 const gulp = require('gulp')
-const jshint = require('gulp-jshint')
 const run = require('gulp-run')
 const build = require('./gulp-tools/build')
 const release = require('./gulp-tools/release')
@@ -54,14 +53,6 @@ gulp.task('update-test-js', function () {
     .pipe(gulp.dest('test/scripts'))
 })
 
-gulp.task('lint-jshint', function () {
-  return gulp.src(sources.scripts_for_jshint)
-    .pipe(filecount())
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'))
-})
-
 gulp.task('lint-standard', function () {
   const standard = require('gulp-standard')
 
@@ -74,7 +65,7 @@ gulp.task('lint-standard', function () {
     }))
 })
 
-gulp.task('lint', ['lint-jshint', 'lint-standard'])
+gulp.task('lint', ['lint-standard'])
 
 gulp.task('watch', function () {
   gulp.watch(sources.scripts, ['update-common-js'])

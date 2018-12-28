@@ -7,8 +7,7 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/view"], function (extend, View) {
-
+define(['lib/extend', 'core/view'], function (extend, View) {
   /**
    * Constructor
    *
@@ -17,28 +16,28 @@ define(["lib/extend", "core/view"], function (extend, View) {
    * @param $view
    *          the associated DOM element
    */
-  function LengthView(model, $view, offset) {
-    LengthView.superconstructor.call(this, model, $view);
-	
-	this.offset = offset || 0;
+  function LengthView (model, $view, offset) {
+    LengthView.superconstructor.call(this, model, $view)
 
-    this.update();
+    this.offset = offset || 0
+
+    this.update()
   }
-  extend(LengthView, View);
+  extend(LengthView, View)
 
   /**
    * write the playernames and teamnumber to the DOM
    */
   LengthView.prototype.update = function () {
-    this.$view.text(this.model.length + this.offset);
-  };
+    this.$view.text(this.model.length + this.offset)
+  }
 
   /**
    * Callback listener
    */
   LengthView.prototype.onresize = function () {
-    this.update();
-  };
+    this.update()
+  }
 
-  return LengthView;
-});
+  return LengthView
+})

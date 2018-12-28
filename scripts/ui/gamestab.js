@@ -4,9 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
-  "ui/checkboxview", "core/classview", "ui/tournamentmatchesview",
-  "ui/tabshandle"
+define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
+  'ui/checkboxview', 'core/classview', 'ui/tournamentmatchesview',
+  'ui/tabshandle'
 ], function (extend, $, View, ListView, State, CheckBoxView,
   ClassView, TournamentMatchesView, TabsHandle) {
   /**
@@ -19,16 +19,16 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param $tab
    *          the tab DOM element
    */
-  function GamesTab($tab) {
-    GamesTab.superconstructor.call(this, undefined, $tab);
+  function GamesTab ($tab) {
+    GamesTab.superconstructor.call(this, undefined, $tab)
 
-    this.init();
+    this.init()
 
-    this.update();
+    this.update()
 
-    State.tournaments.registerListener(this);
+    State.tournaments.registerListener(this)
   }
-  extend(GamesTab, View);
+  extend(GamesTab, View)
 
   /**
    * initialize the tab functionality
@@ -36,54 +36,54 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * TODO maybe split it into multiple autodetected functions?
    */
   GamesTab.prototype.init = function () {
-    var $template, $container, value;
+    var $template, $container, value
 
     // tournamentlist
-    $container = this.$view.find(".tournamentlist");
-    $template = $container.find(".tournament.template");
+    $container = this.$view.find('.tournamentlist')
+    $template = $container.find('.tournament.template')
     this.tournamentList = new ListView(State.tournaments, $container,
-      $template, TournamentMatchesView, State.teams, State.teamsize);
+      $template, TournamentMatchesView, State.teams, State.teamsize)
 
     // name maxwidth checkbox
-    value = State.tabOptions.nameMaxWidth;
-    $container = this.$view.find(">.options input.maxwidth");
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
-      "nomaxwidth");
+    value = State.tabOptions.nameMaxWidth
+    $container = this.$view.find('>.options input.maxwidth')
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container)
+    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
+      'nomaxwidth')
 
     // player names checkbox
-    value = State.tabOptions.showNames;
-    $container = this.$view.find(">.options input.shownames");
-    this.showNamesCheckBoxView = new CheckBoxView(value, $container);
+    value = State.tabOptions.showNames
+    $container = this.$view.find('>.options input.shownames')
+    this.showNamesCheckBoxView = new CheckBoxView(value, $container)
     this.showNamesClassView = new ClassView(value, this.$view, undefined,
-      "hidenames");
+      'hidenames')
 
     // team names checkbox
-    value = State.tabOptions.showTeamName;
-    $container = this.$view.find(">.options input.showteamname");
-    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container);
+    value = State.tabOptions.showTeamName
+    $container = this.$view.find('>.options input.showteamname')
+    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container)
     this.showTeamNameClassView = new ClassView(value, this.$view, undefined,
-      "hideteamname");
-  };
+      'hideteamname')
+  }
 
   /**
    * show/hide the tab and update it as necessary
    */
   GamesTab.prototype.update = function () {
-    var i, isRunning;
+    var i, isRunning
 
-    isRunning = false;
+    isRunning = false
 
     for (i = 0; !isRunning && i < State.tournaments.length; i += 1) {
-      isRunning = State.tournaments.get(i).getState().get() === "running";
+      isRunning = State.tournaments.get(i).getState().get() === 'running'
     }
 
     if (isRunning) {
-      TabsHandle.show("games");
+      TabsHandle.show('games')
     } else {
-      TabsHandle.hide("games");
+      TabsHandle.hide('games')
     }
-  };
+  }
 
   /**
    * a tournament state has been changed
@@ -95,9 +95,9 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
   GamesTab.prototype.onupdate = function (emitter, event, //
     data) {
     if (emitter !== State.tournaments) {
-      this.update();
+      this.update()
     }
-  };
+  }
 
   /**
    * a tournament has been added
@@ -108,9 +108,9 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    */
   GamesTab.prototype.oninsert = function (emitter, event, //
     data) {
-    data.object.getState().registerListener(this);
-    this.update();
-  };
+    data.object.getState().registerListener(this)
+    this.update()
+  }
 
   /**
    * a tournament has been removed
@@ -121,19 +121,19 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    */
   GamesTab.prototype.onremove = function (emitter, event, //
     data) {
-    data.object.getState().unregisterListener(this);
-    this.update();
-  };
+    data.object.getState().unregisterListener(this)
+    this.update()
+  }
 
   // FIXME CHEAP HACK AHEAD
   $(function ($) {
-    var $tab;
+    var $tab
 
-    $tab = $("#tabs > [data-tab=\"games\"]");
-    if ($tab.length && $("#testmain").length === 0) {
-      return new GamesTab($tab);
+    $tab = $('#tabs > [data-tab="games"]')
+    if ($tab.length && $('#testmain').length === 0) {
+      return new GamesTab($tab)
     }
-  });
+  })
 
-  return GamesTab;
-});
+  return GamesTab
+})

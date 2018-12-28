@@ -7,13 +7,13 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["timemachine/commitmodel", "presets"], function (CommitModel, Presets) {
-  var keyRegex = new RegExp("^" + Presets.target + "s?tournament$");
+define(['timemachine/commitmodel', 'presets'], function (CommitModel, Presets) {
+  var keyRegex = new RegExp('^' + Presets.target + 's?tournament$')
 
   /**
    * Constructor. Does nothing.
    */
-  function LegacyStorageKeyConverter() {
+  function LegacyStorageKeyConverter () {
   }
 
   /**
@@ -21,18 +21,18 @@ define(["timemachine/commitmodel", "presets"], function (CommitModel, Presets) {
    * convert them.
    */
   LegacyStorageKeyConverter.prototype.convertAll = function () {
-    var allKeys, legacyKeys;
+    var allKeys, legacyKeys
 
     if (window.localStorage) {
-      allKeys = Object.keys(window.localStorage);
+      allKeys = Object.keys(window.localStorage)
     } else {
-      allKeys = [];
+      allKeys = []
     }
 
-    legacyKeys = allKeys.filter(keyRegex.test.bind(keyRegex));
+    legacyKeys = allKeys.filter(keyRegex.test.bind(keyRegex))
 
-    legacyKeys.forEach(this.convert.bind(this));
-  };
+    legacyKeys.forEach(this.convert.bind(this))
+  }
 
   /**
    * move a single legacy key to the reflog if it is in the local storage and
@@ -43,31 +43,31 @@ define(["timemachine/commitmodel", "presets"], function (CommitModel, Presets) {
    * @return true on success, false otherwise
    */
   LegacyStorageKeyConverter.prototype.convert = function (legacyKey) {
-    var storedString, commit;
+    var storedString, commit
 
     if (!legacyKey) {
-      return true;
+      return true
     }
 
     if (!window.localStorage) {
-      return false;
+      return false
     }
 
-    storedString = window.localStorage[legacyKey];
+    storedString = window.localStorage[legacyKey]
     if (!storedString) {
-      window.localStorage.removeItem(legacyKey);
-      return true;
+      window.localStorage.removeItem(legacyKey)
+      return true
     }
 
-    commit = CommitModel.createRoot(storedString, "imported_" + legacyKey);
+    commit = CommitModel.createRoot(storedString, 'imported_' + legacyKey)
 
     if (commit && commit.isValid()) {
-      localStorage.removeItem(legacyKey);
-      return true;
+      window.localStorage.removeItem(legacyKey)
+      return true
     }
 
-    return false;
-  };
+    return false
+  }
 
-  return LegacyStorageKeyConverter;
-});
+  return LegacyStorageKeyConverter
+})

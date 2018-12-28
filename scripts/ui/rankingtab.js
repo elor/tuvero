@@ -4,9 +4,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
-  "ui/checkboxview", "core/classview", "ui/tournamentrankingview",
-  "ui/tabshandle", "ui/closedtournamentcollapselistener"
+define(['lib/extend', 'jquery', 'core/view', 'ui/listview', 'ui/state',
+  'ui/checkboxview', 'core/classview', 'ui/tournamentrankingview',
+  'ui/tabshandle', 'ui/closedtournamentcollapselistener'
 ], function (extend, $,
   View, ListView, State, CheckBoxView, ClassView, TournamentRankingView,
   TabsHandle, ClosedTournamentCollapseListener) {
@@ -20,16 +20,16 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param $tab
    *          the tab DOM element
    */
-  function RankingTab($tab) {
-    RankingTab.superconstructor.call(this, undefined, $tab);
+  function RankingTab ($tab) {
+    RankingTab.superconstructor.call(this, undefined, $tab)
 
-    this.init();
+    this.init()
 
-    this.update();
+    this.update()
 
-    State.tournaments.registerListener(this);
+    State.tournaments.registerListener(this)
   }
-  extend(RankingTab, View);
+  extend(RankingTab, View)
 
   /**
    * initialize the tab functionality
@@ -37,65 +37,65 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * TODO maybe split it into multiple autodetected functions?
    */
   RankingTab.prototype.init = function () {
-    var $template, $container, value;
+    var $template, $container, value
 
     // name maxwidth checkbox
-    value = State.tabOptions.nameMaxWidth;
-    $container = this.$view.find(">.options input.maxwidth");
-    this.maxwidthCheckBoxView = new CheckBoxView(value, $container);
-    this.maxwidthClassView = new ClassView(value, this.$view, "maxwidth",
-      "nomaxwidth");
+    value = State.tabOptions.nameMaxWidth
+    $container = this.$view.find('>.options input.maxwidth')
+    this.maxwidthCheckBoxView = new CheckBoxView(value, $container)
+    this.maxwidthClassView = new ClassView(value, this.$view, 'maxwidth',
+      'nomaxwidth')
 
     // player names checkbox
-    value = State.tabOptions.showNames;
-    $container = this.$view.find(">.options input.shownames");
-    this.showNamesCheckBoxView = new CheckBoxView(value, $container);
+    value = State.tabOptions.showNames
+    $container = this.$view.find('>.options input.shownames')
+    this.showNamesCheckBoxView = new CheckBoxView(value, $container)
     this.showNamesClassView = new ClassView(value, this.$view, undefined,
-      "hidenames");
+      'hidenames')
 
     // team names checkbox
-    value = State.tabOptions.showTeamName;
-    $container = this.$view.find(">.options input.showteamname");
-    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container);
+    value = State.tabOptions.showTeamName
+    $container = this.$view.find('>.options input.showteamname')
+    this.showTeamNameCheckBoxView = new CheckBoxView(value, $container)
     this.showTeamNameClassView = new ClassView(value, this.$view, undefined,
-      "hideteamname");
+      'hideteamname')
 
     // list/table selection checkbox
-    this.rankingabbreviations = State.tabOptions.rankingAbbreviations;
-    $container = this.$view.find(">.options input.abbreviate");
+    this.rankingabbreviations = State.tabOptions.rankingAbbreviations
+    $container = this.$view.find('>.options input.abbreviate')
     this.abbreviateCheckBoxView = new CheckBoxView(this.rankingabbreviations,
-      $container);
+      $container)
 
     // rankinglist
-    $container = this.$view.find(".tournamentlist");
-    $template = $container.find(".tournament.template");
+    $container = this.$view.find('.tournamentlist')
+    $template = $container.find('.tournament.template')
     this.tournamentList = new ListView(State.tournaments, $container,
       $template, TournamentRankingView, State.teams,
-      this.rankingabbreviations);
+      this.rankingabbreviations)
 
     // HACK: close tournaments
     this.collapseListener = new ClosedTournamentCollapseListener(
-      this.tournamentList);
-  };
+      this.tournamentList)
+  }
 
   /**
    * show/hide the tab and update it as necessary
    */
   RankingTab.prototype.update = function () {
-    var i, isRunning;
+    var i, isRunning
 
-    isRunning = false;
+    isRunning = false
 
     for (i = 0; !isRunning && i < State.tournaments.length; i += 1) {
-      isRunning = State.tournaments.get(i).getState().get() !== "initial";
+      isRunning = State.tournaments.get(i).getState().get() !== 'initial'
     }
 
     if (isRunning) {
-      TabsHandle.show("ranking");
+      TabsHandle.show('ranking')
     } else {
-      TabsHandle.hide("ranking");
+      TabsHandle.hide('ranking')
     }
-  };
+  }
 
   /**
    * a tournament state has been changed
@@ -106,9 +106,9 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    */
   RankingTab.prototype.onupdate = function (emitter, event, data) {
     if (emitter !== State.tournaments) {
-      this.update();
+      this.update()
     }
-  };
+  }
 
   /**
    * a tournament has been added
@@ -118,9 +118,9 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   RankingTab.prototype.oninsert = function (emitter, event, data) {
-    data.object.getState().registerListener(this);
-    this.update();
-  };
+    data.object.getState().registerListener(this)
+    this.update()
+  }
 
   /**
    * a tournament has been removed
@@ -130,19 +130,19 @@ define(["lib/extend", "jquery", "core/view", "ui/listview", "ui/state",
    * @param data
    */
   RankingTab.prototype.onremove = function (emitter, event, data) {
-    data.object.getState().unregisterListener(this);
-    this.update();
-  };
+    data.object.getState().unregisterListener(this)
+    this.update()
+  }
 
   // FIXME CHEAP HACK AHEAD
   $(function ($) {
-    var $tab;
+    var $tab
 
-    $tab = $("#tabs > [data-tab=\"ranking\"]");
-    if ($tab.length && $("#testmain").length === 0) {
-      return new RankingTab($tab);
+    $tab = $('#tabs > [data-tab="ranking"]')
+    if ($tab.length && $('#testmain').length === 0) {
+      return new RankingTab($tab)
     }
-  });
+  })
 
-  return RankingTab;
-});
+  return RankingTab
+})

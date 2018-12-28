@@ -6,20 +6,19 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "list/binningreferencelistmodel"], function (extend,
-    BinningReferenceListModel) {
-
+define(['lib/extend', 'list/binningreferencelistmodel'], function (extend,
+  BinningReferenceListModel) {
   /**
    * Constructor
    *
    * @param tournament
    *          a KOTournamentModel instance
    */
-  function KOListModel(tournament) {
+  function KOListModel (tournament) {
     KOListModel.superconstructor.call(this, tournament.getCombinedHistory(),
-        this.binningFunction);
+      this.binningFunction)
   }
-  extend(KOListModel, BinningReferenceListModel);
+  extend(KOListModel, BinningReferenceListModel)
 
   /**
    * @param match
@@ -35,8 +34,8 @@ define(["lib/extend", "list/binningreferencelistmodel"], function (extend,
      * have a look at the following url for clarification:
      * http://stackoverflow.com/questions/3920307/how-can-i-remove-a-flag-in-c
      */
-    return match.getGroup(0) & ~0x1;
-  };
+    return match.getGroup(0) & ~0x1
+  }
 
-  return KOListModel;
-});
+  return KOListModel
+})

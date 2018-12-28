@@ -7,9 +7,8 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/view", "ui/inputvaluecontroller"],
+define(['lib/extend', 'core/view', 'ui/inputvaluecontroller'],
   function (extend, View, InputValueController) {
-
   /**
    * Constructor
    *
@@ -18,28 +17,28 @@ define(["lib/extend", "core/view", "ui/inputvaluecontroller"],
    * @param $view
    *          the associated DOM element
    */
-  function InputValueView(model, $view) {
-    InputValueView.superconstructor.call(this, model, $view);
+    function InputValueView (model, $view) {
+      InputValueView.superconstructor.call(this, model, $view)
 
-    this.update();
+      this.update()
 
-    this.controller = new InputValueController(this);
-  }
-  extend(InputValueView, View);
+      this.controller = new InputValueController(this)
+    }
+    extend(InputValueView, View)
 
-  /**
+    /**
    * write the contents of get() to the DOM
    */
-  InputValueView.prototype.update = function () {
-    this.$view.val(this.model.get());
-  };
+    InputValueView.prototype.update = function () {
+      this.$view.val(this.model.get())
+    }
 
-  /**
+    /**
    * Callback listener
    */
-  InputValueView.prototype.onupdate = function () {
-    this.update();
-  };
+    InputValueView.prototype.onupdate = function () {
+      this.update()
+    }
 
-  return InputValueView;
-});
+    return InputValueView
+  })

@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/controller", "core/valuemodel"], function ($, extend,
-    Controller, ValueModel) {
+define(['jquery', 'lib/extend', 'core/controller', 'core/valuemodel'], function ($, extend,
+  Controller, ValueModel) {
   /**
    * Constructor
    *
@@ -31,41 +31,41 @@ define(["jquery", "lib/extend", "core/controller", "core/valuemodel"], function 
    * @param options
    *          Optional. An option object. See above
    */
-  function ListClickController(view, callback, options) {
-    var listview, listmodel;
-    ListClickController.superconstructor.call(this, view);
+  function ListClickController (view, callback, options) {
+    var listview, listmodel
+    ListClickController.superconstructor.call(this, view)
 
-    options = options || {};
-    options.active = options.active || new ValueModel(true);
-    options.callbackthis = options.callbackthis || window;
-    options.event = options.event || "click";
-    if (this.view.$view.prop("tagName") === "TABLE") {
-      options.selector = options.selector || "> tbody >";
+    options = options || {}
+    options.active = options.active || new ValueModel(true)
+    options.callbackthis = options.callbackthis || window
+    options.event = options.event || 'click'
+    if (this.view.$view.prop('tagName') === 'TABLE') {
+      options.selector = options.selector || '> tbody >'
     } else {
-      options.selector = options.selector || ">";
+      options.selector = options.selector || '>'
     }
 
-    listview = this.view;
-    listmodel = this.model;
+    listview = this.view
+    listmodel = this.model
 
     /**
      * handle the click action
      */
     this.view.$view.on(options.event, options.selector, function (e) {
-      var $subview, index;
+      var $subview, index
 
       if (options.active.get()) {
-        $subview = $(this);
-        index = listview.indexOf($subview);
+        $subview = $(this)
+        index = listview.indexOf($subview)
         if (index !== -1) {
-          callback.call(options.callbackthis, listmodel, index);
-          e.preventDefault();
-          return false;
+          callback.call(options.callbackthis, listmodel, index)
+          e.preventDefault()
+          return false
         }
       }
-    });
+    })
   }
-  extend(ListClickController, Controller);
+  extend(ListClickController, Controller)
 
-  return ListClickController;
-});
+  return ListClickController
+})

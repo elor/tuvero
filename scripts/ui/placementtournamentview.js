@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ui/tournamentview"], function (extend, TournamentView) {
-  function PlacementTournamentView(model, $view, tournaments) {
-    PlacementTournamentView.superconstructor.call(this, model, $view, tournaments);
+define(['lib/extend', 'ui/tournamentview'], function (extend, TournamentView) {
+  function PlacementTournamentView (model, $view, tournaments) {
+    PlacementTournamentView.superconstructor.call(this, model, $view, tournaments)
   }
-  extend(PlacementTournamentView, TournamentView);
+  extend(PlacementTournamentView, TournamentView)
 
-  return PlacementTournamentView;
-});
+  return PlacementTournamentView
+})

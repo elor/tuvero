@@ -6,7 +6,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ui/tournamentview"], function (extend, TournamentView) {
+define(['lib/extend', 'ui/tournamentview'], function (extend, TournamentView) {
   /**
    * Constructor
    *
@@ -15,14 +15,14 @@ define(["lib/extend", "ui/tournamentview"], function (extend, TournamentView) {
    * @param $view
    *          a DOM element to fill
    */
-  function RoundTournamentView(model, $view, tournaments) {
-    RoundTournamentView.superconstructor.call(this, model, $view, tournaments);
+  function RoundTournamentView (model, $view, tournaments) {
+    RoundTournamentView.superconstructor.call(this, model, $view, tournaments)
 
-    this.subcontroller = undefined;
+    this.subcontroller = undefined
 
-    this.updateRound();
+    this.updateRound()
   }
-  extend(RoundTournamentView, TournamentView);
+  extend(RoundTournamentView, TournamentView)
 
-  return RoundTournamentView;
-});
+  return RoundTournamentView
+})

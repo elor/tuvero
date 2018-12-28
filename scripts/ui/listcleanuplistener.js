@@ -6,18 +6,17 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/listener"], function (extend, Listener) {
-
+define(['lib/extend', 'core/listener'], function (extend, Listener) {
   /**
    * Constructor
    *
    * @param listmodel
    *          the ListModel instance
    */
-  function ListCleanupListener(listmodel) {
-    ListCleanupListener.superconstructor.call(this, listmodel);
+  function ListCleanupListener (listmodel) {
+    ListCleanupListener.superconstructor.call(this, listmodel)
   }
-  extend(ListCleanupListener, Listener);
+  extend(ListCleanupListener, Listener)
 
   /**
    * Callback function, which destroys removed objects
@@ -25,20 +24,20 @@ define(["lib/extend", "core/listener"], function (extend, Listener) {
 
   ListCleanupListener.prototype.onremove = function (emitter, event, data) {
     if (!data) {
-      console.warn("ListCleanupListener: no data object emitted");
-      return;
+      console.warn('ListCleanupListener: no data object emitted')
+      return
     }
     if (!data.object) {
-      console.warn("ListCleanupListener: data contains no object property");
-      return;
+      console.warn('ListCleanupListener: data contains no object property')
+      return
     }
     if (!data.object.destroy) {
-      console.warn("ListCleanupListener: data.object has no destroy method");
-      return;
+      console.warn('ListCleanupListener: data.object has no destroy method')
+      return
     }
 
-    data.object.destroy();
-  };
+    data.object.destroy()
+  }
 
-  return ListCleanupListener;
-});
+  return ListCleanupListener
+})

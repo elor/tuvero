@@ -6,9 +6,9 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/view", "ui/boxview", "ui/swissvotepropview",
-    "core/propertyvaluemodel", "core/classview"], function ($, extend, View,
-    BoxView, SwissVotePropView, PropertyValueModel, ClassView) {
+define(['jquery', 'lib/extend', 'core/view', 'ui/boxview', 'ui/swissvotepropview',
+  'core/propertyvaluemodel', 'core/classview'], function ($, extend, View,
+  BoxView, SwissVotePropView, PropertyValueModel, ClassView) {
   /**
    * Constructor
    *
@@ -17,36 +17,36 @@ define(["jquery", "lib/extend", "core/view", "ui/boxview", "ui/swissvotepropview
    * @param $view
    *          the associated DOM element
    */
-  function SwissVotesView(model, $view) {
-    SwissVotesView.superconstructor.call(this, model, $view);
+  function SwissVotesView (model, $view) {
+    SwissVotesView.superconstructor.call(this, model, $view)
 
-    this.boxview = new BoxView(this.$view.find(".boxview"));
+    this.boxview = new BoxView(this.$view.find('.boxview'))
 
-    this.votesenabled = new PropertyValueModel(this.model, "enableupdown");
+    this.votesenabled = new PropertyValueModel(this.model, 'enableupdown')
     this.hiddenclassview = new ClassView(this.votesenabled, this.$view,
-        undefined, "hidden");
+      undefined, 'hidden')
 
-    this.initProps();
+    this.initProps()
   }
-  extend(SwissVotesView, View);
+  extend(SwissVotesView, View)
 
   /**
    * for every .prop subview, initiate a SwissVotePropView
    */
   SwissVotesView.prototype.initProps = function () {
-    var tournament, regex;
+    var tournament, regex
 
-    tournament = this.model;
-    regex = /^(\S*\s)*(\S+after\S+)(\s\S*)*$/; // extract "XafterY" string
-    this.$view.find(".prop").each(
-        function () {
-          var prop, $view;
-          $view = $(this);
-          prop = $view.attr("class").replace(regex, "$2");
-          return new SwissVotePropView(
-              new PropertyValueModel(tournament, prop), $view);
-        });
-  };
+    tournament = this.model
+    regex = /^(\S*\s)*(\S+after\S+)(\s\S*)*$/ // extract "XafterY" string
+    this.$view.find('.prop').each(
+      function () {
+        var prop, $view
+        $view = $(this)
+        prop = $view.attr('class').replace(regex, '$2')
+        return new SwissVotePropView(
+          new PropertyValueModel(tournament, prop), $view)
+      })
+  }
 
-  return SwissVotesView;
-});
+  return SwissVotesView
+})

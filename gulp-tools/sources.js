@@ -14,15 +14,8 @@ var sources = {
     '!scripts/core/{common,config,main}.js',
     '!**/{lib,test}/*.js'
   ],
-  scripts_for_jshint: [
-    'scripts/**/*.js',
-    '!scripts/{core,math,background,list,ranking,timemachine,tournament}/**/*.js',
-    '!scripts/**/test/*.js',
-    '!**/lib/*.js'
-  ],
   scripts_for_standardjs: [
-    'scripts/{core,math,background,list,ranking,timemachine,tournament}/**/*.js',
-    'scripts/**/test/*.js',
+    'scripts/**/*.js',
     '*.js',
     'gulp-tools/*.js',
     '*/scripts/**/*.js',

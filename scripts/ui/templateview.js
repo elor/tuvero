@@ -8,8 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view"], function (extend, View) {
-
+define(['lib/extend', 'core/view'], function (extend, View) {
   /**
    * @param model
    *          the model
@@ -18,11 +17,11 @@ define(["lib/extend", "core/view"], function (extend, View) {
    * @param $template
    *          the template
    */
-  function TemplateView(model, $view, $template) {
-    TemplateView.superconstructor.call(this, model, $view);
-    this.$template = $template.detach().removeClass("template");
+  function TemplateView (model, $view, $template) {
+    TemplateView.superconstructor.call(this, model, $view)
+    this.$template = $template.detach().removeClass('template')
   }
-  extend(TemplateView, View);
+  extend(TemplateView, View)
 
-  return TemplateView;
-});
+  return TemplateView
+})

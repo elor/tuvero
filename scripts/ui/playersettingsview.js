@@ -10,51 +10,51 @@
 
 define(
   [
-    "lib/extend",
-    "core/view",
-    "ui/playersettingscontroller",
-    "ui/playermodel"
+    'lib/extend',
+    'core/view',
+    'ui/playersettingscontroller',
+    'ui/playermodel'
   ],
   function (extend, View, PlayerSettingsController, PlayerModel) {
-    function PlayerSettingsView(model, $view, teamref) {
-      PlayerSettingsView.superconstructor.call(this, model, $view);
+    function PlayerSettingsView (model, $view, teamref) {
+      PlayerSettingsView.superconstructor.call(this, model, $view)
 
-      this.controller = new PlayerSettingsController(this, teamref);
+      this.controller = new PlayerSettingsController(this, teamref)
 
-      this.update();
+      this.update()
     }
-    extend(PlayerSettingsView, View);
+    extend(PlayerSettingsView, View)
 
     PlayerSettingsView.prototype.update = function () {
-      this.$view.find(".alias").val(this.model.alias === PlayerModel.NONAME ? "" : this.model.alias);
-      this.$view.find(".firstname").val(this.model.firstname);
-      this.$view.find(".lastname").val(this.model.lastname);
-      this.$view.find(".club").val(this.model.club);
-      this.$view.find(".email").val(this.model.email);
-      this.$view.find(".license").val(this.model.license);
-      this.$view.find(".rankingpoints").val(this.model.rankingpoints);
-      this.$view.find(".elo").val(this.model.elo);
-    };
+      this.$view.find('.alias').val(this.model.alias === PlayerModel.NONAME ? '' : this.model.alias)
+      this.$view.find('.firstname').val(this.model.firstname)
+      this.$view.find('.lastname').val(this.model.lastname)
+      this.$view.find('.club').val(this.model.club)
+      this.$view.find('.email').val(this.model.email)
+      this.$view.find('.license').val(this.model.license)
+      this.$view.find('.rankingpoints').val(this.model.rankingpoints)
+      this.$view.find('.elo').val(this.model.elo)
+    }
 
     PlayerSettingsView.prototype.onupdate = function () {
-      this.update();
-    };
+      this.update()
+    }
 
     PlayerSettingsView.bindTeamList = function (teamlist) {
-      function IndexTeamView(teamID, $view) {
-        IndexTeamView.superconstructor.call(this, teamlist.get(teamID), $view);
+      function IndexTeamView (teamID, $view) {
+        IndexTeamView.superconstructor.call(this, teamlist.get(teamID), $view)
       }
-      extend(IndexTeamView, PlayerSettingsView);
+      extend(IndexTeamView, PlayerSettingsView)
 
-      return IndexTeamView;
-    };
+      return IndexTeamView
+    }
 
     PlayerSettingsView.prototype.destroy = function () {
-      this.controller.destroy();
+      this.controller.destroy()
 
-      PlayerSettingsView.superclass.destroy.call(this);
-    };
+      PlayerSettingsView.superclass.destroy.call(this)
+    }
 
-    return PlayerSettingsView;
+    return PlayerSettingsView
   }
-);
+)

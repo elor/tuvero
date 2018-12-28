@@ -7,7 +7,7 @@
  * @see LICENSE
  */
 
-define(["lib/extend", "core/controller"], function (extend, Controller) {
+define(['lib/extend', 'core/controller'], function (extend, Controller) {
   /**
    * Constructor, in which a click to the header is bound to sending a a toggle
    * event over the model.
@@ -15,21 +15,21 @@ define(["lib/extend", "core/controller"], function (extend, Controller) {
    * @param view
    *          the instance of BoxView which will be controlled
    */
-  function BoxController(view) {
-    BoxController.superconstructor.call(this, view);
+  function BoxController (view) {
+    BoxController.superconstructor.call(this, view)
 
-    this.view.$view.on("click", "> h3:first-child", this.toggle.bind(this));
+    this.view.$view.on('click', '> h3:first-child', this.toggle.bind(this))
   }
-  extend(BoxController, Controller);
+  extend(BoxController, Controller)
 
   BoxController.prototype.toggle = function (evt) {
-    if (evt.target.nodeName.toLowerCase() === "input") {
-      evt.preventDefault();
-      return false;
+    if (evt.target.nodeName.toLowerCase() === 'input') {
+      evt.preventDefault()
+      return false
     }
 
-    this.model.emit("toggle");
-  };
+    this.model.emit('toggle')
+  }
 
-  return BoxController;
-});
+  return BoxController
+})

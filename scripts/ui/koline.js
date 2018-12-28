@@ -6,9 +6,9 @@
  * @see LICENSE
  */
 
-define(["ui/strings"], function (Strings) {
-  function generateCacheID(from, midx, to) {
-    return [from[0], from[1], midx, to[0], to[1]].join(":");
+define(['ui/strings'], function (Strings) {
+  function generateCacheID (from, midx, to) {
+    return [from[0], from[1], midx, to[0], to[1]].join(':')
   }
 
   /**
@@ -20,18 +20,18 @@ define(["ui/strings"], function (Strings) {
    *          a style object
    * @return a combined string of the styles, as used by the HTML style attr.
    */
-  function styleToString(style) {
-    var key, strings;
+  function styleToString (style) {
+    var key, strings
 
-    strings = [];
+    strings = []
 
     for (key in style) {
       if (style.hasOwnProperty(key)) {
-        strings.push([key, style[key]].join(": "));
+        strings.push([key, style[key]].join(': '))
       }
     }
 
-    return strings.join("; ");
+    return strings.join('; ')
   }
 
   /**
@@ -47,22 +47,22 @@ define(["ui/strings"], function (Strings) {
    *          the y-position, in em
    * @return a newly instantiated svg DOM element
    */
-  function createSVG(width, height, left, top) {
-    var svg, style;
+  function createSVG (width, height, left, top) {
+    var svg, style
 
     style = {
-      position: "absolute",
-      width: width + "em",
-      height: height + "em",
-      left: left + "em",
-      top: top + "em",
-      overflow: "visible"
-    };
+      position: 'absolute',
+      width: width + 'em',
+      height: height + 'em',
+      left: left + 'em',
+      top: top + 'em',
+      overflow: 'visible'
+    }
 
-    svg = document.createElementNS(KOLine.SVGNS, "svg");
-    svg.setAttributeNS(null, "style", styleToString(style));
+    svg = document.createElementNS(KOLine.SVGNS, 'svg')
+    svg.setAttributeNS(null, 'style', styleToString(style))
 
-    return svg;
+    return svg
   }
 
   /**
@@ -74,16 +74,16 @@ define(["ui/strings"], function (Strings) {
    *          the end position, in em
    * @return the SVG line DOM object
    */
-  function createSVGLine(from, to) {
-    var line;
+  function createSVGLine (from, to) {
+    var line
 
-    line = document.createElementNS(KOLine.SVGNS, "line");
-    line.setAttributeNS(null, "x1", from[0] + "em");
-    line.setAttributeNS(null, "y1", from[1] + "em");
-    line.setAttributeNS(null, "x2", to[0] + "em");
-    line.setAttributeNS(null, "y2", to[1] + "em");
+    line = document.createElementNS(KOLine.SVGNS, 'line')
+    line.setAttributeNS(null, 'x1', from[0] + 'em')
+    line.setAttributeNS(null, 'y1', from[1] + 'em')
+    line.setAttributeNS(null, 'x2', to[0] + 'em')
+    line.setAttributeNS(null, 'y2', to[1] + 'em')
 
-    return line;
+    return line
   }
 
   /**
@@ -98,32 +98,32 @@ define(["ui/strings"], function (Strings) {
    *          the end point, in em
    * @return a SVG object, which correctly represents the path
    */
-  function createSVGPath(from, to) {
-    var midx, mid1, mid2, group, pathid;
+  function createSVGPath (from, to) {
+    var midx, mid1, mid2, group, pathid
 
-    midx = (from[0] + to[0]) / 2;
+    midx = (from[0] + to[0]) / 2
 
-    pathid = generateCacheID(from, midx, to);
+    pathid = generateCacheID(from, midx, to)
 
     if (KOLine.pathCache[pathid]) {
-      group = KOLine.pathCache[pathid].cloneNode(true);
+      group = KOLine.pathCache[pathid].cloneNode(true)
     } else {
-      mid1 = [midx, from[1]];
-      mid2 = [midx, to[1]];
+      mid1 = [midx, from[1]]
+      mid2 = [midx, to[1]]
 
-      group = document.createElementNS(KOLine.SVGNS, "g");
-      group.setAttributeNS(null, "stroke", "black");
-      group.setAttributeNS(null, "stroke-width", "2");
-      group.setAttributeNS(null, "stroke-linecap", "round");
+      group = document.createElementNS(KOLine.SVGNS, 'g')
+      group.setAttributeNS(null, 'stroke', 'black')
+      group.setAttributeNS(null, 'stroke-width', '2')
+      group.setAttributeNS(null, 'stroke-linecap', 'round')
 
-      group.appendChild(createSVGLine(from, mid1));
-      group.appendChild(createSVGLine(mid1, mid2));
-      group.appendChild(createSVGLine(mid2, to));
+      group.appendChild(createSVGLine(from, mid1))
+      group.appendChild(createSVGLine(mid1, mid2))
+      group.appendChild(createSVGLine(mid2, to))
 
-      KOLine.pathCache[pathid] = group.cloneNode(true);
+      KOLine.pathCache[pathid] = group.cloneNode(true)
     }
 
-    return group;
+    return group
   }
 
   /**
@@ -137,34 +137,34 @@ define(["ui/strings"], function (Strings) {
    * @return the path object (this). The SVG DOM element can be accessed as
    *          this.svg and is supposed to be jQuery-compatible
    */
-  function KOLine(from, to) {
-    var width, height, left, right, top, bottom;
+  function KOLine (from, to) {
+    var width, height, left, right, top, bottom
 
-    left = Math.min(from[0], to[0]);
-    right = Math.max(from[0], to[0]);
-    top = Math.min(from[1], to[1]);
-    bottom = Math.max(from[1], to[1]);
+    left = Math.min(from[0], to[0])
+    right = Math.max(from[0], to[0])
+    top = Math.min(from[1], to[1])
+    bottom = Math.max(from[1], to[1])
 
-    width = right - left + 1;
-    height = bottom - top + 1;
+    width = right - left + 1
+    height = bottom - top + 1
 
-    from = [from[0] - left, from[1] - top];
-    to = [to[0] - left, to[1] - top];
+    from = [from[0] - left, from[1] - top]
+    to = [to[0] - left, to[1] - top]
 
-    this.svg = createSVG(width, height, left, top);
-    this.svg.appendChild(createSVGPath(from, to));
+    this.svg = createSVG(width, height, left, top)
+    this.svg.appendChild(createSVGPath(from, to))
 
-    return this;
+    return this
   }
   /**
    * the svg namespace string
    */
-  KOLine.SVGNS = Strings.svgns;
+  KOLine.SVGNS = Strings.svgns
   /**
    * an object cache, which will be used for similar paths instead of creating
    * them over and over again. May not be necessary, but won't hurt, either
    */
-  KOLine.pathCache = {};
+  KOLine.pathCache = {}
 
-  return KOLine;
-});
+  return KOLine
+})

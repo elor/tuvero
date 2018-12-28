@@ -6,20 +6,20 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/controller"], //
-function (extend, Controller) {
+define(['lib/extend', 'core/controller'], //
+  function (extend, Controller) {
   /**
    * Constructor
    */
-  function LoginController(view) {
-    LoginController.superconstructor.call(this, view);
+    function LoginController (view) {
+      LoginController.superconstructor.call(this, view)
 
-    this.view.$view.find(".login").click(
-        this.model.createToken.bind(this.model));
-    this.view.$view.find(".logout").click(
-        this.model.invalidateToken.bind(this.model));
-  }
-  extend(LoginController, Controller);
+      this.view.$view.find('.login').click(
+        this.model.createToken.bind(this.model))
+      this.view.$view.find('.logout').click(
+        this.model.invalidateToken.bind(this.model))
+    }
+    extend(LoginController, Controller)
 
-  return LoginController;
-});
+    return LoginController
+  })

@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/view", "ui/matchresultview"], function (extend, View,
-    MatchResultView) {
+define(['lib/extend', 'core/view', 'ui/matchresultview'], function (extend, View,
+  MatchResultView) {
   /**
    * Constructor
    *
@@ -16,16 +16,16 @@ define(["lib/extend", "core/view", "ui/matchresultview"], function (extend, View
    * @param $view
    *          a row of a correction table
    */
-  function CorrectionView(model, $view) {
-    CorrectionView.superconstructor.call(this, model, $view);
+  function CorrectionView (model, $view) {
+    CorrectionView.superconstructor.call(this, model, $view)
 
-    this.$before = this.$view.find(".before");
-    this.$after = this.$view.find(".after");
+    this.$before = this.$view.find('.before')
+    this.$after = this.$view.find('.after')
 
-    this.beforeview = new MatchResultView(model.before, this.$before);
-    this.afterview = new MatchResultView(model.after, this.$after);
+    this.beforeview = new MatchResultView(model.before, this.$before)
+    this.afterview = new MatchResultView(model.after, this.$after)
   }
-  extend(CorrectionView, View);
+  extend(CorrectionView, View)
 
-  return CorrectionView;
-});
+  return CorrectionView
+})

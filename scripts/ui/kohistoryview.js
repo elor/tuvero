@@ -6,11 +6,11 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "ui/templateview", "ui/listview", "ui/kolistmodel",
-    "ui/kotreeview"
+define(['lib/extend', 'ui/templateview', 'ui/listview', 'ui/kolistmodel',
+  'ui/kotreeview'
 ], function (extend, TemplateView, ListView, KOListModel,
-    KOTreeView) {
-    /**
+  KOTreeView) {
+  /**
      * Constructor
      *
      * @param tournament
@@ -27,18 +27,18 @@ define(["lib/extend", "ui/templateview", "ui/listview", "ui/kolistmodel",
      * @param fullwidth
      *          a ValueModel which evaluates to true if names should be shown
      */
-    function KOHistoryView(tournament, $view, groups, teamlist, teamsize,
-        fullwidth) {
-        KOHistoryView.superconstructor.call(this, new KOListModel(tournament),
-            $view, $view.find(".progressrow.template"));
+  function KOHistoryView (tournament, $view, groups, teamlist, teamsize,
+    fullwidth) {
+    KOHistoryView.superconstructor.call(this, new KOListModel(tournament),
+      $view, $view.find('.progressrow.template'))
 
-        this.$kotree = this.$view.find(".kotree").detach();
+    this.$kotree = this.$view.find('.kotree').detach()
 
-        // nested ListViews: BinningReferenceListModel is 2D
-        this.kotrees = new ListView(this.model, this.$view, this.$kotree,
-            KOTreeView, teamlist, tournament, teamsize, fullwidth);
-    }
-    extend(KOHistoryView, TemplateView);
+    // nested ListViews: BinningReferenceListModel is 2D
+    this.kotrees = new ListView(this.model, this.$view, this.$kotree,
+      KOTreeView, teamlist, tournament, teamsize, fullwidth)
+  }
+  extend(KOHistoryView, TemplateView)
 
-    return KOHistoryView;
-});
+  return KOHistoryView
+})

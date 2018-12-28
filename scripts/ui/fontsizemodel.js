@@ -6,34 +6,33 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/model"], function (extend, Model) {
-
+define(['lib/extend', 'core/model'], function (extend, Model) {
   /**
    * FontSizeModel constructor
    */
-  function FontSizeModel() {
-    FontSizeModel.superconstructor.call(this);
+  function FontSizeModel () {
+    FontSizeModel.superconstructor.call(this)
 
-    this.fontsize = FontSizeModel.DEFAULT;
+    this.fontsize = FontSizeModel.DEFAULT
   }
-  extend(FontSizeModel, Model);
+  extend(FontSizeModel, Model)
 
   /**
    * list of possible font sizes
    */
-  FontSizeModel.SIZES = ["tiny", "small", "normal", "large", "huge"];
+  FontSizeModel.SIZES = ['tiny', 'small', 'normal', 'large', 'huge']
 
   /**
    * default font size
    */
-  FontSizeModel.DEFAULT = FontSizeModel.SIZES[2];
+  FontSizeModel.DEFAULT = FontSizeModel.SIZES[2]
 
   /**
    * @return the current font size
    */
   FontSizeModel.prototype.getFontSize = function () {
-    return this.fontsize;
-  };
+    return this.fontsize
+  }
 
   /**
    * Set the font size. Throws an error if the font size is invalid.
@@ -42,11 +41,11 @@ define(["lib/extend", "core/model"], function (extend, Model) {
    */
   FontSizeModel.prototype.setFontSize = function (fontsize) {
     if (FontSizeModel.SIZES.indexOf(fontsize) === -1) {
-      throw "invalid font size";
+      throw new Error('invalid font size')
     }
-    this.fontsize = fontsize;
-    this.emit("update");
-  };
+    this.fontsize = fontsize
+    this.emit('update')
+  }
 
-  return FontSizeModel;
-});
+  return FontSizeModel
+})

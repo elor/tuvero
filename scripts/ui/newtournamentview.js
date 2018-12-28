@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/view", "ui/newtournamentcontroller",
-  "presets"
+define(['jquery', 'lib/extend', 'core/view', 'ui/newtournamentcontroller',
+  'presets'
 ], function ($, extend, View, NewTournamentController, Presets) {
   /**
    * Constructor
@@ -18,35 +18,35 @@ define(["jquery", "lib/extend", "core/view", "ui/newtournamentcontroller",
    * @param tournaments
    * @param teams
    */
-  function NewTournamentView(firstTeamID, numTeams, $view, tournaments, teams) {
-    NewTournamentView.superconstructor.call(this, undefined, $view);
+  function NewTournamentView (firstTeamID, numTeams, $view, tournaments, teams) {
+    NewTournamentView.superconstructor.call(this, undefined, $view)
 
-    this.$view.addClass("newsystem");
+    this.$view.addClass('newsystem')
 
     if (numTeams < 2) {
-      this.$view.addClass("notenoughteams");
+      this.$view.addClass('notenoughteams')
     }
 
     // anonymous model
-    this.model.firstTeamID = firstTeamID;
-    this.model.numTeams = numTeams;
-    this.model.tournaments = tournaments;
-    this.model.teams = teams;
+    this.model.firstTeamID = firstTeamID
+    this.model.numTeams = numTeams
+    this.model.tournaments = tournaments
+    this.model.teams = teams
 
-    this.$view.find("button").each(function () {
-      var $button, system;
+    this.$view.find('button').each(function () {
+      var $button, system
 
-      $button = $(this);
-      system = $button.attr("data-system");
+      $button = $(this)
+      system = $button.attr('data-system')
 
       if (system && !Presets.systems[system]) {
-        $button.hide();
+        $button.hide()
       }
-    });
+    })
 
-    this.controller = new NewTournamentController(this);
+    this.controller = new NewTournamentController(this)
   }
-  extend(NewTournamentView, View);
+  extend(NewTournamentView, View)
 
-  return NewTournamentView;
-});
+  return NewTournamentView
+})

@@ -10,65 +10,65 @@
  * @see LICENSE
  */
 
-define(["core/tabmenuview", "jquery"], function (TabMenuView, $) {
-  var tabmenu, TabsHandle;
+define(['core/tabmenuview', 'jquery'], function (TabMenuView, $) {
+  var tabmenu, TabsHandle
 
   tabmenu = {
     getTabModel: function () {
-      return undefined;
+      return undefined
     }
-  };
+  }
 
   $(function () {
-    if ($("#tabs").length === 1 && $("#testmain").length === 0) {
-      tabmenu = new TabMenuView($("#tabs"));
+    if ($('#tabs').length === 1 && $('#testmain').length === 0) {
+      tabmenu = new TabMenuView($('#tabs'))
     }
-  });
+  })
 
   TabsHandle = {
     hide: function (tabname) {
-      var tab = tabmenu.getTabModel(tabname);
+      var tab = tabmenu.getTabModel(tabname)
 
       if (!tab) {
-        return;
+        return
       }
 
-      tab.visibility.set(false);
-      tab.accessibility.set(false);
+      tab.visibility.set(false)
+      tab.accessibility.set(false)
     },
     show: function (tabname) {
-      var tab = tabmenu.getTabModel(tabname);
+      var tab = tabmenu.getTabModel(tabname)
 
       if (!tab) {
-        return;
+        return
       }
 
-      tab.visibility.set(true);
-      tab.accessibility.set(true);
+      tab.visibility.set(true)
+      tab.accessibility.set(true)
     },
     secret: function (tabname) {
-      var tab = tabmenu.getTabModel(tabname);
+      var tab = tabmenu.getTabModel(tabname)
 
       if (!tab) {
-        return;
+        return
       }
 
-      tab.visibility.set(false);
-      tab.accessibility.set(true);
+      tab.visibility.set(false)
+      tab.accessibility.set(true)
     },
     focus: function (tabname) {
-      tabmenu.focus(tabname);
+      tabmenu.focus(tabname)
     },
     bindTabOpts: function (tabname, valueModel) {
-      var tab = tabmenu.getTabModel(tabname);
+      var tab = tabmenu.getTabModel(tabname)
 
       if (!tab) {
-        return undefined;
+        return undefined
       }
 
-      tab.imgParam.bind(valueModel);
+      tab.imgParam.bind(valueModel)
     }
-  };
+  }
 
-  return TabsHandle;
-});
+  return TabsHandle
+})

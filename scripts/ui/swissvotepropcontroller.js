@@ -6,26 +6,26 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["lib/extend", "core/controller"], function (extend, Controller) {
+define(['lib/extend', 'core/controller'], function (extend, Controller) {
   /**
    * Constructor
    *
    * @param view
    *          a SwissVotePropView instance
    */
-  function SwissVotePropController(view) {
-    SwissVotePropController.superconstructor.call(this, view);
+  function SwissVotePropController (view) {
+    SwissVotePropController.superconstructor.call(this, view)
 
-    this.view.$view.click(this.toggleValue.bind(this));
+    this.view.$view.click(this.toggleValue.bind(this))
   }
-  extend(SwissVotePropController, Controller);
+  extend(SwissVotePropController, Controller)
 
   /**
    * toggles the boolean value of the underlying model.
    */
   SwissVotePropController.prototype.toggleValue = function () {
-    this.model.set(!this.model.get());
-  };
+    this.model.set(!this.model.get())
+  }
 
-  return SwissVotePropController;
-});
+  return SwissVotePropController
+})

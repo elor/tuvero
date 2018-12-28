@@ -10,30 +10,30 @@
  * @license MIT License
  * @see LICENSE
  */
-define(["jquery", "lib/extend", "core/controller"], function ($, extend, Controller) {
+define(['jquery', 'lib/extend', 'core/controller'], function ($, extend, Controller) {
   /**
    * Constructor
    *
    * @param view
    *          a valid RankingOrderView instance
    */
-  function RankingOrderController(view) {
-    var selected, allComponents;
+  function RankingOrderController (view) {
+    var selected, allComponents
 
-    RankingOrderController.superconstructor.call(this, view);
+    RankingOrderController.superconstructor.call(this, view)
 
-    selected = this.view.selected;
-    allComponents = this.view.allComponents;
+    selected = this.view.selected
+    allComponents = this.view.allComponents
 
-    this.view.$selectedList.on("click", ".component", function () {
-      selected.remove($(this).index());
-    });
+    this.view.$selectedList.on('click', '.component', function () {
+      selected.remove($(this).index())
+    })
 
-    this.view.$availableList.on("click", ".component", function () {
-      selected.push(allComponents.get($(this).index()));
-    });
+    this.view.$availableList.on('click', '.component', function () {
+      selected.push(allComponents.get($(this).index()))
+    })
   }
-  extend(RankingOrderController, Controller);
+  extend(RankingOrderController, Controller)
 
-  return RankingOrderController;
-});
+  return RankingOrderController
+})
