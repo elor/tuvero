@@ -52,8 +52,8 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/stateclassview', 'core/listener
 
     this.initRankingOrderView()
 
-    Listener.bind(this.model.tournament.getName(), 'update', this.updateNames
-      .bind(this))
+    Listener.bind(this.model.tournament.getName(), 'update', this.updateNames, this)
+    Listener.bind(this.model.tournament.getState(), 'update', this.updateRound, this)
     Listener.bind(this.model.rankingOrder, 'reset,insert,remove', function () {
       if (!this.model.tournament.setRankingOrder(this.model.rankingOrder.asArray())) {
         console.error('cannot set ranking order')
@@ -115,10 +115,6 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/stateclassview', 'core/listener
       this.$round.text(this.model.tournament.getRound() + 1)
       this.$nextround.text(this.model.tournament.getRound() + 2)
     }
-  }
-
-  TournamentView.prototype.onstate = function () {
-    this.updateRound()
   }
 
   TournamentView.prototype.destroy = function () {
