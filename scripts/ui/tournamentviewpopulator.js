@@ -1,6 +1,5 @@
 define(['jquery', 'lib/extend', 'core/view', 'ui/generictournamentview',
-  'core/listener'
-], function ($, extend, View, GenericTournamentView, Listener) {
+  'core/listener'], function ($, extend, View, GenericTournamentView, Listener) {
   /**
    * Constructor
    *
@@ -20,6 +19,7 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/generictournamentview',
 
     this.$templates = $templates
     this.tournaments = tournaments
+    this.teamReservation = []
     this.viewCache = []
 
     Listener.bind(tournaments, 'insert', function (emitter, event, data) {
@@ -70,8 +70,13 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/generictournamentview',
     }
   }
 
-  TournamentViewPopulator.prototype.getCachedView = function (tournamentID) {
+  TournamentViewPopulator.prototype.getCachedView = function (tournamentID, teamID) {
+    this.teamReservation[tournamentID] = teamID
     return this.viewCache[tournamentID]
+  }
+
+  TournamentViewPopulator.prototype.getViewTeamID = function (tournamentID) {
+    return this.teamReservation[tournamentID]
   }
 
   return TournamentViewPopulator
