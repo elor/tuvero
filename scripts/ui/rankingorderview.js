@@ -7,21 +7,29 @@
  * @see LICENSE
  */
 define(['jquery', 'lib/extend', 'ui/templateview', 'ui/rankingcomponentview', 'ui/listview',
-  'ui/rankingordercontroller', 'list/listmodel', 'core/listener'], function ($, extend, TemplateView,
-  RankingComponentView, ListView, RankingOrderController, ListModel, Listener) {
+  'ui/rankingordercontroller', 'list/listmodel', 'core/listener', 'presets'], function ($, extend, TemplateView,
+  RankingComponentView, ListView, RankingOrderController, ListModel, Listener, Presets) {
   function RankingOrderView (tournament, $view, allComponents) {
     RankingOrderView.superconstructor.call(this, tournament, $view,
       $view.find('.template'))
 
     this.selectedComponents = new ListModel(this.model.ranking.componentnames)
-    this.allComponents = allComponents
+    this.allComponents = new ListModel(allComponents.asArray())
+
+    if (Presets.systems[tournament.SYSTEM] && Presets.systems[tournament.SYSTEM].ranking) {
+      Presets.systems[tournament.SYSTEM].ranking.forEach(function (component) {
+        if (this.allComponents.indexOf(component) === -1) {
+          this.allComponents.push(component)
+        }
+      }, this)
+    }
 
     this.$availableList = this.$view.find('.available')
     this.$selectedList = this.$view.find('.selected')
 
     this.selectedListView = new ListView(this.selectedComponents,
       this.$selectedList, this.$template, RankingComponentView)
-    this.availableListView = new ListView(allComponents, this.$availableList,
+    this.availableListView = new ListView(this.allComponents, this.$availableList,
       this.$template, RankingComponentView)
 
     this.controller = new RankingOrderController(this)
