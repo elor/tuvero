@@ -12,6 +12,7 @@ define(['lib/extend', 'core/controller', 'core/view', 'ui/state', 'tournament/to
 
     if (State.tournaments.length === 0) {
       tournament = TournamentIndex.createTournament('swiss', Presets.systems.swiss.ranking)
+      tournament.getName().set('Vorrunde')
       State.teams.forEach(function (team, teamID) {
         tournament.addTeam(teamID)
       })
