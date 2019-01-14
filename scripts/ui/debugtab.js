@@ -8,11 +8,11 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
   'ui/toast', 'ui/loadedimagesview', 'ui/browserinfoview',
   'ui/registerteamscontroller', 'ui/registeridscontroller',
   'ui/requiremodsshortcut', 'ui/finishroundcontroller', 'ui/debug',
-  'ui/tabshandle', 'ui/statesaver'
+  'ui/tabshandle', 'ui/statesaver', 'ui/startroundcontroller'
 ], function (extend, $, View, Storage,
   Strings, Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
   RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
-  TabsHandle, StateSaver) {
+  TabsHandle, StateSaver, StartRoundController) {
   /**
    * represents a whole team tab
    *
@@ -96,6 +96,9 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
 
     $button = this.$view.find('button.finishroundrandom')
     this.finishRoundRandom = new FinishRoundController($button, true)
+
+    $button = this.$view.find('button.startround')
+    this.startRound = new StartRoundController($button)
   }
 
   // FIXME CHEAP HACK AHEAD
