@@ -42,6 +42,8 @@ define(['jquery', 'lib/extend', 'core/view', 'ui/generictournamentview',
       var view = this.viewCache[index]
 
       this.viewCache.splice(index, 1)
+      this.teamReservation.splice(index, 1)
+
       view.destroy()
     }, this)
   }
