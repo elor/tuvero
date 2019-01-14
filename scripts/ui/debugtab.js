@@ -8,11 +8,11 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
   'ui/toast', 'ui/loadedimagesview', 'ui/browserinfoview',
   'ui/registerteamscontroller', 'ui/registeridscontroller',
   'ui/requiremodsshortcut', 'ui/finishroundcontroller', 'ui/debug',
-  'ui/tabshandle', 'ui/statesaver', 'ui/startroundcontroller'
+  'ui/tabshandle', 'ui/statesaver', 'ui/startroundcontroller', 'ui/rankingrecalccontroller'
 ], function (extend, $, View, Storage,
   Strings, Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
   RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
-  TabsHandle, StateSaver, StartRoundController) {
+  TabsHandle, StateSaver, StartRoundController, RankingRecalcController) {
   /**
    * represents a whole team tab
    *
@@ -89,7 +89,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
     this.mods = new RequireModsShortcut()
 
     /*
-     * button: finish matches
+     * button: start and finish rounds/matches
      */
     $button = this.$view.find('button.finishround')
     this.finishRound = new FinishRoundController($button)
@@ -99,6 +99,12 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
 
     $button = this.$view.find('button.startround')
     this.startRound = new StartRoundController($button)
+
+    /*
+     * button: ranking recalculation
+     */
+    $button = this.$view.find('button.recalcranking')
+    this.recalcRanking = new RankingRecalcController($button)
   }
 
   // FIXME CHEAP HACK AHEAD
