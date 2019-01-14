@@ -83,12 +83,6 @@ define(['lib/extend', 'list/indexedlistmodel', 'list/listmodel', 'core/uniquelis
         this.closedTournaments.erase(tournamentID)
       }
       this.pop()
-
-      if (tournamentID > 0) {
-        if (this.closedTournaments.indexOf(tournamentID - 1) !== -1) {
-          this.closeTournament(tournamentID - 1)
-        }
-      }
     } else {
       if (!this.closedTournaments.push(tournamentID)) {
         console.error('tournament ID ' + tournamentID + ' is already closed')
