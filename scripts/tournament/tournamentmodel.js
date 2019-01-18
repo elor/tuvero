@@ -236,6 +236,93 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     return false
   }
 
+  TournamentModel.prototype.removeTeam = function (externalTeamID) {
+    var mapID, toRemove
+
+    mapID = this.teams.indexOf(externalTeamID)
+    if (mapID === -1) {
+      return
+    }
+
+    // remove from matches (replace with bye)
+    toRemove = this.matches.map(function (match, index) {
+      if (match.teams.indexOf(mapID) === -1) {
+        return undefined
+      }
+      return [index, match]
+    }).filter(function (val) { return val })
+
+    toRemove.reverse().forEach(function (values) {
+      var index, match, matchID, groupID, opponent
+      index = values[0]
+      match = values[1]
+      groupID = match.getGroup()
+      matchID = match.getID()
+      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
+
+      this.matches.remove(index)
+      if (opponent !== mapID) {
+        this.addBye(opponent, matchID, groupID)
+      }
+    }, this)
+
+    // remove from history
+    toRemove = this.history.map(function (match, index) {
+      if (match.teams.indexOf(mapID) === -1) {
+        return undefined
+      }
+      return [index, match]
+    }).filter(function (val) { return val })
+
+    toRemove.reverse().forEach(function (values) {
+      var index, match, matchID, groupID, opponent
+      index = values[0]
+      match = values[1]
+      groupID = match.getGroup()
+      matchID = match.getID()
+      opponent = match.teams[0] === mapID ? match.teams[1] : match.teams[0]
+
+      this.history.remove(index)
+      if (opponent !== mapID) {
+        this.addBye(opponent, matchID, groupID)
+      }
+    }, this)
+
+    // remove from byes (current and total)
+    this.totalvotes.bye
+
+    this.votes.bye
+
+    // remap teamids in matches
+    this.matches.forEach(function (match) {
+      match.teams = match.teams.map(function (teamID) {
+        if (teamID > mapID) {
+          return teamID - 1
+        }
+        return teamID
+      })
+    })
+
+    // remap teamids in history
+    this.history.forEach(function (match) {
+      match.teams = match.teams.map(function (teamID) {
+        if (teamID > mapID) {
+          return teamID - 1
+        }
+        return teamID
+      })
+    })
+
+    // remove from teams
+    this.teams.remove(mapID)
+
+    // recalculate ranking
+    this.ranking.resize(this.teams.length)
+    this.recalculateRanking()
+
+    // fix state
+  }
+
   /**
    * Retrieve the state of the tournament as a ValueModel instance, which emits
    * update events and provides a get() function for the state
