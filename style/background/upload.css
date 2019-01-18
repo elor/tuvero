@@ -5,3 +5,7 @@
 body.nostatelink button.upload {
   color: #bbbbbb;
 }
+
+body.nostatelink .hideifnostatelink {
+  display: none;
+}
