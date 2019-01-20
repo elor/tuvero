@@ -8,9 +8,11 @@
  */
 define(['lib/extend', 'core/view', 'ui/rankingview', 'ui/listview',
   'ui/popoutboxview', 'ui/correctionview', 'ui/teamtableview',
-  'core/valuemodel', 'core/listener', 'ui/tournamentrenamecontroller'], //
+  'core/valuemodel', 'core/listener', 'ui/tournamentrenamecontroller',
+  'list/lengthmodel', 'core/classview'], //
 function (extend, View, RankingView, ListView, PopoutBoxView, CorrectionView,
-  TeamTableView, ValueModel, Listener, TournamentRenameController) {
+  TeamTableView, ValueModel, Listener, TournamentRenameController, LengthModel,
+  ClassView) {
   /**
    * Constructor
    *
@@ -37,6 +39,8 @@ function (extend, View, RankingView, ListView, PopoutBoxView, CorrectionView,
       teams, abbreviate)
 
     this.$corrections = this.$view.find('.correctiontable')
+    this.correctionsVisibility = new ClassView(new LengthModel(this.model.getCorrections()), this.$corrections, undefined, 'hidden')
+
     this.$correctionrow = this.$corrections.find('.correctionrow.template')
       .detach()
     this.corrections = new ListView(this.model.getCorrections(),
