@@ -289,9 +289,17 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     }, this)
 
     // remove from byes (current and total)
-    this.totalvotes.bye
+    if (this.totalvotes.bye) {
+      this.totalvotes.bye = this.totalvotes.bye.filter(function (teamID) {
+        return teamID !== mapID
+      })
+    }
 
-    this.votes.bye
+    if (this.votes.bye) {
+      this.votes.bye = this.votes.bye.filter(function (teamID) {
+        return teamID !== mapID
+      })
+    }
 
     // remap teamids in matches
     this.matches.forEach(function (match) {
