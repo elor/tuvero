@@ -71,6 +71,7 @@ define(['lib/extend', 'core/model', 'list/indexedlistmodel', 'core/valuemodel',
   StateModel.prototype.clear = function () {
     this.tournaments.clear()
     this.teams.clear()
+    this.serverlink.set(undefined)
     Options.reset()
     this.emit('clear')
 
