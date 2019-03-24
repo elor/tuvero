@@ -2,7 +2,8 @@
   "name": "tuvero-cli",
   "version": "1.5.26-dev",
   "description": "Tuvero library for tournament management",
-  "main": "test.js",
+  "main": "index.js",
+  "bin": "bin/tuvero.js",
   "author": {
     "name": "Erik E. Lorenz"
   },
