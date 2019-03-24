@@ -1,73 +1,73 @@
 ﻿#!/usr/bin/env node
 
-"use strict";
+'use strict'
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
+const express = require('express')
+const bodyParser = require('body-parser')
+const fs = require('fs')
+const path = require('path')
 
-const libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..');
-const tuvero = require(libdir + path.sep + 'state.js');
+const libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..')
+const tuvero = require(libdir + path.sep + 'state.js')
 
-const app = express();
+const app = express()
 
-const PORT = 8080;
+const PORT = 8080
 
-app.use(bodyParser.json({ type: 'application/json' }));
+app.use(bodyParser.json({ type: 'application/json' }))
 
-function formatError(error) {
+function formatError (error) {
   return JSON.stringify({
     'error': 'Error while processing the request',
     'message': error ? error.message || error.msg || error : ''
-  }, null, '  ');
+  }, null, '  ')
 }
 
-let router = express.Router();
+let router = express.Router()
 
-const allCommands = Object.keys(tuvero.commands);
+const allCommands = Object.keys(tuvero.commands)
 
 const allRoutes = (function (commands) {
-  var routes = {};
+  var routes = {}
   commands.forEach(function (cmd) {
     routes[cmd] = `/${cmd}`
-  });
-  return routes;
-})(allCommands);
+  })
+  return routes
+})(allCommands)
 
 router.post('/:command', function (request, response, next) {
-  let command = request.params.command || undefined;
+  let command = request.params.command || undefined
   let id = `${request.ip}->{${request.path}`;
 
   (new Promise((resolve, reject) => {
     if (!command || !tuvero.commands[command]) {
-      return reject("Command not recognized. Available commands: " + allCommands.join(', '));
+      return reject('Command not recognized. Available commands: ' + allCommands.join(', '))
     }
-    if (!request.is("application/json")) {
-      return reject("Content-Type must be application/json");
+    if (!request.is('application/json')) {
+      return reject('Content-Type must be application/json')
     }
     if (!request.body) {
-      return reject("No JSON data received");
+      return reject('No JSON data received')
     }
 
     tuvero.parse(request.body)
       .then(state => {
-        resolve(JSON.stringify(tuvero.commands[command](state), null, ' '));
-      }).catch(reject);
+        resolve(JSON.stringify(tuvero.commands[command](state), null, ' '))
+      }).catch(reject)
   }))
     .then(jsonstring => {
-      response.send(jsonstring);
+      response.send(jsonstring)
     }).catch(error => {
-      response.status(400).send(formatError(error));
-    });
-});
+      response.status(400).send(formatError(error))
+    })
+})
 
 router.all('/', function (request, response, next) {
-  response.send(JSON.stringify(allRoutes, null, ' '));
-});
+  response.send(JSON.stringify(allRoutes, null, ' '))
+})
 
-app.use('/', router);
+app.use('/', router)
 
-app.listen(PORT);
+app.listen(PORT)
 
-console.log("listening on port " + PORT);
+console.log('listening on port ' + PORT)
