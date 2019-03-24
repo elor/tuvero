@@ -1,10 +1,9 @@
 ﻿#!/usr/bin/env node
 
-"use strict";
+'use strict'
 
-var fs = require('fs');
-var requirejs = require('requirejs');
-var QUnit = require('qunitjs');
+var requirejs = require('requirejs')
+var QUnit = require('qunitjs')
 
 var tests = ['core/test/byeresult',
   'core/test/byeresult',
@@ -66,21 +65,21 @@ var tests = ['core/test/byeresult',
   'tournament/test/tournamentindex',
   'tournament/test/tournamentlistmodel',
   'tournament/test/tournamentmodel',
-  //'ui/test/binarytreemodel',
-  //'ui/test/listcollectormodel',
+  // 'ui/test/binarytreemodel',
+  // 'ui/test/listcollectormodel',
   'ui/test/playermodel',
-  'ui/test/teammodel',
-  //'ui/test/teamsfileloadcontroller'
-];
+  'ui/test/teammodel'
+  // 'ui/test/teamsfileloadcontroller'
+]
 
-process.chdir(__dirname);
+process.chdir(__dirname)
 
 requirejs.config({
   baseUrl: '../scripts'
-});
+})
 
 requirejs(['core/config'], function (config) {
-  var myBase = '../test/scripts/';
+  var myBase = '../test/scripts/'
 
   requirejs.config({
     paths: {
@@ -88,31 +87,31 @@ requirejs(['core/config'], function (config) {
       'presets': myBase + 'presets',
       'strings': myBase + 'strings'
     }
-  });
+  })
 
   QUnit.testStart(function (test) {
-  });
+  })
 
   QUnit.log(function (test) {
     if (!test.result) {
-      console.log(test.message);
-      console.log({ actual: test.actual, expected: test.expected });
-      console.log(test.source);
+      console.log(test.message)
+      console.log({ actual: test.actual, expected: test.expected })
+      console.log(test.source)
     }
-  });
+  })
 
   QUnit.testDone(function (test) {
-  });
+  })
 
   QUnit.done(function (data) {
-    console.log(JSON.stringify(data, null, '  '));
+    console.log(JSON.stringify(data, null, '  '))
 
     if (data.failed) {
-      process.exit(1);
+      process.exit(1)
     }
-  });
+  })
 
-  tests.forEach(test => requirejs(test)(QUnit, requirejs));
+  tests.forEach(test => requirejs(test)(QUnit, requirejs))
 
-  QUnit.load();
-});
+  QUnit.load()
+})

@@ -1,38 +1,38 @@
 ﻿#!/usr/bin/env node
 
-"use strict";
+'use strict'
 
-var path = require('path');
-var fs = require('fs');
-var libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..');
-var tuvero = require(libdir + path.sep + 'state.js');
+var path = require('path')
+var fs = require('fs')
 
-var args = process.argv.slice(2);
+var libdir = path.join(path.dirname(fs.realpathSync(__filename)), '..')
+var tuvero = require(path.join([libdir, 'state.js']))
 
-function printandexit() {
-  console.error('Syntax: tuvero.js <input.json> <command>');
-  console.error('Commands:');
-  console.error('    ' + Object.keys(tuvero.commands).sort().join(', '));
-  process.exit(1);
+function printandexit () {
+  console.error('Syntax: tuvero.js <input.json> <command>')
+  console.error('Commands:')
+  console.error('    ' + Object.keys(tuvero.commands).sort().join(', '))
+  process.exit(1)
 }
 
-if (args.length < 2) printandexit();
+if (process.argv.length < 2) {
+  printandexit()
+}
 
-var filename = args.shift();
-var command = args.shift();
-var callback = tuvero.commands[command];
+const [filename, command] = process.argv
+var callback = tuvero.commands[command]
 
-if (!command || !callback) printandexit();
+if (!command || !callback) printandexit()
 
-var output = state => {
-  console.log(JSON.stringify(callback(state), null, '  '));
-};
+var output = (state) => {
+  console.log(JSON.stringify(callback(state), null, '  '))
+}
 
 var errput = (err) => {
-  console.error(err);
-  process.exit(1);
-};
+  console.error(err)
+  process.exit(1)
+}
 
 tuvero.load(filename)
   .then(output)
-  .catch(errput);
+  .catch(errput)

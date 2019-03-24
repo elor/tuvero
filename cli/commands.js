@@ -1,22 +1,22 @@
-function extractTeams(state) {
+function extractTeams (state) {
   return {
     teams: state.teams.map(function (team) {
       let result = {
         id: team.getID(),
         number: team.getID() + 1
-      };
+      }
 
       team.getNames().forEach(function (name, playerid) {
-        result['name' + (playerid + 1)] = name;
-      });
+        result['name' + (playerid + 1)] = name
+      })
 
-      return result;
+      return result
     }),
     teamsize: state.teamsize.get()
   }
 }
 
-function extractStages(state) {
+function extractStages (state) {
   let result = {
     tournaments: state.tournaments.map(function (tournament) {
       return {
@@ -25,19 +25,19 @@ function extractStages(state) {
         size: tournament.getTeams().length,
         state: tournament.getState().get(),
         system: tournament.SYSTEM
-      };
+      }
     }),
     teamsize: state.teamsize.get()
-  };
+  }
 
-  result.closed = state.tournaments.closedTournaments.asArray().map(id => result.tournaments[id]);
+  result.closed = state.tournaments.closedTournaments.asArray().map(id => result.tournaments[id])
 
-  return result;
+  return result
 }
 
-function extractRanking(state) {
-  let teams = extractTeams(state).teams;
-  let globalRanking = state.tournaments.getGlobalRanking(teams.length);
+function extractRanking (state) {
+  let teams = extractTeams(state).teams
+  let globalRanking = state.tournaments.getGlobalRanking(teams.length)
 
   return {
     globalranking: globalRanking.displayOrder.map(function (teamid, displayid) {
@@ -50,57 +50,55 @@ function extractRanking(state) {
       }
     }),
     tournaments: state.tournaments.map(function (tournament, tournamentid) {
-      let ranking = tournament.getRanking().get();
+      let ranking = tournament.getRanking().get()
       return {
         components: ranking.components.slice(),
         globaloffset: globalRanking.tournamentOffsets[tournamentid],
         id: tournament.getID(),
         name: tournament.getName().get(),
         ranking: ranking.displayOrder.map(function (internalid, displayid) {
-          let teamid = ranking.ids[internalid];
-          let points = {};
+          let teamid = ranking.ids[internalid]
+          let points = {}
 
           ranking.components.forEach(function (component) {
-            points[component] = ranking[component][internalid];
+            points[component] = ranking[component][internalid]
           })
-
 
           return {
             team: teams[teamid],
             rank: ranking.ranks[internalid],
             displayid: displayid,
             points: points
-          };
+          }
         }),
         state: tournament.getState().get(),
         system: tournament.SYSTEM
-      };
+      }
     }),
     teamsize: state.teamsize.get()
   }
 }
 
-function extractMatches(state) {
-  let teams = extractTeams(state).teams;
+function extractMatches (state) {
+  let teams = extractTeams(state).teams
 
-  function insertTeam(team) {
-    if (typeof (team) === 'number')
-      return teams[team];
-    return team.map(team => teams[team]);
+  function insertTeam (team) {
+    if (typeof (team) === 'number') { return teams[team] }
+    return team.map(team => teams[team])
   }
 
-  function formatMatch(match) {
+  function formatMatch (match) {
     return {
       teams: match.teams.map(insertTeam),
       group: match.group,
       id: match.getID()
-    };
+    }
   }
 
-  function formatResult(match) {
-    let result = formatMatch(match);
-    result.score = match.score;
-    return result;
+  function formatResult (match) {
+    let result = formatMatch(match)
+    result.score = match.score
+    return result
   }
 
   return {
@@ -120,22 +118,22 @@ function extractMatches(state) {
             after: formatResult(correction.after)
           }
         })
-      };
+      }
     }),
     teamsize: state.teamsize.get()
-  };
+  }
 }
 
-function extractAll(state) {
-  var ret = {};
+function extractAll (state) {
+  var ret = {}
 
-  for (command in commands) {
+  for (let command in commands) {
     if (command !== 'all') {
-      ret[command] = commands[command](state);
+      ret[command] = commands[command](state)
     }
   }
 
-  return ret;
+  return ret
 }
 
 let commands = {
@@ -144,7 +142,6 @@ let commands = {
   ranking: extractRanking,
   stages: extractStages,
   teams: extractTeams
-};
+}
 
-
-module.exports = commands;
+module.exports = commands
