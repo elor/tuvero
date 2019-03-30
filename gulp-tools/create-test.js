@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 var through = require('through2')
-var File = require('gulp-util').File
+var Vinyl = require('vinyl')
 var path = require('path')
 var fs = require('fs')
 
@@ -35,7 +35,7 @@ module.exports = function () {
     contents = contents.replace('{ modules }', modules)
 
     // Create a Vinyl file
-    file = new File({
+    file = new Vinyl({
       cwd: __dirname,
       base: path.join(__dirname, 'test', 'scripts', 'test'),
       path: path.join(__dirname, 'test', 'scripts', 'test', 'test.js'),
