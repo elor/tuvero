@@ -10,7 +10,7 @@ const cssDestination = 'lib/'
 module.exports = function () {
   gulp.task('lib-scripts', function () {
     return gulp.src([
-      'node_modules/file-saver/FileSaver.js',
+      'node_modules/file-saver/dist/FileSaver.js',
       'node_modules/diff/dist/diff.js',
       'node_modules/jquery/dist/jquery.js'
     ])
