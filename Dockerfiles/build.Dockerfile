@@ -1,4 +1,4 @@
-FROM node:9
+FROM node:latest
 
 RUN apt update
 RUN apt install -y tar curl lftp
