@@ -8,12 +8,22 @@ const jsDestination = 'scripts/lib/'
 const cssDestination = 'lib/'
 
 module.exports = function () {
-  gulp.task('lib-scripts', function () {
-    return gulp.src([
-      'node_modules/file-saver/dist/FileSaver.js',
-      'node_modules/diff/dist/diff.js',
-      'node_modules/jquery/dist/jquery.js'
-    ])
+  gulp.task('lib-scripts', ['lib-filesaver', 'lib-diff', 'lib-jquery'])
+
+  gulp.task('lib-filesaver', function () {
+    return gulp.src('node_modules/file-saver/dist/FileSaver.js')
+      .pipe(filecount())
+      .pipe(gulp.dest(jsDestination))
+  })
+
+  gulp.task('lib-diff', function () {
+    return gulp.src('node_modules/diff/dist/diff.js')
+      .pipe(filecount())
+      .pipe(gulp.dest(jsDestination))
+  })
+
+  gulp.task('lib-jquery', function () {
+    return gulp.src('node_modules/jquery/dist/jquery.js')
       .pipe(filecount())
       .pipe(gulp.dest(jsDestination))
   })
