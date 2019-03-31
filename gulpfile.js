@@ -11,8 +11,8 @@ const mainstyle = require('./gulp-tools/mainstyle')
 const sources = require('./gulp-tools/sources')
 const template = require('./gulp-tools/template')
 
-gulp.task('default', ['lib', 'update', 'lint', 'build', 'test'])
-gulp.task('update', ['update-mainstyle', 'update-common-js', 'update-test-js', 'template'])
+gulp.task('default', ['update', 'lint', 'build', 'test'])
+gulp.task('update', ['lib', 'update-mainstyle', 'update-common-js', 'update-test-js', 'template'])
 gulp.task('template', template.targets.map(target => template(target, sources)))
 gulp.task('test', ['lib', 'lint'], function () {
   return run('node cli/test.js').exec()
