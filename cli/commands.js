@@ -91,7 +91,8 @@ function extractMatches (state) {
     return {
       teams: match.teams.map(insertTeam),
       group: match.group,
-      id: match.getID()
+      id: match.getID(),
+      place: match.place || ''
     }
   }
 
