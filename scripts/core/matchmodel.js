@@ -31,6 +31,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
     this.teams = teams.slice()
     this.length = this.teams.length
     this.group = group
+    this.place = ''
   }
   extend(MatchModel, IndexedModel)
 
@@ -141,6 +142,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
     var data = MatchModel.superclass.save.call(this)
 
     data.g = this.group
+
     data.t = this.teams.map(function (team) {
       if (team && team.getID) {
         return team.getID()
@@ -150,6 +152,8 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
         return team
       }
     })
+
+    data.place = this.place
 
     return data
   }
@@ -174,6 +178,10 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
     }, this)
     this.length = this.teams.length
 
+    if (data.place) {
+      this.place = data.place
+    }
+
     return true
   }
 
@@ -181,6 +189,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
     .create(MatchModel.superclass.SAVEFORMAT)
   MatchModel.prototype.SAVEFORMAT.g = Number
   MatchModel.prototype.SAVEFORMAT.t = [Number]
+  MatchModel.prototype.SAVEFORMAT.place = String
 
   return MatchModel
 })

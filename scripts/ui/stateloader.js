@@ -21,6 +21,20 @@ function (semver, State, TimeMachine, LegacyLoaderModel, LegacyStorageKeyConvert
           tournament.totalvotes = tournament.votes
         }
       })
+    },
+    '1.5.26': function (data) {
+      data.tournaments.tournaments.forEach(function (tournament) {
+        tournament.matches.forEach(function (match) {
+          if (!match.place) {
+            match.place = ''
+          }
+        })
+        tournament.history.forEach(function (match) {
+          if (!match.place) {
+            match.place = ''
+          }
+        })
+      })
     }
   }
 
