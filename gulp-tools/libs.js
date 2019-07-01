@@ -1,4 +1,4 @@
-﻿'use strict'
+'use strict'
 
 const filecount = require('./filecount')
 const gulp = require('gulp')

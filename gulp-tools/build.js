@@ -1,4 +1,4 @@
-﻿'use strict'
+'use strict'
 
 var filecount = require('./filecount')
 var run = require('gulp-run')

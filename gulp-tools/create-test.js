@@ -1,4 +1,4 @@
-﻿'use strict'
+'use strict'
 
 var through = require('through2')
 var File = require('gulp-util').File
