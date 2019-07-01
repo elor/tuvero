@@ -3,11 +3,5 @@ services:
   server:
     image: server.tuvero.de:5555/elor/tuvero/tuveroserver
     ports:
-     - 127.0.0.1:30080:80
-     - 127.0.0.1:30443:443
-    restart: unless-stopped
-  redirect:
-    image: tuvero-redirect
-    ports:
-     - 127.0.0.1:17890:8000
+     - 127.0.0.1:17890:8080
     restart: unless-stopped
