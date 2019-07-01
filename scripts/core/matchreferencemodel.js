@@ -19,6 +19,7 @@ define(['lib/extend', 'core/matchmodel'], function (extend, MatchModel) {
    */
   function MatchReferenceModel (match, teamlist) {
     this.match = match
+
     this.updateTeams = function () {
       if (teamlist) {
         this.teams = this.match.teams.map(function (teamid) {
@@ -28,10 +29,15 @@ define(['lib/extend', 'core/matchmodel'], function (extend, MatchModel) {
         this.teams = this.match.teams.slice()
       }
     }
-    this.updateTeams()
 
-    MatchReferenceModel.superconstructor.call(this, this.teams, match.id,
-      match.group)
+    this.updatePlace = function () {
+      this.place = this.match.place
+    }
+
+    this.updateTeams()
+    this.updatePlace()
+
+    MatchReferenceModel.superconstructor.call(this, this.teams, match.id, match.group, match.place)
 
     match.registerListener(this)
   }
@@ -67,6 +73,7 @@ define(['lib/extend', 'core/matchmodel'], function (extend, MatchModel) {
 
   MatchReferenceModel.prototype.onupdate = function () {
     this.updateTeams()
+    this.updatePlace()
     this.emit('update')
   }
 
