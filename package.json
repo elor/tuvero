@@ -37,7 +37,7 @@
     "dev": "gulp watch",
     "release": "gulp release",
     "node10": "docker run --user 1000:100 -it --rm --volume $PWD:/tuvero --workdir /tuvero node:10 bash",
-    "node10-win": "docker run --user 1000:100 -it --rm --volume /c/Users/el_eb/workspace/tuvero:/tuvero --workdir /tuvero node:10 bash"
+    "node10-win": "docker run --user 1000:100 -it --rm -p 8081:8080 --volume /c/Users/el_eb/workspace/tuvero:/tuvero --workdir /tuvero node:10 bash"
   },
   "dependencies": {},
   "standard": {
