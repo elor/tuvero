@@ -36,7 +36,7 @@
     "lint": "gulp lint",
     "dev": "gulp watch",
     "release": "gulp release",
-    "node11": "docker run --user 1000:100 -it --rm --volume $PWD:/tuvero --workdir /tuvero node:11 bash"
+    "node10": "docker run --user 1000:100 -it --rm --volume $PWD:/tuvero --workdir /tuvero node:10 bash"
   },
   "dependencies": {},
   "standard": {
