@@ -18,7 +18,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
    * @param group
    *          identifier of the round, phase, pool, ...
    */
-  function MatchModel (teams, id, group) {
+  function MatchModel (teams, id, group, place) {
     MatchModel.superconstructor.call(this, id)
 
     if (teams === undefined) {
@@ -31,7 +31,7 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
     this.teams = teams.slice()
     this.length = this.teams.length
     this.group = group
-    this.place = ''
+    this.place = place || ''
   }
   extend(MatchModel, IndexedModel)
 
