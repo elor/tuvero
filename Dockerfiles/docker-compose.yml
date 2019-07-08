@@ -2,6 +2,9 @@ version: "3"
 services:
   server:
     image: server.tuvero.de:5555/elor/tuvero/tuveroserver
+    build:
+      context: ../
+      dockerfile: Dockerfiles/tuveroserver.Dockerfile
     ports:
      - 127.0.0.1:17890:8080
     restart: unless-stopped
