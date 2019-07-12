@@ -50,7 +50,20 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
 
     RoundTournamentModel.generateSlideSystemMatches.call(this)
 
+    this.emit('update')
+
     return true
+  }
+
+  RoundTournamentModel.prototype.runningMatches = function () {
+    if (this.isLastRound()) {
+      return false
+    }
+    return this.idleMatches()
+  }
+
+  RoundTournamentModel.prototype.isLastRound = function () {
+    return this.round >= this.numRounds() - 1
   }
 
   /**
@@ -121,7 +134,7 @@ define(['lib/extend', 'tournament/tournamentmodel', 'core/matchmodel', 'core/bye
    */
   RoundTournamentModel.prototype.postprocessMatch = function (matchresult) {
     if (this.matches.length === 0) {
-      if (this.round === this.numRounds() - 1) {
+      if (this.isLastRound()) {
         this.state.set('finished')
       }
     }

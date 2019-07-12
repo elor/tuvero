@@ -20,9 +20,25 @@ define(['lib/extend', 'ui/tournamentview'], function (extend, TournamentView) {
 
     this.subcontroller = undefined
 
+    var $notlastround = $view.find('.notlastround')
+
+    this.updateButtonState = function () {
+      if (model.isLastRound()) {
+        $notlastround.remove()
+      }
+    }
+
+    model.registerListener(this)
+
     this.updateRound()
+    this.updateButtonState()
   }
   extend(RoundTournamentView, TournamentView)
+
+  RoundTournamentView.prototype.onupdate = function () {
+    this.updateRound()
+    this.updateButtonState()
+  }
 
   return RoundTournamentView
 })
