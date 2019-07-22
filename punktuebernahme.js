@@ -1,4 +1,6 @@
-tacByTeamID = []
+const tournaments = []
+const tacByTeamID = []
+
 tournaments.map(t => t.getRanking().get()).filter(r => r.tac && r.ids.length === 8).map(({ ids, tac }) => ids.forEach((id, index) => { tacByTeamID[id] = tac[index] }))
 
 tournaments.get(tournaments.length - 1).ranking.length = tournaments.get(tournaments.length - 1).teams.length
