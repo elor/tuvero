@@ -23,18 +23,21 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
 
     this.$roundtext = this.$view.find('.roundtext')
     this.$round = this.$view.find('.round')
+    this.$count = this.$view.find('.count')
 
     this.$roundtext.text(Strings['grouptext_' + tournament.SYSTEM] || Strings.grouptext_default)
 
     this.updateRunningState()
     this.updateGroupNumber()
+    this.updateCount()
 
     var view = this
     this.groupListener = new Listener(this.model)
-    this.groupListener.oninsert = function (emitter, event, data) {
+    this.groupListener.onresize = function (emitter, event, data) {
       if (view.model.length === 1) {
         view.updateGroupNumber()
       }
+      view.updateCount()
     }
 
     this.tournamentListener = new Listener(tournament)
@@ -64,6 +67,10 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
         this.$round.text(min + '-' + max)
       }
     }
+  }
+
+  MatchTableView.prototype.updateCount = function () {
+    this.$count.text(this.model.length)
   }
 
   MatchTableView.prototype.updateRunningState = function () {
