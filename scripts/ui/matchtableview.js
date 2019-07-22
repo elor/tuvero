@@ -34,15 +34,8 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
     var view = this
     this.groupListener = new Listener(this.model)
     this.groupListener.onresize = function (emitter, event, data) {
-      if (view.model.length === 1) {
-        view.updateGroupNumber()
-      }
-      view.updateCount()
-    }
-
-    this.tournamentListener = new Listener(tournament)
-    this.tournamentListener.onupdate = function (emitter, event, data) {
       view.updateGroupNumber()
+      view.updateCount()
     }
   }
   extend(MatchTableView, TemplateView)
