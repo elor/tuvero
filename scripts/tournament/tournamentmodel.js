@@ -501,6 +501,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
         } else if (!this.runningMatches()) {
           this.emit('error', 'Starting matches during running tournament failed')
         }
+        this.emit('update')
         return undefined
       case 'finished':
         this.emit('error', 'tournament is already finished')

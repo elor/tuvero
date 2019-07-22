@@ -36,6 +36,11 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
         view.updateGroupNumber()
       }
     }
+
+    this.tournamentListener = new Listener(tournament)
+    this.tournamentListener.onupdate = function (emitter, event, data) {
+      view.updateGroupNumber()
+    }
   }
   extend(MatchTableView, TemplateView)
 
