@@ -8,6 +8,7 @@ button {
   padding: 5px;
   cursor: pointer;
   outline: none;
+  transition: all 0.2s;
 }
 
 button.mini {

@@ -19,7 +19,7 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'],
    *          a TournamentView instance
    */
     function TournamentController (view, tournaments) {
-      var tournament
+      var tournament, $runbutton
       TournamentController.superconstructor.call(this, view, false)
 
       tournament = this.model.tournament
@@ -29,8 +29,13 @@ define(['lib/extend', 'ui/renamecontroller', 'ui/toast', 'ui/strings'],
       this.$runbutton = this.view.$view.find('button.runtournament')
       this.$closebutton = this.view.$view.find('button.closetournament')
 
+      $runbutton = this.$runbutton
       this.$runbutton.click(function () {
+        $runbutton.attr('disabled', true)
         tournament.run()
+        window.setTimeout(function () {
+          $runbutton.attr('disabled', false)
+        }, 500)
       })
 
       this.$closebutton.click(function () {
