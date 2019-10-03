@@ -9,12 +9,13 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
   'ui/registerteamscontroller', 'ui/registeridscontroller',
   'ui/requiremodsshortcut', 'ui/finishroundcontroller', 'ui/debug',
   'ui/tabshandle', 'ui/statesaver', 'ui/startroundcontroller',
-  'ui/rankingrecalccontroller', 'ui/savetostoragebuttoncontroller'
+  'ui/rankingrecalccontroller', 'ui/savetostoragebuttoncontroller',
+  'ui/fixteamnumbercontroller'
 ], function (extend, $, View, Storage,
   Strings, Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
   RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
   TabsHandle, StateSaver, StartRoundController, RankingRecalcController,
-  SaveToStorageButtonController) {
+  SaveToStorageButtonController, FixTeamNumberController) {
   /**
    * represents a whole team tab
    *
@@ -107,6 +108,9 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
      */
     $button = this.$view.find('button.recalcranking')
     this.recalcRanking = new RankingRecalcController($button)
+
+    $button = this.$view.find('button.fixteamids')
+    this.savetostorage = new FixTeamNumberController($button)
 
     $button = this.$view.find('button.savetostorage')
     this.savetostorage = new SaveToStorageButtonController($button)
