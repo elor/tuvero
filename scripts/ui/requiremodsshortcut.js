@@ -54,6 +54,10 @@ define(['lib/extend', 'core/model'], function (extend, Model) {
     window.state = mods.ui && mods.ui.state
     window.teams = mods.ui && mods.ui.state.teams
     window.tournaments = mods.ui && mods.ui.state.tournaments
+
+    window.saveState = mods.ui && function () {
+      mods.ui.statesaver.saveState()
+    }
   }
 
   return RequireModsShortcut
