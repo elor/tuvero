@@ -7,9 +7,10 @@
  * @see LICENSE
  */
 define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
-  'ui/matchresultview', 'ui/teamtableview', 'ui/strings'
+  'ui/matchresultview', 'ui/teamtableview', 'ui/strings', 'ui/listcollectormodel',
+  'core/matchmodel'
 ], function (extend, TemplateView, ListView, Listener, MatchResultView,
-  TeamTableView, Strings) {
+  TeamTableView, Strings, ListCollectorModel, MatchModel) {
   function MatchTableView (model, $view, teamlist, tournament, teamsize) {
     var $listview
     MatchTableView.superconstructor.call(this, model, $view, $view
@@ -24,19 +25,25 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
     this.$roundtext = this.$view.find('.roundtext')
     this.$round = this.$view.find('.round')
     this.$count = this.$view.find('.count')
+    this.$place = this.$view.find('.place')
 
     this.$roundtext.text(Strings['grouptext_' + tournament.SYSTEM] || Strings.grouptext_default)
 
     this.updateRunningState()
     this.updateGroupNumber()
     this.updateCount()
+    this.updatePlaceHeader()
 
     var view = this
     this.groupListener = new Listener(this.model)
     this.groupListener.onresize = function (emitter, event, data) {
       view.updateGroupNumber()
       view.updateCount()
+      view.updatePlaceHeader()
     }
+
+    this.matchesListener = new ListCollectorModel(this.model, MatchModel)
+    this.matchesListener.onupdate = this.updatePlaceHeader.bind(this)
   }
   extend(MatchTableView, TemplateView)
 
@@ -64,6 +71,14 @@ define(['lib/extend', 'ui/templateview', 'ui/listview', 'core/listener',
 
   MatchTableView.prototype.updateCount = function () {
     this.$count.text(this.model.length)
+  }
+
+  MatchTableView.prototype.updatePlaceHeader = function () {
+    if (this.model.asArray().some(function (match) { return match.place })) {
+      this.$place.show()
+    } else {
+      this.$place.hide()
+    }
   }
 
   MatchTableView.prototype.updateRunningState = function () {

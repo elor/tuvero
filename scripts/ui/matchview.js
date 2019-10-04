@@ -102,6 +102,8 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
 
     this.$finishform = this.$view.find('.finish')
 
+    this.$place = this.$view.find('.place')
+
     if (this.model.isRunningMatch()) {
       this.controller = new MatchController(this, this.$finishform)
     } else {
@@ -110,6 +112,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
     }
 
     this.update()
+    this.updatePlace()
   }
   extend(MatchView, View)
 
@@ -180,6 +183,10 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
     }
   }
 
+  MatchView.prototype.updatePlace = function () {
+    this.$place.text(this.model.place || '')
+  }
+
   /**
    * Callback Listener. For safety. Is never called in the current
    * implementation.
@@ -192,7 +199,7 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/teamview',
    *          should be undefined
    */
   MatchView.prototype.onupdate = function (emitter, event, data) {
-    this.update()
+    this.updatePlace()
   }
 
   /**

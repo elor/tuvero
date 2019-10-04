@@ -65,6 +65,14 @@ define(['lib/extend', 'list/indexedmodel', 'core/type'], function (extend,
     return this.group
   }
 
+  MatchModel.prototype.setPlace = function (place) {
+    place = place || ''
+    if (place !== this.place) {
+      this.place = place
+      this.emit('update')
+    }
+  }
+
   /**
    * If isResult() is false, `this.score` does not exist and this.finish() still
    * works.
