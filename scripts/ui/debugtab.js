@@ -10,12 +10,12 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
   'ui/requiremodsshortcut', 'ui/finishroundcontroller', 'ui/debug',
   'ui/tabshandle', 'ui/statesaver', 'ui/startroundcontroller',
   'ui/rankingrecalccontroller', 'ui/savetostoragebuttoncontroller',
-  'ui/fixteamnumbercontroller'
+  'ui/fixteamnumbercontroller', 'ui/randomplacesbuttoncontroller'
 ], function (extend, $, View, Storage,
   Strings, Toast, LoadedImagesView, BrowserInfoView, RegisterTeamsController,
   RegisterIDsController, RequireModsShortcut, FinishRoundController, Debug,
   TabsHandle, StateSaver, StartRoundController, RankingRecalcController,
-  SaveToStorageButtonController, FixTeamNumberController) {
+  SaveToStorageButtonController, FixTeamNumberController, RandomPlacesButtonController) {
   /**
    * represents a whole team tab
    *
@@ -114,6 +114,9 @@ define(['lib/extend', 'jquery', 'core/view', 'ui/storage', 'ui/strings',
 
     $button = this.$view.find('button.savetostorage')
     this.savetostorage = new SaveToStorageButtonController($button)
+
+    $button = this.$view.find('button.randomplaces')
+    this.savetostorage = new RandomPlacesButtonController($button)
   }
 
   // FIXME CHEAP HACK AHEAD
