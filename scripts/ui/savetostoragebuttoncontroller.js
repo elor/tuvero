@@ -1,5 +1,6 @@
-define(['lib/extend', 'core/controller', 'core/view', 'ui/statesaver'
-], function (extend, Controller, View, StateSaver) {
+define(['lib/extend', 'core/controller', 'core/view', 'ui/statesaver',
+  'ui/toast'
+], function (extend, Controller, View, StateSaver, Toast) {
   function SaveToStorageButtonController ($button) {
     SaveToStorageButtonController.superconstructor.call(this, new View(undefined, $button))
 
@@ -11,7 +12,10 @@ define(['lib/extend', 'core/controller', 'core/view', 'ui/statesaver'
     if (StateSaver.canSave()) {
       if (!StateSaver.saveState()) {
         console.error('autosave failed')
+        return new Toast('Speichern fehlgeschlagen')
       }
+
+      return new Toast('Turnierstand gespeichert')
     }
   }
 
