@@ -74,6 +74,7 @@ staging:
   script:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - echo "$SSH_CONFIG" | tr -d '\r' > ~/.ssh/config
+    - ssh-keygen -R server.tuvero.de
     - git remote add server git@server.tuvero.de:elor/tuvero
     - git fetch server staging
     - version=$(sed -n 's/^.*"version".*:.*"\([0-9]\+\.[0-9]\+\.[0-9]\+\(-[0-9]\+\)\?\)-.*".$/\1/p' package.json)
