@@ -15,6 +15,7 @@ define(function () {
     teamstext: 'Teams',
     ranking_saldo: 'Kugeldifferenz',
     ranking_short_saldo: 'KD',
-    ranking_medium_saldo: 'Diff.'
+    ranking_medium_saldo: 'Diff.',
+    matchplace: 'Tisch'
   }
 })
