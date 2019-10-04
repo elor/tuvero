@@ -1,5 +1,5 @@
-define(['lib/extend', 'core/controller', 'core/view', 'ui/state'
-], function (extend, Controller, View, State) {
+define(['lib/extend', 'core/controller', 'core/view', 'ui/state', 'ui/toast'
+], function (extend, Controller, View, State, Toast) {
   function FixTeamNumberController ($button) {
     FixTeamNumberController.superconstructor.call(this, new View(undefined, $button))
 
@@ -11,9 +11,10 @@ define(['lib/extend', 'core/controller', 'core/view', 'ui/state'
     State.teams.forEach(function (team) {
       if (team.number === undefined || team.number === '') {
         team.number = '' + (team.id + 1)
-        console.log(team)
       }
     })
+
+    return new Toast('Teamnummern zugewiesen')
   }
 
   return FixTeamNumberController
