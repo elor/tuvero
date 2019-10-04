@@ -190,7 +190,8 @@ define(['strings'], function (LocalStrings) {
     confirm_team_sort_action: 'Teams werden neu sortiert. OK?',
     grouptext_default: 'Runde',
     grouptext_poules: 'Poule',
-    matchplace: 'Ort'
+    matchplace: 'Ort',
+    matchplaces: 'Orte'
   }
 
   Object.keys(LocalStrings).forEach(function (key) {

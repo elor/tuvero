@@ -10,6 +10,7 @@ define(function () {
   return {
     teamsicon: 'teams3',
     variant: 'Boule',
-    matchplace: 'Bahn'
+    matchplace: 'Bahn',
+    matchplaces: 'Bahnen'
   }
 })
