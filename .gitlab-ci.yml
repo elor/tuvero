@@ -65,6 +65,7 @@ build:dev:
   before_script:
     - echo "$SSH_DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
     - echo "$SSH_KNOWN_HOSTS" | tr -d '\r' > ~/.ssh/known_hosts
+    - ssh-keyscan github.com >>~/.ssh/known_hosts
     - git remote add server git@server.tuvero.de:elor/tuvero
     - git remote add github git@github.com:elor/tuvero
 
