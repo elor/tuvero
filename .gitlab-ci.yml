@@ -1,11 +1,11 @@
 stages:
   - containers
   - build
-  - deploy_dev
+  - deploydev
   - staging
-  - deploy_staging
+  - deploystaging
   - release
-  - deploy_release
+  - deployrelease
 
 container:build:
   stage: containers
@@ -57,8 +57,8 @@ build:dev:
     - cp latest.tar.gz "$(date -Iseconds)_${CI_COMMIT_SHA:0:8}".tar.gz
     - lftp -e "cd develop; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
 
-deploy_dev:
-  stage: deploy_dev
+deploydev:
+  stage: deploydev
   only:
     - develop
   trigger:
@@ -106,8 +106,8 @@ staging:
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
     - lftp -e "cd staging; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
 
-deploy_staging:
-  stage: deploy_staging
+deploystaging:
+  stage: deploystaging
   only:
     - develop
   trigger:
@@ -133,10 +133,11 @@ production:
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
     - lftp -e "cd master; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
 
-deploy_release:
-  stage: deploy_release
+deployrelease:
+  stage: deployrelease
   only:
     - develop
   trigger:
     project: elor/www.tuvero.de
     branch: master
+
