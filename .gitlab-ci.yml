@@ -1,8 +1,11 @@
 stages:
   - containers
   - build
+  - deploy_dev
   - staging
+  - deploy_staging
   - release
+  - deploy_release
 
 container:build:
   stage: containers
@@ -43,8 +46,6 @@ tuveroserver:
 
 build:dev:
   stage: build
-  environment:
-    name: dev
   image: server.tuvero.de:5555/elor/tuvero/build:latest
   only:
     - develop
@@ -55,7 +56,14 @@ build:dev:
     - tar czfv latest.tar.gz -C build .
     - cp latest.tar.gz "$(date -Iseconds)_${CI_COMMIT_SHA:0:8}".tar.gz
     - lftp -e "cd develop; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=develop https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
+
+deploy_dev:
+  stage: deploy_dev
+  only:
+    - develop
+  trigger:
+    project: elor/www.tuvero.de
+    branch: develop
 
 .deploy_base:
   image: server.tuvero.de:5555/elor/tuvero/deploy:latest
@@ -97,7 +105,14 @@ staging:
     - tar czvf latest.tar.gz *
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
     - lftp -e "cd staging; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
+
+deploy_staging:
+  stage: deploy_staging
+  only:
+    - develop
+  trigger:
+    project: elor/www.tuvero.de
+    branch: master
 
 production:
   extends: .deploy_base
@@ -117,4 +132,11 @@ production:
     - tar czvf latest.tar.gz *
     - cp latest.tar.gz ${version}-${CI_COMMIT_SHA:0:8}.tar.gz
     - lftp -e "cd master; mput *.tar.gz" -u ${FTP_USER},${FTP_PASSWD} ${FTP_HOST}
-    - curl -X POST -F token=$TURNIERE_TUVERO_TOKEN -F ref=master https://${SERVER_HOSTNAME}/api/v4/projects/1/trigger/pipeline
+
+deploy_release:
+  stage: deploy_release
+  only:
+    - develop
+  trigger:
+    project: elor/www.tuvero.de
+    branch: master
