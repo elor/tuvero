@@ -1,7 +1,7 @@
 FROM node:10
 
 RUN apt update
-RUN apt install -y tar curl lftp
+RUN apt install -y tar lftp
 
 # create app directory
 RUN mkdir -p /root/cli/bin
