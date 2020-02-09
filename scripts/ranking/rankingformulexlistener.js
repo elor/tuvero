@@ -8,17 +8,26 @@
  */
 define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
   'options'], function (extend, RankingDataListener, VectorModel, Options) {
-  var byepointswon, byepointslost
-
-  // FIXME extract to options/presets
   function winscore (round) {
-    return (Math.floor(round / 4) + 1) * 100
+    return (Math.floor(round / 4) + 1) * Options['formulexpoints']
   }
-  byepointswon = 13
-  byepointslost = 12
 
-  function sign (num) {
-    return (num > 0) - (num < 0)
+  function formulePoints (score, round) {
+    var winner, points, difference
+
+    if (score.length !== 2) {
+      throw new Error('FormuleX ranking requires exactly two teams per match')
+    }
+
+    points = score.slice()
+    difference = Math.abs(score[0] - score[1])
+
+    if (difference) {
+      winner = Number(score[1] > score[0])
+      points[winner] += winscore(round) + difference
+    }
+
+    return points
   }
 
   /**
@@ -35,42 +44,12 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
   RankingFormuleXListener.NAME = 'formulex'
 
   RankingFormuleXListener.prototype.onresult = function (r, e, result) {
-    var winner, loser, difference, points
+    var points = formulePoints(result.score, result.group)
 
-    if (result.teams.length !== 2) {
-      throw new Error('FormuleX ranking requires exactly two teams per match')
-    }
-
-    difference = result.score[0] - result.score[1]
-    switch (sign(difference)) {
-      case -1:
-        winner = 1
-        loser = 0
-        difference = -difference
-        break
-      case 1:
-        winner = 0
-        loser = 1
-        break
-      case 0:
-        // Draw. Everyone gets their own score
-        result.teams.forEach(function (team, index) {
-          this.formulex.set(team, this.formulex.get(team) + result.score[index])
-        })
-        return
-      default:
-        console.error('FormuleX ranking does not accept draws')
-        return
-    }
-
-    // winner
-    points = this.formulex.get(result.teams[winner]) + result.score[winner] +
-        winscore(result.group) + difference
-    this.formulex.set(result.teams[winner], points)
-
-    // loser
-    points = this.formulex.get(result.teams[loser]) + result.score[loser]
-    this.formulex.set(result.teams[loser], points)
+    points.forEach(function (p, index) {
+      var team = result.teams[index]
+      this.formulex.add(team, p)
+    }, this)
   }
 
   /**
@@ -84,17 +63,22 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    *          an array of teams, as prepared and provided by RankingModel.bye()
    */
   RankingFormuleXListener.prototype.onbye = function (r, e, data) {
-    var teams, round
-    teams = data.teams
-    round = data.round
-    teams.forEach(function (team) {
-      var points = this.formulex.get(team) + winscore(round) + byepointswon + (byepointswon - byepointslost)
-      this.formulex.set(team, points)
+    var points = formulePoints(Options['formulexbyescore'], data.round)[0]
+
+    data.teams.forEach(function (team) {
+      this.formulex.add(team, points)
     }, this)
   }
 
   RankingFormuleXListener.prototype.oncorrect = function (r, e, correction) {
-    throw Error('FormuleX oncorrect() not implemented yet!')
+    var pointsBefore = formulePoints(correction.before.score, correction.before.group)
+
+    pointsBefore.forEach(function (points, index) {
+      var team = correction.before.teams[index]
+      this.formulex.add(team, -points)
+    }, this)
+
+    this.onresult(r, e, correction.after)
   }
 
   return RankingFormuleXListener
