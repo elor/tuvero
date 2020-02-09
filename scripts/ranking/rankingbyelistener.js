@@ -37,10 +37,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', //
    *          an array of team ids
    */
   RankingByeListener.prototype.onbye = function (r, e, data) {
-    var teams, round
-    teams = data.teams
-    round = data.round
-    teams.forEach(function (teamid) {
+    data.teams.forEach(function (teamid) {
       this.byes.add(teamid, 1)
     }, this)
   }

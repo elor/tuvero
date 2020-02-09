@@ -51,10 +51,7 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    *          an array of team ids
    */
   RankingPointsListener.prototype.onbye = function (r, e, data) {
-    var teams, round
-    teams = data.teams
-    round = data.round
-    teams.forEach(function (teamid) {
+    data.teams.forEach(function (teamid) {
       this.points.add(teamid, Options.byepointswon)
     }, this)
   }

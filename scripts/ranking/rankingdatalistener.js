@@ -103,13 +103,10 @@ define(['lib/extend', 'core/listener'], function (extend, Listener) {
    *          the emitting RankingModel instance. Please ignore.
    * @param e
    *          the name of the emitted event
-   * @param teams
-   *          array of teams which receive a bye
+   * @param data
+   *          object with team and round info: {teams:[0, 1], round: 0}
    */
   RankingDataListener.prototype.onbye = function (r, e, data) {
-    var teams, round
-    teams = data.teams
-    round = data.round
     // do something to this.NAME, where NAME is the value of constructor.NAME
   }
 
