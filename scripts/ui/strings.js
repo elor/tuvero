@@ -83,6 +83,7 @@ define(['strings'], function (LocalStrings) {
     reset: 'Gespeicherte Daten gelöscht',
     defaultnamegeneric: 'Turnier',
     defaultnameswiss: 'Schweizer System',
+    defaultnameformulex: 'Formule X',
     defaultnameko: 'KO-Turnier',
     defaultnamepoule: 'Poule-System',
     defaultnameround: 'Rundenturnier',
