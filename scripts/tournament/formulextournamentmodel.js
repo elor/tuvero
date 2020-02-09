@@ -6,8 +6,8 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'tournament/swisstournamentmodel'
-], function (extend, SwissTournamentModel) {
+define(['lib/extend', 'tournament/swisstournamentmodel', 'presets'
+], function (extend, SwissTournamentModel, Presets) {
   /**
    * Constructor
    *
@@ -15,6 +15,9 @@ define(['lib/extend', 'tournament/swisstournamentmodel'
    */
   function FormuleXTournamentModel (rankingorder) {
     FormuleXTournamentModel.superconstructor.call(this, rankingorder)
+    this.setProperty('swissmode',
+      (Presets.systems.formulex && Presets.systems.formulex.mode) ||
+      FormuleXTournamentModel.MODES.ranks)
   }
   extend(FormuleXTournamentModel, SwissTournamentModel)
 
