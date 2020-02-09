@@ -82,6 +82,7 @@ staging:
   extends: .deploy_base
   stage: staging
   when: manual
+  allow_failure: false
   variables:
     GIT_STRATEGY: clone
   environment:
@@ -118,6 +119,7 @@ production:
   extends: .deploy_base
   stage: release
   when: manual
+  allow_failure: false
   variables:
     GIT_STRATEGY: clone
   dependencies: []
