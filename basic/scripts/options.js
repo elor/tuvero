@@ -20,7 +20,9 @@ define(['ui/optionstemplate'], function (OptionsTemplate) {
     byepointslost: 0,
     defaultscore: 0,
     tiesforbidden: false,
-    maxpointtiesforbidden: true
+    maxpointtiesforbidden: true,
+    formulexbyescore: [13, 12],
+    formulexpoints: 100
   }
 
   OptionsTemplate.setDefault(Default)
