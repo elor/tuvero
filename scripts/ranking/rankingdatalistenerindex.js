@@ -27,6 +27,7 @@ define([
   'ranking/rankingfinebuchholzlistener',
   'ranking/rankingwinsmatrixlistener',
   'ranking/rankingtaclistener',
+  'ranking/rankingformulexlistener',
   'ranking/rankingsonnebornlistener',
   'ranking/rankingheadtoheadlistener',
   'ranking/rankingnumgameslistener',

@@ -18,6 +18,7 @@ define([
   'ranking/rankingwinscomponent',
   'ranking/rankingheadtoheadcomponent',
   'ranking/rankingtaccomponent',
+  'ranking/rankingformulexcomponent',
   'ranking/rankingvotescomponent',
   'ranking/rankingnumgamescomponent',
   'ranking/rankingkocomponent',
