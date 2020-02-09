@@ -249,7 +249,7 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
 
     matchResults.forEach(function (result) {
       if (result.isBye()) {
-        this.bye(result.getTeamID(0))
+        this.bye(result.getTeamID(0), result.group)
       } else {
         this.result(result)
       }
