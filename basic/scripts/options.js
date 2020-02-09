@@ -21,7 +21,7 @@ define(['ui/optionstemplate'], function (OptionsTemplate) {
     defaultscore: 0,
     tiesforbidden: false,
     maxpointtiesforbidden: true,
-    formulexbyescore: [13, 12],
+    formulexbyescore: [13, 7],
     formulexpoints: 100
   }
 
