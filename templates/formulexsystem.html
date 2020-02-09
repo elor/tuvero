@@ -1,0 +1,84 @@
+<div class="boxview formulex system template" data-system="formulex">
+    <h3><span class="tournamentname rename">##</span> - Formule X</h3>
+
+    <div class="initial">
+        <h3> Runde <span class="nextround">##</span> auslosen </h3>
+
+        <div class="rankingorder">
+            {% include 'rankingorderview.html' %}
+        </div>
+
+        <div class="boxview collapsed tournamentoptions">
+            <h3>Erweiterte Optionen</h3>
+            {% include 'formulexoptions.html' %}
+        </div>
+
+        <div class="infotext swissmaxroundview">
+            Voraussichtlich max. <span class="maxrounds">##</span> Runden (<span class="numteams">##</span>
+            {{ teamstext }})
+        </div>
+
+        <button class="runtournament">
+            Runde starten
+        </button>
+        <button class="closetournament">
+            Formule X abbrechen
+        </button>
+    </div>
+
+    <div class="running">
+        <p>
+            Runde <span class="round">#</span> wurde ausgelost.
+        </p>
+        <p>
+            Siehe <a href="#history" data-img="history">Turnierverlauf</a>
+        </p>
+
+        <div class="rankingorder boxview collapsed">
+            <h3>Erweiterte Optionen</h3>
+
+            {% include 'rankingorderview.html' %}
+        </div>
+    </div>
+
+    <div class="idle">
+        <h3> Runde <span class="nextround">##</span> auslosen </h3>
+
+        <div class="boxview collapsed tournamentoptions">
+            <h3>Erweiterte Optionen</h3>
+            {% include 'formulexoptions.html' %}
+
+            {% include 'rankingorderview.html' %}
+        </div>
+
+        <div class="infotext swissmaxroundview">
+            Voraussichtlich max. <span class="maxrounds">##</span> Runden.
+        </div>
+
+        <button class="runtournament">
+            Runde starten
+        </button>
+        <button class="closetournament">
+            Formule X beenden
+        </button>
+    </div>
+
+    <div class="finished">
+        Keine weiteren Spiele möglich
+        <br>
+        <div class="rankingorder boxview collapsed">
+            <h3>Erweiterte Optionen</h3>
+
+            {% include 'rankingorderview.html' %}
+        </div>
+        <br>
+        <button class="closetournament">
+            Formule X beenden
+        </button>
+    </div>
+
+    <div class="failure">
+        Unerwarteter Fehler bei der Turnierberechnung.
+    </div>
+    <h3><span class="tournamentname">##</span> - Formule X System </h3>
+</div>
