@@ -15,6 +15,7 @@ function (extend, View, TournamentView, RoundTournamentView, SwissTournamentView
 
   constructors = {
     swiss: SwissTournamentView,
+    formulex: SwissTournamentView,
     round: RoundTournamentView,
     ko: KOTournamentView,
     placement: PlacementTournamentView,

@@ -9,7 +9,7 @@
  */
 define(['core/type', 'tournament/roundtournamentmodel', 'tournament/swisstournamentmodel',
   'tournament/kotournamentmodel', 'tournament/placementtournamentmodel',
-  'tournament/poulestournamentmodel'], function (Type) {
+  'tournament/poulestournamentmodel', 'tournament/formulextournamentmodel'], function (Type) {
   var TournamentIndex, tournamentSystems, i, sys
 
   tournamentSystems = {}

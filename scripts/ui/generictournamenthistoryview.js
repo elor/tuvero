@@ -16,6 +16,11 @@ define(['lib/extend', 'core/view', 'ui/progresstableview', 'ui/kohistoryview'], 
         selector: '.progresstable',
         showlists: true
       },
+      formulex: {
+        constructor: ProgressTableView,
+        selector: '.progresstable',
+        showlists: true
+      },
       round: {
         constructor: ProgressTableView,
         selector: '.progresstable',
