@@ -101,7 +101,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel', //
    * @param teams
    *          an array of teams, as prepared and provided by RankingModel.bye()
    */
-  RankingTacListener.prototype.onbye = function (r, e, teams) {
+  RankingTacListener.prototype.onbye = function (r, e, data) {
+    var teams, round
+    teams = data.teams
+    round = data.round
     teams.forEach(function (team) {
       var points = this.tac.get(team) + Options.byepointswon -
           Options.byepointslost + 12

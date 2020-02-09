@@ -703,7 +703,7 @@ define(['lib/extend', 'core/propertymodel', 'list/listmodel', 'core/uniquelistmo
     }
 
     this.votes.bye.push(teamID)
-    this.ranking.bye(teamID)
+    this.ranking.bye(teamID, round)
     this.history.push(byeResult)
 
     return byeResult

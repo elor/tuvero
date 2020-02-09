@@ -262,11 +262,11 @@ define(['lib/extend', 'core/model', 'ranking/rankingcomponentindex', 'core/type'
    * @param teams
    *          an array of affected teams
    */
-  RankingModel.prototype.bye = function (teams) {
+  RankingModel.prototype.bye = function (teams, round) {
     if (Type.isNumber(teams)) {
       teams = [teams]
     }
-    this.emit('bye', teams)
+    this.emit('bye', { teams: teams, round: round })
     this.invalidate()
   }
 

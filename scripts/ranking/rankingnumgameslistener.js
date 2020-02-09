@@ -47,7 +47,10 @@ define(['lib/extend', 'ranking/rankingdatalistener', 'math/vectormodel'], functi
    * @param teams
    *          an array of team ids
    */
-  RankingNumGamesListener.prototype.onbye = function (r, e, teams) {
+  RankingNumGamesListener.prototype.onbye = function (r, e, data) {
+    var teams, round
+    teams = data.teams
+    round = data.round
     teams.forEach(function (teamid) {
       this.numgames.add(teamid, 1)
     }, this)

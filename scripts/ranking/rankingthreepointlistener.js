@@ -63,7 +63,10 @@ define([
    * @param teams
    *          an array of team ids
    */
-  RankingThreePointListener.prototype.onbye = function (r, e, teams) {
+  RankingThreePointListener.prototype.onbye = function (r, e, data) {
+    var teams, round
+    teams = data.teams
+    round = data.round
     teams.forEach(function (teamid) {
       this.threepoint.add(teamid, 3)
     }, this)

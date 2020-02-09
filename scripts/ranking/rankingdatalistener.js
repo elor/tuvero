@@ -106,7 +106,10 @@ define(['lib/extend', 'core/listener'], function (extend, Listener) {
    * @param teams
    *          array of teams which receive a bye
    */
-  RankingDataListener.prototype.onbye = function (r, e, teams) {
+  RankingDataListener.prototype.onbye = function (r, e, data) {
+    var teams, round
+    teams = data.teams
+    round = data.round
     // do something to this.NAME, where NAME is the value of constructor.NAME
   }
 

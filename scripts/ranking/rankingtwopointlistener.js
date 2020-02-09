@@ -63,7 +63,10 @@ define([
    * @param teams
    *          an array of team ids
    */
-  RankingTwoPointListener.prototype.onbye = function (r, e, teams) {
+  RankingTwoPointListener.prototype.onbye = function (r, e, data) {
+    var teams, round
+    teams = data.teams
+    round = data.round
     teams.forEach(function (teamid) {
       this.twopoint.add(teamid, 2)
     }, this)
