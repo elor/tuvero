@@ -32,6 +32,12 @@ define(['ui/strings', 'ui/toast', 'ui/debug'], function (Strings, Toast, Debug) 
 
   appCache = window.applicationCache
 
+  if (!appCache) {
+    console.warn('appCache is not available. Tuvero will remain offline until ServiceWorker has been established.')
+    uncachedToast = new Toast(Strings.nomanifest, Toast.INFINITE)
+    return Update
+  }
+
   function closeDownloadToast () {
     if (downloadToast) {
       downloadToast.close()
