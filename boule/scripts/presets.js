@@ -27,15 +27,11 @@ define(function () {
         ranking: ['wins', 'sonneborn', 'headtohead', 'points']
       },
       placement: {},
-      poules: {},
-      formulex: {
-        ranking: ['formulex', 'headtohead', 'votes'],
-        mode: 'ranks'
-      }
+      poules: {}
     },
     ranking: {
       components: ['buchholz', 'finebuchholz', 'points', 'saldo', 'sonneborn',
-        'numgames', 'wins', 'headtohead', 'formulex'
+        'numgames', 'wins', 'headtohead'
       ]
     },
     registration: {
