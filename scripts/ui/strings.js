@@ -8,7 +8,7 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['strings'], function (LocalStrings) {
+define(['strings'], function(LocalStrings) {
   var Strings
 
   Strings = {
@@ -16,10 +16,10 @@ define(['strings'], function (LocalStrings) {
     autosaveon: 'Automatisches Speichern an',
     autoupdateoff: 'Automatische Aktualisierung aus',
     autoupdateon: 'Automatische Aktualisierung an',
-    clearstorage: 'Wirklich alle Turniere löschen?',
-    confirmtreeremoval: 'Das Turnier "%s" wirklich löschen?',
-    confirmactivetreeremoval: 'Das laufende Turnier "%s" wirklich löschen?',
-    confirmleave: 'Fenster schließen, ohne das Turnier zu speichern?',
+    clearstorage: 'Wirklich alle Turnierstände löschen?',
+    confirmtreeremoval: 'Den Turnierstand "%s" wirklich löschen?',
+    confirmactivetreeremoval: 'Den laufenden Turnierstand "%s" wirklich löschen?',
+    confirmleave: 'Fenster schließen, ohne den Turnierstand zu speichern?',
     upvote: '▲',
     downvote: '▼',
     byevote: '∅',
@@ -198,7 +198,7 @@ define(['strings'], function (LocalStrings) {
     matchplaces: 'Orte'
   }
 
-  Object.keys(LocalStrings).forEach(function (key) {
+  Object.keys(LocalStrings).forEach(function(key) {
     Strings[key] = LocalStrings[key]
   })
 
