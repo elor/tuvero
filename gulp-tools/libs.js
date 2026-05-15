@@ -2,7 +2,6 @@
 
 const filecount = require('./filecount')
 const gulp = require('gulp')
-const modernizr = require('gulp-modernizr')
 
 const jsDestination = 'scripts/lib/'
 const cssDestination = 'lib/'
@@ -21,13 +20,6 @@ function libStyles () {
   return gulp.src('node_modules/normalize.css/normalize.css')
     .pipe(filecount())
     .pipe(gulp.dest(cssDestination))
-}
-
-function libModernizr () {
-  return gulp.src(['scripts/background/featuredetect.js'])
-    .pipe(filecount())
-    .pipe(modernizr())
-    .pipe(gulp.dest(jsDestination))
 }
 
 function libRequirejs () {
@@ -66,7 +58,6 @@ function libTestStyles () {
 module.exports = {
   libScripts,
   libStyles,
-  libModernizr,
   libRequirejs,
   libSemver,
   libTuvero,

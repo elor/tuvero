@@ -8,10 +8,6 @@
 
 require.config({
   shim: {
-    'lib/modernizr': {
-      deps: ['lib/Blob'],
-      exports: 'Modernizr'
-    },
     'lib/Blob': {
       exports: 'Blob'
     },

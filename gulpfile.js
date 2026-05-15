@@ -16,7 +16,6 @@ const template = require('./gulp-tools/template')
 
 gulp.task('lib-scripts', libs.libScripts)
 gulp.task('lib-styles', libs.libStyles)
-gulp.task('lib-modernizr', libs.libModernizr)
 gulp.task('lib-requirejs', libs.libRequirejs)
 gulp.task('lib-semver', libs.libSemver)
 gulp.task('lib-tuvero', libs.libTuvero)
@@ -26,7 +25,6 @@ gulp.task('lib-test-styles', libs.libTestStyles)
 gulp.task('lib', gulp.parallel(
   'lib-scripts',
   'lib-styles',
-  'lib-modernizr',
   'lib-requirejs',
   'lib-semver',
   'lib-tuvero',
