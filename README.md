@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/elor/tuvero.svg?branch=develop)](https://travis-ci.org/elor/tuvero)
-
 # Tuvero
 
 ## Beschreibung
@@ -27,3 +25,15 @@ Die fertige Version liegt dann im `build/`-Unterordner.
 ## Tests
 
     npm run test
+
+## Projektstruktur
+
+- `scripts/core/` – Gemeinsame Turnierlogik (Spielsysteme, Ranking, Modelle). Basis aller Varianten.
+- `scripts/` (außerhalb `core/`) – UI-Code, Browser-Glue, Hintergrundprozesse. Nutzt jQuery und RequireJS.
+- `basic/`, `boule/`, `tac/` – Varianten-Schalen mit eigener `index.html` und eigenen Einstiegs-Skripten (`main.js`, `options.js`, `presets.js`, `strings.js`).
+- `templates/` – Gemeinsame Nunjucks-Templates, die zur Bauzeit in die jeweilige Varianten-`index.html` gerendert werden.
+- `style/` – Gemeinsames CSS, zur Bauzeit zu `style/mainstyle.css` zusammengefasst.
+- `cli/` – Node.js-Library `tuvero-cli` für die Verarbeitung von Tuvero-Speicherständen außerhalb des Browsers. Eingebunden als npm-Workspace.
+- `gulp-tools/` – Eigene Gulp-Plugins (AMD→CommonJS-Transformation, RequireJS-Optimizer, Template-Renderer).
+- `test/` – Browser-QUnit-Tests, ausgeführt über `cli/test.js` in Node.
+- `vendor/` – Vorab gebautes AMD-Bundle (`tuvero.bundle-amd.js`), zur Laufzeit als `tuvero` geladen.

@@ -5,6 +5,9 @@
   "engines": {
     "node": ">=26"
   },
+  "workspaces": [
+    "cli"
+  ],
   "devDependencies": {
     "del": "^5.1.0",
     "diff": "^9.0.0",
@@ -23,7 +26,6 @@
     "semver": "~4.3.6",
     "standard": "^17.1.2",
     "through2": "^4.0.2",
-    "tuvero-cli": "file:cli",
     "vinyl": "^3.0.0"
   },
   "scripts": {
