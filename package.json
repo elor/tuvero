@@ -35,9 +35,7 @@
     "lib": "gulp lib",
     "update": "gulp update",
     "dev": "gulp watch",
-    "release": "gulp release",
-    "node26": "docker run --user 1000:100 -it --rm --volume $PWD:/tuvero --workdir /tuvero node:26 bash",
-    "node26-win": "docker run --user 1000:100 -it --rm -p 8081:8080 --volume /c/Users/el_eb/workspace/tuvero:/tuvero --workdir /tuvero node:26 bash"
+    "release": "gulp release"
   },
   "dependencies": {},
   "standard": {
