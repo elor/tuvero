@@ -7,11 +7,13 @@
   "author": {
     "name": "Erik E. Lorenz"
   },
+  "engines": {
+    "node": ">=26"
+  },
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "qunitjs": "^2.3.2",
-    "requirejs": "^2.3.3"
+    "express": "^5.1.0",
+    "qunit": "^2.24.1",
+    "requirejs": "^2.3.7"
   },
   "scripts": {
     "test": "node test.js",

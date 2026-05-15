@@ -3,7 +3,7 @@
 'use strict'
 
 var requirejs = require('requirejs')
-var QUnit = require('qunitjs')
+var QUnit = require('qunit')
 
 var tests = ['core/test/byeresult',
   'core/test/byeresult',

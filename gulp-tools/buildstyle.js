@@ -6,22 +6,20 @@ const replace = require('gulp-replace')
 const cleancss = require('gulp-clean-css')
 const fs = require('fs')
 
-const urlregex = /url\(['"]?([^"']+\.png)['"]?\)/
+const urlregex = /url\(['"]?([^"')]+\.png)['"]?\)/
 
 function pngToBase64 (filename) {
-  let encoded = fs.readFileSync(filename, { encoding: 'base64' })
-
+  const encoded = fs.readFileSync(filename, { encoding: 'base64' })
   return `data:image/png;base64,${encoded}`
 }
 
 module.exports = function (srcpath, dstpath) {
-  return function () {
-    process.chdir(srcpath)
-    dstpath = path.relative(srcpath, dstpath)
-
-    return gulp.src(['main.css'])
+  return function buildstyleTask () {
+    return gulp.src(path.join(srcpath, 'main.css'), { base: srcpath })
       .pipe(cleancss({ compatibility: 'ie9', inline: ['all'] }))
-      .pipe(replace(urlregex, (match) => `url("${pngToBase64(match.match(urlregex)[1])}")`))
+      .pipe(replace(urlregex, (match, relPath) => {
+        return `url("${pngToBase64(path.join(srcpath, relPath))}")`
+      }))
       .pipe(gulp.dest(dstpath))
   }
 }

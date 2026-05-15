@@ -3,7 +3,6 @@
 'use strict'
 
 const express = require('express')
-const bodyParser = require('body-parser')
 const fs = require('fs')
 const path = require('path')
 
@@ -14,7 +13,7 @@ const app = express()
 
 const PORT = 8080
 
-app.use(bodyParser.json({ type: 'application/json' }))
+app.use(express.json({ type: 'application/json' }))
 
 function formatError (error) {
   return JSON.stringify({

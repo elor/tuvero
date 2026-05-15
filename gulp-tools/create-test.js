@@ -1,7 +1,7 @@
 'use strict'
 
 var through = require('through2')
-var File = require('gulp-util').File
+var File = require('vinyl')
 var path = require('path')
 var fs = require('fs')
 

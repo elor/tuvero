@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:26
 
 RUN apt update
 RUN apt install -y tar lftp

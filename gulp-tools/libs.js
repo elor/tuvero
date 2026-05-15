@@ -3,66 +3,88 @@
 const filecount = require('./filecount')
 const gulp = require('gulp')
 const modernizr = require('gulp-modernizr')
+const through = require('through2')
+const Vinyl = require('vinyl')
+
+function rewrapVinyl () {
+  return through.obj(function (file, enc, cb) {
+    this.push(new Vinyl({
+      cwd: file.cwd,
+      base: file.base,
+      path: file.path,
+      contents: Buffer.isBuffer(file.contents) ? file.contents : Buffer.from(file.contents)
+    }))
+    cb()
+  })
+}
 
 const jsDestination = 'scripts/lib/'
 const cssDestination = 'lib/'
 
-module.exports = function () {
-  gulp.task('lib-scripts', function () {
-    return gulp.src([
-      'node_modules/file-saver/FileSaver.js',
-      'node_modules/diff/dist/diff.js',
-      'node_modules/jquery/dist/jquery.js'
-    ])
-      .pipe(filecount())
-      .pipe(gulp.dest(jsDestination))
-  })
+function libScripts () {
+  return gulp.src([
+    'node_modules/file-saver/dist/FileSaver.js',
+    'node_modules/diff/dist/diff.js',
+    'node_modules/jquery/dist/jquery.js'
+  ])
+    .pipe(filecount())
+    .pipe(gulp.dest(jsDestination))
+}
 
-  gulp.task('lib-styles', function () {
-    return gulp.src('node_modules/normalize.css/normalize.css')
-      .pipe(filecount())
-      .pipe(gulp.dest(cssDestination))
-  })
+function libStyles () {
+  return gulp.src('node_modules/normalize.css/normalize.css')
+    .pipe(filecount())
+    .pipe(gulp.dest(cssDestination))
+}
 
-  gulp.task('lib-modernizr', function () {
-    return gulp.src(['scripts/background/featuredetect.js'])
-      .pipe(filecount())
-      .pipe(modernizr())
-      .pipe(gulp.dest(jsDestination))
-  })
+function libModernizr () {
+  return gulp.src(['scripts/background/featuredetect.js'])
+    .pipe(filecount())
+    .pipe(modernizr())
+    .pipe(rewrapVinyl())
+    .pipe(gulp.dest(jsDestination))
+}
 
-  gulp.task('lib-requirejs', function () {
-    return gulp.src('node_modules/requirejs/require.js')
-      .pipe(filecount())
-      .pipe(gulp.dest('basic/scripts/'))
-      .pipe(gulp.dest('boule/scripts/'))
-      .pipe(gulp.dest('tac/scripts/'))
-      .pipe(gulp.dest('test/scripts/'))
-  })
+function libRequirejs () {
+  return gulp.src('node_modules/requirejs/require.js')
+    .pipe(filecount())
+    .pipe(gulp.dest('basic/scripts/'))
+    .pipe(gulp.dest('boule/scripts/'))
+    .pipe(gulp.dest('tac/scripts/'))
+    .pipe(gulp.dest('test/scripts/'))
+}
 
-  gulp.task('lib-semver', function () {
-    return gulp.src(['node_modules/semver/semver.browser.js'])
-      .pipe(filecount())
-      .pipe(gulp.dest(jsDestination))
-  })
+function libSemver () {
+  return gulp.src(['node_modules/semver/semver.browser.js'])
+    .pipe(filecount())
+    .pipe(gulp.dest(jsDestination))
+}
 
-  gulp.task('lib-tuvero', function () {
-    return gulp.src('node_modules/tuvero/dist/tuvero.bundle-amd.js')
-      .pipe(filecount())
-      .pipe(gulp.dest(jsDestination))
-  })
+function libTuvero () {
+  return gulp.src('vendor/tuvero.bundle-amd.js')
+    .pipe(filecount())
+    .pipe(gulp.dest(jsDestination))
+}
 
-  gulp.task('lib-test-scripts', function () {
-    return gulp.src('node_modules/qunit/qunit/qunit.js')
-      .pipe(filecount())
-      .pipe(gulp.dest('test/scripts/'))
-  })
+function libTestScripts () {
+  return gulp.src('node_modules/qunit/qunit/qunit.js')
+    .pipe(filecount())
+    .pipe(gulp.dest('test/scripts/'))
+}
 
-  gulp.task('lib-test-styles', function () {
-    return gulp.src('node_modules/qunit/qunit/qunit.css')
-      .pipe(filecount())
-      .pipe(gulp.dest('test/style/'))
-  })
+function libTestStyles () {
+  return gulp.src('node_modules/qunit/qunit/qunit.css')
+    .pipe(filecount())
+    .pipe(gulp.dest('test/style/'))
+}
 
-  return Object.keys(gulp.tasks).filter(task => /^lib-.*$/.test(task))
+module.exports = {
+  libScripts,
+  libStyles,
+  libModernizr,
+  libRequirejs,
+  libSemver,
+  libTuvero,
+  libTestScripts,
+  libTestStyles
 }

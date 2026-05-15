@@ -1,12 +1,16 @@
 'use strict'
 
-var gulp = require('gulp')
-var run = require('gulp-run')
-var nunjucks = require('gulp-nunjucks')
-var filecount = require('./filecount')
+const fs = require('fs')
+const path = require('path')
+const nunjucks = require('gulp-nunjucks')
+const filecount = require('./filecount')
+
+const targets = ['basic', 'boule', 'tac']
 
 function templateStrings (target) {
-  var requirejs = require('requirejs').config({
+  delete require.cache[require.resolve('requirejs')]
+  const requirejs = require('requirejs')
+  requirejs.config({
     baseUrl: 'scripts',
     paths: {
       'options': `../${target}/scripts/options`,
@@ -16,35 +20,39 @@ function templateStrings (target) {
     nodeRequire: require
   })
 
-  var strings = requirejs('ui/strings')
+  const strings = requirejs('ui/strings')
   strings.version = require('./version')
-
   return strings
 }
 
-module.exports = function (target, sources) {
-  let targetTemplates = `${target}/templates/*.html`
-  let tempTemplateDir = `tmp/templates/${target}/`
+function register (gulp, sources) {
+  targets.forEach(function (target) {
+    const targetTemplatesDir = path.join(target, 'templates')
+    const targetTemplates = `${target}/templates/*.html`
+    const tempTemplateDir = `tmp/templates/${target}/`
+    const templateGlobs = fs.existsSync(targetTemplatesDir)
+      ? [sources.templates, targetTemplates]
+      : [sources.templates]
 
-  gulp.task(`template-${target}-sources`, function () {
-    return gulp.src([sources.templates, targetTemplates])
-      .pipe(filecount())
-      .pipe(gulp.dest(tempTemplateDir))
+    gulp.task(`template-${target}-sources`, function templateSources () {
+      return gulp.src(templateGlobs)
+        .pipe(filecount())
+        .pipe(gulp.dest(tempTemplateDir))
+    })
+
+    gulp.task(`template-${target}-internal`, function templateInternal () {
+      return gulp.src(tempTemplateDir + '/index.html')
+        .pipe(filecount())
+        .pipe(nunjucks.compile(templateStrings(target)))
+        .pipe(filecount())
+        .pipe(gulp.dest(target))
+    })
+
+    gulp.task(
+      `template-${target}`,
+      gulp.series(`template-${target}-sources`, `template-${target}-internal`)
+    )
   })
-
-  gulp.task(`template-${target}-internal`, function () {
-    return gulp.src(tempTemplateDir + '/index.html')
-      .pipe(filecount())
-      .pipe(nunjucks.compile(templateStrings(target)))
-      .pipe(filecount())
-      .pipe(gulp.dest(target))
-  })
-
-  gulp.task(`template-${target}`, [`template-${target}-sources`], function () {
-    return run(`gulp template-${target}-internal`).exec()
-  })
-
-  return `template-${target}`
 }
 
-module.exports.targets = ['basic', 'boule', 'tac']
+module.exports = { register, targets }
