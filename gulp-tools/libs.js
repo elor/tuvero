@@ -3,20 +3,6 @@
 const filecount = require('./filecount')
 const gulp = require('gulp')
 const modernizr = require('gulp-modernizr')
-const through = require('through2')
-const Vinyl = require('vinyl')
-
-function rewrapVinyl () {
-  return through.obj(function (file, enc, cb) {
-    this.push(new Vinyl({
-      cwd: file.cwd,
-      base: file.base,
-      path: file.path,
-      contents: Buffer.isBuffer(file.contents) ? file.contents : Buffer.from(file.contents)
-    }))
-    cb()
-  })
-}
 
 const jsDestination = 'scripts/lib/'
 const cssDestination = 'lib/'
@@ -41,7 +27,6 @@ function libModernizr () {
   return gulp.src(['scripts/background/featuredetect.js'])
     .pipe(filecount())
     .pipe(modernizr())
-    .pipe(rewrapVinyl())
     .pipe(gulp.dest(jsDestination))
 }
 
