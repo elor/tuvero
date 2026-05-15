@@ -1,23 +1,11 @@
 'use strict'
 
 const del = require('del')
-const gulp = require('gulp')
-const replace = require('gulp-replace')
 
 function register (gulp, sources) {
   gulp.task(
-    'release-date',
-    gulp.series('build', function releaseDate () {
-      const date = (new Date()).toISOString().slice(0, 10)
-      return gulp.src('NEWS', { allowEmpty: true })
-        .pipe(replace('yyyy-mm-dd', date))
-        .pipe(gulp.dest('.'))
-    })
-  )
-
-  gulp.task(
     'release-source-cleanup',
-    gulp.series('release-date', function releaseSourceCleanup () {
+    gulp.series('build', function releaseSourceCleanup () {
       return del(sources.release_source_cleanup)
     })
   )
