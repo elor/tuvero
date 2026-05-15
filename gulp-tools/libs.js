@@ -1,5 +1,6 @@
 'use strict'
 
+const { spawn } = require('child_process')
 const filecount = require('./filecount')
 const gulp = require('gulp')
 
@@ -37,10 +38,19 @@ function libSemver () {
     .pipe(gulp.dest(jsDestination))
 }
 
-function libTuvero () {
-  return gulp.src('vendor/tuvero.bundle-amd.js')
-    .pipe(filecount())
-    .pipe(gulp.dest(jsDestination))
+async function libTuvero () {
+  await new Promise((resolve, reject) => {
+    const proc = spawn('npm', ['run', 'dist', '--workspace=libtuvero'], { stdio: 'inherit' })
+    proc.on('error', reject)
+    proc.on('exit', code => code === 0 ? resolve() : reject(new Error(`libtuvero dist failed (exit ${code})`)))
+  })
+  return new Promise((resolve, reject) => {
+    gulp.src('libtuvero/dist/tuvero.bundle-amd.js')
+      .pipe(filecount())
+      .pipe(gulp.dest(jsDestination))
+      .on('error', reject)
+      .on('end', resolve)
+  })
 }
 
 function libTestScripts () {

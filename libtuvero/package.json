@@ -16,6 +16,7 @@
     "build": "tsc",
     "bundle-watch": "webpack --watch",
     "bundle": "webpack",
+    "dist": "npm run build && npm run bundle",
     "coverage": "nyc npm test",
     "doc": "typedoc --out doc/ --exclude \"**/+(*.spec.ts|index.ts)\" src/",
     "lint-fix": "tslint --config tslint.json --project tsconfig.json --fix",

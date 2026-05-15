@@ -6,7 +6,8 @@
     "node": ">=26"
   },
   "workspaces": [
-    "cli"
+    "cli",
+    "libtuvero"
   ],
   "devDependencies": {
     "del": "^5.1.0",

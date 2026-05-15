@@ -2,6 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
+    "skipLibCheck": true,
+    "types": [],
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
@@ -22,5 +24,8 @@
   },
   "include": [
     "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
   ]
 }
