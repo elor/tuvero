@@ -1,0 +1,16 @@
+stages:
+  - build
+  - deploy
+
+image: node:9
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run all
+  artifacts:
+    paths:
+      - dist/
+      - doc/
+    expire_in: 1 day

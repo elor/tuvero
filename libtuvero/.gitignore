@@ -1,0 +1,8 @@
+/dist/
+/bin/
+/node_modules/
+/obj/
+*.user
+*.log
+.nyc_output
+doc/
