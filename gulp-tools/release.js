@@ -9,7 +9,7 @@ function register (gulp, sources) {
     'release-date',
     gulp.series('build', function releaseDate () {
       const date = (new Date()).toISOString().slice(0, 10)
-      return gulp.src('NEWS')
+      return gulp.src('NEWS', { allowEmpty: true })
         .pipe(replace('yyyy-mm-dd', date))
         .pipe(gulp.dest('.'))
     })
