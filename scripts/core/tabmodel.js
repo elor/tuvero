@@ -6,19 +6,17 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/model', 'core/valuemodel'], function (extend, Model,
-  ValueModel) {
-  /**
-   * Constructor
-   */
-  function TabModel () {
-    TabModel.superconstructor.call(this)
-
-    this.visibility = new ValueModel(true)
-    this.accessibility = new ValueModel(true)
-    this.imgParam = new ValueModel('')
-  }
-  extend(TabModel, Model)
-
-  return TabModel
-})
+import extend from '../lib/extend.js';
+import Model from './model.js';
+import ValueModel from './valuemodel.js';
+/**
+ * Constructor
+ */
+function TabModel() {
+  TabModel.superconstructor.call(this);
+  this.visibility = new ValueModel(true);
+  this.accessibility = new ValueModel(true);
+  this.imgParam = new ValueModel('');
+}
+extend(TabModel, Model);
+export default TabModel;

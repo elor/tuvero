@@ -6,19 +6,15 @@
  * @license MIT License
  * @see LICENSE
  */
-define(['lib/extend', 'core/correctionmodel', 'core/resultreferencemodel'], function (
-  extend, CorrectionModel, ResultReferenceModel) {
-  /**
-   * Constructor
-   */
-  function CorrectionReferenceModel (correction, teamlist) {
-    CorrectionReferenceModel.superconstructor.call(this,
-      new ResultReferenceModel(correction.before, teamlist),
-      new ResultReferenceModel(correction.after, teamlist))
-
-    this.correction = correction
-  }
-  extend(CorrectionReferenceModel, CorrectionModel)
-
-  return CorrectionReferenceModel
-})
+import extend from '../lib/extend.js';
+import CorrectionModel from './correctionmodel.js';
+import ResultReferenceModel from './resultreferencemodel.js';
+/**
+ * Constructor
+ */
+function CorrectionReferenceModel(correction, teamlist) {
+  CorrectionReferenceModel.superconstructor.call(this, new ResultReferenceModel(correction.before, teamlist), new ResultReferenceModel(correction.after, teamlist));
+  this.correction = correction;
+}
+extend(CorrectionReferenceModel, CorrectionModel);
+export default CorrectionReferenceModel;
